@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faEllipsisH, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import * as column_transforms from "../internal/column_transforms.js";
-import FAIcon from "./FAIcon.jsx";
+import Checkbox from "./Checkbox.jsx";
+import Button from "./Button.jsx";
 import theme from "../internal/theme.js";
 
 const styles = {
@@ -34,6 +35,15 @@ const styles = {
 	},
 	thead : {
 		textAlign : "left"
+	},
+	actionColumn : {
+		textAlign : "right"
+	},
+	primaryActionButton : {
+		paddingLeft: "20px"
+	},
+	bulkButton : {
+		marginRight: "5px"
 	}
 }
 
@@ -133,6 +143,10 @@ function Grid(props) {
 							],
 							allowExtraKeys : false
 						}
+					},
+					{
+						name : "defaultSort",
+						type : "string"
 					}
 				],
 				allowExtraKeys : false
@@ -187,23 +201,33 @@ function Grid(props) {
 			setTableData(tableData.slice());
 		};
 		
-		headTds.push(<th key="__bulk" style={styles.th}><FontAwesomeIcon icon={allChecked ? faCheckSquare : faSquare} onClick={clickHandler}></FontAwesomeIcon></th>);
+		headTds.push(<th key="__bulk" style={styles.th}><Checkbox checked={allChecked} onClick={clickHandler}></Checkbox></th>);
 	}
 	
 	const hasCheckedRow = tableData.filter(val => val.checked).length > 0;
 	if (hasCheckedRow) {
 		const actionButtons = bulkActions.map(action => {
-			return <FontAwesomeIcon key={action.name} icon={action.faIcon}></FontAwesomeIcon>
+			return (
+				<span style={styles.bulkButton}>
+					<Button key={action.name} faIcon={action.faIcon} border={true}></Button>
+				</span>
+			);
 		});
 		
 		headTds.push(<th key="__bulk_actions" colSpan={props.config.columns.length} style={styles.th}>{actionButtons}</th>);
 	} else {
 		headTds.push(...props.config.columns.map(column => {
-			return <th key={column.name} style={styles.th}>{column.label || column.name}</th>
+			const label = column.label || column.name;
+			
+			return (
+				<th key={column.name} style={styles.th}>
+					{label}
+				</th>
+			);
 		}));
 	}
 	
-	headTds.push(<th key="__actions"><FontAwesomeIcon icon={faCog}></FontAwesomeIcon></th>);
+	headTds.push(<th key="__actions" style={styles.actionColumn}><Button faIcon={faCog}></Button></th>);
 	
 	const dataRows = tableData.map(rowData => {
 		const tds = [];
@@ -214,7 +238,7 @@ function Grid(props) {
 				setTableData(tableData.slice());
 			};
 			
-			tds.push(<td key="__bulk"><FontAwesomeIcon icon={rowData.checked ? faCheckSquare : faSquare} onClick={clickHandler}></FontAwesomeIcon></td>);
+			tds.push(<td key="__bulk"><Checkbox checked={rowData.checked} onClick={clickHandler}></Checkbox></td>);
 		}
 		
 		tds.push(...props.config.columns.map((column, i) => {
@@ -231,14 +255,22 @@ function Grid(props) {
 		}));
 		
 		const actionButtons = primaryActions.map(action => {
-			return <FontAwesomeIcon key={action.name} icon={action.faIcon} color={action.color}></FontAwesomeIcon>
+			return (
+				<span style={styles.primaryActionButton}>
+					<Button key={action.name} faIcon={action.faIcon} color={action.color}></Button>
+				</span>
+			);
 		});
 		
 		if (additionalActions.length > 0) {
-			actionButtons.push(<FontAwesomeIcon key="__additional" icon={faEllipsisH} color={theme.colors.blue}></FontAwesomeIcon>);
+			actionButtons.push(
+				<span style={styles.primaryActionButton}>
+					<Button key="__additional" faIcon={faEllipsisH} color={theme.colors.blue}></Button>
+				</span>
+			);
 		}
 		
-		tds.push(<td key="__actions">{actionButtons}</td>);
+		tds.push(<td key="__actions" style={styles.actionColumn}>{actionButtons}</td>);
 		
 		return (
 			<tr key={rowData.data.id} style={styles.tr}>
