@@ -4,9 +4,16 @@
 	"description": "Mosaic UI Library",
 	"author": "Owen Allen <owenallenaz@gmail.com>",
 	"devDependencies": {
-		"@babel/core": "7.2.0",
-		"@babel/preset-env": "7.2.0",
+		"@babel/core": "7.6.0",
+		"@babel/cli": "7.6.0",
+		"@babel/plugin-transform-runtime": "7.6.0",
+		"@babel/preset-env": "7.6.0",
 		"@babel/preset-react": "7.0.0",
+		"@babel/plugin-transform-runtime": "7.6.0",
+		"@fortawesome/fontawesome-svg-core": "1.2.22",
+		"@fortawesome/free-regular-svg-icons": "5.10.2",
+		"@fortawesome/free-solid-svg-icons": "5.10.2",
+		"@fortawesome/react-fontawesome": "0.1.4",
 		"@hot-loader/react-dom": "16.9.0",
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
@@ -20,6 +27,8 @@
 		"webpack-cli": "3.2.1"
 	},
 	"dependencies": {
+		"@babel/polyfill": "7.6.0",
+		"@babel/runtime": "7.6.0",
 		"jsvalidator": "1.2.0"
 	},
 	"main": "src/index.js",
