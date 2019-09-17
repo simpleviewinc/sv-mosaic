@@ -4,13 +4,17 @@ import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import theme from "../internal/theme.js";
 
-function FAIcon(props) {
+const style = {
+	fontSize: "18px"
+}
+
+function Checkbox(props) {
 	const icon = props.checked ? faCheckSquare : faSquare;
-	const color = props.checked ? theme.colors.blue : undefined;
+	const color = props.checked ? theme.colors.blue : "#999";
 	
 	return (
-		<FontAwesomeIcon icon={props.icon} color={color}></FontAwesomeIcon>
+		<FontAwesomeIcon icon={icon} color={color} onClick={props.onClick} style={style}></FontAwesomeIcon>
 	);
 }
 
-export default FAIcon;
+export default Checkbox;
