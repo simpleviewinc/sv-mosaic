@@ -4,12 +4,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faEllipsisH, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import * as column_transforms from "../internal/column_transforms.js";
+import FAIcon from "./FAIcon.jsx";
+import theme from "../internal/theme.js";
 
 const styles = {
 	table : {
-		width : "100%"
+		width : "100%",
+		borderCollapse: "collapse"
 	},
-	theadTr : {
+	tr : {
+		borderBottom: "0px",
+		borderTop: "1px solid #eee",
+	},
+	td : {
+		padding: "8px 0px 8px 0px"
+	},
+	th : {
+		padding: "8px 0px 8px 0px"
+	},
+	h1 : {
+		fontSize : "24px",
+		fontWeight: 600
+	},
+	"columnStyle-faded" : {
+		color: "#999"
+	},
+	"columnStyle-bold" : {
+		fontWeight: 600
+	},
+	thead : {
 		textAlign : "left"
 	}
 }
@@ -45,6 +68,11 @@ function Grid(props) {
 								{
 									name : "label",
 									type : "string"
+								},
+								{
+									name : "style",
+									type : "string",
+									enum : ["bold", "faded"]
 								},
 								{
 									name : "sortable",
@@ -94,6 +122,10 @@ function Grid(props) {
 									type : "object"
 								},
 								{
+									name : "color",
+									type : "string"
+								},
+								{
 									name : "handler",
 									type : "function",
 									required : true
@@ -111,6 +143,7 @@ function Grid(props) {
 	});
 	
 	const [tableData, setTableData] = useState([]);
+	const [allChecked, setAllChecked] = useState(false);
 	
 	useEffect(() => {
 		const fetchData = async function() {
@@ -134,7 +167,12 @@ function Grid(props) {
 		fetchData();
 	}, []);
 	
-	const title = props.config.title ? <h1>{props.config.title}</h1> : undefined;
+	useEffect(() => {
+		const state = tableData.every(val => val.checked);
+		setAllChecked(state);
+	}, [tableData]);
+	
+	const title = props.config.title ? <h1 style={styles.h1}>{props.config.title}</h1> : undefined;
 	const primaryActions = props.config.actions.filter(val => val.type === "primary");
 	const additionalActions = props.config.actions.filter(val => val.type === "additional");
 	const bulkActions = props.config.actions.filter(val => val.type === "bulk");
@@ -142,7 +180,14 @@ function Grid(props) {
 	const headTds = [];
 	
 	if (bulkActions.length > 0) {
-		headTds.push(<th key="__bulk"><FontAwesomeIcon icon={faSquare} onClick={clickHandler}></FontAwesomeIcon></th>);
+		const clickHandler = function() {
+			tableData.forEach(val => {
+				val.checked = !allChecked;
+			});
+			setTableData(tableData.slice());
+		};
+		
+		headTds.push(<th key="__bulk" style={styles.th}><FontAwesomeIcon icon={allChecked ? faCheckSquare : faSquare} onClick={clickHandler}></FontAwesomeIcon></th>);
 	}
 	
 	const hasCheckedRow = tableData.filter(val => val.checked).length > 0;
@@ -151,13 +196,14 @@ function Grid(props) {
 			return <FontAwesomeIcon key={action.name} icon={action.faIcon}></FontAwesomeIcon>
 		});
 		
-		headTds.push(<th key="__bulk_actions" colspan={props.config.columns.length}>{actionButtons}</th>);
+		headTds.push(<th key="__bulk_actions" colSpan={props.config.columns.length} style={styles.th}>{actionButtons}</th>);
 	} else {
 		headTds.push(...props.config.columns.map(column => {
-			return <th key={column.name}>{column.label || column.name}</th>
+			return <th key={column.name} style={styles.th}>{column.label || column.name}</th>
 		}));
-		headTds.push(<th key="__actions"><FontAwesomeIcon icon={faCog}></FontAwesomeIcon></th>);
 	}
+	
+	headTds.push(<th key="__actions"><FontAwesomeIcon icon={faCog}></FontAwesomeIcon></th>);
 	
 	const dataRows = tableData.map(rowData => {
 		const tds = [];
@@ -179,21 +225,23 @@ function Grid(props) {
 				}
 			}
 			
-			return <td key={column.name}>{data}</td>
+			const style = column.style !== undefined ? styles[`columnStyle-${column.style}`] : undefined;
+			
+			return <td key={column.name} style={styles.td}>{data}</td>
 		}));
 		
 		const actionButtons = primaryActions.map(action => {
-			return <FontAwesomeIcon key={action.name} icon={action.faIcon}></FontAwesomeIcon>
+			return <FontAwesomeIcon key={action.name} icon={action.faIcon} color={action.color}></FontAwesomeIcon>
 		});
 		
 		if (additionalActions.length > 0) {
-			actionButtons.push(<FontAwesomeIcon key="__additional" icon={faEllipsisH}></FontAwesomeIcon>);
+			actionButtons.push(<FontAwesomeIcon key="__additional" icon={faEllipsisH} color={theme.colors.blue}></FontAwesomeIcon>);
 		}
 		
 		tds.push(<td key="__actions">{actionButtons}</td>);
 		
 		return (
-			<tr key={rowData.data.id}>
+			<tr key={rowData.data.id} style={styles.tr}>
 				{tds}
 			</tr>
 		)
@@ -203,8 +251,8 @@ function Grid(props) {
 		<div>
 			{title}
 			<table style={styles.table}>
-				<thead style={styles.theadTr}>
-					<tr>
+				<thead style={styles.thead}>
+					<tr style={styles.tr}>
 						{headTds}
 					</tr>
 				</thead>

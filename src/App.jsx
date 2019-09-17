@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { hot } from "react-hot-loader/root";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import theme from "./internal/theme.js";
 import "./App.css";
 import Grid from "./components/Grid.jsx";
 
@@ -33,7 +34,8 @@ function App() {
 		columns : [
 			{
 				name : "title",
-				label : "Title"
+				label : "Title",
+				style : "bold"
 			},
 			{
 				name : "type",
@@ -42,6 +44,7 @@ function App() {
 			{
 				name : "created",
 				label : "Created",
+				style : "faded",
 				transforms : [
 					{ name : "dateFormat" }
 				]
@@ -52,6 +55,7 @@ function App() {
 				name : "edit",
 				type : "primary",
 				faIcon : faEdit,
+				color : theme.colors.blue,
 				handler : function() {
 					
 				}
@@ -75,6 +79,14 @@ function App() {
 				name : "bulk_edit",
 				type : "bulk",
 				faIcon : faEdit,
+				handler : function() {
+					
+				}
+			},
+			{
+				name : "bulk_remove",
+				type : "bulk",
+				faIcon : faTrashAlt,
 				handler : function() {
 					
 				}
