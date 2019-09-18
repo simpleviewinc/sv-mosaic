@@ -53,8 +53,13 @@ const styles = {
 		paddingLeft: "20px"
 	},
 	bulkButton : {
-		marginRight: "5px"
+		marginRight: "5px",
+		display: "inline-block"
 	}
+}
+
+function flipDir(sort) {
+	return sort === "asc" ? "desc" : "asc";
 }
 
 function Grid(props) {
@@ -155,8 +160,13 @@ function Grid(props) {
 						}
 					},
 					{
-						name : "defaultSort",
-						type : "string"
+						name : "sort",
+						type : "object",
+						schema : [
+							{ name : "name", type : "string" },
+							{ name : "dir", type : "string", enum : ["asc", "desc"] }
+						],
+						allowExtraKeys : false
 					}
 				],
 				allowExtraKeys : false
@@ -168,28 +178,33 @@ function Grid(props) {
 	
 	const [tableData, setTableData] = useState([]);
 	const [allChecked, setAllChecked] = useState(false);
+	const [currentSort, setCurrentSort] = useState(props.config.sort);
 	
-	useEffect(() => {
-		const fetchData = async function() {
-			const rawData = await props.config.getData();
-			for(let [key, row] of Object.entries(rawData)) {
-				if (row.id === undefined) {
-					throw new Error("All data rows require a 'id' column.");
-				}
+	async function fetchData() {
+		const rawData = await props.config.getData({
+			sort : currentSort
+		});
+		
+		for(let [key, row] of Object.entries(rawData)) {
+			if (row.id === undefined) {
+				throw new Error("All data rows require a 'id' column.");
 			}
-			
-			const wrappedData = rawData.map(data => {
-				return {
-					checked : false,
-					data
-				}
-			});
-			
-			setTableData(wrappedData);
 		}
 		
+		const wrappedData = rawData.map(data => {
+			return {
+				checked : false,
+				data
+			}
+		});
+		
+		setTableData(wrappedData);
+	}
+	
+	useEffect(() => {
+		console.log("here?");
 		fetchData();
-	}, []);
+	}, [currentSort]);
 	
 	useEffect(() => {
 		const state = tableData.every(val => val.checked);
@@ -232,12 +247,20 @@ function Grid(props) {
 	} else {
 		headTds.push(...props.config.columns.map(column => {
 			const label = column.label || column.name;
+			const onClick = function() {
+				setCurrentSort({
+					name : column.name,
+					dir : currentSort.name === column.name ? flipDir(currentSort.dir) : "asc"
+				});
+			}
 			
 			return (
 				<GridTh
 					key={column.name}
 					sortable={column.sortable}
-					active={column.name === props.config.defaultSort}
+					active={column.name === currentSort.name}
+					activeDir={currentSort.dir}
+					onClick={onClick}
 				>{label}</GridTh>
 			)
 		}));

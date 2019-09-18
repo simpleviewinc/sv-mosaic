@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import theme from "../../utils/theme.js";
 
 const Th = styled.th`
@@ -33,15 +33,18 @@ function GridTh(props) {
 		type : "object",
 		schema : [
 			{ name : "sortable", type : "boolean" },
-			{ name : "active", type : "boolean" }
+			{ name : "active", type : "boolean" },
+			{ name : "activeDir", type : "string", enum : ["asc", "desc"] },
+			{ name : "onClick", type : "function" }
 		],
 		allowExtraKeys : false
 	});
 	
-	const sortControl = props.sortable && <StyledIcon icon={faArrowDown} className={props.active ? "active" : ""}></StyledIcon>;
+	const icon = props.activeDir === "asc" ? faArrowDown : faArrowUp;
+	const sortControl = props.sortable && <StyledIcon icon={icon} className={props.active ? "active" : ""}></StyledIcon>;
 	
 	return (
-		<Th className={props.sortable ? "sortable" : "" }>
+		<Th className={props.sortable ? "sortable" : "" } onClick={props.onClick}>
 			{props.children}
 			{sortControl}
 		</Th>
