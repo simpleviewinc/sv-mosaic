@@ -6,31 +6,55 @@ import theme from "./utils/theme.js";
 import "./App.css";
 import Grid from "./components/Grid.jsx";
 
+const sortArr = function(a, b, dir) {
+	const multiplier = dir === "asc" ? 1 : -1;
+	console.log("a", a, b, dir);
+	
+	if (a instanceof Date) {
+		return (a - b) * multiplier;
+	}
+	
+	if (a > b) {
+		return 1 * multiplier;
+	} else if (b < a) {
+		return -1 * multiplier;
+	} else {
+		return 0;
+	}
+}
+
 function App() {
 	const GridConfig = {
 		title : "Testing title",
-		defaultSort : "title",
-		getData : function() {
-			return [
+		sort : {
+			name : "title",
+			dir : "asc"
+		},
+		getData : function({ sort }) {
+			const data = [
 				{
 					id : 0,
 					title : "Alpha One",
 					type : "image",
-					created : new Date()
+					created : new Date(2019, 1, 1)
 				},
 				{
 					id : 1,
 					title : "Testing Title 2",
 					type : "image",
-					created : new Date()
+					created : new Date(2019, 5, 4)
 				},
 				{
 					id : 2,
 					title : "Zeta 3",
 					type : "image",
-					created : new Date()
+					created : new Date(2019, 3, 1)
 				}
-			]
+			];
+			
+			const sorted = data.sort((a, b) => sortArr(a[sort.name], b[sort.name], sort.dir));
+			
+			return sorted;
 		},
 		columns : [
 			{
