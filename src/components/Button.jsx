@@ -1,19 +1,38 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import jsvalidator from "jsvalidator";
+import styled from "styled-components";
 
 import theme from "../utils/theme.js";
 
-const style = {
-	fontSize: "18px",
-	cursor: "pointer"
-}
+const StyledWrapper = styled.span`
+	color: ${props => props.color};
+	font-size: 14px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	font-weight: 600;
+	
+	& > svg {
+		padding-right: 5px;
+		font-size: 18px;
+	}
+	
+	& > span {
+		position: relative;
+		top: -1px;
+	}
+	
+	& > :last-child {
+		padding-right: 0px;
+	}
+`
 
-const borderStyle = {
-	border: "1px solid #ccc",
-	borderRadius: "4px",
-	padding: "6px"
-}
+const BorderWrapper = styled(StyledWrapper)`
+	border: 1px solid ${props => props.borderColor || props.color};
+	border-radius: 4px;
+	padding: 8px;
+`
 
 function Button(props) {
 	jsvalidator.validate(props, {
@@ -39,23 +58,25 @@ function Button(props) {
 			{
 				name : "border",
 				type : "boolean"
+			},
+			{
+				name : "borderColor",
+				type : "string"
 			}
 		],
 		allowExtraKeys : false
 	});
 	
-	const myStyle = { ...style };
-	if (props.border === true) {
-		Object.assign(myStyle, borderStyle);
-	}
+	const Component = props.border === true ? BorderWrapper : StyledWrapper;
+	
+	const icon = props.faIcon !== undefined ? <FontAwesomeIcon icon={props.faIcon} color={props.color}></FontAwesomeIcon> : undefined;
+	const label = props.label !== undefined ? <span>{props.label}</span> : undefined;
 	
 	return (
-		<FontAwesomeIcon
-			icon={props.faIcon}
-			color={props.color}
-			style={myStyle}
-			onClick={props.onClick}
-		></FontAwesomeIcon>
+		<Component color={props.color} borderColor={props.borderColor} onClick={props.onClick}>
+			{icon}
+			{label}
+		</Component>
 	);
 }
 
