@@ -2,15 +2,16 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import jsvalidator from "jsvalidator";
 
-import theme from "../internal/theme.js";
+import theme from "../utils/theme.js";
 
 const style = {
-	fontSize: "18px"
+	fontSize: "18px",
+	cursor: "pointer"
 }
 
 const borderStyle = {
-	border : "1px solid #ccc",
-	borderRadius : "4px",
+	border: "1px solid #ccc",
+	borderRadius: "4px",
 	padding: "6px"
 }
 

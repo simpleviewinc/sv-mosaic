@@ -2,14 +2,14 @@ import React from "react";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import theme from "../utils/theme.js";
+import theme from "../../utils/theme.js";
 
 const style = {
 	fontSize: "18px",
 	cursor: "pointer"
 }
 
-function Checkbox(props) {
+function GridCheckbox(props) {
 	const icon = props.checked ? faCheckSquare : faSquare;
 	const color = props.checked ? theme.colors.blue : "#999";
 	
@@ -18,4 +18,4 @@ function Checkbox(props) {
 	);
 }
 
-export default Checkbox;
+export default GridCheckbox;
