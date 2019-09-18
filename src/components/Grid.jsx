@@ -28,7 +28,8 @@ const styles = {
 		borderTop: "1px solid #eee",
 	},
 	td : {
-		padding: "8px 0px 8px 0px"
+		padding: "8px 0px 8px 0px",
+		fontWeight: 200
 	},
 	th : {
 		padding: "8px 0px 8px 0px"
@@ -38,7 +39,7 @@ const styles = {
 		fontWeight: 600
 	},
 	"columnStyle-faded" : {
-		color: "#999"
+		color: theme.colors.lightGray
 	},
 	"columnStyle-bold" : {
 		fontWeight: 600
@@ -260,7 +261,7 @@ function Grid(props) {
 					sortable={column.sortable}
 					active={column.name === currentSort.name}
 					activeDir={currentSort.dir}
-					onClick={onClick}
+					onClick={column.sortable ? onClick : undefined}
 				>{label}</GridTh>
 			)
 		}));
@@ -290,7 +291,12 @@ function Grid(props) {
 			
 			const style = column.style !== undefined ? styles[`columnStyle-${column.style}`] : undefined;
 			
-			return <td key={column.name} style={styles.td}>{data}</td>
+			return (
+				<td
+					key={column.name}
+					style={{...styles.td,...style}}
+				>{data}</td>
+			);
 		}));
 		
 		const actionButtons = primaryActions.map(action => {
