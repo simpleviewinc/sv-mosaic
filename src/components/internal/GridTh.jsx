@@ -7,6 +7,7 @@ import theme from "../../utils/theme.js";
 
 const Th = styled.th`
 	padding: 8px 0px 8px 0px;
+	font-weight: 400;
 	
 	&.sortable {
 		cursor: pointer;

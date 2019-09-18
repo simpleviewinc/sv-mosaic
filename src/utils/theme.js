@@ -1,6 +1,6 @@
 export default {
 	colors : {
-		blue : "#0088C6",
+		blue : "#0070f2",
 		lightGray : "#AEB0B3",
 		darkGray : "#081324"
 	}
