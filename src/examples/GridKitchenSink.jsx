@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 import theme from "../utils/theme.js";
@@ -116,6 +116,50 @@ function GridKitchenSink() {
 				handler : function() {
 					
 				}
+			}
+		],
+		buttons : [
+			{
+				name : "create_new",
+				buttonOptions : {
+					faIcon : faPlus,
+					label : "Create New",
+					border : true,
+					color : theme.colors.blue
+				},
+				handler : function() {
+					
+				}
+			},
+			{
+				name : "no_icon",
+				buttonOptions : {
+					label : "No Icon",
+					color : theme.colors.lightGray,
+					border : true
+				},
+				handler : function() {
+					
+				}
+			},
+			{
+				name : "icon_only",
+				buttonOptions : {
+					faIcon : faPlus,
+					border : true,
+					color : theme.colors.blue
+				},
+				handler : function() {
+					
+				}
+			},
+			{
+				name : "icon_no_boder",
+				buttonOptions : {
+					faIcon : faPlus,
+					color : theme.colors.blue
+				},
+				handler : function() {}
 			}
 		]
 	}

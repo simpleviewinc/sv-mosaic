@@ -7,7 +7,9 @@ import styled from "styled-components";
 
 import * as column_transforms from "../utils/column_transforms.js";
 import GridCheckbox from "./internal/GridCheckbox.jsx";
+import GridButtonBar from "./internal/GridButtonBar.jsx";
 import GridTh from "./internal/GridTh.jsx";
+import TitleBar from "./internal/TitleBar.jsx";
 import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
 
@@ -36,10 +38,6 @@ const styles = {
 	},
 	th : {
 		padding: "8px 0px 8px 0px"
-	},
-	h1 : {
-		fontSize : "24px",
-		fontWeight: 600
 	},
 	"columnStyle-faded" : {
 		color: theme.colors.lightGray
@@ -164,6 +162,30 @@ function Grid(props) {
 						}
 					},
 					{
+						name : "buttons",
+						type : "array",
+						schema : {
+							type : "object",
+							schema : [
+								{
+									name : "name",
+									type : "string",
+									required : true
+								},
+								{
+									name : "buttonOptions",
+									type : "object",
+								},
+								{
+									name : "handler",
+									type : "function",
+									required : true
+								}
+							],
+							allowExtraKeys : false
+						}
+					},
+					{
 						name : "sort",
 						type : "object",
 						schema : [
@@ -183,6 +205,8 @@ function Grid(props) {
 	const [tableData, setTableData] = useState([]);
 	const [allChecked, setAllChecked] = useState(false);
 	const [currentSort, setCurrentSort] = useState(props.config.sort);
+	
+	const config = props.config;
 	
 	async function fetchData() {
 		const rawData = await props.config.getData({
@@ -206,7 +230,6 @@ function Grid(props) {
 	}
 	
 	useEffect(() => {
-		console.log("here?");
 		fetchData();
 	}, [currentSort]);
 	
@@ -215,10 +238,11 @@ function Grid(props) {
 		setAllChecked(state);
 	}, [tableData]);
 	
-	const title = props.config.title ? <h1 style={styles.h1}>{props.config.title}</h1> : undefined;
 	const primaryActions = props.config.actions.filter(val => val.type === "primary");
 	const additionalActions = props.config.actions.filter(val => val.type === "additional");
 	const bulkActions = props.config.actions.filter(val => val.type === "bulk");
+	
+	const topButtons = config.buttons ? config.buttons.map(val => ({ name : val.name, ...val.buttonOptions })) : undefined;
 	
 	const headTds = [];
 	
@@ -329,7 +353,7 @@ function Grid(props) {
 	
 	return (
 		<StyledWrapper>
-			{title}
+			<TitleBar title={config.title} buttons={topButtons}></TitleBar>
 			<table>
 				<thead style={styles.thead}>
 					<tr style={styles.tr}>
