@@ -238,7 +238,6 @@ function Grid(props) {
 					key={column.name}
 					sortable={column.sortable}
 					active={column.name === props.config.defaultSort}
-					onClick=
 				>{label}</GridTh>
 			)
 		}));
