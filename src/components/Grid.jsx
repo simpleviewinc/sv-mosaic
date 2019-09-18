@@ -12,6 +12,9 @@ import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
 
 const StyledWrapper = styled.div`
+	font-family: acumin-pro;
+	font-weight: 400;
+	
 	> table {
 		width: 100%;
 		border-collapse: collapse;
