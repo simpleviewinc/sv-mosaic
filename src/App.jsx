@@ -2,18 +2,19 @@ import React, { Component } from "react";
 import { hot } from "react-hot-loader/root";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
-import theme from "./internal/theme.js";
+import theme from "./utils/theme.js";
 import "./App.css";
 import Grid from "./components/Grid.jsx";
 
 function App() {
 	const GridConfig = {
 		title : "Testing title",
+		defaultSort : "title",
 		getData : function() {
 			return [
 				{
 					id : 0,
-					title : "Testing Title 1",
+					title : "Alpha One",
 					type : "image",
 					created : new Date()
 				},
@@ -25,7 +26,7 @@ function App() {
 				},
 				{
 					id : 2,
-					title : "Testing Title 3",
+					title : "Zeta 3",
 					type : "image",
 					created : new Date()
 				}
@@ -35,7 +36,8 @@ function App() {
 			{
 				name : "title",
 				label : "Title",
-				style : "bold"
+				style : "bold",
+				sortable : true
 			},
 			{
 				name : "type",
@@ -45,6 +47,7 @@ function App() {
 				name : "created",
 				label : "Created",
 				style : "faded",
+				sortable : true,
 				transforms : [
 					{ name : "dateFormat" }
 				]

@@ -3,10 +3,20 @@ import jsvalidator from "jsvalidator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faEllipsisH, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
-import * as column_transforms from "../internal/column_transforms.js";
-import Checkbox from "./Checkbox.jsx";
+import styled from "styled-components";
+
+import * as column_transforms from "../utils/column_transforms.js";
+import GridCheckbox from "./internal/GridCheckbox.jsx";
+import GridTh from "./internal/GridTh.jsx";
 import Button from "./Button.jsx";
-import theme from "../internal/theme.js";
+import theme from "../utils/theme.js";
+
+const StyledWrapper = styled.div`
+	> table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+`;
 
 const styles = {
 	table : {
@@ -201,15 +211,19 @@ function Grid(props) {
 			setTableData(tableData.slice());
 		};
 		
-		headTds.push(<th key="__bulk" style={styles.th}><Checkbox checked={allChecked} onClick={clickHandler}></Checkbox></th>);
+		headTds.push(
+			<GridTh key="__bulk">
+				<GridCheckbox checked={allChecked} onClick={clickHandler}></GridCheckbox>
+			</GridTh>
+		);
 	}
 	
 	const hasCheckedRow = tableData.filter(val => val.checked).length > 0;
 	if (hasCheckedRow) {
 		const actionButtons = bulkActions.map(action => {
 			return (
-				<span style={styles.bulkButton}>
-					<Button key={action.name} faIcon={action.faIcon} border={true}></Button>
+				<span key={action.name} style={styles.bulkButton}>
+					<Button faIcon={action.faIcon} border={true}></Button>
 				</span>
 			);
 		});
@@ -220,10 +234,13 @@ function Grid(props) {
 			const label = column.label || column.name;
 			
 			return (
-				<th key={column.name} style={styles.th}>
-					{label}
-				</th>
-			);
+				<GridTh
+					key={column.name}
+					sortable={column.sortable}
+					active={column.name === props.config.defaultSort}
+					onClick=
+				>{label}</GridTh>
+			)
 		}));
 	}
 	
@@ -238,7 +255,7 @@ function Grid(props) {
 				setTableData(tableData.slice());
 			};
 			
-			tds.push(<td key="__bulk"><Checkbox checked={rowData.checked} onClick={clickHandler}></Checkbox></td>);
+			tds.push(<td key="__bulk"><GridCheckbox checked={rowData.checked} onClick={clickHandler}></GridCheckbox></td>);
 		}
 		
 		tds.push(...props.config.columns.map((column, i) => {
@@ -256,16 +273,16 @@ function Grid(props) {
 		
 		const actionButtons = primaryActions.map(action => {
 			return (
-				<span style={styles.primaryActionButton}>
-					<Button key={action.name} faIcon={action.faIcon} color={action.color}></Button>
+				<span key={action.name} style={styles.primaryActionButton}>
+					<Button faIcon={action.faIcon} color={action.color}></Button>
 				</span>
 			);
 		});
 		
 		if (additionalActions.length > 0) {
 			actionButtons.push(
-				<span style={styles.primaryActionButton}>
-					<Button key="__additional" faIcon={faEllipsisH} color={theme.colors.blue}></Button>
+				<span key="__additional" style={styles.primaryActionButton}>
+					<Button faIcon={faEllipsisH} color={theme.colors.blue}></Button>
 				</span>
 			);
 		}
@@ -280,9 +297,9 @@ function Grid(props) {
 	});
 	
 	return (
-		<div>
+		<StyledWrapper>
 			{title}
-			<table style={styles.table}>
+			<table>
 				<thead style={styles.thead}>
 					<tr style={styles.tr}>
 						{headTds}
@@ -292,7 +309,7 @@ function Grid(props) {
 					{dataRows}
 				</tbody>
 			</table>
-		</div>
+		</StyledWrapper>
 	)
 }
 
