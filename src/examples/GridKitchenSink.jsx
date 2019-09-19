@@ -173,6 +173,16 @@ function GridKitchenSink() {
 				handler : function() {
 					alert("ICON NO BORDER");
 				}
+			},
+			{
+				name : "text no boder",
+				buttonOptions : {
+					label : "Text No Border",
+					color : theme.colors.blue
+				},
+				handler : function() {
+					alert("TEXT NO BORDER");
+				}
 			}
 		]
 	}
