@@ -12,6 +12,7 @@ const StyledWrapper = styled.span`
 	display: inline-flex;
 	align-items: center;
 	font-weight: 600;
+	padding: 12px;
 	
 	& > svg {
 		padding-right: 5px;
@@ -26,12 +27,21 @@ const StyledWrapper = styled.span`
 	& > :last-child {
 		padding-right: 0px;
 	}
+	
+	&:hover {
+		background: #eee;
+		border-radius: 50px;
+	}
 `
 
 const BorderWrapper = styled(StyledWrapper)`
 	border: 1px solid ${props => props.borderColor || props.color};
 	border-radius: 4px;
 	padding: 8px;
+	
+	&:hover {
+		border-radius: 4px;
+	}
 `
 
 function Button(props) {
