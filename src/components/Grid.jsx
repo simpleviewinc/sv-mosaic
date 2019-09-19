@@ -14,7 +14,7 @@ import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
 
 const StyledWrapper = styled.div`
-	font-family: acumin-pro;
+	font-family: ${theme.fontFamily};
 	font-weight: 400;
 	
 	> table {
@@ -43,7 +43,8 @@ const styles = {
 		color: theme.colors.lightGray
 	},
 	"columnStyle-bold" : {
-		fontWeight: 600
+		fontSize: "14px",
+		fontWeight: 400
 	},
 	thead : {
 		textAlign : "left"
@@ -145,12 +146,8 @@ function Grid(props) {
 									required : true
 								},
 								{
-									name : "faIcon",
-									type : "object"
-								},
-								{
-									name : "color",
-									type : "string"
+									name : "buttonOptions",
+									type : "object",
 								},
 								{
 									name : "handler",
@@ -261,17 +258,23 @@ function Grid(props) {
 		);
 	}
 	
-	const hasCheckedRow = tableData.filter(val => val.checked).length > 0;
-	if (hasCheckedRow) {
-		const actionButtons = bulkActions.map(action => {
-			return (
-				<span key={action.name} style={styles.bulkButton}>
-					<Button faIcon={action.faIcon} border={true}></Button>
-				</span>
-			);
+	const checkedData = tableData.filter(val => val.checked);
+	if (checkedData.length > 0) {
+		const buttons = bulkActions.map(action => {
+			const onClick = function() {
+				action.handler({ data : checkedData });
+			}
+			
+			return {
+				name : action.name,
+				onClick,
+				...action.buttonOptions
+			}
 		});
 		
-		headTds.push(<th key="__bulk_actions" colSpan={props.config.columns.length} style={styles.th}>{actionButtons}</th>);
+		const buttonBar = <GridButtonBar buttons={buttons}></GridButtonBar>
+		
+		headTds.push(<th key="__bulk_actions" colSpan={props.config.columns.length} style={styles.th}>{buttonBar}</th>);
 	} else {
 		headTds.push(...props.config.columns.map(column => {
 			const label = column.label || column.name;
@@ -326,23 +329,23 @@ function Grid(props) {
 			);
 		}));
 		
-		const actionButtons = primaryActions.map(action => {
-			return (
-				<span key={action.name} style={styles.primaryActionButton}>
-					<Button faIcon={action.faIcon} color={action.color}></Button>
-				</span>
-			);
-		});
+		const primaryActionButtons = primaryActions.map(val => ({ name : val.name, ...val.buttonOptions }));
 		
 		if (additionalActions.length > 0) {
-			actionButtons.push(
-				<span key="__additional" style={styles.primaryActionButton}>
-					<Button faIcon={faEllipsisH} color={theme.colors.blue}></Button>
-				</span>
-			);
+			primaryActionButtons.push({
+				name : "__additional",
+				faIcon : faEllipsisH,
+				color : theme.colors.blue
+			});
 		}
 		
-		tds.push(<td key="__actions" style={styles.actionColumn}>{actionButtons}</td>);
+		const buttonBar = <GridButtonBar buttons={primaryActionButtons}></GridButtonBar>
+		
+		tds.push(
+			<td key="__actions" style={styles.actionColumn}>
+				{buttonBar}
+			</td>
+		);
 		
 		return (
 			<tr key={rowData.data.id} style={styles.tr}>

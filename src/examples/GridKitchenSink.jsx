@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { faDownload, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 import theme from "../utils/theme.js";
 import Grid from "../components/Grid.jsx";
+import RemoveDialog from "../examples/RemoveDialog.jsx";
 
 const sortArr = function(a, b, dir) {
 	const multiplier = dir === "asc" ? 1 : -1;
@@ -23,8 +24,10 @@ const sortArr = function(a, b, dir) {
 }
 
 function GridKitchenSink() {
+	const [removeItems, setRemoveItems] = useState([]);
+	
 	const GridConfig = {
-		title : "Testing title",
+		title : "Your Uploads",
 		sort : {
 			name : "title",
 			dir : "asc"
@@ -39,7 +42,7 @@ function GridKitchenSink() {
 				},
 				{
 					id : 1,
-					title : "Testing Title 2",
+					title : "Dramatic Sky",
 					type : "image",
 					created : new Date(2019, 5, 4)
 				},
@@ -80,41 +83,49 @@ function GridKitchenSink() {
 			{
 				name : "edit",
 				type : "primary",
-				faIcon : faEdit,
-				color : theme.colors.blue,
+				buttonOptions : {
+					faIcon : faEdit,
+					color : theme.colors.blue,
+				},
 				handler : function() {
-					
+					alert("EDIT");
 				}
 			},
 			{
 				name : "view_children",
 				type : "additional",
 				handler : function() {
-					
+					alert("VIEW CHILDREN");
 				}
 			},
 			{
 				name : "bulk_download",
 				type : "bulk",
-				faIcon : faDownload,
+				buttonOptions : {
+					faIcon : faDownload
+				},
 				handler : function() {
-					
+					alert("BULK DOWNLOAD");
 				}
 			},
 			{
 				name : "bulk_edit",
 				type : "bulk",
-				faIcon : faEdit,
+				buttonOptions : {
+					faIcon : faEdit
+				},
 				handler : function() {
-					
+					alert("BULK EDIT");
 				}
 			},
 			{
 				name : "bulk_remove",
 				type : "bulk",
-				faIcon : faTrashAlt,
-				handler : function() {
-					
+				buttonOptions : {
+					faIcon : faTrashAlt
+				},
+				handler : function({ data }) {
+					setRemoveItems(data);
 				}
 			}
 		],
@@ -128,7 +139,7 @@ function GridKitchenSink() {
 					color : theme.colors.blue
 				},
 				handler : function() {
-					
+					alert("CREATE NEW");
 				}
 			},
 			{
@@ -139,7 +150,7 @@ function GridKitchenSink() {
 					border : true
 				},
 				handler : function() {
-					
+					alert("NO ICON");
 				}
 			},
 			{
@@ -150,7 +161,7 @@ function GridKitchenSink() {
 					color : theme.colors.blue
 				},
 				handler : function() {
-					
+					alert("ICON ONLY");
 				}
 			},
 			{
@@ -159,16 +170,33 @@ function GridKitchenSink() {
 					faIcon : faPlus,
 					color : theme.colors.blue
 				},
-				handler : function() {}
+				handler : function() {
+					alert("ICON NO BORDER");
+				}
 			}
 		]
 	}
 	
+	let removeDialog;
+	if (removeItems.length > 0) {
+		const onOk = function() {
+			alert("OK");
+			setRemoveItems([]);
+		}
+		const onCancel = function() {
+			alert("CANCEL");
+			setRemoveItems([]);
+		}
+		
+		removeDialog = <RemoveDialog onOk={onOk} onCancel={onCancel}></RemoveDialog>;
+	}
+	
 	return (
-		<div className="App">
+		<div>
 			<h1>Components</h1>
 			<h2>Grid</h2>
 			<Grid config={GridConfig}></Grid>
+			{removeDialog}
 		</div>
 	);
 }
