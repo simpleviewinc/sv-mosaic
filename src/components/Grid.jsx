@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import jsvalidator from "jsvalidator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faEllipsisH, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
@@ -65,6 +65,37 @@ function flipDir(sort) {
 	return sort === "asc" ? "desc" : "asc";
 }
 
+function stateReducer(state, { type, data }) {
+	console.log("stateReducer", state);
+	
+	const newState = {
+		checked : state.checked.slice(),
+	}
+	
+	switch (type) {
+		case "check": {
+			newState.checked[data] = !newState.checked[data];
+			break;
+		}
+		case "checkAll": {
+			newState.checked = newState.checked.map(val => data);
+			break;
+		}
+		case "setChecked": {
+			newState.checked = data;
+			break;
+		}
+		default: {
+			throw new Error("Unrecognized reducer action.");
+		}
+	}
+	
+	newState.allChecked = newState.checked.length > 0 && newState.checked.every(val => val === true);
+	newState.anyChecked = newState.checked.some(val => val === true);
+	
+	return newState;
+}
+
 function Grid(props) {
 	jsvalidator.validate(props, {
 		type : "object",
@@ -76,11 +107,6 @@ function Grid(props) {
 					{
 						name : "title",
 						type : "string"
-					},
-					{
-						name : "getData",
-						type : "function",
-						required : true
 					},
 					{
 						name : "columns",
@@ -110,18 +136,7 @@ function Grid(props) {
 									name : "transforms",
 									type : "array",
 									schema : {
-										type : "object",
-										schema : [
-											{
-												name : "name",
-												type : "string"
-											},
-											{
-												name : "args",
-												type : "object"
-											}
-										],
-										allowExtraKeys : false
+										type : "function"
 									}
 								}
 							],
@@ -181,7 +196,25 @@ function Grid(props) {
 							],
 							allowExtraKeys : false
 						}
-					},
+					}
+				],
+				allowExtraKeys : false
+			},
+			{
+				name : "data",
+				type : "array",
+				schema : {
+					type : "object",
+					schema : [
+						{ name : "id", type : "string", required : true }
+					],
+					allowExtraKeys : true
+				}
+			},
+			{
+				name : "sharedState",
+				type : "object",
+				schema : [
 					{
 						name : "sort",
 						type : "object",
@@ -190,78 +223,72 @@ function Grid(props) {
 							{ name : "dir", type : "string", enum : ["asc", "desc"] }
 						],
 						allowExtraKeys : false
+					},
+					{
+						name : "limit",
+						type : "number"
 					}
 				],
 				allowExtraKeys : false
+			},
+			{
+				name : "setSharedState",
+				type : "function"
 			}
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
 	
-	const [tableData, setTableData] = useState([]);
-	const [allChecked, setAllChecked] = useState(false);
-	const [currentSort, setCurrentSort] = useState(props.config.sort);
+	const {
+		config,
+		data,
+		sharedState,
+		setSharedState,
+	} = props;
 	
-	const config = props.config;
+	const {
+		title,
+		actions,
+		buttons,
+		columns
+	} = props.config;
 	
-	async function fetchData() {
-		const rawData = await props.config.getData({
-			sort : currentSort
-		});
-		
-		for(let [key, row] of Object.entries(rawData)) {
-			if (row.id === undefined) {
-				throw new Error("All data rows require a 'id' column.");
-			}
-		}
-		
-		const wrappedData = rawData.map(data => {
-			return {
-				checked : false,
-				data
-			}
-		});
-		
-		setTableData(wrappedData);
-	}
+	const [state, dispatch] = useReducer(stateReducer, {
+		checked : [],
+		allChecked : false,
+		anyChecked : false
+	});
 	
 	useEffect(() => {
-		fetchData();
-	}, [currentSort]);
+		dispatch({ type : "setChecked", data : data.map(val => false) });
+	}, [data]);
 	
-	useEffect(() => {
-		const state = tableData.every(val => val.checked);
-		setAllChecked(state);
-	}, [tableData]);
+	const primaryActions = actions.filter(action => action.type === "primary");
+	const additionalActions = actions.filter(action => action.type === "additional");
+	const bulkActions = actions.filter(action => action.type === "bulk");
 	
-	const primaryActions = props.config.actions.filter(val => val.type === "primary");
-	const additionalActions = props.config.actions.filter(val => val.type === "additional");
-	const bulkActions = props.config.actions.filter(val => val.type === "bulk");
-	
-	const topButtons = config.buttons ? config.buttons.map(val => ({ name : val.name, ...val.buttonOptions })) : undefined;
+	const topButtons = buttons ? buttons.map(button => ({ name : button.name, ...button.buttonOptions })) : undefined;
 	
 	const headTds = [];
 	
 	if (bulkActions.length > 0) {
 		const clickHandler = function() {
-			tableData.forEach(val => {
-				val.checked = !allChecked;
-			});
-			setTableData(tableData.slice());
+			// set all of the checkboxes to a specific state
+			dispatch({ type : "checkAll", data : !state.allChecked });
 		};
 		
 		headTds.push(
 			<GridTh key="__bulk">
-				<GridCheckbox checked={allChecked} onClick={clickHandler}></GridCheckbox>
+				<GridCheckbox checked={state.allChecked} onClick={clickHandler}></GridCheckbox>
 			</GridTh>
 		);
 	}
 	
-	const checkedData = tableData.filter(val => val.checked);
-	if (checkedData.length > 0) {
+	if (state.anyChecked === true) {
 		const buttons = bulkActions.map(action => {
 			const onClick = function() {
+				const checkedData = data.filter((val, i) => state.checked[i] === true);
 				action.handler({ data : checkedData });
 			}
 			
@@ -274,14 +301,17 @@ function Grid(props) {
 		
 		const buttonBar = <GridButtonBar buttons={buttons}></GridButtonBar>
 		
-		headTds.push(<th key="__bulk_actions" colSpan={props.config.columns.length} style={styles.th}>{buttonBar}</th>);
+		headTds.push(<th key="__bulk_actions" colSpan={columns.length} style={styles.th}>{buttonBar}</th>);
 	} else {
-		headTds.push(...props.config.columns.map(column => {
+		headTds.push(...columns.map(column => {
 			const label = column.label || column.name;
 			const onClick = function() {
-				setCurrentSort({
-					name : column.name,
-					dir : currentSort.name === column.name ? flipDir(currentSort.dir) : "asc"
+				setSharedState({
+					...sharedState,
+					sort : {
+						name : column.name,
+						dir : sharedState.sort.name === column.name ? flipDir(sharedState.sort.dir) : "asc"
+					}
 				});
 			}
 			
@@ -289,8 +319,8 @@ function Grid(props) {
 				<GridTh
 					key={column.name}
 					sortable={column.sortable}
-					active={column.name === currentSort.name}
-					activeDir={currentSort.dir}
+					active={column.name === sharedState.sort.name}
+					activeDir={sharedState.sort.dir}
 					onClick={column.sortable ? onClick : undefined}
 				>{label}</GridTh>
 			)
@@ -299,23 +329,22 @@ function Grid(props) {
 	
 	headTds.push(<th key="__actions" style={styles.actionColumn}><Button faIcon={faCog}></Button></th>);
 	
-	const dataRows = tableData.map(rowData => {
+	const dataRows = data.map((rowData, i) => {
 		const tds = [];
 		
 		if (bulkActions.length > 0) {
 			const clickHandler = function() {
-				rowData.checked = !rowData.checked;
-				setTableData(tableData.slice());
+				dispatch({ type : "check", data : i });
 			};
 			
-			tds.push(<td key="__bulk"><GridCheckbox checked={rowData.checked} onClick={clickHandler}></GridCheckbox></td>);
+			tds.push(<td key="__bulk"><GridCheckbox checked={state.checked[i] === true} onClick={clickHandler}></GridCheckbox></td>);
 		}
 		
-		tds.push(...props.config.columns.map((column, i) => {
-			let data = rowData.data[column.name];
+		tds.push(...columns.map((column, i) => {
+			let data = rowData[column.name];
 			if (data !== undefined && column.transforms !== undefined) {
 				for(let [key, transform] of Object.entries(column.transforms)) {
-					data = column_transforms[transform.name](data);
+					data = transform(data);
 				}
 			}
 			
@@ -348,7 +377,7 @@ function Grid(props) {
 		);
 		
 		return (
-			<tr key={rowData.data.id} style={styles.tr}>
+			<tr key={rowData.id} style={styles.tr}>
 				{tds}
 			</tr>
 		)
@@ -356,7 +385,7 @@ function Grid(props) {
 	
 	return (
 		<StyledWrapper>
-			<TitleBar title={config.title} buttons={topButtons}></TitleBar>
+			<TitleBar title={title} buttons={topButtons}></TitleBar>
 			<table>
 				<thead style={styles.thead}>
 					<tr style={styles.tr}>
