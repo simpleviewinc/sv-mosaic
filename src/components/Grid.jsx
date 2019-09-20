@@ -10,6 +10,7 @@ import GridCheckbox from "./internal/GridCheckbox.jsx";
 import GridButtonBar from "./internal/GridButtonBar.jsx";
 import GridTh from "./internal/GridTh.jsx";
 import TitleBar from "./internal/TitleBar.jsx";
+import DropdownList from "./internal/DropdownList.jsx";
 import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
 
@@ -260,6 +261,8 @@ function Grid(props) {
 		anyChecked : false
 	});
 	
+	const [additionalActionRow, setAdditionalActionRow] = useState(undefined);
+	
 	useEffect(() => {
 		dispatch({ type : "setChecked", data : data.map(val => false) });
 	}, [data]);
@@ -327,7 +330,7 @@ function Grid(props) {
 		}));
 	}
 	
-	headTds.push(<th key="__actions" style={styles.actionColumn}><Button faIcon={faCog}></Button></th>);
+	headTds.push(<th key="__actions" style={styles.actionColumn}><Button name="__actions" faIcon={faCog}></Button></th>);
 	
 	const dataRows = data.map((rowData, i) => {
 		const tds = [];
@@ -364,9 +367,33 @@ function Grid(props) {
 			primaryActionButtons.push({
 				name : "__additional",
 				faIcon : faEllipsisH,
-				color : theme.colors.blue
+				color : theme.colors.blue,
+				dropdownList : additionalActions.map(action => {
+					const onClick = function() {
+						action.handler({ data : rowData });
+					}
+					
+					return {
+						name : action.name,
+						label : "Something Special",
+						onClick
+					}
+				})
 			});
 		}
+		
+		// let additionalActionDropdown;
+		// if (additionalActionRow !== undefined) {
+		// 	const items = additionalActions.map(action => {
+		// 		return {
+		// 			name : action.name,
+		// 			label : action.label,
+		// 			onClick : action.handler
+		// 		}
+		// 	});
+			
+		// 	additionalActionDropdown = <DropdownList items={items}></DropdownList>
+		// }
 		
 		const buttonBar = <GridButtonBar buttons={primaryActionButtons}></GridButtonBar>
 		

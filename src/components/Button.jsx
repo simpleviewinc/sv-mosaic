@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import theme from "../utils/theme.js";
+// import DropdownList from "./internal/DropdownList.jsx";
 
 const StyledWrapper = styled.span`
 	color: ${props => props.color};
@@ -72,21 +75,58 @@ function Button(props) {
 			{
 				name : "borderColor",
 				type : "string"
+			},
+			{
+				name : "onClick",
+				type : "function"
+			},
+			{
+				name : "dropdownList",
+				type : "object"
 			}
 		],
-		allowExtraKeys : false
+		allowExtraKeys : false,
+		throwOnInvalid : true
 	});
+	
+	const [anchorEl, setAnchorEl] = useState(null);
+	
+	const openDropdown = function(event) {
+		setAnchorEl(event.currentTarget);
+	}
 	
 	const Component = props.border === true ? BorderWrapper : StyledWrapper;
 	
 	const icon = props.faIcon !== undefined ? <FontAwesomeIcon icon={props.faIcon} color={props.color}></FontAwesomeIcon> : undefined;
 	const label = props.label !== undefined ? <span>{props.label}</span> : undefined;
 	
+	const onClick = props.dropdownList ? openDropdown : props.onClick;
+	
+	const handleClose = function() {
+		console.log("CLOSE ME");
+		setAnchorEl(null);
+	}
+	
+	const dropdown = props.dropdownList ? (
+		<Menu
+			id="simple-menu"
+			anchorEl={anchorEl}
+			keepMounted
+			open={Boolean(anchorEl)}
+			onClose={handleClose}
+		>
+			{props.dropdownList.map(val => <MenuItem key={val.name} onClick={handleClose}>{val.label}</MenuItem>)}
+		</Menu>
+	) : undefined;
+	
 	return (
-		<Component color={props.color} borderColor={props.borderColor} onClick={props.onClick}>
-			{icon}
-			{label}
-		</Component>
+		<span>
+			<Component color={props.color} borderColor={props.borderColor} onClick={onClick}>
+				{icon}
+				{label}
+			</Component>
+			{dropdown}
+		</span>
 	);
 }
 

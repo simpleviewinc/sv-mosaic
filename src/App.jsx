@@ -1,12 +1,17 @@
 import React, { Component, useState } from "react";
 import { hot } from "react-hot-loader/root";
 import GridKitchenSink from "./examples/GridKitchenSink.jsx";
+import Hax from "./examples/Hax.jsx";
+import Buttons from "./examples/Buttons.jsx";
 
 function App() {
-	const [componentName, setComponentName] = useState("GridKitchenSink");
+	const defaultComponent = "Buttons";
+	const [componentName, setComponentName] = useState(defaultComponent);
 	
 	const options = [
-		{ label : "Grid Kitchen Sink", value : "GridKitchenSink", component : <GridKitchenSink></GridKitchenSink> }
+		{ label : "Grid Kitchen Sink", value : "GridKitchenSink", component : <GridKitchenSink></GridKitchenSink> },
+		{ label : "Hax", value : "Hax", component : <Hax></Hax> },
+		{ label : "Buttons", value : "Buttons", component : <Buttons></Buttons> }
 	]
 	
 	const onChange = function(e) {
