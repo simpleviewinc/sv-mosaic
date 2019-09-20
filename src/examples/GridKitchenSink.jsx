@@ -1,64 +1,46 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect, useMemo } from "react";
 import { faDownload, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 import theme from "../utils/theme.js";
 import Grid from "../components/Grid.jsx";
 import RemoveDialog from "../examples/RemoveDialog.jsx";
-
-const sortArr = function(a, b, dir) {
-	const multiplier = dir === "asc" ? 1 : -1;
-	console.log("a", a, b, dir);
-	
-	if (a instanceof Date) {
-		return (a - b) * multiplier;
-	}
-	
-	if (a > b) {
-		return 1 * multiplier;
-	} else if (b < a) {
-		return -1 * multiplier;
-	} else {
-		return 0;
-	}
-}
+import JSONDB from "../utils/JSONDB.js";
+import rawData from "./grandrapids_custom_header_slides.json";
+import { transform_dateFormat, transform_get } from "../utils/column_transforms.js";
 
 function GridKitchenSink() {
-	const [removeItems, setRemoveItems] = useState([]);
+	console.log("parent grid");
 	
-	const GridConfig = {
-		title : "Your Uploads",
+	const api = useMemo(() => {
+		return new JSONDB(rawData);
+	}, []);
+	
+	const [removeItems, setRemoveItems] = useState([]);
+	const [data, setData] = useState([]);
+	const [sharedState, setSharedState] = useState({
+		limit : 25,
 		sort : {
 			name : "title",
 			dir : "asc"
-		},
-		getData : function({ sort }) {
-			const data = [
-				{
-					id : 0,
-					title : "Alpha One",
-					type : "image",
-					created : new Date(2019, 1, 1)
-				},
-				{
-					id : 1,
-					title : "Dramatic Sky",
-					type : "image",
-					created : new Date(2019, 5, 4)
-				},
-				{
-					id : 2,
-					title : "Zeta 3",
-					type : "image",
-					created : new Date(2019, 3, 1)
-				}
-			];
-			
-			const sorted = data.sort((a, b) => sortArr(a[sort.name], b[sort.name], sort.dir));
-			
-			return sorted;
-		},
+		}
+	});
+	
+	const gridConfig = {
+		title : "Your Uploads",
 		columns : [
+			{
+				name : "image",
+				label : "Image",
+				transforms : [
+					transform_get(["resource_raw", "secure_url"]),
+					function(data) {
+						const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_50,w_50/`);
+						
+						return <img src={newUrl} width="50" height="50"/>;
+					}
+				]
+			},
 			{
 				name : "title",
 				label : "Title",
@@ -66,16 +48,12 @@ function GridKitchenSink() {
 				sortable : true
 			},
 			{
-				name : "type",
-				label : "Type"
-			},
-			{
 				name : "created",
 				label : "Created",
 				style : "faded",
 				sortable : true,
 				transforms : [
-					{ name : "dateFormat" }
+					transform_dateFormat()
 				]
 			}
 		],
@@ -185,16 +163,23 @@ function GridKitchenSink() {
 				}
 			}
 		]
-	}
+	};
+	
+	useEffect(() => {
+		const fetchData = async function() {
+			const newData = await api.find(sharedState);
+			setData(newData);
+		}
+		
+		fetchData();
+	}, [sharedState]);
 	
 	let removeDialog;
 	if (removeItems.length > 0) {
 		const onOk = function() {
-			alert("OK");
 			setRemoveItems([]);
 		}
 		const onCancel = function() {
-			alert("CANCEL");
 			setRemoveItems([]);
 		}
 		
@@ -205,7 +190,12 @@ function GridKitchenSink() {
 		<div>
 			<h1>Components</h1>
 			<h2>Grid</h2>
-			<Grid config={GridConfig}></Grid>
+			<Grid
+				config={gridConfig}
+				data={data}
+				sharedState={sharedState}
+				setSharedState={setSharedState}
+			></Grid>
 			{removeDialog}
 		</div>
 	);
