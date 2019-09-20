@@ -1,88 +1,158 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MUIButton from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 
 import theme from "../utils/theme.js";
-// import DropdownList from "./internal/DropdownList.jsx";
+import Menu from "./Menu.jsx";
 
-const StyledWrapper = styled.span`
-	color: ${props => props.color};
-	font-size: 14px;
-	cursor: pointer;
-	display: inline-flex;
-	align-items: center;
-	font-weight: 600;
-	padding: 12px;
-	
-	& > svg {
-		padding-right: 5px;
-		font-size: 18px;
+const ButtonWrapper = styled.span`
+	& > button {
+		font-family: ${theme.fontFamily};
+		text-transform: none;
+		font-size: 14px;
 	}
 	
-	& > span {
-		position: relative;
-		top: -1px;
+	& > button.normalButton .icon {
+		margin-right: 4px;
 	}
 	
-	& > :last-child {
-		padding-right: 0px;
-	}
-	
-	&:hover {
-		background: #eee;
-		border-radius: 50px;
+	& > button.iconButton {
+		padding: 8px;
+		font-size: 15px;
 	}
 `
 
-const BorderWrapper = styled(StyledWrapper)`
-	border: 1px solid ${props => props.borderColor || props.color};
-	border-radius: 4px;
-	padding: 8px;
-	
-	&:hover {
-		border-radius: 4px;
-	}
-`
+const types = {
+	blue_outlined : styled(ButtonWrapper)`
+		& > button {
+			border-color: ${theme.colors.blue};
+			color: ${theme.colors.blue};
+		}
+		
+		& > button:hover {
+			background: ${theme.colors.blue}13;
+		}
+	`,
+	red_outlined : styled(ButtonWrapper)`
+		& > button {
+			border-color: ${theme.colors.red};
+			color: ${theme.colors.red};
+		}
+		
+		& > button:hover {
+			background: ${theme.colors.red}13;
+		}
+	`,
+	gray_outlined : styled(ButtonWrapper)`
+		& > button {
+			border-color: #ddd;
+			color: black;
+		}
+		
+		& > button:hover {
+			background: #eee;
+		}
+	`,
+	blue_contained : styled(ButtonWrapper)`
+		& > button {
+			background: ${theme.colors.blue};
+			color: white;
+		}
+		& > button:hover {
+			background: ${theme.colors.blueHover};
+		}
+	`,
+	red_contained : styled(ButtonWrapper)`
+		& > button {
+			background: ${theme.colors.red};
+			color: white;
+		}
+		& > button:hover {
+			background: #900f0f;
+		}
+	`,
+	gray_contained : styled(ButtonWrapper)`
+		& > button {
+			background: #ddd;
+			color: black;
+		}
+		& > button:hover {
+			background: #ccc;
+		}
+	`,
+	blue_text : styled(ButtonWrapper)`
+		& > button {
+			color: ${theme.colors.blue};
+		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.blue}13;
+		}
+	`,
+	red_text : styled(ButtonWrapper)`
+		& > button {
+			color: ${theme.colors.red};
+		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.red}13;
+		}
+	`,
+	gray_text : styled(ButtonWrapper)`
+		& > button {
+			color: ${theme.colors.gray};
+		}
+	`,
+	blue_icon : styled(ButtonWrapper)`
+		& .icon {
+			color: ${theme.colors.blue}
+		}
+	`,
+	black_icon : styled(ButtonWrapper)`
+		& .icon {
+			color: black;
+		}
+	`,
+	red_icon : styled(ButtonWrapper)`
+		& .icon {
+			color: ${theme.colors.red};
+		}
+	`
+}
 
 function Button(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
 			{
-				name : "name",
-				type : "string",
-				required : true
-			},
-			{
 				name : "label",
 				type : "string"
 			},
 			{
-				name : "faIcon",
-				type : "object"
-			},
-			{
 				name : "color",
-				type : "string"
+				type : "string",
+				enum : ["black", "blue", "red", "gray"],
+				required : true
 			},
 			{
-				name : "border",
-				type : "boolean"
+				name : "variant",
+				type : "string",
+				enum : ["icon", "outlined", "contained", "text"],
+				required : true
 			},
 			{
-				name : "borderColor",
-				type : "string"
+				name : "mIcon",
+				type : "object"
 			},
 			{
 				name : "onClick",
 				type : "function"
 			},
 			{
-				name : "dropdownList",
-				type : "object"
+				name : "menuItems",
+				type : "array"
 			}
 		],
 		allowExtraKeys : false,
@@ -91,43 +161,39 @@ function Button(props) {
 	
 	const [anchorEl, setAnchorEl] = useState(null);
 	
-	const openDropdown = function(event) {
+	const MyButton = types[`${props.color}_${props.variant}`];
+	const MaterialIcon = props.mIcon;
+	
+	function openMenu(event) {
+		console.log("OPEN MENU");
 		setAnchorEl(event.currentTarget);
 	}
 	
-	const Component = props.border === true ? BorderWrapper : StyledWrapper;
-	
-	const icon = props.faIcon !== undefined ? <FontAwesomeIcon icon={props.faIcon} color={props.color}></FontAwesomeIcon> : undefined;
-	const label = props.label !== undefined ? <span>{props.label}</span> : undefined;
-	
-	const onClick = props.dropdownList ? openDropdown : props.onClick;
-	
-	const handleClose = function() {
-		console.log("CLOSE ME");
+	function closeMenu() {
+		console.log("CLOSE MENU");
 		setAnchorEl(null);
 	}
 	
-	const dropdown = props.dropdownList ? (
-		<Menu
-			id="simple-menu"
-			anchorEl={anchorEl}
-			keepMounted
-			open={Boolean(anchorEl)}
-			onClose={handleClose}
-		>
-			{props.dropdownList.map(val => <MenuItem key={val.name} onClick={handleClose}>{val.label}</MenuItem>)}
-		</Menu>
-	) : undefined;
+	const onClick = props.menuItems ? openMenu : props.onClick;
 	
 	return (
-		<span>
-			<Component color={props.color} borderColor={props.borderColor} onClick={onClick}>
-				{icon}
-				{label}
-			</Component>
-			{dropdown}
-		</span>
-	);
+		<MyButton>
+			{ props.variant !== "icon" &&
+				<MUIButton variant={props.variant} className="normalButton" onClick={onClick}>
+					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
+					{props.label}
+				</MUIButton>
+			}
+			{ props.variant === "icon" &&
+				<IconButton className="iconButton" className="iconButton" onClick={onClick}>
+					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
+				</IconButton>
+			}
+			{ props.menuItems &&
+				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}/>
+			}
+		</MyButton>
+	)
 }
 
 export default Button;
