@@ -188,8 +188,6 @@ function GridKitchenSink() {
 	
 	return (
 		<div>
-			<h1>Components</h1>
-			<h2>Grid</h2>
 			<Grid
 				config={gridConfig}
 				data={data}
