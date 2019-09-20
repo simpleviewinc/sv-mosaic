@@ -166,6 +166,7 @@ function Buttons() {
 					<Button color="blue" variant="outlined" label="Dropdown with Icons" menuItems={dropdownWithIcons}/>
 					<Button color="blue" variant="outlined" label="Dropdown with text" menuItems={dropdownWithText}/>
 					<Button color="blue" variant="outlined" label="Dropdown with colored icons" menuItems={dropdownWithColoredIcons}/>
+					<Button color="blue" variant="icon" mIcon={MoreHorizIcon} menuItems={dropdownWithIcons}/>
 				</ButtonRow>
 			</div>
 			
