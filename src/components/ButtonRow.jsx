@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import jsvalidator from "jsvalidator";
+
+import Button from "./Button.jsx";
 
 const StyledWrapper = styled.span`
 	& > * {
@@ -12,9 +15,26 @@ const StyledWrapper = styled.span`
 `;
 
 function ButtonRow(props) {
+	jsvalidator.validate(props, {
+		type : "object",
+		schema : [
+			{ name : "buttons", type : "array" },
+			{ name : "children", type : "object" }
+		],
+		allowExtraKeys : false,
+		throwOnInvalid : true
+	});
+	
 	return (
 		<StyledWrapper>
-			{props.children}
+			{ props.children }
+			{ props.buttons && 
+				props.buttons.map((button, i) => {
+					return (
+						<Button key={i} {...button}/>
+					)
+				})
+			}
 		</StyledWrapper>
 	)
 }
