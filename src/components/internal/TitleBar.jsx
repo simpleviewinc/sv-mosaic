@@ -2,15 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import GridButtonBar from "./GridButtonBar.jsx";
+import ButtonRow from "../ButtonRow.jsx";
+import Button from "../Button.jsx";
 
 const StyledWrapper = styled.div`
-	display: flex;
+	display: inline-flex;
 	align-items: center;
-	
-	& > * {
-		margin-right: 20px;
-	}
 	
 	& > *:last-child {
 		margin-right: 0px;
@@ -19,6 +16,7 @@ const StyledWrapper = styled.div`
 	& > h1 {
 		font-size: 20px;
 		font-weight: 500;
+		margin-right: 20px;
 	}
 `;
 
@@ -29,16 +27,14 @@ function TitleBar(props) {
 			{ name : "title", type : "string" },
 			{ name : "buttons", type : "array" }
 		],
-		allowExtraKeys : false
+		allowExtraKeys : false,
+		throwOnInvalid : true
 	});
-	
-	const title = props.title ? <h1>{props.title}</h1> : undefined;
-	const buttons = props.buttons ? <GridButtonBar buttons={props.buttons}></GridButtonBar> : undefined;
 	
 	return (
 		<StyledWrapper>
-			{title}
-			{buttons}
+			{ props.title && <h1>{props.title}</h1> }
+			{ props.buttons && <ButtonRow buttons={props.buttons}/> }
 		</StyledWrapper>
 	)
 }

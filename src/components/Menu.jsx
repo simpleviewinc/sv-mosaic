@@ -101,7 +101,6 @@ function Menu(props) {
 	
 	return (
 		<MUIMenu
-			keepMounted
 			anchorEl={props.anchorEl}
 			open={props.open}
 			onClose={props.onClose}

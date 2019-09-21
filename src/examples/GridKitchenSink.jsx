@@ -1,6 +1,9 @@
 import React, { Component, useState, useEffect, useMemo } from "react";
-import { faDownload, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+
+import AddIcon from '@material-ui/icons/Add';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from "@material-ui/icons/Delete";
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 import theme from "../utils/theme.js";
 import Grid from "../components/Grid.jsx";
@@ -57,109 +60,56 @@ function GridKitchenSink() {
 				]
 			}
 		],
-		actions : [
+		primaryActions : [
 			{
-				name : "edit",
-				type : "primary",
-				buttonOptions : {
-					faIcon : faEdit,
-					color : theme.colors.blue,
-				},
-				handler : function() {
-					alert("EDIT");
+				color : "blue",
+				variant : "icon",
+				mIcon : CreateIcon,
+				onClick : function({ data }) {
+					alert(`EDIT ${data.id}`);
+				}
+			}
+		],
+		additionalActions : [
+			{
+				label : "View Children",
+				onClick : function({ data }) {
+					alert(`View Children ${data.id}`);
 				}
 			},
 			{
-				name : "view_children",
-				type : "additional",
-				handler : function() {
-					alert("VIEW CHILDREN");
+				label : "History",
+				onClick : function({ data }) {
+					alert(`History ${data.id}`);
+				}
+			}
+		],
+		bulkActions : [
+			{
+				color : "blue",
+				variant : "icon",
+				mIcon : CloudDownloadIcon,
+				onClick : function({ data }) {
+					alert(`DOWNLOAD ${data.map(val => val.id)}`);
 				}
 			},
 			{
-				name : "bulk_download",
-				type : "bulk",
-				buttonOptions : {
-					faIcon : faDownload
-				},
-				handler : function() {
-					alert("BULK DOWNLOAD");
-				}
-			},
-			{
-				name : "bulk_edit",
-				type : "bulk",
-				buttonOptions : {
-					faIcon : faEdit
-				},
-				handler : function() {
-					alert("BULK EDIT");
-				}
-			},
-			{
-				name : "bulk_remove",
-				type : "bulk",
-				buttonOptions : {
-					faIcon : faTrashAlt
-				},
-				handler : function({ data }) {
-					setRemoveItems(data);
+				color : "blue",
+				variant : "icon",
+				mIcon : DeleteIcon,
+				onClick : function({ data }) {
+					alert(`DELETE ${data.map(val => val.id)}`);
 				}
 			}
 		],
 		buttons : [
 			{
-				name : "create_new",
-				buttonOptions : {
-					faIcon : faPlus,
-					label : "Create New",
-					border : true,
-					color : theme.colors.blue
-				},
-				handler : function() {
+				label : "Create New",
+				mIcon : AddIcon,
+				color : "blue",
+				variant : "outlined",
+				onClick : function() {
 					alert("CREATE NEW");
-				}
-			},
-			{
-				name : "no_icon",
-				buttonOptions : {
-					label : "No Icon",
-					color : theme.colors.lightGray,
-					border : true
-				},
-				handler : function() {
-					alert("NO ICON");
-				}
-			},
-			{
-				name : "icon_only",
-				buttonOptions : {
-					faIcon : faPlus,
-					border : true,
-					color : theme.colors.blue
-				},
-				handler : function() {
-					alert("ICON ONLY");
-				}
-			},
-			{
-				name : "icon_no_boder",
-				buttonOptions : {
-					faIcon : faPlus,
-					color : theme.colors.blue
-				},
-				handler : function() {
-					alert("ICON NO BORDER");
-				}
-			},
-			{
-				name : "text no boder",
-				buttonOptions : {
-					label : "Text No Border",
-					color : theme.colors.blue
-				},
-				handler : function() {
-					alert("TEXT NO BORDER");
 				}
 			}
 		]

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import theme from "../utils/theme.js";
-import GridButtonBar from "./internal/GridButtonBar.jsx";
 
 const StyledWrapper = styled.div`
 	position: absolute;
