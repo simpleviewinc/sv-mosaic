@@ -14,8 +14,8 @@
 		"@fortawesome/free-solid-svg-icons": "5.10.2",
 		"@fortawesome/react-fontawesome": "0.1.4",
 		"@hot-loader/react-dom": "16.9.0",
-		"@material-ui/core": "*",
-		"@material-ui/icons": "*",
+		"@material-ui/core": "4.4.2",
+		"@material-ui/icons": "4.4.1",
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
 		"lodash": "4.17.15",
@@ -38,7 +38,7 @@
 	"scripts": {
 		"test": "./node_modules/.bin/mocha $(find testing/ -name *.test.js) -R spec --colors --check-leaks",
 		"start": "webpack-dev-server --mode development",
-		"build": "webpack",
+		"build": "webpack && cp ./dist/bundle.js ./docs/dist/bundle.js",
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish"
 	},

@@ -3,6 +3,7 @@ docker run --rm -it \
 	-v $PWD/src:/app/src \
 	-v $PWD/dist:/app/dist \
 	-v $PWD/testing:/app/testing \
+	-v $PWD/docs:/app/docs \
 	-v $PWD/package.json:/app/package.json \
 	-v $PWD/webpack.config.js:/app/webpack.config.js \
 	-v $PWD/.babelrc:/app/.babelrc \
