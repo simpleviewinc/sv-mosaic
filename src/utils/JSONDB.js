@@ -4,13 +4,25 @@ class JSONDB {
 	}
 	
 	async find(query) {
-		console.log("FIND", query);
-		
 		let data = this.data.slice();
+		
+		if (query.filter !== undefined) {
+			for(let [key, val] of Object.entries(query.filter)) {
+				if (val.$in !== undefined) {
+					console.log("IN CLAUSE", val.$in);
+					data = data.filter(row => val.$in.includes(row[key]));
+					continue;
+				}
+			}
+		}
 		
 		if (query.sort !== undefined) {
 			const sort = query.sort;
 			data.sort((a, b) => sortArr(a[sort.name], b[sort.name], sort.dir));
+		}
+		
+		if (query.skip !== undefined) {
+			data = data.slice(query.skip);
 		}
 		
 		if (query.limit !== undefined) {
