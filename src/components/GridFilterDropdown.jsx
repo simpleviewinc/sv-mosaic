@@ -17,8 +17,9 @@ const StyledWrapper = styled.div`
 		margin-bottom: 1rem;
 	}
 	
-	& > .buttonRow {
-		text-align: right;
+	& > .buttonRows {
+		display: flex;
+		justify-content: space-between;
 	}
 `
 
@@ -29,7 +30,8 @@ function GridFilterDropdown(props) {
 			{ name : "anchorEl", type : "object" },
 			{ name : "children", type : "object" },
 			{ name : "onClose", type : "function" },
-			{ name : "onApply", type : "function" }
+			{ name : "onApply", type : "function" },
+			{ name : "onClear", type : "function" }
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
@@ -45,7 +47,10 @@ function GridFilterDropdown(props) {
 				<div className="contents">
 					{props.children}
 				</div>
-				<div className="buttonRow">
+				<div className="buttonRows">
+					<ButtonRow>
+						<Button label="Clear" color="gray" variant="text" onClick={props.onClear}/>
+					</ButtonRow>
 					<ButtonRow>
 						<Button label="Cancel" color="gray" variant="text" onClick={props.onClose}/>
 						<Button label="Apply" color="blue" variant="contained" onClick={props.onApply}/>

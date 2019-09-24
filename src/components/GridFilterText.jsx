@@ -27,6 +27,7 @@ const StyledContents = styled.span`
 		border-left: 1px solid #ccc;
 		margin: 5px;
 		padding-left: 5px;
+		flex-shrink: 0;
 	}
 	
 	& .MuiOutlinedInput-adornedEnd {
@@ -34,7 +35,34 @@ const StyledContents = styled.span`
 	}
 `;
 
-const validComparisons = ["equals", "contains"];
+const validComparisons = [
+	{ label : "Contains", value : "contains" },
+	{ label : "Not Contains", value : "not_contains" },
+	{ label : "Equals", value : "equals" },
+	{ label : "Not Equal", value : "not_equals" },
+	{ label : "Exists", value : "exists" },
+	{ label : "Not Exists", value : "not_exists" }
+];
+
+const validComparisonNames = validComparisons.map(val => val.value);
+
+const comparisonMap = {
+	equals : "",
+	not_equals : "!= ",
+	contains : "~ ",
+	not_contains : "!~ ",
+	exists : "EXISTS",
+	not_exists : "NOT EXISTS"
+}
+
+const valueMap = {
+	equals : true,
+	not_equals : true,
+	contains : true,
+	not_contains : true,
+	exists : false,
+	not_exists : false
+}
 
 function GridFilterText(props) {
 	jsvalidator.validate(props, {
@@ -50,7 +78,7 @@ function GridFilterText(props) {
 				type : "object",
 				schema : [
 					{ name : "value", type : "string", required : true },
-					{ name : "comparison", type : "string" }
+					{ name : "comparison", type : "string", enum : validComparisonNames }
 				],
 				allowExtraKeys : false,
 				required : true
@@ -65,7 +93,7 @@ function GridFilterText(props) {
 				type : "array",
 				schema : {
 					type : "string",
-					enum : validComparisons
+					enum : validComparisonNames
 				}
 			}
 		],
@@ -76,6 +104,7 @@ function GridFilterText(props) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [value, setValue] = useState(props.state.value);
 	const [comparison, setComparison] = useState(props.state.comparison || "equals");
+	const activeComparison = validComparisons.find(val => val.value === comparison);
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
@@ -99,6 +128,11 @@ function GridFilterText(props) {
 		setAnchorEl(null);
 	}
 	
+	const onClear = function() {
+		setValue("");
+		setComparison("equals");
+	}
+	
 	const onKeyPress = function(event) {
 		if (event.key === "Enter") {
 			onApply();
@@ -107,12 +141,17 @@ function GridFilterText(props) {
 	
 	let InputProps;
 	if (props.comparisons) {
-		const myComparisons = validComparisons.filter(val => props.comparisons.includes(val));
+		const myComparisons = validComparisons.filter(comparison => props.comparisons.includes(comparison.value));
 		const menuItems = myComparisons.map(comparison => {
 			return {
-				label : comparison,
+				label : comparison.label,
 				onClick : function() {
-					setComparison(comparison);
+					// for exists and not_exists we want to clear the value
+					if (valueMap[comparison.value] === false) {
+						setValue("");
+					}
+					
+					setComparison(comparison.value);
 				}
 			}
 		});
@@ -121,7 +160,7 @@ function GridFilterText(props) {
 			endAdornment : (
 				<span className="comparisonContainer">
 					<Button
-						label={comparison}
+						label={activeComparison.label}
 						variant="text"
 						color="gray"
 						iconPosition="right"
@@ -134,13 +173,15 @@ function GridFilterText(props) {
 	}
 	
 	let valueString;
-	if (props.state.value === "") {
+	if (valueMap[comparison] === false) {
+		valueString = comparisonMap[comparison];
+	} else if (props.state.value === "") {
 		valueString = "";
-	} else if (props.state.comparison === "contains") {
-		valueString = `~${props.state.value}`;
 	} else {
-		valueString = props.state.value;
+		valueString = `${comparisonMap[comparison]}${valueMap[comparison] === true ? props.state.value : "" }`;
 	}
+	
+	const disabled = valueMap[comparison] === false;
 	
 	return (
 		<StyledWrapper>
@@ -149,10 +190,12 @@ function GridFilterText(props) {
 				anchorEl={anchorEl}
 				onClose={onClose}
 				onApply={onApply}
+				onClear={onClear}
 			>
 				<StyledContents>
 					<TextField
 						autoFocus
+						disabled={disabled}
 						placeholder="Filter..."
 						margin="dense"
 						value={value}

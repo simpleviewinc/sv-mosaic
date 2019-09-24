@@ -16,7 +16,7 @@ const StyledWrapper = styled.div`
 	border-radius: 4px;
 	
 	&:hover {
-		background: #eee;
+		background: ${theme.colors.blue}13;
 	}
 	
 	& > .label {
