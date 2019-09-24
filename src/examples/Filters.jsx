@@ -9,13 +9,18 @@ function Filters() {
 		with_value : {
 			value : "Testing value"
 		},
-		with_comparisons : {
+		with_all_comparisons : {
+			value : "",
+			comparison : "equals"
+		},
+		with_some_comparisons : {
 			value : "",
 			comparison : "equals"
 		}
 	});
 	
 	const setState = name => state => {
+		console.log("settings state", state);
 		setValues({
 			...values,
 			[name] : state
@@ -36,10 +41,16 @@ function Filters() {
 				setState={setState("with_value")}
 			/>
 			<GridFilterText
-				label="With Comparisons"
-				state={values.with_comparisons}
+				label="With All Comparisons"
+				state={values.with_all_comparisons}
 				comparisons={["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]}
-				setState={setState("with_comparisons")}
+				setState={setState("with_all_comparisons")}
+			/>
+			<GridFilterText
+				label="With Some Comparisons"
+				state={values.with_some_comparisons}
+				comparisons={["equals", "not_equals", "contains", "not_contains"]}
+				setState={setState("with_some_comparisons")}
 			/>
 		</div>
 	);
