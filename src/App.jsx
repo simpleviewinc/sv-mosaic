@@ -3,15 +3,17 @@ import { hot } from "react-hot-loader/root";
 import GridKitchenSink from "./examples/GridKitchenSink.jsx";
 // import Hax from "./examples/Hax.jsx";
 import Buttons from "./examples/Buttons.jsx";
+import Filters from "./examples/Filters.jsx";
 
 function App() {
-	const defaultComponent = "GridKitchenSink";
+	const defaultComponent = "Filters";
 	const [componentName, setComponentName] = useState(defaultComponent);
 	
 	const options = [
 		{ label : "Grid Kitchen Sink", value : "GridKitchenSink", component : <GridKitchenSink></GridKitchenSink> },
 		// { label : "Hax", value : "Hax", component : <Hax></Hax> },
-		{ label : "Buttons", value : "Buttons", component : <Buttons></Buttons> }
+		{ label : "Buttons", value : "Buttons", component : <Buttons></Buttons> },
+		{ label : "Filters", value : "Filters", component : <Filters></Filters> }
 	]
 	
 	const onChange = function(e) {
