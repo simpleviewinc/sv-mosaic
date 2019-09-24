@@ -38,7 +38,7 @@ function Filters() {
 			<GridFilterText
 				label="With Comparisons"
 				state={values.with_comparisons}
-				comparisons={["equals", "contains"]}
+				comparisons={["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]}
 				setState={setState("with_comparisons")}
 			/>
 		</div>
