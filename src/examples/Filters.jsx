@@ -43,6 +43,12 @@ function Filters() {
 				limit : filter.limit + 1,
 				skip : filter.skip,
 				sort : { name : "sort_tag", dir : "asc" }
+			};
+			
+			if (filter.keyword !== undefined) {
+				query.filter = {
+					tag : new RegExp(filter.keyword, "i")
+				}
 			}
 			
 			const results = await optionsApi.find(query);

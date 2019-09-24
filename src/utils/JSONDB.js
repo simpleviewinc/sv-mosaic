@@ -9,9 +9,10 @@ class JSONDB {
 		if (query.filter !== undefined) {
 			for(let [key, val] of Object.entries(query.filter)) {
 				if (val.$in !== undefined) {
-					console.log("IN CLAUSE", val.$in);
 					data = data.filter(row => val.$in.includes(row[key]));
 					continue;
+				} else if (val instanceof RegExp) {
+					data = data.filter(row => val.test(row[key]));
 				}
 			}
 		}
