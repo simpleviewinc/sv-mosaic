@@ -136,6 +136,14 @@ function Buttons() {
 				</ButtonRow>
 			</div>
 			
+			<h2>Icon Positions</h2>
+			<div>
+				<ButtonRow>
+					<Button color="blue" variant="contained" label="Save" iconPosition="left" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="contained" label="Save" iconPosition="right" mIcon={AddIcon} onClick={clickHandler}></Button>
+				</ButtonRow>
+			</div>
+			
 			<h2>Icon Buttons - Blue - Material</h2>
 			<div>
 				<Button color="blue" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>

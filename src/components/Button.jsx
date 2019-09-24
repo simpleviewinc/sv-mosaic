@@ -14,8 +14,12 @@ const ButtonWrapper = styled.span`
 		font-size: 14px;
 	}
 	
-	& > button.normalButton .icon {
+	& > button.normalButton .icon_left {
 		margin-right: 4px;
+	}
+	
+	& > button.normalButton .icon_right {
+		margin-left: 4px;
 	}
 	
 	& > button.iconButton {
@@ -143,6 +147,11 @@ function Button(props) {
 				required : true
 			},
 			{
+				name : "iconPosition",
+				type : "string",
+				enum : ["left", "right"]
+			},
+			{
 				name : "mIcon",
 				type : "object"
 			},
@@ -163,29 +172,33 @@ function Button(props) {
 	
 	const MyButton = types[`${props.color}_${props.variant}`];
 	const MaterialIcon = props.mIcon;
+	const iconPosition = props.iconPosition || "left";
 	
 	function openMenu(event) {
-		console.log("OPEN MENU");
 		setAnchorEl(event.currentTarget);
 	}
 	
 	function closeMenu() {
-		console.log("CLOSE MENU");
 		setAnchorEl(null);
 	}
 	
 	const onClick = props.menuItems ? openMenu : props.onClick;
 	
 	return (
-		<MyButton>
+		<MyButton className={props.className}>
 			{ props.variant !== "icon" &&
 				<MUIButton variant={props.variant} className="normalButton" onClick={onClick}>
-					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
+					{ props.mIcon && iconPosition === "left" && 
+						<MaterialIcon className="icon icon_left"></MaterialIcon>
+					}
 					{props.label}
+					{ props.mIcon && iconPosition === "right" &&
+						<MaterialIcon className="icon icon_right"></MaterialIcon>
+					}
 				</MUIButton>
 			}
 			{ props.variant === "icon" &&
-				<IconButton className="iconButton" className="iconButton" onClick={onClick}>
+				<IconButton className="iconButton" onClick={onClick}>
 					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
 				</IconButton>
 			}
