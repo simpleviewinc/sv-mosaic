@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import GridFilterDropdown from "../GridFilterDropdown.jsx";
 import styled from "styled-components";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Chip from '@material-ui/core/Chip';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Chip from "@material-ui/core/Chip";
+import InputBase from "@material-ui/core/InputBase";
+import Checkbox from "@material-ui/core/Checkbox";
+import { debounce } from "lodash";
 
-import Checkbox from '@material-ui/core/Checkbox';
+import SearchIcon from "@material-ui/icons/Search";
 
 import Button from "../Button.jsx";
 import theme from "../../utils/theme.js";
@@ -19,13 +22,34 @@ const StyledWrapper = styled.div`
 		min-width: 500px;
 	}
 	
+	& > .options > .searchBar {
+		position: sticky;
+		top: 0;
+		display: flex;
+		align-items: center;
+		padding-left: 14px;
+		z-index: 1;
+		background: white;
+	}
+	
+	& > .options > .searchBar > svg {
+		padding-right: 8px;
+	}
+	
 	& > .options {
 		overflow-y: scroll;
 		flex: 2;
 	}
 	
+	& > .options .MuiListItemIcon-root {
+		min-width: auto;
+	}
+	
+	& > .options .Mui-checked {
+		color: ${theme.colors.blue};
+	}
+	
 	& > .selected {
-		border-left: 1px solid #eee;
 		padding: 0px 15px 0px 15px;
 		flex: 1;
 	}
@@ -56,6 +80,7 @@ function GridFilterMultiselectDropdown(props) {
 	const [selected, setSelected] = useState([]);
 	const [hasMore, setHasMore] = useState(false);
 	const [skip, setSkip] = useState(0);
+	const [keyword, setKeyword] = useState(undefined);
 	
 	const selectedValues = selected.map(val => val.value);
 	
@@ -75,6 +100,9 @@ function GridFilterMultiselectDropdown(props) {
 	
 	const onClear = function() {
 		setSelected([]);
+		setKeyword(undefined);
+		setSkip(0);
+		setHasMore(false);
 	}
 	
 	const onApply = function() {
@@ -99,13 +127,29 @@ function GridFilterMultiselectDropdown(props) {
 	
 	const loadMore = function() {
 		async function fetchData() {
-			const newOptions = await props.getOptions({ limit : 25, skip });
+			const newOptions = await props.getOptions({ limit, skip, keyword });
 			setOptions([...options, ...newOptions.docs]);
 			setHasMore(newOptions.hasMore === true);
 			setSkip(skip + limit);
 		}
 		
 		fetchData();
+	}
+	
+	const debouncedSetKeyword = debounce(function(value) {
+		async function fetchData() {
+			const newOptions = await props.getOptions({ limit, skip : 0, keyword : value });
+			setOptions(newOptions.docs);
+			setHasMore(newOptions.hasMore === true);
+			setKeyword(value === "" ? undefined : value);
+			setSkip(limit);
+		}
+		
+		fetchData();
+	}, 200);
+	
+	const keywordChange = function(e) {
+		debouncedSetKeyword(e.target.value);
 	}
 	
 	return (
@@ -118,13 +162,19 @@ function GridFilterMultiselectDropdown(props) {
 			<StyledWrapper>
 				<div className="options">
 					<div className="searchBar">
-						
+						<SearchIcon/>
+						<InputBase
+							placeholder="Keyword..."
+							onChange={keywordChange}
+						/>
 					</div>
 					<List
 						dense
 					>
 						{
 							options.map(option => {
+								const checked = selectedValues.indexOf(option.value) !== -1;
+								
 								return (
 									<ListItem
 										key={option.value}
@@ -134,8 +184,9 @@ function GridFilterMultiselectDropdown(props) {
 									>
 										<ListItemIcon>
 											<Checkbox
+												color="default"
 												edge="start"
-												checked={selectedValues.indexOf(option.value) !== -1}
+												checked={checked}
 												disableRipple
 											/>
 										</ListItemIcon>
