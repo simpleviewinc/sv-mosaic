@@ -160,6 +160,10 @@ function Button(props) {
 				type : "function"
 			},
 			{
+				name : "fullWidth",
+				type : "boolean"
+			},
+			{
 				name : "menuItems",
 				type : "array"
 			}
@@ -187,7 +191,7 @@ function Button(props) {
 	return (
 		<MyButton className={props.className}>
 			{ props.variant !== "icon" &&
-				<MUIButton variant={props.variant} className="normalButton" onClick={onClick}>
+				<MUIButton variant={props.variant} className="normalButton" onClick={onClick} fullWidth={props.fullWidth}>
 					{ props.mIcon && iconPosition === "left" && 
 						<MaterialIcon className="icon icon_left"></MaterialIcon>
 					}

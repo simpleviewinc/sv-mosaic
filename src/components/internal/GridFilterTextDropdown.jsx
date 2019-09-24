@@ -9,8 +9,8 @@ import Button from "../Button.jsx";
 import GridFilterDropdown from "../GridFilterDropdown.jsx";
 import theme from "../../utils/theme.js";
 
-const StyledContents = styled.span`
-	display: inline-flex;
+const StyledContents = styled.div`
+	display: flex;
 	
 	& .MuiOutlinedInput-root.Mui-focused fieldset {
 		border-color: ${theme.colors.blue};
