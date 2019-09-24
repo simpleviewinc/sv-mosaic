@@ -1,38 +1,12 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import GridPrimaryFilter from "./GridPrimaryFilter.jsx";
-import GridFilterDropdown from "./GridFilterDropdown.jsx";
-import Button from "./Button.jsx";
-import theme from "../utils/theme.js";
+import GridFilterTextDropdown from "./internal/GridFilterTextDropdown.jsx";
 
 const StyledWrapper = styled.span`
 	
-`;
-
-const StyledContents = styled.span`
-	display: inline-flex;
-	
-	& .MuiOutlinedInput-root.Mui-focused fieldset {
-		border-color: ${theme.colors.blue};
-	}
-	
-	& .comparisonContainer {
-		border-left: 1px solid #ccc;
-		margin: 5px;
-		padding-left: 5px;
-		flex-shrink: 0;
-	}
-	
-	& .MuiOutlinedInput-adornedEnd {
-		padding-right: 0px;
-	}
 `;
 
 const validComparisons = [
@@ -48,20 +22,9 @@ const validComparisonNames = validComparisons.map(val => val.value);
 
 const comparisonMap = {
 	equals : "",
-	not_equals : "!= ",
-	contains : "~ ",
-	not_contains : "!~ ",
-	exists : "EXISTS",
-	not_exists : "NOT EXISTS"
-}
-
-const valueMap = {
-	equals : true,
-	not_equals : true,
-	contains : true,
-	not_contains : true,
-	exists : false,
-	not_exists : false
+	not_equals : "!=",
+	contains : "~",
+	not_contains : "!~"
 }
 
 function GridFilterText(props) {
@@ -102,110 +65,45 @@ function GridFilterText(props) {
 	});
 	
 	const [anchorEl, setAnchorEl] = useState(null);
-	const [value, setValue] = useState(props.state.value);
-	const [comparison, setComparison] = useState(props.state.comparison || "equals");
-	const activeComparison = validComparisons.find(val => val.value === comparison);
+	const [key, setKey] = useState(0);
+	const comparison = props.state.comparison || "equals";
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
+		setKey(key + 1);
 	}
 	
 	const onClose = function() {
 		setAnchorEl(null);
-		setValue(props.state.value);
-		setComparison(props.state.comparison);
 	}
 	
-	const onChange = function(event) {
-		setValue(event.target.value);
-	}
 	
-	const onApply = function() {
-		props.setState({
-			value : value,
-			comparison : comparison
-		});
-		setAnchorEl(null);
-	}
-	
-	const onClear = function() {
-		setValue("");
-		setComparison("equals");
-	}
-	
-	const onKeyPress = function(event) {
-		if (event.key === "Enter") {
-			onApply();
-		}
-	}
-	
-	let InputProps;
-	if (props.comparisons) {
-		const myComparisons = validComparisons.filter(comparison => props.comparisons.includes(comparison.value));
-		const menuItems = myComparisons.map(comparison => {
-			return {
-				label : comparison.label,
-				onClick : function() {
-					// for exists and not_exists we want to clear the value
-					if (valueMap[comparison.value] === false) {
-						setValue("");
-					}
-					
-					setComparison(comparison.value);
-				}
-			}
-		});
-		
-		InputProps = {
-			endAdornment : (
-				<span className="comparisonContainer">
-					<Button
-						label={activeComparison.label}
-						variant="text"
-						color="gray"
-						iconPosition="right"
-						mIcon={ExpandMoreIcon}
-						menuItems={menuItems}
-					/>
-				</span>
-			)
-		}
-	}
-	
+	// based on the state lets figure out what our value should be
 	let valueString;
-	if (valueMap[comparison] === false) {
-		valueString = comparisonMap[comparison];
+	if (comparison === "exists") {
+		valueString = "EXISTS";
+	} else if (comparison === "not_exists") {
+		valueString = "NOT EXISTS";
 	} else if (props.state.value === "") {
 		valueString = "";
 	} else {
-		valueString = `${comparisonMap[comparison]}${valueMap[comparison] === true ? props.state.value : "" }`;
+		valueString = `${comparisonMap[comparison]} "${props.state.value}"`
 	}
 	
-	const disabled = valueMap[comparison] === false;
+	// filter the valid comparisons based on what the developer is allowing
+	const activeComparisons = props.comparisons ? validComparisons.filter(val => props.comparisons.includes(val.value)) : undefined;
 	
 	return (
 		<StyledWrapper>
 			<GridPrimaryFilter label={props.label} value={valueString} onClick={onClick}/>
-			<GridFilterDropdown
+			<GridFilterTextDropdown
+				key={key}
 				anchorEl={anchorEl}
+				state={props.state}
+				setState={props.setState}
+				comparisons={activeComparisons}
 				onClose={onClose}
-				onApply={onApply}
-				onClear={onClear}
-			>
-				<StyledContents>
-					<TextField
-						autoFocus
-						disabled={disabled}
-						placeholder="Filter..."
-						margin="dense"
-						value={value}
-						variant="outlined"
-						onChange={onChange}
-						onKeyPress={onKeyPress}
-						InputProps={InputProps}
-					/>
-				</StyledContents>
-			</GridFilterDropdown>
+			/>
 		</StyledWrapper>
 	);
 }
