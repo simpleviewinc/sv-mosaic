@@ -105,6 +105,11 @@ function Filters() {
 				state={values.multiselect_small}
 				setState={setState("multiselect_small")}
 			/>
+			
+			<h2>Filter State</h2>
+			<pre>
+				{ JSON.stringify(values, null, "  ") }
+			</pre>
 		</div>
 	);
 }
