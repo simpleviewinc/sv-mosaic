@@ -9,17 +9,21 @@ import Chip from "@material-ui/core/Chip";
 import InputBase from "@material-ui/core/InputBase";
 import Checkbox from "@material-ui/core/Checkbox";
 import { debounce } from "lodash";
+import jsvalidator from "jsvalidator";
 
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SearchIcon from "@material-ui/icons/Search";
+import HelpIcon from '@material-ui/icons/Help';
 
 import Button from "../Button.jsx";
+import ButtonRow from "../ButtonRow.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.div`
 	& {
 		display: flex;
 		max-height: 400px;
-		min-width: 500px;
+		min-width: 600px;
 	}
 	
 	& > .options > .searchBar {
@@ -39,6 +43,13 @@ const StyledWrapper = styled.div`
 	& > .options {
 		overflow-y: scroll;
 		flex: 2;
+		position: relative;
+		transition: opacity .5s;
+	}
+	
+	& > .options.disabled {
+		opacity: .4;
+		pointer-events: none;
 	}
 	
 	& > .options .listItem {
@@ -56,7 +67,12 @@ const StyledWrapper = styled.div`
 	
 	& > .selected {
 		padding: 0px 15px 0px 15px;
-		flex: 1;
+		width: 200px;
+		overflow-y: auto;
+	}
+	
+	& .comparisonDropdown {
+		margin-bottom: 1rem;
 	}
 	
 	& .MuiChip-root {
@@ -78,14 +94,61 @@ const StyledWrapper = styled.div`
 	}
 `
 
+const PopoverP = styled.p`
+	margin: 0px;
+`
+
 const limit = 25;
 
 function GridFilterMultiselectDropdown(props) {
+	jsvalidator.validate(props, {
+		type : "object",
+		schema : [
+			{
+				name : "state",
+				type : "object",
+				required : true
+			},
+			{
+				name : "setState",
+				type : "function",
+				required : true
+			},
+			{
+				name : "comparisons",
+				type : "array"
+			},
+			{
+				name : "getOptions",
+				type : "function",
+				required : true
+			},
+			{
+				name : "getSelected",
+				type : "function",
+				required : true
+			},
+			{
+				name : "onClose",
+				type : "function",
+				required : true
+			},
+			{
+				name : "anchorEl",
+				type : "object"
+			}
+		],
+		allowExtraKeys : false,
+		throwOnInvalid : true
+	});
+	
 	const [options, setOptions] = useState([]);
 	const [selected, setSelected] = useState([]);
 	const [hasMore, setHasMore] = useState(false);
 	const [skip, setSkip] = useState(0);
 	const [keyword, setKeyword] = useState(undefined);
+	const [comparison, setComparison] = useState(props.state.comparison || "in");
+	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === comparison) : undefined;
 	
 	const selectedValues = selected.map(val => val.value);
 	
@@ -105,6 +168,7 @@ function GridFilterMultiselectDropdown(props) {
 	
 	const onClear = function() {
 		setSelected([]);
+		setComparison("in");
 		setKeyword(undefined);
 		setSkip(0);
 		setHasMore(false);
@@ -112,7 +176,8 @@ function GridFilterMultiselectDropdown(props) {
 	
 	const onApply = function() {
 		props.setState({
-			value : selectedValues
+			value : selectedValues,
+			comparison
 		});
 		props.onClose();
 	}
@@ -157,6 +222,55 @@ function GridFilterMultiselectDropdown(props) {
 		debouncedSetKeyword(e.target.value);
 	}
 	
+	let comparisonDropdown;
+	if (props.comparisons) {
+		const menuItems = props.comparisons.map(comparison => {
+			return {
+				label : comparison.label,
+				onClick : function() {
+					// for exists and not_exists we want to clear the value
+					if (["exists", "not_exists"].includes(comparison.value) === true) {
+						setSelected([]);
+					}
+					
+					setComparison(comparison.value);
+				}
+			}
+		});
+		
+		comparisonDropdown = (
+			<div className="comparisonDropdown">
+				<h5>Comparison</h5>
+				<ButtonRow>
+					<Button
+						label={activeComparison.label}
+						variant="outlined"
+						color="gray"
+						iconPosition="right"
+						mIcon={ExpandMoreIcon}
+						menuItems={menuItems}
+					/>
+					<Button
+						variant="icon"
+						color="blue"
+						mIcon={HelpIcon}
+						popover={
+							<PopoverP>
+								<b>In</b> - The row must match one of selected option.<br/>
+								<b>Not in</b> - The row must match none of the selected options.<br/>
+								<b>All</b> - The row must match all of the selected options.<br/>
+								<b>Exists</b> - The row must have a value for this filter.<br/>
+								<b>Not Exists</b> - The row must not have a value for this filter.<br/>
+							</PopoverP>
+						}
+					/>
+				</ButtonRow>
+			</div>
+		);
+	}
+	
+	const optionsDisabled = ["exists", "not_exists"].includes(comparison);
+	
 	return (
 		<GridFilterDropdown
 			anchorEl={props.anchorEl}
@@ -165,7 +279,7 @@ function GridFilterMultiselectDropdown(props) {
 			onClear={onClear}
 		>
 			<StyledWrapper>
-				<div className="options">
+				<div className={`options ${optionsDisabled ? "disabled" : "" }`}>
 					<div className="searchBar">
 						<SearchIcon/>
 						<InputBase
@@ -190,7 +304,7 @@ function GridFilterMultiselectDropdown(props) {
 									>
 										<ListItemIcon className="listItemIcon">
 											<Checkbox
-												className={{ checked : checked }}
+												className={checked ? "checked" : ""}
 												color="default"
 												edge="start"
 												checked={checked}
@@ -216,18 +330,21 @@ function GridFilterMultiselectDropdown(props) {
 					}
 				</div>
 				<div className="selected">
+					{comparisonDropdown}
 					<h5>Selected Options</h5>
-					{
-						selected.map(option => {
-							return (
-								<Chip
-									key={option.value}
-									label={option.label}
-									onDelete={handleToggle(option)}
-								/>
-							)
-						})
-					}
+					<div className="chips">
+						{
+							selected.map(option => {
+								return (
+									<Chip
+										key={option.value}
+										label={option.label}
+										onDelete={handleToggle(option)}
+									/>
+								)
+							})
+						}
+					</div>
 				</div>
 			</StyledWrapper>
 		</GridFilterDropdown>

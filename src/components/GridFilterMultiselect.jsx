@@ -19,12 +19,11 @@ const validComparisons = [
 
 const validComparisonNames = validComparisons.map(val => val.value);
 
-// const comparisonMap = {
-// 	equals : "",
-// 	not_equals : "!=",
-// 	contains : "~",
-// 	not_contains : "!~"
-// }
+const comparisonMap = {
+	in : "",
+	not_in : "Not In - ",
+	all : "All - "
+}
 
 function GridFilterText(props) {
 	jsvalidator.validate(props, {
@@ -87,19 +86,16 @@ function GridFilterText(props) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [key, setKey] = useState(0);
 	const [selected, setSelected] = useState([]);
+	const comparison = props.state.comparison || "in";
 	
 	useEffect(() => {
 		async function fetchData() {
-			console.log("FETCHING", props.state.value);
 			const selected = await props.getSelected(props.state.value);
-			console.log("GOT SELECTED", selected);
 			setSelected(selected);
 		}
 		
 		fetchData();
 	}, [props.state]);
-	
-	const comparison = props.state.comparison || "in";
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
@@ -110,12 +106,23 @@ function GridFilterText(props) {
 		setAnchorEl(null);
 	}
 	
-	let valueString = selected.slice(0, 2).map(val => val.label).join(", ");
-	if (selected.length > 2) {
-		valueString += ` (${selected.length - 2} more)`;
+	let valueString;
+	if (comparison === "exists") {
+		valueString = "EXISTS";
+	} else if (comparison === "not_exists") {
+		valueString = "NOT EXISTS";
+	} else if (selected.length > 0) {
+		let tempString = selected.slice(0, 2).map(val => val.label).join(", ");
+		if (selected.length > 2) {
+			tempString += ` (${selected.length - 2} more)`;
+		}
+		
+		valueString = `${comparisonMap[comparison]}${tempString}`;
+	} else {
+		valueString = "";
 	}
 	
-	// // filter the valid comparisons based on what the developer is allowing
+	// filter the valid comparisons based on what the developer is allowing
 	const activeComparisons = props.comparisons ? validComparisons.filter(val => props.comparisons.includes(val.value)) : undefined;
 	
 	return (

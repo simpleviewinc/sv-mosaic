@@ -21,8 +21,16 @@ function Filters() {
 			value : "",
 			comparison : "equals"
 		},
-		multiselect_small : {
+		multiselect : {
 			value : []
+		},
+		multiselect_all_comparisons : {
+			value : [],
+			comparison : "in"
+		},
+		multiselect_some_comparisons : {
+			value : [],
+			comparison : "in"
 		}
 	});
 	
@@ -38,7 +46,7 @@ function Filters() {
 	const mapOptions = val => ({ label : val.tag, value : val.id });
 	
 	const getOptions = name => async (filter) => {
-		if (name === "multiselect_small") {
+		if (name === "multiselect") {
 			const query = {
 				limit : filter.limit + 1,
 				skip : filter.skip,
@@ -61,7 +69,7 @@ function Filters() {
 	}
 	
 	const getSelected = name => async (ids) => {
-		if (name === "multiselect_small") {
+		if (name === "multiselect") {
 			const results = await optionsApi.find({
 				filter : { id : { $in : ids } },
 				sort : { name : "sort_tag", dir : "asc" }
@@ -100,10 +108,26 @@ function Filters() {
 			<h2>Multiselect Filters</h2>
 			<GridFilterMultiselect
 				label="Multiselect"
-				getOptions={getOptions("multiselect_small")}
-				getSelected={getSelected("multiselect_small")}
-				state={values.multiselect_small}
-				setState={setState("multiselect_small")}
+				getOptions={getOptions("multiselect")}
+				getSelected={getSelected("multiselect")}
+				state={values.multiselect}
+				setState={setState("multiselect")}
+			/>
+			<GridFilterMultiselect
+				label="Multiselect All Comparisons"
+				getOptions={getOptions("multiselect")}
+				getSelected={getSelected("multiselect")}
+				state={values.multiselect_all_comparisons}
+				setState={setState("multiselect_all_comparisons")}
+				comparisons={["in", "not_in", "all", "exists", "not_exists"]}
+			/>
+			<GridFilterMultiselect
+				label="Multiselect Some Comparisons"
+				getOptions={getOptions("multiselect")}
+				getSelected={getSelected("multiselect")}
+				state={values.multiselect_some_comparisons}
+				setState={setState("multiselect_some_comparisons")}
+				comparisons={["in", "not_in", "all"]}
 			/>
 			
 			<h2>Filter State</h2>
