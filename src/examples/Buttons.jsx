@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import HelpIcon from '@material-ui/icons/Help';
 
 import theme from "../utils/theme.js";
 import Button from "../components/Button.jsx";
@@ -175,6 +176,19 @@ function Buttons() {
 					<Button color="blue" variant="outlined" label="Dropdown with text" menuItems={dropdownWithText}/>
 					<Button color="blue" variant="outlined" label="Dropdown with colored icons" menuItems={dropdownWithColoredIcons}/>
 					<Button color="blue" variant="icon" mIcon={MoreHorizIcon} menuItems={dropdownWithIcons}/>
+				</ButtonRow>
+			</div>
+			
+			<h2>Buttons that triggers Popover</h2>
+			<div>
+				<ButtonRow>
+					<Button
+						color="blue"
+						variant="outlined"
+						popover={<p>Popover Content</p>}
+						label="With Popover"
+					/>
+					<Button color="blue" variant="icon" mIcon={HelpIcon} popover={<p>Help text</p>}/>
 				</ButtonRow>
 			</div>
 			

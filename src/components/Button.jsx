@@ -3,6 +3,7 @@ import MUIButton from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
+import Popover from "@material-ui/core/Popover";
 
 import theme from "../utils/theme.js";
 import Menu from "./Menu.jsx";
@@ -26,6 +27,11 @@ const ButtonWrapper = styled.span`
 		padding: 8px;
 		font-size: 15px;
 	}
+`
+
+const PopoverWrapper = styled.div`
+	font-family: ${theme.fontFamily};
+	padding: 10px;
 `
 
 const types = {
@@ -164,6 +170,10 @@ function Button(props) {
 				type : "boolean"
 			},
 			{
+				name : "popover",
+				type : "object"
+			},
+			{
 				name : "menuItems",
 				type : "array"
 			}
@@ -173,6 +183,7 @@ function Button(props) {
 	});
 	
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 	
 	const MyButton = types[`${props.color}_${props.variant}`];
 	const MaterialIcon = props.mIcon;
@@ -186,7 +197,15 @@ function Button(props) {
 		setAnchorEl(null);
 	}
 	
-	const onClick = props.menuItems ? openMenu : props.onClick;
+	function openPopover(event) {
+		setPopoverAnchorEl(event.currentTarget);
+	}
+	
+	function closePopover(event) {
+		setPopoverAnchorEl(null);
+	}
+	
+	const onClick = props.popover ? openPopover : props.menuItems ? openMenu : props.onClick;
 	
 	return (
 		<MyButton className={props.className}>
@@ -208,6 +227,26 @@ function Button(props) {
 			}
 			{ props.menuItems &&
 				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}/>
+			}
+			{ props.popover &&
+				<Popover
+					open={Boolean(popoverAnchorEl)}
+					anchorEl={popoverAnchorEl}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'left',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'left',
+					}}
+					onClose={closePopover}
+					disableRestoreFocus
+				>
+					<PopoverWrapper>
+						{props.popover}
+					</PopoverWrapper>
+				</Popover>
 			}
 		</MyButton>
 	)
