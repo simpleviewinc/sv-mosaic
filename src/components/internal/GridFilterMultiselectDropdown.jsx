@@ -41,11 +41,16 @@ const StyledWrapper = styled.div`
 		flex: 2;
 	}
 	
-	& > .options .MuiListItemIcon-root {
+	& > .options .listItem {
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	
+	& > .options .listItemIcon {
 		min-width: auto;
 	}
 	
-	& > .options .Mui-checked {
+	& > .options .checked {
 		color: ${theme.colors.blue};
 	}
 	
@@ -177,13 +182,15 @@ function GridFilterMultiselectDropdown(props) {
 								
 								return (
 									<ListItem
+										className="listItem"
 										key={option.value}
 										dense
 										button
 										onClick={handleToggle(option)}
 									>
-										<ListItemIcon>
+										<ListItemIcon className="listItemIcon">
 											<Checkbox
+												className={{ checked : checked }}
 												color="default"
 												edge="start"
 												checked={checked}
