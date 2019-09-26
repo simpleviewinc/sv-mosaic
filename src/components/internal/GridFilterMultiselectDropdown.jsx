@@ -22,8 +22,8 @@ import theme from "../../utils/theme.js";
 const StyledWrapper = styled.div`
 	& {
 		display: flex;
-		max-height: 400px;
-		min-width: 600px;
+		height: 400px;
+		width: 600px;
 	}
 	
 	& > .options > .searchBar {
@@ -66,7 +66,7 @@ const StyledWrapper = styled.div`
 	}
 	
 	& > .selected {
-		padding: 0px 15px 0px 15px;
+		padding: 0px 0px 0px 15px;
 		width: 200px;
 		overflow-y: auto;
 	}
@@ -85,8 +85,16 @@ const StyledWrapper = styled.div`
 		background-color: ${theme.colors.blue}13;
 	}
 	
-	& .MuiChip-label {
+	& .chip {
+		justify-content: space-between;
+	}
+	
+	& .chip > span {
 		flex: 1;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		display: block;
 	}
 	
 	& .loadContainer {
@@ -337,6 +345,7 @@ function GridFilterMultiselectDropdown(props) {
 							selected.map(option => {
 								return (
 									<Chip
+										className="chip"
 										key={option.value}
 										label={option.label}
 										onDelete={handleToggle(option)}
