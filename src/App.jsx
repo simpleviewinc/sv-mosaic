@@ -6,7 +6,7 @@ import Buttons from "./examples/Buttons.jsx";
 import Filters from "./examples/Filters.jsx";
 
 function App() {
-	const defaultComponent = "Filters";
+	const defaultComponent = "GridKitchenSink";
 	const [componentName, setComponentName] = useState(defaultComponent);
 	
 	const options = [

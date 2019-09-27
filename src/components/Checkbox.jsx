@@ -1,20 +1,25 @@
 import React from "react";
-import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
-import { faSquare } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+import MUICheckbox from "@material-ui/core/Checkbox";
+
 import theme from "../utils/theme.js";
 
-const style = {
-	fontSize: "18px",
-	cursor: "pointer"
-}
+const StyledCheckbox = styled(MUICheckbox)`
+	&.checked {
+		color: ${theme.colors.blue};
+	}
+`
 
 function Checkbox(props) {
-	const icon = props.checked ? faCheckSquare : faSquare;
-	const color = props.checked ? theme.colors.blue : "#999";
-	
 	return (
-		<FontAwesomeIcon icon={icon} color={color} onClick={props.onClick} style={style}></FontAwesomeIcon>
+		<StyledCheckbox
+			className={props.checked ? "checked" : undefined}
+			color="default"
+			edge="start"
+			checked={props.checked}
+			onClick={props.onClick}
+			disableRipple
+		/>
 	);
 }
 
