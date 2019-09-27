@@ -4,6 +4,7 @@ import jsvalidator from "jsvalidator";
 
 import GridPrimaryFilter from "./GridPrimaryFilter.jsx";
 import GridFilterMultiselectDropdown from "./internal/GridFilterMultiselectDropdown.jsx";
+import GridFilterDropdown from "./GridFilterDropdown.jsx";
 
 const StyledWrapper = styled.span`
 	
@@ -84,8 +85,8 @@ function GridFilterText(props) {
 	});
 	
 	const [anchorEl, setAnchorEl] = useState(null);
-	const [key, setKey] = useState(0);
 	const [selected, setSelected] = useState([]);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const comparison = props.state.comparison || "in";
 	
 	useEffect(() => {
@@ -99,11 +100,18 @@ function GridFilterText(props) {
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
-		setKey(key + 1);
 	}
 	
 	const onClose = function() {
 		setAnchorEl(null);
+	}
+	
+	const onEntered = function() {
+		setDropdownOpen(true);
+	}
+	
+	const onExited = function() {
+		setDropdownOpen(false);
 	}
 	
 	let valueString;
@@ -128,16 +136,22 @@ function GridFilterText(props) {
 	return (
 		<StyledWrapper>
 			<GridPrimaryFilter label={props.label} value={valueString} onClick={onClick}/>
-			<GridFilterMultiselectDropdown
-				key={key}
+			<GridFilterDropdown
 				anchorEl={anchorEl}
-				state={props.state}
-				setState={props.setState}
-				getOptions={props.getOptions}
-				getSelected={props.getSelected}
-				comparisons={activeComparisons}
 				onClose={onClose}
-			/>
+				onEntered={onEntered}
+				onExited={onExited}
+			>
+				<GridFilterMultiselectDropdown
+					state={props.state}
+					setState={props.setState}
+					getOptions={props.getOptions}
+					getSelected={props.getSelected}
+					comparisons={activeComparisons}
+					onClose={onClose}
+					isOpen={dropdownOpen}
+				/>
+			</GridFilterDropdown>
 		</StyledWrapper>
 	);
 }
