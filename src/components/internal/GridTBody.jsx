@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import jsvalidator from "jsvalidator";
 
 import Checkbox from "../Checkbox.jsx";
 import ButtonRow from "../ButtonRow.jsx";
@@ -17,7 +18,50 @@ const StyledTBody = styled.tbody`
 `
 
 function GridTBody(props) {
-	// jsvalidator.validate(
+	jsvalidator.validate(props, {
+		type : "object",
+		schema : [
+			{
+				name : "checked",
+				type : "array",
+				required : true
+			},
+			{
+				name : "columns",
+				type : "array",
+				required : true
+			},
+			{
+				name : "data",
+				type : "array",
+				required : true
+			},
+			{
+				name : "primaryActions",
+				type : "array"
+			},
+			{
+				name : "additionalActions",
+				type : "array"
+			},
+			{
+				name : "bulkActions",
+				type : "array"
+			},
+			{
+				name : "onActionClick",
+				type : "function",
+				required : true
+			},
+			{
+				name : "onCheckboxClick",
+				type : "function",
+				required : true
+			}
+		],
+		allowExtraKeys : false,
+		throwOnInvalid : true
+	});
 	
 	const actionClick = (action, row) => () => {
 		props.onActionClick(action, row);

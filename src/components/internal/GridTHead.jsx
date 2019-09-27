@@ -96,11 +96,6 @@ function GridTHead(props) {
 		throwOnInvalid : true
 	});
 	
-	const {
-		bulkActions,
-		columns
-	} = props;
-	
 	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
 		return {
 			...action,
