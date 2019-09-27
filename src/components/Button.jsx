@@ -190,6 +190,11 @@ function Button(props) {
 	const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 	
 	const MyButton = types[`${props.color}_${props.variant}`];
+	
+	if (MyButton === undefined) {
+		throw new Error(`Color '${props.color}' and variant '${props.variant}' combination is not valid`);
+	}
+	
 	const MaterialIcon = props.mIcon;
 	const iconPosition = props.iconPosition || "left";
 	

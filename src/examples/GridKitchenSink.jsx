@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useReducer } from "react";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -12,22 +12,59 @@ import JSONDB from "../utils/JSONDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
 import { transform_dateFormat, transform_get } from "../utils/column_transforms.js";
 
-function GridKitchenSink() {
-	console.log("parent grid");
+function stateReducer(state, { type, data }) {
+	const newState = {
+		...state
+	}
 	
+	switch (type) {
+		case "limit": {
+			newState.limit = data;
+			break;
+		}
+		case "sort": {
+			newState.sort = data;
+			break;
+		}
+		case "data": {
+			newState.data = data;
+			break;
+		}
+		default: {
+			throw new Error("Unrecognized reducer action.");
+		}
+	}
+	
+	return newState;
+}
+
+function GridKitchenSink() {
 	const api = useMemo(() => {
 		return new JSONDB(rawData);
 	}, []);
 	
-	const [removeItems, setRemoveItems] = useState([]);
-	const [data, setData] = useState([]);
-	const [sharedState, setSharedState] = useState({
+	const [state, dispatch] = useReducer(stateReducer, {
+		removeItems : [],
+		data : [],
 		limit : 25,
 		sort : {
 			name : "title",
 			dir : "asc"
 		}
 	});
+	
+	useEffect(() => {
+		const fetchData = async function() {
+			const newData = await api.find({
+				limit : state.limit,
+				sort : state.sort
+			});
+			
+			dispatch({ type : "data", data : newData });
+		}
+		
+		fetchData();
+	}, [state.limit, state.sort]);
 	
 	const gridConfig = {
 		title : "Your Uploads",
@@ -53,7 +90,6 @@ function GridKitchenSink() {
 			{
 				name : "created",
 				label : "Created",
-				style : "faded",
 				sortable : true,
 				transforms : [
 					transform_dateFormat()
@@ -115,36 +151,30 @@ function GridKitchenSink() {
 		]
 	};
 	
-	useEffect(() => {
-		const fetchData = async function() {
-			const newData = await api.find(sharedState);
-			setData(newData);
-		}
+	// let removeDialog;
+	// if (removeItems.length > 0) {
+	// 	const onOk = function() {
+	// 		setRemoveItems([]);
+	// 	}
+	// 	const onCancel = function() {
+	// 		setRemoveItems([]);
+	// 	}
 		
-		fetchData();
-	}, [sharedState]);
-	
-	let removeDialog;
-	if (removeItems.length > 0) {
-		const onOk = function() {
-			setRemoveItems([]);
-		}
-		const onCancel = function() {
-			setRemoveItems([]);
-		}
-		
-		removeDialog = <RemoveDialog onOk={onOk} onCancel={onCancel}></RemoveDialog>;
-	}
+	// 	removeDialog = <RemoveDialog onOk={onOk} onCancel={onCancel}></RemoveDialog>;
+	// }
 	
 	return (
 		<div>
 			<Grid
-				config={gridConfig}
-				data={data}
-				sharedState={sharedState}
-				setSharedState={setSharedState}
+				{ ...gridConfig }
+				data={state.data}
+				limit={state.limit}
+				sort={state.sort}
+				dispatch={dispatch}
 			></Grid>
+			{/*
 			{removeDialog}
+			*/}
 		</div>
 	);
 }
