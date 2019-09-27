@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import Popover from "@material-ui/core/Popover";
@@ -12,15 +12,6 @@ const StyledWrapper = styled.div`
 	padding: 10px;
 	border-radius: 8px;
 	background: white;
-	
-	& > .contents {
-		margin-bottom: 1rem;
-	}
-	
-	& > .buttonRows {
-		display: flex;
-		justify-content: space-between;
-	}
 `
 
 function GridFilterDropdown(props) {
@@ -30,32 +21,51 @@ function GridFilterDropdown(props) {
 			{ name : "anchorEl", type : "object" },
 			{ name : "children", type : "object" },
 			{ name : "onClose", type : "function" },
-			{ name : "onApply", type : "function" },
-			{ name : "onClear", type : "function" }
+			{ name : "onEntered", type : "function" },
+			{ name : "onExited", type : "function" }
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
+	
+	// track whether the content of the dropdown should be visible
+	const [exists, setExists] = useState(false);
+	
+	// if the anchorEl exists, we phase in
+	useEffect(() => {
+		if (Boolean(props.anchorEl) === true) {
+			setExists(true);
+		}
+	}, [props.anchorEl]);
+	
+	// wait for the animation to complete before hiding
+	const onExited = function() {
+		setExists(false);
+		
+		if (props.onExited) {
+			props.onExited();
+		}
+	}
+	
+	// avoid processing the content of the dropdown until we have been invoked
+	if (exists === false) {
+		return null;
+	}
 	
 	return (
 		<Popover
 			anchorEl={props.anchorEl}
 			onClose={props.onClose}
 			open={Boolean(props.anchorEl)}
+			TransitionProps={
+				{
+					onExited,
+					onEntered : props.onEntered
+				}
+			}
 		>
 			<StyledWrapper>
-				<div className="contents">
-					{props.children}
-				</div>
-				<div className="buttonRows">
-					<ButtonRow>
-						<Button label="Clear" color="gray" variant="text" onClick={props.onClear}/>
-					</ButtonRow>
-					<ButtonRow>
-						<Button label="Cancel" color="gray" variant="text" onClick={props.onClose}/>
-						<Button label="Apply" color="blue" variant="contained" onClick={props.onApply}/>
-					</ButtonRow>
-				</div>
+				{props.children}
 			</StyledWrapper>
 		</Popover>
 	)
