@@ -116,7 +116,7 @@ const PopoverP = styled.p`
 
 const limit = 25;
 
-function GridFilterMultiselectDropdown(props) {
+function GridFilterMultiselectDropdownContent(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -131,6 +131,11 @@ function GridFilterMultiselectDropdown(props) {
 				required : true
 			},
 			{
+				name : "comparison",
+				type : "string",
+				required : true
+			},
+			{
 				name : "comparisons",
 				type : "array"
 			},
@@ -140,13 +145,14 @@ function GridFilterMultiselectDropdown(props) {
 				required : true
 			},
 			{
-				name : "getSelected",
-				type : "function",
+				name : "selected",
+				type : "array",
 				required : true
 			},
 			{
 				name : "isOpen",
-				type : "boolean"
+				type : "boolean",
+				required : true
 			},
 			{
 				name : "onClose",
@@ -160,11 +166,11 @@ function GridFilterMultiselectDropdown(props) {
 	
 	const [state, setState] = useState({
 		options : [],
-		selected : [],
+		selected : props.selected,
 		hasMore : false,
 		skip : 0,
 		keyword : undefined,
-		comparison : props.state.comparison || "in",
+		comparison : props.comparison,
 		loaded : false
 	});
 	
@@ -185,14 +191,12 @@ function GridFilterMultiselectDropdown(props) {
 	useEffect(() => {
 		async function fetchData() {
 			const options = await props.getOptions({ limit, skip });
-			const selected = await props.getSelected(props.state.value);
 			
 			setState({
 				...state,
 				options : options.docs,
 				hasMore : options.hasMore === true,
 				skip : skip + limit,
-				selected : selected,
 				loaded : true
 			});
 		}
@@ -411,4 +415,4 @@ function GridFilterMultiselectDropdown(props) {
 	);
 }
 
-export default GridFilterMultiselectDropdown;
+export default GridFilterMultiselectDropdownContent;

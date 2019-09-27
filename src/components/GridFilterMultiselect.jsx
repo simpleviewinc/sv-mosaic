@@ -3,7 +3,7 @@ import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
 import GridPrimaryFilter from "./GridPrimaryFilter.jsx";
-import GridFilterMultiselectDropdown from "./internal/GridFilterMultiselectDropdown.jsx";
+import GridFilterMultiselectDropdownContent from "./internal/GridFilterMultiselectDropdownContent.jsx";
 import GridFilterDropdown from "./GridFilterDropdown.jsx";
 
 const StyledWrapper = styled.span`
@@ -142,11 +142,12 @@ function GridFilterText(props) {
 				onEntered={onEntered}
 				onExited={onExited}
 			>
-				<GridFilterMultiselectDropdown
+				<GridFilterMultiselectDropdownContent
 					state={props.state}
 					setState={props.setState}
 					getOptions={props.getOptions}
-					getSelected={props.getSelected}
+					selected={selected}
+					comparison={comparison}
 					comparisons={activeComparisons}
 					onClose={onClose}
 					isOpen={dropdownOpen}
