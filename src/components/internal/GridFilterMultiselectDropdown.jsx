@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import GridFilterDropdown from "../GridFilterDropdown.jsx";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Chip from "@material-ui/core/Chip";
 import InputBase from "@material-ui/core/InputBase";
 import Checkbox from "@material-ui/core/Checkbox";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { debounce } from "lodash";
 import jsvalidator from "jsvalidator";
 
@@ -15,18 +15,19 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SearchIcon from "@material-ui/icons/Search";
 import HelpIcon from '@material-ui/icons/Help';
 
+import GridFilterDropdownButtons from "../GridFilterDropdownButtons.jsx";
 import Button from "../Button.jsx";
 import ButtonRow from "../ButtonRow.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.div`
-	& {
+	& > .topBlock {
 		display: flex;
 		height: 400px;
 		width: 600px;
 	}
 	
-	& > .options > .searchBar {
+	& > .topBlock > .options > .searchBar {
 		position: sticky;
 		top: 0;
 		display: flex;
@@ -36,36 +37,46 @@ const StyledWrapper = styled.div`
 		background: white;
 	}
 	
-	& > .options > .searchBar > svg {
+	& > .topBlock > .options > .searchBar > svg {
 		padding-right: 8px;
 	}
 	
-	& > .options {
+	& > .topBlock > .options {
 		overflow-y: scroll;
 		flex: 2;
 		position: relative;
 		transition: opacity .5s;
 	}
 	
-	& > .options.disabled {
+	& > .topBlock > .options.disabled {
 		opacity: .4;
 		pointer-events: none;
 	}
 	
-	& > .options .listItem {
+	& > .topBlock > .options .listItem {
 		padding-top: 0px;
 		padding-bottom: 0px;
 	}
 	
-	& > .options .listItemIcon {
+	& > .topBlock > .options .listItemIcon {
 		min-width: auto;
 	}
 	
-	& > .options .checked {
+	& > .topBlock > .options > .spinner {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 15px;
+	}
+	
+	& > .topBlock > .options > .spinner svg {
 		color: ${theme.colors.blue};
 	}
 	
-	& > .selected {
+	& > .topBlock > .options .checked {
+		color: ${theme.colors.blue};
+	}
+	
+	& > .topBlock > .selected {
 		padding: 0px 0px 0px 15px;
 		width: 200px;
 		overflow-y: auto;
@@ -75,18 +86,15 @@ const StyledWrapper = styled.div`
 		margin-bottom: 1rem;
 	}
 	
-	& .MuiChip-root {
+	& .chip {
 		display: flex;
 		background-color: ${theme.colors.blue}13;
 		margin-bottom: 4px;
-	}
-	
-	& .MuiChip-root:focus {
-		background-color: ${theme.colors.blue}13;
-	}
-	
-	& .chip {
 		justify-content: space-between;
+	}
+	
+	& .chip:focus {
+		background-color: ${theme.colors.blue}13;
 	}
 	
 	& .chip > span {
@@ -137,25 +145,39 @@ function GridFilterMultiselectDropdown(props) {
 				required : true
 			},
 			{
+				name : "isOpen",
+				type : "boolean"
+			},
+			{
 				name : "onClose",
 				type : "function",
 				required : true
-			},
-			{
-				name : "anchorEl",
-				type : "object"
 			}
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
 	
-	const [options, setOptions] = useState([]);
-	const [selected, setSelected] = useState([]);
-	const [hasMore, setHasMore] = useState(false);
-	const [skip, setSkip] = useState(0);
-	const [keyword, setKeyword] = useState(undefined);
-	const [comparison, setComparison] = useState(props.state.comparison || "in");
+	const [state, setState] = useState({
+		options : [],
+		selected : [],
+		hasMore : false,
+		skip : 0,
+		keyword : undefined,
+		comparison : props.state.comparison || "in",
+		loaded : false
+	});
+	
+	const {
+		options,
+		selected,
+		hasMore,
+		skip,
+		keyword,
+		comparison,
+		loaded
+	} = state;
+	
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === comparison) : undefined;
 	
 	const selectedValues = selected.map(val => val.value);
@@ -163,23 +185,30 @@ function GridFilterMultiselectDropdown(props) {
 	useEffect(() => {
 		async function fetchData() {
 			const options = await props.getOptions({ limit, skip });
-			setOptions(options.docs);
-			setHasMore(options.hasMore === true);
-			setSkip(skip + limit);
-			
 			const selected = await props.getSelected(props.state.value);
-			setSelected(selected);
+			
+			setState({
+				...state,
+				options : options.docs,
+				hasMore : options.hasMore === true,
+				skip : skip + limit,
+				selected : selected,
+				loaded : true
+			});
 		}
 		
 		fetchData();
 	}, []);
 	
 	const onClear = function() {
-		setSelected([]);
-		setComparison("in");
-		setKeyword(undefined);
-		setSkip(0);
-		setHasMore(false);
+		setState({
+			...state,
+			selected : [],
+			comparison : "in",
+			keyword : undefined,
+			skip : 0,
+			hasMore : false
+		});
 	}
 	
 	const onApply = function() {
@@ -200,15 +229,21 @@ function GridFilterMultiselectDropdown(props) {
 			newSelected.splice(currentIndex, 1);
 		}
 		
-		setSelected(newSelected);
+		setState({
+			...state,
+			selected : newSelected
+		});
 	}
 	
 	const loadMore = function() {
 		async function fetchData() {
 			const newOptions = await props.getOptions({ limit, skip, keyword });
-			setOptions([...options, ...newOptions.docs]);
-			setHasMore(newOptions.hasMore === true);
-			setSkip(skip + limit);
+			setState({
+				...state,
+				options : [...options, ...newOptions.docs],
+				hasMore : newOptions.hasMore === true,
+				skip : skip + limit
+			});
 		}
 		
 		fetchData();
@@ -217,10 +252,13 @@ function GridFilterMultiselectDropdown(props) {
 	const debouncedSetKeyword = debounce(function(value) {
 		async function fetchData() {
 			const newOptions = await props.getOptions({ limit, skip : 0, keyword : value });
-			setOptions(newOptions.docs);
-			setHasMore(newOptions.hasMore === true);
-			setKeyword(value === "" ? undefined : value);
-			setSkip(limit);
+			setState({
+				...state,
+				options : newOptions.docs,
+				hasMore : newOptions.hasMore === true,
+				keyword : value === "" ? undefined : value,
+				skip : limit
+			});
 		}
 		
 		fetchData();
@@ -238,10 +276,16 @@ function GridFilterMultiselectDropdown(props) {
 				onClick : function() {
 					// for exists and not_exists we want to clear the value
 					if (["exists", "not_exists"].includes(comparison.value) === true) {
-						setSelected([]);
+						setState({
+							...state,
+							selected : []
+						});
 					}
 					
-					setComparison(comparison.value);
+					setState({
+						...state,
+						comparison : comparison.value
+					});
 				}
 			}
 		});
@@ -277,16 +321,15 @@ function GridFilterMultiselectDropdown(props) {
 		);
 	}
 	
+	// if the user has chosen exists or not_exists then we need to disable the left panel since it isn't valid in that case
 	const optionsDisabled = ["exists", "not_exists"].includes(comparison);
 	
+	// we want to avoid showing the list until the dropdown is fully open and the results are loaded from the db
+	const showList = props.isOpen && loaded;
+	
 	return (
-		<GridFilterDropdown
-			anchorEl={props.anchorEl}
-			onClose={props.onClose}
-			onApply={onApply}
-			onClear={onClear}
-		>
-			<StyledWrapper>
+		<StyledWrapper>
+			<div className="topBlock">
 				<div className={`options ${optionsDisabled ? "disabled" : "" }`}>
 					<div className="searchBar">
 						<SearchIcon/>
@@ -295,36 +338,43 @@ function GridFilterMultiselectDropdown(props) {
 							onChange={keywordChange}
 						/>
 					</div>
-					<List
-						dense
-					>
-						{
-							options.map(option => {
-								const checked = selectedValues.indexOf(option.value) !== -1;
-								
-								return (
-									<ListItem
-										className="listItem"
-										key={option.value}
-										dense
-										button
-										onClick={handleToggle(option)}
-									>
-										<ListItemIcon className="listItemIcon">
-											<Checkbox
-												className={checked ? "checked" : ""}
-												color="default"
-												edge="start"
-												checked={checked}
-												disableRipple
-											/>
-										</ListItemIcon>
-										<ListItemText primary={option.label}/>
-									</ListItem>
-								)
-							})
-						}
-					</List>
+					{ !showList &&
+						<div className="spinner">
+							<CircularProgress/>
+						</div>
+					}
+					{ showList &&
+						<List
+							dense
+						>
+							{
+								options.map(option => {
+									const checked = selectedValues.indexOf(option.value) !== -1;
+									
+									return (
+										<ListItem
+											className="listItem"
+											key={option.value}
+											dense
+											button
+											onClick={handleToggle(option)}
+										>
+											<ListItemIcon className="listItemIcon">
+												<Checkbox
+													className={checked ? "checked" : ""}
+													color="default"
+													edge="start"
+													checked={checked}
+													disableRipple
+												/>
+											</ListItemIcon>
+											<ListItemText primary={option.label}/>
+										</ListItem>
+									)
+								})
+							}
+						</List>
+					}
 					{ hasMore &&
 						<div className="loadContainer">
 							<Button
@@ -355,8 +405,9 @@ function GridFilterMultiselectDropdown(props) {
 						}
 					</div>
 				</div>
-			</StyledWrapper>
-		</GridFilterDropdown>
+			</div>
+			<GridFilterDropdownButtons onApply={onApply} onClear={onClear} onCancel={props.onClose}/>
+		</StyledWrapper>
 	);
 }
 
