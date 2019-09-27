@@ -3,7 +3,8 @@ import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
 import GridPrimaryFilter from "./GridPrimaryFilter.jsx";
-import GridFilterTextDropdown from "./internal/GridFilterTextDropdown.jsx";
+import GridFilterTextDropdownContent from "./internal/GridFilterTextDropdownContent.jsx";
+import GridFilterDropdown from "./GridFilterDropdown.jsx";
 
 const StyledWrapper = styled.span`
 	
@@ -65,12 +66,10 @@ function GridFilterText(props) {
 	});
 	
 	const [anchorEl, setAnchorEl] = useState(null);
-	const [key, setKey] = useState(0);
 	const comparison = props.state.comparison || "equals";
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
-		setKey(key + 1);
 	}
 	
 	const onClose = function() {
@@ -96,14 +95,18 @@ function GridFilterText(props) {
 	return (
 		<StyledWrapper>
 			<GridPrimaryFilter label={props.label} value={valueString} onClick={onClick}/>
-			<GridFilterTextDropdown
-				key={key}
+			<GridFilterDropdown
 				anchorEl={anchorEl}
-				state={props.state}
-				setState={props.setState}
-				comparisons={activeComparisons}
 				onClose={onClose}
-			/>
+			>
+				<GridFilterTextDropdownContent
+					state={props.state}
+					setState={props.setState}
+					comparison={comparison}
+					comparisons={activeComparisons}
+					onClose={onClose}
+				/>
+			</GridFilterDropdown>
 		</StyledWrapper>
 	);
 }

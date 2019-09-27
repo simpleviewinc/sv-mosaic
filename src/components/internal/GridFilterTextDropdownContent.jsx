@@ -6,11 +6,24 @@ import jsvalidator from "jsvalidator";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Button from "../Button.jsx";
-import GridFilterDropdown from "../GridFilterDropdown.jsx";
+import GridFilterDropdownButtons from "../GridFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledContents = styled.div`
-	display: flex;
+	& > .inputRow {
+		display: flex;
+		align-items: center;
+	}
+	
+	& > .inputRow > .disabled {
+		background: #eee;
+	}
+	
+	& > .inputRow > .comparisonButton {
+		margin-top: 8px;
+		margin-bottom: 4px;
+		margin-left: 10px;
+	}
 	
 	& .MuiOutlinedInput-root.Mui-focused fieldset {
 		border-color: ${theme.colors.blue};
@@ -22,13 +35,9 @@ const StyledContents = styled.div`
 		padding-left: 5px;
 		flex-shrink: 0;
 	}
-	
-	& .MuiOutlinedInput-adornedEnd {
-		padding-right: 0px;
-	}
 `;
 
-function GridFilterTextDropdown(props) {
+function GridFilterTextDropdownContent(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -43,6 +52,11 @@ function GridFilterTextDropdown(props) {
 				required : true
 			},
 			{
+				name : "comparison",
+				type : "string",
+				required : true
+			},
+			{
 				name : "comparisons",
 				type : "array"
 			},
@@ -50,18 +64,22 @@ function GridFilterTextDropdown(props) {
 				name : "onClose",
 				type : "function",
 				required : true
-			},
-			{
-				name : "anchorEl",
-				type : "object"
 			}
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
 	
-	const [value, setValue] = useState(props.state.value);
-	const [comparison, setComparison] = useState(props.state.comparison || "equals");
+	const [state, setState] = useState({
+		value : props.state.value,
+		comparison : props.comparison
+	});
+	
+	const {
+		value,
+		comparison
+	} = state;
+	
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === comparison) : undefined;
 	
 	const onApply = function() {
@@ -73,12 +91,18 @@ function GridFilterTextDropdown(props) {
 	}
 	
 	const onClear = function() {
-		setValue("");
-		setComparison("equals");
+		setState({
+			...state,
+			value : "",
+			comparison : "equals"
+		});
 	}
 	
 	const onInputChange = function(event) {
-		setValue(event.target.value);
+		setState({
+			...state,
+			value : event.target.value
+		});
 	}
 	
 	const onKeyPress = function(event) {
@@ -89,48 +113,47 @@ function GridFilterTextDropdown(props) {
 	
 	const disabled = ["exists", "not_exists"].includes(comparison);
 	
-	let InputProps;
+	let comparisonButton;
 	if (props.comparisons) {
 		const menuItems = props.comparisons.map(comparison => {
 			return {
 				label : comparison.label,
 				onClick : function() {
+					const stateChange = {
+						...state
+					};
+					
 					// for exists and not_exists we want to clear the value
 					if (["exists", "not_exists"].includes(comparison.value) === true) {
-						setValue("");
+						stateChange.value = "";
 					}
 					
-					setComparison(comparison.value);
+					stateChange.comparison = comparison.value;
+					
+					setState(stateChange);
 				}
 			}
 		});
 		
-		InputProps = {
-			endAdornment : (
-				<span className="comparisonContainer">
-					<Button
-						label={activeComparison.label}
-						variant="text"
-						color="gray"
-						iconPosition="right"
-						mIcon={ExpandMoreIcon}
-						menuItems={menuItems}
-					/>
-				</span>
-			)
-		}
+		comparisonButton = (
+			<Button
+				className="comparisonButton"
+				label={activeComparison.label}
+				variant="text"
+				color="gray"
+				iconPosition="right"
+				mIcon={ExpandMoreIcon}
+				menuItems={menuItems}
+			/>
+		);
 	}
 	
 	return (
-		<GridFilterDropdown
-			anchorEl={props.anchorEl}
-			onClose={props.onClose}
-			onApply={onApply}
-			onClear={onClear}
-		>
-			<StyledContents>
+		<StyledContents>
+			<div className="inputRow">
 				<TextField
 					autoFocus
+					className={ disabled ? "disabled" : "" }
 					disabled={disabled}
 					placeholder="Filter..."
 					margin="dense"
@@ -138,11 +161,12 @@ function GridFilterTextDropdown(props) {
 					variant="outlined"
 					onChange={onInputChange}
 					onKeyPress={onKeyPress}
-					InputProps={InputProps}
 				/>
-			</StyledContents>
-		</GridFilterDropdown>
+				{comparisonButton}
+			</div>
+			<GridFilterDropdownButtons onApply={onApply} onClear={onClear} onCancel={props.onClose}/>
+		</StyledContents>
 	)
 }
 
-export default GridFilterTextDropdown;
+export default GridFilterTextDropdownContent;

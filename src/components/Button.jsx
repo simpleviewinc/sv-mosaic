@@ -141,6 +141,10 @@ function Button(props) {
 				type : "string"
 			},
 			{
+				name : "className",
+				type : "string"
+			},
+			{
 				name : "color",
 				type : "string",
 				enum : ["black", "blue", "red", "gray"],
