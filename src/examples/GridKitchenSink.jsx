@@ -30,6 +30,10 @@ function stateReducer(state, { type, data }) {
 			newState.data = data;
 			break;
 		}
+		case "view": {
+			newState.view = data;
+			break;
+		}
 		default: {
 			throw new Error("Unrecognized reducer action.");
 		}
@@ -46,6 +50,7 @@ function GridKitchenSink() {
 	const [state, dispatch] = useReducer(stateReducer, {
 		removeItems : [],
 		data : [],
+		view : "grid",
 		limit : 25,
 		sort : {
 			name : "title",
@@ -66,36 +71,66 @@ function GridKitchenSink() {
 		fetchData();
 	}, [state.limit, state.sort]);
 	
+	const listColumns = [
+		{
+			name : "image",
+			label : "Image",
+			transforms : [
+				transform_get(["resource_raw", "secure_url"]),
+				function(data) {
+					const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_50,w_50/`);
+					
+					return <img src={newUrl} width="50" height="50"/>;
+				}
+			]
+		},
+		{
+			name : "title",
+			label : "Title",
+			style : "bold",
+			sortable : true
+		},
+		{
+			name : "created",
+			label : "Created",
+			sortable : true,
+			transforms : [
+				transform_dateFormat()
+			]
+		}
+	];
+	
+	const gridColumns = [
+		{
+			name : "image",
+			label : "Image",
+			transforms : [
+				transform_get(["resource_raw", "secure_url"]),
+				function(data) {
+					const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_185,w_275/`);
+					
+					return <img src={newUrl}/>;
+				}
+			]
+		},
+		{
+			name : "primary",
+			label : "Primary",
+			column : "title",
+		},
+		{
+			name : "secondary",
+			label : "Secondary",
+			column : "created",
+			transforms : [
+				transform_dateFormat()
+			]
+		}
+	]
+	
 	const gridConfig = {
 		title : "Your Uploads",
-		columns : [
-			{
-				name : "image",
-				label : "Image",
-				transforms : [
-					transform_get(["resource_raw", "secure_url"]),
-					function(data) {
-						const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_50,w_50/`);
-						
-						return <img src={newUrl} width="50" height="50"/>;
-					}
-				]
-			},
-			{
-				name : "title",
-				label : "Title",
-				style : "bold",
-				sortable : true
-			},
-			{
-				name : "created",
-				label : "Created",
-				sortable : true,
-				transforms : [
-					transform_dateFormat()
-				]
-			}
-		],
+		columns : state.view === "list" ? listColumns : gridColumns,
 		primaryActions : [
 			{
 				color : "blue",
@@ -148,7 +183,8 @@ function GridKitchenSink() {
 					alert("CREATE NEW");
 				}
 			}
-		]
+		],
+		views : ["list", "grid"]
 	};
 	
 	// let removeDialog;
@@ -169,6 +205,7 @@ function GridKitchenSink() {
 				{ ...gridConfig }
 				data={state.data}
 				limit={state.limit}
+				view={state.view}
 				sort={state.sort}
 				dispatch={dispatch}
 			></Grid>

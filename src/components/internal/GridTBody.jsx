@@ -7,6 +7,8 @@ import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+import { transformColumn } from "../../utils/gridTools.js";
+
 const StyledTBody = styled.tbody`
 	& > tr > td.bold {
 		font-weight: 600;
@@ -87,12 +89,7 @@ function GridTBody(props) {
 							}
 							{
 								props.columns.map(column => {
-									let data = row[column.name];
-									if (data !== undefined && column.transforms !== undefined) {
-										for(let [key, transform] of Object.entries(column.transforms)) {
-											data = transform(data);
-										}
-									}
+									const data = transformColumn(row, column);
 									
 									return (
 										<td
