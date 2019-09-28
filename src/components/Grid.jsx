@@ -3,11 +3,12 @@ import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
 import GridCheckbox from "./internal/GridCheckbox.jsx";
-import GridTHead from "./internal/GridTHead.jsx";
-import GridTBody from "./internal/GridTBody.jsx";
+import GridListView from "./internal/GridListView.jsx";
+import GridGridView from "./internal/GridGridView.jsx";
 import TitleBar from "./internal/TitleBar.jsx";
 import ButtonRow from "./ButtonRow.jsx";
 import Button from "./Button.jsx";
+import GridViewSwitcher from "./internal/GridViewSwitcher.jsx";
 import theme from "../utils/theme.js";
 
 const StyledWrapper = styled.div`
@@ -15,9 +16,10 @@ const StyledWrapper = styled.div`
 	font-weight: 400;
 	font-size: 14px;
 	
-	> table {
-		width: 100%;
-		border-collapse: collapse;
+	& > .header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 `;
 
@@ -39,6 +41,10 @@ function Grid(props) {
 							name : "name",
 							type : "string",
 							required : true
+						},
+						{
+							name : "column",
+							type : "string"
 						},
 						{
 							name : "label",
@@ -79,6 +85,19 @@ function Grid(props) {
 			{
 				name : "buttons",
 				type : "array"
+			},
+			{
+				name : "view",
+				type : "string",
+				enum : ["list", "grid"]
+			},
+			{
+				name : "views",
+				type : "array",
+				schema : {
+					type : "string",
+					enum : ["list", "grid"]
+				}
 			},
 			{
 				name : "data",
@@ -147,6 +166,10 @@ function Grid(props) {
 		action.onClick({ data : row });
 	}
 	
+	const onViewChange = function(view) {
+		props.dispatch({ type : "view", data : view });
+	}
+	
 	useEffect(() => {
 		setState({
 			...state,
@@ -154,30 +177,34 @@ function Grid(props) {
 		});
 	}, [props.data]);
 	
+	const View = props.view === "list" ? GridListView : GridGridView;
+	
 	return (
 		<StyledWrapper>
-			<TitleBar title={props.title} buttons={props.buttons}></TitleBar>
-			<table>
-				<GridTHead
-					checked={state.checked}
-					columns={props.columns}
-					bulkActions={props.bulkActions}
-					sort={props.sort}
-					onSortClick={onSortClick}
-					onBulkActionClick={onBulkActionClick}
-					onCheckAllClick={onCheckAllClick}
-				/>
-				<GridTBody
-					checked={state.checked}
-					columns={props.columns}
-					data={props.data}
-					bulkActions={props.bulkActions}
-					additionalActions={props.additionalActions}
-					primaryActions={props.primaryActions}
-					onActionClick={onActionClick}
-					onCheckboxClick={onCheckboxClick}
-				/>
-			</table>
+			<div className="header">
+				<TitleBar title={props.title} buttons={props.buttons}></TitleBar>
+				{ props.views &&
+					<GridViewSwitcher
+						view={props.view}
+						views={props.views}
+						onViewChange={onViewChange}
+					/>
+				}
+			</div>
+			<View
+				checked={state.checked}
+				columns={props.columns}
+				bulkActions={props.bulkActions}
+				sort={props.sort}
+				data={props.data}
+				additionalActions={props.additionalActions}
+				primaryActions={props.primaryActions}
+				onSortClick={onSortClick}
+				onBulkActionClick={onBulkActionClick}
+				onCheckAllClick={onCheckAllClick}
+				onActionClick={onActionClick}
+				onCheckboxClick={onCheckboxClick}
+			/>
 		</StyledWrapper>
 	)
 }
