@@ -9,6 +9,7 @@ import TitleBar from "./internal/TitleBar.jsx";
 import ButtonRow from "./ButtonRow.jsx";
 import Button from "./Button.jsx";
 import GridViewSwitcher from "./internal/GridViewSwitcher.jsx";
+import GridPager from "./internal/GridPager.jsx";
 import theme from "../utils/theme.js";
 
 const StyledWrapper = styled.div`
@@ -16,9 +17,14 @@ const StyledWrapper = styled.div`
 	font-weight: 400;
 	font-size: 14px;
 	
-	& > .header {
+	& > .headerTopRow {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+	}
+	
+	& > .headerTopRow > .right {
+		display: flex;
 		align-items: center;
 	}
 `;
@@ -104,6 +110,10 @@ function Grid(props) {
 				type : "array"
 			},
 			{
+				name : "count",
+				type : "number"
+			},
+			{
 				name : "sort",
 				type : "object",
 				schema : [
@@ -115,6 +125,14 @@ function Grid(props) {
 			{
 				name : "limit",
 				type : "number"
+			},
+			{
+				name : "skip",
+				type : "number"
+			},
+			{
+				name : "onSkip",
+				type : "function"
 			},
 			{
 				name : "dispatch",
@@ -181,15 +199,23 @@ function Grid(props) {
 	
 	return (
 		<StyledWrapper>
-			<div className="header">
+			<div className="headerTopRow">
 				<TitleBar title={props.title} buttons={props.buttons}></TitleBar>
-				{ props.views &&
-					<GridViewSwitcher
-						view={props.view}
-						views={props.views}
-						onViewChange={onViewChange}
+				<div className="right">
+					{ props.views &&
+						<GridViewSwitcher
+							view={props.view}
+							views={props.views}
+							onViewChange={onViewChange}
+						/>
+					}
+					<GridPager
+						limit={props.limit}
+						skip={props.skip}
+						count={props.count}
+						onSkip={props.onSkip}
 					/>
-				}
+				</div>
 			</div>
 			<View
 				checked={state.checked}

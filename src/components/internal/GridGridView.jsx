@@ -122,7 +122,7 @@ function GridGridView(props) {
 	
 	return (
 		<StyledDiv>
-			<div class="bulkRow">
+			<div className="bulkRow">
 				{
 					props.bulkActions &&
 					<Checkbox
