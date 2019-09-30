@@ -10,7 +10,7 @@ function GridPager(props) {
 	const currentPage = (props.skip + props.limit) / props.limit;
 	
 	const skipClick = (skip) => () => {
-		props.onSkip(skip);
+		props.onSkipChange(skip);
 	}
 	
 	const previousDisabled = currentPage === 1;
