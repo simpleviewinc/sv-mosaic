@@ -10,25 +10,27 @@ import { transformColumn } from "../../utils/gridTools.js";
 import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-column-gap: 8px;
-	grid-row-gap: 20px;
+	& > .grid {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-column-gap: 8px;
+		grid-row-gap: 20px;
+	}
 	
-	& > .cell {
+	& > .grid > .cell {
 		min-width: 0;
 	}
 	
-	& > .cell.checked > .image > .checkboxContainer {
+	& > .grid > .cell.checked > .image > .checkboxContainer {
 		opacity: 1;
 	}
 	
-	& > .cell > img {
+	& > .grid > .cell > img {
 		max-width: 100%;
 		min-width: 100%;
 	}
 	
-	& > .cell h2 {
+	& > .grid > .cell h2 {
 		margin: 0;
 		font-size: 14px;
 		font-weight: normal;
@@ -37,18 +39,18 @@ const StyledDiv = styled.div`
 		overflow: hidden;
 	}
 	
-	& > .cell h3 {
+	& > .grid > .cell h3 {
 		margin: 0;
 		font-weight: normal;
 		font-size: 12px;
 		color: ${theme.colors.lightGray};
 	}
 	
-	& > .cell .image {
+	& > .grid > .cell .image {
 		position: relative;
 	}
 	
-	& > .cell > .image > .checkboxContainer {
+	& > .grid > .cell > .image > .checkboxContainer {
 		opacity: 0;
 		position: absolute;
 		top: 0px;
@@ -56,11 +58,11 @@ const StyledDiv = styled.div`
 		transition: opacity 150ms;
 	}
 	
-	& > .cell > .image:hover > .checkboxContainer {
+	& > .grid > .cell > .image:hover > .checkboxContainer {
 		opacity: 1;
 	}
 	
-	& > .cell > .image > .checkboxContainer > .mask {
+	& > .grid > .cell > .image > .checkboxContainer > .mask {
 		position: absolute;
 		top: 0px;
 		left: 0px;
@@ -69,26 +71,26 @@ const StyledDiv = styled.div`
 		background: white;
 	}
 	
-	& > .cell > .image > .checkboxContainer > .checkbox {
+	& > .grid > .cell > .image > .checkboxContainer > .checkbox {
 		padding: 4px;
 	}
 	
-	& > .cell .image img {
+	& > .grid > .cell .image img {
 		width: 100%;
 	}
 	
-	& > .cell .info {
+	& > .grid > .cell .info {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		max-width: 100%;
 	}
 	
-	& > .cell > .info > .left {
+	& > .grid > .cell > .info > .left {
 		min-width: 0;
 	}
 	
-	& > .cell > .info > .right {
+	& > .grid > .cell > .info > .right {
 		flex-shrink: 0;
 	}
 `
@@ -106,70 +108,97 @@ function GridGridView(props) {
 		props.onCheckboxClick(i);
 	}
 	
+	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
+		return {
+			...action,
+			onClick : function() {
+				props.onBulkActionClick(action);
+			}
+		}
+	}) : undefined;
+	
+	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
+	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
+	
 	return (
 		<StyledDiv>
-			{
-				props.data.map((row, i) => {
-					return (
-						<div
-							className={`
-								cell
-								${props.checked[i] === true ? "checked" : ""}
-							`}
-							key={row.id}
-						>
-							<div className="image">
-								<div className="checkboxContainer">
-									<div className="mask"/>
-									<Checkbox
-										className="checkbox"
-										checked={props.checked[i] === true}
-										onClick={checkboxClick(i)}
-									/>
+			<div class="bulkRow">
+				{
+					props.bulkActions &&
+					<Checkbox
+						checked={allChecked}
+						onClick={props.onCheckAllClick}
+					/>
+				}
+				{
+					anyChecked &&
+					<ButtonRow buttons={bulkActionButtons}/>
+				}
+			</div>
+			<div className="grid">
+				{
+					props.data.map((row, i) => {
+						return (
+							<div
+								className={`
+									cell
+									${props.checked[i] === true ? "checked" : ""}
+								`}
+								key={row.id}
+							>
+								<div className="image">
+									<div className="checkboxContainer">
+										<div className="mask"/>
+										<Checkbox
+											className="checkbox"
+											checked={props.checked[i] === true}
+											onClick={checkboxClick(i)}
+										/>
+									</div>
+									{transformColumn(row, imageColumn)}
 								</div>
-								{transformColumn(row, imageColumn)}
+								<div className="info">
+									<div className="left">
+										<h2>{transformColumn(row, primaryColumn)}</h2>
+										<h3>{transformColumn(row, secondaryColumn)}</h3>
+									</div>
+									<div className="right">
+										<ButtonRow>
+											{
+												props.primaryActions && 
+												props.primaryActions.map((action, i) => {
+													return (
+														<Button
+															key={`primary_{i}`}
+															{ ...action }
+															onClick={actionClick(action, row)}
+														/>
+													)
+												})
+											}
+											{
+												props.additionalActions &&
+												<Button
+													key="additional"
+													color="blue"
+													variant="icon"
+													mIcon={MoreHorizIcon}
+													menuItems={props.additionalActions.map(action => {
+														return {
+															...action,
+															onClick : actionClick(action, row)
+														}
+													})}
+												/>
+											}
+										</ButtonRow>
+									</div>
+								</div>
 							</div>
-							<div className="info">
-								<div className="left">
-									<h2>{transformColumn(row, primaryColumn)}</h2>
-									<h3>{transformColumn(row, secondaryColumn)}</h3>
-								</div>
-								<div className="right">
-									<ButtonRow>
-										{
-											props.primaryActions && 
-											props.primaryActions.map((action, i) => {
-												return (
-													<Button
-														key={`primary_{i}`}
-														{ ...action }
-														onClick={actionClick(action, row)}
-													/>
-												)
-											})
-										}
-										{
-											props.additionalActions &&
-											<Button
-												key="additional"
-												color="blue"
-												variant="icon"
-												mIcon={MoreHorizIcon}
-												menuItems={props.additionalActions.map(action => {
-													return {
-														...action,
-														onClick : actionClick(action, row)
-													}
-												})}
-											/>
-										}
-									</ButtonRow>
-								</div>
-							</div>
-						</div>
-					)
-				})
-			}
+						)
+					})
+				}
+			</div>
 		</StyledDiv>
 	)
 }
