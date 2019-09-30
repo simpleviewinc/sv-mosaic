@@ -37,10 +37,10 @@ function GridFilterDropdownButtons(props) {
 	return (
 		<StyledWrapper>
 			<ButtonRow>
-				<Button label="Clear" color="gray" variant="text" onClick={props.onClear}/>
+				<Button label="Clear" color="black" variant="text" onClick={props.onClear}/>
 			</ButtonRow>
 			<ButtonRow>
-				<Button label="Cancel" color="gray" variant="text" onClick={props.onCancel}/>
+				<Button label="Cancel" color="black" variant="text" onClick={props.onCancel}/>
 				<Button label="Apply" color="blue" variant="contained" onClick={props.onApply}/>
 			</ButtonRow>
 		</StyledWrapper>
