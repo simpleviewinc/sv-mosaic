@@ -58,6 +58,16 @@ const types = {
 	gray_outlined : styled(ButtonWrapper)`
 		& > button {
 			border-color: #ddd;
+			color: ${theme.colors.lightGray};
+		}
+		
+		& > button:hover {
+			background: #eee;
+		}
+	`,
+	black_outlined : styled(ButtonWrapper)`
+		& > button {
+			border-color: #ddd;
 			color: black;
 		}
 		
@@ -115,19 +125,29 @@ const types = {
 			color: ${theme.colors.lightGray};
 		}
 	`,
+	black_text : styled(ButtonWrapper)`
+		& > button {
+			color: black;
+		}
+	`,
 	blue_icon : styled(ButtonWrapper)`
-		& .icon {
+		& > button {
 			color: ${theme.colors.blue}
 		}
 	`,
 	black_icon : styled(ButtonWrapper)`
-		& .icon {
+		& > button {
 			color: black;
 		}
 	`,
 	red_icon : styled(ButtonWrapper)`
-		& .icon {
+		& > button {
 			color: ${theme.colors.red};
+		}
+	`,
+	gray_icon : styled(ButtonWrapper)`
+		& > button {
+			color: ${theme.colors.lightGray};
 		}
 	`
 }
