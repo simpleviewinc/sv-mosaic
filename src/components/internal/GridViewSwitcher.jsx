@@ -5,6 +5,7 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import Button from "../Button.jsx";
 import Menu from "../Menu.jsx";
 
 const StyledSpan = styled.span`
@@ -23,44 +24,23 @@ const StyledSpan = styled.span`
 `
 
 function GridViewSwitcher(props) {
-	const [state, setState] = useState({
-		anchorEl : null
-	});
-	
-	const onClick = function(event) {
-		setState({
-			...state,
-			anchorEl : event.currentTarget
-		});
-	}
-	
-	const onClose = function() {
-		setState({
-			...state,
-			anchorEl : null
-		});
-	}
-	
 	const Icon = props.view === "list" ? FormatListBulletedIcon : GridOnIcon;
 	
 	return (
 		<StyledSpan>
-			<span className="button" onClick={onClick}>
-				<Icon/>
-				<ExpandMoreIcon/>
-			</span>
-			<Menu
-				anchorEl={state.anchorEl}
-				open={Boolean(state.anchorEl)}
-				onClose={onClose}
-				items={
+			<Button
+				variant="text"
+				color="gray"
+				label={<Icon/>}
+				iconPosition="right"
+				mIcon={ExpandMoreIcon}
+				menuItems={
 					[
 						{
 							label : "List",
 							mIcon : FormatListBulletedIcon,
 							onClick : function() {
 								props.onViewChange("list");
-								onClose();
 							}
 						},
 						{
@@ -68,7 +48,6 @@ function GridViewSwitcher(props) {
 							mIcon : GridOnIcon,
 							onClick : function() {
 								props.onViewChange("grid");
-								onClose();
 							}
 						}
 					]

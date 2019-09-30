@@ -201,8 +201,11 @@ function GridKitchenSink() {
 			}
 		],
 		views : ["list", "grid"],
-		onSkip : function(data) {
+		onSkipChange : function(data) {
 			dispatch({ type : "skip", data });
+		},
+		onLimitChange : function(data) {
+			dispatch({ type : "limit", data });
 		}
 	};
 	

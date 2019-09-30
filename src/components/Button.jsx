@@ -112,7 +112,7 @@ const types = {
 	`,
 	gray_text : styled(ButtonWrapper)`
 		& > button {
-			color: ${theme.colors.gray};
+			color: ${theme.colors.lightGray};
 		}
 	`,
 	blue_icon : styled(ButtonWrapper)`
@@ -138,7 +138,7 @@ function Button(props) {
 		schema : [
 			{
 				name : "label",
-				type : "string"
+				type : "any"
 			},
 			{
 				name : "className",

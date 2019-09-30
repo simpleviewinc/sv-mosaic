@@ -10,6 +10,7 @@ import ButtonRow from "./ButtonRow.jsx";
 import Button from "./Button.jsx";
 import GridViewSwitcher from "./internal/GridViewSwitcher.jsx";
 import GridPager from "./internal/GridPager.jsx";
+import GridLimit from "./internal/GridLimit.jsx";
 import theme from "../utils/theme.js";
 
 const StyledWrapper = styled.div`
@@ -131,7 +132,11 @@ function Grid(props) {
 				type : "number"
 			},
 			{
-				name : "onSkip",
+				name : "onSkipChange",
+				type : "function"
+			},
+			{
+				name : "onLimitChange",
 				type : "function"
 			},
 			{
@@ -209,11 +214,15 @@ function Grid(props) {
 							onViewChange={onViewChange}
 						/>
 					}
+					<GridLimit
+						limit={props.limit}
+						onLimitChange={props.onLimitChange}
+					/>
 					<GridPager
 						limit={props.limit}
 						skip={props.skip}
 						count={props.count}
-						onSkip={props.onSkip}
+						onSkipChange={props.onSkipChange}
 					/>
 				</div>
 			</div>
