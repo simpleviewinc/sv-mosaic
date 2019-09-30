@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
 import { transformColumn } from "../../utils/gridTools.js";
@@ -43,6 +45,14 @@ const StyledDiv = styled.div`
 		align-items: center;
 		max-width: 100%;
 	}
+	
+	& > .cell > .info > .left {
+		min-width: 0;
+	}
+	
+	& > .cell > .info > .right {
+		flex-shrink: 0;
+	}
 `
 
 function GridGridView(props) {
@@ -82,6 +92,21 @@ function GridGridView(props) {
 													/>
 												)
 											})
+										}
+										{
+											props.additionalActions &&
+											<Button
+												key="additional"
+												color="blue"
+												variant="icon"
+												mIcon={MoreHorizIcon}
+												menuItems={props.additionalActions.map(action => {
+													return {
+														...action,
+														onClick : actionClick(action, row)
+													}
+												})}
+											/>
 										}
 									</ButtonRow>
 								</div>
