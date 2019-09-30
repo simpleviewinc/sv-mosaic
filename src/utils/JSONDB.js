@@ -7,14 +7,7 @@ class JSONDB {
 		let data = this.data.slice();
 		
 		if (query.filter !== undefined) {
-			for(let [key, val] of Object.entries(query.filter)) {
-				if (val.$in !== undefined) {
-					data = data.filter(row => val.$in.includes(row[key]));
-					continue;
-				} else if (val instanceof RegExp) {
-					data = data.filter(row => val.test(row[key]));
-				}
-			}
+			data = filterData(data, query.filter);
 		}
 		
 		if (query.sort !== undefined) {
@@ -32,6 +25,31 @@ class JSONDB {
 		
 		return data;
 	}
+	
+	async count(query) {
+		let data = this.data.slice();
+		
+		if (query.filter !== undefined) {
+			data = filterData(data, query.filter);
+		}
+		
+		return data.length;
+	}
+}
+
+function filterData(data, filter) {
+	let newData = data;
+	
+	for(let [key, val] of Object.entries(filter)) {
+		if (val.$in !== undefined) {
+			newData = newData.filter(row => val.$in.includes(row[key]));
+			continue;
+		} else if (val instanceof RegExp) {
+			newData = newData.filter(row => val.test(row[key]));
+		}
+	}
+	
+	return newData;
 }
 
 function sortArr(a, b, dir) {

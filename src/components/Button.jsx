@@ -174,6 +174,10 @@ function Button(props) {
 				type : "boolean"
 			},
 			{
+				name : "disabled",
+				type : "boolean"
+			},
+			{
 				name : "popover",
 				type : "object"
 			},
@@ -219,7 +223,13 @@ function Button(props) {
 	return (
 		<MyButton className={props.className}>
 			{ props.variant !== "icon" &&
-				<MUIButton variant={props.variant} className="normalButton" onClick={onClick} fullWidth={props.fullWidth}>
+				<MUIButton
+					variant={props.variant}
+					className="normalButton"
+					onClick={onClick}
+					fullWidth={props.fullWidth}
+					disabled={props.disabled}
+				>
 					{ props.mIcon && iconPosition === "left" && 
 						<MaterialIcon className="icon icon_left"></MaterialIcon>
 					}
@@ -230,7 +240,11 @@ function Button(props) {
 				</MUIButton>
 			}
 			{ props.variant === "icon" &&
-				<IconButton className="iconButton" onClick={onClick}>
+				<IconButton
+					className="iconButton"
+					onClick={onClick}
+					disabled={props.disabled}
+				>
 					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
 				</IconButton>
 			}

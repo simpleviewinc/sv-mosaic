@@ -27,11 +27,16 @@ function stateReducer(state, { type, data }) {
 			break;
 		}
 		case "data": {
-			newState.data = data;
+			newState.data = data.data;
+			newState.count = data.count;
 			break;
 		}
 		case "view": {
 			newState.view = data;
+			break;
+		}
+		case "skip": {
+			newState.skip = data;
 			break;
 		}
 		default: {
@@ -52,6 +57,8 @@ function GridKitchenSink() {
 		data : [],
 		view : "grid",
 		limit : 25,
+		skip : 0,
+		count : undefined,
 		sort : {
 			name : "title",
 			dir : "asc"
@@ -62,14 +69,23 @@ function GridKitchenSink() {
 		const fetchData = async function() {
 			const newData = await api.find({
 				limit : state.limit,
-				sort : state.sort
+				sort : state.sort,
+				skip : state.skip
 			});
 			
-			dispatch({ type : "data", data : newData });
+			const count = await api.count({});
+			
+			dispatch({
+				type : "data",
+				data : {
+					data : newData,
+					count : count
+				}
+			});
 		}
 		
 		fetchData();
-	}, [state.limit, state.sort]);
+	}, [state.limit, state.sort, state.skip]);
 	
 	const listColumns = [
 		{
@@ -184,7 +200,10 @@ function GridKitchenSink() {
 				}
 			}
 		],
-		views : ["list", "grid"]
+		views : ["list", "grid"],
+		onSkip : function(data) {
+			dispatch({ type : "skip", data });
+		}
 	};
 	
 	// let removeDialog;
@@ -205,6 +224,8 @@ function GridKitchenSink() {
 				{ ...gridConfig }
 				data={state.data}
 				limit={state.limit}
+				skip={state.skip}
+				count={state.count}
 				view={state.view}
 				sort={state.sort}
 				dispatch={dispatch}

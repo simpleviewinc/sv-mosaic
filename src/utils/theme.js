@@ -6,5 +6,6 @@ export default {
 		darkGray : "#081324",
 		red : "#b10000"
 	},
-	fontFamily : "Open Sans"
+	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif"
+	// fontFamily : "Open Sans"
 }

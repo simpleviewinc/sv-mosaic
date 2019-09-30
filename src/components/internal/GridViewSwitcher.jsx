@@ -14,6 +14,7 @@ const StyledSpan = styled.span`
 		border-radius: 8px;
 		display: inline-flex;
 		align-items: center;
+		color: rgba(0, 0, 0, 0.54);
 	}
 	
 	& > .button:hover {
@@ -56,6 +57,7 @@ function GridViewSwitcher(props) {
 					[
 						{
 							label : "List",
+							mIcon : FormatListBulletedIcon,
 							onClick : function() {
 								props.onViewChange("list");
 								onClose();
@@ -63,6 +65,7 @@ function GridViewSwitcher(props) {
 						},
 						{
 							label : "Grid",
+							mIcon : GridOnIcon,
 							onClick : function() {
 								props.onViewChange("grid");
 								onClose();
