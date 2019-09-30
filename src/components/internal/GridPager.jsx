@@ -4,11 +4,6 @@ import Button from "../Button.jsx";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-// limit 15
-// count 150
-// skip 15
-// page = 2;
-// totalPages = 
 
 function GridPager(props) {
 	const totalPages = Math.ceil(props.count / props.limit);
