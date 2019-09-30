@@ -13,9 +13,12 @@ const StyledCheckbox = styled(MUICheckbox)`
 function Checkbox(props) {
 	return (
 		<StyledCheckbox
-			className={props.checked ? "checked" : undefined}
+			className={`
+				${props.checked ? "checked" : ""}
+				${props.className}
+			`}
 			color="default"
-			edge="start"
+			edge={props.edge}
 			checked={props.checked}
 			onClick={props.onClick}
 			disableRipple

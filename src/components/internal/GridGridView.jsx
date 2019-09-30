@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Checkbox from "../Checkbox.jsx";
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
@@ -10,12 +11,16 @@ import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(5, 1fr);
 	grid-column-gap: 8px;
 	grid-row-gap: 20px;
 	
 	& > .cell {
 		min-width: 0;
+	}
+	
+	& > .cell.checked > .image > .checkboxContainer {
+		opacity: 1;
 	}
 	
 	& > .cell > img {
@@ -37,6 +42,39 @@ const StyledDiv = styled.div`
 		font-weight: normal;
 		font-size: 12px;
 		color: ${theme.colors.lightGray};
+	}
+	
+	& > .cell .image {
+		position: relative;
+	}
+	
+	& > .cell > .image > .checkboxContainer {
+		opacity: 0;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		transition: opacity 150ms;
+	}
+	
+	& > .cell > .image:hover > .checkboxContainer {
+		opacity: 1;
+	}
+	
+	& > .cell > .image > .checkboxContainer > .mask {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		background: white;
+	}
+	
+	& > .cell > .image > .checkboxContainer > .checkbox {
+		padding: 4px;
+	}
+	
+	& > .cell .image img {
+		width: 100%;
 	}
 	
 	& > .cell .info {
@@ -64,16 +102,33 @@ function GridGridView(props) {
 		props.onActionClick(action, row);
 	}
 	
+	const checkboxClick = (i) => () => {
+		props.onCheckboxClick(i);
+	}
+	
 	return (
 		<StyledDiv>
 			{
-				props.data.map(row => {
+				props.data.map((row, i) => {
 					return (
 						<div
-							className="cell"
+							className={`
+								cell
+								${props.checked[i] === true ? "checked" : ""}
+							`}
 							key={row.id}
 						>
-							{transformColumn(row, imageColumn)}
+							<div className="image">
+								<div className="checkboxContainer">
+									<div className="mask"/>
+									<Checkbox
+										className="checkbox"
+										checked={props.checked[i] === true}
+										onClick={checkboxClick(i)}
+									/>
+								</div>
+								{transformColumn(row, imageColumn)}
+							</div>
 							<div className="info">
 								<div className="left">
 									<h2>{transformColumn(row, primaryColumn)}</h2>
