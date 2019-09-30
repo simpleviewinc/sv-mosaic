@@ -10,7 +10,7 @@ import Grid from "../components/Grid.jsx";
 import RemoveDialog from "../examples/RemoveDialog.jsx";
 import JSONDB from "../utils/JSONDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
-import { transform_dateFormat, transform_get } from "../utils/column_transforms.js";
+import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
 
 function stateReducer(state, { type, data }) {
 	const newState = {
@@ -93,11 +93,7 @@ function GridKitchenSink() {
 			label : "Image",
 			transforms : [
 				transform_get(["resource_raw", "secure_url"]),
-				function(data) {
-					const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_50,w_50/`);
-					
-					return <img src={newUrl} width="50" height="50"/>;
-				}
+				transform_thumbnail({ width : 75, height : 75 })
 			]
 		},
 		{
@@ -122,11 +118,7 @@ function GridKitchenSink() {
 			label : "Image",
 			transforms : [
 				transform_get(["resource_raw", "secure_url"]),
-				function(data) {
-					const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_185,w_275/`);
-					
-					return <img src={newUrl}/>;
-				}
+				transform_thumbnail({ width : 275, height : 185 })
 			]
 		},
 		{

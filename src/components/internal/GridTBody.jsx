@@ -10,8 +10,20 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { transformColumn } from "../../utils/gridTools.js";
 
 const StyledTBody = styled.tbody`
+	& > tr {
+		border-top: 1px solid rgba(0, 0, 0, .1);
+	}
+	
+	& > tr > td {
+		padding: 5px 0px;
+	}
+	
 	& > tr > td.bold {
 		font-weight: 600;
+	}
+	
+	& > tr > td > .transform_thumbnail {
+		display: block;
 	}
 	
 	& > tr > td:last-child {

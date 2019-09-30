@@ -1,4 +1,5 @@
 import { get } from "lodash";
+import React from "react";
 
 function transform_dateFormat() {
 	return function(dateStr) {
@@ -13,7 +14,20 @@ function transform_get(path) {
 	}
 }
 
+function transform_thumbnail({ width, height }) {
+	return function(url) {
+		const newUrl = url.replace(/\/upload\//, `/upload/c_fill,h_${height},w_${width}/`);
+		
+		return React.createElement(
+			"img",
+			{ className : "transform_thumbnail", src : newUrl },
+			null
+		);
+	}
+}
+
 export {
 	transform_dateFormat,
-	transform_get
+	transform_get,
+	transform_thumbnail
 }

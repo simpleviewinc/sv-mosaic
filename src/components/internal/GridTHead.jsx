@@ -15,11 +15,13 @@ import theme from "../../utils/theme.js";
 const StyledWrapper = styled.thead`
 	& {
 		text-align: left;
+		border-top: 1px solid rgba(0, 0, 0, .1);
 	}
 	
 	& > tr > th {
 		text-align: left;
 		font-weight: normal;
+		padding: 5px 0px;
 	}
 	
 	& > tr > th:last-child {
