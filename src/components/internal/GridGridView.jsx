@@ -25,6 +25,12 @@ const StyledDiv = styled.div`
 		opacity: 1;
 	}
 	
+	& > .grid > .cell.checked > .image > .checkboxContainer > .mask {
+		opacity: 1;
+		border: 1px solid rgba(255, 255, 255, .5);
+		margin: 7px;
+	}
+	
 	& > .grid > .cell > img {
 		max-width: 100%;
 		min-width: 100%;
@@ -64,15 +70,14 @@ const StyledDiv = styled.div`
 	
 	& > .grid > .cell > .image > .checkboxContainer > .mask {
 		position: absolute;
-		top: 0px;
-		left: 0px;
-		right: 0px;
-		bottom: 0px;
+		width: 18px;
+		height: 18px;
+		left: 4px;
+		top: 4px;
+		margin: 8px;
 		background: white;
-	}
-	
-	& > .grid > .cell > .image > .checkboxContainer > .checkbox {
-		padding: 4px;
+		border-radius: 3px;
+		opacity: .8;
 	}
 	
 	& > .grid > .cell .image img {
