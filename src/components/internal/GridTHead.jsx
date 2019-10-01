@@ -160,7 +160,7 @@ function GridTHead(props) {
 						);
 					})
 				}
-				<th key="__actions"><Button color="black" variant="icon" mIcon={SettingsIcon}/></th>
+				<th key="__actions"><Button color="gray" variant="icon" mIcon={SettingsIcon}/></th>
 			</tr>
 		</StyledWrapper>
 	)
