@@ -26,6 +26,26 @@ const StyledSpan = styled.span`
 function GridViewSwitcher(props) {
 	const Icon = props.view === "list" ? FormatListBulletedIcon : GridOnIcon;
 	
+	const menuItems = [];
+	
+	if (props.view === "list") {
+		menuItems.push({
+			label : "Grid",
+			mIcon : GridOnIcon,
+			onClick : function() {
+				props.onViewChange("grid");
+			}
+		});
+	} else {
+		menuItems.push({
+			label : "List",
+			mIcon : FormatListBulletedIcon,
+			onClick : function() {
+				props.onViewChange("list");
+			}
+		});
+	}
+	
 	return (
 		<StyledSpan>
 			<Button
@@ -34,24 +54,7 @@ function GridViewSwitcher(props) {
 				label={<Icon/>}
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
-				menuItems={
-					[
-						{
-							label : "List",
-							mIcon : FormatListBulletedIcon,
-							onClick : function() {
-								props.onViewChange("list");
-							}
-						},
-						{
-							label : "Grid",
-							mIcon : GridOnIcon,
-							onClick : function() {
-								props.onViewChange("grid");
-							}
-						}
-					]
-				}
+				menuItems={menuItems}
 			/>
 		</StyledSpan>
 	)

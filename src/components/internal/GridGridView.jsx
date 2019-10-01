@@ -27,8 +27,8 @@ const StyledDiv = styled.div`
 	
 	& > .grid > .cell.checked > .image > .checkboxContainer > .mask {
 		opacity: 1;
-		border: 1px solid rgba(255, 255, 255, .5);
-		margin: 7px;
+		border: 2px solid rgba(255, 255, 255, .5);
+		margin: 6px;
 	}
 	
 	& > .grid > .cell > img {
