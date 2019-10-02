@@ -3,8 +3,8 @@ import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
 import GridCheckbox from "./internal/GridCheckbox.jsx";
-import GridListView from "./internal/GridListView.jsx";
-import GridGridView from "./internal/GridGridView.jsx";
+import GridViewList from "./internal/GridViewList.jsx";
+import GridViewGrid from "./internal/GridViewGrid.jsx";
 import TitleBar from "./internal/TitleBar.jsx";
 import ButtonRow from "./ButtonRow.jsx";
 import Button from "./Button.jsx";
@@ -145,9 +145,12 @@ function Grid(props) {
 				type : "function"
 			},
 			{
-				name : "dispatch",
-				type : "function",
-				required : true
+				name : "onSortChange",
+				type : "function"
+			},
+			{
+				name : "onViewChange",
+				type : "function"
 			}
 		],
 		allowExtraKeys : false,
@@ -158,13 +161,6 @@ function Grid(props) {
 	const [state, setState] = useState({
 		checked : []
 	});
-	
-	const onSortClick = function(sort) {
-		props.dispatch({
-			type : "sort",
-			data : sort
-		});
-	}
 	
 	const onCheckAllClick = function() {
 		const allChecked = state.checked.every(val => val === true);
@@ -194,10 +190,6 @@ function Grid(props) {
 		action.onClick({ data : row });
 	}
 	
-	const onViewChange = function(view) {
-		props.dispatch({ type : "view", data : view });
-	}
-	
 	useEffect(() => {
 		setState({
 			...state,
@@ -205,7 +197,7 @@ function Grid(props) {
 		});
 	}, [props.data]);
 	
-	const View = props.view === "list" ? GridListView : GridGridView;
+	const View = props.view === "list" ? GridViewList : GridViewGrid;
 	
 	return (
 		<StyledWrapper>
@@ -222,7 +214,7 @@ function Grid(props) {
 						<GridViewSwitcher
 							view={props.view}
 							views={props.views}
-							onViewChange={onViewChange}
+							onViewChange={props.onViewChange}
 						/>
 					}
 					<GridLimit
@@ -245,7 +237,7 @@ function Grid(props) {
 				data={props.data}
 				additionalActions={props.additionalActions}
 				primaryActions={props.primaryActions}
-				onSortClick={onSortClick}
+				onSortChange={props.onSortChange}
 				onBulkActionClick={onBulkActionClick}
 				onCheckAllClick={onCheckAllClick}
 				onActionClick={onActionClick}

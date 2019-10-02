@@ -9,7 +9,9 @@ const StyledTable = styled.table`
 	border-collapse: collapse;
 `
 
-function GridListView(props) {
+function GridViewList(props) {
+	// todo validate props
+	
 	return (
 		<StyledTable>
 			<GridTHead
@@ -17,7 +19,7 @@ function GridListView(props) {
 				columns={props.columns}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
-				onSortClick={props.onSortClick}
+				onSortChange={props.onSortChange}
 				onBulkActionClick={props.onBulkActionClick}
 				onCheckAllClick={props.onCheckAllClick}
 			/>
@@ -35,4 +37,4 @@ function GridListView(props) {
 	)
 }
 
-export default GridListView;
+export default GridViewList;

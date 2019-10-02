@@ -82,7 +82,7 @@ function GridTHead(props) {
 				type : "object"
 			},
 			{
-				name : "onSortClick",
+				name : "onSortChange",
 				type : "function"
 			},
 			{
@@ -130,7 +130,7 @@ function GridTHead(props) {
 					!anyChecked &&
 					props.columns.map(column => {
 						const onClick = function() {
-							props.onSortClick({
+							props.onSortChange({
 								name : column.name,
 								dir : clickDir
 							});

@@ -13,47 +13,12 @@ import rawData from "./grandrapids_custom_header_slides.json";
 import GridFilterText from "../components/GridFilterText.jsx";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
 
-function stateReducer(state, { type, data }) {
-	const newState = {
-		...state
-	}
-	
-	switch (type) {
-		case "limit": {
-			newState.limit = data;
-			break;
-		}
-		case "sort": {
-			newState.sort = data;
-			break;
-		}
-		case "data": {
-			newState.data = data.data;
-			newState.count = data.count;
-			break;
-		}
-		case "view": {
-			newState.view = data;
-			break;
-		}
-		case "skip": {
-			newState.skip = data;
-			break;
-		}
-		default: {
-			throw new Error("Unrecognized reducer action.");
-		}
-	}
-	
-	return newState;
-}
-
 function GridKitchenSink() {
 	const api = useMemo(() => {
 		return new JSONDB(rawData);
 	}, []);
 	
-	const [state, dispatch] = useReducer(stateReducer, {
+	const [state, setState] = useState({
 		removeItems : [],
 		data : [],
 		view : "grid",
@@ -64,7 +29,8 @@ function GridKitchenSink() {
 			name : "title",
 			dir : "asc"
 		},
-		filters : {}
+		filters : {},
+		primaryFilters : []
 	});
 	
 	const filterChange = function(name, value) {
@@ -81,12 +47,10 @@ function GridKitchenSink() {
 			
 			const count = await api.count({});
 			
-			dispatch({
-				type : "data",
-				data : {
-					data : newData,
-					count : count
-				}
+			setState({
+				...state,
+				data : newData,
+				count : count
 			});
 		}
 		
@@ -209,10 +173,30 @@ function GridKitchenSink() {
 		],
 		views : ["list", "grid"],
 		onSkipChange : function(data) {
-			dispatch({ type : "skip", data });
+			setState({
+				...state,
+				skip : data
+			});
 		},
 		onLimitChange : function(data) {
-			dispatch({ type : "limit", data });
+			setState({
+				...state,
+				limit : data,
+				skip : 0
+			});
+		},
+		onSortChange : function(data) {
+			setState({
+				...state,
+				sort : data,
+				skip : 0
+			});
+		},
+		onViewChange : function(data) {
+			setState({
+				...state,
+				view : data
+			});
 		}
 	};
 	
@@ -238,7 +222,6 @@ function GridKitchenSink() {
 				count={state.count}
 				view={state.view}
 				sort={state.sort}
-				dispatch={dispatch}
 			></Grid>
 			{/*
 			{removeDialog}

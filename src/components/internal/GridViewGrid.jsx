@@ -100,7 +100,9 @@ const StyledDiv = styled.div`
 	}
 `
 
-function GridGridView(props) {
+function GridViewGrid(props) {
+	// TODO VALIDATE PROPS
+	
 	const imageColumn = props.columns.find(val => val.name === "image");
 	const primaryColumn = props.columns.find(val => val.name === "primary");
 	const secondaryColumn = props.columns.find(val => val.name === "secondary");
@@ -208,4 +210,4 @@ function GridGridView(props) {
 	)
 }
 
-export default GridGridView;
+export default GridViewGrid;
