@@ -5,6 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { xor } from "lodash";
+import jsvalidator from "jsvalidator";
 
 import Checkbox from "./Checkbox.jsx";
 
@@ -24,6 +25,37 @@ const StyledDiv = styled.div`
 `
 
 function CheckboxList(props) {
+	jsvalidator.validate(props, {
+		type : "object",
+		schema : [
+			{
+				name : "checked",
+				type : "array",
+				schema : {
+					type : "string"
+				}
+			},
+			{
+				name : "options",
+				type : "array",
+				schema : {
+					type : "object",
+					schema : [
+						{ name : "value", type : "string" },
+						{ name : "label", type : "string" }
+					],
+					allowExtraKeys : false
+				}
+			},
+			{
+				name : "onChange",
+				type : "function"
+			}
+		],
+		allowExtraKeys : false,
+		throwOnInvalid : true
+	});
+	
 	const handleToggle = (value) => () => {
 		// toggle the item in the array
 		const newChecked = xor(props.checked, [value]);
