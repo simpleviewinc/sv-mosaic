@@ -4,24 +4,35 @@ import jsvalidator from "jsvalidator";
 import IconButton from "@material-ui/core/IconButton";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CloseIcon from '@material-ui/icons/Close';
 
 import theme from "../utils/theme.js";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
-	font-size: 14px;
 	display: inline-flex;
-	padding: 8px;
+	align-items: center;
+	padding: 6px;
 	cursor: pointer;
 	border-radius: 4px;
+	transition: background-color ${theme.animations.backgroundMs};
 	
-	&:hover {
+	&.primary {
+		color: ${theme.colors.lightGray};
+	}
+	
+	&.optional {
+		color: ${theme.colors.blue};
 		background: ${theme.colors.blue}13;
 	}
 	
+	&:hover {
+		background: ${theme.colors.blue}23;
+	}
+	
 	& > .label {
-		color: ${theme.colors.lightGray};
 		margin-right: 8px;
+		font-weight: 500;
 	}
 	
 	& > .valueBlock {
@@ -29,12 +40,25 @@ const StyledWrapper = styled.div`
 		align-items: center;
 	}
 	
-	& > .valueBlock > .dropdownIcon {
-		font-size: 18px;
-	}
-	
 	& > .valueBlock > .value {
 		font-weight: bold;
+	}
+	
+	&.primary > .valueBlock > .value {
+		color: black;
+	}
+	
+	& > .remove {
+		margin-left: 8px;
+		font-size: 13px;
+		color: black;
+		padding: 3px;
+		border-radius: 20px;
+		transition: background-color ${theme.animations.backgroundMs};
+	}
+	
+	& > .remove:hover {
+		background-color: ${theme.colors.blue}45;
 	}
 `;
 
@@ -44,19 +68,41 @@ function GridPrimaryFilter(props) {
 		schema : [
 			{ name : "label", type : "string", required : true },
 			{ name : "value", type : "string" },
+			{ name : "type", type : "string", enum : ["primary", "optional"], required : true },
+			{ name : "onRemove", type : "function", required : true },
 			{ name : "onClick", type : "function", required : true }
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
 	
+	const remove = function(e) {
+		// stops the outer wrapping click handler from firing
+		e.stopPropagation();
+		
+		// call the passed in onRemove function
+		props.onRemove();
+	}
+	
 	return (
-		<StyledWrapper onClick={props.onClick}>
+		<StyledWrapper
+			onClick={props.onClick}
+			className={`
+				${props.type}
+			`}
+		>
 			<span className="label">{props.label}: </span>
 			<span className="valueBlock">
 				<span className="value">{props.value || "any"}</span>
 				<ExpandMoreIcon className="dropdownIcon"/>
 			</span>
+			{
+				props.type === "optional" &&
+				<CloseIcon
+					className="remove"
+					onClick={remove}
+				/>
+			}
 		</StyledWrapper>
 	)
 }
