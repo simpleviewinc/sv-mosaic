@@ -43,9 +43,12 @@ function filterData(data, filter) {
 	for(let [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined) {
 			newData = newData.filter(row => val.$in.includes(row[key]));
-			continue;
+		} else if (val.$ne !== undefined) {
+			newData = newData.filter(row => row[key] !== val.$ne);
 		} else if (val instanceof RegExp) {
 			newData = newData.filter(row => val.test(row[key]));
+		} else if (typeof val === "string") {
+			newData = newData.filter(row => row[key] === val);
 		}
 	}
 	
