@@ -1,6 +1,7 @@
 class JSONDB {
-	constructor(data) {
+	constructor(data, { relationships } = {}) {
 		this.data = data;
+		this.relationships = relationships;
 	}
 	
 	async find(query) {
@@ -21,6 +22,25 @@ class JSONDB {
 		
 		if (query.limit !== undefined) {
 			data = data.slice(0, query.limit);
+		}
+		
+		if (this.relationships !== undefined) {
+			for(let [key, relationship] of Object.entries(this.relationships)) {
+				for(let [key, row] of Object.entries(data)) {
+					const ids = row[relationship.left_key];
+					if (ids === undefined) { continue; }
+					
+					const items = await relationship.api.find({
+						filter : {
+							[relationship.right_key] : {
+								$in : ids
+							}
+						}
+					});
+					
+					row[relationship.key] = items;
+				}
+			}
 		}
 		
 		return data;
