@@ -14,23 +14,18 @@ import rawData from "./grandrapids_custom_header_slides.json";
 import GridFilterText from "../components/GridFilterText.jsx";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
 
-const processStringFilter = function({ name, value, filter, output }) {
-	if (value.value === undefined) { return; }
+const processStringFilter = function({ name, data, filter, output }) {
+	if (data.value === undefined) { return; }
 	
-	
-	if (value.comparison === "equals") {
-		output[name] = value.value;
-	} else if (value.comparison === "contains") {
-		output[name] = new RegExp(`.*${value.value}.*`, "i");
-	} else if (value.comparison === "not_contains") {
-		output[name] = new RegExp(`^((?!${value.value}).)*$`, "i")
-	} else if (value.comparison === "not_equals") {
-		output[name] = { $ne : value.value };
+	if (data.comparison === "equals") {
+		output[name] = data.value;
+	} else if (data.comparison === "contains") {
+		output[name] = new RegExp(`.*${data.value}.*`, "i");
+	} else if (data.comparison === "not_contains") {
+		output[name] = new RegExp(`^((?!${data.value}).)*$`, "i")
+	} else if (data.comparison === "not_equals") {
+		output[name] = { $ne : data.value };
 	}
-}
-
-const toFilter = {
-	title : processStringFilter
 }
 
 const filters = [
@@ -39,10 +34,13 @@ const filters = [
 		label : "Keyword",
 		type : "primary",
 		component : GridFilterText,
-		toFilter : function({ name, value, output }) {
-			if (value.value === undefined) { return; }
-			
-			output.title = new RegExp(`.*${value.value}.*`, "i");
+		column : "title",
+		toFilter : function({ name, data, output }) {
+			processStringFilter({
+				name,
+				data : { value : data.value, comparison : "contains" },
+				output
+			});
 		}
 	},
 	{
@@ -103,7 +101,7 @@ function GridKitchenSink() {
 			if (filter[filterObj.name] !== undefined) {
 				filterObj.toFilter({
 					name : filterObj.column || filterObj.name,
-					value : filter[filterObj.name],
+					data : filter[filterObj.name],
 					filter : filter,
 					output : queryFilter
 				});
