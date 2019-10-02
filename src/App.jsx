@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
 import { hot } from "react-hot-loader/root";
 import GridKitchenSink from "./examples/GridKitchenSink.jsx";
-// import Hax from "./examples/Hax.jsx";
 import Buttons from "./examples/Buttons.jsx";
 import Filters from "./examples/Filters.jsx";
 
@@ -11,7 +10,6 @@ function App() {
 	
 	const options = [
 		{ label : "Grid Kitchen Sink", value : "GridKitchenSink", component : <GridKitchenSink></GridKitchenSink> },
-		// { label : "Hax", value : "Hax", component : <Hax></Hax> },
 		{ label : "Buttons", value : "Buttons", component : <Buttons></Buttons> },
 		{ label : "Filters", value : "Filters", component : <Filters></Filters> }
 	]
@@ -31,7 +29,6 @@ function App() {
 	
 	return (
 		<div>
-			<h1>Examples</h1>
 			<select onChange={onChange} value={componentName}>
 				<option>Choose a example...</option>
 				{optionsDom}
