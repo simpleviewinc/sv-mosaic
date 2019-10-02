@@ -38,27 +38,44 @@ function GridFilterText(props) {
 				required : true
 			},
 			{
-				name : "state",
+				name : "value",
 				type : "object",
 				schema : [
-					{ name : "value", type : "string", required : true },
+					{ name : "value", type : "string" },
 					{ name : "comparison", type : "string", enum : validComparisonNames }
 				],
 				allowExtraKeys : false,
 				required : true
 			},
 			{
-				name : "setState",
+				name : "type",
+				type : "string",
+				required : true
+			},
+			{
+				name : "args",
+				type : "object",
+				schema : [
+					{
+						name : "comparisons",
+						type : "array",
+						schema : {
+							type : "string",
+							enum : validComparisonNames
+						}
+					}
+				],
+				allowExtraKeys : false
+			},
+			{
+				name : "onRemove",
 				type : "function",
 				required : true
 			},
 			{
-				name : "comparisons",
-				type : "array",
-				schema : {
-					type : "string",
-					enum : validComparisonNames
-				}
+				name : "onChange",
+				type : "function",
+				required : true
 			}
 		],
 		allowExtraKeys : false,
@@ -66,7 +83,8 @@ function GridFilterText(props) {
 	});
 	
 	const [anchorEl, setAnchorEl] = useState(null);
-	const comparison = props.state.comparison || "equals";
+	const comparison = props.value.comparison || "equals";
+	const value = props.value.value || "";
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
@@ -83,25 +101,31 @@ function GridFilterText(props) {
 		valueString = "EXISTS";
 	} else if (comparison === "not_exists") {
 		valueString = "NOT EXISTS";
-	} else if (props.state.value === "") {
+	} else if (value === "") {
 		valueString = "";
 	} else {
-		valueString = `${comparisonMap[comparison]} "${props.state.value}"`
+		valueString = `${comparisonMap[comparison]} "${value}"`
 	}
 	
 	// filter the valid comparisons based on what the developer is allowing
-	const activeComparisons = props.comparisons ? validComparisons.filter(val => props.comparisons.includes(val.value)) : undefined;
+	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
 	
 	return (
 		<StyledWrapper>
-			<GridPrimaryFilter label={props.label} value={valueString} onClick={onClick}/>
+			<GridPrimaryFilter
+				label={props.label}
+				value={valueString}
+				type={props.type}
+				onRemove={props.onRemove}
+				onClick={onClick}
+			/>
 			<GridFilterDropdown
 				anchorEl={anchorEl}
 				onClose={onClose}
 			>
 				<GridFilterTextDropdownContent
-					state={props.state}
-					setState={props.setState}
+					value={value}
+					onChange={props.onChange}
 					comparison={comparison}
 					comparisons={activeComparisons}
 					onClose={onClose}

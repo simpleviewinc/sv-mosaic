@@ -37,17 +37,19 @@ const StyledContents = styled.div`
 	}
 `;
 
+const existsComparisons = ["exists", "not_exists"];
+
 function GridFilterTextDropdownContent(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
 			{
-				name : "state",
-				type : "object",
+				name : "value",
+				type : "string",
 				required : true
 			},
 			{
-				name : "setState",
+				name : "onChange",
 				type : "function",
 				required : true
 			},
@@ -71,22 +73,29 @@ function GridFilterTextDropdownContent(props) {
 	});
 	
 	const [state, setState] = useState({
-		value : props.state.value,
+		value : props.value,
 		comparison : props.comparison
 	});
 	
-	const {
-		value,
-		comparison
-	} = state;
-	
-	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === comparison) : undefined;
+	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
 	
 	const onApply = function() {
-		props.setState({
-			value : value,
-			comparison : comparison
-		});
+		if (existsComparisons.includes(state.comparison)) {
+			// for these the value is not relevant
+			props.onChange({
+				comparison : state.comparison
+			});
+		} else if (state.value === "") {
+			// if the state is empty we wipe the whole object
+			props.onChange(undefined);
+		} else {
+			// set both values
+			props.onChange({
+				value : state.value,
+				comparison : state.comparison
+			});
+		}
+		
 		props.onClose();
 	}
 	
@@ -111,7 +120,7 @@ function GridFilterTextDropdownContent(props) {
 		}
 	}
 	
-	const disabled = ["exists", "not_exists"].includes(comparison);
+	const disabled = existsComparisons.includes(state.comparison);
 	
 	let comparisonButton;
 	if (props.comparisons) {
@@ -124,7 +133,7 @@ function GridFilterTextDropdownContent(props) {
 					};
 					
 					// for exists and not_exists we want to clear the value
-					if (["exists", "not_exists"].includes(comparison.value) === true) {
+					if (existsComparisons.includes(comparison.value) === true) {
 						stateChange.value = "";
 					}
 					
@@ -157,7 +166,7 @@ function GridFilterTextDropdownContent(props) {
 					disabled={disabled}
 					placeholder="Filter..."
 					margin="dense"
-					value={value}
+					value={state.value}
 					variant="outlined"
 					onChange={onInputChange}
 					onKeyPress={onKeyPress}
