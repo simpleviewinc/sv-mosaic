@@ -49,7 +49,7 @@ function GridFilters(props) {
 								label={filter.label}
 								type={filter.type}
 								args={filter.args || {}}
-								value={props.filter[filter.name] || {}}
+								data={props.filter[filter.name] || {}}
 								onRemove={onRemove(filter.name)}
 								onChange={filter.onChange}
 							/>
@@ -82,7 +82,7 @@ function GridFilters(props) {
 								label={filter.label}
 								type={filter.type}
 								args={filter.args || {}}
-								value={props.filter[filter.name] || {}}
+								data={props.filter[filter.name] || {}}
 								onRemove={onRemove(filter.name)}
 								onChange={filter.onChange}
 							/>

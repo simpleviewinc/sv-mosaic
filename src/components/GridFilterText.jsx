@@ -38,7 +38,7 @@ function GridFilterText(props) {
 				required : true
 			},
 			{
-				name : "value",
+				name : "data",
 				type : "object",
 				schema : [
 					{ name : "value", type : "string" },
@@ -83,8 +83,8 @@ function GridFilterText(props) {
 	});
 	
 	const [anchorEl, setAnchorEl] = useState(null);
-	const comparison = props.value.comparison || "equals";
-	const value = props.value.value || "";
+	const comparison = props.data.comparison || "equals";
+	const value = props.data.value || "";
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
