@@ -2,6 +2,7 @@
 	{
 		"_id": "55842aafd989fc715e628959",
 		"title": "Sandy beaches of Lake Michigan only a short drive away.",
+		"categories_ids" : ["558029432abf5f8c3bbb3e9f", "5580293e2abf5f8c3bbb3e9d"],
 		"image_id": "5584231bd989fc715e627fa1",
 		"description": "Sandy beaches only a short drive away.",
 		"target": false,
@@ -58,6 +59,7 @@
 	{
 		"_id": "558745d6d989fc715e63faaa",
 		"title": "Family Fun",
+		"categories_ids" : ["5580293e2abf5f8c3bbb3e9d"],
 		"image_id": "55873a2ad989fc715e63f9ee",
 		"target": false,
 		"created": "2015-06-21T23:15:47.118Z",

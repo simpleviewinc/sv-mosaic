@@ -11,6 +11,7 @@ import Grid from "../components/Grid.jsx";
 import RemoveDialog from "../examples/RemoveDialog.jsx";
 import JSONDB from "../utils/JSONDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
+import categories from "./categories.json";
 import GridFilterText from "../components/GridFilterText.jsx";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
 
@@ -64,8 +65,21 @@ const filters = [
 ]
 
 function GridKitchenSink() {
+	const categoriesApi = useMemo(() => {
+		return new JSONDB(categories);
+	}, []);
+	
 	const api = useMemo(() => {
-		return new JSONDB(rawData);
+		return new JSONDB(rawData, {
+			relationships : [
+				{
+					api : categoriesApi,
+					key : "categories",
+					left_key : "categories_ids",
+					right_key : "id"
+				}
+			]
+		});
 	}, []);
 	
 	const [state, setState] = useState({
@@ -150,6 +164,15 @@ function GridKitchenSink() {
 			label : "Title",
 			style : "bold",
 			sortable : true
+		},
+		{
+			name : "categories",
+			label : "Categories",
+			transforms : [
+				function(data) {
+					return data.map(val => val.tag).join(", ");
+				}
+			]
 		},
 		{
 			name : "created",
@@ -281,8 +304,6 @@ function GridKitchenSink() {
 			});
 		},
 		onActiveFiltersChange : function(data) {
-			
-			
 			setState({
 				...state,
 				activeFilters : data,
