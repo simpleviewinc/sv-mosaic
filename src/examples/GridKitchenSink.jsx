@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useReducer } from "react";
+import { pick } from "lodash";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -12,6 +13,57 @@ import JSONDB from "../utils/JSONDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
 import GridFilterText from "../components/GridFilterText.jsx";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
+
+const processStringFilter = function({ name, value, filter, output }) {
+	if (value.value === undefined) { return; }
+	
+	
+	if (value.comparison === "equals") {
+		output[name] = value.value;
+	} else if (value.comparison === "contains") {
+		output[name] = new RegExp(`.*${value.value}.*`, "i");
+	} else if (value.comparison === "not_contains") {
+		output[name] = new RegExp(`^((?!${value.value}).)*$`, "i")
+	} else if (value.comparison === "not_equals") {
+		output[name] = { $ne : value.value };
+	}
+}
+
+const toFilter = {
+	title : processStringFilter
+}
+
+const filters = [
+	{
+		name : "keyword",
+		label : "Keyword",
+		type : "primary",
+		component : GridFilterText,
+		toFilter : function({ name, value, output }) {
+			if (value.value === undefined) { return; }
+			
+			output.title = new RegExp(`.*${value.value}.*`, "i");
+		}
+	},
+	{
+		name : "title",
+		label : "Title",
+		type : "optional",
+		component : GridFilterText,
+		toFilter : processStringFilter
+	},
+	{
+		name : "title_with_comparisons",
+		label : "Title with Comparisons",
+		type : "optional",
+		component : GridFilterText,
+		toFilter : processStringFilter,
+		column : "title",
+		args : {
+			comparisons : ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
+		}
+	}
+]
 
 function GridKitchenSink() {
 	const api = useMemo(() => {
@@ -29,23 +81,52 @@ function GridKitchenSink() {
 			name : "title",
 			dir : "asc"
 		},
-		filters : {},
-		primaryFilters : []
+		filter : {},
+		activeFilters : []
 	});
 	
 	const filterChange = function(name, value) {
+		setState({
+			...state,
+			filter : {
+				...state.filter,
+				[name] : value
+			},
+			skip : 0
+		});
+	}
+	
+	const convertFilter = function(filter) {
+		const queryFilter = {};
 		
+		for(let [i, filterObj] of Object.entries(filters)) {
+			if (filter[filterObj.name] !== undefined) {
+				filterObj.toFilter({
+					name : filterObj.column || filterObj.name,
+					value : filter[filterObj.name],
+					filter : filter,
+					output : queryFilter
+				});
+			}
+		}
+		
+		return queryFilter;
 	}
 	
 	useEffect(() => {
 		const fetchData = async function() {
+			const converted = convertFilter(state.filter);
+			
 			const newData = await api.find({
 				limit : state.limit,
 				sort : state.sort,
-				skip : state.skip
+				skip : state.skip,
+				filter : converted
 			});
 			
-			const count = await api.count({});
+			const count = await api.count({
+				filter : converted
+			});
 			
 			setState({
 				...state,
@@ -55,7 +136,7 @@ function GridKitchenSink() {
 		}
 		
 		fetchData();
-	}, [state.limit, state.sort, state.skip]);
+	}, [state.limit, state.sort, state.skip, state.filter]);
 	
 	const listColumns = [
 		{
@@ -162,15 +243,18 @@ function GridKitchenSink() {
 				}
 			}
 		],
-		filters : [
-			{
-				label : "Keyword",
-				component : GridFilterText,
+		filters : filters.map(filter => {
+			return {
+				name : filter.name,
+				label : filter.label,
+				component : filter.component,
+				type : filter.type,
+				args : filter.args,
 				onChange : function(value) {
-					
+					filterChange(filter.name, value);
 				}
 			}
-		],
+		}),
 		views : ["list", "grid"],
 		onSkipChange : function(data) {
 			setState({
@@ -197,6 +281,15 @@ function GridKitchenSink() {
 				...state,
 				view : data
 			});
+		},
+		onActiveFiltersChange : function(data) {
+			
+			
+			setState({
+				...state,
+				activeFilters : data,
+				filter : pick(state.filter, data)
+			});
 		}
 	};
 	
@@ -222,6 +315,8 @@ function GridKitchenSink() {
 				count={state.count}
 				view={state.view}
 				sort={state.sort}
+				filter={state.filter}
+				activeFilters={state.activeFilters}
 			></Grid>
 			{/*
 			{removeDialog}

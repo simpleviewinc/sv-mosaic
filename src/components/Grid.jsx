@@ -83,6 +83,17 @@ function Grid(props) {
 				type : "array"
 			},
 			{
+				name : "filter",
+				type : "object"
+			},
+			{
+				name : "activeFilters",
+				type : "array",
+				schema : {
+					type : "string"
+				}
+			},
+			{
 				name : "primaryActions",
 				type : "array"
 			},
@@ -151,6 +162,10 @@ function Grid(props) {
 			{
 				name : "onViewChange",
 				type : "function"
+			},
+			{
+				name : "onActiveFiltersChange",
+				type : "function"
 			}
 		],
 		allowExtraKeys : false,
@@ -207,7 +222,15 @@ function Grid(props) {
 			</div>
 			<div className="headerRow">
 				<div className="left">
-					<GridFilters/>
+					{
+						props.filters &&
+						<GridFilters
+							filter={props.filter}
+							filters={props.filters}
+							activeFilters={props.activeFilters}
+							onActiveFiltersChange={props.onActiveFiltersChange}
+						/>
+					}
 				</div>
 				<div className="right">
 					{ props.views &&
