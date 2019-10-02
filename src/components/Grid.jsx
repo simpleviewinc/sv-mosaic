@@ -11,6 +11,7 @@ import Button from "./Button.jsx";
 import GridViewSwitcher from "./internal/GridViewSwitcher.jsx";
 import GridPager from "./internal/GridPager.jsx";
 import GridLimit from "./internal/GridLimit.jsx";
+import GridFilters from "./internal/GridFilters.jsx";
 import theme from "../utils/theme.js";
 
 const StyledWrapper = styled.div`
@@ -18,13 +19,13 @@ const StyledWrapper = styled.div`
 	font-weight: 400;
 	font-size: 14px;
 	
-	& > .headerTopRow {
+	& > .headerRow {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 	
-	& > .headerTopRow > .right {
+	& > .headerRow > .right {
 		display: flex;
 		align-items: center;
 	}
@@ -76,6 +77,10 @@ function Grid(props) {
 					],
 					allowExtraKeys : false
 				}
+			},
+			{
+				name : "filters",
+				type : "array"
 			},
 			{
 				name : "primaryActions",
@@ -204,8 +209,14 @@ function Grid(props) {
 	
 	return (
 		<StyledWrapper>
-			<div className="headerTopRow">
+			<div className="headerRow">
 				<TitleBar title={props.title} buttons={props.buttons}></TitleBar>
+				
+			</div>
+			<div className="headerRow">
+				<div className="left">
+					<GridFilters/>
+				</div>
 				<div className="right">
 					{ props.views &&
 						<GridViewSwitcher

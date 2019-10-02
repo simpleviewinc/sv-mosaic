@@ -10,6 +10,7 @@ import Grid from "../components/Grid.jsx";
 import RemoveDialog from "../examples/RemoveDialog.jsx";
 import JSONDB from "../utils/JSONDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
+import GridFilterText from "../components/GridFilterText.jsx";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
 
 function stateReducer(state, { type, data }) {
@@ -62,8 +63,13 @@ function GridKitchenSink() {
 		sort : {
 			name : "title",
 			dir : "asc"
-		}
+		},
+		filters : {}
 	});
+	
+	const filterChange = function(name, value) {
+		
+	}
 	
 	useEffect(() => {
 		const fetchData = async function() {
@@ -189,6 +195,15 @@ function GridKitchenSink() {
 				variant : "outlined",
 				onClick : function() {
 					alert("CREATE NEW");
+				}
+			}
+		],
+		filters : [
+			{
+				label : "Keyword",
+				component : GridFilterText,
+				onChange : function(value) {
+					
 				}
 			}
 		],
