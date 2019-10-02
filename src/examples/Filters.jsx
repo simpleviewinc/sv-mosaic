@@ -84,25 +84,29 @@ function Filters() {
 			<h2>Text Filter</h2>
 			<GridFilterText
 				label="No Value"
-				state={values.no_value}
-				setState={setState("no_value")}
+				value={values.no_value}
+				onChange={setState("no_value")}
 			/>
 			<GridFilterText
 				label="With Value"
-				state={values.with_value}
-				setState={setState("with_value")}
+				value={values.with_value}
+				onChange={setState("with_value")}
 			/>
 			<GridFilterText
 				label="With All Comparisons"
-				state={values.with_all_comparisons}
-				comparisons={["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]}
-				setState={setState("with_all_comparisons")}
+				value={values.with_all_comparisons}
+				args={{
+					comparisons : ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
+				}}
+				onChange={setState("with_all_comparisons")}
 			/>
 			<GridFilterText
 				label="With Some Comparisons"
-				state={values.with_some_comparisons}
-				comparisons={["equals", "not_equals", "contains", "not_contains"]}
-				setState={setState("with_some_comparisons")}
+				value={values.with_some_comparisons}
+				args={{
+					comparisons : ["equals", "not_equals", "contains", "not_contains"]
+				}}
+				onChange={setState("with_some_comparisons")}
 			/>
 			
 			<h2>Multiselect Filters</h2>
