@@ -1,3 +1,5 @@
+import { intersection } from "lodash";
+
 class JSONDB {
 	constructor(data, { relationships } = {}) {
 		this.data = data;
@@ -60,11 +62,25 @@ class JSONDB {
 function filterData(data, filter) {
 	let newData = data;
 	
+	console.log("filter", filter);
+	
 	for(let [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined) {
-			newData = newData.filter(row => val.$in.includes(row[key]));
+			newData = newData.filter(row => {
+				if (row[key] === undefined) { return false; }
+				
+				if (row[key] instanceof Array) {
+					return intersection(row[key], val.$in).length > 0;
+				} else {
+					return val.$in.includes(row[key])
+				}
+			});
 		} else if (val.$ne !== undefined) {
 			newData = newData.filter(row => row[key] !== val.$ne);
+		} else if (val.$exists === true) {
+			newData = newData.filter(row => row[key] !== undefined);
+		} else if (val.$exists === false) {
+			newData = newData.filter(row => row[key] === undefined);
 		} else if (val instanceof RegExp) {
 			newData = newData.filter(row => val.test(row[key]));
 		} else if (typeof val === "string") {

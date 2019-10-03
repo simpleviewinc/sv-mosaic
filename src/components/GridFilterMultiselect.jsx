@@ -26,7 +26,7 @@ const comparisonMap = {
 	all : "All - "
 }
 
-function GridFilterText(props) {
+function GridFilterMultiselect(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -36,17 +36,7 @@ function GridFilterText(props) {
 				required : true
 			},
 			{
-				name : "getOptions",
-				type : "function",
-				required : true
-			},
-			{
-				name : "getSelected",
-				type : "function",
-				required : true
-			},
-			{
-				name : "state",
+				name : "data",
 				type : "object",
 				schema : [
 					{
@@ -54,8 +44,7 @@ function GridFilterText(props) {
 						type : "array",
 						schema : {
 							type : "string"
-						},
-						required : true
+						}
 					},
 					{
 						name : "comparison",
@@ -67,17 +56,45 @@ function GridFilterText(props) {
 				required : true
 			},
 			{
-				name : "setState",
+				name : "type",
+				type : "string",
+				required : true
+			},
+			{
+				name : "args",
+				type : "object",
+				schema : [
+					{
+						name : "getOptions",
+						type : "function",
+						required : true
+					},
+					{
+						name : "getSelected",
+						type : "function",
+						required : true
+					},
+					{
+						name : "comparisons",
+						type : "array",
+						schema : {
+							type : "string",
+							enum : validComparisonNames
+						}
+					}
+				],
+				allowExtraKeys : false,
+				required : true
+			},
+			{
+				name : "onRemove",
 				type : "function",
 				required : true
 			},
 			{
-				name : "comparisons",
-				type : "array",
-				schema : {
-					type : "string",
-					enum : validComparisonNames
-				}
+				name : "onChange",
+				type : "function",
+				required : true
 			}
 		],
 		allowExtraKeys : false,
@@ -87,16 +104,17 @@ function GridFilterText(props) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [selected, setSelected] = useState([]);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
-	const comparison = props.state.comparison || "in";
+	const value = props.data.value || [];
+	const comparison = props.data.comparison || "in";
 	
 	useEffect(() => {
 		async function fetchData() {
-			const selected = await props.getSelected(props.state.value);
+			const selected = await props.args.getSelected(value);
 			setSelected(selected);
 		}
 		
 		fetchData();
-	}, [props.state]);
+	}, [props.data]);
 	
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
@@ -131,11 +149,17 @@ function GridFilterText(props) {
 	}
 	
 	// filter the valid comparisons based on what the developer is allowing
-	const activeComparisons = props.comparisons ? validComparisons.filter(val => props.comparisons.includes(val.value)) : undefined;
+	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
 	
 	return (
 		<StyledWrapper>
-			<GridPrimaryFilter label={props.label} value={valueString} onClick={onClick}/>
+			<GridPrimaryFilter
+				label={props.label}
+				value={valueString}
+				type={props.type}
+				onRemove={props.onRemove}
+				onClick={onClick}
+			/>
 			<GridFilterDropdown
 				anchorEl={anchorEl}
 				onClose={onClose}
@@ -143,18 +167,18 @@ function GridFilterText(props) {
 				onExited={onExited}
 			>
 				<GridFilterMultiselectDropdownContent
-					state={props.state}
-					setState={props.setState}
-					getOptions={props.getOptions}
-					selected={selected}
+					value={value}
 					comparison={comparison}
 					comparisons={activeComparisons}
-					onClose={onClose}
+					selected={selected}
+					getOptions={props.args.getOptions}
 					isOpen={dropdownOpen}
+					onChange={props.onChange}
+					onClose={onClose}
 				/>
 			</GridFilterDropdown>
 		</StyledWrapper>
 	);
 }
 
-export default GridFilterText;
+export default GridFilterMultiselect;

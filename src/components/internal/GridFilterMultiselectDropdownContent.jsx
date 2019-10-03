@@ -8,7 +8,7 @@ import Chip from "@material-ui/core/Chip";
 import InputBase from "@material-ui/core/InputBase";
 import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { debounce } from "lodash";
+import { debounce, xor } from "lodash";
 import jsvalidator from "jsvalidator";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -121,14 +121,8 @@ function GridFilterMultiselectDropdownContent(props) {
 		type : "object",
 		schema : [
 			{
-				name : "state",
-				type : "object",
-				required : true
-			},
-			{
-				name : "setState",
-				type : "function",
-				required : true
+				name : "value",
+				type : "array"
 			},
 			{
 				name : "comparison",
@@ -158,6 +152,11 @@ function GridFilterMultiselectDropdownContent(props) {
 				name : "onClose",
 				type : "function",
 				required : true
+			},
+			{
+				name : "onChange",
+				type : "function",
+				required : true
 			}
 		],
 		allowExtraKeys : false,
@@ -174,29 +173,17 @@ function GridFilterMultiselectDropdownContent(props) {
 		loaded : false
 	});
 	
-	const {
-		options,
-		selected,
-		hasMore,
-		skip,
-		keyword,
-		comparison,
-		loaded
-	} = state;
-	
-	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === comparison) : undefined;
-	
-	const selectedValues = selected.map(val => val.value);
+	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
 	
 	useEffect(() => {
 		async function fetchData() {
-			const options = await props.getOptions({ limit, skip });
+			const options = await props.getOptions({ limit, skip : state.skip });
 			
 			setState({
 				...state,
 				options : options.docs,
 				hasMore : options.hasMore === true,
-				skip : skip + limit,
+				skip : state.skip + limit,
 				loaded : true
 			});
 		}
@@ -216,16 +203,16 @@ function GridFilterMultiselectDropdownContent(props) {
 	}
 	
 	const onApply = function() {
-		props.setState({
-			value : selectedValues,
-			comparison
+		props.onChange({
+			value : state.selected.map(val => val.value),
+			comparison : state.comparison
 		});
 		props.onClose();
 	}
 	
 	const handleToggle = option => () => {
-		const currentIndex = selected.findIndex(val => val.value === option.value);
-		const newSelected = [...selected];
+		const currentIndex = state.selected.findIndex(val => val.value === option.value);
+		const newSelected = [...state.selected];
 		
 		if (currentIndex === -1) {
 			newSelected.push(option);
@@ -241,12 +228,17 @@ function GridFilterMultiselectDropdownContent(props) {
 	
 	const loadMore = function() {
 		async function fetchData() {
-			const newOptions = await props.getOptions({ limit, skip, keyword });
+			const newOptions = await props.getOptions({
+				limit,
+				skip : state.skip,
+				keyword : state.keyword
+			});
+			
 			setState({
 				...state,
-				options : [...options, ...newOptions.docs],
+				options : [...state.options, ...newOptions.docs],
 				hasMore : newOptions.hasMore === true,
-				skip : skip + limit
+				skip : state.skip + limit
 			});
 		}
 		
@@ -255,7 +247,12 @@ function GridFilterMultiselectDropdownContent(props) {
 	
 	const debouncedSetKeyword = debounce(function(value) {
 		async function fetchData() {
-			const newOptions = await props.getOptions({ limit, skip : 0, keyword : value });
+			const newOptions = await props.getOptions({
+				limit,
+				skip : 0,
+				keyword : value
+			});
+			
 			setState({
 				...state,
 				options : newOptions.docs,
@@ -326,10 +323,10 @@ function GridFilterMultiselectDropdownContent(props) {
 	}
 	
 	// if the user has chosen exists or not_exists then we need to disable the left panel since it isn't valid in that case
-	const optionsDisabled = ["exists", "not_exists"].includes(comparison);
+	const optionsDisabled = ["exists", "not_exists"].includes(state.comparison);
 	
 	// we want to avoid showing the list until the dropdown is fully open and the results are loaded from the db
-	const showList = props.isOpen && loaded;
+	const showList = props.isOpen && state.loaded;
 	
 	return (
 		<StyledWrapper>
@@ -352,8 +349,8 @@ function GridFilterMultiselectDropdownContent(props) {
 							dense
 						>
 							{
-								options.map(option => {
-									const checked = selectedValues.indexOf(option.value) !== -1;
+								state.options.map(option => {
+									const checked = state.selected.find(val => val.value === option.value) !== undefined;
 									
 									return (
 										<ListItem
@@ -379,7 +376,7 @@ function GridFilterMultiselectDropdownContent(props) {
 							}
 						</List>
 					}
-					{ hasMore &&
+					{ state.hasMore &&
 						<div className="loadContainer">
 							<Button
 								label="Load more..."
@@ -396,7 +393,7 @@ function GridFilterMultiselectDropdownContent(props) {
 					<h5>Selected Options</h5>
 					<div className="chips">
 						{
-							selected.map(option => {
+							state.selected.map(option => {
 								return (
 									<Chip
 										className="chip"
@@ -410,7 +407,11 @@ function GridFilterMultiselectDropdownContent(props) {
 					</div>
 				</div>
 			</div>
-			<GridFilterDropdownButtons onApply={onApply} onClear={onClear} onCancel={props.onClose}/>
+			<GridFilterDropdownButtons
+				onApply={onApply}
+				onClear={onClear}
+				onCancel={props.onClose}
+			/>
 		</StyledWrapper>
 	);
 }

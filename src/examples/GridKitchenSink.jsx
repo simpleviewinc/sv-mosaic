@@ -13,7 +13,22 @@ import JSONDB from "../utils/JSONDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
 import GridFilterText from "../components/GridFilterText.jsx";
+import GridFilterMultiselect from "../components/GridFilterMultiselect.jsx";
+import MultiselectHelper from "./MultiselectHelper.js";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
+
+const categoriesApi = new JSONDB(categories);
+
+const api =  new JSONDB(rawData, {
+	relationships : [
+		{
+			api : categoriesApi,
+			key : "categories",
+			left_key : "categories_ids",
+			right_key : "id"
+		}
+	]
+});
 
 const processStringFilter = function({ name, data, filter, output }) {
 	if (data.value === undefined) { return; }
@@ -29,6 +44,25 @@ const processStringFilter = function({ name, data, filter, output }) {
 	}
 }
 
+const processArrayFilter = function({ name, data, filter, output }) {
+	if (data.comparison === "exists") {
+		output[name] = { $exists : true }
+	} else if (data.comparison === "not_exists") {
+		output[name] = { $exists : false }
+	} else if (data.value === undefined || data.value.length === 0) {
+		return;
+	} else if (data.comparison === "in") {
+		output[name] = { $in : data.value };
+	}
+}
+
+const categoriesHelper = new MultiselectHelper({
+	api : categoriesApi,
+	labelColumn : "tag",
+	valueColumn : "id",
+	sortColumn : "sort_tag"
+});
+
 const filters = [
 	{
 		name : "keyword",
@@ -43,6 +77,31 @@ const filters = [
 				output
 			});
 		}
+	},
+	{
+		name : "categories",
+		label : "Categories",
+		type : "primary",
+		component : GridFilterMultiselect,
+		args : {
+			getOptions : categoriesHelper.getOptions,
+			getSelected : categoriesHelper.getSelected
+		},
+		column : "categories_ids",
+		toFilter : processArrayFilter
+	},
+	{
+		name : "categories_with_comparisons",
+		label : "Categories with Comparisons",
+		type : "optional",
+		component : GridFilterMultiselect,
+		args : {
+			getOptions : categoriesHelper.getOptions,
+			getSelected : categoriesHelper.getSelected,
+			comparisons : ["in", "not_in", "all", "exists", "not_exists"]
+		},
+		column : "categories_ids",
+		toFilter : processArrayFilter
 	},
 	{
 		name : "title",
@@ -65,23 +124,6 @@ const filters = [
 ]
 
 function GridKitchenSink() {
-	const categoriesApi = useMemo(() => {
-		return new JSONDB(categories);
-	}, []);
-	
-	const api = useMemo(() => {
-		return new JSONDB(rawData, {
-			relationships : [
-				{
-					api : categoriesApi,
-					key : "categories",
-					left_key : "categories_ids",
-					right_key : "id"
-				}
-			]
-		});
-	}, []);
-	
 	const [state, setState] = useState({
 		removeItems : [],
 		data : [],
