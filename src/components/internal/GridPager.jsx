@@ -16,6 +16,10 @@ function GridPager(props) {
 	const previousDisabled = currentPage === 1;
 	const nextDisabled = currentPage === totalPages;
 	
+	if (totalPages === 0) {
+		return null;
+	}
+	
 	return (
 		<span>
 			<Button
