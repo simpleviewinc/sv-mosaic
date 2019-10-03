@@ -123,6 +123,8 @@ const filters = [
 	}
 ]
 
+const primaryFilterNames = filters.filter(val => val.type === "primary").map(val => val.name);
+
 function GridKitchenSink() {
 	const [state, setState] = useState({
 		removeItems : [],
@@ -346,10 +348,13 @@ function GridKitchenSink() {
 			});
 		},
 		onActiveFiltersChange : function(data) {
+			// we want the new filter to be the items that are "active" as well as the primary filters
+			const newFilter = pick(state.filter, [...primaryFilterNames, ...data]);
+			
 			setState({
 				...state,
 				activeFilters : data,
-				filter : pick(state.filter, data)
+				filter : newFilter
 			});
 		}
 	};
