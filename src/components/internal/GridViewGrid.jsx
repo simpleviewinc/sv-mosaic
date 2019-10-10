@@ -10,6 +10,11 @@ import { transformColumn } from "../../utils/gridTools.js";
 import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
+	& > .bulkRow {
+		border-bottom: ${theme.borders.lightGray};
+		margin-bottom: 4px;
+	}
+	
 	& > .grid {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);

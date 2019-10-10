@@ -6,12 +6,13 @@ import Checkbox from "../Checkbox.jsx";
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import theme from "../../utils/theme.js";
 
 import { transformColumn } from "../../utils/gridTools.js";
 
 const StyledTBody = styled.tbody`
 	& > tr {
-		border-bottom: 1px solid rgba(0, 0, 0, .05);
+		border-bottom: ${theme.borders.lightGray};
 	}
 	
 	& > tr > td {

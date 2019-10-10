@@ -280,6 +280,12 @@ function Grid(props) {
 					onCheckboxClick={onCheckboxClick}
 				/>
 			</div>
+			{
+				!props.data.length &&
+				<div className="noResults">
+					<p>No results were found.</p>
+				</div>
+			}
 		</StyledWrapper>
 	)
 }
