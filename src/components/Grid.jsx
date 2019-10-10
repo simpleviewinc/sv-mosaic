@@ -281,7 +281,7 @@ function Grid(props) {
 				/>
 			</div>
 			{
-				!props.data.length &&
+				props.loading === false && !props.data.length &&
 				<div className="noResults">
 					<p>No results were found.</p>
 				</div>
