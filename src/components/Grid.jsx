@@ -29,6 +29,11 @@ const StyledWrapper = styled.div`
 		display: flex;
 		align-items: center;
 	}
+	
+	& > .viewContainer.loading {
+		opacity: .5;
+		pointer-events: none;
+	}
 `;
 
 function Grid(props) {
@@ -148,6 +153,10 @@ function Grid(props) {
 				type : "number"
 			},
 			{
+				name : "loading",
+				type : "boolean"
+			},
+			{
 				name : "onSkipChange",
 				type : "function"
 			},
@@ -252,20 +261,25 @@ function Grid(props) {
 					/>
 				</div>
 			</div>
-			<View
-				checked={state.checked}
-				columns={props.columns}
-				bulkActions={props.bulkActions}
-				sort={props.sort}
-				data={props.data}
-				additionalActions={props.additionalActions}
-				primaryActions={props.primaryActions}
-				onSortChange={props.onSortChange}
-				onBulkActionClick={onBulkActionClick}
-				onCheckAllClick={onCheckAllClick}
-				onActionClick={onActionClick}
-				onCheckboxClick={onCheckboxClick}
-			/>
+			<div className={`
+				viewContainer
+				${ props.loading ? "loading" : "" }
+			`}>
+				<View
+					checked={state.checked}
+					columns={props.columns}
+					bulkActions={props.bulkActions}
+					sort={props.sort}
+					data={props.data}
+					additionalActions={props.additionalActions}
+					primaryActions={props.primaryActions}
+					onSortChange={props.onSortChange}
+					onBulkActionClick={onBulkActionClick}
+					onCheckAllClick={onCheckAllClick}
+					onActionClick={onActionClick}
+					onCheckboxClick={onCheckboxClick}
+				/>
+			</div>
 		</StyledWrapper>
 	)
 }
