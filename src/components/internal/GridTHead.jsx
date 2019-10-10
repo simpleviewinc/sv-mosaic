@@ -13,45 +13,47 @@ import Checkbox from "../Checkbox.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.thead`
-	& {
-		text-align: left;
-		border-bottom: ${theme.borders.gray};
-		border-top: ${theme.borders.lightGray};
-	}
+	text-align: left;
+	border-bottom: ${theme.borders.gray};
+	border-top: ${theme.borders.lightGray};
+`
+
+const StyledTh = styled.th`
+	text-align: left;
+	font-weight: normal;
+	padding: 5px 0px;
 	
-	& > tr > th {
-		text-align: left;
-		font-weight: normal;
-		padding: 5px 0px;
-	}
-	
-	& > tr > th:last-child {
+	&:last-child {
 		text-align: right;
 	}
 	
-	& .columnHeader {
+	& > .columnHeader {
 		display: inline-flex;
 		align-items: center;
 	}
 	
-	& .columnHeader.sortable {
+	&.sortable > .columnHeader {
 		cursor: pointer;
 	}
 	
-	& .columnHeader > svg {
+	& > .columnHeader > .icon {
 		visibility: hidden;
 		font-size: 18px;
 	}
 	
-	& .columnHeader.active > svg {
+	&.active {
+		font-weight: bold;
+	}
+	
+	&.active > .columnHeader > .icon {
 		visibility: visible;
 	}
 	
-	& .columnHeader.active:hover > svg {
+	&.active > .columnHeader:hover > .icon {
 		color: black;
 	}
 	
-	& .columnHeader:hover > svg {
+	& > .columnHeader:hover > .icon {
 		visibility: visible;
 		color: ${theme.colors.lightGray};
 	}
@@ -115,17 +117,17 @@ function GridTHead(props) {
 		<StyledWrapper>
 			<tr>
 				{ props.bulkActions &&
-					<th key="_bulk">
+					<StyledTh key="_bulk">
 						<Checkbox
 							checked={allChecked}
 							onClick={props.onCheckAllClick}
 						/>
-					</th>
+					</StyledTh>
 				}
 				{ anyChecked &&
-					<th key="__bulk_actions" colSpan={props.columns.length}>
+					<StyledTh key="__bulk_actions" colSpan={props.columns.length}>
 						<ButtonRow buttons={bulkActionButtons}/>
-					</th>
+					</StyledTh>
 				}
 				{
 					!anyChecked &&
@@ -142,26 +144,28 @@ function GridTHead(props) {
 						const clickDir = active ? flipDir(props.sort.dir) : "asc";
 						
 						return (
-							<th key={column.name}>
+							<StyledTh
+								key={column.name}
+								className={`
+									${column.sortable ? "sortable" : ""}
+									${active ? "active" : ""}
+								`}
+							>
 								<span
-									className={`
-										columnHeader
-										${column.sortable ? "sortable" : ""}
-										${active ? "active" : ""}
-									`}
+									className="columnHeader"
 									onClick={column.sortable ? onClick : undefined}
 								>
 									{column.label}
 									
 									{ column.sortable &&
-										<Icon/>
+										<Icon className="icon"/>
 									}
 								</span>
-							</th>
+							</StyledTh>
 						);
 					})
 				}
-				<th key="__actions"><Button color="gray" variant="icon" mIcon={SettingsIcon}/></th>
+				<StyledTh key="__actions"><Button color="gray" variant="icon" mIcon={SettingsIcon}/></StyledTh>
 			</tr>
 		</StyledWrapper>
 	)
