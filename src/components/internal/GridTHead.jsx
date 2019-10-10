@@ -15,8 +15,8 @@ import theme from "../../utils/theme.js";
 const StyledWrapper = styled.thead`
 	& {
 		text-align: left;
-		border-bottom: 1px solid rgba(0, 0, 0, .15);
-		border-top: 1px solid rgba(0, 0, 0, .05);
+		border-bottom: ${theme.borders.gray};
+		border-top: ${theme.borders.lightGray};
 	}
 	
 	& > tr > th {

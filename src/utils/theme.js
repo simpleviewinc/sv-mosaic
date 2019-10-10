@@ -6,6 +6,10 @@ export default {
 		darkGray : "#081324",
 		red : "#b10000"
 	},
+	borders : {
+		lightGray : "1px solid rgba(0, 0, 0, .05)",
+		gray : "1px solid rgba(0, 0, 0, .15)"
+	},
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	animations : {
 		backgroundMs : "250ms"
