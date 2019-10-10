@@ -7,7 +7,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Chip from "@material-ui/core/Chip";
 import InputBase from "@material-ui/core/InputBase";
 import Checkbox from "@material-ui/core/Checkbox";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { debounce, xor } from "lodash";
 import jsvalidator from "jsvalidator";
 
@@ -18,6 +17,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import GridFilterDropdownButtons from "../GridFilterDropdownButtons.jsx";
 import Button from "../Button.jsx";
 import ButtonRow from "../ButtonRow.jsx";
+import Spinner from "../Spinner.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.div`
@@ -65,11 +65,6 @@ const StyledWrapper = styled.div`
 	& > .topBlock > .options > .spinner {
 		margin-top: 10px;
 		margin-bottom: 10px;
-		margin-left: 15px;
-	}
-	
-	& > .topBlock > .options > .spinner svg {
-		color: ${theme.colors.blue};
 	}
 	
 	& > .topBlock > .options .checked {
@@ -340,9 +335,7 @@ function GridFilterMultiselectDropdownContent(props) {
 						/>
 					</div>
 					{ !showList &&
-						<div className="spinner">
-							<CircularProgress/>
-						</div>
+						<Spinner className="spinner"/>
 					}
 					{ showList &&
 						<List
