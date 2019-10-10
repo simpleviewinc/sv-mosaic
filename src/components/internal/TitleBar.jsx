@@ -14,7 +14,7 @@ const StyledWrapper = styled.div`
 	}
 	
 	& > h1 {
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 500;
 		margin-right: 20px;
 	}
