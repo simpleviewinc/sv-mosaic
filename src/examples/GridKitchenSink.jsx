@@ -17,6 +17,9 @@ import GridFilterMultiselect from "../components/GridFilterMultiselect.jsx";
 import MultiselectHelper from "./MultiselectHelper.js";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
 
+// set an artificial delay of 500ms to simulate DB queries
+const ARTIFICIAL_DELAY = 500;
+
 const categoriesApi = new JSONDB(categories);
 
 const api =  new JSONDB(rawData, {
@@ -137,6 +140,7 @@ function GridKitchenSink() {
 			name : "title",
 			dir : "asc"
 		},
+		loading : false,
 		filter : {},
 		activeFilters : []
 	});
@@ -187,11 +191,19 @@ function GridKitchenSink() {
 			setState({
 				...state,
 				data : newData,
-				count : count
+				count : count,
+				loading : false
 			});
 		}
 		
-		fetchData();
+		setTimeout(function() {
+			fetchData();
+		}, ARTIFICIAL_DELAY);
+		
+		setState({
+			...state,
+			loading : true
+		});
 	}, [state.limit, state.sort, state.skip, state.filter]);
 	
 	const listColumns = [
@@ -381,6 +393,7 @@ function GridKitchenSink() {
 				count={state.count}
 				view={state.view}
 				sort={state.sort}
+				loading={state.loading}
 				filter={state.filter}
 				activeFilters={state.activeFilters}
 			></Grid>
