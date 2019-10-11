@@ -8,7 +8,6 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 import theme from "../utils/theme.js";
 import Grid from "../components/Grid.jsx";
-import RemoveDialog from "../examples/RemoveDialog.jsx";
 import JSONDB from "../utils/JSONDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
@@ -132,7 +131,7 @@ function GridKitchenSink() {
 	const [state, setState] = useState({
 		removeItems : [],
 		data : [],
-		view : "grid",
+		view : "list",
 		limit : 25,
 		skip : 0,
 		count : undefined,
@@ -142,7 +141,8 @@ function GridKitchenSink() {
 		},
 		loading : false,
 		filter : {},
-		activeFilters : []
+		activeFilters : [],
+		activeColumns : ["image", "title", "categories", "created"]
 	});
 	
 	const filterChange = function(name, value) {
@@ -207,6 +207,10 @@ function GridKitchenSink() {
 	}, [state.limit, state.sort, state.skip, state.filter]);
 	
 	const listColumns = [
+		{
+			name : "id",
+			label : "ID"
+		},
 		{
 			name : "image",
 			label : "Image",
@@ -368,20 +372,14 @@ function GridKitchenSink() {
 				activeFilters : data,
 				filter : newFilter
 			});
+		},
+		onColumnsChange : function(data) {
+			setState({
+				...state,
+				activeColumns : data
+			});
 		}
 	};
-	
-	// let removeDialog;
-	// if (removeItems.length > 0) {
-	// 	const onOk = function() {
-	// 		setRemoveItems([]);
-	// 	}
-	// 	const onCancel = function() {
-	// 		setRemoveItems([]);
-	// 	}
-		
-	// 	removeDialog = <RemoveDialog onOk={onOk} onCancel={onCancel}></RemoveDialog>;
-	// }
 	
 	return (
 		<div>
@@ -396,10 +394,8 @@ function GridKitchenSink() {
 				loading={state.loading}
 				filter={state.filter}
 				activeFilters={state.activeFilters}
+				activeColumns={state.activeColumns}
 			></Grid>
-			{/*
-			{removeDialog}
-			*/}
 		</div>
 	);
 }
