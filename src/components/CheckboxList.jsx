@@ -88,7 +88,7 @@ function CheckboxList(props) {
 										disableRipple
 									/>
 								</ListItemIcon>
-								<ListItemText primary={option.label}/>
+								<span>{option.label}</span>
 							</ListItem>
 						)
 					})
