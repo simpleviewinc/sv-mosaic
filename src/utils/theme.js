@@ -22,5 +22,4 @@ export default {
 	animations : {
 		backgroundMs : "250ms"
 	}
-	// fontFamily : "Open Sans"
 }
