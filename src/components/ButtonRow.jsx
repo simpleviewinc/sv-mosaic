@@ -19,14 +19,15 @@ function ButtonRow(props) {
 		type : "object",
 		schema : [
 			{ name : "buttons", type : "array" },
-			{ name : "children", type : "object" }
+			{ name : "children", type : "object" },
+			{ name : "className", type : "string" }
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
 	
 	return (
-		<StyledWrapper>
+		<StyledWrapper className={props.className}>
 			{ props.children }
 			{ props.buttons && 
 				props.buttons.map((button, i) => {
