@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
-import GridCheckbox from "./internal/GridCheckbox.jsx";
 import GridViewList from "./internal/GridViewList.jsx";
 import GridViewGrid from "./internal/GridViewGrid.jsx";
 import TitleBar from "./internal/TitleBar.jsx";
