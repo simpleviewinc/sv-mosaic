@@ -15,6 +15,10 @@ const ButtonWrapper = styled.span`
 		font-size: 14px;
 	}
 	
+	& > button.normalButton {
+		box-shadow: none;
+	}
+	
 	& > button.normalButton .icon {
 		font-size: 20px;
 	}
@@ -86,6 +90,15 @@ const types = {
 		}
 		& > button:hover {
 			background: ${theme.colors.blueHover};
+		}
+	`,
+	lightBlue_contained : styled(ButtonWrapper)`
+		& > button {
+			background: ${theme.colors.blue}13;
+			color: ${theme.colors.blue};
+		}
+		& > button:hover {
+			background: ${theme.colors.blue}26;
 		}
 	`,
 	red_contained : styled(ButtonWrapper)`
@@ -171,7 +184,7 @@ function Button(props) {
 			{
 				name : "color",
 				type : "string",
-				enum : ["black", "blue", "red", "gray"],
+				enum : ["black", "blue", "lightBlue", "red", "gray"],
 				required : true
 			},
 			{
