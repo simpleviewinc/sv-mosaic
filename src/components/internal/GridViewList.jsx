@@ -17,11 +17,13 @@ function GridViewList(props) {
 			<GridTHead
 				checked={props.checked}
 				columns={props.columns}
+				allColumns={props.allColumns}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
 				onSortChange={props.onSortChange}
 				onBulkActionClick={props.onBulkActionClick}
 				onCheckAllClick={props.onCheckAllClick}
+				onColumnsChange={props.onColumnsChange}
 			/>
 			<GridTBody
 				checked={props.checked}

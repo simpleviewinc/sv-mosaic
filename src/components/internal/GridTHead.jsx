@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
@@ -9,6 +9,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
 import Checkbox from "../Checkbox.jsx";
+import GridColumnDrawer from "./GridColumnDrawer.jsx";
 
 import theme from "../../utils/theme.js";
 
@@ -81,6 +82,10 @@ function GridTHead(props) {
 				type : "array"
 			},
 			{
+				name : "allColumns",
+				type : "array"
+			},
+			{
 				name : "sort",
 				type : "object"
 			},
@@ -95,10 +100,18 @@ function GridTHead(props) {
 			{
 				name : "onBulkActionClick",
 				type : "function"
+			},
+			{
+				name : "onColumnsChange",
+				type : "function"
 			}
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
+	});
+	
+	const [state, setState] = useState({
+		gearOpen : false
 	});
 	
 	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
@@ -113,6 +126,13 @@ function GridTHead(props) {
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
 	
+	const gearClick = function() {
+		setState({
+			...state,
+			gearOpen : !state.gearOpen
+		});
+	}
+	
 	return (
 		<StyledWrapper>
 			<tr>
@@ -125,7 +145,7 @@ function GridTHead(props) {
 					</StyledTh>
 				}
 				{ anyChecked &&
-					<StyledTh key="__bulk_actions" colSpan={props.columns.length}>
+					<StyledTh key="_bulk_actions" colSpan={props.columns.length}>
 						<ButtonRow buttons={bulkActionButtons}/>
 					</StyledTh>
 				}
@@ -165,8 +185,17 @@ function GridTHead(props) {
 						);
 					})
 				}
-				<StyledTh key="__actions"><Button color="gray" variant="icon" mIcon={SettingsIcon}/></StyledTh>
+				<StyledTh key="_actions">
+					<Button color="gray" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
+				</StyledTh>
 			</tr>
+			<GridColumnDrawer
+				open={state.gearOpen}
+				columns={props.columns}
+				allColumns={props.allColumns}
+				onChange={props.onColumnsChange}
+				onClose={gearClick}
+			/>
 		</StyledWrapper>
 	)
 }

@@ -99,6 +99,13 @@ function Grid(props) {
 				}
 			},
 			{
+				name : "activeColumns",
+				type : "array",
+				schema : {
+					type : "string"
+				}
+			},
+			{
 				name : "primaryActions",
 				type : "array"
 			},
@@ -175,6 +182,10 @@ function Grid(props) {
 			{
 				name : "onActiveFiltersChange",
 				type : "function"
+			},
+			{
+				name : "onColumnsChange",
+				type : "function"
 			}
 		],
 		allowExtraKeys : false,
@@ -223,6 +234,11 @@ function Grid(props) {
 	
 	const View = props.view === "list" ? GridViewList : GridViewGrid;
 	
+	const activeColumnObjs = props.activeColumns.map(name => {
+		const column = props.columns.find(val => val.name === name);
+		return column;
+	});
+	
 	return (
 		<StyledWrapper>
 			<div className="headerRow">
@@ -267,13 +283,15 @@ function Grid(props) {
 			`}>
 				<View
 					checked={state.checked}
-					columns={props.columns}
+					columns={activeColumnObjs}
+					allColumns={props.columns}
 					bulkActions={props.bulkActions}
 					sort={props.sort}
 					data={props.data}
 					additionalActions={props.additionalActions}
 					primaryActions={props.primaryActions}
 					onSortChange={props.onSortChange}
+					onColumnsChange={props.onColumnsChange}
 					onBulkActionClick={onBulkActionClick}
 					onCheckAllClick={onCheckAllClick}
 					onActionClick={onActionClick}
