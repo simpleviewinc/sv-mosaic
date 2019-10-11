@@ -9,14 +9,17 @@ import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
 
 const DrawerContent = styled.div`
-	padding-left: 20px;
-	padding-right: 20px;
 	font-family: ${theme.fontFamily};
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	font-size: 14px;
 
 	& > .topBar {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		padding: 12px;
 	}
 	
 	& > .topBar > .left {
@@ -25,8 +28,17 @@ const DrawerContent = styled.div`
 	}
 
 	& > .topBar > .left > h1 {
-		font-size: 20px;
+		${theme.h1}
+		
+		display: inline;
 		padding: 0px 50px 0px 20px;
+		margin: 0;
+	}
+	
+	& > .content {
+		flex: 1;
+		padding: 12px;
+		background: rgba(0,0,0,.05);
 	}
 `
 

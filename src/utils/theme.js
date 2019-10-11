@@ -1,4 +1,12 @@
 export default {
+	h1 : `
+		font-size: 20px;
+		font-weight: 500;
+	`,
+	h2 : `
+		font-size: 14px;
+		font-weight: normal;
+	`,
 	colors : {
 		blue : "#0070f2",
 		blueHover : "#0b50f1",
