@@ -15,6 +15,10 @@ const ButtonWrapper = styled.span`
 		font-size: 14px;
 	}
 	
+	& > button.normalButton .icon {
+		font-size: 20px;
+	}
+	
 	& > button.normalButton .icon_left {
 		margin-right: 4px;
 	}

@@ -44,6 +44,10 @@ const StyledWrapper = styled.div`
 		font-weight: bold;
 	}
 	
+	& > .valueBlock > .dropdownIcon {
+		font-size: 20px;
+	}
+	
 	&.primary > .valueBlock > .value {
 		color: black;
 	}
