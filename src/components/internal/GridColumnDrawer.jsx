@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import CloseIcon from '@material-ui/icons/Close';
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
@@ -8,12 +9,16 @@ import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
 import Drawer from "../Drawer.jsx";
 import CheckboxList from "../CheckboxList.jsx";
+import theme from "../../utils/theme.js";
 
 const DrawerContent = styled.div`
 	display: flex;
+	width: 700px;
 	
 	& > div > h2 {
-		font-size: 14px;
+		${theme.h2}
+		padding-left: 15px;
+		margin: 0 0 1rem 0;
 	}
 	
 	& > .left {
@@ -22,8 +27,9 @@ const DrawerContent = styled.div`
 		width: 200px;
 	}
 	
-	& > .left > h2 {
-		padding-left: 14px;
+	& > .left .listItem {
+		margin: 3px 0px;
+		background: white;
 	}
 	
 	& > .right {
@@ -32,9 +38,12 @@ const DrawerContent = styled.div`
 	}
 	
 	& > .right > .item {
+		background: white;
 		line-height: 42px;
+		margin: 3px 0px;
 		display: flex;
 		justify-content: space-between;
+		padding-left: 15px;
 	}
 	
 	& > .right > .item > .buttons {
@@ -43,8 +52,6 @@ const DrawerContent = styled.div`
 `
 
 function GridColumnDrawer(props) {
-	console.log("drawer?", props);
-	
 	const [state, setState] = useState({
 		activeColumns : props.columns.map(val => val.name)
 	});
@@ -82,6 +89,8 @@ function GridColumnDrawer(props) {
 			label : column.label,
 			value : column.name
 		}
+	}).sort((a, b) => {
+		return a.label.localeCompare(b.label)
 	});
 	
 	return (
