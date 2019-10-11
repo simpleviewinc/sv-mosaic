@@ -38,7 +38,7 @@ const DrawerContent = styled.div`
 	& > .content {
 		flex: 1;
 		padding: 12px;
-		background: rgba(0,0,0,.05);
+		background: #FAFBFC;
 	}
 `
 
