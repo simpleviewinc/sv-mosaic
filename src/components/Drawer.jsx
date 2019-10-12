@@ -14,7 +14,7 @@ const DrawerContent = styled.div`
 	flex-direction: column;
 	height: 100%;
 	font-size: 14px;
-
+	
 	& > .topBar {
 		display: flex;
 		align-items: center;
@@ -38,6 +38,9 @@ const DrawerContent = styled.div`
 	& > .content {
 		flex: 1;
 		padding: 12px;
+	}
+	
+	&.background-gray > .content {
 		background: #FAFBFC;
 	}
 `
@@ -45,7 +48,11 @@ const DrawerContent = styled.div`
 function Drawer(props) {
 	return (
 		<MUIDrawer anchor="right" open={props.open} onClose={props.onClose}>
-			<DrawerContent>
+			<DrawerContent
+				className={`
+					${props.background ? `background-${props.background}` : ""}
+				`}
+			>
 				<div className="topBar">
 					<div className="left">
 						<Button
