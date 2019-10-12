@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
 
 import Checkbox from "../Checkbox.jsx";
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import GridTd from "./GridTd.jsx";
 import theme from "../../utils/theme.js";
 
 import { transformColumn } from "../../utils/gridTools.js";
@@ -91,28 +93,30 @@ function GridTBody(props) {
 			{
 				props.data.map((row, i) => {
 					return (
-						<tr key={row.id}>
+						<tr key={row.id || i}>
 							{ props.bulkActions &&
-								<td key="_bulk">
+								<GridTd key="_bulk">
 									<Checkbox
 										checked={props.checked[i] === true}
 										onClick={checkboxClick(i)}
 									/>
-								</td>
+								</GridTd>
 							}
 							{
 								props.columns.map(column => {
 									const data = transformColumn(row, column);
 									
 									return (
-										<td
+										<GridTd
 											key={column.name}
 											className={column.style === "bold" ? "bold" : undefined}
-										>{data}</td>
+										>
+											{data}
+										</GridTd>
 									);
 								})
 							}
-							<td>
+							<GridTd>
 								<ButtonRow>
 									{
 										props.primaryActions && 
@@ -142,7 +146,7 @@ function GridTBody(props) {
 										/>
 									}
 								</ButtonRow>
-							</td>
+							</GridTd>
 						</tr>
 					)
 				})

@@ -21,8 +21,9 @@ const StyledWrapper = styled.thead`
 
 const StyledTh = styled.th`
 	text-align: left;
-	font-weight: normal;
+	font-weight: bold;
 	padding: 5px 0px;
+	height: 40px;
 	
 	&:last-child {
 		text-align: right;
@@ -159,9 +160,15 @@ function GridTHead(props) {
 							});
 						};
 						
-						const active = props.sort.name === column.name;
-						const Icon = active && props.sort.dir === "desc" ? ArrowUpwardIcon : ArrowDownwardIcon;
-						const clickDir = active ? flipDir(props.sort.dir) : "asc";
+						let active;
+						let Icon;
+						let clickDir;
+						
+						if (column.sortable) {
+							active = props.sort.name === column.name;
+							Icon = active && props.sort.dir === "desc" ? ArrowUpwardIcon : ArrowDownwardIcon;
+							clickDir = active ? flipDir(props.sort.dir) : "asc";
+						}
 						
 						return (
 							<StyledTh
@@ -186,16 +193,21 @@ function GridTHead(props) {
 					})
 				}
 				<StyledTh key="_actions">
-					<Button color="gray" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
+					{
+						props.onColumnsChange !== undefined &&
+						<Button color="gray" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
+					}
 				</StyledTh>
 			</tr>
-			<GridColumnDrawer
-				open={state.gearOpen}
-				columns={props.columns}
-				allColumns={props.allColumns}
-				onChange={props.onColumnsChange}
-				onClose={gearClick}
-			/>
+			{ props.onColumnsChange !== undefined &&
+				<GridColumnDrawer
+					open={state.gearOpen}
+					columns={props.columns}
+					allColumns={props.allColumns}
+					onChange={props.onColumnsChange}
+					onClose={gearClick}
+				/>
+			}
 		</StyledWrapper>
 	)
 }

@@ -123,7 +123,26 @@ function Grid(props) {
 			{
 				name : "view",
 				type : "string",
-				enum : ["list", "grid"]
+				enum : ["list", "grid"],
+				required : true // TODO: not make this required!
+			},
+			{
+				name : "savedView",
+				type : "string"
+			},
+			{
+				name : "savedViews",
+				type : "array",
+				schema : {
+					type : "object",
+					schema : [
+						{ name : "name", type : "string" },
+						{ name : "label", type : "string" },
+						{ name : "type", type : "string", enum : ["shared", "mine"] },
+						{ name : "state", type : "object" }
+					],
+					allowExtraKeys : false
+				}
 			},
 			{
 				name : "views",
@@ -176,6 +195,10 @@ function Grid(props) {
 			},
 			{
 				name : "onViewChange",
+				type : "function"
+			},
+			{
+				name : "onSavedViewChange",
 				type : "function"
 			},
 			{
@@ -241,8 +264,13 @@ function Grid(props) {
 	return (
 		<StyledWrapper>
 			<div className="headerRow">
-				<TitleBar title={props.title} buttons={props.buttons}></TitleBar>
-				
+				<TitleBar
+					title={props.title}
+					buttons={props.buttons}
+					savedView={props.savedView}
+					savedViews={props.savedViews}
+					onSavedViewChange={props.onSavedViewChange}
+				/>
 			</div>
 			<div className="headerRow">
 				<div className="left">
@@ -257,23 +285,27 @@ function Grid(props) {
 					}
 				</div>
 				<div className="right">
-					{ props.views &&
+					{ props.views !== undefined &&
 						<GridViewSwitcher
 							view={props.view}
 							views={props.views}
 							onViewChange={props.onViewChange}
 						/>
 					}
-					<GridLimit
-						limit={props.limit}
-						onLimitChange={props.onLimitChange}
-					/>
-					<GridPager
-						limit={props.limit}
-						skip={props.skip}
-						count={props.count}
-						onSkipChange={props.onSkipChange}
-					/>
+					{ props.onLimitChange !== undefined &&
+						<GridLimit
+							limit={props.limit}
+							onLimitChange={props.onLimitChange}
+						/>
+					}
+					{ props.onSkipChange !== undefined &&
+						<GridPager
+							limit={props.limit}
+							skip={props.skip}
+							count={props.count}
+							onSkipChange={props.onSkipChange}
+						/>
+					}
 				</div>
 			</div>
 			<div className={`

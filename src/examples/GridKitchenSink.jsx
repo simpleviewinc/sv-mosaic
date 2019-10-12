@@ -127,22 +127,52 @@ const filters = [
 
 const primaryFilterNames = filters.filter(val => val.type === "primary").map(val => val.name);
 
+const savedViews = [
+	{
+		name : "default",
+		label : "Default View",
+		type : "shared",
+		state : {
+			limit : 25,
+			skip : 0,
+			filter : {},
+			sort : {
+				name : "title",
+				dir : "asc"
+			},
+			view : "list",
+			activeFilters : [],
+			activeColumns : ["image", "title", "categories", "created"]
+		}
+	},
+	{
+		name : "id_title",
+		label : "ID Title",
+		type : "shared",
+		state : {
+			limit : 25,
+			skip : 0,
+			filter : {},
+			sort : {
+				name : "title",
+				dir : "asc"
+			},
+			view : "list",
+			activeFilters : [],
+			activeColumns : ["id", "title"],
+		}
+	}
+];
+
 function GridKitchenSink() {
 	const [state, setState] = useState({
 		removeItems : [],
 		data : [],
-		view : "list",
-		limit : 25,
-		skip : 0,
-		count : undefined,
-		sort : {
-			name : "title",
-			dir : "asc"
-		},
+		count : 0,
 		loading : false,
-		filter : {},
-		activeFilters : [],
-		activeColumns : ["image", "title", "categories", "created"]
+		savedView : "default",
+		savedViews : savedViews,
+		...savedViews.find(val => val.name === "default").state
 	});
 	
 	const filterChange = function(name, value) {
@@ -337,6 +367,7 @@ function GridKitchenSink() {
 			}
 		}),
 		views : ["list", "grid"],
+		savedViews : savedViews,
 		onSkipChange : function(data) {
 			setState({
 				...state,
@@ -361,6 +392,13 @@ function GridKitchenSink() {
 			setState({
 				...state,
 				view : data
+			});
+		},
+		onSavedViewChange : function(name) {
+			setState({
+				...state,
+				savedView : name,
+				...savedViews.find(val => val.name === name).state
 			});
 		},
 		onActiveFiltersChange : function(data) {
@@ -393,6 +431,7 @@ function GridKitchenSink() {
 				sort={state.sort}
 				loading={state.loading}
 				filter={state.filter}
+				savedView={state.savedView}
 				activeFilters={state.activeFilters}
 				activeColumns={state.activeColumns}
 			></Grid>
