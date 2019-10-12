@@ -98,6 +98,7 @@ function GridColumnDrawer(props) {
 			title="Table Settings"
 			open={props.open}
 			onClose={props.onClose}
+			background="gray"
 			buttons={
 				<ButtonRow>
 					<Button
