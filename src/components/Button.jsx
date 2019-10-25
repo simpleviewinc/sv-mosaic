@@ -15,23 +15,23 @@ const ButtonWrapper = styled.span`
 		font-size: 14px;
 	}
 	
-	& > button.normalButton {
+	&.normalButton > button {
 		box-shadow: none;
 	}
 	
-	& > button.normalButton .icon {
+	&.normalButton > button .icon {
 		font-size: 20px;
 	}
 	
-	& > button.normalButton .icon_left {
+	&.normalButton > button .icon_left {
 		margin-right: 4px;
 	}
 	
-	& > button.normalButton .icon_right {
+	&.normalButton > button .icon_right {
 		margin-left: 4px;
 	}
 	
-	& > button.iconButton {
+	&.iconButton > button {
 		padding: 8px;
 		font-size: 15px;
 	}
@@ -258,11 +258,14 @@ function Button(props) {
 	const onClick = props.popover ? openPopover : props.menuItems ? openMenu : props.onClick;
 	
 	return (
-		<MyButton className={props.className}>
+		<MyButton className={`
+			${props.className ? props.className : ""}
+			button
+			${props.variant === "icon" ? "iconButton" : "normalButton"}
+		`}>
 			{ props.variant !== "icon" &&
 				<MUIButton
 					variant={props.variant}
-					className="normalButton"
 					onClick={onClick}
 					fullWidth={props.fullWidth}
 					disabled={props.disabled}
@@ -278,7 +281,6 @@ function Button(props) {
 			}
 			{ props.variant === "icon" &&
 				<IconButton
-					className="iconButton"
 					onClick={onClick}
 					disabled={props.disabled}
 				>
