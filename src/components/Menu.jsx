@@ -49,6 +49,10 @@ function Menu(props) {
 							type : "object"
 						},
 						{
+							name : "disabled",
+							type : "boolean"
+						},
+						{
 							name : "onClick",
 							type : "function"
 						}
@@ -86,7 +90,7 @@ function Menu(props) {
 		const MyIcon = item.color !== undefined ? iconTypes[item.color] : StyledIcon;
 		
 		return (
-			<MenuItem key={i} onClick={onClick}>
+			<MenuItem key={i} onClick={onClick} disabled={item.disabled}>
 				{ item.mIcon &&
 					<MyIcon>
 						<ListItemIcon>
