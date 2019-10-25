@@ -280,7 +280,7 @@ function GridKitchenSink() {
 			label : "Image",
 			transforms : [
 				transform_get(["resource_raw", "secure_url"]),
-				transform_thumbnail({ width : 275, height : 185 })
+				transform_thumbnail({ width : 275, height : 200 })
 			]
 		},
 		{
