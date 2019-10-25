@@ -5,12 +5,9 @@ import jsvalidator from "jsvalidator";
 import Button from "./Button.jsx";
 
 const StyledWrapper = styled.span`
-	& > * {
-		margin-right: 5px;
-	}
-	
-	& > *:last-child {
-		margin-right: 0px;
+	${/* ensures that the NEXT button spaces itself, if it isn't an icon button */""}
+	& > .button + .normalButton {
+		margin-left: 5px;
 	}
 `;
 

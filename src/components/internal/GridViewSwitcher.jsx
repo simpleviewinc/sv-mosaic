@@ -9,18 +9,7 @@ import Button from "../Button.jsx";
 import Menu from "../Menu.jsx";
 
 const StyledSpan = styled.span`
-	& > .button {
-		cursor: pointer;
-		padding: 4px 8px;
-		border-radius: 8px;
-		display: inline-flex;
-		align-items: center;
-		color: rgba(0, 0, 0, 0.54);
-	}
-	
-	& > .button:hover {
-		background: rgba(0, 0, 0, .08);
-	}
+
 `
 
 function GridViewSwitcher(props) {
