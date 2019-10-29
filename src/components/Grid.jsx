@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
@@ -128,21 +128,14 @@ function Grid(props) {
 			},
 			{
 				name : "savedView",
-				type : "string"
-			},
-			{
-				name : "savedViews",
-				type : "array",
-				schema : {
-					type : "object",
-					schema : [
-						{ name : "name", type : "string" },
-						{ name : "label", type : "string" },
-						{ name : "type", type : "string", enum : ["shared", "mine"] },
-						{ name : "state", type : "object" }
-					],
-					allowExtraKeys : false
-				}
+				type : "object",
+				schema : [
+					{ name : "id", type : "string" },
+					{ name : "label", type : "string" },
+					{ name : "type", type : "string", enum : ["default", "shared", "mine"] },
+					{ name : "state", type : "object" }
+				],
+				allowExtraKeys : false
 			},
 			{
 				name : "views",
@@ -198,15 +191,27 @@ function Grid(props) {
 				type : "function"
 			},
 			{
-				name : "onSavedViewChange",
-				type : "function"
-			},
-			{
 				name : "onActiveFiltersChange",
 				type : "function"
 			},
 			{
 				name : "onColumnsChange",
+				type : "function"
+			},
+			{
+				name : "onSavedViewSave",
+				type : "function"
+			},
+			{
+				name : "onSavedViewChange",
+				type : "function"
+			},
+			{
+				name : "onSavedViewRemove",
+				type : "function"
+			},
+			{
+				name : "onSavedViewGetOptions",
 				type : "function"
 			}
 		],
@@ -218,6 +223,14 @@ function Grid(props) {
 	const [state, setState] = useState({
 		checked : []
 	});
+	
+	const savedViewEnabled = 
+		props.onSavedViewSave !== undefined &&
+		props.onSavedViewChange !== undefined &&
+		props.onSavedViewGetOptions !== undefined &&
+		props.onSavedViewRemove !== undefined &&
+		props.savedView !== undefined
+	;
 	
 	const onCheckAllClick = function() {
 		const allChecked = state.checked.every(val => val === true);
@@ -261,15 +274,32 @@ function Grid(props) {
 		return column;
 	});
 	
+	const savedViewState = {
+		limit : props.limit,
+		sort : props.sort,
+		view : props.view,
+		filter : props.filter,
+		activeFilters : props.activeFilters,
+		activeColumns : props.activeColumns
+	}
+	
+	const savedViewCallbacks = {
+		onSave : props.onSavedViewSave,
+		onChange : props.onSavedViewChange,
+		onGetOptions : props.onSavedViewGetOptions,
+		onRemove : props.onSavedViewRemove
+	}
+	
 	return (
 		<StyledWrapper>
 			<div className="headerRow">
 				<TitleBar
 					title={props.title}
 					buttons={props.buttons}
+					savedViewEnabled={savedViewEnabled}
 					savedView={props.savedView}
-					savedViews={props.savedViews}
-					onSavedViewChange={props.onSavedViewChange}
+					savedViewState={savedViewState}
+					savedViewCallbacks={savedViewCallbacks}
 				/>
 			</div>
 			<div className="headerRow">
