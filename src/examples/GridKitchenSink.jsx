@@ -379,6 +379,7 @@ function GridKitchenSink() {
 		},
 		onSavedViewSave : function(data) {
 			viewsApi.upsert(data);
+			gridConfig.onSavedViewChange(data);
 		},
 		onSavedViewGetOptions : function() {
 			return [defaultView, ...viewsApi.find()];
