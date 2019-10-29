@@ -94,7 +94,8 @@ function GridTBody(props) {
 				props.data.map((row, i) => {
 					return (
 						<tr key={row.id || i}>
-							{ props.bulkActions &&
+							{
+								props.bulkActions &&
 								<GridTd key="_bulk">
 									<Checkbox
 										checked={props.checked[i] === true}
