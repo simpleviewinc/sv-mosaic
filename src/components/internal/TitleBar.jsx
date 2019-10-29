@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
@@ -35,9 +35,10 @@ function TitleBar(props) {
 		schema : [
 			{ name : "title", type : "string" },
 			{ name : "buttons", type : "array" },
-			{ name : "savedView", type : "string" },
-			{ name : "savedViews", type : "array" },
-			{ name : "onSavedViewChange", type : "function" }
+			{ name : "savedViewEnabled", type : "boolean" },
+			{ name : "savedView", type : "object" },
+			{ name : "savedViewState", type : "object" },
+			{ name : "savedViewCallbacks", type : "object" }
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
@@ -46,15 +47,21 @@ function TitleBar(props) {
 	return (
 		<StyledWrapper>
 			<div className="left">
-				{ props.title && <h1>{props.title}</h1> }
-				{ props.buttons && <ButtonRow buttons={props.buttons}/> }
+				{
+					props.title &&
+					<h1>{props.title}</h1>
+				}
+				{
+					props.buttons &&
+					<ButtonRow buttons={props.buttons}/>
+				}
 			</div>
 			{
-				props.onSavedViewChange &&
+				props.savedViewEnabled &&
 				<GridViewControls
 					savedView={props.savedView}
-					savedViews={props.savedViews}
-					onSavedViewChange={props.onSavedViewChange}
+					savedViewState={props.savedViewState}
+					savedViewCallbacks={props.savedViewCallbacks}
 				/>
 			}
 		</StyledWrapper>

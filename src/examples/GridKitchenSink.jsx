@@ -9,6 +9,7 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import theme from "../utils/theme.js";
 import Grid from "../components/Grid.jsx";
 import JSONDB from "../utils/JSONDB.js";
+import LocalStorageDB from "../utils/LocalStorageDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
 import GridFilterText from "../components/GridFilterText.jsx";
@@ -20,6 +21,7 @@ import { transform_dateFormat, transform_get, transform_thumbnail } from "../uti
 const ARTIFICIAL_DELAY = 500;
 
 const categoriesApi = new JSONDB(categories);
+const viewsApi = new LocalStorageDB("views");
 
 const api =  new JSONDB(rawData, {
 	relationships : [
@@ -127,52 +129,34 @@ const filters = [
 
 const primaryFilterNames = filters.filter(val => val.type === "primary").map(val => val.name);
 
-const savedViews = [
-	{
-		name : "default",
-		label : "Default View",
-		type : "shared",
-		state : {
-			limit : 25,
-			skip : 0,
-			filter : {},
-			sort : {
-				name : "title",
-				dir : "asc"
-			},
-			view : "list",
-			activeFilters : [],
-			activeColumns : ["image", "title", "categories", "created"]
-		}
-	},
-	{
-		name : "id_title",
-		label : "ID Title",
-		type : "shared",
-		state : {
-			limit : 25,
-			skip : 0,
-			filter : {},
-			sort : {
-				name : "title",
-				dir : "asc"
-			},
-			view : "list",
-			activeFilters : [],
-			activeColumns : ["id", "title"],
-		}
+const defaultView = {
+	id : "default",
+	label : "Default View",
+	type : "default",
+	state : {
+		limit : 25,
+		skip : 0,
+		filter : {},
+		sort : {
+			name : "title",
+			dir : "asc"
+		},
+		view : "list",
+		activeFilters : [],
+		activeColumns : ["image", "title", "categories", "created"]
 	}
-];
+}
 
 function GridKitchenSink() {
 	const [state, setState] = useState({
 		removeItems : [],
 		data : [],
 		count : 0,
+		limit : 25,
+		skip : 0,
 		loading : false,
-		savedView : "default",
-		savedViews : savedViews,
-		...savedViews.find(val => val.name === "default").state
+		savedView : defaultView,
+		...defaultView.state
 	});
 	
 	const filterChange = function(name, value) {
@@ -367,7 +351,6 @@ function GridKitchenSink() {
 			}
 		}),
 		views : ["list", "grid"],
-		savedViews : savedViews,
 		onSkipChange : function(data) {
 			setState({
 				...state,
@@ -394,12 +377,22 @@ function GridKitchenSink() {
 				view : data
 			});
 		},
-		onSavedViewChange : function(name) {
+		onSavedViewSave : function(data) {
+			viewsApi.upsert(data);
+		},
+		onSavedViewGetOptions : function() {
+			return [defaultView, ...viewsApi.find()];
+		},
+		onSavedViewChange : function(data) {
 			setState({
 				...state,
-				savedView : name,
-				...savedViews.find(val => val.name === name).state
+				...data.state,
+				savedView : data,
+				skip : 0
 			});
+		},
+		onSavedViewRemove : function(data) {
+			viewsApi.remove(data);
 		},
 		onActiveFiltersChange : function(data) {
 			// we want the new filter to be the items that are "active" as well as the primary filters
