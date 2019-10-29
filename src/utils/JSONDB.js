@@ -62,8 +62,6 @@ class JSONDB {
 function filterData(data, filter) {
 	let newData = data;
 	
-	console.log("filter", filter);
-	
 	for(let [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined) {
 			newData = newData.filter(row => {
