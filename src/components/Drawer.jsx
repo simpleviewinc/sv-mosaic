@@ -1,11 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import MUIDrawer from "@material-ui/core/Drawer";
 
-import CloseIcon from '@material-ui/icons/Close';
-
-import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
 
 const DrawerContent = styled.div`
@@ -14,63 +10,44 @@ const DrawerContent = styled.div`
 	flex-direction: column;
 	height: 100%;
 	font-size: 14px;
-	
-	& > .topBar {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 12px;
-	}
-	
-	& > .topBar > .left {
-		display: flex;
-		align-items: center;
-	}
-
-	& > .topBar > .left > h1 {
-		${theme.h1}
-		
-		display: inline;
-		padding: 0px 50px 0px 20px;
-		margin: 0;
-	}
-	
-	& > .content {
-		flex: 1;
-		padding: 12px;
-	}
-	
-	&.background-gray > .content {
-		background: #FAFBFC;
-	}
 `
 
 function Drawer(props) {
+	const [state, setState] = useState({
+		open : false
+	});
+	
+	useEffect(() => {
+		if (props.open === true) {
+			setState({
+				...state,
+				open : true
+			});
+		}
+	}, [props.open]);
+	
+	const onExited = function() {
+		setState({
+			...state,
+			open : false
+		});
+	}
+	
 	return (
-		<MUIDrawer anchor="right" open={props.open} onClose={props.onClose}>
-			<DrawerContent
-				className={`
-					${props.background ? `background-${props.background}` : ""}
-				`}
-			>
-				<div className="topBar">
-					<div className="left">
-						<Button
-							mIcon={CloseIcon}
-							variant="icon"
-							color="black"
-							onClick={props.onClose}
-						/>
-						<h1>{props.title}</h1>
-					</div>
-					<div className="right">
-						{props.buttons}
-					</div>
-				</div>
-				<div className="content">
+		<MUIDrawer
+			anchor="right"
+			open={props.open}
+			onClose={props.onClose}
+			SlideProps={{
+				onExited
+			}}
+		>
+			{
+				state.open &&
+				<DrawerContent>
 					{props.children}
-				</div>
-			</DrawerContent>
+				</DrawerContent>
+			}
 		</MUIDrawer>
 	)
 }
