@@ -123,7 +123,7 @@ function GridTBody(props) {
 										props.primaryActions.map((action, i) => {
 											return (
 												<Button
-													key={`primary_{i}`}
+													key={`primary_${i}`}
 													{ ...action }
 													onClick={actionClick(action, row)}
 												/>
