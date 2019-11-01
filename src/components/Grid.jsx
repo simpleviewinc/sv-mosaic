@@ -315,20 +315,23 @@ function Grid(props) {
 					}
 				</div>
 				<div className="right">
-					{ props.views !== undefined &&
+					{
+						props.views !== undefined &&
 						<GridViewSwitcher
 							view={props.view}
 							views={props.views}
 							onViewChange={props.onViewChange}
 						/>
 					}
-					{ props.onLimitChange !== undefined &&
+					{
+						props.onLimitChange !== undefined &&
 						<GridLimit
 							limit={props.limit}
 							onLimitChange={props.onLimitChange}
 						/>
 					}
-					{ props.onSkipChange !== undefined &&
+					{
+						props.onSkipChange !== undefined &&
 						<GridPager
 							limit={props.limit}
 							skip={props.skip}
