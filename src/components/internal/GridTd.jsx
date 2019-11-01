@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 
 const StyleTd = styled.td`
@@ -15,4 +15,4 @@ function GridTd(props) {
 	)
 }
 
-export default GridTd;
+export default memo(GridTd);
