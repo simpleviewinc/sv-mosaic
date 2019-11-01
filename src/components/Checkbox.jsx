@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import MUICheckbox from "@material-ui/core/Checkbox";
 
@@ -26,4 +26,4 @@ function Checkbox(props) {
 	);
 }
 
-export default Checkbox;
+export default memo(Checkbox);
