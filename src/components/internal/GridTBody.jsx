@@ -1,16 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-
-import Checkbox from "../Checkbox.jsx";
-import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button.jsx";
-import GridTd from "./GridTd.jsx";
+import GridTr from "./GridTr.jsx";
 import theme from "../../utils/theme.js";
-
-import { transformColumn } from "../../utils/gridTools.js";
 
 const StyledTBody = styled.tbody`
 	& > tr {
@@ -80,11 +73,7 @@ function GridTBody(props) {
 		throwOnInvalid : true
 	});
 	
-	const actionClick = (action, row) => () => {
-		props.onActionClick(action, row);
-	}
-	
-	const checkboxClick = (i) => () => {
+	const onCheckboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
 	
@@ -93,62 +82,17 @@ function GridTBody(props) {
 			{
 				props.data.map((row, i) => {
 					return (
-						<tr key={row.id || i}>
-							{
-								props.bulkActions &&
-								<GridTd key="_bulk">
-									<Checkbox
-										checked={props.checked[i] === true}
-										onClick={checkboxClick(i)}
-									/>
-								</GridTd>
-							}
-							{
-								props.columns.map(column => {
-									const data = transformColumn(row, column);
-									
-									return (
-										<GridTd
-											key={column.name}
-											className={column.style === "bold" ? "bold" : undefined}
-										>
-											{data}
-										</GridTd>
-									);
-								})
-							}
-							<GridTd>
-								<ButtonRow>
-									{
-										props.primaryActions && 
-										props.primaryActions.map((action, i) => {
-											return (
-												<Button
-													key={`primary_${i}`}
-													{ ...action }
-													onClick={actionClick(action, row)}
-												/>
-											)
-										})
-									}
-									{
-										props.additionalActions &&
-										<Button
-											key="additional"
-											color="blue"
-											variant="icon"
-											mIcon={MoreHorizIcon}
-											menuItems={props.additionalActions.map(action => {
-												return {
-													...action,
-													onClick : actionClick(action, row)
-												}
-											})}
-										/>
-									}
-								</ButtonRow>
-							</GridTd>
-						</tr>
+						<GridTr
+							key={row.id || i}
+							row={row}
+							bulkActions={props.bulkActions}
+							primaryActions={props.primaryActions}
+							additionalActions={props.additionalActions}
+							onActionClick={props.onActionClick}
+							onCheckboxClick={onCheckboxClick(i)}
+							checked={props.checked[i]}
+							columns={props.columns}
+						/>
 					)
 				})
 			}
