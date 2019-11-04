@@ -59,6 +59,10 @@ const StyledTh = styled.th`
 		visibility: visible;
 		color: ${theme.colors.lightGray};
 	}
+	
+	&.bulk {
+		width: 52px;
+	}
 `
 
 function flipDir(sort) {
@@ -137,15 +141,17 @@ function GridTHead(props) {
 	return (
 		<StyledWrapper>
 			<tr>
-				{ props.bulkActions &&
-					<StyledTh key="_bulk">
+				{
+					props.bulkActions &&
+					<StyledTh key="_bulk" className="bulk">
 						<Checkbox
 							checked={allChecked}
 							onClick={props.onCheckAllClick}
 						/>
 					</StyledTh>
 				}
-				{ anyChecked &&
+				{
+					anyChecked &&
 					<StyledTh key="_bulk_actions" colSpan={props.columns.length}>
 						<ButtonRow buttons={bulkActionButtons}/>
 					</StyledTh>
@@ -199,7 +205,8 @@ function GridTHead(props) {
 					}
 				</StyledTh>
 			</tr>
-			{ props.onColumnsChange !== undefined &&
+			{
+				props.onColumnsChange !== undefined &&
 				<GridColumnDrawer
 					open={state.gearOpen}
 					columns={props.columns}
