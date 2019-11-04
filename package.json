@@ -34,7 +34,7 @@
 	"scripts": {
 		"test": "./node_modules/.bin/mocha $(find testing/ -name *.test.js) -R spec --colors --check-leaks",
 		"start": "webpack-dev-server --mode development",
-		"build": "webpack && cp ./dist/bundle.js ./docs/dist/bundle.js",
+		"build": "webpack --mode production && cp ./dist/bundle.js ./docs/dist/bundle.js",
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish"
 	},
