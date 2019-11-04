@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import MUIButton from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import jsvalidator from "jsvalidator";
@@ -318,4 +318,4 @@ function Button(props) {
 	)
 }
 
-export default Button;
+export default memo(Button);

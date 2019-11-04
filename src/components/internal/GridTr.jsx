@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Checkbox from "../Checkbox.jsx";
@@ -8,9 +8,46 @@ import Button from "../Button.jsx";
 import { transformColumn } from "../../utils/gridTools.js";
 
 function GridTr(props) {
-	const onActionClick = (action) => () => {
-		props.onActionClick(action, props.row);
-	}
+	const primaryActions = useMemo(() => {
+		if (props.primaryActions === undefined) { return null; }
+		
+		return props.primaryActions.map((action, i) => {
+			const onClick = () => {
+				action.onClick({ data : props.row });
+			}
+			
+			return (
+				<Button
+					key={`primary_${i}`}
+					{ ...action }
+					onClick={onClick}
+				/>
+			)
+		});
+	}, [props.primaryActions, props.row]);
+	
+	const additionalActions = useMemo(() => {
+		if (props.additionalActions === undefined) { return null; }
+		
+		return (
+			<Button
+				key="additional"
+				color="blue"
+				variant="icon"
+				mIcon={MoreHorizIcon}
+				menuItems={props.additionalActions.map(action => {
+					return {
+						...action,
+						onClick : () => {
+							action.onClick({
+								data : props.row
+							});
+						}
+					}
+				})}
+			/>
+		)
+	}, [props.additionalActions, props.row]);
 	
 	return (
 		<tr>
@@ -37,33 +74,8 @@ function GridTr(props) {
 			}
 			<GridTd>
 				<ButtonRow>
-					{
-						props.primaryActions && 
-						props.primaryActions.map((action, i) => {
-							return (
-								<Button
-									key={`primary_${i}`}
-									{ ...action }
-									onClick={onActionClick(action)}
-								/>
-							)
-						})
-					}
-					{
-						props.additionalActions &&
-						<Button
-							key="additional"
-							color="blue"
-							variant="icon"
-							mIcon={MoreHorizIcon}
-							menuItems={props.additionalActions.map(action => {
-								return {
-									...action,
-									onClick : onActionClick(action)
-								}
-							})}
-						/>
-					}
+					{primaryActions}
+					{additionalActions}
 				</ButtonRow>
 			</GridTd>
 		</tr>
