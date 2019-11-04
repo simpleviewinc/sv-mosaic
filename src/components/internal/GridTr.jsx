@@ -49,6 +49,14 @@ function GridTr(props) {
 		)
 	}, [props.additionalActions, props.row]);
 	
+	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
+	const buttons = useMemo(() => {
+		return [
+			...primaryActions,
+			additionalActions
+		];
+	}, [primaryActions, additionalActions]);
+	
 	return (
 		<tr>
 			{
@@ -74,8 +82,7 @@ function GridTr(props) {
 			}
 			<GridTd>
 				<ButtonRow>
-					{primaryActions}
-					{additionalActions}
+					{buttons}
 				</ButtonRow>
 			</GridTd>
 		</tr>

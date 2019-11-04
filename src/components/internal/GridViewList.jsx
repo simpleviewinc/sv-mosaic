@@ -32,7 +32,6 @@ function GridViewList(props) {
 				bulkActions={props.bulkActions}
 				additionalActions={props.additionalActions}
 				primaryActions={props.primaryActions}
-				onActionClick={props.onActionClick}
 				onCheckboxClick={props.onCheckboxClick}
 			/>
 		</StyledTable>

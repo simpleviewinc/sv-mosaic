@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, memo } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
@@ -23,18 +23,25 @@ function ButtonRow(props) {
 		throwOnInvalid : true
 	});
 	
+	if (props.children && props.buttons) {
+		throw new Error("ButtonRow cannot receive both children and a buttons prop");
+	}
+	
+	const buttons = useMemo(() => {
+		if (props.buttons === undefined) { return null; }
+		
+		return props.buttons.map((button, i) => {
+			return (
+				<Button key={i} {...button}/>
+			)
+		});
+	}, [props.buttons]);
+	
 	return (
 		<StyledWrapper className={props.className}>
-			{ props.children }
-			{ props.buttons && 
-				props.buttons.map((button, i) => {
-					return (
-						<Button key={i} {...button}/>
-					)
-				})
-			}
+			{ props.children || buttons }
 		</StyledWrapper>
 	)
 }
 
-export default ButtonRow;
+export default memo(ButtonRow);

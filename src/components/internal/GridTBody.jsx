@@ -59,11 +59,6 @@ function GridTBody(props) {
 				type : "array"
 			},
 			{
-				name : "onActionClick",
-				type : "function",
-				required : true
-			},
-			{
 				name : "onCheckboxClick",
 				type : "function",
 				required : true
@@ -88,7 +83,6 @@ function GridTBody(props) {
 							bulkActions={props.bulkActions}
 							primaryActions={props.primaryActions}
 							additionalActions={props.additionalActions}
-							onActionClick={props.onActionClick}
 							onCheckboxClick={onCheckboxClick(i)}
 							checked={props.checked[i]}
 							columns={props.columns}
