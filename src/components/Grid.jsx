@@ -168,6 +168,13 @@ function Grid(props) {
 				type : "number"
 			},
 			{
+				name : "limitOptions",
+				type : "array",
+				schema : {
+					type : "number"
+				}
+			},
+			{
 				name : "skip",
 				type : "number"
 			},
@@ -299,6 +306,14 @@ function Grid(props) {
 		onRemove : props.onSavedViewRemove
 	}
 	
+	const limitOptions = useMemo(() => {
+		return props.limitOptions || [
+			25,
+			50,
+			100
+		]
+	}, [props.limitOptions]);
+	
 	return (
 		<StyledWrapper>
 			<div className="headerRow">
@@ -336,6 +351,7 @@ function Grid(props) {
 						props.onLimitChange !== undefined &&
 						<GridLimit
 							limit={props.limit}
+							options={limitOptions}
 							onLimitChange={props.onLimitChange}
 						/>
 					}

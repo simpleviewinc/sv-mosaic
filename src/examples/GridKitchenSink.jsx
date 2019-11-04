@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useReducer } from "react";
+import React, { useState, useEffect, useMemo, useReducer, useCallback } from "react";
 import { pick } from "lodash";
 
 import AddIcon from '@material-ui/icons/Add';
@@ -16,6 +16,7 @@ import GridFilterText from "../components/GridFilterText.jsx";
 import GridFilterMultiselect from "../components/GridFilterMultiselect.jsx";
 import MultiselectHelper from "./MultiselectHelper.js";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.jsx";
+import { useStateRef } from "../utils/reactTools.js";
 
 // set an artificial delay of 500ms to simulate DB queries
 const ARTIFICIAL_DELAY = 500;
@@ -225,6 +226,8 @@ function GridKitchenSink() {
 		...defaultView.state
 	});
 	
+	const stateRef = useStateRef(state);
+	
 	const filterChange = function(name, value) {
 		setState({
 			...state,
@@ -361,13 +364,13 @@ function GridKitchenSink() {
 				skip : data
 			});
 		},
-		onLimitChange : function(data) {
+		onLimitChange : useCallback(function(data) {
 			setState({
-				...state,
+				...stateRef.current,
 				limit : data,
 				skip : 0
 			});
-		},
+		}, [stateRef]),
 		onSortChange : function(data) {
 			setState({
 				...state,

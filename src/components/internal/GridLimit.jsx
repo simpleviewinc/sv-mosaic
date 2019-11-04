@@ -1,18 +1,20 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Button from "../Button.jsx";
 
 function GridLimit(props) {
-	const menuItems = [25, 50, 100].map(val => {
-		return {
-			label : val.toString(),
-			onClick : function() {
-				props.onLimitChange(val);
+	const menuItems = useMemo(() => {
+		return props.options.map(val => {
+			return {
+				label : val.toString(),
+				onClick : function() {
+					props.onLimitChange(val);
+				}
 			}
-		}
-	});
+		});
+	}, [props.options, props.onLimitChange]);
 	
 	return (
 		<Button
@@ -26,4 +28,4 @@ function GridLimit(props) {
 	)
 }
 
-export default GridLimit;
+export default memo(GridLimit);
