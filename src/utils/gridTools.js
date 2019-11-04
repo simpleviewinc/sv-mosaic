@@ -9,6 +9,20 @@ function transformColumn(row, column) {
 	return data;
 }
 
+function transformRows(rows, columns) {
+	const newRows = rows.map((row) => {
+		const newRow = {};
+		columns.forEach(column => {
+			newRow[column.name] = transformColumn(row, column);
+		});
+		
+		return newRow;
+	});
+	
+	return newRows;
+}
+
 export {
-	transformColumn
+	transformColumn,
+	transformRows
 }

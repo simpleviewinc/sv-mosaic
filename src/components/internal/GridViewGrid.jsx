@@ -167,12 +167,12 @@ function GridViewGrid(props) {
 											onClick={checkboxClick(i)}
 										/>
 									</div>
-									{transformColumn(row, imageColumn)}
+									{row.image}
 								</div>
 								<div className="info">
 									<div className="left">
-										<h2>{transformColumn(row, primaryColumn)}</h2>
-										<h3>{transformColumn(row, secondaryColumn)}</h3>
+										<h2>{row.primary}</h2>
+										<h3>{row.secondary}</h3>
 									</div>
 									<div className="right">
 										<ButtonRow>

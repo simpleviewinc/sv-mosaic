@@ -12,6 +12,7 @@ import GridPager from "./internal/GridPager.jsx";
 import GridLimit from "./internal/GridLimit.jsx";
 import GridFilters from "./internal/GridFilters.jsx";
 import theme from "../utils/theme.js";
+import { transformRows } from "../utils/gridTools.js";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -269,10 +270,18 @@ function Grid(props) {
 	
 	const View = props.view === "list" ? GridViewList : GridViewGrid;
 	
-	const activeColumnObjs = props.activeColumns.map(name => {
-		const column = props.columns.find(val => val.name === name);
-		return column;
-	});
+	// generate an array of columns based on the ones that are marked active
+	const activeColumnObjs = useMemo(() => {
+		return props.activeColumns.map(name => {
+			const column = props.columns.find(val => val.name === name);
+			return column;
+		});
+	}, [props.activeColumns, props.columns]);
+	
+	// execute the transforms in the rows
+	const transformedData = useMemo(() => {
+		return transformRows(props.data, props.view === "list" ? activeColumnObjs : props.columns);
+	}, [props.data, props.view, props.columns, activeColumnObjs]);
 	
 	const savedViewState = {
 		limit : props.limit,
@@ -351,7 +360,7 @@ function Grid(props) {
 					allColumns={props.columns}
 					bulkActions={props.bulkActions}
 					sort={props.sort}
-					data={props.data}
+					data={transformedData}
 					additionalActions={props.additionalActions}
 					primaryActions={props.primaryActions}
 					onSortChange={props.onSortChange}
