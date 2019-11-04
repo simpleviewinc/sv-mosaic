@@ -147,6 +147,72 @@ const defaultView = {
 	}
 }
 
+const listColumns = [
+	{
+		name : "id",
+		label : "ID"
+	},
+	{
+		name : "image",
+		label : "Image",
+		transforms : [
+			transform_get(["resource_raw", "secure_url"]),
+			transform_thumbnail({ width : 75, height : 75 })
+		]
+	},
+	{
+		name : "title",
+		label : "Title",
+		style : "bold",
+		sortable : true
+	},
+	{
+		name : "categories",
+		label : "Categories",
+		transforms : [
+			function(data) {
+				return data.map(val => val.tag).join(", ");
+			}
+		]
+	},
+	{
+		name : "created",
+		label : "Created",
+		sortable : true,
+		transforms : [
+			transform_dateFormat()
+		]
+	}
+];
+
+const gridColumns = [
+	{
+		name : "id",
+		label : "ID"
+	},
+	{
+		name : "image",
+		label : "Image",
+		transforms : [
+			transform_get(["resource_raw", "secure_url"]),
+			transform_thumbnail({ width : 275, height : 200 })
+		]
+	},
+	{
+		name : "primary",
+		label : "Primary",
+		column : "title",
+	},
+	{
+		name : "secondary",
+		label : "Secondary",
+		column : "created",
+		transforms : [
+			transform_dateFormat()
+		]
+	}
+]
+
 function GridKitchenSink() {
 	const [state, setState] = useState({
 		removeItems : [],
@@ -219,68 +285,6 @@ function GridKitchenSink() {
 			loading : true
 		});
 	}, [state.limit, state.sort, state.skip, state.filter]);
-	
-	const listColumns = [
-		{
-			name : "id",
-			label : "ID"
-		},
-		{
-			name : "image",
-			label : "Image",
-			transforms : [
-				transform_get(["resource_raw", "secure_url"]),
-				transform_thumbnail({ width : 75, height : 75 })
-			]
-		},
-		{
-			name : "title",
-			label : "Title",
-			style : "bold",
-			sortable : true
-		},
-		{
-			name : "categories",
-			label : "Categories",
-			transforms : [
-				function(data) {
-					return data.map(val => val.tag).join(", ");
-				}
-			]
-		},
-		{
-			name : "created",
-			label : "Created",
-			sortable : true,
-			transforms : [
-				transform_dateFormat()
-			]
-		}
-	];
-	
-	const gridColumns = [
-		{
-			name : "image",
-			label : "Image",
-			transforms : [
-				transform_get(["resource_raw", "secure_url"]),
-				transform_thumbnail({ width : 275, height : 200 })
-			]
-		},
-		{
-			name : "primary",
-			label : "Primary",
-			column : "title",
-		},
-		{
-			name : "secondary",
-			label : "Secondary",
-			column : "created",
-			transforms : [
-				transform_dateFormat()
-			]
-		}
-	]
 	
 	const gridConfig = {
 		title : "Your Uploads",
