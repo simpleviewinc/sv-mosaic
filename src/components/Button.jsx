@@ -263,7 +263,8 @@ function Button(props) {
 			button
 			${props.variant === "icon" ? "iconButton" : "normalButton"}
 		`}>
-			{ props.variant !== "icon" &&
+			{
+				props.variant !== "icon" &&
 				<MUIButton
 					variant={props.variant}
 					onClick={onClick}
@@ -279,7 +280,8 @@ function Button(props) {
 					}
 				</MUIButton>
 			}
-			{ props.variant === "icon" &&
+			{
+				props.variant === "icon" &&
 				<IconButton
 					onClick={onClick}
 					disabled={props.disabled}
@@ -287,10 +289,12 @@ function Button(props) {
 					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
 				</IconButton>
 			}
-			{ props.menuItems &&
+			{
+				props.menuItems &&
 				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}/>
 			}
-			{ props.popover &&
+			{
+				props.popover &&
 				<Popover
 					open={Boolean(popoverAnchorEl)}
 					anchorEl={popoverAnchorEl}
