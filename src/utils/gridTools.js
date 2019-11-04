@@ -11,7 +11,9 @@ function transformColumn(row, column) {
 
 function transformRows(rows, columns) {
 	const newRows = rows.map((row) => {
-		const newRow = {};
+		const newRow = {
+			id : row.id
+		};
 		columns.forEach(column => {
 			newRow[column.name] = transformColumn(row, column);
 		});
