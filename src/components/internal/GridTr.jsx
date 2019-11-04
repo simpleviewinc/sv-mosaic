@@ -25,14 +25,12 @@ function GridTr(props) {
 			}
 			{
 				props.columns.map(column => {
-					const data = transformColumn(props.row, column);
-					
 					return (
 						<GridTd
 							key={column.name}
 							className={column.style === "bold" ? "bold" : undefined}
 						>
-							{data}
+							{props.row[column.name]}
 						</GridTd>
 					);
 				})

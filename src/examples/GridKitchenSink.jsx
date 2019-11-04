@@ -15,7 +15,7 @@ import categories from "./categories.json";
 import GridFilterText from "../components/GridFilterText.jsx";
 import GridFilterMultiselect from "../components/GridFilterMultiselect.jsx";
 import MultiselectHelper from "./MultiselectHelper.js";
-import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.js";
+import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.jsx";
 
 // set an artificial delay of 500ms to simulate DB queries
 const ARTIFICIAL_DELAY = 500;
