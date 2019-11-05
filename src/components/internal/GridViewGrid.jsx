@@ -6,7 +6,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
-import { transformColumn } from "../../utils/gridTools.js";
+import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
@@ -108,10 +108,6 @@ const StyledDiv = styled.div`
 function GridViewGrid(props) {
 	// TODO VALIDATE PROPS
 	
-	const actionClick = (action, row) => () => {
-		props.onActionClick(action, row);
-	}
-	
 	const checkboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
@@ -171,35 +167,11 @@ function GridViewGrid(props) {
 										<h3>{row.secondary}</h3>
 									</div>
 									<div className="right">
-										<ButtonRow>
-											{
-												props.primaryActions && 
-												props.primaryActions.map((action, i) => {
-													return (
-														<Button
-															key={`primary_{i}`}
-															{ ...action }
-															onClick={actionClick(action, row)}
-														/>
-													)
-												})
-											}
-											{
-												props.additionalActions &&
-												<Button
-													key="additional"
-													color="blue"
-													variant="icon"
-													mIcon={MoreHorizIcon}
-													menuItems={props.additionalActions.map(action => {
-														return {
-															...action,
-															onClick : actionClick(action, row)
-														}
-													})}
-												/>
-											}
-										</ButtonRow>
+										<GridActionsButtonRow
+											primaryActions={props.primaryActions}
+											additionalActions={props.additionalActions}
+											row={row}
+										/>
 									</div>
 								</div>
 							</div>

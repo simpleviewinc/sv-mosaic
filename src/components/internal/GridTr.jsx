@@ -1,62 +1,12 @@
 import React, { useMemo } from "react";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Checkbox from "../Checkbox.jsx";
 import GridTd from "./GridTd.jsx";
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
-import { transformColumn } from "../../utils/gridTools.js";
+import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
 
 function GridTr(props) {
-	const primaryActions = useMemo(() => {
-		if (props.primaryActions === undefined) { return null; }
-		
-		return props.primaryActions.map((action, i) => {
-			const onClick = () => {
-				action.onClick({ data : props.row });
-			}
-			
-			return (
-				<Button
-					key={`primary_${i}`}
-					{ ...action }
-					onClick={onClick}
-				/>
-			)
-		});
-	}, [props.primaryActions, props.row]);
-	
-	const additionalActions = useMemo(() => {
-		if (props.additionalActions === undefined) { return null; }
-		
-		return (
-			<Button
-				key="additional"
-				color="blue"
-				variant="icon"
-				mIcon={MoreHorizIcon}
-				menuItems={props.additionalActions.map(action => {
-					return {
-						...action,
-						onClick : () => {
-							action.onClick({
-								data : props.row
-							});
-						}
-					}
-				})}
-			/>
-		)
-	}, [props.additionalActions, props.row]);
-	
-	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
-	const buttons = useMemo(() => {
-		return [
-			...primaryActions,
-			additionalActions
-		];
-	}, [primaryActions, additionalActions]);
-	
 	return (
 		<tr>
 			{
@@ -81,9 +31,11 @@ function GridTr(props) {
 				})
 			}
 			<GridTd>
-				<ButtonRow>
-					{buttons}
-				</ButtonRow>
+				<GridActionsButtonRow
+					primaryActions={props.primaryActions}
+					additionalActions={props.additionalActions}
+					row={props.row}
+				/>
 			</GridTd>
 		</tr>
 	);
