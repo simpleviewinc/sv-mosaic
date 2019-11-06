@@ -44,7 +44,7 @@ function DrawerTopBar(props) {
 				<ButtonRow>
 					{
 						props.onCancel &&
-						<Button label="Cancel" color="gray" variant="text" onClick={props.onCancel}/>
+						<Button label="Cancel" color="black" variant="text" onClick={props.onCancel}/>
 					}
 					{
 						props.onSave &&

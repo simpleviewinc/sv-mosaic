@@ -18,7 +18,7 @@ function GridLimit(props) {
 	
 	return (
 		<Button
-			color="gray"
+			color="black"
 			label={props.limit}
 			variant="text"
 			iconPosition="right"

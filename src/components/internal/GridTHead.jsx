@@ -204,7 +204,7 @@ function GridTHead(props) {
 				<StyledTh key="_actions">
 					{
 						props.onColumnsChange !== undefined &&
-						<Button color="gray" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
+						<Button color="black" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
 					}
 				</StyledTh>
 			</tr>

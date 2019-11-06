@@ -39,7 +39,7 @@ function GridViewSwitcher(props) {
 		<StyledSpan>
 			<Button
 				variant="text"
-				color="gray"
+				color="black"
 				label={<Icon/>}
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
