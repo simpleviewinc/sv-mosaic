@@ -10,7 +10,7 @@ export default {
 	colors : {
 		blue : "#0070f2",
 		blueHover : "#0b50f1",
-		lightGray : "rgba(0, 0, 0, .54)",
+		lightGray : "#757575",
 		darkGray : "#081324",
 		red : "#b10000"
 	},

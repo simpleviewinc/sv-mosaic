@@ -50,7 +50,7 @@ const types = {
 		}
 		
 		& > button:hover {
-			background: ${theme.colors.blue}13;
+			background: ${theme.colors.blue}23;
 		}
 	`,
 	red_outlined : styled(ButtonWrapper)`
@@ -60,7 +60,7 @@ const types = {
 		}
 		
 		& > button:hover {
-			background: ${theme.colors.red}13;
+			background: ${theme.colors.red}23;
 		}
 	`,
 	gray_outlined : styled(ButtonWrapper)`
@@ -70,7 +70,7 @@ const types = {
 		}
 		
 		& > button:hover {
-			background: #eee;
+			background: ${theme.colors.lightGray}23;
 		}
 	`,
 	black_outlined : styled(ButtonWrapper)`
@@ -80,7 +80,7 @@ const types = {
 		}
 		
 		& > button:hover {
-			background: #eee;
+			background-color: ${theme.colors.lightGray}23;
 		}
 	`,
 	blue_contained : styled(ButtonWrapper)`
@@ -125,7 +125,7 @@ const types = {
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.blue}13;
+			background-color: ${theme.colors.blue}23;
 		}
 	`,
 	red_text : styled(ButtonWrapper)`
@@ -134,37 +134,61 @@ const types = {
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.red}13;
+			background-color: ${theme.colors.red}23;
 		}
 	`,
 	gray_text : styled(ButtonWrapper)`
 		& > button {
 			color: ${theme.colors.lightGray};
 		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.lightGray}23;
+		}
 	`,
 	black_text : styled(ButtonWrapper)`
 		& > button {
 			color: black;
+		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.lightGray}23;
 		}
 	`,
 	blue_icon : styled(ButtonWrapper)`
 		& > button {
 			color: ${theme.colors.blue}
 		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.blue}23;
+		}
 	`,
 	black_icon : styled(ButtonWrapper)`
 		& > button {
 			color: black;
+		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.lightGray}23;
 		}
 	`,
 	red_icon : styled(ButtonWrapper)`
 		& > button {
 			color: ${theme.colors.red};
 		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.red}23;
+		}
 	`,
 	gray_icon : styled(ButtonWrapper)`
 		& > button {
 			color: ${theme.colors.lightGray};
+		}
+		
+		& > button:hover {
+			background-color: ${theme.colors.lightGray}23;
 		}
 	`
 }

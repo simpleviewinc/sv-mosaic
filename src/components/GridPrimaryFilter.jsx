@@ -21,12 +21,16 @@ const StyledWrapper = styled.div`
 		color: ${theme.colors.lightGray};
 	}
 	
+	&.primary:hover {
+		background: ${theme.colors.lightGray}23;
+	}
+	
 	&.optional {
 		color: ${theme.colors.blue};
 		background: ${theme.colors.blue}13;
 	}
 	
-	&:hover {
+	&.optional:hover {
 		background: ${theme.colors.blue}23;
 	}
 	
