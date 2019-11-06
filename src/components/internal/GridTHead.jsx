@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
+import { pick } from "lodash";
 
 import SettingsIcon from "@material-ui/icons/Settings";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
@@ -120,8 +121,10 @@ function GridTHead(props) {
 	});
 	
 	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
+		const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
+		
 		return {
-			...action,
+			...buttonArgs,
 			onClick : function() {
 				props.onBulkActionClick(action);
 			}

@@ -40,6 +40,7 @@ function GridViewDrawerContent(props) {
 	const GridConfig = {
 		primaryActions : [
 			{
+				name : "select",
 				variant : "text",
 				label : "Select",
 				color : "blue",
@@ -49,6 +50,10 @@ function GridViewDrawerContent(props) {
 				}
 			},
 			{
+				name : "edit",
+				show : function({ row }) {
+					return row.type !== "default";
+				},
 				variant : "icon",
 				color : "blue",
 				mIcon : CreateIcon,
@@ -62,6 +67,10 @@ function GridViewDrawerContent(props) {
 		],
 		additionalActions : [
 			{
+				name : "remove",
+				show : function({ row }) {
+					return row.type !== "default";
+				},
 				label : "Remove",
 				onClick : async function({ data }) {
 					await props.onRemove(data);

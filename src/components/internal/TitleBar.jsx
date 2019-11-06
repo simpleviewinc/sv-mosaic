@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
+import { pick } from "lodash";
 
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
@@ -44,6 +45,15 @@ function TitleBar(props) {
 		throwOnInvalid : true
 	});
 	
+	const buttons = useMemo(() => {
+		if (props.buttons === undefined) { return; }
+		
+		return props.buttons.map(button => {
+			const { name, ...buttonArgs } = button;
+			return buttonArgs;
+		});
+	}, [props.buttons]);
+	
 	return (
 		<StyledWrapper>
 			<div className="left">
@@ -53,7 +63,7 @@ function TitleBar(props) {
 				}
 				{
 					props.buttons &&
-					<ButtonRow buttons={props.buttons}/>
+					<ButtonRow buttons={buttons}/>
 				}
 			</div>
 			{
