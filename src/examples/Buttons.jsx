@@ -109,6 +109,8 @@ function Buttons() {
 				<ButtonRow>
 					<Button color="blue" variant="contained" label="Save" onClick={clickHandler}></Button>
 					<Button color="blue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="lightBlue" variant="contained" label="Save" onClick={clickHandler}/>
+					<Button color="lightBlue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler}/>
 					<Button color="red" variant="contained" label="Delete" onClick={clickHandler}></Button>
 					<Button color="red" variant="contained" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button color="gray" variant="contained" label="Cancel" onClick={clickHandler}></Button>
