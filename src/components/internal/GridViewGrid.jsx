@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Checkbox from "../Checkbox.jsx";
-
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { pick } from "lodash";
 
+import Checkbox from "../Checkbox.jsx";
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
 import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
@@ -113,8 +113,10 @@ function GridViewGrid(props) {
 	}
 	
 	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
+		const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
+		
 		return {
-			...action,
+			...buttonArgs,
 			onClick : function() {
 				props.onBulkActionClick(action);
 			}

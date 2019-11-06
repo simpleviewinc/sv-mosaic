@@ -294,6 +294,7 @@ function GridKitchenSink() {
 		columns : state.view === "list" ? listColumns : gridColumns,
 		primaryActions : [
 			{
+				name : "edit",
 				color : "blue",
 				variant : "icon",
 				mIcon : CreateIcon,
@@ -304,12 +305,14 @@ function GridKitchenSink() {
 		],
 		additionalActions : [
 			{
+				name : "view_children",
 				label : "View Children",
 				onClick : function({ data }) {
 					alert(`View Children ${data.id}`);
 				}
 			},
 			{
+				name : "history",
 				label : "History",
 				onClick : function({ data }) {
 					alert(`History ${data.id}`);
@@ -318,6 +321,7 @@ function GridKitchenSink() {
 		],
 		bulkActions : [
 			{
+				name : "download",
 				color : "blue",
 				variant : "icon",
 				mIcon : CloudDownloadIcon,
@@ -326,6 +330,7 @@ function GridKitchenSink() {
 				}
 			},
 			{
+				name : "delete",
 				color : "blue",
 				variant : "icon",
 				mIcon : DeleteIcon,
@@ -336,6 +341,7 @@ function GridKitchenSink() {
 		],
 		buttons : [
 			{
+				name : "create",
 				label : "Create New",
 				mIcon : AddIcon,
 				color : "blue",
