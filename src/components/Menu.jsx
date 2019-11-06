@@ -1,12 +1,21 @@
 import React from "react";
 import MUIMenu from "@material-ui/core/Menu";
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
+import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
+
+const StyledMenuItem = styled(MenuItem)`
+	& > .icon {
+		margin-right: 10px;
+	}
+
+	& > .label {
+		font-family: ${theme.fontFamily};
+	}
+`
 
 const StyledIcon = styled.div`
 	display: inline-flex;
@@ -90,16 +99,15 @@ function Menu(props) {
 		const MyIcon = item.color !== undefined ? iconTypes[item.color] : StyledIcon;
 		
 		return (
-			<MenuItem key={i} onClick={onClick} disabled={item.disabled}>
-				{ item.mIcon &&
-					<MyIcon>
-						<ListItemIcon>
-							<Icon/>
-						</ListItemIcon>
+			<StyledMenuItem key={i} onClick={onClick} disabled={item.disabled}>
+				{
+					item.mIcon &&
+					<MyIcon className="icon">
+						<Icon/>
 					</MyIcon>
 				}
-				<ListItemText primary={item.label}/>
-			</MenuItem>
+				<span className="label">{item.label}</span>
+			</StyledMenuItem>
 		)
 	});
 	
