@@ -101,35 +101,54 @@ function GridFilterMultiselect(props) {
 		throwOnInvalid : true
 	});
 	
-	const [anchorEl, setAnchorEl] = useState(null);
-	const [selected, setSelected] = useState([]);
-	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [state, setState] = useState({
+		anchorEl : null,
+		selected : [],
+		dropdownOpen : false
+	});
+	
 	const value = props.data.value || [];
 	const comparison = props.data.comparison || "in";
 	
 	useEffect(() => {
 		async function fetchData() {
 			const selected = await props.args.getSelected(value);
-			setSelected(selected);
+			
+			setState({
+				...state,
+				selected
+			});
 		}
 		
 		fetchData();
 	}, [props.data]);
 	
 	const onClick = function(event) {
-		setAnchorEl(event.currentTarget);
+		setState({
+			...state,
+			anchorEl : event.currentTarget
+		});
 	}
 	
 	const onClose = function() {
-		setAnchorEl(null);
+		setState({
+			...state,
+			anchorEl : null
+		});
 	}
 	
 	const onEntered = function() {
-		setDropdownOpen(true);
+		setState({
+			...state,
+			dropdownOpen : true
+		});
 	}
 	
 	const onExited = function() {
-		setDropdownOpen(false);
+		setState({
+			...state,
+			dropdownOpen : false
+		});
 	}
 	
 	const onApply = function(data) {
@@ -142,10 +161,10 @@ function GridFilterMultiselect(props) {
 		valueString = "EXISTS";
 	} else if (comparison === "not_exists") {
 		valueString = "NOT EXISTS";
-	} else if (selected.length > 0) {
-		let tempString = selected.slice(0, 2).map(val => val.label).join(", ");
-		if (selected.length > 2) {
-			tempString += ` (${selected.length - 2} more)`;
+	} else if (state.selected.length > 0) {
+		let tempString = state.selected.slice(0, 2).map(val => val.label).join(", ");
+		if (state.selected.length > 2) {
+			tempString += ` (${state.selected.length - 2} more)`;
 		}
 		
 		valueString = `${comparisonMap[comparison]}${tempString}`;
@@ -166,7 +185,7 @@ function GridFilterMultiselect(props) {
 				onClick={onClick}
 			/>
 			<GridFilterDropdown
-				anchorEl={anchorEl}
+				anchorEl={state.anchorEl}
 				onClose={onClose}
 				onEntered={onEntered}
 				onExited={onExited}
@@ -175,9 +194,9 @@ function GridFilterMultiselect(props) {
 					value={value}
 					comparison={comparison}
 					comparisons={activeComparisons}
-					selected={selected}
+					selected={state.selected}
 					getOptions={props.args.getOptions}
-					isOpen={dropdownOpen}
+					isOpen={state.dropdownOpen}
 					onApply={onApply}
 					onClose={onClose}
 				/>
