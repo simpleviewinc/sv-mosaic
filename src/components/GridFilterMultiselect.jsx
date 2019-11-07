@@ -132,6 +132,11 @@ function GridFilterMultiselect(props) {
 		setDropdownOpen(false);
 	}
 	
+	const onApply = function(data) {
+		props.onChange(data);
+		onClose();
+	}
+	
 	let valueString;
 	if (comparison === "exists") {
 		valueString = "EXISTS";
@@ -173,7 +178,7 @@ function GridFilterMultiselect(props) {
 					selected={selected}
 					getOptions={props.args.getOptions}
 					isOpen={dropdownOpen}
-					onChange={props.onChange}
+					onApply={onApply}
 					onClose={onClose}
 				/>
 			</GridFilterDropdown>
