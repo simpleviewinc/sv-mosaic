@@ -18,7 +18,7 @@ const StyledTBody = styled.tbody`
 		font-weight: 600;
 	}
 	
-	& > tr > td > .transform_thumbnail {
+	& > tr > td > div > .transform_thumbnail {
 		display: block;
 	}
 	
