@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import Chip from "@material-ui/core/Chip";
 import InputBase from "@material-ui/core/InputBase";
-import Checkbox from "@material-ui/core/Checkbox";
 import { debounce, xor } from "lodash";
 import jsvalidator from "jsvalidator";
 
@@ -18,6 +13,7 @@ import GridFilterDropdownButtons from "../GridFilterDropdownButtons.jsx";
 import Button from "../Button.jsx";
 import ButtonRow from "../ButtonRow.jsx";
 import Spinner from "../Spinner.jsx";
+import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.div`
@@ -149,7 +145,7 @@ function GridFilterMultiselectDropdownContent(props) {
 				required : true
 			},
 			{
-				name : "onChange",
+				name : "onApply",
 				type : "function",
 				required : true
 			}
@@ -160,7 +156,7 @@ function GridFilterMultiselectDropdownContent(props) {
 	
 	const [state, setState] = useState({
 		options : [],
-		selected : props.selected,
+		selected : props.selected.map(val => val.value),
 		hasMore : false,
 		skip : 0,
 		keyword : undefined,
@@ -168,6 +164,11 @@ function GridFilterMultiselectDropdownContent(props) {
 		loaded : false
 	});
 	
+	// we need to combine the options we are querying for and the selected options that are passed in
+	// since if they have already selected an item not in the current page, it won't be in the queried options
+	const allOptions = [...props.selected, ...state.options];
+	
+	// mark the active comparison
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
 	
 	useEffect(() => {
@@ -198,23 +199,14 @@ function GridFilterMultiselectDropdownContent(props) {
 	}
 	
 	const onApply = function() {
-		props.onChange({
-			value : state.selected.map(val => val.value),
+		props.onApply({
+			value : state.selected,
 			comparison : state.comparison
 		});
-		props.onClose();
 	}
 	
 	const handleToggle = option => () => {
-		const currentIndex = state.selected.findIndex(val => val.value === option.value);
-		const newSelected = [...state.selected];
-		
-		if (currentIndex === -1) {
-			newSelected.push(option);
-		} else {
-			newSelected.splice(currentIndex, 1);
-		}
-		
+		const newSelected = xor(state.selected, [option.value]);
 		setState({
 			...state,
 			selected : newSelected
@@ -323,6 +315,13 @@ function GridFilterMultiselectDropdownContent(props) {
 	// we want to avoid showing the list until the dropdown is fully open and the results are loaded from the db
 	const showList = props.isOpen && state.loaded;
 	
+	const onChange = function(selected) {
+		setState({
+			...state,
+			selected : selected
+		});
+	}
+	
 	return (
 		<StyledWrapper>
 			<div className="topBlock">
@@ -334,42 +333,20 @@ function GridFilterMultiselectDropdownContent(props) {
 							onChange={keywordChange}
 						/>
 					</div>
-					{ !showList &&
+					{
+						!showList &&
 						<Spinner className="spinner"/>
 					}
-					{ showList &&
-						<List
-							dense
-						>
-							{
-								state.options.map(option => {
-									const checked = state.selected.find(val => val.value === option.value) !== undefined;
-									
-									return (
-										<ListItem
-											className="listItem"
-											key={option.value}
-											dense
-											button
-											onClick={handleToggle(option)}
-										>
-											<ListItemIcon className="listItemIcon">
-												<Checkbox
-													className={checked ? "checked" : ""}
-													color="default"
-													edge="start"
-													checked={checked}
-													disableRipple
-												/>
-											</ListItemIcon>
-											<ListItemText primary={option.label}/>
-										</ListItem>
-									)
-								})
-							}
-						</List>
+					{
+						showList &&
+						<CheckboxList
+							checked={state.selected}
+							options={state.options}
+							onChange={onChange}
+						/>
 					}
-					{ state.hasMore &&
+					{
+						state.hasMore &&
 						<div className="loadContainer">
 							<Button
 								label="Load more..."
@@ -386,7 +363,12 @@ function GridFilterMultiselectDropdownContent(props) {
 					<h5>Selected Options</h5>
 					<div className="chips">
 						{
-							state.selected.map(option => {
+							showList &&
+							state.selected.map(value => {
+								const option = allOptions.find(val => val.value === value);
+								
+								if (option === undefined) { return null; }
+								
 								return (
 									<Chip
 										className="chip"
