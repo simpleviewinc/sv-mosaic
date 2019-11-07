@@ -25,6 +25,8 @@ const StyledWrapper = styled.div`
 		display: inline;
 		padding: 0px 50px 0px 20px;
 		margin: 0;
+		position: relative;
+		top: -2px;
 	}
 `
 
