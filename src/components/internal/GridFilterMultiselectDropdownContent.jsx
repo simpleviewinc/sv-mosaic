@@ -37,11 +37,17 @@ const StyledWrapper = styled.div`
 		padding-right: 8px;
 	}
 	
+	& > .topBlock > .options > .searchBar > .input {
+		font-family: ${theme.fontFamily};
+		line-height: 2rem;
+	}
+	
 	& > .topBlock > .options {
 		overflow-y: scroll;
 		flex: 2;
 		position: relative;
 		transition: opacity .5s;
+		padding-right: 10px;
 	}
 	
 	& > .topBlock > .options.disabled {
@@ -82,6 +88,8 @@ const StyledWrapper = styled.div`
 		background-color: ${theme.colors.blue}13;
 		margin-bottom: 4px;
 		justify-content: space-between;
+		font-family: ${theme.fontFamily};
+		height: 33px;
 	}
 	
 	& .chip:focus {
@@ -94,10 +102,6 @@ const StyledWrapper = styled.div`
 		overflow: hidden;
 		white-space: nowrap;
 		display: block;
-	}
-	
-	& .loadContainer {
-		padding-right: 10px;
 	}
 `
 
@@ -329,6 +333,7 @@ function GridFilterMultiselectDropdownContent(props) {
 					<div className="searchBar">
 						<SearchIcon/>
 						<InputBase
+							className="input"
 							placeholder="Keyword..."
 							onChange={keywordChange}
 						/>
