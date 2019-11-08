@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-	entry: ["react-hot-loader/patch", "./src/index.jsx"],
+	entry: ["react-hot-loader/patch", "./src/examples/index.jsx"],
 	module: {
 		rules: [
 			{

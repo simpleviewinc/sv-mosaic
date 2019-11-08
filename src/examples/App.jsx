@@ -1,8 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { hot } from "react-hot-loader/root";
-import GridKitchenSink from "./examples/GridKitchenSink.jsx";
-import Buttons from "./examples/Buttons.jsx";
-import Filters from "./examples/Filters.jsx";
+import GridKitchenSink from "./GridKitchenSink.jsx";
+import Buttons from "./Buttons.jsx";
+import Filters from "./Filters.jsx";
 
 function App() {
 	const defaultComponent = "GridKitchenSink";
