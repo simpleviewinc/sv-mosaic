@@ -8,6 +8,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 function GridPager(props) {
 	const totalPages = Math.ceil(props.count / props.limit);
 	const currentPage = (props.skip + props.limit) / props.limit;
+	const startItem = (props.skip + 1);
+	const endItem = Math.min(props.skip + props.limit, props.count);
 	
 	const skipClick = (skip) => () => {
 		props.onSkipChange(skip);
@@ -29,7 +31,7 @@ function GridPager(props) {
 				onClick={skipClick(props.skip - props.limit)}
 				disabled={previousDisabled}
 			/>
-			{currentPage} of {totalPages}
+			{startItem}-{endItem} of {props.count}
 			<Button
 				color="blue"
 				variant="icon"
