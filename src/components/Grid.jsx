@@ -30,7 +30,7 @@ const StyledWrapper = styled.div`
 		align-items: center;
 	}
 	
-	& > .viewContainer.loading {
+	&.loading {
 		opacity: .5;
 		pointer-events: none;
 	}
@@ -343,7 +343,9 @@ function Grid(props) {
 	}, [props.limitOptions]);
 	
 	return (
-		<StyledWrapper>
+		<StyledWrapper className={`
+			${ props.loading ? "loading" : "" }
+		`}>
 			<div className="headerRow">
 				<TitleBar
 					title={props.title}
@@ -359,6 +361,7 @@ function Grid(props) {
 					{
 						props.filters &&
 						<GridFilters
+							loading={props.loading}
 							filter={props.filter}
 							filters={props.filters}
 							activeFilters={props.activeFilters}
@@ -396,7 +399,6 @@ function Grid(props) {
 			</div>
 			<div className={`
 				viewContainer
-				${ props.loading ? "loading" : "" }
 			`}>
 				<View
 					checked={state.checked}
