@@ -408,14 +408,11 @@ function GridKitchenSink() {
 		onSavedViewRemove : function(data) {
 			viewsApi.remove(data);
 		},
-		onActiveFiltersChange : function(data) {
-			// we want the new filter to be the items that are "active" as well as the primary filters
-			const newFilter = pick(state.filter, [...primaryFilterNames, ...data]);
-			
+		onActiveFiltersChange : function({ activeFilters, filter }) {
 			setState({
 				...state,
-				activeFilters : data,
-				filter : newFilter
+				activeFilters,
+				filter
 			});
 		},
 		onColumnsChange : function(data) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { xor } from "lodash";
+import { pick, xor } from "lodash";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -23,17 +23,38 @@ const StyledDiv = styled.div`
 	}
 `;
 
+const PopoverDiv = styled.div`
+	&.loading {
+		opacity: .5;
+		pointer-events: none;
+	}
+`
+
 function GridFilters(props) {
 	const activeFilters = props.activeFilters || [];
 	
 	const primaryFilters = props.filters.filter(val => val.type === "primary");
+	const primaryFilterNames = primaryFilters.map(val => val.name);
 	const optionalFilters = props.filters.filter(val => val.type !== "primary");
 	
 	const active = optionalFilters.filter(val => activeFilters.includes(val.name));
 	const options = optionalFilters.map(val => ({ label : val.label, value : val.name }));
 	
 	const onRemove = (name) => () => {
-		props.onActiveFiltersChange(xor(props.activeFilters, [name]));
+		const activeFilters = xor(props.activeFilters, [name]);
+		onActiveFiltersChange(activeFilters);
+	}
+	
+	const onActiveFiltersChange = function(activeFilters) {
+		const filter = pick(props.filter, [...primaryFilterNames, ...activeFilters]);
+		
+		// we only want to pass a new filter obj if we have actually removed a key from it, to prevent unnecessary re-fetches of data
+		const setFilter = Object.keys(filter).join(",") !== Object.keys(props.filter).join(",");
+		
+		props.onActiveFiltersChange({
+			activeFilters,
+			filter : setFilter === true ? filter : props.filter
+		});
 	}
 	
 	return (
@@ -63,11 +84,17 @@ function GridFilters(props) {
 					iconPosition="right"
 					mIcon={ExpandMoreIcon}
 					popover={
-						<CheckboxList
-							options={options}
-							checked={activeFilters}
-							onChange={props.onActiveFiltersChange}
-						/>
+						<PopoverDiv
+							className={`
+								${ props.loading ? "loading" : "" }
+							`}
+						>
+							<CheckboxList
+								options={options}
+								checked={activeFilters}
+								onChange={onActiveFiltersChange}
+							/>
+						</PopoverDiv>
 					}
 				/>
 			</div>
