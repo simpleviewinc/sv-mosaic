@@ -4,7 +4,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
-import Button from "./Button.jsx";
 import theme from "../utils/theme.js";
 
 const StyledMenuItem = styled(MenuItem)`
