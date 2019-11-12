@@ -10,10 +10,6 @@ module.exports = {
 				exclude: /node_modules/,
 				loader: "babel-loader",
 				options: { presets: ["@babel/env"] }
-			},
-			{
-				test: /\.css$/,
-				use: ["style-loader", "css-loader"]
 			}
 		]
 	},
@@ -24,7 +20,7 @@ module.exports = {
 		}
 	},
 	output: {
-		path: path.resolve(__dirname, "dist/"),
+		path: path.resolve(__dirname, "docs/dist/"),
 		publicPath: "/dist/",
 		filename: "bundle.js"
 	},

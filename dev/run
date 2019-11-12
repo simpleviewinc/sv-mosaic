@@ -6,6 +6,7 @@ docker run --rm -it \
 	-v $PWD/docs:/app/docs \
 	-v $PWD/package.json:/app/package.json \
 	-v $PWD/webpack.config.js:/app/webpack.config.js \
+	-v $PWD/rollup.config.js:/app/rollup.config.js \
 	-v $PWD/.babelrc:/app/.babelrc \
 	-p 10000:10000 \
 	sv-mosaic:local /bin/bash

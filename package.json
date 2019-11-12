@@ -15,10 +15,13 @@
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
 		"lodash": "4.17.15",
+		"jsvalidator": "1.2.0",
 		"mocha": "5.2.0",
 		"react": "16.9.0",
 		"react-dom": "16.9.0",
 		"react-hot-loader": "4.12.13",
+		"rollup": "1.26.5",
+		"rollup-plugin-babel": "4.3.3",
 		"style-loader": "0.23.0",
 		"styled-components": "4.3.2",
 		"webpack": "4.28.1",
@@ -27,14 +30,22 @@
 	},
 	"dependencies": {
 		"@babel/polyfill": "7.6.0",
-		"@babel/runtime": "7.6.0",
-		"jsvalidator": "1.2.0"
+		"@babel/runtime": "7.6.0"
 	},
-	"main": "src/index.js",
+	"peerDependencies" : {
+		"@material-ui/core": "^4.4.2",
+		"@material-ui/icons": "^4.4.1",
+		"jsvalidator": "^1.2.0",
+		"lodash": "^4.17.15",
+		"react": "^16.9.0",
+		"react-dom": "^16.9.0",
+		"styled-components": "^4.3.2"
+	},
+	"main": "dist/index.min.js",
 	"scripts": {
 		"test": "./node_modules/.bin/mocha $(find testing/ -name *.test.js) -R spec --colors --check-leaks",
 		"start": "webpack-dev-server --mode development",
-		"build": "webpack --mode production && cp ./dist/bundle.js ./docs/dist/bundle.js",
+		"build": "webpack --mode production && rollup -c",
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish"
 	},
