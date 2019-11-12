@@ -61,6 +61,20 @@ Example: https://codepen.io/owenallenaz/pen/vYYzmOp
 
 Grid is used to output a list or grid of items. It can support a whole variety of actions including primary actions, additional actions and bulk actions.
 
+##### Actions
+
+Actions are the tool for giving your user a way to alter/interact with a specific row or rows within your list view. In `sv-mosaic` there are 3 types of actions: bulkActions, primaryActions and additionalActions.
+
+* primaryActions - Buttons that display on each row, which are displayed to all users. You will want to use this for your frequently one or two most used actions. If you have too many primary actions then the UI can get bulky and likely some should be moved into `additionalActions`.
+* additionalActions - Menu items which display underneath the "..." on each row in the list view.
+* bulkActions - When users utilize the checkboxes on the rows, it will bring up bulkActions so that they can perform them on all actions.
+
+For the props necessary for each action, please see the props section below.
+
+##### Saved Views
+
+The Grid system supports saved views. When enabled, the user will receive buttons at the top-right of the Grid allowing them to change the view and save a new one. This allows users to change their filters, columns, view and then save it for later, allowing other users to use that view.
+
 ##### Props
 * title - The title of the grid.
 * columns - `array` of `object`
