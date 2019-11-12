@@ -10,7 +10,7 @@ function GridLimit(props) {
 			return {
 				label : val.toString(),
 				onClick : function() {
-					props.onLimitChange(val);
+					props.onLimitChange({ limit : val });
 				}
 			}
 		});

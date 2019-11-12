@@ -364,16 +364,16 @@ function GridKitchenSink() {
 			}
 		}),
 		views : ["list", "grid"],
-		onSkipChange : function(data) {
+		onSkipChange : function({ skip }) {
 			setState({
 				...state,
-				skip : data
+				skip
 			});
 		},
-		onLimitChange : useCallback(function(data) {
+		onLimitChange : useCallback(function({ limit }) {
 			setState({
 				...stateRef.current,
-				limit : data,
+				limit,
 				skip : 0
 			});
 		}, [stateRef]),
