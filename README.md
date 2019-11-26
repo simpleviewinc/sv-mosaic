@@ -139,7 +139,7 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 * Install the container `sudo sv install sv-mosaic --type=container`
 * Run the container
 	```
-	cd /sv/containers/sv-mosiac
+	cd /sv/containers/sv-mosaic
 	sudo npm run docker
 	npm start
 	```
