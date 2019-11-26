@@ -132,3 +132,16 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 * disabled - `boolean` - optional - When `true` the button will be displayed, but a user will not be able to interact with it.
 * popover - `jsx` - optional - When passed, it will open the JSX within a popover when the user clicks on the button. Useful when you want to display an arbitrary block of content when the user clicks on the button.
 * menuItems - `array` of `object` - optional - When passed will open a menu with the passed items when a user clicks on the button. The props are passed to the `Menu` component, see the docs for that component for what props are available.
+
+# Installation
+
+* Ensure you have [sv-kubernetes](https://github.com/simpleviewinc/sv-kubernetes) installed.
+* Install the container `sudo sv install sv-mosaic --type=container`
+* Run the container
+	```
+	cd /sv/containers/sv-mosiac
+	sudo npm run docker
+	npm start
+	```
+
+The service should now be accessible at http://kube.simpleview.io:10000/
