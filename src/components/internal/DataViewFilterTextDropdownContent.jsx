@@ -39,7 +39,7 @@ const StyledContents = styled.div`
 
 const existsComparisons = ["exists", "not_exists"];
 
-function GridFilterTextDropdownContent(props) {
+function DataViewFilterTextDropdownContent(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -178,4 +178,4 @@ function GridFilterTextDropdownContent(props) {
 	)
 }
 
-export default GridFilterTextDropdownContent;
+export default DataViewFilterTextDropdownContent;

@@ -4,9 +4,9 @@ import CreateIcon from '@material-ui/icons/Create';
 
 import DataView from "../DataView.jsx";
 import DrawerContent from "../DrawerContent.jsx";
-import GridViewSaveDrawer from "./GridViewSaveDrawer.jsx";
+import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
 
-function GridViewDrawerContent(props) {
+function DataViewViewDrawerContent(props) {
 	const [state, setState] = useState({
 		options : undefined,
 		loading : true,
@@ -109,7 +109,7 @@ function GridViewDrawerContent(props) {
 					{...DataViewConfig}
 				/>
 			}
-			<GridViewSaveDrawer
+			<DataViewViewSaveDrawer
 				open={state.formOpen}
 				data={state.formData}
 				onClose={closeForm}
@@ -119,4 +119,4 @@ function GridViewDrawerContent(props) {
 	)
 }
 
-export default GridViewDrawerContent;
+export default DataViewViewDrawerContent;

@@ -12,7 +12,7 @@ const StyledSpan = styled.span`
 
 `
 
-function GridViewSwitcher(props) {
+function DataViewViewSwitcher(props) {
 	const Icon = props.view === "list" ? FormatListBulletedIcon : GridOnIcon;
 	
 	const menuItems = [];
@@ -49,4 +49,4 @@ function GridViewSwitcher(props) {
 	)
 }
 
-export default GridViewSwitcher;
+export default DataViewViewSwitcher;

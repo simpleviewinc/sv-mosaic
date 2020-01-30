@@ -9,7 +9,7 @@ const StyledTable = styled.table`
 	border-collapse: collapse;
 `
 
-function GridViewList(props) {
+function DataViewViewList(props) {
 	// todo validate props
 	
 	return (
@@ -38,4 +38,4 @@ function GridViewList(props) {
 	)
 }
 
-export default GridViewList;
+export default DataViewViewList;

@@ -5,7 +5,7 @@ import Button from "../Button.jsx";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-function GridPager(props) {
+function DataViewPager(props) {
 	const totalPages = Math.ceil(props.count / props.limit);
 	const currentPage = (props.skip + props.limit) / props.limit;
 	const startItem = (props.skip + 1);
@@ -43,4 +43,4 @@ function GridPager(props) {
 	)
 }
 
-export default GridPager;
+export default DataViewPager;

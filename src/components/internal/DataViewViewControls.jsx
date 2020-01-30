@@ -5,8 +5,8 @@ import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
-import GridViewDrawer from "./GridViewDrawer.jsx";
-import GridViewSaveDrawer from "./GridViewSaveDrawer.jsx";
+import DataViewViewDrawer from "./DataViewViewDrawer.jsx";
+import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
 
 const ViewSpan = styled.span`
 	display: inline-flex;
@@ -17,7 +17,7 @@ const ViewSpan = styled.span`
 	}
 `
 
-function GridViewControls(props) {
+function DataViewViewControls(props) {
 	const [state, setState] = useState({
 		viewOpen : false,
 		saveOpen : false
@@ -91,13 +91,13 @@ function GridViewControls(props) {
 					/>
 				</ButtonRow>
 			</div>
-			<GridViewSaveDrawer
+			<DataViewViewSaveDrawer
 				open={state.saveOpen}
 				data={savedViewData}
 				onClose={toggleSaveDrawer}
 				onSave={props.savedViewCallbacks.onSave}
 			/>
-			<GridViewDrawer
+			<DataViewViewDrawer
 				open={state.viewOpen}
 				onClose={toggleViewDrawer}
 				onRemove={props.savedViewCallbacks.onRemove}
@@ -109,4 +109,4 @@ function GridViewControls(props) {
 	)
 }
 
-export default GridViewControls;
+export default DataViewViewControls;
