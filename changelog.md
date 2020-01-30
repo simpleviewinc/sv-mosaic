@@ -1,7 +1,7 @@
 # sv-mosaic changelog
 
 ## 1/30/2019
-* Renamed `Grid` component to `DataView`. `Grid` is still being exported but is considered deprecated. Update your implementations to import `DataView` as soon as possible. for For consistency, several supporting components were re-named and should be updated from their deprecated names too:
+* Renamed `Grid` component to `DataView`. `Grid` is still being exported but is considered deprecated. Update your implementations to import `DataView` as soon as possible. For consistency, several supporting components were re-named and should be updated from their deprecated names too:
   * `GridFilterText` is now `DataViewFilterText`
   * `GridFilterDropdown` is now `DataViewFilterDropdown`
   * `GridFilterDropdownButtons` is now `DataViewFilterDropdownButtons`
