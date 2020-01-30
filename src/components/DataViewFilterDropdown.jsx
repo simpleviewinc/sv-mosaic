@@ -14,7 +14,7 @@ const StyledWrapper = styled.div`
 	background: white;
 `
 
-function GridFilterDropdown(props) {
+function DataViewFilterDropdown(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -71,4 +71,4 @@ function GridFilterDropdown(props) {
 	)
 }
 
-export default GridFilterDropdown;
+export default DataViewFilterDropdown;

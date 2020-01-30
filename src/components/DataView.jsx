@@ -61,7 +61,7 @@ const additionalActionValidation = {
 	allowExtraKeys : false
 }
 
-function Grid(props) {
+function DataView(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -427,4 +427,4 @@ function Grid(props) {
 	)
 }
 
-export default Grid;
+export default DataView;

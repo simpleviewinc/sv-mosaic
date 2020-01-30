@@ -22,7 +22,7 @@ Examples: https://simpleviewinc.github.io/sv-mosaic/
 All components are exported individually and should be imported via destructuring to ensure proper tree-shaking.
 
 ```js
-import { Grid } from "@simpleview/sv-mosaic"
+import { DataView } from "@simpleview/sv-mosaic"
 ```
 
 ## Optimization Guidelines
@@ -59,9 +59,9 @@ Example: https://codepen.io/owenallenaz/pen/vYYzmOp
 
 ## Components
 
-### Grid
+### DataView
 
-Grid is used to output a list or grid of items. It can support a whole variety of actions including primary actions, additional actions and bulk actions.
+A DataView is used to output a list or grid of items. It can support a whole variety of actions including primary actions, additional actions and bulk actions.
 
 ##### Actions
 
@@ -75,10 +75,10 @@ For the props necessary for each action, please see the props section below.
 
 ##### Saved Views
 
-The Grid system supports saved views. When enabled, the user will receive buttons at the top-right of the Grid allowing them to change the view and save a new one. This allows users to change their filters, columns, view and then save it for later, allowing other users to use that view.
+The DataView system supports saved views. When enabled, the user will receive buttons at the top-right of the DataView allowing them to change the view and save a new one. This allows users to change their filters, columns, view and then save it for later, allowing other users to use that view.
 
 ##### Props
-* title - The title of the grid.
+* title - The title of the DataView.
 * columns - `array` of `object`
 	* name - `string` - Unique name for this column.
 	* column - `string` - defaults to `${column.name}` - When a column is displayed we need to know the name of the key in the data object that should populate this. By default `name` works. In some cases you might need to use the same data key but display it in multiple ways, you can use `column` for that purpose.
@@ -106,7 +106,7 @@ The Grid system supports saved views. When enabled, the user will receive button
 * onLimitChange - `function({ limit })` - A callback that will be executed with the new limit selected by the user. It is recommended that when the user changes the limit, your state alteration should also reset the `skip` to `0`.
 * skip - `number` - The current number of rows being skipped by the user using `0` based indexing. Given a `limit` of `10` So the first page should have a `skip` of `0` and the second page would have a skip of `10`.
 * onSkipChange - `function({ skip })` - A callback that will be executed with the new skip selected by the user.
-* loading - `boolean` - Pass `true` when your Grid is fetching data or doing some alteration which needs to lock the UI. While `loading` is true, the majority of the UI elements in the grid are locked to prevent race conditions. Once the data has been fetched you will want to prop down `false` again.
+* loading - `boolean` - Pass `true` when your DataView is fetching data or doing some alteration which needs to lock the UI. While `loading` is true, the majority of the UI elements in the DataView are locked to prevent race conditions. Once the data has been fetched you will want to prop down `false` again.
 * onSortChange - TODO
 * onViewChange - TODO
 * onActiveFiltersChange - TODO

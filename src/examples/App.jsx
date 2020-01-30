@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { hot } from "react-hot-loader/root";
-import GridKitchenSink from "./GridKitchenSink.jsx";
+import DataViewKitchenSink from "./DataViewKitchenSink.jsx";
 import Buttons from "./Buttons.jsx";
 import Filters from "./Filters.jsx";
 
 function App() {
-	const defaultComponent = "GridKitchenSink";
+	const defaultComponent = "DataViewKitchenSink";
 	const [componentName, setComponentName] = useState(defaultComponent);
 	
 	const options = [
-		{ label : "Grid Kitchen Sink", value : "GridKitchenSink", component : <GridKitchenSink></GridKitchenSink> },
+		{ label : "DataView Kitchen Sink", value : "DataViewKitchenSink", component : <DataViewKitchenSink></DataViewKitchenSink> },
 		{ label : "Buttons", value : "Buttons", component : <Buttons></Buttons> },
 		{ label : "Filters", value : "Filters", component : <Filters></Filters> }
 	]

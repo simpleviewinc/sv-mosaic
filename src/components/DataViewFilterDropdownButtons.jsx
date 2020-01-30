@@ -13,7 +13,7 @@ const StyledWrapper = styled.div`
 	}
 `
 
-function GridFilterDropdownButtons(props) {
+function DataViewFilterDropdownButtons(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -47,4 +47,4 @@ function GridFilterDropdownButtons(props) {
 	)
 }
 
-export default GridFilterDropdownButtons;
+export default DataViewFilterDropdownButtons;

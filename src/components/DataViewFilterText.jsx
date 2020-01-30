@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import GridPrimaryFilter from "./GridPrimaryFilter.jsx";
+import DataViewPrimaryFilter from "./DataViewPrimaryFilter.jsx";
 import GridFilterTextDropdownContent from "./internal/GridFilterTextDropdownContent.jsx";
-import GridFilterDropdown from "./GridFilterDropdown.jsx";
+import DataViewFilterDropdown from "./DataViewFilterDropdown.jsx";
 
 const StyledWrapper = styled.span`
 	
@@ -28,7 +28,7 @@ const comparisonMap = {
 	not_contains : "!~"
 }
 
-function GridFilterText(props) {
+function DataViewFilterText(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -112,14 +112,14 @@ function GridFilterText(props) {
 	
 	return (
 		<StyledWrapper>
-			<GridPrimaryFilter
+			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
 				type={props.type}
 				onRemove={props.onRemove}
 				onClick={onClick}
 			/>
-			<GridFilterDropdown
+			<DataViewFilterDropdown
 				anchorEl={anchorEl}
 				onClose={onClose}
 			>
@@ -130,9 +130,9 @@ function GridFilterText(props) {
 					comparisons={activeComparisons}
 					onClose={onClose}
 				/>
-			</GridFilterDropdown>
+			</DataViewFilterDropdown>
 		</StyledWrapper>
 	);
 }
 
-export default GridFilterText;
+export default DataViewFilterText;
