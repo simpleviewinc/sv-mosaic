@@ -3,7 +3,7 @@ import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
 import DataViewPrimaryFilter from "./DataViewPrimaryFilter.jsx";
-import GridFilterMultiselectDropdownContent from "./internal/GridFilterMultiselectDropdownContent.jsx";
+import DataViewFilterMultiselectDropdownContent from "./internal/DataViewFilterMultiselectDropdownContent.jsx";
 import DataViewFilterDropdown from "./DataViewFilterDropdown.jsx";
 
 const StyledWrapper = styled.span`
@@ -190,7 +190,7 @@ function DataViewFilterMultiselect(props) {
 				onEntered={onEntered}
 				onExited={onExited}
 			>
-				<GridFilterMultiselectDropdownContent
+				<DataViewFilterMultiselectDropdownContent
 					value={value}
 					comparison={comparison}
 					comparisons={activeComparisons}

@@ -5,7 +5,7 @@ import { pick } from "lodash";
 
 import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button.jsx";
-import GridViewControls from "./GridViewControls.jsx";
+import DataViewViewControls from "./DataViewViewControls.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.div`
@@ -68,7 +68,7 @@ function TitleBar(props) {
 			</div>
 			{
 				props.savedViewEnabled &&
-				<GridViewControls
+				<DataViewViewControls
 					savedView={props.savedView}
 					savedViewState={props.savedViewState}
 					savedViewCallbacks={props.savedViewCallbacks}

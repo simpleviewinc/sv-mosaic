@@ -111,7 +111,7 @@ const PopoverP = styled.p`
 
 const limit = 25;
 
-function GridFilterMultiselectDropdownContent(props) {
+function DataViewFilterMultiselectDropdownContent(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -396,4 +396,4 @@ function GridFilterMultiselectDropdownContent(props) {
 	);
 }
 
-export default GridFilterMultiselectDropdownContent;
+export default DataViewFilterMultiselectDropdownContent;
