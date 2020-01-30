@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CreateIcon from '@material-ui/icons/Create';
 
-import Grid from "../Grid.jsx";
+import DataView from "../DataView.jsx";
 import DrawerContent from "../DrawerContent.jsx";
 import GridViewSaveDrawer from "./GridViewSaveDrawer.jsx";
 
@@ -37,7 +37,7 @@ function GridViewDrawerContent(props) {
 		});
 	}
 	
-	const GridConfig = {
+	const DataViewConfig = {
 		primaryActions : [
 			{
 				name : "select",
@@ -105,8 +105,8 @@ function GridViewDrawerContent(props) {
 		>
 			{
 				state.options &&
-				<Grid
-					{...GridConfig}
+				<DataView
+					{...DataViewConfig}
 				/>
 			}
 			<GridViewSaveDrawer
