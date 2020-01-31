@@ -127,8 +127,8 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 * variant - `string` - required enum `["icon", "outlined", "contained", "text"]` - The display type of the button. See the example app to know what each variant looks like.
 * iconPosition - `string` - default `left` - When a button has a `label` AND an `mIcon` it will determine which side of the button to place the `mIcon`.
 * mIcon - `Material-UI Icon` - An icon from `material-ui`.
-    * Example - `import AddIcon from '@material-ui/icons/Add'` and then you would pass `mIcon : AddIcon`.
-    * Ensure you are loading the icons correctly per the optimization guidelines.
+	* Example - `import AddIcon from '@material-ui/icons/Add'` and then you would pass `mIcon : AddIcon`.
+	* Ensure you are loading the icons correctly per the optimization guidelines.
 * onClick - `function` - optional - The function that will be executed when the button is clicked.
 * fullWidth - `boolean` - optional - Buttons default to only displaying the width required for their content. If `fullWidth` is `true` it will stretch the button to use all allowable space.
 * disabled - `boolean` - optional - When `true` the button will be displayed, but a user will not be able to interact with it.
@@ -138,12 +138,21 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 # Installation
 
 * Ensure you have [sv-kubernetes](https://github.com/simpleviewinc/sv-kubernetes) installed.
-* Install the container `sudo sv install sv-mosaic --type=container --branch=develop`
-* Run the container
-	```
-	cd /sv/containers/sv-mosaic
-	sudo npm run docker
-	npm start
-	```
+* If you want your windows box to have TypeScript completions of npm packages.
+	* Install Node via https://nodejs.org/en/download/, easiest method is the Windows Install 64-bit. It may ask you to restart your box.
+	* In windows cmd
+		```
+		cd d:\PATH\TO\sv-kubernetes\containers\sv-mosaic
+		npm install
+		```
+* Putty/Shell into sv-kubernetes
+	* Install the container
+		* `sudo sv install sv-mosaic --type=container --branch=develop`
+	* Run the container
+		```
+		cd /sv/containers/sv-mosaic
+		sudo npm run docker
+		npm start
+		```
 
 The service should now be accessible at http://kube.simpleview.io:10000/
