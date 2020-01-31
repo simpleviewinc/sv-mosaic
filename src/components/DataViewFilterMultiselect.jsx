@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import GridPrimaryFilter from "./GridPrimaryFilter.jsx";
+import DataViewPrimaryFilter from "./DataViewPrimaryFilter.jsx";
 import GridFilterMultiselectDropdownContent from "./internal/GridFilterMultiselectDropdownContent.jsx";
-import GridFilterDropdown from "./GridFilterDropdown.jsx";
+import DataViewFilterDropdown from "./DataViewFilterDropdown.jsx";
 
 const StyledWrapper = styled.span`
 	
@@ -26,7 +26,7 @@ const comparisonMap = {
 	all : "All - "
 }
 
-function GridFilterMultiselect(props) {
+function DataViewFilterMultiselect(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -177,14 +177,14 @@ function GridFilterMultiselect(props) {
 	
 	return (
 		<StyledWrapper>
-			<GridPrimaryFilter
+			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
 				type={props.type}
 				onRemove={props.onRemove}
 				onClick={onClick}
 			/>
-			<GridFilterDropdown
+			<DataViewFilterDropdown
 				anchorEl={state.anchorEl}
 				onClose={onClose}
 				onEntered={onEntered}
@@ -200,9 +200,9 @@ function GridFilterMultiselect(props) {
 					onApply={onApply}
 					onClose={onClose}
 				/>
-			</GridFilterDropdown>
+			</DataViewFilterDropdown>
 		</StyledWrapper>
 	);
 }
 
-export default GridFilterMultiselect;
+export default DataViewFilterMultiselect;

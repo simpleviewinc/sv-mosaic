@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import GridFilterText from "../components/GridFilterText.jsx";
-import GridFilterMultiselect from "../components/GridFilterMultiselect.jsx";
+import DataViewFilterText from "../components/DataViewFilterText.jsx";
+import DataViewFilterMultiselect from "../components/DataViewFilterMultiselect.jsx";
 import JSONDB from "../utils/JSONDB.js";
 
 import categories from "./categories.json";
@@ -82,17 +82,17 @@ function Filters() {
 	return (
 		<div>
 			<h2>Text Filter</h2>
-			<GridFilterText
+			<DataViewFilterText
 				label="No Value"
 				value={values.no_value}
 				onChange={setState("no_value")}
 			/>
-			<GridFilterText
+			<DataViewFilterText
 				label="With Value"
 				value={values.with_value}
 				onChange={setState("with_value")}
 			/>
-			<GridFilterText
+			<DataViewFilterText
 				label="With All Comparisons"
 				value={values.with_all_comparisons}
 				args={{
@@ -100,7 +100,7 @@ function Filters() {
 				}}
 				onChange={setState("with_all_comparisons")}
 			/>
-			<GridFilterText
+			<DataViewFilterText
 				label="With Some Comparisons"
 				value={values.with_some_comparisons}
 				args={{
@@ -110,14 +110,14 @@ function Filters() {
 			/>
 			
 			<h2>Multiselect Filters</h2>
-			<GridFilterMultiselect
+			<DataViewFilterMultiselect
 				label="Multiselect"
 				getOptions={getOptions("multiselect")}
 				getSelected={getSelected("multiselect")}
 				state={values.multiselect}
 				setState={setState("multiselect")}
 			/>
-			<GridFilterMultiselect
+			<DataViewFilterMultiselect
 				label="Multiselect All Comparisons"
 				getOptions={getOptions("multiselect")}
 				getSelected={getSelected("multiselect")}
@@ -125,7 +125,7 @@ function Filters() {
 				setState={setState("multiselect_all_comparisons")}
 				comparisons={["in", "not_in", "all", "exists", "not_exists"]}
 			/>
-			<GridFilterMultiselect
+			<DataViewFilterMultiselect
 				label="Multiselect Some Comparisons"
 				getOptions={getOptions("multiselect")}
 				getSelected={getSelected("multiselect")}

@@ -70,7 +70,7 @@ const StyledWrapper = styled.div`
 	}
 `;
 
-function GridPrimaryFilter(props) {
+function DataViewPrimaryFilter(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -115,4 +115,4 @@ function GridPrimaryFilter(props) {
 	)
 }
 
-export default GridPrimaryFilter;
+export default DataViewPrimaryFilter;

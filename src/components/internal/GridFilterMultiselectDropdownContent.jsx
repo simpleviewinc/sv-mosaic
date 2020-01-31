@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SearchIcon from "@material-ui/icons/Search";
 import HelpIcon from '@material-ui/icons/Help';
 
-import GridFilterDropdownButtons from "../GridFilterDropdownButtons.jsx";
+import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import Button from "../Button.jsx";
 import ButtonRow from "../ButtonRow.jsx";
 import Spinner from "../Spinner.jsx";
@@ -387,7 +387,7 @@ function GridFilterMultiselectDropdownContent(props) {
 					</div>
 				</div>
 			</div>
-			<GridFilterDropdownButtons
+			<DataViewFilterDropdownButtons
 				onApply={onApply}
 				onClear={onClear}
 				onCancel={props.onClose}
