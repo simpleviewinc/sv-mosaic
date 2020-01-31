@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
 import Drawer from "../Drawer.jsx";
-import GridViewSaveDrawerContent from "./GridViewSaveDrawerContent.jsx";
+import DataViewViewSaveDrawerContent from "./DataViewViewSaveDrawerContent.jsx";
 
-function GridViewSaveDrawer(props) {
+function DataViewViewSaveDrawer(props) {
 	return (
 		<Drawer
 			open={props.open}
 			onClose={props.onClose}
 		>
-			<GridViewSaveDrawerContent
+			<DataViewViewSaveDrawerContent
 				data={props.data}
 				onClose={props.onClose}
 				onSave={props.onSave}
@@ -18,4 +18,4 @@ function GridViewSaveDrawer(props) {
 	)
 }
 
-export default GridViewSaveDrawer;
+export default DataViewViewSaveDrawer;

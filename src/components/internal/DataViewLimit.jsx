@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Button from "../Button.jsx";
 
-function GridLimit(props) {
+function DataViewLimit(props) {
 	const menuItems = useMemo(() => {
 		return props.options.map(val => {
 			return {
@@ -28,4 +28,4 @@ function GridLimit(props) {
 	)
 }
 
-export default memo(GridLimit);
+export default memo(DataViewLimit);

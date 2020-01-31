@@ -2,15 +2,15 @@ import React, { useState, useEffect, useMemo } from "react";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
-import GridViewList from "./internal/GridViewList.jsx";
-import GridViewGrid from "./internal/GridViewGrid.jsx";
+import DataViewViewList from "./internal/DataViewViewList.jsx";
+import DataViewViewGrid from "./internal/DataViewViewGrid.jsx";
 import TitleBar from "./internal/TitleBar.jsx";
 import ButtonRow from "./ButtonRow.jsx";
 import Button from "./Button.jsx";
-import GridViewSwitcher from "./internal/GridViewSwitcher.jsx";
-import GridPager from "./internal/GridPager.jsx";
-import GridLimit from "./internal/GridLimit.jsx";
-import GridFilters from "./internal/GridFilters.jsx";
+import DataViewViewSwitcher from "./internal/DataViewViewSwitcher.jsx";
+import DataViewPager from "./internal/DataViewPager.jsx";
+import DataViewLimit from "./internal/DataViewLimit.jsx";
+import DataViewFilters from "./internal/DataViewFilters.jsx";
 import theme from "../utils/theme.js";
 import { transformRows } from "../utils/gridTools.js";
 
@@ -303,7 +303,7 @@ function DataView(props) {
 		});
 	}, [props.data]);
 	
-	const View = props.view === "list" ? GridViewList : GridViewGrid;
+	const View = props.view === "list" ? DataViewViewList : DataViewViewGrid;
 	
 	// generate an array of columns based on the ones that are marked active
 	const activeColumnObjs = useMemo(() => {
@@ -360,7 +360,7 @@ function DataView(props) {
 				<div className="left">
 					{
 						props.filters &&
-						<GridFilters
+						<DataViewFilters
 							loading={props.loading}
 							filter={props.filter}
 							filters={props.filters}
@@ -372,7 +372,7 @@ function DataView(props) {
 				<div className="right">
 					{
 						props.views !== undefined &&
-						<GridViewSwitcher
+						<DataViewViewSwitcher
 							view={props.view}
 							views={props.views}
 							onViewChange={props.onViewChange}
@@ -380,7 +380,7 @@ function DataView(props) {
 					}
 					{
 						props.onLimitChange !== undefined &&
-						<GridLimit
+						<DataViewLimit
 							limit={props.limit}
 							options={limitOptions}
 							onLimitChange={props.onLimitChange}
@@ -388,7 +388,7 @@ function DataView(props) {
 					}
 					{
 						props.onSkipChange !== undefined &&
-						<GridPager
+						<DataViewPager
 							limit={props.limit}
 							skip={props.skip}
 							count={props.count}
