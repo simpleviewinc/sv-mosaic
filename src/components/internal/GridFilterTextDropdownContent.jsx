@@ -6,7 +6,7 @@ import jsvalidator from "jsvalidator";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Button from "../Button.jsx";
-import GridFilterDropdownButtons from "../GridFilterDropdownButtons.jsx";
+import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledContents = styled.div`
@@ -173,7 +173,7 @@ function GridFilterTextDropdownContent(props) {
 				/>
 				{comparisonButton}
 			</div>
-			<GridFilterDropdownButtons onApply={onApply} onClear={onClear} onCancel={props.onClose}/>
+			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} onCancel={props.onClose}/>
 		</StyledContents>
 	)
 }

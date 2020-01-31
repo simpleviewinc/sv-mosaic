@@ -7,13 +7,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 import theme from "../utils/theme.js";
-import Grid from "../components/Grid.jsx";
+import DataView from "../components/DataView.jsx";
 import JSONDB from "../utils/JSONDB.js";
 import LocalStorageDB from "../utils/LocalStorageDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
-import GridFilterText from "../components/GridFilterText.jsx";
-import GridFilterMultiselect from "../components/GridFilterMultiselect.jsx";
+import DataViewFilterText from "../components/DataViewFilterText.jsx";
+import DataViewFilterMultiselect from "../components/DataViewFilterMultiselect.jsx";
 import MultiselectHelper from "./MultiselectHelper.js";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.jsx";
 import { useStateRef } from "../utils/reactTools.js";
@@ -73,7 +73,7 @@ const filters = [
 		name : "keyword",
 		label : "Keyword",
 		type : "primary",
-		component : GridFilterText,
+		component : DataViewFilterText,
 		column : "title",
 		toFilter : function({ name, data, output }) {
 			processStringFilter({
@@ -87,7 +87,7 @@ const filters = [
 		name : "categories",
 		label : "Categories",
 		type : "primary",
-		component : GridFilterMultiselect,
+		component : DataViewFilterMultiselect,
 		args : {
 			getOptions : categoriesHelper.getOptions,
 			getSelected : categoriesHelper.getSelected
@@ -99,7 +99,7 @@ const filters = [
 		name : "categories_with_comparisons",
 		label : "Categories with Comparisons",
 		type : "optional",
-		component : GridFilterMultiselect,
+		component : DataViewFilterMultiselect,
 		args : {
 			getOptions : categoriesHelper.getOptions,
 			getSelected : categoriesHelper.getSelected,
@@ -112,14 +112,14 @@ const filters = [
 		name : "title",
 		label : "Title",
 		type : "optional",
-		component : GridFilterText,
+		component : DataViewFilterText,
 		toFilter : processStringFilter
 	},
 	{
 		name : "title_with_comparisons",
 		label : "Title with Comparisons",
 		type : "optional",
-		component : GridFilterText,
+		component : DataViewFilterText,
 		toFilter : processStringFilter,
 		column : "title",
 		args : {
@@ -214,7 +214,7 @@ const gridColumns = [
 	}
 ]
 
-function GridKitchenSink() {
+function DataViewKitchenSink() {
 	const [state, setState] = useState({
 		removeItems : [],
 		data : [],
@@ -425,7 +425,7 @@ function GridKitchenSink() {
 	
 	return (
 		<div>
-			<Grid
+			<DataView
 				{ ...gridConfig }
 				data={state.data}
 				limit={state.limit}
@@ -438,9 +438,9 @@ function GridKitchenSink() {
 				savedView={state.savedView}
 				activeFilters={state.activeFilters}
 				activeColumns={state.activeColumns}
-			></Grid>
+			></DataView>
 		</div>
 	);
 }
 
-export default GridKitchenSink;
+export default DataViewKitchenSink;
