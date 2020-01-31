@@ -2,16 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 import Drawer from "../Drawer.jsx";
-import GridViewDrawerContent from "./GridViewDrawerContent.jsx";
+import DataViewViewDrawerContent from "./DataViewViewDrawerContent.jsx";
 
 
-function GridViewDrawer(props) {
+function DataViewViewDrawer(props) {
 	return (
 		<Drawer
 			open={props.open}
 			onClose={props.onClose}
 		>
-			<GridViewDrawerContent
+			<DataViewViewDrawerContent
 				onClose={props.onClose}
 				onSave={props.onSave}
 				onRemove={props.onRemove}
@@ -22,4 +22,4 @@ function GridViewDrawer(props) {
 	)
 }
 
-export default GridViewDrawer;
+export default DataViewViewDrawer;

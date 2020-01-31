@@ -105,7 +105,7 @@ const StyledDiv = styled.div`
 	}
 `
 
-function GridViewGrid(props) {
+function DataViewViewGrid(props) {
 	// TODO VALIDATE PROPS
 	
 	const checkboxClick = (i) => () => {
@@ -185,4 +185,4 @@ function GridViewGrid(props) {
 	)
 }
 
-export default GridViewGrid;
+export default DataViewViewGrid;

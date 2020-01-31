@@ -7,7 +7,7 @@ import Switch from "@material-ui/core/Switch";
 
 import DrawerContent from "../DrawerContent.jsx";
 
-function GridViewSaveDrawerContent(props) {
+function DataViewViewSaveDrawerContent(props) {
 	const [state, setState] = useState({
 		...props.data
 	});
@@ -79,4 +79,4 @@ function GridViewSaveDrawerContent(props) {
 	)
 }
 
-export default GridViewSaveDrawerContent;
+export default DataViewViewSaveDrawerContent;

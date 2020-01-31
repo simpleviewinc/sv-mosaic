@@ -3,7 +3,7 @@ import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
 import DataViewPrimaryFilter from "./DataViewPrimaryFilter.jsx";
-import GridFilterTextDropdownContent from "./internal/GridFilterTextDropdownContent.jsx";
+import DataViewFilterTextDropdownContent from "./internal/DataViewFilterTextDropdownContent.jsx";
 import DataViewFilterDropdown from "./DataViewFilterDropdown.jsx";
 
 const StyledWrapper = styled.span`
@@ -123,7 +123,7 @@ function DataViewFilterText(props) {
 				anchorEl={anchorEl}
 				onClose={onClose}
 			>
-				<GridFilterTextDropdownContent
+				<DataViewFilterTextDropdownContent
 					value={value}
 					onChange={props.onChange}
 					comparison={comparison}

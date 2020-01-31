@@ -30,7 +30,7 @@ const PopoverDiv = styled.div`
 	}
 `
 
-function GridFilters(props) {
+function DataViewFilters(props) {
 	const activeFilters = props.activeFilters || [];
 	
 	const primaryFilters = props.filters.filter(val => val.type === "primary");
@@ -121,4 +121,4 @@ function GridFilters(props) {
 	)
 }
 
-export default GridFilters;
+export default DataViewFilters;
