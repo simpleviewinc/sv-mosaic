@@ -6,6 +6,10 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.(ts|tsx)$/,
+				loader : "ts-loader"
+			},
+			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
 				loader: "babel-loader",
@@ -14,7 +18,7 @@ module.exports = {
 		]
 	},
 	resolve: {
-		extensions: ["*", ".js", ".jsx"],
+		extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
 		alias : {
 			"react-dom": "@hot-loader/react-dom"
 		}

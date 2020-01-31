@@ -12,7 +12,7 @@ import DataViewPager from "./internal/DataViewPager.jsx";
 import DataViewLimit from "./internal/DataViewLimit.jsx";
 import DataViewFilters from "./internal/DataViewFilters.jsx";
 import theme from "../utils/theme.js";
-import { transformRows } from "../utils/gridTools.js";
+import { transformRows } from "../utils/dataViewTools";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
