@@ -31,6 +31,7 @@ export {
 	DataViewFilterDropdown,
 	DataViewFilterDropdownButtons,
 	DataViewFilterMultiselect,
+	DataViewPrimaryFilter,
 	Dialog,
 	Drawer,
 	DrawerContent,
