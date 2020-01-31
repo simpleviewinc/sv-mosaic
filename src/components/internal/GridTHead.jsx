@@ -16,23 +16,31 @@ import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
-	border-bottom: ${theme.borders.gray};
-	border-top: ${theme.borders.lightGray};
+	background-color: ${theme.colors.gray200};
+	border-radius: 20px;
 `
 
 const StyledTh = styled.th`
+	font-size: 14px;
 	text-align: left;
-	font-weight: bold;
-	padding: 5px 0px;
+	padding: 5px 0;
 	height: 40px;
+	color: ${theme.colors.gray700};
+	border-bottom: 1px solid ${theme.colors.gray200};
 	
+	&:first-child {
+		border-radius: 4px 0 0 4px
+	}
+
 	&:last-child {
 		text-align: right;
+		border-radius: 0 4px 4px 0;
 	}
 	
 	& > .columnHeader {
 		display: inline-flex;
 		align-items: center;
+		font-weight: normal;
 	}
 	
 	&.sortable > .columnHeader {
@@ -42,9 +50,15 @@ const StyledTh = styled.th`
 	& > .columnHeader > .icon {
 		visibility: hidden;
 		font-size: 18px;
+		margin-left: 0.25rem;
+		margin-top: 1px;
 	}
 	
 	&.active {
+		border-bottom: 1px solid #000;
+	}
+
+	&.active > .columnHeader {
 		font-weight: bold;
 	}
 	
@@ -58,11 +72,16 @@ const StyledTh = styled.th`
 	
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
-		color: ${theme.colors.lightGray};
+		color: ${theme.colors.gray600};
 	}
 	
 	&.bulk {
 		width: 52px;
+		padding: 0 4px;
+	}
+
+	& .settings {
+		margin-right: 4px;
 	}
 `
 
@@ -204,7 +223,7 @@ function GridTHead(props) {
 				<StyledTh key="_actions">
 					{
 						props.onColumnsChange !== undefined &&
-						<Button color="black" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
+						<Button className="settings" color="gray" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
 					}
 				</StyledTh>
 			</tr>

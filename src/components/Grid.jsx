@@ -25,9 +25,14 @@ const StyledWrapper = styled.div`
 		align-items: center;
 	}
 	
+	& > .headerRow > .left {
+		margin-bottom: 0.75rem;
+	}
+
 	& > .headerRow > .right {
 		display: flex;
 		align-items: center;
+		margin-bottom: 0.75rem;
 	}
 	
 	&.loading {
@@ -35,6 +40,11 @@ const StyledWrapper = styled.div`
 		pointer-events: none;
 	}
 `;
+
+const GridViewOptions = styled.div`
+  display: inline-flex;
+  align-items: baseline;
+`
 
 const actionValidation = {
 	type : "object",
@@ -370,31 +380,33 @@ function Grid(props) {
 					}
 				</div>
 				<div className="right">
-					{
-						props.views !== undefined &&
-						<GridViewSwitcher
-							view={props.view}
-							views={props.views}
-							onViewChange={props.onViewChange}
-						/>
-					}
-					{
-						props.onLimitChange !== undefined &&
-						<GridLimit
-							limit={props.limit}
-							options={limitOptions}
-							onLimitChange={props.onLimitChange}
-						/>
-					}
-					{
-						props.onSkipChange !== undefined &&
-						<GridPager
-							limit={props.limit}
-							skip={props.skip}
-							count={props.count}
-							onSkipChange={props.onSkipChange}
-						/>
-					}
+					<GridViewOptions>
+						{
+							props.views !== undefined &&
+							<GridViewSwitcher
+								view={props.view}
+								views={props.views}
+								onViewChange={props.onViewChange}
+							/>
+						}
+						{
+							props.onLimitChange !== undefined &&
+							<GridLimit
+								limit={props.limit}
+								options={limitOptions}
+								onLimitChange={props.onLimitChange}
+							/>
+						}
+						{
+							props.onSkipChange !== undefined &&
+							<GridPager
+								limit={props.limit}
+								skip={props.skip}
+								count={props.count}
+								onSkipChange={props.onSkipChange}
+							/>
+						}
+					</GridViewOptions>
 				</div>
 			</div>
 			<div className={`

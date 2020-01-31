@@ -9,13 +9,13 @@ import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
-	& {
-		margin-bottom: 1em;
-	}
 	
 	& > .filterRow {
 		display: flex;
-		align-items: center;
+	}
+
+	& > .optionalFilters:not(:empty) {
+		padding-top: 0.25rem;
 	}
 	
 	& > .filterRow > * {
@@ -83,6 +83,7 @@ function GridFilters(props) {
 					color="gray"
 					iconPosition="right"
 					mIcon={ExpandMoreIcon}
+					size="small"
 					popover={
 						<PopoverDiv
 							className={`

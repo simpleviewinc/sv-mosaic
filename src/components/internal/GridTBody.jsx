@@ -6,12 +6,12 @@ import GridTr from "./GridTr.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledTBody = styled.tbody`
-	& > tr {
+	& > tr td {
 		border-bottom: ${theme.borders.lightGray};
 	}
 	
 	& > tr > td {
-		padding: 5px 0px;
+		padding: 5px 4px;
 	}
 	
 	& > tr > td.bold {
