@@ -168,6 +168,18 @@ const listColumns = [
 		sortable : true
 	},
 	{
+		name : "description",
+		label : "Description",
+		style : "bold",
+		sortable : true
+	},
+	{
+		name : "content_owner",
+		label : "Content Owner",
+		style : "bold",
+		sortable : true
+	},
+	{
 		name : "categories",
 		label : "Categories",
 		transforms : [
@@ -420,6 +432,9 @@ function DataViewKitchenSink() {
 				...state,
 				activeColumns : data
 			});
+		},
+		appearance : {
+			maxHeight: "800px"
 		}
 	};
 	

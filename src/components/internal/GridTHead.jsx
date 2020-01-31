@@ -16,16 +16,24 @@ import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
-	border-bottom: ${theme.borders.gray};
-	border-top: ${theme.borders.lightGray};
+	padding-top:1px;
 `
 
 const StyledTh = styled.th`
 	text-align: left;
 	font-weight: bold;
-	padding: 5px 0px;
+	padding: 5px 2px;
 	height: 40px;
-	
+	position: sticky;
+	top: 7.5em;
+	background: ${theme.backgrounds.system};
+	border: none;
+	box-shadow: 
+		0 -1px 0 ${theme.backgrounds.system},
+		inset 0 1px 0 ${theme.colors.lightGrayRGB},
+		inset 0 -1px 0 ${theme.colors.lightGrayRGB};
+	z-index:1;
+
 	&:last-child {
 		text-align: right;
 	}

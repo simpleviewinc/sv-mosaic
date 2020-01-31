@@ -11,7 +11,12 @@ const StyledTBody = styled.tbody`
 	}
 	
 	& > tr > td {
-		padding: 5px 0px;
+		padding: 5px 2px;
+	}
+
+	& tr > td:first-child {
+		padding-left: 0;
+		paddin-right: 0;
 	}
 	
 	& > tr > td.bold {

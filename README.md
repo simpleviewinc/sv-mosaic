@@ -115,6 +115,10 @@ The DataView system supports saved views. When enabled, the user will receive bu
 * onSavedViewChange - TODO
 * onSavedViewRemove - TODO
 * onSavedViewGetOptions - TODO
+* appearance - an `object` which controls the general appearance of the DataView
+	* maxHeight - `string` - a css string dictating how tall the DataView is allowed to grow (e.g. `100px`, `25em`, `1vh`, etc.). If defined, a DataView which would normally extend beyond the maxHeight will scroll with the headers locked at the top of the scrollable area. If undefined, the DataView will grow in height based on the amount of data displayed.
+	* maxWidth  - `string` - a css string dictating how wide the DataView is allowed to grow (e.g. `100px`, `25em`, `1vw`, etc.). If defined, a DataView which would normally extend beyond the maxWidth will scroll. If undefined, the DataView will default with a width equal to 100% of the parent div's width.
+	
 
 ### Button
 

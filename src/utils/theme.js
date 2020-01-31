@@ -11,8 +11,12 @@ export default {
 		blue : "#0070f2",
 		blueHover : "#0b50f1",
 		lightGray : "#757575",
+		lightGrayRGB: "rgba(0, 0, 0, .05)",
 		darkGray : "#081324",
-		red : "#b10000"
+		red : "#b10000",
+	},
+	backgrounds : {
+		system : "white"
 	},
 	borders : {
 		lightGray : "1px solid rgba(0, 0, 0, .05)",

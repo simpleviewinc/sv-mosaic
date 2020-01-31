@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
+import uniqid from 'uniqid';
+import { has } from "lodash";
 
 import DataViewViewList from "./internal/DataViewViewList.jsx";
 import DataViewViewGrid from "./internal/DataViewViewGrid.jsx";
@@ -11,6 +13,7 @@ import DataViewViewSwitcher from "./internal/DataViewViewSwitcher.jsx";
 import DataViewPager from "./internal/DataViewPager.jsx";
 import DataViewLimit from "./internal/DataViewLimit.jsx";
 import DataViewFilters from "./internal/DataViewFilters.jsx";
+import StickyWrapper from "./internal/StickyWrapper.jsx";
 import theme from "../utils/theme.js";
 import { transformRows } from "../utils/gridTools.js";
 
@@ -18,14 +21,17 @@ const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
 	font-weight: 400;
 	font-size: 14px;
-	
-	& > .headerRow {
+	overflow-x: auto;
+	overflow-y: auto;
+
+	& .StickyWrapper > .headerRow {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		background: ${theme.backgrounds.system};
 	}
 	
-	& > .headerRow > .right {
+	& .StickyWrapper > .headerRow > .right {
 		display: flex;
 		align-items: center;
 	}
@@ -249,6 +255,15 @@ function DataView(props) {
 			{
 				name : "onSavedViewGetOptions",
 				type : "function"
+			},
+			{
+				name : "appearance",
+				type : "object",
+				schema : [
+					{ name : "maxHeight", type : "string" },
+					{ name : "maxWidth", type : "string" }
+				],
+				allowExtraKeys : false
 			}
 		],
 		allowExtraKeys : false,
@@ -342,61 +357,74 @@ function DataView(props) {
 		]
 	}, [props.limitOptions]);
 	
+	const uniqueViewId = uniqid();
+
 	return (
-		<StyledWrapper className={`
-			${ props.loading ? "loading" : "" }
-		`}>
-			<div className="headerRow">
-				<TitleBar
-					title={props.title}
-					buttons={props.buttons}
-					savedViewEnabled={savedViewEnabled}
-					savedView={props.savedView}
-					savedViewState={savedViewState}
-					savedViewCallbacks={savedViewCallbacks}
-				/>
-			</div>
-			<div className="headerRow">
-				<div className="left">
-					{
-						props.filters &&
-						<DataViewFilters
-							loading={props.loading}
-							filter={props.filter}
-							filters={props.filters}
-							activeFilters={props.activeFilters}
-							onActiveFiltersChange={props.onActiveFiltersChange}
-						/>
-					}
+		<StyledWrapper 
+			data-scroll-element-id = {uniqueViewId} 
+			style = { 
+				{ 
+					maxHeight: ( has( props, 'appearance.maxHeight' ) !== false ) ? props.appearance.maxHeight : 'none', 
+					maxWidth: ( has( props, 'appearance.maxWidth' ) !== false ) ? props.appearance.maxWidth : 'none'
+				}
+			}
+			className={` ${ props.loading ? "loading" : "" }`}
+		>
+			<StickyWrapper
+				scrollElement = {uniqueViewId}
+				>
+				<div className="headerRow">
+					<TitleBar
+						title={props.title}
+						buttons={props.buttons}
+						savedViewEnabled={savedViewEnabled}
+						savedView={props.savedView}
+						savedViewState={savedViewState}
+						savedViewCallbacks={savedViewCallbacks}
+					/>
 				</div>
-				<div className="right">
-					{
-						props.views !== undefined &&
-						<DataViewViewSwitcher
-							view={props.view}
-							views={props.views}
-							onViewChange={props.onViewChange}
-						/>
-					}
-					{
-						props.onLimitChange !== undefined &&
-						<DataViewLimit
-							limit={props.limit}
-							options={limitOptions}
-							onLimitChange={props.onLimitChange}
-						/>
-					}
-					{
-						props.onSkipChange !== undefined &&
-						<DataViewPager
-							limit={props.limit}
-							skip={props.skip}
-							count={props.count}
-							onSkipChange={props.onSkipChange}
-						/>
-					}
+				<div className="headerRow">
+					<div className="left">
+						{
+							props.filters &&
+							<DataViewFilters
+								loading={props.loading}
+								filter={props.filter}
+								filters={props.filters}
+								activeFilters={props.activeFilters}
+								onActiveFiltersChange={props.onActiveFiltersChange}
+							/>
+						}
+					</div>
+					<div className="right">
+						{
+							props.views !== undefined &&
+							<DataViewViewSwitcher
+								view={props.view}
+								views={props.views}
+								onViewChange={props.onViewChange}
+							/>
+						}
+						{
+							props.onLimitChange !== undefined &&
+							<DataViewLimit
+								limit={props.limit}
+								options={limitOptions}
+								onLimitChange={props.onLimitChange}
+							/>
+						}
+						{
+							props.onSkipChange !== undefined &&
+							<DataViewPager
+								limit={props.limit}
+								skip={props.skip}
+								count={props.count}
+								onSkipChange={props.onSkipChange}
+							/>
+						}
+					</div>
 				</div>
-			</div>
+			</StickyWrapper>
 			<div className={`
 				viewContainer
 			`}>
