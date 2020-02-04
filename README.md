@@ -142,7 +142,7 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 # Installation
 
 * Ensure you have [sv-kubernetes](https://github.com/simpleviewinc/sv-kubernetes) installed.
-* Install the container `sudo sv install sv-mosaic --type=container`
+* Install the container `sudo sv install sv-mosaic --type=container --branch=develop`
 * Run the container
 	```
 	cd /sv/containers/sv-mosaic
