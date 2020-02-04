@@ -41,6 +41,7 @@ function DataViewViewSwitcher(props) {
 				variant="text"
 				color="black"
 				label={<Icon/>}
+				size="small"
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
 				menuItems={menuItems}

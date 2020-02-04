@@ -77,6 +77,7 @@ function DataViewViewControls(props) {
 						mIcon={ExpandMoreIcon}
 						iconPosition="right"
 						label="Save As"
+						size="small"
 						variant="outlined"
 						color="blue"
 						menuItems={saveMenuItems}
@@ -85,6 +86,7 @@ function DataViewViewControls(props) {
 						mIcon={ExpandMoreIcon}
 						iconPosition="right"
 						label={ViewLabel}
+						size="small"
 						variant="contained"
 						color="lightBlue"
 						onClick={toggleViewDrawer}

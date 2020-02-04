@@ -24,10 +24,15 @@ const StyledWrapper = styled.div`
 		justify-content: space-between;
 		align-items: center;
 	}
+
+	& > .headerRow > .left {
+		margin-bottom: 0.75rem;
+	}
 	
 	& > .headerRow > .right {
 		display: flex;
 		align-items: center;
+		margin-bottom: 0.75rem;
 	}
 	
 	&.loading {

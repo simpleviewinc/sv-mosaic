@@ -9,17 +9,16 @@ import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
-	& {
-		margin-bottom: 1em;
-	}
-	
 	& > .filterRow {
 		display: flex;
-		align-items: center;
 	}
 	
 	& > .filterRow > * {
 		margin-right: 5px;
+	}
+
+	& > .optionalFilters:not(:empty) {
+		padding-top: 0.25rem;
 	}
 `;
 
@@ -82,6 +81,7 @@ function DataViewFilters(props) {
 					variant="text"
 					color="gray"
 					iconPosition="right"
+					size="small"
 					mIcon={ExpandMoreIcon}
 					popover={
 						<PopoverDiv

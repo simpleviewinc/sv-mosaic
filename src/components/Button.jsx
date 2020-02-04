@@ -24,6 +24,7 @@ const ButtonWrapper = styled.span`
 	}
 	
 	&.normalButton > button .icon_left {
+		margin-left: -4px;
 		margin-right: 4px;
 	}
 	
@@ -35,6 +36,17 @@ const ButtonWrapper = styled.span`
 		padding: 8px;
 		font-size: 15px;
 	}
+	
+	& > .MuiButton-sizeSmall {
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+	
+	& > .MuiButton-sizeSmall.MuiButton-outlined {
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+
 `
 
 const PopoverWrapper = styled.div`
@@ -50,8 +62,16 @@ const types = {
 		}
 		
 		& > button:hover {
-			background: ${theme.colors.blue}23;
+			background: ${theme.colors.lightBlueHover};
+			box-shadow: 0 2px 3px ${theme.colors.blueHoverShadow};
 		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightBlueActive};
+			box-shadow: 0 1px 2px ${theme.colors.blueActiveShadow};
+		}
+
 	`,
 	red_outlined : styled(ButtonWrapper)`
 		& > button {
@@ -60,17 +80,32 @@ const types = {
 		}
 		
 		& > button:hover {
-			background: ${theme.colors.red}23;
+			background: ${theme.colors.lightRedHover};
+			box-shadow: 0 2px 3px ${theme.colors.lightRedHoverShadow};
 		}
-	`,
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightRedActive};
+			box-shadow: 0 1px 2px ${theme.colors.lightRedHoverShadow};
+		}
+
+	`, 
 	gray_outlined : styled(ButtonWrapper)`
 		& > button {
 			border-color: #ddd;
-			color: ${theme.colors.lightGray};
+			color: ${theme.colors.gray600};
 		}
 		
 		& > button:hover {
-			background: ${theme.colors.lightGray}23;
+			background: ${theme.colors.lightGrayHover};
+			box-shadow: 0 2px 3px ${theme.colors.lightGrayHoverShadow};
+		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightGrayActive};
+			box-shadow: 0 1px 2px ${theme.colors.lightGrayActiveShadow};
 		}
 	`,
 	black_outlined : styled(ButtonWrapper)`
@@ -80,8 +115,14 @@ const types = {
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
+			background: ${theme.colors.lightGrayHover};
+			box-shadow: 0 2px 3px ${theme.colors.lightGrayHoverShadow};
 		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightGrayActive};
+			box-shadow: 0 1px 2px ${theme.colors.lightGrayActiveShadow};
 	`,
 	blue_contained : styled(ButtonWrapper)`
 		& > button {
@@ -90,15 +131,25 @@ const types = {
 		}
 		& > button:hover {
 			background: ${theme.colors.blueHover};
+			box-shadow: 0 2px 3px ${theme.colors.blueHoverShadow};
+		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.blueActive};
+			box-shadow: 0 1px 2px ${theme.colors.blueActiveShadow};
 		}
 	`,
 	lightBlue_contained : styled(ButtonWrapper)`
 		& > button {
-			background: ${theme.colors.blue}13;
+			background: ${theme.colors.lightBlueHover};
 			color: ${theme.colors.blue};
 		}
 		& > button:hover {
-			background: ${theme.colors.blue}26;
+			background: ${theme.colors.lightBlueAccentHover};
+		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightBlueActive};
 		}
 	`,
 	red_contained : styled(ButtonWrapper)`
@@ -107,16 +158,24 @@ const types = {
 			color: white;
 		}
 		& > button:hover {
-			background: #900f0f;
+			background: ${theme.colors.redHover};
+		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.redActive};
 		}
 	`,
 	gray_contained : styled(ButtonWrapper)`
 		& > button {
-			background: #ddd;
-			color: black;
+			background: ${theme.colors.gray200};
+			color:  ${theme.colors.gray800};
 		}
 		& > button:hover {
-			background: #ccc;
+			background: ${theme.colors.grayHover};
+		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.grayActive};
 		}
 	`,
 	blue_text : styled(ButtonWrapper)`
@@ -125,7 +184,7 @@ const types = {
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.blue}23;
+			background: ${theme.colors.lightBlueHover};
 		}
 	`,
 	red_text : styled(ButtonWrapper)`
@@ -134,25 +193,43 @@ const types = {
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.red}23;
+			background: ${theme.colors.lightRedHover};
+		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightRedActive};
 		}
 	`,
 	gray_text : styled(ButtonWrapper)`
 		& > button {
-			color: ${theme.colors.lightGray};
+			color: ${theme.colors.gray700};
+		}
+
+		& .icon_right {
+			color: ${theme.colors.gray600};
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
+			background: ${theme.colors.lightGrayHover};
+		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightGrayActive};
 		}
 	`,
 	black_text : styled(ButtonWrapper)`
 		& > button {
 			color: black;
 		}
+
+		& .icon_right {
+			color: ${theme.colors.gray600};
+		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
+			background-color: ${theme.colors.gray200};
 		}
 	`,
 	blue_icon : styled(ButtonWrapper)`
@@ -161,16 +238,21 @@ const types = {
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.blue}23;
+			background: ${theme.colors.lightBlueHover};
+		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightBlueActive};
 		}
 	`,
 	black_icon : styled(ButtonWrapper)`
 		& > button {
-			color: black;
+			color: ${theme.colors.gray800};
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
+			background-color: ${theme.colors.gray200};
 		}
 	`,
 	red_icon : styled(ButtonWrapper)`
@@ -179,17 +261,32 @@ const types = {
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.red}23;
+			background: ${theme.colors.lightRedHover};
+		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightRedActive};
 		}
 	`,
 	gray_icon : styled(ButtonWrapper)`
 		& > button {
-			color: ${theme.colors.lightGray};
+			color: ${theme.colors.gray700};
 		}
 		
 		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
+			background: ${theme.colors.lightGrayHover};
+			box-shadow: 0 2px 3px ${theme.colors.lightGrayHoverShadow};
 		}
+
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.lightGrayActive};
+			box-shadow: 0 1px 2px ${theme.colors.lightGrayActiveShadow};
+		}
+
+		& > 
+
 	`
 }
 
@@ -216,6 +313,11 @@ function Button(props) {
 				type : "string",
 				enum : ["icon", "outlined", "contained", "text"],
 				required : true
+			},
+			{
+				name: "size",
+				type : "string",
+				enum : ["small", "medium", "large"],
 			},
 			{
 				name : "iconPosition",
@@ -291,6 +393,7 @@ function Button(props) {
 				props.variant !== "icon" &&
 				<MUIButton
 					variant={props.variant}
+					size={props.size}
 					onClick={onClick}
 					fullWidth={props.fullWidth}
 					disabled={props.disabled}
@@ -309,6 +412,7 @@ function Button(props) {
 				<IconButton
 					onClick={onClick}
 					disabled={props.disabled}
+					size={props.size}
 				>
 					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
 				</IconButton>

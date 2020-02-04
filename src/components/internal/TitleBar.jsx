@@ -13,6 +13,8 @@ const StyledWrapper = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
+	margin-bottom: 12px;
+	margin-top: 8px;
 	
 	& > .left {
 		display: flex;
@@ -26,7 +28,13 @@ const StyledWrapper = styled.div`
 	
 	& > .left > h1 {
 		${theme.h1}
-		margin-right: 20px;
+		margin: 0 20px 0 10px;
+		position: relative;
+		top: -3px;
+	}
+
+	& > .columnHeader {
+		font-weight: normal;
 	}
 `;
 

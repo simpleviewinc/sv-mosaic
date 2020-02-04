@@ -11,7 +11,6 @@ import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
 	& > .bulkRow {
-		border-bottom: ${theme.borders.lightGray};
 		margin-bottom: 4px;
 	}
 	
@@ -54,7 +53,7 @@ const StyledDiv = styled.div`
 		margin: 0;
 		font-weight: normal;
 		font-size: 12px;
-		color: ${theme.colors.lightGray};
+		color: ${theme.colors.gray600};
 	}
 	
 	& > .grid > .cell .image {

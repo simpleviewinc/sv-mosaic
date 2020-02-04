@@ -21,6 +21,7 @@ function DataViewLimit(props) {
 			color="black"
 			label={props.limit}
 			variant="text"
+			size="small"
 			iconPosition="right"
 			mIcon={ExpandMoreIcon}
 			menuItems={menuItems}

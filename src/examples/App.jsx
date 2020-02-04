@@ -3,6 +3,20 @@ import { hot } from "react-hot-loader/root";
 import DataViewKitchenSink from "./DataViewKitchenSink.jsx";
 import Buttons from "./Buttons.jsx";
 import Filters from "./Filters.jsx";
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core';
+
+const theme = createMuiTheme({
+	props: {
+	  MuiButtonBase: {
+		disableRipple: true,
+	  },
+	},
+  });
+
+const containerStyle = {
+	padding: "1rem",
+}
 
 function App() {
 	const defaultComponent = "DataViewKitchenSink";
@@ -28,14 +42,16 @@ function App() {
 	const activeComponent = activeOption.length > 0 ? activeOption[0].component : <p>No component chosen.</p>;
 	
 	return (
-		<div>
-			<select onChange={onChange} value={componentName}>
-				<option>Choose a example...</option>
-				{optionsDom}
-			</select>
-			<hr/>
-			{activeComponent}
-		</div>
+		<ThemeProvider theme={theme}>
+			<div style={containerStyle}>
+				<select onChange={onChange} value={componentName}>
+					<option>Choose a example...</option>
+					{optionsDom}
+				</select>
+				<hr/>
+				{activeComponent}
+			</div>
+		</ThemeProvider>
 	)
 }
 
