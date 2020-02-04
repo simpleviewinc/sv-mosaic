@@ -29,6 +29,10 @@ const StyledWrapper = styled.div`
 		margin-bottom: 0.75rem;
 	}
 	
+	& > .headerRow > .left {
+		margin-bottom: 0.75rem;
+	}
+
 	& > .headerRow > .right {
 		display: flex;
 		align-items: center;
@@ -40,6 +44,11 @@ const StyledWrapper = styled.div`
 		pointer-events: none;
 	}
 `;
+
+const GridViewOptions = styled.div`
+  display: inline-flex;
+  align-items: baseline;
+`
 
 const actionValidation = {
 	type : "object",

@@ -17,14 +17,12 @@ import theme from "../../utils/theme.js";
 const StyledWrapper = styled.thead`
 	text-align: left;
 	background-color: ${theme.colors.gray200};
-	border-top: ${theme.borders.lightGray};
 `
 
 const StyledTh = styled.th`
 	font-size: 14px;
 	text-align: left;
-	font-weight: bold;
-	padding: 5px 0px;
+	padding: 5px 0;
 	height: 40px;
 	color: ${theme.colors.gray700};
 	border-bottom: 1px solid ${theme.colors.gray200};
@@ -75,7 +73,7 @@ const StyledTh = styled.th`
 	
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
-		color: ${theme.colors.lightGray};
+		color: ${theme.colors.gray600};
 	}
 	
 	&.bulk {

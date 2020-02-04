@@ -212,11 +212,13 @@ const types = {
 		
 		& > button:hover {
 			background: ${theme.colors.lightGrayHover};
+			box-shadow: 0 2px 3px ${theme.colors.lightGrayHoverShadow};
 		}
 
 		& > button:active,
 		& > button:focus {
 			background: ${theme.colors.lightGrayActive};
+			box-shadow: 0 1px 2px ${theme.colors.lightGrayActiveShadow};
 		}
 	`,
 	black_text : styled(ButtonWrapper)`
@@ -347,7 +349,7 @@ function Button(props) {
 			{
 				name : "menuItems",
 				type : "array"
-			}
+			},
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true

@@ -4,6 +4,18 @@ import Button from "../Button.jsx";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import styled from "styled-components";
+import theme from "../../utils/theme.js";
+
+const PagerInfo = styled.div`
+	display: inline-flex;
+	padding: 0 12px;
+	color: ${theme.colors.gray700};
+	font-weight: 500;
+	// Align-items baseline not working with these components, would be good to find out why
+	position: relative;
+	top: 1px;
+`;
 
 import styled from "styled-components";
 import theme from "../../utils/theme.js";

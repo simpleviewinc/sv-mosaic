@@ -40,6 +40,7 @@ function DataViewViewSwitcher(props) {
 			<Button
 				variant="text"
 				color="black"
+				size="small"
 				label={<Icon/>}
 				size="small"
 				iconPosition="right"

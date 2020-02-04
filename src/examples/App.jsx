@@ -41,6 +41,10 @@ function App() {
 	const activeOption = options.filter(val => val.value === componentName);
 	const activeComponent = activeOption.length > 0 ? activeOption[0].component : <p>No component chosen.</p>;
 	
+	const containerStyle = {
+		padding: "1rem",
+	}
+
 	return (
 		<ThemeProvider theme={theme}>
 			<div style={containerStyle}>

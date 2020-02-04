@@ -12,6 +12,10 @@ const StyledDiv = styled.div`
 	& > .filterRow {
 		display: flex;
 	}
+
+	& > .optionalFilters:not(:empty) {
+		padding-top: 0.25rem;
+	}
 	
 	& > .filterRow > * {
 		margin-right: 5px;
@@ -83,6 +87,7 @@ function DataViewFilters(props) {
 					iconPosition="right"
 					size="small"
 					mIcon={ExpandMoreIcon}
+					size="small"
 					popover={
 						<PopoverDiv
 							className={`

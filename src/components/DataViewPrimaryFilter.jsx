@@ -24,10 +24,6 @@ const StyledWrapper = styled.div`
 		background: ${theme.colors.gray200};
 		transition: color 0.2s ease-out;
 	}
-
-	&.primary:active {
-		background: ${theme.colors.lightGrayActive};
-	}
 	
 	&.optional {
 		color: ${theme.colors.blue};
@@ -36,6 +32,10 @@ const StyledWrapper = styled.div`
 	
 	&.optional:hover {
 		background: ${theme.colors.lightBlueAccentHover};
+	}
+	
+	& > .valueBlock > .dropdownIcon {
+		color: ${theme.colors.gray600};
 	}
 
 	&.optional:active {
@@ -69,7 +69,7 @@ const StyledWrapper = styled.div`
 	}
 	
 	& > .remove {
-		margin-left: 8px;
+		margin-left: 4px;
 		font-size: 13px;
 		color: black;
 		padding: 3px;
