@@ -168,6 +168,17 @@ const listColumns = [
 		sortable : true
 	},
 	{
+		name : "description",
+		label : "Description",
+		style : "bold"
+	},
+	{
+		name : "content_owner",
+		label : "Content Owner",
+		style : "bold",
+		sortable : true
+	},
+	{
 		name : "categories",
 		label : "Categories",
 		transforms : [
@@ -364,6 +375,7 @@ function DataViewKitchenSink() {
 			}
 		}),
 		views : ["list", "grid"],
+		sticky : true,
 		onSkipChange : function({ skip }) {
 			setState({
 				...state,
@@ -424,22 +436,20 @@ function DataViewKitchenSink() {
 	};
 	
 	return (
-		<div>
-			<DataView
-				{ ...gridConfig }
-				data={state.data}
-				limit={state.limit}
-				skip={state.skip}
-				count={state.count}
-				view={state.view}
-				sort={state.sort}
-				loading={state.loading}
-				filter={state.filter}
-				savedView={state.savedView}
-				activeFilters={state.activeFilters}
-				activeColumns={state.activeColumns}
-			></DataView>
-		</div>
+		<DataView
+			{ ...gridConfig }
+			data={state.data}
+			limit={state.limit}
+			skip={state.skip}
+			count={state.count}
+			view={state.view}
+			sort={state.sort}
+			loading={state.loading}
+			filter={state.filter}
+			savedView={state.savedView}
+			activeFilters={state.activeFilters}
+			activeColumns={state.activeColumns}
+		></DataView>
 	);
 }
 

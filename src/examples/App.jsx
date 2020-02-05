@@ -1,8 +1,21 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { hot } from "react-hot-loader/root";
 import DataViewKitchenSink from "./DataViewKitchenSink.jsx";
 import Buttons from "./Buttons.jsx";
 import Filters from "./Filters.jsx";
+import "./main.css";
+
+const StyledDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	& > .component {
+		flex: 1;
+		min-height: 0;
+	}
+`;
 
 function App() {
 	const defaultComponent = "DataViewKitchenSink";
@@ -28,14 +41,16 @@ function App() {
 	const activeComponent = activeOption.length > 0 ? activeOption[0].component : <p>No component chosen.</p>;
 	
 	return (
-		<div>
+		<StyledDiv>
 			<select onChange={onChange} value={componentName}>
 				<option>Choose a example...</option>
 				{optionsDom}
 			</select>
 			<hr/>
-			{activeComponent}
-		</div>
+			<div className="component">
+				{activeComponent}
+			</div>
+		</StyledDiv>
 	)
 }
 
