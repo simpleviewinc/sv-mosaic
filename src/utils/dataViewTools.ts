@@ -1,4 +1,6 @@
-function transformColumn(row, column) {
+import { DataViewColumn } from "../types/DataViewTypes"
+
+export function transformColumn(row, column: DataViewColumn) {
 	let data = row[column.column || column.name];
 	if (data !== undefined && column.transforms !== undefined) {
 		for(let [key, transform] of Object.entries(column.transforms)) {
@@ -9,7 +11,7 @@ function transformColumn(row, column) {
 	return data;
 }
 
-function transformRows(rows, columns) {
+export function transformRows(rows, columns: DataViewColumn[]) {
 	const newRows = rows.map((row) => {
 		const newRow = {
 			...row
@@ -22,9 +24,4 @@ function transformRows(rows, columns) {
 	});
 	
 	return newRows;
-}
-
-export {
-	transformColumn,
-	transformRows
 }
