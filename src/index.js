@@ -20,6 +20,7 @@ import DrawerContent from "./components/DrawerContent.jsx";
 import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
 import theme from "./utils/theme.js";
+import * as transforms from "./utils/transforms";
 
 export {
 	Button,
@@ -43,5 +44,6 @@ export {
 	GridPrimaryFilter,
 	Menu,
 	Spinner,
-	theme
+	theme,
+	transforms
 }
