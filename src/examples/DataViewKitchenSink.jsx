@@ -15,7 +15,7 @@ import categories from "./categories.json";
 import DataViewFilterText from "../components/DataViewFilterText.jsx";
 import DataViewFilterMultiselect from "../components/DataViewFilterMultiselect.jsx";
 import MultiselectHelper from "./MultiselectHelper.js";
-import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.jsx";
+import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms";
 import { useStateRef } from "../utils/reactTools.js";
 
 // set an artificial delay of 500ms to simulate DB queries
