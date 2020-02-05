@@ -73,6 +73,14 @@ function filterData(data, filter) {
 					return val.$in.includes(row[key])
 				}
 			});
+		} else if(val.$and !== undefined){
+			for(var rowCtr = 0; rowCtr < val.$and.length; rowCtr++){
+				newData = filterData(newData, { [key] : val.$and[rowCtr] });
+			}
+		} else if (val.$gte !== undefined) {
+			newData = newData.filter(row => row[key] >= val.$gte);
+		} else if (val.$lte !== undefined) {
+			newData = newData.filter(row => row[key] <= val.$lte);
 		} else if (val.$ne !== undefined) {
 			newData = newData.filter(row => row[key] !== val.$ne);
 		} else if (val.$exists === true) {
