@@ -1,5 +1,5 @@
 import { get } from "lodash";
-import moment from "moment";
+import * as moment from "moment";
 import { createElement } from "react";
 
 import Image from "../components/internal/Image.jsx";
