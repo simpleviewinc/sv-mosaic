@@ -1,5 +1,8 @@
 # sv-mosaic changelog
 
+##2/5/2020
+* Added date range filter.
+
 ## 1/30/2019
 * Renamed `Grid` component to `DataView`. `Grid` is still being exported but is considered deprecated. Update your implementations to import `DataView` as soon as possible. For consistency, several supporting components were re-named and should be updated from their deprecated names too:
   * `GridFilterText` is now `DataViewFilterText`

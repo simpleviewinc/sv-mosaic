@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useReducer, useCallback } from "react";
 import { pick } from "lodash";
+import moment from "moment";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -14,6 +15,7 @@ import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
 import DataViewFilterText from "../components/DataViewFilterText.jsx";
 import DataViewFilterMultiselect from "../components/DataViewFilterMultiselect.jsx";
+import DataViewFilterDateRange from "../components/DataViewFilterDateRange.jsx";
 import MultiselectHelper from "./MultiselectHelper.js";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms.jsx";
 import { useStateRef } from "../utils/reactTools.js";
@@ -46,6 +48,28 @@ const processStringFilter = function({ name, data, filter, output }) {
 		output[name] = new RegExp(`^((?!${data.value}).)*$`, "i")
 	} else if (data.comparison === "not_equals") {
 		output[name] = { $ne : data.value };
+	}
+}
+
+const processDateFilter = function({name, data, filter, output}){
+	if (data.rangeStart === undefined && data.rangeEnd === undefined) { return; }
+	
+	const dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
+	
+	if (data.rangeStart !== undefined && data.rangeEnd !== undefined){
+		const start = moment(data.rangeStart);
+		const end = moment(data.rangeEnd);
+
+		output[name] = { 
+			$and : [ 
+				{ $gte : `${start.format(dateFormat)}Z`},
+				{ $lte : `${end.format(dateFormat)}Z`}
+			] 
+		};
+	}else if(data.rangeStart !== undefined){
+		output[name] = { $gte : `${moment(data.rangeStart).format(dateFormat)}Z`};
+	}else if(data.rangeEnd !== undefined){
+		output[name] = { $lte : `${moment(data.rangeEnd).format(dateFormat)}Z`};
 	}
 }
 
@@ -114,6 +138,13 @@ const filters = [
 		type : "optional",
 		component : DataViewFilterText,
 		toFilter : processStringFilter
+	},
+	{
+		name : "created",
+		label : "Created",
+		type : "optional",
+		component : DataViewFilterDateRange,
+		toFilter : processDateFilter
 	},
 	{
 		name : "title_with_comparisons",
