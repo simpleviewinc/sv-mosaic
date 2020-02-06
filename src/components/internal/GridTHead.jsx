@@ -157,7 +157,7 @@ function GridTHead(props) {
 				}
 				{
 					anyChecked &&
-					<StyledTh key="_bulk_actions" colSpan={props.columns.length}>
+					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
 						<ButtonRow buttons={bulkActionButtons}/>
 					</StyledTh>
 				}
