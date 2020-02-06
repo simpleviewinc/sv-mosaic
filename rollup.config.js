@@ -1,7 +1,5 @@
 import resolve from "@rollup/plugin-node-resolve";
-// import commonjs from "@rollup/plugin-commonjs";
 import babel from "rollup-plugin-babel";
-// import typescript from "@rollup/plugin-typescript";
 import pkg from "./package.json";
 
 const EXTERNALS = [
@@ -31,10 +29,8 @@ export default [
 		},
 		plugins : [
 			resolve({ extensions : EXTENSIONS }),
-			// commonjs(),
 			babel({
 				extensions : EXTENSIONS,
-				// include : ["src/**/*"],
 				exclude : ["node_modules/**"],
 				presets : ["@babel/env", "@babel/typescript", "@babel/preset-react"],
 				babelrc : false
