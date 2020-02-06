@@ -8235,6 +8235,8 @@
 	{
 		"_id": "57ffe66716bdbf3b111c75bf",
 		"title": "Ai Weiwei at Meijer Gardens: Natural State | Jan 27 - Aug 20",
+		"description" : "This is a long description in order to attempt to get the content to scroll. This is a long description in order to attempt to get the content to scroll. This is a long description in order to attempt to get the content to scroll.",
+		"categories_ids" : ["581ba31ebb81a9745bbc68c3"],
 		"image_id": "58b7282ee63dcc1c6eec5fab",
 		"mobile_image_id": "58b7282ee63dcc1c6eec5fab",
 		"target": false,

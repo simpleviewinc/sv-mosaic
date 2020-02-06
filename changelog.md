@@ -1,5 +1,8 @@
 # sv-mosaic changelog
 
+## 2/6/2020
+* Added `sticky` to DataView in order to allow a grid to be constrained by its parent and stick the headers or bulk actions (depending on view mode) to the top of the DataView.
+
 ## 1/30/2019
 * Renamed `Grid` component to `DataView`. `Grid` is still being exported but is considered deprecated. Update your implementations to import `DataView` as soon as possible. For consistency, several supporting components were re-named and should be updated from their deprecated names too:
   * `GridFilterText` is now `DataViewFilterText`
