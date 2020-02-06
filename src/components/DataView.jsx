@@ -25,6 +25,9 @@ const StyledWrapper = styled.div`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		-ms-flex: 0 0 auto;
+		-webkit-flex: 0 0 auto;
+		flex: 0 0 auto;
 	}
 	
 	& > .headerRow > .right {
