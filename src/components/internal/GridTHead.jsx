@@ -25,6 +25,7 @@ const StyledTh = styled.th`
 	top: 0;
 	z-index: 1;
 	background: white;
+	white-space: nowrap;
 
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
 	&:after {

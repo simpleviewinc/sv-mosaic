@@ -188,6 +188,22 @@ const listColumns = [
 		]
 	},
 	{
+		name : "image_title",
+		label : "Image Title",
+		column : "image",
+		transforms : [
+			transform_get(["title"])
+		]
+	},
+	{
+		name : "image_notes",
+		label : "Image Notes",
+		column : "image",
+		transforms : [
+			transform_get(["notes"])
+		]
+	},
+	{
 		name : "created",
 		label : "Created",
 		sortable : true,
