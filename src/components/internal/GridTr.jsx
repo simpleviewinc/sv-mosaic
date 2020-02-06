@@ -11,13 +11,20 @@ function GridTr(props) {
 		<tr>
 			{
 				props.bulkActions &&
-				<GridTd key="_bulk">
+				<GridTd key="_bulk" expandCell={false} paddingRight={false}>
 					<Checkbox
 						checked={props.checked === true}
 						onClick={props.onCheckboxClick}
 					/>
 				</GridTd>
 			}
+			<GridTd expandCell={false}>
+				<GridActionsButtonRow
+					primaryActions={props.primaryActions}
+					additionalActions={props.additionalActions}
+					row={props.row}
+				/>
+			</GridTd>
 			{
 				props.columns.map(column => {
 					return (
@@ -30,13 +37,6 @@ function GridTr(props) {
 					);
 				})
 			}
-			<GridTd>
-				<GridActionsButtonRow
-					primaryActions={props.primaryActions}
-					additionalActions={props.additionalActions}
-					row={props.row}
-				/>
-			</GridTd>
 		</tr>
 	);
 }

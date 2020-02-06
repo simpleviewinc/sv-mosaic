@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import { pick } from "lodash";
 
-import SettingsIcon from "@material-ui/icons/Settings";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button.jsx";
 import Checkbox from "../Checkbox.jsx";
-import GridColumnDrawer from "./GridColumnDrawer.jsx";
+import { DataViewColumnControl } from "./DataViewColumnControl";
 
 import theme from "../../utils/theme.js";
 
@@ -26,15 +24,15 @@ const StyledTh = styled.th`
 	padding: 5px 0px;
 	height: 40px;
 	
-	&:last-child {
-		text-align: right;
-	}
-	
 	& > .columnHeader {
 		display: inline-flex;
 		align-items: center;
 	}
-	
+
+	&.paddingRight:not(:last-child) {
+		padding-right: 15px;
+	}
+
 	&.sortable > .columnHeader {
 		cursor: pointer;
 	}
@@ -116,10 +114,6 @@ function GridTHead(props) {
 		throwOnInvalid : true
 	});
 	
-	const [state, setState] = useState({
-		gearOpen : false
-	});
-	
 	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
 		const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
 		
@@ -133,13 +127,6 @@ function GridTHead(props) {
 	
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
-	
-	const gearClick = function() {
-		setState({
-			...state,
-			gearOpen : !state.gearOpen
-		});
-	}
 	
 	return (
 		<StyledWrapper>
@@ -157,6 +144,24 @@ function GridTHead(props) {
 					anyChecked &&
 					<StyledTh key="_bulk_actions" colSpan={props.columns.length}>
 						<ButtonRow buttons={bulkActionButtons}/>
+					</StyledTh>
+				}
+				{
+					!anyChecked &&
+					<StyledTh key="_actions" className="paddingRight">
+						{
+							props.onColumnsChange !== undefined &&
+							<DataViewColumnControl
+								onChange={props.onColumnsChange}
+								columns={props.columns}
+								allColumns={props.allColumns}
+							/>
+						}
+						{
+							// We need to indent the actions by 11px to align with the buttons underneath
+							!props.onColumnsChange &&
+							<span style={{paddingLeft: "11px"}}>Actions</span>
+						}
 					</StyledTh>
 				}
 				{
@@ -185,6 +190,7 @@ function GridTHead(props) {
 								className={`
 									${column.sortable ? "sortable" : ""}
 									${active ? "active" : ""}
+									paddingRight
 								`}
 							>
 								<span
@@ -201,23 +207,7 @@ function GridTHead(props) {
 						);
 					})
 				}
-				<StyledTh key="_actions">
-					{
-						props.onColumnsChange !== undefined &&
-						<Button color="black" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
-					}
-				</StyledTh>
 			</tr>
-			{
-				props.onColumnsChange !== undefined &&
-				<GridColumnDrawer
-					open={state.gearOpen}
-					columns={props.columns}
-					allColumns={props.allColumns}
-					onChange={props.onColumnsChange}
-					onClose={gearClick}
-				/>
-			}
 		</StyledWrapper>
 	)
 }

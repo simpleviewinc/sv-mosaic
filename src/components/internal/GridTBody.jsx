@@ -21,10 +21,6 @@ const StyledTBody = styled.tbody`
 	& > tr > td > div > .transform_thumbnail {
 		display: block;
 	}
-	
-	& > tr > td:last-child {
-		text-align: right;
-	}
 `
 
 function GridTBody(props) {
