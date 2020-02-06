@@ -18,6 +18,8 @@ const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
 	font-weight: 400;
 	font-size: 14px;
+	display: flex;
+	flex-direction: column;
 	
 	& > .headerRow {
 		display: flex;
@@ -29,10 +31,18 @@ const StyledWrapper = styled.div`
 		display: flex;
 		align-items: center;
 	}
+
+	& > .viewContainer {
+		overflow: auto;
+	}
 	
 	&.loading {
 		opacity: .5;
 		pointer-events: none;
+	}
+
+	&.sticky {
+		height: 100%;
 	}
 `;
 
@@ -211,6 +221,10 @@ function DataView(props) {
 				type : "boolean"
 			},
 			{
+				name : "sticky",
+				type : "boolean"
+			},
+			{
 				name : "onSkipChange",
 				type : "function"
 			},
@@ -345,6 +359,7 @@ function DataView(props) {
 	return (
 		<StyledWrapper className={`
 			${ props.loading ? "loading" : "" }
+			${ props.sticky ? "sticky" : "" }
 		`}>
 			<div className="headerRow">
 				<TitleBar
@@ -397,9 +412,11 @@ function DataView(props) {
 					}
 				</div>
 			</div>
-			<div className={`
-				viewContainer
-			`}>
+			<div
+				className={`
+					viewContainer
+				`}
+			>
 				<View
 					checked={state.checked}
 					columns={activeColumnObjs}

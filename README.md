@@ -101,6 +101,7 @@ The DataView system supports saved views. When enabled, the user will receive bu
 * views - TODO
 * count - TODO
 * sort - TODO
+* sticky - `boolean` - Controls whether or not the DataView is constrained in size. If set to true, the DataView will scroll within a parent element's dimensions instead of being dynamically sized. When sticky is enabled, the column headers in list view and the bulk actions in grid view will both stick to the top of the DataView as it is scrolled.
 * limit - `number` - The number of items the list should display per page.
 * limitOptions - `array` of `number` - default `[25, 50, 100]` - When passed allows customizing the page-size options that is displayed to the user. You can utilize this option if you want to expose larger or smaller pagesize options.
 * onLimitChange - `function({ limit })` - A callback that will be executed with the new limit selected by the user. It is recommended that when the user changes the limit, your state alteration should also reset the `skip` to `0`.

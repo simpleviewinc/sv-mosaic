@@ -14,8 +14,6 @@ import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
-	border-bottom: ${theme.borders.gray};
-	border-top: ${theme.borders.lightGray};
 `
 
 const StyledTh = styled.th`
@@ -23,6 +21,23 @@ const StyledTh = styled.th`
 	font-weight: bold;
 	padding: 5px 0px;
 	height: 40px;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background: white;
+
+	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-bottom: ${theme.borders.gray};
+		border-top: ${theme.borders.lightGray};
+		pointer-events: none;
+	}
 	
 	& > .columnHeader {
 		display: inline-flex;

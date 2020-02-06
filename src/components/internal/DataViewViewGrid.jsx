@@ -11,10 +11,25 @@ import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
 	& > .bulkRow {
-		border-bottom: ${theme.borders.lightGray};
 		margin-bottom: 4px;
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		background: white;
 	}
 	
+	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
+	& > .bulkRow:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-bottom: ${theme.borders.gray};
+		pointer-events: none;
+	}
+
 	& > .grid {
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
