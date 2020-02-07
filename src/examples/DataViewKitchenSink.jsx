@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useReducer, useCallback } from "react";
 import { pick } from "lodash";
 import moment from "moment";
+import styled from "styled-components";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -199,12 +200,39 @@ const listColumns = [
 		sortable : true
 	},
 	{
+		name : "description",
+		label : "Description",
+		style : "bold"
+	},
+	{
+		name : "content_owner",
+		label : "Content Owner",
+		style : "bold",
+		sortable : true
+	},
+	{
 		name : "categories",
 		label : "Categories",
 		transforms : [
 			function(data) {
 				return data.map(val => val.tag).join(", ");
 			}
+		]
+	},
+	{
+		name : "image_title",
+		label : "Image Title",
+		column : "image",
+		transforms : [
+			transform_get(["title"])
+		]
+	},
+	{
+		name : "image_notes",
+		label : "Image Notes",
+		column : "image",
+		transforms : [
+			transform_get(["notes"])
 		]
 	},
 	{
@@ -244,6 +272,11 @@ const gridColumns = [
 		]
 	}
 ]
+
+const StyledDiv = styled.div`
+	padding: 0px 16px;
+	height: 100%;
+`;
 
 function DataViewKitchenSink() {
 	const [state, setState] = useState({
@@ -395,6 +428,7 @@ function DataViewKitchenSink() {
 			}
 		}),
 		views : ["list", "grid"],
+		sticky : true,
 		onSkipChange : function({ skip }) {
 			setState({
 				...state,
@@ -455,7 +489,7 @@ function DataViewKitchenSink() {
 	};
 	
 	return (
-		<div>
+		<StyledDiv>
 			<DataView
 				{ ...gridConfig }
 				data={state.data}
@@ -470,7 +504,7 @@ function DataViewKitchenSink() {
 				activeFilters={state.activeFilters}
 				activeColumns={state.activeColumns}
 			></DataView>
-		</div>
+		</StyledDiv>
 	);
 }
 

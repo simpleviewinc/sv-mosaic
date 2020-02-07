@@ -1,40 +1,55 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import { pick } from "lodash";
 
-import SettingsIcon from "@material-ui/icons/Settings";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button.jsx";
 import Checkbox from "../Checkbox.jsx";
-import GridColumnDrawer from "./GridColumnDrawer.jsx";
+import { DataViewColumnControl } from "./DataViewColumnControl";
 
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
-	border-bottom: ${theme.borders.gray};
-	border-top: ${theme.borders.lightGray};
 `
 
 const StyledTh = styled.th`
+	font-size: 14px;
 	text-align: left;
-	font-weight: bold;
+	font-weight: 400;
 	padding: 5px 0px;
 	height: 40px;
-	
-	&:last-child {
-		text-align: right;
+	color: ${theme.colors.gray700};
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background-color: ${theme.colors.gray200};
+	white-space: nowrap;
+
+	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-bottom: ${theme.borders.gray200};
+		pointer-events: none;
 	}
 	
 	& > .columnHeader {
 		display: inline-flex;
 		align-items: center;
 	}
-	
+
+	&.paddingRight:not(:last-child) {
+		padding-right: 15px;
+	}
+
 	&.sortable > .columnHeader {
 		cursor: pointer;
 	}
@@ -42,10 +57,17 @@ const StyledTh = styled.th`
 	& > .columnHeader > .icon {
 		visibility: hidden;
 		font-size: 18px;
+		margin-left: 0.25rem;
+		margin-top: 1px;
 	}
 	
 	&.active {
-		font-weight: bold;
+		color: ${theme.colors.gray800};
+		font-weight: 700;
+	}
+
+	&.active:after {
+		border-bottom: 1px solid ${theme.colors.gray800};
 	}
 	
 	&.active > .columnHeader > .icon {
@@ -58,7 +80,7 @@ const StyledTh = styled.th`
 	
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
-		color: ${theme.colors.lightGray};
+		color: ${theme.colors.gray600};
 	}
 	
 	&.bulk {
@@ -116,10 +138,6 @@ function GridTHead(props) {
 		throwOnInvalid : true
 	});
 	
-	const [state, setState] = useState({
-		gearOpen : false
-	});
-	
 	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
 		const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
 		
@@ -133,13 +151,6 @@ function GridTHead(props) {
 	
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
-	
-	const gearClick = function() {
-		setState({
-			...state,
-			gearOpen : !state.gearOpen
-		});
-	}
 	
 	return (
 		<StyledWrapper>
@@ -155,8 +166,26 @@ function GridTHead(props) {
 				}
 				{
 					anyChecked &&
-					<StyledTh key="_bulk_actions" colSpan={props.columns.length}>
+					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
 						<ButtonRow buttons={bulkActionButtons}/>
+					</StyledTh>
+				}
+				{
+					!anyChecked &&
+					<StyledTh key="_actions" className="paddingRight">
+						{
+							props.onColumnsChange !== undefined &&
+							<DataViewColumnControl
+								onChange={props.onColumnsChange}
+								columns={props.columns}
+								allColumns={props.allColumns}
+							/>
+						}
+						{
+							// We need to indent the actions by 11px to align with the buttons underneath
+							!props.onColumnsChange &&
+							<span style={{paddingLeft: "11px"}}>Actions</span>
+						}
 					</StyledTh>
 				}
 				{
@@ -185,6 +214,7 @@ function GridTHead(props) {
 								className={`
 									${column.sortable ? "sortable" : ""}
 									${active ? "active" : ""}
+									paddingRight
 								`}
 							>
 								<span
@@ -201,23 +231,7 @@ function GridTHead(props) {
 						);
 					})
 				}
-				<StyledTh key="_actions">
-					{
-						props.onColumnsChange !== undefined &&
-						<Button color="black" variant="icon" mIcon={SettingsIcon} onClick={gearClick}/>
-					}
-				</StyledTh>
 			</tr>
-			{
-				props.onColumnsChange !== undefined &&
-				<GridColumnDrawer
-					open={state.gearOpen}
-					columns={props.columns}
-					allColumns={props.allColumns}
-					onChange={props.onColumnsChange}
-					onClose={gearClick}
-				/>
-			}
 		</StyledWrapper>
 	)
 }
