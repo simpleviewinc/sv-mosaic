@@ -29,6 +29,10 @@ const StyledWrapper = styled.div`
 		-webkit-flex: 0 0 auto;
 		flex: 0 0 auto;
 	}
+
+	& > .headerRow.title {
+		margin-left: 6px;
+	}
 	
 	& > .headerRow > .right {
 		display: flex;
@@ -364,7 +368,7 @@ function DataView(props) {
 			${ props.loading ? "loading" : "" }
 			${ props.sticky ? "sticky" : "" }
 		`}>
-			<div className="headerRow">
+			<div className="headerRow title">
 				<TitleBar
 					title={props.title}
 					buttons={props.buttons}
@@ -374,7 +378,7 @@ function DataView(props) {
 					savedViewCallbacks={savedViewCallbacks}
 				/>
 			</div>
-			<div className="headerRow">
+			<div className="headerRow filters">
 				<div className="left">
 					{
 						props.filters &&

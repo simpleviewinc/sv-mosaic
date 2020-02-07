@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useReducer, useCallback } from "react";
 import { pick } from "lodash";
+import styled from "styled-components";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -241,6 +242,11 @@ const gridColumns = [
 	}
 ]
 
+const StyledDiv = styled.div`
+	padding: 0px 16px;
+	height: 100%;
+`;
+
 function DataViewKitchenSink() {
 	const [state, setState] = useState({
 		removeItems : [],
@@ -452,20 +458,22 @@ function DataViewKitchenSink() {
 	};
 	
 	return (
-		<DataView
-			{ ...gridConfig }
-			data={state.data}
-			limit={state.limit}
-			skip={state.skip}
-			count={state.count}
-			view={state.view}
-			sort={state.sort}
-			loading={state.loading}
-			filter={state.filter}
-			savedView={state.savedView}
-			activeFilters={state.activeFilters}
-			activeColumns={state.activeColumns}
-		></DataView>
+		<StyledDiv>
+			<DataView
+				{ ...gridConfig }
+				data={state.data}
+				limit={state.limit}
+				skip={state.skip}
+				count={state.count}
+				view={state.view}
+				sort={state.sort}
+				loading={state.loading}
+				filter={state.filter}
+				savedView={state.savedView}
+				activeFilters={state.activeFilters}
+				activeColumns={state.activeColumns}
+			></DataView>
+		</StyledDiv>
 	);
 }
 
