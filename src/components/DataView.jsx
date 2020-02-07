@@ -33,6 +33,10 @@ const StyledWrapper = styled.div`
 	& > .headerRow.title {
 		margin-left: 6px;
 	}
+
+	& > .headerRow.filters {
+		margin-bottom: 12px;
+	}
 	
 	& > .headerRow > .right {
 		display: flex;
