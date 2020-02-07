@@ -17,14 +17,16 @@ const StyledWrapper = styled.thead`
 `
 
 const StyledTh = styled.th`
+	font-size: 14px;
 	text-align: left;
-	font-weight: bold;
+	font-weight: 400;
 	padding: 5px 0px;
 	height: 40px;
+	color: ${theme.colors.gray700};
 	position: sticky;
 	top: 0;
 	z-index: 1;
-	background: white;
+	background-color: ${theme.colors.gray200};
 	white-space: nowrap;
 
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
@@ -35,8 +37,7 @@ const StyledTh = styled.th`
 		right: 0;
 		bottom: 0;
 		left: 0;
-		border-bottom: ${theme.borders.gray};
-		border-top: ${theme.borders.lightGray};
+		border-bottom: ${theme.borders.gray200};
 		pointer-events: none;
 	}
 	
@@ -56,10 +57,17 @@ const StyledTh = styled.th`
 	& > .columnHeader > .icon {
 		visibility: hidden;
 		font-size: 18px;
+		margin-left: 0.25rem;
+		margin-top: 1px;
 	}
 	
 	&.active {
-		font-weight: bold;
+		color: ${theme.colors.gray800};
+		font-weight: 700;
+	}
+
+	&.active:after {
+		border-bottom: 1px solid ${theme.colors.gray800};
 	}
 	
 	&.active > .columnHeader > .icon {
@@ -72,7 +80,7 @@ const StyledTh = styled.th`
 	
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
-		color: ${theme.colors.lightGray};
+		color: ${theme.colors.gray600};
 	}
 	
 	&.bulk {
