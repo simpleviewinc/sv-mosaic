@@ -18,21 +18,42 @@ const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
 	font-weight: 400;
 	font-size: 14px;
+	display: flex;
+	flex-direction: column;
 	
 	& > .headerRow {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		-ms-flex: 0 0 auto;
+		-webkit-flex: 0 0 auto;
+		flex: 0 0 auto;
+	}
+
+	& > .headerRow.title {
+		margin-left: 6px;
+	}
+
+	& > .headerRow.filters {
+		margin-bottom: 12px;
 	}
 	
 	& > .headerRow > .right {
 		display: flex;
 		align-items: center;
 	}
+
+	& > .viewContainer {
+		overflow: auto;
+	}
 	
 	&.loading {
 		opacity: .5;
 		pointer-events: none;
+	}
+
+	&.sticky {
+		height: 100%;
 	}
 `;
 
@@ -211,6 +232,10 @@ function DataView(props) {
 				type : "boolean"
 			},
 			{
+				name : "sticky",
+				type : "boolean"
+			},
+			{
 				name : "onSkipChange",
 				type : "function"
 			},
@@ -345,8 +370,9 @@ function DataView(props) {
 	return (
 		<StyledWrapper className={`
 			${ props.loading ? "loading" : "" }
+			${ props.sticky ? "sticky" : "" }
 		`}>
-			<div className="headerRow">
+			<div className="headerRow title">
 				<TitleBar
 					title={props.title}
 					buttons={props.buttons}
@@ -356,7 +382,7 @@ function DataView(props) {
 					savedViewCallbacks={savedViewCallbacks}
 				/>
 			</div>
-			<div className="headerRow">
+			<div className="headerRow filters">
 				<div className="left">
 					{
 						props.filters &&
@@ -397,9 +423,11 @@ function DataView(props) {
 					}
 				</div>
 			</div>
-			<div className={`
-				viewContainer
-			`}>
+			<div
+				className={`
+					viewContainer
+				`}
+			>
 				<View
 					checked={state.checked}
 					columns={activeColumnObjs}

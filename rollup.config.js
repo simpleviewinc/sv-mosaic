@@ -1,3 +1,4 @@
+import resolve from "@rollup/plugin-node-resolve";
 import babel from "rollup-plugin-babel";
 import pkg from "./package.json";
 
@@ -10,9 +11,11 @@ const EXTERNALS = [
 	"styled-components"
 ];
 
+const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];
+
 export default [
 	{
-		input : "src/index.js",
+		input : "src/index.ts",
 		external : id => {
 			for(let external of EXTERNALS) {
 				if (id.match(external)) {
@@ -25,9 +28,11 @@ export default [
 			format : "cjs"
 		},
 		plugins : [
+			resolve({ extensions : EXTENSIONS }),
 			babel({
+				extensions : EXTENSIONS,
 				exclude : ["node_modules/**"],
-				presets : ["@babel/env", "@babel/preset-react"],
+				presets : ["@babel/env", "@babel/typescript", "@babel/preset-react"],
 				babelrc : false
 			})
 		]

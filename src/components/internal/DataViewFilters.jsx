@@ -9,10 +9,6 @@ import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
-	& {
-		margin-bottom: 1em;
-	}
-	
 	& > .filterRow {
 		display: flex;
 		align-items: center;
