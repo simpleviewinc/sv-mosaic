@@ -1,6 +1,6 @@
 {
 	"name": "@simpleview/sv-mosaic",
-	"version": "0.1.1-0",
+	"version": "0.2.0",
 	"description": "Mosaic UI Library",
 	"author": "Owen Allen <owenallenaz@gmail.com>",
 	"devDependencies": {
