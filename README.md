@@ -166,6 +166,8 @@ When external parties consume this project the assumption is that all entities a
 import { DataView, FilterDate, transform_get } from "@simpleview/sv-mosaic";
 ```
 
+All TypeScript `type` and `interface` definitions should be unique across the project. So we cannot have an interface called `Props` instead it should be `DataViewProps`.
+
 * components - Each exported component should either be in this folder directly or have it's own folder.
 	* [component] - e.g. DataView, FilterDate
 		* index.ts
