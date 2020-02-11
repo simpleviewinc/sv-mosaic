@@ -1,8 +1,10 @@
 import { get } from "lodash";
-import * as moment from "moment";
+import * as moment_ from "moment";
 import { createElement } from "react";
 
 import Image from "../components/internal/Image.jsx";
+
+const moment = moment_;
 
 export function transform_dateFormat() {
 	return function(dateStr: string): string {
