@@ -157,3 +157,23 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 		```
 
 The service should now be accessible at http://kube.simpleview.io:10000/
+
+## Repo Structure
+
+When external parties consume this project the assumption is that all entities are "top-level" meaning that it you can destructure all necessary imports. This is necessary to ensure optimal and easy tree shaking.
+
+```js
+import { DataView, FilterDate, transform_get } from "@simpleview/sv-mosaic";
+```
+
+* components - Each exported component should either be in this folder directly or have it's own folder.
+	* [component] - e.g. DataView, FilterDate
+		* index.ts
+			* This file File which should re-export the primary component as default. So if in the folder /FilterDate/ then index.ts should re-export /FilterDate/FilterDate.tsx.
+			* This file should also export all entities in the [ComponentTypes].ts file. This makes the type definitions usable throughout the project and by external consumers.
+		* [Component].tsx - The primary component file.
+		* [ComponentTypes].ts - If the component needs to declare it's own typescript Interfaces or Types througout the folder, declare them here.
+		* [Additional].tsx - For private components needed by this component, simply place them in this folder and do not re-export them in the index.ts.
+		* [Component].test.js - Jest file for testing this component.
+* utils - Folder for non-react javascript utilities. Some of these are re-exported by the root index.ts, and some are private to the project.
+* index.ts - The primary entrypoint for the project. It will re-export all entities from all public components.
