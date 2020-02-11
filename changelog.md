@@ -2,7 +2,7 @@
 
 ## 2/11/2020
 * Published `0.3.0` on npm.
-* Added date range filter.
+* Added date range filter component `FilterDate`.
 * Transforms `transform_dateFormat`, `transform_get`, `transform_thumbnail`  now exported on the root level.
 
 ## 2/6/2020
