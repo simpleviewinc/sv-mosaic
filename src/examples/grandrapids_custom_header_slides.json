@@ -7,6 +7,7 @@
 		"description": "Sandy beaches only a short drive away.",
 		"target": false,
 		"created": "2015-06-19T14:42:54.574Z",
+		"updated": "2020-02-10T23:17:16.692Z",
 		"content_owner": "default",
 		"image": {
 			"_id": "5584231bd989fc715e627fa1",
@@ -122,6 +123,7 @@
 		"description": "Cool City. Hot Art.",
 		"target": true,
 		"created": "2015-06-19T14:46:07.391Z",
+		"updated": "2020-02-01T07:00:00.000Z",
 		"content_owner": "default",
 		"url_raw": {
 			"id": "https://grandrapidsstore.com/product-category/gr/",
@@ -182,6 +184,7 @@
 		"image_id": "5bbb61b774009ec6d9aef919",
 		"target": false,
 		"created": "2015-06-10T16:48:06.503Z",
+		"updated": "2019-03-01T07:00:00.000Z",
 		"content_owner": "default",
 		"image": {
 			"_id": "5bbb61b774009ec6d9aef919",
@@ -620,6 +623,7 @@
 		"image_id": "5589824e3f76255604e86bc2",
 		"target": false,
 		"created": "2015-06-25T18:54:09.129Z",
+		"updated": "2015-06-25T18:54:09.129Z",
 		"content_owner": "default",
 		"image": {
 			"_id": "5589824e3f76255604e86bc2",
