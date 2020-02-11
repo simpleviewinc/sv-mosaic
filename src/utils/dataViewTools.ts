@@ -1,4 +1,4 @@
-import { DataViewColumn } from "../types/DataViewTypes"
+import { DataViewColumn } from "../components/DataView";
 
 export function transformColumn(row, column: DataViewColumn) {
 	let data = row[column.column || column.name];
