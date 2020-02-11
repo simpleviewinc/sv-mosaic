@@ -1,12 +1,14 @@
 import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import * as moment from "moment";
+import * as moment_ from "moment";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import FilterDateDropdownContent from "./FilterDateDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import { FilterDateData, FilterDateOnChange, FilterDateProps } from "./FilterDateTypes";
+
+const moment = moment_;
 
 const StyledWrapper = styled.span`
 	

@@ -1,4 +1,5 @@
 /// <reference types="react" />
+/// <reference types="styled-jsx" />
 export declare function transform_dateFormat(): (dateStr: string) => string;
 export declare function transform_get(path: any): (data: any) => any;
 interface TransformThumbnailProps {
