@@ -9,16 +9,20 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 import theme from "../utils/theme.js";
-import DataView from "../components/DataView.jsx";
 import JSONDB from "../utils/JSONDB.js";
 import LocalStorageDB from "../utils/LocalStorageDB.js";
 import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
-import DataViewFilterText from "../components/DataViewFilterText.jsx";
-import DataViewFilterMultiselect from "../components/DataViewFilterMultiselect.jsx";
-import FilterDate from "../components/FilterDate";
 import MultiselectHelper from "./MultiselectHelper.js";
-import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms";
+import {
+	transform_dateFormat,
+	transform_get,
+	transform_thumbnail,
+	FilterDate,
+	DataView,
+	DataViewFilterText,
+	DataViewFilterMultiselect
+} from "../";
 import { useStateRef } from "../utils/reactTools.js";
 
 // set an artificial delay of 500ms to simulate DB queries
