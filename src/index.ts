@@ -15,7 +15,11 @@ import DrawerContent from "./components/DrawerContent.jsx";
 import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
 import theme from "./utils/theme.js";
-import * as transforms from "./utils/column_transforms";
+export * from "./utils/column_transforms";
+
+// filters
+export { default as FilterDate } from "./components/FilterDate";
+export * from "./components/FilterDate";
 
 export {
 	Button,
@@ -39,6 +43,5 @@ export {
 	DataViewPrimaryFilter as GridPrimaryFilter,
 	Menu,
 	Spinner,
-	theme,
-	transforms
+	theme
 }
