@@ -11,7 +11,7 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import theme from "../utils/theme.js";
 import JSONDB from "../utils/JSONDB.js";
 import LocalStorageDB from "../utils/LocalStorageDB.js";
-import rawData from "./grandrapids_custom_header_slides.json";
+import rawData from "./rawData.json";
 import categories from "./categories.json";
 import MultiselectHelper from "./MultiselectHelper.js";
 import {
