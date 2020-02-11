@@ -1,10 +1,15 @@
 import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import pkg from "./package.json";
+
+// correct exports for the prop-types package
+import propTypes from "prop-types";
 
 const EXTERNALS = [
 	/^@material-ui\/core\//,
 	/^@material-ui\/icons\//,
+	/^@material-ui\/pickers\//,
 	"jsvalidator",
 	"lodash",
 	"react",
@@ -29,6 +34,11 @@ export default [
 		},
 		plugins : [
 			resolve({ extensions : EXTENSIONS }),
+			commonjs({
+				namedExports : {
+					"prop-types" : Object.keys(propTypes)
+				}
+			}),
 			babel({
 				extensions : EXTENSIONS,
 				exclude : ["node_modules/**"],
