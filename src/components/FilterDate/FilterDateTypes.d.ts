@@ -1,3 +1,5 @@
+import { DataViewFilterProps } from "../DataView";
+
 export interface FilterDateData {
 	rangeStart?: Date,
 	rangeEnd?: Date
@@ -7,11 +9,8 @@ export interface FilterDateOnChange {
 	(value: FilterDateData): void
 }
 
-export interface FilterDateProps {
-	label: string
+export interface FilterDateProps extends DataViewFilterProps {
 	data: FilterDateData,
-	type: string
-	onRemove: () => void
 	onChange: FilterDateOnChange
 }
 
