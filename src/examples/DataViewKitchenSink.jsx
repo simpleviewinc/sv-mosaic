@@ -16,7 +16,7 @@ import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
 import DataViewFilterText from "../components/DataViewFilterText.jsx";
 import DataViewFilterMultiselect from "../components/DataViewFilterMultiselect.jsx";
-import DataViewFilterDateRange from "../components/DataViewFilterDateRange.jsx";
+import FilterDate from "../components/FilterDate";
 import MultiselectHelper from "./MultiselectHelper.js";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms";
 import { useStateRef } from "../utils/reactTools.js";
@@ -27,6 +27,11 @@ const ARTIFICIAL_DELAY = 500;
 const categoriesApi = new JSONDB(categories);
 const viewsApi = new LocalStorageDB("views");
 
+rawData.forEach(function(data) {
+	// convert the date columns to dates, since they are ISOStrings in the file
+	data.created = data.created ? new Date(data.created) : undefined;
+	data.updated = data.updated ? new Date(data.updated) : undefined;
+})
 const api =  new JSONDB(rawData, {
 	relationships : [
 		{
@@ -55,22 +60,18 @@ const processStringFilter = function({ name, data, filter, output }) {
 const processDateFilter = function({name, data, filter, output}){
 	if (data.rangeStart === undefined && data.rangeEnd === undefined) { return; }
 	
-	const dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
-	
-	if (data.rangeStart !== undefined && data.rangeEnd !== undefined){
-		const start = moment(data.rangeStart);
-		const end = moment(data.rangeEnd);
+	const outputFilter = {};
 
-		output[name] = { 
-			$and : [ 
-				{ $gte : `${start.format(dateFormat)}Z`},
-				{ $lte : `${end.format(dateFormat)}Z`}
-			] 
-		};
-	}else if(data.rangeStart !== undefined){
-		output[name] = { $gte : `${moment(data.rangeStart).format(dateFormat)}Z`};
-	}else if(data.rangeEnd !== undefined){
-		output[name] = { $lte : `${moment(data.rangeEnd).format(dateFormat)}Z`};
+	if (data.rangeStart !== undefined) {
+		outputFilter["$gte"] = data.rangeStart;
+	}
+
+	if (data.rangeEnd !== undefined) {
+		outputFilter["$lte"] = data.rangeEnd;
+	}
+
+	if (Object.keys(outputFilter).length > 0) {
+		output[name] = outputFilter;
 	}
 }
 
@@ -144,7 +145,14 @@ const filters = [
 		name : "created",
 		label : "Created",
 		type : "optional",
-		component : DataViewFilterDateRange,
+		component : FilterDate,
+		toFilter : processDateFilter
+	},
+	{
+		name : "updated",
+		label : "Updated",
+		type : "optional",
+		component : FilterDate,
 		toFilter : processDateFilter
 	},
 	{
@@ -238,6 +246,14 @@ const listColumns = [
 	{
 		name : "created",
 		label : "Created",
+		sortable : true,
+		transforms : [
+			transform_dateFormat()
+		]
+	},
+	{
+		name : "updated",
+		label : "Updated",
 		sortable : true,
 		transforms : [
 			transform_dateFormat()

@@ -61,7 +61,7 @@ class JSONDB {
 
 function filterData(data, filter) {
 	let newData = data;
-	
+
 	for(let [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined) {
 			newData = newData.filter(row => {
@@ -73,23 +73,33 @@ function filterData(data, filter) {
 					return val.$in.includes(row[key])
 				}
 			});
-		} else if(val.$and !== undefined){
-			for(var rowCtr = 0; rowCtr < val.$and.length; rowCtr++){
-				newData = filterData(newData, { [key] : val.$and[rowCtr] });
-			}
-		} else if (val.$gte !== undefined) {
+		}
+
+		if (val.$gte !== undefined) {
 			newData = newData.filter(row => row[key] >= val.$gte);
-		} else if (val.$lte !== undefined) {
-			newData = newData.filter(row => row[key] <= val.$lte);
-		} else if (val.$ne !== undefined) {
+		}
+
+		if (val.$lte !== undefined) {
+			newData = newData.filter(row => row[key] <= val.$lte || row[key] === undefined);
+		}
+
+		if (val.$ne !== undefined) {
 			newData = newData.filter(row => row[key] !== val.$ne);
-		} else if (val.$exists === true) {
+		}
+
+		if (val.$exists === true) {
 			newData = newData.filter(row => row[key] !== undefined);
-		} else if (val.$exists === false) {
+		}
+
+		if (val.$exists === false) {
 			newData = newData.filter(row => row[key] === undefined);
-		} else if (val instanceof RegExp) {
+		}
+
+		if (val instanceof RegExp) {
 			newData = newData.filter(row => val.test(row[key]));
-		} else if (typeof val === "string") {
+		}
+
+		if (typeof val === "string") {
 			newData = newData.filter(row => row[key] === val);
 		}
 	}
@@ -100,17 +110,28 @@ function filterData(data, filter) {
 function sortArr(a, b, dir) {
 	const multiplier = dir === "asc" ? 1 : -1;
 	
-	if (a instanceof Date) {
-		return (a - b) * multiplier;
+	// if both values are undefined, we assume 0
+	if (a === undefined && b === undefined) {
+		return 0;
+	}
+
+	// we assume undefined values are smaller than defined values, so if A is undefined, b is bigger
+	// I don't understand why this isn't multiplied by multiplier... but if I do it goes wonky
+	if (a === undefined) {
+		return 1;
+	}
+
+	if (b === undefined) {
+		return -1;
 	}
 	
 	if (typeof a === "string") {
 		return a.localeCompare(b) * multiplier;
 	}
-	
+
 	if (a > b) {
 		return 1 * multiplier;
-	} else if (b < a) {
+	} else if (a < b) {
 		return -1 * multiplier;
 	} else {
 		return 0;
