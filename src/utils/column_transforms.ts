@@ -1,12 +1,12 @@
 import { get } from "lodash";
+import * as moment from "moment";
 import { createElement } from "react";
 
 import Image from "../components/internal/Image.jsx";
 
 export function transform_dateFormat() {
 	return function(dateStr: string): string {
-		const data = new Date(dateStr);
-		return `${data.getMonth()}-${data.getDate()}-${data.getFullYear()}`;
+		return moment(dateStr).format('M-D-YYYY');
 	}
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useReducer, useCallback } from "react";
 import { pick } from "lodash";
+import moment from "moment";
 import styled from "styled-components";
 
 import AddIcon from '@material-ui/icons/Add';
@@ -15,6 +16,7 @@ import rawData from "./grandrapids_custom_header_slides.json";
 import categories from "./categories.json";
 import DataViewFilterText from "../components/DataViewFilterText.jsx";
 import DataViewFilterMultiselect from "../components/DataViewFilterMultiselect.jsx";
+import FilterDate from "../components/FilterDate";
 import MultiselectHelper from "./MultiselectHelper.js";
 import { transform_dateFormat, transform_get, transform_thumbnail } from "../utils/column_transforms";
 import { useStateRef } from "../utils/reactTools.js";
@@ -25,6 +27,11 @@ const ARTIFICIAL_DELAY = 500;
 const categoriesApi = new JSONDB(categories);
 const viewsApi = new LocalStorageDB("views");
 
+rawData.forEach(function(data) {
+	// convert the date columns to dates, since they are ISOStrings in the file
+	data.created = data.created ? new Date(data.created) : undefined;
+	data.updated = data.updated ? new Date(data.updated) : undefined;
+})
 const api =  new JSONDB(rawData, {
 	relationships : [
 		{
@@ -47,6 +54,24 @@ const processStringFilter = function({ name, data, filter, output }) {
 		output[name] = new RegExp(`^((?!${data.value}).)*$`, "i")
 	} else if (data.comparison === "not_equals") {
 		output[name] = { $ne : data.value };
+	}
+}
+
+const processDateFilter = function({name, data, filter, output}){
+	if (data.rangeStart === undefined && data.rangeEnd === undefined) { return; }
+	
+	const outputFilter = {};
+
+	if (data.rangeStart !== undefined) {
+		outputFilter["$gte"] = data.rangeStart;
+	}
+
+	if (data.rangeEnd !== undefined) {
+		outputFilter["$lte"] = data.rangeEnd;
+	}
+
+	if (Object.keys(outputFilter).length > 0) {
+		output[name] = outputFilter;
 	}
 }
 
@@ -115,6 +140,20 @@ const filters = [
 		type : "optional",
 		component : DataViewFilterText,
 		toFilter : processStringFilter
+	},
+	{
+		name : "created",
+		label : "Created",
+		type : "optional",
+		component : FilterDate,
+		toFilter : processDateFilter
+	},
+	{
+		name : "updated",
+		label : "Updated",
+		type : "optional",
+		component : FilterDate,
+		toFilter : processDateFilter
 	},
 	{
 		name : "title_with_comparisons",
@@ -207,6 +246,14 @@ const listColumns = [
 	{
 		name : "created",
 		label : "Created",
+		sortable : true,
+		transforms : [
+			transform_dateFormat()
+		]
+	},
+	{
+		name : "updated",
+		label : "Updated",
 		sortable : true,
 		transforms : [
 			transform_dateFormat()

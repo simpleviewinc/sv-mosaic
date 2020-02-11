@@ -28,6 +28,10 @@ function DataViewFilterDropdownButtons(props) {
 			{
 				name : "onApply",
 				type : "function"
+			},
+			{
+				name : "disableApply",
+				type : "boolean"
 			}
 		],
 		allowExtraKeys : false,
@@ -41,7 +45,7 @@ function DataViewFilterDropdownButtons(props) {
 			</ButtonRow>
 			<ButtonRow>
 				<Button label="Cancel" color="black" variant="text" onClick={props.onCancel}/>
-				<Button label="Apply" color="blue" variant="contained" onClick={props.onApply}/>
+				<Button label="Apply" color="blue" variant="contained" onClick={props.onApply} disabled={ (props.disableApply !== undefined) ? props.disableApply : false }/>
 			</ButtonRow>
 		</StyledWrapper>
 	)
