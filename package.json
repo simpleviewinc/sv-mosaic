@@ -17,6 +17,7 @@
 		"@material-ui/pickers": "3.2.10",
 		"@rollup/plugin-commonjs": "11.0.2",
 		"@rollup/plugin-node-resolve": "7.1.1",
+		"@storybook/react": "5.3.13",
 		"@types/jest": "25.1.2",
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
@@ -64,7 +65,8 @@
 		"build:rollup": "rollup -c",
 		"build:webpack": "webpack --mode production",
 		"docker": "./dev/build && ./dev/run || true",
-		"publish": "./dev/publish"
+		"publish": "./dev/publish",
+		"storybook": "start-storybook"
 	},
 	"jest" : {
 		"preset": "ts-jest"
