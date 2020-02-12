@@ -17,6 +17,7 @@
 		"@material-ui/pickers": "3.2.10",
 		"@rollup/plugin-commonjs": "11.0.2",
 		"@rollup/plugin-node-resolve": "7.1.1",
+		"@types/jest": "25.1.2",
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
 		"lodash": "4.17.15",
@@ -31,6 +32,7 @@
 		"rollup-plugin-babel": "4.3.3",
 		"style-loader": "0.23.0",
 		"styled-components": "4.3.2",
+		"ts-jest": "25.2.0",
 		"ts-loader": "6.2.1",
 		"typescript": "3.7.5",
 		"webpack": "4.28.1",
@@ -63,6 +65,9 @@
 		"build:webpack": "webpack --mode production",
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish"
+	},
+	"jest" : {
+		"preset": "ts-jest"
 	},
 	"repository": {
 		"type": "git",
