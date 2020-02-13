@@ -10,6 +10,7 @@ describe(__filename, function() {
 	beforeAll(function() {
 		// within our test apps they expect sv-mosaic to be available at "@simpleview/sv-mosaic", so we fake it in our apps by symlinking the app folder
 		apps.forEach(function(appName) {
+			execSync(`mkdir -p ${__dirname}/${appName}/node_modules/@simpleview`);
 			execSync(`ln -sfn /app ${__dirname}/${appName}/node_modules/@simpleview/sv-mosaic`);
 		})
 	});
@@ -17,7 +18,7 @@ describe(__filename, function() {
 	afterAll(function() {
 		// clear our symlinks
 		apps.forEach(function(appName) {
-			execSync(`rm ${__dirname}/${appName}/node_modules/@simpleview/sv-mosaic`);
+			execSync(`rm -Rf ${__dirname}/${appName}/node_modules`);
 		})
 	})
 
