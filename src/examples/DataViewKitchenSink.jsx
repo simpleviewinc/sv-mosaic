@@ -18,6 +18,8 @@ import {
 	transform_dateFormat,
 	transform_get,
 	transform_thumbnail,
+	transform_mapGet,
+	transform_join,
 	FilterDate,
 	DataView,
 	DataViewFilterText,
@@ -226,9 +228,8 @@ const listColumns = [
 		name : "categories",
 		label : "Categories",
 		transforms : [
-			function(data) {
-				return data.map(val => val.tag).join(", ");
-			}
+			transform_mapGet("tag"),
+			transform_join()
 		]
 	},
 	{
