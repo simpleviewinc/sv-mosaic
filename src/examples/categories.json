@@ -290,9 +290,9 @@
 	{
 		"_id": "55943f9e3c392ffe4438c9fa",
 		"updated": "2015-07-01T19:29:34.799Z",
-		"sort_tag": "experience grand rapids",
+		"sort_tag": "experience Simpleville",
 		"created": "2015-07-01T19:29:34.799Z",
-		"tag": "Experience Grand Rapids",
+		"tag": "Experience Simpleville",
 		"id": "55943f9e3c392ffe4438c9fa"
 	},
 	{
@@ -322,9 +322,9 @@
 	{
 		"_id": "55943f9e3c392ffe4438ca38",
 		"updated": "2015-07-01T19:29:34.945Z",
-		"sort_tag": "east grand rapids",
+		"sort_tag": "east Simpleville",
 		"created": "2015-07-01T19:29:34.945Z",
-		"tag": "East Grand Rapids",
+		"tag": "East Simpleville",
 		"id": "55943f9e3c392ffe4438ca38"
 	},
 	{
@@ -345,8 +345,8 @@
 	},
 	{
 		"_id": "558c24cab39fb2b513f048e8",
-		"tag": "Grand Rapids",
-		"sort_tag": "grand rapids",
+		"tag": "Simpleville",
+		"sort_tag": "Simpleville",
 		"updated": "2015-06-25T15:56:58.622Z",
 		"created": "2015-06-25T15:56:58.623Z",
 		"id": "558c24cab39fb2b513f048e8"
@@ -1204,9 +1204,9 @@
 	{
 		"_id": "55943f9f3c392ffe4438cb5c",
 		"updated": "2015-07-01T19:29:35.860Z",
-		"sort_tag": "gr city twist",
+		"sort_tag": "sv city twist",
 		"created": "2015-07-01T19:29:35.860Z",
-		"tag": "GR City Twist",
+		"tag": "SV City Twist",
 		"id": "55943f9f3c392ffe4438cb5c"
 	},
 	{
@@ -1621,9 +1621,9 @@
 	{
 		"_id": "5594402c3c392ffe4438cc3d",
 		"updated": "2015-07-01T19:31:56.785Z",
-		"sort_tag": "bring it to grand rapids",
+		"sort_tag": "bring it to Simpleville",
 		"created": "2015-07-01T19:31:56.785Z",
-		"tag": "Bring it to Grand Rapids",
+		"tag": "Bring it to Simpleville",
 		"id": "5594402c3c392ffe4438cc3d"
 	},
 	{
@@ -1836,8 +1836,8 @@
 	},
 	{
 		"_id": "559c19aae3bd4253522eaf81",
-		"tag": "Why Grand Rapids",
-		"sort_tag": "why grand rapids",
+		"tag": "Why Simpleville",
+		"sort_tag": "why Simpleville",
 		"updated": "2015-07-07T18:25:46.954Z",
 		"created": "2015-07-07T18:25:46.954Z",
 		"id": "559c19aae3bd4253522eaf81"
