@@ -1,8 +1,8 @@
-import { get } from "lodash";
+import { get, map } from "lodash";
 import * as moment_ from "moment";
 import { createElement } from "react";
 
-import Image from "../components/internal/Image.jsx";
+import Image from "../components/internal/Image";
 
 const moment = moment_;
 
@@ -15,6 +15,23 @@ export function transform_dateFormat() {
 export function transform_get(path) {
 	return function(data) {
 		return get(data, path);
+	}
+}
+
+export function transform_mapGet(path) {
+	return (data: object[]) => {
+		const results = map(data, (obj) => {
+			return get(obj, path);
+		});
+		
+		// filters out undefined, null values
+		return results.filter(val => val);
+	}
+}
+
+export function transform_join() {
+	return (data: string[]) => {
+		return data.join(", ");
 	}
 }
 
