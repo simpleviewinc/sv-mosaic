@@ -1,23 +1,29 @@
-interface TestArrayArgsFunction {
-	(): object
+// basic function that returns anything
+interface ArgsFunc {
+	(): any
 }
-type TestArrayArgs = TestArrayArgsFunction | object;
 
-interface TestArrayTest {
+// Returns the type of the Promise return, if it's not a promise return, it just returns the original type
+type Unpacked<T> = T extends Promise<infer U> ? U : T;
+
+// Handles test.args whether it is a plain object, or an Promise wrapping a type, or a function wrapping a type
+type TestArgs<T> = T extends ArgsFunc ? Unpacked<ReturnType<T>> : T;
+
+interface Test {
 	name: string
 	timeout?: number
 	before?: (test: object) => void
 	after?: (test: object) => void
 	only?: boolean
 	skip?: boolean
-	args: TestArrayArgs
+	args: any
 }
 
-interface TestArrayTestRunner {
-	(test: object): Promise<void>;
+interface TestRunner<T> {
+	(test: TestArgs<T>): any
 }
 
-export default function testArray(tests: TestArrayTest[], fn: TestArrayTestRunner) {
+export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T["args"]>) {
 	tests.forEach((val, i) => {
 		const testAction = val.skip ? it.skip : val.only ? it.only : it;
 
