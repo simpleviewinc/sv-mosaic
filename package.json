@@ -17,6 +17,8 @@
 		"@material-ui/pickers": "3.2.10",
 		"@rollup/plugin-commonjs": "11.0.2",
 		"@rollup/plugin-node-resolve": "7.1.1",
+		"@storybook/react": "5.3.13",
+		"@storybook/addon-knobs": "5.3.13",
 		"@types/jest": "25.1.2",
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
@@ -60,11 +62,13 @@
 		"tsc": "tsc",
 		"start": "webpack-dev-server --mode development",
 		"build": "npm run build:types && npm run build:webpack && npm run build:rollup",
+		"build:storybook": "build-storybook -c .storybook -o dist/storybook",
 		"build:types": "tsc --project src/tsconfig.types.json",
 		"build:rollup": "rollup -c",
 		"build:webpack": "webpack --mode production",
 		"docker": "./dev/build && ./dev/run || true",
-		"publish": "./dev/publish"
+		"publish": "./dev/publish",
+		"storybook": "start-storybook -p 10000"
 	},
 	"jest" : {
 		"preset": "ts-jest"

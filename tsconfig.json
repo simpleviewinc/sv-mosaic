@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"sourceMap": true,
 		"jsx": "react",
-		"lib" : ["ES2017"]
+		"lib" : ["ES2017", "DOM"]
 	},
 	"include" : [
 		"src/**/*"
