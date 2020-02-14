@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CreateIcon from '@material-ui/icons/Create';
 
-import DataView from "../DataView.jsx";
+import DataView from "../DataView";
 import DrawerContent from "../DrawerContent.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
 

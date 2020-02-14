@@ -5,8 +5,6 @@ import styled from "styled-components";
 import DataViewViewList from "../internal/DataViewViewList.jsx";
 import DataViewViewGrid from "../internal/DataViewViewGrid.jsx";
 import TitleBar from "../internal/TitleBar.jsx";
-import ButtonRow from "./ButtonRow.jsx";
-import Button from "./Button.jsx";
 import DataViewViewSwitcher from "../internal/DataViewViewSwitcher.jsx";
 import DataViewPager from "../internal/DataViewPager.jsx";
 import DataViewLimit from "../internal/DataViewLimit.jsx";
