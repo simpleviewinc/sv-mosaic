@@ -9,5 +9,6 @@ docker run --rm -it \
 	-v $PWD/rollup.config.js:/app/rollup.config.js \
 	-v $PWD/.babelrc:/app/.babelrc \
 	-v $PWD/tsconfig.json:/app/tsconfig.json \
+	-v $PWD/.storybook:/app/.storybook \
 	-p 10000:10000 \
 	sv-mosaic:local /bin/bash
