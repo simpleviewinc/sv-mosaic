@@ -164,7 +164,7 @@ function DataView(props) {
 			{
 				name : "additionalActions",
 				type : "array",
-				schema : actionValidation
+				schema : additionalActionValidation
 			},
 			{
 				name : "buttons",
