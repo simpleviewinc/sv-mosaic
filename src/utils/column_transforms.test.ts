@@ -3,6 +3,38 @@ import testArray from "../utils/testArray";
 import * as assert from "assert";
 
 describe(__filename, function() {
+	describe("transform_boolean", function() {
+		const tests = [
+			{
+				name : "true",
+				args : {
+					data : true,
+					result : "Yes"
+				}
+			},
+			{
+				name : "false",
+				args : {
+					data : false,
+					result : "No"
+				}
+			},
+			{
+				name : "undefined",
+				args : {
+					data : undefined,
+					result : "No"
+				}
+			}
+		];
+
+		testArray(tests, async function(test) {
+			const result = transforms.transform_boolean()(test.data);
+
+			assert.strictEqual(result, test.result);
+		})
+	})
+
 	describe("transform_join", function() {
 		const tests = [
 			{
