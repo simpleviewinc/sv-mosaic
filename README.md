@@ -69,7 +69,7 @@ A DataView is used to output a list or grid of items. It can support a whole var
 
 Actions are the tool for giving your user a way to alter/interact with a specific row or rows within your list view. In `sv-mosaic` there are 3 types of actions: bulkActions, primaryActions and additionalActions.
 
-* primaryActions - Buttons that display on each row, which are displayed to all users. You will want to use this for your frequently one or two most used actions. If you have too many primary actions then the UI can get bulky and likely some should be moved into `additionalActions`.
+* **primaryActions** - Buttons that display on each row, which are displayed to all users. You will want to use this for your frequently one or two most used actions. If you have too many primary actions then the UI can get bulky and likely some should be moved into `additionalActions`.
 * **additionalActions** - Menu items which display underneath the "..." on each row in the list view.
 * **bulkActions** - When users utilize the checkboxes on the rows, it will bring up bulkActions so that they can perform them on all actions.
 
