@@ -2,7 +2,7 @@ import React, { useMemo, memo } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import Button from "./Button.jsx";
+import Button from "./Button";
 
 const StyledWrapper = styled.span`
 	${/* ensures that the NEXT button spaces itself, if it isn't an icon button */""}

@@ -1,4 +1,3 @@
-import Button from "./components/Button.jsx";
 import ButtonRow from "./components/ButtonRow.jsx";
 import Checkbox from "./components/Checkbox.jsx";
 import CheckboxList from "./components/CheckboxList.jsx";
@@ -17,12 +16,13 @@ import Spinner from "./components/Spinner.jsx";
 import theme from "./utils/theme.js";
 export * from "./utils/column_transforms";
 
-// filters
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
 
+export { default as Button } from "./components/Button";
+export * from "./components/Button";
+
 export {
-	Button,
 	ButtonRow,
 	Checkbox,
 	CheckboxList,

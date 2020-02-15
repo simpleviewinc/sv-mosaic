@@ -2,7 +2,7 @@ import React, { memo, useMemo } from "react";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import Button from "../Button.jsx";
+import Button from "../Button";
 
 function DataViewLimit(props) {
 	const menuItems = useMemo(() => {

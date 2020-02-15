@@ -3,7 +3,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { pick } from "lodash";
 
 import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button.jsx";
+import Button from "../Button";
 
 function filterAction(action, row) {
 	if (action.show === undefined) {

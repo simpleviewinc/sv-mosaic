@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "../Button.jsx";
+import Button from "../Button";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';

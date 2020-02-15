@@ -2,7 +2,7 @@ import * as React from "react";
 import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
 import StoryBookError from "../StoryBookError";
-import Button from "../Button.jsx";
+import Button from "../Button";
 
 export default {
 	title : "Button",

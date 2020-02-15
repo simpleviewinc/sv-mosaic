@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-import Button from "../Button.jsx";
+import Button from "../Button";
 import theme from "../../utils/theme.js";
 import CheckboxList from "../CheckboxList.jsx";
 import DrawerContent from "../DrawerContent.jsx";

@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 
 import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button.jsx";
+import Button from "../Button";
 import DataViewViewDrawer from "./DataViewViewDrawer.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
 

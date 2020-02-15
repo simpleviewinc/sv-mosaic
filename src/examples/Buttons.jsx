@@ -13,10 +13,13 @@ import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
 import GridOnOutlinedIcon from '@material-ui/icons/GridOnOutlined';
 
-import theme from "../utils/theme.js";
-import Button from "../components/Button.jsx";
 import ButtonRow from "../components/ButtonRow.jsx";
 import Menu from "../components/Menu.jsx";
+
+import {
+	theme,
+	Button
+} from "../";
 
 function Buttons() {
 	const [anchorEl, setAnchorEl] = useState(null);

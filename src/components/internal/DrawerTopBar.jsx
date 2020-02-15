@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CloseIcon from '@material-ui/icons/Close';
 
-import Button from "../Button.jsx";
+import Button from "../Button";
 import ButtonRow from "../ButtonRow.jsx";
 import theme from "../../utils/theme.js";
 
