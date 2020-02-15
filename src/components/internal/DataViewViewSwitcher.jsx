@@ -5,7 +5,7 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import Button from "../Button.jsx";
+import Button from "../Button";
 import Menu from "../Menu.jsx";
 
 const StyledSpan = styled.span`

@@ -5,8 +5,8 @@ import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 import Popover from "@material-ui/core/Popover";
 
-import theme from "../utils/theme.js";
-import Menu from "./Menu.jsx";
+import theme from "../../utils/theme.js";
+import Menu from "../Menu.jsx";
 
 const ButtonWrapper = styled.span`
 	& > button {

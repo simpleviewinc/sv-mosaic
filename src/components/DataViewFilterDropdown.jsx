@@ -3,7 +3,7 @@ import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import Popover from "@material-ui/core/Popover";
 import ButtonRow from "./ButtonRow.jsx";
-import Button from "./Button.jsx";
+import Button from "./Button";
 
 import theme from "../utils/theme.js";
 

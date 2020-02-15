@@ -4,7 +4,7 @@ import jsvalidator from "jsvalidator";
 import { pick } from "lodash";
 
 import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button.jsx";
+import Button from "../Button";
 import DataViewViewControls from "./DataViewViewControls.jsx";
 import theme from "../../utils/theme.js";
 

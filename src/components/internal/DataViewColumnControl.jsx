@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import SettingsIcon from "@material-ui/icons/Settings";
 
-import Button from "../Button.jsx";
+import Button from "../Button";
 import GridColumnDrawer from "./GridColumnDrawer.jsx";
 
 export function DataViewColumnControl(props) {

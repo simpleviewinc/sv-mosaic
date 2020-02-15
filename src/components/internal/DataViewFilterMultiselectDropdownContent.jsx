@@ -10,7 +10,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import HelpIcon from '@material-ui/icons/Help';
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
-import Button from "../Button.jsx";
+import Button from "../Button";
 import ButtonRow from "../ButtonRow.jsx";
 import Spinner from "../Spinner.jsx";
 import CheckboxList from "../CheckboxList.jsx";

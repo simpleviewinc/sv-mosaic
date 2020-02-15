@@ -5,7 +5,7 @@ import jsvalidator from "jsvalidator";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import Button from "../Button.jsx";
+import Button from "../Button";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
 

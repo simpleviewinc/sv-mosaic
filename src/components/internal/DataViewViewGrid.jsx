@@ -5,7 +5,7 @@ import { pick } from "lodash";
 
 import Checkbox from "../Checkbox.jsx";
 import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button.jsx";
+import Button from "../Button";
 import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
 import theme from "../../utils/theme.js";
 
