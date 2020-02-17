@@ -31,12 +31,6 @@ import { DataView } from "@simpleview/sv-mosaic"
 
 [Optimization Guidelines](optimization.md) - Ensure you're properly using Mosaic and React for optimal client-side performance.
 
-**StateRef Pattern**
-
-This pattern is an easy-drop in to most functional components as the state is made accessible on a ref. Using a few lines of code you can cache a callback without a significant refactor. In addition the `stateRef` can be re-used for other callbacks as well.
-
-Example: https://codepen.io/owenallenaz/pen/vYYzmOp
-
 # Components
 
 ## DataView

@@ -21,3 +21,9 @@ In general there are 2 common ways to prevent this. Both patterns are viable and
 By calling a dispatcher we can wrap our `onRemove` function in `useCallback` since it no longer needs to know the current state. The downside of this pattern is that you are forced to use a reducer for your state management, and if you are not already using a reducer, this can be a larger refactor. If you are already using a reducer, this is easy.
 
 Example: https://codepen.io/owenallenaz/pen/YzzOZbx
+
+**StateRef Pattern**
+
+This pattern is an easy-drop in to most functional components as the state is made accessible on a ref. Using a few lines of code you can cache a callback without a significant refactor. In addition the `stateRef` can be re-used for other callbacks as well.
+
+Example: https://codepen.io/owenallenaz/pen/vYYzmOp
