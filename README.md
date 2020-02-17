@@ -29,29 +29,7 @@ import { DataView } from "@simpleview/sv-mosaic"
 
 ## Optimization Guidelines
 
-In order to have `sv-mosaic` or any `react` package perform optimally, you will want to follow some basic guidelines.
-
-##### Reduce bundle size
-
-In order to keep your bundle size small you will want to ensure that you are statically importing all of your packages as well as only using the dependencies you need. If you are using Webpack make sure you are following their [Tree Shaking Guidelines](https://webpack.js.org/guides/tree-shaking/). For `@material-ui/icons` make sure you are following their [Bundle Size Guidelines](https://material-ui.com/guides/minimizing-bundle-size/).
-
-##### Minimize component re-renders
-
-You want to ensure that your components only re-render if they are really changing. Even if the UI doesn't visibly change, your component functions may still be executing and their render functions called, which can be very expensive. In order to verify that you are not doing extraneous re-renders, utilize the chrome React dev tools under the profiler tab. Click the red button to record, and then make one action in the UI, stop recording, and then check to see what components re-rendered, if any elements show up that you did not expect, then start to explore why.
-
-##### Ensure callbacks do not regenerate every render
-
-When working with React functional components, the function is called on every render. If your function props anything to a child that changes, the child will re-render even if it is wrapped in a `React.memo`. Callbacks are a common place where we can make this mistake. Unless cached with `useCallback`, `useMemo` or `useRef` the function passed each render will be a **different** function, requiring the child component to re-render as well.
-
-Example: https://codepen.io/owenallenaz/pen/RwwYKxw . This codepen is a simple list app where you type an item into the text box, hit Add and it adds it to the list. What you'll notice is that even though List is wrapped in `React.memo()` it still re-renders on **every keystroke**. The reason for this is due to the `onRemove` function being a new function every render.
-
-In general there are 2 common ways to prevent this. Both patterns are viable and encouraged, and they essentially boil down to whether you prefer to use reducers for their other benefits, or prefer to use callbacks.
-
-**Reducer Pattern**
-
-By calling a dispatcher we can wrap our `onRemove` function in `useCallback` since it no longer needs to know the current state. The downside of this pattern is that you are forced to use a reducer for your state management, and if you are not already using a reducer, this can be a larger refactor. If you are already using a reducer, this is easy.
-
-Example: https://codepen.io/owenallenaz/pen/YzzOZbx
+[Optimization Guidelines](optimization.md) - Ensure you're properly using Mosaic and React for optimal client-side performance.
 
 **StateRef Pattern**
 
@@ -59,27 +37,13 @@ This pattern is an easy-drop in to most functional components as the state is ma
 
 Example: https://codepen.io/owenallenaz/pen/vYYzmOp
 
-## Components
+# Components
 
-### DataView
+## DataView
 
 A DataView is used to output a list or grid of items. It can support a whole variety of actions including primary actions, additional actions and bulk actions.
 
-##### Actions
-
-Actions are the tool for giving your user a way to alter/interact with a specific row or rows within your list view. In `sv-mosaic` there are 3 types of actions: bulkActions, primaryActions and additionalActions.
-
-* **primaryActions** - Buttons that display on each row, which are displayed to all users. You will want to use this for your frequently one or two most used actions. If you have too many primary actions then the UI can get bulky and likely some should be moved into `additionalActions`.
-* **additionalActions** - Menu items which display underneath the "..." on each row in the list view.
-* **bulkActions** - When users utilize the checkboxes on the rows, it will bring up bulkActions so that they can perform them on all actions.
-
-For the props necessary for each action, please see the props section below.
-
-##### Saved Views
-
-The DataView system supports saved views. When enabled, the user will receive buttons at the top-right of the DataView allowing them to change the view and save a new one. This allows users to change their filters, columns, view and then save it for later, allowing other users to use that view.
-
-##### Props
+### Props
 * **title** -  `string` - The title of the DataView.
 * **columns** - `array` of `object`
 	* **name** - `string` - Unique name for this column.
@@ -142,11 +106,51 @@ The DataView system supports saved views. When enabled, the user will receive bu
 * **onSavedViewRemove** - `function` - A callback function which is invoked with a saved view is deleted. This function will be passed a data object containing information about the removed view.
 * **onSavedViewGetOptions** - `function` -  A callback function which is used to provide an array of views to the SavedView component. Useful when loading a list of saved views from a user profile.
 
-### Button
+### Feature - View Switcher
+
+Provide the user a way to switch between List/Grid views.
+
+Required props - `view`, `views`, `onViewChange`.
+
+### Feature - Limit Switcher
+
+Provide the user a way to change the number of rows to return per page.
+
+Required props - `limit`, `limitOptions`, `onLimitChange`.
+
+### Feature - Pager
+
+Provide the user a way to paginate through the result set.
+
+Required props - `limit`, `skip`, `count`, `onSkipChange`.
+
+### Feature - Filters
+
+Provide the user a way to filter through the result set
+
+Required props - `loading`, `filter`, `filters`, `activeFilters`, `onActiveFiltersChange`.
+
+### Feature - Saved Views
+
+Provide the user a way to switch between default "views". A view encompasses the filter, sort, pagination, limit, sort, columns, and view type. These settings can be saved and re-used between users.
+
+Required props - `onSavedViewSave`, `onSavedViewChange`, `onSavedViewGetOptions`, `onSavedViewRemove`, `savedView`.
+
+### Actions
+
+Actions are the tool for giving your user a way to alter/interact with a specific row or rows within your list view. In `sv-mosaic` there are 3 types of actions: bulkActions, primaryActions and additionalActions.
+
+* **primaryActions** - Buttons that display on each row, which are displayed to all users. You will want to use this for your frequently one or two most used actions. If you have too many primary actions then the UI can get bulky and likely some should be moved into `additionalActions`.
+* **additionalActions** - Menu items which display underneath the "..." on each row in the list view.
+* **bulkActions** - When users utilize the checkboxes on the rows, it will bring up bulkActions so that they can perform them on all actions.
+
+For the props necessary for each action, please see the props section below.
+
+## Button
 
 Displays a button. See the example app at https://simpleviewinc.github.io/sv-mosaic/ for examples of what the different button variants and colors look like.
 
-##### Props
+### Props
 * **label** - `string` or `jsx` - optional - The contents of the buttons label. For complicated buttons which are more than just text, you can pass JSX and it will render inside the button. Be careful to not overuse the JSX capability.
 * **className** - `string` - optional - A string of classes to append to the root element.
 * **color** - `string` - required enum `["black", "blue", "lightBlue", "red", "gray"]` - The color of the button.
@@ -196,7 +200,7 @@ The service should now be accessible at http://kube.simpleview.io:10000/
 
 
 
-## Repo Structure
+# Repo Structure
 
 When external parties consume this project the assumption is that all entities are "top-level" meaning that it you can destructure all necessary imports. This is necessary to ensure optimal and easy tree shaking.
 
