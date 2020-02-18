@@ -37,9 +37,9 @@ export default function FilterDate(props: FilterDateProps) {
 	} else if (hasStart && hasEnd) {
 		valueString = `${momentStart.format(dateFormat)} - ${momentEnd.format(dateFormat)}`;
 	} else if (hasStart) {
-		valueString = `after ${momentStart.format(dateFormat)}`;
+		valueString = `from ${momentStart.format(dateFormat)}`;
 	} else if (hasEnd) {
-		valueString = `before ${momentEnd.format(dateFormat)}`;
+		valueString = `to ${momentEnd.format(dateFormat)}`;
 	}
 	
 	return (
