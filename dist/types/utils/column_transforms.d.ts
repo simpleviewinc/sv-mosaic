@@ -1,5 +1,6 @@
 /// <reference types="react" />
 /// <reference types="styled-jsx" />
+export declare function transform_boolean(): (bool: boolean) => string;
 export declare function transform_dateFormat(): (dateStr: string) => string;
 export declare function transform_get(path: any): (data: any) => any;
 export declare function transform_mapGet(path: any): (data: object[]) => any;
