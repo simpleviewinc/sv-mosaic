@@ -24,6 +24,7 @@
 		"css-loader": "1.0.0",
 		"lodash": "4.17.15",
 		"jest": "25.1.0",
+		"json-date-parser" : "1.0.1",
 		"jsvalidator": "1.2.0",
 		"mocha": "5.2.0",
 		"moment": "2.24.0",
@@ -70,7 +71,7 @@
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000"
 	},
-	"jest" : {
+	"jest": {
 		"preset": "ts-jest"
 	},
 	"repository": {

@@ -70,10 +70,12 @@ const processDateFilter = function({name, data, filter, output}){
 	const outputFilter = {};
 
 	if (data.rangeStart !== undefined) {
+		if (data.rangeStart instanceof Date !== true){ throw new Error('rangeStart is not a Date'); }
 		outputFilter["$gte"] = data.rangeStart;
 	}
 
 	if (data.rangeEnd !== undefined) {
+		if (data.rangeEnd instanceof Date !== true) { throw new Error('rangeEnd is not a Date'); }
 		outputFilter["$lte"] = data.rangeEnd;
 	}
 

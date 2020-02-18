@@ -98,7 +98,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 			<div className="inputRow">
 				<MuiPickersUtilsProvider utils={MomentUtils}>
 					<div className="startRange">
-						<h5>After</h5>
+						<h5>From</h5>
 						<DatePicker
 							{...pickerArgs}
 							value={state.rangeStart || null}
@@ -106,7 +106,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 						/>
 					</div>
 					<div className="endRange">
-						<h5>Before</h5>
+						<h5>To</h5>
 						<DatePicker
 							{...pickerArgs}
 							value={state.rangeEnd || null}
