@@ -22,11 +22,14 @@ import {
 	transform_mapGet,
 	transform_join,
 	FilterDate,
+	FilterSingleSelect,
 	DataView,
 	DataViewFilterText,
 	DataViewFilterMultiselect
 } from "../";
 import { useStateRef } from "../utils/reactTools.js";
+
+import SingleSelectHelper from "./SingleSelectHelper.js";
 
 // set an artificial delay of 500ms to simulate DB queries
 const ARTIFICIAL_DELAY = 500;
@@ -96,11 +99,23 @@ const processArrayFilter = function({ name, data, filter, output }) {
 	}
 }
 
+const processSingleSelectFilter = function ({ name, data, output }) {
+	if (data.value === undefined) { return; }
+	output[name] = { $in: [data.value] };
+}
+
 const categoriesHelper = new MultiselectHelper({
 	api : categoriesApi,
 	labelColumn : "tag",
 	valueColumn : "id",
 	sortColumn : "sort_tag"
+});
+
+const singleSelectCategoriesHelper = new SingleSelectHelper({
+	api: categoriesApi,
+	labelColumn: "tag",
+	valueColumn: "id",
+	sortColumn: "sort_tag"
 });
 
 const filters = [
@@ -129,6 +144,17 @@ const filters = [
 		},
 		column : "categories_ids",
 		toFilter : processArrayFilter
+	},
+	{
+		name: "single_select_category",
+		label: "Single Select Category",
+		type: "optional",
+		component: FilterSingleSelect,
+		args: {
+			getOptions: singleSelectCategoriesHelper.getOptions
+		},
+		column: "categories_ids",
+		toFilter: processSingleSelectFilter
 	},
 	{
 		name : "categories_with_comparisons",

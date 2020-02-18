@@ -19,6 +19,9 @@ export * from "./utils/column_transforms";
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
 
+export { default as FilterSingleSelect } from "./components/FilterSingleSelect";
+export * from "./components/FilterSingleSelect";
+
 export { default as Button } from "./components/Button";
 export * from "./components/Button";
 
