@@ -1,9 +1,11 @@
+import { jsonDateParser } from "json-date-parser"
+
 class LocalStorageDB {
 	constructor(key) {
 		const data = localStorage.getItem(key);
 		
 		this._key = key;
-		this._data = data ? JSON.parse(data) : [];
+		this._data = data ? JSON.parse(data, jsonDateParser) : [];
 	}
 	
 	_serialize() {
