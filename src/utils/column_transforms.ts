@@ -6,6 +6,16 @@ import Image from "../components/internal/Image";
 
 const moment = moment_;
 
+export function transform_boolean() {
+	return function(bool: boolean): string {
+		if (bool === true) {
+			return "Yes";
+		} else {
+			return "No";
+		}
+	}
+}
+
 export function transform_dateFormat() {
 	return function(dateStr: string): string {
 		return moment(dateStr).format('M-D-YYYY');

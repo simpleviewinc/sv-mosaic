@@ -15,6 +15,7 @@ import rawData from "./rawData.json";
 import categories from "./categories.json";
 import MultiselectHelper from "./MultiselectHelper.js";
 import {
+	transform_boolean,
 	transform_dateFormat,
 	transform_get,
 	transform_thumbnail,
@@ -246,6 +247,15 @@ const listColumns = [
 		column : "image",
 		transforms : [
 			transform_get(["notes"])
+		]
+	},
+	{
+		name : "image_deleted",
+		label : "Image Deleted",
+		column : "image",
+		transforms : [
+			transform_get(["deleted"]),
+			transform_boolean()
 		]
 	},
 	{
