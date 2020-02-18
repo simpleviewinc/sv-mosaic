@@ -7,6 +7,7 @@ import Popover from "@material-ui/core/Popover";
 
 import theme from "../../utils/theme.js";
 import Menu from "../Menu.jsx";
+import MenuBase from "../MenuBase";
 
 const ButtonWrapper = styled.span`
 	& > button {
@@ -245,6 +246,10 @@ function Button(props) {
 			{
 				name : "menuItems",
 				type : "array"
+			},
+			{
+				name : "menuContent",
+				type : "object"
 			}
 		],
 		allowExtraKeys : false,
@@ -279,7 +284,11 @@ function Button(props) {
 		setPopoverAnchorEl(null);
 	}
 	
-	const onClick = props.popover ? openPopover : props.menuItems ? openMenu : props.onClick;
+	const onClick = props.popover ? openPopover
+		: props.menuItems ? openMenu
+		: props.menuContent ? openMenu
+		: props.onClick
+	;
 	
 	return (
 		<MyButton className={`
@@ -316,6 +325,12 @@ function Button(props) {
 			{
 				props.menuItems &&
 				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}/>
+			}
+			{
+				props.menuContent &&
+				<MenuBase anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
+					{props.menuContent}
+				</MenuBase>
 			}
 			{
 				props.popover &&
