@@ -80,7 +80,10 @@ const processDateFilter = function({name, data, filter, output}){
 	}
 
 	if (Object.keys(outputFilter).length > 0) {
-		output[name] = outputFilter;
+		output[name] = { 
+			...outputFilter,
+			$exists: true
+		};
 	}
 }
 
