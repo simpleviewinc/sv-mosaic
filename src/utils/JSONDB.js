@@ -80,7 +80,7 @@ function filterData(data, filter) {
 		}
 
 		if (val.$lte !== undefined) {
-			newData = newData.filter(row => row[key] <= val.$lte || row[key] === undefined);
+			newData = newData.filter(row => row[key] <= val.$lte);
 		}
 
 		if (val.$ne !== undefined) {
