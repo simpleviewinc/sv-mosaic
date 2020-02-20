@@ -77,7 +77,7 @@ function DataViewViewSaveDrawerContent(props) {
 							/>
 						</FormControl>
 					</FormGroup>
-					}
+				}
 			</form>
 		</DrawerContent>
 	)
