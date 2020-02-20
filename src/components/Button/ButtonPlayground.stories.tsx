@@ -5,7 +5,7 @@ import StoryBookError from "../StoryBookError";
 import Button from "../Button";
 
 export default {
-	title : "Button",
+	title : "Components|Button",
 	decorators : [withKnobs]
 }
 
