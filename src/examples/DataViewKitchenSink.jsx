@@ -13,7 +13,7 @@ import JSONDB from "../utils/JSONDB.js";
 import LocalStorageDB from "../utils/LocalStorageDB.js";
 import rawData from "./rawData.json";
 import categories from "./categories.json";
-import MultiselectHelper from "./MultiselectHelper.js";
+import MultiSelectHelper from "./MultiSelectHelper";
 import {
 	transform_boolean,
 	transform_dateFormat,
@@ -29,7 +29,7 @@ import {
 } from "../";
 import { useStateRef } from "../utils/reactTools.js";
 
-import SingleSelectHelper from "./SingleSelectHelper.js";
+import SingleSelectHelper from "./SingleSelectHelper";
 
 // set an artificial delay of 500ms to simulate DB queries
 const ARTIFICIAL_DELAY = 500;
@@ -104,7 +104,7 @@ const processSingleSelectFilter = function ({ name, data, output }) {
 	output[name] = { $in: [data.value] };
 }
 
-const categoriesHelper = new MultiselectHelper({
+const categoriesHelper = new MultiSelectHelper({
 	api : categoriesApi,
 	labelColumn : "tag",
 	valueColumn : "id",
@@ -139,8 +139,8 @@ const filters = [
 		type : "primary",
 		component : DataViewFilterMultiselect,
 		args : {
-			getOptions : categoriesHelper.getOptions,
-			getSelected : categoriesHelper.getSelected
+			getOptions : categoriesHelper.getOptions.bind(categoriesHelper),
+			getSelected : categoriesHelper.getSelected.bind(categoriesHelper)
 		},
 		column : "categories_ids",
 		toFilter : processArrayFilter
@@ -151,7 +151,8 @@ const filters = [
 		type: "optional",
 		component: FilterSingleSelect,
 		args: {
-			getOptions: singleSelectCategoriesHelper.getOptions
+			getOptions: singleSelectCategoriesHelper.getOptions.bind(singleSelectCategoriesHelper),
+			getSelected : singleSelectCategoriesHelper.getSelected.bind(singleSelectCategoriesHelper)
 		},
 		column: "categories_ids",
 		toFilter: processSingleSelectFilter
@@ -162,8 +163,8 @@ const filters = [
 		type : "optional",
 		component : DataViewFilterMultiselect,
 		args : {
-			getOptions : categoriesHelper.getOptions,
-			getSelected : categoriesHelper.getSelected,
+			getOptions : categoriesHelper.getOptions.bind(categoriesHelper),
+			getSelected : categoriesHelper.getSelected.bind(categoriesHelper),
 			comparisons : ["in", "not_in", "all", "exists", "not_exists"]
 		},
 		column : "categories_ids",

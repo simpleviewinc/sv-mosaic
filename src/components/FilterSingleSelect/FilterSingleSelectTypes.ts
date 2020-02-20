@@ -1,36 +1,30 @@
 import { DataViewFilterProps } from "../DataView";
-import { ReactChildren, ReactElement } from "react";
+import { MosaicLabelValue } from "../../types";
 
 export interface FilterSingleSelectData {
-	value: string,
-	label: string
-}
-
-export interface FilterSingleSelectArgs {
-	getOptions: FilterSingleSelectGetOptions
-}
-
-export interface FilterSingleSelectOption {
-	label: string,
 	value: string
-}
-
-export interface FilterSingleSelectGetOptions {
-	(filter: object): [FilterSingleSelectOption]
-}
-
-export interface FilterSingleSelectOnChange {
-	(value: FilterSingleSelectData): void
 }
 
 export interface FilterSingleSelectProps extends DataViewFilterProps {
 	data: FilterSingleSelectData,
-	onChange: FilterSingleSelectOnChange,
-	args: FilterSingleSelectArgs,
+	onChange(value: FilterSingleSelectData): void,
+	args: {
+		getOptions(): {
+			docs : MosaicLabelValue[]
+			hasMore?: boolean
+		}
+		getSelected(id: string): MosaicLabelValue
+	}
 }
 
-export interface FilterSingleSelectContentProps{
+export interface FilterSingleSelectContentProps {
 	onClose: () => void,
-	anchorEl: any,
-	options: any
+	anchorEl?: HTMLElement
+	children: React.ReactNode
+}
+
+export interface FilterSingleSelectState {
+	anchorEl: HTMLElement
+	selected: MosaicLabelValue | undefined
+	options: MosaicLabelValue[]
 }
