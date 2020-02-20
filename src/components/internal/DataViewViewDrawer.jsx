@@ -17,6 +17,7 @@ function DataViewViewDrawer(props) {
 				onRemove={props.onRemove}
 				onChange={props.onChange}
 				onGetOptions={props.onGetOptions}
+				allowSharedViewSave={props.allowSharedViewSave}
 			/>
 		</Drawer>
 	)

@@ -39,7 +39,8 @@ function TitleBar(props) {
 			{ name : "savedViewEnabled", type : "boolean" },
 			{ name : "savedView", type : "object" },
 			{ name : "savedViewState", type : "object" },
-			{ name : "savedViewCallbacks", type : "object" }
+			{ name : "savedViewCallbacks", type : "object" },
+			{ name : "savedViewAllowSharedViewSave", type: "boolean" },
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
@@ -72,6 +73,7 @@ function TitleBar(props) {
 					savedView={props.savedView}
 					savedViewState={props.savedViewState}
 					savedViewCallbacks={props.savedViewCallbacks}
+					savedViewAllowSharedViewSave={props.savedViewAllowSharedViewSave}
 				/>
 			}
 		</StyledWrapper>

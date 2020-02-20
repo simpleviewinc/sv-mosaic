@@ -1,5 +1,11 @@
 # sv-mosaic changelog
 
+## 2/17/2020
+* `savedViewAllowSharedViewSave` has been added to `DataView` props.
+
+## 2/14/2020
+* `transform_boolean` now exported on the root level.
+
 ## 2/11/2020
 * Published `0.3.0` on npm.
 * Added date range filter component `FilterDate`.
