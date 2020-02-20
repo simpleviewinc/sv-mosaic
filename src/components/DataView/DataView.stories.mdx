@@ -1,0 +1,109 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import * as stories from "./DataView.stories";
+
+<Meta title="Components|DataView/Readme"/>
+
+# DataView
+
+A `DataView` is used to output a list or grid of items. It can support a whole variety of actions including primary actions, additional actions and bulk actions.
+
+## Props
+* **title** -  `string` - The title of the DataView.
+* **columns** - `array` of `object`
+	* **name** - `string` - Unique name for this column.
+	* **column** - `string` - defaults to `${column.name}` - When a column is displayed we need to know the name of the key in the data object that should populate this. By default `name` works. In some cases you might need to use the same data key but display it in multiple ways, you can use `column` for that purpose.
+	* **label** - `string` - The displayed label of the column.
+	* **style** - `string` - enum `bold` - When passed, the column will display as bold in the list-view.
+	* **sortable** - `boolean` - Whether the column is sortable by the user.
+	* **transforms** - `array of functions` - Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`.
+		* There are some helper functions within sv-mosaic that you can use to do some basic transforms.
+* **data** - `array` of `object` - The data that should populate the list view. This prop should be populated based on the `filter`, `sort`, `limit`, and `skip`.
+* **filters** - `array` of `object` - The primary and optional `Filters` which will be available in the `DataView`.
+	* **name** - `string` required - A unique name used to identify the filter.
+	* **label** - `string` required - A label to display for the user interacting with the filter.
+	* **component** - `jsx component` required - A jsx component which handles the type of filter rendered.
+		* **DataViewFilterText** - A text filter with comparisons which allows the user to specify filter text.
+		* **DataViewMultiselect** - A list of options with comparisons which allows the user to select one or more values from the list.
+		* **FilterDate** - A calendar picker which allows the user to select a date range.
+	* **type** - `string` enum ["primary", "optional"] required - Indicates whether the component is displayed on the DataView or hidden under the addtional filters.
+	* **onChange** - `function` required - A function which handles a the value of the filter changing. 
+	* **args** - `object` - An object detailing arguments to be passed into the jsx component.
+* **filter** - `object` - An object representing the total filtering logic applied to data in the `DataView`.
+* **activeFilters** - `array` of `string` - List of filter names from the filters array which are active in the `DataView`.
+* **activeColumns** - `array` of `string` - List of column names from the columns array which are displayed in the `DataView`.
+* **primaryActions** - `array` of `object` - A list of actions which are always visible for each item in the `DataView`.
+	* **name** - `string` required - A unique name for this action.
+	* **onClick** - `function` required - A handler function to be invoked when this action is used.
+	* **color** - enum - Supports the same values as the color prop in `Button`.
+	* **variant** - enum - Supports the same values as the variant prop in `Button`.
+	* **mIcon** - `Material-UI Icon` - An icon from `material-ui`.
+	* **label** - `string` - A label to inform the user what action they will be choosing.
+	* **show** - `function` or `boolean - A value or function controlling whether or not to display this action. 
+* **bulkActions** - `array` of `objects` - A list of actions which are available when one or more item(s) are selected in the `DataView`.
+	* format of the object is the same as primaryActions
+* **additionalActions** - `array` of `object` - A list of actions which are hidden under the additional actions button for each item in the `DataView`.
+	* **name** - `string` required - A unique name for this action.
+	* onClick  - `function` required - a handler function to be invoked when this action is used.
+	* **label** - `string` - A label to inform the user what action they will be choosing
+	* **show** - `function` or `boolean` - A value or function controlling whether or not to display this action. If a function is specified, it should return `true` or `false`.
+* **buttons** - `array` of `object` - A group of `Buttons` which will be displayed at the top of the `DataView` to the side of the `DataView` title.
+* **view** - `string` - enum `list`, `grid` - What type of view should be utilized.
+* **savedView** - `object` - A view to be loaded in the `DataView`.
+* **views** - `array` of `object` - A list of saved views to be provided as options in the saved view switcher.
+* **count** - `number` - The number of items from the data key which match the current filter.
+* **sort** - `object` - The current sort applied to the `DataView`.
+	* **name** - `string` - The name of one of the `DataView`'s activeColumns containing the sortable data.
+	* **dir** - `string` enum ["asc", "desc"] - The direction (ascending or descending), to sort the data.
+* **sticky** - `boolean` - Controls whether or not the DataView is constrained in size. If set to true, the DataView will scroll within a parent element's dimensions instead of being dynamically sized. When sticky is enabled, the column headers in list view and the bulk actions in grid view will both stick to the top of the DataView as it is scrolled.
+* **limit** - `number` - The number of items the list should display per page.
+* **limitOptions** - `array` of `number` - default `[25, 50, 100]` - When passed allows customizing the page-size options that is displayed to the user. You can utilize this option if you want to expose larger or smaller pagesize options.
+* **onLimitChange** - `function({ limit })` - A callback that will be executed with the new limit selected by the user. It is recommended that when the user changes the limit, your state alteration should also reset the `skip` to `0`.
+* **skip** - `number` - The current number of rows being skipped by the user using `0` based indexing. Given a `limit` of `10` So the first page should have a `skip` of `0` and the second page would have a skip of `10`.
+* **loading** - `boolean` - Pass `true` when your DataView is fetching data or doing some alteration which needs to lock the UI. While `loading` is true, the majority of the UI elements in the DataView are locked to prevent race conditions. Once the data has been fetched you will want to prop down `false` again.
+* **onSkipChange** - `function({ skip })` - A callback that will be executed with the new skip selected by the user.
+* **onSortChange** - `function` - A callback function which is invoked when the sort of the `DataView` is changed. Returns a data object listing the chosen sort column and direction.
+* **onViewChange** - `function` - A callback function which is invoked when a new view changes. Returns a data object detailing parameters of the new view.
+* **onActiveFiltersChange** - function - A callback function which is invoked when the active filters change. Will be passed a data object containing a list of active filters and a filter object.
+* **onColumnsChange** - `function` - A callback function which is invoked when the columns displayed in the `DataView` change. Will be passed a data object containing the new list of active columns.
+* **onSavedViewSave** - `function` - A callback function which is invoked when a saved view is saved. This function will be passed a data object containing the view information.
+* **onSavedViewChange** - `function` - A callback function which is invoked when a different saved view is loaded. This function will be passed a data object containing the view details.
+* **onSavedViewRemove** - `function` - A callback function which is invoked with a saved view is deleted. This function will be passed a data object containing information about the removed view.
+* **onSavedViewGetOptions** - `function` -  A callback function which is used to provide an array of views to the SavedView component. Useful when loading a list of saved views from a user profile.
+
+## Feature - View Switcher
+
+Provide the user a way to switch between List/Grid views.
+
+Required props - `view`, `views`, `onViewChange`.
+
+## Feature - Limit Switcher
+
+Provide the user a way to change the number of rows to return per page.
+
+Required props - `limit`, `limitOptions`, `onLimitChange`.
+
+## Feature - Pager
+
+Provide the user a way to paginate through the result set.
+
+Required props - `limit`, `skip`, `count`, `onSkipChange`.
+
+## Feature - Filters
+
+Provide the user a way to filter through the result set
+
+Required props - `loading`, `filter`, `filters`, `activeFilters`, `onActiveFiltersChange`.
+
+## Feature - Saved Views
+
+Provide the user a way to switch between default "views". A view encompasses the filter, sort, pagination, limit, sort, columns, and view type. These settings can be saved and re-used between users.
+
+Required props - `onSavedViewSave`, `onSavedViewChange`, `onSavedViewGetOptions`, `onSavedViewRemove`, `savedView`.
+
+## Actions
+
+Actions are the tool for giving your user a way to alter/interact with a specific row or rows within your list view. In `sv-mosaic` there are 3 types of actions: bulkActions, primaryActions and additionalActions.
+
+* **primaryActions** - Buttons that display on each row, which are displayed to all users. You will want to use this for your frequently one or two most used actions. If you have too many primary actions then the UI can get bulky and likely some should be moved into `additionalActions`.
+* **additionalActions** - Menu items which display underneath the "..." on each row in the list view.
+* **bulkActions** - When users utilize the checkboxes on the rows, it will bring up bulkActions so that they can perform them on all actions.
