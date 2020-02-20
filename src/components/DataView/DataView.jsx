@@ -272,6 +272,10 @@ function DataView(props) {
 			{
 				name : "onSavedViewGetOptions",
 				type : "function"
+			},
+			{
+				name: "savedViewAllowSharedViewSave",
+				type : "boolean"
 			}
 		],
 		allowExtraKeys : false,
@@ -378,6 +382,7 @@ function DataView(props) {
 					savedView={props.savedView}
 					savedViewState={savedViewState}
 					savedViewCallbacks={savedViewCallbacks}
+					savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
 				/>
 			</div>
 			<div className="headerRow filters">

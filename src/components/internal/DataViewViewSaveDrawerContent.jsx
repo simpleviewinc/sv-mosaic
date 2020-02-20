@@ -9,7 +9,8 @@ import DrawerContent from "../DrawerContent.jsx";
 
 function DataViewViewSaveDrawerContent(props) {
 	const [state, setState] = useState({
-		...props.data
+		...props.data,
+		type: (props.allowSharedViewSave === true) ? props.data.type : "mine"
 	});
 	
 	const onSave = async function() {
@@ -59,21 +60,24 @@ function DataViewViewSaveDrawerContent(props) {
 						variant="filled"
 					/>
 				</FormGroup>
-				<FormGroup row>
-					<FormControl margin="normal">
-						<FormControlLabel
-							control={
-								<Switch
-									checked={state.type === "shared"}
-									onChange={handleSwitch("shared")}
-									value="what"
-									color="primary"
-								/>
-							}
-							label="Show for all Users"
-						/>
-					</FormControl>
-				</FormGroup>
+				{
+					props.allowSharedViewSave &&
+					<FormGroup row>
+						<FormControl margin="normal">
+							<FormControlLabel
+								control={
+									<Switch
+										checked={state.type === "shared"}
+										onChange={handleSwitch("shared")}
+										value="what"
+										color="primary"
+									/>
+								}
+								label="Show for all Users"
+							/>
+						</FormControl>
+					</FormGroup>
+				}
 			</form>
 		</DrawerContent>
 	)

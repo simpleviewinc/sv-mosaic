@@ -545,7 +545,8 @@ function DataViewKitchenSink() {
 				...state,
 				activeColumns : data
 			});
-		}
+		},
+		savedViewAllowSharedViewSave : true
 	};
 	
 	return (
