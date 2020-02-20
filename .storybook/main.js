@@ -1,9 +1,8 @@
 const webpack_config = require("../webpack.config.js");
-const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
-const path = require("path");
 
 module.exports = {
 	stories: [
+		// load the main index file first so it is where a user starts when they hit the instance
 		"../src/index.stories.mdx",
 		"../src/**/*.stories.(tsx|mdx)"
 	],
