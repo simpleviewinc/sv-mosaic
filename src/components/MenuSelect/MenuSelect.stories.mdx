@@ -1,22 +1,29 @@
-import { Meta, Props, Story, Preview } from "@storybook/addon-docs/blocks";
-import * as Stories from "./MenuSelect.stories.tsx";
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import * as stories from "./MenuSelect.stories";
 
-<Meta title="MenuSelect"/>
+<Meta title="MenuSelect/Readme"/>
 
-# What
+# MenuSelect
 
-`MenuSelect` is the content of a `Menu` when when you want it to behave similar to a typical native `<select>`. Instead of each `MenuItem` having their own unique onClick, the `MenuSelect` calls back with it's value.
+`MenuSelect` is responsible for rendering the content of `Menu` with a behavior similar to a native `<select>`.
+
+* If the trigger for the menu is not a button, you can invoke it via placing it inside `MenuBase`.
+* If the trigger is a `Button`, then pass it to `menuContent`.
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/MenuSelect/MenuSelectTypes.tsx
 
 ## Default
 
 <Preview withSource="none">
-	<Story name="example" parameters={{ docs : { disable : true }}}>
-		<Stories.example/>
-	</Story>
+	<stories.example/>
 </Preview>
 
 ## With Placeholder
 
+A placeholder provides a way for a user to clear the selected option.
+
 <Preview withSource="none">
-	<Stories.withPlaceholder/>
+	<stories.withPlaceholder/>
 </Preview>
