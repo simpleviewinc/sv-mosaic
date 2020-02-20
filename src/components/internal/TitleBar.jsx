@@ -40,7 +40,7 @@ function TitleBar(props) {
 			{ name : "savedView", type : "object" },
 			{ name : "savedViewState", type : "object" },
 			{ name : "savedViewCallbacks", type : "object" },
-			{ name: "savedViewAllowSharedViewSave", type: "boolean" },
+			{ name : "savedViewAllowSharedViewSave", type: "boolean" },
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true

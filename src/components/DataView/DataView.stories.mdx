@@ -69,6 +69,7 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
 * **onSavedViewChange** - `function` - A callback function which is invoked when a different saved view is loaded. This function will be passed a data object containing the view details.
 * **onSavedViewRemove** - `function` - A callback function which is invoked with a saved view is deleted. This function will be passed a data object containing information about the removed view.
 * **onSavedViewGetOptions** - `function` -  A callback function which is used to provide an array of views to the SavedView component. Useful when loading a list of saved views from a user profile.
+* **savedViewAllowSharedViewSave** - `boolean` - default false - A value which controls the `Show for all Users` toggle on the `Save View` drawer. If true, the toggle displays allowing the user to choose whether or not to share their view. If false, the toggle is removed and the user can only save `mine` views.
 
 ## Feature - View Switcher
 

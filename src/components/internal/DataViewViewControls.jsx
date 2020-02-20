@@ -105,6 +105,7 @@ function DataViewViewControls(props) {
 				onSave={props.savedViewCallbacks.onSave}
 				onChange={props.savedViewCallbacks.onChange}
 				onGetOptions={props.savedViewCallbacks.onGetOptions}
+				allowSharedViewSave={props.savedViewAllowSharedViewSave}
 			/>
 		</div>
 	)

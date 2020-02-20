@@ -36,6 +36,16 @@ function DataViewViewDrawerContent(props) {
 			formData : undefined
 		});
 	}
+
+	const canAct = function(row) {
+		if (row.type === "default") {
+			return false;
+		} else if (!props.allowSharedViewSave) {
+			return row.type === "mine";
+		} else {
+			return true;
+		}
+	}
 	
 	const DataViewConfig = {
 		primaryActions : [
@@ -52,7 +62,7 @@ function DataViewViewDrawerContent(props) {
 			{
 				name : "edit",
 				show : function({ row }) {
-					return row.type !== "default";
+					return canAct(row);
 				},
 				variant : "icon",
 				color : "blue",
@@ -69,7 +79,7 @@ function DataViewViewDrawerContent(props) {
 			{
 				name : "remove",
 				show : function({ row }) {
-					return row.type !== "default";
+					return canAct(row);
 				},
 				label : "Remove",
 				onClick : async function({ data }) {
