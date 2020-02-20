@@ -6,57 +6,56 @@ import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import FilterSingleSelectContent from "./FilterSingleSelectContent";
 import MenuSelect from "../MenuSelect";
 
-import { FilterSingleSelectProps } from "./FilterSingleSelectTypes";
+import { FilterSingleSelectProps, FilterSingleSelectState } from "./FilterSingleSelectTypes";
 
 const StyledWrapper = styled.span``;
 
 export default function FilterSingleSelect(props: FilterSingleSelectProps) {
-	const [anchorEl, setAnchorEl] = useState(null);
-
-	const [state, setState] = useState({
+	const [state, setState] = useState<FilterSingleSelectState>({
+		anchorEl : null,
+		selected : undefined,
 		options: []
 	});
 
+	const value = props.data.value;
+
 	useEffect(() => {
 		async function fetchData() {
-			const options = await props.args.getOptions({});
+			const selected = await props.args.getSelected(value);
+			const options = await props.args.getOptions();
+			
 			setState({
 				...state,
-				options: options,
+				options : options.docs,
+				selected
 			});
 		}
 
 		fetchData();
-	}, []);
+	}, [props.data]);
 
 	const onClick = function (evt) {
-		setAnchorEl(evt.currentTarget);
+		setState({
+			...state,
+			anchorEl : evt.currentTarget
+		})
 	}
 
 	const onClose = function () {
-		setAnchorEl(null);
+		setState({
+			...state,
+			anchorEl : null
+		})
 	}
 
 	let valueString = "any";
-	if (props.data.label !== undefined) {
-		valueString = props.data.label;
+	if (state.selected !== undefined) {
+		valueString = state.selected.label;
 	}
 
-	const onChange = function (value) {
-		let option = {
-			value : undefined,
-			label : "any"
-		}
-
-		if(value !== ''){
-			option = state.options.find(option => {
-				return option.value === value
-			});
-		}
-
+	const onChange = function (value: string) {
 		props.onChange({
-			value : option.value,
-			label: option.label
+			value : value === "" ? undefined : value
 		});
 		
 		onClose();
@@ -74,14 +73,15 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps) {
 			
 			<FilterSingleSelectContent
 				onClose={onClose}
-				anchorEl={anchorEl}
-				options={<MenuSelect
-					placeholder="any"
-					value={props.data.value}
+				anchorEl={state.anchorEl}
+			>
+				<MenuSelect
+					placeholder="Any..."
+					value={value}
 					options={state.options}
 					onChange={onChange}
-				/>}
-			/>
+				/>
+			</FilterSingleSelectContent>
 		</StyledWrapper>
 	);
 }
