@@ -5,7 +5,8 @@ import Button from "../Button";
 import MenuSelect from "./";
 
 export default {
-	title : "MenuSelect"
+	title : "MenuSelect|Components",
+	includeStories : []
 }
 
 const MENU_OPTIONS = [

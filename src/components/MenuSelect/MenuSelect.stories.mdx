@@ -1,0 +1,22 @@
+import { Meta, Props, Story, Preview } from "@storybook/addon-docs/blocks";
+import * as Stories from "./MenuSelect.stories.tsx";
+
+<Meta title="MenuSelect"/>
+
+# What
+
+`MenuSelect` is the content of a `Menu` when when you want it to behave similar to a typical native `<select>`. Instead of each `MenuItem` having their own unique onClick, the `MenuSelect` calls back with it's value.
+
+## Default
+
+<Preview withSource="none">
+	<Story name="example" parameters={{ docs : { disable : true }}}>
+		<Stories.example/>
+	</Story>
+</Preview>
+
+## With Placeholder
+
+<Preview withSource="none">
+	<Stories.withPlaceholder/>
+</Preview>
