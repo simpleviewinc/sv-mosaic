@@ -31,6 +31,9 @@ export * from "./components/MenuSelect";
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";
 
+export { default as MenuItem } from "./components/MenuItem";
+export * from "./components/MenuItem";
+
 export {
 	ButtonRow,
 	Checkbox,
