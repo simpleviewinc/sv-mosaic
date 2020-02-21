@@ -2,7 +2,8 @@
 	"compilerOptions": {
 		"sourceMap": true,
 		"jsx": "react",
-		"lib" : ["ES2017", "DOM"]
+		"lib" : ["ES2017", "DOM"],
+		"resolveJsonModule": true
 	},
 	"include" : [
 		"src/**/*"

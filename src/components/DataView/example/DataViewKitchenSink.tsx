@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useMemo, useReducer, useCallback } from "react";
-import { pick } from "lodash";
-import moment from "moment";
+import * as React from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import { boolean } from "@storybook/addon-knobs";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
-import theme from "../utils/theme.js";
-import JSONDB from "../utils/JSONDB.js";
-import LocalStorageDB from "../utils/LocalStorageDB.js";
-import rawData from "./rawData.json";
-import categories from "./categories.json";
+import JSONDB from "../../../utils/JSONDB";
+import LocalStorageDB from "../../../utils/LocalStorageDB";
+import * as rawData from "./rawData.json";
+import * as categories from "./categories.json";
 import MultiSelectHelper from "./MultiSelectHelper";
 import {
 	transform_boolean,
@@ -26,8 +25,8 @@ import {
 	DataView,
 	DataViewFilterText,
 	DataViewFilterMultiselect
-} from "../";
-import { useStateRef } from "../utils/reactTools.js";
+} from "../../../";
+import { useStateRef } from "../../../utils/reactTools.js";
 
 import SingleSelectHelper from "./SingleSelectHelper";
 
@@ -37,7 +36,7 @@ const ARTIFICIAL_DELAY = 500;
 const categoriesApi = new JSONDB(categories);
 const viewsApi = new LocalStorageDB("views");
 
-rawData.forEach(function(data) {
+rawData.forEach(function(data: any) {
 	// convert the date columns to dates, since they are ISOStrings in the file
 	data.created = data.created ? new Date(data.created) : undefined;
 	data.updated = data.updated ? new Date(data.updated) : undefined;
@@ -53,7 +52,7 @@ const api =  new JSONDB(rawData, {
 	]
 });
 
-const processStringFilter = function({ name, data, filter, output }) {
+const processStringFilter = function({ name, data, filter, output }: any) {
 	if (data.value === undefined) { return; }
 	
 	if (data.comparison === "equals") {
@@ -204,8 +203,6 @@ const filters = [
 	}
 ]
 
-const primaryFilterNames = filters.filter(val => val.type === "primary").map(val => val.name);
-
 const defaultView = {
 	id : "default",
 	label : "Default View",
@@ -339,6 +336,8 @@ const StyledDiv = styled.div`
 `;
 
 function DataViewKitchenSink() {
+	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", false);
+
 	const [state, setState] = useState({
 		removeItems : [],
 		data : [],
@@ -546,7 +545,7 @@ function DataViewKitchenSink() {
 				activeColumns : data
 			});
 		},
-		savedViewAllowSharedViewSave : true
+		savedViewAllowSharedViewSave
 	};
 	
 	return (

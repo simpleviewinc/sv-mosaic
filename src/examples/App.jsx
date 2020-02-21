@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { hot } from "react-hot-loader/root";
-import DataViewKitchenSink from "./DataViewKitchenSink.jsx";
+import DataViewKitchenSink from "../components/DataView/example/DataViewKitchenSink";
 import Buttons from "./Buttons.jsx";
-import Filters from "./Filters.jsx";
 import "./main.css";
 
 const StyledDiv = styled.div`
@@ -23,8 +22,7 @@ function App() {
 	
 	const options = [
 		{ label : "DataView Kitchen Sink", value : "DataViewKitchenSink", component : <DataViewKitchenSink></DataViewKitchenSink> },
-		{ label : "Buttons", value : "Buttons", component : <Buttons></Buttons> },
-		{ label : "Filters", value : "Filters", component : <Filters></Filters> }
+		{ label : "Buttons", value : "Buttons", component : <Buttons></Buttons> }
 	]
 	
 	const onChange = function(e) {
