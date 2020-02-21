@@ -25,6 +25,12 @@ export * from "./components/FilterSingleSelect";
 export { default as Button } from "./components/Button";
 export * from "./components/Button";
 
+export { default as MenuSelect } from "./components/MenuSelect";
+export * from "./components/MenuSelect";
+
+export { default as MenuBase } from "./components/MenuBase";
+export * from "./components/MenuBase";
+
 export {
 	ButtonRow,
 	Checkbox,
