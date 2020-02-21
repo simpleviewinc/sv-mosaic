@@ -1,7 +1,7 @@
 # sv-mosaic changelog
 
 ## 2/20/2020
-* `savedViewAllowSharedViewSave` has been added to `DataView` props.
+* `savedViewAllowSharedViewSave` has been added to `DataView` props, it defaults to `false` meaning that if you want users to be able to create shared views, you will need to pass `true` here. Otherwise they will only be able to create views for their own user.
 * Added single select dropdown filter `FilterSingleSelect`.
 * Published a lot more documentation in the Storybook.
 * Published `0.4.0` on npm.
