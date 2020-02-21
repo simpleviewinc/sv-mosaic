@@ -52,7 +52,7 @@ function DataViewViewControls(props) {
 		},
 		{
 			label : "Overwrite Current View",
-			disabled : props.savedView.type === "default",
+			disabled : props.savedView.type === "default" || (props.savedView.type === "shared" && !props.savedViewAllowSharedViewSave),
 			onClick : async function() {
 				await props.savedViewCallbacks.onSave({
 					...props.savedView,
