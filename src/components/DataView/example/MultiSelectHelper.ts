@@ -1,5 +1,5 @@
-import JSONDB from "../utils/JSONDB";
-import { MosaicLabelValue } from "../types"
+import JSONDB from "../../../utils/JSONDB";
+import { MosaicLabelValue } from "../../../types"
 
 export interface MultiSelectHelperGetOptionsArgs {
 	limit: number
