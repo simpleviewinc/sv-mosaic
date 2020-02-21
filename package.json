@@ -1,6 +1,6 @@
 {
 	"name": "@simpleview/sv-mosaic",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Mosaic UI Library",
 	"author": "Owen Allen <owenallenaz@gmail.com>",
 	"devDependencies": {
@@ -25,7 +25,7 @@
 		"css-loader": "1.0.0",
 		"lodash": "4.17.15",
 		"jest": "25.1.0",
-		"json-date-parser" : "1.0.1",
+		"json-date-parser": "1.0.1",
 		"jsvalidator": "1.2.0",
 		"mocha": "5.2.0",
 		"moment": "2.24.0",
