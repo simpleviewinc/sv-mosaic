@@ -4,6 +4,7 @@
 * `savedViewAllowSharedViewSave` has been added to `DataView` props.
 * Added single select dropdown filter `FilterSingleSelect`.
 * Published a lot more documentation in the Storybook.
+* Published `0.4.0` on npm.
 
 ## 2/14/2020
 * `transform_boolean` now exported on the root level.
