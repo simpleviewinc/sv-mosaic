@@ -1,7 +1,9 @@
 # sv-mosaic changelog
 
-## 2/17/2020
+## 2/20/2020
 * `savedViewAllowSharedViewSave` has been added to `DataView` props.
+* Added single select dropdown filter `FilterSingleSelect`.
+* Published a lot more documentation in the Storybook.
 
 ## 2/14/2020
 * `transform_boolean` now exported on the root level.
