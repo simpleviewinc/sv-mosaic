@@ -14,7 +14,7 @@ import DrawerContent from "./components/DrawerContent.jsx";
 import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
 import theme from "./utils/theme.js";
-export * from "./utils/column_transforms";
+export * from "./transforms";
 
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
