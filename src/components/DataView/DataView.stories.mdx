@@ -22,7 +22,7 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
         * **maxWidth** - `boolean` - Limit the widget of the column to a specific width, pass CSS like `maxWidth : "50px"`.
     * **sortable** - `boolean` - Whether the column is sortable by the user.
     * **transforms** - `array of functions` - Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`.
-        * There are some helper functions within sv-mosaic that you can use to do some basic transforms.
+        * [Transforms documentation](?path=/docs/utils-transforms-readme--page)
 * **data** - `array` of `object` - The data that should populate the list view. This prop should be populated based on the `filter`, `sort`, `limit`, and `skip`.
 * **filters** - `array` of `object` - The primary and optional `Filters` which will be available in the `DataView`.
     * **name** - `string` required - A unique name used to identify the filter.
