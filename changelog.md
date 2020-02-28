@@ -1,5 +1,16 @@
 # sv-mosaic changelog
 
+## 3/6/2020
+* **BREAKING** - The format of all column transforms has changed from `function(data) {}` to `function({ data, row })`. This allows your transforms to have access to all keys on the row and not just that columns data. In some cases you may need to synthesize multiple columns.
+* FilterMultiSelect will now auto-focus the keyword
+* Added column style capabilities including `bold`, `italic` and many more. See the DataView docs for more info.
+* Corrected an issue with the Sort arrow pointing in the wrong direction.
+* Fixed an issue with the Checkbox showing on the Grid view when there were no bulk actions.
+* Converted more components to TypeScript.
+* Fixed an issue with the Date mechanics not working due to errors with `moment`, we have switched to `date-fns` internally.
+* `MenuSelect` now allows `mIcon` and `color` passthroughs to `MenuItem`.
+* Added documentation for all official transforms.
+
 ## 2/20/2020
 * `savedViewAllowSharedViewSave` has been added to `DataView` props, it defaults to `false` meaning that if you want users to be able to create shared views, you will need to pass `true` here. Otherwise they will only be able to create views for their own user.
 * Added single select dropdown filter `FilterSingleSelect`.

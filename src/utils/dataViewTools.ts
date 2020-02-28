@@ -5,7 +5,7 @@ export function transformColumn(row, column: DataViewColumn) {
 	if (data !== undefined && column.transforms !== undefined) {
 		for(let [key, transform] of Object.entries(column.transforms)) {
 			if (data !== undefined) {
-				data = transform(data);
+				data = transform({ data, row });
 			}
 		}
 	}
