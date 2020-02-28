@@ -113,7 +113,10 @@ function DataView(props) {
 							schema : [
 								{ name : "bold", type : "boolean" },
 								{ name : "italic", type : "boolean" },
-								{ name : "strikeThrough", type : "boolean" }
+								{ name : "strikeThrough", type : "boolean" },
+								{ name : "noWrap", type : "boolean" },
+								{ name : "ellipsis", type : "boolean" },
+								{ name : "maxWidth", type : "string" }
 							],
 							allowExtraKeys : false
 						},

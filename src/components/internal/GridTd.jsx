@@ -30,6 +30,15 @@ const StyledTd = styled.td`
 	&.strikeThrough {
 		text-decoration-line: line-through;
 	}
+
+	& > div.noWrap {
+		white-space: nowrap;
+	}
+
+	& > div.ellipsis {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 `
 
 function GridTd(props) {
@@ -39,6 +48,9 @@ function GridTd(props) {
 	const bold = props.bold !== undefined ? props.bold : false;
 	const italic = props.italic !== undefined ? props.italic : false;
 	const strikeThrough = props.strikeThrough !== undefined ? props.strikeThrough : false;
+	const noWrap = props.noWrap !== undefined ? props.noWrap : false;
+	const ellipsis = props.ellipsis !== undefined ? props.ellipsis : false;
+	const maxWidth = props.maxWidth !== undefined ? props.maxWidth : undefined;
 
 	return (
 		<StyledTd
@@ -51,7 +63,14 @@ function GridTd(props) {
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
 		>
-			<div>
+			<div
+				className={`
+					${noWrap ? "noWrap" : ""}
+					${ellipsis ? "ellipsis" : ""}
+				`}
+				style={{ "maxWidth" : maxWidth }}
+				title={ellipsis ? props.children : undefined}
+			>
 				{props.children}
 			</div>
 		</StyledTd>

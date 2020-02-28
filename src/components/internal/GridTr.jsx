@@ -36,6 +36,9 @@ function GridTr(props) {
 							bold={column.style && column.style.bold}
 							italic={column.style && column.style.italic}
 							strikeThrough={column.style && column.style.strikeThrough}
+							noWrap={column.style && column.style.noWrap}
+							ellipsis={column.style && column.style.ellipsis}
+							maxWidth={column.style && column.style.maxWidth}
 						>
 							{props.row[column.name]}
 						</GridTd>
