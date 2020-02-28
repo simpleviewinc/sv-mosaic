@@ -1,7 +1,7 @@
 // This file declares some types that are re-used throughout the DataView system
 
 export interface DataViewColumnTransform {
-	(data: any): any
+	(args: { data: any, row : any[] }): any
 }
 
 export interface DataViewColumn {
@@ -9,7 +9,7 @@ export interface DataViewColumn {
 	name: string
 	/** The column from the passed RowData it will display in this column. Defaults to `column.name`. */
 	column?: string
-	transforms: DataViewColumnTransform[]
+	transforms?: DataViewColumnTransform[]
 }
 
 export type DataViewFilterTypes = "optional" | "primary";
