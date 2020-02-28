@@ -322,6 +322,24 @@ const listColumns = [
 		style : {
 			strikeThrough : true
 		}
+	},
+	{
+		name : "noWrap",
+		label : "Style - noWrap",
+		column : "title",
+		style : {
+			noWrap : true
+		}
+	},
+	{
+		name : "ellipsis",
+		label : "Style - ellipsis",
+		column : "title",
+		style : {
+			noWrap : true,
+			ellipsis : true,
+			maxWidth : "100px"
+		}
 	}
 ];
 
