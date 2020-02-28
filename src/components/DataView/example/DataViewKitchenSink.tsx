@@ -30,6 +30,8 @@ import { useStateRef } from "../../../utils/reactTools.js";
 
 import SingleSelectHelper from "./SingleSelectHelper";
 
+import "./DataViewKitchenSink.css";
+
 // set an artificial delay of 500ms to simulate DB queries
 const ARTIFICIAL_DELAY = 500;
 
@@ -389,6 +391,7 @@ function DataViewKitchenSink() {
 	const bulkActions = boolean("bulkActions", true);
 	const primaryActions = boolean("primaryActions", true);
 	const additionalActions = boolean("additionalActions", true);
+	const sticky = boolean("sticky", true);
 
 	const [state, setState] = useState({
 		removeItems : [],
@@ -431,6 +434,20 @@ function DataViewKitchenSink() {
 		return queryFilter;
 	}
 	
+	// in order to support the sticky boolean we need to add a class to the html root
+	// then we use the css off that class to apply the proper css to ensure the parent hierarchy will be correct for sticky mechanics
+	useEffect(() => {
+		if (sticky) {
+			document.body.parentElement.classList.add("stickyHtml");
+		} else {
+			document.body.parentElement.classList.remove("stickyHtml");
+		}
+
+		return () => {
+			document.body.parentElement.classList.remove("stickyHtml");
+		}
+	}, [sticky]);
+
 	useEffect(() => {
 		const fetchData = async function() {
 			const converted = convertFilter(state.filter);
@@ -539,7 +556,7 @@ function DataViewKitchenSink() {
 			}
 		}),
 		views : ["list", "grid"],
-		sticky : true,
+		sticky,
 		onSkipChange : function({ skip }) {
 			setState({
 				...state,
