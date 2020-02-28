@@ -211,7 +211,7 @@ function GridTHead(props) {
 						
 						if (column.sortable) {
 							active = props.sort.name === column.name;
-							Icon = active && props.sort.dir === "desc" ? ArrowUpwardIcon : ArrowDownwardIcon;
+							Icon = active && props.sort.dir === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon;
 							clickDir = active ? flipDir(props.sort.dir) : "asc";
 						}
 						
