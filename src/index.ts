@@ -15,6 +15,7 @@ import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
 import theme from "./utils/theme.js";
 export * from "./transforms";
+export * from "./types";
 
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
