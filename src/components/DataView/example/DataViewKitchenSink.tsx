@@ -248,8 +248,7 @@ const listColumns = [
 	{
 		name : "content_owner",
 		label : "Content Owner",
-		style : "bold",
-		sortable : true
+		style : "bold"
 	},
 	{
 		name : "categories",
@@ -336,7 +335,10 @@ const StyledDiv = styled.div`
 `;
 
 function DataViewKitchenSink() {
-	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", false);
+	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
+	const bulkActions = boolean("bulkActions", true);
+	const primaryActions = boolean("primaryActions", true);
+	const additionalActions = boolean("additionalActions", true);
 
 	const [state, setState] = useState({
 		removeItems : [],
@@ -415,7 +417,7 @@ function DataViewKitchenSink() {
 	const gridConfig = {
 		title : "Your Uploads",
 		columns : state.view === "list" ? listColumns : gridColumns,
-		primaryActions : [
+		primaryActions : primaryActions ? [
 			{
 				name : "edit",
 				color : "blue",
@@ -425,8 +427,8 @@ function DataViewKitchenSink() {
 					alert(`EDIT ${data.id}`);
 				}
 			}
-		],
-		additionalActions : [
+		] : undefined,
+		additionalActions : additionalActions ? [
 			{
 				name : "view_children",
 				label : "View Children",
@@ -441,8 +443,8 @@ function DataViewKitchenSink() {
 					alert(`History ${data.id}`);
 				}
 			}
-		],
-		bulkActions : [
+		] : undefined,
+		bulkActions : bulkActions ? [
 			{
 				name : "download",
 				color : "blue",
@@ -461,7 +463,7 @@ function DataViewKitchenSink() {
 					alert(`DELETE ${data.map(val => val.id)}`);
 				}
 			}
-		],
+		] : undefined,
 		buttons : [
 			{
 				name : "create",

@@ -11,20 +11,26 @@ const StyledTd = styled.td`
 	}
 
 	${/* If it has the .paddingRight class, add padding to the right of the cell */""}
-	&.paddingRight:not(:last-child) {
+	&.paddingRight {
 		padding-right: 15px;
+	}
+
+	&.paddingLeft {
+		padding-left: 15px;
 	}
 `
 
 function GridTd(props) {
-	const expandCell = props.expandCell !== undefined ? props.expandCell : true;
-	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : true;
+	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
+	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : false;
+	const paddingLeft = props.paddingLeft !== undefined ? props.paddingLeft : false;
 
 	return (
 		<StyledTd
 			className={`
 				${expandCell ? "expandCell" : ""}
 				${paddingRight ? "paddingRight" : ""}
+				${paddingLeft ? "paddingLeft" : ""}
 			`}
 		>
 			<div>
