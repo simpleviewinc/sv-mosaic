@@ -7,7 +7,7 @@ import DataViewViewGrid from "../internal/DataViewViewGrid.jsx";
 import TitleBar from "../internal/TitleBar.jsx";
 import DataViewViewSwitcher from "../internal/DataViewViewSwitcher.jsx";
 import DataViewPager from "../internal/DataViewPager.jsx";
-import DataViewLimit from "./DataViewLimit";
+import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
 import { transformRows } from "../../utils/dataViewTools";
@@ -417,7 +417,7 @@ function DataView(props) {
 					}
 					{
 						props.onLimitChange !== undefined &&
-						<DataViewLimit
+						<DataViewControlLimit
 							limit={props.limit}
 							options={limitOptions}
 							onLimitChange={props.onLimitChange}
