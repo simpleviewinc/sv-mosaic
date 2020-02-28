@@ -33,6 +33,9 @@ function GridTr(props) {
 							className={column.style === "bold" ? "bold" : undefined}
 							paddingRight={true}
 							expandCell={true}
+							bold={column.style && column.style.bold}
+							italic={column.style && column.style.italic}
+							strikeThrough={column.style && column.style.strikeThrough}
 						>
 							{props.row[column.name]}
 						</GridTd>
