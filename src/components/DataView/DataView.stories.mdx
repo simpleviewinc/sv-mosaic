@@ -10,50 +10,50 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
 ## Props
 * **title** -  `string` - The title of the DataView.
 * **columns** - `array` of `object`
-	* **name** - `string` - Unique name for this column.
-	* **column** - `string` - defaults to `${column.name}` - When a column is displayed we need to know the name of the key in the data object that should populate this. By default `name` works. In some cases you might need to use the same data key but display it in multiple ways, you can use `column` for that purpose.
-	* **label** - `string` - The displayed label of the column.
-	* **style** - `string` - enum `bold` - When passed, the column will display as bold in the list-view.
-	* **sortable** - `boolean` - Whether the column is sortable by the user.
-	* **transforms** - `array of functions` - Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`.
-		* There are some helper functions within sv-mosaic that you can use to do some basic transforms.
+    * **name** - `string` - Unique name for this column.
+    * **column** - `string` - defaults to `${column.name}` - When a column is displayed we need to know the name of the key in the data object that should populate this. By default `name` works. In some cases you might need to use the same data key but display it in multiple ways, you can use `column` for that purpose.
+    * **label** - `string` - The displayed label of the column.
+    * **style** - `string` - enum `bold` - When passed, the column will display as bold in the list-view.
+    * **sortable** - `boolean` - Whether the column is sortable by the user.
+    * **transforms** - `array of functions` - Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`.
+        * There are some helper functions within sv-mosaic that you can use to do some basic transforms.
 * **data** - `array` of `object` - The data that should populate the list view. This prop should be populated based on the `filter`, `sort`, `limit`, and `skip`.
 * **filters** - `array` of `object` - The primary and optional `Filters` which will be available in the `DataView`.
-	* **name** - `string` required - A unique name used to identify the filter.
-	* **label** - `string` required - A label to display for the user interacting with the filter.
-	* **component** - `jsx component` required - A jsx component which handles the type of filter rendered.
-		* **DataViewFilterText** - A text filter with comparisons which allows the user to specify filter text.
-		* **DataViewMultiselect** - A list of options with comparisons which allows the user to select one or more values from the list.
-		* **FilterDate** - A calendar picker which allows the user to select a date range.
-	* **type** - `string` enum ["primary", "optional"] required - Indicates whether the component is displayed on the DataView or hidden under the addtional filters.
-	* **onChange** - `function` required - A function which handles a the value of the filter changing. 
-	* **args** - `object` - An object detailing arguments to be passed into the jsx component.
+    * **name** - `string` required - A unique name used to identify the filter.
+    * **label** - `string` required - A label to display for the user interacting with the filter.
+    * **component** - `jsx component` required - A jsx component which handles the type of filter rendered.
+        * **DataViewFilterText** - A text filter with comparisons which allows the user to specify filter text.
+        * **DataViewMultiselect** - A list of options with comparisons which allows the user to select one or more values from the list.
+        * **FilterDate** - A calendar picker which allows the user to select a date range.
+    * **type** - `string` enum ["primary", "optional"] required - Indicates whether the component is displayed on the DataView or hidden under the addtional filters.
+    * **onChange** - `function` required - A function which handles a the value of the filter changing. 
+    * **args** - `object` - An object detailing arguments to be passed into the jsx component.
 * **filter** - `object` - An object representing the total filtering logic applied to data in the `DataView`.
 * **activeFilters** - `array` of `string` - List of filter names from the filters array which are active in the `DataView`.
 * **activeColumns** - `array` of `string` - List of column names from the columns array which are displayed in the `DataView`.
 * **primaryActions** - `array` of `object` - A list of actions which are always visible for each item in the `DataView`.
-	* **name** - `string` required - A unique name for this action.
-	* **onClick** - `function` required - A handler function to be invoked when this action is used.
-	* **color** - enum - Supports the same values as the color prop in `Button`.
-	* **variant** - enum - Supports the same values as the variant prop in `Button`.
-	* **mIcon** - `Material-UI Icon` - An icon from `material-ui`.
-	* **label** - `string` - A label to inform the user what action they will be choosing.
-	* **show** - `function` or `boolean - A value or function controlling whether or not to display this action. 
+    * **name** - `string` required - A unique name for this action.
+    * **onClick** - `function` required - A handler function to be invoked when this action is used.
+    * **color** - enum - Supports the same values as the color prop in `Button`.
+    * **variant** - enum - Supports the same values as the variant prop in `Button`.
+    * **mIcon** - `Material-UI Icon` - An icon from `material-ui`.
+    * **label** - `string` - A label to inform the user what action they will be choosing.
+    * **show** - `function` or `boolean - A value or function controlling whether or not to display this action. 
 * **bulkActions** - `array` of `objects` - A list of actions which are available when one or more item(s) are selected in the `DataView`.
-	* format of the object is the same as primaryActions
+    * format of the object is the same as primaryActions
 * **additionalActions** - `array` of `object` - A list of actions which are hidden under the additional actions button for each item in the `DataView`.
-	* **name** - `string` required - A unique name for this action.
-	* onClick  - `function` required - a handler function to be invoked when this action is used.
-	* **label** - `string` - A label to inform the user what action they will be choosing
-	* **show** - `function` or `boolean` - A value or function controlling whether or not to display this action. If a function is specified, it should return `true` or `false`.
+    * **name** - `string` required - A unique name for this action.
+    * onClick  - `function` required - a handler function to be invoked when this action is used.
+    * **label** - `string` - A label to inform the user what action they will be choosing
+    * **show** - `function` or `boolean` - A value or function controlling whether or not to display this action. If a function is specified, it should return `true` or `false`.
 * **buttons** - `array` of `object` - A group of `Buttons` which will be displayed at the top of the `DataView` to the side of the `DataView` title.
 * **view** - `string` - enum `list`, `grid` - What type of view should be utilized.
 * **savedView** - `object` - A view to be loaded in the `DataView`.
 * **views** - `array` of `object` - A list of saved views to be provided as options in the saved view switcher.
 * **count** - `number` - The number of items from the data key which match the current filter.
 * **sort** - `object` - The current sort applied to the `DataView`.
-	* **name** - `string` - The name of one of the `DataView`'s activeColumns containing the sortable data.
-	* **dir** - `string` enum ["asc", "desc"] - The direction (ascending or descending), to sort the data.
+    * **name** - `string` - The name of one of the `DataView`'s activeColumns containing the sortable data.
+    * **dir** - `string` enum ["asc", "desc"] - The direction (ascending or descending), to sort the data.
 * **sticky** - `boolean` - Controls whether or not the DataView is constrained in size. If set to true, the DataView will scroll within a parent element's dimensions instead of being dynamically sized. When sticky is enabled, the column headers in list view and the bulk actions in grid view will both stick to the top of the DataView as it is scrolled.
 * **limit** - `number` - The number of items the list should display per page.
 * **limitOptions** - `array` of `number` - default `[25, 50, 100]` - When passed allows customizing the page-size options that is displayed to the user. You can utilize this option if you want to expose larger or smaller pagesize options.
