@@ -35,7 +35,7 @@ export interface DataViewFilterProps {
 	onRemove: () => void
 }
 
-export interface DataViewLimitProps {
+export interface DataViewControlLimitProps {
 	limit: number
 	options: number[]
 	onLimitChange({ limit }: { limit: number }): void

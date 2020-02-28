@@ -1,13 +1,13 @@
 import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
-import { DataViewLimitProps } from "./DataViewTypes";
+import { DataViewControlLimitProps } from "./DataViewTypes";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
 import Button from "../Button";
 
-function DataViewLimit(props: DataViewLimitProps) {
+function DataViewLimit(props: DataViewControlLimitProps) {
 	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
 		props.onLimitChange({ limit : Number(val) });
 	}, [props.onLimitChange]);
