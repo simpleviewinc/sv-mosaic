@@ -340,6 +340,14 @@ const listColumns = [
 			ellipsis : true,
 			maxWidth : "100px"
 		}
+	},
+	{
+		name : "textTransform",
+		label : "Style - textTransform",
+		column : "content_owner",
+		style : {
+			textTransform : "uppercase"
+		}
 	}
 ];
 

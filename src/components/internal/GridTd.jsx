@@ -51,6 +51,7 @@ function GridTd(props) {
 	const noWrap = props.noWrap !== undefined ? props.noWrap : false;
 	const ellipsis = props.ellipsis !== undefined ? props.ellipsis : false;
 	const maxWidth = props.maxWidth !== undefined ? props.maxWidth : undefined;
+	const textTransform = props.textTransform !== undefined ? props.textTransform : undefined;
 
 	return (
 		<StyledTd
@@ -68,7 +69,7 @@ function GridTd(props) {
 					${noWrap ? "noWrap" : ""}
 					${ellipsis ? "ellipsis" : ""}
 				`}
-				style={{ "maxWidth" : maxWidth }}
+				style={{ maxWidth, textTransform }}
 				title={ellipsis ? props.children : undefined}
 			>
 				{props.children}

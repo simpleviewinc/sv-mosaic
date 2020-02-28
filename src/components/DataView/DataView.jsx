@@ -116,7 +116,8 @@ function DataView(props) {
 								{ name : "strikeThrough", type : "boolean" },
 								{ name : "noWrap", type : "boolean" },
 								{ name : "ellipsis", type : "boolean" },
-								{ name : "maxWidth", type : "string" }
+								{ name : "maxWidth", type : "string" },
+								{ name : "textTransform", type : "string" }
 							],
 							allowExtraKeys : false
 						},
