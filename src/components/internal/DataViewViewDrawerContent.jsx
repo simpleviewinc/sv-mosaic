@@ -102,7 +102,10 @@ function DataViewViewDrawerContent(props) {
 			},
 			{
 				name : "type",
-				label : "Type"
+				label : "Type",
+				style : {
+					textTransform : "capitalize"
+				}
 			}
 		],
 		activeColumns : ["label", "type"]
