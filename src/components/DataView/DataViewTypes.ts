@@ -1,7 +1,14 @@
-// This file declares some types that are re-used throughout the DataView system
+import { MosaicObject } from "../../";
+
+export interface DataViewColumnTransformArgs {
+	/** The value of the specific column that is being transformed */
+	data: any
+	/** The whole row as passed to the original DataView */
+	row: MosaicObject[]
+}
 
 export interface DataViewColumnTransform {
-	(args: { data: any, row : any[] }): any
+	(args: DataViewColumnTransformArgs): any
 }
 
 export interface DataViewColumn {
