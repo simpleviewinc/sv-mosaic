@@ -19,7 +19,8 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
         * **strikeThrough** - `boolean` - ~~Strike~~ through the cell.
         * **noWrap** - `boolean` - Prevent the column's contents from wrapping to multiple lines.
         * **ellipsis** - `boolean` - Truncate the content if it gets too long. When using this you will need to also enable `noWrap` and `maxWidth`. When truncated, the content will be available in the `title` attribute automatically.
-        * **maxWidth** - `boolean` - Limit the widget of the column to a specific width, pass CSS like `maxWidth : "50px"`.
+        * **maxWidth** - `string` - Limit the widget of the column to a specific width, pass CSS like `maxWidth : "50px"`.
+        * **textTransform** - `string` - Pass css `text-transform`.
     * **sortable** - `boolean` - Whether the column is sortable by the user.
     * **transforms** - `array of functions` - Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`.
         * [Transforms documentation](?path=/docs/utils-transforms-readme--page)
