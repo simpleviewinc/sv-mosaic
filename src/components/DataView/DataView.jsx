@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DataViewViewList from "../internal/DataViewViewList.jsx";
 import DataViewViewGrid from "../internal/DataViewViewGrid.jsx";
 import TitleBar from "../internal/TitleBar.jsx";
-import DataViewViewSwitcher from "../internal/DataViewViewSwitcher.jsx";
+import DataViewControlView from "./DataViewControlView";
 import DataViewPager from "../internal/DataViewPager.jsx";
 import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
@@ -409,7 +409,7 @@ function DataView(props) {
 				<div className="right">
 					{
 						props.views !== undefined &&
-						<DataViewViewSwitcher
+						<DataViewControlView
 							view={props.view}
 							views={props.views}
 							onViewChange={props.onViewChange}
