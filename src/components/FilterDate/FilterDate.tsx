@@ -1,18 +1,24 @@
 import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import * as moment_ from "moment";
+import { format, isSameDay, isSameMonth, isSameYear } from "date-fns";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import FilterDateDropdownContent from "./FilterDateDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
-import { FilterDateData, FilterDateOnChange, FilterDateProps } from "./FilterDateTypes";
-
-const moment = moment_;
+import { FilterDateProps } from "./FilterDateTypes";
 
 const StyledWrapper = styled.span`
 	
 `;
+
+function isSame(dateLeft, dateRight) {
+	return [isSameDay, isSameMonth, isSameYear].every(fn => {
+		return fn(dateLeft, dateRight);
+	})
+}
+
+const dateFormat = "M/d/yyyy";
 
 export default function FilterDate(props: FilterDateProps) {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -27,19 +33,19 @@ export default function FilterDate(props: FilterDateProps) {
 
 	const hasStart = props.data.rangeStart !== undefined;
 	const hasEnd = props.data.rangeEnd !== undefined;
-	const momentStart = hasStart ? moment(props.data.rangeStart) : undefined;
-	const momentEnd = hasEnd ? moment(props.data.rangeEnd) : undefined;
+	const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
+	const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
 	
 	let valueString = 'any';
-	const dateFormat = 'M/D/YY';
-	if (hasStart && hasEnd && momentStart.isSame(momentEnd)) {
-		valueString = momentStart.format(dateFormat);
+	
+	if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
+		valueString = startFormat;
 	} else if (hasStart && hasEnd) {
-		valueString = `${momentStart.format(dateFormat)} - ${momentEnd.format(dateFormat)}`;
+		valueString = `${startFormat} - ${endFormat}`;
 	} else if (hasStart) {
-		valueString = `from ${momentStart.format(dateFormat)}`;
+		valueString = `from ${startFormat}`;
 	} else if (hasEnd) {
-		valueString = `to ${momentEnd.format(dateFormat)}`;
+		valueString = `to ${endFormat}`;
 	}
 	
 	return (

@@ -1,10 +1,8 @@
 import { get, map } from "lodash";
-import * as moment_ from "moment";
+import { format } from "date-fns";
 import { createElement } from "react";
 
 import Image from "../components/internal/Image";
-
-const moment = moment_;
 
 export function transform_boolean() {
 	return function(bool: boolean): string {
@@ -17,8 +15,8 @@ export function transform_boolean() {
 }
 
 export function transform_dateFormat() {
-	return function(dateStr: string): string {
-		return moment(dateStr).format('M-D-YYYY');
+	return function(dateStr: Date): string {
+		return format(dateStr, "M/d/yyyy");
 	}
 }
 
