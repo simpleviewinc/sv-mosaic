@@ -109,8 +109,13 @@ function DataView(props) {
 						},
 						{
 							name : "style",
-							type : "string",
-							enum : ["bold"]
+							type : "object",
+							schema : [
+								{ name : "bold", type : "boolean" },
+								{ name : "italic", type : "boolean" },
+								{ name : "strikeThrough", type : "boolean" }
+							],
+							allowExtraKeys : false
 						},
 						{
 							name : "sortable",

@@ -13,7 +13,10 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
     * **name** - `string` - Unique name for this column.
     * **column** - `string` - defaults to `${column.name}` - When a column is displayed we need to know the name of the key in the data object that should populate this. By default `name` works. In some cases you might need to use the same data key but display it in multiple ways, you can use `column` for that purpose.
     * **label** - `string` - The displayed label of the column.
-    * **style** - `string` - enum `bold` - When passed, the column will display as bold in the list-view.
+    * **style** - `object` - Style the content of the cell in a specific way(s).
+        * **bold** - `boolean` - **Bold** the cell.
+        * **italic** - `boolean` - *Italicize* the cell.
+        * **strikeThrough** - `boolean` - ~~Strike~~ through the cell.
     * **sortable** - `boolean` - Whether the column is sortable by the user.
     * **transforms** - `array of functions` - Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`.
         * There are some helper functions within sv-mosaic that you can use to do some basic transforms.

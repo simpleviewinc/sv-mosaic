@@ -237,18 +237,18 @@ const listColumns = [
 	{
 		name : "title",
 		label : "Title",
-		style : "bold",
+		style : {
+			bold : true
+		},
 		sortable : true
 	},
 	{
 		name : "description",
-		label : "Description",
-		style : "bold"
+		label : "Description"
 	},
 	{
 		name : "content_owner",
-		label : "Content Owner",
-		style : "bold"
+		label : "Content Owner"
 	},
 	{
 		name : "categories",
@@ -298,6 +298,30 @@ const listColumns = [
 		transforms : [
 			transform_dateFormat()
 		]
+	},
+	{
+		name : "bold",
+		label : "Style - bold",
+		column : "content_owner",
+		style : {
+			bold : true
+		}
+	},
+	{
+		name : "italic",
+		label : "Style - italic",
+		column : "content_owner",
+		style : {
+			italic : true
+		}
+	},
+	{
+		name : "strike_through",
+		label : "Style - strikeThrough",
+		column : "content_owner",
+		style : {
+			strikeThrough : true
+		}
 	}
 ];
 

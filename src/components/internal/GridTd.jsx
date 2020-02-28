@@ -18,12 +18,27 @@ const StyledTd = styled.td`
 	&.paddingLeft {
 		padding-left: 15px;
 	}
+
+	&.bold {
+		font-weight: bold;
+	}
+
+	&.italic {
+		font-style: italic;
+	}
+
+	&.strikeThrough {
+		text-decoration-line: line-through;
+	}
 `
 
 function GridTd(props) {
 	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
 	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : false;
 	const paddingLeft = props.paddingLeft !== undefined ? props.paddingLeft : false;
+	const bold = props.bold !== undefined ? props.bold : false;
+	const italic = props.italic !== undefined ? props.italic : false;
+	const strikeThrough = props.strikeThrough !== undefined ? props.strikeThrough : false;
 
 	return (
 		<StyledTd
@@ -31,6 +46,9 @@ function GridTd(props) {
 				${expandCell ? "expandCell" : ""}
 				${paddingRight ? "paddingRight" : ""}
 				${paddingLeft ? "paddingLeft" : ""}
+				${bold ? "bold" : ""}
+				${italic ? "italic" : ""}
+				${strikeThrough ? "strikeThrough" : ""}
 			`}
 		>
 			<div>
