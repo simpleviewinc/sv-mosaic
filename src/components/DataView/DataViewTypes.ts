@@ -40,3 +40,11 @@ export interface DataViewControlLimitProps {
 	options: number[]
 	onLimitChange({ limit }: { limit: number }): void
 }
+
+export type DataViewControlViewOption = "list" | "grid";
+
+export interface DataViewControlViewProps {
+	view: DataViewControlViewOption
+	views: DataViewControlViewOption[]
+	onViewChange(view: DataViewControlViewOption): void
+}
