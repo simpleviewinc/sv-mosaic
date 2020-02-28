@@ -34,3 +34,9 @@ export interface DataViewFilterProps {
 	data: object
 	onRemove: () => void
 }
+
+export interface DataViewLimitProps {
+	limit: number
+	options: number[]
+	onLimitChange({ limit }: { limit: number }): void
+}
