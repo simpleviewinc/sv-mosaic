@@ -29,7 +29,7 @@ describe(__filename, function() {
 		];
 
 		testArray(tests, async function(test) {
-			const result = transforms.transform_boolean()(test.data);
+			const result = transforms.transform_boolean()({ data : test.data });
 
 			assert.strictEqual(result, test.result);
 		})
@@ -61,7 +61,7 @@ describe(__filename, function() {
 		]
 	
 		testArray(tests, async function(test) {
-			const result = transforms.transform_join()(test.data);
+			const result = transforms.transform_join()({ data : test.data });
 
 			assert.strictEqual(result, test.result);
 		});
@@ -110,7 +110,7 @@ describe(__filename, function() {
 		]
 
 		testArray(tests, async function(test) {
-			const result = transforms.transform_mapGet(test.path)(test.data);
+			const result = transforms.transform_mapGet(test.path)({ data : test.data });
 			assert.deepStrictEqual(result, test.result);
 		})
 	})
