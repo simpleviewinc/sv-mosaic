@@ -39,6 +39,7 @@ function GridTr(props) {
 							noWrap={column.style && column.style.noWrap}
 							ellipsis={column.style && column.style.ellipsis}
 							maxWidth={column.style && column.style.maxWidth}
+							textTransform={column.style && column.style.textTransform}
 						>
 							{props.row[column.name]}
 						</GridTd>
