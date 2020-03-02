@@ -289,7 +289,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 					<Button
 						label={activeComparison.label}
 						variant="outlined"
-						color="gray"
+						color="black"
 						iconPosition="right"
 						mIcon={ExpandMoreIcon}
 						menuItems={menuItems}

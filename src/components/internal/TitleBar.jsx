@@ -27,6 +27,7 @@ const StyledWrapper = styled.div`
 	& > .left > h1 {
 		${theme.h1}
 		margin-right: 20px;
+		margin-left: 4px;
 	}
 `;
 

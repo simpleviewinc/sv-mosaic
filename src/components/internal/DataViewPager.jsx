@@ -4,6 +4,18 @@ import Button from "../Button";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import styled from "styled-components";
+import theme from "../../utils/theme.js";
+
+const PagerInfo = styled.div`
+	display: inline-flex;
+	padding: 0 12px;
+	color: ${theme.colors.gray700};
+	font-weight: 500;
+	// Align-items baseline not working with these components, would be good to find out why
+	position: relative;
+	top: 2px;
+`;
 
 function DataViewPager(props) {
 	const totalPages = Math.ceil(props.count / props.limit);
@@ -24,16 +36,16 @@ function DataViewPager(props) {
 	
 	return (
 		<span>
+			<PagerInfo>{startItem}-{endItem} of {props.count}</PagerInfo>
 			<Button
-				color="blue"
+				color="black"
 				variant="icon"
 				mIcon={ChevronLeftIcon}
 				onClick={skipClick(props.skip - props.limit)}
 				disabled={previousDisabled}
 			/>
-			{startItem}-{endItem} of {props.count}
 			<Button
-				color="blue"
+				color="black"
 				variant="icon"
 				mIcon={ChevronRightIcon}
 				onClick={skipClick(props.skip + props.limit)}

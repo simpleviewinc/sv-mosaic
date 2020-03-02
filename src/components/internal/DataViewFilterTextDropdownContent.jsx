@@ -149,7 +149,7 @@ function DataViewFilterTextDropdownContent(props) {
 				className="comparisonButton"
 				label={activeComparison.label}
 				variant="text"
-				color="gray"
+				color="black"
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
 				menuItems={menuItems}

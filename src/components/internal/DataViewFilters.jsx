@@ -13,6 +13,10 @@ const StyledDiv = styled.div`
 		display: flex;
 		align-items: center;
 	}
+
+	& > .optionalFilters:not(:empty) {
+		padding-top: 0.25rem;
+	}
 	
 	& > .filterRow > * {
 		margin-right: 5px;
@@ -76,7 +80,8 @@ function DataViewFilters(props) {
 				<Button
 					label="More"
 					variant="text"
-					color="gray"
+					color="black"
+					size="small"
 					iconPosition="right"
 					mIcon={ExpandMoreIcon}
 					popover={
