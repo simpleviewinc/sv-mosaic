@@ -30,6 +30,8 @@ import { useStateRef } from "../../../utils/reactTools.js";
 
 import SingleSelectHelper from "./SingleSelectHelper";
 
+import "./DataViewKitchenSink.css";
+
 // set an artificial delay of 500ms to simulate DB queries
 const ARTIFICIAL_DELAY = 500;
 
@@ -237,19 +239,18 @@ const listColumns = [
 	{
 		name : "title",
 		label : "Title",
-		style : "bold",
+		style : {
+			bold : true
+		},
 		sortable : true
 	},
 	{
 		name : "description",
-		label : "Description",
-		style : "bold"
+		label : "Description"
 	},
 	{
 		name : "content_owner",
-		label : "Content Owner",
-		style : "bold",
-		sortable : true
+		label : "Content Owner"
 	},
 	{
 		name : "categories",
@@ -299,6 +300,56 @@ const listColumns = [
 		transforms : [
 			transform_dateFormat()
 		]
+	},
+	{
+		name : "bold",
+		label : "Style - bold",
+		column : "content_owner",
+		style : {
+			bold : true
+		}
+	},
+	{
+		name : "italic",
+		label : "Style - italic",
+		column : "content_owner",
+		style : {
+			italic : true
+		}
+	},
+	{
+		name : "strike_through",
+		label : "Style - strikeThrough",
+		column : "content_owner",
+		style : {
+			strikeThrough : true
+		}
+	},
+	{
+		name : "noWrap",
+		label : "Style - noWrap",
+		column : "title",
+		style : {
+			noWrap : true
+		}
+	},
+	{
+		name : "ellipsis",
+		label : "Style - ellipsis",
+		column : "title",
+		style : {
+			noWrap : true,
+			ellipsis : true,
+			maxWidth : "100px"
+		}
+	},
+	{
+		name : "textTransform",
+		label : "Style - textTransform",
+		column : "content_owner",
+		style : {
+			textTransform : "uppercase"
+		}
 	}
 ];
 
@@ -336,7 +387,11 @@ const StyledDiv = styled.div`
 `;
 
 function DataViewKitchenSink() {
-	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", false);
+	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
+	const bulkActions = boolean("bulkActions", true);
+	const primaryActions = boolean("primaryActions", true);
+	const additionalActions = boolean("additionalActions", true);
+	const sticky = boolean("sticky", true);
 
 	const [state, setState] = useState({
 		removeItems : [],
@@ -379,6 +434,20 @@ function DataViewKitchenSink() {
 		return queryFilter;
 	}
 	
+	// in order to support the sticky boolean we need to add a class to the html root
+	// then we use the css off that class to apply the proper css to ensure the parent hierarchy will be correct for sticky mechanics
+	useEffect(() => {
+		if (sticky) {
+			document.body.parentElement.classList.add("stickyHtml");
+		} else {
+			document.body.parentElement.classList.remove("stickyHtml");
+		}
+
+		return () => {
+			document.body.parentElement.classList.remove("stickyHtml");
+		}
+	}, [sticky]);
+
 	useEffect(() => {
 		const fetchData = async function() {
 			const converted = convertFilter(state.filter);
@@ -415,7 +484,7 @@ function DataViewKitchenSink() {
 	const gridConfig = {
 		title : "Your Uploads",
 		columns : state.view === "list" ? listColumns : gridColumns,
-		primaryActions : [
+		primaryActions : primaryActions ? [
 			{
 				name : "edit",
 				color : "blue",
@@ -425,8 +494,8 @@ function DataViewKitchenSink() {
 					alert(`EDIT ${data.id}`);
 				}
 			}
-		],
-		additionalActions : [
+		] : undefined,
+		additionalActions : additionalActions ? [
 			{
 				name : "view_children",
 				label : "View Children",
@@ -441,8 +510,8 @@ function DataViewKitchenSink() {
 					alert(`History ${data.id}`);
 				}
 			}
-		],
-		bulkActions : [
+		] : undefined,
+		bulkActions : bulkActions ? [
 			{
 				name : "download",
 				color : "blue",
@@ -461,7 +530,7 @@ function DataViewKitchenSink() {
 					alert(`DELETE ${data.map(val => val.id)}`);
 				}
 			}
-		],
+		] : undefined,
 		buttons : [
 			{
 				name : "create",
@@ -487,7 +556,7 @@ function DataViewKitchenSink() {
 			}
 		}),
 		views : ["list", "grid"],
-		sticky : true,
+		sticky,
 		onSkipChange : function({ skip }) {
 			setState({
 				...state,

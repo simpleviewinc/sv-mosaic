@@ -46,8 +46,12 @@ const StyledTh = styled.th`
 		align-items: center;
 	}
 
-	&.paddingRight:not(:last-child) {
+	&.paddingRight {
 		padding-right: 15px;
+	}
+
+	&.paddingLeft {
+		padding-left: 15px;
 	}
 
 	&.sortable > .columnHeader {
@@ -172,7 +176,10 @@ function GridTHead(props) {
 				}
 				{
 					!anyChecked &&
-					<StyledTh key="_actions" className="paddingRight">
+					<StyledTh key="_actions" className={`
+						paddingRight
+						${ !props.bulkActions ? "paddingLeft" : "" }
+					`}>
 						{
 							props.onColumnsChange !== undefined &&
 							<DataViewColumnControl
@@ -204,7 +211,7 @@ function GridTHead(props) {
 						
 						if (column.sortable) {
 							active = props.sort.name === column.name;
-							Icon = active && props.sort.dir === "desc" ? ArrowUpwardIcon : ArrowDownwardIcon;
+							Icon = active && props.sort.dir === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon;
 							clickDir = active ? flipDir(props.sort.dir) : "asc";
 						}
 						

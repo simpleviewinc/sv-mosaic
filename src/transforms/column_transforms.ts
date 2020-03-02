@@ -1,14 +1,12 @@
 import { get, map } from "lodash";
-import * as moment_ from "moment";
+import { format } from "date-fns";
 import { createElement } from "react";
 
 import Image from "../components/internal/Image";
 
-const moment = moment_;
-
 export function transform_boolean() {
-	return function(bool: boolean): string {
-		if (bool === true) {
+	return function({ data }: { data: boolean }): string {
+		if (data === true) {
 			return "Yes";
 		} else {
 			return "No";
@@ -17,19 +15,19 @@ export function transform_boolean() {
 }
 
 export function transform_dateFormat() {
-	return function(dateStr: string): string {
-		return moment(dateStr).format('M-D-YYYY');
+	return function({ data }: { data: Date }): string {
+		return format(data, "M/d/yyyy");
 	}
 }
 
 export function transform_get(path) {
-	return function(data) {
+	return function({ data }) {
 		return get(data, path);
 	}
 }
 
 export function transform_mapGet(path) {
-	return (data: object[]) => {
+	return ({ data }: { data: object[] }) => {
 		const results = map(data, (obj) => {
 			return get(obj, path);
 		});
@@ -40,7 +38,7 @@ export function transform_mapGet(path) {
 }
 
 export function transform_join() {
-	return (data: string[]) => {
+	return ({ data }: { data: string[] }) => {
 		return data.join(", ");
 	}
 }
@@ -51,8 +49,8 @@ interface TransformThumbnailProps {
 }
 
 export function transform_thumbnail({ width, height }: TransformThumbnailProps) {
-	return function(url: string) {
-		const newUrl = url.replace(/\/upload\//, `/upload/c_fill,h_${height},w_${width}/`);
+	return function({ data }: { data: string }) {
+		const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_${height},w_${width}/`);
 		
 		const element = createElement(Image, {
 			src : newUrl,

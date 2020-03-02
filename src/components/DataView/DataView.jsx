@@ -5,9 +5,9 @@ import styled from "styled-components";
 import DataViewViewList from "../internal/DataViewViewList.jsx";
 import DataViewViewGrid from "../internal/DataViewViewGrid.jsx";
 import TitleBar from "../internal/TitleBar.jsx";
-import DataViewViewSwitcher from "../internal/DataViewViewSwitcher.jsx";
+import DataViewControlView from "./DataViewControlView";
 import DataViewPager from "../internal/DataViewPager.jsx";
-import DataViewLimit from "../internal/DataViewLimit.jsx";
+import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
 import { transformRows } from "../../utils/dataViewTools";
@@ -109,8 +109,17 @@ function DataView(props) {
 						},
 						{
 							name : "style",
-							type : "string",
-							enum : ["bold"]
+							type : "object",
+							schema : [
+								{ name : "bold", type : "boolean" },
+								{ name : "italic", type : "boolean" },
+								{ name : "strikeThrough", type : "boolean" },
+								{ name : "noWrap", type : "boolean" },
+								{ name : "ellipsis", type : "boolean" },
+								{ name : "maxWidth", type : "string" },
+								{ name : "textTransform", type : "string" }
+							],
+							allowExtraKeys : false
 						},
 						{
 							name : "sortable",
@@ -401,7 +410,7 @@ function DataView(props) {
 				<div className="right">
 					{
 						props.views !== undefined &&
-						<DataViewViewSwitcher
+						<DataViewControlView
 							view={props.view}
 							views={props.views}
 							onViewChange={props.onViewChange}
@@ -409,7 +418,7 @@ function DataView(props) {
 					}
 					{
 						props.onLimitChange !== undefined &&
-						<DataViewLimit
+						<DataViewControlLimit
 							limit={props.limit}
 							options={limitOptions}
 							onLimitChange={props.onLimitChange}

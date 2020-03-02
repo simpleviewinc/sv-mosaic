@@ -3,8 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { TextFieldProps } from "@material-ui/core/TextField";
 import { PropTypes } from "@material-ui/core";
-import MomentUtils from "@date-io/moment";
-import * as moment from "moment";
+import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
@@ -64,31 +63,31 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 		});
 	}
 
-	const getOnChange = (name: "rangeStart" | "rangeEnd") => (date: moment.Moment) => {
+	const getOnChange = (name: "rangeStart" | "rangeEnd") => (date: Date) => {
 		if (date !== null) {
 			if (name === "rangeStart") {
 				// date start should be set to 00:00
-				date.hours(0);
-				date.minutes(0);
-				date.seconds(0);
+				date.setHours(0);
+				date.setMinutes(0);
+				date.setSeconds(0);
 			} else {
 				// date end should be set to 23:59
-				date.hours(23);
-				date.minutes(59);
-				date.seconds(59);
+				date.setHours(23);
+				date.setMinutes(59);
+				date.setSeconds(59);
 			}
 		}
 
 		setState({
 			...state,
-			[name] : date === null ? undefined : date.toDate()
+			[name] : date === null ? undefined : date
 		});
 	}
 
 	const pickerArgs = {
 		placeholder : "Choose a date...",
 		clearable : true,
-		format : "MM/DD/YYYY",
+		format : "M/d/yyyy",
 		inputVariant : "outlined" as TextFieldProps["variant"],
 		margin : "dense" as PropTypes.Margin
 	};
@@ -96,7 +95,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 	return (
 		<StyledContents>
 			<div className="inputRow">
-				<MuiPickersUtilsProvider utils={MomentUtils}>
+				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<div className="startRange">
 						<h5>From</h5>
 						<DatePicker

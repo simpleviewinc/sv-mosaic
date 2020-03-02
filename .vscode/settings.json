@@ -1,6 +1,7 @@
 {
     "search.exclude": {
         "dist/*": true,
-        "docs/dist/bundle.js": true
+        "docs/dist/bundle.js": true,
+        "docs/storybook/*" : true
     }
 }

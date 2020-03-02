@@ -168,14 +168,17 @@ function DataViewViewGrid(props) {
 								key={row.id}
 							>
 								<div className="image">
-									<div className="checkboxContainer">
-										<div className="mask"/>
-										<Checkbox
-											className="checkbox"
-											checked={props.checked[i] === true}
-											onClick={checkboxClick(i)}
-										/>
-									</div>
+									{
+										props.bulkActions &&
+										<div className="checkboxContainer">
+											<div className="mask"/>
+											<Checkbox
+												className="checkbox"
+												checked={props.checked[i] === true}
+												onClick={checkboxClick(i)}
+											/>
+										</div>
+									}
 									{row.image}
 								</div>
 								<div className="info">

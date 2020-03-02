@@ -30,6 +30,8 @@ export default function MenuSelect(props: MenuSelectProps) {
 		return (
 			<MenuItem
 				key={val.value}
+				mIcon={val.mIcon}
+				color={val.color}
 				label={val.label}
 				selected={selected}
 				onClick={onClick}

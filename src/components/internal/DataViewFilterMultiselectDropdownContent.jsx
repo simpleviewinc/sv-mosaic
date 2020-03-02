@@ -335,6 +335,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 						<InputBase
 							className="input"
 							placeholder="Keyword..."
+							autoFocus={true}
 							onChange={keywordChange}
 						/>
 					</div>
