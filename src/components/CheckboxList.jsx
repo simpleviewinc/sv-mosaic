@@ -7,6 +7,7 @@ import { xor } from "lodash";
 import jsvalidator from "jsvalidator";
 
 import Checkbox from "./Checkbox.jsx";
+import { BodyText } from "./Typography";
 
 const StyledDiv = styled.div`
 	& > ul {
@@ -87,7 +88,7 @@ function CheckboxList(props) {
 										disableRipple
 									/>
 								</ListItemIcon>
-								<span>{option.label}</span>
+								<BodyText>{option.label}</BodyText>
 							</ListItem>
 						)
 					})

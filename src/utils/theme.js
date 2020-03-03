@@ -8,6 +8,7 @@ export default {
 		font-weight: normal;
 	`,
 	colors : {
+		black: "#0A1323",
 		blue : "#0070f2",
 		blueHover : "#0b50f1",
 		lightGray : "#757575",

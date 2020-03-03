@@ -7,6 +7,7 @@ import ButtonRow from "../ButtonRow.jsx";
 import Button from "../Button";
 import DataViewViewControls from "./DataViewViewControls.jsx";
 import theme from "../../utils/theme.js";
+import { H1 } from "../Typography";
 
 const StyledWrapper = styled.div`
 	display: flex;
@@ -25,8 +26,8 @@ const StyledWrapper = styled.div`
 	}
 	
 	& > .left > h1 {
-		${theme.h1}
 		margin-right: 20px;
+		margin-bottom: 0px;
 	}
 `;
 
@@ -60,7 +61,7 @@ function TitleBar(props) {
 			<div className="left">
 				{
 					props.title &&
-					<h1>{props.title}</h1>
+					<H1>{props.title}</H1>
 				}
 				{
 					props.buttons &&

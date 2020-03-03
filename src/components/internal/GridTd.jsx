@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 
+import { BodyText } from "../Typography";
+
 const StyledTd = styled.td`
 	height: 40px;
 
@@ -64,7 +66,8 @@ function GridTd(props) {
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
 		>
-			<div
+			<BodyText
+				as="div"
 				className={`
 					${noWrap ? "noWrap" : ""}
 					${ellipsis ? "ellipsis" : ""}
@@ -73,7 +76,7 @@ function GridTd(props) {
 				title={ellipsis ? props.children : undefined}
 			>
 				{props.children}
-			</div>
+			</BodyText>
 		</StyledTd>
 	)
 }
