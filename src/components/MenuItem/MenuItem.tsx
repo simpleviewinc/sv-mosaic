@@ -4,6 +4,7 @@ import MUIMenuItem from '@material-ui/core/MenuItem';
 
 import { MenuItemProps } from "./MenuItemTypes";
 import theme from "../../utils/theme.js";
+import { BodyText } from "../Typography";
 
 const StyledMenuItem = styled(MUIMenuItem)`
 	min-width: 150px;
@@ -47,7 +48,7 @@ export default function MenuItem(props: MenuItemProps) {
 					<Icon/>
 				</MyIcon>
 			}
-			<span className="label">{props.label}</span>
+			<BodyText className="label">{props.label}</BodyText>
 		</StyledMenuItem>
 	)
 }

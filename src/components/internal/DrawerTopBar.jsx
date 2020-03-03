@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CloseIcon from '@material-ui/icons/Close';
 
+import { H1 } from "../Typography";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow.jsx";
 import theme from "../../utils/theme.js";
@@ -20,8 +21,6 @@ const StyledWrapper = styled.div`
 	}
 
 	& > .left > h1 {
-		${theme.h1}
-		
 		display: inline;
 		padding: 0px 50px 0px 20px;
 		margin: 0;
@@ -40,7 +39,7 @@ function DrawerTopBar(props) {
 					color="black"
 					onClick={props.onClose}
 				/>
-				<h1>{props.title}</h1>
+				<H1>{props.title}</H1>
 			</div>
 			<div className="right">
 				<ButtonRow>

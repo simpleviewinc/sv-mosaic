@@ -15,6 +15,7 @@ import ButtonRow from "../ButtonRow.jsx";
 import Spinner from "../Spinner.jsx";
 import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
+import { H3 } from "../Typography";
 
 const StyledWrapper = styled.div`
 	& > .topBlock {
@@ -284,7 +285,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 		
 		comparisonDropdown = (
 			<div className="comparisonDropdown">
-				<h5>Comparison</h5>
+				<H3>Comparison</H3>
 				<ButtonRow>
 					<Button
 						label={activeComparison.label}
@@ -366,7 +367,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				</div>
 				<div className="selected">
 					{comparisonDropdown}
-					<h5>Selected Options</h5>
+					<H3>Selected Options</H3>
 					<div className="chips">
 						{
 							showList &&

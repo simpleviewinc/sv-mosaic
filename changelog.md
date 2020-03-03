@@ -10,6 +10,7 @@
 * Fixed an issue with the Date mechanics not working due to errors with `moment`, we have switched to `date-fns` internally.
 * `MenuSelect` now allows `mIcon` and `color` passthroughs to `MenuItem`.
 * Added documentation for all official transforms.
+* Adds typography with `H1`, `H3` and `BodyText` components for ease in UI typographic consistency.
 
 ## 2/20/2020
 * `savedViewAllowSharedViewSave` has been added to `DataView` props, it defaults to `false` meaning that if you want users to be able to create shared views, you will need to pass `true` here. Otherwise they will only be able to create views for their own user.
