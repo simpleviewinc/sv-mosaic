@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { TypographGenericProps } from "./TypographyTypes";
+import { TypographyGenericProps } from "./TypographyTypes";
 import theme from "../../utils/theme";
 
 const Styled = styled.h3`
@@ -13,14 +13,16 @@ const Styled = styled.h3`
 	margin-bottom: 1em;
 `
 
-export default function H3(props: TypographGenericProps) {
+export default function H3(props: TypographyGenericProps) {
 	const {
 		children,
+		attrs = {},
 		...remaining
 	} = props;
 
 	return (
 		<Styled
+			{...attrs}
 			{...remaining}
 		>{props.children}</Styled>
 	)
