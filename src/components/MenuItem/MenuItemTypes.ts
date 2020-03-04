@@ -1,4 +1,4 @@
-import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { MosaicMIcon } from "../../types";
 
 export interface MenuItemProps {
 	label: string | JSX.Element
@@ -6,5 +6,5 @@ export interface MenuItemProps {
 	disabled?: boolean
 	selected?: boolean
 	onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void
-	mIcon?: (props: SvgIconProps) => JSX.Element
+	mIcon?: MosaicMIcon
 }
