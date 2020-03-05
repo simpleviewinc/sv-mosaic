@@ -21,7 +21,7 @@ const ButtonWrapper = styled.span`
 		box-shadow: none;
 	}
 	
-	&.normalButton > button .icon {
+	&.normalButton > button > span > .icon {
 		font-size: 20px;
 	}
 
@@ -180,7 +180,7 @@ const types = {
 		}
 		& > button:active,
 		& > button:focus {
-			background: ${theme.colors.blue}40;
+			background: ${theme.colors.blue}32;
 		}
 	`,
 	red_contained : styled(ButtonWrapper)`
@@ -254,6 +254,10 @@ function Button(props) {
 			{
 				name : "mIcon",
 				type : "object"
+			},
+			{
+				name : "mIconColor",
+				type : "string"
 			},
 			{
 				name : "onClick",
@@ -338,11 +342,11 @@ function Button(props) {
 					disabled={props.disabled}
 				>
 					{ props.mIcon && iconPosition === "left" && 
-						<MaterialIcon className="icon icon_left"></MaterialIcon>
+						<MaterialIcon className="icon icon_left" style={{ color: props.mIconColor }}></MaterialIcon>
 					}
 					{props.label}
 					{ props.mIcon && iconPosition === "right" &&
-						<MaterialIcon className="icon icon_right"></MaterialIcon>
+						<MaterialIcon className="icon icon_right" style={{ color: props.mIconColor }}></MaterialIcon>
 					}
 				</MUIButton>
 			}

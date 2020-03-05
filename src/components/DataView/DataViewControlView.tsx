@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DataViewControlViewProps, DataViewControlViewOption } from "./DataViewTypes";
 import Button from "../Button";
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
+import { theme } from "../..";
 
 const StyledSpan = styled.span`
 
@@ -56,6 +57,7 @@ function DataViewControlView(props: DataViewControlViewProps) {
 				label={Icon}
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
+				mIconColor={theme.colors.gray600}
 				menuContent={menuContent}
 			/>
 		</StyledSpan>

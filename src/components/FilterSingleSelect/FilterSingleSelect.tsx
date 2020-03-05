@@ -48,7 +48,7 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps) {
 		})
 	}
 
-	let valueString = "any";
+	let valueString: string;
 	if (state.selected !== undefined) {
 		valueString = state.selected.label;
 	}
