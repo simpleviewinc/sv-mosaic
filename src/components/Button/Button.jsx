@@ -28,6 +28,11 @@ const ButtonWrapper = styled.span`
 	&.normalButton.size_small > button {
 		padding-left: 12px;
 		padding-right: 12px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+	}
+
+	&.normalButton.size_small.variant_outlined > button {
 		padding-top: 3px;
 		padding-bottom: 3px;
 	}
@@ -63,7 +68,7 @@ const ButtonWrapper = styled.span`
 	}
 	
 	&.iconButton.size_medium > button {
-		padding: 8px;
+		padding: 6px;
 		font-size: 15px;
 	}
 `
@@ -321,6 +326,7 @@ function Button(props) {
 			button
 			${props.variant === "icon" ? "iconButton" : "normalButton"}
 			size_${size}
+			variant_${props.variant}
 		`}>
 			{
 				props.variant !== "icon" &&
