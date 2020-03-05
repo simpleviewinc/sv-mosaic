@@ -1,7 +1,9 @@
-/// <reference types="react" />
+import { MenuItemProps } from "../MenuItem";
 interface MenuSelectOption {
-    label: string | JSX.Element;
+    label: MenuItemProps["label"];
     value: string;
+    mIcon?: MenuItemProps["mIcon"];
+    color?: MenuItemProps["color"];
 }
 export interface MenuSelectProps {
     options: MenuSelectOption[];
