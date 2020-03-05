@@ -1,74 +1,51 @@
 import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
-import IconButton from "@material-ui/core/IconButton";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CloseIcon from '@material-ui/icons/Close';
 
 import theme from "../utils/theme.js";
+import Button from "../components/Button";
+import { BodyText } from "../components/Typography";
 
-const StyledWrapper = styled.div`
-	font-family: ${theme.fontFamily};
-	display: inline-flex;
+const LabelWrapper = styled.div`
+	display: flex;
 	align-items: center;
-	padding: 6px;
-	cursor: pointer;
-	border-radius: 4px;
-	transition: background-color ${theme.animations.backgroundMs};
-	
-	&.primary {
-		color: ${theme.colors.black};
-	}
-	
-	&.primary:hover {
-		background: ${theme.colors.gray200};
-	}
-	
-	&.optional {
-		color: ${theme.colors.blue};
-		background: ${theme.colors.blue}13;
-	}
-	
-	&.optional:hover {
-		background: ${theme.colors.blue}23;
-	}
-	
-	& > .label {
-		margin-right: 8px;
-		font-weight: 500;
-	}
-	
-	& > .valueBlock {
-		display: inline-flex;
-		align-items: center;
-	}
-	
-	& > .valueBlock > .value {
-		font-weight: bold;
-	}
-	
-	& > .valueBlock > .dropdownIcon {
+
+	& > .icon {
 		font-size: 20px;
 	}
-	
-	&.primary > .valueBlock > .value {
-		color: black;
+
+	& > .dropdownIcon {
+		color: ${theme.colors.gray600};
+		margin-left: 4px;
+		margin-right: -4px;
 	}
-	
-	& > .remove {
-		margin-left: 8px;
+
+	& > .removeIcon {
+		margin-left: 4px;
+		margin-right: -4px;
 		font-size: 13px;
 		color: black;
-		padding: 3px;
+		background-color: ${theme.colors.blue}12;
 		border-radius: 20px;
-		transition: background-color ${theme.animations.backgroundMs};
+		padding: 3px;
 	}
-	
-	& > .remove:hover {
+
+	& > .removeIcon:hover {
 		background-color: ${theme.colors.blue}45;
 	}
-`;
+
+	& > .filterLabel {
+		font-weight: ${theme.fontWeight.normal};
+		margin-right: 8px;
+	}
+
+	&.type_optional > * {
+		color: ${theme.colors.blue};
+	}
+`
 
 function DataViewPrimaryFilter(props) {
 	jsvalidator.validate(props, {
@@ -92,26 +69,36 @@ function DataViewPrimaryFilter(props) {
 		props.onRemove();
 	}
 	
-	return (
-		<StyledWrapper
-			onClick={props.onClick}
+	const variant = props.type === "primary" ? "text" : "contained";
+	const color = props.type === "primary" ? "black" : "lightBlue";
+
+	const label = (
+		<LabelWrapper
 			className={`
-				${props.type}
+				type_${props.type}
 			`}
 		>
-			<span className="label">{props.label}: </span>
-			<span className="valueBlock">
-				<span className="value">{props.value || "any"}</span>
-				<ExpandMoreIcon className="dropdownIcon"/>
-			</span>
+			<BodyText className="filterLabel">{props.label}:</BodyText>
+			<BodyText className="filterValue">{props.value || "Any"}</BodyText>
+			<ExpandMoreIcon className="icon dropdownIcon"/>
 			{
 				props.type === "optional" &&
 				<CloseIcon
-					className="remove"
+					className="icon removeIcon"
 					onClick={remove}
 				/>
 			}
-		</StyledWrapper>
+		</LabelWrapper>
+	)
+
+	return (
+		<Button
+			color={color}
+			variant={variant}
+			size="small"
+			onClick={props.onClick}
+			label={label}
+		/>
 	)
 }
 

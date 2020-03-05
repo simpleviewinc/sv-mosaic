@@ -80,6 +80,7 @@ function DataViewFilters(props) {
 					size="small"
 					iconPosition="right"
 					mIcon={ExpandMoreIcon}
+					mIconColor={theme.colors.gray600}
 					popover={
 						<PopoverDiv
 							className={`
