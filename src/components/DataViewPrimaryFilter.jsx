@@ -18,11 +18,11 @@ const StyledWrapper = styled.div`
 	transition: background-color ${theme.animations.backgroundMs};
 	
 	&.primary {
-		color: ${theme.colors.lightGray};
+		color: ${theme.colors.black};
 	}
 	
 	&.primary:hover {
-		background: ${theme.colors.lightGray}23;
+		background: ${theme.colors.gray200};
 	}
 	
 	&.optional {

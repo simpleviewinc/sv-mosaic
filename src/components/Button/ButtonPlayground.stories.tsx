@@ -11,7 +11,7 @@ export default {
 
 export const ButtonPlayground = (props: any) => {
 	const buttonVariant = select("Variant", ["text", "outlined", "contained"], "text");
-	const buttonColor = select("Color", ["black", "blue", "lightBlue", "red", "gray"], "black");
+	const buttonColor = select("Color", ["black", "blue", "lightBlue", "red"], "black");
 	const fullWidth = boolean("Full Width", false);
 	const disabled = boolean("Disabled", false);
 

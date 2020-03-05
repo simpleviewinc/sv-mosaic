@@ -21,7 +21,7 @@ function Menu(props) {
 						{
 							name : "color",
 							type : "string",
-							enum : ["blue", "red", "black", "gray"]
+							enum : ["blue", "red", "black"]
 						},
 						{
 							name : "mIcon",

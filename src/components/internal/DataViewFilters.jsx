@@ -76,7 +76,8 @@ function DataViewFilters(props) {
 				<Button
 					label="More"
 					variant="text"
-					color="gray"
+					color="black"
+					size="small"
 					iconPosition="right"
 					mIcon={ExpandMoreIcon}
 					popover={
