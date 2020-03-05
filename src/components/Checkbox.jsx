@@ -15,7 +15,7 @@ function Checkbox(props) {
 		<StyledCheckbox
 			className={`
 				${props.checked ? "checked" : ""}
-				${props.className}
+				${props.className ? props.className : ""}
 			`}
 			color="default"
 			edge={props.edge}
