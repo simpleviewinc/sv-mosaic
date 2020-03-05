@@ -26,19 +26,17 @@ const StyledWrapper = styled.div`
 		-ms-flex: 0 0 auto;
 		-webkit-flex: 0 0 auto;
 		flex: 0 0 auto;
+		margin-bottom: 8px;
 	}
 
 	& > .headerRow.title {
-		margin-left: 6px;
-	}
-
-	& > .headerRow.filters {
-		margin-bottom: 12px;
+		margin-left: 12px;
 	}
 	
 	& > .headerRow > .right {
 		display: flex;
 		align-items: center;
+		align-self: flex-end;
 	}
 
 	& > .viewContainer {

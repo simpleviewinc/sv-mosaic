@@ -7,7 +7,7 @@ import Button from "./Button";
 const StyledWrapper = styled.span`
 	${/* ensures that the NEXT button spaces itself, if it isn't an icon button */""}
 	& > .button + .normalButton {
-		margin-left: 5px;
+		margin-left: 4px;
 	}
 `;
 

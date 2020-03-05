@@ -47,11 +47,11 @@ const StyledTh = styled.th`
 	}
 
 	&.paddingRight {
-		padding-right: 15px;
+		padding-right: 12px;
 	}
 
 	&.paddingLeft {
-		padding-left: 15px;
+		padding-left: 12px;
 	}
 
 	&.sortable > .columnHeader {

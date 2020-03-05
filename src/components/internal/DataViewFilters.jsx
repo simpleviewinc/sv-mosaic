@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 import styled from "styled-components";
 import { pick, xor } from "lodash";
 
@@ -13,9 +13,13 @@ const StyledDiv = styled.div`
 		display: flex;
 		align-items: center;
 	}
-	
+
 	& > .filterRow > * {
-		margin-right: 5px;
+		margin-right: 4px;
+	}
+
+	& > .optionalFilters {
+		margin-top: 4px;
 	}
 `;
 
@@ -99,25 +103,28 @@ function DataViewFilters(props) {
 					/>
 				}
 			</div>
-			<div className="filterRow optionalFilters">
-				{
-					active.map(filter => {
-						const Component = filter.component;
-						
-						return (
-							<Component
-								key={filter.name}
-								label={filter.label}
-								type={filter.type}
-								args={filter.args || {}}
-								data={props.filter[filter.name] || {}}
-								onRemove={onRemove(filter.name)}
-								onChange={filter.onChange}
-							/>
-						)
-					})
-				}
-			</div>
+			{
+				active.length > 0 &&
+				<div className="filterRow optionalFilters">
+					{
+						active.map(filter => {
+							const Component = filter.component;
+							
+							return (
+								<Component
+									key={filter.name}
+									label={filter.label}
+									type={filter.type}
+									args={filter.args || {}}
+									data={props.filter[filter.name] || {}}
+									onRemove={onRemove(filter.name)}
+									onChange={filter.onChange}
+								/>
+							)
+						})
+					}
+				</div>
+			}
 		</StyledDiv>
 	)
 }
