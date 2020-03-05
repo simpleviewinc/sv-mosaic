@@ -35,6 +35,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 			color="black"
 			label={props.limit}
 			variant="text"
+			size="small"
 			iconPosition="right"
 			mIcon={ExpandMoreIcon}
 			mIconColor={theme.colors.gray600}

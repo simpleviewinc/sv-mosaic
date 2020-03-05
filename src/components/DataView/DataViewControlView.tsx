@@ -56,6 +56,7 @@ function DataViewControlView(props: DataViewControlViewProps) {
 				color="black"
 				label={Icon}
 				iconPosition="right"
+				size="small"
 				mIcon={ExpandMoreIcon}
 				mIconColor={theme.colors.gray600}
 				menuContent={menuContent}

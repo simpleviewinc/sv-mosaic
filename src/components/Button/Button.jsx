@@ -9,6 +9,9 @@ import theme from "../../utils/theme.js";
 import Menu from "../Menu.jsx";
 import MenuBase from "../MenuBase";
 
+// Buttons should be 30/36/42 in height for small/medium/large in ALL variants
+// The styling of text, outlined, and icon are shared. Contained are different because they usually need to get darker on hover/active than the primary color
+
 const ButtonWrapper = styled.span`
 	& > button {
 		font-family: ${theme.fontFamily};
@@ -26,15 +29,21 @@ const ButtonWrapper = styled.span`
 	}
 
 	&.normalButton.size_small > button {
-		padding-left: 12px;
-		padding-right: 12px;
-		padding-top: 4px;
-		padding-bottom: 4px;
+		padding: 3px 12px;
+	}
+
+	&.normalButton.size_large > button {
+		padding: 9px 24px;
 	}
 
 	&.normalButton.size_small.variant_outlined > button {
-		padding-top: 3px;
-		padding-bottom: 3px;
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+
+	&.normalButton.size_large.variant_outlined > button {
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 	
 	&.normalButton.size_small > button .icon_left {
@@ -67,9 +76,17 @@ const ButtonWrapper = styled.span`
 		margin-right: -7px;
 	}
 	
+	&.iconButton.size_small > button {
+		padding: 3px;
+	}
+
 	&.iconButton.size_medium > button {
 		padding: 6px;
 		font-size: 15px;
+	}
+
+	&.iconButton.size_large > button {
+		padding: 9px;
 	}
 `
 

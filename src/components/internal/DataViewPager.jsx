@@ -11,7 +11,7 @@ const StyledSpan = styled.span`
 	display: inline-flex;
 	align-items: center;
 
-	& > .pagerText { line-height: 36px; }
+	& > .pagerText { line-height: 100%; }
 `;
 
 function DataViewPager(props) {
@@ -36,6 +36,7 @@ function DataViewPager(props) {
 			<Button
 				color="black"
 				variant="icon"
+				size="small"
 				mIcon={ChevronLeftIcon}
 				onClick={skipClick(props.skip - props.limit)}
 				disabled={previousDisabled}
@@ -44,6 +45,7 @@ function DataViewPager(props) {
 			<Button
 				color="black"
 				variant="icon"
+				size="small"
 				mIcon={ChevronRightIcon}
 				onClick={skipClick(props.skip + props.limit)}
 				disabled={nextDisabled}
