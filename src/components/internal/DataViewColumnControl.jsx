@@ -23,6 +23,7 @@ export function DataViewColumnControl(props) {
 				color="black"
 				label="Columns"
 				variant="outlined"
+				size="small"
 				mIcon={SettingsIcon}
 				onClick={gearClick}
 				iconPosition="left"

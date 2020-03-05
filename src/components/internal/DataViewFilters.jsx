@@ -73,28 +73,31 @@ function DataViewFilters(props) {
 						)
 					})
 				}
-				<Button
-					label="More"
-					variant="text"
-					color="black"
-					size="small"
-					iconPosition="right"
-					mIcon={ExpandMoreIcon}
-					mIconColor={theme.colors.gray600}
-					popover={
-						<PopoverDiv
-							className={`
-								${ props.loading ? "loading" : "" }
-							`}
-						>
-							<CheckboxList
-								options={options}
-								checked={activeFilters}
-								onChange={onActiveFiltersChange}
-							/>
-						</PopoverDiv>
-					}
-				/>
+				{
+					optionalFilters.length > 0 &&
+					<Button
+						label="More"
+						variant="text"
+						color="black"
+						size="small"
+						iconPosition="right"
+						mIcon={ExpandMoreIcon}
+						mIconColor={theme.colors.gray600}
+						popover={
+							<PopoverDiv
+								className={`
+									${ props.loading ? "loading" : "" }
+								`}
+							>
+								<CheckboxList
+									options={options}
+									checked={activeFilters}
+									onChange={onActiveFiltersChange}
+								/>
+							</PopoverDiv>
+						}
+					/>
+				}
 			</div>
 			<div className="filterRow optionalFilters">
 				{

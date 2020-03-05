@@ -391,7 +391,10 @@ function DataViewKitchenSink() {
 	const bulkActions = boolean("bulkActions", true);
 	const primaryActions = boolean("primaryActions", true);
 	const additionalActions = boolean("additionalActions", true);
+	const primaryFilters = boolean("primaryFilters", true);
+	const optionalFilters = boolean("optionalFilters", true);
 	const sticky = boolean("sticky", true);
+	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
 
 	const [state, setState] = useState({
 		removeItems : [],
@@ -543,7 +546,7 @@ function DataViewKitchenSink() {
 				}
 			}
 		],
-		filters : filters.map(filter => {
+		filters : validFilters.map(filter => {
 			return {
 				name : filter.name,
 				label : filter.label,
