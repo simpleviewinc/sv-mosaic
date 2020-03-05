@@ -7,21 +7,27 @@ export default {
 		font-size: 14px;
 		font-weight: normal;
 	`,
+	fontWeight : {
+		normal: 400,
+		semiBold: 500,
+		bold: 700
+	},
 	colors : {
 		black: "#0A1323",
-		blue : "#0070f2",
-		blueHover : "#0b50f1",
-		lightGray : "#757575",
-		darkGray : "#081324",
+		blue : "#0070F2",
+		blueHover : "rgba(0, 89, 191, 1)",
+		blueActive : "rgba(0, 71, 153, 1)",
 		red : "#b10000",
-		gray100 : "rgba(250, 250, 250, 1)",
-		gray200 : "rgba(240, 242, 245, 1)",
-		gray300 : "rgba(215, 216, 220, 1)",
-		gray400 : "rgba(157, 159, 167, 1)",
-		gray500 : "rgba(132, 135, 145, 1)",
-		gray600 : "rgba(107, 111, 124, 1)",
-		gray700 : "rgba(59, 66, 78, 1)",
-		gray800 : "rgba(10, 19, 35, 1)"
+		redHover : "rgba(138, 0, 0, 1)",
+		redActive : "rgba(110, 0, 0, 1)",
+		gray100 : "#FAFAFA",
+		gray200 : "#F0F2F5",
+		gray300 : "#D7D8DC",
+		gray400 : "#9D9FA7",
+		gray500 : "#848791",
+		gray600 : "#6B6F7C",
+		gray700 : "#3B424E",
+		gray800 : "#0A1323"
 	},
 	borders : {
 		lightGray : "1px solid rgba(0, 0, 0, .05)",

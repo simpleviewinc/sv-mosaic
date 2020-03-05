@@ -14,6 +14,7 @@ const ButtonWrapper = styled.span`
 		font-family: ${theme.fontFamily};
 		text-transform: none;
 		font-size: 14px;
+		font-weight: ${theme.fontWeight.semiBold};
 	}
 	
 	&.normalButton > button {
@@ -23,16 +24,45 @@ const ButtonWrapper = styled.span`
 	&.normalButton > button .icon {
 		font-size: 20px;
 	}
+
+	&.normalButton.size_small > button {
+		padding-left: 12px;
+		padding-right: 12px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
 	
-	&.normalButton > button .icon_left {
+	&.normalButton.size_small > button .icon_left {
 		margin-right: 4px;
+		margin-left: -4px;
 	}
 	
-	&.normalButton > button .icon_right {
+	&.normalButton.size_small > button .icon_right {
 		margin-left: 4px;
+		margin-right: -4px;
+	}
+
+	&.normalButton.size_medium > button .icon_left {
+		margin-right: 4px;
+		margin-left: -4px;
+	}
+
+	&.normalButton.size_medium > button .icon_right {
+		margin-left: 4px;
+		margin-right: -4px;
 	}
 	
-	&.iconButton > button {
+	&.normalButton.size_large > button .icon_left {
+		margin-right: 7px;
+		margin-left: -7px;
+	}
+	
+	&.normalButton.size_large > button .icon_right {
+		margin-left: 7px;
+		margin-right: -7px;
+	}
+	
+	&.iconButton.size_medium > button {
 		padding: 8px;
 		font-size: 15px;
 	}
@@ -43,45 +73,83 @@ const PopoverWrapper = styled.div`
 	padding: 10px;
 `
 
+const RedOnWhite = styled(ButtonWrapper)`
+	& > button {
+		color: ${theme.colors.red};
+		border-color: ${theme.colors.red};
+	}
+
+	& > button:hover {
+		background: ${theme.colors.red}12;
+	}
+
+	& > button:active,
+	& > button:focus {
+		background: ${theme.colors.red}24;
+	}
+`
+
+const BlackOnWhite = styled(ButtonWrapper)`
+	& > button {
+		color: ${theme.colors.black};
+		border-color: ${theme.colors.gray400};
+	}
+
+	& > button:hover {
+		background: ${theme.colors.gray200};
+	}
+
+	& > button:active,
+	& > button:focus {
+		background: ${theme.colors.gray300};
+	}
+`
+
+const BlueOnWhite = styled(ButtonWrapper)`
+	& > button {
+		color: ${theme.colors.blue};
+		border-color: ${theme.colors.blue};
+	}
+
+	& > button:hover {
+		background: ${theme.colors.blue}12;
+	}
+
+	& > button:active,
+	& > button:focus {
+		background: ${theme.colors.blue}24;
+	}
+`
+
 const types = {
-	blue_outlined : styled(ButtonWrapper)`
-		& > button {
-			border-color: ${theme.colors.blue};
-			color: ${theme.colors.blue};
-		}
-		
+	blue_outlined : styled(BlueOnWhite)`
 		& > button:hover {
-			background: ${theme.colors.blue}23;
+			box-shadow: 0 2px 3px ${theme.colors.blue}12;
+		}
+
+		& > button:active,
+		& > button:focus {
+			box-shadow: 0 1px 2px ${theme.colors.blue}24;
 		}
 	`,
-	red_outlined : styled(ButtonWrapper)`
-		& > button {
-			border-color: ${theme.colors.red};
-			color: ${theme.colors.red};
-		}
-		
+	red_outlined : styled(RedOnWhite)`
 		& > button:hover {
-			background: ${theme.colors.red}23;
+			box-shadow: 0 2px 3px ${theme.colors.red}12;
 		}
-	`,
-	gray_outlined : styled(ButtonWrapper)`
-		& > button {
-			border-color: #ddd;
-			color: ${theme.colors.lightGray};
+
+		& > button:active,
+		& > button:focus {
+			box-shadow: 0 1px 2px ${theme.colors.red}24;
 		}
-		
+	`, 
+	black_outlined : styled(BlackOnWhite)`
 		& > button:hover {
-			background: ${theme.colors.lightGray}23;
+			box-shadow: 0 2px 3px ${theme.colors.black}12;
 		}
-	`,
-	black_outlined : styled(ButtonWrapper)`
-		& > button {
-			border-color: #ddd;
-			color: black;
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
+
+		& > button:active,
+		& > button:focus {
+			box-shadow: 0 1px 2px ${theme.colors.black}24;
 		}
 	`,
 	blue_contained : styled(ButtonWrapper)`
@@ -92,14 +160,22 @@ const types = {
 		& > button:hover {
 			background: ${theme.colors.blueHover};
 		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.blueActive};
+		}
 	`,
 	lightBlue_contained : styled(ButtonWrapper)`
 		& > button {
-			background: ${theme.colors.blue}13;
+			background: ${theme.colors.blue}12;
 			color: ${theme.colors.blue};
 		}
 		& > button:hover {
-			background: ${theme.colors.blue}26;
+			background: ${theme.colors.blue}24;
+		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.blue}40;
 		}
 	`,
 	red_contained : styled(ButtonWrapper)`
@@ -108,90 +184,32 @@ const types = {
 			color: white;
 		}
 		& > button:hover {
-			background: #900f0f;
+			background: ${theme.colors.redHover};
+		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.redActive};
 		}
 	`,
-	gray_contained : styled(ButtonWrapper)`
+	black_contained : styled(ButtonWrapper)`
 		& > button {
-			background: #ddd;
-			color: black;
+			background: ${theme.colors.gray200};
+			color:  ${theme.colors.black};
 		}
 		& > button:hover {
-			background: #ccc;
+			background: ${theme.colors.gray300};
+		}
+		& > button:active,
+		& > button:focus {
+			background: ${theme.colors.gray400};
 		}
 	`,
-	blue_text : styled(ButtonWrapper)`
-		& > button {
-			color: ${theme.colors.blue};
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.blue}23;
-		}
-	`,
-	red_text : styled(ButtonWrapper)`
-		& > button {
-			color: ${theme.colors.red};
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.red}23;
-		}
-	`,
-	gray_text : styled(ButtonWrapper)`
-		& > button {
-			color: ${theme.colors.lightGray};
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
-		}
-	`,
-	black_text : styled(ButtonWrapper)`
-		& > button {
-			color: black;
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
-		}
-	`,
-	blue_icon : styled(ButtonWrapper)`
-		& > button {
-			color: ${theme.colors.blue}
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.blue}23;
-		}
-	`,
-	black_icon : styled(ButtonWrapper)`
-		& > button {
-			color: black;
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
-		}
-	`,
-	red_icon : styled(ButtonWrapper)`
-		& > button {
-			color: ${theme.colors.red};
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.red}23;
-		}
-	`,
-	gray_icon : styled(ButtonWrapper)`
-		& > button {
-			color: ${theme.colors.lightGray};
-		}
-		
-		& > button:hover {
-			background-color: ${theme.colors.lightGray}23;
-		}
-	`
+	blue_text : BlueOnWhite,
+	red_text : RedOnWhite,
+	black_text : BlackOnWhite,
+	blue_icon : BlueOnWhite,
+	black_icon : BlackOnWhite,
+	red_icon : RedOnWhite
 }
 
 function Button(props) {
@@ -209,7 +227,7 @@ function Button(props) {
 			{
 				name : "color",
 				type : "string",
-				enum : ["black", "blue", "lightBlue", "red", "gray"],
+				enum : ["black", "blue", "lightBlue", "red"],
 				required : true
 			},
 			{
@@ -217,6 +235,11 @@ function Button(props) {
 				type : "string",
 				enum : ["icon", "outlined", "contained", "text"],
 				required : true
+			},
+			{
+				name: "size",
+				type : "string",
+				enum : ["small", "medium", "large"],
 			},
 			{
 				name : "iconPosition",
@@ -289,18 +312,22 @@ function Button(props) {
 		: props.menuContent ? openMenu
 		: props.onClick
 	;
+
+	const size = props.size || "medium";
 	
 	return (
 		<MyButton className={`
 			${props.className ? props.className : ""}
 			button
 			${props.variant === "icon" ? "iconButton" : "normalButton"}
+			size_${size}
 		`}>
 			{
 				props.variant !== "icon" &&
 				<MUIButton
 					variant={props.variant}
 					onClick={onClick}
+					size={size}
 					fullWidth={props.fullWidth}
 					disabled={props.disabled}
 				>
@@ -318,6 +345,7 @@ function Button(props) {
 				<IconButton
 					onClick={onClick}
 					disabled={props.disabled}
+					size={size}
 				>
 					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
 				</IconButton>

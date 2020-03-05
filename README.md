@@ -40,7 +40,7 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 ### Props
 * **label** - `string` or `jsx` - optional - The contents of the buttons label. For complicated buttons which are more than just text, you can pass JSX and it will render inside the button. Be careful to not overuse the JSX capability.
 * **className** - `string` - optional - A string of classes to append to the root element.
-* **color** - `string` - required enum `["black", "blue", "lightBlue", "red", "gray"]` - The color of the button.
+* **color** - `string` - required enum `["black", "blue", "lightBlue", "red"]` - The color of the button.
 * **variant** - `string` - required enum `["icon", "outlined", "contained", "text"]` - The display type of the button. See the example app to know what each variant looks like.
 * **iconPosition** - `string` - default `left` - When a button has a `label` AND an `mIcon` it will determine which side of the button to place the `mIcon`.
 * **mIcon** - `Material-UI Icon` - An icon from `material-ui`.

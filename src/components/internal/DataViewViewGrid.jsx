@@ -69,7 +69,7 @@ const StyledDiv = styled.div`
 		margin: 0;
 		font-weight: normal;
 		font-size: 12px;
-		color: ${theme.colors.lightGray};
+		color: ${theme.colors.gray500};
 	}
 	
 	& > .grid > .cell .image {
