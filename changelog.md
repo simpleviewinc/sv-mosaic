@@ -2,6 +2,7 @@
 
 ## 3/6/2020
 * **BREAKING** - The format of all column transforms has changed from `function(data) {}` to `function({ data, row })`. This allows your transforms to have access to all keys on the row and not just that columns data. In some cases you may need to synthesize multiple columns.
+* **BREAKING** - The `gray` button color is no longer supported. Utilize the `black` color scheme. The `gray` was too close to the disabled state to be visually useful.
 * FilterMultiSelect will now auto-focus the keyword
 * Added column style capabilities including `bold`, `italic` and many more. See the DataView docs for more info.
 * Corrected an issue with the Sort arrow pointing in the wrong direction.
@@ -11,6 +12,8 @@
 * `MenuSelect` now allows `mIcon` and `color` passthroughs to `MenuItem`.
 * Added documentation for all official transforms.
 * Adds typography with `H1`, `H3` and `BodyText` components for ease in UI typographic consistency.
+* Major style clean-up through the top section of the DataView. Elements are spaced, colored and organized properly. Previously some elements were a little haphazard in terms of spacing.
+* The theme file now includes better colors per the updated styleguide, including all of the different shades of gray.
 
 ## 2/20/2020
 * `savedViewAllowSharedViewSave` has been added to `DataView` props, it defaults to `false` meaning that if you want users to be able to create shared views, you will need to pass `true` here. Otherwise they will only be able to create views for their own user.

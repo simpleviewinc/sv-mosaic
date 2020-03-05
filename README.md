@@ -46,6 +46,7 @@ Displays a button. See the example app at https://simpleviewinc.github.io/sv-mos
 * **mIcon** - `Material-UI Icon` - An icon from `material-ui`.
 	* **Example** - `import AddIcon from '@material-ui/icons/Add'` and then you would pass `mIcon : AddIcon`.
 	* Ensure you are loading the icons correctly per the optimization guidelines.
+* **mIconColor** - Pass a hex-code color for coloring the icon. It is recommened to use a color from the `theme.colors`.
 * **onClick** - `function` - optional - The function that will be executed when the button is clicked.
 * **fullWidth** - `boolean` - optional - Buttons default to only displaying the width required for their content. If `fullWidth` is `true` it will stretch the button to use all allowable space.
 * **disabled** - `boolean` - optional - When `true` the button will be displayed, but a user will not be able to interact with it.
