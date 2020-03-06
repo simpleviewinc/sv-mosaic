@@ -9,16 +9,18 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DataViewControlViewProps, DataViewControlViewOption } from "./DataViewTypes";
 import Button from "../Button";
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
-import { theme } from "../..";
+import theme from "../../utils/theme";
 
 const StyledSpan = styled.span`
-
+	& .labelIcon {
+		font-size: ${theme.iconFontSize};
+	}
 `
 
 function DataViewControlView(props: DataViewControlViewProps) {
 	const Icon = useMemo(() => {
 		const Icon = props.view === "list" ? FormatListBulletedIcon : GridOnIcon;
-		return <Icon/>
+		return <Icon className="labelIcon"/>
 	}, [props.view]);
 
 	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
