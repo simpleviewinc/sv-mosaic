@@ -376,7 +376,6 @@ function Button(props) {
 				<IconButton
 					onClick={onClick}
 					disabled={props.disabled}
-					size={size}
 				>
 					{ props.mIcon && <MaterialIcon className="icon"></MaterialIcon> }
 				</IconButton>
