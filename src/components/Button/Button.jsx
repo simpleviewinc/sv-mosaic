@@ -19,10 +19,6 @@ const ButtonWrapper = styled.span`
 		font-size: 14px;
 		font-weight: ${theme.fontWeight.semiBold};
 	}
-
-	& .MuiSvgIcon-root {
-		font-size: ${theme.iconFontSize};
-	}
 	
 	&.normalButton > button {
 		box-shadow: none;
@@ -78,6 +74,10 @@ const ButtonWrapper = styled.span`
 	&.normalButton.size_large > button .icon_right {
 		margin-left: 7px;
 		margin-right: -7px;
+	}
+
+	&.iconButton svg {
+		font-size: ${theme.iconFontSize};
 	}
 	
 	&.iconButton.size_small > button {
