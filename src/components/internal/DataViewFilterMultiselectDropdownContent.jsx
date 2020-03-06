@@ -101,6 +101,7 @@ const StyledWrapper = styled.div`
 	
 	& .chip > span {
 		flex: 1;
+		font-size: 14px;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;

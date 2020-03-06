@@ -21,7 +21,7 @@ const StyledMenuItem = styled(MUIMenuItem)`
 		font-size: ${theme.iconFontSize};
 	}
 
-	& > .label {
+	& > .menuLabel {
 		font-family: ${theme.fontFamily};
 	}
 `
@@ -56,7 +56,7 @@ export default function MenuItem(props: MenuItemProps) {
 					<Icon/>
 				</MyIcon>
 			}
-			<BodyText className="label">{props.label}</BodyText>
+			<BodyText className="menuLabel">{props.label}</BodyText>
 		</StyledMenuItem>
 	)
 }
