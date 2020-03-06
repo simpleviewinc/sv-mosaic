@@ -7,6 +7,7 @@ export default {
 		font-size: 14px;
 		font-weight: normal;
 	`,
+	iconFontSize : "24px",
 	fontWeight : {
 		normal: 400,
 		semiBold: 500,

@@ -19,6 +19,10 @@ const ButtonWrapper = styled.span`
 		font-size: 14px;
 		font-weight: ${theme.fontWeight.semiBold};
 	}
+
+	& .MuiSvgIcon-root {
+		font-size: ${theme.iconFontSize};
+	}
 	
 	&.normalButton > button {
 		box-shadow: none;

@@ -35,12 +35,14 @@ const StyledWrapper = styled.div`
 	}
 	
 	& > .topBlock > .options > .searchBar > svg {
-		padding-right: 8px;
+		margin-right: 8px;
+		font-size: ${theme.iconFontSize};
 	}
 	
 	& > .topBlock > .options > .searchBar > .input {
 		font-family: ${theme.fontFamily};
 		line-height: 2rem;
+		font-size: 16px;
 	}
 	
 	& > .topBlock > .options {
