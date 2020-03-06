@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
 import Button from "../Button";
-import { theme } from "../..";
+import theme from "../../utils/theme";
 
 function DataViewLimit(props: DataViewControlLimitProps) {
 	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
