@@ -13,7 +13,7 @@ import Drawer from "./components/Drawer.jsx";
 import DrawerContent from "./components/DrawerContent.jsx";
 import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
-import theme from "./utils/theme.js";
+
 export * from "./transforms";
 export * from "./types";
 
@@ -35,6 +35,8 @@ export * from "./components/MenuBase";
 export { default as MenuItem } from "./components/MenuItem";
 export * from "./components/MenuItem";
 
+export { default as theme } from "./theme";
+
 export {
 	ButtonRow,
 	Checkbox,
@@ -55,6 +57,5 @@ export {
 	DataViewFilterMultiselect as GridFilterMultiselect,
 	DataViewPrimaryFilter as GridPrimaryFilter,
 	Menu,
-	Spinner,
-	theme
+	Spinner
 }
