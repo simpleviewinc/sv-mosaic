@@ -3,14 +3,22 @@ import styled from "styled-components";
 import MUIMenuItem from '@material-ui/core/MenuItem';
 
 import { MenuItemProps } from "./MenuItemTypes";
-import theme from "../../utils/theme.js";
+import { theme } from "../../";
 import { BodyText } from "../Typography";
 
 const StyledMenuItem = styled(MUIMenuItem)`
 	min-width: 150px;
 
+	&.MuiMenuItem-root {
+		min-height: 42px;
+	}
+
 	& > .icon {
 		margin-right: 10px;
+	}
+
+	& > .icon > svg {
+		font-size: ${theme.iconFontSize};
 	}
 
 	& > .label {
