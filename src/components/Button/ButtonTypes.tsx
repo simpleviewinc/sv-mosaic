@@ -1,4 +1,4 @@
-import { MosaicMIcon } from "../../types";
+import { MosaicMIcon, MosaicObject } from "../../types";
 import { MenuItemProps } from "../MenuItem";
 
 export interface ButtonProps {
@@ -17,4 +17,5 @@ export interface ButtonProps {
 	menuContent?: JSX.Element
 	mIconColor?: string
 	onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
+	attrs?: MosaicObject
 }

@@ -275,8 +275,18 @@ function Buttons() {
 					<Button color="blue" variant="icon" mIcon={HelpIcon} popover={<p>Help text</p>}/>
 				</ButtonRow>
 			</div>
-			
-			<div style={{ height: "200px" }}></div>
+
+			<h2>Buttons with custom attrs</h2>
+			<div>
+				<ButtonRow>
+					<Button
+						color="black"
+						variant="outlined"
+						label="With data attribute"
+						attrs={{ "data-foo" : "testing" }}
+					/>
+				</ButtonRow>
+			</div>
 		</div>
 	)
 }
