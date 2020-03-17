@@ -3,7 +3,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
-import Button from "../Button";
+import { default as Button, ButtonProps } from "../Button";
 
 export default {
 	title : "Components|Menu"
@@ -31,7 +31,7 @@ const MENU_ITEMS = [
 ]
 
 export const example = () => {
-	const menuItems = MENU_ITEMS.map((val, i) => {
+	const menuItems: ButtonProps["menuItems"] = MENU_ITEMS.map((val, i) => {
 		return {
 			...val,
 			onClick : function() {
@@ -51,7 +51,7 @@ export const example = () => {
 }
 
 export const withIcons = () => {
-	const menuItems = [
+	const menuItems: ButtonProps["menuItems"] = [
 		{
 			label : "Item A",
 			mIcon : CreateIcon,
