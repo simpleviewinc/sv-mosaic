@@ -240,6 +240,10 @@ const types = {
 }
 
 function Button(props: ButtonProps) {
+	const {
+		attrs = {}
+	} = props;
+
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 	
@@ -277,13 +281,16 @@ function Button(props: ButtonProps) {
 	const size = props.size || "medium";
 	
 	return (
-		<MyButton className={`
-			${props.className ? props.className : ""}
-			button
-			${props.variant === "icon" ? "iconButton" : "normalButton"}
-			size_${size}
-			variant_${props.variant}
-		`}>
+		<MyButton
+			{...attrs}
+			className={`
+				${props.className ? props.className : ""}
+				button
+				${props.variant === "icon" ? "iconButton" : "normalButton"}
+				size_${size}
+				variant_${props.variant}
+			`}
+		>
 			{
 				props.variant !== "icon" &&
 				<MUIButton
