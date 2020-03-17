@@ -14,6 +14,7 @@ import GridOnOutlinedIcon from '@material-ui/icons/GridOnOutlined';
 
 import ButtonRow from "../ButtonRow";
 import Button from "./Button";
+import { ButtonProps } from "./ButtonTypes";
 
 function Buttons() {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -31,7 +32,7 @@ function Buttons() {
 		setAnchorEl(null);
 	}
 	
-	const dropdownWithIcons = [
+	const dropdownWithIcons: ButtonProps["menuItems"] = [
 		{
 			label : "Edit",
 			mIcon : CreateIcon,
@@ -48,7 +49,7 @@ function Buttons() {
 		}
 	];
 	
-	const dropdownWithColoredIcons = [
+	const dropdownWithColoredIcons: ButtonProps["menuItems"] = [
 		{
 			label : "Edit",
 			mIcon : CreateIcon,
@@ -82,7 +83,7 @@ function Buttons() {
 		}
 	];
 	
-	const dropdownWithText = [
+	const dropdownWithText: ButtonProps["menuItems"] = [
 		{
 			label : "Edit",
 			onClick : function() {

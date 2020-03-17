@@ -1,10 +1,11 @@
-import React, { useState, memo } from "react";
+import * as React from "react";
+import { useState, memo } from "react";
 import MUIButton from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 import Popover from "@material-ui/core/Popover";
 
+import { ButtonProps } from "./ButtonTypes";
 import theme from "../../utils/theme.js";
 import Menu from "../Menu.jsx";
 import MenuBase from "../MenuBase";
@@ -238,77 +239,7 @@ const types = {
 	red_icon : RedOnWhite
 }
 
-function Button(props) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "label",
-				type : "any"
-			},
-			{
-				name : "className",
-				type : "string"
-			},
-			{
-				name : "color",
-				type : "string",
-				enum : ["black", "blue", "lightBlue", "red"],
-				required : true
-			},
-			{
-				name : "variant",
-				type : "string",
-				enum : ["icon", "outlined", "contained", "text"],
-				required : true
-			},
-			{
-				name: "size",
-				type : "string",
-				enum : ["small", "medium", "large"],
-			},
-			{
-				name : "iconPosition",
-				type : "string",
-				enum : ["left", "right"]
-			},
-			{
-				name : "mIcon",
-				type : "object"
-			},
-			{
-				name : "mIconColor",
-				type : "string"
-			},
-			{
-				name : "onClick",
-				type : "function"
-			},
-			{
-				name : "fullWidth",
-				type : "boolean"
-			},
-			{
-				name : "disabled",
-				type : "boolean"
-			},
-			{
-				name : "popover",
-				type : "object"
-			},
-			{
-				name : "menuItems",
-				type : "array"
-			},
-			{
-				name : "menuContent",
-				type : "object"
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
-	
+function Button(props: ButtonProps) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 	

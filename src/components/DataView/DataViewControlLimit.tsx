@@ -33,7 +33,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 	return (
 		<Button
 			color="black"
-			label={props.limit}
+			label={props.limit.toString()}
 			variant="text"
 			size="small"
 			iconPosition="right"
