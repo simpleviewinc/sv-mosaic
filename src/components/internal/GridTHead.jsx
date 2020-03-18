@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
-import { pick } from "lodash";
 
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-import ButtonRow from "../ButtonRow.jsx";
 import Checkbox from "../Checkbox.jsx";
 import { DataViewColumnControl } from "./DataViewColumnControl";
+import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
 
 import theme from "../../utils/theme.js";
 
@@ -118,6 +117,10 @@ function GridTHead(props) {
 				type : "array"
 			},
 			{
+				name : "data",
+				type : "array"
+			},
+			{
 				name : "sort",
 				type : "object"
 			},
@@ -130,10 +133,6 @@ function GridTHead(props) {
 				type : "function"
 			},
 			{
-				name : "onBulkActionClick",
-				type : "function"
-			},
-			{
 				name : "onColumnsChange",
 				type : "function"
 			}
@@ -141,17 +140,6 @@ function GridTHead(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
-	
-	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
-		const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
-		
-		return {
-			...buttonArgs,
-			onClick : function() {
-				props.onBulkActionClick(action);
-			}
-		}
-	}) : undefined;
 	
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
@@ -169,9 +157,9 @@ function GridTHead(props) {
 					</StyledTh>
 				}
 				{
-					anyChecked &&
+					props.bulkActions && anyChecked &&
 					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
-						<ButtonRow buttons={bulkActionButtons}/>
+						<DataViewBulkActionsButtonsRow data={props.data} checked={props.checked} bulkActions={props.bulkActions}/>
 					</StyledTh>
 				}
 				{

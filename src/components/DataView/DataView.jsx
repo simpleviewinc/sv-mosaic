@@ -311,11 +311,6 @@ function DataView(props) {
 		});
 	}
 	
-	const onBulkActionClick = function(action) {
-		const checkedData = props.data.filter((val, i) => state.checked[i] === true);
-		action.onClick({ data : checkedData });
-	}
-	
 	const onCheckboxClick = function(i) {
 		const newChecked = [...state.checked];
 		newChecked[i] = !newChecked[i];
@@ -449,7 +444,6 @@ function DataView(props) {
 					primaryActions={props.primaryActions}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
-					onBulkActionClick={onBulkActionClick}
 					onCheckAllClick={onCheckAllClick}
 					onActionClick={onActionClick}
 					onCheckboxClick={onCheckboxClick}

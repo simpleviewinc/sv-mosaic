@@ -1,13 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { pick } from "lodash";
 
 import Checkbox from "../Checkbox.jsx";
-import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button";
 import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
 import theme from "../../utils/theme.js";
+import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
 
 const StyledDiv = styled.div`
 	& > .bulkRow {
@@ -127,35 +124,26 @@ function DataViewViewGrid(props) {
 		props.onCheckboxClick(i);
 	}
 	
-	const bulkActionButtons = props.bulkActions ? props.bulkActions.map(action => {
-		const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
-		
-		return {
-			...buttonArgs,
-			onClick : function() {
-				props.onBulkActionClick(action);
-			}
-		}
-	}) : undefined;
-	
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
 	
 	return (
 		<StyledDiv>
-			<div className="bulkRow">
-				{
-					props.bulkActions &&
-					<Checkbox
-						checked={allChecked}
-						onClick={props.onCheckAllClick}
-					/>
-				}
-				{
-					anyChecked &&
-					<ButtonRow buttons={bulkActionButtons}/>
-				}
-			</div>
+			{
+				props.bulkActions &&
+				<div className="bulkRow">
+					{
+						<Checkbox
+							checked={allChecked}
+							onClick={props.onCheckAllClick}
+						/>
+					}
+					{
+						anyChecked &&
+						<DataViewBulkActionsButtonsRow data={props.data} checked={props.checked} bulkActions={props.bulkActions}/>
+					}
+				</div>
+			}
 			<div className="grid">
 				{
 					props.data.map((row, i) => {

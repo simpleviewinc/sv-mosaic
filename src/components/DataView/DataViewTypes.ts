@@ -1,4 +1,5 @@
 import { MosaicObject } from "../../";
+import { ButtonProps } from "../Button";
 
 export interface DataViewColumnTransformArgs {
 	/** The value of the specific column that is being transformed */
@@ -54,4 +55,36 @@ export interface DataViewControlViewProps {
 	view: DataViewControlViewOption
 	views: DataViewControlViewOption[]
 	onViewChange(view: DataViewControlViewOption): void
+}
+
+interface DataViewActionShow {
+	({ row }: { row : MosaicObject }): void
+}
+
+interface DataViewActionOnClick {
+	({ data }: { data: MosaicObject }): void
+}
+
+interface DataViewBulkActionOnClick {
+	({ data }: { data: MosaicObject[] }): void
+}
+
+export interface DataViewAction {
+	name: string
+	onClick: DataViewActionOnClick
+	show?: boolean | DataViewActionShow
+	label?: ButtonProps["label"]
+	color?: ButtonProps["color"]
+	variant?: ButtonProps["variant"]
+	mIcon?: ButtonProps["mIcon"]
+}
+
+export interface DataViewBulkAction extends DataViewAction {
+	onClick: DataViewBulkActionOnClick
+}
+
+export interface DataViewBulkActionsButtonsRowProps {
+	bulkActions: DataViewBulkAction[]
+	data: MosaicObject[]
+	checked: boolean[]
 }

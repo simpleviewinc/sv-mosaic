@@ -18,10 +18,10 @@ function DataViewViewList(props) {
 				checked={props.checked}
 				columns={props.columns}
 				allColumns={props.allColumns}
+				data={props.data}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
 				onSortChange={props.onSortChange}
-				onBulkActionClick={props.onBulkActionClick}
 				onCheckAllClick={props.onCheckAllClick}
 				onColumnsChange={props.onColumnsChange}
 			/>
