@@ -10,6 +10,7 @@ import { BodyText } from "../Typography";
 const StyledSpan = styled.span`
 	display: inline-flex;
 	align-items: center;
+	white-space: nowrap;
 
 	& > .pagerText { line-height: 100%; }
 `;
