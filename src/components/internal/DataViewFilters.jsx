@@ -9,17 +9,17 @@ import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
 
 const StyledDiv = styled.div`
+	margin-bottom: -4px;
+
 	& > .filterRow {
 		display: flex;
 		align-items: center;
+		flex-wrap: wrap;
 	}
 
 	& > .filterRow > * {
 		margin-right: 4px;
-	}
-
-	& > .optionalFilters {
-		margin-top: 4px;
+		margin-bottom: 4px;
 	}
 `;
 
