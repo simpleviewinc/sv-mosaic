@@ -6,12 +6,16 @@ import DataView from "../DataView";
 import DrawerContent from "../DrawerContent.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
 
+const startingState = {
+	options : undefined,
+	loading : true,
+	formOpen : false,
+	formData : {}
+}
+
 function DataViewViewDrawerContent(props) {
 	const [state, setState] = useState({
-		options : undefined,
-		loading : true,
-		formOpen : false,
-		formData : undefined
+		...startingState
 	});
 	
 	useEffect(() => {
@@ -29,11 +33,7 @@ function DataViewViewDrawerContent(props) {
 	
 	const closeForm = function() {
 		setState({
-			...state,
-			options : undefined,
-			loading : true,
-			formOpen : false,
-			formData : undefined
+			...startingState
 		});
 	}
 
@@ -69,6 +69,7 @@ function DataViewViewDrawerContent(props) {
 				mIcon : CreateIcon,
 				onClick : function({ data }) {
 					setState({
+						...state,
 						formOpen : true,
 						formData : data
 					});
