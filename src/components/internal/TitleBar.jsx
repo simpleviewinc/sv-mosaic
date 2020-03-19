@@ -52,6 +52,7 @@ function TitleBar(props) {
 		
 		return props.buttons.map(button => {
 			const { name, ...buttonArgs } = button;
+			buttonArgs.attrs = { "data-mosaic-id" : `button_${name}` };
 			return buttonArgs;
 		});
 	}, [props.buttons]);

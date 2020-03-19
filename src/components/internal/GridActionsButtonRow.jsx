@@ -33,6 +33,7 @@ function GridActionsButtonRow(props) {
 			return (
 				<Button
 					key={`primary_${i}`}
+					attrs={{ "data-mosaic-id" : `action_primary_${action.name}` }}
 					{ ...buttonArgs }
 					onClick={onClick}
 				/>
@@ -58,11 +59,13 @@ function GridActionsButtonRow(props) {
 				color="blue"
 				variant="icon"
 				mIcon={MoreHorizIcon}
+				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				menuItems={additionalActions.map(action => {
 					const menuArgs = pick(action, ["label"]);
 					
 					return {
 						...menuArgs,
+						attrs : { "data-mosaic-id" : `action_additional_${action.name}` },
 						onClick : () => {
 							action.onClick({
 								data : props.row

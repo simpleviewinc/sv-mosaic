@@ -48,8 +48,15 @@ export default function MenuItem(props: MenuItemProps) {
 	
 	const MyIcon = props.color !== undefined ? iconTypes[props.color] : StyledIcon;
 	
+	const attrs = props.attrs || {};
+
 	return (
-		<StyledMenuItem onClick={props.onClick} disabled={props.disabled} selected={props.selected}>
+		<StyledMenuItem
+			{ ...attrs }
+			onClick={props.onClick}
+			disabled={props.disabled}
+			selected={props.selected}
+		>
 			{
 				props.mIcon &&
 				<MyIcon className="icon">

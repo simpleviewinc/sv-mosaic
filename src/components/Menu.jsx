@@ -38,6 +38,10 @@ function Menu(props) {
 						{
 							name : "onClick",
 							type : "function"
+						},
+						{
+							name : "attrs",
+							type : "object"
 						}
 					],
 					allowExtraKeys : false

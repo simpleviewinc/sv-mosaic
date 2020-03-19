@@ -11,6 +11,7 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 		
 		return {
 			...buttonArgs,
+			attrs : { "data-mosaic-id" : `action_bulk_${action.name}` },
 			onClick : function() {
 				const checkedData = props.data.filter((val, i) => props.checked[i] === true);
 				action.onClick({ data : checkedData });
