@@ -1,4 +1,3 @@
-import ButtonRow from "./components/ButtonRow";
 import Checkbox from "./components/Checkbox.jsx";
 import CheckboxList from "./components/CheckboxList.jsx";
 import DataView from "./components/DataView";
@@ -26,8 +25,8 @@ export * from "./components/FilterSingleSelect";
 export { default as Button } from "./components/Button";
 export * from "./components/Button";
 
-export { default as MenuSelect } from "./components/MenuSelect";
-export * from "./components/MenuSelect";
+export { default as ButtonRow } from "./components/ButtonRow";
+export * from "./components/ButtonRow";
 
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";
@@ -35,10 +34,14 @@ export * from "./components/MenuBase";
 export { default as MenuItem } from "./components/MenuItem";
 export * from "./components/MenuItem";
 
+export { default as MenuSelect } from "./components/MenuSelect";
+export * from "./components/MenuSelect";
+
+export * from "./components/Typography";
+
 export { default as theme } from "./theme";
 
 export {
-	ButtonRow,
 	Checkbox,
 	CheckboxList,
 	DataView,
