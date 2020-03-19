@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo } from "react";
 import { pick } from "lodash";
 
-import ButtonRow from "../ButtonRow.jsx";
+import ButtonRow from "../ButtonRow";
 import { DataViewBulkActionsButtonsRowProps } from "./DataViewTypes";
 
 function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps) {

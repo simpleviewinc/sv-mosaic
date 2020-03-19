@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 
-import ButtonRow from "../ButtonRow.jsx";
+import ButtonRow from "../ButtonRow";
 import Button from "../Button";
 import DataViewViewDrawer from "./DataViewViewDrawer.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";

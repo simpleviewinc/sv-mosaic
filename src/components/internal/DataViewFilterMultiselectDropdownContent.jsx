@@ -11,7 +11,7 @@ import HelpIcon from '@material-ui/icons/Help';
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import Button from "../Button";
-import ButtonRow from "../ButtonRow.jsx";
+import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner.jsx";
 import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";

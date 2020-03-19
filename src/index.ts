@@ -1,4 +1,4 @@
-import ButtonRow from "./components/ButtonRow.jsx";
+import ButtonRow from "./components/ButtonRow";
 import Checkbox from "./components/Checkbox.jsx";
 import CheckboxList from "./components/CheckboxList.jsx";
 import DataView from "./components/DataView";

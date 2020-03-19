@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import styled from "styled-components";
 
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -13,11 +11,9 @@ import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
 import GridOnOutlinedIcon from '@material-ui/icons/GridOnOutlined';
 
-import ButtonRow from "../components/ButtonRow.jsx";
-import Menu from "../components/Menu.jsx";
+import ButtonRow from "../components/ButtonRow";
 
 import {
-	theme,
 	Button
 } from "../";
 

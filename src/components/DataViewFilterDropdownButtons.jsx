@@ -3,7 +3,7 @@ import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
 import Button from "./Button";
-import ButtonRow from "./ButtonRow.jsx";
+import ButtonRow from "./ButtonRow";
 
 const StyledWrapper = styled.div`
 	& {
