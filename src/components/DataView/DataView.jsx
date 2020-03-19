@@ -321,10 +321,6 @@ function DataView(props) {
 		});
 	}
 	
-	const onActionClick = function(action, row) {
-		action.onClick({ data : row });
-	}
-	
 	useEffect(() => {
 		setState({
 			...state,
@@ -445,7 +441,6 @@ function DataView(props) {
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
 					onCheckAllClick={onCheckAllClick}
-					onActionClick={onActionClick}
 					onCheckboxClick={onCheckboxClick}
 				/>
 			</div>
