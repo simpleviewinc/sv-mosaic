@@ -31,7 +31,7 @@ function ButtonRow(props: ButtonRowProps) {
 		}
 
 		return null;
-	}, [props.buttons]);
+	}, [props.children, props.buttons]);
 
 	if (children === null) {
 		return null;
