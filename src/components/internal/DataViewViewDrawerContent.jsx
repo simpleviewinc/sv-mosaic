@@ -127,6 +127,7 @@ function DataViewViewDrawerContent(props) {
 				data={state.formData}
 				onClose={closeForm}
 				onSave={props.onSave}
+				allowSharedViewSave={props.allowSharedViewSave}
 			/>
 		</DrawerContent>
 	)
