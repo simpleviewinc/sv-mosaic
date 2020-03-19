@@ -2,8 +2,6 @@ import React, { useMemo } from "react";
 
 import Checkbox from "../Checkbox.jsx";
 import GridTd from "./GridTd.jsx";
-import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button";
 import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
 
 function GridTr(props) {

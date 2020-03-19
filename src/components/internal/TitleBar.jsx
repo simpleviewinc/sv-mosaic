@@ -1,12 +1,9 @@
 import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
-import { pick } from "lodash";
 
-import ButtonRow from "../ButtonRow.jsx";
-import Button from "../Button";
+import ButtonRow from "../ButtonRow";
 import DataViewViewControls from "./DataViewViewControls.jsx";
-import theme from "../../utils/theme.js";
 import { H1 } from "../Typography";
 
 const StyledWrapper = styled.div`

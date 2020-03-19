@@ -2,7 +2,7 @@ import React, { memo, useMemo } from "react";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { pick } from "lodash";
 
-import ButtonRow from "../ButtonRow.jsx";
+import ButtonRow from "../ButtonRow";
 import Button from "../Button";
 
 function filterAction(action, row) {

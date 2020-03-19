@@ -4,7 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { H1 } from "../Typography";
 import Button from "../Button";
-import ButtonRow from "../ButtonRow.jsx";
+import ButtonRow from "../ButtonRow";
 import theme from "../../utils/theme.js";
 
 const StyledWrapper = styled.div`
