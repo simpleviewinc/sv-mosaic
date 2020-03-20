@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import Checkbox from "../Checkbox.jsx";
-import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
+import Checkbox from "../Checkbox";
+import GridActionsButtonRow from "../internal/GridActionsButtonRow";
 import theme from "../../utils/theme.js";
-import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
+import DataViewBulkActionsButtonsRow from "./DataViewBulkActionsButtonsRow";
 
 const StyledDiv = styled.div`
 	& > .bulkRow {
@@ -117,7 +117,7 @@ const StyledDiv = styled.div`
 	}
 `
 
-function DataViewViewGrid(props) {
+function DataViewDisplayGrid(props) {
 	// TODO VALIDATE PROPS
 	
 	const checkboxClick = (i) => () => {
@@ -191,4 +191,4 @@ function DataViewViewGrid(props) {
 	)
 }
 
-export default DataViewViewGrid;
+export default DataViewDisplayGrid;
