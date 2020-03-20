@@ -397,7 +397,6 @@ function DataViewKitchenSink() {
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
 
 	const [state, setState] = useState({
-		removeItems : [],
 		data : [],
 		count : 0,
 		limit : 25,
