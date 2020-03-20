@@ -2,10 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
-import DataViewViewList from "../internal/DataViewViewList.jsx";
-import DataViewViewGrid from "../internal/DataViewViewGrid.jsx";
 import TitleBar from "../internal/TitleBar.jsx";
-import DataViewControlView from "./DataViewControlView";
+import DataViewControlDisplay from "./DataViewControlDisplay";
 import DataViewPager from "../internal/DataViewPager.jsx";
 import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
@@ -419,7 +417,7 @@ function DataView(props) {
 				<div className="right">
 					{
 						displayControlEnabled &&
-						<DataViewControlView
+						<DataViewControlDisplay
 							display={display}
 							displayOptions={displayOptionsFull}
 							onDisplayChange={props.onDisplayChange}
