@@ -1,4 +1,4 @@
-import { MosaicObject } from "../../";
+import { MosaicObject, MosaicMIcon } from "../../types";
 import { ButtonProps } from "../Button";
 
 export interface DataViewColumnTransformArgs {
@@ -51,10 +51,10 @@ export interface DataViewControlLimitProps {
 
 export type DataViewControlViewOption = "list" | "grid";
 
-export interface DataViewControlViewProps {
-	view: DataViewControlViewOption
-	views: DataViewControlViewOption[]
-	onViewChange(view: DataViewControlViewOption): void
+export interface DataViewControlDisplayProps {
+	display: string
+	displayOptions: DataViewDisplay[]
+	onDisplayChange(display: string): void
 }
 
 interface DataViewActionShow {
@@ -88,3 +88,11 @@ export interface DataViewBulkActionsButtonsRowProps {
 	data: MosaicObject[]
 	checked: boolean[]
 }
+
+export interface DataViewDisplay {
+	name: string
+	label: string
+	component: React.Component
+	mIcon: MosaicMIcon
+}
+

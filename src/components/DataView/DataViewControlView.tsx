@@ -6,7 +6,7 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { DataViewControlViewProps, DataViewControlViewOption } from "./DataViewTypes";
+import { DataViewControlDisplayProps } from "./DataViewTypes";
 import Button from "../Button";
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
 import theme from "../../utils/theme";
@@ -17,37 +17,23 @@ const StyledSpan = styled.span`
 	}
 `
 
-function DataViewControlView(props: DataViewControlViewProps) {
-	const Icon = useMemo(() => {
-		const Icon = props.view === "list" ? FormatListBulletedIcon : GridOnIcon;
-		return <Icon className="labelIcon"/>
-	}, [props.view]);
+function DataViewControlDisplay(props: DataViewControlDisplayProps) {
+	const activeDisplay = props.displayOptions.find(val => val.name === props.display);
+	const Icon = activeDisplay.mIcon;
 
-	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
-		props.onViewChange(val as DataViewControlViewOption);
-	}, [props.onViewChange]);
-
-	const options = props.views.map(val => {
-		if (val === "list") {
-			return {
-				mIcon : FormatListBulletedIcon,
-				label : "List",
-				value : "list"
-			}
-		} else if (val === "grid") {
-			return {
-				mIcon : GridOnIcon,
-				label : "Grid",
-				value : "grid"
-			}
+	const options = props.displayOptions.map(val => {
+		return {
+			value : val.name,
+			label : val.label,
+			mIcon : val.mIcon,
 		}
 	});
 
 	const menuContent = (
 		<MenuSelect
 			options={options}
-			onChange={onChange}
-			value={props.view}
+			onChange={props.onDisplayChange}
+			value={props.display}
 		/>
 	)
 	
@@ -56,7 +42,7 @@ function DataViewControlView(props: DataViewControlViewProps) {
 			<Button
 				variant="text"
 				color="black"
-				label={Icon}
+				label={<Icon/>}
 				iconPosition="right"
 				size="small"
 				mIcon={ExpandMoreIcon}
@@ -67,4 +53,4 @@ function DataViewControlView(props: DataViewControlViewProps) {
 	)
 }
 
-export default memo(DataViewControlView);
+export default memo(DataViewControlDisplay);
