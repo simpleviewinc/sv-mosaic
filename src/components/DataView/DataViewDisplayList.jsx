@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-import GridTHead from "./GridTHead.jsx";
-import GridTBody from "./GridTBody.jsx";
+import GridTHead from "../internal/GridTHead.jsx";
+import GridTBody from "../internal/GridTBody.jsx";
 
 const StyledTable = styled.table`
 	width: 100%;
 	border-collapse: collapse;
 `
 
-function DataViewViewList(props) {
+function DataViewDisplayList(props) {
 	// todo validate props
 	
 	return (
@@ -38,4 +38,4 @@ function DataViewViewList(props) {
 	)
 }
 
-export default DataViewViewList;
+export default DataViewDisplayList;
