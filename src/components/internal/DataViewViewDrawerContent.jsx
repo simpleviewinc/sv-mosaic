@@ -95,7 +95,6 @@ function DataViewViewDrawerContent(props) {
 		],
 		data : state.options,
 		loading : state.loading,
-		view : "list",
 		columns : [
 			{
 				name : "label",

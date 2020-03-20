@@ -217,7 +217,7 @@ const defaultView = {
 			name : "title",
 			dir : "asc"
 		},
-		view : "list",
+		display : "list",
 		activeFilters : [],
 		activeColumns : ["image", "title", "categories", "created"]
 	}
@@ -486,7 +486,7 @@ function DataViewKitchenSink() {
 	
 	const gridConfig = {
 		title : "Your Uploads",
-		columns : state.view === "list" ? listColumns : gridColumns,
+		columns : state.display === "list" ? listColumns : gridColumns,
 		primaryActions : primaryActions ? [
 			{
 				name : "edit",
@@ -558,7 +558,7 @@ function DataViewKitchenSink() {
 				}
 			}
 		}),
-		views : ["list", "grid"],
+		displayOptions : ["list", "grid"],
 		sticky,
 		onSkipChange : function({ skip }) {
 			setState({
@@ -580,10 +580,10 @@ function DataViewKitchenSink() {
 				skip : 0
 			});
 		},
-		onViewChange : function(data) {
+		onDisplayChange : function(data) {
 			setState({
 				...state,
-				view : data
+				display : data
 			});
 		},
 		onSavedViewSave : function(data) {
@@ -628,7 +628,7 @@ function DataViewKitchenSink() {
 				limit={state.limit}
 				skip={state.skip}
 				count={state.count}
-				view={state.view}
+				display={state.display}
 				sort={state.sort}
 				loading={state.loading}
 				filter={state.filter}

@@ -11,6 +11,7 @@ import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
 import { transformRows } from "../../utils/dataViewTools";
+import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -176,10 +177,8 @@ function DataView(props) {
 				type : "array"
 			},
 			{
-				name : "view",
-				type : "string",
-				enum : ["list", "grid"],
-				required : true // TODO: not make this required!
+				name : "display",
+				type : "string"
 			},
 			{
 				name : "savedView",
@@ -193,12 +192,8 @@ function DataView(props) {
 				allowExtraKeys : false
 			},
 			{
-				name : "views",
-				type : "array",
-				schema : {
-					type : "string",
-					enum : ["list", "grid"]
-				}
+				name : "displayOptions",
+				type : "array"
 			},
 			{
 				name : "data",
@@ -253,7 +248,7 @@ function DataView(props) {
 				type : "function"
 			},
 			{
-				name : "onViewChange",
+				name : "onDisplayChange",
 				type : "function"
 			},
 			{
@@ -288,12 +283,18 @@ function DataView(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
-	
+
 	// declare the hooks
 	const [state, setState] = useState({
 		checked : []
 	});
 	
+	// set defaults
+	const display = props.display || "list";
+	const displayOptions = useMemo(() => props.displayOptions || ["list"], [props.displayOptions]);
+	
+	const displayControlEnabled = props.onDisplayChange !== undefined && displayOptions.length > 1;
+
 	const savedViewEnabled = 
 		props.onSavedViewSave !== undefined &&
 		props.onSavedViewChange !== undefined &&
@@ -327,8 +328,27 @@ function DataView(props) {
 			checked : props.data.map(val => false)
 		});
 	}, [props.data]);
-	
-	const View = props.view === "list" ? DataViewViewList : DataViewViewGrid;
+
+	const displayOptionsFull = useMemo(() => {
+		return displayOptions.map(val => {
+			if (val === "list") {
+				return DataViewDisplayList;
+			} else if (val === "grid") {
+				return DataViewDisplayGrid;
+			} else if (typeof val === "string") {
+				throw new Error("Unknown view option")
+			} else {
+				return val;
+			}
+		});
+	}, [displayOptions]);
+
+	const activeDisplay = displayOptionsFull.find(val => val.name === display);
+	if (activeDisplay === undefined) {
+		throw new Error(`Display '${display}' is not valid in the passed displayOptions.`);
+	}
+
+	const Display = activeDisplay.component;
 	
 	// generate an array of columns based on the ones that are marked active
 	const activeColumnObjs = useMemo(() => {
@@ -340,13 +360,13 @@ function DataView(props) {
 	
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
-		return transformRows(props.data, props.view === "list" ? activeColumnObjs : props.columns);
-	}, [props.data, props.view, props.columns, activeColumnObjs]);
+		return transformRows(props.data, props.display === "list" ? activeColumnObjs : props.columns);
+	}, [props.data, props.display, props.columns, activeColumnObjs]);
 	
 	const savedViewState = {
 		limit : props.limit,
 		sort : props.sort,
-		view : props.view,
+		display : props.display,
 		filter : props.filter,
 		activeFilters : props.activeFilters,
 		activeColumns : props.activeColumns
@@ -398,11 +418,11 @@ function DataView(props) {
 				</div>
 				<div className="right">
 					{
-						props.views !== undefined &&
+						displayControlEnabled &&
 						<DataViewControlView
-							view={props.view}
-							views={props.views}
-							onViewChange={props.onViewChange}
+							display={display}
+							displayOptions={displayOptionsFull}
+							onDisplayChange={props.onDisplayChange}
 						/>
 					}
 					{
@@ -429,7 +449,7 @@ function DataView(props) {
 					viewContainer
 				`}
 			>
-				<View
+				<Display
 					checked={state.checked}
 					columns={activeColumnObjs}
 					allColumns={props.columns}
