@@ -54,9 +54,9 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
     * **label** - `string` - A label to inform the user what action they will be choosing
     * **show** - `function` or `boolean` - A value or function controlling whether or not to display this action. If a function is specified, it should return `true` or `false`.
 * **buttons** - `array` of `object` - A group of `Buttons` which will be displayed at the top of the `DataView` to the side of the `DataView` title.
-* **view** - `string` - enum `list`, `grid` - What type of view should be utilized.
+* **display** - `string` - enum `list`, `grid` - What type of view should be utilized.
 * **savedView** - `object` - A view to be loaded in the `DataView`.
-* **views** - `array` of `object` - A list of saved views to be provided as options in the saved view switcher.
+* **displayOptions** - `array` of `object` - A list of saved views to be provided as options in the saved view switcher.
 * **count** - `number` - The number of items from the data key which match the current filter.
 * **sort** - `object` - The current sort applied to the `DataView`.
     * **name** - `string` - The name of one of the `DataView`'s activeColumns containing the sortable data.
@@ -69,7 +69,7 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
 * **loading** - `boolean` - Pass `true` when your DataView is fetching data or doing some alteration which needs to lock the UI. While `loading` is true, the majority of the UI elements in the DataView are locked to prevent race conditions. Once the data has been fetched you will want to prop down `false` again.
 * **onSkipChange** - `function({ skip })` - A callback that will be executed with the new skip selected by the user.
 * **onSortChange** - `function({ name, dir })` - A callback function which is invoked when the sort of the `DataView` is changed. Returns a data object listing the chosen sort column and direction.
-* **onViewChange** - `function(view)` - A callback function which is invoked when a new view changes. Returns a data object detailing parameters of the new view.
+* **onDisplayChange** - `function(display)` - A callback function which is invoked when a new view changes. Returns a data object detailing parameters of the new view.
 * **onActiveFiltersChange** - `function` - A callback function which is invoked when the active filters change. Will be passed a data object containing a list of active filters and a filter object.
 * **onColumnsChange** - `function(activeColumns[])` - A callback function which is invoked when the columns displayed in the `DataView` change. Will be passed a data object containing the new list of active columns.
 * **onSavedViewSave** - `function` - A callback function which is invoked when a saved view is saved. This function will be passed a data object containing the view information.
