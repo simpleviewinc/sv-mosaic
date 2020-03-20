@@ -107,8 +107,7 @@ function DataViewViewDrawerContent(props) {
 					textTransform : "capitalize"
 				}
 			}
-		],
-		activeColumns : ["label", "type"]
+		]
 	}
 	
 	return (

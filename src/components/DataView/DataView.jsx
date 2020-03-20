@@ -290,6 +290,9 @@ function DataView(props) {
 	// set defaults
 	const display = props.display || "list";
 	const displayOptions = useMemo(() => props.displayOptions || ["list"], [props.displayOptions]);
+	const activeColumns = useMemo(() => {
+		return props.activeColumns || props.columns.map(val => val.name);
+	}, [props.activeColumns, props.columns]);
 	
 	const displayControlEnabled = props.onDisplayChange !== undefined && displayOptions.length > 1;
 
@@ -350,11 +353,11 @@ function DataView(props) {
 	
 	// generate an array of columns based on the ones that are marked active
 	const activeColumnObjs = useMemo(() => {
-		return props.activeColumns.map(name => {
+		return activeColumns.map(name => {
 			const column = props.columns.find(val => val.name === name);
 			return column;
 		});
-	}, [props.activeColumns, props.columns]);
+	}, [activeColumns, props.columns]);
 	
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
