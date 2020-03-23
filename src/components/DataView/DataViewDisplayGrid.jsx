@@ -5,18 +5,22 @@ import Checkbox from "../Checkbox";
 import GridActionsButtonRow from "../internal/GridActionsButtonRow";
 import theme from "../../utils/theme.js";
 import DataViewBulkActionsButtonsRow from "./DataViewBulkActionsButtonsRow";
+import DataViewDisplayGridSortControl from "./DataViewDisplayGridSortControl";
 
 const StyledDiv = styled.div`
-	& > .bulkRow {
+	& > .topRow {
 		margin-bottom: 4px;
 		position: sticky;
 		top: 0;
 		z-index: 1;
 		background: white;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 	
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
-	& > .bulkRow:after {
+	& > .topRow:after {
 		content: "";
 		position: absolute;
 		top: 0;
@@ -119,34 +123,59 @@ const StyledDiv = styled.div`
 
 function DataViewDisplayGrid(props) {
 	// TODO VALIDATE PROPS
-	
+	const columnMap = props.displaySettings && props.displaySettings.columnMap;
+	if (!columnMap) {
+		throw new Error("You must specify displaySettings.columnMap in order to use the grid view.");
+	}
+
 	const checkboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
 	
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
-	
+
+	const hasTopRow = props.bulkActions !== undefined || props.onSortChange !== undefined;
+	const hasSortControl = props.onSortChange !== undefined && props.sort !== undefined;
+
 	return (
 		<StyledDiv>
 			{
-				props.bulkActions &&
-				<div className="bulkRow">
+				hasTopRow &&
+				<div className="topRow">
+					<div className="left">
+						{
+							props.bulkActions &&
+							<Checkbox
+								checked={allChecked}
+								onClick={props.onCheckAllClick}
+							/>
+						}
+						{
+							props.bulkActions && anyChecked &&
+							<DataViewBulkActionsButtonsRow data={props.data} checked={props.checked} bulkActions={props.bulkActions}/>
+						}
+					</div>
 					{
-						<Checkbox
-							checked={allChecked}
-							onClick={props.onCheckAllClick}
-						/>
-					}
-					{
-						anyChecked &&
-						<DataViewBulkActionsButtonsRow data={props.data} checked={props.checked} bulkActions={props.bulkActions}/>
+						hasSortControl &&
+						<div className="right">
+							<DataViewDisplayGridSortControl
+								columns={props.columns}
+								sort={props.sort}
+								displaySettings={props.displaySettings}
+								onSortChange={props.onSortChange}
+							/>
+						</div>
 					}
 				</div>
 			}
 			<div className="grid">
 				{
 					props.data.map((row, i) => {
+						const image = row[columnMap.image];
+						const primary = row[columnMap.primary];
+						const secondary = row[columnMap.secondary];
+
 						return (
 							<div
 								className={`
@@ -155,24 +184,33 @@ function DataViewDisplayGrid(props) {
 								`}
 								key={row.id}
 							>
-								<div className="image">
-									{
-										props.bulkActions &&
-										<div className="checkboxContainer">
-											<div className="mask"/>
-											<Checkbox
-												className="checkbox"
-												checked={props.checked[i] === true}
-												onClick={checkboxClick(i)}
-											/>
-										</div>
-									}
-									{row.image}
-								</div>
+								{
+									image &&
+									<div className="image">
+										{
+											props.bulkActions &&
+											<div className="checkboxContainer">
+												<div className="mask"/>
+												<Checkbox
+													className="checkbox"
+													checked={props.checked[i] === true}
+													onClick={checkboxClick(i)}
+												/>
+											</div>
+										}
+										{image}
+									</div>
+								}
 								<div className="info">
 									<div className="left">
-										<h2>{row.primary}</h2>
-										<h3>{row.secondary}</h3>
+										{
+											primary &&
+											<h2>{primary}</h2>
+										}
+										{
+											secondary &&
+											<h3>{secondary}</h3>
+										}
 									</div>
 									<div className="right">
 										<GridActionsButtonRow
