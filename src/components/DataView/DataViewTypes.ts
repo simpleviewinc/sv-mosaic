@@ -15,8 +15,12 @@ export interface DataViewColumnTransform {
 export interface DataViewColumn {
 	/** The name of the column */
 	name: string
+	/**  Displayed label for the column */
+	label?: string
 	/** The column from the passed RowData it will display in this column. Defaults to `column.name`. */
 	column?: string
+	/** Whether this column can be sorted */
+	sortable?: boolean
 	transforms?: DataViewColumnTransform[]
 }
 
@@ -96,3 +100,17 @@ export interface DataViewDisplay {
 	mIcon: MosaicMIcon
 }
 
+export interface DataViewDisplaySettingsGrid {
+	columnMap : {
+		[key: string]: string
+	}
+}
+
+export interface DataViewSort {
+	name: string
+	dir: "asc" | "desc"
+}
+
+export interface DataViewOnSortChange {
+	(sort: DataViewSort): void
+}

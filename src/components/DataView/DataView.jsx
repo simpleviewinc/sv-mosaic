@@ -234,6 +234,10 @@ function DataView(props) {
 				type : "boolean"
 			},
 			{
+				name : "displaySettings",
+				type : "object"
+			},
+			{
 				name : "onSkipChange",
 				type : "function"
 			},
@@ -370,7 +374,8 @@ function DataView(props) {
 		display : props.display,
 		filter : props.filter,
 		activeFilters : props.activeFilters,
-		activeColumns : props.activeColumns
+		activeColumns : props.activeColumns,
+		displaySettings : props.displaySettings,
 	}
 	
 	const savedViewCallbacks = {
@@ -459,6 +464,7 @@ function DataView(props) {
 					data={transformedData}
 					additionalActions={props.additionalActions}
 					primaryActions={props.primaryActions}
+					displaySettings={props.displaySettings}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
 					onCheckAllClick={onCheckAllClick}

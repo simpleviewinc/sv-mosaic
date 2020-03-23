@@ -223,7 +223,7 @@ const defaultView = {
 	}
 }
 
-const listColumns = [
+const columns = [
 	{
 		name : "id",
 		label : "ID"
@@ -234,6 +234,15 @@ const listColumns = [
 		transforms : [
 			transform_get(["resource_raw", "secure_url"]),
 			transform_thumbnail({ width : 75, height : 75 })
+		]
+	},
+	{
+		name : "image_grid",
+		column : "image",
+		label : "Image",
+		transforms : [
+			transform_get(["resource_raw", "secure_url"]),
+			transform_thumbnail({ width : 275, height : 200 })
 		]
 	},
 	{
@@ -353,33 +362,13 @@ const listColumns = [
 	}
 ];
 
-const gridColumns = [
-	{
-		name : "id",
-		label : "ID"
-	},
-	{
-		name : "image",
-		label : "Image",
-		transforms : [
-			transform_get(["resource_raw", "secure_url"]),
-			transform_thumbnail({ width : 275, height : 200 })
-		]
-	},
-	{
-		name : "primary",
-		label : "Primary",
-		column : "title",
-	},
-	{
-		name : "secondary",
-		label : "Secondary",
-		column : "created",
-		transforms : [
-			transform_dateFormat()
-		]
+const gridDisplaySettings = {
+	columnMap : {
+		image : "image_grid",
+		primary : "title",
+		secondary : "created"
 	}
-]
+}
 
 const StyledDiv = styled.div`
 	padding: 0px 16px;
@@ -485,7 +474,7 @@ function DataViewKitchenSink() {
 	
 	const gridConfig = {
 		title : "Your Uploads",
-		columns : state.display === "list" ? listColumns : gridColumns,
+		columns,
 		primaryActions : primaryActions ? [
 			{
 				name : "edit",
@@ -559,6 +548,15 @@ function DataViewKitchenSink() {
 		}),
 		displayOptions : ["list", "grid"],
 		sticky,
+		displaySettings : state.display === "list" ? {
+			activeColumns : state.activeColumns,
+			onColumnsChange : function(data) {
+				setState({
+					...state,
+					activeColumns : data
+				});
+			}
+		} : gridDisplaySettings,
 		onSkipChange : function({ skip }) {
 			setState({
 				...state,
@@ -572,13 +570,13 @@ function DataViewKitchenSink() {
 				skip : 0
 			});
 		}, [stateRef]),
-		onSortChange : function(data) {
+		onSortChange : useCallback(function(data) {
 			setState({
-				...state,
+				...stateRef.current,
 				sort : data,
 				skip : 0
 			});
-		},
+		}, [stateRef]),
 		onDisplayChange : function(data) {
 			setState({
 				...state,
@@ -608,12 +606,6 @@ function DataViewKitchenSink() {
 				...state,
 				activeFilters,
 				filter
-			});
-		},
-		onColumnsChange : function(data) {
-			setState({
-				...state,
-				activeColumns : data
 			});
 		},
 		savedViewAllowSharedViewSave
