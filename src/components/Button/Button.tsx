@@ -19,6 +19,7 @@ const ButtonWrapper = styled.span`
 		text-transform: none;
 		font-size: 14px;
 		font-weight: ${theme.fontWeight.semiBold};
+		min-width: auto;
 	}
 	
 	&.normalButton > button {
