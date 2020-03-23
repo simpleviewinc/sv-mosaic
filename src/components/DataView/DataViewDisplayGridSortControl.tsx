@@ -2,12 +2,12 @@ import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
 import styled from "styled-components";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 import { DataViewColumn, DataViewDisplaySettingsGrid, DataViewSort, DataViewOnSortChange } from "./DataViewTypes";
 import MenuSelect from "../MenuSelect";
 import Button from "../Button";
-import theme from "../../utils/theme";
 
 interface Props {
 	columns: DataViewColumn[]
@@ -17,19 +17,9 @@ interface Props {
 }
 
 const StyledDiv = styled.div`
-
+	${/* The arrow is comically large without this */""}
+	& > .directionButton svg { font-size: 20px; }
 `;
-
-const directionOptions = [
-	{
-		label : "Asc",
-		value : "asc"
-	},
-	{
-		label : "Desc",
-		value : "desc"
-	}
-];
 
 function DataViewDisplayGridSortControl(props: Props) {
 	const sortColumns = useMemo(() => {
@@ -46,7 +36,7 @@ function DataViewDisplayGridSortControl(props: Props) {
 	}, [sortColumns]);
 
 	const activeColumn = labelOptions.find(val => val.value === props.sort.name);
-	const activeDirection = directionOptions.find(val => val.value === props.sort.dir);
+	const Icon = props.sort.dir === "asc" ? ArrowUpwardIcon : ArrowDownwardIcon;
 
 	const onColumnChange = useCallback(function(name) {
 		props.onSortChange({
@@ -56,9 +46,11 @@ function DataViewDisplayGridSortControl(props: Props) {
 	}, [props.sort, props.onSortChange]);
 
 	const onDirectionChange = useCallback(function(dir) {
+		const newDir = props.sort.dir === "asc" ? "desc" : "asc";
+
 		props.onSortChange({
 			name : props.sort.name,
-			dir
+			dir : newDir
 		})
 	}, [props.sort, props.onSortChange]);
 
@@ -69,9 +61,6 @@ function DataViewDisplayGridSortControl(props: Props) {
 				variant="text"
 				color="black"
 				size="small"
-				iconPosition="right"
-				mIcon={ExpandMoreIcon}
-				mIconColor={theme.colors.gray600}
 				menuContent={
 					<MenuSelect
 						options={labelOptions}
@@ -81,20 +70,12 @@ function DataViewDisplayGridSortControl(props: Props) {
 				}
 			/>
 			<Button
-				label={activeDirection.label}
-				variant="text"
+				className="directionButton"
+				variant="icon"
 				color="black"
 				size="small"
-				iconPosition="right"
-				mIcon={ExpandMoreIcon}
-				mIconColor={theme.colors.gray600}
-				menuContent={
-					<MenuSelect
-						options={directionOptions}
-						value={props.sort.dir}
-						onChange={onDirectionChange}
-					/>
-				}
+				mIcon={Icon}
+				onClick={onDirectionChange}
 			/>
 		</StyledDiv>
 	);
