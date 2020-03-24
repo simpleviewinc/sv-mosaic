@@ -10,9 +10,7 @@ Mosaic is a [React](https://reactjs.org/) user interface library designed to cre
 
 It is built on top of [React Material-UI](https://material-ui.com/) and is it recommended that you pin to the same version that Mosaic is using.
 
-Examples: https://simpleviewinc.github.io/sv-mosaic/
-
-Storybook: https://simpleviewinc.github.io/sv-mosaic/storybook/
+Storybook: https://simpleviewinc.github.io/sv-mosaic/
 
 [Changelog](changelog.md) - See the latest changes to sv-mosaic.
 
