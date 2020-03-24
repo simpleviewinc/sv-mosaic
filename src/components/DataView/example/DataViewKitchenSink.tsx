@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { boolean } from "@storybook/addon-knobs";
+import { keyBy } from "lodash";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -217,13 +218,13 @@ const defaultView = {
 			name : "title",
 			dir : "asc"
 		},
-		display : "list",
+		display : "grid",
 		activeFilters : [],
 		activeColumns : ["image", "title", "categories", "created"]
 	}
 }
 
-const columns = [
+const listColumns = [
 	{
 		name : "id",
 		label : "ID"
@@ -234,15 +235,6 @@ const columns = [
 		transforms : [
 			transform_get(["resource_raw", "secure_url"]),
 			transform_thumbnail({ width : 75, height : 75 })
-		]
-	},
-	{
-		name : "image_grid",
-		column : "image",
-		label : "Image",
-		transforms : [
-			transform_get(["resource_raw", "secure_url"]),
-			transform_thumbnail({ width : 275, height : 200 })
 		]
 	},
 	{
@@ -362,12 +354,23 @@ const columns = [
 	}
 ];
 
-const gridDisplaySettings = {
-	columnMap : {
-		image : "image_grid",
-		primary : "title",
-		secondary : "created"
+const gridColumns = [
+	...listColumns,
+	{
+		name : "image_grid",
+		column : "image",
+		label : "Image",
+		transforms : [
+			transform_get(["resource_raw", "secure_url"]),
+			transform_thumbnail({ width : 275, height : 200 })
+		]
 	}
+]
+
+const gridColumnMap = {
+	image : "image_grid",
+	primary : "title",
+	secondary : "created"
 }
 
 const StyledDiv = styled.div`
@@ -474,7 +477,8 @@ function DataViewKitchenSink() {
 	
 	const gridConfig = {
 		title : "Your Uploads",
-		columns,
+		columns : state.display === "list" ? listColumns : gridColumns,
+		gridColumnMap,
 		primaryActions : primaryActions ? [
 			{
 				name : "edit",
@@ -548,15 +552,12 @@ function DataViewKitchenSink() {
 		}),
 		displayOptions : ["list", "grid"],
 		sticky,
-		displaySettings : state.display === "list" ? {
-			activeColumns : state.activeColumns,
-			onColumnsChange : function(data) {
-				setState({
-					...state,
-					activeColumns : data
-				});
-			}
-		} : gridDisplaySettings,
+		onColumnsChange : function(data) {
+			setState({
+				...state,
+				activeColumns : data
+			});
+		},
 		onSkipChange : function({ skip }) {
 			setState({
 				...state,

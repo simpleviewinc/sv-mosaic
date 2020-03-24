@@ -1,8 +1,10 @@
-import React from "react";
+import * as React from "react";
+import { useMemo } from "react";
 import styled from "styled-components";
 
 import GridTHead from "../internal/GridTHead.jsx";
 import GridTBody from "../internal/GridTBody.jsx";
+import { transformRows } from "../../utils/dataViewTools";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -11,14 +13,30 @@ const StyledTable = styled.table`
 
 function DataViewDisplayList(props) {
 	// todo validate props
+	const activeColumns = useMemo(() => {
+		return props.activeColumns || props.columns.map(val => val.name);
+	}, [props.activeColumns, props.columns]);
+
+	// generate an array of columns based on the ones that are marked active
+	const activeColumnObjs = useMemo(() => {
+		return activeColumns.map(name => {
+			const column = props.columns.find(val => val.name === name);
+			return column;
+		});
+	}, [activeColumns, props.columns]);
 	
+	// execute the transforms in the rows
+	const transformedData = useMemo(() => {
+		return transformRows(props.data, activeColumnObjs);
+	}, [props.data, activeColumnObjs]);
+
 	return (
 		<StyledTable>
 			<GridTHead
 				checked={props.checked}
-				columns={props.columns}
-				allColumns={props.allColumns}
-				data={props.data}
+				columns={activeColumnObjs}
+				allColumns={props.columns}
+				data={transformedData}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
 				onSortChange={props.onSortChange}
@@ -27,8 +45,8 @@ function DataViewDisplayList(props) {
 			/>
 			<GridTBody
 				checked={props.checked}
-				columns={props.columns}
-				data={props.data}
+				columns={activeColumnObjs}
+				data={transformedData}
 				bulkActions={props.bulkActions}
 				additionalActions={props.additionalActions}
 				primaryActions={props.primaryActions}

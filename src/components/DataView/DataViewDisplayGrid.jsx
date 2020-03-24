@@ -1,4 +1,5 @@
-import React from "react";
+import * as React from "react";
+import { useMemo } from "react";
 import styled from "styled-components";
 
 import Checkbox from "../Checkbox";
@@ -6,6 +7,7 @@ import GridActionsButtonRow from "../internal/GridActionsButtonRow";
 import theme from "../../utils/theme.js";
 import DataViewBulkActionsButtonsRow from "./DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "./DataViewDisplayGridSortControl";
+import { transformRows } from "../../utils/dataViewTools";
 
 const StyledDiv = styled.div`
 	& > .topRow {
@@ -123,10 +125,14 @@ const StyledDiv = styled.div`
 
 function DataViewDisplayGrid(props) {
 	// TODO VALIDATE PROPS
-	const columnMap = props.displaySettings && props.displaySettings.columnMap;
-	if (!columnMap) {
-		throw new Error("You must specify displaySettings.columnMap in order to use the grid view.");
+	if (!props.gridColumnMap) {
+		throw new Error("You must specify gridColumnMap in order to use the grid view.");
 	}
+	
+	// execute the transforms in the rows
+	const transformedData = useMemo(() => {
+		return transformRows(props.data, props.columns);
+	}, [props.data, props.columns]);
 
 	const checkboxClick = (i) => () => {
 		props.onCheckboxClick(i);
@@ -162,7 +168,6 @@ function DataViewDisplayGrid(props) {
 							<DataViewDisplayGridSortControl
 								columns={props.columns}
 								sort={props.sort}
-								displaySettings={props.displaySettings}
 								onSortChange={props.onSortChange}
 							/>
 						</div>
@@ -171,10 +176,10 @@ function DataViewDisplayGrid(props) {
 			}
 			<div className="grid">
 				{
-					props.data.map((row, i) => {
-						const image = row[columnMap.image];
-						const primary = row[columnMap.primary];
-						const secondary = row[columnMap.secondary];
+					transformedData.map((row, i) => {
+						const image = row[props.gridColumnMap.image];
+						const primary = row[props.gridColumnMap.primary];
+						const secondary = row[props.gridColumnMap.secondary];
 
 						return (
 							<div

@@ -8,7 +8,6 @@ import DataViewPager from "../internal/DataViewPager.jsx";
 import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
-import { transformRows } from "../../utils/dataViewTools";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 
 const StyledWrapper = styled.div`
@@ -234,7 +233,7 @@ function DataView(props) {
 				type : "boolean"
 			},
 			{
-				name : "displaySettings",
+				name : "gridColumnMap",
 				type : "object"
 			},
 			{
@@ -294,9 +293,6 @@ function DataView(props) {
 	// set defaults
 	const display = props.display || "list";
 	const displayOptions = useMemo(() => props.displayOptions || ["list"], [props.displayOptions]);
-	const activeColumns = useMemo(() => {
-		return props.activeColumns || props.columns.map(val => val.name);
-	}, [props.activeColumns, props.columns]);
 	
 	const displayControlEnabled = props.onDisplayChange !== undefined && displayOptions.length > 1;
 
@@ -355,19 +351,6 @@ function DataView(props) {
 
 	const Display = activeDisplay.component;
 	
-	// generate an array of columns based on the ones that are marked active
-	const activeColumnObjs = useMemo(() => {
-		return activeColumns.map(name => {
-			const column = props.columns.find(val => val.name === name);
-			return column;
-		});
-	}, [activeColumns, props.columns]);
-	
-	// execute the transforms in the rows
-	const transformedData = useMemo(() => {
-		return transformRows(props.data, props.display === "list" ? activeColumnObjs : props.columns);
-	}, [props.data, props.display, props.columns, activeColumnObjs]);
-	
 	const savedViewState = {
 		limit : props.limit,
 		sort : props.sort,
@@ -375,7 +358,6 @@ function DataView(props) {
 		filter : props.filter,
 		activeFilters : props.activeFilters,
 		activeColumns : props.activeColumns,
-		displaySettings : props.displaySettings,
 	}
 	
 	const savedViewCallbacks = {
@@ -457,14 +439,14 @@ function DataView(props) {
 			>
 				<Display
 					checked={state.checked}
-					columns={activeColumnObjs}
-					allColumns={props.columns}
+					columns={props.columns}
 					bulkActions={props.bulkActions}
 					sort={props.sort}
-					data={transformedData}
+					data={props.data}
 					additionalActions={props.additionalActions}
 					primaryActions={props.primaryActions}
-					displaySettings={props.displaySettings}
+					activeColumns={props.activeColumns}
+					gridColumnMap={props.gridColumnMap}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
 					onCheckAllClick={onCheckAllClick}

@@ -100,12 +100,6 @@ export interface DataViewDisplay {
 	mIcon: MosaicMIcon
 }
 
-export interface DataViewDisplaySettingsGrid {
-	columnMap : {
-		[key: string]: string
-	}
-}
-
 export interface DataViewSort {
 	name: string
 	dir: "asc" | "desc"
