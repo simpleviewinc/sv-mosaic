@@ -233,7 +233,7 @@ function DataView(props) {
 				type : "boolean"
 			},
 			{
-				name : "gridColumnMap",
+				name : "gridColumnsMap",
 				type : "object"
 			},
 			{
@@ -446,7 +446,7 @@ function DataView(props) {
 					additionalActions={props.additionalActions}
 					primaryActions={props.primaryActions}
 					activeColumns={props.activeColumns}
-					gridColumnMap={props.gridColumnMap}
+					gridColumnsMap={props.gridColumnsMap}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
 					onCheckAllClick={onCheckAllClick}

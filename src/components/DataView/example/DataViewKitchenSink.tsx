@@ -366,7 +366,7 @@ const gridColumns = [
 	}
 ]
 
-const gridColumnMap = {
+const gridColumnsMap = {
 	image : "image_grid",
 	primary : "title",
 	secondary : "created"
@@ -477,7 +477,7 @@ function DataViewKitchenSink() {
 	const gridConfig = {
 		title : "Your Uploads",
 		columns : state.display === "list" ? listColumns : gridColumns,
-		gridColumnMap,
+		gridColumnsMap,
 		primaryActions : primaryActions ? [
 			{
 				name : "edit",

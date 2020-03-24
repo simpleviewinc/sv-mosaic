@@ -125,8 +125,8 @@ const StyledDiv = styled.div`
 
 function DataViewDisplayGrid(props) {
 	// TODO VALIDATE PROPS
-	if (!props.gridColumnMap) {
-		throw new Error("You must specify gridColumnMap in order to use the grid view.");
+	if (!props.gridColumnsMap) {
+		throw new Error("You must specify gridColumnsMap in order to use the grid view.");
 	}
 	
 	// execute the transforms in the rows
@@ -177,9 +177,9 @@ function DataViewDisplayGrid(props) {
 			<div className="grid">
 				{
 					transformedData.map((row, i) => {
-						const image = row[props.gridColumnMap.image];
-						const primary = row[props.gridColumnMap.primary];
-						const secondary = row[props.gridColumnMap.secondary];
+						const image = row[props.gridColumnsMap.image];
+						const primary = row[props.gridColumnsMap.primary];
+						const secondary = row[props.gridColumnsMap.secondary];
 
 						return (
 							<div
