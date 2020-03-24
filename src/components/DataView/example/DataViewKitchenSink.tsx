@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { boolean } from "@storybook/addon-knobs";
-import { keyBy } from "lodash";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -218,7 +217,7 @@ const defaultView = {
 			name : "title",
 			dir : "asc"
 		},
-		display : "grid",
+		display : "list",
 		activeFilters : [],
 		activeColumns : ["image", "title", "categories", "created"]
 	}
