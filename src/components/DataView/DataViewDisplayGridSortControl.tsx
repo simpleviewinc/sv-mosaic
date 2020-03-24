@@ -5,14 +5,13 @@ import styled from "styled-components";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-import { DataViewColumn, DataViewDisplaySettingsGrid, DataViewSort, DataViewOnSortChange } from "./DataViewTypes";
+import { DataViewColumn, DataViewSort, DataViewOnSortChange } from "./DataViewTypes";
 import MenuSelect from "../MenuSelect";
 import Button from "../Button";
 
 interface Props {
 	columns: DataViewColumn[]
 	sort: DataViewSort,
-	displaySettings: DataViewDisplaySettingsGrid
 	onSortChange: DataViewOnSortChange
 }
 
