@@ -63,11 +63,10 @@
 		"test": "jest",
 		"tsc": "tsc",
 		"start": "webpack-dev-server --mode development",
-		"build": "npm run build:types && npm run build:webpack && npm run build:rollup && npm run build:storybook",
-		"build:storybook": "build-storybook -c .storybook -o docs/storybook",
+		"build": "npm run build:types && npm run build:rollup && npm run build:storybook",
+		"build:storybook": "build-storybook -c .storybook -o docs",
 		"build:types": "tsc --project src/tsconfig.types.json",
 		"build:rollup": "rollup -c",
-		"build:webpack": "webpack --mode production",
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000"
