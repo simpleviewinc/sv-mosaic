@@ -7,6 +7,8 @@
 * `ButtonRow` converted to typescript.
 * `Button`, `MenuItem` now accept arbitrary `attrs` which be used to pass custom attributes to pass to the root dom-element. It is not recommended to use this for styling.
 * Primary and optional filters should now wrap cleanly if there are more than fit in one line.
+* Grid view now supports sorting.
+* Grid view requires a `gridColumnsMap` for mapping which columns will be used in grid.
 
 ## 3/6/2020
 * **BREAKING** - The format of all column transforms has changed from `function(data) {}` to `function({ data, row })`. This allows your transforms to have access to all keys on the row and not just that columns data. In some cases you may need to synthesize multiple columns.

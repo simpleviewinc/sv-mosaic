@@ -64,9 +64,11 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
 * **sticky** - `boolean` - Controls whether or not the DataView is constrained in size. If set to true, the DataView will scroll within a parent element's dimensions instead of being dynamically sized. When sticky is enabled, the column headers in list view and the bulk actions in grid view will both stick to the top of the DataView as it is scrolled.
 * **limit** - `number` - The number of items the list should display per page.
 * **limitOptions** - `array` of `number` - default `[25, 50, 100]` - When passed allows customizing the page-size options that is displayed to the user. You can utilize this option if you want to expose larger or smaller pagesize options.
-* **onLimitChange** - `function({ limit })` - A callback that will be executed with the new limit selected by the user. It is recommended that when the user changes the limit, your state alteration should also reset the `skip` to `0`.
 * **skip** - `number` - The current number of rows being skipped by the user using `0` based indexing. Given a `limit` of `10` So the first page should have a `skip` of `0` and the second page would have a skip of `10`.
 * **loading** - `boolean` - Pass `true` when your DataView is fetching data or doing some alteration which needs to lock the UI. While `loading` is true, the majority of the UI elements in the DataView are locked to prevent race conditions. Once the data has been fetched you will want to prop down `false` again.
+* **gridColumnsMap** - `object` - Map which columns to use in the grid view. Columns available to map are `primary`, `secondary` and `image`. In example `gridColumnsMap : { primary : "title", secondary : "created", image : "image" }`.
+* **savedViewAllowSharedViewSave** - `boolean` - default false - A value which controls the `Show for all Users` toggle on the `Save View` drawer. If true, the toggle displays allowing the user to choose whether or not to share their view. If false, the toggle is removed and the user can only save `mine` views.
+* **onLimitChange** - `function({ limit })` - A callback that will be executed with the new limit selected by the user. It is recommended that when the user changes the limit, your state alteration should also reset the `skip` to `0`.
 * **onSkipChange** - `function({ skip })` - A callback that will be executed with the new skip selected by the user.
 * **onSortChange** - `function({ name, dir })` - A callback function which is invoked when the sort of the `DataView` is changed. Returns a data object listing the chosen sort column and direction.
 * **onDisplayChange** - `function(display)` - A callback function which is invoked when a new view changes. Returns a data object detailing parameters of the new view.
@@ -76,7 +78,6 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
 * **onSavedViewChange** - `function` - A callback function which is invoked when a different saved view is loaded. This function will be passed a data object containing the view details.
 * **onSavedViewRemove** - `function` - A callback function which is invoked with a saved view is deleted. This function will be passed a data object containing information about the removed view.
 * **onSavedViewGetOptions** - `function` -  A callback function which is used to provide an array of views to the SavedView component. Useful when loading a list of saved views from a user profile.
-* **savedViewAllowSharedViewSave** - `boolean` - default false - A value which controls the `Show for all Users` toggle on the `Save View` drawer. If true, the toggle displays allowing the user to choose whether or not to share their view. If false, the toggle is removed and the user can only save `mine` views.
 
 ## Feature - View Switcher
 
