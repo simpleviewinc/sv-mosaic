@@ -1,5 +1,5 @@
 import * as React from "react";
-import { boolean, select, withKnobs } from "@storybook/addon-knobs";
+import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 export { default as KitchenSink } from "./ButtonKitchenSink";
 import StoryBookError from "../StoryBookError";
@@ -15,6 +15,7 @@ export const ButtonPlayground = (props: any) => {
 	const buttonColor = select("Color", ["black", "blue", "lightBlue", "red"], "black");
 	const fullWidth = boolean("Full Width", false);
 	const disabled = boolean("Disabled", false);
+	const tooltip = text("Tooltip", "");
 
 	return (
 		<StoryBookError>
@@ -24,6 +25,7 @@ export const ButtonPlayground = (props: any) => {
 				color={buttonColor}
 				fullWidth={fullWidth}
 				disabled={disabled}
+				tooltip={tooltip}
 			/>
 		</StoryBookError>
 	)

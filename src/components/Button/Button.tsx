@@ -1,19 +1,27 @@
 import * as React from "react";
-import { useState, memo } from "react";
+import { useState, memo, createContext } from "react";
 import MUIButton from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import styled from "styled-components";
 import Popover from "@material-ui/core/Popover";
+import Popper from "@material-ui/core/Popper";
 
 import { ButtonProps } from "./ButtonTypes";
 import theme from "../../utils/theme.js";
 import Menu from "../Menu.jsx";
 import MenuBase from "../MenuBase";
+import { MosaicObject } from "../../types";
 
 // Buttons should be 30/36/42 in height for small/medium/large in ALL variants
 // The styling of text, outlined, and icon are shared. Contained are different because they usually need to get darker on hover/active than the primary color
 
 const ButtonWrapper = styled.span`
+	display: inline-block;
+
+	&.fullWidth {
+		display: block;
+	}
+
 	& > button {
 		font-family: ${theme.fontFamily};
 		text-transform: none;
@@ -240,6 +248,21 @@ const types = {
 	red_icon : RedOnWhite
 }
 
+const TooltipContent = styled.div`
+	z-index: 100;
+	background: ${theme.colors.gray700};
+	padding: 4px 8px;
+	margin-top: 4px;
+	border-radius: 4px;
+	color: white;
+	font-family: ${theme.fontFamily};
+	font-size: 12px;
+	margin: 12px 0px;
+	max-width: 200px;
+`;
+
+export const ButtonPopoverContext = createContext(null);
+
 function Button(props: ButtonProps) {
 	const {
 		attrs = {}
@@ -247,6 +270,9 @@ function Button(props: ButtonProps) {
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
+	const [tooltipEl, setTooltipEl] = useState(null);
+
+	const addAttrs: MosaicObject = {};
 	
 	const MyButton = types[`${props.color}_${props.variant}`];
 	
@@ -267,10 +293,19 @@ function Button(props: ButtonProps) {
 	
 	function openPopover(event) {
 		setPopoverAnchorEl(event.currentTarget);
+		setTooltipEl(null);
 	}
 	
 	function closePopover(event) {
 		setPopoverAnchorEl(null);
+	}
+
+	function onMouseEnter(e) {
+		setTooltipEl(e.currentTarget);
+	}
+
+	function onMouseLeave(e) {
+		setTooltipEl(null);
 	}
 	
 	const onClick = props.popover ? openPopover
@@ -280,14 +315,21 @@ function Button(props: ButtonProps) {
 	;
 
 	const size = props.size || "medium";
-	
+
+	if (props.tooltip !== undefined && props.disabled !== true) {
+		addAttrs.onMouseEnter = onMouseEnter;
+		addAttrs.onMouseLeave = onMouseLeave;
+	}
+
 	return (
 		<MyButton
 			{...attrs}
+			{...addAttrs}
 			className={`
 				${props.className ? props.className : ""}
 				button
 				${props.variant === "icon" ? "iconButton" : "normalButton"}
+				${props.fullWidth ? "fullWidth" : ""}
 				size_${size}
 				variant_${props.variant}
 			`}
@@ -335,7 +377,7 @@ function Button(props: ButtonProps) {
 					open={Boolean(popoverAnchorEl)}
 					anchorEl={popoverAnchorEl}
 					anchorOrigin={{
-						vertical: 'bottom',
+						vertical: 'top',
 						horizontal: 'left',
 					}}
 					transformOrigin={{
@@ -346,9 +388,21 @@ function Button(props: ButtonProps) {
 					disableRestoreFocus
 				>
 					<PopoverWrapper>
-						{props.popover}
+						<ButtonPopoverContext.Provider value={{ onClose : closePopover }}>
+							{props.popover}
+						</ButtonPopoverContext.Provider>
 					</PopoverWrapper>
 				</Popover>
+			}
+			{
+				props.tooltip &&
+				<Popper
+					open={Boolean(tooltipEl)}
+					anchorEl={tooltipEl}
+					style={{ zIndex:10, pointerEvents: "none" }}
+				>
+					<TooltipContent>{props.tooltip}</TooltipContent>
+				</Popper>
 			}
 		</MyButton>
 	)
