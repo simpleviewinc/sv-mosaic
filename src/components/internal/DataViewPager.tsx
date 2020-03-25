@@ -25,8 +25,6 @@ interface Props {
 }
 
 function DataViewPager(props: Props) {
-	console.log("render");
-
 	const totalPages = Math.ceil(props.count / props.limit);
 	const currentPage = (props.skip + props.limit) / props.limit;
 	const startItem = (props.skip + 1);
