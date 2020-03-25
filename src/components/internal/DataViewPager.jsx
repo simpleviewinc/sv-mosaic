@@ -5,7 +5,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import Button from "../Button";
-import { BodyText } from "../Typography";
+import DataViewPagerPopover from "./DataViewPagerPopover";
 
 const StyledSpan = styled.span`
 	display: inline-flex;
@@ -42,7 +42,21 @@ function DataViewPager(props) {
 				onClick={skipClick(props.skip - props.limit)}
 				disabled={previousDisabled}
 			/>
-			<BodyText className="pagerText">{startItem}-{endItem} of {props.count}</BodyText>
+			<Button
+				color="black"
+				variant="text"
+				title="text"
+				tooltip="Jump to Page"
+				label={`${startItem}-${endItem} of ${props.count}`}
+				popover={
+					<DataViewPagerPopover
+						currentPage={currentPage}
+						totalPages={totalPages}
+						limit={props.limit}
+						onSkipChange={props.onSkipChange}
+					/>
+				}
+			/>
 			<Button
 				color="black"
 				variant="icon"
