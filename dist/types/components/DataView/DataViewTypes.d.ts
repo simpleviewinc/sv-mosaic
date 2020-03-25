@@ -99,4 +99,9 @@ export interface DataViewSort {
 export interface DataViewOnSortChange {
     (sort: DataViewSort): void;
 }
+export interface DataViewOnSkipChange {
+    ({ skip }: {
+        skip: number;
+    }): void;
+}
 export {};
