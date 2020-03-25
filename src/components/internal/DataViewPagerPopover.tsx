@@ -3,6 +3,7 @@ import { useState, useContext, memo } from "react";
 import styled from "styled-components";
 
 import { default as Button, ButtonPopoverContext } from "../Button";
+import { DataViewOnSkipChange } from "../DataView/DataViewTypes";
 import theme from "../../theme";
 
 const PopoverDiv = styled.div`
@@ -28,7 +29,7 @@ interface Props {
 	currentPage: number
 	totalPages: number
 	limit: number
-	onSkipChange: Function
+	onSkipChange: DataViewOnSkipChange
 }
 
 function DataViewPagerPopover(props: Props) {

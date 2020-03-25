@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import TitleBar from "../internal/TitleBar.jsx";
 import DataViewControlDisplay from "./DataViewControlDisplay";
-import DataViewPager from "../internal/DataViewPager.jsx";
+import DataViewPager from "../internal/DataViewPager";
 import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
