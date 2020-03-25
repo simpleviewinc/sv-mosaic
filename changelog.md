@@ -1,5 +1,10 @@
 # sv-mosaic changelog
 
+## 3/25/2020
+* The DataView pager now can be clicked to jump to a specific page. No changes are needed within applications to gain this behavior.
+* `Button` now supports tooltip.
+* `Button` popover option now exposes the `onClose` method via context API to allow programmatic closing from within the popover.
+
 ## 3/20/2020
 * **BREAKING** - The **View** system has been renamed to **Displays** to differentiate between **Saved Views**. **Saved Views** are for saving the state of the DataView including sort, columns, display, and limit. **Displays** are for determining how the data displays, whether `list` or `grid`.
 * Adds `data-mosaic-id` to primary buttons, actions, additional actions and bulk actions. This can be used for external targeting and unit testing.

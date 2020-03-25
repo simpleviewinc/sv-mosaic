@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Popover from "@material-ui/core/Popover";
 import Popper from "@material-ui/core/Popper";
 
-import { ButtonProps } from "./ButtonTypes";
+import { ButtonProps, ButtonPopoverContextProps } from "./ButtonTypes";
 import theme from "../../utils/theme.js";
 import Menu from "../Menu.jsx";
 import MenuBase from "../MenuBase";
@@ -261,7 +261,7 @@ const TooltipContent = styled.div`
 	max-width: 200px;
 `;
 
-export const ButtonPopoverContext = createContext(null);
+export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(null);
 
 function Button(props: ButtonProps) {
 	const {
@@ -296,7 +296,7 @@ function Button(props: ButtonProps) {
 		setTooltipEl(null);
 	}
 	
-	function closePopover(event) {
+	function closePopover() {
 		setPopoverAnchorEl(null);
 	}
 
