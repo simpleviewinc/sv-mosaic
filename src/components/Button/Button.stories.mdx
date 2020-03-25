@@ -11,6 +11,22 @@ Displays a button.
 
 https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Button/ButtonTypes.ts
 
+
+## Popover
+
+When using `popover` if you need to programmatically close it, you can do so by using `onClose` provided by the React context API.
+
+```js
+import * as React from "react";
+import { useContext } from "react";
+import { Button, ButtonPopoverContext } from "@simpleview/sv-mosaic";
+
+function MyComponent(props) {
+	const buttonPopoverContext = useContext(ButtonPopoverContext);
+	// ...rest of component
+}
+```
+
 ## Kitchen Sink
 
 <Preview withSource="none">
