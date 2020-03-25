@@ -1,4 +1,5 @@
 import * as React from "react";
+import { memo } from "react";
 import styled from "styled-components";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -6,6 +7,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import Button from "../Button";
 import DataViewPagerPopover from "./DataViewPagerPopover";
+import { DataViewOnSkipChange } from "../DataView/DataViewTypes";
 
 const StyledSpan = styled.span`
 	display: inline-flex;
@@ -15,7 +17,16 @@ const StyledSpan = styled.span`
 	& > .pagerText { line-height: 100%; }
 `;
 
-function DataViewPager(props) {
+interface Props {
+	limit: number
+	count: number
+	skip: number
+	onSkipChange: DataViewOnSkipChange
+}
+
+function DataViewPager(props: Props) {
+	console.log("render");
+
 	const totalPages = Math.ceil(props.count / props.limit);
 	const currentPage = (props.skip + props.limit) / props.limit;
 	const startItem = (props.skip + 1);
@@ -45,7 +56,6 @@ function DataViewPager(props) {
 			<Button
 				color="black"
 				variant="text"
-				title="text"
 				tooltip="Jump to Page"
 				label={`${startItem}-${endItem} of ${props.count}`}
 				popover={
@@ -69,4 +79,4 @@ function DataViewPager(props) {
 	)
 }
 
-export default DataViewPager;
+export default memo(DataViewPager);
