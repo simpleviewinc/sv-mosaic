@@ -12,6 +12,8 @@ export interface ButtonProps {
 	disabled?: boolean
 	/** Button will occupy 100% of the width provided to it */
 	fullWidth?: boolean
+	/** Display a tooltip on hover of the button */
+	tooltip?: string | JSX.Element
 	popover?: JSX.Element
 	menuItems?: MenuItemProps[]
 	menuContent?: JSX.Element

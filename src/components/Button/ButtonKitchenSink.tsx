@@ -287,6 +287,24 @@ function Buttons() {
 					/>
 				</ButtonRow>
 			</div>
+
+			<h2>Buttons with tooltips</h2>
+			<div>
+				<ButtonRow>
+					<Button
+						color="black"
+						variant="outlined"
+						label="One"
+						tooltip="I can haz a tooltip"
+					/>
+					<Button
+						color="black"
+						variant="outlined"
+						label="Two"
+						tooltip="I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long."
+					/>
+				</ButtonRow>
+			</div>
 		</div>
 	)
 }
