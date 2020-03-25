@@ -7,7 +7,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import Button from "../Button";
 import DataViewPagerPopover from "./DataViewPagerPopover";
-import { DataViewOnSkipChange } from "../DataView/DataViewTypes";
+import { DataViewOnSkipChange } from "./DataViewTypes";
 
 const StyledSpan = styled.span`
 	display: inline-flex;

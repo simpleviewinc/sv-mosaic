@@ -3,7 +3,7 @@ import { useState, useContext, memo } from "react";
 import styled from "styled-components";
 
 import { default as Button, ButtonPopoverContext } from "../Button";
-import { DataViewOnSkipChange } from "../DataView/DataViewTypes";
+import { DataViewOnSkipChange } from "./DataViewTypes";
 import theme from "../../theme";
 
 const PopoverDiv = styled.div`
