@@ -557,12 +557,12 @@ function DataViewKitchenSink() {
 				activeColumns : data
 			});
 		},
-		onSkipChange : function({ skip }) {
+		onSkipChange : useCallback(function({ skip }) {
 			setState({
-				...state,
+				...stateRef.current,
 				skip
 			});
-		},
+		}, [stateRef]),
 		onLimitChange : useCallback(function({ limit }) {
 			setState({
 				...stateRef.current,
