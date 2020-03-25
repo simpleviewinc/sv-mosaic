@@ -14,10 +14,14 @@ export interface ButtonProps {
     fullWidth?: boolean;
     /** Display a tooltip on hover of the button */
     tooltip?: string | JSX.Element;
+    /** Trigger a popover on click */
     popover?: JSX.Element;
     menuItems?: MenuItemProps[];
     menuContent?: JSX.Element;
     mIconColor?: string;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     attrs?: MosaicObject;
+}
+export interface ButtonPopoverContextProps {
+    onClose(): void;
 }
