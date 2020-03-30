@@ -249,6 +249,32 @@ const navSections = {
 				label : "CMS Tags"
 			},
 			{
+				name : "settings.field_builder",
+				label : "Field Builder",
+				items : [
+					{
+						name : "settings.field_builder.assets_documents",
+						label : "Asset Library - Documents"
+					},
+					{
+						name : "settings.field_builder.assets_external",
+						label : "Asset Library - External Links"
+					},
+					{
+						name : "settings.field_builder.assets_images",
+						label : "Asset Library - Images"
+					},
+					{
+						name : "settings.field_builder.assets_videos",
+						label : "Asset Library - Videos"
+					},
+					{
+						name : "settings.field_builder.core_textbox",
+						label : "Core - Textbox"
+					}
+				]
+			},
+			{
 				name : "settings.nav",
 				label : "Nav",
 				items : [
@@ -287,6 +313,16 @@ const navSections = {
 					{
 						name : "settings.users.history",
 						label : "User History"
+					}
+				]
+			},
+			{
+				name : "settings.visitors",
+				label : "Visitors",
+				items : [
+					{
+						name : "settings.visitors.test_subscription",
+						label : "Test Subscriptions"
 					}
 				]
 			}
