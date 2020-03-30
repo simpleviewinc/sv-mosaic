@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { LeftNavItemDef, LeftNavProps } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
 import LeftNavTitle from "./LeftNavTitle";
+import LeftNavGroup from "./LeftNavGroup";
 import theme from "../../theme";
 
 interface Props {
@@ -45,7 +46,7 @@ function LeftNavFlyout(props: Props) {
 			openName : name
 		})
 	}
-	
+
 	return (
 		<Popper
 			open={true}
@@ -57,8 +58,10 @@ function LeftNavFlyout(props: Props) {
 				<LeftNavTitle label={props.parent.label}/>
 				{
 					props.parent.items.map(val => {
+						const Component = val.type === "group" ? LeftNavGroup : LeftNavItem;
+
 						return (
-							<LeftNavItem
+							<Component
 								key={val.name}
 								item={val}
 								openName={state.openName}
