@@ -18,7 +18,8 @@ interface Props {
 const StyledDiv = styled.div`
 	&.paper {
 		background-color: #404045;
-		width: 250px;
+		min-width: 150px;
+		max-width: 300px;
 	}
 
 	& > h3 {
