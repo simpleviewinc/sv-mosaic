@@ -3,11 +3,12 @@ import { MosaicMIcon } from "../../types";
 
 export interface LeftNavProps {
 	open: boolean
-	current?: string
 	items?: LeftNavItemDef[]
 	/** the z-index of the primary drawer, defaults to 100 */
 	zIndex?: number
+	/** handler for when the drawer closes due to a click-off or navigation */
 	onClose(): void
+	/** handler for when the user chooses a nav item */
 	onNav({ item }: { item : LeftNavItemDef }): void
 }
 
