@@ -65,7 +65,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 	const leftNavContext = useContext(LeftNavContext);
 	const aRef = useRef(null);
 
-	const open = openAnchorEl === aRef.current;
+	const open = aRef.current !== null && openAnchorEl === aRef.current;
 
 	const onNav = function() {
 		leftNavContext.onNav({ item });
