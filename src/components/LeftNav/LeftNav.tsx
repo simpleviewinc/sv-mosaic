@@ -9,7 +9,8 @@ import LeftNavGroup from "./LeftNavGroup";
 
 const StyledDiv = styled.div`
 	background: #2e2e31;
-	width: 250px;
+	min-width: 150px;
+	max-width: 300px;
 	flex: 1;
 `;
 

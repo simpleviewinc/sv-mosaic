@@ -56,29 +56,29 @@ const NavWrapper = function(props: any) {
 	)
 }
 
-const siteMapItems = [
+const siteMapItems = (site) => [
 	{
-		name : "sitemap.primary.main",
+		name : `sitemap.${site}.main`,
 		label : "Main Navigation"
 	},
 	{
-		name : "sitemap.primary.secondary",
+		name : `sitemap.${site}.secondary`,
 		label : "Secondary Navigation"
 	},
 	{
-		name : "sitemap.primary.footer",
+		name : `sitemap.${site}.footer`,
 		label : "Footer Navigation"
 	},
 	{
-		name : "sitemap.primary.landing",
+		name : `sitemap.${site}.landing`,
 		label : "Landing Pages"
 	},
 	{
-		name : "sitemap.primary.system",
+		name : `sitemap.${site}.system`,
 		label : "System"
 	},
 	{
-		name : "sitemap.primary.microsites",
+		name : `sitemap.${site}.microsites`,
 		label : "Microsites"
 	}
 ]
@@ -202,22 +202,22 @@ const navSections = {
 			{
 				name : "sitemap.primary",
 				label : "Primary",
-				items : siteMapItems
+				items : siteMapItems("primary")
 			},
 			{
 				name : "sitemap.dutch",
 				label : "Dutch",
-				items : siteMapItems
+				items : siteMapItems("dutch")
 			},
 			{
 				name : "sitemap.french",
 				label : "French",
-				items : siteMapItems
+				items : siteMapItems("french")
 			},
 			{
 				name : "sitemap.spanish",
 				label : "Spanish",
-				items : siteMapItems
+				items : siteMapItems("spanish")
 			}
 		]
 	},
@@ -327,6 +327,30 @@ const navSections = {
 				]
 			}
 		]
+	},
+	autoResponder : {
+		name : "modules.auto_responder",
+		label : "Auto Responder",
+		items : [
+			{
+				name : "modules.auto_responder.content",
+				label : "Content"
+			},
+			{
+				name : "modules.auto_responder.links",
+				label : "Links"
+			}
+		]
+	},
+	translation : {
+		name : "modules.translation",
+		label : "Translation",
+		items : [
+			{
+				name : "modules.translation.static",
+				label : "Static Namespaces"
+			}
+		]
 	}
 }
 
@@ -393,10 +417,12 @@ export const cms = () => {
 			mIcon : ExtensionIcon,
 			items : [
 				navSections.assetRequest,
+				navSections.autoResponder,
 				navSections.collections,
 				navSections.dynamic,
 				navSections.mapPublisher,
-				navSections.mediaGallery
+				navSections.mediaGallery,
+				navSections.translation
 			]
 		},
 		navSections.settings
@@ -415,8 +441,11 @@ export const cmsFlatIA = () => {
 			mIcon : HomeIcon
 		},
 		{
-			...navSections.sitemap,
-			type : "group"
+			...navSections.sitemap
+		},
+		{
+			...navSections.assets,
+			mIcon : ImageIcon
 		},
 		{
 			name : "modules",
@@ -425,10 +454,12 @@ export const cmsFlatIA = () => {
 			mIcon : ExtensionIcon,
 			items : [
 				navSections.assetRequest,
+				navSections.autoResponder,
 				navSections.collections,
 				navSections.dynamic,
 				navSections.mapPublisher,
-				navSections.mediaGallery
+				navSections.mediaGallery,
+				navSections.translation
 			]
 		},
 		{
