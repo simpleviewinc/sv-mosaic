@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useRef, Fragment } from "react";
+import { useRef, Fragment, useContext } from "react";
 import styled from "styled-components";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import { LeftNavBlockProps } from "./LeftNavTypes";
+import { LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
 import LeftNavFlyout from "./LeftNavFlyout";
 import { BodyText } from "../Typography";
 import theme from "../../theme";
@@ -20,6 +20,10 @@ const StyledA = styled.a`
 		cursor: pointer;
 	}
 
+	&.hasItems > .right > .arrow {
+		visibility: visible;
+	}
+
 	&:hover {
 		background: #505057;
 	}
@@ -27,6 +31,8 @@ const StyledA = styled.a`
 	& > .left {
 		display: flex;
 		align-items: center;
+		flex: 1 1 0;
+		margin-right: 10px;
 	}
 
 	& > .left > .icon {
@@ -37,31 +43,40 @@ const StyledA = styled.a`
 		color: ${theme.colors.gray200};
 	}
 
-	& > .arrow {
+	& > .right {
+		display: flex;
+		align-items: center;
+		flex: 0 0 auto;
+	}
+
+	& > .right > * {
 		font-size: 20px;
+		visibility: hidden;
 	}
 `;
 
 function LeftNavItem(props: LeftNavBlockProps) {
 	const {
-		openName,
+		openAnchorEl,
 		item,
 		onOpen
 	} = props;
 
-	const open = openName === item.name;
-
+	const leftNavContext = useContext(LeftNavContext);
 	const aRef = useRef(null);
 
+	const open = openAnchorEl === aRef.current;
+
 	const onNav = function() {
-		props.onNav({ item });
+		leftNavContext.onNav({ item });
 	}
 
-	const onMouseEnter = function() {
-		props.onOpen(item.name);
+	const onMouseEnter = function(e) {
+		onOpen(e.currentTarget);
 	}
 
 	const clickable = !item.items;
+	const hasItems = item.items !== undefined;
 
 	return (
 		<Fragment>
@@ -71,6 +86,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 				ref={aRef}
 				className={`
 					${clickable ? "clickable" : ""}
+					${hasItems ? "hasItems" : ""}
 				`}
 			>
 				<span className="left">
@@ -80,18 +96,15 @@ function LeftNavItem(props: LeftNavBlockProps) {
 					}
 					<BodyText className="navLabel">{item.label}</BodyText>
 				</span>
-				{
-					item.items &&
+				<span className="right">
 					<ChevronRightIcon className="arrow"/>
-				}
+				</span>
 			</StyledA>
 			{
 				item.items && open &&
 				<LeftNavFlyout
 					parent={item}
-					zIndex={props.zIndex}
 					anchorEl={aRef.current}
-					onNav={props.onNav}
 				/>
 			}
 		</Fragment>

@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import Popper from "@material-ui/core/Popper";
 import Paper from "@material-ui/core/Paper";
 
-import { LeftNavItemDef, LeftNavProps } from "./LeftNavTypes";
+import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
 import LeftNavTitle from "./LeftNavTitle";
 import LeftNavGroup from "./LeftNavGroup";
@@ -13,8 +13,6 @@ import theme from "../../theme";
 interface Props {
 	parent: LeftNavItemDef
 	anchorEl: HTMLElement
-	zIndex: number
-	onNav: LeftNavProps["onNav"]
 }
 
 const StyledDiv = styled.div`
@@ -37,13 +35,15 @@ const StyledDiv = styled.div`
 
 function LeftNavFlyout(props: Props) {
 	const [state, setState] = useState({
-		openName : undefined
+		openAnchorEl : undefined
 	});
 
-	const onOpen = name => {
+	const leftNavContext = useContext(LeftNavContext);
+
+	const onOpen = openAnchorEl => {
 		setState({
 			...state,
-			openName : name
+			openAnchorEl
 		})
 	}
 
@@ -52,7 +52,7 @@ function LeftNavFlyout(props: Props) {
 			open={true}
 			anchorEl={props.anchorEl}
 			placement="right"
-			style={{ zIndex : props.zIndex + 1 }}
+			style={{ zIndex : leftNavContext.zIndex + 1 }}
 		>
 			<Paper elevation={3} component={StyledDiv} className="paper">
 				<LeftNavTitle label={props.parent.label}/>
@@ -64,9 +64,7 @@ function LeftNavFlyout(props: Props) {
 							<Component
 								key={val.name}
 								item={val}
-								openName={state.openName}
-								zIndex={props.zIndex}
-								onNav={props.onNav}
+								openAnchorEl={state.openAnchorEl}
 								onOpen={onOpen}
 							/>
 						)

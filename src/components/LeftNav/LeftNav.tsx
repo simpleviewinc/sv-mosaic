@@ -1,9 +1,9 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import styled from "styled-components";
 import Drawer from "@material-ui/core/Drawer";
 
-import { LeftNavProps } from "./LeftNavTypes";
+import { LeftNavProps, LeftNavContext } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
 import LeftNavGroup from "./LeftNavGroup";
 
@@ -17,24 +17,31 @@ function LeftNav(props: LeftNavProps) {
 	const zIndex = props.zIndex !== undefined ? props.zIndex : 100;
 
 	const [state, setState] = useState({
-		openName : undefined
+		openAnchorEl : null
 	});
 
-	const onOpen = (name) => {
+	const onOpen = (openAnchorEl) => {
 		setState({
 			...state,
-			openName : name
+			openAnchorEl
 		})
 	}
 
 	const onClose = function() {
 		setState({
 			...state,
-			openName : undefined
+			openAnchorEl : null
 		});
 
 		props.onClose();
 	}
+
+	const contextValue = useMemo(() => {
+		return {
+			zIndex,
+			onNav : props.onNav
+		}
+	}, [props.onNav, zIndex]);
 
 	const children = props.items.map(item => {
 		const Component = item.type === "group" ? LeftNavGroup : LeftNavItem;
@@ -43,10 +50,8 @@ function LeftNav(props: LeftNavProps) {
 			<Component
 				key={item.name}
 				item={item}
-				openName={state.openName}
+				openAnchorEl={state.openAnchorEl}
 				onOpen={onOpen}
-				onNav={props.onNav}
-				zIndex={zIndex}
 			/>
 		)
 	});
@@ -60,7 +65,9 @@ function LeftNav(props: LeftNavProps) {
 			style={{ zIndex }}
 		>
 			<StyledDiv>
-				{children}
+				<LeftNavContext.Provider value={contextValue}>
+					{children}
+				</LeftNavContext.Provider>
 			</StyledDiv>
 		</Drawer>
 	)
