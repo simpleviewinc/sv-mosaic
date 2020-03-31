@@ -380,6 +380,36 @@ export const example = () => {
 						{
 							name : "menu2.child2.child2",
 							label : "Child 2"
+						},
+						{
+							name : "menu2.child2.child3",
+							label : "Child 3 with icon",
+							mIcon : ImageIcon
+						}
+					]
+				},
+				{
+					name : "menu2.child3",
+					label : "Child 3",
+					items : [
+						{
+							name : "menu2.child3.child1",
+							label : "Child 1"
+						},
+						{
+							name : "menu2.child3.child2",
+							label : "Group 1",
+							type : "group",
+							items : [
+								{
+									name : "menu2.child3.child2.chil1",
+									label : "Child 1"
+								},
+								{
+									name : "menu2.child3.child2.child2",
+									label : "Child 2"
+								}
+							]
 						}
 					]
 				}
@@ -388,6 +418,48 @@ export const example = () => {
 		{
 			name : "menu3",
 			label : "Menu 3"
+		},
+		{
+			name : "menu4",
+			label : "Menu 4 with a really really long title"
+		},
+		{
+			name : "menu5",
+			label : "Menu5 with a really long title and an icon",
+			mIcon : ImageIcon
+		},
+		{
+			name : "group1",
+			label : "Group 1",
+			type : "group",
+			items : [
+				{
+					name : "group1.menu1",
+					label : "Menu 1",
+					mIcon : ImageIcon
+				},
+				{
+					name : "group1.menu2",
+					label : "Menu 2"
+				}
+			]
+		},
+		{
+			name : "group2",
+			label : "Group 2",
+			type : "group",
+			mIcon : ImageIcon,
+			items : [
+				{
+					name : "group2.menu1",
+					label : "Menu 1",
+					mIcon : ImageIcon
+				},
+				{
+					name : "group2.menu2",
+					label : "Menu 2"
+				}
+			]
 		}
 	]
 	
