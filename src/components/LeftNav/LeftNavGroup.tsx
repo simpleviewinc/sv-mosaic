@@ -20,10 +20,8 @@ function LeftNavGroup(props: LeftNavBlockProps) {
 						<LeftNavItem
 							key={item.name}
 							item={item}
-							openName={props.openName}
+							openAnchorEl={props.openAnchorEl}
 							onOpen={props.onOpen}
-							onNav={props.onNav}
-							zIndex={props.zIndex}
 						/>
 					)
 				})

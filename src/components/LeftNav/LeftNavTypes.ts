@@ -1,3 +1,4 @@
+import { createContext } from "react";
 import { MosaicMIcon } from "../../types";
 
 export interface LeftNavProps {
@@ -19,13 +20,18 @@ export interface LeftNavItemDef {
 }
 
 export interface LeftNavBlockProps {
-	openName?: string
+	openAnchorEl?: HTMLElement
 	item: LeftNavItemDef
-	zIndex: number
 	onOpen: LeftNavOnOpen
+}
+
+export interface LeftNavContextProps {
+	zIndex: LeftNavProps["zIndex"]
 	onNav: LeftNavProps["onNav"]
 }
 
 export interface LeftNavOnOpen {
-	(name: string): void
+	(anchorEl: HTMLElement): void
 }
+
+export const LeftNavContext = createContext<LeftNavContextProps>(null);
