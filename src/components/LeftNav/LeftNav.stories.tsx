@@ -354,7 +354,7 @@ const navSections = {
 	}
 }
 
-export const example = () => {
+export const kitchenSink = () => {
 	const items: LeftNavItemDef[] = [
 		{
 			name : "menu1",
