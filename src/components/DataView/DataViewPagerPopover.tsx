@@ -43,7 +43,7 @@ function DataViewPagerPopover(props: Props) {
 	const onChange = function(e) {
 		const val = Number(e.currentTarget.value);
 
-		const invalid = isNaN(val) || val <= 0 || val > props.totalPages;
+		const invalid = !Number.isInteger(val) || val <= 0 || val > props.totalPages;
 
 		setState({
 			...state,
