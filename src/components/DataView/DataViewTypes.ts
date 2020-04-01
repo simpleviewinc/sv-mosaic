@@ -117,9 +117,10 @@ export interface DataViewOnSkipChange {
 }
 
 export interface DataViewProps {
-	primaryActions: DataViewAction[]
-	additionalActions: DataViewAdditionalAction[]
-	bulkActions: DataViewBulkAction[]
+	columns: DataViewColumn[]
+	primaryActions?: DataViewAction[]
+	additionalActions?: DataViewAdditionalAction[]
+	bulkActions?: DataViewBulkAction[]
 	// temporarily allowing extra properties until we have finished the conversion of DataView to TS
 	[key: string]: any
 }
