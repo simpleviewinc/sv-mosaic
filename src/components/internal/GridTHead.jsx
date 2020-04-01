@@ -24,7 +24,7 @@ const StyledTh = styled.th`
 	color: ${theme.colors.gray700};
 	position: sticky;
 	top: 0;
-	z-index: 1;
+	z-index: 2;
 	background-color: ${theme.colors.gray200};
 	white-space: nowrap;
 
