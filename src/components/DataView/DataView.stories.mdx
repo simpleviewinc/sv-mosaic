@@ -8,22 +8,14 @@ import * as stories from "./DataView.stories";
 A `DataView` is used to output a list or grid of items. It can support a whole variety of actions including primary actions, additional actions and bulk actions.
 
 ## Props
+
+The component has not fully been converted to Typescript, the converted props can be found at:
+
+DataViewProps - https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/DataView/DataViewTypes.ts
+
+The other non-converted props are listed below:
+
 * **title** -  `string` - The title of the DataView.
-* **columns** - `array` of `object`
-    * **name** - `string` - Unique name for this column.
-    * **column** - `string` - defaults to `${column.name}` - When a column is displayed we need to know the name of the key in the data object that should populate this. By default `name` works. In some cases you might need to use the same data key but display it in multiple ways, you can use `column` for that purpose.
-    * **label** - `string` - The displayed label of the column.
-    * **style** - `object` - Style the content of the cell in a specific way(s).
-        * **bold** - `boolean` - **Bold** the cell.
-        * **italic** - `boolean` - *Italicize* the cell.
-        * **strikeThrough** - `boolean` - ~~Strike~~ through the cell.
-        * **noWrap** - `boolean` - Prevent the column's contents from wrapping to multiple lines.
-        * **ellipsis** - `boolean` - Truncate the content if it gets too long. When using this you will need to also enable `noWrap` and `maxWidth`. When truncated, the content will be available in the `title` attribute automatically.
-        * **maxWidth** - `string` - Limit the widget of the column to a specific width, pass CSS like `maxWidth : "50px"`.
-        * **textTransform** - `string` - Pass css `text-transform`.
-    * **sortable** - `boolean` - Whether the column is sortable by the user.
-    * **transforms** - `array of functions` - Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`.
-        * [Transforms documentation](?path=/docs/utils-transforms-readme--page)
 * **data** - `array` of `object` - The data that should populate the list view. This prop should be populated based on the `filter`, `sort`, `limit`, and `skip`.
 * **filters** - `array` of `object` - The primary and optional `Filters` which will be available in the `DataView`.
     * **name** - `string` required - A unique name used to identify the filter.
@@ -38,21 +30,6 @@ A `DataView` is used to output a list or grid of items. It can support a whole v
 * **filter** - `object` - An object representing the total filtering logic applied to data in the `DataView`.
 * **activeFilters** - `array` of `string` - List of filter names from the filters array which are active in the `DataView`.
 * **activeColumns** - `array` of `string` - List of column names from the columns array which are displayed in the `DataView`.
-* **primaryActions** - `array` of `object` - A list of actions which are always visible for each item in the `DataView`.
-    * **name** - `string` required - A unique name for this action.
-    * **onClick** - `function` required - A handler function to be invoked when this action is used.
-    * **color** - enum - Supports the same values as the color prop in `Button`.
-    * **variant** - enum - Supports the same values as the variant prop in `Button`.
-    * **mIcon** - `Material-UI Icon` - An icon from `material-ui`.
-    * **label** - `string` - A label to inform the user what action they will be choosing.
-    * **show** - `function` or `boolean - A value or function controlling whether or not to display this action. 
-* **bulkActions** - `array` of `objects` - A list of actions which are available when one or more item(s) are selected in the `DataView`.
-    * format of the object is the same as primaryActions
-* **additionalActions** - `array` of `object` - A list of actions which are hidden under the additional actions button for each item in the `DataView`.
-    * **name** - `string` required - A unique name for this action.
-    * onClick  - `function` required - a handler function to be invoked when this action is used.
-    * **label** - `string` - A label to inform the user what action they will be choosing
-    * **show** - `function` or `boolean` - A value or function controlling whether or not to display this action. If a function is specified, it should return `true` or `false`.
 * **buttons** - `array` of `object` - A group of `Buttons` which will be displayed at the top of the `DataView` to the side of the `DataView` title.
 * **display** - `string` - enum `list`, `grid` - What type of view should be utilized.
 * **savedView** - `object` - A view to be loaded in the `DataView`.

@@ -14,14 +14,31 @@ export interface DataViewColumnTransform {
 }
 
 export interface DataViewColumn {
-	/** The name of the column */
+	/** The name of the column. */
 	name: string
-	/**  Displayed label for the column */
+	/**  Displayed label for the column. */
 	label?: string
 	/** The column from the passed RowData it will display in this column. Defaults to `column.name`. */
 	column?: string
-	/** Whether this column can be sorted */
+	/** Whether this column can be sorted. */
 	sortable?: boolean
+	style?: {
+		/** Bold the cell. */
+		bold?: boolean
+		/** Italicize the cell. */
+		italic?: boolean
+		/** Strike through the cell. */
+		strikeThrough?: boolean
+		/** Prevent the column's contents from wrapping to multiple lines. */
+		noWrap?: boolean
+		/** Truncate the content if it gets too long. When using this you will need to also enable `noWrap` and `maxWidth`. When truncated, the content will be available in the `title` attribute automatically. */
+		ellipsis?: boolean
+		/** Limit the widget of the column to a specific width, pass CSS like `maxWidth : "50px"`. */
+		maxWidth?: string
+		/** Pass css `text-transform`. */
+		textTransform?: string
+	}
+	/** Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`. */
 	transforms?: DataViewColumnTransform[]
 }
 
@@ -74,19 +91,21 @@ interface DataViewBulkActionOnClick {
 	({ data }: { data: MosaicObject[] }): void
 }
 
-export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & {
+interface ActionAdditional {
+	/** A unique name for this action. */
 	name: string
+	/** A handler function to be invoked when this action is used. */
 	onClick: DataViewActionOnClick
+	/** A value or function controlling whether or not to display this action. */
 	show?: boolean | DataViewActionShow
 }
 
-export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs"> & {
-	name: string
-	onClick: DataViewActionOnClick
-	show?: boolean | DataViewActionShow
-}
+export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAdditional;
+
+export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs"> & ActionAdditional;
 
 export interface DataViewBulkAction extends DataViewAction {
+	/** A handler function to be invoked when this action is used. */
 	onClick: DataViewBulkActionOnClick
 }
 
@@ -118,6 +137,7 @@ export interface DataViewOnSkipChange {
 
 export interface DataViewProps {
 	columns: DataViewColumn[]
+	/** A list of actions which are always visible for each item in the DataView. */
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
 	bulkActions?: DataViewBulkAction[]
