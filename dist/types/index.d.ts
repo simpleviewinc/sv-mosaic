@@ -22,6 +22,8 @@ export { default as Button } from "./components/Button";
 export * from "./components/Button";
 export { default as ButtonRow } from "./components/ButtonRow";
 export * from "./components/ButtonRow";
+export { default as LeftNav } from "./components/LeftNav";
+export * from "./components/LeftNav";
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";
 export { default as MenuItem } from "./components/MenuItem";

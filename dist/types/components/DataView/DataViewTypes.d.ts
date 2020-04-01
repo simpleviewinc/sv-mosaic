@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { MosaicObject, MosaicMIcon } from "../../types";
 import { ButtonProps } from "../Button";
+import { MenuItemProps } from "../MenuItem";
 export interface DataViewColumnTransformArgs {
     /** The value of the specific column that is being transformed */
     data: any;
@@ -69,15 +70,16 @@ interface DataViewBulkActionOnClick {
         data: MosaicObject[];
     }): void;
 }
-export interface DataViewAction {
+export declare type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & {
     name: string;
     onClick: DataViewActionOnClick;
     show?: boolean | DataViewActionShow;
-    label?: ButtonProps["label"];
-    color?: ButtonProps["color"];
-    variant?: ButtonProps["variant"];
-    mIcon?: ButtonProps["mIcon"];
-}
+};
+export declare type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs"> & {
+    name: string;
+    onClick: DataViewActionOnClick;
+    show?: boolean | DataViewActionShow;
+};
 export interface DataViewBulkAction extends DataViewAction {
     onClick: DataViewBulkActionOnClick;
 }
@@ -103,5 +105,12 @@ export interface DataViewOnSkipChange {
     ({ skip }: {
         skip: number;
     }): void;
+}
+export interface DataViewProps {
+    columns: DataViewColumn[];
+    primaryActions?: DataViewAction[];
+    additionalActions?: DataViewAdditionalAction[];
+    bulkActions?: DataViewBulkAction[];
+    [key: string]: any;
 }
 export {};
