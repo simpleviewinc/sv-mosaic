@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import * as React from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
@@ -302,6 +303,11 @@ function DataView(props) {
 	}
 	
 	useEffect(() => {
+		if (props.data && viewContainerRef.current) {
+			// on data change scroll to the top
+			viewContainerRef.current.scrollTo(0, 0);
+		}
+
 		setState({
 			...state,
 			checked : props.data.map(val => false)
@@ -353,6 +359,8 @@ function DataView(props) {
 		]
 	}, [props.limitOptions]);
 	
+	const viewContainerRef = useRef(null);
+
 	return (
 		<StyledWrapper className={`
 			${ props.loading ? "loading" : "" }
@@ -411,6 +419,7 @@ function DataView(props) {
 				</div>
 			</div>
 			<div
+				ref={viewContainerRef}
 				className={`
 					viewContainer
 				`}
