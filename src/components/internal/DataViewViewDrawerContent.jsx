@@ -97,6 +97,10 @@ function DataViewViewDrawerContent(props) {
 		loading : state.loading,
 		columns : [
 			{
+				name : "id",
+				label : "ID"
+			},
+			{
 				name : "label",
 				label : "Label"
 			},
@@ -107,7 +111,8 @@ function DataViewViewDrawerContent(props) {
 					textTransform : "capitalize"
 				}
 			}
-		]
+		],
+		activeColumns : ["label", "type"]
 	}
 	
 	return (
