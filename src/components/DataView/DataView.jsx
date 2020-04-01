@@ -51,31 +51,6 @@ const StyledWrapper = styled.div`
 	}
 `;
 
-const actionValidation = {
-	type : "object",
-	schema : [
-		{ name : "name", type : "string", required : true },
-		{ name : "onClick", type : "function", required : true },
-		{ name : "show", type : "any" },
-		{ name : "label", type : "string" },
-		{ name : "color", type : "string" },
-		{ name : "variant", type : "string" },
-		{ name : "mIcon", type : "object" }
-	],
-	allowExtraKeys : false
-}
-
-const additionalActionValidation = {
-	type : "object",
-	schema : [
-		{ name : "name", type : "string", required : true },
-		{ name : "onClick", type : "function", required : true },
-		{ name : "show", type : "any" },
-		{ name : "label", type : "string" }
-	],
-	allowExtraKeys : false
-}
-
 function DataView(props) {
 	jsvalidator.validate(props, {
 		type : "object",
@@ -156,18 +131,15 @@ function DataView(props) {
 			},
 			{
 				name : "primaryActions",
-				type : "array",
-				schema : actionValidation
+				type : "array"
 			},
 			{
 				name : "bulkActions",
-				type : "array",
-				schema : actionValidation
+				type : "array"
 			},
 			{
 				name : "additionalActions",
-				type : "array",
-				schema : actionValidation
+				type : "array"
 			},
 			{
 				name : "buttons",

@@ -23,6 +23,7 @@ import {
 	FilterDate,
 	FilterSingleSelect,
 	DataView,
+	DataViewProps,
 	DataViewFilterText,
 	DataViewFilterMultiselect
 } from "../../../";
@@ -474,7 +475,7 @@ function DataViewKitchenSink() {
 		});
 	}, [state.limit, state.sort, state.skip, state.filter]);
 	
-	const gridConfig = {
+	const gridConfig: DataViewProps = {
 		title : "Your Uploads",
 		columns : state.display === "list" ? listColumns : gridColumns,
 		gridColumnsMap,

@@ -1,5 +1,6 @@
 import { MosaicObject, MosaicMIcon } from "../../types";
 import { ButtonProps } from "../Button";
+import { MenuItemProps } from "../MenuItem";
 
 export interface DataViewColumnTransformArgs {
 	/** The value of the specific column that is being transformed */
@@ -73,14 +74,16 @@ interface DataViewBulkActionOnClick {
 	({ data }: { data: MosaicObject[] }): void
 }
 
-export interface DataViewAction {
+export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & {
 	name: string
 	onClick: DataViewActionOnClick
 	show?: boolean | DataViewActionShow
-	label?: ButtonProps["label"]
-	color?: ButtonProps["color"]
-	variant?: ButtonProps["variant"]
-	mIcon?: ButtonProps["mIcon"]
+}
+
+export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs"> & {
+	name: string
+	onClick: DataViewActionOnClick
+	show?: boolean | DataViewActionShow
 }
 
 export interface DataViewBulkAction extends DataViewAction {
@@ -111,4 +114,12 @@ export interface DataViewOnSortChange {
 
 export interface DataViewOnSkipChange {
 	({ skip }: { skip : number }): void
+}
+
+export interface DataViewProps {
+	primaryActions: DataViewAction[]
+	additionalActions: DataViewAdditionalAction[]
+	bulkActions: DataViewBulkAction[]
+	// temporarily allowing extra properties until we have finished the conversion of DataView to TS
+	[key: string]: any
 }
