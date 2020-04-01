@@ -307,7 +307,9 @@ function DataView(props) {
 			// on data change scroll to the top
 			viewContainerRef.current.scrollTo(0, 0);
 		}
+	}, [props.data, props.display])
 
+	useEffect(() => {
 		setState({
 			...state,
 			checked : props.data.map(val => false)
