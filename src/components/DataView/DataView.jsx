@@ -257,6 +257,12 @@ function DataView(props) {
 		throwOnInvalid : true
 	});
 
+	// ensure there is an id column declared
+	const idColumn = props.columns.find(val => val.name === "id");
+	if (!idColumn) {
+		throw new Error("Every DataView requires at least one column with name of 'id' to unique identify each row.");
+	}
+
 	// declare the hooks
 	const [state, setState] = useState({
 		checked : []
