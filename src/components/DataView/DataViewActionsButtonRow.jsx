@@ -17,7 +17,7 @@ function filterAction(action, row) {
 	}
 }
 
-function GridActionsButtonRow(props) {
+function DataViewActionsButtonRow(props) {
 	const primaryActions = useMemo(() => {
 		if (props.primaryActions === undefined) { return []; }
 		
@@ -96,4 +96,4 @@ function GridActionsButtonRow(props) {
 	)
 }
 
-export default memo(GridActionsButtonRow);
+export default memo(DataViewActionsButtonRow);

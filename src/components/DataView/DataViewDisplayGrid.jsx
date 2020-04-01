@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import styled from "styled-components";
 
 import Checkbox from "../Checkbox";
-import GridActionsButtonRow from "../internal/GridActionsButtonRow";
+import DataViewActionsButtonRow from "./DataViewActionsButtonRow";
 import theme from "../../utils/theme.js";
 import DataViewBulkActionsButtonsRow from "./DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "./DataViewDisplayGridSortControl";
@@ -218,7 +218,7 @@ function DataViewDisplayGrid(props) {
 										}
 									</div>
 									<div className="right">
-										<GridActionsButtonRow
+										<DataViewActionsButtonRow
 											primaryActions={props.primaryActions}
 											additionalActions={props.additionalActions}
 											row={row}
