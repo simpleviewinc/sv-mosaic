@@ -1,13 +1,17 @@
 import * as React from "react";
 import { memo } from "react";
-import { pick } from "lodash";
 
 import ButtonRow from "../ButtonRow";
 import { DataViewBulkActionsButtonsRowProps } from "./DataViewTypes";
 
 function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps) {
 	const buttons = props.bulkActions.map(action => {
-		const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
+		const {
+			name,
+			show,
+			onClick,
+			...buttonArgs
+		} = action;
 		
 		return {
 			...buttonArgs,

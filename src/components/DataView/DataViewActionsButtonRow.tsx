@@ -1,9 +1,11 @@
-import React, { memo, useMemo } from "react";
+import * as React from "react";
+import { memo, useMemo } from "react";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { pick } from "lodash";
 
 import ButtonRow from "../ButtonRow";
 import Button from "../Button";
+import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
+import { MosaicObject } from "../../types";
 
 function filterAction(action, row) {
 	if (action.show === undefined) {
@@ -17,25 +19,36 @@ function filterAction(action, row) {
 	}
 }
 
-function DataViewActionsButtonRow(props) {
+interface Props {
+	primaryActions: DataViewAction[]
+	additionalActions: DataViewAdditionalAction[]
+	row: MosaicObject
+}
+
+function DataViewActionsButtonRow(props: Props) {
 	const primaryActions = useMemo(() => {
 		if (props.primaryActions === undefined) { return []; }
 		
 		return props.primaryActions.filter(action => {
 			return filterAction(action, props.row);
 		}).map((action, i) => {
-			const onClick = () => {
+			const newOnClick = () => {
 				action.onClick({ data : props.row });
 			}
 			
-			const buttonArgs = pick(action, ["label", "color", "variant", "mIcon"]);
+			const {
+				name,
+				show,
+				onClick,
+				...buttonArgs
+			} = action;
 			
 			return (
 				<Button
-					key={`primary_${i}`}
-					attrs={{ "data-mosaic-id" : `action_primary_${action.name}` }}
 					{ ...buttonArgs }
-					onClick={onClick}
+					key={`primary_${action.name}`}
+					attrs={{ "data-mosaic-id" : `action_primary_${action.name}` }}
+					onClick={newOnClick}
 				/>
 			)
 		});
@@ -61,7 +74,12 @@ function DataViewActionsButtonRow(props) {
 				mIcon={MoreHorizIcon}
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				menuItems={additionalActions.map(action => {
-					const menuArgs = pick(action, ["label"]);
+					const {
+						name,
+						show,
+						onClick,
+						...menuArgs
+					} = action;
 					
 					return {
 						...menuArgs,
