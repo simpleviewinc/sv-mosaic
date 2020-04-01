@@ -1,5 +1,15 @@
 # sv-mosaic changelog
 
+## 3/31/2020
+* Published 2.1.0
+* `DataView` will now scroll to the top when a user pages or filters.
+* `DataView` props `columns`, `primaryActions`, `additionalActions`, and `bulkActions` are now Typescript compliant.
+* `primaryActions`, `bulkActions` now support all properties that `Button` supports.
+* `additionalActions` now support all properties that `MenuItem` supports.
+* `DataView` mandates that a column  with `id` exists because it is necessary for internal functioning of the component.
+* Clicking on the `DataView` pager will allow the user to jump to a specific page.
+* `Button` now supports `tooltip`.
+
 ## 3/25/2020
 * The DataView pager now can be clicked to jump to a specific page. No changes are needed within applications to gain this behavior.
 * `Button` now supports tooltip.
