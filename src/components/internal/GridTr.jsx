@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 
 import Checkbox from "../Checkbox.jsx";
 import GridTd from "./GridTd.jsx";
-import GridActionsButtonRow from "./GridActionsButtonRow.jsx";
+import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
 
 function GridTr(props) {
 	return (
@@ -17,7 +17,7 @@ function GridTr(props) {
 				</GridTd>
 			}
 			<GridTd paddingRight={true} paddingLeft={!props.bulkActions}>
-				<GridActionsButtonRow
+				<DataViewActionsButtonRow
 					primaryActions={props.primaryActions}
 					additionalActions={props.additionalActions}
 					row={props.row}
