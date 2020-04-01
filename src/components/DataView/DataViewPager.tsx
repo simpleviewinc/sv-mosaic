@@ -54,6 +54,7 @@ function DataViewPager(props: Props) {
 			<Button
 				color="black"
 				variant="text"
+				size="small"
 				tooltip="Jump to Page"
 				label={`${startItem}-${endItem} of ${props.count}`}
 				popover={
