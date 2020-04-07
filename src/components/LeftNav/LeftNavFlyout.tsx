@@ -36,7 +36,7 @@ const StyledDiv = styled.div`
 
 function LeftNavFlyout(props: Props) {
 	const [state, setState] = useState({
-		openAnchorEl : undefined
+		openAnchorEl : null
 	});
 
 	const leftNavContext = useContext(LeftNavContext);
@@ -48,6 +48,13 @@ function LeftNavFlyout(props: Props) {
 		})
 	}
 
+	const onMouseLeave = function(e) {
+		setState({
+			...state,
+			openAnchorEl : null
+		})
+	}
+
 	return (
 		<Popper
 			open={true}
@@ -55,7 +62,7 @@ function LeftNavFlyout(props: Props) {
 			placement="right"
 			style={{ zIndex : leftNavContext.zIndex + 1 }}
 		>
-			<Paper elevation={3} component={StyledDiv} className="paper">
+			<Paper elevation={3} component={StyledDiv} className="paper" onMouseLeave={onMouseLeave}>
 				<LeftNavTitle label={props.parent.label}/>
 				{
 					props.parent.items.map(val => {

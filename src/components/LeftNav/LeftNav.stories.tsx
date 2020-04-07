@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, Fragment } from "react";
+import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -7,18 +8,23 @@ import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import ImageIcon from '@material-ui/icons/Image';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import BuildIcon from '@material-ui/icons/Build';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import TranslateIcon from '@material-ui/icons/Translate';
+import MapIcon from '@material-ui/icons/Map';
 
 import Button from "../Button";
 import LeftNav from "./LeftNav";
 import { LeftNavItemDef, LeftNavProps } from "./LeftNavTypes";
 
 export default {
-	title : "Components|LeftNav"
+	title : "Components|LeftNav",
+	decorators : [withKnobs]
 }
 
 const NavWrapper = function(props: any) {
 	const [state, setState] = useState({
-		open : false
+		open : true
 	});
 
 	const onClick = function() {
@@ -35,7 +41,6 @@ const NavWrapper = function(props: any) {
 
 	const onNav: LeftNavProps["onNav"] = function({ item }) {
 		alert(`Navigating to ${item.name}`);
-		onClose();
 	}
 
 	return (
@@ -80,6 +85,25 @@ const siteMapItems = (site) => [
 	{
 		name : `sitemap.${site}.microsites`,
 		label : "Microsites"
+	}
+];
+
+const blogItems = (blog) => [
+	{
+		name : `modules.blog.${blog}.authors`,
+		label : "Authors"
+	},
+	{
+		name : `modules.blog.${blog}.categories`,
+		label : "Categories"
+	},
+	{
+		name : `modules.blog.${blog}.posts`,
+		label : "Posts"
+	},
+	{
+		name : `modules.blog.${blog}.tags`,
+		label : "Tags"
 	}
 ]
 
@@ -351,11 +375,32 @@ const navSections = {
 				label : "Static Namespaces"
 			}
 		]
+	},
+	blog : {
+		name : "modules.blog",
+		label : "Public Relations",
+		items : [
+			{
+				name : "modules.blog.articles",
+				label : "Articles",
+				items : blogItems("articles")
+			},
+			{
+				name : "modules.blog.blog",
+				label : "Blog",
+				items : blogItems("blog")
+			},
+			{
+				name : "modules.blog.meetings",
+				label : "Meetings Blog",
+				items : blogItems("meetings")
+			}
+		]
 	}
 }
 
-export const kitchenSink = () => {
-	const items: LeftNavItemDef[] = [
+const dataSets: { [key: string]: LeftNavItemDef[] } = {
+	qa : [
 		{
 			name : "menu1",
 			label : "Menu 1",
@@ -461,15 +506,8 @@ export const kitchenSink = () => {
 				}
 			]
 		}
-	]
-	
-	return (
-		<NavWrapper items={items}/>
-	)
-}
-
-export const cms = () => {
-	const items: LeftNavItemDef[] = [
+	],
+	cms : [
 		{
 			name : "home",
 			label : "Home",
@@ -494,19 +532,13 @@ export const cms = () => {
 				navSections.dynamic,
 				navSections.mapPublisher,
 				navSections.mediaGallery,
+				navSections.blog,
 				navSections.translation
 			]
 		},
 		navSections.settings
-	]
-
-	return (
-		<NavWrapper items={items}/>
-	)
-}
-
-export const cmsFlatIA = () => {
-	const items = [
+	],
+	cms_flat : [
 		{
 			name : "home",
 			label : "Home",
@@ -531,6 +563,7 @@ export const cmsFlatIA = () => {
 				navSections.dynamic,
 				navSections.mapPublisher,
 				navSections.mediaGallery,
+				navSections.blog,
 				navSections.translation
 			]
 		},
@@ -538,7 +571,64 @@ export const cmsFlatIA = () => {
 			...navSections.settings,
 			type : "group"
 		}
+	],
+	root_icons : [
+		{
+			name : "home",
+			label : "Home",
+			showLabel : false,
+			mIcon : HomeIcon
+		},
+		{
+			...navSections.sitemap,
+			showLabel : false
+		},
+		{
+			...navSections.assets,
+			mIcon : ImageIcon,
+			showLabel : false
+		},
+		{
+			...navSections.collections,
+			mIcon : DashboardIcon,
+			showLabel : false
+		},
+		{
+			...navSections.blog,
+			mIcon : ChromeReaderModeIcon,
+			showLabel : false
+		},
+		{
+			...navSections.translation,
+			mIcon : TranslateIcon,
+			showLabel : false
+		},
+		{
+			name : "modules",
+			label : "Modules",
+			mIcon : ExtensionIcon,
+			showLabel : false,
+			items : [
+				navSections.assetRequest,
+				navSections.autoResponder,
+				
+				navSections.dynamic,
+				navSections.mapPublisher,
+				navSections.mediaGallery,
+				navSections.translation
+			]
+		},
+		{
+			...navSections.settings,
+			showLabel : false
+		}
 	]
+}
+
+export const cmsFlatIA = () => {
+	// const dataSet = select("Data", ["qa", "cms", "cms_flat", "root_icons"], "cms_flat");
+
+	const items = dataSets["cms_flat"];
 
 	return (
 		<NavWrapper items={items}/>
