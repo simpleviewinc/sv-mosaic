@@ -14,7 +14,7 @@ const StyledA = styled.a`
 	align-items: center;
 	justify-content: space-between;
 	padding: 8px 16px;
-	color: ${theme.colors.gray200};
+	color: ${theme.colors.gray400};
 
 	&.clickable {
 		cursor: pointer;
@@ -32,15 +32,19 @@ const StyledA = styled.a`
 		display: flex;
 		align-items: center;
 		flex: 1 1 0;
+	}
+
+	&.showLabel > .left {
 		margin-right: 10px;
 	}
 
-	& > .left > .icon {
+	&.showLabel > .left > .icon {
 		margin-right: 16px;
 	}
 
 	& > .left > .navLabel {
 		color: ${theme.colors.gray200};
+		font-size: 12px;
 	}
 
 	& > .right {
@@ -59,7 +63,8 @@ function LeftNavItem(props: LeftNavBlockProps) {
 	const {
 		openAnchorEl,
 		item,
-		onOpen
+		onOpen,
+		showLabel = true
 	} = props;
 
 	const leftNavContext = useContext(LeftNavContext);
@@ -87,6 +92,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 				className={`
 					${clickable ? "clickable" : ""}
 					${hasItems ? "hasItems" : ""}
+					${showLabel ? "showLabel" : ""}
 				`}
 			>
 				<span className="left">
@@ -94,19 +100,25 @@ function LeftNavItem(props: LeftNavBlockProps) {
 						item.mIcon &&
 						<item.mIcon className="icon"/>
 					}
-					<BodyText className="navLabel">{item.label}</BodyText>
+					{
+						showLabel &&
+						<BodyText className="navLabel">{item.label}</BodyText>
+					}
 				</span>
-				<span className="right">
-					<ChevronRightIcon className="arrow"/>
-				</span>
+				{
+					showLabel &&
+					<span className="right">
+						<ChevronRightIcon className="arrow"/>
+					</span>
+				}
+				{
+					item.items && open &&
+					<LeftNavFlyout
+						parent={item}
+						anchorEl={aRef.current}
+					/>
+				}
 			</StyledA>
-			{
-				item.items && open &&
-				<LeftNavFlyout
-					parent={item}
-					anchorEl={aRef.current}
-				/>
-			}
 		</Fragment>
 	)
 }
