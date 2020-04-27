@@ -40,6 +40,10 @@ export interface LeftNavBlockProps {
 export interface LeftNavContextProps {
 	variant: string
 	zIndex: LeftNavProps["zIndex"]
+	/** How long to wait to hide the flyout on mouseleave. */
+	leaveTimeout: number
+	/** How long to wait to show the flyout on mouseenter. */
+	enterTimeout: number
 	onNav: LeftNavProps["onNav"]
 	onVariantChange: (variant: string) => void
 }

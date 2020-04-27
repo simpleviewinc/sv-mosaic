@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef, Fragment, useContext } from "react";
+import { useRef, Fragment, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -76,9 +76,25 @@ function LeftNavItem(props: LeftNavBlockProps) {
 		leftNavContext.onNav({ item });
 	}
 
+	/** Timer to store when to open the item */
+	let timer: NodeJS.Timeout;
 	const onMouseEnter = function(e) {
-		onOpen(e.currentTarget);
+		const target = e.currentTarget;
+		timer = setTimeout(function() {
+			onOpen(target);
+		}, leftNavContext.enterTimeout);
 	}
+
+	const onMouseLeave = function(e) {
+		clearTimeout(timer);
+	}
+
+	// If this item is unmounted we need to clear the timer
+	useEffect(() => {
+		return function cleanup() {
+			clearTimeout(timer);
+		}
+	}, [])
 
 	const clickable = !item.items;
 	const hasItems = item.items !== undefined;
@@ -87,6 +103,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 		<Fragment>
 			<StyledA
 				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
 				onClick={clickable ? onNav : undefined}
 				ref={aRef}
 				className={`

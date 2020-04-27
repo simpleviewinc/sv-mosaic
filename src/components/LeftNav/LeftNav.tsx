@@ -30,6 +30,8 @@ const StyledDiv = styled.div`
 `;
 
 const defaultStorage = new LeftNavLocalStorage();
+const leaveTimeout = 200;
+const enterTimeout = 100;
 
 function LeftNav(props: LeftNavProps) {
 	const zIndex = props.zIndex ?? 100;
@@ -67,6 +69,11 @@ function LeftNav(props: LeftNavProps) {
 		}
 
 		get();
+
+		// cleanup the timeout that may have been set due to enter/leave mechanics
+		return function cleanup() {
+			clearTimeout(timer);
+		}
 	}, []);
 
 	const onVariantChange = function(variant) {
@@ -101,6 +108,8 @@ function LeftNav(props: LeftNavProps) {
 			variant : state.variant,
 			onNav,
 			onVariantChange,
+			leaveTimeout,
+			enterTimeout
 		}
 	}, [props.onNav, zIndex, state.variant, onVariantChange]);
 
@@ -123,11 +132,19 @@ function LeftNav(props: LeftNavProps) {
 	const drawerVariant = (state.variant === "full" || state.variant === "icons_only") ? "persistent" : "temporary";
 	const open = drawerVariant === "persistent" ? true : props.open;
 
+	// if the mouse leaves the component and it's children entirely, wait 200ms to close
+	let timer: NodeJS.Timeout;
 	const onMouseLeave = function(e) {
-		setState({
-			...state,
-			openAnchorEl : null
-		})
+		timer = setTimeout(() => {
+			setState({
+				...state,
+				openAnchorEl : null
+			})
+		}, leaveTimeout);
+	}
+
+	const onMouseEnter = function() {
+		clearTimeout(timer);
 	}
 
 	if (!state.variant) {
@@ -144,7 +161,7 @@ function LeftNav(props: LeftNavProps) {
 			PaperProps={{ style : { borderRight : "0px", zIndex : "auto" } }}
 			style={{ zIndex }}
 		>
-			<StyledDiv onMouseLeave={onMouseLeave} onMouseEnter={function() { console.log("ENTER ROOT"); }}>
+			<StyledDiv onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
 				<LeftNavContext.Provider value={contextValue}>
 					<div className="top">
 						{children}

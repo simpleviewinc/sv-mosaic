@@ -62,7 +62,7 @@ function LeftNavFlyout(props: Props) {
 			placement="right"
 			style={{ zIndex : leftNavContext.zIndex + 1 }}
 		>
-			<Paper elevation={3} component={StyledDiv} className="paper" onMouseLeave={onMouseLeave}>
+			<Paper elevation={3} component={StyledDiv} className="paper">
 				<LeftNavTitle label={props.parent.label}/>
 				{
 					props.parent.items.map(val => {
