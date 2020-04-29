@@ -77,10 +77,10 @@ function LeftNavItem(props: LeftNavBlockProps) {
 	}
 
 	/** Timer to store when to open the item */
-	let timer: NodeJS.Timeout;
+	let timer: number;
 	const onMouseEnter = function(e) {
 		const target = e.currentTarget;
-		timer = setTimeout(function() {
+		timer = window.setTimeout(function() {
 			onOpen(target);
 		}, leftNavContext.enterTimeout);
 	}
