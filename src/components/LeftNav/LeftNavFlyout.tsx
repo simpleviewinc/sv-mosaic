@@ -61,6 +61,18 @@ function LeftNavFlyout(props: Props) {
 			anchorEl={props.anchorEl}
 			placement="right"
 			style={{ zIndex : leftNavContext.zIndex + 1 }}
+			modifiers={{
+				preventOverflow : {
+					enabled : true,
+					boundariesElement: "viewport"
+				},
+				// this prevents popper from using translated3d which causes blurry
+				// flyouts in Chrome, instead it will just use top/left positioning
+				computeStyle : {
+					enabled : true,
+					gpuAcceleration : false
+				}
+			}}
 		>
 			<Paper elevation={3} component={StyledDiv} className="paper">
 				<LeftNavTitle label={props.parent.label}/>
