@@ -3,7 +3,9 @@ import { useState, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import Drawer from "@material-ui/core/Drawer";
 
-import { LeftNavProps, LeftNavContext } from "./LeftNavTypes";
+import SettingsIcon from '@material-ui/icons/Settings';
+
+import { LeftNavProps, LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
 import LeftNavGroup from "./LeftNavGroup";
 import theme from "../../theme";
@@ -13,19 +15,19 @@ import LeftNavLocalStorage from "./LeftNavLocalStorage";
 const StyledDiv = styled.div`
 	background: #2e2e31;
 	max-width: 300px;
-	flex: 1;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 
 	& > .top {
-		flex: 1
+		flex: 1 1 0;
+		overflow-y: auto;
 	}
 
 	& > .bottom {
 		flex: 0 0 auto;
 		text-align: center;
-		margin-bottom: 12px;
-		margin-top: 12px;
+		border-top: 1px solid ${theme.colors.gray600};
 	}
 `;
 
@@ -89,7 +91,13 @@ function LeftNav(props: LeftNavProps) {
 		set();
 	}
 
-	const onNav = function(args) {
+	const onNav: LeftNavProps["onNav"] = function(args) {
+		if (args.item.name.startsWith("_internal.")) {
+			const variant = args.item.name.match(/_internal.(.*)/)[1];
+			onVariantChange(variant);
+			return;
+		}
+
 		props.onNav(args);
 
 		if (state.variant === "hidden") {
@@ -113,10 +121,10 @@ function LeftNav(props: LeftNavProps) {
 		}
 	}, [props.onNav, zIndex, state.variant, onVariantChange]);
 
+	const showLabel = state.variant === "icons_only" ? false : true;
+
 	const children = props.items.map(item => {
 		const Component = item.type === "group" && state.variant !== "icons_only" ? LeftNavGroup : LeftNavItem;
-
-		const showLabel = state.variant === "icons_only" ? false : true;
 
 		return (
 			<Component
@@ -128,14 +136,43 @@ function LeftNav(props: LeftNavProps) {
 			/>
 		)
 	});
+
+	const activeLabel = function(name) {
+		if (name === state.variant) {
+			return " (Active)"
+		} else {
+			return "";
+		}
+	}
+
+	const settingsItem: LeftNavItemDef = {
+		name : "_internal",
+		label : "Nav Display",
+		type : "item",
+		mIcon : SettingsIcon,
+		items : [
+			{
+				name : "_internal.full",
+				label : `Full${activeLabel("full")}`
+			},
+			{
+				name : "_internal.icons_only",
+				label : `Icons Only${activeLabel("icons_only")}`
+			},
+			{
+				name : "_internal.hidden",
+				label : `Hidden${activeLabel("hidden")}`
+			}
+		]
+	}
 	
 	const drawerVariant = (state.variant === "full" || state.variant === "icons_only") ? "persistent" : "temporary";
 	const open = drawerVariant === "persistent" ? true : props.open;
 
 	// if the mouse leaves the component and it's children entirely, wait 200ms to close
-	let timer: NodeJS.Timeout;
+	let timer: number;
 	const onMouseLeave = function(e) {
-		timer = setTimeout(() => {
+		timer = window.setTimeout(() => {
 			setState({
 				...state,
 				openAnchorEl : null
@@ -151,28 +188,41 @@ function LeftNav(props: LeftNavProps) {
 		return null;
 	}
 
-	return (
-		<Drawer
-			anchor="left"
-			variant={drawerVariant}
-			open={open}
-			onClose={onClose}
-			ModalProps={{ disableEnforceFocus : true }}
-			PaperProps={{ style : { borderRight : "0px", zIndex : "auto" } }}
-			style={{ zIndex }}
-		>
-			<StyledDiv onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
-				<LeftNavContext.Provider value={contextValue}>
-					<div className="top">
-						{children}
-					</div>
-					<div className="bottom">
-						<LeftNavSettingsButton/>
-					</div>
-				</LeftNavContext.Provider>
-			</StyledDiv>
-		</Drawer>
-	)
+	const navContent = (
+		<StyledDiv onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
+			<LeftNavContext.Provider value={contextValue}>
+				<div className="top">
+					{children}
+				</div>
+				<div className="bottom">
+					<LeftNavItem
+						item={settingsItem}
+						showLabel={showLabel}
+						openAnchorEl={state.openAnchorEl}
+						onOpen={onOpen}
+					/>
+				</div>
+			</LeftNavContext.Provider>
+		</StyledDiv>
+	);
+
+	if (state.variant !== "hidden") {
+		return navContent;
+	} else {
+		return (
+			<Drawer
+				anchor="left"
+				variant={drawerVariant}
+				open={open}
+				onClose={onClose}
+				ModalProps={{ disableEnforceFocus : true }}
+				PaperProps={{ style : { borderRight : "0px", zIndex : "auto" } }}
+				style={{ zIndex }}
+			>
+				{navContent}
+			</Drawer>
+		)
+	}
 }
 
 export default LeftNav;

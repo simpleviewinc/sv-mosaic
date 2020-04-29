@@ -1,6 +1,8 @@
 import * as React from "react";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useMemo } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
+import styled from "styled-components";
+import { LoremIpsum } from "react-lorem-ipsum";
 
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -16,13 +18,70 @@ import MapIcon from '@material-ui/icons/Map';
 import Button from "../Button";
 import LeftNav from "./LeftNav";
 import { LeftNavItemDef, LeftNavProps } from "./LeftNavTypes";
+import { useStoryBookCssReset } from "../../utils/reactTools";
+
+import "../../utils/storyBookCssReset.css";
 
 export default {
 	title : "Components|LeftNav",
 	decorators : [withKnobs]
 }
 
+const StyledTopBar = styled.div`
+	flex: 0 0 auto;
+	background: #1a1a1a;
+	color: white;
+	padding: 6px 12px;
+	display: flex;
+	align-items: center;
+
+	& > .menuButton {
+		margin-right: 12px;
+	}
+	& > .logo {
+		max-height: 16px;
+	}
+`;
+
+const FakeTopBar = function(props: any) {
+	return (
+		<StyledTopBar>
+			<MenuIcon className="menuButton" onClick={props.openNav}/>
+			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
+		</StyledTopBar>
+	)
+}
+
+const AppDiv = styled.div`
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+
+	& > .main {
+		flex: 1 1 0;
+		overflow: hidden;
+		display: flex;
+	}
+
+	& > .main > .left {
+		flex: 0 0 auto;
+		overflow-y: auto;
+	}
+
+	& > .main > .content {
+		padding: 12px;
+		flex: 1 1 0;
+		overflow-y: auto;
+	}
+
+	& h1 {
+		margin-top: 0px;
+	}
+`;
+
 const NavWrapper = function(props: any) {
+	useStoryBookCssReset();
+
 	const [state, setState] = useState({
 		open : true
 	});
@@ -43,21 +102,28 @@ const NavWrapper = function(props: any) {
 		alert(`Navigating to ${item.name}`);
 	}
 
+	const lorem = useMemo(() => {
+		return <LoremIpsum p={10}/>
+	}, []);
+
 	return (
-		<Fragment>
-			<Button
-				color="black"
-				variant="icon"
-				mIcon={MenuIcon}
-				onClick={onClick}
-			/>
-			<LeftNav
-				open={state.open}
-				items={props.items}
-				onClose={onClose}
-				onNav={onNav}
-			/>
-		</Fragment>
+		<AppDiv>
+			<FakeTopBar openNav={onClick}/>
+			<div className="main">
+				<div className="left">
+					<LeftNav
+						open={state.open}
+						items={props.items}
+						onClose={onClose}
+						onNav={onNav}
+					/>
+				</div>
+				<div className="content">
+					<h1>Testing</h1>
+					{lorem}
+				</div>
+			</div>
+		</AppDiv>
 	)
 }
 
