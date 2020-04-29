@@ -16,7 +16,19 @@ function useStateRef(state) {
 	return ref;
 }
 
+function useStoryBookCssReset() {
+	// in order to support fullscreen app-like CSS we need to add some CSS to the root elements
+	useEffect(() => {
+		document.body.parentElement.classList.add("resetHtml");
+		
+		return () => {
+			document.body.parentElement.classList.remove("resetHtml");
+		}
+	}, []);
+}
+
 export {
 	countRenders,
-	useStateRef
+	useStateRef,
+	useStoryBookCssReset
 }
