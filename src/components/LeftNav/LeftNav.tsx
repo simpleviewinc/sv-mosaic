@@ -71,21 +71,19 @@ function LeftNav(props: LeftNavProps) {
 	}, []);
 
 	const onNav: LeftNavProps["onNav"] = function(args) {
+		// when we nav we want to close any flyouts we have
+		setState({
+			...state,
+			openAnchorEl : null
+		});
+
 		if (args.item.name.startsWith("_internal.")) {
+			// if the display switcher was used, we call onVariantChange
 			const variant = args.item.name.match(/_internal.(.*)/)[1] as LeftNavProps["variant"];
 			props.onVariantChange(variant);
-			return;
-		}
-
-		props.onNav(args);
-
-		if (props.variant === "hidden") {
-			props.onClose();
 		} else {
-			setState({
-				...state,
-				openAnchorEl : null
-			});
+			// else we all onNav for the main app to navigate
+			props.onNav(args);
 		}
 	}
 
