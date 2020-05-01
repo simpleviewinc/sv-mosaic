@@ -1,24 +1,24 @@
 /// <reference types="react" />
 /// <reference types="styled-jsx" />
 import { MosaicMIcon } from "../../types";
-export interface LeftNavSettings {
-    variant: string;
-}
-export interface LeftNavSettingsStorage {
-    get: () => (LeftNavSettings | Promise<LeftNavSettings>);
-    set: (settings: LeftNavSettings) => (void | Promise<void>);
-}
+declare type Variant = "full" | "icons_only" | "hidden";
 export interface LeftNavProps {
+    /** Whether the LeftNav hidden drawer is open. */
     open: boolean;
+    /** The currently displayed variant of the navigation. */
+    variant: Variant;
     items?: LeftNavItemDef[];
-    settingsStorage?: LeftNavSettingsStorage;
-    /** the z-index of the primary drawer, defaults to 100 */
+    /** The z-index of the primary drawer, defaults to 100 */
     zIndex?: number;
+    /** The currently active navigation item, should match the "name" of the nav item */
+    active?: string;
     onClose(): void;
-    /** handler for when the user chooses a nav item */
+    /** Handler for when the user chooses a nav item */
     onNav({ item }: {
         item: LeftNavItemDef;
     }): void;
+    /** Handler for when the user changes the display format for the nav */
+    onVariantChange(variant: Variant): void;
 }
 export interface LeftNavItemDef {
     name: string;
@@ -32,15 +32,16 @@ export interface LeftNavBlockProps {
     openAnchorEl?: HTMLElement;
     item: LeftNavItemDef;
     showLabel?: boolean;
-    onOpen: LeftNavOnOpen;
+    onOpen(anchorEl: HTMLElement): void;
 }
 export interface LeftNavContextProps {
-    variant: string;
+    active: LeftNavProps["active"];
     zIndex: LeftNavProps["zIndex"];
+    /** How long to wait to hide the flyout on mouseleave. */
+    leaveTimeout: number;
+    /** How long to wait to show the flyout on mouseenter. */
+    enterTimeout: number;
     onNav: LeftNavProps["onNav"];
-    onVariantChange: (variant: string) => void;
-}
-export interface LeftNavOnOpen {
-    (anchorEl: HTMLElement): void;
 }
 export declare const LeftNavContext: import("react").Context<LeftNavContextProps>;
+export {};
