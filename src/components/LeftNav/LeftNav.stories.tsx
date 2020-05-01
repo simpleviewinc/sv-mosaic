@@ -31,12 +31,17 @@ const StyledTopBar = styled.div`
 	flex: 0 0 auto;
 	background: #1a1a1a;
 	color: white;
-	padding: 6px 12px;
+	padding: 6px 16px;
 	display: flex;
 	align-items: center;
+	min-height: 36px;
+	box-sizing: border-box;
 
 	& > .menuButton {
 		margin-right: 12px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
 	}
 	& > .logo {
 		max-height: 20px;
@@ -48,7 +53,9 @@ const FakeTopBar = function(props: any) {
 		<StyledTopBar>
 			{
 				props.variant === "hidden" &&
-				<MenuIcon className="menuButton" onClick={props.openNav}/>
+				<span title="Open Navigation" className="menuButton">
+					<MenuIcon onClick={props.openNav}/>
+				</span>
 			}
 			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
 		</StyledTopBar>
@@ -72,7 +79,7 @@ const AppDiv = styled.div`
 	}
 
 	& > .main > .content {
-		padding: 12px;
+		padding: 16px;
 		flex: 1 1 0;
 		overflow-y: auto;
 	}
@@ -88,7 +95,7 @@ const NavWrapper = function(props: any) {
 	useStoryBookCssReset();
 
 	const [state, setState] = useState({
-		open : true,
+		open : false,
 		variant : (localStorage.getItem(localKey) ?? "full") as LeftNavProps["variant"],
 		label : "Home",
 		name : "home"
@@ -111,6 +118,7 @@ const NavWrapper = function(props: any) {
 	const onNav: LeftNavProps["onNav"] = function({ item }) {
 		setState({
 			...state,
+			open : false,
 			label : item.label,
 			name : item.name
 		})
