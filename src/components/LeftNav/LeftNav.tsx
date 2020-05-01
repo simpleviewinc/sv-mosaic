@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import Drawer from "@material-ui/core/Drawer";
+import { DrawerProps } from "@material-ui/core/Drawer";
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -9,8 +10,6 @@ import { LeftNavProps, LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
 import LeftNavGroup from "./LeftNavGroup";
 import theme from "../../theme";
-import LeftNavSettingsButton from "./LeftNavSettingsButton";
-import LeftNavLocalStorage from "./LeftNavLocalStorage";
 
 const StyledDiv = styled.div`
 	background: #2e2e31;
@@ -31,17 +30,21 @@ const StyledDiv = styled.div`
 	}
 `;
 
-const defaultStorage = new LeftNavLocalStorage();
 const leaveTimeout = 200;
 const enterTimeout = 100;
 
+const drawerProps: Pick<DrawerProps, "anchor" | "variant" | "ModalProps" | "PaperProps"> = {
+	anchor : "left",
+	variant : "temporary",
+	ModalProps : { disableEnforceFocus : true },
+	PaperProps : { style : { borderRight : "0px", zIndex : "auto" } }
+}
+
 function LeftNav(props: LeftNavProps) {
 	const zIndex = props.zIndex ?? 100;
-	const settingsStorage = props.settingsStorage ?? defaultStorage;
 
 	const [state, setState] = useState({
-		openAnchorEl : null,
-		variant : undefined
+		openAnchorEl : null
 	});
 
 	const onOpen = (openAnchorEl) => {
@@ -61,46 +64,22 @@ function LeftNav(props: LeftNavProps) {
 	}
 
 	useEffect(() => {
-		async function get() {
-			const settings = await settingsStorage.get() ?? {};
-
-			setState({
-				...state,
-				variant : settings.variant ?? "full"
-			})
-		}
-
-		get();
-
 		// cleanup the timeout that may have been set due to enter/leave mechanics
 		return function cleanup() {
 			clearTimeout(timer);
 		}
 	}, []);
 
-	const onVariantChange = function(variant) {
-		async function set() {
-			await settingsStorage.set({ variant });
-
-			setState({
-				...state,
-				variant
-			})
-		}
-
-		set();
-	}
-
 	const onNav: LeftNavProps["onNav"] = function(args) {
 		if (args.item.name.startsWith("_internal.")) {
-			const variant = args.item.name.match(/_internal.(.*)/)[1];
-			onVariantChange(variant);
+			const variant = args.item.name.match(/_internal.(.*)/)[1] as LeftNavProps["variant"];
+			props.onVariantChange(variant);
 			return;
 		}
 
 		props.onNav(args);
 
-		if (state.variant === "hidden") {
+		if (props.variant === "hidden") {
 			props.onClose();
 		} else {
 			setState({
@@ -112,19 +91,18 @@ function LeftNav(props: LeftNavProps) {
 
 	const contextValue = useMemo(() => {
 		return {
+			active : props.active,
 			zIndex,
-			variant : state.variant,
 			onNav,
-			onVariantChange,
 			leaveTimeout,
 			enterTimeout
 		}
-	}, [props.onNav, zIndex, state.variant, onVariantChange]);
+	}, [props.onNav, zIndex, props.active]);
 
-	const showLabel = state.variant === "icons_only" ? false : true;
+	const showLabel = props.variant === "icons_only" ? false : true;
 
 	const children = props.items.map(item => {
-		const Component = item.type === "group" && state.variant !== "icons_only" ? LeftNavGroup : LeftNavItem;
+		const Component = item.type === "group" && props.variant !== "icons_only" ? LeftNavGroup : LeftNavItem;
 
 		return (
 			<Component
@@ -138,7 +116,7 @@ function LeftNav(props: LeftNavProps) {
 	});
 
 	const activeLabel = function(name) {
-		if (name === state.variant) {
+		if (name === props.variant) {
 			return " (Active)"
 		} else {
 			return "";
@@ -165,9 +143,6 @@ function LeftNav(props: LeftNavProps) {
 			}
 		]
 	}
-	
-	const drawerVariant = (state.variant === "full" || state.variant === "icons_only") ? "persistent" : "temporary";
-	const open = drawerVariant === "persistent" ? true : props.open;
 
 	// if the mouse leaves the component and it's children entirely, wait 200ms to close
 	let timer: number;
@@ -182,10 +157,6 @@ function LeftNav(props: LeftNavProps) {
 
 	const onMouseEnter = function() {
 		clearTimeout(timer);
-	}
-
-	if (!state.variant) {
-		return null;
 	}
 
 	const navContent = (
@@ -206,17 +177,14 @@ function LeftNav(props: LeftNavProps) {
 		</StyledDiv>
 	);
 
-	if (state.variant !== "hidden") {
+	if (props.variant !== "hidden") {
 		return navContent;
 	} else {
 		return (
 			<Drawer
-				anchor="left"
-				variant={drawerVariant}
-				open={open}
+				{...drawerProps}
+				open={props.open}
 				onClose={onClose}
-				ModalProps={{ disableEnforceFocus : true }}
-				PaperProps={{ style : { borderRight : "0px", zIndex : "auto" } }}
 				style={{ zIndex }}
 			>
 				{navContent}

@@ -39,14 +39,17 @@ const StyledTopBar = styled.div`
 		margin-right: 12px;
 	}
 	& > .logo {
-		max-height: 16px;
+		max-height: 20px;
 	}
 `;
 
 const FakeTopBar = function(props: any) {
 	return (
 		<StyledTopBar>
-			<MenuIcon className="menuButton" onClick={props.openNav}/>
+			{
+				props.variant === "hidden" &&
+				<MenuIcon className="menuButton" onClick={props.openNav}/>
+			}
 			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
 		</StyledTopBar>
 	)
@@ -79,27 +82,47 @@ const AppDiv = styled.div`
 	}
 `;
 
+const localKey = "sv-mosaic-left-nav-variant";
+
 const NavWrapper = function(props: any) {
 	useStoryBookCssReset();
 
 	const [state, setState] = useState({
-		open : true
+		open : true,
+		variant : (localStorage.getItem(localKey) ?? "full") as LeftNavProps["variant"],
+		label : "Home",
+		name : "home"
 	});
 
 	const onClick = function() {
 		setState({
+			...state,
 			open : true
 		});
 	}
 
 	const onClose = function() {
 		setState({
+			...state,
 			open : false
 		})
 	}
 
 	const onNav: LeftNavProps["onNav"] = function({ item }) {
-		alert(`Navigating to ${item.name}`);
+		setState({
+			...state,
+			label : item.label,
+			name : item.name
+		})
+	}
+
+	const onVariantChange = function(variant) {
+		localStorage.setItem("sv-mosaic-left-nav-variant", variant);
+
+		setState({
+			...state,
+			variant
+		})
 	}
 
 	const lorem = useMemo(() => {
@@ -108,18 +131,22 @@ const NavWrapper = function(props: any) {
 
 	return (
 		<AppDiv>
-			<FakeTopBar openNav={onClick}/>
+			<FakeTopBar variant={state.variant} openNav={onClick}/>
 			<div className="main">
 				<div className="left">
 					<LeftNav
+						active={state.name}
 						open={state.open}
 						items={props.items}
+						variant={state.variant}
 						onClose={onClose}
 						onNav={onNav}
+						onVariantChange={onVariantChange}
 					/>
 				</div>
 				<div className="content">
-					<h1>Testing</h1>
+					<h1>{state.label}</h1>
+					<h2>{state.name}</h2>
 					{lorem}
 				</div>
 			</div>

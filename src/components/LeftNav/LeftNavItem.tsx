@@ -24,6 +24,15 @@ const StyledA = styled.a`
 		visibility: visible;
 	}
 
+	&.active {
+		background: ${theme.colors.blue};
+		color: white;
+	}
+
+	&.active:hover {
+		background: ${theme.colors.blueHover};
+	}
+
 	&:hover {
 		background: #505057;
 	}
@@ -98,6 +107,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 
 	const clickable = !item.items;
 	const hasItems = item.items !== undefined;
+	const active = leftNavContext.active && (leftNavContext.active === item.name || leftNavContext.active.startsWith(`${item.name}.`));
 
 	return (
 		<Fragment>
@@ -110,6 +120,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 					${clickable ? "clickable" : ""}
 					${hasItems ? "hasItems" : ""}
 					${showLabel ? "showLabel" : ""}
+					${active ? "active" : ""}
 				`}
 			>
 				<span className="left">
@@ -128,14 +139,14 @@ function LeftNavItem(props: LeftNavBlockProps) {
 						<ChevronRightIcon className="arrow"/>
 					</span>
 				}
-				{
-					item.items && open &&
-					<LeftNavFlyout
-						parent={item}
-						anchorEl={aRef.current}
-					/>
-				}
 			</StyledA>
+			{
+				item.items && open &&
+				<LeftNavFlyout
+					parent={item}
+					anchorEl={aRef.current}
+				/>
+			}
 		</Fragment>
 	)
 }
