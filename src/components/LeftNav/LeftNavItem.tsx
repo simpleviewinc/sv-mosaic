@@ -15,6 +15,7 @@ const StyledA = styled.a`
 	justify-content: space-between;
 	padding: 8px 16px;
 	color: ${theme.colors.gray400};
+	line-height: 24px;
 
 	&.clickable {
 		cursor: pointer;
