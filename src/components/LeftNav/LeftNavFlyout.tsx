@@ -20,18 +20,7 @@ const StyledDiv = styled.div`
 	&.paper {
 		background-color: #404045;
 		min-width: 150px;
-		max-width: 300px;
-	}
-
-	& > h3 {
-		color: ${theme.colors.gray400};
-		padding: 8px 16px;
-		font-family: ${theme.fontFamily};
-		margin: 0;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		font-size: 12px;
-		font-weight: normal;
+		max-width: 250px;
 	}
 `;
 

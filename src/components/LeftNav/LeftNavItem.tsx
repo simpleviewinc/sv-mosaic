@@ -41,7 +41,8 @@ const StyledA = styled.a`
 	& > .left {
 		display: flex;
 		align-items: center;
-		flex: 1 1 0;
+		flex: 1 0 0px;
+		min-width: 0;
 	}
 
 	&.showLabel > .left {
@@ -55,6 +56,9 @@ const StyledA = styled.a`
 	& > .left > .navLabel {
 		color: ${theme.colors.gray200};
 		font-size: 12px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	& > .right {
@@ -110,6 +114,10 @@ function LeftNavItem(props: LeftNavBlockProps) {
 	const hasItems = item.items !== undefined;
 	const active = leftNavContext.active && (leftNavContext.active === item.name || leftNavContext.active.startsWith(`${item.name}.`));
 
+	if (!item.mIcon && showLabel === false) {
+		return null;
+	}
+
 	return (
 		<Fragment>
 			<StyledA
@@ -123,6 +131,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 					${showLabel ? "showLabel" : ""}
 					${active ? "active" : ""}
 				`}
+				title={item.label}
 			>
 				<span className="left">
 					{

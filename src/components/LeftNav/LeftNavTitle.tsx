@@ -21,6 +21,12 @@ const StyledH3 = styled.h3`
 	display: flex;
 	align-items: center;
 
+	& > span {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
 	& > .icon {
 		margin-right: 16px;
 	}
@@ -28,7 +34,7 @@ const StyledH3 = styled.h3`
 
 function LeftNavTitle(props: Props) {
 	return (
-		<StyledH3>
+		<StyledH3 title={props.label}>
 			{
 				props.mIcon &&
 				<props.mIcon className="icon"/>
