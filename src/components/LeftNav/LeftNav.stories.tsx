@@ -503,141 +503,338 @@ const navSections = {
 const dataSets: { [key: string]: LeftNavItemDef[] } = {
 	qa : [
 		{
-			name : "menu1",
-			label : "Menu 1",
+			name : "short",
+			label : "Short"
+		},
+		{
+			name : "short_icon",
+			label : "Short Icon",
 			mIcon : HomeIcon
 		},
 		{
-			name : "menu2",
-			label : "Menu 2",
+			name : "short_children",
+			label : "Short Children",
 			items : [
 				{
-					name : "menu2.child1",
-					label : "Child 1"
+					name : "short_children.short",
+					label : "Short"
 				},
 				{
-					name : "menu2.child2",
-					label : "Child 2",
-					items : [
-						{
-							name : "menu2.child2.child1",
-							label : "Child 1"
-						},
-						{
-							name : "menu2.child2.child2",
-							label : "Child 2"
-						},
-						{
-							name : "menu2.child2.child3",
-							label : "Child 3 with icon",
-							mIcon : ImageIcon
-						}
-					]
+					name : "short_children.short_icon",
+					label : "Short Icon",
+					mIcon : HomeIcon
 				},
 				{
-					name : "menu2.child3",
-					label : "Child 3",
+					name : "short_children.short_children",
+					label : "Short Children",
 					items : [
 						{
-							name : "menu2.child3.child1",
-							label : "Child 1"
+							name :"short_children.short_children.item",
+							label : "Item"
 						},
 						{
-							name : "menu2.child3.child2",
-							label : "Group 1",
-							type : "group",
+							name : "short_children.short_children.children",
+							label : "With Children",
 							items : [
 								{
-									name : "menu2.child3.child2.chil1",
-									label : "Child 1"
+									name :"short_children.short_children.children.item",
+									label : "Item"
 								},
 								{
-									name : "menu2.child3.child2.child2",
-									label : "Child 2"
+									name : "short_children.short_children.children.children",
+									label : "With Children",
+									items : [
+										{
+											name :"short_children.short_children.children.children.item",
+											label : "Item"
+										}
+									]
 								}
 							]
 						}
 					]
+				},
+				{
+					name : "short_children.short_icon_children",
+					label : "Short Icon Children",
+					mIcon : HomeIcon,
+					items : [
+						{
+							name : "short_children.short_icon_children.item",
+							label : "Item"
+						}
+					]
+				},
+				{
+					name : "short_children.long",
+					label : "Long - lorem ipsum dolor sit amet"
+				},
+				{
+					name : "short_children.long_icon",
+					label : "Long Icon - lorem ipsum dolor sit amet",
+					mIcon : HomeIcon
+				},
+				{
+					name : "short_children.long_children",
+					label : "Long Children - lorem ipsum dolor sit amet",
+					items : [
+						{
+							name : "short_children.long_children.item",
+							label : "Item"
+						}
+					]
+				},
+				{
+					name : "short_children.long_icon_children",
+					label : "Long Icon Children - lorem ipsum dolor sit amet",
+					mIcon : HomeIcon,
+					items : [
+						{
+							name : "short_children.long_children.item",
+							label : "Item"
+						}
+					]
+				},
+			]
+		},
+		{
+			name : "short_icon_children",
+			label : "Short Icon Children",
+			mIcon : ExtensionIcon,
+			items : [
+				{
+					name : "short_icon_children.short",
+					label : "Short"
+				},
+				{
+					name : "short_icon_children.short_icon",
+					label : "Short Icon",
+					mIcon : HomeIcon
+				},
+				{
+					name : "short_icon_children.short_children",
+					label : "Short Children",
+					items : [
+						{
+							name :"short_icon_children.short_children.item",
+							label : "Item"
+						},
+						{
+							name : "short_icon_children.short_children.children",
+							label : "With Children",
+							items : [
+								{
+									name :"short_icon_children.short_children.children.item",
+									label : "Item"
+								},
+								{
+									name : "short_icon_children.short_children.children.children",
+									label : "With Children",
+									items : [
+										{
+											name :"short_icon_children.short_children.children.children.item",
+											label : "Item"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					name : "short_icon_children.short_icon_children",
+					label : "Short Icon Children",
+					mIcon : HomeIcon,
+					items : [
+						{
+							name : "short_icon_children.short_icon_children.item",
+							label : "Item"
+						}
+					]
+				},
+				{
+					name : "short_icon_children.long",
+					label : "Long - lorem ipsum dolor sit amet"
+				},
+				{
+					name : "short_icon_children.long_icon",
+					label : "Long Icon - lorem ipsum dolor sit amet",
+					mIcon : HomeIcon
+				},
+				{
+					name : "short_icon_children.long_children",
+					label : "Long Children - lorem ipsum dolor sit amet",
+					items : [
+						{
+							name : "short_icon_children.long_children.item",
+							label : "Item"
+						}
+					]
+				},
+				{
+					name : "short_icon_children.long_icon_children",
+					label : "Long Icon Children - lorem ipsum dolor sit amet",
+					mIcon : HomeIcon,
+					items : [
+						{
+							name : "short_icon_children.long_children.item",
+							label : "Item"
+						}
+					]
+				},
+			]
+		},
+		{
+			name : "long",
+			label : "Long - lorem ipsum dolor sit amet"
+		},
+		{
+			name : "long_icon",
+			label : "Long Icon - lorem ipsum dolor sit amet",
+			mIcon : DashboardIcon
+		},
+		{
+			name : "long_children",
+			label : "Long Children - lorem ipsum dolor sit amet",
+			items : [
+				{
+					name : "long_children.item",
+					label : "Item"
 				}
 			]
 		},
 		{
-			name : "menu3",
-			label : "Menu 3"
+			name : "long_icon_children",
+			label : "Long Icon Children - lorem ipsum dolor sit amet",
+			mIcon : AccountTreeIcon,
+			items : [
+				{
+					name : "long_icon_children.item",
+					label : "Item"
+				}
+			]
 		},
 		{
-			name : "menu4",
-			label : "Menu 4 with a really really long title"
-		},
-		{
-			name : "menu5",
-			label : "Menu5 with a really long title and an icon",
-			mIcon : ImageIcon
-		},
-		{
-			name : "group1",
-			label : "Group 1",
+			name : "group_short",
+			label : "Group Short",
 			type : "group",
 			items : [
 				{
-					name : "group1.menu1",
-					label : "Menu 1",
-					mIcon : ImageIcon
+					name : "group_short.short",
+					label : "Short"
 				},
 				{
-					name : "group1.menu2",
-					label : "Menu 2"
-				}
+					name : "group_short.short_icon",
+					label : "Short Icon",
+					mIcon : HomeIcon
+				},
+				{
+					name : "group_short.short_children",
+					label : "Short Children",
+					items : [
+						{
+							name : "group_short.short_children.short_children.item",
+							label : "Item"
+						},
+						{
+							name : "group_short.short_children.short_children.children",
+							label : "With Children",
+							items : [
+								{
+									name :"group_short.short_children.short_children.children.item",
+									label : "Item"
+								},
+								{
+									name : "group_short.short_children.short_children.children.children",
+									label : "With Children",
+									items : [
+										{
+											name : "group_short.short_children.short_children.children.children.item",
+											label : "Item"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					name : "group_short.short_icon_children",
+					label : "Short Icon Children",
+					mIcon : HomeIcon,
+					items : [
+						{
+							name : "group_short.short_icon_children.item",
+							label : "Item"
+						}
+					]
+				},
+				{
+					name : "group_short.long",
+					label : "Long - lorem ipsum dolor sit amet"
+				},
+				{
+					name : "group_short.long_icon",
+					label : "Long Icon - lorem ipsum dolor sit amet",
+					mIcon : HomeIcon
+				},
+				{
+					name : "group_short.long_children",
+					label : "Long Children - lorem ipsum dolor sit amet",
+					items : [
+						{
+							name : "group_short.long_children.item",
+							label : "Item"
+						}
+					]
+				},
+				{
+					name : "group_short.long_icon_children",
+					label : "Long Icon Children - lorem ipsum dolor sit amet",
+					mIcon : HomeIcon,
+					items : [
+						{
+							name : "group_short.long_icon_children.item",
+							label : "Item"
+						}
+					]
+				},
 			]
 		},
 		{
-			name : "group2",
-			label : "Group 2",
-			type : "group",
+			name : "group_short_icon",
+			label : "Group Short Icon",
 			mIcon : ImageIcon,
+			type : "group",
 			items : [
 				{
-					name : "group2.menu1",
-					label : "Menu 1",
-					mIcon : ImageIcon
-				},
+					name : "group_short_icon.item",
+					label : "Item"
+				}
+			]
+		},
+		{
+			name : "group_long",
+			label : "Group Long - lorem ipsum dolor sit amet",
+			type : "group",
+			items : [
 				{
-					name : "group2.menu2",
-					label : "Menu 2"
+					name : "group_long.item",
+					label : "Item"
+				}
+			]
+		},
+		{
+			name : "group_long_icon",
+			label : "Group Long Icon - lorem ipsum dolor sit amet",
+			type : "group",
+			items : [
+				{
+					name : "group_long_icon.item",
+					label : "Item"
 				}
 			]
 		}
-	],
-	cms : [
-		{
-			name : "home",
-			label : "Home",
-			mIcon : HomeIcon
-		},
-		{
-			...navSections.sitemap,
-			mIcon : AccountTreeIcon
-		},
-		{
-			...navSections.assets,
-			mIcon : ImageIcon
-		},
-		{
-			name : "modules",
-			label : "Modules",
-			mIcon : ExtensionIcon,
-			items : [
-				navSections.assetRequest,
-				navSections.autoResponder,
-				navSections.collections,
-				navSections.dynamic,
-				navSections.mapPublisher,
-				navSections.mediaGallery,
-				navSections.blog,
-				navSections.translation
-			]
-		},
-		navSections.settings
 	],
 	cms_flat : [
 		{
@@ -672,64 +869,12 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 			...navSections.settings,
 			type : "group"
 		}
-	],
-	root_icons : [
-		{
-			name : "home",
-			label : "Home",
-			showLabel : false,
-			mIcon : HomeIcon
-		},
-		{
-			...navSections.sitemap,
-			showLabel : false
-		},
-		{
-			...navSections.assets,
-			mIcon : ImageIcon,
-			showLabel : false
-		},
-		{
-			...navSections.collections,
-			mIcon : DashboardIcon,
-			showLabel : false
-		},
-		{
-			...navSections.blog,
-			mIcon : ChromeReaderModeIcon,
-			showLabel : false
-		},
-		{
-			...navSections.translation,
-			mIcon : TranslateIcon,
-			showLabel : false
-		},
-		{
-			name : "modules",
-			label : "Modules",
-			mIcon : ExtensionIcon,
-			showLabel : false,
-			items : [
-				navSections.assetRequest,
-				navSections.autoResponder,
-				
-				navSections.dynamic,
-				navSections.mapPublisher,
-				navSections.mediaGallery,
-				navSections.translation
-			]
-		},
-		{
-			...navSections.settings,
-			showLabel : false
-		}
 	]
 }
 
 export const cmsFlatIA = () => {
-	// const dataSet = select("Data", ["qa", "cms", "cms_flat", "root_icons"], "cms_flat");
-
-	const items = dataSets["cms_flat"];
+	const dataSet = select("Data", ["qa", "cms_flat"], "cms_flat");
+	const items = dataSets[dataSet];
 
 	return (
 		<NavWrapper items={items}/>

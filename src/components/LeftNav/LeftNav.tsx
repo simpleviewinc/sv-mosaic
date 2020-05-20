@@ -13,7 +13,7 @@ import theme from "../../theme";
 
 const StyledDiv = styled.div`
 	background: #2e2e31;
-	max-width: 300px;
+	max-width: 250px;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -21,6 +21,22 @@ const StyledDiv = styled.div`
 	& > .top {
 		flex: 1 1 0;
 		overflow-y: auto;
+	}
+
+	& > .top::-webkit-scrollbar {
+		width: 12px;
+	}
+
+	& > .top::-webkit-scrollbar-track {
+		background-color: #26262a;
+	}
+
+	& > .top::-webkit-scrollbar-thumb {
+		background-color: #7a7a7d;
+	}
+
+	& > .top:hover::-webkit-scrollbar-thumb {
+		background-color: #5b5b5d;
 	}
 
 	& > .bottom {
