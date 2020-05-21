@@ -677,7 +677,7 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 					mIcon : HomeIcon,
 					items : [
 						{
-							name : "short_icon_children.long_children.item",
+							name : "short_icon_children.long_icon_children.item",
 							label : "Item"
 						}
 					]
