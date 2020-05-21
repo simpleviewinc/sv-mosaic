@@ -187,7 +187,7 @@ function DataViewDisplayGrid(props) {
 									cell
 									${props.checked[i] === true ? "checked" : ""}
 								`}
-								key={row.id}
+								key={i}
 							>
 								{
 									image &&

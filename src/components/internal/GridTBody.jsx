@@ -74,7 +74,7 @@ function GridTBody(props) {
 				props.data.map((row, i) => {
 					return (
 						<GridTr
-							key={row.id || i}
+							key={i}
 							row={row}
 							bulkActions={props.bulkActions}
 							primaryActions={props.primaryActions}
