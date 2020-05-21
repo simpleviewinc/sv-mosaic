@@ -1,5 +1,8 @@
 # sv-mosaic changelog
 
+## 5/21/2020
+* `DataView` will no longer require an `id` column due to developer feedback.
+
 ## 3/31/2020
 * Published 2.1.0
 * `DataView` will now scroll to the top when a user pages or filters.
