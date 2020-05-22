@@ -84,6 +84,7 @@ function LeftNavItem(props: LeftNavBlockProps) {
 	const leftNavContext = useContext(LeftNavContext);
 	const aRef = useRef(null);
 
+	// this compares the ref passed via props to the ref of the A tag, if the two match, then it is this item that is open
 	const open = aRef.current !== null && openAnchorEl === aRef.current;
 
 	const onNav = function() {
@@ -99,16 +100,17 @@ function LeftNavItem(props: LeftNavBlockProps) {
 		}, leftNavContext.enterTimeout);
 	}
 
-	// for browsers like Safari which do not support onPointerEnter, we are forced to use onMouseEnter
-	const onMouseEnter = "PointerEvent" in window ? undefined : onPointerEnter;
-
 	const onTouchStart = function(e) {
 		onOpen(e.currentTarget);
 	}
 
-	const onLeave = function(e) {
+	const onPointerLeave = function(e) {
 		clearTimeout(timer);
 	}
+
+	// for browsers like Safari which do not support onPointerEnter/onPointerLeave, we are forced to use onMouseEnter/onMouseLeave
+	const onMouseEnter = "PointerEvent" in window ? undefined : onPointerEnter;
+	const onMouseLeave = "PointerEvent" in window ? undefined : onPointerLeave;
 
 	// If this item is unmounted we need to clear the timer
 	useEffect(() => {
@@ -129,9 +131,10 @@ function LeftNavItem(props: LeftNavBlockProps) {
 		<Fragment>
 			<StyledA
 				onPointerEnter={onPointerEnter}
+				onPointerLeave={onPointerLeave}
 				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
 				onTouchStart={onTouchStart}
-				onPointerLeave={onLeave}
 				onClick={clickable ? onNav : undefined}
 				ref={aRef}
 				className={`
