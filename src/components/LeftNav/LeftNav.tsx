@@ -187,7 +187,9 @@ function LeftNav(props: LeftNavProps) {
 		</StyledDiv>
 	);
 
-	if (props.variant !== "hidden") {
+	const drawerStyle = useMemo(() => ({ zIndex }), [props.zIndex]);
+
+	if (["icons_only", "full"].includes(props.variant)) {
 		return navContent;
 	} else {
 		return (
@@ -195,7 +197,7 @@ function LeftNav(props: LeftNavProps) {
 				{...drawerProps}
 				open={props.open}
 				onClose={onClose}
-				style={{ zIndex }}
+				style={drawerStyle}
 			>
 				{navContent}
 			</Drawer>
