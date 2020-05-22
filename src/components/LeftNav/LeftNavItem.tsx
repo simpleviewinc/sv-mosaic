@@ -92,14 +92,21 @@ function LeftNavItem(props: LeftNavBlockProps) {
 
 	/** Timer to store when to open the item */
 	let timer: number;
-	const onMouseEnter = function(e) {
+	const onPointerEnter = function(e) {
 		const target = e.currentTarget;
 		timer = window.setTimeout(function() {
 			onOpen(target);
 		}, leftNavContext.enterTimeout);
 	}
 
-	const onMouseLeave = function(e) {
+	// for browsers like Safari which do not support onPointerEnter, we are forced to use onMouseEnter
+	const onMouseEnter = "PointerEvent" in window ? undefined : onPointerEnter;
+
+	const onTouchStart = function(e) {
+		onOpen(e.currentTarget);
+	}
+
+	const onLeave = function(e) {
 		clearTimeout(timer);
 	}
 
@@ -121,8 +128,10 @@ function LeftNavItem(props: LeftNavBlockProps) {
 	return (
 		<Fragment>
 			<StyledA
+				onPointerEnter={onPointerEnter}
 				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
+				onTouchStart={onTouchStart}
+				onPointerLeave={onLeave}
 				onClick={clickable ? onNav : undefined}
 				ref={aRef}
 				className={`
