@@ -8,7 +8,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { LeftNavProps, LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
-import LeftNavGroup from "./LeftNavGroup";
+import LeftNavItems from "./LeftNavItems";
 import theme from "../../theme";
 
 const StyledDiv = styled.div`
@@ -115,19 +115,10 @@ function LeftNav(props: LeftNavProps) {
 
 	const showLabel = props.variant === "icons_only" ? false : true;
 
-	const children = props.items.map(item => {
-		const Component = item.type === "group" && props.variant !== "icons_only" ? LeftNavGroup : LeftNavItem;
-
-		return (
-			<Component
-				key={item.name}
-				item={item}
-				showLabel={showLabel}
-				openAnchorEl={state.openAnchorEl}
-				onOpen={onOpen}
-			/>
-		)
-	});
+	const items = props.variant === "icons_only" ? props.items.map(val => ({
+		...val,
+		type : "item" as LeftNavItemDef["type"]
+	})) : props.items;
 
 	const activeLabel = function(name) {
 		if (name === props.variant) {
@@ -177,7 +168,12 @@ function LeftNav(props: LeftNavProps) {
 		<StyledDiv onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
 			<LeftNavContext.Provider value={contextValue}>
 				<div className="top">
-					{children}
+					<LeftNavItems
+						items={items}
+						showLabel={showLabel}
+						onOpen={onOpen}
+						openAnchorEl={state.openAnchorEl}
+					/>
 				</div>
 				<div className="bottom">
 					<LeftNavItem

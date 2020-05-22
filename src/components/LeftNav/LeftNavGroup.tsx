@@ -2,8 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 
 import LeftNavTitle from "./LeftNavTitle";
-import LeftNavItem from "./LeftNavItem";
 import { LeftNavBlockProps } from "./LeftNavTypes";
+import LeftNavItems from "./LeftNavItems";
 import theme from "../../theme";
 
 const StyledDiv = styled.div`
@@ -14,18 +14,11 @@ function LeftNavGroup(props: LeftNavBlockProps) {
 	return (
 		<StyledDiv>
 			<LeftNavTitle label={props.item.label} mIcon={props.item.mIcon}/>
-			{
-				props.item.items && props.item.items.map(item => {
-					return (
-						<LeftNavItem
-							key={item.name}
-							item={item}
-							openAnchorEl={props.openAnchorEl}
-							onOpen={props.onOpen}
-						/>
-					)
-				})
-			}
+			<LeftNavItems
+				items={props.item.items}
+				onOpen={props.onOpen}
+				openAnchorEl={props.openAnchorEl}
+			/>
 		</StyledDiv>
 	)
 }

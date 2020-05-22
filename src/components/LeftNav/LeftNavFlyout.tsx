@@ -6,10 +6,8 @@ import { PopperProps } from "@material-ui/core/Popper";
 import Paper from "@material-ui/core/Paper";
 
 import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";
-import LeftNavItem from "./LeftNavItem";
 import LeftNavTitle from "./LeftNavTitle";
-import LeftNavGroup from "./LeftNavGroup";
-import theme from "../../theme";
+import LeftNavItems from "./LeftNavItems";
 
 interface Props {
 	parent: LeftNavItemDef
@@ -63,20 +61,11 @@ function LeftNavFlyout(props: Props) {
 		>
 			<Paper elevation={3} component={StyledDiv} className="paper">
 				<LeftNavTitle label={props.parent.label}/>
-				{
-					props.parent.items.map(val => {
-						const Component = val.type === "group" ? LeftNavGroup : LeftNavItem;
-
-						return (
-							<Component
-								key={val.name}
-								item={val}
-								openAnchorEl={state.openAnchorEl}
-								onOpen={onOpen}
-							/>
-						)
-					})
-				}
+				<LeftNavItems
+					items={props.parent.items}
+					openAnchorEl={state.openAnchorEl}
+					onOpen={onOpen}
+				/>
 			</Paper>
 		</Popper>
 	)
