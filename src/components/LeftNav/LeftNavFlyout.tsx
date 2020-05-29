@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useMemo } from "react";
 import styled from "styled-components";
 import Popper from "@material-ui/core/Popper";
 import { PopperProps } from "@material-ui/core/Popper";
@@ -9,11 +9,6 @@ import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";
 import LeftNavTitle from "./LeftNavTitle";
 import LeftNavItems from "./LeftNavItems";
 
-interface Props {
-	parent: LeftNavItemDef
-	anchorEl: HTMLElement
-}
-
 const StyledDiv = styled.div`
 	&.paper {
 		background-color: #404045;
@@ -22,6 +17,7 @@ const StyledDiv = styled.div`
 	}
 `;
 
+// set aside the popperProps so they do not mutate between renders, cause the Popper system to go haywire and move the component around strangely
 const popperProps: Pick<PopperProps, "open" | "placement" | "modifiers"> = {
 	open : true,
 	placement : "right",
@@ -39,31 +35,40 @@ const popperProps: Pick<PopperProps, "open" | "placement" | "modifiers"> = {
 	}
 }
 
+interface Props {
+	parent: LeftNavItemDef
+	anchorEl: HTMLElement
+}
+
 function LeftNavFlyout(props: Props) {
 	const [state, setState] = useState({
-		openAnchorEl : null
+		openName : undefined
 	});
 
 	const leftNavContext = useContext(LeftNavContext);
 
-	const onOpen = openAnchorEl => {
+	const onOpen = openName => {
 		setState({
 			...state,
-			openAnchorEl
+			openName
 		})
 	}
+
+	const style = useMemo(() => ({
+		zIndex : leftNavContext.zIndex + 1
+	}), [leftNavContext.zIndex]);
 
 	return (
 		<Popper
 			{...popperProps}
 			anchorEl={props.anchorEl}
-			style={{ zIndex : leftNavContext.zIndex + 1 }}
+			style={style}
 		>
 			<Paper elevation={3} component={StyledDiv} className="paper">
 				<LeftNavTitle label={props.parent.label}/>
 				<LeftNavItems
 					items={props.parent.items}
-					openAnchorEl={state.openAnchorEl}
+					openName={state.openName}
 					onOpen={onOpen}
 				/>
 			</Paper>

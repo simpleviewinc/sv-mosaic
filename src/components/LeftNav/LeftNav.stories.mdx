@@ -7,6 +7,19 @@ import * as stories from "./LeftNav.stories";
 
 `LeftNav` renders a left navigation drawer based on the items passed to it.
 
+The `LeftNav` has 4 variants for it's display.
+
+* `full` - Displays a permanent left navigation fixed to the left side of the screen.
+* `icons_only` - Displays only the icons for the top-level items/groups to reduce space.
+* `hidden` - Navigation will display via a hamburger menu trigger from the top bar.
+* `mobile` - Hamburger triggered, but will utilize a sequential navigation style instead of hover/flyout optimized for smaller screen sizes.
+
+The user has the capability to choose between `full`, `icons_only` and `hidden` via a toggle in the navigation itself. Your application should determine when to use the user's chosen setting vs `mobile` based on your own criteria. In the test application we use the criteria that the largest screen dimension is smaller than `1024`. When you utilize the mobile variant should depend on when the main area of your product becomes too cramped to have a permanent navigation. This might be a different breakpoint for different projects.
+
+Regardless of `variant` active it should be placed in the DOM tree in a position that fixes it to the left side of the screen. When in `full` or `icons_only` it will fill it's container. You do not need to move it to a different location for `hidden` or `mobile`, the material-ui drawer system will handle this for you.
+
+When rendering in `mobile` or `hidden` you're top bar will need to render the hamburger icon that should toggle on the `open` prop passed to the `LeftNav` component.
+
 ## Props
 
-https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/LeftNav/LeftNavTypes.tsx
+`interface LeftNavProps` - https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/LeftNav/LeftNavTypes.tsx
