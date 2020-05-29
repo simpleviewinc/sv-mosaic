@@ -1,8 +1,9 @@
 import * as React from "react";
-import { useState, Fragment, useMemo } from "react";
-import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
+import { useState, useEffect, useMemo } from "react";
+import { select, withKnobs } from "@storybook/addon-knobs";
 import styled from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
+import { debounce } from "lodash";
 
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -11,11 +12,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import BuildIcon from '@material-ui/icons/Build';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
-import TranslateIcon from '@material-ui/icons/Translate';
-import MapIcon from '@material-ui/icons/Map';
 
-import Button from "../Button";
 import LeftNav from "./LeftNav";
 import { LeftNavItemDef, LeftNavProps } from "./LeftNavTypes";
 import { useStoryBookCssReset } from "../../utils/reactTools";
@@ -49,10 +46,13 @@ const StyledTopBar = styled.div`
 `;
 
 const FakeTopBar = function(props: any) {
+	const isMobile = Math.max(window.innerHeight, window.innerWidth) < 1024;
+	const variant = isMobile ? "mobile" : props.variant;
+
 	return (
 		<StyledTopBar>
 			{
-				props.variant === "hidden" &&
+				["hidden", "mobile"].includes(variant) &&
 				<span title="Open Navigation" className="menuButton">
 					<MenuIcon onClick={props.openNav}/>
 				</span>
@@ -91,6 +91,11 @@ const AppDiv = styled.div`
 
 const localKey = "sv-mosaic-left-nav-variant";
 
+// we determine mobile if the largest dimension is smaller than 1024
+function isMobile() {
+	return Math.max(window.innerWidth, window.innerHeight) < 1024;
+}
+
 const NavWrapper = function(props: any) {
 	useStoryBookCssReset();
 
@@ -100,6 +105,8 @@ const NavWrapper = function(props: any) {
 		label : "Home",
 		name : "home"
 	});
+
+	const variant = isMobile() ? "mobile" : state.variant;
 
 	const onClick = function() {
 		setState({
@@ -137,16 +144,37 @@ const NavWrapper = function(props: any) {
 		return <LoremIpsum p={10}/>
 	}, []);
 
+	// add a resize listener for handling whether or not we are currently in mobile
+	useEffect(() => {
+		const resizeHandler = debounce(function() {
+			const shouldBeMobile = isMobile();
+
+			// if we are in mobile, ensure we are, if we aren't mobile, ensure we aren't
+			// triggers a re-render just by calling setState()
+			if ((shouldBeMobile && variant !== "mobile") || (!shouldBeMobile && variant === "mobile")) {
+				setState({
+					...state
+				});
+			}
+		}, 100);
+
+		window.addEventListener("resize", resizeHandler);
+
+		return function() {
+			window.removeEventListener("resize", resizeHandler);
+		}
+	}, [state, variant]);
+
 	return (
 		<AppDiv>
-			<FakeTopBar variant={state.variant} openNav={onClick}/>
+			<FakeTopBar variant={variant} openNav={onClick}/>
 			<div className="main">
 				<div className="left">
 					<LeftNav
 						active={state.name}
 						open={state.open}
 						items={props.items}
-						variant={state.variant}
+						variant={variant}
 						onClose={onClose}
 						onNav={onNav}
 						onVariantChange={onVariantChange}
