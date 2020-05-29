@@ -32,4 +32,5 @@ export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 export * from "./components/Typography";
 export { default as theme } from "./theme";
+export { default as TridentIcon } from "./theme/TridentIcon";
 export { Checkbox, CheckboxList, DataView, DataViewFilterText, DataViewFilterDropdown, DataViewFilterDropdownButtons, DataViewFilterMultiselect, DataViewPrimaryFilter, Dialog, Drawer, DrawerContent, DataView as Grid, DataViewFilterText as GridFilterText, DataViewFilterDropdown as GridFilterDropdown, DataViewFilterDropdownButtons as GridFilterDropdownButtons, DataViewFilterMultiselect as GridFilterMultiselect, DataViewPrimaryFilter as GridPrimaryFilter, Menu, Spinner };

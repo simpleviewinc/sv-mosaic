@@ -1,17 +1,19 @@
 /// <reference types="react" />
 /// <reference types="styled-jsx" />
-import { MosaicMIcon } from "../../types";
-declare type Variant = "full" | "icons_only" | "hidden";
+import { MosaicMIcon, MosaicObject } from "../../types";
+declare type Variant = "full" | "icons_only" | "hidden" | "mobile";
 export interface LeftNavProps {
     /** Whether the LeftNav hidden drawer is open. */
     open: boolean;
     /** The currently displayed variant of the navigation. */
     variant: Variant;
+    /** Array of top-level navigation items. */
     items?: LeftNavItemDef[];
     /** The z-index of the primary drawer, defaults to 100 */
     zIndex?: number;
     /** The currently active navigation item, should match the "name" of the nav item */
     active?: string;
+    /** Called when the drawer is closed. */
     onClose(): void;
     /** Handler for when the user chooses a nav item */
     onNav({ item }: {
@@ -29,19 +31,22 @@ export interface LeftNavItemDef {
     items?: LeftNavItemDef[];
 }
 export interface LeftNavBlockProps {
-    openAnchorEl?: HTMLElement;
+    openName?: string;
     item: LeftNavItemDef;
     showLabel?: boolean;
-    onOpen(anchorEl: HTMLElement): void;
+    attrs?: MosaicObject;
+    onOpen(name: string): void;
 }
 export interface LeftNavContextProps {
-    active: LeftNavProps["active"];
+    active?: LeftNavProps["active"];
+    variant: LeftNavProps["variant"];
     zIndex: LeftNavProps["zIndex"];
     /** How long to wait to hide the flyout on mouseleave. */
-    leaveTimeout: number;
+    leaveTimeout?: number;
     /** How long to wait to show the flyout on mouseenter. */
-    enterTimeout: number;
-    onNav: LeftNavProps["onNav"];
+    enterTimeout?: number;
+    onNav?: LeftNavProps["onNav"];
+    ItemComponent?: (props: LeftNavBlockProps) => JSX.Element;
 }
 export declare const LeftNavContext: import("react").Context<LeftNavContextProps>;
 export {};

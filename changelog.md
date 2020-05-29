@@ -1,5 +1,9 @@
 # sv-mosaic changelog
 
+## 5/29/2020
+* Publish 2.2.0
+* `LeftNav` nears completion. All variants are functional and being sent to QA and review from different Product Owners.
+
 ## 5/21/2020
 * Publish 2.1.2
 * `DataView` will no longer require an `id` column due to developer feedback.
