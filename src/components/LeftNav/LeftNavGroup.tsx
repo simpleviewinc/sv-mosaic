@@ -17,7 +17,7 @@ function LeftNavGroup(props: LeftNavBlockProps) {
 			<LeftNavItems
 				items={props.item.items}
 				onOpen={props.onOpen}
-				openAnchorEl={props.openAnchorEl}
+				openName={props.openName}
 			/>
 		</StyledDiv>
 	)

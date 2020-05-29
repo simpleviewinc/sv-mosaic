@@ -20,6 +20,7 @@ const StyledH3 = styled.h3`
 	font-weight: normal;
 	display: flex;
 	align-items: center;
+	line-height: 24px;
 
 	& > span {
 		white-space: nowrap;

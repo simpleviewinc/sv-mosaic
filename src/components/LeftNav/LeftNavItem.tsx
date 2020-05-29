@@ -1,11 +1,11 @@
 import * as React from "react";
-import { useRef, Fragment, useContext, useEffect } from "react";
+import { useContext, forwardRef } from "react";
 import styled from "styled-components";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import { LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
-import LeftNavFlyout from "./LeftNavFlyout";
+import { MosaicObject } from "../../types";
+import { LeftNavBlockProps, LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
 import { BodyText } from "../Typography";
 import theme from "../../theme";
 
@@ -73,104 +73,62 @@ const StyledA = styled.a`
 	}
 `;
 
-function LeftNavItem(props: LeftNavBlockProps) {
+interface Props {
+	item: LeftNavItemDef
+	clickable?: boolean
+	showLabel?: boolean
+	attrs?: MosaicObject
+}
+
+function LeftNavItem(props: Props, ref) {
 	const {
-		openAnchorEl,
 		item,
-		onOpen,
-		showLabel = true
+		showLabel = true,
+		clickable = false,
+		attrs = {}
 	} = props;
 
 	const leftNavContext = useContext(LeftNavContext);
-	const aRef = useRef(null);
 
-	// this compares the ref passed via props to the ref of the A tag, if the two match, then it is this item that is open
-	const open = aRef.current !== null && openAnchorEl === aRef.current;
-
-	const onNav = function() {
-		leftNavContext.onNav({ item });
-	}
-
-	/** Timer to store when to open the item */
-	let timer: number;
-	const onPointerEnter = function(e) {
-		const target = e.currentTarget;
-		timer = window.setTimeout(function() {
-			onOpen(target);
-		}, leftNavContext.enterTimeout);
-	}
-
-	const onTouchStart = function(e) {
-		onOpen(e.currentTarget);
-	}
-
-	const onPointerLeave = function(e) {
-		clearTimeout(timer);
-	}
-
-	// for browsers like Safari which do not support onPointerEnter/onPointerLeave, we are forced to use onMouseEnter/onMouseLeave
-	const onMouseEnter = "PointerEvent" in window ? undefined : onPointerEnter;
-	const onMouseLeave = "PointerEvent" in window ? undefined : onPointerLeave;
-
-	// If this item is unmounted we need to clear the timer
-	useEffect(() => {
-		return function cleanup() {
-			clearTimeout(timer);
-		}
-	}, [])
-
-	const clickable = !item.items;
 	const hasItems = item.items !== undefined;
+	// if this item is active, or it has a child that is active
 	const active = leftNavContext.active && (leftNavContext.active === item.name || leftNavContext.active.startsWith(`${item.name}.`));
 
-	if (!item.mIcon && showLabel === false) {
+	// no icon and if we aren't showing the label, nothing to show
+	if (!item.mIcon && !showLabel) {
 		return null;
 	}
 
 	return (
-		<Fragment>
-			<StyledA
-				onPointerEnter={onPointerEnter}
-				onPointerLeave={onPointerLeave}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
-				onTouchStart={onTouchStart}
-				onClick={clickable ? onNav : undefined}
-				ref={aRef}
-				className={`
-					${clickable ? "clickable" : ""}
-					${hasItems ? "hasItems" : ""}
-					${showLabel ? "showLabel" : ""}
-					${active ? "active" : ""}
-				`}
-				title={item.label}
-			>
-				<span className="left">
-					{
-						item.mIcon &&
-						<item.mIcon className="icon"/>
-					}
-					{
-						showLabel &&
-						<BodyText className="navLabel">{item.label}</BodyText>
-					}
-				</span>
+		<StyledA
+			{...attrs}
+			ref={ref}
+			className={`
+				${clickable ? "clickable" : ""}
+				${hasItems ? "hasItems" : ""}
+				${showLabel ? "showLabel" : ""}
+				${active ? "active" : ""}
+			`}
+			title={item.label}
+		>
+			<span className="left">
+				{
+					item.mIcon &&
+					<item.mIcon className="icon"/>
+				}
 				{
 					showLabel &&
-					<span className="right">
-						<ChevronRightIcon className="arrow"/>
-					</span>
+					<BodyText className="navLabel">{item.label}</BodyText>
 				}
-			</StyledA>
+			</span>
 			{
-				item.items && open &&
-				<LeftNavFlyout
-					parent={item}
-					anchorEl={aRef.current}
-				/>
+				showLabel &&
+				<span className="right">
+					<ChevronRightIcon className="arrow"/>
+				</span>
 			}
-		</Fragment>
+		</StyledA>
 	)
 }
 
-export default LeftNavItem;
+export default forwardRef(LeftNavItem);

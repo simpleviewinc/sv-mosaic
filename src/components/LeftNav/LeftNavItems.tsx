@@ -1,29 +1,32 @@
 import * as React from "react";
-import { Fragment } from "react";
+import { useContext, Fragment } from "react";
+
 import LeftNavGroup from "./LeftNavGroup";
-import LeftNavItem from "./LeftNavItem";
-import { LeftNavItemDef, LeftNavBlockProps } from "./LeftNavTypes";
+import { LeftNavItemDef, LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
 
 interface Props {
 	items: LeftNavItemDef[]
 	showLabel?: boolean
-	openAnchorEl?: HTMLElement
+	openName?: string
 	onOpen: LeftNavBlockProps["onOpen"]
 }
 
+/** Renders an array of navigation items. */
 function LeftNavItems(props: Props) {
+	const leftNavContext = useContext(LeftNavContext);
+
 	return (
 		<Fragment>
 			{
 				props.items.map(val => {
-					const Component = val.type === "group" ? LeftNavGroup : LeftNavItem;
+					const Component = val.type === "group" ? LeftNavGroup : leftNavContext.ItemComponent;
 
 					return (
 						<Component
 							key={val.name}
 							item={val}
 							showLabel={props.showLabel}
-							openAnchorEl={props.openAnchorEl}
+							openName={props.openName}
 							onOpen={props.onOpen}
 						/>
 					)
