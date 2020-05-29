@@ -44,6 +44,8 @@ export * from "./components/Typography";
 
 export { default as theme } from "./theme";
 
+export { default as TridentIcon } from "./theme/TridentIcon";
+
 export {
 	Checkbox,
 	CheckboxList,
