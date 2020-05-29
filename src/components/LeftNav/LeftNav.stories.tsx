@@ -91,9 +91,9 @@ const AppDiv = styled.div`
 
 const localKey = "sv-mosaic-left-nav-variant";
 
-// we determine mobile if the largest dimension is smaller than 1024
+// If the innerWidth of our screen is less than 1024 we utilize mobile
 function isMobile() {
-	return Math.max(window.innerWidth, window.innerHeight) < 1024;
+	return window.innerWidth < 1024;
 }
 
 const NavWrapper = function(props: any) {
@@ -900,7 +900,7 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 	]
 }
 
-export const cmsFlatIA = () => {
+export const Example = () => {
 	const dataSet = select("Data", ["qa", "cms_flat"], "cms_flat");
 	const items = dataSets[dataSet];
 
