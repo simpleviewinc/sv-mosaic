@@ -3,7 +3,6 @@ import { MosaicObject } from "../../types";
 import { LeftNavItemDef } from "./LeftNavTypes";
 interface Props {
     item: LeftNavItemDef;
-    clickable?: boolean;
     showLabel?: boolean;
     attrs?: MosaicObject;
 }
