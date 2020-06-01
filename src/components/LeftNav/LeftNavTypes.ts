@@ -9,7 +9,7 @@ export interface LeftNavProps {
 	/** The currently displayed variant of the navigation. */
 	variant: Variant
 	/** Array of top-level navigation items. */
-	items?: LeftNavItemDef[]
+	items: LeftNavItemDef[]
 	/** The z-index of the primary drawer, defaults to 100 */
 	zIndex?: number
 	/** The currently active navigation item, should match the "name" of the nav item */
