@@ -13,6 +13,12 @@ const enterTimeout = 100;
 const defaultZIndex = 100;
 
 function LeftNav(props: LeftNavProps) {
+	for(var val of props.items) {
+		if (val.mIcon === undefined) {
+			throw new Error(`All top-level navigation items require a mIcon for proper display. '${val.name}' lacks an icon.`);
+		}
+	}
+
 	const zIndex = props.zIndex ?? defaultZIndex;
 
 	const Component = props.variant === "mobile" ? LeftNavMobile : LeftNavDesktop;

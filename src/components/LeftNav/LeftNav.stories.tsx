@@ -136,8 +136,9 @@ const NavWrapper = function(props: any) {
 
 		setState({
 			...state,
-			variant
-		})
+			variant,
+			open : false
+		});
 	}
 
 	const lorem = useMemo(() => {
@@ -531,99 +532,9 @@ const navSections = {
 const dataSets: { [key: string]: LeftNavItemDef[] } = {
 	qa : [
 		{
-			name : "short",
-			label : "Short"
-		},
-		{
 			name : "short_icon",
 			label : "Short Icon",
 			mIcon : HomeIcon
-		},
-		{
-			name : "short_children",
-			label : "Short Children",
-			items : [
-				{
-					name : "short_children.short",
-					label : "Short"
-				},
-				{
-					name : "short_children.short_icon",
-					label : "Short Icon",
-					mIcon : HomeIcon
-				},
-				{
-					name : "short_children.short_children",
-					label : "Short Children",
-					items : [
-						{
-							name :"short_children.short_children.item",
-							label : "Item"
-						},
-						{
-							name : "short_children.short_children.children",
-							label : "With Children",
-							items : [
-								{
-									name :"short_children.short_children.children.item",
-									label : "Item"
-								},
-								{
-									name : "short_children.short_children.children.children",
-									label : "With Children",
-									items : [
-										{
-											name :"short_children.short_children.children.children.item",
-											label : "Item"
-										}
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					name : "short_children.short_icon_children",
-					label : "Short Icon Children",
-					mIcon : HomeIcon,
-					items : [
-						{
-							name : "short_children.short_icon_children.item",
-							label : "Item"
-						}
-					]
-				},
-				{
-					name : "short_children.long",
-					label : "Long - lorem ipsum dolor sit amet"
-				},
-				{
-					name : "short_children.long_icon",
-					label : "Long Icon - lorem ipsum dolor sit amet",
-					mIcon : HomeIcon
-				},
-				{
-					name : "short_children.long_children",
-					label : "Long Children - lorem ipsum dolor sit amet",
-					items : [
-						{
-							name : "short_children.long_children.item",
-							label : "Item"
-						}
-					]
-				},
-				{
-					name : "short_children.long_icon_children",
-					label : "Long Icon Children - lorem ipsum dolor sit amet",
-					mIcon : HomeIcon,
-					items : [
-						{
-							name : "short_children.long_children.item",
-							label : "Item"
-						}
-					]
-				},
-			]
 		},
 		{
 			name : "short_icon_children",
@@ -713,23 +624,9 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 			]
 		},
 		{
-			name : "long",
-			label : "Long - lorem ipsum dolor sit amet"
-		},
-		{
 			name : "long_icon",
 			label : "Long Icon - lorem ipsum dolor sit amet",
 			mIcon : DashboardIcon
-		},
-		{
-			name : "long_children",
-			label : "Long Children - lorem ipsum dolor sit amet",
-			items : [
-				{
-					name : "long_children.item",
-					label : "Item"
-				}
-			]
 		},
 		{
 			name : "long_icon_children",
@@ -743,41 +640,42 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 			]
 		},
 		{
-			name : "group_short",
+			name : "group_short_icon",
 			label : "Group Short",
 			type : "group",
+			mIcon : ImageIcon,
 			items : [
 				{
-					name : "group_short.short",
+					name : "group_short_icon.short",
 					label : "Short"
 				},
 				{
-					name : "group_short.short_icon",
+					name : "group_short_icon.short_icon",
 					label : "Short Icon",
 					mIcon : HomeIcon
 				},
 				{
-					name : "group_short.short_children",
+					name : "group_short_icon.short_children",
 					label : "Short Children",
 					items : [
 						{
-							name : "group_short.short_children.short_children.item",
+							name : "group_short_icon.short_children.short_children.item",
 							label : "Item"
 						},
 						{
-							name : "group_short.short_children.short_children.children",
+							name : "group_short_icon.short_children.short_children.children",
 							label : "With Children",
 							items : [
 								{
-									name :"group_short.short_children.short_children.children.item",
+									name :"group_short_icon.short_children.short_children.children.item",
 									label : "Item"
 								},
 								{
-									name : "group_short.short_children.short_children.children.children",
+									name : "group_short_icon.short_children.short_children.children.children",
 									label : "With Children",
 									items : [
 										{
-											name : "group_short.short_children.short_children.children.children.item",
+											name : "group_short_icon.short_children.short_children.children.children.item",
 											label : "Item"
 										}
 									]
@@ -787,75 +685,53 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 					]
 				},
 				{
-					name : "group_short.short_icon_children",
+					name : "group_short_icon.short_icon_children",
 					label : "Short Icon Children",
 					mIcon : HomeIcon,
 					items : [
 						{
-							name : "group_short.short_icon_children.item",
+							name : "group_short_icon.short_icon_children.item",
 							label : "Item"
 						}
 					]
 				},
 				{
-					name : "group_short.long",
+					name : "group_short_icon.long",
 					label : "Long - lorem ipsum dolor sit amet"
 				},
 				{
-					name : "group_short.long_icon",
+					name : "group_short_icon.long_icon",
 					label : "Long Icon - lorem ipsum dolor sit amet",
 					mIcon : HomeIcon
 				},
 				{
-					name : "group_short.long_children",
+					name : "group_short_icon.long_children",
 					label : "Long Children - lorem ipsum dolor sit amet",
 					items : [
 						{
-							name : "group_short.long_children.item",
+							name : "group_short_icon.long_children.item",
 							label : "Item"
 						}
 					]
 				},
 				{
-					name : "group_short.long_icon_children",
+					name : "group_short_icon.long_icon_children",
 					label : "Long Icon Children - lorem ipsum dolor sit amet",
 					mIcon : HomeIcon,
 					items : [
 						{
-							name : "group_short.long_icon_children.item",
+							name : "group_short_icon.long_icon_children.item",
 							label : "Item"
 						}
 					]
 				},
-			]
-		},
-		{
-			name : "group_short_icon",
-			label : "Group Short Icon",
-			mIcon : ImageIcon,
-			type : "group",
-			items : [
-				{
-					name : "group_short_icon.item",
-					label : "Item"
-				}
-			]
-		},
-		{
-			name : "group_long",
-			label : "Group Long - lorem ipsum dolor sit amet",
-			type : "group",
-			items : [
-				{
-					name : "group_long.item",
-					label : "Item"
-				}
 			]
 		},
 		{
 			name : "group_long_icon",
 			label : "Group Long Icon - lorem ipsum dolor sit amet",
 			type : "group",
+			mIcon : BuildIcon,
 			items : [
 				{
 					name : "group_long_icon.item",
