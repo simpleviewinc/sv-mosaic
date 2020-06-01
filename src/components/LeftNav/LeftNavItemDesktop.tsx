@@ -15,9 +15,9 @@ function LeftNavItemDesktop(props: LeftNavBlockProps) {
 	const leftNavContext = useContext(LeftNavContext);
 	const aRef = useRef<HTMLAnchorElement>(null);
 	const open = item.name === openName;
-	const clickable = !item.items;
+	const hasItems = item.items !== undefined && item.items.length > 0;
 
-	const onClick: React.MouseEventHandler = useCallback(() => {
+	const onNavClick: React.MouseEventHandler = useCallback(() => {
 		leftNavContext.onNav({ item });
 	}, [leftNavContext.onNav]);
 
@@ -29,7 +29,7 @@ function LeftNavItemDesktop(props: LeftNavBlockProps) {
 		}, leftNavContext.enterTimeout);
 	}
 
-	const onTouchStart: React.TouchEventHandler = function(e) {
+	const onOpenChildrenClick: React.MouseEventHandler = function(e) {
 		onOpen(item.name);
 	}
 
@@ -51,17 +51,15 @@ function LeftNavItemDesktop(props: LeftNavBlockProps) {
 	const attrs = {
 		onPointerEnter,
 		onPointerLeave,
-		onTouchStart,
 		onMouseEnter,
 		onMouseLeave,
-		onClick : clickable ? onClick : undefined
+		onClick : hasItems ? onOpenChildrenClick : onNavClick
 	}
 
 	return (
 		<Fragment>
 			<LeftNavItem
 				{...props}
-				clickable={clickable}
 				ref={aRef}
 				attrs={attrs}
 			/>

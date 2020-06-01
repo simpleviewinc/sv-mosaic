@@ -16,10 +16,7 @@ const StyledA = styled.a`
 	padding: 8px 16px;
 	color: ${theme.colors.gray400};
 	line-height: 24px;
-
-	&.clickable {
-		cursor: pointer;
-	}
+	cursor: pointer;
 
 	&.hasItems > .right > .arrow {
 		visibility: visible;
@@ -75,7 +72,6 @@ const StyledA = styled.a`
 
 interface Props {
 	item: LeftNavItemDef
-	clickable?: boolean
 	showLabel?: boolean
 	attrs?: MosaicObject
 }
@@ -84,7 +80,6 @@ function LeftNavItem(props: Props, ref) {
 	const {
 		item,
 		showLabel = true,
-		clickable = false,
 		attrs = {}
 	} = props;
 
@@ -104,7 +99,6 @@ function LeftNavItem(props: Props, ref) {
 			{...attrs}
 			ref={ref}
 			className={`
-				${clickable ? "clickable" : ""}
 				${hasItems ? "hasItems" : ""}
 				${showLabel ? "showLabel" : ""}
 				${active ? "active" : ""}
