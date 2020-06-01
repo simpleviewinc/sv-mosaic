@@ -14,11 +14,16 @@ The `LeftNav` has 4 variants for it's display.
 * `hidden` - Navigation will display via a hamburger menu trigger from the top bar.
 * `mobile` - Hamburger triggered, but will utilize a sequential navigation style instead of hover/flyout optimized for smaller screen sizes.
 
-The user has the capability to choose between `full`, `icons_only` and `hidden` via a toggle in the navigation itself. Your application should determine when to use the user's chosen setting vs `mobile` based on your own criteria. In the test application we use the criteria that the largest screen dimension is smaller than `1024`. When you utilize the mobile variant should depend on when the main area of your product becomes too cramped to have a permanent navigation. This might be a different breakpoint for different projects.
+## Important things to do
 
-Regardless of `variant` active it should be placed in the DOM tree in a position that fixes it to the left side of the screen. When in `full` or `icons_only` it will fill it's container. You do not need to move it to a different location for `hidden` or `mobile`, the material-ui drawer system will handle this for you.
-
-When rendering in `mobile` or `hidden` you're top bar will need to render the hamburger icon that should toggle on the `open` prop passed to the `LeftNav` component.
+* Regardless of `variant` active the `LeftNav` should be placed in the DOM tree in a position that fixes it to the left side of the screen. When in `full` or `icons_only` it will fill it's container. You do not need to move it to a different location for `hidden` or `mobile`, the material-ui drawer system will handle this for you.
+* The user has the capability to choose between `full`, `icons_only` and `hidden` via a toggle in the navigation itself. Your application should determine when to use the user's chosen setting vs `mobile` based on your own criteria. In the test application we use the criteria that the width is smaller than `1024`. When your application utilizes the mobile variant should depend on when the main area of your product becomes too cramped to have a permanent navigation. This might be a different breakpoint for different projects.
+* When `mobile` variant engages you should not change the user's chosen behavior, instead you should override it. In example, if the user's chosen setting is `icons_only` and the user shrinks their browser to mobile size, if they make it larger again it should return to `icons_only`.
+* It is recommended you persist the user's chosen `variant`. This can be via a cookie, localStorage, or account-based mechanics.
+* In `mobile` and `hidden` variants, you will need a hamburger in your top bar to trigger the opening of the navigation. This should not be present in the `full` or `icons_only` variants.
+* In your `onVariantChange` you will want to toggle the `open` state to false. This ensures that if a user alters the variant, it doesn't leave the nav open.
+* In your `onNav` you will want to toggle the `open` state to false. If you are doing dynamic page changes you will want to scroll to the top of the content div.
+* If your app is doing dynamic page changes and you are supporting browser back mechanics, you will need to ensure you pass the proper `active` value into the LeftNav component. On a back you will likely want to also set `open` to false.
 
 ## Props
 
