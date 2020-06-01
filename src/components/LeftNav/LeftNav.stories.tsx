@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { select, withKnobs } from "@storybook/addon-knobs";
 import styled from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
@@ -166,6 +166,14 @@ const NavWrapper = function(props: any) {
 		}
 	}, [state, variant]);
 
+	// on item change scroll to the top
+	const contentRef = useRef(null);
+	useEffect(() => {
+		if (contentRef.current) {
+			contentRef.current.scrollTo(0, 0);
+		}
+	}, [state.label, state.name])
+
 	return (
 		<AppDiv>
 			<FakeTopBar variant={variant} openNav={onClick}/>
@@ -181,7 +189,7 @@ const NavWrapper = function(props: any) {
 						onVariantChange={onVariantChange}
 					/>
 				</div>
-				<div className="content">
+				<div className="content" ref={contentRef}>
 					<h1>{state.label}</h1>
 					<h2>{state.name}</h2>
 					{lorem}
