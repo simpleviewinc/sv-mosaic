@@ -31,7 +31,7 @@ const StyledTopBar = styled.div`
 	padding: 6px 16px;
 	display: flex;
 	align-items: center;
-	min-height: 36px;
+	min-height: 40px;
 	box-sizing: border-box;
 
 	& > .menuButton {

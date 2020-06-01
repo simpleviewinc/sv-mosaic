@@ -55,7 +55,7 @@ const StyledA = styled.a`
 
 	& > .left > .navLabel {
 		color: ${theme.colors.gray200};
-		font-size: 12px;
+		font-size: 14px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
