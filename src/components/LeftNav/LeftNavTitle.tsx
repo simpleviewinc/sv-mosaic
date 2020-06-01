@@ -16,7 +16,7 @@ const StyledH3 = styled.h3`
 	margin: 0;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: normal;
 	display: flex;
 	align-items: center;
