@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { debounce, throttle } from "lodash";
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -102,27 +103,42 @@ function LeftNavDesktop(props: LeftNavProps) {
 		]
 	}
 
-	// if the mouse leaves the component and it's children entirely, wait 200ms to close
-	let timer: number;
-	const onMouseLeave = function() {
-		timer = window.setTimeout(() => {
-			setState({
-				...state,
-				openName : undefined
-			})
-		}, leftNavContext.leaveTimeout);
-	}
+	// if the mouse leaves the component and it's children entirely, wait a duration to close
+	const onMouseLeave = debounce(function() {
+		setState({
+			...state,
+			openName : undefined
+		});
+	}, leftNavContext.leaveTimeout);
 
 	const onMouseEnter = function() {
-		clearTimeout(timer);
+		onMouseLeave.cancel();
+	}
+
+	const onScroll = throttle(function(e) {
+		// this scroll listener is being trigger when a flyout scrolls as well, which we don't want
+		// so we only trigger if the scroll event happened on this specific element
+		if (e.target !== e.currentTarget) { return; }
+
+		// if the state is already undefined, no reason to re-render
+		if (state.openName === undefined) { return; }
+
+		setState({
+			...state,
+			openName : undefined
+		});
+	}, 100, { leading : true, trailing : false });
+
+	const scrollerAttrs = {
+		onScroll
 	}
 
 	useEffect(() => {
 		// cleanup the timeout that may have been set due to enter/leave mechanics
 		return function cleanup() {
-			clearTimeout(timer);
+			onMouseLeave.cancel();
 		}
-	}, []);
+	}, [onMouseLeave]);
 
 	const newContext: LeftNavContextProps = {
 		...leftNavContext,
@@ -133,7 +149,7 @@ function LeftNavDesktop(props: LeftNavProps) {
 	const navContent = (
 		<RootDiv onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			<LeftNavContext.Provider value={newContext}>
-				<LeftNavScroller className="top">
+				<LeftNavScroller className="top" attrs={scrollerAttrs}>
 					<LeftNavItems
 						items={items}
 						showLabel={showLabel}
