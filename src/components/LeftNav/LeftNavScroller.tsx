@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 
+import { MosaicObject } from "../../types";
+
 const StyledDiv = styled.div`
 	overflow-y: auto;
 
@@ -24,11 +26,16 @@ const StyledDiv = styled.div`
 interface Props {
 	className?: string
 	children?: React.ReactNode
+	attrs?: MosaicObject
 }
 
 function LeftNavScroller(props: Props) {
+	const {
+		attrs = {}
+	} = props;
+
 	return (
-		<StyledDiv className={props.className}>{props.children}</StyledDiv>
+		<StyledDiv {...attrs} className={props.className}>{props.children}</StyledDiv>
 	)
 }
 
