@@ -55,7 +55,7 @@ function LeftNavItemDesktop(props: LeftNavBlockProps) {
 		return function cleanup() {
 			onPointerMove.cancel();
 		}
-	}, []);
+	}, [onPointerMove]);
 	
 	const attrs = {
 		onPointerMove,
