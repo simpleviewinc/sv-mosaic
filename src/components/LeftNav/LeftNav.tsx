@@ -6,7 +6,7 @@ import LeftNavMobile from "./LeftNavMobile";
 import LeftNavDesktop from "./LeftNavDesktop";
 
 // how long to wait onMouseLeave to hide the navigation
-const leaveTimeout = 200;
+const leaveTimeout = 300;
 // how long to wait onMouseEnter to show the navigation
 const enterTimeout = 100;
 // the default z-index to use for the drawer system
