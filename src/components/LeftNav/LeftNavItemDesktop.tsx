@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useContext, useEffect, useRef, useMemo, useCallback, Fragment } from "react";
+import { throttle } from "lodash";
 
 import { LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
@@ -21,19 +22,20 @@ function LeftNavItemDesktop(props: LeftNavBlockProps) {
 		leftNavContext.onNav({ item });
 	}, [leftNavContext.onNav]);
 
-	/** Timer to store when to open the item */
-	let timer: number;
-	const onPointerEnter: React.PointerEventHandler = function(e) {
-		timer = window.setTimeout(function() {
-			onOpen(item.name);
-		}, leftNavContext.enterTimeout);
-	}
+	const onPointerMove = throttle(function() {
+		if (openName === item.name) {
+			// item already open, no need for action
+			return;
+		}
+
+		onOpen(item.name);
+	}, leftNavContext.enterTimeout, { leading : false, trailing : true });
 
 	// On a desktop device, a touch or swipe triggers onPointerEnter and possibly onClick if it lingers long enough
-	// because of this we can cancel the onPointerEnter, and rely on the onClick event picking it up.
-	// On a mobile device, we're relying on onClick anyways, we can cancel the timer without harm.
+	// because of this we can cancel the onPointerMove, and rely on the onClick event picking it up.
+	// On a mobile device, we're relying on onClick anyways, we can cancel the event without harm.
 	const onTouchStart: React.TouchEventHandler = function(e) {
-		clearTimeout(timer);
+		onPointerMove.cancel();
 	}
 
 	const onOpenChildrenClick: React.MouseEventHandler = function(e) {
@@ -41,25 +43,25 @@ function LeftNavItemDesktop(props: LeftNavBlockProps) {
 	}
 
 	const onPointerLeave: React.PointerEventHandler = function(e) {
-		clearTimeout(timer);
+		onPointerMove.cancel();
 	}
 
-	// for browsers like Safari which do not support onPointerEnter/onPointerLeave, we are forced to use onMouseEnter/onMouseLeave
-	const onMouseEnter = "PointerEvent" in window ? undefined : onPointerEnter;
+	// for browsers like Safari which do not support onPointerEnter/onPointerLeave, we are forced to use onMouseMove/onMouseLeave
+	const onMouseMove = "PointerEvent" in window ? undefined : onPointerMove;
 	const onMouseLeave = "PointerEvent" in window ? undefined : onPointerLeave;
 
-	// If this item is unmounted we need to clear the timer
+	// If this item is unmounted we need to clear any lingering events
 	useEffect(() => {
 		return function cleanup() {
-			clearTimeout(timer);
+			onPointerMove.cancel();
 		}
-	}, [])
+	}, []);
 	
 	const attrs = {
-		onPointerEnter,
+		onPointerMove,
 		onPointerLeave,
 		onTouchStart,
-		onMouseEnter,
+		onMouseMove,
 		onMouseLeave,
 		onClick : hasItems ? onOpenChildrenClick : onNavClick
 	}

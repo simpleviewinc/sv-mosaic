@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Popper from "@material-ui/core/Popper";
 import { PopperProps } from "@material-ui/core/Popper";
 import Paper from "@material-ui/core/Paper";
+import { throttle } from "lodash";
 
 import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";
 import LeftNavTitle from "./LeftNavTitle";
@@ -57,6 +58,19 @@ function LeftNavFlyout(props: Props) {
 		})
 	}
 
+	const onScroll = throttle(function() {
+		if (state.openName === undefined) { return; }
+
+		setState({
+			...state,
+			openName : undefined
+		});
+	}, 100, { leading : true, trailing : false });
+
+	const scrollerAttrs = {
+		onScroll
+	}
+
 	const style = useMemo(() => ({
 		zIndex : leftNavContext.zIndex + 1
 	}), [leftNavContext.zIndex]);
@@ -68,7 +82,7 @@ function LeftNavFlyout(props: Props) {
 			style={style}
 		>
 			<Paper elevation={3} component={StyledDiv} className="paper">
-				<LeftNavScroller>
+				<LeftNavScroller attrs={scrollerAttrs}>
 					<LeftNavTitle label={props.parent.label}/>
 					<LeftNavItems
 						items={props.parent.items}
