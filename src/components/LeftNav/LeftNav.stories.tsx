@@ -581,6 +581,76 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 										{
 											name :"short_icon_children.short_children.children.children.item",
 											label : "Item"
+										},
+										{
+											name : "short_icon_children.short_children.children.children.children",
+											label : "With Children",
+											items : [
+												{
+													name :"short_icon_children.short_children.children.children.children.item",
+													label : "Item"
+												},
+												{
+													name : "short_icon_children.short_children.children.children.children.children",
+													label : "With Children",
+													items : [
+														{
+															name :"short_icon_children.short_children.children.children.children.children.item",
+															label : "Item"
+														},
+														{
+															name : "short_icon_children.short_children.children.children.children.children.children",
+															label : "With Children",
+															items : [
+																{
+																	name :"short_icon_children.short_children.children.children.children.children.children.item",
+																	label : "Item"
+																},
+																{
+																	name : "short_icon_children.short_children.children.children.children.children.children.children",
+																	label : "With Children",
+																	items : [
+																		{
+																			name :"short_icon_children.short_children.children.children.children.children.children.children.item",
+																			label : "Item"
+																		},
+																		{
+																			name : "short_icon_children.short_children.children.children.children.children.children.children.children",
+																			label : "With Children",
+																			items : [
+																				{
+																					name :"short_icon_children.short_children.children.children.children.children.children.children.children.item",
+																					label : "Item"
+																				},
+																				{
+																					name : "short_icon_children.short_children.children.children.children.children.children.children.children.children",
+																					label : "With Children",
+																					items : [
+																						{
+																							name :"short_icon_children.short_children.children.children.children.children.children.children.children.children.item",
+																							label : "Item"
+																						},
+																						{
+																							name : "short_icon_children.short_children.children.children.children.children.children.children.children.children.children",
+																							label : "With Children",
+																							items : [
+																								{
+																									name :"short_icon_children.short_children.children.children.children.children.children.children.children.children.children.item",
+																									label : "Item"
+																								}
+																							]
+																						}
+																					]
+																				}
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
 										}
 									]
 								}
@@ -631,7 +701,7 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 				},
 				// automate 20 entries to create a vertical scroller in the flyout
 				...(
-					new Array(20).fill(0).map((val, i) => {
+					new Array(35).fill(0).map((val, i) => {
 						return {
 							name : `show_icon_children.filler_item_${i}`,
 							label : `Filler ${i}`
