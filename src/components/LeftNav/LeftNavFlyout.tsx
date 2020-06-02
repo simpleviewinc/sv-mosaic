@@ -8,12 +8,15 @@ import Paper from "@material-ui/core/Paper";
 import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";
 import LeftNavTitle from "./LeftNavTitle";
 import LeftNavItems from "./LeftNavItems";
+import LeftNavScroller from "./LeftNavScroller";
 
 const StyledDiv = styled.div`
 	&.paper {
 		background-color: #404045;
 		min-width: 150px;
 		max-width: 250px;
+		max-height: 80vh;
+		display: flex;
 	}
 `;
 
@@ -65,12 +68,14 @@ function LeftNavFlyout(props: Props) {
 			style={style}
 		>
 			<Paper elevation={3} component={StyledDiv} className="paper">
-				<LeftNavTitle label={props.parent.label}/>
-				<LeftNavItems
-					items={props.parent.items}
-					openName={state.openName}
-					onOpen={onOpen}
-				/>
+				<LeftNavScroller>
+					<LeftNavTitle label={props.parent.label}/>
+					<LeftNavItems
+						items={props.parent.items}
+						openName={state.openName}
+						onOpen={onOpen}
+					/>
+				</LeftNavScroller>
 			</Paper>
 		</Popper>
 	)
