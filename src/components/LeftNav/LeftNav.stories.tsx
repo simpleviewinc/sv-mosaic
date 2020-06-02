@@ -629,6 +629,25 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 						}
 					]
 				},
+				// automate 20 entries to create a vertical scroller in the flyout
+				...(
+					new Array(20).fill(0).map((val, i) => {
+						return {
+							name : `show_icon_children.filler_item_${i}`,
+							label : `Filler ${i}`
+						}
+					})
+				),
+				{
+					name : "short_icon_children.after_filler",
+					label : "After Filler with Children",
+					items : [
+						{
+							name : "short_icon_children.after_filler.item",
+							label : "Item"
+						}
+					]
+				}
 			]
 		},
 		{
