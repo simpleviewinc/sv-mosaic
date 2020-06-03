@@ -172,7 +172,7 @@ const NavWrapper = function(props: any) {
 		if (contentRef.current) {
 			contentRef.current.scrollTo(0, 0);
 		}
-	}, [state.label, state.name])
+	}, [state.label, state.name]);
 
 	return (
 		<AppDiv>
@@ -703,7 +703,7 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 				...(
 					new Array(35).fill(0).map((val, i) => {
 						return {
-							name : `show_icon_children.filler_item_${i}`,
+							name : `short_icon_children.filler_item_${i}`,
 							label : `Filler ${i}`
 						}
 					})
