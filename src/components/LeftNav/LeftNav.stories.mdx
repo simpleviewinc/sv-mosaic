@@ -24,6 +24,7 @@ The `LeftNav` has 4 variants for it's display.
 * In your `onVariantChange` you will want to toggle the `open` state to false. This ensures that if a user alters the variant, it doesn't leave the nav open.
 * In your `onNav` you will want to toggle the `open` state to false. If you are doing dynamic page changes you will want to scroll to the top of the content div.
 * If your app is doing dynamic page changes and you are supporting browser back mechanics, you will need to ensure you pass the proper `active` value into the LeftNav component. On a back you will likely want to also set `open` to false.
+* In order to ensure the `LeftNav` works properly on iOS12 and older devices you will need to have a noop `onClick` on the root element of your application. Without an empty function on your root div, the click away listener will not function properly.
 
 ## Props
 
