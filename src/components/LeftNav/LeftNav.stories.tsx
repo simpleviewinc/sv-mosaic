@@ -96,6 +96,11 @@ function isMobile() {
 	return window.innerWidth < 1024;
 }
 
+// iOS11-12 has a bug where events don't bubble up unless there is a listener of that type in the parent chain before the body.
+// This ensures that the outer wrapper has a click listener, allowing the LeftNav to properly close on a click away.
+// https://stackoverflow.com/a/39712411/435223
+const noop = function() {};
+
 const NavWrapper = function(props: any) {
 	useStoryBookCssReset();
 
@@ -175,7 +180,7 @@ const NavWrapper = function(props: any) {
 	}, [state.label, state.name]);
 
 	return (
-		<AppDiv>
+		<AppDiv onClick={noop}>
 			<FakeTopBar variant={variant} openNav={onClick}/>
 			<div className="main">
 				<div className="left">
