@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { boolean } from "@storybook/addon-knobs";
+import { boolean, select } from "@storybook/addon-knobs";
 
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -25,7 +25,9 @@ import {
 	DataView,
 	DataViewProps,
 	DataViewFilterText,
-	DataViewFilterMultiselect
+	DataViewFilterMultiselect,
+	useMosaicSettings,
+	MosaicContext
 } from "../../../";
 import { useStateRef } from "../../../utils/reactTools.js";
 
@@ -386,6 +388,7 @@ function DataViewKitchenSink() {
 	const primaryFilters = boolean("primaryFilters", true);
 	const optionalFilters = boolean("optionalFilters", true);
 	const sticky = boolean("sticky", true);
+	const locale: string = select("locale", { en : "en", es : "es" }, "en");
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
 
 	const [state, setState] = useState({
@@ -397,6 +400,15 @@ function DataViewKitchenSink() {
 		savedView : defaultView,
 		...defaultView.state
 	});
+
+	const mosaicSettings = useMosaicSettings();
+
+	// If the user changes the locale knob we need to propagate to our i18n object
+	useEffect(() => {
+		if (mosaicSettings.i18n.language !== locale) {
+			mosaicSettings.i18n.changeLanguage(locale);
+		}
+	}, [locale]);
 	
 	const stateRef = useStateRef(state);
 	
@@ -614,20 +626,22 @@ function DataViewKitchenSink() {
 	
 	return (
 		<StyledDiv>
-			<DataView
-				{ ...gridConfig }
-				data={state.data}
-				limit={state.limit}
-				skip={state.skip}
-				count={state.count}
-				display={state.display}
-				sort={state.sort}
-				loading={state.loading}
-				filter={state.filter}
-				savedView={state.savedView}
-				activeFilters={state.activeFilters}
-				activeColumns={state.activeColumns}
-			></DataView>
+			<MosaicContext.Provider value={mosaicSettings}>
+				<DataView
+					{ ...gridConfig }
+					data={state.data}
+					limit={state.limit}
+					skip={state.skip}
+					count={state.count}
+					display={state.display}
+					sort={state.sort}
+					loading={state.loading}
+					filter={state.filter}
+					savedView={state.savedView}
+					activeFilters={state.activeFilters}
+					activeColumns={state.activeColumns}
+				></DataView>
+			</MosaicContext.Provider>
 		</StyledDiv>
 	);
 }

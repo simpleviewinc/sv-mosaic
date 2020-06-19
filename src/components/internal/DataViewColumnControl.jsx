@@ -4,11 +4,14 @@ import SettingsIcon from "@material-ui/icons/Settings";
 
 import Button from "../Button";
 import GridColumnDrawer from "./GridColumnDrawer.jsx";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 export function DataViewColumnControl(props) {
 	const [state, setState] = useState({
 		open : false
 	});
+
+	const { t } = useMosaicTranslation();
 
 	const gearClick = function() {
 		setState({
@@ -21,7 +24,7 @@ export function DataViewColumnControl(props) {
 		<>
 			<Button
 				color="black"
-				label="Columns"
+				label={t("mosaic:DataView.columns")}
 				variant="outlined"
 				size="small"
 				mIcon={SettingsIcon}

@@ -40,11 +40,16 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
+export { default as MosaicContext } from "./components/MosaicContext";
+
 export * from "./components/Typography";
 
 export { default as theme } from "./theme";
 
 export { default as TridentIcon } from "./theme/TridentIcon";
+
+export { default as useMosaicTranslation } from "./utils/useMosaicTranslation";
+export { default as useMosaicSettings } from "./utils/useMosaicSettings";
 
 export {
 	Checkbox,
