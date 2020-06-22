@@ -10,7 +10,6 @@ import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -258,8 +257,6 @@ function DataView(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
-
-	const { t } = useMosaicTranslation();
 
 	// declare the hooks
 	const [state, setState] = useState({
