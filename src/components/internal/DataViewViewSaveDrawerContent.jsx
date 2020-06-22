@@ -6,12 +6,15 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
 import DrawerContent from "../DrawerContent.jsx";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 function DataViewViewSaveDrawerContent(props) {
 	const [state, setState] = useState({
 		...props.data,
 		type: (props.allowSharedViewSave === true) ? props.data.type : "mine"
 	});
+
+	const { t } = useMosaicTranslation();
 	
 	const onSave = async function() {
 		await props.onSave({
@@ -41,7 +44,7 @@ function DataViewViewSaveDrawerContent(props) {
 	
 	return (
 		<DrawerContent
-			title="Save View"
+			title={t("mosaic:DataView.save_view")}
 			onSave={onSave}
 			onClose={props.onClose}
 			onCancel={props.onClose}
@@ -52,7 +55,7 @@ function DataViewViewSaveDrawerContent(props) {
 					<TextField
 						autoFocus={true}
 						id="label"
-						label="Label"
+						label={t("mosaic:common.label")}
 						value={state.label}
 						onChange={handleChange("label")}
 						fullWidth
@@ -73,7 +76,7 @@ function DataViewViewSaveDrawerContent(props) {
 										color="primary"
 									/>
 								}
-								label="Show for all Users"
+								label={t("mosaic:DataView.show_for_all_users")}
 							/>
 						</FormControl>
 					</FormGroup>

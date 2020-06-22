@@ -7,6 +7,7 @@ import ButtonRow from "../ButtonRow";
 import Button from "../Button";
 import DataViewViewDrawer from "./DataViewViewDrawer.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const ViewSpan = styled.span`
 	display: inline-flex;
@@ -22,6 +23,8 @@ function DataViewViewControls(props) {
 		viewOpen : false,
 		saveOpen : false
 	});
+
+	const { t } = useMosaicTranslation();
 	
 	const toggleViewDrawer = function() {
 		setState({
@@ -45,13 +48,13 @@ function DataViewViewControls(props) {
 	
 	const saveMenuItems = [
 		{
-			label : "Save as New View",
+			label : t("mosaic:DataView.save_as_new_view"),
 			onClick : function() {
 				toggleSaveDrawer();
 			}
 		},
 		{
-			label : "Overwrite Current View",
+			label : t("mosaic:DataView.overwrite_current_view"),
 			disabled : props.savedView.type === "default" || (props.savedView.type === "shared" && !props.savedViewAllowSharedViewSave),
 			onClick : async function() {
 				await props.savedViewCallbacks.onSave({
@@ -76,7 +79,7 @@ function DataViewViewControls(props) {
 					<Button
 						mIcon={ExpandMoreIcon}
 						iconPosition="right"
-						label="Save As"
+						label={t("mosaic:DataView.save_as")}
 						variant="outlined"
 						size="small"
 						color="blue"

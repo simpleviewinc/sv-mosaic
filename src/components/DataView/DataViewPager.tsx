@@ -8,6 +8,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from "../Button";
 import DataViewPagerPopover from "./DataViewPagerPopover";
 import { DataViewOnSkipChange } from "./DataViewTypes";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledSpan = styled.span`
 	display: inline-flex;
@@ -25,6 +26,8 @@ interface Props {
 }
 
 function DataViewPager(props: Props) {
+	const { t } = useMosaicTranslation();
+
 	const totalPages = Math.ceil(props.count / props.limit);
 	const currentPage = (props.skip + props.limit) / props.limit;
 	const startItem = (props.skip + 1);
@@ -55,7 +58,7 @@ function DataViewPager(props: Props) {
 				color="black"
 				variant="text"
 				size="small"
-				tooltip="Jump to Page"
+				tooltip={t("mosaic:DataView.jump_to_page")}
 				label={`${startItem}-${endItem} of ${props.count}`}
 				popover={
 					<DataViewPagerPopover
