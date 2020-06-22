@@ -5,6 +5,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import DataView from "../DataView";
 import DrawerContent from "../DrawerContent.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const startingState = {
 	options : undefined,
@@ -17,6 +18,8 @@ function DataViewViewDrawerContent(props) {
 	const [state, setState] = useState({
 		...startingState
 	});
+
+	const { t } = useMosaicTranslation();
 	
 	useEffect(() => {
 		async function getOptions() {
@@ -52,7 +55,7 @@ function DataViewViewDrawerContent(props) {
 			{
 				name : "select",
 				variant : "text",
-				label : "Select",
+				label : t("mosaic:common.select"),
 				color : "blue",
 				onClick : async function({ data }) {
 					await props.onChange(data);
@@ -82,7 +85,7 @@ function DataViewViewDrawerContent(props) {
 				show : function({ row }) {
 					return canAct(row);
 				},
-				label : "Remove",
+				label : t("mosaic:common.remove"),
 				onClick : async function({ data }) {
 					await props.onRemove(data);
 					setState({
@@ -102,11 +105,11 @@ function DataViewViewDrawerContent(props) {
 			},
 			{
 				name : "label",
-				label : "Label"
+				label : t("mosaic:common.label")
 			},
 			{
 				name : "type",
-				label : "Type",
+				label : t("mosaic:common.type"),
 				style : {
 					textTransform : "capitalize"
 				}
@@ -117,7 +120,7 @@ function DataViewViewDrawerContent(props) {
 	
 	return (
 		<DrawerContent
-			title="Saved Views"
+			title={t("mosaic:DataView.saved_views")}
 			onClose={props.onClose}
 		>
 			{

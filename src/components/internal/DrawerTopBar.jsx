@@ -6,6 +6,7 @@ import { H1 } from "../Typography";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import theme from "../../utils/theme.js";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledWrapper = styled.div`
 	& {
@@ -30,6 +31,8 @@ const StyledWrapper = styled.div`
 `
 
 function DrawerTopBar(props) {
+	const { t } = useMosaicTranslation();
+
 	return (
 		<StyledWrapper>
 			<div className="left">
@@ -45,15 +48,15 @@ function DrawerTopBar(props) {
 				<ButtonRow>
 					{
 						props.onCancel &&
-						<Button label="Cancel" color="black" variant="text" onClick={props.onCancel}/>
+						<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel}/>
 					}
 					{
 						props.onSave &&
-						<Button label="Save" color="blue" variant="contained" onClick={props.onSave}/>
+						<Button label={t("mosaic:common.save")} color="blue" variant="contained" onClick={props.onSave}/>
 					}
 					{
 						props.onApply &&
-						<Button label="Apply" color="blue" variant="contained" onClick={props.onApply}/>
+						<Button label={t("mosaic:common.apply")} color="blue" variant="contained" onClick={props.onApply}/>
 					}
 				</ButtonRow>
 			</div>

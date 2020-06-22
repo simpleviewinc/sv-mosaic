@@ -4,6 +4,7 @@ import jsvalidator from "jsvalidator";
 
 import Button from "./Button";
 import ButtonRow from "./ButtonRow";
+import useMosaicTranslation from "../utils/useMosaicTranslation";
 
 const StyledWrapper = styled.div`
 	& {
@@ -37,15 +38,17 @@ function DataViewFilterDropdownButtons(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
+
+	const { t } = useMosaicTranslation();
 	
 	return (
 		<StyledWrapper>
 			<ButtonRow>
-				<Button label="Clear" color="black" variant="text" onClick={props.onClear}/>
+				<Button label={t("mosaic:common.clear")} color="black" variant="text" onClick={props.onClear}/>
 			</ButtonRow>
 			<ButtonRow>
-				<Button label="Cancel" color="black" variant="text" onClick={props.onCancel}/>
-				<Button label="Apply" color="blue" variant="contained" onClick={props.onApply} disabled={ (props.disableApply !== undefined) ? props.disableApply : false }/>
+				<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel}/>
+				<Button label={t("mosaic:common.apply")} color="blue" variant="contained" onClick={props.onApply} disabled={ (props.disableApply !== undefined) ? props.disableApply : false }/>
 			</ButtonRow>
 		</StyledWrapper>
 	)

@@ -1,37 +1,31 @@
 import { default as i18next } from "i18next";
 
 import { MosaicObject } from "../types";
-import * as en from "./resources/en.json";
+import * as common from "./common.json";
 
-interface AddPack {
-	namespace: string
+interface AddCoreResourceBundleProps {
 	prefix: string
-	pack: MosaicObject
-}
-
-export function addPack({ namespace, prefix, pack }: AddPack) {
-	for(let [lang, val] of Object.entries(pack)) {
-		i18nDefaults.resources[lang] = i18nDefaults.resources[lang] || {};
-		i18nDefaults.resources[lang][namespace] = i18nDefaults.resources[lang][namespace] || {};
-		i18nDefaults.resources[lang][namespace][prefix] = val;
+	bundle: {
+		[lang: string]: MosaicObject
 	}
 }
 
-interface I18nDefaults {
-	resources: MosaicObject
-	lng: string
-	fallbackLng: string
+/**
+ * Adds a core resource bundle exposed when using the default i18n or when using the useMosaicSettings() context variant.
+ */
+export function addCoreResourceBundle({ prefix, bundle }: AddCoreResourceBundleProps) {
+	for(let [lang, data] of Object.entries(bundle)) {
+		defaulti18n.addResourceBundle(lang, "mosaic", { [prefix] : data }, true, false);
+	}
 }
-
-export const i18nDefaults: I18nDefaults = {
-	resources : {
-		en : {}
-	},
-	lng : "en",
-	fallbackLng : "en"
-}
-
-i18nDefaults.resources.en.mosaic = en;
 
 export const defaulti18n = i18next.createInstance();
-defaulti18n.init(i18nDefaults);
+defaulti18n.init({
+	resources : {},
+	lng : "en"
+});
+
+addCoreResourceBundle({
+	prefix : "common",
+	bundle : common
+});
