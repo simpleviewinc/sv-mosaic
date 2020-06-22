@@ -7,5 +7,9 @@ export default function useMosaicTranslation() {
 	const { t, i18n } = useTranslation(context.i18n.options.ns[0], {
 		i18n: context.i18n
 	});
-	return { t, i18n };
+
+	return {
+		t,
+		i18n
+	}
 }

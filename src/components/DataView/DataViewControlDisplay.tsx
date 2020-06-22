@@ -10,6 +10,7 @@ import { DataViewControlDisplayProps } from "./DataViewTypes";
 import Button from "../Button";
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
 import theme from "../../utils/theme";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledSpan = styled.span`
 	& .labelIcon {
@@ -18,6 +19,8 @@ const StyledSpan = styled.span`
 `
 
 function DataViewControlDisplay(props: DataViewControlDisplayProps) {
+	const { t } = useMosaicTranslation();
+
 	const activeDisplay = props.displayOptions.find(val => val.name === props.display);
 	const Icon = activeDisplay.mIcon;
 

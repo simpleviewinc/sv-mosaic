@@ -388,7 +388,7 @@ function DataViewKitchenSink() {
 	const primaryFilters = boolean("primaryFilters", true);
 	const optionalFilters = boolean("optionalFilters", true);
 	const sticky = boolean("sticky", true);
-	const locale: string = select("locale", { en : "en", es : "es" }, "en");
+	const locale: string = select("locale", { en : "en", es : "es", dev : "dev", de : "de" }, "en");
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
 
 	const [state, setState] = useState({

@@ -7,6 +7,7 @@ import Button from "../Button";
 import theme from "../../utils/theme.js";
 import CheckboxList from "../CheckboxList.jsx";
 import DrawerContent from "../DrawerContent.jsx";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledWrapper = styled.div`
 	display: flex;
@@ -51,6 +52,8 @@ function GridColumnDrawerContent(props) {
 	const [state, setState] = useState({
 		activeColumns : props.columns.map(val => val.name)
 	});
+
+	const { t } = useMosaicTranslation();
 	
 	const saveColumns = function() {
 		props.onClose();
@@ -91,7 +94,7 @@ function GridColumnDrawerContent(props) {
 	
 	return (
 		<DrawerContent
-			title="Table Settings"
+			title={t("mosaic:DataView.table_settings")}
 			background="gray"
 			onApply={saveColumns}
 			onClose={props.onClose}
@@ -99,7 +102,7 @@ function GridColumnDrawerContent(props) {
 		>
 			<StyledWrapper>
 				<div className="left">
-					<h2>Columns</h2>
+					<h2>{t("mosaic:DataView.columns")}</h2>
 					<CheckboxList
 						options={columnOptions}
 						checked={state.activeColumns}
@@ -107,7 +110,7 @@ function GridColumnDrawerContent(props) {
 					/>
 				</div>
 				<div className="right">
-					<h2>Column Order</h2>
+					<h2>{t("mosaic:DataView.column_order")}</h2>
 					{
 						state.activeColumns.map((name, i) => {
 							const column = props.allColumns.find(val => val.name === name);
