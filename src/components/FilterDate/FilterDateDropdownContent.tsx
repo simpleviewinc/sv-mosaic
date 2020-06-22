@@ -9,6 +9,7 @@ import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
 import { FilterDateOnChange, FilterDateDropdownContentProps } from "./FilterDateTypes";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledContents = styled.div`
 	& > .inputRow h5 {
@@ -37,6 +38,8 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 		rangeStart : props.rangeStart,
 		rangeEnd : props.rangeEnd
 	});
+
+	const { t } = useMosaicTranslation();
 
 	let errorMessage;
 	if (state.rangeStart !== undefined && state.rangeEnd !== undefined && state.rangeEnd < state.rangeStart) {
@@ -85,7 +88,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 	}
 
 	const pickerArgs = {
-		placeholder : "Choose a date...",
+		placeholder : t("mosaic:FilterDate.choose_a_date___"),
 		clearable : true,
 		format : "M/d/yyyy",
 		inputVariant : "outlined" as TextFieldProps["variant"],
@@ -97,7 +100,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 			<div className="inputRow">
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<div className="startRange">
-						<h5>From</h5>
+						<h5>{t("mosaic:common.date_from")}</h5>
 						<DatePicker
 							{...pickerArgs}
 							value={state.rangeStart || null}
@@ -105,7 +108,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 						/>
 					</div>
 					<div className="endRange">
-						<h5>To</h5>
+						<h5>{t("mosaic:common.date_to")}</h5>
 						<DatePicker
 							{...pickerArgs}
 							value={state.rangeEnd || null}

@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from "../Button";
 import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledDiv = styled.div`
 	margin-bottom: -4px;
@@ -31,6 +32,8 @@ const PopoverDiv = styled.div`
 `
 
 function DataViewFilters(props) {
+	const { t } = useMosaicTranslation();
+
 	const activeFilters = props.activeFilters || [];
 	
 	const primaryFilters = props.filters.filter(val => val.type === "primary");
@@ -80,7 +83,7 @@ function DataViewFilters(props) {
 				{
 					optionalFilters.length > 0 &&
 					<Button
-						label="More"
+						label={t("mosaic:DataView.more")}
 						variant="text"
 						color="black"
 						size="small"

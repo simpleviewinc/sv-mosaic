@@ -10,6 +10,7 @@ import { DataViewColumnControl } from "./DataViewColumnControl";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
 
 import theme from "../../utils/theme.js";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
@@ -140,6 +141,8 @@ function GridTHead(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
+
+	const { t } = useMosaicTranslation();
 	
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
@@ -179,7 +182,7 @@ function GridTHead(props) {
 						{
 							// We need to indent the actions by 11px to align with the buttons underneath
 							!props.onColumnsChange &&
-							<span style={{paddingLeft: "11px"}}>Actions</span>
+							<span style={{paddingLeft: "11px"}}>{t("mosaic:DataView.actions")}</span>
 						}
 					</StyledTh>
 				}

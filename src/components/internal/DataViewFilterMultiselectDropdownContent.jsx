@@ -16,6 +16,7 @@ import Spinner from "../Spinner.jsx";
 import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
 import { H3 } from "../Typography";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledWrapper = styled.div`
 	& > .topBlock {
@@ -172,6 +173,8 @@ function DataViewFilterMultiselectDropdownContent(props) {
 		loaded : false
 	});
 	
+	const { t } = useMosaicTranslation();
+
 	// we need to combine the options we are querying for and the selected options that are passed in
 	// since if they have already selected an item not in the current page, it won't be in the queried options
 	const allOptions = [...props.selected, ...state.options];
@@ -288,7 +291,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 		
 		comparisonDropdown = (
 			<div className="comparisonDropdown">
-				<H3>Comparison</H3>
+				<H3>{t("mosaic:DataView.comparison")}</H3>
 				<ButtonRow>
 					<Button
 						label={activeComparison.label}
@@ -338,7 +341,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 						<SearchIcon/>
 						<InputBase
 							className="input"
-							placeholder="Keyword..."
+							placeholder={t("mosaic:common.keyword___")}
 							autoFocus={true}
 							onChange={keywordChange}
 						/>
@@ -359,7 +362,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 						state.hasMore &&
 						<div className="loadContainer">
 							<Button
-								label="Load more..."
+								label={t("mosaic:common.load_more___")}
 								color="blue"
 								variant="outlined"
 								fullWidth={true}
@@ -370,7 +373,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				</div>
 				<div className="selected">
 					{comparisonDropdown}
-					<H3>Selected Options</H3>
+					<H3>{t("mosaic:DataView.selected_options")}</H3>
 					<div className="chips">
 						{
 							showList &&

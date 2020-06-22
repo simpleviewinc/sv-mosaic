@@ -1,0 +1,35 @@
+{
+	"en" : {
+		"actions": "Actions",
+		"column_order": "Column Order",
+		"columns": "Columns",
+		"comparison": "Comparison",
+		"default": "Default",
+		"default_view": "Default View",
+		"go": "Go",
+		"jump_to_page": "Jump to Page",
+		"label": "Label",
+		"mine": "Mine",
+		"more": "More",
+		"overwrite_current_view": "Overwrite Current View",
+		"page": "Page",
+		"remove": "Remove",
+		"save_as": "Save As",
+		"save_as_new_view": "Save as New View",
+		"save_view": "Save View",
+		"saved_views": "Saved Views",
+		"selected_options": "Selected Options",
+		"show_for_all_users": "Show for all Users",
+		"table_settings": "Table Settings",
+		"type": "Type"
+	},
+	"es" : {
+		"columns": "Columnas",
+		"default_view": "Vista predeterminada",
+		"jump_to_page": "Ir a la página",
+		"more": "Más",
+		"overwrite_current_view": "Sobrescribir vista actual",
+		"save_as": "Guardar como",
+		"save_as_new_view": "Guardar como nueva vista"
+	}
+}

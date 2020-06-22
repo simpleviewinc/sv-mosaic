@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from "../Button";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
+import useMosaicTranslation from "../../utils/useMosaicTranslation";
 
 const StyledContents = styled.div`
 	& > .inputRow {
@@ -76,6 +77,8 @@ function DataViewFilterTextDropdownContent(props) {
 		value : props.value,
 		comparison : props.comparison
 	});
+
+	const { t } = useMosaicTranslation();
 	
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
 	
@@ -164,7 +167,7 @@ function DataViewFilterTextDropdownContent(props) {
 					autoFocus
 					className={ disabled ? "disabled" : "" }
 					disabled={disabled}
-					placeholder="Filter..."
+					placeholder={t("mosaic:common.filter___")}
 					margin="dense"
 					value={state.value}
 					variant="outlined"
