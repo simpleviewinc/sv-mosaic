@@ -83,18 +83,20 @@ function DataViewFilterTextDropdownContent(props) {
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
 	
 	const onApply = function() {
+		const cleanValue = state.value.trim();
+
 		if (existsComparisons.includes(state.comparison)) {
 			// for these the value is not relevant
 			props.onChange({
 				comparison : state.comparison
 			});
-		} else if (state.value === "") {
+		} else if (cleanValue === "") {
 			// if the state is empty we wipe the whole object
 			props.onChange(undefined);
 		} else {
 			// set both values
 			props.onChange({
-				value : state.value,
+				value : cleanValue,
 				comparison : state.comparison
 			});
 		}
