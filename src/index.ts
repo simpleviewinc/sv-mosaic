@@ -48,10 +48,9 @@ export { default as theme } from "./theme";
 
 export { default as TridentIcon } from "./theme/TridentIcon";
 
-export { default as useMosaicTranslation } from "./utils/useMosaicTranslation";
 export { default as useMosaicSettings } from "./utils/useMosaicSettings";
 
-export { defaulti18n } from "./i18n";
+export * from "./i18n";
 
 export {
 	Checkbox,
