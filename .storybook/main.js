@@ -31,6 +31,8 @@ module.exports = {
 
 		config.watchOptions = webpack_config.devServer.watchOptions;
 
+		config.resolve.alias["@root"] = `${__dirname}/../src`;
+
 		return config;
 	}
 }

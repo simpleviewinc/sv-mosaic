@@ -4,7 +4,11 @@
 		"emitDeclarationOnly": true,
 		"declaration": true,
 		"declarationDir": "../dist/types",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"baseUrl": "./",
+		"paths": {
+			"@root/*" : ["./*"]
+		}
 	},
 	"include" : [
 		"index.ts"
