@@ -3,10 +3,14 @@
 		"sourceMap": true,
 		"jsx": "react",
 		"lib" : ["ES2019", "DOM"],
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"baseUrl": "./",
+		"paths": {
+			"@root/*" : ["./src/*"]
+		}
 	},
 	"include" : [
-		"src/**/*"
+		"./src/**/*"
 	],
 	"exclude": [
 		"node_modules",
