@@ -9,7 +9,7 @@ import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
 import { FilterDateOnChange, FilterDateDropdownContentProps } from "./FilterDateTypes";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const StyledContents = styled.div`
 	& > .inputRow h5 {

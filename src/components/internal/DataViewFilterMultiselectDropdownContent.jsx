@@ -16,7 +16,7 @@ import Spinner from "../Spinner.jsx";
 import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
 import { H3 } from "../Typography";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.div`
 	& > .topBlock {

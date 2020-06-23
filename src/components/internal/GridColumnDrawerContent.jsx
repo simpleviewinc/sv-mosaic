@@ -7,7 +7,7 @@ import Button from "../Button";
 import theme from "../../utils/theme.js";
 import CheckboxList from "../CheckboxList.jsx";
 import DrawerContent from "../DrawerContent.jsx";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.div`
 	display: flex;

@@ -10,7 +10,7 @@ import { DataViewColumnControl } from "./DataViewColumnControl";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
 
 import theme from "../../utils/theme.js";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.thead`
 	text-align: left;

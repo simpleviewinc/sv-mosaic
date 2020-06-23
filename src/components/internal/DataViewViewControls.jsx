@@ -7,7 +7,7 @@ import ButtonRow from "../ButtonRow";
 import Button from "../Button";
 import DataViewViewDrawer from "./DataViewViewDrawer.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const ViewSpan = styled.span`
 	display: inline-flex;

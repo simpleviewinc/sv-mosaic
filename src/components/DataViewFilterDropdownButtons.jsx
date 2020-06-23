@@ -4,7 +4,7 @@ import jsvalidator from "jsvalidator";
 
 import Button from "./Button";
 import ButtonRow from "./ButtonRow";
-import useMosaicTranslation from "../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.div`
 	& {
