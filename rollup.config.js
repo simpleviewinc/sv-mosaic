@@ -1,7 +1,7 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
-import alias from "@rollup/plugin-alias";
+// import alias from "@rollup/plugin-alias";
 import babel from "rollup-plugin-babel";
 import pkg from "./package.json";
 
@@ -42,18 +42,29 @@ export default [
 				}
 			}),
 			json(),
-			alias({
-				entries : [
-					{ find : "@root", replacement : "./src" }
-				],
-				customResolver : resolve({
-					extensions : [".ts", ".js"]
-				})
-			}),
+			// alias({
+			// 	entries : [
+			// 		{ find : "@root", replacement : "./src" }
+			// 	],
+			// 	customResolver : resolve({
+			// 		extensions : [".ts", ".js"]
+			// 	})
+			// }),
 			babel({
 				extensions : EXTENSIONS,
 				exclude : ["node_modules/**"],
 				presets : ["@babel/env", "@babel/typescript", "@babel/preset-react"],
+				plugins: [
+					[
+						"module-resolver",
+						{
+							"root" : ["./"],
+							"alias": {
+								"@root": "./src"
+							}
+						}
+					]
+				],
 				babelrc : false
 			})
 		]
