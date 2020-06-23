@@ -1,7 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
-// import alias from "@rollup/plugin-alias";
 import babel from "rollup-plugin-babel";
 import pkg from "./package.json";
 
@@ -12,9 +11,11 @@ const EXTERNALS = [
 	/^@material-ui\/core\//,
 	/^@material-ui\/icons\//,
 	/^@material-ui\/pickers\//,
+	"i18next",
 	"jsvalidator",
 	"lodash",
 	"react",
+	"react-i18next",
 	"styled-components"
 ];
 
@@ -42,14 +43,6 @@ export default [
 				}
 			}),
 			json(),
-			// alias({
-			// 	entries : [
-			// 		{ find : "@root", replacement : "./src" }
-			// 	],
-			// 	customResolver : resolve({
-			// 		extensions : [".ts", ".js"]
-			// 	})
-			// }),
 			babel({
 				extensions : EXTENSIONS,
 				exclude : ["node_modules/**"],
