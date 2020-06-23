@@ -1,5 +1,12 @@
 # sv-mosaic changelog
 
+## 6/23/2020
+* Publish 3.0.0
+* Implemented `i18n` capability throughout much of the `DataView`. Documentation available in the i18n section of the Storybook.
+* You will need to add `react-i18next` and `i18next` to your dependencies in order to use Mosaic.
+* `DataView` the text filter will now `trim()` the data prior to passing it back to the filter system.
+* Adds `P` typography element for when you want a simple paragraph styled according to mosaic.
+
 ## 5/29/2020
 * Publish 2.2.0
 * `LeftNav` nears completion. All variants are functional and being sent to QA and review from different Product Owners.
