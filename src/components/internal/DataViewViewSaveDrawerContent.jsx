@@ -6,7 +6,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
 import DrawerContent from "../DrawerContent.jsx";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 function DataViewViewSaveDrawerContent(props) {
 	const [state, setState] = useState({

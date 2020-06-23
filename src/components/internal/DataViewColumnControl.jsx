@@ -4,7 +4,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 
 import Button from "../Button";
 import GridColumnDrawer from "./GridColumnDrawer.jsx";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 export function DataViewColumnControl(props) {
 	const [state, setState] = useState({

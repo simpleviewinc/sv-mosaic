@@ -5,7 +5,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import DataView from "../DataView";
 import DrawerContent from "../DrawerContent.jsx";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const startingState = {
 	options : undefined,

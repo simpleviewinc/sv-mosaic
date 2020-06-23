@@ -8,7 +8,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from "../Button";
 import DataViewPagerPopover from "./DataViewPagerPopover";
 import { DataViewOnSkipChange } from "./DataViewTypes";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const StyledSpan = styled.span`
 	display: inline-flex;

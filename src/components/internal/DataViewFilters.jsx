@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from "../Button";
 import CheckboxList from "../CheckboxList.jsx";
 import theme from "../../utils/theme.js";
-import useMosaicTranslation from "../../utils/useMosaicTranslation";
+import { useMosaicTranslation } from "@root/i18n";
 
 const StyledDiv = styled.div`
 	margin-bottom: -4px;
