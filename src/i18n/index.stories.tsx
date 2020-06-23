@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 import { select, withKnobs } from "@storybook/addon-knobs";
+import styled from "styled-components"
 
 import {
 	useMosaicTranslation,
@@ -9,16 +10,56 @@ import {
 	P
 } from "../";
 
+const Table = styled.table`
+	border-collapse: collapse;
+
+	& th {
+		text-align: left;
+		border: 1px solid gray;
+		padding: 5px;
+	}
+
+	& td {
+		border: 1px solid gray;
+		padding: 5px;
+	}
+`;
+
 function InnerComponent() {
 	const { t } = useMosaicTranslation();
 
 	return (
 		<div>
-			<P>mosaic:common.save: {t("mosaic:common.save")}</P>
-			<P>app:TestPrefix.key: {t("app:TestPrefix.key")}</P>
-			<P>app:TestPrefix.english_only {t("app:TestPrefix.english_only")}</P>
-			<P>app:TestPrefix.spanish_only {t("app:TestPrefix.spanish_only")}</P>
-			<P>app:TestPrefix.bogus: {t("app:TestPrefix.bogus")}</P>
+			<Table>
+				<thead>
+					<tr>
+						<th>Key</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>mosaic:common.save</td>
+						<td>{t("mosaic:common.save")}</td>
+					</tr>
+					<tr>
+						<td>app:TestPrefix.key</td>
+						<td>{t("app:TestPrefix.key")}</td>
+					</tr>
+					<tr>
+						<td>app:TestPrefix.english_only</td>
+						<td>{t("app:TestPrefix.english_only")}</td>
+					</tr>
+					<tr>
+						<td>app:TestPrefix.spanish_only</td>
+						<td>{t("app:TestPrefix.spanish_only")}</td>
+					</tr>
+					<tr>
+						<td>app:TestPrefix.bogus</td>
+						<td>{t("app:TestPrefix.bogus")}</td>
+					</tr>
+				</tbody>
+			</Table>
 		</div>
 	)
 }
@@ -64,6 +105,11 @@ export function example() {
 			</P>
 			<hr/>
 			<InnerComponent/>
+			<hr/>
+			<P>Test Data</P>
+			<pre>
+				{JSON.stringify(localeData, null, "\t")}
+			</pre>
 		</MosaicContext.Provider>
 	)
 }
