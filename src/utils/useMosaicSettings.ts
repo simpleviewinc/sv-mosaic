@@ -5,13 +5,11 @@ import { defaulti18n } from "../i18n";
 interface UseMosaicSettingsProps {
 	i18nNamespace?: string
 	i18nInitialLocale?: string
-	i18nFallbackLocale?: string
 }
 
 export default function useMosaicSettings({
 	i18nNamespace = "app",
 	i18nInitialLocale = "en",
-	i18nFallbackLocale = "en"
 }: UseMosaicSettingsProps = {}) {
 	const ns = useMemo(() => [i18nNamespace, "mosaic"], []);
 
@@ -19,7 +17,6 @@ export default function useMosaicSettings({
 	const i18n = useMemo(() => {
 		const i18n = defaulti18n.cloneInstance({
 			lng : i18nInitialLocale,
-			fallbackLng: i18nFallbackLocale,
 			ns,
 			defaultNS : i18nNamespace
 		});
