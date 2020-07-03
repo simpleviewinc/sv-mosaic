@@ -13,8 +13,13 @@ import ExtensionIcon from '@material-ui/icons/Extension';
 import BuildIcon from '@material-ui/icons/Build';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 
-import LeftNav from "./LeftNav";
-import { LeftNavItemDef, LeftNavProps } from "./LeftNavTypes";
+import {
+	LeftNav,
+	LeftNavItemDef,
+	LeftNavProps,
+	MosaicContext,
+	useMosaicSettings,
+} from "../../";
 import { useStoryBookCssReset } from "../../utils/reactTools";
 
 import "../../utils/storyBookCssReset.css";
@@ -880,9 +885,21 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 
 export const Example = () => {
 	const dataSet = select("Data", ["qa", "cms_flat"], "cms_flat");
+	const locale: string = select("Locale", { en : "en", es : "es", cimode : "cimode", de : "de" }, "en");
 	const items = dataSets[dataSet];
 
+	const mosaicSettings = useMosaicSettings();
+
+	// If the user changes the locale knob we need to propagate to our i18n object
+	useEffect(() => {
+		if (mosaicSettings.i18n.language !== locale) {
+			mosaicSettings.i18n.changeLanguage(locale);
+		}
+	}, [locale]);
+
 	return (
-		<NavWrapper items={items}/>
+		<MosaicContext.Provider value={mosaicSettings}>
+			<NavWrapper items={items}/>
+		</MosaicContext.Provider>
 	)
 }
