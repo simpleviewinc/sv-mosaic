@@ -14,7 +14,6 @@ import LeftNavScroller from "./LeftNavScroller";
 const StyledDiv = styled.div`
 	&.paper {
 		background-color: #404045;
-		min-width: 150px;
 		max-width: 250px;
 		max-height: 80vh;
 		display: flex;
