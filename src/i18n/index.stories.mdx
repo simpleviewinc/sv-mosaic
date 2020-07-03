@@ -17,13 +17,7 @@ In general to use i18n, there are 2 primary things you need to do.
 1. `i18n.addResourceBundle` to register your bundles.
 1. `const { t } = useMosaicTranslation()` to translate within your components.
 
-## Structuring your resource bundles
-
-https://www.i18next.com/overview/api#addresourcebundle
-
-```js
-instance.addResourceBundle(lang, namespace, data, deep, overwrite)
-```
+## Best Practices
 
 The recommended best practice is to do the the following:
 
@@ -87,4 +81,52 @@ function MyComponent() {
 		<p>{t("app:MyComponent.mykey")}</p>
 	)
 }
+```
+
+## Loading Bundles
+
+You should pick a philosophy for how you will load your bundles. Our recommendation is that you either load per-language or per-component. Per-language is better if you want to keep the translation for your app in one language in one place, but it may be more prone to merge conflicts. Per-component is better when you are ok bundling the localization with the component itself, this spreads your localization throughout your repo but makes your components more self-contained. It is similar to the single global CSS file vs modular CSS files debate.
+
+### Per-language
+
+If using a per-language strategy, then you will load a single bundle for a whole language.
+
+https://www.i18next.com/overview/api#addresourcebundle
+
+```js
+const mosaicSettings = useMosaicSettings();
+mosaicSettings.i18n.addResourceBundle("en", "app", {
+	MyComponent : {
+		// data
+	}
+});
+mosaicSettings.i18n.addResourceBundle("es", "app", {
+	MyComponent : {
+		// data
+	}
+});
+```
+
+### Per-component
+
+If using a per-component strategy, then you can use the `mosaic.addResourceBundle` helper. You can add the following code to the main component file or it's index barrel, if using barrelling.
+
+```js
+import * as localeData from "./DataViewLocales.json";
+import { addResourceBundle } from "@simpleview/sv-mosaic";
+
+addResouceBundle({
+	prefix : "MyComponent",
+	namespace : "app",
+	bundle : {
+		en : {
+			// data
+		},
+		es : {
+			// data
+		}
+	}
+});
+
+// this will register data accessible at t("app:MyComponent.key")
 ```
