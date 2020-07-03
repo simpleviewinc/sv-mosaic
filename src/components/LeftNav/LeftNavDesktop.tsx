@@ -12,6 +12,7 @@ import LeftNavScroller from "./LeftNavScroller";
 import LeftNavDrawer from "./LeftNavDrawer";
 import LeftNavRoot from "./LeftNavRoot";
 import theme from "../../theme";
+import { useMosaicTranslation } from "@root/i18n";
 
 const RootDiv = styled(LeftNavRoot)`
 	max-width: 250px;
@@ -28,6 +29,8 @@ const RootDiv = styled(LeftNavRoot)`
 `
 
 function LeftNavDesktop(props: LeftNavProps) {
+	const { t } = useMosaicTranslation();
+	
 	const [state, setState] = useState({
 		openName : undefined
 	});
@@ -76,7 +79,7 @@ function LeftNavDesktop(props: LeftNavProps) {
 
 	const activeLabel = function(name) {
 		if (name === props.variant) {
-			return " (Active)"
+			return ` (${t("mosaic:LeftNav.active")})`
 		} else {
 			return "";
 		}
@@ -84,21 +87,21 @@ function LeftNavDesktop(props: LeftNavProps) {
 
 	const settingsItem: LeftNavItemDef = {
 		name : "_internal",
-		label : "Nav Display",
+		label : t("mosaic:LeftNav.nav_display"),
 		type : "item",
 		mIcon : SettingsIcon,
 		items : [
 			{
 				name : "_internal.full",
-				label : `Full${activeLabel("full")}`
+				label : `${t("mosaic:LeftNav.full")}${activeLabel("full")}`
 			},
 			{
 				name : "_internal.icons_only",
-				label : `Icons Only${activeLabel("icons_only")}`
+				label : `${t("mosaic:LeftNav.icons_only")}${activeLabel("icons_only")}`
 			},
 			{
 				name : "_internal.hidden",
-				label : `Hidden${activeLabel("hidden")}`
+				label : `${t("mosaic:LeftNav.hidden")}${activeLabel("hidden")}`
 			}
 		]
 	}
