@@ -1,5 +1,10 @@
 # sv-mosaic changelog
 
+## 7/17/2020
+* Published 3.2.0
+* `Checkbox`, `CheckboxList` converted to TypeScript and Storybook documentation added.
+* Added style hardening to various components to fix BBS conflicts with their Bootstrap environment.
+
 ## 6/23/2020
 * Publish 3.0.0
 * Implemented `i18n` capability throughout much of the `DataView`. Documentation available in the i18n section of the Storybook.
