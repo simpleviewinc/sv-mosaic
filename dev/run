@@ -5,6 +5,7 @@ docker run --rm -it \
 	-v $PWD/testing:/app/testing \
 	-v $PWD/docs:/app/docs \
 	-v $PWD/package.json:/app/package.json \
+	-v $PWD/package-lock.json:/app/package-lock-mounted.json \
 	-v $PWD/webpack.config.js:/app/webpack.config.js \
 	-v $PWD/rollup.config.js:/app/rollup.config.js \
 	-v $PWD/.babelrc:/app/.babelrc \
