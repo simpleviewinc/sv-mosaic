@@ -26,11 +26,11 @@ const LabelWrapper = styled.div`
 	& > .removeIcon {
 		margin-left: 4px;
 		margin-right: -4px;
-		font-size: 13px;
 		color: black;
 		background-color: ${theme.colors.blue}12;
 		border-radius: 20px;
 		padding: 3px;
+		box-sizing: border-box;
 	}
 
 	& > .removeIcon:hover {
