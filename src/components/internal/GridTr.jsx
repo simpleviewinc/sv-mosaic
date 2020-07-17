@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import Checkbox from "../Checkbox.jsx";
+import Checkbox from "@root/components/Checkbox";
 import GridTd from "./GridTd.jsx";
 import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
 
