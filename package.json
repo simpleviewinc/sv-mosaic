@@ -27,7 +27,7 @@
 		"css-loader": "1.0.0",
 		"date-fns": "2.10.0",
 		"i18next": "19.5.0",
-		"lodash": "4.17.15",
+		"lodash": "4.17.19",
 		"jest": "25.1.0",
 		"json-date-parser": "1.0.1",
 		"jsvalidator": "1.2.0",
