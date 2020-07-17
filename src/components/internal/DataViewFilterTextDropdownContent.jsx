@@ -29,6 +29,10 @@ const StyledContents = styled.div`
 	& .MuiOutlinedInput-root.Mui-focused fieldset {
 		border-color: ${theme.colors.blue};
 	}
+
+	& .MuiInputBase-input {
+		font-size: 16px;
+	}
 	
 	& .comparisonContainer {
 		border-left: 1px solid #ccc;
