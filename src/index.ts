@@ -1,4 +1,3 @@
-import CheckboxList from "./components/CheckboxList.jsx";
 import DataView from "./components/DataView";
 export * from "./components/DataView";
 import DataViewFilterText from "./components/DataViewFilterText.jsx";
@@ -30,6 +29,9 @@ export * from "./components/ButtonRow";
 export { default as Checkbox } from "./components/Checkbox";
 export * from "./components/Checkbox";
 
+export { default as CheckboxList } from "./components/CheckboxList";
+export * from "./components/CheckboxList";
+
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
 
@@ -55,7 +57,6 @@ export { default as useMosaicSettings } from "./utils/useMosaicSettings";
 export * from "./i18n";
 
 export {
-	CheckboxList,
 	DataView,
 	DataViewFilterText,
 	DataViewFilterDropdown,

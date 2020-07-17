@@ -1,13 +1,14 @@
-import React from "react";
+import * as React from "react";
+import { useMemo, useCallback } from "react";
 import styled from "styled-components";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { xor } from "lodash";
-import jsvalidator from "jsvalidator";
 
 import Checkbox from "@root/components/Checkbox";
-import { BodyText } from "./Typography";
+import { BodyText } from "@root/components/Typography";
+import { useStateRef } from "@root/utils/reactTools";
 
 const StyledDiv = styled.div`
 	& > ul {
@@ -24,43 +25,29 @@ const StyledDiv = styled.div`
 	}
 `
 
-function CheckboxList(props) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "checked",
-				type : "array",
-				schema : {
-					type : "string"
-				}
-			},
-			{
-				name : "options",
-				type : "array",
-				schema : {
-					type : "object",
-					schema : [
-						{ name : "value", type : "string" },
-						{ name : "label", type : "string" }
-					],
-					allowExtraKeys : false
-				}
-			},
-			{
-				name : "onChange",
-				type : "function"
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
-	
-	const handleToggle = (value) => () => {
+interface Option {
+	label: string
+	value: string
+}
+
+export interface CheckboxListProps {
+	checked: string[]
+	options: Option[]
+	onChange(checked: string[]): void
+}
+
+function CheckboxList(props: CheckboxListProps) {
+	const checkedRef = useStateRef(props.checked);
+
+	const handleToggle = useCallback((value: string) => () => {
 		// toggle the item in the array
-		const newChecked = xor(props.checked, [value]);
+		const newChecked = xor(checkedRef.current, [value]);
 		props.onChange(newChecked);
-	}
+	}, [checkedRef, props.onChange]);
+
+	const callbacks = useMemo(() => {
+		return props.options.map(option => handleToggle(option.value));
+	}, [props.options, handleToggle]);
 	
 	return (
 		<StyledDiv>
@@ -68,7 +55,7 @@ function CheckboxList(props) {
 				dense
 			>
 				{
-					props.options.map(option => {
+					props.options.map((option, i) => {
 						const checked = props.checked.indexOf(option.value) !== -1;
 						
 						return (
@@ -77,12 +64,11 @@ function CheckboxList(props) {
 								key={option.value}
 								dense
 								button
-								onClick={handleToggle(option.value)}
+								onClick={callbacks[i]}
 							>
 								<ListItemIcon className="listItemIcon">
 									<Checkbox
 										className={checked ? "checked" : ""}
-										color="default"
 										edge="start"
 										checked={checked}
 									/>

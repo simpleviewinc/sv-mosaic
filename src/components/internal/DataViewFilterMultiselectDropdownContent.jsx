@@ -13,7 +13,7 @@ import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx"
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner.jsx";
-import CheckboxList from "../CheckboxList.jsx";
+import CheckboxList from "@root/components/CheckboxList";
 import theme from "../../utils/theme.js";
 import { H3 } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
