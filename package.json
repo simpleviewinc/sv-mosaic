@@ -76,7 +76,8 @@
 		"build:rollup": "rollup -c",
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish",
-		"storybook": "start-storybook -p 10000"
+		"storybook": "start-storybook -p 10000",
+		"package-lock": "cp package-lock.json package-lock-mounted.json"
 	},
 	"jest": {
 		"preset": "ts-jest"
