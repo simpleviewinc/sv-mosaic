@@ -19,7 +19,7 @@ export interface CheckboxProps {
 	checked: boolean
 	className?: string
 	edge?: MUICheckboxProps["edge"]
-	onClick: MUICheckboxProps["onClick"]
+	onClick?: MUICheckboxProps["onClick"]
 }
 
 function Checkbox(props: CheckboxProps) {
