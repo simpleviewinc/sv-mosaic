@@ -4,9 +4,28 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
+import styled from "styled-components";
 
 import DrawerContent from "../DrawerContent.jsx";
 import { useMosaicTranslation } from "@root/i18n";
+
+const StyledForm = styled.form`
+	& .font16 {
+		font-size: 16px;
+	}
+`;
+
+const InputLabelProps = {
+	className: "font16"
+}
+
+const inputProps = {
+	className: "font16"
+}
+
+const classes = {
+	label : "font16"
+}
 
 function DataViewViewSaveDrawerContent(props) {
 	const [state, setState] = useState({
@@ -50,7 +69,7 @@ function DataViewViewSaveDrawerContent(props) {
 			onCancel={props.onClose}
 			background="gray"
 		>
-			<form onSubmit={onSubmit} autoComplete="off">
+			<StyledForm onSubmit={onSubmit} autoComplete="off">
 				<FormGroup row>
 					<TextField
 						autoFocus={true}
@@ -61,6 +80,8 @@ function DataViewViewSaveDrawerContent(props) {
 						fullWidth
 						required
 						variant="filled"
+						InputLabelProps={InputLabelProps}
+						inputProps={inputProps}
 					/>
 				</FormGroup>
 				{
@@ -68,6 +89,7 @@ function DataViewViewSaveDrawerContent(props) {
 					<FormGroup row>
 						<FormControl margin="normal">
 							<FormControlLabel
+								classes={classes}
 								control={
 									<Switch
 										checked={state.type === "shared"}
@@ -81,7 +103,7 @@ function DataViewViewSaveDrawerContent(props) {
 						</FormControl>
 					</FormGroup>
 				}
-			</form>
+			</StyledForm>
 		</DrawerContent>
 	)
 }
