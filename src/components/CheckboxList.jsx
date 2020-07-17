@@ -6,7 +6,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { xor } from "lodash";
 import jsvalidator from "jsvalidator";
 
-import Checkbox from "./Checkbox.jsx";
+import Checkbox from "@root/components/Checkbox";
 import { BodyText } from "./Typography";
 
 const StyledDiv = styled.div`
@@ -85,7 +85,6 @@ function CheckboxList(props) {
 										color="default"
 										edge="start"
 										checked={checked}
-										disableRipple
 									/>
 								</ListItemIcon>
 								<BodyText>{option.label}</BodyText>

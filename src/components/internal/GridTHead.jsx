@@ -5,7 +5,7 @@ import jsvalidator from "jsvalidator";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-import Checkbox from "../Checkbox.jsx";
+import Checkbox from "@root/components/Checkbox";
 import { DataViewColumnControl } from "./DataViewColumnControl";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
 
