@@ -5,7 +5,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 import Button from "../Button";
 import theme from "../../utils/theme.js";
-import CheckboxList from "../CheckboxList.jsx";
+import CheckboxList from "@root/components/CheckboxList";
 import DrawerContent from "../DrawerContent.jsx";
 import { useMosaicTranslation } from "@root/i18n";
 

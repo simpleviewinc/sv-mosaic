@@ -5,7 +5,7 @@ import { pick, xor } from "lodash";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Button from "../Button";
-import CheckboxList from "../CheckboxList.jsx";
+import CheckboxList from "@root/components/CheckboxList";
 import theme from "../../utils/theme.js";
 import { useMosaicTranslation } from "@root/i18n";
 
