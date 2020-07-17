@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 
-import Checkbox from "./Checkbox";
+import { Checkbox, CheckboxProps } from "@root/index";
 
 export default {
 	title : "Components|Checkbox"
@@ -10,7 +10,7 @@ export default {
 export const example = () => {
 	const [checked, setChecked] = useState(false);
 
-	const onClick = function() {
+	const onClick: CheckboxProps["onClick"] = function() {
 		setChecked(!checked);
 	}
 
