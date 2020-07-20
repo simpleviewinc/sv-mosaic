@@ -283,7 +283,15 @@ function Buttons() {
 						color="black"
 						variant="outlined"
 						label="With data attribute"
-						attrs={{ "data-foo" : "testing" }}
+						attrs={{ "data-foo" : "foo value" }}
+						muiAttrs={{ "data-bar": "bar value" }}
+					/>
+					<Button
+						color="black"
+						variant="icon"
+						mIcon={AddIcon}
+						attrs={{ "data-foo" : "foo value" }}
+						muiAttrs={{ "data-bar": "bar value" }}
 					/>
 				</ButtonRow>
 			</div>
@@ -302,6 +310,25 @@ function Buttons() {
 						variant="outlined"
 						label="Two"
 						tooltip="I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long."
+					/>
+				</ButtonRow>
+			</div>
+
+			<h2>Buttons with href that turn into a tags</h2>
+			<div>
+				<ButtonRow>
+					<Button
+						color="black"
+						variant="outlined"
+						label="With Link"
+						href="https://www.google.com/"
+					/>
+					<Button
+						color="black"
+						variant="outlined"
+						label="With Link and click handler"
+						href="https://www.bing.com/"
+						onClick={function(e) { e.preventDefault(); alert("Click handler") }}
 					/>
 				</ButtonRow>
 			</div>

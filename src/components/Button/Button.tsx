@@ -265,7 +265,8 @@ export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(nul
 
 function Button(props: ButtonProps) {
 	const {
-		attrs = {}
+		attrs = {},
+		muiAttrs = {}
 	} = props;
 
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -337,17 +338,21 @@ function Button(props: ButtonProps) {
 			{
 				props.variant !== "icon" &&
 				<MUIButton
+					{...muiAttrs}
 					variant={props.variant}
 					onClick={onClick}
 					size={size}
 					fullWidth={props.fullWidth}
 					disabled={props.disabled}
+					href={props.href}
 				>
-					{ props.mIcon && iconPosition === "left" && 
+					{
+						props.mIcon && iconPosition === "left" && 
 						<MaterialIcon className="icon icon_left" style={{ color: props.mIconColor }}></MaterialIcon>
 					}
 					{props.label}
-					{ props.mIcon && iconPosition === "right" &&
+					{
+						props.mIcon && iconPosition === "right" &&
 						<MaterialIcon className="icon icon_right" style={{ color: props.mIconColor }}></MaterialIcon>
 					}
 				</MUIButton>
@@ -355,6 +360,7 @@ function Button(props: ButtonProps) {
 			{
 				props.variant === "icon" &&
 				<IconButton
+					{...muiAttrs}
 					onClick={onClick}
 					disabled={props.disabled}
 				>
