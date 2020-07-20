@@ -208,7 +208,7 @@ const filters = [
 	}
 ]
 
-const defaultView = {
+const rootDefaultView = {
 	id : "default",
 	label : "Default View",
 	type : "default",
@@ -389,7 +389,16 @@ function DataViewKitchenSink() {
 	const optionalFilters = boolean("optionalFilters", true);
 	const sticky = boolean("sticky", true);
 	const locale: string = select("locale", { en : "en", es : "es", cimode : "cimode", de : "de" }, "en");
+	const displayList = boolean("displayList", true);
+	const displayGrid = boolean("displayGrid", true);
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
+	const defaultView = {
+		...rootDefaultView,
+		state : {
+			...rootDefaultView.state,
+			display : displayList ? "list" : displayGrid ? "grid" : undefined
+		}
+	}
 
 	const [state, setState] = useState({
 		data : [],
@@ -486,10 +495,22 @@ function DataViewKitchenSink() {
 			loading : true
 		});
 	}, [state.limit, state.sort, state.skip, state.filter]);
+
+	// transpose our display knobs into the displayOptions
+	let knobOptions = [
+		displayList ? "list" : undefined,
+		displayGrid ? "grid" : undefined
+	].filter(val => val);
+	const displayOptions = knobOptions.length > 0 ? knobOptions : undefined;
+	const display =
+		displayOptions === undefined ? undefined :
+		displayOptions.length === 1 ? displayOptions[0] :
+		state.display
+	;
 	
 	const gridConfig: DataViewProps = {
 		title : "Your Uploads",
-		columns : state.display === "list" ? listColumns : gridColumns,
+		columns : (display === "list" || display === undefined) ? listColumns : gridColumns,
 		gridColumnsMap,
 		primaryActions : primaryActions ? [
 			{
@@ -562,7 +583,7 @@ function DataViewKitchenSink() {
 				}
 			}
 		}),
-		displayOptions : ["list", "grid"],
+		displayOptions,
 		sticky,
 		onColumnsChange : function(data) {
 			setState({
@@ -633,7 +654,7 @@ function DataViewKitchenSink() {
 					limit={state.limit}
 					skip={state.skip}
 					count={state.count}
-					display={state.display}
+					display={display}
 					sort={state.sort}
 					loading={state.loading}
 					filter={state.filter}
