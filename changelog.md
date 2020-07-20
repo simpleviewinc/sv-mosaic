@@ -1,5 +1,9 @@
 # sv-mosaic changelog
 
+## 7/20/2020
+* `Button` now supports `href`.
+* `Button` now takes a `muiAttrs` that can be used to pass any attributes on to the MUI component beneath for cases that Mosaic does not yet support.
+
 ## 7/17/2020
 * Published 3.2.0
 * `Checkbox`, `CheckboxList` converted to TypeScript and Storybook documentation added.
