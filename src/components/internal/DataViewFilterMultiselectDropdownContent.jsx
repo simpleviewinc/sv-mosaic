@@ -224,7 +224,10 @@ function DataViewFilterMultiselectDropdownContent(props) {
 		});
 	}
 	
-	const loadMore = function() {
+	const loadMore = function(e) {
+		// stash the target to prevent issues with React event persistence in our async callback
+		const target = e.currentTarget;
+
 		async function fetchData() {
 			const newOptions = await props.getOptions({
 				limit,
@@ -238,6 +241,10 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				hasMore : newOptions.hasMore === true,
 				skip : state.skip + limit
 			});
+
+			// By blurring on the target we prevent the browser from keeping our load more button in view
+			// this ensures that our options scrollable maintains it's previous scroll position
+			target.blur();
 		}
 		
 		fetchData();
