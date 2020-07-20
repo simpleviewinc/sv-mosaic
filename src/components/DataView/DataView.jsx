@@ -265,7 +265,7 @@ function DataView(props) {
 	
 	// set defaults
 	const display = props.display || "list";
-	const displayOptions = useMemo(() => props.displayOptions || ["list"], [props.displayOptions]);
+	const displayOptions = useMemo(() => props.displayOptions || [display], [display, props.displayOptions]);
 	
 	const displayControlEnabled = props.onDisplayChange !== undefined && displayOptions.length > 1;
 
