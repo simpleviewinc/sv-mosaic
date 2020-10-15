@@ -15,7 +15,10 @@ const EXTERNALS = [
 	"jsvalidator",
 	"lodash",
 	"react",
+	"react-dom",
+	"react-is",
 	"react-i18next",
+	"react-transition-group",
 	"styled-components"
 ];
 
@@ -26,7 +29,7 @@ export default [
 		input : "src/index.ts",
 		external : id => {
 			for(let external of EXTERNALS) {
-				if (id.match(external)) {
+				if (typeof external === "string" ? id === external : id.match(external)) {
 					return true;
 				}
 			}
