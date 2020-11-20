@@ -370,6 +370,7 @@ const navSections = {
 		name : "sitemap",
 		label : "Sitemap",
 		mIcon : AccountTreeIcon,
+		pinned : "bottom",
 		items : [
 			{
 				name : "sitemap.primary",

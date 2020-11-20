@@ -106,6 +106,10 @@ function LeftNavDesktop(props: LeftNavProps) {
 		]
 	}
 
+	const bottomItems = props.items.filter(({ pinned }) => pinned === "bottom");
+
+	bottomItems.push(settingsItem);
+
 	// if the mouse leaves the component and it's children entirely, wait a duration to close
 	const onMouseLeave = debounce(function() {
 		setState({
@@ -161,12 +165,18 @@ function LeftNavDesktop(props: LeftNavProps) {
 					/>
 				</LeftNavScroller>
 				<div className="bottom">
-					<LeftNavItemDesktop
+					<LeftNavItems
+						items={bottomItems}
+						showLabel={showLabel}
+						onOpen={onOpen}
+						openName={state.openName}
+					/>
+					{/* <LeftNavItemDesktop
 						item={settingsItem}
 						showLabel={showLabel}
 						openName={state.openName}
 						onOpen={onOpen}
-					/>
+					/> */}
 				</div>
 			</LeftNavContext.Provider>
 		</RootDiv>

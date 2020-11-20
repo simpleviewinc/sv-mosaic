@@ -29,6 +29,7 @@ export interface LeftNavItemDef {
 	showLabel?: boolean
 	mIcon?: MosaicMIcon
 	items?: LeftNavItemDef[]
+	pinned?: string
 }
 
 export interface LeftNavBlockProps {
