@@ -54,6 +54,8 @@ function LeftNavDesktop(props: LeftNavProps) {
 	}
 
 	const onNav: LeftNavProps["onNav"] = function(args) {
+		if (args.item.noOnNav === true) { return; }
+
 		// when we nav we want to close any flyouts we have
 		setState({
 			...state,

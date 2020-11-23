@@ -96,6 +96,7 @@ function LeftNavItem(props: Props, ref) {
 
 	return (
 		<StyledA
+			{...item.attrs}
 			{...attrs}
 			ref={ref}
 			className={`
