@@ -29,6 +29,8 @@ export interface LeftNavItemDef {
 	showLabel?: boolean
 	mIcon?: MosaicMIcon
 	items?: LeftNavItemDef[]
+	attrs?: MosaicObject
+	noOnNav?: boolean
 }
 
 export interface LeftNavItemRootDef extends LeftNavItemDef {
