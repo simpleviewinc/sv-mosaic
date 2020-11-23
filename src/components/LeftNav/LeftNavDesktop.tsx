@@ -72,10 +72,14 @@ function LeftNavDesktop(props: LeftNavProps) {
 
 	const showLabel = props.variant === "icons_only" ? false : true;
 
-	const items = props.variant === "icons_only" ? props.items.map(val => ({
+	const allItems = props.variant === "icons_only" ? props.items.map(val => ({
 		...val,
 		type : "item" as LeftNavItemDef["type"]
 	})) : props.items;
+
+	const items = allItems.filter(({ pinned }) => pinned === undefined || pinned === "");
+
+	const bottomItems = allItems.filter(({ pinned }) => pinned === "bottom");
 
 	const activeLabel = function(name) {
 		if (name === props.variant) {
@@ -105,8 +109,6 @@ function LeftNavDesktop(props: LeftNavProps) {
 			}
 		]
 	}
-
-	const bottomItems = props.items.filter(({ pinned }) => pinned === "bottom");
 
 	bottomItems.push(settingsItem);
 
@@ -171,12 +173,6 @@ function LeftNavDesktop(props: LeftNavProps) {
 						onOpen={onOpen}
 						openName={state.openName}
 					/>
-					{/* <LeftNavItemDesktop
-						item={settingsItem}
-						showLabel={showLabel}
-						openName={state.openName}
-						onOpen={onOpen}
-					/> */}
 				</div>
 			</LeftNavContext.Provider>
 		</RootDiv>
