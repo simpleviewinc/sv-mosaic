@@ -77,7 +77,7 @@ function LeftNavDesktop(props: LeftNavProps) {
 		type : "item" as LeftNavItemDef["type"]
 	})) : props.items;
 
-	const items = allItems.filter(({ pinned }) => pinned === undefined || pinned === "");
+	const items = allItems.filter(({ pinned }) => pinned === undefined);
 
 	const bottomItems = allItems.filter(({ pinned }) => pinned === "bottom");
 

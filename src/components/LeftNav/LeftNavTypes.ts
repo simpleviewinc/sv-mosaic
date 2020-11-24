@@ -32,7 +32,7 @@ export interface LeftNavItemDef {
 }
 
 export interface LeftNavItemRootDef extends LeftNavItemDef {
-	pinned?: string
+	pinned?: "bottom"
 }
 
 export interface LeftNavBlockProps {
