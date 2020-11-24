@@ -12,10 +12,12 @@ import ImageIcon from '@material-ui/icons/Image';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import BuildIcon from '@material-ui/icons/Build';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import HelpIcon from '@material-ui/icons/Help';
 
 import {
 	LeftNav,
 	LeftNavItemDef,
+	LeftNavItemRootDef,
 	LeftNavProps,
 	MosaicContext,
 	useMosaicSettings,
@@ -547,7 +549,7 @@ const navSections = {
 	}
 }
 
-const dataSets: { [key: string]: LeftNavItemDef[] } = {
+const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 	qa : [
 		{
 			name : "short_icon",
@@ -844,6 +846,34 @@ const dataSets: { [key: string]: LeftNavItemDef[] } = {
 					name : "group_long_icon.item",
 					label : "Item"
 				}
+			]
+		},
+		{
+			name : "pinned_bottom",
+			label : "Pinned Bottom",
+			pinned : "bottom",
+			mIcon : HelpIcon,
+			items : [
+				{
+					name : "pinned_bottom.short",
+					label : "Short"
+				},
+				{
+					name : "pinned_bottom.short_icon",
+					label : "Short Icon",
+					mIcon : HomeIcon
+				},
+				{
+					name : "pinned_bottom.short_icon_children",
+					label : "Short Icon Children",
+					mIcon : HomeIcon,
+					items : [
+						{
+							name : "pinned_bottom.short_icon_children.item",
+							label : "Item"
+						}
+					]
+				},
 			]
 		}
 	],

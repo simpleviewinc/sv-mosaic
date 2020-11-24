@@ -72,10 +72,14 @@ function LeftNavDesktop(props: LeftNavProps) {
 
 	const showLabel = props.variant === "icons_only" ? false : true;
 
-	const items = props.variant === "icons_only" ? props.items.map(val => ({
+	const allItems = props.variant === "icons_only" ? props.items.map(val => ({
 		...val,
 		type : "item" as LeftNavItemDef["type"]
 	})) : props.items;
+
+	const items = allItems.filter(({ pinned }) => pinned === undefined);
+
+	const bottomItems = allItems.filter(({ pinned }) => pinned === "bottom");
 
 	const activeLabel = function(name) {
 		if (name === props.variant) {
@@ -105,6 +109,8 @@ function LeftNavDesktop(props: LeftNavProps) {
 			}
 		]
 	}
+
+	bottomItems.push(settingsItem);
 
 	// if the mouse leaves the component and it's children entirely, wait a duration to close
 	const onMouseLeave = debounce(function() {
@@ -161,11 +167,11 @@ function LeftNavDesktop(props: LeftNavProps) {
 					/>
 				</LeftNavScroller>
 				<div className="bottom">
-					<LeftNavItemDesktop
-						item={settingsItem}
+					<LeftNavItems
+						items={bottomItems}
 						showLabel={showLabel}
-						openName={state.openName}
 						onOpen={onOpen}
+						openName={state.openName}
 					/>
 				</div>
 			</LeftNavContext.Provider>
