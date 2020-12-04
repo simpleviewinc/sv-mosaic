@@ -30,7 +30,7 @@ export interface LeftNavItemDef {
 	mIcon?: MosaicMIcon
 	items?: LeftNavItemDef[]
 	attrs?: MosaicObject
-	noOnNav?: boolean
+	onNav?: boolean
 }
 
 export interface LeftNavItemRootDef extends LeftNavItemDef {
