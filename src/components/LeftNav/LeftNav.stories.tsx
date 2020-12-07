@@ -849,6 +849,25 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			]
 		},
 		{
+			name : "item_with_attrs",
+			label : "Items With Attrs",
+			mIcon : HomeIcon,
+			attrs : {
+				href : "http://www.google.com",
+				target : "_blank"
+			},
+		},
+		{
+			name : "item_with_attrs_and_onnav_false",
+			label : "Items With Attrs And onNaf false",
+			mIcon : HomeIcon,
+			onNav : false,
+			attrs : {
+				href : "http://www.google.com",
+				target : "_blank"
+			},
+		},
+		{
 			name : "pinned_bottom",
 			label : "Pinned Bottom",
 			pinned : "bottom",
