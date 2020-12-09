@@ -26,6 +26,8 @@
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
 		"date-fns": "2.10.0",
+		"enzyme": "3.11.0",
+		"enzyme-adapter-react-16": "1.15.5",
 		"i18next": "19.5.0",
 		"lodash": "4.17.19",
 		"jest": "25.1.0",
@@ -80,7 +82,10 @@
 		"package-lock": "cp package-lock.json package-lock-mounted.json"
 	},
 	"jest": {
-		"preset": "ts-jest"
+		"preset": "ts-jest/presets/js-with-babel",
+		"moduleNameMapper": {
+			"^@root(.*)$": "<rootDir>/src/$1"
+		}
 	},
 	"repository": {
 		"type": "git",
