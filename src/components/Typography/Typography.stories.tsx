@@ -4,7 +4,8 @@ import {
 	H1 as H1Elm,
 	H3 as H3Elm,
 	BodyText as BodyTextElm,
-	P as PElm
+	P as PElm,
+	A as AElm
 } from "./";
 
 export default {
@@ -42,5 +43,11 @@ export function BodyText() {
 export function P() {
 	return (
 		<PElm>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</PElm>
+	)
+}
+
+export function A() {
+	return (
+		<AElm attrs={{ href : "http://www.google.com" }}>A - Lorem ipsum dolor</AElm>
 	)
 }
