@@ -13,6 +13,7 @@ import ExtensionIcon from '@material-ui/icons/Extension';
 import BuildIcon from '@material-ui/icons/Build';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HelpIcon from '@material-ui/icons/Help';
+import LinkIcon from '@material-ui/icons/Link';
 
 import {
 	LeftNav,
@@ -853,19 +854,50 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			label : "Items With Attrs",
 			mIcon : HomeIcon,
 			attrs : {
-				href : "http://www.google.com",
-				target : "_blank"
-			},
+				"data-attr" : "foo"
+			}
 		},
 		{
-			name : "item_with_attrs_and_onnav_false",
-			label : "Items With Attrs And onNaf false",
-			mIcon : HomeIcon,
-			onNav : false,
-			attrs : {
-				href : "http://www.google.com",
-				target : "_blank"
-			},
+			name : "click_variations",
+			label : "Click Variations",
+			mIcon : LinkIcon,
+			items : [
+				{
+					name : "click_variations.default",
+					label : "Default"
+				},
+				{
+					name : "click_variations.default_with_href",
+					label : "Default with href",
+					attrs : {
+						href : "https://www.google.com/"
+					}
+				},
+				{
+					name : "click_variations.href_only",
+					label : "Href Only",
+					onNav : false,
+					attrs : {
+						href : "https://www.google.com/"
+					}
+				},
+				{
+					name : "click_variations.href_new_window",
+					label : "Href, new window",
+					onNav : false,
+					attrs : {
+						href : "https://www.google.com/",
+						target : "_blank"
+					}
+				},
+				{
+					name : "click_variations.custom_handler",
+					label : "Custom Handler",
+					onNav : function() {
+						alert("Custom handler!");
+					}
+				}
+			]
 		},
 		{
 			name : "pinned_bottom",

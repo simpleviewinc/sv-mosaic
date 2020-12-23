@@ -54,8 +54,6 @@ function LeftNavDesktop(props: LeftNavProps) {
 	}
 
 	const onNav: LeftNavProps["onNav"] = function(args) {
-		if (args.item.onNav === false) { return; }
-
 		// when we nav we want to close any flyouts we have
 		setState({
 			...state,
@@ -67,8 +65,7 @@ function LeftNavDesktop(props: LeftNavProps) {
 			const variant = args.item.name.match(/_internal.(.*)/)[1] as LeftNavProps["variant"];
 			props.onVariantChange(variant);
 		} else {
-			// else we all onNav for the main app to navigate
-			props.onNav(args);
+			leftNavContext.onNav(args);
 		}
 	}
 

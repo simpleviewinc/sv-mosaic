@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 
-import { LeftNavProps, LeftNavContext, LeftNavContextProps } from "./LeftNavTypes";
+import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavOnNav } from "./LeftNavTypes";
 import LeftNavMobile from "./LeftNavMobile";
 import LeftNavDesktop from "./LeftNavDesktop";
 
@@ -23,13 +23,40 @@ function LeftNav(props: LeftNavProps) {
 
 	const Component = props.variant === "mobile" ? LeftNavMobile : LeftNavDesktop;
 
+	const onNav = useCallback<LeftNavOnNav>((args) => {
+		// if the handler doesn't have onNav false, don't do anything
+		if (args.item.onNav === false) {
+			return false;
+		}
+
+		// if we have an href and it was a ctrl click (win) or command + click (mac) then let the browser handle it
+		if (args.item?.attrs?.href !== undefined && (args.event.ctrlKey || args.event.metaKey)) {
+			// let the default browser handler take care of it
+			return;
+		}
+
+		// we have determined we will handle it, so preventDefault to prevent the browser from taking over
+		args.event.preventDefault();
+
+		if (typeof args.item.onNav === "function") {
+			// if the nav item has it's own onNav function
+			args.item.onNav(args);
+
+			props.onClose();
+		} else {
+			// else we all onNav for the main app to navigate
+			props.onNav(args);
+		}
+	}, [props.onNav]);
+
 	const contextValue = useMemo(() => {
 		const context: LeftNavContextProps = {
 			active : props.active,
 			variant : props.variant,
 			zIndex,
 			leaveTimeout,
-			enterTimeout
+			enterTimeout,
+			onNav
 		}
 
 		return context;

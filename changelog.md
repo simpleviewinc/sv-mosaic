@@ -1,5 +1,12 @@
 # sv-mosaic changelog
 
+## 12/23/2020
+* `LeftNavItemDef` now supports custom `attrs` which add arbitrary keys to the primary `a` tag for each link, this can be used to apply `href` and `target` and tracking.
+* `LeftNavItemDef` now support their own `onNav` function in case of odd edge cases.
+
+## 11/24/2020
+* `LeftNavItemRootDef` now supports `pinned : "bottom"` to anchor a nav item to the bottom of the screen.
+
 ## 7/20/2020
 * `Button` now supports `href`.
 * `Button` now takes a `muiAttrs` that can be used to pass any attributes on to the MUI component beneath for cases that Mosaic does not yet support.
