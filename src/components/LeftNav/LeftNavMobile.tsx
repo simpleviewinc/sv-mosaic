@@ -11,7 +11,7 @@ import LeftNavItems from "./LeftNavItems";
 import LeftNavItemMobile from "./LeftNavItemMobile";
 import LeftNavScroller from "./LeftNavScroller";
 import LeftNavTitle from "./LeftNavTitle";
-import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavItemDef } from "./LeftNavTypes";
+import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavItemDef, LeftNavOnNav } from "./LeftNavTypes";
 import { BodyText } from "../Typography";
 import theme from "../../theme";
 import TridentIcon from "../../theme/TridentIcon";
@@ -73,10 +73,10 @@ function LeftNavMobile(props: LeftNavProps) {
 		props.onClose();
 	}
 
-	const onNav = function({ item }) {
+	const onNav: LeftNavOnNav = function(args) {
 		setState(defaultState);
 
-		props.onNav({ item });
+		leftNavContext.onNav(args);
 	}
 
 	const onOpen = function(name) {

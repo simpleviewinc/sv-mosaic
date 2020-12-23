@@ -14,7 +14,14 @@ The `LeftNav` has 4 variants for it's display.
 * `hidden` - Navigation will display via a hamburger menu trigger from the top bar.
 * `mobile` - Hamburger triggered, but will utilize a sequential navigation style instead of hover/flyout optimized for smaller screen sizes.
 
-## Important things to do
+## Types of Links
+
+* The default link, when clicked, will execute the primary `onNav` function passed to `LeftNav`. This is useful in most cases where you want standard single-page-app style navigation.
+* If your app allows incoming links via URL, in example if I can visit https://your.app/nav_item/ and that will load /nav_item/ then it is recommended you add `attrs.href : "/nav_item/"` to that `LeftNavItemDef`. This provides a better UX because it allows users to open `LeftNav` links in a new window or copy that link without visiting it.
+* If you have links that are simply out-going links, you can pass `attrs.href` and `onNav : false` to disable the normal onNav processing. It will now just be a normal HTML anchor tag. If you want it to open in a new window pass `attrs.target : "_blank"`.
+* There are rare cases where you may a specific nav item to have it's own `onNav` handler to reduce complexity in your main `onNav` handler. In this situation you can pass your own `onNav` on the `LeftNavItemDef`. When clicked, the system will automatically call the `item.onNav` and then `LeftNavProps.onClose`, this way you don't have to handle closing the navigation in your custom handler.
+
+## Important Things to Do
 
 * Regardless of `variant` active the `LeftNav` should be placed in the DOM tree in a position that fixes it to the left side of the screen. When in `full` or `icons_only` it will fill it's container. You do not need to move it to a different location for `hidden` or `mobile`, the material-ui drawer system will handle this for you.
 * The user has the capability to choose between `full`, `icons_only` and `hidden` via a toggle in the navigation itself. Your application should determine when to use the user's chosen setting vs `mobile` based on your own criteria. In the test application we use the criteria that the width is smaller than `1024`. When your application utilizes the mobile variant should depend on when the main area of your product becomes too cramped to have a permanent navigation. This might be a different breakpoint for different projects.

@@ -17,6 +17,7 @@ const StyledA = styled.a`
 	color: ${theme.colors.gray400};
 	line-height: 24px;
 	cursor: pointer;
+	text-decoration: none;
 
 	&.hasItems > .right > .arrow {
 		visibility: visible;
@@ -96,6 +97,7 @@ function LeftNavItem(props: Props, ref) {
 
 	return (
 		<StyledA
+			{...item.attrs}
 			{...attrs}
 			ref={ref}
 			className={`
