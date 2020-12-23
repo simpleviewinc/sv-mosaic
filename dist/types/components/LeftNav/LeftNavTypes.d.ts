@@ -1,7 +1,12 @@
-/// <reference types="react" />
-/// <reference types="styled-jsx" />
+import * as React from "react";
 import { MosaicMIcon, MosaicObject } from "../../types";
 declare type Variant = "full" | "icons_only" | "hidden" | "mobile";
+export interface LeftNavOnNav {
+    (args: {
+        item: LeftNavItemDef;
+        event: React.MouseEvent;
+    }): void;
+}
 export interface LeftNavProps {
     /** Whether the LeftNav hidden drawer is open. */
     open: boolean;
@@ -16,9 +21,7 @@ export interface LeftNavProps {
     /** Called when the drawer is closed. */
     onClose(): void;
     /** Handler for when the user chooses a nav item */
-    onNav({ item }: {
-        item: LeftNavItemDef;
-    }): void;
+    onNav: LeftNavOnNav;
     /** Handler for when the user changes the display format for the nav */
     onVariantChange(variant: Variant): void;
 }
@@ -29,6 +32,8 @@ export interface LeftNavItemDef {
     showLabel?: boolean;
     mIcon?: MosaicMIcon;
     items?: LeftNavItemDef[];
+    attrs?: MosaicObject;
+    onNav?: false | LeftNavOnNav;
 }
 export interface LeftNavItemRootDef extends LeftNavItemDef {
     pinned?: "bottom";
@@ -51,5 +56,5 @@ export interface LeftNavContextProps {
     onNav?: LeftNavProps["onNav"];
     ItemComponent?: (props: LeftNavBlockProps) => JSX.Element;
 }
-export declare const LeftNavContext: import("react").Context<LeftNavContextProps>;
+export declare const LeftNavContext: React.Context<LeftNavContextProps>;
 export {};
