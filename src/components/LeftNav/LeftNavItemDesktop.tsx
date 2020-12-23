@@ -18,8 +18,8 @@ function LeftNavItemDesktop(props: LeftNavBlockProps) {
 	const open = item.name === openName;
 	const hasItems = item.items !== undefined && item.items.length > 0;
 
-	const onNavClick: React.MouseEventHandler = useCallback(() => {
-		leftNavContext.onNav({ item });
+	const onNavClick: React.MouseEventHandler = useCallback((event) => {
+		leftNavContext.onNav({ item, event });
 	}, [leftNavContext.onNav]);
 
 	const onPointerMove = throttle(function() {

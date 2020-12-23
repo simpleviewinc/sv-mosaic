@@ -1,7 +1,12 @@
+import * as React from "react";
 import { createContext } from "react";
 import { MosaicMIcon, MosaicObject } from "../../types";
 
 type Variant = "full" | "icons_only" | "hidden" | "mobile";
+
+export interface LeftNavOnNav {
+	(args: { item : LeftNavItemDef, event : React.MouseEvent }): void
+}
 
 export interface LeftNavProps {
 	/** Whether the LeftNav hidden drawer is open. */
@@ -17,7 +22,7 @@ export interface LeftNavProps {
 	/** Called when the drawer is closed. */
 	onClose(): void
 	/** Handler for when the user chooses a nav item */
-	onNav({ item }: { item : LeftNavItemDef }): void
+	onNav: LeftNavOnNav
 	/** Handler for when the user changes the display format for the nav */
 	onVariantChange(variant: Variant): void 
 }
@@ -30,7 +35,7 @@ export interface LeftNavItemDef {
 	mIcon?: MosaicMIcon
 	items?: LeftNavItemDef[]
 	attrs?: MosaicObject
-	onNav?: boolean
+	onNav?: false | LeftNavOnNav
 }
 
 export interface LeftNavItemRootDef extends LeftNavItemDef {
