@@ -24,9 +24,9 @@ function LeftNav(props: LeftNavProps) {
 	const Component = props.variant === "mobile" ? LeftNavMobile : LeftNavDesktop;
 
 	const onNav = useCallback<LeftNavOnNav>((args) => {
-		// if the handler doesn't have onNav false, don't do anything
+		// if the handler has onNav false, let the browser handle
 		if (args.item.onNav === false) {
-			return false;
+			return;
 		}
 
 		// if we have an href and it was a ctrl click (win) or command + click (mac) then let the browser handle it
