@@ -12,9 +12,9 @@ function LeftNavItemMobile(props: LeftNavBlockProps) {
 
 	const leftNavContext = useContext(LeftNavContext);
 
-	const onClick: React.MouseEventHandler = useCallback(() => {
+	const onClick: React.MouseEventHandler = useCallback((event) => {
 		if (!item.items) {
-			leftNavContext.onNav({ item });
+			leftNavContext.onNav({ item, event });
 		} else {
 			onOpen(item.name);
 		}

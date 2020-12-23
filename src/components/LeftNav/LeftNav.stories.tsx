@@ -13,6 +13,7 @@ import ExtensionIcon from '@material-ui/icons/Extension';
 import BuildIcon from '@material-ui/icons/Build';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HelpIcon from '@material-ui/icons/Help';
+import LinkIcon from '@material-ui/icons/Link';
 
 import {
 	LeftNav,
@@ -845,6 +846,56 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 				{
 					name : "group_long_icon.item",
 					label : "Item"
+				}
+			]
+		},
+		{
+			name : "item_with_attrs",
+			label : "Items With Attrs",
+			mIcon : HomeIcon,
+			attrs : {
+				"data-attr" : "foo"
+			}
+		},
+		{
+			name : "click_variations",
+			label : "Click Variations",
+			mIcon : LinkIcon,
+			items : [
+				{
+					name : "click_variations.default",
+					label : "Default"
+				},
+				{
+					name : "click_variations.default_with_href",
+					label : "Default with href",
+					attrs : {
+						href : "https://www.google.com/"
+					}
+				},
+				{
+					name : "click_variations.href_only",
+					label : "Href Only",
+					onNav : false,
+					attrs : {
+						href : "https://www.google.com/"
+					}
+				},
+				{
+					name : "click_variations.href_new_window",
+					label : "Href, new window",
+					onNav : false,
+					attrs : {
+						href : "https://www.google.com/",
+						target : "_blank"
+					}
+				},
+				{
+					name : "click_variations.custom_handler",
+					label : "Custom Handler",
+					onNav : function() {
+						alert("Custom handler!");
+					}
 				}
 			]
 		},
