@@ -1,5 +1,8 @@
 # sv-mosaic changelog
 
+## 1/6/2021
+* Fixes an issue with LeftNav flyouts closing when they shouldn't. Thanks @TreavorPhilyaw
+
 ## 12/23/2020
 * `LeftNavItemDef` now supports custom `attrs` which add arbitrary keys to the primary `a` tag for each link, this can be used to apply `href` and `target` and tracking.
 * `LeftNavItemDef` now support their own `onNav` function in case of odd edge cases.
