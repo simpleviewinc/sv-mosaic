@@ -61,8 +61,7 @@ function LeftNavFlyout(props: Props) {
 		if (state.openName === undefined) { return; }
 
 		setState({
-			...state,
-			openName : undefined
+			...state
 		});
 	}, 100, { leading : true, trailing : false });
 
