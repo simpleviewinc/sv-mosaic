@@ -58,7 +58,7 @@ function LeftNavFlyout(props: Props) {
 	}
 
 	const onScroll = throttle(function(e) {
-		// this scroll listener is being triggered when a parent flyout scrolls as well, which we don't want
+		// this scroll listener is being triggered when a scroll occurs within a child, which we don't want
 		// so we only trigger if the scroll event happened on this specific flyout
 		if (e.target !== e.currentTarget) { return; }
 
@@ -66,7 +66,7 @@ function LeftNavFlyout(props: Props) {
 
 		setState({
 			...state,
-			openName: props.parent.name
+			openName: undefined
 		});
 	}, 100, { leading : true, trailing : false });
 
