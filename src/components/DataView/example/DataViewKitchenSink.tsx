@@ -20,6 +20,7 @@ import {
 	transform_thumbnail,
 	transform_mapGet,
 	transform_join,
+	transform_url,
 	FilterDate,
 	FilterSingleSelect,
 	DataView,
@@ -254,6 +255,13 @@ const listColumns = [
 	{
 		name : "content_owner",
 		label : "Content Owner"
+	},
+	{
+		name : "url",
+		label : "Url",
+		transforms : [
+			transform_url()
+		]
 	},
 	{
 		name : "categories",

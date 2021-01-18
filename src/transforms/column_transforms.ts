@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { createElement } from "react";
 
 import Image from "../components/internal/Image";
+import A from "../components/Typography/A";
 
 export function transform_boolean() {
 	return function({ data }: { data: boolean }): string {
@@ -56,6 +57,21 @@ export function transform_thumbnail({ width, height }: TransformThumbnailProps) 
 			src : newUrl,
 			className : "transform_thumbnail"
 		}, null);
+
+		return element;
+	}
+}
+
+export function transform_url() {
+	return function({ data }: { data: { url: string, title: string } }) {
+		const { title, url } = data;
+
+		const element = createElement(A, {
+			attrs : {
+				href : url,
+				...data
+			}
+		}, title);
 
 		return element;
 	}
