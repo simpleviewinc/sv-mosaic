@@ -12,3 +12,6 @@ export interface MosaicObject {
 export interface MosaicMIcon {
     (props: SvgIconProps): JSX.Element;
 }
+export interface MosaicCallback {
+    (): void;
+}

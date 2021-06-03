@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { MosaicObject, MosaicMIcon } from "../../types";
+import { MosaicObject, MosaicMIcon, MosaicCallback } from "../../types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 export interface DataViewColumnTransformArgs {
@@ -97,14 +97,16 @@ interface ActionAdditional {
 }
 export declare type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAdditional;
 export declare type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs"> & ActionAdditional;
-export interface DataViewBulkAction extends DataViewAction {
+export interface DataViewBulkAction extends Omit<DataViewAction, "onClick"> {
     /** A handler function to be invoked when this action is used. */
-    onClick: DataViewBulkActionOnClick;
+    onClick?: DataViewBulkActionOnClick;
+    onAllClick?: MosaicCallback;
 }
 export interface DataViewBulkActionsButtonsRowProps {
     bulkActions: DataViewBulkAction[];
     data: MosaicObject[];
     checked: boolean[];
+    checkedAllPages: boolean;
 }
 export interface DataViewDisplay {
     name: string;
