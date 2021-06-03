@@ -260,7 +260,8 @@ function DataView(props) {
 
 	// declare the hooks
 	const [state, setState] = useState({
-		checked : []
+		checked : [],
+		checkedAllPages : false
 	});
 	
 	// set defaults
@@ -282,7 +283,8 @@ function DataView(props) {
 		
 		setState({
 			...state,
-			checked : state.checked.map(val => !allChecked)
+			checked : state.checked.map(val => !allChecked),
+			checkedAllPages : false
 		});
 	}
 	
@@ -292,8 +294,20 @@ function DataView(props) {
 		
 		setState({
 			...state,
-			checked : newChecked
+			checked : newChecked,
+			checkedAllPages : false
 		});
+	}
+
+	const onCheckAllPagesClick = function() {
+		// if the checkedAllPages was previously clicked we also uncheck all of the checkboxes
+		const checked = state.checkedAllPages ? state.checked.map(val => false) : state.checked;
+
+		setState({
+			...state,
+			checked,
+			checkedAllPages : !state.checkedAllPages
+		})
 	}
 	
 	useEffect(() => {
@@ -422,6 +436,7 @@ function DataView(props) {
 			>
 				<Display
 					checked={state.checked}
+					checkedAllPages={state.checkedAllPages}
 					columns={props.columns}
 					bulkActions={props.bulkActions}
 					sort={props.sort}
@@ -430,10 +445,13 @@ function DataView(props) {
 					primaryActions={props.primaryActions}
 					activeColumns={props.activeColumns}
 					gridColumnsMap={props.gridColumnsMap}
+					limit={props.limit}
+					count={props.count}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
 					onCheckAllClick={onCheckAllClick}
 					onCheckboxClick={onCheckboxClick}
+					onCheckAllPagesClick={onCheckAllPagesClick}
 				/>
 			</div>
 			{

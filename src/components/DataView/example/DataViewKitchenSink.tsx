@@ -383,6 +383,7 @@ const StyledDiv = styled.div`
 function DataViewKitchenSink() {
 	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
 	const bulkActions = boolean("bulkActions", true);
+	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
 	const additionalActions = boolean("additionalActions", true);
 	const primaryFilters = boolean("primaryFilters", true);
@@ -556,7 +557,10 @@ function DataViewKitchenSink() {
 				mIcon : DeleteIcon,
 				onClick : function({ data }) {
 					alert(`DELETE ${data.map(val => val.id)}`);
-				}
+				},
+				onAllClick : bulkAllActions ? function() {
+					alert(`DELETE ALL`);
+				} : undefined
 			}
 		] : undefined,
 		buttons : [

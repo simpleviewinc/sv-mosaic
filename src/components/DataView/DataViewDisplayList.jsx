@@ -34,13 +34,17 @@ function DataViewDisplayList(props) {
 		<StyledTable>
 			<GridTHead
 				checked={props.checked}
+				checkedAllPages={props.checkedAllPages}
 				columns={activeColumnObjs}
 				allColumns={props.columns}
 				data={transformedData}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
+				limit={props.limit}
+				count={props.count}
 				onSortChange={props.onSortChange}
 				onCheckAllClick={props.onCheckAllClick}
+				onCheckAllPagesClick={props.onCheckAllPagesClick}
 				onColumnsChange={props.onColumnsChange}
 			/>
 			<GridTBody

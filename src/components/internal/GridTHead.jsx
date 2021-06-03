@@ -5,6 +5,7 @@ import jsvalidator from "jsvalidator";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
+import Button from "@root/components/Button";
 import Checkbox from "@root/components/Checkbox";
 import { DataViewColumnControl } from "./DataViewColumnControl";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
@@ -92,6 +93,16 @@ const StyledTh = styled.th`
 	}
 `
 
+const StyledThBulkAll = styled.th`
+	text-align: center;
+	font-weight: normal;
+	border-bottom: ${theme.borders.lightGray};
+`
+
+const StyledThBulkAllSpan = styled.span`
+	color: ${theme.colors.gray600};
+`
+
 function flipDir(sort) {
 	return sort === "asc" ? "desc" : "asc";
 }
@@ -103,6 +114,11 @@ function GridTHead(props) {
 			{
 				name : "checked",
 				type : "array",
+				required : true
+			},
+			{
+				name : "checkedAllPages",
+				type : "boolean",
 				required : true
 			},
 			{
@@ -126,11 +142,23 @@ function GridTHead(props) {
 				type : "object"
 			},
 			{
+				name : "limit",
+				type : "number"
+			},
+			{
+				name : "count",
+				type : "number"
+			},
+			{
 				name : "onSortChange",
 				type : "function"
 			},
 			{
 				name : "onCheckAllClick",
+				type : "function"
+			},
+			{
+				name : "onCheckAllPagesClick",
 				type : "function"
 			},
 			{
@@ -146,7 +174,18 @@ function GridTHead(props) {
 	
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
-	
+
+	const columnCount = (props.bulkActions ? 1 : 0) + 1 + props.columns.length;
+
+	// To show the bulkAll header we need bulkActions/limit/count, at least one registered onAllClick, and all checkboxes selected
+	const showBulkAll =
+		props.bulkActions &&
+		props.limit > 0 &&
+		props.count > 0 &&
+		props.bulkActions.some(action => action.onAllClick !== undefined) &&
+		allChecked
+	;
+
 	return (
 		<StyledWrapper>
 			<tr>
@@ -162,7 +201,12 @@ function GridTHead(props) {
 				{
 					props.bulkActions && anyChecked &&
 					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
-						<DataViewBulkActionsButtonsRow data={props.data} checked={props.checked} bulkActions={props.bulkActions}/>
+						<DataViewBulkActionsButtonsRow
+							data={props.data}
+							checked={props.checked}
+							checkedAllPages={props.checkedAllPages}
+							bulkActions={props.bulkActions}
+						/>
 					</StyledTh>
 				}
 				{
@@ -230,6 +274,22 @@ function GridTHead(props) {
 					})
 				}
 			</tr>
+			{
+				showBulkAll &&
+				<tr>
+					<StyledThBulkAll colSpan={columnCount}>
+						{
+							props.checkedAllPages &&
+							<StyledThBulkAllSpan>All <b>{props.count}</b> records are selected.</StyledThBulkAllSpan>
+						}
+						{
+							!props.checkedAllPages &&
+							<StyledThBulkAllSpan>All <b>{props.limit}</b> records on this page are selected.</StyledThBulkAllSpan>
+						}
+						<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select all ${props.count} records` : "Clear selection"} onClick={props.onCheckAllPagesClick}/>
+					</StyledThBulkAll>
+				</tr>
+			}
 		</StyledWrapper>
 	)
 }
