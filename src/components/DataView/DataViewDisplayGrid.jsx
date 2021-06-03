@@ -139,10 +139,11 @@ function DataViewDisplayGrid(props) {
 	const hasTopRow = props.bulkActions !== undefined || props.onSortChange !== undefined;
 	const hasSortControl = props.onSortChange !== undefined && props.sort !== undefined;
 
+	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
 	const showBulkAll =
 		props.bulkActions &&
-		props.limit > 0 &&
-		props.count > 0 &&
+		props.rowCount > 0 &&
+		props.count > props.rowCount &&
 		props.bulkActions.some(action => action.onAllClick !== undefined) &&
 		allChecked
 	;
@@ -186,7 +187,7 @@ function DataViewDisplayGrid(props) {
 				showBulkAll &&
 				<div className="topRowBulkAll">
 					<DataViewBulkAllBar
-						limit={props.limit}
+						rowCount={props.rowCount}
 						count={props.count}
 						checkedAllPages={props.checkedAllPages}
 						onCheckAllPagesClick={props.onCheckAllPagesClick}
