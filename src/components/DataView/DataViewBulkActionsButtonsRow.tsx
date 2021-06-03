@@ -6,9 +6,10 @@ import { DataViewBulkActionsButtonsRowProps } from "./DataViewTypes";
 
 function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps) {
 	const validActions = props.bulkActions.filter(action => {
-		return (props.checkedAllPages === false && action.onClick) ||
+		return (
+			(props.checkedAllPages === false && action.onClick) ||
 			(props.checkedAllPages === true && action.onAllClick)
-		;
+		);
 	});
 
 	const buttons = validActions.map(action => {

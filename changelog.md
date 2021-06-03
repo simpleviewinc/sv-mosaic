@@ -1,5 +1,8 @@
 # sv-mosaic changelog
 
+## 6/3/2021
+* Adds `onAllClick` as an option on `bulkActions`. If specified it will allow a user to select content across all pages.
+
 ## 1/6/2021
 * Fixes an issue with LeftNav flyouts closing when they shouldn't. Thanks @TreavorPhilyaw
 

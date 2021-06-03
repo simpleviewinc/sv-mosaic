@@ -93,3 +93,5 @@ Actions are the tool for giving your user a way to alter/interact with a specifi
 * **primaryActions** - Buttons that display on each row, which are displayed to all users. You will want to use this for your frequently one or two most used actions. If you have too many primary actions then the UI can get bulky and likely some should be moved into `additionalActions`.
 * **additionalActions** - Menu items which display underneath the "..." on each row in the list view.
 * **bulkActions** - When users utilize the checkboxes on the rows, it will bring up bulkActions so that they can perform them on all actions.
+    * **onClick** - Handler that will be invoked when using a standard multiple row bulkAction. If not specified, this action will not display during a bulkAction state.
+    * **onAllClick** - Handler that will be invoked when doing a bulkAction that goes across the entire recordset. If not specified this action will not display during a bulkAll state.
