@@ -9,6 +9,8 @@ import DataViewBulkActionsButtonsRow from "./DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "./DataViewDisplayGridSortControl";
 import { transformRows } from "../../utils/dataViewTools";
 
+import DataViewBulkAllBar from "./DataViewBulkAllBar";
+
 const StyledDiv = styled.div`
 	& > .topRow {
 		margin-bottom: 4px;
@@ -19,18 +21,11 @@ const StyledDiv = styled.div`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		background: ${theme.colors.gray200};
 	}
-	
-	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
-	& > .topRow:after {
-		content: "";
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		border-bottom: ${theme.borders.gray};
-		pointer-events: none;
+
+	& > .topRowBulkAll {
+		margin-bottom: 5px;
 	}
 
 	& > .grid {
@@ -144,6 +139,14 @@ function DataViewDisplayGrid(props) {
 	const hasTopRow = props.bulkActions !== undefined || props.onSortChange !== undefined;
 	const hasSortControl = props.onSortChange !== undefined && props.sort !== undefined;
 
+	const showBulkAll =
+		props.bulkActions &&
+		props.limit > 0 &&
+		props.count > 0 &&
+		props.bulkActions.some(action => action.onAllClick !== undefined) &&
+		allChecked
+	;
+
 	return (
 		<StyledDiv>
 			{
@@ -159,7 +162,12 @@ function DataViewDisplayGrid(props) {
 						}
 						{
 							props.bulkActions && anyChecked &&
-							<DataViewBulkActionsButtonsRow data={props.data} checked={props.checked} bulkActions={props.bulkActions}/>
+							<DataViewBulkActionsButtonsRow
+								data={props.data}
+								checked={props.checked}
+								bulkActions={props.bulkActions}
+								checkedAllPages={props.checkedAllPages}
+							/>
 						}
 					</div>
 					{
@@ -172,6 +180,17 @@ function DataViewDisplayGrid(props) {
 							/>
 						</div>
 					}
+				</div>
+			}
+			{
+				showBulkAll &&
+				<div className="topRowBulkAll">
+					<DataViewBulkAllBar
+						limit={props.limit}
+						count={props.count}
+						checkedAllPages={props.checkedAllPages}
+						onCheckAllPagesClick={props.onCheckAllPagesClick}
+					/>
 				</div>
 			}
 			<div className="grid">
