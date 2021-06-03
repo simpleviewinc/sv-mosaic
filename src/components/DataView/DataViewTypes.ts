@@ -91,6 +91,10 @@ interface DataViewBulkActionOnClick {
 	({ data }: { data: MosaicObject[] }): void
 }
 
+interface DataViewBulkActionOnAllClick {
+	(): void
+}
+
 interface ActionAdditional {
 	/** A unique name for this action. */
 	name: string
@@ -104,15 +108,17 @@ export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAddi
 
 export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs"> & ActionAdditional;
 
-export interface DataViewBulkAction extends DataViewAction {
+export interface DataViewBulkAction extends Omit<DataViewAction, "onClick"> {
 	/** A handler function to be invoked when this action is used. */
-	onClick: DataViewBulkActionOnClick
+	onClick?: DataViewBulkActionOnClick
+	onAllClick?: DataViewBulkActionOnAllClick
 }
 
 export interface DataViewBulkActionsButtonsRowProps {
 	bulkActions: DataViewBulkAction[]
 	data: MosaicObject[]
 	checked: boolean[]
+	checkedAllPages: boolean
 }
 
 export interface DataViewDisplay {
