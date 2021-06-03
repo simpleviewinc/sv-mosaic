@@ -40,8 +40,8 @@ function DataViewDisplayList(props) {
 				data={transformedData}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
-				limit={props.limit}
 				count={props.count}
+				rowCount={props.rowCount}
 				onSortChange={props.onSortChange}
 				onCheckAllClick={props.onCheckAllClick}
 				onCheckAllPagesClick={props.onCheckAllPagesClick}

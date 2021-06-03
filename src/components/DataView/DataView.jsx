@@ -447,6 +447,7 @@ function DataView(props) {
 					gridColumnsMap={props.gridColumnsMap}
 					limit={props.limit}
 					count={props.count}
+					rowCount={props.data.length}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
 					onCheckAllClick={onCheckAllClick}

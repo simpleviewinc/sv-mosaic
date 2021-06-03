@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
 
 interface Props {
 	count: number
-	limit: number
+	rowCount: number
 	checkedAllPages: boolean
 	onCheckAllPagesClick: DataViewBulkAction["onAllClick"]
 }
@@ -28,7 +28,7 @@ function DataViewBulkAllBar(props: Props) {
 			}
 			{
 				!props.checkedAllPages &&
-				<Fragment>All <b>{props.limit}</b> records on this page are selected.</Fragment>
+				<Fragment>All <b>{props.rowCount}</b> records on this page are selected.</Fragment>
 			}
 			<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select all ${props.count} records` : "Clear selection"} onClick={props.onCheckAllPagesClick}/>
 		</StyledDiv>

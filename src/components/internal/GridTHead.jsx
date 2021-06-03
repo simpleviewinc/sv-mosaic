@@ -132,7 +132,7 @@ function GridTHead(props) {
 				type : "object"
 			},
 			{
-				name : "limit",
+				name : "rowCount",
 				type : "number"
 			},
 			{
@@ -167,11 +167,11 @@ function GridTHead(props) {
 
 	const columnCount = (props.bulkActions ? 1 : 0) + 1 + props.columns.length;
 
-	// To show the bulkAll header we need bulkActions/limit/count, at least one registered onAllClick, and all checkboxes selected
+	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
 	const showBulkAll =
 		props.bulkActions &&
-		props.limit > 0 &&
-		props.count > 0 &&
+		props.rowCount > 0 &&
+		props.count > props.rowCount &&
 		props.bulkActions.some(action => action.onAllClick !== undefined) &&
 		allChecked
 	;
@@ -269,7 +269,7 @@ function GridTHead(props) {
 				<tr>
 					<th colSpan={columnCount}>
 						<DataViewBulkAllBar
-							limit={props.limit}
+							rowCount={props.rowCount}
 							count={props.count}
 							checkedAllPages={props.checkedAllPages}
 							onCheckAllPagesClick={props.onCheckAllPagesClick}
