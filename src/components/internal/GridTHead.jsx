@@ -5,10 +5,10 @@ import jsvalidator from "jsvalidator";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-import Button from "@root/components/Button";
 import Checkbox from "@root/components/Checkbox";
 import { DataViewColumnControl } from "./DataViewColumnControl";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
+import DataViewBulkAllBar from "../DataView/DataViewBulkAllBar";
 
 import theme from "../../utils/theme.js";
 import { useMosaicTranslation } from "@root/i18n";
@@ -91,16 +91,6 @@ const StyledTh = styled.th`
 	&.bulk {
 		width: 52px;
 	}
-`
-
-const StyledThBulkAll = styled.th`
-	text-align: center;
-	font-weight: normal;
-	border-bottom: ${theme.borders.lightGray};
-`
-
-const StyledThBulkAllSpan = styled.span`
-	color: ${theme.colors.gray600};
 `
 
 function flipDir(sort) {
@@ -277,17 +267,14 @@ function GridTHead(props) {
 			{
 				showBulkAll &&
 				<tr>
-					<StyledThBulkAll colSpan={columnCount}>
-						{
-							props.checkedAllPages &&
-							<StyledThBulkAllSpan>All <b>{props.count}</b> records are selected.</StyledThBulkAllSpan>
-						}
-						{
-							!props.checkedAllPages &&
-							<StyledThBulkAllSpan>All <b>{props.limit}</b> records on this page are selected.</StyledThBulkAllSpan>
-						}
-						<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select all ${props.count} records` : "Clear selection"} onClick={props.onCheckAllPagesClick}/>
-					</StyledThBulkAll>
+					<th colSpan={columnCount}>
+						<DataViewBulkAllBar
+							limit={props.limit}
+							count={props.count}
+							checkedAllPages={props.checkedAllPages}
+							onCheckAllPagesClick={props.onCheckAllPagesClick}
+						/>
+					</th>
 				</tr>
 			}
 		</StyledWrapper>

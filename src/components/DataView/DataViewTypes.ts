@@ -1,4 +1,4 @@
-import { MosaicObject, MosaicMIcon } from "../../types";
+import { MosaicObject, MosaicMIcon, MosaicCallback } from "../../types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 
@@ -91,10 +91,6 @@ interface DataViewBulkActionOnClick {
 	({ data }: { data: MosaicObject[] }): void
 }
 
-interface DataViewBulkActionOnAllClick {
-	(): void
-}
-
 interface ActionAdditional {
 	/** A unique name for this action. */
 	name: string
@@ -111,7 +107,7 @@ export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected
 export interface DataViewBulkAction extends Omit<DataViewAction, "onClick"> {
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick
-	onAllClick?: DataViewBulkActionOnAllClick
+	onAllClick?: MosaicCallback
 }
 
 export interface DataViewBulkActionsButtonsRowProps {
