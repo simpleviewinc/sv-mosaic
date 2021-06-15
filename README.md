@@ -62,26 +62,36 @@ The service should now be accessible at http://kube.simpleview.io:10000/
 		npm test
 		```
 
-
-
 # Repo Structure
 
-When external parties consume this project the assumption is that all entities are "top-level" meaning that it you can destructure all necessary imports. This is necessary to ensure optimal and easy tree shaking.
+When external parties consume this project the assumption is that all exported components are "top-level" meaning that you can destructure all necessary imports. This is necessary to ensure optimal and easy tree shaking.
 
 ```js
 import { DataView, FilterDate, transform_get } from "@simpleview/sv-mosaic";
 ```
 
-All TypeScript `type` and `interface` definitions should be unique across the project. So we cannot have an interface called `Props` instead it should be `DataViewProps`.
-
-* components - Each exported component should either be in this folder directly or have it's own folder.
-	* [component] - e.g. DataView, FilterDate
+* /components/ - Each exported component have it's own sub-folder in this folder.
+	* [Component] - e.g. DataView, FilterDate
 		* index.ts
 			* This file File which should re-export the primary component as default. So if in the folder /FilterDate/ then index.ts should re-export /FilterDate/FilterDate.tsx.
 			* This file should also export all entities in the [ComponentTypes].ts file. This makes the type definitions usable throughout the project and by external consumers.
 		* [Component].tsx - The primary component file.
 		* [ComponentTypes].ts - If the component needs to declare it's own typescript Interfaces or Types througout the folder, declare them here.
-		* [Additional].tsx - For private components needed by this component, simply place them in this folder and do not re-export them in the index.ts.
+			* The props for the primary component should always be called `[Component]Props`, e.g. `DataViewProps`.
+			* All TypeScript `type` and `interface` definitions should be unique across the project this way if they are exported, they are guaranteed to be unique. Prefix them with the name of the `Component`, e.g. `DataViewOptions`, `DataViewColumn`.
+		* [Additional].tsx - For private sub-components needed by this component which are not logical to be consumed outside of the project or within the project, simply place them in this folder and do not re-export them in the index.ts.
+		* [Component].stories.tsx - Definition of the component playground used to test and demonstrate this components capabilities.
+		* [Component].stories.mdx - The text documentation that describes this component and how to use it.
 		* [Component].test.js - Jest file for testing this component.
-* utils - Folder for non-react javascript utilities. Some of these are re-exported by the root index.ts, and some are private to the project.
+	* /internal/ - Deprecated. No new content should go here, pending refactors to move it's content into the component folders.
+* /types/index.ts - Used for storing Global mosaic types which are used in multiple locations across the project and aren't specific to a specific component.
+* /theme/ - Definition of shared colors and theming that is used across the project. Exported globally as `theme`.
+* /utils/ - Folder for non-react javascript utilities. Some of these are re-exported by the root index.ts, and some are private to the project.
 * index.ts - The primary entrypoint for the project. It will re-export all entities from all public components.
+
+Good Example Components:
+
+* /components/Button/
+* /components/LeftNav/
+* /components/CheckboxList/
+* /components/Checkbox/
