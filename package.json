@@ -22,10 +22,15 @@
 		"@storybook/addon-docs": "5.3.13",
 		"@storybook/addon-knobs": "5.3.13",
 		"@types/jest": "25.1.2",
+		"@typescript-eslint/parser": "4.27.0",
+		"@typescript-eslint/eslint-plugin": "4.27.0",
 		"babel-plugin-module-resolver": "4.0.0",
 		"babel-loader": "8.0.4",
 		"css-loader": "1.0.0",
 		"date-fns": "2.10.0",
+		"eslint": "7.28.0",
+		"eslint-plugin-react": "7.24.0",
+		"eslint-plugin-react-hooks": "4.2.0",
 		"i18next": "19.5.0",
 		"lodash": "4.17.19",
 		"jest": "25.1.0",
@@ -77,7 +82,8 @@
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000",
-		"package-lock": "cp package-lock.json package-lock-mounted.json"
+		"package-lock": "cp package-lock.json package-lock-mounted.json",
+		"style": "eslint ."
 	},
 	"jest": {
 		"preset": "ts-jest"
