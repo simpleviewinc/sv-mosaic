@@ -1,6 +1,8 @@
+import { MosaicObject } from "../types";
+
 // basic function that returns anything
 interface ArgsFunc {
-	(): any
+	(): MosaicObject
 }
 
 // Returns the type of the Promise return, if it's not a promise return, it just returns the original type
@@ -12,18 +14,18 @@ type TestArgs<T> = T extends ArgsFunc ? Unpacked<ReturnType<T>> : T;
 interface Test {
 	name: string
 	timeout?: number
-	before?: (test: object) => void
-	after?: (test: object) => void
+	before?: (test: MosaicObject) => void
+	after?: (test: MosaicObject) => void
 	only?: boolean
 	skip?: boolean
-	args: any
+	args: MosaicObject | (() => Promise<MosaicObject>)
 }
 
-interface TestRunner<T> {
-	(test: TestArgs<T>): any
+interface TestRunner<T extends Test> {
+	(test: TestArgs<T["args"]>): void
 }
 
-export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T["args"]>) {
+export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T>): void {
 	tests.forEach((val, i) => {
 		const testAction = val.skip ? it.skip : val.only ? it.only : it;
 
@@ -32,7 +34,7 @@ export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T["
 	
 			val.before !== undefined && await val.before(test);
 
-			await fn(test);
+			await fn(test as TestArgs<T["args"]>);
 
 			val.after !== undefined &&  await val.after(test);
 		}, val.timeout);
