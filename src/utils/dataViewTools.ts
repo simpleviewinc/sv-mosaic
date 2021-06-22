@@ -1,9 +1,10 @@
 import { DataViewColumn } from "../components/DataView";
+import { MosaicObject } from "../types";
 
-export function transformColumn(row, column: DataViewColumn) {
+export function transformColumn(row: MosaicObject, column: DataViewColumn): unknown {
 	let data = row[column.column || column.name];
 	if (data !== undefined && column.transforms !== undefined) {
-		for(let [key, transform] of Object.entries(column.transforms)) {
+		for (const [, transform] of Object.entries(column.transforms)) {
 			if (data !== undefined) {
 				data = transform({ data, row });
 			}
@@ -13,7 +14,7 @@ export function transformColumn(row, column: DataViewColumn) {
 	return data;
 }
 
-export function transformRows(rows, columns: DataViewColumn[]) {
+export function transformRows(rows: MosaicObject[], columns: DataViewColumn[]): MosaicObject[] {
 	const newRows = rows.map((row) => {
 		const newRow = {
 			...row
