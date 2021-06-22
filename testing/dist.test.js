@@ -31,7 +31,7 @@ describe(__filename, function() {
 	test("Compiled package should enforce typescript", () => {
 		try {
 			execSync(`npm run tsc -- --project ${__dirname}/typescript_invalid_app/tsconfig.json`, { stdio : "pipe" });
-		} catch(e) {
+		} catch (e) {
 			expect(e.stdout.toString()).toMatch(/Type 'string' is not assignable to type 'number'./)
 			return;
 		}

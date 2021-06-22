@@ -1,16 +1,20 @@
 import { useMemo } from "react";
-import { default as i18next } from "i18next";
 import { defaulti18n } from "../i18n";
+import { i18n } from "i18next";
 
 interface UseMosaicSettingsProps {
 	i18nNamespace?: string
 	i18nInitialLocale?: string
 }
 
+interface MosaicSettings {
+	i18n : i18n
+}
+
 export default function useMosaicSettings({
 	i18nNamespace = "app",
 	i18nInitialLocale = "en",
-}: UseMosaicSettingsProps = {}) {
+}: UseMosaicSettingsProps = {}): MosaicSettings {
 	const ns = useMemo(() => [i18nNamespace, "mosaic"], []);
 
 	// due to glitches in react-i18next we cannot spin a new instance when deps change, it cause all sorts of systems to get out of whack
