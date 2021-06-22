@@ -74,7 +74,7 @@ describe(__filename, function() {
 			}
 		];
 
-		testArray(tests, async function(test) {
+		testArray(tests, function(test) {
 			const result = transformColumn(test.data, test.column);
 			assert.strictEqual(result, test.result);
 		})
