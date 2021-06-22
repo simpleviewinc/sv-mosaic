@@ -6,7 +6,7 @@ export interface DataViewColumnTransformArgs {
 	/** The value of the specific column that is being transformed */
 	data: any
 	/** The whole row as passed to the original DataView */
-	row: MosaicObject[]
+	row: MosaicObject
 }
 
 export interface DataViewColumnTransform {
