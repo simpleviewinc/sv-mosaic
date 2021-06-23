@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 import { MosaicObject } from "../../types";
@@ -29,7 +30,7 @@ interface Props {
 	attrs?: MosaicObject
 }
 
-function LeftNavScroller(props: Props) {
+function LeftNavScroller(props: Props): ReactElement {
 	const {
 		attrs = {}
 	} = props;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext, useMemo } from "react";
+import { useState, useContext, useMemo, ReactElement } from "react";
 import styled from "styled-components";
 import Popper from "@material-ui/core/Popper";
 import { PopperProps } from "@material-ui/core/Popper";
@@ -43,7 +43,7 @@ interface Props {
 	anchorEl: HTMLElement
 }
 
-function LeftNavFlyout(props: Props) {
+function LeftNavFlyout(props: Props): ReactElement {
 	const [state, setState] = useState({
 		openName : undefined
 	});

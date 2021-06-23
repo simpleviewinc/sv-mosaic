@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, ReactElement } from "react";
 
 import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavOnNav } from "./LeftNavTypes";
 import LeftNavMobile from "./LeftNavMobile";
@@ -12,8 +12,8 @@ const enterTimeout = 100;
 // the default z-index to use for the drawer system
 const defaultZIndex = 100;
 
-function LeftNav(props: LeftNavProps) {
-	for(var val of props.items) {
+function LeftNav(props: LeftNavProps): ReactElement {
+	for (const val of props.items) {
 		if (val.mIcon === undefined) {
 			throw new Error(`All top-level navigation items require a mIcon for proper display. '${val.name}' lacks an icon.`);
 		}

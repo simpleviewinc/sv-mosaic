@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, ReactElement } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import { DrawerProps } from "@material-ui/core/Drawer";
 
@@ -20,7 +20,7 @@ interface Props {
 }
 
 /** Renders the drawer used in all variants of the LeftNav. */
-function LeftNavDrawer(props: Props) {
+function LeftNavDrawer(props: Props): ReactElement {
 	const leftNavContext = useContext(LeftNavContext);
 
 	const drawerStyle = useMemo(() => ({

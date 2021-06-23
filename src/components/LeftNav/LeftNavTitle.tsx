@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 import { MosaicMIcon } from "../../types";
@@ -33,7 +34,7 @@ const StyledH3 = styled.h3`
 	}
 `;
 
-function LeftNavTitle(props: Props) {
+function LeftNavTitle(props: Props): ReactElement {
 	return (
 		<StyledH3 title={props.label}>
 			{

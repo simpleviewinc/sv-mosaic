@@ -1,11 +1,11 @@
 import * as React from "react";
-import { useContext, forwardRef } from "react";
+import { useContext, forwardRef, ReactElement } from "react";
 import styled from "styled-components";
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import { MosaicObject } from "../../types";
-import { LeftNavBlockProps, LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
+import { LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
 import { BodyText } from "../Typography";
 import theme from "../../theme";
 
@@ -77,7 +77,7 @@ interface Props {
 	attrs?: MosaicObject
 }
 
-function LeftNavItem(props: Props, ref) {
+function LeftNavItem(props: Props, ref): ReactElement {
 	const {
 		item,
 		showLabel = true,

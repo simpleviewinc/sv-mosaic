@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, ReactElement, MouseEventHandler } from "react";
 import { select, withKnobs } from "@storybook/addon-knobs";
 import styled from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
@@ -17,7 +17,6 @@ import LinkIcon from '@material-ui/icons/Link';
 
 import {
 	LeftNav,
-	LeftNavItemDef,
 	LeftNavItemRootDef,
 	LeftNavProps,
 	MosaicContext,
@@ -53,7 +52,7 @@ const StyledTopBar = styled.div`
 	}
 `;
 
-const FakeTopBar = function(props: any) {
+const FakeTopBar = function(props: { variant: string, openNav : MouseEventHandler }): ReactElement {
 	const isMobile = Math.max(window.innerHeight, window.innerWidth) < 1024;
 	const variant = isMobile ? "mobile" : props.variant;
 
@@ -107,9 +106,9 @@ function isMobile() {
 // iOS11-12 has a bug where events don't bubble up unless there is a listener of that type in the parent chain before the body.
 // This ensures that the outer wrapper has a click listener, allowing the LeftNav to properly close on a click away.
 // https://stackoverflow.com/a/39712411/435223
-const noop = function() {};
+const noop = () => undefined;
 
-const NavWrapper = function(props: any) {
+const NavWrapper = function(props: { items : LeftNavItemRootDef[] }): ReactElement {
 	useStoryBookCssReset();
 
 	const [state, setState] = useState({
@@ -964,7 +963,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 	]
 }
 
-export const Example = () => {
+export const Example = (): ReactElement => {
 	const dataSet = select("Data", ["qa", "cms_flat"], "cms_flat");
 	const locale: string = select("Locale", { en : "en", es : "es", cimode : "cimode", de : "de" }, "en");
 	const items = dataSets[dataSet];
