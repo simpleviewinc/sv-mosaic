@@ -13,8 +13,8 @@ interface AddResourceBundleProps {
 
 type AddCoreResourceBundle = Omit<AddResourceBundleProps, "namespace">;
 
-export function addResourceBundle({ prefix, bundle, namespace }: AddResourceBundleProps) {
-	for(let [lang, data] of Object.entries(bundle)) {
+export function addResourceBundle({ prefix, bundle, namespace }: AddResourceBundleProps): void {
+	for (const [lang, data] of Object.entries(bundle)) {
 		defaulti18n.addResourceBundle(lang, namespace, { [prefix] : data }, true, false);
 	}
 }
@@ -22,7 +22,7 @@ export function addResourceBundle({ prefix, bundle, namespace }: AddResourceBund
 /**
  * Adds a core resource bundle exposed when using the default i18n or when using the useMosaicSettings() context variant.
  */
-export function addCoreResourceBundle({ prefix, bundle }: AddCoreResourceBundle) {
+export function addCoreResourceBundle({ prefix, bundle }: AddCoreResourceBundle): void {
 	addResourceBundle({ prefix, bundle, namespace : "mosaic" });
 }
 
