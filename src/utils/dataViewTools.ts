@@ -4,7 +4,7 @@ import { MosaicObject } from "../types";
 export function transformColumn(row: MosaicObject, column: DataViewColumn): unknown {
 	let data = row[column.column || column.name];
 	if (data !== undefined && column.transforms !== undefined) {
-		for (const [, transform] of Object.entries(column.transforms)) {
+		for (const transform of column.transforms) {
 			if (data !== undefined) {
 				data = transform({ data, row });
 			}
