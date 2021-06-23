@@ -30,7 +30,7 @@ class MultiSelectHelper {
 		this.valueColumn = valueColumn;
 		this.sortColumn = sortColumn;
 	}
-	mapOptions(val): MosaicLabelValue {
+	mapOptions(val: Record<string, string>): MosaicLabelValue {
 		return ({ label : val[this.labelColumn], value : val[this.valueColumn] });
 	}
 	async getOptions(filter: MultiSelectHelperGetOptionsArgs): Promise<MultiSelectHelperGetOptionsReturn> {
