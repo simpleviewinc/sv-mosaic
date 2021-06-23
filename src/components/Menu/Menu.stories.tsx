@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
@@ -30,7 +31,7 @@ const MENU_ITEMS = [
 	}
 ]
 
-export const example = () => {
+export const example = (): ReactElement => {
 	const menuItems: ButtonProps["menuItems"] = MENU_ITEMS.map((val, i) => {
 		return {
 			...val,
@@ -50,7 +51,7 @@ export const example = () => {
 	)
 }
 
-export const withIcons = () => {
+export const withIcons = (): ReactElement => {
 	const menuItems: ButtonProps["menuItems"] = [
 		{
 			label : "Item A",
