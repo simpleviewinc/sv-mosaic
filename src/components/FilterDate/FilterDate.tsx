@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import styled from "styled-components";
 import { format, isSameDay, isSameMonth, isSameYear } from "date-fns";
 
@@ -8,9 +8,7 @@ import FilterDateDropdownContent from "./FilterDateDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import { FilterDateProps } from "./FilterDateTypes";
 
-const StyledWrapper = styled.span`
-	
-`;
+const StyledWrapper = styled.span``;
 
 function isSame(dateLeft, dateRight) {
 	return [isSameDay, isSameMonth, isSameYear].every(fn => {
@@ -20,7 +18,7 @@ function isSame(dateLeft, dateRight) {
 
 const dateFormat = "M/d/yyyy";
 
-export default function FilterDate(props: FilterDateProps) {
+export default function FilterDate(props: FilterDateProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState(null);
 	
 	const onClick = function(evt) {
