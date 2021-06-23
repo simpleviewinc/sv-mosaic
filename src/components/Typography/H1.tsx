@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 import { TypographyGenericProps } from "./TypographyTypes";
@@ -14,7 +15,7 @@ const Styled = styled.h1`
 	margin-bottom: .67em;
 `
 
-export default function H1(props: TypographyGenericProps) {
+export default function H1(props: TypographyGenericProps): ReactElement {
 	const {
 		children,
 		attrs = {},
@@ -25,6 +26,6 @@ export default function H1(props: TypographyGenericProps) {
 		<Styled
 			{...attrs}
 			{...remaining}
-		>{props.children}</Styled>
+		>{children}</Styled>
 	)
 }
