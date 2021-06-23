@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, ReactElement } from "react";
 import styled from "styled-components";
 import { debounce, throttle } from "lodash";
 
@@ -28,7 +28,7 @@ const RootDiv = styled(LeftNavRoot)`
 	}
 `
 
-function LeftNavDesktop(props: LeftNavProps) {
+function LeftNavDesktop(props: LeftNavProps): ReactElement {
 	const { t } = useMosaicTranslation();
 	
 	const [state, setState] = useState({

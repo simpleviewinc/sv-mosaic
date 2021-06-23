@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useMemo, useContext, Fragment } from "react";
+import { useState, useMemo, useContext, Fragment, ReactElement } from "react";
 import styled from "styled-components";
 
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -11,7 +11,7 @@ import LeftNavItems from "./LeftNavItems";
 import LeftNavItemMobile from "./LeftNavItemMobile";
 import LeftNavScroller from "./LeftNavScroller";
 import LeftNavTitle from "./LeftNavTitle";
-import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavItemDef, LeftNavOnNav } from "./LeftNavTypes";
+import { LeftNavProps, LeftNavContext, LeftNavItemDef, LeftNavOnNav } from "./LeftNavTypes";
 import { BodyText } from "../Typography";
 import theme from "../../theme";
 import TridentIcon from "../../theme/TridentIcon";
@@ -49,7 +49,7 @@ const RootDiv = styled(LeftNavRoot)`
 	}
 `;
 
-function LeftNavMobile(props: LeftNavProps) {
+function LeftNavMobile(props: LeftNavProps): ReactElement {
 	const mobileRoot: LeftNavItemDef = useMemo(() => ({
 		name : "root",
 		label : "Main Menu",

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext, Fragment } from "react";
+import { useContext, Fragment, ReactElement } from "react";
 
 import LeftNavGroup from "./LeftNavGroup";
 import { LeftNavItemDef, LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
@@ -12,7 +12,7 @@ interface Props {
 }
 
 /** Renders an array of navigation items. */
-function LeftNavItems(props: Props) {
+function LeftNavItems(props: Props): ReactElement {
 	const leftNavContext = useContext(LeftNavContext);
 
 	return (

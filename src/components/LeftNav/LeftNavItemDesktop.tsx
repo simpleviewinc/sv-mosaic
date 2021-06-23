@@ -1,12 +1,12 @@
 import * as React from "react";
-import { useContext, useEffect, useRef, useMemo, useCallback, Fragment } from "react";
+import { useContext, useEffect, useRef, useCallback, Fragment, ReactElement } from "react";
 import { throttle } from "lodash";
 
 import { LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
 import LeftNavFlyout from "./LeftNavFlyout";
 
-function LeftNavItemDesktop(props: LeftNavBlockProps) {
+function LeftNavItemDesktop(props: LeftNavBlockProps): ReactElement {
 	const {
 		openName,
 		onOpen,

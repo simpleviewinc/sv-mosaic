@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 import LeftNavTitle from "./LeftNavTitle";
@@ -10,7 +11,7 @@ const StyledDiv = styled.div`
 	border-top: 1px solid ${theme.colors.gray700};
 `;
 
-function LeftNavGroup(props: LeftNavBlockProps) {
+function LeftNavGroup(props: LeftNavBlockProps): ReactElement {
 	return (
 		<StyledDiv>
 			<LeftNavTitle label={props.item.label} mIcon={props.item.mIcon}/>
