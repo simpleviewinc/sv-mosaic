@@ -27,8 +27,8 @@ class JSONDB {
 		}
 		
 		if (this.relationships !== undefined) {
-			for(let [key, relationship] of Object.entries(this.relationships)) {
-				for(let [key, row] of Object.entries(data)) {
+			for (const relationship of this.relationships) {
+				for (const row of data) {
 					const ids = row[relationship.left_key];
 					if (ids === undefined) { continue; }
 					
@@ -62,7 +62,7 @@ class JSONDB {
 function filterData(data, filter) {
 	let newData = data;
 
-	for(let [key, val] of Object.entries(filter)) {
+	for (const [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined) {
 			newData = newData.filter(row => {
 				if (row[key] === undefined) { return false; }

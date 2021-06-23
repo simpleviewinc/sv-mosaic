@@ -29,6 +29,7 @@
 		"plugin:react/recommended"
 	],
 	"rules": {
+		"prefer-const": 2,
 		"no-unused-vars": [2, {"vars": "all", "args": "none"}],
 		"no-var": 2,
 		"one-var-declaration-per-line": 2,
