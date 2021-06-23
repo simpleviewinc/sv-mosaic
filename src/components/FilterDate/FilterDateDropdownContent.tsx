@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import styled from "styled-components";
 import { TextFieldProps } from "@material-ui/core/TextField";
 import { PropTypes } from "@material-ui/core";
@@ -8,7 +8,7 @@ import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
-import { FilterDateOnChange, FilterDateDropdownContentProps } from "./FilterDateTypes";
+import { FilterDateDropdownContentProps } from "./FilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledContents = styled.div`
@@ -33,7 +33,7 @@ const StyledContents = styled.div`
 	}
 `;
 
-export default function FilterDateDropdownContent(props: FilterDateDropdownContentProps) {
+export default function FilterDateDropdownContent(props: FilterDateDropdownContentProps): ReactElement {
 	const [state, setState] = useState({
 		rangeStart : props.rangeStart,
 		rangeEnd : props.rangeEnd

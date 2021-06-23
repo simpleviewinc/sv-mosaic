@@ -1,21 +1,19 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import FilterDate from "./FilterDate";
 
 export default {
 	title : "Components|FilterDate"
 }
 
-export const example = () => {
+export const example = (): ReactElement => {
 	const [state, setState] = useState({});
 
 	const onChange = function(data) {
 		setState(data);
 	}
 
-	const onRemove = function() {
-
-	}
+	const onRemove = () => undefined;
 	
 	return (
 		<FilterDate
