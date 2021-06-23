@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, Fragment } from "react";
+import { useState, Fragment, ReactElement } from "react";
 import Button from "../Button";
 
 import MenuSelect from "./";
@@ -31,7 +31,7 @@ const MENU_OPTIONS = [
 	}
 ]
 
-export const example = () => {
+export const example = (): ReactElement => {
 	const [state, setState] = useState({
 		value : ""
 	});
@@ -62,7 +62,7 @@ export const example = () => {
 	)
 }
 
-export const withPlaceholder = () => {
+export const withPlaceholder = (): ReactElement => {
 	const [state, setState] = useState({
 		value : ""
 	});

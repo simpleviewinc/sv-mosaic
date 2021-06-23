@@ -1,13 +1,18 @@
 import * as React from "react";
+import { ReactNode, Component } from "react";
+
+interface Props {
+	children: ReactNode
+}
 
 interface ErrorState {
 	error : Error
 }
 
-export default class StoryBookError extends React.Component<{}, ErrorState> {
+export default class StoryBookError extends Component<Props, ErrorState> {
 	errorRendered: boolean
 
-	constructor(props) {
+	constructor(props: Props) {
 		super(props);
 		this.state = {
 			error : undefined
@@ -17,7 +22,7 @@ export default class StoryBookError extends React.Component<{}, ErrorState> {
 		this.errorRendered = false;
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		if (this.errorRendered === true) {
 			// if we've rendered with the error already, clear the error
 			this.errorRendered = false;
@@ -31,13 +36,13 @@ export default class StoryBookError extends React.Component<{}, ErrorState> {
 		}
 	}
 
-	componentDidCatch(error, info) {
+	componentDidCatch(error: Error): void {
 		this.setState({
 			error
 		});
 	}
 
-	render() {
+	render(): ReactNode {
 		if (this.state.error) {
 			return (
 				<div>
