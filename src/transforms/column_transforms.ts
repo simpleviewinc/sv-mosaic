@@ -1,6 +1,7 @@
 import { get, map } from "lodash";
 import { format } from "date-fns";
-import { createElement } from "react";
+import { createElement, ReactNode } from "react";
+import { MosaicObject } from "../types";
 
 import Image from "../components/internal/Image";
 
@@ -20,14 +21,14 @@ export function transform_dateFormat() {
 	}
 }
 
-export function transform_get(path) {
-	return function({ data }) {
+export function transform_get(path: string | string[]) {
+	return function({ data }: { data : MosaicObject }): ReactNode {
 		return get(data, path);
 	}
 }
 
-export function transform_mapGet(path) {
-	return ({ data }: { data: object[] }) => {
+export function transform_mapGet(path: string | string[]) {
+	return ({ data }: { data: MosaicObject[] }): unknown => {
 		const results = map(data, (obj) => {
 			return get(obj, path);
 		});
@@ -38,7 +39,7 @@ export function transform_mapGet(path) {
 }
 
 export function transform_join() {
-	return ({ data }: { data: string[] }) => {
+	return ({ data }: { data: string[] }): string => {
 		return data.join(", ");
 	}
 }
@@ -49,7 +50,7 @@ interface TransformThumbnailProps {
 }
 
 export function transform_thumbnail({ width, height }: TransformThumbnailProps) {
-	return function({ data }: { data: string }) {
+	return function({ data }: { data: string }): ReactNode {
 		const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_${height},w_${width}/`);
 		
 		const element = createElement(Image, {

@@ -1,9 +1,10 @@
 import * as React from "react";
+import { ReactElement } from "react";
 
 import SvgIcon from "@material-ui/core/SvgIcon";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 
-function TridentIcon(props: SvgIconProps) {
+function TridentIcon(props: SvgIconProps): ReactElement {
 	return (
 		<SvgIcon {...props}>
 			<defs>
