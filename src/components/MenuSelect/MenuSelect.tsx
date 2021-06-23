@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, ReactElement } from "react";
 
 import { MenuBaseContext } from "../MenuBase";
 import MenuItem from "../MenuItem";
 import { MenuSelectProps } from "./MenuSelectTypes";
 
-export default function MenuSelect(props: MenuSelectProps) {
+export default function MenuSelect(props: MenuSelectProps): ReactElement {
 	const menuContext = useContext(MenuBaseContext);
 
 	const options = [

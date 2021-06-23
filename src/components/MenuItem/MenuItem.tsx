@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 import MUIMenuItem from '@material-ui/core/MenuItem';
 
@@ -43,7 +44,7 @@ const iconTypes = {
 	`
 }
 
-export default function MenuItem(props: MenuItemProps) {
+export default function MenuItem(props: MenuItemProps): ReactElement {
 	const Icon = props.mIcon;
 	
 	const MyIcon = props.color !== undefined ? iconTypes[props.color] : StyledIcon;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import MenuItem from "./MenuItem";
@@ -7,9 +8,9 @@ export default {
 	title : "Components|MenuItem"
 }
 
-const onClick = function() {};
+const onClick = () => undefined;
 
-export const text = () => {
+export const text = (): ReactElement => {
 	return (
 		<MenuItem
 			label="Test"
@@ -18,7 +19,7 @@ export const text = () => {
 	)
 }
 
-export const withIcon = () => {
+export const withIcon = (): ReactElement => {
 	return (
 		<MenuItem
 			label="Test"
