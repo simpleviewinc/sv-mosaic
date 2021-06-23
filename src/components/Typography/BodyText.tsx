@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 import { TypographyGenericProps } from "./TypographyTypes";
@@ -10,7 +11,7 @@ const Styled = styled.span`
 	color: ${theme.colors.black};
 `
 
-export default function BodyText(props: TypographyGenericProps) {
+export default function BodyText(props: TypographyGenericProps): ReactElement {
 	const {
 		children,
 		attrs = {},
@@ -21,6 +22,6 @@ export default function BodyText(props: TypographyGenericProps) {
 		<Styled
 			{...attrs}
 			{...remaining}
-		>{props.children}</Styled>
+		>{children}</Styled>
 	)
 }

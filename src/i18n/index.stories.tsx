@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, ReactElement } from "react";
 import { select, withKnobs } from "@storybook/addon-knobs";
 import styled from "styled-components"
 
@@ -84,7 +84,7 @@ const localeData = {
 	}
 }
 
-export function example() {
+export function example(): ReactElement {
 	const locale = select("locale", { en : "en", es : "es", cimode : "cimode" }, "en");
 
 	const mosaicSettings = useMosaicSettings();
