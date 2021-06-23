@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect  } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
@@ -10,7 +10,7 @@ import { FilterSingleSelectProps, FilterSingleSelectState } from "./FilterSingle
 
 const StyledWrapper = styled.span``;
 
-export default function FilterSingleSelect(props: FilterSingleSelectProps) {
+export default function FilterSingleSelect(props: FilterSingleSelectProps): ReactElement {
 	const [state, setState] = useState<FilterSingleSelectState>({
 		anchorEl : null,
 		selected : undefined,

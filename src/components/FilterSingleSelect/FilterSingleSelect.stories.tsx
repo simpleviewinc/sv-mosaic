@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import FilterSingleSelect from "./FilterSingleSelect";
 
 export default {
@@ -13,7 +13,7 @@ const options = [
 	{ label : "Option D", value : "d" }
 ]
 
-export const example = () => {
+export const example = (): ReactElement => {
 	const [state, setState] = useState({
 		value : undefined
 	});
@@ -22,9 +22,7 @@ export const example = () => {
 		setState(data);
 	}
 
-	const onRemove = function() {
-
-	}
+	const onRemove = () => undefined;
 
 	const getOptions = function() {
 		return {
