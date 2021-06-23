@@ -28,7 +28,7 @@ export default [
 	{
 		input : "src/index.ts",
 		external : id => {
-			for(let external of EXTERNALS) {
+			for (let external of EXTERNALS) {
 				if (typeof external === "string" ? id === external : id.match(external)) {
 					return true;
 				}
