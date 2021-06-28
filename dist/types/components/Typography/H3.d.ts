@@ -1,3 +1,3 @@
-/// <reference types="react" />
+import { ReactElement } from "react";
 import { TypographyGenericProps } from "./TypographyTypes";
-export default function H3(props: TypographyGenericProps): JSX.Element;
+export default function H3(props: TypographyGenericProps): ReactElement;

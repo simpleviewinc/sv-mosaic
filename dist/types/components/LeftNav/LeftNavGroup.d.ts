@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { ReactElement } from "react";
 import { LeftNavBlockProps } from "./LeftNavTypes";
-declare function LeftNavGroup(props: LeftNavBlockProps): JSX.Element;
+declare function LeftNavGroup(props: LeftNavBlockProps): ReactElement;
 export default LeftNavGroup;

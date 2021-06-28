@@ -7,7 +7,7 @@ export interface MosaicLabelValue {
 }
 /** Javascript object than can have any keys and any data */
 export interface MosaicObject {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 export interface MosaicMIcon {
     (props: SvgIconProps): JSX.Element;

@@ -1,4 +1,9 @@
 import * as React from "react";
-declare function Image(props: any): JSX.Element;
+import { ReactElement } from "react";
+interface ImageProps {
+    className: string;
+    src: string;
+}
+declare function Image(props: ImageProps): ReactElement;
 declare const _default: React.MemoExoticComponent<typeof Image>;
 export default _default;

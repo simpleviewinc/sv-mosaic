@@ -1,3 +1,3 @@
-/// <reference types="react" />
+import { ReactElement } from "react";
 import { TypographyGenericProps } from "./TypographyTypes";
-export default function BodyText(props: TypographyGenericProps): JSX.Element;
+export default function BodyText(props: TypographyGenericProps): ReactElement;

@@ -1,2 +1,3 @@
-/// <reference types="react" />
-export default function P(props: any): JSX.Element;
+import { ReactElement } from "react";
+import { TypographyGenericProps } from "./TypographyTypes";
+export default function P(props: TypographyGenericProps): ReactElement;

@@ -1,3 +1,3 @@
-/// <reference types="react" />
+import { ReactElement } from "react";
 import { FilterSingleSelectProps } from "./FilterSingleSelectTypes";
-export default function FilterSingleSelect(props: FilterSingleSelectProps): JSX.Element;
+export default function FilterSingleSelect(props: FilterSingleSelectProps): ReactElement;

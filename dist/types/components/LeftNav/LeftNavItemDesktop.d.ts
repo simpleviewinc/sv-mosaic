@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { ReactElement } from "react";
 import { LeftNavBlockProps } from "./LeftNavTypes";
-declare function LeftNavItemDesktop(props: LeftNavBlockProps): JSX.Element;
+declare function LeftNavItemDesktop(props: LeftNavBlockProps): ReactElement;
 export default LeftNavItemDesktop;
