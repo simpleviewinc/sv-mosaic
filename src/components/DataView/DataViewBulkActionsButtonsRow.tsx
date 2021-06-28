@@ -15,7 +15,6 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 	const buttons = validActions.map(action => {
 		const {
 			name,
-			show,
 			onClick,
 			onAllClick,
 			...buttonArgs
@@ -23,13 +22,13 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 		
 		return {
 			...buttonArgs,
-			attrs : { "data-mosaic-id" : `action_bulk_${action.name}` },
+			attrs : { "data-mosaic-id" : `action_bulk_${name}` },
 			onClick : function() {
 				if (props.checkedAllPages === true) {
-					action.onAllClick();
+					onAllClick();
 				} else {
 					const checkedData = props.data.filter((val, i) => props.checked[i] === true);
-					action.onClick({ data : checkedData });
+					onClick({ data : checkedData });
 				}
 			}
 		}
