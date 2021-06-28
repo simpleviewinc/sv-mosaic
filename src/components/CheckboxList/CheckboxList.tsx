@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, ReactElement } from "react";
 import styled from "styled-components";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -36,7 +36,7 @@ export interface CheckboxListProps {
 	onChange(checked: string[]): void
 }
 
-function CheckboxList(props: CheckboxListProps) {
+function CheckboxList(props: CheckboxListProps): ReactElement {
 	const checkedRef = useStateRef(props.checked);
 
 	const handleToggle = useCallback((value: string) => () => {
