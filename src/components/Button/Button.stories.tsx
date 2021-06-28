@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactElement } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 export { default as KitchenSink } from "./ButtonKitchenSink";
@@ -10,7 +11,7 @@ export default {
 	decorators : [withKnobs]
 }
 
-export const ButtonPlayground = (props: any) => {
+export const ButtonPlayground = (): ReactElement => {
 	const buttonVariant = select("Variant", ["text", "outlined", "contained"], "text");
 	const buttonColor = select("Color", ["black", "blue", "lightBlue", "red"], "black");
 	const fullWidth = boolean("Full Width", false);

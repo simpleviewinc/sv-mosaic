@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, ReactElement } from "react";
 
 import {
 	CheckboxList,
@@ -11,7 +11,7 @@ export default {
 	title : "Components|CheckboxList"
 }
 
-export const example = () => {
+export const example = (): ReactElement => {
 	const [checked, setChecked] = useState([]);
 
 	const onChange: CheckboxListProps["onChange"] = useCallback(function(checked) {

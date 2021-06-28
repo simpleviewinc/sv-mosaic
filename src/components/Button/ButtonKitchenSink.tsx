@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -16,8 +16,8 @@ import ButtonRow from "../ButtonRow";
 import Button from "./Button";
 import { ButtonProps } from "./ButtonTypes";
 
-function Buttons() {
-	const [anchorEl, setAnchorEl] = useState(null);
+function Buttons(): ReactElement {
+	const [, setAnchorEl] = useState(null);
 	
 	function clickHandler() {
 		alert("yes");
@@ -26,10 +26,6 @@ function Buttons() {
 	const openDropdown = function(event) {
 		console.log("EVENT", event);
 		setAnchorEl(event.currentTarget);
-	}
-	
-	function closeDropdown() {
-		setAnchorEl(null);
 	}
 	
 	const dropdownWithIcons: ButtonProps["menuItems"] = [
