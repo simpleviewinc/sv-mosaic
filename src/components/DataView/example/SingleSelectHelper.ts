@@ -1,5 +1,5 @@
 import { default as MultiSelectHelper, MultiSelectHelperArgs, MultiSelectHelperGetOptionsReturn } from "./MultiSelectHelper";
-import { MosaicObject, MosaicLabelValue } from "../../../types";
+import { MosaicLabelValue } from "../../../types";
 
 class SingleSelectHelper {
 	multiHelper: MultiSelectHelper;

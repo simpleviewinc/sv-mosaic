@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, ReactElement } from "react";
 import styled from "styled-components";
 import { boolean, select } from "@storybook/addon-knobs";
 
@@ -41,12 +41,15 @@ const ARTIFICIAL_DELAY = 500;
 const categoriesApi = new JSONDB(categories);
 const viewsApi = new LocalStorageDB("views");
 
-rawData.forEach(function(data: any) {
+const mappedData = rawData.map(function(data) {
 	// convert the date columns to dates, since they are ISOStrings in the file
-	data.created = data.created ? new Date(data.created) : undefined;
-	data.updated = data.updated ? new Date(data.updated) : undefined;
+	return {
+		...data,
+		created : data.created ? new Date(data.created) : undefined,
+		updated : data.updated ? new Date(data.updated) : undefined
+	}
 })
-const api =  new JSONDB(rawData, {
+const api =  new JSONDB(mappedData, {
 	relationships : [
 		{
 			api : categoriesApi,
@@ -57,7 +60,7 @@ const api =  new JSONDB(rawData, {
 	]
 });
 
-const processStringFilter = function({ name, data, filter, output }: any) {
+const processStringFilter = function({ name, data, filter, output }) {
 	if (data.value === undefined) { return; }
 	
 	if (data.comparison === "equals") {
@@ -71,13 +74,13 @@ const processStringFilter = function({ name, data, filter, output }: any) {
 	}
 }
 
-const processDateFilter = function({name, data, filter, output}){
+const processDateFilter = function({name, data, filter, output}) {
 	if (data.rangeStart === undefined && data.rangeEnd === undefined) { return; }
 	
 	const outputFilter = {};
 
 	if (data.rangeStart !== undefined) {
-		if (data.rangeStart instanceof Date !== true){ throw new Error('rangeStart is not a Date'); }
+		if (data.rangeStart instanceof Date !== true) { throw new Error('rangeStart is not a Date'); }
 		outputFilter["$gte"] = data.rangeStart;
 	}
 
@@ -380,7 +383,7 @@ const StyledDiv = styled.div`
 	height: 100%;
 `;
 
-function DataViewKitchenSink() {
+function DataViewKitchenSink(): ReactElement {
 	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
 	const bulkActions = boolean("bulkActions", true);
 	const bulkAllActions = boolean("bulkAllActions", true);
@@ -436,7 +439,7 @@ function DataViewKitchenSink() {
 	const convertFilter = function(filter) {
 		const queryFilter = {};
 		
-		for(let [i, filterObj] of Object.entries(filters)) {
+		for (const filterObj of filters) {
 			if (filter[filterObj.name] !== undefined) {
 				filterObj.toFilter({
 					name : filterObj.column || filterObj.name,
@@ -498,7 +501,7 @@ function DataViewKitchenSink() {
 	}, [state.limit, state.sort, state.skip, state.filter]);
 
 	// transpose our display knobs into the displayOptions
-	let knobOptions = [
+	const knobOptions = [
 		displayList ? "list" : undefined,
 		displayGrid ? "grid" : undefined
 	].filter(val => val);
