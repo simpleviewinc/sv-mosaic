@@ -33,7 +33,7 @@
 		"no-unused-vars": [2, {"vars": "all", "args": "none"}],
 		"no-var": 2,
 		"one-var-declaration-per-line": 2,
-		"indent": ["error", "tab"],
+		"indent": ["error", "tab", { "flatTernaryExpressions" : true }],
 		"space-infix-ops": 2,
 		"keyword-spacing": 2,
 		"space-before-blocks": 2
