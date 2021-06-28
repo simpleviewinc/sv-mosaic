@@ -1,14 +1,12 @@
 import * as React from "react";
-import { useCallback, useMemo, memo } from "react";
+import { memo } from "react";
 import styled from "styled-components";
 
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-import GridOnIcon from "@material-ui/icons/GridOn";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { DataViewControlDisplayProps } from "./DataViewTypes";
 import Button from "../Button";
-import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
+import { default as MenuSelect } from "../MenuSelect";
 import theme from "../../utils/theme";
 
 const StyledSpan = styled.span`
