@@ -60,7 +60,7 @@ const api =  new JSONDB(mappedData, {
 	]
 });
 
-const processStringFilter = function({ name, data, filter, output }) {
+const processStringFilter = function({ name, data, output }) {
 	if (data.value === undefined) { return; }
 	
 	if (data.comparison === "equals") {
@@ -74,7 +74,7 @@ const processStringFilter = function({ name, data, filter, output }) {
 	}
 }
 
-const processDateFilter = function({name, data, filter, output}) {
+const processDateFilter = function({name, data, output}) {
 	if (data.rangeStart === undefined && data.rangeEnd === undefined) { return; }
 	
 	const outputFilter = {};
@@ -94,7 +94,7 @@ const processDateFilter = function({name, data, filter, output}) {
 	}
 }
 
-const processArrayFilter = function({ name, data, filter, output }) {
+const processArrayFilter = function({ name, data, output }) {
 	if (data.comparison === "exists") {
 		output[name] = { $exists : true }
 	} else if (data.comparison === "not_exists") {
@@ -444,7 +444,6 @@ function DataViewKitchenSink(): ReactElement {
 				filterObj.toFilter({
 					name : filterObj.column || filterObj.name,
 					data : filter[filterObj.name],
-					filter : filter,
 					output : queryFilter
 				});
 			}

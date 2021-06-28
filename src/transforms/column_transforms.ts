@@ -2,11 +2,12 @@ import { get, map } from "lodash";
 import { format } from "date-fns";
 import { createElement, ReactNode } from "react";
 import { MosaicObject } from "../types";
+import { DataViewColumnTransform } from "../components/DataView";
 
 import Image from "../components/internal/Image";
 
-export function transform_boolean() {
-	return function({ data }: { data: boolean }): string {
+export function transform_boolean(): DataViewColumnTransform<boolean> {
+	return function({ data }): string {
 		if (data === true) {
 			return "Yes";
 		} else {
@@ -15,20 +16,20 @@ export function transform_boolean() {
 	}
 }
 
-export function transform_dateFormat() {
-	return function({ data }: { data: Date }): string {
+export function transform_dateFormat(): DataViewColumnTransform<Date> {
+	return function({ data }): string {
 		return format(data, "M/d/yyyy");
 	}
 }
 
-export function transform_get(path: string | string[]) {
-	return function({ data }: { data : MosaicObject }): ReactNode {
+export function transform_get(path: string | string[]): DataViewColumnTransform<MosaicObject> {
+	return function({ data }): ReactNode {
 		return get(data, path);
 	}
 }
 
-export function transform_mapGet(path: string | string[]) {
-	return ({ data }: { data: MosaicObject[] }): unknown => {
+export function transform_mapGet(path: string | string[]): DataViewColumnTransform<MosaicObject[]> {
+	return ({ data }): unknown => {
 		const results = map(data, (obj) => {
 			return get(obj, path);
 		});
@@ -38,8 +39,8 @@ export function transform_mapGet(path: string | string[]) {
 	}
 }
 
-export function transform_join() {
-	return ({ data }: { data: string[] }): string => {
+export function transform_join(): DataViewColumnTransform<string[]> {
+	return ({ data }): string => {
 		return data.join(", ");
 	}
 }
@@ -49,8 +50,8 @@ interface TransformThumbnailProps {
 	height: number;
 }
 
-export function transform_thumbnail({ width, height }: TransformThumbnailProps) {
-	return function({ data }: { data: string }): ReactNode {
+export function transform_thumbnail({ width, height }: TransformThumbnailProps): DataViewColumnTransform<string> {
+	return function({ data }): ReactNode {
 		const newUrl = data.replace(/\/upload\//, `/upload/c_fill,h_${height},w_${width}/`);
 		
 		const element = createElement(Image, {

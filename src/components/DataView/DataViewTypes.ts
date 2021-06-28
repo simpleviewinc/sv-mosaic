@@ -1,16 +1,17 @@
 import { MosaicObject, MosaicMIcon, MosaicCallback } from "../../types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
+import * as React from "react";
 
-export interface DataViewColumnTransformArgs {
+export interface DataViewColumnTransformArgs<T = unknown> {
 	/** The value of the specific column that is being transformed */
-	data: any
+	data: T
 	/** The whole row as passed to the original DataView */
-	row: MosaicObject
+	row?: MosaicObject
 }
 
-export interface DataViewColumnTransform {
-	(args: DataViewColumnTransformArgs): any
+export interface DataViewColumnTransform<T = unknown> {
+	(args: DataViewColumnTransformArgs<T>): React.ReactNode
 }
 
 export interface DataViewColumn {
@@ -44,15 +45,15 @@ export interface DataViewColumn {
 
 export type DataViewFilterTypes = "optional" | "primary";
 export interface DataViewFilterOnChange {
-	(value: any): void
+	(value: unknown): void
 }
 
 export interface DataViewFilterDef {
 	name: string
 	label: string
 	type: DataViewFilterTypes
-	args: object
-	component: any
+	args: MosaicObject
+	component: React.Component
 	column: string
 	onChange: DataViewFilterOnChange
 }
@@ -60,8 +61,9 @@ export interface DataViewFilterDef {
 export interface DataViewFilterProps {
 	label: string
 	type: DataViewFilterTypes
-	args: object
-	data: object
+	args: MosaicObject
+	data: unknown
+	onChange: unknown
 	onRemove: () => void
 }
 
@@ -137,12 +139,28 @@ export interface DataViewOnSkipChange {
 	({ skip }: { skip : number }): void
 }
 
+export interface DataViewView {
+	id: string
+	label: string
+	type: string
+	state: {
+		limit: number
+		skip: number
+		filter: MosaicObject
+		sort: DataViewSort
+		display: string
+		activeFilters: string[]
+		activeColumns: string[]
+	}
+}
+
 export interface DataViewProps {
 	columns: DataViewColumn[]
 	/** A list of actions which are always visible for each item in the DataView. */
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
 	bulkActions?: DataViewBulkAction[]
+	onSavedViewChange(view: DataViewView): void
 	// temporarily allowing extra properties until we have finished the conversion of DataView to TS
-	[key: string]: any
+	[key: string]: unknown
 }
