@@ -32,22 +32,21 @@ function DataViewActionsButtonRow(props: Props) {
 		return props.primaryActions.filter(action => {
 			return filterAction(action, props.row);
 		}).map((action, i) => {
-			const newOnClick = () => {
-				action.onClick({ data : props.row });
-			}
-			
 			const {
 				name,
-				show,
 				onClick,
 				...buttonArgs
 			} = action;
 			
+			const newOnClick = () => {
+				onClick({ data : props.row });
+			}
+			
 			return (
 				<Button
 					{ ...buttonArgs }
-					key={`primary_${action.name}`}
-					attrs={{ "data-mosaic-id" : `action_primary_${action.name}` }}
+					key={`primary_${name}`}
+					attrs={{ "data-mosaic-id" : `action_primary_${name}` }}
 					onClick={newOnClick}
 				/>
 			)
@@ -76,16 +75,15 @@ function DataViewActionsButtonRow(props: Props) {
 				menuItems={additionalActions.map(action => {
 					const {
 						name,
-						show,
 						onClick,
 						...menuArgs
 					} = action;
 					
 					return {
 						...menuArgs,
-						attrs : { "data-mosaic-id" : `action_additional_${action.name}` },
+						attrs : { "data-mosaic-id" : `action_additional_${name}` },
 						onClick : () => {
-							action.onClick({
+							onClick({
 								data : props.row
 							});
 						}
