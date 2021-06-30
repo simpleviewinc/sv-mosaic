@@ -10,7 +10,7 @@
 			"parser": "@typescript-eslint/parser",
 			"rules": {
 				"no-unused-vars": "off",
-				"@typescript-eslint/no-unused-vars": [2, {"vars": "all", "args": "none"}]
+				"@typescript-eslint/no-unused-vars": [2, {"vars": "all", "args": "none", "ignoreRestSiblings": true}]
 			},
 			"extends": [
 				"eslint:recommended",
@@ -30,7 +30,7 @@
 	],
 	"rules": {
 		"prefer-const": 2,
-		"no-unused-vars": [2, {"vars": "all", "args": "none"}],
+		"no-unused-vars": [2, {"vars": "all", "args": "none", "ignoreRestSiblings": true}],
 		"no-var": 2,
 		"one-var-declaration-per-line": 2,
 		"indent": ["error", "tab", { "flatTernaryExpressions" : true }],

@@ -34,6 +34,7 @@ function DataViewActionsButtonRow(props: Props) {
 		}).map((action, i) => {
 			const {
 				name,
+				show,
 				onClick,
 				...buttonArgs
 			} = action;
@@ -75,6 +76,7 @@ function DataViewActionsButtonRow(props: Props) {
 				menuItems={additionalActions.map(action => {
 					const {
 						name,
+						show,
 						onClick,
 						...menuArgs
 					} = action;
