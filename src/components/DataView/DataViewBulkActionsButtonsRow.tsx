@@ -15,6 +15,7 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 	const buttons = validActions.map(action => {
 		const {
 			name,
+			show,
 			onClick,
 			onAllClick,
 			...buttonArgs
