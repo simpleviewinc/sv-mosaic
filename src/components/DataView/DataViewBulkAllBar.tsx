@@ -10,6 +10,14 @@ const StyledDiv = styled.div`
 	font-weight: normal;
 	color: ${theme.colors.gray600};
 	border-bottom: ${theme.borders.lightGray};
+	line-height: 1.75;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	& > .bulkText {
+		margin-right: 6px;
+	}
 `;
 
 interface Props {
@@ -22,15 +30,17 @@ interface Props {
 function DataViewBulkAllBar(props: Props) {
 	return (
 		<StyledDiv>
-			{
-				props.checkedAllPages &&
-				<Fragment>All <b>{props.count}</b> records are selected.</Fragment>
-			}
-			{
-				!props.checkedAllPages &&
-				<Fragment>All <b>{props.rowCount}</b> records on this page are selected.</Fragment>
-			}
-			<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select all ${props.count} records` : "Clear selection"} onClick={props.onCheckAllPagesClick}/>
+			<span className="bulkText">
+				{
+					props.checkedAllPages &&
+					<Fragment>All <b>{props.count}</b> records are selected.</Fragment>
+				}
+				{
+					!props.checkedAllPages &&
+					<Fragment>All <b>{props.rowCount}</b> records on this page are selected.</Fragment>
+				}
+			</span>
+			<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select All ${props.count} Records` : "Clear Selection"} onClick={props.onCheckAllPagesClick}/>
 		</StyledDiv>
 	)
 }
