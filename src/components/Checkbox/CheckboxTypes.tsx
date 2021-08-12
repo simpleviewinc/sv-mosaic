@@ -7,4 +7,5 @@ export interface CheckboxProps {
 	onClick?: MUICheckboxProps["onClick"];
     label: string;
     disabled?: boolean;
+	helperText?: string;
 }

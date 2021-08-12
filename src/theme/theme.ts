@@ -32,6 +32,7 @@ export default {
 		simplyGold: "#FDB924",
 		assistiveText: "#6B6F7C", //Same as gray600
 		label: "#3B424E", //Same as gray700
+		almostBlack: "1A1A1A",
 	},
 	borders : {
 		lightGray : "1px solid rgba(0, 0, 0, .05)",
