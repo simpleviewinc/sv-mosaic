@@ -1,55 +1,78 @@
 import styled from 'styled-components';
+
+// Material UI
+import TextField from '@material-ui/core/TextField';
+
+//Styles & Types
 import {
-  StyledIconProps,
-  StyledWrapperProps,
-  heights,
-  iconPadding,
-  StyledTextInputProps,
+	StyledWrapperProps,
+	StyledTextInputProps,
 } from './TextFieldTypes';
+import theme from '../../utils/theme.js';
 
 export const StyledWrapper = styled.div<StyledWrapperProps>`
-  position: relative;
   width: ${pr => pr.width};
-  height: ${pr => heights[pr.innerSize]}px;
+  padding: 18px 44px 20px 44px;
+  background: ${pr => pr.error ? '#B100000D' : 'transparent'};
 `;
 
-export const StyledTextField = styled.input<StyledTextInputProps>`
-  box-sizing: border-box;
-  position: relative;
-  background-color: ${(pr) => (pr.error ? '#ffe3e6' : '#FFF')};
-  padding: 0;
-  padding-left: ${(pr) =>
-    iconPadding[pr.innerSize] +
-    (pr.withIcon ? iconPadding[pr.innerSize] + 10 : 0)}px;
-  height: ${(pr) => heights[pr.innerSize]}px;
-  width: ${(pr) => pr.width};
-  border-color: #e1e1e1;
-  color: #000;
-  ${(pr) =>
-    pr.disabled
-      ? `
-    background-color: transparent;
-    color: #5e5e5e;
-    cursor: not-allowed;
-    `
-      : ''}
-  border-radius: 0;
-  outline: none;
-  transition: 0.1s ease-out;
-
-  box-shadow: inset 0 0 0 2px ${(pr) => (pr.error ? '#d93848' : 'transparent')};
-  &:focus {
-    box-shadow: inset 0 0 0 2px ${(pr) => (pr.error ? '#d93848' : '#000')};
+export const StyledMUITextField = styled<StyledTextInputProps>(TextField)`
+  width: ${pr => pr.width};
+  input,
+  .MuiOutlinedInput-adornedStart,
+  .MuiOutlinedInput-multiline {
+    background-color: #fafafa;
+    &:hover {
+      background-color: #f0f2f5;
+    }
+  }
+  input,
+  .MuiOutlinedInput-multiline {
+    font-family: ${theme.fontFamily};
+  }
+  .MuiInputBase-root {
+    line-height: 1.3em;
+  }
+  .MuiFormHelperText-contained {
+    margin: 9px 0 0 0;
+  }
+  .MuiFormHelperText-root.Mui-error {
+    color: #B10000
+  }
+  fieldset {
+    border-radius: 0px;
+  }
+  & .MuiOutlinedInput-root {
+    &.Mui-focused fieldset {
+      border-color: #1A1A1A;
+    }
+  }
+  .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+      border-color: #B10000;
   }
 `;
 
-export const StyledIcon = styled.div.withConfig({
-  shouldForwardProp: (prop, defPropValFN) =>
-    !['innerSize'].includes(prop) && defPropValFN(prop),
-})<StyledIconProps>`
-  box-sizing: border-box;
-  position: absolute;
-  left: ${(pr) => iconPadding[pr.innerSize]}px;
-  top: 50%;
-  transform: translateY(-50%);
+export const CharCounterWrapper = styled.div`
+  color: #6b6f7c;
+  font-family: ${theme.fontFamily};
+  align-self: flex-end;
+  font-size: 12px;
+`;
+
+export const StyledHelperText = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const LabelWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: ${pr => pr.width};
+  .MuiInputLabel-root {
+    font-family: ${theme.fontFamily};
+    font-size: 16px;
+    color: #1a1a1a;
+    word-break: break-all;
+  }
 `;
