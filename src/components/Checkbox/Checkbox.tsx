@@ -7,7 +7,11 @@ import { StyledCheckbox, StyledFormControlLabel, StyledHelperText } from "./Chec
 const Checkbox = (props: CheckboxProps) => (
 	<>
 		<StyledFormControlLabel
+			label={props.label}
+			labelPlacement="end"
+			data-testid="checkbox-test-id"
 			value="end"
+			disabled={props.disabled}
 			control={
 				<StyledCheckbox
 					className={`
@@ -22,9 +26,6 @@ const Checkbox = (props: CheckboxProps) => (
 					disableRipple
 				/>
 			}
-			disabled={props.disabled}
-			label={props.label}
-			labelPlacement="end"
 		/>
 		{props.helperText?.trim().length > 0 &&
 			<StyledHelperText>{props.helperText}</StyledHelperText>
