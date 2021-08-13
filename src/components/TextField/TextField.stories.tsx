@@ -1,68 +1,82 @@
 import * as React from 'react';
-import { boolean, withKnobs, text } from '@storybook/addon-knobs';
+import { useState } from 'react';
+import { boolean, withKnobs, text, number } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
-import styled from 'styled-components';
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// Material UI
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
+// Components
 import TextField from '../TextField';
+import { ReactElement } from 'react';
 
 export default {
-  title: 'Components|Input',
-  decorators: [withKnobs],
+	title: 'Components|TextField',
+	decorators: [withKnobs],
 } as Meta;
 
-const onHandleChange = () => {
-  console.log('Testing on change');
+export const Default = (): ReactElement => {
+	const [inputValue, setInputValue] = useState('');
+	const onHandleChange = (event) => {
+		setInputValue(event.target.value);
+	};
+
+	return (
+		<TextField
+			label={text('Label', 'Label')}
+			htmlFor='text-input'
+			width={text('Width', '150px')}
+			placeholder={text('Placeholder', 'placeholder')}
+			helperText={text('Helper text', '')}
+			error={boolean('Error', false)}
+			disabled={boolean('Disabled', false)}
+			onChange={onHandleChange}
+			maxCharacters={number('Max characters', 20)}
+			value={inputValue}
+			required={boolean('Required', false)}
+		/>
+	);
 };
 
-export const Default = () => <TextField onChange={onHandleChange} />;
+export const multilineInput = (): ReactElement => {
+	const [inputValue, setInputValue] = useState('');
+	const onHandleChange = (event) => {
+		setInputValue(event.target.value);
+	};
 
-export const multilineInput = () => (
-  <TextField
-    width={text('Width', '250px')}
-    placeholder='Multiline'
-    multiline={boolean('Multiline', false)}
-  />
-);
+	return (
+		<TextField
+			label={text('Label', 'Multiline')}
+			width={text('Width', '150px')}
+			placeholder={text('Placeholder', 'placeholder')}
+			helperText={text('Helper text', '')}
+			error={boolean('Error', false)}
+			disabled={boolean('Disabled', false)}
+			onChange={onHandleChange}
+			maxCharacters={number('Max characters', 200)}
+			value={inputValue}
+			required={boolean('Required', false)}
+			multiline={boolean('Multiline', true)}
+		/>
+	);
+};
 
-export const withError = () => (
-  <TextField
-    width={text('Width', '250px')}
-    placeholder={text('Placeholder', 'placeholder')}
-    error={boolean('Error', false)}
-  />
-)
+export const withIcon = (): ReactElement => {
+	const [inputValue, setInputValue] = useState('');
+	const onHandleChange = (event) => {
+		setInputValue(event.target.value);
+	};
 
-export const disabled = () => (
-  <TextField
-    width={text('Width', '250px')}
-    placeholder={text('Placeholder', 'disabled')}
-    disabled={boolean('disabled', false)}
-  />
-)
-
-export const withIcon = () => (
-  <TextField
-    width={text('Width', '250px')}
-    placeholder={text('Placeholder', 'Text field with icon')}
-    leadingIcon={AccountCircleIcon}
-  />
-)
-
-const Row = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  & > * {
-    margin-right: 10px;
-  }
-`;
-
-export const Sizes = () => (
-  <Row>
-    <TextField placeholder='small' size='lg' />
-    <TextField placeholder='medium' size='md' />
-    <TextField placeholder='large' size='sm' />
-  </Row>
-);
+	return (
+		<TextField
+			label={text('Label', 'With Icon')}
+			onChange={onHandleChange}
+			width={text('Width', '150px')}
+			placeholder='With icon'
+			icon={<AccountCircle />}
+			value={inputValue}
+			multiline={boolean('Multiline', false)}
+			maxCharacters={number('Max characters', 0)}
+		/>
+	);
+};

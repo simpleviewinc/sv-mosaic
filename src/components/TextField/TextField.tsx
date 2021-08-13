@@ -1,50 +1,87 @@
-import * as React  from 'react';
+import * as React from 'react';
+import { ReactElement, HTMLAttributes } from 'react';
+
+// Material UI
+import { InputAdornment, InputLabel } from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+
+// Types and styles
 import { TextFieldProps } from './TextFieldTypes';
+import {
+	CharCounterWrapper,
+	StyledMUITextField,
+	StyledHelperText,
+	StyledWrapper,
+	LabelWrapper,
+} from './TextField.styled';
 
-import { StyledWrapper, StyledTextField, StyledIcon } from './TextField.styled';
+const TextField = (
+	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
+): ReactElement => {
+	const {
+		label = '',
+		htmlFor,
+		icon,
+		className,
+		disabled = false,
+		error = false,
+		value,
+		onChange,
+		placeholder = '',
+		width = '100%',
+		multiline = false,
+		helperText = '',
+		maxCharacters,
+		required,
+	} = props;
 
+	const leadingIcon = icon
+		? {
+			startAdornment: (
+				<InputAdornment position='start'>{icon}</InputAdornment>
+			),
+		}
+		: null;
 
-const TextField: React.FC<TextFieldProps & React.HTMLAttributes<HTMLInputElement>> = (
-  props
-) => {
-  const {
-    leadingIcon,
-    size = "md",
-    className,
-    disabled = false,
-    error = false,
-    value,
-    onChange,
-    placeholder,
-    width = "100%",
-    readonly = false,
-    clearable = false,
-    ...rest
-  } = props;
+	let renderedHelperText = helperText ? helperText : null;
 
-  const styles = {
-    innerSize: size,
-    disabled: disabled,
-    error,
-    width,
-    withIcon: leadingIcon !== undefined,
-  };
+	if (helperText && error) {
+		renderedHelperText = (
+			<StyledHelperText>
+				<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
+				<span>{helperText}</span>
+			</StyledHelperText>
+		);
+	}
 
-  return (
-    <StyledWrapper width={width} innerSize={size}>
-      <StyledTextField
-        type={rest.type || "text"}
-        value={value}
-        onChange={onChange}
-        readOnly={readonly}
-        className={className}
-        placeholder={placeholder}
-        {...styles}
-        {...rest}
-      />
-      <StyledIcon as={leadingIcon} innerSize={size} />
-    </StyledWrapper>
-  );
+	return (
+		<StyledWrapper error={error} width={width}>
+			<LabelWrapper width={width}>
+				<InputLabel required={required} shrink htmlFor={htmlFor}>
+					{label}
+				</InputLabel>
+				<CharCounterWrapper width={width}>
+					{maxCharacters > 0 ? `${value.length}/${maxCharacters}` : null}
+				</CharCounterWrapper>
+			</LabelWrapper>
+			<StyledMUITextField
+				id={htmlFor}
+				value={value}
+				onChange={onChange}
+				variant='outlined'
+				error={error}
+				helperText={renderedHelperText}
+				className={className}
+				placeholder={placeholder}
+				disabled={disabled}
+				multiline={multiline}
+				width={width ? width : '100%'}
+				inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
+				InputProps={leadingIcon}
+				required={required}
+			/>
+		</StyledWrapper>
+	);
 };
 
 export default TextField;
