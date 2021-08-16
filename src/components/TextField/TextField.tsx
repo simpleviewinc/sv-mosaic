@@ -9,10 +9,12 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { TextFieldProps } from './TextFieldTypes';
 import {
 	CharCounterWrapper,
-	StyledMUITextField,
+	StyledTextField,
 	StyledHelperText,
 	StyledWrapper,
 	LabelWrapper,
+	TextFieldWrapper,
+	StyledInstructionalText,
 } from './TextField.styled';
 
 const TextField = (
@@ -31,6 +33,8 @@ const TextField = (
 		width = '100%',
 		multiline = false,
 		helperText = '',
+		instructionalText,
+		errorText,
 		maxCharacters,
 		required,
 	} = props;
@@ -43,43 +47,46 @@ const TextField = (
 		}
 		: null;
 
-	let renderedHelperText = helperText ? helperText : null;
+	let renderedHelperText = helperText && !error ? helperText : null;
 
-	if (helperText && error) {
+	if (errorText && error) {
 		renderedHelperText = (
 			<StyledHelperText>
 				<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
-				<span>{helperText}</span>
+				<span>{errorText}</span>
 			</StyledHelperText>
 		);
 	}
 
 	return (
-		<StyledWrapper error={error} width={width}>
-			<LabelWrapper width={width}>
-				<InputLabel required={required} shrink htmlFor={htmlFor}>
-					{label}
-				</InputLabel>
-				<CharCounterWrapper width={width}>
-					{maxCharacters > 0 ? `${value.length}/${maxCharacters}` : null}
-				</CharCounterWrapper>
-			</LabelWrapper>
-			<StyledMUITextField
-				id={htmlFor}
-				value={value}
-				onChange={onChange}
-				variant='outlined'
-				error={error}
-				helperText={renderedHelperText}
-				className={className}
-				placeholder={placeholder}
-				disabled={disabled}
-				multiline={multiline}
-				width={width ? width : '100%'}
-				inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
-				InputProps={leadingIcon}
-				required={required}
-			/>
+		<StyledWrapper>
+			<TextFieldWrapper error={error} width={width ? width : '100%'}>
+				<LabelWrapper width={width}>
+					<InputLabel required={required} shrink htmlFor={htmlFor}>
+						{label}
+					</InputLabel>
+					<CharCounterWrapper width={width}>
+						{maxCharacters > 0 ? `${value.length}/${maxCharacters}` : null}
+					</CharCounterWrapper>
+				</LabelWrapper>
+				<StyledTextField
+					id={htmlFor}
+					value={value}
+					onChange={onChange}
+					variant='outlined'
+					error={error}
+					helperText={renderedHelperText}
+					className={className}
+					placeholder={placeholder}
+					disabled={disabled}
+					multiline={multiline}
+					width={width ? width : '100%'}
+					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
+					InputProps={leadingIcon}
+					required={required}
+				/>
+			</TextFieldWrapper>
+			{instructionalText ? <StyledInstructionalText>{instructionalText}</StyledInstructionalText> : null}
 		</StyledWrapper>
 	);
 };

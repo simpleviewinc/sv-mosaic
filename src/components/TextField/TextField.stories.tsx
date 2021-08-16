@@ -28,6 +28,8 @@ export const Default = (): ReactElement => {
 			width={text('Width', '150px')}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
+			instructionalText={text('Instructional text', '')}
+			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
@@ -38,7 +40,7 @@ export const Default = (): ReactElement => {
 	);
 };
 
-export const multilineInput = (): ReactElement => {
+export const multiline = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
 	const onHandleChange = (event) => {
 		setInputValue(event.target.value);
@@ -50,6 +52,8 @@ export const multilineInput = (): ReactElement => {
 			width={text('Width', '150px')}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
+			instructionalText={text('Instructional text', '')}
+			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
@@ -70,13 +74,19 @@ export const withIcon = (): ReactElement => {
 	return (
 		<TextField
 			label={text('Label', 'With Icon')}
+			helperText={text('Helper text', '')}
+			instructionalText={text('Instructional text', '')}
+			errorText={text('Error text', '')}
+			error={boolean('Error', false)}
+			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
 			width={text('Width', '150px')}
-			placeholder='With icon'
+			placeholder={text('Placeholder', 'placeholder')}
 			icon={<AccountCircle />}
 			value={inputValue}
 			multiline={boolean('Multiline', false)}
-			maxCharacters={number('Max characters', 0)}
+			maxCharacters={number('Max characters', 100)}
+			required={boolean('Required', false)}
 		/>
 	);
 };

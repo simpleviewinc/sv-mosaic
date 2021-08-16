@@ -28,6 +28,14 @@ export interface TextFieldProps {
    */
   helperText?: string | JSX.Element;
   /**
+   * Instructions about how to fill the text field.
+   */
+  instructionalText?: string;
+  /**
+   * Indicates the cause of an error.
+   */
+  errorText?: string;
+  /**
    * Used to show and limit the characters.
    */
   maxCharacters?: number;
