@@ -21,7 +21,9 @@
 		"@storybook/react": "5.3.13",
 		"@storybook/addon-docs": "5.3.13",
 		"@storybook/addon-knobs": "5.3.13",
+		"@testing-library/react": "12.0.0",
 		"@types/jest": "25.1.2",
+		"@types/testing-library__react": "10.2.0",
 		"@typescript-eslint/parser": "4.27.0",
 		"@typescript-eslint/eslint-plugin": "4.27.0",
 		"babel-plugin-module-resolver": "4.0.0",
@@ -48,7 +50,7 @@
 		"styled-components": "4.3.2",
 		"ts-jest": "25.2.0",
 		"ts-loader": "6.2.1",
-		"typescript": "3.7.5",
+		"typescript": "4.3.5",
 		"webpack": "4.28.1",
 		"webpack-dev-server": "3.9.0",
 		"webpack-cli": "3.2.1"
@@ -84,9 +86,6 @@
 		"storybook": "start-storybook -p 10000",
 		"package-lock": "cp package-lock.json package-lock-mounted.json",
 		"style": "eslint ."
-	},
-	"jest": {
-		"preset": "ts-jest"
 	},
 	"repository": {
 		"type": "git",
