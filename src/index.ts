@@ -75,3 +75,6 @@ export {
 	Menu,
 	Spinner
 }
+
+export { default as DropdownSingleSelection } from "./components/DropdownSingleSelection";
+export * from "./components/DropdownSingleSelection";
