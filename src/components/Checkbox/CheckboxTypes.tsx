@@ -27,12 +27,12 @@ export interface CheckboxProps {
 	 * Text to be shown next to the current
 	 * checkbox
 	 */
-    label: string;
+	label: string;
 	/**
 	 * Boolean value that indicates whether the
 	 * current checkbox can be selected or not
 	 */
-    disabled?: boolean;
+	disabled?: boolean;
 	/**
 	 * Additional text shown under the checkbox
 	 * that helps the user understand the selector
