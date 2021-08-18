@@ -91,7 +91,7 @@ export const CharCounterWrapper = styled.div`
   font-size: 12px;
 `;
 
-export const StyledHelperText = styled.div`
+export const StyledHelperText = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
