@@ -13,11 +13,12 @@ const Checkbox = (props: CheckboxProps) => (
 		<StyledFormControlLabel
 			label={props.label}
 			labelPlacement="end"
-			data-testid="checkbox-test-id"
+			data-testid="label-test-id"
 			value="end"
 			disabled={props.disabled}
 			control={
 				<StyledCheckbox
+					data-testid="checkbox-test-id"
 					className={`
 						custom-checkbox
 						${props.checked ? "checked" : ""}
@@ -27,6 +28,7 @@ const Checkbox = (props: CheckboxProps) => (
 					edge={props.edge}
 					checked={props.checked}
 					onClick={props.onClick}
+					indeterminate={props.indeterminate}
 					disableRipple
 				/>
 			}

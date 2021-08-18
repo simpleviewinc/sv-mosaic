@@ -7,6 +7,12 @@ export interface CheckboxProps {
 	 */
 	checked: boolean;
 	/**
+	 * Material UI native prop for the checkbox:
+	 * Boolean value that when true renders the
+	 * checkbox as indeterminate
+	 */
+	indeterminate?: MUICheckboxProps["indeterminate"];
+	/**
 	 * Additional custom css class for styling
 	 * the component
 	 */
