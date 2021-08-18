@@ -11,7 +11,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
         align-items: flex-start;
 	}
 
-	& > span.checked {
+	& > span.checked, & > span.MuiCheckbox-indeterminate {
 		color: ${theme.colors.simplyGold};
 		opacity: ${pr => pr.disabled ? '50%' : '100%'}
 	}

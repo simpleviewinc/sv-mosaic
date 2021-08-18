@@ -24,6 +24,7 @@ export const example = (): ReactElement => {
 			onClick={onClick}
 			disabled={boolean('Disabled', false)}
 			helperText={text('Helper Text', 'Helper text example')}
+			indeterminate={boolean('Indeterminate', false)}
 		/>
 	)
 }
