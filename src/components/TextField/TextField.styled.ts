@@ -24,7 +24,7 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   .MuiOutlinedInput-multiline {
     background-color: #fafafa;
     &:hover {
-      background-color: #f0f2f5;
+      background-color: ${pr => pr.disabled ? '#fff' : '#f0f2f5'}
     }
   }
 
@@ -46,8 +46,15 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   }
 
   .MuiFormHelperText-contained {
-    margin: 9px 0 0 0;
+    font-family: ${theme.fontFamily};
+    margin-top: ${pr => pr.error ? '9px' : '7px'};
+    margin-left: 0;
     word-break: break-all;
+  }
+
+  .MuiInputBase-input.Mui-disabled {
+    background-color: #fff;
+    color: #1A1A1A;
   }
 
   .MuiFormHelperText-root.Mui-error {
@@ -64,8 +71,16 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
     }
   }
 
+  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+    border-color: ${pr => pr.error ? '#B10000' : 'transparent'}
+  }
+
+  .MuiOutlinedInput-adornedStart {
+    background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
+  }
+
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-      border-color: #B10000;
+    border-color: #B10000;
   }
 `;
 
@@ -91,8 +106,12 @@ export const LabelWrapper = styled.div`
   .MuiInputLabel-root {
     font-family: ${theme.fontFamily};
     font-size: 16px;
-    color: #1a1a1a;
+    color:  ${pr => pr.disabled ? '#838791' : '#1a1a1a'};
     word-break: break-all;
+  }
+
+  .MuiFormLabel-asterisk {
+    color: #B10000;
   }
 `;
 
@@ -100,9 +119,13 @@ export const StyledWrapper = styled.div`
   display: flex;
 `
 export const StyledInstructionalText = styled.span`
-  align-self: center;
   font-family:  ${theme.fontFamily};
-  margin-left: 40px;
+  padding-left: 40px;
   max-width: 300px;
   word-break: break-all;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  background: ${pr => pr.error ? '#B100000D' : 'transparent'};
+  padding-right: 20px;
 `

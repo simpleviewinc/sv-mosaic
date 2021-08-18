@@ -61,7 +61,7 @@ const TextField = (
 	return (
 		<StyledWrapper>
 			<TextFieldWrapper error={error} width={width ? width : '100%'}>
-				<LabelWrapper width={width}>
+				<LabelWrapper disabled={disabled} width={width}>
 					<InputLabel required={required} shrink htmlFor={htmlFor}>
 						{label}
 					</InputLabel>
@@ -86,7 +86,7 @@ const TextField = (
 					required={required}
 				/>
 			</TextFieldWrapper>
-			{instructionalText ? <StyledInstructionalText>{instructionalText}</StyledInstructionalText> : null}
+			{instructionalText ? <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText> : null}
 		</StyledWrapper>
 	);
 };
