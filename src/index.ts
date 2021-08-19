@@ -10,6 +10,7 @@ import Drawer from "./components/Drawer.jsx";
 import DrawerContent from "./components/DrawerContent.jsx";
 import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
+import TextArea from "./components/TextArea";
 
 export * from "./transforms";
 export * from "./types";
@@ -73,5 +74,6 @@ export {
 	DataViewFilterMultiselect as GridFilterMultiselect,
 	DataViewPrimaryFilter as GridPrimaryFilter,
 	Menu,
-	Spinner
+	Spinner,
+	TextArea
 }
