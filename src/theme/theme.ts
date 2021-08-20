@@ -28,7 +28,11 @@ export default {
 		gray500 : "#848791",
 		gray600 : "#6B6F7C",
 		gray700 : "#3B424E",
-		gray800 : "#0A1323"
+		gray800 : "#0A1323",
+		simplyGold: "#FDB924",
+		assistiveText: "#6B6F7C", //Same as gray600
+		label: "#3B424E", //Same as gray700
+		almostBlack: "1A1A1A",
 	},
 	borders : {
 		lightGray : "1px solid rgba(0, 0, 0, .05)",
