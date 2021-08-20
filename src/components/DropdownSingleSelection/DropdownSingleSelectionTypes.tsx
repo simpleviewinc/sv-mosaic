@@ -1,5 +1,3 @@
-import { TextFieldProps as MUITextFielProps } from "@material-ui/core/TextField"
-
 export interface DropdownSingleSelectionProps {
 	[key: string]: any;
 	label: string;
@@ -16,7 +14,7 @@ export interface DropdownSingleSelectionProps {
 	}[]
 }
 
-enum Sizes {
+export enum Sizes {
 	xs = "100px",
 	sm = "280px",
 	md = "450px",
