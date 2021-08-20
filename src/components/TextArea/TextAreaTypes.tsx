@@ -1,9 +1,5 @@
-import { ChangeEventHandler } from "react";
-
-/**
- * Sizing attributes (dimensions TBD)
- */
-export type ComponentSize = 'sm' | 'md' | 'lg';
+import { ChangeEventHandler } from 'react';
+import { Sizes } from '../../theme/sizes';
 
 export interface TextAreaProps {
   /**
@@ -13,7 +9,7 @@ export interface TextAreaProps {
   /**
    * Example text within the input to be replaced by the user.
    */
-  placeholder: string;
+  placeholder?: string;
   /**
    * Indicates whether the text area is required or not.
    */
@@ -49,19 +45,15 @@ export interface TextAreaProps {
   /**
    * Sizing attribute (dimensions tbd).
    */
-  size?: string;
+  size?: Sizes;
    /**
-	 * Additional custom css class for styling the component
-	 */
-	className?: string;
+   * Additional custom css class for styling the component
+   */
+  className?: string;
   /**
    * Specifies which form element a label is bound to.
    */
   htmlFor?: string;
-  /**
-   * Sets the width of the text field.
-   */
-  width?: string;
   /**
    * Function that listens to changes on the text field and updates its value.
    */

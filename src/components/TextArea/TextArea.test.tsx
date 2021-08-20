@@ -1,7 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import * as React from 'react';
 import { useState } from 'react';
 import TextArea from './TextArea';
+
+afterEach(cleanup);
 
 describe('Text field component', () => {
 	beforeEach(() => {
@@ -17,25 +19,25 @@ describe('Text field component', () => {
 		);
 	});
 
-	it('should should display text field component', () => {
+	it('should display text field component', () => {
 		const labelElement = screen.getByText('Label test');
 
 		expect(labelElement).toBeDefined();
 	});
 
-	it('should should display the instructional text', () => {
+	it('should display the instructional text', () => {
 		const instructionalTextElement = screen.getByText('Instructional text');
 
 		expect(instructionalTextElement).toBeDefined();
 	});
 
-	it('should should display the placeholder', () => {
+	it('should display the placeholder', () => {
 		const placeholderElement = screen.getByPlaceholderText('placeholder');
 
 		expect(placeholderElement).toBeDefined();
 	});
 
-	it('should should render a text area element', () => {
+	it('should render a text area element', () => {
 		const textAreaElement = screen.getByLabelText('Label test');
 
 		expect(textAreaElement.nodeName).toBe('TEXTAREA');
@@ -61,7 +63,7 @@ describe('The behaviour of the error text and the helper text', () => {
 		expect(helperText).toBe(null);
 	});
 
-	it('should should display the helper text in the case of no error', () => {
+	it('should display the helper text in the case of no error', () => {
 		render(
 			<TextArea
 				label='Label test'

@@ -10,17 +10,21 @@ import {
 import theme from '../../utils/theme.js';
 
 export const TextAreaWrapper = styled.div`
-  width: ${pr => pr.width};
+  font-family: ${theme.fontFamily};
+  width: ${pr => pr.size};
   padding: 20px;
-  background: ${pr => pr.error ? theme.colors.lightRed : 'transparent'};
+  background-color: ${pr => pr.error ? theme.colors.lightRed : 'transparent'};
 `;
 
 export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
-  width: ${pr => pr.width};
+  width: ${pr => pr.size};
 
   .MuiOutlinedInput-multiline {
+    align-items: start;
     background-color: ${pr => pr.disabled && !pr.error ? 'transparent' : theme.colors.gray100};
-    min-height: 150px;
+    min-height: ${pr => pr.disabled ? 'fit-content' : '150px'};
+    padding: ${pr => pr.disabled ? 0 : null};
+
     &:hover {
       background-color: ${pr => pr.disabled ? theme.colors.gray100 : theme.colors.grayHover}
     }
@@ -31,10 +35,10 @@ export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
   }
 
   .MuiFormHelperText-contained {
-    font-family: ${theme.fontFamily};
+    font-family: inherit;
     margin-top: ${pr => pr.error ? '9px' : '7px'};
     margin-left: 0;
-    word-break: break-all;
+    word-wrap: break-word;
   }
 
   .MuiInputBase-input.Mui-disabled {
@@ -67,7 +71,6 @@ export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
 
 export const CharCounterWrapper = styled.div`
   color: ${theme.colors.gray600};
-  font-family: ${theme.fontFamily};
   align-self: flex-end;
   font-size: 12px;
 `;
@@ -82,13 +85,13 @@ export const LabelWrapper = styled.div`
   display: flex;
   margin-bottom: 8px;
   justify-content: space-between;
-  width: ${pr => pr.width};
+  width: ${pr => pr.size};
   
   .MuiInputLabel-root {
-    font-family: ${theme.fontFamily};
+    font-family: inherit;
     font-size: 16px;
     color:  ${pr => pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
-    word-break: break-all;
+    word-wrap: break-word;
   }
 
   .MuiFormLabel-asterisk {
@@ -98,16 +101,16 @@ export const LabelWrapper = styled.div`
 
 export const StyledWrapper = styled.div`
   display: flex;
-`
+`;
 
 export const StyledInstructionalText = styled.div`
   font-family:  ${theme.fontFamily};
   padding-left: 40px;
   max-width: 300px;
-  word-break: break-all;
+  word-wrap: break-word;
   align-self: stretch;
   display: flex;
   align-items: center;
   background: ${pr => pr.error ? theme.colors.lightRed : 'transparent'};
   padding-right: 20px;
-`
+`;
