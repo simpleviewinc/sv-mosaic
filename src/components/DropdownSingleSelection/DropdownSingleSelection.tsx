@@ -30,16 +30,20 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 	}
 
 	return(
-		<StyledErrorWrapper error={error && props.required}>	
+		<StyledErrorWrapper
+			error={error && props.required}
+			data-testid="error-wrapper-test-id"
+		>	
 			<StyledLabel 
 				required={props.required}
+				data-testid="label-test-id"
 			>
 				{props.label}
 			</StyledLabel>
 			{!props.disabled ? 
 				<>
 					<StyledAutocomplete
-						id="combo-box-demo"
+						data-testid="autocomplete-test-id"
 						options={props.options}
 						size={props.size}
 						getOptionLabel={(option) => {
@@ -54,24 +58,31 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 								<StyledInputWrapper>
 									<TextField
 										{...params}
+										data-testid="textfield-test-id"
 										variant="outlined"
 										placeholder={props.placeholder}
 										onBlur={(e) => onBlur(e)}
 									/>
-									<StyledInstructionText>
+									<StyledInstructionText
+										data-testid="instruction-text-test-id"
+									>
 										{props.instructionText}
 									</StyledInstructionText>
 								</StyledInputWrapper>
 						}
 					/>
 					{(!error && props.helperText?.trim().length > 0) &&
-						<StyledHelperText>
+						<StyledHelperText
+							data-testid="helper-text-test-id"
+						>
 							{props.helperText}
 						</StyledHelperText>
 					}
 
 					{(error && props.required && props.errorText?.trim().length > 0) &&
-						<StyledErrorMessage>
+						<StyledErrorMessage
+							data-testid="error-message-test-id"
+						>
 							<StyledErrorIcon />
 							<StyledErrorText>
 								{props.errorText}
@@ -80,7 +91,9 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 					}
 				</>
 			:
-				<StyledDisabledDropdownText>
+				<StyledDisabledDropdownText
+					data-testid="disabled-text-test-id"
+				>
 					{(!selectedOption || selectedOption.trim() === '') ? 
 						"No option selected" : selectedOption
 					}

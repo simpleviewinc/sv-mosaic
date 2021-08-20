@@ -49,7 +49,6 @@ export const example = (): ReactElement => {
 			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			disabled={boolean("Disabled", false)}
 			required={boolean("Required", false)}
-			error={boolean("Error", false)}
 			errorText={text("Error text", "Error text example")}
 		/>
 	)
