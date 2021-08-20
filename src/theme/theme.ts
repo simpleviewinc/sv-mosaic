@@ -14,8 +14,8 @@ export default {
 		bold: 700
 	},
 	colors : {
-		almostBlack: "#1A1A1A",
-		black: "#0A1323",
+		almostBlack : "#1A1A1A",
+		black : "#0A1323",
 		blue : "#0070F2",
 		blueHover : "rgba(0, 89, 191, 1)",
 		blueActive : "rgba(0, 71, 153, 1)",
