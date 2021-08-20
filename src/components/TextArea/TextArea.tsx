@@ -16,6 +16,7 @@ import {
 	TextAreaWrapper,
 	StyledInstructionalText,
 } from './TextArea.styled';
+import { Sizes } from '../../theme/sizes';
 
 
 const TextArea = (
@@ -34,7 +35,7 @@ const TextArea = (
 		errorText,
 		value,
 		className,
-		width,
+		size = Sizes.lg,
 		onChange
 	} = props;
 
@@ -51,13 +52,13 @@ const TextArea = (
 
 	return (
 		<StyledWrapper>
-			<TextAreaWrapper error={error} width={width ? width : '100%'}>
-				<LabelWrapper disabled={disabled}>
+			<TextAreaWrapper error={error} size={size}>
+				<LabelWrapper size={size} disabled={disabled}>
 					<InputLabel required={required} shrink htmlFor={htmlFor}>
 						{label}
 					</InputLabel>
 					<CharCounterWrapper>
-						{maxCharacters > 0 ? `${value.length}/${maxCharacters}` : null}
+						{maxCharacters > 0 && `${value.length}/${maxCharacters}`}
 					</CharCounterWrapper>
 				</LabelWrapper>
 				<StyledTextArea
@@ -71,12 +72,12 @@ const TextArea = (
 					placeholder={placeholder}
 					disabled={disabled}
 					multiline
-					width={width ? width : '100%'}
+					size={size}
 					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
 					required={required}
 				/>
 			</TextAreaWrapper>
-			{instructionalText ? <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText> : null}
+			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
 		</StyledWrapper>
 	);
 };

@@ -10,7 +10,6 @@ import Drawer from "./components/Drawer.jsx";
 import DrawerContent from "./components/DrawerContent.jsx";
 import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
-import TextArea from "./components/TextArea";
 
 export * from "./transforms";
 export * from "./types";
@@ -45,6 +44,9 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
+export { default as TextArea } from "./components/TextArea";
+export * from "./components/TextArea";
+
 export { default as MosaicContext } from "./components/MosaicContext";
 
 export * from "./components/Typography";
@@ -74,6 +76,5 @@ export {
 	DataViewFilterMultiselect as GridFilterMultiselect,
 	DataViewPrimaryFilter as GridPrimaryFilter,
 	Menu,
-	Spinner,
-	TextArea
+	Spinner
 }

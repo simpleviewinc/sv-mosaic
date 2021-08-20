@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import {
 	boolean,
 	withKnobs,
 	text,
 	number,
+	select
 } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
 import TextArea from '../TextArea';
+
+// Helpers
+import { Sizes } from '../../theme/sizes';
 
 export default {
 	title: 'Components|TextArea',
@@ -27,7 +30,7 @@ export const Default = () : ReactElement => {
 		<TextArea
 			label={text('Label', 'Label')}
 			htmlFor='text-area'
-			width={text('Width', '200px')}
+			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
 			instructionalText={text('Instructional text', '')}
