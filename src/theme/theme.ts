@@ -14,7 +14,6 @@ export default {
 		bold: 700
 	},
 	colors : {
-		almostBlack : "#1A1A1A",
 		black : "#0A1323",
 		blue : "#0070F2",
 		blueHover : "rgba(0, 89, 191, 1)",
@@ -37,10 +36,13 @@ export default {
 		assistiveText: "#6B6F7C", //Same as gray600
 		label: "#3B424E", //Same as gray700
 		almostBlack: "1A1A1A",
+		errorBackground: "#B100000D",
 	},
 	borders : {
 		lightGray : "1px solid rgba(0, 0, 0, .05)",
-		gray : "1px solid rgba(0, 0, 0, .15)"
+		gray : "1px solid rgba(0, 0, 0, .15)",
+		fieldGray : "1px solid #CCCCCC",
+		error : "1px solid #B10000",
 	},
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	animations : {
