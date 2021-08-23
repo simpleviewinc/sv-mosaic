@@ -14,10 +14,13 @@ export default {
 		bold: 700
 	},
 	colors : {
-		black: "#0A1323",
+		black : "#0A1323",
 		blue : "#0070F2",
 		blueHover : "rgba(0, 89, 191, 1)",
 		blueActive : "rgba(0, 71, 153, 1)",
+		grayHover : "#F0F2F5",
+		labelDisabled : "#838791",
+		lightRed : "#B100000D",
 		red : "#b10000",
 		redHover : "rgba(138, 0, 0, 1)",
 		redActive : "rgba(110, 0, 0, 1)",
