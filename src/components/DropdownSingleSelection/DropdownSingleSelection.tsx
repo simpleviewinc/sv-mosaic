@@ -29,6 +29,23 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 		}
 	}
 
+	const renderInput = (params) => (
+		<StyledInputWrapper>
+			<TextField
+				{...params}
+				data-testid="textfield-test-id"
+				variant="outlined"
+				placeholder={props.placeholder}
+				onBlur={(e) => onBlur(e)}
+			/>
+			<StyledInstructionText
+				data-testid="instruction-text-test-id"
+			>
+				{props.instructionText}
+			</StyledInstructionText>
+		</StyledInputWrapper>
+	);
+
 	return(
 		<StyledErrorWrapper
 			error={error && props.required}
@@ -53,23 +70,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 						}
 						error={props.required && error}
 						errorText={props.errorText}
-						renderInput={
-							(params) => 
-								<StyledInputWrapper>
-									<TextField
-										{...params}
-										data-testid="textfield-test-id"
-										variant="outlined"
-										placeholder={props.placeholder}
-										onBlur={(e) => onBlur(e)}
-									/>
-									<StyledInstructionText
-										data-testid="instruction-text-test-id"
-									>
-										{props.instructionText}
-									</StyledInstructionText>
-								</StyledInputWrapper>
-						}
+						renderInput={renderInput}
 					/>
 					{(!error && props.helperText?.trim().length > 0) &&
 						<StyledHelperText

@@ -1,3 +1,5 @@
+import { Sizes } from "@root/theme/sizes";
+
 export interface DropdownSingleSelectionProps {
 	/**
 	 * Text to be shown on top of the dropdown
@@ -48,11 +50,4 @@ export interface DropdownSingleSelectionProps {
 		title: string,
 		[key: string]: any;
 	}[]
-}
-
-export enum Sizes {
-	xs = "100px",
-	sm = "280px",
-	md = "450px",
-	lg = "620px",
 }

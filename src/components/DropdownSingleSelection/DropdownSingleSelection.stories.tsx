@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 import DropdownSingleSelection from "./DropdownSingleSelection";
-import { Sizes } from "./DropdownSingleSelectionTypes";
+import { Sizes } from "../../theme/sizes";
 
 
 
