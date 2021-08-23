@@ -3,6 +3,7 @@ import { default as MUIAutocomplete } from '@material-ui/lab/Autocomplete';
 import { default as MUIFormHelperText } from "@material-ui/core/FormHelperText";
 import { default as MUIErrorOutlineIcon } from '@material-ui/icons/ErrorOutline';
 import theme from '../../utils/theme.js';
+import { Sizes } from '../../theme/sizes';
 
 export const StyledLabel = styled.p`
 	font-size: 16px;
@@ -18,7 +19,7 @@ export const StyledLabel = styled.p`
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
 	& .MuiFormControl-fullWidth {
-		width: ${pr => pr.size ? pr.size : '300px'}
+		width: ${pr => pr.size ? pr.size : Sizes.sm}
 		height: 51px;
 	}
 
