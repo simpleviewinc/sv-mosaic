@@ -71,6 +71,8 @@ function CheckboxList(props: CheckboxListProps): ReactElement {
 										className={checked ? "checked" : ""}
 										edge="start"
 										checked={checked}
+										label={option.label} //Validate if this value should be inside the checkbox or not.
+										//Checkboxes are always used with a label by their side.
 									/>
 								</ListItemIcon>
 								<BodyText>{option.label}</BodyText>

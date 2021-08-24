@@ -1,41 +1,42 @@
 import * as React from "react";
 import { memo } from "react";
-import styled from "styled-components";
-import { default as MUICheckbox, CheckboxProps as MUICheckboxProps } from "@material-ui/core/Checkbox";
+import { CheckboxProps } from "./CheckboxTypes";
 
-import theme from "@root/utils/theme";
+import {
+	StyledCheckbox,
+	StyledFormControlLabel,
+	StyledHelperText
+} from "./Checkbox.styled";
 
-const StyledCheckbox = styled(MUICheckbox)`
-	&.checked {
-		color: ${theme.colors.blue};
-	}
-
-	& > span > svg {
-		font-size: 24px;
-	}
-`
-
-export interface CheckboxProps {
-	checked: boolean
-	className?: string
-	edge?: MUICheckboxProps["edge"]
-	onClick?: MUICheckboxProps["onClick"]
-}
-
-function Checkbox(props: CheckboxProps) {
-	return (
-		<StyledCheckbox
-			className={`
-				${props.checked ? "checked" : ""}
-				${props.className ? props.className : ""}
-			`}
-			color="default"
-			edge={props.edge}
-			checked={props.checked}
-			onClick={props.onClick}
-			disableRipple
+const Checkbox = (props: CheckboxProps) => (
+	<>
+		<StyledFormControlLabel
+			label={props.label}
+			labelPlacement="end"
+			data-testid="label-test-id"
+			value="end"
+			disabled={props.disabled}
+			control={
+				<StyledCheckbox
+					data-testid="checkbox-test-id"
+					className={`
+						custom-checkbox
+						${props.checked ? "checked" : ""}
+						${props.className ? props.className : ""}
+					`}
+					color="default"
+					edge={props.edge}
+					checked={props.checked}
+					onClick={props.onClick}
+					indeterminate={props.indeterminate}
+					disableRipple
+				/>
+			}
 		/>
-	);
-}
+		{props.helperText?.trim().length > 0 &&
+			<StyledHelperText>{props.helperText}</StyledHelperText>
+		}
+	</>
+);
 
 export default memo(Checkbox);
