@@ -12,6 +12,9 @@ declare const _default: {
         blue: string;
         blueHover: string;
         blueActive: string;
+        grayHover: string;
+        labelDisabled: string;
+        lightRed: string;
         red: string;
         redHover: string;
         redActive: string;
@@ -23,10 +26,17 @@ declare const _default: {
         gray600: string;
         gray700: string;
         gray800: string;
+        simplyGold: string;
+        assistiveText: string;
+        label: string;
+        almostBlack: string;
+        errorBackground: string;
     };
     borders: {
         lightGray: string;
         gray: string;
+        fieldGray: string;
+        error: string;
     };
     fontFamily: string;
     animations: {
