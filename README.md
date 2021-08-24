@@ -12,6 +12,8 @@ It is built on top of [React Material-UI](https://material-ui.com/) and is it re
 
 Storybook: https://simpleviewinc.github.io/sv-mosaic/
 
+Globant Storybook: https://simpleviewinc.github.io/sv-mosaic-globant/
+
 [Changelog](changelog.md) - See the latest changes to sv-mosaic.
 
 # Usage

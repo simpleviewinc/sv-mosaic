@@ -44,6 +44,9 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
+export { default as TextArea } from "./components/TextArea";
+export * from "./components/TextArea";
+
 export { default as MosaicContext } from "./components/MosaicContext";
 
 export * from "./components/Typography";
@@ -75,3 +78,6 @@ export {
 	Menu,
 	Spinner
 }
+
+export { default as DropdownSingleSelection } from "./components/DropdownSingleSelection";
+export * from "./components/DropdownSingleSelection";
