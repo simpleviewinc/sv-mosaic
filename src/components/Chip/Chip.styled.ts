@@ -8,49 +8,57 @@ const chipFont = `
 `;
 
 export const StyledDeletableChip = styled(Chip)`
-  &.MuiChip-root {
-    background-color: ${(pr) => (pr.disabled ? '#fed57b' : '#FDB924')};
-    color: #1a1a1a;
+         &.MuiChip-root {
+           background-color: ${pr =>
+		pr.disabled
+			? theme.colors.simplyGoldDisabled
+			: theme.colors.simplyGold};
+           color: ${theme.colors.almostBlack};
 
-    &:hover {
-      background-color: ${(pr) => (pr.disabled ? '#fed57b' : '#E3A520')};
-    }
+           &:hover {
+             background-color: ${pr =>
+		pr.disabled
+			? theme.colors.simplyGoldDisabled
+			: theme.colors.simplyGoldHover};
+           }
 
-    &:focus {
-      background-color: #e3a520;
-    }
-  }
+           &:focus {
+             background-color: ${theme.colors.simplyGold};
+           }
+         }
 
-  .MuiChip-deleteIcon {
-    color: #1a1a1a;
-    margin-right: 8px;
-    &:hover {
-      color: #1a1a1a;
-    }
-  }
+         .MuiChip-deleteIcon {
+           color: ${theme.colors.almostBlack};
+           margin-right: 8px;
+           height: 14px;
+           width: 14px;
+           &:hover {
+             color: ${theme.colors.almostBlack};
+           }
+         }
 
-  & .MuiChip-label {
-    ${chipFont}
-    padding-left: 16px;
-    padding-right: 12px;
-  }
-`;
+         & .MuiChip-label {
+           ${chipFont}
+           padding-left: 16px;
+           padding-right: 12px;
+         }
+       `;
 
 export const StyledChip = styled(Chip)`
-  color: #1a1a1a;
+  color: ${theme.colors.almostBlack};
 
   &.MuiChip-root {
-    background-color: ${(pr) => {
+    background-color: ${pr => {
 		if (pr.selected && !pr.disabled) {
-			return '#FDB924';
+			return theme.colors.simplyGold;
 		} else if (pr.selected && pr.disabled) {
-			return '#fed57b';
+			return theme.colors.simplyGoldDisabled;
 		}
-		return '#F0F2F5';
+		return theme.colors.gray200;
 	}};
 
     &:hover {
-      background-color: #bebebe;
+      background-color: ${pr => pr.selected ? theme.colors.simplyGoldHover : theme.colors.simplyGray};
     }
   }
   & .MuiChip-label {
@@ -60,8 +68,9 @@ export const StyledChip = styled(Chip)`
   }
 `;
 
-export const StyledLabel = styled.span`
+export const StyledLabel = styled.p`
   letter-spacing: 0.7px;
+  margin: 0;
   max-width: 141px;
   overflow: hidden;
   text-overflow: ellipsis;
