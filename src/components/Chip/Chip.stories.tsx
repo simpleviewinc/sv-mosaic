@@ -7,7 +7,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 import Chip from './Chip';
 
 export default {
-	title: 'Components/Forms/Chip',
+	title: 'Components/Chip',
 	decorators: [withKnobs],
 } as Meta;
 
@@ -28,7 +28,6 @@ export const DeletableChip = (): ReactElement => {
 		<Chip
 			label={text('Label', 'Label')}
 			disabled={boolean('Disabled', false)}
-			selected={boolean('Selected', false)}
 			onDelete={handleDelete}
 		/>
 	);

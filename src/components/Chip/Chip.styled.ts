@@ -25,11 +25,12 @@ export const StyledDeletableChip = styled(Chip)`
            &:focus {
              background-color: ${theme.colors.simplyGold};
            }
+           padding: 8px 16px;
          }
 
          .MuiChip-deleteIcon {
            color: ${theme.colors.almostBlack};
-           margin-right: 8px;
+           margin: 0;
            height: 14px;
            width: 14px;
            &:hover {
@@ -39,8 +40,9 @@ export const StyledDeletableChip = styled(Chip)`
 
          & .MuiChip-label {
            ${chipFont}
-           padding-left: 16px;
-           padding-right: 12px;
+           line-height: 16px;
+           margin-right: 12px;
+           padding: 0;
          }
        `;
 
@@ -60,11 +62,13 @@ export const StyledChip = styled(Chip)`
     &:hover {
       background-color: ${pr => pr.selected ? theme.colors.simplyGoldHover : theme.colors.simplyGray};
     }
+    padding: 8px 16px;
   }
+
   & .MuiChip-label {
     ${chipFont}
-    padding-left: 16px;
-    padding-right: 16px;
+    line-height: 16px;
+    padding: 0;
   }
 `;
 
