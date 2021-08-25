@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 
 // Material UI
 import ClearIcon from '@material-ui/icons/Clear';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 // Types and styles
 import { ChipsProps } from './ChipTypes';
@@ -19,7 +18,7 @@ const Chip = (props: ChipsProps): ReactElement => {
 				required={required}
 				disabled={disabled}
 				selected={selected}
-				deleteIcon={<ClearIcon style={{ fontSize: 16 }} />}
+				deleteIcon={<ClearIcon data-testid='delete-icon-test-id' />}
 				onDelete={onDelete}
 			/>
 		);

@@ -32,10 +32,13 @@ export default {
 		gray600 : "#6B6F7C",
 		gray700 : "#3B424E",
 		gray800 : "#0A1323",
-		simplyGold: "#FDB924",
-		assistiveText: "#6B6F7C", //Same as gray600
-		label: "#3B424E", //Same as gray700
-		almostBlack: "1A1A1A",
+		simplyGold : "#FDB924",
+		simplyGoldDisabled : "#FED57B",
+		simplyGoldHover : "#E3A520",
+		simplyGray : '#BEBEBE',
+		assistiveText : "#6B6F7C", //Same as gray600
+		label : "#3B424E", //Same as gray700
+		almostBlack : "#1A1A1A",
 		errorBackground: "#B100000D",
 	},
 	borders : {

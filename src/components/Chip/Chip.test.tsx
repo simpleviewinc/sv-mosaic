@@ -1,10 +1,10 @@
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import Chip from './Chip';
 
 afterEach(cleanup);
 
-describe('Text field component', () => {
+describe('Chip component', () => {
 	beforeEach(() => {
 		render(
 			<Chip
@@ -15,9 +15,31 @@ describe('Text field component', () => {
 		);
 	});
 
-	it('should display text field component', () => {
+	it('should display Chip label', () => {
 		const labelElement = screen.getByText('Label test');
 
 		expect(labelElement).toBeDefined();
+	});
+});
+
+describe('The deletable Chip component', () => {
+	it('should display the delete icon an execute the handleDelete function', () => {
+		const handleDelete = jest.fn();
+		const DeletableChip = () => {
+			return (
+				<Chip
+					label='Label test'
+					disabled={false}
+					onDelete={handleDelete}
+				/>
+			);
+		};
+
+		render(<DeletableChip />);
+		const deleteIcon = screen.getByTestId('delete-icon-test-id');
+		fireEvent.click(deleteIcon);
+
+		expect(deleteIcon).toBeDefined();
+		expect(handleDelete).toHaveBeenCalled();
 	});
 });
