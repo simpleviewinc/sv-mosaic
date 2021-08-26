@@ -4,6 +4,7 @@ declare const _default: {
     iconFontSize: string;
     fontWeight: {
         normal: number;
+        medium: number;
         semiBold: number;
         bold: number;
     };
@@ -27,6 +28,9 @@ declare const _default: {
         gray700: string;
         gray800: string;
         simplyGold: string;
+        simplyGoldDisabled: string;
+        simplyGoldHover: string;
+        simplyGray: string;
         assistiveText: string;
         label: string;
         almostBlack: string;
