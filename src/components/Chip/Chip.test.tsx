@@ -43,3 +43,23 @@ describe('The deletable Chip component', () => {
 		expect(handleDelete).toHaveBeenCalled();
 	});
 });
+
+describe('A selected Chip', () => {
+	it('should be able to select a chip', () => {
+		const handleClick = jest.fn();
+
+		render(
+			<Chip
+				onClick={handleClick}
+				label='Label'
+				disabled={false}
+				selected={true}
+			/>
+		);
+
+		const chipElement = screen.getByRole('button');
+		fireEvent.click(chipElement);
+
+		expect(handleClick).toHaveBeenCalled();
+	});
+});

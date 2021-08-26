@@ -10,7 +10,8 @@ export default {
 	iconFontSize : "24px",
 	fontWeight : {
 		normal: 400,
-		semiBold: 500,
+		medium: 500,
+		semiBold: 600,
 		bold: 700
 	},
 	colors : {
