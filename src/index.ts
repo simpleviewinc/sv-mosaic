@@ -29,6 +29,9 @@ export * from "./components/ButtonRow";
 export { default as Checkbox } from "./components/Checkbox";
 export * from "./components/Checkbox";
 
+export { default as Chip } from "./components/Chip";
+export * from "./components/Chip";
+
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
 
