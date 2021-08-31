@@ -18,7 +18,7 @@ export interface FormFieldCheckboxProps {
   /**
    * Text to provide context to the current text field.
    */
-  helperText?: string | JSX.Element;
+  instructionText?: string | JSX.Element;
   /**
    * 	Text to be shown if there’s an error with the checkbox group (e.g. no option was selected).
    */

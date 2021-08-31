@@ -7,7 +7,7 @@ import { useStateRef } from '@root/utils/reactTools';
 import { CheckboxListProps } from './CheckboxListTypes';
 import FormGroup from '@material-ui/core/FormGroup';
 
-function CheckboxList(props: CheckboxListProps): ReactElement {
+const CheckboxList = (props: CheckboxListProps): ReactElement => {
 	const checkedRef = useStateRef(props.checked);
 
 	const handleToggle = useCallback(

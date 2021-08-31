@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+
 // Components
 import CheckboxList from '../../components/CheckboxList';
 
 // Material UI
 import { default as MUIFormHelperText } from '@material-ui/core/FormHelperText';
+import { default as MUIErrorOutlineIcon } from '@material-ui/icons/ErrorOutline';
 
 // Utils
 import theme from '../../theme/theme';
@@ -18,7 +20,6 @@ export const LabelWrapper = styled.div`
     font-size: 16px;
     color: ${(pr) =>
 		pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
-    word-wrap: break-word;
   }
 
   .MuiFormLabel-asterisk {
@@ -26,7 +27,7 @@ export const LabelWrapper = styled.div`
   }
 `;
 
-export const FormFieldCheckboxWrapper = styled.div`
+export const FieldWrapper = styled.div`
   font-family: ${theme.fontFamily};
   padding: 20px;
   background-color: ${pr =>
@@ -62,4 +63,11 @@ export const ErrorTextWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 8px;
+`;
+
+export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`
+	&.MuiSvgIcon-root {
+		font-size: 16px;
+		margin-right: 8px;
+	}
 `;

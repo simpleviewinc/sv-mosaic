@@ -3,17 +3,17 @@ import { ReactElement } from 'react';
 
 // Material UI
 import { InputLabel } from '@material-ui/core';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 // Types and styles
 import { FormFieldCheckboxProps } from './FormFieldCheckboxTypes';
 import { CheckboxListProps } from '../../components/CheckboxList';
 import {
-	StyledCheckboxList,
-	StyledText,
-	LabelWrapper,
-	FormFieldCheckboxWrapper,
 	ErrorTextWrapper,
+	FieldWrapper,
+	LabelWrapper,
+	StyledCheckboxList,
+	StyledErrorIcon,
+	StyledText,
 	StyledWrapper,
 } from './FormFieldCheckbox.styled';
 
@@ -26,7 +26,7 @@ const FormFieldCheckbox = (
 		disabled,
 		error,
 		errorText,
-		helperText,
+		instructionText,
 		onChange,
 		checked,
 		options,
@@ -34,24 +34,24 @@ const FormFieldCheckbox = (
 
 	return (
 		<StyledWrapper>
-			<FormFieldCheckboxWrapper error={error}>
+			<FieldWrapper error={error && required}>
 				<LabelWrapper disabled={disabled}>
 					<InputLabel required={required}>{label}</InputLabel>
 				</LabelWrapper>
-				<StyledText>{helperText}</StyledText>
+				<StyledText>{instructionText}</StyledText>
 				<StyledCheckboxList
 					disabled={disabled}
 					checked={checked}
 					options={options}
 					onChange={onChange}
 				/>
-				{errorText && error && (
+				{errorText && error && required && (
 					<ErrorTextWrapper>
-						<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
+						<StyledErrorIcon />
 						<StyledText error={error}>{errorText}</StyledText>
 					</ErrorTextWrapper>
 				)}
-			</FormFieldCheckboxWrapper>
+			</FieldWrapper>
 		</StyledWrapper>
 	);
 };
