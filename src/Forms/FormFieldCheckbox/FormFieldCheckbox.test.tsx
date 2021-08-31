@@ -37,7 +37,7 @@ describe('The FormFieldCheckbox behavior', () => {
 				<FormFieldCheckbox
 					label='Label'
 					error={false}
-					helperText='Helper text'
+					instructionText='Instruction text'
 					errorText='Error text'
 					checked={checked}
 					options={options}
@@ -59,42 +59,43 @@ describe('The FormFieldCheckbox behavior', () => {
 	});
 });
 
-describe('The helperText and the errorText behavior', () => {
-	it('should display the helper text and the error text', () => {
+describe('The instructionText and the errorText behavior', () => {
+	it('should display the instruction text and the error text', () => {
 		render(
 			<FormFieldCheckbox
 				label='Label'
 				error={true}
-				helperText='Helper text'
+				required={true}
+				instructionText='Instruction text'
 				errorText='Error text'
 				checked={[]}
 				options={options}
 				onChange={jest.fn()}
 			/>
 		);
-		const helperTextElement = screen.getByText('Helper text');
+		const instructionTextElement = screen.getByText('Instruction text');
 		const errorTextElement = screen.getByText('Error text');
 
-		expect(helperTextElement).toBeDefined();
+		expect(instructionTextElement).toBeDefined();
 		expect(errorTextElement).toBeDefined();
 	});
 
-	it('should display only the helper text since there is no error', () => {
+	it('should display only the instruction text since there is no error', () => {
 		render(
 			<FormFieldCheckbox
 				label='Label'
 				error={false}
-				helperText='Helper text'
+				instructionText='Instruction text'
 				errorText='Error text'
 				checked={[]}
 				options={options}
 				onChange={jest.fn()}
 			/>
 		);
-		const helperTextElement = screen.getByText('Helper text');
+		const instructionTextElement = screen.getByText('Instruction text');
 		const errorTextElement = screen.queryByText('Error text');
 
-		expect(helperTextElement).toBeDefined();
+		expect(instructionTextElement).toBeDefined();
 		expect(errorTextElement).toBe(null);
 	});
 });
