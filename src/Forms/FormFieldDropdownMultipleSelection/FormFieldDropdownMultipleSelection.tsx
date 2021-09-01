@@ -3,14 +3,24 @@ import { ReactElement, useState, Fragment } from 'react';
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 // Components
 import Chip from '../../components/Chip';
 import Checkbox from '../../components/Checkbox';
+import HelperText from '../../components/HelperText';
 
 // Types
 import { FormFieldDropdownMultipleSelectionTypes } from './FormFieldDropdownMultipleSelectionTypes';
-import { ChipsWrapper, StyledAutocomplete } from './FormFieldDropdownMultipleSelection.styled';
+import {
+  ChipsWrapper,
+  FieldWrapper,
+  StyledAutocomplete,
+  StyledPopper,
+} from './FormFieldDropdownMultipleSelection.styled';
+
+// Theme
+import { Sizes } from '../../theme/sizes';
 
 const FormFieldDropdownMultipleSelection = (
   props: FormFieldDropdownMultipleSelectionTypes
@@ -25,7 +35,7 @@ const FormFieldDropdownMultipleSelection = (
     error,
     errorText,
     value,
-    size,
+    size = Sizes.md,
     options,
     checked,
   } = props;
@@ -37,32 +47,44 @@ const FormFieldDropdownMultipleSelection = (
   };
 
   return (
-    <div>
+    <FieldWrapper error={error && required}>
       <StyledAutocomplete
+        disabled={disabled}
         multiple
         options={options}
         getOptionLabel={(option) => option.label}
         renderOption={(option, { selected }) => (
           <Fragment>
-            <Checkbox
-              checked={selected}
-            />
+            <Checkbox checked={selected} />
             {option.label}
           </Fragment>
         )}
-        value={selectedOptions}
-        onChange={(e, newValue) => setSelectedOptions(newValue)}
+        PopperComponent={StyledPopper}
+        popupIcon={<ExpandMoreIcon />}
+        onChange={(_e, newValue) => setSelectedOptions(newValue)}
         renderTags={() => null}
         renderInput={(params) => (
           <TextField {...params} variant='outlined' placeholder={placeholder} />
         )}
+        size={size}
+        value={selectedOptions}
       />
-      <ChipsWrapper>
+      <ChipsWrapper size={size}>
         {selectedOptions.map((v) => (
-          <Chip disabled={disabled} key={v.label} label={v.label} onDelete={onDelete(v.label)} />
+          <Chip
+            disabled={disabled}
+            key={v.label}
+            label={v.label}
+            onDelete={onDelete(v.label)}
+          />
         ))}
       </ChipsWrapper>
-    </div>
+      {errorText && error && required ? (
+        <HelperText error>{errorText}</HelperText>
+      ) : (
+        <HelperText>{helperText}</HelperText>
+      )}
+    </FieldWrapper>
   );
 };
 

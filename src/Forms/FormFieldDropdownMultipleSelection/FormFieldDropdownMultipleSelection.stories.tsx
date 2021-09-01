@@ -56,12 +56,12 @@ export const Example = (): ReactElement => {
     <FormFieldDropdownMultipleSelection
       label={text('Label', 'Label')}
       placeholder={text('Placeholder', 'placeholder')}
-      required={boolean('Required', false)}
+      required={boolean('Required', true)}
       disabled={boolean('Disabled', false)}
       helperText={text('Helper text', '')}
       instructionText={text('Instructional text', '')}
-      error={boolean('Error', false)}
-      errorText={text('Error text', '')}
+      error={boolean('Error', true)}
+      errorText={text('Error text', 'Error text')}
       size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.md)}
       options={options}
     />
