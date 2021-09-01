@@ -62,7 +62,7 @@ const TextField = (
 		<StyledWrapper>
 			<TextFieldWrapper error={error} width={width ? width : '100%'}>
 				<LabelWrapper disabled={disabled} width={width}>
-					<InputLabel required={required} shrink htmlFor={htmlFor}>
+					<InputLabel required={required} htmlFor={htmlFor}>
 						{label}
 					</InputLabel>
 					<CharCounterWrapper width={width}>
