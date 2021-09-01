@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import * as React from 'react';
 import { useState } from 'react';
-import TextArea from './TextArea';
+import TextArea from './FormFieldTextArea';
 
 afterEach(cleanup);
 

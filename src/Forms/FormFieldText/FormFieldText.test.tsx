@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import { useState } from 'react';
-import TextField from './TextField';
+import TextField from './FormFieldText';
 
 describe('Text field component', () => {
 	beforeEach(() => {
