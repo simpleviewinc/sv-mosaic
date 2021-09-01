@@ -2,42 +2,49 @@ import * as React from 'react';
 import { ReactElement, HTMLAttributes } from 'react';
 
 // Material UI
-import { InputLabel } from '@material-ui/core';
+import { InputAdornment, InputLabel } from '@material-ui/core';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 // Types and styles
-import { TextAreaProps } from './TextAreaTypes';
+import { TextFieldProps } from './FormFieldTextTypes';
 import {
-	CharCounterWrapper,
-	StyledTextArea,
+	StyledTextField,
 	StyledHelperText,
 	StyledWrapper,
-	LabelWrapper,
-	TextAreaWrapper,
+	TextFieldWrapper,
 	StyledInstructionalText,
-} from './TextArea.styled';
-import { Sizes } from '../../theme/sizes';
+} from './FormFieldText.styled';
+import { Label } from '@root/components/Typography';
 
-
-const TextArea = (
-	props: TextAreaProps & HTMLAttributes<HTMLInputElement>
+const TextField = (
+	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		label,
+		label = '',
 		htmlFor,
-		placeholder,
-		required,
-		disabled,
-		helperText,
-		maxCharacters,
-		instructionalText,
-		error,
-		errorText,
-		value,
+		icon,
 		className,
-		size = Sizes.lg,
-		onChange
+		disabled = false,
+		error = false,
+		value,
+		onChange,
+		placeholder = '',
+		size,
+		multiline = false,
+		helperText = '',
+		instructionalText,
+		errorText,
+		maxCharacters,
+		required,
 	} = props;
+
+	const leadingIcon = icon
+		? {
+			startAdornment: (
+				<InputAdornment position='start'>{icon}</InputAdornment>
+			),
+		}
+		: null;
 
 	let renderedHelperText = helperText && !error ? helperText : null;
 
@@ -52,16 +59,17 @@ const TextArea = (
 
 	return (
 		<StyledWrapper>
-			<TextAreaWrapper error={error} size={size}>
-				<LabelWrapper size={size} disabled={disabled}>
-					<InputLabel required={required} htmlFor={htmlFor}>
-						{label}
-					</InputLabel>
-					<CharCounterWrapper>
-						{maxCharacters > 0 && `${value.length}/${maxCharacters}`}
-					</CharCounterWrapper>
-				</LabelWrapper>
-				<StyledTextArea
+			<TextFieldWrapper error={error}>
+				<Label
+					disabled={disabled}
+					required={required}
+					htmlFor={htmlFor}
+					value={value}
+					maxCharacters={maxCharacters}
+				>
+					{label}
+				</Label>
+				<StyledTextField
 					id={htmlFor}
 					value={value}
 					onChange={onChange}
@@ -71,15 +79,16 @@ const TextArea = (
 					className={className}
 					placeholder={placeholder}
 					disabled={disabled}
-					multiline
+					multiline={multiline}
 					size={size}
 					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
+					InputProps={leadingIcon}
 					required={required}
 				/>
-			</TextAreaWrapper>
+			</TextFieldWrapper>
 			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
 		</StyledWrapper>
 	);
 };
 
-export default TextArea;
+export default TextField;
