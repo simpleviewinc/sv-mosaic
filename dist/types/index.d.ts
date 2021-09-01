@@ -26,6 +26,8 @@ export { default as Chip } from "./components/Chip";
 export * from "./components/Chip";
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
+export { default as FormFieldCheckbox } from "./Forms/FormFieldCheckbox";
+export * from "./Forms/FormFieldCheckbox";
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
 export { default as MenuBase } from "./components/MenuBase";
