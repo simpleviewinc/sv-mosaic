@@ -54,7 +54,7 @@ const TextArea = (
 		<StyledWrapper>
 			<TextAreaWrapper error={error} size={size}>
 				<LabelWrapper size={size} disabled={disabled}>
-					<InputLabel required={required} shrink htmlFor={htmlFor}>
+					<InputLabel required={required} htmlFor={htmlFor}>
 						{label}
 					</InputLabel>
 					<CharCounterWrapper>
