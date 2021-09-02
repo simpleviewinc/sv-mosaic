@@ -9,6 +9,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
     margin-left: 0px;
     margin-right: 0px;
     align-items: flex-start;
+	color:  ${pr => pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
   }
 
   & > span.checked,
@@ -20,7 +21,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
   & .MuiFormControlLabel-label {
     font-family: ${theme.fontFamily};
     max-width: 414px;
-    margin-top: 10px;
+    margin-top: 7px;
   }
 `;
 
