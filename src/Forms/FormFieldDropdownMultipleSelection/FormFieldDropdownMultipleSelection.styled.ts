@@ -28,21 +28,62 @@ export const FieldWrapper = styled.div`
 `;
 
 export const StyledAutocomplete = styled(Autocomplete)`
-  width: ${pr => pr.size};
+  & .MuiFormControl-fullWidth {
+    width: ${pr => pr.size};
+    height: 51px;
+    margin-right: 60px;
+  }
 
   & .MuiFormControl-root .MuiInputBase-root {
-		background-color: ${theme.colors.gray100};
-	}
+    background-color: ${theme.colors.gray100};
+  }
 
-  & .MuiFormControl-root .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-		border: solid 1px ${theme.colors.gray800};
-	}
+  &
+    .MuiFormControl-root
+    .MuiInputBase-root.Mui-focused
+    .MuiOutlinedInput-notchedOutline {
+    border: solid 1px ${theme.colors.gray800};
+  }
 `;
 
 export const StyledPopper = styled(Popper)`
-  .MuiAutocomplete-option{
+  .MuiAutocomplete-option {
     font-size: 14px;
     min-height: 40px;
     padding: 0;
+
+    &:hover {
+      background-color: ${theme.colors.grayHover};
+    }
   }
+`;
+
+export const StyledInstructionText = styled.p`
+  font-size: 14px;
+  color: ${theme.colors.assistiveText};
+  margin-top: 0px;
+  margin-bottom: 0px;
+  max-width: 400px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const StyledLabel = styled.p`
+  font-size: 16px;
+  color: ${theme.colors.almostBlack};
+  margin-top: 0px;
+  margin-bottom: 8px;
+
+  &:after {
+    content: "${pr => (pr.required ? '*' : '')}";
+    color: ${theme.colors.red};
+  }
+`;
+
+export const StyledDisabledDropdownText = styled.p`
+  color: ${theme.colors.assistiveText};
+  margin-top: 15px;
 `;

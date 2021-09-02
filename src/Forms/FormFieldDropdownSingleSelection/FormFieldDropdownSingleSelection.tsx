@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useState, memo, useEffect } from "react";
+import { useState, memo } from "react";
 import {
 	StyledLabel,
 	StyledAutocomplete,
 	StyledHelperText,
 	StyledInstructionText,
-	StyledInputWrapper,
 	StyledDisabledDropdownText,
 	StyledErrorText,
 	StyledErrorWrapper,
@@ -13,6 +12,7 @@ import {
 	StyledErrorMessage,
 } from "./FormFieldDropdownSingleSelection.styled";
 
+import InputWrapper from '../../components/InputWrapper';
 import TextField from '@material-ui/core/TextField';
 import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
 
@@ -21,7 +21,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 	const [error, setError] = useState(false);
 
 	const onBlur = (e) => {
-		if(props.required && (!e.target.value || e.target.value?.trim().length === 0)) {
+		if (props.required && (!e.target.value || e.target.value?.trim().length === 0)) {
 			setError(true);
 		} else {
 			setError(false);
@@ -29,7 +29,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 	}
 
 	const renderInput = (params) => (
-		<StyledInputWrapper>
+		<InputWrapper>
 			<TextField
 				{...params}
 				data-testid="textfield-test-id"
@@ -42,10 +42,10 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 			>
 				{props.instructionText}
 			</StyledInstructionText>
-		</StyledInputWrapper>
+		</InputWrapper>
 	);
 
-	return(
+	return (
 		<StyledErrorWrapper
 			error={error && props.required}
 			data-testid="error-wrapper-test-id"
@@ -63,7 +63,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 						options={props.options}
 						size={props.size}
 						getOptionLabel={(option) => option.title}
-						onChange={(event, option) => setSelectedOption(option.title)}
+						onChange={(_event, option) => setSelectedOption(option.title)}
 						error={props.required && error}
 						errorText={props.errorText}
 						renderInput={renderInput}
@@ -88,7 +88,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 						</StyledErrorMessage>
 					}
 				</>
-			:
+				:
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
