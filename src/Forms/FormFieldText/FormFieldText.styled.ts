@@ -24,7 +24,7 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
     background-color: #fafafa;
 
     &:hover {
-      background-color: ${pr => pr.disabled ? '#FFF' : theme.colors.grayHover}
+      background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
     }
   }
 
@@ -53,7 +53,7 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   }
 
   .MuiInputBase-input.Mui-disabled {
-    background-color: #fff;
+    background-color: transparent;
     color: #1A1A1A;
   }
 
@@ -71,17 +71,14 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
     }
   }
 
-  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
-    border-color: ${pr => pr.error ? '#B10000' : 'transparent'}
+  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline,
+  .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+    border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : 'transparent'};
   }
 
   .MuiOutlinedInput-adornedStart {
     background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
 	padding: ${pr => pr.disabled && 0};
-  }
-
-  .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-    border-color: #B10000;
   }
 `;
 

@@ -88,5 +88,5 @@ export {
 	Spinner
 }
 
-export { default as DropdownSingleSelection } from "./components/DropdownSingleSelection";
-export * from "./components/DropdownSingleSelection";
+export { default as DropdownSingleSelection } from "./forms/FormFieldDropdownSingleSelection";
+export * from "./forms/FormFieldDropdownSingleSelection";

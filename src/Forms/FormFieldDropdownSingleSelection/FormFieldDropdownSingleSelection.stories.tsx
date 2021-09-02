@@ -2,13 +2,13 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
-import DropdownSingleSelection from "./DropdownSingleSelection";
+import FormFieldDropdownSingleSelection from "./FormFieldDropdownSingleSelection";
 import { Sizes } from "../../theme/sizes";
 
 
 
 export default {
-	title : "Components|DropdownSingleSelection",
+	title : "Forms|FormFieldDropdownSingleSelection",
 	decorators : [withKnobs]
 }
 
@@ -40,7 +40,7 @@ export const example = (): ReactElement => {
 	];
 
 	return (
-		<DropdownSingleSelection
+		<FormFieldDropdownSingleSelection
 			options={topFilms}
 			label={text("Label", "Dropdown label")}
 			placeholder={text("Placeholder", "Placeholder example")}
