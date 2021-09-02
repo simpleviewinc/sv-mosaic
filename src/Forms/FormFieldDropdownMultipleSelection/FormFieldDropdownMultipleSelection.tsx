@@ -11,6 +11,7 @@ import Chip from '../../components/Chip';
 import Checkbox from '../../components/Checkbox';
 import HelperText from '../../components/HelperText';
 import InputWrapper from '../../components/InputWrapper';
+import { Label } from '@root/components/Typography';
 
 // Types
 import { FormFieldDropdownMultipleSelectionTypes } from './FormFieldDropdownMultipleSelectionTypes';
@@ -20,7 +21,6 @@ import {
 	StyledAutocomplete,
 	StyledPopper,
 	StyledInstructionText,
-	StyledLabel,
 	StyledDisabledDropdownText,
 } from './FormFieldDropdownMultipleSelection.styled';
 
@@ -70,10 +70,10 @@ const FormFieldDropdownMultipleSelection = (
 	);
 
 	return (
-		<>
+		<FieldWrapper error={error && required}>
+			<Label disabled={disabled} required={required}>{label}</Label>
 			{!disabled ? (
-				<FieldWrapper error={error && required}>
-					<StyledLabel required={props.required}>{label}</StyledLabel>
+				<>
 					<StyledAutocomplete
 						data-testid='autocomplete-test'
 						disabled={disabled}
@@ -100,18 +100,16 @@ const FormFieldDropdownMultipleSelection = (
 					) : (
 						<HelperText>{helperText}</HelperText>
 					)}
-				</FieldWrapper>
+				</>
 			) : (
-				<FieldWrapper error={error && required}>
+				<>
 					<StyledDisabledDropdownText>
-						{selectedOptions.length > 0
-							? 'Selected options'
-							: 'No options selected'}
+						{selectedOptions.length === 0 && placeholder}
 					</StyledDisabledDropdownText>
-					{selectedOptions && listOfChips}
-				</FieldWrapper>
+					{listOfChips}
+				</>
 			)}
-		</>
+		</FieldWrapper>
 	);
 };
 

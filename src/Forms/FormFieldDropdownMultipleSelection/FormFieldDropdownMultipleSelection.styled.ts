@@ -59,8 +59,9 @@ export const StyledPopper = styled(Popper)`
 `;
 
 export const StyledInstructionText = styled.p`
-  font-size: 14px;
   color: ${theme.colors.assistiveText};
+  font-family: ${theme.fontFamily};
+  font-size: 14px;
   margin-top: 0px;
   margin-bottom: 0px;
   max-width: 400px;
@@ -71,19 +72,8 @@ export const StyledInstructionText = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const StyledLabel = styled.p`
-  font-size: 16px;
-  color: ${theme.colors.almostBlack};
-  margin-top: 0px;
-  margin-bottom: 8px;
-
-  &:after {
-    content: "${pr => (pr.required ? '*' : '')}";
-    color: ${theme.colors.red};
-  }
-`;
-
 export const StyledDisabledDropdownText = styled.p`
   color: ${theme.colors.assistiveText};
   margin-top: 15px;
+  font-family: ${theme.fontFamily};
 `;

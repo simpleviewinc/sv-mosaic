@@ -7,7 +7,7 @@ interface InputWrapperProps {
 }
 
 const InputWrapper = ({ children }: InputWrapperProps): ReactElement => {
-  return <StyledInputWrapper>{children}</StyledInputWrapper>;
+	return <StyledInputWrapper>{children}</StyledInputWrapper>;
 };
 
 export default InputWrapper;
