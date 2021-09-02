@@ -1,8 +1,8 @@
 import { Sizes } from '../../theme/sizes';
 
 interface Option {
-	label: string
-	value: string
+  label: string;
+  value: string;
 }
 
 export interface FormFieldDropdownMultipleSelectionTypes {
@@ -50,8 +50,4 @@ export interface FormFieldDropdownMultipleSelectionTypes {
    * Array of objects containing each of the options to be displayed within the dropdown.
    */
   options?: Option[];
-  /**
-   * List of values of the selected options.
-   */
-  checked?: string[];
-};
+}
