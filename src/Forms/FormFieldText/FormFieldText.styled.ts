@@ -7,29 +7,29 @@ import TextField from '@material-ui/core/TextField';
 import {
 	StyledWrapperProps,
 	StyledTextInputProps,
-} from './TextFieldTypes';
+} from './FormFieldTextTypes';
 import theme from '../../utils/theme.js';
 
 export const TextFieldWrapper = styled.div<StyledWrapperProps>`
-  width: ${pr => pr.width};
   padding: 20px;
-  background: ${pr => pr.error ? '#B100000D' : 'transparent'};
+  background: ${pr => pr.error ? theme.colors.errorBackground : 'transparent'};
 `;
 
 export const StyledTextField = styled<StyledTextInputProps>(TextField)`
-  width: ${pr => pr.width};
+  width: ${pr => pr.size};
 
   input,
   .MuiOutlinedInput-adornedStart,
   .MuiOutlinedInput-multiline {
     background-color: #fafafa;
+
     &:hover {
-      background-color: ${pr => pr.disabled ? '#fff' : '#f0f2f5'}
+      background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
     }
   }
 
   .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {
-    padding: 15.5px 14px;
+	padding: ${pr => pr.disabled ? 0 : '15.5px 14px'};
   }
 
   input.MuiOutlinedInput-input {
@@ -53,7 +53,7 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   }
 
   .MuiInputBase-input.Mui-disabled {
-    background-color: #fff;
+    background-color: transparent;
     color: #1A1A1A;
   }
 
@@ -71,48 +71,21 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
     }
   }
 
-  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
-    border-color: ${pr => pr.error ? '#B10000' : 'transparent'}
+  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline,
+  .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+    border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : 'transparent'};
   }
 
   .MuiOutlinedInput-adornedStart {
     background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
+	padding: ${pr => pr.disabled && 0};
   }
-
-  .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-    border-color: #B10000;
-  }
-`;
-
-export const CharCounterWrapper = styled.div`
-  color: #6b6f7c;
-  font-family: ${theme.fontFamily};
-  align-self: flex-end;
-  font-size: 12px;
 `;
 
 export const StyledHelperText = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-
-export const LabelWrapper = styled.div`
-  display: flex;
-  margin-bottom: 8px;
-  justify-content: space-between;
-  width: ${pr => pr.width};
-
-  .MuiInputLabel-root {
-    font-family: ${theme.fontFamily};
-    font-size: 16px;
-    color:  ${pr => pr.disabled ? '#838791' : '#1a1a1a'};
-    word-break: break-all;
-  }
-
-  .MuiFormLabel-asterisk {
-    color: #B10000;
-  }
 `;
 
 export const StyledWrapper = styled.div`

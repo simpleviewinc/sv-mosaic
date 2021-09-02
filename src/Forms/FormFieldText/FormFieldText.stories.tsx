@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { boolean, withKnobs, text, number } from '@storybook/addon-knobs';
+import { boolean, withKnobs, text, number, select } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Material UI
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 // Components
-import TextField from '../TextField';
+import TextField from '.';
 import { ReactElement } from 'react';
+import { Sizes } from '@root/theme/sizes';
 
 export default {
-	title: 'Components|TextField',
+	title: 'Forms|FormFieldText',
 	decorators: [withKnobs],
 } as Meta;
 
@@ -25,7 +26,7 @@ export const Default = (): ReactElement => {
 		<TextField
 			label={text('Label', 'Label')}
 			htmlFor='text-input'
-			width={text('Width', '150px')}
+			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
 			instructionalText={text('Instructional text', '')}
@@ -49,7 +50,7 @@ export const multiline = (): ReactElement => {
 	return (
 		<TextField
 			label={text('Label', 'Multiline')}
-			width={text('Width', '150px')}
+			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
 			instructionalText={text('Instructional text', '')}
@@ -80,7 +81,7 @@ export const withIcon = (): ReactElement => {
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
-			width={text('Width', '150px')}
+			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
 			icon={<AccountCircle />}
 			value={inputValue}

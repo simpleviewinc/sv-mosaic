@@ -35,8 +35,8 @@ export * from "./components/Chip";
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
 
-export { default as FormFieldCheckbox } from "./Forms/FormFieldCheckbox";
-export * from "./Forms/FormFieldCheckbox";
+export { default as FormFieldCheckbox } from "./forms/FormFieldCheckbox";
+export * from "./forms/FormFieldCheckbox";
 
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
@@ -50,8 +50,11 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
-export { default as TextArea } from "./components/TextArea";
-export * from "./components/TextArea";
+export { default as FormFieldText } from "./forms/FormFieldText";
+export * from "./forms/FormFieldText";
+
+export { default as TextArea } from "./forms/FormFieldTextArea";
+export * from "./forms/FormFieldTextArea";
 
 export { default as MosaicContext } from "./components/MosaicContext";
 
@@ -85,5 +88,5 @@ export {
 	Spinner
 }
 
-export { default as DropdownSingleSelection } from "./components/DropdownSingleSelection";
-export * from "./components/DropdownSingleSelection";
+export { default as DropdownSingleSelection } from "./forms/FormFieldDropdownSingleSelection";
+export * from "./forms/FormFieldDropdownSingleSelection";

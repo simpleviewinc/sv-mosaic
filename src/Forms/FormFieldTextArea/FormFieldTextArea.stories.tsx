@@ -10,13 +10,13 @@ import {
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import TextArea from '../TextArea';
+import TextArea from '.';
 
 // Helpers
 import { Sizes } from '../../theme/sizes';
 
 export default {
-	title: 'Components|TextArea',
+	title: 'Forms|FormFieldTextArea',
 	decorators: [withKnobs],
 } as Meta;
 

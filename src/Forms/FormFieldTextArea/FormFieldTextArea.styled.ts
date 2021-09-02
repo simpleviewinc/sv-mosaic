@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 //Styles & Types
 import {
 	StyledTextAreaProps,
-} from './TextAreaTypes';
+} from './FormFieldTextAreaTypes';
 import theme from '../../utils/theme.js';
 
 export const TextAreaWrapper = styled.div`
@@ -21,12 +21,12 @@ export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
 
   .MuiOutlinedInput-multiline {
     align-items: start;
-    background-color: ${pr => pr.disabled && !pr.error ? 'transparent' : theme.colors.gray100};
+    background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.gray100};
     min-height: ${pr => pr.disabled ? 'fit-content' : '150px'};
-    padding: ${pr => pr.disabled ? 0 : null};
+    padding: ${pr => pr.disabled && 0};
 
     &:hover {
-      background-color: ${pr => pr.disabled ? theme.colors.gray100 : theme.colors.grayHover}
+      background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
     }
   }
 
@@ -42,12 +42,12 @@ export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
   }
 
   .MuiInputBase-input.Mui-disabled {
-    background-color: 'transparent';
+    background-color: transparent;
     color: ${theme.colors.almostBlack};
   }
 
-  .MuiFormHelperText-root.Mui-error {
-    color: ${theme.colors.red};
+  .MuiFormHelperText-root {
+    color: ${pr => pr.error ? theme.colors.red : theme.colors.assistiveText};
   }
 
   fieldset {
@@ -60,43 +60,16 @@ export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
     }
   }
 
-  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
-    border-color: ${pr => pr.error ? theme.colors.red : 'transparent'}
-  }
-
+  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-      border-color: ${theme.colors.red};
+    border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : 'transparent'};
   }
-`;
-
-export const CharCounterWrapper = styled.div`
-  color: ${theme.colors.gray600};
-  align-self: flex-end;
-  font-size: 12px;
 `;
 
 export const StyledHelperText = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-
-export const LabelWrapper = styled.div`
-  display: flex;
-  margin-bottom: 8px;
-  justify-content: space-between;
-  width: ${pr => pr.size};
-  
-  .MuiInputLabel-root {
-    font-family: inherit;
-    font-size: 16px;
-    color:  ${pr => pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
-    word-wrap: break-word;
-  }
-
-  .MuiFormLabel-asterisk {
-    color: ${theme.colors.red};;
-  }
 `;
 
 export const StyledWrapper = styled.div`
