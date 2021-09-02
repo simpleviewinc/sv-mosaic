@@ -108,10 +108,11 @@ describe("Dropdown Single Selection", function() {
 				label="Label test"
 				options={topFilms}
 				disabled={true}
+				placeholder='placeholder'
 			/>
 		);
 
-		expect(screen.getByText("No option selected")).toBeDefined();
+		expect(screen.getByText('placeholder')).toBeDefined();
 	});
 
 	it("should render an asterisk when defined as required", () => {

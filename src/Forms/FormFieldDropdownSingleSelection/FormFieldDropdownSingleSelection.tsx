@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, memo } from "react";
 import {
-	StyledLabel,
 	StyledAutocomplete,
 	StyledHelperText,
 	StyledInstructionText,
@@ -15,6 +14,7 @@ import {
 import InputWrapper from '../../components/InputWrapper';
 import TextField from '@material-ui/core/TextField';
 import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
+import Label from '@root/components/Typography/Label';
 
 const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 	const [selectedOption, setSelectedOption] = useState('');
@@ -50,12 +50,13 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 			error={error && props.required}
 			data-testid="error-wrapper-test-id"
 		>	
-			<StyledLabel 
+			<Label 
+				disabled={props.disabled}
 				required={props.required}
 				data-testid="label-test-id"
 			>
 				{props.label}
-			</StyledLabel>
+			</Label>
 			{!props.disabled ? 
 				<>
 					<StyledAutocomplete

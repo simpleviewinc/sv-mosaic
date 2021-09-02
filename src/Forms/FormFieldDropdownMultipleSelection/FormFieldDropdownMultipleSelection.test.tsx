@@ -111,7 +111,7 @@ describe('FormFieldDropdownMultipleSelection component', () => {
 });
 
 describe('FormFieldDropdownMultipleSelection component disabled state', () => {
-	it('should display "No options selected" when is disabled and any option has been selected', () => {
+	it('should display the placeholder when is disabled and any option has been selected', () => {
 		render(
 			<FormFieldDropdownMultipleSelection
 				label='Label test'
@@ -122,8 +122,8 @@ describe('FormFieldDropdownMultipleSelection component disabled state', () => {
 			/>
 		);
 
-		const noOptionsText = screen.getByText('No options selected');
+		const placeholderText = screen.getByText('placeholder');
 
-		expect(noOptionsText).toBeDefined();
+		expect(placeholderText).toBeDefined();
 	});
 });

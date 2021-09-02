@@ -5,23 +5,11 @@ import { default as MUIErrorOutlineIcon } from '@material-ui/icons/ErrorOutline'
 import theme from '../../utils/theme.js';
 import { Sizes } from '../../theme/sizes';
 
-export const StyledLabel = styled.p`
-	font-size: 16px;
-	color: ${theme.colors.almostBlack};
-	margin-top: 0px;
-	margin-bottom: 8px;
-
-	&:after {
-		content: "${pr => (pr.required ? '*' : '')}";
-		color: ${theme.colors.red};
-	}
-`;
-
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-fullWidth {
     height: 51px;
     margin-right: 60px;
-    width: ${pr => (pr.size ? pr.size : Sizes.sm)};
+    width: ${(pr) => (pr.size ? pr.size : Sizes.sm)};
   }
 
   & .MuiFormControl-root .MuiInputBase-root {
@@ -29,7 +17,8 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
   }
 
   & .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline {
-    border: ${pr => pr.error ? theme.borders.error : theme.borders.fieldGray};
+    border: ${(pr) =>
+		pr.error ? theme.borders.error : theme.borders.fieldGray};
     border-radius: 0px;
   }
 
@@ -69,18 +58,15 @@ export const StyledDisabledDropdownText = styled.p`
 `;
 
 export const StyledErrorWrapper = styled.div`
-	background-color: ${pr => pr.error ? 
-		theme.colors.errorBackground 
-		:
-		'transparent'
-	};
-	padding: 20px;
-	width: fit-content;
-	font-family: ${theme.fontFamily};
+  background-color: ${(pr) =>
+		pr.error ? theme.colors.errorBackground : 'transparent'};
+  padding: 20px;
+  width: fit-content;
+  font-family: ${theme.fontFamily};
 
-	.MuiAutocomplete-option:active {
-		font-weight: bold;
-	}
+  .MuiAutocomplete-option:active {
+    font-weight: bold;
+  }
 `;
 
 export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`
