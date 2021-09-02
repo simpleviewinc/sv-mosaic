@@ -5,7 +5,7 @@ import {
 	cleanup,
 } from "@testing-library/react";
 
-import DropdownSingleSelection from "./DropdownSingleSelection";
+import DropdownSingleSelection from "./FormFieldDropdownSingleSelection";
 
 const topFilms = [
 	{ title: "The Shawshank Redemption", year: 1994 },

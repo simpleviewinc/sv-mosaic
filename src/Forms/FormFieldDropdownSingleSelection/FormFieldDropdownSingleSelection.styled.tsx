@@ -100,6 +100,10 @@ export const StyledErrorWrapper = styled.div`
 	padding: 20px;
 	width: fit-content;
 	font-family: ${theme.fontFamily};
+
+	.MuiAutocomplete-option:active {
+		font-weight: bold;
+	}
 `;
 
 export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`

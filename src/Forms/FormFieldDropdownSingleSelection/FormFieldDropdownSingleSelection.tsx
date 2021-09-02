@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import {
 	StyledLabel,
 	StyledAutocomplete,
@@ -11,11 +11,10 @@ import {
 	StyledErrorWrapper,
 	StyledErrorIcon,
 	StyledErrorMessage,
-} from "./DropdownSingleSelection.styled";
+} from "./FormFieldDropdownSingleSelection.styled";
 
 import TextField from '@material-ui/core/TextField';
-import { DropdownSingleSelectionProps } from "./DropdownSingleSelectionTypes";
-
+import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
 
 const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 	const [selectedOption, setSelectedOption] = useState('');
@@ -63,14 +62,12 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 						data-testid="autocomplete-test-id"
 						options={props.options}
 						size={props.size}
-						getOptionLabel={(option) => {
-								setSelectedOption(option.title);
-								return option.title;
-							}
-						}
+						getOptionLabel={(option) => option.title}
+						onChange={(event, option) => setSelectedOption(option.title)}
 						error={props.required && error}
 						errorText={props.errorText}
 						renderInput={renderInput}
+						disablePortal={true}
 					/>
 					{(!error && props.helperText?.trim().length > 0) &&
 						<StyledHelperText
@@ -96,7 +93,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 					data-testid="disabled-text-test-id"
 				>
 					{(!selectedOption || selectedOption.trim() === '') ? 
-						"No option selected" : selectedOption
+						props.placeholder : selectedOption
 					}
 				</StyledDisabledDropdownText>
 			}
