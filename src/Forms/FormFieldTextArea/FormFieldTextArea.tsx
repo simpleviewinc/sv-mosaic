@@ -2,7 +2,6 @@ import * as React from 'react';
 import { ReactElement, HTMLAttributes } from 'react';
 
 // Material UI
-import { InputLabel } from '@material-ui/core';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 // Types and styles

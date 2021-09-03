@@ -108,26 +108,14 @@ describe("Dropdown Single Selection", function() {
 				label="Label test"
 				options={topFilms}
 				disabled={true}
+				placeholder='placeholder'
 			/>
 		);
 
-		expect(screen.getByText("No option selected")).toBeDefined();
+		expect(screen.getByText('placeholder')).toBeDefined();
 	});
 
-	it("should render an asterisk when defined as required", () => {
-		const { getByTestId } = render(
-			<DropdownSingleSelection
-				label="Example label"
-				options={topFilms}
-				required={true}
-			/>
-		);
-
-		const label = getByTestId("label-test-id");
-		expect(label.classList.contains("gwHEDb")).toBe(true);
-	});
-
-	it("should show as error when clicking outside of it without anything selected", () => {
+	it("should show as error when clicking outside of it without anything selected and only when being required", () => {
 		const { getByTestId } = render(
 			<DropdownSingleSelection
 				label="Example label"
@@ -148,8 +136,5 @@ describe("Dropdown Single Selection", function() {
 
 		const errorMessage = getByTestId("error-message-test-id");
 		expect(errorMessage).toBeDefined();
-
-		const errorWrapper = getByTestId("error-wrapper-test-id");
-		expect(errorWrapper.classList.contains('bUxKfW')).toBe(true);
 	});
 });

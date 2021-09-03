@@ -1,6 +1,6 @@
-import * as React from "react";
-import { ReactElement } from "react";
-import { TypographyGenericProps } from "./TypographyTypes";
+import * as React from 'react';
+import { ReactElement } from 'react';
+import { TypographyGenericProps } from './TypographyTypes';
 interface LabelProps {
     disabled?: boolean;
     required?: boolean;
@@ -9,5 +9,5 @@ interface LabelProps {
     value?: string;
     maxCharacters?: number;
 }
-export default function Label(props: LabelProps & TypographyGenericProps): ReactElement;
-export {};
+declare const Label: (props: LabelProps & TypographyGenericProps) => ReactElement;
+export default Label;
