@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { ReactNode } from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import {
 	ErrorTextWrapper,
 	StyledErrorIcon,

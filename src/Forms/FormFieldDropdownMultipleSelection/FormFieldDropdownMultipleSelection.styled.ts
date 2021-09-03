@@ -8,7 +8,6 @@ import Popper from '@material-ui/core/Popper';
 import theme from '../../utils/theme.js';
 
 export const ChipsWrapper = styled.div`
-  margin-top: 8px;
   width: ${pr => pr.size};
 
   & > :not(:last-child) {
@@ -16,7 +15,7 @@ export const ChipsWrapper = styled.div`
   }
 
   & > * {
-    margin-bottom: 8px;
+    margin-top: 8px;
   }
 `;
 
@@ -38,19 +37,37 @@ export const StyledAutocomplete = styled(Autocomplete)`
     background-color: ${theme.colors.gray100};
   }
 
+  & .MuiInputBase-root {
+    border-radius: 0px;
+    font-family: ${theme.fontFamily};
+    border: ${(pr) =>
+		pr.error ? theme.borders.error : theme.borders.fieldGray};
+  }
+
   &
     .MuiFormControl-root
     .MuiInputBase-root.Mui-focused
     .MuiOutlinedInput-notchedOutline {
     border: solid 1px ${theme.colors.gray800};
   }
+
+  .MuiAutocomplete-popupIndicator {
+    color: ${(pr) => (pr.error ? theme.colors.red : theme.colors.almostBlack)};
+  }
 `;
 
 export const StyledPopper = styled(Popper)`
   .MuiAutocomplete-option {
+    font-family: ${theme.fontFamily};
     font-size: 14px;
     min-height: 40px;
     padding: 0;
+    color: ${theme.colors.gray700};
+
+    &[aria-selected='true'] {
+      color: ${theme.colors.black};
+      font-weight: ${theme.fontWeight.semiBold};
+    }
 
     &:hover {
       background-color: ${theme.colors.grayHover};

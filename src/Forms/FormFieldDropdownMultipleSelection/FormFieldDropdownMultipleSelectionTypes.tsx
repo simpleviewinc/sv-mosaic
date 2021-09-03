@@ -39,10 +39,6 @@ export interface FormFieldDropdownMultipleSelectionTypes {
    */
   errorText?: string;
   /**
-   * Value (content) selected by the user from the dropdown.
-   */
-  value?: string;
-  /**
    * Sizing attribute.
    */
   size?: Sizes;
