@@ -27,10 +27,11 @@ export const StyledText = styled(MUIFormHelperText)`
     color: ${theme.colors.assistiveText};
     font-family: ${theme.fontFamily};
     font-size: 12px;
-    margin: 0;
+    margin-top: 8px;
   }
 
   &.MuiFormHelperText-root.Mui-error {
     color: ${theme.colors.red};
+    margin: 0;
   }
 `;

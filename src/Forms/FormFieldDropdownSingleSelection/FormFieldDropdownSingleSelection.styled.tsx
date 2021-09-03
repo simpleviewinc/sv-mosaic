@@ -28,6 +28,10 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
     .MuiOutlinedInput-notchedOutline {
     border: solid 1px ${theme.colors.gray800};
   }
+
+  .MuiAutocomplete-popupIndicator {
+    color: ${pr => (pr.error ? theme.colors.red : theme.colors.almostBlack)};
+  }
 `;
 
 export const StyledHelperText = styled(MUIFormHelperText)`

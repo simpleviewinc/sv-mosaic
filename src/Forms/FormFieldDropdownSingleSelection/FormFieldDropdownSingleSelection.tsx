@@ -11,9 +11,13 @@ import {
 	StyledErrorMessage,
 } from "./FormFieldDropdownSingleSelection.styled";
 
-import InputWrapper from '../../components/InputWrapper';
+// Material UI
 import TextField from '@material-ui/core/TextField';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+// Components
 import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
+import InputWrapper from '../../components/InputWrapper';
 import Label from '@root/components/Typography/Label';
 
 const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
@@ -69,6 +73,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 						errorText={props.errorText}
 						renderInput={renderInput}
 						disablePortal={true}
+						popupIcon={<ExpandMoreIcon />}
 					/>
 					{(!error && props.helperText?.trim().length > 0) &&
 						<StyledHelperText

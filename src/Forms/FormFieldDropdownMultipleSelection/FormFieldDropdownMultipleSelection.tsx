@@ -1,6 +1,6 @@
 // React
 import * as React from 'react';
-import { ReactElement, useState, Fragment } from 'react';
+import { ReactElement, useState } from 'react';
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
@@ -69,33 +69,36 @@ const FormFieldDropdownMultipleSelection = (
 		</ChipsWrapper>
 	);
 
+	const errorField = error && required;
+
 	return (
-		<FieldWrapper error={error && required}>
+		<FieldWrapper error={errorField}>
 			<Label disabled={disabled} required={required}>{label}</Label>
 			{!disabled ? (
 				<>
 					<StyledAutocomplete
 						data-testid='autocomplete-test'
 						disabled={disabled}
+						error={errorField}
 						multiple
 						options={options}
 						getOptionLabel={(option) => option.label}
 						renderOption={(option, { selected }) => (
-							<Fragment>
+							<>
 								<Checkbox checked={selected} />
 								{option.label}
-							</Fragment>
+							</>
 						)}
-						PopperComponent={StyledPopper}
 						popupIcon={<ExpandMoreIcon />}
+						PopperComponent={StyledPopper}
 						onChange={(_e, newValue) => setSelectedOptions(newValue)}
 						renderTags={() => null}
 						renderInput={renderInput}
 						size={size}
 						value={selectedOptions}
 					/>
-					{selectedOptions && listOfChips}
-					{errorText && error && required ? (
+					{selectedOptions.length > 0 && listOfChips}
+					{errorText && errorField ? (
 						<HelperText error>{errorText}</HelperText>
 					) : (
 						<HelperText>{helperText}</HelperText>

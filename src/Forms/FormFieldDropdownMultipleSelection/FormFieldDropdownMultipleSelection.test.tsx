@@ -85,13 +85,10 @@ describe('FormFieldDropdownMultipleSelection component', () => {
 		const input = screen.getByRole('textbox') as HTMLInputElement;
 
 		autocomplete.focus();
-		// assign value to input field.
 		fireEvent.change(input, { target: { value: 'The Godfather' } });
-		// navigate to the first item in the autocomplete box.
 		fireEvent.keyDown(autocomplete, { key: 'ArrowDown' });
-		// select the first item.
 		fireEvent.keyDown(autocomplete, { key: 'Enter' });
-		// get the chip element with the entered value.
+
 		const optionSelected = screen.getByText('The Godfather');
 
 		expect(optionSelected).toBeDefined();
