@@ -9,20 +9,37 @@ import theme from '../../utils/theme.js';
 export const StyledRadioButton = styled(Radio)`
   &.MuiRadio-colorSecondary {
     color: ${theme.colors.almostBlack};
+
+    &.Mui-checked {
+      color: ${theme.colors.simplyGold};
+    }
+  }
+
+  &.MuiRadio-colorSecondary,
+  &.MuiRadio-colorSecondary.Mui-checked {
     &:hover {
       background-color: ${theme.colors.grayHover};
     }
+  }
 
-    &.Mui-checked {
-      color: ${pr => pr.disabled ? theme.colors.simplyGoldDisabled : theme.colors.simplyGold};
-      &:hover {
-        background-color: ${theme.colors.grayHover};
-      }
-    }
+  &.MuiRadio-root {
+    margin-right: 2px;
+    padding: 10px;
+  }
+
+  & svg {
+    height: 20px;
+    width: 20px;
   }
 `;
 
 export const StyledFormControlLabel = styled(FormControlLabel)`
+  opacity: ${(pr) => (pr.disabled ? 0.5 : 1)};
+
+  &.MuiFormControlLabel-root {
+    margin: 0;
+  }
+
   .MuiFormControlLabel-label {
     color: ${theme.colors.label};
     font-family: ${theme.fontFamily};
@@ -31,6 +48,5 @@ export const StyledFormControlLabel = styled(FormControlLabel)`
 
   .MuiFormControlLabel-label.Mui-disabled {
     color: ${theme.colors.label};
-    opacity: .5;
   }
 `;
