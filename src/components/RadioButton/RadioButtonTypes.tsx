@@ -1,6 +1,6 @@
 export interface RadioButtonProps {
   /**
-   * Indicates whether the text area can be written on or readonly.
+   * Indicates whether the radio button is disabled.
    */
    disabled?: boolean;
   /**

@@ -6,7 +6,7 @@ import { RadioButtonProps } from './RadioButtonTypes';
 import {
 	StyledRadioButton,
 	StyledFormControlLabel,
-} from './RadioButton.styles';
+} from './RadioButton.styled';
 
 const RadioButton = (
 	props: RadioButtonProps & HTMLAttributes<HTMLInputElement>
