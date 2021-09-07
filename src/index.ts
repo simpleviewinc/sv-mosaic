@@ -59,6 +59,9 @@ export * from "./forms/FormFieldText";
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
 
+export { default as RadioButton } from "./components/RadioButton";
+export * from "./components/RadioButton";
+
 export { default as MosaicContext } from "./components/MosaicContext";
 
 export * from "./components/Typography";
