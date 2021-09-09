@@ -7,7 +7,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 import FormFieldRadioButtonGroup from '.';
 
 export default {
-	title: 'Forms|FormFieldRadioButtonGroup',
+	title: 'Forms|FormFieldRadio',
 	decorators: [withKnobs],
 } as Meta;
 
@@ -41,7 +41,7 @@ export const Example = (): ReactElement => {
 				required={boolean('Required', false)}
 				disabled={boolean('Disabled', false)}
 				error={boolean('Error', false)}
-				instructionText={text('Instruction text', '')}
+				instructionText={text('Instruction text', 'Instruction text')}
 				errorText={text('Error text', 'Error text')}
 				options={options}
 				onChange={handleChange}

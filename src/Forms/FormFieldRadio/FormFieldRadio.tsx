@@ -4,17 +4,15 @@ import { ReactElement } from 'react';
 // Components
 import RadioButton from '@root/components/RadioButton';
 import { Label } from '@root/components/Typography';
+import FieldWrapper from '@root/components/FieldWrapper';
+import InstructionText from '@root/components/InstructionText';
 
 // Types and styles
-import { FormFieldRadioGroupProps } from './FormFieldRadioButtonGroupTypes';
-import {
-	FieldWrapper,
-	StyledInstructionText,
-	StyledRadioGroup
-} from './FormFieldRadioButtonGroup.styled';
+import { FormFieldRadioProps } from './FormFieldRadioTypes';
+import { RadioGroupWrapper, StyledRadioGroup } from './FormFieldRadio.styled';
 import HelperText from '@root/components/HelperText';
 
-const FormFieldRadioGroup = (props: FormFieldRadioGroupProps): ReactElement => {
+const FormFieldRadio = (props: FormFieldRadioProps): ReactElement => {
 	const {
 		disabled,
 		error,
@@ -47,11 +45,15 @@ const FormFieldRadioGroup = (props: FormFieldRadioGroupProps): ReactElement => {
 			<Label disabled={disabled} required={required}>
 				{label}
 			</Label>
-			{instructionText && <StyledInstructionText>{instructionText}</StyledInstructionText>}
-			<StyledRadioGroup onChange={onChange} value={value}>{listOfRadios}</StyledRadioGroup>
+			{instructionText && <InstructionText>{instructionText}</InstructionText>}
+			<RadioGroupWrapper instructionText={instructionText}>
+				<StyledRadioGroup onChange={onChange} value={value}>
+					{listOfRadios}
+				</StyledRadioGroup>
+			</RadioGroupWrapper>
 			{errorText && errorField && <HelperText error>{errorText}</HelperText>}
 		</FieldWrapper>
 	);
 };
 
-export default FormFieldRadioGroup;
+export default FormFieldRadio;

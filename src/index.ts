@@ -41,8 +41,8 @@ export * from "./forms/FormFieldCheckbox";
 export { default as FormFieldDropdownMultipleSelection } from "./forms/FormFieldDropdownMultipleSelection";
 export * from "./forms/FormFieldDropdownMultipleSelection";
 
-export { default as FormFieldRadioButtonGroup } from "./forms/FormFieldRadioButtonGroup";
-export * from "./forms/FormFieldRadioButtonGroup";
+export { default as FormFieldRadio } from "./forms/FormFieldRadio";
+export * from "./forms/FormFieldRadio";
 
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
