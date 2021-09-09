@@ -30,6 +30,8 @@ export { default as FormFieldCheckbox } from "./forms/FormFieldCheckbox";
 export * from "./forms/FormFieldCheckbox";
 export { default as FormFieldDropdownMultipleSelection } from "./forms/FormFieldDropdownMultipleSelection";
 export * from "./forms/FormFieldDropdownMultipleSelection";
+export { default as FormFieldRadio } from "./forms/FormFieldRadio";
+export * from "./forms/FormFieldRadio";
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
 export { default as MenuBase } from "./components/MenuBase";
