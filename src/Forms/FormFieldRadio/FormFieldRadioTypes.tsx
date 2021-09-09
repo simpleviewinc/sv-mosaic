@@ -2,7 +2,7 @@ import { ChangeEventHandler } from 'react';
 import { RadioGroupProps as MUIRadioGroup } from '@material-ui/core/RadioGroup';
 import { MosaicLabelValue } from '@root/types';
 
-export interface FormFieldRadioGroupProps {
+export interface FormFieldRadioProps {
   /**
    * Indicates whether the field is disabled.
    */
