@@ -9,8 +9,8 @@ import theme from '@root/theme';
 export const StyledSwitch = styled(Switch)`
   margin-right: 2px;
   && {
-	  width: 60px;
-	  height: 40px;
+    width: 60px;
+    height: 40px;
   }
 
   .MuiSwitch-colorSecondary,
@@ -42,9 +42,9 @@ export const StyledSwitch = styled(Switch)`
   .MuiSwitch-track {
     background-color: ${theme.colors.simplyGray};
     opacity: 1;
-	height: 14px;
-	width: 34px;
-	margin: auto 0px;
+    height: 14px;
+    width: 34px;
+    margin: auto 0px;
   }
 
   .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
