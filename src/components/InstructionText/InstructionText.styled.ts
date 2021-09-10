@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import theme from '@root/theme';
 
 export const InstructionTextWrapper = styled.div`
-  width: 400px;
+  max-width: 400px;
   margin-left: ${pr => pr.position === 'right' ? 'auto' : 0};
 `;
 
