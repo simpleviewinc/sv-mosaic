@@ -4,11 +4,11 @@ export interface RadioButtonProps {
      */
     disabled?: boolean;
     /**
-     * Significant name related to its text area.
+     * Significant name related to its radio button.
      */
     label: string;
     /**
-     * Indicates whether the text area is required or not.
+     * Indicates whether the radio button is required or not.
      */
     required?: boolean;
     /**
