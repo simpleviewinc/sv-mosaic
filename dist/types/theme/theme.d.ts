@@ -30,7 +30,9 @@ declare const _default: {
         simplyGold: string;
         simplyGoldDisabled: string;
         simplyGoldHover: string;
+        simplyGoldOpacity: string;
         simplyGray: string;
+        simplyGrayOpacity: string;
         assistiveText: string;
         label: string;
         almostBlack: string;

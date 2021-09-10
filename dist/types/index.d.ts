@@ -44,6 +44,8 @@ export { default as FormFieldText } from "./forms/FormFieldText";
 export * from "./forms/FormFieldText";
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
+export { default as ToggleSwitch } from "./components/ToggleSwitch";
+export * from "./components/ToggleSwitch";
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
 export { default as MosaicContext } from "./components/MosaicContext";

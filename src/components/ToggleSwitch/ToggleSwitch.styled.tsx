@@ -7,6 +7,12 @@ import Switch from '@material-ui/core/Switch';
 import theme from '@root/theme';
 
 export const StyledSwitch = styled(Switch)`
+  margin-right: 2px;
+  && {
+	  width: 60px;
+	  height: 40px;
+  }
+
   .MuiSwitch-colorSecondary,
   .MuiSwitch-colorSecondary.Mui-disabled {
     color: white;
@@ -18,6 +24,8 @@ export const StyledSwitch = styled(Switch)`
   }
 
   .MuiSwitch-colorSecondary {
+    padding: 10px;
+
     &:hover {
       background-color: ${theme.colors.simplyGrayOpacity};
     }
@@ -34,6 +42,9 @@ export const StyledSwitch = styled(Switch)`
   .MuiSwitch-track {
     background-color: ${theme.colors.simplyGray};
     opacity: 1;
+	height: 14px;
+	width: 34px;
+	margin: auto 0px;
   }
 
   .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
