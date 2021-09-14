@@ -59,7 +59,8 @@
 		"@babel/polyfill": "7.6.0",
 		"@babel/runtime": "7.6.0",
 		"@material-ui/lab": "^4.0.0-alpha.60",
-		"@types/testing-library__jest-dom": "^5.14.1"
+		"@types/testing-library__jest-dom": "^5.14.1",
+		"react-phone-input-2": "^2.14.0"
 	},
 	"peerDependencies": {
 		"@material-ui/core": "^4.4.2",
