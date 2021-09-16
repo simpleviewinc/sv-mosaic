@@ -1,20 +1,24 @@
 import * as React from 'react';
-import { HTMLAttributes, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 // Components
 import HelperText from '@root/components/HelperText';
 import { Label } from '@root/components/Typography';
 import FieldWrapper from '@root/components/FieldWrapper';
 import InstructionText from '@root/components/InstructionText';
+import InputWrapper from '@root/components/InputWrapper';
 import PhoneInput from 'react-phone-input-2';
 
 // Types and styles
 import 'react-phone-input-2/lib/bootstrap.css';
 import { FormFieldPhoneSelectionDropdownProps } from './FormFieldPhoneSelectionDropdownTypes';
-import { PhoneInputWrapper } from './FormFieldPhoneSelectionDropdown.styled';
+import {
+	PhoneInputWrapper,
+	StyledDisabledText,
+} from './FormFieldPhoneSelectionDropdown.styled';
 
 const FormFieldPhoneSelectionDropdown = (
-	props: FormFieldPhoneSelectionDropdownProps & HTMLAttributes<HTMLInputElement>
+	props: FormFieldPhoneSelectionDropdownProps
 ): ReactElement => {
 	const {
 		autoFormat = true,
@@ -25,6 +29,7 @@ const FormFieldPhoneSelectionDropdown = (
 		helperText,
 		instructionText,
 		label,
+		onChange,
 		placeholder,
 		required,
 		value,
@@ -32,31 +37,35 @@ const FormFieldPhoneSelectionDropdown = (
 
 	const errorField = error && required;
 
-	return (
-		<FieldWrapper error={errorField}>
-			<Label disabled={disabled} required={required}>
-				{label}
-			</Label>
+	return !disabled ? (
+		<InputWrapper>
+			<FieldWrapper error={errorField}>
+				<Label disabled={disabled} required={required}>
+					{label}
+				</Label>
+				<PhoneInputWrapper>
+					<PhoneInput
+						autoFormat={autoFormat}
+						country={country}
+						disabled={disabled}
+						onChange={onChange}
+						placeholder={placeholder}
+						value={value}
+						inputProps={{
+							required: required,
+						}}
+					/>
+				</PhoneInputWrapper>
+				{errorText && errorField ? (
+					<HelperText error>{errorText}</HelperText>
+				) : (
+					<HelperText>{helperText}</HelperText>
+				)}
+			</FieldWrapper>
 			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-			<PhoneInputWrapper>
-				<PhoneInput
-					autoFormat={autoFormat}
-					country={country}
-					disabled={disabled}
-					onChange={(phone) => console.log({ phone })}
-					placeholder={placeholder}
-					value={value}
-					inputProps={{
-						required: required,
-					}}
-				/>
-			</PhoneInputWrapper>
-			{errorText && errorField ? (
-				<HelperText error>{errorText}</HelperText>
-			) : (
-				<HelperText>{helperText}</HelperText>
-			)}
-		</FieldWrapper>
+		</InputWrapper>
+	) : (
+		<StyledDisabledText>Phone field disabled</StyledDisabledText>
 	);
 };
 export default FormFieldPhoneSelectionDropdown;

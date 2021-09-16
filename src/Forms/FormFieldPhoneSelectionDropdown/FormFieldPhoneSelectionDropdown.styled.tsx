@@ -6,25 +6,25 @@ import theme from '@root/theme';
 export const PhoneInputWrapper = styled.div`
   .react-tel-input {
     .form-control {
-      background-color: #FAFAFA;
+      background-color: ${theme.colors.gray100};
       border-radius: 0px;
       font-family: ${theme.fontFamily};
       height: 51px;
       width: 280px;
       &:focus {
-        border-color: #bebebe;
+        border-color: ${theme.colors.simplyGray};
         box-shadow: none;
       }
     }
 
     .flag-dropdown {
       &:focus-within {
-        border: 1px solid #0A1323;        
+        border: ${theme.borders.black};        
       }
     }
 
     .selected-flag {
-      border: 1px solid #bebebe;
+      border: ${theme.borders.simplyGray};
       &:focus:before {
         border-color: transparent;
         box-shadow: 0px 0px 5px #1A1A1A26;
@@ -44,10 +44,15 @@ export const PhoneInputWrapper = styled.div`
     .country-list {
       .country.highlight,
       .country.highlight .dial-code {
-        color: #0a1323;
+        color: ${theme.colors.black};
         font-family: ${theme.fontFamily};
         font-weight: 600;
       }
     }
   }
 `;
+
+export const StyledDisabledText = styled.p`
+  color: ${theme.colors.assistiveText};
+  font-family: ${theme.fontFamily};
+`

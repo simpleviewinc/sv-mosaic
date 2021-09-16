@@ -6,6 +6,7 @@ import RadioButton from '@root/components/RadioButton';
 import { Label } from '@root/components/Typography';
 import FieldWrapper from '@root/components/FieldWrapper';
 import InstructionText from '@root/components/InstructionText';
+import InputWrapper from '@root/components/InputWrapper';
 
 // Types and styles
 import { FormFieldRadioProps } from './FormFieldRadioTypes';
@@ -41,18 +42,20 @@ const FormFieldRadio = (props: FormFieldRadioProps): ReactElement => {
 	);
 
 	return (
-		<FieldWrapper error={errorField}>
-			<Label disabled={disabled} required={required}>
-				{label}
-			</Label>
+		<InputWrapper>
+			<FieldWrapper error={errorField}>
+				<Label disabled={disabled} required={required}>
+					{label}
+				</Label>
+				<RadioGroupWrapper instructionText={instructionText}>
+					<StyledRadioGroup onChange={onChange} value={value}>
+						{listOfRadios}
+					</StyledRadioGroup>
+				</RadioGroupWrapper>
+				{errorText && errorField && <HelperText error>{errorText}</HelperText>}
+			</FieldWrapper>
 			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-			<RadioGroupWrapper instructionText={instructionText}>
-				<StyledRadioGroup onChange={onChange} value={value}>
-					{listOfRadios}
-				</StyledRadioGroup>
-			</RadioGroupWrapper>
-			{errorText && errorField && <HelperText error>{errorText}</HelperText>}
-		</FieldWrapper>
+		</InputWrapper>
 	);
 };
 
