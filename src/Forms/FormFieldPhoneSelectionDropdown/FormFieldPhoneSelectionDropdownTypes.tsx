@@ -1,3 +1,12 @@
+import { PhoneInputProps } from 'react-phone-input-2';
+
+export interface CountryData {
+  name: string;
+  dialCode: string;
+  countryCode: string;
+  format: string;
+}
+
 export interface FormFieldPhoneSelectionDropdownProps {
   /**
    * Phone formatting according to the country selected.
@@ -50,4 +59,8 @@ export interface FormFieldPhoneSelectionDropdownProps {
    * Input state value
    */
   value?: string;
+  /**
+   * Function that listens to changes on the selected option.
+   */
+  onChange?: PhoneInputProps['onChange'];
 }

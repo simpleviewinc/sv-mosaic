@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledInputWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 
   & .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
     padding: 16px;

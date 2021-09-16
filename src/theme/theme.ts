@@ -45,10 +45,12 @@ export default {
 		errorBackground: "#B100000D",
 	},
 	borders : {
+		black : "1px solid #0A1323",
 		lightGray : "1px solid rgba(0, 0, 0, .05)",
 		gray : "1px solid rgba(0, 0, 0, .15)",
 		fieldGray : "1px solid #CCCCCC",
 		error : "1px solid #B10000",
+		simplyGray: "1px solid #BEBEBE"
 	},
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	animations : {
