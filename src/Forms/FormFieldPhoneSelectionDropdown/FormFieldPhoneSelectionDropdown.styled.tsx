@@ -10,8 +10,7 @@ export const PhoneInputWrapper = styled.div`
       border-radius: 0px;
       font-family: ${theme.fontFamily};
       height: 51px;
-      padding-left: calc(74px + 15px);;
-      padding: 15px 56px 15px 98px;
+      padding: 15px 15px 15px 98px;
       width: 280px;
       &:focus {
         color: ${theme.colors.almostBlack};
@@ -20,6 +19,7 @@ export const PhoneInputWrapper = styled.div`
       }
       &:focus + .flag-dropdown {
         border: ${theme.borders.black};
+		border-radius: 0px;
       }
     }
 
@@ -52,6 +52,9 @@ export const PhoneInputWrapper = styled.div`
     }
 
     .country-list {
+      border-radius: 0px;
+      margin: 1px 0px 10px -1px;
+      width: 280px;
       .country.highlight,
       .country.highlight .dial-code {
         color: ${theme.colors.black};

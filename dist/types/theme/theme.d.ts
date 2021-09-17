@@ -39,10 +39,12 @@ declare const _default: {
         errorBackground: string;
     };
     borders: {
+        black: string;
         lightGray: string;
         gray: string;
         fieldGray: string;
         error: string;
+        simplyGray: string;
     };
     fontFamily: string;
     animations: {
