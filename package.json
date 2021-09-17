@@ -21,8 +21,8 @@
 		"@storybook/addon-docs": "5.3.13",
 		"@storybook/addon-knobs": "5.3.13",
 		"@storybook/react": "5.3.13",
-		"@types/jest": "25.1.2",
 		"@testing-library/react": "12.0.0",
+		"@types/jest": "25.1.2",
 		"@types/testing-library__react": "10.2.0",
 		"@typescript-eslint/eslint-plugin": "4.27.0",
 		"@typescript-eslint/parser": "4.27.0",
@@ -34,6 +34,7 @@
 		"eslint-plugin-react": "7.24.0",
 		"eslint-plugin-react-hooks": "4.2.0",
 		"i18next": "19.5.0",
+		"identity-obj-proxy": "^3.0.0",
 		"jest": "25.1.0",
 		"json-date-parser": "1.0.1",
 		"jsvalidator": "1.2.0",
@@ -59,7 +60,8 @@
 		"@babel/polyfill": "7.6.0",
 		"@babel/runtime": "7.6.0",
 		"@material-ui/lab": "^4.0.0-alpha.60",
-		"@types/testing-library__jest-dom": "^5.14.1"
+		"@types/testing-library__jest-dom": "^5.14.1",
+		"react-phone-input-2": "^2.14.0"
 	},
 	"peerDependencies": {
 		"@material-ui/core": "^4.4.2",

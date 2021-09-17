@@ -7,17 +7,13 @@ import {
 
 interface InstructionText {
   children: ReactNode;
-  error?: boolean;
-  position?: 'top' | 'right';
 }
 
 const InstructionText = ({
 	children,
-	error = false,
-	position,
 }: InstructionText): ReactElement => {
 	return (
-		<InstructionTextWrapper position={position} error={error}>
+		<InstructionTextWrapper>
 			<StyledInstructionText>{children}</StyledInstructionText>
 		</InstructionTextWrapper>
 	);
