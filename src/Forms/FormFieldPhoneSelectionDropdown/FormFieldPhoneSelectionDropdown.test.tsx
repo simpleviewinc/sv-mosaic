@@ -90,7 +90,7 @@ describe('FormFieldPhoneSelectionDropdown assistive elements', () => {
 });
 
 describe('FormFieldPhoneSelectionDropdown disabled state', () => {
-	it('should display the disabled text', () => {
+	it('should display "Phone field disabled" when no value is passed', () => {
 		render(
 			<FormFieldPhoneSelectionDropdown
 				label='Label'
@@ -99,6 +99,20 @@ describe('FormFieldPhoneSelectionDropdown disabled state', () => {
 		);
 
 		const disabledText = screen.getByText('Phone field disabled');
+
+		expect(disabledText).toBeDefined();
+	});
+
+	it('should display "Phone value:" text plus the value', () => {
+		render(
+			<FormFieldPhoneSelectionDropdown
+				label='Label'
+				disabled={true}
+				value='345'
+			/>
+		);
+
+		const disabledText = screen.getByText('Phone value: 345');
 
 		expect(disabledText).toBeDefined();
 	});
