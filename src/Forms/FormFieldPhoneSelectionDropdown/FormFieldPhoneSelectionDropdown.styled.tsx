@@ -10,24 +10,34 @@ export const PhoneInputWrapper = styled.div`
       border-radius: 0px;
       font-family: ${theme.fontFamily};
       height: 51px;
+      padding-left: calc(74px + 15px);;
+      padding: 15px 56px 15px 98px;
       width: 280px;
       &:focus {
+        color: ${theme.colors.almostBlack};
         border-color: ${theme.colors.simplyGray};
         box-shadow: none;
+      }
+      &:focus + .flag-dropdown {
+        border: ${theme.borders.black};
       }
     }
 
     .flag-dropdown {
+      border-right: 1px solid ${theme.colors.simplyGray};
       &:focus-within {
-        border: ${theme.borders.black};        
+        border: ${theme.borders.black};
+        border-radius: 0px;
       }
     }
 
     .selected-flag {
-      border: ${theme.borders.simplyGray};
+      border-radius: 0;
+      width: 100%;
+      padding: 15px 56px 15px 16px;
       &:focus:before {
         border-color: transparent;
-        box-shadow: 0px 0px 5px #1A1A1A26;
+        box-shadow: none;
       }
     }
     .selected-flag.open {
@@ -55,4 +65,4 @@ export const PhoneInputWrapper = styled.div`
 export const StyledDisabledText = styled.p`
   color: ${theme.colors.assistiveText};
   font-family: ${theme.fontFamily};
-`
+`;

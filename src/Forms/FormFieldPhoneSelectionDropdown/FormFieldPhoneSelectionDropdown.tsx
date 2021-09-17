@@ -65,7 +65,7 @@ const FormFieldPhoneSelectionDropdown = (
 			{instructionText && <InstructionText>{instructionText}</InstructionText>}
 		</InputWrapper>
 	) : (
-		<StyledDisabledText>Phone field disabled</StyledDisabledText>
+		value ? <StyledDisabledText>Phone value: {value}</StyledDisabledText> : <StyledDisabledText>Phone field disabled</StyledDisabledText>
 	);
 };
 export default FormFieldPhoneSelectionDropdown;
