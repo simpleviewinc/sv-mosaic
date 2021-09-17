@@ -3,6 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import babel from "rollup-plugin-babel";
 import pkg from "./package.json";
+import postcss from "rollup-plugin-postcss";
 
 // correct exports for the prop-types package
 import propTypes from "prop-types";
@@ -19,7 +20,7 @@ const EXTERNALS = [
 	"react-is",
 	"react-i18next",
 	"react-transition-group",
-	"styled-components"
+	"styled-components",
 ];
 
 const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];
@@ -62,7 +63,8 @@ export default [
 					]
 				],
 				babelrc : false
-			})
+			}),
+			postcss(),
 		]
 	}
 ];
