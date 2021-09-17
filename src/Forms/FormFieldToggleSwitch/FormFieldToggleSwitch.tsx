@@ -6,6 +6,7 @@ import HelperText from '@root/components/HelperText';
 import ToggleSwitch from '@root/components/ToggleSwitch';
 import { Label } from '@root/components/Typography';
 import FieldWrapper from '@root/components/FieldWrapper';
+import InputWrapper from '@root/components/InputWrapper';
 import InstructionText from '@root/components/InstructionText';
 
 // Types and styles
@@ -30,22 +31,24 @@ const FormFieldToggleSwitch = (
 	const errorField = error && required;
 
 	return (
-		<FieldWrapper error={errorField}>
-			<Label disabled={disabled} required={required}>
-				{label}
-			</Label>
+		<InputWrapper>
+			<FieldWrapper error={errorField}>
+				<Label disabled={disabled} required={required}>
+					{label}
+				</Label>
+				<ToggleSwitchWrapper instructionText>
+					<ToggleSwitch
+						disabled={disabled}
+						checked={checked}
+						label={toggleLabel}
+						onChange={onChange}
+						required={required}
+					/>
+				</ToggleSwitchWrapper>
+				{errorText && errorField && <HelperText error>{errorText}</HelperText>}
+			</FieldWrapper>
 			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-			<ToggleSwitchWrapper instructionText>
-				<ToggleSwitch
-					disabled={disabled}
-					checked={checked}
-					label={toggleLabel}
-					onChange={onChange}
-					required={required}
-				/>
-			</ToggleSwitchWrapper>
-			{errorText && errorField && <HelperText error>{errorText}</HelperText>}
-		</FieldWrapper>
+		</InputWrapper>
 	);
 };
 
