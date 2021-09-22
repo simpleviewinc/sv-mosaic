@@ -8,3 +8,8 @@ export const StyledFieldWrapper = styled.div`
 		pr.error ? theme.colors.lightRed : 'transparent'};
   width: fit-content;
 `;
+
+export const StyledFieldContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+`;

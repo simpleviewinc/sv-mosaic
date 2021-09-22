@@ -1,13 +1,14 @@
 // React
-import Field from '@root/components/Field';
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 // Components
+import Field from '@root/components/Field';
 import Chip from '../../components/Chip';
 
 //Types and styles
 import { FormFieldChipSingleSelectProps } from './FormFieldChipSingleSelectTypes';
+import { StyledChipGroup } from './FormFieldChipSingleSelect.styled';
 
 const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps): ReactElement => {
 	const {
@@ -18,8 +19,29 @@ const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps): React
 		instructionText,
 		helperText,
 		error,
-		errorText
+		errorText,
+		onSelect,
 	} = props;
+
+	const [internalOptions, setInternalOptions] = useState([...options]);
+
+	const updateSelectedOption = (option) => {
+
+		let newOptions = [...internalOptions];
+
+		newOptions = newOptions.map((o) => (
+			o.value === option.value ? 
+				{...o, selected: !o.selected} 
+				: 
+				{...o, selected: o.selected = false}
+			)
+		);
+
+		setInternalOptions(newOptions);
+		onSelect(newOptions);
+	}
+
+	const errorWithMessage = error && errorText.trim().length > 0;
 
 	return(
 		<Field
@@ -31,14 +53,21 @@ const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps): React
 			helperText={helperText}
 			instructionText={instructionText}
 		>
-			{
-				options.map(
-					(option) => <Chip
-						label={option.label}
-						disabled={disabled}
-					/>
-				)
-			}
+			<StyledChipGroup
+				error={(errorWithMessage || (errorWithMessage && required))}
+			>
+				{
+					internalOptions.map(
+						(option) => <Chip
+							key={option.value}
+							label={option.label}
+							disabled={disabled}
+							selected={option.selected}
+							onClick={() => updateSelectedOption(option)}
+						/>
+					)
+				}
+			</StyledChipGroup>
 		</Field>
 	);
 }
