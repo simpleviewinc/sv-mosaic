@@ -11,7 +11,7 @@ export const ErrorTextWrapper = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-  margin-top: 8px;
+  margin-top: 18px;
 `;
 
 export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`
@@ -27,7 +27,7 @@ export const StyledText = styled(MUIFormHelperText)`
     color: ${theme.colors.assistiveText};
     font-family: ${theme.fontFamily};
     font-size: 12px;
-    margin-top: 8px;
+    margin-top: 18px;
   }
 
   &.MuiFormHelperText-root.Mui-error {

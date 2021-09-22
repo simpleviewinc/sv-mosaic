@@ -12,7 +12,7 @@ export default {
 } as Meta;
 
 export const Example = (): ReactElement => {
-	let options = [
+	const options = [
 		{
 			label: 'Option 1',
 			value: 'Option_1',

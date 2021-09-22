@@ -1,20 +1,11 @@
 import * as React from 'react';
 import { ReactElement, ReactNode } from 'react';
-import { StyledFieldWrapper } from './Field.styled';
+import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 
 import { default as Label } from './Label';
 import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
-
-export interface FieldProps {
-  error?: boolean;
-  disabled?: boolean;
-  required?: boolean;
-  label: string;
-  helperText?: string;
-  errorText?: string;
-  instructionText?: string;
-}
+import { FieldProps } from '.';
 
 interface FieldWrapperProps extends FieldProps {
 	children: ReactNode;
@@ -30,16 +21,28 @@ const Field = ({
 	errorText,
 	instructionText,
 }: FieldWrapperProps): ReactElement => {
+	const errorWithMessage = error && errorText.trim().length > 0;
+
+	const renderBottomText = () => {
+		if((errorWithMessage || (errorWithMessage && required))) {
+			return <HelperText error={error}>{errorText}</HelperText>;
+		} else if (helperText) {
+			console.log(helperText);
+			return <HelperText>{helperText}</HelperText>;
+		}
+	}
+
 	return (
-		<StyledFieldWrapper error={error}>
-			<Label disabled={disabled} required={required}>
-					{label}
-			</Label>
-			{children}
-			{errorText && required && error && <HelperText error>{errorText}</HelperText> }
-			{helperText && <HelperText>{helperText}</HelperText> }
+		<StyledFieldContainer>
+			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)}>
+				<Label disabled={disabled} required={required}>
+						{label}
+				</Label>
+				{children}
+				{renderBottomText()}
+			</StyledFieldWrapper>
 			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-		</StyledFieldWrapper>
+		</StyledFieldContainer>
 	);
 };
 
