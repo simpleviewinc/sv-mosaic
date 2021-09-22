@@ -21,4 +21,8 @@ export interface ChipsProps {
      * the delete icon is clicked. If set, the delete icon will be shown.
      */
     onDelete?: React.EventHandler<any>;
+    /**
+     * Function to be executed as callback when clicking on a Chip
+     */
+    onClick?: (...args: any) => void;
 }
