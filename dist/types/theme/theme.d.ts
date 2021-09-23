@@ -13,6 +13,8 @@ declare const _default: {
         blue: string;
         blueHover: string;
         blueActive: string;
+        blueTeal: string;
+        blueTealHover: string;
         grayHover: string;
         labelDisabled: string;
         lightRed: string;
