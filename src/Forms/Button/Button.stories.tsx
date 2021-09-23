@@ -17,7 +17,7 @@ export default {
 };
 
 export const Example = (): ReactElement => {
-	const children = text('Children', 'Button');
+	const children = text('Label', 'Button');
 	const buttonType = select(
 		'Button type',
 		['primary', 'secondary', 'blueText', 'redText', 'approve', 'deny'],
@@ -78,7 +78,26 @@ export const Example = (): ReactElement => {
 				<Button
 					buttonType='blueText'
 					disabled={disabled}
-					icon={CheckIcon}
+					onClick={handleClick}
+					smallerButton={smallerButton}
+				>
+					{children}
+				</Button>
+				<Button
+					buttonType='redText'
+					disabled={disabled}
+					onClick={handleClick}
+					smallerButton={smallerButton}
+				>
+					{children}
+				</Button>
+			</Row>
+			<p>Text Buttons with icons</p>
+			<Row>
+				<Button
+					buttonType='blueText'
+					disabled={disabled}
+					icon={AddIcon}
 					iconPosition={iconPosition}
 					onClick={handleClick}
 					smallerButton={smallerButton}

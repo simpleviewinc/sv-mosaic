@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { ReactElement } from 'react';
 
 // Types and styles
 import { FormButtonProps } from './ButtonTypes';
-import { ReactElement } from 'react';
 import { StyledButton, StyledIcon } from './ButtonStyled';
 
 const Button = (props: FormButtonProps): ReactElement => {

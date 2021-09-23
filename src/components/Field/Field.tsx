@@ -24,7 +24,7 @@ const Field = ({
 	const errorWithMessage = error && errorText.trim().length > 0;
 
 	const renderBottomText = () => {
-		if((errorWithMessage || (errorWithMessage && required))) {
+		if ((errorWithMessage || (errorWithMessage && required))) {
 			return <HelperText error={error}>{errorText}</HelperText>;
 		} else if (helperText) {
 			console.log(helperText);
@@ -36,7 +36,7 @@ const Field = ({
 		<StyledFieldContainer>
 			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)}>
 				<Label disabled={disabled} required={required}>
-						{label}
+					{label}
 				</Label>
 				{children}
 				{renderBottomText()}
