@@ -34,7 +34,7 @@ const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps): React
 				{...o, selected: !o.selected} 
 				: 
 				{...o, selected: o.selected = false}
-			)
+		)
 		);
 
 		setInternalOptions(newOptions);
@@ -43,7 +43,7 @@ const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps): React
 
 	const errorWithMessage = error && errorText.trim().length > 0;
 
-	return(
+	return (
 		<Field
 			label={label}
 			required={required}

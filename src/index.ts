@@ -35,6 +35,9 @@ export * from "./components/Chip";
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
 
+export { default as FormButton } from "./forms/Button";
+export * from "./forms/Button";
+
 export { default as FormFieldCheckbox } from "./forms/FormFieldCheckbox";
 export * from "./forms/FormFieldCheckbox";
 
