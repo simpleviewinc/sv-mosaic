@@ -19,6 +19,8 @@ export default {
 		blue : "#0070F2",
 		blueHover : "rgba(0, 89, 191, 1)",
 		blueActive : "rgba(0, 71, 153, 1)",
+		blueTeal : "#008DA8",
+		blueTealHover : "#005769",
 		grayHover : "#F0F2F5",
 		labelDisabled : "#838791",
 		lightRed : "#B100000D",
