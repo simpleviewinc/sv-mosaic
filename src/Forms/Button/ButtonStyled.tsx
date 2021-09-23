@@ -17,7 +17,7 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorText: theme.colors.almostBlack,
 		colorTextHover: theme.colors.almostBlack,
 		fontSize: '14px',
-		hover: theme.colors.simplyGray,
+		hover: theme.colors.gray200,
 		textTransform: 'uppercase',
 		regular: 'white',
 	},
