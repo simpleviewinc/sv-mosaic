@@ -1,63 +1,106 @@
 import styled from 'styled-components';
-import { ButtonType } from './ButtonTypes';
+import { ButtonStyle, ButtonType } from './ButtonTypes';
 import theme from '@root/theme';
 
-type StateColors = {
-  regular: string;
-  hover: string;
-};
-
-const typeColors: { [key in ButtonType]: StateColors } = {
-  contained: {
-    regular: theme.colors.simplyGold,
-    hover: theme.colors.simplyGoldHover,
-  },
-  text: {
-    regular: "transparent",
-    hover: "#dbdbdb",
-  },
-  secondary: {
-    regular: "#000",
-    hover: "#3d3d3d",
-  },
+const typeStyle: { [key in ButtonType]: ButtonStyle } = {
+	primary: {
+		border: 'none',
+		colorText: theme.colors.almostBlack,
+		colorTextHover: theme.colors.almostBlack,
+		fontSize: '14px',
+		hover: theme.colors.simplyGoldHover,
+		textTransform: 'uppercase',
+		regular: theme.colors.simplyGold,
+	},
+	secondary: {
+		border: `2px solid ${theme.colors.simplyGray}`,
+		colorText: theme.colors.almostBlack,
+		colorTextHover: theme.colors.almostBlack,
+		fontSize: '14px',
+		hover: theme.colors.simplyGray,
+		textTransform: 'uppercase',
+		regular: 'white',
+	},
+	blueText: {
+		border: 'none',
+		colorText: theme.colors.blueTeal,
+		colorTextHover: theme.colors.blueTealHover,
+		fontSize: '16px',
+		hover: 'white',
+		textTransform: 'none',
+		regular: 'transparent',
+	},
+	redText: {
+		border: 'none',
+		colorText: theme.colors.red,
+		colorTextHover: theme.colors.redHover,
+		fontSize: '16px',
+		hover: 'white',
+		textTransform: 'none',
+		regular: 'transparent',
+	},
+	approve: {
+		border: `2px solid ${theme.colors.blueTeal}`,
+		colorText: theme.colors.blueTeal,
+		colorTextHover: theme.colors.blueTeal,
+		fontSize: '14px',
+		hover: '#008DA81A',
+		textTransform: 'uppercase',
+		regular: 'white',
+	},
+	deny: {
+		border: `2px solid ${theme.colors.red}`,
+		colorText: theme.colors.red,
+		colorTextHover: theme.colors.red,
+		fontSize: '14px',
+		hover: '#B100001A',
+		textTransform: 'uppercase',
+		regular: 'white',
+	},
 };
 
 export const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Add margin in case of loading or icon */
-  & > *:nth-child(1) {
-    margin-left: ${(pr) => (pr.withText ? 7 : 0)}px;
-  }
-  font-size: 15px;
-  border: none;
-  cursor: pointer;
-  background-color: ${(pr) => typeColors[pr.type].regular};
-  padding: 0 16px;
-  height: 40px;
-  color: ${(pr) =>
-    pr.type === "text" ? typeColors["contained"].regular : theme.colors.almostBlack};
-  ${(pr) =>
-    pr.disabled
-      ? `
-        background-color: #a6a6a6;
-        color: #5e5e5e;
-        cursor: not-allowed;
-        &:hover {
-            background-color: #a6a6a6 !important;
-            color: #5e5e5e !important;
-        }
-    `
-      : ""}
+  background-color: ${(pr) => typeStyle[pr.buttonType].regular};
+  border: ${(pr) => typeStyle[pr.buttonType].border};
   border-radius: 0;
-  outline: none;
+  color: ${(pr) => typeStyle[pr.buttonType].colorText};
+  cursor: ${(pr) => (!pr.disabled ? 'pointer' : 'auto')};
+  font-family: ${theme.fontFamily};
+  font-size: ${(pr) => (pr.smallerButton ? '14px' : typeStyle[pr.buttonType].fontSize)};
+  font-weight: ${theme.fontWeight.bold};
+  height: 40px;
+  opacity: ${(pr) => (!pr.disabled ? 1 : 0.5)};
+  padding: 12px 16px;
+  pointer-events:  ${(pr) => (!pr.disabled ? 'auto' : 'none')};
+  text-transform: ${(pr) => typeStyle[pr.buttonType].textTransform};
 
   &:hover {
-    background-color: ${(pr) => typeColors[pr.type].hover};
+    background-color: ${(pr) => typeStyle[pr.buttonType].hover};
+    color: ${(pr) => typeStyle[pr.buttonType].colorTextHover}
   }
-`
+
+  svg {
+    margin-right: ${pr => pr.iconPosition === 'left' ? '12px' : 0};
+    margin-left: ${pr => pr.iconPosition === 'right' ? '12px' : 0};
+  }
+`;
 
 export const StyledIcon = styled.div`
-  height: 20px;
+  &.MuiSvgIcon-root {
+    font-size: 12px;
+    height: 12px;
+    width: 12px;
+  }
+`;
+
+export const Row = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  & > * {
+    margin-right: 10px;
+  }
 `;
