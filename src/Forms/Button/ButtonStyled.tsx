@@ -72,6 +72,7 @@ export const StyledButton = styled.button`
   font-size: ${(pr) => (pr.smallerButton ? '14px' : typeStyle[pr.buttonType].fontSize)};
   font-weight: ${theme.fontWeight.bold};
   height: 40px;
+  min-width: 92px;
   opacity: ${(pr) => (!pr.disabled ? 1 : 0.5)};
   padding: 12px 16px;
   pointer-events:  ${(pr) => (!pr.disabled ? 'auto' : 'none')};
