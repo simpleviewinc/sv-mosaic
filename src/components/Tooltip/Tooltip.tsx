@@ -1,17 +1,37 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { default as T } from '@material-ui/core/Tooltip';
-import { IconButton } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { TooltipProps } from '.';
+import { StyledAdvancedTooltip, StyledDefaultTooltip } from './Tooltip.styled';
 
-const Tooltip = (props): ReactElement => {
-	return(
-		<T title='Close'>
-			<IconButton>
-				<CloseIcon />
-			</IconButton>
-		</T>
-	);
+const Tooltip = (props: TooltipProps): ReactElement => {
+	const {
+		text,
+		children,
+		description,
+	} = props;
+
+	if(!description) {
+		return(
+			<StyledDefaultTooltip
+				title={ text }
+			>
+				{children}
+			</StyledDefaultTooltip>
+		);
+	} else {
+		return(
+			<StyledAdvancedTooltip
+				title={ description }
+				arrow
+				placement={'top-start'}
+				PopperProps={{
+					disablePortal: true,
+				}}
+			>
+				{children}
+			</StyledAdvancedTooltip>
+		);
+	}
 }
 
 export default Tooltip;
