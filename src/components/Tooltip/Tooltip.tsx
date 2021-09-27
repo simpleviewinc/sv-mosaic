@@ -7,13 +7,17 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
 		text,
 		children,
-		description,
+		type,
 	} = props;
 
-	if(!description) {
+	if(type !== 'advanced') {
 		return(
 			<StyledDefaultTooltip
 				title={ text }
+				PopperProps={{
+					disablePortal: true,
+				}}
+				data-testid='tooltip-test-id'
 			>
 				{children}
 			</StyledDefaultTooltip>
@@ -21,12 +25,13 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 	} else {
 		return(
 			<StyledAdvancedTooltip
-				title={ description }
+				title={ text }
 				arrow
 				placement={'top-start'}
 				PopperProps={{
 					disablePortal: true,
 				}}
+				data-testid='tooltip-test-id'
 			>
 				{children}
 			</StyledAdvancedTooltip>
