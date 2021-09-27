@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import Tooltip from './Tooltip';
 import MoreVertIcon from '@material-ui/icons/MoreVert';

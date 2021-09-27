@@ -8,18 +8,18 @@ import { Tooltip } from '@material-ui/core';
 import theme from '../../utils/theme.js';
 
 export const StyledDefaultTooltip = styled(props => (
-		<Tooltip
-			classes={{ popper: props.className, tooltip: "tooltip" }}
-			{...props}
-		/>
-	))`
-		& .tooltip {
-			background-color: ${theme.colors.almostBlack};
-			color: white;
-			padding: 4px 8px;
-			margin-top: 4px;
-			font-size: 12px; 
-		}
+	<Tooltip
+		classes={{ popper: props.className, tooltip: "tooltip" }}
+		{...props}
+	/>
+))`
+	& .tooltip {
+		background-color: ${theme.colors.almostBlack};
+		color: white;
+		padding: 4px 8px;
+		margin-top: 4px;
+		font-size: 12px; 
+	}
 `;
 
 export const StyledAdvancedTooltip = styled(props => (

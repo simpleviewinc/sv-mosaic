@@ -10,8 +10,8 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 		type,
 	} = props;
 
-	if(type !== 'advanced') {
-		return(
+	if (type !== 'advanced') {
+		return (
 			<StyledDefaultTooltip
 				title={ text }
 				PopperProps={{
@@ -23,7 +23,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 			</StyledDefaultTooltip>
 		);
 	} else {
-		return(
+		return (
 			<StyledAdvancedTooltip
 				title={ text }
 				arrow
