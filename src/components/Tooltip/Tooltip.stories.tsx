@@ -15,7 +15,7 @@ export default {
 
 export const AdvancedTooltip = (): ReactElement => (
 	<Tooltip type='advanced' text={text('Tooltip text','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque')}>
-		<InfoOutlinedIcon style={{margin: '95px 30px'}} />
+		<InfoOutlinedIcon style={{margin: '140px 30px'}} />
 	</Tooltip>
 );
 
