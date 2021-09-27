@@ -11,7 +11,7 @@ export interface TextFieldProps {
     /**
      * Example text within the input to be replaced by the user.
      */
-    placeholder: string;
+    placeholder?: string;
     /**
      * Specifies which form element a label is bound to.
      */
