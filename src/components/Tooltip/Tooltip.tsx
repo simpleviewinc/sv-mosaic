@@ -10,33 +10,29 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 		type,
 	} = props;
 
-	if (type !== 'advanced') {
-		return (
-			<StyledDefaultTooltip
-				title={ text }
-				PopperProps={{
-					disablePortal: true,
-				}}
-				data-testid='tooltip-test-id'
-			>
-				{children}
-			</StyledDefaultTooltip>
-		);
-	} else {
-		return (
-			<StyledAdvancedTooltip
-				title={ text }
-				arrow
-				placement={'top-start'}
-				PopperProps={{
-					disablePortal: true,
-				}}
-				data-testid='tooltip-test-id'
-			>
-				{children}
-			</StyledAdvancedTooltip>
-		);
-	}
+	return type !== 'advanced' ? (
+		<StyledDefaultTooltip
+			title={ text }
+			PopperProps={{
+				disablePortal: true,
+			}}
+			data-testid='tooltip-test-id'
+		>
+			{children}
+		</StyledDefaultTooltip>
+	) : (
+		<StyledAdvancedTooltip
+			title={ text }
+			arrow
+			placement={'top-start'}
+			PopperProps={{
+				disablePortal: true,
+			}}
+			data-testid='tooltip-test-id'
+		>
+			{children}
+		</StyledAdvancedTooltip>
+	);
 }
 
 export default Tooltip;

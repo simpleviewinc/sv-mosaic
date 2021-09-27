@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // Material UI
 import { Tooltip } from '@material-ui/core';
 
-import theme from '../../utils/theme.js';
+import theme from '@root/theme';
 
 export const StyledDefaultTooltip = styled(props => (
 	<Tooltip
