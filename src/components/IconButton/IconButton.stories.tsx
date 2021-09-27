@@ -17,7 +17,7 @@ export default {
 export const Example = (): ReactElement => {
 
 	const disabled = boolean("Disabled", false);
-	const tooltipLabel = text('Tooltip label', 'This is the tooltip');
+	const tooltipText = text('Tooltip text', 'This is the tooltip');
 
 	const handleClick = () => {
 		alert('Icon clicked');
@@ -28,14 +28,14 @@ export const Example = (): ReactElement => {
 			<p>More Icon</p>
 			<IconButton
 				disabled={disabled}
-				tooltipLabel={tooltipLabel}
+				tooltipText={tooltipText}
 				icon={MoreVertIcon}
 				onClick={handleClick}
 			/>
 			<p>Help Icon</p>
 			<IconButton
 				disabled={disabled}
-				tooltipLabel={tooltipLabel}
+				tooltipText={tooltipText}
 				icon={HelpIcon}
 				onClick={handleClick}
 			/>

@@ -14,7 +14,7 @@ export interface IconButtonProps {
    * In case the icon button shows a tooltip, this prop
    * represents its content
    */
-  tooltipLabel?: string;
+  tooltipText?: string;
   /**
    * Callback fired when the icon button is clicked
    */
