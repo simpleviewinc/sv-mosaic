@@ -8,7 +8,7 @@ import theme from '@root/theme';
 
 export const StyledIconButton = styled(IconButton)`
   &.MuiIconButton-root {
-    padding: 0;
+    padding: 4px;
 
     &.Mui-disabled {
       color: ${theme.colors.almostBlack};

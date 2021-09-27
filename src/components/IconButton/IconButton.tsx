@@ -14,12 +14,12 @@ const IconButton = (props: IconButtonProps): ReactElement => {
 	return tooltipLabel && !disabled ? (
 		<Tooltip title={tooltipLabel}>
 			<StyledIconButton disabled={disabled} disableRipple onClick={onClick}>
-				<MaterialIcon data-testid='icon-button-test'></MaterialIcon>
+				<MaterialIcon data-testid='icon-button-test' />
 			</StyledIconButton>
 		</Tooltip>
 	) : (
 		<StyledIconButton disabled={disabled} disableRipple onClick={onClick}>
-			<MaterialIcon></MaterialIcon>
+			<MaterialIcon />
 		</StyledIconButton>
 	);
 };

@@ -15,6 +15,10 @@ export default {
 };
 
 export const Example = (): ReactElement => {
+
+	const disabled = boolean("Disabled", false);
+	const tooltipLabel = text('Tooltip label', 'This is the tooltip');
+
 	const handleClick = () => {
 		alert('Icon clicked');
 	};
@@ -23,15 +27,15 @@ export const Example = (): ReactElement => {
 		<>
 			<p>More Icon</p>
 			<IconButton
-				disabled={boolean('Disabled', false)}
-				tooltipLabel={text('Tooltip label', 'This is the tooltip')}
+				disabled={disabled}
+				tooltipLabel={tooltipLabel}
 				icon={MoreVertIcon}
 				onClick={handleClick}
 			/>
 			<p>Help Icon</p>
 			<IconButton
-				disabled={boolean('Disabled', false)}
-				tooltipLabel={text('Tooltip label', 'This is the tooltip')}
+				disabled={disabled}
+				tooltipLabel={tooltipLabel}
 				icon={HelpIcon}
 				onClick={handleClick}
 			/>

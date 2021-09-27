@@ -9,7 +9,7 @@ export interface IconButtonProps {
   /**
    * Material UI icon
    */
-  icon?: MosaicMIcon;
+  icon: MosaicMIcon;
   /**
    * In case the icon button shows a tooltip, this prop
    * represents its content
