@@ -10,54 +10,54 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 afterEach(cleanup);
 
 describe('IconButton component', () => {
-  it('should render icon button and fire onClick callback', () => {
-    const handleClick = jest.fn();
-    render(
-      <IconButton
-        disabled={false}
-        tooltipLabel='Tooltip label'
-        icon={MoreVertIcon}
-        onClick={handleClick}
-      />
-    );
-    const button = screen.getByRole('button');
-    const icon = screen.getByTestId('icon-button-test');
-    const tooltip = screen.getByTitle('Tooltip label');
+	it('should render icon button and fire onClick callback', () => {
+		const handleClick = jest.fn();
+		render(
+			<IconButton
+				disabled={false}
+				tooltipLabel='Tooltip label'
+				icon={MoreVertIcon}
+				onClick={handleClick}
+			/>
+		);
+		const button = screen.getByRole('button');
+		const icon = screen.getByTestId('icon-button-test');
+		const tooltip = screen.getByTitle('Tooltip label');
 
-    fireEvent.click(button);
+		fireEvent.click(button);
 
-    expect(button).toBeDefined();
-    expect(icon).toBeDefined();
-    expect(tooltip).toBeDefined();
-    expect(handleClick).toHaveBeenCalled();
-  });
+		expect(button).toBeDefined();
+		expect(icon).toBeDefined();
+		expect(tooltip).toBeDefined();
+		expect(handleClick).toHaveBeenCalled();
+	});
 });
 
 describe('Disabled IconButton component', () => {
-  const handleClick = jest.fn();
-  beforeEach(() => {
-    render(
-      <IconButton
-        disabled={true}
-        tooltipLabel='Tooltip label'
-        icon={MoreVertIcon}
-        onClick={handleClick}
-      />
-    );
-  });
+	const handleClick = jest.fn();
+	beforeEach(() => {
+		render(
+			<IconButton
+				disabled={true}
+				tooltipLabel='Tooltip label'
+				icon={MoreVertIcon}
+				onClick={handleClick}
+			/>
+		);
+	});
 
-  it('should not fire onClick callback', () => {
-    const button = screen.getByRole('button');
+	it('should not fire onClick callback', () => {
+		const button = screen.getByRole('button');
 
-    fireEvent.click(button);
+		fireEvent.click(button);
 
-    expect(button).toBeDefined();
-    expect(handleClick).not.toHaveBeenCalled();
-  });
+		expect(button).toBeDefined();
+		expect(handleClick).not.toHaveBeenCalled();
+	});
 
-  it('should not show the tooltip', () => {
-    const tooltip = screen.queryByTitle('Tooltip label');
+	it('should not show the tooltip', () => {
+		const tooltip = screen.queryByTitle('Tooltip label');
 
-    expect(tooltip).toBe(null);
-  });
+		expect(tooltip).toBe(null);
+	});
 });
