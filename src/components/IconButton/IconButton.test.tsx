@@ -15,14 +15,14 @@ describe('IconButton component', () => {
 		render(
 			<IconButton
 				disabled={false}
-				tooltipLabel='Tooltip label'
+				tooltipText='Tooltip text'
 				icon={MoreVertIcon}
 				onClick={handleClick}
 			/>
 		);
 		const button = screen.getByRole('button');
 		const icon = screen.getByTestId('icon-button-test');
-		const tooltip = screen.getByTitle('Tooltip label');
+		const tooltip = screen.getByTitle('Tooltip text');
 
 		fireEvent.click(button);
 
@@ -39,7 +39,7 @@ describe('Disabled IconButton component', () => {
 		render(
 			<IconButton
 				disabled={true}
-				tooltipLabel='Tooltip label'
+				tooltipText='Tooltip text'
 				icon={MoreVertIcon}
 				onClick={handleClick}
 			/>
@@ -56,7 +56,7 @@ describe('Disabled IconButton component', () => {
 	});
 
 	it('should not show the tooltip', () => {
-		const tooltip = screen.queryByTitle('Tooltip label');
+		const tooltip = screen.queryByTitle('Tooltip text');
 
 		expect(tooltip).toBe(null);
 	});
