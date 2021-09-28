@@ -24,7 +24,8 @@ export const Example = (): ReactElement => {
 					name: "text1",
 					label: "Simple Text",
 					type: "text",
-					instructionText: 'testing'
+					instructionText: 'testing',
+					validators: [validateEmail, validateSlow]
 				},
 				{
 					name: "text2",
@@ -47,6 +48,75 @@ export const Example = (): ReactElement => {
 					type: "text"
 				}
 			] as FieldDefProps[],
+		[state.data.text2]
+	);
+
+	useEffect(() => {
+		dispatch(
+			actions.setFieldValue({
+				name: "text4",
+				value: state.data.text3
+			})
+		);
+	}, [state.data.text3]);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const setText1Value = function () {
+		dispatch(
+			actions.setFieldValue({
+				name: "text1",
+				value: "My New Value"
+			})
+		);
+	};
+
+	const setText2Value = function () {
+		dispatch(
+			actions.setFieldValue({
+				name: "text2",
+				value: "notanemail"
+			})
+		);
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<p>Here is the form</p>
+			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
+			<div>
+				<p>
+					Here are some buttons that are not part of the form, but can change
+					values in the form proving communication between in/out of the form.
+					Notice that settext2 runs the validation after setting the value.
+				</p>
+				<button onClick={setText1Value}>Set Text1 Value</button>
+				<button onClick={setText2Value}>Set Text2 Value</button>
+			</div>
+		</>
+	);
+};
+
+export const PerformanceTest = (): ReactElement => {
+	const { state, dispatch, events, registerFields } = useForm();
+
+	const hundredFields = [];
+
+	for(let i = 0; i < 100; i++) {
+		hundredFields.push({
+			name: `text${i}`,
+			label: `Simple Text ${i}`,
+			type: "text",
+			instructionText: 'testing',
+			validators: [validateEmail, validateSlow]
+		})
+	}
+
+	const fields = useMemo(
+		() => hundredFields as FieldDefProps[],
 		[state.data.text2]
 	);
 

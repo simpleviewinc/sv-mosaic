@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useMemo } from "react";
-import { default as Field, FieldDefProps } from "../../components/Field";
-import FormFieldText from "../FormFieldText";
+import { useMemo, lazy, Suspense } from "react";
+import { FieldDefProps } from "../../components/Field";
+const FormFieldText = lazy(() => import("../FormFieldText"));
 import { FormState } from "./FormTypes";
 import { actions } from "./formUtils";
 
@@ -45,23 +45,25 @@ function Form(props) {
 				const onChange = onChangeMap[fieldProps.name];
 
 				return (
-					<Component
-						key={fieldProps.name}
-						{...fieldProps}
-						{...args}
-						value={props.state.data[fieldProps.name] || ""}
-						touched={props.state.touched[fieldProps.name] || false}
-						/**
-						 * Either error or errorText can be deleted since
-						 * everytime theres an error there will be an error text,
-						 * so our comparisons could be:
-						 * <FormFieldText error={error && required} />
-						 * this depending on the FormField
-						 */
-						error={props.state.errors[fieldProps.name] || ""}
-						errorText={props.state.errors[fieldProps.name] || ""}
-						onChange={onChange}
-					/>
+					<Suspense fallback={<div>Loading...</div>}>
+						<Component
+							key={fieldProps.name}
+							{...fieldProps}
+							{...args}
+							value={props.state.data[fieldProps.name] || ""}
+							touched={props.state.touched[fieldProps.name] || false}
+							/**
+							 * Either error or errorText can be deleted since
+							 * everytime theres an error there will be an error text,
+							 * so our comparisons could be:
+							 * <FormFieldText error={error && required} />
+							 * this depending on the FormField
+							 */
+							error={props.state.errors[fieldProps.name] || ""}
+							errorText={props.state.errors[fieldProps.name] || ""}
+							onChange={onChange}
+						/>
+					</Suspense>
 				);
 			})}
 		</form>
