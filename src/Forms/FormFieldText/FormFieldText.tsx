@@ -15,6 +15,7 @@ import {
 	StyledInstructionalText,
 } from './FormFieldText.styled';
 import { Label } from '@root/components/Typography';
+import Field from '@root/components/Field';
 
 const TextField = (
 	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
@@ -32,7 +33,7 @@ const TextField = (
 		size,
 		multiline = false,
 		helperText = '',
-		instructionalText,
+		instructionText,
 		errorText,
 		maxCharacters,
 		required,
@@ -46,48 +47,76 @@ const TextField = (
 		}
 		: null;
 
-	let renderedHelperText = helperText && !error ? helperText : null;
+	// let renderedHelperText = helperText && !error ? helperText : null;
 
-	if (errorText && error) {
-		renderedHelperText = (
-			<StyledHelperText>
-				<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
-				<span>{errorText}</span>
-			</StyledHelperText>
-		);
-	}
+	// if (errorText && error) {
+	// 	renderedHelperText = (
+	// 		<StyledHelperText>
+	// 			<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
+	// 			<span>{errorText}</span>
+	// 		</StyledHelperText>
+	// 	);
+	// }
+
+	const errorWithMessage = error && errorText?.trim().length > 0;
 
 	return (
-		<StyledWrapper>
-			<TextFieldWrapper error={error}>
-				<Label
-					disabled={disabled}
-					required={required}
-					htmlFor={htmlFor}
-					value={value}
-					maxCharacters={maxCharacters}
-				>
-					{label}
-				</Label>
-				<StyledTextField
-					id={htmlFor}
-					value={value}
-					onChange={onChange}
-					variant='outlined'
-					error={error}
-					helperText={renderedHelperText}
-					className={className}
-					placeholder={placeholder}
-					disabled={disabled}
-					multiline={multiline}
-					size={size}
-					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
-					InputProps={leadingIcon}
-					required={required}
-				/>
-			</TextFieldWrapper>
-			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
-		</StyledWrapper>
+		// <StyledWrapper>
+		// 	<TextFieldWrapper error={error}>
+		// 		<Label
+		// 			disabled={disabled}
+		// 			required={required}
+		// 			htmlFor={htmlFor}
+		// 			value={value}
+		// 			maxCharacters={maxCharacters}
+		// 		>
+		// 			{label}
+		// 		</Label>
+		// 		<StyledTextField
+		// 			id={htmlFor}
+		// 			value={value}
+		// 			onChange={onChange}
+		// 			variant='outlined'
+		// 			error={error}
+		// 			helperText={renderedHelperText}
+		// 			className={className}
+		// 			placeholder={placeholder}
+		// 			disabled={disabled}
+		// 			multiline={multiline}
+		// 			size={size}
+		// 			inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
+		// 			InputProps={leadingIcon}
+		// 			required={required}
+		// 		/>
+		// 	</TextFieldWrapper>
+		// 	{instructionText && <StyledInstructionalText error={error}>{instructionText}</StyledInstructionalText>}
+		// </StyledWrapper>
+		<Field
+			label={label}
+			required={required}
+			disabled={disabled}
+			error={error}
+			errorText={errorText}
+			helperText={helperText}
+			instructionText={instructionText}
+		>
+			<StyledTextField
+				id={htmlFor}
+				value={value}
+				onChange={(e) => onChange(e.target.value)}
+				variant='outlined'
+				error={(errorWithMessage || (errorWithMessage && required))}
+				// helperText={renderedHelperText}
+				className={className}
+				placeholder={placeholder}
+				disabled={disabled}
+				multiline={multiline}
+				size={size}
+				inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
+				InputProps={leadingIcon}
+				required={required}
+			/>
+		</Field>
 	);
 };
 

@@ -7,7 +7,9 @@ import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
 import { FieldProps } from '.';
 
-interface FieldWrapperProps extends FieldProps {
+export interface FieldDefProps extends FieldProps {
+	type?: "text";
+	inputSettings?: any;
 	children: ReactNode;
 }
 
@@ -20,8 +22,8 @@ const Field = ({
 	helperText,
 	errorText,
 	instructionText,
-}: FieldWrapperProps): ReactElement => {
-	const errorWithMessage = error && errorText.trim().length > 0;
+}: FieldDefProps): ReactElement => {
+	const errorWithMessage = error && errorText?.trim().length > 0;
 
 	const renderBottomText = () => {
 		if ((errorWithMessage || (errorWithMessage && required))) {
