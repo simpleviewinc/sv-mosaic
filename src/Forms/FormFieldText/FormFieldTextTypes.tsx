@@ -1,14 +1,11 @@
+import { FieldProps } from "@root/components/Field";
 import { Sizes } from "@root/theme/sizes";
 import { ChangeEventHandler } from "react";
 
 /**
  * Base text field props.
  */
-export interface TextFieldProps {
-  /**
-   * Significant name related to its textfield.
-   */
-  label: string;
+export interface TextFieldProps extends FieldProps {
   /**
    * Example text within the input to be replaced by the user.
    */
@@ -18,25 +15,9 @@ export interface TextFieldProps {
    */
   htmlFor?: string;
   /**
-   * Text to help the user fill the current text field.
-   */
-  helperText?: string | JSX.Element;
-  /**
-   * Instructions about how to fill the text field.
-   */
-  instructionalText?: string;
-  /**
-   * Indicates the cause of an error.
-   */
-  errorText?: string;
-  /**
    * Used to show and limit the characters.
    */
   maxCharacters?: number;
-  /**
-   * Marks Text field as required
-   */
-  required?: boolean;
   /**
    * Icon at the beginning of the text field.
    */
@@ -45,14 +26,6 @@ export interface TextFieldProps {
    * Sizing attribute (dimensions tbd).
    */
   size?: Sizes;
-  /**
-   * Indicates whether the text field can be written on or readonly.
-   */
-  disabled?: boolean;
-  /**
-   * Flag to style text field as erroneous.
-   */
-  error?: boolean;
   /**
    * Value written by the user into the text field.
    */

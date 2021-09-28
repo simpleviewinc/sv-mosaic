@@ -8,7 +8,7 @@ describe('Text field component', () => {
 		render(
 			<TextField
 				label='Label test'
-				instructionalText='Instructional text'
+				instructionText='Instructional text'
 				placeholder='placeholder'
 				onChange={() => jest.fn()}
 			/>
@@ -21,8 +21,8 @@ describe('Text field component', () => {
 	});
 
 	it('should should display the instructional text', () => {
-		const instructionalTextElement = screen.getByText('Instructional text');
-		expect(instructionalTextElement).toBeDefined();
+		const instructionTextElement = screen.getByText('Instructional text');
+		expect(instructionTextElement).toBeDefined();
 	});
 
 	it('should should display the placeholder', () => {

@@ -18,8 +18,8 @@ export default {
 
 export const Default = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
-	const onHandleChange = (event) => {
-		setInputValue(event.target.value);
+	const onHandleChange = (val) => {
+		setInputValue(val);
 	};
 
 	return (
@@ -29,7 +29,7 @@ export const Default = (): ReactElement => {
 			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
-			instructionalText={text('Instructional text', '')}
+			instructionText={text('Instructional text', '')}
 			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
@@ -43,8 +43,8 @@ export const Default = (): ReactElement => {
 
 export const multiline = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
-	const onHandleChange = (event) => {
-		setInputValue(event.target.value);
+	const onHandleChange = (val) => {
+		setInputValue(val);
 	};
 
 	return (
@@ -53,7 +53,7 @@ export const multiline = (): ReactElement => {
 			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
-			instructionalText={text('Instructional text', '')}
+			instructionText={text('Instructional text', '')}
 			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
@@ -68,15 +68,15 @@ export const multiline = (): ReactElement => {
 
 export const withIcon = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
-	const onHandleChange = (event) => {
-		setInputValue(event.target.value);
+	const onHandleChange = (val) => {
+		setInputValue(val);
 	};
 
 	return (
 		<TextField
 			label={text('Label', 'With Icon')}
 			helperText={text('Helper text', '')}
-			instructionalText={text('Instructional text', '')}
+			instructionText={text('Instructional text', '')}
 			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
