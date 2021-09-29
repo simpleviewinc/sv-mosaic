@@ -23,7 +23,7 @@ export interface FieldProps {
 	/**
    	 * Indicates the cause of an error.
    	 */
-	 errorText?: string;
+	errorText?: string;
 	/**
 	 * Instructions about how to fill the text field.
 	 */
