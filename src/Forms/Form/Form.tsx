@@ -32,9 +32,10 @@ function Form(props) {
 
 				if (curr.onChange) {
 					/**
-					 * Added value to this onChangeF
+					 * Sending the value will allow devs
+					 * to do whatever they want with this value
 					 */
-					curr.onChange();
+					curr.onChange(value);
 				}
 			};
 

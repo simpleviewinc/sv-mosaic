@@ -38,14 +38,28 @@ export const KitchenSink = (): ReactElement => {
 					name: "text3",
 					label: "Text that copies to the next input",
 					type: "checkbox",
+					checked: [],
 					options: [
 						{
-							label: 'test1',
-							value: 'test1,'
+							label : "Label 1",
+							value : "label_1"
+						},
+						{
+							label : "Label 2",
+							value : "label_2"
+						},
+						{
+							label : "Label 3",
+							value : "label_3"
 						}
-					]
-					// onChange: function () {
-					//   console.log(state.data.text2);
+					],
+					// onChange: function (value) {
+					// 	dispatch(
+					// 		actions.setFieldValue({
+					// 			name: "text3",
+					// 			value: [...state.data.text3, value]
+					// 		})
+					// 	);
 					// }
 				},
 				{
