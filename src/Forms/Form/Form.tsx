@@ -1,18 +1,22 @@
 import * as React from "react";
 import { useMemo, lazy, Suspense } from "react";
-import { FieldDefProps } from "../../components/Field";
+// import { FieldDefProps } from "../../components/Field";
 const FormFieldText = lazy(() => import("../FormFieldText"));
-import { FormState } from "./FormTypes";
+const FormFieldTextArea = lazy(() => import("../FormFieldTextArea"));
+const FormFieldCheckbox = lazy(() => import("../FormFieldCheckbox"));
+// import { FormState } from "./FormTypes";
 import { actions } from "./formUtils";
 
-interface FormProps {
-	state: FormState;
-	fields: FieldDefProps[];
-	dispatch: any;
-}
+// interface FormProps {
+// 	state: FormState;
+// 	fields: FieldDefProps[];
+// 	dispatch: any;
+// }
 
 const componentMap = {
-	text: FormFieldText
+	text: FormFieldText,
+	textArea: FormFieldTextArea,
+	checkbox: FormFieldCheckbox
 };
 
 function Form(props) {
@@ -27,6 +31,9 @@ function Form(props) {
 				);
 
 				if (curr.onChange) {
+					/**
+					 * Added value to this onChangeF
+					 */
 					curr.onChange();
 				}
 			};
@@ -45,9 +52,8 @@ function Form(props) {
 				const onChange = onChangeMap[fieldProps.name];
 
 				return (
-					<Suspense fallback={<div>Loading...</div>}>
+					<Suspense fallback={<div>Loading...</div>} key={fieldProps.name}>
 						<Component
-							key={fieldProps.name}
 							{...fieldProps}
 							{...args}
 							value={props.state.data[fieldProps.name] || ""}
@@ -59,7 +65,7 @@ function Form(props) {
 							 * <FormFieldText error={error && required} />
 							 * this depending on the FormField
 							 */
-							error={props.state.errors[fieldProps.name] || ""}
+							error={props.state.errors[fieldProps.name] ? true : false}
 							errorText={props.state.errors[fieldProps.name] || ""}
 							onChange={onChange}
 						/>
