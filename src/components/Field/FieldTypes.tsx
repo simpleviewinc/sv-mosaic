@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface FieldProps {
 	name?: string;
 	/**
@@ -32,4 +34,11 @@ export interface FieldProps {
 	 * Function that listens to changes on the text field and updates its value.
 	 */
 	onChange?: any;
+	
+	inputSettings?: any;
+}
+
+export interface FieldDefProps extends FieldProps {
+	type?: "text";
+	children: ReactNode;
 }

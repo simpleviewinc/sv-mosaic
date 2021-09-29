@@ -22,22 +22,26 @@ const TextField = (
 ): ReactElement => {
 	const {
 		label = '',
-		htmlFor,
-		icon,
+		inputSettings,
 		className,
 		disabled = false,
 		error = false,
+		helperText = '',
+		instructionText,
+		errorText,
+		required,
+	} = props;
+
+	const {
+		htmlFor,
+		icon,
 		value,
 		onChange,
 		placeholder = '',
 		size,
 		multiline = false,
-		helperText = '',
-		instructionText,
-		errorText,
 		maxCharacters,
-		required,
-	} = props;
+	} = inputSettings;
 
 	const leadingIcon = icon
 		? {

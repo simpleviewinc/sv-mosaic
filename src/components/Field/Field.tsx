@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 
 import { default as Label } from './Label';
 import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
-import { FieldProps } from '.';
-
-export interface FieldDefProps extends FieldProps {
-	type?: "text";
-	inputSettings?: any;
-	children: ReactNode;
-}
+import { FieldDefProps } from '.';
 
 const Field = ({
 	children,

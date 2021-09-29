@@ -31,6 +31,9 @@ export const KitchenSink = (): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "textArea",
+					inputSetting: {
+						maxChar: 20,
+					},
 					helperText: state.data.text2,
 					validators: [validateEmail, validateSlow]
 				},
