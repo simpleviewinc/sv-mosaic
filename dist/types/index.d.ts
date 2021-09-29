@@ -26,6 +26,8 @@ export { default as Chip } from "./components/Chip";
 export * from "./components/Chip";
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
+export { default as IconButton } from "./components/IconButton";
+export * from "./components/IconButton";
 export { default as FormButton } from "./forms/Button";
 export * from "./forms/Button";
 export { default as FormFieldCheckbox } from "./forms/FormFieldCheckbox";
