@@ -25,8 +25,4 @@ export const StyledIconButton = styled(IconButton)`
   &:hover {
     color: ${theme.colors.almostBlack};
   }
-
-  &:active {
-    color: ${theme.colors.blueTeal};
-  }
 `;
