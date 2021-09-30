@@ -75,11 +75,10 @@ describe('The multiline behaviour', () => {
 			<TextField
 				inputSettings={{
 					htmlFor: 'input-test',
-					onChange: () => jest.fn(),
 					placeholder: 'placeholder',
 					multiline: false
 				}}
-				
+				onChange={() => jest.fn()}
 				id='input-test'
 				label='Label test'
 			/>
@@ -90,51 +89,55 @@ describe('The multiline behaviour', () => {
 		expect(inputElement.nodeName).toBe('INPUT');
 	});
 
-	// it('should a text area element when multiline is on', () => {
-	// 	render(
-	// 		<TextField
-	// 			htmlFor='multiline-test'
-	// 			id='multiline-test'
-	// 			label='Label test'
-	// 			multiline={true}
-	// 			placeholder='placeholder'
-	// 			onChange={() => jest.fn()}
-	// 		/>
-	// 	);
-	// 	const textAreaElement = screen.getByLabelText('Label test');
+	it('should a text area element when multiline is on', () => {
+		render(
+			<TextField
+				inputSettings={{
+					htmlFor: 'multiline-tes',
+					placeholder: 'placeholder',
+					multiline: true,
+				}}
+				id='multiline-test'
+				label='Label test'
+				onChange={() => jest.fn()}
+			/>
+		);
+		const textAreaElement = screen.getByLabelText('Label test');
 
-	// 	expect(textAreaElement).toBeDefined();
-	// 	expect(textAreaElement.nodeName).toBe('TEXTAREA');
-	// });
+		expect(textAreaElement).toBeDefined();
+		expect(textAreaElement.nodeName).toBe('TEXTAREA');
+	});
 });
 
-// describe('The char counter behaviour', () => {
-// 	it('should render the char counter', () => {
-// 		const WithCharCounter = () => {
-// 			const [inputValue, setInputValue] = useState('');
-// 			const onHandleChange = (event) => {
-// 				setInputValue(event.target.value);
-// 			};
+describe('The char counter behaviour', () => {
+	it('should render the char counter', () => {
+		const WithCharCounter = () => {
+			const [inputValue, setInputValue] = useState('');
+			const onHandleChange = (event) => {
+				setInputValue(event.target.value);
+			};
 
-// 			return (
-// 				<TextField
-// 					htmlFor='char-test'
-// 					id='char-test'
-// 					label='Label'
-// 					placeholder='placeholder'
-// 					onChange={onHandleChange}
-// 					maxCharacters={20}
-// 					value={inputValue}
-// 				/>
-// 			);
-// 		};
+			return (
+				<TextField
+					inputSettings={{
+						htmlFor: 'char-test',
+						placeholder: 'placeholder',
+						maxCharacters: 20,
+						value: inputValue,
+					}}
+					id='char-test'
+					label='Label'
+					onChange={onHandleChange}
+				/>
+			);
+		};
 
-// 		render(<WithCharCounter />);
-// 		const inputElement = screen.getByLabelText('Label');
+		render(<WithCharCounter />);
+		const inputElement = screen.getByLabelText('Label');
 
-// 		fireEvent.change(inputElement, { target: { value: '233' } });
-// 		const charCounter = screen.getByText('3/20');
+		fireEvent.change(inputElement, { target: { value: '233' } });
+		const charCounter = screen.getByText('3/20');
 
-// 		expect(charCounter).toBeDefined();
-// 	});
-// });
+		expect(charCounter).toBeDefined();
+	});
+});

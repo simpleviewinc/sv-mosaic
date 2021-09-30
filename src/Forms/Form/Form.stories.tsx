@@ -24,6 +24,10 @@ export const KitchenSink = (): ReactElement => {
 					name: "text1",
 					label: "Simple Text",
 					type: "text",
+					inputSettings: {
+						maxCharacters: 20,
+						value: state.data.text1, //THIS IS SUPPOSED TO BE DEFAULTVALUE
+					},
 					instructionText: 'testing',
 					validators: [validateEmail, validateSlow]
 				},
@@ -31,9 +35,6 @@ export const KitchenSink = (): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "textArea",
-					inputSetting: {
-						maxChar: 20,
-					},
 					helperText: state.data.text2,
 					validators: [validateEmail, validateSlow]
 				},
@@ -56,27 +57,14 @@ export const KitchenSink = (): ReactElement => {
 							value : "label_3"
 						}
 					],
-					// onChange: function (value) {
-					// 	dispatch(
-					// 		actions.setFieldValue({
-					// 			name: "text3",
-					// 			value: [...state.data.text3, value]
-					// 		})
-					// 	);
-					// }
 				},
 				{
 					name: "text4",
 					label: "Text that receives copy",
 					type: "text"
 				},
-				// {
-				// 	name: "text4",
-				// 	label: "Text that receives copy",
-				// 	type: "checkbox"
-				// }
 			] as FieldDefProps[],
-		[state.data.text2]
+		[state.data.text1, state.data.text2]
 	);
 
 	useEffect(() => {
