@@ -50,7 +50,7 @@ export interface FieldProps {
 	/**
 	 * Value written by the user into the text field.
 	 */
-	value?: any;
+	value?: string;
 }
 
 export interface FieldDefProps extends FieldProps {
