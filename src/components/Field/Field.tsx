@@ -1,15 +1,11 @@
 import * as React from 'react';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 
 import { default as Label } from './Label';
 import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
-import { FieldProps } from '.';
-
-interface FieldWrapperProps extends FieldProps {
-	children: ReactNode;
-}
+import { FieldDefProps } from '.';
 
 const Field = ({
 	children,
@@ -20,8 +16,12 @@ const Field = ({
 	helperText,
 	errorText,
 	instructionText,
-}: FieldWrapperProps): ReactElement => {
-	const errorWithMessage = error && errorText.trim().length > 0;
+	htmlFor,
+	value,
+	maxCharacters,
+	name
+}: FieldDefProps): ReactElement => {
+	const errorWithMessage = error && errorText?.trim().length > 0;
 
 	const renderBottomText = () => {
 		if ((errorWithMessage || (errorWithMessage && required))) {
@@ -35,7 +35,13 @@ const Field = ({
 	return (
 		<StyledFieldContainer>
 			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)}>
-				<Label disabled={disabled} required={required}>
+				<Label
+					disabled={disabled}
+					required={required}
+					htmlFor={name}
+					maxCharacters={maxCharacters}
+					value={value}
+				>
 					{label}
 				</Label>
 				{children}

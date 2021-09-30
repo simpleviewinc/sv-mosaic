@@ -52,7 +52,7 @@ const Label = (props: LabelProps): ReactElement => {
 			<InputLabel htmlFor={htmlFor}>{children}</InputLabel>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
-					{value.length + '/' + maxCharacters}
+					{(!value ? '0' : value.length) + '/' + maxCharacters}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>

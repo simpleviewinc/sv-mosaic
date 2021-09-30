@@ -18,24 +18,26 @@ export default {
 
 export const Default = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
-	const onHandleChange = (event) => {
-		setInputValue(event.target.value);
+	const onHandleChange = (val) => {
+		setInputValue(val);
 	};
 
 	return (
 		<TextField
 			label={text('Label', 'Label')}
-			htmlFor='text-input'
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
-			placeholder={text('Placeholder', 'placeholder')}
+			inputSettings={{
+				htmlFor: 'text-input',
+				size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+				placeholder: text('Placeholder', 'placeholder'),
+				maxCharacters: number('Max characters', 20),		
+				value: inputValue
+			}}
 			helperText={text('Helper text', '')}
-			instructionalText={text('Instructional text', '')}
+			instructionText={text('Instructional text', '')}
 			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
-			maxCharacters={number('Max characters', 20)}
-			value={inputValue}
 			required={boolean('Required', false)}
 		/>
 	);
@@ -43,50 +45,57 @@ export const Default = (): ReactElement => {
 
 export const multiline = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
-	const onHandleChange = (event) => {
-		setInputValue(event.target.value);
+	const onHandleChange = (val) => {
+		setInputValue(val);
 	};
 
 	return (
 		<TextField
 			label={text('Label', 'Multiline')}
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
+			inputSettings={{
+				size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+				placeholder: text('Placeholder', 'placeholder'),
+				maxCharacters: number('Max characters', 200),		
+				value: inputValue,
+				multiline: boolean('Multiline', true),
+			}}
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
-			instructionalText={text('Instructional text', '')}
+			instructionText={text('Instructional text', '')}
 			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
-			maxCharacters={number('Max characters', 200)}
-			value={inputValue}
 			required={boolean('Required', false)}
-			multiline={boolean('Multiline', true)}
 		/>
 	);
 };
 
 export const withIcon = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
-	const onHandleChange = (event) => {
-		setInputValue(event.target.value);
+	const onHandleChange = (val) => {
+		setInputValue(val);
 	};
 
 	return (
 		<TextField
 			label={text('Label', 'With Icon')}
+			inputSettings={{
+				htmlFor: 'text-input',
+				size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+				placeholder: text('Placeholder', 'placeholder'),
+				maxCharacters: number('Max characters', 100),		
+				value: inputValue,
+				icon: <AccountCircle />,
+				multiline: boolean('Multiline', false),
+			}}
 			helperText={text('Helper text', '')}
-			instructionalText={text('Instructional text', '')}
+			instructionText={text('Instructional text', '')}
 			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
-			icon={<AccountCircle />}
-			value={inputValue}
-			multiline={boolean('Multiline', false)}
-			maxCharacters={number('Max characters', 100)}
 			required={boolean('Required', false)}
 		/>
 	);

@@ -8,7 +8,7 @@ describe('Text field component', () => {
 		render(
 			<TextField
 				label='Label test'
-				instructionalText='Instructional text'
+				instructionText='Instructional text'
 				placeholder='placeholder'
 				onChange={() => jest.fn()}
 			/>
@@ -21,8 +21,8 @@ describe('Text field component', () => {
 	});
 
 	it('should should display the instructional text', () => {
-		const instructionalTextElement = screen.getByText('Instructional text');
-		expect(instructionalTextElement).toBeDefined();
+		const instructionTextElement = screen.getByText('Instructional text');
+		expect(instructionTextElement).toBeDefined();
 	});
 
 	it('should should display the placeholder', () => {
@@ -73,12 +73,14 @@ describe('The multiline behaviour', () => {
 	it('should render an input element when multiline is off', () => {
 		render(
 			<TextField
-				htmlFor='input-test'
+				inputSettings={{
+					htmlFor: 'input-test',
+					placeholder: 'placeholder',
+					multiline: false
+				}}
+				onChange={() => jest.fn()}
 				id='input-test'
 				label='Label test'
-				multiline={false}
-				placeholder='placeholder'
-				onChange={() => jest.fn()}
 			/>
 		);
 		const inputElement = screen.getByLabelText('Label test');
@@ -90,11 +92,13 @@ describe('The multiline behaviour', () => {
 	it('should a text area element when multiline is on', () => {
 		render(
 			<TextField
-				htmlFor='multiline-test'
+				inputSettings={{
+					htmlFor: 'multiline-tes',
+					placeholder: 'placeholder',
+					multiline: true,
+				}}
 				id='multiline-test'
 				label='Label test'
-				multiline={true}
-				placeholder='placeholder'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -115,13 +119,15 @@ describe('The char counter behaviour', () => {
 
 			return (
 				<TextField
-					htmlFor='char-test'
+					inputSettings={{
+						htmlFor: 'char-test',
+						placeholder: 'placeholder',
+						maxCharacters: 20,
+						value: inputValue,
+					}}
 					id='char-test'
 					label='Label'
-					placeholder='placeholder'
 					onChange={onHandleChange}
-					maxCharacters={20}
-					value={inputValue}
 				/>
 			);
 		};
