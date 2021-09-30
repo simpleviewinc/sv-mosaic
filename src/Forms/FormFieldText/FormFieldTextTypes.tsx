@@ -32,14 +32,14 @@ export interface TextFieldProps extends FieldProps {
 		 */
 		value?: string;
 		/**
-		 * Function that listens to changes on the text field and updates its value.
-		 */
-		onChange?: ChangeEventHandler<HTMLInputElement>;
-		/**
 		 * When true the text field will expand its height.
 		 */
 		multiline?: boolean;
 	}
+	/**
+	 * Function that listens to changes on the text field and updates its value.
+	 */
+	onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 export interface StyledWrapperProps {

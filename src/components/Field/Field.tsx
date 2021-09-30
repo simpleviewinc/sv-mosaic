@@ -16,6 +16,10 @@ const Field = ({
 	helperText,
 	errorText,
 	instructionText,
+	htmlFor,
+	value,
+	maxCharacters,
+	name
 }: FieldDefProps): ReactElement => {
 	const errorWithMessage = error && errorText?.trim().length > 0;
 
@@ -31,7 +35,13 @@ const Field = ({
 	return (
 		<StyledFieldContainer>
 			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)}>
-				<Label disabled={disabled} required={required}>
+				<Label
+					disabled={disabled}
+					required={required}
+					htmlFor={name}
+					maxCharacters={maxCharacters}
+					value={value}
+				>
 					{label}
 				</Label>
 				{children}

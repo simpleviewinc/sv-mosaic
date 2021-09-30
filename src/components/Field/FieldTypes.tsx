@@ -34,8 +34,23 @@ export interface FieldProps {
 	 * Function that listens to changes on the text field and updates its value.
 	 */
 	onChange?: any;
-	
+	/**
+	 * Settings that belong to a specific field.
+	 * They are defined within each field implementation.
+	 */
 	inputSettings?: any;
+	/**
+	 * Used to show and limit the characters.
+	 */
+	maxCharacters?: number;
+	/**
+	 * Specifies which form element a label is bound to.
+	 */
+	htmlFor?: string;
+	/**
+	 * Value written by the user into the text field.
+	 */
+	value?: any;
 }
 
 export interface FieldDefProps extends FieldProps {
