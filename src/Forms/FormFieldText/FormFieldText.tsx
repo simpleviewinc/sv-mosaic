@@ -23,6 +23,7 @@ const TextField = (
 		errorText,
 		required,
 		onChange,
+		value,
 	} = props;
 
 	const leadingIcon = inputSettings?.icon
@@ -50,7 +51,7 @@ const TextField = (
 		>
 			<StyledTextField
 				id={inputSettings?.htmlFor}
-				value={inputSettings?.value}
+				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				variant='outlined'
 				error={(errorWithMessage || (errorWithMessage && required))}
