@@ -51,10 +51,6 @@ function Form(props) {
           if (customLayout[section]) {
             customLayout[section].fields[row][col].push(field.name);
           } else {
-            //push field into a new section
-            // customLayout.push({
-            //   fields: [[[field.name]]]
-            // });
             customLayout = [
               ...customLayout,
               {

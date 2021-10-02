@@ -8,9 +8,10 @@ import {
 	StyledTextInputProps,
 } from './FormFieldTextTypes';
 import theme from '../../utils/theme.js';
+import { Sizes } from '@root/theme/sizes';
 
 export const StyledTextField = styled<StyledTextInputProps>(TextField)`
-  width: ${pr => pr.size};
+  width: ${pr => pr.size ? pr.size : Sizes.sm};
 
   input,
   .MuiOutlinedInput-adornedStart,
