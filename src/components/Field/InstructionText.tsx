@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, forwardRef } from 'react';
 import {
 	InstructionTextWrapper,
 	StyledInstructionText,
@@ -7,16 +7,19 @@ import {
 
 interface InstructionText {
   children: ReactNode;
+  tooltip?: boolean;
 }
 
-const InstructionText = ({
-	children,
-}: InstructionText): ReactElement => {
+const InstructionText = forwardRef((props: InstructionText, ref): ReactElement => {
+	const { children, tooltip } = props;
 	return (
-		<InstructionTextWrapper>
+		<InstructionTextWrapper
+			className={`instruction-text-${!tooltip ? 'right' : 'tooltip'}`}
+			ref={ref}
+		>
 			<StyledInstructionText>{children}</StyledInstructionText>
 		</InstructionTextWrapper>
 	);
-};
+});
 
 export default InstructionText;
