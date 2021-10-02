@@ -48,6 +48,7 @@ const TextField = (
 			maxCharacters={inputSettings?.maxCharacters}
 			htmlFor={inputSettings?.htmlFor}
 			value={inputSettings?.value}
+			size={inputSettings?.size}
 		>
 			<StyledTextField
 				id={inputSettings?.htmlFor}

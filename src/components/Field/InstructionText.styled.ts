@@ -8,6 +8,22 @@ export const InstructionTextWrapper = styled.div`
   margin-top: 44px;
   padding-left: 20px;
   width: 400px;
+
+  &.instruction-text-right {
+	display: block;
+	width: 400px;
+	min-height: 51px;
+	padding-left: 10px;
+	border-left: 1px solid black;
+	margin-left: auto;
+  }
+
+  &.instruction-text-tooltip {
+	opacity: 0;
+	width: 0px;
+	border: none;
+	margin-left: auto;
+  }
 `;
 
 export const StyledInstructionText = styled.p`
