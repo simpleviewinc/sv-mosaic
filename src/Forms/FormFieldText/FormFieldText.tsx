@@ -23,6 +23,7 @@ const TextField = (
 		errorText,
 		required,
 		onChange,
+		value,
 	} = props;
 
 	const leadingIcon = inputSettings?.icon
@@ -47,10 +48,11 @@ const TextField = (
 			maxCharacters={inputSettings?.maxCharacters}
 			htmlFor={inputSettings?.htmlFor}
 			value={inputSettings?.value}
+			size={inputSettings?.size}
 		>
 			<StyledTextField
 				id={inputSettings?.htmlFor}
-				value={inputSettings?.value}
+				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				variant='outlined'
 				error={(errorWithMessage || (errorWithMessage && required))}

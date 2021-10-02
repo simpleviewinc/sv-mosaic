@@ -1,3 +1,4 @@
+import { Sizes } from '@root/theme/sizes';
 import { ReactNode } from 'react';
 
 export interface FieldProps {
@@ -51,6 +52,7 @@ export interface FieldProps {
 	 * Value written by the user into the text field.
 	 */
 	value?: string;
+	size?: Sizes;
 }
 
 export interface FieldDefProps extends FieldProps {
