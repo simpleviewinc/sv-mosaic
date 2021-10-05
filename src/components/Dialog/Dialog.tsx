@@ -25,7 +25,7 @@ const Dialog = (props: DialogProps): ReactElement => {
 	return (
 		<StyledDialog open={open}>
 			<StyledDialogTitle>
-				<span>{dialogTitle}</span>
+				{dialogTitle}
 			</StyledDialogTitle>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>

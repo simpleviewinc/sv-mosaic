@@ -12,7 +12,7 @@ export interface DialogProps {
   /**
    * If true, the dialog is shown
    */
-  open?: boolean;
+  open: boolean;
   /**
    * Label that describes the primary button
    */
@@ -21,7 +21,7 @@ export interface DialogProps {
    * Function that will be executed when the primary
    * button is clicked
    */
-  primaryAction?: () => void;
+  primaryAction: () => void;
   /**
    * Label that describes the secondary button
    */
@@ -30,5 +30,5 @@ export interface DialogProps {
    * Function that will be executed when the secondary
    * button is clicked
    */
-  secondaryAction?: () => void;
+  secondaryAction: () => void;
 }

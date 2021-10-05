@@ -13,6 +13,10 @@ export const StyledDialog = styled(Dialog)`
     border-bottom: 2px solid ${theme.colors.gray200};
   }
 
+  .MuiPaper-rounded {
+    border-radius: 0;
+  }
+
   .MuiDialogContent-root {
     padding: 0 80px 40px 80px;
   }
