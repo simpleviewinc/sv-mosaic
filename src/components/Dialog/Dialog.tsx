@@ -29,10 +29,10 @@ const Dialog = (props: DialogProps): ReactElement => {
 			</StyledDialogTitle>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
-				<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
 				<Button buttonType='secondary' onClick={secondaryAction}>
 					{secondaryBtnLabel}
 				</Button>
+				<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
 			</DialogActions>
 		</StyledDialog>
 	);
