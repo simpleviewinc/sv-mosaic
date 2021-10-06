@@ -63,7 +63,7 @@ const TextArea = (
 				<StyledTextArea
 					id={htmlFor}
 					value={value}
-					onChange={onChange}
+					onChange={(e) => onChange(e.target.value)}
 					variant='outlined'
 					error={error}
 					helperText={renderedHelperText}
