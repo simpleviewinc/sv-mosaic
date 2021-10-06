@@ -5,18 +5,13 @@ import TextField from '@material-ui/core/TextField';
 
 //Styles & Types
 import {
-	StyledWrapperProps,
 	StyledTextInputProps,
 } from './FormFieldTextTypes';
 import theme from '../../utils/theme.js';
-
-export const TextFieldWrapper = styled.div<StyledWrapperProps>`
-  padding: 20px;
-  background: ${pr => pr.error ? theme.colors.errorBackground : 'transparent'};
-`;
+import { Sizes } from '@root/theme/sizes';
 
 export const StyledTextField = styled<StyledTextInputProps>(TextField)`
-  width: ${pr => pr.size};
+  width: ${pr => pr.size ? pr.size : Sizes.sm};
 
   input,
   .MuiOutlinedInput-adornedStart,
@@ -81,24 +76,3 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
 	padding: ${pr => pr.disabled && 0};
   }
 `;
-
-export const StyledHelperText = styled.span`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const StyledWrapper = styled.div`
-  display: flex;
-`
-export const StyledInstructionalText = styled.span`
-  font-family:  ${theme.fontFamily};
-  padding-left: 40px;
-  max-width: 300px;
-  word-break: break-all;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  background: ${pr => pr.error ? '#B100000D' : 'transparent'};
-  padding-right: 20px;
-`
