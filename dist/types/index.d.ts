@@ -30,6 +30,8 @@ export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
 export { default as FormButton } from "./forms/Button";
 export * from "./forms/Button";
+export { default as FormDialog } from "./components/Dialog";
+export * from "./components/Dialog";
 export { default as FormFieldCheckbox } from "./forms/FormFieldCheckbox";
 export * from "./forms/FormFieldCheckbox";
 export { default as FormFieldDropdownMultipleSelection } from "./forms/FormFieldDropdownMultipleSelection";
