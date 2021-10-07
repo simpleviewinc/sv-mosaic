@@ -18,7 +18,7 @@ export interface ModalProps {
    * is clicked. If this function is not pass as props
    * the icon will not be displayed
    */
-  onClose?: () => void;
+  onClose: () => void;
   /**
    * Label that describes the primary button
    */

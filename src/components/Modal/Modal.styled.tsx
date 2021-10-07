@@ -34,7 +34,7 @@ export const StyledDialog = styled(Dialog)`
   }
 `;
 
-export const StyledDialogTitle = styled.div`
+export const StyledDialogDesktopTitle = styled.div`
   align-items: center;
   background-color: ${theme.colors.gray200};
   color: ${theme.colors.almostBlack};
@@ -51,5 +51,14 @@ export const StyledDialogTitle = styled.div`
     &:hover {      
       background-color: transparent;
     }
+  }
+`;
+
+export const StyledDialogMobileTitle = styled(StyledDialogDesktopTitle)`
+  font-size: 18px;
+  padding: 0 20px;
+
+  svg {
+    margin-right: 8px;
   }
 `;
