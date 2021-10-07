@@ -90,4 +90,4 @@ const Field = ({
 	);
 };
 
-export default memo(Field);
+export default Field;

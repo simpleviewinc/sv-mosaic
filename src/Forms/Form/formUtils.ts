@@ -56,7 +56,7 @@ async function runValidators(validators, value) {
 }
 
 export const actions = {
-	setFieldValue({ name, value, validate = true }) {
+	setFieldValue({ name, value, validate = false }) {
 		return async function (dispatch) {
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
