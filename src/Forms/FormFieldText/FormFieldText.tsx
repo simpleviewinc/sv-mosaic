@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes, useState, useEffect } from 'react';
+import { ReactElement, HTMLAttributes, memo } from 'react';
 
 // Material UI
 import { InputAdornment } from '@material-ui/core';
@@ -36,6 +36,8 @@ const TextField = (
 
 	const errorWithMessage = error && errorText?.trim().length > 0;
 
+	console.log('rendering', label);
+
 	return (
 		<Field
 			label={label}
@@ -69,4 +71,4 @@ const TextField = (
 	);
 };
 
-export default TextField;
+export default memo(TextField);
