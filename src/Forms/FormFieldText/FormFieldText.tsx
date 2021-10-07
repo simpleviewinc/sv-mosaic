@@ -23,6 +23,7 @@ const TextField = (
 		errorText,
 		required,
 		onChange,
+		onBlur,
 		value,
 	} = props;
 
@@ -35,8 +36,6 @@ const TextField = (
 		: null;
 
 	const errorWithMessage = error && errorText?.trim().length > 0;
-
-	console.log('rendering', label);
 
 	return (
 		<Field
@@ -56,6 +55,7 @@ const TextField = (
 				id={inputSettings?.htmlFor}
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
+				onBlur={(e) => onBlur(e.target.value)}
 				variant='outlined'
 				error={(errorWithMessage || (errorWithMessage && required))}
 				className={className}

@@ -1,27 +1,32 @@
 import * as React from 'react';
 import {
 	useMemo,
-	lazy,
 	memo
 } from 'react';
-import { FieldDef, SectionDef } from './FormTypes';
-import './Form.css';
+import styled from 'styled-components';
+import { SectionDef } from './FormTypes';
+// import './Form.css';
 import Section from './Section';
-import Col from './Col';
-import Row from './Row';
 
+
+const StyledForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+`;
 
 function Form(props) {
-	//   const [layout, setLayout] = useState(props.sections);
+	const { sections, fields, dispatch, state } = props;
 
 	let layout = useMemo(() => {
 		let customLayout: SectionDef[] = [];
 
-		if (props.sections)
-			customLayout = JSON.parse(JSON.stringify(props.sections));
+		if (sections)
+			customLayout = JSON.parse(JSON.stringify(sections));
 
-		if (props.fields) {
-			for (let field of props.fields) {
+		if (fields) {
+			for (let field of fields) {
 				if (field.layout) {
 					let section = customLayout.length;
 					if (field.layout.section !== undefined && field.layout.section >= 0) {
@@ -48,7 +53,7 @@ function Form(props) {
 							},
 						];
 					}
-				} else if (!props.sections) {
+				} else if (!sections) {
 					customLayout = [
 						...customLayout,
 						{
@@ -60,37 +65,22 @@ function Form(props) {
 
 			return customLayout;
 		}
-	}, [props.sections, props.fields]);
+	}, [sections, fields]);
 
 	return (
-		<form className='form'>
+		<StyledForm>
 			{layout?.map((section, i) => (
 				<Section
 					key={i}
 					title={section.title}
 					description={section.description}
-					fields={section.fields}
-					{...props}
-				>
-		
-					{/* <div key={i}>
-						{section && (
-							<div
-								key={section.title}
-								id={section.title?.replace(/\s+/g, '')}
-								className='section'
-							>
-								{section.title && <h1>{section.title}</h1>}
-								{section.description && <p>{section.description}</p>}
-								{section.fields && (
-									<div className='rows'>{renderFields(section.fields)}</div>
-								)}
-							</div>
-						)}
-					</div> */}
-				</Section>
+					fieldsDef={fields}
+					fieldsLayoutPos={section.fields}
+					state={state}
+					dispatch={dispatch}
+				/>
 			))}
-		</form>
+		</StyledForm>
 	);
 }
 

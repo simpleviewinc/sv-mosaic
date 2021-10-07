@@ -64,7 +64,7 @@ export const KitchenSink = (): ReactElement => {
 					type: "text"
 				},
 			] as FieldDefProps[],
-		[state.data.text1, state.data.text2]
+		[]
 	);
 
 	useEffect(() => {
@@ -325,7 +325,7 @@ export const PerformanceTest = (): ReactElement => {
 
 	const fields = useMemo(
 		() => hundredFields as FieldDefProps[],
-		[state.data.text2]
+		[]
 	);
 
 	useEffect(() => {
