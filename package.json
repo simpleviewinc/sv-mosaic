@@ -20,6 +20,7 @@
 		"@rollup/plugin-node-resolve": "7.1.1",
 		"@storybook/addon-docs": "5.3.13",
 		"@storybook/addon-knobs": "5.3.13",
+		"@storybook/addon-viewport": "5.3.13",
 		"@storybook/react": "5.3.13",
 		"@testing-library/jest-dom": "^5.14.1",
 		"@testing-library/react": "12.0.0",
@@ -92,7 +93,7 @@
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000",
 		"package-lock": "cp package-lock.json package-lock-mounted.json",
-		"style": "eslint ."
+		"style": "eslint . --fix"
 	},
 	"repository": {
 		"type": "git",
