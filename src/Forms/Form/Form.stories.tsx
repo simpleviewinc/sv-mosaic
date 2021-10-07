@@ -152,24 +152,25 @@ export const FormWithLayout = (): ReactElement => {
 					instructionText: 'Instruction text text1'
 				}
 			] as FieldDefProps[],
-		[state.data.text2]
+		// [state.data.text2]
+		[]
 	);
 
-	const sections = [
-    {
-      title: "Section 1",
-      description: "Description for section 1",
-      fields: [
-        // row 1
-        [["text1"], ["text2"], ["text3"]],
-        // row 2
-        [["text3"], ["text4"], ["text1"]],
-        [[]],
-        // row 3
-        [["text3"], ["text4"]]
-      ]
-    }
-  ];
+	const sections = useMemo(() => [
+		{
+		title: "Section 1",
+		description: "Description for section 1",
+		fields: [
+			// row 1
+			[["text1"], ["text2"], ["text3"]],
+			// row 2
+			[["text3"], ["text4"], ["text1"]],
+			[[]],
+			// row 3
+			[["text3"], ["text4"]]
+		]
+		}
+  	], [fields]);
 
 	useEffect(() => {
 		dispatch(
@@ -254,7 +255,8 @@ export const CodesandboxExample = (): ReactElement => {
 					type: "text"
 				}
 			] as FieldDefProps[],
-		[state.data.text2]
+		// [state.data.text2]
+			[]
 	);
 
 	useEffect(() => {

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface FormState {
 	data: Record<string, any>;
 	touched: Record<string, boolean>;
@@ -31,4 +33,5 @@ export interface SectionDef {
   title?: string;
   description?: string | JSX.Element;
   fields: (string | FieldDef)[][][];
+  children?: ReactNode;
 }
