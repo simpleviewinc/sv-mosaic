@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { render, cleanup, fireEvent, screen } from '@testing-library/react';
+import { render, cleanup, fireEvent, screen, act } from '@testing-library/react';
 
 // Components
 import Modal from './Modal';
@@ -74,9 +74,13 @@ describe('Modal component', () => {
 		expect(closeButton).toBeTruthy();
 	});
 
-	it('should display back icon on mobile view', () => {
-		global.innerWidth = 450;
-		global.dispatchEvent(new Event('resize'));
+	it('should display back icon on mobile view', async() => {
+	
+		act(() => {
+			global.innerWidth = 450;
+			global.dispatchEvent(new Event('resize'));
+		});
+
 		const backButton = screen.getByTestId('arrow-back-icon');
 
 		expect(backButton).toBeTruthy();

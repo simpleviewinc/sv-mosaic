@@ -41,12 +41,15 @@ export const StyledDialogDesktopTitle = styled.div`
   display: flex;
   font-size: 20px;
   font-weight: ${theme.fontWeight.medium};
-  height: 56px;
+  min-height: 56px;
   justify-content: space-between;
   padding: 0 40px;
 
   .MuiIconButton-root {
     color: ${theme.colors.almostBlack};
+    margin-right: 8px;
+    height: 24px;
+    width: 24px;
     padding: 0;
     &:hover {      
       background-color: transparent;
@@ -59,6 +62,11 @@ export const StyledDialogMobileTitle = styled(StyledDialogDesktopTitle)`
   padding: 0 20px;
 
   svg {
-    margin-right: 8px;
+    height: 16px;
+    width: 16px;
+  }
+
+  path {
+    transform: translateX(5px);
   }
 `;
