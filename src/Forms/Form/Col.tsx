@@ -70,7 +70,7 @@ const Col = (props) => {
 		}, {});
 	}, [fieldsDef]);
 
-	return(
+	return (
 		<StyledCol>
 			{col.map((field, i) => {
 				const currentField = fieldsDef?.find(

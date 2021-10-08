@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useState, useEffect, useRef, memo } from 'react';
+import { ReactElement, useState, useEffect, useRef } from 'react';
 import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 
 import { default as Label } from './Label';
@@ -30,9 +30,9 @@ const Field = ({
 
 	const handleDescriptionRender = () => {
 		if (description.current) {
-			let node = description.current;
-			let nodeStyle = window.getComputedStyle(node);
-			let marginLeft = parseFloat(nodeStyle.getPropertyValue("margin-left"));
+			const node = description.current;
+			const nodeStyle = window.getComputedStyle(node);
+			const marginLeft = parseFloat(nodeStyle.getPropertyValue("margin-left"));
 			if (marginLeft > 24) {
 				setRenderAsTooltip(false);
 			} else {

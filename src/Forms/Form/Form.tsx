@@ -19,14 +19,14 @@ const StyledForm = styled.form`
 function Form(props) {
 	const { sections, fields, dispatch, state } = props;
 
-	let layout = useMemo(() => {
+	const layout = useMemo(() => {
 		let customLayout: SectionDef[] = [];
 
 		if (sections)
 			customLayout = JSON.parse(JSON.stringify(sections));
 
 		if (fields) {
-			for (let field of fields) {
+			for (const field of fields) {
 				if (field.layout) {
 					let section = customLayout.length;
 					if (field.layout.section !== undefined && field.layout.section >= 0) {
