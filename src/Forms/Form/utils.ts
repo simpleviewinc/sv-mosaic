@@ -26,7 +26,7 @@ export function useForm({ fields }: { fields: FieldDefProps[] }) {
 		const touched: Record<string, boolean> = {};
 		const errors: Record<string, string> = {};
 
-		for (let field of fields) {
+		for (const field of fields) {
 			data[field.name] = "";
 			touched[field.name] = false;
 			errors[field.name] = "";
@@ -41,7 +41,7 @@ export function useForm({ fields }: { fields: FieldDefProps[] }) {
 
 	const fieldMap = useMemo(() => {
 		const map = new Map<string, FieldDefProps>();
-		for (let field of fields) {
+		for (const field of fields) {
 			map.set(field.name, field);
 		}
 		return map;
@@ -71,7 +71,7 @@ export function useForm({ fields }: { fields: FieldDefProps[] }) {
 export function joinReducers(...reducers) {
 	return function (state, action) {
 		let newState = state;
-		for (let reducer of reducers) {
+		for (const reducer of reducers) {
 			newState = reducer(newState, action);
 		}
 		return newState;

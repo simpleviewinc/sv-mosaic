@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes, useState, useEffect } from 'react';
+import { ReactElement, HTMLAttributes, memo } from 'react';
 
 // Material UI
 import { InputAdornment } from '@material-ui/core';
@@ -23,6 +23,7 @@ const TextField = (
 		errorText,
 		required,
 		onChange,
+		onBlur,
 		value,
 	} = props;
 
@@ -54,6 +55,7 @@ const TextField = (
 				id={inputSettings?.htmlFor}
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
+				onBlur={(e) => onBlur(e.target.value)}
 				variant='outlined'
 				error={(errorWithMessage || (errorWithMessage && required))}
 				className={className}
@@ -69,4 +71,4 @@ const TextField = (
 	);
 };
 
-export default TextField;
+export default memo(TextField);
