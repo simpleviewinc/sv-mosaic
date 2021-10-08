@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 
 // Types and styles
 import { FormButtonProps } from './ButtonTypes';
@@ -43,4 +43,4 @@ const Button = (props: FormButtonProps): ReactElement => {
 	);
 };
 
-export default Button;
+export default memo(Button);
