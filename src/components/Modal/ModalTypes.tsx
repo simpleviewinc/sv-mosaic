@@ -1,40 +1,10 @@
-import { ReactNode } from 'react';
+import { DialogProps } from '@root/components/Dialog';
 
-export interface ModalProps {
+export interface ModalProps extends DialogProps {
   /**
-   * Dialog content, usually the included sub-components.
-   */
-  children: ReactNode;
-  /**
-   * Required modal title
-   */
-  modalTitle: string;
-  /**
-   * If true, the dialog is shown
-   */
-  open: boolean;
-  /**
-   * Function that will be triggered the close icons
-   * is clicked. If this function is not pass as props
-   * the icon will not be displayed
+   * Function that will be triggered when the 
+   * close icon is clicked. This function 
+   * should set the modal open state to false
    */
   onClose: () => void;
-  /**
-   * Label that describes the primary button
-   */
-  primaryBtnLabel?: string;
-  /**
-   * Function that will be executed when the primary
-   * button is clicked
-   */
-  primaryAction: () => void;
-  /**
-   * Label that describes the secondary button
-   */
-  secondaryBtnLabel?: string;
-  /**
-   * Function that will be executed when the secondary
-   * button is clicked
-   */
-  secondaryAction: () => void;
 }

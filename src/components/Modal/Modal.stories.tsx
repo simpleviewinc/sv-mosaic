@@ -15,7 +15,7 @@ export default {
 };
 
 export const Example = (): ReactElement => {
-	const modalTitle = text('Dialog title', 'Dialog title');
+	const dialogTitle = text('Dialog title', 'Dialog title');
 	const primaryBtnLabel = text('Primary button label', 'Apply');
 	const secondaryBtnLabel = text('Secondary button label', 'Cancel');
 
@@ -47,7 +47,7 @@ export const Example = (): ReactElement => {
 		<>
 			<Button onClick={handleClickOpen}>Open modal</Button>
 			<Modal
-				modalTitle={modalTitle}
+				dialogTitle={dialogTitle}
 				open={open}
 				onClose={handleClose}
 				primaryAction={primaryAction}
