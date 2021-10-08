@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, ReactElement, useEffect, useState } from 'react';
+import { memo, ReactElement, useEffect, useState, useMemo } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
@@ -46,44 +46,50 @@ const Modal = (props: ModalProps): ReactElement => {
 		};
 	}, []);
 
-	const displayMobile = () => (
-		<StyledDialogMobileTitle>
-			<div>
+	const displayMobile = useMemo(
+		() => (
+			<StyledDialogMobileTitle>
+				<div>
+					{onClose && (
+						<IconButton
+							data-testid='arrow-back-icon'
+							aria-label='close'
+							disableRipple
+							onClick={onClose}
+						>
+							<ArrowBackIosIcon />
+						</IconButton>
+					)}
+					<span>{dialogTitle}</span>
+				</div>
+				<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
+			</StyledDialogMobileTitle>
+		),
+		[isMobileView]
+	);
+
+	const displayDesktop = useMemo(
+		() => (
+			<StyledDialogDesktopTitle>
+				<span>{dialogTitle}</span>
 				{onClose && (
 					<IconButton
-						data-testid='arrow-back-icon'
+						data-testid='close-icon'
 						aria-label='close'
 						disableRipple
 						onClick={onClose}
 					>
-						<ArrowBackIosIcon />
+						<CloseIcon />
 					</IconButton>
 				)}
-				<span>{dialogTitle}</span>
-			</div>
-			<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
-		</StyledDialogMobileTitle>
-	);
-
-	const displayDesktop = () => (
-		<StyledDialogDesktopTitle>
-			<span>{dialogTitle}</span>
-			{onClose && (
-				<IconButton
-					data-testid='close-icon'
-					aria-label='close'
-					disableRipple
-					onClick={onClose}
-				>
-					<CloseIcon />
-				</IconButton>
-			)}
-		</StyledDialogDesktopTitle>
+			</StyledDialogDesktopTitle>
+		),
+		[isMobileView]
 	);
 
 	return (
-		<StyledDialog open={open}>
-			{isMobileView ? displayMobile() : displayDesktop()}
+		<StyledDialog fullScreen={isMobileView} open={open}>
+			{isMobileView ? displayMobile : displayDesktop}
 			<DialogContent>{children}</DialogContent>
 			{!isMobileView && (
 				<DialogActions>
