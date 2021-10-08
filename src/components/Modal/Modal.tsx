@@ -20,11 +20,11 @@ import {
 const Modal = (props: ModalProps): ReactElement => {
 	const {
 		children,
-		modalTitle,
+		dialogTitle,
 		onClose,
 		open,
 		primaryAction,
-		primaryBtnLabel = 'Apply',
+		primaryBtnLabel = 'Save',
 		secondaryAction,
 		secondaryBtnLabel = 'Cancel',
 	} = props;
@@ -50,11 +50,16 @@ const Modal = (props: ModalProps): ReactElement => {
 		<StyledDialogMobileTitle>
 			<div>
 				{onClose && (
-					<IconButton aria-label='close' disableRipple onClick={onClose}>
+					<IconButton
+						data-testid='arrow-back-icon'
+						aria-label='close'
+						disableRipple
+						onClick={onClose}
+					>
 						<ArrowBackIosIcon />
 					</IconButton>
 				)}
-				<span>{modalTitle}</span>
+				<span>{dialogTitle}</span>
 			</div>
 			<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
 		</StyledDialogMobileTitle>
@@ -62,9 +67,14 @@ const Modal = (props: ModalProps): ReactElement => {
 
 	const displayDesktop = () => (
 		<StyledDialogDesktopTitle>
-			<span>{modalTitle}</span>
+			<span>{dialogTitle}</span>
 			{onClose && (
-				<IconButton aria-label='close' disableRipple onClick={onClose}>
+				<IconButton
+					data-testid='close-icon'
+					aria-label='close'
+					disableRipple
+					onClick={onClose}
+				>
 					<CloseIcon />
 				</IconButton>
 			)}

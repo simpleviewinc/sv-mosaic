@@ -93,7 +93,7 @@
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000",
 		"package-lock": "cp package-lock.json package-lock-mounted.json",
-		"style": "eslint . --fix"
+		"style": "eslint ."
 	},
 	"repository": {
 		"type": "git",
