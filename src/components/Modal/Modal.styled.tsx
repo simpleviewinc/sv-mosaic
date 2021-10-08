@@ -18,7 +18,7 @@ export const StyledDialog = styled(Dialog)`
   }
 
   .MuiDialogContent-root {
-    padding: 40px 40px 24px 40px;
+    padding: ${(pr) => pr.fullScreen ? '20px' : '40px 40px 24px 40px'};
   }
 
   .MuiDialog-paperWidthSm {
