@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode, forwardRef } from 'react';
 import styled from 'styled-components';
 
 // Material UI
 import { InputLabel } from '@material-ui/core';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 // import { TypographyGenericProps } from './TypographyTypes';
 import theme from '../../utils/theme';
+import Tooltip from '../Tooltip';
 
 const LabelWrapper = styled.div`
   display: flex;
@@ -35,24 +37,61 @@ const CharCounterWrapper = styled.div`
   font-size: 12px;
 `;
 
+const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
+  && {
+	fill: ${theme.colors.blueTeal};
+	font-size: 16px;
+	width: 24px;
+	height: 24px;
+	margin-left: 8px;
+  }
+`;
+
+const StyledInputTooltipWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledInputLabel = styled(InputLabel)`
+  align-self: center;
+`;
+
 interface LabelProps {
   disabled?: boolean;
   required?: boolean;
   htmlFor?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   value?: string;
   maxCharacters?: number;
+  instructionText?: string;
+  tooltip?: boolean
 }
 
 const Label = (props: LabelProps): ReactElement => {
-	const { children, disabled, required, htmlFor, value, maxCharacters } = props;
+	const {
+		children,
+		disabled,
+		required,
+		htmlFor,
+		value,
+		maxCharacters,
+		tooltip,
+		instructionText
+	} = props;
 
 	return (
 		<LabelWrapper disabled={disabled} required={required}>
-			<InputLabel htmlFor={htmlFor}>{children}</InputLabel>
+			<StyledInputTooltipWrapper>
+				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
+				{tooltip && 
+					<Tooltip text={instructionText} type='advanced'>
+						<StyledInfoOutlinedIcon />
+					</Tooltip>
+				}
+			</StyledInputTooltipWrapper>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
-					{value.length + '/' + maxCharacters}
+					{(!value ? '0' : value.length) + '/' + maxCharacters}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>
