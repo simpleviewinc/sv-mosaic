@@ -1,4 +1,4 @@
-import { useMemo, useReducer, useRef, useCallback } from "react";
+import { useMemo, useRef, useCallback } from "react";
 import { EventEmitter } from "eventemitter3";
 
 import { joinReducers, useThunkReducer } from "./utils";
@@ -7,45 +7,45 @@ function coreReducer(state, action) {
 	// console.log("reducer", action);
 
 	switch (action.type) {
-		case "FIELD_ON_CHANGE":
-			return {
-				...state,
-				data: {
-					...state.data,
-					[action.name]: action.value
-				}
-			};
-		case "FIELD_START_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: undefined
-				},
-				validating: {
-					...state.validating,
-					[action.name]: true
-				}
-			};
-		case "FIELD_END_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: action.value
-				},
-				validating: {
-					...state.validating,
-					[action.name]: undefined
-				}
-			};
-		default:
-			return state;
+	case "FIELD_ON_CHANGE":
+		return {
+			...state,
+			data: {
+				...state.data,
+				[action.name]: action.value
+			}
+		};
+	case "FIELD_START_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: undefined
+			},
+			validating: {
+				...state.validating,
+				[action.name]: true
+			}
+		};
+	case "FIELD_END_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: action.value
+			},
+			validating: {
+				...state.validating,
+				[action.name]: undefined
+			}
+		};
+	default:
+		return state;
 	}
 }
 
 async function runValidators(validators, value) {
-	for (let validator of validators) {
+	for (const validator of validators) {
 		const result = await validator(value);
 		if (result) {
 			return result;

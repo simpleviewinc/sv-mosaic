@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useEffect, useMemo } from 'react';
-import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
+import { withKnobs } from '@storybook/addon-knobs';
 
 import { useForm, actions } from "./formUtils";
 import { validateEmail, validateSlow } from "./validators";
@@ -158,17 +158,17 @@ export const FormWithLayout = (): ReactElement => {
 
 	const sections = useMemo(() => [
 		{
-		title: "Section 1",
-		description: "Description for section 1",
-		fields: [
+			title: "Section 1",
+			description: "Description for section 1",
+			fields: [
 			// row 1
-			[["text1"], ["text2"], ["text3"]],
-			// row 2
-			[["text3"], ["text4"], ["text1"]],
-			[[]],
-			// row 3
-			[["text3"], ["text4"]]
-		]
+				[["text1"], ["text2"], ["text3"]],
+				// row 2
+				[["text3"], ["text4"], ["text1"]],
+				[[]],
+				// row 3
+				[["text3"], ["text4"]]
+			]
 		}
   	], [fields]);
 
@@ -256,7 +256,7 @@ export const CodesandboxExample = (): ReactElement => {
 				}
 			] as FieldDefProps[],
 		// [state.data.text2]
-			[]
+		[]
 	);
 
 	useEffect(() => {
@@ -313,7 +313,7 @@ export const PerformanceTest = (): ReactElement => {
 
 	const hundredFields = [];
 
-	for(let i = 0; i < 100; i++) {
+	for (let i = 0; i < 100; i++) {
 		hundredFields.push({
 			name: `text${i}`,
 			label: `Simple Text ${i}`,

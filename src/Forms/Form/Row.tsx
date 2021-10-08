@@ -17,7 +17,7 @@ const Row = (props) => {
 		dispatch
 	} = props;
 
-	return(
+	return (
 		<StyledRow>
 			{row.map((col, i) => (
 				<Col 
