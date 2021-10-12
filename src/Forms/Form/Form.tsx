@@ -5,8 +5,9 @@ import {
 } from 'react';
 import styled from 'styled-components';
 import { SectionDef } from './FormTypes';
-// import './Form.css';
 import Section from './Section';
+import Button from '../Button';
+import { actions } from './formUtils';
 
 
 const StyledForm = styled.form`
@@ -17,7 +18,7 @@ const StyledForm = styled.form`
 `;
 
 function Form(props) {
-	const { sections, fields, dispatch, state } = props;
+	const { sections, fields, dispatch, state, formMetadata, onSubmit } = props;
 
 	const layout = useMemo(() => {
 		let customLayout: SectionDef[] = [];
@@ -67,8 +68,52 @@ function Form(props) {
 		}
 	}, [sections, fields]);
 
+
+	const validateSubmitted = useMemo(() => {
+		return fields.reduce((prev, curr) => {
+			prev[curr.name] = async function () {
+				await dispatch(
+					actions.validateField({ name: curr.name })
+				);
+			};
+
+			return prev;
+		}, {});
+	}, [fields]);
+
+	const submit = (e) => {
+		e.preventDefault();
+
+		fields.map(field => {
+			// !!state.data[field.name] === false && await dispatch(
+			// 	actions.validateField({name: field.name})
+			// );
+
+			// return fields.reduce((prev, curr) => {
+			// 	prev[curr.name] = async () => {
+			// 		!!state.data[field.name] === false  && await dispatch(
+			// 			actions.validateField({name: field.name})
+			// 		);
+			// 	}
+
+			// 	return prev;
+			// });
+			if (state.data[field.name] === undefined) {
+				let validateField;
+				validateField = validateSubmitted[field.name];
+				validateField();
+			}
+		});
+
+		Object.keys(state.errors).length === 0 ?
+			onSubmit ? onSubmit(state.data) : null
+			:
+			alert('Please verify all fields are filled correctly');
+	}
+
 	return (
 		<StyledForm>
+			{onSubmit && <Button onClick={(e) => submit(e)}>Submit</Button>}
 			{layout?.map((section, i) => (
 				<Section
 					key={i}
