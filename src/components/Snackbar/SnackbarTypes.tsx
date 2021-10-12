@@ -11,7 +11,7 @@ export interface SnackbarProps {
    * onClose function. onClose should then set the state of the open prop
    * to hide the Snackbar.
    */
-  autoHideDuration: number;
+  autoHideDuration?: number;
   /**
    * Message to display
    */

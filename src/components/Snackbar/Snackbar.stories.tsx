@@ -24,6 +24,7 @@ export const Example = (): ReactElement => {
 		4000
 	);
 	const withAction = boolean('Show snackbar with action', false);
+	const withIcon = boolean('Show snackbar with icon', false);
 
 	const [open, setOpen] = useState(false);
 
@@ -50,7 +51,7 @@ export const Example = (): ReactElement => {
 				action={withAction && action}
 				autoHideDuration={autoHideDuration}
 				label={label}
-				leadingIcon={CheckCircleOutlineIcon}
+				leadingIcon={withIcon && CheckCircleOutlineIcon}
 				open={open}
 				onClose={handleClose}
 			/>

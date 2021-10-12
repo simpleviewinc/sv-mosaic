@@ -58,7 +58,7 @@ export default {
 	animations : {
 		backgroundMs : "250ms"
 	},
-	mobile : {
-		breakpoint : "480px"
+	breakpoints : {
+		mobile : "480px"
 	}
 }

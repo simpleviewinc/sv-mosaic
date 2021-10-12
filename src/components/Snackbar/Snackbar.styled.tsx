@@ -22,10 +22,11 @@ export const StyledSnackbar = styled(Snackbar)`
     right: 10px;
   }
 
-  @media (min-width: ${theme.mobile.breakpoint}) {
+  @media (min-width: ${theme.breakpoints.mobile}) {
     &.MuiSnackbar-anchorOriginBottomRight {
-      right: 40px;
       bottom: 40px;
+      left: auto;
+      right: 40px;
     }
   }
 `;
