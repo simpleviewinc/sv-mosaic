@@ -57,5 +57,8 @@ export default {
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	animations : {
 		backgroundMs : "250ms"
+	},
+	mobile : {
+		breakpoint : "480px"
 	}
 }

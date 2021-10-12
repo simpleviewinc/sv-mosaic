@@ -86,6 +86,9 @@ export * from "./components/ToggleSwitch";
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
 
+export { default as Snackbar } from "./components/Snackbar";
+export * from "./components/Snackbar";
+
 export { default as MosaicContext } from "./components/MosaicContext";
 
 export * from "./components/Typography";
