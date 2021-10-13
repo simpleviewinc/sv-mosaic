@@ -12,6 +12,7 @@ export type ButtonStyle = {
   hover: string;
   textTransform: string;
   regular: string;
+  padding: string;
 };
 
 /**

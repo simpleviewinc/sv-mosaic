@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { ButtonStyle, ButtonType } from './ButtonTypes';
 import theme from '@root/theme';
 
+const outlinedButtonPadding = '12px 16px';
+
 const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 	primary: {
 		border: 'none',
@@ -10,6 +12,7 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		fontSize: '14px',
 		hover: theme.colors.simplyGoldHover,
 		textTransform: 'uppercase',
+		padding: outlinedButtonPadding,
 		regular: theme.colors.simplyGold,
 	},
 	secondary: {
@@ -19,6 +22,7 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		fontSize: '14px',
 		hover: theme.colors.gray200,
 		textTransform: 'uppercase',
+		padding: outlinedButtonPadding,
 		regular: 'white',
 	},
 	blueText: {
@@ -26,8 +30,9 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorText: theme.colors.blueTeal,
 		colorTextHover: theme.colors.blueTealHover,
 		fontSize: '16px',
-		hover: 'white',
+		hover: 'transparent',
 		textTransform: 'none',
+		padding: '0',
 		regular: 'transparent',
 	},
 	redText: {
@@ -35,8 +40,9 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorText: theme.colors.red,
 		colorTextHover: theme.colors.redHover,
 		fontSize: '16px',
-		hover: 'white',
+		hover: 'transparent',
 		textTransform: 'none',
+		padding: '0',
 		regular: 'transparent',
 	},
 	approve: {
@@ -46,6 +52,7 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		fontSize: '14px',
 		hover: '#008DA81A',
 		textTransform: 'uppercase',
+		padding: outlinedButtonPadding,
 		regular: 'white',
 	},
 	deny: {
@@ -55,6 +62,7 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		fontSize: '14px',
 		hover: '#B100001A',
 		textTransform: 'uppercase',
+		padding: outlinedButtonPadding,
 		regular: 'white',
 	},
 };
@@ -74,7 +82,7 @@ export const StyledButton = styled.button`
   height: 40px;
   min-width: 92px;
   opacity: ${(pr) => (!pr.disabled ? 1 : 0.5)};
-  padding: 12px 16px;
+  padding: ${(pr) => typeStyle[pr.buttonType].padding};
   pointer-events:  ${(pr) => (!pr.disabled ? 'auto' : 'none')};
   text-transform: ${(pr) => typeStyle[pr.buttonType].textTransform};
 

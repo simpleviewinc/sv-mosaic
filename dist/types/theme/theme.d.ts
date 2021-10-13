@@ -52,5 +52,8 @@ declare const _default: {
     animations: {
         backgroundMs: string;
     };
+    breakpoints: {
+        mobile: string;
+    };
 };
 export default _default;
