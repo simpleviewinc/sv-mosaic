@@ -65,7 +65,7 @@ const Modal = (props: ModalProps): ReactElement => {
 				<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
 			</StyledDialogMobileTitle>
 		),
-		[isMobileView]
+		[isMobileView, dialogTitle, onClose, primaryBtnLabel, primaryAction]
 	);
 
 	const displayDesktop = useMemo(
@@ -84,7 +84,7 @@ const Modal = (props: ModalProps): ReactElement => {
 				)}
 			</StyledDialogDesktopTitle>
 		),
-		[isMobileView]
+		[isMobileView, dialogTitle, onClose]
 	);
 
 	return (
