@@ -376,8 +376,48 @@ export const PerformanceTest = (): ReactElement => {
 	);
 };
 
+export const PerformanceWithSubmit = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const hundredFields = [];
+
+	for (let i = 0; i < 100; i++) {
+		hundredFields.push({
+			name: `text${i}`,
+			label: `Simple Text ${i}`,
+			type: "text",
+			instructionText: 'testing',
+			validators: [required]
+		})
+	}
+
+	const fields = useMemo(
+		() => hundredFields as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = React.useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form state={state} fields={fields} dispatch={dispatch} events={events} onSubmit={onSubmit} />
+		</>
+	);
+};
+
 export const SubmitExternalButtons = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -416,6 +456,10 @@ export const SubmitExternalButtons = (): ReactElement => {
 		alert('Form submitted with the following data: ' + JSON.stringify(state.data, null, " "));
 	};
 
+	useMemo(() => {
+		registerOnSubmit(submitForm);
+	}, [submitForm, registerOnSubmit]);
+
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -427,7 +471,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 };
 
 export const SubmitInternalButtons = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
+	const { state, dispatch, events, registerFields, registerOnSubmit} = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -437,24 +481,15 @@ export const SubmitInternalButtons = (): ReactElement => {
 					label: "Full Name",
 					type: "text",
 					instructionText: 'testing',
+					validators: [required],
 				},
 				{
 					name: "text2",
-					label: "Email",
+					label: "age",
 					type: "text",
-					validators: [required, validateEmail]
+					validators: [required],
 				},
-				{
-					name: "text3",
-					label: "Age",
-					type: "text",
-				},
-				{
-					name: "text4",
-					label: "City",
-					type: "text"
-				}
-			] as FieldDefProps[],
+			] as unknown as FieldDefProps[],
 		[]
 	);
 
@@ -465,9 +500,9 @@ export const SubmitInternalButtons = (): ReactElement => {
 	// const submitForm = () => {
 	// 	alert('Form submitted with the following data: ' + JSON.stringify(state.data, null, " "));
 	// };
-	const submitForm = (data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	};
+	// const submitForm = (data) => {
+	// 	alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	// };
 
 	// const formMetadata = useMemo(() => ({
 	// 	onSubmit: submitForm
@@ -477,24 +512,27 @@ export const SubmitInternalButtons = (): ReactElement => {
 	// 	onSubmit: submitForm
 	// };
 
-	const formMetadata = useMemo(() => ({
-		onSubmit: submitForm
-	}), []);
+	// const formMetadata = useMemo(() => ({
+	// 	onSubmit: submitForm
+	// }), []);
 
 	const onSubmit = React.useCallback((data) => {
 		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	}, []);
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<p>Here is the form</p>
 			<Form
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
 				events={events}
-				formMetadata={formMetadata}
+				// formMetadata={formMetadata}
 				onSubmit={onSubmit}
 			/>
 		</>

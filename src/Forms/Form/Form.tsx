@@ -17,6 +17,16 @@ const StyledForm = styled.form`
 	width: 100%;
 `;
 
+const StyledDisabledForm = styled.div`
+	height: 100vh;
+	width: 100vw;
+	background-color: black;
+	z-index: 999999;
+	display: ${pr => pr.disabled ? 'block' : 'none'};
+	position: absolute;
+	opacity: 90%;
+`;
+
 function Form(props) {
 	const { sections, fields, dispatch, state, formMetadata, onSubmit } = props;
 
@@ -69,63 +79,36 @@ function Form(props) {
 	}, [sections, fields]);
 
 
-	const validateSubmitted = useMemo(() => {
-		return fields.reduce((prev, curr) => {
-			prev[curr.name] = async function () {
-				await dispatch(
-					actions.validateField({ name: curr.name })
-				);
-			};
-
-			return prev;
-		}, {});
-	}, [fields]);
+	const validateForm = async ({ fields }) => {
+		await dispatch(
+			actions.validateForm({ fields })
+		);
+	};
 
 	const submit = (e) => {
 		e.preventDefault();
 
-		fields.map(field => {
-			// !!state.data[field.name] === false && await dispatch(
-			// 	actions.validateField({name: field.name})
-			// );
-
-			// return fields.reduce((prev, curr) => {
-			// 	prev[curr.name] = async () => {
-			// 		!!state.data[field.name] === false  && await dispatch(
-			// 			actions.validateField({name: field.name})
-			// 		);
-			// 	}
-
-			// 	return prev;
-			// });
-			if (state.data[field.name] === undefined) {
-				let validateField;
-				validateField = validateSubmitted[field.name];
-				validateField();
-			}
-		});
-
-		Object.keys(state.errors).length === 0 ?
-			onSubmit ? onSubmit(state.data) : null
-			:
-			alert('Please verify all fields are filled correctly');
+		validateForm({ fields });
 	}
 
 	return (
-		<StyledForm>
-			{onSubmit && <Button onClick={(e) => submit(e)}>Submit</Button>}
-			{layout?.map((section, i) => (
-				<Section
-					key={i}
-					title={section.title}
-					description={section.description}
-					fieldsDef={fields}
-					fieldsLayoutPos={section.fields}
-					state={state}
-					dispatch={dispatch}
-				/>
-			))}
-		</StyledForm>
+		<>
+			<StyledDisabledForm disabled={state.disabled} />
+			<StyledForm>
+				{onSubmit && <Button onClick={(e) => submit(e)}>Submit</Button>}
+				{layout?.map((section, i) => (
+					<Section
+						key={i}
+						title={section.title}
+						description={section.description}
+						fieldsDef={fields}
+						fieldsLayoutPos={section.fields}
+						state={state}
+						dispatch={dispatch}
+					/>
+				))}
+			</StyledForm>
+		</>
 	);
 }
 
