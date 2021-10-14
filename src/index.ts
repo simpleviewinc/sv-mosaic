@@ -59,6 +59,9 @@ export * from "./forms/FormFieldRadio";
 export { default as FormFieldChipSingleSelect } from "./forms/FormFieldChipSingleSelect";
 export * from "./forms/FormFieldChipSingleSelect";
 
+export { default as ImageVideoDocumentSetUp } from "./components/ImageVideoDocumentSetUp";
+export * from "./components/ImageVideoDocumentSetUp";
+
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
 

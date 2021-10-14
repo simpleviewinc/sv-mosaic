@@ -3,6 +3,8 @@ import { ButtonStyle, ButtonType } from './ButtonTypes';
 import theme from '@root/theme';
 
 const outlinedButtonPadding = '12px 16px';
+const outlinedButtonHeight = '40px';
+const outlinedMinWidth = '92px';
 
 const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 	primary: {
@@ -10,7 +12,9 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorText: theme.colors.almostBlack,
 		colorTextHover: theme.colors.almostBlack,
 		fontSize: '14px',
+		height: outlinedButtonHeight,
 		hover: theme.colors.simplyGoldHover,
+		minWidth: outlinedMinWidth,
 		textTransform: 'uppercase',
 		padding: outlinedButtonPadding,
 		regular: theme.colors.simplyGold,
@@ -20,7 +24,9 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorText: theme.colors.almostBlack,
 		colorTextHover: theme.colors.almostBlack,
 		fontSize: '14px',
+		height: outlinedButtonHeight,
 		hover: theme.colors.gray200,
+		minWidth: outlinedMinWidth,
 		textTransform: 'uppercase',
 		padding: outlinedButtonPadding,
 		regular: 'white',
@@ -30,7 +36,9 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorText: theme.colors.blueTeal,
 		colorTextHover: theme.colors.blueTealHover,
 		fontSize: '16px',
+		height: 'auto',
 		hover: 'transparent',
+		minWidth: 'auto',
 		textTransform: 'none',
 		padding: '0',
 		regular: 'transparent',
@@ -40,7 +48,9 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorText: theme.colors.red,
 		colorTextHover: theme.colors.redHover,
 		fontSize: '16px',
+		height: 'auto',
 		hover: 'transparent',
+		minWidth: 'auto',
 		textTransform: 'none',
 		padding: '0',
 		regular: 'transparent',
@@ -51,6 +61,8 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorTextHover: theme.colors.blueTeal,
 		fontSize: '14px',
 		hover: '#008DA81A',
+		height: outlinedButtonHeight,
+		minWidth: outlinedMinWidth,
 		textTransform: 'uppercase',
 		padding: outlinedButtonPadding,
 		regular: 'white',
@@ -61,6 +73,8 @@ const typeStyle: { [key in ButtonType]: ButtonStyle } = {
 		colorTextHover: theme.colors.red,
 		fontSize: '14px',
 		hover: '#B100001A',
+		height: outlinedButtonHeight,
+		minWidth: outlinedMinWidth,
 		textTransform: 'uppercase',
 		padding: outlinedButtonPadding,
 		regular: 'white',
@@ -79,8 +93,8 @@ export const StyledButton = styled.button`
   font-family: ${theme.fontFamily};
   font-size: ${(pr) => (pr.smallerButton ? '14px' : typeStyle[pr.buttonType].fontSize)};
   font-weight: ${theme.fontWeight.bold};
-  height: 40px;
-  min-width: 92px;
+  height: ${(pr) => typeStyle[pr.buttonType].height};;
+  min-width: ${(pr) => typeStyle[pr.buttonType].minWidth};;
   opacity: ${(pr) => (!pr.disabled ? 1 : 0.5)};
   padding: ${(pr) => typeStyle[pr.buttonType].padding};
   pointer-events:  ${(pr) => (!pr.disabled ? 'auto' : 'none')};
