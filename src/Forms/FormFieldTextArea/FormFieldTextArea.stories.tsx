@@ -22,24 +22,26 @@ export default {
 
 export const Default = () : ReactElement => {
 	const [value, setValue] = useState('');
-	const onHandleChange = (event) => {
-		setValue(event.target.value);
+	const onHandleChange = (val) => {
+		setValue(val);
 	};
 
 	return (
 		<TextArea
 			label={text('Label', 'Label')}
-			htmlFor='text-area'
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
-			placeholder={text('Placeholder', 'placeholder')}
+			inputSettings={{
+				htmlFor: 'text-area',
+				size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+				placeholder: text('Placeholder', 'placeholder'),
+				maxCharacters: number('Max characters', 200),
+				value
+			}}
 			helperText={text('Helper text', '')}
-			instructionalText={text('Instructional text', '')}
+			instructionText={text('Instructional text', '')}
 			errorText={text('Error text', '')}
 			error={boolean('Error', false)}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
-			maxCharacters={number('Max characters', 200)}
-			value={value}
 			required={boolean('Required', true)}
 		/>
 	);

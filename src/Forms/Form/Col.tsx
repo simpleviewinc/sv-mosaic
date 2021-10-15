@@ -54,7 +54,7 @@ const Col = (props) => {
 		return fieldsDef.reduce((prev, curr) => {
 			prev[curr.name] = async function (value) {
 				await dispatch(
-					actions.validateField({name: curr.name})
+					actions.validateField({ name: curr.name })
 				);
 
 				if (curr.onBlur) {
@@ -65,7 +65,7 @@ const Col = (props) => {
 					curr.onBlur(value);
 				}
 			};
-			
+
 			return prev;
 		}, {});
 	}, [fieldsDef]);
@@ -73,13 +73,21 @@ const Col = (props) => {
 	return (
 		<StyledCol>
 			{col.map((field, i) => {
-				const currentField = fieldsDef?.find(
+				let currentField = fieldsDef?.find(
 					(fieldDef) => {
 						return field === fieldDef.name;
 					}
 				);
 
-				const { type, inputSettings, ...fieldProps } = currentField;
+				const { type, ...fieldProps } = currentField;
+
+				currentField = {
+					...currentField,
+					inputSettings: {
+						...currentField.inputSettings,
+						value: state.data[fieldProps.name] || ''
+					}
+				}
 
 				const Component = componentMap[type];
 
@@ -91,7 +99,10 @@ const Col = (props) => {
 					<Component
 						key={i}
 						{...currentField}
-						value={state.data[fieldProps.name] || ''}
+						/** Possibility to delete this value prop
+						 * and place the value always inside the inputSettings
+						 */
+						// value={state.data[fieldProps.name] || ''}
 						touched={state.touched[fieldProps.name] || false}
 						error={state.errors[fieldProps.name] ? true : false}
 						errorText={state.errors[fieldProps.name] || ''}
