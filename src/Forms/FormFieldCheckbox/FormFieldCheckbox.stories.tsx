@@ -42,13 +42,16 @@ export const example = (): ReactElement => {
 			<span>Checked: {checked.join(", ")}</span>
 			<FormFieldCheckbox
 				label={text('Label', 'Label')}
+				inputSettings={{
+					value: checked,
+					options
+
+				}}
 				required={boolean('Required', false)}
 				disabled={boolean('Disabled', false)}
 				error={boolean('Error', false)}
 				instructionText={text('Instruction text', 'Instruction text')}
 				errorText={text('Error text', 'Error text')}
-				checked={checked}
-				options={options}
 				onChange={onChange}
 			/>
 		</>

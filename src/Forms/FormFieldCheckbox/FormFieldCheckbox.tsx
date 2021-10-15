@@ -16,9 +16,10 @@ import {
 	StyledText,
 	StyledWrapper,
 } from './FormFieldCheckbox.styled';
+import Field from '@root/components/Field';
 
 const FormFieldCheckbox = (
-	props: FormFieldCheckboxProps & CheckboxListProps
+	props: FormFieldCheckboxProps
 ): ReactElement => {
 	const {
 		label,
@@ -26,33 +27,29 @@ const FormFieldCheckbox = (
 		disabled,
 		error,
 		errorText,
+		helperText,
 		instructionText,
 		onChange,
-		checked,
-		options,
+		inputSettings,
 	} = props;
 
 	return (
-		<StyledWrapper>
-			<FieldWrapper error={error && required}>
-				<LabelWrapper disabled={disabled}>
-					<InputLabel required={required}>{label}</InputLabel>
-				</LabelWrapper>
-				<StyledText>{instructionText}</StyledText>
-				<StyledCheckboxList
-					disabled={disabled}
-					checked={checked}
-					options={options}
-					onChange={onChange}
-				/>
-				{errorText && error && required && (
-					<ErrorTextWrapper>
-						<StyledErrorIcon />
-						<StyledText error={error}>{errorText}</StyledText>
-					</ErrorTextWrapper>
-				)}
-			</FieldWrapper>
-		</StyledWrapper>
+		<Field
+			label={label}
+			required={required}
+			disabled={disabled}
+			error={error}
+			errorText={errorText}
+			helperText={helperText}
+			instructionText={instructionText}
+		>
+			<StyledCheckboxList
+				disabled={disabled}
+				checked={inputSettings?.value}
+				options={inputSettings?.options}
+				onChange={onChange}
+			/>
+		</Field>
 	);
 };
 

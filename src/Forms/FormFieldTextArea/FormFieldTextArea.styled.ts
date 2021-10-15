@@ -8,16 +8,10 @@ import {
 	StyledTextAreaProps,
 } from './FormFieldTextAreaTypes';
 import theme from '../../utils/theme.js';
-
-export const TextAreaWrapper = styled.div`
-  font-family: ${theme.fontFamily};
-  width: ${pr => pr.size};
-  padding: 20px;
-  background-color: ${pr => pr.error ? theme.colors.lightRed : 'transparent'};
-`;
+import { Sizes } from '@root/theme/sizes';
 
 export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
-  width: ${pr => pr.size};
+  width: ${pr => pr.size ? pr.size : Sizes.sm};
 
   .MuiOutlinedInput-multiline {
     align-items: start;
@@ -64,26 +58,4 @@ export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
     border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : 'transparent'};
   }
-`;
-
-export const StyledHelperText = styled.span`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const StyledWrapper = styled.div`
-  display: flex;
-`;
-
-export const StyledInstructionalText = styled.div`
-  font-family:  ${theme.fontFamily};
-  padding-left: 40px;
-  max-width: 300px;
-  word-wrap: break-word;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  background: ${pr => pr.error ? theme.colors.lightRed : 'transparent'};
-  padding-right: 20px;
 `;
