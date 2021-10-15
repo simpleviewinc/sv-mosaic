@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useState } from 'react';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { text, withKnobs, boolean } from '@storybook/addon-knobs';
 
 // Components
 import ImageVideoDocumentSetUp from './ImageVideoDocumentSetUp';
@@ -12,6 +12,10 @@ export default {
 
 export const Example = (): ReactElement => {
 	const label = text('Label', 'Label');
+	const withVideoHandler = boolean('Show video set up', false);
+	const withDocumentHandler = boolean('Show document set up', false);
+	const withImage = boolean('Show component with image', true);
+
 	const [assetObject, setAssetObject] = useState([]);
 
 	const handleSetImage = () => {
@@ -19,7 +23,7 @@ export const Example = (): ReactElement => {
 			{
 				label: 'Title',
 				value:
-          'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail - YouTube - Visit Santa Fe, New Mexico',
+          'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail',
 			},
 			{
 				label: 'Type',
@@ -44,10 +48,36 @@ export const Example = (): ReactElement => {
 		]);
 	};
 
+	const handleVideo = () => {
+		setAssetObject([
+			{
+				label: 'Title',
+				value:
+          'Video Example - This is a video example',
+			},
+			{
+				label: 'Type',
+				value: 'Video',
+			},
+			{
+				label: 'Alt',
+				value: '-',
+			},
+			{
+				label: 'Size',
+				value: '1280x720',
+			},
+			{
+				label: 'Locales',
+				value: 'es, en & in',
+			},
+		]
+		)
+	}
+
 	const handleRemove = () => {
 		setAssetObject([]);
 	};
-
   
 	const handleBrowse = () => {
 		alert('Browse clicked');
@@ -58,9 +88,11 @@ export const Example = (): ReactElement => {
 			assetObject={assetObject}
 			handleBrowse={handleBrowse}
 			handleSetImage={handleSetImage}
+			handleSetDocument={withDocumentHandler && handleSetImage}
+			handleSetVideo={withVideoHandler && handleVideo}
 			handleRemove={handleRemove}
 			label={label}
-			src={
+			src={withImage &&
 				'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 			}
 		/>
