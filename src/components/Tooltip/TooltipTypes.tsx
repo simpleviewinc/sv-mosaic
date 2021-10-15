@@ -5,7 +5,7 @@ export interface TooltipProps {
 	 * Text to be displayed once the
 	 * tooltip gets rendered on the screen.
 	 */
-	text: string;
+	text: string | JSX.Element[];
 	/**
 	 * Element to be wrapped by the tooltip.
 	 * When hovering over this child the tooltip
