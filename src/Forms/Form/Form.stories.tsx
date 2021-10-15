@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo } from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 
 import { useForm, actions } from "./formUtils";
-import { validateEmail, validateSlow } from "./validators";
+import { validateEmail, validateSlow, required } from "./validators";
 
 // Components
 import Form from './Form';
@@ -45,16 +45,16 @@ export const KitchenSink = (): ReactElement => {
 					checked: [],
 					options: [
 						{
-							label : "Label 1",
-							value : "label_1"
+							label: "Label 1",
+							value: "label_1"
 						},
 						{
-							label : "Label 2",
-							value : "label_2"
+							label: "Label 2",
+							value: "label_2"
 						},
 						{
-							label : "Label 3",
-							value : "label_3"
+							label: "Label 3",
+							value: "label_3"
 						}
 					],
 				},
@@ -116,7 +116,6 @@ export const KitchenSink = (): ReactElement => {
 	);
 };
 
-// Create another story for layouts with section prop for the form comp.
 export const FormWithLayout = (): ReactElement => {
 	const { state, dispatch, events, registerFields } = useForm();
 
@@ -161,7 +160,7 @@ export const FormWithLayout = (): ReactElement => {
 			title: "Section 1",
 			description: "Description for section 1",
 			fields: [
-			// row 1
+				// row 1
 				[["text1"], ["text2"], ["text3"]],
 				// row 2
 				[["text3"], ["text4"], ["text1"]],
@@ -170,7 +169,7 @@ export const FormWithLayout = (): ReactElement => {
 				[["text3"], ["text4"]]
 			]
 		}
-  	], [fields]);
+	], [fields]);
 
 	useEffect(() => {
 		dispatch(
@@ -373,6 +372,169 @@ export const PerformanceTest = (): ReactElement => {
 				<button onClick={setText1Value}>Set Text1 Value</button>
 				<button onClick={setText2Value}>Set Text2 Value</button>
 			</div>
+		</>
+	);
+};
+
+export const PerformanceWithSubmit = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const hundredFields = [];
+
+	for (let i = 0; i < 100; i++) {
+		hundredFields.push({
+			name: `text${i}`,
+			label: `Simple Text ${i}`,
+			type: "text",
+			instructionText: 'testing',
+			validators: [required]
+		})
+	}
+
+	const fields = useMemo(
+		() => hundredFields as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = React.useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form state={state} fields={fields} dispatch={dispatch} events={events} onSubmit={onSubmit} />
+		</>
+	);
+};
+
+export const SubmitExternalButtons = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Full Name",
+					type: "text",
+					instructionText: 'testing',
+				},
+				{
+					name: "text2",
+					label: "Email",
+					type: "text",
+					validators: [validateEmail]
+				},
+				{
+					name: "text3",
+					label: "Age",
+					type: "text",
+				},
+				{
+					name: "text4",
+					label: "City",
+					type: "text"
+				}
+			] as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const submitForm = () => {
+		alert('Form submitted with the following data: ' + JSON.stringify(state.data, null, " "));
+	};
+
+	useMemo(() => {
+		registerOnSubmit(submitForm);
+	}, [submitForm, registerOnSubmit]);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<p>Here is the form</p>
+			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
+			<button onClick={submitForm}>Submit</button>
+		</>
+	);
+};
+
+export const SubmitInternalButtons = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit} = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Full Name",
+					type: "text",
+					instructionText: 'testing',
+					validators: [required],
+				},
+				{
+					name: "text2",
+					label: "age",
+					type: "text",
+					validators: [required],
+				},
+			] as unknown as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	// const submitForm = () => {
+	// 	alert('Form submitted with the following data: ' + JSON.stringify(state.data, null, " "));
+	// };
+	// const submitForm = (data) => {
+	// 	alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	// };
+
+	// const formMetadata = useMemo(() => ({
+	// 	onSubmit: submitForm
+	// }), []);
+
+	// const formMetadata = {
+	// 	onSubmit: submitForm
+	// };
+
+	// const formMetadata = useMemo(() => ({
+	// 	onSubmit: submitForm
+	// }), []);
+
+	const onSubmit = React.useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				// formMetadata={formMetadata}
+				onSubmit={onSubmit}
+			/>
 		</>
 	);
 };

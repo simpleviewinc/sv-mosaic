@@ -23,3 +23,9 @@ export function validateSlow(str: string) {
 		}, 5000);
 	});
 }
+
+export function required(str: string) {
+	if (!str || str.length === 0) {
+		return "This field is required, please fill it";
+	}
+}

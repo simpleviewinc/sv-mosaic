@@ -5,8 +5,9 @@ import {
 } from 'react';
 import styled from 'styled-components';
 import { SectionDef } from './FormTypes';
-// import './Form.css';
 import Section from './Section';
+import Button from '../Button';
+import { actions } from './formUtils';
 
 
 const StyledForm = styled.form`
@@ -16,8 +17,18 @@ const StyledForm = styled.form`
 	width: 100%;
 `;
 
+const StyledDisabledForm = styled.div`
+	height: 100vh;
+	width: 100vw;
+	background-color: black;
+	z-index: 999999;
+	display: ${pr => pr.disabled ? 'block' : 'none'};
+	position: absolute;
+	opacity: 90%;
+`;
+
 function Form(props) {
-	const { sections, fields, dispatch, state } = props;
+	const { sections, fields, dispatch, state, formMetadata, onSubmit } = props;
 
 	const layout = useMemo(() => {
 		let customLayout: SectionDef[] = [];
@@ -67,20 +78,37 @@ function Form(props) {
 		}
 	}, [sections, fields]);
 
+
+	const validateForm = async ({ fields }) => {
+		await dispatch(
+			actions.validateForm({ fields })
+		);
+	};
+
+	const submit = (e) => {
+		e.preventDefault();
+
+		validateForm({ fields });
+	}
+
 	return (
-		<StyledForm>
-			{layout?.map((section, i) => (
-				<Section
-					key={i}
-					title={section.title}
-					description={section.description}
-					fieldsDef={fields}
-					fieldsLayoutPos={section.fields}
-					state={state}
-					dispatch={dispatch}
-				/>
-			))}
-		</StyledForm>
+		<>
+			<StyledDisabledForm disabled={state.disabled} />
+			<StyledForm>
+				{onSubmit && <Button onClick={(e) => submit(e)}>Submit</Button>}
+				{layout?.map((section, i) => (
+					<Section
+						key={i}
+						title={section.title}
+						description={section.description}
+						fieldsDef={fields}
+						fieldsLayoutPos={section.fields}
+						state={state}
+						dispatch={dispatch}
+					/>
+				))}
+			</StyledForm>
+		</>
 	);
 }
 
