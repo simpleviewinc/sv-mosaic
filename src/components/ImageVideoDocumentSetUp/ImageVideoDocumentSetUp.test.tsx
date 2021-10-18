@@ -49,7 +49,7 @@ const ImageVideoDocumentSetUpExample = () => {
 
 	return (
 		<ImageVideoDocumentSetUp
-      assetProperties={assetProperties}
+			assetProperties={assetProperties}
 			handleBrowse={browseCallback}
 			handleEdit={editCallback}
 			handleTranslate={translateCallback}
@@ -89,7 +89,7 @@ describe('ImageVideoDocumentSetUp card content', () => {
 		const labelAlt = screen.getByText('Alt');
 		const valueAlt = screen.getByText('-');
 		const labelSize = screen.getByText('Size');
-		const valueSize = screen.getByText('1280x720');
+		const valueSize = screen.getByText('1280x720...');
 		const labelFocus = screen.queryByText('Focus');
 		const valueFocus = screen.queryByText('No');
 
