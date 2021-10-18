@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
+// Utils
 import theme from '@root/theme';
 
 // Material UI
 import Menu from '@material-ui/core/Menu';
+
+// Components
+import Tooltip from '@root/components/Tooltip';
 
 export const SetUpButtonsWrapper = styled.div`
   align-items: center;
@@ -99,5 +103,12 @@ export const StyledMenu = styled(Menu)`
       padding-bottom: 8px;
       padding-top: 8px;
     }
+  }
+`;
+
+export const StyledTooltip = styled(Tooltip)`
+  .tooltip {
+    color: inherit;
+    font-weight: inherit;
   }
 `;

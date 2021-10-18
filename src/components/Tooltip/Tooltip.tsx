@@ -5,9 +5,11 @@ import { StyledAdvancedTooltip, StyledDefaultTooltip } from './Tooltip.styled';
 
 const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
+		className,
 		text,
 		children,
 		type,
+		placement = 'top-start'
 	} = props;
 
 	return type !== 'advanced' ? (
@@ -22,9 +24,10 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 		</StyledDefaultTooltip>
 	) : (
 		<StyledAdvancedTooltip
+			className={className}
 			title={ text }
 			arrow
-			placement={'top-start'}
+			placement={placement}
 			PopperProps={{
 				disablePortal: true,
 			}}

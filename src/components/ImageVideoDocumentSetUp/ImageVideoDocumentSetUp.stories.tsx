@@ -16,10 +16,10 @@ export const Example = (): ReactElement => {
 	const withDocumentHandler = boolean('Show document set up', false);
 	const withImage = boolean('Show component with image', true);
 
-	const [assetObject, setAssetObject] = useState([]);
+	const [assetProperties, setAssetProperties] = useState([]);
 
 	const handleSetImage = () => {
-		setAssetObject([
+		setAssetProperties([
 			{
 				label: 'Title',
 				value:
@@ -49,7 +49,7 @@ export const Example = (): ReactElement => {
 	};
 
 	const handleVideo = () => {
-		setAssetObject([
+		setAssetProperties([
 			{
 				label: 'Title',
 				value:
@@ -76,17 +76,27 @@ export const Example = (): ReactElement => {
 	}
 
 	const handleRemove = () => {
-		setAssetObject([]);
+		setAssetProperties([]);
 	};
-  
+
 	const handleBrowse = () => {
 		alert('Browse clicked');
 	};
 
+	const handleEdit = () => {
+		alert('Edit clicked');
+	};
+
+	const handleTranslate = () => {
+		alert('Translate clicked');
+	};
+
 	return (
 		<ImageVideoDocumentSetUp
-			assetObject={assetObject}
+			assetProperties={assetProperties}
 			handleBrowse={handleBrowse}
+			handleEdit={handleEdit}
+			handleTranslate={handleTranslate}
 			handleSetImage={handleSetImage}
 			handleSetDocument={withDocumentHandler && handleSetImage}
 			handleSetVideo={withVideoHandler && handleVideo}
