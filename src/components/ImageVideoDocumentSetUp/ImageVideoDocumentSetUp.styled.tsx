@@ -43,11 +43,14 @@ export const AssetCard = styled.div`
   width: 700px;
 `;
 
-export const Row = styled.div`
-  display: flex;
+export const TableRow = styled.tr`
   font-family: ${theme.fontFamily};
   font-size: 14px;
-  margin-bottom: 12px;
+`;
+
+export const Td = styled.td`
+  padding-bottom: 12px;
+  vertical-align: top;
 `;
 
 export const Column = styled.div`
@@ -81,9 +84,11 @@ export const ButtonsWrapper = styled.div`
 
 export const AssetLabel = styled.span`
   color: ${theme.colors.gray600};
-  flex-shrink: 0;
   margin-right: 24px;
-  min-width: 37px;
+`;
+
+export const AssetLabelTooltip = styled(AssetLabel)`
+  margin-right: 12px;
 `;
 
 export const MoreText = styled.span`

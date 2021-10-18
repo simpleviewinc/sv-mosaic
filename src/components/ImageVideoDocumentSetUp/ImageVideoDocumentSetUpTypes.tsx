@@ -10,6 +10,10 @@ type AssetProperties = {
 }
 
 export interface ImageVideoDocumentSetUpProps {
+  /**
+   * Array of properties that an asset like an image,
+   * document or video may contain.
+   */
   assetProperties: AssetProperties[];
   /**
   * Meaningful name related to the field.

@@ -10,12 +10,14 @@ import { ImageVideoDocumentSetUpProps } from '.';
 import {
 	AssetCard,
 	AssetLabel,
+	AssetLabelTooltip,
 	AssetPropertiesColumn,
 	ButtonsWrapper,
 	Column,
 	MenuColumn,
 	MoreText,
-	Row,
+	TableRow,
+	Td,
 	SetUpButtonsWrapper,
 	StyledMenu,
 	StyledTooltip,
@@ -69,14 +71,20 @@ const ImageVideoDocumentSetUp = (
 		<>
 			<IconButton
 				data-testid='icon-button-test'
-				icon={MoreVertIcon} 
-				onClick={handleClick} 
+				icon={MoreVertIcon}
+				onClick={handleClick}
 			/>
 			<StyledMenu
 				anchorEl={anchorEl}
 				getContentAnchorEl={null}
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-				transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'center',
+				}}
+				transformOrigin={{
+					vertical: 'top',
+					horizontal: 'center',
+				}}
 				keepMounted
 				open={open}
 				onClose={closeMenuHandler}
@@ -87,20 +95,25 @@ const ImageVideoDocumentSetUp = (
 		</>
 	);
 
-	const tootltipContent = useMemo(() =>
-		assetProperties.map((property) => (
-			<Row key={`${property.label}-${property.value}`}>
-				<AssetLabel>{property.label}</AssetLabel>
-				<span>{property.value}</span>
-			</Row>
-		)),
-	[assetProperties]
+	const tootltipContent = useMemo(
+		() =>
+			assetProperties.map((property) => (
+				<TableRow key={`${property.label}-${property.value}`}>
+					<Td><AssetLabelTooltip>{property.label}</AssetLabelTooltip></Td>
+					<Td>{property.value}</Td>
+				</TableRow>
+			)),
+		[assetProperties]
 	);
 
 	const showMore = (
 		<StyledTooltip
 			placement='top'
-			text={tootltipContent}
+			text={
+				<table>
+					<tbody>{tootltipContent}</tbody>
+				</table>
+			}
 			type='advanced'
 		>
 			<MoreText>More</MoreText>
@@ -108,35 +121,30 @@ const ImageVideoDocumentSetUp = (
 	);
 
 	// Only show the first four asset's properties on the card
-	const assetPropertiesRows = useMemo(() =>
-		assetProperties.slice(0, 4).map((property, idx) => (
-			<Row key={`${property.label}-${property.value}`}>
-				<AssetLabel>{property.label}</AssetLabel>
-				<span>{property.value}</span>
-				{idx === 3 && (
-					<>
-              ...
-						{showMore}
-					</>
-				)}
-			</Row>
-		)),
-	[assetProperties]
+	const assetPropertiesRows = useMemo(
+		() =>
+			assetProperties.slice(0, 4).map((property, idx) => (
+				<TableRow key={`${property.label}-${property.value}`}>
+					<Td><AssetLabel>{property.label}</AssetLabel></Td>
+					<Td>{property.value}{idx === 3 && <>...{showMore}</>}</Td>
+				</TableRow>
+			)),
+		[assetProperties]
 	);
 
 	return (
 		<div>
 			<Label>{label}</Label>
-			{(assetProperties.length === 0) ? (
+			{assetProperties.length === 0 ? (
 				<SetUpButtonsWrapper multipleActions={multipleActions}>
 					{handleSetImage && (
 						<Button buttonType='secondary' onClick={handleSetImage}>
-              SET IMAGE
+							SET IMAGE
 						</Button>
 					)}
 					{handleSetVideo && (
 						<Button buttonType='secondary' onClick={handleSetVideo}>
-              SET VIDEO
+							SET VIDEO
 						</Button>
 					)}
 					{handleSetDocument && (
@@ -147,11 +155,23 @@ const ImageVideoDocumentSetUp = (
 				</SetUpButtonsWrapper>
 			) : (
 				<AssetCard>
-					{src && 
-					<Column>
-						<img src={src} data-testid='image-test' width={261} height={172} />
-					</Column>}
-					<AssetPropertiesColumn>{assetPropertiesRows}</AssetPropertiesColumn>
+					{src && (
+						<Column>
+							<img
+								src={src}
+								data-testid='image-test'
+								width={261}
+								height={172}
+							/>
+						</Column>
+					)}
+					<AssetPropertiesColumn>
+						<table>
+							<tbody>
+								{assetPropertiesRows}
+							</tbody>
+						</table>
+					</AssetPropertiesColumn>
 					<MenuColumn>{iconMenu}</MenuColumn>
 					<ButtonsWrapper>
 						<Button buttonType='blueText' onClick={handleBrowse}>
