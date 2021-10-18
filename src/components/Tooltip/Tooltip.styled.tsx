@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -37,11 +36,11 @@ export const StyledAdvancedTooltip = styled(props => (
 		max-width: 280px;
 		box-shadow: 0px 2px 6px #00000029;
 		border: 1px solid ${theme.colors.gray200};
-		left: -30px !important;
+		left: ${pr => pr.placement !== 'top' ? '-30px !important' : ''};
 	}
 
 	& .arrow {
 		color: white;
-		left: 32px !important;
+		left: ${pr => pr.placement !== 'top' ? '32px !important' : ''};
 	}
 `;
