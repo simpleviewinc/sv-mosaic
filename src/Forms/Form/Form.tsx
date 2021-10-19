@@ -78,17 +78,11 @@ function Form(props) {
 		}
 	}, [sections, fields]);
 
-
-	const validateForm = async ({ fields }) => {
-		await dispatch(
-			actions.validateForm({ fields })
-		);
-	};
-
-	const submit = (e) => {
+	const submit = async (e) => {
 		e.preventDefault();
-
-		validateForm({ fields });
+		await dispatch(
+			actions.submitForm()
+		);
 	}
 
 	return (

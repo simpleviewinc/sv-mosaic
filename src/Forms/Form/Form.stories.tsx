@@ -433,7 +433,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					name: "text2",
 					label: "Email",
 					type: "text",
-					validators: [validateEmail]
+					validators: [required, validateEmail]
 				},
 				{
 					name: "text3",
@@ -453,9 +453,15 @@ export const SubmitExternalButtons = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const submitForm = () => {
-		alert('Form submitted with the following data: ' + JSON.stringify(state.data, null, " "));
-	};
+	const clickHandler = () => {
+		dispatch(
+			actions.submitForm()
+		);
+	}
+
+	const submitForm = React.useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
 
 	useMemo(() => {
 		registerOnSubmit(submitForm);
@@ -466,7 +472,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<p>Here is the form</p>
 			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
-			<button onClick={submitForm}>Submit</button>
+			<button onClick={clickHandler}>Submit</button>
 		</>
 	);
 };
