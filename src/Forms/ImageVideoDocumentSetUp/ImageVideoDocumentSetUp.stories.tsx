@@ -6,7 +6,7 @@ import { text, withKnobs, boolean } from '@storybook/addon-knobs';
 import ImageVideoDocumentSetUp from './ImageVideoDocumentSetUp';
 
 export default {
-	title: 'Components/ImageVideoDocumentSetUp',
+	title: 'Forms|ImageVideoDocumentSetUp',
 	decorators: [withKnobs],
 };
 
@@ -14,7 +14,6 @@ export const Example = (): ReactElement => {
 	const label = text('Label', 'Label');
 	const withVideoHandler = boolean('Show video set up', false);
 	const withDocumentHandler = boolean('Show document set up', false);
-	const withImage = boolean('Show component with image', true);
 
 	const [assetProperties, setAssetProperties] = useState([]);
 
@@ -130,8 +129,7 @@ export const Example = (): ReactElement => {
 			label={label}
 			options={options}
 			src={
-				withImage &&
-        'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
+				'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 			}
 		/>
 	);
