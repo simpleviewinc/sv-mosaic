@@ -29,34 +29,35 @@ export const KitchenSink = (): ReactElement => {
 						value: state.data.text1, //THIS IS SUPPOSED TO BE DEFAULTVALUE
 					},
 					instructionText: 'testing',
-					validators: [validateEmail, validateSlow]
+					validators: [validateEmail]
 				},
 				{
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "textArea",
 					helperText: state.data.text2,
-					validators: [validateEmail, validateSlow]
+					validators: [validateEmail]
 				},
 				{
 					name: "text3",
 					label: "Text that copies to the next input",
 					type: "checkbox",
-					checked: [],
-					options: [
-						{
-							label: "Label 1",
-							value: "label_1"
-						},
-						{
-							label: "Label 2",
-							value: "label_2"
-						},
-						{
-							label: "Label 3",
-							value: "label_3"
-						}
-					],
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
 				},
 				{
 					name: "text4",
@@ -471,7 +472,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 };
 
 export const SubmitInternalButtons = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit} = useForm();
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -488,6 +489,27 @@ export const SubmitInternalButtons = (): ReactElement => {
 					label: "age",
 					type: "text",
 					validators: [required],
+				},
+				{
+					name: "text3",
+					label: "Text that copies to the next input",
+					type: "checkbox",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
 				},
 			] as unknown as FieldDefProps[],
 		[]

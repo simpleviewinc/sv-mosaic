@@ -10,9 +10,11 @@ describe('Text field component', () => {
 		render(
 			<TextArea
 				label='Label test'
-				instructionalText='Instructional text'
-				placeholder='placeholder'
-				htmlFor='test'
+				inputSettings={{
+					htmlFor: 'test',
+					placeholder: 'placeholder',
+				}}
+				instructionText='Instructional text'
 				id='test'
 				onChange={() => jest.fn()}
 			/>
@@ -49,10 +51,12 @@ describe('The behaviour of the error text and the helper text', () => {
 		render(
 			<TextArea
 				label='Label test'
+				inputSettings={{
+					placeholder: 'placeholder',
+				}}
 				error={true}
 				helperText='Helper text'
 				errorText='Error text'
-				placeholder='placeholder'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -67,10 +71,12 @@ describe('The behaviour of the error text and the helper text', () => {
 		render(
 			<TextArea
 				label='Label test'
+				inputSettings={{
+					placeholder: 'placeholder',
+				}}
 				error={false}
 				helperText='Helper text'
 				errorText='Error text'
-				placeholder='placeholder'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -92,13 +98,15 @@ describe('The char counter behaviour', () => {
 
 			return (
 				<TextArea
-					htmlFor='char-test'
 					id='char-test'
 					label='Label'
-					placeholder='placeholder'
+					inputSettings={{
+						htmlFor: 'char-test',
+						placeholder: 'placeholder',
+						maxCharacters: 20,
+						value: inputValue
+					}}
 					onChange={onHandleChange}
-					maxCharacters={20}
-					value={inputValue}
 				/>
 			);
 		};
