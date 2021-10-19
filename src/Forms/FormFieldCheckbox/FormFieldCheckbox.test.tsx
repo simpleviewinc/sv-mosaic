@@ -36,11 +36,14 @@ describe('The FormFieldCheckbox behavior', () => {
 			return (
 				<FormFieldCheckbox
 					label='Label'
+					inputSettings={{
+						checked,
+						options
+	
+					}}
 					error={false}
 					instructionText='Instruction text'
 					errorText='Error text'
-					checked={checked}
-					options={options}
 					onChange={onChange}
 				/>
 			);
@@ -64,12 +67,15 @@ describe('The instructionText and the errorText behavior', () => {
 		render(
 			<FormFieldCheckbox
 				label='Label'
+				inputSettings={{
+					checked: [],
+					options
+
+				}}
 				error={true}
 				required={true}
 				instructionText='Instruction text'
 				errorText='Error text'
-				checked={[]}
-				options={options}
 				onChange={jest.fn()}
 			/>
 		);
@@ -84,11 +90,14 @@ describe('The instructionText and the errorText behavior', () => {
 		render(
 			<FormFieldCheckbox
 				label='Label'
+				inputSettings={{
+					checked: [],
+					options
+
+				}}
 				error={false}
 				instructionText='Instruction text'
 				errorText='Error text'
-				checked={[]}
-				options={options}
 				onChange={jest.fn()}
 			/>
 		);

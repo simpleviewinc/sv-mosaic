@@ -1,20 +1,10 @@
 import * as React from 'react';
 import { ReactElement, HTMLAttributes } from 'react';
 
-// Material UI
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-
 // Types and styles
 import { TextAreaProps } from './FormFieldTextAreaTypes';
-import {
-	StyledTextArea,
-	StyledHelperText,
-	StyledWrapper,
-	TextAreaWrapper,
-	StyledInstructionalText,
-} from './FormFieldTextArea.styled';
-import { Sizes } from '../../theme/sizes';
-import { Label } from '@root/components/Typography';
+import { StyledTextArea } from './FormFieldTextArea.styled';
+import Field from '@root/components/Field';
 
 
 const TextArea = (
@@ -22,62 +12,52 @@ const TextArea = (
 ): ReactElement => {
 	const {
 		label,
-		htmlFor,
-		placeholder,
-		required,
-		disabled,
-		helperText,
-		maxCharacters,
-		instructionalText,
-		error,
-		errorText,
-		value,
+		inputSettings,
 		className,
-		size = Sizes.lg,
-		onChange
+		disabled = false,
+		error = false,
+		helperText,
+		instructionText,
+		errorText,
+		required,
+		onChange,
+		onBlur,
+		value,
 	} = props;
 
-	let renderedHelperText = helperText && !error ? helperText : null;
-
-	if (errorText && error) {
-		renderedHelperText = (
-			<StyledHelperText>
-				<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
-				<span>{errorText}</span>
-			</StyledHelperText>
-		);
-	}
+	const errorWithMessage = error && errorText?.trim().length > 0;
 
 	return (
-		<StyledWrapper>
-			<TextAreaWrapper error={error} size={size}>
-				<Label
-					disabled={disabled}
-					required={required}
-					htmlFor={htmlFor}
-					value={value}
-					maxCharacters={maxCharacters}
-				>
-					{label}
-				</Label>
-				<StyledTextArea
-					id={htmlFor}
-					value={value}
-					onChange={(e) => onChange(e.target.value)}
-					variant='outlined'
-					error={error}
-					helperText={renderedHelperText}
-					className={className}
-					placeholder={placeholder}
-					disabled={disabled}
-					multiline
-					size={size}
-					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
-					required={required}
-				/>
-			</TextAreaWrapper>
-			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
-		</StyledWrapper>
+		<Field
+			label={label}
+			required={required}
+			disabled={disabled}
+			error={error}
+			errorText={errorText}
+			helperText={helperText}
+			instructionText={instructionText}
+			maxCharacters={inputSettings?.maxCharacters}
+			htmlFor={inputSettings?.htmlFor}
+			value={inputSettings?.value}
+			size={inputSettings?.size}
+		>
+			<StyledTextArea
+				id={inputSettings?.htmlFor}
+				// value={value}
+				value={inputSettings?.value}
+				onChange={(e) => onChange(e.target.value)}
+				onBlur={(e) => onBlur(e.target.value)}
+				variant='outlined'
+				error={(errorWithMessage || (errorWithMessage && required))}
+				className={className}
+				placeholder={inputSettings?.placeholder}
+				disabled={disabled}
+				multiline
+				size={inputSettings?.size}
+				inputProps={{ maxLength: inputSettings?.maxCharacters > 0 ? inputSettings?.maxCharacters : null }}
+				required={required}
+			/>
+		</Field>
 	);
 };
 

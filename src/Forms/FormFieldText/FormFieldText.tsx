@@ -53,7 +53,8 @@ const TextField = (
 		>
 			<StyledTextField
 				id={inputSettings?.htmlFor}
-				value={value}
+				// value={value}
+				value={inputSettings?.value}
 				onChange={(e) => onChange(e.target.value)}
 				onBlur={(e) => onBlur(e.target.value)}
 				variant='outlined'
