@@ -150,13 +150,31 @@ export const actions = {
 				value: validForm,
 			});
 
+			await new Promise((res) => setTimeout(res, 5000));
+
 			dispatch({
 				type: "FORM_END_DISABLE",
 				value: false,
 			});
 
-			if(validForm)
-				extraArgs.onSubmit(touchedFields);
+			return validForm;
+
+			// if(validForm)
+			// 	extraArgs.onSubmit(touchedFields);
+		}
+	},
+	submitForm() {
+		return async (dispatch, getState, extraArgs) => {
+			if(getState().disabled)
+				return;
+
+			let isValid = await dispatch(
+				actions.validateForm({ fields: extraArgs.fields })
+			);
+	
+			if(isValid)
+				extraArgs.onSubmit(getState().data);
+
 		}
 	}
 };
