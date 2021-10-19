@@ -9,7 +9,20 @@ afterEach(cleanup);
 
 const editCallback = jest.fn();
 const translateCallback = jest.fn();
-const browseCallback = jest.fn();
+const setImageCallback = jest.fn();
+const setDocumentCallback = jest.fn();
+const setVideoCallback = jest.fn();
+
+const options = [
+	{
+		label: 'Edit',
+		action: editCallback,
+	},
+	{
+		label: 'Translate',
+		action: translateCallback,
+	},
+];
 
 const ImageVideoDocumentSetUpExample = () => {
 	const [assetProperties, setAssetProperties] = useState([]);
@@ -41,6 +54,35 @@ const ImageVideoDocumentSetUpExample = () => {
 				value: '-',
 			},
 		]);
+		setImageCallback();
+	};
+
+	const handleDocument = () => {
+		setAssetProperties([
+			{
+				label: 'Title',
+				value: 'Document example',
+			},
+			{
+				label: 'Type',
+				value: 'Document',
+			},
+		]);
+		setDocumentCallback();
+	};
+
+	const handleVideo = () => {
+		setAssetProperties([
+			{
+				label: 'Title',
+				value: 'Video Example - This is a video example',
+			},
+			{
+				label: 'Type',
+				value: 'Video',
+			},
+		]);
+		setVideoCallback();
 	};
 
 	const handleRemove = () => {
@@ -50,12 +92,12 @@ const ImageVideoDocumentSetUpExample = () => {
 	return (
 		<ImageVideoDocumentSetUp
 			assetProperties={assetProperties}
-			handleBrowse={browseCallback}
-			handleEdit={editCallback}
-			handleTranslate={translateCallback}
 			handleSetImage={handleSetImage}
+			handleSetDocument={handleDocument}
+			handleSetVideo={handleVideo}
 			handleRemove={handleRemove}
 			label='Label'
+			options={options}
 			src={
 				'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 			}
@@ -89,7 +131,7 @@ describe('ImageVideoDocumentSetUp card content', () => {
 		const labelAlt = screen.getByText('Alt');
 		const valueAlt = screen.getByText('-');
 		const labelSize = screen.getByText('Size');
-		const valueSize = screen.getByText('1280x720...');
+		const valueSize = screen.getByText('1280x720');
 		const labelFocus = screen.queryByText('Focus');
 		const valueFocus = screen.queryByText('No');
 
@@ -136,14 +178,35 @@ describe('ImageVideoDocumentSetUp menu options callbacks', () => {
 	});
 });
 
-describe('ImageVideoDocumentSetUp browse callback', () => {
-	it('should trigger browse translate callback', () => {
+describe('ImageVideoDocumentSetUp Browse button. It should execute the function corresponding to the asset that was loaded', () => {
+	beforeEach(() => {
 		render(<ImageVideoDocumentSetUpExample />);
+	});
+
+	it('should trigger the set image callback', () => {
 		const setImageButton = screen.getByText('SET IMAGE');
 		fireEvent.click(setImageButton);
 		const browseButton = screen.getByText('Browse');
 		fireEvent.click(browseButton);
 
-		expect(browseCallback).toHaveBeenCalledTimes(1);
+		expect(setImageCallback).toHaveBeenCalled();
+	});
+
+	it('should trigger the set document callback', () => {
+		const setDocumentButton = screen.getByText('SET DOCUMENT');
+		fireEvent.click(setDocumentButton);
+		const browseButton = screen.getByText('Browse');
+		fireEvent.click(browseButton);
+
+		expect(setDocumentCallback).toHaveBeenCalled();
+	});
+
+	it('should trigger the set video callback', () => {
+		const setVideoButton = screen.getByText('SET VIDEO');
+		fireEvent.click(setVideoButton);
+		const browseButton = screen.getByText('Browse');
+		fireEvent.click(browseButton);
+
+		expect(setVideoCallback).toHaveBeenCalled();
 	});
 });

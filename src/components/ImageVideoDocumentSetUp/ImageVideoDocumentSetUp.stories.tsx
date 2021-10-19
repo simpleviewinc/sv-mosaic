@@ -46,14 +46,14 @@ export const Example = (): ReactElement => {
 				value: '-',
 			},
 		]);
+		alert('Set image is called');
 	};
 
 	const handleVideo = () => {
 		setAssetProperties([
 			{
 				label: 'Title',
-				value:
-          'Video Example - This is a video example',
+				value: 'Video Example - This is a video example',
 			},
 			{
 				label: 'Type',
@@ -71,16 +71,34 @@ export const Example = (): ReactElement => {
 				label: 'Locales',
 				value: 'es, en & in',
 			},
-		]
-		)
-	}
+		]);
+		alert('Set video is called');
+	};
+
+	const handleDocument = () => {
+		setAssetProperties([
+			{
+				label: 'Title',
+				value: 'Document example',
+			},
+			{
+				label: 'Type',
+				value: 'Document',
+			},
+			{
+				label: 'Size',
+				value: '333 bytes'
+			},
+			{
+				label: 'Size on disk',
+				value: '0 bytes',
+			},
+		]);
+		alert('Set document is called');
+	};
 
 	const handleRemove = () => {
 		setAssetProperties([]);
-	};
-
-	const handleBrowse = () => {
-		alert('Browse clicked');
 	};
 
 	const handleEdit = () => {
@@ -91,19 +109,29 @@ export const Example = (): ReactElement => {
 		alert('Translate clicked');
 	};
 
+	const options = [
+		{
+			label: 'Edit',
+			action: handleEdit,
+		},
+		{
+			label: 'Translate',
+			action: handleTranslate,
+		},
+	];
+
 	return (
 		<ImageVideoDocumentSetUp
 			assetProperties={assetProperties}
-			handleBrowse={handleBrowse}
-			handleEdit={handleEdit}
-			handleTranslate={handleTranslate}
 			handleSetImage={handleSetImage}
-			handleSetDocument={withDocumentHandler && handleSetImage}
+			handleSetDocument={withDocumentHandler && handleDocument}
 			handleSetVideo={withVideoHandler && handleVideo}
 			handleRemove={handleRemove}
 			label={label}
-			src={withImage &&
-				'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
+			options={options}
+			src={
+				withImage &&
+        'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 			}
 		/>
 	);

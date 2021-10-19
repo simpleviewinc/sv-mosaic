@@ -1,12 +1,24 @@
-type AssetProperties = {
+export type AssetProperties = {
   /**
-   * Name of the asset property
+   * Name of the asset property.
    */
   label: string;
   /**
-   * Value of the asset property
+   * Value of the asset property.
    */
   value: string;
+}
+
+export type Options = {
+  /**
+   * Name of the menu option.
+   */
+  label: string;
+  /**
+   * Callback function that will be triggered
+   * when the option is clicked.
+   */
+  action: () => void;
 }
 
 export interface ImageVideoDocumentSetUpProps {
@@ -19,14 +31,6 @@ export interface ImageVideoDocumentSetUpProps {
   * Meaningful name related to the field.
   */
   label?: string;
-  /**
-   * Callback executed when the option of edit is clicked.
-   */
-  handleBrowse?: () => void;
-  /**
-   * Callback executed when the edit option is clicked.
-   */
-  handleEdit?: () => void;
   /**
    * Callback executed when the remove button is clicked.
    * This function should empty the assetProperties array
@@ -52,9 +56,9 @@ export interface ImageVideoDocumentSetUpProps {
    */
   handleSetVideo?: () => void;
   /**
-   * Callback executed when the translate option is clicked.
+   * List of menu options that can be executed by the component.
    */
-  handleTranslate?: () => void;
+  options?: Options[];
   /**
    * If the asset contains an image, its source should be passed
    * via this src prop.

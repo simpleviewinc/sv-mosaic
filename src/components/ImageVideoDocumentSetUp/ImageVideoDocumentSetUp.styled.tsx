@@ -7,7 +7,12 @@ import theme from '@root/theme';
 import Menu from '@material-ui/core/Menu';
 
 // Components
+import Label from '@root/components/Field/Label';
 import Tooltip from '@root/components/Tooltip';
+
+export const StyledLabel = styled(Label)`
+  margin-bottom: 16px;
+`;
 
 export const SetUpButtonsWrapper = styled.div`
   align-items: center;
@@ -38,6 +43,7 @@ export const SetUpButtonsWrapper = styled.div`
 export const AssetCard = styled.div`
   display: flex;
   border: 2px solid ${theme.colors.gray200};
+  border-radius: 4px;
   padding: 16px;
   position: relative;
   width: 700px;
@@ -84,7 +90,12 @@ export const ButtonsWrapper = styled.div`
 
 export const AssetLabel = styled.span`
   color: ${theme.colors.gray600};
+  font-weight: ${theme.fontWeight.semiBold};
   margin-right: 24px;
+`;
+
+export const AssetValue = styled.span`
+  color: ${theme.colors.almostBlack};
 `;
 
 export const AssetLabelTooltip = styled(AssetLabel)`
@@ -100,6 +111,8 @@ export const MoreText = styled.span`
 
 export const StyledMenu = styled(Menu)`
   & .MuiPaper-root {
+    border: 1px solid ${theme.colors.gray200};
+    box-shadow: 0px 1px 3px #1a1a1a26;
     color: ${theme.colors.label};
 
     & .MuiMenuItem-root {
@@ -116,4 +129,9 @@ export const StyledTooltip = styled(Tooltip)`
     color: inherit;
     font-weight: inherit;
   }
+`;
+
+export const StyledImg = styled.img`
+  border: 2px solid ${theme.colors.gray200};
+  object-fit: cover;
 `;
