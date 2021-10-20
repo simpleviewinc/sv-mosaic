@@ -9,7 +9,9 @@ export type ButtonStyle = {
   colorText: string;
   colorTextHover: string;
   fontSize: string;
+  height: string;
   hover: string;
+  minWidth: string;
   textTransform: string;
   regular: string;
   padding: string;
