@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useState, useEffect, useRef } from 'react';
+import { ReactElement, useState, useEffect, useRef, memo } from 'react';
 import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 
 import { default as Label } from './Label';
@@ -63,7 +63,6 @@ const Field = ({
 		if ((errorWithMessage || (errorWithMessage && required))) {
 			return <HelperText error={error}>{errorText}</HelperText>;
 		} else if (helperText) {
-			console.log(helperText);
 			return <HelperText>{helperText}</HelperText>;
 		}
 	}
@@ -90,4 +89,4 @@ const Field = ({
 	);
 };
 
-export default Field;
+export default memo(Field);

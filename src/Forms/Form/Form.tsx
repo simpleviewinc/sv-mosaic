@@ -24,11 +24,11 @@ const StyledDisabledForm = styled.div`
 	z-index: 999999;
 	display: ${pr => pr.disabled ? 'block' : 'none'};
 	position: absolute;
-	opacity: 90%;
+	opacity: 30%;
 `;
 
-function Form(props) {
-	const { sections, fields, dispatch, state, formMetadata, onSubmit } = props;
+const Form = (props) => {
+	const { sections, fields, dispatch, state, onSubmit } = props;
 
 	const layout = useMemo(() => {
 		let customLayout: SectionDef[] = [];
