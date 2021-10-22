@@ -21,7 +21,6 @@ import InputWrapper from '../../components/InputWrapper';
 import Label from '@root/components/Typography/Label';
 
 const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
-	const [selectedOption, setSelectedOption] = useState('');
 	const [error, setError] = useState(false);
 
 	const onBlur = (e) => {
@@ -68,11 +67,11 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 						options={props.options}
 						size={props.size}
 						getOptionLabel={(option) => option.title}
-						onChange={(_event, option) => setSelectedOption(option.title)}
 						error={props.required && error}
 						errorText={props.errorText}
 						renderInput={renderInput}
 						disablePortal={true}
+						onChange={props.onChange}
 						popupIcon={<ExpandMoreIcon />}
 					/>
 					{(!error && props.helperText?.trim().length > 0) &&
@@ -98,8 +97,8 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
-					{(!selectedOption || selectedOption.trim() === '') ? 
-						props.placeholder : selectedOption
+					{(!props.value || props.value.trim() === '') ? 
+						props.placeholder : props.value
 					}
 				</StyledDisabledDropdownText>
 			}
