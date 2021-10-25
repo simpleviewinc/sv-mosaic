@@ -9,9 +9,9 @@ export const StyledAddressCard = styled.div`
   color: ${theme.colors.almostBlack};
   background-color: ${theme.colors.gray100};
   font-family: ${theme.fontFamily};
-  min-height: 204px;
+  min-height: 164px;
   padding: 24px 16px 16px 24px;
-  width: 300px;
+  width: 260px;
 `;
 
 export const AddressTitle = styled.span`

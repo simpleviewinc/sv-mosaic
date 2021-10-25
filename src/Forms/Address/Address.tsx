@@ -145,7 +145,7 @@ const Address = (props: AddressProps): ReactElement => {
 		let index = 0;
 		const listOfAddresses = [...addresses];
 		listOfAddresses.map((address) => {
-			if (addressToRemove.address === address.address) {
+			if (addressToRemove.id === address.id) {
 				listOfAddresses.splice(index, 1);
 			}
 			index++;
@@ -190,8 +190,8 @@ const Address = (props: AddressProps): ReactElement => {
 
 	const addNewAddress = () => {
 		const listOfAddresses = [...addresses];
-		const id = listOfAddresses.length + 1;
 		addressTypesChecked.forEach(addressType => {
+			const id = listOfAddresses.length + 1;
 			listOfAddresses.push({
 				id: id,
 				...textFields,

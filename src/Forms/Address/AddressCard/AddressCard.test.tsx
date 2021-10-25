@@ -7,13 +7,14 @@ import AddressCard from './AddressCard';
 afterEach(cleanup);
 
 const address = {
-	city: 'Fairfield',
-	country: 'United States',
-	street: '694 A St',
-	postalCode: '94535 - 2324',
-	state: 'CA',
-	type: 'Billing',
-};
+	address: 'Test 1',
+	city: 'Guadalajara',
+	country: {title: 'Mexico', value: {}},
+	postalCode: '1',
+	state: {title: 'Jalisco', value: {}},
+	type: 'physical',
+	id: 1
+}
 
 describe('AddressCard component', () => {
 	it('should display address card content', () => {
