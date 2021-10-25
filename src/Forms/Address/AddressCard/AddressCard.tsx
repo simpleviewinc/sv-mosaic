@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { memo, ReactElement } from 'react';
+import { startCase } from 'lodash';
 
 // Components
 import Button from '@root/forms/Button';
@@ -15,6 +16,7 @@ type Address = {
   address: string;
   city: string;
   country: { title: string, value: any};
+  id: number;
   postalCode: string;
   state: { title: string, value: any};
   type: string;
@@ -31,7 +33,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 
 	return (
 		<StyledAddressCard>
-			<AddressTitle>{`${address.type} Address`}</AddressTitle>
+			<AddressTitle>{`${startCase(address.type)} Address`}</AddressTitle>
 			<span>{address.address}</span>
 			<span>{`${address.city}, ${address.state.title} ${address.postalCode}`}</span>
 			<span>{address.country.title}</span>

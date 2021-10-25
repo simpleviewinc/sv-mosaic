@@ -8,6 +8,12 @@ import Label from '@root/components/Field/Label';
 
 export const StyledLabel = styled(Label)`
   margin-bottom: 16px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 300px;
+    margin: auto;
+    margin-bottom: 20px;
+  }
 `;
 
 export const AddAddressWrapper = styled.div`
@@ -30,5 +36,15 @@ export const FlexContainer = styled.div`
     & > :not(:last-child) {
       margin-right: 80px;
     }
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    & > :not(:last-child) {
+      margin-bottom: 20px;
+      margin-right: 0px;
+    }
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 `;
