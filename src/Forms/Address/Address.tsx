@@ -12,7 +12,7 @@ import TextField from '@root/forms/FormFieldText';
 import { AddressProps } from './AddressTypes';
 
 // Styles
-import { AddAddressWrapper, FlexContainer, StyledLabel } from './Address.styled';
+import { AddAddressWrapper, FlexContainer, FlexContainerFields, StyledLabel } from './Address.styled';
 import { Sizes } from '@root/theme/sizes';
 
 // Utils
@@ -46,11 +46,11 @@ const data = [
 	},
 	{
 		address: 'Test 2',
-		city: 'Guadalajara',
+		city: 'City test 2',
 		country: {title: 'Mexico', value: {}},
-		postalCode: '1',
-		state: {title: 'Jalisco', value: {}},
-		type: 'physical',
+		postalCode: '2',
+		state: {title: 'State test', value: {}},
+		type: 'billing',
 		id: 2
 	},
 ];
@@ -64,7 +64,7 @@ const Address = (props: AddressProps): ReactElement => {
 	const [countries, setCountries] = useState([]);
 	const [isEditing, setIsEditting] = useState(false);
 
-	// Form states
+	// States of the form values
 	const [id, setId] = useState(null);
 	const [addressTypesChecked, setAddressTypesChecked] = useState([]);
 	const [selectedCountry, setSelectedCountry] = useState({
@@ -81,10 +81,10 @@ const Address = (props: AddressProps): ReactElement => {
 		postalCode: '',
 	});
 
-	const handleCountryChange = (_event, option) => {
-		setSelectedCountry(option);
-	};
-
+	/**
+	 * Gets the lists of states options for the 
+	 * selected country
+	 */
 	const listOfStates = useMemo(() => {
 		if (selectedCountry?.title) {
 			return countriesWithStates
@@ -97,12 +97,35 @@ const Address = (props: AddressProps): ReactElement => {
 		return [];
 	}, [selectedCountry?.title]);
 
+	/**
+	 * Sets the selected country of the dropdown and
+	 * resets the selected state.
+	 * @param _event 
+	 * @param option 
+	 */
+	const handleCountryChange = (_event, option) => {
+		setSelectedCountry(option);
+		setSelectedState({
+			title: '',
+			value: {}
+		})
+	};
+
+	/**
+	 * Set the selected state from its respective dropdown.
+	 * @param _event 
+	 * @param option 
+	 */
 	const handleStateChange = (_event, option) => {
 		setSelectedState(option);
 	};
 
-	const handleAddressTypeChange = (billingTypesChecked) => {
-		setAddressTypesChecked(billingTypesChecked);
+	/**
+	 * Sets the address types that are checked.
+	 * @param addressTypesChecked 
+	 */
+	const handleAddressTypeChange = (addressTypesChecked) => {
+		setAddressTypesChecked(addressTypesChecked);
 	};
 
 	let submitDisabled = true;
@@ -111,11 +134,19 @@ const Address = (props: AddressProps): ReactElement => {
 		submitDisabled = false;
 	}
 
+	/**
+	 * Opens the modal to create an address card 
+	 * and sets editing mode to false.
+	 */
 	const addAddressHandler = () => {
 		setIsEditting(false);
 		setOpen(true);
 	};
 
+	/**
+	 * Closes the modal and resets the values for
+	 * form field.
+	 */
 	const handleClose = () => {
 		setTextFields({
 			address: '',
@@ -134,6 +165,11 @@ const Address = (props: AddressProps): ReactElement => {
 		setOpen(false);
 	};
 
+	/**
+	 * Handle value change for each text input
+	 * (i.e., address, city and postal code).
+	 * @param e 
+	 */
 	const handleTextFieldsChange = (e) => {
 		setTextFields({
 			...textFields,
@@ -141,6 +177,10 @@ const Address = (props: AddressProps): ReactElement => {
 		});
 	};
 
+	/**
+	 * Removes the clicked address card from the list. 
+	 * @param addressToRemove 
+	 */
 	const removeAddressHandler = (addressToRemove) => {
 		let index = 0;
 		const listOfAddresses = [...addresses];
@@ -153,6 +193,12 @@ const Address = (props: AddressProps): ReactElement => {
 		setAddresses(listOfAddresses);    
 	};
 
+	/**
+	 * Opens the modal in editing mode and sets the
+	 * form fields values with the data of the address 
+	 * to be edited.
+	 * @param addressToEdit 
+	 */
 	const showEditModal = (addressToEdit) => {
 		setTextFields({
 			address: addressToEdit.address,
@@ -167,6 +213,10 @@ const Address = (props: AddressProps): ReactElement => {
 		setOpen(true);
 	};
 
+	/**
+	 * Executed on the form submit if editing mode is true
+	 * @returns the list of addresses with the new updates
+	 */
 	const editAddress = () => {
 		let index = 0;
 		const listOfAddresses = [...addresses];
@@ -188,6 +238,10 @@ const Address = (props: AddressProps): ReactElement => {
 		return listOfAddresses;
 	};
 
+	/**
+	 * Executed on the form submit if editing mode is false
+	 * @returns the lists of addresses with the new ones created
+	 */
 	const addNewAddress = () => {
 		const listOfAddresses = [...addresses];
 		addressTypesChecked.forEach(addressType => {
@@ -205,6 +259,10 @@ const Address = (props: AddressProps): ReactElement => {
 		return listOfAddresses;
 	};
 
+	/**
+	 * Form submit handler. It adds or edits an address and closes the modal.
+	 * @param e 
+	 */
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
@@ -261,7 +319,7 @@ const Address = (props: AddressProps): ReactElement => {
 						required
 						value={textFields.address}
 					/>
-					<FlexContainer>
+					<FlexContainerFields>
 						<TextField
 							label='City'
 							name='city'
@@ -274,7 +332,6 @@ const Address = (props: AddressProps): ReactElement => {
 							options={listOfStates}
 							label='States'
 							onChange={handleStateChange}
-							required
 							size={Sizes.sm}
 							value={selectedState}
 						/>
@@ -286,7 +343,7 @@ const Address = (props: AddressProps): ReactElement => {
 							required
 							value={textFields.postalCode}
 						/>
-					</FlexContainer>
+					</FlexContainerFields>
 					<FormFieldCheckbox
 						label='Type'
 						checked={addressTypesChecked}
