@@ -58,5 +58,5 @@ export interface DropdownSingleSelectionProps {
 	/**
    * Value selected from the list o options.
    */
-	value?: string;
+	value?: any;
 }

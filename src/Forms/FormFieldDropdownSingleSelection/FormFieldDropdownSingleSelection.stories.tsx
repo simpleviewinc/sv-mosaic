@@ -59,7 +59,6 @@ export const example = (): ReactElement => {
 				required={boolean("Required", false)}
 				errorText={text("Error text", "Error text example")}
 				onChange={onChange}
-				value={selectedOption}
 			/>
 		</>
 	)

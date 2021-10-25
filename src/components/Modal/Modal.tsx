@@ -21,6 +21,7 @@ const Modal = (props: ModalProps): ReactElement => {
 	const {
 		children,
 		dialogTitle,
+		submitDisabled,
 		form,
 		onClose,
 		open,
@@ -97,7 +98,7 @@ const Modal = (props: ModalProps): ReactElement => {
 					<Button buttonType='secondary' onClick={secondaryAction}>
 						{secondaryBtnLabel}
 					</Button>
-					<Button type='submit' form={form} onClick={primaryAction}>{primaryBtnLabel}</Button>
+					<Button disabled={submitDisabled} type='submit' form={form} onClick={primaryAction}>{primaryBtnLabel}</Button>
 				</DialogActions>
 			)}
 		</StyledDialog>

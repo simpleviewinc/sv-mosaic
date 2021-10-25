@@ -39,6 +39,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 				variant="outlined"
 				placeholder={props.placeholder}
 				onBlur={(e) => onBlur(e)}
+				required={props.required}
 			/>
 			<StyledInstructionText
 				data-testid="instruction-text-test-id"
@@ -73,6 +74,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 						disablePortal={true}
 						onChange={props.onChange}
 						popupIcon={<ExpandMoreIcon />}
+						value={props.value}
 					/>
 					{(!error && props.helperText?.trim().length > 0) &&
 						<StyledHelperText

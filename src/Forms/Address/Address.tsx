@@ -12,13 +12,14 @@ import TextField from '@root/forms/FormFieldText';
 import { AddressProps } from './AddressTypes';
 
 // Styles
-import { AddAddressWrapper, Row, StyledLabel } from './Address.styled';
+import { AddAddressWrapper, FlexContainer, StyledLabel } from './Address.styled';
 import { Sizes } from '@root/theme/sizes';
 
 // Utils
 import * as countriesWithStates from './countriesStates.json';
+import AddressCard from './AddressCard';
 
-const billingTypes = [
+const addressTypes = [
 	{
 		label: 'Physical',
 		value: 'physical',
@@ -33,70 +34,183 @@ const billingTypes = [
 	},
 ];
 
+const data = [
+	{
+		address: 'Test 1',
+		city: 'Guadalajara',
+		country: {title: 'Mexico', value: {}},
+		postalCode: '1',
+		state: {title: 'Jalisco', value: {}},
+		type: 'physical',
+		id: 1
+	},
+	{
+		address: 'Test 2',
+		city: 'Guadalajara',
+		country: {title: 'Mexico', value: {}},
+		postalCode: '1',
+		state: {title: 'Jalisco', value: {}},
+		type: 'physical',
+		id: 2
+	},
+];
+
 const Address = (props: AddressProps): ReactElement => {
 	const { label } = props;
 
 	// State variables
-	const [streetAddress, setStreetAddress] = useState('');
-	const [city, setCity] = useState('');
-	const [postalCode, setPostalCode] = useState('');
+	const [addresses, setAddresses] = useState(data);
 	const [open, setOpen] = useState(false);
 	const [countries, setCountries] = useState([]);
-	const [billingTypesChecked, setBillingTypesChecked] = useState([]);
-	const [selectedCountry, setSelectedCountry] = useState('');
-	const [selectedState, setSelectedState] = useState('');
+	const [isEditing, setIsEditting] = useState(false);
+
+	// Form states
+	const [id, setId] = useState(null);
+	const [addressTypesChecked, setAddressTypesChecked] = useState([]);
+	const [selectedCountry, setSelectedCountry] = useState({
+		title: '',
+		value: {},
+	});
+	const [selectedState, setSelectedState] = useState({
+		title: '',
+		value: {}
+	});
+	const [textFields, setTextFields] = useState({
+		address: '',
+		city: '',
+		postalCode: '',
+	});
 
 	const handleCountryChange = (_event, option) => {
-		setSelectedCountry(option?.title);
+		setSelectedCountry(option);
 	};
 
-	let listOfStates = [];
+	const listOfStates = useMemo(() => {
+		if (selectedCountry?.title) {
+			return countriesWithStates
+				.find((country) => country.name === selectedCountry.title)
+				.states.map((state) => ({
+					title: state.name,
+					value: state,
+				}));
+		}
+		return [];
+	}, [selectedCountry?.title]);
 
 	const handleStateChange = (_event, option) => {
-		setSelectedState(option?.title)
+		setSelectedState(option);
 	};
-  
-	if (selectedCountry) {
-		listOfStates = countriesWithStates
-			.find((country) => country.name === selectedCountry)
-			.states.map((state) => ({
-				title: state.name,
-				value: state,
-			}));
+
+	const handleAddressTypeChange = (billingTypesChecked) => {
+		setAddressTypesChecked(billingTypesChecked);
+	};
+
+	let submitDisabled = true;
+
+	if (addressTypesChecked.length > 0) {
+		submitDisabled = false;
 	}
 
-	const handleAddressChange = (event) => {
-		setStreetAddress(event.target.value);
-	};
-
-	const handleCityChange = (event) => {
-		setCity(event.target.value);
-	};
-
-	const handlePostalCodeChange = (event) => {
-		setPostalCode(event.target.value);
-	};
-
-	const handleBillingTypeChange = (billingTypesChecked) => {
-		setBillingTypesChecked(billingTypesChecked);
-	};
-
 	const addAddressHandler = () => {
+		setIsEditting(false);
 		setOpen(true);
 	};
 
 	const handleClose = () => {
+		setTextFields({
+			address: '',
+			city: '',
+			postalCode: '',
+		});
+		setAddressTypesChecked([]);
+		setSelectedCountry({
+			title: '',
+			value: {}
+		});
+		setSelectedState({
+			title: '',
+			value: {}
+		});
 		setOpen(false);
 	};
 
-	const saveAddress = () => {
-		setOpen(false);
+	const handleTextFieldsChange = (e) => {
+		setTextFields({
+			...textFields,
+			[e.target.name]: e.target.value
+		});
+	};
+
+	const removeAddressHandler = (addressToRemove) => {
+		let index = 0;
+		const listOfAddresses = [...addresses];
+		listOfAddresses.map((address) => {
+			if (addressToRemove.address === address.address) {
+				listOfAddresses.splice(index, 1);
+			}
+			index++;
+		});
+		setAddresses(listOfAddresses);    
+	};
+
+	const showEditModal = (addressToEdit) => {
+		setTextFields({
+			address: addressToEdit.address,
+			city: addressToEdit.city,
+			postalCode: addressToEdit.postalCode,
+		});
+		setAddressTypesChecked([addressToEdit.type]);
+		setSelectedCountry(addressToEdit.country);
+		setSelectedState(addressToEdit.state);
+		setId(addressToEdit.id);
+		setIsEditting(true);
+		setOpen(true);
+	};
+
+	const editAddress = () => {
+		let index = 0;
+		const listOfAddresses = [...addresses];
+
+		listOfAddresses.map((address) => {
+			if (id === address.id) {
+				listOfAddresses[index].address = textFields.address;
+				listOfAddresses[index].city = textFields.city;
+				listOfAddresses[index].postalCode = textFields.postalCode;
+				listOfAddresses[index].country = selectedCountry;
+				listOfAddresses[index].state = selectedState;
+				addressTypesChecked.forEach(addressType => {
+					listOfAddresses[index].type = addressType;
+				});
+			}
+			index++;
+		});
+
+		return listOfAddresses;
+	};
+
+	const addNewAddress = () => {
+		const listOfAddresses = [...addresses];
+		const id = listOfAddresses.length + 1;
+		addressTypesChecked.forEach(addressType => {
+			listOfAddresses.push({
+				id: id,
+				...textFields,
+				country: selectedCountry,
+				state: selectedState,
+				type: addressType,
+			});
+		})
+		setIsEditting(false);
+
+		return listOfAddresses;
 	};
 
 	const handleFormSubmit = (e) => {
-		alert('Submit form')
 		e.preventDefault();
-	}
+		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
+		setAddresses(listOfAddresses);
+		handleClose();
+	};
 
 	useMemo(() => {
 		setCountries(
@@ -107,25 +221,28 @@ const Address = (props: AddressProps): ReactElement => {
 		);
 	}, []);
 
-	console.log("Selected state: ", selectedState)
-
 	return (
 		<div>
 			<StyledLabel>{label}</StyledLabel>
-			<AddAddressWrapper>
-				<Button buttonType='secondary' onClick={addAddressHandler}>
-          ADD ADDRESS
-				</Button>
-			</AddAddressWrapper>
+			<FlexContainer>
+				<AddAddressWrapper>
+					<Button buttonType='secondary' onClick={addAddressHandler}>
+            ADD ADDRESS
+					</Button>
+				</AddAddressWrapper>
+				{addresses.map((address, idx) => (
+					<AddressCard key={`${address.type}-${idx}`} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler}/>
+				))}
+			</FlexContainer>
 			<Modal
 				dialogTitle='Address Information'
 				form='address_form'
 				open={open}
 				onClose={handleClose}
-				primaryAction={saveAddress}
 				primaryBtnLabel='Save'
 				secondaryAction={handleClose}
 				secondaryBtnLabel='Cancel'
+				submitDisabled={submitDisabled}
 			>
 				<form id='address_form' onSubmit={handleFormSubmit}>
 					<FormFieldDropdownSingleSelection
@@ -133,41 +250,49 @@ const Address = (props: AddressProps): ReactElement => {
 						label='Country'
 						size={Sizes.sm}
 						onChange={handleCountryChange}
+						required
+						value={selectedCountry}
 					/>
 					<TextField
 						label='Address'
-						htmlFor='text-input'
+						name='address'
 						size={Sizes.lg}
-						onChange={handleAddressChange}
-						value={streetAddress}
+						onChange={handleTextFieldsChange}
+						required
+						value={textFields.address}
 					/>
-					<Row>
+					<FlexContainer>
 						<TextField
 							label='City'
-							htmlFor='text-input'
+							name='city'
 							size={Sizes.sm}
-							onChange={handleCityChange}
-							value={city}
+							onChange={handleTextFieldsChange}
+							required
+							value={textFields.city}
 						/>
 						<FormFieldDropdownSingleSelection
 							options={listOfStates}
 							label='States'
 							onChange={handleStateChange}
+							required
 							size={Sizes.sm}
+							value={selectedState}
 						/>
 						<TextField
 							label='Postal Code'
-							htmlFor='text-input'
+							name='postalCode'
 							size={Sizes.sm}
-							onChange={handlePostalCodeChange}
-							value={postalCode}
+							onChange={handleTextFieldsChange}
+							required
+							value={textFields.postalCode}
 						/>
-					</Row>
+					</FlexContainer>
 					<FormFieldCheckbox
 						label='Type'
-						checked={billingTypesChecked}
-						options={billingTypes}
-						onChange={handleBillingTypeChange}
+						checked={addressTypesChecked}
+						options={addressTypes}
+						onChange={handleAddressTypeChange}
+						required
 					/>
 				</form>
 			</Modal>
