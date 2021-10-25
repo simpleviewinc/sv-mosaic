@@ -32,7 +32,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, onEdit, onRemoveAddress } = props;
 
 	return (
-		<StyledAddressCard>
+		<StyledAddressCard data-testid='address-card-test'>
 			<AddressTitle>{`${startCase(address.type)} Address`}</AddressTitle>
 			<span>{address.address}</span>
 			<span>{`${address.city}, ${address.state.title} ${address.postalCode}`}</span>

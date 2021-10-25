@@ -34,32 +34,11 @@ const addressTypes = [
 	},
 ];
 
-const data = [
-	{
-		address: 'Test 1',
-		city: 'Guadalajara',
-		country: {title: 'Mexico', value: {}},
-		postalCode: '1',
-		state: {title: 'Jalisco', value: {}},
-		type: 'physical',
-		id: 1
-	},
-	{
-		address: 'Test 2',
-		city: 'City test 2',
-		country: {title: 'Mexico', value: {}},
-		postalCode: '2',
-		state: {title: 'State test', value: {}},
-		type: 'billing',
-		id: 2
-	},
-];
-
 const Address = (props: AddressProps): ReactElement => {
 	const { label } = props;
 
 	// State variables
-	const [addresses, setAddresses] = useState(data);
+	const [addresses, setAddresses] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [countries, setCountries] = useState([]);
 	const [isEditing, setIsEditting] = useState(false);
@@ -304,6 +283,7 @@ const Address = (props: AddressProps): ReactElement => {
 			>
 				<form id='address_form' onSubmit={handleFormSubmit}>
 					<FormFieldDropdownSingleSelection
+						data-testid='countries-dropdown-test'
 						options={countries}
 						label='Country'
 						size={Sizes.sm}
@@ -312,6 +292,8 @@ const Address = (props: AddressProps): ReactElement => {
 						value={selectedCountry}
 					/>
 					<TextField
+						htmlFor='address'
+						id='address'
 						label='Address'
 						name='address'
 						size={Sizes.lg}
@@ -321,6 +303,8 @@ const Address = (props: AddressProps): ReactElement => {
 					/>
 					<FlexContainerFields>
 						<TextField
+							htmlFor='city'
+							id='city'
 							label='City'
 							name='city'
 							size={Sizes.sm}
@@ -329,6 +313,7 @@ const Address = (props: AddressProps): ReactElement => {
 							value={textFields.city}
 						/>
 						<FormFieldDropdownSingleSelection
+							data-testid='states-dropdown-test'
 							options={listOfStates}
 							label='States'
 							onChange={handleStateChange}
@@ -336,6 +321,8 @@ const Address = (props: AddressProps): ReactElement => {
 							value={selectedState}
 						/>
 						<TextField
+							htmlFor='postalCode'
+							id='postalCode'
 							label='Postal Code'
 							name='postalCode'
 							size={Sizes.sm}
