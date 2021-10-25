@@ -36,6 +36,7 @@ const TextField = (
 		errorText,
 		maxCharacters,
 		required,
+		name,
 	} = props;
 
 	const leadingIcon = icon
@@ -75,6 +76,7 @@ const TextField = (
 					onChange={onChange}
 					variant='outlined'
 					error={error}
+					name={name}
 					helperText={renderedHelperText}
 					className={className}
 					placeholder={placeholder}

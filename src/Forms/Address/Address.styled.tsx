@@ -19,6 +19,16 @@ export const AddAddressWrapper = styled.div`
   width: 300px;
 `;
 
-export const Row = styled.div`
+export const FlexContainer = styled.div`
   display: flex;
+
+  & > :not(:last-child) {
+    margin-right: 35px;
+  }
+
+  @media (min-width: 1440px) {
+    & > :not(:last-child) {
+      margin-right: 80px;
+    }
+  }
 `;
