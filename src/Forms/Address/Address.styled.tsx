@@ -27,9 +27,14 @@ export const AddAddressWrapper = styled.div`
 
 export const FlexContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   & > :not(:last-child) {
     margin-right: 35px;
+  }
+
+  & > * {
+    margin-bottom: 20px;
   }
 
   @media (min-width: 1440px) {
@@ -45,6 +50,14 @@ export const FlexContainer = styled.div`
     }
     align-items: center;
     display: flex;
+    flex-direction: column;
+  }
+`;
+
+export const FlexContainerFields = styled.div`
+  display: flex;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
   }
 `;
