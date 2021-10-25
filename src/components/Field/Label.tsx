@@ -20,7 +20,7 @@ const LabelWrapper = styled.div`
   .MuiInputLabel-root {
     font-family: inherit;
     font-size: 16px;
-    color:  ${(pr) =>
+    color:  ${pr =>
 		pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
     word-wrap: break-word;
 
@@ -57,6 +57,7 @@ const StyledInputLabel = styled(InputLabel)`
 `;
 
 interface LabelProps {
+  className?: string;
   disabled?: boolean;
   required?: boolean;
   htmlFor?: string;
@@ -70,6 +71,7 @@ interface LabelProps {
 const Label = (props: LabelProps): ReactElement => {
 	const {
 		children,
+		className,
 		disabled,
 		required,
 		htmlFor,
@@ -80,7 +82,7 @@ const Label = (props: LabelProps): ReactElement => {
 	} = props;
 
 	return (
-		<LabelWrapper disabled={disabled} required={required}>
+		<LabelWrapper className={className} disabled={disabled} required={required}>
 			<StyledInputTooltipWrapper>
 				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
 				{tooltip && 
