@@ -8,9 +8,12 @@ export declare type ButtonStyle = {
     colorText: string;
     colorTextHover: string;
     fontSize: string;
+    height: string;
     hover: string;
+    minWidth: string;
     textTransform: string;
     regular: string;
+    padding: string;
 };
 /**
  * All the possible button types

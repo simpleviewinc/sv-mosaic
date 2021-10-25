@@ -27,7 +27,8 @@ export interface DialogProps {
     secondaryBtnLabel?: string;
     /**
      * Function that will be executed when the secondary
-     * button is clicked
+     * button is clicked. This function should set
+     * the open dialog state to false
      */
     secondaryAction: () => void;
 }
