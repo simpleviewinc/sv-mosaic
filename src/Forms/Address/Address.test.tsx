@@ -45,4 +45,32 @@ describe('Address component', () => {
 
 		expect(queryAllByTestId('address-card-test')).toStrictEqual([]);
 	});
+
+	it('should edit an address card', () => {
+		const { getByText, getByLabelText, getAllByTestId, getAllByRole } = render(<Address label='Address label' />);
+
+		addNewAddress();
+		const editButton = screen.getByText('Edit');
+		fireEvent.click(editButton);
+
+		const address = getByLabelText('Address');
+		const city = getByLabelText('City');
+		const postalCode = getByLabelText('Postal Code');
+		const dropdowns = getAllByTestId('autocomplete-test-id');
+		const countryDropdown = dropdowns[0].querySelector('.MuiAutocomplete-input');
+		const addressTypes = getAllByRole('checkbox') as HTMLInputElement[];
+		const saveButton = getByText('Save');
+
+		fireEvent.change(address, { target: { value: 'Address edited' } });
+		fireEvent.change(city, { target: { value: 'City edited' } });
+		fireEvent.change(postalCode, { target: { value: '000' } });
+		fireEvent.change(countryDropdown, { target: { value: 'Argentina' } });
+		fireEvent.click(addressTypes[1]);
+		fireEvent.click(saveButton);
+
+		expect(getByText('Address edited')).toBeTruthy();
+		expect(getByText('Physical, Billing Address')).toBeTruthy();
+		expect(getByText('City edited, 000')).toBeTruthy();
+		expect(getByText('Argentina')).toBeTruthy();
+	});
 });

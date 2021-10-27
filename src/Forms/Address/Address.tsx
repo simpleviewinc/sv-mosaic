@@ -184,7 +184,7 @@ const Address = (props: AddressProps): ReactElement => {
 			city: addressToEdit.city,
 			postalCode: addressToEdit.postalCode,
 		});
-		setAddressTypesChecked([addressToEdit.type]);
+		setAddressTypesChecked(addressToEdit.types);
 		setSelectedCountry(addressToEdit.country);
 		setSelectedState(addressToEdit.state);
 		setId(addressToEdit.id);
@@ -207,9 +207,7 @@ const Address = (props: AddressProps): ReactElement => {
 				listOfAddresses[index].postalCode = textFields.postalCode;
 				listOfAddresses[index].country = selectedCountry;
 				listOfAddresses[index].state = selectedState;
-				addressTypesChecked.forEach(addressType => {
-					listOfAddresses[index].type = addressType;
-				});
+				listOfAddresses[index].types = addressTypesChecked;
 			}
 			index++;
 		});
@@ -223,16 +221,14 @@ const Address = (props: AddressProps): ReactElement => {
 	 */
 	const addNewAddress = () => {
 		const listOfAddresses = [...addresses];
-		addressTypesChecked.forEach(addressType => {
-			const id = listOfAddresses.length + 1;
-			listOfAddresses.push({
-				id: id,
-				...textFields,
-				country: selectedCountry,
-				state: selectedState,
-				type: addressType,
-			});
-		})
+		const id = listOfAddresses.length + 1;
+		listOfAddresses.push({
+			id: id,
+			...textFields,
+			country: selectedCountry,
+			state: selectedState,
+			types: addressTypesChecked,
+		});
 		setIsEditting(false);
 
 		return listOfAddresses;
@@ -268,7 +264,7 @@ const Address = (props: AddressProps): ReactElement => {
 					</Button>
 				</AddAddressWrapper>
 				{addresses.map((address, idx) => (
-					<AddressCard key={`${address.type}-${idx}`} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler}/>
+					<AddressCard key={`${address.address}-${idx}`} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler}/>
 				))}
 			</FlexContainer>
 			<Modal
