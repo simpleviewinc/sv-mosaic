@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { memo, ReactElement } from 'react';
-import { startCase } from 'lodash';
+import { capitalize } from 'lodash';
 
 // Components
 import Button from '@root/forms/Button';
@@ -19,7 +19,7 @@ type Address = {
   id: number;
   postalCode: string;
   state: { title: string, value: any};
-  type: string;
+  types: string[];
 };
 
 interface AddressCardProps {
@@ -33,14 +33,14 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 
 	return (
 		<StyledAddressCard data-testid='address-card-test'>
-			<AddressTitle>{`${startCase(address.type)} Address`}</AddressTitle>
+			<AddressTitle>{`${address.types.join(', ').replace(/\w+/g, capitalize)} Address`}</AddressTitle>
 			<span>{address.address}</span>
 			<span>{`${address.city}, ${address.state.title} ${address.postalCode}`}</span>
 			<span>{address.country.title}</span>
 			<ButtonsWrapper>
 				<Button buttonType='blueText' onClick={() => onEdit(address)}>Edit</Button>
 				<Button buttonType='redText' onClick={() => onRemoveAddress(address)}>
-          Remove
+					Remove
 				</Button>
 			</ButtonsWrapper>
 		</StyledAddressCard>

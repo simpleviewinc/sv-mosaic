@@ -12,7 +12,7 @@ const address = {
 	country: {title: 'México', value: {}},
 	postalCode: '123',
 	state: {title: 'Jalisco', value: {}},
-	type: 'physical',
+	types: ['physical'],
 	id: 1
 }
 
