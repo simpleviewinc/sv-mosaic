@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { HTMLAttributes, memo, ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 
 // Types and styles
 import { FormButtonProps } from './ButtonTypes';
 import { StyledButton, StyledIcon } from './ButtonStyled';
 
-const Button = (props: FormButtonProps & HTMLAttributes<HTMLButtonElement>): ReactElement => {
+const Button = (props: FormButtonProps): ReactElement => {
 	const {
+		buttonType = 'primary',
 		children,
 		className,
 		disabled = false,
 		icon,
 		iconPosition = 'left',
-		buttonType = 'primary',
 		onClick,
 		smallerButton,
+		form,
+		type
 	} = props;
 
 	const buttonContent = !icon ? (
@@ -33,12 +35,14 @@ const Button = (props: FormButtonProps & HTMLAttributes<HTMLButtonElement>): Rea
 
 	return (
 		<StyledButton
+			buttonType={buttonType}
 			className={className}
 			disabled={disabled}
-			onClick={onClick}
-			buttonType={buttonType}
+			form={form}
 			iconPosition={iconPosition}
 			smallerButton={smallerButton}
+			onClick={onClick}
+			type={type}
 		>
 			{buttonContent}
 		</StyledButton>

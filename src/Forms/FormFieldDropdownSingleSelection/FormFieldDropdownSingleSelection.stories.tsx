@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 import FormFieldDropdownSingleSelection from "./FormFieldDropdownSingleSelection";
@@ -39,17 +39,27 @@ export const example = (): ReactElement => {
 		{ title: 'Se7en', year: 1995 },
 	];
 
+	const [selectedOption, setSelectedOption] = useState('');
+
+	const onChange = (_event, option) => {
+		setSelectedOption(option?.title)
+	}
+
 	return (
-		<FormFieldDropdownSingleSelection
-			options={topFilms}
-			label={text("Label", "Dropdown label")}
-			placeholder={text("Placeholder", "Placeholder example")}
-			helperText={text("Helper text", "Helper text example")}
-			instructionText={text("Instruction text", "Instruction text example")}
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
-			disabled={boolean("Disabled", false)}
-			required={boolean("Required", false)}
-			errorText={text("Error text", "Error text example")}
-		/>
+		<>
+			<p>Selected option: {selectedOption ? selectedOption : 'no option has been selected'}</p>
+			<FormFieldDropdownSingleSelection
+				options={topFilms}
+				label={text("Label", "Dropdown label")}
+				placeholder={text("Placeholder", "Placeholder example")}
+				helperText={text("Helper text", "Helper text example")}
+				instructionText={text("Instruction text", "Instruction text example")}
+				size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
+				disabled={boolean("Disabled", false)}
+				required={boolean("Required", false)}
+				errorText={text("Error text", "Error text example")}
+				onChange={onChange}
+			/>
+		</>
 	)
 }
