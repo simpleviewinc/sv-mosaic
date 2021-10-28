@@ -14,6 +14,9 @@ import Spinner from "./components/Spinner.jsx";
 export * from "./transforms";
 export * from "./types";
 
+export { default as Address } from "./forms/Address";
+export * from "./forms/Address";
+
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
 
