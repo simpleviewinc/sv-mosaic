@@ -23,7 +23,6 @@ export const ButtonsWrapper = styled.div`
   align-self: flex-end;
   display: flex;
   margin-top: auto;
-  padding-top: 16px;
 
   button:first-child {
     border-right: 2px solid ${theme.colors.gray200};
