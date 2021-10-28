@@ -64,7 +64,7 @@ const Modal = (props: ModalProps): ReactElement => {
 					)}
 					<span>{dialogTitle}</span>
 				</div>
-				<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
+				<Button disabled={submitDisabled} type='submit' form={form} onClick={primaryAction}>{primaryBtnLabel}</Button>
 			</StyledDialogMobileTitle>
 		),
 		[isMobileView, dialogTitle, onClose, primaryBtnLabel, primaryAction]

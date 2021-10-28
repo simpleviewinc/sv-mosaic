@@ -11,7 +11,6 @@ export const StyledLabel = styled(Label)`
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: 300px;
-    margin: auto;
     margin-bottom: 20px;
   }
 `;
@@ -30,7 +29,7 @@ export const FlexContainer = styled.div`
   flex-wrap: wrap;
 
   & > :not(:last-child) {
-    margin-right: 35px;
+    margin-right: 25px;
   }
 
   & > * {
@@ -48,7 +47,6 @@ export const FlexContainer = styled.div`
       margin-bottom: 20px;
       margin-right: 0px;
     }
-    align-items: center;
     display: flex;
     flex-direction: column;
   }

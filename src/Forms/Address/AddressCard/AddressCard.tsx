@@ -12,24 +12,11 @@ import {
 	StyledAddressCard,
 } from './AddressCard.styled';
 
-type Address = {
-  address: string;
-  city: string;
-  country: { title: string, value: any};
-  id: number;
-  postalCode: string;
-  state: { title: string, value: any};
-  types: string[];
-};
-
-interface AddressCardProps {
-  address: Address;
-  onRemoveAddress?: (address) => void;
-	onEdit?: (address) => void;
-}
+// Types
+import { AddressCardProps } from '../AddressTypes';
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
-	const { address, onEdit, onRemoveAddress } = props;
+	const { address, addressIndex, onEdit, onRemoveAddress } = props;
 
 	return (
 		<StyledAddressCard data-testid='address-card-test'>
@@ -38,8 +25,8 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			<span>{`${address.city}, ${address.state.title} ${address.postalCode}`}</span>
 			<span>{address.country.title}</span>
 			<ButtonsWrapper>
-				<Button buttonType='blueText' onClick={() => onEdit(address)}>Edit</Button>
-				<Button buttonType='redText' onClick={() => onRemoveAddress(address)}>
+				<Button buttonType='blueText' onClick={() => onEdit(address, addressIndex)}>Edit</Button>
+				<Button buttonType='redText' onClick={() => onRemoveAddress(addressIndex)}>
 					Remove
 				</Button>
 			</ButtonsWrapper>
