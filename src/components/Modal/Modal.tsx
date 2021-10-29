@@ -19,14 +19,23 @@ import {
 
 const Modal = (props: ModalProps): ReactElement => {
 	const {
-		children,
-		dialogTitle,
-		onClose,
+		// children,
+		// dialogTitle,
+		// onCancel,
+		// open,
+		// primaryAction,
+		// primaryBtnLabel = 'Save',
+		// secondaryAction,
+		// secondaryBtnLabel = 'Cancel',
+		fields,
 		open,
-		primaryAction,
-		primaryBtnLabel = 'Save',
-		secondaryAction,
-		secondaryBtnLabel = 'Cancel',
+		title,
+		onSubmit,
+		onCancel,
+		submitButtonAttrs,
+		cancelButtonAttrs,
+		state,
+		dispatch,
 	} = props;
 
 	const [isMobileView, setIsMobileView] = useState(false);
@@ -46,57 +55,61 @@ const Modal = (props: ModalProps): ReactElement => {
 		};
 	}, []);
 
+	const PrimaryButton = useMemo(() => (
+		<Button onClick={onSubmit}>{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Apply'}</Button>
+	), [submitButtonAttrs?.children, onSubmit]);
+
 	const displayMobile = useMemo(
 		() => (
 			<StyledDialogMobileTitle>
 				<div>
-					{onClose && (
+					{onCancel && (
 						<IconButton
 							data-testid='arrow-back-icon'
 							aria-label='close'
 							disableRipple
-							onClick={onClose}
+							onClick={onCancel}
 						>
 							<ArrowBackIosIcon />
 						</IconButton>
 					)}
-					<span>{dialogTitle}</span>
+					<span>{title}</span>
 				</div>
-				<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
+				{PrimaryButton}
 			</StyledDialogMobileTitle>
 		),
-		[isMobileView, dialogTitle, onClose, primaryBtnLabel, primaryAction]
+		[isMobileView, title, onCancel, submitButtonAttrs?.children, onSubmit]
 	);
 
 	const displayDesktop = useMemo(
 		() => (
 			<StyledDialogDesktopTitle>
-				<span>{dialogTitle}</span>
-				{onClose && (
+				<span>{title}</span>
+				{onCancel && (
 					<IconButton
 						data-testid='close-icon'
 						aria-label='close'
 						disableRipple
-						onClick={onClose}
+						onClick={onCancel}
 					>
 						<CloseIcon />
 					</IconButton>
 				)}
 			</StyledDialogDesktopTitle>
 		),
-		[isMobileView, dialogTitle, onClose]
+		[isMobileView, title, onCancel]
 	);
 
 	return (
-		<StyledDialog fullScreen={isMobileView} open={open}>
+		<StyledDialog fullScreen={isMobileView} open={open} onClose={onCancel}>
 			{isMobileView ? displayMobile : displayDesktop}
-			<DialogContent>{children}</DialogContent>
+			<DialogContent>{JSON.stringify(fields)}</DialogContent>
 			{!isMobileView && (
 				<DialogActions>
-					<Button buttonType='secondary' onClick={secondaryAction}>
-						{secondaryBtnLabel}
+					<Button buttonType='secondary' onClick={onCancel}>
+						{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
 					</Button>
-					<Button onClick={primaryAction}>{primaryBtnLabel}</Button>
+					{PrimaryButton}
 				</DialogActions>
 			)}
 		</StyledDialog>
