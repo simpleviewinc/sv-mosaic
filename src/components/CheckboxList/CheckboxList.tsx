@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useCallback, ReactElement } from 'react';
+import { useMemo, useCallback, ReactElement, HTMLAttributes } from 'react';
 import { xor } from 'lodash';
 
 import Checkbox from '@root/components/Checkbox';
@@ -7,7 +7,7 @@ import { useStateRef } from '@root/utils/reactTools';
 import { CheckboxListProps } from './CheckboxListTypes';
 import FormGroup from '@material-ui/core/FormGroup';
 
-const CheckboxList = (props: CheckboxListProps): ReactElement => {
+const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const checkedRef = useStateRef(props.checked);
 
 	const handleToggle = useCallback(
@@ -24,9 +24,9 @@ const CheckboxList = (props: CheckboxListProps): ReactElement => {
 	}, [props.options, handleToggle]);
 
 	return (
-		<FormGroup className={`${props.className} listItem`}>
+		<FormGroup className={`${props.className} listItem`} onBlur={props.onBlur}>
 			{props.options.map((option, i) => {
-				const checked = props.checked.indexOf(option.value) !== -1;
+				const checked = props.checked?.indexOf(option.value) !== -1;
 
 				return (
 					<Checkbox

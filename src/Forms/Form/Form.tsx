@@ -24,7 +24,7 @@ const StyledDisabledForm = styled.div`
 	z-index: 999999;
 	display: ${pr => pr.disabled ? 'block' : 'none'};
 	position: absolute;
-	opacity: 90%;
+	opacity: 30%;
 `;
 
 const StyledTopComponent = styled.div`
@@ -47,7 +47,7 @@ const StyledTopComponent = styled.div`
 	}
 `;
 
-function Form(props) {
+const Form = (props) => {
 	const {
 		sections,
 		fields,

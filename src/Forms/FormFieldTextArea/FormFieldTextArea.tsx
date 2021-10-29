@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes } from 'react';
+import { ReactElement, HTMLAttributes, memo } from 'react';
 
 // Types and styles
 import { TextAreaProps } from './FormFieldTextAreaTypes';
@@ -28,37 +28,37 @@ const TextArea = (
 	const errorWithMessage = error && errorText?.trim().length > 0;
 
 	return (
-		<Field
-			label={label}
-			required={required}
+		// <Field
+		// 	label={label}
+		// 	required={required}
+		// 	disabled={disabled}
+		// 	error={error}
+		// 	errorText={errorText}
+		// 	helperText={helperText}
+		// 	instructionText={instructionText}
+		// 	maxCharacters={inputSettings?.maxCharacters}
+		// 	htmlFor={inputSettings?.htmlFor}
+		// 	value={inputSettings?.value}
+		// 	size={inputSettings?.size}
+		// >
+		<StyledTextArea
+			id={inputSettings?.htmlFor}
+			value={value}
+			// value={inputSettings?.value}
+			onChange={(e) => onChange(e.target.value)}
+			onBlur={(e) => onBlur(e.target.value)}
+			variant='outlined'
+			error={(errorWithMessage || (errorWithMessage && required))}
+			className={className}
+			placeholder={inputSettings?.placeholder}
 			disabled={disabled}
-			error={error}
-			errorText={errorText}
-			helperText={helperText}
-			instructionText={instructionText}
-			maxCharacters={inputSettings?.maxCharacters}
-			htmlFor={inputSettings?.htmlFor}
-			value={inputSettings?.value}
+			multiline
 			size={inputSettings?.size}
-		>
-			<StyledTextArea
-				id={inputSettings?.htmlFor}
-				// value={value}
-				value={inputSettings?.value}
-				onChange={(e) => onChange(e.target.value)}
-				onBlur={(e) => onBlur(e.target.value)}
-				variant='outlined'
-				error={(errorWithMessage || (errorWithMessage && required))}
-				className={className}
-				placeholder={inputSettings?.placeholder}
-				disabled={disabled}
-				multiline
-				size={inputSettings?.size}
-				inputProps={{ maxLength: inputSettings?.maxCharacters > 0 ? inputSettings?.maxCharacters : null }}
-				required={required}
-			/>
-		</Field>
+			inputProps={{ maxLength: inputSettings?.maxCharacters > 0 ? inputSettings?.maxCharacters : null }}
+			required={required}
+		/>
+		// </Field>
 	);
 };
 
-export default TextArea;
+export default memo(TextArea);

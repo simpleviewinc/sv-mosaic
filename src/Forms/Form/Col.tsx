@@ -6,6 +6,7 @@ import { actions } from './formUtils';
 import FormFieldText from '../FormFieldText';
 import FormFieldTextArea from '../FormFieldTextArea';
 import FormFieldCheckbox from '../FormFieldCheckbox';
+import Field from '@root/components/Field';
 
 const componentMap = {
 	text: FormFieldText,
@@ -81,13 +82,14 @@ const Col = (props) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				currentField = {
-					...currentField,
-					inputSettings: {
-						...currentField.inputSettings,
-						value: state.data[fieldProps.name] || ''
-					}
-				}
+				//THIS PRODUCES MULTIPLE RENDERING
+				// currentField = {
+				// 	...currentField,
+				// 	inputSettings: {
+				// 		...currentField.inputSettings,
+				// 		value: state.data[fieldProps.name] || ''
+				// 	}
+				// }
 
 				const Component = componentMap[type];
 
@@ -95,20 +97,33 @@ const Col = (props) => {
 
 				const onBlur = onBlurMap[fieldProps.name];
 
-				return (
+				const value = state.data[fieldProps.name] || '';
+				const touched = state.touched[fieldProps.name] || '';
+				const error = state.errors[fieldProps.name] ? true : false;
+				const errorText = state.errors[fieldProps.name] || '';
+
+				const children = useMemo(() => (
 					<Component
-						key={i}
 						{...currentField}
-						/** Possibility to delete this value prop
-						 * and place the value always inside the inputSettings
-						 */
-						// value={state.data[fieldProps.name] || ''}
-						touched={state.touched[fieldProps.name] || false}
-						error={state.errors[fieldProps.name] ? true : false}
-						errorText={state.errors[fieldProps.name] || ''}
+						value={value}
+						touched={touched}
+						error={error}
+						errorText={errorText}
 						onChange={onChange}
 						onBlur={onBlur}
 					/>
+				), [value, error, errorText, onChange, onBlur, touched, currentField]);
+
+				return (
+					<Field
+						key={i}
+						{...currentField}
+						value={value}
+						error={error}
+						errorText={errorText}
+					>
+						{children}
+					</Field>
 				);
 			})}
 		</StyledCol>
