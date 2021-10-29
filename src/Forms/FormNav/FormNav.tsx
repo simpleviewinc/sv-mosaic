@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { memo, useState, useRef, ReactElement } from 'react';
 import {
-  FormNavWrapper,
-  IconWrapper,
-  LinksWrapper,
-  NavItems,
-  Row,
+	FormNavWrapper,
+	FormNavRow,
+	IconWrapper,
+	LinksWrapper,
+	NavItems,
 } from './FormNav.styled';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -14,69 +14,72 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { FormNavProps } from './FormNavTypes';
 
 const FormNav = (props: FormNavProps): ReactElement => {
-  const { sections } = props;
-  const navRef = useRef(null);
+	const { sections } = props;
+	const navRef = useRef(null);
 
-  // State variables
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [scrollX, setscrollX] = useState(0);
-  const [scrollEnd, setScrollEnd] = useState(false);
+	// State variables
+	const [selectedTab, setSelectedTab] = useState(0);
+	const [scrollX, setscrollX] = useState(0);
 
-  const scrollCheck = () => {
-    setscrollX(navRef.current.scrollLeft);
-    if (
-      Math.floor(navRef.current.scrollWidth - navRef.current.scrollLeft) <=
-      navRef.current.offsetWidth
-    ) {
-      setScrollEnd(true);
-    } else {
-      setScrollEnd(false);
-    }
-  };
+	/**
+   * Defines if the left scroll
+   * button should be shown.
+   */
+	const scrollCheck = () => {
+		setscrollX(navRef.current.scrollLeft);
+	};
 
-  /* This func handles the scrolling by incrementing or decrementing
-   the scrollLeft property */
-  const handleNav = (direction) => {
-    if (direction === 'left') {
-      navRef ? (navRef.current.scrollLeft -= 200) : null;
-    } else {
-      navRef ? (navRef.current.scrollLeft += 200) : null;
-    }
-  };
+	/**
+   * Handles scrolling by incrementing or decrementing
+   * the scrollLeft property.
+   * @param direction : to scroll to;
+   */
+	const handleNav = (direction) => {
+		if (direction === 'left') {
+			navRef ? (navRef.current.scrollLeft -= 200) : null;
+		} else {
+			navRef ? (navRef.current.scrollLeft += 200) : null;
+		}
+	};
 
-  const handleClick = (e, newActiveTab) => {
+	/**
+   * Goes to the sections that is selected.
+   * @param e
+   * @param newActiveTab
+   * @param sectionId
+   */
+	const handleClick = (e, newActiveTab, sectionId) => {
 		e.preventDefault();
-    setSelectedTab(newActiveTab);
-  };
+		setSelectedTab(newActiveTab);
+		window.location.replace(`#${sectionId}`);
+	};
 
-  return (
-    <Row>
-      <FormNavWrapper>
-        {scrollX !== 0 && (
-          <IconWrapper>
-            <ChevronLeftIcon onClick={() => handleNav('left')} />
-          </IconWrapper>
-        )}
-        <NavItems ref={navRef} onScroll={scrollCheck}>
-          {sections.map((section, idx) => (
-            <LinksWrapper
-              idx={idx}
-              selectedTabIdx={selectedTab}
-              key={`${section.name}-${section.id}`}
-              onClick={(e) => handleClick(e, idx)}
-            >
-              <a href={`#${section.id}`}>{section.name}</a>
-            </LinksWrapper>
-          ))}
-        </NavItems>
-				{!scrollEnd && (
+	return (
+		<FormNavWrapper>
+			<FormNavRow scrollX={scrollX}>
+				{scrollX !== 0 && (
 					<IconWrapper>
-          <ChevronRightIcon onClick={() => handleNav('right')} />
-        </IconWrapper>
+						<ChevronLeftIcon onClick={() => handleNav('left')} />
+					</IconWrapper>
 				)}
-      </FormNavWrapper>
-    </Row>
-  );
+				<NavItems ref={navRef} onScroll={scrollCheck}>
+					{sections.map((section, idx) => (
+						<LinksWrapper
+							idx={idx}
+							selectedTabIdx={selectedTab}
+							key={`${section.name}-${section.id}`}
+							onClick={(e) => handleClick(e, idx, section.id)}
+						>
+							<a href={`#${section.id}`}>{section.name}</a>
+						</LinksWrapper>
+					))}
+				</NavItems>
+				<IconWrapper>
+					<ChevronRightIcon onClick={() => handleNav('right')} />
+				</IconWrapper>
+			</FormNavRow>
+		</FormNavWrapper>
+	);
 };
 
 export default memo(FormNav);
