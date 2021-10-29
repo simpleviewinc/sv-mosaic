@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { HTMLAttributes, memo, ReactElement } from 'react';
 
 // Types and styles
 import { FormButtonProps } from './ButtonTypes';
 import { StyledButton, StyledIcon } from './ButtonStyled';
 
-const Button = (props: FormButtonProps): ReactElement => {
+const Button = (props: FormButtonProps & HTMLAttributes<HTMLButtonElement>): ReactElement => {
 	const {
 		children,
+		className,
 		disabled = false,
 		icon,
 		iconPosition = 'left',
@@ -32,6 +33,7 @@ const Button = (props: FormButtonProps): ReactElement => {
 
 	return (
 		<StyledButton
+			className={className}
 			disabled={disabled}
 			onClick={onClick}
 			buttonType={buttonType}
@@ -43,4 +45,4 @@ const Button = (props: FormButtonProps): ReactElement => {
 	);
 };
 
-export default Button;
+export default memo(Button);

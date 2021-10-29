@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 interface LabelProps {
+    className?: string;
     disabled?: boolean;
     required?: boolean;
     htmlFor?: string;

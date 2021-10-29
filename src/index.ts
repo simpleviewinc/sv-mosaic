@@ -59,6 +59,9 @@ export * from "./forms/FormFieldRadio";
 export { default as FormFieldChipSingleSelect } from "./forms/FormFieldChipSingleSelect";
 export * from "./forms/FormFieldChipSingleSelect";
 
+export { default as ImageVideoDocumentSetUp } from "./forms/ImageVideoDocumentSetUp";
+export * from "./forms/ImageVideoDocumentSetUp";
+
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
 
@@ -71,6 +74,9 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
+export { default as Modal } from "./components/Modal";
+export * from "./components/Modal";
+
 export { default as FormFieldText } from "./forms/FormFieldText";
 export * from "./forms/FormFieldText";
 
@@ -82,6 +88,9 @@ export * from "./components/ToggleSwitch";
 
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
+
+export { default as Snackbar } from "./components/Snackbar";
+export * from "./components/Snackbar";
 
 export { default as MosaicContext } from "./components/MosaicContext";
 
