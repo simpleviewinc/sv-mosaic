@@ -46,7 +46,7 @@ export const LinksWrapper = styled.div`
     a {
       border-bottom: 0px;
       border-left: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? '4px solid #FCB731' : ''};
+		pr.idx === pr.selectedTabIdx ? '4px solid #FCB731' : '4px solid transparent'};
       padding: 16px 0 16px 24px;
     }
   }
@@ -85,9 +85,8 @@ export const FormNavRow = styled.div`
   }
 
   ${(pr) =>
-		pr.scrollX !== 0
-			? `
-      &:after {
+		pr.scrollX !== 0 && `
+      &:before {
         content: '';
         position: absolute;
         z-index: 1;
@@ -99,7 +98,7 @@ export const FormNavRow = styled.div`
         width: 70px;
       }
     `
-			: ''}
+}
 
   svg {
     position: relative;
@@ -126,9 +125,10 @@ export const FormNavWrapper = styled.div`
   width: 100%;
 
   @media (min-width: 1718px) {
-    height: 100vh;
+    height: 100%;
     width: 293px;
     margin-right: 20px;
+	border-right: 2px solid ${theme.colors.gray200};
   }
 `;
 
