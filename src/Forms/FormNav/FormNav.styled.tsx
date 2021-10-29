@@ -13,6 +13,8 @@ export const NavItems = styled.div`
   @media (min-width: 1718px) {
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    overflow-y: scroll;
   }
 `;
 
@@ -37,7 +39,8 @@ export const LinksWrapper = styled.div`
   }
 
   @media (min-width: 1718px) {
-    background-color: ${pr => pr.idx === pr.selectedTabIdx ? theme.colors.gray200 : ''};
+    background-color: ${(pr) =>
+      pr.idx === pr.selectedTabIdx ? theme.colors.gray200 : ''};
     margin-right: 0;
 
     a {
@@ -52,10 +55,7 @@ export const LinksWrapper = styled.div`
 export const Section = styled.div`
   border: 2px solid ${theme.colors.simplyGray};
   height: 500px;
-`;
-
-export const SectionsWrapper = styled.div`
-
+  padding-top: 40px;
 `;
 
 export const MainLayout = styled.div`
@@ -66,64 +66,73 @@ export const MainLayout = styled.div`
   }
 `;
 
-export const FormNavWrapper = styled.div`
+export const FormNavRow = styled.div`
   align-items: center;
   display: flex;
   overflow: hidden;
   position: relative;
 
-  /* &:after {
-      content: "";
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      bottom: 0px;
-      pointer-events: none;
-      background-image: linear-gradient(to right, rgba(255,255,255,0), red 85%);
-      width: 70px;
-    } */
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0px;
+    pointer-events: none;
+    background-image: linear-gradient(to right, #ffffff00 -10%, #ffffff 100%);
+    width: 70px;
+  }
 
-  /* svg {
+  ${(pr) =>
+    pr.scrollX !== 0
+      ? `
+      &:after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        bottom: 0px;
+        pointer-events: none;
+        background-image: linear-gradient(to left, #ffffff00 -10%, #ffffff 100%);
+        width: 70px;
+      }
+    `
+      : ''}
+
+  svg {
     position: relative;
     z-index: 2;
-  } */
-
-  /* svg:first-child {
-    background: linear-gradient(to left, #FFFFFF00 0%, #FFFFFF 100%);
-  } */
-
-  svg:last-child {
   }
 
   @media (min-width: 1718px) {
+    &:after {
+      content: none;
+    }
+
     svg {
       display: none;
     }
   }
 `;
 
-export const Row = styled.div`
+export const FormNavWrapper = styled.div`
+  background: white;
   overflow: hidden;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  width: 100%;
+
+  @media (min-width: 1718px) {
+    height: 100vh;
+    width: 293px;
+    margin-right: 20px;
+  }
 `;
 
 export const IconWrapper = styled.div`
-  text-align: end;
   height: 24px;
   padding-bottom: 16px;
-  /* position: relative;
-
-  &:after {
-      content: "";
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      bottom: 0px;
-      pointer-events: none;
-      background-image: linear-gradient(to right, rgba(255,255,255,0), red 85%);
-      width: 70px;
-    }
- */
-  //background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
 `;
