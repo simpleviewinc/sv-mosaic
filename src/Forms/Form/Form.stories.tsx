@@ -26,7 +26,6 @@ export const KitchenSink = (): ReactElement => {
 					type: "text",
 					inputSettings: {
 						maxCharacters: 20,
-						value: state.data.text1, //THIS IS SUPPOSED TO BE DEFAULTVALUE
 					},
 					instructionText: 'testing',
 					validators: [validateEmail]
@@ -39,7 +38,7 @@ export const KitchenSink = (): ReactElement => {
 					validators: [validateEmail]
 				},
 				{
-					name: "text3",
+					name: "check1",
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
@@ -497,7 +496,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					validators: [required],
 				},
 				{
-					name: "text3",
+					name: "check1",
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
@@ -516,6 +515,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 							}
 						],
 					},
+					validators: [required]
 				},
 			] as unknown as FieldDefProps[],
 		[]

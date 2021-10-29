@@ -4,8 +4,6 @@ import { EventEmitter } from "eventemitter3";
 import { joinReducers, useThunkReducer } from "./utils";
 
 function coreReducer(state, action) {
-	// console.log("reducer", action);
-
 	switch (action.type) {
 		case "FIELD_ON_CHANGE":
 			return {
@@ -131,17 +129,17 @@ export const actions = {
 
 			for (let i = 0; i < fields.length; i++) {
 				let currFieldName = fields[i].name;
-				!!touchedFields[currFieldName] === false && 
-				await dispatch(
-					actions.validateField({ name: currFieldName })
-				);
+				!!touchedFields[currFieldName] === false &&
+					await dispatch(
+						actions.validateField({ name: currFieldName })
+					);
 			}
 
 			let validForm = true;
 
 			let errors = getState().errors;
 			Object.entries(errors).forEach(([key, value]) => {
-				if(value !== undefined)
+				if (value !== undefined)
 					validForm = false;
 			});
 
@@ -150,7 +148,7 @@ export const actions = {
 				value: validForm,
 			});
 
-			await new Promise((res) => setTimeout(res, 5000));
+			await new Promise((res) => setTimeout(res, 2000));
 
 			dispatch({
 				type: "FORM_END_DISABLE",
@@ -165,14 +163,14 @@ export const actions = {
 	},
 	submitForm() {
 		return async (dispatch, getState, extraArgs) => {
-			if(getState().disabled)
+			if (getState().disabled)
 				return;
 
 			let isValid = await dispatch(
 				actions.validateForm({ fields: extraArgs.fields })
 			);
-	
-			if(isValid)
+
+			if (isValid)
 				extraArgs.onSubmit(getState().data);
 
 		}
@@ -183,7 +181,7 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 	const extraArgs = useRef({
 		fields: [],
 		fieldMap: {},
-		onSubmit: () => {}
+		onSubmit: () => { }
 	});
 	const reducer = useMemo(() => {
 		return customReducer

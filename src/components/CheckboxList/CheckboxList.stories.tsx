@@ -12,11 +12,12 @@ export default {
 }
 
 export const example = (): ReactElement => {
-	const [checked, setChecked] = useState([]);
+	const [checked, setChecked] = useState<string[]>([]);
 
-	const onChange: CheckboxListProps["onChange"] = useCallback(function(checked) {
-		setChecked(checked);
-	}, [setChecked]);
+	const onChange = (c) => {
+		console.log(c);
+		setChecked(c);
+	};
 	
 	const options = useMemo(() => [
 		{
