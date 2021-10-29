@@ -4,7 +4,7 @@ import {
 	memo
 } from 'react';
 import styled from 'styled-components';
-import { SectionDef } from './FormTypes';
+import { FormProps, SectionDef } from './FormTypes';
 import Section from './Section';
 import Button from '../Button';
 import { actions } from './formUtils';
@@ -47,7 +47,7 @@ const StyledTopComponent = styled.div`
 	}
 `;
 
-const Form = (props) => {
+const Form = (props: FormProps) => {
 	const {
 		sections,
 		fields,
@@ -125,31 +125,33 @@ const Form = (props) => {
 		<>
 			<StyledDisabledForm disabled={state.disabled} />
 			<StyledForm>
-				<StyledTopComponent>
-					<div>
-						{title && <h1>{title}</h1>}
-						{description && <p>{description}</p>}
-					</div>
-					<div id='buttons'>
-						{onCancel &&
-							<Button
-								onClick={(e) => cancel(e)}
-								buttonType='secondary'
-								{...cancelButtonAttrs}
-							>
-								{cancelButtonAttrs?.label ? cancelButtonAttrs?.label : 'Cancel'}
-							</Button>
-						}
-						{onSubmit &&
-							<Button
-								onClick={(e) => submit(e)}
-								{...submitButtonAttrs}
-							>
-								{submitButtonAttrs?.label ? submitButtonAttrs?.label : 'Submit'}
-							</Button>
-						}
-					</div>
-				</StyledTopComponent>
+				{title &&
+					<StyledTopComponent>
+						<div>
+							{title && <h1>{title}</h1>}
+							{description && <p>{description}</p>}
+						</div>
+						<div id='buttons'>
+							{onCancel &&
+								<Button
+									onClick={(e) => cancel(e)}
+									buttonType='secondary'
+									{...cancelButtonAttrs}
+								>
+									{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
+								</Button>
+							}
+							{onSubmit &&
+								<Button
+									onClick={(e) => submit(e)}
+									{...submitButtonAttrs}
+								>
+									{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Submit'}
+								</Button>
+							}
+						</div>
+					</StyledTopComponent>
+				}
 				{layout?.map((section, i) => (
 					<Section
 						key={i}

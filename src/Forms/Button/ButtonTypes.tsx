@@ -1,4 +1,4 @@
-import { ElementType, MouseEventHandler, ReactNode } from 'react';
+import { ElementType, HTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 
 /**
  * This type is used to defined the keys
@@ -28,7 +28,7 @@ export type ButtonType =
   | 'approve'
   | 'deny';
 
-export interface FormButtonProps {
+export interface FormButtonProps extends HTMLAttributes<HTMLButtonElement> {
   /**
    * The content of the button component
    */
