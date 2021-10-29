@@ -27,8 +27,39 @@ const StyledDisabledForm = styled.div`
 	opacity: 90%;
 `;
 
+const StyledTopComponent = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: inherit;
+	border: 1px solid #EDEDED;
+	box-shadow: 0px 10px 10px #EDEDED;
+
+	div h1, div p {
+		margin: 0px;
+		padding: 0px;
+	}
+
+	#buttons {
+		align-self: center;
+		display: flex;
+		flex-direction: row;
+	}
+`;
+
 function Form(props) {
-	const { sections, fields, dispatch, state, formMetadata, onSubmit } = props;
+	const {
+		sections,
+		fields,
+		dispatch,
+		state,
+		onSubmit,
+		onCancel,
+		title,
+		description,
+		cancelButtonAttrs,
+		submitButtonAttrs,
+	} = props;
 
 	const layout = useMemo(() => {
 		let customLayout: SectionDef[] = [];
@@ -85,11 +116,40 @@ function Form(props) {
 		);
 	}
 
+	const cancel = (e) => {
+		e.preventDefault();
+		onCancel();
+	}
+
 	return (
 		<>
 			<StyledDisabledForm disabled={state.disabled} />
 			<StyledForm>
-				{onSubmit && <Button onClick={(e) => submit(e)}>Submit</Button>}
+				<StyledTopComponent>
+					<div>
+						{title && <h1>{title}</h1>}
+						{description && <p>{description}</p>}
+					</div>
+					<div id='buttons'>
+						{onCancel &&
+							<Button
+								onClick={(e) => cancel(e)}
+								buttonType='secondary'
+								{...cancelButtonAttrs}
+							>
+								{cancelButtonAttrs?.label ? cancelButtonAttrs?.label : 'Cancel'}
+							</Button>
+						}
+						{onSubmit &&
+							<Button
+								onClick={(e) => submit(e)}
+								{...submitButtonAttrs}
+							>
+								{submitButtonAttrs?.label ? submitButtonAttrs?.label : 'Submit'}
+							</Button>
+						}
+					</div>
+				</StyledTopComponent>
 				{layout?.map((section, i) => (
 					<Section
 						key={i}

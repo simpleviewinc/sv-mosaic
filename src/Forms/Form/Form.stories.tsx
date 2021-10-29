@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useEffect, useMemo } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
+import { text, withKnobs } from '@storybook/addon-knobs';
 
 import { useForm, actions } from "./formUtils";
 import { validateEmail, validateSlow, required } from "./validators";
@@ -525,25 +525,6 @@ export const SubmitInternalButtons = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	// const submitForm = () => {
-	// 	alert('Form submitted with the following data: ' + JSON.stringify(state.data, null, " "));
-	// };
-	// const submitForm = (data) => {
-	// 	alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	// };
-
-	// const formMetadata = useMemo(() => ({
-	// 	onSubmit: submitForm
-	// }), []);
-
-	// const formMetadata = {
-	// 	onSubmit: submitForm
-	// };
-
-	// const formMetadata = useMemo(() => ({
-	// 	onSubmit: submitForm
-	// }), []);
-
 	const onSubmit = React.useCallback((data) => {
 		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
@@ -552,16 +533,34 @@ export const SubmitInternalButtons = (): ReactElement => {
 		registerOnSubmit(onSubmit);
 	}, [onSubmit, registerOnSubmit]);
 
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	const cancelButtonAttrs = useMemo(() => ({
+		disabled: !!state.data.text1 === false,
+	}), [state.data.text1]);
+
+	const submitButtonAttrs = useMemo(() => ({
+		disabled: !!state.data.text2 === false,
+		label: state?.data?.text2,
+		smallerButton: true,
+	}), [state.data.text2]);
+
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
 				events={events}
-				// formMetadata={formMetadata}
+				onCancel={onCancel}
+				cancelButtonAttrs={cancelButtonAttrs}
 				onSubmit={onSubmit}
+				submitButtonAttrs={submitButtonAttrs}
 			/>
 		</>
 	);
