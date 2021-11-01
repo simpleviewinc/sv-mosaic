@@ -64,7 +64,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 
 
 	const navHighlighter = React.useCallback(() => {
-		let scrollY = window.pageYOffset;
+		const scrollY = window.pageYOffset;
 
 		sectionsTest.forEach(current => {
 			const sectionHeight = current.offsetHeight;
