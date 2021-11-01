@@ -16,6 +16,7 @@ import {
 	StyledDialogDesktopTitle,
 	StyledDialogMobileTitle,
 } from './Modal.styled';
+import FormLayout from '@root/forms/Form/FormLayout';
 
 const Modal = (props: ModalProps): ReactElement => {
 	const {
@@ -103,7 +104,13 @@ const Modal = (props: ModalProps): ReactElement => {
 	return (
 		<StyledDialog fullScreen={isMobileView} open={open} onClose={onCancel}>
 			{isMobileView ? displayMobile : displayDesktop}
-			<DialogContent>{JSON.stringify(fields)}</DialogContent>
+			<DialogContent>
+				<FormLayout 
+					state={state}
+					dispatch={dispatch}
+					fields={fields}
+				/>
+			</DialogContent>
 			{!isMobileView && (
 				<DialogActions>
 					<Button buttonType='secondary' onClick={onCancel}>

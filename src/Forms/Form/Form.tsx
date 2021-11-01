@@ -8,6 +8,7 @@ import { FormProps, SectionDef } from './FormTypes';
 import Section from './Section';
 import Button from '../Button';
 import { actions } from './formUtils';
+import FormLayout from './FormLayout';
 
 
 const StyledForm = styled.form`
@@ -61,54 +62,6 @@ const Form = (props: FormProps) => {
 		submitButtonAttrs,
 	} = props;
 
-	const layout = useMemo(() => {
-		let customLayout: SectionDef[] = [];
-
-		if (sections)
-			customLayout = JSON.parse(JSON.stringify(sections));
-
-		if (fields) {
-			for (const field of fields) {
-				if (field.layout) {
-					let section = customLayout.length;
-					if (field.layout.section !== undefined && field.layout.section >= 0) {
-						section = field.layout.section;
-					}
-
-					let row = customLayout[section]?.fields?.length;
-					if (field.layout.row !== undefined && field.layout.row >= 0) {
-						row = field.layout.row;
-					}
-
-					let col = customLayout[section]?.fields[row]?.length;
-					if (field.layout.col !== undefined && field.layout.col >= 0) {
-						col = field.layout.col;
-					}
-
-					if (customLayout[section]) {
-						customLayout[section].fields[row][col].push(field.name);
-					} else {
-						customLayout = [
-							...customLayout,
-							{
-								fields: [[[field.name]]],
-							},
-						];
-					}
-				} else if (!sections) {
-					customLayout = [
-						...customLayout,
-						{
-							fields: [[[field.name]]],
-						},
-					];
-				}
-			}
-
-			return customLayout;
-		}
-	}, [sections, fields]);
-
 	const submit = async (e) => {
 		e.preventDefault();
 		await dispatch(
@@ -152,7 +105,13 @@ const Form = (props: FormProps) => {
 						</div>
 					</StyledTopComponent>
 				}
-				{layout?.map((section, i) => (
+				<FormLayout
+					state={state}
+					dispatch={dispatch}
+					fields={fields}
+					sections={sections}
+				/>
+				{/* {layout?.map((section, i) => (
 					<Section
 						key={i}
 						title={section.title}
@@ -162,7 +121,7 @@ const Form = (props: FormProps) => {
 						state={state}
 						dispatch={dispatch}
 					/>
-				))}
+				))} */}
 			</StyledForm>
 		</>
 	);
