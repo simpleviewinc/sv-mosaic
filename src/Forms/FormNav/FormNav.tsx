@@ -50,9 +50,34 @@ const FormNav = (props: FormNavProps): ReactElement => {
    */
 	const handleClick = (e, newActiveTab, sectionId) => {
 		e.preventDefault();
-		setSelectedTab(newActiveTab);
+		setSelectedTab(sectionId);
 		window.location.replace(`#${sectionId}`);
 	};
+
+	//IMPROVE RENDERING
+	let sectionsTest;
+
+	React.useEffect(() => {
+		sectionsTest = document.querySelectorAll("div.section") as unknown as HTMLElement[];
+		window.addEventListener("scroll", navHighlighter);
+	}, []);
+
+
+	const navHighlighter = React.useCallback(() => {
+		let scrollY = window.pageYOffset;
+
+		sectionsTest.forEach(current => {
+			const sectionHeight = current.offsetHeight;
+			const sectionTop = current.offsetTop - 50;
+			const sectionId: any = current.getAttribute("id");
+			if (
+				scrollY > sectionTop &&
+				scrollY <= sectionTop + sectionHeight
+			) {
+				setSelectedTab(sectionId);
+			}
+		});
+	}, []);
 
 	return (
 		<FormNavWrapper>
@@ -65,7 +90,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 				<NavItems ref={navRef} onScroll={scrollCheck}>
 					{sections.map((section, idx) => (
 						<LinksWrapper
-							idx={idx}
+							idx={section.id}
 							selectedTabIdx={selectedTab}
 							key={`${section.name}-${section.id}`}
 							onClick={(e) => handleClick(e, idx, section.id)}
