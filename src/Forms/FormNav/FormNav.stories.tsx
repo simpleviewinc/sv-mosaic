@@ -44,7 +44,7 @@ export const Example = (): ReactElement => {
 		<MainLayout>
 			<FormNav sections={sections} />
 			<div>
-				<Section id='section1'>
+				<Section id='section1' className='section'>
 					<h1>Account Profile</h1>
 					<p>
             Try to scroll this section and look at the navigation bar while
@@ -57,7 +57,7 @@ export const Example = (): ReactElement => {
             while scrolling!
 					</p>
 				</Section>
-				<Section id='section2'>
+				<Section id='section2' className='section'>
 					<h1>Account Information</h1>
 					<p>
             Try to scroll this section and look at the navigation bar while
@@ -70,7 +70,7 @@ export const Example = (): ReactElement => {
             while scrolling!
 					</p>
 				</Section>
-				<Section id='section3'>
+				<Section id='section3' className='section'>
 					<h1>Contact Information</h1>
 					<p>
             Try to scroll this section and look at the navigation bar while
@@ -83,7 +83,7 @@ export const Example = (): ReactElement => {
             while scrolling!
 					</p>
 				</Section>
-				<Section id='section4'>
+				<Section id='section4' className='section'>
 					<h1>Address Information</h1>
 					<p>
             Try to scroll this section and look at the navigation bar while
@@ -96,7 +96,7 @@ export const Example = (): ReactElement => {
             while scrolling!
 					</p>
 				</Section>
-				<Section id='section5'>
+				<Section id='section5' className='section'>
 					<h1>Tags and User</h1>
 					<p>
             Try to scroll this section and look at the navigation bar while
@@ -109,7 +109,7 @@ export const Example = (): ReactElement => {
             while scrolling!
 					</p>
 				</Section>
-				<Section id='section6'>
+				<Section id='section6' className='section'>
 					<h1>Connections</h1>
 					<p>
             Try to scroll this section and look at the navigation bar while
