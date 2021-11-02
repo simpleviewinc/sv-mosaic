@@ -17,6 +17,8 @@ import {
 	StyledDialogMobileTitle,
 } from './Modal.styled';
 import FormLayout from '@root/forms/Form/FormLayout';
+import { actions } from '../../forms/Form/formUtils';
+import { StyledDisabledForm } from '@root/forms/Form/Form';
 
 const Modal = (props: ModalProps): ReactElement => {
 	const {
@@ -56,8 +58,25 @@ const Modal = (props: ModalProps): ReactElement => {
 		};
 	}, []);
 
+	const submit = async (e) => {
+		e.preventDefault();
+		await dispatch(
+			actions.submitForm()
+		);
+	}
+
+	const cancel = (e) => {
+		e.preventDefault();
+		onCancel();
+	}
+
 	const PrimaryButton = useMemo(() => (
-		<Button onClick={onSubmit}>{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Apply'}</Button>
+		<Button
+			onClick={(e) => submit(e)}
+			{...submitButtonAttrs}
+		>
+			{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Apply'}
+		</Button>
 	), [submitButtonAttrs?.children, onSubmit]);
 
 	const displayMobile = useMemo(
@@ -69,7 +88,7 @@ const Modal = (props: ModalProps): ReactElement => {
 							data-testid='arrow-back-icon'
 							aria-label='close'
 							disableRipple
-							onClick={onCancel}
+							onClick={(e) => cancel(e)}
 						>
 							<ArrowBackIosIcon />
 						</IconButton>
@@ -91,7 +110,7 @@ const Modal = (props: ModalProps): ReactElement => {
 						data-testid='close-icon'
 						aria-label='close'
 						disableRipple
-						onClick={onCancel}
+						onClick={(e) => cancel(e)}
 					>
 						<CloseIcon />
 					</IconButton>
@@ -102,10 +121,11 @@ const Modal = (props: ModalProps): ReactElement => {
 	);
 
 	return (
-		<StyledDialog fullScreen={isMobileView} open={open} onClose={onCancel}>
+		<StyledDialog fullScreen={isMobileView} open={open} onClose={(e) => cancel(e)}>
 			{isMobileView ? displayMobile : displayDesktop}
 			<DialogContent>
-				<FormLayout 
+				<StyledDisabledForm disabled={state.disabled} />
+				<FormLayout
 					state={state}
 					dispatch={dispatch}
 					fields={fields}
@@ -113,7 +133,11 @@ const Modal = (props: ModalProps): ReactElement => {
 			</DialogContent>
 			{!isMobileView && (
 				<DialogActions>
-					<Button buttonType='secondary' onClick={onCancel}>
+					<Button
+						buttonType='secondary'
+						onClick={(e) => cancel(e)}
+						{...cancelButtonAttrs}
+					>
 						{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
 					</Button>
 					{PrimaryButton}

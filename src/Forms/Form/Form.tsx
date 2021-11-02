@@ -18,9 +18,9 @@ const StyledForm = styled.form`
 	width: 100%;
 `;
 
-const StyledDisabledForm = styled.div`
-	height: 100vh;
-	width: 100vw;
+export const StyledDisabledForm = styled.div`
+	height: 100%;
+	width: 100%;
 	background-color: black;
 	z-index: 999999;
 	display: ${pr => pr.disabled ? 'block' : 'none'};

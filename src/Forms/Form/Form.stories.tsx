@@ -580,7 +580,7 @@ export const GenericModal = (): ReactElement => {
 					label: "Full Name",
 					type: "text",
 					instructionText: 'testing',
-					validators: [required],
+					validators: [required, validateEmail],
 				},
 				{
 					name: "text2",
@@ -619,6 +619,7 @@ export const GenericModal = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
+		setOpen(false);
 		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
@@ -636,7 +637,6 @@ export const GenericModal = (): ReactElement => {
 	}), [state.data.text1]);
 
 	const submitButtonAttrs = useMemo(() => ({
-		disabled: !!state.data.text2 === false,
 		children: state?.data?.text2,
 		smallerButton: true,
 	}), [state.data.text2]);
@@ -645,12 +645,110 @@ export const GenericModal = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Modal
+				title={'yes'}
 				state={state}
 				dispatch={dispatch}
 				fields={fields}
 				open={open}
 				onCancel={onCancel}
+				cancelButtonAttrs={cancelButtonAttrs}
+				onSubmit={onSubmit}
+				submitButtonAttrs={submitButtonAttrs}
+			/>
+			<button onClick={() => setOpen(true)}>Open modal</button>
+		</>
+	);
+};
+
+export const FormAndModal = (): ReactElement => {
+	const formReducer = useForm();
+	const modalReducer = useForm();
+
+	const [open, setOpen] = useState(false); 
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Full Name",
+					type: "text",
+					instructionText: 'testing',
+					validators: [required, validateEmail],
+				},
+				{
+					name: "text2",
+					label: "age",
+					type: "text",
+					validators: [required],
+				},
+				{
+					name: "check1",
+					label: "Text that copies to the next input",
+					type: "checkbox",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
+					validators: [required]
+				},
+			] as unknown as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		formReducer.registerFields(fields);
+		modalReducer.registerFields(fields);
+	}, [fields, formReducer.registerFields, modalReducer.registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		setOpen(false);
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [formReducer.state.validForm, modalReducer.state.validForm]);
+
+	useMemo(() => {
+		formReducer.registerOnSubmit(onSubmit);
+		modalReducer.registerOnSubmit(onSubmit);
+	}, [onSubmit, formReducer.registerOnSubmit, modalReducer.registerOnSubmit]);
+
+	const onCancel = () => {
+		setOpen(false);
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>Form data: {JSON.stringify(formReducer.state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={formReducer.state}
+				fields={fields}
+				dispatch={formReducer.dispatch}
+				events={formReducer.events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+			<pre>Modal data: {JSON.stringify(modalReducer.state, null, "  ")}</pre>
+			<Modal
 				title={'yes'}
+				state={modalReducer.state}
+				dispatch={modalReducer.dispatch}
+				fields={fields}
+				open={open}
+				onCancel={onCancel}
 				onSubmit={onSubmit}
 			/>
 			<button onClick={() => setOpen(true)}>Open modal</button>
