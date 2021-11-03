@@ -3,11 +3,13 @@ import { memo, useState, ReactElement, useEffect } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
+import ClearIcon from '@material-ui/icons/Clear';
 import FormNav from '@root/forms/FormNav';
 import Tooltip from '@root/components/Tooltip';
 import Checkbox from '@root/components/Checkbox';
 
-// Types
+// Types and Utils
+import { BREAKPOINTS } from '@root/theme/theme';
 import { TopComponentProps } from './TopComponentTypes';
 
 // Styles
@@ -22,13 +24,20 @@ import {
 	TopComponentColumnWrapper,
 	TopComponentRowWrapper,
 	Row,
-	Column,
 	ButtonsWrapper,
 	ActionsRow,
+	ResponsiveViewColumn,
+	MobileColumn,
+	MobileActionsRow,
+	MobileTitleRow,
+	MobileCheckboxHelpIconRow,
 } from './TopComponent.styled';
 
 const TopComponent = (props: TopComponentProps): ReactElement => {
+	// State variables
 	const [activeChecked, setActiveChecked] = useState(false);
+	const [isResponsiveView, setIsResponsiveView] = useState(false);
+	const [isMobileView, setIsMobileView] = useState(false);
 
 	const {
 		children,
@@ -45,13 +54,19 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		setActiveChecked(!activeChecked);
 	};
 
-	const [isResponsiveView, setIsResponsiveView] = useState(false);
-
 	useEffect(() => {
 		const setResponsiveness = () => {
-			return window.innerWidth < 1075
-				? setIsResponsiveView(true)
-				: setIsResponsiveView(false);
+			if (window.innerWidth < 1075) {
+				setIsResponsiveView(true);
+			} else {
+				setIsResponsiveView(false);
+			}
+
+			if (window.innerWidth < BREAKPOINTS.mobile) {
+				setIsMobileView(true);
+			} else {
+				setIsMobileView(false);
+			}
 		};
 
 		setResponsiveness();
@@ -95,7 +110,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	);
 
 	const responsiveView = (
-		<Column>
+		<ResponsiveViewColumn>
 			<Row>
 				<TitleWrapper>
 					<FormTitle>{formTitle}</FormTitle>
@@ -129,17 +144,60 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 					</Button>
 				</ButtonsWrapper>
 			</ActionsRow>
-		</Column>
+		</ResponsiveViewColumn>
+	);
+
+	const mobileView = (
+		<MobileColumn>
+			<MobileActionsRow>
+				<ClearIcon />
+				<Button buttonType='primary' onClick={handleSaveButton}>
+          Save
+				</Button>
+			</MobileActionsRow>
+			<MobileTitleRow>
+				<FormTitle>{formTitle}</FormTitle>
+				<Description>{description}</Description>
+			</MobileTitleRow>
+			{(showActive || tooltipInfo) && (
+				<MobileCheckboxHelpIconRow>
+					{showActive && (
+						<CheckboxWrapper>
+							<Checkbox
+								label='Active'
+								checked={activeChecked}
+								onClick={handleActiveClick}
+							/>
+						</CheckboxWrapper>
+					)}
+					{tooltipInfo && (
+						<Tooltip text={tooltipInfo}>
+							<StyledHelpIcon
+								showActive={showActive}
+								isResponsiveView={isResponsiveView}
+							/>
+						</Tooltip>
+					)}
+				</MobileCheckboxHelpIconRow>
+			)}
+			{children}
+		</MobileColumn>
 	);
 
 	return (
-		<TopComponentColumnWrapper>
-			{isResponsiveView ? responsiveView : desktopView}
-			<NavSectionsWrapper>
-				<FormNav sections={sections} />
-				{children}
-			</NavSectionsWrapper>
-		</TopComponentColumnWrapper>
+		<>
+			{isMobileView ? (
+				mobileView
+			) : (
+				<TopComponentColumnWrapper>
+					{isResponsiveView ? responsiveView : desktopView}
+					<NavSectionsWrapper>
+						<FormNav sections={sections} />
+						{children}
+					</NavSectionsWrapper>
+				</TopComponentColumnWrapper>
+			)}
+		</>
 	);
 };
 

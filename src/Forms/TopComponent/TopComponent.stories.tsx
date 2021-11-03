@@ -40,7 +40,7 @@ const sections = [
 ];
 
 export const Example = (): ReactElement => {
-	const withInfoIcon = boolean('Show info icon', false);
+	const withInfoIcon = boolean('Show info icon', true);
 
 	const handleCancelButton = () => {
 		alert('Cancel button was clicked');
@@ -58,7 +58,7 @@ export const Example = (): ReactElement => {
 				handleCancelButton={handleCancelButton}
 				handleSaveButton={handleSaveButton}
 				sections={sections}
-				showActive={boolean('Show Active', false)}
+				showActive={boolean('Show Active', true)}
 				tooltipInfo={withInfoIcon && text('Tooltip info', 'Tooltip info')}
 			>
 				<div>

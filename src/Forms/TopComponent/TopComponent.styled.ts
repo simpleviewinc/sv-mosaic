@@ -48,21 +48,18 @@ export const FormTitle = styled.span`
   color: ${theme.colors.almostBlack};
   font-size: 28px;
   margin-bottom: 8px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    margin: 0;
+  }
 `;
 
 export const Description = styled.span`
   color: ${theme.colors.gray600};
   font-size: 14px;
-`;
 
-export const StyledHelpIcon = styled(HelpIcon)`
-  border-right: ${(pr) =>
-		pr.showActive ? `2px solid ${theme.colors.gray200}` : ''};
-  margin-top: 7px;
-  padding-right: ${(pr) => (pr.isResponsiveView ? '' : '16px')};
-
-  @media (max-width: 1075px) {
-    border-right: none;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    align-self: center;
   }
 `;
 
@@ -78,21 +75,67 @@ export const NavSectionsWrapper = styled.div`
   }
 `;
 
+// Common styles
+
 export const Row = styled.div`
   justify-content: space-between;
   display: flex;
 `;
 
-export const ActionsRow = styled(Row)`
-  align-self: ${pr => pr.showActive ? '' : 'flex-end'};
-  margin-top: 16px;
-`;
-
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;  
 `;
+
+export const StyledHelpIcon = styled(HelpIcon)`
+  border-right: ${(pr) =>
+		pr.showActive ? `2px solid ${theme.colors.gray200}` : ''};
+  margin-top: 7px;
+  padding-right: ${(pr) => (pr.isResponsiveView ? '' : '16px')};
+
+  @media (max-width: 1075px) {
+    border-right: none;
+  }
+`;
+
+// Mobile view styles
+
+export const MobileColumn = styled(Column)`
+  border-bottom: 2px solid ${theme.colors.gray200};
+  font-family: ${theme.fontFamily};
+`;
+
+export const MobileActionsRow = styled(Row)`
+  background-color: ${theme.colors.gray200};
+  padding: 12px 20px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+
+  svg {
+    align-self: center;
+  }
+`;
+
+export const MobileTitleRow = styled(Row)`
+  padding: 20px 20px;
+`;
+
+export const MobileCheckboxHelpIconRow = styled(Row)`
+  padding: 0 20px 20px 20px;
+`;
+
+// Responsive view styles
+
+export const ResponsiveViewColumn = styled(Column)`
+  margin-bottom: 30px;
+`;
+
+export const ActionsRow = styled(Row)`
+  align-self: ${(pr) => (pr.showActive ? '' : 'flex-end')};
+  margin-top: 16px;
+`;
+
 
 export const ButtonsWrapper = styled.div`
   display: flex;
