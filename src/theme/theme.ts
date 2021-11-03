@@ -62,3 +62,7 @@ export default {
 		mobile : "480px"
 	}
 }
+
+export const BREAKPOINTS = {
+	mobile : 480
+};
