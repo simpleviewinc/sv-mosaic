@@ -53,7 +53,7 @@ export const LinksWrapper = styled.div`
 `;
 
 export const Section = styled.div`
-  border: 2px solid ${theme.colors.simplyGray};
+  //border: 2px solid ${theme.colors.simplyGray};
   height: 500px;
   padding-top: 40px;
 `;
