@@ -78,10 +78,10 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const buttons = (
 		<>
 			<Button buttonType='secondary' onClick={handleCancelButton}>
-        Cancel
+				Cancel
 			</Button>
 			<Button buttonType='primary' onClick={handleSaveButton}>
-        Save
+				Save
 			</Button>
 		</>
 	);
@@ -165,7 +165,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			<MobileActionsRow>
 				<StyledClearIcon onClick={handleCancelButton} />
 				<Button buttonType='primary' onClick={handleSaveButton}>
-          Save
+					Save
 				</Button>
 			</MobileActionsRow>
 			<MobileTitleRow>
