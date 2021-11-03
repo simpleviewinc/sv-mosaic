@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useEffect, useMemo } from 'react';
+import { ReactElement, useEffect, useMemo, useState, useCallback } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
 import { useForm, actions } from "./formUtils";
@@ -8,6 +8,7 @@ import { validateEmail, validateSlow, required } from "./validators";
 // Components
 import Form from './Form';
 import { FieldDefProps } from '@root/components/Field';
+import Modal from '@root/components/Modal';
 
 export default {
 	title: 'Forms|Form',
@@ -400,7 +401,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = React.useCallback((data) => {
+	const onSubmit = useCallback((data) => {
 		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
@@ -458,7 +459,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 		);
 	}
 
-	const submitForm = React.useCallback((data) => {
+	const submitForm = useCallback((data) => {
 		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
@@ -525,7 +526,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = React.useCallback((data) => {
+	const onSubmit = useCallback((data) => {
 		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
@@ -543,7 +544,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 
 	const submitButtonAttrs = useMemo(() => ({
 		disabled: !!state.data.text2 === false,
-		label: state?.data?.text2,
+		children: state?.data?.text2,
 		smallerButton: true,
 	}), [state.data.text2]);
 
@@ -562,6 +563,195 @@ export const SubmitInternalButtons = (): ReactElement => {
 				onSubmit={onSubmit}
 				submitButtonAttrs={submitButtonAttrs}
 			/>
+		</>
+	);
+};
+
+export const GenericModal = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const [open, setOpen] = useState(false); 
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Full Name",
+					type: "text",
+					instructionText: 'testing',
+					validators: [required, validateEmail],
+				},
+				{
+					name: "text2",
+					label: "age",
+					type: "text",
+					validators: [required],
+				},
+				{
+					name: "check1",
+					label: "Text that copies to the next input",
+					type: "checkbox",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
+					validators: [required]
+				},
+			] as unknown as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		setOpen(false);
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		setOpen(false);
+		alert('Cancelling form, going back to previous site');
+	};
+
+	const cancelButtonAttrs = useMemo(() => ({
+		disabled: !!state.data.text1 === false,
+	}), [state.data.text1]);
+
+	const submitButtonAttrs = useMemo(() => ({
+		children: state?.data?.text2,
+		smallerButton: true,
+	}), [state.data.text2]);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Modal
+				title={'yes'}
+				state={state}
+				dispatch={dispatch}
+				fields={fields}
+				open={open}
+				onCancel={onCancel}
+				cancelButtonAttrs={cancelButtonAttrs}
+				onSubmit={onSubmit}
+				submitButtonAttrs={submitButtonAttrs}
+			/>
+			<button onClick={() => setOpen(true)}>Open modal</button>
+		</>
+	);
+};
+
+export const FormAndModal = (): ReactElement => {
+	const formReducer = useForm();
+	const modalReducer = useForm();
+
+	const [open, setOpen] = useState(false); 
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Full Name",
+					type: "text",
+					instructionText: 'testing',
+					validators: [required, validateEmail],
+				},
+				{
+					name: "text2",
+					label: "age",
+					type: "text",
+					validators: [required],
+				},
+				{
+					name: "check1",
+					label: "Text that copies to the next input",
+					type: "checkbox",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
+					validators: [required]
+				},
+			] as unknown as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		formReducer.registerFields(fields);
+		modalReducer.registerFields(fields);
+	}, [fields, formReducer.registerFields, modalReducer.registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		setOpen(false);
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [formReducer.state.validForm, modalReducer.state.validForm]);
+
+	useMemo(() => {
+		formReducer.registerOnSubmit(onSubmit);
+		modalReducer.registerOnSubmit(onSubmit);
+	}, [onSubmit, formReducer.registerOnSubmit, modalReducer.registerOnSubmit]);
+
+	const onCancel = () => {
+		setOpen(false);
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>Form data: {JSON.stringify(formReducer.state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={formReducer.state}
+				fields={fields}
+				dispatch={formReducer.dispatch}
+				events={formReducer.events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+			<pre>Modal data: {JSON.stringify(modalReducer.state, null, "  ")}</pre>
+			<Modal
+				title={'yes'}
+				state={modalReducer.state}
+				dispatch={modalReducer.dispatch}
+				fields={fields}
+				open={open}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+			<button onClick={() => setOpen(true)}>Open modal</button>
 		</>
 	);
 };

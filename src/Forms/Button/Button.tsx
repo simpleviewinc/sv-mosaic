@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { HTMLAttributes, memo, ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 
 // Types and styles
 import { FormButtonProps } from './ButtonTypes';
 import { StyledButton, StyledIcon } from './ButtonStyled';
 
-const Button = (props: FormButtonProps & HTMLAttributes<HTMLButtonElement>): ReactElement => {
+const Button = (props: FormButtonProps): ReactElement => {
 	const {
 		children,
 		className,

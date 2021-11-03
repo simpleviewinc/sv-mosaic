@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, useMemo } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
@@ -8,6 +8,7 @@ import Button from '@root/forms/Button';
 import TextField from '@root/forms/FormFieldText';
 import FormFieldDropdownSingleSelection from '@root/forms/FormFieldDropdownSingleSelection';
 import { Sizes } from '@root/theme/sizes';
+import { FieldDefProps } from '../Field';
 
 export default {
 	title: 'Components/Modal',
@@ -43,37 +44,96 @@ export const Example = (): ReactElement => {
 		setOpen(false);
 	};
 
+	// <FormFieldDropdownSingleSelection
+	// 				options={topFilms}
+	// 				label='Country'
+	// 				placeholder='Select'
+	// 				size={Sizes.sm}
+	// 			/>
+	// 			<TextField
+	// 				label='Address'
+	// 				htmlFor='text-input'
+	// 				size={Sizes.lg}
+	// 				onChange={undefined}
+	// 			/>
+	// 			<TextField
+	// 				label=''
+	// 				htmlFor='text-input'
+	// 				size={Sizes.lg}
+	// 				onChange={undefined}
+	// 			/>
+	// 		</Modal>
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Simple Text",
+					type: "text",
+					inputSettings: {
+						maxCharacters: 20,
+					},
+					instructionText: 'testing',
+				},
+				{
+					name: "text2",
+					label: "Text with validators and dynamic help",
+					type: "textArea",
+				},
+				{
+					name: "check1",
+					label: "Text that copies to the next input",
+					type: "checkbox",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
+				},
+				{
+					name: "text4",
+					label: "Text that receives copy",
+					type: "text"
+				},
+			] as FieldDefProps[],
+		[]
+	);
+
+	const submitButtonAttrs = {
+		children: primaryBtnLabel,
+	}
+
+	const cancelButtonAttrs = {
+		children: secondaryBtnLabel,
+	}
+
 	return (
 		<>
 			<Button onClick={handleClickOpen}>Open modal</Button>
 			<Modal
-				dialogTitle={dialogTitle}
+				state=''
+				dispatch=''
+				fields={fields}
+				title={dialogTitle}
 				open={open}
-				onClose={handleClose}
-				primaryAction={primaryAction}
-				primaryBtnLabel={primaryBtnLabel}
-				secondaryAction={handleClose}
-				secondaryBtnLabel={secondaryBtnLabel}
-			>
-				<FormFieldDropdownSingleSelection
-					options={topFilms}
-					label='Country'
-					placeholder='Select'
-					size={Sizes.sm}
-				/>
-				<TextField
-					label='Address'
-					htmlFor='text-input'
-					size={Sizes.lg}
-					onChange={undefined}
-				/>
-				<TextField
-					label=''
-					htmlFor='text-input'
-					size={Sizes.lg}
-					onChange={undefined}
-				/>
-			</Modal>
+				onCancel={handleClose}
+				onSubmit={primaryAction}
+				submitButtonAttrs={submitButtonAttrs}
+				cancelButtonAttrs={cancelButtonAttrs}
+			/>
+
 		</>
 	);
 };
