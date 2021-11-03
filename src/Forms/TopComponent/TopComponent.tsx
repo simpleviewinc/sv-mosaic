@@ -14,31 +14,29 @@ import { TopComponentProps } from './TopComponentTypes';
 
 // Styles
 import {
-	ActionsWrapper,
 	CheckboxWrapper,
 	Description,
 	FormTitle,
-	NavSectionsWrapper,
-	StyledHelpIcon,
-	TitleWrapper,
-	TopComponentColumnWrapper,
-	TopComponentRowWrapper,
-	Row,
-	ButtonsWrapper,
-	ActionsRow,
-	ResponsiveViewColumn,
 	MobileColumn,
 	MobileActionsRow,
 	MobileTitleRow,
 	MobileCheckboxHelpIconRow,
+	NavSectionsWrapper,
+	ResponsiveActionsRow,
+	ResponsiveButtonsWrapper,
+	ResponsiveViewColumn,
+	Row,
+	StyledHelpIcon,
+	TitleWrapper,
+	FlexContainer,
+	DesktopViewColumn,
+	DesktopActionsRow,
 } from './TopComponent.styled';
 
-const TopComponent = (props: TopComponentProps): ReactElement => {
-	// State variables
-	const [activeChecked, setActiveChecked] = useState(false);
-	const [isResponsiveView, setIsResponsiveView] = useState(false);
-	const [isMobileView, setIsMobileView] = useState(false);
+const RESPONSIVE_VIEW_BREAKPOINT = 1075;
+const BIG_SCREEN_VIEW_BREAKPOINT = 1718;
 
+const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
 		children,
 		description,
@@ -50,23 +48,21 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		sections,
 	} = props;
 
+	// State variables
+	const [activeChecked, setActiveChecked] = useState(false);
+	const [isResponsiveView, setIsResponsiveView] = useState(false);
+	const [isMobileView, setIsMobileView] = useState(false);
+	const [isBigView, setIsBigView] = useState(false);
+
 	const handleActiveClick = () => {
 		setActiveChecked(!activeChecked);
 	};
 
 	useEffect(() => {
 		const setResponsiveness = () => {
-			if (window.innerWidth < 1075) {
-				setIsResponsiveView(true);
-			} else {
-				setIsResponsiveView(false);
-			}
-
-			if (window.innerWidth < BREAKPOINTS.mobile) {
-				setIsMobileView(true);
-			} else {
-				setIsMobileView(false);
-			}
+			setIsResponsiveView(window.innerWidth < RESPONSIVE_VIEW_BREAKPOINT);
+			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
+			setIsBigView(window.innerWidth > BIG_SCREEN_VIEW_BREAKPOINT);
 		};
 
 		setResponsiveness();
@@ -78,79 +74,102 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	}, []);
 
 	const desktopView = (
-		<TopComponentRowWrapper>
-			<TitleWrapper>
-				<FormTitle>{formTitle}</FormTitle>
-				<Description>{description}</Description>
-			</TitleWrapper>
-			<ActionsWrapper>
-				{tooltipInfo && (
-					<Tooltip text={tooltipInfo}>
-						<StyledHelpIcon
-							showActive={showActive}
-							isResponsiveView={isResponsiveView}
-						/>
-					</Tooltip>
+		<>
+			<DesktopViewColumn>
+				<FlexContainer>
+					<TitleWrapper>
+						<FormTitle>{formTitle}</FormTitle>
+						<Description>{description}</Description>
+					</TitleWrapper>
+					<DesktopActionsRow>
+						{tooltipInfo && (
+							<Tooltip text={tooltipInfo}>
+								<StyledHelpIcon
+									showActive={showActive}
+									isResponsiveView={isResponsiveView}
+								/>
+							</Tooltip>
+						)}
+						{showActive && (
+							<Checkbox
+								label='Active'
+								checked={activeChecked}
+								onClick={handleActiveClick}
+							/>
+						)}
+						<Button buttonType='secondary' onClick={handleCancelButton}>
+              Cancel
+						</Button>
+						<Button buttonType='primary' onClick={handleSaveButton}>
+              Save
+						</Button>
+					</DesktopActionsRow>
+				</FlexContainer>
+				{!isBigView && (
+					<FlexContainer>
+						<FormNav sections={sections} />
+					</FlexContainer>
 				)}
-				{showActive && (
-					<Checkbox
-						label='Active'
-						checked={activeChecked}
-						onClick={handleActiveClick}
-					/>
-				)}
-				<Button buttonType='secondary' onClick={handleCancelButton}>
-          Cancel
-				</Button>
-				<Button buttonType='primary' onClick={handleSaveButton}>
-          Save
-				</Button>
-			</ActionsWrapper>
-		</TopComponentRowWrapper>
+			</DesktopViewColumn>
+			{isBigView ? (
+				<Row>
+					<FormNav sections={sections} />
+					<NavSectionsWrapper>{children}</NavSectionsWrapper>
+				</Row>
+			) : (
+				<>
+					<NavSectionsWrapper>{children}</NavSectionsWrapper>
+				</>
+			)}
+		</>
 	);
 
 	const responsiveView = (
-		<ResponsiveViewColumn>
-			<Row>
-				<TitleWrapper>
-					<FormTitle>{formTitle}</FormTitle>
-					<Description>{description}</Description>
-				</TitleWrapper>
-				{tooltipInfo && (
-					<Tooltip text={tooltipInfo}>
-						<StyledHelpIcon
-							showActive={showActive}
-							isResponsiveView={isResponsiveView}
-						/>
-					</Tooltip>
-				)}
-			</Row>
-			<ActionsRow showActive={showActive}>
-				{showActive && (
-					<CheckboxWrapper>
-						<Checkbox
-							label='Active'
-							checked={activeChecked}
-							onClick={handleActiveClick}
-						/>
-					</CheckboxWrapper>
-				)}
-				<ButtonsWrapper>
-					<Button buttonType='secondary' onClick={handleCancelButton}>
-            Cancel
-					</Button>
-					<Button buttonType='primary' onClick={handleSaveButton}>
-            Save
-					</Button>
-				</ButtonsWrapper>
-			</ActionsRow>
-		</ResponsiveViewColumn>
+		<>
+			<ResponsiveViewColumn>
+				<Row>
+					<TitleWrapper>
+						<FormTitle>{formTitle}</FormTitle>
+						<Description>{description}</Description>
+					</TitleWrapper>
+					{tooltipInfo && (
+						<Tooltip text={tooltipInfo}>
+							<StyledHelpIcon
+								showActive={showActive}
+								isResponsiveView={isResponsiveView}
+							/>
+						</Tooltip>
+					)}
+				</Row>
+				<ResponsiveActionsRow showActive={showActive}>
+					{showActive && (
+						<CheckboxWrapper>
+							<Checkbox
+								label='Active'
+								checked={activeChecked}
+								onClick={handleActiveClick}
+							/>
+						</CheckboxWrapper>
+					)}
+					<ResponsiveButtonsWrapper>
+						<Button buttonType='secondary' onClick={handleCancelButton}>
+              Cancel
+						</Button>
+						<Button buttonType='primary' onClick={handleSaveButton}>
+              Save
+						</Button>
+					</ResponsiveButtonsWrapper>
+				</ResponsiveActionsRow>
+				<FormNav sections={sections} />
+			</ResponsiveViewColumn>
+			<NavSectionsWrapper>{children}</NavSectionsWrapper>
+		</>
 	);
 
 	const mobileView = (
 		<MobileColumn>
 			<MobileActionsRow>
-				<ClearIcon />
+				<ClearIcon onClick={handleCancelButton} />
 				<Button buttonType='primary' onClick={handleSaveButton}>
           Save
 				</Button>
@@ -189,13 +208,9 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			{isMobileView ? (
 				mobileView
 			) : (
-				<TopComponentColumnWrapper>
+				<div>
 					{isResponsiveView ? responsiveView : desktopView}
-					<NavSectionsWrapper>
-						<FormNav sections={sections} />
-						{children}
-					</NavSectionsWrapper>
-				</TopComponentColumnWrapper>
+				</div>
 			)}
 		</>
 	);

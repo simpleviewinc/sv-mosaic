@@ -6,26 +6,43 @@ import HelpIcon from '@material-ui/icons/Help';
 // Utils
 import theme from '@root/theme';
 
-export const TopComponentRowWrapper = styled.div`
-  background-color: white;
+
+// Common styles
+
+export const FlexContainer = styled.div`
   display: flex;
+`;
+
+export const Row = styled(FlexContainer)`
+  justify-content: space-between;
+  display: flex;
+`;
+
+export const Column = styled(FlexContainer)`
+  flex-direction: column;
+`;
+
+// Desktop view styles
+
+export const DesktopViewColumn = styled(Column)`
+  background-color: white;
+  box-shadow: 0px 1px 10px #0000001A;
   justify-content: space-between;
   margin-bottom: 30px;
+  padding: 24px 20px 0px 20px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
 
   @media (min-width: 1718px) {
     box-shadow: 0px 1px 10px #0000001a;
+    height: 66px;
     margin-bottom: 0px;
     padding: 24px 20px 30px 20px;
   }
-  //padding: 24px 20px 30px 20px;
 `;
 
-export const TopComponentColumnWrapper = styled.div`
-  //box-shadow: 0px 1px 10px #0000001a;
-  padding: 24px 20px 0px 20px;
-`;
-
-export const ActionsWrapper = styled.div`
+export const DesktopActionsRow = styled.div`
   align-items: flex-start;
   display: flex;
 
@@ -42,6 +59,10 @@ export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-family: ${theme.fontFamily};
+  margin-right: auto;
+ /*  @media (min-width:1076) and ( max-width: 1717px) {
+    margin-right: auto;
+  } */
 `;
 
 export const FormTitle = styled.span`
@@ -68,23 +89,12 @@ export const CheckboxWrapper = styled.div`
 `;
 
 export const NavSectionsWrapper = styled.div`
-  display: flex;
+  //display: flex;
+  padding: 24px 20px 0px 20px;
 
-  @media (max-width: 1718px) {
+ /*  @media (max-width: 1718px) {
     flex-direction: column;
-  }
-`;
-
-// Common styles
-
-export const Row = styled.div`
-  justify-content: space-between;
-  display: flex;
-`;
-
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
+  } */
 `;
 
 export const StyledHelpIcon = styled(HelpIcon)`
@@ -111,6 +121,7 @@ export const MobileActionsRow = styled(Row)`
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+  z-index: 9999;
 
   svg {
     align-self: center;
@@ -128,16 +139,22 @@ export const MobileCheckboxHelpIconRow = styled(Row)`
 // Responsive view styles
 
 export const ResponsiveViewColumn = styled(Column)`
+  background-color: white;
+  box-shadow: 0px 1px 10px #0000001A;
+  margin-bottom: 30px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  padding: 20px 20px 0px 20px;
+`;
+
+export const ResponsiveActionsRow = styled(Row)`
+  align-self: ${(pr) => (pr.showActive ? '' : 'flex-end')};
+  margin-top: 16px;
   margin-bottom: 30px;
 `;
 
-export const ActionsRow = styled(Row)`
-  align-self: ${(pr) => (pr.showActive ? '' : 'flex-end')};
-  margin-top: 16px;
-`;
-
-
-export const ButtonsWrapper = styled.div`
+export const ResponsiveButtonsWrapper = styled.div`
   display: flex;
 
   button:first-child {
