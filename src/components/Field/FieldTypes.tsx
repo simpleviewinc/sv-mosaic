@@ -58,4 +58,5 @@ export interface FieldProps {
 export interface FieldDefProps extends FieldProps {
 	type?: "text";
 	children: ReactNode;
+	layout?: any;
 }

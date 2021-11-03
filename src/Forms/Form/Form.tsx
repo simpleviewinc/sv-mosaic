@@ -4,10 +4,11 @@ import {
 	memo
 } from 'react';
 import styled from 'styled-components';
-import { SectionDef } from './FormTypes';
+import { FormProps, SectionDef } from './FormTypes';
 import Section from './Section';
 import Button from '../Button';
 import { actions } from './formUtils';
+import FormLayout from './FormLayout';
 
 
 const StyledForm = styled.form`
@@ -17,9 +18,9 @@ const StyledForm = styled.form`
 	width: 100%;
 `;
 
-const StyledDisabledForm = styled.div`
-	height: 100vh;
-	width: 100vw;
+export const StyledDisabledForm = styled.div`
+	height: 100%;
+	width: 100%;
 	background-color: black;
 	z-index: 999999;
 	display: ${pr => pr.disabled ? 'block' : 'none'};
@@ -47,7 +48,7 @@ const StyledTopComponent = styled.div`
 	}
 `;
 
-const Form = (props) => {
+const Form = (props: FormProps) => {
 	const {
 		sections,
 		fields,
@@ -60,54 +61,6 @@ const Form = (props) => {
 		cancelButtonAttrs,
 		submitButtonAttrs,
 	} = props;
-
-	const layout = useMemo(() => {
-		let customLayout: SectionDef[] = [];
-
-		if (sections)
-			customLayout = JSON.parse(JSON.stringify(sections));
-
-		if (fields) {
-			for (const field of fields) {
-				if (field.layout) {
-					let section = customLayout.length;
-					if (field.layout.section !== undefined && field.layout.section >= 0) {
-						section = field.layout.section;
-					}
-
-					let row = customLayout[section]?.fields?.length;
-					if (field.layout.row !== undefined && field.layout.row >= 0) {
-						row = field.layout.row;
-					}
-
-					let col = customLayout[section]?.fields[row]?.length;
-					if (field.layout.col !== undefined && field.layout.col >= 0) {
-						col = field.layout.col;
-					}
-
-					if (customLayout[section]) {
-						customLayout[section].fields[row][col].push(field.name);
-					} else {
-						customLayout = [
-							...customLayout,
-							{
-								fields: [[[field.name]]],
-							},
-						];
-					}
-				} else if (!sections) {
-					customLayout = [
-						...customLayout,
-						{
-							fields: [[[field.name]]],
-						},
-					];
-				}
-			}
-
-			return customLayout;
-		}
-	}, [sections, fields]);
 
 	const submit = async (e) => {
 		e.preventDefault();
@@ -125,32 +78,40 @@ const Form = (props) => {
 		<>
 			<StyledDisabledForm disabled={state.disabled} />
 			<StyledForm>
-				<StyledTopComponent>
-					<div>
-						{title && <h1>{title}</h1>}
-						{description && <p>{description}</p>}
-					</div>
-					<div id='buttons'>
-						{onCancel &&
-							<Button
-								onClick={(e) => cancel(e)}
-								buttonType='secondary'
-								{...cancelButtonAttrs}
-							>
-								{cancelButtonAttrs?.label ? cancelButtonAttrs?.label : 'Cancel'}
-							</Button>
-						}
-						{onSubmit &&
-							<Button
-								onClick={(e) => submit(e)}
-								{...submitButtonAttrs}
-							>
-								{submitButtonAttrs?.label ? submitButtonAttrs?.label : 'Submit'}
-							</Button>
-						}
-					</div>
-				</StyledTopComponent>
-				{layout?.map((section, i) => (
+				{title &&
+					<StyledTopComponent>
+						<div>
+							{title && <h1>{title}</h1>}
+							{description && <p>{description}</p>}
+						</div>
+						<div id='buttons'>
+							{onCancel &&
+								<Button
+									onClick={(e) => cancel(e)}
+									buttonType='secondary'
+									{...cancelButtonAttrs}
+								>
+									{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
+								</Button>
+							}
+							{onSubmit &&
+								<Button
+									onClick={(e) => submit(e)}
+									{...submitButtonAttrs}
+								>
+									{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Submit'}
+								</Button>
+							}
+						</div>
+					</StyledTopComponent>
+				}
+				<FormLayout
+					state={state}
+					dispatch={dispatch}
+					fields={fields}
+					sections={sections}
+				/>
+				{/* {layout?.map((section, i) => (
 					<Section
 						key={i}
 						title={section.title}
@@ -160,7 +121,7 @@ const Form = (props) => {
 						state={state}
 						dispatch={dispatch}
 					/>
-				))}
+				))} */}
 			</StyledForm>
 		</>
 	);
