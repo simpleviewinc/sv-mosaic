@@ -3,7 +3,6 @@ import { memo, useState, ReactElement, useEffect } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
-import ClearIcon from '@material-ui/icons/Clear';
 import FormNav from '@root/forms/FormNav';
 import Tooltip from '@root/components/Tooltip';
 import Checkbox from '@root/components/Checkbox';
@@ -16,6 +15,10 @@ import { TopComponentProps } from './TopComponentTypes';
 import {
 	CheckboxWrapper,
 	Description,
+	DesktopViewColumn,
+	DesktopActionsRow,
+	DesktopTitleActionsRow,
+	FlexContainer,
 	FormTitle,
 	MobileColumn,
 	MobileActionsRow,
@@ -27,10 +30,9 @@ import {
 	ResponsiveViewColumn,
 	Row,
 	StyledHelpIcon,
+	StyledClearIcon,
+	StyledHelpIconWrapper,
 	TitleWrapper,
-	FlexContainer,
-	DesktopViewColumn,
-	DesktopActionsRow,
 } from './TopComponent.styled';
 
 const RESPONSIVE_VIEW_BREAKPOINT = 1075;
@@ -73,38 +75,52 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		};
 	}, []);
 
+	const buttons = (
+		<>
+			<Button buttonType='secondary' onClick={handleCancelButton}>
+        Cancel
+			</Button>
+			<Button buttonType='primary' onClick={handleSaveButton}>
+        Save
+			</Button>
+		</>
+	);
+
+	const checkbox = (
+		<>
+			<Checkbox
+				label='Active'
+				checked={activeChecked}
+				onClick={handleActiveClick}
+			/>
+		</>
+	);
+
+	const helpIcon = (
+		<StyledHelpIconWrapper
+			showActive={showActive}
+			isResponsiveView={isResponsiveView}
+		>
+			<Tooltip text={tooltipInfo}>
+				<StyledHelpIcon />
+			</Tooltip>
+		</StyledHelpIconWrapper>
+	);
+
 	const desktopView = (
 		<>
 			<DesktopViewColumn>
-				<FlexContainer>
+				<DesktopTitleActionsRow>
 					<TitleWrapper>
 						<FormTitle>{formTitle}</FormTitle>
 						<Description>{description}</Description>
 					</TitleWrapper>
 					<DesktopActionsRow>
-						{tooltipInfo && (
-							<Tooltip text={tooltipInfo}>
-								<StyledHelpIcon
-									showActive={showActive}
-									isResponsiveView={isResponsiveView}
-								/>
-							</Tooltip>
-						)}
-						{showActive && (
-							<Checkbox
-								label='Active'
-								checked={activeChecked}
-								onClick={handleActiveClick}
-							/>
-						)}
-						<Button buttonType='secondary' onClick={handleCancelButton}>
-              Cancel
-						</Button>
-						<Button buttonType='primary' onClick={handleSaveButton}>
-              Save
-						</Button>
+						{tooltipInfo && helpIcon}
+						{showActive && checkbox}
+						{buttons}
 					</DesktopActionsRow>
-				</FlexContainer>
+				</DesktopTitleActionsRow>
 				{!isBigView && (
 					<FlexContainer>
 						<FormNav sections={sections} />
@@ -132,33 +148,11 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 						<FormTitle>{formTitle}</FormTitle>
 						<Description>{description}</Description>
 					</TitleWrapper>
-					{tooltipInfo && (
-						<Tooltip text={tooltipInfo}>
-							<StyledHelpIcon
-								showActive={showActive}
-								isResponsiveView={isResponsiveView}
-							/>
-						</Tooltip>
-					)}
+					{tooltipInfo && helpIcon}
 				</Row>
 				<ResponsiveActionsRow showActive={showActive}>
-					{showActive && (
-						<CheckboxWrapper>
-							<Checkbox
-								label='Active'
-								checked={activeChecked}
-								onClick={handleActiveClick}
-							/>
-						</CheckboxWrapper>
-					)}
-					<ResponsiveButtonsWrapper>
-						<Button buttonType='secondary' onClick={handleCancelButton}>
-              Cancel
-						</Button>
-						<Button buttonType='primary' onClick={handleSaveButton}>
-              Save
-						</Button>
-					</ResponsiveButtonsWrapper>
+					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
+					<ResponsiveButtonsWrapper>{buttons}</ResponsiveButtonsWrapper>
 				</ResponsiveActionsRow>
 				<FormNav sections={sections} />
 			</ResponsiveViewColumn>
@@ -169,7 +163,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const mobileView = (
 		<MobileColumn>
 			<MobileActionsRow>
-				<ClearIcon onClick={handleCancelButton} />
+				<StyledClearIcon onClick={handleCancelButton} />
 				<Button buttonType='primary' onClick={handleSaveButton}>
           Save
 				</Button>
@@ -180,23 +174,8 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			</MobileTitleRow>
 			{(showActive || tooltipInfo) && (
 				<MobileCheckboxHelpIconRow>
-					{showActive && (
-						<CheckboxWrapper>
-							<Checkbox
-								label='Active'
-								checked={activeChecked}
-								onClick={handleActiveClick}
-							/>
-						</CheckboxWrapper>
-					)}
-					{tooltipInfo && (
-						<Tooltip text={tooltipInfo}>
-							<StyledHelpIcon
-								showActive={showActive}
-								isResponsiveView={isResponsiveView}
-							/>
-						</Tooltip>
-					)}
+					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
+					{tooltipInfo && helpIcon}
 				</MobileCheckboxHelpIconRow>
 			)}
 			{children}
@@ -208,9 +187,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			{isMobileView ? (
 				mobileView
 			) : (
-				<div>
-					{isResponsiveView ? responsiveView : desktopView}
-				</div>
+				<div>{isResponsiveView ? responsiveView : desktopView}</div>
 			)}
 		</>
 	);

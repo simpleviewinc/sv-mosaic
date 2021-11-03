@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
 // Components
+import ClearIcon from '@material-ui/icons/Clear';
 import HelpIcon from '@material-ui/icons/Help';
 
 // Utils
 import theme from '@root/theme';
 
+const BIG_SCREEN_BREAKPOINT = '1718px';
+const RESPONSIVE_VIEW_BREAKPOINT = '1075px';
 
 // Common styles
 
@@ -22,47 +25,11 @@ export const Column = styled(FlexContainer)`
   flex-direction: column;
 `;
 
-// Desktop view styles
-
-export const DesktopViewColumn = styled(Column)`
-  background-color: white;
-  box-shadow: 0px 1px 10px #0000001A;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  padding: 24px 20px 0px 20px;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-
-  @media (min-width: 1718px) {
-    box-shadow: 0px 1px 10px #0000001a;
-    height: 66px;
-    margin-bottom: 0px;
-    padding: 24px 20px 30px 20px;
-  }
-`;
-
-export const DesktopActionsRow = styled.div`
-  align-items: flex-start;
-  display: flex;
-
-  button:last-child {
-    margin-left: 20px;
-  }
-
-  .MuiFormControlLabel-root {
-    margin-right: 20px;
-  }
-`;
-
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-family: ${theme.fontFamily};
   margin-right: auto;
- /*  @media (min-width:1076) and ( max-width: 1717px) {
-    margin-right: auto;
-  } */
 `;
 
 export const FormTitle = styled.span`
@@ -89,23 +56,64 @@ export const CheckboxWrapper = styled.div`
 `;
 
 export const NavSectionsWrapper = styled.div`
-  //display: flex;
   padding: 24px 20px 0px 20px;
+`;
 
- /*  @media (max-width: 1718px) {
-    flex-direction: column;
-  } */
+// Icons
+
+export const StyledHelpIconWrapper = styled.div`
+  border-right: ${(pr) =>
+		pr.showActive ? `2px solid ${theme.colors.gray200}` : ''};
+  padding-right: ${(pr) => (pr.isResponsiveView ? '' : '16px')};
+
+  @media (max-width: ${RESPONSIVE_VIEW_BREAKPOINT}) {
+    border-right: none;
+  }
 `;
 
 export const StyledHelpIcon = styled(HelpIcon)`
-  border-right: ${(pr) =>
-		pr.showActive ? `2px solid ${theme.colors.gray200}` : ''};
+  color: ${theme.colors.almostBlack};
   margin-top: 7px;
-  padding-right: ${(pr) => (pr.isResponsiveView ? '' : '16px')};
+`;
 
-  @media (max-width: 1075px) {
-    border-right: none;
+export const StyledClearIcon = styled(ClearIcon)`
+  color: ${theme.colors.almostBlack};
+`;
+
+// Desktop view styles
+
+export const DesktopViewColumn = styled(Column)`
+  background-color: white;
+  box-shadow: 0px 1px 10px #0000001a;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 24px 20px 0px 20px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+
+  @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+    box-shadow: 0px 1px 10px #0000001a;
+    height: 66px;
+    margin-bottom: 0px;
+    padding: 24px 20px 16px 20px;
   }
+`;
+
+export const DesktopActionsRow = styled(FlexContainer)`
+  align-items: flex-start;
+
+  button:last-child {
+    margin-left: 20px;
+  }
+
+  .MuiFormControlLabel-root {
+    margin-right: 20px;
+  }
+`;
+
+export const DesktopTitleActionsRow = styled(FlexContainer)`
+  margin-bottom: 30px;
 `;
 
 // Mobile view styles
@@ -140,7 +148,7 @@ export const MobileCheckboxHelpIconRow = styled(Row)`
 
 export const ResponsiveViewColumn = styled(Column)`
   background-color: white;
-  box-shadow: 0px 1px 10px #0000001A;
+  box-shadow: 0px 1px 10px #0000001a;
   margin-bottom: 30px;
   position: sticky;
   position: -webkit-sticky;
@@ -151,7 +159,7 @@ export const ResponsiveViewColumn = styled(Column)`
 export const ResponsiveActionsRow = styled(Row)`
   align-self: ${(pr) => (pr.showActive ? '' : 'flex-end')};
   margin-top: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 37px;
 `;
 
 export const ResponsiveButtonsWrapper = styled.div`

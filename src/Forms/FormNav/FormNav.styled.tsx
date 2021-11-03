@@ -126,7 +126,7 @@ export const FormNavWrapper = styled.div`
   overflow: hidden;
   position: sticky;
   position: -webkit-sticky;
-  top: 120px;
+  top: 106px;
   width: 100%;
 
   @media (min-width: 1718px) {
