@@ -1,3 +1,11 @@
+export const BREAKPOINTS = {
+	mobile : 480,
+	topComponent : {
+		responsiveView: 1075,
+		bigScreenView: 1718,
+	}
+};
+
 export default {
 	h1 : `
 		font-size: 20px;
@@ -59,6 +67,6 @@ export default {
 		backgroundMs : "250ms"
 	},
 	breakpoints : {
-		mobile : "480px"
+		mobile : `${BREAKPOINTS.mobile}px`
 	}
 }
