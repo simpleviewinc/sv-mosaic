@@ -13,7 +13,7 @@ export const NavItems = styled.div`
   @media (min-width: 1718px) {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
   }
 `;
@@ -118,6 +118,8 @@ export const FormNavRow = styled.div`
     svg {
       display: none;
     }
+
+	height: 100%;
   }
 `;
 
@@ -130,7 +132,7 @@ export const FormNavWrapper = styled.div`
   width: 100%;
 
   @media (min-width: 1718px) {
-    height: 100%;
+    height: calc(100vh - 106px);
     width: 293px;
     border-right: 2px solid ${theme.colors.gray200};
   }

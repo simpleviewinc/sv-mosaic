@@ -16,6 +16,10 @@ export const FlexContainer = styled.div`
 
 export const Row = styled(FlexContainer)`
   justify-content: space-between;
+
+  @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+    justify-content: flex-start;
+  }
 `;
 
 export const Column = styled(FlexContainer)`

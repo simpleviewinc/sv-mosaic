@@ -64,6 +64,8 @@ export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
 export { default as ToggleSwitch } from "./components/ToggleSwitch";
 export * from "./components/ToggleSwitch";
+export { default as TopComponent } from "./forms/TopComponent";
+export * from "./forms/TopComponent";
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
 export { default as Snackbar } from "./components/Snackbar";
