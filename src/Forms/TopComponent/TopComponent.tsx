@@ -204,7 +204,9 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			{isMobileView ? (
 				mobileView
 			) : (
-				<div>{isResponsiveView ? responsiveView : desktopView}</div>
+				<div style={{ width: '100%' }}>
+					{isResponsiveView ? responsiveView : desktopView}
+				</div>
 			)}
 		</>
 	);
