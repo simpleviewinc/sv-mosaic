@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useState, useRef, ReactElement } from 'react';
+import { memo, useState, useRef, useCallback, useEffect, ReactElement } from 'react';
 import {
 	FormNavWrapper,
 	FormNavRow,
@@ -57,13 +57,16 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	//IMPROVE RENDERING
 	let sectionsTest;
 
-	React.useEffect(() => {
+	useEffect(() => {
 		sectionsTest = document.querySelectorAll("div.section") as unknown as HTMLElement[];
 		window.addEventListener("scroll", navHighlighter);
+
+		return () => {
+			window.removeEventListener('scroll', navHighlighter);
+		};
 	}, []);
 
-
-	const navHighlighter = React.useCallback(() => {
+	const navHighlighter = useCallback(() => {
 		const scrollY = window.pageYOffset;
 
 		sectionsTest.forEach(current => {

@@ -42,6 +42,9 @@ const sections = [
 export const Example = (): ReactElement => {
 	return (
 		<MainLayout>
+			<div style={{backgroundColor: 'white', height: '120px', position: 'sticky', top: 0}}>
+				<h1>Here goes the top component</h1>
+			</div>
 			<FormNav sections={sections} />
 			<div>
 				<Section id='section1' className='section'>

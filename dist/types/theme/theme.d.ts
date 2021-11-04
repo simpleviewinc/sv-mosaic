@@ -1,3 +1,10 @@
+export declare const BREAKPOINTS: {
+    mobile: number;
+    topComponent: {
+        responsiveView: number;
+        bigScreenView: number;
+    };
+};
 declare const _default: {
     h1: string;
     h2: string;
