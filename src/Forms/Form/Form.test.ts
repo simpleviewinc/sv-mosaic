@@ -1,6 +1,6 @@
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
-import { useForm, actions } from "./formUtils";
+import { useForm, actions } from "./formUtilsTest";
 
 describe('Reducer logic', () => {
 	const { state, dispatch, events, registerFields } = useForm();
@@ -23,7 +23,7 @@ describe('Reducer logic', () => {
 		{
 			name: 'Set field value',
 			args: {
-				data: state.data.text1,
+				data: state?.data?.text1,
 				result: 'abc'
 			}
 		},
