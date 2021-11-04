@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useState, ReactElement, useEffect } from 'react';
+import { memo, useState, ReactElement, useEffect, useMemo } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
@@ -35,19 +35,18 @@ import {
 	TitleWrapper,
 } from './TopComponent.styled';
 
-const RESPONSIVE_VIEW_BREAKPOINT = 1075;
-const BIG_SCREEN_VIEW_BREAKPOINT = 1718;
-
 const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
+		cancelButtonAttrs,
 		children,
 		description,
-		formTitle,
-		handleCancelButton,
-		handleSaveButton,
+		onCancel,
+		onSubmit,
 		showActive,
+		title,
 		tooltipInfo,
 		sections,
+		submitButtonAttrs,
 	} = props;
 
 	// State variables
@@ -62,9 +61,11 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 
 	useEffect(() => {
 		const setResponsiveness = () => {
-			setIsResponsiveView(window.innerWidth < RESPONSIVE_VIEW_BREAKPOINT);
+			setIsResponsiveView(
+				window.innerWidth < BREAKPOINTS.topComponent.responsiveView
+			);
 			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
-			setIsBigView(window.innerWidth > BIG_SCREEN_VIEW_BREAKPOINT);
+			setIsBigView(window.innerWidth > BREAKPOINTS.topComponent.bigScreenView);
 		};
 
 		setResponsiveness();
@@ -75,36 +76,54 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		};
 	}, []);
 
-	const buttons = (
-		<>
-			<Button buttonType='secondary' onClick={handleCancelButton}>
-				Cancel
+	const submitButton = useMemo(
+		() => (
+			<Button buttonType='primary' onClick={onSubmit} {...submitButtonAttrs}>
+				{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Save'}
 			</Button>
-			<Button buttonType='primary' onClick={handleSaveButton}>
-				Save
-			</Button>
-		</>
+		),
+		[onSubmit, submitButtonAttrs]
 	);
 
-	const checkbox = (
-		<>
+	const buttons = useMemo(
+		() => (
+			<>
+				<Button
+					buttonType='secondary'
+					onClick={onCancel}
+					{...cancelButtonAttrs}
+				>
+					{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
+				</Button>
+				{submitButton}
+			</>
+		),
+		[onCancel, cancelButtonAttrs, submitButton]
+	);
+
+	const checkbox = useMemo(
+		() => (
 			<Checkbox
 				label='Active'
 				checked={activeChecked}
 				onClick={handleActiveClick}
 			/>
-		</>
+		),
+		[activeChecked, handleActiveClick]
 	);
 
-	const helpIcon = (
-		<StyledHelpIconWrapper
-			showActive={showActive}
-			isResponsiveView={isResponsiveView}
-		>
-			<Tooltip text={tooltipInfo}>
-				<StyledHelpIcon />
-			</Tooltip>
-		</StyledHelpIconWrapper>
+	const helpIcon = useMemo(
+		() => (
+			<StyledHelpIconWrapper
+				showActive={showActive}
+				isResponsiveView={isResponsiveView}
+			>
+				<Tooltip text={tooltipInfo}>
+					<StyledHelpIcon />
+				</Tooltip>
+			</StyledHelpIconWrapper>
+		),
+		[showActive, isResponsiveView, tooltipInfo]
 	);
 
 	const desktopView = (
@@ -112,7 +131,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			<DesktopViewColumn>
 				<DesktopTitleActionsRow>
 					<TitleWrapper>
-						<FormTitle>{formTitle}</FormTitle>
+						<FormTitle>{title}</FormTitle>
 						<Description>{description}</Description>
 					</TitleWrapper>
 					<DesktopActionsRow>
@@ -145,7 +164,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			<ResponsiveViewColumn>
 				<Row>
 					<TitleWrapper>
-						<FormTitle>{formTitle}</FormTitle>
+						<FormTitle>{title}</FormTitle>
 						<Description>{description}</Description>
 					</TitleWrapper>
 					{tooltipInfo && helpIcon}
@@ -163,13 +182,11 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const mobileView = (
 		<MobileColumn>
 			<MobileActionsRow>
-				<StyledClearIcon onClick={handleCancelButton} />
-				<Button buttonType='primary' onClick={handleSaveButton}>
-					Save
-				</Button>
+				<StyledClearIcon onClick={onCancel} />
+				{submitButton}
 			</MobileActionsRow>
 			<MobileTitleRow>
-				<FormTitle>{formTitle}</FormTitle>
+				<FormTitle>{title}</FormTitle>
 				<Description>{description}</Description>
 			</MobileTitleRow>
 			{(showActive || tooltipInfo) && (
