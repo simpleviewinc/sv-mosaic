@@ -54,9 +54,15 @@ export const Example = (): ReactElement => {
 		<MainLayout>
 			<TopComponent
 				description={text('Description', 'Description')}
-				formTitle={text('Form title', 'Form title')}
-				handleCancelButton={handleCancelButton}
-				handleSaveButton={handleSaveButton}
+				onCancel={handleCancelButton}
+				onSubmit={handleSaveButton}
+				submitButtonAttrs={{
+					children: 'Save'
+				}}
+				cancelButtonAttrs={{
+					children: 'Cancel'
+				}}
+				title={text('Form title', 'Form title')}
 				sections={sections}
 				showActive={boolean('Show Active', true)}
 				tooltipInfo={withInfoIcon && text('Tooltip info', 'Tooltip info')}

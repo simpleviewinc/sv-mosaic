@@ -5,12 +5,10 @@ import ClearIcon from '@material-ui/icons/Clear';
 import HelpIcon from '@material-ui/icons/Help';
 
 // Utils
-import theme from '@root/theme';
+import theme, { BREAKPOINTS } from '@root/theme/theme';
 
-const BIG_SCREEN_BREAKPOINT = '1718px';
-const RESPONSIVE_VIEW_BREAKPOINT = '1075px';
-
-// Common styles
+const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + 'px';
+const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + 'px';
 
 export const FlexContainer = styled.div`
   display: flex;
@@ -18,16 +16,13 @@ export const FlexContainer = styled.div`
 
 export const Row = styled(FlexContainer)`
   justify-content: space-between;
-  display: flex;
 `;
 
 export const Column = styled(FlexContainer)`
   flex-direction: column;
 `;
 
-export const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+export const TitleWrapper = styled(Column)`
   font-family: ${theme.fontFamily};
   margin-right: auto;
 `;
@@ -59,6 +54,15 @@ export const NavSectionsWrapper = styled.div`
   padding: 24px 20px 0px 20px;
 `;
 
+export const StyledColumn = styled(Column)`
+  background-color: white;
+  box-shadow: 0px 1px 10px #0000001a;
+  margin-bottom: 30px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+`;
+
 // Icons
 
 export const StyledHelpIconWrapper = styled.div`
@@ -66,7 +70,7 @@ export const StyledHelpIconWrapper = styled.div`
 		pr.showActive ? `2px solid ${theme.colors.gray200}` : ''};
   padding-right: ${(pr) => (pr.isResponsiveView ? '' : '16px')};
 
-  @media (max-width: ${RESPONSIVE_VIEW_BREAKPOINT}) {
+  @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
     border-right: none;
   }
 `;
@@ -82,14 +86,9 @@ export const StyledClearIcon = styled(ClearIcon)`
 
 // Desktop view styles
 
-export const DesktopViewColumn = styled(Column)`
-  background-color: white;
-  box-shadow: 0px 1px 10px #0000001a;
+export const DesktopViewColumn = styled(StyledColumn)`
   justify-content: space-between;
-  margin-bottom: 30px;
   padding: 24px 20px 0px 20px;
-  position: sticky;
-  position: -webkit-sticky;
   top: 0;
 
   @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
@@ -146,13 +145,7 @@ export const MobileCheckboxHelpIconRow = styled(Row)`
 
 // Responsive view styles
 
-export const ResponsiveViewColumn = styled(Column)`
-  background-color: white;
-  box-shadow: 0px 1px 10px #0000001a;
-  margin-bottom: 30px;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
+export const ResponsiveViewColumn = styled(StyledColumn)`
   padding: 20px 20px 0px 20px;
 `;
 

@@ -20,9 +20,12 @@ const TopComponentExample = () => {
 	return (
 		<TopComponent
 			description='Description'
-			formTitle='Form title'
-			handleCancelButton={cancelCallback}
-			handleSaveButton={saveCallback}
+			title='Form title'
+			onCancel={cancelCallback}
+			onSubmit={saveCallback}
+			submitButtonAttrs={{
+				children: 'Save'
+			}}
 			sections={sections}
 			showActive={true}
 			tooltipInfo={'Tooltip info'}
@@ -71,9 +74,9 @@ describe('TopComponent elements that are conditionally rendered', () => {
 		render(
 			<TopComponent
 				description='Description'
-				formTitle='Form title'
-				handleCancelButton={cancelCallback}
-				handleSaveButton={saveCallback}
+				title='Form title'
+				onCancel={cancelCallback}
+				onSubmit={saveCallback}
 				sections={sections}
 				showActive={true}
 			>
@@ -90,9 +93,9 @@ describe('TopComponent elements that are conditionally rendered', () => {
 		render(
 			<TopComponent
 				description='Description'
-				formTitle='Form title'
-				handleCancelButton={cancelCallback}
-				handleSaveButton={saveCallback}
+				title='Form title'
+				onCancel={cancelCallback}
+				onSubmit={saveCallback}
 				sections={sections}
 				showActive={false}
 			>
