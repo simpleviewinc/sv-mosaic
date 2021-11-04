@@ -46,16 +46,21 @@ export const LinksWrapper = styled.div`
     a {
       border-bottom: 0px;
       border-left: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? '4px solid #FCB731' : '4px solid transparent'};
+		pr.idx === pr.selectedTabIdx
+			? '4px solid #FCB731'
+			: '4px solid transparent'};
       padding: 16px 0 16px 24px;
     }
   }
 `;
 
 export const Section = styled.div`
-  border: 2px solid ${theme.colors.simplyGray};
   height: 500px;
-  padding-top: 40px;
+  padding-top: 130px;
+
+  @media (max-width: 1075px){
+    padding-top: 210px;
+  }
 `;
 
 export const MainLayout = styled.div`
@@ -85,7 +90,8 @@ export const FormNavRow = styled.div`
   }
 
   ${(pr) =>
-		pr.scrollX !== 0 && `
+		pr.scrollX !== 0 &&
+    `
       &:before {
         content: '';
         position: absolute;
@@ -97,8 +103,7 @@ export const FormNavRow = styled.div`
         background-image: linear-gradient(to left, #ffffff00 -10%, #ffffff 100%);
         width: 70px;
       }
-    `
-}
+    `}
 
   svg {
     position: relative;
@@ -121,14 +126,13 @@ export const FormNavWrapper = styled.div`
   overflow: hidden;
   position: sticky;
   position: -webkit-sticky;
-  top: 0;
+  top: 106px;
   width: 100%;
 
   @media (min-width: 1718px) {
     height: 100%;
     width: 293px;
-    margin-right: 20px;
-	border-right: 2px solid ${theme.colors.gray200};
+    border-right: 2px solid ${theme.colors.gray200};
   }
 `;
 
