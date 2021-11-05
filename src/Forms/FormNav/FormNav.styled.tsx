@@ -55,7 +55,7 @@ export const LinksWrapper = styled.div`
 `;
 
 export const Section = styled.div`
-  height: 500px;
+  height: 100vh;
   padding-top: 130px;
 
   @media (max-width: 1075px){
