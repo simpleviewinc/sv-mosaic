@@ -1,43 +1,39 @@
 import * as React from 'react';
 import { useState, ReactElement } from 'react';
-import { Input, TextFieldProps } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 // Styled Components
-import { customTheme } from './SingleDateCalendar.styled';
+import { customTheme, useStyles } from './SingleDateCalendar.styled';
 
-const SingleDateCalendar = () => {
+const SingleDateCalendar = (): ReactElement => {
+	const classes = useStyles()
 	const [selectedDate, setSelectedDate] = useState(new Date());
 
-	const renderInput = (props: TextFieldProps): ReactElement => (
-		<Input
-			type='text'
-			onClick={props.onClick}
-			value={props.value}
-			onChange={props.onChange}
-		/>
-	);
+	const handleDateChange = (date: Date | null) => {
+		setSelectedDate(date);
+	};
 
 	return (
-		<div>
-			<MuiPickersUtilsProvider utils={DateFnsUtils}>
-				<ThemeProvider theme={customTheme}>
-					<DatePicker
-						open={true}
-						format='MMMM d, yyyy'
-						margin="normal"
-						disableToolbar
-						variant="inline"
-						label='Basic example'
-						value={selectedDate}
-						onChange={setSelectedDate}
-						TextFieldComponent={renderInput}
-					/>
-				</ThemeProvider>
-			</MuiPickersUtilsProvider>
-		</div>
+		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+			<ThemeProvider theme={customTheme}>
+				<KeyboardDatePicker
+					className={classes.searchBarStyle}
+					disableToolbar
+					variant="inline"
+					format="MM/dd/yyyy"
+					margin="normal"
+					id="date-picker-inline"
+					value={selectedDate}
+					onChange={handleDateChange}
+					inputVariant='outlined'
+					KeyboardButtonProps={{
+						'aria-label': 'change date',
+					}}
+				/>
+			</ThemeProvider>
+		</MuiPickersUtilsProvider>
 	);
 };
 
