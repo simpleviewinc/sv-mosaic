@@ -1,14 +1,15 @@
-/* eslint @typescript-eslint/no-empty-interface: 0 */  // --> OFF
+/* eslint @typescript-eslint/no-empty-interface: 0 */ // --> OFF
 
 /**
  * According to https://material-ui-pickers.dev/guides/css-overrides#typescript
- * to override styles it is  required to extend default material-ui theme typings 
- * with pickers controls. That is why the no-empty-interface 
+ * to override styles it is  required to extend default material-ui theme typings
+ * with pickers controls. That is why the no-empty-interface
  * linter rule is disabled for this file.
  */
 
 import { MuiPickersOverrides } from '@material-ui/pickers/typings/overrides';
 import { createTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import theme from '@root/theme';
 
 type overridesNameToClassKey = {
@@ -95,3 +96,21 @@ export const customTheme = createTheme({
 		},
 	},
 });
+
+export const useStyles = makeStyles((_theme) => ({
+	searchBarStyle: {
+		'& .MuiOutlinedInput-root': {
+			'&:hover': {
+				backgroundColor: theme.colors.gray200,
+			},
+			'& fieldset': {
+				borderRadius: '0',
+				border: `1px solid ${theme.colors.simplyGray}`,
+			},
+			'&.Mui-focused fieldset': {
+				borderColor: theme.colors.almostBlack,
+				borderWidth: '2px',
+			},
+		},
+	},
+}));
