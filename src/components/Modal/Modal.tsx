@@ -122,9 +122,9 @@ const Modal = (props: ModalProps): ReactElement => {
 
 	return (
 		<StyledDialog fullScreen={isMobileView} open={open} onClose={(e) => cancel(e)}>
+			<StyledDisabledForm disabled={state.disabled} />
 			{isMobileView ? displayMobile : displayDesktop}
 			<DialogContent>
-				<StyledDisabledForm disabled={state.disabled} />
 				<FormLayout
 					state={state}
 					dispatch={dispatch}
