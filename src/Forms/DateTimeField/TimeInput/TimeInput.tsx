@@ -2,12 +2,12 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 
 // Styled Components
-import { SingleDateCalendarProps } from './SingleDateCalendarTypes';
+import { TimeInputProps } from './TimeInputTypes';
 import Field from '@root/components/Field';
-import DatePicker from '../DatePicker';
-import { DateFormatSpan, DateTimePickerWrapper } from './SingleDateCalendar.styled';
+import TimePicker from '../TimePicker';
+import { DateFormatSpan, DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
 
-const SingleDateCalendar = (props: SingleDateCalendarProps): ReactElement => {
+const TimeInput = (props: TimeInputProps): ReactElement => {
 	const {
 		label,
 		required,
@@ -27,11 +27,11 @@ const SingleDateCalendar = (props: SingleDateCalendarProps): ReactElement => {
 			instructionText={instructionText}
 		>
 			<DateTimePickerWrapper>
-				<DatePicker />
+				<TimePicker />
 				<DateFormatSpan>Month, Day, Year</DateFormatSpan>
 			</DateTimePickerWrapper>
 		</Field>
 	);
 };
 
-export default SingleDateCalendar;
+export default TimeInput;
