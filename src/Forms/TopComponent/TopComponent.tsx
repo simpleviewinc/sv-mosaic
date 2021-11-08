@@ -54,6 +54,15 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const [isResponsiveView, setIsResponsiveView] = useState(false);
 	const [isMobileView, setIsMobileView] = useState(false);
 	const [isBigView, setIsBigView] = useState(false);
+	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+
+	const handleCloseTooltip = () => {
+		setTooltipIsOpen(false);
+	};
+
+	const handleOpenTooltip = () => {
+		setTooltipIsOpen(true);
+	};
 
 	const handleActiveClick = () => {
 		setActiveChecked(!activeChecked);
@@ -115,15 +124,29 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const helpIcon = useMemo(
 		() => (
 			<StyledHelpIconWrapper
+				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
 				showActive={showActive}
 				isResponsiveView={isResponsiveView}
 			>
-				<Tooltip text={tooltipInfo}>
+				<Tooltip
+					open={tooltipIsOpen}
+					onOpen={handleOpenTooltip}
+					onClose={handleCloseTooltip}
+					text={tooltipInfo}
+				>
 					<StyledHelpIcon />
 				</Tooltip>
 			</StyledHelpIconWrapper>
 		),
-		[showActive, isResponsiveView, tooltipInfo]
+		[
+			showActive,
+			isResponsiveView,
+			tooltipInfo,
+			setTooltipIsOpen,
+			tooltipIsOpen,
+			handleOpenTooltip,
+			handleCloseTooltip,
+		]
 	);
 
 	const desktopView = (
