@@ -1,4 +1,3 @@
-
 import { FieldProps } from "@root/components/Field";
 
-export type SingleDateCalendarProps = FieldProps
+export type DateRangeCalendarProps = FieldProps
