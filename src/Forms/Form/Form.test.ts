@@ -4,7 +4,7 @@ import { useForm, actions } from "./formUtilsTest";
 import { FieldDefProps } from "@root/components/Field";
 import { generateLayout } from "./formUtils";
 
-describe('Reducer logic', () => {
+describe('Layout logic', () => {
 	// const { state, dispatch, events, registerFields } = useForm();
 
 	// const fields = [
@@ -109,7 +109,7 @@ describe('Reducer logic', () => {
 			}
 		},
 		{
-			name: 'Ignore empty layouts',
+			name: 'Ignore empty positions',
 			args: {
 				type: 'sections',
 				data: sections,
@@ -128,6 +128,40 @@ describe('Reducer logic', () => {
 				]
 			}
 		},
+		{
+			name: 'No sections',
+			args: {
+				type: 'sections',
+				data: [
+					{
+						fields: [
+							// row 1
+							[[], [], []],
+							// row 2
+							[[], [], []],
+							[[]],
+						]
+					},
+					{
+						fields: [
+							// row 1
+							[[], [], []],
+							// row 2
+							[[], [], []],
+							[[]],
+						]
+					}
+				],
+				result: [
+					{
+						fields: []
+					},
+					{
+						fields: []
+					},
+				]
+			}
+		}
 	];
 
 	testArray(tests, test => {
@@ -135,7 +169,7 @@ describe('Reducer logic', () => {
 		test.type === 'fields' ?
 			result = generateLayout({ fields })
 			:
-			result = generateLayout({ fields, sections })
+			result = generateLayout({ fields, sections: test.data })
 		
 		assert.deepStrictEqual(result, test.result);
 	});
