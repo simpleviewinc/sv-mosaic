@@ -13,7 +13,7 @@ const TextField = (
 	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		label = '',
+		name,
 		inputSettings,
 		className,
 		disabled = false,
@@ -52,7 +52,7 @@ const TextField = (
 		// 	size={inputSettings?.size}
 		// >
 		<StyledTextField
-			id={inputSettings?.htmlFor}
+			id={name}
 			value={value}
 			// value={inputSettings?.value}
 			onChange={(e) => onChange(e.target.value)}

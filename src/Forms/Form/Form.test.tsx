@@ -1,8 +1,13 @@
+import * as React from 'react';
+import { render, cleanup, fireEvent, screen, findByText } from '@testing-library/react';
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
-import { useForm, actions } from "./formUtilsTest";
+import { useForm, actions, generateLayout } from "./formUtils";
 import { FieldDefProps } from "@root/components/Field";
-import { generateLayout } from "./formUtils";
+import Form from './Form';
+import { useCallback, useMemo } from 'react';
+
+afterEach(cleanup);
 
 describe('Layout logic', () => {
 	// const { state, dispatch, events, registerFields } = useForm();
@@ -173,5 +178,98 @@ describe('Layout logic', () => {
 		
 		assert.deepStrictEqual(result, test.result);
 	});
+});
 
+const FormExample = () => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Full Name",
+					type: "text",
+					instructionText: 'testing',
+				},
+				{
+					name: "text2",
+					label: "Email",
+					type: "text",
+				},
+				{
+					name: "text3",
+					label: "Age",
+					type: "text",
+				},
+				{
+					name: "text4",
+					label: "City",
+					type: "text"
+				}
+			] as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const changeValue = (field, newValue) => {
+		dispatch(
+			actions.setFieldValue({
+				name: field,
+				value: newValue,
+				validate: false,
+			})
+		);
+	}
+
+	// const submitForm = useCallback((data) => {
+	// 	alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	// }, [state.validForm]);
+
+	// useMemo(() => {
+	// 	registerOnSubmit(submitForm);
+	// }, [submitForm, registerOnSubmit]);
+
+
+	return (
+		<>
+			<div>{JSON.stringify(state.data, null, "  ")}</div>
+			<Form
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+			/>
+			<button onClick={() => changeValue('text1', 'abc')}>Change text1 value</button>
+			<button onClick={() => changeValue('text2', 'def')}>Change text2 value</button>
+		</>
+	);
+};
+
+describe('Reducer logic', () => {
+	it('Set value to field through buttons', async () => {
+		const { getByText, findByText } = render(<FormExample/>);
+		const changeText1 = getByText('Change text1 value');
+		const changeText2 = getByText('Change text2 value');
+
+		fireEvent.click(changeText1);
+		const text1Data = await findByText(`"text1": "abc"`, {exact: false});
+		expect(text1Data.innerHTML).toEqual('{\n  "text1": "abc"\n}');
+
+		fireEvent.click(changeText2);
+		const text2Data = await findByText(`"text2": "def"`, {exact: false});
+		expect(text2Data.innerHTML).toEqual('{\n  "text1": "abc",\n  "text2": "def"\n}');
+	});
+
+	it('Set value to field through typing', async () => {
+		const { getByLabelText, findByText } = render(<FormExample/>);
+		const fullNameInput = getByLabelText('Full Name');
+
+		fireEvent.change(fullNameInput, { target: { value: 'abc'}});
+		const text1Data = await findByText(`"text1": "abc"`, {exact: false});
+		expect(text1Data.innerHTML).toEqual('{\n  "text1": "abc"\n}');
+	});
 });

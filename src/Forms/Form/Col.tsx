@@ -96,15 +96,16 @@ const Col = (props) => {
 				const onChange = onChangeMap[fieldProps.name];
 
 				const onBlur = onBlurMap[fieldProps.name];
-
-				const value = state.data[fieldProps.name] || '';
-				const touched = state.touched[fieldProps.name] || '';
-				const error = state.errors[fieldProps.name] ? true : false;
-				const errorText = state.errors[fieldProps.name] || '';
+				const name = fieldProps.name;
+				const value = state?.data[fieldProps.name] || '';
+				const touched = state?.touched[fieldProps.name] || '';
+				const error = state?.errors[fieldProps.name] ? true : false;
+				const errorText = state?.errors[fieldProps.name] || '';
 
 				const children = useMemo(() => (
 					<Component
 						{...currentField}
+						name={name}
 						value={value}
 						touched={touched}
 						error={error}
