@@ -288,8 +288,6 @@ export const generateLayout = ({sections, fields}: {sections?: any, fields: any}
 			}
 		}
 
-		console.log(customLayout);
-
 		return customLayout;
 	}
 };
