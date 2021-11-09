@@ -1,7 +1,5 @@
-
 import theme from '@root/theme';
 import styled from 'styled-components';
-
 
 export const DateTimePickerWrapper = styled.div`
   display: flex;

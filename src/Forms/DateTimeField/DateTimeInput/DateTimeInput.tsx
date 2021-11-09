@@ -2,19 +2,17 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 
 // Styled Components
-import { DateRangeCalendarProps } from './DateRangeCalendarTypes';
+import { DateTimeInputProps } from './DateTimeInputTypes';
 import Field from '@root/components/Field';
 import DatePicker from '../DatePicker';
-import {
-	DateRangeCalendarWrapper,
-	StyledSpan,
-} from './DateRangeCalendar.styled';
 import {
 	DateFormatSpan,
 	DateTimePickerWrapper,
 } from '../SingleDateCalendar/SingleDateCalendar.styled';
+import TimePicker from '../TimePicker';
+import { DateTimeInputRow } from './DateTimeInput.styled';
 
-const DateRangeCalendar = (props: DateRangeCalendarProps): ReactElement => {
+const DateRangeCalendar = (props: DateTimeInputProps): ReactElement => {
 	const {
 		label,
 		required,
@@ -22,10 +20,10 @@ const DateRangeCalendar = (props: DateRangeCalendarProps): ReactElement => {
 		instructionText,
 		error,
 		errorText,
-		fromValue,
-		onChangeFrom,
-		onChangeTo,
-		toValue
+		dateValue,
+		onChangeDate,
+		onChangeTime,
+		timeValue,
 	} = props;
 
 	return (
@@ -37,17 +35,16 @@ const DateRangeCalendar = (props: DateRangeCalendarProps): ReactElement => {
 			errorText={errorText}
 			instructionText={instructionText}
 		>
-			<DateRangeCalendarWrapper>
+			<DateTimeInputRow>
 				<DateTimePickerWrapper>
-					<DatePicker onChange={onChangeFrom} value={fromValue}/>
+					<DatePicker onChange={onChangeDate} value={dateValue}/>
 					<DateFormatSpan>Month, Day, Year</DateFormatSpan>
 				</DateTimePickerWrapper>
-				<StyledSpan>To</StyledSpan>
 				<DateTimePickerWrapper>
-					<DatePicker onChange={onChangeTo} value={toValue}/>
-					<DateFormatSpan>Month, Day, Year</DateFormatSpan>
+					<TimePicker onChange={onChangeTime} value={timeValue}/>
+					<DateFormatSpan>Hour, Minute, AM or PM</DateFormatSpan>
 				</DateTimePickerWrapper>
-			</DateRangeCalendarWrapper>
+			</DateTimeInputRow>
 		</Field>
 	);
 };

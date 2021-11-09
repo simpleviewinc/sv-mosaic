@@ -1,3 +1,9 @@
-import { FieldProps } from "@root/components/Field";
+import { TimePickerProps } from '../TimePicker/TimePickerTypes';
 
-export type TimeInputProps = FieldProps
+export interface TimeInputProps extends TimePickerProps {
+  /**
+   * Disabling this field should show the
+   * time value selected.
+   */
+  disabled?: boolean;
+}

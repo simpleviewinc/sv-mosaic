@@ -1,3 +1,3 @@
 export { default } from './TimeInput';
 export * from './TimeInput';
-//export * from './TimeInputTypes';
+export * from './TimeInputTypes';

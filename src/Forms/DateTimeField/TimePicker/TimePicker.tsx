@@ -1,21 +1,17 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import DateFnsUtils from '@date-io/date-fns';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { TimePickerProps } from './TimePickerTypes';
+
+// Components
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 // Styles
+import { ThemeProvider } from '@material-ui/core/styles';
 import { customTheme, StyledTimePicker } from './TimePicker.styled';
 
-const TimePicker = () => {
-	const [selectedDate, setSelectedDate] = useState<Date | null>(
-		new Date('2014-08-18T21:11:54')
-	);
-
-	const handleDateChange = (date: Date | null) => {
-		setSelectedDate(date);
-	};
+const TimePicker = (props: TimePickerProps) => {
+	const { onChange, value } = props;
 
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -23,9 +19,19 @@ const TimePicker = () => {
 				<StyledTimePicker
 					inputVariant='outlined'
 					variant='inline'
-					value={selectedDate}
-					onChange={handleDateChange}
+					value={value}
+					onChange={onChange}
 					keyboardIcon={<ScheduleIcon />}
+					PopoverProps={{
+						anchorOrigin: {
+							vertical: 'bottom',
+							horizontal: 'center',
+						},
+						transformOrigin: {
+							vertical: 'top',
+							horizontal: 'center',
+						},
+					}}
 				/>
 			</ThemeProvider>
 		</MuiPickersUtilsProvider>
