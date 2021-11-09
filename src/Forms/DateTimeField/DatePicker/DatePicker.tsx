@@ -1,39 +1,46 @@
 import * as React from 'react';
-import { useState, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-	MuiPickersUtilsProvider,
-	KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { DatePickerProps, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 // Styles
-import { customTheme, useStyles } from './DatePicker.styled';
+import { customTheme, StyledDatePicker } from './DatePicker.styled';
 
-const DatePicker = (): ReactElement => {
-	const classes = useStyles();
-	const [selectedDate, setSelectedDate] = useState(new Date());
-
-	const handleDateChange = (date: Date | null) => {
-		setSelectedDate(date);
-	};
+const DatePicker = (props: DatePickerProps): ReactElement => {
+	const {
+		onChange,
+		value
+	} = props;
 
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<ThemeProvider theme={customTheme}>
-				<KeyboardDatePicker
-					className={classes.searchBarStyle}
+				<StyledDatePicker
 					disableToolbar
 					variant='inline'
 					format='MM/dd/yyyy'
 					margin='normal'
 					id='date-picker-inline'
-					value={selectedDate}
-					onChange={handleDateChange}
+					value={value}
+					onChange={onChange}
 					inputVariant='outlined'
 					KeyboardButtonProps={{
 						'aria-label': 'change date',
 					}}
+					PopoverProps={{
+						anchorOrigin: {
+							vertical: "bottom",
+							horizontal: "center",
+						},
+						transformOrigin: {
+							vertical: "top",
+							horizontal: "center",
+						},
+					}}
+					invalidDateMessage={null}
+					maxDateMessage={null}
+					minDateMessage={null}
 				/>
 			</ThemeProvider>
 		</MuiPickersUtilsProvider>

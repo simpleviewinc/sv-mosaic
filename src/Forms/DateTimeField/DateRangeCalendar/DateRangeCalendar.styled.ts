@@ -5,7 +5,7 @@ import theme from '@root/theme';
 
 export const DateRangeCalendarWrapper = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
 `;
 
 export const StyledSpan = styled.span`
