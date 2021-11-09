@@ -172,7 +172,7 @@ export const FormWithLayout = (): ReactElement => {
 		},
 		{
 			title: "Section 2",
-			description: "Description for section 1",
+			description: "Description for section 2",
 			fields: [
 				// row 1
 				[[], [], []],
@@ -181,6 +181,19 @@ export const FormWithLayout = (): ReactElement => {
 				[[]],
 				// row 3
 				[[], ["text4"]]
+			]
+		},
+		{
+			title: "Section 3",
+			description: "Description for section 3",
+			fields: [
+				// row 1
+				[[], [], []],
+				// row 2
+				[[], [], []],
+				[[]],
+				// row 3
+				[[], []]
 			]
 		}
 	], [fields]);
