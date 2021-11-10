@@ -54,9 +54,8 @@ describe('The behaviour of the error text and the helper text', () => {
 				inputSettings={{
 					placeholder: 'placeholder',
 				}}
-				error={true}
+				error={'Error text'}
 				helperText='Helper text'
-				errorText='Error text'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -74,9 +73,8 @@ describe('The behaviour of the error text and the helper text', () => {
 				inputSettings={{
 					placeholder: 'placeholder',
 				}}
-				error={false}
+				error={''}
 				helperText='Helper text'
-				errorText='Error text'
 				onChange={() => jest.fn()}
 			/>
 		);

@@ -11,36 +11,19 @@ const TextArea = (
 	props: TextAreaProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		label,
 		inputSettings,
 		className,
 		disabled = false,
-		error = false,
-		helperText,
-		instructionText,
-		errorText,
+		error,
 		required,
 		onChange,
 		onBlur,
 		value,
 	} = props;
 
-	const errorWithMessage = error && errorText?.trim().length > 0;
+	const errorWithMessage = error?.trim().length > 0;
 
 	return (
-		// <Field
-		// 	label={label}
-		// 	required={required}
-		// 	disabled={disabled}
-		// 	error={error}
-		// 	errorText={errorText}
-		// 	helperText={helperText}
-		// 	instructionText={instructionText}
-		// 	maxCharacters={inputSettings?.maxCharacters}
-		// 	htmlFor={inputSettings?.htmlFor}
-		// 	value={inputSettings?.value}
-		// 	size={inputSettings?.size}
-		// >
 		<StyledTextArea
 			id={inputSettings?.htmlFor}
 			value={value}

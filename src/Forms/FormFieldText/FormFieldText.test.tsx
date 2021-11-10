@@ -36,9 +36,8 @@ describe('The behaviour of the error text and the helper text', () => {
 		render(
 			<TextField
 				label='Label test'
-				error={true}
+				error={'Error text'}
 				helperText='Helper text'
-				errorText='Error text'
 				placeholder='placeholder'
 				onChange={() => jest.fn()}
 			/>
@@ -54,9 +53,7 @@ describe('The behaviour of the error text and the helper text', () => {
 		render(
 			<TextField
 				label='Label test'
-				error={false}
 				helperText='Helper text'
-				errorText='Error text'
 				placeholder='placeholder'
 				onChange={() => jest.fn()}
 			/>

@@ -22,13 +22,7 @@ const FormFieldCheckbox = (
 	props: FormFieldCheckboxProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		label,
-		required,
 		disabled,
-		error,
-		errorText,
-		helperText,
-		instructionText,
 		onChange,
 		onBlur,
 		inputSettings,
@@ -36,15 +30,6 @@ const FormFieldCheckbox = (
 	} = props;
 
 	return (
-		// <Field
-		// 	label={label}
-		// 	required={required}
-		// 	disabled={disabled}
-		// 	error={error}
-		// 	errorText={errorText}
-		// 	helperText={helperText}
-		// 	instructionText={instructionText}
-		// >
 		<StyledCheckboxList
 			disabled={disabled}
 			checked={value}
@@ -52,7 +37,6 @@ const FormFieldCheckbox = (
 			onChange={onChange}
 			onBlur={onBlur}
 		/>
-		// </Field>
 	);
 };
 

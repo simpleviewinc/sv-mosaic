@@ -38,8 +38,7 @@ export const Default = () : ReactElement => {
 			}}
 			helperText={text('Helper text', '')}
 			instructionText={text('Instructional text', '')}
-			errorText={text('Error text', '')}
-			error={boolean('Error', false)}
+			error={text('Error text', '')}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
 			required={boolean('Required', true)}

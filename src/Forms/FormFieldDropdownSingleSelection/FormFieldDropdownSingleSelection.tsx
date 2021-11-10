@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, memo } from "react";
+import { useState, memo, HTMLAttributes } from "react";
 import {
 	StyledAutocomplete,
 	StyledHelperText,
@@ -18,19 +18,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // Components
 import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
 import InputWrapper from '../../components/InputWrapper';
-import Label from '@root/components/Typography/Label';
 
-const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
-	const [selectedOption, setSelectedOption] = useState('');
-	const [error, setError] = useState(false);
-
-	const onBlur = (e) => {
-		if (props.required && (!e.target.value || e.target.value?.trim().length === 0)) {
-			setError(true);
-		} else {
-			setError(false);
-		}
-	}
+const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttributes<HTMLInputElement>) => {
+	const {
+		disabled = false,
+		error,
+		required = true,
+		onChange,
+		onBlur,
+		inputSettings,
+		value
+	} = props;
 
 	const renderInput = (params) => (
 		<InputWrapper>
@@ -38,72 +36,38 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 				{...params}
 				data-testid="textfield-test-id"
 				variant="outlined"
-				placeholder={props.placeholder}
-				onBlur={(e) => onBlur(e)}
+				placeholder={inputSettings?.placeholder}
 			/>
-			<StyledInstructionText
-				data-testid="instruction-text-test-id"
-			>
-				{props.instructionText}
-			</StyledInstructionText>
 		</InputWrapper>
 	);
 
-	return (
-		<StyledErrorWrapper
-			error={error && props.required}
-			data-testid="error-wrapper-test-id"
-		>	
-			<Label 
-				disabled={props.disabled}
-				required={props.required}
-				data-testid="label-test-id"
-			>
-				{props.label}
-			</Label>
-			{!props.disabled ? 
-				<>
-					<StyledAutocomplete
-						data-testid="autocomplete-test-id"
-						options={props.options}
-						size={props.size}
-						getOptionLabel={(option) => option.title}
-						onChange={(_event, option) => setSelectedOption(option.title)}
-						error={props.required && error}
-						errorText={props.errorText}
-						renderInput={renderInput}
-						disablePortal={true}
-						popupIcon={<ExpandMoreIcon />}
-					/>
-					{(!error && props.helperText?.trim().length > 0) &&
-						<StyledHelperText
-							data-testid="helper-text-test-id"
-						>
-							{props.helperText}
-						</StyledHelperText>
-					}
+	const errorWithMessage = error?.trim().length > 0;
 
-					{(error && props.required && props.errorText?.trim().length > 0) &&
-						<StyledErrorMessage
-							data-testid="error-message-test-id"
-						>
-							<StyledErrorIcon />
-							<StyledErrorText>
-								{props.errorText}
-							</StyledErrorText>
-						</StyledErrorMessage>
-					}
-				</>
+	return (
+		<>
+			{!disabled ? 
+				<StyledAutocomplete
+					data-testid="autocomplete-test-id"
+					options={inputSettings?.options}
+					size={inputSettings?.size}
+					getOptionLabel={(option) => option.title}
+					onChange={(_event, option) => onChange(option)}
+					error={!!(required && errorWithMessage)}
+					renderInput={renderInput}
+					disablePortal={true}
+					popupIcon={<ExpandMoreIcon />}
+					onBlur={(e) => onBlur(e.target.value)}
+				/>
 				:
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
-					{(!selectedOption || selectedOption.trim() === '') ? 
-						props.placeholder : selectedOption
+					{(!value?.option || value.option.trim() === '') ? 
+						inputSettings?.placeholder : value.option
 					}
 				</StyledDisabledDropdownText>
 			}
-		</StyledErrorWrapper>
+		</>
 	);
 };
 
