@@ -34,5 +34,5 @@ export interface TextAreaProps extends FieldProps {
 
 export interface StyledTextAreaProps {
 	disabled: boolean;
-	error: boolean;
+	error: string;
 }

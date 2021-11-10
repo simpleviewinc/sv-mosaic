@@ -6,12 +6,22 @@ import { actions } from './formUtils';
 import FormFieldText from '../FormFieldText';
 import FormFieldTextArea from '../FormFieldTextArea';
 import FormFieldCheckbox from '../FormFieldCheckbox';
+import FormFieldChipSingleSelect from '../FormFieldChipSingleSelect';
+import FormFieldDropdownSingleSelection from '../FormFieldDropdownSingleSelection';
+import FormFieldPhoneSelectionDropdown from '../FormFieldPhoneSelectionDropdown';
+import FormFieldRadio from '../FormFieldRadio';
+import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
 import Field from '@root/components/Field';
 
 const componentMap = {
 	text: FormFieldText,
 	textArea: FormFieldTextArea,
 	checkbox: FormFieldCheckbox,
+	chip: FormFieldChipSingleSelect,
+	dropdown: FormFieldDropdownSingleSelection,
+	phone: FormFieldPhoneSelectionDropdown,
+	radio: FormFieldRadio,
+	toggleSwitch: FormFieldToggleSwitch,
 };
 
 const StyledCol = styled.div`
@@ -82,15 +92,6 @@ const Col = (props) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				//THIS PRODUCES MULTIPLE RENDERING
-				// currentField = {
-				// 	...currentField,
-				// 	inputSettings: {
-				// 		...currentField.inputSettings,
-				// 		value: state.data[fieldProps.name] || ''
-				// 	}
-				// }
-
 				const Component = componentMap[type];
 
 				const onChange = onChangeMap[fieldProps.name];
@@ -99,8 +100,7 @@ const Col = (props) => {
 
 				const value = state.data[fieldProps.name] || '';
 				const touched = state.touched[fieldProps.name] || '';
-				const error = state.errors[fieldProps.name] ? true : false;
-				const errorText = state.errors[fieldProps.name] || '';
+				const error = state.errors[fieldProps.name] || '';
 
 				const children = useMemo(() => (
 					<Component
@@ -108,11 +108,10 @@ const Col = (props) => {
 						value={value}
 						touched={touched}
 						error={error}
-						errorText={errorText}
 						onChange={onChange}
 						onBlur={onBlur}
 					/>
-				), [value, error, errorText, onChange, onBlur, touched, currentField]);
+				), [value, error, onChange, onBlur, touched, currentField]);
 
 				return (
 					<Field
@@ -120,7 +119,6 @@ const Col = (props) => {
 						{...currentField}
 						value={value}
 						error={error}
-						errorText={errorText}
 					>
 						{children}
 					</Field>

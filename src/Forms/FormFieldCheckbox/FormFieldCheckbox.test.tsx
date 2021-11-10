@@ -41,9 +41,8 @@ describe('The FormFieldCheckbox behavior', () => {
 						options
 	
 					}}
-					error={false}
+					error={'Error text'}
 					instructionText='Instruction text'
-					errorText='Error text'
 					onChange={onChange}
 				/>
 			);
@@ -72,10 +71,9 @@ describe('The instructionText and the errorText behavior', () => {
 					options
 
 				}}
-				error={true}
+				error={'Error text'}
 				required={true}
 				instructionText='Instruction text'
-				errorText='Error text'
 				onChange={jest.fn()}
 			/>
 		);
@@ -95,9 +93,8 @@ describe('The instructionText and the errorText behavior', () => {
 					options
 
 				}}
-				error={false}
+				error={'Error text'}
 				instructionText='Instruction text'
-				errorText='Error text'
 				onChange={jest.fn()}
 			/>
 		);
