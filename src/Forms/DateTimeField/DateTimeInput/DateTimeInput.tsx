@@ -1,52 +1,70 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-
-// Styled Components
 import { DateTimeInputProps } from './DateTimeInputTypes';
-import Field from '@root/components/Field';
-import DatePicker from '../DatePicker';
-import {
-	DateFormatSpan,
-	DateTimePickerWrapper,
-} from '../SingleDateCalendar/SingleDateCalendar.styled';
-import TimePicker from '../TimePicker';
-import { DateTimeInputRow } from './DateTimeInput.styled';
 
-const DateRangeCalendar = (props: DateTimeInputProps): ReactElement => {
+// Components
+import DatePicker from '../DatePicker';
+import HelperText from '@root/components/HelperText';
+import TimePicker from '../TimePicker';
+
+// Styles Components
+import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
+import { DateTimeInputRow } from './DateTimeInput.styled';
+import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
+
+const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 	const {
-		label,
-		required,
-		disabled,
-		instructionText,
 		error,
-		errorText,
+		disabled,
 		dateValue,
 		onChangeDate,
 		onChangeTime,
 		timeValue,
+		required,
 	} = props;
 
 	return (
-		<Field
-			label={label}
-			required={required}
-			disabled={disabled}
-			error={error}
-			errorText={errorText}
-			instructionText={instructionText}
-		>
-			<DateTimeInputRow>
-				<DateTimePickerWrapper>
-					<DatePicker onChange={onChangeDate} value={dateValue}/>
-					<DateFormatSpan>Month, Day, Year</DateFormatSpan>
-				</DateTimePickerWrapper>
-				<DateTimePickerWrapper>
-					<TimePicker onChange={onChangeTime} value={timeValue}/>
-					<DateFormatSpan>Hour, Minute, AM or PM</DateFormatSpan>
-				</DateTimePickerWrapper>
-			</DateTimeInputRow>
-		</Field>
+		<DateTimeInputRow>
+			{!disabled ? (
+				<>
+					<DateTimePickerWrapper>
+						<DatePicker
+							error={error}
+							onChange={onChangeDate}
+							placeholder='Start'
+							required={required}
+							value={dateValue}
+						/>
+						<HelperText>Month, Day, Year</HelperText>
+					</DateTimePickerWrapper>
+					<DateTimePickerWrapper>
+						<TimePicker
+							error={error}
+							onChange={onChangeTime}
+							placeholder='00:00 AM/PM'
+							value={timeValue}
+						/>
+						<HelperText>Hour, Minute, AM or PM</HelperText>
+					</DateTimePickerWrapper>
+				</>
+			) : (
+				<>
+					<DisabledDateTimeValue>
+						{dateValue ? dateValue.toLocaleDateString('en-US') : 'Start'}
+					</DisabledDateTimeValue>
+					<DisabledDateTimeValue>
+						{timeValue
+							? timeValue.toLocaleString('en-US', {
+								hour: 'numeric',
+								minute: 'numeric',
+								hour12: true,
+							})
+							: '00:00 AM/PM'}
+					</DisabledDateTimeValue>
+				</>
+			)}
+		</DateTimeInputRow>
 	);
 };
 
-export default DateRangeCalendar;
+export default DateTimeInput;

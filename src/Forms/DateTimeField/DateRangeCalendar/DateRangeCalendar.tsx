@@ -3,52 +3,47 @@ import { ReactElement } from 'react';
 
 // Styled Components
 import { DateRangeCalendarProps } from './DateRangeCalendarTypes';
-import Field from '@root/components/Field';
 import DatePicker from '../DatePicker';
 import {
 	DateRangeCalendarWrapper,
 	StyledSpan,
 } from './DateRangeCalendar.styled';
-import {
-	DateFormatSpan,
-	DateTimePickerWrapper,
-} from '../SingleDateCalendar/SingleDateCalendar.styled';
+import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
+import HelperText from '@root/components/HelperText';
+import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
 const DateRangeCalendar = (props: DateRangeCalendarProps): ReactElement => {
-	const {
-		label,
-		required,
-		disabled,
-		instructionText,
-		error,
-		errorText,
-		fromValue,
-		onChangeFrom,
-		onChangeTo,
-		toValue
-	} = props;
+	const { error, disabled, fromValue, onChangeFrom, onChangeTo, required, toValue } = props;
+
+	const dateFormatText = <HelperText>Month, Day, Year</HelperText>;
+	const toText = <StyledSpan disabled={disabled}>To</StyledSpan>;
 
 	return (
-		<Field
-			label={label}
-			required={required}
-			disabled={disabled}
-			error={error}
-			errorText={errorText}
-			instructionText={instructionText}
-		>
-			<DateRangeCalendarWrapper>
-				<DateTimePickerWrapper>
-					<DatePicker onChange={onChangeFrom} value={fromValue}/>
-					<DateFormatSpan>Month, Day, Year</DateFormatSpan>
-				</DateTimePickerWrapper>
-				<StyledSpan>To</StyledSpan>
-				<DateTimePickerWrapper>
-					<DatePicker onChange={onChangeTo} value={toValue}/>
-					<DateFormatSpan>Month, Day, Year</DateFormatSpan>
-				</DateTimePickerWrapper>
-			</DateRangeCalendarWrapper>
-		</Field>
+		<DateRangeCalendarWrapper>
+			{!disabled ? (
+				<>
+					<DateTimePickerWrapper>
+						<DatePicker error={error} onChange={onChangeFrom} placeholder='Start' required={required} value={fromValue} />
+						{dateFormatText}
+					</DateTimePickerWrapper>
+					{toText}
+					<DateTimePickerWrapper>
+						<DatePicker error={error} onChange={onChangeTo} placeholder='End' required={required} value={toValue} />
+						{dateFormatText}
+					</DateTimePickerWrapper>
+				</>
+			) : (
+				<>
+					<DisabledDateTimeValue>
+						{fromValue ? fromValue.toLocaleDateString('en-US') : 'Start'}
+					</DisabledDateTimeValue>
+					{toText}
+					<DisabledDateTimeValue>
+						{toValue ? toValue.toLocaleDateString('en-US') : 'End'}
+					</DisabledDateTimeValue>
+				</>
+			)}
+		</DateRangeCalendarWrapper>
 	);
 };
 

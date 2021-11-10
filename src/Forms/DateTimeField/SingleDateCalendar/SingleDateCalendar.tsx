@@ -9,15 +9,21 @@ import DatePicker from '../DatePicker';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
 const SingleDateCalendar = (props: SingleDateCalendarProps): ReactElement => {
-	const { disabled, onChange, value } = props;
+	const { error, required, disabled, onChange, value } = props;
 
 	return (
 		<>
 			{!disabled ? (
-				<DatePicker onChange={onChange} value={value} />
+				<DatePicker
+					error={error}
+					required={required}
+					onChange={onChange}
+					placeholder='MM / DD / YYYY'
+					value={value}
+				/>
 			) : (
 				<DisabledDateTimeValue>
-					{value.toLocaleDateString('en-US')}
+					{value ? value.toLocaleDateString('en-US') : 'MM / DD / YYYY'}
 				</DisabledDateTimeValue>
 			)}
 		</>
