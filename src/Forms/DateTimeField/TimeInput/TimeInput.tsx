@@ -9,19 +9,27 @@ import TimePicker from '../TimePicker';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
 const TimeInput = (props: TimeInputProps): ReactElement => {
-	const { disabled, onChange, value } = props;
+	const { error, required, disabled, onChange, value } = props;
 
 	return (
 		<>
 			{!disabled ? (
-				<TimePicker onChange={onChange} value={value} />
+				<TimePicker
+					error={error}
+					required={required}
+					onChange={onChange}
+					placeholder='00:00 AM/PM'
+					value={value}
+				/>
 			) : (
 				<DisabledDateTimeValue>
-					{value.toLocaleString('en-US', {
-						hour: 'numeric',
-						minute: 'numeric',
-						hour12: true,
-					})}
+					{value
+						? value.toLocaleString('en-US', {
+							hour: 'numeric',
+							minute: 'numeric',
+							hour12: true,
+						})
+						: '00:00 AM/PM'}
 				</DisabledDateTimeValue>
 			)}
 		</>

@@ -1,47 +1,60 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
-import { DatePickerProps, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 // Styles
-import { customTheme, StyledDatePicker } from './DatePicker.styled';
+import { ThemeProvider } from '@material-ui/core/styles';
+import {
+	customTheme,
+	DatePickerWrapper,
+	StyledDatePicker,
+} from './DatePicker.styled';
+import { DatePickerProps } from './DatePickerTypes';
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
-	const {
-		onChange,
-		value
-	} = props;
+	const { error, required, onChange, placeholder, value, } = props;
+
+	const [isPickerOpen, setIsPickerOpen] = useState(false);
+
+	const handleOpenState = () => {
+		setIsPickerOpen(!isPickerOpen);
+	};
 
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<ThemeProvider theme={customTheme}>
-				<StyledDatePicker
-					disableToolbar
-					variant='inline'
-					format='MM/dd/yyyy'
-					margin='normal'
-					id='date-picker-inline'
-					value={value}
-					onChange={onChange}
-					inputVariant='outlined'
-					KeyboardButtonProps={{
-						'aria-label': 'change date',
-					}}
-					PopoverProps={{
-						anchorOrigin: {
-							vertical: "bottom",
-							horizontal: "center",
-						},
-						transformOrigin: {
-							vertical: "top",
-							horizontal: "center",
-						},
-					}}
-					invalidDateMessage={null}
-					maxDateMessage={null}
-					minDateMessage={null}
-				/>
+				<DatePickerWrapper isPickerOpen={isPickerOpen}>
+					<StyledDatePicker
+						disableToolbar
+						error={error}
+						variant='inline'
+						format='MM/dd/yyyy'
+						margin='normal'
+						value={value}
+						onChange={onChange}
+						inputVariant='outlined'
+						onOpen={handleOpenState}
+						onClose={handleOpenState}
+						PopoverProps={{
+							anchorOrigin: {
+								vertical: 'bottom',
+								horizontal: 'center',
+							},
+							transformOrigin: {
+								vertical: 'top',
+								horizontal: 'center',
+							},
+						}}
+						InputProps={{
+							placeholder: placeholder,
+							required: required,
+						}}
+						invalidDateMessage={null}
+						maxDateMessage={null}
+						minDateMessage={null}
+					/>
+				</DatePickerWrapper>
 			</ThemeProvider>
 		</MuiPickersUtilsProvider>
 	);

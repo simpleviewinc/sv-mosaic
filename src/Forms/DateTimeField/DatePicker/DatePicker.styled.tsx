@@ -8,10 +8,11 @@
  */
 
 import styled from 'styled-components';
-import { MuiPickersOverrides } from '@material-ui/pickers/typings/overrides';
+import theme from '@root/theme';
 import { createTheme } from '@material-ui/core/styles';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import theme from '@root/theme';
+import { MuiPickersOverrides } from '@material-ui/pickers/typings/overrides';
+import { Sizes } from '@root/theme/sizes';
 
 type overridesNameToClassKey = {
   [P in keyof MuiPickersOverrides]: keyof MuiPickersOverrides[P];
@@ -31,16 +32,16 @@ export const customTheme = createTheme({
 		MuiPaper: {
 			elevation8: {
 				boxShadow: '0px 1px 5px #1A1A1A29',
-				width: '280px',
+				width: Sizes.sm,
 			},
 		},
 
 		MuiPickersBasePicker: {
 			pickerView: {
 				justifyContent: 'none',
-				minHeight: '390px',
-				width: '280px',
+				width: Sizes.sm,
 				minWidth: '0',
+				minHeight: '322px',
 				border: `2px solid ${theme.colors.gray200}`,
 			},
 		},
@@ -72,7 +73,7 @@ export const customTheme = createTheme({
 						visibility: 'visible',
 						position: 'absolute',
 						top: 0,
-						left: '16px',
+						left: '20px',
 					},
 				},
 
@@ -84,7 +85,7 @@ export const customTheme = createTheme({
 						visibility: 'visible',
 						position: 'absolute',
 						top: 0,
-						left: '34px',
+						left: '37px',
 					},
 				},
 
@@ -144,7 +145,7 @@ export const customTheme = createTheme({
 						visibility: 'visible',
 						position: 'absolute',
 						top: 0,
-						left: '125px',
+						left: '128px',
 					},
 				},
 			},
@@ -167,15 +168,15 @@ export const customTheme = createTheme({
 
 			week: {
 				marginBottom: '24px',
-				justifyContent: 'none',
+				justifyContent: 'space-between',
 				margin: '0 16px 0 12px',
 
-				'&:last-child': {
-					paddingRight: 5,
+				'&:last-of-type': {
+					marginBottom: '16px',
 				},
 
-				'&:last-of-type': {
-					marginBottom: '0px',
+				'& div:last-of-type .MuiPickersDay-day': {
+					marginRight: '0',
 				},
 			},
 		},
@@ -206,12 +207,6 @@ export const customTheme = createTheme({
 			},
 		},
 
-		MuiSvgIcon: {
-			root: {
-				fill: theme.colors.gray600,
-			},
-		},
-
 		MuiFormControl: {
 			marginNormal: {
 				margin: 0,
@@ -220,25 +215,75 @@ export const customTheme = createTheme({
 	},
 });
 
-export const StyledDatePicker = styled(KeyboardDatePicker)`
-  width: 280px;
+export const StyledInputPicker = `
+  font-family: ${theme.fontFamily};
+  width: ${Sizes.sm};
 
   &.MuiFormControl-marginNormal {
     margin: 0;
+  }
+
+  .MuiOutlinedInput-input {
+    padding-left: 16px;
+  }
+
+  .MuiIconButton-root {
+    padding: 8px;
+  }
+
+  input,
+  .MuiOutlinedInput-adornedEnd {
+    background-color: ${theme.colors.gray100};
+
+    &:hover {
+      background-color: ${theme.colors.gray200};
+    }
+  }
+
+  .MuiOutlinedInput-adornedEnd {
+    padding-right: 6px;
+    &:hover input {
+      background-color: ${theme.colors.gray200};
+    }
   }
 
   input.MuiOutlinedInput-input {
     height: 14px;
   }
 
-  & .MuiOutlinedInput-root {
+  .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+    border-color: ${theme.colors.red};
+  }
+`;
+
+export const StyledDatePicker = styled(KeyboardDatePicker)`
+  ${StyledInputPicker}
+`;
+
+export const DisabledDateTimeValue = styled.span`
+  color: ${theme.colors.almostBlack};
+  font-family: ${theme.fontFamily};
+  font-size: 16px;
+`;
+
+export const DatePickerWrapper = styled.div`
+  input,
+  .MuiOutlinedInput-adornedEnd {
+    background-color: ${pr => pr.isPickerOpen ? theme.colors.gray200 : theme.colors.gray100};
+
+    &:hover {
+      background-color: ${theme.colors.gray200};
+    }
+  }
+
+  .MuiOutlinedInput-root {
     &:hover {
       background-color: ${theme.colors.gray200};
     }
 
     & fieldset {
       border-radius: 0;
-      border: 1px solid ${theme.colors.simplyGray};
+      border: ${pr => pr.isPickerOpen ? `1px solid ${theme.colors.almostBlack}` : `1px solid ${theme.colors.simplyGray}`};
     }
 
     &.Mui-focused fieldset {
@@ -246,10 +291,8 @@ export const StyledDatePicker = styled(KeyboardDatePicker)`
       border-width: 2px;
     }
   }
-`;
 
-export const DisabledDateTimeValue = styled.span`
-  color: ${theme.colors.almostBlack};
-  font-family: ${theme.fontFamily};
-  font-size: 16px;
+  .MuiIconButton-root {
+    color: ${pr => pr.isPickerOpen ? theme.colors.almostBlack : theme.colors.gray600};
+  }
 `;
