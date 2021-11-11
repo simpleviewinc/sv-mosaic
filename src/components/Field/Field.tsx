@@ -27,7 +27,6 @@ const Field = ({
 		if ((errorWithMessage || (errorWithMessage && required))) {
 			return <HelperText error={error}>{errorText}</HelperText>;
 		} else if (helperText) {
-			console.log(helperText);
 			return <HelperText>{helperText}</HelperText>;
 		}
 	}
