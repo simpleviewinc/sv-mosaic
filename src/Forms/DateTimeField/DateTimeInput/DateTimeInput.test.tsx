@@ -1,20 +1,8 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
 import DateTimeInput from '../DateTimeInput';
-//import * as DateFnsUtils from '@date-io/date-fns' // Works for test not for UI
 
 describe('DateTimeInput component', () => {
-	/* it('should should display the date picker component', () => {
-		const { getByText } = render(
-			<DateTimeInput
-				utils={DateFnsUtils}
-				disabled={false}
-				value={new Date('2018-01-01T00:00:00.000Z')}
-				onChange={() => jest.fn()}
-			/>
-		);
-	}); */
-
 	it('should should display the date value', () => {
 		const { getByText } = render(
 			<DateTimeInput
