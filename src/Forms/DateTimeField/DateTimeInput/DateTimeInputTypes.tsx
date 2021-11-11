@@ -1,15 +1,7 @@
 import { BasePickerProps } from '@material-ui/pickers/typings/BasePicker';
+import { InputPickerProps } from '@root/forms/DateTimeField/DatePicker/DatePickerTypes';
 
-export interface DateTimeInputProps {
-  /**
-   * Used only to style input elements with warnings.
-   */
-  error?: boolean;
-  /**
-   * Used to display only the values selected for both
-   * input elements.
-   */
-  disabled?: boolean;
+export interface DateTimeInputProps extends InputPickerProps {
   /**
    * Value of the date picker
    */
@@ -22,10 +14,6 @@ export interface DateTimeInputProps {
    * onChange callback used by the time picker
    */
   onChangeTime: BasePickerProps['onChange'];
-  /**
-   * Used to mark the input elements as required
-   */
-  required?: boolean;
   /**
    * Value of the time picker
    */

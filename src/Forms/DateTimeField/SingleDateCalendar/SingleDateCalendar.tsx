@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { SingleDateCalendarProps } from './SingleDateCalendarTypes';
 
 // Components
-import DatePicker from '../DatePicker';
+import DatePicker, { DatePickerProps } from '../DatePicker';
 
 // Styles
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
-const SingleDateCalendar = (props: SingleDateCalendarProps): ReactElement => {
+const SingleDateCalendar = (props: DatePickerProps): ReactElement => {
 	const { error, required, disabled, onChange, value } = props;
 
 	return (

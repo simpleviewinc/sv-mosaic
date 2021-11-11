@@ -2,7 +2,7 @@ import * as React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { useState } from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { TimePickerProps } from './TimePickerTypes';
+import { DatePickerProps } from '../DatePicker/DatePickerTypes';
 
 // Components
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -12,7 +12,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { customTheme, StyledTimePicker } from './TimePicker.styled';
 import { DatePickerWrapper } from '../DatePicker/DatePicker.styled';
 
-const TimePicker = (props: TimePickerProps) => {
+const TimePicker = (props: DatePickerProps) => {
 	const { error, required, onChange, placeholder, value } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
