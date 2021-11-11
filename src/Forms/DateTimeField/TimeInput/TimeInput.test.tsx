@@ -1,0 +1,43 @@
+import { render } from '@testing-library/react';
+import * as React from 'react';
+import TimeInput from '../TimeInput';
+//import * as DateFnsUtils from '@date-io/date-fns' // Works for test not for UI
+
+describe('TimeInput component', () => {
+	/* it('should should display the date picker component', () => {
+		const { getByText } = render(
+			<TimeInput
+				utils={DateFnsUtils}
+				disabled={false}
+				value={new Date('2018-01-01T00:00:00.000Z')}
+				onChange={() => jest.fn()}
+			/>
+		);
+    
+    screen.debug()
+	}); */
+
+	it('should should display the date value', () => {
+		const { getByText } = render(
+			<TimeInput
+				disabled={true}
+				value={new Date('2018-01-01T00:00:00.000Z')}
+				onChange={() => jest.fn()}
+			/>
+		);
+
+		expect(getByText('12:00 AM')).toBeTruthy();
+	});
+
+	it('should display the placeholder when is disabled and no value is provided', () => {
+		const { getByText } = render(
+			<TimeInput
+				disabled={true}
+				value={null}
+				onChange={() => jest.fn()}
+			/>
+		);
+    
+		expect(getByText('00:00 AM/PM')).toBeTruthy();
+	})
+});
