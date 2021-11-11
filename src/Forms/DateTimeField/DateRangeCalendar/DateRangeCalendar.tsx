@@ -9,7 +9,7 @@ import {
 	StyledSpan,
 } from './DateRangeCalendar.styled';
 import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
-import HelperText from '@root/components/HelperText';
+import HelperText from '@root/components/Field/HelperText';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
 const DateRangeCalendar = (props: DateRangeCalendarProps): ReactElement => {

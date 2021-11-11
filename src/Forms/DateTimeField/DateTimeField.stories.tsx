@@ -98,7 +98,7 @@ export const DateRangeCalendarExample = (): ReactElement => {
 	return (
 		<Field
 			label={text('Label', 'Label')}
-			required={boolean('Required', false)}
+			required={required}
 			disabled={disabled}
 			error={error}
 			errorText={errorText}

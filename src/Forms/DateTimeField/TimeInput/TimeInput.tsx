@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { TimeInputProps } from './TimeInputTypes';
+import { DatePickerProps } from '../DatePicker';
 
 // Components
 import TimePicker from '../TimePicker';
@@ -8,7 +8,7 @@ import TimePicker from '../TimePicker';
 // Styles
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
-const TimeInput = (props: TimeInputProps): ReactElement => {
+const TimeInput = (props: DatePickerProps): ReactElement => {
 	const { error, required, disabled, onChange, value } = props;
 
 	return (

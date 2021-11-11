@@ -4,7 +4,7 @@ import { DateTimeInputProps } from './DateTimeInputTypes';
 
 // Components
 import DatePicker from '../DatePicker';
-import HelperText from '@root/components/HelperText';
+import HelperText from '@root/components/Field/HelperText';
 import TimePicker from '../TimePicker';
 
 // Styles Components
