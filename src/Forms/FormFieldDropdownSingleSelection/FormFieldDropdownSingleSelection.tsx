@@ -9,11 +9,12 @@ import {
 	StyledErrorWrapper,
 	StyledErrorIcon,
 	StyledErrorMessage,
+	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 // Components
 import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
@@ -22,6 +23,7 @@ import Label from '@root/components/Typography/Label';
 
 const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 	const [error, setError] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const onBlur = (e) => {
 		if (props.required && (!e.target.value || e.target.value?.trim().length === 0)) {
@@ -49,6 +51,10 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 		</InputWrapper>
 	);
 
+	const handleOpen = () => {
+		setIsOpen(!isOpen)
+	}
+
 	return (
 		<StyledErrorWrapper
 			error={error && props.required}
@@ -63,37 +69,41 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 			</Label>
 			{!props.disabled ? 
 				<>
-					<StyledAutocomplete
-						data-testid="autocomplete-test-id"
-						options={props.options}
-						size={props.size}
-						getOptionLabel={(option) => option.title}
-						error={props.required && error}
-						errorText={props.errorText}
-						renderInput={renderInput}
-						disablePortal={true}
-						onChange={props.onChange}
-						popupIcon={<ExpandMoreIcon />}
-						value={props.value}
-					/>
-					{(!error && props.helperText?.trim().length > 0) &&
-						<StyledHelperText
-							data-testid="helper-text-test-id"
-						>
-							{props.helperText}
-						</StyledHelperText>
-					}
+					<SingleDropdownWrapper innerWidth={props.size}>
+						<StyledAutocomplete
+							onOpen={handleOpen}
+							onClose={handleOpen}
+							data-testid="autocomplete-test-id"
+							options={props.options}
+							getOptionLabel={(option) => option.title}
+							error={props.required && error}
+							errorText={props.errorText}
+							renderInput={renderInput}
+							disablePortal={true}
+							onChange={props.onChange}
+							popupIcon={<ExpandMoreIcon />}
+							value={props.value}
+							open={isOpen}
+						/>
+						{(!error && props.helperText?.trim().length > 0) &&
+							<StyledHelperText
+								data-testid="helper-text-test-id"
+							>
+								{props.helperText}
+							</StyledHelperText>
+						}
 
-					{(error && props.required && props.errorText?.trim().length > 0) &&
-						<StyledErrorMessage
-							data-testid="error-message-test-id"
-						>
-							<StyledErrorIcon />
-							<StyledErrorText>
-								{props.errorText}
-							</StyledErrorText>
-						</StyledErrorMessage>
-					}
+						{(error && props.required && props.errorText?.trim().length > 0) &&
+							<StyledErrorMessage
+								data-testid="error-message-test-id"
+							>
+								<StyledErrorIcon />
+								<StyledErrorText>
+									{props.errorText}
+								</StyledErrorText>
+							</StyledErrorMessage>
+						}
+					</SingleDropdownWrapper>
 				</>
 				:
 				<StyledDisabledDropdownText
