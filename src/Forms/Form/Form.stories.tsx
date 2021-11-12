@@ -25,18 +25,11 @@ export const KitchenSink = (): ReactElement => {
 					name: "textField",
 					label: "Simple Text",
 					type: "text",
-					inputSettings: {
-						maxCharacters: 20,
-					},
-					instructionText: 'testing',
-					validators: [validateEmail]
 				},
 				{
 					name: "textArea",
 					label: "Text Area",
 					type: "textArea",
-					helperText: state.data.text2,
-					validators: [validateEmail]
 				},
 				{
 					name: "check",
@@ -115,6 +108,35 @@ export const KitchenSink = (): ReactElement => {
 					name: "phoneSelect",
 					label: "Phone selection",
 					type: "phone",
+				},
+				{
+					name: "radio",
+					label: "Radio selection",
+					type: "radio",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					}
+				},
+				{
+					name: 'toggleSwitch',
+					label: 'Toggle field',
+					type: 'toggleSwitch',
+					inputSettings: {
+						toggleLabel: 'To the side'
+					}
 				}
 			] as unknown as FieldDefProps[],
 		[]
@@ -592,6 +614,37 @@ export const SubmitInternalButtons = (): ReactElement => {
 					label: "Phone selection",
 					type: "phone",
 					validators: [required]
+				},
+				{
+					name: "radio",
+					label: "Radio selection",
+					type: "radio",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
+					validators: [required],
+				},
+				{
+					name: 'toggleSwitch',
+					label: 'Toggle field',
+					type: 'toggleSwitch',
+					inputSettings: {
+						toggleLabel: 'To the side'
+					},
+					validators: [required],
 				}
 			] as unknown as FieldDefProps[],
 		[]
