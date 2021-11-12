@@ -6,3 +6,4 @@ export declare const StyledErrorWrapper: any;
 export declare const StyledErrorIcon: any;
 export declare const StyledErrorText: any;
 export declare const StyledErrorMessage: any;
+export declare const SingleDropdownWrapper: any;
