@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { HTMLAttributes, ReactElement } from 'react';
 
 // Components
 import HelperText from '@root/components/HelperText';
@@ -14,41 +14,26 @@ import { FormFieldToggleSwitchProps } from './FormFieldToggleSwitchTypes';
 import { ToggleSwitchWrapper } from './FormFieldToggleSwitch.styled';
 
 const FormFieldToggleSwitch = (
-	props: FormFieldToggleSwitchProps
+	props: FormFieldToggleSwitchProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		checked,
 		disabled,
-		error,
-		errorText,
-		instructionText,
-		label,
 		required,
 		onChange,
-		toggleLabel,
+		inputSettings,
+		value,
+		onBlur
 	} = props;
-
-	const errorField = error && required;
-
+	
 	return (
-		<InputWrapper>
-			<FieldWrapper error={errorField}>
-				<Label disabled={disabled} required={required}>
-					{label}
-				</Label>
-				<ToggleSwitchWrapper instructionText>
-					<ToggleSwitch
-						disabled={disabled}
-						checked={checked}
-						label={toggleLabel}
-						onChange={onChange}
-						required={required}
-					/>
-				</ToggleSwitchWrapper>
-				{errorText && errorField && <HelperText error>{errorText}</HelperText>}
-			</FieldWrapper>
-			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-		</InputWrapper>
+		<ToggleSwitch
+			disabled={disabled}
+			checked={value}
+			label={inputSettings?.toggleLabel}
+			onChange={onChange}
+			onBlur={onBlur}
+			required={required}
+		/>
 	);
 };
 
