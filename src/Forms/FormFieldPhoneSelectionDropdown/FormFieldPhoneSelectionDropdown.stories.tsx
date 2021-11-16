@@ -24,18 +24,19 @@ export const Example = (): ReactElement => {
 			<p>{`Phone value: ${value}`}</p>
 			<p>{`Country data: ${JSON.stringify(countryData)}`}</p>
 			<FormFieldPhoneSelectionDropdown
-				autoFormat={boolean('Autoformat', true)}
-				country={text('Country code (e.g., us, mx, etc.)', '')}
+				inputSettings={{
+					autoFormat: boolean('Autoformat', true),
+					country: text('Country code (e.g., us, mx, etc.)', '')
+				}}
 				disabled={boolean('Disabled', false)}
-				error={boolean('Error', false)}
-				errorText={text('Error text', 'Error text')}
+				error={text('Error text', 'Error text')}
 				helperText={text('Helper text', 'Helper text')}
 				instructionText={text(
 					'Instruction text',
 					'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 				)}
 				label={text('Label', 'Label')}
-				onChange={handleOnChange}
+				// onChange={handleOnChange}
 				placeholder={text('Placeholder', 'Placeholder')}
 				required={boolean('Required', false)}
 				value={value}

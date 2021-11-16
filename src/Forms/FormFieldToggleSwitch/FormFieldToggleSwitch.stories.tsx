@@ -22,15 +22,15 @@ export const Example = (): ReactElement => {
 		<>
 			<span>Is toggle checked? {`${isChecked}`}</span>
 			<FormFieldToggleSwitch
-				checked={isChecked}
 				label={text('Label', 'Label')}
 				required={boolean('Required', false)}
 				disabled={boolean('Disabled', false)}
-				error={boolean('Error', false)}
+				error={text('Error text', 'Error text')}
 				instructionText={text('Instruction text', 'Instruction text')}
-				errorText={text('Error text', 'Error text')}
 				onChange={handleChange}
-				toggleLabel={text('Toggle label', 'Toggle label')}
+				inputSettings={{
+					toggleLabel: text('Toggle label', 'Toggle label')
+				}}
 			/>
 		</>
 	);

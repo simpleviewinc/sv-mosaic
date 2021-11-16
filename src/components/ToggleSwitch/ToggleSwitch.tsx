@@ -15,6 +15,7 @@ const ToggleSwitch = (
 		required = false,
 		disabled = false,
 		onChange,
+		onBlur,
 	} = props;
 
 	return (
@@ -24,8 +25,9 @@ const ToggleSwitch = (
 			disabled={disabled}
 			control={
 				<StyledSwitch
+					onBlur={onBlur}
 					checked={checked}
-					onChange={onChange}
+					onChange={(e) => onChange(e.target.checked)}
 					required={required}
 				/>
 			}

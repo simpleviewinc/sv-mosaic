@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, memo, HTMLAttributes } from 'react';
 
 // Components
 import HelperText from '@root/components/HelperText';
@@ -18,54 +18,37 @@ import {
 } from './FormFieldPhoneSelectionDropdown.styled';
 
 const FormFieldPhoneSelectionDropdown = (
-	props: FormFieldPhoneSelectionDropdownProps
+	props: FormFieldPhoneSelectionDropdownProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		autoFormat = true,
-		country = 'us',
+		inputSettings,
 		disabled,
 		error,
-		errorText,
-		helperText,
-		instructionText,
-		label,
 		onChange,
-		placeholder,
+		onBlur,
 		required,
 		value,
 	} = props;
 
-	const errorField = error && required;
-
 	return !disabled ? (
-		<InputWrapper>
-			<FieldWrapper error={errorField}>
-				<Label disabled={disabled} required={required}>
-					{label}
-				</Label>
-				<PhoneInputWrapper>
+				<PhoneInputWrapper
+					error={!!(required && error)}
+					onBlur={(e) => onBlur(e.target.value)}
+				>
 					<PhoneInput
-						autoFormat={autoFormat}
-						country={country}
+						autoFormat={inputSettings?.autoFormat ? inputSettings.autoFormat : true}
+						country={inputSettings?.country ? inputSettings.country : 'us'}
 						disabled={disabled}
 						onChange={onChange}
-						placeholder={placeholder}
+						placeholder={inputSettings?.placeholder}
 						value={value}
 						inputProps={{
 							required: required,
 						}}
 					/>
 				</PhoneInputWrapper>
-				{errorText && errorField ? (
-					<HelperText error>{errorText}</HelperText>
-				) : (
-					<HelperText>{helperText}</HelperText>
-				)}
-			</FieldWrapper>
-			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-		</InputWrapper>
 	) : (
 		value ? <StyledDisabledText>Phone value: {value}</StyledDisabledText> : <StyledDisabledText>Phone field disabled</StyledDisabledText>
 	);
 };
-export default FormFieldPhoneSelectionDropdown;
+export default memo(FormFieldPhoneSelectionDropdown);

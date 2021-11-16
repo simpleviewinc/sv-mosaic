@@ -1,74 +1,64 @@
 // React
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import { HTMLAttributes, ReactElement, useState } from 'react';
 
 // Components
-import Field from '@root/components/Field';
 import Chip from '../../components/Chip';
 
 //Types and styles
 import { FormFieldChipSingleSelectProps } from './FormFieldChipSingleSelectTypes';
 import { StyledChipGroup } from './FormFieldChipSingleSelect.styled';
 
-const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps): ReactElement => {
+const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const {
-		options,
-		label,
 		required,
-		disabled,
-		instructionText,
-		helperText,
+		disabled = false,
 		error,
-		errorText,
-		onSelect,
+		onChange,
+		onBlur,
+		inputSettings
 	} = props;
 
-	const [internalOptions, setInternalOptions] = useState([...options]);
+	const [internalOptions, setInternalOptions] = useState([...inputSettings?.options]);
 
 	const updateSelectedOption = (option) => {
 
 		let newOptions = [...internalOptions];
 
 		newOptions = newOptions.map((o) => (
-			o.value === option.value ? 
-				{...o, selected: !o.selected} 
-				: 
-				{...o, selected: o.selected = false}
-		)
+				o.value === option.value ? 
+					{...o, selected: !o.selected} 
+					: 
+					{...o, selected: o.selected = false}
+			)
 		);
 
+		let selectedOption = newOptions.find(o => o.selected === true);
+
 		setInternalOptions(newOptions);
-		onSelect(newOptions);
+		// onSelect(newOptions);
+		onChange(selectedOption);
 	}
 
-	const errorWithMessage = error && errorText.trim().length > 0;
+	const errorWithMessage = error?.trim().length > 0;
 
 	return (
-		<Field
-			label={label}
-			required={required}
-			disabled={disabled}
-			error={error}
-			errorText={errorText}
-			helperText={helperText}
-			instructionText={instructionText}
+		<StyledChipGroup
+			error={(errorWithMessage || (errorWithMessage && required))}
+			onBlur={onBlur}
 		>
-			<StyledChipGroup
-				error={(errorWithMessage || (errorWithMessage && required))}
-			>
-				{
-					internalOptions.map(
-						(option) => <Chip
-							key={option.value}
-							label={option.label}
-							disabled={disabled}
-							selected={option.selected}
-							onClick={() => updateSelectedOption(option)}
-						/>
-					)
-				}
-			</StyledChipGroup>
-		</Field>
+			{
+				internalOptions.map(
+					(option) => <Chip
+						key={option.value}
+						label={option.label}
+						disabled={disabled}
+						selected={option.selected}
+						onClick={() => updateSelectedOption(option)}
+					/>
+				)
+			}
+		</StyledChipGroup>
 	);
 }
 

@@ -49,9 +49,8 @@ export const example = (): ReactElement => {
 				}}
 				required={boolean('Required', false)}
 				disabled={boolean('Disabled', false)}
-				error={boolean('Error', false)}
+				error={text('Error text', 'Error text')}
 				instructionText={text('Instruction text', 'Instruction text')}
-				errorText={text('Error text', 'Error text')}
 				onChange={onChange}
 			/>
 		</>
