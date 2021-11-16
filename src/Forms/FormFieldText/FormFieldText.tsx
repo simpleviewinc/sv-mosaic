@@ -13,14 +13,10 @@ const TextField = (
 	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		label = '',
 		inputSettings,
 		className,
 		disabled = false,
-		error = false,
-		helperText = '',
-		instructionText,
-		errorText,
+		error,
 		required,
 		onChange,
 		onBlur,
@@ -35,22 +31,9 @@ const TextField = (
 		}
 		: null;
 
-	const errorWithMessage = error && errorText?.trim().length > 0;
+	const errorWithMessage = error?.trim().length > 0;
 
 	return (
-		// <Field
-		// 	label={label}
-		// 	required={required}
-		// 	disabled={disabled}
-		// 	error={error}
-		// 	errorText={errorText}
-		// 	helperText={helperText}
-		// 	instructionText={instructionText}
-		// 	maxCharacters={inputSettings?.maxCharacters}
-		// 	htmlFor={inputSettings?.htmlFor}
-		// 	value={inputSettings?.value}
-		// 	size={inputSettings?.size}
-		// >
 		<StyledTextField
 			id={inputSettings?.htmlFor}
 			value={value}
@@ -68,7 +51,6 @@ const TextField = (
 			InputProps={leadingIcon}
 			required={required}
 		/>
-		// </Field>
 	);
 };
 

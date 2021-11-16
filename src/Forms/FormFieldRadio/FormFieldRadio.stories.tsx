@@ -40,10 +40,11 @@ export const Example = (): ReactElement => {
 				label={text('Label', 'Label')}
 				required={boolean('Required', false)}
 				disabled={boolean('Disabled', false)}
-				error={boolean('Error', false)}
+				error={text('Error text', 'Error text')}
 				instructionText={text('Instruction text', 'Instruction text')}
-				errorText={text('Error text', 'Error text')}
-				options={options}
+				inputSettings={{
+					options
+				}}
 				onChange={handleChange}
 				value={value}
 			/>
