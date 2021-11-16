@@ -92,7 +92,7 @@ const Col = (props) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				const Component = componentMap[type];
+				const Component = typeof type === 'string' ? componentMap[type] : type;
 
 				const onChange = onChangeMap[fieldProps.name];
 
@@ -108,7 +108,7 @@ const Col = (props) => {
 						value={value}
 						touched={touched}
 						error={error}
-						onChange={onChange}
+						onChange={typeof type === 'string' ? onChange : (e) => onChange(e.target.value)}
 						onBlur={onBlur}
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
