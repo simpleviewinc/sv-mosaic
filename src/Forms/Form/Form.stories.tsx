@@ -9,6 +9,8 @@ import { validateEmail, validateSlow, required } from "./validators";
 import Form from './Form';
 import { FieldDefProps } from '@root/components/Field';
 import Modal from '@root/components/Modal';
+import { TextFieldProps } from '@root/forms/FormFieldText';
+import { FormFieldCheckboxProps } from '@root/forms/FormFieldCheckbox';
 
 export default {
 	title: 'Forms|Form',
@@ -880,6 +882,81 @@ export const FormAndModal = (): ReactElement => {
 				onSubmit={onSubmit}
 			/>
 			<button onClick={() => setOpen(true)}>Open modal</button>
+		</>
+	);
+};
+
+export const CustomFields = (): ReactElement => {
+	const { state, dispatch, events, registerFields } = useForm();
+
+	const CustomText = (props: TextFieldProps & HTMLInputElement) => {
+		return <input type='text' {...props} />
+	}
+
+	const CustomTextArea = (props: TextFieldProps & HTMLInputElement) => {
+		return <textarea rows='4' cols='20' {...props} />
+	}
+
+	const CustomCheckbox = (props) => {
+		return (
+			<>
+				<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onChange={props.onChange} />
+				<label htmlFor="vehicle1"> I have a bike</label><br />
+			</>
+		)
+	}
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Custom Text",
+					type: CustomText,
+					instructionText: 'testing',
+					helperText: 'helper text bottom',
+					validators: [required]
+				},
+				{
+					name: "textarea",
+					label: "Custom textArea",
+					type: CustomTextArea,
+					instructionText: 'testing',
+					helperText: 'helper text bottom',
+					validators: [required]
+				},
+				{
+					name: "checkbox",
+					label: "Custom checkbox",
+					type: CustomCheckbox,
+					instructionText: 'testing',
+					helperText: 'helper text bottom',
+					validators: [required]
+				},
+			] as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const setText1Value = function () {
+		dispatch(
+			actions.setFieldValue({
+				name: "text1",
+				value: "My New Value"
+			})
+		);
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
+			<div>
+				<button onClick={setText1Value}>Set Text1 Value</button>
+			</div>
 		</>
 	);
 };
