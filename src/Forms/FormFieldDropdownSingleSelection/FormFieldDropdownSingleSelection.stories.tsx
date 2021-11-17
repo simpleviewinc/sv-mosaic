@@ -14,7 +14,7 @@ export default {
 
 export const example = (): ReactElement => {
 	// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-	const topFilms = [
+	const options = [
 		{ title: 'The Shawshank Redemption', year: 1994 },
 		{ title: 'The Godfather', year: 1972 },
 		{ title: 'The Godfather: Part II', year: 1974 },
@@ -41,7 +41,8 @@ export const example = (): ReactElement => {
 
 	return (
 		<FormFieldDropdownSingleSelection
-			options={topFilms}
+			value={options[0]}
+			inputSettings={{options}}
 			label={text("Label", "Dropdown label")}
 			placeholder={text("Placeholder", "Placeholder example")}
 			helperText={text("Helper text", "Helper text example")}
@@ -49,7 +50,7 @@ export const example = (): ReactElement => {
 			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			disabled={boolean("Disabled", false)}
 			required={boolean("Required", false)}
-			errorText={text("Error text", "Error text example")}
+			error={text("Error text", "Error text example")}
 		/>
 	)
 }

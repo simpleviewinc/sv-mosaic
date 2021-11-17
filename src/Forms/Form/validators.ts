@@ -25,7 +25,7 @@ export function validateSlow(str: string) {
 }
 
 export function required(str: string) {
-	if (!str || str.length === 0) {
+	if (!str || str.length === 0 || !!str === false) {
 		return "This field is required, please fill it";
 	}
 }

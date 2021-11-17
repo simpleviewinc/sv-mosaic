@@ -29,10 +29,9 @@ export const Example = (): ReactElement => {
 
 	return (
 		<FormFieldChipSingleSelect
-			options={options}
+			inputSettings={{options}}
 			label={text('Label', 'Label')}
-			error={boolean('Error', false)}
-			errorText={text('Error text', '')}
+			error={text('Error text', '')}
 			required={boolean('Required', false)}
 			disabled={boolean('Disabled', false)}
 			helperText={text('Helper text', 'Some helper text')}

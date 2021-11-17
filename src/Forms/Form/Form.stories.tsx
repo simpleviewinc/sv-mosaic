@@ -9,6 +9,8 @@ import { validateEmail, validateSlow, required } from "./validators";
 import Form from './Form';
 import { FieldDefProps } from '@root/components/Field';
 import Modal from '@root/components/Modal';
+import { TextFieldProps } from '@root/forms/FormFieldText';
+import { FormFieldCheckboxProps } from '@root/forms/FormFieldCheckbox';
 
 export default {
 	title: 'Forms|Form',
@@ -22,25 +24,18 @@ export const KitchenSink = (): ReactElement => {
 		() =>
 			[
 				{
-					name: "text1",
+					name: "textField",
 					label: "Simple Text",
 					type: "text",
-					inputSettings: {
-						maxCharacters: 20,
-					},
-					instructionText: 'testing',
-					validators: [validateEmail]
 				},
 				{
-					name: "text2",
-					label: "Text with validators and dynamic help",
+					name: "textArea",
+					label: "Text Area",
 					type: "textArea",
-					helperText: state.data.text2,
-					validators: [validateEmail]
 				},
 				{
-					name: "check1",
-					label: "Text that copies to the next input",
+					name: "check",
+					label: "Checkbox",
 					type: "checkbox",
 					inputSettings: {
 						options: [
@@ -60,59 +55,103 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: "text4",
-					label: "Text that receives copy",
-					type: "text"
+					name: "chipSelect",
+					label: "Chip single select",
+					type: "chip",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
 				},
-			] as FieldDefProps[],
+				{
+					name: "dropdownSingle",
+					label: "Dropdown single select",
+					type: "dropdown",
+					inputSettings: {
+						options: [
+							{ title: 'The Shawshank Redemption', year: 1994 },
+							{ title: 'The Godfather', year: 1972 },
+							{ title: 'The Godfather: Part II', year: 1974 },
+							{ title: 'The Dark Knight', year: 2008 },
+							{ title: '12 Angry Men', year: 1957 },
+							{ title: "Schindler's List", year: 1993 },
+							{ title: 'Pulp Fiction', year: 1994 },
+							{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+							{ title: 'The Good, the Bad and the Ugly', year: 1966 },
+							{ title: 'Fight Club', year: 1999 },
+							{ title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+							{ title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
+							{ title: 'Forrest Gump', year: 1994 },
+							{ title: 'Inception', year: 2010 },
+							{ title: 'The Lord of the Rings: The Two Towers', year: 2002 },
+							{ title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+							{ title: 'Goodfellas', year: 1990 },
+							{ title: 'The Matrix', year: 1999 },
+							{ title: 'Seven Samurai', year: 1954 },
+							{ title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
+							{ title: 'City of God', year: 2002 },
+							{ title: 'Se7en', year: 1995 },
+						],
+					},
+				},
+				{
+					name: "phoneSelect",
+					label: "Phone selection",
+					type: "phone",
+				},
+				{
+					name: "radio",
+					label: "Radio selection",
+					type: "radio",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					}
+				},
+				{
+					name: 'toggleSwitch',
+					label: 'Toggle field',
+					type: 'toggleSwitch',
+					inputSettings: {
+						toggleLabel: 'To the side'
+					}
+				}
+			] as unknown as FieldDefProps[],
 		[]
 	);
-
-	useEffect(() => {
-		dispatch(
-			actions.setFieldValue({
-				name: "text4",
-				value: state.data.text3
-			})
-		);
-	}, [state.data.text3]);
 
 	useMemo(() => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const setText1Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text1",
-				value: "My New Value"
-			})
-		);
-	};
-
-	const setText2Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text2",
-				value: "notanemail"
-			})
-		);
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<p>Here is the form</p>
 			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
-			<div>
-				<p>
-					Here are some buttons that are not part of the form, but can change
-					values in the form proving communication between in/out of the form.
-					Notice that settext2 runs the validation after setting the value.
-				</p>
-				<button onClick={setText1Value}>Set Text1 Value</button>
-				<button onClick={setText2Value}>Set Text2 Value</button>
-			</div>
 		</>
 	);
 };
@@ -551,6 +590,97 @@ export const SubmitInternalButtons = (): ReactElement => {
 					},
 					validators: [required]
 				},
+				{
+					name: "chip",
+					label: "Text that receives copy",
+					type: "chip",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
+					validators: [required],
+				},
+				{
+					name: "dropdownsingle",
+					label: "Dropdown single select",
+					type: "dropdown",
+					inputSettings: {
+						options: [
+							{ title: 'The Shawshank Redemption', year: 1994 },
+							{ title: 'The Godfather', year: 1972 },
+							{ title: 'The Godfather: Part II', year: 1974 },
+							{ title: 'The Dark Knight', year: 2008 },
+							{ title: '12 Angry Men', year: 1957 },
+							{ title: "Schindler's List", year: 1993 },
+							{ title: 'Pulp Fiction', year: 1994 },
+							{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+							{ title: 'The Good, the Bad and the Ugly', year: 1966 },
+							{ title: 'Fight Club', year: 1999 },
+							{ title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+							{ title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
+							{ title: 'Forrest Gump', year: 1994 },
+							{ title: 'Inception', year: 2010 },
+							{ title: 'The Lord of the Rings: The Two Towers', year: 2002 },
+							{ title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+							{ title: 'Goodfellas', year: 1990 },
+							{ title: 'The Matrix', year: 1999 },
+							{ title: 'Seven Samurai', year: 1954 },
+							{ title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
+							{ title: 'City of God', year: 2002 },
+							{ title: 'Se7en', year: 1995 },
+						],
+					},
+					validators: [required],
+				},
+				{
+					name: "phoneSelect",
+					label: "Phone selection",
+					type: "phone",
+					validators: [required]
+				},
+				{
+					name: "radio",
+					label: "Radio selection",
+					type: "radio",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1"
+							},
+							{
+								label: "Label 2",
+								value: "label_2"
+							},
+							{
+								label: "Label 3",
+								value: "label_3"
+							}
+						],
+					},
+					validators: [required],
+				},
+				{
+					name: 'toggleSwitch',
+					label: 'Toggle field',
+					type: 'toggleSwitch',
+					inputSettings: {
+						toggleLabel: 'To the side'
+					},
+					validators: [required],
+				}
 			] as unknown as FieldDefProps[],
 		[]
 	);
@@ -785,6 +915,81 @@ export const FormAndModal = (): ReactElement => {
 				onSubmit={onSubmit}
 			/>
 			<button onClick={() => setOpen(true)}>Open modal</button>
+		</>
+	);
+};
+
+export const CustomFields = (): ReactElement => {
+	const { state, dispatch, events, registerFields } = useForm();
+
+	const CustomText = (props) => {
+		return <input type='text' onChange={(e) => props.onChange(e.target.value)} />
+	}
+
+	const CustomTextArea = (props) => {
+		return <textarea rows={4} cols={20} onChange={(e) => props.onChange(e.target.value)} />
+	}
+
+	const CustomCheckbox = (props) => {
+		return (
+			<>
+				<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onChange={(e) => props.onChange(e.target.value)} />
+				<label htmlFor="vehicle1"> I have a bike</label><br />
+			</>
+		)
+	}
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Custom Text",
+					type: CustomText,
+					instructionText: 'testing',
+					helperText: 'helper text bottom',
+					validators: [required]
+				},
+				{
+					name: "textarea",
+					label: "Custom textArea",
+					type: CustomTextArea,
+					instructionText: 'testing',
+					helperText: 'helper text bottom',
+					validators: [required]
+				},
+				{
+					name: "checkbox",
+					label: "Custom checkbox",
+					type: CustomCheckbox,
+					instructionText: 'testing',
+					helperText: 'helper text bottom',
+					validators: [required]
+				},
+			] as FieldDefProps[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const setText1Value = function () {
+		dispatch(
+			actions.setFieldValue({
+				name: "text1",
+				value: "My New Value"
+			})
+		);
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
+			<div>
+				<button onClick={setText1Value}>Set Text1 Value</button>
+			</div>
 		</>
 	);
 };
