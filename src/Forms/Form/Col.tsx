@@ -108,7 +108,7 @@ const Col = (props) => {
 						value={value}
 						touched={touched}
 						error={error}
-						onChange={typeof type === 'string' ? onChange : (e) => onChange(e.target.value)}
+						onChange={onChange}
 						onBlur={onBlur}
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);

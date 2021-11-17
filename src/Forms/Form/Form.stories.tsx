@@ -889,18 +889,18 @@ export const FormAndModal = (): ReactElement => {
 export const CustomFields = (): ReactElement => {
 	const { state, dispatch, events, registerFields } = useForm();
 
-	const CustomText = (props: TextFieldProps & HTMLInputElement) => {
-		return <input type='text' {...props} />
+	const CustomText = (props) => {
+		return <input type='text' onChange={(e) => props.onChange(e.target.value)} />
 	}
 
-	const CustomTextArea = (props: TextFieldProps & HTMLInputElement) => {
-		return <textarea rows='4' cols='20' {...props} />
+	const CustomTextArea = (props) => {
+		return <textarea rows={4} cols={20} onChange={(e) => props.onChange(e.target.value)} />
 	}
 
 	const CustomCheckbox = (props) => {
 		return (
 			<>
-				<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onChange={props.onChange} />
+				<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onChange={(e) => props.onChange(e.target.value)} />
 				<label htmlFor="vehicle1"> I have a bike</label><br />
 			</>
 		)
