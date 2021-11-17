@@ -24,12 +24,20 @@ const ColorPicker = (props: ColorPickerProps): ReactElement => {
 				displayColorPicker={displayColorPicker}
 				disabled={disabled}
 			>
-				<ColorDiv disabled={disabled} color={color} onClick={handleClick} />
+				<ColorDiv
+					data-testid='colordiv-test'
+					disabled={disabled}
+					color={color}
+					onClick={handleClick}
+				/>
 			</ColorContainer>
 			{displayColorPicker && !disabled && (
 				<PopOver>
 					<Cover onClick={handleClose} />
-					<SketchPicker color={color} onChange={onChange} />
+					<SketchPicker
+						color={color}
+						onChange={onChange}
+					/>
 				</PopOver>
 			)}
 		</>
