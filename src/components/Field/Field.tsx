@@ -9,12 +9,11 @@ import { FieldDefProps } from '.';
 
 const Field = ({
 	children,
-	error = false,
+	error,
 	disabled,
 	required,
 	label,
 	helperText,
-	errorText,
 	instructionText,
 	htmlFor,
 	value,
@@ -26,7 +25,7 @@ const Field = ({
 
 	const description = useRef<HTMLDivElement>(null);
 
-	const errorWithMessage = error && errorText?.trim().length > 0;
+	const errorWithMessage = error?.trim().length > 0;
 
 	const handleDescriptionRender = () => {
 		if (description.current) {
@@ -61,7 +60,7 @@ const Field = ({
 
 	const renderBottomText = () => {
 		if ((errorWithMessage || (errorWithMessage && required))) {
-			return <HelperText error={error}>{errorText}</HelperText>;
+			return <HelperText error={!!error}>{error}</HelperText>;
 		} else if (helperText) {
 			return <HelperText>{helperText}</HelperText>;
 		}

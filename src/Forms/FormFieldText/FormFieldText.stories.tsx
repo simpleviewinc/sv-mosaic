@@ -34,8 +34,7 @@ export const Default = (): ReactElement => {
 			}}
 			helperText={text('Helper text', '')}
 			instructionText={text('Instructional text', '')}
-			errorText={text('Error text', '')}
-			error={boolean('Error', false)}
+			error={text('Error text', '')}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
 			required={boolean('Required', false)}
@@ -62,8 +61,7 @@ export const multiline = (): ReactElement => {
 			placeholder={text('Placeholder', 'placeholder')}
 			helperText={text('Helper text', '')}
 			instructionText={text('Instructional text', '')}
-			errorText={text('Error text', '')}
-			error={boolean('Error', false)}
+			error={text('Error text', '')}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
 			required={boolean('Required', false)}
@@ -91,8 +89,7 @@ export const withIcon = (): ReactElement => {
 			}}
 			helperText={text('Helper text', '')}
 			instructionText={text('Instructional text', '')}
-			errorText={text('Error text', '')}
-			error={boolean('Error', false)}
+			error={text('Error text', '')}
 			disabled={boolean('Disabled', false)}
 			onChange={onHandleChange}
 			placeholder={text('Placeholder', 'placeholder')}

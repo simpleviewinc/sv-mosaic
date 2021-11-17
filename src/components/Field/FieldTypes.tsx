@@ -6,7 +6,7 @@ export interface FieldProps {
 	/**
  	 * Flag to style text field as erroneous.
 	 */
-	error?: boolean;
+	error?: string;
 	/**
 	 * Indicates whether the text field can be written on or readonly.
 	 */
@@ -23,10 +23,10 @@ export interface FieldProps {
  	 * Text to help the user fill the current text field.
 	 */
 	helperText?: string | JSX.Element;
-	/**
-   	 * Indicates the cause of an error.
-   	 */
-	errorText?: string;
+	// /**
+   	//  * Indicates the cause of an error.
+   	//  */
+	// errorText?: string;
 	/**
 	 * Instructions about how to fill the text field.
 	 */
@@ -51,12 +51,13 @@ export interface FieldProps {
 	/**
 	 * Value written by the user into the text field.
 	 */
-	value?: string;
+	value?: any | string;
 	size?: Sizes;
 }
 
 export interface FieldDefProps extends FieldProps {
-	type?: "text";
+	type?: "text" | JSX.Element | (() => JSX.Element);
 	children: ReactNode;
 	layout?: any;
+	validators?: (() => string | JSX.Element)[];
 }
