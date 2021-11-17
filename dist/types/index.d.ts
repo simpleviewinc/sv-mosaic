@@ -28,6 +28,8 @@ export { default as Chip } from "./components/Chip";
 export * from "./components/Chip";
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
+export { default as ColorPicker } from "./forms/ColorPicker";
+export * from "./forms/ColorPicker";
 export { default as DatePicker } from "./forms/DateTimeField/DatePicker";
 export * from "./forms/DateTimeField/DatePicker";
 export { default as DateRangeCalendar } from "./forms/DateTimeField/DateRangeCalendar";
