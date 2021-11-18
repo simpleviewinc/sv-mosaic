@@ -83,6 +83,9 @@ export * from "./forms/ImageVideoDocumentSetUp";
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
 
+export { default as LinkSetup } from "./forms/LinkSetup";
+export * from "./forms/LinkSetup";
+
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";
 
