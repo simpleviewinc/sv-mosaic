@@ -8,7 +8,16 @@ afterEach(cleanup);
 describe('ColorPicker component', () => {
 	it('should display the color picker when the selected color element is clicked', () => {
 		render(
-			<ColorPicker color='#fff' disabled={false} onChange={() => jest.fn()} />
+			<ColorPicker
+				color={{
+					r: 0,
+					g: 71,
+					b: 153,
+					a: 1,
+				}}
+				disabled={false}
+				onChange={() => jest.fn()}
+			/>
 		);
 
 		const selectedColorDiv = screen.getByTestId('colordiv-test');
@@ -17,7 +26,7 @@ describe('ColorPicker component', () => {
 
 		expect(selectedColorDiv).toBeTruthy();
 		expect(colorPicker).toBeTruthy();
-		expect(selectedColorDiv).toHaveStyle(`background: #fff`);
+		expect(selectedColorDiv).toHaveStyle(`background:rgb(0, 71, 153)`);
 	});
 
 	it('should not display the color picker when is disabled', () => {

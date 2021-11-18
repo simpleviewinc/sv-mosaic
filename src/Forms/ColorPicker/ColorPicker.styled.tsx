@@ -10,7 +10,7 @@ export const ColorContainer = styled.div`
 `;
 
 export const ColorDiv = styled.div`
-  background: ${(pr) => pr.color};
+  ${pr => `background: rgba(${pr.color.r}, ${pr.color.g}, ${pr.color.b}, ${pr.color.a});`}
   cursor: ${(pr) => (!pr.disabled ? 'pointer' : 'auto')};
   height: 31px;
   pointer-events: ${(pr) => (!pr.disabled ? 'auto' : 'none')};
