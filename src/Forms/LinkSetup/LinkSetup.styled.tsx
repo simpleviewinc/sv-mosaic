@@ -27,6 +27,7 @@ export const LinkInfoContainer = styled.div`
 export const StyledAnchor = styled.a`
   ${fontSize}
   word-break: break-all;
+  color: ${theme.colors.blueTeal};
 `;
 
 export const LinkProperty = styled.span`
