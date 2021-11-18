@@ -1,10 +1,10 @@
-import { ColorChangeHandler } from 'react-color';
+import { ColorChangeHandler,Color } from 'react-color';
 
 export interface ColorPickerProps {
   /**
-   * HEX value of the selected color.
+   * RGB value of the selected color.
    */
-  color : string;
+  color : Color;
   /**
    * If true, sets opacity and disables the
    * click event.
