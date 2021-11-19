@@ -40,6 +40,7 @@ export const Example = (): ReactElement => {
 			disabled={disabled}
 			instructionText={text('Instruction text', 'Instruction text')}
 			helperText={text('Helper text', 'Helper text')}
+			type='linkSetup'
 		>
 			<LinkSetup
 				disabled={disabled}
