@@ -6,4 +6,5 @@ export interface FieldProps {
     helperText?: string;
     errorText?: string;
     instructionText?: string;
+    type?: string;
 }
