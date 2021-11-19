@@ -208,6 +208,32 @@ export const FormWithLayout = (): ReactElement => {
 				// row 3
 				[["text3"], ["text4"]]
 			]
+		},
+		{
+			title: "Section 2",
+			description: "Description for section 2",
+			fields: [
+				// row 1
+				[[], [], []],
+				// row 2
+				[["text3"], [], ["text1"]],
+				[[]],
+				// row 3
+				[[], ["text4"]]
+			]
+		},
+		{
+			title: "Section 3",
+			description: "Description for section 3",
+			fields: [
+				// row 1
+				[[], [], []],
+				// row 2
+				[[], [], []],
+				[[]],
+				// row 3
+				[[], []]
+			]
 		}
 	], [fields]);
 
@@ -451,7 +477,14 @@ export const PerformanceWithSubmit = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form state={state} fields={fields} dispatch={dispatch} events={events} onSubmit={onSubmit} />
+			<Form
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				title='Performance with submit'
+				onSubmit={onSubmit}
+			/>
 		</>
 	);
 };
