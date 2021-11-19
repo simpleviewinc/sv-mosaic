@@ -109,7 +109,7 @@ export const actions = {
 		};
 	},
 	copyFieldToField({ from, to }) {
-		return async function (dispatch, getState, extraArgs) {
+		return async function (dispatch, getState) {
 			const fromValue = getState().data[from];
 			dispatch(
 				actions.setFieldValue({
@@ -120,7 +120,7 @@ export const actions = {
 		};
 	},
 	validateForm({ fields }) {
-		return async (dispatch, getState, extraArgs) => {
+		return async (dispatch, getState) => {
 			dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
