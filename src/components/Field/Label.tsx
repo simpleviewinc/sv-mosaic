@@ -10,7 +10,7 @@ import theme from '../../utils/theme';
 
 const LabelWrapper = styled.div`
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: ${pr => pr.labelMargin};
   justify-content: space-between;
   width: ${(pr) => pr.size};
   font-family: ${theme.fontFamily};
@@ -43,6 +43,7 @@ interface LabelProps {
   children?: React.ReactNode;
   value?: string;
   maxCharacters?: number;
+  labelMargin?: string;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -54,10 +55,11 @@ const Label = (props: LabelProps): ReactElement => {
 		htmlFor,
 		value,
 		maxCharacters,
+		labelMargin
 	} = props;
 
 	return (
-		<LabelWrapper className={className} disabled={disabled} required={required}>
+		<LabelWrapper className={className} disabled={disabled} required={required} labelMargin={labelMargin}>
 			<InputLabel htmlFor={htmlFor}>{children}</InputLabel>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
