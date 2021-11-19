@@ -79,35 +79,30 @@ export function joinReducers(...reducers) {
 }
 
 export function useThunkReducer(reducer, initialState, extraArgs) {
-	const lastState = useRef(initialState);
-	const getState = useCallback(() => {
-		const state = lastState.current;
+	let lastState = initialState;
+	const getState = () => {
+		const state = lastState;
 		// console.log("state.data", state.data.text2);
 		return state;
-	}, []);
-	const enhancedReducer = useCallback(
-		(state, action) => {
+	};
+	const enhancedReducer = (state, action) => {
 			// console.log("ENHANCED", state, action);
 			const newState = reducer(state, action);
 			// console.log("REDUCER COMPLETE!");
-			lastState.current = newState;
+			lastState = newState;
 			return newState;
-		},
-		[reducer]
-	);
-	const [state, dispatch] = useReducer(enhancedReducer, initialState);
+		};
+	// const [state, dispatch] = useReducer(enhancedReducer, initialState);
+	const [state, dispatch] = reducer(enhancedReducer, initialState);
 
-	const customDispatch = useCallback(
-		(action) => {
+	const customDispatch = (action) => {
 			// console.log("CUSTOM DISPATCH", action);
 			if (typeof action === "function") {
 				return action(customDispatch, getState, extraArgs);
 			} else {
 				return dispatch(action);
 			}
-		},
-		[getState, extraArgs]
-	);
+		};
 
 	return [state, customDispatch];
 }

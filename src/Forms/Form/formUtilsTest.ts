@@ -1,8 +1,7 @@
-import { useMemo, useRef, useCallback } from "react";
+// import { useMemo, useRef, useCallback } from "react";
 import { EventEmitter } from "eventemitter3";
 
-import { joinReducers, useThunkReducer } from "./utils";
-import { SectionDef } from "./FormTypes";
+import { joinReducers, useThunkReducer } from "./utilsTest";
 
 function coreReducer(state, action) {
 	switch (action.type) {
@@ -109,7 +108,7 @@ export const actions = {
 		};
 	},
 	copyFieldToField({ from, to }) {
-		return async function (dispatch, getState) {
+		return async function (dispatch, getState, extraArgs) {
 			const fromValue = getState().data[from];
 			dispatch(
 				actions.setFieldValue({
@@ -120,7 +119,7 @@ export const actions = {
 		};
 	},
 	validateForm({ fields }) {
-		return async (dispatch, getState) => {
+		return async (dispatch, getState, extraArgs) => {
 			dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
@@ -179,18 +178,18 @@ export const actions = {
 };
 
 export function useForm({ customReducer }: { customReducer?: ((state: any, action: any) => any)[] } = {}) {
-	const extraArgs = useRef({
+	const extraArgs = {
 		fields: [],
 		fieldMap: {},
 		onSubmit: () => { }
-	});
-	const reducer = useMemo(() => {
+	};
+	const reducer = () => {
 		return customReducer
 			? joinReducers(coreReducer, customReducer)
 			: coreReducer;
-	}, [customReducer]);
+	};
 
-	const events = useMemo(() => new EventEmitter(), []);
+	const events = () => new EventEmitter();
 	const [state, dispatch] = useThunkReducer(
 		reducer,
 		{
@@ -202,23 +201,23 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 			validForm: false,
 			disabled: null,
 		},
-		extraArgs.current
+		extraArgs
 	);
 
-	const registerFields = useCallback((fields) => {
-		extraArgs.current.fields = fields;
+	const registerFields = (fields) => {
+		extraArgs.fields = fields;
 
 		const fieldMap = fields.reduce((prev, curr) => {
 			prev[curr.name] = curr;
 			return prev;
 		}, {});
 
-		extraArgs.current.fieldMap = fieldMap;
-	}, []);
+		extraArgs.fieldMap = fieldMap;
+	};
 
-	const registerOnSubmit = useCallback((fn) => {
-		extraArgs.current.onSubmit = fn;
-	}, []);
+	const registerOnSubmit = (fn) => {
+		extraArgs.onSubmit = fn;
+	};
 
 	return {
 		events,
@@ -228,66 +227,3 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 		registerOnSubmit,
 	};
 }
-
-const isEmpty = (arr) => {
-	return Array.isArray(arr) && (arr.length === 0 || arr.every(isEmpty));
-};
-
-export const generateLayout = ({sections, fields}: {sections?: any, fields: any}) => {
-	let customLayout: SectionDef[] = [];
-
-	if (sections) {
-		customLayout = JSON.parse(JSON.stringify(sections));
-		customLayout.forEach((section, idx) => {
-			const nonEmptyRows = section.fields.map(row => {
-				const nonEmptyCols = row.filter(col => !isEmpty(col));
-				if(nonEmptyCols.length > 0) {
-					return nonEmptyCols;
-				}
-			}).filter(row => row !== undefined);
-			
-			customLayout[idx].fields = nonEmptyRows;
-		});
-	}
-
-	if (fields) {
-		for (const field of fields) {
-			if (field.layout) {
-				let section = customLayout.length;
-				if (field.layout.section !== undefined && field.layout.section >= 0) {
-					section = field.layout.section;
-				}
-
-				let row = customLayout[section]?.fields?.length;
-				if (field.layout.row !== undefined && field.layout.row >= 0) {
-					row = field.layout.row;
-				}
-
-				let col = customLayout[section]?.fields[row]?.length;
-				if (field.layout.col !== undefined && field.layout.col >= 0) {
-					col = field.layout.col;
-				}
-
-				if (customLayout[section]) {
-					customLayout[section].fields[row][col].push(field.name);
-				} else {
-					customLayout = [
-						...customLayout,
-						{
-							fields: [[[field.name]]],
-						},
-					];
-				}
-			} else if (!sections) {
-				customLayout = [
-					...customLayout,
-					{
-						fields: [[[field.name]]],
-					},
-				];
-			}
-		}
-
-		return customLayout;
-	}
-};

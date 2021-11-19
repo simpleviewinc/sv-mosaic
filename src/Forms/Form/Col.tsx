@@ -98,13 +98,15 @@ const Col = (props) => {
 
 				const onBlur = onBlurMap[fieldProps.name];
 
-				const value = state.data[fieldProps.name] || '';
-				const touched = state.touched[fieldProps.name] || '';
-				const error = state.errors[fieldProps.name] || '';
+				const name = fieldProps.name;
+				const value = state?.data[fieldProps.name] || '';
+				const touched = state?.touched[fieldProps.name] || '';
+				const error = state?.errors[fieldProps.name] || '';
 
 				const children = useMemo(() => (
 					<Component
 						{...currentField}
+						name={name}
 						value={value}
 						touched={touched}
 						error={error}

@@ -76,7 +76,7 @@ const Form = (props: FormProps) => {
 
 	return (
 		<>
-			<StyledDisabledForm disabled={state.disabled} />
+			<StyledDisabledForm disabled={state?.disabled ? state.disabled : false} />
 			<StyledForm>
 				{title &&
 					<StyledTopComponent>
