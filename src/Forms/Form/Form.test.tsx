@@ -1,52 +1,10 @@
-import * as React from 'react';
-import { render, cleanup, fireEvent, screen, findByText } from '@testing-library/react';
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
-import { useForm, actions, generateLayout } from "./formUtils";
+import { actions, generateLayout } from "./formUtils";
 import { FieldDefProps } from "@root/components/Field";
-import Form from './Form';
-import { useCallback, useMemo } from 'react';
-
-afterEach(cleanup);
+import { required } from './validators';
 
 describe('Layout logic', () => {
-	// const { state, dispatch, events, registerFields } = useForm();
-
-	// const fields = [
-	// 	{
-	// 		name: "text1",
-	// 		label: "Simple Text",
-	// 		type: "text",
-	// 		inputSettings: {
-	// 			maxCharacters: 20,
-	// 		},
-	// 		instructionText: 'testing',
-	// 	},
-	// ];
-
-	// registerFields(fields);
-
-	// const tests = [
-	// 	{
-	// 		name: 'Set field value',
-	// 		args: {
-	// 			data: state?.data?.text1,
-	// 			result: 'abc'
-	// 		}
-	// 	},
-	// ];
-
-	// testArray(tests, async (test) => {
-	// 	await dispatch(
-	// 		actions.setFieldValue({
-	// 			name: 'text1',
-	// 			value: 'abc'
-	// 		})
-	// 	);
-	// 	const result = state.data.text1;
-	// 	assert.strictEqual(result, test.result);
-	// });
-
 	const fields = [
 		{
 			name: "text1",
@@ -181,9 +139,7 @@ describe('Layout logic', () => {
 });
 
 describe('Dispatcher logic', () => {
-	it('Should dispatch a field on change action', async () => {
-		// const state = {};
-		// const dispatch = jest.mock();
+	it('Field on change', async () => {
 		const dispatch = jest.fn();
 		const thunk = actions.setFieldValue({
 			name: 'testName',
@@ -200,116 +156,226 @@ describe('Dispatcher logic', () => {
 		});
 	});
 
-	it('Should dispatch an action that copies the value from one field into another', async () => {
-		// const state = {};
-		// const dispatch = jest.mock();
+	it('Copy the value from one field into another', async () => {
+		const state = {
+			data: {
+				'firstField': 'testValue'
+			}
+		};
+		
 		const dispatch = jest.fn();
-		const setField = actions.setFieldValue({
-			name: 'testName',
-			value: 'testValue',
-			validate: false,
+		const getState = () => state;
+
+		const copyValue = actions.copyFieldToField({
+			from: 'firstField',
+			to: 'secondField',
 		});
 
-		await setField(dispatch);
+		await copyValue(dispatch, getState);
+
+		/**
+		 * This type of dispatch cannot be directly tested since the dispatcher
+		 * dispatches an anonymous function (setFieldValue), which then dispatches,
+		 * but since the only thing that gets called is the setField action and that
+		 * has already been tested we could assume this works too.
+		 */
+
+		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+	});
+
+	it('Validates a field with value', async () => {
+		const state = {
+			data: {
+				'testField': 'testValue'
+			}
+		};
+		
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const extraArgs = {
+			fieldMap: {
+				'testField': {
+					validators: [required]
+				}
+			}
+		};
+
+		const validateField = actions.validateField({
+			name: 'testField'
+		});
+
+		await validateField(dispatch, getState, extraArgs);
 
 		expect(dispatch).toHaveBeenCalledWith({
-			type: "FIELD_ON_CHANGE",
-			name: 'testName',
-			value: 'testValue'
+			type: "FIELD_START_VALIDATE",
+			name: 'testField',
+		});
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FIELD_END_VALIDATE",
+			name: 'testField',
+			value: undefined,
 		});
 	});
+
+	it('Validates an empty field', async () => {
+		const state = {
+			data: {}
+		};
+		
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const extraArgs = {
+			fieldMap: {
+				'testField': {
+					validators: [required]
+				}
+			}
+		};
+
+		const validateField = actions.validateField({
+			name: 'testField'
+		});
+
+		await validateField(dispatch, getState, extraArgs);
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FIELD_START_VALIDATE",
+			name: 'testField',
+		});
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FIELD_END_VALIDATE",
+			name: 'testField',
+			value: 'This field is required, please fill it',
+		});
+	});
+
+	it('Validates a valid form', async () => {
+		const state = {
+			data: {
+				'field1': 'text'
+			},
+			errors: {}
+		};
+		
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fields = [
+			{ name: 'field1' },
+			{ name: 'field2' },
+			{ name: 'field3' },
+			{ name: 'field4' },
+		];
+
+		const validateForm = actions.validateForm({ fields });
+
+		await validateForm(dispatch, getState);
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FORM_START_DISABLE",
+			value: true,
+		});
+
+		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FORM_VALIDATE",
+			value: true,
+		});
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FORM_END_DISABLE",
+			value: false,
+		});
+	});
+
+	it('Validates an invalid form', async () => {
+		const state = {
+			data: {
+				'field1': 'text'
+			},
+			errors: {
+				'field2': 'This field is required, please fill it'
+			}
+		};
+		
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fields = [
+			{ name: 'field1' },
+			{ name: 'field2' },
+			{ name: 'field3' },
+			{ name: 'field4' },
+		];
+
+		const validateForm = actions.validateForm({ fields });
+
+		await validateForm(dispatch, getState);
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FORM_START_DISABLE",
+			value: true,
+		});
+
+		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FORM_VALIDATE",
+			value: false,
+		});
+
+		expect(dispatch).toHaveBeenCalledWith({
+			type: "FORM_END_DISABLE",
+			value: false,
+		});
+	});
+
+	it('Submits a disabled form', async () => {
+		const state = {
+			disabled: true,
+		};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const extraArgs = {
+			fields: [
+				{ name: 'field1' },
+				{ name: 'field2' },
+				{ name: 'field3' },
+				{ name: 'field4' },
+			],
+			onSubmit: jest.fn(),
+		};
+
+		const submitForm = actions.submitForm();
+
+		await submitForm(dispatch, getState, extraArgs);
+
+		expect(dispatch).toHaveBeenCalledTimes(0);
+	});
+
+	it('Submits a form', async () => {
+		const state = {
+			data: {
+				'field1': 'testValue'
+			},
+			errors: {}
+		};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const extraArgs = {
+			fields: [
+				{ name: 'field1' },
+				{ name: 'field2' },
+				{ name: 'field3' },
+				{ name: 'field4' },
+			],
+		};
+
+		const submitForm = actions.submitForm();
+
+		await submitForm(dispatch, getState, extraArgs);
+
+		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+	});
 });
-
-// const FormExample = () => {
-// 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-
-// 	const fields = useMemo(
-// 		() =>
-// 			[
-// 				{
-// 					name: "text1",
-// 					label: "Full Name",
-// 					type: "text",
-// 					instructionText: 'testing',
-// 				},
-// 				{
-// 					name: "text2",
-// 					label: "Email",
-// 					type: "text",
-// 				},
-// 				{
-// 					name: "text3",
-// 					label: "Age",
-// 					type: "text",
-// 				},
-// 				{
-// 					name: "text4",
-// 					label: "City",
-// 					type: "text"
-// 				}
-// 			] as FieldDefProps[],
-// 		[]
-// 	);
-
-// 	useMemo(() => {
-// 		registerFields(fields);
-// 	}, [fields, registerFields]);
-
-// 	const changeValue = (field, newValue) => {
-// 		dispatch(
-// 			actions.setFieldValue({
-// 				name: field,
-// 				value: newValue,
-// 				validate: false,
-// 			})
-// 		);
-// 	}
-
-// 	// const submitForm = useCallback((data) => {
-// 	// 	alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-// 	// }, [state.validForm]);
-
-// 	// useMemo(() => {
-// 	// 	registerOnSubmit(submitForm);
-// 	// }, [submitForm, registerOnSubmit]);
-
-
-// 	return (
-// 		<>
-// 			<div>{JSON.stringify(state.data, null, "  ")}</div>
-// 			<Form
-// 				state={state}
-// 				fields={fields}
-// 				dispatch={dispatch}
-// 				events={events}
-// 			/>
-// 			<button onClick={() => changeValue('text1', 'abc')}>Change text1 value</button>
-// 			<button onClick={() => changeValue('text2', 'def')}>Change text2 value</button>
-// 		</>
-// 	);
-// };
-
-// describe('Reducer logic', () => {
-// 	it('Set value to field through buttons', async () => {
-// 		const { getByText, findByText } = render(<FormExample/>);
-// 		const changeText1 = getByText('Change text1 value');
-// 		const changeText2 = getByText('Change text2 value');
-
-// 		fireEvent.click(changeText1);
-// 		const text1Data = await findByText(`"text1": "abc"`, {exact: false});
-// 		expect(text1Data.innerHTML).toEqual('{\n  "text1": "abc"\n}');
-
-// 		fireEvent.click(changeText2);
-// 		const text2Data = await findByText(`"text2": "def"`, {exact: false});
-// 		expect(text2Data.innerHTML).toEqual('{\n  "text1": "abc",\n  "text2": "def"\n}');
-// 	});
-
-// 	it('Set value to field through typing', async () => {
-// 		const { getByLabelText, findByText } = render(<FormExample/>);
-// 		const fullNameInput = getByLabelText('Full Name');
-
-// 		fireEvent.change(fullNameInput, { target: { value: 'abc'}});
-// 		const text1Data = await findByText(`"text1": "abc"`, {exact: false});
-// 		expect(text1Data.innerHTML).toEqual('{\n  "text1": "abc"\n}');
-// 	});
-// });
