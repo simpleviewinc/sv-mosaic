@@ -33,15 +33,15 @@ const options = [
 		options: [
 			{
 				label: 'Label 2',
-				value: 'label_2',
+				value: 'label_4',
 			},
 			{
 				label: 'Label 2',
-				value: 'label_2',
+				value: 'label_5',
 			},
 			{
 				label: 'Label 3',
-				value: 'label_3',
+				value: 'label_6',
 			},
 		],
 	},
@@ -50,15 +50,15 @@ const options = [
 		options: [
 			{
 				label: 'Label 1',
-				value: 'label_1',
+				value: 'label_7',
 			},
 			{
 				label: 'Label 2',
-				value: 'label_2',
+				value: 'label_8',
 			},
 			{
 				label: 'Label 3',
-				value: 'label_3',
+				value: 'label_9',
 			},
 		],
 	},
