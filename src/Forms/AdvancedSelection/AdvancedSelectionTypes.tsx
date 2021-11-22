@@ -1,6 +1,5 @@
-import { Option } from '@root/components/CheckboxList'
-
 export interface AdvancedSelectionProps {
-  options: { category: string, options: Option[] }[];
+  checkboxOptions: any;
   inputTitle: string;
+  groupByCategory?: boolean;
 }

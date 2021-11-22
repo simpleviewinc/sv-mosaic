@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useMemo, useState } from 'react';
 import { AdvancedSelectionProps } from './AdvancedSelectionTypes';
 
 // Components
@@ -9,15 +9,46 @@ import CheckboxList from '@root/components/CheckboxList';
 import Modal from '@root/components/Modal';
 
 // Styles
-import { StyledInput } from './AdvancedSelection.styled';
+import {
+	OptionsCheckedModalWrapper,
+	ShowHideSpan,
+	StyledExpandLessIcon,
+	StyledExpandMoreIcon,
+	StyledInput,
+} from './AdvancedSelection.styled';
 import { ChipsWrapper } from './AdvancedSelection.styled';
 
+const MAX_CHIPS_MODAL = 4;
+
 const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
-	const { options, inputTitle } = props;
+	const { checkboxOptions, inputTitle, groupByCategory = false } = props;
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [optionsChecked, setOptionsChecked] = useState([]);
+	const [showMore, setShowMore] = useState(false);
+
+	const handleShowMore = () => {
+		setShowMore(!showMore);
+	};
+
+	const optionsWithCategories = useMemo(() => {
+		if (groupByCategory) {
+			const categories = new Map();
+			checkboxOptions.forEach((checkOption) => {
+				if (!categories.has(checkOption.category)) {
+					const categoryOptions = [checkOption];
+					categories.set(checkOption.category, categoryOptions);
+				} else {
+					const categoryOptions = categories.get(checkOption.category);
+					categoryOptions.push(checkOption);
+					categories.set(checkOption.category, categoryOptions);
+				}
+			});
+			return categories;
+		}
+		return checkboxOptions;
+	}, [groupByCategory, checkboxOptions]);
 
 	const handleOpenModal = () => {
 		setIsModalOpen(true);
@@ -42,27 +73,52 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	};
 
 	const listOfChips = optionsChecked.map((option, idx) => {
+		const chipLabel = checkboxOptions.find(
+			(element) => element.value === option
+		);
+
 		return (
 			<Chip
 				key={`${option}-${idx}`}
-				label={option}
+				label={chipLabel.label}
 				onDelete={() => onChipDelete(option)}
 			/>
 		);
 	});
 
-	const listOfOptions = options.map((option, idx) => {
-		return (
-			<div key={`${option.category}-${idx}`}>
-				<span>{option.category}</span>
+	const listOfOptions = () => {
+		if (groupByCategory && optionsWithCategories instanceof Map) {
+			console.log('Options with category:', optionsWithCategories);
+
+			return Array.from(optionsWithCategories).map(([key, value]) => {
+				return (
+					<div key={`${key}-${value}`}>
+						{key && <span>{key}</span>}
+						<CheckboxList
+							options={value}
+							checked={optionsChecked}
+							onChange={onChange}
+						/>
+					</div>
+				);
+			});
+		} else {
+			return (
 				<CheckboxList
+					options={optionsWithCategories}
 					checked={optionsChecked}
-					options={option.options}
 					onChange={onChange}
 				/>
-			</div>
-		);
-	});
+			);
+		}
+	};
+
+	const getRenderedItems = () => {
+		if (showMore) {
+			return listOfChips;
+		}
+		return listOfChips.slice(0, MAX_CHIPS_MODAL);
+	};
 
 	return (
 		<>
@@ -79,10 +135,25 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				secondaryBtnLabel='Cancel'
 			>
 				{optionsChecked.length > 0 && (
-					<ChipsWrapper>{listOfChips}</ChipsWrapper>
+					<OptionsCheckedModalWrapper>
+						<ChipsWrapper>{getRenderedItems()}</ChipsWrapper>
+						{optionsChecked.length > 4 && (
+							<div onClick={handleShowMore}>
+								{showMore ? (
+									<ShowHideSpan>
+										{'Hide'} <StyledExpandLessIcon />
+									</ShowHideSpan>
+								) : (
+									<ShowHideSpan>
+										{`${optionsChecked.length - MAX_CHIPS_MODAL} more`} <StyledExpandMoreIcon />
+									</ShowHideSpan>
+								)}
+							</div>
+						)}
+					</OptionsCheckedModalWrapper>
 				)}
 				<StyledInput type='text' placeholder='Search...' />
-				{listOfOptions}
+				{listOfOptions()}
 			</Modal>
 		</>
 	);
