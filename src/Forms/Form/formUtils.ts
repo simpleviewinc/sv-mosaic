@@ -3,6 +3,7 @@ import { EventEmitter } from "eventemitter3";
 
 import { joinReducers, useThunkReducer } from "./utils";
 import { SectionDef } from "./FormTypes";
+import { required } from "./validators";
 
 function coreReducer(state, action) {
 	switch (action.type) {
@@ -86,10 +87,18 @@ export const actions = {
 	},
 	validateField({ name }) {
 		return async function (dispatch, getState, extraArgs) {
-			const validators = extraArgs.fieldMap[name].validators;
-			if (!validators) {
+			const requiredFlag = extraArgs.fieldMap[name].required;
+			let validators = extraArgs.fieldMap[name].validators;
+
+			if (!validators && !requiredFlag) {
 				return;
 			}
+
+			if (!validators && requiredFlag) {
+				validators = [];
+			}
+
+			validators.unshift(required);
 
 			dispatch({
 				type: "FIELD_START_VALIDATE",
@@ -233,7 +242,7 @@ const isEmpty = (arr) => {
 	return Array.isArray(arr) && (arr.length === 0 || arr.every(isEmpty));
 };
 
-export const generateLayout = ({sections, fields}: {sections?: any, fields: any}) => {
+export const generateLayout = ({ sections, fields }: { sections?: any, fields: any }) => {
 	let customLayout: SectionDef[] = [];
 
 	if (sections) {
@@ -241,11 +250,11 @@ export const generateLayout = ({sections, fields}: {sections?: any, fields: any}
 		customLayout.forEach((section, idx) => {
 			const nonEmptyRows = section.fields.map(row => {
 				const nonEmptyCols = row.filter(col => !isEmpty(col));
-				if(nonEmptyCols.length > 0) {
+				if (nonEmptyCols.length > 0) {
 					return nonEmptyCols;
 				}
 			}).filter(row => row !== undefined);
-			
+
 			customLayout[idx].fields = nonEmptyRows;
 		});
 	}
