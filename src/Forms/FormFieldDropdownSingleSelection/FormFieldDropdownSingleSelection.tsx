@@ -9,11 +9,12 @@ import {
 	StyledErrorWrapper,
 	StyledErrorIcon,
 	StyledErrorMessage,
+	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 // Components
 import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
@@ -54,7 +55,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 					onChange={(_event, option) => onChange(option)}
 					error={!!(required && errorWithMessage)}
 					renderInput={renderInput}
-					disablePortal={true}
+					// disablePortal={true}
 					popupIcon={<ExpandMoreIcon />}
 					onBlur={(e) => onBlur(e.target.value)}
 				/>

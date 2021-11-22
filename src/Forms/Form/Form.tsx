@@ -9,6 +9,7 @@ import Section from './Section';
 import Button from '../Button';
 import { actions } from './formUtils';
 import FormLayout from './FormLayout';
+import TopComponent from '../TopComponent';
 
 
 const StyledForm = styled.form`
@@ -79,31 +80,40 @@ const Form = (props: FormProps) => {
 			<StyledDisabledForm disabled={state?.disabled ? state.disabled : false} />
 			<StyledForm>
 				{title &&
-					<StyledTopComponent>
-						<div>
-							{title && <h1>{title}</h1>}
-							{description && <p>{description}</p>}
-						</div>
-						<div id='buttons'>
-							{onCancel &&
-								<Button
-									onClick={(e) => cancel(e)}
-									buttonType='secondary'
-									{...cancelButtonAttrs}
-								>
-									{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
-								</Button>
-							}
-							{onSubmit &&
-								<Button
-									onClick={(e) => submit(e)}
-									{...submitButtonAttrs}
-								>
-									{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Submit'}
-								</Button>
-							}
-						</div>
-					</StyledTopComponent>
+					// <StyledTopComponent>
+					// 	<div>
+					// 		{title && <h1>{title}</h1>}
+					// 		{description && <p>{description}</p>}
+					// 	</div>
+					// 	<div id='buttons'>
+					// 		{onCancel &&
+					// 			<Button
+					// 				onClick={(e) => cancel(e)}
+					// 				buttonType='secondary'
+					// 				{...cancelButtonAttrs}
+					// 			>
+					// 				{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
+					// 			</Button>
+					// 		}
+					// 		{onSubmit &&
+					// 			<Button
+					// 				onClick={(e) => submit(e)}
+					// 				{...submitButtonAttrs}
+					// 			>
+					// 				{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Submit'}
+					// 			</Button>
+					// 		}
+					// 	</div>
+					// </StyledTopComponent>
+					<TopComponent 
+						title={title}
+						description={description}
+						onCancel={(e) => cancel(e)}
+						cancelButtonAttrs={cancelButtonAttrs}
+						onSubmit={(e) => submit(e)}
+						submitButtonAttrs={submitButtonAttrs}
+						sections={sections}
+					/>
 				}
 				<FormLayout
 					state={state}

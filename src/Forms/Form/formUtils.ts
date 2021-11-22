@@ -55,6 +55,17 @@ function coreReducer(state, action) {
 				...state,
 				validForm: action.value
 			};
+		case "FORM_RESET":
+			return {
+				...state,
+				data: {},
+				touched: {},
+				errors: {},
+				validating: {},
+				custom: {},
+				validForm: false,
+				disabled: null
+			}
 		default:
 			return state;
 	}
@@ -183,6 +194,13 @@ export const actions = {
 			if (isValid)
 				extraArgs.onSubmit(getState().data);
 
+		}
+	},
+	resetForm() {
+		return async (dispatch) => {
+			dispatch({
+				type: "FORM_RESET",
+			});
 		}
 	}
 };

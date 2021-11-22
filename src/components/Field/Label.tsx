@@ -12,7 +12,7 @@ import Tooltip from '../Tooltip';
 
 const LabelWrapper = styled.div`
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: ${pr => pr.labelMargin};
   justify-content: space-between;
   width: ${(pr) => pr.size};
   font-family: ${theme.fontFamily};
@@ -66,6 +66,7 @@ interface LabelProps {
   maxCharacters?: number;
   instructionText?: string;
   tooltip?: boolean
+  labelMargin?: string;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -78,11 +79,12 @@ const Label = (props: LabelProps): ReactElement => {
 		value,
 		maxCharacters,
 		tooltip,
-		instructionText
+		instructionText,
+		labelMargin,
 	} = props;
 
 	return (
-		<LabelWrapper className={className} disabled={disabled} required={required}>
+		<LabelWrapper className={className} disabled={disabled} required={required} labelMargin={labelMargin}>
 			<StyledInputTooltipWrapper>
 				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
 				{tooltip && 

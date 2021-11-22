@@ -1,3 +1,3 @@
 export { default } from './ImageVideoDocumentSetUp';
-export * from './ImageVideoDocumentSetUpTypes';
+export * from './ImageVideoDocumentSetUp';
 export * from './ImageVideoDocumentSetUpTypes';

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 import FormFieldDropdownSingleSelection from "./FormFieldDropdownSingleSelection";
@@ -38,6 +38,12 @@ export const example = (): ReactElement => {
 		{ title: 'City of God', year: 2002 },
 		{ title: 'Se7en', year: 1995 },
 	];
+
+	const [selectedOption, setSelectedOption] = useState('');
+
+	const onChange = (_event, option) => {
+		setSelectedOption(option?.title)
+	}
 
 	return (
 		<FormFieldDropdownSingleSelection

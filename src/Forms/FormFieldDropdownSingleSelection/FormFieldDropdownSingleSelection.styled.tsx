@@ -6,12 +6,6 @@ import theme from '../../utils/theme.js';
 import { Sizes } from '../../theme/sizes';
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
-  & .MuiFormControl-fullWidth {
-    height: 51px;
-    margin-right: 60px;
-    width: ${(pr) => (pr.size ? pr.size : Sizes.sm)};
-  }
-
   & .MuiFormControl-root .MuiInputBase-root {
     background-color: ${theme.colors.gray100};
   }
@@ -29,8 +23,29 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
     border: solid 1px ${theme.colors.gray800};
   }
 
-  .MuiAutocomplete-popupIndicator {
+  .MuiAutocomplete-clearIndicator {
+    margin-right: 20px;
+  }
+
+  &.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
+    padding-right: 88px;
+  }
+
+  .MuiAutocomplete-popupIndicator, .MuiAutocomplete-popupIndicatorOpen {
     color: ${pr => (pr.error ? theme.colors.red : theme.colors.almostBlack)};
+
+    &:before {
+      background: none;
+      content: "";
+      display: block;
+      position: absolute;
+      top: 4px;
+      left: -12px;
+      right: -12px;
+      bottom: 4px;
+      border-right: ${pr => pr.open ? theme.borders.fieldGray : ''};
+      border-left: ${pr => !pr.open ? theme.borders.fieldGray : ''};
+    }
   }
 `;
 
@@ -94,4 +109,19 @@ export const StyledErrorMessage = styled.div`
   align-items: center;
   margin-top: 16px;
   width: fit-content;
+`;
+
+export const SingleDropdownWrapper = styled.div`
+  margin: 0;
+  padding: 0;
+
+  .MuiFormControl-fullWidth {
+    height: 51px;
+    margin-right: 60px;
+    width: ${pr => (pr.innerWidth ? pr.innerWidth : Sizes.sm)};
+  }
+
+  .MuiAutocomplete-paper {
+    width: ${pr => pr.innerWidth === Sizes.xs ? Sizes.sm : pr.innerWidth } 
+  }
 `;

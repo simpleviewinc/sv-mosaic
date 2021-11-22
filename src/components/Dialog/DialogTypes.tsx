@@ -21,7 +21,7 @@ export interface DialogProps {
    * Function that will be executed when the primary
    * button is clicked
    */
-  primaryAction: () => void;
+  primaryAction?: () => void;
   /**
    * Label that describes the secondary button
    */
@@ -31,5 +31,5 @@ export interface DialogProps {
    * button is clicked. This function should set 
    * the open dialog state to false
    */
-  secondaryAction: () => void;
+  secondaryAction?: () => void;
 }

@@ -56,7 +56,7 @@ export interface FieldProps {
 }
 
 export interface FieldDefProps extends FieldProps {
-	type?: "text" | JSX.Element | (() => JSX.Element);
+	type?: string | JSX.Element | (() => JSX.Element);
 	children: ReactNode;
 	layout?: any;
 	validators?: (() => string | JSX.Element)[];

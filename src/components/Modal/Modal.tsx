@@ -39,6 +39,7 @@ const Modal = (props: ModalProps): ReactElement => {
 		cancelButtonAttrs,
 		state,
 		dispatch,
+		sections,
 	} = props;
 
 	const [isMobileView, setIsMobileView] = useState(false);
@@ -129,6 +130,7 @@ const Modal = (props: ModalProps): ReactElement => {
 					state={state}
 					dispatch={dispatch}
 					fields={fields}
+					sections={sections}
 				/>
 			</DialogContent>
 			{!isMobileView && (
