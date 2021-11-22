@@ -43,6 +43,7 @@ export const ShowHideSpan = styled.span`
   color: ${theme.colors.gray700};
   cursor: pointer;
   display: flex;
+  font-family: ${theme.fontFamily};
   width: fit-content;
 `;
 
