@@ -32,12 +32,13 @@ const Field = ({
 		}
 	};
 
-	let labelMargin = '8px';
-
-	useMemo(() => {
+	const labelMargin = useMemo(() => {
+		let labelMargin = '8px';
 		if (type === 'linkSetup') {
-			labelMargin = '16px';
+			return labelMargin = '16px';
 		}
+
+		return labelMargin
 	}, [type]);
 
 	return (
