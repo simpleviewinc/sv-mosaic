@@ -8,6 +8,7 @@ interface LabelProps {
     children?: React.ReactNode;
     value?: string;
     maxCharacters?: number;
+    labelMargin?: string;
 }
 declare const Label: (props: LabelProps) => ReactElement;
 export default Label;

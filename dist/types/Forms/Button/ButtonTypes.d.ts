@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react';
 import { ElementType, MouseEventHandler, ReactNode } from 'react';
 /**
  * This type is used to defined the keys
@@ -19,7 +20,7 @@ export declare type ButtonStyle = {
  * All the possible button types
  */
 export declare type ButtonType = 'primary' | 'secondary' | 'blueText' | 'redText' | 'approve' | 'deny';
-export interface FormButtonProps {
+export interface FormButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     /**
      * The content of the button component
      */

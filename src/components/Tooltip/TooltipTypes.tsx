@@ -30,4 +30,16 @@ export interface TooltipProps {
    * Tooltip placement.
    */
   placement?: MUITooltipProps['placement'];
+  /**
+   * If true, the tooltip is shown.
+   */
+  open?: boolean;
+  /**
+   * Callback fired when the component requests to be open. 
+   */
+  onOpen?: () => void;
+  /**
+   * Callback fired when the component requests to be closed.
+   */
+  onClose?: () => void;
 }

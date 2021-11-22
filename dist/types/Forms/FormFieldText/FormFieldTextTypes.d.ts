@@ -33,6 +33,10 @@ export interface TextFieldProps {
      */
     maxCharacters?: number;
     /**
+     * Name attribute of the input element.
+     */
+    name?: string;
+    /**
      * Marks Text field as required
      */
     required?: boolean;
