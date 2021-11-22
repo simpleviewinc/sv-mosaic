@@ -12,24 +12,44 @@ export default {
 
 const options = [
 	{
-		category: 'Cat1',
+		category: 'Category 1',
 		label: 'Option 1',
 		value: 'option_1-cat_1',
 	},
 	{
-		category: 'Cat1',
+		category: 'Category 1',
 		label: 'Option 2',
 		value: 'option_2-cat_1',
 	},
 	{
-		category: 'Cat2',
-		label: 'Option 1',
+		category: 'Category 1',
+		label: 'Option 3',
+		value: 'option_3-cat_1',
+	},
+	{
+		category: 'Category 1',
+		label: 'Option 4',
+		value: 'option_4-cat_1',
+	},
+	{
+		category: 'Category 2',
+		label: 'Option 1 category 2',
+		value: 'option_1-cat_2',
+	},
+	{
+		category: 'Category 2',
+		label: 'Test option category 2',
 		value: 'option_2-cat_2',
 	},
 	{
-		category: 'Cat2',
-		label: 'Test',
-		value: 'test',
+		category: 'Category 2',
+		label: 'Another option of catergory 2',
+		value: 'option_3-cat_2',
+	},
+	{
+		category: 'Category 2',
+		label: 'Option 4 category 2',
+		value: 'option_4-cat_2',
 	},
 	{
 		category: 'Cat3',
@@ -51,7 +71,7 @@ const options = [
 export const Example = (): ReactElement => {
 	return (
 		<AdvancedSelection
-			inputTitle={text('Input Title', 'Input Title')}
+			modalTitle={text('Input Title', 'Input Title')}
 			checkboxOptions={options}
 			groupByCategory={true}
 		/>
