@@ -12,55 +12,39 @@ export default {
 
 const options = [
 	{
-		category: 'Category',
-		options: [
-			{
-				label: 'Label 1',
-				value: 'label_1',
-			},
-			{
-				label: 'Label 2',
-				value: 'label_2',
-			},
-			{
-				label: 'Label 3',
-				value: 'label_3',
-			},
-		],
+		category: 'Cat1',
+		label: 'Option 1',
+		value: 'option_1-cat_1',
 	},
 	{
-		category: 'Category 2',
-		options: [
-			{
-				label: 'Label 2',
-				value: 'label_4',
-			},
-			{
-				label: 'Label 2',
-				value: 'label_5',
-			},
-			{
-				label: 'Label 3',
-				value: 'label_6',
-			},
-		],
+		category: 'Cat1',
+		label: 'Option 2',
+		value: 'option_2-cat_1',
 	},
 	{
-		category: 'Category 3',
-		options: [
-			{
-				label: 'Label 1',
-				value: 'label_7',
-			},
-			{
-				label: 'Label 2',
-				value: 'label_8',
-			},
-			{
-				label: 'Label 3',
-				value: 'label_9',
-			},
-		],
+		category: 'Cat2',
+		label: 'Option 1',
+		value: 'option_2-cat_2',
+	},
+	{
+		category: 'Cat2',
+		label: 'Test',
+		value: 'test',
+	},
+	{
+		category: 'Cat3',
+		label: 'Very long label that does not fit',
+		value: 'option_1-cat_3',
+	},
+	{
+		category: 'Cat3',
+		label: 'Very long label that does not fit',
+		value: 'option_2-cat_3',
+	},
+	{
+		category: 'Cat4',
+		label: 'Option 1 category 4',
+		value: 'option_1-cat_4',
 	},
 ];
 
@@ -68,7 +52,8 @@ export const Example = (): ReactElement => {
 	return (
 		<AdvancedSelection
 			inputTitle={text('Input Title', 'Input Title')}
-			options={options}
+			checkboxOptions={options}
+			groupByCategory={true}
 		/>
 	);
 };
