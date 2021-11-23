@@ -94,6 +94,7 @@ export const DesktopViewColumn = styled(StyledColumn)`
   justify-content: space-between;
   padding: 24px 20px 0px 20px;
   top: 0;
+  z-index: 99999;
 
   @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
     box-shadow: 0px 1px 10px #0000001a;
@@ -151,6 +152,7 @@ export const MobileCheckboxHelpIconRow = styled(Row)`
 
 export const ResponsiveViewColumn = styled(StyledColumn)`
   padding: 20px 20px 0px 20px;
+  z-index: 9999;
 `;
 
 export const ResponsiveActionsRow = styled(Row)`

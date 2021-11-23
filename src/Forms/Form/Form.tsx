@@ -79,7 +79,7 @@ const Form = (props: FormProps) => {
 		<>
 			<StyledDisabledForm disabled={state?.disabled ? state.disabled : false} />
 			<StyledForm>
-				{title &&
+				{title ?
 					// <StyledTopComponent>
 					// 	<div>
 					// 		{title && <h1>{title}</h1>}
@@ -105,7 +105,7 @@ const Form = (props: FormProps) => {
 					// 		}
 					// 	</div>
 					// </StyledTopComponent>
-					<TopComponent 
+					<TopComponent
 						title={title}
 						description={description}
 						onCancel={(e) => cancel(e)}
@@ -113,14 +113,22 @@ const Form = (props: FormProps) => {
 						onSubmit={(e) => submit(e)}
 						submitButtonAttrs={submitButtonAttrs}
 						sections={sections}
+					>
+						<FormLayout
+							state={state}
+							dispatch={dispatch}
+							fields={fields}
+							sections={sections}
+						/>
+					</TopComponent>
+					:
+					<FormLayout
+						state={state}
+						dispatch={dispatch}
+						fields={fields}
+						sections={sections}
 					/>
 				}
-				<FormLayout
-					state={state}
-					dispatch={dispatch}
-					fields={fields}
-					sections={sections}
-				/>
 				{/* {layout?.map((section, i) => (
 					<Section
 						key={i}
