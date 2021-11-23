@@ -250,38 +250,18 @@ export const FormWithLayout = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const setText1Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text1",
-				value: "My New Value"
-			})
-		);
-	};
-
-	const setText2Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text2",
-				value: "notanemail"
-			})
-		);
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<p>Here is the form</p>
-			<Form sections={sections} state={state} fields={fields} dispatch={dispatch} events={events} />
-			<div>
-				<p>
-					Here are some buttons that are not part of the form, but can change
-					values in the form proving communication between in/out of the form.
-					Notice that settext2 runs the validation after setting the value.
-				</p>
-				<button onClick={setText1Value}>Set Text1 Value</button>
-				<button onClick={setText2Value}>Set Text2 Value</button>
-			</div>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				sections={sections}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+			/>
 		</>
 	);
 }
@@ -733,7 +713,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 export const GenericModal = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
-	const [open, setOpen] = useState(false); 
+	const [open, setOpen] = useState(false);
 
 	const fields = useMemo(
 		() =>
@@ -827,7 +807,7 @@ export const FormAndModal = (): ReactElement => {
 	const formReducer = useForm();
 	const modalReducer = useForm();
 
-	const [open, setOpen] = useState(false); 
+	const [open, setOpen] = useState(false);
 
 	const fields = useMemo(
 		() =>
