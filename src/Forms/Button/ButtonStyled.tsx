@@ -113,9 +113,9 @@ export const StyledButton = styled.button`
 
 export const StyledIcon = styled.div`
   &.MuiSvgIcon-root {
-    font-size: 12px;
-    height: 12px;
-    width: 12px;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
   }
 `;
 

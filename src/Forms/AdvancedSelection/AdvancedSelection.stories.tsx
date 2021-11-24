@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
 import AdvancedSelection from './AdvancedSelection';
+import { optionsWithCategory } from './AdvancedSelectionTypes';
 
 export default {
 	title: 'Forms|AdvancedSelection',
@@ -52,28 +53,44 @@ const options = [
 		value: 'option_4-cat_2',
 	},
 	{
-		category: 'Cat3',
-		label: 'Very long label that does not fit',
-		value: 'option_1-cat_3',
+		category: 'Test Category',
+		label: 'You can filter by category',
+		value: 'option_1-test_category',
 	},
 	{
-		category: 'Cat3',
+		category: 'Test Category',
 		label: 'Very long label that does not fit',
-		value: 'option_2-cat_3',
+		value: 'option_2-test_category',
 	},
 	{
-		category: 'Cat4',
+		category: 'Category 4',
 		label: 'Option 1 category 4',
 		value: 'option_1-cat_4',
+	},
+	{
+		label: 'Option without category',
+		value: 'option_without_category',
 	},
 ];
 
 export const Example = (): ReactElement => {
+	const onChange = (savedOptions: optionsWithCategory[]) => {
+		console.log("Stories: ", savedOptions)
+	};
+
 	return (
 		<AdvancedSelection
-			modalTitle={text('Input Title', 'Input Title')}
+			label={text('Label', 'Label')}
+			error={boolean('Error', false)}
+			errorText={text('Error text', '')}
+			required={boolean('Required', false)}
+			instructionText={text('Instruction text', 'Instruction text')}
+			helperText={text('Helper text', 'Helper text')}
+			disabled={boolean('Disabled', false)}
+			modalTitle={text('Modal title', 'Modal title')}
 			checkboxOptions={options}
-			groupByCategory={true}
+			groupByCategory={boolean('Group by category', false)}
+			onChange={onChange}
 		/>
 	);
 };
