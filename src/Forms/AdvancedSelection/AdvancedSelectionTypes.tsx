@@ -1,6 +1,8 @@
-export type optionsWithCategory = { category: string, label: string, value:string};
+import { FieldProps } from '@root/components/Field';
 
-export interface AdvancedSelectionProps {
+export type optionsWithCategory = { category?: string, label: string, value:string};
+
+export interface AdvancedSelectionProps extends FieldProps {
   /**
    * Options to be display within the Modal.
    */
@@ -16,4 +18,8 @@ export interface AdvancedSelectionProps {
    * checkboxOptions.
    */
   groupByCategory?: boolean;
+  /**
+   * Used to get the selected options on the parent component.
+   */
+  onChange: (selectedOptions: optionsWithCategory[]) => void; 
 }

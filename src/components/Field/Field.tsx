@@ -8,10 +8,12 @@ import { default as InstructionText } from './InstructionText';
 import { FieldProps } from '.';
 
 interface FieldWrapperProps extends FieldProps {
+	className?: string;
   children: ReactNode;
 }
 
 const Field = ({
+	className,
 	children,
 	error = false,
 	disabled,
@@ -34,7 +36,7 @@ const Field = ({
 
 	const labelMargin = useMemo(() => {
 		let labelMargin = '8px';
-		if (type === 'linkSetup') {
+		if (type === 'linkSetup' || type === 'advancedSelection') {
 			return labelMargin = '16px';
 		}
 
@@ -42,7 +44,7 @@ const Field = ({
 	}, [type]);
 
 	return (
-		<StyledFieldContainer>
+		<StyledFieldContainer className={className}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && required)}
 			>
