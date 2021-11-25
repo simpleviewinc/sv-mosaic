@@ -17,6 +17,9 @@ export * from "./types";
 export { default as Address } from "./forms/Address";
 export * from "./forms/Address";
 
+export { default as AdvancedSelection } from "./forms/AdvancedSelection";
+export * from "./forms/AdvancedSelection";
+
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
 
