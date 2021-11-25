@@ -8,7 +8,7 @@ import { default as InstructionText } from './InstructionText';
 import { FieldProps } from '.';
 
 interface FieldWrapperProps extends FieldProps {
-	className?: string;
+  className?: string;
   children: ReactNode;
 }
 

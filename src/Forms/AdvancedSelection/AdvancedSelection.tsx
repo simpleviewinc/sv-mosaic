@@ -53,8 +53,8 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const filteredList = options.filter(
 		(d) =>
 			inputValue === '' ||
-      d.label.toLowerCase().includes(inputValue.trim().toLowerCase()) ||
-      d.category?.toLowerCase().includes(inputValue.trim().toLowerCase())
+			d.label.toLowerCase().includes(inputValue.trim().toLowerCase()) ||
+			d.category?.toLowerCase().includes(inputValue.trim().toLowerCase())
 	);
 
 	/**
@@ -269,7 +269,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 							icon={AddIcon}
 							onClick={handleOpenModal}
 						>
-              Add Element
+							Add Element
 						</Button>
 						{showListOfChips(CHIPS_TO_SHOW_ON_SCREEN)}
 					</AdvancedSelectionWrapper>
@@ -280,7 +280,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 					disabled={disabled}
 					onClick={handleOpenModal}
 				>
-          ADD ELEMENT
+					ADD ELEMENT
 				</Button>
 			)}
 			<Modal
@@ -307,7 +307,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 							icon={AddIcon}
 							onClick={createOption}
 						>
-              Create
+							Create
 						</Button>
 					)}
 				</InputWrapper>

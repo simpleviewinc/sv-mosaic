@@ -31,7 +31,7 @@ const options = [
 	},
 ];
 
-describe('AdvancedSelection component with options group by category', () => {
+describe('AdvancedSelection component', () => {
 	beforeEach(() => {
 		render(
 			<AdvancedSelection
