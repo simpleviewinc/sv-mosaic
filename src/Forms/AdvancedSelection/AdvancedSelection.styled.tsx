@@ -52,7 +52,7 @@ export const ChipsWrapper = styled.div`
 `;
 
 export const StyledField = styled(Field)`
-  &.advance_selection > div:nth-child(2) {
+  &.advanced_selection > div:nth-child(2) {
     margin-top: 52px;
     max-height: 80px;
   }
@@ -101,6 +101,6 @@ export const CategoryTitle = styled.span`
   margin-bottom: 16px;
 `;
 
-export const AdvanceSelectionWrapper = styled.div`
+export const AdvancedSelectionWrapper = styled.div`
   max-width: 620px;
 `;

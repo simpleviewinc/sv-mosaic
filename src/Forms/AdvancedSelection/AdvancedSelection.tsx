@@ -11,7 +11,7 @@ import Modal from '@root/components/Modal';
 
 // Styles
 import {
-	AdvanceSelectionWrapper,
+	AdvancedSelectionWrapper,
 	CategoryTitle,
 	CheckboxListWrapper,
 	ChipsWrapper,
@@ -260,9 +260,9 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 					instructionText={instructionText}
 					helperText={helperText}
 					type='advancedSelection'
-					className='advance_selection'
+					className='advanced_selection'
 				>
-					<AdvanceSelectionWrapper>
+					<AdvancedSelectionWrapper>
 						<Button
 							buttonType='blueText'
 							disabled={disabled}
@@ -272,7 +272,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
               Add Element
 						</Button>
 						{showListOfChips(CHIPS_TO_SHOW_ON_SCREEN)}
-					</AdvanceSelectionWrapper>
+					</AdvancedSelectionWrapper>
 				</StyledField>
 			) : (
 				<Button
