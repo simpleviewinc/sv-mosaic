@@ -10,6 +10,7 @@ import CheckboxList from '@root/components/CheckboxList';
 import Modal from '@root/components/Modal';
 
 // Styles
+import { BREAKPOINTS } from '@root/theme/theme';
 import {
 	AdvancedSelectionWrapper,
 	CategoryTitle,
@@ -24,8 +25,7 @@ import {
 	StyledInput,
 } from './AdvancedSelection.styled';
 
-const CHIPS_TO_SHOW_ON_MODAL = 4;
-const CHIPS_TO_SHOW_ON_SCREEN = 8;
+const MAX_CHIPS_TO_SHOW = 8;
 
 const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const {
@@ -49,6 +49,20 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const [showMore, setShowMore] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [options, setOptions] = useState(checkboxOptions);
+	const [isMobileView, setIsMobileView] = useState(false);
+
+	useEffect(() => {
+		const setResponsiveness = () => {
+			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
+		};
+
+		setResponsiveness();
+		window.addEventListener('resize', setResponsiveness);
+
+		return () => {
+			window.removeEventListener('resize', setResponsiveness);
+		};
+	}, []);
 
 	const filteredList = options.filter(
 		(d) =>
@@ -147,6 +161,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 			});
 
 			onChange(selectedOptions);
+			setSavedOption(optionsChecked);
 		}
 	}, [isModalOpen, optionsChecked, options])
 
@@ -198,18 +213,16 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	};
 
 	/**
-   * @param maxChipsToShow number of max chips to display
    * @returns the list of chips and the 'X more' or 'Hide' text
-   * if the selected options are greater than the maxChipsToShow
-   * param.
+   * if the selected options are greater than MAX_CHIPS_TO_SHOW
    */
-	const showListOfChips = (maxChipsToShow: number) => {
+	const showListOfChips = useMemo(() => {
 		return (
 			<OptionsCheckedModalWrapper isModalOpen={isModalOpen}>
-				<ChipsWrapper>
-					{showMore ? chips : chips.slice(0, maxChipsToShow)}
+				<ChipsWrapper isMobileView={isMobileView}>
+					{showMore ? chips : chips.slice(0, MAX_CHIPS_TO_SHOW)}
 				</ChipsWrapper>
-				{optionsChecked.length > maxChipsToShow && (
+				{optionsChecked.length > MAX_CHIPS_TO_SHOW && (
 					<div onClick={handleShowMore}>
 						{showMore ? (
 							<ShowHideSpan>
@@ -217,7 +230,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 							</ShowHideSpan>
 						) : (
 							<ShowHideSpan>
-								{`${optionsChecked.length - maxChipsToShow} more`}
+								{`${optionsChecked.length - MAX_CHIPS_TO_SHOW} more`}
 								<StyledExpandMoreIcon />
 							</ShowHideSpan>
 						)}
@@ -225,7 +238,8 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				)}
 			</OptionsCheckedModalWrapper>
 		);
-	};
+	}, [optionsChecked, showMore, isMobileView]);
+
 
 	/**
    * Handler for the input element
@@ -271,7 +285,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 						>
 							Add Element
 						</Button>
-						{showListOfChips(CHIPS_TO_SHOW_ON_SCREEN)}
+						{showListOfChips}
 					</AdvancedSelectionWrapper>
 				</StyledField>
 			) : (
@@ -292,8 +306,8 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				secondaryAction={handleClose}
 				secondaryBtnLabel='Cancel'
 			>
-				{optionsChecked.length > 0 && showListOfChips(CHIPS_TO_SHOW_ON_MODAL)}
-				<InputWrapper>
+				{optionsChecked.length > 0 && showListOfChips}
+				<InputWrapper isMobileView={isMobileView}>
 					<StyledInput
 						type='text'
 						placeholder='Search...'

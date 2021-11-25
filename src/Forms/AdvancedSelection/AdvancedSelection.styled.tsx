@@ -31,6 +31,7 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   margin-bottom: 40px;
   padding: 0 16px;
+  width: ${pr => pr.isMobileView ? '' : '650px'};
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
@@ -41,6 +42,7 @@ export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 16px;
+  width: ${pr => pr.isMobileView ? '' : '684px'};
 
   & > :not(:last-child) {
     margin-right: 12px;
@@ -70,6 +72,7 @@ export const CheckboxListWrapper = styled.div`
   .MuiFormGroup-root {
     .MuiFormControlLabel-root {
       width: fit-content;
+      word-wrap: break-word;
     }
   }
 `;

@@ -29,6 +29,22 @@ const options = [
 		label: 'Option 5',
 		value: 'option5_without_category',
 	},
+	{
+		label: 'Option 6',
+		value: 'option6_without_category',
+	},
+	{
+		label: 'Option 7',
+		value: 'option7_without_category',
+	},
+	{
+		label: 'Option 8',
+		value: 'option8_without_category',
+	},
+	{
+		label: 'Option 9',
+		value: 'option9_without_category',
+	},
 ];
 
 describe('AdvancedSelection component', () => {
@@ -103,7 +119,7 @@ describe('AdvancedSelection component', () => {
 		expect(screen.queryByText('New option')).toBeTruthy();
 	});
 
-	it('should display "X more" when the selected options exceeds the limit stablished', () => {
+	it('should display "X more" when the selected options are more than 8', () => {
 		fireEvent.click(screen.getByText('ADD ELEMENT'));
 
 		// Select all options
@@ -117,7 +133,7 @@ describe('AdvancedSelection component', () => {
 
 		fireEvent.click(showMoreElement);
 		expect(screen.getByText('Hide')).toBeTruthy();
-		expect(screen.getAllByText('Option 5').length).toBe(2);
+		expect(screen.getAllByText('Option 9').length).toBe(2);
 	});
 
 	it('should not select any option when the modal is closed', () => {
