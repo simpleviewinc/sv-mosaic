@@ -238,7 +238,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				)}
 			</OptionsCheckedModalWrapper>
 		);
-	}, [optionsChecked, showMore, isMobileView]);
+	}, [optionsChecked, showMore, isMobileView, disabled]);
 
 
 	/**
