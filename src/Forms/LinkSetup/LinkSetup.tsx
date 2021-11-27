@@ -15,29 +15,38 @@ import {
 } from './LinkSetup.styled';
 
 const LinkSetup = (props: LinkSetupProps): ReactElement => {
-	const { disabled, link, handleRemove, handleSetLink } = props;
+	const {
+		disabled,
+		value,
+		inputSettings
+	} = props;
+
+	const handleClick = (e, cb) => {
+		e.preventDefault();
+		cb();
+	}
 
 	return (
 		<>
-			{isEmpty(link) ? (
-				<Button disabled={disabled} buttonType='secondary' onClick={handleSetLink}>
+			{isEmpty(value) ? (
+				<Button disabled={disabled} buttonType='secondary' onClick={(e) => handleClick(e, inputSettings?.handleSetLink)}>
 					SET LINK
 				</Button>
 			) : (
 				<LinkCard>
 					<LinkInfoContainer>
 						<LinkProperty>Title</LinkProperty>
-						<LinkValue>{link.title}</LinkValue>
+						<LinkValue>{value.title}</LinkValue>
 						<LinkProperty>Type</LinkProperty>
-						<LinkValue>{link.type}</LinkValue>
+						<LinkValue>{value.type}</LinkValue>
 						<LinkProperty>URL</LinkProperty>
-						<StyledAnchor href={link.url}>{link.url}</StyledAnchor>
+						<StyledAnchor href={value.url}>{value.url}</StyledAnchor>
 					</LinkInfoContainer>
 					<ButtonsWrapper>
-						<Button disabled={disabled} buttonType='blueText' onClick={handleSetLink}>
+						<Button disabled={disabled} buttonType='blueText' onClick={(e) => handleClick(e, inputSettings?.handleSetLink)}>
 							Browse
 						</Button>
-						<Button disabled={disabled} buttonType='redText' onClick={handleRemove}>
+						<Button disabled={disabled} buttonType='redText' onClick={(e) => handleClick(e, inputSettings?.handleRemove)}>
 							Remove
 						</Button>
 					</ButtonsWrapper>

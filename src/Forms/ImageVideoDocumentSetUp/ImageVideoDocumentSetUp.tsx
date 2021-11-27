@@ -40,31 +40,26 @@ const ImageVideoDocumentSetUp = (
 	props: ImageVideoDocumentSetUpProps
 ): ReactElement => {
 	const {
-		assetProperties,
 		label,
-		handleRemove,
-		handleSetDocument,
-		handleSetImage,
-		handleSetVideo,
-		options,
-		src,
+		inputSettings,
+		value,
 	} = props;
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [assetType, setAssetType] = useState('');
 
 	const handleImageClick = () => {
-		handleSetImage();
+		inputSettings?.handleSetImage();
 		setAssetType(IMAGE);
 	};
 
 	const handleVideoClick = () => {
-		handleSetVideo();
+		inputSettings?.handleSetVideo();
 		setAssetType(VIDEO);
 	};
 
 	const handleDocumentClick = () => {
-		handleSetDocument();
+		inputSettings?.handleSetDocument();
 		setAssetType(DOCUMENT);
 	};
 
@@ -72,21 +67,27 @@ const ImageVideoDocumentSetUp = (
    * The Browse button should execute the function
    * corresponding to the asset that was loaded.
    */
-	const handleBrowse = () => {
+	const handleBrowse = (e) => {
+		e.preventDefault();
 		switch (assetType) {
 		case DOCUMENT:
-			handleSetDocument();
+			inputSettings?.handleSetDocument();
 			break;
 
 		case VIDEO:
-			handleSetVideo();
+			inputSettings?.handleSetVideo();
 			break;
 
 		default:
-			handleSetImage();
+			inputSettings?.handleSetImage();
 			break;
 		}
 	};
+
+	const handleRemove = (e) => {
+		e.preventDefault();
+		inputSettings?.handleRemove();
+	}
 
 	const open = Boolean(anchorEl);
 
@@ -101,9 +102,9 @@ const ImageVideoDocumentSetUp = (
 	let multipleActions = false;
 
 	if (
-		(handleSetImage && handleSetVideo) ||
-    (handleSetVideo && handleSetDocument) ||
-    (handleSetDocument && handleSetImage)
+		(inputSettings?.handleSetImage && inputSettings?.handleSetVideo) ||
+    (inputSettings?.handleSetVideo && inputSettings?.handleSetDocument) ||
+    (inputSettings?.handleSetDocument && inputSettings?.handleSetImage)
 	) {
 		multipleActions = true;
 	}
@@ -130,7 +131,7 @@ const ImageVideoDocumentSetUp = (
 				open={open}
 				onClose={closeMenuHandler}
 			>
-				{options?.map((option) => (
+				{inputSettings?.options?.map((option) => (
 					<MenuItem key={`label-${option.label}`} onClick={option.action}>
 						{option.label}
 					</MenuItem>
@@ -140,8 +141,7 @@ const ImageVideoDocumentSetUp = (
 	);
 
 	const tootltipContent = useMemo(
-		() =>
-			assetProperties.map((property) => (
+		() => Array.isArray(value) && value?.map((property) => (
 				<TableRow key={`${property.label}-${property.value}`}>
 					<Td>
 						<AssetLabelTooltip>{property.label}</AssetLabelTooltip>
@@ -149,7 +149,7 @@ const ImageVideoDocumentSetUp = (
 					<Td>{property.value}</Td>
 				</TableRow>
 			)),
-		[assetProperties]
+		[value]
 	);
 
 	const showMore = (
@@ -169,14 +169,14 @@ const ImageVideoDocumentSetUp = (
 	// Only show the first four asset's properties on the card
 	const assetPropertiesRows = useMemo(
 		() =>
-			assetProperties.slice(0, 4).map((property, idx) => (
+		Array.isArray(value) && value?.slice(0, 4).map((property, idx) => (
 				<TableRow key={`${property.label}-${property.value}`}>
 					<Td>
 						<AssetLabel>{property.label}</AssetLabel>
 					</Td>
 					<Td>
 						<AssetValue>{property.value}</AssetValue>
-						{idx === 3 && assetProperties.length > 4 && (
+						{idx === 3 && value.length > 4 && (
 							<>
 								<AssetValue>...</AssetValue>
 								{showMore}
@@ -185,25 +185,24 @@ const ImageVideoDocumentSetUp = (
 					</Td>
 				</TableRow>
 			)),
-		[assetProperties]
+		[value]
 	);
 
 	return (
 		<div>
-			<StyledLabel>{label}</StyledLabel>
-			{assetProperties.length === 0 ? (
+			{((Array.isArray(value) && value?.length === 0) || value === '' || value === undefined) ? (
 				<SetUpButtonsWrapper multipleActions={multipleActions}>
-					{handleSetImage && (
+					{inputSettings?.handleSetImage && (
 						<Button buttonType='secondary' onClick={handleImageClick}>
 							SET IMAGE
 						</Button>
 					)}
-					{handleSetVideo && (
+					{inputSettings?.handleSetVideo && (
 						<Button buttonType='secondary' onClick={handleVideoClick}>
 						SET VIDEO
 						</Button>
 					)}
-					{handleSetDocument && (
+					{inputSettings?.handleSetDocument && (
 						<Button buttonType='secondary' onClick={handleDocumentClick}>
 							SET DOCUMENT
 						</Button>
@@ -211,10 +210,10 @@ const ImageVideoDocumentSetUp = (
 				</SetUpButtonsWrapper>
 			) : (
 				<AssetCard>
-					{src && !(assetType === DOCUMENT) && (
+					{inputSettings?.src && !(assetType === DOCUMENT) && (
 						<Column>
 							<StyledImg
-								src={src}
+								src={inputSettings?.src}
 								data-testid='image-test'
 								width={261}
 								height={172}
@@ -226,12 +225,12 @@ const ImageVideoDocumentSetUp = (
 							<tbody>{assetPropertiesRows}</tbody>
 						</table>
 					</AssetPropertiesColumn>
-					{options && <MenuColumn>{iconMenu}</MenuColumn>}
+					{inputSettings?.options && <MenuColumn>{iconMenu}</MenuColumn>}
 					<ButtonsWrapper>
-						<Button buttonType='blueText' onClick={handleBrowse}>
+						<Button buttonType='blueText' onClick={(e) => handleBrowse(e)}>
 							Browse
 						</Button>
-						<Button buttonType='redText' onClick={handleRemove}>
+						<Button buttonType='redText' onClick={(e) => handleRemove(e)}>
 							Remove
 						</Button>
 					</ButtonsWrapper>

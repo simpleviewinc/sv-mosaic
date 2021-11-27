@@ -1,4 +1,5 @@
 import { FieldProps } from '@root/components/Field';
+import { FormEventHandler } from 'react';
 import { PhoneInputProps } from 'react-phone-input-2';
 
 export interface CountryData {
@@ -32,4 +33,5 @@ export interface FormFieldPhoneSelectionDropdownProps extends FieldProps {
 	 * Function that listens to changes on the selected option.
 	 */
 	onChange?: PhoneInputProps['onChange'];
+	onBlur?: FormEventHandler<HTMLInputElement>
 }

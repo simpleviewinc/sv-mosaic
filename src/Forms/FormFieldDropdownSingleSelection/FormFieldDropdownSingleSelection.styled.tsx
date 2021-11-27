@@ -117,7 +117,7 @@ export const SingleDropdownWrapper = styled.div`
 
   .MuiFormControl-fullWidth {
     height: 51px;
-    margin-right: 60px;
+    // margin-right: 60px;
     width: ${pr => (pr.innerWidth ? pr.innerWidth : Sizes.sm)};
   }
 

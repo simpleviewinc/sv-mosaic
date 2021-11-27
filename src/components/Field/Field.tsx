@@ -6,6 +6,7 @@ import { default as Label } from './Label';
 import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
 import { FieldDefProps } from '.';
+import { Sizes } from '@root/theme/sizes';
 
 const Field = ({
 	children,
@@ -78,7 +79,7 @@ const Field = ({
 
 	return (
 		<StyledFieldContainer>
-			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)} size={size}>
+			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)} size={(type === 'chip' || type === 'linkSetup') ? Sizes.md : type === 'color' ? '102px' : size}>
 				<Label
 					labelMargin={labelMargin}
 					disabled={disabled}
