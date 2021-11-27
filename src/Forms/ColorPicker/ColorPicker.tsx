@@ -5,7 +5,11 @@ import { ColorContainer, ColorDiv, Cover, PopOver } from './ColorPicker.styled';
 import { ColorPickerProps } from './ColorPickerTypes';
 
 const ColorPicker = (props: ColorPickerProps): ReactElement => {
-	const { color, disabled, onChange } = props;
+	const {
+		value,
+		disabled,
+		onChange
+	} = props;
 
 	// State variables
 	const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -27,7 +31,14 @@ const ColorPicker = (props: ColorPickerProps): ReactElement => {
 				<ColorDiv
 					data-testid='colordiv-test'
 					disabled={disabled}
-					color={color}
+					color={value ? value : {
+						rgb: {
+							r: 0,
+							g: 141,
+							b: 168,
+							a: 1,
+						}
+					}}
 					onClick={handleClick}
 				/>
 			</ColorContainer>
@@ -35,7 +46,7 @@ const ColorPicker = (props: ColorPickerProps): ReactElement => {
 				<PopOver>
 					<Cover onClick={handleClose} />
 					<SketchPicker
-						color={color}
+						color={value ? value : '#008DA8'}
 						onChange={onChange}
 					/>
 				</PopOver>
