@@ -42,7 +42,7 @@ export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 16px;
-  width: ${pr => pr.isMobileView ? '' : '684px'};
+  width: ${pr => pr.isMobileView || !pr.isModalOpen ? '' : '684px'};
 
   & > :not(:last-child) {
     margin-right: 12px;

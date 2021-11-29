@@ -219,7 +219,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const showListOfChips = useMemo(() => {
 		return (
 			<OptionsCheckedModalWrapper isModalOpen={isModalOpen}>
-				<ChipsWrapper isMobileView={isMobileView}>
+				<ChipsWrapper isModalOpen={isModalOpen} isMobileView={isMobileView}>
 					{showMore ? chips : chips.slice(0, MAX_CHIPS_TO_SHOW)}
 				</ChipsWrapper>
 				{optionsChecked.length > MAX_CHIPS_TO_SHOW && (
@@ -238,7 +238,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				)}
 			</OptionsCheckedModalWrapper>
 		);
-	}, [optionsChecked, showMore, isMobileView, disabled]);
+	}, [optionsChecked, showMore, isMobileView, disabled, isModalOpen]);
 
 
 	/**
