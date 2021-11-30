@@ -7,14 +7,16 @@ import { StyledButton, StyledIcon } from './ButtonStyled';
 
 const Button = (props: FormButtonProps): ReactElement => {
 	const {
+		buttonType = 'primary',
 		children,
 		className,
 		disabled = false,
 		icon,
 		iconPosition = 'left',
-		buttonType = 'primary',
 		onClick,
 		smallerButton,
+		// form,
+		// type
 	} = props;
 
 	const buttonContent = !icon ? (
@@ -33,12 +35,14 @@ const Button = (props: FormButtonProps): ReactElement => {
 
 	return (
 		<StyledButton
+			buttonType={buttonType}
 			className={className}
 			disabled={disabled}
-			onClick={onClick}
-			buttonType={buttonType}
+			// form={form}
 			iconPosition={iconPosition}
 			smallerButton={smallerButton}
+			onClick={onClick}
+			// type={type}
 		>
 			{buttonContent}
 		</StyledButton>

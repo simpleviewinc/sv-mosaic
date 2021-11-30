@@ -18,7 +18,7 @@ import {
 } from './FormFieldPhoneSelectionDropdown.styled';
 
 const FormFieldPhoneSelectionDropdown = (
-	props: FormFieldPhoneSelectionDropdownProps & HTMLAttributes<HTMLInputElement>
+	props: FormFieldPhoneSelectionDropdownProps 
 ): ReactElement => {
 	const {
 		inputSettings,

@@ -20,6 +20,7 @@ const FormLayout = (props) => {
 		<>
 			{layout?.map((section, i) => (
 				<Section
+					id={section.title}
 					key={i}
 					title={section.title}
 					description={section.description}
