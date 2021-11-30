@@ -18,4 +18,6 @@ export interface DateTimeInputProps extends InputPickerProps {
    * Value of the time picker
    */
   timeValue: Date;
+  value?: any;
+  onChange?: any;
 }

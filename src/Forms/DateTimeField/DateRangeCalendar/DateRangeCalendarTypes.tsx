@@ -18,4 +18,6 @@ export interface DateRangeCalendarProps extends InputPickerProps {
    * Date value displayed on the "to" input element
    */
   toValue: Date;
+  value?: any;
+  onChange?: any;
 }

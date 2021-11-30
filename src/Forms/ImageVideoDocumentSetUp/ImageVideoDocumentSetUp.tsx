@@ -190,7 +190,7 @@ const ImageVideoDocumentSetUp = (
 
 	return (
 		<div>
-			{((Array.isArray(value) && value?.length === 0) || value === '' || value === undefined) ? (
+			{((Array.isArray(value) && value?.length === 0) || value === undefined) ? (
 				<SetUpButtonsWrapper multipleActions={multipleActions}>
 					{inputSettings?.handleSetImage && (
 						<Button buttonType='secondary' onClick={handleImageClick}>

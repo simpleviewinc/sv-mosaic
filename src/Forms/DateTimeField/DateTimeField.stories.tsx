@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
@@ -10,7 +10,9 @@ import SingleCalendar from './SingleDateCalendar';
 import TimePicker from './TimePicker';
 import TimeInput from './TimeInput';
 import DateTimeInput from './DateTimeInput';
-import Field from '@root/components/Field';
+import Field, { FieldDefProps } from '@root/components/Field';
+import Form from '../Form/Form';
+import { useForm } from '../Form/formUtils';
 
 export default {
 	title: 'Forms|DateTimeField',
@@ -186,5 +188,99 @@ export const DateTimeInputExample = (): ReactElement => {
 				timeValue={selectedTime}
 			/>
 		</Field>
+	);
+};
+
+export const FormExample = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	
+	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "date",
+					label: "Single Date Picker",
+					type: "date",
+					required,
+					disabled,
+					inputSettings: {
+						disabled,
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				},
+				{
+					name: "dateRange",
+					label: "Date Range",
+					type: "dateRange",
+					required,
+					disabled,
+					inputSettings: {
+						disabled,
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				},
+				{
+					name: "time",
+					label: "Single Time Picker",
+					type: "time",
+					required,
+					disabled,
+					inputSettings: {
+						disabled,
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				},
+				{
+					name: "dateTime",
+					label: "Date and Time Picker",
+					type: "dateTime",
+					required,
+					disabled,
+					inputSettings: {
+						disabled,
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				},
+			] as unknown as FieldDefProps[],
+		[required, disabled]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
 	);
 };
