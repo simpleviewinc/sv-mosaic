@@ -21,7 +21,26 @@ const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 		onChangeTime,
 		timeValue,
 		required,
+		value,
+		onChange,
 	} = props;
+
+	const handleOnChange = (position, date) => {
+		let newDates = {...value};
+		if(position === 0) {
+			newDates = {
+				...newDates,
+				dateValue: date
+			}
+		} else {
+			newDates = {
+				...newDates,
+				timeValue: date
+			}
+		}
+
+		onChange(newDates);
+	}
 
 	return (
 		<DateTimeInputRow>
@@ -30,19 +49,19 @@ const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 					<DateTimePickerWrapper>
 						<DatePicker
 							error={error}
-							onChange={onChangeDate}
+							onChange={(d) => handleOnChange(0, d)}
 							placeholder='Start'
 							required={required}
-							value={dateValue}
+							value={value?.dateValue}
 						/>
 						<HelperText>Month, Day, Year</HelperText>
 					</DateTimePickerWrapper>
 					<DateTimePickerWrapper>
 						<TimePicker
 							error={error}
-							onChange={onChangeTime}
+							onChange={(d) => handleOnChange(1, d)}
 							placeholder='00:00 AM/PM'
-							value={timeValue}
+							value={value?.timeValue}
 						/>
 						<HelperText>Hour, Minute, AM or PM</HelperText>
 					</DateTimePickerWrapper>
@@ -50,11 +69,11 @@ const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 			) : (
 				<>
 					<DisabledDateTimeValue>
-						{dateValue ? dateValue.toLocaleDateString('en-US') : 'Start'}
+						{value?.dateValue ? value?.dateValue.toLocaleDateString('en-US') : 'Start'}
 					</DisabledDateTimeValue>
 					<DisabledDateTimeValue>
-						{timeValue
-							? timeValue.toLocaleString('en-US', {
+						{value?.timeValue
+							? value?.timeValue.toLocaleString('en-US', {
 								hour: 'numeric',
 								minute: 'numeric',
 								hour12: true,
