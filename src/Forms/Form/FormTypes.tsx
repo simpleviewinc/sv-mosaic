@@ -1,6 +1,7 @@
 import { FormButtonProps } from "@root/forms/Button";
 import { FieldDefProps } from "@root/components/Field";
 import { ReactNode } from "react";
+import { Section } from "../FormNav/FormNavTypes";
 
 export interface FormState {
 	data: Record<string, any>;
@@ -31,7 +32,7 @@ export interface FieldDef extends FieldProps {
 	// validators?: { (): string | JSX.Element }[];
 }
 
-export interface SectionDef {
+export interface SectionDef extends Section {
 	title?: string;
 	description?: string | JSX.Element;
 	fields: (string | FieldDef)[][][];

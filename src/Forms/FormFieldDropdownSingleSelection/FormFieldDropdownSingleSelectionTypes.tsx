@@ -1,5 +1,6 @@
 import { FieldProps } from "@root/components/Field";
 import { Sizes } from "@root/theme/sizes";
+import { SyntheticEvent } from 'react';
 
 export interface DropdownSingleSelectionProps extends FieldProps {
 	inputSettings?: {

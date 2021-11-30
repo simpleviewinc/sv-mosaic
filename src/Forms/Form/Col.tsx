@@ -12,6 +12,13 @@ import FormFieldPhoneSelectionDropdown from '../FormFieldPhoneSelectionDropdown'
 import FormFieldRadio from '../FormFieldRadio';
 import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
 import Field from '@root/components/Field';
+import LinkSetup from '../LinkSetup';
+import ImageVideoDocumentSetUp from '../ImageVideoDocumentSetUp';
+import ColorPicker from '../ColorPicker';
+import SingleDateCalendar from '../DateTimeField/SingleDateCalendar';
+import DateRangeCalendar from '../DateTimeField/DateRangeCalendar';
+import TimeInput from '../DateTimeField/TimeInput';
+import DateTimeInput from '../DateTimeField/DateTimeInput';
 
 const componentMap = {
 	text: FormFieldText,
@@ -22,6 +29,14 @@ const componentMap = {
 	phone: FormFieldPhoneSelectionDropdown,
 	radio: FormFieldRadio,
 	toggleSwitch: FormFieldToggleSwitch,
+	linkSetup: LinkSetup,
+	imageVideoDocument: ImageVideoDocumentSetUp,
+	color: ColorPicker,
+	date: SingleDateCalendar,
+	dateRange: DateRangeCalendar,
+	time: TimeInput,
+	dateTime: DateTimeInput,
+	
 };
 
 const StyledCol = styled.div`
@@ -121,6 +136,7 @@ const Col = (props) => {
 						{...currentField}
 						value={value}
 						error={error}
+						type={type}
 					>
 						{children}
 					</Field>
