@@ -104,6 +104,9 @@ export * from "./components/Modal";
 export { default as FormFieldText } from "./forms/FormFieldText";
 export * from "./forms/FormFieldText";
 
+export { default as Table } from "./forms/Table";
+export * from "./forms/Table";
+
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
 
