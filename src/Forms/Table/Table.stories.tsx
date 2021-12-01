@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
+import { Actions, TableRow } from './TableTypes';
 
 // Components
 import Field from '@root/components/Field';
 import Table from './Table';
+import MenuIcon from '@material-ui/icons/Menu';
+import TranslateIcon from '@material-ui/icons/Translate';
 
 export default {
 	title: 'Forms|Table',
@@ -27,15 +30,15 @@ const rows = [
 	},
 	{
 		id: '4',
-		items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
+		items: ['George', 'george@email.com', '01/01/2021', '3231-962-7516'],
 	},
 	{
 		id: '5',
-		items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
+		items: ['Doe', 'doe@email.com', '12/24/2020', '011-962-111'],
 	},
 	{
 		id: '6',
-		items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
+		items: ['Test', 'test@email.com', '12/01/2020', '788-962-7516'],
 	},
 	{
 		id: '7',
@@ -52,11 +55,16 @@ const rows = [
 ];
 
 export const Example = (): ReactElement => {
+	const disabled = boolean('Disabled', false);
+	const withMoreActions = boolean('With more actions', false);
+	const [tableData, setTableData] = useState([]);
+
 	const editRow = () => {
 		alert('EDIT CLICK');
 	};
 
 	const addElement = () => {
+		setTableData(rows)
 		alert('ADD CLICK');
 	};
 
@@ -64,22 +72,51 @@ export const Example = (): ReactElement => {
 		alert('DELETE CLICK');
 	};
 
+	const translateAction = (rowIndex: number) => {
+		alert(`Translate row ${rowIndex}`);
+	}
+
+	const menuActions = (rowIndex: number) => {
+		alert(`Menu actions for row ${rowIndex}`);
+	}
+
+	const onChange = (rowData: TableRow[]) => {
+		setTableData(rowData);
+	}
+
+	const actions: Actions[] = [
+		{
+			label: 'Menu action',
+			actionFnc: menuActions,
+			icon: MenuIcon
+		},
+		{
+			label: 'Translate',
+			actionFnc: translateAction,
+			icon: TranslateIcon
+		},
+	];
+
 	return (
 		<Field
 			label={text('Label', 'Label')}
 			error={boolean('Error', false)}
 			errorText={text('Error text', '')}
 			required={boolean('Required', false)}
-			disabled={boolean('Disabled', false)}
-			instructionText={''}
+			disabled={disabled}
+			instructionText={text('Instruction text', 'Instruction text')}
 			helperText={text('Helper text', 'Helper text')}
+			type='Table'
 		>
 			<Table
+				actions={withMoreActions && actions}
+				disabled={disabled}
 				handleAddElement={addElement}
 				handleEdit={editRow}
 				handleDelete={onDelete}
 				headers={headers}
-				rows={rows}
+				onChange={onChange}
+				value={tableData}
 			/>
 		</Field>
 	);

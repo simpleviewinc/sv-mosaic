@@ -1,3 +1,5 @@
+import { MosaicMIcon } from '@root/types';
+
 export type TableRow = {
   /**
    * Unique identifier. It is used as a value for 
@@ -9,9 +11,33 @@ export type TableRow = {
    * Data that is shown in the table.
    */
   items: string[];
-}
+};
+
+export type Actions = {
+  /**
+   * Name of the menu option.
+   */
+  label: string;
+  /**
+   * MUI Icon
+   */
+  icon: MosaicMIcon;
+  /**
+   * Callback function that will be triggered
+   * when the icon for the respective action is clicked.
+   */
+  actionFnc: (rowIndex: number) => void;
+};
 
 export interface TableProps {
+  /**
+   * Possible actions that the table could execute and display.
+   */
+  actions?: Actions[];
+  /**
+   * Disable all clickable elements.
+   */
+  disabled?: boolean;
   /**
    * Used to create a new row.
    */
@@ -32,5 +58,9 @@ export interface TableProps {
   /**
    * Row data
    */
-  rows: TableRow[];
+  value: TableRow[];
+  /**
+   * Used to keep track of row data changes
+   */
+  onChange?: (data: TableRow[]) => void;
 }

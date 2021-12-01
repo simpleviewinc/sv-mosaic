@@ -38,6 +38,8 @@ const Field = ({
 		let labelMargin = '8px';
 		if (type === 'linkSetup' || type === 'advancedSelection') {
 			return labelMargin = '16px';
+		} else if (type === 'Table') {
+			return labelMargin = '13px';
 		}
 
 		return labelMargin
@@ -47,18 +49,21 @@ const Field = ({
 		<StyledFieldContainer className={className}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && required)}
+				type={type}
 			>
 				<Label
 					labelMargin={labelMargin}
 					disabled={disabled}
 					required={required}
+					instructionText={instructionText}
+					tooltip={type === 'Table'}
 				>
 					{label}
 				</Label>
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{instructionText && <InstructionText>{instructionText}</InstructionText>}
+			{instructionText && type !== 'Table' && <InstructionText>{instructionText}</InstructionText>}
 		</StyledFieldContainer>
 	);
 };
