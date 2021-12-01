@@ -72,7 +72,7 @@ const Table = (props: TableProps): ReactElement => {
 			{value.length === 0 ? (
 				<AddElementContainer>
 					<Button disabled={disabled} buttonType='secondary' onClick={handleAddElement}>
-            ADD ELEMENT
+						ADD ELEMENT
 					</Button>
 				</AddElementContainer>
 			) : (
@@ -82,7 +82,7 @@ const Table = (props: TableProps): ReactElement => {
 						icon={AddIcon}
 						onClick={handleAddElement}
 					>
-            Add Element
+						Add Element
 					</AddButton>
 					<DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
 						<Container>
