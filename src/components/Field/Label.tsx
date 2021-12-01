@@ -4,9 +4,10 @@ import styled from 'styled-components';
 
 // Material UI
 import { InputLabel } from '@material-ui/core';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-// import { TypographyGenericProps } from './TypographyTypes';
 import theme from '../../utils/theme';
+import Tooltip from '../Tooltip';
 
 const LabelWrapper = styled.div`
   display: flex;
@@ -35,6 +36,25 @@ const CharCounterWrapper = styled.div`
   font-size: 12px;
 `;
 
+const StyledInputTooltipWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledInputLabel = styled(InputLabel)`
+  align-self: center;
+`;
+
+const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
+  && {
+	fill: ${theme.colors.blueTeal};
+	font-size: 16px;
+	width: 24px;
+	height: 24px;
+	margin-left: 8px;
+  }
+`;
+
 interface LabelProps {
   className?: string;
   disabled?: boolean;
@@ -44,6 +64,8 @@ interface LabelProps {
   value?: string;
   maxCharacters?: number;
   labelMargin?: string;
+  tooltip?: boolean;
+  instructionText?: string;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -55,12 +77,21 @@ const Label = (props: LabelProps): ReactElement => {
 		htmlFor,
 		value,
 		maxCharacters,
-		labelMargin
+		labelMargin,
+		instructionText,
+		tooltip
 	} = props;
 
 	return (
 		<LabelWrapper className={className} disabled={disabled} required={required} labelMargin={labelMargin}>
-			<InputLabel htmlFor={htmlFor}>{children}</InputLabel>
+			<StyledInputTooltipWrapper>
+				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
+				{tooltip && 
+					<Tooltip text={instructionText} type='advanced'>
+						<StyledInfoOutlinedIcon />
+					</Tooltip>
+				}
+			</StyledInputTooltipWrapper>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
 					{value.length + '/' + maxCharacters}
