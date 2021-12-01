@@ -87,12 +87,8 @@ export const AddElementContainer = styled.div`
 `;
 
 export const StyledTr = styled.tr`
-  ${(pr) =>
-		pr.isDragging
-			? `
+  ${(pr) => pr.isDragging ? `
         &:active {
             background-color: ${theme.colors.gray200};
-        }
-    `
-			: ''}
+        }` : ''}
 `;
