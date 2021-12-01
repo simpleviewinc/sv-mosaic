@@ -41,10 +41,8 @@ const Table = (props: TableProps): ReactElement => {
 	const [isDragging, setIsDragging] = useState(false)
 
 	const handleDragEnd = (e) => {
-		if (!e.destination) {
-			return;
-		} 
-		const rowDataCopy = Array.from(value);
+		if (!e.destination) return
+		const rowDataCopy = [...value];
 		const [source_data] = rowDataCopy.splice(e.source.index, 1);
 		rowDataCopy.splice(e.destination.index, 0, source_data);
 		setIsDragging(false)
@@ -127,7 +125,7 @@ const Table = (props: TableProps): ReactElement => {
 																	icon={DeleteIcon}
 																	onClick={() => deleteRow(rowIndex)}
 																/>
-																{actions.length > 0 && (
+																{actions?.length > 0 && (
 																	<>
 																		{actions.map((action, index) => (
 																			<StyledIconButton

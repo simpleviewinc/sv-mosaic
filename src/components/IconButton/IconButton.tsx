@@ -21,7 +21,7 @@ const IconButton = (props: IconButtonProps): ReactElement => {
 		</Tooltip>
 	) : (
 		<StyledIconButton className={className} disabled={disabled} disableRipple onClick={onClick}>
-			<MaterialIcon />
+			<MaterialIcon data-testid='icon-button-test'/>
 		</StyledIconButton>
 	);
 };
