@@ -66,7 +66,9 @@
 		"@material-ui/lab": "^4.0.0-alpha.60",
 		"@types/testing-library__jest-dom": "^5.14.1",
 		"react-beautiful-dnd": "^13.1.0",
+		"draft-js": "^0.11.7",
 		"react-color": "^2.19.3",
+		"react-draft-wysiwyg": "^1.14.7",
 		"react-phone-input-2": "^2.14.0"
 	},
 	"peerDependencies": {
@@ -95,7 +97,7 @@
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000",
 		"package-lock": "cp package-lock.json package-lock-mounted.json",
-		"style": "eslint ."
+		"style": "eslint"
 	},
 	"repository": {
 		"type": "git",
