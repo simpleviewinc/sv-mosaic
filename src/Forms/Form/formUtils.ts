@@ -5,7 +5,7 @@ import { joinReducers, useThunkReducer } from "./utils";
 import { SectionDef } from "./FormTypes";
 import { required } from "./validators";
 
-function coreReducer(state, action) {
+export function coreReducer(state, action) {
 	switch (action.type) {
 		case "FIELD_ON_CHANGE":
 			return {
@@ -107,9 +107,8 @@ export const actions = {
 
 			if (!validators && requiredFlag) {
 				validators = [];
+				validators.unshift(required);
 			}
-
-			validators.unshift(required);
 
 			dispatch({
 				type: "FIELD_START_VALIDATE",

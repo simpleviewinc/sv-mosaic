@@ -1,6 +1,6 @@
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
-import { actions, generateLayout } from "./formUtils";
+import { actions, coreReducer, generateLayout } from "./formUtils";
 import { FieldDefProps } from "@root/components/Field";
 import { required } from './validators';
 
@@ -138,6 +138,26 @@ describe('Layout logic', () => {
 	});
 });
 
+describe('Reducers', () => {
+	it('FIELD_ON_CHANGE', () => {
+		const state = {};
+		const action = {
+			name: 'something',
+			value: 'foo',
+			type: 'FIELD_ON_CHANGE',
+		}
+		const result = coreReducer(state, action);
+
+		assert.deepStrictEqual(result, {
+			data: {
+				'something': 'foo',
+			}
+		});
+
+		assert.notStrictEqual(state, result);
+	});
+});
+
 describe('Dispatcher logic', () => {
 	it('Field on change', async () => {
 		const dispatch = jest.fn();
@@ -156,7 +176,7 @@ describe('Dispatcher logic', () => {
 		});
 	});
 
-	it('Copy the value from one field into another', async () => {
+	it.only('Copy the value from one field into another', async () => {
 		const state = {
 			data: {
 				'firstField': 'testValue'
@@ -181,6 +201,12 @@ describe('Dispatcher logic', () => {
 		 */
 
 		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+		await dispatch.mock.calls[0][0](dispatch);
+		assert.deepStrictEqual(dispatch.mock.calls[1][0], {
+			type: "FIELD_ON_CHANGE",
+			name: 'secondField',
+			value: 'testValue'
+		});
 	});
 
 	it('Validates a field with value', async () => {
