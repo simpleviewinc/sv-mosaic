@@ -8,29 +8,29 @@ import TextEditor from './TextEditor';
 afterEach(cleanup);
 
 describe('TextEditor component', () => {
-  it('should display placeholder', () => {
-    const { getByText } = render(
-      <TextEditor
-        onChange={() => jest.fn()}
-        placeholder='Placeholder test'
-        value={null}
-      />
-    );
+	it('should display placeholder', () => {
+		const { getByText } = render(
+			<TextEditor
+				onChange={() => jest.fn()}
+				placeholder='Placeholder test'
+				value={null}
+			/>
+		);
 
-    expect(getByText('Placeholder test')).toBeTruthy();
-  });
+		expect(getByText('Placeholder test')).toBeTruthy();
+	});
 
-  it('should disable text editor', () => {
-    const { container } = render(
-      <TextEditor
-        disabled={true}
-        onChange={() => jest.fn()}
-        placeholder='Placeholder test'
-        value={null}
-      />
-    );
-    const editorContent = container.querySelector('.public-DraftEditor-content');
+	it('should disable text editor', () => {
+		const { container } = render(
+			<TextEditor
+				disabled={true}
+				onChange={() => jest.fn()}
+				placeholder='Placeholder test'
+				value={null}
+			/>
+		);
+		const editorContent = container.querySelector('.public-DraftEditor-content');
 
-    expect(editorContent).toHaveAttribute('contenteditable', 'false');
-  });
+		expect(editorContent).toHaveAttribute('contenteditable', 'false');
+	});
 });
