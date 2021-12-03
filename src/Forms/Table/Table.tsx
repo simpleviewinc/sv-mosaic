@@ -24,6 +24,7 @@ import {
 	Th,
 	ThDrag,
 	THead,
+	TrHead,
 } from './Table.styled';
 
 const Table = (props: TableProps): ReactElement => {
@@ -61,7 +62,7 @@ const Table = (props: TableProps): ReactElement => {
    * @param rowIndex of the row that is going to be deleted.
    */
 	const deleteRow = (rowIndex: number) => {
-		if(handleDelete) handleDelete(rowIndex);
+		if (handleDelete) handleDelete(rowIndex);
 		const rowDataCopy = [...value];
 		rowDataCopy.splice(rowIndex, 1);
 		onChange(rowDataCopy);
@@ -89,13 +90,13 @@ const Table = (props: TableProps): ReactElement => {
 						<Container>
 							<StyledTable>
 								<THead>
-									<tr>
+									<TrHead>
 										<ThDrag></ThDrag>
 										<Th>Actions</Th>
 										{headers.map((header, index) => (
 											<Th key={`${header}-${index}`}>{header}</Th>
 										))}
-									</tr>
+									</TrHead>
 								</THead>
 								<Droppable droppableId='droppable-rows'>
 									{(provider) => (
@@ -141,8 +142,8 @@ const Table = (props: TableProps): ReactElement => {
 																)}
 															</Td>
 															{row.items.map(item => (
-																	<Td key={item}>{item}</Td>
-																))
+																<Td key={item}>{item}</Td>
+															))
 															}
 														</StyledTr>
 													)}

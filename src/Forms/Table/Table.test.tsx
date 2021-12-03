@@ -51,7 +51,7 @@ const TableExample = () => {
 
 	return (
 		<Table
-			actions={actions}
+			extraActions={actions}
 			handleAddElement={addElement}
 			handleEdit={editCallback}
 			handleDelete={deleteCallback}
