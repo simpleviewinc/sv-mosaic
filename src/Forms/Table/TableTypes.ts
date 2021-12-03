@@ -33,7 +33,7 @@ export interface TableProps {
   /**
    * Possible actions that the table could execute and display.
    */
-  actions?: Actions[];
+  extraActions?: Actions[];
   /**
    * Disable all clickable elements.
    */

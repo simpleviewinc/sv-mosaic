@@ -7,7 +7,7 @@ import Button from '@root/forms/Button';
 import IconButton from '@root/components/IconButton';
 
 export const TableContainer = styled.div`
-  background-color: 'white';
+  background-color: white;
   border: 2px solid ${theme.colors.gray200};
   border-radius: 2px;
   max-width: 1080px;
@@ -24,10 +24,8 @@ export const Th = styled.th`
   background-color: ${theme.colors.gray200};
   color: ${theme.colors.almostBlack};
   font-weight: ${theme.fontWeight.medium};
-  padding: 16px 0 16px 8px;
+  padding: 16px 30px 16px 8px;
   text-align: left;
-  min-width: 72px;
-  max-width: 312px;
 `;
 
 export const ThDrag = styled.th`
@@ -52,10 +50,13 @@ export const StyledTable = styled.table`
 `;
 
 export const Td = styled.td`
-  padding: 16px 0px 16px 8px;
+  padding: 16px 30px 16px 8px;
+  min-width: 72px;
+  width: 312px;
+  max-width: 312px;
 `;
 
-export const TdDrag = styled(Td)`
+export const TdDrag = styled.td`
   padding: 16px 14px 16px 8px;
 `;
 
