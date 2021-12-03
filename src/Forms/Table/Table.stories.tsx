@@ -109,7 +109,7 @@ export const Example = (): ReactElement => {
 			type='Table'
 		>
 			<Table
-				actions={withMoreActions && actions}
+				extraActions={withMoreActions && actions}
 				disabled={disabled}
 				handleAddElement={addElement}
 				handleEdit={editRow}

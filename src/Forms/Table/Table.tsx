@@ -28,7 +28,7 @@ import {
 
 const Table = (props: TableProps): ReactElement => {
 	const {
-		actions,
+		extraActions,
 		disabled,
 		handleAddElement,
 		handleDelete,
@@ -61,7 +61,7 @@ const Table = (props: TableProps): ReactElement => {
    * @param rowIndex of the row that is going to be deleted.
    */
 	const deleteRow = (rowIndex: number) => {
-		handleDelete(rowIndex);
+		if(handleDelete) handleDelete(rowIndex);
 		const rowDataCopy = [...value];
 		rowDataCopy.splice(rowIndex, 1);
 		onChange(rowDataCopy);
@@ -79,6 +79,7 @@ const Table = (props: TableProps): ReactElement => {
 				<TableContainer>
 					<AddButton
 						buttonType='blueText'
+						disabled={disabled}
 						icon={AddIcon}
 						onClick={handleAddElement}
 					>
@@ -104,6 +105,7 @@ const Table = (props: TableProps): ReactElement => {
 													key={row.id}
 													draggableId={row.id}
 													index={rowIndex}
+													isDragDisabled={disabled}
 												>
 													{(provider) => (
 														<StyledTr
@@ -125,9 +127,9 @@ const Table = (props: TableProps): ReactElement => {
 																	icon={DeleteIcon}
 																	onClick={() => deleteRow(rowIndex)}
 																/>
-																{actions?.length > 0 && (
+																{extraActions?.length > 0 && (
 																	<>
-																		{actions.map((action, index) => (
+																		{extraActions.map((action, index) => (
 																			<StyledIconButton
 																				disabled={disabled}
 																				key={`${action.label}-${index}`}
@@ -138,9 +140,10 @@ const Table = (props: TableProps): ReactElement => {
 																	</>
 																)}
 															</Td>
-															{row.items.map((item) => {
-																return <Td key={item}>{item}</Td>;
-															})}
+															{row.items.map(item => (
+																	<Td key={item}>{item}</Td>
+																))
+															}
 														</StyledTr>
 													)}
 												</Draggable>
