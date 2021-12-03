@@ -98,8 +98,8 @@ export const actions = {
 	},
 	validateField({ name }) {
 		return async function (dispatch, getState, extraArgs) {
-			const requiredFlag = extraArgs.fieldMap[name].required;
-			let validators = extraArgs.fieldMap[name].validators;
+			const requiredFlag = extraArgs?.fieldMap[name]?.required;
+			let validators = extraArgs?.fieldMap[name]?.validators;
 
 			if (!validators && !requiredFlag) {
 				return;

@@ -299,13 +299,6 @@ describe('Dispatcher logic', () => {
 
 		await copyValue(dispatch, getState);
 
-		/**
-		 * This type of dispatch cannot be directly tested since the dispatcher
-		 * dispatches an anonymous function (setFieldValue), which then dispatches,
-		 * but since the only thing that gets called is the setField action and that
-		 * has already been tested we could assume this works too.
-		 */
-
 		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
 		await dispatch.mock.calls[0][0](dispatch);
 		assert.deepStrictEqual(dispatch.mock.calls[1][0], {
@@ -502,6 +495,12 @@ describe('Dispatcher logic', () => {
 				{ name: 'field3' },
 				{ name: 'field4' },
 			],
+			fieldMap: [
+				{ name: 'field1' },
+				{ name: 'field2' },
+				{ name: 'field3' },
+				{ name: 'field4' },
+			],
 		};
 
 		const submitForm = actions.submitForm();
@@ -509,42 +508,168 @@ describe('Dispatcher logic', () => {
 		await submitForm(dispatch, getState, extraArgs);
 
 		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+		await dispatch.mock.calls[0][0](dispatch, getState);
+		assert.deepStrictEqual(dispatch.mock.calls[1][0], {
+			type: "FORM_START_DISABLE",
+			value: true,
+		});
+		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+		await dispatch.mock.calls[2][0](dispatch, getState, extraArgs);
+		console.log(dispatch.mock.calls[2][0]);
+		// assert.deepStrictEqual(dispatch.mock.calls[2][0], {
+		// 	type: "FIELD_START_VALIDATE",
+		// 	name: 'field2',
+		// });
+		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+		// await dispatch.mock.calls[3][0](dispatch, getState, extraArgs);
+		// assert.deepStrictEqual(dispatch.mock.calls[3][0], {
+		// 	type: "FIELD_START_VALIDATE",
+		// 	name: 'field3',
+		// });
+		// await dispatch.mock.calls[4][0](dispatch, getState, extraArgs);
+		// assert.deepStrictEqual(dispatch.mock.calls[4][0], {
+		// 	type: "FIELD_START_VALIDATE",
+		// 	name: 'field4',
+		// });
+		assert.deepStrictEqual(dispatch.mock.calls[5][0], {
+			type: "FORM_VALIDATE",
+			value: true,
+		});
+		assert.deepStrictEqual(dispatch.mock.calls[6][0], {
+			type: "FORM_END_DISABLE",
+			value: false,
+		});
+		for (let i = 0; i < dispatch.mock.calls.length; i++) {
+			console.log(i, dispatch.mock.calls[i]);
+		}
+		// console.log(dispatch.mock.calls);
 	});
 });
 
-describe('Dispatcher test arrays', () => {
+describe.only('Dispatcher test arrays', () => {
 	const tests = [
 		{
 			name: 'setFieldValue test',
 			args: {
 				name: 'setFieldValue',
-				args: [{ name: 'x', value: 'y' }],
+				args: [{ name: 'testName', value: 'testValue' }],
 				calls: [
 					{
 						type: 'FIELD_ON_CHANGE',
-						name: 'x',
-						value: 'y',
+						name: 'testName',
+						value: 'testValue',
 					}
 				]
 			}
-		}
+		},
+		{
+			name: 'copyField test',
+			args: {
+				state: {
+					data: {
+						'firstField': 'testValue'
+					}
+				},
+				name: 'copyFieldToField',
+				args: [{ from: 'firstField', to: 'secondField' }],
+				calls: [
+					{
+						type: 'FIELD_ON_CHANGE',
+						name: 'secondField',
+						value: 'testValue',
+					}
+				]
+			}
+		},
+		{
+			name: 'validateField test',
+			args: {
+				state: {
+					data: {
+						'testField': 'testValue'
+					}
+				},
+				extraArgs: {
+					fieldMap: {
+						'testField': {
+							validators: [required],
+						}
+					}
+				},
+				name: 'validateField',
+				args: [{ name: 'testField' }],
+				calls: [
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'testField',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'testField',
+						value: undefined,
+					}
+				]
+			}
+		},
+		{
+			name: 'validateForm test',
+			args: {
+				state: {
+					data: {
+						'field1': 'testValue'
+					},
+					errors: {},
+				},
+				// extraArgs: {
+				// 	fieldMap: {
+				// 		'testField': {
+				// 			validators: [required],
+				// 		}
+				// 	}
+				// },
+				name: 'validateForm',
+				args: [{ fields:  [
+					{ name: 'field1' },
+					{ name: 'field2' },
+					{ name: 'field3' },
+					{ name: 'field4' },
+				]}],
+				calls: [
+					{
+						type: 'FIELD_START_DISABLE',
+						value: true,
+					},
+					{
+						type: 'FIELD_VALIDATE',
+						value: true,
+					},
+					{
+						type: 'FORM_END_DISABLE',
+						value: false,
+					},
+				]
+			}
+		},
 	];
 
 	testArray(tests, async test => {
-		const state = {};
+		const state = test.state ? test.state : {};
+		const extraArgs = test.extraArgs ? test.extraArgs : {};
 		const dispatch = jest.fn();
 		const getState = () => state;
 		const fn = actions[test.name](...test.args);
-		await fn(dispatch);
+		await fn(dispatch, getState, extraArgs);
 
-		for(let call of dispatch.mock.calls) {
-			if(call instanceof Function) {
-				await call(dispatch, getState);
+		for (let call of dispatch.mock.calls) {
+			if (call[0] instanceof Function) {
+				await call[0](dispatch, getState, extraArgs);
 			}
 		}
 
-		const nonFunctionCalls = dispatch.mock.calls.filter(val => !(val[0] instanceof Function));
-
-		assert.deepStrictEqual(nonFunctionCalls, test.calls);
+		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
+		nonFunctionCalls.forEach((call, i) => {
+			assert.deepEqual(call[0], test.calls[i]);
+		});
 	});
 });
