@@ -80,7 +80,7 @@ describe('Layout logic', () => {
 					{
 						fields: [
 							[['text1'], ['text2'], ['text3']],
-							[['text3'],['text4'],['text1']]
+							[['text3'], ['text4'], ['text1']]
 						]
 					},
 					{
@@ -133,7 +133,7 @@ describe('Layout logic', () => {
 			result = generateLayout({ fields })
 			:
 			result = generateLayout({ fields, sections: test.data })
-		
+
 		assert.deepStrictEqual(result, test.result);
 	});
 });
@@ -152,6 +152,112 @@ describe('Reducers', () => {
 			data: {
 				'something': 'foo',
 			}
+		});
+
+		assert.notStrictEqual(state, result);
+	});
+
+	it('FIELD_START_VALIDATE', () => {
+		const state = {};
+		const action = {
+			name: 'something',
+			type: 'FIELD_START_VALIDATE',
+		}
+		const result = coreReducer(state, action);
+
+		assert.deepStrictEqual(result, {
+			errors: {
+				'something': null,
+			},
+			validating: {
+				'something': true,
+			}
+		});
+
+		assert.notStrictEqual(state, result);
+	});
+
+	it('FIELD_END_VALIDATE', () => {
+		const state = {};
+		const action = {
+			name: 'something',
+			value: 'This field is required, please fill it!',
+			type: 'FIELD_END_VALIDATE',
+		}
+		const result = coreReducer(state, action);
+
+		assert.deepStrictEqual(result, {
+			errors: {
+				'something': 'This field is required, please fill it!',
+			},
+			validating: {
+				'something': undefined,
+			}
+		});
+
+		assert.notStrictEqual(state, result);
+	});
+
+	it('FORM_START_DISABLE', () => {
+		const state = {};
+		const action = {
+			value: true,
+			type: 'FORM_START_DISABLE',
+		}
+		const result = coreReducer(state, action);
+
+		assert.deepStrictEqual(result, {
+			disabled: true,
+		});
+
+		assert.notStrictEqual(state, result);
+	});
+
+	it('FORM_END_DISABLE', () => {
+		const state = {};
+		const action = {
+			value: false,
+			type: 'FORM_END_DISABLE',
+		}
+		const result = coreReducer(state, action);
+
+		assert.deepStrictEqual(result, {
+			disabled: false,
+		});
+
+		assert.notStrictEqual(state, result);
+	});
+
+	it('FORM_VALIDATE', () => {
+		const state = {};
+		const action = {
+			value: true,
+			type: 'FORM_VALIDATE',
+		}
+		const result = coreReducer(state, action);
+
+		assert.deepStrictEqual(result, {
+			validForm: true,
+		});
+
+		assert.notStrictEqual(state, result);
+	});
+
+	it('FORM_RESET', () => {
+		const state = {};
+		const action = {
+			type: 'FORM_RESET',
+		}
+		const result = coreReducer(state, action);
+
+		assert.deepStrictEqual(result, {
+			data: {},
+			touched: {},
+			errors: {},
+			validating: {},
+			custom: {},
+			validForm: false,
+			disabled: null
 		});
 
 		assert.notStrictEqual(state, result);
@@ -176,13 +282,13 @@ describe('Dispatcher logic', () => {
 		});
 	});
 
-	it.only('Copy the value from one field into another', async () => {
+	it('Copy the value from one field into another', async () => {
 		const state = {
 			data: {
 				'firstField': 'testValue'
 			}
 		};
-		
+
 		const dispatch = jest.fn();
 		const getState = () => state;
 
@@ -215,7 +321,7 @@ describe('Dispatcher logic', () => {
 				'testField': 'testValue'
 			}
 		};
-		
+
 		const dispatch = jest.fn();
 		const getState = () => state;
 		const extraArgs = {
@@ -248,7 +354,7 @@ describe('Dispatcher logic', () => {
 		const state = {
 			data: {}
 		};
-		
+
 		const dispatch = jest.fn();
 		const getState = () => state;
 		const extraArgs = {
@@ -284,7 +390,7 @@ describe('Dispatcher logic', () => {
 			},
 			errors: {}
 		};
-		
+
 		const dispatch = jest.fn();
 		const getState = () => state;
 		const fields = [
@@ -325,7 +431,7 @@ describe('Dispatcher logic', () => {
 				'field2': 'This field is required, please fill it'
 			}
 		};
-		
+
 		const dispatch = jest.fn();
 		const getState = () => state;
 		const fields = [
@@ -403,5 +509,42 @@ describe('Dispatcher logic', () => {
 		await submitForm(dispatch, getState, extraArgs);
 
 		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+	});
+});
+
+describe('Dispatcher test arrays', () => {
+	const tests = [
+		{
+			name: 'setFieldValue test',
+			args: {
+				name: 'setFieldValue',
+				args: [{ name: 'x', value: 'y' }],
+				calls: [
+					{
+						type: 'FIELD_ON_CHANGE',
+						name: 'x',
+						value: 'y',
+					}
+				]
+			}
+		}
+	];
+
+	testArray(tests, async test => {
+		const state = {};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fn = actions[test.name](...test.args);
+		await fn(dispatch);
+
+		for(let call of dispatch.mock.calls) {
+			if(call instanceof Function) {
+				await call(dispatch, getState);
+			}
+		}
+
+		const nonFunctionCalls = dispatch.mock.calls.filter(val => !(val[0] instanceof Function));
+
+		assert.deepStrictEqual(nonFunctionCalls, test.calls);
 	});
 });
