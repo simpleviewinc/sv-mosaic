@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, ReactElement, useState } from 'react';
+import { memo, ReactElement, useMemo, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { TableProps } from './TableTypes';
 
@@ -68,6 +68,24 @@ const Table = (props: TableProps): ReactElement => {
 		onChange(rowDataCopy);
 	};
 
+	
+	const renderEmptyHeaders = useMemo(() => {
+		const emptyHeaders = [];
+		const itemsLengths = value.map((row) => {
+			return row.items.length;
+		});
+
+		const maxRowItems = Math.max(...itemsLengths);
+		const headersToAdd = maxRowItems - headers.length;
+		if (headersToAdd > 0) {
+			for (let i = 0; i < headersToAdd; i++) {
+				emptyHeaders.push(<Th key={`empty-header-${i}`}></Th>);
+			}
+		}
+
+		return emptyHeaders;
+	}, [value, headers]);
+
 	return (
 		<>
 			{value.length === 0 ? (
@@ -96,6 +114,7 @@ const Table = (props: TableProps): ReactElement => {
 										{headers.map((header, index) => (
 											<Th key={`${header}-${index}`}>{header}</Th>
 										))}
+										{renderEmptyHeaders}
 									</TrHead>
 								</THead>
 								<Droppable droppableId='droppable-rows'>
