@@ -21,7 +21,6 @@ export const THead = styled.thead`
 `;
 
 export const Th = styled.th`
-  background-color: ${theme.colors.gray200};
   color: ${theme.colors.almostBlack};
   font-weight: ${theme.fontWeight.medium};
   padding: 16px 30px 16px 8px;
@@ -29,7 +28,6 @@ export const Th = styled.th`
 `;
 
 export const ThDrag = styled.th`
-  background-color: ${theme.colors.gray200};
   width: 1%;
 `;
 
@@ -92,4 +90,8 @@ export const StyledTr = styled.tr`
         &:active {
             background-color: ${theme.colors.gray200};
         }` : ''}
+`;
+
+export const TrHead = styled.tr`
+  background-color: ${theme.colors.gray200};
 `;
