@@ -3,6 +3,10 @@ import { MosaicMIcon } from '@root/types';
 
 export interface IconButtonProps {
   /**
+   * Additional custom class.
+   */
+  className?: string;
+  /**
    * Flag to indicate whether the button is clickable or not
    */
   disabled?: boolean;

@@ -6,6 +6,7 @@ export const StyledFieldWrapper = styled.div`
   padding: 20px;
   background-color: ${(pr) =>
 		pr.error ? theme.colors.lightRed : 'transparent'};
+  margin: ${(pr) => pr.type === 'Table' ? '0 40px' : ''};
   width: fit-content;
 `;
 
