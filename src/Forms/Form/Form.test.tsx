@@ -138,419 +138,283 @@ describe('Layout logic', () => {
 	});
 });
 
-describe('Reducers', () => {
-	it('FIELD_ON_CHANGE', () => {
-		const state = {};
-		const action = {
-			name: 'something',
-			value: 'foo',
-			type: 'FIELD_ON_CHANGE',
-		}
-		const result = coreReducer(state, action);
-
-		assert.deepStrictEqual(result, {
-			data: {
-				'something': 'foo',
-			}
-		});
-
-		assert.notStrictEqual(state, result);
-	});
-
-	it('FIELD_START_VALIDATE', () => {
-		const state = {};
-		const action = {
-			name: 'something',
-			type: 'FIELD_START_VALIDATE',
-		}
-		const result = coreReducer(state, action);
-
-		assert.deepStrictEqual(result, {
-			errors: {
-				'something': null,
-			},
-			validating: {
-				'something': true,
-			}
-		});
-
-		assert.notStrictEqual(state, result);
-	});
-
-	it('FIELD_END_VALIDATE', () => {
-		const state = {};
-		const action = {
-			name: 'something',
-			value: 'This field is required, please fill it!',
-			type: 'FIELD_END_VALIDATE',
-		}
-		const result = coreReducer(state, action);
-
-		assert.deepStrictEqual(result, {
-			errors: {
-				'something': 'This field is required, please fill it!',
-			},
-			validating: {
-				'something': undefined,
-			}
-		});
-
-		assert.notStrictEqual(state, result);
-	});
-
-	it('FORM_START_DISABLE', () => {
-		const state = {};
-		const action = {
-			value: true,
-			type: 'FORM_START_DISABLE',
-		}
-		const result = coreReducer(state, action);
-
-		assert.deepStrictEqual(result, {
-			disabled: true,
-		});
-
-		assert.notStrictEqual(state, result);
-	});
-
-	it('FORM_END_DISABLE', () => {
-		const state = {};
-		const action = {
-			value: false,
-			type: 'FORM_END_DISABLE',
-		}
-		const result = coreReducer(state, action);
-
-		assert.deepStrictEqual(result, {
-			disabled: false,
-		});
-
-		assert.notStrictEqual(state, result);
-	});
-
-	it('FORM_VALIDATE', () => {
-		const state = {};
-		const action = {
-			value: true,
-			type: 'FORM_VALIDATE',
-		}
-		const result = coreReducer(state, action);
-
-		assert.deepStrictEqual(result, {
-			validForm: true,
-		});
-
-		assert.notStrictEqual(state, result);
-	});
-
-	it('FORM_RESET', () => {
-		const state = {};
-		const action = {
-			type: 'FORM_RESET',
-		}
-		const result = coreReducer(state, action);
-
-		assert.deepStrictEqual(result, {
-			data: {},
-			touched: {},
-			errors: {},
-			validating: {},
-			custom: {},
-			validForm: false,
-			disabled: null
-		});
-
-		assert.notStrictEqual(state, result);
-	});
-});
-
-describe('Dispatcher logic', () => {
-	it('Field on change', async () => {
-		const dispatch = jest.fn();
-		const thunk = actions.setFieldValue({
-			name: 'testName',
-			value: 'testValue',
-			validate: false,
-		});
-
-		await thunk(dispatch);
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FIELD_ON_CHANGE",
-			name: 'testName',
-			value: 'testValue'
-		});
-	});
-
-	it('Copy the value from one field into another', async () => {
-		const state = {
-			data: {
-				'firstField': 'testValue'
-			}
-		};
-
-		const dispatch = jest.fn();
-		const getState = () => state;
-
-		const copyValue = actions.copyFieldToField({
-			from: 'firstField',
-			to: 'secondField',
-		});
-
-		await copyValue(dispatch, getState);
-
-		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
-		await dispatch.mock.calls[0][0](dispatch);
-		assert.deepStrictEqual(dispatch.mock.calls[1][0], {
-			type: "FIELD_ON_CHANGE",
-			name: 'secondField',
-			value: 'testValue'
-		});
-	});
-
-	it('Validates a field with value', async () => {
-		const state = {
-			data: {
-				'testField': 'testValue'
-			}
-		};
-
-		const dispatch = jest.fn();
-		const getState = () => state;
-		const extraArgs = {
-			fieldMap: {
-				'testField': {
-					validators: [required]
-				}
-			}
-		};
-
-		const validateField = actions.validateField({
-			name: 'testField'
-		});
-
-		await validateField(dispatch, getState, extraArgs);
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FIELD_START_VALIDATE",
-			name: 'testField',
-		});
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FIELD_END_VALIDATE",
-			name: 'testField',
-			value: undefined,
-		});
-	});
-
-	it('Validates an empty field', async () => {
-		const state = {
-			data: {}
-		};
-
-		const dispatch = jest.fn();
-		const getState = () => state;
-		const extraArgs = {
-			fieldMap: {
-				'testField': {
-					validators: [required]
-				}
-			}
-		};
-
-		const validateField = actions.validateField({
-			name: 'testField'
-		});
-
-		await validateField(dispatch, getState, extraArgs);
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FIELD_START_VALIDATE",
-			name: 'testField',
-		});
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FIELD_END_VALIDATE",
-			name: 'testField',
-			value: 'This field is required, please fill it',
-		});
-	});
-
-	it('Validates a valid form', async () => {
-		const state = {
-			data: {
-				'field1': 'text'
-			},
-			errors: {}
-		};
-
-		const dispatch = jest.fn();
-		const getState = () => state;
-		const fields = [
-			{ name: 'field1' },
-			{ name: 'field2' },
-			{ name: 'field3' },
-			{ name: 'field4' },
-		];
-
-		const validateForm = actions.validateForm({ fields });
-
-		await validateForm(dispatch, getState);
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FORM_START_DISABLE",
-			value: true,
-		});
-
-		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FORM_VALIDATE",
-			value: true,
-		});
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FORM_END_DISABLE",
-			value: false,
-		});
-	});
-
-	it('Validates an invalid form', async () => {
-		const state = {
-			data: {
-				'field1': 'text'
-			},
-			errors: {
-				'field2': 'This field is required, please fill it'
-			}
-		};
-
-		const dispatch = jest.fn();
-		const getState = () => state;
-		const fields = [
-			{ name: 'field1' },
-			{ name: 'field2' },
-			{ name: 'field3' },
-			{ name: 'field4' },
-		];
-
-		const validateForm = actions.validateForm({ fields });
-
-		await validateForm(dispatch, getState);
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FORM_START_DISABLE",
-			value: true,
-		});
-
-		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FORM_VALIDATE",
-			value: false,
-		});
-
-		expect(dispatch).toHaveBeenCalledWith({
-			type: "FORM_END_DISABLE",
-			value: false,
-		});
-	});
-
-	it('Submits a disabled form', async () => {
-		const state = {
-			disabled: true,
-		};
-		const dispatch = jest.fn();
-		const getState = () => state;
-		const extraArgs = {
-			fields: [
-				{ name: 'field1' },
-				{ name: 'field2' },
-				{ name: 'field3' },
-				{ name: 'field4' },
-			],
-			onSubmit: jest.fn(),
-		};
-
-		const submitForm = actions.submitForm();
-
-		await submitForm(dispatch, getState, extraArgs);
-
-		expect(dispatch).toHaveBeenCalledTimes(0);
-	});
-
-	it('Submits a form', async () => {
-		const state = {
-			data: {
-				'field1': 'testValue'
-			},
-			errors: {}
-		};
-		const dispatch = jest.fn();
-		const getState = () => state;
-		const extraArgs = {
-			fields: [
-				{ name: 'field1' },
-				{ name: 'field2' },
-				{ name: 'field3' },
-				{ name: 'field4' },
-			],
-			fieldMap: [
-				{ name: 'field1' },
-				{ name: 'field2' },
-				{ name: 'field3' },
-				{ name: 'field4' },
-			],
-		};
-
-		const submitForm = actions.submitForm();
-
-		await submitForm(dispatch, getState, extraArgs);
-
-		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
-		await dispatch.mock.calls[0][0](dispatch, getState);
-		assert.deepStrictEqual(dispatch.mock.calls[1][0], {
-			type: "FORM_START_DISABLE",
-			value: true,
-		});
-		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
-		await dispatch.mock.calls[2][0](dispatch, getState, extraArgs);
-		console.log(dispatch.mock.calls[2][0]);
-		// assert.deepStrictEqual(dispatch.mock.calls[2][0], {
-		// 	type: "FIELD_START_VALIDATE",
-		// 	name: 'field2',
-		// });
-		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
-		expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
-		// await dispatch.mock.calls[3][0](dispatch, getState, extraArgs);
-		// assert.deepStrictEqual(dispatch.mock.calls[3][0], {
-		// 	type: "FIELD_START_VALIDATE",
-		// 	name: 'field3',
-		// });
-		// await dispatch.mock.calls[4][0](dispatch, getState, extraArgs);
-		// assert.deepStrictEqual(dispatch.mock.calls[4][0], {
-		// 	type: "FIELD_START_VALIDATE",
-		// 	name: 'field4',
-		// });
-		assert.deepStrictEqual(dispatch.mock.calls[5][0], {
-			type: "FORM_VALIDATE",
-			value: true,
-		});
-		assert.deepStrictEqual(dispatch.mock.calls[6][0], {
-			type: "FORM_END_DISABLE",
-			value: false,
-		});
-		for (let i = 0; i < dispatch.mock.calls.length; i++) {
-			console.log(i, dispatch.mock.calls[i]);
-		}
-		// console.log(dispatch.mock.calls);
-	});
-});
-
-describe.only('Dispatcher test arrays', () => {
+describe('REDUCERS: FIELD_ON_CHANGE', () => {
 	const tests = [
 		{
-			name: 'setFieldValue test',
+			name: 'Adding text to a field',
+			args: {
+				action: {
+					name: 'field1',
+					value: 'newValue',
+					type: 'FIELD_ON_CHANGE',
+				},
+				result: {
+					data: {
+						'field1': 'newValue'
+					}
+				},
+			},
+		},
+		{
+			name: 'Passing undefined',
+			args: {
+				action: {
+					name: 'field1',
+					value: undefined,
+					type: 'FIELD_ON_CHANGE',
+				},
+				result: {
+					data: {
+						'field1': undefined,
+					}
+				},
+			},
+		},
+		{
+			name: 'Passing a boolean',
+			args: {
+				action: {
+					name: 'field1',
+					value: true,
+					type: 'FIELD_ON_CHANGE',
+				},
+				result: {
+					data: {
+						'field1': true,
+					}
+				},
+			},
+		},
+		{
+			name: 'Passing an object',
+			args: {
+				action: {
+					name: 'field1',
+					value: {
+						foo: 'bar',
+					},
+					type: 'FIELD_ON_CHANGE',
+				},
+				result: {
+					data: {
+						'field1': {
+							foo: 'bar',
+						},
+					}
+				},
+			},
+		},
+	];
+
+	testArray(tests, test => {
+		const state = {};
+		const result = coreReducer(state, test.action);
+
+		assert.deepStrictEqual(result, test.result);
+		assert.notStrictEqual(state, result);
+	});
+});
+
+describe('REDUCERS: FIELD_START_VALIDATE', () => {
+	const tests = [
+		{
+			name: 'FIELD_START_VALIDATE',
+			args: {
+				action: {
+					name: 'field1',
+					type: 'FIELD_START_VALIDATE',
+				},
+				result: {
+					errors: {
+						'field1': null,
+					},
+					validating: {
+						'field1': true,
+					}
+				},
+			},
+		}
+	];
+
+	testArray(tests, test => {
+		const state = {};
+		const result = coreReducer(state, test.action);
+
+		assert.deepStrictEqual(result, test.result);
+		assert.notStrictEqual(state, result);
+	});
+});
+
+describe('REDUCERS: FIELD_END_VALIDATE', () => {
+	const tests = [
+		{
+			name: 'Invalid field',
+			args: {
+				action: {
+					name: 'field1',
+					value: 'This field is required, please fill it!',
+					type: 'FIELD_END_VALIDATE',
+				},
+				result: {
+					errors: {
+						'field1': 'This field is required, please fill it!',
+					},
+					validating: {
+						'field1': undefined,
+					}
+				},
+			},
+		},
+		{
+			name: 'Valid field',
+			args: {
+				action: {
+					name: 'field1',
+					value: undefined,
+					type: 'FIELD_END_VALIDATE',
+				},
+				result: {
+					errors: {
+						'field1': undefined,
+					},
+					validating: {
+						'field1': undefined,
+					}
+				},
+			},
+		},
+	];
+
+	testArray(tests, test => {
+		const state = {};
+		const result = coreReducer(state, test.action);
+
+		assert.deepStrictEqual(result, test.result);
+		assert.notStrictEqual(state, result);
+	});
+});
+
+describe('REDUCERS: FORM_START_DISABLE', () => {
+	const tests = [
+		{
+			name: 'FORM_START_DISABLE',
+			args: {
+				action: {
+					value: true,
+					type: 'FORM_START_DISABLE',
+				},
+				result: {
+					disabled: true,
+				},
+			},
+		}
+	];
+
+	testArray(tests, test => {
+		const state = {};
+		const result = coreReducer(state, test.action);
+
+		assert.deepStrictEqual(result, test.result);
+		assert.notStrictEqual(state, result);
+	});
+});
+
+describe('REDUCERS: FORM_END_DISABLE', () => {
+	const tests = [
+		{
+			name: 'FORM_END_DISABLE',
+			args: {
+				action: {
+					value: false,
+					type: 'FORM_END_DISABLE',
+				},
+				result: {
+					disabled: false,
+				},
+			},
+		}
+	];
+
+	testArray(tests, test => {
+		const state = {};
+		const result = coreReducer(state, test.action);
+
+		assert.deepStrictEqual(result, test.result);
+		assert.notStrictEqual(state, result);
+	});
+});
+
+describe('REDUCERS: FORM_VALIDATE', () => {
+	const tests = [
+		{
+			name: 'Invalid form',
+			args: {
+				action: {
+					value: false,
+					type: 'FORM_VALIDATE',
+				},
+				result: {
+					validForm: false,
+				},
+			},
+		},
+		{
+			name: 'Valid form',
+			args: {
+				action: {
+					value: true,
+					type: 'FORM_VALIDATE',
+				},
+				result: {
+					validForm: true,
+				},
+			},
+		}
+	];
+
+	testArray(tests, test => {
+		const state = {};
+		const result = coreReducer(state, test.action);
+
+		assert.deepStrictEqual(result, test.result);
+		assert.notStrictEqual(state, result);
+	});
+});
+
+describe('REDUCERS: FORM_RESET', () => {
+	const tests = [
+		{
+			name: 'FORM_RESET',
+			args: {
+				action: {
+					type: 'FORM_RESET',
+				},
+				result: {
+					data: {},
+					touched: {},
+					errors: {},
+					validating: {},
+					custom: {},
+					validForm: false,
+					disabled: null,
+				},
+			},
+		}
+	];
+
+	testArray(tests, test => {
+		const state = {};
+		const result = coreReducer(state, test.action);
+
+		assert.deepStrictEqual(result, test.result);
+		assert.notStrictEqual(state, result);
+	});
+});
+
+describe('DISPATCHERS: setFieldValue', () => {
+	const tests = [
+		{
+			name: 'Sets value to field',
 			args: {
 				name: 'setFieldValue',
 				args: [{ name: 'testName', value: 'testValue' }],
@@ -563,8 +427,33 @@ describe.only('Dispatcher test arrays', () => {
 				]
 			}
 		},
+	];
+
+	testArray(tests, async test => {
+		const state = {};
+		const extraArgs = {};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fn = actions[test.name](...test.args);
+		await fn(dispatch, getState, extraArgs);
+
+		for (let call of dispatch.mock.calls) {
+			if (call[0] instanceof Function) {
+				await call[0](dispatch, getState, extraArgs);
+			}
+		}
+
+		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
+		nonFunctionCalls.forEach((call, i) => {
+			assert.deepEqual(call[0], test.calls[i]);
+		});
+	});
+});
+
+describe('DISPATCHERS: copyFieldToField', () => {
+	const tests = [
 		{
-			name: 'copyField test',
+			name: 'Copies value from one field into another',
 			args: {
 				state: {
 					data: {
@@ -582,8 +471,33 @@ describe.only('Dispatcher test arrays', () => {
 				]
 			}
 		},
+	];
+
+	testArray(tests, async test => {
+		const state = test.state ? test.state : {};
+		const extraArgs = {};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fn = actions[test.name](...test.args);
+		await fn(dispatch, getState, extraArgs);
+
+		for (let call of dispatch.mock.calls) {
+			if (call[0] instanceof Function) {
+				await call[0](dispatch, getState, extraArgs);
+			}
+		}
+
+		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
+		nonFunctionCalls.forEach((call, i) => {
+			assert.deepEqual(call[0], test.calls[i]);
+		});
+	});
+});
+
+describe('DISPATCHERS: validateField', () => {
+	const tests = [
 		{
-			name: 'validateField test',
+			name: 'Validates field with value',
 			args: {
 				state: {
 					data: {
@@ -613,7 +527,60 @@ describe.only('Dispatcher test arrays', () => {
 			}
 		},
 		{
-			name: 'validateForm test',
+			name: 'Validates field without value',
+			args: {
+				state: {
+					data: {}
+				},
+				extraArgs: {
+					fieldMap: {
+						'testField': {
+							validators: [required],
+						}
+					}
+				},
+				name: 'validateField',
+				args: [{ name: 'testField' }],
+				calls: [
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'testField',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'testField',
+						value: 'This field is required, please fill it',
+					}
+				]
+			}
+		},
+	];
+
+	testArray(tests, async test => {
+		const state = test.state ? test.state : {};
+		const extraArgs = test.extraArgs ? test.extraArgs : {};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fn = actions[test.name](...test.args);
+		await fn(dispatch, getState, extraArgs);
+
+		for (let call of dispatch.mock.calls) {
+			if (call[0] instanceof Function) {
+				await call[0](dispatch, getState, extraArgs);
+			}
+		}
+
+		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
+		nonFunctionCalls.forEach((call, i) => {
+			assert.deepEqual(call[0], test.calls[i]);
+		});
+	});
+});
+
+describe('DISPATCHERS: validateForm', () => {
+	const tests = [
+		{
+			name: 'Validates a form with unfilled fields',
 			args: {
 				state: {
 					data: {
@@ -621,13 +588,22 @@ describe.only('Dispatcher test arrays', () => {
 					},
 					errors: {},
 				},
-				// extraArgs: {
-				// 	fieldMap: {
-				// 		'testField': {
-				// 			validators: [required],
-				// 		}
-				// 	}
-				// },
+				extraArgs: {
+					fieldMap: {
+						'field1': {
+							required: true,
+						},
+						'field2': {
+							required: true,
+						},
+						'field3': {
+							required: true,
+						},
+						'field4': {
+							required: true,
+						}
+					}
+				},
 				name: 'validateForm',
 				args: [{ fields:  [
 					{ name: 'field1' },
@@ -637,16 +613,121 @@ describe.only('Dispatcher test arrays', () => {
 				]}],
 				calls: [
 					{
-						type: 'FIELD_START_DISABLE',
+						type: 'FORM_START_DISABLE',
 						value: true,
 					},
 					{
-						type: 'FIELD_VALIDATE',
+						type: 'FORM_VALIDATE',
 						value: true,
 					},
 					{
 						type: 'FORM_END_DISABLE',
 						value: false,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field2',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field2',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field3',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field3',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field4',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field4',
+						value: 'This field is required, please fill it',
+					},
+				]
+			}
+		},
+		{
+			name: 'Validates a form with filled fields',
+			args: {
+				state: {
+					data: {
+						'field1': 'testValue',
+						'field2': 'testValue',
+						'field3': 'testValue',
+						'field4': 'testValue',
+					},
+					errors: {},
+				},
+				extraArgs: {
+					fieldMap: {
+						'field1': {
+							required: true,
+						},
+						'field2': {
+							required: true,
+						},
+						'field3': {
+							required: true,
+						},
+						'field4': {
+							required: true,
+						}
+					}
+				},
+				name: 'validateForm',
+				args: [{ fields:  [
+					{ name: 'field1' },
+					{ name: 'field2' },
+					{ name: 'field3' },
+					{ name: 'field4' },
+				]}],
+				calls: [
+					{
+						type: 'FORM_START_DISABLE',
+						value: true,
+					},
+					{
+						type: 'FORM_VALIDATE',
+						value: true,
+					},
+					{
+						type: 'FORM_END_DISABLE',
+						value: false,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field2',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field2',
+						value: undefined,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field3',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field3',
+						value: undefined,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field4',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field4',
+						value: undefined,
 					},
 				]
 			}
@@ -659,6 +740,215 @@ describe.only('Dispatcher test arrays', () => {
 		const dispatch = jest.fn();
 		const getState = () => state;
 		const fn = actions[test.name](...test.args);
+		await fn(dispatch, getState, extraArgs);
+
+		for (let call of dispatch.mock.calls) {
+			if (call[0] instanceof Function) {
+				await call[0](dispatch, getState, extraArgs);
+			}
+		}
+
+		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
+		nonFunctionCalls.forEach((call, i) => {
+			assert.deepEqual(call[0], test.calls[i]);
+		});
+	});
+});
+
+describe('DISPATCHERS: submitForm', () => {
+	const tests = [
+		{
+			name: 'Submits a form',
+			args: {
+				state: {
+					data: {
+						'field1': 'testValue'
+					},
+					errors: {},
+				},
+				extraArgs: {
+					fieldMap: {
+						'field1': {
+							required: true,
+						},
+						'field2': {
+							required: true,
+						},
+						'field3': {
+							required: true,
+						},
+						'field4': {
+							required: true,
+						}
+					},
+					fields:  [
+						{ name: 'field1' },
+						{ name: 'field2' },
+						{ name: 'field3' },
+						{ name: 'field4' },
+					]
+				},
+				name: 'submitForm',
+				calls: [
+					{
+						type: 'FORM_START_DISABLE',
+						value: true,
+					},
+					{
+						type: 'FORM_VALIDATE',
+						value: true,
+					},
+					{
+						type: 'FORM_END_DISABLE',
+						value: false,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field2',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field2',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field3',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field3',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field4',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field4',
+						value: 'This field is required, please fill it',
+					},
+				]
+			}
+		},
+		{
+			name: 'Submits a disabled form',
+			args: {
+				state: {
+					disabled: true,
+				},
+				extraArgs: {
+					fieldMap: {
+						'field1': {
+							required: true,
+						},
+						'field2': {
+							required: true,
+						},
+						'field3': {
+							required: true,
+						},
+						'field4': {
+							required: true,
+						}
+					},
+					fields:  [
+						{ name: 'field1' },
+						{ name: 'field2' },
+						{ name: 'field3' },
+						{ name: 'field4' },
+					],
+					onSubmit: jest.fn(),
+				},
+				name: 'submitForm',
+				calls: [
+					{
+						type: 'FORM_START_DISABLE',
+						value: true,
+					},
+					{
+						type: 'FORM_VALIDATE',
+						value: true,
+					},
+					{
+						type: 'FORM_END_DISABLE',
+						value: false,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field2',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field2',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field3',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field3',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field4',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field4',
+						value: 'This field is required, please fill it',
+					},
+				]
+			}
+		},
+	];
+
+	testArray(tests, async test => {
+		const state = test.state ? test.state : {};
+		const extraArgs = test.extraArgs ? test.extraArgs : {};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fn = actions[test.name]();
+		await fn(dispatch, getState, extraArgs);
+
+		for (let call of dispatch.mock.calls) {
+			if (call[0] instanceof Function) {
+				await call[0](dispatch, getState, extraArgs);
+			}
+		}
+
+		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
+		nonFunctionCalls.forEach((call, i) => {
+			assert.deepEqual(call[0], test.calls[i]);
+		});
+	});
+});
+
+describe('DISPATCHERS: resetForm', () => {
+	const tests = [
+		{
+			name: 'resetForm test',
+			args: {
+				name: 'resetForm',
+				calls: [
+					{
+						type: 'FORM_RESET',
+					}
+				]
+			}
+		},
+	];
+
+	testArray(tests, async test => {
+		const state = {};
+		const extraArgs = {};
+		const dispatch = jest.fn();
+		const getState = () => state;
+		const fn = actions[test.name]();
 		await fn(dispatch, getState, extraArgs);
 
 		for (let call of dispatch.mock.calls) {
