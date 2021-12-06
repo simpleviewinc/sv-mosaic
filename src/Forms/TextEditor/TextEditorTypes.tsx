@@ -13,7 +13,7 @@ export interface TextEditorProps {
    * the onChange function was found here:
    * https://github.com/jpuri/react-draft-wysiwyg/issues/420
    */
-  onChange: (editorState: any) => void;
+  onChange: (editorState: unknown) => void;
   /**
    * Text editor placeholder.
    */
@@ -21,5 +21,5 @@ export interface TextEditorProps {
   /**
    * Editor state
    */
-  value: any;
+  value: unknown;
 }
