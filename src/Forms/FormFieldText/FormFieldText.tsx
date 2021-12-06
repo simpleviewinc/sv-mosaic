@@ -37,6 +37,7 @@ const TextField = (
 		maxCharacters,
 		required,
 		name,
+		type
 	} = props;
 
 	const leadingIcon = icon
@@ -86,6 +87,7 @@ const TextField = (
 					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
 					InputProps={leadingIcon}
 					required={required}
+					type={type}
 				/>
 			</TextFieldWrapper>
 			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
