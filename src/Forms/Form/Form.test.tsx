@@ -1,7 +1,7 @@
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
 import { actions, coreReducer, generateLayout } from "./formUtils";
-import { FieldDefProps } from "@root/components/Field";
+import { FieldDefProps } from "../../components/Field";
 import { required } from './validators';
 
 describe('Layout logic', () => {
