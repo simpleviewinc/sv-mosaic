@@ -76,6 +76,8 @@ export { default as Table } from "./forms/Table";
 export * from "./forms/Table";
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
+export { default as TextEditor } from "./forms/TextEditor";
+export * from "./forms/TextEditor";
 export { default as TimeInput } from "./forms/DateTimeField/TimeInput";
 export * from "./forms/DateTimeField/TimeInput";
 export { default as TimePicker } from "./forms/DateTimeField/TimePicker";

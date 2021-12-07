@@ -21,6 +21,7 @@ const EXTERNALS = [
 	"react-i18next",
 	"react-transition-group",
 	"styled-components",
+	"react-draft-wysiwyg",
 ];
 
 const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];
