@@ -32,4 +32,6 @@ export interface AddressProps {
    * Meaningful name related to this component.
    */
   label: string;
+  value?: Address[];
+  onChange?: (event: unknown) => void;
 }

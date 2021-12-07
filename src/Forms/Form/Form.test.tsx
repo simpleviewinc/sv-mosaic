@@ -263,6 +263,15 @@ describe('REDUCERS: FIELD_END_VALIDATE', () => {
 						'field1': undefined,
 					}
 				},
+				state: {
+					foo: 'bar',
+					errors: {
+						foo: 'bar',
+					},
+					validating: {
+						foo: 'bar',
+					}
+				}
 			},
 		},
 		{
@@ -273,6 +282,16 @@ describe('REDUCERS: FIELD_END_VALIDATE', () => {
 					value: undefined,
 					type: 'FIELD_END_VALIDATE',
 				},
+				state: {
+					foo: 'bar',
+					errors: {
+						foo: 'bar',
+					},
+					validating: {
+						foo: 'bar',
+						'field1': true,
+					}
+				},
 				result: {
 					errors: {
 						'field1': undefined,
@@ -280,17 +299,16 @@ describe('REDUCERS: FIELD_END_VALIDATE', () => {
 					validating: {
 						'field1': undefined,
 					}
-				},
+				}
 			},
 		},
 	];
 
 	testArray(tests, test => {
-		const state = {};
-		const result = coreReducer(state, test.action);
+		const result = coreReducer(test.state, test.action);
 
 		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(state, result);
+		assert.notStrictEqual(test.state, result);
 	});
 });
 
@@ -489,7 +507,7 @@ describe('DISPATCHERS: copyFieldToField', () => {
 
 		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
 		nonFunctionCalls.forEach((call, i) => {
-			assert.deepEqual(call[0], test.calls[i]);
+			assert.deepStrictEqual(call[0], test.calls[i]);
 		});
 	});
 });
@@ -577,7 +595,7 @@ describe('DISPATCHERS: validateField', () => {
 	});
 });
 
-describe('DISPATCHERS: validateForm', () => {
+describe.only('DISPATCHERS: validateForm', () => {
 	const tests = [
 		{
 			name: 'Validates a form with unfilled fields',
@@ -605,16 +623,45 @@ describe('DISPATCHERS: validateForm', () => {
 					}
 				},
 				name: 'validateForm',
-				args: [{ fields:  [
-					{ name: 'field1' },
-					{ name: 'field2' },
-					{ name: 'field3' },
-					{ name: 'field4' },
-				]}],
+				args: [{
+					fields: [
+						{ name: 'field1' },
+						{ name: 'field2' },
+						{ name: 'field3' },
+						{ name: 'field4' },
+					]
+				}],
 				calls: [
 					{
 						type: 'FORM_START_DISABLE',
 						value: true,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field2',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field2',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field3',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field3',
+						value: 'This field is required, please fill it',
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field4',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field4',
+						value: 'This field is required, please fill it',
 					},
 					{
 						type: 'FORM_VALIDATE',
@@ -623,33 +670,6 @@ describe('DISPATCHERS: validateForm', () => {
 					{
 						type: 'FORM_END_DISABLE',
 						value: false,
-					},
-					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field2',
-					},
-					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field2',
-						value: 'This field is required, please fill it',
-					},
-					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field3',
-					},
-					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field3',
-						value: 'This field is required, please fill it',
-					},
-					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field4',
-					},
-					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field4',
-						value: 'This field is required, please fill it',
 					},
 				]
 			}
@@ -683,16 +703,45 @@ describe('DISPATCHERS: validateForm', () => {
 					}
 				},
 				name: 'validateForm',
-				args: [{ fields:  [
-					{ name: 'field1' },
-					{ name: 'field2' },
-					{ name: 'field3' },
-					{ name: 'field4' },
-				]}],
+				args: [{
+					fields: [
+						{ name: 'field1' },
+						{ name: 'field2' },
+						{ name: 'field3' },
+						{ name: 'field4' },
+					]
+				}],
 				calls: [
 					{
 						type: 'FORM_START_DISABLE',
 						value: true,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field2',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field2',
+						value: undefined,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field3',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field3',
+						value: undefined,
+					},
+					{
+						type: 'FIELD_START_VALIDATE',
+						name: 'field4',
+					},
+					{
+						type: 'FIELD_END_VALIDATE',
+						name: 'field4',
+						value: undefined,
 					},
 					{
 						type: 'FORM_VALIDATE',
@@ -702,33 +751,6 @@ describe('DISPATCHERS: validateForm', () => {
 						type: 'FORM_END_DISABLE',
 						value: false,
 					},
-					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field2',
-					},
-					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field2',
-						value: undefined,
-					},
-					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field3',
-					},
-					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field3',
-						value: undefined,
-					},
-					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field4',
-					},
-					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field4',
-						value: undefined,
-					},
 				]
 			}
 		},
@@ -737,21 +759,32 @@ describe('DISPATCHERS: validateForm', () => {
 	testArray(tests, async test => {
 		const state = test.state ? test.state : {};
 		const extraArgs = test.extraArgs ? test.extraArgs : {};
-		const dispatch = jest.fn();
+		// const dispatch = jest.fn();
+		const dispatches = [];
+		const dispatch = async action => {
+			if (action instanceof Function) {
+				await action(dispatch, getState, extraArgs);
+			} else {
+				dispatches.push(action);
+			}
+		}
 		const getState = () => state;
 		const fn = actions[test.name](...test.args);
 		await fn(dispatch, getState, extraArgs);
 
-		for (let call of dispatch.mock.calls) {
-			if (call[0] instanceof Function) {
-				await call[0](dispatch, getState, extraArgs);
-			}
-		}
+		// for (let call of dispatch.mock.calls) {
+		// 	if (call[0] instanceof Function) {
+		// 		console.log('left')
+		// 		await call[0](dispatch, getState, extraArgs);
+		// 	}
+		// }
 
-		const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
-		nonFunctionCalls.forEach((call, i) => {
-			assert.deepEqual(call[0], test.calls[i]);
-		});
+		// const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
+		// nonFunctionCalls.forEach((call, i) => {
+		// 	assert.deepEqual(call[0], test.calls[i]);
+		// });
+
+		assert.deepStrictEqual(dispatches, test.calls);
 	});
 });
 
@@ -781,7 +814,7 @@ describe('DISPATCHERS: submitForm', () => {
 							required: true,
 						}
 					},
-					fields:  [
+					fields: [
 						{ name: 'field1' },
 						{ name: 'field2' },
 						{ name: 'field3' },
@@ -853,7 +886,7 @@ describe('DISPATCHERS: submitForm', () => {
 							required: true,
 						}
 					},
-					fields:  [
+					fields: [
 						{ name: 'field1' },
 						{ name: 'field2' },
 						{ name: 'field3' },

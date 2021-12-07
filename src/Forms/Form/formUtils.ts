@@ -98,6 +98,7 @@ export const actions = {
 	},
 	validateField({ name }) {
 		return async function (dispatch, getState, extraArgs) {
+			console.log('validate field');
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			let validators = extraArgs?.fieldMap[name]?.validators;
 
@@ -140,7 +141,7 @@ export const actions = {
 	},
 	validateForm({ fields }) {
 		return async (dispatch, getState) => {
-			dispatch({
+			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
@@ -163,17 +164,19 @@ export const actions = {
 					validForm = false;
 			});
 
-			dispatch({
+			await dispatch({
 				type: "FORM_VALIDATE",
 				value: validForm,
 			});
 
 			await new Promise((res) => setTimeout(res, 2000));
 
-			dispatch({
+			await dispatch({
 				type: "FORM_END_DISABLE",
 				value: false,
 			});
+
+			console.log('right');
 
 			return validForm;
 
