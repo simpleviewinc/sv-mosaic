@@ -37,9 +37,13 @@ const addressTypes = [
 ];
 
 const Address = (props: AddressProps): ReactElement => {
-	const { label } = props;
+	const { 
+		label, 
+		value, 
+		onChange 
+	} = props;
 
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	// State variables
 	const [addresses, setAddresses] = useState([]);
@@ -322,14 +326,6 @@ const Address = (props: AddressProps): ReactElement => {
 				value: state,
 			})
 		);
-		// setTextFields({
-		// 	address: addressToEdit.address,
-		// 	city: addressToEdit.city,
-		// 	postalCode: addressToEdit.postalCode,
-		// });
-		// setAddressTypesChecked(addressToEdit.types);
-		// setSelectedCountry(addressToEdit.country);
-		// setSelectedState(addressToEdit.state);
 		setAddressIdx(addressIndex);
 		setIsEditting(true);
 		setOpen(true);
@@ -411,75 +407,6 @@ const Address = (props: AddressProps): ReactElement => {
 					<AddressCard key={`${address.address}-${idx}`} addressIndex={idx} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler}/>
 				))}
 			</FlexContainer>
-			{/* <Modal
-				dialogTitle='Address Information'
-				form='address_form'
-				open={open}
-				onClose={handleClose}
-				primaryBtnLabel='Save'
-				secondaryAction={handleClose}
-				secondaryBtnLabel='Cancel'
-				submitDisabled={submitDisabled}
-			>
-				<form id='address_form' onSubmit={handleFormSubmit}>
-					<FormFieldDropdownSingleSelection
-						data-testid='countries-dropdown-test'
-						options={countries}
-						label='Country'
-						size={Sizes.sm}
-						onChange={handleCountryChange}
-						required
-						value={selectedCountry}
-					/>
-					<TextField
-						htmlFor='address'
-						id='address'
-						label='Address'
-						name='address'
-						size={Sizes.lg}
-						onChange={handleTextFieldsChange}
-						required
-						value={textFields.address}
-					/>
-					<FlexContainerFields>
-						<TextField
-							htmlFor='city'
-							id='city'
-							label='City'
-							name='city'
-							size={Sizes.sm}
-							onChange={handleTextFieldsChange}
-							required
-							value={textFields.city}
-						/>
-						<FormFieldDropdownSingleSelection
-							data-testid='states-dropdown-test'
-							options={listOfStates}
-							label='States'
-							onChange={handleStateChange}
-							size={Sizes.sm}
-							value={selectedState}
-						/>
-						<TextField
-							htmlFor='postalCode'
-							id='postalCode'
-							label='Postal Code'
-							name='postalCode'
-							size={Sizes.sm}
-							onChange={handleTextFieldsChange}
-							required
-							value={textFields.postalCode}
-						/>
-					</FlexContainerFields>
-					<FormFieldCheckbox
-						label='Type'
-						checked={addressTypesChecked}
-						options={addressTypes}
-						onChange={handleAddressTypeChange}
-						required
-					/>
-				</form>
-			</Modal> */}
 			<Modal
 				title='Address Information'
 				state={state}
