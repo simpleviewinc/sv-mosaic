@@ -5,7 +5,7 @@ import { EditorState } from "draft-js";
 
 // Components
 import TextEditor from './TextEditor';
-import Field from '@root/components/Field';
+import Field from '../../components/Field';
 
 export default {
 	title: 'Forms|TextEditor',
