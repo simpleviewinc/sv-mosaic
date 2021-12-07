@@ -6,6 +6,7 @@ export const EditorWrapper = styled.div`
   width: 620px;
 
   .rdw-editor-toolbar {
+	border-radius: 4px 4px 0px 0px;
     margin-bottom: 8px;
     border: ${(pr) => (pr.error ? theme.borders.error : '')};
   }

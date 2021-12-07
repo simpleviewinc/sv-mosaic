@@ -1,3 +1,5 @@
+import { EditorState } from "react-draft-wysiwyg";
+
 export interface TextEditorProps {
   /**
    * Disables the text editor.
@@ -13,7 +15,7 @@ export interface TextEditorProps {
    * the onChange function was found here:
    * https://github.com/jpuri/react-draft-wysiwyg/issues/420
    */
-  onChange: (editorState: unknown) => void;
+  onChange: (editorState: EditorState) => void;
   /**
    * Text editor placeholder.
    */
@@ -21,5 +23,5 @@ export interface TextEditorProps {
   /**
    * Editor state
    */
-  value: unknown;
+  value: EditorState;
 }
