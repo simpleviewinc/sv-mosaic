@@ -98,7 +98,6 @@ export const actions = {
 	},
 	validateField({ name }) {
 		return async function (dispatch, getState, extraArgs) {
-			console.log('validate field');
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			let validators = extraArgs?.fieldMap[name]?.validators;
 
@@ -176,12 +175,7 @@ export const actions = {
 				value: false,
 			});
 
-			console.log('right');
-
 			return validForm;
-
-			// if(validForm)
-			// 	extraArgs.onSubmit(touchedFields);
 		}
 	},
 	submitForm() {
