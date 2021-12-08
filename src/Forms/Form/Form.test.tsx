@@ -4,6 +4,42 @@ import { actions, coreReducer, generateLayout } from "./formUtils";
 import { FieldDefProps } from "../../components/Field";
 import { required } from './validators';
 
+const runTests = (tests, type) => {
+	switch (type) {
+		case 'dispatch':
+			testArray(tests, async test => {
+				const state = test['state'] ? test['state'] : {};
+				const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
+
+				const dispatches = [];
+				const dispatch = async action => {
+					if (action instanceof Function) {
+						await action(dispatch, getState, extraArgs);
+					} else {
+						dispatches.push(action);
+					}
+				}
+				const getState = () => state;
+				const fn = actions[test['action']](...test['args']);
+				await fn(dispatch, getState, extraArgs);
+
+				assert.deepStrictEqual(dispatches, test['calls']);
+			});
+			break;
+		case 'reducer':
+			testArray(tests, test => {
+				const state = test['state'] ? test['state'] : {};
+				const result = coreReducer(state, test['action']);
+		
+				assert.deepStrictEqual(result, test['result']);
+				assert.notStrictEqual(state, result);
+			});
+			break;
+		default:
+			break;
+	}
+};
+
 describe('Layout logic', () => {
 	const fields = [
 		{
@@ -206,13 +242,7 @@ describe('REDUCERS: FIELD_ON_CHANGE', () => {
 		},
 	];
 
-	testArray(tests, test => {
-		const state = {};
-		const result = coreReducer(state, test.action);
-
-		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(state, result);
-	});
+	runTests(tests, 'reducer');
 });
 
 describe('REDUCERS: FIELD_START_VALIDATE', () => {
@@ -236,13 +266,7 @@ describe('REDUCERS: FIELD_START_VALIDATE', () => {
 		}
 	];
 
-	testArray(tests, test => {
-		const state = {};
-		const result = coreReducer(state, test.action);
-
-		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(state, result);
-	});
+	runTests(tests, 'reducer');
 });
 
 describe('REDUCERS: FIELD_END_VALIDATE', () => {
@@ -321,12 +345,7 @@ describe('REDUCERS: FIELD_END_VALIDATE', () => {
 		},
 	];
 
-	testArray(tests, test => {
-		const result = coreReducer(test.state, test.action);
-
-		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(test.state, result);
-	});
+	runTests(tests, 'reducer');
 });
 
 describe('REDUCERS: FORM_START_DISABLE', () => {
@@ -345,13 +364,7 @@ describe('REDUCERS: FORM_START_DISABLE', () => {
 		}
 	];
 
-	testArray(tests, test => {
-		const state = {};
-		const result = coreReducer(state, test.action);
-
-		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(state, result);
-	});
+	runTests(tests, 'reducer');
 });
 
 describe('REDUCERS: FORM_END_DISABLE', () => {
@@ -370,13 +383,7 @@ describe('REDUCERS: FORM_END_DISABLE', () => {
 		}
 	];
 
-	testArray(tests, test => {
-		const state = {};
-		const result = coreReducer(state, test.action);
-
-		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(state, result);
-	});
+	runTests(tests, 'reducer');
 });
 
 describe('REDUCERS: FORM_VALIDATE', () => {
@@ -407,13 +414,7 @@ describe('REDUCERS: FORM_VALIDATE', () => {
 		}
 	];
 
-	testArray(tests, test => {
-		const state = {};
-		const result = coreReducer(state, test.action);
-
-		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(state, result);
-	});
+	runTests(tests, 'reducer');
 });
 
 describe('REDUCERS: FORM_RESET', () => {
@@ -437,35 +438,8 @@ describe('REDUCERS: FORM_RESET', () => {
 		}
 	];
 
-	testArray(tests, test => {
-		const state = {};
-		const result = coreReducer(state, test.action);
-
-		assert.deepStrictEqual(result, test.result);
-		assert.notStrictEqual(state, result);
-	});
+	runTests(tests, 'reducer');
 });
-
-const runTests = (tests) => {
-	testArray(tests, async test => {
-		const state = test['state'] ? test['state'] : {};
-		const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
-
-		const dispatches = [];
-		const dispatch = async action => {
-			if (action instanceof Function) {
-				await action(dispatch, getState, extraArgs);
-			} else {
-				dispatches.push(action);
-			}
-		}
-		const getState = () => state;
-		const fn = actions[test['action']](...test['args']);
-		await fn(dispatch, getState, extraArgs);
-
-		assert.deepStrictEqual(dispatches, test['calls']);
-	});
-};
 
 describe('DISPATCHERS: setFieldValue', () => {
 	const tests = [
@@ -485,27 +459,7 @@ describe('DISPATCHERS: setFieldValue', () => {
 		},
 	];
 
-	runTests(tests);
-
-	// testArray(tests, async test => {
-	// 	const state = {};
-	// 	const extraArgs = {};
-	// 	const dispatch = jest.fn();
-	// 	const getState = () => state;
-	// 	const fn = actions[test.name](...test.args);
-	// 	await fn(dispatch, getState, extraArgs);
-
-	// 	for (let call of dispatch.mock.calls) {
-	// 		if (call[0] instanceof Function) {
-	// 			await call[0](dispatch, getState, extraArgs);
-	// 		}
-	// 	}
-
-	// 	const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
-	// 	nonFunctionCalls.forEach((call, i) => {
-	// 		assert.deepEqual(call[0], test.calls[i]);
-	// 	});
-	// });
+	runTests(tests, 'dispatch');
 });
 
 describe('DISPATCHERS: copyFieldToField', () => {
@@ -531,27 +485,7 @@ describe('DISPATCHERS: copyFieldToField', () => {
 		},
 	];
 
-	runTests(tests);
-
-	// testArray(tests, async test => {
-	// 	const state = test.state ? test.state : {};
-	// 	const extraArgs = {};
-	// 	const dispatch = jest.fn();
-	// 	const getState = () => state;
-	// 	const fn = actions[test.name](...test.args);
-	// 	await fn(dispatch, getState, extraArgs);
-
-	// 	for (let call of dispatch.mock.calls) {
-	// 		if (call[0] instanceof Function) {
-	// 			await call[0](dispatch, getState, extraArgs);
-	// 		}
-	// 	}
-
-	// 	const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
-	// 	nonFunctionCalls.forEach((call, i) => {
-	// 		assert.deepStrictEqual(call[0], test.calls[i]);
-	// 	});
-	// });
+	runTests(tests, 'dispatch');
 });
 
 describe('DISPATCHERS: validateField', () => {
@@ -616,27 +550,7 @@ describe('DISPATCHERS: validateField', () => {
 		},
 	];
 
-	runTests(tests);
-
-	// testArray(tests, async test => {
-	// 	const state = test.state ? test.state : {};
-	// 	const extraArgs = test.extraArgs ? test.extraArgs : {};
-	// 	const dispatch = jest.fn();
-	// 	const getState = () => state;
-	// 	const fn = actions[test.name](...test.args);
-	// 	await fn(dispatch, getState, extraArgs);
-
-	// 	for (let call of dispatch.mock.calls) {
-	// 		if (call[0] instanceof Function) {
-	// 			await call[0](dispatch, getState, extraArgs);
-	// 		}
-	// 	}
-
-	// 	const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
-	// 	nonFunctionCalls.forEach((call, i) => {
-	// 		assert.deepEqual(call[0], test.calls[i]);
-	// 	});
-	// });
+	runTests(tests, 'dispatch');
 });
 
 describe('DISPATCHERS: validateForm', () => {
@@ -773,25 +687,7 @@ describe('DISPATCHERS: validateForm', () => {
 		},
 	];
 
-	runTests(tests);
-
-	// testArray(tests, async test => {
-	// 	const state = test.state ? test.state : {};
-	// 	const extraArgs = test.extraArgs ? test.extraArgs : {};
-	// 	const dispatches = [];
-	// 	const dispatch = async action => {
-	// 		if (action instanceof Function) {
-	// 			await action(dispatch, getState, extraArgs);
-	// 		} else {
-	// 			dispatches.push(action);
-	// 		}
-	// 	}
-	// 	const getState = () => state;
-	// 	const fn = actions[test.name](...test.args);
-	// 	await fn(dispatch, getState, extraArgs);
-
-	// 	assert.deepStrictEqual(dispatches, test.calls);
-	// });
+	runTests(tests, 'dispatch');
 });
 
 describe('DISPATCHERS: submitForm', () => {
@@ -906,27 +802,7 @@ describe('DISPATCHERS: submitForm', () => {
 		},
 	];
 
-	runTests(tests);
-
-	// testArray(tests, async test => {
-	// 	const state = test.state ? test.state : {};
-	// 	const extraArgs = test.extraArgs ? test.extraArgs : {};
-	// 	const dispatch = jest.fn();
-	// 	const getState = () => state;
-	// 	const fn = actions[test.name]();
-	// 	await fn(dispatch, getState, extraArgs);
-
-	// 	for (let call of dispatch.mock.calls) {
-	// 		if (call[0] instanceof Function) {
-	// 			await call[0](dispatch, getState, extraArgs);
-	// 		}
-	// 	}
-
-	// 	const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
-	// 	nonFunctionCalls.forEach((call, i) => {
-	// 		assert.deepEqual(call[0], test.calls[i]);
-	// 	});
-	// });
+	runTests(tests, 'dispatch');
 });
 
 describe('DISPATCHERS: resetForm', () => {
@@ -944,25 +820,5 @@ describe('DISPATCHERS: resetForm', () => {
 		},
 	];
 
-	runTests(tests);
-
-	// testArray(tests, async test => {
-	// 	const state = {};
-	// 	const extraArgs = {};
-	// 	const dispatch = jest.fn();
-	// 	const getState = () => state;
-	// 	const fn = actions[test.name]();
-	// 	await fn(dispatch, getState, extraArgs);
-
-	// 	for (let call of dispatch.mock.calls) {
-	// 		if (call[0] instanceof Function) {
-	// 			await call[0](dispatch, getState, extraArgs);
-	// 		}
-	// 	}
-
-	// 	const nonFunctionCalls = dispatch.mock.calls.filter(call => !(call[0] instanceof Function));
-	// 	nonFunctionCalls.forEach((call, i) => {
-	// 		assert.deepEqual(call[0], test.calls[i]);
-	// 	});
-	// });
+	runTests(tests, 'dispatch');
 });
