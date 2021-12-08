@@ -10,3 +10,7 @@ export const StyledSpan = styled.span`
   font-family: ${theme.fontFamily};
   font-size: 14px;
 `;
+
+export const MapContainer = styled.div`
+  margin-bottom: 18px;
+`;
