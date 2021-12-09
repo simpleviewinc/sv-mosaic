@@ -19,15 +19,21 @@ const mapOptions = {
 const libraries: Libraries = ['places'];
 
 const Map = (props: MapProps): ReactElement => {
-  const { mapPosition, onClick, coordinates, onPlaceSelected } = props;
+  const {
+    apiKey,
+    mapContainerRef,
+    mapPosition,
+    onClick,
+    onPlaceSelected,
+  } = props;
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: '',
+    googleMapsApiKey: apiKey,
     libraries,
   });
 
-  console.log('coordinates: ', coordinates);
-  console.log('Map position: ', mapPosition);
+  /*   console.log('coordinates: ', coordinates);
+  console.log('Map position: ', mapPosition); */
   /* 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -37,7 +43,7 @@ const Map = (props: MapProps): ReactElement => {
   //const [country, setCountry] = useState('us');
 
   /* const { ref } = usePlacesWidget({
-    apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+    apiKey: '',
     onPlaceSelected: (place) => console.log(place),
     inputAutocompleteValue: 'country',
     options: {
@@ -50,8 +56,7 @@ const Map = (props: MapProps): ReactElement => {
 
   return (
     <MapContainer>
-      {/* <div style={{ width: '250px', marginTop: '20px' }}>
-        <span style={{ color: 'black' }}>Material UI</span>
+      {/* <div style={{ width: '250px', marginBottom: '8px' }}>
         <TextField
           fullWidth
           color='primary'
@@ -59,29 +64,22 @@ const Map = (props: MapProps): ReactElement => {
           inputRef={ref}
         />
       </div> */}
-
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={mapPosition}
-        zoom={10}
-        onClick={onClick}
-        options={mapOptions}
-        //onLoad={onMapLoad}
-      >
-        <Marker
-          position={{
-            lat: coordinates.lat,
-            lng: coordinates.lng,
-          }}
-        />
-      </GoogleMap>
-      {/* <Autocomplete
-          apiKey='AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
-          onPlaceSelected={onPlaceSelected}
-          types={['(regions)']}
-          placeholder='Type a location, address or city…'
-          type='search'
-        /> */}
+      <div ref={mapContainerRef}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={mapPosition}
+          zoom={10}
+          onClick={onClick}
+          options={mapOptions}
+          //onLoad={onMapLoad}
+        >
+          <Marker position={mapPosition} />
+        </GoogleMap>
+      </div>
+      <Autocomplete
+        //apiKey={apiKey}
+        onPlaceSelected={(place) => console.log(place)}
+      />
     </MapContainer>
   );
 };
