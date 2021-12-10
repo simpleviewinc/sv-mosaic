@@ -70,17 +70,17 @@ const ImageVideoDocumentSetUp = (
 	const handleBrowse = (e) => {
 		e.preventDefault();
 		switch (assetType) {
-		case DOCUMENT:
-			inputSettings?.handleSetDocument();
-			break;
+			case DOCUMENT:
+				inputSettings?.handleSetDocument();
+				break;
 
-		case VIDEO:
-			inputSettings?.handleSetVideo();
-			break;
+			case VIDEO:
+				inputSettings?.handleSetVideo();
+				break;
 
-		default:
-			inputSettings?.handleSetImage();
-			break;
+			default:
+				inputSettings?.handleSetImage();
+				break;
 		}
 	};
 
@@ -103,8 +103,8 @@ const ImageVideoDocumentSetUp = (
 
 	if (
 		(inputSettings?.handleSetImage && inputSettings?.handleSetVideo) ||
-    (inputSettings?.handleSetVideo && inputSettings?.handleSetDocument) ||
-    (inputSettings?.handleSetDocument && inputSettings?.handleSetImage)
+		(inputSettings?.handleSetVideo && inputSettings?.handleSetDocument) ||
+		(inputSettings?.handleSetDocument && inputSettings?.handleSetImage)
 	) {
 		multipleActions = true;
 	}
@@ -142,13 +142,13 @@ const ImageVideoDocumentSetUp = (
 
 	const tootltipContent = useMemo(
 		() => Array.isArray(value) && value?.map((property) => (
-				<TableRow key={`${property.label}-${property.value}`}>
-					<Td>
-						<AssetLabelTooltip>{property.label}</AssetLabelTooltip>
-					</Td>
-					<Td>{property.value}</Td>
-				</TableRow>
-			)),
+			<TableRow key={`${property.label}-${property.value}`}>
+				<Td>
+					<AssetLabelTooltip>{property.label}</AssetLabelTooltip>
+				</Td>
+				<Td>{property.value}</Td>
+			</TableRow>
+		)),
 		[value]
 	);
 
@@ -169,7 +169,7 @@ const ImageVideoDocumentSetUp = (
 	// Only show the first four asset's properties on the card
 	const assetPropertiesRows = useMemo(
 		() =>
-		Array.isArray(value) && value?.slice(0, 4).map((property, idx) => (
+			Array.isArray(value) && value?.slice(0, 4).map((property, idx) => (
 				<TableRow key={`${property.label}-${property.value}`}>
 					<Td>
 						<AssetLabel>{property.label}</AssetLabel>
@@ -190,7 +190,7 @@ const ImageVideoDocumentSetUp = (
 
 	return (
 		<div>
-			{((Array.isArray(value) && value?.length === 0) || value === undefined) ? (
+			{((Array.isArray(value) && value?.length === 0) || !value) ? (
 				<SetUpButtonsWrapper multipleActions={multipleActions}>
 					{inputSettings?.handleSetImage && (
 						<Button buttonType='secondary' onClick={handleImageClick}>
@@ -199,7 +199,7 @@ const ImageVideoDocumentSetUp = (
 					)}
 					{inputSettings?.handleSetVideo && (
 						<Button buttonType='secondary' onClick={handleVideoClick}>
-						SET VIDEO
+							SET VIDEO
 						</Button>
 					)}
 					{inputSettings?.handleSetDocument && (

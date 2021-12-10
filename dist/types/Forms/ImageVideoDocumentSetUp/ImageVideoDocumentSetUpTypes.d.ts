@@ -21,45 +21,47 @@ export declare type Options = {
 };
 export interface ImageVideoDocumentSetUpProps {
     /**
-     * Array of properties that an asset like an image,
-     * document or video may contain.
-     */
-    assetProperties: AssetProperties[];
-    /**
     * Meaningful name related to the field.
     */
     label?: string;
     /**
-     * Callback executed when the remove button is clicked.
-     * This function should empty the assetProperties array
-     * to go the set up stage.
-     */
-    handleRemove?: () => void;
-    /**
-     * Callback executed when the set document button is clicked.
-     * It should fill the assetProperties array with the document
-     * properties.
-     */
-    handleSetDocument?: () => void;
-    /**
-     * Callback executed when the set document button is clicked.
-     * It should fill the assetProperties array with the document
-     * properties.
-     */
-    handleSetImage: () => void;
-    /**
-     * Callback executed when the set document button is clicked.
-     * It should fill the assetProperties array with the document
-     * properties.
-     */
-    handleSetVideo?: () => void;
-    /**
-     * List of menu options that can be executed by the component.
-     */
-    options?: Options[];
-    /**
-     * If the asset contains an image, its source should be passed
-     * via this src prop.
-     */
-    src?: string;
+         * Array of properties that an asset like an image,
+         * document or video may contain.
+         */
+    value: AssetProperties[];
+    inputSettings?: {
+        /**
+         * Callback executed when the remove button is clicked.
+         * This function should empty the assetProperties array
+         * to go the set up stage.
+         */
+        handleRemove?: () => void;
+        /**
+         * Callback executed when the set document button is clicked.
+         * It should fill the assetProperties array with the document
+         * properties.
+         */
+        handleSetDocument?: () => void;
+        /**
+         * Callback executed when the set document button is clicked.
+         * It should fill the assetProperties array with the document
+         * properties.
+         */
+        handleSetImage: () => void;
+        /**
+         * Callback executed when the set document button is clicked.
+         * It should fill the assetProperties array with the document
+         * properties.
+         */
+        handleSetVideo?: () => void;
+        /**
+         * List of menu options that can be executed by the component.
+         */
+        options?: Options[];
+        /**
+         * If the asset contains an image, its source should be passed
+         * via this src prop.
+         */
+        src?: string;
+    };
 }

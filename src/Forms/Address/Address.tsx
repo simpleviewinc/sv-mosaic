@@ -1,18 +1,15 @@
 import * as React from 'react';
-import { memo, ReactElement, useState, useMemo, useCallback } from 'react';
+import { memo, ReactElement, useState, useMemo, useCallback, HTMLAttributes } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
-import FormFieldCheckbox from '@root/forms/FormFieldCheckbox';
-import FormFieldDropdownSingleSelection from '@root/forms/FormFieldDropdownSingleSelection';
 import Modal from '@root/components/Modal';
-import TextField from '@root/forms/FormFieldText';
 
 // Types
 import { AddressProps } from './AddressTypes';
 
 // Styles
-import { AddAddressWrapper, FlexContainer, FlexContainerFields, StyledLabel } from './Address.styled';
+import { AddAddressWrapper, FlexContainer, StyledLabel } from './Address.styled';
 import { Sizes } from '@root/theme/sizes';
 
 // Utils
@@ -21,29 +18,29 @@ import AddressCard from './AddressCard';
 import { actions, useForm } from '../Form/formUtils';
 import { FieldDefProps } from '@root/components/Field';
 
-const addressTypes = [
-	{
-		label: 'Physical',
-		value: 'physical',
-	},
-	{
-		label: 'Billing',
-		value: 'billing',
-	},
-	{
-		label: 'Shipping',
-		value: 'shipping',
-	},
-];
-
-const Address = (props: AddressProps): ReactElement => {
-	const { 
-		label, 
-		value, 
-		onChange 
+const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
+	const {
+		label,
+		value,
+		onChange
 	} = props;
 
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const addressTypes = [
+		{
+			label: 'Physical',
+			value: 'physical',
+		},
+		{
+			label: 'Billing',
+			value: 'billing',
+		},
+		{
+			label: 'Shipping',
+			value: 'shipping',
+		},
+	];
+
+	const modalReducer = useForm();
 
 	// State variables
 	const [addresses, setAddresses] = useState([]);
@@ -84,7 +81,7 @@ const Address = (props: AddressProps): ReactElement => {
 	// 	return [];
 	// }, [selectedCountry?.title]);
 	const listOfStates = useMemo(() => {
-		let selectedCountryTest = state?.data?.country;
+		let selectedCountryTest = modalReducer?.state?.data?.country;
 		if (selectedCountryTest) {
 			return selectedCountryTest.value.states.map(state => ({
 				title: state.name,
@@ -92,7 +89,7 @@ const Address = (props: AddressProps): ReactElement => {
 			}));
 		}
 		return [];
-	}, [state?.data?.country]);
+	}, [modalReducer?.state?.data?.country]);
 
 	const fields = useMemo(() => [
 		{
@@ -173,8 +170,8 @@ const Address = (props: AddressProps): ReactElement => {
 	], []);
 
 	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
+		modalReducer?.registerFields(fields);
+	}, [fields, modalReducer?.registerFields]);
 
 	/**
 	 * Sets the selected country of the dropdown and
@@ -227,23 +224,9 @@ const Address = (props: AddressProps): ReactElement => {
 	 * form field.
 	 */
 	const handleClose = () => {
-		dispatch(
+		modalReducer?.dispatch(
 			actions.resetForm()
-		)
-		// setTextFields({
-		// 	address: '',
-		// 	city: '',
-		// 	postalCode: '',
-		// });
-		// setAddressTypesChecked([]);
-		// setSelectedCountry({
-		// 	title: '',
-		// 	value: {}
-		// });
-		// setSelectedState({
-		// 	title: '',
-		// 	value: {}
-		// });
+		);
 		setOpen(false);
 	};
 
@@ -285,42 +268,42 @@ const Address = (props: AddressProps): ReactElement => {
 			state,
 		} = addressToEdit;
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'address',
 				value: address,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'city',
 				value: city,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'postalCode',
 				value: postalCode,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'type',
 				value: types,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'country',
 				value: country,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'states',
 				value: state,
@@ -357,12 +340,12 @@ const Address = (props: AddressProps): ReactElement => {
 		const id = listOfAddresses.length + 1;
 		listOfAddresses.push({
 			id: id,
-			address: state?.data?.address,
-			city: state?.data?.city,
-			postalCode: state?.data?.postalCode,
-			country: state?.data?.country,
-			state: state?.data?.states,
-			types: state?.data?.type,
+			address: modalReducer?.state?.data?.address,
+			city: modalReducer?.state?.data?.city,
+			postalCode: modalReducer?.state?.data?.postalCode,
+			country: modalReducer?.state?.data?.country,
+			state: modalReducer?.state?.data?.states,
+			types: modalReducer?.state?.data?.type,
 		});
 		setIsEditting(false);
 
@@ -375,13 +358,14 @@ const Address = (props: AddressProps): ReactElement => {
 	 */
 	const handleFormSubmit = useCallback(() => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
+		// onChange(listOfAddresses);
 		setAddresses(listOfAddresses);
 		handleClose();
-	}, [state.validForm]);
+	}, [modalReducer?.state.validForm]);
 
 	useMemo(() => {
-		registerOnSubmit(handleFormSubmit);
-	}, [handleFormSubmit, registerOnSubmit]);
+		modalReducer?.registerOnSubmit(handleFormSubmit);
+	}, [handleFormSubmit, modalReducer?.registerOnSubmit]);
 
 	useMemo(() => {
 		setCountries(
@@ -393,9 +377,8 @@ const Address = (props: AddressProps): ReactElement => {
 	}, []);
 
 	return (
-		<>
-		<pre>{JSON.stringify(state, null, "  ")}</pre>
 		<div>
+			<pre>{JSON.stringify(modalReducer?.state, null, "  ")}</pre>
 			<StyledLabel>{label}</StyledLabel>
 			<FlexContainer>
 				<AddAddressWrapper>
@@ -409,8 +392,8 @@ const Address = (props: AddressProps): ReactElement => {
 			</FlexContainer>
 			<Modal
 				title='Address Information'
-				state={state}
-				dispatch={dispatch}
+				state={modalReducer?.state}
+				dispatch={modalReducer?.dispatch}
 				fields={fields}
 				sections={sections}
 				open={open}
@@ -420,7 +403,6 @@ const Address = (props: AddressProps): ReactElement => {
 				submitButtonAttrs={{children: 'Save'}}
 			/>
 		</div>
-		</>
 	);
 };
 

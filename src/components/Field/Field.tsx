@@ -9,6 +9,7 @@ import { FieldDefProps } from '.';
 import { Sizes } from '@root/theme/sizes';
 
 const Field = ({
+	className,
 	children,
 	error,
 	disabled,
@@ -70,16 +71,22 @@ const Field = ({
 
 	const labelMargin = useMemo(() => {
 		let labelMargin = '8px';
-		if (type === 'linkSetup') {
+		if (type === 'linkSetup' || type === 'advancedSelection') {
 			return labelMargin = '16px';
+		} else if (type === 'table') {
+			return labelMargin = '13px';
 		}
 
 		return labelMargin
 	}, [type]);
 
 	return (
-		<StyledFieldContainer>
-			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)} size={(type === 'chip' || type === 'linkSetup') ? Sizes.md : type === 'color' ? '102px' : size}>
+		<StyledFieldContainer className={className}>
+			<StyledFieldWrapper
+				error={errorWithMessage || (errorWithMessage && required)}
+				size={(type === 'chip' || type === 'linkSetup') ? Sizes.md : type === 'color' ? '102px' : type === 'table' ? 'fit-content' : size }
+				type={type}
+			>
 				<Label
 					labelMargin={labelMargin}
 					disabled={disabled}
@@ -95,7 +102,7 @@ const Field = ({
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{instructionText && <InstructionText ref={description} tooltip={renderAsTooltip}>{instructionText}</InstructionText>}
+			{instructionText && type !== 'table' && <InstructionText ref={description} tooltip={renderAsTooltip}>{instructionText}</InstructionText>}
 		</StyledFieldContainer>
 	);
 };

@@ -18,18 +18,10 @@ import {
 } from './Modal.styled';
 import FormLayout from '@root/forms/Form/FormLayout';
 import { actions } from '../../forms/Form/formUtils';
-import { StyledDisabledForm } from '@root/forms/Form/Form';
+import { StyledDisabledForm } from '@root/forms/Form/Form.styled';
 
 const Modal = (props: ModalProps): ReactElement => {
 	const {
-		// children,
-		// dialogTitle,
-		// onCancel,
-		// open,
-		// primaryAction,
-		// primaryBtnLabel = 'Save',
-		// secondaryAction,
-		// secondaryBtnLabel = 'Cancel',
 		fields,
 		open,
 		title,

@@ -3,7 +3,7 @@ export interface ColorPickerProps {
     /**
      * RGB value of the selected color.
      */
-    color: Color;
+    value: Color;
     /**
      * If true, sets opacity and disables the
      * click event.

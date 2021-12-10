@@ -1,7 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
-import { FieldProps } from '.';
-interface FieldWrapperProps extends FieldProps {
-    children: ReactNode;
-}
-declare const Field: ({ children, error, disabled, required, label, helperText, errorText, instructionText, type, }: FieldWrapperProps) => ReactElement;
-export default Field;
+import * as React from 'react';
+import { FieldDefProps } from '.';
+declare const _default: React.MemoExoticComponent<({ className, children, error, disabled, required, label, helperText, instructionText, htmlFor, value, maxCharacters, name, size, type, }: FieldDefProps) => React.ReactElement<any, string | React.JSXElementConstructor<any>>>;
+export default _default;
