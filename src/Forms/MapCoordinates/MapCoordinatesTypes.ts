@@ -47,7 +47,7 @@ export interface MapProps {
    * Latitude and longitude object.
    */
   mapPosition: MapPosition;
-  mapContainerRef: MutableRefObject<HTMLDivElement>;
+  //mapContainerRef: MutableRefObject<HTMLDivElement>;
   /**
    * Function triggered when user clicks on the map.
    */

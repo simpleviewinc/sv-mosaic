@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { memo, ReactElement, useCallback, useRef, useState } from 'react';
-import { toPng } from 'html-to-image';
+import { toPng, toCanvas } from 'html-to-image';
 import { MapCoordinatesProps } from './MapCoordinatesTypes';
 
 // Components
@@ -30,10 +30,10 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
   // State variables
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [latLngFields, setlatLngFields] = useState({ lat: '', lng: '' });
-  //const [mapPosition, setMapPosition] = useState(center);
   const [coordinates, setCoordinates] = useState(mapPosition);
+  const [urlImage, setUrlImage] = useState(new Image());
 
-  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapContainerRef = useRef(null);
 
   const onMapClick = useCallback((event) => {
     const latLng = {
@@ -69,20 +69,25 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
   };
 
   const handleSaveCoordinates = useCallback(() => {
-    /* if (mapContainerRef.current === null) {
-      return
-    }
+    /*  if (mapContainerRef.current === null) {
+      return;
+    } */
 
-    toPng(mapContainerRef.current, { cacheBust: true, })
+    /* console.log(document.getElementById('map-container'))
+
+    toPng(document.getElementById('map-container'))
       .then((dataUrl) => {
-        const link = document.createElement('a')
-        link.download = 'my-image-name.png'
-        link.href = dataUrl
-        link.click()
+				console.log('Data url: ', dataUrl)
+				var img = new Image();
+        img.src = dataUrl;
+
+				//console.log('IMAGE: ', img);
+				//setUrlImage(img)
+        document.body.appendChild(img);
       })
       .catch((err) => {
-        console.log(err)
-      }) */
+        console.log(err);
+      }); */
 
     setIsModalOpen(false);
   }, []);
@@ -124,18 +129,12 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 
   const removeCoordinatesCard = () => {};
 
-  /* console.log(
-    'LatLng: ',
-    latLngFields,
-    latLngFields.lat.length > 0 && latLngFields.lng.length > 0
-  ); */
-
   return (
     <>
       {latLngFields.lat.length > 0 && latLngFields.lng.length > 0 ? (
         <CoordinatesCard>
           <MapImageColumn>
-            <MapImage>MAP</MapImage>
+            {/* {urlImage.src && <MapImage>{urlImage}</MapImage>} */}
           </MapImageColumn>
           <Column>
             <LatLngLabel>Latitude</LatLngLabel>
@@ -178,7 +177,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
           mapPosition={coordinates}
           onClick={onMapClick}
           onPlaceSelected={onPlaceSelected}
-          mapContainerRef={mapContainerRef}
+          ref={mapContainerRef}
         />
         <StyledSpan>
           Click on the map to update the lattitude and longitude coordinates
