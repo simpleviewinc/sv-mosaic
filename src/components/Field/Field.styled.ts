@@ -7,7 +7,10 @@ export const StyledFieldWrapper = styled.div`
   padding: 20px;
   background-color: ${(pr) =>
 		pr.error ? theme.colors.lightRed : 'transparent'};
-  width: ${(pr) => pr.size ? pr.size : Sizes.sm};
+//   width: ${(pr) => pr.size ? pr.size : Sizes.sm};
+  width: ${(pr) => pr.size ? pr.size : 'fit-content'};
+  margin: ${(pr) => pr.type === 'table' ? '0 40px' : ''};
+//   width: fit-content;
 `;
 
 export const StyledFieldContainer = styled.div`

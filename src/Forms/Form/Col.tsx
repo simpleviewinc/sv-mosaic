@@ -19,25 +19,10 @@ import SingleDateCalendar from '../DateTimeField/SingleDateCalendar';
 import DateRangeCalendar from '../DateTimeField/DateRangeCalendar';
 import TimeInput from '../DateTimeField/TimeInput';
 import DateTimeInput from '../DateTimeField/DateTimeInput';
-
-const componentMap = {
-	text: FormFieldText,
-	textArea: FormFieldTextArea,
-	checkbox: FormFieldCheckbox,
-	chip: FormFieldChipSingleSelect,
-	dropdown: FormFieldDropdownSingleSelection,
-	phone: FormFieldPhoneSelectionDropdown,
-	radio: FormFieldRadio,
-	toggleSwitch: FormFieldToggleSwitch,
-	linkSetup: LinkSetup,
-	imageVideoDocument: ImageVideoDocumentSetUp,
-	color: ColorPicker,
-	date: SingleDateCalendar,
-	dateRange: DateRangeCalendar,
-	time: TimeInput,
-	dateTime: DateTimeInput,
-	
-};
+import Address from '../Address';
+import Table from '../Table';
+import TextEditor from '../TextEditor';
+import AdvancedSelection from '../AdvancedSelection';
 
 const StyledCol = styled.div`
 	display: flex;
@@ -52,6 +37,28 @@ const Col = (props) => {
 		fieldsDef,
 		dispatch
 	} = props;
+
+	const componentMap = useMemo(() => ({
+		text: FormFieldText,
+		textArea: FormFieldTextArea,
+		checkbox: FormFieldCheckbox,
+		chip: FormFieldChipSingleSelect,
+		dropdown: FormFieldDropdownSingleSelection,
+		phone: FormFieldPhoneSelectionDropdown,
+		radio: FormFieldRadio,
+		toggleSwitch: FormFieldToggleSwitch,
+		linkSetup: LinkSetup,
+		imageVideoDocument: ImageVideoDocumentSetUp,
+		color: ColorPicker,
+		date: SingleDateCalendar,
+		dateRange: DateRangeCalendar,
+		time: TimeInput,
+		dateTime: DateTimeInput,
+		address: Address,
+		table: Table,
+		textEditor: TextEditor,
+		advancedSelection: AdvancedSelection,
+	}), []);
 
 	const onChangeMap = useMemo(() => {
 		return fieldsDef.reduce((prev, curr) => {
@@ -109,6 +116,10 @@ const Col = (props) => {
 
 				const Component = typeof type === 'string' ? componentMap[type] : type;
 
+				if(!Component) {
+					throw new Error(`Invalid type ${type}`);
+				}
+
 				const onChange = onChangeMap[fieldProps.name];
 
 				const onBlur = onBlurMap[fieldProps.name];
@@ -130,16 +141,20 @@ const Col = (props) => {
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return (
+				return type !== 'address' ? (
 					<Field
 						key={i}
 						{...currentField}
 						value={value}
 						error={error}
-						type={type}
+						type={typeof type === 'string' ? type : 'type'}
 					>
 						{children}
 					</Field>
+				)
+				:
+				(
+					children
 				);
 			})}
 		</StyledCol>

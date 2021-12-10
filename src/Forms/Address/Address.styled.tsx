@@ -52,10 +52,10 @@ export const FlexContainer = styled.div`
   }
 `;
 
-export const FlexContainerFields = styled.div`
-  display: flex;
+// export const FlexContainerFields = styled.div`
+//   display: flex;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    flex-direction: column;
-  }
-`;
+//   @media (max-width: ${theme.breakpoints.mobile}) {
+//     flex-direction: column;
+//   }
+// `;

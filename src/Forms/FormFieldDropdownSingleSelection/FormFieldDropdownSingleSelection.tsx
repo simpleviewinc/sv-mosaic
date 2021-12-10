@@ -62,7 +62,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 						size={inputSettings?.size}
 						getOptionLabel={(option) => option.title}
 						onChange={(_event, option) => onChange(option)}
-						error={!!(required && errorWithMessage)}
+						error={(required && errorWithMessage) ? errorWithMessage : undefined}
 						renderInput={renderInput}
 						disablePortal={true}
 						popupIcon={<ExpandMoreIcon />}

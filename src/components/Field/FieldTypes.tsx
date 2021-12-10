@@ -56,6 +56,7 @@ export interface FieldProps {
 }
 
 export interface FieldDefProps extends FieldProps {
+	className?: string;
 	type?: string | JSX.Element | (() => JSX.Element);
 	children: ReactNode;
 	layout?: any;

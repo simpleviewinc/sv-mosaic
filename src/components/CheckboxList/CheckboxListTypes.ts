@@ -2,7 +2,7 @@
  * Interface that defines structure of the options that the
  * checkbox list receives.
  */
-interface Option {
+export interface Option {
   label: string;
   value: string;
 }

@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { InputLabel } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-// import { TypographyGenericProps } from './TypographyTypes';
 import theme from '../../utils/theme';
 import Tooltip from '../Tooltip';
 

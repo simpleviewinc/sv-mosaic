@@ -34,7 +34,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 						checked={checked}
 						label={option.label}
 						disabled={props.disabled}
-						key={option.value}
+						key={`${option.value}-${i}`}
 						onClick={callbacks[i]}
 					/>
 				);
