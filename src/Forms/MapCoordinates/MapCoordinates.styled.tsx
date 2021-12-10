@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import theme from '@root/theme';
+import { StyledTextField } from '@root/forms/FormFieldText/FormFieldText.styled';
+
+// Styles for the MapCoordinates component
 
 export const FlexRow = styled.div`
+  align-items: center;
   display: flex;
 `;
 
@@ -9,10 +13,6 @@ export const StyledSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
   font-size: 14px;
-`;
-
-export const MapContainer = styled.div`
-  margin-bottom: 18px;
 `;
 
 export const CoordinatesCard = styled.div`
@@ -70,4 +70,43 @@ export const MapImage = styled.div`
   background-color: gray;
   height: 153px;
   width: 252px;
+`;
+
+// Styles for the Map component
+
+export const MapContainer = styled.div`
+  margin-bottom: 18px;
+`;
+
+// Styles for the LocationSearchInput component
+
+export const LocationSearchInputWrapper = styled.div`
+ margin-bottom: 8px;
+`;
+
+export const StyledInputSearch = styled(StyledTextField)`
+  width: 684px;
+`;
+
+export const SuggestionsContainer = styled.div`
+  border: ${theme.borders.fieldGray};
+  font-family: ${theme.fontFamily};
+`;
+
+export const SuggestionsDescriptionContainer = styled.div`
+  background-color: ${({ isSuggestionActive }) =>
+    isSuggestionActive ? theme.colors.gray200 : 'white'};
+  cursor: pointer;
+  width: 683px;
+`;
+
+export const SuggestionDescription = styled.p`
+  font-size: 14px;
+  margin: 0;
+  padding: 6px 16px 6px 16px;
+
+  &:active {
+    color: ${theme.colors.gray800};
+    font-weight: ${theme.fontWeight.bold};
+  }
 `;

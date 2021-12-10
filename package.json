@@ -73,7 +73,8 @@
 		"react-beautiful-dnd": "^13.1.0",
 		"react-color": "^2.19.3",
 		"react-google-autocomplete": "^2.6.1",
-		"react-phone-input-2": "^2.14.0"
+		"react-phone-input-2": "^2.14.0",
+		"react-places-autocomplete": "^7.3.0"
 	},
 	"peerDependencies": {
 		"@material-ui/core": "^4.4.2",

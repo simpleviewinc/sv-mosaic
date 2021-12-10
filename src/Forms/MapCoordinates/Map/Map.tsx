@@ -1,10 +1,16 @@
 import * as React from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { memo, ReactElement, useCallback, useRef, useState } from 'react';
-import Autocomplete, { usePlacesWidget } from 'react-google-autocomplete';
-import { TextField } from '@material-ui/core';
+import {
+  forwardRef,
+  memo,
+  ReactElement,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 import { MapContainer } from '../MapCoordinates.styled';
 import { Libraries, MapProps } from '../MapCoordinatesTypes';
+import LocationSearchInput from '../LocationSearchInput';
 
 const containerStyle = {
   width: '684px',
@@ -18,10 +24,10 @@ const mapOptions = {
 
 const libraries: Libraries = ['places'];
 
-const Map = (props: MapProps): ReactElement => {
+const Map = (props: MapProps, ref): ReactElement => {
   const {
     apiKey,
-    mapContainerRef,
+    //mapContainerRef,
     mapPosition,
     onClick,
     onPlaceSelected,
@@ -40,6 +46,10 @@ const Map = (props: MapProps): ReactElement => {
     mapRef.current = map;
   }, []); */
 
+  /*  const onMapLoad = React.useCallback((map) => {
+    ref.current = map;
+  }, []); */
+
   //const [country, setCountry] = useState('us');
 
   /* const { ref } = usePlacesWidget({
@@ -55,16 +65,9 @@ const Map = (props: MapProps): ReactElement => {
   if (!isLoaded) return <span>{'Loading Maps'}</span>;
 
   return (
-    <MapContainer>
-      {/* <div style={{ width: '250px', marginBottom: '8px' }}>
-        <TextField
-          fullWidth
-          color='primary'
-          variant='outlined'
-          inputRef={ref}
-        />
-      </div> */}
-      <div ref={mapContainerRef}>
+    <MapContainer id='map-container' ref={ref}>
+      <LocationSearchInput />
+      <div>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={mapPosition}
@@ -76,12 +79,8 @@ const Map = (props: MapProps): ReactElement => {
           <Marker position={mapPosition} />
         </GoogleMap>
       </div>
-      <Autocomplete
-        //apiKey={apiKey}
-        onPlaceSelected={(place) => console.log(place)}
-      />
     </MapContainer>
   );
 };
 
-export default memo(Map);
+export default memo(forwardRef(Map));
