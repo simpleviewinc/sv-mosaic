@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import {
-  forwardRef,
-  memo,
-  ReactElement,
-  useCallback,
-  useRef,
-  useState,
-} from 'react';
+import { memo, ReactElement, useCallback, useRef, useState } from 'react';
 import { MapContainer } from '../MapCoordinates.styled';
 import { Libraries, MapProps } from '../MapCoordinatesTypes';
 import LocationSearchInput from '../LocationSearchInput';
@@ -22,21 +15,15 @@ const mapOptions = {
   zoomControl: true,
 };
 
-const libraries: Libraries = ['places'];
+// const libraries: Libraries = ['places'];
 
-const Map = (props: MapProps, ref): ReactElement => {
-  const {
-    apiKey,
-    //mapContainerRef,
-    mapPosition,
-    onClick,
-    onPlaceSelected,
-  } = props;
+const Map = (props: MapProps): ReactElement => {
+  const { apiKey, mapPosition, onClick } = props;
 
-  const { isLoaded, loadError } = useLoadScript({
+  /*   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: apiKey,
     libraries,
-  });
+  }); */
 
   /*   console.log('coordinates: ', coordinates);
   console.log('Map position: ', mapPosition); */
@@ -50,22 +37,11 @@ const Map = (props: MapProps, ref): ReactElement => {
     ref.current = map;
   }, []); */
 
-  //const [country, setCountry] = useState('us');
-
-  /* const { ref } = usePlacesWidget({
-    apiKey: '',
-    onPlaceSelected: (place) => console.log(place),
-    inputAutocompleteValue: 'country',
-    options: {
-      componentRestrictions: { country },
-    },
-  }); */
-
-  if (loadError) return <span>{'Error loading maps'}</span>;
-  if (!isLoaded) return <span>{'Loading Maps'}</span>;
+  /*  if (loadError) return <span>{'Error loading maps'}</span>;
+  if (!isLoaded) return <span>{'Loading Maps'}</span>; */
 
   return (
-    <MapContainer id='map-container' ref={ref}>
+    <MapContainer>
       <LocationSearchInput />
       <div>
         <GoogleMap
@@ -83,4 +59,4 @@ const Map = (props: MapProps, ref): ReactElement => {
   );
 };
 
-export default memo(forwardRef(Map));
+export default memo(Map);

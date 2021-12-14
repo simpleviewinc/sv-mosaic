@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import theme from '@root/theme';
 import { StyledTextField } from '@root/forms/FormFieldText/FormFieldText.styled';
 
+// Components
+import ClearIcon from '@material-ui/icons/Clear';
+
 // Styles for the MapCoordinates component
 
 export const FlexRow = styled.div`
@@ -72,6 +75,10 @@ export const MapImage = styled.div`
   width: 252px;
 `;
 
+export const SwitchContainer = styled.div`
+  margin-bottom: 16px;
+`;
+
 // Styles for the Map component
 
 export const MapContainer = styled.div`
@@ -81,11 +88,15 @@ export const MapContainer = styled.div`
 // Styles for the LocationSearchInput component
 
 export const LocationSearchInputWrapper = styled.div`
- margin-bottom: 8px;
+  margin-bottom: 8px;
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`
   width: 684px;
+`;
+
+export const StyledClearIcon = styled(ClearIcon)`
+  cursor: pointer;
 `;
 
 export const SuggestionsContainer = styled.div`

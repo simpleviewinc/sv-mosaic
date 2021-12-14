@@ -1,11 +1,15 @@
+import { InputAdornment } from '@material-ui/core';
 import * as React from 'react';
 import { memo, ReactElement, useCallback, useRef, useState } from 'react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+
+// Styles
 import {
   LocationSearchInputWrapper,
+  StyledClearIcon,
   StyledInputSearch,
   SuggestionDescription,
   SuggestionsContainer,
@@ -29,6 +33,10 @@ const LocationSearchInput = (): ReactElement => {
     setCoordinates(latLng); */
   };
 
+  const clearValue = () => {
+    setAddress('');
+  }
+
   return (
     <LocationSearchInputWrapper>
       <PlacesAutocomplete
@@ -43,7 +51,11 @@ const LocationSearchInput = (): ReactElement => {
                 {...getInputProps({
                   placeholder: 'Type a location, address or city…',
                 })}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end"><StyledClearIcon onClick={clearValue} /></InputAdornment>,
+                }}
                 variant='outlined'
+                value={address}
               />
               {suggestions?.length > 0 && (
                 <SuggestionsContainer>

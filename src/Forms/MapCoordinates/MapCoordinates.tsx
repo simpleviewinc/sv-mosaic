@@ -1,7 +1,13 @@
 import * as React from 'react';
-import { memo, ReactElement, useCallback, useRef, useState } from 'react';
-import { toPng, toCanvas } from 'html-to-image';
-import { MapCoordinatesProps } from './MapCoordinatesTypes';
+import {
+  ChangeEvent,
+  memo,
+  ReactElement,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
+import { Libraries, MapCoordinatesProps } from './MapCoordinatesTypes';
 
 // Components
 import Button from '@root/forms/Button';
@@ -21,18 +27,40 @@ import {
   MapImage,
   MapImageColumn,
   StyledSpan,
+  SwitchContainer,
 } from './MapCoordinates.styled';
 import { Sizes } from '@root/theme/sizes';
+import ToggleSwitch from '@root/components/ToggleSwitch';
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+
+/**
+ * Options to disable interactive actions. For more details take a look at the options interface:
+ * https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions.clickableIcons
+ */
+const mapOptions = {
+  clickableIcons: false,
+  disableDefaultUI: true,
+  gestureHandling: 'none',
+  keyboardShortcuts: false,
+  zoomControl: false,
+};
+
+const containerStyle = {
+  width: '232px',
+  height: '153px',
+};
+
+const libraries: Libraries = ['places'];
 
 const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
-  const { apiKey, disabled, mapPosition } = props;
+  const { address, apiKey, disabled, mapPosition } = props;
 
   // State variables
+  const [autocoordinatesChecked, setAutocoordinatesChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [latLngFields, setlatLngFields] = useState({ lat: '', lng: '' });
   const [coordinates, setCoordinates] = useState(mapPosition);
-  const [urlImage, setUrlImage] = useState(new Image());
-
+  const [hasSavedCoordinates, setHasSavedCoordinates] = useState(false);
   const mapContainerRef = useRef(null);
 
   const onMapClick = useCallback((event) => {
@@ -43,23 +71,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 
     setCoordinates(latLng);
     setlatLngFields(latLng);
-    //setMapPosition(latLng);
   }, []);
-
-  /**
-   * When the user types an address in the input
-   * @param place
-   */
-  const onPlaceSelected = (place) => {
-    console.log('plc', place);
-    const latValue = place.geometry.location.lat();
-    const lngValue = place.geometry.location.lng();
-
-    setCoordinates({
-      lat: latValue,
-      lng: lngValue,
-    });
-  };
 
   /**
    * Opens the modal that displays the map.
@@ -68,29 +80,17 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
     setIsModalOpen(true);
   };
 
-  const handleSaveCoordinates = useCallback(() => {
-    /*  if (mapContainerRef.current === null) {
-      return;
-    } */
-
-    /* console.log(document.getElementById('map-container'))
-
-    toPng(document.getElementById('map-container'))
-      .then((dataUrl) => {
-				console.log('Data url: ', dataUrl)
-				var img = new Image();
-        img.src = dataUrl;
-
-				//console.log('IMAGE: ', img);
-				//setUrlImage(img)
-        document.body.appendChild(img);
-      })
-      .catch((err) => {
-        console.log(err);
-      }); */
-
+  /**
+   * 
+   */
+  const handleSaveCoordinates = () => {
+    setHasSavedCoordinates(true);
     setIsModalOpen(false);
-  }, []);
+    setCoordinates({
+      lat: Number(latLngFields.lat),
+      lng: Number(latLngFields.lng),
+    });
+  };
 
   /**
    * Closes the modal and resets the values for
@@ -120,45 +120,74 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
   /**
    * Clear values for the entered location.
    */
-  const resetLocation = () => {
+  const removeResetLocation = () => {
+    setHasSavedCoordinates(false);
     setlatLngFields({
       lat: '',
       lng: '',
     });
   };
 
-  const removeCoordinatesCard = () => {};
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAutocoordinatesChecked(e.target.checked);
+  };
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: apiKey,
+    libraries,
+  });
+
+  if (loadError) return <span>{'Error loading maps'}</span>;
+  if (!isLoaded) return <span>{'Loading Maps'}</span>;
 
   return (
     <>
-      {latLngFields.lat.length > 0 && latLngFields.lng.length > 0 ? (
-        <CoordinatesCard>
-          <MapImageColumn>
-            {/* {urlImage.src && <MapImage>{urlImage}</MapImage>} */}
-          </MapImageColumn>
-          <Column>
-            <LatLngLabel>Latitude</LatLngLabel>
-            <LatitudeValue>{latLngFields.lat}</LatitudeValue>
-            <LatLngLabel>Longitude</LatLngLabel>
-            <CoordinatesValues>{latLngFields.lng}</CoordinatesValues>
-          </Column>
-          <ButtonsWrapper>
-            <Button buttonType='blueText' onClick={handleAddCoordinates}>
-              Edit
-            </Button>
-            <Button buttonType='redText' onClick={resetLocation}>
-              Remove
-            </Button>
-          </ButtonsWrapper>
-        </CoordinatesCard>
+      {hasSavedCoordinates ? (
+        <>
+          <SwitchContainer>
+            <ToggleSwitch
+              label='Use same as address'
+              onChange={handleChange}
+              checked={autocoordinatesChecked}
+            />
+          </SwitchContainer>
+          <CoordinatesCard>
+            <MapImageColumn>
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={coordinates}
+                zoom={12}
+                options={mapOptions}
+              >
+                <Marker position={coordinates} />
+              </GoogleMap>
+            </MapImageColumn>
+            <Column>
+              <LatLngLabel>Latitude</LatLngLabel>
+              <LatitudeValue>{latLngFields.lat}</LatitudeValue>
+              <LatLngLabel>Longitude</LatLngLabel>
+              <CoordinatesValues>{latLngFields.lng}</CoordinatesValues>
+            </Column>
+            <ButtonsWrapper>
+              <Button buttonType='blueText' onClick={handleAddCoordinates}>
+                Edit
+              </Button>
+              <Button buttonType='redText' onClick={removeResetLocation}>
+                Remove
+              </Button>
+            </ButtonsWrapper>
+          </CoordinatesCard>
+        </>
       ) : (
-        <Button
-          disabled={disabled}
-          buttonType='secondary'
-          onClick={handleAddCoordinates}
-        >
-          ADD COORDINATES
-        </Button>
+        <>
+          <Button
+            disabled={disabled}
+            buttonType='secondary'
+            onClick={handleAddCoordinates}
+          >
+            ADD COORDINATES
+          </Button>
+        </>
       )}
 
       <Modal
@@ -170,14 +199,11 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
         primaryAction={handleSaveCoordinates}
         secondaryAction={handleClose}
         secondaryBtnLabel='Cancel'
-        //submitDisabled={submitDisabled}
       >
         <Map
           apiKey={apiKey}
           mapPosition={coordinates}
           onClick={onMapClick}
-          onPlaceSelected={onPlaceSelected}
-          ref={mapContainerRef}
         />
         <StyledSpan>
           Click on the map to update the lattitude and longitude coordinates
@@ -203,7 +229,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
             value={latLngFields.lng}
             type='number'
           />
-          <Button buttonType='blueText' onClick={resetLocation}>
+          <Button buttonType='blueText' onClick={removeResetLocation}>
             Reset
           </Button>
         </FlexRow>
