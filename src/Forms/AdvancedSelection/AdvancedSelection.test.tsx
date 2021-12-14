@@ -57,9 +57,11 @@ describe('AdvancedSelection component', () => {
 				instructionText='Instruction text'
 				helperText='Helper text'
 				disabled={false}
-				modalTitle='Modal title'
-				checkboxOptions={options}
-				groupByCategory={true}
+				inputSettings={{
+					modalTitle: 'Modal title',
+					checkboxOptions: options,
+					groupByCategory: true,
+				}}
 				onChange={() => jest.fn}
 			/>
 		);

@@ -55,6 +55,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 			{!disabled ?
 				<SingleDropdownWrapper innerWidth={inputSettings?.size}>
 					<StyledAutocomplete
+						value={value}
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
