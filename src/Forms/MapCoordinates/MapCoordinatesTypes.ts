@@ -1,5 +1,4 @@
-import { MutableRefObject } from 'react';
-import { ReactGoogleAutocompleteProps } from 'react-google-autocomplete';
+import { Address } from '@root/forms/Address/AddressTypes';
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
@@ -19,9 +18,13 @@ export type Libraries = (
  * Used to display the Map's markers and center to center the map at a given latitude and
  * longitude.
  */
-export type MapPosition = { lat: number | null; lng: number | null };
+export type MapPosition = { lat: number; lng: number };
 
 export interface MapCoordinatesProps {
+  /**
+   * 
+   */
+   address?: Address
   /**
    * Google Maps API key needed to consume the Maps JavaScript API
    * and Places API
@@ -39,6 +42,10 @@ export interface MapCoordinatesProps {
 
 export interface MapProps {
   /**
+   * 
+   */
+  address?: Address
+  /**
    * Google Maps API key needed to consume the Maps JavaScript API
    * and Places API
    */
@@ -47,13 +54,8 @@ export interface MapProps {
    * Latitude and longitude object.
    */
   mapPosition: MapPosition;
-  //mapContainerRef: MutableRefObject<HTMLDivElement>;
   /**
    * Function triggered when user clicks on the map.
    */
   onClick: (e: google.maps.MapMouseEvent) => void;
-  /**
-   *
-   */
-  onPlaceSelected: ReactGoogleAutocompleteProps['onPlaceSelected'];
 }
