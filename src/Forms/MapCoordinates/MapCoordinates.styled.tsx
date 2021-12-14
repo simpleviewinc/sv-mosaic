@@ -69,12 +69,6 @@ export const LatitudeValue = styled(CoordinatesValues)`
   margin-bottom: 24px;
 `;
 
-export const MapImage = styled.div`
-  background-color: gray;
-  height: 153px;
-  width: 252px;
-`;
-
 export const SwitchContainer = styled.div`
   margin-bottom: 16px;
 `;
@@ -106,7 +100,7 @@ export const SuggestionsContainer = styled.div`
 
 export const SuggestionsDescriptionContainer = styled.div`
   background-color: ${({ isSuggestionActive }) =>
-    isSuggestionActive ? theme.colors.gray200 : 'white'};
+		isSuggestionActive ? theme.colors.gray200 : 'white'};
   cursor: pointer;
   width: 683px;
 `;
