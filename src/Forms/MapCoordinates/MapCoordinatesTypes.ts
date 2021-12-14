@@ -46,11 +46,6 @@ export interface MapProps {
    */
   address?: Address
   /**
-   * Google Maps API key needed to consume the Maps JavaScript API
-   * and Places API
-   */
-  apiKey: string;
-  /**
    * Latitude and longitude object.
    */
   mapPosition: MapPosition;

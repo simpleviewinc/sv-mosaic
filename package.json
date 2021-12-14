@@ -69,10 +69,8 @@
 		"@material-ui/lab": "^4.0.0-alpha.60",
 		"@react-google-maps/api": "^2.7.0",
 		"@types/testing-library__jest-dom": "^5.14.1",
-		"html-to-image": "^1.9.0",
 		"react-beautiful-dnd": "^13.1.0",
 		"react-color": "^2.19.3",
-		"react-google-autocomplete": "^2.6.1",
 		"react-phone-input-2": "^2.14.0",
 		"react-places-autocomplete": "^7.3.0"
 	},
@@ -103,7 +101,7 @@
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000",
 		"package-lock": "cp package-lock.json package-lock-mounted.json",
-		"style": "eslint ."
+		"style": "eslint . --fix"
 	},
 	"repository": {
 		"type": "git",
