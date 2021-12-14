@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useCallback, useMemo } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
 import AdvancedSelection from './AdvancedSelection';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
+import Form from '../Form/Form';
+import { FieldDefProps } from '@root/components/Field';
+import { useForm } from '../Form/formUtils';
 
 export default {
 	title: 'Forms|AdvancedSelection',
@@ -86,10 +89,69 @@ export const Example = (): ReactElement => {
 			instructionText={text('Instruction text', 'Instruction text')}
 			helperText={text('Helper text', 'Helper text')}
 			disabled={boolean('Disabled', false)}
-			modalTitle={text('Modal title', 'Modal title')}
-			checkboxOptions={options}
-			groupByCategory={boolean('Group by category', false)}
+			inputSettings={{
+				modalTitle: text('Modal title', 'Modal title'),
+				checkboxOptions: options,
+				groupByCategory: boolean('Group by category', false),
+			}}
 			onChange={onChange}
 		/>
+	);
+};
+
+export const FormExample = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const modalTitle = text('Modal title', 'Modal title');
+	const groupByCategory = boolean('Group by category', false);
+
+	const fields = useMemo(
+		() => (
+			[
+				{
+					name: "a",
+					label: "a",
+					type: 'advancedSelection',
+					inputSettings: {
+						modalTitle,
+						checkboxOptions: options,
+						groupByCategory
+					}
+				},
+			] as FieldDefProps[]
+		),
+		[registerFields, modalTitle, groupByCategory]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
 	);
 };

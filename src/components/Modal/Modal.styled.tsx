@@ -7,7 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import theme from '@root/theme';
 
 export const StyledDialog = styled(Dialog)`
-  z-index: 9999999;
+  z-index: 99999999 !important;
   font-family: ${theme.fontFamily};
 
   .MuiDialogContent-root {

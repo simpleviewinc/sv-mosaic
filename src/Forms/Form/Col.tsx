@@ -141,7 +141,7 @@ const Col = (props) => {
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return type !== 'address' ? (
+				return type !== ('address' || 'advancedSelection') ? (
 					<Field
 						key={i}
 						{...currentField}

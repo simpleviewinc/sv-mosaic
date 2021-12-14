@@ -31,14 +31,12 @@ const MAX_CHIPS_TO_SHOW = 8;
 
 const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const {
-		checkboxOptions,
+		inputSettings,
 		disabled,
 		error,
 		helperText,
 		instructionText,
 		label,
-		modalTitle,
-		groupByCategory = false,
 		onChange,
 		required,
 	} = props;
@@ -51,7 +49,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const [savedOptions, setSavedOption] = useState([]);
 	const [showMore, setShowMore] = useState(false);
 	const [inputValue, setInputValue] = useState('');
-	const [options, setOptions] = useState(checkboxOptions);
+	const [options, setOptions] = useState(inputSettings?.checkboxOptions);
 	const [isMobileView, setIsMobileView] = useState(false);
 
 	useEffect(() => {
@@ -67,7 +65,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 		};
 	}, []);
 
-	const filteredList = options.filter(
+	const filteredList = options?.filter(
 		(d) =>
 			inputValue === '' ||
 			d.label.toLowerCase().includes(inputValue.trim().toLowerCase()) ||
@@ -79,7 +77,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    * are not repeated.
    */
 	const optionsWithCategories = useMemo(() => {
-		if (groupByCategory) {
+		if (inputSettings?.groupByCategory) {
 			const categories = new Map();
 			filteredList.forEach((checkOption) => {
 				if (!categories.has(checkOption.category)) {
@@ -93,7 +91,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 			});
 			return categories;
 		}
-	}, [groupByCategory, filteredList]);
+	}, [inputSettings?.groupByCategory, filteredList]);
 
 	/**
    * Used to toggle the state of showMore to
@@ -193,7 +191,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    * @returns a list of CheckboxList or a single Checkboxlist
    */
 	const showCheckboxList = (props) => {
-		if (groupByCategory && optionsWithCategories instanceof Map) {
+		if (inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 			return Array.from(optionsWithCategories).map(([category, value]) => (
 				<CheckboxListWrapper>
 					<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
@@ -344,7 +342,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				</Button>
 			)}
 			<Modal
-				title={modalTitle}
+				title={inputSettings?.modalTitle}
 				state={modalReducer?.state}
 				dispatch={modalReducer?.dispatch}
 				fields={fields}
