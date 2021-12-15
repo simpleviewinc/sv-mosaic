@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
@@ -12,7 +12,34 @@ export default {
 };
 
 export const Example = (): ReactElement => {
+  const [fileLoaded, setFileLoaded] = useState({});
+
+  const updateUploadedFiles = (files) => {
+    setFileLoaded(files);
+  };
+
+  const handleEdit = () => {
+    alert('Edit clicked');
+  };
+
+  const handleTranslate = () => {
+    alert('Translate clicked');
+  };
+
+  const options = [
+    {
+      label: 'Edit',
+      action: handleEdit,
+    },
+    {
+      label: 'Translate',
+      action: handleTranslate,
+    },
+  ];
+
   const disabled = boolean('Disabled', false);
+
+  console.log('File loaded: ', fileLoaded);
 
   return (
     <Field
@@ -25,7 +52,11 @@ export const Example = (): ReactElement => {
       helperText={text('Helper text', 'Helper text')}
       type='ImageUpload'
     >
-      <ImageUpload disabled={disabled} />
+      <ImageUpload
+        disabled={disabled}
+        options={options}
+        updateFilesCb={updateUploadedFiles}
+      />
     </Field>
   );
 };
