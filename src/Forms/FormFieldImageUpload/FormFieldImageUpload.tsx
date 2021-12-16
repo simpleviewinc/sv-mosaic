@@ -1,5 +1,21 @@
 import * as React from 'react';
-import { memo, ReactElement, useRef, useState } from 'react';
+import {
+  memo,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+
+import { ImageUploadProps } from './FormFieldImageUploadTypes';
+import { isEmpty } from 'lodash';
+
+// Components
+import Button from '@root/forms/Button';
+import MenuFormFieldCard from '@root/forms/MenuFormFieldCard';
+
+// Styles
 import {
   ButtonsContainer,
   Column,
@@ -11,19 +27,14 @@ import {
   ImgLoaded,
   MenuColumn,
   Row,
+  StyledCircularProgress,
 } from './FormFieldImageUpload.styled';
-import { ImageUploadProps } from './FormFieldImageUploadTypes';
-
-// Components
-import Button from '@root/forms/Button';
-import MenuFormFieldCard from '@root/forms/MenuFormFieldCard';
 
 const ImageUpload = (props: ImageUploadProps): ReactElement => {
   const { updateFilesCb, disabled, options } = props;
 
   // State variables
   const [isOver, setIsOver] = useState(false);
-  const [isImageShown, setIsImageShown] = useState(false);
   const [files, setFiles] = useState({});
   const [imgDimensions, setImageDimensions] = useState({
     height: null,
@@ -46,32 +57,42 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
     return { ...files };
   };
 
-  /* const renderImageDimensions = () => {
-        return isImageShown ? (
-          <div>
-          <p>
-          <strong>Height : </strong>
-          {imgRef.current.clientHeight}px
-          </p>
-          
-          <p>
-          <strong>Width : </strong>
-          {imgRef.current.clientWidth}px
-          </p>
-          </div>
-          ) : null;
-        }; */
+  const renderImageDimensions = () => (
+    <div>
+      <p>
+        <strong>Height : </strong>
+        {imgRef.current.clientHeight}px
+      </p>
+
+      <p>
+        <strong>Width : </strong>
+        {imgRef.current.clientWidth}px
+      </p>
+    </div>
+  );
 
   /**
-   * 
+   *
    */
   const uploadFiles = () => {
     fileInputField.current.click();
   };
 
+  /* useEffect(() => {
+    
+
+    if(!isEmpty(files)) {
+      console.log('height ', imgRef?.current?.naturalHeight);
+      setImageDimensions({
+        height: imgRef.current.naturalHeight,
+        width:  imgRef.current.naturalWidth
+      })
+    }
+  }, [files]) */
+
   /**
-   * 
-   * @param e 
+   *
+   * @param e
    */
   const handleNewFileUpload = (e) => {
     const { files: newFiles } = e.target;
@@ -80,12 +101,11 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
       const updatedFiles = addNewFiles(newFiles);
       setFiles(updatedFiles);
       updateFilesCb(updatedFiles);
-      setIsImageShown(true);
     }
   };
 
   /**
-   * 
+   *
    */
   const handleBrowse = () => {};
 
@@ -95,8 +115,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
   const removeFile = () => {
     setFiles({});
     updateFilesCb({});
-    setIsImageShown(false);
-    //setIsOver(false);
+    setIsOver(false);
   };
 
   /**
@@ -131,13 +150,11 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    */
   const fileDrop = (e) => {
     e.preventDefault();
-    const files = e.dataTransfer.files;
-    console.log('File drop: ', files);
+    const droppedFiles = e.dataTransfer.files;
 
-    if (files.length) {
-      setFiles(files);
-      updateFilesCb(files);
-      setIsImageShown(true);
+    if (droppedFiles.length) {
+      setFiles(droppedFiles);
+      updateFilesCb(droppedFiles);
     }
   };
 
@@ -145,103 +162,116 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    *
    * @param param0
    */
-  const onImgLoad = ({ target: img }) => {
-    console.log('IMAGE LOAD');
-
+  const onImgLoad = useCallback(({ target: img }) => {
+    console.log('IMAGE LOAD: ', img.offsetHeight, img.offsetWidth);
     /* setImageDimensions({
       height: imgRef.current.naturalHeight,
       width:  imgRef.current.naturalHeight
     }) */
-    /*  setImageDimensions({
-      dimensions: { height: img.offsetHeight, width: img.offsetWidth },
+    /* setImageDimensions({
+      height: img.offsetHeight,
+      width: img.offsetWidth,
     }); */
-  };
+  }, []);
 
   return (
     <>
-      {!isImageShown ? (
-        <DragAndDropContainer
-          isOver={isOver}
-          onDragOver={dragOver}
-          onDragEnter={dragEnter}
-          onDragLeave={dragLeave}
-          onDrop={fileDrop}
-        >
-          {isOver ? (
-            <DragAndDropSpan isOver={isOver}>Release and Drop</DragAndDropSpan>
+      {!disabled ? (
+        <div>
+          {isEmpty(files) ? (
+            <DragAndDropContainer
+              isOver={isOver}
+              onDragOver={dragOver}
+              onDragEnter={dragEnter}
+              onDragLeave={dragLeave}
+              onDrop={fileDrop}
+            >
+              {isOver ? (
+                <DragAndDropSpan isOver={isOver}>
+                  Release and Drop
+                </DragAndDropSpan>
+              ) : (
+                <>
+                  <DragAndDropSpan isOver={isOver}>
+                    Drag & Drop files here or
+                  </DragAndDropSpan>
+                  <Button
+                    disabled={disabled}
+                    buttonType='secondary'
+                    onClick={uploadFiles}
+                  >
+                    UPLOAD FILES
+                  </Button>
+                </>
+              )}
+
+              <FileInput
+                accept='image/*'
+                ref={fileInputField}
+                onChange={handleNewFileUpload}
+                title=''
+                type='file'
+                value=''
+              />
+            </DragAndDropContainer>
           ) : (
-            <>
-              <DragAndDropSpan isOver={isOver}>
-                Drag & Drop files here or
-              </DragAndDropSpan>
-              <Button
-                disabled={disabled}
-                buttonType='secondary'
-                onClick={uploadFiles}
-              >
-                UPLOAD FILES
-              </Button>
-            </>
-          )}
+            <ImageCard>
+              <Column>
+                {Object.keys(files).map((fileName, index) => {
+                  const file = files[fileName];
+                  const isImageFile = file.type.split('/')[0] === 'image';
 
-          <FileInput
-            ref={fileInputField}
-            onChange={handleNewFileUpload}
-            title=''
-            type='file'
-            value=''
-            multiple={false}
-          />
-        </DragAndDropContainer>
-      ) : (
-        <ImageCard>
-          <Column>
-            {Object.keys(files).map((fileName, index) => {
-              const file = files[fileName];
-              const isImageFile = file.type.split('/')[0] === 'image';
-
-              return (
-                <div key={fileName}>
-                  <div>
-                    {isImageFile && (
-                      <ImgLoaded
-                        alt={`${fileName} preview`}
-                        height={172}
-                        onLoad={onImgLoad}
-                        ref={imgRef}
-                        src={URL.createObjectURL(file)}
-                        width={261}
-                      />
-                    )}
-                    <div>
-                      <span>{file.name}</span>
-                      <span>{JSON.stringify(imgDimensions)}</span>
+                  return (
+                    <div key={fileName}>
+                      <div>
+                        {isImageFile && (
+                          <ImgLoaded
+                            alt={`${fileName} preview`}
+                            height={172}
+                            onLoad={onImgLoad}
+                            ref={imgRef}
+                            src={URL.createObjectURL(file)}
+                            width={261}
+                          />
+                        )}
+                        <div>
+                          <span>{file.name}</span>
+                          {/* <span>{JSON.stringify(imgDimensions)}</span> */}
+                          <div>{imgRef.current && renderImageDimensions()}</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-          </Column>
-          <ImagePropertiesColumn>
-            <Row>
-              <span>Size</span>
-              <span>{JSON.stringify(files)}</span>
-            </Row>
-          </ImagePropertiesColumn>
-          {options && (
-            <MenuColumn>
-              <MenuFormFieldCard options={options} />
-            </MenuColumn>
+                  );
+                })}
+              </Column>
+              <ImagePropertiesColumn>
+                <Row>
+                  <span>Size</span>
+                  <span>{JSON.stringify(files)}</span>
+                  <div>{imgRef.current && renderImageDimensions()}</div>
+                </Row>
+              </ImagePropertiesColumn>
+              {options && (
+                <MenuColumn>
+                  <MenuFormFieldCard options={options} />
+                </MenuColumn>
+              )}
+              <ButtonsContainer>
+                <Button buttonType='blueText' onClick={handleBrowse}>
+                  View
+                </Button>
+                <Button buttonType='redText' onClick={removeFile}>
+                  Remove
+                </Button>
+              </ButtonsContainer>
+            </ImageCard>
           )}
-          <ButtonsContainer>
-            <Button buttonType='blueText' onClick={handleBrowse}>
-              View
-            </Button>
-            <Button buttonType='redText' onClick={removeFile}>
-              Remove
-            </Button>
-          </ButtonsContainer>
-        </ImageCard>
+        </div>
+      ) : (
+        <DragAndDropContainer>
+          <StyledCircularProgress />
+          <DragAndDropSpan isOver={isOver}>Loading Image</DragAndDropSpan>
+        </DragAndDropContainer>
       )}
     </>
   );
