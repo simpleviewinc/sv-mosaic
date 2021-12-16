@@ -5,6 +5,9 @@ import {
   ButtonsWrapper,
 } from '../ImageVideoDocumentSetUp/ImageVideoDocumentSetUp.styled';
 
+// Components
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 export const DragAndDropContainer = styled.div`
   align-items: center;
   border: ${(pr) => (pr.isOver ? `1px dashed ${theme.colors.blueTeal}` : '')};
@@ -57,5 +60,13 @@ export const ButtonsContainer = styled(ButtonsWrapper)``;
 
 export const ImgLoaded = styled.img`
   border: 2px solid ${theme.colors.gray200};
-  object-fit: cover;
+  object-fit: contain;
+`;
+
+export const StyledCircularProgress = styled(CircularProgress)`
+  &.MuiCircularProgress-colorPrimary {
+    color: ${theme.colors.blueTeal};
+  }
+
+  margin-bottom: 24px;
 `;
