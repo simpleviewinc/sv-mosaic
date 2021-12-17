@@ -11,50 +11,50 @@ import IconButton from '@root/components/IconButton';
 import { StyledMenu } from './MenuFormFieldCard.styled';
 
 const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
-  const { className, options } = props;
+	const { className, options } = props;
 
-  const [anchorEl, setAnchorEl] = useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
 
-  const open = Boolean(anchorEl);
+	const open = Boolean(anchorEl);
 
-  const handleMoreIconClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+	const handleMoreIconClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-  const closeMenuHandler = () => {
-    setAnchorEl(null);
-  };
+	const closeMenuHandler = () => {
+		setAnchorEl(null);
+	};
 
-  return (
-    <div className={className}>
-      <IconButton
-        data-testid='icon-button-test'
-        icon={MoreVertIcon}
-        onClick={handleMoreIconClick}
-      />
-      <StyledMenu
-        anchorEl={anchorEl}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        keepMounted
-        open={open}
-        onClose={closeMenuHandler}
-      >
-        {options?.map((option) => (
-          <MenuItem key={`label-${option.label}`} onClick={option.action}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </StyledMenu>
-    </div>
-  );
+	return (
+		<div className={className}>
+			<IconButton
+				data-testid='icon-button-test'
+				icon={MoreVertIcon}
+				onClick={handleMoreIconClick}
+			/>
+			<StyledMenu
+				anchorEl={anchorEl}
+				getContentAnchorEl={null}
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'left',
+				}}
+				transformOrigin={{
+					vertical: 'top',
+					horizontal: 'left',
+				}}
+				keepMounted
+				open={open}
+				onClose={closeMenuHandler}
+			>
+				{options?.map((option) => (
+					<MenuItem key={`label-${option.label}`} onClick={option.action}>
+						{option.label}
+					</MenuItem>
+				))}
+			</StyledMenu>
+		</div>
+	);
 };
 
 export default memo(MenuFormFieldCard);

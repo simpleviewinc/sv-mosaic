@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import theme from '@root/theme';
 import {
-  AssetCard,
-  ButtonsWrapper,
+	AssetCard,
+	AssetLabel,
+	AssetValue,
+	ButtonsWrapper,
 } from '../ImageVideoDocumentSetUp/ImageVideoDocumentSetUp.styled';
 
 // Components
@@ -43,6 +45,7 @@ export const Column = styled.div`
 `;
 
 export const Row = styled.div`
+  align-items: baseline;
   display: flex;
 `;
 
@@ -62,6 +65,10 @@ export const ImgLoaded = styled.img`
   border: 2px solid ${theme.colors.gray200};
   object-fit: contain;
 `;
+
+export const SizeLabel = styled(AssetLabel)``;
+
+export const SizeValue = styled(AssetValue)``;
 
 export const StyledCircularProgress = styled(CircularProgress)`
   &.MuiCircularProgress-colorPrimary {
