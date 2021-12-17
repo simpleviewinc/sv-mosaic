@@ -96,6 +96,7 @@ export const AssetLabel = styled.span`
 
 export const AssetValue = styled.span`
   color: ${theme.colors.almostBlack};
+  font-size: 14px;
 `;
 
 export const AssetLabelTooltip = styled(AssetLabel)`
