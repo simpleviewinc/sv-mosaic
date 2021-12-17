@@ -11,6 +11,7 @@ import { isEmpty } from 'lodash';
 
 // Components
 import Button from '@root/forms/Button';
+import ImageUploadCanvas from './ImageUploadCanvas';
 import MenuFormFieldCard from '@root/forms/MenuFormFieldCard';
 
 // Styles
@@ -38,6 +39,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	const [files, setFiles] = useState({});
 	const [height, setHeight] = useState(null);
 	const [width, setWidth] = useState(null);
+	const [focusMode, setFocusMode] = useState(false);
 
 	const fileInputField = useRef(null);
 
@@ -80,7 +82,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    *
    */
 	const handleView = () => {
-		console.log('Change to set focus')
+		setFocusMode(true)
 	};
 
 	/**
@@ -184,15 +186,15 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 							/>
 						</DragAndDropContainer>
 					) : (
-						<ImageCard>
-							<Column>
-								{Object.keys(files).map((fileName) => {
-									const file = files[fileName];
-									const isImageFile = file.type.split('/')[0] === 'image';
+						<>
+							<ImageCard>
+								<Column>
+									{Object.keys(files).map((fileName) => {
+										const file = files[fileName];
+										const isImageFile = file.type.split('/')[0] === 'image';
 
-									return (
-										<div key={fileName}>
-											<div>
+										return (
+											<div key={fileName}>
 												{isImageFile && (
 													<ImgLoaded
 														alt={`${fileName} preview`}
@@ -203,30 +205,31 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 													/>
 												)}
 											</div>
-										</div>
-									);
-								})}
-							</Column>
-							<ImagePropertiesColumn>
-								<Row>
-									<SizeLabel>Size</SizeLabel>
-									<SizeValue>{width}x{height}</SizeValue>
-								</Row>
-							</ImagePropertiesColumn>
-							{options && (
-								<MenuColumn>
-									<MenuFormFieldCard options={options} />
-								</MenuColumn>
-							)}
-							<ButtonsContainer>
-								<Button buttonType='blueText' onClick={handleView}>
-                  View
-								</Button>
-								<Button buttonType='redText' onClick={removeFile}>
+										);
+									})}
+								</Column>
+								<ImagePropertiesColumn>
+									<Row>
+										<SizeLabel>Size</SizeLabel>
+										<SizeValue>{width}x{height}</SizeValue>
+									</Row>
+								</ImagePropertiesColumn>
+								{options && (
+									<MenuColumn>
+										<MenuFormFieldCard options={options} />
+									</MenuColumn>
+								)}
+								<ButtonsContainer>
+									<Button buttonType='blueText' onClick={handleView}>
+										{focusMode ? 'Set Focus' : 'View'}
+									</Button>
+									<Button buttonType='redText' onClick={removeFile}>
                   Remove
-								</Button>
-							</ButtonsContainer>
-						</ImageCard>
+									</Button>
+								</ButtonsContainer>
+							</ImageCard>
+							<ImageUploadCanvas />
+						</>
 					)}
 				</div>
 			) : (

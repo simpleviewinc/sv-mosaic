@@ -77,3 +77,11 @@ export const StyledCircularProgress = styled(CircularProgress)`
 
   margin-bottom: 24px;
 `;
+
+
+// ImageUploadCanvas component styles
+
+export const StyledCanvas = styled.canvas`
+  border: 2px solid #000;
+  margin-top: 10px;
+`
