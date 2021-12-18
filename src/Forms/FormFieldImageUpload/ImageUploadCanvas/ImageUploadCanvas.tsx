@@ -17,10 +17,14 @@ const ImageUploadCanvas = (props): ReactElement => {
 			context.clearRect(0, 0, canvas.width, canvas.height);
   
 			context.beginPath();
-			context.arc(mouseX, mouseY, 50, 0, 2 * Math.PI, true);
-			context.fillStyle = "#FF6A6A";
-			context.fill();
-    
+			context.moveTo(0, mouseY);
+			context.lineTo(261, mouseY);
+			context.moveTo(mouseX, 0);
+			context.lineTo(mouseX, 261);
+			context.strokeStyle = "black";//"rgb(255,255,255)";
+			context.stroke();   
+			context.closePath();
+
 			animationFrameId = window.requestAnimationFrame(update)
 		}
 		update();

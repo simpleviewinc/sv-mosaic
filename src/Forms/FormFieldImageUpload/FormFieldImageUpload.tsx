@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-	memo,
-	ReactElement,
-	useRef,
-	useState,
-} from 'react';
+import { memo, ReactElement, useRef, useState } from 'react';
 
 import { ImageUploadProps } from './FormFieldImageUploadTypes';
 import { isEmpty } from 'lodash';
@@ -23,6 +18,7 @@ import {
 	FileInput,
 	ImageCard,
 	ImagePropertiesColumn,
+	ImgContainer,
 	ImgLoaded,
 	MenuColumn,
 	Row,
@@ -60,7 +56,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    *
    */
 	const uploadFiles = () => {
-		console.log('INPUT: ', fileInputField.current.files)
+		console.log('INPUT: ', fileInputField.current.files);
 		fileInputField.current.click();
 	};
 
@@ -82,7 +78,14 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    *
    */
 	const handleView = () => {
-		setFocusMode(true)
+		setFocusMode(true);
+	};
+
+	/**
+   *
+   */
+	const handleSetFocus = () => {
+		console.log('Call set focus callback');
 	};
 
 	/**
@@ -143,7 +146,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 		setWidth(img.naturalWidth);
 	};
 
-	console.log('RE-RENDER')
+	console.log('RE-RENDER');
 
 	return (
 		<>
@@ -189,12 +192,12 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 						<>
 							<ImageCard>
 								<Column>
-									{Object.keys(files).map((fileName) => {
+									{Object.keys(files).map((fileName, indx) => {
 										const file = files[fileName];
 										const isImageFile = file.type.split('/')[0] === 'image';
 
 										return (
-											<div key={fileName}>
+											<ImgContainer focusMode={focusMode} key={fileName}>
 												{isImageFile && (
 													<ImgLoaded
 														alt={`${fileName} preview`}
@@ -204,14 +207,16 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 														width={261}
 													/>
 												)}
-											</div>
+											</ImgContainer>
 										);
 									})}
 								</Column>
 								<ImagePropertiesColumn>
 									<Row>
 										<SizeLabel>Size</SizeLabel>
-										<SizeValue>{width}x{height}</SizeValue>
+										<SizeValue>
+											{width}x{height}
+										</SizeValue>
 									</Row>
 								</ImagePropertiesColumn>
 								{options && (
@@ -220,11 +225,17 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 									</MenuColumn>
 								)}
 								<ButtonsContainer>
-									<Button buttonType='blueText' onClick={handleView}>
-										{focusMode ? 'Set Focus' : 'View'}
-									</Button>
+									{focusMode ? (
+										<Button buttonType='blueText' onClick={handleSetFocus}>
+                      Set Focus
+										</Button>
+									) : (
+										<Button buttonType='blueText' onClick={handleView}>
+                      View
+										</Button>
+									)}
 									<Button buttonType='redText' onClick={removeFile}>
-                  Remove
+                    Remove
 									</Button>
 								</ButtonsContainer>
 							</ImageCard>
