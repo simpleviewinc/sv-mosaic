@@ -24,7 +24,7 @@ import {
 	StyledField,
 	StyledInput,
 } from './AdvancedSelection.styled';
-import { useForm } from '../Form/formUtils';
+import { actions, useForm } from '../Form/formUtils';
 import { FieldDefProps } from '@root/components/Field';
 
 const MAX_CHIPS_TO_SHOW = 8;
@@ -39,16 +39,14 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 		label,
 		onChange,
 		required,
+		value,
 	} = props;
 
 	const modalReducer = useForm();
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [optionsChecked, setOptionsChecked] = useState([]);
-	const [savedOptions, setSavedOption] = useState([]);
 	const [showMore, setShowMore] = useState(false);
-	const [inputValue, setInputValue] = useState('');
 	const [options, setOptions] = useState(inputSettings?.checkboxOptions);
 	const [isMobileView, setIsMobileView] = useState(false);
 
@@ -65,12 +63,17 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 		};
 	}, []);
 
-	const filteredList = options?.filter(
-		(d) =>
-			inputValue === '' ||
-			d.label.toLowerCase().includes(inputValue.trim().toLowerCase()) ||
-			d.category?.toLowerCase().includes(inputValue.trim().toLowerCase())
-	);
+	const filteredList = useMemo(() => {
+		if (modalReducer?.state?.data['searchInput'])
+			return options?.filter(
+				(d) =>
+					modalReducer?.state?.data['searchInput'] === '' ||
+					d.label.toLowerCase().includes(modalReducer?.state?.data['searchInput']?.trim().toLowerCase()) ||
+					d.category?.toLowerCase().includes(modalReducer?.state?.data['searchInput']?.trim().toLowerCase())
+			);
+
+		return options;
+	}, [modalReducer?.state?.data.searchInput]);
 
 	/**
    * Fills a Map with the options ensuring that categories
@@ -112,14 +115,22 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    * Modal is closed when the Save button is clicked.
    */
 	const handleSave = () => {
-		setSavedOption(optionsChecked);
-		const selectedOptions = options.filter((option) => {
-			return optionsChecked.indexOf(option.value) >= 0;
-		});
-
-		onChange(selectedOptions);
 		setIsModalOpen(false);
+		// setSavedOption(modalReducer?.state?.data['checkboxList']);
+		// setSavedOption(optionsChecked);
+		// const selectedOptions = options.filter((option) => {
+		// 	return modalReducer?.state?.data['checkboxList'].indexOf(option.value) >= 0;
+		// });
+		// const selectedOptions = options.filter((option) => {
+		// 	return optionsChecked.indexOf(option.value) >= 0;
+		// });
+
+		onChange(modalReducer?.state?.data['checkboxList']);
 	};
+
+	useMemo(() => {
+		modalReducer?.registerOnSubmit(handleSave);
+	}, [handleSave, modalReducer?.registerOnSubmit]);
 
 	/**
    * Closes the modal and checks, if there are no
@@ -128,20 +139,32 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    */
 	const handleClose = () => {
 		setIsModalOpen(false);
-		setInputValue('');
-		if (savedOptions.length === 0) {
-			setOptionsChecked([]);
-		} else {
-			setOptionsChecked(savedOptions);
+		modalReducer?.dispatch(
+			actions.setFieldValue({ name: 'searchInput', value: undefined })
+		);
+		if (value?.length === 0) {
+			modalReducer?.dispatch(
+				actions.setFieldValue({ name: 'checkboxList', value: undefined })
+			);
+			onChange([]);
 		}
+		// } else {
+		// 	// setOptionsChecked(savedOptions);
+		// 	onChange(savedOptions);
+		// }
 	};
 
 	/**
    * Creates and array with the checked options
    * @param checked
    */
-	const onChangeCheckBoxList = (checked) => {
-		setOptionsChecked(checked);
+	const onChangeCheckBoxList = async (checked) => {
+		await modalReducer?.dispatch(
+			actions.setFieldValue({
+				name: 'checkboxList',
+				value: checked,
+			})
+		);
 	};
 
 	/**
@@ -150,47 +173,97 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    * optionsChecked array.
    */
 	const onChipDelete = (label) => {
-		setOptionsChecked((options) =>
-			options.filter((option) => option !== label)
+		const filteredChips = modalReducer?.state.data['checkboxList'].filter((option) => option.label !== label)
+
+		modalReducer?.dispatch(
+			actions.setFieldValue({
+				name: 'checkboxList',
+				value: filteredChips,
+			})
 		);
+		// setOptionsChecked((options) =>
+		// 	options.filter((option) => option !== label)
+		// );
 	};
 
 	useEffect(() => {
 		if (!isModalOpen) {
-			const selectedOptions = options.filter((option) => {
-				return optionsChecked.indexOf(option.value) >= 0;
-			});
+			// const selectedOptions = options.filter((option) => {
+			// 	return modalReducer?.state?.data['checkboxList']?.indexOf(option.value) >= 0;
+			// });
+			// const selectedOptions = options.filter((option) => {
+			// 	return optionsChecked.indexOf(option.value) >= 0;
+			// });
 
-			onChange(selectedOptions);
-			setSavedOption(optionsChecked);
+			onChange(modalReducer?.state?.data['checkboxList']);
+			// onChange(selectedOptions);
+			// setSavedOption(modalReducer?.state?.data['checkboxList']);
+			// setSavedOption(optionsChecked);
 		}
-	}, [isModalOpen, optionsChecked, options])
+	}, [isModalOpen, modalReducer?.state?.data['checkboxList'], options]);
 
 	/**
    * JSX element with the list of selected options displayed
    * as chips.
    */
-	const chips = optionsChecked.map((option, idx) => {
-		const chipLabel = options.find(
-			(checkedOption) => checkedOption.value === option
-		);
+	const chips = useMemo(() => {
+		if (isModalOpen)
+			return modalReducer?.state?.data?.checkboxList?.map((option, idx) => (
+				<>
+					<Chip
+						disabled={disabled}
+						key={`${option.label}-${idx}`}
+						label={option.label}
+						onDelete={() => onChipDelete(option.label)}
+					/>
+				</>
+			));
 
-		return (
-			<Chip
-				disabled={disabled}
-				key={`${option}-${idx}`}
-				label={chipLabel.label}
-				onDelete={() => onChipDelete(option)}
-			/>
-		);
-	});
+		if (value)
+			return value?.map((option, idx) => (
+				<>
+					<Chip
+						disabled={disabled}
+						key={`${option.label}-${idx}`}
+						label={option.label}
+						onDelete={() => onChipDelete(option.label)}
+					/>
+				</>
+			));
+
+		return [];
+	}, [isModalOpen, value, modalReducer.state.data.checkboxList]);
+	// const chips = useCallback(() => {
+	// 	return modalReducer?.state?.data['checkboxList']?.map((option, idx) => (
+	// 			<Chip
+	// 				disabled={disabled}
+	// 				key={`${option.label}-${idx}`}
+	// 				label={option.label}
+	// 				onDelete={() => onChipDelete(option.label)}
+	// 			/>
+	// 	));
+	// }, [modalReducer?.state?.data['checkboxList']]);
+	// const chips = optionsChecked.map((option, idx) => {
+	// 	const chipLabel = options.find(
+	// 		(checkedOption) => checkedOption.value === option
+	// 	);
+
+	// 	return (
+	// 		<Chip
+	// 			disabled={disabled}
+	// 			key={`${option}-${idx}`}
+	// 			label={chipLabel.label}
+	// 			onDelete={() => onChipDelete(option)}
+	// 		/>
+	// 	);
+	// });
 
 	/**
    * Renders a checkbox list for each category if groupByCategory is true
    * otherwise just displays a single checkbox list with all the options
    * @returns a list of CheckboxList or a single Checkboxlist
    */
-	const showCheckboxList = (props) => {
+	const showCheckboxList = () => {
 		if (inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 			return Array.from(optionsWithCategories).map(([category, value]) => (
 				<CheckboxListWrapper>
@@ -198,7 +271,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 						{category && <CategoryTitle>{category}</CategoryTitle>}
 						<CheckboxList
 							options={value}
-							checked={optionsChecked}
+							checked={modalReducer?.state?.data?.checkboxList}
 							onChange={onChangeCheckBoxList}
 						/>
 					</OptionsCheckedModalWrapper>
@@ -209,7 +282,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				<CheckboxListWrapper>
 					<CheckboxList
 						options={filteredList}
-						checked={optionsChecked}
+						checked={modalReducer?.state?.data?.checkboxList}
 						onChange={onChangeCheckBoxList}
 					/>
 				</CheckboxListWrapper>
@@ -221,13 +294,13 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    * @returns the list of chips and the 'X more' or 'Hide' text
    * if the selected options are greater than MAX_CHIPS_TO_SHOW
    */
-	const showListOfChips = useCallback(() => {
+	const showListOfChips = () => {
 		return (
 			<OptionsCheckedModalWrapper isModalOpen={isModalOpen}>
 				<ChipsWrapper isModalOpen={isModalOpen} isMobileView={isMobileView}>
-					{showMore ? chips : chips.slice(0, MAX_CHIPS_TO_SHOW)}
+					{showMore ? chips : chips?.slice(0, MAX_CHIPS_TO_SHOW)}
 				</ChipsWrapper>
-				{optionsChecked.length > MAX_CHIPS_TO_SHOW && (
+				{modalReducer?.state?.data['checkboxList']?.length > MAX_CHIPS_TO_SHOW && (
 					<div onClick={handleShowMore}>
 						{showMore ? (
 							<ShowHideSpan>
@@ -235,7 +308,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 							</ShowHideSpan>
 						) : (
 							<ShowHideSpan>
-								{`${optionsChecked.length - MAX_CHIPS_TO_SHOW} more`}
+								{`${modalReducer?.state?.data['checkboxList']?.length - MAX_CHIPS_TO_SHOW} more`}
 								<StyledExpandMoreIcon />
 							</ShowHideSpan>
 						)}
@@ -243,7 +316,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				)}
 			</OptionsCheckedModalWrapper>
 		);
-	}, [optionsChecked, showMore, isMobileView, disabled, isModalOpen]);
+	};
 
 
 	/**
@@ -251,7 +324,12 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    * @param e input change event
    */
 	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setInputValue(e.target.value);
+		modalReducer?.dispatch(
+			actions.setFieldValue({
+				name: 'searchInput',
+				value: e.target.value
+			})
+		);
 	};
 
 	/**
@@ -261,8 +339,8 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 		const currentOptions = [...options];
 		currentOptions.push({
 			category: 'New Options',
-			value: `${inputValue}_${currentOptions.length}`,
-			label: inputValue,
+			value: `${modalReducer?.state?.data['searchInput']}_${currentOptions.length}`,
+			label: modalReducer?.state?.data['searchInput'],
 		});
 		setOptions(currentOptions);
 	};
@@ -273,9 +351,9 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				type='text'
 				placeholder='Search...'
 				onChange={onInputChange}
-				value={inputValue}
+				value={modalReducer?.state?.data['searchInput']}
 			/>
-			{inputValue && (
+			{modalReducer?.state?.data['searchInput'] && (
 				<Button
 					buttonType='blueText'
 					disabled={disabled}
@@ -291,17 +369,28 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const fields = useMemo(() => [
 		{
 			name: "listOfChips",
-			type: showListOfChips,
+			type: modalReducer?.state?.data?.checkboxList?.length > 0 ? showListOfChips : () => <></>,
 		},
 		{
 			name: "searchInput",
 			type: searchInput,
 		},
 		{
-			name: "checkbox",
+			name: "checkboxList",
 			type: showCheckboxList,
 		},
-	] as FieldDefProps[], []);
+	] as FieldDefProps[],
+		[
+			modalReducer.state.data,
+			inputSettings?.groupByCategory,
+			filteredList,
+			isModalOpen,
+			chips,
+			value,
+			searchInput,
+			showCheckboxList,
+			showListOfChips
+		]);
 
 	useMemo(() => {
 		modalReducer?.registerFields(fields);
@@ -309,7 +398,8 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 
 	return (
 		<>
-			{optionsChecked.length > 0 && !isModalOpen ? (
+			<pre>{JSON.stringify(modalReducer.state, null, ' ')}</pre>
+			{modalReducer?.state?.data['checkboxList']?.length > 0 && !isModalOpen ? (
 				<StyledField
 					label={label}
 					error={error}
@@ -352,19 +442,6 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				submitButtonAttrs={{ children: 'Save' }}
 				cancelButtonAttrs={{ children: 'Cancel' }}
 			/>
-			{/* <Modal
-				dialogTitle={modalTitle}
-				open={isModalOpen}
-				onClose={handleClose}
-				primaryAction={handleSave}
-				primaryBtnLabel='Save'
-				secondaryAction={handleClose}
-				secondaryBtnLabel='Cancel'
-			>
-				{optionsChecked.length > 0 && showListOfChips}
-				{searchInput}
-				{checkboxList}
-			</Modal> */}
 		</>
 	);
 };

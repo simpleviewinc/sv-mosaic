@@ -6,13 +6,14 @@ import {
 	CheckboxListProps,
 	P
 } from "@root/index";
+import { Option } from ".";
 
 export default {
 	title : "Components|CheckboxList"
 }
 
 export const example = (): ReactElement => {
-	const [checked, setChecked] = useState<string[]>([]);
+	const [checked, setChecked] = useState<Option[]>([]);
 
 	const onChange = (c) => {
 		console.log(c);
