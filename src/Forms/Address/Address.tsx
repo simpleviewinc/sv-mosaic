@@ -21,7 +21,6 @@ import { FieldDefProps } from '@root/components/Field';
 const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const {
 		label,
-		value,
 		onChange
 	} = props;
 
@@ -50,20 +49,6 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
-	// const [addressTypesChecked, setAddressTypesChecked] = useState([]);
-	// const [selectedCountry, setSelectedCountry] = useState({
-	// 	title: '',
-	// 	value: {},
-	// });
-	// const [selectedState, setSelectedState] = useState({
-	// 	title: '',
-	// 	value: {}
-	// });
-	// const [textFields, setTextFields] = useState({
-	// 	address: '',
-	// 	city: '',
-	// 	postalCode: '',
-	// });
 
 	/**
 	 * Gets the lists of states options for the 
@@ -164,46 +149,6 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 	}, [fields, modalReducer?.registerFields]);
 
 	/**
-	 * TODO: DELETE
-	 * Sets the selected country of the dropdown and
-	 * resets the selected state.
-	 * @param _event 
-	 * @param option 
-	 */
-	// const handleCountryChange = (_event, option) => {
-	// 	setSelectedCountry(option);
-	// 	setSelectedState({
-	// 		title: '',
-	// 		value: {}
-	// 	})
-	// };
-
-	/**
-	 * TODO: DELETE
-	 * Set the selected state from its respective dropdown.
-	 * @param _event 
-	 * @param option 
-	 */
-	// const handleStateChange = (_event, option) => {
-	// 	setSelectedState(option);
-	// };
-
-	/**
-	 * TODO: DELETE
-	 * Sets the address types that are checked.
-	 * @param addressTypesChecked 
-	 */
-	// const handleAddressTypeChange = (addressTypesChecked) => {
-	// 	setAddressTypesChecked(addressTypesChecked);
-	// };
-
-	// let submitDisabled = true;
-
-	// if (addressTypesChecked.length > 0) {
-	// 	submitDisabled = false;
-	// }
-
-	/**
 	 * Opens the modal to create an address card 
 	 * and sets editing mode to false.
 	 */
@@ -224,19 +169,6 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 	};
 
 	/**
-	 * TODO: DELETE
-	 * Handle value change for each text input
-	 * (i.e., address, city and postal code).
-	 * @param e 
-	 */
-	// const handleTextFieldsChange = (e) => {
-	// 	setTextFields({
-	// 		...textFields,
-	// 		[e.target.name]: e.target.value
-	// 	});
-	// };
-
-	/**
 	 * Removes the clicked address card from the list. 
 	 * @param addressToRemove 
 	 */
@@ -244,6 +176,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 		const listOfAddresses = [...addresses];
 		listOfAddresses.splice(addressIndex, 1);
 		setAddresses(listOfAddresses);
+		onChange(listOfAddresses);
 	};
 
 	/**
@@ -352,7 +285,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 	 */
 	const handleFormSubmit = useCallback(() => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
-		onChange(listOfAddresses);
+		onChange && onChange(listOfAddresses);
 		setAddresses(listOfAddresses);
 		handleClose();
 	}, [modalReducer?.state.validForm]);
@@ -371,8 +304,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 	}, []);
 
 	return (
-		<div>
-			<pre>{JSON.stringify(modalReducer?.state, null, "  ")}</pre>
+		<div style={{paddingLeft: '20px'}}>
 			<StyledLabel>{label}</StyledLabel>
 			<FlexContainer>
 				<AddAddressWrapper>
