@@ -61,6 +61,12 @@ export const ImageCard = styled(AssetCard)``;
 
 export const ButtonsContainer = styled(ButtonsWrapper)``;
 
+export const ImgContainer = styled.div`
+  background-color: ${pr => pr.focusMode ? theme.colors.almostBlack : ''};
+  opacity: ${pr => pr.focusMode ? 0.4 : ''};
+  position: relative;
+`;
+
 export const ImgLoaded = styled.img`
   border: 2px solid ${theme.colors.gray200};
   object-fit: contain;
@@ -84,4 +90,4 @@ export const StyledCircularProgress = styled(CircularProgress)`
 export const StyledCanvas = styled.canvas`
   border: 2px solid #000;
   margin-top: 10px;
-`
+`;
