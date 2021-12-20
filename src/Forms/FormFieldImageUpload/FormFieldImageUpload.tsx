@@ -40,15 +40,13 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 
 	const fileInputField = useRef(null);
 
-	const addNewFiles = (newFiles) => {
-		//return newFiles[0];
+	/**
+   * @param newFiles 
+   * @returns the added files
+   */
+	const addNewImage = (newFiles) => {
 		for (const file of newFiles) {
-			//if (file.size <= maxFileSizeInBytes) {
-			//if (!otherProps.multiple) {
 			return { file };
-			//}
-			//files[file.name] = file;
-			//}
 		}
 		return { ...files };
 	};
@@ -62,16 +60,17 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   * 
+   * Executed when a new file is uploaded.
    * @param e
    */
 	const handleNewFileUpload = (e) => {
 		const { files: imgFile } = e.target;
 
 		if (imgFile.length) {
-			const updatedFiles = addNewFiles(imgFile);
-			setFiles(updatedFiles);
-			uploadImage(updatedFiles);
+			const uploadedImage = addNewImage(imgFile);
+  
+			setFiles(uploadedImage);
+			uploadImage(uploadedImage);
 		}
 	};
 
@@ -159,8 +158,6 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 		setImgWidth(imageWidth);
 		setImgHeight(imageHeight);
 	};
-
-	console.log('RE-RENDER');
 
 	return (
 		<>
