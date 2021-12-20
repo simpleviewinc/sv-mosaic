@@ -116,7 +116,7 @@ const Col = (props) => {
 
 				const Component = typeof type === 'string' ? componentMap[type] : type;
 
-				if(!Component) {
+				if (!Component) {
 					throw new Error(`Invalid type ${type}`);
 				}
 
@@ -138,12 +138,13 @@ const Col = (props) => {
 						error={error}
 						onChange={onChange}
 						onBlur={onBlur}
+						key={`${name}_${i}`}
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return type !== ('address' || 'advancedSelection') ? (
+				return ((type !== ('address' || 'advancedSelection')) && !!componentMap[type]) ? (
 					<Field
-						key={i}
+						key={`${name}_${i}`}
 						{...currentField}
 						value={value}
 						error={error}
@@ -152,10 +153,10 @@ const Col = (props) => {
 						{children}
 					</Field>
 				)
-				:
-				(
-					children
-				);
+					:
+					(
+						children
+					);
 			})}
 		</StyledCol>
 	);

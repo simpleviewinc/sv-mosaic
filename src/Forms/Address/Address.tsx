@@ -125,8 +125,6 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 			size: Sizes.sm,
 			required: true,
 			inputSettings: {
-				// checked: addressTypesChecked,
-				checked: [],
 				options: addressTypes,
 				size: Sizes.sm,
 			}
@@ -304,7 +302,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 	}, []);
 
 	return (
-		<div style={{paddingLeft: '20px'}}>
+		<div style={{ paddingLeft: '20px' }}>
 			<StyledLabel>{label}</StyledLabel>
 			<FlexContainer>
 				<AddAddressWrapper>
@@ -313,7 +311,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 					</Button>
 				</AddAddressWrapper>
 				{addresses.map((address, idx) => (
-					<AddressCard key={`${address.address}-${idx}`} addressIndex={idx} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler}/>
+					<AddressCard key={`${address.address}-${idx}`} addressIndex={idx} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler} />
 				))}
 			</FlexContainer>
 			<Modal
@@ -324,9 +322,9 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 				sections={sections}
 				open={open}
 				onCancel={handleClose}
-				cancelButtonAttrs={{children: 'Cancel'}}
+				cancelButtonAttrs={{ children: 'Cancel' }}
 				onSubmit={handleFormSubmit}
-				submitButtonAttrs={{children: 'Save'}}
+				submitButtonAttrs={{ children: 'Save' }}
 			/>
 		</div>
 	);

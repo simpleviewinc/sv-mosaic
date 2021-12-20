@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useCallback, useMemo } from 'react';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
@@ -14,7 +14,7 @@ export default {
 	decorators: [withKnobs],
 };
 
-const options = [
+const externalOptions = [
 	{
 		category: 'Category 1',
 		label: 'Option 1',
@@ -77,8 +77,12 @@ const options = [
 ];
 
 export const Example = (): ReactElement => {
+	const [value, setValue] = useState([]);
+	const [options, setOptions] = useState(externalOptions);
+
 	const onChange = (savedOptions: optionsWithCategory[]) => {
-		console.log("Stories: ", savedOptions)
+		// console.log("Stories: ", savedOptions);
+		setValue(savedOptions);
 	};
 
 	return (
@@ -89,6 +93,7 @@ export const Example = (): ReactElement => {
 			instructionText={text('Instruction text', 'Instruction text')}
 			helperText={text('Helper text', 'Helper text')}
 			disabled={boolean('Disabled', false)}
+			value={value}
 			inputSettings={{
 				modalTitle: text('Modal title', 'Modal title'),
 				checkboxOptions: options,
@@ -101,9 +106,15 @@ export const Example = (): ReactElement => {
 
 export const FormExample = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const [options, setOptions] = useState(externalOptions);
 
 	const modalTitle = text('Modal title', 'Modal title');
 	const groupByCategory = boolean('Group by category', false);
+
+	const updateOptionsCb = (newOption) => {
+		const newOptions = [...options, newOption];
+		setOptions(newOptions);
+	};
 
 	const fields = useMemo(
 		() => (
@@ -115,12 +126,13 @@ export const FormExample = (): ReactElement => {
 					inputSettings: {
 						modalTitle,
 						checkboxOptions: options,
-						groupByCategory
+						groupByCategory,
+						updateOptionsCb,
 					}
 				},
 			] as FieldDefProps[]
 		),
-		[registerFields, modalTitle, groupByCategory]
+		[registerFields, modalTitle, groupByCategory, options]
 	);
 
 	useMemo(() => {

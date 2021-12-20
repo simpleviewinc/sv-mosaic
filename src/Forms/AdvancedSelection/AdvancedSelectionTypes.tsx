@@ -19,6 +19,7 @@ export interface AdvancedSelectionProps extends FieldProps {
 		 * checkboxOptions.
 		 */
 		groupByCategory?: boolean;
+		updateOptionsCb?: (key: any) => void;
 	}
 
 	/**
