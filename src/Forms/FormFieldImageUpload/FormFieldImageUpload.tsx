@@ -12,11 +12,11 @@ import MenuFormFieldCard from '@root/forms/MenuFormFieldCard';
 // Styles
 import {
 	ButtonsContainer,
-	Column,
 	DragAndDropContainer,
 	DragAndDropSpan,
 	FileInput,
 	ImageCard,
+	ImageColumn,
 	ImagePropertiesColumn,
 	ImgContainer,
 	ImgLoaded,
@@ -25,10 +25,11 @@ import {
 	SizeLabel,
 	SizeValue,
 	StyledCircularProgress,
+	UploadButton,
 } from './FormFieldImageUpload.styled';
 
 const ImageUpload = (props: ImageUploadProps): ReactElement => {
-	const { updateFilesCb, disabled, options } = props;
+	const { disabled, handleSetFocus ,mousePosition, uploadImage, options, setImgHeight, setImgWidth } = props;
 
 	// State variables
 	const [isOver, setIsOver] = useState(false);
@@ -53,52 +54,56 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   *
+   *  Triggers a click on the input of type file
+   *  to prompt the file selection.
    */
 	const uploadFiles = () => {
-		console.log('INPUT: ', fileInputField.current.files);
 		fileInputField.current.click();
 	};
 
 	/**
-   *
+   * 
    * @param e
    */
 	const handleNewFileUpload = (e) => {
-		const { files: newFiles } = e.target;
+		const { files: imgFile } = e.target;
 
-		if (newFiles.length) {
-			const updatedFiles = addNewFiles(newFiles);
+		if (imgFile.length) {
+			const updatedFiles = addNewFiles(imgFile);
 			setFiles(updatedFiles);
-			updateFilesCb(updatedFiles);
+			uploadImage(updatedFiles);
 		}
 	};
 
 	/**
-   *
+   *  Sets focus mode to true to display the canvas
+   *  element and the set focus button.
    */
 	const handleView = () => {
 		setFocusMode(true);
 	};
 
 	/**
-   *
+   *  Executes the set focus callback.
    */
-	const handleSetFocus = () => {
-		console.log('Call set focus callback');
+	const setFocus = () => {
+		handleSetFocus();
 	};
 
 	/**
-   *
+   * When the remove button is click the files
+   * uploaded are empty ahd the isOver flagged is
+   * set to false to show the upload view.
    */
 	const removeFile = () => {
 		setFiles({});
-		updateFilesCb({});
+		uploadImage({});
 		setIsOver(false);
 	};
 
 	/**
-   *
+   * Executed when a file that's being
+   * dragged is over the drop zone.
    * @param e
    */
 	const dragOver = (e) => {
@@ -106,7 +111,9 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   *
+   * When a file that's being dragged enters into 
+   * the drop zone the isOver state is changed 
+   * to apply styles conditionally.
    * @param e
    */
 	const dragEnter = (e) => {
@@ -115,7 +122,8 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   *
+   * When the drop zone is leaved the isOver state
+   * is changed to apply styles conditionally.
    * @param e
    */
 	const dragLeave = (e) => {
@@ -124,7 +132,8 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   *
+   * When a file is dropped, the file state is set with the
+   * file dropped and the uploadImage callback is triggered.
    * @param e
    */
 	const fileDrop = (e) => {
@@ -133,17 +142,22 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 
 		if (droppedFiles.length) {
 			setFiles(droppedFiles);
-			updateFilesCb(droppedFiles);
+			uploadImage(droppedFiles);
 		}
 	};
 
 	/**
-   *
+   * Sets the image dimensions.
    * @param param0
    */
 	const onImgLoad = ({ target: img }) => {
-		setHeight(img.naturalHeight);
-		setWidth(img.naturalWidth);
+		const imageWidth = img.naturalWidth;
+		const imageHeight = img.naturalHeight
+
+		setHeight(imageHeight);
+		setWidth(imageWidth);
+		setImgWidth(imageWidth);
+		setImgHeight(imageHeight);
 	};
 
 	console.log('RE-RENDER');
@@ -169,18 +183,19 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 									<DragAndDropSpan isOver={isOver}>
                     Drag & Drop files here or
 									</DragAndDropSpan>
-									<Button
+									<UploadButton
 										disabled={disabled}
 										buttonType='secondary'
 										onClick={uploadFiles}
 									>
                     UPLOAD FILES
-									</Button>
+									</UploadButton>
 								</>
 							)}
 
 							<FileInput
 								accept='image/*'
+								data-testid='input-file-test'
 								ref={fileInputField}
 								onChange={handleNewFileUpload}
 								title=''
@@ -191,26 +206,24 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 					) : (
 						<>
 							<ImageCard>
-								<Column>
-									{Object.keys(files).map((fileName, indx) => {
+								<ImageColumn>
+									{Object.keys(files).map((fileName) => {
 										const file = files[fileName];
-										const isImageFile = file.type.split('/')[0] === 'image';
 
 										return (
-											<ImgContainer focusMode={focusMode} key={fileName}>
-												{isImageFile && (
-													<ImgLoaded
-														alt={`${fileName} preview`}
-														height={172}
-														onLoad={onImgLoad}
-														src={URL.createObjectURL(file)}
-														width={261}
-													/>
-												)}
+											<ImgContainer focusMode={focusMode} key={fileName}>		
+												<ImgLoaded
+													alt={`${fileName} preview`}
+													height={172}
+													onLoad={onImgLoad}
+													src={URL.createObjectURL(file)}
+													width={261}
+												/>
 											</ImgContainer>
 										);
 									})}
-								</Column>
+									{focusMode && <ImageUploadCanvas mousePosition={mousePosition}/>}
+								</ImageColumn>
 								<ImagePropertiesColumn>
 									<Row>
 										<SizeLabel>Size</SizeLabel>
@@ -220,13 +233,13 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 									</Row>
 								</ImagePropertiesColumn>
 								{options && (
-									<MenuColumn>
+									<MenuColumn data-testid='menu-container-test'>
 										<MenuFormFieldCard options={options} />
 									</MenuColumn>
 								)}
 								<ButtonsContainer>
 									{focusMode ? (
-										<Button buttonType='blueText' onClick={handleSetFocus}>
+										<Button buttonType='blueText' onClick={setFocus}>
                       Set Focus
 										</Button>
 									) : (
@@ -239,13 +252,12 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 									</Button>
 								</ButtonsContainer>
 							</ImageCard>
-							<ImageUploadCanvas />
 						</>
 					)}
 				</div>
 			) : (
 				<DragAndDropContainer>
-					<StyledCircularProgress />
+					<StyledCircularProgress data-testid='circular-progress-test'/>
 					<DragAndDropSpan isOver={isOver}>Loading Image</DragAndDropSpan>
 				</DragAndDropContainer>
 			)}
