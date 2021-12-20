@@ -1,8 +1,13 @@
 import * as React from 'react';
 import { useRef, useEffect, ReactElement } from 'react';
-import { StyledCanvas } from '../FormFieldImageUpload.styled';
+import { ImageUploadCanvasProps } from '../FormFieldImageUploadTypes';
 
-const ImageUploadCanvas = (props): ReactElement => {
+// Styles
+import { CanvasContainer, StyledCanvas } from '../FormFieldImageUpload.styled';
+
+const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
+	const { mousePosition } = props;
+
 	const canvasRef = useRef(null);
 
 	useEffect(() => {
@@ -21,7 +26,7 @@ const ImageUploadCanvas = (props): ReactElement => {
 			context.lineTo(261, mouseY);
 			context.moveTo(mouseX, 0);
 			context.lineTo(mouseX, 261);
-			context.strokeStyle = "black";//"rgb(255,255,255)";
+			context.strokeStyle = 'white';
 			context.stroke();   
 			context.closePath();
 
@@ -52,7 +57,6 @@ const ImageUploadCanvas = (props): ReactElement => {
 		canvasRef.current.addEventListener('mousemove', setMousePosition, false);
 
 		return () => {
-			console.log('CANVAS REMOVED')
 			canvasRef.current.removeEventListener('mousemove', setMousePosition);
 			window.cancelAnimationFrame(animationFrameId)
 		}
@@ -61,20 +65,23 @@ const ImageUploadCanvas = (props): ReactElement => {
 
 
 	const setMouseCoordinates = (event) => {
-		const x = event.clientX;
-		const y = event.clientY;
+		const rect = event.target.getBoundingClientRect();
+		const x = event.clientX - rect.left; //x position within the element.
+		const y = event.clientY - rect.top;  //y position within the element.
 
-		console.log("x coords: " + x + ", y coords: " + y);
+		mousePosition({x, y})
 	}
 
 	return (
-		<StyledCanvas
-			width={261}
-			height={172}
-			ref={canvasRef}
-			onClick={setMouseCoordinates}
-			{...props}
-		/>
+		<CanvasContainer onClick={setMouseCoordinates}>
+			<StyledCanvas
+				data-testid='canvas-el-test'
+				width={261}
+				height={172}
+				ref={canvasRef}
+				{...props}
+			/>
+		</CanvasContainer>
 	);
 };
 

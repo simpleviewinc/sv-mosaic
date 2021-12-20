@@ -8,6 +8,7 @@ import {
 } from '../ImageVideoDocumentSetUp/ImageVideoDocumentSetUp.styled';
 
 // Components
+import Button from '@root/forms/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const DragAndDropContainer = styled.div`
@@ -49,6 +50,10 @@ export const Row = styled.div`
   display: flex;
 `;
 
+export const ImageColumn = styled(Column)`
+  position: relative;
+`;
+
 export const ImagePropertiesColumn = styled(Column)`
   margin-left: 16px;
 `;
@@ -62,9 +67,9 @@ export const ImageCard = styled(AssetCard)``;
 export const ButtonsContainer = styled(ButtonsWrapper)``;
 
 export const ImgContainer = styled.div`
-  background-color: ${pr => pr.focusMode ? theme.colors.almostBlack : ''};
+  /* background-color: ${pr => pr.focusMode ? theme.colors.almostBlack : ''};
   opacity: ${pr => pr.focusMode ? 0.4 : ''};
-  position: relative;
+  position: relative; */
 `;
 
 export const ImgLoaded = styled.img`
@@ -75,6 +80,10 @@ export const ImgLoaded = styled.img`
 export const SizeLabel = styled(AssetLabel)``;
 
 export const SizeValue = styled(AssetValue)``;
+
+export const UploadButton = styled(Button)`
+  z-index: 1;
+`;
 
 export const StyledCircularProgress = styled(CircularProgress)`
   &.MuiCircularProgress-colorPrimary {
@@ -88,6 +97,10 @@ export const StyledCircularProgress = styled(CircularProgress)`
 // ImageUploadCanvas component styles
 
 export const StyledCanvas = styled.canvas`
-  border: 2px solid #000;
-  margin-top: 10px;
+  background-color: ${theme.colors.almostBlack};
+  opacity: 0.4 ;
+`;
+
+export const CanvasContainer = styled.div`
+  position: absolute;
 `;
