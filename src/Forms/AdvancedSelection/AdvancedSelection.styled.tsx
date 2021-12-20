@@ -41,6 +41,7 @@ export const InputWrapper = styled.div`
 export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  row-gap: 4px;
   margin-bottom: 16px;
   width: ${pr => pr.isMobileView || !pr.isModalOpen ? '' : '684px'};
 
