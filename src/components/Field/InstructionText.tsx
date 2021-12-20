@@ -7,13 +7,15 @@ import {
 
 interface InstructionText {
   children: ReactNode;
+	labelMargin?: string;
 }
 
 const InstructionText = ({
 	children,
+	labelMargin
 }: InstructionText): ReactElement => {
 	return (
-		<InstructionTextWrapper>
+		<InstructionTextWrapper labelMargin={labelMargin}>
 			<StyledInstructionText>{children}</StyledInstructionText>
 		</InstructionTextWrapper>
 	);

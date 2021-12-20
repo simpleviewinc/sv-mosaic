@@ -68,7 +68,7 @@ const Field = ({
 				{renderBottomText()}
 			</StyledFieldWrapper>
 			{instructionText && type !== 'Table' && (
-				<InstructionText>{instructionText}</InstructionText>
+				<InstructionText labelMargin={labelMargin}>{instructionText}</InstructionText>
 			)}
 		</StyledFieldContainer>
 	);
