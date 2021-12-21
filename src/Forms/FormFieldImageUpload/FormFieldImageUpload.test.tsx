@@ -10,19 +10,6 @@ import {
 // Components
 import FormFieldImageUpload from './FormFieldImageUpload';
 
-const mockCanvas = (window) => {
-	window.HTMLCanvasElement.prototype.getContext = function() {
-		return {
-			clearRect: jest.fn(),
-			beginPath: jest.fn(),
-			moveTo: jest.fn(),
-			lineTo: jest.fn(),
-			closePath: jest.fn(),
-			stroke: jest.fn(),
-		};
-	};
-};
-
 afterEach(cleanup);
 
 const { getByText, getByTestId, queryByTestId } = screen;
@@ -128,9 +115,6 @@ describe('FormFieldImageUpload drag and drop events', () => {
 				},
 			},
 		});
-
-		const window = document.defaultView;
-		mockCanvas(window);
 
 		fireEvent(fileDropzone, fileDropEvent);
 
