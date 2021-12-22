@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
+import { ReactElement, useState } from 'react';
+import { boolean, withKnobs, object } from '@storybook/addon-knobs';
 
 // Components
 import MapCoordinates from './MapCoordinates';
@@ -17,29 +17,49 @@ const mapPosition = {
 };
 
 const address: Address = {
-	address: '',
-	city: '',
+	address: '8950 N Oracle Rd',
+	city: 'Oro Valley',
 	country: {
-		title: '',
-		value: '',
+		title: 'United States',
+		value: {},
 	},
-	postalCode: '456789',
+	postalCode: '85704',
 	state: {
-		title: '',
-		value: '',
+		title: 'AZ',
+		value: {},
 	},
-	types: [],
+	types: ['physical'],
 };
 
 export const Example = (): ReactElement => {
+	const [isKey, setIsKey] = useState(false)
+	const [value, setValue] = useState('');
+
 	const disabled = boolean('Disabled', false);
+	const addressKnob = object('Address', address);
+	const withAddress = boolean('With address', false);
+
+	const onClick = () => {
+		setIsKey(true)
+	};
+
+	const inputChange = (e) => {
+		setValue(e.target.value);
+	};
 
 	return (
-		<MapCoordinates
-			apiKey={text('API KEY', '')}
-			address={address}
-			disabled={disabled}
-			mapPosition={mapPosition}
-		/>
+		<>
+			<div style={{marginBottom: '20px'}}>
+				<p>You must enter the Google Maps API key to see the component</p>
+				<input onChange={inputChange} style={{width: '300px'}} value={value} type="text" placeholder='Google Maps API Key'/>
+				<button onClick={onClick}>SET KEY</button>
+			</div>
+			{isKey && value.length > 0 && <MapCoordinates
+				apiKey={value}
+				address={withAddress && addressKnob}
+				disabled={disabled}
+				mapPosition={mapPosition}
+			/>}
+		</>
 	);
 };

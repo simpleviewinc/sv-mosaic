@@ -36,8 +36,9 @@ export const ButtonsWrapper = styled.div`
   position: absolute;
 
   button:first-child {
-    border-right: 2px solid ${theme.colors.gray200};
-    padding-right: 16px;
+    border-right: ${(pr) =>
+		pr.hasAddress ? `2px solid ${theme.colors.gray200}` : ''};
+    padding-right: ${(pr) => (pr.hasAddress ? '16px' : '')};
   }
 
   button:last-child {

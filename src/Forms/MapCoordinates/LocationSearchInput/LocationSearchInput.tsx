@@ -1,7 +1,10 @@
 import { InputAdornment } from '@material-ui/core';
 import * as React from 'react';
 import { memo, ReactElement, useState } from 'react';
-import PlacesAutocomplete from 'react-places-autocomplete';
+import PlacesAutocomplete, {
+	geocodeByAddress,
+	getLatLng,
+} from 'react-places-autocomplete';
 
 // Styles
 import {
@@ -12,25 +15,33 @@ import {
 	SuggestionsContainer,
 	SuggestionsDescriptionContainer,
 } from '../MapCoordinates.styled';
+import { LocationSearchInputProps } from '../MapCoordinatesTypes';
 
-const LocationSearchInput = (): ReactElement => {
+const LocationSearchInput = (props: LocationSearchInputProps): ReactElement => {
+	const { handleCoordinates } = props;
+
 	// State variables
 	const [address, setAddress] = useState('');
-	/* const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null,
-  }); */
-
+	/**
+	 * Gets lat and lng values from the selected suggestion and 
+	 * updates the state of the MapCoordinates component.
+	 * @param value 
+	 */
 	const handleSelect = async (value) => {
 		setAddress(value);
-		/* const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
 
-    console.log('Lalitude longitude: ', latLng);
-    setAddress(address);
-    setCoordinates(latLng); */
+		try {
+			const results = await geocodeByAddress(value);
+			const latLng = await getLatLng(results[0]);
+			handleCoordinates(latLng);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
+	/**
+	 * Reset the address value that is displayed in the autocomplete component. 
+	 */
 	const clearValue = () => {
 		setAddress('');
 	};

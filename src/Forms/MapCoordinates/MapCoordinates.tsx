@@ -1,10 +1,22 @@
 import * as React from 'react';
-import { ChangeEvent, memo, ReactElement, useCallback, useState } from 'react';
+import {
+	ChangeEvent,
+	memo,
+	ReactElement,
+	useCallback,
+	useEffect,
+	useState,
+} from 'react';
 import {
 	Libraries,
 	MapCoordinatesProps,
 	MapPosition,
 } from './MapCoordinatesTypes';
+import { Address } from '@root/forms/Address/AddressTypes';
+
+// External libraries
+import { isEmpty } from 'lodash';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 // Components
 import Button from '@root/forms/Button';
@@ -48,8 +60,17 @@ const containerStyle = {
 
 const libraries: Libraries = ['places'];
 
+/**
+ *	Helper function to get a string address from an Address object
+ */
+export const getAddressStringFromAddressObject = (addressObj: Address) => {
+	const { address, city, country, postalCode, state } = addressObj;
+
+	return `${address} ${postalCode} ${city} ${state.title} ${country.title}`;
+};
+
 const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
-	const { apiKey, disabled, mapPosition } = props;
+	const { address, apiKey, disabled, mapPosition } = props;
 
 	// State variables
 	const [autocoordinatesChecked, setAutocoordinatesChecked] = useState(false);
@@ -90,8 +111,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 	};
 
 	/**
-   * Closes the modal and resets the values for
-   * form field.
+   * Closes the modal.
    */
 	const handleClose = () => {
 		setIsModalOpen(false);
@@ -130,8 +150,59 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
    * @param e
    */
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setAutocoordinatesChecked(e.target.checked);
+		const checked = e.target.checked;
+		setAutocoordinatesChecked(checked);
 	};
+
+	/**
+   * Set map coordinates and lat and lng fields with the values
+   * provided by the address that is passed. Is only executed when
+   * the autocoordinates value is true.
+   */
+	const setCoordinatesFromAddress = useCallback(async () => {
+		try {
+			const addressString = getAddressStringFromAddressObject(address);
+			const results = await geocodeByAddress(addressString);
+			const latLng = await getLatLng(results[0]);
+
+			setCoordinates(latLng);
+			setlatLngFields({
+				lat: latLng.lat.toString(),
+				lng: latLng.lng.toString(),
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}, [address]);
+
+	/**
+   *	When the component is mounted and the auto coordinates flag is true
+   *  setCoordinatesFromAddress is executed.
+   */
+	useEffect(() => {
+		if (autocoordinatesChecked) {
+			setCoordinatesFromAddress();
+		}
+	}, [autocoordinatesChecked, address]);
+
+	/**
+   * Callback function that is executed by the LocationSearchInput
+	 * when the user selects one of the suggested options by the autocomplete
+	 * google component.
+   */
+	const handleCoordinates = (coordinates: MapPosition) => {
+		setCoordinates(coordinates);
+		setlatLngFields({
+			lat: coordinates.lat.toString(),
+			lng: coordinates.lng.toString(),
+		});
+	};
+
+	let submitDisabled = true;
+
+	if (latLngFields.lat.length > 0 && latLngFields.lng.length > 0) {
+		submitDisabled = false;
+	}
 
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: apiKey,
@@ -141,29 +212,25 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 	if (loadError) return <span>{'Error loading maps'}</span>;
 	if (!isLoaded) return <span>{'Loading Maps'}</span>;
 
-	let submitDisabled = true;
-
-	if (latLngFields.lat.length > 0 && latLngFields.lng.length > 0) {
-		submitDisabled = false;
-	}
-
 	return (
 		<>
-			{hasSavedCoordinates ? (
-				<>
-					<SwitchContainer>
-						<ToggleSwitch
-							label='Use same as address'
-							onChange={handleChange}
-							checked={autocoordinatesChecked}
-						/>
-					</SwitchContainer>
+			{hasSavedCoordinates || !isEmpty(address) ? (
+				<div>
+					{!isEmpty(address) && (
+						<SwitchContainer>
+							<ToggleSwitch
+								label='Use same as address'
+								onChange={handleChange}
+								checked={autocoordinatesChecked}
+							/>
+						</SwitchContainer>
+					)}
 					<CoordinatesCard>
 						<MapImageColumn>
 							<GoogleMap
 								mapContainerStyle={containerStyle}
 								center={coordinates}
-								zoom={12}
+								zoom={10}
 								options={mapOptions}
 							>
 								<Marker position={coordinates} />
@@ -175,26 +242,28 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 							<LatLngLabel>Longitude</LatLngLabel>
 							<CoordinatesValues>{latLngFields.lng}</CoordinatesValues>
 						</Column>
-						<ButtonsWrapper>
-							<Button buttonType='blueText' onClick={handleAddCoordinates}>
-                Edit
-							</Button>
-							<Button buttonType='redText' onClick={removeResetLocation}>
-                Remove
-							</Button>
+						<ButtonsWrapper hasAddress={isEmpty(address)}>
+							{!autocoordinatesChecked && (
+								<Button buttonType='blueText' onClick={handleAddCoordinates}>
+                  Edit
+								</Button>
+							)}
+							{!autocoordinatesChecked && isEmpty(address) && (
+								<Button buttonType='redText' onClick={removeResetLocation}>
+                  Remove
+								</Button>
+							)}
 						</ButtonsWrapper>
 					</CoordinatesCard>
-				</>
+				</div>
 			) : (
-				<>
-					<Button
-						disabled={disabled}
-						buttonType='secondary'
-						onClick={handleAddCoordinates}
-					>
-            ADD COORDINATES
-					</Button>
-				</>
+				<Button
+					disabled={disabled}
+					buttonType='secondary'
+					onClick={handleAddCoordinates}
+				>
+          ADD COORDINATES
+				</Button>
 			)}
 
 			<Modal
@@ -207,28 +276,29 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 				secondaryBtnLabel='Cancel'
 				submitDisabled={submitDisabled}
 			>
-				<Map mapPosition={coordinates} onClick={onMapClick} />
+				<Map
+					address={address}
+					handleCoordinates={handleCoordinates}
+					mapPosition={coordinates}
+					onClick={onMapClick}
+				/>
 				<StyledSpan>
           Click on the map to update the lattitude and longitude coordinates
 				</StyledSpan>
 				<FlexRow>
 					<TextField
-						//disabled
 						label='Latitude'
 						name='lat'
 						size={Sizes.sm}
 						onChange={handleTextFieldsChange}
-						//required
 						value={latLngFields.lat}
 						type='number'
 					/>
 					<TextField
-						//disabled
 						label='Longitude'
 						name='lng'
 						size={Sizes.sm}
 						onChange={handleTextFieldsChange}
-						//required
 						value={latLngFields.lng}
 						type='number'
 					/>

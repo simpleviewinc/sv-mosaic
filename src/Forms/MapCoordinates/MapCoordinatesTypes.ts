@@ -22,9 +22,10 @@ export type MapPosition = { lat: number; lng: number };
 
 export interface MapCoordinatesProps {
   /**
-   * 
+   * Address object used to set lat and lng values when using
+   * the autocoordinates feature.
    */
-   address?: Address
+  address?: Address;
   /**
    * Google Maps API key needed to consume the Maps JavaScript API
    * and Places API
@@ -42,9 +43,15 @@ export interface MapCoordinatesProps {
 
 export interface MapProps {
   /**
-   * 
+   * Address object used to set lat and lng values when using
+   * the autocoordinates feature.
    */
-  address?: Address
+  address?: Address;
+  /**
+   * Callback function that is executed when user selects one of the
+   * suggestions of the autocomplete google component.
+   */
+  handleCoordinates?: (coordinates: MapPosition) => void;
   /**
    * Latitude and longitude object.
    */
@@ -53,4 +60,12 @@ export interface MapProps {
    * Function triggered when user clicks on the map.
    */
   onClick: (e: google.maps.MapMouseEvent) => void;
+}
+
+export interface LocationSearchInputProps {
+  /**
+   * Callback function that is executed when user selects one of the
+   * suggestions of the autocomplete google component.
+   */
+  handleCoordinates?: (coordinates: MapPosition) => void;
 }
