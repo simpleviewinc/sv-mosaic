@@ -63,7 +63,7 @@ const libraries: Libraries = ['places'];
 /**
  *	Helper function to get a string address from an Address object
  */
-export const getAddressStringFromAddressObject = (addressObj: Address) => {
+export const getAddressStringFromAddressObject = (addressObj: Address): string => {
 	const { address, city, country, postalCode, state } = addressObj;
 
 	return `${address} ${postalCode} ${city} ${state.title} ${country.title}`;
