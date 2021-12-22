@@ -376,7 +376,6 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(modalReducer.state, null, ' ')}</pre>
 			{modalReducer?.state?.data['checkboxList']?.length > 0 && !isModalOpen ? (
 				<StyledField
 					label={label}

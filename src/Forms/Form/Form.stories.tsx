@@ -247,6 +247,72 @@ export const KitchenSink = (): ReactElement => {
 		);
 	};
 
+	let externalOptions = [
+		{
+			category: 'Category 1',
+			label: 'Option 1',
+			value: 'option_1-cat_1',
+		},
+		{
+			category: 'Category 1',
+			label: 'Option 2',
+			value: 'option_2-cat_1',
+		},
+		{
+			category: 'Category 1',
+			label: 'Option 3',
+			value: 'option_3-cat_1',
+		},
+		{
+			category: 'Category 1',
+			label: 'Option 4',
+			value: 'option_4-cat_1',
+		},
+		{
+			category: 'Category 2',
+			label: 'Option 1 category 2',
+			value: 'option_1-cat_2',
+		},
+		{
+			category: 'Category 2',
+			label: 'Test option category 2',
+			value: 'option_2-cat_2',
+		},
+		{
+			category: 'Category 2',
+			label: 'Another option of catergory 2',
+			value: 'option_3-cat_2',
+		},
+		{
+			category: 'Category 2',
+			label: 'Option 4 category 2',
+			value: 'option_4-cat_2',
+		},
+		{
+			category: 'Test Category',
+			label: 'You can filter by category',
+			value: 'option_1-test_category',
+		},
+		{
+			category: 'Test Category',
+			label: 'Very long label that does not fit',
+			value: 'option_2-test_category',
+		},
+		{
+			category: 'Category 4',
+			label: 'Option 1 category 4',
+			value: 'option_1-cat_4',
+		},
+		{
+			label: 'Option without category',
+			value: 'option_without_category',
+		},
+	];
+
+	const updateOptionsCb = (newOption) => {
+		externalOptions = [...externalOptions, newOption];
+	};
+
 	const fields = useMemo(
 		() =>
 			[
@@ -397,11 +463,17 @@ export const KitchenSink = (): ReactElement => {
 					label: 'Address field',
 					type: 'address'
 				},
-				// {
-				// 	name: 'advancedSelection',
-				// 	label: 'Advanced Selection field',
-				// 	type: 'advancedSelection'
-				// },
+				{
+					name: 'advancedSelection',
+					label: 'Advanced Selection field',
+					type: 'advancedSelection',
+					inputSettings: {
+						modalTitle: 'Advanced Selection Modal title',
+						checkboxOptions: externalOptions,
+						groupByCategory: false,
+						updateOptionsCb,
+					}
+				},
 				{
 					name: 'imageVideoDocument',
 					label: 'Image Video and Document field',
@@ -442,7 +514,7 @@ export const KitchenSink = (): ReactElement => {
 					}
 				},
 			] as unknown as FieldDefProps[],
-		[addTableRow]
+		[addTableRow, externalOptions]
 	);
 
 	useMemo(() => {
