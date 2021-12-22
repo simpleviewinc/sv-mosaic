@@ -32,6 +32,9 @@ export const TitleWrapper = styled(Column)`
 `;
 
 export const FormTitle = styled.span`
+	@import url("https://use.typekit.net/rvx4ppi.css");
+	font-family: 'Museo-Sans';
+
   color: ${theme.colors.almostBlack};
   font-size: 28px;
   margin-bottom: 8px;

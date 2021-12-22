@@ -121,7 +121,7 @@ export const FormExample = (): ReactElement => {
 			[
 				{
 					name: "a",
-					label: "a",
+					label: "Advanced selection field",
 					type: 'advancedSelection',
 					inputSettings: {
 						modalTitle,
