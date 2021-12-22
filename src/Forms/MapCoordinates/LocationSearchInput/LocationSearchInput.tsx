@@ -57,13 +57,14 @@ const LocationSearchInput = (props: LocationSearchInputProps): ReactElement => {
 					return (
 						<div>
 							<StyledInputSearch
+								inputProps={{ "data-testid": "location-search-input" }}
 								{...getInputProps({
 									placeholder: 'Type a location, address or city…',
 								})}
 								InputProps={{
 									endAdornment: (
 										<InputAdornment position='end'>
-											<StyledClearIcon onClick={clearValue} />
+											<StyledClearIcon data-testid={'location-search-clear-icon'} onClick={clearValue} />
 										</InputAdornment>
 									),
 								}}
