@@ -15,7 +15,7 @@ afterEach(cleanup);
 const { getByText, getByTestId, queryByTestId } = screen;
 
 const mockHandleSetFocus = jest.fn();
-const mockMousePosition = jest.fn();
+const mockHandleImageCoordinates = jest.fn();
 const mockHandleEdit = jest.fn();
 const mockHandleTranslate = jest.fn();
 const mockUploadImage = jest.fn();
@@ -38,7 +38,7 @@ const FormFieldImageUploadExample = () => {
 		<FormFieldImageUpload
 			disabled={false}
 			handleSetFocus={mockHandleSetFocus}
-			mousePosition={mockMousePosition}
+			handleImageCoordinates={mockHandleImageCoordinates}
 			options={options}
 			setImgHeight={setImgHeight}
 			setImgWidth={setImgWidth}
@@ -91,15 +91,15 @@ describe('FormFieldImageUpload when menu options are not received', () => {
 });
 
 describe('FormFieldImageUpload drag and drop events', () => {
+	const file = new File(['hello'], 'hello.png', {
+		type: 'image/png',
+	});
 	let fileDropzone;
 	let fileList;
 	global.URL.createObjectURL = jest.fn();
 
 	beforeEach(() => {
 		render(<FormFieldImageUploadExample />);
-		const file = new File(['hello'], 'hello.png', {
-			type: 'image/png',
-		});
 		fileList = [file];
 		fileDropzone = getByText('Drag & Drop files here or');
 	});
@@ -107,14 +107,11 @@ describe('FormFieldImageUpload drag and drop events', () => {
 	it('should test drop event', () => {
 		const fileDropEvent = createEvent.drop(fileDropzone);
 
-		Object.defineProperty(fileDropEvent, 'dataTransfer', {
+		Object.defineProperty(fileDropEvent, "dataTransfer", {
 			value: {
-				files: {
-					item: (itemIndex) => fileList[itemIndex],
-					length: fileList.length,
-				},
-			},
-		});
+				files: [file]
+			}
+		})
 
 		fireEvent(fileDropzone, fileDropEvent);
 
@@ -127,13 +124,11 @@ describe('FormFieldImageUpload drag and drop events', () => {
 		expect(setFocusButton).toBeTruthy();
 		expect(canvasElement).toBeTruthy();
 
-		// Triggering mouse position callback
-		fireEvent.click(canvasElement);
-		expect(mockMousePosition).toHaveBeenCalled();
-
-		// Triggering set focus callback
+		// Triggering handleImageCoordinates callback
+		// when the set focus component is clicked
+		
 		fireEvent.click(setFocusButton);
-		expect(mockHandleSetFocus).toHaveBeenCalled();
+		expect(mockHandleImageCoordinates).toHaveBeenCalled();
 	});
 
 	it('should display "Release and Drop" when an image file enters in the drop zone', () => {

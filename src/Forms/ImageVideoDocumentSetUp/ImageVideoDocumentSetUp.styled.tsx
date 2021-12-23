@@ -90,6 +90,7 @@ export const ButtonsWrapper = styled.div`
 
 export const AssetLabel = styled.span`
   color: ${theme.colors.gray600};
+  font-size: 14px;
   font-weight: ${theme.fontWeight.semiBold};
   margin-right: 24px;
 `;
