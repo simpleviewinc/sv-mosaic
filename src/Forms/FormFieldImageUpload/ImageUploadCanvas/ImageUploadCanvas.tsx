@@ -1,12 +1,24 @@
 import * as React from 'react';
-import { useRef, useEffect, ReactElement } from 'react';
-import { ImageUploadCanvasProps } from '../FormFieldImageUploadTypes';
+import { useRef, useEffect, ReactElement, useState } from 'react';
 
 // Styles
 import { CanvasContainer, StyledCanvas } from '../FormFieldImageUpload.styled';
 
+export interface ImageUploadCanvasProps {
+  /**
+   * Callback used for passing mouse coordinates to the parent component.
+   */
+  mousePosition?: (mouseCoordinates: {
+    x: number | null;
+    y: number | null;
+  }) => void;
+}
+
 const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 	const { mousePosition } = props;
+
+	// State variables
+	const [isFocus, setIsFocus] = useState(true);
 
 	const canvasRef = useRef(null);
 
@@ -32,7 +44,9 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 
 			animationFrameId = window.requestAnimationFrame(update)
 		}
-		update();
+		if (isFocus) {
+			update();
+		}
 
 		function setMousePosition(e: MouseEvent) {
 			mouseX = e.clientX - canvasPos.x;
@@ -42,7 +56,7 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 		function getPosition(canvas) {
 			let xPosition = 0;
 			let yPosition = 0;
-     
+
 			while (canvas) {
 				xPosition += (canvas.offsetLeft - canvas.scrollLeft + canvas.clientLeft);
 				yPosition += (canvas.offsetTop - canvas.scrollTop + canvas.clientTop);
@@ -61,7 +75,7 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 			window.cancelAnimationFrame(animationFrameId)
 		}
     
-	}, [])
+	}, [isFocus])
 
 
 	const setMouseCoordinates = (event) => {
@@ -70,6 +84,7 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 		const y = event.clientY - rect.top;  //y position within the element.
 
 		mousePosition({x, y})
+		setIsFocus(!isFocus)
 	}
 
 	return (

@@ -15,7 +15,7 @@ export const Example = (): ReactElement => {
 	const [fileLoaded, setFileLoaded] = useState({});
 	const [imageHeight, setImageHeight] = useState(null);
 	const [imageWidth, setimageWidth] = useState(null);
-	const [mouseCoordinates, setMouseCoordinates] = useState({x: null, y: null});
+	const [imageCoordinates, setImageCoordinates] = useState({x: null, y: null});
 
 	const uploadImage = (files) => {
 		setFileLoaded(files);
@@ -29,8 +29,8 @@ export const Example = (): ReactElement => {
 		setimageWidth(imgWidth);
 	};
 
-	const mousePosition = (mouseCoordinates) => {
-		setMouseCoordinates(mouseCoordinates);
+	const handleImageCoordinates = (mouseCoordinates) => {
+		setImageCoordinates(mouseCoordinates);
 	};
 
 	const handleSetFocus = () => {
@@ -74,7 +74,7 @@ export const Example = (): ReactElement => {
 				<ImageUpload
 					disabled={disabled}
 					handleSetFocus={handleSetFocus}
-					mousePosition={mousePosition}
+					handleImageCoordinates={handleImageCoordinates}
 					options={options}
 					setImgHeight={setImgHeight}
 					setImgWidth={setImgWidth}
@@ -83,7 +83,7 @@ export const Example = (): ReactElement => {
 			</Field>
 			<p>Height: {imageHeight}</p>
 			<p>Width: {imageWidth}</p>
-			<p>Mouse position: {mouseCoordinates.x} , {mouseCoordinates.y}</p>
+			<p>Mouse position: {imageCoordinates.x} , {imageCoordinates.y}</p>
 		</>
 	);
 };

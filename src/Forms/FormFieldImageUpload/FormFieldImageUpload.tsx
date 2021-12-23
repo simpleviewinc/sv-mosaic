@@ -18,7 +18,6 @@ import {
 	ImageCard,
 	ImageColumn,
 	ImagePropertiesColumn,
-	ImgContainer,
 	ImgLoaded,
 	MenuColumn,
 	Row,
@@ -29,7 +28,7 @@ import {
 } from './FormFieldImageUpload.styled';
 
 const ImageUpload = (props: ImageUploadProps): ReactElement => {
-	const { disabled, handleSetFocus ,mousePosition, uploadImage, options, setImgHeight, setImgWidth } = props;
+	const { disabled, handleImageCoordinates, handleSetFocus, uploadImage, options, setImgHeight, setImgWidth } = props;
 
 	// State variables
 	const [isOver, setIsOver] = useState(false);
@@ -37,6 +36,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	const [height, setHeight] = useState(null);
 	const [width, setWidth] = useState(null);
 	const [focusMode, setFocusMode] = useState(false);
+	const [imageCoordinates, setImageCoordinates] = useState({x: null, y: null});
 
 	const fileInputField = useRef(null);
 
@@ -66,6 +66,12 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	const handleNewFileUpload = (e) => {
 		const { files: imgFile } = e.target;
 
+		const isImageFile = imgFile[0].type.split("/")[0] === "image";
+
+		if (!isImageFile) {
+			return;
+		}
+
 		if (imgFile.length) {
 			const uploadedImage = addNewImage(imgFile);
   
@@ -83,10 +89,22 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   *  Executes the set focus callback.
+   *  Executes the set focus callback and passes
+	 *  the image coordinates to the parent component.
    */
 	const setFocus = () => {
+		handleImageCoordinates(imageCoordinates);
 		handleSetFocus();
+		setFocusMode(false);
+	};
+
+	/**
+	 * Sets the image coordinates when the user
+	 * clicks on the canvas component.
+	 * @param mouseCoordinates
+	 */
+	const mousePosition = (mouseCoordinates) => {
+		setImageCoordinates(mouseCoordinates)
 	};
 
 	/**
@@ -98,6 +116,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 		setFiles({});
 		uploadImage({});
 		setIsOver(false);
+		setFocusMode(false);
 	};
 
 	/**
@@ -137,7 +156,20 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    */
 	const fileDrop = (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 		const droppedFiles = e.dataTransfer.files;
+
+		const isImageFile = droppedFiles[0]?.type.split("/")[0] === "image";
+
+		if (droppedFiles.length > 1) {
+			setIsOver(false);
+			return;
+		}
+
+		if (!isImageFile) {
+			setIsOver(false);
+			return;
+		}
 
 		if (droppedFiles.length) {
 			setFiles(droppedFiles);
@@ -208,7 +240,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 										const file = files[fileName];
 
 										return (
-											<ImgContainer focusMode={focusMode} key={fileName}>		
+											<div key={fileName}>		
 												<ImgLoaded
 													alt={`${fileName} preview`}
 													height={172}
@@ -216,7 +248,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 													src={URL.createObjectURL(file)}
 													width={261}
 												/>
-											</ImgContainer>
+											</div>
 										);
 									})}
 									{focusMode && <ImageUploadCanvas mousePosition={mousePosition}/>}
