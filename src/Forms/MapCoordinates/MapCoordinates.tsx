@@ -287,6 +287,8 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 				</StyledSpan>
 				<FlexRow>
 					<TextField
+						htmlFor='lat'
+						id='lat'
 						label='Latitude'
 						name='lat'
 						size={Sizes.sm}
@@ -295,6 +297,8 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 						type='number'
 					/>
 					<TextField
+						htmlFor='lng'
+						id='lng'
 						label='Longitude'
 						name='lng'
 						size={Sizes.sm}
