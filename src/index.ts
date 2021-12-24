@@ -68,6 +68,9 @@ export * from "./forms/FormFieldCheckbox";
 export { default as FormFieldDropdownMultipleSelection } from "./forms/FormFieldDropdownMultipleSelection";
 export * from "./forms/FormFieldDropdownMultipleSelection";
 
+export { default as FormFieldImageUpload } from "./forms/FormFieldImageUpload";
+export * from "./forms/FormFieldImageUpload";
+
 export { default as FormFieldPhoneSelectionDropdown } from "./forms/FormFieldPhoneSelectionDropdown";
 export * from "./forms/FormFieldPhoneSelectionDropdown";
 
