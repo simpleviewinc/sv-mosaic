@@ -36,7 +36,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	const [height, setHeight] = useState(null);
 	const [width, setWidth] = useState(null);
 	const [focusMode, setFocusMode] = useState(false);
-	const [imageCoordinates, setImageCoordinates] = useState({x: null, y: null});
+	const [imageCoordinates, setImageCoordinates] = useState({ x: null, y: null });
 
 	const fileInputField = useRef(null);
 
@@ -74,7 +74,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 
 		if (imgFile.length) {
 			const uploadedImage = addNewImage(imgFile);
-  
+
 			setFiles(uploadedImage);
 			uploadImage(uploadedImage);
 		}
@@ -205,19 +205,19 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 						>
 							{isOver ? (
 								<DragAndDropSpan isOver={isOver}>
-                  Release and Drop
+									Release and Drop
 								</DragAndDropSpan>
 							) : (
 								<>
 									<DragAndDropSpan isOver={isOver}>
-                    Drag & Drop files here or
+										Drag & Drop files here or
 									</DragAndDropSpan>
 									<UploadButton
 										disabled={disabled}
 										buttonType='secondary'
 										onClick={uploadFiles}
 									>
-                    UPLOAD FILES
+										UPLOAD FILES
 									</UploadButton>
 								</>
 							)}
@@ -240,18 +240,18 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 										const file = files[fileName];
 
 										return (
-											<div key={fileName}>		
+											<div key={fileName}>
 												<ImgLoaded
 													alt={`${fileName} preview`}
-													height={172}
+													height={168}
 													onLoad={onImgLoad}
 													src={URL.createObjectURL(file)}
-													width={261}
+													width={257}
 												/>
 											</div>
 										);
 									})}
-									{focusMode && <ImageUploadCanvas mousePosition={mousePosition}/>}
+									{focusMode && <ImageUploadCanvas mousePosition={mousePosition} />}
 								</ImageColumn>
 								<ImagePropertiesColumn>
 									<Row>
@@ -269,15 +269,15 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 								<ButtonsContainer>
 									{focusMode ? (
 										<Button buttonType='blueText' onClick={setFocus}>
-                      Set Focus
+											Set Focus
 										</Button>
 									) : (
 										<Button buttonType='blueText' onClick={handleView}>
-                      View
+											View
 										</Button>
 									)}
 									<Button buttonType='redText' onClick={removeFile}>
-                    Remove
+										Remove
 									</Button>
 								</ButtonsContainer>
 							</ImageCard>
@@ -286,7 +286,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 				</div>
 			) : (
 				<DragAndDropContainer>
-					<StyledCircularProgress data-testid='circular-progress-test'/>
+					<StyledCircularProgress data-testid='circular-progress-test' />
 					<DragAndDropSpan isOver={isOver}>Loading Image</DragAndDropSpan>
 				</DragAndDropContainer>
 			)}

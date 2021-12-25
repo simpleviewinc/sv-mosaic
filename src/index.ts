@@ -113,8 +113,9 @@ export * from "./forms/Table";
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
 
-export { default as TextEditor } from "./forms/TextEditor";
-export * from "./forms/TextEditor";
+//BUG TO BE FIXED
+// export { default as TextEditor } from "./forms/TextEditor";
+// export * from "./forms/TextEditor";
 
 export { default as TimeInput } from "./forms/DateTimeField/TimeInput";
 export * from "./forms/DateTimeField/TimeInput";
