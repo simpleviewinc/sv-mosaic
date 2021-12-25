@@ -90,12 +90,14 @@ export const ButtonsWrapper = styled.div`
 
 export const AssetLabel = styled.span`
   color: ${theme.colors.gray600};
+  font-size: 14px;
   font-weight: ${theme.fontWeight.semiBold};
   margin-right: 24px;
 `;
 
 export const AssetValue = styled.span`
   color: ${theme.colors.almostBlack};
+  font-size: 14px;
 `;
 
 export const AssetLabelTooltip = styled(AssetLabel)`
