@@ -23,17 +23,19 @@ export const CoordinatesCard = styled.div`
   border-radius: 4px;
   display: flex;
   font-family: ${theme.fontFamily};
-  height: 204px;
+  ${(pr) =>
+		pr.hasAddress ? `max-height: 204px;` : `height: 174px;`}
   padding: 16px;
+  padding-bottom: ${pr => pr.hasAddress ? '35px' : '16px'}
   position: relative;
   width: 414px;
 `;
 
 export const ButtonsWrapper = styled.div`
-  bottom: 16px;
   display: flex;
   right: 16px;
   position: absolute;
+  top: 169px;
 
   button:first-child {
     border-right: ${(pr) =>
