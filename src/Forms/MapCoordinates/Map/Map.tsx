@@ -11,7 +11,7 @@ import LocationSearchInput from '../LocationSearchInput';
 import { MapContainer } from '../MapCoordinates.styled';
 
 const containerStyle = {
-	width: '684px',
+	display: 'flex',
 	height: '200px',
 };
 

@@ -3,13 +3,15 @@ import theme from '@root/theme';
 import { StyledTextField } from '@root/forms/FormFieldText/FormFieldText.styled';
 
 // Components
+import TextField from '@root/forms/FormFieldText';
 import ClearIcon from '@material-ui/icons/Clear';
 
 // Styles for the MapCoordinates component
 
-export const FlexRow = styled.div`
+export const FieldsRow = styled.div`
   align-items: center;
   display: flex;
+  margin-top: 20px;
 `;
 
 export const StyledSpan = styled.span`
@@ -72,6 +74,10 @@ export const LatitudeValue = styled(CoordinatesValues)`
   margin-bottom: 24px;
 `;
 
+export const StyledLatitudeField = styled(TextField)`
+  margin-right: 20px;
+`;
+
 export const SwitchContainer = styled.div`
   margin-bottom: 16px;
 `;
@@ -89,7 +95,11 @@ export const LocationSearchInputWrapper = styled.div`
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`
-  width: 684px;
+  min-width: 684px;
+
+  &.MuiTextField-root {
+    display: flex;
+  }
 `;
 
 export const StyledClearIcon = styled(ClearIcon)`

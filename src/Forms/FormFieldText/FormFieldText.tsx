@@ -60,7 +60,7 @@ const TextField = (
 	}
 
 	return (
-		<StyledWrapper>
+		<StyledWrapper className={className}>
 			<TextFieldWrapper error={error}>
 				<Label
 					disabled={disabled}

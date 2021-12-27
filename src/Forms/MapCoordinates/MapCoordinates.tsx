@@ -32,10 +32,11 @@ import {
 	Column,
 	CoordinatesCard,
 	CoordinatesValues,
-	FlexRow,
+	FieldsRow,
 	LatitudeValue,
 	LatLngLabel,
 	MapImageColumn,
+	StyledLatitudeField,
 	StyledSpan,
 	SwitchContainer,
 } from './MapCoordinates.styled';
@@ -254,12 +255,12 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 						</Column>
 						<ButtonsWrapper hasAddress={isEmpty(address)}>
 							{!autocoordinatesChecked && (
-								<Button buttonType='blueText' onClick={handleAddCoordinates}>
+								<Button disabled={disabled} buttonType='blueText' onClick={handleAddCoordinates}>
                   Edit
 								</Button>
 							)}
 							{!autocoordinatesChecked && isEmpty(address) && (
-								<Button buttonType='redText' onClick={removeResetLocation}>
+								<Button disabled={disabled} buttonType='redText' onClick={removeResetLocation}>
                   Remove
 								</Button>
 							)}
@@ -295,8 +296,8 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 				<StyledSpan>
           Click on the map to update the lattitude and longitude coordinates
 				</StyledSpan>
-				<FlexRow>
-					<TextField
+				<FieldsRow>
+					<StyledLatitudeField
 						htmlFor='lat'
 						id='lat'
 						label='Latitude'
@@ -319,7 +320,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 					{latLngFields.lat.length > 0 && latLngFields.lng.length > 0 && <Button buttonType='blueText' onClick={removeResetLocation}>
             Reset
 					</Button>}
-				</FlexRow>
+				</FieldsRow>
 			</Modal>
 		</>
 	);
