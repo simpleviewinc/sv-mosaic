@@ -44,7 +44,7 @@ export interface TextFieldProps {
   /**
    * Icon at the beginning of the text field.
    */
-  icon?: JSX.Element;
+  prefixElement?: JSX.Element;
   /**
    * Sizing attribute (dimensions tbd).
    */

@@ -56,6 +56,9 @@ export * from "./forms/DateTimeField/DateTimeInput";
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
 
+export { default as FormFieldAddLink } from "./forms/FormFieldAddLink";
+export * from "./forms/FormFieldAddLink";
+
 export { default as FormButton } from "./forms/Button";
 export * from "./forms/Button";
 

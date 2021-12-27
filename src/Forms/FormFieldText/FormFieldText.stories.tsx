@@ -83,7 +83,7 @@ export const withIcon = (): ReactElement => {
 			onChange={onHandleChange}
 			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			placeholder={text('Placeholder', 'placeholder')}
-			icon={<AccountCircle />}
+			prefixElement={<AccountCircle />}
 			value={inputValue}
 			multiline={boolean('Multiline', false)}
 			maxCharacters={number('Max characters', 100)}
