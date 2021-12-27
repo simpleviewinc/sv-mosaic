@@ -16,13 +16,15 @@ import { Address } from '@root/forms/Address/AddressTypes';
 
 // External libraries
 import { isEmpty } from 'lodash';
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 // Components
 import Button from '@root/forms/Button';
+import Map from '@root/forms/MapCoordinates/Map';
 import Modal from '@root/components/Modal';
 import TextField from '@root/forms/FormFieldText';
-import Map from '@root/forms/MapCoordinates/Map';
+import ToggleSwitch from '@root/components/ToggleSwitch';
 
 // Styles
 import {
@@ -38,8 +40,7 @@ import {
 	SwitchContainer,
 } from './MapCoordinates.styled';
 import { Sizes } from '@root/theme/sizes';
-import ToggleSwitch from '@root/components/ToggleSwitch';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import themes from '@root/theme';
 
 /**
  * Options to disable interactive actions. For more details take a look at the options interface:
@@ -54,8 +55,9 @@ const mapOptions = {
 };
 
 const containerStyle = {
-	width: '232px',
+	border: `2px solid ${themes.colors.gray200}`,
 	height: '153px',
+	width: '232px',
 };
 
 const libraries: Libraries = ['places'];
@@ -77,6 +79,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [latLngFields, setlatLngFields] = useState({ lat: '', lng: '' });
 	const [coordinates, setCoordinates] = useState<MapPosition>(mapPosition);
+	const [coordinatesAtOpening, setCoordinatesAtOpening] = useState(mapPosition);
 	const [hasSavedCoordinates, setHasSavedCoordinates] = useState(false);
 
 	/**
@@ -95,6 +98,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
    * Opens the modal that displays the map.
    */
 	const handleAddCoordinates = () => {
+		setCoordinatesAtOpening(coordinates);
 		setIsModalOpen(true);
 	};
 
@@ -115,6 +119,11 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
    */
 	const handleClose = () => {
 		setIsModalOpen(false);
+		setCoordinates(coordinatesAtOpening);
+		setlatLngFields({
+			lat: coordinatesAtOpening.lat.toString(),
+			lng: coordinatesAtOpening.lng.toString()
+		});
 	};
 
 	/**
@@ -220,12 +229,13 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 						<SwitchContainer>
 							<ToggleSwitch
 								label='Use same as address'
+								labelPlacement='start'
 								onChange={handleChange}
 								checked={autocoordinatesChecked}
 							/>
 						</SwitchContainer>
 					)}
-					<CoordinatesCard>
+					<CoordinatesCard hasAddress={!isEmpty(address)}>
 						<MapImageColumn>
 							<GoogleMap
 								mapContainerStyle={containerStyle}
@@ -306,9 +316,9 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 						value={latLngFields.lng}
 						type='number'
 					/>
-					<Button buttonType='blueText' onClick={removeResetLocation}>
+					{latLngFields.lat.length > 0 && latLngFields.lng.length > 0 && <Button buttonType='blueText' onClick={removeResetLocation}>
             Reset
-					</Button>
+					</Button>}
 				</FlexRow>
 			</Modal>
 		</>
