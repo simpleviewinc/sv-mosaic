@@ -36,13 +36,17 @@ const Field = ({
 
 	const labelMargin = useMemo(() => {
 		let labelMargin = '8px';
-		if (type === 'linkSetup' || type === 'advancedSelection') {
-			return labelMargin = '16px';
+		if (
+			type === 'linkSetup' ||
+      type === 'advancedSelection' ||
+      type === 'imageUpload'
+		) {
+			return (labelMargin = '16px');
 		} else if (type === 'Table') {
-			return labelMargin = '13px';
+			return (labelMargin = '13px');
 		}
 
-		return labelMargin
+		return labelMargin;
 	}, [type]);
 
 	return (
@@ -63,7 +67,9 @@ const Field = ({
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{instructionText && type !== 'Table' && <InstructionText>{instructionText}</InstructionText>}
+			{instructionText && type !== 'Table' && (
+				<InstructionText labelMargin={labelMargin}>{instructionText}</InstructionText>
+			)}
 		</StyledFieldContainer>
 	);
 };
