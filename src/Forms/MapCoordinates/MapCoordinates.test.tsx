@@ -63,6 +63,9 @@ export const setupGoogleMock = () => {
 			},
 		},
 	};
+	// Disabling linter to allow the use of any as type since this is
+	// mocking a google maps object.
+	// eslint-disable-next-line
 	global.window.google = google as any;
 };
 
@@ -142,10 +145,11 @@ describe('MapCoordinates component without an address', () => {
 	it('should reset coordinates', () => {
 		const latitudeField = getByLabelText('Latitude') as HTMLInputElement;
 		const longitudeField = getByLabelText('Longitude') as HTMLInputElement;
-		const resetButton = getByText('Reset');
-
+		
 		fireEvent.change(latitudeField, { target: { value: 100 } });
 		fireEvent.change(longitudeField, { target: { value: 150 } });
+
+		const resetButton = getByText('Reset');
 		fireEvent.click(resetButton);
 
 		expect(latitudeField.value).toBe('');
