@@ -13,15 +13,15 @@ import FormFieldAddLink from '.';
 import { Sizes } from '@root/theme/sizes';
 
 export default {
-	title : "Forms|FormFieldAddLink",
+	title: "Forms|FormFieldAddLink",
 	decorators: [withKnobs],
 } as Meta;
 
 export const example = (): ReactElement => {
-	const [linkValue, setLiinkValue] = useState('');
+	const [linkValue, setLinkValue] = useState('');
 
 	const onChange = (event) => {
-		setLiinkValue(event.target.value);
+		setLinkValue(event.target.value);
 	};
 
 	return (
