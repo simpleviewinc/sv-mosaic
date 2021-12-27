@@ -22,7 +22,7 @@ const TextField = (
 	const {
 		label = '',
 		htmlFor,
-		icon,
+		prefixElement,
 		className,
 		disabled = false,
 		error = false,
@@ -39,10 +39,10 @@ const TextField = (
 		name,
 	} = props;
 
-	const leadingIcon = icon
+	const leadingElement = prefixElement
 		? {
 			startAdornment: (
-				<InputAdornment position='start'>{icon}</InputAdornment>
+				<InputAdornment position='start'>{prefixElement}</InputAdornment>
 			),
 		}
 		: null;
@@ -84,7 +84,7 @@ const TextField = (
 					multiline={multiline}
 					size={size}
 					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
-					InputProps={leadingIcon}
+					InputProps={leadingElement}
 					required={required}
 				/>
 			</TextFieldWrapper>
