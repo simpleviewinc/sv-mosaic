@@ -36,7 +36,7 @@ const mockGeoCoder = jest.fn().mockImplementation(() => (
 /**
  * Mock Google Maps JavaScript API
  */
-export const setupGoogleMock = () => {
+export const setupGoogleMock = (): void => {
 	const google = {
 		maps: {
 			places: {
