@@ -18,10 +18,8 @@ export const TextFieldWrapper = styled.div<StyledWrapperProps>`
 export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   width: ${pr => pr.size};
 
-  input,
-  .MuiOutlinedInput-adornedStart,
-  .MuiOutlinedInput-multiline {
-    background-color: #fafafa;
+  &.MuiFormControl-root {
+    background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
 
     &:hover {
       background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
@@ -75,11 +73,6 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
     border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : 'transparent'};
   }
-
-  .MuiOutlinedInput-adornedStart {
-    background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
-	padding: ${pr => pr.disabled && 0};
-  }
 `;
 
 export const StyledHelperText = styled.span`
@@ -101,4 +94,4 @@ export const StyledInstructionalText = styled.span`
   align-items: center;
   background: ${pr => pr.error ? '#B100000D' : 'transparent'};
   padding-right: 20px;
-`
+`;
