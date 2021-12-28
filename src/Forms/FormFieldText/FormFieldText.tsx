@@ -37,6 +37,7 @@ const TextField = (
 		maxCharacters,
 		required,
 		name,
+		type
 	} = props;
 
 	const leadingElement = prefixElement
@@ -59,7 +60,7 @@ const TextField = (
 	}
 
 	return (
-		<StyledWrapper>
+		<StyledWrapper className={className}>
 			<TextFieldWrapper error={error}>
 				<Label
 					disabled={disabled}
@@ -86,6 +87,7 @@ const TextField = (
 					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
 					InputProps={leadingElement}
 					required={required}
+					type={type}
 				/>
 			</TextFieldWrapper>
 			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
