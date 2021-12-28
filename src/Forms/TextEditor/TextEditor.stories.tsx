@@ -1,11 +1,12 @@
+// BUG TO BE FIXED
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { EditorState } from "draft-js";
+import { ReactElement/*, useState*/ } from 'react';
+import { /*boolean, text,*/ withKnobs } from '@storybook/addon-knobs';
+// import { EditorState } from "draft-js";
 
 // Components
-import TextEditor from './TextEditor';
-import Field from '../../components/Field';
+// import TextEditor from './TextEditor';
+// import Field from '../../components/Field';
 
 export default {
 	title: 'Forms|TextEditor',
@@ -13,20 +14,21 @@ export default {
 };
 
 export const Example = (): ReactElement => {
-	const disabled = boolean('Disabled', false);
-	const errorText = text('Error text', '');
-	const error = boolean('Error', false);
-	const isError = error && errorText.length > 0;
+	// const disabled = boolean('Disabled', false);
+	// const errorText = text('Error text', '');
+	// const error = boolean('Error', false);
+	// const isError = error && errorText.length > 0;
 
-	const [editorState, setEditorState] = useState(EditorState.createEmpty());
+	// const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-	const onEditorStateChange = (editorState) => {
-		setEditorState(editorState);
-	};
+	// const onEditorStateChange = (editorState) => {
+	// 	setEditorState(editorState);
+	// };
 
 	return (
 		<>
-			<Field
+			<h1>TextEditor</h1>
+			{/* <Field
 				label={text('Label', 'Label')}
 				error={text('Error text', '')}
 				required={boolean('Required', false)}
@@ -47,7 +49,7 @@ export const Example = (): ReactElement => {
 				disabled
 				value={JSON.stringify(editorState.getCurrentContent(), null, 4)}
 				style={{marginTop: '10px', width: '600px', height: '450px'}}
-			/>
+			/> */}
 		</>
 	);
 };

@@ -7,7 +7,6 @@ import { InputAdornment } from '@material-ui/core';
 // Types and styles
 import { TextFieldProps } from './FormFieldTextTypes';
 import { StyledTextField } from './FormFieldText.styled';
-import Field from '@root/components/Field';
 
 const TextField = (
 	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
@@ -24,10 +23,10 @@ const TextField = (
 		value,
 	} = props;
 
-	const leadingIcon = inputSettings?.icon
+	const leadingElement = inputSettings?.prefixElement
 		? {
 			startAdornment: (
-				<InputAdornment position='start'>{inputSettings?.icon}</InputAdornment>
+				<InputAdornment position='start'>{inputSettings?.prefixElement}</InputAdornment>
 			),
 		}
 		: null;
@@ -49,8 +48,9 @@ const TextField = (
 			multiline={inputSettings?.multiline}
 			size={inputSettings?.size}
 			inputProps={{ maxLength: inputSettings?.maxCharacters > 0 ? inputSettings?.maxCharacters : null }}
-			InputProps={leadingIcon}
+			InputProps={leadingElement}
 			required={required}
+			type={inputSettings?.type}
 		/>
 	);
 };
