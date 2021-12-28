@@ -2,7 +2,7 @@ import { DialogProps } from '@root/components/Dialog';
 
 export interface ModalProps extends DialogProps {
   /**
-   * Use to disabled the primary button.
+   * Used to disable the primary button.
    */
   submitDisabled?: boolean
   /**
