@@ -46,7 +46,7 @@ export const AssetCard = styled.div`
   border-radius: 4px;
   padding: 16px;
   position: relative;
-  width: 700px;
+  width: 664px;
 `;
 
 export const TableRow = styled.tr`
