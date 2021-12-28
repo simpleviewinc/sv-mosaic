@@ -6,12 +6,13 @@ import Checkbox from '@root/components/Checkbox';
 import { useStateRef } from '@root/utils/reactTools';
 import { CheckboxListProps } from './CheckboxListTypes';
 import FormGroup from '@material-ui/core/FormGroup';
+import { Option } from '.';
 
 const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const checkedRef = useStateRef(props.checked);
 
 	const handleToggle = useCallback(
-		(value: string) => () => {
+		(value: Option) => () => {
 			// toggle the item in the array
 			const newChecked = xor(checkedRef.current, [value]);
 			props.onChange(newChecked);
@@ -20,13 +21,13 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 	);
 
 	const callbacks = useMemo(() => {
-		return props.options.map((option) => handleToggle(option.value));
+		return props.options.map((option) => handleToggle(option));
 	}, [props.options, handleToggle]);
 
 	return (
 		<FormGroup className={`${props.className} listItem`} onBlur={props.onBlur}>
 			{props.options.map((option, i) => {
-				const checked = props.checked?.indexOf(option.value) !== -1;
+				const checked = props?.checked?.length > 0 ? props.checked?.filter(o => o === option).length > 0 : false;
 
 				return (
 					<Checkbox
@@ -34,7 +35,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 						checked={checked}
 						label={option.label}
 						disabled={props.disabled}
-						key={option.value}
+						key={`${option.value}-${i}`}
 						onClick={callbacks[i]}
 					/>
 				);

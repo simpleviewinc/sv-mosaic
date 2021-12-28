@@ -13,7 +13,6 @@ import { ReactElement } from 'react';
 import { Sizes } from '@root/theme/sizes';
 import { useForm } from '../Form/formUtils';
 import Form from '../Form/Form';
-import { required as requiredValidator } from '../Form/validators';
 
 export default {
 	title: 'Forms|FormFieldText',
@@ -160,59 +159,3 @@ export const FormExample = (): ReactElement => {
 		</>
 	);
 };
-
-// export const multiline = (): ReactElement => {
-// 	const [inputValue, setInputValue] = useState('');
-// 	const onHandleChange = (val) => {
-// 		setInputValue(val);
-// 	};
-
-// 	return (
-// 		<TextField
-// 			label={text('Label', 'Multiline')}
-// 			inputSettings={{
-// 				size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
-// 				placeholder: text('Placeholder', 'placeholder'),
-// 				maxCharacters: number('Max characters', 200),
-// 				value: inputValue,
-// 				multiline: boolean('Multiline', true),
-// 			}}
-// 			placeholder={text('Placeholder', 'placeholder')}
-// 			helperText={text('Helper text', '')}
-// 			instructionText={text('Instructional text', '')}
-// 			error={text('Error text', '')}
-// 			disabled={boolean('Disabled', false)}
-// 			onChange={onHandleChange}
-// 			required={boolean('Required', false)}
-// 		/>
-// 	);
-// };
-
-// export const withIcon = (): ReactElement => {
-// 	const [inputValue, setInputValue] = useState('');
-// 	const onHandleChange = (val) => {
-// 		setInputValue(val);
-// 	};
-
-// 	return (
-// 		<TextField
-// 			label={text('Label', 'With Icon')}
-// 			inputSettings={{
-// 				htmlFor: 'text-input',
-// 				size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
-// 				placeholder: text('Placeholder', 'placeholder'),
-// 				maxCharacters: number('Max characters', 100),
-// 				value: inputValue,
-// 				icon: <AccountCircle />,
-// 				multiline: boolean('Multiline', false),
-// 			}}
-// 			helperText={text('Helper text', '')}
-// 			instructionText={text('Instructional text', '')}
-// 			error={text('Error text', '')}
-// 			disabled={boolean('Disabled', false)}
-// 			onChange={onHandleChange}
-// 			placeholder={text('Placeholder', 'placeholder')}
-// 			required={boolean('Required', false)}
-// 		/>
-// 	);
-// };

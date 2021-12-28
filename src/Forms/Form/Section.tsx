@@ -23,6 +23,8 @@ const StyledDescription = styled.p`
 	height: 46px;
 	margin: 0px;
 	padding: 50px 40px 20px 40px;
+	font-size: 16px;
+	font-family: ${theme.fontFamily};
 `
 
 const StyledRows = styled.div`
@@ -30,6 +32,12 @@ const StyledRows = styled.div`
 	row-gap: 20px;
 	margin: 0px;
 	padding: ${pr => !pr.hasTitle ? '0px' : '0px 40px 50px 40px'} ;
+`;
+
+const StyledTitle = styled.h1`
+	font-size: 20px;
+	font-family: ${theme.fontFamily};
+	font-weight: 500;
 `;
 
 const Section = (props) => {
@@ -44,7 +52,7 @@ const Section = (props) => {
 
 	return (
 		<StyledSection hasTitle={title} className='section' id={title}>
-			{title && <h1>{title}</h1>}
+			{title && <StyledTitle>{title}</StyledTitle>}
 			{description && <StyledDescription>{description}</StyledDescription>}
 			{fieldsLayoutPos &&
 				<StyledRows hasTitle={title}>

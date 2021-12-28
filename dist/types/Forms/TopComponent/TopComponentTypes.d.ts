@@ -18,12 +18,12 @@ export interface TopComponentProps extends FormNavProps {
      * Callback that will be triggered when clicking
      * on the cancel button.
      */
-    onCancel: () => void;
+    onCancel: (() => void) | ((e: any) => void);
     /**
      * Callback that will be triggered when clicking
      * on the save button.
      */
-    onSubmit: () => void;
+    onSubmit: (() => void) | ((e: any) => Promise<void>);
     /**
      * If present, the active checkbox is displayed.
      */

@@ -17,6 +17,9 @@ export * from "./types";
 export { default as Address } from "./forms/Address";
 export * from "./forms/Address";
 
+export { default as AdvancedSelection } from "./forms/AdvancedSelection";
+export * from "./forms/AdvancedSelection";
+
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
 
@@ -101,8 +104,14 @@ export * from "./components/Modal";
 export { default as FormFieldText } from "./forms/FormFieldText";
 export * from "./forms/FormFieldText";
 
+export { default as Table } from "./forms/Table";
+export * from "./forms/Table";
+
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
+
+export { default as TextEditor } from "./forms/TextEditor";
+export * from "./forms/TextEditor";
 
 export { default as TimeInput } from "./forms/DateTimeField/TimeInput";
 export * from "./forms/DateTimeField/TimeInput";

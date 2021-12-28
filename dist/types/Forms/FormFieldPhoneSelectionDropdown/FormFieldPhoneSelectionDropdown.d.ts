@@ -1,5 +1,5 @@
-import { ReactElement } from 'react';
+import * as React from 'react';
 import 'react-phone-input-2/lib/bootstrap.css';
 import { FormFieldPhoneSelectionDropdownProps } from './FormFieldPhoneSelectionDropdownTypes';
-declare const FormFieldPhoneSelectionDropdown: (props: FormFieldPhoneSelectionDropdownProps) => ReactElement;
-export default FormFieldPhoneSelectionDropdown;
+declare const _default: React.MemoExoticComponent<(props: FormFieldPhoneSelectionDropdownProps) => React.ReactElement<any, string | React.JSXElementConstructor<any>>>;
+export default _default;

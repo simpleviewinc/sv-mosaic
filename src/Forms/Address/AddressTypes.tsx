@@ -1,4 +1,4 @@
-export type Address = {
+export type IAddress = {
   address: string;
   city: string;
   country: { title: string; value: any };
@@ -12,7 +12,7 @@ export interface AddressCardProps {
    * Address object that contains all the information
    * to fill the address card.
    */
-  address: Address;
+  address: IAddress;
   /**
    * Index of the current address card.
    */
@@ -32,4 +32,6 @@ export interface AddressProps {
    * Meaningful name related to this component.
    */
   label: string;
+  value?: IAddress[];
+  onChange?: (event: unknown) => void;
 }

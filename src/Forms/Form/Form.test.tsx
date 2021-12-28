@@ -1,4 +1,4 @@
-import testArray, { Test } from "../../utils/testArray";
+import testArray from "../../utils/testArray";
 import * as assert from "assert";
 import { actions, coreReducer, generateLayout } from "./formUtils";
 import { FieldDefProps } from "../../components/Field";
@@ -340,7 +340,7 @@ describe('REDUCERS: FIELD_END_VALIDATE', () => {
 						'foo': null,
 						'field1': undefined,
 					}
-				},
+				}
 			},
 		},
 	];

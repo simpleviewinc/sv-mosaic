@@ -9,6 +9,7 @@ import TextField from '@root/forms/FormFieldText';
 import FormFieldDropdownSingleSelection from '@root/forms/FormFieldDropdownSingleSelection';
 import { Sizes } from '@root/theme/sizes';
 import { FieldDefProps } from '../Field';
+import { useForm } from '../../forms/Form/formUtils';
 
 export default {
 	title: 'Components/Modal',
@@ -16,6 +17,8 @@ export default {
 };
 
 export const Example = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
 	const dialogTitle = text('Dialog title', 'Dialog title');
 	const primaryBtnLabel = text('Primary button label', 'Apply');
 	const secondaryBtnLabel = text('Secondary button label', 'Cancel');
@@ -111,6 +114,10 @@ export const Example = (): ReactElement => {
 		[]
 	);
 
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
 	const submitButtonAttrs = {
 		children: primaryBtnLabel,
 	}
@@ -123,8 +130,8 @@ export const Example = (): ReactElement => {
 		<>
 			<Button onClick={handleClickOpen}>Open modal</Button>
 			<Modal
-				state=''
-				dispatch=''
+				state={state}
+				dispatch={dispatch}
 				fields={fields}
 				title={dialogTitle}
 				open={open}

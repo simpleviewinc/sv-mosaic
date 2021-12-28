@@ -1,27 +1,28 @@
-/// <reference types="react" />
-export interface FormFieldCheckboxProps {
-    /**
-     * Meaningful name related to its checkbox group.
-     */
+import { FieldProps } from '@root/components/Field';
+/**
+ * Interface that defines structure of the options that the
+ * checkbox list receives.
+ */
+interface Option {
     label: string;
-    /**
-     * Indicates whether the checkbox group is required or not.
-     */
-    required?: boolean;
-    /**
-     * Indicates whether the checkbox group can be selected or read-only.
-     */
-    disabled?: boolean;
-    /**
-     * If true, changes border color, adds red background and displays errorText (if any).
-     */
-    error?: boolean;
-    /**
-     * Text to provide context to the current text field.
-     */
-    instructionText?: string | JSX.Element;
-    /**
-     * 	Text to be shown if there’s an error with the checkbox group (e.g. no option was selected).
-     */
-    errorText?: string;
+    value: string;
 }
+export interface FormFieldCheckboxProps extends FieldProps {
+    inputSettings?: {
+        /**
+           * Flag that indicates if an option has been selected.
+           */
+        checked?: string[];
+        /**
+         * List of options
+         */
+        options: Option[];
+        value?: string[];
+    };
+    /**
+   * Function that listens to changes on the checked options.
+   * @param checked List of checked options
+   */
+    onChange(checked: string[]): void;
+}
+export {};

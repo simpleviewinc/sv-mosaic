@@ -1,18 +1,15 @@
 import * as React from 'react';
-import { memo, ReactElement, useState, useMemo, useCallback } from 'react';
+import { memo, ReactElement, useState, useMemo, useCallback, HTMLAttributes } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
-import FormFieldCheckbox from '@root/forms/FormFieldCheckbox';
-import FormFieldDropdownSingleSelection from '@root/forms/FormFieldDropdownSingleSelection';
 import Modal from '@root/components/Modal';
-import TextField from '@root/forms/FormFieldText';
 
 // Types
 import { AddressProps } from './AddressTypes';
 
 // Styles
-import { AddAddressWrapper, FlexContainer, FlexContainerFields, StyledLabel } from './Address.styled';
+import { AddAddressWrapper, FlexContainer, StyledLabel } from './Address.styled';
 import { Sizes } from '@root/theme/sizes';
 
 // Utils
@@ -21,25 +18,28 @@ import AddressCard from './AddressCard';
 import { actions, useForm } from '../Form/formUtils';
 import { FieldDefProps } from '@root/components/Field';
 
-const addressTypes = [
-	{
-		label: 'Physical',
-		value: 'physical',
-	},
-	{
-		label: 'Billing',
-		value: 'billing',
-	},
-	{
-		label: 'Shipping',
-		value: 'shipping',
-	},
-];
+const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
+	const {
+		label,
+		onChange
+	} = props;
 
-const Address = (props: AddressProps): ReactElement => {
-	const { label } = props;
+	const addressTypes = [
+		{
+			label: 'Physical',
+			value: 'physical',
+		},
+		{
+			label: 'Billing',
+			value: 'billing',
+		},
+		{
+			label: 'Shipping',
+			value: 'shipping',
+		},
+	];
 
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const modalReducer = useForm();
 
 	// State variables
 	const [addresses, setAddresses] = useState([]);
@@ -49,38 +49,13 @@ const Address = (props: AddressProps): ReactElement => {
 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
-	const [addressTypesChecked, setAddressTypesChecked] = useState([]);
-	const [selectedCountry, setSelectedCountry] = useState({
-		title: '',
-		value: {},
-	});
-	const [selectedState, setSelectedState] = useState({
-		title: '',
-		value: {}
-	});
-	const [textFields, setTextFields] = useState({
-		address: '',
-		city: '',
-		postalCode: '',
-	});
 
 	/**
 	 * Gets the lists of states options for the 
 	 * selected country
 	 */
-	// const listOfStates = useMemo(() => {
-	// 	if (selectedCountry?.title) {
-	// 		return countriesWithStates
-	// 			.find((country) => country.name === selectedCountry.title)
-	// 			.states.map((state) => ({
-	// 				title: state.name,
-	// 				value: state,
-	// 			}));
-	// 	}
-	// 	return [];
-	// }, [selectedCountry?.title]);
 	const listOfStates = useMemo(() => {
-		let selectedCountryTest = state?.data?.country;
+		let selectedCountryTest = modalReducer?.state?.data?.country;
 		if (selectedCountryTest) {
 			return selectedCountryTest.value.states.map(state => ({
 				title: state.name,
@@ -88,7 +63,7 @@ const Address = (props: AddressProps): ReactElement => {
 			}));
 		}
 		return [];
-	}, [state?.data?.country]);
+	}, [modalReducer?.state?.data?.country]);
 
 	const fields = useMemo(() => [
 		{
@@ -150,7 +125,6 @@ const Address = (props: AddressProps): ReactElement => {
 			size: Sizes.sm,
 			required: true,
 			inputSettings: {
-				checked: addressTypesChecked,
 				options: addressTypes,
 				size: Sizes.sm,
 			}
@@ -169,45 +143,8 @@ const Address = (props: AddressProps): ReactElement => {
 	], []);
 
 	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
-	/**
-	 * Sets the selected country of the dropdown and
-	 * resets the selected state.
-	 * @param _event 
-	 * @param option 
-	 */
-	const handleCountryChange = (_event, option) => {
-		setSelectedCountry(option);
-		setSelectedState({
-			title: '',
-			value: {}
-		})
-	};
-
-	/**
-	 * Set the selected state from its respective dropdown.
-	 * @param _event 
-	 * @param option 
-	 */
-	const handleStateChange = (_event, option) => {
-		setSelectedState(option);
-	};
-
-	/**
-	 * Sets the address types that are checked.
-	 * @param addressTypesChecked 
-	 */
-	const handleAddressTypeChange = (addressTypesChecked) => {
-		setAddressTypesChecked(addressTypesChecked);
-	};
-
-	let submitDisabled = true;
-
-	if (addressTypesChecked.length > 0) {
-		submitDisabled = false;
-	}
+		modalReducer?.registerFields(fields);
+	}, [fields, modalReducer?.registerFields]);
 
 	/**
 	 * Opens the modal to create an address card 
@@ -223,36 +160,10 @@ const Address = (props: AddressProps): ReactElement => {
 	 * form field.
 	 */
 	const handleClose = () => {
-		dispatch(
+		modalReducer?.dispatch(
 			actions.resetForm()
-		)
-		// setTextFields({
-		// 	address: '',
-		// 	city: '',
-		// 	postalCode: '',
-		// });
-		// setAddressTypesChecked([]);
-		// setSelectedCountry({
-		// 	title: '',
-		// 	value: {}
-		// });
-		// setSelectedState({
-		// 	title: '',
-		// 	value: {}
-		// });
+		);
 		setOpen(false);
-	};
-
-	/**
-	 * Handle value change for each text input
-	 * (i.e., address, city and postal code).
-	 * @param e 
-	 */
-	const handleTextFieldsChange = (e) => {
-		setTextFields({
-			...textFields,
-			[e.target.name]: e.target.value
-		});
 	};
 
 	/**
@@ -263,6 +174,7 @@ const Address = (props: AddressProps): ReactElement => {
 		const listOfAddresses = [...addresses];
 		listOfAddresses.splice(addressIndex, 1);
 		setAddresses(listOfAddresses);
+		onChange(listOfAddresses);
 	};
 
 	/**
@@ -281,55 +193,47 @@ const Address = (props: AddressProps): ReactElement => {
 			state,
 		} = addressToEdit;
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'address',
 				value: address,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'city',
 				value: city,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'postalCode',
 				value: postalCode,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'type',
 				value: types,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'country',
 				value: country,
 			})
 		);
 
-		dispatch(
+		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'states',
 				value: state,
 			})
 		);
-		// setTextFields({
-		// 	address: addressToEdit.address,
-		// 	city: addressToEdit.city,
-		// 	postalCode: addressToEdit.postalCode,
-		// });
-		// setAddressTypesChecked(addressToEdit.types);
-		// setSelectedCountry(addressToEdit.country);
-		// setSelectedState(addressToEdit.state);
 		setAddressIdx(addressIndex);
 		setIsEditting(true);
 		setOpen(true);
@@ -342,12 +246,12 @@ const Address = (props: AddressProps): ReactElement => {
 	const editAddress = () => {
 		const listOfAddresses = [...addresses];
 
-		listOfAddresses[addressIdx].address = textFields.address;
-		listOfAddresses[addressIdx].city = textFields.city;
-		listOfAddresses[addressIdx].postalCode = textFields.postalCode;
-		listOfAddresses[addressIdx].country = selectedCountry;
-		listOfAddresses[addressIdx].state = selectedState;
-		listOfAddresses[addressIdx].types = addressTypesChecked;
+		listOfAddresses[addressIdx].address = modalReducer?.state?.data?.address;
+		listOfAddresses[addressIdx].city = modalReducer?.state?.data?.city;
+		listOfAddresses[addressIdx].postalCode = modalReducer?.state?.data?.postalCode;
+		listOfAddresses[addressIdx].country = modalReducer?.state?.data?.country;
+		listOfAddresses[addressIdx].state = modalReducer?.state?.data?.states;
+		listOfAddresses[addressIdx].types = modalReducer?.state?.data?.type;
 
 		return listOfAddresses;
 	};
@@ -361,12 +265,12 @@ const Address = (props: AddressProps): ReactElement => {
 		const id = listOfAddresses.length + 1;
 		listOfAddresses.push({
 			id: id,
-			address: state?.data?.address,
-			city: state?.data?.city,
-			postalCode: state?.data?.postalCode,
-			country: state?.data?.country,
-			state: state?.data?.states,
-			types: state?.data?.type,
+			address: modalReducer?.state?.data?.address,
+			city: modalReducer?.state?.data?.city,
+			postalCode: modalReducer?.state?.data?.postalCode,
+			country: modalReducer?.state?.data?.country,
+			state: modalReducer?.state?.data?.states,
+			types: modalReducer?.state?.data?.type,
 		});
 		setIsEditting(false);
 
@@ -379,13 +283,14 @@ const Address = (props: AddressProps): ReactElement => {
 	 */
 	const handleFormSubmit = useCallback(() => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
+		onChange && onChange(listOfAddresses);
 		setAddresses(listOfAddresses);
 		handleClose();
-	}, [state.validForm]);
+	}, [modalReducer?.state.validForm]);
 
 	useMemo(() => {
-		registerOnSubmit(handleFormSubmit);
-	}, [handleFormSubmit, registerOnSubmit]);
+		modalReducer?.registerOnSubmit(handleFormSubmit);
+	}, [handleFormSubmit, modalReducer?.registerOnSubmit]);
 
 	useMemo(() => {
 		setCountries(
@@ -397,9 +302,7 @@ const Address = (props: AddressProps): ReactElement => {
 	}, []);
 
 	return (
-		<>
-		<pre>{JSON.stringify(state, null, "  ")}</pre>
-		<div>
+		<div style={{ paddingLeft: '20px' }}>
 			<StyledLabel>{label}</StyledLabel>
 			<FlexContainer>
 				<AddAddressWrapper>
@@ -408,92 +311,22 @@ const Address = (props: AddressProps): ReactElement => {
 					</Button>
 				</AddAddressWrapper>
 				{addresses.map((address, idx) => (
-					<AddressCard key={`${address.address}-${idx}`} addressIndex={idx} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler}/>
+					<AddressCard key={`${address.address}-${idx}`} addressIndex={idx} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler} />
 				))}
 			</FlexContainer>
-			{/* <Modal
-				dialogTitle='Address Information'
-				form='address_form'
-				open={open}
-				onClose={handleClose}
-				primaryBtnLabel='Save'
-				secondaryAction={handleClose}
-				secondaryBtnLabel='Cancel'
-				submitDisabled={submitDisabled}
-			>
-				<form id='address_form' onSubmit={handleFormSubmit}>
-					<FormFieldDropdownSingleSelection
-						data-testid='countries-dropdown-test'
-						options={countries}
-						label='Country'
-						size={Sizes.sm}
-						onChange={handleCountryChange}
-						required
-						value={selectedCountry}
-					/>
-					<TextField
-						htmlFor='address'
-						id='address'
-						label='Address'
-						name='address'
-						size={Sizes.lg}
-						onChange={handleTextFieldsChange}
-						required
-						value={textFields.address}
-					/>
-					<FlexContainerFields>
-						<TextField
-							htmlFor='city'
-							id='city'
-							label='City'
-							name='city'
-							size={Sizes.sm}
-							onChange={handleTextFieldsChange}
-							required
-							value={textFields.city}
-						/>
-						<FormFieldDropdownSingleSelection
-							data-testid='states-dropdown-test'
-							options={listOfStates}
-							label='States'
-							onChange={handleStateChange}
-							size={Sizes.sm}
-							value={selectedState}
-						/>
-						<TextField
-							htmlFor='postalCode'
-							id='postalCode'
-							label='Postal Code'
-							name='postalCode'
-							size={Sizes.sm}
-							onChange={handleTextFieldsChange}
-							required
-							value={textFields.postalCode}
-						/>
-					</FlexContainerFields>
-					<FormFieldCheckbox
-						label='Type'
-						checked={addressTypesChecked}
-						options={addressTypes}
-						onChange={handleAddressTypeChange}
-						required
-					/>
-				</form>
-			</Modal> */}
 			<Modal
 				title='Address Information'
-				state={state}
-				dispatch={dispatch}
+				state={modalReducer?.state}
+				dispatch={modalReducer?.dispatch}
 				fields={fields}
 				sections={sections}
 				open={open}
 				onCancel={handleClose}
-				cancelButtonAttrs={{children: 'Cancel'}}
+				cancelButtonAttrs={{ children: 'Cancel' }}
 				onSubmit={handleFormSubmit}
-				submitButtonAttrs={{children: 'Save'}}
+				submitButtonAttrs={{ children: 'Save' }}
 			/>
 		</div>
-		</>
 	);
 };
 

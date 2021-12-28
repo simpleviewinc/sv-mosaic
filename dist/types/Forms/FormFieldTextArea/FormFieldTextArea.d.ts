@@ -1,4 +1,4 @@
-import { ReactElement, HTMLAttributes } from 'react';
+import * as React from 'react';
 import { TextAreaProps } from './FormFieldTextAreaTypes';
-declare const TextArea: (props: TextAreaProps & HTMLAttributes<HTMLInputElement>) => ReactElement;
-export default TextArea;
+declare const _default: React.MemoExoticComponent<(props: TextAreaProps & React.HTMLAttributes<HTMLInputElement>) => React.ReactElement<any, string | React.JSXElementConstructor<any>>>;
+export default _default;
