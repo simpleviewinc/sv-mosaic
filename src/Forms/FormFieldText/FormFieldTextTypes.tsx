@@ -8,8 +8,8 @@ import { ChangeEventHandler } from "react";
 export interface TextFieldProps extends FieldProps {
 	inputSettings?: {
 		/**
-   		 * Example text within the input to be replaced by the user.
-   		 */
+				 * Example text within the input to be replaced by the user.
+				 */
 		placeholder?: string;
 		/**
 		 * Specifies which form element a label is bound to.
@@ -22,7 +22,7 @@ export interface TextFieldProps extends FieldProps {
 		/**
 		 * Icon at the beginning of the text field.
 		 */
-		icon?: JSX.Element;
+		prefixElement?: JSX.Element;
 		/**
 		 * Sizing attribute (dimensions tbd).
 		 */
@@ -35,6 +35,12 @@ export interface TextFieldProps extends FieldProps {
 		 * When true the text field will expand its height.
 		 */
 		multiline?: boolean;
+		/**
+		 * Type of the input element. It should be a valid HTML5 
+		 * (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types)
+		 * input type.
+		 */
+		type?: string;
 	}
 	/**
 	 * Function that listens to changes on the text field and updates its value.

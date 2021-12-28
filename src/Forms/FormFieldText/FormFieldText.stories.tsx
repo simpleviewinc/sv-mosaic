@@ -113,7 +113,7 @@ export const FormExample = (): ReactElement => {
 					maxCharacters,
 					size,
 					inputSettings: {
-						icon: <AccountCircle />,
+						prefixElement: <AccountCircle />,
 						disabled,
 						maxCharacters,
 						size,

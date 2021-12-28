@@ -71,20 +71,24 @@ const Field = ({
 
 	const labelMargin = useMemo(() => {
 		let labelMargin = '8px';
-		if (type === 'linkSetup' || type === 'advancedSelection') {
-			return labelMargin = '16px';
+		if (
+			type === 'linkSetup' ||
+			type === 'advancedSelection' ||
+			type === 'imageUpload'
+		) {
+			return (labelMargin = '16px');
 		} else if (type === 'table') {
-			return labelMargin = '13px';
+			return (labelMargin = '13px');
 		}
 
-		return labelMargin
+		return labelMargin;
 	}, [type]);
 
 	return (
 		<StyledFieldContainer className={className}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && required)}
-				size={(type === 'chip' || type === 'linkSetup') ? Sizes.md : type === 'color' ? '102px' : type === 'table' ? 'fit-content' : size }
+				size={(type === 'chip' || type === 'linkSetup') ? Sizes.md : type === 'color' ? '102px' : type === 'table' ? 'fit-content' : size}
 				type={type}
 			>
 				<Label
@@ -102,7 +106,15 @@ const Field = ({
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{instructionText && type !== 'table' && <InstructionText ref={description} tooltip={renderAsTooltip}>{instructionText}</InstructionText>}
+			{instructionText && type !== 'table' &&
+				<InstructionText
+					ref={description}
+					tooltip={renderAsTooltip}
+					labelMargin={labelMargin}
+				>
+					{instructionText}
+				</InstructionText>
+			}
 		</StyledFieldContainer>
 	);
 };

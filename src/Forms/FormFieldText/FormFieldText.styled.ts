@@ -17,6 +17,13 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   .MuiOutlinedInput-adornedStart,
   .MuiOutlinedInput-multiline {
     background-color: ${pr => pr.disabled ? 'transparent' : '#FAFAFA'}
+	
+  &.MuiFormControl-root {
+    background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
+
+    &:hover {
+      background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
+    }
   }
 
   .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {

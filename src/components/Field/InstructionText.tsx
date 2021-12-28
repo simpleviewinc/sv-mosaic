@@ -6,14 +6,16 @@ import {
 } from './InstructionText.styled';
 
 interface InstructionText {
-  children: ReactNode;
-  tooltip?: boolean;
+	children: ReactNode;
+	tooltip?: boolean;
+	labelMargin?: string;
 }
 
 const InstructionText = forwardRef((props: InstructionText, ref): ReactElement => {
-	const { children, tooltip } = props;
+	const { children, tooltip, labelMargin } = props;
 	return (
 		<InstructionTextWrapper
+			labelMargin={labelMargin}
 			className={`instruction-text-${!tooltip ? 'right' : 'tooltip'}`}
 			ref={ref}
 		>

@@ -21,7 +21,7 @@ import TimeInput from '../DateTimeField/TimeInput';
 import DateTimeInput from '../DateTimeField/DateTimeInput';
 import Address from '../Address';
 import Table from '../Table';
-import TextEditor from '../TextEditor';
+// import TextEditor from '../TextEditor';
 import AdvancedSelection from '../AdvancedSelection';
 
 const StyledCol = styled.div`
@@ -56,7 +56,7 @@ const Col = (props) => {
 		dateTime: DateTimeInput,
 		address: Address,
 		table: Table,
-		textEditor: TextEditor,
+		// textEditor: TextEditor,
 		advancedSelection: AdvancedSelection,
 	}), []);
 

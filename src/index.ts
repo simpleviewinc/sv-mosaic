@@ -56,6 +56,9 @@ export * from "./forms/DateTimeField/DateTimeInput";
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
 
+export { default as FormFieldAddLink } from "./forms/FormFieldAddLink";
+export * from "./forms/FormFieldAddLink";
+
 export { default as FormButton } from "./forms/Button";
 export * from "./forms/Button";
 
@@ -67,6 +70,9 @@ export * from "./forms/FormFieldCheckbox";
 
 export { default as FormFieldDropdownMultipleSelection } from "./forms/FormFieldDropdownMultipleSelection";
 export * from "./forms/FormFieldDropdownMultipleSelection";
+
+export { default as FormFieldImageUpload } from "./forms/FormFieldImageUpload";
+export * from "./forms/FormFieldImageUpload";
 
 export { default as FormFieldPhoneSelectionDropdown } from "./forms/FormFieldPhoneSelectionDropdown";
 export * from "./forms/FormFieldPhoneSelectionDropdown";
@@ -110,8 +116,9 @@ export * from "./forms/Table";
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
 
-export { default as TextEditor } from "./forms/TextEditor";
-export * from "./forms/TextEditor";
+//BUG TO BE FIXED
+// export { default as TextEditor } from "./forms/TextEditor";
+// export * from "./forms/TextEditor";
 
 export { default as TimeInput } from "./forms/DateTimeField/TimeInput";
 export * from "./forms/DateTimeField/TimeInput";
