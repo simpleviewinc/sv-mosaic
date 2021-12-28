@@ -13,5 +13,6 @@ export declare const SizeLabel: any;
 export declare const SizeValue: any;
 export declare const UploadButton: any;
 export declare const StyledCircularProgress: any;
+export declare const SetFocusSpan: any;
 export declare const StyledCanvas: any;
 export declare const CanvasContainer: any;
