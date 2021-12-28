@@ -68,6 +68,12 @@ export interface TextFieldProps {
      * When true the text field will expand its height.
      */
     multiline?: boolean;
+    /**
+     * Type of the input element. It should be a valid HTML5
+     * (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types)
+     * input type.
+     */
+    type?: string;
 }
 export interface StyledWrapperProps {
     width: string;
