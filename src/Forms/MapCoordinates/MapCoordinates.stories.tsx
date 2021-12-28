@@ -4,7 +4,7 @@ import { boolean, withKnobs, object } from '@storybook/addon-knobs';
 
 // Components
 import MapCoordinates from './MapCoordinates';
-import { Address } from '@root/forms/Address/AddressTypes';
+import { IAddress } from '@root/forms/Address/AddressTypes';
 
 export default {
 	title: 'Forms|MapCoordinates',
@@ -16,7 +16,7 @@ const mapPosition = {
 	lng: -40.523,
 };
 
-const address: Address = {
+const address: IAddress = {
 	address: '8950 N Oracle Rd',
 	city: 'Oro Valley',
 	country: {
@@ -49,9 +49,9 @@ export const Example = (): ReactElement => {
 
 	return (
 		<>
-			<div style={{marginBottom: '20px'}}>
+			<div style={{ marginBottom: '20px' }}>
 				<p>You must enter the Google Maps API key to see the component</p>
-				<input onChange={inputChange} style={{width: '300px'}} value={value} type="text" placeholder='Google Maps API Key'/>
+				<input onChange={inputChange} style={{ width: '300px' }} value={value} type="text" placeholder='Google Maps API Key' />
 				<button onClick={onClick}>SET KEY</button>
 			</div>
 			{isKey && value.length > 0 && <MapCoordinates

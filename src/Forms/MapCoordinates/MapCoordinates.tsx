@@ -277,7 +277,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 				</Button>
 			)}
 
-			<Modal
+			{/* <Modal
 				dialogTitle='Map Coordinates'
 				open={isModalOpen}
 				onClose={handleClose}
@@ -321,7 +321,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 						Reset
 					</Button>}
 				</FieldsRow>
-			</Modal>
+			</Modal> */}
 		</>
 	);
 };
