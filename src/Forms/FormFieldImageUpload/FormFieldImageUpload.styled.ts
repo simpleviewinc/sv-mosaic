@@ -87,6 +87,14 @@ export const StyledCircularProgress = styled(CircularProgress)`
   margin-bottom: 24px;
 `;
 
+export const SetFocusSpan = styled.span`
+  align-self: center;
+  color: ${theme.colors.almostBlack};
+  font-family: ${theme.fontFamily};
+  font-size: 14px;
+  margin-left: 18px;
+`;
+
 
 // ImageUploadCanvas component styles
 
