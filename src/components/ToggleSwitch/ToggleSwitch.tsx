@@ -12,6 +12,7 @@ const ToggleSwitch = (
 	const {
 		checked,
 		label,
+		labelPlacement = 'end',
 		required = false,
 		disabled = false,
 		onChange,
@@ -20,7 +21,7 @@ const ToggleSwitch = (
 	return (
 		<StyledFormControlLabel
 			label={label}
-			labelPlacement='end'
+			labelPlacement={labelPlacement}
 			disabled={disabled}
 			control={
 				<StyledSwitch
