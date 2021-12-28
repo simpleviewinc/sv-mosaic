@@ -55,6 +55,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 			{!disabled ?
 				<SingleDropdownWrapper innerWidth={inputSettings?.size}>
 					<StyledAutocomplete
+						value={value}
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
@@ -62,7 +63,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 						size={inputSettings?.size}
 						getOptionLabel={(option) => option.title}
 						onChange={(_event, option) => onChange(option)}
-						error={!!(required && errorWithMessage)}
+						error={(required && errorWithMessage) ? errorWithMessage : undefined}
 						renderInput={renderInput}
 						disablePortal={true}
 						popupIcon={<ExpandMoreIcon />}

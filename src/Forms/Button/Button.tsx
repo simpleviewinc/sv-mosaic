@@ -16,7 +16,7 @@ const Button = (props: FormButtonProps): ReactElement => {
 		onClick,
 		smallerButton,
 		// form,
-		// type
+		type = 'button'
 	} = props;
 
 	const buttonContent = !icon ? (
@@ -42,7 +42,7 @@ const Button = (props: FormButtonProps): ReactElement => {
 			iconPosition={iconPosition}
 			smallerButton={smallerButton}
 			onClick={onClick}
-			// type={type}
+			type={type}
 		>
 			{buttonContent}
 		</StyledButton>

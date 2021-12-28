@@ -20,7 +20,6 @@ export function coreReducer(state, action) {
 				...state,
 				errors: {
 					...state.errors,
-					// [action.name]: undefined
 					[action.name]: null
 				},
 				validating: {

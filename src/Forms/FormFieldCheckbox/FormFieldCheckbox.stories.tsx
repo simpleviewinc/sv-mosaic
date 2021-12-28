@@ -22,7 +22,6 @@ export const Default = (): ReactElement => {
 	const [checked, setChecked] = useState([]);
 
 	const onChange = useCallback(value => {
-		console.log(value);
 		setChecked(value);
 	}, [setChecked]);
 
@@ -43,7 +42,7 @@ export const Default = (): ReactElement => {
 
 	return (
 		<>
-			<span>Checked: {checked.join(", ")}</span>
+			<span>Checked: {JSON.stringify(checked)}</span>
 			<Field
 				label={text('Label', 'Label')}
 				required={boolean('Required', false)}

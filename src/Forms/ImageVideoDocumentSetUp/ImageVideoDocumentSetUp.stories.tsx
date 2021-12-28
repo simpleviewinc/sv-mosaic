@@ -288,9 +288,9 @@ export const FormExample = (): ReactElement => {
 					inputSettings: {
 						disabled,
 						options,
-						handleSetImage: () => handleSetImage(),
-						handleSetDocument: withDocumentHandler ? () => handleDocument() : undefined,
-						handleSetVideo: withVideoHandler ? () => handleVideo() : undefined,
+						handleSetImage,
+						handleSetDocument: withDocumentHandler ? handleDocument : undefined,
+						handleSetVideo: withVideoHandler ? handleVideo : undefined,
 						handleRemove,
 						src: 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 					},

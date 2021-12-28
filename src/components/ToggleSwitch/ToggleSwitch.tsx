@@ -26,7 +26,7 @@ const ToggleSwitch = (
 			control={
 				<StyledSwitch
 					onBlur={onBlur}
-					checked={checked}
+					checked={!!checked}
 					onChange={(e) => onChange(e.target.checked)}
 					required={required}
 				/>

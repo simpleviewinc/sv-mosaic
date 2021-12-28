@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useMemo, memo } from 'react';
-import { SectionDef } from './FormTypes';
 import { generateLayout } from './formUtils';
 import Section from './Section';
 

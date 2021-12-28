@@ -9,8 +9,10 @@ import { validateEmail, validateSlow, required } from "./validators";
 import Form from './Form';
 import { FieldDefProps } from '@root/components/Field';
 import Modal from '@root/components/Modal';
-import { TextFieldProps } from '@root/forms/FormFieldText';
-import { FormFieldCheckboxProps } from '@root/forms/FormFieldCheckbox';
+
+// Icons
+import MenuIcon from '@material-ui/icons/Menu';
+import TranslateIcon from '@material-ui/icons/Translate';
 
 export default {
 	title: 'Forms|Form',
@@ -19,6 +21,297 @@ export default {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields } = useForm();
+
+	const possibleTableRows = [
+		{
+			id: '1',
+			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
+		},
+		{
+			id: '2',
+			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
+		},
+		{
+			id: '3',
+			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
+		},
+		{
+			id: '4',
+			items: ['George', 'george@email.com', '01/01/2021', '3231-962-7516'],
+		},
+		{
+			id: '5',
+			items: ['Doe', 'doe@email.com', '12/24/2020', '011-962-111'],
+		},
+		{
+			id: '6',
+			items: ['Test', 'test@email.com', '12/01/2020', '788-962-7516'],
+		},
+		{
+			id: '7',
+			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
+		},
+		{
+			id: '8',
+			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
+		},
+		{
+			id: '9',
+			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
+		},
+	];
+
+	const addTableRow = useCallback(() => {
+		const tableDataLength = state.data['table'] ? state.data['table'].length : 0;
+		if (tableDataLength === 0) {
+			dispatch(
+				actions.setFieldValue({
+					name: 'table',
+					value: [possibleTableRows[0]]
+				})
+			);
+		} else if (tableDataLength >= possibleTableRows.length) {
+			alert('There are no more elements to add');
+		} else {
+			dispatch(
+				actions.setFieldValue({
+					name: 'table',
+					value: [...state.data['table'], possibleTableRows[tableDataLength]]
+				})
+			);
+		}
+
+	}, [state.data['table']]);
+
+	const editTableRow = () => {
+		alert('Edit button clicked');
+	};
+
+	const deleteTableRow = () => {
+		alert('Delete button clicked');
+	};
+
+	const tableHeaders = [];
+
+	const extraActionsTable = [
+		{
+			label: 'Menu action',
+			actionFnc: () => alert('Menu action clicked'),
+			icon: MenuIcon
+		},
+		{
+			label: 'Translate',
+			actionFnc: () => alert('Translate action clicked'),
+			icon: TranslateIcon
+		},
+	];
+
+	const imageVideoOptions = useMemo(() => [
+		{
+			label: 'Edit',
+			action: () => alert('Edit button clicked'),
+		},
+		{
+			label: 'Translate',
+			action: () => alert('Translate button clicked'),
+		},
+	], []);
+
+	const handleSetImage = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: [
+					{
+						label: 'Title',
+						value:
+							'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail',
+					},
+					{
+						label: 'Type',
+						value: 'Image Video Thumbnail',
+					},
+					{
+						label: 'Alt',
+						value: '-',
+					},
+					{
+						label: 'Size',
+						value: '1280x720',
+					},
+					{
+						label: 'Focus',
+						value: 'No',
+					},
+					{
+						label: 'Locales',
+						value: '-',
+					},
+				]
+			})
+		);
+		alert('Set image is called');
+	};
+
+	const handleSetVideo = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: [
+					{
+						label: 'Title',
+						value: 'Video Example - This is a video example',
+					},
+					{
+						label: 'Type',
+						value: 'Video',
+					},
+					{
+						label: 'Alt',
+						value: '-',
+					},
+					{
+						label: 'Size',
+						value: '1280x720',
+					},
+					{
+						label: 'Locales',
+						value: 'es, en & in',
+					},
+				]
+			})
+		);
+		alert('Set video is called');
+	};
+
+	const handleSetDocument = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: [
+					{
+						label: 'Title',
+						value: 'Document example',
+					},
+					{
+						label: 'Type',
+						value: 'Document',
+					},
+					{
+						label: 'Size',
+						value: '333 bytes'
+					},
+					{
+						label: 'Size on disk',
+						value: '0 bytes',
+					},
+				]
+			})
+		);
+		alert('Set document is called');
+	};
+
+	const handleRemoveImageVideoDocument = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: undefined
+			})
+		);
+	};
+
+	const imageVideoSrc = 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg';
+
+	const handleSetLink = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'linkSetup',
+				value: {
+					title:
+						'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico',
+					type:
+						'Asset Library - Image',
+					url:
+						'https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg',
+				}
+			})
+		);
+	};
+
+	const handleRemoveLinkSetup = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'linkSetup',
+				value: undefined
+			})
+		);
+	};
+
+	let externalOptions = [
+		{
+			category: 'Category 1',
+			label: 'Option 1',
+			value: 'option_1-cat_1',
+		},
+		{
+			category: 'Category 1',
+			label: 'Option 2',
+			value: 'option_2-cat_1',
+		},
+		{
+			category: 'Category 1',
+			label: 'Option 3',
+			value: 'option_3-cat_1',
+		},
+		{
+			category: 'Category 1',
+			label: 'Option 4',
+			value: 'option_4-cat_1',
+		},
+		{
+			category: 'Category 2',
+			label: 'Option 1 category 2',
+			value: 'option_1-cat_2',
+		},
+		{
+			category: 'Category 2',
+			label: 'Test option category 2',
+			value: 'option_2-cat_2',
+		},
+		{
+			category: 'Category 2',
+			label: 'Another option of catergory 2',
+			value: 'option_3-cat_2',
+		},
+		{
+			category: 'Category 2',
+			label: 'Option 4 category 2',
+			value: 'option_4-cat_2',
+		},
+		{
+			category: 'Test Category',
+			label: 'You can filter by category',
+			value: 'option_1-test_category',
+		},
+		{
+			category: 'Test Category',
+			label: 'Very long label that does not fit',
+			value: 'option_2-test_category',
+		},
+		{
+			category: 'Category 4',
+			label: 'Option 1 category 4',
+			value: 'option_1-cat_4',
+		},
+		{
+			label: 'Option without category',
+			value: 'option_without_category',
+		},
+	];
+
+	const updateOptionsCb = (newOption) => {
+		externalOptions = [...externalOptions, newOption];
+	};
 
 	const fields = useMemo(
 		() =>
@@ -139,9 +432,89 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						toggleLabel: 'To the side'
 					}
-				}
+				},
+				{
+					name: "color",
+					label: "Regular example",
+					type: "color",
+				},
+				{
+					name: "date",
+					label: "Single Date Picker",
+					type: "date",
+				},
+				{
+					name: "dateRange",
+					label: "Date Range",
+					type: "dateRange",
+				},
+				{
+					name: "time",
+					label: "Single Time Picker",
+					type: "time",
+				},
+				{
+					name: "dateTime",
+					label: "Date and Time Picker",
+					type: "dateTime",
+				},
+				{
+					name: 'address',
+					label: 'Address field',
+					type: 'address'
+				},
+				{
+					name: 'advancedSelection',
+					label: 'Advanced Selection field',
+					type: 'advancedSelection',
+					inputSettings: {
+						modalTitle: 'Advanced Selection Modal title',
+						checkboxOptions: externalOptions,
+						groupByCategory: false,
+						updateOptionsCb,
+					}
+				},
+				{
+					name: 'imageVideoDocument',
+					label: 'Image Video and Document field',
+					type: 'imageVideoDocument',
+					inputSettings: {
+						options: imageVideoOptions,
+						handleSetImage,
+						handleSetDocument,
+						handleSetVideo,
+						handleRemove: handleRemoveImageVideoDocument,
+						src: imageVideoSrc,
+					}
+				},
+				{
+					name: 'linkSetup',
+					label: 'Link Setup field',
+					type: 'linkSetup',
+					inputSettings: {
+						handleSetLink,
+						handleRemove: handleRemoveLinkSetup
+					}
+				},
+				{
+					name: 'textEditor',
+					label: 'Text Editor field',
+					type: 'textEditor'
+				},
+				{
+					name: 'table',
+					label: 'Table example',
+					type: 'table',
+					inputSettings: {
+						handleAddElement: addTableRow,
+						handleEdit: editTableRow,
+						handleDelete: deleteTableRow,
+						extraActions: extraActionsTable,
+						headers: tableHeaders,
+					}
+				},
 			] as unknown as FieldDefProps[],
-		[]
+		[addTableRow, externalOptions]
 	);
 
 	useMemo(() => {
@@ -532,6 +905,231 @@ export const SubmitExternalButtons = (): ReactElement => {
 export const SubmitInternalButtons = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
+	const possibleTableRows = [
+		{
+			id: '1',
+			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
+		},
+		{
+			id: '2',
+			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
+		},
+		{
+			id: '3',
+			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
+		},
+		{
+			id: '4',
+			items: ['George', 'george@email.com', '01/01/2021', '3231-962-7516'],
+		},
+		{
+			id: '5',
+			items: ['Doe', 'doe@email.com', '12/24/2020', '011-962-111'],
+		},
+		{
+			id: '6',
+			items: ['Test', 'test@email.com', '12/01/2020', '788-962-7516'],
+		},
+		{
+			id: '7',
+			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
+		},
+		{
+			id: '8',
+			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
+		},
+		{
+			id: '9',
+			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
+		},
+	];
+
+	const addTableRow = useCallback(() => {
+		const tableDataLength = state.data['table'] ? state.data['table'].length : 0;
+		if (tableDataLength === 0) {
+			dispatch(
+				actions.setFieldValue({
+					name: 'table',
+					value: [possibleTableRows[0]]
+				})
+			);
+		} else if (tableDataLength >= possibleTableRows.length) {
+			alert('There are no more elements to add');
+		} else {
+			dispatch(
+				actions.setFieldValue({
+					name: 'table',
+					value: [...state.data['table'], possibleTableRows[tableDataLength]]
+				})
+			);
+		}
+
+	}, [state.data['table']]);
+
+	const editTableRow = () => {
+		alert('Edit button clicked');
+	};
+
+	const deleteTableRow = () => {
+		alert('Delete button clicked');
+	};
+
+	const tableHeaders = [];
+
+	const extraActionsTable = [
+		{
+			label: 'Menu action',
+			actionFnc: () => alert('Menu action clicked'),
+			icon: MenuIcon
+		},
+		{
+			label: 'Translate',
+			actionFnc: () => alert('Translate action clicked'),
+			icon: TranslateIcon
+		},
+	];
+
+	const imageVideoOptions = useMemo(() => [
+		{
+			label: 'Edit',
+			action: () => alert('Edit button clicked'),
+		},
+		{
+			label: 'Translate',
+			action: () => alert('Translate button clicked'),
+		},
+	], []);
+
+	const handleSetImage = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: [
+					{
+						label: 'Title',
+						value:
+							'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail',
+					},
+					{
+						label: 'Type',
+						value: 'Image Video Thumbnail',
+					},
+					{
+						label: 'Alt',
+						value: '-',
+					},
+					{
+						label: 'Size',
+						value: '1280x720',
+					},
+					{
+						label: 'Focus',
+						value: 'No',
+					},
+					{
+						label: 'Locales',
+						value: '-',
+					},
+				]
+			})
+		);
+		alert('Set image is called');
+	};
+
+	const handleSetVideo = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: [
+					{
+						label: 'Title',
+						value: 'Video Example - This is a video example',
+					},
+					{
+						label: 'Type',
+						value: 'Video',
+					},
+					{
+						label: 'Alt',
+						value: '-',
+					},
+					{
+						label: 'Size',
+						value: '1280x720',
+					},
+					{
+						label: 'Locales',
+						value: 'es, en & in',
+					},
+				]
+			})
+		);
+		alert('Set video is called');
+	};
+
+	const handleSetDocument = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: [
+					{
+						label: 'Title',
+						value: 'Document example',
+					},
+					{
+						label: 'Type',
+						value: 'Document',
+					},
+					{
+						label: 'Size',
+						value: '333 bytes'
+					},
+					{
+						label: 'Size on disk',
+						value: '0 bytes',
+					},
+				]
+			})
+		);
+		alert('Set document is called');
+	};
+
+	const handleRemoveImageVideoDocument = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'imageVideoDocument',
+				value: undefined
+			})
+		);
+	};
+
+	const imageVideoSrc = 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg';
+
+	const handleSetLink = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'linkSetup',
+				value: {
+					title:
+						'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico',
+					type:
+						'Asset Library - Image',
+					url:
+						'https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg',
+				}
+			})
+		);
+	};
+
+	const handleRemoveLinkSetup = () => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'linkSetup',
+				value: undefined
+			})
+		);
+	};
+
 	const fields = useMemo(
 		() =>
 			[
@@ -660,7 +1258,90 @@ export const SubmitInternalButtons = (): ReactElement => {
 						toggleLabel: 'To the side'
 					},
 					validators: [required],
-				}
+				},
+				{
+					name: "color",
+					label: "Regular example",
+					type: "color",
+					validators: [required],
+				},
+				{
+					name: "date",
+					label: "Single Date Picker",
+					type: "date",
+					validators: [required],
+				},
+				{
+					name: "dateRange",
+					label: "Date Range",
+					type: "dateRange",
+					validators: [required],
+				},
+				{
+					name: "time",
+					label: "Single Time Picker",
+					type: "time",
+					validators: [required],
+				},
+				{
+					name: "dateTime",
+					label: "Date and Time Picker",
+					type: "dateTime",
+					validators: [required],
+				},
+				// {
+				// 	name: 'address',
+				// 	label: 'Address field',
+				// 	type: 'address'
+				// },
+				// {
+				// 	name: 'advancedSelection',
+				// 	label: 'Advanced Selection field',
+				// 	type: 'advancedSelection'
+				// },
+				{
+					name: 'imageVideoDocument',
+					label: 'Image Video and Document field',
+					type: 'imageVideoDocument',
+					inputSettings: {
+						options: imageVideoOptions,
+						handleSetImage,
+						handleSetDocument,
+						handleSetVideo,
+						handleRemove: handleRemoveImageVideoDocument,
+						src: imageVideoSrc,
+					},
+					validators: [required],
+				},
+				{
+					name: 'linkSetup',
+					label: 'Link Setup field',
+					type: 'linkSetup',
+					inputSettings: {
+						handleSetLink,
+						handleRemove: handleRemoveLinkSetup
+					},
+					validators: [required],
+				},
+				{
+					name: 'textEditor',
+					label: 'Text Editor field',
+					type: 'textEditor',
+					validators: [required],
+				},
+				{
+					name: 'table',
+					label: 'Table example',
+					type: 'table',
+					inputSettings: {
+						handleAddElement: addTableRow,
+						handleEdit: editTableRow,
+						handleDelete: deleteTableRow,
+						extraActions: extraActionsTable,
+						headers: tableHeaders,
+					},
+					validators: [required],
+				},
 			] as unknown as FieldDefProps[],
 		[]
 	);
