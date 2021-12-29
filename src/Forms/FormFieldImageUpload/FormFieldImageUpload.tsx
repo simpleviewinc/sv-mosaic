@@ -21,6 +21,7 @@ import {
 	ImgLoaded,
 	MenuColumn,
 	Row,
+	SetFocusSpan,
 	SizeLabel,
 	SizeValue,
 	StyledCircularProgress,
@@ -115,6 +116,12 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	const removeFile = () => {
 		setFiles({});
 		uploadImage({});
+		setImgWidth(null);
+		setImgHeight(null);
+		handleImageCoordinates({
+			x: null,
+			y: null
+		})
 		setIsOver(false);
 		setFocusMode(false);
 	};
@@ -253,15 +260,15 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 									})}
 									{focusMode && <ImageUploadCanvas mousePosition={mousePosition} />}
 								</ImageColumn>
-								<ImagePropertiesColumn>
+								{focusMode ? <SetFocusSpan>Click on the image to set the focus point</SetFocusSpan> :  <ImagePropertiesColumn>
 									<Row>
 										<SizeLabel>Size</SizeLabel>
 										<SizeValue>
 											{width}x{height}
 										</SizeValue>
 									</Row>
-								</ImagePropertiesColumn>
-								{options && (
+								</ImagePropertiesColumn>}
+								{options && !focusMode && (
 									<MenuColumn data-testid='menu-container-test'>
 										<MenuFormFieldCard options={options} />
 									</MenuColumn>
