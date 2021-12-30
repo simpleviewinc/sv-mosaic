@@ -9,10 +9,11 @@ const FormLayout = (props) => {
 		dispatch,
 		fields,
 		sections,
+		formType,
 	} = props;
 
 	const layout = useMemo(() => {
-		return generateLayout({sections, fields});
+		return generateLayout({ sections, fields });
 	}, [sections, fields]);
 
 	return (
@@ -27,6 +28,7 @@ const FormLayout = (props) => {
 					fieldsLayoutPos={section.fields}
 					state={state}
 					dispatch={dispatch}
+					formType={formType}
 				/>
 			))}
 		</>
