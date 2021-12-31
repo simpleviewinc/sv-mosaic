@@ -8,12 +8,18 @@ import { StyledSpan, StyledTextField } from './FormFieldAddLink.styled';
 const FormFieldAddLink = (
 	props: TextFieldProps
 ): ReactElement => {
+	const { disabled, inputSettings, onChange, value } = props;
 
 	return (
 		<StyledTextField
-			prefixElement={<StyledSpan>https://</StyledSpan>}
-			placeholder={'www.hello.com'}
-			{...props}
+			disabled={disabled}
+			inputSettings={{
+				placeholder: 'www.hello.com',
+				prefixElement: <StyledSpan>https://</StyledSpan>,
+				...inputSettings,
+			}}
+			onChange={onChange}
+			//value={value}
 		/>
 	);
 };

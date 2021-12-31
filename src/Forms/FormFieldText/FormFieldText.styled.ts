@@ -13,21 +13,15 @@ import { Sizes } from '@root/theme/sizes';
 export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   width: ${pr => pr.size ? pr.size : Sizes.sm};
 
-  input,
-  .MuiOutlinedInput-adornedStart,
-  .MuiOutlinedInput-multiline {
-    background-color: ${pr => pr.disabled ? 'transparent' : '#FAFAFA'}
-	
   &.MuiFormControl-root {
     background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
-
     &:hover {
       background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
     }
   }
 
   .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {
-	padding: ${pr => pr.disabled ? 0 : '15.5px 14px'};
+    padding: ${pr => pr.disabled ? 0 : '15.5px 14px'};
   }
 
   input.MuiOutlinedInput-input {
@@ -72,10 +66,5 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
     border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : 'transparent'};
-  }
-
-  .MuiOutlinedInput-adornedStart {
-    background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
-	padding: ${pr => pr.disabled && 0};
   }
 `;
