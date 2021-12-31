@@ -7,36 +7,47 @@ import {
 	select
 } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
+import { Sizes } from '@root/theme/sizes';
 
 // Components
 import FormFieldAddLink from '.';
-import { Sizes } from '@root/theme/sizes';
+import Field from '@root/components/Field';
 
 export default {
 	title: "Forms|FormFieldAddLink",
 	decorators: [withKnobs],
 } as Meta;
 
-export const example = (): ReactElement => {
+export const Default = (): ReactElement => {
 	const [linkValue, setLinkValue] = useState('');
 
-	const onChange = (event) => {
-		setLinkValue(event.target.value);
+	const onChange = (val) => {
+		setLinkValue(val);
 	};
 
 	return (
-		<FormFieldAddLink
-			disabled={boolean('Disabled', false)}
+		<Field
 			label={text('Label', 'Label')}
-			inputSettings={{ placeholder: text('Placeholder', 'www.hello.com') }}
-			htmlFor='text-input'
+			required={boolean('Required', false)}
+			disabled={boolean('Disabled', false)}
 			helperText={text('Helper text', '')}
 			instructionText={text('Instructional text', '')}
 			error={text('Error text', '')}
-			onChange={onChange}
-			required={boolean('Required', false)}
 			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 			value={linkValue}
-		/>
+		>
+			<FormFieldAddLink
+				disabled={boolean('Disabled', false)}
+				label={text('Label', 'Label')}
+				inputSettings={{
+					size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+					placeholder: text('Placeholder', 'www.hello.com'),
+					value: linkValue
+				}}
+				error={text('Error text', '')}
+				onChange={onChange}
+				size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
+			/>
+		</Field>
 	)
 }
