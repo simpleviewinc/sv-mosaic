@@ -48,6 +48,7 @@ const Section = (props) => {
 		fieldsLayoutPos,
 		dispatch,
 		state,
+		formType,
 	} = props;
 
 	return (
@@ -63,6 +64,7 @@ const Section = (props) => {
 							state={state}
 							fieldsDef={fieldsDef}
 							dispatch={dispatch}
+							formType={formType}
 						/>
 					))}
 				</StyledRows>
