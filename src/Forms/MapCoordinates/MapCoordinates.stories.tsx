@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
-import { boolean, withKnobs, object } from '@storybook/addon-knobs';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { boolean, withKnobs, object, text } from '@storybook/addon-knobs';
 
 // Components
 import MapCoordinates from './MapCoordinates';
 import { IAddress } from '@root/forms/Address/AddressTypes';
+import Form from '../Form/Form';
+import { FieldDefProps } from '@root/components/Field';
+import { useForm } from '../Form/formUtils';
 
 export default {
 	title: 'Forms|MapCoordinates',
@@ -31,7 +34,7 @@ const address: IAddress = {
 	types: ['physical'],
 };
 
-export const Example = (): ReactElement => {
+export const Default = (): ReactElement => {
 	const [isKey, setIsKey] = useState(false)
 	const [value, setValue] = useState('');
 
@@ -60,6 +63,63 @@ export const Example = (): ReactElement => {
 				disabled={disabled}
 				mapPosition={mapPosition}
 			/>}
+		</>
+	);
+};
+
+export const FormExample = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "map",
+					label: "Map Coordinates Example",
+					type: "mapCoordinates",
+					required,
+					disabled,
+					inputSettings: {
+						disabled,
+					},
+					// validators: [requiredValidator]
+				},
+			] as unknown as FieldDefProps[],
+		[required, disabled]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
 		</>
 	);
 };

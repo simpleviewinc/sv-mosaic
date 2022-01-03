@@ -39,7 +39,7 @@ const TextField = (
 			value={value}
 			// value={inputSettings?.value}
 			onChange={(e) => onChange(e.target.value)}
-			onBlur={(e) => onBlur(e.target.value)}
+			onBlur={onBlur ? (e) => onBlur(e.target.value) : undefined}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && required))}
 			className={className}

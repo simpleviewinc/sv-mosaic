@@ -23,11 +23,20 @@ import Address from '../Address';
 import Table from '../Table';
 // import TextEditor from '../TextEditor';
 import AdvancedSelection from '../AdvancedSelection';
+import MapCoordinates from '../MapCoordinates';
 
 const StyledCol = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	${pr => pr.formType === 'modal' ?
+		`
+			max-width: 100%;
+		`
+		:
+		`
+			width: 100%;
+		`
+	}
 `;
 
 const Col = (props) => {
@@ -35,7 +44,8 @@ const Col = (props) => {
 		col,
 		state,
 		fieldsDef,
-		dispatch
+		dispatch,
+		formType,
 	} = props;
 
 	const componentMap = useMemo(() => ({
@@ -58,6 +68,7 @@ const Col = (props) => {
 		table: Table,
 		// textEditor: TextEditor,
 		advancedSelection: AdvancedSelection,
+		mapCoordinates: MapCoordinates
 	}), []);
 
 	const onChangeMap = useMemo(() => {
@@ -104,7 +115,7 @@ const Col = (props) => {
 	}, [fieldsDef]);
 
 	return (
-		<StyledCol>
+		<StyledCol formType={formType}>
 			{col.map((field, i) => {
 				let currentField = fieldsDef?.find(
 					(fieldDef) => {
@@ -142,7 +153,7 @@ const Col = (props) => {
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return ((type !== ('address' || 'advancedSelection')) && !!componentMap[type]) ? (
+				return ((type !== ('address' || 'advancedSelection' || 'mapCoordinates')) && !!componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
 						{...currentField}
