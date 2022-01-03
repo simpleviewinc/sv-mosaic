@@ -4,9 +4,18 @@ import styled from 'styled-components';
 import Col from './Col';
 
 const StyledRow = styled.div`
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-	column-gap: 10px;
+	${pr => pr.formType === 'modal' ?
+		`
+			display: flex;
+			flex-wrap: wrap;
+		`
+		:
+		`
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+			column-gap: 10px;
+		`
+	}
 `;
 
 const Row = (props) => {
@@ -14,18 +23,20 @@ const Row = (props) => {
 		row,
 		state,
 		fieldsDef,
-		dispatch
+		dispatch,
+		formType,
 	} = props;
 
 	return (
-		<StyledRow>
+		<StyledRow formType={formType}>
 			{row.map((col, i) => (
-				<Col 
+				<Col
 					key={i}
 					col={col}
 					state={state}
 					fieldsDef={fieldsDef}
 					dispatch={dispatch}
+					formType={formType}
 				/>
 			))}
 		</StyledRow>
