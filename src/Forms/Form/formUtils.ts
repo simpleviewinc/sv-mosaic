@@ -291,7 +291,8 @@ export const generateLayout = ({ sections, fields }: { sections?: any, fields: a
 				}
 
 				if (customLayout[section]) {
-					customLayout[section].fields[row][col].push(field.name);
+					console.log(customLayout);
+					customLayout[section]?.fields[row][col]?.push(field.name);
 				} else {
 					customLayout = [
 						...customLayout,
