@@ -3,6 +3,7 @@ import { memo, useMemo } from 'react';
 import styled from 'styled-components';
 import { actions } from './formUtils';
 
+import FormFieldAddLink from '../FormFieldAddLink';
 import FormFieldText from '../FormFieldText';
 import FormFieldTextArea from '../FormFieldTextArea';
 import FormFieldCheckbox from '../FormFieldCheckbox';
@@ -50,6 +51,7 @@ const Col = (props) => {
 	} = props;
 
 	const componentMap = useMemo(() => ({
+		addLink: FormFieldAddLink,
 		text: FormFieldText,
 		textArea: FormFieldTextArea,
 		checkbox: FormFieldCheckbox,
