@@ -7,8 +7,8 @@ import { validateEmail, validateSlow, required } from "./validators";
 
 // Components
 import Form from './Form';
-import { FieldDefProps } from '@root/components/Field';
-import Modal from '@root/components/Modal';
+import { FieldDefProps } from '../../components/Field';
+import Modal from '../../components/Modal';
 
 // Icons
 import MenuIcon from '@material-ui/icons/Menu';
@@ -517,6 +517,19 @@ export const KitchenSink = (): ReactElement => {
 					name: "addLink",
 					label: "Add link example",
 					type: "addLink",
+				},
+				{
+					name: "imageUpload",
+					label: "Image Upload example",
+					type: "imageUpload",
+				},
+				{
+					name: "mapCoordinates",
+					label: "Map Coordinates Example",
+					type: "mapCoordinates",
+					inputSettings: {
+						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
+					}
 				},
 			] as unknown as FieldDefProps[],
 		[addTableRow, externalOptions]
@@ -1354,7 +1367,20 @@ export const SubmitInternalButtons = (): ReactElement => {
 					instructionText: 'testing',
 					validators: [required],
 				},
-				
+				{
+					name: "imageUpload",
+					label: "Image Upload example",
+					type: "imageUpload",
+				},
+				{
+					name: "mapCoordinates",
+					label: "Map Coordinates Example",
+					type: "mapCoordinates",
+					inputSettings: {
+						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
+					}
+				},
+
 			] as unknown as FieldDefProps[],
 		[]
 	);
