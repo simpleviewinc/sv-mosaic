@@ -496,11 +496,11 @@ export const KitchenSink = (): ReactElement => {
 						handleRemove: handleRemoveLinkSetup
 					}
 				},
-				{
+				/* {
 					name: 'textEditor',
 					label: 'Text Editor field',
 					type: 'textEditor'
-				},
+				}, */
 				{
 					name: 'table',
 					label: 'Table example',
@@ -512,6 +512,11 @@ export const KitchenSink = (): ReactElement => {
 						extraActions: extraActionsTable,
 						headers: tableHeaders,
 					}
+				},
+				{
+					name: "addLink",
+					label: "Add link example",
+					type: "addLink",
 				},
 			] as unknown as FieldDefProps[],
 		[addTableRow, externalOptions]
@@ -1323,12 +1328,12 @@ export const SubmitInternalButtons = (): ReactElement => {
 					},
 					validators: [required],
 				},
-				{
+				/* {
 					name: 'textEditor',
 					label: 'Text Editor field',
 					type: 'textEditor',
 					validators: [required],
-				},
+				}, */
 				{
 					name: 'table',
 					label: 'Table example',
@@ -1342,6 +1347,14 @@ export const SubmitInternalButtons = (): ReactElement => {
 					},
 					validators: [required],
 				},
+				{
+					name: "addLink",
+					label: "Add link example",
+					type: "addLink",
+					instructionText: 'testing',
+					validators: [required],
+				},
+				
 			] as unknown as FieldDefProps[],
 		[]
 	);
