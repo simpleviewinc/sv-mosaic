@@ -36,13 +36,14 @@ const FormFieldImageUploadExample = () => {
 
 	return (
 		<FormFieldImageUpload
+			label=''
 			disabled={false}
-			handleSetFocus={mockHandleSetFocus}
-			handleImageCoordinates={mockHandleImageCoordinates}
-			options={options}
-			setImgHeight={setImgHeight}
-			setImgWidth={setImgWidth}
-			uploadImage={mockUploadImage}
+			inputSettings={{
+				handleSetFocus: mockHandleSetFocus,
+				handleImageCoordinates: mockHandleImageCoordinates,
+				options,
+				uploadImage: mockUploadImage,
+			}}
 		/>
 	);
 };
@@ -75,7 +76,7 @@ describe('FormFieldImageUpload component', () => {
 
 describe('FormFieldImageUpload disabled state', () => {
 	it('should display "Loading Image" and the circular progress component', () => {
-		render(<FormFieldImageUpload disabled={true} />);
+		render(<FormFieldImageUpload label='' disabled={true} />);
 
 		expect(getByText('Loading Image')).toBeTruthy();
 		expect(getByTestId('circular-progress-test')).toBeTruthy();
@@ -84,7 +85,7 @@ describe('FormFieldImageUpload disabled state', () => {
 
 describe('FormFieldImageUpload when menu options are not received', () => {
 	it('should not display ', () => {
-		render(<FormFieldImageUpload disabled={false} />);
+		render(<FormFieldImageUpload label='' disabled={false} />);
 
 		expect(queryByTestId('menu-container-test')).toBe(null);
 	});
@@ -126,7 +127,7 @@ describe('FormFieldImageUpload drag and drop events', () => {
 
 		// Triggering handleImageCoordinates callback
 		// when the set focus component is clicked
-		
+
 		fireEvent.click(setFocusButton);
 		expect(mockHandleImageCoordinates).toHaveBeenCalled();
 	});

@@ -24,6 +24,7 @@ import Table from '../Table';
 // import TextEditor from '../TextEditor';
 import AdvancedSelection from '../AdvancedSelection';
 import MapCoordinates from '../MapCoordinates';
+import FormFieldImageUpload from '../FormFieldImageUpload';
 
 const StyledCol = styled.div`
 	display: flex;
@@ -68,7 +69,8 @@ const Col = (props) => {
 		table: Table,
 		// textEditor: TextEditor,
 		advancedSelection: AdvancedSelection,
-		mapCoordinates: MapCoordinates
+		mapCoordinates: MapCoordinates,
+		imageUpload: FormFieldImageUpload,
 	}), []);
 
 	const onChangeMap = useMemo(() => {
