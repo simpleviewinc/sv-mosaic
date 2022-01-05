@@ -31,8 +31,3 @@ export interface TextAreaProps extends FieldProps {
 	 */
 	onChange?: ChangeEventHandler<HTMLInputElement>;
 }
-
-export interface StyledTextAreaProps {
-	disabled: boolean;
-	error: string;
-}
