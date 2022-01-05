@@ -1,17 +1,17 @@
+import * as React from 'react';
 import styled from 'styled-components';
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
 
 //Styles & Types
-import {
-	StyledTextAreaProps,
-} from './FormFieldTextAreaTypes';
-import theme from '../../utils/theme.js';
+import theme from '@root/theme';
 import { Sizes } from '@root/theme/sizes';
 
-export const StyledTextArea = styled<StyledTextAreaProps>(TextField)`
-  width: ${pr => pr.size ? pr.size : Sizes.sm};
+export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
+	<TextField {...rest} />
+))`
+  width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
   .MuiOutlinedInput-multiline {
     align-items: start;
