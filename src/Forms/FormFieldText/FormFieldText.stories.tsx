@@ -46,6 +46,7 @@ export const Default = (): ReactElement => {
 					size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
 					placeholder: text('Placeholder', 'placeholder'),
 					maxCharacters: number('Max characters', 20),
+					multiline: boolean('Multiline', false),
 					value: inputValue
 				}}
 				error={text('Error text', '')}
