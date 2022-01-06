@@ -1,27 +1,41 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import * as React from 'react';
 import { useState } from 'react';
+
+// Components
+import Field from '@root/components/Field';
 import TextField from './FormFieldText';
 
-describe('Text field component', () => {
+afterEach(cleanup);
+
+describe('TextField component', () => {
 	beforeEach(() => {
 		render(
-			<TextField
-				label='Label test'
-				instructionText='Instructional text'
-				placeholder='placeholder'
-				onChange={() => jest.fn()}
-			/>
+			<Field
+				label='Label'
+				helperText='Helper text'
+				instructionText='Instruction text'
+			>
+				<TextField
+					label='Label test'
+					instructionText='Instruction text'
+					inputSettings={{
+						htmlFor: 'test',
+						placeholder: 'placeholder',
+					}}
+					onChange={() => jest.fn()}
+				/>
+			</Field>
 		);
 	});
 
-	it('should should display text field component', () => {
-		const labelElement = screen.getByText('Label test');
+	it('should should display the label', () => {
+		const labelElement = screen.getByText('Label');
 		expect(labelElement).toBeDefined();
 	});
 
-	it('should should display the instructional text', () => {
-		const instructionTextElement = screen.getByText('Instructional text');
+	it('should should display the instruction text', () => {
+		const instructionTextElement = screen.getByText('Instruction text');
 		expect(instructionTextElement).toBeDefined();
 	});
 
@@ -31,16 +45,21 @@ describe('Text field component', () => {
 	});
 });
 
-describe('The behaviour of the error text and the helper text', () => {
+describe('TextField behaviour of the error text and the helper text', () => {
 	it('should, in case of an error, display the error text and not the helper text', () => {
 		render(
-			<TextField
-				label='Label test'
-				error={'Error text'}
+			<Field
+				label='Label'
 				helperText='Helper text'
-				placeholder='placeholder'
-				onChange={() => jest.fn()}
-			/>
+				error='Error text'
+			>
+				<TextField
+					label='Label test'
+					error={'Error text'}
+					helperText='Helper text'
+					onChange={() => jest.fn()}
+				/>
+			</Field>
 		);
 		const errorTextElement = screen.getByText('Error text');
 		const helperText = screen.queryByText('Helper text');
@@ -51,12 +70,18 @@ describe('The behaviour of the error text and the helper text', () => {
 
 	it('should should display the helper text in the case of no error', () => {
 		render(
-			<TextField
-				label='Label test'
+			<Field
+				label='Label'
 				helperText='Helper text'
-				placeholder='placeholder'
-				onChange={() => jest.fn()}
-			/>
+				error=''
+			>
+				<TextField
+					label='Label test'
+					helperText='Helper text'
+					placeholder='placeholder'
+					onChange={() => jest.fn()}
+				/>
+			</Field>
 		);
 		const helperTextElement = screen.getByText('Helper text');
 		const errorTextElement = screen.queryByText('Error text');
@@ -66,7 +91,7 @@ describe('The behaviour of the error text and the helper text', () => {
 	});
 });
 
-describe('The multiline behaviour', () => {
+describe('TextField multiline behaviour', () => {
 	it('should render an input element when multiline is off', () => {
 		render(
 			<TextField
@@ -80,17 +105,16 @@ describe('The multiline behaviour', () => {
 				label='Label test'
 			/>
 		);
-		const inputElement = screen.getByLabelText('Label test');
+		const textField = screen.getByPlaceholderText('placeholder');
 
-		expect(inputElement).toBeDefined();
-		expect(inputElement.nodeName).toBe('INPUT');
+		expect(textField.nodeName).toBe('INPUT');
 	});
 
-	it('should a text area element when multiline is on', () => {
+	it('should render a text area element when the multiline prop is present', () => {
 		render(
 			<TextField
 				inputSettings={{
-					htmlFor: 'multiline-tes',
+					htmlFor: 'multiline-test',
 					placeholder: 'placeholder',
 					multiline: true,
 				}}
@@ -99,39 +123,44 @@ describe('The multiline behaviour', () => {
 				onChange={() => jest.fn()}
 			/>
 		);
-		const textAreaElement = screen.getByLabelText('Label test');
 
-		expect(textAreaElement).toBeDefined();
-		expect(textAreaElement.nodeName).toBe('TEXTAREA');
+		const textField = screen.getByPlaceholderText('placeholder');
+
+		expect(textField.nodeName).toBe('TEXTAREA');
 	});
 });
 
-describe('The char counter behaviour', () => {
+describe('TextField char counter behaviour', () => {
 	it('should render the char counter', () => {
 		const WithCharCounter = () => {
 			const [inputValue, setInputValue] = useState('');
-			const onHandleChange = (event) => {
-				setInputValue(event.target.value);
+			const onHandleChange = (val) => {
+				setInputValue(val);
 			};
 
 			return (
-				<TextField
-					inputSettings={{
-						htmlFor: 'char-test',
-						placeholder: 'placeholder',
-						maxCharacters: 20,
-						value: inputValue,
-					}}
-					id='char-test'
+				<Field
 					label='Label'
-					onChange={onHandleChange}
-				/>
+					maxCharacters={20}
+					value={inputValue}
+				>
+					<TextField
+						id='char-test'
+						label='Label'
+						inputSettings={{
+							htmlFor: 'char-test',
+							placeholder: 'placeholder',
+							maxCharacters: 20,
+							value: inputValue
+						}}
+						onChange={onHandleChange}
+					/>
+				</Field>
 			);
 		};
 
 		render(<WithCharCounter />);
-		const inputElement = screen.getByLabelText('Label');
-
+		const inputElement = screen.getByPlaceholderText('placeholder');
 		fireEvent.change(inputElement, { target: { value: '233' } });
 		const charCounter = screen.getByText('3/20');
 
