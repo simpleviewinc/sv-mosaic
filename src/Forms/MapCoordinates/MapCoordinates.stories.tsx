@@ -35,35 +35,20 @@ const address: IAddress = {
 };
 
 export const Default = (): ReactElement => {
-	const [isKey, setIsKey] = useState(false)
-	const [value, setValue] = useState('');
-
 	const disabled = boolean('Disabled', false);
 	const addressKnob = object('Address', address);
 	const withAddress = boolean('With address', false);
 
-	const onClick = () => {
-		setIsKey(true)
-	};
-
-	const inputChange = (e) => {
-		setValue(e.target.value);
-	};
-
 	return (
-		<>
-			<div style={{ marginBottom: '20px' }}>
-				<p>You must enter the Google Maps API key to see the component</p>
-				<input onChange={inputChange} style={{ width: '300px' }} value={value} type="text" placeholder='Google Maps API Key' />
-				<button onClick={onClick}>SET KEY</button>
-			</div>
-			{isKey && value.length > 0 && <MapCoordinates
-				apiKey={value}
-				address={withAddress && addressKnob}
-				disabled={disabled}
-				mapPosition={mapPosition}
-			/>}
-		</>
+		<MapCoordinates
+			inputSettings={{
+				apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+				address: withAddress && addressKnob,
+				mapPosition,
+			}}
+			disabled={disabled}
+		/>
+
 	);
 };
 
@@ -83,7 +68,7 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
+						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
 					},
 					// validators: [requiredValidator]
 				},

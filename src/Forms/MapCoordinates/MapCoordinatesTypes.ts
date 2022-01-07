@@ -1,3 +1,4 @@
+import { FieldProps } from '@root/components/Field';
 import { IAddress } from '@root/forms/Address/AddressTypes';
 
 /**
@@ -21,24 +22,28 @@ export type Libraries = (
 export type MapPosition = { lat: number; lng: number };
 
 export interface MapCoordinatesProps {
-	/**
-	 * Address object used to set lat and lng values when using
-	 * the autocoordinates feature.
-	 */
-	address?: IAddress;
-	/**
-	 * Google Maps API key needed to consume the Maps JavaScript API
-	 * and Places API
-	 */
-	apiKey: string;
+	inputSettings: {
+		/**
+		 * Address object used to set lat and lng values when using
+		 * the autocoordinates feature.
+		 */
+		address?: IAddress;
+		/**
+		 * Google Maps API key needed to consume the Maps JavaScript API
+		 * and Places API
+		 */
+		apiKey: string;
+		/**
+		 * Latitude and longitude object.
+		 */
+		mapPosition?: MapPosition;
+	}
 	/**
 	 * Disables interactive elements.
 	 */
-	disabled?: boolean;
-	/**
-	 * Latitude and longitude object.
-	 */
-	mapPosition: MapPosition;
+	disabled?: FieldProps['disabled'];
+	onChange?: FieldProps['onChange'];
+	value?: FieldProps['value'];
 }
 
 export interface MapProps {

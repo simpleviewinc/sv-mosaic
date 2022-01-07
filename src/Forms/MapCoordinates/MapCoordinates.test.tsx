@@ -99,8 +99,10 @@ jest.mock("@react-google-maps/api", () => ({
 describe('MapCoordinates component without an address', () => {
 	beforeEach(() => {
 		render(<MapCoordinates
-			apiKey={'test'}
-			mapPosition={mapPosition}
+			inputSettings={{
+				apiKey: 'test',
+				mapPosition,
+			}}
 		/>)
 
 		const addCoordinatesButton = getByText('ADD COORDINATES');
@@ -134,8 +136,8 @@ describe('MapCoordinates component without an address', () => {
 		const editButton = getByText('Edit');
 
 		fireEvent.click(editButton)
-		fireEvent.change( getByLabelText('Latitude'), { target: { value: 100 } });
-		fireEvent.change( getByLabelText('Longitude'), { target: { value: 150 } });
+		fireEvent.change(getByLabelText('Latitude'), { target: { value: 100 } });
+		fireEvent.change(getByLabelText('Longitude'), { target: { value: 150 } });
 		fireEvent.click(getByText('Save Coordinates'));
 
 		expect(getByText('100')).toBeTruthy();
@@ -145,7 +147,7 @@ describe('MapCoordinates component without an address', () => {
 	it('should reset coordinates', () => {
 		const latitudeField = getByLabelText('Latitude') as HTMLInputElement;
 		const longitudeField = getByLabelText('Longitude') as HTMLInputElement;
-		
+
 		fireEvent.change(latitudeField, { target: { value: 100 } });
 		fireEvent.change(longitudeField, { target: { value: 150 } });
 
@@ -160,9 +162,11 @@ describe('MapCoordinates component without an address', () => {
 describe('MapCoordinates component with an address object (AUTOCOODINATES)', () => {
 	beforeEach(() => {
 		render(<MapCoordinates
-			address={addressObj}
-			apiKey={'test'}
-			mapPosition={mapPosition}
+			inputSettings={{
+				apiKey: 'test',
+				mapPosition,
+				address: addressObj,
+			}}
 		/>)
 	})
 
