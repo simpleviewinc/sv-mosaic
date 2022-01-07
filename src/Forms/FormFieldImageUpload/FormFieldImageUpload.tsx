@@ -27,9 +27,18 @@ import {
 	StyledCircularProgress,
 	UploadButton,
 } from './FormFieldImageUpload.styled';
+import { FieldProps } from '@root/components/Field';
 
-const ImageUpload = (props: ImageUploadProps): ReactElement => {
-	const { disabled, handleImageCoordinates, handleSetFocus, uploadImage, options, setImgHeight, setImgWidth } = props;
+const ImageUpload = (props: ImageUploadProps & FieldProps): ReactElement => {
+	const {
+		disabled,
+		// handleImageCoordinates,
+		// handleSetFocus,
+		// uploadImage,
+		inputSettings,
+		onChange,
+		value,
+	} = props;
 
 	// State variables
 	const [isOver, setIsOver] = useState(false);
@@ -64,10 +73,13 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    * Executed when a new file is uploaded.
    * @param e
    */
-	const handleNewFileUpload = (e) => {
+	const handleNewFileUpload = async (e) => {
 		const { files: imgFile } = e.target;
-
 		const isImageFile = imgFile[0].type.split("/")[0] === "image";
+
+		// 	for (var key in inputElement.files[0])
+		// if (inputElement.files[0].hasOwnProperty(key))
+		//      console.log(key,inputElement.files[0][key]);
 
 		if (!isImageFile) {
 			return;
@@ -75,9 +87,23 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 
 		if (imgFile.length) {
 			const uploadedImage = addNewImage(imgFile);
+			const file = uploadedImage.file;
 
 			setFiles(uploadedImage);
-			uploadImage(uploadedImage);
+			// uploadImage(uploadedImage);
+
+			//CODE NOT BEING USED
+			// var reader = new FileReader();
+			// reader.onload = (event) => event.target.result;
+			// reader.readAsDataURL(imgFile[0]);
+
+			onChange({
+				...value,
+				imgName: file.name,
+				size: file.size,
+				type: file.type,
+				// file: reader.result,
+			});
 		}
 	};
 
@@ -94,8 +120,9 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	 *  the image coordinates to the parent component.
    */
 	const setFocus = () => {
-		handleImageCoordinates(imageCoordinates);
-		handleSetFocus();
+		// handleImageCoordinates && handleImageCoordinates(imageCoordinates);
+		onChange && onChange({ ...value, imgCoords: imageCoordinates });
+		// handleSetFocus();
 		setFocusMode(false);
 	};
 
@@ -115,13 +142,14 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
    */
 	const removeFile = () => {
 		setFiles({});
-		uploadImage({});
-		setImgWidth(null);
-		setImgHeight(null);
-		handleImageCoordinates({
-			x: null,
-			y: null
-		})
+		// uploadImage({});
+		onChange(undefined);
+		// setImgWidth(null);
+		// setImgHeight(null);
+		// handleImageCoordinates({
+		// 	x: null,
+		// 	y: null
+		// })
 		setIsOver(false);
 		setFocusMode(false);
 	};
@@ -179,8 +207,18 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 		}
 
 		if (droppedFiles.length) {
+			const uploadedImage = addNewImage(droppedFiles);
+			const file = uploadedImage.file;
+
 			setFiles(droppedFiles);
-			uploadImage(droppedFiles);
+			// uploadImage(droppedFiles);
+			onChange({
+				...value,
+				imgName: file.name,
+				size: file.size,
+				type: file.type,
+				...file
+			});
 		}
 	};
 
@@ -194,8 +232,8 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 
 		setHeight(imageHeight);
 		setWidth(imageWidth);
-		setImgWidth(imageWidth);
-		setImgHeight(imageHeight);
+		// setImgWidth(imageWidth);
+		// setImgHeight(imageHeight);
 	};
 
 	return (
@@ -260,7 +298,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 									})}
 									{focusMode && <ImageUploadCanvas mousePosition={mousePosition} />}
 								</ImageColumn>
-								{focusMode ? <SetFocusSpan>Click on the image to set the focus point</SetFocusSpan> :  <ImagePropertiesColumn>
+								{focusMode ? <SetFocusSpan>Click on the image to set the focus point</SetFocusSpan> : <ImagePropertiesColumn>
 									<Row>
 										<SizeLabel>Size</SizeLabel>
 										<SizeValue>
@@ -268,9 +306,9 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 										</SizeValue>
 									</Row>
 								</ImagePropertiesColumn>}
-								{options && !focusMode && (
+								{inputSettings?.options && !focusMode && (
 									<MenuColumn data-testid='menu-container-test'>
-										<MenuFormFieldCard options={options} />
+										<MenuFormFieldCard options={inputSettings?.options} />
 									</MenuColumn>
 								)}
 								<ButtonsContainer>

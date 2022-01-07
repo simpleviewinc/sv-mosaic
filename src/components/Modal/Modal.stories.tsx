@@ -47,6 +47,10 @@ export const Example = (): ReactElement => {
 		setOpen(false);
 	};
 
+	useMemo(() => {
+		registerOnSubmit(primaryAction);
+	}, [primaryAction, registerOnSubmit]);
+
 	// <FormFieldDropdownSingleSelection
 	// 				options={topFilms}
 	// 				label='Country'
