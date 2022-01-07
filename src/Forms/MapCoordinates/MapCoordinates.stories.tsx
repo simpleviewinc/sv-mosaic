@@ -41,10 +41,12 @@ export const Default = (): ReactElement => {
 
 	return (
 		<MapCoordinates
-			apiKey='AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
-			address={withAddress && addressKnob}
+			inputSettings={{
+				apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+				address: withAddress && addressKnob,
+				mapPosition,
+			}}
 			disabled={disabled}
-			mapPosition={mapPosition}
 		/>
 
 	);
@@ -66,7 +68,6 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
 					},
 					// validators: [requiredValidator]

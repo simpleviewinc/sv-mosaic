@@ -57,6 +57,7 @@ const LocationSearchInput = (props: LocationSearchInputProps): ReactElement => {
 					return (
 						<div>
 							<StyledInputSearch
+								size='100%'
 								inputProps={{ "data-testid": "location-search-input" }}
 								{...getInputProps({
 									placeholder: 'Type a location, address or city…',

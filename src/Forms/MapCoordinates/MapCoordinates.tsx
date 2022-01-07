@@ -24,7 +24,6 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Button from '@root/forms/Button';
 import Map from '@root/forms/MapCoordinates/Map';
 import Modal from '@root/components/Modal';
-import TextField from '@root/forms/FormFieldText';
 import ToggleSwitch from '@root/components/ToggleSwitch';
 
 // Styles
@@ -33,18 +32,15 @@ import {
 	Column,
 	CoordinatesCard,
 	CoordinatesValues,
-	FieldsRow,
 	LatitudeValue,
 	LatLngLabel,
 	MapImageColumn,
-	StyledLatitudeField,
 	StyledSpan,
 	SwitchContainer,
 } from './MapCoordinates.styled';
-import { Sizes } from '@root/theme/sizes';
 import themes from '@root/theme';
 import { actions, useForm } from '../Form/formUtils';
-import Field, { FieldDefProps } from '@root/components/Field';
+import { FieldDefProps } from '@root/components/Field';
 
 /**
  * Options to disable interactive actions. For more details take a look at the options interface:
@@ -77,10 +73,10 @@ export const getAddressStringFromAddressObject = (addressObj: IAddress): string 
 
 const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 	const {
-		address,
-		apiKey,
+		inputSettings,
+		onChange,
 		disabled,
-		mapPosition
+		value,
 	} = props;
 
 	const modalReducer = useForm();
@@ -88,10 +84,6 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 	// State variables
 	const [autocoordinatesChecked, setAutocoordinatesChecked] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [latLngFields, setlatLngFields] = useState({ lat: '', lng: '' });
-	const [coordinates, setCoordinates] = useState<MapPosition>(mapPosition);
-	const [coordinatesAtOpening, setCoordinatesAtOpening] = useState(mapPosition);
-	const [hasSavedCoordinates, setHasSavedCoordinates] = useState(false);
 
 	/**
    * When the map is clicked the lat and lng fields and
@@ -101,28 +93,57 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 		const lat = event.latLng.lat();
 		const lng = event.latLng.lng();
 
-		setCoordinates({ lat, lng });
-		setlatLngFields({ lat: lat.toString(), lng: lng.toString() });
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'placesList',
+				value: { lat: Number(lat), lng: Number(lng) },
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lat',
+				value: lat,
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lng',
+				value: lng,
+			})
+		);
 	}, []);
 
 	/**
    * Opens the modal that displays the map.
    */
 	const handleAddCoordinates = () => {
-		setCoordinatesAtOpening(coordinates);
 		setIsModalOpen(true);
-		// console.log('opening modal');
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lat',
+				value: value.lat
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lng',
+				value: value.lng
+			})
+		);
 	};
 
 	/**
    * Callback for the 'SAVE COORDINATES' button.
    */
 	const handleSaveCoordinates = () => {
-		setHasSavedCoordinates(true);
 		setIsModalOpen(false);
-		setCoordinates({
-			lat: Number(latLngFields.lat),
-			lng: Number(latLngFields.lng),
+		onChange && onChange({
+			...value,
+			lat: modalReducer.state.data.lat,
+			lng: modalReducer.state.data.lng,
 		});
 	};
 
@@ -135,82 +156,34 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
    */
 	const handleClose = () => {
 		setIsModalOpen(false);
-		setCoordinates(coordinatesAtOpening);
-		setlatLngFields({
-			lat: coordinatesAtOpening.lat.toString(),
-			lng: coordinatesAtOpening.lng.toString()
-		});
-	};
-
-	const handleLatitude = (val) => {
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'latLng',
-				value: { ...modalReducer.state.data.latLng, lat: val }
+				name: 'lat',
+				value: undefined,
 			})
 		);
-	}
 
-	const handleLongitude = (val) => {
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'latLng',
-				value: { ...modalReducer.state.data.latLng, lng: val }
+				name: 'lng',
+				value: undefined,
 			})
 		);
-	}
-
-	/**
-   * Handle value change for latitude and longitude
-   * inputs.
-   * @param e
-   */
-	const handleTextFieldsChange = async (newVal: string, type: string) => {
-		// console.log(newVal, type);
-		let newLatLng = modalReducer?.state?.data?.latLng ? modalReducer.state.data.latLng : {};
-		console.log(newVal, type, newLatLng);
-
-		if (type === 'lat')
-			newLatLng = {
-				...newLatLng,
-				lat: newVal,
-			}
-		else
-			newLatLng = {
-				...newLatLng,
-				lng: newVal,
-			}
-
-		console.log(newLatLng);
-
-		await modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'latLng',
-				value: newLatLng
-			})
-		);
-
-		// console.log(modalReducer.state);
-		// setlatLngFields({
-		// 	...latLngFields,
-		// 	[e.target.name]: e.target.value,
-		// });
-
-		// setCoordinates({
-		// 	...mapPosition,
-		// 	[e.target.name]: Number(e.target.value),
-		// });
 	};
 
 	/**
    * Clear values for the entered location.
    */
 	const removeResetLocation = () => {
-		setHasSavedCoordinates(false);
-		setlatLngFields({
-			lat: '',
-			lng: '',
-		});
+		onChange && onChange(undefined);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({ name: 'lat', value: undefined })
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({ name: 'lng', value: undefined })
+		);
 	};
 
 	/**
@@ -229,19 +202,27 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
    */
 	const setCoordinatesFromAddress = useCallback(async () => {
 		try {
-			const addressString = getAddressStringFromAddressObject(address);
+			const addressString = getAddressStringFromAddressObject(inputSettings?.address);
 			const results = await geocodeByAddress(addressString);
 			const latLng = await getLatLng(results[0]);
 
-			setCoordinates(latLng);
-			setlatLngFields({
-				lat: latLng.lat.toString(),
-				lng: latLng.lng.toString(),
-			});
+			modalReducer.dispatch(
+				actions.setFieldValue({
+					name: 'lat',
+					value: latLng.lat,
+				})
+			);
+
+			modalReducer.dispatch(
+				actions.setFieldValue({
+					name: 'lng',
+					value: latLng.lng,
+				})
+			);
 		} catch (error) {
 			console.log(error);
 		}
-	}, [address]);
+	}, [inputSettings?.address]);
 
 	/**
    *	When the component is mounted and the auto coordinates flag is true
@@ -251,7 +232,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 		if (autocoordinatesChecked) {
 			setCoordinatesFromAddress();
 		}
-	}, [autocoordinatesChecked, address]);
+	}, [autocoordinatesChecked, inputSettings?.address]);
 
 	/**
    * Callback function that is executed by the LocationSearchInput
@@ -259,21 +240,36 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 	 * google component.
    */
 	const handleCoordinates = (coordinates: MapPosition) => {
-		setCoordinates(coordinates);
-		setlatLngFields({
-			lat: coordinates.lat.toString(),
-			lng: coordinates.lng.toString(),
-		});
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'placesList',
+				value: coordinates,
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lat',
+				value: coordinates.lat,
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lng',
+				value: coordinates.lng,
+			})
+		);
 	};
 
 	const renderMap = (props) => {
-		console.log(props);
 		return (
 			<>
 				<Map
-					address={address}
+					address={inputSettings?.address}
 					handleCoordinates={handleCoordinates}
-					mapPosition={coordinates}
+					mapPosition={props.value ? props.value : inputSettings?.mapPosition ? inputSettings?.mapPosition : { lat: -3.745, lng: -40.523 }}
+					// mapPosition={coordinates}
 					onClick={onMapClick}
 				/>
 				<StyledSpan>
@@ -283,67 +279,18 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 		);
 	};
 
-	const renderLatLng = (props): ReactElement => {
-		console.log(props);
-		// console.log(modalReducer.state.data);
-		const latLng = modalReducer?.state?.data?.latLng ? modalReducer.state.data.latLng : '';
-		return (
-			<FieldsRow>
-				<Field
-					label='Latitude'
-					name='lat'
-					size={Sizes.sm}
-				>
-					<StyledLatitudeField
-						name='lat'
-						onChange={handleLatitude}
-						value={latLng.lat}
-						inputSettings={{
-							type: 'number',
-							size: Sizes.sm,
-						}}
-					/>
-				</Field>
-				<Field
-					label='Longitude'
-					name='lng'
-					size={Sizes.sm}
-				>
-					<TextField
-						label='Longitude'
-						name='lng'
-						onChange={handleLongitude}
-						value={latLng.lng}
-						inputSettings={{
-							type: 'number',
-							size: Sizes.sm,
-						}}
-					/>
-				</Field>
-				{latLng?.lat?.length > 0 && latLng?.lng?.length > 0 && <Button buttonType='blueText' onClick={removeResetLocation}>
-					Reset
-				</Button>}
-			</FieldsRow>
-		);
-	};
-
-	// const fields = useMemo(
-	// 	() => (
-	// 		[
-	// 			{
-	// 				name: "placesList",
-	// 				type: renderMap,
-	// 			},
-	// 			{
-	// 				name: 'latLng',
-	// 				type: renderLatLng,
-	// 			},
-	// 		] as FieldDefProps[]
-	// 	), []
-	// );
-	// useEffect(() => {
-	// 	console.log(modalReducer.state.data);
-	// }, [modalReducer.state.data]);
+	const renderResetButton = (props): ReactElement => {
+		return props.value ?
+			<Button
+				buttonType='blueText'
+				onClick={removeResetLocation}
+				style={{ margin: 'auto 0px 35px 0px' }}
+			>
+				Reset
+			</Button>
+			:
+			<></>
+	}
 
 	const fields = useMemo(
 		() => (
@@ -353,99 +300,67 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 					type: renderMap,
 				},
 				{
-					name: 'latitude',
+					name: 'lat',
 					label: 'Latitude',
 					type: 'text',
+					inputSettings: {
+						type: 'number',
+					}
 				},
 				{
-					name: 'longitude',
+					name: 'lng',
 					label: 'Longitude',
 					type: 'text',
+					inputSettings: {
+						type: 'number',
+					}
 				},
-				// {
-				// 	name: 'latLng',
-				// 	type: renderLatLng,
-				// },
+				{
+					name: 'resetButton',
+					label: 'Reset',
+					type: renderResetButton
+				}
 			] as FieldDefProps[]
 		), []
 	);
+
+	useEffect(() => {
+		const { lat, lng } = modalReducer.state.data;
+
+		if (lat?.toString().length > 0 && lng?.toString().length > 0) {
+			modalReducer.dispatch(
+				actions.setFieldValue({ name: 'resetButton', value: true })
+			);
+
+			modalReducer.dispatch(
+				actions.setFieldValue({
+					name: 'placesList',
+					value: { lat: Number(lat), lng: Number(lng) }
+				})
+			);
+		} else {
+			modalReducer.dispatch(
+				actions.setFieldValue({ name: 'resetButton', value: undefined })
+			);
+		}
+
+	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
 
 	const sections = useMemo(() => [
 		{
 			fields: [
 				[['placesList']],
-				[['latitude'], ['longitude']]
+				[['lat'], ['lng'], ['resetButton']]
 			]
 		}
 	], []);
-	// const renderLatLng = useCallback(() => {
-	// 	const latLng = modalReducer?.state?.data?.latLng ? modalReducer.state.data.latLng : '';
-
-	// 	return (
-	// 		<FieldsRow>
-	// 			<Field
-	// 				label='Latitude'
-	// 				name='lat'
-	// 				size={Sizes.sm}
-	// 			>
-	// 				<StyledLatitudeField
-	// 					name='lat'
-	// 					onChange={(val) => handleTextFieldsChange(val, 'lat')}
-	// 					value={latLng.lat}
-	// 					inputSettings={{
-	// 						type: 'number',
-	// 						size: Sizes.sm,
-	// 					}}
-	// 				/>
-	// 			</Field>
-	// 			<Field
-	// 				label='Longitude'
-	// 				name='lng'
-	// 				size={Sizes.sm}
-	// 			>
-	// 				<TextField
-	// 					label='Longitude'
-	// 					name='lng'
-	// 					onChange={(val) => handleTextFieldsChange(val, 'lng')}
-	// 					value={latLng.lng}
-	// 					inputSettings={{
-	// 						type: 'number',
-	// 						size: Sizes.sm,
-	// 					}}
-	// 				/>
-	// 			</Field>
-	// 			{latLng?.lat?.length > 0 && latLng?.lng?.length > 0 && <Button buttonType='blueText' onClick={removeResetLocation}>
-	// 				Reset
-	// 			</Button>}
-	// 		</FieldsRow>
-	// 	);
-	// }, [modalReducer.state.data.latLng]);
-
-	// const fields = useMemo(() => [
-	// 	{
-	// 		name: "placesList",
-	// 		type: renderMap,
-	// 	},
-	// 	{
-	// 		name: 'latLng',
-	// 		type: renderLatLng,
-	// 	},
-	// ] as FieldDefProps[],
-	// 	[renderMap, renderLatLng]
-	// );
 
 	useMemo(() => {
 		modalReducer?.registerFields(fields);
 	}, [fields, modalReducer?.registerFields]);
 
-	// let submitDisabled = true;
-
-	// if (latLngFields.lat.length > 0 && latLngFields.lng.length > 0) {
-	// 	submitDisabled = false;
-	// }
-
 	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: apiKey,
+		googleMapsApiKey: inputSettings?.apiKey,
 		libraries,
 	});
 
@@ -454,9 +369,9 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 
 	return (
 		<>
-			{hasSavedCoordinates || !isEmpty(address) ? (
+			{value || !isEmpty(inputSettings?.address) ? (
 				<div>
-					{!isEmpty(address) && (
+					{!isEmpty(inputSettings?.address) && (
 						<SwitchContainer>
 							<ToggleSwitch
 								label='Use same as address'
@@ -466,30 +381,30 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 							/>
 						</SwitchContainer>
 					)}
-					<CoordinatesCard hasAddress={!isEmpty(address)}>
+					<CoordinatesCard hasAddress={!isEmpty(inputSettings?.address)}>
 						<MapImageColumn>
 							<GoogleMap
 								mapContainerStyle={containerStyle}
-								center={coordinates}
+								center={{ lat: value.lat, lng: value.lng }}
 								zoom={10}
 								options={mapOptions}
 							>
-								<Marker position={coordinates} />
+								<Marker position={{ lat: value.lat, lng: value.lng }} />
 							</GoogleMap>
 						</MapImageColumn>
 						<Column>
 							<LatLngLabel>Latitude</LatLngLabel>
-							<LatitudeValue>{latLngFields.lat}</LatitudeValue>
+							<LatitudeValue>{value.lat}</LatitudeValue>
 							<LatLngLabel>Longitude</LatLngLabel>
-							<CoordinatesValues>{latLngFields.lng}</CoordinatesValues>
+							<CoordinatesValues>{value.lng}</CoordinatesValues>
 						</Column>
-						<ButtonsWrapper hasAddress={isEmpty(address)}>
+						<ButtonsWrapper hasAddress={isEmpty(inputSettings?.address)}>
 							{!autocoordinatesChecked && (
 								<Button disabled={disabled} buttonType='blueText' onClick={handleAddCoordinates}>
 									Edit
 								</Button>
 							)}
-							{!autocoordinatesChecked && isEmpty(address) && (
+							{!autocoordinatesChecked && isEmpty(inputSettings?.address) && (
 								<Button disabled={disabled} buttonType='redText' onClick={removeResetLocation}>
 									Remove
 								</Button>
@@ -516,54 +431,9 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 				open={isModalOpen}
 				onCancel={handleClose}
 				onSubmit={handleSaveCoordinates}
-				submitButtonAttrs={{ children: 'Save Coordinates' }}
+				submitButtonAttrs={{ children: 'Save Coordinates', disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng }}
 				cancelButtonAttrs={{ children: 'Cancel' }}
 			/>
-			{/* <Modal
-				dialogTitle='Map Coordinates'
-				open={isModalOpen}
-				onClose={handleClose}
-				primaryBtnLabel='Save Coordinates'
-				primaryAction={handleSaveCoordinates}
-				secondaryAction={handleClose}
-				secondaryBtnLabel='Cancel'
-				submitDisabled={submitDisabled}
-			>
-				<Map
-					address={address}
-					handleCoordinates={handleCoordinates}
-					mapPosition={coordinates}
-					onClick={onMapClick}
-				/>
-				<StyledSpan>
-					Click on the map to update the lattitude and longitude coordinates
-				</StyledSpan>
-				<FieldsRow>
-					<StyledLatitudeField
-						htmlFor='lat'
-						id='lat'
-						label='Latitude'
-						name='lat'
-						size={Sizes.sm}
-						onChange={handleTextFieldsChange}
-						value={latLngFields.lat}
-						type='number'
-					/>
-					<TextField
-						htmlFor='lng'
-						id='lng'
-						label='Longitude'
-						name='lng'
-						size={Sizes.sm}
-						onChange={handleTextFieldsChange}
-						value={latLngFields.lng}
-						inputSettings={{ type: 'number' }}
-					/>
-					{latLngFields.lat.length > 0 && latLngFields.lng.length > 0 && <Button buttonType='blueText' onClick={removeResetLocation}>
-						Reset
-					</Button>}
-				</FieldsRow>
-			</Modal> */}
 		</>
 	);
 };

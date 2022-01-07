@@ -32,7 +32,7 @@ const StyledCol = styled.div`
 	flex-direction: column;
 	${pr => pr.formType === 'modal' ?
 		`
-			max-width: 100%;
+			flex: 1 1 auto;
 		`
 		:
 		`
