@@ -21,11 +21,16 @@ const mapOptions = {
 };
 
 const Map = (props: MapProps): ReactElement => {
-	const { address, handleCoordinates, mapPosition, onClick } = props;
+	const {
+		address,
+		handleCoordinates,
+		mapPosition = { lat: -3.745, lng: -40.523 },
+		onClick
+	} = props;
 
 	return (
 		<MapContainer>
-			{isEmpty(address) && <LocationSearchInput handleCoordinates={handleCoordinates}/>}
+			{isEmpty(address) && <LocationSearchInput handleCoordinates={handleCoordinates} />}
 			<div>
 				<GoogleMap
 					mapContainerStyle={containerStyle}

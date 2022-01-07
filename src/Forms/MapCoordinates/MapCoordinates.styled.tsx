@@ -8,12 +8,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 // Styles for the MapCoordinates component
 
-export const FieldsRow = styled.div`
-  align-items: center;
-  display: flex;
-  margin-top: 20px;
-`;
-
 export const StyledSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
@@ -72,10 +66,6 @@ export const CoordinatesValues = styled.span`
 
 export const LatitudeValue = styled(CoordinatesValues)`
   margin-bottom: 24px;
-`;
-
-export const StyledLatitudeField = styled(TextField)`
-  margin-right: 20px;
 `;
 
 export const SwitchContainer = styled.div`
