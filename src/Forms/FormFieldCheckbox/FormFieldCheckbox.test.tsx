@@ -37,10 +37,10 @@ describe('The FormFieldCheckbox behavior', () => {
 				<FormFieldCheckbox
 					label='Label'
 					inputSettings={{
-						checked,
 						options
-	
+
 					}}
+					value={checked}
 					error={'Error text'}
 					instructionText='Instruction text'
 					onChange={onChange}
@@ -58,50 +58,5 @@ describe('The FormFieldCheckbox behavior', () => {
 		expect(checkboxElements[0].checked).toEqual(true);
 		expect(checkboxElements[1].checked).toEqual(false);
 		expect(checkboxElements[2].checked).toEqual(false);
-	});
-});
-
-describe('The instructionText and the errorText behavior', () => {
-	it('should display the instruction text and the error text', () => {
-		render(
-			<FormFieldCheckbox
-				label='Label'
-				inputSettings={{
-					checked: [],
-					options
-
-				}}
-				error={'Error text'}
-				required={true}
-				instructionText='Instruction text'
-				onChange={jest.fn()}
-			/>
-		);
-		const instructionTextElement = screen.getByText('Instruction text');
-		const errorTextElement = screen.getByText('Error text');
-
-		expect(instructionTextElement).toBeDefined();
-		expect(errorTextElement).toBeDefined();
-	});
-
-	it('should display only the instruction text since there is no error', () => {
-		render(
-			<FormFieldCheckbox
-				label='Label'
-				inputSettings={{
-					checked: [],
-					options
-
-				}}
-				error={'Error text'}
-				instructionText='Instruction text'
-				onChange={jest.fn()}
-			/>
-		);
-		const instructionTextElement = screen.getByText('Instruction text');
-		const errorTextElement = screen.queryByText('Error text');
-
-		expect(instructionTextElement).toBeDefined();
-		expect(errorTextElement).toBe(null);
 	});
 });
