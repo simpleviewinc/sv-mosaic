@@ -12,7 +12,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 	const checkedRef = useStateRef(props.checked);
 
 	const handleToggle = useCallback(
-		(value: string | { [key: string]: any; }) => () => {
+		(value: string | { [key: string]: unknown; }) => () => {
 			// toggle the item in the array
 			const newChecked = xor(checkedRef.current, [value]);
 			props.onChange(newChecked);
