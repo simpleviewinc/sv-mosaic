@@ -1,8 +1,8 @@
-import { FieldProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 import { ChangeEventHandler } from 'react';
 import { Sizes } from '../../theme/sizes';
 
-export interface TextAreaProps extends FieldProps {
+export interface TextAreaProps extends FieldDef {
 	inputSettings?: {
 		/**
 		 * Example text within the input to be replaced by the user.
