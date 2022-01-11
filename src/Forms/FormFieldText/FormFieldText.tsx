@@ -5,11 +5,12 @@ import { ReactElement, HTMLAttributes, memo } from 'react';
 import { InputAdornment } from '@material-ui/core';
 
 // Types and styles
-import { TextFieldProps } from './FormFieldTextTypes';
+import { TextFieldDef } from './FormFieldTextTypes';
 import { StyledTextField } from './FormFieldText.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
 const TextField = (
-	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
+	props: MosaicFieldProps<TextFieldDef> & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
 		fieldDef,
