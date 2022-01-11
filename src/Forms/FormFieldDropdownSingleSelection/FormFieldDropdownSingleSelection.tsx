@@ -2,23 +2,15 @@ import * as React from 'react';
 import { useState, memo, HTMLAttributes } from "react";
 import {
 	StyledAutocomplete,
-	StyledHelperText,
-	StyledInstructionText,
 	StyledDisabledDropdownText,
-	StyledErrorText,
-	StyledErrorWrapper,
-	StyledErrorIcon,
-	StyledErrorMessage,
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
-
-// Material UI
-import TextField from '@material-ui/core/TextField';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
 
 // Components
-import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
 import InputWrapper from '../../components/InputWrapper';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import TextField from '@material-ui/core/TextField';
 
 const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttributes<HTMLInputElement>) => {
 	const {
@@ -49,8 +41,6 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 		setIsOpen(!isOpen)
 	}
 
-	const errorWithMessage = error?.trim().length > 0;
-
 	return (
 		<>
 			{!disabled ?
@@ -63,7 +53,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 						options={inputSettings?.options}
 						getOptionLabel={(option) => option.title}
 						onChange={(_event, option) => onChange && onChange(option)}
-						error={(required && errorWithMessage) ? errorWithMessage : undefined}
+						error={(required && error) ? error : undefined}
 						renderInput={renderInput}
 						disablePortal={true}
 						popupIcon={<ExpandMoreIcon />}
@@ -75,8 +65,8 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
-					{(!value?.option || value.option.trim() === '') ?
-						inputSettings?.placeholder : value.option
+					{(!value?.title || value.title.trim() === '') ?
+						inputSettings?.placeholder : value.title
 					}
 				</StyledDisabledDropdownText>
 			}

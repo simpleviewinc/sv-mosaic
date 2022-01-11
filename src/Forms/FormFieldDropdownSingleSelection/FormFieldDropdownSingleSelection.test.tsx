@@ -7,7 +7,13 @@ import {
 
 import DropdownSingleSelection from "./FormFieldDropdownSingleSelection";
 import Field from '@root/components/Field';
-import { options as topFilms} from './FormFieldDropdownSingleSelection.stories'
+
+const topFilms = [
+	{ title: 'The Shawshank Redemption', year: 1994 },
+	{ title: 'The Godfather', year: 1972 },
+	{ title: 'The Godfather: Part II', year: 1974 },
+	{ title: 'The Dark Knight', year: 2008 },
+]
 
 const { getByText, getByTestId, getByRole } = screen;
 
