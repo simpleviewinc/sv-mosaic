@@ -24,7 +24,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 	const {
 		disabled = false,
 		error,
-		required = true,
+		required,
 		onChange,
 		onBlur,
 		inputSettings,
@@ -40,6 +40,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 				data-testid="textfield-test-id"
 				variant="outlined"
 				placeholder={inputSettings?.placeholder}
+				required={required}
 			/>
 		</InputWrapper>
 	);
@@ -60,14 +61,13 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
 						options={inputSettings?.options}
-						size={inputSettings?.size}
 						getOptionLabel={(option) => option.title}
-						onChange={(_event, option) => onChange(option)}
+						onChange={(_event, option) => onChange && onChange(option)}
 						error={(required && errorWithMessage) ? errorWithMessage : undefined}
 						renderInput={renderInput}
 						disablePortal={true}
 						popupIcon={<ExpandMoreIcon />}
-						onBlur={(e) => onBlur(e.target.value)}
+						onBlur={(e) => onBlur && onBlur(e.target.value)}
 						open={isOpen}
 					/>
 				</SingleDropdownWrapper>
