@@ -86,7 +86,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 					// validators: [requiredValidator]
-				} as TextFieldDef,
+				} as FieldDef<TextFieldDef>,
 				{
 					name: "multiline",
 					label: "Multiline example",

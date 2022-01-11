@@ -7,7 +7,8 @@ import { ReactNode } from 'react';
 //     value:
 //     touched
 // }
-export interface MosaicFieldProps {//FieldProps
+export interface MosaicFieldProps<T> {//FieldProps
+	fieldDef: FieldDef<T>;
 	/**
 	 * Function that listens to changes on the text field and updates its value.
 	 */
@@ -32,7 +33,7 @@ export interface MosaicFieldProps {//FieldProps
 //     label: string
 //     maxCharacters: numbers
 // }
-export interface FieldDef {//Previously FieldProps
+export interface FieldDef<T = any> {//Previously FieldProps
 	name?: string;
 	/**
 	 * Significant name related to its textfield.
@@ -58,7 +59,7 @@ export interface FieldDef {//Previously FieldProps
 	 * Settings that belong to a specific field.
 	 * They are defined within each field implementation.
 	 */
-	inputSettings?: any;
+	inputSettings?: T;
 	/**
 	 * Used to show and limit the characters.
 	 */
