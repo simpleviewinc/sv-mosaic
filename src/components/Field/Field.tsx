@@ -5,7 +5,7 @@ import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 import { default as Label } from './Label';
 import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
-import { FieldDefProps } from '.';
+import { FieldDef, MosaicFieldProps } from '.';
 import { Sizes } from '@root/theme/sizes';
 
 const Field = ({
@@ -17,13 +17,12 @@ const Field = ({
 	label,
 	helperText,
 	instructionText,
-	htmlFor,
 	value,
 	maxCharacters,
 	name,
 	size,
 	type,
-}: FieldDefProps): ReactElement => {
+}: FieldDef & MosaicFieldProps): ReactElement => {
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
 
 	const description = useRef<HTMLDivElement>(null);

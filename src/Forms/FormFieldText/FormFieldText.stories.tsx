@@ -7,8 +7,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 // Components
-import TextField from '.';
-import Field, { FieldDefProps } from '@root/components/Field';
+import TextField, { TextFieldDef } from '.';
+import Field, { FieldDef } from '@root/components/Field';
 import { ReactElement } from 'react';
 import { Sizes } from '@root/theme/sizes';
 import { useForm } from '../Form/formUtils';
@@ -39,14 +39,16 @@ export const Default = (): ReactElement => {
 			value={inputValue}
 		>
 			<TextField
-				label={text('Label', 'Label')}
-				disabled={boolean('Disabled', false)}
-				inputSettings={{
-					htmlFor: 'text-input',
-					size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
-					placeholder: text('Placeholder', 'placeholder'),
-					maxCharacters: number('Max characters', 20),
-					value: inputValue
+				fieldDef={{
+					label: text('Label', 'Label'),
+					disabled: boolean('Disabled', false),
+					inputSettings: {
+						htmlFor: 'text-input',
+						size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+						placeholder: text('Placeholder', 'placeholder'),
+						maxCharacters: number('Max characters', 20),
+						value: inputValue
+					}
 				}}
 				error={text('Error text', '')}
 				onChange={onHandleChange}
@@ -84,7 +86,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 					// validators: [requiredValidator]
-				},
+				} as TextFieldDef,
 				{
 					name: "multiline",
 					label: "Multiline example",
@@ -123,7 +125,7 @@ export const FormExample = (): ReactElement => {
 					instructionText: 'Instruction text',
 					// validators: [requiredValidator]
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled, maxCharacters, size, placeholder]
 	);
 

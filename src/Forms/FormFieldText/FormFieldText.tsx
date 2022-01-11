@@ -12,21 +12,22 @@ const TextField = (
 	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
 ): ReactElement => {
 	const {
-		name,
-		inputSettings,
+		fieldDef,
+		// name,
+		// inputSettings,
 		className,
-		disabled = false,
+		// disabled = false,
 		error,
-		required,
+		// required,
 		onChange,
 		onBlur,
 		value,
 	} = props;
 
-	const leadingElement = inputSettings?.prefixElement
+	const leadingElement = fieldDef?.inputSettings?.prefixElement
 		? {
 			startAdornment: (
-				<InputAdornment position='start'>{inputSettings?.prefixElement}</InputAdornment>
+				<InputAdornment position='start'>{fieldDef?.inputSettings?.prefixElement}</InputAdornment>
 			),
 		}
 		: null;
@@ -35,22 +36,21 @@ const TextField = (
 
 	return (
 		<StyledTextField
-			id={name}
+			id={fieldDef?.name}
 			value={value}
-			// value={inputSettings?.value}
 			onChange={(e) => onChange && onChange(e.target.value)}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
-			error={(errorWithMessage || (errorWithMessage && required))}
+			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
 			className={className}
-			placeholder={inputSettings?.placeholder}
-			disabled={disabled}
-			multiline={inputSettings?.multiline}
-			size={inputSettings?.size}
-			inputProps={{ maxLength: inputSettings?.maxCharacters > 0 ? inputSettings?.maxCharacters : null }}
+			placeholder={fieldDef?.inputSettings?.placeholder}
+			disabled={fieldDef?.disabled}
+			multiline={fieldDef?.inputSettings?.multiline}
+			size={fieldDef?.inputSettings?.size}
+			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
 			InputProps={leadingElement}
-			required={required}
-			type={inputSettings?.type}
+			required={fieldDef?.required}
+			type={fieldDef?.inputSettings?.type}
 		/>
 	);
 };

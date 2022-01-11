@@ -1,40 +1,59 @@
 import { Sizes } from '@root/theme/sizes';
 import { ReactNode } from 'react';
 
-export interface FieldProps {
-	name?: string;
+// MOSAIC GENERIC CONTRACT
+// interface FieldProps {
+//     onChange: fn()
+//     value:
+//     touched
+// }
+export interface MosaicFieldProps {//FieldProps
 	/**
- 	 * Flag to style text field as erroneous.
+	 * Function that listens to changes on the text field and updates its value.
+	 */
+	onChange?: (e: unknown, ...params: unknown[]) => void | unknown;
+	/**
+	 * Specifies which form element a label is bound to.
+	 */
+	htmlFor?: string;
+	/**
+	 * Value written by the user into the text field.
+	 */
+	value?: any | string;
+	/**
+	 * Flag to style text field as erroneous.
 	 */
 	error?: string;
-	/**
-	 * Indicates whether the text field can be written on or readonly.
-	 */
-	disabled?: boolean;
-	/**
-   	 * Marks Text field as required
-   	 */
-	required?: boolean;
+}
+
+// SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
+// interface FieldDef {
+//     name: string
+//     label: string
+//     maxCharacters: numbers
+// }
+export interface FieldDef {//Previously FieldProps
+	name?: string;
 	/**
 	 * Significant name related to its textfield.
 	 */
 	label: string;
 	/**
- 	 * Text to help the user fill the current text field.
+		   * Marks Text field as required
+		   */
+	required?: boolean;
+	/**
+	  * Text to help the user fill the current text field.
 	 */
 	helperText?: string | JSX.Element;
-	// /**
-   	//  * Indicates the cause of an error.
-   	//  */
-	// errorText?: string;
 	/**
 	 * Instructions about how to fill the text field.
 	 */
 	instructionText?: string;
 	/**
-	 * Function that listens to changes on the text field and updates its value.
+	 * Indicates whether the text field can be written on or readonly.
 	 */
-	onChange?: any;
+	disabled?: boolean;
 	/**
 	 * Settings that belong to a specific field.
 	 * They are defined within each field implementation.
@@ -44,21 +63,19 @@ export interface FieldProps {
 	 * Used to show and limit the characters.
 	 */
 	maxCharacters?: number;
-	/**
-	 * Specifies which form element a label is bound to.
-	 */
-	htmlFor?: string;
-	/**
-	 * Value written by the user into the text field.
-	 */
-	value?: any | string;
 	size?: Sizes;
-}
-
-export interface FieldDefProps extends FieldProps {
 	className?: string;
 	type?: string | JSX.Element | (() => JSX.Element);
-	children: ReactNode;
+	children?: ReactNode;
 	layout?: any;
 	validators?: (() => string | JSX.Element)[];
 }
+
+//This interface should be merged with the one above (FieldProps)
+// export interface FieldDefProps extends FieldDef {
+// 	className?: string;
+// 	type?: string | JSX.Element | (() => JSX.Element);
+// 	children: ReactNode;
+// 	layout?: any;
+// 	validators?: (() => string | JSX.Element)[];
+// }
