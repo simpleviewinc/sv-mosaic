@@ -47,11 +47,3 @@ export interface TextFieldProps extends FieldProps {
    */
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
-
-export interface StyledWrapperProps {
-  width: string;
-}
-
-export interface StyledTextInputProps {
-  width: string;
-}
