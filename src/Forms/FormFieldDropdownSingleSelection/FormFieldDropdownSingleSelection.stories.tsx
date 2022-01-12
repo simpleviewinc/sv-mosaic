@@ -8,41 +8,43 @@ import Field, { FieldDefProps } from "@root/components/Field";
 import Form from "../Form/Form";
 import { useForm } from "../Form/formUtils";
 
-
-
 export default {
 	title: "Forms|FormFieldDropdownSingleSelection",
 	decorators: [withKnobs]
 }
 
-export const example = (): ReactElement => {
-	// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-	const options = [
-		{ title: 'The Shawshank Redemption', year: 1994 },
-		{ title: 'The Godfather', year: 1972 },
-		{ title: 'The Godfather: Part II', year: 1974 },
-		{ title: 'The Dark Knight', year: 2008 },
-		{ title: '12 Angry Men', year: 1957 },
-		{ title: "Schindler's List", year: 1993 },
-		{ title: 'Pulp Fiction', year: 1994 },
-		{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-		{ title: 'The Good, the Bad and the Ugly', year: 1966 },
-		{ title: 'Fight Club', year: 1999 },
-		{ title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-		{ title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-		{ title: 'Forrest Gump', year: 1994 },
-		{ title: 'Inception', year: 2010 },
-		{ title: 'The Lord of the Rings: The Two Towers', year: 2002 },
-		{ title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-		{ title: 'Goodfellas', year: 1990 },
-		{ title: 'The Matrix', year: 1999 },
-		{ title: 'Seven Samurai', year: 1954 },
-		{ title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
-		{ title: 'City of God', year: 2002 },
-		{ title: 'Se7en', year: 1995 },
-	];
+// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
+const options = [
+	{ title: 'The Shawshank Redemption', year: 1994 },
+	{ title: 'The Godfather', year: 1972 },
+	{ title: 'The Godfather: Part II', year: 1974 },
+	{ title: 'The Dark Knight', year: 2008 },
+	{ title: '12 Angry Men', year: 1957 },
+	{ title: "Schindler's List", year: 1993 },
+	{ title: 'Pulp Fiction', year: 1994 },
+	{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+	{ title: 'The Good, the Bad and the Ugly', year: 1966 },
+	{ title: 'Fight Club', year: 1999 },
+	{ title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+	{ title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
+	{ title: 'Forrest Gump', year: 1994 },
+	{ title: 'Inception', year: 2010 },
+	{ title: 'The Lord of the Rings: The Two Towers', year: 2002 },
+	{ title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+	{ title: 'Goodfellas', year: 1990 },
+	{ title: 'The Matrix', year: 1999 },
+	{ title: 'Seven Samurai', year: 1954 },
+	{ title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
+	{ title: 'City of God', year: 2002 },
+	{ title: 'Se7en', year: 1995 },
+];
 
-	const [selectedOption, setSelectedOption] = useState();
+export const example = (): ReactElement => {
+
+	const required = boolean('Required', false);
+	const errorText = text('Error text', '');
+
+	const [selectedOption, setSelectedOption] = useState(null);
 
 	const onChange = (option) => {
 		setSelectedOption(option)
@@ -51,11 +53,11 @@ export const example = (): ReactElement => {
 	return (
 		<Field
 			label={text('Label', 'Label')}
-			required={boolean('Required', false)}
+			required={required}
 			disabled={boolean('Disabled', false)}
 			helperText={text('Helper text', '')}
 			instructionText={text('Instruction text', 'Instruction text')}
-			error={text('Error text', '')}
+			error={errorText}
 			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
 		>
 			<FormFieldDropdownSingleSelection
@@ -67,8 +69,9 @@ export const example = (): ReactElement => {
 					size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
 				}}
 				onChange={onChange}
+				required={required}
 				value={selectedOption}
-				error={text("Error text", "Error text example")}
+				error={errorText}
 			/>
 		</Field>
 	)
@@ -81,31 +84,6 @@ export const FormExample = (): ReactElement => {
 	const placeholder = text('Placeholder', 'placeholder');
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
-
-	const options = useMemo(() => [
-		{ title: 'The Shawshank Redemption', year: 1994 },
-		{ title: 'The Godfather', year: 1972 },
-		{ title: 'The Godfather: Part II', year: 1974 },
-		{ title: 'The Dark Knight', year: 2008 },
-		{ title: '12 Angry Men', year: 1957 },
-		{ title: "Schindler's List", year: 1993 },
-		{ title: 'Pulp Fiction', year: 1994 },
-		{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-		{ title: 'The Good, the Bad and the Ugly', year: 1966 },
-		{ title: 'Fight Club', year: 1999 },
-		{ title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-		{ title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-		{ title: 'Forrest Gump', year: 1994 },
-		{ title: 'Inception', year: 2010 },
-		{ title: 'The Lord of the Rings: The Two Towers', year: 2002 },
-		{ title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-		{ title: 'Goodfellas', year: 1990 },
-		{ title: 'The Matrix', year: 1999 },
-		{ title: 'Seven Samurai', year: 1954 },
-		{ title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
-		{ title: 'City of God', year: 2002 },
-		{ title: 'Se7en', year: 1995 },
-	], []);
 
 	const fields = useMemo(
 		() =>
