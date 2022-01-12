@@ -37,7 +37,6 @@ const TextField = (
 		<StyledTextField
 			id={name}
 			value={value}
-			// value={inputSettings?.value}
 			onChange={(e) => onChange && onChange(e.target.value)}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
@@ -46,7 +45,7 @@ const TextField = (
 			placeholder={inputSettings?.placeholder}
 			disabled={disabled}
 			multiline={inputSettings?.multiline}
-			size={inputSettings?.size}
+			fieldSize={inputSettings?.size}
 			inputProps={{ maxLength: inputSettings?.maxCharacters > 0 ? inputSettings?.maxCharacters : null }}
 			InputProps={leadingElement}
 			required={required}

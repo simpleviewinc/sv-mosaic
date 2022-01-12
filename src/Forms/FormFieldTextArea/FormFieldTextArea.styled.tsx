@@ -1,56 +1,47 @@
+import * as React from 'react';
 import styled from 'styled-components';
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
 
 //Styles & Types
-import {
-	StyledTextInputProps,
-} from './FormFieldTextTypes';
-import theme from '../../utils/theme.js';
+import theme from '@root/theme';
 import { Sizes } from '@root/theme/sizes';
 
-export const StyledTextField = styled<StyledTextInputProps>(TextField)`
-  width: ${pr => pr.size ? pr.size : Sizes.sm};
+export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
+	<TextField {...rest} />
+))`
+  width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
-  &.MuiFormControl-root {
-    background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
+  .MuiOutlinedInput-multiline {
+    align-items: start;
+    background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.gray100};
+    min-height: ${pr => pr.disabled ? 'fit-content' : '150px'};
+    padding: ${pr => pr.disabled && 0};
+
     &:hover {
       background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
     }
   }
 
-  .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {
-    padding: ${pr => pr.disabled ? 0 : '15.5px 14px'};
-  }
-
-  input.MuiOutlinedInput-input {
-    height: 20px;
-  }
-
-  input,
   .MuiOutlinedInput-multiline {
     font-family: ${theme.fontFamily};
   }
 
-  .MuiInputBase-root {
-    line-height: 1.3em;
-  }
-
   .MuiFormHelperText-contained {
-    font-family: ${theme.fontFamily};
+    font-family: inherit;
     margin-top: ${pr => pr.error ? '9px' : '7px'};
     margin-left: 0;
-    word-break: break-all;
+    word-wrap: break-word;
   }
 
   .MuiInputBase-input.Mui-disabled {
     background-color: transparent;
-    color: #1A1A1A;
+    color: ${theme.colors.almostBlack};
   }
 
-  .MuiFormHelperText-root.Mui-error {
-    color: #B10000
+  .MuiFormHelperText-root {
+    color: ${pr => pr.error ? theme.colors.red : theme.colors.assistiveText};
   }
 
   fieldset {
@@ -59,7 +50,7 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
 
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
-      border-color: #1A1A1A;
+      border-color: ${theme.colors.almostBlack};
     }
   }
 
