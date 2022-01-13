@@ -1,13 +1,14 @@
+import { MosaicFieldProps } from '@root/components/Field';
 import * as React from 'react';
 import { memo, ReactElement, useState } from 'react';
 import { SketchPicker } from 'react-color';
 import { ColorContainer, ColorDiv, Cover, PopOver } from './ColorPicker.styled';
 import { ColorPickerProps } from './ColorPickerTypes';
 
-const ColorPicker = (props: ColorPickerProps): ReactElement => {
+const ColorPicker = (props: MosaicFieldProps<any>): ReactElement => {
 	const {
+		fieldDef,
 		value,
-		disabled,
 		onChange
 	} = props;
 
@@ -26,11 +27,11 @@ const ColorPicker = (props: ColorPickerProps): ReactElement => {
 		<>
 			<ColorContainer
 				displayColorPicker={displayColorPicker}
-				disabled={disabled}
+				disabled={fieldDef?.disabled}
 			>
 				<ColorDiv
 					data-testid='colordiv-test'
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					color={value ? value : {
 						rgb: {
 							r: 0,
@@ -42,7 +43,7 @@ const ColorPicker = (props: ColorPickerProps): ReactElement => {
 					onClick={handleClick}
 				/>
 			</ColorContainer>
-			{displayColorPicker && !disabled && (
+			{displayColorPicker && !fieldDef?.disabled && (
 				<PopOver>
 					<Cover onClick={handleClose} />
 					<SketchPicker

@@ -19,8 +19,8 @@ describe('TextArea component', () => {
 						htmlFor: 'test',
 						placeholder: 'placeholder',
 					},
+					id: 'test'
 				}}
-				id='test'
 				onChange={() => jest.fn()}
 			/>
 		);

@@ -1,52 +1,46 @@
 import * as React from 'react';
-import { ReactElement, memo, HTMLAttributes } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Components
-import HelperText from '@root/components/HelperText';
-import { Label } from '@root/components/Typography';
-import FieldWrapper from '@root/components/FieldWrapper';
-import InstructionText from '@root/components/InstructionText';
-import InputWrapper from '@root/components/InputWrapper';
 import PhoneInput from 'react-phone-input-2';
 
 // Types and styles
 import 'react-phone-input-2/lib/bootstrap.css';
-import { FormFieldPhoneSelectionDropdownProps } from './FormFieldPhoneSelectionDropdownTypes';
+import { PhoneSelectionDef } from './FormFieldPhoneSelectionDropdownTypes';
 import {
 	PhoneInputWrapper,
 	StyledDisabledText,
 } from './FormFieldPhoneSelectionDropdown.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
 const FormFieldPhoneSelectionDropdown = (
-	props: FormFieldPhoneSelectionDropdownProps 
+	props: MosaicFieldProps<PhoneSelectionDef>
 ): ReactElement => {
 	const {
-		inputSettings,
-		disabled,
+		fieldDef,
 		error,
 		onChange,
 		onBlur,
-		required,
 		value,
 	} = props;
 
-	return !disabled ? (
-				<PhoneInputWrapper
-					error={!!(required && error)}
-					onBlur={(e) => onBlur(e.target.value)}
-				>
-					<PhoneInput
-						autoFormat={inputSettings?.autoFormat ? inputSettings.autoFormat : true}
-						country={inputSettings?.country ? inputSettings.country : 'us'}
-						disabled={disabled}
-						onChange={onChange}
-						placeholder={inputSettings?.placeholder}
-						value={value}
-						inputProps={{
-							required: required,
-						}}
-					/>
-				</PhoneInputWrapper>
+	return !fieldDef?.disabled ? (
+		<PhoneInputWrapper
+			error={!!(fieldDef?.required && error)}
+			onBlur={(e) => onBlur(e.target.value)}
+		>
+			<PhoneInput
+				autoFormat={fieldDef?.inputSettings?.autoFormat ? fieldDef?.inputSettings.autoFormat : true}
+				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : 'us'}
+				disabled={fieldDef?.disabled}
+				onChange={onChange}
+				placeholder={fieldDef?.inputSettings?.placeholder}
+				value={value}
+				inputProps={{
+					required: fieldDef?.required,
+				}}
+			/>
+		</PhoneInputWrapper>
 	) : (
 		value ? <StyledDisabledText>Phone value: {value}</StyledDisabledText> : <StyledDisabledText>Phone field disabled</StyledDisabledText>
 	);
