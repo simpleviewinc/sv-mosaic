@@ -11,11 +11,11 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
 import Form from '../Form/Form';
-import TextArea from '.';
+import TextArea, { TextAreaDef } from '.';
 
 // Helpers
 import { Sizes } from '../../theme/sizes';
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
 
 export default {
@@ -23,34 +23,48 @@ export default {
 	decorators: [withKnobs],
 } as Meta;
 
-export const Default = () : ReactElement => {
+export const Default = (): ReactElement => {
 	const [value, setValue] = useState('');
 	const onHandleChange = (val) => {
 		setValue(val);
 	};
 
+	const label = text('Label', 'Label');
+	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);
+	const size = select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm);
+
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={boolean('Required', false)}
-			disabled={boolean('Disabled', false)}
-			helperText={text('Helper text', '')}
-			instructionText={text('Instructional text', '')}
+			fieldDef={{
+				label,
+				disabled,
+				required,
+				helperText: text('Helper text', ''),
+				instructionText: text('Instruction text', ''),
+				inputSettings: {
+					htmlFor: 'text-input',
+					size,
+					placeholder: text('Placeholder', 'placeholder'),
+					maxCharacters: number('Max characters', 20),
+					value
+				}
+			}}
 			error={text('Error text', '')}
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
-			maxCharacters={number('Max characters', 20)}
 			htmlFor={'text-input'}
 			value={value}
 		>
 			<TextArea
-				label={text('Label', 'Label')}
-				disabled={boolean('Disabled', false)}
-				inputSettings={{
-					htmlFor: 'text-area',
-					size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
-					placeholder: text('Placeholder', 'placeholder'),
-					maxCharacters: number('Max characters', 200),
-					value
+				fieldDef={{
+					label,
+					disabled,
+					inputSettings: {
+						htmlFor: 'text-area',
+						size,
+						placeholder: text('Placeholder', 'placeholder'),
+						maxCharacters: number('Max characters', 20),
+						value
+					}
 				}}
 				error={text('Error text', '')}
 				onChange={onHandleChange}
@@ -87,8 +101,8 @@ export const FormExample = (): ReactElement => {
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
-			] as unknown as FieldDefProps[],
+				} as FieldDef<TextAreaDef>,
+			] as unknown as FieldDef[],
 		[required, disabled, maxCharacters, size, placeholder]
 	);
 

@@ -1,7 +1,7 @@
-import { FieldProps } from "@root/components/Field";
+import { FieldDef } from "@root/components/Field";
 import { Sizes } from "@root/theme/sizes";
 
-export interface DropdownSingleSelectionProps extends FieldProps {
+export interface DropdownSingleSelectionProps extends FieldDef {
 	inputSettings?: {
 		/**
 		 * Example text shown inside of the text field

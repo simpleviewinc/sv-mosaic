@@ -1,32 +1,29 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes, memo } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Material UI
 import { InputAdornment } from '@material-ui/core';
 
 // Types and styles
-import { TextFieldProps } from './FormFieldTextTypes';
+import { TextFieldDef } from './FormFieldTextTypes';
 import { StyledTextField } from './FormFieldText.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
 const TextField = (
-	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
+	props: MosaicFieldProps<TextFieldDef>
 ): ReactElement => {
 	const {
-		name,
-		inputSettings,
-		className,
-		disabled = false,
+		fieldDef,
 		error,
-		required,
 		onChange,
 		onBlur,
 		value,
 	} = props;
 
-	const leadingElement = inputSettings?.prefixElement
+	const leadingElement = fieldDef?.inputSettings?.prefixElement
 		? {
 			startAdornment: (
-				<InputAdornment position='start'>{inputSettings?.prefixElement}</InputAdornment>
+				<InputAdornment position='start'>{fieldDef?.inputSettings?.prefixElement}</InputAdornment>
 			),
 		}
 		: null;
@@ -35,21 +32,21 @@ const TextField = (
 
 	return (
 		<StyledTextField
-			id={name}
+			id={fieldDef?.name}
 			value={value}
 			onChange={(e) => onChange && onChange(e.target.value)}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
-			error={(errorWithMessage || (errorWithMessage && required))}
-			className={className}
-			placeholder={inputSettings?.placeholder}
-			disabled={disabled}
-			multiline={inputSettings?.multiline}
-			fieldSize={inputSettings?.size}
-			inputProps={{ maxLength: inputSettings?.maxCharacters > 0 ? inputSettings?.maxCharacters : null }}
+			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
+			className={fieldDef?.className}
+			placeholder={fieldDef?.inputSettings?.placeholder}
+			disabled={fieldDef?.disabled}
+			multiline={fieldDef?.inputSettings?.multiline}
+			fieldSize={fieldDef?.inputSettings?.size}
+			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
 			InputProps={leadingElement}
-			required={required}
-			type={inputSettings?.type}
+			required={fieldDef?.required}
+			type={fieldDef?.inputSettings?.type}
 		/>
 	);
 };

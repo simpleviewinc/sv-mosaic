@@ -27,9 +27,9 @@ import {
 	StyledCircularProgress,
 	UploadButton,
 } from './FormFieldImageUpload.styled';
-import { FieldProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 
-const ImageUpload = (props: ImageUploadProps & FieldProps): ReactElement => {
+const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 	const {
 		disabled,
 		// handleImageCoordinates,

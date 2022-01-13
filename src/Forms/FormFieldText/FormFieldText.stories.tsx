@@ -7,8 +7,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 // Components
-import TextField from '.';
-import Field, { FieldDefProps } from '@root/components/Field';
+import TextField, { TextFieldDef } from '.';
+import Field, { FieldDef } from '@root/components/Field';
 import { ReactElement } from 'react';
 import { Sizes } from '@root/theme/sizes';
 import { useForm } from '../Form/formUtils';
@@ -25,28 +25,42 @@ export const Default = (): ReactElement => {
 		setInputValue(val);
 	};
 
+	const label = text('Label', 'Label');
+	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);
+	const size = select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm);
+
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={boolean('Required', false)}
-			disabled={boolean('Disabled', false)}
-			helperText={text('Helper text', '')}
-			instructionText={text('Instructional text', '')}
+			fieldDef={{
+				label,
+				disabled,
+				required,
+				helperText: text('Helper text', ''),
+				instructionText: text('Instruction text', ''),
+				inputSettings: {
+					htmlFor: 'text-input',
+					size,
+					placeholder: text('Placeholder', 'placeholder'),
+					maxCharacters: number('Max characters', 20),
+					value: inputValue
+				}
+			}}
 			error={text('Error text', '')}
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
-			maxCharacters={number('Max characters', 20)}
 			htmlFor={'text-input'}
 			value={inputValue}
 		>
 			<TextField
-				label={text('Label', 'Label')}
-				disabled={boolean('Disabled', false)}
-				inputSettings={{
-					htmlFor: 'text-input',
-					size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
-					placeholder: text('Placeholder', 'placeholder'),
-					maxCharacters: number('Max characters', 20),
-					value: inputValue
+				fieldDef={{
+					label,
+					disabled,
+					inputSettings: {
+						htmlFor: 'text-input',
+						size,
+						placeholder: text('Placeholder', 'placeholder'),
+						maxCharacters: number('Max characters', 20),
+						value: inputValue
+					}
 				}}
 				error={text('Error text', '')}
 				onChange={onHandleChange}
@@ -84,7 +98,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 					// validators: [requiredValidator]
-				},
+				} as FieldDef<TextFieldDef>,
 				{
 					name: "multiline",
 					label: "Multiline example",
@@ -123,7 +137,7 @@ export const FormExample = (): ReactElement => {
 					instructionText: 'Instruction text',
 					// validators: [requiredValidator]
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled, maxCharacters, size, placeholder]
 	);
 

@@ -26,14 +26,16 @@ describe('TextField multiline behaviour', () => {
 	it('should render an input element when multiline is off', () => {
 		render(
 			<TextField
-				inputSettings={{
-					htmlFor: 'input-test',
-					placeholder: 'placeholder',
-					multiline: false
+				fieldDef={{
+					label: 'Label test',
+					helperText: 'Helper text',
+					inputSettings: {
+						htmlFor: 'input-test',
+						placeholder: 'placeholder',
+						multiline: false
+					},
 				}}
 				onChange={() => jest.fn()}
-				id='input-test'
-				label='Label test'
 			/>
 		);
 		const textField = screen.getByPlaceholderText('placeholder');
@@ -44,13 +46,15 @@ describe('TextField multiline behaviour', () => {
 	it('should render a text area element when the multiline prop is present', () => {
 		render(
 			<TextField
-				inputSettings={{
-					htmlFor: 'multiline-test',
-					placeholder: 'placeholder',
-					multiline: true,
+				fieldDef={{
+					label: 'Label test',
+					helperText: 'Helper text',
+					inputSettings: {
+						htmlFor: 'multiline-tes',
+						placeholder: 'placeholder',
+						multiline: true,
+					},
 				}}
-				id='multiline-test'
-				label='Label test'
 				onChange={() => jest.fn()}
 			/>
 		);

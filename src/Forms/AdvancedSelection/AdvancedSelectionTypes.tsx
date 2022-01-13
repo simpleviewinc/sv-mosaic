@@ -1,8 +1,8 @@
-import { FieldProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 
 export type optionsWithCategory = { category?: string, label: string, value: string };
 
-export interface AdvancedSelectionProps extends FieldProps {
+export interface AdvancedSelectionProps extends FieldDef {
 	inputSettings: {
 		/**
 		   * Options to be display within the Modal.
