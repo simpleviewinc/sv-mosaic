@@ -14,7 +14,6 @@ const TextField = (
 ): ReactElement => {
 	const {
 		fieldDef,
-		className,
 		error,
 		onChange,
 		onBlur,
@@ -39,7 +38,7 @@ const TextField = (
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
-			className={className}
+			className={fieldDef?.className}
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			disabled={fieldDef?.disabled}
 			multiline={fieldDef?.inputSettings?.multiline}

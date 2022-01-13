@@ -9,7 +9,6 @@ import { FieldDef, MosaicFieldProps } from '.';
 import { Sizes } from '@root/theme/sizes';
 
 const Field = ({
-	className,
 	children,
 	error,
 	fieldDef,
@@ -76,7 +75,7 @@ const Field = ({
 	}, [fieldDef?.type]);
 
 	return (
-		<StyledFieldContainer className={className}>
+		<StyledFieldContainer className={fieldDef?.className}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
 				size={(fieldDef?.type === 'chip' || fieldDef?.type === 'linkSetup') ? Sizes.md : fieldDef?.type === 'color' ? '102px' : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}

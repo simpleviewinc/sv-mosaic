@@ -45,10 +45,6 @@ export type TextFieldDef = {
 	 * input type.
 	 */
 	type?: string;
-	/**
-	 * Function that listens to changes on the text field and updates its value.
-	 */
-	// onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
 export interface StyledWrapperProps {

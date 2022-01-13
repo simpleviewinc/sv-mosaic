@@ -2,20 +2,20 @@ import { Sizes } from '@root/theme/sizes';
 import { HTMLAttributes, ReactNode } from 'react';
 
 // MOSAIC GENERIC CONTRACT
-// interface FieldProps {
-//     onChange: fn()
-//     value:
-//     touched
-// }
 export interface MosaicFieldProps<T> {//FieldProps
+	/**
+	 * Object that contains all the properties from the current field defined
+	 * by the developer.
+	 */
 	fieldDef: FieldDef<T>;
 	/**
-	 * Function that listens to changes on the text field and updates its value.
+	 * Function that listens to changes on the field and updates its value.
 	 */
-	// onChange?: (e: unknown, ...params: unknown[]) => void | unknown;
 	onChange?: HTMLAttributes<HTMLElement>['onChange'];
+	/**
+	 * Function that listens to a blur event on the field and executes an action.
+	 */
 	onBlur?: HTMLAttributes<HTMLElement>['onBlur'];
-	className?: HTMLAttributes<HTMLElement>['className'];
 	/**
 	 * Specifies which form element a label is bound to.
 	 */
@@ -28,35 +28,36 @@ export interface MosaicFieldProps<T> {//FieldProps
 	 * Flag to style text field as erroneous.
 	 */
 	error?: string;
+	/**
+	 * React Element or component to be rendered as child of the field component.
+	 */
 	children?: ReactNode;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-// interface FieldDef {
-//     name: string
-//     label: string
-//     maxCharacters: numbers
-// }
 export interface FieldDef<T = any> {//Previously FieldProps
+	/**
+	 * Significant name related to its field.
+	 */
 	name?: string;
 	/**
-	 * Significant name related to its textfield.
+	 * Label that will sit on top of the field.
 	 */
 	label: string;
 	/**
-		   * Marks Text field as required
-		   */
+	 * Marks field as required
+	 */
 	required?: boolean;
 	/**
-	  * Text to help the user fill the current text field.
+	 * Text to help the user fill the current field.
 	 */
 	helperText?: string | JSX.Element;
 	/**
-	 * Instructions about how to fill the text field.
+	 * Instructions about how to fill the current field.
 	 */
 	instructionText?: string;
 	/**
-	 * Indicates whether the text field can be written on or readonly.
+	 * Indicates whether the field can be written on or readonly.
 	 */
 	disabled?: boolean;
 	/**
@@ -68,9 +69,27 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	 * Used to show and limit the characters.
 	 */
 	maxCharacters?: number;
+	/**
+	 * Defined between 100, 280, 450, and 620 px.
+	 */
 	size?: Sizes;
-	className?: string;
+	/**
+	 * Allows additional styling to the current field.
+	 */
+	className?: HTMLAttributes<HTMLElement>['className'];
+	/**
+	 * Defines the type of component from a list of components
+	 * found on Col.tsx. This also allows for a custom component type.
+	 */
 	type?: string | JSX.Element | (() => JSX.Element);
+	/**
+	 * Object that defines the position of the current field in the
+	 * form layout.
+	 */
 	layout?: any;
+	/**
+	 * Array of validators to be executed by the form when on blur or
+	 * when submitted.
+	 */
 	validators?: (() => string | JSX.Element)[];
 }
