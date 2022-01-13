@@ -11,7 +11,6 @@ const TextArea = (
 ): ReactElement => {
 	const {
 		fieldDef,
-		className,
 		error,
 		onChange,
 		onBlur,
@@ -28,7 +27,7 @@ const TextArea = (
 			onBlur={(e) => onBlur(e.target.value)}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
-			className={className}
+			className={fieldDef?.className}
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			disabled={fieldDef?.disabled}
 			multiline
