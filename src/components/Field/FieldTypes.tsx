@@ -1,5 +1,5 @@
 import { Sizes } from '@root/theme/sizes';
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
 // MOSAIC GENERIC CONTRACT
 // interface FieldProps {
@@ -12,7 +12,10 @@ export interface MosaicFieldProps<T> {//FieldProps
 	/**
 	 * Function that listens to changes on the text field and updates its value.
 	 */
-	onChange?: (e: unknown, ...params: unknown[]) => void | unknown;
+	// onChange?: (e: unknown, ...params: unknown[]) => void | unknown;
+	onChange?: HTMLAttributes<HTMLElement>['onChange'];
+	onBlur?: HTMLAttributes<HTMLElement>['onBlur'];
+	className?: HTMLAttributes<HTMLElement>['className'];
 	/**
 	 * Specifies which form element a label is bound to.
 	 */
@@ -25,6 +28,7 @@ export interface MosaicFieldProps<T> {//FieldProps
 	 * Flag to style text field as erroneous.
 	 */
 	error?: string;
+	children?: ReactNode;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
@@ -67,16 +71,6 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	size?: Sizes;
 	className?: string;
 	type?: string | JSX.Element | (() => JSX.Element);
-	children?: ReactNode;
 	layout?: any;
 	validators?: (() => string | JSX.Element)[];
 }
-
-//This interface should be merged with the one above (FieldProps)
-// export interface FieldDefProps extends FieldDef {
-// 	className?: string;
-// 	type?: string | JSX.Element | (() => JSX.Element);
-// 	children: ReactNode;
-// 	layout?: any;
-// 	validators?: (() => string | JSX.Element)[];
-// }

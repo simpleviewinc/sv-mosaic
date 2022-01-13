@@ -7,9 +7,13 @@ describe('Text field component', () => {
 	beforeEach(() => {
 		render(
 			<TextField
-				label='Label test'
-				instructionText='Instructional text'
-				placeholder='placeholder'
+				fieldDef={{
+					label: 'Label test',
+					instructionText: 'Instructional text',
+					inputSettings: {
+						placeholder: 'placeholder'
+					}
+				}}
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -35,10 +39,14 @@ describe('The behaviour of the error text and the helper text', () => {
 	it('should, in case of an error, display the error text and not the helper text', () => {
 		render(
 			<TextField
-				label='Label test'
-				error={'Error text'}
-				helperText='Helper text'
-				placeholder='placeholder'
+				fieldDef={{
+					label: 'Label test',
+					instructionText: 'Instructional text',
+					inputSettings: {
+						placeholder: 'placeholder'
+					}
+				}}
+				error='Error text'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -52,9 +60,13 @@ describe('The behaviour of the error text and the helper text', () => {
 	it('should should display the helper text in the case of no error', () => {
 		render(
 			<TextField
-				label='Label test'
-				helperText='Helper text'
-				placeholder='placeholder'
+				fieldDef={{
+					label: 'Label test',
+					helperText: 'Helper text',
+					inputSettings: {
+						placeholder: 'placeholder'
+					}
+				}}
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -70,14 +82,16 @@ describe('The multiline behaviour', () => {
 	it('should render an input element when multiline is off', () => {
 		render(
 			<TextField
-				inputSettings={{
-					htmlFor: 'input-test',
-					placeholder: 'placeholder',
-					multiline: false
+				fieldDef={{
+					label: 'Label test',
+					helperText: 'Helper text',
+					inputSettings: {
+						htmlFor: 'input-test',
+						placeholder: 'placeholder',
+						multiline: false
+					},
 				}}
 				onChange={() => jest.fn()}
-				id='input-test'
-				label='Label test'
 			/>
 		);
 		const inputElement = screen.getByLabelText('Label test');
@@ -89,13 +103,15 @@ describe('The multiline behaviour', () => {
 	it('should a text area element when multiline is on', () => {
 		render(
 			<TextField
-				inputSettings={{
-					htmlFor: 'multiline-tes',
-					placeholder: 'placeholder',
-					multiline: true,
+				fieldDef={{
+					label: 'Label test',
+					helperText: 'Helper text',
+					inputSettings: {
+						htmlFor: 'multiline-tes',
+						placeholder: 'placeholder',
+						multiline: true,
+					},
 				}}
-				id='multiline-test'
-				label='Label test'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -116,14 +132,16 @@ describe('The char counter behaviour', () => {
 
 			return (
 				<TextField
-					inputSettings={{
-						htmlFor: 'char-test',
-						placeholder: 'placeholder',
-						maxCharacters: 20,
-						value: inputValue,
+					fieldDef={{
+						label: 'Label',
+						helperText: 'Helper text',
+						inputSettings: {
+							htmlFor: 'char-test',
+							placeholder: 'placeholder',
+							maxCharacters: 20,
+							value: inputValue,
+						},
 					}}
-					id='char-test'
-					label='Label'
 					onChange={onHandleChange}
 				/>
 			);

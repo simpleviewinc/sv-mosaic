@@ -25,26 +25,38 @@ export const Default = (): ReactElement => {
 		setInputValue(val);
 	};
 
+	const label = text('Label', 'Label');
+	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);
+	const size = select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm);
+
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={boolean('Required', false)}
-			disabled={boolean('Disabled', false)}
-			helperText={text('Helper text', '')}
-			instructionText={text('Instructional text', '')}
+			fieldDef={{
+				label,
+				disabled,
+				required,
+				helperText: text('Helper text', ''),
+				instructionText: text('Instruction text', ''),
+				inputSettings: {
+					htmlFor: 'text-input',
+					size,
+					placeholder: text('Placeholder', 'placeholder'),
+					maxCharacters: number('Max characters', 20),
+					value: inputValue
+				}
+			}}
 			error={text('Error text', '')}
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
-			maxCharacters={number('Max characters', 20)}
 			htmlFor={'text-input'}
 			value={inputValue}
 		>
 			<TextField
 				fieldDef={{
-					label: text('Label', 'Label'),
-					disabled: boolean('Disabled', false),
+					label,
+					disabled,
 					inputSettings: {
 						htmlFor: 'text-input',
-						size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+						size,
 						placeholder: text('Placeholder', 'placeholder'),
 						maxCharacters: number('Max characters', 20),
 						value: inputValue

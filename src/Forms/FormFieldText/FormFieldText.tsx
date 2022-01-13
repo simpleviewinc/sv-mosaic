@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes, memo } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Material UI
 import { InputAdornment } from '@material-ui/core';
@@ -10,16 +10,12 @@ import { StyledTextField } from './FormFieldText.styled';
 import { MosaicFieldProps } from '@root/components/Field';
 
 const TextField = (
-	props: MosaicFieldProps<TextFieldDef> & HTMLAttributes<HTMLInputElement>
+	props: MosaicFieldProps<TextFieldDef>
 ): ReactElement => {
 	const {
 		fieldDef,
-		// name,
-		// inputSettings,
 		className,
-		// disabled = false,
 		error,
-		// required,
 		onChange,
 		onBlur,
 		value,

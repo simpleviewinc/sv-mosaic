@@ -9,29 +9,6 @@ export interface FormState {
 	errors: Record<string, string>;
 }
 
-// export interface FieldProps {
-// 	name: string;
-// 	label?: string;
-// 	required?: boolean;
-// 	helperText?: string;
-// 	instructionText?: string;
-// 	onChange?: any;
-// 	ref?: string | FieldDef;
-// 	//customValidators?: Validator[]
-// }
-
-// export interface FieldDef extends FieldProps {
-// 	component: any;
-// 	inputSettings?: any;
-// 	type?: string;
-// 	layout?: {
-// 		section?: number;
-// 		row?: number;
-// 		col?: number;
-// 	};
-// 	// validators?: { (): string | JSX.Element }[];
-// }
-
 export interface SectionDef extends Section {
 	title?: string;
 	description?: string | JSX.Element;

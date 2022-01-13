@@ -1,35 +1,26 @@
-import { FieldDef } from '@root/components/Field';
-import { ChangeEventHandler } from 'react';
 import { Sizes } from '../../theme/sizes';
 
-export interface TextAreaProps extends FieldDef {
-	inputSettings?: {
-		/**
-		 * Example text within the input to be replaced by the user.
-		 */
-		placeholder?: string;
-		/**
-		 * Specifies which form element a label is bound to.
-		 */
-		htmlFor?: string;
-		/**
-		 * When defined a counter with the current length of the text will be shown.
-		 */
-		maxCharacters?: number;
-		/**
-		 * Sizing attribute (dimensions tbd).
-		 */
-		size?: Sizes;
-		/**
-		 * Value written by the user into the text area.
-		 */
-		value?: string;
-	}
-	className?: string;
+export type TextAreaDef = {
 	/**
-	 * Function that listens to changes on the text field and updates its value.
+	 * Example text within the input to be replaced by the user.
 	 */
-	onChange?: ChangeEventHandler<HTMLInputElement>;
+	placeholder?: string;
+	/**
+	 * Specifies which form element a label is bound to.
+	 */
+	htmlFor?: string;
+	/**
+	 * When defined a counter with the current length of the text will be shown.
+	 */
+	maxCharacters?: number;
+	/**
+	 * Sizing attribute (dimensions tbd).
+	 */
+	size?: Sizes;
+	/**
+	 * Value written by the user into the text area.
+	 */
+	value?: string;
 }
 
 export interface StyledTextAreaProps {
