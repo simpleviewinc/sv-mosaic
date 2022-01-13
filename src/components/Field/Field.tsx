@@ -12,17 +12,9 @@ const Field = ({
 	className,
 	children,
 	error,
-	disabled,
-	required,
-	label,
-	helperText,
-	instructionText,
+	fieldDef,
 	value,
-	maxCharacters,
-	name,
-	size,
-	type,
-}: FieldDef & MosaicFieldProps): ReactElement => {
+}: MosaicFieldProps<any>): ReactElement => {
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
 
 	const description = useRef<HTMLDivElement>(null);
@@ -61,57 +53,57 @@ const Field = ({
 	}, []);
 
 	const renderBottomText = () => {
-		if ((errorWithMessage || (errorWithMessage && required))) {
+		if ((errorWithMessage || (errorWithMessage && fieldDef?.required))) {
 			return <HelperText error={!!error}>{error}</HelperText>;
-		} else if (helperText) {
-			return <HelperText>{helperText}</HelperText>;
+		} else if (fieldDef?.helperText) {
+			return <HelperText>{fieldDef?.helperText}</HelperText>;
 		}
 	};
 
 	const labelMargin = useMemo(() => {
 		let labelMargin = '8px';
 		if (
-			type === 'linkSetup' ||
-			type === 'advancedSelection' ||
-			type === 'imageUpload'
+			fieldDef?.type === 'linkSetup' ||
+			fieldDef?.type === 'advancedSelection' ||
+			fieldDef?.type === 'imageUpload'
 		) {
 			return (labelMargin = '16px');
-		} else if (type === 'table') {
+		} else if (fieldDef?.type === 'table') {
 			return (labelMargin = '13px');
 		}
 
 		return labelMargin;
-	}, [type]);
+	}, [fieldDef?.type]);
 
 	return (
 		<StyledFieldContainer className={className}>
 			<StyledFieldWrapper
-				error={errorWithMessage || (errorWithMessage && required)}
-				size={(type === 'chip' || type === 'linkSetup') ? Sizes.md : type === 'color' ? '102px' : type === 'table' ? 'fit-content' : size}
-				type={type}
+				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
+				size={(fieldDef?.type === 'chip' || fieldDef?.type === 'linkSetup') ? Sizes.md : fieldDef?.type === 'color' ? '102px' : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}
+				type={fieldDef?.type}
 			>
 				<Label
 					labelMargin={labelMargin}
-					disabled={disabled}
-					required={required}
-					htmlFor={name}
-					maxCharacters={maxCharacters}
+					disabled={fieldDef?.disabled}
+					required={fieldDef?.required}
+					htmlFor={fieldDef?.name}
+					maxCharacters={fieldDef?.maxCharacters}
 					value={value}
 					tooltip={renderAsTooltip}
-					instructionText={instructionText}
+					instructionText={fieldDef?.instructionText}
 				>
-					{label}
+					{fieldDef?.label}
 				</Label>
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{instructionText && type !== 'table' &&
+			{fieldDef?.instructionText && fieldDef?.type !== 'table' &&
 				<InstructionText
 					ref={description}
 					tooltip={renderAsTooltip}
 					labelMargin={labelMargin}
 				>
-					{instructionText}
+					{fieldDef?.instructionText}
 				</InstructionText>
 			}
 		</StyledFieldContainer>

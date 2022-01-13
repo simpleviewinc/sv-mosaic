@@ -9,13 +9,14 @@ describe('Text field component', () => {
 	beforeEach(() => {
 		render(
 			<TextArea
-				label='Label test'
-				inputSettings={{
-					htmlFor: 'test',
-					placeholder: 'placeholder',
+				fieldDef={{
+					label: 'Label test',
+					instructionText: 'Instructional text',
+					inputSettings: {
+						htmlFor: 'test',
+						placeholder: 'placeholder',
+					},
 				}}
-				instructionText='Instructional text'
-				id='test'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -50,12 +51,14 @@ describe('The behaviour of the error text and the helper text', () => {
 	it('should, in case of an error, display the error text and not the helper text', () => {
 		render(
 			<TextArea
-				label='Label test'
-				inputSettings={{
-					placeholder: 'placeholder',
+				fieldDef={{
+					label: 'Label test',
+					helperText: 'Helper text',
+					inputSettings: {
+						placeholder: 'placeholder',
+					},
 				}}
-				error={'Error text'}
-				helperText='Helper text'
+				error='Error text'
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -69,12 +72,14 @@ describe('The behaviour of the error text and the helper text', () => {
 	it('should display the helper text in the case of no error', () => {
 		render(
 			<TextArea
-				label='Label test'
-				inputSettings={{
-					placeholder: 'placeholder',
+				fieldDef={{
+					label: 'Label test',
+					helperText: 'Helper text',
+					inputSettings: {
+						placeholder: 'placeholder',
+					},
 				}}
-				error={''}
-				helperText='Helper text'
+				error=''
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -96,13 +101,14 @@ describe('The char counter behaviour', () => {
 
 			return (
 				<TextArea
-					id='char-test'
-					label='Label'
-					inputSettings={{
-						htmlFor: 'char-test',
-						placeholder: 'placeholder',
-						maxCharacters: 20,
-						value: inputValue
+					fieldDef={{
+						label: 'Label',
+						inputSettings: {
+							htmlFor: 'char-test',
+							placeholder: 'placeholder',
+							maxCharacters: 20,
+							value: inputValue
+						},
 					}}
 					onChange={onHandleChange}
 				/>
