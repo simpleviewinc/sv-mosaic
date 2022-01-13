@@ -12,10 +12,13 @@ describe('TextArea component', () => {
 	beforeEach(() => {
 		result = render(
 			<TextArea
-				label='Label test'
-				inputSettings={{
-					htmlFor: 'test',
-					placeholder: 'placeholder',
+				fieldDef={{
+					label: 'Label test',
+					instructionText: 'Instructional text',
+					inputSettings: {
+						htmlFor: 'test',
+						placeholder: 'placeholder',
+					},
 				}}
 				id='test'
 				onChange={() => jest.fn()}
