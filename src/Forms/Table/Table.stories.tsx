@@ -4,7 +4,7 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { Actions, TableRow } from './TableTypes';
 
 // Components
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import Table from './Table';
 import MenuIcon from '@material-ui/icons/Menu';
 import TranslateIcon from '@material-ui/icons/Translate';
@@ -99,25 +99,32 @@ export const Example = (): ReactElement => {
 		},
 	];
 
+	const label = text('Label', 'Label');
+
 	return (
 		<Field
-			label={text('Label', 'Label')}
+			fieldDef={{
+				label,
+				type: 'table',
+				disabled,
+				required: boolean('Required', false),
+				instructionText: text('Instruction text', 'Instruction text'),
+				helperText: text('Helper text', 'Helper text'),
+			}}
 			error={text('Error text', '')}
-			required={boolean('Required', false)}
-			disabled={disabled}
-			instructionText={text('Instruction text', 'Instruction text')}
-			helperText={text('Helper text', 'Helper text')}
-			type='table'
 		>
 			<Table
-				inputSettings = {{
-					extraActions: withMoreActions && actions,
-					handleAddElement: addElement,
-					handleEdit: editRow,
-					handleDelete: onDelete,
-					headers
+				fieldDef={{
+					label,
+					inputSettings: {
+						extraActions: withMoreActions && actions,
+						handleAddElement: addElement,
+						handleEdit: editRow,
+						handleDelete: onDelete,
+						headers
+					},
+					disabled,
 				}}
-				disabled={disabled}
 				onChange={onChange}
 				value={tableData}
 			/>
@@ -172,7 +179,7 @@ export const FormExample = (): ReactElement => {
 
 	const addTableRow = useCallback(() => {
 		const tableDataLength = state.data['table'] ? state.data['table'].length : 0;
-		if(tableDataLength === 0) {
+		if (tableDataLength === 0) {
 			dispatch(
 				actions.setFieldValue({
 					name: 'table',
@@ -189,7 +196,7 @@ export const FormExample = (): ReactElement => {
 				})
 			);
 		}
-		
+
 	}, [state.data['table']]);
 
 	const editTableRow = () => {
@@ -235,7 +242,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled, addTableRow]
 	);
 

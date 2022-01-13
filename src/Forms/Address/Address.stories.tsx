@@ -5,7 +5,7 @@ import { text, withKnobs } from '@storybook/addon-knobs';
 // Components
 import Address from './Address';
 import Form from '../Form/Form';
-import { FieldDefProps } from '../../components/Field';
+import { FieldDef } from '../../components/Field';
 import { useForm } from '../Form/formUtils';
 
 export default {
@@ -33,7 +33,7 @@ export const FormExample = (): ReactElement => {
 					label: "a",
 					type: 'address',
 				},
-			] as FieldDefProps[]
+			] as FieldDef[]
 		),
 		[registerFields]
 	);

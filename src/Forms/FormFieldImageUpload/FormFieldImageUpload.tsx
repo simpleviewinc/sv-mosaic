@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { memo, ReactElement, useRef, useState } from 'react';
 
-import { ImageUploadProps } from './FormFieldImageUploadTypes';
+import { ImageUploadDef } from './FormFieldImageUploadTypes';
+import { MosaicFieldProps } from '@root/components/Field';
 import { isEmpty } from 'lodash';
 
 // Components
@@ -27,15 +28,10 @@ import {
 	StyledCircularProgress,
 	UploadButton,
 } from './FormFieldImageUpload.styled';
-import { FieldDef } from '@root/components/Field';
 
-const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
+const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 	const {
-		disabled,
-		// handleImageCoordinates,
-		// handleSetFocus,
-		// uploadImage,
-		inputSettings,
+		fieldDef,
 		onChange,
 		value,
 	} = props;
@@ -77,10 +73,6 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 		const { files: imgFile } = e.target;
 		const isImageFile = imgFile[0].type.split("/")[0] === "image";
 
-		// 	for (var key in inputElement.files[0])
-		// if (inputElement.files[0].hasOwnProperty(key))
-		//      console.log(key,inputElement.files[0][key]);
-
 		if (!isImageFile) {
 			return;
 		}
@@ -90,12 +82,6 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 			const file = uploadedImage.file;
 
 			setFiles(uploadedImage);
-			// uploadImage(uploadedImage);
-
-			//CODE NOT BEING USED
-			// var reader = new FileReader();
-			// reader.onload = (event) => event.target.result;
-			// reader.readAsDataURL(imgFile[0]);
 
 			onChange({
 				...value,
@@ -120,9 +106,7 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 	 *  the image coordinates to the parent component.
    */
 	const setFocus = () => {
-		// handleImageCoordinates && handleImageCoordinates(imageCoordinates);
 		onChange && onChange({ ...value, imgCoords: imageCoordinates });
-		// handleSetFocus();
 		setFocusMode(false);
 	};
 
@@ -142,14 +126,7 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
    */
 	const removeFile = () => {
 		setFiles({});
-		// uploadImage({});
 		onChange(undefined);
-		// setImgWidth(null);
-		// setImgHeight(null);
-		// handleImageCoordinates({
-		// 	x: null,
-		// 	y: null
-		// })
 		setIsOver(false);
 		setFocusMode(false);
 	};
@@ -211,7 +188,7 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 			const file = uploadedImage.file;
 
 			setFiles(droppedFiles);
-			// uploadImage(droppedFiles);
+
 			onChange({
 				...value,
 				imgName: file.name,
@@ -232,13 +209,11 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 
 		setHeight(imageHeight);
 		setWidth(imageWidth);
-		// setImgWidth(imageWidth);
-		// setImgHeight(imageHeight);
 	};
 
 	return (
 		<>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<div>
 					{isEmpty(files) ? (
 						<DragAndDropContainer
@@ -258,7 +233,7 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 										Drag & Drop files here or
 									</DragAndDropSpan>
 									<UploadButton
-										disabled={disabled}
+										disabled={fieldDef?.disabled}
 										buttonType='secondary'
 										onClick={uploadFiles}
 									>
@@ -306,9 +281,9 @@ const ImageUpload = (props: ImageUploadProps & FieldDef): ReactElement => {
 										</SizeValue>
 									</Row>
 								</ImagePropertiesColumn>}
-								{inputSettings?.options && !focusMode && (
+								{fieldDef?.inputSettings?.options && !focusMode && (
 									<MenuColumn data-testid='menu-container-test'>
-										<MenuFormFieldCard options={inputSettings?.options} />
+										<MenuFormFieldCard options={fieldDef?.inputSettings?.options} />
 									</MenuColumn>
 								)}
 								<ButtonsContainer>

@@ -4,7 +4,7 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
 import ColorPicker from './ColorPicker';
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
 
@@ -28,17 +28,19 @@ export const Default = (): ReactElement => {
 
 	return (
 		<Field
-			label={text('Label', 'Label')}
+			fieldDef={{
+				label: text('Label', 'Label'),
+				required: boolean('Required', false),
+				disabled,
+				instructionText: text('Instruction text', 'Instruction text'),
+				helperText: text('Helper text', 'Helper text'),
+				type: 'color',
+			}}
 			error={text('Error text', '')}
-			required={boolean('Required', false)}
-			disabled={disabled}
-			instructionText={text('Instruction text', 'Instruction text')}
-			helperText={text('Helper text', 'Helper text')}
-			type='color'
 		>
 			<ColorPicker
 				value={color}
-				disabled={disabled}
+				fieldDef={{ label: '', disabled }}
 				onChange={handleColorChange}
 			/>
 		</Field>
@@ -47,7 +49,7 @@ export const Default = (): ReactElement => {
 
 export const FormExample = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	
+
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
 
@@ -64,7 +66,7 @@ export const FormExample = (): ReactElement => {
 						disabled,
 					},
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled]
 	);
 

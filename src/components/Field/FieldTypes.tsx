@@ -1,5 +1,7 @@
 import { Sizes } from '@root/theme/sizes';
+import { InputHTMLAttributes } from 'react';
 import { HTMLAttributes, ReactNode } from 'react';
+import { PhoneInputProps } from 'react-phone-input-2';
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T> {//FieldProps
@@ -11,7 +13,8 @@ export interface MosaicFieldProps<T> {//FieldProps
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
-	onChange?: HTMLAttributes<HTMLElement>['onChange'];
+	// onChange?: (HTMLAttributes<HTMLInputElement>['onChange']) | ((e: any[]) => void | unknown) | PhoneInputProps['onChange'];
+	onChange?: any;
 	/**
 	 * Function that listens to a blur event on the field and executes an action.
 	 */
@@ -92,8 +95,8 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	 * when submitted.
 	 */
 	validators?: (() => string | JSX.Element)[];
-  /**
-   * Identifier passed by the developer
-   */
-  id?: string;
+	/**
+	 * Identifier passed by the developer
+	 */
+	id?: string;
 }
