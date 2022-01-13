@@ -1,4 +1,4 @@
-import { FieldProps } from '@root/components/Field';
+import { FieldDef, MosaicFieldProps } from '@root/components/Field';
 import { IAddress } from '@root/forms/Address/AddressTypes';
 
 /**
@@ -41,9 +41,9 @@ export interface MapCoordinatesProps {
 	/**
 	 * Disables interactive elements.
 	 */
-	disabled?: FieldProps['disabled'];
-	onChange?: FieldProps['onChange'];
-	value?: FieldProps['value'];
+	disabled?: FieldDef['disabled'];
+	onChange?: MosaicFieldProps['onChange'];
+	value?: MosaicFieldProps['value'];
 }
 
 export interface MapProps {

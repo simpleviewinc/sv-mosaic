@@ -1,4 +1,4 @@
-import { FieldProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 
 /**
  * Interface that defines structure of the options that the
@@ -9,7 +9,7 @@ export interface Option {
 	value: string | { [key: string]: unknown };
 }
 
-export interface FormFieldCheckboxProps extends FieldProps {
+export interface FormFieldCheckboxProps extends FieldDef {
 	inputSettings?: {
 		/**
 		 * List of options

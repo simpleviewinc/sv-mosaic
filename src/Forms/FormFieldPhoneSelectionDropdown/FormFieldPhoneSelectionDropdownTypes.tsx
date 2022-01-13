@@ -1,4 +1,4 @@
-import { FieldProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 import { FormEventHandler } from 'react';
 import { PhoneInputProps } from 'react-phone-input-2';
 
@@ -9,7 +9,7 @@ export interface CountryData {
 	format: string;
 }
 
-export interface FormFieldPhoneSelectionDropdownProps extends FieldProps {
+export interface FormFieldPhoneSelectionDropdownProps extends FieldDef {
 	inputSettings?: {
 		/**
 		 * Phone formatting according to the country selected.
