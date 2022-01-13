@@ -92,4 +92,8 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	 * when submitted.
 	 */
 	validators?: (() => string | JSX.Element)[];
+  /**
+   * Identifier passed by the developer
+   */
+  id?: string;
 }

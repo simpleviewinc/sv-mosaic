@@ -1253,6 +1253,12 @@ export const SubmitInternalButtons = (): ReactElement => {
 					validators: [required]
 				},
 				{
+					name: "textArea",
+					label: "Text Area",
+					type: "textArea",
+					validators: [required],
+				},
+				{
 					name: "chip",
 					label: "Text that receives copy",
 					type: "chip",

@@ -3,13 +3,7 @@ import { Sizes } from '@root/theme/sizes';
 /**
  * Base text field props.
  */
-
 // TEXT FIELD SPECIFIC DEVELOPER CONTRACT
-// type TextFieldDef = {
-//     inputSettings : {
-//         ...
-//     }
-// } & FieldDef;
 export type TextFieldDef = {
 	/**
 	 * Example text within the input to be replaced by the user.
