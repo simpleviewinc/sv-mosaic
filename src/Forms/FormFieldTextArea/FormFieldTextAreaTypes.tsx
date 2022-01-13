@@ -22,8 +22,3 @@ export type TextAreaDef = {
 	 */
 	value?: string;
 }
-
-export interface StyledTextAreaProps {
-	disabled: boolean;
-	error: string;
-}

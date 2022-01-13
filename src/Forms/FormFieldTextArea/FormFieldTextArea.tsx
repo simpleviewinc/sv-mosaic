@@ -23,15 +23,15 @@ const TextArea = (
 		<StyledTextArea
 			id={fieldDef?.inputSettings?.htmlFor}
 			value={value}
-			onChange={(e) => onChange(e.target.value)}
-			onBlur={(e) => onBlur(e.target.value)}
+			onChange={(e) => onChange && onChange(e.target.value)}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
 			className={fieldDef?.className}
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			disabled={fieldDef?.disabled}
 			multiline
-			size={fieldDef?.inputSettings?.size}
+			fieldSize={fieldDef?.inputSettings?.size}
 			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
 			required={fieldDef?.required}
 		/>
