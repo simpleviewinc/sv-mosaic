@@ -6,7 +6,7 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import AdvancedSelection from './AdvancedSelection';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
 import Form from '../Form/Form';
-import { FieldDefProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
 
 export default {
@@ -85,20 +85,27 @@ export const Example = (): ReactElement => {
 		setValue(savedOptions);
 	};
 
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const errorText = text('Error text', '');
+
 	return (
 		<AdvancedSelection
-			label={text('Label', 'Label')}
-			error={text('Error text', '')}
-			required={boolean('Required', false)}
-			instructionText={text('Instruction text', 'Instruction text')}
-			helperText={text('Helper text', 'Helper text')}
-			disabled={boolean('Disabled', false)}
-			value={value}
-			inputSettings={{
-				modalTitle: text('Modal title', 'Modal title'),
-				checkboxOptions: options,
-				groupByCategory: boolean('Group by category', false),
+			fieldDef={{
+				disabled,
+				helperText: text('Helper text', 'Helper text'),
+				instructionText: text('Instruction text', 'Instruction text'),
+				label,
+				required,
+				inputSettings: {
+					modalTitle: text('Modal title', 'Modal title'),
+					checkboxOptions: options,
+					groupByCategory: boolean('Group by category', false),
+				}
 			}}
+			error={errorText}
+			value={value}			
 			onChange={onChange}
 		/>
 	);
@@ -130,7 +137,7 @@ export const FormExample = (): ReactElement => {
 						updateOptionsCb,
 					}
 				},
-			] as FieldDefProps[]
+			] as FieldDef[]
 		),
 		[registerFields, modalTitle, groupByCategory, options]
 	);
