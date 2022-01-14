@@ -1,5 +1,3 @@
-import { FieldDef } from '@root/components/Field';
-
 /**
  * Interface that defines structure of the options that the
  * checkbox list receives.
@@ -9,13 +7,11 @@ export interface Option {
 	value: string | { [key: string]: unknown };
 }
 
-export interface FormFieldCheckboxProps extends FieldDef {
-	inputSettings?: {
-		/**
-		 * List of options
-		 */
-		options: Option[];
-	};
+export interface FormFieldCheckboxDef {
+	/**
+	* List of options
+	*/
+	options: Option[];
 	/**
    * Function that listens to changes on the checked options.
    * @param checked List of checked options
