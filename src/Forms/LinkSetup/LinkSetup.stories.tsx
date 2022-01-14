@@ -4,7 +4,7 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
 import LinkSetup from './LinkSetup';
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { actions, useForm } from '../Form/formUtils';
 
@@ -13,8 +13,7 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default = (): ReactElement => {
-	const disabled = boolean('Disabled', false);
+export const Default = (): ReactElement => {	
 	const [link, setLink] = useState({});
 
 	const handleSetLink = () => {
@@ -33,21 +32,32 @@ export const Default = (): ReactElement => {
 		setLink({});
 	};
 
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const errorText = text('Error text', '');
+
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			error={text('Error text', '')}
-			required={boolean('Required', false)}
-			disabled={disabled}
-			instructionText={text('Instruction text', 'Instruction text')}
-			helperText={text('Helper text', 'Helper text')}
-			type='linkSetup'
+			fieldDef={{
+				disabled,
+				helperText: text('Helper text', 'Helper text'),
+				instructionText: text('Instruction text', 'Instruction text'),
+				label,
+				required,
+				type: 'linkSetup'
+			}}
+			error={errorText}
 		>
 			<LinkSetup
-				disabled={disabled}
-				inputSettings={{
-					handleSetLink,
-					handleRemove
+				fieldDef={{
+					label,
+					disabled,
+					inputSettings: {
+						handleSetLink,
+						handleRemove,
+						value: link
+					}
 				}}
 				value={link}
 			/>
@@ -105,7 +115,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled, toggleLabel]
 	);
 
