@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, ChangeEvent, ReactElement, useMemo, useCallback } from 'react';
+import { useState, ReactElement, useMemo, useCallback } from 'react';
 import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
