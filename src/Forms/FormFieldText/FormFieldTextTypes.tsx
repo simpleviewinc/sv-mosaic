@@ -40,11 +40,3 @@ export type TextFieldDef = {
 	 */
 	type?: string;
 };
-
-export interface StyledWrapperProps {
-	width: string;
-}
-
-export interface StyledTextInputProps {
-	width: string;
-}
