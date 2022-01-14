@@ -1,9 +1,5 @@
-import { FieldDef } from '@root/components/Field';
-
-export interface FormFieldToggleSwitchProps extends FieldDef {
-	inputSettings?: {
-		toggleLabel?: string;
-	}
+export type FormFieldToggleSwitchDef = {
+	toggleLabel?: string;	
 	/**
 	 * If true, the toggle switch is checked
 	 */

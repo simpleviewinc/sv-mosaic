@@ -13,7 +13,6 @@ export default {
 
 export const Example = (): ReactElement => {
 	const [isChecked, setIsChecked] = useState(false);
-	console.log('Is toggle checked?', isChecked);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setIsChecked(e.target.checked);

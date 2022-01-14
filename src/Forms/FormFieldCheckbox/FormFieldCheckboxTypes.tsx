@@ -7,7 +7,7 @@ export interface Option {
 	value: string | { [key: string]: unknown };
 }
 
-export interface FormFieldCheckboxDef {
+export type FormFieldCheckboxDef = {
 	/**
 	* List of options
 	*/
