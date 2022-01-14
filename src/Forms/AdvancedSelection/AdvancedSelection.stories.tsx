@@ -85,6 +85,11 @@ export const Example = (): ReactElement => {
 		setValue(savedOptions);
 	};
 
+	const updateOptionsCb = (newOption) => {
+		const newOptions = [...options, newOption];
+		setOptions(newOptions);
+	};
+
 	const label = text('Label', 'Label');
 	const required = boolean('Required', false);
 	const disabled = boolean('Disabled', false);
@@ -102,6 +107,7 @@ export const Example = (): ReactElement => {
 					modalTitle: text('Modal title', 'Modal title'),
 					checkboxOptions: options,
 					groupByCategory: boolean('Group by category', false),
+					updateOptionsCb
 				}
 			}}
 			error={errorText}
