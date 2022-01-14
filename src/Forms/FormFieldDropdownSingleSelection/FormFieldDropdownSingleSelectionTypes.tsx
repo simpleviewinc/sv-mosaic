@@ -15,10 +15,6 @@ export type DropdownSingleSelectionDef = {
 	 * dropdown.
 	 */
 	options: Option[],
-	/**
-	 * Value of the selected option.
-	 */
-	value: Option;
 }
 
 type Option = {

@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, useCallback, useMemo, useState } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
-import FormFieldDropdownSingleSelection from "./FormFieldDropdownSingleSelection";
+import FormFieldDropdownSingleSelection, { DropdownSingleSelectionDef } from ".";
 import { Sizes } from "../../theme/sizes";
 import Field, { FieldDef } from "@root/components/Field";
 import Form from "../Form/Form";
@@ -74,11 +74,11 @@ export const example = (): ReactElement => {
 						options,
 						placeholder: text("Placeholder", "Placeholder example"),
 						size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
-						value: selectedOption
 					}
 				}}
 				onChange={onChange}
 				error={errorText}
+				value={selectedOption}
 			/>
 		</Field>
 	)
@@ -103,15 +103,14 @@ export const FormExample = (): ReactElement => {
 					disabled,
 					size,
 					inputSettings: {
-						disabled,
 						options,
 						size,
 						placeholder,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
-			] as unknown as FieldDef[],
+				}
+			] as unknown as FieldDef<DropdownSingleSelectionDef>[],
 		[required, disabled, size, placeholder]
 	);
 

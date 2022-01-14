@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
-import LinkSetup from './LinkSetup';
+import LinkSetup, { LinkSetupDef } from '.';
 import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { actions, useForm } from '../Form/formUtils';
@@ -56,7 +56,6 @@ export const Default = (): ReactElement => {
 					inputSettings: {
 						handleSetLink,
 						handleRemove,
-						value: link
 					}
 				}}
 				value={link}
@@ -108,14 +107,13 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						handleSetLink,
 						handleRemove,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
-			] as unknown as FieldDef[],
+				}
+			] as unknown as FieldDef<LinkSetupDef>[],
 		[required, disabled, toggleLabel]
 	);
 

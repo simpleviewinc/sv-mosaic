@@ -4,7 +4,7 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import FormFieldChipSingleSelect from ".";
+import FormFieldChipSingleSelect, { FormFieldChipSingleSelectDef } from ".";
 import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
@@ -97,8 +97,8 @@ export const FormExample = (): ReactElement => {
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
-			] as unknown as FieldDef[],
+				}
+			] as unknown as FieldDef<FormFieldChipSingleSelectDef>[],
 		[required, disabled]
 	);
 
