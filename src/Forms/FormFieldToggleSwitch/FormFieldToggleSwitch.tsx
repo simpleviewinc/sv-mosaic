@@ -1,38 +1,31 @@
 import * as React from 'react';
-import { HTMLAttributes, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 // Components
-import HelperText from '@root/components/HelperText';
 import ToggleSwitch from '@root/components/ToggleSwitch';
-import { Label } from '@root/components/Typography';
-import FieldWrapper from '@root/components/FieldWrapper';
-import InputWrapper from '@root/components/InputWrapper';
-import InstructionText from '@root/components/InstructionText';
 
 // Types and styles
-import { FormFieldToggleSwitchProps } from './FormFieldToggleSwitchTypes';
-import { ToggleSwitchWrapper } from './FormFieldToggleSwitch.styled';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldToggleSwitchDef } from './FormFieldToggleSwitchTypes';
 
 const FormFieldToggleSwitch = (
-	props: FormFieldToggleSwitchProps & HTMLAttributes<HTMLInputElement>
+	props: MosaicFieldProps<FormFieldToggleSwitchDef>
 ): ReactElement => {
 	const {
-		disabled,
-		required,
+		fieldDef,
+		onBlur,
 		onChange,
-		inputSettings,
 		value,
-		onBlur
 	} = props;
-	
+
 	return (
 		<ToggleSwitch
-			disabled={disabled}
+			disabled={fieldDef?.disabled}
 			checked={value}
-			label={inputSettings?.toggleLabel}
+			label={fieldDef?.inputSettings?.toggleLabel}
 			onChange={onChange}
 			onBlur={onBlur}
-			required={required}
+			required={fieldDef?.required}
 		/>
 	);
 };
