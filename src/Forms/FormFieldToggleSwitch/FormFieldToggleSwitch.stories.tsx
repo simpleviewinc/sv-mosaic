@@ -4,7 +4,7 @@ import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import FormFieldToggleSwitch from './FormFieldToggleSwitch';
+import FormFieldToggleSwitch, { FormFieldToggleSwitchDef } from '.';
 import Form from '../Form/Form';
 import Field, { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
@@ -78,7 +78,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDef[],
+			] as unknown as FieldDef<FormFieldToggleSwitchDef>[],
 		[required, disabled, toggleLabel]
 	);
 

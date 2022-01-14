@@ -6,14 +6,10 @@ export type Link = {
 
 export type LinkSetupDef = {
   /**
-   * Disables set link, browse and remove button
-   */
-  disabled?: boolean;
-  /**
    * Link object that cointains the information
    * that fills the card.
    */
-  value: Link | Record<string, never>;
+  //value: Link | Record<string, never>;
 	/**
 	 * Callback executed when the set link button is clicked.
 	 * It should set the link details.

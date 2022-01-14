@@ -8,7 +8,7 @@ import {
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import FormFieldCheckbox from '.';
+import FormFieldCheckbox, { FormFieldCheckboxDef } from '.';
 import Field, { FieldDef } from "@root/components/Field";
 import Form from "../Form/Form";
 import { useForm } from "../Form/formUtils";
@@ -112,7 +112,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDef[],
+			] as unknown as FieldDef<FormFieldCheckboxDef>[],
 		[required, disabled]
 	);
 

@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { text, withKnobs, boolean } from '@storybook/addon-knobs';
 
 // Components
-import ImageVideoDocumentSetUp from '.';
+import ImageVideoDocumentSetUp, { ImageVideoDocumentSetUpDef } from '.';
 import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { actions, useForm } from '../Form/formUtils';
@@ -145,7 +145,6 @@ export const Default = (): ReactElement => {
 						handleRemove,
 						options,
 						src: 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg',
-						value: assetProperties
 					}
 				}}
 				value={assetProperties}
@@ -302,8 +301,8 @@ export const FormExample = (): ReactElement => {
 						handleRemove,
 						src: 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 					},
-				},
-			] as unknown as FieldDef[],
+				}
+			] as unknown as FieldDef<ImageVideoDocumentSetUpDef>[],
 		[required, disabled, options, handleSetImage, withDocumentHandler, handleDocument, withVideoHandler, handleVideo]
 	);
 

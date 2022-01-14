@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
-import AdvancedSelection from './AdvancedSelection';
+import AdvancedSelection, { AdvancedSelectionDef } from '.';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
 import Form from '../Form/Form';
 import { FieldDef } from '@root/components/Field';
@@ -143,7 +143,7 @@ export const FormExample = (): ReactElement => {
 						updateOptionsCb,
 					}
 				},
-			] as FieldDef[]
+			] as FieldDef<AdvancedSelectionDef>[]
 		),
 		[registerFields, modalTitle, groupByCategory, options]
 	);

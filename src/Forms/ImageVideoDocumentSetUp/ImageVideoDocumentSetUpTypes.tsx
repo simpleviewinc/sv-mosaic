@@ -23,14 +23,10 @@ export type Options = {
 
 export type ImageVideoDocumentSetUpDef = {
 	/**
-	* Meaningful name related to the field.
-	*/
-	label?: string;
-	/**
 	 * Array of properties that an asset like an image,
 	 * document or video may contain.
 	 */
-	value: AssetProperties[];
+	//value: AssetProperties[];
 	/**
 	 * Callback executed when the remove button is clicked.
 	 * This function should empty the assetProperties array
