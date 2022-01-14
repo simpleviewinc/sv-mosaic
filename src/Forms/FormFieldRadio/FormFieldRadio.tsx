@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HTMLAttributes, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 // Components
 import RadioButton from '@root/components/RadioButton';

@@ -3,8 +3,8 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { text, withKnobs, boolean } from '@storybook/addon-knobs';
 
 // Components
-import ImageVideoDocumentSetUp from './ImageVideoDocumentSetUp';
-import Field, { FieldDefProps } from '@root/components/Field';
+import ImageVideoDocumentSetUp from '.';
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { actions, useForm } from '../Form/formUtils';
 
@@ -14,10 +14,6 @@ export default {
 };
 
 export const Default = (): ReactElement => {
-	const label = text('Label', 'Label');
-	const withVideoHandler = boolean('Show video set up', false);
-	const withDocumentHandler = boolean('Show document set up', false);
-
 	const [assetProperties, setAssetProperties] = useState([]);
 
 	const handleSetImage = () => {
@@ -122,25 +118,37 @@ export const Default = (): ReactElement => {
 		},
 	];
 
+	const label = text('Label', 'Label');
+	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);	
+	const withVideoHandler = boolean('Show video set up', false);
+	const withDocumentHandler = boolean('Show document set up', false);
+
 	return (
 		<Field
-			label={label}
-			required={boolean('Required', false)}
-			disabled={boolean('Disabled', false)}
-			helperText={text('Helper text', '')}
-			instructionText={text('Instruction text', 'Instruction text')}
+			fieldDef={{
+				label,
+				disabled,
+				required,
+				helperText: text('Helper text', ''),
+				instructionText: text('Instruction text', 'Instruction text')
+			}}
 			error={text('Error text', '')}
 		>
 			<ImageVideoDocumentSetUp
-				value={assetProperties}
-				inputSettings={{
-					handleSetImage,
-					handleSetDocument: withDocumentHandler && handleDocument,
-					handleSetVideo: withVideoHandler && handleVideo,
-					handleRemove,
-					options,
-					src: 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
+				fieldDef={{
+					label,
+					inputSettings: {
+						handleSetImage,
+						handleSetDocument: withDocumentHandler && handleDocument,
+						handleSetVideo: withVideoHandler && handleVideo,
+						handleRemove,
+						options,
+						src: 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg',
+						value: assetProperties
+					}
 				}}
+				value={assetProperties}
 			/>
 		</Field>
 	);
@@ -295,7 +303,7 @@ export const FormExample = (): ReactElement => {
 						src: 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 					},
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled, options, handleSetImage, withDocumentHandler, handleDocument, withVideoHandler, handleVideo]
 	);
 
