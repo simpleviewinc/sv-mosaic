@@ -12,9 +12,4 @@ export interface FormFieldCheckboxDef {
 	* List of options
 	*/
 	options: Option[];
-	/**
-   * Function that listens to changes on the checked options.
-   * @param checked List of checked options
-   */
-	onChange(checked: string[]): void;
 }

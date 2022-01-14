@@ -64,7 +64,6 @@ export const Default = (): ReactElement => {
 						disabled,
 						inputSettings: {
 							options,
-							onChange: onChange
 						}
 					}}
 					value={checked}	
