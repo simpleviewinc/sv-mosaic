@@ -4,7 +4,7 @@ import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 import FormFieldDropdownSingleSelection from "./FormFieldDropdownSingleSelection";
 import { Sizes } from "../../theme/sizes";
-import Field, { FieldDefProps } from "@root/components/Field";
+import Field, { FieldDef } from "@root/components/Field";
 import Form from "../Form/Form";
 import { useForm } from "../Form/formUtils";
 
@@ -40,37 +40,44 @@ const options = [
 ];
 
 export const example = (): ReactElement => {
-
-	const required = boolean('Required', false);
-	const errorText = text('Error text', '');
-
 	const [selectedOption, setSelectedOption] = useState(null);
 
 	const onChange = (option) => {
 		setSelectedOption(option)
 	}
 
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const size = select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm);
+	const errorText = text('Error text', '');
+
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={required}
-			disabled={boolean('Disabled', false)}
-			helperText={text('Helper text', '')}
-			instructionText={text('Instruction text', 'Instruction text')}
-			error={errorText}
-			size={select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm)}
+			fieldDef={{
+				disabled,
+				helperText: text('Helper text', ''),
+				instructionText: text('Instruction text', 'Instruction text'),
+				label,
+				required,
+				inputSettings: {
+					size
+				}
+			}}
+			error={errorText}			
 		>
 			<FormFieldDropdownSingleSelection
-				label={text("Label", "Dropdown label")}
-				disabled={boolean("Disabled", false)}
-				inputSettings={{ 
-					options,
-					placeholder: text("Placeholder", "Placeholder example"),
-					size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+				fieldDef={{
+					label,
+					disabled,
+					inputSettings: { 
+						options,
+						placeholder: text("Placeholder", "Placeholder example"),
+						size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
+						value: selectedOption
+					}
 				}}
 				onChange={onChange}
-				required={required}
-				value={selectedOption}
 				error={errorText}
 			/>
 		</Field>
@@ -104,7 +111,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled, size, placeholder]
 	);
 
