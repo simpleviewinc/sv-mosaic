@@ -223,7 +223,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	const showCheckboxList = useCallback(() => {
 		if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 			return Array.from(optionsWithCategories).map(([category, value]) => (
-				<CheckboxListWrapper>
+				<CheckboxListWrapper key={`${category}-${value}`}>
 					<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
 						{category && <CategoryTitle>{category}</CategoryTitle>}
 						<CheckboxList
