@@ -9,7 +9,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
 import FormFieldCheckbox from '.';
-import Field, { FieldDefProps } from "@root/components/Field";
+import Field, { FieldDef } from "@root/components/Field";
 import Form from "../Form/Form";
 import { useForm } from "../Form/formUtils";
 
@@ -40,25 +40,35 @@ export const Default = (): ReactElement => {
 		}
 	], []);
 
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const errorText = text('Error text', '');
+
 	return (
 		<>
 			<span>Checked: {JSON.stringify(checked)}</span>
 			<Field
-				label={text('Label', 'Label')}
-				required={boolean('Required', false)}
-				disabled={boolean('Disabled', false)}
-				helperText={text('Helper text', '')}
-				instructionText={text('Instruction text', 'Instruction text')}
-				error={text('Error text', '')}
+				fieldDef={{
+					disabled,
+					helperText: text('Helper text', ''),
+					instructionText: text('Instruction text', 'Instruction text'),
+					label,
+					required,
+				}}
+				error={errorText}
 			>
 				<FormFieldCheckbox
-					label={text('Label', 'Label')}
-					disabled={boolean('Disabled', false)}
-					inputSettings={{
-						options
+					fieldDef={{
+						label,
+						disabled,
+						inputSettings: {
+							options,
+							onChange: onChange
+						}
 					}}
-					value={checked}
-					error={text('Error text', 'Error text')}
+					value={checked}	
+					error={errorText}
 					onChange={onChange}
 				/>
 			</Field>
@@ -103,7 +113,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled]
 	);
 
