@@ -39,7 +39,6 @@ describe('FormFieldCheckbox component', () => {
 						label: 'test',
 						inputSettings: {
 							options,
-							onChange: onChange
 						}
 					}}
 					value={checked}	

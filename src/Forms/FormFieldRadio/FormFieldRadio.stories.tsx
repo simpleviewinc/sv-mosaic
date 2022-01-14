@@ -5,7 +5,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
 import FormFieldRadioButtonGroup from '.';
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
 
@@ -36,22 +36,31 @@ export const Default = (): ReactElement => {
 		},
 	];
 
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const errorText = text('Error text', '');
+
 	return (
 		<>
 			<span>Selected option: {value}</span>
 			<Field
-				label={text('Label', 'Label')}
-				required={boolean('Required', false)}
-				disabled={boolean('Disabled', false)}
-				helperText={text('Helper text', '')}
-				instructionText={text('Instruction text', 'Instruction text')}
-				error={text('Error text', '')}
+				fieldDef={{
+					disabled,
+					helperText: text('Helper text', ''),
+					instructionText: text('Instruction text', 'Instruction text'),
+					label,
+					required
+				}}
+				error={errorText}
 			>
 				<FormFieldRadioButtonGroup
-					label={text('Label', 'Label')}
-					disabled={boolean('Disabled', false)}
-					inputSettings={{
-						options
+					fieldDef={{
+						label,
+						disabled,
+						inputSettings: {
+							options
+						}
 					}}
 					onChange={handleChange}
 					value={value}
@@ -98,7 +107,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled]
 	);
 
