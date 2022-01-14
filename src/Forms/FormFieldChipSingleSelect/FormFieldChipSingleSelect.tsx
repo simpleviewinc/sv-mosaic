@@ -1,39 +1,38 @@
 // React
 import * as React from 'react';
-import { HTMLAttributes, ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 // Components
 import Chip from '../../components/Chip';
 
 //Types and styles
-import { FormFieldChipSingleSelectProps } from './FormFieldChipSingleSelectTypes';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldChipSingleSelectDef } from './FormFieldChipSingleSelectTypes';
 import { StyledChipGroup } from './FormFieldChipSingleSelect.styled';
 
-const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
+const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef>): ReactElement => {
 	const {
-		required,
-		disabled = false,
+		fieldDef,
 		error,
 		onChange,
 		onBlur,
-		inputSettings
 	} = props;
 
-	const [internalOptions, setInternalOptions] = useState([...inputSettings?.options]);
+	const [internalOptions, setInternalOptions] = useState([...fieldDef.inputSettings?.options]);
 
 	const updateSelectedOption = (option) => {
 
 		let newOptions = [...internalOptions];
 
 		newOptions = newOptions.map((o) => (
-				o.value === option.value ? 
-					{...o, selected: !o.selected} 
-					: 
-					{...o, selected: o.selected = false}
-			)
+			o.value === option.value ? 
+				{...o, selected: !o.selected} 
+				: 
+				{...o, selected: o.selected = false}
+		)
 		);
 
-		let selectedOption = newOptions.find(o => o.selected === true);
+		const selectedOption = newOptions.find(o => o.selected === true);
 
 		setInternalOptions(newOptions);
 		// onSelect(newOptions);
@@ -44,7 +43,7 @@ const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps & HTMLA
 
 	return (
 		<StyledChipGroup
-			error={(errorWithMessage || (errorWithMessage && required))}
+			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
 			onBlur={onBlur}
 		>
 			{
@@ -52,7 +51,7 @@ const FormFieldChipSingleSelect = (props: FormFieldChipSingleSelectProps & HTMLA
 					(option) => <Chip
 						key={option.value}
 						label={option.label}
-						disabled={disabled}
+						disabled={fieldDef?.disabled}
 						selected={option.selected}
 						onClick={() => updateSelectedOption(option)}
 					/>
