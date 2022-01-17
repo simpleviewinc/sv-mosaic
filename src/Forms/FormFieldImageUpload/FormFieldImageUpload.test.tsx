@@ -19,8 +19,6 @@ const mockHandleImageCoordinates = jest.fn();
 const mockHandleEdit = jest.fn();
 const mockHandleTranslate = jest.fn();
 const mockUploadImage = jest.fn();
-const setImgHeight = jest.fn();
-const setImgWidth = jest.fn();
 
 const FormFieldImageUploadExample = () => {
 	const options = [
@@ -36,13 +34,15 @@ const FormFieldImageUploadExample = () => {
 
 	return (
 		<FormFieldImageUpload
-			label=''
-			disabled={false}
-			inputSettings={{
-				handleSetFocus: mockHandleSetFocus,
-				handleImageCoordinates: mockHandleImageCoordinates,
-				options,
-				uploadImage: mockUploadImage,
+			fieldDef={{
+				label: '',
+				disabled: false,
+				inputSettings: {
+					handleSetFocus: mockHandleSetFocus,
+					handleImageCoordinates: mockHandleImageCoordinates,
+					options,
+					uploadImage: mockUploadImage,
+				}
 			}}
 		/>
 	);
@@ -76,7 +76,14 @@ describe('FormFieldImageUpload component', () => {
 
 describe('FormFieldImageUpload disabled state', () => {
 	it('should display "Loading Image" and the circular progress component', () => {
-		render(<FormFieldImageUpload label='' disabled={true} />);
+		render(
+			<FormFieldImageUpload
+				fieldDef={{
+					label: '',
+					disabled: true,
+				}}
+			/>
+		);
 
 		expect(getByText('Loading Image')).toBeTruthy();
 		expect(getByTestId('circular-progress-test')).toBeTruthy();
@@ -85,7 +92,14 @@ describe('FormFieldImageUpload disabled state', () => {
 
 describe('FormFieldImageUpload when menu options are not received', () => {
 	it('should not display ', () => {
-		render(<FormFieldImageUpload label='' disabled={false} />);
+		render(
+			<FormFieldImageUpload
+				fieldDef={{
+					label: '',
+					disabled: false,
+				}}
+			/>
+		);
 
 		expect(queryByTestId('menu-container-test')).toBe(null);
 	});

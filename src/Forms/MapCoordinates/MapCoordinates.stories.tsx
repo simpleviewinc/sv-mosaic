@@ -6,8 +6,9 @@ import { boolean, withKnobs, object, text } from '@storybook/addon-knobs';
 import MapCoordinates from './MapCoordinates';
 import { IAddress } from '@root/forms/Address/AddressTypes';
 import Form from '../Form/Form';
-import { FieldDefProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
+import { MapCoordinatesDef } from '.';
 
 export default {
 	title: 'Forms|MapCoordinates',
@@ -41,12 +42,15 @@ export const Default = (): ReactElement => {
 
 	return (
 		<MapCoordinates
-			inputSettings={{
-				apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
-				address: withAddress && addressKnob,
-				mapPosition,
+			fieldDef={{
+				label: '',
+				inputSettings: {
+					apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+					address: withAddress && addressKnob,
+					mapPosition,
+				},
+				disabled,
 			}}
-			disabled={disabled}
 		/>
 
 	);
@@ -72,7 +76,7 @@ export const FormExample = (): ReactElement => {
 					},
 					// validators: [requiredValidator]
 				},
-			] as unknown as FieldDefProps[],
+			] as FieldDef<MapCoordinatesDef>[],
 		[required, disabled]
 	);
 

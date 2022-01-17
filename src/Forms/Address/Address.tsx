@@ -16,11 +16,12 @@ import { Sizes } from '@root/theme/sizes';
 import * as countriesWithStates from './countriesStates.json';
 import AddressCard from './AddressCard';
 import { actions, useForm } from '../Form/formUtils';
-import { FieldDefProps } from '@root/components/Field';
+import { FieldDef, MosaicFieldProps } from '@root/components/Field';
+import { TextFieldDef } from '../FormFieldText';
 
-const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
+const Address = (props: MosaicFieldProps<any>): ReactElement => {
 	const {
-		label,
+		fieldDef,
 		onChange
 	} = props;
 
@@ -86,7 +87,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 			inputSettings: {
 				size: Sizes.lg,
 			}
-		},
+		} as FieldDef<TextFieldDef>,
 		{
 			name: "city",
 			type: 'text',
@@ -96,7 +97,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 			inputSettings: {
 				size: Sizes.sm,
 			}
-		},
+		} as FieldDef<TextFieldDef>,
 		{
 			name: "states",
 			type: 'dropdown',
@@ -117,7 +118,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 			inputSettings: {
 				size: Sizes.sm,
 			}
-		},
+		} as FieldDef<TextFieldDef>,
 		{
 			name: "type",
 			type: 'checkbox',
@@ -129,7 +130,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 				size: Sizes.sm,
 			}
 		},
-	] as FieldDefProps[], [countries, listOfStates]);
+	] as FieldDef[], [countries, listOfStates]);
 
 	const sections = useMemo(() => [
 		{
@@ -303,7 +304,7 @@ const Address = (props: AddressProps & HTMLAttributes<HTMLInputElement>): ReactE
 
 	return (
 		<div style={{ paddingLeft: '20px' }}>
-			<StyledLabel>{label}</StyledLabel>
+			<StyledLabel>{fieldDef?.label}</StyledLabel>
 			<FlexContainer>
 				<AddAddressWrapper>
 					<Button buttonType='secondary' onClick={addAddressHandler}>

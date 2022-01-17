@@ -6,11 +6,14 @@ describe('DateRangeCalendar component', () => {
 	it('should should display the date value', () => {
 		const { getByText } = render(
 			<DateRangeCalendar
-				disabled={true}
-				fromValue={new Date('2017-01-01T00:00:00.000Z')}
-				toValue={new Date('2018-01-01T00:00:00.000Z')}
-				onChangeFrom={() => jest.fn()}
-				onChangeTo={() => jest.fn()}
+				fieldDef={{
+					label: '',
+					disabled: true,
+				}}
+			// fromValue={new Date('2017-01-01T00:00:00.000Z')}
+			// toValue={new Date('2018-01-01T00:00:00.000Z')}
+			// onChangeFrom={() => jest.fn()}
+			// onChangeTo={() => jest.fn()}
 			/>
 		);
 
@@ -21,11 +24,14 @@ describe('DateRangeCalendar component', () => {
 	it('should display the placeholder when is disabled and no value is provided', () => {
 		const { getByText } = render(
 			<DateRangeCalendar
-				disabled={true}
-				fromValue={null}
-				toValue={null}
-				onChangeFrom={() => jest.fn()}
-				onChangeTo={() => jest.fn()}
+				fieldDef={{
+					label: '',
+					disabled: true,
+				}}
+			// fromValue={null}
+			// toValue={null}
+			// onChangeFrom={() => jest.fn()}
+			// onChangeTo={() => jest.fn()}
 			/>
 		);
 
