@@ -21,7 +21,7 @@ const options = [
 	},
 ];
 
-describe('The FormFieldCheckbox behavior', () => {
+describe('FormFieldCheckbox component', () => {
 	it('should check the clicked option', () => {
 		const FormFieldCheckboxExample = () => {
 			const [checked, setChecked] = useState([]);
@@ -35,14 +35,13 @@ describe('The FormFieldCheckbox behavior', () => {
 
 			return (
 				<FormFieldCheckbox
-					label='Label'
-					inputSettings={{
-						options
-
+					fieldDef={{
+						label: 'test',
+						inputSettings: {
+							options,
+						}
 					}}
-					value={checked}
-					error={'Error text'}
-					instructionText='Instruction text'
+					value={checked}	
 					onChange={onChange}
 				/>
 			);

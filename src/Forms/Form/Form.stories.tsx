@@ -7,12 +7,13 @@ import { validateEmail, validateSlow, required } from "./validators";
 
 // Components
 import Form from './Form';
-import { FieldDefProps } from '../../components/Field';
+import { FieldDef } from '../../components/Field';
 import Modal from '../../components/Modal';
 
 // Icons
 import MenuIcon from '@material-ui/icons/Menu';
 import TranslateIcon from '@material-ui/icons/Translate';
+import { TextFieldDef } from '../FormFieldText/FormFieldTextTypes';
 
 export default {
 	title: 'Forms|Form',
@@ -531,7 +532,7 @@ export const KitchenSink = (): ReactElement => {
 						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
 					}
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[addTableRow, externalOptions]
 	);
 
@@ -581,7 +582,7 @@ export const FormWithLayout = (): ReactElement => {
 					type: "text",
 					instructionText: 'Instruction text text1'
 				}
-			] as FieldDefProps[],
+			] as FieldDef[],
 		// [state.data.text2]
 		[]
 	);
@@ -690,7 +691,7 @@ export const CodesandboxExample = (): ReactElement => {
 					label: "Text that receives copy",
 					type: "text"
 				}
-			] as FieldDefProps[],
+			] as FieldDef[],
 		// [state.data.text2]
 		[]
 	);
@@ -760,7 +761,7 @@ export const PerformanceTest = (): ReactElement => {
 	}
 
 	const fields = useMemo(
-		() => hundredFields as FieldDefProps[],
+		() => hundredFields as FieldDef[],
 		[]
 	);
 
@@ -829,7 +830,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 	}
 
 	const fields = useMemo(
-		() => hundredFields as FieldDefProps[],
+		() => hundredFields as FieldDef<TextFieldDef>[],
 		[]
 	);
 
@@ -888,7 +889,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					label: "City",
 					type: "text"
 				}
-			] as FieldDefProps[],
+			] as FieldDef[],
 		[]
 	);
 
@@ -1459,7 +1460,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					}
 				},
 
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[addTableRow, externalOptions]
 	);
 
@@ -1551,7 +1552,7 @@ export const GenericModal = (): ReactElement => {
 					},
 					validators: [required]
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[]
 	);
 
@@ -1645,7 +1646,7 @@ export const FormAndModal = (): ReactElement => {
 					},
 					validators: [required]
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[]
 	);
 
@@ -1744,7 +1745,7 @@ export const CustomFields = (): ReactElement => {
 					helperText: 'helper text bottom',
 					validators: [required]
 				},
-			] as FieldDefProps[],
+			] as FieldDef[],
 		[]
 	);
 

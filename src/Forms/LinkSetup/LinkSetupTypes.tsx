@@ -4,17 +4,12 @@ export type Link = {
   url: string;
 };
 
-export interface LinkSetupProps {
-  /**
-   * Disables set link, browse and remove button
-   */
-  disabled?: boolean;
+export type LinkSetupDef = {
   /**
    * Link object that cointains the information
    * that fills the card.
    */
-  value: Link | Record<string, never>;
-  inputSettings?: {
+  //value: Link | Record<string, never>;
 	/**
 	 * Callback executed when the set link button is clicked.
 	 * It should set the link details.
@@ -25,5 +20,4 @@ export interface LinkSetupProps {
 	 * This function should empty the link object.
 	 */
 	handleRemove: () => void;
-  }
 }

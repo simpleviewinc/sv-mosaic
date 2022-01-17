@@ -1,26 +1,26 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes, memo } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Types and styles
-import { FormFieldCheckboxProps } from './FormFieldCheckboxTypes';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldCheckboxDef } from './FormFieldCheckboxTypes';
 import { StyledCheckboxList } from './FormFieldCheckbox.styled';
 
 const FormFieldCheckbox = (
-	props: FormFieldCheckboxProps & HTMLAttributes<HTMLInputElement>
+	props: MosaicFieldProps<FormFieldCheckboxDef>
 ): ReactElement => {
 	const {
-		disabled,
+		fieldDef,
 		onChange,
 		onBlur,
-		inputSettings,
 		value
 	} = props;
 
 	return (
 		<StyledCheckboxList
-			disabled={disabled}
+			disabled={fieldDef?.disabled}
 			checked={value}
-			options={inputSettings?.options}
+			options={fieldDef.inputSettings?.options}
 			onChange={onChange}
 			onBlur={onBlur}
 		/>
