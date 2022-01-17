@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ChangeEvent, memo, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { AdvancedSelectionProps } from './AdvancedSelectionTypes';
+import { AdvancedSelectionDef } from './AdvancedSelectionTypes';
+import { MosaicFieldProps } from '@root/components/Field';
 
 // Components
 import AddIcon from '@material-ui/icons/Add';
@@ -25,20 +26,15 @@ import {
 	StyledInput,
 } from './AdvancedSelection.styled';
 import { actions, useForm } from '../Form/formUtils';
-import { FieldDefProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 
 const MAX_CHIPS_TO_SHOW = 8;
 
-const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
+const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
 	const {
-		inputSettings,
-		disabled,
+		fieldDef,
 		error,
-		helperText,
-		instructionText,
-		label,
 		onChange,
-		required,
 		value,
 	} = props;
 
@@ -64,22 +60,22 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 
 	const filteredList = useMemo(() => {
 		if (modalReducer?.state?.data.searchInput) {
-			return inputSettings?.checkboxOptions?.filter(
+			return fieldDef?.inputSettings?.checkboxOptions?.filter(
 				(d) =>
 					modalReducer?.state?.data.searchInput === '' ||
 					d.label.toLowerCase().includes(modalReducer?.state?.data.searchInput?.trim().toLowerCase()) ||
 					d.category?.toLowerCase().includes(modalReducer?.state?.data.searchInput?.trim().toLowerCase())
 			);
 		}
-		return inputSettings?.checkboxOptions;
-	}, [modalReducer?.state?.data.searchInput, inputSettings?.checkboxOptions]);
+		return fieldDef?.inputSettings?.checkboxOptions;
+	}, [modalReducer?.state?.data.searchInput, fieldDef?.inputSettings?.checkboxOptions]);
 
 	/**
    * Fills a Map with the options ensuring that categories
    * are not repeated.
    */
 	const optionsWithCategories = useMemo(() => {
-		if (inputSettings?.groupByCategory) {
+		if (fieldDef?.inputSettings?.groupByCategory) {
 			const categories = new Map();
 			filteredList.forEach((checkOption) => {
 				if (!categories.has(checkOption.category)) {
@@ -93,7 +89,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 			});
 			return categories;
 		}
-	}, [inputSettings?.groupByCategory, filteredList]);
+	}, [fieldDef?.inputSettings?.groupByCategory, filteredList]);
 
 	/**
    * Used to toggle the state of showMore to
@@ -199,7 +195,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 		if (isModalOpen)
 			return modalReducer?.state?.data?.checkboxList?.map((option, idx) => (
 				<Chip
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					key={`${option.label}-${idx}`}
 					label={option.label}
 					onDelete={() => onChipDelete(option.label)}
@@ -209,7 +205,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 		if (value)
 			return value?.map((option, idx) => (
 				<Chip
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					key={`${option.label}-${idx}`}
 					label={option.label}
 					onDelete={() => onChipDelete(option.label)}
@@ -225,9 +221,9 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
    * @returns a list of CheckboxList or a single Checkboxlist
    */
 	const showCheckboxList = useCallback(() => {
-		if (inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
+		if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 			return Array.from(optionsWithCategories).map(([category, value]) => (
-				<CheckboxListWrapper>
+				<CheckboxListWrapper key={`${category}-${value}`}>
 					<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
 						{category && <CategoryTitle>{category}</CategoryTitle>}
 						<CheckboxList
@@ -250,7 +246,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 			);
 		}
 	}, [
-		inputSettings?.groupByCategory,
+		fieldDef?.inputSettings?.groupByCategory,
 		optionsWithCategories,
 		isModalOpen,
 		modalReducer?.state?.data?.checkboxList,
@@ -315,11 +311,11 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	const createOption = () => {
 		const newOption = {
 			category: 'New Options',
-			value: `${modalReducer?.state?.data.searchInput}_${inputSettings?.checkboxOptions?.length}`,
+			value: `${modalReducer?.state?.data.searchInput}_${fieldDef?.inputSettings?.checkboxOptions?.length}`,
 			label: modalReducer?.state?.data.searchInput,
 		};
 
-		inputSettings?.updateOptionsCb ? inputSettings?.updateOptionsCb(newOption) : undefined;
+		fieldDef?.inputSettings?.updateOptionsCb ? fieldDef?.inputSettings?.updateOptionsCb(newOption) : undefined;
 		// setOptions(currentOptions);
 	};
 
@@ -331,10 +327,10 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 				onChange={onInputChange}
 				value={modalReducer?.state?.data.searchInput}
 			/>
-			{(modalReducer?.state?.data.searchInput && inputSettings?.updateOptionsCb) && (
+			{(modalReducer?.state?.data.searchInput && fieldDef?.inputSettings?.updateOptionsCb) && (
 				<Button
 					buttonType='blueText'
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					icon={AddIcon}
 					onClick={createOption}
 				>
@@ -345,7 +341,7 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 	), [
 		isMobileView,
 		modalReducer?.state?.data?.searchInput,
-		disabled,
+		fieldDef?.disabled,
 		AddIcon,
 	]);
 
@@ -362,13 +358,13 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 			name: "checkboxList",
 			type: showCheckboxList,
 		},
-	] as FieldDefProps[],
-		[
-			props,
-			searchInput,
-			showCheckboxList,
-			showListOfChips,
-		]);
+	] as FieldDef[],
+	[
+		props,
+		searchInput,
+		showCheckboxList,
+		showListOfChips,
+	]);
 
 	useMemo(() => {
 		modalReducer?.registerFields(fields);
@@ -378,19 +374,19 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 		<>
 			{modalReducer?.state?.data['checkboxList']?.length > 0 && !isModalOpen ? (
 				<StyledField
-					label={label}
+					label={fieldDef?.label}
 					error={error}
-					required={required}
-					disabled={disabled}
-					instructionText={instructionText}
-					helperText={helperText}
+					required={fieldDef?.required}
+					disabled={fieldDef?.disabled}
+					instructionText={fieldDef?.instructionText}
+					helperText={fieldDef?.helperText}
 					type='advancedSelection'
 					className='advanced_selection'
 				>
 					<AdvancedSelectionWrapper>
 						<Button
 							buttonType='blueText'
-							disabled={disabled}
+							disabled={fieldDef?.disabled}
 							icon={AddIcon}
 							onClick={handleOpenModal}
 							style={{ marginBottom: '8px' }}
@@ -403,14 +399,14 @@ const AdvancedSelection = (props: AdvancedSelectionProps): ReactElement => {
 			) : (
 				<Button
 					buttonType='secondary'
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					onClick={handleOpenModal}
 				>
 					ADD ELEMENT
 				</Button>
 			)}
 			<Modal
-				title={inputSettings?.modalTitle}
+				title={fieldDef?.inputSettings?.modalTitle}
 				state={modalReducer?.state}
 				dispatch={modalReducer?.dispatch}
 				fields={fields}

@@ -3,10 +3,10 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
-import AdvancedSelection from './AdvancedSelection';
+import AdvancedSelection, { AdvancedSelectionDef } from '.';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
 import Form from '../Form/Form';
-import { FieldDefProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
 
 export default {
@@ -85,20 +85,33 @@ export const Example = (): ReactElement => {
 		setValue(savedOptions);
 	};
 
+	const updateOptionsCb = (newOption) => {
+		const newOptions = [...options, newOption];
+		setOptions(newOptions);
+	};
+
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const errorText = text('Error text', '');
+
 	return (
 		<AdvancedSelection
-			label={text('Label', 'Label')}
-			error={text('Error text', '')}
-			required={boolean('Required', false)}
-			instructionText={text('Instruction text', 'Instruction text')}
-			helperText={text('Helper text', 'Helper text')}
-			disabled={boolean('Disabled', false)}
-			value={value}
-			inputSettings={{
-				modalTitle: text('Modal title', 'Modal title'),
-				checkboxOptions: options,
-				groupByCategory: boolean('Group by category', false),
+			fieldDef={{
+				disabled,
+				helperText: text('Helper text', 'Helper text'),
+				instructionText: text('Instruction text', 'Instruction text'),
+				label,
+				required,
+				inputSettings: {
+					modalTitle: text('Modal title', 'Modal title'),
+					checkboxOptions: options,
+					groupByCategory: boolean('Group by category', false),
+					updateOptionsCb
+				}
 			}}
+			error={errorText}
+			value={value}			
 			onChange={onChange}
 		/>
 	);
@@ -130,7 +143,7 @@ export const FormExample = (): ReactElement => {
 						updateOptionsCb,
 					}
 				},
-			] as FieldDefProps[]
+			] as FieldDef<AdvancedSelectionDef>[]
 		),
 		[registerFields, modalTitle, groupByCategory, options]
 	);

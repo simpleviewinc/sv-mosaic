@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { memo, ReactElement } from 'react';
-import { LinkSetupProps } from './LinkSetupTypes';
+import { LinkSetupDef } from './LinkSetupTypes';
+import { MosaicFieldProps } from '@root/components/Field';
 import { isEmpty } from 'lodash';
 
 // Components
@@ -14,11 +15,10 @@ import {
 	StyledAnchor,
 } from './LinkSetup.styled';
 
-const LinkSetup = (props: LinkSetupProps): ReactElement => {
+const LinkSetup = (props: MosaicFieldProps<LinkSetupDef>): ReactElement => {
 	const {
-		disabled,
+		fieldDef,
 		value,
-		inputSettings
 	} = props;
 
 	const handleClick = (e, cb) => {
@@ -29,7 +29,7 @@ const LinkSetup = (props: LinkSetupProps): ReactElement => {
 	return (
 		<>
 			{isEmpty(value) ? (
-				<Button disabled={disabled} buttonType='secondary' onClick={(e) => handleClick(e, inputSettings?.handleSetLink)}>
+				<Button disabled={fieldDef?.disabled} buttonType='secondary' onClick={(e) => handleClick(e, fieldDef?.inputSettings?.handleSetLink)}>
 					SET LINK
 				</Button>
 			) : (
@@ -43,10 +43,10 @@ const LinkSetup = (props: LinkSetupProps): ReactElement => {
 						<StyledAnchor href={value.url}>{value.url}</StyledAnchor>
 					</LinkInfoContainer>
 					<ButtonsWrapper>
-						<Button disabled={disabled} buttonType='blueText' onClick={(e) => handleClick(e, inputSettings?.handleSetLink)}>
+						<Button disabled={fieldDef?.disabled} buttonType='blueText' onClick={(e) => handleClick(e, fieldDef?.inputSettings?.handleSetLink)}>
 							Browse
 						</Button>
-						<Button disabled={disabled} buttonType='redText' onClick={(e) => handleClick(e, inputSettings?.handleRemove)}>
+						<Button disabled={fieldDef?.disabled} buttonType='redText' onClick={(e) => handleClick(e, fieldDef?.inputSettings?.handleRemove)}>
 							Remove
 						</Button>
 					</ButtonsWrapper>

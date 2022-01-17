@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { ReactElement, useState, ChangeEvent, useMemo, useCallback } from 'react';
+import { ReactElement, useState, useMemo, useCallback } from 'react';
 import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import FormFieldToggleSwitch from './FormFieldToggleSwitch';
+import FormFieldToggleSwitch, { FormFieldToggleSwitchDef } from '.';
 import Form from '../Form/Form';
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
 
 export default {
@@ -21,22 +21,31 @@ export const Default = (): ReactElement => {
 		setIsChecked(value);
 	};
 
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const errorText = text('Error text', '');
+
 	return (
 		<>
 			<span>Is toggle checked? {`${isChecked}`}</span>
 			<Field
-				label={text('Label', 'Label')}
-				required={boolean('Required', false)}
-				disabled={boolean('Disabled', false)}
-				helperText={text('Helper text', '')}
-				instructionText={text('Instruction text', 'Instruction text')}
-				error={text('Error text', '')}
+				fieldDef={{
+					disabled,
+					helperText: text('Helper text', ''),
+					instructionText: text('Instruction text', 'Instruction text'),
+					label,
+					required
+				}}
+				error={errorText}
 			>
 				<FormFieldToggleSwitch
-					label={text('Label', 'Label')}
-					disabled={boolean('Disabled', false)}
-					inputSettings={{
-						toggleLabel: text('Toggle label', 'Toggle label')
+					fieldDef={{
+						label,
+						disabled,
+						inputSettings: {
+							toggleLabel: text('Toggle label', 'Toggle label')
+						}
 					}}
 					error={text('Error text', 'Error text')}
 					onChange={handleChange}
@@ -69,7 +78,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef<FormFieldToggleSwitchDef>[],
 		[required, disabled, toggleLabel]
 	);
 
