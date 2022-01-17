@@ -4,9 +4,8 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import FormFieldChipSingleSelect from ".";
-import Field, { FieldDefProps } from '@root/components/Field';
-import { Sizes } from '@root/theme/sizes';
+import FormFieldChipSingleSelect, { FormFieldChipSingleSelectDef } from ".";
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
 
@@ -31,23 +30,32 @@ export const Default = (): ReactElement => {
 		},
 	];
 
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const errorText = text('Error text', '');
+
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={boolean('Required', false)}
-			disabled={boolean('Disabled', false)}
-			helperText={text('Helper text', '')}
-			instructionText={text('Instruction text', 'Instruction text')}
-			error={text('Error text', '')}
-			type={'chip'}
+			fieldDef={{
+				disabled,
+				helperText: text('Helper text', ''),
+				instructionText: text('Instruction text', 'Instruction text'),
+				label,
+				required,
+				type: 'chip'
+			}}
+			error={errorText}
 		>
 			<FormFieldChipSingleSelect
-				label={text('Label', 'Label')}
-				disabled={boolean('Disabled', false)}
-				inputSettings={{
-					options
+				fieldDef={{
+					label,
+					disabled,
+					inputSettings: {
+						options
+					}
 				}}
-				error={text('Error text', '')}
+				error={errorText}
 			/>
 		</Field>
 	);
@@ -89,8 +97,8 @@ export const FormExample = (): ReactElement => {
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
-			] as unknown as FieldDefProps[],
+				}
+			] as unknown as FieldDef<FormFieldChipSingleSelectDef>[],
 		[required, disabled]
 	);
 

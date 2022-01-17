@@ -5,7 +5,8 @@ import { memo, useState, useMemo, ReactElement } from 'react';
 import Button from '@root/forms/Button';
 
 // Types
-import { ImageVideoDocumentSetUpProps } from '.';
+import { ImageVideoDocumentSetUpDef } from '.';
+import { MosaicFieldProps } from '@root/components/Field';
 import {
 	AssetCard,
 	AssetLabel,
@@ -20,7 +21,6 @@ import {
 	Td,
 	SetUpButtonsWrapper,
 	StyledImg,
-	StyledLabel,
 	StyledMenu,
 	StyledTooltip,
 } from './ImageVideoDocumentSetUp.styled';
@@ -37,11 +37,10 @@ const DOCUMENT = 'document';
 const VIDEO = 'video';
 
 const ImageVideoDocumentSetUp = (
-	props: ImageVideoDocumentSetUpProps
+	props: MosaicFieldProps<ImageVideoDocumentSetUpDef>
 ): ReactElement => {
 	const {
-		label,
-		inputSettings,
+		fieldDef,
 		value,
 	} = props;
 
@@ -49,17 +48,17 @@ const ImageVideoDocumentSetUp = (
 	const [assetType, setAssetType] = useState('');
 
 	const handleImageClick = () => {
-		inputSettings?.handleSetImage();
+		fieldDef?.inputSettings?.handleSetImage();
 		setAssetType(IMAGE);
 	};
 
 	const handleVideoClick = () => {
-		inputSettings?.handleSetVideo();
+		fieldDef?.inputSettings?.handleSetVideo();
 		setAssetType(VIDEO);
 	};
 
 	const handleDocumentClick = () => {
-		inputSettings?.handleSetDocument();
+		fieldDef?.inputSettings?.handleSetDocument();
 		setAssetType(DOCUMENT);
 	};
 
@@ -70,23 +69,23 @@ const ImageVideoDocumentSetUp = (
 	const handleBrowse = (e) => {
 		e.preventDefault();
 		switch (assetType) {
-			case DOCUMENT:
-				inputSettings?.handleSetDocument();
-				break;
+		case DOCUMENT:
+			fieldDef?.inputSettings?.handleSetDocument();
+			break;
 
-			case VIDEO:
-				inputSettings?.handleSetVideo();
-				break;
+		case VIDEO:
+			fieldDef?.inputSettings?.handleSetVideo();
+			break;
 
-			default:
-				inputSettings?.handleSetImage();
-				break;
+		default:
+			fieldDef?.inputSettings?.handleSetImage();
+			break;
 		}
 	};
 
 	const handleRemove = (e) => {
 		e.preventDefault();
-		inputSettings?.handleRemove();
+		fieldDef?.inputSettings?.handleRemove();
 	}
 
 	const open = Boolean(anchorEl);
@@ -102,9 +101,9 @@ const ImageVideoDocumentSetUp = (
 	let multipleActions = false;
 
 	if (
-		(inputSettings?.handleSetImage && inputSettings?.handleSetVideo) ||
-		(inputSettings?.handleSetVideo && inputSettings?.handleSetDocument) ||
-		(inputSettings?.handleSetDocument && inputSettings?.handleSetImage)
+		(fieldDef?.inputSettings?.handleSetImage && fieldDef?.inputSettings?.handleSetVideo) ||
+		(fieldDef?.inputSettings?.handleSetVideo && fieldDef?.inputSettings?.handleSetDocument) ||
+		(fieldDef?.inputSettings?.handleSetDocument && fieldDef?.inputSettings?.handleSetImage)
 	) {
 		multipleActions = true;
 	}
@@ -131,7 +130,7 @@ const ImageVideoDocumentSetUp = (
 				open={open}
 				onClose={closeMenuHandler}
 			>
-				{inputSettings?.options?.map((option) => (
+				{fieldDef?.inputSettings?.options?.map((option) => (
 					<MenuItem key={`label-${option.label}`} onClick={option.action}>
 						{option.label}
 					</MenuItem>
@@ -192,17 +191,17 @@ const ImageVideoDocumentSetUp = (
 		<div>
 			{((Array.isArray(value) && value?.length === 0) || !value) ? (
 				<SetUpButtonsWrapper multipleActions={multipleActions}>
-					{inputSettings?.handleSetImage && (
+					{fieldDef?.inputSettings?.handleSetImage && (
 						<Button buttonType='secondary' onClick={handleImageClick}>
 							SET IMAGE
 						</Button>
 					)}
-					{inputSettings?.handleSetVideo && (
+					{fieldDef?.inputSettings?.handleSetVideo && (
 						<Button buttonType='secondary' onClick={handleVideoClick}>
 							SET VIDEO
 						</Button>
 					)}
-					{inputSettings?.handleSetDocument && (
+					{fieldDef?.inputSettings?.handleSetDocument && (
 						<Button buttonType='secondary' onClick={handleDocumentClick}>
 							SET DOCUMENT
 						</Button>
@@ -210,10 +209,10 @@ const ImageVideoDocumentSetUp = (
 				</SetUpButtonsWrapper>
 			) : (
 				<AssetCard>
-					{inputSettings?.src && !(assetType === DOCUMENT) && (
+					{fieldDef?.inputSettings?.src && !(assetType === DOCUMENT) && (
 						<Column>
 							<StyledImg
-								src={inputSettings?.src}
+								src={fieldDef?.inputSettings?.src}
 								data-testid='image-test'
 								width={261}
 								height={172}
@@ -225,7 +224,7 @@ const ImageVideoDocumentSetUp = (
 							<tbody>{assetPropertiesRows}</tbody>
 						</table>
 					</AssetPropertiesColumn>
-					{inputSettings?.options && <MenuColumn>{iconMenu}</MenuColumn>}
+					{fieldDef?.inputSettings?.options && <MenuColumn>{iconMenu}</MenuColumn>}
 					<ButtonsWrapper>
 						<Button buttonType='blueText' onClick={(e) => handleBrowse(e)}>
 							Browse
