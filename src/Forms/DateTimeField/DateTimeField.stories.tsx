@@ -10,7 +10,7 @@ import SingleCalendar from './SingleDateCalendar';
 import TimePicker from './TimePicker';
 import TimeInput from './TimeInput';
 import DateTimeInput from './DateTimeInput';
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
 
@@ -28,7 +28,15 @@ export const TimePickerExample = (): ReactElement => {
 		setSelectedDate(date);
 	};
 
-	return <TimePicker onChange={handleDateChange} value={selectedDate} />;
+	return (
+		<TimePicker
+			fieldDef={{
+				label: '',
+			}}
+			onChange={handleDateChange}
+			value={selectedDate}
+		/>
+	);
 };
 
 export const DatePickerExample = (): ReactElement => {
@@ -38,7 +46,15 @@ export const DatePickerExample = (): ReactElement => {
 		setSelectedDate(date);
 	};
 
-	return <DatePicker onChange={handleDateChange} value={selectedDate} />;
+	return (
+		<DatePicker
+			fieldDef={{
+				label: '',
+			}}
+			onChange={handleDateChange}
+			value={selectedDate}
+		/>
+	);
 };
 
 export const SingleCalendarExample = (): ReactElement => {
@@ -57,18 +73,23 @@ export const SingleCalendarExample = (): ReactElement => {
 
 	return (
 		<Field
-			label={text('Label', 'Label')}
+			fieldDef={{
+				label: text('Label', 'Label'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText,
+				helperText: !disabled && 'Month, Day, Year',
+			}}
 			error={error}
-			required={required}
-			disabled={disabled}
-			instructionText={!disabled && instructionText}
-			helperText={!disabled && 'Month, Day, Year'}
 		>
 			<SingleCalendar
-				error={error?.trim().length > 0}
-				disabled={disabled}
+				fieldDef={{
+					label: '',
+					disabled,
+					required,
+				}}
+				error={error}
 				onChange={handleDateChange}
-				required={required}
 				value={selectedDate}
 			/>
 		</Field>
@@ -96,20 +117,25 @@ export const DateRangeCalendarExample = (): ReactElement => {
 
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={required}
-			disabled={disabled}
+			fieldDef={{
+				label: text('Label', 'Label'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText,
+			}}
 			error={error}
-			instructionText={!disabled && instructionText}
 		>
 			<DateRangeCalendar
-				error={error?.trim().length > 0}
-				disabled={disabled}
-				fromValue={selectedDateFrom}
-				onChangeFrom={handleDateChangeFrom}
-				onChangeTo={handleDateChangeTo}
-				required={required}
-				toValue={selectedDateTo}
+				error={error}
+				fieldDef={{
+					label: '',
+					disabled,
+					required
+				}}
+			// fromValue={selectedDateFrom}
+			// onChangeFrom={handleDateChangeFrom}
+			// onChangeTo={handleDateChangeTo}
+			// toValue={selectedDateTo}
 			/>
 		</Field>
 	);
@@ -133,18 +159,23 @@ export const TimeInputExample = (): ReactElement => {
 
 	return (
 		<Field
-			label={text('Label', 'Time Input')}
+			fieldDef={{
+				label: text('Label', 'Time input'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText,
+				helperText: !disabled && 'Hour, Minute, AM or PM',
+			}}
 			error={error}
-			required={required}
-			disabled={disabled}
-			instructionText={!disabled && instructionText}
-			helperText={!disabled && 'Hour, Minute, AM or PM'}
 		>
 			<TimeInput
-				error={error?.trim().length > 0}
-				disabled={disabled}
+				fieldDef={{
+					label: '',
+					disabled,
+					required,
+				}}
+				error={error}
 				onChange={handleTimeChange}
-				required={required}
 				value={selectedTime}
 			/>
 		</Field>
@@ -172,20 +203,25 @@ export const DateTimeInputExample = (): ReactElement => {
 
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={required}
-			disabled={disabled}
+			fieldDef={{
+				label: text('Label', 'Label'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText
+			}}
 			error={error}
-			instructionText={!disabled && instructionText}
 		>
 			<DateTimeInput
-				error={error?.trim().length > 0}
-				disabled={disabled}
-				required={required}
-				dateValue={selectedDate}
-				onChangeDate={handleDateChange}
-				onChangeTime={handleTimeChange}
-				timeValue={selectedTime}
+				fieldDef={{
+					label: '',
+					disabled,
+					required,
+				}}
+				error={error}
+			// dateValue={selectedDate}
+			// onChangeDate={handleDateChange}
+			// onChangeTime={handleTimeChange}
+			// timeValue={selectedTime}
 			/>
 		</Field>
 	);
@@ -193,7 +229,7 @@ export const DateTimeInputExample = (): ReactElement => {
 
 export const FormExample = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	
+
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
 
@@ -248,7 +284,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as unknown as FieldDef[],
 		[required, disabled]
 	);
 
