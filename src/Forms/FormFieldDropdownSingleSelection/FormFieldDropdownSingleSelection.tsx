@@ -1,25 +1,24 @@
 import * as React from 'react';
-import { useState, memo, HTMLAttributes } from "react";
+import { useState, memo } from "react";
 import {
 	StyledAutocomplete,
 	StyledDisabledDropdownText,
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
-import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
+import { MosaicFieldProps } from '@root/components/Field';
+import { DropdownSingleSelectionDef } from "./FormFieldDropdownSingleSelectionTypes";
 
 // Components
 import InputWrapper from '../../components/InputWrapper';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import TextField from '@material-ui/core/TextField';
 
-const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttributes<HTMLInputElement>) => {
+const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef>) => {
 	const {
-		disabled = false,
+		fieldDef,
 		error,
-		required,
 		onChange,
 		onBlur,
-		inputSettings,
 		value
 	} = props;
 
@@ -31,8 +30,8 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 				{...params}
 				data-testid="textfield-test-id"
 				variant="outlined"
-				placeholder={inputSettings?.placeholder}
-				required={required}
+				placeholder={fieldDef?.inputSettings?.placeholder}
+				required={fieldDef?.required}
 			/>
 		</InputWrapper>
 	);
@@ -43,17 +42,17 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 
 	return (
 		<>
-			{!disabled ?
-				<SingleDropdownWrapper innerWidth={inputSettings?.size}>
+			{!fieldDef?.disabled ?
+				<SingleDropdownWrapper innerWidth={fieldDef?.inputSettings?.size}>
 					<StyledAutocomplete
 						value={value}
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
-						options={inputSettings?.options}
+						options={fieldDef?.inputSettings?.options}
 						getOptionLabel={(option) => option.title}
 						onChange={(_event, option) => onChange && onChange(option)}
-						error={(required && error) ? error : undefined}
+						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}
 						disablePortal={true}
 						popupIcon={<ExpandMoreIcon />}
@@ -66,7 +65,7 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps & HTMLAttri
 					data-testid="disabled-text-test-id"
 				>
 					{(!value?.title || value.title.trim() === '') ?
-						inputSettings?.placeholder : value.title
+						fieldDef?.inputSettings?.placeholder : value.title
 					}
 				</StyledDisabledDropdownText>
 			}

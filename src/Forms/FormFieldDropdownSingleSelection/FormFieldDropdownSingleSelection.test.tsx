@@ -18,11 +18,14 @@ describe('DropdownSingleSelection component', () => {
 	it('should render on the screen', () => {
 		render(
 			<DropdownSingleSelection
-				label='Example label'
-				inputSettings={{
-					options: topFilms,
+				fieldDef={{
+					label: 'Label test',
+					inputSettings: {
+						options: topFilms,
+						placeholder: 'Placeholder test',
+						value: topFilms[0]
+					}
 				}}
-				value={topFilms[0]}
 			/>
 		);
 
@@ -41,13 +44,15 @@ describe('DropdownSingleSelection disabled state', () => {
 	it('should render a dropdown disabled with no option selected by default', () => {
 		render(
 			<DropdownSingleSelection
-				label='Example label'
-				disabled
-				inputSettings={{
-					options: topFilms,
-					placeholder: 'placeholder',
+				fieldDef={{
+					label: 'Label test',
+					disabled: true,
+					inputSettings: {
+						options: topFilms,
+						placeholder: 'placeholder',
+						value: null
+					}
 				}}
-				value={null}
 			/>
 		);
 
@@ -59,12 +64,14 @@ describe('DropdownSingleSelection component as a form field', () => {
 	beforeEach(() => {
 		render(
 			<DropdownSingleSelection
-				label='Label test'
-				inputSettings={{
-					options: topFilms,
-					placeholder: 'Placeholder test',
+				fieldDef={{
+					label: 'Label test',
+					inputSettings: {
+						options: topFilms,
+						placeholder: 'Placeholder test',
+						value: null
+					}
 				}}
-				value={null}
 			/>
 		);
 	});

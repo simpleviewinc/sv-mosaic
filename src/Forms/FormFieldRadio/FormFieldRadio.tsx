@@ -1,31 +1,27 @@
 import * as React from 'react';
-import { HTMLAttributes, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 // Components
 import RadioButton from '@root/components/RadioButton';
 
 // Types and styles
-import { FormFieldRadioProps } from './FormFieldRadioTypes';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldRadioDef } from './FormFieldRadioTypes';
 import { StyledRadioGroup } from './FormFieldRadio.styled';
 
-const FormFieldRadio = (props: FormFieldRadioProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
+const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef>): ReactElement => {
 	const {
-		disabled,
-		error,
-		required,
+		fieldDef,
 		onChange,
-		inputSettings,
 		value,
 		onBlur,
 	} = props;
 
-	const errorField = error && required;
-
 	const listOfRadios = (
 		<>
-			{inputSettings?.options.map((option) => (
+			{fieldDef?.inputSettings?.options.map((option) => (
 				<RadioButton
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					key={option.label}
 					label={option.label}
 					value={option.value}
