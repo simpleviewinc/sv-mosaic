@@ -21,30 +21,47 @@ export type Libraries = (
  */
 export type MapPosition = { lat: number; lng: number };
 
-export interface MapCoordinatesProps {
-	inputSettings: {
-		/**
-		 * Address object used to set lat and lng values when using
-		 * the autocoordinates feature.
-		 */
-		address?: IAddress;
-		/**
-		 * Google Maps API key needed to consume the Maps JavaScript API
-		 * and Places API
-		 */
-		apiKey: string;
-		/**
-		 * Latitude and longitude object.
-		 */
-		mapPosition?: MapPosition;
-	}
+export type MapCoordinatesDef = {
 	/**
-	 * Disables interactive elements.
+	 * Address object used to set lat and lng values when using
+	 * the autocoordinates feature.
 	 */
-	disabled?: FieldDef['disabled'];
-	onChange?: MosaicFieldProps['onChange'];
-	value?: MosaicFieldProps['value'];
+	address?: IAddress;
+	/**
+	 * Google Maps API key needed to consume the Maps JavaScript API
+	 * and Places API
+	 */
+	apiKey: string;
+	/**
+	 * Latitude and longitude object.
+	 */
+	mapPosition?: MapPosition;
 }
+
+// export interface MapCoordinatesProps {
+// 	inputSettings: {
+// 		/**
+// 		 * Address object used to set lat and lng values when using
+// 		 * the autocoordinates feature.
+// 		 */
+// 		address?: IAddress;
+// 		/**
+// 		 * Google Maps API key needed to consume the Maps JavaScript API
+// 		 * and Places API
+// 		 */
+// 		apiKey: string;
+// 		/**
+// 		 * Latitude and longitude object.
+// 		 */
+// 		mapPosition?: MapPosition;
+// 	}
+// 	/**
+// 	 * Disables interactive elements.
+// 	 */
+// 	disabled?: FieldDef['disabled'];
+// 	onChange?: MosaicFieldProps['onChange'];
+// 	value?: MosaicFieldProps['value'];
+// }
 
 export interface MapProps {
 	/**

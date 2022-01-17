@@ -1,24 +1,34 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { DatePickerProps } from '../DatePicker';
 
 // Components
 import TimePicker from '../TimePicker';
 
 // Styles
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
-const TimeInput = (props: DatePickerProps): ReactElement => {
-	const { error, required, disabled, onChange, value } = props;
+const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
+	const {
+		error,
+		fieldDef,
+		onChange,
+		value
+	} = props;
 
 	return (
 		<>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<TimePicker
 					error={error}
-					required={required}
+					fieldDef={{
+						label: '',
+						required: fieldDef?.required,
+						inputSettings: {
+							placeholder: '00:00 AM/PM'
+						},
+					}}
 					onChange={onChange}
-					placeholder='00:00 AM/PM'
 					value={value}
 				/>
 			) : (
