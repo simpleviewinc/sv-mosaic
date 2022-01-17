@@ -10,10 +10,15 @@ import {
 	DatePickerWrapper,
 	StyledDatePicker,
 } from './DatePicker.styled';
-import { DatePickerProps } from './DatePickerTypes';
+import { MosaicFieldProps } from '@root/components/Field';
 
-const DatePicker = (props: DatePickerProps): ReactElement => {
-	const { error, required, onChange, placeholder, value, } = props;
+const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
+	const {
+		error,
+		fieldDef,
+		onChange,
+		value,
+	} = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -47,8 +52,8 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 							},
 						}}
 						InputProps={{
-							placeholder: placeholder,
-							required: required,
+							placeholder: fieldDef?.inputSettings?.placeholder,
+							required: fieldDef?.required,
 						}}
 						invalidDateMessage={null}
 						maxDateMessage={null}

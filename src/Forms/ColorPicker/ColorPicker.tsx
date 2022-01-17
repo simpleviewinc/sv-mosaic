@@ -3,7 +3,7 @@ import * as React from 'react';
 import { memo, ReactElement, useState } from 'react';
 import { SketchPicker } from 'react-color';
 import { ColorContainer, ColorDiv, Cover, PopOver } from './ColorPicker.styled';
-import { ColorPickerProps } from './ColorPickerTypes';
+// import { ColorPickerProps } from './ColorPickerTypes';
 
 const ColorPicker = (props: MosaicFieldProps<any>): ReactElement => {
 	const {

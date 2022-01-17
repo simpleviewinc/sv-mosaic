@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
 // Styled Components
-import { DateRangeCalendarProps } from './DateRangeCalendarTypes';
 import DatePicker from '../DatePicker';
 import {
 	DateRangeCalendarWrapper,
@@ -11,26 +10,22 @@ import {
 import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
 import HelperText from '@root/components/Field/HelperText';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
-const DateRangeCalendar = (props: DateRangeCalendarProps): ReactElement => {
-	const { 
+const DateRangeCalendar = (props: MosaicFieldProps<any>): ReactElement => {
+	const {
 		error,
-		disabled,
-		fromValue,
-		onChangeFrom,
-		onChangeTo,
-		required,
-		toValue,
+		fieldDef,
 		value,
 		onChange,
 	} = props;
 
 	const dateFormatText = <HelperText>Month, Day, Year</HelperText>;
-	const toText = <StyledSpan disabled={disabled}>To</StyledSpan>;
+	const toText = <StyledSpan disabled={fieldDef?.disabled}>To</StyledSpan>;
 
 	const handleOnChange = (position, date) => {
-		let newDates = {...value};
-		if(position === 0) {
+		let newDates = { ...value };
+		if (position === 0) {
 			newDates = {
 				...newDates,
 				from: date
@@ -47,15 +42,37 @@ const DateRangeCalendar = (props: DateRangeCalendarProps): ReactElement => {
 
 	return (
 		<DateRangeCalendarWrapper>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<>
 					<DateTimePickerWrapper>
-						<DatePicker error={error} onChange={(d) => handleOnChange(0, d)} placeholder='Start' required={required} value={value?.from} />
+						<DatePicker
+							error={error}
+							onChange={(d) => handleOnChange(0, d)}
+							fieldDef={{
+								label: '',
+								required: fieldDef?.required,
+								inputSettings: {
+									placeholder: 'Start'
+								}
+							}}
+							value={value?.from}
+						/>
 						{dateFormatText}
 					</DateTimePickerWrapper>
 					{toText}
 					<DateTimePickerWrapper>
-						<DatePicker error={error} onChange={(d) => handleOnChange(1, d)} placeholder='End' required={required} value={value?.to} />
+						<DatePicker
+							error={error}
+							onChange={(d) => handleOnChange(1, d)}
+							fieldDef={{
+								label: '',
+								required: fieldDef?.required,
+								inputSettings: {
+									placeholder: 'End'
+								}
+							}}
+							value={value?.to}
+						/>
 						{dateFormatText}
 					</DateTimePickerWrapper>
 				</>
