@@ -18,7 +18,7 @@ export function validateEmail(str: string): (string | undefined) {
 		: undefined;
 }
 
-export function validateSlow(str: string) {
+export function validateSlow(str: string): Promise<void | string> {
 	if (!str) {
 		return;
 	}
@@ -50,12 +50,12 @@ export function required(str: string): string {
  * @param value field value
  * @returns an error message string
  */
-export function validateNumber(value) : string {
+export function validateNumber(value: string) : string {
 	if (!value) {
 		return;
 	}
 
-	if (!(!isNaN(value) && !isNaN(parseFloat(value)))) {
+	if (!(!isNaN(Number(value)) && !isNaN(Number(value)))) {
 		return 'The value is not a number';
 	} 
 }
