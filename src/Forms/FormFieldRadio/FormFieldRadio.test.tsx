@@ -1,96 +1,68 @@
-// import * as React from 'react';
-// import { useState, ChangeEvent } from 'react';
-// import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import * as React from 'react';
+import { useState } from 'react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 
-// import FormFieldRadio from './FormFieldRadio';
+// Components
+import FormFieldRadio from './FormFieldRadio';
 
-// afterEach(cleanup);
+afterEach(cleanup);
 
-// const options = [
-// 	{
-// 		label: 'Label 1',
-// 		value: 'label_1',
-// 	},
-// 	{
-// 		label: 'Label 2',
-// 		value: 'label_2',
-// 	},
-// 	{
-// 		label: 'Label 3',
-// 		value: 'label_3',
-// 	},
-// ];
+const { getByText, getAllByRole } = screen;
 
-// describe('The FormFieldRadio behavior', () => {
-// 	it('should check the clicked option', () => {
-// 		const FormFieldRadioExample = () => {
-// 			const [value, setValue] = useState('');
+const options = [
+	{
+		label: 'Label 1',
+		value: 'label_1',
+	},
+	{
+		label: 'Label 2',
+		value: 'label_2',
+	},
+	{
+		label: 'Label 3',
+		value: 'label_3',
+	},
+];
 
-// 			const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-// 				setValue((event.target as HTMLInputElement).value);
-// 			};
+const FormFieldRadioExample = () => {
+	const [value, setValue] = useState('');
 
-// 			return (
-// 				<>
-// 					<span>{value}</span>
-// 					<FormFieldRadio
-// 						label='Label'
-// 						error={false}
-// 						instructionText='Instruction text'
-// 						errorText='Error text'
-// 						options={options}
-// 						onChange={handleChange}
-// 						value={value}
-// 					/>
-// 				</>
-// 			);
-// 		};
+	const handleChange = (value) => {
+		setValue(value);
+	};
 
-// 		render(<FormFieldRadioExample />);
-// 		const radioButtons = screen.getAllByRole('radio') as HTMLInputElement[];
-// 		fireEvent.click(radioButtons[1]);
-// 		const value = screen.getByText('label_2');
+	return (
+		<>
+			<span>{value}</span>
+			<FormFieldRadio
+				fieldDef={{
+					label: 'Label',
+					inputSettings: {
+						options
+					}
+				}}
+				onChange={handleChange}
+				value={value}
+			/>
+		</>
+	);
+};
 
-// 		expect(value).toBeDefined();
-// 		expect(radioButtons[0].checked).toEqual(false);
-// 		expect(radioButtons[1].checked).toEqual(true);
-// 		expect(radioButtons[2].checked).toEqual(false);
-// 	});
+describe('FormFieldRadio component', () => {
+	let radioButtons = [];
+	beforeEach(() => {
+		render(<FormFieldRadioExample />);
+		radioButtons = getAllByRole('radio') as HTMLInputElement[];
+		fireEvent.click(radioButtons[1]);
+	});
 
-// 	it('should display the error text, instruction text and label', () => {
-// 		render(
-// 			<FormFieldRadio
-// 				label='Label'
-// 				error={true}
-// 				instructionText='Instruction text'
-// 				errorText='Error text'
-// 				options={options}
-// 				required={true}
-// 			/>
-// 		);
+	it('should display the value of the clicked option', () => {
+		expect(getByText('label_2')).toBeDefined();
+	});
 
-// 		const instructionText = screen.getByText('Instruction text');
-// 		const errorText = screen.getByText('Error text');
-// 		const label = screen.getByText('Label');
-
-// 		expect(instructionText).toBeDefined();
-// 		expect(errorText).toBeDefined();
-// 		expect(label).toBeDefined();
-// 	});
-
-// 	it('should not display the error text since there is no error and field is not required', () => {
-// 		render(
-// 			<FormFieldRadio
-// 				label='Label'
-// 				error={false}
-// 				errorText='Error text'
-// 				options={options}
-// 				required={false}
-// 			/>
-// 		);
-
-// 		const errorText = screen.queryByText('Error text');
-
-// 		expect(errorText).toBe(null);
-// 	});
-// });
+	it('should check the clicked option', () => {
+		expect(radioButtons[0].checked).toEqual(false);
+		expect(radioButtons[1].checked).toEqual(true);
+		expect(radioButtons[2].checked).toEqual(false);
+	});
+});

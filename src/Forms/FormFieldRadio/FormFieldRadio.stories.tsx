@@ -2,17 +2,32 @@ import * as React from 'react';
 import { useState, ReactElement, useMemo, useCallback } from 'react';
 import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
+import { useForm } from '../Form/formUtils';
 
 // Components
 import FormFieldRadioButtonGroup, { FormFieldRadioDef } from '.';
 import Field, { FieldDef } from '@root/components/Field';
-import Form from '../Form/Form';
-import { useForm } from '../Form/formUtils';
+import Form from '@root/forms/Form/Form';
 
 export default {
 	title: 'Forms|FormFieldRadio',
 	decorators: [withKnobs],
 } as Meta;
+
+const options = [
+	{
+		label: 'Label 1',
+		value: 'label_1',
+	},
+	{
+		label: 'Label 2',
+		value: 'label_2',
+	},
+	{
+		label: 'Label 3',
+		value: 'label_3',
+	},
+];
 
 export const Default = (): ReactElement => {
 	const [value, setValue] = useState('');
@@ -20,21 +35,6 @@ export const Default = (): ReactElement => {
 	const handleChange = (value) => {
 		setValue(value);
 	};
-
-	const options = [
-		{
-			label: 'Label 1',
-			value: 'label_1',
-		},
-		{
-			label: 'Label 2',
-			value: 'label_2',
-		},
-		{
-			label: 'Label 3',
-			value: 'label_3',
-		},
-	];
 
 	const label = text('Label', 'Label');
 	const required = boolean('Required', false);
@@ -77,21 +77,6 @@ export const FormExample = (): ReactElement => {
 
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
-
-	const options = useMemo(() => [
-		{
-			label: "Label 1",
-			value: "label_1"
-		},
-		{
-			label: "Label 2",
-			value: "label_2"
-		},
-		{
-			label: "Label 3",
-			value: "label_3"
-		}
-	], []);
 
 	const fields = useMemo(
 		() =>
