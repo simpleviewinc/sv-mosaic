@@ -23,9 +23,9 @@ describe('DropdownSingleSelection component', () => {
 					inputSettings: {
 						options: topFilms,
 						placeholder: 'Placeholder test',
-						value: topFilms[0]
 					}
 				}}
+				value={topFilms[0]}
 			/>
 		);
 
@@ -50,9 +50,9 @@ describe('DropdownSingleSelection disabled state', () => {
 					inputSettings: {
 						options: topFilms,
 						placeholder: 'placeholder',
-						value: null
 					}
 				}}
+				value={null}
 			/>
 		);
 
@@ -69,9 +69,9 @@ describe('DropdownSingleSelection component as a form field', () => {
 					inputSettings: {
 						options: topFilms,
 						placeholder: 'Placeholder test',
-						value: null
 					}
 				}}
+				value={null}
 			/>
 		);
 	});

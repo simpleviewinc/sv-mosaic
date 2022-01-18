@@ -5,11 +5,9 @@ import { text, withKnobs } from '@storybook/addon-knobs';
 // Components
 import Modal from './Modal';
 import Button from '@root/forms/Button';
-import TextField from '@root/forms/FormFieldText';
-import FormFieldDropdownSingleSelection from '@root/forms/FormFieldDropdownSingleSelection';
-import { Sizes } from '@root/theme/sizes';
-import { FieldDefProps } from '../Field';
+import { FieldDef } from '../Field';
 import { useForm } from '../../forms/Form/formUtils';
+import { TextFieldDef } from '@root/forms/FormFieldText';
 
 export default {
 	title: 'Components/Modal',
@@ -17,22 +15,13 @@ export default {
 };
 
 export const Example = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const dialogTitle = text('Dialog title', 'Dialog title');
 	const primaryBtnLabel = text('Primary button label', 'Apply');
 	const secondaryBtnLabel = text('Secondary button label', 'Cancel');
 
 	const [open, setOpen] = useState(false);
-
-	const topFilms = [
-		{ title: 'The Shawshank Redemption', year: 1994 },
-		{ title: 'The Godfather', year: 1972 },
-		{ title: 'The Godfather: Part II', year: 1974 },
-		{ title: 'The Dark Knight', year: 2008 },
-		{ title: '12 Angry Men', year: 1957 },
-		{ title: "Schindler's List", year: 1993 },
-	];
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -51,26 +40,6 @@ export const Example = (): ReactElement => {
 		registerOnSubmit(primaryAction);
 	}, [primaryAction, registerOnSubmit]);
 
-	// <FormFieldDropdownSingleSelection
-	// 				options={topFilms}
-	// 				label='Country'
-	// 				placeholder='Select'
-	// 				size={Sizes.sm}
-	// 			/>
-	// 			<TextField
-	// 				label='Address'
-	// 				htmlFor='text-input'
-	// 				size={Sizes.lg}
-	// 				onChange={undefined}
-	// 			/>
-	// 			<TextField
-	// 				label=''
-	// 				htmlFor='text-input'
-	// 				size={Sizes.lg}
-	// 				onChange={undefined}
-	// 			/>
-	// 		</Modal>
-
 	const fields = useMemo(
 		() =>
 			[
@@ -82,12 +51,12 @@ export const Example = (): ReactElement => {
 						maxCharacters: 20,
 					},
 					instructionText: 'testing',
-				},
+				} as FieldDef<TextFieldDef>,
 				{
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "textArea",
-				},
+				} as FieldDef<TextFieldDef>,
 				{
 					name: "check1",
 					label: "Text that copies to the next input",
@@ -113,8 +82,8 @@ export const Example = (): ReactElement => {
 					name: "text4",
 					label: "Text that receives copy",
 					type: "text"
-				},
-			] as FieldDefProps[],
+				} as FieldDef<TextFieldDef>,
+			] as FieldDef[],
 		[]
 	);
 

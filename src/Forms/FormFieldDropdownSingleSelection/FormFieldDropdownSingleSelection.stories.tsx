@@ -111,7 +111,7 @@ export const FormExample = (): ReactElement => {
 					instructionText: 'Instruction text',
 				}
 			] as FieldDef<DropdownSingleSelectionDef>[],
-		[required, disabled, size, placeholder]
+		[required, disabled, size, placeholder, options]
 	);
 
 	useMemo(() => {

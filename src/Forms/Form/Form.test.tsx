@@ -1,42 +1,43 @@
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
 import { actions, coreReducer, generateLayout } from "./formUtils";
-import { FieldDefProps } from "../../components/Field";
+import { FieldDef } from "../../components/Field";
 import { required } from './validators';
+import { TextFieldDef } from "../FormFieldText";
 
 const runTests = (tests, type) => {
 	switch (type) {
-	case 'dispatch':
-		testArray(tests, async test => {
-			const state = test['state'] ? test['state'] : {};
-			const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
+		case 'dispatch':
+			testArray(tests, async test => {
+				const state = test['state'] ? test['state'] : {};
+				const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
 
-			const dispatches = [];
-			const dispatch = async action => {
-				if (action instanceof Function) {
-					await action(dispatch, getState, extraArgs);
-				} else {
-					dispatches.push(action);
+				const dispatches = [];
+				const dispatch = async action => {
+					if (action instanceof Function) {
+						await action(dispatch, getState, extraArgs);
+					} else {
+						dispatches.push(action);
+					}
 				}
-			}
-			const getState = () => state;
-			const fn = actions[test['action']](...test['args']);
-			await fn(dispatch, getState, extraArgs);
+				const getState = () => state;
+				const fn = actions[test['action']](...test['args']);
+				await fn(dispatch, getState, extraArgs);
 
-			assert.deepStrictEqual(dispatches, test['calls']);
-		});
-		break;
-	case 'reducer':
-		testArray(tests, test => {
-			const state = test['state'] ? test['state'] : {};
-			const result = coreReducer(state, test['action']);
-		
-			assert.deepStrictEqual(result, test['result']);
-			assert.notStrictEqual(state, result);
-		});
-		break;
-	default:
-		break;
+				assert.deepStrictEqual(dispatches, test['calls']);
+			});
+			break;
+		case 'reducer':
+			testArray(tests, test => {
+				const state = test['state'] ? test['state'] : {};
+				const result = coreReducer(state, test['action']);
+
+				assert.deepStrictEqual(result, test['result']);
+				assert.notStrictEqual(state, result);
+			});
+			break;
+		default:
+			break;
 	}
 };
 
@@ -62,7 +63,7 @@ describe('Layout logic', () => {
 			label: "Text that receives copy",
 			type: "text"
 		}
-	] as FieldDefProps[];
+	] as FieldDef<TextFieldDef>[];
 
 	const sections = [
 		{

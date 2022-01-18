@@ -14,13 +14,18 @@ describe('Field component label, helper text and instructional text', () => {
 	beforeEach(() => {
 		render(
 			<Field
-				label='Label'
-				helperText='Helper text'
-				instructionText='Instruction text'
+				fieldDef={{
+					label: 'Label',
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				}}
 			>
 				<FormFieldText
-					label='Label test'
-					instructionText='Instruction text'
+					fieldDef={{
+						label: 'Label',
+						helperText: 'Helper text',
+						instructionText: 'Instruction text',
+					}}
 					onChange={() => jest.fn()}
 				/>
 			</Field>
@@ -43,11 +48,19 @@ describe('Field component label, helper text and instructional text', () => {
 describe('Field component error text and the helper text', () => {
 	it('should, in case of an error, display the error text and not the helper text', () => {
 		render(
-			<Field label='Label' helperText='Helper text' error='Error text'>
+			<Field
+				fieldDef={{
+					label: 'Label',
+					helperText: 'Helper text',
+				}}
+				error='Error text'
+			>
 				<FormFieldText
-					label='Label test'
+					fieldDef={{
+						label: 'Label',
+						helperText: 'Helper text',
+					}}
 					error={'Error text'}
-					helperText='Helper text'
 					onChange={() => jest.fn()}
 				/>
 			</Field>
@@ -59,11 +72,21 @@ describe('Field component error text and the helper text', () => {
 
 	it('should should display the helper text in the case of no error', () => {
 		render(
-			<Field label='Label' helperText='Helper text' error=''>
+			<Field
+				fieldDef={{
+					label: 'Label',
+					helperText: 'Helper text',
+				}}
+				error=''
+			>
 				<FormFieldText
-					label='Label test'
-					helperText='Helper text'
-					placeholder='placeholder'
+					fieldDef={{
+						label: 'Label test',
+						helperText: 'Helper text',
+						inputSettings: {
+							placeholder: 'placeholder'
+						}
+					}}
 					onChange={() => jest.fn()}
 				/>
 			</Field>
@@ -83,15 +106,21 @@ describe('Field char counter', () => {
 			};
 
 			return (
-				<Field label='Label' maxCharacters={20} value={inputValue}>
+				<Field
+					fieldDef={{
+						label: 'Label',
+						maxCharacters: 20,
+					}}
+					value={inputValue}
+				>
 					<FormFieldText
-						id='char-test'
-						label='Label'
-						inputSettings={{
-							htmlFor: 'char-test',
-							placeholder: 'placeholder',
-							maxCharacters: 20,
-							value: inputValue,
+						fieldDef={{
+							label: 'Label',
+							id: 'char-test',
+							inputSettings: {
+								placeholder: 'placeholder',
+								maxCharacters: 20,
+							}
 						}}
 						onChange={onHandleChange}
 					/>

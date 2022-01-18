@@ -9,11 +9,12 @@ afterEach(cleanup);
 describe('TextField component', () => {
 	it('should should display the placeholder', () => {
 		render(<TextField
-			label='Label test'
-			instructionText='Instruction text'
-			inputSettings={{
-				htmlFor: 'test',
-				placeholder: 'placeholder',
+			fieldDef={{
+				label: 'Label test',
+				instructionText: 'Instruction text',
+				inputSettings: {
+					placeholder: 'placeholder',
+				}
 			}}
 			onChange={() => jest.fn()}
 		/>)

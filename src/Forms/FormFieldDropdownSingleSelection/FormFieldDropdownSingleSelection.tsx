@@ -64,7 +64,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
-					{(!value?.title || value.title.trim() === '') ?
+					{(!value?.title || value?.title?.trim() === '') ?
 						fieldDef?.inputSettings?.placeholder : value.title
 					}
 				</StyledDisabledDropdownText>

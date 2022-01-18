@@ -130,7 +130,7 @@ const Address = (props: MosaicFieldProps<any>): ReactElement => {
 				size: Sizes.sm,
 			}
 		},
-	] as FieldDef[], [countries, listOfStates]);
+	] as FieldDef[], [countries, listOfStates, addressTypes]);
 
 	const sections = useMemo(() => [
 		{
@@ -263,7 +263,7 @@ const Address = (props: MosaicFieldProps<any>): ReactElement => {
 	 */
 	const addNewAddress = () => {
 		const listOfAddresses = [...addresses];
-		const id = listOfAddresses.length + 1;
+		const id = listOfAddresses?.length + 1;
 		listOfAddresses.push({
 			id: id,
 			address: modalReducer?.state?.data?.address,

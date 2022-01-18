@@ -51,17 +51,19 @@ describe('AdvancedSelection component', () => {
 	beforeEach(() => {
 		render(
 			<AdvancedSelection
-				label='Label'
-				error={''}
-				required={false}
-				instructionText='Instruction text'
-				helperText='Helper text'
-				disabled={false}
-				inputSettings={{
-					modalTitle: 'Modal title',
-					checkboxOptions: options,
-					groupByCategory: true,
+				fieldDef={{
+					label: 'Label',
+					required: false,
+					instructionText: 'Instruction text',
+					helperText: 'Helper text',
+					disabled: false,
+					inputSettings: {
+						modalTitle: 'Modal title',
+						checkboxOptions: options,
+						groupByCategory: true,
+					}
 				}}
+				error={''}
 				onChange={() => jest.fn}
 			/>
 		);
