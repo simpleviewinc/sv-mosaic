@@ -4,7 +4,7 @@
  * @param str email address
  * @returns string used as an error message
  */
-export function validateEmail(str: string) {
+export function validateEmail(str: string): (string | undefined) {
 	if (!str) {
 		return;
 	}
@@ -39,7 +39,7 @@ export function validateSlow(str: string) {
  * @param str field value
  * @returns an error message string
  */
-export function required(str: string) {
+export function required(str: string): string {
 	if (!str || str.trim().length === 0 || !!str === false) {
 		return 'This field is required, please fill it';
 	}
@@ -50,7 +50,7 @@ export function required(str: string) {
  * @param value field value
  * @returns an error message string
  */
-export function validateNumber(value) {
+export function validateNumber(value) : string {
 	if (!value) {
 		return;
 	}
@@ -66,7 +66,7 @@ export function validateNumber(value) {
  * @param str to validate
  * @returns an error message string
  */
-export function validateURL(str: string) {
+export function validateURL(str: string) : string {
 	const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
