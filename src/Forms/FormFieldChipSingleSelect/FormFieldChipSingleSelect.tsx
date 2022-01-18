@@ -18,17 +18,17 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		onBlur,
 	} = props;
 
-	const [internalOptions, setInternalOptions] = useState([...fieldDef.inputSettings?.options]);
+	const [internalOptions, setInternalOptions] = useState([...fieldDef?.inputSettings?.options]);
 
 	const updateSelectedOption = (option) => {
 
 		let newOptions = [...internalOptions];
 
 		newOptions = newOptions.map((o) => (
-			o.value === option.value ? 
-				{...o, selected: !o.selected} 
-				: 
-				{...o, selected: o.selected = false}
+			o.value === option.value ?
+				{ ...o, selected: !o.selected }
+				:
+				{ ...o, selected: o.selected = false }
 		)
 		);
 

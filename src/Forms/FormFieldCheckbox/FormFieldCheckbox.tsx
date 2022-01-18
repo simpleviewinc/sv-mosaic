@@ -20,7 +20,7 @@ const FormFieldCheckbox = (
 		<StyledCheckboxList
 			disabled={fieldDef?.disabled}
 			checked={value}
-			options={fieldDef.inputSettings?.options}
+			options={fieldDef?.inputSettings?.options}
 			onChange={onChange}
 			onBlur={onBlur}
 		/>

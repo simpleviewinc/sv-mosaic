@@ -21,12 +21,12 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 	);
 
 	const callbacks = useMemo(() => {
-		return props.options.map((option) => handleToggle(option.value));
+		return props?.options?.map((option) => handleToggle(option.value));
 	}, [props.options, handleToggle]);
 
 	return (
 		<FormGroup className={`${props.className} listItem`} onBlur={props.onBlur}>
-			{props.options.map((option, i) => {
+			{props?.options?.map((option, i) => {
 				const checked = props?.checked?.length > 0 ? props.checked?.filter(o => o === option.value).length > 0 : false;
 
 				return (

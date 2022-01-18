@@ -27,7 +27,7 @@ const addNewAddress = () => {
 
 describe('Address component', () => {
 	it('should add a new address card', () => {
-		const { queryAllByTestId } = render(<Address label='Address label' />);
+		const { queryAllByTestId } = render(<Address fieldDef={{ label: 'Address label' }} />);
 
 		expect(queryAllByTestId('address-card-test')).toStrictEqual([]);
 		addNewAddress();
@@ -35,7 +35,7 @@ describe('Address component', () => {
 	});
 
 	it('should delete an address card', () => {
-		const { queryAllByTestId } = render(<Address label='Address label' />);
+		const { queryAllByTestId } = render(<Address fieldDef={{ label: 'Address label' }} />);
 
 		addNewAddress();
 		expect(queryAllByTestId('address-card-test').length).toBe(1);
@@ -47,7 +47,7 @@ describe('Address component', () => {
 	});
 
 	it('should edit an address card', () => {
-		const { getByText, getByLabelText, getAllByTestId, getAllByRole } = render(<Address label='Address label' />);
+		const { getByText, getByLabelText, getAllByTestId, getAllByRole } = render(<Address fieldDef={{ label: 'Address label' }} />);
 
 		addNewAddress();
 		const editButton = screen.getByText('Edit');
