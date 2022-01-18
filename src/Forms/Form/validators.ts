@@ -55,7 +55,7 @@ export function validateNumber(value: string) : string {
 		return;
 	}
 
-	if (!(!isNaN(Number(value)) && !isNaN(Number(value)))) {
+	if (!(!isNaN(Number(value)) && !isNaN(parseFloat(value)))) {
 		return 'The value is not a number';
 	} 
 }
