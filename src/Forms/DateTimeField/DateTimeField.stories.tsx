@@ -4,7 +4,7 @@ import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import DatePicker from './DatePicker';
+import DatePicker, { DatePickerDef } from './DatePicker';
 import DateRangeCalendar from './DateRangeCalendar';
 import SingleCalendar from './SingleDateCalendar';
 import TimePicker from './TimePicker';
@@ -13,6 +13,7 @@ import DateTimeInput from './DateTimeInput';
 import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
+import { TimePickerDef } from './TimePicker/TimePickerTypes';
 
 export default {
 	title: 'Forms|DateTimeField',
@@ -232,6 +233,7 @@ export const FormExample = (): ReactElement => {
 
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
+	const placeholder = text('Placeholder', 'Placeholder');
 
 	const fields = useMemo(
 		() =>
@@ -243,23 +245,20 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
+						placeholder,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
+				} as FieldDef<DatePickerDef>,
 				{
 					name: "dateRange",
 					label: "Date Range",
 					type: "dateRange",
 					required,
 					disabled,
-					inputSettings: {
-						disabled,
-					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
+				} as FieldDef,
 				{
 					name: "time",
 					label: "Single Time Picker",
@@ -267,24 +266,21 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
+						placeholder,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
+				} as FieldDef<TimePickerDef>,
 				{
 					name: "dateTime",
 					label: "Date and Time Picker",
 					type: "dateTime",
 					required,
 					disabled,
-					inputSettings: {
-						disabled,
-					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				},
-			] as unknown as FieldDef[],
+				} as FieldDef,
+			] as FieldDef[],
 		[required, disabled]
 	);
 

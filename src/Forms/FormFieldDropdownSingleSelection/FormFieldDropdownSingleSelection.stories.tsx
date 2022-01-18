@@ -64,13 +64,13 @@ export const example = (): ReactElement => {
 					size
 				}
 			}}
-			error={errorText}			
+			error={errorText}
 		>
 			<FormFieldDropdownSingleSelection
 				fieldDef={{
 					label,
 					disabled,
-					inputSettings: { 
+					inputSettings: {
 						options,
 						placeholder: text("Placeholder", "Placeholder example"),
 						size: select('Size', [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm),
@@ -110,7 +110,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				}
-			] as unknown as FieldDef<DropdownSingleSelectionDef>[],
+			] as FieldDef<DropdownSingleSelectionDef>[],
 		[required, disabled, size, placeholder]
 	);
 
