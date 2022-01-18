@@ -62,11 +62,8 @@ export const FormExample = (): ReactElement => {
 					type: "color",
 					required,
 					disabled,
-					inputSettings: {
-						disabled,
-					},
 				},
-			] as unknown as FieldDef[],
+			] as FieldDef[],
 		[required, disabled]
 	);
 

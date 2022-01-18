@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { Actions, TableRow } from './TableTypes';
+import { Actions, TableDef, TableRow } from './TableTypes';
 
 // Components
 import Field, { FieldDef } from '@root/components/Field';
@@ -232,7 +232,6 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						handleAddElement: addTableRow,
 						handleEdit: editTableRow,
 						handleDelete: deleteTableRow,
@@ -242,7 +241,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDef[],
+			] as FieldDef<TableDef>[],
 		[required, disabled, addTableRow]
 	);
 

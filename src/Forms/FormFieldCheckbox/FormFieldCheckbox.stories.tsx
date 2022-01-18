@@ -66,7 +66,7 @@ export const Default = (): ReactElement => {
 							options,
 						}
 					}}
-					value={checked}	
+					value={checked}
 					error={errorText}
 					onChange={onChange}
 				/>
@@ -77,7 +77,7 @@ export const Default = (): ReactElement => {
 
 export const FormExample = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	
+
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
 
@@ -106,13 +106,12 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						options,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDef<FormFieldCheckboxDef>[],
+			] as FieldDef<FormFieldCheckboxDef>[],
 		[required, disabled]
 	);
 

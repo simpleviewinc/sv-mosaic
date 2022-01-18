@@ -90,7 +90,6 @@ export const FormExample = (): ReactElement => {
 					maxCharacters,
 					size,
 					inputSettings: {
-						disabled,
 						maxCharacters,
 						size,
 						placeholder,
@@ -108,8 +107,7 @@ export const FormExample = (): ReactElement => {
 					maxCharacters,
 					size,
 					inputSettings: {
-						multiline: boolean('Multiline', true),
-						disabled,
+						multiline: true,
 						maxCharacters,
 						size,
 						placeholder,
@@ -128,7 +126,6 @@ export const FormExample = (): ReactElement => {
 					size,
 					inputSettings: {
 						prefixElement: <AccountCircle />,
-						disabled,
 						maxCharacters,
 						size,
 						placeholder,
@@ -137,7 +134,7 @@ export const FormExample = (): ReactElement => {
 					instructionText: 'Instruction text',
 					// validators: [requiredValidator]
 				},
-			] as unknown as FieldDef[],
+			] as FieldDef<TextFieldDef>[],
 		[required, disabled, maxCharacters, size, placeholder]
 	);
 

@@ -72,13 +72,12 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						toggleLabel,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDef<FormFieldToggleSwitchDef>[],
+			] as FieldDef<FormFieldToggleSwitchDef>[],
 		[required, disabled, toggleLabel]
 	);
 

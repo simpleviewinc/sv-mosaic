@@ -92,13 +92,12 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						options,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				}
-			] as unknown as FieldDef<FormFieldChipSingleSelectDef>[],
+			] as FieldDef<FormFieldChipSingleSelectDef>[],
 		[required, disabled]
 	);
 
