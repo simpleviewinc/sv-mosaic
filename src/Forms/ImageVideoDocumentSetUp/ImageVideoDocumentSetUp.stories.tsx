@@ -120,7 +120,7 @@ export const Default = (): ReactElement => {
 
 	const label = text('Label', 'Label');
 	const disabled = boolean('Disabled', false);
-	const required = boolean('Required', false);	
+	const required = boolean('Required', false);
 	const withVideoHandler = boolean('Show video set up', false);
 	const withDocumentHandler = boolean('Show document set up', false);
 
@@ -293,7 +293,6 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						options,
 						handleSetImage,
 						handleSetDocument: withDocumentHandler ? handleDocument : undefined,
@@ -302,7 +301,7 @@ export const FormExample = (): ReactElement => {
 						src: 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg'
 					},
 				}
-			] as unknown as FieldDef<ImageVideoDocumentSetUpDef>[],
+			] as FieldDef<ImageVideoDocumentSetUpDef>[],
 		[required, disabled, options, handleSetImage, withDocumentHandler, handleDocument, withVideoHandler, handleVideo]
 	);
 

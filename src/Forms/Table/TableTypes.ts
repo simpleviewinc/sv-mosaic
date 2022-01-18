@@ -29,41 +29,65 @@ export type Actions = {
 	actionFnc: (rowIndex: number) => void;
 };
 
-export interface TableProps {
-	inputSettings: {
-		/**
-   * Possible actions that the table could execute and display.
-   */
-		extraActions?: Actions[];
-		/**
-  * Used to create a new row.
-  */
-		handleAddElement: () => void;
-		/**
-		 * Used to define how that edition should happen.
-		 */
-		handleEdit: (rowIndex: number) => void;
-		/**
-		 * It can be used to show some kind of confirmation
-		 * before removing the row.
-		 */
-		handleDelete?: (rowIndex: number) => void;
-		/**
-		 * Table headers.
-		 */
-		headers: string[];
-	}
-
+export type TableDef = {
 	/**
-	 * Disable all clickable elements.
+	 * Possible actions that the table could execute and display.
 	 */
-	disabled?: boolean;
+	extraActions?: Actions[];
 	/**
-	 * Row data
+	 * Used to create a new row.
 	 */
-	value: TableRow[];
+	handleAddElement: () => void;
 	/**
-	 * Used to keep track of row data changes
+	 * Used to define how that edition should happen.
 	 */
-	onChange?: (data: TableRow[]) => void;
+	handleEdit: (rowIndex: number) => void;
+	/**
+	 * It can be used to show some kind of confirmation
+	 * before removing the row.
+	 */
+	handleDelete?: (rowIndex: number) => void;
+	/**
+	 * Table headers.
+	 */
+	headers: string[];
 }
+
+// export interface TableProps {
+// 	inputSettings: {
+// 		/**
+//    * Possible actions that the table could execute and display.
+//    */
+// 		extraActions?: Actions[];
+// 		/**
+//   * Used to create a new row.
+//   */
+// 		handleAddElement: () => void;
+// 		/**
+// 		 * Used to define how that edition should happen.
+// 		 */
+// 		handleEdit: (rowIndex: number) => void;
+// 		/**
+// 		 * It can be used to show some kind of confirmation
+// 		 * before removing the row.
+// 		 */
+// 		handleDelete?: (rowIndex: number) => void;
+// 		/**
+// 		 * Table headers.
+// 		 */
+// 		headers: string[];
+// 	}
+
+// 	/**
+// 	 * Disable all clickable elements.
+// 	 */
+// 	disabled?: boolean;
+// 	/**
+// 	 * Row data
+// 	 */
+// 	value: TableRow[];
+// 	/**
+// 	 * Used to keep track of row data changes
+// 	 */
+// 	onChange?: (data: TableRow[]) => void;
+// }

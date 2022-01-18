@@ -6,11 +6,14 @@ describe('DateTimeInput component', () => {
 	it('should should display the date value', () => {
 		const { getByText } = render(
 			<DateTimeInput
-				disabled={true}
-				dateValue={new Date('2018-01-01T00:00:00.000Z')}
-				timeValue={new Date('2018-01-01T00:00:00.000Z')}
-				onChangeDate={() => jest.fn()}
-				onChangeTime={() => jest.fn()}
+				fieldDef={{
+					label: '',
+					disabled: true,
+				}}
+			// dateValue={new Date('2018-01-01T00:00:00.000Z')}
+			// timeValue={new Date('2018-01-01T00:00:00.000Z')}
+			// onChangeDate={() => jest.fn()}
+			// onChangeTime={() => jest.fn()}
 			/>
 		);
 
@@ -21,11 +24,14 @@ describe('DateTimeInput component', () => {
 	it('should display the placeholder when is disabled and no value is provided', () => {
 		const { getByText } = render(
 			<DateTimeInput
-				disabled={true}
-				dateValue={null}
-				timeValue={null}
-				onChangeDate={() => jest.fn()}
-				onChangeTime={() => jest.fn()}
+				fieldDef={{
+					label: '',
+					disabled: true,
+				}}
+			// dateValue={null}
+			// timeValue={null}
+			// onChangeDate={() => jest.fn()}
+			// onChangeTime={() => jest.fn()}
 			/>
 		);
 

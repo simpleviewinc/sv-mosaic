@@ -99,9 +99,12 @@ jest.mock("@react-google-maps/api", () => ({
 describe('MapCoordinates component without an address', () => {
 	beforeEach(() => {
 		render(<MapCoordinates
-			inputSettings={{
-				apiKey: 'test',
-				mapPosition,
+			fieldDef={{
+				label: '',
+				inputSettings: {
+					apiKey: 'test',
+					mapPosition,
+				}
 			}}
 		/>)
 
@@ -162,10 +165,13 @@ describe('MapCoordinates component without an address', () => {
 describe('MapCoordinates component with an address object (AUTOCOODINATES)', () => {
 	beforeEach(() => {
 		render(<MapCoordinates
-			inputSettings={{
-				apiKey: 'test',
-				mapPosition,
-				address: addressObj,
+			fieldDef={{
+				label: '',
+				inputSettings: {
+					apiKey: 'test',
+					mapPosition,
+					address: addressObj,
+				}
 			}}
 		/>)
 	})

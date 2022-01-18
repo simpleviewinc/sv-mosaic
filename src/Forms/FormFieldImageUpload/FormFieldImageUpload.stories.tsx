@@ -4,9 +4,10 @@ import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
 import ImageUpload from './FormFieldImageUpload';
-import Field, { FieldDefProps } from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
+import { ImageUploadDef } from '.';
 
 export default {
 	title: 'Forms|ImageUpload',
@@ -59,27 +60,32 @@ export const Default = (): ReactElement => {
 	];
 
 	const disabled = boolean('Disabled', false);
+	const label = text('Label', 'Label');
 	console.log('File loaded :', fileLoaded);
 
 	return (
 		<>
 			<Field
-				label={text('Label', 'Label')}
+				fieldDef={{
+					label,
+					required: boolean('Required', false),
+					disabled,
+					instructionText: text('Instruction text', 'Instruction text'),
+					helperText: text('Helper text', 'Helper text'),
+					type: 'imageUpload'
+				}}
 				error={text('Error text', '')}
-				required={boolean('Required', false)}
-				disabled={disabled}
-				instructionText={text('Instruction text', 'Instruction text')}
-				helperText={text('Helper text', 'Helper text')}
-				type='imageUpload'
 			>
 				<ImageUpload
-					label={text('Label', 'Label')}
-					disabled={disabled}
-					inputSettings={{
-						handleSetFocus,
-						handleImageCoordinates,
-						options,
-						uploadImage,
+					fieldDef={{
+						label,
+						disabled,
+						inputSettings: {
+							handleSetFocus,
+							handleImageCoordinates,
+							options,
+							uploadImage,
+						}
 					}}
 				/>
 			</Field>
@@ -105,13 +111,10 @@ export const FormExample = (): ReactElement => {
 					type: "imageUpload",
 					required,
 					disabled,
-					inputSettings: {
-						disabled,
-					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				}
-			] as unknown as FieldDefProps[],
+			] as FieldDef<ImageUploadDef>[],
 		[required, disabled]
 	);
 
