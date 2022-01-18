@@ -146,7 +146,7 @@ const Col = (props) => {
 
 				const children = useMemo(() => (
 					<Component
-						fieldDef={{ ...currentField }}
+						fieldDef={...currentField}
 						name={name}
 						value={value}
 						touched={touched}
@@ -160,7 +160,7 @@ const Col = (props) => {
 				return ((type !== ('address' || 'advancedSelection' || 'mapCoordinates')) && !!componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
-						fieldDef={{ ...currentField }}
+						fieldDef={...currentField}
 						value={value}
 						error={error}
 					// type={typeof type === 'string' ? type : 'type'}
