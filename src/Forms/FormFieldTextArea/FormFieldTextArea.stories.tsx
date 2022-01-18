@@ -94,15 +94,14 @@ export const FormExample = (): ReactElement => {
 					maxCharacters,
 					size,
 					inputSettings: {
-						disabled,
 						maxCharacters,
 						size,
 						placeholder,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				} as FieldDef<TextAreaDef>,
-			] as unknown as FieldDef[],
+				},
+			] as FieldDef<TextAreaDef>[],
 		[required, disabled, maxCharacters, size, placeholder]
 	);
 

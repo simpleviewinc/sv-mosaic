@@ -3,8 +3,8 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 
 import FormFieldPhoneSelectionDropdown from './FormFieldPhoneSelectionDropdown';
-import { CountryData } from './FormFieldPhoneSelectionDropdownTypes';
-import Field, { FieldDefProps } from '@root/components/Field';
+import { CountryData, PhoneSelectionDef } from './FormFieldPhoneSelectionDropdownTypes';
+import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
 
@@ -22,30 +22,37 @@ export const Default = (): ReactElement => {
 		setCountryData(data);
 	};
 
+	const label = text('Label', 'Label');
+	const disabled = boolean('Disabled', false);
+
 	return (
 		<>
 			<p>{`Phone value: ${value}`}</p>
 			<p>{`Country data: ${JSON.stringify(countryData)}`}</p>
 			<Field
-				label={text('Label', 'Label')}
-				required={boolean('Required', false)}
-				disabled={boolean('Disabled', false)}
-				helperText={text('Helper text', '')}
-				instructionText={text('Instruction text', 'Instruction text')}
+				fieldDef={{
+					label,
+					required: boolean('Required', false),
+					disabled,
+					instructionText: text('Instruction text', 'Instruction text'),
+					helperText: text('Helper text', 'Helper text'),
+				}}
 				error={text('Error text', '')}
 			>
-			<FormFieldPhoneSelectionDropdown
-				label={text('Label', 'Label')}
-				disabled={boolean('Disabled', false)}
-				inputSettings={{
-					autoFormat: boolean('Autoformat', true),
-					country: text('Country code (e.g., us, mx, etc.)', ''),
-					placeholder: text('Placeholder', 'Placeholder')
-				}}
-				error={text('Error text', 'Error text')}
-				onChange={handleOnChange}
-				value={value}
-			/>
+				<FormFieldPhoneSelectionDropdown
+					fieldDef={{
+						label,
+						disabled,
+						inputSettings: {
+							autoFormat: boolean('Autoformat', true),
+							country: text('Country code (e.g., us, mx, etc.)', ''),
+							placeholder: text('Placeholder', 'Placeholder')
+						}
+					}}
+					error={text('Error text', 'Error text')}
+					onChange={handleOnChange}
+					value={value}
+				/>
 			</Field>
 		</>
 	);
@@ -53,7 +60,7 @@ export const Default = (): ReactElement => {
 
 export const FormExample = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	
+
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
 	const autoFormat = boolean('Autoformat', true);
@@ -70,7 +77,6 @@ export const FormExample = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						disabled,
 						autoFormat,
 						country,
 						placeholder,
@@ -78,7 +84,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				},
-			] as unknown as FieldDefProps[],
+			] as FieldDef<PhoneSelectionDef>[],
 		[required, disabled]
 	);
 

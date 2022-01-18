@@ -514,11 +514,11 @@ export const KitchenSink = (): ReactElement => {
 						headers: tableHeaders,
 					}
 				},
-				{
-					name: "addLink",
-					label: "Add link example",
-					type: "addLink",
-				},
+				// {
+				// 	name: "addLink",
+				// 	label: "Add link example",
+				// 	type: "addLink",
+				// },
 				{
 					name: "imageUpload",
 					label: "Image Upload example",
@@ -1439,13 +1439,13 @@ export const SubmitInternalButtons = (): ReactElement => {
 					},
 					validators: [required],
 				},
-				{
-					name: "addLink",
-					label: "Add link example",
-					type: "addLink",
-					instructionText: 'testing',
-					validators: [required],
-				},
+				// {
+				// 	name: "addLink",
+				// 	label: "Add link example",
+				// 	type: "addLink",
+				// 	instructionText: 'testing',
+				// 	validators: [required],
+				// },
 				{
 					name: "imageUpload",
 					label: "Image Upload example",

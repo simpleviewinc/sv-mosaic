@@ -13,7 +13,7 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default = (): ReactElement => {	
+export const Default = (): ReactElement => {
 	const [link, setLink] = useState({});
 
 	const handleSetLink = () => {
@@ -113,7 +113,7 @@ export const FormExample = (): ReactElement => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				}
-			] as unknown as FieldDef<LinkSetupDef>[],
+			] as FieldDef<LinkSetupDef>[],
 		[required, disabled, toggleLabel]
 	);
 

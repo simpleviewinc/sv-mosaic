@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { DateTimeInputProps } from './DateTimeInputTypes';
 
 // Components
 import DatePicker from '../DatePicker';
@@ -11,23 +10,20 @@ import TimePicker from '../TimePicker';
 import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
 import { DateTimeInputRow } from './DateTimeInput.styled';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
+import { MosaicFieldProps } from '@root/components/Field';
+import { DateTimeInputDef } from '.';
 
-const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
+const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement => {
 	const {
 		error,
-		disabled,
-		dateValue,
-		onChangeDate,
-		onChangeTime,
-		timeValue,
-		required,
+		fieldDef,
 		value,
 		onChange,
 	} = props;
 
 	const handleOnChange = (position, date) => {
-		let newDates = {...value};
-		if(position === 0) {
+		let newDates = { ...value };
+		if (position === 0) {
 			newDates = {
 				...newDates,
 				dateValue: date
@@ -44,14 +40,19 @@ const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 
 	return (
 		<DateTimeInputRow>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<>
 					<DateTimePickerWrapper>
 						<DatePicker
 							error={error}
 							onChange={(d) => handleOnChange(0, d)}
-							placeholder='Start'
-							required={required}
+							fieldDef={{
+								label: '',
+								inputSettings: {
+									placeholder: 'Start'
+								},
+								required: fieldDef?.required,
+							}}
 							value={value?.dateValue}
 						/>
 						<HelperText>Month, Day, Year</HelperText>
@@ -60,7 +61,12 @@ const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 						<TimePicker
 							error={error}
 							onChange={(d) => handleOnChange(1, d)}
-							placeholder='00:00 AM/PM'
+							fieldDef={{
+								label: '',
+								inputSettings: {
+									placeholder: '00:00 AM/PM'
+								}
+							}}
 							value={value?.timeValue}
 						/>
 						<HelperText>Hour, Minute, AM or PM</HelperText>

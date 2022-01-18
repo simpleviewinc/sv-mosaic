@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { memo, ReactElement, useMemo, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { TableProps } from './TableTypes';
+import { TableDef } from './TableTypes';
 
 // Components
 import AddIcon from '@material-ui/icons/Add';
@@ -26,20 +26,20 @@ import {
 	THead,
 	TrHead,
 } from './Table.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
-const Table = (props: TableProps): ReactElement => {
+const Table = (props: MosaicFieldProps<TableDef>): ReactElement => {
 	const {
-		disabled,
+		fieldDef,
 		value,
 		onChange,
-		inputSettings,
 	} = props;
 
 	const [isDragging, setIsDragging] = useState(false);
 	const [rows, setRows] = useState([]);
 
 	useMemo(() => {
-		if(value)
+		if (value)
 			setRows(value);
 		else
 			setRows([]);
@@ -67,18 +67,18 @@ const Table = (props: TableProps): ReactElement => {
    * @param rowIndex of the row that is going to be deleted.
    */
 	const deleteRow = (rowIndex: number) => {
-		if (inputSettings?.handleDelete) inputSettings?.handleDelete(rowIndex);
+		if (fieldDef?.inputSettings?.handleDelete) fieldDef?.inputSettings?.handleDelete(rowIndex);
 		let rowDataCopy = [...rows];
 		rowDataCopy.splice(rowIndex, 1);
 
-		if(rowDataCopy.length === 0)
+		if (rowDataCopy.length === 0)
 			rowDataCopy = undefined;
 
 		setRows(rowDataCopy);
 		onChange(rowDataCopy);
 	};
 
-	
+
 	const renderEmptyHeaders = useMemo(() => {
 		const emptyHeaders = [];
 		const itemsLengths = rows?.map((row) => {
@@ -86,7 +86,7 @@ const Table = (props: TableProps): ReactElement => {
 		});
 
 		const maxRowItems = Math.max(...itemsLengths);
-		const headersToAdd = maxRowItems - inputSettings?.headers.length;
+		const headersToAdd = maxRowItems - fieldDef?.inputSettings?.headers.length;
 		if (headersToAdd > 0) {
 			for (let i = 0; i < headersToAdd; i++) {
 				emptyHeaders.push(<Th key={`empty-header-${i}`}></Th>);
@@ -94,18 +94,18 @@ const Table = (props: TableProps): ReactElement => {
 		}
 
 		return emptyHeaders;
-	}, [inputSettings?.headers, rows]);
+	}, [fieldDef?.inputSettings?.headers, rows]);
 
 	const addElement = (e) => {
 		e.preventDefault();
-		inputSettings?.handleAddElement();
+		fieldDef?.inputSettings?.handleAddElement();
 	}
 
 	return (
 		<>
 			{rows?.length === 0 ? (
 				<AddElementContainer>
-					<Button disabled={disabled} buttonType='secondary' onClick={(e) => addElement(e)}>
+					<Button disabled={fieldDef?.disabled} buttonType='secondary' onClick={(e) => addElement(e)}>
 						ADD ELEMENT
 					</Button>
 				</AddElementContainer>
@@ -113,7 +113,7 @@ const Table = (props: TableProps): ReactElement => {
 				<TableContainer>
 					<AddButton
 						buttonType='blueText'
-						disabled={disabled}
+						disabled={fieldDef?.disabled}
 						icon={AddIcon}
 						onClick={(e) => addElement(e)}
 					>
@@ -126,7 +126,7 @@ const Table = (props: TableProps): ReactElement => {
 									<TrHead>
 										<ThDrag></ThDrag>
 										<Th>Actions</Th>
-										{inputSettings?.headers.map((header, index) => (
+										{fieldDef?.inputSettings?.headers.map((header, index) => (
 											<Th key={`${header}-${index}`}>{header}</Th>
 										))}
 										{renderEmptyHeaders}
@@ -140,7 +140,7 @@ const Table = (props: TableProps): ReactElement => {
 													key={row.id}
 													draggableId={row.id ? row.id : rowIndex}
 													index={rowIndex}
-													isDragDisabled={disabled}
+													isDragDisabled={fieldDef?.disabled}
 												>
 													{(provider) => (
 														<StyledTr
@@ -153,20 +153,20 @@ const Table = (props: TableProps): ReactElement => {
 															</TdDrag>
 															<Td>
 																<StyledIconButton
-																	disabled={disabled}
+																	disabled={fieldDef?.disabled}
 																	icon={EditIcon}
-																	onClick={() => inputSettings?.handleEdit(rowIndex)}
+																	onClick={() => fieldDef?.inputSettings?.handleEdit(rowIndex)}
 																/>
 																<StyledIconButton
-																	disabled={disabled}
+																	disabled={fieldDef?.disabled}
 																	icon={DeleteIcon}
 																	onClick={() => deleteRow(rowIndex)}
 																/>
-																{inputSettings?.extraActions?.length > 0 && (
+																{fieldDef?.inputSettings?.extraActions?.length > 0 && (
 																	<>
-																		{inputSettings?.extraActions.map((action, index) => (
+																		{fieldDef?.inputSettings?.extraActions.map((action, index) => (
 																			<StyledIconButton
-																				disabled={disabled}
+																				disabled={fieldDef?.disabled}
 																				key={`${action.label}-${index}`}
 																				icon={action.icon}
 																				onClick={() => action.actionFnc(rowIndex)}

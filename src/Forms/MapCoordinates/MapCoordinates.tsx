@@ -10,7 +10,7 @@ import {
 } from 'react';
 import {
 	Libraries,
-	MapCoordinatesProps,
+	MapCoordinatesDef,
 	MapPosition,
 } from './MapCoordinatesTypes';
 import { IAddress } from '@root/forms/Address/AddressTypes';
@@ -40,7 +40,7 @@ import {
 } from './MapCoordinates.styled';
 import themes from '@root/theme';
 import { actions, useForm } from '../Form/formUtils';
-import { FieldDefProps } from '@root/components/Field';
+import { FieldDef, MosaicFieldProps } from '@root/components/Field';
 
 /**
  * Options to disable interactive actions. For more details take a look at the options interface:
@@ -71,11 +71,10 @@ export const getAddressStringFromAddressObject = (addressObj: IAddress): string 
 	return `${address} ${postalCode} ${city} ${state.title} ${country.title}`;
 };
 
-const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
+const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef>): ReactElement => {
 	const {
-		inputSettings,
+		fieldDef,
 		onChange,
-		disabled,
 		value,
 	} = props;
 
@@ -202,7 +201,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
    */
 	const setCoordinatesFromAddress = useCallback(async () => {
 		try {
-			const addressString = getAddressStringFromAddressObject(inputSettings?.address);
+			const addressString = getAddressStringFromAddressObject(fieldDef?.inputSettings?.address);
 			const results = await geocodeByAddress(addressString);
 			const latLng = await getLatLng(results[0]);
 
@@ -222,7 +221,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 		} catch (error) {
 			console.log(error);
 		}
-	}, [inputSettings?.address]);
+	}, [fieldDef?.inputSettings?.address]);
 
 	/**
    *	When the component is mounted and the auto coordinates flag is true
@@ -232,7 +231,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 		if (autocoordinatesChecked) {
 			setCoordinatesFromAddress();
 		}
-	}, [autocoordinatesChecked, inputSettings?.address]);
+	}, [autocoordinatesChecked, fieldDef?.inputSettings?.address]);
 
 	/**
    * Callback function that is executed by the LocationSearchInput
@@ -266,9 +265,9 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 		return (
 			<>
 				<Map
-					address={inputSettings?.address}
+					address={fieldDef?.inputSettings?.address}
 					handleCoordinates={handleCoordinates}
-					mapPosition={props.value ? props.value : inputSettings?.mapPosition ? inputSettings?.mapPosition : { lat: -3.745, lng: -40.523 }}
+					mapPosition={props.value ? props.value : fieldDef?.inputSettings?.mapPosition ? fieldDef?.inputSettings?.mapPosition : { lat: -3.745, lng: -40.523 }}
 					// mapPosition={coordinates}
 					onClick={onMapClick}
 				/>
@@ -320,7 +319,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 					label: 'Reset',
 					type: renderResetButton
 				}
-			] as FieldDefProps[]
+			] as FieldDef[]
 		), []
 	);
 
@@ -360,7 +359,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 	}, [fields, modalReducer?.registerFields]);
 
 	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: inputSettings?.apiKey,
+		googleMapsApiKey: fieldDef?.inputSettings?.apiKey,
 		libraries,
 	});
 
@@ -369,9 +368,9 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 
 	return (
 		<>
-			{value || !isEmpty(inputSettings?.address) ? (
+			{value || !isEmpty(fieldDef?.inputSettings?.address) ? (
 				<div>
-					{!isEmpty(inputSettings?.address) && (
+					{!isEmpty(fieldDef?.inputSettings?.address) && (
 						<SwitchContainer>
 							<ToggleSwitch
 								label='Use same as address'
@@ -381,7 +380,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 							/>
 						</SwitchContainer>
 					)}
-					<CoordinatesCard hasAddress={!isEmpty(inputSettings?.address)}>
+					<CoordinatesCard hasAddress={!isEmpty(fieldDef?.inputSettings?.address)}>
 						<MapImageColumn>
 							<GoogleMap
 								mapContainerStyle={containerStyle}
@@ -398,14 +397,14 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 							<LatLngLabel>Longitude</LatLngLabel>
 							<CoordinatesValues>{value.lng}</CoordinatesValues>
 						</Column>
-						<ButtonsWrapper hasAddress={isEmpty(inputSettings?.address)}>
+						<ButtonsWrapper hasAddress={isEmpty(fieldDef?.inputSettings?.address)}>
 							{!autocoordinatesChecked && (
-								<Button disabled={disabled} buttonType='blueText' onClick={handleAddCoordinates}>
+								<Button disabled={fieldDef?.disabled} buttonType='blueText' onClick={handleAddCoordinates}>
 									Edit
 								</Button>
 							)}
-							{!autocoordinatesChecked && isEmpty(inputSettings?.address) && (
-								<Button disabled={disabled} buttonType='redText' onClick={removeResetLocation}>
+							{!autocoordinatesChecked && isEmpty(fieldDef?.inputSettings?.address) && (
+								<Button disabled={fieldDef?.disabled} buttonType='redText' onClick={removeResetLocation}>
 									Remove
 								</Button>
 							)}
@@ -414,7 +413,7 @@ const MapCoordinates = (props: MapCoordinatesProps): ReactElement => {
 				</div>
 			) : (
 				<Button
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					buttonType='secondary'
 					onClick={handleAddCoordinates}
 				>
