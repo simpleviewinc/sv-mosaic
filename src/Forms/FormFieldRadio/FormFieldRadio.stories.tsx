@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useState, ReactElement, useMemo, useCallback } from 'react';
+import { ReactElement, useMemo, useCallback } from 'react';
 import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 import { useForm } from '../Form/formUtils';
 
 // Components
-import FormFieldRadioButtonGroup, { FormFieldRadioDef } from '.';
-import Field, { FieldDef } from '@root/components/Field';
+import { FormFieldRadioDef } from '.';
+import { FieldDef } from '@root/components/Field';
 import Form from '@root/forms/Form/Form';
 
 export default {
@@ -30,44 +30,61 @@ const options = [
 ];
 
 export const Playground = (): ReactElement => {
-	const [value, setValue] = useState('');
-
-	const handleChange = (value) => {
-		setValue(value);
-	};
-
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 	const label = text('Label', 'Label');
 	const required = boolean('Required', false);
 	const disabled = boolean('Disabled', false);
-	const errorText = text('Error text', '');
+	const instructionText = text('Instruction text', '');
+	const helperText = text('Helper text', '');
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "radio",
+					label,
+					type: "radio",
+					required,
+					disabled,
+					inputSettings: {
+						options,
+					},
+					helperText,
+					instructionText,
+				}
+			] as FieldDef<FormFieldRadioDef>[],
+		[label, required, disabled, instructionText, helperText]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
 
 	return (
 		<>
-			<span>Selected option: {value}</span>
-			<Field
-				fieldDef={{
-					name: 'radioSelect',
-					disabled,
-					helperText: text('Helper text', ''),
-					instructionText: text('Instruction text', 'Instruction text'),
-					label,
-					required
-				}}
-				error={errorText}
-			>
-				<FormFieldRadioButtonGroup
-					fieldDef={{
-						name: 'radioSelect',
-						label,
-						disabled,
-						inputSettings: {
-							options
-						}
-					}}
-					onChange={handleChange}
-					value={value}
-				/>
-			</Field>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={text('Form Title', 'Form Title')}
+				description={text('Form Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
 		</>
 	);
 };
