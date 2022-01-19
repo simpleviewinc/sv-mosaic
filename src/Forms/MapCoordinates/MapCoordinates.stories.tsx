@@ -43,6 +43,7 @@ export const Default = (): ReactElement => {
 	return (
 		<MapCoordinates
 			fieldDef={{
+				name: 'mapCoordinates',
 				label: '',
 				inputSettings: {
 					apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',

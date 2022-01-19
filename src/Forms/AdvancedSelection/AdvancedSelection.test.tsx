@@ -52,6 +52,7 @@ describe('AdvancedSelection component', () => {
 		render(
 			<AdvancedSelection
 				fieldDef={{
+					name: 'advancedSelection',
 					label: 'Label',
 					required: false,
 					instructionText: 'Instruction text',

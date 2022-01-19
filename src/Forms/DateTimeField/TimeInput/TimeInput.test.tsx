@@ -7,6 +7,7 @@ describe('TimeInput component', () => {
 		const { getByText } = render(
 			<TimeInput
 				fieldDef={{
+					name: 'timeInput',
 					label: '',
 					disabled: true,
 				}}
@@ -22,6 +23,7 @@ describe('TimeInput component', () => {
 		const { getByText } = render(
 			<TimeInput
 				fieldDef={{
+					name: 'timeInput',
 					label: '',
 					disabled: true,
 				}}

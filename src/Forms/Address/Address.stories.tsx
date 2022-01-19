@@ -17,7 +17,7 @@ export const Default = (): ReactElement => {
 	return (
 		<>
 			{/* <pre>{JSON.stringify(state, null, "  ")}</pre> */}
-			<Address fieldDef={{ label: text('Label', 'Label') }} />
+			<Address fieldDef={{ name: 'fieldTest', label: text('Label', 'Label') }} />
 		</>
 	);
 };

@@ -10,6 +10,7 @@ describe('TextField component', () => {
 	it('should should display the placeholder', () => {
 		render(<TextField
 			fieldDef={{
+				name: 'textField',
 				label: 'Label test',
 				instructionText: 'Instruction text',
 				inputSettings: {
@@ -28,6 +29,7 @@ describe('TextField multiline behaviour', () => {
 		render(
 			<TextField
 				fieldDef={{
+					name: 'textField',
 					label: 'Label test',
 					helperText: 'Helper text',
 					inputSettings: {
@@ -48,6 +50,7 @@ describe('TextField multiline behaviour', () => {
 		render(
 			<TextField
 				fieldDef={{
+					name: 'textField',
 					label: 'Label test',
 					helperText: 'Helper text',
 					inputSettings: {

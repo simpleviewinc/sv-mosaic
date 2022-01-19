@@ -35,6 +35,7 @@ const FormFieldImageUploadExample = () => {
 	return (
 		<FormFieldImageUpload
 			fieldDef={{
+				name: 'imageUpload',
 				label: '',
 				disabled: false,
 				inputSettings: {
@@ -79,6 +80,7 @@ describe('FormFieldImageUpload disabled state', () => {
 		render(
 			<FormFieldImageUpload
 				fieldDef={{
+					name: 'imageUpload',
 					label: '',
 					disabled: true,
 				}}
@@ -95,6 +97,7 @@ describe('FormFieldImageUpload when menu options are not received', () => {
 		render(
 			<FormFieldImageUpload
 				fieldDef={{
+					name: 'imageUpload',
 					label: '',
 					disabled: false,
 				}}

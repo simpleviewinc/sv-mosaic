@@ -14,7 +14,7 @@ import {
 import { MosaicFieldProps } from '@root/components/Field';
 
 const FormFieldPhoneSelectionDropdown = (
-	props: MosaicFieldProps<PhoneSelectionDef>
+	props: MosaicFieldProps<PhoneSelectionDef, string>
 ): ReactElement => {
 	const {
 		fieldDef,

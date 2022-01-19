@@ -13,9 +13,8 @@ describe('FormFieldPhoneSelectionDropdown component', () => {
 			const [value, setValue] = useState('');
 			const [countryData, setCountryData] = useState('No country data');
 
-			const handleOnChange = (value: string, countryData: CountryData) => {
+			const handleOnChange = (value: string) => {
 				setValue(value);
-				setCountryData(JSON.stringify(countryData));
 			};
 
 			return (
@@ -23,6 +22,7 @@ describe('FormFieldPhoneSelectionDropdown component', () => {
 					<span>{countryData}</span>
 					<FormFieldPhoneSelectionDropdown
 						fieldDef={{
+							name: 'phoneSelectDropdown',
 							label: 'Label',
 							disabled: false,
 							helperText: 'Helper text',
@@ -57,6 +57,7 @@ describe('FormFieldPhoneSelectionDropdown assistive elements', () => {
 		render(
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
+					name: 'phoneSelectDropdown',
 					label: 'Label',
 					instructionText: 'Instruction',
 					required: false,
@@ -78,6 +79,7 @@ describe('FormFieldPhoneSelectionDropdown assistive elements', () => {
 		const { container } = render(
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
+					name: 'phoneSelectDropdown',
 					label: 'Label',
 					instructionText: 'Instruction',
 					required: true,
@@ -98,6 +100,7 @@ describe('FormFieldPhoneSelectionDropdown disabled state', () => {
 		render(
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
+					name: 'phoneSelectDropdown',
 					label: 'Label',
 					disabled: true,
 				}}
@@ -113,6 +116,7 @@ describe('FormFieldPhoneSelectionDropdown disabled state', () => {
 		render(
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
+					name: 'phoneSelectDropdown',
 					label: 'Label',
 					disabled: true,
 				}}

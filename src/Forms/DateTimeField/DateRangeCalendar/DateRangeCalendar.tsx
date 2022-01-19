@@ -49,6 +49,7 @@ const DateRangeCalendar = (props: MosaicFieldProps<any>): ReactElement => {
 							error={error}
 							onChange={(d) => handleOnChange(0, d)}
 							fieldDef={{
+								name: fieldDef?.name,
 								label: '',
 								required: fieldDef?.required,
 								inputSettings: {
@@ -65,6 +66,7 @@ const DateRangeCalendar = (props: MosaicFieldProps<any>): ReactElement => {
 							error={error}
 							onChange={(d) => handleOnChange(1, d)}
 							fieldDef={{
+								name: fieldDef?.name,
 								label: '',
 								required: fieldDef?.required,
 								inputSettings: {

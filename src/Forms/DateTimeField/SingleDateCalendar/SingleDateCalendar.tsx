@@ -22,6 +22,7 @@ const SingleDateCalendar = (props: MosaicFieldProps<any>): ReactElement => {
 				<DatePicker
 					error={error}
 					fieldDef={{
+						name: fieldDef?.name,
 						label: '',
 						required: fieldDef?.required,
 						inputSettings: {

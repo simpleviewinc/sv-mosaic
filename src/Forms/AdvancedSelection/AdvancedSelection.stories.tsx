@@ -98,6 +98,7 @@ export const Example = (): ReactElement => {
 	return (
 		<AdvancedSelection
 			fieldDef={{
+				name: 'advancedSelection',
 				disabled,
 				helperText: text('Helper text', 'Helper text'),
 				instructionText: text('Instruction text', 'Instruction text'),
@@ -111,7 +112,7 @@ export const Example = (): ReactElement => {
 				}
 			}}
 			error={errorText}
-			value={value}			
+			value={value}
 			onChange={onChange}
 		/>
 	);

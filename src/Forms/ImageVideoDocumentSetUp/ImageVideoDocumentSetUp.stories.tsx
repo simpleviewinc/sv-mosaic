@@ -127,6 +127,7 @@ export const Default = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'imageVideoDocumentSetup',
 				label,
 				disabled,
 				required,
@@ -137,6 +138,7 @@ export const Default = (): ReactElement => {
 		>
 			<ImageVideoDocumentSetUp
 				fieldDef={{
+					name: 'imageVideoDocumentSetup',
 					label,
 					inputSettings: {
 						handleSetImage,

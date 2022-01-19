@@ -29,6 +29,7 @@ export const Default = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'colorPicker',
 				label: text('Label', 'Label'),
 				required: boolean('Required', false),
 				disabled,
@@ -40,7 +41,7 @@ export const Default = (): ReactElement => {
 		>
 			<ColorPicker
 				value={color}
-				fieldDef={{ label: '', disabled }}
+				fieldDef={{ name: 'colorPicker', label: '', disabled }}
 				onChange={handleColorChange}
 			/>
 		</Field>

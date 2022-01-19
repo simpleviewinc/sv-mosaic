@@ -7,6 +7,7 @@ describe('DateTimeInput component', () => {
 		const { getByText } = render(
 			<DateTimeInput
 				fieldDef={{
+					name: 'dateTimeInput',
 					label: '',
 					disabled: true,
 				}}
@@ -25,6 +26,7 @@ describe('DateTimeInput component', () => {
 		const { getByText } = render(
 			<DateTimeInput
 				fieldDef={{
+					name: 'dateTimeInput',
 					label: '',
 					disabled: true,
 				}}

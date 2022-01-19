@@ -46,6 +46,7 @@ export const Default = (): ReactElement => {
 			<span>Selected option: {value}</span>
 			<Field
 				fieldDef={{
+					name: 'radioSelect',
 					disabled,
 					helperText: text('Helper text', ''),
 					instructionText: text('Instruction text', 'Instruction text'),
@@ -56,6 +57,7 @@ export const Default = (): ReactElement => {
 			>
 				<FormFieldRadioButtonGroup
 					fieldDef={{
+						name: 'radioSelect',
 						label,
 						disabled,
 						inputSettings: {

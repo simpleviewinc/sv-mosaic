@@ -7,6 +7,7 @@ describe('DateRangeCalendar component', () => {
 		const { getByText } = render(
 			<DateRangeCalendar
 				fieldDef={{
+					name: 'dateRangeCalendar',
 					label: '',
 					disabled: true,
 				}}
@@ -25,6 +26,7 @@ describe('DateRangeCalendar component', () => {
 		const { getByText } = render(
 			<DateRangeCalendar
 				fieldDef={{
+					name: 'dateRangeCalendar',
 					label: '',
 					disabled: true,
 				}}

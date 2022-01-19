@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 
 import FormFieldPhoneSelectionDropdown from './FormFieldPhoneSelectionDropdown';
-import { CountryData, PhoneSelectionDef } from './FormFieldPhoneSelectionDropdownTypes';
+import { PhoneSelectionDef } from './FormFieldPhoneSelectionDropdownTypes';
 import Field, { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
@@ -15,11 +15,9 @@ export default {
 
 export const Default = (): ReactElement => {
 	const [value, setValue] = useState('');
-	const [countryData, setCountryData] = useState({});
 
-	const handleOnChange = (value: string, data: {} | CountryData, event: any, formattedValue: string): void => {
+	const handleOnChange = (value: string): void => {
 		setValue(value);
-		setCountryData(data);
 	};
 
 	const label = text('Label', 'Label');
@@ -28,9 +26,9 @@ export const Default = (): ReactElement => {
 	return (
 		<>
 			<p>{`Phone value: ${value}`}</p>
-			<p>{`Country data: ${JSON.stringify(countryData)}`}</p>
 			<Field
 				fieldDef={{
+					name: 'phoneSelectDropdown',
 					label,
 					required: boolean('Required', false),
 					disabled,
@@ -41,6 +39,7 @@ export const Default = (): ReactElement => {
 			>
 				<FormFieldPhoneSelectionDropdown
 					fieldDef={{
+						name: 'phoneSelectDropdown',
 						label,
 						disabled,
 						inputSettings: {

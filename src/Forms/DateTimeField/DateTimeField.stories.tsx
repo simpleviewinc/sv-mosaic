@@ -32,6 +32,7 @@ export const TimePickerExample = (): ReactElement => {
 	return (
 		<TimePicker
 			fieldDef={{
+				name: 'timePicker',
 				label: '',
 			}}
 			onChange={handleDateChange}
@@ -50,6 +51,7 @@ export const DatePickerExample = (): ReactElement => {
 	return (
 		<DatePicker
 			fieldDef={{
+				name: 'datePicker',
 				label: '',
 			}}
 			onChange={handleDateChange}
@@ -75,6 +77,7 @@ export const SingleCalendarExample = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'singleCalendar',
 				label: text('Label', 'Label'),
 				required,
 				disabled,
@@ -85,6 +88,7 @@ export const SingleCalendarExample = (): ReactElement => {
 		>
 			<SingleCalendar
 				fieldDef={{
+					name: 'singleCalendar',
 					label: '',
 					disabled,
 					required,
@@ -119,6 +123,7 @@ export const DateRangeCalendarExample = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'dateRangeCalendar',
 				label: text('Label', 'Label'),
 				required,
 				disabled,
@@ -129,6 +134,7 @@ export const DateRangeCalendarExample = (): ReactElement => {
 			<DateRangeCalendar
 				error={error}
 				fieldDef={{
+					name: 'dateRangeCalendar',
 					label: '',
 					disabled,
 					required
@@ -161,6 +167,7 @@ export const TimeInputExample = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'timeInput',
 				label: text('Label', 'Time input'),
 				required,
 				disabled,
@@ -171,6 +178,7 @@ export const TimeInputExample = (): ReactElement => {
 		>
 			<TimeInput
 				fieldDef={{
+					name: 'timeInput',
 					label: '',
 					disabled,
 					required,
@@ -205,6 +213,7 @@ export const DateTimeInputExample = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'dateTimeInput',
 				label: text('Label', 'Label'),
 				required,
 				disabled,
@@ -214,6 +223,7 @@ export const DateTimeInputExample = (): ReactElement => {
 		>
 			<DateTimeInput
 				fieldDef={{
+					name: 'dateTimeInput',
 					label: '',
 					disabled,
 					required,

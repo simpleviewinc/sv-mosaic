@@ -55,6 +55,7 @@ export const example = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'dropdownSingleSelect',
 				disabled,
 				helperText: text('Helper text', ''),
 				instructionText: text('Instruction text', 'Instruction text'),
@@ -68,6 +69,7 @@ export const example = (): ReactElement => {
 		>
 			<FormFieldDropdownSingleSelection
 				fieldDef={{
+					name: 'dropdownSingleSelect',
 					label,
 					disabled,
 					inputSettings: {

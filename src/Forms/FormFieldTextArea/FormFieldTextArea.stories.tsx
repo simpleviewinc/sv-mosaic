@@ -37,6 +37,7 @@ export const Default = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'textArea',
 				label,
 				disabled,
 				required,
@@ -56,6 +57,7 @@ export const Default = (): ReactElement => {
 		>
 			<TextArea
 				fieldDef={{
+					name: 'textArea',
 					label,
 					disabled,
 					inputSettings: {

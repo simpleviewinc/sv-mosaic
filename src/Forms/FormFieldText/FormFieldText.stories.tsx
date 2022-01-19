@@ -33,6 +33,7 @@ export const Default = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'textField',
 				label,
 				disabled,
 				required,
@@ -52,6 +53,7 @@ export const Default = (): ReactElement => {
 		>
 			<TextField
 				fieldDef={{
+					name: 'textField',
 					label,
 					disabled,
 					inputSettings: {

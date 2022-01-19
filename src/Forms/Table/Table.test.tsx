@@ -52,6 +52,7 @@ const TableExample = () => {
 	return (
 		<Table
 			fieldDef={{
+				name: 'table',
 				label: '',
 				inputSettings: {
 					extraActions: actions,
@@ -95,6 +96,7 @@ const TableWithNoExtraActions = () => {
 	return (
 		<Table
 			fieldDef={{
+				name: 'table',
 				label: '',
 				inputSettings: {
 					handleAddElement: addElement,

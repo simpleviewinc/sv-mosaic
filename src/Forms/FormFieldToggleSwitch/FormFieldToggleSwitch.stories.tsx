@@ -31,6 +31,7 @@ export const Default = (): ReactElement => {
 			<span>Is toggle checked? {`${isChecked}`}</span>
 			<Field
 				fieldDef={{
+					name: 'toggleSwitch',
 					disabled,
 					helperText: text('Helper text', ''),
 					instructionText: text('Instruction text', 'Instruction text'),
@@ -41,6 +42,7 @@ export const Default = (): ReactElement => {
 			>
 				<FormFieldToggleSwitch
 					fieldDef={{
+						name: 'toggleSwitch',
 						label,
 						disabled,
 						inputSettings: {

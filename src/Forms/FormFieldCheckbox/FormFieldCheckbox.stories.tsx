@@ -50,6 +50,7 @@ export const Default = (): ReactElement => {
 			<span>Checked: {JSON.stringify(checked)}</span>
 			<Field
 				fieldDef={{
+					name: 'formFieldCheckbox',
 					disabled,
 					helperText: text('Helper text', ''),
 					instructionText: text('Instruction text', 'Instruction text'),
@@ -60,6 +61,7 @@ export const Default = (): ReactElement => {
 			>
 				<FormFieldCheckbox
 					fieldDef={{
+						name: 'formFieldCheckbox',
 						label,
 						disabled,
 						inputSettings: {

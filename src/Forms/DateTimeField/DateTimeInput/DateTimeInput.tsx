@@ -47,6 +47,7 @@ const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement 
 							error={error}
 							onChange={(d) => handleOnChange(0, d)}
 							fieldDef={{
+								name: fieldDef?.name,
 								label: '',
 								inputSettings: {
 									placeholder: 'Start'
@@ -62,6 +63,7 @@ const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement 
 							error={error}
 							onChange={(d) => handleOnChange(1, d)}
 							fieldDef={{
+								name: fieldDef?.name,
 								label: '',
 								inputSettings: {
 									placeholder: '00:00 AM/PM'
