@@ -104,6 +104,7 @@ export const Example = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'table',
 				label,
 				type: 'table',
 				disabled,
@@ -115,6 +116,7 @@ export const Example = (): ReactElement => {
 		>
 			<Table
 				fieldDef={{
+					name: 'table',
 					label,
 					inputSettings: {
 						extraActions: withMoreActions && actions,

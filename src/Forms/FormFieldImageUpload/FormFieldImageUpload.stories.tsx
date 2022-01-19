@@ -67,6 +67,7 @@ export const Default = (): ReactElement => {
 		<>
 			<Field
 				fieldDef={{
+					name: 'imageUpload',
 					label,
 					required: boolean('Required', false),
 					disabled,
@@ -78,6 +79,7 @@ export const Default = (): ReactElement => {
 			>
 				<ImageUpload
 					fieldDef={{
+						name: 'imageUpload',
 						label,
 						disabled,
 						inputSettings: {

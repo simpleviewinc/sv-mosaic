@@ -15,7 +15,7 @@ describe('ColorPicker component', () => {
 					b: 153,
 					a: 1,
 				}}
-				fieldDef={{ label: '', disabled: false }}
+				fieldDef={{ name: 'colorPicker', label: '', disabled: false }}
 				onChange={() => jest.fn()}
 			/>
 		);
@@ -31,7 +31,7 @@ describe('ColorPicker component', () => {
 
 	it('should not display the color picker when is disabled', () => {
 		render(
-			<ColorPicker value='#fff' fieldDef={{ label: '', disabled: true }} onChange={() => jest.fn()} />
+			<ColorPicker value='#fff' fieldDef={{ name: 'colorPicker', label: '', disabled: true }} onChange={() => jest.fn()} />
 		);
 
 		const selectedColorDiv = screen.getByTestId('colordiv-test');

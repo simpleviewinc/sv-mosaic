@@ -40,6 +40,7 @@ export const Default = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'linkSetup',
 				disabled,
 				helperText: text('Helper text', 'Helper text'),
 				instructionText: text('Instruction text', 'Instruction text'),
@@ -51,6 +52,7 @@ export const Default = (): ReactElement => {
 		>
 			<LinkSetup
 				fieldDef={{
+					name: 'linkSetup',
 					label,
 					disabled,
 					inputSettings: {

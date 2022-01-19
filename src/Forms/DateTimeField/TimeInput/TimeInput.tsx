@@ -22,6 +22,7 @@ const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
 				<TimePicker
 					error={error}
 					fieldDef={{
+						name: fieldDef?.name,
 						label: '',
 						required: fieldDef?.required,
 						inputSettings: {

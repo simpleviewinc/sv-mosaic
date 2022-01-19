@@ -19,7 +19,7 @@ import { actions, useForm } from '../Form/formUtils';
 import { FieldDef, MosaicFieldProps } from '@root/components/Field';
 import { TextFieldDef } from '../FormFieldText';
 
-const Address = (props: MosaicFieldProps<any>): ReactElement => {
+const Address = (props: MosaicFieldProps): ReactElement => {
 	const {
 		fieldDef,
 		onChange

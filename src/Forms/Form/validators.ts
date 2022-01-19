@@ -1,10 +1,8 @@
 /**
  * Validates an email address using a regular expression taken from:
  * https://stackoverflow.com/questions/46155/whats-the-best-way-to-validate-an-email-address-in-javascript
- * @param str email address
- * @returns string used as an error message
  */
-export function validateEmail(str: string): (string | undefined) {
+export function validateEmail(str: string): string {
 	if (!str) {
 		return;
 	}
@@ -23,8 +21,8 @@ export function validateSlow(str: string): Promise<void | string> {
 		return;
 	}
 
-	return new Promise<void | string>(function(resolve) {
-		setTimeout(function() {
+	return new Promise<void | string>(function (resolve) {
+		setTimeout(function () {
 			if (str.includes('test')) {
 				return resolve("String cannot include 'test'");
 			} else {
@@ -36,8 +34,6 @@ export function validateSlow(str: string): Promise<void | string> {
 
 /**
  * Validates a required field.
- * @param str field value
- * @returns an error message string
  */
 export function required(str: string): string {
 	if (!str || str.trim().length === 0 || !!str === false) {
@@ -50,14 +46,14 @@ export function required(str: string): string {
  * @param value field value
  * @returns an error message string
  */
-export function validateNumber(value: string) : string {
+export function validateNumber(value: string): string {
 	if (!value) {
 		return;
 	}
 
 	if (!(!isNaN(Number(value)) && !isNaN(parseFloat(value)))) {
 		return 'The value is not a number';
-	} 
+	}
 }
 
 /**
@@ -66,13 +62,13 @@ export function validateNumber(value: string) : string {
  * @param str to validate
  * @returns an error message string
  */
-export function validateURL(str: string) : string {
+export function validateURL(str: string): string {
 	const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+		'((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+		'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+		'(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+		'(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
 
 	if (!pattern.test(str)) {
 		return 'The value is not a valid URL';

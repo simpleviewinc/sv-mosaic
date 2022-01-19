@@ -19,6 +19,7 @@ describe('DropdownSingleSelection component', () => {
 		render(
 			<DropdownSingleSelection
 				fieldDef={{
+					name: 'dropdownSingleSelect',
 					label: 'Label test',
 					inputSettings: {
 						options: topFilms,
@@ -45,6 +46,7 @@ describe('DropdownSingleSelection disabled state', () => {
 		render(
 			<DropdownSingleSelection
 				fieldDef={{
+					name: 'dropdownSingleSelect',
 					label: 'Label test',
 					disabled: true,
 					inputSettings: {
@@ -65,6 +67,7 @@ describe('DropdownSingleSelection component as a form field', () => {
 		render(
 			<DropdownSingleSelection
 				fieldDef={{
+					name: 'dropdownSingleSelect',
 					label: 'Label test',
 					inputSettings: {
 						options: topFilms,

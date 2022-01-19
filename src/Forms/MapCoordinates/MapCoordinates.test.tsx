@@ -100,6 +100,7 @@ describe('MapCoordinates component without an address', () => {
 	beforeEach(() => {
 		render(<MapCoordinates
 			fieldDef={{
+				name: 'mapCoordinates',
 				label: '',
 				inputSettings: {
 					apiKey: 'test',
@@ -166,6 +167,7 @@ describe('MapCoordinates component with an address object (AUTOCOODINATES)', () 
 	beforeEach(() => {
 		render(<MapCoordinates
 			fieldDef={{
+				name: 'mapCoordinates',
 				label: '',
 				inputSettings: {
 					apiKey: 'test',

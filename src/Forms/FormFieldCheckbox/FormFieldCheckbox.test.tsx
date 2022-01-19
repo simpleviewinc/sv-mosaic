@@ -36,12 +36,13 @@ describe('FormFieldCheckbox component', () => {
 			return (
 				<FormFieldCheckbox
 					fieldDef={{
+						name: 'formFieldCheckbox',
 						label: 'test',
 						inputSettings: {
 							options,
 						}
 					}}
-					value={checked}	
+					value={checked}
 					onChange={onChange}
 				/>
 			);

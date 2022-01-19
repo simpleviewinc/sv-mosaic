@@ -4,7 +4,7 @@ import { HTMLAttributes, ReactNode } from 'react';
 import { PhoneInputProps } from 'react-phone-input-2';
 
 // MOSAIC GENERIC CONTRACT
-export interface MosaicFieldProps<T> {//FieldProps
+export interface MosaicFieldProps<T = any, U = any> {//FieldProps
 	/**
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
@@ -14,7 +14,8 @@ export interface MosaicFieldProps<T> {//FieldProps
 	 * Function that listens to changes on the field and updates its value.
 	 */
 	// onChange?: HTMLAttributes<HTMLElement>['onChange'] | ((e: any[]) => void | unknown) | PhoneInputProps['onChange'];
-	onChange?: any;
+	onChange?: (e: U) => void;
+	// onChange?: any;
 	/**
 	 * Function that listens to a blur event on the field and executes an action.
 	 */
@@ -26,7 +27,8 @@ export interface MosaicFieldProps<T> {//FieldProps
 	/**
 	 * Value written by the user into the text field.
 	 */
-	value?: any | string;
+	value?: U;
+	// value?: any | string;
 	/**
 	 * Flag to style text field as erroneous.
 	 */
@@ -42,7 +44,7 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	/**
 	 * Significant name related to its field.
 	 */
-	name?: string;
+	name: string;
 	/**
 	 * Label that will sit on top of the field.
 	 */

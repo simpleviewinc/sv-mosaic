@@ -7,6 +7,7 @@ describe('SingleDateCalendar component', () => {
 		const { getByText } = render(
 			<SingleDateCalendar
 				fieldDef={{
+					name: 'singleDateCalendar',
 					label: '',
 					disabled: true,
 				}}
@@ -22,6 +23,7 @@ describe('SingleDateCalendar component', () => {
 		const { getByText } = render(
 			<SingleDateCalendar
 				fieldDef={{
+					name: 'singleDateCalendar',
 					label: '',
 					disabled: true,
 				}}

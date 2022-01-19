@@ -13,6 +13,7 @@ describe('TextArea component', () => {
 		result = render(
 			<TextArea
 				fieldDef={{
+					name: 'textArea',
 					label: 'Label test',
 					instructionText: 'Instructional text',
 					inputSettings: {

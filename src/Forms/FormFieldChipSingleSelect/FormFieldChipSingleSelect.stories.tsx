@@ -38,6 +38,7 @@ export const Default = (): ReactElement => {
 	return (
 		<Field
 			fieldDef={{
+				name: 'formFieldChipSingleSelect',
 				disabled,
 				helperText: text('Helper text', ''),
 				instructionText: text('Instruction text', 'Instruction text'),
@@ -49,6 +50,7 @@ export const Default = (): ReactElement => {
 		>
 			<FormFieldChipSingleSelect
 				fieldDef={{
+					name: 'formFieldChipSingleSelect',
 					label,
 					disabled,
 					inputSettings: {
