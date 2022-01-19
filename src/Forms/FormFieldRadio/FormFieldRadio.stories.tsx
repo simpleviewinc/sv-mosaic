@@ -29,7 +29,7 @@ const options = [
 	},
 ];
 
-export const Default = (): ReactElement => {
+export const Playground = (): ReactElement => {
 	const [value, setValue] = useState('');
 
 	const handleChange = (value) => {
@@ -72,12 +72,8 @@ export const Default = (): ReactElement => {
 	);
 };
 
-export const FormExample = (): ReactElement => {
+export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-
-	const disabled = boolean('Disabled', false);
-	const required = boolean('Required', false);
-
 	const fields = useMemo(
 		() =>
 			[
@@ -85,16 +81,28 @@ export const FormExample = (): ReactElement => {
 					name: "radio",
 					label: "Regular example",
 					type: "radio",
-					required,
-					disabled,
+					required: false,
+					disabled: false,
 					inputSettings: {
 						options,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-				}
+				},
+				{
+					name: "radio-disabled",
+					label: "Disabled example",
+					type: "radio",
+					required: false,
+					disabled: true,
+					inputSettings: {
+						options,
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				},
 			] as FieldDef<FormFieldRadioDef>[],
-		[required, disabled]
+		[]
 	);
 
 	useMemo(() => {
@@ -117,8 +125,8 @@ export const FormExample = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title='Form Title'
+				description='This is a description example'
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
