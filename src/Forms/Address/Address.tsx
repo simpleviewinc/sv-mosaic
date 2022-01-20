@@ -19,7 +19,7 @@ import { actions, useForm } from '../Form/formUtils';
 import { FieldDef, MosaicFieldProps } from '@root/components/Field';
 import { TextFieldDef } from '../FormFieldText';
 
-const Address = (props: MosaicFieldProps): ReactElement => {
+const Address = (props: MosaicFieldProps<any, any[]>): ReactElement => {
 	const {
 		fieldDef,
 		onChange
@@ -46,7 +46,7 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	const [addresses, setAddresses] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [countries, setCountries] = useState([]);
-	const [isEditing, setIsEditting] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
@@ -66,71 +66,76 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 		return [];
 	}, [modalReducer?.state?.data?.country]);
 
-	const fields = useMemo(() => [
-		{
-			name: "country",
-			type: 'dropdown',
-			label: "Country",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				options: countries,
-				size: Sizes.sm,
-			}
-		},
-		{
-			name: "address",
-			type: 'text',
-			label: "Address",
-			size: Sizes.lg,
-			required: true,
-			inputSettings: {
-				size: Sizes.lg,
-			}
-		} as FieldDef<TextFieldDef>,
-		{
-			name: "city",
-			type: 'text',
-			label: "City",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				size: Sizes.sm,
-			}
-		} as FieldDef<TextFieldDef>,
-		{
-			name: "states",
-			type: 'dropdown',
-			label: "States",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				options: listOfStates,
-				size: Sizes.sm,
-			}
-		},
-		{
-			name: "postalCode",
-			type: 'text',
-			label: "Postal Code",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				size: Sizes.sm,
-			}
-		} as FieldDef<TextFieldDef>,
-		{
-			name: "type",
-			type: 'checkbox',
-			label: "Type",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				options: addressTypes,
-				size: Sizes.sm,
-			}
-		},
-	] as FieldDef[], [countries, listOfStates, addressTypes]);
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "country",
+					type: 'dropdown',
+					label: "Country",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						options: countries,
+						size: Sizes.sm,
+					}
+				},
+				{
+					name: "address",
+					type: 'text',
+					label: "Address",
+					size: Sizes.lg,
+					required: true,
+					inputSettings: {
+						size: Sizes.lg,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "city",
+					type: 'text',
+					label: "City",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						size: Sizes.sm,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "states",
+					type: 'dropdown',
+					label: "States",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						options: listOfStates,
+						size: Sizes.sm,
+					}
+				},
+				{
+					name: "postalCode",
+					type: 'text',
+					label: "Postal Code",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						type: 'number',
+						size: Sizes.sm,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "type",
+					type: 'checkbox',
+					label: "Type",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						options: addressTypes,
+						size: Sizes.sm,
+					}
+				},
+			] as FieldDef[],
+		[countries, listOfStates, addressTypes]
+	);
 
 	const sections = useMemo(() => [
 		{
@@ -152,7 +157,7 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	 * and sets editing mode to false.
 	 */
 	const addAddressHandler = () => {
-		setIsEditting(false);
+		setIsEditing(false);
 		setOpen(true);
 	};
 
@@ -174,8 +179,14 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	const removeAddressHandler = (addressIndex) => {
 		const listOfAddresses = [...addresses];
 		listOfAddresses.splice(addressIndex, 1);
+
 		setAddresses(listOfAddresses);
-		onChange(listOfAddresses);
+
+		if (listOfAddresses.length > 0) {
+			onChange(listOfAddresses);
+		} else {
+			onChange(undefined);
+		}
 	};
 
 	/**
@@ -193,6 +204,10 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 			country,
 			state,
 		} = addressToEdit;
+
+		const fullCountryData = countriesWithStates.filter(c => c.name === country)[0];
+		const fullStateData = fullCountryData.states.filter(s => s.name === state)[0];
+
 
 		modalReducer?.dispatch(
 			actions.setFieldValue({
@@ -225,18 +240,18 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'country',
-				value: country,
+				value: { title: country, value: fullCountryData },
 			})
 		);
 
 		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'states',
-				value: state,
+				value: { title: state, value: fullStateData },
 			})
 		);
 		setAddressIdx(addressIndex);
-		setIsEditting(true);
+		setIsEditing(true);
 		setOpen(true);
 	};
 
@@ -250,8 +265,8 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 		listOfAddresses[addressIdx].address = modalReducer?.state?.data?.address;
 		listOfAddresses[addressIdx].city = modalReducer?.state?.data?.city;
 		listOfAddresses[addressIdx].postalCode = modalReducer?.state?.data?.postalCode;
-		listOfAddresses[addressIdx].country = modalReducer?.state?.data?.country;
-		listOfAddresses[addressIdx].state = modalReducer?.state?.data?.states;
+		listOfAddresses[addressIdx].country = modalReducer?.state?.data?.country?.title;
+		listOfAddresses[addressIdx].state = modalReducer?.state?.data?.states?.title;
 		listOfAddresses[addressIdx].types = modalReducer?.state?.data?.type;
 
 		return listOfAddresses;
@@ -269,11 +284,11 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 			address: modalReducer?.state?.data?.address,
 			city: modalReducer?.state?.data?.city,
 			postalCode: modalReducer?.state?.data?.postalCode,
-			country: modalReducer?.state?.data?.country,
-			state: modalReducer?.state?.data?.states,
+			country: modalReducer?.state?.data?.country?.title,
+			state: modalReducer?.state?.data?.states?.title,
 			types: modalReducer?.state?.data?.type,
 		});
-		setIsEditting(false);
+		setIsEditing(false);
 
 		return listOfAddresses;
 	};
