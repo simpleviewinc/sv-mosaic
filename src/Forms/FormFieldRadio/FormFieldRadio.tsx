@@ -32,9 +32,9 @@ const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef>): ReactElemen
 
 	return (
 		<StyledRadioGroup
-			onChange={(e) => onChange(e.target.value)}
+			onChange={(e) => onChange && onChange(e.target.value)}
 			value={value}
-			onBlur={onBlur}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
 		>
 			{listOfRadios}
 		</StyledRadioGroup>
