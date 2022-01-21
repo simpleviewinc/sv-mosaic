@@ -21,7 +21,7 @@ const mapPosition = {
 };
 
 const address: IAddress = {
-	address: '8950 N Oracle Rd',
+	address1: '8950 N Oracle Rd',
 	city: 'Oro Valley',
 	country: {
 		title: 'United States',
