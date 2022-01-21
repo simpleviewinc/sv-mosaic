@@ -48,7 +48,7 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	/**
 	 * Label that will sit on top of the field.
 	 */
-	label: string;
+	label: string | undefined;
 	/**
 	 * Marks field as required
 	 */

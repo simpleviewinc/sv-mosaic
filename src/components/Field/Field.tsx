@@ -81,18 +81,24 @@ const Field = ({
 				size={(fieldDef?.type === 'chip' || fieldDef?.type === 'linkSetup') ? Sizes.md : fieldDef?.type === 'color' ? '102px' : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}
 				type={fieldDef?.type}
 			>
-				<Label
-					labelMargin={labelMargin}
-					disabled={fieldDef?.disabled}
-					required={fieldDef?.required}
-					htmlFor={fieldDef?.name}
-					maxCharacters={fieldDef?.maxCharacters}
-					value={value}
-					tooltip={renderAsTooltip}
-					instructionText={fieldDef?.instructionText}
-				>
-					{fieldDef?.label}
-				</Label>
+				{
+					((fieldDef?.label && fieldDef?.label?.length > 0)
+						|| fieldDef?.maxCharacters
+						|| (fieldDef?.instructionText && renderAsTooltip))
+					&&
+					<Label
+						labelMargin={labelMargin}
+						disabled={fieldDef?.disabled}
+						required={fieldDef?.required}
+						htmlFor={fieldDef?.name}
+						maxCharacters={fieldDef?.maxCharacters}
+						value={value}
+						tooltip={renderAsTooltip}
+						instructionText={fieldDef?.instructionText}
+					>
+						{fieldDef?.label}
+					</Label>
+				}
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>

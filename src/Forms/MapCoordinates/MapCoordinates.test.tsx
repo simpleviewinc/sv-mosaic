@@ -10,7 +10,7 @@ import MapCoordinates, {
 const { getByLabelText, getByRole, getByText, getByTestId, getAllByText, queryByText } = screen;
 
 const addressObj = {
-	address: '8950 N Oracle Rd',
+	address1: '8950 N Oracle Rd',
 	city: 'Oro Valley',
 	country: {
 		title: 'United States',
