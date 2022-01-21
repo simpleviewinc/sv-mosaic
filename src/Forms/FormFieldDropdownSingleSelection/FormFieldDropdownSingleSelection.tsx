@@ -50,7 +50,8 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
-						getOptionLabel={(option) => option.title}
+						// getOptionLabel={(option) => console.log(option)}
+						getOptionLabel={(option) => option.title ? option.title : ''}
 						onChange={(_event, option) => onChange && onChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}

@@ -5,9 +5,6 @@ import { memo, ReactElement, useState, useMemo, useCallback, HTMLAttributes } fr
 import Button from '@root/forms/Button';
 import Modal from '@root/components/Modal';
 
-// Types
-import { AddressProps } from './AddressTypes';
-
 // Styles
 import { AddAddressWrapper, FlexContainer, StyledLabel } from './Address.styled';
 import { Sizes } from '@root/theme/sizes';
@@ -18,8 +15,14 @@ import AddressCard from './AddressCard';
 import { actions, useForm } from '../Form/formUtils';
 import { FieldDef, MosaicFieldProps } from '@root/components/Field';
 import { TextFieldDef } from '../FormFieldText';
+import { IAddress } from '.';
 
-const Address = (props: MosaicFieldProps): ReactElement => {
+const countries = countriesWithStates.map((country) => ({
+	title: country.name,
+	value: country.iso2,
+}));
+
+const Address = (props: MosaicFieldProps<any, IAddress[]>): ReactElement => {
 	const {
 		fieldDef,
 		onChange
@@ -45,8 +48,7 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	// State variables
 	const [addresses, setAddresses] = useState([]);
 	const [open, setOpen] = useState(false);
-	const [countries, setCountries] = useState([]);
-	const [isEditing, setIsEditting] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
@@ -56,87 +58,112 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	 * selected country
 	 */
 	const listOfStates = useMemo(() => {
-		let selectedCountryTest = modalReducer?.state?.data?.country;
+		let selectedCountryTest = countriesWithStates.filter(c => c.name === modalReducer?.state?.data?.country?.title)[0];
 		if (selectedCountryTest) {
-			return selectedCountryTest.value.states.map(state => ({
+			return selectedCountryTest.states.map(state => ({
 				title: state.name,
-				value: state,
+				value: state.state_code,
 			}));
 		}
 		return [];
 	}, [modalReducer?.state?.data?.country]);
 
-	const fields = useMemo(() => [
-		{
-			name: "country",
-			type: 'dropdown',
-			label: "Country",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				options: countries,
-				size: Sizes.sm,
-			}
-		},
-		{
-			name: "address",
-			type: 'text',
-			label: "Address",
-			size: Sizes.lg,
-			required: true,
-			inputSettings: {
-				size: Sizes.lg,
-			}
-		} as FieldDef<TextFieldDef>,
-		{
-			name: "city",
-			type: 'text',
-			label: "City",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				size: Sizes.sm,
-			}
-		} as FieldDef<TextFieldDef>,
-		{
-			name: "states",
-			type: 'dropdown',
-			label: "States",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				options: listOfStates,
-				size: Sizes.sm,
-			}
-		},
-		{
-			name: "postalCode",
-			type: 'text',
-			label: "Postal Code",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				size: Sizes.sm,
-			}
-		} as FieldDef<TextFieldDef>,
-		{
-			name: "type",
-			type: 'checkbox',
-			label: "Type",
-			size: Sizes.sm,
-			required: true,
-			inputSettings: {
-				options: addressTypes,
-				size: Sizes.sm,
-			}
-		},
-	] as FieldDef[], [countries, listOfStates, addressTypes]);
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "country",
+					type: 'dropdown',
+					label: "Country",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						options: countries,
+						size: Sizes.sm,
+					}
+				},
+				{
+					name: "address1",
+					type: 'text',
+					label: "Address",
+					size: Sizes.lg,
+					required: true,
+					inputSettings: {
+						size: Sizes.lg,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "address2",
+					type: 'text',
+					label: undefined,
+					size: Sizes.lg,
+					inputSettings: {
+						size: Sizes.lg,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "address3",
+					type: 'text',
+					label: undefined,
+					size: Sizes.lg,
+					inputSettings: {
+						size: Sizes.lg,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "city",
+					type: 'text',
+					label: "City",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						size: Sizes.sm,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "states",
+					type: 'dropdown',
+					label: "States",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						options: listOfStates,
+						size: Sizes.sm,
+					}
+				},
+				{
+					name: "postalCode",
+					type: 'text',
+					label: "Postal Code",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						type: 'number',
+						size: Sizes.sm,
+					}
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "type",
+					type: 'checkbox',
+					label: "Type",
+					size: Sizes.sm,
+					required: true,
+					inputSettings: {
+						options: addressTypes,
+						size: Sizes.sm,
+					}
+				},
+			] as FieldDef[],
+		[countries, listOfStates, addressTypes]
+	);
 
 	const sections = useMemo(() => [
 		{
 			fields: [
 				[['country']],
-				[['address']],
+				[['address1']],
+				[['address2']],
+				[['address3']],
 				[['city'], ['states'], ['postalCode']],
 				[['type']]
 			]
@@ -152,7 +179,7 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	 * and sets editing mode to false.
 	 */
 	const addAddressHandler = () => {
-		setIsEditting(false);
+		setIsEditing(false);
 		setOpen(true);
 	};
 
@@ -174,8 +201,14 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	const removeAddressHandler = (addressIndex) => {
 		const listOfAddresses = [...addresses];
 		listOfAddresses.splice(addressIndex, 1);
+
 		setAddresses(listOfAddresses);
-		onChange(listOfAddresses);
+
+		if (listOfAddresses.length > 0) {
+			onChange(listOfAddresses);
+		} else {
+			onChange(undefined);
+		}
 	};
 
 	/**
@@ -186,7 +219,9 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	 */
 	const showEditModal = (addressToEdit, addressIndex) => {
 		const {
-			address,
+			address1,
+			address2,
+			address3,
 			city,
 			postalCode,
 			types,
@@ -194,12 +229,32 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 			state,
 		} = addressToEdit;
 
+		const fullCountryData = countriesWithStates.filter(c => c.iso2 === country)[0];
+		const fullStateData = fullCountryData.states.filter(s => s.state_code === state)[0];
+
+
 		modalReducer?.dispatch(
 			actions.setFieldValue({
-				name: 'address',
-				value: address,
+				name: 'address1',
+				value: address1,
 			})
 		);
+
+		if (address2)
+			modalReducer?.dispatch(
+				actions.setFieldValue({
+					name: 'address2',
+					value: address2,
+				})
+			);
+
+		if (address3)
+			modalReducer?.dispatch(
+				actions.setFieldValue({
+					name: 'address3',
+					value: address3,
+				})
+			);
 
 		modalReducer?.dispatch(
 			actions.setFieldValue({
@@ -225,18 +280,18 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'country',
-				value: country,
+				value: { title: fullCountryData.name, value: fullCountryData.iso2 },
 			})
 		);
 
 		modalReducer?.dispatch(
 			actions.setFieldValue({
 				name: 'states',
-				value: state,
+				value: { title: fullStateData.name, value: fullStateData.state_code },
 			})
 		);
 		setAddressIdx(addressIndex);
-		setIsEditting(true);
+		setIsEditing(true);
 		setOpen(true);
 	};
 
@@ -247,11 +302,13 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	const editAddress = () => {
 		const listOfAddresses = [...addresses];
 
-		listOfAddresses[addressIdx].address = modalReducer?.state?.data?.address;
+		listOfAddresses[addressIdx].address1 = modalReducer?.state?.data?.address1;
+		listOfAddresses[addressIdx].address2 = modalReducer?.state?.data?.address2;
+		listOfAddresses[addressIdx].address3 = modalReducer?.state?.data?.address3;
 		listOfAddresses[addressIdx].city = modalReducer?.state?.data?.city;
 		listOfAddresses[addressIdx].postalCode = modalReducer?.state?.data?.postalCode;
-		listOfAddresses[addressIdx].country = modalReducer?.state?.data?.country;
-		listOfAddresses[addressIdx].state = modalReducer?.state?.data?.states;
+		listOfAddresses[addressIdx].country = modalReducer?.state?.data?.country.value;
+		listOfAddresses[addressIdx].state = modalReducer?.state?.data?.states?.value;
 		listOfAddresses[addressIdx].types = modalReducer?.state?.data?.type;
 
 		return listOfAddresses;
@@ -266,14 +323,16 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 		const id = listOfAddresses?.length + 1;
 		listOfAddresses.push({
 			id: id,
-			address: modalReducer?.state?.data?.address,
+			address1: modalReducer?.state?.data?.address1,
+			address2: modalReducer?.state?.data?.address2,
+			address3: modalReducer?.state?.data?.address3,
 			city: modalReducer?.state?.data?.city,
 			postalCode: modalReducer?.state?.data?.postalCode,
-			country: modalReducer?.state?.data?.country,
-			state: modalReducer?.state?.data?.states,
+			country: modalReducer?.state?.data?.country.value,
+			state: modalReducer?.state?.data?.states?.value,
 			types: modalReducer?.state?.data?.type,
 		});
-		setIsEditting(false);
+		setIsEditing(false);
 
 		return listOfAddresses;
 	};
@@ -284,23 +343,26 @@ const Address = (props: MosaicFieldProps): ReactElement => {
 	 */
 	const handleFormSubmit = useCallback(() => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
+
+		const addressesFullName = listOfAddresses.map(address => {
+			const fullCountryData = countriesWithStates.filter(c => c.iso2 === address.country)[0];
+			const fullStateData = fullCountryData.states.filter(s => s.state_code === address.state)[0];
+
+			return {
+				...address,
+				countryName: fullCountryData.name,
+				stateName: fullStateData.name,
+			};
+		});
+
 		onChange && onChange(listOfAddresses);
-		setAddresses(listOfAddresses);
+		setAddresses(addressesFullName);
 		handleClose();
 	}, [modalReducer?.state.validForm]);
 
 	useMemo(() => {
 		modalReducer?.registerOnSubmit(handleFormSubmit);
 	}, [handleFormSubmit, modalReducer?.registerOnSubmit]);
-
-	useMemo(() => {
-		setCountries(
-			countriesWithStates.map((country) => ({
-				title: country.name,
-				value: country,
-			}))
-		);
-	}, []);
 
 	return (
 		<div style={{ paddingLeft: '20px' }}>
