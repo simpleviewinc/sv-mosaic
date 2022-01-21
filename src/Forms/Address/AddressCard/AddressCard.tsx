@@ -21,9 +21,11 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 	return (
 		<StyledAddressCard data-testid='address-card-test'>
 			<AddressTitle>{`${address.types?.join(', ').replace(/\w+/g, capitalize)} Address`}</AddressTitle>
-			<span>{address.address}</span>
-			<span>{`${address.city}, ${address.state} ${address.postalCode}`}</span>
-			<span>{address.country}</span>
+			<span>{address.address1}</span>
+			{address.address2 && <span>{address.address2}</span>}
+			{address.address3 && <span>{address.address3}</span>}
+			<span>{`${address.city}, ${address.stateName} ${address.postalCode}`}</span>
+			<span>{address.countryName}</span>
 			<ButtonsWrapper>
 				<Button buttonType='blueText' onClick={() => onEdit(address, addressIndex)}>Edit</Button>
 				<Button buttonType='redText' onClick={() => onRemoveAddress(addressIndex)}>

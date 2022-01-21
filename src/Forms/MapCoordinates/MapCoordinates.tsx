@@ -66,9 +66,9 @@ const libraries: Libraries = ['places'];
  *	Helper function to get a string address from an Address object
  */
 export const getAddressStringFromAddressObject = (addressObj: IAddress): string => {
-	const { address, city, country, postalCode, state } = addressObj;
+	const { address1, city, country, postalCode, state } = addressObj;
 
-	return `${address} ${postalCode} ${city} ${state.title} ${country.title}`;
+	return `${address1} ${postalCode} ${city} ${state.title} ${country.title}`;
 };
 
 const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef>): ReactElement => {
