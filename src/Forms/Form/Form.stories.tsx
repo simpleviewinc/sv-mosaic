@@ -1222,6 +1222,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: "text1",
 					label: "Full Name",
 					type: "text",
+					required: true,
 					instructionText: 'testing',
 					validators: [required],
 				},
@@ -1229,12 +1230,14 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: "text2",
 					label: "age",
 					type: "text",
+					required: true,
 					validators: [required],
 				},
 				{
 					name: "check1",
 					label: "Text that copies to the next input",
 					type: "checkbox",
+					required: true,
 					inputSettings: {
 						options: [
 							{
@@ -1257,12 +1260,14 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: "textArea",
 					label: "Text Area",
 					type: "textArea",
+					required: true,
 					validators: [required],
 				},
 				{
 					name: "chip",
 					label: "Text that receives copy",
 					type: "chip",
+					required: true,
 					inputSettings: {
 						options: [
 							{
@@ -1285,6 +1290,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: "dropdownsingle",
 					label: "Dropdown single select",
 					type: "dropdown",
+					required: true,
 					inputSettings: {
 						options: [
 							{ title: 'The Shawshank Redemption', year: 1994 },
@@ -1317,12 +1323,14 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: "phoneSelect",
 					label: "Phone selection",
 					type: "phone",
+					required: true,
 					validators: [required]
 				},
 				{
 					name: "radio",
 					label: "Radio selection",
 					type: "radio",
+					required: true,
 					inputSettings: {
 						options: [
 							{
@@ -1345,6 +1353,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: 'toggleSwitch',
 					label: 'Toggle field',
 					type: 'toggleSwitch',
+					required: true,
 					inputSettings: {
 						toggleLabel: 'To the side'
 					},
@@ -1354,41 +1363,48 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: "color",
 					label: "Regular example",
 					type: "color",
+					required: true,
 					validators: [required],
 				},
 				{
 					name: "date",
 					label: "Single Date Picker",
 					type: "date",
+					required: true,
 					validators: [required],
 				},
 				{
 					name: "dateRange",
 					label: "Date Range",
 					type: "dateRange",
+					required: true,
 					validators: [required],
 				},
 				{
 					name: "time",
 					label: "Single Time Picker",
 					type: "time",
+					required: true,
 					validators: [required],
 				},
 				{
 					name: "dateTime",
 					label: "Date and Time Picker",
 					type: "dateTime",
+					required: true,
 					validators: [required],
 				},
 				{
 					name: 'address',
 					label: 'Address field',
-					type: 'address'
+					type: 'address',
+					required: true,
 				},
 				{
 					name: 'advancedSelection',
 					label: 'Advanced Selection field',
 					type: 'advancedSelection',
+					required: true,
 					inputSettings: {
 						modalTitle: 'Advanced Selection Modal title',
 						checkboxOptions: externalOptions,
@@ -1400,6 +1416,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: 'imageVideoDocument',
 					label: 'Image Video and Document field',
 					type: 'imageVideoDocument',
+					required: true,
 					inputSettings: {
 						options: imageVideoOptions,
 						handleSetImage,
@@ -1414,6 +1431,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: 'linkSetup',
 					label: 'Link Setup field',
 					type: 'linkSetup',
+					required: true,
 					inputSettings: {
 						handleSetLink,
 						handleRemove: handleRemoveLinkSetup
@@ -1430,6 +1448,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: 'table',
 					label: 'Table example',
 					type: 'table',
+					required: true,
 					inputSettings: {
 						handleAddElement: addTableRow,
 						handleEdit: editTableRow,
@@ -1437,7 +1456,6 @@ export const SubmitInternalButtons = (): ReactElement => {
 						extraActions: extraActionsTable,
 						headers: tableHeaders,
 					},
-					validators: [required],
 				},
 				// {
 				// 	name: "addLink",
@@ -1450,11 +1468,13 @@ export const SubmitInternalButtons = (): ReactElement => {
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
+					required: true,
 				},
 				{
 					name: "mapCoordinates",
 					label: "Map Coordinates Example",
 					type: "mapCoordinates",
+					required: true,
 					inputSettings: {
 						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
 					}

@@ -109,6 +109,10 @@ export const actions = {
 				validators.unshift(required);
 			}
 
+			if (validators && requiredFlag) {
+				validators.unshift(required);
+			}
+
 			dispatch({
 				type: "FIELD_START_VALIDATE",
 				name
