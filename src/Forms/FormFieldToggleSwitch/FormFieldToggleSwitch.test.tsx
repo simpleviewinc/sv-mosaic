@@ -1,74 +1,59 @@
-// import { render, screen, cleanup, fireEvent } from '@testing-library/react';
-// import * as React from 'react';
-// import { useState, ChangeEvent } from 'react';
-// import FormFieldToggleSwitch from './FormFieldToggleSwitch';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import * as React from 'react';
+import { useState } from 'react';
+import FormFieldToggleSwitch from './FormFieldToggleSwitch';
 
-// afterEach(cleanup);
+afterEach(cleanup);
 
-// describe('FormFieldToggleSwitch component', () => {
-// 	it('should check the FormFieldToggleSwitch', () => {
-// 		const FormFieldToggleSwitchExample = () => {
-// 			const [isChecked, setIsChecked] = useState(false);
+const { getByRole, getByText } = screen;
 
-// 			const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-// 				setIsChecked(e.target.checked);
-// 			};
-// 			return (
-// 				<FormFieldToggleSwitch
-// 					label='Label'
-// 					error={false}
-// 					instructionText='Instruction text'
-// 					errorText='Error text'
-// 					disabled={false}
-// 					onChange={handleChange}
-// 					checked={isChecked}
-// 				/>
-// 			);
-// 		};
+const FormFieldToggleSwitchExample = ({disabled} : {disabled: boolean}) => {
+	const [isChecked, setIsChecked] = useState(false);
 
-// 		render(<FormFieldToggleSwitchExample />);
-// 		const toggleSwitch = screen.getByRole('checkbox') as HTMLInputElement;
-// 		expect(toggleSwitch.checked).toEqual(false);
+	const handleChange = (value) => {
+		setIsChecked(value);
+	};
 
-// 		fireEvent.click(toggleSwitch);
-// 		expect(toggleSwitch.checked).toEqual(true);
-// 	});
-// });
+	return (
+		<FormFieldToggleSwitch
+			fieldDef={{
+				label: 'Field label',
+				name: 'toggleSwitch',
+				disabled: disabled,
+				inputSettings: {
+					toggleLabel: 'Toggle switch label'
+				}
+			}}
+			onChange={handleChange}
+			value={isChecked}
+		/>
+	);
+};
 
-// describe('FormFieldToggleSwitch assistive elements', () => {
-// 	it('should display label, instructionText but not the errorText', () => {
-// 		render(
-// 			<FormFieldToggleSwitch
-// 				label='Label'
-// 				error={false}
-// 				required={false}
-// 				instructionText='Instruction'
-// 				errorText='Error'
-// 			/>
-// 		);
+describe('FormFieldToggleSwitch component', () => {
+	it('should check the FormFieldToggleSwitch', () => {
+		render(<FormFieldToggleSwitchExample disabled={false}/>);
 
-// 		const label = screen.getByText('Label');
-// 		const instructionText = screen.getByText('Instruction');
-// 		const errorText = screen.queryByText('Error');
+		const toggleSwitch = getByRole('checkbox') as HTMLInputElement;
 
-// 		expect(label).toBeDefined();
-// 		expect(instructionText).toBeDefined();
-// 		expect(errorText).toBe(null);
-// 	});
+		expect(toggleSwitch.checked).toEqual(false);
 
-// 	it('should display the errorText', () => {
-// 		render(
-// 			<FormFieldToggleSwitch
-// 				label='Label'
-// 				error={true}
-// 				required={true}
-// 				errorText='Error text'
-// 			/>
-// 		);
-// 		const toggleSwitch = screen.getByRole('checkbox') as HTMLInputElement;
-// 		const errorText = screen.queryByText('Error');
-    
-// 		expect(toggleSwitch.required).toBe(true);
-// 		expect(errorText).toBeDefined();
-// 	});
-// });
+		fireEvent.click(toggleSwitch);
+	
+		expect(toggleSwitch.checked).toEqual(true);
+	});
+
+	it('should contain the disabled attribute', () => {
+		render(<FormFieldToggleSwitchExample disabled={true}/>);
+
+		const toggleSwitch = getByRole('checkbox') as HTMLInputElement;
+
+		expect(toggleSwitch.disabled).toBeTruthy();
+	});
+
+	it('should display the toggle switch label', () => {
+		render(<FormFieldToggleSwitchExample disabled={false}/>);
+
+		expect(getByText('Toggle switch label')).toBeTruthy();		
+	});
+});
