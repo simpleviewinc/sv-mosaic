@@ -35,7 +35,7 @@ export const FormExample = (): ReactElement => {
 				},
 			] as FieldDef[]
 		),
-		[registerFields]
+		[]
 	);
 
 	useMemo(() => {
