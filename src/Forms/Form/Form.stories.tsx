@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo, useState, useCallback } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
 import { useForm, actions } from "./formUtils";
-import { validateEmail, validateSlow, required } from "./validators";
+import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 
 // Components
 import Form from './Form';
@@ -1789,6 +1789,78 @@ export const CustomFields = (): ReactElement => {
 			<div>
 				<button onClick={setText1Value}>Set Text1 Value</button>
 			</div>
+		</>
+	);
+};
+
+export const Validators = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "required",
+					label: "Required",
+					type: 'text',
+					required: true,
+				},
+				{
+					name: "email",
+					label: "Email",
+					type: 'text',
+					validators: [validateEmail]
+				},
+				{
+					name: "slow",
+					label: "Slow",
+					type: 'text',
+					validators: [validateSlow]
+				},
+				{
+					name: "number",
+					label: "Number",
+					type: 'text',
+					validators: [validateNumber]
+				},
+				{
+					name: "url",
+					label: "URL",
+					type: 'text',
+					validators: [validateURL]
+				},
+			] as FieldDef<TextFieldDef>[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title='Validators story'
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onSubmit={onSubmit}
+				onCancel={onCancel}
+			/>
 		</>
 	);
 };
