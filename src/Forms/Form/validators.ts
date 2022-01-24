@@ -50,7 +50,7 @@ export function required(str: string): string | undefined {
  * @param value field value
  * @returns an error message string
  */
-export function validateNumber(value: string): string {
+export function validateNumber(value: string): string | undefined {
 	if (!value) {
 		return;
 	}
@@ -66,7 +66,11 @@ export function validateNumber(value: string): string {
  * @param str to validate
  * @returns an error message string
  */
-export function validateURL(str: string): string {
+export function validateURL(str: string): string | undefined {
+	if (!str) {
+		return;
+	}
+
 	const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
 		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
 		'((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
