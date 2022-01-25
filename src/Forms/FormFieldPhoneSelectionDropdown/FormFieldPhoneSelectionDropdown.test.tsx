@@ -105,7 +105,7 @@ describe('FormFieldPhoneSelectionDropdown country code prop', () => {
 		expect(phoneInput.value).toBe('+1');
 	});
 
-	it('should display US phone number prefix when no country code is provided ', () => {
+	it('should display the phone number prefix of the country code provided', () => {
 		const { container } = render(
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
