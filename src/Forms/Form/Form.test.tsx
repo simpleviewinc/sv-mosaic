@@ -2,7 +2,7 @@ import testArray from "../../utils/testArray";
 import * as assert from "assert";
 import { actions, coreReducer, generateLayout } from "./formUtils";
 import { FieldDef } from "../../components/Field";
-import { required } from './validators';
+import { required, validateEmail, validateNumber, validateURL } from './validators';
 import { TextFieldDef } from "../FormFieldText";
 
 const runTests = (tests, type) => {
@@ -34,6 +34,13 @@ const runTests = (tests, type) => {
 
 				assert.deepStrictEqual(result, test['result']);
 				assert.notStrictEqual(state, result);
+			});
+			break;
+		case 'validator':
+			testArray(tests, test => {
+				const result = test['validator'](test['value']);
+
+				assert.deepStrictEqual(result, test['result']);
 			});
 			break;
 		default:
@@ -822,4 +829,256 @@ describe('DISPATCHERS: resetForm', () => {
 	];
 
 	runTests(tests, 'dispatch');
+});
+
+describe('VALIDATORS: validateEmail', () => {
+	const tests = [
+		{
+			name: 'Empty field',
+			args: {
+				validator: validateEmail,
+				value: undefined,
+				result: undefined,
+			}
+		},
+		{
+			name: 'Correct email',
+			args: {
+				validator: validateEmail,
+				value: 'john.smith@simpleviewinc.com',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Incorrect email',
+			args: {
+				validator: validateEmail,
+				value: 'john.smith',
+				result: 'The value is not a valid e-mail',
+			}
+		},
+		{
+			name: 'Multiple domains',
+			args: {
+				validator: validateEmail,
+				value: 'john.smith@simpleviewinc.com.mx.abc',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Incomplete email',
+			args: {
+				validator: validateEmail,
+				value: 'john.smith@simpleviewinc',
+				result: 'The value is not a valid e-mail',
+			}
+		},
+	];
+
+	runTests(tests, 'validator');
+});
+
+describe('VALIDATORS: required', () => {
+	const tests = [
+		{
+			name: 'Empty field',
+			args: {
+				validator: required,
+				value: undefined,
+				result: 'This field is required, please fill it',
+			}
+		},
+		{
+			name: 'Field with value',
+			args: {
+				validator: required,
+				value: 'Foo',
+				result: undefined,
+			}
+		},
+	];
+
+	runTests(tests, 'validator');
+});
+
+describe('VALIDATORS: validateNumber', () => {
+	const tests = [
+		{
+			name: 'Empty field',
+			args: {
+				validator: validateNumber,
+				value: undefined,
+				result: undefined,
+			}
+		},
+		{
+			name: 'Positive integer number',
+			args: {
+				validator: validateNumber,
+				value: 123,
+				result: undefined,
+			}
+		},
+		{
+			name: 'Positive integer number as string',
+			args: {
+				validator: validateNumber,
+				value: '123',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Negative integer number',
+			args: {
+				validator: validateNumber,
+				value: -123,
+				result: undefined,
+			}
+		},
+		{
+			name: 'Negative integer number as string',
+			args: {
+				validator: validateNumber,
+				value: '-123',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Exponential number',
+			args: {
+				validator: validateNumber,
+				value: '10e20',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Decimal number',
+			args: {
+				validator: validateNumber,
+				value: 123.456,
+				result: undefined,
+			}
+		},
+		{
+			name: 'Decimal number as string',
+			args: {
+				validator: validateNumber,
+				value: '123.456',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Letters',
+			args: {
+				validator: validateNumber,
+				value: 'abc',
+				result: 'The value is not a number',
+			}
+		},
+	];
+
+	runTests(tests, 'validator');
+});
+
+describe('VALIDATORS: validateURL', () => {
+	const tests = [
+		{
+			name: 'Empty field',
+			args: {
+				validator: validateURL,
+				value: undefined,
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website without protocol',
+			args: {
+				validator: validateURL,
+				value: 'www.simpleviewinc.com',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website without www',
+			args: {
+				validator: validateURL,
+				value: 'simpleviewinc.com',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with https protocol',
+			args: {
+				validator: validateURL,
+				value: 'https://www.simpleviewinc.com',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with http protocol',
+			args: {
+				validator: validateURL,
+				value: 'http://www.simpleviewinc.com',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with multiple domains',
+			args: {
+				validator: validateURL,
+				value: 'www.simpleviewinc.com.mx',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with subdomain',
+			args: {
+				validator: validateURL,
+				value: 'kube.simpleviewinc.com',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with port',
+			args: {
+				validator: validateURL,
+				value: 'www.simpleviewinc.com:1000',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with path',
+			args: {
+				validator: validateURL,
+				value: 'www.simpleviewinc.com/new/dms',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with port and path',
+			args: {
+				validator: validateURL,
+				value: 'www.simpleviewinc.com:1000/new/dms',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Website with query',
+			args: {
+				validator: validateURL,
+				value: 'www.simpleviewinc.com/?q=newdms',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Invalid website',
+			args: {
+				validator: validateURL,
+				value: 'abc',
+				result: 'The value is not a valid URL',
+			}
+		},
+	];
+
+	runTests(tests, 'validator');
 });
