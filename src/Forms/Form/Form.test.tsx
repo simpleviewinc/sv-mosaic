@@ -2,7 +2,7 @@ import testArray from "../../utils/testArray";
 import * as assert from "assert";
 import { actions, coreReducer, generateLayout } from "./formUtils";
 import { FieldDef } from "../../components/Field";
-import { required, validateEmail, validateNumber, validateURL } from './validators';
+import { required, validateEmail, validateNumber, validateSlow, validateURL } from './validators';
 import { TextFieldDef } from "../FormFieldText";
 
 const runTests = (tests, type) => {
@@ -37,8 +37,8 @@ const runTests = (tests, type) => {
 			});
 			break;
 		case 'validator':
-			testArray(tests, test => {
-				const result = test['validator'](test['value']);
+			testArray(tests, async test => {
+				const result = await test['validator'](test['value']);
 
 				assert.deepStrictEqual(result, test['result']);
 			});
@@ -871,6 +871,37 @@ describe('VALIDATORS: validateEmail', () => {
 				validator: validateEmail,
 				value: 'john.smith@simpleviewinc',
 				result: 'The value is not a valid e-mail',
+			}
+		},
+	];
+
+	runTests(tests, 'validator');
+});
+
+describe('VALIDATORS: validateSlow', () => {
+	const tests = [
+		{
+			name: 'Empty field',
+			args: {
+				validator: validateSlow,
+				value: undefined,
+				result: undefined,
+			}
+		},
+		{
+			name: 'Field with a random value',
+			args: {
+				validator: validateSlow,
+				value: 'Foo',
+				result: undefined,
+			}
+		},
+		{
+			name: 'Field with correct value',
+			args: {
+				validator: validateSlow,
+				value: 'test',
+				result: "String cannot include 'test'",
 			}
 		},
 	];
