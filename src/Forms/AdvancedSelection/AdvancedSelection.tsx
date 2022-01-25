@@ -38,7 +38,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 		value,
 	} = props;
 
-	const modalReducer = useForm();
+	const modalReducer = useForm();	
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -160,11 +160,11 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 
 	/**
    * Called when the cross icon of a single chip is clicked.
-   * @param label is used to filter the chip from the
+   * @param optionValue is used to filter the chip from the
    * optionsChecked array.
    */
-	const onChipDelete = (label) => {
-		const filteredChips = modalReducer?.state.data['checkboxList'].filter((option) => option.label !== label)
+	const onChipDelete = (optionValue) => {
+		const filteredChips = modalReducer?.state.data['checkboxList'].filter((option) => option !== optionValue)
 
 		modalReducer?.dispatch(
 			actions.setFieldValue({
@@ -187,32 +187,47 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 		}
 	}, [isModalOpen, modalReducer?.state?.data['checkboxList']]);
 
+
+	/**
+	 * Maps over a list of options.
+	 * @param options to map over.
+	 * @returns an array of options objects
+	 * with a label/value structure.
+	 */
+	const mapListOfOptions = (options) => {
+		if (!options) return;
+
+		return options.map((option) =>
+			filteredList.find((o) => o.value === option)
+		);
+	};
+
 	/**
    * JSX element with the list of selected options displayed
    * as chips.
    */
 	const chips = useMemo(() => {
-		if (isModalOpen)
-			return modalReducer?.state?.data?.checkboxList?.map((option, idx) => (
+		let optionsChecked = [];
+
+		if (isModalOpen) {
+			optionsChecked = mapListOfOptions(modalReducer?.state?.data?.checkboxList);
+		}
+
+		if (value) {
+			optionsChecked = mapListOfOptions(value);
+		}
+
+		if (optionsChecked?.length > 0) {
+			return optionsChecked.map((option, idx) => (
 				<Chip
 					disabled={fieldDef?.disabled}
 					key={`${option.label}-${idx}`}
 					label={option.label}
-					onDelete={() => onChipDelete(option.label)}
+					onDelete={() => onChipDelete(option.value)}
 				/>
 			));
-
-		if (value)
-			return value?.map((option, idx) => (
-				<Chip
-					disabled={fieldDef?.disabled}
-					key={`${option.label}-${idx}`}
-					label={option.label}
-					onDelete={() => onChipDelete(option.label)}
-				/>
-			));
-
-		return [];
+		}
+		return optionsChecked;
 	}, [isModalOpen, value, modalReducer.state.data.checkboxList]);
 
 	/**
@@ -290,7 +305,6 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 		showMore,
 		chips
 	]);
-
 
 	/**
    * Handler for the input element
