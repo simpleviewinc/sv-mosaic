@@ -2,9 +2,8 @@ import { MosaicMIcon } from '@root/types';
 
 export type TableRow = {
 	/**
-	 * Unique identifier. It is used as a value for 
-	 * the react key prop and as an identifier for the 
-	 * draggable item.  
+	 * Unique identifier. Used as an 
+	 * identifier for the draggable item.
 	 */
 	id: string;
 	/**
@@ -53,41 +52,12 @@ export type TableDef = {
 	headers: string[];
 }
 
-// export interface TableProps {
-// 	inputSettings: {
-// 		/**
-//    * Possible actions that the table could execute and display.
-//    */
-// 		extraActions?: Actions[];
-// 		/**
-//   * Used to create a new row.
-//   */
-// 		handleAddElement: () => void;
-// 		/**
-// 		 * Used to define how that edition should happen.
-// 		 */
-// 		handleEdit: (rowIndex: number) => void;
-// 		/**
-// 		 * It can be used to show some kind of confirmation
-// 		 * before removing the row.
-// 		 */
-// 		handleDelete?: (rowIndex: number) => void;
-// 		/**
-// 		 * Table headers.
-// 		 */
-// 		headers: string[];
-// 	}
+export type TableDataState = {
+  table: TableRow[];
+}
 
-// 	/**
-// 	 * Disable all clickable elements.
-// 	 */
-// 	disabled?: boolean;
-// 	/**
-// 	 * Row data
-// 	 */
-// 	value: TableRow[];
-// 	/**
-// 	 * Used to keep track of row data changes
-// 	 */
-// 	onChange?: (data: TableRow[]) => void;
-// }
+export type UseTableReturnType = {
+	addTableRow: () => void;
+	editAction: (rowIndex: number) => void;
+	extraActionsTable: Actions[];
+}
