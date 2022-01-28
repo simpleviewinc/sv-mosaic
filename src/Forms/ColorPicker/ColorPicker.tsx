@@ -1,16 +1,18 @@
-import { MosaicFieldProps } from '@root/components/Field';
 import * as React from 'react';
 import { memo, ReactElement, useState } from 'react';
-import { SketchPicker } from 'react-color';
-import { ColorContainer, ColorDiv, Cover, PopOver } from './ColorPicker.styled';
-// import { ColorPickerProps } from './ColorPickerTypes';
+// External libraries
+import { ColorResult, SketchPicker } from 'react-color';
 
-const ColorPicker = (props: MosaicFieldProps<any>): ReactElement => {
-	const {
-		fieldDef,
-		value,
-		onChange
-	} = props;
+// Types
+import { MosaicFieldProps } from '@root/components/Field';
+
+// Styles
+import { ColorContainer, ColorDiv, Cover, PopOver } from './ColorPicker.styled';
+
+const ColorPicker = (
+	props: MosaicFieldProps<unknown, ColorResult>
+): ReactElement => {
+	const { fieldDef, value, onChange } = props;
 
 	// State variables
 	const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -23,6 +25,8 @@ const ColorPicker = (props: MosaicFieldProps<any>): ReactElement => {
 		setDisplayColorPicker(false);
 	};
 
+	const { rgb } = (value as ColorResult) || {};
+
 	return (
 		<>
 			<ColorContainer
@@ -32,24 +36,14 @@ const ColorPicker = (props: MosaicFieldProps<any>): ReactElement => {
 				<ColorDiv
 					data-testid='colordiv-test'
 					disabled={fieldDef?.disabled}
-					color={value ? value : {
-						rgb: {
-							r: 0,
-							g: 141,
-							b: 168,
-							a: 1,
-						}
-					}}
+					color={value ? rgb : {r: 0, g: 141, b: 168, a: 1}}
 					onClick={handleClick}
 				/>
 			</ColorContainer>
 			{displayColorPicker && !fieldDef?.disabled && (
 				<PopOver>
 					<Cover onClick={handleClose} />
-					<SketchPicker
-						color={value ? value : '#008DA8'}
-						onChange={onChange}
-					/>
+					<SketchPicker color={value ? rgb : '#008DA8'} onChange={onChange} />
 				</PopOver>
 			)}
 		</>
