@@ -57,7 +57,7 @@ export type TableDataState = {
 }
 
 export type UseTableReturnType = {
-	addTableRow: () => void;
-	editAction: (rowIndex: number) => void;
-	extraActionsTable: Actions[];
+	addTableRow: TableDef['handleAddElement'];
+	editAction: TableDef['handleEdit'];
+	extraActionsTable: TableDef['extraActions'];
 }
