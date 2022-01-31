@@ -1,43 +1,73 @@
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import * as React from 'react';
-import ColorPicker from './ColorPicker';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { ColorResult } from 'react-color';
+
+// Components
+import ColorPicker from './ColorPicker';
 
 afterEach(cleanup);
+
+const { getByTestId, getByText, queryByText } = screen;
+
+const value: ColorResult = {
+	hsl: {
+		h: 212.15686274509804,
+		s: 1,
+		l: 0.3,
+		a: 1,
+	},
+	hex: '#004799',
+	rgb: {
+		r: 0,
+		g: 71,
+		b: 153,
+		a: 1,
+	},
+};
 
 describe('ColorPicker component', () => {
 	it('should display the color picker when the selected color element is clicked', () => {
 		render(
 			<ColorPicker
-				value={{
-					r: 0,
-					g: 71,
-					b: 153,
-					a: 1,
-				}}
+				value={value}
 				fieldDef={{ name: 'colorPicker', label: '', disabled: false }}
 				onChange={() => jest.fn()}
 			/>
 		);
 
-		const selectedColorDiv = screen.getByTestId('colordiv-test');
+		const selectedColorDiv = getByTestId('colordiv-test');
 		fireEvent.click(selectedColorDiv);
-		const colorPicker = screen.getByText('hex');
+		const colorPicker = getByText('hex');
 
-		expect(selectedColorDiv).toBeTruthy();
 		expect(colorPicker).toBeTruthy();
 		expect(selectedColorDiv).toHaveStyle(`background:rgb(0, 71, 153)`);
 	});
 
-	it('should not display the color picker when is disabled', () => {
+	it('should not open the color picker when is disabled', () => {
 		render(
-			<ColorPicker value='#fff' fieldDef={{ name: 'colorPicker', label: '', disabled: true }} onChange={() => jest.fn()} />
+			<ColorPicker
+				value={value}
+				fieldDef={{ name: 'colorPicker', label: '', disabled: true }}
+				onChange={() => jest.fn()}
+			/>
 		);
 
-		const selectedColorDiv = screen.getByTestId('colordiv-test');
-		fireEvent.click(selectedColorDiv);
-		const colorPicker = screen.queryByText('hex');
+		fireEvent.click(getByTestId('colordiv-test'));
+		const colorPicker = queryByText('hex');
 
 		expect(colorPicker).toBe(null);
+	});
+
+	it('should display the default color', () => {
+		render(
+			<ColorPicker
+				value={undefined}
+				fieldDef={{ name: 'colorPicker', label: '', disabled: true }}
+				onChange={() => jest.fn()}
+			/>
+		);
+
+		expect(getByTestId('colordiv-test')).toHaveStyle(`background:rgb(0, 141, 168)`);
 	});
 });
