@@ -77,8 +77,6 @@ const Table = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactElement => {
 
 		if (rowDataCopy.length === 0) rowDataCopy = undefined;
 
-		console.log('Row data copy: ', rowDataCopy);
-
 		setRows(rowDataCopy);
 		onChange(rowDataCopy);
 	};
@@ -187,8 +185,7 @@ const Table = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactElement => {
 																	icon={DeleteIcon}
 																	onClick={() => deleteRow(rowIndex)}
 																/>
-																{fieldDef?.inputSettings?.extraActions?.length >
-                                  0 && (
+																{fieldDef?.inputSettings?.extraActions?.length > 0 && (
 																	<>
 																		{fieldDef?.inputSettings?.extraActions.map(
 																			(action, index) => (
