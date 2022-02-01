@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import DateTimeInput from '../DateTimeInput';
+import DateTimeInput from '.';
 
 describe('DateTimeInput component', () => {
 	it('should should display the date value', () => {
