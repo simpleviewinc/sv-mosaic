@@ -27,3 +27,44 @@
 // };
 
 // export default memo(TextEditor);
+
+import * as React from 'react';
+import { memo, ReactElement, useState, useRef } from 'react';
+import JoditEditor from "jodit-react";
+import { MosaicFieldProps } from '@root/components/Field';
+
+const TextEditor = (props: MosaicFieldProps<unknown, string>): ReactElement => {
+	const {
+		fieldDef,
+		onChange,
+		onBlur,
+		value,
+	} = props;
+
+	const editor = useRef(null);
+
+	const config = {
+		readonly: false, // all options from https://xdsoft.net/jodit/doc/
+		disabled: fieldDef?.disabled,
+	}
+
+	const updateValue = (e: string) => {
+		if (onChange)
+			onChange(e);
+
+		if (onBlur)
+			onBlur(e);
+	}
+
+	return (
+		<JoditEditor
+			ref={editor}
+			value={value}
+			config={config}
+			onBlur={(e) => updateValue(e)}
+		// onChange={(e) => onChange && onChange(e)}
+		/>
+	);
+};
+
+export default memo(TextEditor);

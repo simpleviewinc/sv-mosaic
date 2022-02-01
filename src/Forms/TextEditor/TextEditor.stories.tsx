@@ -1,7 +1,13 @@
 // BUG TO BE FIXED
 import * as React from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { ReactElement/*, useState*/ } from 'react';
-import { /*boolean, text,*/ withKnobs } from '@storybook/addon-knobs';
+import { /*boolean, text,*/ boolean, text, withKnobs } from '@storybook/addon-knobs';
+import JoditEditor from "jodit-react";
+import TextEditor from './TextEditor';
+import Form from '../Form/Form';
+import { FieldDef } from '@root/components/Field';
+import { useForm } from '../Form/formUtils';
 // import { EditorState } from "draft-js";
 
 // Components
@@ -13,43 +19,80 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Example = (): ReactElement => {
-	// const disabled = boolean('Disabled', false);
-	// const errorText = text('Error text', '');
-	// const error = boolean('Error', false);
-	// const isError = error && errorText.length > 0;
+export const JoditExample = (): ReactElement => {
+	const editor = useRef(null)
+	const [content, setContent] = useState('')
 
-	// const [editorState, setEditorState] = useState(EditorState.createEmpty());
+	const config = {
+		readonly: false // all options from https://xdsoft.net/jodit/doc/
+	}
 
-	// const onEditorStateChange = (editorState) => {
-	// 	setEditorState(editorState);
-	// };
+	return (
+		<JoditEditor
+			ref={editor}
+			value={content}
+			config={config}
+			onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+			onChange={newContent => { }}
+		/>
+	);
+};
+
+export const Playground = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const disabled = boolean('Disabled', false);
+	const label = text('Label', 'Label');
+	const helperText = text('Helper text', 'Helper Text');
+	const instructionText = text('Instruction text', 'Instruction text');
+	const required = boolean('Required', false);
+	const toggleLabel = text('Toggle label', 'Toggle label');
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "textEditor",
+					label,
+					type: "textEditor",
+					required,
+					disabled,
+					helperText,
+					instructionText,
+				},
+			] as FieldDef[],
+		[required, disabled, toggleLabel, label, helperText, instructionText]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
 
 	return (
 		<>
-			<h1>TextEditor</h1>
-			{/* <Field
-				label={text('Label', 'Label')}
-				error={text('Error text', '')}
-				required={boolean('Required', false)}
-				disabled={disabled}
-				instructionText={text('Instruction text', 'Instruction text')}
-				helperText={text('Helper text', 'Helper text')}
-				type='TextEditor'
-			>
-				<TextEditor
-					disabled={disabled}
-					error={isError}
-					onChange={onEditorStateChange}
-					placeholder={text('Placeholder', 'Placeholder')}
-					value={editorState}
-				/>
-			</Field>
-			<textarea
-				disabled
-				value={JSON.stringify(editorState.getCurrentContent(), null, 4)}
-				style={{marginTop: '10px', width: '600px', height: '450px'}}
-			/> */}
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
 		</>
 	);
 };

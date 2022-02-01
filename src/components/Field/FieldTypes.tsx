@@ -13,13 +13,12 @@ export interface MosaicFieldProps<T = any, U = any> {//FieldProps
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
-	// onChange?: HTMLAttributes<HTMLElement>['onChange'] | ((e: any[]) => void | unknown) | PhoneInputProps['onChange'];
 	onChange?: (e: U) => void;
-	// onChange?: any;
 	/**
 	 * Function that listens to a blur event on the field and executes an action.
 	 */
-	onBlur?: HTMLAttributes<HTMLElement>['onBlur'];
+	onBlur?: ((e: any) => void);
+	// onBlur?: HTMLAttributes<HTMLElement>['onBlur'];
 	/**
 	 * Specifies which form element a label is bound to.
 	 */
