@@ -7,7 +7,7 @@ import { FormFieldCheckboxDef } from './FormFieldCheckboxTypes';
 import { StyledCheckboxList } from './FormFieldCheckbox.styled';
 
 const FormFieldCheckbox = (
-	props: MosaicFieldProps<FormFieldCheckboxDef>
+	props: MosaicFieldProps<FormFieldCheckboxDef, string[]>
 ): ReactElement => {
 	const {
 		fieldDef,
