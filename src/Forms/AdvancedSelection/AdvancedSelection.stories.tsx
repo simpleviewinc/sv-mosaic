@@ -76,49 +76,90 @@ const externalOptions = [
 	},
 ];
 
-export const Example = (): ReactElement => {
-	const [value, setValue] = useState([]);
+export const Playground = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 	const [options, setOptions] = useState(externalOptions);
 
-	const onChange = (savedOptions: optionsWithCategory[]) => {
-		// console.log("Stories: ", savedOptions);
-		setValue(savedOptions);
-	};
+	const modalTitle = text('Modal title', 'Modal title');
+	const groupByCategory = boolean('Group by category', false);
+	const label = text('Label', 'Label');
+	const required = boolean('Required', false);
+	const disabled = boolean('Disabled', false);
+	const instructionText = text('Instruction text', 'Instruction text');
+	const helperText = text('Helper text', 'Helper text');
 
 	const updateOptionsCb = (newOption) => {
 		const newOptions = [...options, newOption];
 		setOptions(newOptions);
 	};
 
-	const label = text('Label', 'Label');
-	const required = boolean('Required', false);
-	const disabled = boolean('Disabled', false);
-	const errorText = text('Error text', '');
+	const fields = useMemo(
+		() => (
+			[
+				{
+					name: 'advancedSelection',
+					label,
+					required,
+					disabled,
+					helperText,
+					instructionText,
+					type: 'advancedSelection',
+					inputSettings: {
+						modalTitle,
+						checkboxOptions: options,
+						groupByCategory,
+						updateOptionsCb,
+					}
+				},
+			] as FieldDef<AdvancedSelectionDef>[]
+		),
+		[
+			label,
+			required,
+			disabled,
+			helperText,
+			instructionText,
+			registerFields,
+			modalTitle,
+			groupByCategory,
+			options
+		]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
 
 	return (
-		<AdvancedSelection
-			fieldDef={{
-				name: 'advancedSelection',
-				disabled,
-				helperText: text('Helper text', 'Helper text'),
-				instructionText: text('Instruction text', 'Instruction text'),
-				label,
-				required,
-				inputSettings: {
-					modalTitle: text('Modal title', 'Modal title'),
-					checkboxOptions: options,
-					groupByCategory: boolean('Group by category', false),
-					updateOptionsCb
-				}
-			}}
-			error={errorText}
-			value={value}
-			onChange={onChange}
-		/>
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
 	);
 };
 
-export const FormExample = (): ReactElement => {
+export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 	const [options, setOptions] = useState(externalOptions);
 
