@@ -1,4 +1,8 @@
-export type optionsWithCategory = { category?: string, label: string, value: string };
+import { MosaicLabelValue } from 'src/types/index'
+
+export type optionsWithCategory = {
+	category?: string;
+} & MosaicLabelValue;
 
 export type AdvancedSelectionDef = {
 	/**
@@ -20,5 +24,14 @@ export type AdvancedSelectionDef = {
 	/**
 	 * Used to get the selected options on the parent component.
 	 */
+	getOptions?: ({
+		currentPage,
+		filter,
+		limit,
+	}: {
+		currentPage?: number;
+		filter?: string;
+		limit?: number;
+	}) => optionsWithCategory[];
 	//onChange: (selectedOptions: optionsWithCategory[]) => void;
 }

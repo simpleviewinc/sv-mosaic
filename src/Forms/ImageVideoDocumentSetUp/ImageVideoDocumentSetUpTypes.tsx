@@ -1,14 +1,3 @@
-export type AssetProperties = {
-	/**
-	 * Name of the asset property.
-	 */
-	label: string;
-	/**
-	 * Value of the asset property.
-	 */
-	value: string;
-}
-
 export type Options = {
 	/**
 	 * Name of the menu option.
@@ -22,11 +11,6 @@ export type Options = {
 }
 
 export type ImageVideoDocumentSetUpDef = {
-	/**
-	 * Array of properties that an asset like an image,
-	 * document or video may contain.
-	 */
-	//value: AssetProperties[];
 	/**
 	 * Callback executed when the remove button is clicked.
 	 * This function should empty the assetProperties array

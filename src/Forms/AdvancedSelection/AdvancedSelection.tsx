@@ -1,5 +1,16 @@
 import * as React from 'react';
-import { ChangeEvent, memo, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+	ChangeEvent,
+	memo,
+	ReactElement,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState
+} from 'react';
+
+// Types
+import { FieldDef } from '@root/components/Field';
 import { AdvancedSelectionDef } from './AdvancedSelectionTypes';
 import { MosaicFieldProps } from '@root/components/Field';
 
@@ -25,8 +36,9 @@ import {
 	StyledField,
 	StyledInput,
 } from './AdvancedSelection.styled';
+
+// Utils
 import { actions, useForm } from '../Form/formUtils';
-import { FieldDef } from '@root/components/Field';
 
 const MAX_CHIPS_TO_SHOW = 8;
 
@@ -38,7 +50,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 		value,
 	} = props;
 
-	const modalReducer = useForm();	
+	const modalReducer = useForm();
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,16 +71,22 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	}, []);
 
 	const filteredList = useMemo(() => {
-		if (modalReducer?.state?.data.searchInput) {
+		if (modalReducer?.state?.data?.searchInput) {
 			return fieldDef?.inputSettings?.checkboxOptions?.filter(
-				(d) =>
-					modalReducer?.state?.data.searchInput === '' ||
-					d.label.toLowerCase().includes(modalReducer?.state?.data.searchInput?.trim().toLowerCase()) ||
-					d.category?.toLowerCase().includes(modalReducer?.state?.data.searchInput?.trim().toLowerCase())
+				(option) => modalReducer?.state?.data?.searchInput === '' ||
+					option.label.toLowerCase().includes(modalReducer?.state?.data?.searchInput?.trim().toLowerCase()) ||
+					(fieldDef?.inputSettings?.groupByCategory &&
+						option.category?.toLowerCase().includes(modalReducer?.state?.data?.searchInput?.trim().toLowerCase())
+					)
+
 			);
 		}
 		return fieldDef?.inputSettings?.checkboxOptions;
-	}, [modalReducer?.state?.data.searchInput, fieldDef?.inputSettings?.checkboxOptions]);
+	}, [
+		modalReducer?.state?.data.searchInput,
+		fieldDef?.inputSettings?.checkboxOptions,
+		fieldDef?.inputSettings?.groupByCategory
+	]);
 
 	/**
    * Fills a Map with the options ensuring that categories
@@ -111,14 +129,6 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
    */
 	const handleSave = () => {
 		setIsModalOpen(false);
-		// setSavedOption(modalReducer?.state?.data['checkboxList']);
-		// setSavedOption(optionsChecked);
-		// const selectedOptions = options.filter((option) => {
-		// 	return modalReducer?.state?.data['checkboxList'].indexOf(option.value) >= 0;
-		// });
-		// const selectedOptions = options.filter((option) => {
-		// 	return optionsChecked.indexOf(option.value) >= 0;
-		// });
 
 		onChange(modalReducer?.state?.data['checkboxList']);
 	};
@@ -146,19 +156,6 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	};
 
 	/**
-   * Creates and array with the checked options
-   * @param checked
-   */
-	const onChangeCheckBoxList = async (checked) => {
-		await modalReducer?.dispatch(
-			actions.setFieldValue({
-				name: 'checkboxList',
-				value: checked,
-			})
-		);
-	};
-
-	/**
    * Called when the cross icon of a single chip is clicked.
    * @param optionValue is used to filter the chip from the
    * optionsChecked array.
@@ -176,13 +173,6 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 
 	useEffect(() => {
 		if (!isModalOpen) {
-			// const selectedOptions = options.filter((option) => {
-			// 	return modalReducer?.state?.data['checkboxList']?.indexOf(option.value) >= 0;
-			// });
-			// const selectedOptions = options.filter((option) => {
-			// 	return optionsChecked.indexOf(option.value) >= 0;
-			// });
-
 			onChange(modalReducer?.state?.data['checkboxList']);
 		}
 	}, [isModalOpen, modalReducer?.state?.data['checkboxList']]);
@@ -208,7 +198,6 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
    */
 	const chips = useMemo(() => {
 		let optionsChecked = [];
-
 		if (isModalOpen) {
 			optionsChecked = mapListOfOptions(modalReducer?.state?.data?.checkboxList);
 		}
@@ -218,7 +207,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 		}
 
 		if (optionsChecked?.length > 0) {
-			return optionsChecked.map((option, idx) => (
+			return optionsChecked?.map((option, idx) => (
 				<Chip
 					disabled={fieldDef?.disabled}
 					key={`${option.label}-${idx}`}
@@ -228,14 +217,27 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 			));
 		}
 		return optionsChecked;
-	}, [isModalOpen, value, modalReducer.state.data.checkboxList]);
+	}, [isModalOpen, value, modalReducer.state.data.checkboxList, fieldDef?.disabled]);
 
 	/**
-   * Renders a checkbox list for each category if groupByCategory is true
-   * otherwise just displays a single checkbox list with all the options
-   * @returns a list of CheckboxList or a single Checkboxlist
-   */
-	const showCheckboxList = useCallback(() => {
+	* Renders a checkbox list for each category if groupByCategory is true
+	* otherwise just displays a single checkbox list with all the options
+	* @returns a list of CheckboxList or a single Checkboxlist
+	*/
+	const showCheckboxList = (props): ReactElement[] | ReactElement => {
+		/**
+		 * Creates and array with the checked options
+		 * @param checked
+		 */
+		const onChangeCheckBoxList = async (checked) => {
+			await modalReducer?.dispatch(
+				actions.setFieldValue({
+					name: 'checkboxList',
+					value: checked,
+				})
+			);
+		};
+
 		if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 			return Array.from(optionsWithCategories).map(([category, value]) => (
 				<CheckboxListWrapper key={`${category}-${value}`}>
@@ -243,8 +245,9 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 						{category && <CategoryTitle>{category}</CategoryTitle>}
 						<CheckboxList
 							options={value}
-							checked={modalReducer?.state?.data?.checkboxList}
+							checked={props.value}
 							onChange={onChangeCheckBoxList}
+							disabled={fieldDef?.disabled}
 						/>
 					</OptionsCheckedModalWrapper>
 				</CheckboxListWrapper>
@@ -254,27 +257,21 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 				<CheckboxListWrapper>
 					<CheckboxList
 						options={filteredList}
-						checked={modalReducer?.state?.data?.checkboxList}
+						checked={props.value}
 						onChange={onChangeCheckBoxList}
+						disabled={fieldDef?.disabled}
 					/>
 				</CheckboxListWrapper>
 			);
 		}
-	}, [
-		fieldDef?.inputSettings?.groupByCategory,
-		optionsWithCategories,
-		isModalOpen,
-		modalReducer?.state?.data?.checkboxList,
-		modalReducer?.state?.data?.searchInput,
-		filteredList
-	]);
+	};
 
 	/**
-   * @returns the list of chips and the 'X more' or 'Hide' text
-   * if the selected options are greater than MAX_CHIPS_TO_SHOW
-   */
-	const showListOfChips = useCallback(() => {
-		return modalReducer?.state?.data?.checkboxList?.length > 0 ? (
+	* @returns the list of chips and the 'X more' or 'Hide' text
+	* if the selected options are greater than MAX_CHIPS_TO_SHOW
+	*/
+	const showListOfChips = useCallback((): ReactElement => {
+		return modalReducer?.state?.data?.checkboxList?.length > 0 && (
 			<OptionsCheckedModalWrapper isModalOpen={isModalOpen}>
 				<ChipsWrapper isModalOpen={isModalOpen} isMobileView={isMobileView}>
 					{showMore ? chips : chips?.slice(0, MAX_CHIPS_TO_SHOW)}
@@ -295,90 +292,87 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 				)}
 			</OptionsCheckedModalWrapper>
 		)
-			:
-			(
-				<></>
-			);
 	}, [
 		modalReducer?.state?.data?.checkboxList,
 		isModalOpen,
 		showMore,
-		chips
+		chips,
+		fieldDef?.disabled
 	]);
 
-	/**
-   * Handler for the input element
-   * @param e input change event
-   */
-	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-		modalReducer?.dispatch(
-			actions.setFieldValue({
-				name: 'searchInput',
-				value: e.target.value
-			})
-		);
-	};
-
-	/**
-   * Adds an options to the list.
-   */
-	const createOption = () => {
-		const newOption = {
-			category: 'New Options',
-			value: `${modalReducer?.state?.data.searchInput}_${fieldDef?.inputSettings?.checkboxOptions?.length}`,
-			label: modalReducer?.state?.data.searchInput,
+	const searchInput = useCallback((props): ReactElement => {
+		/**
+		 * Handler for the input element
+		 * @param e input change event
+		 */
+		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+			modalReducer?.dispatch(
+				actions.setFieldValue({
+					name: 'searchInput',
+					value: e.target.value
+				})
+			);
 		};
 
-		fieldDef?.inputSettings?.updateOptionsCb ? fieldDef?.inputSettings?.updateOptionsCb(newOption) : undefined;
-		// setOptions(currentOptions);
-	};
+		/**
+		 * Adds an options to the list.
+		 */
+		const createOption = () => {
+			const newOption = {
+				category: 'New Options',
+				value: `${props.value}_${fieldDef?.inputSettings?.checkboxOptions?.length}`,
+				label: props.value,
+			};
 
-	const searchInput = useCallback(() => (
-		<InputWrapper isMobileView={isMobileView}>
-			<StyledInput
-				type='text'
-				placeholder='Search...'
-				onChange={onInputChange}
-				value={modalReducer?.state?.data.searchInput}
-			/>
-			{(modalReducer?.state?.data.searchInput && fieldDef?.inputSettings?.updateOptionsCb) && (
-				<Button
-					buttonType='blueText'
+			fieldDef?.inputSettings?.updateOptionsCb ? fieldDef?.inputSettings?.updateOptionsCb(newOption) : undefined;
+		};
+
+		return (
+			<InputWrapper isMobileView={isMobileView}>
+				<StyledInput
+					type='text'
+					placeholder='Search...'
+					onChange={onInputChange}
+					value={props.value ? props.value : ''}
 					disabled={fieldDef?.disabled}
-					icon={AddIcon}
-					onClick={createOption}
-				>
-					Create
-				</Button>
-			)}
-		</InputWrapper>
-	), [
-		isMobileView,
-		modalReducer?.state?.data?.searchInput,
-		fieldDef?.disabled,
-		AddIcon,
-	]);
+				/>
+				{(props.value && fieldDef?.inputSettings?.updateOptionsCb) && (
+					<Button
+						buttonType='blueText'
+						disabled={fieldDef?.disabled}
+						icon={AddIcon}
+						onClick={createOption}
+					>
+						Create
+					</Button>
+				)}
+			</InputWrapper>
+		)
+	}, [fieldDef?.disabled]);
 
-	const fields = useMemo(() => [
-		{
-			name: "listOfChips",
-			type: showListOfChips
-		},
-		{
-			name: "searchInput",
-			type: searchInput,
-		},
-		{
-			name: "checkboxList",
-			type: showCheckboxList,
-		},
-	] as FieldDef[],
-	[
-		props,
+	const fields = useMemo(
+		() => (
+			[
+				{
+					name: "listOfChips",
+					type: showListOfChips
+				},
+				{
+					name: "searchInput",
+					type: searchInput,
+				},
+				{
+					name: "checkboxList",
+					type: showCheckboxList,
+				},
+			] as FieldDef[]
+		), [
 		searchInput,
 		showCheckboxList,
 		showListOfChips,
-	]);
+		fieldDef?.disabled
+	]
+	);
 
 	useMemo(() => {
 		modalReducer?.registerFields(fields);
