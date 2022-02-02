@@ -27,10 +27,10 @@ const FormFieldPhoneSelectionDropdown = (
 	return !fieldDef?.disabled ? (
 		<PhoneInputWrapper
 			error={!!(fieldDef?.required && error)}
-			onBlur={(e) => onBlur(e.target.value)}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
 		>
 			<PhoneInput
-				autoFormat={fieldDef?.inputSettings?.autoFormat ? fieldDef?.inputSettings.autoFormat : true}
+				autoFormat={!!fieldDef?.inputSettings?.autoFormat}
 				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : 'us'}
 				disabled={fieldDef?.disabled}
 				onChange={onChange}
