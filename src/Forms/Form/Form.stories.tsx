@@ -423,11 +423,11 @@ export const KitchenSink = (): ReactElement => {
 						handleRemove: handleRemoveLinkSetup
 					}
 				},
-				/* {
+				{
 					name: 'textEditor',
 					label: 'Text Editor field',
 					type: 'textEditor'
-				}, */
+				},
 				{
 					name: 'table',
 					label: 'Table example',
@@ -1072,22 +1072,15 @@ export const SubmitInternalButtons = (): ReactElement => {
 			[
 				{
 					name: "text1",
-					label: "Full Name",
+					label: "Text field",
 					type: "text",
 					required: true,
 					instructionText: 'testing',
 					validators: [required],
 				},
 				{
-					name: "text2",
-					label: "age",
-					type: "text",
-					required: true,
-					validators: [required],
-				},
-				{
 					name: "check1",
-					label: "Text that copies to the next input",
+					label: "Checkbox",
 					type: "checkbox",
 					required: true,
 					inputSettings: {
@@ -1290,12 +1283,12 @@ export const SubmitInternalButtons = (): ReactElement => {
 					},
 					validators: [required],
 				},
-				/* {
+				{
 					name: 'textEditor',
 					label: 'Text Editor field',
 					type: 'textEditor',
 					validators: [required],
-				}, */
+				},
 				{
 					name: 'table',
 					label: 'Table example',
@@ -1352,15 +1345,14 @@ export const SubmitInternalButtons = (): ReactElement => {
 		alert('Cancelling form, going back to previous site');
 	};
 
-	const cancelButtonAttrs = useMemo(() => ({
-		disabled: !!state.data.text1 === false,
-	}), [state.data.text1]);
+	// const cancelButtonAttrs = useMemo(() => ({
+	// 	disabled: !!state.data.text1 === false,
+	// }), [state.data.text1]);
 
-	const submitButtonAttrs = useMemo(() => ({
-		disabled: !!state.data.text2 === false,
-		children: state?.data?.text2,
-		smallerButton: true,
-	}), [state.data.text2]);
+	// const submitButtonAttrs = useMemo(() => ({
+	// 	disabled: !!state.data.text2 === false,
+	// 	children: state?.data?.text2,
+	// }), [state.data.text2]);
 
 	return (
 		<>
@@ -1373,9 +1365,9 @@ export const SubmitInternalButtons = (): ReactElement => {
 				dispatch={dispatch}
 				events={events}
 				onCancel={onCancel}
-				cancelButtonAttrs={cancelButtonAttrs}
+				// cancelButtonAttrs={cancelButtonAttrs}
 				onSubmit={onSubmit}
-				submitButtonAttrs={submitButtonAttrs}
+			// submitButtonAttrs={submitButtonAttrs}
 			/>
 		</>
 	);
