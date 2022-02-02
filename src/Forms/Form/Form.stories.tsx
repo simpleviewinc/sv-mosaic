@@ -3,6 +3,7 @@ import { ReactElement, useEffect, useMemo, useState, useCallback } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
 // Utils
+import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils'
 import { useTable, headers } from '@root/forms/Table/tableUtils';
 import { useForm, actions } from "./formUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
@@ -258,20 +259,7 @@ export const KitchenSink = (): ReactElement => {
 					label: "Checkbox",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions
 					},
 				},
 				{
@@ -1091,20 +1079,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					type: "checkbox",
 					required: true,
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
@@ -1407,20 +1382,7 @@ export const GenericModal = (): ReactElement => {
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
@@ -1501,20 +1463,7 @@ export const FormAndModal = (): ReactElement => {
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
