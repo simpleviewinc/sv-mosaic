@@ -1,10 +1,3 @@
-export interface CountryData {
-	name: string;
-	dialCode: string;
-	countryCode: string;
-	format: string;
-}
-
 export type PhoneSelectionDef = {
 	/**
 	 * Phone formatting according to the country selected.

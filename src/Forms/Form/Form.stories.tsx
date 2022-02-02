@@ -2,18 +2,19 @@ import * as React from 'react';
 import { ReactElement, useEffect, useMemo, useState, useCallback } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
+// Utils
+import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils'
+import { useTable, headers } from '@root/forms/Table/tableUtils';
 import { useForm, actions } from "./formUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 
 // Components
 import Form from './Form';
-import { FieldDef } from '../../components/Field';
 import Modal from '../../components/Modal';
 
-// Icons
-import MenuIcon from '@material-ui/icons/Menu';
-import TranslateIcon from '@material-ui/icons/Translate';
+// Types
 import { TextFieldDef } from '../FormFieldText/FormFieldTextTypes';
+import { FieldDef } from '../../components/Field';
 
 export default {
 	title: 'Forms|Form',
@@ -23,89 +24,15 @@ export default {
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields } = useForm();
 
-	const possibleTableRows = [
-		{
-			id: '1',
-			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
-		},
-		{
-			id: '2',
-			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
-		},
-		{
-			id: '3',
-			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
-		},
-		{
-			id: '4',
-			items: ['George', 'george@email.com', '01/01/2021', '3231-962-7516'],
-		},
-		{
-			id: '5',
-			items: ['Doe', 'doe@email.com', '12/24/2020', '011-962-111'],
-		},
-		{
-			id: '6',
-			items: ['Test', 'test@email.com', '12/01/2020', '788-962-7516'],
-		},
-		{
-			id: '7',
-			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
-		},
-		{
-			id: '8',
-			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
-		},
-		{
-			id: '9',
-			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
-		},
-	];
-
-	const addTableRow = useCallback(() => {
-		const tableDataLength = state.data['table'] ? state.data['table'].length : 0;
-		if (tableDataLength === 0) {
-			dispatch(
-				actions.setFieldValue({
-					name: 'table',
-					value: [possibleTableRows[0]]
-				})
-			);
-		} else if (tableDataLength >= possibleTableRows.length) {
-			alert('There are no more elements to add');
-		} else {
-			dispatch(
-				actions.setFieldValue({
-					name: 'table',
-					value: [...state.data['table'], possibleTableRows[tableDataLength]]
-				})
-			);
-		}
-
-	}, [state.data['table']]);
-
-	const editTableRow = () => {
-		alert('Edit button clicked');
-	};
+	const { addTableRow, editAction, extraActionsTable } = useTable(
+		state.data,
+		'table',
+		dispatch
+	);
 
 	const deleteTableRow = () => {
 		alert('Delete button clicked');
 	};
-
-	const tableHeaders = [];
-
-	const extraActionsTable = [
-		{
-			label: 'Menu action',
-			actionFnc: () => alert('Menu action clicked'),
-			icon: MenuIcon
-		},
-		{
-			label: 'Translate',
-			actionFnc: () => alert('Translate action clicked'),
-			icon: TranslateIcon
-		},
-	];
 
 	const imageVideoOptions = useMemo(() => [
 		{
@@ -332,20 +259,7 @@ export const KitchenSink = (): ReactElement => {
 					label: "Checkbox",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions
 					},
 				},
 				{
@@ -508,10 +422,10 @@ export const KitchenSink = (): ReactElement => {
 					type: 'table',
 					inputSettings: {
 						handleAddElement: addTableRow,
-						handleEdit: editTableRow,
+						handleEdit: editAction,
 						handleDelete: deleteTableRow,
 						extraActions: extraActionsTable,
-						headers: tableHeaders,
+						headers,
 					}
 				},
 				// {
@@ -924,89 +838,15 @@ export const SubmitExternalButtons = (): ReactElement => {
 export const SubmitInternalButtons = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
-	const possibleTableRows = [
-		{
-			id: '1',
-			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
-		},
-		{
-			id: '2',
-			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
-		},
-		{
-			id: '3',
-			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
-		},
-		{
-			id: '4',
-			items: ['George', 'george@email.com', '01/01/2021', '3231-962-7516'],
-		},
-		{
-			id: '5',
-			items: ['Doe', 'doe@email.com', '12/24/2020', '011-962-111'],
-		},
-		{
-			id: '6',
-			items: ['Test', 'test@email.com', '12/01/2020', '788-962-7516'],
-		},
-		{
-			id: '7',
-			items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
-		},
-		{
-			id: '8',
-			items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
-		},
-		{
-			id: '9',
-			items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
-		},
-	];
-
-	const addTableRow = useCallback(() => {
-		const tableDataLength = state.data['table'] ? state.data['table'].length : 0;
-		if (tableDataLength === 0) {
-			dispatch(
-				actions.setFieldValue({
-					name: 'table',
-					value: [possibleTableRows[0]]
-				})
-			);
-		} else if (tableDataLength >= possibleTableRows.length) {
-			alert('There are no more elements to add');
-		} else {
-			dispatch(
-				actions.setFieldValue({
-					name: 'table',
-					value: [...state.data['table'], possibleTableRows[tableDataLength]]
-				})
-			);
-		}
-
-	}, [state.data['table']]);
-
-	const editTableRow = () => {
-		alert('Edit button clicked');
-	};
+	const { addTableRow, editAction, extraActionsTable } = useTable(
+		state.data,
+		'table',
+		dispatch
+	);
 
 	const deleteTableRow = () => {
 		alert('Delete button clicked');
 	};
-
-	const tableHeaders = [];
-
-	const extraActionsTable = [
-		{
-			label: 'Menu action',
-			actionFnc: () => alert('Menu action clicked'),
-			icon: MenuIcon
-		},
-		{
-			label: 'Translate',
-			actionFnc: () => alert('Translate action clicked'),
-			icon: TranslateIcon
-		},
-	];
 
 	const imageVideoOptions = useMemo(() => [
 		{
@@ -1239,20 +1079,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					type: "checkbox",
 					required: true,
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
@@ -1451,10 +1278,10 @@ export const SubmitInternalButtons = (): ReactElement => {
 					required: true,
 					inputSettings: {
 						handleAddElement: addTableRow,
-						handleEdit: editTableRow,
+						handleEdit: editAction,
 						handleDelete: deleteTableRow,
 						extraActions: extraActionsTable,
-						headers: tableHeaders,
+						headers
 					},
 				},
 				// {
@@ -1530,7 +1357,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 };
 
 export const GenericModal = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const [open, setOpen] = useState(false);
 
@@ -1555,20 +1382,7 @@ export const GenericModal = (): ReactElement => {
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
@@ -1649,20 +1463,7 @@ export const FormAndModal = (): ReactElement => {
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
