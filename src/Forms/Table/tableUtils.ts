@@ -99,7 +99,7 @@ export const useTable = (
 			for (let i = 0; i < possibleTableRows.length; i++) {
 				const element = possibleTableRows[i];
 				const isRepeatedRow = dataState[name].includes(element);
-				if(!isRepeatedRow) {
+				if (!isRepeatedRow) {
 					index = i;
 					break;
 				}
