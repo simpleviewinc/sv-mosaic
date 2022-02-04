@@ -14,7 +14,7 @@ export default {
 	decorators: [withKnobs],
 } as Meta;
 
-export const Default = (): ReactElement => {
+export const Playground = (): ReactElement => {
 	const options = [
 		{
 			label: 'Option 1',
@@ -63,7 +63,7 @@ export const Default = (): ReactElement => {
 	);
 };
 
-export const FormExample = (): ReactElement => {
+export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
 	const disabled = boolean('Disabled', false);
