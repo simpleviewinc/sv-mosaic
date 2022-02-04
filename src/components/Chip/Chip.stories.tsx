@@ -2,15 +2,10 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
-import styled from 'styled-components';
-import theme from '@root/utils/theme';
+import { KitchenSinkContainerChip } from './Chip.styled';
 
 // Components
 import Chip from './Chip';
-
-const KitchenSinkContainer = styled.div`
-    font-family: ${theme.fontFamily};
-`;
 
 export default {
 	title: 'Components/Chip',
@@ -42,7 +37,7 @@ export const KitchenSink = (): ReactElement => {
 	};
 	
 	return (
-		<KitchenSinkContainer> 
+		<KitchenSinkContainerChip> 
 			<h1>Chip</h1>
 			<h2>Basic Chip</h2>
 			<Chip
@@ -70,6 +65,6 @@ export const KitchenSink = (): ReactElement => {
 				selected={true}
 				disabled={true}
 			/>
-		</KitchenSinkContainer>
+		</KitchenSinkContainerChip>
 	);
 };
