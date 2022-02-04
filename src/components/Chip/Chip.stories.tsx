@@ -19,6 +19,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const deletable = boolean('Deletable', false);
+	
 	return (
 		deletable ?
 			<Chip
