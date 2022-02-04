@@ -20,7 +20,7 @@ export type AdvancedSelectionDef = {
 	 * checkboxOptions.
 	 */
 	groupByCategory?: boolean;
-	updateOptionsCb?: (key: any) => void;
+	// updateOptionsCb?: (key: any) => void;
 	/**
 	 * Used to get the selected options on the parent component.
 	 */
@@ -32,6 +32,7 @@ export type AdvancedSelectionDef = {
 		currentPage?: number;
 		filter?: string;
 		limit?: number;
-	}) => optionsWithCategory[];
+	} | undefined) => optionsWithCategory[] | Promise<optionsWithCategory[]>;
+	getOptionsLimit?: number;
 	//onChange: (selectedOptions: optionsWithCategory[]) => void;
 }
