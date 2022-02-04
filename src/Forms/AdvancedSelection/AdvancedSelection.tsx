@@ -39,6 +39,7 @@ import {
 
 // Utils
 import { actions, useForm } from '../Form/formUtils';
+import { optionsWithCategory } from '.';
 
 const MAX_CHIPS_TO_SHOW = 8;
 
@@ -57,6 +58,58 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	const [showMore, setShowMore] = useState(false);
 	const [isMobileView, setIsMobileView] = useState(false);
 
+	//TESTING
+	const [options, setOptions] = useState<optionsWithCategory[]>([]);
+	const [currentPage, setCurrentPage] = useState<number>(0);
+
+	useEffect(() => {
+		/**
+		 * TODO:
+		 * BUG: After closing and reopening the modal the options get loaded
+		 * again and added to the current options object.
+		 * What happens when a user adds a new option and clicks on save?
+		 */
+		const setInternalOptions = async () => {
+			if (fieldDef?.inputSettings?.checkboxOptions && fieldDef?.inputSettings?.getOptions) {
+				let newOptions = fieldDef?.inputSettings?.checkboxOptions;
+
+				newOptions = newOptions.concat(await fieldDef?.inputSettings?.getOptions({
+					currentPage: 0,
+					filter: null,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit : null,
+				}));
+
+				setOptions(options.concat(newOptions));
+				setCurrentPage(currentPage + 1);
+
+			} else if (fieldDef?.inputSettings?.checkboxOptions) {
+				setOptions(options.concat(fieldDef?.inputSettings?.checkboxOptions));
+
+			} else if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef?.inputSettings?.getOptions({
+					currentPage,
+					filter: null,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit : null,
+				});
+
+				setOptions(options.concat(newOptions));
+				setCurrentPage(currentPage + 1);
+			}
+		}
+
+		if (isModalOpen)
+			setInternalOptions();
+	}, [
+		isModalOpen,
+		fieldDef?.inputSettings?.checkboxOptions,
+		fieldDef?.inputSettings?.getOptions,
+		fieldDef?.inputSettings?.getOptionsLimit
+	]);
+
+	useEffect(() => {
+		console.log(options);
+	}, [options]);
+
 	useEffect(() => {
 		const setResponsiveness = () => {
 			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
@@ -72,7 +125,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 
 	const filteredList = useMemo(() => {
 		if (modalReducer?.state?.data?.searchInput) {
-			return fieldDef?.inputSettings?.checkboxOptions?.filter(
+			return options.filter(
 				(option) => modalReducer?.state?.data?.searchInput === '' ||
 					option.label.toLowerCase().includes(modalReducer?.state?.data?.searchInput?.trim().toLowerCase()) ||
 					(fieldDef?.inputSettings?.groupByCategory &&
@@ -81,10 +134,10 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 
 			);
 		}
-		return fieldDef?.inputSettings?.checkboxOptions;
+		return options;
 	}, [
 		modalReducer?.state?.data.searchInput,
-		fieldDef?.inputSettings?.checkboxOptions,
+		options,
 		fieldDef?.inputSettings?.groupByCategory
 	]);
 
@@ -238,6 +291,20 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 			);
 		};
 
+		const getMoreOptions = async () => {
+			let newOptions = [];
+			if (fieldDef?.inputSettings?.getOptions) {
+				newOptions = await fieldDef?.inputSettings?.getOptions({
+					currentPage,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit : null,
+					filter: modalReducer?.state?.data?.searchInput ? modalReducer?.state?.data?.searchInput : undefined,
+				});
+
+				setOptions(options.concat(newOptions));
+				setCurrentPage(currentPage + 1);
+			}
+		}
+
 		if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 			return Array.from(optionsWithCategories).map(([category, value]) => (
 				<CheckboxListWrapper key={`${category}-${value}`}>
@@ -254,14 +321,23 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 			));
 		} else {
 			return (
-				<CheckboxListWrapper>
-					<CheckboxList
-						options={filteredList}
-						checked={props.value}
-						onChange={onChangeCheckBoxList}
+				<>
+					<CheckboxListWrapper>
+						<CheckboxList
+							options={filteredList}
+							checked={props.value}
+							onChange={onChangeCheckBoxList}
+							disabled={fieldDef?.disabled}
+						/>
+					</CheckboxListWrapper>
+					<Button
+						buttonType='secondary'
 						disabled={fieldDef?.disabled}
-					/>
-				</CheckboxListWrapper>
+						onClick={getMoreOptions}
+					>
+						Load more
+					</Button>
+				</>
 			);
 		}
 	};
@@ -320,11 +396,13 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 		const createOption = () => {
 			const newOption = {
 				category: 'New Options',
-				value: `${props.value}_${fieldDef?.inputSettings?.checkboxOptions?.length}`,
+				value: `${props.value}_${options?.length}`,
 				label: props.value,
 			};
 
-			fieldDef?.inputSettings?.updateOptionsCb ? fieldDef?.inputSettings?.updateOptionsCb(newOption) : undefined;
+			setOptions([...options, newOption]);
+
+			// fieldDef?.inputSettings?.updateOptionsCb ? fieldDef?.inputSettings?.updateOptionsCb(newOption) : undefined;
 		};
 
 		return (
@@ -336,7 +414,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					value={props.value ? props.value : ''}
 					disabled={fieldDef?.disabled}
 				/>
-				{(props.value && fieldDef?.inputSettings?.updateOptionsCb) && (
+				{props.value /*&& fieldDef?.inputSettings?.updateOptionsCb*/ && (
 					<Button
 						buttonType='blueText'
 						disabled={fieldDef?.disabled}
