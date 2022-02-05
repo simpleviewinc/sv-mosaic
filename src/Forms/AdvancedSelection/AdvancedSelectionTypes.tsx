@@ -28,10 +28,12 @@ export type AdvancedSelectionDef = {
 		currentPage,
 		filter,
 		limit,
+		groupByCategory,
 	}: {
 		currentPage?: number;
 		filter?: string;
 		limit?: number;
+		groupByCategory?: boolean,
 	} | undefined) => optionsWithCategory[] | Promise<optionsWithCategory[]>;
 	getOptionsLimit?: number;
 	//onChange: (selectedOptions: optionsWithCategory[]) => void;
