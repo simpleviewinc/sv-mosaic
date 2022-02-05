@@ -39,10 +39,8 @@ export const Playground = (): ReactElement => {
 	// 	setOptions(newOptions);
 	// };
 
-	const getOptions = async ({ currentPage, limit, filter }) => {
-		await new Promise((res) => setTimeout(res, 2000));
-
-		const additionalOptions = [
+	const getOptions = async ({ currentPage, limit, filter, groupByCategory }) => {
+		let additionalOptions = [
 			{
 				category: 'Category 1',
 				label: 'Option 2',
@@ -97,12 +95,46 @@ export const Playground = (): ReactElement => {
 				label: 'Option without category',
 				value: 'option_without_category',
 			},
+			{
+				category: 'Category 5',
+				label: 'ABC',
+				value: 'ABC_UPPER',
+			},
+			{
+				category: 'Category 5',
+				label: 'abc',
+				value: 'abc_lower',
+			},
+			{
+				category: 'Category 5',
+				label: 'abcdef',
+				value: 'option_abcdef',
+			},
+			{
+				category: 'Category 5',
+				label: 'abc123',
+				value: 'option_abc123',
+			},
 		];
 
-		const optionsToReturn = [];
-		for (let i = currentPage * limit; i < (currentPage * limit) + limit; i++) {
-			if (i < additionalOptions.length)
-				optionsToReturn.push(additionalOptions[i]);
+		if (filter) {
+			const trimmedFilter = filter.trim().toLowerCase();
+			additionalOptions = additionalOptions.filter(
+				option => (
+					option.label.toLowerCase().includes(trimmedFilter)
+					|| (groupByCategory && option.category?.toLocaleLowerCase().includes(trimmedFilter))
+				)
+			);
+		}
+
+		let optionsToReturn = [];
+		if (limit) {
+			for (let i = currentPage * limit; i < (currentPage * limit) + limit; i++) {
+				if (i < additionalOptions.length)
+					optionsToReturn.push(additionalOptions[i]);
+			}
+		} else {
+			optionsToReturn = additionalOptions;
 		}
 
 		return optionsToReturn;
