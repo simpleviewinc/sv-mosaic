@@ -115,29 +115,33 @@ const Modal = (props: ModalProps): ReactElement => {
 
 	return (
 		<StyledDialog fullScreen={isMobileView} open={open} onClose={(e) => cancel(e)}>
-			<StyledDisabledForm disabled={state.disabled} />
-			{isMobileView ? displayMobile : displayDesktop}
-			<DialogContent>
-				<FormLayout
-					formType='modal'
-					state={state}
-					dispatch={dispatch}
-					fields={fields}
-					sections={sections}
-				/>
-			</DialogContent>
-			{!isMobileView && (
-				<DialogActions>
-					<Button
-						buttonType='secondary'
-						onClick={(e) => cancel(e)}
-						{...cancelButtonAttrs}
-					>
-						{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
-					</Button>
-					{PrimaryButton}
-				</DialogActions>
-			)}
+			{open &&
+				<>
+					<StyledDisabledForm disabled={state.disabled} />
+					{isMobileView ? displayMobile : displayDesktop}
+					<DialogContent>
+						<FormLayout
+							formType='modal'
+							state={state}
+							dispatch={dispatch}
+							fields={fields}
+							sections={sections}
+						/>
+					</DialogContent>
+					{!isMobileView && (
+						<DialogActions>
+							<Button
+								buttonType='secondary'
+								onClick={(e) => cancel(e)}
+								{...cancelButtonAttrs}
+							>
+								{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
+							</Button>
+							{PrimaryButton}
+						</DialogActions>
+					)}
+				</>
+			}
 		</StyledDialog>
 	);
 };
