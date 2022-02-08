@@ -57,12 +57,9 @@ const TextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElemen
 		language: fieldDef?.inputSettings?.language ? fieldDef?.inputSettings?.language : 'en',
 	}
 
-	const updateValue = (e: string) => {
-		if (onChange)
-			onChange(e);
-
-		if (onBlur)
-			onBlur(e);
+	const updateValue = async (e: string) => {
+		await onChange(e);
+		await onBlur(e);
 	}
 
 	return (
