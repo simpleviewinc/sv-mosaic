@@ -1,3 +1,5 @@
+import { Options } from '@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes';
+
 export type AssetProperties = {
 	/**
 	 * Name of the asset property.
@@ -7,18 +9,6 @@ export type AssetProperties = {
 	 * Value of the asset property.
 	 */
 	value: string;
-}
-
-export type Options = {
-	/**
-	 * Name of the menu option.
-	 */
-	label: string;
-	/**
-	 * Callback function that will be triggered
-	 * when the option is clicked.
-	 */
-	action: () => void;
 }
 
 export type ImageVideoDocumentSetUpDef = {

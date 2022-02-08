@@ -15,23 +15,20 @@ afterEach(cleanup);
 const { getByText, getByTestId, queryByTestId } = screen;
 
 const mockHandleSetFocus = jest.fn();
-const mockHandleImageCoordinates = jest.fn();
 const mockHandleEdit = jest.fn();
 const mockHandleTranslate = jest.fn();
-const mockUploadImage = jest.fn();
+const options = [
+	{
+		label: 'Edit',
+		action: mockHandleEdit,
+	},
+	{
+		label: 'Translate',
+		action: mockHandleTranslate,
+	},
+];
 
 const FormFieldImageUploadExample = () => {
-	const options = [
-		{
-			label: 'Edit',
-			action: mockHandleEdit,
-		},
-		{
-			label: 'Translate',
-			action: mockHandleTranslate,
-		},
-	];
-
 	return (
 		<FormFieldImageUpload
 			fieldDef={{
@@ -40,9 +37,7 @@ const FormFieldImageUploadExample = () => {
 				disabled: false,
 				inputSettings: {
 					handleSetFocus: mockHandleSetFocus,
-					handleImageCoordinates: mockHandleImageCoordinates,
 					options,
-					uploadImage: mockUploadImage,
 				}
 			}}
 		/>
@@ -142,11 +137,11 @@ describe('FormFieldImageUpload drag and drop events', () => {
 		expect(setFocusButton).toBeTruthy();
 		expect(canvasElement).toBeTruthy();
 
-		// Triggering handleImageCoordinates callback
-		// when the set focus component is clicked
+		// Triggering setFocusButton callback
+		// when the set focus button is clicked
 
 		fireEvent.click(setFocusButton);
-		expect(mockHandleImageCoordinates).toHaveBeenCalled();
+		expect(mockHandleSetFocus).toHaveBeenCalled();
 	});
 
 	it('should display "Release and Drop" when an image file enters in the drop zone', () => {
