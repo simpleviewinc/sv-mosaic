@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import DateRangeCalendar from '../DateRangeCalendar';
+import DateRangeCalendar from '.';
 
 describe('DateRangeCalendar component', () => {
 	it('should should display the date value', () => {
