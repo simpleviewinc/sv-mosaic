@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import SingleDateCalendar from '../SingleDateCalendar';
+import SingleDateCalendar from '.';
 
 describe('SingleDateCalendar component', () => {
 	it('should should display the date value', () => {

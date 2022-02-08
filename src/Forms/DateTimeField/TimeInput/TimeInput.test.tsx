@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import TimeInput from '../TimeInput';
+import TimeInput from '.';
 
 describe('TimeInput component', () => {
 	it('should should display the date value', () => {
