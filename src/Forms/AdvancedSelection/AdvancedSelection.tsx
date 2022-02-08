@@ -75,6 +75,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					currentPage,
 					filter: null,
 					limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit : null,
+					groupByCategory: fieldDef?.inputSettings?.groupByCategory ? fieldDef?.inputSettings?.groupByCategory : undefined,
 				}));
 
 				setOptions(options.concat(newOptions));
@@ -289,6 +290,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 				currentPage: !modalReducer?.state?.data?.searchInput ? currentPage : filteredPage,
 				limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit : null,
 				filter: modalReducer?.state?.data?.searchInput ? modalReducer?.state?.data?.searchInput : undefined,
+				groupByCategory: fieldDef?.inputSettings?.groupByCategory ? fieldDef?.inputSettings?.groupByCategory : undefined,
 			});
 
 			if (!modalReducer?.state?.data?.searchInput) {
