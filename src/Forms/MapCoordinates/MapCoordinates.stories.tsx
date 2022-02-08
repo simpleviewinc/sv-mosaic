@@ -1,84 +1,52 @@
 import * as React from 'react';
-import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useMemo } from 'react';
 import { boolean, withKnobs, object, text } from '@storybook/addon-knobs';
+import { FieldDef } from '@root/components/Field';
+import { MapCoordinatesDef } from '.';
 
 // Components
-import MapCoordinates from './MapCoordinates';
-import { IAddress } from '@root/forms/Address/AddressTypes';
 import Form from '../Form/Form';
-import { FieldDef } from '@root/components/Field';
+
+// Utils
 import { useForm } from '../Form/formUtils';
-import { MapCoordinatesDef } from '.';
+import { address, defaultMapPosition } from './MapCoordinatesUtils';
 
 export default {
 	title: 'Forms|MapCoordinates',
 	decorators: [withKnobs],
 };
 
-const mapPosition = {
-	lat: -3.745,
-	lng: -40.523,
+const onCancel = () => {
+	alert('Cancelling form, going back to previous site');
 };
 
-const address: IAddress = {
-	address1: '8950 N Oracle Rd',
-	city: 'Oro Valley',
-	country: {
-		title: 'United States',
-		value: {},
-	},
-	postalCode: '85704',
-	state: {
-		title: 'AZ',
-		value: {},
-	},
-	types: ['physical'],
-};
-
-export const Default = (): ReactElement => {
-	const disabled = boolean('Disabled', false);
-	const addressKnob = object('Address', address);
-	const withAddress = boolean('With address', false);
-
-	return (
-		<MapCoordinates
-			fieldDef={{
-				name: 'mapCoordinates',
-				label: '',
-				inputSettings: {
-					apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
-					address: withAddress && addressKnob,
-					mapPosition,
-				},
-				disabled,
-			}}
-		/>
-
-	);
-};
-
-export const FormExample = (): ReactElement => {
+export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
+	const addressKnob = object('Address', address);
 	const disabled = boolean('Disabled', false);
+	const label = text('Label', 'Map Coordinates Example');
+	const mapPositionKnob = object('Initial map position', defaultMapPosition);
 	const required = boolean('Required', false);
+	const withAddress = boolean('With address', false);
 
 	const fields = useMemo(
 		() =>
 			[
 				{
 					name: "map",
-					label: "Map Coordinates Example",
+					label,
 					type: "mapCoordinates",
 					required,
 					disabled,
 					inputSettings: {
-						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
+						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+						address: withAddress ? addressKnob : {},
+						mapPosition: mapPositionKnob
 					},
-					// validators: [requiredValidator]
 				},
 			] as FieldDef<MapCoordinatesDef>[],
-		[required, disabled]
+		[addressKnob, disabled, label, mapPositionKnob, required, withAddress]
 	);
 
 	useMemo(() => {
@@ -93,10 +61,6 @@ export const FormExample = (): ReactElement => {
 		registerOnSubmit(onSubmit);
 	}, [onSubmit, registerOnSubmit]);
 
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -105,6 +69,85 @@ export const FormExample = (): ReactElement => {
 				description={text('Description', 'This is a description example')}
 				state={state}
 				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
+	);
+};
+
+const kitchenSinkFields = [
+	{
+		name: 'mapWithoutAddress',
+		label: 'Map without an address. Autocoordinates disabled',
+		type: 'mapCoordinates',
+		required: false,
+		disabled: false,
+		inputSettings: {
+			apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+		},
+	},
+	{
+		name: 'mapWithAddress',
+		label: 'Map with an address. Autocoordinates enabled',
+		type: 'mapCoordinates',
+		required: false,
+		disabled: false,
+		inputSettings: {
+			apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+			address: address
+		},
+	},
+	{
+		name: 'mapWithInitalPosition',
+		label: 'Map with an inital map position set',
+		type: 'mapCoordinates',
+		required: false,
+		disabled: false,
+		inputSettings: {
+			apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+			address: address,
+			mapPosition: { lat: 19.3884403, lng: -99.1747252 }
+		},
+	},
+	{
+		name: 'mapDisabled',
+		label: 'Map disabled',
+		type: 'mapCoordinates',
+		required: false,
+		disabled: true,
+		inputSettings: {
+			apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac',
+			address: address
+		},
+	}
+] as FieldDef<MapCoordinatesDef>[];
+
+export const KitchenSink = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	useMemo(() => {
+		registerFields(kitchenSinkFields);
+	}, [kitchenSinkFields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title='Form Title'
+				description='This is a description example'
+				state={state}
+				fields={kitchenSinkFields}
 				dispatch={dispatch}
 				events={events}
 				onCancel={onCancel}

@@ -118,3 +118,9 @@ export const SuggestionDescription = styled.p`
     font-weight: ${theme.fontWeight.bold};
   }
 `;
+
+export const mapContainerStyle = {
+	border: `2px solid ${theme.colors.gray200}`,
+	height: '153px',
+	width: '232px',
+};

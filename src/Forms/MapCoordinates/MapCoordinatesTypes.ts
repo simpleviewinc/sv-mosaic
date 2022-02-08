@@ -1,5 +1,6 @@
-import { FieldDef, MosaicFieldProps } from '@root/components/Field';
+import { FieldDef } from '@root/components/Field/FieldTypes';
 import { IAddress } from '@root/forms/Address/AddressTypes';
+import EventEmitter = require('eventemitter3');
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
@@ -21,6 +22,8 @@ export type Libraries = (
  */
 export type MapPosition = { lat: number; lng: number };
 
+export type AddCordinatesFnc = (coordinates: MapPosition) => void;
+
 export type MapCoordinatesDef = {
 	/**
 	 * Address object used to set lat and lng values when using
@@ -38,31 +41,6 @@ export type MapCoordinatesDef = {
 	mapPosition?: MapPosition;
 }
 
-// export interface MapCoordinatesProps {
-// 	inputSettings: {
-// 		/**
-// 		 * Address object used to set lat and lng values when using
-// 		 * the autocoordinates feature.
-// 		 */
-// 		address?: IAddress;
-// 		/**
-// 		 * Google Maps API key needed to consume the Maps JavaScript API
-// 		 * and Places API
-// 		 */
-// 		apiKey: string;
-// 		/**
-// 		 * Latitude and longitude object.
-// 		 */
-// 		mapPosition?: MapPosition;
-// 	}
-// 	/**
-// 	 * Disables interactive elements.
-// 	 */
-// 	disabled?: FieldDef['disabled'];
-// 	onChange?: MosaicFieldProps['onChange'];
-// 	value?: MosaicFieldProps['value'];
-// }
-
 export interface MapProps {
 	/**
 	 * Address object used to set lat and lng values when using
@@ -73,7 +51,7 @@ export interface MapProps {
 	 * Callback function that is executed when user selects one of the
 	 * suggestions of the autocomplete google component.
 	 */
-	handleCoordinates?: (coordinates: MapPosition) => void;
+	handleCoordinates?: AddCordinatesFnc
 	/**
 	 * Latitude and longitude object.
 	 */
@@ -89,5 +67,29 @@ export interface LocationSearchInputProps {
 	 * Callback function that is executed when user selects one of the
 	 * suggestions of the autocomplete google component.
 	 */
-	handleCoordinates?: (coordinates: MapPosition) => void;
+	handleCoordinates?: AddCordinatesFnc
+}
+
+export type MapModalReducer = {
+		events: EventEmitter<string | symbol, unknown>;
+		state: {
+			data: {
+				lat: unknown;
+				lng: unknown
+			}
+		};
+		dispatch: unknown;
+		registerFields: (fields: unknown) => void;
+		registerOnSubmit: (fn: unknown) => void;
+	}
+
+export interface MapCoordinatesModalProps {
+	fieldDef: FieldDef<MapCoordinatesDef>
+	handleClose: () => void;
+	handleCoordinates: AddCordinatesFnc
+	handleSaveCoordinates: () => void;
+	isModalOpen: boolean
+	modalReducer: MapModalReducer;
+	onMapClick: (mapEvent: unknown) => void;
+	removeResetLocation: () => void;
 }
