@@ -36,7 +36,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 
 		setInternalOptions(newOptions);
 		// onSelect(newOptions);
-		onChange(selectedOption);
+		onChange(selectedOption.value);
 	}
 
 	const errorWithMessage = error?.trim().length > 0;
