@@ -15,7 +15,7 @@ const { getAllByRole, getByText } = screen;
 const FormFieldCheckboxExample = () => {
 	const [checked, setChecked] = useState([]);
 
-	const onChange = (checked) => {
+	const onChange = async (checked) => {
 		setChecked(checked);
 	}
 
