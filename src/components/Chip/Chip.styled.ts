@@ -86,3 +86,7 @@ export const StyledLabel = styled.p`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
+
+export const KitchenSinkContainerChip = styled.div`
+    font-family: ${theme.fontFamily};
+`;

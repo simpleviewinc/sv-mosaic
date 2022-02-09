@@ -3,9 +3,11 @@ import { ReactElement, useEffect, useMemo, useState, useCallback } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
 // Utils
+import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils'
 import { useTable, headers } from '@root/forms/Table/tableUtils';
 import { useForm, actions } from "./formUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
+import { menuOptions } from '../MenuFormFieldCard/MenuFormFieldUtils';
 
 // Components
 import Form from './Form';
@@ -32,17 +34,6 @@ export const KitchenSink = (): ReactElement => {
 	const deleteTableRow = () => {
 		alert('Delete button clicked');
 	};
-
-	const imageVideoOptions = useMemo(() => [
-		{
-			label: 'Edit',
-			action: () => alert('Edit button clicked'),
-		},
-		{
-			label: 'Translate',
-			action: () => alert('Translate button clicked'),
-		},
-	], []);
 
 	const handleSetImage = () => {
 		dispatch(
@@ -258,20 +249,7 @@ export const KitchenSink = (): ReactElement => {
 					label: "Checkbox",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions
 					},
 				},
 				{
@@ -406,7 +384,7 @@ export const KitchenSink = (): ReactElement => {
 					label: 'Image Video and Document field',
 					type: 'imageVideoDocument',
 					inputSettings: {
-						options: imageVideoOptions,
+						options: menuOptions,
 						handleSetImage,
 						handleSetDocument,
 						handleSetVideo,
@@ -449,6 +427,9 @@ export const KitchenSink = (): ReactElement => {
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
+					inputSettings: {
+						options: menuOptions 
+					}
 				},
 				{
 					name: "mapCoordinates",
@@ -860,17 +841,6 @@ export const SubmitInternalButtons = (): ReactElement => {
 		alert('Delete button clicked');
 	};
 
-	const imageVideoOptions = useMemo(() => [
-		{
-			label: 'Edit',
-			action: () => alert('Edit button clicked'),
-		},
-		{
-			label: 'Translate',
-			action: () => alert('Translate button clicked'),
-		},
-	], []);
-
 	const handleSetImage = () => {
 		dispatch(
 			actions.setFieldValue({
@@ -1084,20 +1054,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					type: "checkbox",
 					required: true,
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
@@ -1263,7 +1220,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					type: 'imageVideoDocument',
 					required: true,
 					inputSettings: {
-						options: imageVideoOptions,
+						options: menuOptions,
 						handleSetImage,
 						handleSetDocument,
 						handleSetVideo,
@@ -1314,6 +1271,9 @@ export const SubmitInternalButtons = (): ReactElement => {
 					label: "Image Upload example",
 					type: "imageUpload",
 					required: true,
+					inputSettings: {
+						options: menuOptions 
+					}
 				},
 				{
 					name: "mapCoordinates",
@@ -1399,20 +1359,7 @@ export const GenericModal = (): ReactElement => {
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
@@ -1493,20 +1440,7 @@ export const FormAndModal = (): ReactElement => {
 					label: "Text that copies to the next input",
 					type: "checkbox",
 					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
+						options: checkboxOptions,
 					},
 					validators: [required]
 				},
