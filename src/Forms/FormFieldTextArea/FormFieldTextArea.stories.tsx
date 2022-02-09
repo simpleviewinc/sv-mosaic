@@ -25,7 +25,7 @@ export default {
 
 export const Default = (): ReactElement => {
 	const [value, setValue] = useState('');
-	const onHandleChange = (val) => {
+	const onHandleChange = async (val) => {
 		setValue(val);
 	};
 

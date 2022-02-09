@@ -113,7 +113,6 @@ export const Example = (): ReactElement => {
 			}}
 			error={errorText}
 			value={value}
-			onChange={onChange}
 		/>
 	);
 };
