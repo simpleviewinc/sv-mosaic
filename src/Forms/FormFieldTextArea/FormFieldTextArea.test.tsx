@@ -22,7 +22,7 @@ describe('TextArea component', () => {
 					},
 					id: 'test'
 				}}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 	});
