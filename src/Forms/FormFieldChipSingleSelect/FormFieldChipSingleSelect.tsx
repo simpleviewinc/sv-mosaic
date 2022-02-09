@@ -35,7 +35,6 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		const selectedOption = newOptions.find(o => o.selected === true);
 
 		setInternalOptions(newOptions);
-		// onSelect(newOptions);
 		onChange(selectedOption.value);
 	}
 
