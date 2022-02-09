@@ -17,7 +17,7 @@ describe('TextField component', () => {
 					placeholder: 'placeholder',
 				}
 			}}
-			onChange={() => jest.fn()}
+
 		/>)
 		const placeholderElement = screen.getByPlaceholderText('placeholder');
 		expect(placeholderElement).toBeDefined();
@@ -38,7 +38,7 @@ describe('TextField multiline behaviour', () => {
 						multiline: false
 					},
 				}}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 		const textField = screen.getByPlaceholderText('placeholder');
@@ -59,7 +59,7 @@ describe('TextField multiline behaviour', () => {
 						multiline: true,
 					},
 				}}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 

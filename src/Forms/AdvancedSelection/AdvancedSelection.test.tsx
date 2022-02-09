@@ -65,7 +65,6 @@ describe('AdvancedSelection component', () => {
 					}
 				}}
 				error={''}
-				onChange={() => jest.fn}
 			/>
 		);
 	});

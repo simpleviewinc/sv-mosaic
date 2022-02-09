@@ -7,10 +7,10 @@ afterEach(cleanup);
 
 const { getByRole, getByText } = screen;
 
-const FormFieldToggleSwitchExample = ({disabled} : {disabled: boolean}) => {
+const FormFieldToggleSwitchExample = ({ disabled }: { disabled: boolean }) => {
 	const [isChecked, setIsChecked] = useState(false);
 
-	const handleChange = (value) => {
+	const handleChange = async (value) => {
 		setIsChecked(value);
 	};
 
@@ -32,19 +32,19 @@ const FormFieldToggleSwitchExample = ({disabled} : {disabled: boolean}) => {
 
 describe('FormFieldToggleSwitch component', () => {
 	it('should check the FormFieldToggleSwitch', () => {
-		render(<FormFieldToggleSwitchExample disabled={false}/>);
+		render(<FormFieldToggleSwitchExample disabled={false} />);
 
 		const toggleSwitch = getByRole('checkbox') as HTMLInputElement;
 
 		expect(toggleSwitch.checked).toEqual(false);
 
 		fireEvent.click(toggleSwitch);
-	
+
 		expect(toggleSwitch.checked).toEqual(true);
 	});
 
 	it('should contain the disabled attribute', () => {
-		render(<FormFieldToggleSwitchExample disabled={true}/>);
+		render(<FormFieldToggleSwitchExample disabled={true} />);
 
 		const toggleSwitch = getByRole('checkbox') as HTMLInputElement;
 
@@ -52,8 +52,8 @@ describe('FormFieldToggleSwitch component', () => {
 	});
 
 	it('should display the toggle switch label', () => {
-		render(<FormFieldToggleSwitchExample disabled={false}/>);
+		render(<FormFieldToggleSwitchExample disabled={false} />);
 
-		expect(getByText('Toggle switch label')).toBeTruthy();		
+		expect(getByText('Toggle switch label')).toBeTruthy();
 	});
 });

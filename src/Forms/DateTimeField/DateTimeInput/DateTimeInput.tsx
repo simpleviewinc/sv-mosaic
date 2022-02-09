@@ -21,7 +21,7 @@ const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement 
 		onChange,
 	} = props;
 
-	const handleOnChange = (position, date) => {
+	const handleOnChange = async (position, date) => {
 		let newDates = { ...value };
 		if (position === 0) {
 			newDates = {
@@ -35,7 +35,7 @@ const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement 
 			}
 		}
 
-		onChange(newDates);
+		await onChange(newDates);
 	}
 
 	return (
