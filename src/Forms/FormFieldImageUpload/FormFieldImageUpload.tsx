@@ -106,7 +106,7 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 	 */
 	const setFocus = () => {
 		onChange && onChange({ ...value, imgCoords: imageCoordinates });
-		fieldDef?.inputSettings?.handleSetFocus();
+		fieldDef?.inputSettings?.handleSetFocus && fieldDef?.inputSettings?.handleSetFocus();
 		setFocusMode(false);
 	};
 
@@ -217,9 +217,9 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 	 */
 	useEffect(() => {
 		if (!isEmpty(files) && onChange) {
-			onChange({...value, height, width });
+			onChange({ ...value, height, width });
 		}
-	},[files, height, width])
+	}, [files, height, width])
 
 	return (
 		<>
