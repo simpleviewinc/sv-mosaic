@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { memo, ReactElement, useRef, useState } from 'react';
+import { memo, ReactElement, useEffect, useRef, useState } from 'react';
 
-import { ImageUploadDef } from './FormFieldImageUploadTypes';
+import { ImageUploadDef, ImageUploadValue } from './FormFieldImageUploadTypes';
 import { MosaicFieldProps } from '@root/components/Field';
 import { isEmpty } from 'lodash';
 
@@ -29,7 +29,7 @@ import {
 	UploadButton,
 } from './FormFieldImageUpload.styled';
 
-const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
+const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploadValue>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
@@ -47,9 +47,9 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 	const fileInputField = useRef(null);
 
 	/**
-   * @param newFiles 
-   * @returns the added files
-   */
+	 * @param newFiles 
+	 * @returns the added files
+	 */
 	const addNewImage = (newFiles) => {
 		for (const file of newFiles) {
 			return { file };
@@ -58,18 +58,18 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 	};
 
 	/**
-   *  Triggers a click on the input of type file
-   *  to prompt the file selection.
-   */
+	 *  Triggers a click on the input of type file
+	 *  to prompt the file selection.
+	 */
 	const uploadFiles = () => {
 		fileInputField.current.click();
 	};
 
 	/**
-   * Executed when a new file is uploaded.
-   * @param e
-   */
-	const handleNewFileUpload = async (e) => {
+	 * Executed when a new file is uploaded.
+	 * @param e
+	 */
+	const handleNewFileUpload = (e) => {
 		const { files: imgFile } = e.target;
 		const isImageFile = imgFile[0].type.split("/")[0] === "image";
 
@@ -83,30 +83,30 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 
 			setFiles(uploadedImage);
 
-			onChange({
+			onChange && onChange({
 				...value,
 				imgName: file.name,
 				size: file.size,
 				type: file.type,
-				// file: reader.result,
 			});
 		}
 	};
 
 	/**
-   *  Sets focus mode to true to display the canvas
-   *  element and the set focus button.
-   */
+	 *  Sets focus mode to true to display the canvas
+	 *  element and the set focus button.
+	 */
 	const handleView = () => {
 		setFocusMode(true);
 	};
 
 	/**
-   *  Executes the set focus callback and passes
+	 *  Executes the set focus callback and passes
 	 *  the image coordinates to the parent component.
-   */
+	 */
 	const setFocus = () => {
 		onChange && onChange({ ...value, imgCoords: imageCoordinates });
+		fieldDef?.inputSettings?.handleSetFocus();
 		setFocusMode(false);
 	};
 
@@ -120,10 +120,10 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 	};
 
 	/**
-   * When the remove button is click the files
-   * uploaded are empty ahd the isOver flagged is
-   * set to false to show the upload view.
-   */
+	 * When the remove button is click the files
+	 * uploaded are empty ahd the isOver flagged is
+	 * set to false to show the upload view.
+	 */
 	const removeFile = () => {
 		setFiles({});
 		onChange(undefined);
@@ -132,40 +132,40 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 	};
 
 	/**
-   * Executed when a file that's being
-   * dragged is over the drop zone.
-   * @param e
-   */
+	 * Executed when a file that's being
+	 * dragged is over the drop zone.
+	 * @param e
+	 */
 	const dragOver = (e) => {
 		e.preventDefault();
 	};
 
 	/**
-   * When a file that's being dragged enters into 
-   * the drop zone the isOver state is changed 
-   * to apply styles conditionally.
-   * @param e
-   */
+	 * When a file that's being dragged enters into 
+	 * the drop zone the isOver state is changed 
+	 * to apply styles conditionally.
+	 * @param e
+	 */
 	const dragEnter = (e) => {
 		e.preventDefault();
 		setIsOver(true);
 	};
 
 	/**
-   * When the drop zone is leaved the isOver state
-   * is changed to apply styles conditionally.
-   * @param e
-   */
+	 * When the drop zone is leaved the isOver state
+	 * is changed to apply styles conditionally.
+	 * @param e
+	 */
 	const dragLeave = (e) => {
 		e.preventDefault();
 		setIsOver(false);
 	};
 
 	/**
-   * When a file is dropped, the file state is set with the
-   * file dropped and the uploadImage callback is triggered.
-   * @param e
-   */
+	 * When a file is dropped, the file state is set with the
+	 * file dropped and the uploadImage callback is triggered.
+	 * @param e
+	 */
 	const fileDrop = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -189,7 +189,7 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 
 			setFiles(droppedFiles);
 
-			onChange({
+			onChange && onChange({
 				...value,
 				imgName: file.name,
 				size: file.size,
@@ -200,16 +200,26 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 	};
 
 	/**
-   * Sets the image dimensions.
-   * @param param0
-   */
+	 * Sets the image dimensions.
+	 * @param param0
+	 */
 	const onImgLoad = ({ target: img }) => {
 		const imageWidth = img.naturalWidth;
-		const imageHeight = img.naturalHeight
+		const imageHeight = img.naturalHeight;
 
 		setHeight(imageHeight);
 		setWidth(imageWidth);
 	};
+
+	/**
+	 * Call onChange function once the component is mounted
+	 * to update the form state with the image height and width
+	 */
+	useEffect(() => {
+		if (!isEmpty(files) && onChange) {
+			onChange({...value, height, width });
+		}
+	},[files, height, width])
 
 	return (
 		<>
@@ -314,4 +324,4 @@ const ImageUpload = (props: MosaicFieldProps<ImageUploadDef>): ReactElement => {
 	);
 };
 
-export default memo(ImageUpload);
+export default memo(FormFieldImageUpload);

@@ -6,7 +6,6 @@ import Checkbox from '@root/components/Checkbox';
 import { useStateRef } from '@root/utils/reactTools';
 import { CheckboxListProps } from './CheckboxListTypes';
 import FormGroup from '@material-ui/core/FormGroup';
-// import { Option } from '.';
 
 const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const checkedRef = useStateRef(props.checked);
@@ -15,6 +14,8 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 		(value: string | { [key: string]: unknown; }) => () => {
 			// toggle the item in the array
 			const newChecked = xor(checkedRef.current, [value]);
+			// TODO: Review with Owen
+			//props.onChange(newChecked.length > 0 ? newChecked : undefined);
 			props.onChange(newChecked);
 		},
 		[checkedRef, props.onChange]
