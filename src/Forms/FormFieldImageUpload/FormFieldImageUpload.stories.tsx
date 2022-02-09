@@ -69,7 +69,7 @@ export const Playground = (): ReactElement => {
 		(data) => {
 			alert(
 				'Form submitted with the following data: ' +
-          JSON.stringify(data, null, ' ')
+				JSON.stringify(data, null, ' ')
 			);
 		},
 		[state.validForm]
@@ -147,7 +147,7 @@ export const KitchenSink = (): ReactElement => {
 
 	const onSubmit = useCallback((data) => {
 		alert('Form submitted with the following data: ' +
-          JSON.stringify(data, null, ' '));
+			JSON.stringify(data, null, ' '));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -158,8 +158,8 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, '  ')}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={'Form Title'}
+				description={'This is a description example'}
 				state={state}
 				fields={kitchenSinkFields}
 				dispatch={dispatch}

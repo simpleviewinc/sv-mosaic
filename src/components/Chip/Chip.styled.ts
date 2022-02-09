@@ -10,14 +10,14 @@ const chipFont = `
 
 export const StyledDeletableChip = styled(Chip)`
   &.MuiChip-root {
-    background-color: ${pr => pr.disabled ? 
+    background-color: ${pr => pr.disabled ?
 		theme.colors.simplyGoldDisabled
 		: theme.colors.simplyGold};
     color: ${theme.colors.almostBlack};
     max-width: 186px;
 
     &:hover {
-      background-color: ${pr => pr.disabled ? 
+      background-color: ${pr => pr.disabled ?
 		theme.colors.simplyGoldDisabled
 		: theme.colors.simplyGoldHover};
     }
@@ -85,8 +85,4 @@ export const StyledLabel = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-`;
-
-export const KitchenSinkContainerChip = styled.div`
-    font-family: ${theme.fontFamily};
 `;
