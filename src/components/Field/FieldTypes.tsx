@@ -1,7 +1,5 @@
 import { Sizes } from '@root/theme/sizes';
-import { InputHTMLAttributes } from 'react';
 import { HTMLAttributes, ReactNode } from 'react';
-import { PhoneInputProps } from 'react-phone-input-2';
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any> {//FieldProps

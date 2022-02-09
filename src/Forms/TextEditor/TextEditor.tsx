@@ -45,7 +45,6 @@ const TextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElemen
 
 	const config = {
 		namespace: '',
-		readonly: false, // all options from https://xdsoft.net/jodit/doc/
 		disabled: fieldDef?.disabled,
 		buttonsXS: buttonList,
 		buttons: buttonList,
@@ -55,6 +54,7 @@ const TextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElemen
 		spellcheck: fieldDef?.inputSettings?.spellcheck ? fieldDef?.inputSettings?.spellcheck : false,
 		direction: fieldDef?.inputSettings?.direction ? fieldDef?.inputSettings?.direction : 'ltr',
 		language: fieldDef?.inputSettings?.language ? fieldDef?.inputSettings?.language : 'en',
+		limitChars: fieldDef?.inputSettings?.maxCharacters ? fieldDef?.inputSettings?.maxCharacters : undefined,
 	}
 
 	const updateValue = async (e: string) => {
@@ -69,7 +69,6 @@ const TextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElemen
 				value={value}
 				config={config}
 				onBlur={(e) => updateValue(e)}
-			// onChange={(e) => onChange && onChange(e)}
 			/>
 		</EditorWrapper>
 	);
