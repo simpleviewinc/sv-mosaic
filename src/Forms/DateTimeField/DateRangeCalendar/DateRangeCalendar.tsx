@@ -23,7 +23,7 @@ const DateRangeCalendar = (props: MosaicFieldProps<any>): ReactElement => {
 	const dateFormatText = <HelperText>Month, Day, Year</HelperText>;
 	const toText = <StyledSpan disabled={fieldDef?.disabled}>To</StyledSpan>;
 
-	const handleOnChange = (position, date) => {
+	const handleOnChange = async (position, date) => {
 		let newDates = { ...value };
 		if (position === 0) {
 			newDates = {
@@ -37,7 +37,7 @@ const DateRangeCalendar = (props: MosaicFieldProps<any>): ReactElement => {
 			}
 		}
 
-		onChange(newDates);
+		await onChange(newDates);
 	}
 
 	return (

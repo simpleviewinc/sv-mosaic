@@ -12,7 +12,7 @@ describe('SingleDateCalendar component', () => {
 					disabled: true,
 				}}
 				value={new Date('2018-01-01T00:00:00.000Z')}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 
@@ -28,7 +28,7 @@ describe('SingleDateCalendar component', () => {
 					disabled: true,
 				}}
 				value={null}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 

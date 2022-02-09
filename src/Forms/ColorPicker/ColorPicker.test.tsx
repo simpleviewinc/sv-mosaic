@@ -32,7 +32,7 @@ describe('ColorPicker component', () => {
 			<ColorPicker
 				value={value}
 				fieldDef={{ name: 'colorPicker', label: '', disabled: false }}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 
@@ -49,7 +49,7 @@ describe('ColorPicker component', () => {
 			<ColorPicker
 				value={value}
 				fieldDef={{ name: 'colorPicker', label: '', disabled: true }}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 
@@ -64,7 +64,7 @@ describe('ColorPicker component', () => {
 			<ColorPicker
 				value={undefined}
 				fieldDef={{ name: 'colorPicker', label: '', disabled: true }}
-				onChange={() => jest.fn()}
+
 			/>
 		);
 

@@ -45,7 +45,7 @@ const TableExample = () => {
 		addElementCallback();
 	};
 
-	const onChange = (rowData) => {
+	const onChange = async (rowData) => {
 		setTableData(rowData);
 	};
 
@@ -89,7 +89,7 @@ const TableWithNoExtraActions = () => {
 		addElementCallback();
 	};
 
-	const onChange = (rowData) => {
+	const onChange = async (rowData) => {
 		setTableData(rowData);
 	};
 
