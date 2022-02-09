@@ -1,36 +1,64 @@
 import styled from 'styled-components';
 import theme from '@root/theme';
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 export const EditorWrapper = styled.div`
-  width: 620px;
+  	.jodit-container {
+		width: 620px !important;
+		border: none !important;
+	}
 
-  .rdw-editor-toolbar {
-	border-radius: 4px 4px 0px 0px;
-    margin-bottom: 8px;
-    border: ${(pr) => (pr.error ? theme.borders.error : '')};
-  }
+	.jodit-toolbar__box {
+		background-color: white !important;
+		border-radius: 0px !important;
+		margin-bottom: 8px !important;
+		border: ${(pr) => (pr.error ? theme.borders.error : theme.borders.simplyGray)} !important;
+	}
 
-  .rdw-editor-main {
-    background-color: ${theme.colors.gray100};
-    border-radius: 0px 0px 4px 4px;
-    box-shadow: ${pr => pr.hasFocus ? '0px 0px 5px #1A1A1A29' : ''};
-    max-height: 200px;
-    overflow-y: auto;
-    padding: 16px;
-    border: ${(pr) => {
-		if (pr.hasFocus) return `1px solid ${theme.colors.almostBlack}`;
-		else if (pr.error) return theme.borders.error;
+	.jodit-workplace {
+		background-color: ${theme.colors.gray100} !important;
+		max-height: 200px !important;
+		overflow-y: auto !important;
+		padding: 16px !important;
+		border: ${(pr) => {
+		if (pr.error) return theme.borders.error;
 		return theme.borders.simplyGray;
-	}};
+	}} !important;
 
-    .public-DraftStyleDefault-block {
-      margin: 0;
-    }
-  }
+		& .jodit-wysiwyg {
+			padding: 0px !important;
+			margin: 0px !important;
+			width: 100% !important;
+			height: 100% !important;
 
-  .rdw-option-active {
-    background-color: ${theme.colors.gray200};
-    box-shadow: none;
-  }
+			& p:first-child {
+				margin-top: 0px !important;
+			}
+		}
+
+		&:focus-within {
+			box-shadow: 0px 0px 5px #1A1A1A29;
+			border: 1px solid ${theme.colors.almostBlack} !important;
+		}
+	}
+
+	.jodit-placeholder {
+		padding: 16px !important;
+	}
+
+	.jodit-workplace:focus-within + .jodit-status-bar {
+		box-shadow: 0px 0px 5px #1A1A1A29;
+		border: 1px solid ${theme.colors.almostBlack} !important;
+		border-top: none !important;
+	}
+
+	.jodit-status-bar {
+		border-radius: 0px !important;
+		border: ${(pr) => {
+		if (pr.error) return theme.borders.error;
+		return theme.borders.simplyGray;
+	}} !important;
+		border-top: none !important;
+		font-family: ${theme.fontFamily};
+		background-color: ${theme.colors.grayHover};
+	}
 `;
