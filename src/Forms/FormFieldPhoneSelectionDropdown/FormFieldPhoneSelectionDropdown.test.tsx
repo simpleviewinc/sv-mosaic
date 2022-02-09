@@ -12,7 +12,7 @@ const { getByText, queryByPlaceholderText } = screen;
 const FormFieldPhoneSelectionDropdownExample = () => {
 	const [value, setValue] = useState('No value');
 
-	const handleOnChange = (value: string) => {
+	const handleOnChange = async (value: string) => {
 		setValue(value);
 	};
 

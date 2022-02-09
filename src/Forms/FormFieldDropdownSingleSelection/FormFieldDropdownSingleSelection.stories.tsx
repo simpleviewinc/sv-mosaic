@@ -42,7 +42,7 @@ const options = [
 export const example = (): ReactElement => {
 	const [selectedOption, setSelectedOption] = useState(null);
 
-	const onChange = (option) => {
+	const onChange = async (option) => {
 		setSelectedOption(option)
 	}
 
