@@ -1,38 +1,40 @@
-//BUG TO BE FIXED
-// import * as React from 'react';
-// import { render, cleanup } from '@testing-library/react';
-// import "@testing-library/jest-dom/extend-expect";
+import * as React from 'react';
+import { render, cleanup } from '@testing-library/react';
+import "@testing-library/jest-dom/extend-expect";
 
-// // Components
-// import TextEditor from './TextEditor';
+// Components
+import TextEditor from './TextEditor';
 
-// afterEach(cleanup);
+afterEach(cleanup);
 
-// describe('TextEditor component', () => {
-// 	it('should display placeholder', () => {
-// 		const { getByText } = render(
-// 			<TextEditor
-// 				onChange={() => jest.fn()}
-// 				placeholder='Placeholder test'
-// 				value={null}
-// 			/>
-// 		);
+describe('TextEditor component', () => {
+	it('should disable text editor', () => {
+		const { container } = render(
+			<TextEditor
+				fieldDef={{
+					name: 'disabledTextEditor',
+					label: 'Disabled test',
+					disabled: true
+				}}
+			/>
+		);
+		const editorContent = container.querySelector('.public-DraftEditor-content');
 
-// 		expect(getByText('Placeholder test')).toBeTruthy();
-// 	});
+		expect(editorContent).toHaveAttribute('contenteditable', 'false');
+	});
 
-// 	it('should disable text editor', () => {
-// 		const { container } = render(
-// 			<TextEditor
-// 				disabled={true}
-// 				onChange={() => jest.fn()}
-// 				placeholder='Placeholder test'
-// 				value={null}
-// 			/>
-// 		);
-// 		const editorContent = container.querySelector('.public-DraftEditor-content');
+	it('should disable text editor', () => {
+		const { container } = render(
+			<TextEditor
+				fieldDef={{
+					name: 'disabledTextEditor',
+					label: 'Disabled test',
+					disabled: true
+				}}
+			/>
+		);
+		const editorContent = container.querySelector('.public-DraftEditor-content');
 
-// 		expect(editorContent).toHaveAttribute('contenteditable', 'false');
-// 	});
-// });
-it.skip('SKIP', () => { expect(true).toBe(true) });
+		expect(editorContent).toHaveAttribute('contenteditable', 'false');
+	});
+});
