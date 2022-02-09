@@ -1,7 +1,7 @@
 // BUG TO BE FIXED
 import * as React from 'react';
 import { useCallback, useMemo, ReactElement } from 'react';
-import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, number, select, text, withKnobs } from '@storybook/addon-knobs';
 import Form from '../Form/Form';
 import { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
@@ -24,6 +24,7 @@ export const Playground = (): ReactElement => {
 	const spellcheck = boolean('Spellcheck', false);
 	const direction = select('Direction', ['ltr', 'rtl'], 'ltr');
 	const language = text('Language', 'en');
+	const maxCharacters = number('Max Characters', 100);
 
 	const fields = useMemo(
 		() =>
@@ -37,6 +38,7 @@ export const Playground = (): ReactElement => {
 						spellcheck,
 						direction,
 						language,
+						maxCharacters,
 					},
 					disabled,
 					helperText,
@@ -49,7 +51,8 @@ export const Playground = (): ReactElement => {
 			toggleLabel,
 			label,
 			helperText,
-			instructionText
+			instructionText,
+			maxCharacters,
 		]
 	);
 
@@ -126,6 +129,15 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					inputSettings: {
 						language: 'de',
+					},
+				},
+				{
+					name: "maxChars",
+					label: 'Text editor with max character limit',
+					type: "textEditor",
+					required: false,
+					inputSettings: {
+						maxCharacters: 20,
 					},
 				},
 				{
