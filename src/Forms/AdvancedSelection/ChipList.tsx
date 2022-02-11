@@ -1,7 +1,11 @@
 import Chip from '@root/components/Chip';
 import * as React from 'react';
-import { memo, ReactElement, useMemo, useState } from 'react';
-import { actions } from '../Form/formUtils';
+import {
+	memo,
+	ReactElement,
+	useEffect,
+	useState
+} from 'react';
 import {
 	ChipsWrapper,
 	OptionsCheckedModalWrapper,
@@ -14,17 +18,17 @@ const MAX_CHIPS_TO_SHOW = 8;
 
 const ChipList = (props): ReactElement => {
 	const {
-		value,
-		state,
-		dispatch,
-		fieldDef,
+		disabled,
 		isModalOpen,
+		getSelected,
 		isMobileView,
-		mapListOfOptions,
+		selectedOptions,
 		advancedSelectValue,
+		deleteSelectedOption,
 	} = props;
 
 	const [showMore, setShowMore] = useState(false);
+	const [chipsToRender, setChipsToRender] = useState([]);
 
 	/**
    * Called when the cross icon of a single chip is clicked.
@@ -32,14 +36,9 @@ const ChipList = (props): ReactElement => {
    * optionsChecked array.
    */
 	const onChipDelete = (optionValue) => {
-		const filteredChips = state.data.checkboxList.filter((option) => option !== optionValue)
+		const filteredChips = selectedOptions.filter((option) => option !== optionValue);
 
-		dispatch(
-			actions.setFieldValue({
-				name: 'checkboxList',
-				value: filteredChips,
-			})
-		);
+		deleteSelectedOption(filteredChips);
 	};
 
 	/**
@@ -54,35 +53,44 @@ const ChipList = (props): ReactElement => {
    * JSX element with the list of selected options displayed
    * as chips.
    */
-	const chips = useMemo(() => {
-		let optionsChecked = [];
-		if (isModalOpen) {
-			optionsChecked = mapListOfOptions(state?.data?.checkboxList);
+	useEffect(() => {
+		const test = async () => {
+			let optionsChecked = await getSelected(selectedOptions);
+
+			setChipsToRender(optionsChecked);
 		}
 
-		if (advancedSelectValue) {
-			optionsChecked = mapListOfOptions(advancedSelectValue);
-		}
+		test();
+	}, [
+		disabled,
+		getSelected,
+		selectedOptions,
+	]);
 
-		if (optionsChecked?.length > 0) {
-			return optionsChecked?.map((option, idx) => (
-				<Chip
-					disabled={fieldDef?.disabled}
-					key={`${option.label}-${idx}`}
-					label={option.label}
-					onDelete={() => onChipDelete(option.value)}
-				/>
-			));
-		}
-		return optionsChecked;
-	}, [isModalOpen, advancedSelectValue, state.data.checkboxList, fieldDef?.disabled]);
-
-	return state?.data?.checkboxList?.length > 0 && (
+	return selectedOptions?.length > 0 && (
 		<OptionsCheckedModalWrapper isModalOpen={isModalOpen}>
 			<ChipsWrapper isModalOpen={isModalOpen} isMobileView={isMobileView}>
-				{showMore ? chips : chips?.slice(0, MAX_CHIPS_TO_SHOW)}
+				{showMore ?
+					chipsToRender.map((option, idx) => (
+						<Chip
+							disabled={disabled}
+							key={`${option.label}-${idx}`}
+							label={option.label}
+							onDelete={() => onChipDelete(option.value)}
+						/>
+					))
+					:
+					chipsToRender.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
+						<Chip
+							disabled={disabled}
+							key={`${option.label}-${idx}`}
+							label={option.label}
+							onDelete={() => onChipDelete(option.value)}
+						/>
+					))
+				}
 			</ChipsWrapper>
-			{state?.data.checkboxList?.length > MAX_CHIPS_TO_SHOW && (
+			{selectedOptions.length > MAX_CHIPS_TO_SHOW && (
 				<div onClick={handleShowMore}>
 					{showMore ? (
 						<ShowHideSpan>
@@ -90,7 +98,7 @@ const ChipList = (props): ReactElement => {
 						</ShowHideSpan>
 					) : (
 						<ShowHideSpan>
-							{`${state?.data.checkboxList?.length - MAX_CHIPS_TO_SHOW} more`}
+							{`${selectedOptions.length - MAX_CHIPS_TO_SHOW} more`}
 							<StyledExpandMoreIcon />
 						</ShowHideSpan>
 					)}

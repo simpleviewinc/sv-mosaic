@@ -28,14 +28,17 @@ export type AdvancedSelectionDef = {
 		currentPage,
 		filter,
 		limit,
-		groupByCategory,
+		offset,
+		// groupByCategory,
 	}: {
 		currentPage?: number;
 		filter?: string;
 		limit?: number;
-		groupByCategory?: boolean,
+		offset?: number;
+		// groupByCategory?: boolean,
 	} | undefined) => optionsWithCategory[] | Promise<optionsWithCategory[]>;
 	getOptionsLimit?: number;
 	createNewOption?: (filter: string) => Promise<void>;
+	getSelected?: (options: string[]) => Promise<optionsWithCategory[]>;
 	//onChange: (selectedOptions: optionsWithCategory[]) => void;
 }
