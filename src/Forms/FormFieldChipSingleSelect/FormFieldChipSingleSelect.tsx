@@ -33,13 +33,15 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 				{ ...o, selected: o.selected = false }
 		)
 		);
+
 		const selectedOption = newOptions.find(o => o.selected === true);
-		
+
 		setInternalOptions(newOptions);
 		onChange(selectedOption?.value || undefined);
 	}
 
 	const errorWithMessage = error?.trim().length > 0;
+
 	return (
 		<StyledChipGroup
 			error={(errorWithMessage || (errorWithMessage && required))}
