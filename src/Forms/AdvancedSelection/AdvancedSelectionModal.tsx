@@ -113,7 +113,6 @@ const AdvancedSelectionModal = (props): ReactElement => {
 
 	const filteredList = useMemo(() => {
 		if (state?.data?.searchInput) {
-			console.log(filteredOptions);
 			const trimmedFilter = state?.data?.searchInput?.trim().toLowerCase();
 			return filteredOptions.filter(
 				(option) => state?.data?.searchInput === '' ||
