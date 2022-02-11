@@ -100,7 +100,7 @@ let additionalOptions = [
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const [options, setOptions] = useState<optionsWithCategory[]>(externalOptions);
+	const [options, setOptions] = useState<optionsWithCategory[]>(externalOptions ? externalOptions : []);
 
 	const modalTitle = text('Modal title', 'Modal title');
 	const groupByCategory = boolean('Group by category', false);
@@ -109,7 +109,7 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean('Disabled', false);
 	const instructionText = text('Instruction text', 'Instruction text');
 	const helperText = text('Helper text', 'Helper text');
-	const getOptionsLimit = number('Get options limit', 5);
+	const getOptionsLimit = text('Get options limit', '5');
 
 	const getOptions = async ({ limit, filter, offset }) => {
 		let internalOptionsArr = [...additionalOptions];
@@ -182,7 +182,11 @@ export const Playground = (): ReactElement => {
 			registerFields,
 			modalTitle,
 			groupByCategory,
-			options
+			options,
+			getOptions,
+			getOptionsLimit,
+			getSelected,
+			createNewOption,
 		]
 	);
 

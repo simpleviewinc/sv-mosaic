@@ -59,10 +59,10 @@ const AdvancedSelectionModal = (props): ReactElement => {
 				const getCb = await fieldDef?.inputSettings?.getOptions({
 					offset: 0,
 					filter: null,
-					limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
 				});
 
-				if (getCb.length > fieldDef?.inputSettings?.getOptionsLimit) {
+				if (getCb.length > +fieldDef?.inputSettings?.getOptionsLimit) {
 					getCb.pop();
 					setCanLoadMore(true)
 				} else {
@@ -357,11 +357,11 @@ const AdvancedSelectionModal = (props): ReactElement => {
 			let newOptions = [];
 			newOptions = await fieldDef?.inputSettings?.getOptions({
 				offset: filteredList ? filteredList.length : 0,
-				limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
+				limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
 				filter: state?.data?.searchInput ? state?.data?.searchInput : undefined,
 			});
 
-			if (newOptions.length > fieldDef?.inputSettings?.getOptionsLimit) {
+			if (newOptions.length > +fieldDef?.inputSettings?.getOptionsLimit) {
 				newOptions.pop();
 				setCanLoadMore(true)
 			} else {

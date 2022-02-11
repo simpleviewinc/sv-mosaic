@@ -37,7 +37,7 @@ export type AdvancedSelectionDef = {
 		offset?: number;
 		// groupByCategory?: boolean,
 	} | undefined) => optionsWithCategory[] | Promise<optionsWithCategory[]>;
-	getOptionsLimit?: number;
+	getOptionsLimit?: number | string;
 	createNewOption?: (filter: string) => Promise<void>;
 	getSelected?: (options: string[]) => Promise<optionsWithCategory[]>;
 	//onChange: (selectedOptions: optionsWithCategory[]) => void;
