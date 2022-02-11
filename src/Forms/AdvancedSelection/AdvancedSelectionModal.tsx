@@ -13,17 +13,15 @@ import {
 import Button from '../Button';
 import { actions, useForm } from '../Form/formUtils';
 import {
-	CategoryTitle,
+	// CategoryTitle,
 	CheckboxListWrapper,
 	InputWrapper,
-	OptionsCheckedModalWrapper,
+	// OptionsCheckedModalWrapper,
 	StyledInput
 } from './AdvancedSelection.styled';
 import AddIcon from '@material-ui/icons/Add';
 import CheckboxList from '@root/components/CheckboxList';
-import Chip from '@root/components/Chip';
 import ChipList from './ChipList';
-import { BREAKPOINTS } from '@root/theme/theme';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
 
 const AdvancedSelectionModal = (props): ReactElement => {
@@ -32,46 +30,48 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		fieldDef,
 		onChange,
 		isModalOpen,
+		isMobileView,
 		handleCloseModal,
 	} = props;
 
-	const [isMobileView, setIsMobileView] = useState(false);
 	const [options, setOptions] = useState<optionsWithCategory[]>([]);
-	const [checkedFullInfo, setCheckedFullInfo] = useState<optionsWithCategory[]>([]);
 	const [filteredOptions, setFilteredOptions] = useState<optionsWithCategory[]>([]);
-	const [filteredPage, setFilteredPage] = useState<number>(0);
 	const [firstLoad, setFirstLoad] = useState<boolean>(false);
-	const [currentPage, setCurrentPage] = useState<number>(0);
+	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	useEffect(() => {
-		const setResponsiveness = () => {
-			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
-		};
-
-		setResponsiveness();
-		window.addEventListener('resize', setResponsiveness);
-
-		return () => {
-			window.removeEventListener('resize', setResponsiveness);
-		};
-	}, []);
+		if (value.length > 0 && isModalOpen)
+			dispatch(
+				actions.setFieldValue({
+					name: 'checkboxList',
+					value: value,
+				})
+			);
+	}, [value, isModalOpen]);
 
 	useEffect(() => {
 		const setInternalOptions = async () => {
 			if (fieldDef?.inputSettings?.checkboxOptions && fieldDef?.inputSettings?.getOptions) {
 				let newOptions = fieldDef?.inputSettings?.checkboxOptions;
 
-				newOptions = newOptions.concat(await fieldDef?.inputSettings?.getOptions({
-					currentPage,
+				const getCb = await fieldDef?.inputSettings?.getOptions({
+					offset: 0,
 					filter: null,
-					limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit : null,
-					groupByCategory: fieldDef?.inputSettings?.groupByCategory ? fieldDef?.inputSettings?.groupByCategory : undefined,
-				}));
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
+				});
+
+				if (getCb.length > fieldDef?.inputSettings?.getOptionsLimit) {
+					getCb.pop();
+					setCanLoadMore(true)
+				} else {
+					setCanLoadMore(false);
+				}
+
+				newOptions = newOptions.concat(getCb);
 
 				setOptions(options.concat(newOptions));
-				setCurrentPage(currentPage + 1);
 				setFirstLoad(true);
 
 			} else if (fieldDef?.inputSettings?.checkboxOptions) {
@@ -106,28 +106,21 @@ const AdvancedSelectionModal = (props): ReactElement => {
 
 	useEffect(() => {
 		if (state?.data?.searchInput?.length > 0) {
-			setFilteredPage(0);
+			// setFilteredPage(0);
 			a();
 		}
 	}, [state?.data?.searchInput]);
 
-	// 	/**
-	//    * Used to toggle the state of showMore to
-	//    * conditionally display 'X more' or 'Hide'.
-	//    */
-	// 	 const handleShowMore = () => {
-	// 		setShowMore(!showMore);
-	// 	};
-
 	const filteredList = useMemo(() => {
 		if (state?.data?.searchInput) {
+			console.log(filteredOptions);
 			const trimmedFilter = state?.data?.searchInput?.trim().toLowerCase();
 			return filteredOptions.filter(
 				(option) => state?.data?.searchInput === '' ||
-					option.label.toLowerCase().includes(trimmedFilter) ||
-					(fieldDef?.inputSettings?.groupByCategory &&
-						option.category?.toLowerCase().includes(trimmedFilter)
-					)
+					option.label.toLowerCase().includes(trimmedFilter) /*||*/
+				// (fieldDef?.inputSettings?.groupByCategory &&
+				// 	option.category?.toLowerCase().includes(trimmedFilter)
+				// )
 
 			);
 		}
@@ -136,51 +129,35 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		options,
 		filteredOptions,
 		state?.data?.searchInput,
-		fieldDef?.inputSettings?.groupByCategory
+		// fieldDef?.inputSettings?.groupByCategory
 	]);
 
-	/**
-   * Fills a Map with the options ensuring that categories
-   * are not repeated.
-   */
-	const optionsWithCategories = useMemo(() => {
-		if (fieldDef?.inputSettings?.groupByCategory) {
-			const categories = new Map();
-			filteredList/*options*/.forEach((checkOption) => {
-				if (!categories.has(checkOption.category)) {
-					const categoryOptions = [checkOption];
-					categories.set(checkOption.category, categoryOptions);
-				} else {
-					const categoryOptions = categories.get(checkOption.category);
-					categoryOptions.push(checkOption);
-					categories.set(checkOption.category, categoryOptions);
-				}
-			});
-			return categories;
-		}
-	}, [fieldDef?.inputSettings?.groupByCategory, filteredList]);
-
 	// 	/**
-	//    * Called when the cross icon of a single chip is clicked.
-	//    * @param optionValue is used to filter the chip from the
-	//    * optionsChecked array.
+	//    * Fills a Map with the options ensuring that categories
+	//    * are not repeated.
 	//    */
-	// 	 const onChipDelete = (optionValue) => {
-	// 		const filteredChips = state.data['checkboxList'].filter((option) => option !== optionValue)
-
-	// 		dispatch(
-	// 			actions.setFieldValue({
-	// 				name: 'checkboxList',
-	// 				value: filteredChips,
-	// 			})
-	// 		);
-	// 	};
+	// 	const optionsWithCategories = useMemo(() => {
+	// 		if (fieldDef?.inputSettings?.groupByCategory) {
+	// 			const categories = new Map();
+	// 			filteredList.forEach((checkOption) => {
+	// 				if (!categories.has(checkOption.category)) {
+	// 					const categoryOptions = [checkOption];
+	// 					categories.set(checkOption.category, categoryOptions);
+	// 				} else {
+	// 					const categoryOptions = categories.get(checkOption.category);
+	// 					categoryOptions.push(checkOption);
+	// 					categories.set(checkOption.category, categoryOptions);
+	// 				}
+	// 			});
+	// 			return categories;
+	// 		}
+	// 	}, [fieldDef?.inputSettings?.groupByCategory, filteredList]);
 
 	useEffect(() => {
 		if (!isModalOpen) {
-			onChange(state?.data['checkboxList']);
+			onChange(state?.data.checkboxList);
 		}
-	}, [isModalOpen, state?.data['checkboxList']]);
+	}, [isModalOpen, state?.data.checkboxList]);
 
 	/**
 	* Renders a checkbox list for each category if groupByCategory is true
@@ -193,11 +170,6 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		 * @param checked
 		 */
 		const onChangeCheckBoxList = async (checked) => {
-			if (state?.data?.searchInput?.length > 0) {
-				setCheckedFullInfo(mapListOfOptions(checked, filteredList));
-			} else {
-				setCheckedFullInfo(mapListOfOptions(checked, options));
-			};
 
 			await dispatch(
 				actions.setFieldValue({
@@ -208,126 +180,51 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		};
 
 		const updateOptionsList = () => {
-			if (state?.data?.searchInput?.length > 0) {
-				getMoreOptions();
-				setFilteredPage(filteredPage + 1);
-			} else {
-				getMoreOptions();
-			}
+			// if (state?.data?.searchInput?.length > 0) {
+			// 	getMoreOptions();
+			// 	setFilteredPage(filteredPage + 1);
+			// } else {
+			getMoreOptions();
+			// }
 		}
 
-		if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
-			return Array.from(optionsWithCategories).map(([category, value]) => (
-				<CheckboxListWrapper key={`${category}-${value}`}>
-					<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
-						{category && <CategoryTitle>{category}</CategoryTitle>}
-						<CheckboxList
-							options={value}
-							checked={props.value}
-							onChange={onChangeCheckBoxList}
-							disabled={fieldDef?.disabled}
-						/>
-					</OptionsCheckedModalWrapper>
-				</CheckboxListWrapper>
-			));
-		} else {
-			return (
-				<>
-					<CheckboxListWrapper>
-						<CheckboxList
-							options={filteredList/*options*/}
-							checked={props.value}
-							onChange={onChangeCheckBoxList}
-							disabled={fieldDef?.disabled}
-						/>
-					</CheckboxListWrapper>
-					<br />
-					<Button
-						buttonType='secondary'
+		// if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
+		// 	return Array.from(optionsWithCategories).map(([category, value]) => (
+		// 		<CheckboxListWrapper key={`${category}-${value}`}>
+		// 			<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
+		// 				{category && <CategoryTitle>{category}</CategoryTitle>}
+		// 				<CheckboxList
+		// 					options={value}
+		// 					checked={props.value}
+		// 					onChange={onChangeCheckBoxList}
+		// 					disabled={fieldDef?.disabled}
+		// 				/>
+		// 			</OptionsCheckedModalWrapper>
+		// 		</CheckboxListWrapper>
+		// 	));
+		// } else {
+		return (
+			<>
+				<CheckboxListWrapper>
+					<CheckboxList
+						options={filteredList}
+						checked={props.value}
+						onChange={onChangeCheckBoxList}
 						disabled={fieldDef?.disabled}
-						onClick={updateOptionsList}
-					>
-						Load more
-					</Button>
-				</>
-			);
-		}
-	};
-
-	/**
-	 * Maps over a list of options.
-	 * @param options to map over.
-	 * @returns an array of options objects
-	 * with a label/value structure.
-	 */
-	const mapListOfOptions = (optionsParam, list = checkedFullInfo) => {
-		if (!optionsParam) return;
-
-		return optionsParam.map((option) =>
-			list/*options*/.find((o) => o.value === option)
+					/>
+				</CheckboxListWrapper>
+				<br />
+				<Button
+					buttonType='secondary'
+					disabled={fieldDef?.disabled || !canLoadMore}
+					onClick={updateOptionsList}
+				>
+					{canLoadMore ? 'Load more' : "Can't load more options"}
+				</Button>
+			</>
 		);
+		// }
 	};
-
-	// 	/**
-	//    * JSX element with the list of selected options displayed
-	//    * as chips.
-	//    */
-	// 	 const chips = useMemo(() => {
-	// 		let optionsChecked = [];
-	// 		if (isModalOpen) {
-	// 			optionsChecked = mapListOfOptions(state?.data?.checkboxList);
-	// 		}
-
-	// 		if (value) {
-	// 			optionsChecked = mapListOfOptions(value);
-	// 		}
-
-	// 		if (optionsChecked?.length > 0) {
-	// 			return optionsChecked?.map((option, idx) => (
-	// 				<Chip
-	// 					disabled={fieldDef?.disabled}
-	// 					key={`${option.label}-${idx}`}
-	// 					label={option.label}
-	// 					onDelete={() => onChipDelete(option.value)}
-	// 				/>
-	// 			));
-	// 		}
-	// 		return optionsChecked;
-	// 	}, [isModalOpen, value, modalReducer.state.data.checkboxList, fieldDef?.disabled]);
-
-	// /**
-	// * @returns the list of chips and the 'X more' or 'Hide' text
-	// * if the selected options are greater than MAX_CHIPS_TO_SHOW
-	// */
-	// const showListOfChips = useCallback((): ReactElement => {
-	// 	return state?.data?.checkboxList?.length > 0 && (
-	// 		<OptionsCheckedModalWrapper isModalOpen={isModalOpen}>
-	// 			<ChipsWrapper isModalOpen={isModalOpen} isMobileView={isMobileView}>
-	// 				{showMore ? chips : chips?.slice(0, MAX_CHIPS_TO_SHOW)}
-	// 			</ChipsWrapper>
-	// 			{state?.data['checkboxList']?.length > MAX_CHIPS_TO_SHOW && (
-	// 				<div onClick={handleShowMore}>
-	// 					{showMore ? (
-	// 						<ShowHideSpan>
-	// 							{'Hide'} <StyledExpandLessIcon />
-	// 						</ShowHideSpan>
-	// 					) : (
-	// 						<ShowHideSpan>
-	// 							{`${state?.data['checkboxList']?.length - MAX_CHIPS_TO_SHOW} more`}
-	// 							<StyledExpandMoreIcon />
-	// 						</ShowHideSpan>
-	// 					)}
-	// 				</div>
-	// 			)}
-	// 		</OptionsCheckedModalWrapper>
-	// 	)
-	// }, [
-	// 	state?.data?.checkboxList,
-	// 	isModalOpen,
-	// 	showMore,
-	// 	chips,
-	// 	fieldDef?.disabled
-	// ]);
 
 	const searchInput = useCallback((props): ReactElement => {
 		/**
@@ -346,14 +243,15 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		/**
 		 * Adds an options to the list.
 		 */
-		const createOption = () => {
+		const createOption = async () => {
 			const newOption: optionsWithCategory = {
 				category: 'New Options',
 				value: `${props.value}_${options?.length}`,
 				label: props.value,
 			};
 
-			setOptions([...options, newOption]);
+			await fieldDef?.inputSettings?.createNewOption(newOption);
+			setFilteredOptions([...filteredOptions, newOption]);
 		};
 
 		return (
@@ -365,7 +263,7 @@ const AdvancedSelectionModal = (props): ReactElement => {
 					value={props.value ? props.value : ''}
 					disabled={fieldDef?.disabled}
 				/>
-				{value /*&& fieldDef?.inputSettings?.updateOptionsCb*/ && (
+				{props.value && fieldDef?.inputSettings?.createNewOption && (
 					<Button
 						buttonType='blueText'
 						disabled={fieldDef?.disabled}
@@ -379,19 +277,27 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		)
 	}, [fieldDef?.disabled, options]);
 
+	const deleteSelectedOption = (newOptions) => {
+		dispatch(
+			actions.setFieldValue({
+				name: 'checkboxList',
+				value: newOptions,
+			})
+		);
+	}
+
 	const fields = useMemo(
 		() => (
 			[
 				{
 					name: "listOfChips",
 					type: () => <ChipList
-						state={state}
-						dispatch={dispatch}
-						fieldDef={fieldDef}
+						disabled={fieldDef?.disabled}
+						getSelected={fieldDef?.inputSettings?.getSelected}
 						isModalOpen={isModalOpen}
 						isMobileView={isMobileView}
-						mapListOfOptions={mapListOfOptions}
-						advancedSelectValue={value}
+						selectedOptions={state?.data?.checkboxList}
+						deleteSelectedOption={deleteSelectedOption}
 					/>
 				},
 				{
@@ -406,8 +312,7 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		), [
 		searchInput,
 		showCheckboxList,
-		// showListOfChips,
-		fieldDef?.disabled
+		fieldDef
 	]
 	);
 
@@ -420,9 +325,8 @@ const AdvancedSelectionModal = (props): ReactElement => {
    */
 	const handleSave = () => {
 		handleCloseModal();
-		// setIsModalOpen(false);
 
-		onChange(state?.data['checkboxList']);
+		onChange(state.data.checkboxList);
 	};
 
 	useMemo(() => {
@@ -436,15 +340,16 @@ const AdvancedSelectionModal = (props): ReactElement => {
    */
 	const handleClose = () => {
 		handleCloseModal();
-		// setIsModalOpen(false);
+
 		dispatch(
 			actions.setFieldValue({ name: 'searchInput', value: undefined })
 		);
+
 		if (value?.length === 0) {
 			dispatch(
 				actions.setFieldValue({ name: 'checkboxList', value: undefined })
 			);
-			onChange([]);
+			onChange(undefined);
 		}
 	};
 
@@ -452,15 +357,20 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		if (fieldDef?.inputSettings?.getOptions) {
 			let newOptions = [];
 			newOptions = await fieldDef?.inputSettings?.getOptions({
-				currentPage: !state?.data?.searchInput ? currentPage : filteredPage,
-				limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit : null,
+				offset: filteredList ? filteredList.length : 0,
+				limit: fieldDef?.inputSettings?.getOptionsLimit ? fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
 				filter: state?.data?.searchInput ? state?.data?.searchInput : undefined,
-				groupByCategory: fieldDef?.inputSettings?.groupByCategory ? fieldDef?.inputSettings?.groupByCategory : undefined,
 			});
+
+			if (newOptions.length > fieldDef?.inputSettings?.getOptionsLimit) {
+				newOptions.pop();
+				setCanLoadMore(true)
+			} else {
+				setCanLoadMore(false);
+			}
 
 			if (!state?.data?.searchInput) {
 				setOptions(options.concat(newOptions));
-				setCurrentPage(currentPage + 1);
 			} else {
 				if (newOptions.length > options.length)
 					setFilteredOptions(options.concat(newOptions));
