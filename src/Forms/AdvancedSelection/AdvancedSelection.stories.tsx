@@ -223,60 +223,128 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const [options, setOptions] = useState(externalOptions);
+// Kitchen Sink might not be necessary since the comp. doesn't have variants.
+// export const KitchenSink = (): ReactElement => {
+// 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+// 	const [options, setOptions] = useState<optionsWithCategory[]>(externalOptions ? externalOptions : []);
 
-	const modalTitle = text('Modal title', 'Modal title');
-	const groupByCategory = boolean('Group by category', false);
+// 	const modalTitle = text('Modal title', 'Modal title');
+// 	const groupByCategory = boolean('Group by category', false);
+// 	const label = text('Label', 'Label');
+// 	const required = boolean('Required', false);
+// 	const disabled = boolean('Disabled', false);
+// 	const instructionText = text('Instruction text', 'Instruction text');
+// 	const helperText = text('Helper text', 'Helper text');
+// 	const getOptionsLimit = text('Get options limit', '5');
 
-	const fields = useMemo(
-		() => (
-			[
-				{
-					name: "a",
-					label: "Advanced selection field",
-					type: 'advancedSelection',
-					inputSettings: {
-						modalTitle,
-						checkboxOptions: options,
-						groupByCategory,
-					}
-				},
-			] as FieldDef<AdvancedSelectionDef>[]
-		),
-		[registerFields, modalTitle, groupByCategory, options]
-	);
+// 	const getOptions = async ({ limit, filter, offset }) => {
+// 		let internalOptionsArr = [...additionalOptions];
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
+// 		if (filter) {
+// 			const trimmedFilter = filter.trim().toLowerCase();
+// 			internalOptionsArr = additionalOptions.filter(
+// 				option => (
+// 					option.label.toLowerCase().includes(trimmedFilter)
+// 				)
+// 			);
+// 		}
 
-	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
+// 		let optionsToReturn = [];
+// 		if (limit) {
+// 			for (let i = offset; i < offset + limit; i++) {
+// 				if (i < internalOptionsArr.length)
+// 					optionsToReturn.push(internalOptionsArr[i]);
+// 			}
+// 		} else {
+// 			optionsToReturn = internalOptionsArr;
+// 		}
 
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+// 		return optionsToReturn;
+// 	};
 
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
+// 	const getSelected = async (selectedOptions) => {
+// 		if (!selectedOptions) return;
 
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				events={events}
-				onCancel={onCancel}
-				onSubmit={onSubmit}
-			/>
-		</>
-	);
-};
+// 		let fullOptions = options.concat(additionalOptions);
+
+// 		return selectedOptions.map((selectedOption) =>
+// 			fullOptions.find(o => o.value === selectedOption)
+// 		);
+// 	}
+
+// 	const createNewOption = async (newOption) => {
+// 		additionalOptions.push(newOption);
+// 	}
+
+// 	const fields = useMemo(
+// 		() => (
+// 			[
+// 				{
+// 					name: 'advancedSelection',
+// 					label,
+// 					required,
+// 					disabled,
+// 					helperText,
+// 					instructionText,
+// 					type: 'advancedSelection',
+// 					inputSettings: {
+// 						modalTitle,
+// 						checkboxOptions: options,
+// 						groupByCategory,
+// 						getOptions,
+// 						getOptionsLimit,
+// 						getSelected,
+// 						createNewOption,
+// 					}
+// 				},
+// 			] as FieldDef<AdvancedSelectionDef>[]
+// 		),
+// 		[
+// 			label,
+// 			required,
+// 			disabled,
+// 			helperText,
+// 			instructionText,
+// 			registerFields,
+// 			modalTitle,
+// 			groupByCategory,
+// 			options,
+// 			getOptions,
+// 			getOptionsLimit,
+// 			getSelected,
+// 			createNewOption,
+// 		]
+// 	);
+
+// 	useMemo(() => {
+// 		registerFields(fields);
+// 	}, [fields, registerFields]);
+
+// 	const onSubmit = useCallback((data) => {
+// 		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+// 	}, [state.validForm]);
+
+// 	useMemo(() => {
+// 		registerOnSubmit(onSubmit);
+// 	}, [onSubmit, registerOnSubmit]);
+
+// 	const onCancel = () => {
+// 		alert('Cancelling form, going back to previous site');
+// 	};
+
+// 	return (
+// 		<>
+// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
+// 			<Form
+// 				title={text('Title', 'Form Title')}
+// 				description={text('Description', 'This is a description example')}
+// 				state={state}
+// 				fields={fields}
+// 				dispatch={dispatch}
+// 				events={events}
+// 				onCancel={onCancel}
+// 				onSubmit={onSubmit}
+// 			/>
+// 		</>
+// 	);
+// };
