@@ -23,7 +23,6 @@ const ChipList = (props): ReactElement => {
 		getSelected,
 		isMobileView,
 		selectedOptions,
-		advancedSelectValue,
 		deleteSelectedOption,
 	} = props;
 
@@ -69,7 +68,11 @@ const ChipList = (props): ReactElement => {
 
 	return selectedOptions?.length > 0 && (
 		<OptionsCheckedModalWrapper isModalOpen={isModalOpen}>
-			<ChipsWrapper isModalOpen={isModalOpen} isMobileView={isMobileView}>
+			<ChipsWrapper
+				isModalOpen={isModalOpen}
+				isMobileView={isMobileView}
+				data-testid='as-chiplist'
+			>
 				{showMore ?
 					chipsToRender.map((option, idx) => (
 						<Chip
