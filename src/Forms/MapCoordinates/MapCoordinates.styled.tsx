@@ -3,7 +3,6 @@ import theme from '@root/theme';
 import { StyledTextField } from '@root/forms/FormFieldText/FormFieldText.styled';
 
 // Components
-import TextField from '@root/forms/FormFieldText';
 import ClearIcon from '@material-ui/icons/Clear';
 
 // Styles for the MapCoordinates component

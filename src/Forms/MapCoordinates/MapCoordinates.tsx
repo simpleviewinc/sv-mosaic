@@ -3,7 +3,6 @@ import {
 	memo,
 	ReactElement,
 	useCallback,
-	useMemo,
 	useEffect,
 	useState,
 } from 'react';
@@ -37,7 +36,6 @@ import {
 } from './MapCoordinates.styled';
 
 // Utils
-import { actions, useForm } from '../Form/formUtils';
 import {
 	defaultMapPosition,
 	getAddressStringFromAddressObject,
@@ -52,71 +50,25 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 		value,
 	} = props;
 
-	const modalReducer = useForm();
-
 	// State variables
 	const [autocoordinatesChecked, setAutocoordinatesChecked] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	/**
-	 * When the map is clicked the lat and lng fields and
-	 * the coordinates that center the map are updated.
-	 */
-	const onMapClick = useCallback((event) => {
-		const lat = event.latLng.lat();
-		const lng = event.latLng.lng();
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'placesList',
-				value: { lat: Number(lat), lng: Number(lng) },
-			})
-		);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lat',
-				value: lat,
-			})
-		);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lng',
-				value: lng,
-			})
-		);
-	}, []);
 
 	/**
 	 * Opens the modal that displays the map.
 	 */
 	const handleAddCoordinates = () => {
 		setIsModalOpen(true);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lat',
-				value: value?.lat
-			})
-		);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lng',
-				value: value?.lng
-			})
-		);
 	};
 
 	/**
 	 * Callback for the 'SAVE COORDINATES' button.
 	 */
-	const handleSaveCoordinates = () => {
+	const handleSaveCoordinates = (coordinates) => {
 		onChange && onChange({
 			...value,
-			lat: modalReducer.state.data.lat,
-			lng: modalReducer.state.data.lng,
+			lat: coordinates.lat,
+			lng: coordinates.lng,
 		});
 
 		setIsModalOpen(false);
@@ -127,34 +79,13 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 	 */
 	const handleClose = () => {
 		setIsModalOpen(false);
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lat',
-				value: undefined,
-			})
-		);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lng',
-				value: undefined,
-			})
-		);
 	};
 
 	/**
 	 * Clear values for the entered location.
 	 */
-	const removeResetLocation = () => {
+	const removeLocation = () => {
 		onChange && onChange(undefined);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({ name: 'lat', value: undefined })
-		);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({ name: 'lng', value: undefined })
-		);
 	};
 
 	/**
@@ -195,60 +126,6 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 			setCoordinatesFromAddress();
 		}
 	}, [autocoordinatesChecked, fieldDef?.inputSettings?.address]);
-
-	/**
-	 * Callback function that is executed by the LocationSearchInput
-	 * when the user selects one of the suggested options by the autocomplete
-	 * google component.
-	 */
-	const handleCoordinates = (coordinates: MapPosition) => {
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'placesList',
-				value: coordinates,
-			})
-		);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lat',
-				value: coordinates.lat,
-			})
-		);
-
-		modalReducer.dispatch(
-			actions.setFieldValue({
-				name: 'lng',
-				value: coordinates.lng,
-			})
-		);
-	};
-
-	useMemo(() => {
-		modalReducer?.registerOnSubmit(handleSaveCoordinates);
-	}, [handleSaveCoordinates, modalReducer?.registerOnSubmit]);
-
-	useEffect(() => {
-		const { lat, lng } = modalReducer.state.data;
-
-		if (lat?.toString().length > 0 && lng?.toString().length > 0) {
-			modalReducer.dispatch(
-				actions.setFieldValue({ name: 'resetButton', value: true })
-			);
-
-			modalReducer.dispatch(
-				actions.setFieldValue({
-					name: 'placesList',
-					value: { lat: Number(lat), lng: Number(lng) }
-				})
-			);
-		} else {
-			modalReducer.dispatch(
-				actions.setFieldValue({ name: 'resetButton', value: undefined })
-			);
-		}
-
-	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
 
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: fieldDef?.inputSettings?.apiKey,
@@ -310,7 +187,7 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 								</Button>
 							)}
 							{!autocoordinatesChecked && isEmpty(fieldDef?.inputSettings?.address) && (
-								<Button disabled={fieldDef?.disabled} buttonType='redText' onClick={removeResetLocation}>
+								<Button disabled={fieldDef?.disabled} buttonType='redText' onClick={removeLocation}>
 									Remove
 								</Button>
 							)}
@@ -327,16 +204,16 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 				</Button>
 			)}
 
-			<MapCoordinatesModal 
-				fieldDef={fieldDef}
-				handleClose={handleClose}
-				handleCoordinates={handleCoordinates}
-				handleSaveCoordinates={handleSaveCoordinates}
-				isModalOpen={isModalOpen}
-				modalReducer={modalReducer}
-				onMapClick={onMapClick}
-				removeResetLocation={removeResetLocation}
-			/>
+			{isModalOpen && (
+				<MapCoordinatesModal
+					fieldDef={fieldDef}
+					handleClose={handleClose}
+					handleSaveCoordinates={handleSaveCoordinates}
+					isModalOpen={isModalOpen}
+					onChange={onChange}
+					value={value}
+				/>
+			)}
 		</>
 	);
 };

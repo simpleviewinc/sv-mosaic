@@ -1,6 +1,5 @@
 import { FieldDef } from '@root/components/Field/FieldTypes';
 import { IAddress } from '@root/forms/Address/AddressTypes';
-import EventEmitter = require('eventemitter3');
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
@@ -70,26 +69,11 @@ export interface LocationSearchInputProps {
 	handleCoordinates?: AddCordinatesFnc
 }
 
-export type MapModalReducer = {
-		events: EventEmitter<string | symbol, unknown>;
-		state: {
-			data: {
-				lat: unknown;
-				lng: unknown
-			}
-		};
-		dispatch: unknown;
-		registerFields: (fields: unknown) => void;
-		registerOnSubmit: (fn: unknown) => void;
-	}
-
 export interface MapCoordinatesModalProps {
 	fieldDef: FieldDef<MapCoordinatesDef>
 	handleClose: () => void;
-	handleCoordinates: AddCordinatesFnc
-	handleSaveCoordinates: () => void;
-	isModalOpen: boolean
-	modalReducer: MapModalReducer;
-	onMapClick: (mapEvent: unknown) => void;
-	removeResetLocation: () => void;
+	handleSaveCoordinates: (coordinates: MapPosition) => void;
+	isModalOpen: boolean;
+	onChange: (e: MapPosition) => Promise<void>
+	value: MapPosition;
 }

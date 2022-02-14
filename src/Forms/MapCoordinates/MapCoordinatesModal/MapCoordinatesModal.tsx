@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { MapCoordinatesModalProps } from '..';
 import { FieldDef } from '@root/components/Field/FieldTypes';
+import { MapPosition } from '../MapCoordinatesTypes';
 
 // Components
 import Button from '@root/forms/Button';
@@ -11,6 +12,7 @@ import { StyledSpan } from '../MapCoordinates.styled';
 
 // Utils
 import { defaultMapPosition } from '../MapCoordinatesUtils';
+import { actions, useForm } from '@root/forms/Form/formUtils';
 
 // Layout of the form elements.
 const sections = [
@@ -26,13 +28,101 @@ const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
 	const {
 		fieldDef,
 		handleClose,
-		handleCoordinates,
 		handleSaveCoordinates,
 		isModalOpen,
-		modalReducer,
-		onMapClick,
-		removeResetLocation
+		onChange,
+		value
 	} = props;
+
+	const modalReducer = useForm();
+
+	/**
+	 * When the map is clicked the lat and lng fields and
+	 * the coordinates that center the map are updated.
+	 */
+	const onMapClick = useCallback((event) => {
+		const lat = event.latLng.lat();
+		const lng = event.latLng.lng();
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'placesList',
+				value: { lat: Number(lat), lng: Number(lng) },
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lat',
+				value: lat,
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lng',
+				value: lng,
+			})
+		);
+	}, []);
+
+	/**
+	 * Clear the input fields of latitude and longitude
+	 */
+	const resetLocation = () => {
+		onChange && onChange(undefined);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({ name: 'lat', value: undefined })
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({ name: 'lng', value: undefined })
+		);
+	};
+
+	/**
+	 * Callback function that is executed by the LocationSearchInput
+	 * when the user selects one of the suggested options by the autocomplete
+	 * google component.
+	 */
+	const handleCoordinates = (coordinates: MapPosition) => {
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'placesList',
+				value: coordinates,
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lat',
+				value: coordinates.lat,
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lng',
+				value: coordinates.lng,
+			})
+		);
+	};
+
+	/**
+	 * Executed when the onSubmit event of 
+	 * the form that is contained inside the modal
+	 * happends.
+	 */
+	const onSubmit = () => {
+		const latLngValue = {
+			...value,
+			lat: modalReducer.state.data.lat,
+			lng: modalReducer.state.data.lng,
+		}
+	
+		handleSaveCoordinates(latLngValue);
+	}
 
 	const renderMap = (props) => (
 		<>
@@ -58,7 +148,7 @@ const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
 		return props.value ? (
 			<Button
 				buttonType='blueText'
-				onClick={removeResetLocation}
+				onClick={resetLocation}
 				style={{ margin: 'auto 0px 35px 0px' }}
 			>
 				Reset
@@ -104,6 +194,48 @@ const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
 		modalReducer?.registerFields(fields);
 	}, [fields, modalReducer?.registerFields]);
 
+	useMemo(() => {
+		modalReducer?.registerOnSubmit(handleSaveCoordinates);
+	}, [handleSaveCoordinates, modalReducer?.registerOnSubmit]);
+
+	useEffect(() => {
+		const { lat, lng } = modalReducer.state.data;
+
+		if (lat?.toString().length > 0 && lng?.toString().length > 0) {
+			modalReducer.dispatch(
+				actions.setFieldValue({ name: 'resetButton', value: true })
+			);
+
+			modalReducer.dispatch(
+				actions.setFieldValue({
+					name: 'placesList',
+					value: { lat: Number(lat), lng: Number(lng) }
+				})
+			);
+		} else {
+			modalReducer.dispatch(
+				actions.setFieldValue({ name: 'resetButton', value: undefined })
+			);
+		}
+
+	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
+
+	useEffect(() => {
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lat',
+				value: value?.lat
+			})
+		);
+
+		modalReducer.dispatch(
+			actions.setFieldValue({
+				name: 'lng',
+				value: value?.lng
+			})
+		);
+	}, [modalReducer.dispatch, value])
+
 	return (
 		<Modal
 			title='Map Coordinates'
@@ -113,7 +245,7 @@ const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
 			fields={fields}
 			open={isModalOpen}
 			onCancel={handleClose}
-			onSubmit={handleSaveCoordinates}
+			onSubmit={onSubmit}
 			submitButtonAttrs={{
 				children: 'Save Coordinates',
 				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
