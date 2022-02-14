@@ -28,5 +28,6 @@ export interface FormProps {
 	submitButtonAttrs?: FormButtonProps;
 	onCancel?(...args: any): any;
 	cancelButtonAttrs?: FormButtonProps;
+	onLoad?(...args: any): any;
 }
 
