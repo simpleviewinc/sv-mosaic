@@ -1,59 +1,69 @@
-// import * as React from 'react';
-// import { render, cleanup, screen, fireEvent } from '@testing-library/react';
-// import "@testing-library/jest-dom/extend-expect";
-// import FormFieldChipSingleSelect from './FormFieldChipSingleSelect';
+import * as React from 'react';
+import { useState } from 'react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import "@testing-library/jest-dom/extend-expect";
 
-// afterEach(cleanup);
+//Components
+import FormFieldChipSingleSelect from './FormFieldChipSingleSelect';
 
-// const options = [
-// 	{
-// 		label: 'Option 1',
-// 		value: 'Option_1',
-// 	},
-// 	{
-// 		label: 'Option 2',
-// 		value: 'Option_2',
-// 	},
-// 	{
-// 		label: 'Option 3',
-// 		value: 'Option_3',
-// 	},
-// ];
+afterEach(cleanup);
 
-// describe('FormFieldChipSingleSelect', () => {
-// 	it("should allow users to select options", () => {
-// 		let clicked = false;
-// 		const onSelect = () => {
-// 			clicked = true;
-// 		};
+const options = [
+	{
+		label: 'Option 1',
+		value: 'Option_1',
+	},
+	{
+		label: 'Option 2',
+		value: 'Option_2',
+	},
+	{
+		label: 'Option 3',
+		value: 'Option_3',
+	},
+];
 
-// 		render(
-// 			<FormFieldChipSingleSelect 
-// 				label={'Testing Chip Field'}
-// 				options={options}
-// 				onSelect={onSelect}
-// 			/>
-// 		);
+const { getAllByRole, getByText } = screen;
 
-// 		const chips = screen.queryAllByRole('button');
-// 		expect(clicked).toBe(false);
+const FormFieldChipSingleSelectExample = () => {
+	const [checked, setChecked] = useState([]);
 
-// 		fireEvent.click(chips[0]);
-// 		expect(clicked).toBe(true);
-// 	});
+	const onChange = async (checked) => {
+		setChecked(checked)
+	}
 
-// 	it("should not allow users to select options when disabled", () => {
+	return (
+		<FormFieldChipSingleSelect
+			fieldDef={{
+				name: 'formFieldChipSingleSelect',
+				label: 'Chip test',
+				inputSettings: {
+					options
+				}
+			}}
+			value={checked}
+			onChange={onChange}
+		/>
+	);
+};
 
-// 		render(
-// 			<FormFieldChipSingleSelect 
-// 				label={'Testing Chip Field'}
-// 				options={options}
-// 				disabled={true}
-// 			/>
-// 		);
+describe('FormFieldChipSingleSelect component', () => {
+	beforeEach(() => {
+		render(<FormFieldChipSingleSelectExample />);
+	})
 
-// 		const chips = screen.queryAllByRole('button');
-// 		expect(chips[0]).toHaveAttribute("aria-disabled")
-// 	});
-// });
-it.skip('skip', () => { });
+	it('should display the list of options', () => {
+		expect(getByText('Option 1')).toBeTruthy();
+		expect(getByText('Option 2')).toBeTruthy();
+		expect(getByText('Option 3')).toBeTruthy();
+	});
+
+	it('should check the clicked option', () => {
+		const chipElements = getAllByRole('button') as HTMLInputElement[];
+		fireEvent.click(chipElements[1]);
+
+		expect(chipElements[0]).toHaveClass('cFyGIj')
+		expect(chipElements[1]).toHaveClass('foHfmQ')
+		expect(chipElements[2]).toHaveClass('cFyGIj')
+	});
+});
