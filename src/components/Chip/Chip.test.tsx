@@ -44,7 +44,7 @@ describe('The deletable Chip component', () => {
 	});
 });
 
-describe('A selected Chip', () => {
+describe('A selected Chip component', () => {
 	it('should be able to select a chip', () => {
 		const handleClick = jest.fn();
 
