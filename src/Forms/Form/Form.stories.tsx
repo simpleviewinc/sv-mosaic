@@ -428,7 +428,7 @@ export const KitchenSink = (): ReactElement => {
 					label: "Image Upload example",
 					type: "imageUpload",
 					inputSettings: {
-						options: menuOptions 
+						options: menuOptions
 					}
 				},
 				{
@@ -1272,7 +1272,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					type: "imageUpload",
 					required: true,
 					inputSettings: {
-						options: menuOptions 
+						options: menuOptions
 					}
 				},
 				{
@@ -1638,6 +1638,78 @@ export const Validators = (): ReactElement => {
 				events={events}
 				onSubmit={onSubmit}
 				onCancel={onCancel}
+			/>
+		</>
+	);
+};
+
+export const PrepopulateFields = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit, registerOnLoad } = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "name",
+					label: "Name",
+					type: 'text',
+				},
+				{
+					name: "email",
+					label: "Email",
+					type: 'text',
+				},
+			] as FieldDef<TextFieldDef>[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onLoad = useCallback(async () => {
+		await new Promise((res) => setTimeout(res, 2000));
+
+		return [
+			{
+				name: 'name',
+				value: 'John Doe'
+			},
+			{
+				name: 'email',
+				value: 'john.doe@simpleview.inc'
+			}
+		];
+	}, []);
+
+	useMemo(() => {
+		registerOnLoad(onLoad);
+	}, [onLoad, registerOnLoad]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title='Prepopulate fields story'
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onSubmit={onSubmit}
+				onCancel={onCancel}
+				onLoad={onLoad}
 			/>
 		</>
 	);
