@@ -146,8 +146,15 @@ export const Playground = (): ReactElement => {
 		);
 	}
 
-	const createNewOption = async (newOption) => {
+	const createNewOption = async (newOptionLabel) => {
+		const value = `${newOptionLabel}_${additionalOptions.length}`
+		const newOption = {
+			value,
+			label: newOptionLabel,
+		}
 		additionalOptions.push(newOption);
+
+		return value;
 	}
 
 	const fields = useMemo(
