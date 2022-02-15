@@ -210,11 +210,11 @@ export const actions = {
 			});
 
 			const fieldData = await extraArgs.onLoad();
-			fieldData.map(async field => {
+			Object.entries(fieldData).forEach(async ([key, value]) => {
 				await dispatch(
 					actions.setFieldValue({
-						name: field.name,
-						value: field.value,
+						name: key,
+						value: value,
 					})
 				);
 			});

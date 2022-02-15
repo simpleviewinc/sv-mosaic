@@ -243,13 +243,18 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		 * Adds an options to the list.
 		 */
 		const createOption = async () => {
-			const newOption: optionsWithCategory = {
-				category: 'New Options',
-				value: `${props.value}_${options?.length}`,
-				label: props.value,
-			};
+			// const newOption: optionsWithCategory = {
+			// 	category: 'New Options',
+			// 	value: `${props.value}_${options?.length}`,
+			// 	label: props.value,
+			// };
 
-			await fieldDef?.inputSettings?.createNewOption(newOption);
+			const newOptionValue = await fieldDef?.inputSettings?.createNewOption(props.value);
+			const newOption = {
+				label: props.value,
+				value: newOptionValue,
+			}
+
 			setFilteredOptions([...filteredOptions, newOption]);
 		};
 
