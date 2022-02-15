@@ -27,7 +27,7 @@ const options = [
 const FormFieldRadioExample = () => {
 	const [value, setValue] = useState('');
 
-	const handleChange = (value) => {
+	const handleChange = async (value) => {
 		setValue(value);
 	};
 

@@ -7,6 +7,7 @@ import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckbox
 import { useTable, headers } from '@root/forms/Table/tableUtils';
 import { useForm, actions } from "./formUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
+import { menuOptions } from '../MenuFormFieldCard/MenuFormFieldUtils';
 
 // Components
 import Form from './Form';
@@ -33,17 +34,6 @@ export const KitchenSink = (): ReactElement => {
 	const deleteTableRow = () => {
 		alert('Delete button clicked');
 	};
-
-	const imageVideoOptions = useMemo(() => [
-		{
-			label: 'Edit',
-			action: () => alert('Edit button clicked'),
-		},
-		{
-			label: 'Translate',
-			action: () => alert('Translate button clicked'),
-		},
-	], []);
 
 	const handleSetImage = () => {
 		dispatch(
@@ -394,7 +384,7 @@ export const KitchenSink = (): ReactElement => {
 					label: 'Image Video and Document field',
 					type: 'imageVideoDocument',
 					inputSettings: {
-						options: imageVideoOptions,
+						options: menuOptions,
 						handleSetImage,
 						handleSetDocument,
 						handleSetVideo,
@@ -411,11 +401,11 @@ export const KitchenSink = (): ReactElement => {
 						handleRemove: handleRemoveLinkSetup
 					}
 				},
-				/* {
+				{
 					name: 'textEditor',
 					label: 'Text Editor field',
 					type: 'textEditor'
-				}, */
+				},
 				{
 					name: 'table',
 					label: 'Table example',
@@ -437,6 +427,9 @@ export const KitchenSink = (): ReactElement => {
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
+					inputSettings: {
+						options: menuOptions
+					}
 				},
 				{
 					name: "mapCoordinates",
@@ -848,17 +841,6 @@ export const SubmitInternalButtons = (): ReactElement => {
 		alert('Delete button clicked');
 	};
 
-	const imageVideoOptions = useMemo(() => [
-		{
-			label: 'Edit',
-			action: () => alert('Edit button clicked'),
-		},
-		{
-			label: 'Translate',
-			action: () => alert('Translate button clicked'),
-		},
-	], []);
-
 	const handleSetImage = () => {
 		dispatch(
 			actions.setFieldValue({
@@ -1060,22 +1042,15 @@ export const SubmitInternalButtons = (): ReactElement => {
 			[
 				{
 					name: "text1",
-					label: "Full Name",
+					label: "Text field",
 					type: "text",
 					required: true,
 					instructionText: 'testing',
 					validators: [required],
 				},
 				{
-					name: "text2",
-					label: "age",
-					type: "text",
-					required: true,
-					validators: [required],
-				},
-				{
 					name: "check1",
-					label: "Text that copies to the next input",
+					label: "Checkbox",
 					type: "checkbox",
 					required: true,
 					inputSettings: {
@@ -1245,7 +1220,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 					type: 'imageVideoDocument',
 					required: true,
 					inputSettings: {
-						options: imageVideoOptions,
+						options: menuOptions,
 						handleSetImage,
 						handleSetDocument,
 						handleSetVideo,
@@ -1265,12 +1240,12 @@ export const SubmitInternalButtons = (): ReactElement => {
 					},
 					validators: [required],
 				},
-				/* {
+				{
 					name: 'textEditor',
 					label: 'Text Editor field',
 					type: 'textEditor',
 					validators: [required],
-				}, */
+				},
 				{
 					name: 'table',
 					label: 'Table example',
@@ -1296,6 +1271,9 @@ export const SubmitInternalButtons = (): ReactElement => {
 					label: "Image Upload example",
 					type: "imageUpload",
 					required: true,
+					inputSettings: {
+						options: menuOptions
+					}
 				},
 				{
 					name: "mapCoordinates",
@@ -1327,15 +1305,14 @@ export const SubmitInternalButtons = (): ReactElement => {
 		alert('Cancelling form, going back to previous site');
 	};
 
-	const cancelButtonAttrs = useMemo(() => ({
-		disabled: !!state.data.text1 === false,
-	}), [state.data.text1]);
+	// const cancelButtonAttrs = useMemo(() => ({
+	// 	disabled: !!state.data.text1 === false,
+	// }), [state.data.text1]);
 
-	const submitButtonAttrs = useMemo(() => ({
-		disabled: !!state.data.text2 === false,
-		children: state?.data?.text2,
-		smallerButton: true,
-	}), [state.data.text2]);
+	// const submitButtonAttrs = useMemo(() => ({
+	// 	disabled: !!state.data.text2 === false,
+	// 	children: state?.data?.text2,
+	// }), [state.data.text2]);
 
 	return (
 		<>
@@ -1348,9 +1325,9 @@ export const SubmitInternalButtons = (): ReactElement => {
 				dispatch={dispatch}
 				events={events}
 				onCancel={onCancel}
-				cancelButtonAttrs={cancelButtonAttrs}
+				// cancelButtonAttrs={cancelButtonAttrs}
 				onSubmit={onSubmit}
-				submitButtonAttrs={submitButtonAttrs}
+			// submitButtonAttrs={submitButtonAttrs}
 			/>
 		</>
 	);
@@ -1661,6 +1638,78 @@ export const Validators = (): ReactElement => {
 				events={events}
 				onSubmit={onSubmit}
 				onCancel={onCancel}
+			/>
+		</>
+	);
+};
+
+export const PrepopulateFields = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit, registerOnLoad } = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "name",
+					label: "Name",
+					type: 'text',
+				},
+				{
+					name: "email",
+					label: "Email",
+					type: 'text',
+				},
+			] as FieldDef<TextFieldDef>[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onLoad = useCallback(async () => {
+		await new Promise((res) => setTimeout(res, 2000));
+
+		return [
+			{
+				name: 'name',
+				value: 'John Doe'
+			},
+			{
+				name: 'email',
+				value: 'john.doe@simpleview.inc'
+			}
+		];
+	}, []);
+
+	useMemo(() => {
+		registerOnLoad(onLoad);
+	}, [onLoad, registerOnLoad]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title='Prepopulate fields story'
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onSubmit={onSubmit}
+				onCancel={onCancel}
+				onLoad={onLoad}
 			/>
 		</>
 	);

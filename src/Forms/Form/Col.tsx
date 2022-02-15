@@ -22,7 +22,7 @@ import TimeInput from '../DateTimeField/TimeInput';
 import DateTimeInput from '../DateTimeField/DateTimeInput';
 import Address from '../Address';
 import Table from '../Table';
-// import TextEditor from '../TextEditor';
+import TextEditor from '../TextEditor';
 import AdvancedSelection from '../AdvancedSelection';
 import MapCoordinates from '../MapCoordinates';
 import FormFieldImageUpload from '../FormFieldImageUpload';
@@ -69,7 +69,7 @@ const Col = (props) => {
 		dateTime: DateTimeInput,
 		address: Address,
 		table: Table,
-		// textEditor: TextEditor,
+		textEditor: TextEditor,
 		advancedSelection: AdvancedSelection,
 		mapCoordinates: MapCoordinates,
 		imageUpload: FormFieldImageUpload,

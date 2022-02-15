@@ -21,7 +21,7 @@ export default {
 
 export const Default = (): ReactElement => {
 	const [inputValue, setInputValue] = useState('');
-	const onHandleChange = (val) => {
+	const onHandleChange = async (val) => {
 		setInputValue(val);
 	};
 

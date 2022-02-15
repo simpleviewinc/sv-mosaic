@@ -25,7 +25,7 @@ export const TimePickerExample = (): ReactElement => {
 		new Date('2018-01-01T00:00:00.000Z')
 	);
 
-	const handleDateChange = (date: Date | null) => {
+	const handleDateChange = async (date: Date | null) => {
 		setSelectedDate(date);
 	};
 
@@ -44,7 +44,7 @@ export const TimePickerExample = (): ReactElement => {
 export const DatePickerExample = (): ReactElement => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
 
-	const handleDateChange = (date: Date | null) => {
+	const handleDateChange = async (date: Date | null) => {
 		setSelectedDate(date);
 	};
 
@@ -70,7 +70,7 @@ export const SingleCalendarExample = (): ReactElement => {
 	const required = boolean('Required', false);
 	const [selectedDate, setSelectedDate] = useState(new Date());
 
-	const handleDateChange = (date: Date | null) => {
+	const handleDateChange = async (date: Date | null) => {
 		setSelectedDate(date);
 	};
 
@@ -160,7 +160,7 @@ export const TimeInputExample = (): ReactElement => {
 		new Date('2014-08-18T21:11:54')
 	);
 
-	const handleTimeChange = (date: Date | null) => {
+	const handleTimeChange = async (date: Date | null) => {
 		setSelectedTime(date);
 	};
 

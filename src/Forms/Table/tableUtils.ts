@@ -81,7 +81,8 @@ export const useTable = (
 	dispatch: (action: unknown) => void
 ): UseTableReturnType => {
 	const addTableRow = (): void => {
-		const tableDataLength = dataState['table'] ? dataState['table'].length : 0;
+
+		const tableDataLength = dataState[name] ? dataState[name].length : 0;
 
 		if (tableDataLength === 0) {
 			dispatch(
@@ -93,10 +94,21 @@ export const useTable = (
 		} else if (tableDataLength >= possibleTableRows.length) {
 			alert('There are no more elements to add');
 		} else {
+			let index;
+
+			for (let i = 0; i < possibleTableRows.length; i++) {
+				const element = possibleTableRows[i];
+				const isRepeatedRow = dataState[name].includes(element);
+				if (!isRepeatedRow) {
+					index = i;
+					break;
+				}
+			}
+
 			dispatch(
 				actions.setFieldValue({
 					name,
-					value: [...dataState['table'], possibleTableRows[tableDataLength]],
+					value: [...dataState[name], possibleTableRows[index]],
 				})
 			);
 		}

@@ -28,7 +28,7 @@ describe('Field component label, helper text and instructional text', () => {
 						helperText: 'Helper text',
 						instructionText: 'Instruction text',
 					}}
-					onChange={() => jest.fn()}
+
 				/>
 			</Field>
 		);
@@ -65,7 +65,7 @@ describe('Field component error text and the helper text', () => {
 						helperText: 'Helper text',
 					}}
 					error={'Error text'}
-					onChange={() => jest.fn()}
+
 				/>
 			</Field>
 		);
@@ -93,7 +93,7 @@ describe('Field component error text and the helper text', () => {
 							placeholder: 'placeholder'
 						}
 					}}
-					onChange={() => jest.fn()}
+
 				/>
 			</Field>
 		);
@@ -107,7 +107,7 @@ describe('Field char counter', () => {
 	it('should render the char counter', () => {
 		const WithCharCounter = () => {
 			const [inputValue, setInputValue] = useState('');
-			const onHandleChange = (val) => {
+			const onHandleChange = async (val) => {
 				setInputValue(val);
 			};
 

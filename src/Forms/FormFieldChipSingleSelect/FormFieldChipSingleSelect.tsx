@@ -17,16 +17,18 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		onChange,
 		onBlur,
 	} = props;
+	
+	const { required } = fieldDef || null;
 
 	const [internalOptions, setInternalOptions] = useState([...fieldDef?.inputSettings?.options]);
-
+	
 	const updateSelectedOption = (option) => {
-
+		
 		let newOptions = [...internalOptions];
 
 		newOptions = newOptions.map((o) => (
 			o.value === option.value ?
-				{ ...o, selected: !o.selected }
+				{ ...o, selected: required && o.selected ? o.selected : !o.selected }
 				:
 				{ ...o, selected: o.selected = false }
 		)
@@ -35,15 +37,14 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		const selectedOption = newOptions.find(o => o.selected === true);
 
 		setInternalOptions(newOptions);
-		// onSelect(newOptions);
-		onChange(selectedOption);
+		onChange(selectedOption?.value || undefined);
 	}
 
 	const errorWithMessage = error?.trim().length > 0;
 
 	return (
 		<StyledChipGroup
-			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
+			error={(errorWithMessage || (errorWithMessage && required))}
 			onBlur={onBlur}
 		>
 			{

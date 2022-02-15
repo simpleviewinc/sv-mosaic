@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
 	useMemo,
-	memo
+	memo,
+	useEffect
 } from 'react';
 import styled from 'styled-components';
 import { StyledDisabledForm } from './Form.styled';
@@ -26,11 +27,23 @@ const Form = (props: FormProps) => {
 		state,
 		onSubmit,
 		onCancel,
+		onLoad,
 		title,
 		description,
 		cancelButtonAttrs,
 		submitButtonAttrs,
 	} = props;
+
+	useEffect(() => {
+		const loadForm = async () => {
+			await dispatch(
+				actions.loadForm()
+			);
+		}
+
+		if (onLoad)
+			loadForm();
+	}, [onLoad]);
 
 	const submit = async (e) => {
 		e.preventDefault();

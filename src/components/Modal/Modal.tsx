@@ -27,6 +27,7 @@ const Modal = (props: ModalProps): ReactElement => {
 		title,
 		onSubmit,
 		onCancel,
+		onLoad,
 		submitButtonAttrs,
 		cancelButtonAttrs,
 		state,
@@ -35,6 +36,17 @@ const Modal = (props: ModalProps): ReactElement => {
 	} = props;
 
 	const [isMobileView, setIsMobileView] = useState(false);
+
+	useEffect(() => {
+		const loadForm = async () => {
+			await dispatch(
+				actions.loadForm()
+			);
+		}
+
+		if (onLoad)
+			loadForm();
+	}, [onLoad]);
 
 	useEffect(() => {
 		const setResponsiveness = () => {
