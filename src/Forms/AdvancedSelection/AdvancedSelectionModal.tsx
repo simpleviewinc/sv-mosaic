@@ -212,14 +212,18 @@ const AdvancedSelectionModal = (props): ReactElement => {
 						disabled={fieldDef?.disabled}
 					/>
 				</CheckboxListWrapper>
-				<br />
-				<Button
-					buttonType='secondary'
-					disabled={fieldDef?.disabled || !canLoadMore}
-					onClick={updateOptionsList}
-				>
-					{canLoadMore ? 'Load more' : "Can't load more options"}
-				</Button>
+				{fieldDef?.inputSettings?.getOptions &&
+					<>
+						<br />
+						<Button
+							buttonType='secondary'
+							disabled={fieldDef?.disabled || !canLoadMore}
+							onClick={updateOptionsList}
+						>
+							{canLoadMore ? 'Load more' : "Can't load more options"}
+						</Button>
+					</>
+				}
 			</>
 		);
 		// }
