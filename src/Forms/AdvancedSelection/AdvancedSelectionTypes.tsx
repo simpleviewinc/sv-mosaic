@@ -25,20 +25,16 @@ export type AdvancedSelectionDef = {
 	 * Used to get the selected options on the parent component.
 	 */
 	getOptions?: ({
-		currentPage,
 		filter,
 		limit,
 		offset,
-		// groupByCategory,
 	}: {
-		currentPage?: number;
 		filter?: string;
 		limit?: number;
 		offset?: number;
-		// groupByCategory?: boolean,
-	} | undefined) => optionsWithCategory[] | Promise<optionsWithCategory[]>;
+	}) => Promise<optionsWithCategory[]>;
 	getOptionsLimit?: number | string;
-	createNewOption?: (filter: string) => Promise<void>;
+	createNewOption?: (filter: string) => Promise<string>;
 	getSelected?: (options: string[]) => Promise<optionsWithCategory[]>;
 	//onChange: (selectedOptions: optionsWithCategory[]) => void;
 }
