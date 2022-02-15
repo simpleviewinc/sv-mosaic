@@ -1678,16 +1678,10 @@ export const PrepopulateFields = (): ReactElement => {
 	const onLoad = useCallback(async () => {
 		await new Promise((res) => setTimeout(res, 2000));
 
-		return [
-			{
-				name: 'name',
-				value: 'John Doe'
-			},
-			{
-				name: 'email',
-				value: 'john.doe@simpleview.inc'
-			}
-		];
+		return {
+			'name': 'John Doe',
+			'email': 'john.doe@simpleview.inc',
+		};
 	}, []);
 
 	useMemo(() => {
