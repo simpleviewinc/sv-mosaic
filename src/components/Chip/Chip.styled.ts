@@ -10,14 +10,14 @@ const chipFont = `
 
 export const StyledDeletableChip = styled(Chip)`
   &.MuiChip-root {
-    background-color: ${pr => pr.disabled ? 
+    background-color: ${pr => pr.disabled ?
 		theme.colors.simplyGoldDisabled
 		: theme.colors.simplyGold};
     color: ${theme.colors.almostBlack};
     max-width: 186px;
 
     &:hover {
-      background-color: ${pr => pr.disabled ? 
+      background-color: ${pr => pr.disabled ?
 		theme.colors.simplyGoldDisabled
 		: theme.colors.simplyGoldHover};
     }

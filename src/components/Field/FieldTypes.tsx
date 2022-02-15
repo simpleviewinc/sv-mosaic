@@ -1,7 +1,5 @@
 import { Sizes } from '@root/theme/sizes';
-import { InputHTMLAttributes } from 'react';
 import { HTMLAttributes, ReactNode } from 'react';
-import { PhoneInputProps } from 'react-phone-input-2';
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any> {//FieldProps
@@ -13,13 +11,12 @@ export interface MosaicFieldProps<T = any, U = any> {//FieldProps
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
-	// onChange?: HTMLAttributes<HTMLElement>['onChange'] | ((e: any[]) => void | unknown) | PhoneInputProps['onChange'];
-	onChange?: (e: U) => void;
-	// onChange?: any;
+	onChange?: (e: U) => Promise<void>;
 	/**
 	 * Function that listens to a blur event on the field and executes an action.
 	 */
-	onBlur?: HTMLAttributes<HTMLElement>['onBlur'];
+	onBlur?: (e: any) => Promise<void>;
+	// onBlur?: HTMLAttributes<HTMLElement>['onBlur'];
 	/**
 	 * Specifies which form element a label is bound to.
 	 */

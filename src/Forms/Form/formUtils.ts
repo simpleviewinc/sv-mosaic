@@ -201,6 +201,29 @@ export const actions = {
 				type: "FORM_RESET",
 			});
 		}
+	},
+	loadForm() {
+		return async (dispatch, getState, extraArgs) => {
+			await dispatch({
+				type: "FORM_START_DISABLE",
+				value: true,
+			});
+
+			const fieldData = await extraArgs.onLoad();
+			fieldData.map(async field => {
+				await dispatch(
+					actions.setFieldValue({
+						name: field.name,
+						value: field.value,
+					})
+				);
+			});
+
+			await dispatch({
+				type: "FORM_END_DISABLE",
+				value: false,
+			});
+		}
 	}
 };
 
@@ -208,7 +231,8 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 	const extraArgs = useRef({
 		fields: [],
 		fieldMap: {},
-		onSubmit: () => { }
+		onSubmit: () => { },
+		onLoad: () => [{ name: '', value: '' }],
 	});
 	const reducer = useMemo(() => {
 		return customReducer
@@ -246,12 +270,17 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 		extraArgs.current.onSubmit = fn;
 	}, []);
 
+	const registerOnLoad = useCallback((fn) => {
+		extraArgs.current.onLoad = fn;
+	}, []);
+
 	return {
 		events,
 		state,
 		dispatch,
 		registerFields,
 		registerOnSubmit,
+		registerOnLoad,
 	};
 }
 

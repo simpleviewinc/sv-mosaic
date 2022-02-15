@@ -49,8 +49,8 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 		}
 
 		function setMousePosition(e: MouseEvent) {
-			mouseX = e.clientX - canvasPos.x;
-			mouseY = e.clientY - canvasPos.y;
+			mouseX = e.pageX  - canvasPos.x;
+			mouseY = e.pageY - canvasPos.y;
 		}
 
 		function getPosition(canvas) {
