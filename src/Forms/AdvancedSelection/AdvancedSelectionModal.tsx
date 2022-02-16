@@ -23,6 +23,8 @@ import AddIcon from '@material-ui/icons/Add';
 import CheckboxList from '@root/components/CheckboxList';
 import ChipList from './ChipList';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
+import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
+import LoadMoreButton from './LoadMoreButton';
 
 const AdvancedSelectionModal = (props): ReactElement => {
 	const {
@@ -163,30 +165,7 @@ const AdvancedSelectionModal = (props): ReactElement => {
 	* otherwise just displays a single checkbox list with all the options
 	* @returns a list of CheckboxList or a single Checkboxlist
 	*/
-	const showCheckboxList = (props): ReactElement[] | ReactElement => {
-		/**
-		 * Creates and array with the checked options
-		 * @param checked
-		 */
-		const onChangeCheckBoxList = async (checked) => {
-
-			await dispatch(
-				actions.setFieldValue({
-					name: 'checkboxList',
-					value: checked,
-				})
-			);
-		};
-
-		const updateOptionsList = () => {
-			// if (state?.data?.searchInput?.length > 0) {
-			// 	getMoreOptions();
-			// 	setFilteredPage(filteredPage + 1);
-			// } else {
-			getMoreOptions();
-			// }
-		}
-
+	const showCheckboxList = useCallback((): ReactElement[] | ReactElement => {
 		// if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 		// 	return Array.from(optionsWithCategories).map(([category, value]) => (
 		// 		<CheckboxListWrapper key={`${category}-${value}`}>
@@ -202,32 +181,20 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		// 		</CheckboxListWrapper>
 		// 	));
 		// } else {
-		return (
+		return (fieldDef?.inputSettings?.getOptions &&
 			<>
-				<CheckboxListWrapper>
-					<CheckboxList
-						options={filteredList}
-						checked={props.value}
-						onChange={onChangeCheckBoxList}
-						disabled={fieldDef?.disabled}
-					/>
-				</CheckboxListWrapper>
-				{fieldDef?.inputSettings?.getOptions &&
-					<>
-						<br />
-						<Button
-							buttonType='secondary'
-							disabled={fieldDef?.disabled || !canLoadMore}
-							onClick={updateOptionsList}
-						>
-							{canLoadMore ? 'Load more' : "Can't load more options"}
-						</Button>
-					</>
-				}
+				<br />
+				<Button
+					buttonType='secondary'
+					disabled={fieldDef?.disabled || !canLoadMore}
+					onClick={getMoreOptions}
+				>
+					{canLoadMore ? 'Load more' : "Can't load more options"}
+				</Button>
 			</>
 		);
 		// }
-	};
+	}, [canLoadMore, fieldDef?.disabled, fieldDef?.inputSettings?.getOptions]);
 
 	const searchInput = useCallback((props): ReactElement => {
 		/**
@@ -294,6 +261,33 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		);
 	}
 
+	const getMoreOptions = async () => {
+		if (fieldDef?.inputSettings?.getOptions) {
+			let newOptions = [];
+			newOptions = await fieldDef?.inputSettings?.getOptions({
+				offset: filteredList ? filteredList.length : 0,
+				limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
+				filter: state?.data?.searchInput ? state?.data?.searchInput : undefined,
+			});
+
+			if (newOptions.length > +fieldDef?.inputSettings?.getOptionsLimit) {
+				newOptions.pop();
+				setCanLoadMore(true)
+			} else {
+				setCanLoadMore(false);
+			}
+
+			if (!state?.data?.searchInput) {
+				setOptions(options.concat(newOptions));
+			} else {
+				if (newOptions.length > options.length)
+					setFilteredOptions(options.concat(newOptions));
+				else
+					setFilteredOptions(newOptions);
+			}
+		}
+	}
+
 	const fields = useMemo(
 		() => (
 			[
@@ -313,14 +307,38 @@ const AdvancedSelectionModal = (props): ReactElement => {
 					type: searchInput,
 				},
 				{
-					name: "checkboxList",
-					type: showCheckboxList,
+					name: 'checkboxList',
+					type: 'checkbox',
+					disabled: fieldDef?.disabled,
+					style: {
+						height: '353px',
+						overflowY: 'auto',
+						flexWrap: 'nowrap',
+						width: '100%',
+					},
+					size: '100%',
+					inputSettings: {
+						options: filteredList,
+					}
+				} as FieldDef<FormFieldCheckboxDef>,
+				{
+					name: "loadMoreButton",
+					type: () => <LoadMoreButton
+						canLoadMore={canLoadMore}
+						getMoreOptions={getMoreOptions}
+						disabled={fieldDef?.disabled}
+						parentInputSettings={fieldDef?.inputSettings}
+					/>,
 				},
 			] as FieldDef[]
 		), [
+		filteredList,
 		searchInput,
-		showCheckboxList,
-		fieldDef
+		fieldDef,
+		canLoadMore,
+		getMoreOptions,
+		isModalOpen,
+		isMobileView,
 	]
 	);
 
@@ -360,33 +378,6 @@ const AdvancedSelectionModal = (props): ReactElement => {
 			onChange(undefined);
 		}
 	};
-
-	const getMoreOptions = async () => {
-		if (fieldDef?.inputSettings?.getOptions) {
-			let newOptions = [];
-			newOptions = await fieldDef?.inputSettings?.getOptions({
-				offset: filteredList ? filteredList.length : 0,
-				limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
-				filter: state?.data?.searchInput ? state?.data?.searchInput : undefined,
-			});
-
-			if (newOptions.length > +fieldDef?.inputSettings?.getOptionsLimit) {
-				newOptions.pop();
-				setCanLoadMore(true)
-			} else {
-				setCanLoadMore(false);
-			}
-
-			if (!state?.data?.searchInput) {
-				setOptions(options.concat(newOptions));
-			} else {
-				if (newOptions.length > options.length)
-					setFilteredOptions(options.concat(newOptions));
-				else
-					setFilteredOptions(newOptions);
-			}
-		}
-	}
 
 	return (
 		<Modal
