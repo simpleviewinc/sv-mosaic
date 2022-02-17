@@ -74,11 +74,15 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	/**
 	 * Defined between 100, 280, 450, and 620 px.
 	 */
-	size?: Sizes;
+	size?: Sizes | string;
 	/**
-	 * Allows additional styling to the current field.
+	 * Allows additional styling to the current field via className.
 	 */
 	className?: HTMLAttributes<HTMLElement>['className'];
+	/**
+	 * Allows additional styling to the current field via style object.
+	 */
+	style?: HTMLAttributes<HTMLElement>['style'];
 	/**
 	 * Defines the type of component from a list of components
 	 * found on Col.tsx. This also allows for a custom component type.
