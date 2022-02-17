@@ -13,10 +13,7 @@ import {
 import Button from '../Button';
 import { actions, useForm } from '../Form/formUtils';
 import {
-	// CategoryTitle,
-	CheckboxListWrapper,
 	InputWrapper,
-	// OptionsCheckedModalWrapper,
 	StyledInput
 } from './AdvancedSelection.styled';
 import AddIcon from '@material-ui/icons/Add';
