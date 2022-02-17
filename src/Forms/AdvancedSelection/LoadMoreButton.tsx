@@ -4,21 +4,18 @@ import Button from '../Button';
 
 const LoadMoreButton = (props): ReactElement => {
 	const {
-		disabled,
-		canLoadMore,
-		getMoreOptions,
-		parentInputSettings,
+		fieldDef,
 	} = props;
 
-	return parentInputSettings?.getOptions &&
+	return fieldDef?.inputSettings?.parentInputSettings?.getOptions &&
 		<>
 			<br />
 			<Button
 				buttonType='secondary'
-				disabled={disabled || !canLoadMore}
-				onClick={getMoreOptions}
+				disabled={fieldDef?.disabled || !fieldDef?.inputSettings?.canLoadMore}
+				onClick={fieldDef?.inputSettings?.getMoreOptions}
 			>
-				{canLoadMore ? 'Load more' : "Can't load more options"}
+				{fieldDef?.inputSettings?.canLoadMore ? 'Load more' : "Can't load more options"}
 			</Button>
 		</>
 }

@@ -88,12 +88,16 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 							Add Element
 						</Button>
 						<ChipList
-							disabled={fieldDef?.disabled}
-							isModalOpen={isModalOpen}
-							isMobileView={isMobileView}
-							selectedOptions={value}
-							getSelected={fieldDef?.inputSettings?.getSelected}
-							deleteSelectedOption={onChange}
+							fieldDef={{
+								inputSettings: {
+									isModalOpen,
+									isMobileView,
+									selectedOptions: value,
+									getSelected: fieldDef?.inputSettings?.getSelected,
+									deleteSelectedOption: onChange,
+								},
+								disabled: fieldDef?.disabled
+							}}
 						/>
 					</AdvancedSelectionWrapper>
 				</StyledField>
