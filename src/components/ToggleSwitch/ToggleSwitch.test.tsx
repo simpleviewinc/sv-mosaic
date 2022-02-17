@@ -1,33 +1,35 @@
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import * as React from 'react';
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 import ToggleSwitch from './ToggleSwitch';
 
 afterEach(cleanup);
 
+const { getByRole, getByText } = screen;
+
+const ToggleSwitchExample = () => {
+	const [isChecked, setIsChecked] = useState(false);
+
+	const handleChange = (checked) => {
+		setIsChecked(checked);
+	};
+
+	return (
+		<ToggleSwitch
+			label='Label test'
+			disabled={false}
+			onChange={handleChange}
+			checked={isChecked}
+		/>
+	);
+};
+
 describe('ToggleSwitch component', () => {
 	it('should check the ToggleSwitch', () => {
-		const ToggleSwitchExample = () => {
-			const [isChecked, setIsChecked] = useState(false);
-
-			const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-				setIsChecked(e.target.checked);
-			};
-			return (
-				<ToggleSwitch
-					label='Label test'
-					disabled={false}
-					onChange={handleChange}
-					checked={isChecked}
-				/>
-			);
-		};
-
 		render(<ToggleSwitchExample />);
-		const toggleSwitch = screen.getByRole('checkbox') as HTMLInputElement;
-		const label = screen.getByText('Label test');
+		const toggleSwitch = getByRole('checkbox') as HTMLInputElement;
 
-		expect(label).toBeDefined();
+		expect(getByText('Label test')).toBeTruthy();
 		expect(toggleSwitch.checked).toEqual(false);
 
 		fireEvent.click(toggleSwitch);
