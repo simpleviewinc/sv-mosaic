@@ -65,19 +65,6 @@ export const OptionsCheckedModalWrapper = styled.div`
   margin-bottom: ${(pr) => (pr.isModalOpen ? '40px' : '')};
 `;
 
-export const CheckboxListWrapper = styled.div`
-  height: 353px;
-  overflow-y: auto;
-  padding-right: 16px;
-
-  .MuiFormGroup-root {
-    .MuiFormControlLabel-root {
-      width: fit-content;
-      word-wrap: break-word;
-    }
-  }
-`;
-
 export const ShowHideSpan = styled.span`
   color: ${theme.colors.gray700};
   cursor: pointer;
