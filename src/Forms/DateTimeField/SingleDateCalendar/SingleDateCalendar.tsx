@@ -1,6 +1,6 @@
 import { MosaicFieldProps } from '@root/components/Field';
 import * as React from 'react';
-import { ReactElement, useState, useEffect, useRef } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 // Components
 import DatePicker from '../DatePicker';

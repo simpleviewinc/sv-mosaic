@@ -1,26 +1,38 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
+import { MosaicFieldProps } from '@root/components/Field';
 
 // Components
 import TimePicker from '../TimePicker';
 
 // Styles
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
-import { MosaicFieldProps } from '@root/components/Field';
 
 const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
+
+	const [timeField, setTimeField] = useState(undefined);
+	
 	const {
-		error,
 		fieldDef,
 		onChange,
-		value
+		value,
+		onBlur,
 	} = props;
+
+	useEffect(() => {
+		if (value) {
+			setTimeField(value)
+		} else {
+			setTimeField(Date.now());
+			setTimeField(null);
+		}
+	}, [value]);
+
 
 	return (
 		<>
 			{!fieldDef?.disabled ? (
 				<TimePicker
-					error={error}
 					fieldDef={{
 						name: fieldDef?.name,
 						label: '',
@@ -30,7 +42,8 @@ const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
 						},
 					}}
 					onChange={onChange}
-					value={value}
+					value={timeField}
+					onBlur={onBlur}
 				/>
 			) : (
 				<DisabledDateTimeValue>
