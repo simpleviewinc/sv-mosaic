@@ -160,41 +160,21 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		}
 	}, [isModalOpen, state?.data.checkboxList]);
 
-	/**
-	* Renders a checkbox list for each category if groupByCategory is true
-	* otherwise just displays a single checkbox list with all the options
-	* @returns a list of CheckboxList or a single Checkboxlist
-	*/
-	const showCheckboxList = useCallback((): ReactElement[] | ReactElement => {
-		// if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
-		// 	return Array.from(optionsWithCategories).map(([category, value]) => (
-		// 		<CheckboxListWrapper key={`${category}-${value}`}>
-		// 			<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
-		// 				{category && <CategoryTitle>{category}</CategoryTitle>}
-		// 				<CheckboxList
-		// 					options={value}
-		// 					checked={props.value}
-		// 					onChange={onChangeCheckBoxList}
-		// 					disabled={fieldDef?.disabled}
-		// 				/>
-		// 			</OptionsCheckedModalWrapper>
-		// 		</CheckboxListWrapper>
-		// 	));
-		// } else {
-		return (fieldDef?.inputSettings?.getOptions &&
-			<>
-				<br />
-				<Button
-					buttonType='secondary'
-					disabled={fieldDef?.disabled || !canLoadMore}
-					onClick={getMoreOptions}
-				>
-					{canLoadMore ? 'Load more' : "Can't load more options"}
-				</Button>
-			</>
-		);
-		// }
-	}, [canLoadMore, fieldDef?.disabled, fieldDef?.inputSettings?.getOptions]);
+	// if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
+	// 	return Array.from(optionsWithCategories).map(([category, value]) => (
+	// 		<CheckboxListWrapper key={`${category}-${value}`}>
+	// 			<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
+	// 				{category && <CategoryTitle>{category}</CategoryTitle>}
+	// 				<CheckboxList
+	// 					options={value}
+	// 					checked={props.value}
+	// 					onChange={onChangeCheckBoxList}
+	// 					disabled={fieldDef?.disabled}
+	// 				/>
+	// 			</OptionsCheckedModalWrapper>
+	// 		</CheckboxListWrapper>
+	// 	));
+	// } else {
 
 	const searchInput = useCallback((props): ReactElement => {
 		/**
@@ -293,14 +273,15 @@ const AdvancedSelectionModal = (props): ReactElement => {
 			[
 				{
 					name: "listOfChips",
-					type: () => <ChipList
-						disabled={fieldDef?.disabled}
-						getSelected={fieldDef?.inputSettings?.getSelected}
-						isModalOpen={isModalOpen}
-						isMobileView={isMobileView}
-						selectedOptions={state?.data?.checkboxList}
-						deleteSelectedOption={deleteSelectedOption}
-					/>
+					type: ChipList,
+					disabled: fieldDef?.disabled,
+					inputSettings: {
+						getSelected: fieldDef?.inputSettings?.getSelected,
+						isModalOpen,
+						isMobileView,
+						selectedOptions: state?.data?.checkboxList,
+						deleteSelectedOption,
+					}
 				},
 				{
 					name: "searchInput",
@@ -323,12 +304,13 @@ const AdvancedSelectionModal = (props): ReactElement => {
 				} as FieldDef<FormFieldCheckboxDef>,
 				{
 					name: "loadMoreButton",
-					type: () => <LoadMoreButton
-						canLoadMore={canLoadMore}
-						getMoreOptions={getMoreOptions}
-						disabled={fieldDef?.disabled}
-						parentInputSettings={fieldDef?.inputSettings}
-					/>,
+					type: LoadMoreButton,
+					disabled: fieldDef?.disabled,
+					inputSettings: {
+						canLoadMore,
+						getMoreOptions,
+						parentInputSettings: fieldDef?.inputSettings,
+					}
 				},
 			] as FieldDef[]
 		), [
