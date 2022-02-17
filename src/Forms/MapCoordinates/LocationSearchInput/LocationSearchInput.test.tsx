@@ -14,7 +14,7 @@ afterEach(cleanup);
 const { getByTestId } = screen;
 const mockHandleCoordinates = jest.fn()
 
-describe('LocationSearchInput component', () => {
+describe('MapCoordinates LocationSearchInput component', () => {
 	it('it should clear the enter value', () => {
 		render(<LocationSearchInput handleCoordinates={mockHandleCoordinates}/>)
 
