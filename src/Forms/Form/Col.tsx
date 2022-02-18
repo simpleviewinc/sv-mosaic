@@ -13,8 +13,7 @@ import FormFieldPhoneSelectionDropdown from '../FormFieldPhoneSelectionDropdown'
 import FormFieldRadio from '../FormFieldRadio';
 import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
 import Field from '@root/components/Field';
-import LinkSetup from '../LinkSetup';
-import ImageVideoDocumentSetUp from '../ImageVideoDocumentSetUp';
+import ImageVideoLinkDocumentBrowsing from '../ImageVideoLinkDocumentBrowsing';
 import ColorPicker from '../ColorPicker';
 import SingleDateCalendar from '../DateTimeField/SingleDateCalendar';
 import DateRangeCalendar from '../DateTimeField/DateRangeCalendar';
@@ -60,8 +59,7 @@ const Col = (props) => {
 		phone: FormFieldPhoneSelectionDropdown,
 		radio: FormFieldRadio,
 		toggleSwitch: FormFieldToggleSwitch,
-		linkSetup: LinkSetup,
-		imageVideoDocument: ImageVideoDocumentSetUp,
+		imageVideoDocumentLink: ImageVideoLinkDocumentBrowsing,
 		color: ColorPicker,
 		date: SingleDateCalendar,
 		dateRange: DateRangeCalendar,

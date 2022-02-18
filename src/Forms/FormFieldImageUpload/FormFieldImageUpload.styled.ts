@@ -5,7 +5,7 @@ import {
 	AssetLabel,
 	AssetValue,
 	ButtonsWrapper,
-} from '../ImageVideoDocumentSetUp/ImageVideoDocumentSetUp.styled';
+} from '../ImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingTypes.styled';
 
 // Components
 import Button from '@root/forms/Button';

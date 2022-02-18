@@ -270,15 +270,14 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 										const file = files[fileName];
 
 										return (
-											<div key={fileName}>
-												<ImgLoaded
-													alt={`${fileName} preview`}
-													height={168}
-													onLoad={onImgLoad}
-													src={URL.createObjectURL(file)}
-													width={257}
-												/>
-											</div>
+											<ImgLoaded
+												key={fileName}
+												alt={`${fileName} preview`}
+												height={168}
+												onLoad={onImgLoad}
+												src={URL.createObjectURL(file)}
+												width={257}
+											/>
 										);
 									})}
 									{focusMode && <ImageUploadCanvas mousePosition={mousePosition} />}
