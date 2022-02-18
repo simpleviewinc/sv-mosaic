@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { ReactElement, useCallback, useMemo } from 'react';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
-import Address from './Address';
 import Form from '../Form/Form';
 import { FieldDef } from '../../components/Field';
 import { useForm } from '../Form/formUtils';
@@ -13,29 +12,28 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default = (): ReactElement => {
-	return (
-		<>
-			{/* <pre>{JSON.stringify(state, null, "  ")}</pre> */}
-			<Address fieldDef={{ name: 'fieldTest', label: text('Label', 'Label') }} />
-		</>
-	);
+const onCancel = () => {
+	alert('Cancelling form, going back to previous site');
 };
 
-export const FormExample = (): ReactElement => {
+export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	
+	const label = text('Label', 'Label');
+	const disabled = boolean('Disabled', false);
 
 	const fields = useMemo(
 		() => (
 			[
 				{
-					name: "a",
-					label: "a",
+					disabled,
+					label,
+					name: "address",
 					type: 'address',
 				},
 			] as FieldDef[]
 		),
-		[]
+		[disabled, label]
 	);
 
 	useMemo(() => {
@@ -49,10 +47,6 @@ export const FormExample = (): ReactElement => {
 	useMemo(() => {
 		registerOnSubmit(onSubmit);
 	}, [onSubmit, registerOnSubmit]);
-
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
 
 	return (
 		<>

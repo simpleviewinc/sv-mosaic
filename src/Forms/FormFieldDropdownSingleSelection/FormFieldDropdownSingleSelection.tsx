@@ -3,6 +3,7 @@ import { useState, memo } from "react";
 import {
 	StyledAutocomplete,
 	StyledDisabledDropdownText,
+	StyledPopper,
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
 import { MosaicFieldProps } from '@root/components/Field';
@@ -50,12 +51,11 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
-						// getOptionLabel={(option) => console.log(option)}
 						getOptionLabel={(option) => option.title ? option.title : ''}
 						onChange={(_event, option) => onChange && onChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}
-						disablePortal={true}
+						PopperComponent={StyledPopper}
 						popupIcon={<ExpandMoreIcon />}
 						onBlur={(e) => onBlur && onBlur(e.target.value)}
 						open={isOpen}
