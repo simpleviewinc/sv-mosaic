@@ -38,7 +38,7 @@ const StyledCol = styled.div`
 		`
 			width: 100%;
 		`
-	}
+}
 `;
 
 const Col = (props) => {
@@ -121,7 +121,7 @@ const Col = (props) => {
 	return (
 		<StyledCol formType={formType}>
 			{col.map((field, i) => {
-				let currentField = fieldsDef?.find(
+				const currentField = fieldsDef?.find(
 					(fieldDef) => {
 						return field === fieldDef.name;
 					}
@@ -157,7 +157,7 @@ const Col = (props) => {
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return ((type !== ('address' || 'advancedSelection' || 'mapCoordinates')) && !!componentMap[type]) ? (
+				return ((type !== ('advancedSelection' || 'mapCoordinates')) && !!componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
 						fieldDef={...currentField}
