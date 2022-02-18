@@ -17,7 +17,6 @@ import {
 	StyledInput
 } from './AdvancedSelection.styled';
 import AddIcon from '@material-ui/icons/Add';
-import CheckboxList from '@root/components/CheckboxList';
 import ChipList from './ChipList';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
 import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
@@ -35,8 +34,8 @@ const AdvancedSelectionModal = (props): ReactElement => {
 
 	const [options, setOptions] = useState<optionsWithCategory[]>([]);
 	const [filteredOptions, setFilteredOptions] = useState<optionsWithCategory[]>([]);
-	const [firstLoad, setFirstLoad] = useState<boolean>(false);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
+	const [filter, setFilter] = useState({ prev: 'options', new: 'options' });
 
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
@@ -52,42 +51,16 @@ const AdvancedSelectionModal = (props): ReactElement => {
 
 	useEffect(() => {
 		const setInternalOptions = async () => {
-			if (fieldDef?.inputSettings?.checkboxOptions && fieldDef?.inputSettings?.getOptions) {
-				let newOptions = fieldDef?.inputSettings?.checkboxOptions;
-
-				const getCb = await fieldDef?.inputSettings?.getOptions({
-					offset: 0,
-					filter: null,
-					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
-				});
-
-				if (getCb.length > +fieldDef?.inputSettings?.getOptionsLimit) {
-					getCb.pop();
-					setCanLoadMore(true)
-				} else {
-					setCanLoadMore(false);
-				}
-
-				newOptions = newOptions.concat(getCb);
-
-				setOptions(options.concat(newOptions));
-				setFirstLoad(true);
-
+			if (fieldDef?.inputSettings?.getOptions) {
+				await getMoreOptions();
 			} else if (fieldDef?.inputSettings?.checkboxOptions) {
 				setOptions(options.concat(fieldDef?.inputSettings?.checkboxOptions));
-				setFirstLoad(true);
-
-			} else if (fieldDef?.inputSettings?.getOptions) {
-				await getMoreOptions();
-
-				setFirstLoad(true);
 			}
 		}
 
-		if (isModalOpen && !firstLoad)
-			setInternalOptions();
+		setInternalOptions();
 	}, [
-		isModalOpen,
+		// isModalOpen,
 		fieldDef?.inputSettings?.checkboxOptions,
 		fieldDef?.inputSettings?.getOptions,
 		fieldDef?.inputSettings?.getOptionsLimit
@@ -101,20 +74,42 @@ const AdvancedSelectionModal = (props): ReactElement => {
 		};
 	}
 
-	const a = debounce(() => getMoreOptions());
+	const a = debounce(async () => await getMoreOptions());
 
 	useEffect(() => {
-		if (state?.data?.searchInput?.length > 0) {
-			// setFilteredPage(0);
-			a();
+		a();
+	}, [filter]);
+
+	useEffect(() => {
+		const searchInput = state?.data?.searchInput;
+
+		if (searchInput?.length > 0) {
+			setFilter({ prev: filter.new, new: 'filter' });
+		} else {
+			setFilter({ prev: filter.new, new: 'options' });
 		}
+
+		// if (searchInput !== undefined) {
+		// 	a();
+		// }
+
+		//
+		// if (searchInput?.length === 0 && fieldDef?.inputSettings?.getMoreOptions)
+		// 	setCanLoadMore(true);
+		//
 	}, [state?.data?.searchInput]);
 
+	const loadMoreOptions = () => {
+		setFilter({ prev: filter.new, new: filter.new });
+	}
+
 	const filteredList = useMemo(() => {
-		if (state?.data?.searchInput) {
-			const trimmedFilter = state?.data?.searchInput?.trim().toLowerCase();
+		const searchInput = state?.data?.searchInput;
+
+		if (searchInput) {
+			const trimmedFilter = searchInput?.trim().toLowerCase();
 			return filteredOptions.filter(
-				(option) => state?.data?.searchInput === '' ||
+				(option) => searchInput === '' ||
 					option.label.toLowerCase().includes(trimmedFilter) /*||*/
 				// (fieldDef?.inputSettings?.groupByCategory &&
 				// 	option.category?.toLowerCase().includes(trimmedFilter)
@@ -122,6 +117,7 @@ const AdvancedSelectionModal = (props): ReactElement => {
 
 			);
 		}
+
 		return options;
 	}, [
 		options,
@@ -240,30 +236,47 @@ const AdvancedSelectionModal = (props): ReactElement => {
 
 	const getMoreOptions = async () => {
 		if (fieldDef?.inputSettings?.getOptions) {
+			const searchInput = state?.data?.searchInput;
+
 			let newOptions = [];
-			newOptions = await fieldDef?.inputSettings?.getOptions({
-				offset: filteredList ? filteredList.length : 0,
-				limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
-				filter: state?.data?.searchInput ? state?.data?.searchInput : undefined,
-			});
+			if (filter.prev === filter.new) {
+				newOptions = await fieldDef?.inputSettings?.getOptions({
+					offset: filteredList ? filteredList.length : 0,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
+					filter: searchInput?.length > 0 ? searchInput : undefined,
+				});
+			} else {
+				newOptions = await fieldDef?.inputSettings?.getOptions({
+					offset: 0,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
+					filter: searchInput?.length > 0 ? searchInput : undefined,
+				});
+			}
 
 			if (newOptions.length > +fieldDef?.inputSettings?.getOptionsLimit) {
 				newOptions.pop();
-				setCanLoadMore(true)
+				setCanLoadMore(true);
 			} else {
 				setCanLoadMore(false);
 			}
 
-			if (!state?.data?.searchInput) {
+			if (filter.prev === 'filter' && filter.new === 'options') {
+				setOptions(newOptions);
+			}
+
+			if (filter.prev === 'options' && filter.new === 'options') {
 				setOptions(options.concat(newOptions));
-			} else {
-				if (newOptions.length > options.length)
-					setFilteredOptions(options.concat(newOptions));
-				else
-					setFilteredOptions(newOptions);
+			}
+
+			if (filter.prev === 'options' && filter.new === 'filter') {
+				setFilteredOptions(newOptions);
+			}
+
+			if (filter.prev === 'filter' && filter.new === 'filter') {
+				setFilteredOptions(filteredOptions.concat(newOptions));
 			}
 		}
-	}
+	};
 
 	const fields = useMemo(
 		() => (
@@ -305,7 +318,7 @@ const AdvancedSelectionModal = (props): ReactElement => {
 					disabled: fieldDef?.disabled,
 					inputSettings: {
 						canLoadMore,
-						getMoreOptions,
+						getMoreOptions: loadMoreOptions,
 						parentInputSettings: fieldDef?.inputSettings,
 					}
 				},
