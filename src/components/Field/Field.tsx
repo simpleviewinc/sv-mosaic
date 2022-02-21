@@ -5,7 +5,7 @@ import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 import { default as Label } from './Label';
 import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
-import { FieldDef, MosaicFieldProps } from '.';
+import { MosaicFieldProps } from '.';
 import { Sizes } from '@root/theme/sizes';
 
 const Field = ({
@@ -64,7 +64,8 @@ const Field = ({
 		if (
 			fieldDef?.type === 'linkSetup' ||
 			fieldDef?.type === 'advancedSelection' ||
-			fieldDef?.type === 'imageUpload'
+			fieldDef?.type === 'imageUpload' ||
+			fieldDef?.type === 'address'
 		) {
 			return (labelMargin = '16px');
 		} else if (fieldDef?.type === 'table') {
