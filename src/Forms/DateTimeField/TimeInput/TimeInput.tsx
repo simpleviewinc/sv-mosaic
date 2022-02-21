@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState, useEffect, memo } from 'react';
 import { MosaicFieldProps } from '@root/components/Field';
 
 // Components
@@ -8,7 +8,7 @@ import TimePicker from '../TimePicker';
 // Styles
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
-const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
+const TimeInput = (props: MosaicFieldProps<any, Date>): ReactElement => {
 
 	const [timeField, setTimeField] = useState(undefined);
 	
@@ -17,6 +17,7 @@ const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
 		onChange,
 		value,
 		onBlur,
+		error
 	} = props;
 
 	useEffect(() => {
@@ -44,6 +45,7 @@ const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
 					onChange={onChange}
 					value={timeField}
 					onBlur={onBlur}
+					error={error}
 				/>
 			) : (
 				<DisabledDateTimeValue>
@@ -60,4 +62,4 @@ const TimeInput = (props: MosaicFieldProps<any>): ReactElement => {
 	);
 };
 
-export default TimeInput;
+export default memo(TimeInput);
