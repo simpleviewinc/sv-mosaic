@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Components
 import DatePicker from '../DatePicker';
@@ -13,7 +13,12 @@ import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';
 import { DateTimeInputDef } from '.';
 
-const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement => {
+interface DateTimeDef {
+	dateValue: Date,
+	timeValue: Date
+}
+
+const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef, DateTimeDef>): ReactElement => {
 	const {
 		error,
 		fieldDef,
@@ -50,7 +55,7 @@ const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement 
 								name: fieldDef?.name,
 								label: '',
 								inputSettings: {
-									placeholder: 'Start'
+									placeholder: 'MM / DD / YYYY'
 								},
 								required: fieldDef?.required,
 							}}
@@ -77,7 +82,7 @@ const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement 
 			) : (
 				<>
 					<DisabledDateTimeValue>
-						{value?.dateValue ? value?.dateValue.toLocaleDateString('en-US') : 'Start'}
+						{value?.dateValue ? value?.dateValue.toLocaleDateString('en-US') : 'MM / DD / YYYY'}
 					</DisabledDateTimeValue>
 					<DisabledDateTimeValue>
 						{value?.timeValue
@@ -94,4 +99,4 @@ const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef>): ReactElement 
 	);
 };
 
-export default DateTimeInput;
+export default memo(DateTimeInput);
