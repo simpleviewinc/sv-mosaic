@@ -21,6 +21,8 @@ import ChipList from './ChipList';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
 import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
 import LoadMoreButton from './LoadMoreButton';
+import DrawerContent from '../../components/DrawerContent.jsx';
+import FormLayout from '../Form/FormLayout';
 
 const AdvancedSelectionModal = (props): ReactElement => {
 	const {
@@ -372,17 +374,28 @@ const AdvancedSelectionModal = (props): ReactElement => {
 	};
 
 	return (
-		<Modal
+		<DrawerContent
 			title={fieldDef?.inputSettings?.modalTitle}
-			state={state}
-			dispatch={dispatch}
-			fields={fields}
-			open={isModalOpen}
-			onCancel={handleClose}
-			onSubmit={handleSave}
-			submitButtonAttrs={{ children: 'Save' }}
-			cancelButtonAttrs={{ children: 'Cancel' }}
-		/>
+			onClose={handleClose}
+		>
+			<FormLayout
+				formType='modal'
+				state={state}
+				dispatch={dispatch}
+				fields={fields}
+			/>
+		</DrawerContent>
+		// <Modal
+		// 	title={fieldDef?.inputSettings?.modalTitle}
+		// 	state={state}
+		// 	dispatch={dispatch}
+		// 	fields={fields}
+		// 	open={isModalOpen}
+		// 	onCancel={handleClose}
+		// 	onSubmit={handleSave}
+		// 	submitButtonAttrs={{ children: 'Save' }}
+		// 	cancelButtonAttrs={{ children: 'Cancel' }}
+		// />
 	);
 };
 

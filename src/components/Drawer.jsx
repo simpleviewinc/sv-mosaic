@@ -14,25 +14,25 @@ const DrawerContent = styled.div`
 
 function Drawer(props) {
 	const [state, setState] = useState({
-		open : false
+		open: false
 	});
-	
+
 	useEffect(() => {
 		if (props.open === true) {
 			setState({
 				...state,
-				open : true
+				open: true
 			});
 		}
 	}, [props.open]);
-	
-	const onExited = function() {
+
+	const onExited = function () {
 		setState({
 			...state,
-			open : false
+			open: false
 		});
 	}
-	
+
 	return (
 		<MUIDrawer
 			anchor="right"
@@ -41,6 +41,8 @@ function Drawer(props) {
 			SlideProps={{
 				onExited
 			}}
+			//TODO: MOVE TO STYLED COMPONENT 
+			style={{ zIndex: 99999 }}
 		>
 			{
 				state.open &&
