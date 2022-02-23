@@ -831,6 +831,49 @@ describe('DISPATCHERS: resetForm', () => {
 	runTests(tests, 'dispatch');
 });
 
+describe('DISPATCHERS: loadForm', () => {
+	const tests = [
+		{
+			name: 'Prepopulates fields with data',
+			args: {
+				extraArgs: {
+					fields: [
+						{ name: 'field1' },
+						{ name: 'field2' },
+					],
+					onLoad: () => [
+						{ name: 'field1', value: 'value1' },
+						{ name: 'field2', value: 'value2' },
+					]
+				},
+				action: 'loadForm',
+				calls: [
+					{
+						type: 'FORM_START_DISABLE',
+						value: true,
+					},
+					{
+						type: 'FIELD_ON_CHANGE',
+						name: 'field1',
+						value: 'value1',
+					},
+					{
+						type: 'FIELD_ON_CHANGE',
+						name: 'field2',
+						value: 'value2',
+					},
+					{
+						type: 'FORM_END_DISABLE',
+						value: false,
+					},
+				]
+			}
+		},
+	];
+
+	runTests(tests, 'dispatch');
+});
+
 describe('VALIDATORS: validateEmail', () => {
 	const tests = [
 		{

@@ -17,16 +17,18 @@ export interface SectionDef extends Section {
 }
 
 export interface FormProps {
+	title?: string;
+	description?: string;
+	type?: 'drawer';
 	state: any;
 	dispatch: any;
 	events?: any;
-	title?: string;
-	description?: string;
 	fields: FieldDef[];
 	sections?: SectionDef[];
 	onSubmit?(...args: any): any;
 	submitButtonAttrs?: FormButtonProps;
 	onCancel?(...args: any): any;
 	cancelButtonAttrs?: FormButtonProps;
+	onLoad?(...args: any): any;
 }
 

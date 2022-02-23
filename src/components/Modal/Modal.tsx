@@ -27,6 +27,7 @@ const Modal = (props: ModalProps): ReactElement => {
 		title,
 		onSubmit,
 		onCancel,
+		onLoad,
 		submitButtonAttrs,
 		cancelButtonAttrs,
 		state,
@@ -35,6 +36,17 @@ const Modal = (props: ModalProps): ReactElement => {
 	} = props;
 
 	const [isMobileView, setIsMobileView] = useState(false);
+
+	useEffect(() => {
+		const loadForm = async () => {
+			await dispatch(
+				actions.loadForm()
+			);
+		}
+
+		if (onLoad)
+			loadForm();
+	}, [onLoad]);
 
 	useEffect(() => {
 		const setResponsiveness = () => {
@@ -115,29 +127,33 @@ const Modal = (props: ModalProps): ReactElement => {
 
 	return (
 		<StyledDialog fullScreen={isMobileView} open={open} onClose={(e) => cancel(e)}>
-			<StyledDisabledForm disabled={state.disabled} />
-			{isMobileView ? displayMobile : displayDesktop}
-			<DialogContent>
-				<FormLayout
-					formType='modal'
-					state={state}
-					dispatch={dispatch}
-					fields={fields}
-					sections={sections}
-				/>
-			</DialogContent>
-			{!isMobileView && (
-				<DialogActions>
-					<Button
-						buttonType='secondary'
-						onClick={(e) => cancel(e)}
-						{...cancelButtonAttrs}
-					>
-						{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
-					</Button>
-					{PrimaryButton}
-				</DialogActions>
-			)}
+			{open &&
+				<>
+					<StyledDisabledForm disabled={state.disabled} />
+					{isMobileView ? displayMobile : displayDesktop}
+					<DialogContent>
+						<FormLayout
+							formType='modal'
+							state={state}
+							dispatch={dispatch}
+							fields={fields}
+							sections={sections}
+						/>
+					</DialogContent>
+					{!isMobileView && (
+						<DialogActions>
+							<Button
+								buttonType='secondary'
+								onClick={(e) => cancel(e)}
+								{...cancelButtonAttrs}
+							>
+								{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
+							</Button>
+							{PrimaryButton}
+						</DialogActions>
+					)}
+				</>
+			}
 		</StyledDialog>
 	);
 };

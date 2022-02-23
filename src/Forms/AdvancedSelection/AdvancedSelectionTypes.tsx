@@ -1,4 +1,8 @@
-export type optionsWithCategory = { category?: string, label: string, value: string };
+import { MosaicLabelValue } from 'src/types/index'
+
+export type optionsWithCategory = {
+	category?: string;
+} & MosaicLabelValue;
 
 export type AdvancedSelectionDef = {
 	/**
@@ -16,9 +20,20 @@ export type AdvancedSelectionDef = {
 	 * checkboxOptions.
 	 */
 	groupByCategory?: boolean;
-	updateOptionsCb?: (key: any) => void;
+	// updateOptionsCb?: (key: any) => void;
 	/**
 	 * Used to get the selected options on the parent component.
 	 */
-	//onChange: (selectedOptions: optionsWithCategory[]) => void;
+	getOptions?: ({
+		filter,
+		limit,
+		offset,
+	}: {
+		filter?: string;
+		limit?: number;
+		offset?: number;
+	}) => Promise<optionsWithCategory[]>;
+	getOptionsLimit?: number | string;
+	createNewOption?: (filter: string) => Promise<string>;
+	getSelected?: (options: string[]) => Promise<optionsWithCategory[]>;
 }
