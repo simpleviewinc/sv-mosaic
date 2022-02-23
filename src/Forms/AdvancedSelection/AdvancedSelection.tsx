@@ -22,8 +22,7 @@ import {
 } from './AdvancedSelection.styled';
 import ChipList from './ChipList';
 import { BREAKPOINTS } from '@root/theme/theme';
-
-// const MAX_CHIPS_TO_SHOW = 8;
+import Drawer from "../../components/Drawer.jsx";
 
 const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
 	const {
@@ -88,12 +87,16 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 							Add Element
 						</Button>
 						<ChipList
-							disabled={fieldDef?.disabled}
-							isModalOpen={isModalOpen}
-							isMobileView={isMobileView}
-							selectedOptions={value}
-							getSelected={fieldDef?.inputSettings?.getSelected}
-							deleteSelectedOption={onChange}
+							fieldDef={{
+								inputSettings: {
+									isModalOpen,
+									isMobileView,
+									selectedOptions: value,
+									getSelected: fieldDef?.inputSettings?.getSelected,
+									deleteSelectedOption: onChange,
+								},
+								disabled: fieldDef?.disabled
+							}}
 						/>
 					</AdvancedSelectionWrapper>
 				</StyledField>
@@ -106,7 +109,10 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					ADD ELEMENT
 				</Button>
 			)}
-			{isModalOpen &&
+			<Drawer
+				open={isModalOpen}
+				onClose={handleCloseModal}
+			>
 				<AdvancedSelectionModal
 					value={value}
 					fieldDef={fieldDef}
@@ -115,7 +121,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					isMobileView={isMobileView}
 					handleCloseModal={handleCloseModal}
 				/>
-			}
+			</Drawer>
 		</>
 	);
 };

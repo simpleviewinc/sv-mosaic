@@ -23,6 +23,8 @@ const FormFieldCheckbox = (
 			options={fieldDef?.inputSettings?.options}
 			onChange={onChange}
 			onBlur={onBlur}
+			style={fieldDef.style}
+			className={fieldDef.className}
 		/>
 	);
 };
