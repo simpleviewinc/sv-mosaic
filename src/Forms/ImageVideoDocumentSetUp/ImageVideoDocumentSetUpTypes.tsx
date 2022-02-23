@@ -1,3 +1,4 @@
+
 import { Options } from '@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes';
 
 export type AssetProperties = {
@@ -12,11 +13,6 @@ export type AssetProperties = {
 }
 
 export type ImageVideoDocumentSetUpDef = {
-	/**
-	 * Array of properties that an asset like an image,
-	 * document or video may contain.
-	 */
-	//value: AssetProperties[];
 	/**
 	 * Callback executed when the remove button is clicked.
 	 * This function should empty the assetProperties array
