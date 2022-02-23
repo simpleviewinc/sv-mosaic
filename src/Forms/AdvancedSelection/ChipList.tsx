@@ -49,7 +49,7 @@ const ChipList = (props): ReactElement => {
    */
 	useEffect(() => {
 		const getSelectedOptions = async () => {
-			let optionsChecked = await fieldDef?.inputSettings?.getSelected(fieldDef?.inputSettings?.selectedOptions);
+			const optionsChecked = await fieldDef?.inputSettings?.getSelected(fieldDef?.inputSettings?.selectedOptions);
 
 			setChipsToRender(optionsChecked);
 		}

@@ -324,14 +324,14 @@ const AdvancedSelectionModal = (props): ReactElement => {
 				},
 			] as FieldDef[]
 		), [
-		filteredList,
-		searchInput,
-		fieldDef,
-		canLoadMore,
-		getMoreOptions,
-		isModalOpen,
-		isMobileView,
-	]
+			filteredList,
+			searchInput,
+			fieldDef,
+			canLoadMore,
+			getMoreOptions,
+			isModalOpen,
+			isMobileView,
+		]
 	);
 
 	useMemo(() => {
