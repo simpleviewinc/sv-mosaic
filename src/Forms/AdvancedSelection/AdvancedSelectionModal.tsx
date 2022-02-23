@@ -358,23 +358,12 @@ const AdvancedSelectionModal = (props): ReactElement => {
    */
 	const handleClose = () => {
 		handleCloseModal();
-
-		// dispatch(
-		// 	actions.setFieldValue({ name: 'searchInput', value: undefined })
-		// );
-
-		// if (value?.length === 0) {
-		// 	dispatch(
-		// 		actions.setFieldValue({ name: 'checkboxList', value: undefined })
-		// 	);
-		// 	onChange(undefined);
-		// }
 	};
 
 	return (
-		// TODO: pass new property to render as drawer.
 		<Form
 			title={fieldDef?.inputSettings?.modalTitle}
+			type='drawer'
 			state={state}
 			dispatch={dispatch}
 			fields={fields}

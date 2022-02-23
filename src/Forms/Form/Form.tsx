@@ -21,6 +21,9 @@ const StyledForm = styled.form`
 
 const Form = (props: FormProps) => {
 	const {
+		title,
+		description,
+		type,
 		sections,
 		fields,
 		dispatch,
@@ -28,8 +31,6 @@ const Form = (props: FormProps) => {
 		onSubmit,
 		onCancel,
 		onLoad,
-		title,
-		description,
 		cancelButtonAttrs,
 		submitButtonAttrs,
 	} = props;
@@ -64,6 +65,7 @@ const Form = (props: FormProps) => {
 				{title ?
 					<TopComponent
 						title={title}
+						type={type}
 						description={description}
 						onCancel={(e) => cancel(e)}
 						cancelButtonAttrs={cancelButtonAttrs}
