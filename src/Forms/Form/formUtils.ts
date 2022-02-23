@@ -210,14 +210,15 @@ export const actions = {
 			});
 
 			const fieldData = await extraArgs.onLoad();
-			Object.entries(fieldData).forEach(async ([key, value]) => {
+
+			for (let [key, value] of Object.entries(fieldData)) {
 				await dispatch(
 					actions.setFieldValue({
 						name: key,
 						value: value,
 					})
 				);
-			});
+			}
 
 			await dispatch({
 				type: "FORM_END_DISABLE",
