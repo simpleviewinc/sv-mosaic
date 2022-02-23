@@ -16,19 +16,19 @@ import {
 import { AddressCardProps } from '../AddressTypes';
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
-	const { address, addressIndex, onEdit, onRemoveAddress } = props;
+	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
 
 	return (
 		<StyledAddressCard data-testid='address-card-test'>
 			<AddressTitle>{`${address.types?.join(', ').replace(/\w+/g, capitalize)} Address`}</AddressTitle>
-			<span>{address.address1}</span>
-			{address.address2 && <span>{address.address2}</span>}
-			{address.address3 && <span>{address.address3}</span>}
-			<span>{`${address.city}, ${address.stateName} ${address.postalCode}`}</span>
-			<span>{address.countryName}</span>
+			<span>{address?.address1}</span>
+			{address?.address2 && <span>{address?.address2}</span>}
+			{address?.address3 && <span>{address?.address3}</span>}
+			<span>{`${address?.city}, ${address?.state?.title ? address.state.title : ''} ${address?.postalCode}`}</span>
+			<span>{address?.country?.title}</span>
 			<ButtonsWrapper>
-				<Button buttonType='blueText' onClick={() => onEdit(address, addressIndex)}>Edit</Button>
-				<Button buttonType='redText' onClick={() => onRemoveAddress(addressIndex)}>
+				<Button buttonType='blueText' disabled={disabled} onClick={() => onEdit(address, addressIndex)}>Edit</Button>
+				<Button buttonType='redText' disabled={disabled} onClick={() => onRemoveAddress(addressIndex)}>
 					Remove
 				</Button>
 			</ButtonsWrapper>
