@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, ReactNode, forwardRef } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 
 // Material UI

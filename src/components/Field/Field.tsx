@@ -78,7 +78,7 @@ const Field = ({
 		<StyledFieldContainer className={fieldDef?.className}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
-				size={(fieldDef?.type === 'chip') ? Sizes.md : fieldDef?.type === 'color' ? '102px' : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}
+				size={(fieldDef?.type === 'chip' || fieldDef?.type === 'linkSetup') ? Sizes.md : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}
 				type={fieldDef?.type}
 			>
 				{

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, ReactElement, useState, useRef } from 'react';
+import { memo, ReactElement, useRef } from 'react';
 import { MosaicFieldProps } from '@root/components/Field';
 import { EditorWrapper } from './TextEditor.styled';
 import JoditEditor from 'jodit-react';

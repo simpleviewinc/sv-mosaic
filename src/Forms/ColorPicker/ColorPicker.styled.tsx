@@ -7,6 +7,7 @@ export const ColorContainer = styled.div`
   margin-bottom: ${(pr) => (pr.displayColorPicker ? '8px' : 0)};
   opacity: ${(pr) => (pr.disabled ? 0.5 : 1)};
   padding: 10px;
+  width: fit-content;
 `;
 
 export const ColorDiv = styled.div`
