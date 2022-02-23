@@ -22,7 +22,6 @@ import {
 } from './AdvancedSelection.styled';
 import ChipList from './ChipList';
 import { BREAKPOINTS } from '@root/theme/theme';
-// import Drawer from '../../components/Drawer.jsx';
 import Drawer from "../../components/Drawer.jsx";
 
 const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
@@ -123,16 +122,6 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					handleCloseModal={handleCloseModal}
 				/>
 			</Drawer>
-			{/* {isModalOpen &&
-				<AdvancedSelectionModal
-					value={value}
-					fieldDef={fieldDef}
-					onChange={onChange}
-					isModalOpen={isModalOpen}
-					isMobileView={isMobileView}
-					handleCloseModal={handleCloseModal}
-				/>
-			} */}
 		</>
 	);
 };
