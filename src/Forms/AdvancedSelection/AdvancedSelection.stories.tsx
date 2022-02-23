@@ -153,6 +153,7 @@ export const Playground = (): ReactElement => {
 			label: newOptionLabel,
 		}
 
+		//Insert to db
 		setOptions([...options, newOption]);
 
 		return value;

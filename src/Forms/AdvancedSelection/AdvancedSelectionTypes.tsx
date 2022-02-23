@@ -36,5 +36,4 @@ export type AdvancedSelectionDef = {
 	getOptionsLimit?: number | string;
 	createNewOption?: (filter: string) => Promise<string>;
 	getSelected?: (options: string[]) => Promise<optionsWithCategory[]>;
-	//onChange: (selectedOptions: optionsWithCategory[]) => void;
 }
