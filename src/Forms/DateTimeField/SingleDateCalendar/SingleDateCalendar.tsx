@@ -1,6 +1,6 @@
 import { MosaicFieldProps } from '@root/components/Field';
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 // Components
 import DatePicker from '../DatePicker';
@@ -9,18 +9,30 @@ import DatePicker from '../DatePicker';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
 const SingleDateCalendar = (props: MosaicFieldProps<any>): ReactElement => {
+
+	const [dateField, setDateField] = useState(undefined);
+
 	const {
-		error,
 		fieldDef,
 		onChange,
-		value
+		value,
+		onBlur
 	} = props;
+
+
+	useEffect(() => {
+		if (value) {
+			setDateField(value);
+		} else {
+			setDateField(Date.now());
+			setDateField(null);
+		}
+	}, [value]);
 
 	return (
 		<>
 			{!fieldDef?.disabled ? (
 				<DatePicker
-					error={error}
 					fieldDef={{
 						name: fieldDef?.name,
 						label: '',
@@ -30,7 +42,8 @@ const SingleDateCalendar = (props: MosaicFieldProps<any>): ReactElement => {
 						},
 					}}
 					onChange={onChange}
-					value={value}
+					onBlur={onBlur}
+					value={dateField}
 				/>
 			) : (
 				<DisabledDateTimeValue>

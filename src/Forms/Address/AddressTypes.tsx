@@ -1,12 +1,15 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type IAddress = {
 	address1: string;
 	address2?: string;
 	address3?: string;
 	city: string;
-	country: { title: string; value: any };
+	country: { title: string; value: unknown };
 	countryName?: string;
+	id?: number;
 	postalCode: string;
-	state: { title: string; value: any };
+	state: { title: string; value: unknown };
 	stateName?: string;
 	types: string[];
 };
@@ -21,6 +24,10 @@ export interface AddressCardProps {
 	 * Index of the current address card.
 	 */
 	addressIndex?: number;
+	/**
+	 * Disables edit and remove button
+	 */
+	disabled: boolean;
 	/**
 	 * Function executed when removing an address card.
 	 */
@@ -38,4 +45,15 @@ export interface AddressProps {
 	label: string;
 	value?: IAddress[];
 	onChange?: (event: unknown) => void;
+}
+
+export interface AddressModalProps {
+	addressToEdit: IAddress;
+	isEditing: boolean;
+	addressIdx: number;
+	open: boolean;
+	onChange?: (event: unknown) => void;
+	setOpen: Dispatch<SetStateAction<boolean>>;
+	setIsEditing: Dispatch<SetStateAction<boolean>>;
+	value: IAddress[];
 }

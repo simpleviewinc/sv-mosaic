@@ -1,6 +1,6 @@
 import * as React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 // Components
@@ -13,7 +13,7 @@ import { DatePickerWrapper } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';
 import { TimePickerDef } from './TimePickerTypes';
 
-const TimePicker = (props: MosaicFieldProps<TimePickerDef>) => {
+const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
 	const {
 		error,
 		fieldDef,
@@ -53,7 +53,7 @@ const TimePicker = (props: MosaicFieldProps<TimePickerDef>) => {
 							placeholder: fieldDef?.inputSettings?.placeholder,
 							required: fieldDef?.required,
 						}}
-						error={error}
+						error={!!error}
 						invalidDateMessage={null}
 						maxDateMessage={null}
 						minDateMessage={null}
