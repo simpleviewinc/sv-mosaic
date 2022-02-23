@@ -33,7 +33,13 @@ import {
 	StyledClearIcon,
 	StyledHelpIconWrapper,
 	TitleWrapper,
+	DrawerViewColumn,
+	DrawerSectionWrapper,
 } from './TopComponent.styled';
+
+// Material UI
+import { IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
@@ -47,6 +53,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		tooltipInfo,
 		sections,
 		submitButtonAttrs,
+		type = undefined,
 	} = props;
 
 	// State variables
@@ -184,6 +191,30 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		</>
 	);
 
+	const drawerView = (
+		<>
+			<DrawerViewColumn type={type}>
+				<Row>
+					{onCancel && (
+						<IconButton
+							data-testid='close-icon'
+							aria-label='close'
+							disableRipple
+							onClick={onCancel}
+							style={{ marginRight: '8px' }}
+						>
+							<CloseIcon />
+						</IconButton>
+					)}
+					<FormTitle type={type}>{title}</FormTitle>
+					{tooltipInfo && helpIcon}
+				</Row>
+				<ResponsiveButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ResponsiveButtonsWrapper>
+			</DrawerViewColumn>
+			<DrawerSectionWrapper>{children}</DrawerSectionWrapper>
+		</>
+	);
+
 	const responsiveView = (
 		<>
 			<ResponsiveViewColumn>
@@ -230,11 +261,13 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		<>
 			{isMobileView ? (
 				mobileView
-			) : (
-				<div style={{ width: '100%' }}>
-					{isResponsiveView ? responsiveView : desktopView}
-				</div>
-			)}
+			)
+				:
+				type === 'drawer' ? drawerView : (
+					<div style={{ width: '100%' }}>
+						{isResponsiveView ? responsiveView : desktopView}
+					</div>
+				)}
 		</>
 	);
 };

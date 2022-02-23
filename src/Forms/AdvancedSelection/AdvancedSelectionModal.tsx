@@ -1,5 +1,4 @@
 import { FieldDef } from '@root/components/Field';
-import Modal from '@root/components/Modal';
 import * as React from 'react';
 import {
 	ChangeEvent,
@@ -21,6 +20,7 @@ import ChipList from './ChipList';
 import { optionsWithCategory } from './AdvancedSelectionTypes';
 import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
 import LoadMoreButton from './LoadMoreButton';
+import Form from '../Form/Form';
 
 const AdvancedSelectionModal = (props): ReactElement => {
 	const {
@@ -147,11 +147,11 @@ const AdvancedSelectionModal = (props): ReactElement => {
 	// 		}
 	// 	}, [fieldDef?.inputSettings?.groupByCategory, filteredList]);
 
-	useEffect(() => {
-		if (!isModalOpen) {
-			onChange(state?.data.checkboxList);
-		}
-	}, [isModalOpen, state?.data.checkboxList]);
+	// useEffect(() => {
+	// 	if (!isModalOpen) {
+	// 		onChange(state?.data.checkboxList);
+	// 	}
+	// }, [isModalOpen, state?.data.checkboxList]);
 
 	// if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
 	// 	return Array.from(optionsWithCategories).map(([category, value]) => (
@@ -358,26 +358,15 @@ const AdvancedSelectionModal = (props): ReactElement => {
    */
 	const handleClose = () => {
 		handleCloseModal();
-
-		dispatch(
-			actions.setFieldValue({ name: 'searchInput', value: undefined })
-		);
-
-		if (value?.length === 0) {
-			dispatch(
-				actions.setFieldValue({ name: 'checkboxList', value: undefined })
-			);
-			onChange(undefined);
-		}
 	};
 
 	return (
-		<Modal
+		<Form
 			title={fieldDef?.inputSettings?.modalTitle}
+			type='drawer'
 			state={state}
 			dispatch={dispatch}
 			fields={fields}
-			open={isModalOpen}
 			onCancel={handleClose}
 			onSubmit={handleSave}
 			submitButtonAttrs={{ children: 'Save' }}
