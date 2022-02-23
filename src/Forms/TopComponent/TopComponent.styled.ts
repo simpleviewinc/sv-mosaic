@@ -33,11 +33,12 @@ export const TitleWrapper = styled(Column)`
 
 export const FormTitle = styled.span`
 	@import url("https://use.typekit.net/rvx4ppi.css");
-	font-family: 'Museo-Sans';
+	font-family: ${pr => !pr.type && 'Museo-Sans'};
+	font-weight: ${pr => pr.type && pr.type === 'drawer' && 'medium'};
 
   color: ${theme.colors.almostBlack};
-  font-size: 28px;
-  margin-bottom: 8px;
+  font-size: ${pr => pr.type && pr.type === 'drawer' ? '20px' : '28px'};
+  margin: ${pr => pr.type && pr.type === 'drawer' ? 'auto' : '0 0 8px 0'};
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     margin: 0;
@@ -62,7 +63,7 @@ export const NavSectionsWrapper = styled.div`
 `;
 
 export const StyledColumn = styled(Column)`
-  background-color: white;
+  background-color: 'white';
   box-shadow: 0px 1px 10px #0000001a;
   margin-bottom: 30px;
   position: sticky;
@@ -170,4 +171,19 @@ export const ResponsiveButtonsWrapper = styled.div`
   button:first-child {
     margin-right: 20px;
   }
+`;
+
+// Drawer view
+
+export const DrawerViewColumn = styled(StyledColumn)`
+  background-color: ${theme.colors.grayHover};
+  box-shadow: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+`;
+
+export const DrawerSectionWrapper = styled.div`
+  padding: 0px 40px;
 `;
