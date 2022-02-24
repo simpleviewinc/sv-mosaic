@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useState, useMemo, ReactElement } from 'react';
+import { memo, useState, useMemo, ReactElement, MouseEvent } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
@@ -13,9 +13,7 @@ import {
 	AssetLabelTooltip,
 	AssetPropertiesColumn,
 	AssetValue,
-	BrowseOptionContainer,
 	BrowseOptionsContainer,
-	BrowseOptionSpan,
 	BrowseSpan,
 	BrowsingContainer,
 	ButtonsWrapper,
@@ -23,20 +21,16 @@ import {
 	ImageVideoLinkDocumentBrowsingContainer,
 	MenuColumn,
 	MoreText,
-	RoundBackground,
 	StyledAnchor,
-	StyledDocumentIcon,
-	StyledImageIcon,
 	StyledImg,
-	StyledLinkIcon,
 	StyledTooltip,
-	StyledVideoIcon,
 	TableRow,
 	Td,
 } from './ImageVideoLinkDocumentBrowsingTypes.styled';
 
 // Components
 import MenuFormFieldCard from '@root/forms/MenuFormFieldCard';
+import BrowseOption from './BrowseOption';
 
 const DOCUMENT = 'document';
 const IMAGE = 'image';
@@ -51,38 +45,11 @@ const ImageVideoLinkDocumentBrowsing = (
 	// State variables
 	const [assetType, setAssetType] = useState('');
 
-	let browsingOptions = 0;
-
-	if (fieldDef?.inputSettings?.handleSetImage) browsingOptions++;
-	if (fieldDef?.inputSettings?.handleSetVideo) browsingOptions++;
-	if (fieldDef?.inputSettings?.handleSetDocument) browsingOptions++;
-	if (fieldDef?.inputSettings?.handleSetLink) browsingOptions++;
-
-	const setImage = () => {
-		fieldDef?.inputSettings?.handleSetImage();
-		setAssetType(IMAGE);
-	};
-
-	const setVideo = () => {
-		fieldDef?.inputSettings?.handleSetVideo();
-		setAssetType(VIDEO);
-	};
-
-	const setDocument = () => {
-		fieldDef?.inputSettings?.handleSetDocument();
-		setAssetType(DOCUMENT);
-	};
-
-	const setLink = () => {
-		fieldDef?.inputSettings?.handleSetLink();
-		setAssetType(LINK);
-	};
-
 	/**
 	 * The Browse button should execute the function
 	 * corresponding to the asset that was loaded.
 	 */
-	const handleBrowse = (e) => {
+	const handleBrowse = (e: MouseEvent<HTMLElement>, assetType: string) => {
 		e.preventDefault();
 		switch (assetType) {
 		case DOCUMENT:
@@ -101,6 +68,7 @@ const ImageVideoLinkDocumentBrowsing = (
 			fieldDef?.inputSettings?.handleSetImage();
 			break;
 		}
+		setAssetType(assetType);
 	};
 
 	/**
@@ -109,7 +77,7 @@ const ImageVideoLinkDocumentBrowsing = (
 	 * to an empty array.
 	 * @param e click event
 	 */
-	const handleRemove = (e) => {
+	const handleRemove = (e: MouseEvent<HTMLElement>) => {
 		e.preventDefault();
 		fieldDef?.inputSettings?.handleRemove();
 	};
@@ -172,38 +140,18 @@ const ImageVideoLinkDocumentBrowsing = (
 			{(Array.isArray(value) && value?.length === 0) || !value ? (
 				<BrowsingContainer>
 					<BrowseSpan>Browse:</BrowseSpan>
-					<BrowseOptionsContainer isMultipleOptions={browsingOptions > 1}>
+					<BrowseOptionsContainer>
 						{fieldDef?.inputSettings?.handleSetImage && (
-							<BrowseOptionContainer>
-								<RoundBackground disabled={fieldDef?.disabled} onClick={setImage} data-testid='browse-image-test'>
-									<StyledImageIcon />
-								</RoundBackground>
-								<BrowseOptionSpan>Image</BrowseOptionSpan>
-							</BrowseOptionContainer>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='image'/>
 						)}
 						{fieldDef?.inputSettings?.handleSetVideo && (
-							<BrowseOptionContainer>
-								<RoundBackground disabled={fieldDef?.disabled} onClick={setVideo} data-testid='browse-video-test'>
-									<StyledVideoIcon />
-								</RoundBackground>
-								<BrowseOptionSpan>Video</BrowseOptionSpan>
-							</BrowseOptionContainer>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='video'/>
 						)}
 						{fieldDef?.inputSettings?.handleSetDocument && (
-							<BrowseOptionContainer>
-								<RoundBackground disabled={fieldDef?.disabled} onClick={setDocument} data-testid='browse-document-test'>
-									<StyledDocumentIcon />
-								</RoundBackground>
-								<BrowseOptionSpan>Document</BrowseOptionSpan>
-							</BrowseOptionContainer>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='document'/>
 						)}
 						{fieldDef?.inputSettings?.handleSetLink && (
-							<BrowseOptionContainer>
-								<RoundBackground disabled={fieldDef?.disabled} onClick={setLink} data-testid='browse-link-test'>
-									<StyledLinkIcon />
-								</RoundBackground>
-								<BrowseOptionSpan>Link</BrowseOptionSpan>
-							</BrowseOptionContainer>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='link'/>
 						)}
 					</BrowseOptionsContainer>
 				</BrowsingContainer>
@@ -239,7 +187,7 @@ const ImageVideoLinkDocumentBrowsing = (
 						<Button
 							buttonType='blueText'
 							disabled={fieldDef?.disabled}
-							onClick={(e) => handleBrowse(e)}
+							onClick={(e) => handleBrowse(e, assetType)}
 						>
 							Browse
 						</Button>
