@@ -32,7 +32,7 @@ const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 				<DatePickerWrapper isPickerOpen={isPickerOpen}>
 					<StyledDatePicker
 						disableToolbar
-						error={error}
+						error={!!error}
 						variant='inline'
 						format='MM/dd/yyyy'
 						margin='normal'
