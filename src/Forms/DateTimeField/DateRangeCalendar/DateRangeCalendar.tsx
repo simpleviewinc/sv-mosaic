@@ -12,12 +12,12 @@ import HelperText from '@root/components/Field/HelperText';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';
 
-interface DateRangeCalendarDef {
+interface DateRangeCalendarValue {
 	from: Date, 
 	to: Date
 }
 
-const DateRangeCalendar = (props: MosaicFieldProps<unknown, DateRangeCalendarDef>): ReactElement => {
+const DateRangeCalendar = (props: MosaicFieldProps<unknown, DateRangeCalendarValue>): ReactElement => {
 	const {
 		error,
 		fieldDef,
