@@ -13,12 +13,12 @@ import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';
 import { DateTimeInputDef } from '.';
 
-interface DateTimeDef {
+interface DateTimeValue {
 	dateValue: Date,
 	timeValue: Date
 }
 
-const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef, DateTimeDef>): ReactElement => {
+const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef, DateTimeValue>): ReactElement => {
 	const {
 		error,
 		fieldDef,
