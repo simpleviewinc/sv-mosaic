@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Styled Components
 import DatePicker from '../DatePicker';
@@ -12,7 +12,12 @@ import HelperText from '@root/components/Field/HelperText';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';
 
-const DateRangeCalendar = (props: MosaicFieldProps<any>): ReactElement => {
+interface DateRangeCalendarValue {
+	from: Date, 
+	to: Date
+}
+
+const DateRangeCalendar = (props: MosaicFieldProps<unknown, DateRangeCalendarValue>): ReactElement => {
 	const {
 		error,
 		fieldDef,
@@ -93,4 +98,4 @@ const DateRangeCalendar = (props: MosaicFieldProps<any>): ReactElement => {
 	);
 };
 
-export default DateRangeCalendar;
+export default memo(DateRangeCalendar);
