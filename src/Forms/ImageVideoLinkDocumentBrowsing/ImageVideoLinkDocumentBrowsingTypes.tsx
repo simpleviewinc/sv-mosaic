@@ -53,6 +53,12 @@ export type ImageVideoDocumentSetUpDef = {
   src?: string;
 };
 
+export interface BrowseOptionProps {
+	assetType: string;
+	disabled: boolean;
+	handleBrowse: (e: React.MouseEvent<HTMLElement>, assetType: string) => void;
+}
+
 /**
  * Return type of the useImageVideoLinkDocumentBrowsing custom hook.
  */
