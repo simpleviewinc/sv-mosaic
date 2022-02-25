@@ -12,7 +12,7 @@ import {
 	StyledLinkIcon,
 	StyledDocumentIcon,
 	StyledVideoIcon,
-} from '../ImageVideoLinkDocumentBrowsingTypes.styled';
+} from '../ImageVideoLinkDocumentBrowsing.styled';
 
 const iconComponentMap = {
 	document: StyledDocumentIcon,
