@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useMemo, useCallback } from 'react';
-import { render, cleanup, fireEvent, screen } from '@testing-library/react';
+import { render, cleanup, fireEvent, screen, waitFor } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 
 // Components
@@ -16,8 +16,8 @@ import {
 	linkExample,
 	videoAssetExample,
 } from './ImageVideoLinkDocumentBrowsingUtils';
-
-afterEach(cleanup);
+import { ImageVideoDocumentLinkBrowsingDef } from './ImageVideoLinkDocumentBrowsingTypes';
+import { FieldDef } from '@root/components/Field/FieldTypes';
 
 const setImageCallback = jest.fn();
 const setDocumentCallback = jest.fn();
@@ -33,28 +33,28 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		registerOnSubmit,
 	} = useForm();
 
-	const setImage = () => {
-		dispatch(
+	const setImage = async () => {
+		setImageCallback();
+		await dispatch(
 			actions.setFieldValue({
 				name: 'imageVideoLinkDocumentBrowsing',
 				value: imageAssetExample,
 			})
 		);
-		setImageCallback();
 	};
 
-	const setVideo = () => {
-		dispatch(
+	const setVideo = async () => {
+		setVideoCallback();
+		await dispatch(
 			actions.setFieldValue({
 				name: 'imageVideoLinkDocumentBrowsing',
 				value: videoAssetExample,
 			})
 		);
-		setVideoCallback();
 	};
 
-	const setDocument = () => {
-		dispatch(
+	const setDocument = async () => {
+		await dispatch(
 			actions.setFieldValue({
 				name: 'imageVideoLinkDocumentBrowsing',
 				value: documentExample,
@@ -63,8 +63,8 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		setDocumentCallback();
 	};
 
-	const setLink = () => {
-		dispatch(
+	const setLink = async () => {
+		await dispatch(
 			actions.setFieldValue({
 				name: 'imageVideoLinkDocumentBrowsing',
 				value: linkExample
@@ -99,7 +99,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 				src: imageVideoSrc,
 			},
 		},
-	];
+	] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[];
 
 	useMemo(() => {
 		registerFields(fields);
@@ -132,6 +132,8 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	);
 };
 
+afterEach(cleanup);
+
 const { getByText, queryByText, getByTestId, findByText, queryByTestId } = screen;
 
 describe('ImageVideoLinkDocumentBrowsing component', () => {
@@ -149,28 +151,33 @@ describe('ImageVideoLinkDocumentBrowsing component', () => {
 describe('ImageVideoLinkDocumentBrowsing when an image is loaded', () => {
 	beforeEach(() => {
 		render(<ImageVideoLinkDocumentBrowsingExample />);
+	});
 
+	it('should trigger the setImage function twice since the browse button executes it when is clicked', async () => {
 		fireEvent.click(getByTestId('browse-image-test'));
+		fireEvent.click(await findByText('Browse'));
+
+		await waitFor(() => {			
+			expect(setImageCallback).toHaveBeenCalledTimes(2);
+		});
 	});
 
-	it('should trigger the setImage function twice since the browse button executes it when is clicked', () => {
-		fireEvent.click(getByText('Browse'));
+	it('should show only the first 4 labels and values of the asset loaded', async() => {
+		fireEvent.click(getByTestId('browse-image-test'));
 
-		expect(setImageCallback).toHaveBeenCalledTimes(2);
-	});
-
-	it('should show only the first 4 labels and values of the asset loaded', () => {
-		expect(getByTestId('image-test')).toBeTruthy();
-		expect(getByText('Title')).toBeTruthy();
-		expect(getByText('Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail')).toBeTruthy();
-		expect(getByText('Type')).toBeTruthy();
-		expect(getByText('Image Video Thumbnail')).toBeTruthy();
-		expect(getByText('Alt')).toBeTruthy();
-		expect(getByText('-')).toBeTruthy();
-		expect(getByText('Size')).toBeTruthy();
-		expect(getByText('1280x720')).toBeTruthy();
-		expect(queryByText('Focus')).toBe(null);
-		expect(queryByText('Locales')).toBe(null);
+		await waitFor(() => {
+			expect(getByTestId('image-test')).toBeTruthy();
+			expect(getByText('Title')).toBeTruthy();
+			expect(getByText('Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail')).toBeTruthy();
+			expect(getByText('Type')).toBeTruthy();
+			expect(getByText('Image Video Thumbnail')).toBeTruthy();
+			expect(getByText('Alt')).toBeTruthy();
+			expect(getByText('-')).toBeTruthy();
+			expect(getByText('Size')).toBeTruthy();
+			expect(getByText('1280x720')).toBeTruthy();
+			expect(queryByText('Focus')).toBe(null);
+			expect(queryByText('Locales')).toBe(null);
+		});		
 	});
 
 	it('should show the missing labels inside a tooltip', async () => {
@@ -186,94 +193,112 @@ describe('ImageVideoLinkDocumentBrowsing when an image is loaded', () => {
 				ownerDocument: document,
 			},
 		});
-	
+		fireEvent.click(getByTestId('browse-image-test'));
 		fireEvent.mouseOver(getByTestId('tooltip-test-id'));
 
 		expect(await findByText('Focus')).toBeInTheDocument();
 		expect(await findByText('Locales')).toBeInTheDocument();
 	});
 
-	it('should remove the image loaded and return to the inital step where the browsing options are shown', () => {
+	it('should remove the image loaded and return to the inital step where the browsing options are shown', async () => {
+		fireEvent.click(getByTestId('browse-image-test'));
 		fireEvent.click(getByText('Remove'));
 
-		expect(getByText('Browse:')).toBeTruthy();
-		expect(getByText('Image')).toBeTruthy();
-		expect(getByText('Document')).toBeTruthy();
-		expect(getByText('Video')).toBeTruthy();
-		expect(getByText('Link')).toBeTruthy();
+		await waitFor(() => {
+			expect(getByText('Browse:')).toBeTruthy();
+			expect(getByText('Image')).toBeTruthy();
+			expect(getByText('Document')).toBeTruthy();
+			expect(getByText('Video')).toBeTruthy();
+			expect(getByText('Link')).toBeTruthy();
+		});	
 	});
 });
 
 describe('ImageVideoLinkDocumentBrowsing when a link is loaded', () => {
 	beforeEach(() => {
 		render(<ImageVideoLinkDocumentBrowsingExample />);
+	});
 
+	it('should trigger the setLink function twice since the browse button also executes it when is clicked', async () => {
 		fireEvent.click(getByTestId('browse-link-test'));
+		fireEvent.click(await findByText('Browse'));
+
+		await waitFor(() => {
+			expect(setLinkCallback).toHaveBeenCalledTimes(2);
+		});
 	});
 
-	it('should trigger the setLink function twice since the browse button also executes it when is clicked', () => {
-		fireEvent.click(getByText('Browse'));
+	it('should show labels and values of the link loaded', async () => {
+		fireEvent.click(getByTestId('browse-link-test'));
 
-		expect(setLinkCallback).toHaveBeenCalledTimes(2);
-	});
-
-	it('should show labels and values of the link loaded', () => {
-		expect(getByText('URL')).toBeTruthy();
-		expect(getByText('https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg')).toBeTruthy();
-		expect(getByText('Type')).toBeTruthy();
-		expect(getByText('Asset Library - Image')).toBeTruthy();
-		expect(getByText('Title')).toBeTruthy();
-		expect(getByText('Video Thumbnail - YouTube - Visit Santa Fe, New Mexico')).toBeTruthy();
-		expect(queryByTestId('image-test')).toBe(null);
+		await waitFor(() => {
+			expect(getByText('URL')).toBeTruthy();
+			expect(getByText('https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg')).toBeTruthy();
+			expect(getByText('Type')).toBeTruthy();
+			expect(getByText('Asset Library - Image')).toBeTruthy();
+			expect(getByText('Title')).toBeTruthy();
+			expect(getByText('Video Thumbnail - YouTube - Visit Santa Fe, New Mexico')).toBeTruthy();
+			expect(queryByTestId('image-test')).toBe(null);
+		});
 	});
 });
 
 describe('ImageVideoLinkDocumentBrowsing when a document is loaded', () => {
 	beforeEach(() => {
 		render(<ImageVideoLinkDocumentBrowsingExample />);
+	});
 
+	it('should trigger the setLink function twice since the browse button also executes it when is clicked', async () => {
 		fireEvent.click(getByTestId('browse-document-test'));
+		fireEvent.click(await findByText('Browse'));
+
+		await waitFor(() => {
+			expect(setDocumentCallback).toHaveBeenCalledTimes(2);
+		});
 	});
 
-	it('should trigger the setLink function twice since the browse button also executes it when is clicked', () => {
-		fireEvent.click(getByText('Browse'));
+	it('should show the labels and values of the document loaded', async () => {
+		fireEvent.click(getByTestId('browse-document-test'));
 
-		expect(setDocumentCallback).toHaveBeenCalledTimes(2);
-	});
-
-	it('should show the labels and values of the document loaded', () => {
-		expect(getByText('Title')).toBeTruthy();
-		expect(getByText('Document example')).toBeTruthy();
-		expect(getByText('Size')).toBeTruthy();
-		expect(getByText('333 bytes')).toBeTruthy();
-		expect(getByText('Size on disk')).toBeTruthy();
-		expect(getByText('0 bytes')).toBeTruthy();
-		expect(queryByTestId('image-test')).toBe(null);
+		await waitFor(() => {
+			expect(getByText('Title')).toBeTruthy();
+			expect(getByText('Document example')).toBeTruthy();
+			expect(getByText('Size')).toBeTruthy();
+			expect(getByText('333 bytes')).toBeTruthy();
+			expect(getByText('Size on disk')).toBeTruthy();
+			expect(getByText('0 bytes')).toBeTruthy();
+			expect(queryByTestId('image-test')).toBe(null);
+		});
 	});
 });
 
 describe('ImageVideoLinkDocumentBrowsing when a video is loaded', () => {
 	beforeEach(() => {
 		render(<ImageVideoLinkDocumentBrowsingExample />);
-
+	});
+	
+	it('should trigger the setVideo function twice since the browse button also executes it when is clicked', async () => {
 		fireEvent.click(getByTestId('browse-video-test'));
+		fireEvent.click(await findByText('Browse'));
+
+		await waitFor(() => {
+			expect(setVideoCallback).toHaveBeenCalledTimes(2);
+		});
 	});
 
-	it('should trigger the setVideo function twice since the browse button also executes it when is clicked', () => {
-		fireEvent.click(getByText('Browse'));
+	it('should show the labels and values of the video loaded', async () => {
+		fireEvent.click(getByTestId('browse-video-test'));
 
-		expect(setVideoCallback).toHaveBeenCalledTimes(2);
-	});
-
-	it('should show the labels and values of the video loaded', () => {
-		expect(getByText('Title')).toBeTruthy();
-		expect(getByText('Video Example - This is a video example')).toBeTruthy();
-		expect(getByText('Type')).toBeTruthy();
-		expect(getByText('Alt')).toBeTruthy();
-		expect(getByText('-')).toBeTruthy();
-		expect(getByText('Size')).toBeTruthy();
-		expect(getByText('1280x720')).toBeTruthy();
-		expect(getByText('More')).toBeTruthy();
-		expect(getByTestId('image-test')).toBeTruthy();
+		await waitFor(() => {
+			expect(getByText('Title')).toBeTruthy();
+			expect(getByText('Video Example - This is a video example')).toBeTruthy();
+			expect(getByText('Type')).toBeTruthy();
+			expect(getByText('Alt')).toBeTruthy();
+			expect(getByText('-')).toBeTruthy();
+			expect(getByText('Size')).toBeTruthy();
+			expect(getByText('1280x720')).toBeTruthy();
+			expect(getByText('More')).toBeTruthy();
+			expect(getByTestId('image-test')).toBeTruthy();
+		});
 	});
 });
