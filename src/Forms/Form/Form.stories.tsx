@@ -12,7 +12,7 @@ import { menuOptions } from '../MenuFormFieldCard/MenuFormFieldUtils';
 
 // Components
 import Form from './Form';
-import Modal from '../../components/Modal';
+import Drawer from '@root/components/Drawer.jsx';
 
 // Types
 import { TextFieldDef } from '../FormFieldText/FormFieldTextTypes';
@@ -24,6 +24,7 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
+	const [loadReady, setLoadReady] = useState(false);
 	const { state, dispatch, events, registerFields, registerOnSubmit, registerOnLoad } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
@@ -35,6 +36,8 @@ export const Playground = (): ReactElement => {
 
 	const prepopulate = boolean('Prepopulate', false);
 	const required = boolean('Required', true);
+	const disabled = boolean('Disabled', false);
+	const showSections = boolean('Show sections', false);
 	const prepopulateValues = object('Prepolulate values', {
 		'textField': 'Text field prepopulated',
 		'textArea': 'Text area prepopulated',
@@ -135,18 +138,21 @@ export const Playground = (): ReactElement => {
 					name: "textField",
 					label: "Simple Text",
 					type: "text",
+					disabled,
 					required
 				},
 				{
 					name: "textArea",
 					label: "Text Area",
 					type: "textArea",
+					disabled,
 					required
 				},
 				{
 					name: "check",
 					label: "Checkbox",
 					type: "checkbox",
+					disabled,
 					required,
 					inputSettings: {
 						options: checkboxOptions
@@ -172,12 +178,14 @@ export const Playground = (): ReactElement => {
 							}
 						],
 					},
+					disabled,
 					required
 				},
 				{
 					name: "dropdownSingle",
 					label: "Dropdown single select",
 					type: "dropdown",
+					disabled,
 					required,
 					inputSettings: {
 						options: [
@@ -210,12 +218,14 @@ export const Playground = (): ReactElement => {
 					name: "phoneSelect",
 					label: "Phone selection",
 					type: "phone",
+					disabled,
 					required
 				},
 				{
 					name: "radio",
 					label: "Radio selection",
 					type: "radio",
+					disabled,
 					required,
 					inputSettings: {
 						options: [
@@ -237,6 +247,7 @@ export const Playground = (): ReactElement => {
 				{
 					name: 'toggleSwitch',
 					label: 'Toggle field',
+					disabled,
 					required,
 					type: 'toggleSwitch',
 					inputSettings: {
@@ -246,6 +257,7 @@ export const Playground = (): ReactElement => {
 				{
 					name: "color",
 					label: "Color selector example",
+					disabled,
 					required,
 					type: "color",
 				},
@@ -253,36 +265,42 @@ export const Playground = (): ReactElement => {
 					name: "date",
 					label: "Single Date Picker",
 					type: "date",
+					disabled,
 					required,
 				},
 				{
 					name: "dateRange",
 					label: "Date Range",
 					type: "dateRange",
+					disabled,
 					required
 				},
 				{
 					name: "time",
 					label: "Single Time Picker",
 					type: "time",
+					disabled,
 					required
 				},
 				{
 					name: "dateTime",
 					label: "Date and Time Picker",
 					type: "dateTime",
+					disabled,
 					required
 				},
 				{
 					name: 'address',
 					label: 'Address field',
 					type: 'address',
+					disabled,
 					required
 				},
 				{
 					name: 'advancedSelection',
 					label: 'Advanced Selection field',
 					type: 'advancedSelection',
+					disabled,
 					required,
 					inputSettings: {
 						modalTitle: 'Advanced Selection Modal title',
@@ -295,6 +313,7 @@ export const Playground = (): ReactElement => {
 					name: 'imageVideoDocumentLink',
 					label: 'Image Video and Document field',
 					type: 'imageVideoDocumentLink',
+					disabled,
 					required,
 					inputSettings: {
 						options: menuOptions,
@@ -310,12 +329,14 @@ export const Playground = (): ReactElement => {
 					name: 'textEditor',
 					label: 'Text Editor field',
 					type: 'textEditor',
+					disabled,
 					required
 				},
 				{
 					name: 'table',
 					label: 'Table example',
 					type: 'table',
+					disabled,
 					required,
 					inputSettings: {
 						handleAddElement: addTableRow,
@@ -329,6 +350,7 @@ export const Playground = (): ReactElement => {
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
+					disabled,
 					required,
 					inputSettings: {
 						options: menuOptions
@@ -338,14 +360,57 @@ export const Playground = (): ReactElement => {
 					name: "mapCoordinates",
 					label: "Map Coordinates Example",
 					type: "mapCoordinates",
+					disabled,
 					required,
 					inputSettings: {
 						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
 					}
 				},
 			] as unknown as FieldDef[],
-		[addTableRow, externalOptions, required]
+		[addTableRow, externalOptions, disabled, required]
 	);
+
+	const sections = [
+		{
+			title: text('Title section 1', 'Section 1'),
+			description: text('Description for section 1', 'Description for section 1'),
+			fields: [
+				// row 1
+				[['textField'], ['textArea'], ['check']],
+				// row 2
+				[['chipSelect'], ['dropdownSingle'], ['table']],
+				[[]],
+				// row 3
+				[['phoneSelect'], ['radio']]
+			]
+		},
+		{
+			title: text('Title section 2', 'Section 2'),
+			description: text('Description for section 2', 'Description for section 2'),
+			fields: [
+				// row 1
+				[[], [], []],
+				// row 2
+				[['toggleSwitch'], [], ['mapCoordinates']],
+				[[]],
+				// row 3
+				[[], ['advancedSelection']]
+			]
+		},
+		{
+			title: text('Title section 3', 'Section 3'),
+			description:  text('Description for section 3', 'Description for section 3'),
+			fields: [
+				// row 1
+				[['color'], ['date'], ['time']],
+				// row 2
+				[[], ['dateTime'], []],
+				[['dateRange']],
+				// row 3
+				[['textEditor'], []]
+			]
+		}
+	];
 
 	const onLoad = useCallback(async () => {
 		await new Promise((res) => setTimeout(res, 2000));
@@ -364,7 +429,7 @@ export const Playground = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, ' '));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -372,19 +437,27 @@ export const Playground = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	useEffect(() => {
-		if (prepopulate) dispatch(actions.resetForm());	
+		const resetForm = async () => {
+			await dispatch(actions.resetForm());
+			setLoadReady(true);
+		};
+		prepopulate ? resetForm() : setLoadReady(false);
 	}, [prepopulate])
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form 
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onLoad={prepopulate && onLoad}
-				events={events} 
-				title='Playground'
+				onLoad={loadReady && onLoad}
+				events={events}
+				sections={showSections && sections}
+				submitButtonAttrs={{ children: text('Submit button', 'Save') }}
+				cancelButtonAttrs={{ children: text('Cancel button', 'Cancel') }}
 			/>
 		</>
 	);
@@ -623,7 +696,6 @@ export const RuntimeBehaviors = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<p>Here is the form</p>
 			<Form 
 				title='Runtime behaviors'
 				state={state}
@@ -708,7 +780,6 @@ export const SubmitExternalButtons = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<p>Here is the form</p>
 			<Form 
-				title='Submit external buttons'
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -784,38 +855,49 @@ export const DrawerForm = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Modal
-				title={'yes'}
-				state={state}
-				dispatch={dispatch}
-				fields={fields}
+			<Drawer
 				open={open}
-				onCancel={onCancel}
-				cancelButtonAttrs={cancelButtonAttrs}
-				onSubmit={onSubmit}
-				submitButtonAttrs={submitButtonAttrs}
-			/>
-			<button onClick={() => setOpen(true)}>Open modal</button>
+				onClose={onCancel}
+			>
+				<Form
+					title={'yes'}
+					type='drawer'
+					state={state}
+					dispatch={dispatch}
+					fields={fields}
+					onCancel={onCancel}
+					cancelButtonAttrs={cancelButtonAttrs}
+					onSubmit={onSubmit}
+					submitButtonAttrs={submitButtonAttrs}
+				/>
+			</Drawer>			
+			<button onClick={() => setOpen(true)}>Open drawer</button>
 		</>
 	);
 };
 
-
 export const CustomFields = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
-	const CustomText = ({ onChange } : {onChange: (e: string) => void}) => {
-		return <input type='text' onChange={(e) => onChange(e.target.value)} />
+	const CustomText = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
+		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
 	}
 
-	const CustomTextArea = ({ onChange } : {onChange: (e: string) => void}) => {
-		return <textarea rows={4} cols={20} onChange={(e) => onChange(e.target.value)} />
+	const CustomTextArea = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
+		return <textarea rows={4} value={value} cols={20} onChange={(e) => onChange(e.target.value)} />
 	}
 
-	const CustomCheckbox = ({ onChange } : {onChange: (e: string) => void}) => {
+	const CustomCheckbox = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
 		return (
 			<>
-				<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onChange={(e) => onChange(e.target.value)} />
+				<input 
+					type="checkbox" 
+					id="vehicle1" 
+					name="vehicle1" 
+					value="Bike" 
+					onChange={(e) => onChange(value ? undefined : e.target.value)}
+					checked={value === 'Bike'}
+				/>
 				<label htmlFor="vehicle1"> I have a bike</label><br />
 			</>
 		)
@@ -958,72 +1040,6 @@ export const Validators = (): ReactElement => {
 				events={events}
 				onSubmit={onSubmit}
 				onCancel={onCancel}
-			/>
-		</>
-	);
-};
-
-export const PrepopulateFields = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit, registerOnLoad } = useForm();
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "name",
-					label: "Name",
-					type: 'text',
-				},
-				{
-					name: "email",
-					label: "Email",
-					type: 'text',
-				},
-			] as FieldDef<TextFieldDef>[],
-		[]
-	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
-	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const onLoad = useCallback(async () => {
-		await new Promise((res) => setTimeout(res, 2000));
-
-		return {
-			'name': 'John Doe',
-			'email': 'john.doe@simpleview.inc',
-		};
-	}, []);
-
-	useMemo(() => {
-		registerOnLoad(onLoad);
-	}, [onLoad, registerOnLoad]);
-
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				title='Prepopulate fields story'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
-				onCancel={onCancel}
-				onLoad={onLoad}
 			/>
 		</>
 	);
