@@ -5,7 +5,7 @@ import { memo, useState, useMemo, ReactElement, MouseEvent } from 'react';
 import Button from '@root/forms/Button';
 
 // Types
-import { AssetProperties, ImageVideoDocumentSetUpDef } from '.';
+import { AssetProperties, ImageVideoDocumentLinkBrowsingDef } from '.';
 import { MosaicFieldProps } from '@root/components/Field';
 import {
 	AssetCard,
@@ -26,7 +26,7 @@ import {
 	StyledTooltip,
 	TableRow,
 	Td,
-} from './ImageVideoLinkDocumentBrowsingTypes.styled';
+} from './ImageVideoLinkDocumentBrowsing.styled';
 
 // Components
 import MenuFormFieldCard from '@root/forms/MenuFormFieldCard';
@@ -38,7 +38,7 @@ const LINK = 'link';
 const VIDEO = 'video';
 
 const ImageVideoLinkDocumentBrowsing = (
-	props: MosaicFieldProps<ImageVideoDocumentSetUpDef, AssetProperties[]>
+	props: MosaicFieldProps<ImageVideoDocumentLinkBrowsingDef, AssetProperties[]>
 ): ReactElement => {
 	const { fieldDef, value } = props;
 
@@ -135,11 +135,17 @@ const ImageVideoLinkDocumentBrowsing = (
 		[value]
 	);
 
+	const hasOptions =
+		fieldDef?.inputSettings?.handleSetImage ||
+		fieldDef?.inputSettings?.handleSetVideo ||
+		fieldDef?.inputSettings?.handleSetDocument ||
+		fieldDef?.inputSettings?.handleSetLink;
+
 	return (
 		<ImageVideoLinkDocumentBrowsingContainer>
 			{(Array.isArray(value) && value?.length === 0) || !value ? (
 				<BrowsingContainer>
-					<BrowseSpan>Browse:</BrowseSpan>
+					<BrowseSpan>{ !hasOptions ? 'No browsing options' : 'Browse:'}</BrowseSpan>
 					<BrowseOptionsContainer>
 						{fieldDef?.inputSettings?.handleSetImage && (
 							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='image'/>
@@ -158,7 +164,7 @@ const ImageVideoLinkDocumentBrowsing = (
 			) : (
 				<AssetCard>
 					{fieldDef?.inputSettings?.src &&
-            !(assetType === DOCUMENT || assetType === LINK) && (
+						!(assetType === DOCUMENT || assetType === LINK) && (
 						<Column>
 							<StyledImg
 								src={fieldDef?.inputSettings?.src}

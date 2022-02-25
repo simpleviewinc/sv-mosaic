@@ -11,7 +11,7 @@ export type AssetProperties = {
   value: string;
 };
 
-export type ImageVideoDocumentSetUpDef = {
+export type ImageVideoDocumentLinkBrowsingDef = {
   /**
    * Callback executed when the remove button is clicked.
    * This function should empty the assetProperties array
@@ -63,9 +63,9 @@ export interface BrowseOptionProps {
  * Return type of the useImageVideoLinkDocumentBrowsing custom hook.
  */
 export type UseImageVideoLinkDocumentBrowsingReturn = {
-  setImage: ImageVideoDocumentSetUpDef['handleSetImage'];
-  setVideo: ImageVideoDocumentSetUpDef['handleSetVideo'];
-  setDocument: ImageVideoDocumentSetUpDef['handleSetDocument'];
-  setLink: ImageVideoDocumentSetUpDef['handleSetLink'];
-  handleRemove: ImageVideoDocumentSetUpDef['handleRemove'];
+  setImage: ImageVideoDocumentLinkBrowsingDef['handleSetImage'];
+  setVideo: ImageVideoDocumentLinkBrowsingDef['handleSetVideo'];
+  setDocument: ImageVideoDocumentLinkBrowsingDef['handleSetDocument'];
+  setLink: ImageVideoDocumentLinkBrowsingDef['handleSetLink'];
+  handleRemove: ImageVideoDocumentLinkBrowsingDef['handleRemove'];
 };

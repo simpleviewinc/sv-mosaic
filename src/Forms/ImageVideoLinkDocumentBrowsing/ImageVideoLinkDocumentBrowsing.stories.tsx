@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useMemo } from 'react';
 import { text, withKnobs, boolean } from '@storybook/addon-knobs';
 
 // Components
-import { ImageVideoDocumentSetUpDef } from '.';
+import { ImageVideoDocumentLinkBrowsingDef, } from '.';
 import { FieldDef } from '@root/components/Field';
 import Form from '../Form/Form';
 
@@ -53,7 +53,7 @@ export const Playground = (): ReactElement => {
 						src: withImage && imageVideoSrc
 					},
 				}
-			] as FieldDef<ImageVideoDocumentSetUpDef>[],
+			] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[],
 		[label, required, disabled, menuOptions, setImage, withLinkOption, setLink, withDocumentOption, setDocument, withVideoOption, setVideo]
 	);
 
@@ -185,7 +185,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						options: menuOptions
+						options: menuOptions,
 					},
 				},
 				{
@@ -199,7 +199,7 @@ export const KitchenSink = (): ReactElement => {
 						handleSetImage: setImageDisabled
 					},
 				},
-			] as FieldDef<ImageVideoDocumentSetUpDef>[],
+			] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[],
 		[menuOptions, setImage, setVideo, setDocument, handleRemove]
 	);
 
