@@ -23,25 +23,25 @@ export type ImageVideoDocumentLinkBrowsingDef = {
    * It should fill the assetProperties array with the document
    * properties.
    */
-  handleSetDocument?: () => void;
+  handleSetDocument?: () => Promise<void>;
   /**
    * Callback executed when the image icon clicked.
    * It should fill the assetProperties array with the document
    * properties.
    */
-  handleSetImage: () => void;
+  handleSetImage: () => Promise<void>;
   /**
    * Callback executed when the video icon is clicked.
    * It should fill the assetProperties array with the document
    * properties.
    */
-  handleSetVideo?: () => void;
+  handleSetVideo?: () => Promise<void>;
   /**
    * Callback executed when the link icon is clicked.
    * It should fill the assetProperties array with the document
    * properties.
    */
-  handleSetLink?: () => void;
+  handleSetLink?: () => Promise<void>;
   /**
    * List of menu options that can be executed by the component.
    */
@@ -56,7 +56,7 @@ export type ImageVideoDocumentLinkBrowsingDef = {
 export interface BrowseOptionProps {
 	assetType: string;
 	disabled: boolean;
-	handleBrowse: (e: React.MouseEvent<HTMLElement>, assetType: string) => void;
+	handleBrowse: (e: React.MouseEvent<HTMLElement>, assetType: string) => Promise<void>;
 }
 
 /**

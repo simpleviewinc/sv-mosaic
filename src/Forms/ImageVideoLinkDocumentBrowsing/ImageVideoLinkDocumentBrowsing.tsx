@@ -49,26 +49,41 @@ const ImageVideoLinkDocumentBrowsing = (
 	 * The Browse button should execute the function
 	 * corresponding to the asset that was loaded.
 	 */
-	const handleBrowse = (e: MouseEvent<HTMLElement>, assetType: string) => {
+	const handleBrowse = async (e: MouseEvent<HTMLElement>, asset: string) => {
 		e.preventDefault();
-		switch (assetType) {
-		case DOCUMENT:
-			fieldDef?.inputSettings?.handleSetDocument();
-			break;
-
-		case VIDEO:
-			fieldDef?.inputSettings?.handleSetVideo();
-			break;
-
-		case LINK:
-			fieldDef?.inputSettings?.handleSetLink();
-			break;
-
-		default:
-			fieldDef?.inputSettings?.handleSetImage();
-			break;
+		if (asset === DOCUMENT) {
+			try {
+				await fieldDef?.inputSettings?.handleSetDocument();
+			} catch (error) {
+				console.log(error)
+			}
 		}
-		setAssetType(assetType);
+
+		if (asset === VIDEO) {
+			try {
+				await fieldDef?.inputSettings?.handleSetVideo();
+			} catch (error) {
+				console.log(error)
+			}
+		}
+
+		if (asset === LINK) {
+			try {
+				await fieldDef?.inputSettings?.handleSetLink();
+			} catch (error) {
+				console.log(error)
+			}
+		}
+
+		if (asset === IMAGE) {
+			try {
+				await fieldDef?.inputSettings?.handleSetImage();
+			} catch (error) {
+				console.log(error)
+			}
+		}
+		
+		setAssetType(asset);
 	};
 
 	/**
@@ -148,16 +163,16 @@ const ImageVideoLinkDocumentBrowsing = (
 					<BrowseSpan>{ !hasOptions ? 'No browsing options' : 'Browse:'}</BrowseSpan>
 					<BrowseOptionsContainer>
 						{fieldDef?.inputSettings?.handleSetImage && (
-							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='image'/>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType={IMAGE}/>
 						)}
 						{fieldDef?.inputSettings?.handleSetVideo && (
-							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='video'/>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType={VIDEO}/>
 						)}
 						{fieldDef?.inputSettings?.handleSetDocument && (
-							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='document'/>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType={DOCUMENT}/>
 						)}
 						{fieldDef?.inputSettings?.handleSetLink && (
-							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType='link'/>
+							<BrowseOption disabled={fieldDef?.disabled} handleBrowse={handleBrowse} assetType={LINK}/>
 						)}
 					</BrowseOptionsContainer>
 				</BrowsingContainer>
@@ -193,7 +208,7 @@ const ImageVideoLinkDocumentBrowsing = (
 						<Button
 							buttonType='blueText'
 							disabled={fieldDef?.disabled}
-							onClick={(e) => handleBrowse(e, assetType)}
+							onClick={async (e) => await handleBrowse(e, assetType)}
 						>
 							Browse
 						</Button>

@@ -118,8 +118,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 	dispatch: (action: unknown) => void,
 	fieldName : string
 ) : UseImageVideoLinkDocumentBrowsingReturn => {
-	const setImage = () => {
-		dispatch(
+	const setImage = async () => {
+		await dispatch(
 			actions.setFieldValue({
 				name: fieldName,
 				value: imageAssetExample,
@@ -128,8 +128,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 		alert('Set image is called');
 	};
 
-	const setVideo = () => {
-		dispatch(
+	const setVideo = async () => {
+		await dispatch(
 			actions.setFieldValue({
 				name: fieldName,
 				value: videoAssetExample,
@@ -138,8 +138,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 		alert('Set video is called');
 	};
 
-	const setDocument = () => {
-		dispatch(
+	const setDocument = async () => {
+		await dispatch(
 			actions.setFieldValue({
 				name: fieldName,
 				value: documentExample,
@@ -148,8 +148,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 		alert('Set document is called');
 	};
 
-	const setLink = () => {
-		dispatch(
+	const setLink = async () => {
+		await dispatch(
 			actions.setFieldValue({
 				name: fieldName,
 				value: linkExample
