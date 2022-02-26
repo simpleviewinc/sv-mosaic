@@ -86,14 +86,11 @@ export * from "./forms/FormFieldChipSingleSelect";
 export { default as FormNav } from "./forms/FormNav";
 export * from "./forms/FormNav";
 
-export { default as ImageVideoDocumentSetUp } from "./forms/ImageVideoDocumentSetUp";
-export * from "./forms/ImageVideoDocumentSetUp";
+export { default as ImageVideoLinkDocumentBrowsing } from "./forms/ImageVideoLinkDocumentBrowsing";
+export * from "./forms/ImageVideoLinkDocumentBrowsing";
 
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
-
-export { default as LinkSetup } from "./forms/LinkSetup";
-export * from "./forms/LinkSetup";
 
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";

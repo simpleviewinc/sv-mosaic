@@ -6,6 +6,7 @@ import { text, withKnobs } from '@storybook/addon-knobs';
 import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils'
 import { useTable, headers } from '@root/forms/Table/tableUtils';
 import { useForm, actions } from "./formUtils";
+import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from '@root/forms/ImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils';
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 import { menuOptions } from '../MenuFormFieldCard/MenuFormFieldUtils';
 
@@ -31,138 +32,10 @@ export const KitchenSink = (): ReactElement => {
 		dispatch
 	);
 
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, 'imageVideoDocumentLink');
+
 	const deleteTableRow = () => {
 		alert('Delete button clicked');
-	};
-
-	const handleSetImage = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocument',
-				value: [
-					{
-						label: 'Title',
-						value:
-							'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail',
-					},
-					{
-						label: 'Type',
-						value: 'Image Video Thumbnail',
-					},
-					{
-						label: 'Alt',
-						value: '-',
-					},
-					{
-						label: 'Size',
-						value: '1280x720',
-					},
-					{
-						label: 'Focus',
-						value: 'No',
-					},
-					{
-						label: 'Locales',
-						value: '-',
-					},
-				]
-			})
-		);
-		alert('Set image is called');
-	};
-
-	const handleSetVideo = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocument',
-				value: [
-					{
-						label: 'Title',
-						value: 'Video Example - This is a video example',
-					},
-					{
-						label: 'Type',
-						value: 'Video',
-					},
-					{
-						label: 'Alt',
-						value: '-',
-					},
-					{
-						label: 'Size',
-						value: '1280x720',
-					},
-					{
-						label: 'Locales',
-						value: 'es, en & in',
-					},
-				]
-			})
-		);
-		alert('Set video is called');
-	};
-
-	const handleSetDocument = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocument',
-				value: [
-					{
-						label: 'Title',
-						value: 'Document example',
-					},
-					{
-						label: 'Type',
-						value: 'Document',
-					},
-					{
-						label: 'Size',
-						value: '333 bytes'
-					},
-					{
-						label: 'Size on disk',
-						value: '0 bytes',
-					},
-				]
-			})
-		);
-		alert('Set document is called');
-	};
-
-	const handleRemoveImageVideoDocument = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocument',
-				value: undefined
-			})
-		);
-	};
-
-	const imageVideoSrc = 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg';
-
-	const handleSetLink = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'linkSetup',
-				value: {
-					title:
-						'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico',
-					type:
-						'Asset Library - Image',
-					url:
-						'https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg',
-				}
-			})
-		);
-	};
-
-	const handleRemoveLinkSetup = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'linkSetup',
-				value: undefined
-			})
-		);
 	};
 
 	let externalOptions = [
@@ -380,25 +253,17 @@ export const KitchenSink = (): ReactElement => {
 					}
 				},
 				{
-					name: 'imageVideoDocument',
+					name: 'imageVideoDocumentLink',
 					label: 'Image Video and Document field',
-					type: 'imageVideoDocument',
+					type: 'imageVideoDocumentLink',
 					inputSettings: {
 						options: menuOptions,
-						handleSetImage,
-						handleSetDocument,
-						handleSetVideo,
-						handleRemove: handleRemoveImageVideoDocument,
+						handleSetImage: setImage,
+						handleSetDocument: setDocument,
+						handleSetVideo: setVideo,
+						handleSetLink: setLink,
+						handleRemove,
 						src: imageVideoSrc,
-					}
-				},
-				{
-					name: 'linkSetup',
-					label: 'Link Setup field',
-					type: 'linkSetup',
-					inputSettings: {
-						handleSetLink,
-						handleRemove: handleRemoveLinkSetup
 					}
 				},
 				{
@@ -418,11 +283,6 @@ export const KitchenSink = (): ReactElement => {
 						headers,
 					}
 				},
-				// {
-				// 	name: "addLink",
-				// 	label: "Add link example",
-				// 	type: "addLink",
-				// },
 				{
 					name: "imageUpload",
 					label: "Image Upload example",
@@ -844,7 +704,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 	const handleSetImage = () => {
 		dispatch(
 			actions.setFieldValue({
-				name: 'imageVideoDocument',
+				name: 'imageVideoDocumentLink',
 				value: [
 					{
 						label: 'Title',
@@ -880,7 +740,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 	const handleSetVideo = () => {
 		dispatch(
 			actions.setFieldValue({
-				name: 'imageVideoDocument',
+				name: 'imageVideoDocumentLink',
 				value: [
 					{
 						label: 'Title',
@@ -911,7 +771,7 @@ export const SubmitInternalButtons = (): ReactElement => {
 	const handleSetDocument = () => {
 		dispatch(
 			actions.setFieldValue({
-				name: 'imageVideoDocument',
+				name: 'imageVideoDocumentLink',
 				value: [
 					{
 						label: 'Title',
@@ -938,38 +798,13 @@ export const SubmitInternalButtons = (): ReactElement => {
 	const handleRemoveImageVideoDocument = () => {
 		dispatch(
 			actions.setFieldValue({
-				name: 'imageVideoDocument',
+				name: 'imageVideoDocumentLink',
 				value: undefined
 			})
 		);
 	};
 
 	const imageVideoSrc = 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg';
-
-	const handleSetLink = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'linkSetup',
-				value: {
-					title:
-						'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico',
-					type:
-						'Asset Library - Image',
-					url:
-						'https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg',
-				}
-			})
-		);
-	};
-
-	const handleRemoveLinkSetup = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'linkSetup',
-				value: undefined
-			})
-		);
-	};
 
 	let externalOptions = [
 		{
@@ -1215,9 +1050,9 @@ export const SubmitInternalButtons = (): ReactElement => {
 					}
 				},
 				{
-					name: 'imageVideoDocument',
+					name: 'imageVideoDocumentLink',
 					label: 'Image Video and Document field',
-					type: 'imageVideoDocument',
+					type: 'imageVideoDocumentLink',
 					required: true,
 					inputSettings: {
 						options: menuOptions,
@@ -1226,17 +1061,6 @@ export const SubmitInternalButtons = (): ReactElement => {
 						handleSetVideo,
 						handleRemove: handleRemoveImageVideoDocument,
 						src: imageVideoSrc,
-					},
-					validators: [required],
-				},
-				{
-					name: 'linkSetup',
-					label: 'Link Setup field',
-					type: 'linkSetup',
-					required: true,
-					inputSettings: {
-						handleSetLink,
-						handleRemove: handleRemoveLinkSetup
 					},
 					validators: [required],
 				},
