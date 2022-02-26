@@ -11,7 +11,7 @@ import IconButton from '@root/components/IconButton';
 import { StyledMenu } from './MenuFormFieldCard.styled';
 
 const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
-	const { className, options } = props;
+	const { className, disabled, options } = props;
 
 	const [anchorEl, setAnchorEl] = useState(null);
 
@@ -31,6 +31,7 @@ const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
 				data-testid='icon-button-test'
 				icon={MoreVertIcon}
 				onClick={handleMoreIconClick}
+				disabled={disabled}
 			/>
 			<StyledMenu
 				anchorEl={anchorEl}
