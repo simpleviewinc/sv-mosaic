@@ -72,18 +72,18 @@ const ChipList = (props): ReactElement => {
 					chipsToRender?.map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
-							key={`${option.label}-${idx}`}
-							label={option.label}
-							onDelete={() => onChipDelete(option.value)}
+							key={`${option?.label}-${idx}`}
+							label={option?.label}
+							onDelete={() => onChipDelete(option?.value)}
 						/>
 					))
 					:
 					chipsToRender?.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
-							key={`${option.label}-${idx}`}
-							label={option.label}
-							onDelete={() => onChipDelete(option.value)}
+							key={`${option?.label}-${idx}`}
+							label={option?.label}
+							onDelete={() => onChipDelete(option?.value)}
 						/>
 					))
 				}
