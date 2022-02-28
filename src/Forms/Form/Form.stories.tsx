@@ -17,6 +17,17 @@ import Drawer from '@root/components/Drawer.jsx';
 // Types
 import { TextFieldDef } from '../FormFieldText/FormFieldTextTypes';
 import { FieldDef } from '../../components/Field';
+import { AdvancedSelectionDef } from '../AdvancedSelection';
+import { TableDef } from '../Table';
+import { ImageUploadDef } from '../FormFieldImageUpload';
+import { MapCoordinatesDef } from '../MapCoordinates';
+import { ImageVideoDocumentLinkBrowsingDef } from '../ImageVideoLinkDocumentBrowsing';
+import { FormFieldToggleSwitchDef } from '../FormFieldToggleSwitch';
+import { FormFieldRadioDef } from '../FormFieldRadio';
+import { DropdownSingleSelectionDef } from '../FormFieldDropdownSingleSelection';
+import { FormFieldChipSingleSelectDef } from '../FormFieldChipSingleSelect';
+import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
+import { TextAreaDef } from '../FormFieldTextArea';
 
 export default {
 	title: 'Forms|Form',
@@ -140,14 +151,14 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					disabled,
 					required
-				},
+				} as FieldDef<TextFieldDef>,
 				{
 					name: "textArea",
 					label: "Text Area",
 					type: "textArea",
 					disabled,
 					required
-				},
+				} as FieldDef<TextAreaDef>,
 				{
 					name: "check",
 					label: "Checkbox",
@@ -157,7 +168,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: checkboxOptions
 					},
-				},
+				} as FieldDef<FormFieldCheckboxDef>,
 				{
 					name: "chipSelect",
 					label: "Chip single select",
@@ -180,7 +191,7 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required
-				},
+				} as FieldDef<FormFieldChipSingleSelectDef>,
 				{
 					name: "dropdownSingle",
 					label: "Dropdown single select",
@@ -213,7 +224,7 @@ export const Playground = (): ReactElement => {
 							{ title: 'Se7en', year: 1995 },
 						],
 					},
-				},
+				} as FieldDef<DropdownSingleSelectionDef>,
 				{
 					name: "phoneSelect",
 					label: "Phone selection",
@@ -243,7 +254,7 @@ export const Playground = (): ReactElement => {
 							}
 						],
 					}
-				},
+				} as FieldDef<FormFieldRadioDef>,
 				{
 					name: 'toggleSwitch',
 					label: 'Toggle field',
@@ -253,7 +264,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						toggleLabel: 'To the side'
 					}
-				},
+				} as FieldDef<FormFieldToggleSwitchDef>,
 				{
 					name: "color",
 					label: "Color selector example",
@@ -308,7 +319,7 @@ export const Playground = (): ReactElement => {
 						getSelected,
 						createNewOption
 					}
-				},
+				} as FieldDef<AdvancedSelectionDef>,
 				{
 					name: 'imageVideoDocumentLink',
 					label: 'Image Video and Document field',
@@ -324,7 +335,7 @@ export const Playground = (): ReactElement => {
 						handleRemove,
 						src: imageVideoSrc,
 					}
-				},
+				} as FieldDef<ImageVideoDocumentLinkBrowsingDef>,
 				{
 					name: 'textEditor',
 					label: 'Text Editor field',
@@ -345,7 +356,7 @@ export const Playground = (): ReactElement => {
 						extraActions: extraActionsTable,
 						headers,
 					}
-				},
+				} as FieldDef<TableDef>,
 				{
 					name: "imageUpload",
 					label: "Image Upload example",
@@ -355,7 +366,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: menuOptions
 					}
-				},
+				} as FieldDef<ImageUploadDef>,
 				{
 					name: "mapCoordinates",
 					label: "Map Coordinates Example",
@@ -365,7 +376,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
 					}
-				},
+				} as FieldDef<MapCoordinatesDef>,
 			] as unknown as FieldDef[],
 		[addTableRow, externalOptions, disabled, required]
 	);
@@ -399,7 +410,7 @@ export const Playground = (): ReactElement => {
 		},
 		{
 			title: text('Title section 3', 'Section 3'),
-			description:  text('Description for section 3', 'Description for section 3'),
+			description: text('Description for section 3', 'Description for section 3'),
 			fields: [
 				// row 1
 				[['color'], ['date'], ['time']],
@@ -729,7 +740,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form 
+			<Form
 				title='Runtime behaviors'
 				state={state}
 				fields={fields}
@@ -812,7 +823,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<p>Here is the form</p>
-			<Form 
+			<Form
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -903,7 +914,7 @@ export const DrawerForm = (): ReactElement => {
 					onSubmit={onSubmit}
 					submitButtonAttrs={submitButtonAttrs}
 				/>
-			</Drawer>			
+			</Drawer>
 			<button onClick={() => setOpen(true)}>Open drawer</button>
 		</>
 	);
@@ -912,22 +923,22 @@ export const DrawerForm = (): ReactElement => {
 export const CustomFields = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
-	const CustomText = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
+	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
 	}
 
-	const CustomTextArea = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
+	const CustomTextArea = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <textarea rows={4} value={value} cols={20} onChange={(e) => onChange(e.target.value)} />
 	}
 
-	const CustomCheckbox = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
+	const CustomCheckbox = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return (
 			<>
-				<input 
-					type="checkbox" 
-					id="vehicle1" 
-					name="vehicle1" 
-					value="Bike" 
+				<input
+					type="checkbox"
+					id="vehicle1"
+					name="vehicle1"
+					value="Bike"
 					onChange={(e) => onChange(value ? undefined : e.target.value)}
 					checked={value === 'Bike'}
 				/>
@@ -991,7 +1002,7 @@ export const CustomFields = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form 
+			<Form
 				title='Custom components'
 				state={state}
 				fields={fields}

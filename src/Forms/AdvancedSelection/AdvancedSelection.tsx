@@ -3,6 +3,7 @@ import {
 	memo,
 	ReactElement,
 	useEffect,
+	useRef,
 	useState
 } from 'react';
 
@@ -13,24 +14,26 @@ import { MosaicFieldProps } from '@root/components/Field';
 // Components
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@root/forms/Button';
-import AdvancedSelectionModal from './AdvancedSelectionModal';
+import Drawer from "../../components/Drawer.jsx";
+import AdvancedSelectionDrawer from './AdvancedSelectionDrawer';
+import ChipList from './ChipList';
 
 // Styles
 import {
 	AdvancedSelectionWrapper,
-	StyledField,
 } from './AdvancedSelection.styled';
-import ChipList from './ChipList';
 import { BREAKPOINTS } from '@root/theme/theme';
-import Drawer from "../../components/Drawer.jsx";
+// import { useOutsideAlerter } from '../Form/Col';
 
 const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
 	const {
 		fieldDef,
-		error,
 		onChange,
 		value,
 	} = props;
+
+	const wrapperRef = useRef(null); //TODO talk with Owen
+	// useOutsideAlerter(wrapperRef);
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,40 +69,29 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	return (
 		<>
 			{value.length > 0 && !isModalOpen ? (
-				<StyledField
-					label={fieldDef?.label}
-					error={error}
-					required={fieldDef?.required}
-					disabled={fieldDef?.disabled}
-					instructionText={fieldDef?.instructionText}
-					helperText={fieldDef?.helperText}
-					type='advancedSelection'
-					className='advanced_selection'
-				>
-					<AdvancedSelectionWrapper>
-						<Button
-							buttonType='blueText'
-							disabled={fieldDef?.disabled}
-							icon={AddIcon}
-							onClick={handleOpenModal}
-							style={{ marginBottom: '8px' }}
-						>
-							Add Element
-						</Button>
-						<ChipList
-							fieldDef={{
-								inputSettings: {
-									isModalOpen,
-									isMobileView,
-									selectedOptions: value,
-									getSelected: fieldDef?.inputSettings?.getSelected,
-									deleteSelectedOption: onChange,
-								},
-								disabled: fieldDef?.disabled
-							}}
-						/>
-					</AdvancedSelectionWrapper>
-				</StyledField>
+				<AdvancedSelectionWrapper ref={wrapperRef}>
+					<Button
+						buttonType='blueText'
+						disabled={fieldDef?.disabled}
+						icon={AddIcon}
+						onClick={handleOpenModal}
+						style={{ marginBottom: '8px' }}
+					>
+						Add Element
+					</Button>
+					<ChipList
+						fieldDef={{
+							inputSettings: {
+								isModalOpen,
+								isMobileView,
+								selectedOptions: value,
+								getSelected: fieldDef?.inputSettings?.getSelected,
+								deleteSelectedOption: onChange,
+							},
+							disabled: fieldDef?.disabled
+						}}
+					/>
+				</AdvancedSelectionWrapper>
 			) : (
 				<Button
 					buttonType='secondary'
@@ -113,7 +105,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 				open={isModalOpen}
 				onClose={handleCloseModal}
 			>
-				<AdvancedSelectionModal
+				<AdvancedSelectionDrawer
 					value={value}
 					fieldDef={fieldDef}
 					onChange={onChange}

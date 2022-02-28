@@ -54,13 +54,6 @@ export const ChipsWrapper = styled.div`
   }
 `;
 
-export const StyledField = styled(Field)`
-  &.advanced_selection > div:nth-child(2) {
-    margin-top: 52px;
-    max-height: 80px;
-  }
-`;
-
 export const OptionsCheckedModalWrapper = styled.div`
   margin-bottom: ${(pr) => (pr.isModalOpen ? '40px' : '')};
 `;
