@@ -47,7 +47,7 @@ export interface AddressProps {
 	onChange?: (event: unknown) => void;
 }
 
-export interface AddressModalProps {
+export interface AddressDrawerProps {
 	addressToEdit: IAddress;
 	isEditing: boolean;
 	addressIdx: number;
