@@ -14,15 +14,15 @@ import { MosaicFieldProps } from '@root/components/Field';
 // Components
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@root/forms/Button';
-import AdvancedSelectionModal from './AdvancedSelectionModal';
+import Drawer from "../../components/Drawer.jsx";
+import AdvancedSelectionDrawer from './AdvancedSelectionDrawer';
+import ChipList from './ChipList';
 
 // Styles
 import {
 	AdvancedSelectionWrapper,
 } from './AdvancedSelection.styled';
-import ChipList from './ChipList';
 import { BREAKPOINTS } from '@root/theme/theme';
-import Drawer from "../../components/Drawer.jsx";
 // import { useOutsideAlerter } from '../Form/Col';
 
 const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
@@ -105,7 +105,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 				open={isModalOpen}
 				onClose={handleCloseModal}
 			>
-				<AdvancedSelectionModal
+				<AdvancedSelectionDrawer
 					value={value}
 					fieldDef={fieldDef}
 					onChange={onChange}
