@@ -152,7 +152,8 @@ export const actions = {
 
 			for (let i = 0; i < fields.length; i++) {
 				let currFieldName = fields[i].name;
-				!!touchedFields[currFieldName] === false &&
+				(!!touchedFields[currFieldName] === false ||
+					Array.isArray(touchedFields[currFieldName])) &&
 					await dispatch(
 						actions.validateField({ name: currFieldName })
 					);
