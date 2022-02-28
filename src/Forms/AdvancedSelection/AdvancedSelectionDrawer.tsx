@@ -22,7 +22,7 @@ import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
 import LoadMoreButton from './LoadMoreButton';
 import Form from '../Form/Form';
 
-const AdvancedSelectionModal = (props): ReactElement => {
+const AdvancedSelectionDrawer = (props): ReactElement => {
 	const {
 		value,
 		fieldDef,
@@ -374,4 +374,4 @@ const AdvancedSelectionModal = (props): ReactElement => {
 	);
 };
 
-export default memo(AdvancedSelectionModal);
+export default memo(AdvancedSelectionDrawer);
