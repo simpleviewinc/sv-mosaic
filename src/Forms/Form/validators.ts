@@ -35,8 +35,12 @@ export function validateSlow(str: string): Promise<void | string> {
 /**
  * Validates a required field.
  */
-export function required(str: string): string | undefined {
-	if (!str || !!str === false || (typeof str === 'string' && str?.trim().length === 0) || str.length === 0) {
+export function required(str: string | string[]): string | undefined {
+	if (!str
+		|| !!str === false
+		|| (typeof str === 'string' && str?.trim().length === 0)
+		|| str.length === 0
+	) {
 		return 'This field is required, please fill it';
 	}
 

@@ -62,7 +62,7 @@ const Field = ({
 	const labelMargin = useMemo(() => {
 		let labelMargin = '8px';
 		if (
-			fieldDef?.type === 'advancedSelection' ||
+			//fieldDef?.type === 'advancedSelection' ||
 			fieldDef?.type === 'imageUpload' ||
 			fieldDef?.type === 'address'
 		) {

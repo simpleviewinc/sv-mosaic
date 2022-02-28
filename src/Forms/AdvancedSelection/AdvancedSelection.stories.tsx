@@ -13,15 +13,16 @@ export default {
 	decorators: [withKnobs],
 };
 
-const externalOptions = [
+// const externalOptions: optionsWithCategory[] = [
+
+// ];
+
+const additionalOptions = [
 	{
 		category: 'Category 1',
 		label: 'Option 1',
 		value: 'option_1-cat_1',
 	},
-];
-
-const additionalOptions = [
 	{
 		category: 'Category 1',
 		label: 'Option 2',
@@ -100,15 +101,15 @@ const additionalOptions = [
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const [options, setOptions] = useState<optionsWithCategory[]>(externalOptions ? externalOptions : []);
+	const [options, setOptions] = useState<optionsWithCategory[]>(additionalOptions ? additionalOptions : []);
 
 	const modalTitle = text('Modal title', 'Modal title');
-	const groupByCategory = boolean('Group by category', false);
 	const label = text('Label', 'Label');
 	const required = boolean('Required', false);
 	const disabled = boolean('Disabled', false);
 	const instructionText = text('Instruction text', 'Instruction text');
 	const helperText = text('Helper text', 'Helper text');
+	const shouldUseGetOptions = boolean('Obtain options from db', false);
 	const getOptionsLimit = text('Get options limit', '5');
 
 	const getOptions = async ({ limit, filter, offset }) => {
@@ -154,7 +155,7 @@ export const Playground = (): ReactElement => {
 		}
 
 		//Insert to db
-		setOptions([...options, newOption]);
+		additionalOptions.push(newOption);
 
 		return value;
 	}
@@ -172,10 +173,9 @@ export const Playground = (): ReactElement => {
 					type: 'advancedSelection',
 					inputSettings: {
 						modalTitle,
-						checkboxOptions: options,
-						groupByCategory,
-						getOptions,
-						getOptionsLimit,
+						checkboxOptions: !shouldUseGetOptions ? options : undefined,
+						getOptions: shouldUseGetOptions ? getOptions : undefined,
+						getOptionsLimit: (shouldUseGetOptions && getOptionsLimit) ? getOptionsLimit : undefined,
 						getSelected,
 						createNewOption,
 					}
@@ -188,14 +188,10 @@ export const Playground = (): ReactElement => {
 			disabled,
 			helperText,
 			instructionText,
-			registerFields,
 			modalTitle,
-			groupByCategory,
-			options,
-			getOptions,
 			getOptionsLimit,
-			getSelected,
-			createNewOption,
+			options,
+			shouldUseGetOptions,
 		]
 	);
 
@@ -234,7 +230,7 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const [options, setOptions] = useState<optionsWithCategory[]>(externalOptions ? externalOptions : []);
+	const [options, setOptions] = useState<optionsWithCategory[]>(additionalOptions ? additionalOptions : []);
 
 	const getOptions = async ({ limit, filter, offset }) => {
 		let internalOptionsArr = [...additionalOptions];
@@ -278,7 +274,8 @@ export const KitchenSink = (): ReactElement => {
 			label: newOptionLabel,
 		}
 
-		setOptions([...options, newOption]);
+		//Insert to db
+		additionalOptions.push(newOption);
 
 		return value;
 	}
@@ -315,6 +312,7 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						modalTitle: 'createNewOption prop',
 						checkboxOptions: options,
+						getOptionsLimit: 10,
 						getSelected,
 						createNewOption
 					}
@@ -322,11 +320,7 @@ export const KitchenSink = (): ReactElement => {
 			] as FieldDef<AdvancedSelectionDef>[]
 		),
 		[
-			registerFields,
 			options,
-			getOptions,
-			getSelected,
-			createNewOption,
 		]
 	);
 
