@@ -162,7 +162,6 @@ const AdvancedSelectExample = () => {
 					inputSettings: {
 						modalTitle,
 						checkboxOptions: options,
-						groupByCategory,
 						getOptions,
 						getOptionsLimit,
 						getSelected,
