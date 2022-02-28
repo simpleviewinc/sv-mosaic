@@ -1,9 +1,5 @@
 import * as React from 'react';
-import {
-	useMemo,
-	memo,
-	useEffect
-} from 'react';
+import { memo, useEffect } from 'react';
 import styled from 'styled-components';
 import { StyledDisabledForm } from './Form.styled';
 import { FormProps } from './FormTypes';
@@ -28,7 +24,6 @@ const Form = (props: FormProps) => {
 		fields,
 		dispatch,
 		state,
-		onSubmit,
 		onCancel,
 		onLoad,
 		cancelButtonAttrs,

@@ -1,13 +1,10 @@
 import { FieldDef } from '@root/components/Field';
-import { render, cleanup, fireEvent, screen, findByTestId } from '@testing-library/react';
+import { render, cleanup, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import { AdvancedSelectionDef, optionsWithCategory } from '.';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
-
-// Components
-import AdvancedSelection from './AdvancedSelection';
 
 afterEach(cleanup);
 
@@ -19,7 +16,7 @@ const externalOptions = [
 	},
 ];
 
-let additionalOptions = [
+const additionalOptions = [
 	{
 		category: 'Category 1',
 		label: 'Option 2',
@@ -135,7 +132,7 @@ const AdvancedSelectExample = () => {
 	const getSelected = async (selectedOptions) => {
 		if (!selectedOptions) return;
 
-		let fullOptions = options.concat(additionalOptions);
+		const fullOptions = options.concat(additionalOptions);
 
 		return selectedOptions.map((selectedOption) =>
 			fullOptions.find(o => o.value === selectedOption)
@@ -253,7 +250,7 @@ describe('AdvancedSelection component', () => {
 		const optionCheckbox = await screen.findByText('Option 1');
 		fireEvent.click(optionCheckbox);
 
-		let optionChip = await screen.findAllByTestId('delete-icon-test-id');
+		const optionChip = await screen.findAllByTestId('delete-icon-test-id');
 		expect(optionChip.length).toBe(1);
 		fireEvent.click(optionChip[0]);
 

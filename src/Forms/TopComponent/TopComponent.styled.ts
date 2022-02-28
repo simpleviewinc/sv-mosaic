@@ -63,7 +63,7 @@ export const NavSectionsWrapper = styled.div`
 `;
 
 export const StyledColumn = styled(Column)`
-  background-color: 'white';
+  background-color: white;
   box-shadow: 0px 1px 10px #0000001a;
   margin-bottom: 30px;
   position: sticky;
