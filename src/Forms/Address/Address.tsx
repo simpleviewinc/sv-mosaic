@@ -2,8 +2,8 @@ import * as React from 'react';
 import { memo, ReactElement, useState } from 'react';
 
 // Components
+import AddressDrawer from './AddressDrawer';
 import Button from '@root/forms/Button';
-import AddressModal from './AddressModal';
 
 // Styles
 import { AddAddressWrapper, FlexContainer } from './Address.styled';
@@ -41,14 +41,14 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 	 * Removes the clicked address card from the list. 
 	 * @param addressToRemove 
 	 */
-	const removeAddressHandler = (addressIndex: number) => {
+	const removeAddressHandler = async(addressIndex: number) => {
 		const listOfAddresses = [...value];
 		listOfAddresses.splice(addressIndex, 1);
 
 		if (listOfAddresses.length > 0) {
-			onChange(listOfAddresses);
+			await onChange(listOfAddresses);
 		} else {
-			onChange(undefined);
+			await onChange(undefined);
 		}
 	};
 
@@ -104,8 +104,8 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 						onRemoveAddress={removeAddressHandler} />
 				))}
 			</FlexContainer>
-			{open && (
-				<AddressModal
+			{open && 
+				<AddressDrawer
 					addressToEdit={addressToEdit}
 					isEditing={isEditing}
 					addressIdx={addressIdx}
@@ -115,7 +115,7 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 					setIsEditing={setIsEditing}
 					value={value}
 				/>
-			)}
+			}
 		</div>
 	);
 };
