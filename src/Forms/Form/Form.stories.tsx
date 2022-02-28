@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useEffect, useMemo, useState, useCallback } from 'react';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, object, text, withKnobs } from '@storybook/addon-knobs';
 
 // Utils
 import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils'
@@ -12,7 +12,7 @@ import { menuOptions } from '../MenuFormFieldCard/MenuFormFieldUtils';
 
 // Components
 import Form from './Form';
-import Modal from '../../components/Modal';
+import Drawer from '@root/components/Drawer.jsx';
 
 // Types
 import { TextFieldDef } from '../FormFieldText/FormFieldTextTypes';
@@ -23,16 +23,35 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
+export const Playground = (): ReactElement => {
+	const [loadReady, setLoadReady] = useState(false);
+	const { state, dispatch, events, registerFields, registerOnSubmit, registerOnLoad } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
 		'table',
 		dispatch
 	);
-
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, 'imageVideoDocumentLink');
+
+	const prepopulate = boolean('Prepopulate', false);
+	const required = boolean('Required', true);
+	const disabled = boolean('Disabled', false);
+	const showSections = boolean('Show sections', false);
+	const prepopulateValues = object('Prepolulate values', {
+		'textField': 'Text field prepopulated',
+		'textArea': 'Text area prepopulated',
+		'check': [
+			"label_1",
+			"label_2"
+		],
+		'advancedSelection': [
+			'option_1-cat_1',
+			'option_3-cat_1',
+			'option_1-cat_2',
+			'option_3-cat_2'
+		]
+	})
 
 	const deleteTableRow = () => {
 		alert('Delete button clicked');
@@ -100,9 +119,17 @@ export const KitchenSink = (): ReactElement => {
 		},
 	];
 
-	const updateOptionsCb = (newOption) => {
+	const createNewOption = (newOption) => {
 		externalOptions = [...externalOptions, newOption];
 	};
+
+	const getSelected = async (selectedOptions) => {
+		if (!selectedOptions) return;
+
+		return selectedOptions.map((selectedOption) =>
+			externalOptions.find(o => o.value === selectedOption)
+		);
+	}
 
 	const fields = useMemo(
 		() =>
@@ -111,16 +138,22 @@ export const KitchenSink = (): ReactElement => {
 					name: "textField",
 					label: "Simple Text",
 					type: "text",
+					disabled,
+					required
 				},
 				{
 					name: "textArea",
 					label: "Text Area",
 					type: "textArea",
+					disabled,
+					required
 				},
 				{
 					name: "check",
 					label: "Checkbox",
 					type: "checkbox",
+					disabled,
+					required,
 					inputSettings: {
 						options: checkboxOptions
 					},
@@ -145,11 +178,15 @@ export const KitchenSink = (): ReactElement => {
 							}
 						],
 					},
+					disabled,
+					required
 				},
 				{
 					name: "dropdownSingle",
 					label: "Dropdown single select",
 					type: "dropdown",
+					disabled,
+					required,
 					inputSettings: {
 						options: [
 							{ title: 'The Shawshank Redemption', year: 1994 },
@@ -181,11 +218,15 @@ export const KitchenSink = (): ReactElement => {
 					name: "phoneSelect",
 					label: "Phone selection",
 					type: "phone",
+					disabled,
+					required
 				},
 				{
 					name: "radio",
 					label: "Radio selection",
 					type: "radio",
+					disabled,
+					required,
 					inputSettings: {
 						options: [
 							{
@@ -206,6 +247,8 @@ export const KitchenSink = (): ReactElement => {
 				{
 					name: 'toggleSwitch',
 					label: 'Toggle field',
+					disabled,
+					required,
 					type: 'toggleSwitch',
 					inputSettings: {
 						toggleLabel: 'To the side'
@@ -213,49 +256,65 @@ export const KitchenSink = (): ReactElement => {
 				},
 				{
 					name: "color",
-					label: "Regular example",
+					label: "Color selector example",
+					disabled,
+					required,
 					type: "color",
 				},
 				{
 					name: "date",
 					label: "Single Date Picker",
 					type: "date",
+					disabled,
+					required,
 				},
 				{
 					name: "dateRange",
 					label: "Date Range",
 					type: "dateRange",
+					disabled,
+					required
 				},
 				{
 					name: "time",
 					label: "Single Time Picker",
 					type: "time",
+					disabled,
+					required
 				},
 				{
 					name: "dateTime",
 					label: "Date and Time Picker",
 					type: "dateTime",
+					disabled,
+					required
 				},
 				{
 					name: 'address',
 					label: 'Address field',
-					type: 'address'
+					type: 'address',
+					disabled,
+					required
 				},
 				{
 					name: 'advancedSelection',
 					label: 'Advanced Selection field',
 					type: 'advancedSelection',
+					disabled,
+					required,
 					inputSettings: {
 						modalTitle: 'Advanced Selection Modal title',
 						checkboxOptions: externalOptions,
-						groupByCategory: false,
-						updateOptionsCb,
+						getSelected,
+						createNewOption
 					}
 				},
 				{
 					name: 'imageVideoDocumentLink',
 					label: 'Image Video and Document field',
 					type: 'imageVideoDocumentLink',
+					disabled,
+					required,
 					inputSettings: {
 						options: menuOptions,
 						handleSetImage: setImage,
@@ -269,12 +328,16 @@ export const KitchenSink = (): ReactElement => {
 				{
 					name: 'textEditor',
 					label: 'Text Editor field',
-					type: 'textEditor'
+					type: 'textEditor',
+					disabled,
+					required
 				},
 				{
 					name: 'table',
 					label: 'Table example',
 					type: 'table',
+					disabled,
+					required,
 					inputSettings: {
 						handleAddElement: addTableRow,
 						handleEdit: editAction,
@@ -287,6 +350,8 @@ export const KitchenSink = (): ReactElement => {
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
+					disabled,
+					required,
 					inputSettings: {
 						options: menuOptions
 					}
@@ -295,22 +360,105 @@ export const KitchenSink = (): ReactElement => {
 					name: "mapCoordinates",
 					label: "Map Coordinates Example",
 					type: "mapCoordinates",
+					disabled,
+					required,
 					inputSettings: {
 						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
 					}
 				},
 			] as unknown as FieldDef[],
-		[addTableRow, externalOptions]
+		[addTableRow, externalOptions, disabled, required]
 	);
+
+	const sections = [
+		{
+			title: text('Title section 1', 'Section 1'),
+			description: text('Description for section 1', 'Description for section 1'),
+			fields: [
+				// row 1
+				[['textField'], ['textArea'], ['check']],
+				// row 2
+				[['chipSelect'], ['dropdownSingle'], ['table']],
+				[[]],
+				// row 3
+				[['phoneSelect'], ['radio']]
+			]
+		},
+		{
+			title: text('Title section 2', 'Section 2'),
+			description: text('Description for section 2', 'Description for section 2'),
+			fields: [
+				// row 1
+				[[], [], []],
+				// row 2
+				[['toggleSwitch'], [], ['mapCoordinates']],
+				[[]],
+				// row 3
+				[[], ['advancedSelection']]
+			]
+		},
+		{
+			title: text('Title section 3', 'Section 3'),
+			description:  text('Description for section 3', 'Description for section 3'),
+			fields: [
+				// row 1
+				[['color'], ['date'], ['time']],
+				// row 2
+				[[], ['dateTime'], []],
+				[['dateRange']],
+				// row 3
+				[['textEditor'], []]
+			]
+		}
+	];
+
+	const onLoad = useCallback(async () => {
+		await new Promise((res) => setTimeout(res, 2000));
+
+		return {
+			...prepopulateValues
+		};
+	}, [prepopulateValues]);
+
+	useMemo(() => {
+		registerOnLoad(onLoad);
+	}, [onLoad, registerOnLoad]);
 
 	useMemo(() => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, ' '));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	useEffect(() => {
+		const resetForm = async () => {
+			await dispatch(actions.resetForm());
+			setLoadReady(true);
+		};
+		prepopulate ? resetForm() : setLoadReady(false);
+	}, [prepopulate])
+
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				onLoad={loadReady && onLoad}
+				events={events}
+				sections={showSections && sections}
+				submitButtonAttrs={{ children: text('Submit button', 'Save') }}
+				cancelButtonAttrs={{ children: text('Cancel button', 'Cancel') }}
+			/>
 		</>
 	);
 };
@@ -322,68 +470,101 @@ export const FormWithLayout = (): ReactElement => {
 		() =>
 			[
 				{
-					name: "text1",
-					label: "Simple Text",
-					type: "text",
+					name: 'text1',
+					label: 'Simple Text',
+					type: 'text',
 					instructionText: 'Instruction text text1',
 					validators: [validateEmail, validateSlow],
 					layout: { section: 0, row: 1, col: 0 }
 				},
 				{
-					name: "text2",
-					label: "Text with validators and dynamic help",
-					type: "text",
+					name: 'text2',
+					label: 'Text with validators and dynamic help',
+					type: 'text',
 					help: state.data.text2,
 					instructionText: 'Instruction text text2',
 					validators: [validateEmail, validateSlow]
 				},
 				{
-					name: "text3",
-					label: "Text that copies to the next input",
-					type: "text",
+					name: 'text3',
+					label: 'Text that copies to the next input',
+					type: 'text',
 					instructionText: 'Instruction text text3',
 				},
 				{
-					name: "text4",
-					label: "Text that receives copy",
-					type: "text",
+					name: 'text4',
+					label: 'Text that receives copy',
+					type: 'text',
 					instructionText: 'Instruction text text1'
-				}
+				},
+				{
+					name: 'color',
+					label: 'Color selector example',
+					type: 'color',
+				},
+				{
+					name: 'check',
+					label: 'Checkbox',
+					type: 'checkbox',
+					inputSettings: {
+						options: checkboxOptions
+					},
+				},
+				{
+					name: 'toggleSwitch',
+					label: 'Toggle field',
+					type: 'toggleSwitch',
+					inputSettings: {
+						toggleLabel: 'To the side'
+					}
+				},
+				{
+					name: 'imageUpload',
+					label: 'Image Upload example',
+					type: 'imageUpload',
+					inputSettings: {
+						options: menuOptions
+					}
+				},
+				{
+					name: 'textEditor',
+					label: 'Text Editor field',
+					type: 'textEditor',
+				},
 			] as FieldDef[],
-		// [state.data.text2]
 		[]
 	);
 
 	const sections = useMemo(() => [
 		{
-			title: "Section 1",
-			description: "Description for section 1",
+			title: 'Section 1',
+			description: 'Description for section 1',
 			fields: [
 				// row 1
-				[["text1"], ["text2"], ["text3"]],
+				[['text1'], ['text2'], ['text3']],
 				// row 2
-				[["text3"], ["text4"], ["text1"]],
+				[['check'], ['text4'], ['color']],
 				[[]],
 				// row 3
-				[["text3"], ["text4"]]
+				[['toggleSwitch'], ['imageUpload']]
 			]
 		},
 		{
-			title: "Section 2",
-			description: "Description for section 2",
+			title: 'Section 2',
+			description: 'Description for section 2',
 			fields: [
 				// row 1
+				[['check'], ['toggleSwitch'], ['color']],
+				// row 2
 				[[], [], []],
-				// row 2
-				[["text3"], [], ["text1"]],
 				[[]],
 				// row 3
-				[[], ["text4"]]
+				[[], ['textEditor']]
 			]
 		},
 		{
-			title: "Section 3",
-			description: "Description for section 3",
+			title: 'Section 3',
+			description: 'Description for section 3',
 			fields: [
 				// row 1
 				[[], [], []],
@@ -399,7 +580,7 @@ export const FormWithLayout = (): ReactElement => {
 	useEffect(() => {
 		dispatch(
 			actions.setFieldValue({
-				name: "text4",
+				name: 'text4',
 				value: state.data.text3
 			})
 		);
@@ -411,7 +592,7 @@ export const FormWithLayout = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<pre>{JSON.stringify(state, null, '  ')}</pre>
 			<Form
 				title={text('Title', 'Form Title')}
 				description={text('Description', 'This is a description example')}
@@ -424,162 +605,6 @@ export const FormWithLayout = (): ReactElement => {
 		</>
 	);
 }
-
-export const CodesandboxExample = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "text1",
-					label: "Simple Text",
-					type: "text",
-					instructionText: 'testing',
-					validators: [validateEmail, validateSlow]
-				},
-				{
-					name: "text2",
-					label: "Text with validators and dynamic help",
-					type: "text",
-					help: state.data.text2,
-					validators: [validateEmail, validateSlow]
-				},
-				{
-					name: "text3",
-					label: "Text that copies to the next input",
-					type: "text"
-					// onChange: function () {
-					//   dispatch(actions.copyFieldToField({ from: "text3", to: "text4" }));
-					// }
-				},
-				{
-					name: "text4",
-					label: "Text that receives copy",
-					type: "text"
-				}
-			] as FieldDef[],
-		// [state.data.text2]
-		[]
-	);
-
-	useEffect(() => {
-		dispatch(
-			actions.setFieldValue({
-				name: "text4",
-				value: state.data.text3
-			})
-		);
-	}, [state.data.text3]);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
-	const setText1Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text1",
-				value: "My New Value"
-			})
-		);
-	};
-
-	const setText2Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text2",
-				value: "notanemail"
-			})
-		);
-	};
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<p>Here is the form</p>
-			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
-			<div>
-				<p>
-					Here are some buttons that are not part of the form, but can change
-					values in the form proving communication between in/out of the form.
-					Notice that settext2 runs the validation after setting the value.
-				</p>
-				<button onClick={setText1Value}>Set Text1 Value</button>
-				<button onClick={setText2Value}>Set Text2 Value</button>
-			</div>
-		</>
-	);
-};
-
-export const PerformanceTest = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
-
-	const hundredFields = [];
-
-	for (let i = 0; i < 100; i++) {
-		hundredFields.push({
-			name: `text${i}`,
-			label: `Simple Text ${i}`,
-			type: "text",
-			instructionText: 'testing',
-			validators: [validateEmail, validateSlow]
-		})
-	}
-
-	const fields = useMemo(
-		() => hundredFields as FieldDef[],
-		[]
-	);
-
-	useEffect(() => {
-		dispatch(
-			actions.setFieldValue({
-				name: "text4",
-				value: state.data.text3
-			})
-		);
-	}, [state.data.text3]);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
-	const setText1Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text1",
-				value: "My New Value"
-			})
-		);
-	};
-
-	const setText2Value = function () {
-		dispatch(
-			actions.setFieldValue({
-				name: "text2",
-				value: "notanemail"
-			})
-		);
-	};
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<p>Here is the form</p>
-			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
-			<div>
-				<p>
-					Here are some buttons that are not part of the form, but can change
-					values in the form proving communication between in/out of the form.
-					Notice that settext2 runs the validation after setting the value.
-				</p>
-				<button onClick={setText1Value}>Set Text1 Value</button>
-				<button onClick={setText2Value}>Set Text2 Value</button>
-			</div>
-		</>
-	);
-};
 
 export const PerformanceWithSubmit = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
@@ -628,6 +653,103 @@ export const PerformanceWithSubmit = (): ReactElement => {
 	);
 };
 
+export const RuntimeBehaviors = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "text1",
+					label: "Simple Text",
+					type: "text",
+					instructionText: 'testing',
+					validators: [validateEmail, validateSlow]
+				},
+				{
+					name: "text2",
+					label: "Text with validators and dynamic help",
+					type: "text",
+					help: state.data.text2,
+					validators: [validateEmail, validateSlow]
+				},
+				{
+					name: "text3",
+					label: "Text that copies to the next input",
+					type: "text"
+				},
+				{
+					name: "text4",
+					label: "Text that receives copy",
+					type: "text"
+				}
+			] as FieldDef[],
+		[]
+	);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	useEffect(() => {
+		dispatch(
+			actions.setFieldValue({
+				name: "text4",
+				value: state.data.text3
+			})
+		);
+	}, [state.data.text3]);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const setText1Value = function () {
+		dispatch(
+			actions.setFieldValue({
+				name: "text1",
+				value: "My New Value"
+			})
+		);
+	};
+
+	const setText2Value = function () {
+		dispatch(
+			actions.setFieldValue({
+				name: "text2",
+				value: "notanemail"
+			})
+		);
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form 
+				title='Runtime behaviors'
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onSubmit={onSubmit}
+			/>
+			<div>
+				<p>
+					Here are some buttons that are not part of the form, but can change
+					values in the form proving communication between in/out of the form.
+					Notice that settext2 runs the validation after setting the value.
+				</p>
+				<button onClick={setText1Value}>Set Text1 Value</button>
+				<button onClick={setText2Value}>Set Text2 Value</button>
+			</div>
+		</>
+	);
+};
+
 export const SubmitExternalButtons = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
@@ -664,6 +786,14 @@ export const SubmitExternalButtons = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
 	const clickHandler = () => {
 		dispatch(
 			actions.submitForm()
@@ -682,482 +812,19 @@ export const SubmitExternalButtons = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<p>Here is the form</p>
-			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
+			<Form 
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onSubmit={onSubmit}
+			/>
 			<button onClick={clickHandler}>Submit</button>
 		</>
 	);
 };
 
-export const SubmitInternalButtons = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-
-	const { addTableRow, editAction, extraActionsTable } = useTable(
-		state.data,
-		'table',
-		dispatch
-	);
-
-	const deleteTableRow = () => {
-		alert('Delete button clicked');
-	};
-
-	const handleSetImage = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocumentLink',
-				value: [
-					{
-						label: 'Title',
-						value:
-							'Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail',
-					},
-					{
-						label: 'Type',
-						value: 'Image Video Thumbnail',
-					},
-					{
-						label: 'Alt',
-						value: '-',
-					},
-					{
-						label: 'Size',
-						value: '1280x720',
-					},
-					{
-						label: 'Focus',
-						value: 'No',
-					},
-					{
-						label: 'Locales',
-						value: '-',
-					},
-				]
-			})
-		);
-		alert('Set image is called');
-	};
-
-	const handleSetVideo = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocumentLink',
-				value: [
-					{
-						label: 'Title',
-						value: 'Video Example - This is a video example',
-					},
-					{
-						label: 'Type',
-						value: 'Video',
-					},
-					{
-						label: 'Alt',
-						value: '-',
-					},
-					{
-						label: 'Size',
-						value: '1280x720',
-					},
-					{
-						label: 'Locales',
-						value: 'es, en & in',
-					},
-				]
-			})
-		);
-		alert('Set video is called');
-	};
-
-	const handleSetDocument = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocumentLink',
-				value: [
-					{
-						label: 'Title',
-						value: 'Document example',
-					},
-					{
-						label: 'Type',
-						value: 'Document',
-					},
-					{
-						label: 'Size',
-						value: '333 bytes'
-					},
-					{
-						label: 'Size on disk',
-						value: '0 bytes',
-					},
-				]
-			})
-		);
-		alert('Set document is called');
-	};
-
-	const handleRemoveImageVideoDocument = () => {
-		dispatch(
-			actions.setFieldValue({
-				name: 'imageVideoDocumentLink',
-				value: undefined
-			})
-		);
-	};
-
-	const imageVideoSrc = 'http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg';
-
-	let externalOptions = [
-		{
-			category: 'Category 1',
-			label: 'Option 1',
-			value: 'option_1-cat_1',
-		},
-		{
-			category: 'Category 1',
-			label: 'Option 2',
-			value: 'option_2-cat_1',
-		},
-		{
-			category: 'Category 1',
-			label: 'Option 3',
-			value: 'option_3-cat_1',
-		},
-		{
-			category: 'Category 1',
-			label: 'Option 4',
-			value: 'option_4-cat_1',
-		},
-		{
-			category: 'Category 2',
-			label: 'Option 1 category 2',
-			value: 'option_1-cat_2',
-		},
-		{
-			category: 'Category 2',
-			label: 'Test option category 2',
-			value: 'option_2-cat_2',
-		},
-		{
-			category: 'Category 2',
-			label: 'Another option of catergory 2',
-			value: 'option_3-cat_2',
-		},
-		{
-			category: 'Category 2',
-			label: 'Option 4 category 2',
-			value: 'option_4-cat_2',
-		},
-		{
-			category: 'Test Category',
-			label: 'You can filter by category',
-			value: 'option_1-test_category',
-		},
-		{
-			category: 'Test Category',
-			label: 'Very long label that does not fit',
-			value: 'option_2-test_category',
-		},
-		{
-			category: 'Category 4',
-			label: 'Option 1 category 4',
-			value: 'option_1-cat_4',
-		},
-		{
-			label: 'Option without category',
-			value: 'option_without_category',
-		},
-	];
-
-	const updateOptionsCb = (newOption) => {
-		externalOptions = [...externalOptions, newOption];
-	};
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "text1",
-					label: "Text field",
-					type: "text",
-					required: true,
-					instructionText: 'testing',
-					validators: [required],
-				},
-				{
-					name: "check1",
-					label: "Checkbox",
-					type: "checkbox",
-					required: true,
-					inputSettings: {
-						options: checkboxOptions,
-					},
-					validators: [required]
-				},
-				{
-					name: "textArea",
-					label: "Text Area",
-					type: "textArea",
-					required: true,
-					validators: [required],
-				},
-				{
-					name: "chip",
-					label: "Text that receives copy",
-					type: "chip",
-					required: true,
-					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
-					},
-					validators: [required],
-				},
-				{
-					name: "dropdownsingle",
-					label: "Dropdown single select",
-					type: "dropdown",
-					required: true,
-					inputSettings: {
-						options: [
-							{ title: 'The Shawshank Redemption', year: 1994 },
-							{ title: 'The Godfather', year: 1972 },
-							{ title: 'The Godfather: Part II', year: 1974 },
-							{ title: 'The Dark Knight', year: 2008 },
-							{ title: '12 Angry Men', year: 1957 },
-							{ title: "Schindler's List", year: 1993 },
-							{ title: 'Pulp Fiction', year: 1994 },
-							{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-							{ title: 'The Good, the Bad and the Ugly', year: 1966 },
-							{ title: 'Fight Club', year: 1999 },
-							{ title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-							{ title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-							{ title: 'Forrest Gump', year: 1994 },
-							{ title: 'Inception', year: 2010 },
-							{ title: 'The Lord of the Rings: The Two Towers', year: 2002 },
-							{ title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-							{ title: 'Goodfellas', year: 1990 },
-							{ title: 'The Matrix', year: 1999 },
-							{ title: 'Seven Samurai', year: 1954 },
-							{ title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
-							{ title: 'City of God', year: 2002 },
-							{ title: 'Se7en', year: 1995 },
-						],
-					},
-					validators: [required],
-				},
-				{
-					name: "phoneSelect",
-					label: "Phone selection",
-					type: "phone",
-					required: true,
-					validators: [required]
-				},
-				{
-					name: "radio",
-					label: "Radio selection",
-					type: "radio",
-					required: true,
-					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1"
-							},
-							{
-								label: "Label 2",
-								value: "label_2"
-							},
-							{
-								label: "Label 3",
-								value: "label_3"
-							}
-						],
-					},
-					validators: [required],
-				},
-				{
-					name: 'toggleSwitch',
-					label: 'Toggle field',
-					type: 'toggleSwitch',
-					required: true,
-					inputSettings: {
-						toggleLabel: 'To the side'
-					},
-					validators: [required],
-				},
-				{
-					name: "color",
-					label: "Regular example",
-					type: "color",
-					required: true,
-					validators: [required],
-				},
-				{
-					name: "date",
-					label: "Single Date Picker",
-					type: "date",
-					required: true,
-					validators: [required],
-				},
-				{
-					name: "dateRange",
-					label: "Date Range",
-					type: "dateRange",
-					required: true,
-					validators: [required],
-				},
-				{
-					name: "time",
-					label: "Single Time Picker",
-					type: "time",
-					required: true,
-					validators: [required],
-				},
-				{
-					name: "dateTime",
-					label: "Date and Time Picker",
-					type: "dateTime",
-					required: true,
-					validators: [required],
-				},
-				{
-					name: 'address',
-					label: 'Address field',
-					type: 'address',
-					required: true,
-				},
-				{
-					name: 'advancedSelection',
-					label: 'Advanced Selection field',
-					type: 'advancedSelection',
-					required: true,
-					inputSettings: {
-						modalTitle: 'Advanced Selection Modal title',
-						checkboxOptions: externalOptions,
-						groupByCategory: false,
-						updateOptionsCb,
-					}
-				},
-				{
-					name: 'imageVideoDocumentLink',
-					label: 'Image Video and Document field',
-					type: 'imageVideoDocumentLink',
-					required: true,
-					inputSettings: {
-						options: menuOptions,
-						handleSetImage,
-						handleSetDocument,
-						handleSetVideo,
-						handleRemove: handleRemoveImageVideoDocument,
-						src: imageVideoSrc,
-					},
-					validators: [required],
-				},
-				{
-					name: 'textEditor',
-					label: 'Text Editor field',
-					type: 'textEditor',
-					validators: [required],
-				},
-				{
-					name: 'table',
-					label: 'Table example',
-					type: 'table',
-					required: true,
-					inputSettings: {
-						handleAddElement: addTableRow,
-						handleEdit: editAction,
-						handleDelete: deleteTableRow,
-						extraActions: extraActionsTable,
-						headers
-					},
-				},
-				// {
-				// 	name: "addLink",
-				// 	label: "Add link example",
-				// 	type: "addLink",
-				// 	instructionText: 'testing',
-				// 	validators: [required],
-				// },
-				{
-					name: "imageUpload",
-					label: "Image Upload example",
-					type: "imageUpload",
-					required: true,
-					inputSettings: {
-						options: menuOptions
-					}
-				},
-				{
-					name: "mapCoordinates",
-					label: "Map Coordinates Example",
-					type: "mapCoordinates",
-					required: true,
-					inputSettings: {
-						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
-					}
-				},
-
-			] as unknown as FieldDef[],
-		[addTableRow, externalOptions]
-	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
-	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
-
-	// const cancelButtonAttrs = useMemo(() => ({
-	// 	disabled: !!state.data.text1 === false,
-	// }), [state.data.text1]);
-
-	// const submitButtonAttrs = useMemo(() => ({
-	// 	disabled: !!state.data.text2 === false,
-	// 	children: state?.data?.text2,
-	// }), [state.data.text2]);
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				events={events}
-				onCancel={onCancel}
-				// cancelButtonAttrs={cancelButtonAttrs}
-				onSubmit={onSubmit}
-			// submitButtonAttrs={submitButtonAttrs}
-			/>
-		</>
-	);
-};
-
-export const GenericModal = (): ReactElement => {
+export const DrawerForm = (): ReactElement => {
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const [open, setOpen] = useState(false);
@@ -1221,120 +888,49 @@ export const GenericModal = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Modal
-				title={'yes'}
-				state={state}
-				dispatch={dispatch}
-				fields={fields}
+			<Drawer
 				open={open}
-				onCancel={onCancel}
-				cancelButtonAttrs={cancelButtonAttrs}
-				onSubmit={onSubmit}
-				submitButtonAttrs={submitButtonAttrs}
-			/>
-			<button onClick={() => setOpen(true)}>Open modal</button>
-		</>
-	);
-};
-
-export const FormAndModal = (): ReactElement => {
-	const formReducer = useForm();
-	const modalReducer = useForm();
-
-	const [open, setOpen] = useState(false);
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "text1",
-					label: "Full Name",
-					type: "text",
-					instructionText: 'testing',
-					validators: [required, validateEmail],
-				},
-				{
-					name: "text2",
-					label: "age",
-					type: "text",
-					validators: [required],
-				},
-				{
-					name: "check1",
-					label: "Text that copies to the next input",
-					type: "checkbox",
-					inputSettings: {
-						options: checkboxOptions,
-					},
-					validators: [required]
-				},
-			] as unknown as FieldDef[],
-		[]
-	);
-
-	useMemo(() => {
-		formReducer.registerFields(fields);
-		modalReducer.registerFields(fields);
-	}, [fields, formReducer.registerFields, modalReducer.registerFields]);
-
-	const onSubmit = useCallback((data) => {
-		setOpen(false);
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	}, [formReducer.state.validForm, modalReducer.state.validForm]);
-
-	useMemo(() => {
-		formReducer.registerOnSubmit(onSubmit);
-		modalReducer.registerOnSubmit(onSubmit);
-	}, [onSubmit, formReducer.registerOnSubmit, modalReducer.registerOnSubmit]);
-
-	const onCancel = () => {
-		setOpen(false);
-		alert('Cancelling form, going back to previous site');
-	};
-
-	return (
-		<>
-			<pre>Form data: {JSON.stringify(formReducer.state, null, "  ")}</pre>
-			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
-				state={formReducer.state}
-				fields={fields}
-				dispatch={formReducer.dispatch}
-				events={formReducer.events}
-				onCancel={onCancel}
-				onSubmit={onSubmit}
-			/>
-			<pre>Modal data: {JSON.stringify(modalReducer.state, null, "  ")}</pre>
-			<Modal
-				title={'yes'}
-				state={modalReducer.state}
-				dispatch={modalReducer.dispatch}
-				fields={fields}
-				open={open}
-				onCancel={onCancel}
-				onSubmit={onSubmit}
-			/>
-			<button onClick={() => setOpen(true)}>Open modal</button>
+				onClose={onCancel}
+			>
+				<Form
+					title={'yes'}
+					type='drawer'
+					state={state}
+					dispatch={dispatch}
+					fields={fields}
+					onCancel={onCancel}
+					cancelButtonAttrs={cancelButtonAttrs}
+					onSubmit={onSubmit}
+					submitButtonAttrs={submitButtonAttrs}
+				/>
+			</Drawer>			
+			<button onClick={() => setOpen(true)}>Open drawer</button>
 		</>
 	);
 };
 
 export const CustomFields = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
-	const CustomText = (props) => {
-		return <input type='text' onChange={(e) => props.onChange(e.target.value)} />
+	const CustomText = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
+		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
 	}
 
-	const CustomTextArea = (props) => {
-		return <textarea rows={4} cols={20} onChange={(e) => props.onChange(e.target.value)} />
+	const CustomTextArea = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
+		return <textarea rows={4} value={value} cols={20} onChange={(e) => onChange(e.target.value)} />
 	}
 
-	const CustomCheckbox = (props) => {
+	const CustomCheckbox = ({ onChange, value } : { onChange: (e: string) => void; value: string }) => {
 		return (
 			<>
-				<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onChange={(e) => props.onChange(e.target.value)} />
+				<input 
+					type="checkbox" 
+					id="vehicle1" 
+					name="vehicle1" 
+					value="Bike" 
+					onChange={(e) => onChange(value ? undefined : e.target.value)}
+					checked={value === 'Bike'}
+				/>
 				<label htmlFor="vehicle1"> I have a bike</label><br />
 			</>
 		)
@@ -1375,6 +971,14 @@ export const CustomFields = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
 	const setText1Value = function () {
 		dispatch(
 			actions.setFieldValue({
@@ -1387,7 +991,14 @@ export const CustomFields = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form state={state} fields={fields} dispatch={dispatch} events={events} />
+			<Form 
+				title='Custom components'
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onSubmit={onSubmit}
+			/>
 			<div>
 				<button onClick={setText1Value}>Set Text1 Value</button>
 			</div>
@@ -1462,72 +1073,6 @@ export const Validators = (): ReactElement => {
 				events={events}
 				onSubmit={onSubmit}
 				onCancel={onCancel}
-			/>
-		</>
-	);
-};
-
-export const PrepopulateFields = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit, registerOnLoad } = useForm();
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "name",
-					label: "Name",
-					type: 'text',
-				},
-				{
-					name: "email",
-					label: "Email",
-					type: 'text',
-				},
-			] as FieldDef<TextFieldDef>[],
-		[]
-	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
-	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const onLoad = useCallback(async () => {
-		await new Promise((res) => setTimeout(res, 2000));
-
-		return {
-			'name': 'John Doe',
-			'email': 'john.doe@simpleview.inc',
-		};
-	}, []);
-
-	useMemo(() => {
-		registerOnLoad(onLoad);
-	}, [onLoad, registerOnLoad]);
-
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				title='Prepopulate fields story'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
-				onCancel={onCancel}
-				onLoad={onLoad}
 			/>
 		</>
 	);

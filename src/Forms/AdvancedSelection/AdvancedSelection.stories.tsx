@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useCallback, useMemo, useState } from 'react';
-import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
 import { AdvancedSelectionDef, optionsWithCategory } from '.';
@@ -21,7 +21,7 @@ const externalOptions = [
 	},
 ];
 
-let additionalOptions = [
+const additionalOptions = [
 	{
 		category: 'Category 1',
 		label: 'Option 2',
@@ -139,7 +139,7 @@ export const Playground = (): ReactElement => {
 	const getSelected = async (selectedOptions) => {
 		if (!selectedOptions) return;
 
-		let fullOptions = options.concat(additionalOptions);
+		const fullOptions = options.concat(additionalOptions);
 
 		return selectedOptions.map((selectedOption) =>
 			fullOptions.find(o => o.value === selectedOption)
@@ -264,7 +264,7 @@ export const KitchenSink = (): ReactElement => {
 	const getSelected = async (selectedOptions) => {
 		if (!selectedOptions) return;
 
-		let fullOptions = options.concat(additionalOptions);
+		const fullOptions = options.concat(additionalOptions);
 
 		return selectedOptions.map((selectedOption) =>
 			fullOptions.find(o => o.value === selectedOption)
