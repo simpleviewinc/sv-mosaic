@@ -470,68 +470,101 @@ export const FormWithLayout = (): ReactElement => {
 		() =>
 			[
 				{
-					name: "text1",
-					label: "Simple Text",
-					type: "text",
+					name: 'text1',
+					label: 'Simple Text',
+					type: 'text',
 					instructionText: 'Instruction text text1',
 					validators: [validateEmail, validateSlow],
 					layout: { section: 0, row: 1, col: 0 }
 				},
 				{
-					name: "text2",
-					label: "Text with validators and dynamic help",
-					type: "text",
+					name: 'text2',
+					label: 'Text with validators and dynamic help',
+					type: 'text',
 					help: state.data.text2,
 					instructionText: 'Instruction text text2',
 					validators: [validateEmail, validateSlow]
 				},
 				{
-					name: "text3",
-					label: "Text that copies to the next input",
-					type: "text",
+					name: 'text3',
+					label: 'Text that copies to the next input',
+					type: 'text',
 					instructionText: 'Instruction text text3',
 				},
 				{
-					name: "text4",
-					label: "Text that receives copy",
-					type: "text",
+					name: 'text4',
+					label: 'Text that receives copy',
+					type: 'text',
 					instructionText: 'Instruction text text1'
-				}
+				},
+				{
+					name: 'color',
+					label: 'Color selector example',
+					type: 'color',
+				},
+				{
+					name: 'check',
+					label: 'Checkbox',
+					type: 'checkbox',
+					inputSettings: {
+						options: checkboxOptions
+					},
+				},
+				{
+					name: 'toggleSwitch',
+					label: 'Toggle field',
+					type: 'toggleSwitch',
+					inputSettings: {
+						toggleLabel: 'To the side'
+					}
+				},
+				{
+					name: 'imageUpload',
+					label: 'Image Upload example',
+					type: 'imageUpload',
+					inputSettings: {
+						options: menuOptions
+					}
+				},
+				{
+					name: 'textEditor',
+					label: 'Text Editor field',
+					type: 'textEditor',
+				},
 			] as FieldDef[],
-		// [state.data.text2]
 		[]
 	);
 
 	const sections = useMemo(() => [
 		{
-			title: "Section 1",
-			description: "Description for section 1",
+			title: 'Section 1',
+			description: 'Description for section 1',
 			fields: [
 				// row 1
-				[["text1"], ["text2"], ["text3"]],
+				[['text1'], ['text2'], ['text3']],
 				// row 2
-				[["text3"], ["text4"], ["text1"]],
+				[['check'], ['text4'], ['color']],
 				[[]],
 				// row 3
-				[["text3"], ["text4"]]
+				[['toggleSwitch'], ['imageUpload']]
 			]
 		},
 		{
-			title: "Section 2",
-			description: "Description for section 2",
+			title: 'Section 2',
+			description: 'Description for section 2',
 			fields: [
 				// row 1
+				[['check'], ['toggleSwitch'], ['color']],
+				// row 2
 				[[], [], []],
-				// row 2
-				[["text3"], [], ["text1"]],
 				[[]],
 				// row 3
-				[[], ["text4"]]
+				[[], ['textEditor']]
 			]
 		},
 		{
-			title: "Section 3",
-			description: "Description for section 3",
+			title: 'Section 3',
+			description: 'Description for section 3',
 			fields: [
 				// row 1
 				[[], [], []],
@@ -547,7 +580,7 @@ export const FormWithLayout = (): ReactElement => {
 	useEffect(() => {
 		dispatch(
 			actions.setFieldValue({
-				name: "text4",
+				name: 'text4',
 				value: state.data.text3
 			})
 		);
@@ -559,7 +592,7 @@ export const FormWithLayout = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<pre>{JSON.stringify(state, null, '  ')}</pre>
 			<Form
 				title={text('Title', 'Form Title')}
 				description={text('Description', 'This is a description example')}
