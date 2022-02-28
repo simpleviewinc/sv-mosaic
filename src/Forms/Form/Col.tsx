@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { actions } from './formUtils';
 
@@ -37,8 +37,31 @@ const StyledCol = styled.div`
 		`
 			width: 100%;
 		`
-}
+	}
 `;
+
+/**
+* Hook that alerts clicks outside of the passed ref
+*/
+// export function useOutsideAlerter(ref) {
+// 	useEffect(() => {
+// 		/**
+// 		 * Alert if clicked on outside of element
+// 		 */
+// 		function handleClickOutside(event) {
+// 			if (ref.current && !ref.current.contains(event.target)) {
+// 				alert("You clicked outside of me!");
+// 			}
+// 		}
+
+// 		// Bind the event listener
+// 		document.addEventListener("mousedown", handleClickOutside);
+// 		return () => {
+// 			// Unbind the event listener on clean up
+// 			document.removeEventListener("mousedown", handleClickOutside);
+// 		};
+// 	}, [ref]);
+// }
 
 const Col = (props) => {
 	const {
@@ -155,7 +178,7 @@ const Col = (props) => {
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return ((type !== ('advancedSelection' || 'mapCoordinates')) && !!componentMap[type]) ? (
+				return (/*(type !== ('advancedSelection' || 'mapCoordinates')) &&*/ !!componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
 						fieldDef={...currentField}

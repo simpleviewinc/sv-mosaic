@@ -60,7 +60,6 @@ const AdvancedSelectionModal = (props): ReactElement => {
 
 		setInternalOptions();
 	}, [
-		// isModalOpen,
 		fieldDef?.inputSettings?.checkboxOptions,
 		fieldDef?.inputSettings?.getOptions,
 		fieldDef?.inputSettings?.getOptionsLimit
@@ -324,14 +323,14 @@ const AdvancedSelectionModal = (props): ReactElement => {
 				},
 			] as FieldDef[]
 		), [
-			filteredList,
-			searchInput,
-			fieldDef,
-			canLoadMore,
-			getMoreOptions,
-			isModalOpen,
-			isMobileView,
-		]
+		filteredList,
+		searchInput,
+		fieldDef,
+		canLoadMore,
+		getMoreOptions,
+		isModalOpen,
+		isMobileView,
+	]
 	);
 
 	useMemo(() => {
