@@ -182,6 +182,7 @@ export const DrawerViewColumn = styled(StyledColumn)`
   flex-direction: row;
   justify-content: space-between;
   padding: 20px;
+  z-index: 9999;
 `;
 
 export const DrawerSectionWrapper = styled.div`

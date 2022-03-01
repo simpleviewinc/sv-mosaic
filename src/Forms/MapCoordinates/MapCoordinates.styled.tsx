@@ -24,6 +24,7 @@ export const CoordinatesCard = styled.div`
   padding-bottom: ${pr => pr.hasAddress ? '35px' : '16px'}
   position: relative;
   width: 414px;
+  background-color: white;
 `;
 
 export const ButtonsWrapper = styled.div`

@@ -20,7 +20,7 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 // Components
 import Button from '@root/forms/Button';
 import ToggleSwitch from '@root/components/ToggleSwitch';
-import MapCoordinatesModal from './MapCoordinatesModal';
+import MapCoordinatesDrawer from './MapCoordinatesDrawer';
 
 // Styles
 import {
@@ -41,7 +41,8 @@ import {
 	getAddressStringFromAddressObject,
 	libraries,
 	mapOptions,
-} from './MapCoordinatesUtils'; 
+} from './MapCoordinatesUtils';
+import Drawer from "../../components/Drawer.jsx";
 
 const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>): ReactElement => {
 	const {
@@ -204,8 +205,11 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 				</Button>
 			)}
 
-			{isModalOpen && (
-				<MapCoordinatesModal
+			<Drawer
+				open={isModalOpen}
+				onClose={handleClose}
+			>
+				<MapCoordinatesDrawer
 					fieldDef={fieldDef}
 					handleClose={handleClose}
 					handleSaveCoordinates={handleSaveCoordinates}
@@ -213,7 +217,7 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 					onChange={onChange}
 					value={value}
 				/>
-			)}
+			</Drawer>
 		</>
 	);
 };
