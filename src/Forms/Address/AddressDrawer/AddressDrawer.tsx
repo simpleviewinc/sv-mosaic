@@ -6,7 +6,7 @@ import { FieldDef } from '@root/components/Field/FieldTypes';
 import Form from '@root/forms/Form/Form';
 
 // Utils
-import * as countriesWithStates from '@root/forms/Address/countriesStates.json';
+import countriesWithStates from '@root/forms/Address/countriesStates.json';
 import { actions, useForm } from '@root/forms/Form/formUtils';
 import { TextFieldDef } from '@root/forms/FormFieldText';
 import { Sizes } from '@root/theme/sizes';
@@ -27,7 +27,7 @@ const sections = [
 	},
 ];
 
-const countries = countriesWithStates.map((country) => ({
+const countries = countriesWithStates?.map((country) => ({
 	title: country.name,
 	value: country.iso2,
 }));
@@ -63,7 +63,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 	useEffect(() => {
 		if (isEditing && open) {
-			const fullCountryData = countriesWithStates.find(
+			const fullCountryData = countriesWithStates?.find(
 				(c) => c.iso2 === addressToEdit?.country?.value
 			);
 			const fullStateData = fullCountryData.states.find(
@@ -137,7 +137,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
    * selected country
    */
 	const listOfStates = useMemo(() => {
-		const selectedCountryTest = countriesWithStates.find(
+		const selectedCountryTest = countriesWithStates?.find(
 			(c) => c.name === state?.data?.country?.title
 		);
 
@@ -155,7 +155,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
    * Executed on the form submit if editing mode is true
    * @returns the list of addresses with the new updates
    */
-	const editAddress = (): IAddress[]  => {
+	const editAddress = (): IAddress[] => {
 		const listOfAddresses = [...value];
 
 		listOfAddresses[addressIdx].address1 = state?.data?.address1;
@@ -198,7 +198,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
    * Form submit handler. It adds or edits an address and closes the modal.
    * @param e
    */
-	const onSubmit = useCallback(async() => {
+	const onSubmit = useCallback(async () => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
 
 		onChange && await onChange(listOfAddresses);
