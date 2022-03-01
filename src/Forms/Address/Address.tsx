@@ -2,8 +2,9 @@ import * as React from 'react';
 import { memo, ReactElement, useState } from 'react';
 
 // Components
+import AddressDrawer from './AddressDrawer';
 import Button from '@root/forms/Button';
-import AddressModal from './AddressModal';
+import Drawer from '@root/components/Drawer.jsx';
 
 // Styles
 import { AddAddressWrapper, FlexContainer } from './Address.styled';
@@ -41,15 +42,23 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 	 * Removes the clicked address card from the list. 
 	 * @param addressToRemove 
 	 */
-	const removeAddressHandler = (addressIndex: number) => {
+	const removeAddressHandler = async(addressIndex: number) => {
 		const listOfAddresses = [...value];
 		listOfAddresses.splice(addressIndex, 1);
 
 		if (listOfAddresses.length > 0) {
-			onChange(listOfAddresses);
+			await onChange(listOfAddresses);
 		} else {
-			onChange(undefined);
+			await onChange(undefined);
 		}
+	};
+
+	/**
+	 * Closes the modal and resets the values for
+	 * form field.
+	 */
+	const handleClose = () => {
+		setOpen(false);
 	};
 
 	/**
@@ -104,18 +113,21 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 						onRemoveAddress={removeAddressHandler} />
 				))}
 			</FlexContainer>
-			{open && (
-				<AddressModal
+			<Drawer
+				open={open}
+				onClose={handleClose}
+			>
+				<AddressDrawer
 					addressToEdit={addressToEdit}
 					isEditing={isEditing}
 					addressIdx={addressIdx}
 					open={open}
-					setOpen={setOpen}
+					handleClose={handleClose}
 					onChange={onChange}
 					setIsEditing={setIsEditing}
 					value={value}
 				/>
-			)}
+			</Drawer>
 		</div>
 	);
 };
