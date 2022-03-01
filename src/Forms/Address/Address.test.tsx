@@ -4,7 +4,7 @@ import {
 	cleanup,
 	fireEvent,
 	screen,
-	waitFor,
+	waitFor
 } from '@testing-library/react';
 import * as React from 'react';
 import { ReactElement, useCallback, useMemo } from 'react';
@@ -55,10 +55,7 @@ export const AddressFormFieldExample = (): ReactElement => {
 
 	const onSubmit = useCallback(
 		(data) => {
-			alert(
-				'Form submitted with the following data: ' +
-          JSON.stringify(data, null, ' ')
-			);
+			alert('Form submitted with the following data: ' + JSON.stringify(data, null, ' '));
 		},
 		[state.validForm]
 	);
@@ -82,14 +79,14 @@ export const AddressFormFieldExample = (): ReactElement => {
 
 const {
 	getByText,
-	queryAllByTestId,
 	getByLabelText,
 	getAllByTestId,
 	getAllByRole,
 	getAllByText,
+	queryAllByTestId
 } = screen;
 
-const addNewAddress = async () => {
+const addNewAddress = () => {
 	document.createRange = () => ({
 		setStart: jest.fn(),
 		setEnd: jest.fn(),
@@ -110,7 +107,7 @@ const addNewAddress = async () => {
 	const postalCode = getByLabelText('Postal Code');
 	const dropdowns = getAllByTestId('autocomplete-test-id');
 	const inputs = getAllByRole('textbox') as HTMLInputElement[];
-	// The first dropdown/input refers to the country selector.
+	// The first dropdown refers to the country selector.
 	dropdowns[0].focus();
 
 	const addressTypes = getAllByRole('checkbox') as HTMLInputElement[];
@@ -124,12 +121,7 @@ const addNewAddress = async () => {
 	fireEvent.keyDown(dropdowns[0], { key: 'ArrowDown' });
 	fireEvent.keyDown(dropdowns[0], { key: 'Enter' });
 	fireEvent.click(addressTypes[0]);
-
-	await waitFor(() => {
-		fireEvent.click(modalSaveButton);
-	});
-
-	await new Promise((r) => setTimeout(r, 2000));
+	fireEvent.click(modalSaveButton);
 }; 
 
 afterEach(cleanup);
@@ -142,9 +134,11 @@ describe('Address component', () => {
 
 	it('should add a new address card and then remove it', async () => {
 		expect(queryAllByTestId('address-card-test')).toStrictEqual([]);
-		await addNewAddress();
+		addNewAddress();
 
-		expect(queryAllByTestId('address-card-test').length).toBe(1);
+		await waitFor(() => {
+			expect(queryAllByTestId('address-card-test').length).toBe(1);
+		}, { timeout: 3000 });
 
 		fireEvent.click(getByText('Remove'));
 
@@ -152,8 +146,8 @@ describe('Address component', () => {
 	});
 
 	it('should edit an address card', async () => {
-		await addNewAddress();
-
+		addNewAddress();
+		await new Promise((r) => setTimeout(r, 3000));
 		fireEvent.click(getByText('Edit'));
 
 		const address = getByLabelText('Address');
@@ -172,16 +166,14 @@ describe('Address component', () => {
 		fireEvent.click(getByText('Argentina'));
 		fireEvent.click(addressTypes[1]);
 
+		fireEvent.click(getAllByText('Save')[1]);
+
 		await waitFor(() => {
-			fireEvent.click(getAllByText('Save')[1]);
-		});
-
-		await new Promise((r) => setTimeout(r, 2000));
-
-		expect(getByText('Address edited')).toBeTruthy();
-		expect(getByText('Physical, Billing Address')).toBeTruthy();
-		expect(getByText('City edited, 000')).toBeTruthy();
-		expect(getByText('Argentina')).toBeTruthy();
+			expect(getByText('Address edited')).toBeTruthy();
+			expect(getByText('Physical, Billing Address')).toBeTruthy();
+			expect(getByText('City edited, 000')).toBeTruthy();
+			expect(getByText('Argentina')).toBeTruthy();
+		}, { timeout: 3000 });
 	});
 });
 

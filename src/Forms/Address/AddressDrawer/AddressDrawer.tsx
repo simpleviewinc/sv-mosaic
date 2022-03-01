@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { FieldDef } from '@root/components/Field/FieldTypes';
 
 // Components
-import Modal from '@root/components/Modal';
+import Form from '@root/forms/Form/Form';
 
 // Utils
 import * as countriesWithStates from '@root/forms/Address/countriesStates.json';
@@ -11,7 +11,7 @@ import { actions, useForm } from '@root/forms/Form/formUtils';
 import { TextFieldDef } from '@root/forms/FormFieldText';
 import { Sizes } from '@root/theme/sizes';
 import { IAddress } from '@root/forms/Address';
-import { AddressModalProps } from '../AddressTypes';
+import { AddressDrawerProps } from '../AddressTypes';
 
 // Layout of the form elements.
 const sections = [
@@ -47,13 +47,13 @@ const addressTypes = [
 	},
 ];
 
-const AddressModal = (props: AddressModalProps): ReactElement => {
+const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
 		addressToEdit,
 		isEditing,
 		addressIdx,
 		open,
-		setOpen,
+		handleClose,
 		onChange,
 		setIsEditing,
 		value,
@@ -198,21 +198,12 @@ const AddressModal = (props: AddressModalProps): ReactElement => {
    * Form submit handler. It adds or edits an address and closes the modal.
    * @param e
    */
-	const onSubmit = useCallback(() => {
+	const onSubmit = useCallback(async() => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
 
-		onChange && onChange(listOfAddresses);
+		onChange && await onChange(listOfAddresses);
 		handleClose();
 	}, [state.validForm]);
-
-	/**
-   * Closes the modal and resets the values for
-   * form field.
-   */
-	const handleClose = () => {
-		dispatch(actions.resetForm());
-		setOpen(false);
-	};
 
 	const fields = useMemo(
 		() =>
@@ -311,13 +302,13 @@ const AddressModal = (props: AddressModalProps): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	return (
-		<Modal
+		<Form
 			title='Address Information'
 			state={state}
 			dispatch={dispatch}
 			sections={sections}
 			fields={fields}
-			open={open}
+			type='drawer'
 			onCancel={handleClose}
 			onSubmit={onSubmit}
 			submitButtonAttrs={{ children: 'Save' }}
@@ -326,4 +317,4 @@ const AddressModal = (props: AddressModalProps): ReactElement => {
 	);
 };
 
-export default AddressModal;
+export default AddressDrawer;
