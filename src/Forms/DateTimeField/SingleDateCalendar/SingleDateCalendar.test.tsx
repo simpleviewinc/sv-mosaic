@@ -9,7 +9,7 @@ describe('SingleDateCalendar component', () => {
 				fieldDef={{
 					name: 'singleDateCalendar',
 					label: '',
-					disabled: true,
+					disabled: false,
 				}}
 				value={new Date('2018-01-01T00:00:00.000Z')}
 

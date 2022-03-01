@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useState } from 'react';
-import DateFnsUtils from '@date-io/date-fns';
+import * as DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 // Styles
@@ -27,7 +27,7 @@ const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 	};
 
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+		<MuiPickersUtilsProvider utils={DateFnsUtils.default}>
 			<ThemeProvider theme={customTheme}>
 				<DatePickerWrapper isPickerOpen={isPickerOpen}>
 					<StyledDatePicker
