@@ -38,15 +38,6 @@ export interface AddressCardProps {
 	onEdit?: (address, addressIndex) => void;
 }
 
-export interface AddressProps {
-	/**
-	 * Meaningful name related to this component.
-	 */
-	label: string;
-	value?: IAddress[];
-	onChange?: (event: unknown) => void;
-}
-
 export interface AddressDrawerProps {
 	addressToEdit: IAddress;
 	isEditing: boolean;
