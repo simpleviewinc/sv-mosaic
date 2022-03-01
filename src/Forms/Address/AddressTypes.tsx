@@ -47,13 +47,13 @@ export interface AddressProps {
 	onChange?: (event: unknown) => void;
 }
 
-export interface AddressModalProps {
+export interface AddressDrawerProps {
 	addressToEdit: IAddress;
 	isEditing: boolean;
 	addressIdx: number;
 	open: boolean;
 	onChange?: (event: unknown) => void;
-	setOpen: Dispatch<SetStateAction<boolean>>;
+	handleClose: () => void;
 	setIsEditing: Dispatch<SetStateAction<boolean>>;
 	value: IAddress[];
 }
