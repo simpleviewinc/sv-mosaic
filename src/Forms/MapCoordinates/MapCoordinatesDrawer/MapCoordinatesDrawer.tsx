@@ -13,6 +13,7 @@ import { StyledSpan } from '../MapCoordinates.styled';
 // Utils
 import { defaultMapPosition } from '../MapCoordinatesUtils';
 import { actions, useForm } from '@root/forms/Form/formUtils';
+import Form from '@root/forms/Form/Form';
 
 // Layout of the form elements.
 const sections = [
@@ -24,7 +25,7 @@ const sections = [
 	}
 ];
 
-const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
+const MapCoordinatesDrawer = (props: MapCoordinatesModalProps): ReactElement => {
 	const {
 		fieldDef,
 		handleClose,
@@ -120,7 +121,7 @@ const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
 			lat: modalReducer.state.data.lat,
 			lng: modalReducer.state.data.lng,
 		}
-	
+
 		handleSaveCoordinates(latLngValue);
 	}
 
@@ -237,13 +238,13 @@ const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
 	}, [modalReducer.dispatch, value])
 
 	return (
-		<Modal
+		<Form
 			title='Map Coordinates'
+			type='drawer'
 			state={modalReducer?.state}
 			dispatch={modalReducer?.dispatch}
 			sections={sections}
 			fields={fields}
-			open={isModalOpen}
 			onCancel={handleClose}
 			onSubmit={onSubmit}
 			submitButtonAttrs={{
@@ -252,7 +253,22 @@ const MapCoordinatesModal = (props: MapCoordinatesModalProps): ReactElement => {
 			}}
 			cancelButtonAttrs={{ children: 'Cancel' }}
 		/>
+		// <Modal
+		// 	title='Map Coordinates'
+		// 	state={modalReducer?.state}
+		// 	dispatch={modalReducer?.dispatch}
+		// 	sections={sections}
+		// 	fields={fields}
+		// 	open={isModalOpen}
+		// 	onCancel={handleClose}
+		// 	onSubmit={onSubmit}
+		// 	submitButtonAttrs={{
+		// 		children: 'Save Coordinates',
+		// 		disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
+		// 	}}
+		// 	cancelButtonAttrs={{ children: 'Cancel' }}
+		// />
 	);
 };
 
-export default MapCoordinatesModal;
+export default MapCoordinatesDrawer;
