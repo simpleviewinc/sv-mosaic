@@ -3,7 +3,6 @@ import { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { FieldDef } from '@root/components/Field/FieldTypes';
 
 // Components
-import Drawer from '@root/components/Drawer.jsx';
 import Form from '@root/forms/Form/Form';
 
 // Utils
@@ -54,7 +53,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		isEditing,
 		addressIdx,
 		open,
-		setOpen,
+		handleClose,
 		onChange,
 		setIsEditing,
 		value,
@@ -206,15 +205,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleClose();
 	}, [state.validForm]);
 
-	/**
-   * Closes the modal and resets the values for
-   * form field.
-   */
-	const handleClose = () => {
-		dispatch(actions.resetForm());
-		setOpen(false);
-	};
-
 	const fields = useMemo(
 		() =>
 			[
@@ -312,23 +302,18 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	return (
-		<Drawer
-			open={open}
-			onClose={handleClose}
-		>
-			<Form
-				title='Address Information'
-				state={state}
-				dispatch={dispatch}
-				sections={sections}
-				fields={fields}
-				type='drawer'
-				onCancel={handleClose}
-				onSubmit={onSubmit}
-				submitButtonAttrs={{ children: 'Save' }}
-				cancelButtonAttrs={{ children: 'Cancel' }}
-			/>
-		</Drawer>
+		<Form
+			title='Address Information'
+			state={state}
+			dispatch={dispatch}
+			sections={sections}
+			fields={fields}
+			type='drawer'
+			onCancel={handleClose}
+			onSubmit={onSubmit}
+			submitButtonAttrs={{ children: 'Save' }}
+			cancelButtonAttrs={{ children: 'Cancel' }}
+		/>
 	);
 };
 

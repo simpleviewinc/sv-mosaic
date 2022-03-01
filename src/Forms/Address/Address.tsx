@@ -4,6 +4,7 @@ import { memo, ReactElement, useState } from 'react';
 // Components
 import AddressDrawer from './AddressDrawer';
 import Button from '@root/forms/Button';
+import Drawer from '@root/components/Drawer.jsx';
 
 // Styles
 import { AddAddressWrapper, FlexContainer } from './Address.styled';
@@ -50,6 +51,14 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 		} else {
 			await onChange(undefined);
 		}
+	};
+
+	/**
+	 * Closes the modal and resets the values for
+	 * form field.
+	 */
+	const handleClose = () => {
+		setOpen(false);
 	};
 
 	/**
@@ -104,18 +113,21 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 						onRemoveAddress={removeAddressHandler} />
 				))}
 			</FlexContainer>
-			{open && 
+			<Drawer
+				open={open}
+				onClose={handleClose}
+			>
 				<AddressDrawer
 					addressToEdit={addressToEdit}
 					isEditing={isEditing}
 					addressIdx={addressIdx}
 					open={open}
-					setOpen={setOpen}
+					handleClose={handleClose}
 					onChange={onChange}
 					setIsEditing={setIsEditing}
 					value={value}
 				/>
-			}
+			</Drawer>
 		</div>
 	);
 };
