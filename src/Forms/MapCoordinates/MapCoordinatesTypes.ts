@@ -72,8 +72,6 @@ export interface LocationSearchInputProps {
 export interface MapCoordinatesModalProps {
 	fieldDef: FieldDef<MapCoordinatesDef>
 	handleClose: () => void;
-	handleSaveCoordinates: (coordinates: MapPosition) => void;
-	isModalOpen: boolean;
 	onChange: (e: MapPosition) => Promise<void>
 	value: MapPosition;
 }

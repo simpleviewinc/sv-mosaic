@@ -3,7 +3,6 @@ import {
 	memo,
 	ReactElement,
 	useEffect,
-	useRef,
 	useState
 } from 'react';
 
@@ -27,13 +26,11 @@ import { BREAKPOINTS } from '@root/theme/theme';
 
 const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
 	const {
-		fieldDef,
-		onChange,
 		value,
+		onBlur,
+		onChange,
+		fieldDef,
 	} = props;
-
-	const wrapperRef = useRef(null); //TODO talk with Owen
-	// useOutsideAlerter(wrapperRef);
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,14 +59,15 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	/**
    * Sets the open state of the modal to false.
    */
-	const handleCloseModal = () => {
+	const handleClose = async () => {
 		setIsModalOpen(false);
+		await onBlur();
 	};
 
 	return (
 		<>
 			{value.length > 0 && !isModalOpen ? (
-				<AdvancedSelectionWrapper ref={wrapperRef}>
+				<AdvancedSelectionWrapper>
 					<Button
 						buttonType='blueText'
 						disabled={fieldDef?.disabled}
@@ -103,7 +101,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 			)}
 			<Drawer
 				open={isModalOpen}
-				onClose={handleCloseModal}
+				onClose={handleClose}
 			>
 				<AdvancedSelectionDrawer
 					value={value}
@@ -111,7 +109,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					onChange={onChange}
 					isModalOpen={isModalOpen}
 					isMobileView={isMobileView}
-					handleCloseModal={handleCloseModal}
+					handleClose={handleClose}
 				/>
 			</Drawer>
 		</>
