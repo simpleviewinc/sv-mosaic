@@ -62,20 +62,52 @@ export const KitchenSink = (): ReactElement => (
 		<h2>Primary Button</h2>
 		<Row>
 			<Button
-				disabled={false}
 				buttonType={PRIMARY}
 				onClick={() => handleClick(PRIMARY)}
-				smallerButton={false}
 			>
 				Primary
 			</Button>
 			<Button
 				icon={AddIcon}
 				iconPosition='left'
-				disabled={false}
 				buttonType={PRIMARY}
 				onClick={() => handleClick(PRIMARY)}
-				smallerButton={false}
+			>
+				Primary
+			</Button>
+			<Button
+				icon={AddIcon}
+				iconPosition='right'
+				buttonType={PRIMARY}
+				onClick={() => handleClick(PRIMARY)}
+			>
+				Primary
+			</Button>
+		</Row>
+		<h2>Primary - Disabled</h2>
+		<Row>
+			<Button
+				disabled={true}
+				buttonType={PRIMARY}
+				onClick={() => handleClick(PRIMARY)}
+			>
+				Primary
+			</Button>
+			<Button
+				icon={AddIcon}
+				iconPosition='left'
+				disabled={true}
+				buttonType={PRIMARY}
+				onClick={() => handleClick(PRIMARY)}
+			>
+				Primary
+			</Button>
+			<Button
+				icon={AddIcon}
+				iconPosition='right'
+				disabled={true}
+				buttonType={PRIMARY}
+				onClick={() => handleClick(PRIMARY)}
 			>
 				Primary
 			</Button>
@@ -83,7 +115,6 @@ export const KitchenSink = (): ReactElement => (
 		<h2>Secondary Button</h2>
 		<Row>
 			<Button
-				disabled={false}
 				buttonType={SECONDARY}
 				onClick={() => handleClick(SECONDARY)}
 			>
@@ -92,7 +123,42 @@ export const KitchenSink = (): ReactElement => (
 			<Button
 				icon={AddIcon}
 				iconPosition='left'
-				disabled={false}
+				buttonType={SECONDARY}
+				onClick={() => handleClick(SECONDARY)}
+			>
+				Secondary
+			</Button>
+			<Button
+				icon={AddIcon}
+				iconPosition='right'
+				buttonType={SECONDARY}
+				onClick={() => handleClick(SECONDARY)}
+			>
+				Secondary
+			</Button>
+		</Row>
+		<h2>Secondary - Disabeld</h2>
+		<Row>
+			<Button
+				disabled={true}
+				buttonType={SECONDARY}
+				onClick={() => handleClick(SECONDARY)}
+			>
+				Secondary
+			</Button>
+			<Button
+				icon={AddIcon}
+				iconPosition='left'
+				disabled={true}
+				buttonType={SECONDARY}
+				onClick={() => handleClick(SECONDARY)}
+			>
+				Secondary
+			</Button>
+			<Button
+				icon={AddIcon}
+				iconPosition='right'
+				disabled={true}
 				buttonType={SECONDARY}
 				onClick={() => handleClick(SECONDARY)}
 			>
@@ -103,40 +169,138 @@ export const KitchenSink = (): ReactElement => (
 		<Row>
 			<Button
 				buttonType={BLUE_TEXT}
-				disabled={false}
 				onClick={() => handleClick(BLUE_TEXT)}
-				smallerButton={false}
 			>
 				Blue Text
 			</Button>
 			<Button
 				buttonType={RED_TEXT}
-				disabled={false}
 				onClick={() => handleClick(RED_TEXT)}
-				smallerButton={false}
+			>
+				Red Text
+			</Button>
+			<Button
+				buttonType={BLUE_TEXT}
+				icon={AddIcon}
+				iconPosition='left'
+				onClick={() => handleClick(BLUE_TEXT)}
+			>
+				Blue Text
+			</Button>
+			<Button
+				buttonType={RED_TEXT}
+				icon={ClearIcon}
+				iconPosition='left'
+				onClick={() => handleClick(BLUE_TEXT)}
 			>
 				Red Text
 			</Button>
 		</Row>
-		<h2>Text Buttons with icons</h2>
+		<h2>Text Buttons - Disabled</h2>
 		<Row>
 			<Button
 				buttonType={BLUE_TEXT}
-				disabled={false}
-				icon={AddIcon}
-				iconPosition='left'
+				disabled={true}
 				onClick={() => handleClick(BLUE_TEXT)}
-				smallerButton={false}
 			>
 				Blue Text
 			</Button>
 			<Button
 				buttonType={RED_TEXT}
-				disabled={false}
+				disabled={true}
+				onClick={() => handleClick(RED_TEXT)}
+			>
+				Red Text
+			</Button>
+			<Button
+				buttonType={BLUE_TEXT}
+				disabled={true}
+				icon={AddIcon}
+				iconPosition='left'
+				onClick={() => handleClick(BLUE_TEXT)}
+			>
+				Blue Text
+			</Button>
+			<Button
+				buttonType={RED_TEXT}
+				disabled={true}
 				icon={ClearIcon}
 				iconPosition='left'
 				onClick={() => handleClick(BLUE_TEXT)}
-				smallerButton={false}
+			>
+				Red Text
+			</Button>
+		</Row>
+		<h2>Small Text Buttons</h2>
+		<Row>
+			<Button
+				buttonType={BLUE_TEXT}
+				onClick={() => handleClick(BLUE_TEXT)}
+				smallerButton={true}
+			>
+				Blue Text
+			</Button>
+			<Button
+				buttonType={RED_TEXT}
+				onClick={() => handleClick(RED_TEXT)}
+				smallerButton={true}
+			>
+				Red Text
+			</Button>
+			<Button
+				buttonType={BLUE_TEXT}
+				icon={AddIcon}
+				iconPosition='left'
+				onClick={() => handleClick(BLUE_TEXT)}
+				smallerButton={true}
+			>
+				Blue Text
+			</Button>
+			<Button
+				buttonType={RED_TEXT}
+				icon={ClearIcon}
+				iconPosition='left'
+				onClick={() => handleClick(BLUE_TEXT)}
+				smallerButton={true}
+			>
+				Red Text
+			</Button>
+		</Row>
+		<h2>Small Text Buttons - Disabled</h2>
+		<Row>
+			<Button
+				buttonType={BLUE_TEXT}
+				disabled={true}
+				onClick={() => handleClick(BLUE_TEXT)}
+				smallerButton={true}
+			>
+				Blue Text
+			</Button>
+			<Button
+				buttonType={RED_TEXT}
+				disabled={true}
+				onClick={() => handleClick(RED_TEXT)}
+				smallerButton={true}
+			>
+				Red Text
+			</Button>
+			<Button
+				buttonType={BLUE_TEXT}
+				disabled={true}
+				icon={AddIcon}
+				iconPosition='left'
+				onClick={() => handleClick(BLUE_TEXT)}
+				smallerButton={true}
+			>
+				Blue Text
+			</Button>
+			<Button
+				buttonType={RED_TEXT}
+				disabled={true}
+				icon={ClearIcon}
+				iconPosition='left'
+				onClick={() => handleClick(BLUE_TEXT)}
+				smallerButton={true}
 			>
 				Red Text
 			</Button>
@@ -145,7 +309,6 @@ export const KitchenSink = (): ReactElement => (
 		<Row>
 			<Button
 				buttonType={APPROVE}
-				disabled={false}
 				icon={CheckIcon}
 				iconPosition='left'
 				onClick={() => handleClick(APPROVE)}
@@ -154,9 +317,63 @@ export const KitchenSink = (): ReactElement => (
 			</Button>
 			<Button
 				buttonType={DENY}
-				disabled={false}
 				icon={ClearIcon}
 				iconPosition='left'
+				onClick={() => handleClick(DENY)}
+			>
+				Deny
+			</Button>
+			<Button
+				buttonType={APPROVE}
+				icon={CheckIcon}
+				iconPosition='right'
+				onClick={() => handleClick(APPROVE)}
+			>
+				Approve
+			</Button>
+			<Button
+				buttonType={DENY}
+				icon={ClearIcon}
+				iconPosition='right'
+				onClick={() => handleClick(DENY)}
+			>
+				Deny
+			</Button>
+		</Row>
+		<h2>Approve/Deny Buttons - Disabled</h2>
+		<Row>
+			<Button
+				buttonType={APPROVE}
+				disabled={true}
+				icon={CheckIcon}
+				iconPosition='left'
+				onClick={() => handleClick(APPROVE)}
+			>
+				Approve
+			</Button>
+			<Button
+				buttonType={DENY}
+				disabled={true}
+				icon={ClearIcon}
+				iconPosition='left'
+				onClick={() => handleClick(DENY)}
+			>
+				Deny
+			</Button>
+			<Button
+				buttonType={APPROVE}
+				disabled={true}
+				icon={CheckIcon}
+				iconPosition='right'
+				onClick={() => handleClick(APPROVE)}
+			>
+				Approve
+			</Button>
+			<Button
+				buttonType={DENY}
+				disabled={true}
+				icon={ClearIcon}
+				iconPosition='right'
 				onClick={() => handleClick(DENY)}
 			>
 				Deny

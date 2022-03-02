@@ -127,7 +127,7 @@ const kitchenSinkFields = [
 	},
 	{
 		name: 'withMaxChar',
-		label: 'With a max of chars stablished',
+		label: 'Established with a max chars',
 		type: 'textArea',
 		maxCharacters: 20,
 		size: Sizes.md,
