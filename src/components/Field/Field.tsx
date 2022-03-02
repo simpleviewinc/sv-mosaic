@@ -1,32 +1,24 @@
 import * as React from 'react';
-import { ReactElement, useState, useEffect, useRef } from 'react';
+import { ReactElement, useState, useEffect, useRef, useMemo, memo } from 'react';
 import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
 
 import { default as Label } from './Label';
 import { default as HelperText } from './HelperText';
 import { default as InstructionText } from './InstructionText';
-import { FieldDefProps } from '.';
+import { MosaicFieldProps } from '.';
+import { Sizes } from '@root/theme/sizes';
 
 const Field = ({
 	children,
-	error = false,
-	disabled,
-	required,
-	label,
-	helperText,
-	errorText,
-	instructionText,
-	htmlFor,
+	error,
+	fieldDef,
 	value,
-	maxCharacters,
-	name,
-	size,
-}: FieldDefProps): ReactElement => {
+}: MosaicFieldProps<any>): ReactElement => {
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
 
 	const description = useRef<HTMLDivElement>(null);
 
-	const errorWithMessage = error && errorText?.trim().length > 0;
+	const errorWithMessage = error?.trim().length > 0;
 
 	const handleDescriptionRender = () => {
 		if (description.current) {
@@ -60,34 +52,66 @@ const Field = ({
 	}, []);
 
 	const renderBottomText = () => {
-		if ((errorWithMessage || (errorWithMessage && required))) {
-			return <HelperText error={error}>{errorText}</HelperText>;
-		} else if (helperText) {
-			console.log(helperText);
-			return <HelperText>{helperText}</HelperText>;
+		if ((errorWithMessage || (errorWithMessage && fieldDef?.required))) {
+			return <HelperText error={!!error}>{error}</HelperText>;
+		} else if (fieldDef?.helperText) {
+			return <HelperText>{fieldDef?.helperText}</HelperText>;
 		}
-	}
+	};
+
+	const labelMargin = useMemo(() => {
+		let labelMargin = '8px';
+		if (
+			//fieldDef?.type === 'advancedSelection' ||
+			fieldDef?.type === 'imageUpload' ||
+			fieldDef?.type === 'address'
+		) {
+			return (labelMargin = '16px');
+		} else if (fieldDef?.type === 'table') {
+			return (labelMargin = '13px');
+		}
+
+		return labelMargin;
+	}, [fieldDef?.type]);
 
 	return (
-		<StyledFieldContainer>
-			<StyledFieldWrapper error={errorWithMessage || (errorWithMessage && required)} size={size}>
-				<Label
-					disabled={disabled}
-					required={required}
-					htmlFor={name}
-					maxCharacters={maxCharacters}
-					value={value}
-					tooltip={renderAsTooltip}
-					instructionText={instructionText}
-				>
-					{label}
-				</Label>
+		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style}>
+			<StyledFieldWrapper
+				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
+				size={(fieldDef?.type === 'chip' || fieldDef?.type === 'linkSetup') ? Sizes.md : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}
+			>
+				{
+					((fieldDef?.label && fieldDef?.label?.length > 0)
+						|| fieldDef?.maxCharacters
+						|| (fieldDef?.instructionText && renderAsTooltip))
+					&&
+					<Label
+						labelMargin={labelMargin}
+						disabled={fieldDef?.disabled}
+						required={fieldDef?.required}
+						htmlFor={fieldDef?.name}
+						maxCharacters={fieldDef?.maxCharacters}
+						value={value}
+						tooltip={renderAsTooltip}
+						instructionText={fieldDef?.instructionText}
+					>
+						{fieldDef?.label}
+					</Label>
+				}
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{instructionText && <InstructionText ref={description} tooltip={renderAsTooltip}>{instructionText}</InstructionText>}
+			{fieldDef?.instructionText && fieldDef?.type !== 'table' &&
+				<InstructionText
+					ref={description}
+					tooltip={renderAsTooltip}
+					labelMargin={labelMargin}
+				>
+					{fieldDef?.instructionText}
+				</InstructionText>
+			}
 		</StyledFieldContainer>
 	);
 };
 
-export default Field;
+export default memo(Field);

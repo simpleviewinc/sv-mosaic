@@ -5,13 +5,21 @@ import { StyledAdvancedTooltip, StyledDefaultTooltip } from './Tooltip.styled';
 
 const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
+		className,
 		text,
 		children,
+		open,
+		onClose,
+		onOpen,
 		type,
+		placement = 'top-start'
 	} = props;
 
 	return type !== 'advanced' ? (
 		<StyledDefaultTooltip
+			open={open}
+			onClose={onClose}
+			onOpen={onOpen}
 			title={ text }
 			PopperProps={{
 				disablePortal: true,
@@ -22,9 +30,13 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 		</StyledDefaultTooltip>
 	) : (
 		<StyledAdvancedTooltip
+			className={className}
+			open={open}
+			onClose={onClose}
+			onOpen={onOpen}
 			title={ text }
 			arrow
-			placement={'top-start'}
+			placement={placement}
 			PopperProps={{
 				disablePortal: true,
 			}}

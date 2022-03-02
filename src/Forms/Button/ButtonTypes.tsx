@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react';
 import { ElementType, MouseEventHandler, ReactNode } from 'react';
 
 /**
@@ -9,9 +10,12 @@ export type ButtonStyle = {
   colorText: string;
   colorTextHover: string;
   fontSize: string;
+  height: string;
   hover: string;
+  minWidth: string;
   textTransform: string;
   regular: string;
+  padding: string;
 };
 
 /**
@@ -25,7 +29,7 @@ export type ButtonType =
   | 'approve'
   | 'deny';
 
-export interface FormButtonProps {
+export interface FormButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   /**
    * The content of the button component
    */
