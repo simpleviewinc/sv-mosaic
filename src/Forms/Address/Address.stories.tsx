@@ -18,9 +18,10 @@ const onCancel = () => {
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	
+
 	const label = text('Label', 'Label');
 	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);
 
 	const fields = useMemo(
 		() => (
@@ -28,12 +29,13 @@ export const Playground = (): ReactElement => {
 				{
 					disabled,
 					label,
+					required,
 					name: "address",
 					type: 'address',
 				},
 			] as FieldDef[]
 		),
-		[disabled, label]
+		[disabled, label, required]
 	);
 
 	useMemo(() => {

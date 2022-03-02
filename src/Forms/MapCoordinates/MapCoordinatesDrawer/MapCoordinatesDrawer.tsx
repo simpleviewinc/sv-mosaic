@@ -6,7 +6,6 @@ import { MapPosition } from '../MapCoordinatesTypes';
 
 // Components
 import Button from '@root/forms/Button';
-import Modal from '@root/components/Modal';
 import Map from '@root/forms/MapCoordinates/Map';
 import { StyledSpan } from '../MapCoordinates.styled';
 
@@ -29,8 +28,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesModalProps): ReactElement => 
 	const {
 		fieldDef,
 		handleClose,
-		handleSaveCoordinates,
-		isModalOpen,
 		onChange,
 		value
 	} = props;
@@ -115,15 +112,21 @@ const MapCoordinatesDrawer = (props: MapCoordinatesModalProps): ReactElement => 
 	 * the form that is contained inside the modal
 	 * happends.
 	 */
-	const onSubmit = () => {
+	const onSubmit = async () => {
 		const latLngValue = {
 			...value,
 			lat: modalReducer.state.data.lat,
 			lng: modalReducer.state.data.lng,
 		}
 
-		handleSaveCoordinates(latLngValue);
+		// handleSaveCoordinates(latLngValue);
+		await onChange(latLngValue);
+		handleClose();
 	}
+
+	useMemo(() => {
+		modalReducer?.registerOnSubmit(onSubmit);
+	}, [onSubmit, modalReducer?.registerOnSubmit]);
 
 	const renderMap = (props) => (
 		<>
@@ -195,9 +198,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesModalProps): ReactElement => 
 		modalReducer?.registerFields(fields);
 	}, [fields, modalReducer?.registerFields]);
 
-	useMemo(() => {
-		modalReducer?.registerOnSubmit(handleSaveCoordinates);
-	}, [handleSaveCoordinates, modalReducer?.registerOnSubmit]);
+
 
 	useEffect(() => {
 		const { lat, lng } = modalReducer.state.data;
@@ -253,21 +254,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesModalProps): ReactElement => 
 			}}
 			cancelButtonAttrs={{ children: 'Cancel' }}
 		/>
-		// <Modal
-		// 	title='Map Coordinates'
-		// 	state={modalReducer?.state}
-		// 	dispatch={modalReducer?.dispatch}
-		// 	sections={sections}
-		// 	fields={fields}
-		// 	open={isModalOpen}
-		// 	onCancel={handleClose}
-		// 	onSubmit={onSubmit}
-		// 	submitButtonAttrs={{
-		// 		children: 'Save Coordinates',
-		// 		disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
-		// 	}}
-		// 	cancelButtonAttrs={{ children: 'Cancel' }}
-		// />
 	);
 };
 
