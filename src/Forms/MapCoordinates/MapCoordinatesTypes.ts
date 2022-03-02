@@ -69,7 +69,7 @@ export interface LocationSearchInputProps {
 	handleCoordinates?: AddCordinatesFnc
 }
 
-export interface MapCoordinatesModalProps {
+export interface MapCoordinatesDrawerProps {
 	fieldDef: FieldDef<MapCoordinatesDef>
 	handleClose: () => void;
 	onChange: (e: MapPosition) => Promise<void>
