@@ -169,6 +169,8 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 	// } else {
 
 	const searchInput = useCallback((props): ReactElement => {
+		const searchKeyword = props.value.trim();
+
 		/**
 		 * Handler for the input element
 		 * @param e input change event
@@ -191,14 +193,16 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 			// 	value: `${props.value}_${options?.length}`,
 			// 	label: props.value,
 			// };
+			const canBeCreated = searchKeyword.length > 0;
+			if (canBeCreated) {
+				const newOptionValue = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
+				const newOption = {
+					label: searchKeyword,
+					value: newOptionValue,
+				}
 
-			const newOptionValue = await fieldDef?.inputSettings?.createNewOption(props.value);
-			const newOption = {
-				label: props.value,
-				value: newOptionValue,
+				setFilteredOptions([...filteredOptions, newOption]);
 			}
-
-			setFilteredOptions([...filteredOptions, newOption]);
 		};
 
 		return (
