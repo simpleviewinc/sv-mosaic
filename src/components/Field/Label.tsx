@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 
 // Material UI
@@ -36,15 +36,6 @@ const CharCounterWrapper = styled.div`
   font-size: 12px;
 `;
 
-const StyledInputTooltipWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const StyledInputLabel = styled(InputLabel)`
-  align-self: center;
-`;
-
 const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
   && {
 	fill: ${theme.colors.blueTeal};
@@ -55,17 +46,26 @@ const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
   }
 `;
 
+const StyledInputTooltipWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledInputLabel = styled(InputLabel)`
+  align-self: center;
+`;
+
 interface LabelProps {
   className?: string;
   disabled?: boolean;
   required?: boolean;
   htmlFor?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   value?: string;
   maxCharacters?: number;
-  labelMargin?: string;
-  tooltip?: boolean;
   instructionText?: string;
+  tooltip?: boolean
+  labelMargin?: string;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -77,9 +77,9 @@ const Label = (props: LabelProps): ReactElement => {
 		htmlFor,
 		value,
 		maxCharacters,
-		labelMargin,
+		tooltip,
 		instructionText,
-		tooltip
+		labelMargin,
 	} = props;
 
 	return (
@@ -94,7 +94,7 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputTooltipWrapper>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
-					{value.length + '/' + maxCharacters}
+					{(!value ? '0' : value.length) + '/' + maxCharacters}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>
