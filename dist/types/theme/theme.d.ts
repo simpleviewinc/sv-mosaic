@@ -1,3 +1,10 @@
+export declare const BREAKPOINTS: {
+    mobile: number;
+    topComponent: {
+        responsiveView: number;
+        bigScreenView: number;
+    };
+};
 declare const _default: {
     h1: string;
     h2: string;
@@ -15,6 +22,7 @@ declare const _default: {
         blueActive: string;
         blueTeal: string;
         blueTealHover: string;
+        blueTealOpacity: string;
         grayHover: string;
         labelDisabled: string;
         lightRed: string;
@@ -51,6 +59,9 @@ declare const _default: {
     fontFamily: string;
     animations: {
         backgroundMs: string;
+    };
+    breakpoints: {
+        mobile: string;
     };
 };
 export default _default;

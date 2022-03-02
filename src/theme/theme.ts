@@ -1,3 +1,11 @@
+export const BREAKPOINTS = {
+	mobile : 480,
+	topComponent : {
+		responsiveView: 1075,
+		bigScreenView: 1718,
+	}
+};
+
 export default {
 	h1 : `
 		font-size: 20px;
@@ -21,6 +29,7 @@ export default {
 		blueActive : "rgba(0, 71, 153, 1)",
 		blueTeal : "#008DA8",
 		blueTealHover : "#005769",
+		blueTealOpacity : "rgb(0, 141, 168, 0.2)",
 		grayHover : "#F0F2F5",
 		labelDisabled : "#838791",
 		lightRed : "#B100000D",
@@ -57,5 +66,8 @@ export default {
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	animations : {
 		backgroundMs : "250ms"
+	},
+	breakpoints : {
+		mobile : `${BREAKPOINTS.mobile}px`
 	}
 }

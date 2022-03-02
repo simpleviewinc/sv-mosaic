@@ -1,4 +1,5 @@
 import { Sizes } from "@root/theme/sizes";
+import { SyntheticEvent } from 'react';
 export interface DropdownSingleSelectionProps {
     /**
      * Text to be shown on top of the dropdown
@@ -42,6 +43,10 @@ export interface DropdownSingleSelectionProps {
      */
     size?: Sizes;
     /**
+   * Function that listens to changes on the text field and updates its value.
+   */
+    onChange?: (event: SyntheticEvent, value: any) => void;
+    /**
      * Array of options to be displayed on the
      * dropdown
      */
@@ -49,4 +54,8 @@ export interface DropdownSingleSelectionProps {
         title: string;
         [key: string]: any;
     }[];
+    /**
+   * Value selected from the list o options.
+   */
+    value?: any;
 }

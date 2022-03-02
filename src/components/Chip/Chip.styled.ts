@@ -14,6 +14,7 @@ export const StyledDeletableChip = styled(Chip)`
 		theme.colors.simplyGoldDisabled
 		: theme.colors.simplyGold};
     color: ${theme.colors.almostBlack};
+    max-width: 186px;
 
     &:hover {
       background-color: ${pr => pr.disabled ? 

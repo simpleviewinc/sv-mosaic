@@ -5,7 +5,7 @@ export const InstructionTextWrapper = styled.div`
   border-left: ${theme.borders.simplyGray};
   height: 51px;
   margin-left: auto;
-  margin-top: 44px;
+  margin-top: ${pr => pr.labelMargin === '16px' ? '52px' : '44px'}
   padding-left: 20px;
   width: 400px;
 

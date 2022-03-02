@@ -1,18 +1,17 @@
 import * as React from 'react';
-import { ReactElement, ReactNode, forwardRef } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 
 // Material UI
 import { InputLabel } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-// import { TypographyGenericProps } from './TypographyTypes';
 import theme from '../../utils/theme';
 import Tooltip from '../Tooltip';
 
 const LabelWrapper = styled.div`
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: ${pr => pr.labelMargin};
   justify-content: space-between;
   width: ${(pr) => pr.size};
   font-family: ${theme.fontFamily};
@@ -20,7 +19,7 @@ const LabelWrapper = styled.div`
   .MuiInputLabel-root {
     font-family: inherit;
     font-size: 16px;
-    color:  ${(pr) =>
+    color:  ${pr =>
 		pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
     word-wrap: break-word;
 
@@ -57,6 +56,7 @@ const StyledInputLabel = styled(InputLabel)`
 `;
 
 interface LabelProps {
+  className?: string;
   disabled?: boolean;
   required?: boolean;
   htmlFor?: string;
@@ -65,22 +65,25 @@ interface LabelProps {
   maxCharacters?: number;
   instructionText?: string;
   tooltip?: boolean
+  labelMargin?: string;
 }
 
 const Label = (props: LabelProps): ReactElement => {
 	const {
 		children,
+		className,
 		disabled,
 		required,
 		htmlFor,
 		value,
 		maxCharacters,
 		tooltip,
-		instructionText
+		instructionText,
+		labelMargin,
 	} = props;
 
 	return (
-		<LabelWrapper disabled={disabled} required={required}>
+		<LabelWrapper className={className} disabled={disabled} required={required} labelMargin={labelMargin}>
 			<StyledInputTooltipWrapper>
 				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
 				{tooltip && 

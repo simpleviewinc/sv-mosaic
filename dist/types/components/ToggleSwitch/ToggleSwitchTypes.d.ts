@@ -1,3 +1,4 @@
+import { FormControlLabelProps as MUIFormControlLabelProps } from "@material-ui/core/FormControlLabel";
 export interface ToggleSwitchProps {
     /**
      * If true, the component is checked
@@ -11,6 +12,10 @@ export interface ToggleSwitchProps {
      * Significant name related to its toggle switch.
      */
     label: string;
+    /**
+     * The position of the label.
+     */
+    labelPlacement?: MUIFormControlLabelProps['labelPlacement'];
     /**
      * Indicates whether the toggle switch is required or not.
      */

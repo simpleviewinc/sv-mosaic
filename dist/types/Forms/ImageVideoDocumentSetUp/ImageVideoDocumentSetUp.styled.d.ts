@@ -1,0 +1,16 @@
+export declare const StyledLabel: any;
+export declare const SetUpButtonsWrapper: any;
+export declare const AssetCard: any;
+export declare const TableRow: any;
+export declare const Td: any;
+export declare const Column: any;
+export declare const AssetPropertiesColumn: any;
+export declare const MenuColumn: any;
+export declare const ButtonsWrapper: any;
+export declare const AssetLabel: any;
+export declare const AssetValue: any;
+export declare const AssetLabelTooltip: any;
+export declare const MoreText: any;
+export declare const StyledMenu: any;
+export declare const StyledTooltip: any;
+export declare const StyledImg: any;

@@ -14,6 +14,12 @@ import Spinner from "./components/Spinner.jsx";
 export * from "./transforms";
 export * from "./types";
 
+export { default as Address } from "./forms/Address";
+export * from "./forms/Address";
+
+export { default as AdvancedSelection } from "./forms/AdvancedSelection";
+export * from "./forms/AdvancedSelection";
+
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
 
@@ -35,8 +41,23 @@ export * from "./components/Chip";
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
 
+export { default as ColorPicker } from "./forms/ColorPicker";
+export * from "./forms/ColorPicker";
+
+export { default as DatePicker } from "./forms/DateTimeField/DatePicker";
+export * from "./forms/DateTimeField/DatePicker";
+
+export { default as DateRangeCalendar } from "./forms/DateTimeField/DateRangeCalendar";
+export * from "./forms/DateTimeField/DateRangeCalendar";
+
+export { default as DateTimeInput } from "./forms/DateTimeField/DateTimeInput";
+export * from "./forms/DateTimeField/DateTimeInput";
+
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
+
+export { default as FormFieldAddLink } from "./forms/FormFieldAddLink";
+export * from "./forms/FormFieldAddLink";
 
 export { default as FormButton } from "./forms/Button";
 export * from "./forms/Button";
@@ -50,6 +71,9 @@ export * from "./forms/FormFieldCheckbox";
 export { default as FormFieldDropdownMultipleSelection } from "./forms/FormFieldDropdownMultipleSelection";
 export * from "./forms/FormFieldDropdownMultipleSelection";
 
+export { default as FormFieldImageUpload } from "./forms/FormFieldImageUpload";
+export * from "./forms/FormFieldImageUpload";
+
 export { default as FormFieldPhoneSelectionDropdown } from "./forms/FormFieldPhoneSelectionDropdown";
 export * from "./forms/FormFieldPhoneSelectionDropdown";
 
@@ -59,8 +83,17 @@ export * from "./forms/FormFieldRadio";
 export { default as FormFieldChipSingleSelect } from "./forms/FormFieldChipSingleSelect";
 export * from "./forms/FormFieldChipSingleSelect";
 
+export { default as FormNav } from "./forms/FormNav";
+export * from "./forms/FormNav";
+
+export { default as ImageVideoDocumentSetUp } from "./forms/ImageVideoDocumentSetUp";
+export * from "./forms/ImageVideoDocumentSetUp";
+
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
+
+export { default as LinkSetup } from "./forms/LinkSetup";
+export * from "./forms/LinkSetup";
 
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";
@@ -71,17 +104,42 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
+export { default as Modal } from "./components/Modal";
+export * from "./components/Modal";
+
 export { default as FormFieldText } from "./forms/FormFieldText";
 export * from "./forms/FormFieldText";
+
+export { default as Table } from "./forms/Table";
+export * from "./forms/Table";
 
 export { default as TextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
 
+//BUG TO BE FIXED
+// export { default as TextEditor } from "./forms/TextEditor";
+// export * from "./forms/TextEditor";
+
+export { default as TimeInput } from "./forms/DateTimeField/TimeInput";
+export * from "./forms/DateTimeField/TimeInput";
+
+export { default as TimePicker } from "./forms/DateTimeField/TimePicker";
+export * from "./forms/DateTimeField/TimePicker";
+
 export { default as ToggleSwitch } from "./components/ToggleSwitch";
 export * from "./components/ToggleSwitch";
 
+export { default as TopComponent } from "./forms/TopComponent";
+export * from "./forms/TopComponent";
+
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
+
+export { default as SingleDateCalendar } from "./forms/DateTimeField/SingleDateCalendar";
+export * from "./forms/DateTimeField/SingleDateCalendar";
+
+export { default as Snackbar } from "./components/Snackbar";
+export * from "./components/Snackbar";
 
 export { default as MosaicContext } from "./components/MosaicContext";
 

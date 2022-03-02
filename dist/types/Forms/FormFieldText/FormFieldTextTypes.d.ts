@@ -33,13 +33,17 @@ export interface TextFieldProps {
      */
     maxCharacters?: number;
     /**
+     * Name attribute of the input element.
+     */
+    name?: string;
+    /**
      * Marks Text field as required
      */
     required?: boolean;
     /**
      * Icon at the beginning of the text field.
      */
-    icon?: JSX.Element;
+    prefixElement?: JSX.Element;
     /**
      * Sizing attribute (dimensions tbd).
      */
@@ -64,6 +68,12 @@ export interface TextFieldProps {
      * When true the text field will expand its height.
      */
     multiline?: boolean;
+    /**
+     * Type of the input element. It should be a valid HTML5
+     * (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types)
+     * input type.
+     */
+    type?: string;
 }
 export interface StyledWrapperProps {
     width: string;
