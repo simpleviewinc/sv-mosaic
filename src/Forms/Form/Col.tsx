@@ -159,7 +159,6 @@ const Col = (props) => {
 						fieldDef={...currentField}
 						value={value}
 						error={error}
-					// type={typeof type === 'string' ? type : 'type'}
 					>
 						{children}
 					</Field>
