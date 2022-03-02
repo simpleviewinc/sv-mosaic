@@ -46,9 +46,10 @@ import Drawer from "../../components/Drawer.jsx";
 
 const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>): ReactElement => {
 	const {
-		fieldDef,
-		onChange,
 		value,
+		onBlur,
+		onChange,
+		fieldDef,
 	} = props;
 
 	// State variables
@@ -63,23 +64,11 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 	};
 
 	/**
-	 * Callback for the 'SAVE COORDINATES' button.
-	 */
-	const handleSaveCoordinates = (coordinates) => {
-		onChange && onChange({
-			...value,
-			lat: coordinates.lat,
-			lng: coordinates.lng,
-		});
-
-		setIsModalOpen(false);
-	};
-
-	/**
 	 * Closes the modal.
 	 */
-	const handleClose = () => {
+	const handleClose = async () => {
 		setIsModalOpen(false);
+		await onBlur();
 	};
 
 	/**
@@ -210,12 +199,10 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 				onClose={handleClose}
 			>
 				<MapCoordinatesDrawer
-					fieldDef={fieldDef}
-					handleClose={handleClose}
-					handleSaveCoordinates={handleSaveCoordinates}
-					isModalOpen={isModalOpen}
-					onChange={onChange}
 					value={value}
+					fieldDef={fieldDef}
+					onChange={onChange}
+					handleClose={handleClose}
 				/>
 			</Drawer>
 		</>
