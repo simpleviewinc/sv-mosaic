@@ -75,11 +75,10 @@ const Field = ({
 	}, [fieldDef?.type]);
 
 	return (
-		<StyledFieldContainer className={fieldDef?.className}>
+		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
 				size={(fieldDef?.type === 'chip' || fieldDef?.type === 'linkSetup') ? Sizes.md : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}
-				type={fieldDef?.type}
 			>
 				{
 					((fieldDef?.label && fieldDef?.label?.length > 0)
