@@ -1,98 +1,54 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Material UI
 import { InputAdornment } from '@material-ui/core';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 // Types and styles
-import { TextFieldProps } from './FormFieldTextTypes';
-import {
-	StyledTextField,
-	StyledHelperText,
-	StyledWrapper,
-	TextFieldWrapper,
-	StyledInstructionalText,
-} from './FormFieldText.styled';
-import { Label } from '@root/components/Typography';
+import { TextFieldDef } from './FormFieldTextTypes';
+import { StyledTextField } from './FormFieldText.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
 const TextField = (
-	props: TextFieldProps & HTMLAttributes<HTMLInputElement>
+	props: MosaicFieldProps<TextFieldDef>
 ): ReactElement => {
 	const {
-		label = '',
-		htmlFor,
-		prefixElement,
-		className,
-		disabled = false,
-		error = false,
-		value,
+		fieldDef,
+		error,
 		onChange,
-		placeholder = '',
-		size,
-		multiline = false,
-		helperText = '',
-		instructionalText,
-		errorText,
-		maxCharacters,
-		required,
-		name,
-		type
+		onBlur,
+		value,
 	} = props;
 
-	const leadingElement = prefixElement
+	const leadingElement = fieldDef?.inputSettings?.prefixElement
 		? {
 			startAdornment: (
-				<InputAdornment position='start'>{prefixElement}</InputAdornment>
+				<InputAdornment position='start'>{fieldDef?.inputSettings?.prefixElement}</InputAdornment>
 			),
 		}
 		: null;
 
-	let renderedHelperText = helperText && !error ? helperText : null;
-
-	if (errorText && error) {
-		renderedHelperText = (
-			<StyledHelperText>
-				<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
-				<span>{errorText}</span>
-			</StyledHelperText>
-		);
-	}
+	const errorWithMessage = error?.trim().length > 0;
 
 	return (
-		<StyledWrapper className={className}>
-			<TextFieldWrapper error={error}>
-				<Label
-					disabled={disabled}
-					required={required}
-					htmlFor={htmlFor}
-					value={value}
-					maxCharacters={maxCharacters}
-				>
-					{label}
-				</Label>
-				<StyledTextField
-					id={htmlFor}
-					value={value}
-					onChange={onChange}
-					variant='outlined'
-					error={error}
-					name={name}
-					helperText={renderedHelperText}
-					className={className}
-					placeholder={placeholder}
-					disabled={disabled}
-					multiline={multiline}
-					size={size}
-					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
-					InputProps={leadingElement}
-					required={required}
-					type={type}
-				/>
-			</TextFieldWrapper>
-			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
-		</StyledWrapper>
+		<StyledTextField
+			id={fieldDef?.name}
+			value={value}
+			onChange={(e) => onChange && onChange(e.target.value)}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			variant='outlined'
+			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
+			className={fieldDef?.className}
+			placeholder={fieldDef?.inputSettings?.placeholder}
+			disabled={fieldDef?.disabled}
+			multiline={fieldDef?.inputSettings?.multiline}
+			fieldSize={fieldDef?.inputSettings?.size}
+			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
+			InputProps={leadingElement}
+			required={fieldDef?.required}
+			type={fieldDef?.inputSettings?.type}
+		/>
 	);
 };
 
-export default TextField;
+export default memo(TextField);

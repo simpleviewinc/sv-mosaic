@@ -1,33 +1,27 @@
+import * as React from 'react';
 import styled from 'styled-components';
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
 
 //Styles & Types
-import {
-	StyledWrapperProps,
-	StyledTextInputProps,
-} from './FormFieldTextTypes';
-import theme from '../../utils/theme.js';
+import theme from '@root/theme';
+import { Sizes } from '@root/theme/sizes';
 
-export const TextFieldWrapper = styled.div<StyledWrapperProps>`
-  padding: 20px;
-  background: ${pr => pr.error ? theme.colors.errorBackground : 'transparent'};
-`;
-
-export const StyledTextField = styled<StyledTextInputProps>(TextField)`
-  width: ${pr => pr.size};
+export const StyledTextField = styled(({ fieldSize, ...rest }) => (
+	<TextField {...rest} />
+))`
+  width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
   &.MuiFormControl-root {
-    background-color: ${pr => pr.disabled ? '#fff' : '#fafafa'};
-
+    background-color: ${pr => pr.disabled ? '#fff' : theme.colors.gray100};
     &:hover {
       background-color: ${pr => pr.disabled ? 'transparent' : theme.colors.grayHover}
     }
   }
 
   .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {
-	padding: ${pr => pr.disabled ? 0 : '15.5px 14px'};
+    padding: ${pr => pr.disabled ? 0 : '15.5px 14px'};
   }
 
   input.MuiOutlinedInput-input {
@@ -52,11 +46,11 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
 
   .MuiInputBase-input.Mui-disabled {
     background-color: transparent;
-    color: #1A1A1A;
+    color: ${theme.colors.almostBlack};
   }
 
   .MuiFormHelperText-root.Mui-error {
-    color: #B10000
+    color: ${theme.colors.red}
   }
 
   fieldset {
@@ -65,7 +59,7 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
 
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
-      border-color: #1A1A1A;
+      border-color: ${theme.colors.almostBlack};
     }
   }
 
@@ -73,25 +67,4 @@ export const StyledTextField = styled<StyledTextInputProps>(TextField)`
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
     border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : 'transparent'};
   }
-`;
-
-export const StyledHelperText = styled.span`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const StyledWrapper = styled.div`
-  display: flex;
-`
-export const StyledInstructionalText = styled.span`
-  font-family:  ${theme.fontFamily};
-  padding-left: 40px;
-  max-width: 300px;
-  word-break: break-all;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  background: ${pr => pr.error ? '#B100000D' : 'transparent'};
-  padding-right: 20px;
 `;
