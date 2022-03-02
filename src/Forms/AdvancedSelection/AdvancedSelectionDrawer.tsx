@@ -29,7 +29,7 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 		onChange,
 		isModalOpen,
 		isMobileView,
-		handleCloseModal,
+		handleClose,
 	} = props;
 
 	const [options, setOptions] = useState<optionsWithCategory[]>([]);
@@ -340,28 +340,21 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 	/**
    * Modal is closed when the Save button is clicked.
    */
-	const handleSave = () => {
-		handleCloseModal();
+	const handleSave = async () => {
+		await onChange(state.data.checkboxList);
 
-		onChange(state.data.checkboxList);
+		handleClose();
 	};
 
 	useMemo(() => {
 		registerOnSubmit(handleSave);
 	}, [handleSave, registerOnSubmit]);
 
-	/**
-   * Closes the modal and checks, if there are no
-   * saved options then, empties the optionsChecked array, otherwise
-   * optionsChecked remains with the last savedOptions.
-   */
-	const handleClose = () => {
-		handleCloseModal();
-	};
 
 	return (
 		<Form
-			title={fieldDef?.inputSettings?.modalTitle}
+			title={fieldDef?.label}
+			// title={fieldDef?.inputSettings?.modalTitle}
 			type='drawer'
 			state={state}
 			dispatch={dispatch}

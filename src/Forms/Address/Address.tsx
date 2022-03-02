@@ -16,9 +16,10 @@ import { IAddress } from '.';
 
 const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => {
 	const {
-		fieldDef,
+		value,
+		onBlur,
 		onChange,
-		value
+		fieldDef,
 	} = props;
 
 	// State variables
@@ -42,7 +43,7 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 	 * Removes the clicked address card from the list. 
 	 * @param addressToRemove 
 	 */
-	const removeAddressHandler = async(addressIndex: number) => {
+	const removeAddressHandler = async (addressIndex: number) => {
 		const listOfAddresses = [...value];
 		listOfAddresses.splice(addressIndex, 1);
 
@@ -57,8 +58,9 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 	 * Closes the modal and resets the values for
 	 * form field.
 	 */
-	const handleClose = () => {
+	const handleClose = async () => {
 		setOpen(false);
+		await onBlur();
 	};
 
 	/**
@@ -104,12 +106,12 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 					</Button>
 				</AddAddressWrapper>
 				{value && value.map((address, idx) => (
-					<AddressCard 
+					<AddressCard
 						key={`${idx}`}
-						addressIndex={idx}
 						address={address}
-						disabled={fieldDef.disabled}
+						addressIndex={idx}
 						onEdit={showEditModal}
+						disabled={fieldDef.disabled}
 						onRemoveAddress={removeAddressHandler} />
 				))}
 			</FlexContainer>
@@ -118,14 +120,14 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 				onClose={handleClose}
 			>
 				<AddressDrawer
-					addressToEdit={addressToEdit}
+					open={open}
+					value={value}
+					onChange={onChange}
 					isEditing={isEditing}
 					addressIdx={addressIdx}
-					open={open}
 					handleClose={handleClose}
-					onChange={onChange}
 					setIsEditing={setIsEditing}
-					value={value}
+					addressToEdit={addressToEdit}
 				/>
 			</Drawer>
 		</div>
