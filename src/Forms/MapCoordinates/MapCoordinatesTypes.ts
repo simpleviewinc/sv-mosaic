@@ -1,4 +1,5 @@
-import { Address } from '@root/forms/Address/AddressTypes';
+import { FieldDef } from '@root/components/Field/FieldTypes';
+import { IAddress } from '@root/forms/Address/AddressTypes';
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
@@ -7,11 +8,11 @@ import { Address } from '@root/forms/Address/AddressTypes';
  * establishments, geographic locations, or prominent points of interest, within a defined area.
  */
 export type Libraries = (
-  | 'drawing'
-  | 'geometry'
-  | 'localContext'
-  | 'places'
-  | 'visualization'
+	| 'drawing'
+	| 'geometry'
+	| 'localContext'
+	| 'places'
+	| 'visualization'
 )[];
 
 /**
@@ -20,52 +21,57 @@ export type Libraries = (
  */
 export type MapPosition = { lat: number; lng: number };
 
-export interface MapCoordinatesProps {
-  /**
-   * Address object used to set lat and lng values when using
-   * the autocoordinates feature.
-   */
-  address?: Address;
-  /**
-   * Google Maps API key needed to consume the Maps JavaScript API
-   * and Places API
-   */
-  apiKey: string;
-  /**
-   * Disables interactive elements.
-   */
-  disabled?: boolean;
-  /**
-   * Latitude and longitude object.
-   */
-  mapPosition: MapPosition;
+export type AddCordinatesFnc = (coordinates: MapPosition) => void;
+
+export type MapCoordinatesDef = {
+	/**
+	 * Address object used to set lat and lng values when using
+	 * the autocoordinates feature.
+	 */
+	address?: IAddress;
+	/**
+	 * Google Maps API key needed to consume the Maps JavaScript API
+	 * and Places API
+	 */
+	apiKey: string;
+	/**
+	 * Latitude and longitude object.
+	 */
+	mapPosition?: MapPosition;
 }
 
 export interface MapProps {
-  /**
-   * Address object used to set lat and lng values when using
-   * the autocoordinates feature.
-   */
-  address?: Address;
-  /**
-   * Callback function that is executed when user selects one of the
-   * suggestions of the autocomplete google component.
-   */
-  handleCoordinates?: (coordinates: MapPosition) => void;
-  /**
-   * Latitude and longitude object.
-   */
-  mapPosition: MapPosition;
-  /**
-   * Function triggered when user clicks on the map.
-   */
-  onClick: (e: google.maps.MapMouseEvent) => void;
+	/**
+	 * Address object used to set lat and lng values when using
+	 * the autocoordinates feature.
+	 */
+	address?: IAddress;
+	/**
+	 * Callback function that is executed when user selects one of the
+	 * suggestions of the autocomplete google component.
+	 */
+	handleCoordinates?: AddCordinatesFnc
+	/**
+	 * Latitude and longitude object.
+	 */
+	mapPosition: MapPosition;
+	/**
+	 * Function triggered when user clicks on the map.
+	 */
+	onClick: (e: google.maps.MapMouseEvent) => void;
 }
 
 export interface LocationSearchInputProps {
-  /**
-   * Callback function that is executed when user selects one of the
-   * suggestions of the autocomplete google component.
-   */
-  handleCoordinates?: (coordinates: MapPosition) => void;
+	/**
+	 * Callback function that is executed when user selects one of the
+	 * suggestions of the autocomplete google component.
+	 */
+	handleCoordinates?: AddCordinatesFnc
+}
+
+export interface MapCoordinatesDrawerProps {
+	fieldDef: FieldDef<MapCoordinatesDef>
+	handleClose: () => void;
+	onChange: (e: MapPosition) => Promise<void>
+	value: MapPosition;
 }

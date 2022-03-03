@@ -1,7 +1,9 @@
-import { ReactElement, ReactNode } from 'react';
+import * as React from 'react';
+import { ReactNode } from 'react';
 interface InstructionText {
     children: ReactNode;
+    tooltip?: boolean;
     labelMargin?: string;
 }
-declare const InstructionText: ({ children, labelMargin }: InstructionText) => ReactElement;
+declare const InstructionText: React.ForwardRefExoticComponent<InstructionText & React.RefAttributes<unknown>>;
 export default InstructionText;

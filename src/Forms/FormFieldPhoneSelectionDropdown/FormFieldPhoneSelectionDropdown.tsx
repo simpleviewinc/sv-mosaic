@@ -1,71 +1,48 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 // Components
-import HelperText from '@root/components/HelperText';
-import { Label } from '@root/components/Typography';
-import FieldWrapper from '@root/components/FieldWrapper';
-import InstructionText from '@root/components/InstructionText';
-import InputWrapper from '@root/components/InputWrapper';
 import PhoneInput from 'react-phone-input-2';
 
 // Types and styles
 import 'react-phone-input-2/lib/bootstrap.css';
-import { FormFieldPhoneSelectionDropdownProps } from './FormFieldPhoneSelectionDropdownTypes';
+import { PhoneSelectionDef } from './FormFieldPhoneSelectionDropdownTypes';
 import {
 	PhoneInputWrapper,
 	StyledDisabledText,
 } from './FormFieldPhoneSelectionDropdown.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
 const FormFieldPhoneSelectionDropdown = (
-	props: FormFieldPhoneSelectionDropdownProps
+	props: MosaicFieldProps<PhoneSelectionDef, string>
 ): ReactElement => {
 	const {
-		autoFormat = true,
-		country = 'us',
-		disabled,
+		fieldDef,
 		error,
-		errorText,
-		helperText,
-		instructionText,
-		label,
 		onChange,
-		placeholder,
-		required,
+		onBlur,
 		value,
 	} = props;
 
-	const errorField = error && required;
-
-	return !disabled ? (
-		<InputWrapper>
-			<FieldWrapper error={errorField}>
-				<Label disabled={disabled} required={required}>
-					{label}
-				</Label>
-				<PhoneInputWrapper>
-					<PhoneInput
-						autoFormat={autoFormat}
-						country={country}
-						disabled={disabled}
-						onChange={onChange}
-						placeholder={placeholder}
-						value={value}
-						inputProps={{
-							required: required,
-						}}
-					/>
-				</PhoneInputWrapper>
-				{errorText && errorField ? (
-					<HelperText error>{errorText}</HelperText>
-				) : (
-					<HelperText>{helperText}</HelperText>
-				)}
-			</FieldWrapper>
-			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-		</InputWrapper>
+	return !fieldDef?.disabled ? (
+		<PhoneInputWrapper
+			error={!!(fieldDef?.required && error)}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
+		>
+			<PhoneInput
+				autoFormat={!!fieldDef?.inputSettings?.autoFormat}
+				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : 'us'}
+				disabled={fieldDef?.disabled}
+				onChange={onChange}
+				placeholder={fieldDef?.inputSettings?.placeholder}
+				value={value}
+				inputProps={{
+					required: fieldDef?.required,
+				}}
+			/>
+		</PhoneInputWrapper>
 	) : (
 		value ? <StyledDisabledText>Phone value: {value}</StyledDisabledText> : <StyledDisabledText>Phone field disabled</StyledDisabledText>
 	);
 };
-export default FormFieldPhoneSelectionDropdown;
+export default memo(FormFieldPhoneSelectionDropdown);

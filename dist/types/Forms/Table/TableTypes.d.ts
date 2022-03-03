@@ -27,31 +27,33 @@ export declare type Actions = {
     actionFnc: (rowIndex: number) => void;
 };
 export interface TableProps {
-    /**
-     * Possible actions that the table could execute and display.
-     */
-    extraActions?: Actions[];
+    inputSettings: {
+        /**
+   * Possible actions that the table could execute and display.
+   */
+        extraActions?: Actions[];
+        /**
+  * Used to create a new row.
+  */
+        handleAddElement: () => void;
+        /**
+         * Used to define how that edition should happen.
+         */
+        handleEdit: (rowIndex: number) => void;
+        /**
+         * It can be used to show some kind of confirmation
+         * before removing the row.
+         */
+        handleDelete?: (rowIndex: number) => void;
+        /**
+         * Table headers.
+         */
+        headers: string[];
+    };
     /**
      * Disable all clickable elements.
      */
     disabled?: boolean;
-    /**
-     * Used to create a new row.
-     */
-    handleAddElement: () => void;
-    /**
-     * Used to define how that edition should happen.
-     */
-    handleEdit: (rowIndex: number) => void;
-    /**
-     * It can be used to show some kind of confirmation
-     * before removing the row.
-     */
-    handleDelete?: (rowIndex: number) => void;
-    /**
-     * Table headers.
-     */
-    headers: string[];
     /**
      * Row data
      */

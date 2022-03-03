@@ -1,32 +1,60 @@
 import * as React from 'react';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { getAddressStringFromAddressObject } from './MapCoordinatesUtils';
 
 // Components
-import MapCoordinates, {
-	getAddressStringFromAddressObject,
-} from './MapCoordinates';
+import Form from '../Form/Form';
+import MapCoordinates from './MapCoordinates';
+import { ReactElement, useCallback, useMemo } from 'react';
 
+import { FieldDef } from '@root/components/Field/FieldTypes';
+import { MapCoordinatesDef } from './MapCoordinatesTypes';
+// Utils
+import { address, defaultMapPosition } from './MapCoordinatesUtils';
+import { useForm } from '../Form/formUtils';
 
 const { getByLabelText, getByRole, getByText, getByTestId, getAllByText, queryByText } = screen;
 
-const addressObj = {
-	address: '8950 N Oracle Rd',
-	city: 'Oro Valley',
-	country: {
-		title: 'United States',
-		value: {},
-	},
-	postalCode: '85704',
-	state: {
-		title: 'AZ',
-		value: {},
-	},
-	types: ['physical'],
-};
+const fields = [
+	{
+		name: 'map',
+		label: 'Map',
+		type: 'mapCoordinates',
+		required: false,
+		disabled: false,
+		inputSettings: {
+			apiKey: 'test',
 
-const mapPosition = {
-	lat: -3.745,
-	lng: -40.523,
+		},
+	},
+] as FieldDef<MapCoordinatesDef>[];
+
+const MapCoordinatesExample = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	return (
+		<Form
+			title='Form Title'
+			description='This is a description example'
+			state={state}
+			fields={fields}
+			dispatch={dispatch}
+			events={events}
+			onSubmit={onSubmit}
+		/>
+	);
 };
 
 const mockGeoCoder = jest.fn().mockImplementation(() => (
@@ -69,14 +97,12 @@ export const setupGoogleMock = (): void => {
 	global.window.google = google as any;
 };
 
-const saveCoordinates = () => {
+const setCoordinates = () => {
 	const latitudeField = getByLabelText('Latitude');
 	const longitudeField = getByLabelText('Longitude');
-	const saveCoordinatesButton = getByText('Save Coordinates');
-
+	
 	fireEvent.change(latitudeField, { target: { value: 12 } });
 	fireEvent.change(longitudeField, { target: { value: 22 } });
-	fireEvent.click(saveCoordinatesButton);
 };
 
 beforeAll(() => {
@@ -98,54 +124,63 @@ jest.mock("@react-google-maps/api", () => ({
 
 describe('MapCoordinates component without an address', () => {
 	beforeEach(() => {
-		render(<MapCoordinates
-			apiKey={'test'}
-			mapPosition={mapPosition}
-		/>)
+		render(<MapCoordinatesExample />)
 
 		const addCoordinatesButton = getByText('ADD COORDINATES');
 		fireEvent.click(addCoordinatesButton);
 	});
 
-	it('it should display the elements that are conditionally rendered by the address object', () => {
+	it('it should display the google maps elements', () => {
 		expect(getByText('Mocked Google Map Component')).toBeTruthy();
 		expect(getByTestId('location-search-input')).toBeTruthy();
 	});
 
-	it('should save coordinates', () => {
-		saveCoordinates();
+	it('should remove the saved coordinates', async () => {
+		setCoordinates();		
+		const saveCoordinatesButton = getByText('Save Coordinates');
+		
+		await waitFor(() => {
+			fireEvent.click(saveCoordinatesButton);
+		});
 
-		expect(getAllByText('Latitude')).toHaveLength(2);
-		expect(getByText('12')).toBeTruthy();
-		expect(getAllByText('Longitude')).toHaveLength(2);
-		expect(getByText('22')).toBeTruthy();
+		setTimeout(() => {
+			expect(getAllByText('Latitude')).toHaveLength(1);
+			expect(getByText('12')).toBeTruthy();
+			expect(getAllByText('Longitude')).toHaveLength(1);
+			expect(getByText('22')).toBeTruthy();
+			screen.debug();
+			const removeButton = getByText('Remove');
+			fireEvent.click(removeButton);
+			expect(getByText('ADD COORDINATES')).toBeTruthy();
+		}, 5000);
 	});
 
-	it('should remove the saved coordinates', () => {
-		saveCoordinates();
-		const removeButton = getByText('Remove');
-		fireEvent.click(removeButton)
+	it('should edit the saved coordinates', async () => {
+		render(<MapCoordinatesExample />)
+		setCoordinates();
+		
+		const saveCoordinatesButton = getByText('Save Coordinates');
+		await waitFor(() => {
+			fireEvent.click(saveCoordinatesButton);
+		});
 
-		expect(getByText('ADD COORDINATES')).toBeTruthy();
-	});
+		setTimeout(() => {
+			const editButton = getByText('Edit');
 
-	it('should edit the saved coordinates', () => {
-		saveCoordinates();
-		const editButton = getByText('Edit');
-
-		fireEvent.click(editButton)
-		fireEvent.change( getByLabelText('Latitude'), { target: { value: 100 } });
-		fireEvent.change( getByLabelText('Longitude'), { target: { value: 150 } });
-		fireEvent.click(getByText('Save Coordinates'));
-
-		expect(getByText('100')).toBeTruthy();
-		expect(getByText('150')).toBeTruthy();
+			fireEvent.click(editButton);
+			fireEvent.change(getByLabelText('Latitude'), { target: { value: 100 } });
+			fireEvent.change(getByLabelText('Longitude'), { target: { value: 150 } });
+			fireEvent.click(getByText('Save Coordinates'));
+	
+			expect(getByText('100')).toBeTruthy();
+			expect(getByText('150')).toBeTruthy();
+		}, 5000)
 	});
 
 	it('should reset coordinates', () => {
 		const latitudeField = getByLabelText('Latitude') as HTMLInputElement;
 		const longitudeField = getByLabelText('Longitude') as HTMLInputElement;
-		
+
 		fireEvent.change(latitudeField, { target: { value: 100 } });
 		fireEvent.change(longitudeField, { target: { value: 150 } });
 
@@ -160,9 +195,15 @@ describe('MapCoordinates component without an address', () => {
 describe('MapCoordinates component with an address object (AUTOCOODINATES)', () => {
 	beforeEach(() => {
 		render(<MapCoordinates
-			address={addressObj}
-			apiKey={'test'}
-			mapPosition={mapPosition}
+			fieldDef={{
+				name: 'mapCoordinates',
+				label: '',
+				inputSettings: {
+					apiKey: 'test',
+					mapPosition: defaultMapPosition,
+					address,
+				}
+			}}
 		/>)
 	})
 
@@ -187,10 +228,8 @@ describe('MapCoordinates getAddressStringFromAddressObject helper function', () 
 	it('should convert an address object into a string', () => {
 		const addressString = '8950 N Oracle Rd 85704 Oro Valley AZ United States';
 
-		expect(getAddressStringFromAddressObject(addressObj)).toEqual(
+		expect(getAddressStringFromAddressObject(address)).toEqual(
 			addressString
 		);
 	});
 });
-
-

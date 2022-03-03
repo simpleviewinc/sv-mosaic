@@ -1,148 +1,285 @@
+import { FieldDef } from '@root/components/Field';
 import { render, cleanup, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
-
-// Components
-import AdvancedSelection from './AdvancedSelection';
+import { useCallback, useMemo, useState } from 'react';
+import { AdvancedSelectionDef, optionsWithCategory } from '.';
+import Form from '../Form/Form';
+import { useForm } from '../Form/formUtils';
 
 afterEach(cleanup);
 
-const options = [
+const externalOptions = [
 	{
 		category: 'Category 1',
 		label: 'Option 1',
 		value: 'option_1-cat_1',
 	},
+];
+
+const additionalOptions = [
 	{
-		category: 'Category 2',
+		category: 'Category 1',
 		label: 'Option 2',
 		value: 'option_2-cat_1',
 	},
 	{
+		category: 'Category 1',
 		label: 'Option 3',
-		value: 'option3_without_category',
+		value: 'option_3-cat_1',
 	},
 	{
+		category: 'Category 1',
 		label: 'Option 4',
-		value: 'option4_without_category',
+		value: 'option_4-cat_1',
 	},
 	{
-		label: 'Option 5',
-		value: 'option5_without_category',
+		category: 'Category 2',
+		label: 'Option 1 category 2',
+		value: 'option_1-cat_2',
 	},
 	{
-		label: 'Option 6',
-		value: 'option6_without_category',
+		category: 'Category 2',
+		label: 'Test option category 2',
+		value: 'option_2-cat_2',
+	},
+	// {
+	// 	category: 'Category 2',
+	// 	label: 'Another option of catergory 2',
+	// 	value: 'option_3-cat_2',
+	// },
+	{
+		category: 'Category 2',
+		label: 'Option 4 category 2',
+		value: 'option_4-cat_2',
 	},
 	{
-		label: 'Option 7',
-		value: 'option7_without_category',
+		category: 'Test Category',
+		label: 'You can filter by category',
+		value: 'option_1-test_category',
 	},
 	{
-		label: 'Option 8',
-		value: 'option8_without_category',
+		category: 'Test Category',
+		label: 'Very long label that does not fit',
+		value: 'option_2-test_category',
 	},
 	{
-		label: 'Option 9',
-		value: 'option9_without_category',
+		category: 'Category 4',
+		label: 'Option 1 category 4',
+		value: 'option_1-cat_4',
+	},
+	{
+		label: 'Option without category',
+		value: 'option_without_category',
+	},
+	{
+		category: 'Category 5',
+		label: 'ABC',
+		value: 'ABC_UPPER',
+	},
+	{
+		category: 'Category 5',
+		label: 'abc',
+		value: 'abc_lower',
+	},
+	{
+		category: 'Category 5',
+		label: 'abcdef',
+		value: 'option_abcdef',
+	},
+	{
+		category: 'Category 5',
+		label: 'abc123',
+		value: 'option_abc123',
 	},
 ];
 
-describe('AdvancedSelection component', () => {
-	beforeEach(() => {
-		render(
-			<AdvancedSelection
-				label='Label'
-				error={false}
-				errorText=''
-				required={false}
-				instructionText='Instruction text'
-				helperText='Helper text'
-				disabled={false}
-				modalTitle='Modal title'
-				checkboxOptions={options}
-				groupByCategory={true}
-				onChange={() => jest.fn}
-			/>
-		);
-	});
+const AdvancedSelectExample = () => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const [options, setOptions] = useState<optionsWithCategory[]>(externalOptions ? externalOptions : []);
 
-	it('should select some options', () => {
-		fireEvent.click(screen.getByText('ADD ELEMENT'));
+	const modalTitle = 'Modal title';
+	const groupByCategory = false;
+	const label = 'Label';
+	const required = false;
+	const disabled = false;
+	const getOptionsLimit = 5;
 
-		expect(screen.getByText('Modal title')).toBeTruthy();
-		expect(screen.getByText('Category 1')).toBeTruthy();
-		expect(screen.getByText('Category 2')).toBeTruthy();
+	const getOptions = async ({ limit, filter, offset }) => {
+		let internalOptionsArr = [...additionalOptions];
 
-		const option1 = screen.getByText('Option 1');
-		const option2 = screen.getByText('Option 2');
-		fireEvent.click(option1);
-		fireEvent.click(option2);
-		fireEvent.click(screen.getByText('Save'));
-
-		expect(screen.getByText('Label')).toBeTruthy();
-		expect(screen.getByText('Instruction text')).toBeTruthy();
-		expect(screen.getByText('Helper text')).toBeTruthy();
-		expect(option1).toBeTruthy();
-		expect(option2).toBeTruthy();
-	});
-
-	it('should remove a selected option', () => {
-		fireEvent.click(screen.getByText('ADD ELEMENT'));
-		const option1 = screen.getByText('Option 1');
-		const option2 = screen.getByText('Option 2');
-		fireEvent.click(option1);
-		fireEvent.click(option2);
-		fireEvent.click(screen.getByText('Save'));
-
-		const chipsDeleteIcon = screen.getAllByTestId('delete-icon-test-id');
-		expect(chipsDeleteIcon.length).toBe(4);
-		fireEvent.click(chipsDeleteIcon[0]);
-
-		const remainingChips = screen.getAllByTestId('delete-icon-test-id');
-		expect(remainingChips.length).toBe(2);
-	});
-
-	it('should filter the options', () => {
-		fireEvent.click(screen.getByText('ADD ELEMENT'));
-		const inputNode = screen.getByPlaceholderText('Search...');
-		fireEvent.change(inputNode, { target: { value: 'Option 2' } });
-
-		expect(screen.queryByText('Option 1')).toBe(null);
-	});
-
-	it('should create a new options', () => {
-		fireEvent.click(screen.getByText('ADD ELEMENT'));
-		const inputNode = screen.getByPlaceholderText('Search...');
-		fireEvent.change(inputNode, { target: { value: 'New option' } });
-		fireEvent.click(screen.getByText('Create'));
-
-		expect(screen.queryByText('New option')).toBeTruthy();
-	});
-
-	it('should display "X more" when the selected options are more than 8', () => {
-		fireEvent.click(screen.getByText('ADD ELEMENT'));
-
-		// Select all options
-		for (let i = 0; i < options.length; i++) {
-			const option = screen.getByText(options[i].label);
-			fireEvent.click(option);
+		if (filter) {
+			const trimmedFilter = filter.trim().toLowerCase();
+			internalOptionsArr = additionalOptions.filter(
+				option => (
+					option.label.toLowerCase().includes(trimmedFilter)
+				)
+			);
 		}
 
-		const showMoreElement = screen.queryByText('1 more');
-		expect(showMoreElement).toBeTruthy();
+		let optionsToReturn = [];
+		if (limit) {
+			for (let i = offset; i < offset + limit; i++) {
+				if (i < internalOptionsArr.length)
+					optionsToReturn.push(internalOptionsArr[i]);
+			}
+		} else {
+			optionsToReturn = internalOptionsArr;
+		}
 
-		fireEvent.click(showMoreElement);
-		expect(screen.getByText('Hide')).toBeTruthy();
-		expect(screen.getAllByText('Option 9').length).toBe(2);
+		return optionsToReturn;
+	};
+
+	const getSelected = async (selectedOptions) => {
+		if (!selectedOptions) return;
+
+		const fullOptions = options.concat(additionalOptions);
+
+		return selectedOptions.map((selectedOption) =>
+			fullOptions.find(o => o.value === selectedOption)
+		);
+	}
+
+	const createNewOption = async (newOptionLabel) => {
+		const value = `${newOptionLabel}_${additionalOptions.length}`
+		const newOption = {
+			value,
+			label: newOptionLabel,
+		}
+		additionalOptions.push(newOption);
+
+		return value;
+	}
+
+	const fields = useMemo(
+		() => (
+			[
+				{
+					name: 'advancedSelection',
+					label,
+					required,
+					disabled,
+					type: 'advancedSelection',
+					inputSettings: {
+						modalTitle,
+						checkboxOptions: options,
+						getOptions,
+						getOptionsLimit,
+						getSelected,
+						createNewOption,
+					}
+				},
+			] as FieldDef<AdvancedSelectionDef>[]
+		),
+		[
+			label,
+			required,
+			disabled,
+			registerFields,
+			modalTitle,
+			groupByCategory,
+			options,
+			getOptions,
+			getOptionsLimit,
+			getSelected,
+			createNewOption,
+		]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title='Form Title'
+				description='This is a description example'
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
+	);
+}
+
+describe('AdvancedSelection component', () => {
+	let advancedSelectContainer;
+	beforeEach(() => {
+		const { container } = render(
+			<AdvancedSelectExample />
+		);
+		advancedSelectContainer = container;
 	});
 
-	it('should not select any option when the modal is closed', () => {
-		fireEvent.click(screen.getByText('ADD ELEMENT'));
-		fireEvent.click(screen.getByText('Option 1'));
+	it('should select an option and display its chip', async () => {
+		const addButton = screen.getByText('ADD ELEMENT');
+		fireEvent.click(addButton);
 
-		expect(screen.getAllByText('Option 1').length).toBe(2)
-		fireEvent.click(screen.getByText('Cancel'));
+		expect(await screen.findByText('Modal title')).toBeTruthy();
 
-		expect(screen.getAllByText('Option 1').length).toBe(1)
+		const optionCheckbox = await screen.findByText('Option 1');
+		fireEvent.click(optionCheckbox);
+
+		const optionChip = await screen.findByTestId('delete-icon-test-id');
+		expect(optionChip).toBeTruthy();
+	});
+
+	it('should remove a selected option', async () => {
+		const addButton = screen.getByText('ADD ELEMENT');
+		fireEvent.click(addButton);
+
+		expect(await screen.findByText('Modal title')).toBeTruthy();
+
+		const optionCheckbox = await screen.findByText('Option 1');
+		fireEvent.click(optionCheckbox);
+
+		const optionChip = await screen.findAllByTestId('delete-icon-test-id');
+		expect(optionChip.length).toBe(1);
+		fireEvent.click(optionChip[0]);
+
+		const remainingChips = await screen.queryAllByTestId('delete-icon-test-id');
+		expect(remainingChips.length).toBe(0);
+	});
+
+	it('should filter the options', async () => {
+		const addButton = screen.getByText('ADD ELEMENT');
+		fireEvent.click(addButton);
+
+		expect(await screen.findByText('Modal title')).toBeTruthy();
+
+		const inputNode = screen.getByPlaceholderText('Search...');
+		fireEvent.change(inputNode, { target: { value: 'abc' } });
+
+		expect(await screen.queryByText('Option 1')).toBe(null);
+		expect(await screen.findByText('abc')).toBeTruthy();
+	});
+
+	it('should create a new option', async () => {
+		const addButton = screen.getByText('ADD ELEMENT');
+		fireEvent.click(addButton);
+
+		expect(await screen.findByText('Modal title')).toBeTruthy();
+
+		const inputNode = screen.getByPlaceholderText('Search...');
+		fireEvent.change(inputNode, { target: { value: 'Brand new option' } });
+		fireEvent.click(await screen.findByText('Create'));
+
+		expect(await screen.findByText('Brand new option')).toBeTruthy();
 	});
 });

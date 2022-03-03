@@ -2,36 +2,28 @@ import * as React from 'react';
 import { useState, memo } from "react";
 import {
 	StyledAutocomplete,
-	StyledHelperText,
-	StyledInstructionText,
 	StyledDisabledDropdownText,
-	StyledErrorText,
-	StyledErrorWrapper,
-	StyledErrorIcon,
-	StyledErrorMessage,
+	StyledPopper,
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
-
-// Material UI
-import TextField from '@material-ui/core/TextField';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { MosaicFieldProps } from '@root/components/Field';
+import { DropdownSingleSelectionDef } from "./FormFieldDropdownSingleSelectionTypes";
 
 // Components
-import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
 import InputWrapper from '../../components/InputWrapper';
-import Label from '@root/components/Typography/Label';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import TextField from '@material-ui/core/TextField';
 
-const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
-	const [error, setError] = useState(false);
+const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef>) => {
+	const {
+		fieldDef,
+		error,
+		onChange,
+		onBlur,
+		value
+	} = props;
+
 	const [isOpen, setIsOpen] = useState(false);
-
-	const onBlur = (e) => {
-		if (props.required && (!e.target.value || e.target.value?.trim().length === 0)) {
-			setError(true);
-		} else {
-			setError(false);
-		}
-	}
 
 	const renderInput = (params) => (
 		<InputWrapper>
@@ -39,15 +31,9 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 				{...params}
 				data-testid="textfield-test-id"
 				variant="outlined"
-				placeholder={props.placeholder}
-				onBlur={(e) => onBlur(e)}
-				required={props.required}
+				placeholder={fieldDef?.inputSettings?.placeholder}
+				required={fieldDef?.required}
 			/>
-			<StyledInstructionText
-				data-testid="instruction-text-test-id"
-			>
-				{props.instructionText}
-			</StyledInstructionText>
 		</InputWrapper>
 	);
 
@@ -56,65 +42,35 @@ const DropdownSingleSelection = (props: DropdownSingleSelectionProps) => {
 	}
 
 	return (
-		<StyledErrorWrapper
-			error={error && props.required}
-			data-testid="error-wrapper-test-id"
-		>	
-			<Label 
-				disabled={props.disabled}
-				required={props.required}
-				data-testid="label-test-id"
-			>
-				{props.label}
-			</Label>
-			{!props.disabled ? 
-				<>
-					<SingleDropdownWrapper innerWidth={props.size}>
-						<StyledAutocomplete
-							onOpen={handleOpen}
-							onClose={handleOpen}
-							data-testid="autocomplete-test-id"
-							options={props.options}
-							getOptionLabel={(option) => option.title}
-							error={props.required && error}
-							errorText={props.errorText}
-							renderInput={renderInput}
-							disablePortal={true}
-							onChange={props.onChange}
-							popupIcon={<ExpandMoreIcon />}
-							value={props.value}
-							open={isOpen}
-						/>
-						{(!error && props.helperText?.trim().length > 0) &&
-							<StyledHelperText
-								data-testid="helper-text-test-id"
-							>
-								{props.helperText}
-							</StyledHelperText>
-						}
-
-						{(error && props.required && props.errorText?.trim().length > 0) &&
-							<StyledErrorMessage
-								data-testid="error-message-test-id"
-							>
-								<StyledErrorIcon />
-								<StyledErrorText>
-									{props.errorText}
-								</StyledErrorText>
-							</StyledErrorMessage>
-						}
-					</SingleDropdownWrapper>
-				</>
+		<>
+			{!fieldDef?.disabled ?
+				<SingleDropdownWrapper innerWidth={fieldDef?.inputSettings?.size}>
+					<StyledAutocomplete
+						value={value}
+						onOpen={handleOpen}
+						onClose={handleOpen}
+						data-testid="autocomplete-test-id"
+						options={fieldDef?.inputSettings?.options}
+						getOptionLabel={(option) => option.title ? option.title : ''}
+						onChange={(_event, option) => onChange && onChange(option)}
+						error={(fieldDef?.required && error) ? error : undefined}
+						renderInput={renderInput}
+						PopperComponent={StyledPopper}
+						popupIcon={<ExpandMoreIcon />}
+						onBlur={(e) => onBlur && onBlur(e.target.value)}
+						open={isOpen}
+					/>
+				</SingleDropdownWrapper>
 				:
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
-					{(!props.value || props.value.trim() === '') ? 
-						props.placeholder : props.value
+					{(!value?.title || value?.title?.trim() === '') ?
+						fieldDef?.inputSettings?.placeholder : value.title
 					}
 				</StyledDisabledDropdownText>
 			}
-		</StyledErrorWrapper>
+		</>
 	);
 };
 

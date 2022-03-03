@@ -19,4 +19,8 @@ export interface MenuFormFieldCardProps {
    * List of menu options that can be executed by the component.
    */
   options?: Options[];
+	/**
+	 * Disables the options icon
+	 */
+	disabled?: boolean;
 }

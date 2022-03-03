@@ -1,24 +1,49 @@
+import { MosaicFieldProps } from '@root/components/Field';
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 
 // Components
-import DatePicker, { DatePickerProps } from '../DatePicker';
+import DatePicker from '../DatePicker';
 
 // Styles
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
-const SingleDateCalendar = (props: DatePickerProps): ReactElement => {
-	const { error, required, disabled, onChange, value } = props;
+const SingleDateCalendar = (props: MosaicFieldProps<any>): ReactElement => {
+
+	const [dateField, setDateField] = useState(undefined);
+
+	const {
+		fieldDef,
+		onChange,
+		value,
+		onBlur
+	} = props;
+
+
+	useEffect(() => {
+		if (value) {
+			setDateField(value);
+		} else {
+			setDateField(Date.now());
+			setDateField(null);
+		}
+	}, [value]);
 
 	return (
 		<>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<DatePicker
-					error={error}
-					required={required}
+					fieldDef={{
+						name: fieldDef?.name,
+						label: '',
+						required: fieldDef?.required,
+						inputSettings: {
+							placeholder: 'MM / DD / YYYY'
+						},
+					}}
 					onChange={onChange}
-					placeholder='MM / DD / YYYY'
-					value={value}
+					onBlur={onBlur}
+					value={dateField}
 				/>
 			) : (
 				<DisabledDateTimeValue>

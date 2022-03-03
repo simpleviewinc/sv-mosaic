@@ -4,13 +4,15 @@
  */
 export interface Option {
     label: string;
-    value: string;
+    value: string | {
+        [key: string]: any;
+    };
 }
 export interface CheckboxListProps {
     /**
      * Flag that indicates if an option has been selected.
      */
-    checked: string[];
+    checked: Option[];
     /**
      * List of options
      */

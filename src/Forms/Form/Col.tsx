@@ -1,22 +1,42 @@
 import * as React from 'react';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { actions } from './formUtils';
 
 import FormFieldText from '../FormFieldText';
 import FormFieldTextArea from '../FormFieldTextArea';
 import FormFieldCheckbox from '../FormFieldCheckbox';
-
-const componentMap = {
-	text: FormFieldText,
-	textArea: FormFieldTextArea,
-	checkbox: FormFieldCheckbox,
-};
+import FormFieldChipSingleSelect from '../FormFieldChipSingleSelect';
+import FormFieldDropdownSingleSelection from '../FormFieldDropdownSingleSelection';
+import FormFieldPhoneSelectionDropdown from '../FormFieldPhoneSelectionDropdown';
+import FormFieldRadio from '../FormFieldRadio';
+import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
+import Field from '@root/components/Field';
+import ImageVideoLinkDocumentBrowsing from '../ImageVideoLinkDocumentBrowsing';
+import ColorPicker from '../ColorPicker';
+import SingleDateCalendar from '../DateTimeField/SingleDateCalendar';
+import DateRangeCalendar from '../DateTimeField/DateRangeCalendar';
+import TimeInput from '../DateTimeField/TimeInput';
+import DateTimeInput from '../DateTimeField/DateTimeInput';
+import Address from '../Address';
+import Table from '../Table';
+import TextEditor from '../TextEditor';
+import AdvancedSelection from '../AdvancedSelection';
+import MapCoordinates from '../MapCoordinates';
+import FormFieldImageUpload from '../FormFieldImageUpload';
 
 const StyledCol = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	${pr => pr.formType === 'modal' ?
+		`
+			flex: 1 1 auto;
+		`
+		:
+		`
+			width: 100%;
+		`
+	}
 `;
 
 const Col = (props) => {
@@ -24,8 +44,32 @@ const Col = (props) => {
 		col,
 		state,
 		fieldsDef,
-		dispatch
+		dispatch,
+		formType,
 	} = props;
+
+	const componentMap = useMemo(() => ({
+		text: FormFieldText,
+		textArea: FormFieldTextArea,
+		checkbox: FormFieldCheckbox,
+		chip: FormFieldChipSingleSelect,
+		dropdown: FormFieldDropdownSingleSelection,
+		phone: FormFieldPhoneSelectionDropdown,
+		radio: FormFieldRadio,
+		toggleSwitch: FormFieldToggleSwitch,
+		imageVideoDocumentLink: ImageVideoLinkDocumentBrowsing,
+		color: ColorPicker,
+		date: SingleDateCalendar,
+		dateRange: DateRangeCalendar,
+		time: TimeInput,
+		dateTime: DateTimeInput,
+		address: Address,
+		table: Table,
+		textEditor: TextEditor,
+		advancedSelection: AdvancedSelection,
+		mapCoordinates: MapCoordinates,
+		imageUpload: FormFieldImageUpload,
+	}), []);
 
 	const onChangeMap = useMemo(() => {
 		return fieldsDef.reduce((prev, curr) => {
@@ -54,7 +98,7 @@ const Col = (props) => {
 		return fieldsDef.reduce((prev, curr) => {
 			prev[curr.name] = async function (value) {
 				await dispatch(
-					actions.validateField({name: curr.name})
+					actions.validateField({ name: curr.name })
 				);
 
 				if (curr.onBlur) {
@@ -65,13 +109,13 @@ const Col = (props) => {
 					curr.onBlur(value);
 				}
 			};
-			
+
 			return prev;
 		}, {});
 	}, [fieldsDef]);
 
 	return (
-		<StyledCol>
+		<StyledCol formType={formType}>
 			{col.map((field, i) => {
 				const currentField = fieldsDef?.find(
 					(fieldDef) => {
@@ -79,26 +123,50 @@ const Col = (props) => {
 					}
 				);
 
-				const { type, inputSettings, ...fieldProps } = currentField;
+				const { type, ...fieldProps } = currentField;
 
-				const Component = componentMap[type];
+				const Component = typeof type === 'string' ? componentMap[type] : type;
+
+				if (!Component) {
+					throw new Error(`Invalid type ${type}`);
+				}
 
 				const onChange = onChangeMap[fieldProps.name];
 
 				const onBlur = onBlurMap[fieldProps.name];
 
-				return (
+				const name = fieldProps.name;
+				const value = state?.data[fieldProps.name] || '';
+				const touched = state?.touched[fieldProps.name] || '';
+				const error = state?.errors[fieldProps.name] || '';
+
+				const children = useMemo(() => (
 					<Component
-						key={i}
-						{...currentField}
-						value={state.data[fieldProps.name] || ''}
-						touched={state.touched[fieldProps.name] || false}
-						error={state.errors[fieldProps.name] ? true : false}
-						errorText={state.errors[fieldProps.name] || ''}
+						fieldDef={...currentField}
+						name={name}
+						value={value}
+						touched={touched}
+						error={error}
 						onChange={onChange}
 						onBlur={onBlur}
+						key={`${name}_${i}`}
 					/>
-				);
+				), [value, error, onChange, onBlur, touched, currentField]);
+
+				return (!!componentMap[type]) ? (
+					<Field
+						key={`${name}_${i}`}
+						fieldDef={...currentField}
+						value={value}
+						error={error}
+					>
+						{children}
+					</Field>
+				)
+					:
+					(
+						children
+					);
 			})}
 		</StyledCol>
 	);

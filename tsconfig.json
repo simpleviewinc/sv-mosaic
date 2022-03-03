@@ -2,14 +2,20 @@
 	"compilerOptions": {
 		"sourceMap": true,
 		"jsx": "react",
-		"lib" : ["ES2019", "DOM"],
+		"lib": [
+			"ES2019",
+			"DOM"
+		],
 		"resolveJsonModule": true,
 		"baseUrl": "./",
 		"paths": {
-			"@root/*" : ["./src/*"]
-		}
+			"@root/*": [
+				"./src/*"
+			]
+		},
+		"esModuleInterop": true,
 	},
-	"include" : [
+	"include": [
 		"./src/**/*"
 	],
 	"exclude": [

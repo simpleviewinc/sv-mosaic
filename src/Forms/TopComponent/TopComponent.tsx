@@ -33,7 +33,13 @@ import {
 	StyledClearIcon,
 	StyledHelpIconWrapper,
 	TitleWrapper,
+	DrawerViewColumn,
+	DrawerSectionWrapper,
 } from './TopComponent.styled';
+
+// Material UI
+import { IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
@@ -47,6 +53,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		tooltipInfo,
 		sections,
 		submitButtonAttrs,
+		type = undefined,
 	} = props;
 
 	// State variables
@@ -163,7 +170,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 						{buttons}
 					</DesktopActionsRow>
 				</DesktopTitleActionsRow>
-				{!isBigView && (
+				{(!isBigView && sections) && (
 					<FlexContainer>
 						<FormNav sections={sections} />
 					</FlexContainer>
@@ -171,7 +178,9 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			</DesktopViewColumn>
 			{isBigView ? (
 				<Row>
-					<FormNav sections={sections} />
+					{sections &&
+						<FormNav sections={sections} />
+					}
 					<NavSectionsWrapper>{children}</NavSectionsWrapper>
 				</Row>
 			) : (
@@ -179,6 +188,30 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 					<NavSectionsWrapper>{children}</NavSectionsWrapper>
 				</>
 			)}
+		</>
+	);
+
+	const drawerView = (
+		<>
+			<DrawerViewColumn type={type}>
+				<Row>
+					{onCancel && (
+						<IconButton
+							data-testid='close-icon'
+							aria-label='close'
+							disableRipple
+							onClick={onCancel}
+							style={{ marginRight: '8px' }}
+						>
+							<CloseIcon />
+						</IconButton>
+					)}
+					<FormTitle type={type}>{title}</FormTitle>
+					{tooltipInfo && helpIcon}
+				</Row>
+				<ResponsiveButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ResponsiveButtonsWrapper>
+			</DrawerViewColumn>
+			<DrawerSectionWrapper>{children}</DrawerSectionWrapper>
 		</>
 	);
 
@@ -196,7 +229,9 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
 					<ResponsiveButtonsWrapper>{buttons}</ResponsiveButtonsWrapper>
 				</ResponsiveActionsRow>
-				<FormNav sections={sections} />
+				{sections &&
+					<FormNav sections={sections} />
+				}
 			</ResponsiveViewColumn>
 			<NavSectionsWrapper>{children}</NavSectionsWrapper>
 		</>
@@ -226,11 +261,13 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		<>
 			{isMobileView ? (
 				mobileView
-			) : (
-				<div style={{ width: '100%' }}>
-					{isResponsiveView ? responsiveView : desktopView}
-				</div>
-			)}
+			)
+				:
+				type === 'drawer' ? drawerView : (
+					<div style={{ width: '100%' }}>
+						{isResponsiveView ? responsiveView : desktopView}
+					</div>
+				)}
 		</>
 	);
 };

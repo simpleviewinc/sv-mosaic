@@ -1,19 +1,7 @@
-import { Options } from '@root/forms/ImageVideoDocumentSetUp/ImageVideoDocumentSetUpTypes';
+import { Options } from '@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes';
 import { ImageUploadCanvasProps } from './ImageUploadCanvas/ImageUploadCanvas';
 
-export interface ImageUploadProps extends ImageUploadCanvasProps {
-  /**
-   * Disable all the buttons.
-   */
-  disabled?: boolean;
-  /**
-   * Callback used to pass the mouse coordinates to the parent component
-   * when the user clicks at some (x, y) point of the uploaded image.
-   */
-   handleImageCoordinates?: (mouseCoordinates: {
-    x: number | null;
-    y: number | null;
-  }) => void;
+export type ImageUploadDef = {
   /**
    * Callback executed when the set focus button is clicked.
    */
@@ -23,19 +11,21 @@ export interface ImageUploadProps extends ImageUploadCanvasProps {
    * the component.
    */
   options?: Options[];
-  /**
-   * Callback passed from parent component to
-   * set the uploaded image height.
-   */
-  setImgHeight?: (imageHeight: number) => void;
-  /**
-   * Callback passed from parent component to
-   * set the uploaded image width.
-   */
-  setImgWidth?: (imageWidth: number) => void;
-  /**
-   * Callback passed from parent component to
-   * set the uploaded image file.
-   */
-  uploadImage?: (files) => void;
-}
+} & ImageUploadCanvasProps;
+
+
+/**
+ * Describes the structure of the value argument received by 
+ * the onChange function used by the form.
+ */
+export type ImageUploadValue = {
+  imgName?: string;
+  size?: number;
+  type?: string;
+  height?: number;
+  width?: number;
+  imgCoords?: {
+    x: number;
+    y: number;
+  };
+};

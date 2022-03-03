@@ -3,18 +3,6 @@ import styled from 'styled-components';
 // Utils
 import theme from '@root/theme';
 
-// Components
-import Label from '@root/components/Field/Label';
-
-export const StyledLabel = styled(Label)`
-  margin-bottom: 16px;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    width: 300px;
-    margin-bottom: 20px;
-  }
-`;
-
 export const AddAddressWrapper = styled.div`
   align-items: center;
   background-color: ${theme.colors.gray200};
@@ -48,14 +36,6 @@ export const FlexContainer = styled.div`
       margin-right: 0px;
     }
     display: flex;
-    flex-direction: column;
-  }
-`;
-
-export const FlexContainerFields = styled.div`
-  display: flex;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
   }
 `;

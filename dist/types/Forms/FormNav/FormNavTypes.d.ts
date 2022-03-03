@@ -1,8 +1,7 @@
-declare type Sections = {
-    name: string;
-    id: string;
-};
-export interface FormNavProps {
-    sections: Sections[];
+export interface Section {
+    title?: string;
+    id?: string;
 }
-export {};
+export interface FormNavProps {
+    sections: Section[];
+}

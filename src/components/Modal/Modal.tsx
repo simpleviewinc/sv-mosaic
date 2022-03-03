@@ -16,22 +16,37 @@ import {
 	StyledDialogDesktopTitle,
 	StyledDialogMobileTitle,
 } from './Modal.styled';
+import FormLayout from '@root/forms/Form/FormLayout';
+import { actions } from '../../forms/Form/formUtils';
+import { StyledDisabledForm } from '@root/forms/Form/Form.styled';
 
 const Modal = (props: ModalProps): ReactElement => {
 	const {
-		children,
-		dialogTitle,
-		submitDisabled,
-		form,
-		onClose,
+		fields,
 		open,
-		primaryAction,
-		primaryBtnLabel = 'Save',
-		secondaryAction,
-		secondaryBtnLabel = 'Cancel',
+		title,
+		onSubmit,
+		onCancel,
+		onLoad,
+		submitButtonAttrs,
+		cancelButtonAttrs,
+		state,
+		dispatch,
+		sections,
 	} = props;
 
 	const [isMobileView, setIsMobileView] = useState(false);
+
+	useEffect(() => {
+		const loadForm = async () => {
+			await dispatch(
+				actions.loadForm()
+			);
+		}
+
+		if (onLoad)
+			loadForm();
+	}, [onLoad]);
 
 	useEffect(() => {
 		const setResponsiveness = () => {
@@ -48,59 +63,97 @@ const Modal = (props: ModalProps): ReactElement => {
 		};
 	}, []);
 
+	const submit = async (e) => {
+		e.preventDefault();
+		await dispatch(
+			actions.submitForm()
+		);
+	}
+
+	const cancel = (e) => {
+		e.preventDefault();
+		onCancel();
+	}
+
+	const PrimaryButton = useMemo(() => (
+		<Button
+			onClick={(e) => submit(e)}
+			{...submitButtonAttrs}
+		>
+			{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Apply'}
+		</Button>
+	), [submitButtonAttrs?.children, onSubmit]);
+
 	const displayMobile = useMemo(
 		() => (
 			<StyledDialogMobileTitle>
 				<div>
-					{onClose && (
+					{onCancel && (
 						<IconButton
 							data-testid='arrow-back-icon'
 							aria-label='close'
 							disableRipple
-							onClick={onClose}
+							onClick={(e) => cancel(e)}
 						>
 							<ArrowBackIosIcon />
 						</IconButton>
 					)}
-					<span>{dialogTitle}</span>
+					<span>{title}</span>
 				</div>
-				<Button disabled={submitDisabled} type='submit' form={form} onClick={primaryAction}>{primaryBtnLabel}</Button>
+				{PrimaryButton}
 			</StyledDialogMobileTitle>
 		),
-		[isMobileView, dialogTitle, onClose, primaryBtnLabel, primaryAction]
+		[isMobileView, title, onCancel, submitButtonAttrs?.children, onSubmit]
 	);
 
 	const displayDesktop = useMemo(
 		() => (
 			<StyledDialogDesktopTitle>
-				<span>{dialogTitle}</span>
-				{onClose && (
+				<span>{title}</span>
+				{onCancel && (
 					<IconButton
 						data-testid='close-icon'
 						aria-label='close'
 						disableRipple
-						onClick={onClose}
+						onClick={(e) => cancel(e)}
 					>
 						<CloseIcon />
 					</IconButton>
 				)}
 			</StyledDialogDesktopTitle>
 		),
-		[isMobileView, dialogTitle, onClose]
+		[isMobileView, title, onCancel]
 	);
 
 	return (
-		<StyledDialog fullScreen={isMobileView} open={open}>
-			{isMobileView ? displayMobile : displayDesktop}
-			<DialogContent>{children}</DialogContent>
-			{!isMobileView && (
-				<DialogActions>
-					<Button buttonType='secondary' onClick={secondaryAction}>
-						{secondaryBtnLabel}
-					</Button>
-					<Button disabled={submitDisabled} type='submit' form={form} onClick={primaryAction}>{primaryBtnLabel}</Button>
-				</DialogActions>
-			)}
+		<StyledDialog fullScreen={isMobileView} open={open} onClose={(e) => cancel(e)}>
+			{open &&
+				<>
+					<StyledDisabledForm disabled={state.disabled} />
+					{isMobileView ? displayMobile : displayDesktop}
+					<DialogContent>
+						<FormLayout
+							formType='modal'
+							state={state}
+							dispatch={dispatch}
+							fields={fields}
+							sections={sections}
+						/>
+					</DialogContent>
+					{!isMobileView && (
+						<DialogActions>
+							<Button
+								buttonType='secondary'
+								onClick={(e) => cancel(e)}
+								{...cancelButtonAttrs}
+							>
+								{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
+							</Button>
+							{PrimaryButton}
+						</DialogActions>
+					)}
+				</>
+			}
 		</StyledDialog>
 	);
 };

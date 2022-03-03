@@ -1,5 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
-import { ElementType, MouseEventHandler, ReactNode } from 'react';
+import { ElementType, HTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 /**
  * This type is used to defined the keys
  * that each button type must comply
@@ -20,7 +19,7 @@ export declare type ButtonStyle = {
  * All the possible button types
  */
 export declare type ButtonType = 'primary' | 'secondary' | 'blueText' | 'redText' | 'approve' | 'deny';
-export interface FormButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface FormButtonProps extends HTMLAttributes<HTMLButtonElement> {
     /**
      * The content of the button component
      */
@@ -49,4 +48,5 @@ export interface FormButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
      * Represent the type of button that is going to be rendered
      */
     buttonType?: ButtonType;
+    type?: any;
 }

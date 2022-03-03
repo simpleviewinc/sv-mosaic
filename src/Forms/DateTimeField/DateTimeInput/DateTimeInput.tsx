@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
-import { DateTimeInputProps } from './DateTimeInputTypes';
+import { ReactElement, memo } from 'react';
 
 // Components
 import DatePicker from '../DatePicker';
@@ -11,38 +10,71 @@ import TimePicker from '../TimePicker';
 import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
 import { DateTimeInputRow } from './DateTimeInput.styled';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
+import { MosaicFieldProps } from '@root/components/Field';
+import { DateTimeInputDef } from '.';
 
-const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
+interface DateTimeValue {
+	dateValue: Date,
+	timeValue: Date
+}
+
+const DateTimeInput = (props: MosaicFieldProps<DateTimeInputDef, DateTimeValue>): ReactElement => {
 	const {
 		error,
-		disabled,
-		dateValue,
-		onChangeDate,
-		onChangeTime,
-		timeValue,
-		required,
+		fieldDef,
+		value,
+		onChange,
 	} = props;
+
+	const handleOnChange = async (position, date) => {
+		let newDates = { ...value };
+		if (position === 0) {
+			newDates = {
+				...newDates,
+				dateValue: date
+			}
+		} else {
+			newDates = {
+				...newDates,
+				timeValue: date
+			}
+		}
+
+		await onChange(newDates);
+	}
 
 	return (
 		<DateTimeInputRow>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<>
 					<DateTimePickerWrapper>
 						<DatePicker
 							error={error}
-							onChange={onChangeDate}
-							placeholder='Start'
-							required={required}
-							value={dateValue}
+							onChange={(d) => handleOnChange(0, d)}
+							fieldDef={{
+								name: fieldDef?.name,
+								label: '',
+								inputSettings: {
+									placeholder: 'MM / DD / YYYY'
+								},
+								required: fieldDef?.required,
+							}}
+							value={value?.dateValue}
 						/>
 						<HelperText>Month, Day, Year</HelperText>
 					</DateTimePickerWrapper>
 					<DateTimePickerWrapper>
 						<TimePicker
 							error={error}
-							onChange={onChangeTime}
-							placeholder='00:00 AM/PM'
-							value={timeValue}
+							onChange={(d) => handleOnChange(1, d)}
+							fieldDef={{
+								name: fieldDef?.name,
+								label: '',
+								inputSettings: {
+									placeholder: '00:00 AM/PM'
+								}
+							}}
+							value={value?.timeValue}
 						/>
 						<HelperText>Hour, Minute, AM or PM</HelperText>
 					</DateTimePickerWrapper>
@@ -50,11 +82,11 @@ const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 			) : (
 				<>
 					<DisabledDateTimeValue>
-						{dateValue ? dateValue.toLocaleDateString('en-US') : 'Start'}
+						{value?.dateValue ? value?.dateValue.toLocaleDateString('en-US') : 'MM / DD / YYYY'}
 					</DisabledDateTimeValue>
 					<DisabledDateTimeValue>
-						{timeValue
-							? timeValue.toLocaleString('en-US', {
+						{value?.timeValue
+							? value?.timeValue.toLocaleString('en-US', {
 								hour: 'numeric',
 								minute: 'numeric',
 								hour12: true,
@@ -67,4 +99,4 @@ const DateTimeInput = (props: DateTimeInputProps): ReactElement => {
 	);
 };
 
-export default DateTimeInput;
+export default memo(DateTimeInput);

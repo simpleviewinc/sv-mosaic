@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
+
+//Components
 import FormFieldChipSingleSelect from './FormFieldChipSingleSelect';
 
 afterEach(cleanup);
@@ -20,39 +23,47 @@ const options = [
 	},
 ];
 
-describe('FormFieldChipSingleSelect', () => {
-	it("should allow users to select options", () => {
-		let clicked = false;
-		const onSelect = () => {
-			clicked = true;
-		};
+const { getAllByRole, getByText } = screen;
 
-		render(
-			<FormFieldChipSingleSelect 
-				label={'Testing Chip Field'}
-				options={options}
-				onSelect={onSelect}
-			/>
-		);
+const FormFieldChipSingleSelectExample = () => {
+	const [checked, setChecked] = useState([]);
 
-		const chips = screen.queryAllByRole('button');
-		expect(clicked).toBe(false);
+	const onChange = async (checked) => {
+		setChecked(checked)
+	}
 
-		fireEvent.click(chips[0]);
-		expect(clicked).toBe(true);
+	return (
+		<FormFieldChipSingleSelect
+			fieldDef={{
+				name: 'formFieldChipSingleSelect',
+				label: 'Chip test',
+				inputSettings: {
+					options
+				}
+			}}
+			value={checked}
+			onChange={onChange}
+		/>
+	);
+};
+
+describe('FormFieldChipSingleSelect component', () => {
+	beforeEach(() => {
+		render(<FormFieldChipSingleSelectExample />);
+	})
+
+	it('should display the list of options', () => {
+		expect(getByText('Option 1')).toBeTruthy();
+		expect(getByText('Option 2')).toBeTruthy();
+		expect(getByText('Option 3')).toBeTruthy();
 	});
 
-	it("should not allow users to select options when disabled", () => {
+	it('should check the clicked option', () => {
+		const chipElements = getAllByRole('button') as HTMLInputElement[];
+		fireEvent.click(chipElements[1]);
 
-		render(
-			<FormFieldChipSingleSelect 
-				label={'Testing Chip Field'}
-				options={options}
-				disabled={true}
-			/>
-		);
-
-		const chips = screen.queryAllByRole('button');
-		expect(chips[0]).toHaveAttribute("aria-disabled")
+		expect(chipElements[0]).toHaveClass('cFyGIj')
+		expect(chipElements[1]).toHaveClass('foHfmQ')
+		expect(chipElements[2]).toHaveClass('cFyGIj')
 	});
 });

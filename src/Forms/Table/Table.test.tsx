@@ -45,17 +45,23 @@ const TableExample = () => {
 		addElementCallback();
 	};
 
-	const onChange = (rowData) => {
+	const onChange = async (rowData) => {
 		setTableData(rowData);
 	};
 
 	return (
 		<Table
-			extraActions={actions}
-			handleAddElement={addElement}
-			handleEdit={editCallback}
-			handleDelete={deleteCallback}
-			headers={headers}
+			fieldDef={{
+				name: 'table',
+				label: '',
+				inputSettings: {
+					extraActions: actions,
+					handleAddElement: addElement,
+					handleEdit: editCallback,
+					handleDelete: deleteCallback,
+					headers
+				}
+			}}
 			onChange={onChange}
 			value={tableData}
 		/>
@@ -83,16 +89,22 @@ const TableWithNoExtraActions = () => {
 		addElementCallback();
 	};
 
-	const onChange = (rowData) => {
+	const onChange = async (rowData) => {
 		setTableData(rowData);
 	};
 
 	return (
 		<Table
-			handleAddElement={addElement}
-			handleEdit={editCallback}
-			handleDelete={deleteCallback}
-			headers={headers}
+			fieldDef={{
+				name: 'table',
+				label: '',
+				inputSettings: {
+					handleAddElement: addElement,
+					handleEdit: editCallback,
+					handleDelete: deleteCallback,
+					headers
+				}
+			}}
 			onChange={onChange}
 			value={tableData}
 		/>
