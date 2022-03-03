@@ -1,59 +1,32 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
-
-// Material UI
-import { InputLabel } from '@material-ui/core';
+import { ReactElement, memo } from 'react';
 
 // Types and styles
-import { FormFieldCheckboxProps } from './FormFieldCheckboxTypes';
-import { CheckboxListProps } from '../../components/CheckboxList';
-import {
-	ErrorTextWrapper,
-	FieldWrapper,
-	LabelWrapper,
-	StyledCheckboxList,
-	StyledErrorIcon,
-	StyledText,
-	StyledWrapper,
-} from './FormFieldCheckbox.styled';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldCheckboxDef } from './FormFieldCheckboxTypes';
+import { StyledCheckboxList } from './FormFieldCheckbox.styled';
 
 const FormFieldCheckbox = (
-	props: FormFieldCheckboxProps & CheckboxListProps
+	props: MosaicFieldProps<FormFieldCheckboxDef, string[]>
 ): ReactElement => {
 	const {
-		label,
-		required,
-		disabled,
-		error,
-		errorText,
-		instructionText,
+		fieldDef,
 		onChange,
-		checked,
-		options,
+		onBlur,
+		value
 	} = props;
 
 	return (
-		<StyledWrapper>
-			<FieldWrapper error={error && required}>
-				<LabelWrapper disabled={disabled}>
-					<InputLabel required={required}>{label}</InputLabel>
-				</LabelWrapper>
-				<StyledText>{instructionText}</StyledText>
-				<StyledCheckboxList
-					disabled={disabled}
-					checked={checked}
-					options={options}
-					onChange={onChange}
-				/>
-				{errorText && error && required && (
-					<ErrorTextWrapper>
-						<StyledErrorIcon />
-						<StyledText error={error}>{errorText}</StyledText>
-					</ErrorTextWrapper>
-				)}
-			</FieldWrapper>
-		</StyledWrapper>
+		<StyledCheckboxList
+			disabled={fieldDef?.disabled}
+			checked={value}
+			options={fieldDef?.inputSettings?.options}
+			onChange={onChange}
+			onBlur={onBlur}
+			style={fieldDef.style}
+			className={fieldDef.className}
+		/>
 	);
 };
 
-export default FormFieldCheckbox;
+export default memo(FormFieldCheckbox);

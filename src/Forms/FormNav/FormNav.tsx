@@ -18,7 +18,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	const navRef = useRef(null);
 
 	// State variables
-	const [selectedTab, setSelectedTab] = useState(0);
+	const [selectedTab, setSelectedTab] = useState(sections[0].title);
 	const [scrollX, setscrollX] = useState(0);
 
 	/**
@@ -58,7 +58,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	let sectionsTest;
 
 	useEffect(() => {
-		sectionsTest = document.querySelectorAll("div.section") as unknown as HTMLElement[];
+		sectionsTest = document.getElementsByClassName("section") as unknown as HTMLElement[];
 		window.addEventListener("scroll", navHighlighter);
 
 		return () => {
@@ -71,7 +71,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 
 		sectionsTest.forEach(current => {
 			const sectionHeight = current.offsetHeight;
-			const sectionTop = current.offsetTop - 50;
+			const sectionTop = current.offsetTop - 350;
 			const sectionId: any = current.getAttribute("id");
 			if (
 				scrollY > sectionTop &&
@@ -93,12 +93,12 @@ const FormNav = (props: FormNavProps): ReactElement => {
 				<NavItems ref={navRef} onScroll={scrollCheck}>
 					{sections.map((section, idx) => (
 						<LinksWrapper
-							idx={section.id}
+							idx={section.title}
 							selectedTabIdx={selectedTab}
-							key={`${section.name}-${section.id}`}
-							onClick={(e) => handleClick(e, idx, section.id)}
+							key={`${section.title}-${section.id}`}
+							onClick={(e) => handleClick(e, idx, section.title)}
 						>
-							<a href={`#${section.id}`}>{section.name}</a>
+							<a href={`#${section.title}`}>{section.title}</a>
 						</LinksWrapper>
 					))}
 				</NavItems>

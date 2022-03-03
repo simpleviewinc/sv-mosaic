@@ -4,7 +4,6 @@ import theme from '@root/theme';
 // MUI
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Field from '@root/components/Field';
 
 export const StyledInput = styled.input`
   background-color: ${theme.colors.gray100};
@@ -41,6 +40,7 @@ export const InputWrapper = styled.div`
 export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  row-gap: 4px;
   margin-bottom: 16px;
   width: ${pr => pr.isMobileView || !pr.isModalOpen ? '' : '684px'};
 
@@ -53,28 +53,8 @@ export const ChipsWrapper = styled.div`
   }
 `;
 
-export const StyledField = styled(Field)`
-  &.advanced_selection > div:nth-child(2) {
-    margin-top: 52px;
-    max-height: 80px;
-  }
-`;
-
 export const OptionsCheckedModalWrapper = styled.div`
   margin-bottom: ${(pr) => (pr.isModalOpen ? '40px' : '')};
-`;
-
-export const CheckboxListWrapper = styled.div`
-  height: 353px;
-  overflow-y: auto;
-  padding-right: 16px;
-
-  .MuiFormGroup-root {
-    .MuiFormControlLabel-root {
-      width: fit-content;
-      word-wrap: break-word;
-    }
-  }
 `;
 
 export const ShowHideSpan = styled.span`

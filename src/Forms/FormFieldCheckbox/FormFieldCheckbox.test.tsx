@@ -1,101 +1,56 @@
 import * as React from 'react';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 
+// Components
 import FormFieldCheckbox from './FormFieldCheckbox';
+
+// Utils
+import { checkboxOptions } from './FormFieldCheckboxUtils';
 
 afterEach(cleanup);
 
-const options = [
-	{
-		label: 'Label 1',
-		value: 'label_1',
-	},
-	{
-		label: 'Label 2',
-		value: 'label_2',
-	},
-	{
-		label: 'Label 3',
-		value: 'label_3',
-	},
-];
+const { getAllByRole, getByText } = screen;
 
-describe('The FormFieldCheckbox behavior', () => {
-	it('should check the clicked option', () => {
-		const FormFieldCheckboxExample = () => {
-			const [checked, setChecked] = useState([]);
+const FormFieldCheckboxExample = () => {
+	const [checked, setChecked] = useState([]);
 
-			const onChange = useCallback(
-				(checked) => {
-					setChecked(checked);
+	const onChange = async (checked) => {
+		setChecked(checked);
+	}
+
+	return (
+		<FormFieldCheckbox
+			fieldDef={{
+				name: 'formFieldCheckbox',
+				label: 'test',
+				inputSettings: {
+					options: checkboxOptions,
 				},
-				[setChecked]
-			);
+			}}
+			value={checked}
+			onChange={onChange}
+		/>
+	);
+};
 
-			return (
-				<FormFieldCheckbox
-					label='Label'
-					error={false}
-					instructionText='Instruction text'
-					errorText='Error text'
-					checked={checked}
-					options={options}
-					onChange={onChange}
-				/>
-			);
-		};
-
+describe('FormFieldCheckbox component', () => {
+	beforeEach(() => {
 		render(<FormFieldCheckboxExample />);
+	})
 
-		const checkboxElements = screen.getAllByRole(
-			'checkbox'
-		) as HTMLInputElement[];
+	it('should display the list of options', () => {
+		expect(getByText('Label 1')).toBeTruthy();
+		expect(getByText('Label 2')).toBeTruthy();
+		expect(getByText('Label 3')).toBeTruthy();
+	});
+
+	it('should check the clicked option', () => {
+		const checkboxElements = getAllByRole('checkbox') as HTMLInputElement[];
 		fireEvent.click(checkboxElements[0]);
 
 		expect(checkboxElements[0].checked).toEqual(true);
 		expect(checkboxElements[1].checked).toEqual(false);
 		expect(checkboxElements[2].checked).toEqual(false);
-	});
-});
-
-describe('The instructionText and the errorText behavior', () => {
-	it('should display the instruction text and the error text', () => {
-		render(
-			<FormFieldCheckbox
-				label='Label'
-				error={true}
-				required={true}
-				instructionText='Instruction text'
-				errorText='Error text'
-				checked={[]}
-				options={options}
-				onChange={jest.fn()}
-			/>
-		);
-		const instructionTextElement = screen.getByText('Instruction text');
-		const errorTextElement = screen.getByText('Error text');
-
-		expect(instructionTextElement).toBeDefined();
-		expect(errorTextElement).toBeDefined();
-	});
-
-	it('should display only the instruction text since there is no error', () => {
-		render(
-			<FormFieldCheckbox
-				label='Label'
-				error={false}
-				instructionText='Instruction text'
-				errorText='Error text'
-				checked={[]}
-				options={options}
-				onChange={jest.fn()}
-			/>
-		);
-		const instructionTextElement = screen.getByText('Instruction text');
-		const errorTextElement = screen.queryByText('Error text');
-
-		expect(instructionTextElement).toBeDefined();
-		expect(errorTextElement).toBe(null);
 	});
 });

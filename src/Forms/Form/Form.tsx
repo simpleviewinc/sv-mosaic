@@ -1,12 +1,11 @@
 import * as React from 'react';
-import {
-	useMemo,
-	memo
-} from 'react';
+import { memo, useEffect } from 'react';
 import styled from 'styled-components';
-import { SectionDef } from './FormTypes';
-// import './Form.css';
-import Section from './Section';
+import { StyledDisabledForm } from './Form.styled';
+import { FormProps } from './FormTypes';
+import { actions } from './formUtils';
+import FormLayout from './FormLayout';
+import TopComponent from '../TopComponent';
 
 
 const StyledForm = styled.form`
@@ -16,71 +15,76 @@ const StyledForm = styled.form`
 	width: 100%;
 `;
 
-function Form(props) {
-	const { sections, fields, dispatch, state } = props;
+const Form = (props: FormProps) => {
+	const {
+		title,
+		description,
+		type,
+		sections,
+		fields,
+		dispatch,
+		state,
+		onCancel,
+		onLoad,
+		cancelButtonAttrs,
+		submitButtonAttrs,
+	} = props;
 
-	const layout = useMemo(() => {
-		let customLayout: SectionDef[] = [];
-
-		if (sections)
-			customLayout = JSON.parse(JSON.stringify(sections));
-
-		if (fields) {
-			for (const field of fields) {
-				if (field.layout) {
-					let section = customLayout.length;
-					if (field.layout.section !== undefined && field.layout.section >= 0) {
-						section = field.layout.section;
-					}
-
-					let row = customLayout[section]?.fields?.length;
-					if (field.layout.row !== undefined && field.layout.row >= 0) {
-						row = field.layout.row;
-					}
-
-					let col = customLayout[section]?.fields[row]?.length;
-					if (field.layout.col !== undefined && field.layout.col >= 0) {
-						col = field.layout.col;
-					}
-
-					if (customLayout[section]) {
-						customLayout[section].fields[row][col].push(field.name);
-					} else {
-						customLayout = [
-							...customLayout,
-							{
-								fields: [[[field.name]]],
-							},
-						];
-					}
-				} else if (!sections) {
-					customLayout = [
-						...customLayout,
-						{
-							fields: [[[field.name]]],
-						},
-					];
-				}
-			}
-
-			return customLayout;
+	useEffect(() => {
+		const loadForm = async () => {
+			await dispatch(
+				actions.loadForm()
+			);
 		}
-	}, [sections, fields]);
+
+		if (onLoad)
+			loadForm();
+	}, [onLoad]);
+
+	const submit = async (e) => {
+		e.preventDefault();
+		await dispatch(
+			actions.submitForm()
+		);
+	}
+
+	const cancel = (e) => {
+		e.preventDefault();
+		onCancel();
+	}
 
 	return (
-		<StyledForm>
-			{layout?.map((section, i) => (
-				<Section
-					key={i}
-					title={section.title}
-					description={section.description}
-					fieldsDef={fields}
-					fieldsLayoutPos={section.fields}
-					state={state}
-					dispatch={dispatch}
-				/>
-			))}
-		</StyledForm>
+		<>
+			<StyledDisabledForm disabled={state?.disabled ? state.disabled : false} />
+			<StyledForm>
+				{title ?
+					<TopComponent
+						title={title}
+						type={type}
+						description={description}
+						onCancel={(e) => cancel(e)}
+						cancelButtonAttrs={cancelButtonAttrs}
+						onSubmit={(e) => submit(e)}
+						submitButtonAttrs={submitButtonAttrs}
+						sections={sections}
+					>
+						<FormLayout
+							state={state}
+							dispatch={dispatch}
+							fields={fields}
+							sections={sections}
+						/>
+					</TopComponent>
+					:
+					<FormLayout
+						state={state}
+						dispatch={dispatch}
+						fields={fields}
+						sections={sections}
+					/>
+				}
+			</StyledForm>
+		</>
 	);
 }
 

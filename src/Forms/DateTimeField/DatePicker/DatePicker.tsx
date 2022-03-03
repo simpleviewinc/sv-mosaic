@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useState } from 'react';
-import DateFnsUtils from '@date-io/date-fns';
+import * as DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 // Styles
@@ -10,10 +10,15 @@ import {
 	DatePickerWrapper,
 	StyledDatePicker,
 } from './DatePicker.styled';
-import { DatePickerProps } from './DatePickerTypes';
+import { MosaicFieldProps } from '@root/components/Field';
 
-const DatePicker = (props: DatePickerProps): ReactElement => {
-	const { error, required, onChange, placeholder, value, } = props;
+const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
+	const {
+		error,
+		fieldDef,
+		onChange,
+		value,
+	} = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -22,12 +27,12 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 	};
 
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+		<MuiPickersUtilsProvider utils={DateFnsUtils.default}>
 			<ThemeProvider theme={customTheme}>
 				<DatePickerWrapper isPickerOpen={isPickerOpen}>
 					<StyledDatePicker
 						disableToolbar
-						error={error}
+						error={!!error}
 						variant='inline'
 						format='MM/dd/yyyy'
 						margin='normal'
@@ -47,8 +52,8 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 							},
 						}}
 						InputProps={{
-							placeholder: placeholder,
-							required: required,
+							placeholder: fieldDef?.inputSettings?.placeholder,
+							required: fieldDef?.required,
 						}}
 						invalidDateMessage={null}
 						maxDateMessage={null}

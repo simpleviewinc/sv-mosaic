@@ -1,8 +1,8 @@
-type Sections = {
-  name: string;
-  id: string;
+export interface Section {
+  title?: string;
+  id?: string;
 };
 
 export interface FormNavProps {
-  sections: Sections[];
+  sections: Section[];
 }

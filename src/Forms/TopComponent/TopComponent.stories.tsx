@@ -14,27 +14,27 @@ export default {
 
 const sections = [
 	{
-		name: 'Account Profile',
+		title: 'Account Profile',
 		id: 'section1',
 	},
 	{
-		name: 'Account Information',
+		title: 'Account Information',
 		id: 'section2',
 	},
 	{
-		name: 'Contact Information',
+		title: 'Contact Information',
 		id: 'section3',
 	},
 	{
-		name: 'Address Information',
+		title: 'Address Information',
 		id: 'section4',
 	},
 	{
-		name: 'Tags and User',
+		title: 'Tags and User',
 		id: 'section5',
 	},
 	{
-		name: 'Connections',
+		title: 'Connections',
 		id: 'section6',
 	},
 ];

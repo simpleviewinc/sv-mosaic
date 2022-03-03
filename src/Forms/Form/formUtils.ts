@@ -2,45 +2,71 @@ import { useMemo, useRef, useCallback } from "react";
 import { EventEmitter } from "eventemitter3";
 
 import { joinReducers, useThunkReducer } from "./utils";
+import { SectionDef } from "./FormTypes";
+import { required } from "./validators";
 
-function coreReducer(state, action) {
-	// console.log("reducer", action);
-
+export function coreReducer(state, action) {
 	switch (action.type) {
-	case "FIELD_ON_CHANGE":
-		return {
-			...state,
-			data: {
-				...state.data,
-				[action.name]: action.value
+		case "FIELD_ON_CHANGE":
+			return {
+				...state,
+				data: {
+					...state.data,
+					[action.name]: action.value
+				}
+			};
+		case "FIELD_START_VALIDATE":
+			return {
+				...state,
+				errors: {
+					...state.errors,
+					[action.name]: null
+				},
+				validating: {
+					...state.validating,
+					[action.name]: true
+				}
+			};
+		case "FIELD_END_VALIDATE":
+			return {
+				...state,
+				errors: {
+					...state.errors,
+					[action.name]: action.value
+				},
+				validating: {
+					...state.validating,
+					[action.name]: undefined
+				}
+			};
+		case "FORM_START_DISABLE":
+			return {
+				...state,
+				disabled: action.value
+			};
+		case "FORM_END_DISABLE":
+			return {
+				...state,
+				disabled: action.value
+			};
+		case "FORM_VALIDATE":
+			return {
+				...state,
+				validForm: action.value
+			};
+		case "FORM_RESET":
+			return {
+				...state,
+				data: {},
+				touched: {},
+				errors: {},
+				validating: {},
+				custom: {},
+				validForm: false,
+				disabled: null
 			}
-		};
-	case "FIELD_START_VALIDATE":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: undefined
-			},
-			validating: {
-				...state.validating,
-				[action.name]: true
-			}
-		};
-	case "FIELD_END_VALIDATE":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: action.value
-			},
-			validating: {
-				...state.validating,
-				[action.name]: undefined
-			}
-		};
-	default:
-		return state;
+		default:
+			return state;
 	}
 }
 
@@ -71,9 +97,20 @@ export const actions = {
 	},
 	validateField({ name }) {
 		return async function (dispatch, getState, extraArgs) {
-			const validators = extraArgs.fieldMap[name].validators;
-			if (!validators) {
+			const requiredFlag = extraArgs?.fieldMap[name]?.required;
+			let validators = extraArgs?.fieldMap[name]?.validators;
+
+			if (!validators && !requiredFlag) {
 				return;
+			}
+
+			if (!validators && requiredFlag) {
+				validators = [];
+				validators.unshift(required);
+			}
+
+			if (validators && requiredFlag) {
+				validators.unshift(required);
 			}
 
 			dispatch({
@@ -94,7 +131,7 @@ export const actions = {
 		};
 	},
 	copyFieldToField({ from, to }) {
-		return async function (dispatch, getState, extraArgs) {
+		return async function (dispatch, getState) {
 			const fromValue = getState().data[from];
 			dispatch(
 				actions.setFieldValue({
@@ -103,13 +140,101 @@ export const actions = {
 				})
 			);
 		};
+	},
+	validateForm({ fields }) {
+		return async (dispatch, getState) => {
+			await dispatch({
+				type: "FORM_START_DISABLE",
+				value: true,
+			});
+
+			const touchedFields = getState().data;
+
+			for (let i = 0; i < fields.length; i++) {
+				let currFieldName = fields[i].name;
+				(!!touchedFields[currFieldName] === false ||
+					Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === 'object') &&
+					await dispatch(
+						actions.validateField({ name: currFieldName })
+					);
+			}
+
+			let validForm = true;
+
+			let errors = getState().errors;
+			Object.entries(errors).forEach(([key, value]) => {
+				if (value !== undefined)
+					validForm = false;
+			});
+
+			await dispatch({
+				type: "FORM_VALIDATE",
+				value: validForm,
+			});
+
+			await new Promise((res) => setTimeout(res, 2000));
+
+			await dispatch({
+				type: "FORM_END_DISABLE",
+				value: false,
+			});
+
+			return validForm;
+		}
+	},
+	submitForm() {
+		return async (dispatch, getState, extraArgs) => {
+			if (getState().disabled)
+				return;
+
+			let isValid = await dispatch(
+				actions.validateForm({ fields: extraArgs.fields })
+			);
+
+			if (isValid)
+				extraArgs.onSubmit(getState().data);
+
+		}
+	},
+	resetForm() {
+		return async (dispatch) => {
+			dispatch({
+				type: "FORM_RESET",
+			});
+		}
+	},
+	loadForm() {
+		return async (dispatch, getState, extraArgs) => {
+			await dispatch({
+				type: "FORM_START_DISABLE",
+				value: true,
+			});
+
+			const fieldData = await extraArgs.onLoad();
+
+			for (let [key, value] of Object.entries(fieldData)) {
+				await dispatch(
+					actions.setFieldValue({
+						name: key,
+						value: value,
+					})
+				);
+			}
+
+			await dispatch({
+				type: "FORM_END_DISABLE",
+				value: false,
+			});
+		}
 	}
 };
 
 export function useForm({ customReducer }: { customReducer?: ((state: any, action: any) => any)[] } = {}) {
 	const extraArgs = useRef({
 		fields: [],
-		fieldMap: {}
+		fieldMap: {},
+		onSubmit: () => { },
+		onLoad: () => [{ name: '', value: '' }],
 	});
 	const reducer = useMemo(() => {
 		return customReducer
@@ -125,7 +250,9 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 			touched: {},
 			errors: {},
 			validating: {},
-			custom: {}
+			custom: {},
+			validForm: false,
+			disabled: null,
 		},
 		extraArgs.current
 	);
@@ -141,10 +268,83 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 		extraArgs.current.fieldMap = fieldMap;
 	}, []);
 
+	const registerOnSubmit = useCallback((fn) => {
+		extraArgs.current.onSubmit = fn;
+	}, []);
+
+	const registerOnLoad = useCallback((fn) => {
+		extraArgs.current.onLoad = fn;
+	}, []);
+
 	return {
 		events,
 		state,
 		dispatch,
-		registerFields
+		registerFields,
+		registerOnSubmit,
+		registerOnLoad,
 	};
 }
+
+const isEmpty = (arr) => {
+	return Array.isArray(arr) && (arr.length === 0 || arr.every(isEmpty));
+};
+
+export const generateLayout = ({ sections, fields }: { sections?: any, fields: any }) => {
+	let customLayout: SectionDef[] = [];
+
+	if (sections) {
+		customLayout = JSON.parse(JSON.stringify(sections));
+		customLayout.forEach((section, idx) => {
+			const nonEmptyRows = section.fields.map(row => {
+				const nonEmptyCols = row.filter(col => !isEmpty(col));
+				if (nonEmptyCols.length > 0) {
+					return nonEmptyCols;
+				}
+			}).filter(row => row !== undefined);
+
+			customLayout[idx].fields = nonEmptyRows;
+		});
+	}
+
+	if (fields) {
+		for (const field of fields) {
+			if (field.layout) {
+				let section = customLayout.length;
+				if (field.layout.section !== undefined && field.layout.section >= 0) {
+					section = field.layout.section;
+				}
+
+				let row = customLayout[section]?.fields?.length;
+				if (field.layout.row !== undefined && field.layout.row >= 0) {
+					row = field.layout.row;
+				}
+
+				let col = customLayout[section]?.fields[row]?.length;
+				if (field.layout.col !== undefined && field.layout.col >= 0) {
+					col = field.layout.col;
+				}
+
+				if (customLayout[section]) {
+					customLayout[section]?.fields[row][col]?.push(field.name);
+				} else {
+					customLayout = [
+						...customLayout,
+						{
+							fields: [[[field.name]]],
+						},
+					];
+				}
+			} else if (!sections) {
+				customLayout = [
+					...customLayout,
+					{
+						fields: [[[field.name]]],
+					},
+				];
+			}
+		}
+
+		return customLayout;
+	}
+};

@@ -15,34 +15,31 @@ afterEach(cleanup);
 const { getByText, getByTestId, queryByTestId } = screen;
 
 const mockHandleSetFocus = jest.fn();
-const mockHandleImageCoordinates = jest.fn();
 const mockHandleEdit = jest.fn();
 const mockHandleTranslate = jest.fn();
-const mockUploadImage = jest.fn();
-const setImgHeight = jest.fn();
-const setImgWidth = jest.fn();
+const options = [
+	{
+		label: 'Edit',
+		action: mockHandleEdit,
+	},
+	{
+		label: 'Translate',
+		action: mockHandleTranslate,
+	},
+];
 
 const FormFieldImageUploadExample = () => {
-	const options = [
-		{
-			label: 'Edit',
-			action: mockHandleEdit,
-		},
-		{
-			label: 'Translate',
-			action: mockHandleTranslate,
-		},
-	];
-
 	return (
 		<FormFieldImageUpload
-			disabled={false}
-			handleSetFocus={mockHandleSetFocus}
-			handleImageCoordinates={mockHandleImageCoordinates}
-			options={options}
-			setImgHeight={setImgHeight}
-			setImgWidth={setImgWidth}
-			uploadImage={mockUploadImage}
+			fieldDef={{
+				name: 'imageUpload',
+				label: '',
+				disabled: false,
+				inputSettings: {
+					handleSetFocus: mockHandleSetFocus,
+					options,
+				}
+			}}
 		/>
 	);
 };
@@ -75,7 +72,15 @@ describe('FormFieldImageUpload component', () => {
 
 describe('FormFieldImageUpload disabled state', () => {
 	it('should display "Loading Image" and the circular progress component', () => {
-		render(<FormFieldImageUpload disabled={true} />);
+		render(
+			<FormFieldImageUpload
+				fieldDef={{
+					name: 'imageUpload',
+					label: '',
+					disabled: true,
+				}}
+			/>
+		);
 
 		expect(getByText('Loading Image')).toBeTruthy();
 		expect(getByTestId('circular-progress-test')).toBeTruthy();
@@ -84,7 +89,15 @@ describe('FormFieldImageUpload disabled state', () => {
 
 describe('FormFieldImageUpload when menu options are not received', () => {
 	it('should not display ', () => {
-		render(<FormFieldImageUpload disabled={false} />);
+		render(
+			<FormFieldImageUpload
+				fieldDef={{
+					name: 'imageUpload',
+					label: '',
+					disabled: false,
+				}}
+			/>
+		);
 
 		expect(queryByTestId('menu-container-test')).toBe(null);
 	});
@@ -124,11 +137,11 @@ describe('FormFieldImageUpload drag and drop events', () => {
 		expect(setFocusButton).toBeTruthy();
 		expect(canvasElement).toBeTruthy();
 
-		// Triggering handleImageCoordinates callback
-		// when the set focus component is clicked
-		
+		// Triggering setFocusButton callback
+		// when the set focus button is clicked
+
 		fireEvent.click(setFocusButton);
-		expect(mockHandleImageCoordinates).toHaveBeenCalled();
+		expect(mockHandleSetFocus).toHaveBeenCalled();
 	});
 
 	it('should display "Release and Drop" when an image file enters in the drop zone', () => {

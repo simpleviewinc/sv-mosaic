@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
-import { DatePickerProps } from '../DatePicker';
+import { ReactElement, useState, useEffect, memo } from 'react';
+import { MosaicFieldProps } from '@root/components/Field';
 
 // Components
 import TimePicker from '../TimePicker';
@@ -8,18 +8,44 @@ import TimePicker from '../TimePicker';
 // Styles
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 
-const TimeInput = (props: DatePickerProps): ReactElement => {
-	const { error, required, disabled, onChange, value } = props;
+const TimeInput = (props: MosaicFieldProps<any, Date>): ReactElement => {
+
+	const [timeField, setTimeField] = useState(undefined);
+	
+	const {
+		fieldDef,
+		onChange,
+		value,
+		onBlur,
+		error
+	} = props;
+
+	useEffect(() => {
+		if (value) {
+			setTimeField(value)
+		} else {
+			setTimeField(Date.now());
+			setTimeField(null);
+		}
+	}, [value]);
+
 
 	return (
 		<>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<TimePicker
-					error={error}
-					required={required}
+					fieldDef={{
+						name: fieldDef?.name,
+						label: '',
+						required: fieldDef?.required,
+						inputSettings: {
+							placeholder: '00:00 AM/PM'
+						},
+					}}
 					onChange={onChange}
-					placeholder='00:00 AM/PM'
-					value={value}
+					value={timeField}
+					onBlur={onBlur}
+					error={error}
 				/>
 			) : (
 				<DisabledDateTimeValue>
@@ -36,4 +62,4 @@ const TimeInput = (props: DatePickerProps): ReactElement => {
 	);
 };
 
-export default TimeInput;
+export default memo(TimeInput);

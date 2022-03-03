@@ -1,8 +1,7 @@
 import * as React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { DatePickerProps } from '../DatePicker/DatePickerTypes';
 
 // Components
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -11,9 +10,16 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { customTheme, StyledTimePicker } from './TimePicker.styled';
 import { DatePickerWrapper } from '../DatePicker/DatePicker.styled';
+import { MosaicFieldProps } from '@root/components/Field';
+import { TimePickerDef } from './TimePickerTypes';
 
-const TimePicker = (props: DatePickerProps) => {
-	const { error, required, onChange, placeholder, value } = props;
+const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
+	const {
+		error,
+		fieldDef,
+		onChange,
+		value
+	} = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -44,10 +50,10 @@ const TimePicker = (props: DatePickerProps) => {
 							},
 						}}
 						InputProps={{
-							placeholder: placeholder,
-							required: required,
+							placeholder: fieldDef?.inputSettings?.placeholder,
+							required: fieldDef?.required,
 						}}
-						error={error}
+						error={!!error}
 						invalidDateMessage={null}
 						maxDateMessage={null}
 						minDateMessage={null}

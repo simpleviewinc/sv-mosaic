@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
-import DatePicker from './DatePicker';
+import DatePicker, { DatePickerDef } from './DatePicker';
 import DateRangeCalendar from './DateRangeCalendar';
 import SingleCalendar from './SingleDateCalendar';
 import TimePicker from './TimePicker';
 import TimeInput from './TimeInput';
 import DateTimeInput from './DateTimeInput';
-import Field from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
+import Form from '../Form/Form';
+import { useForm } from '../Form/formUtils';
+import { TimePickerDef } from './TimePicker/TimePickerTypes';
 
 export default {
 	title: 'Forms|DateTimeField',
@@ -22,26 +25,43 @@ export const TimePickerExample = (): ReactElement => {
 		new Date('2018-01-01T00:00:00.000Z')
 	);
 
-	const handleDateChange = (date: Date | null) => {
+	const handleDateChange = async (date: Date | null) => {
 		setSelectedDate(date);
 	};
 
-	return <TimePicker onChange={handleDateChange} value={selectedDate} />;
+	return (
+		<TimePicker
+			fieldDef={{
+				name: 'timePicker',
+				label: '',
+			}}
+			onChange={handleDateChange}
+			value={selectedDate}
+		/>
+	);
 };
 
 export const DatePickerExample = (): ReactElement => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
 
-	const handleDateChange = (date: Date | null) => {
+	const handleDateChange = async (date: Date | null) => {
 		setSelectedDate(date);
 	};
 
-	return <DatePicker onChange={handleDateChange} value={selectedDate} />;
+	return (
+		<DatePicker
+			fieldDef={{
+				name: 'datePicker',
+				label: '',
+			}}
+			onChange={handleDateChange}
+			value={selectedDate}
+		/>
+	);
 };
 
 export const SingleCalendarExample = (): ReactElement => {
-	const error = boolean('Error', false);
-	const errorText = text('Error text', '');
+	const error = text('Error text', '');
 	const instructionText = text(
 		'Instruction text',
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
@@ -50,25 +70,31 @@ export const SingleCalendarExample = (): ReactElement => {
 	const required = boolean('Required', false);
 	const [selectedDate, setSelectedDate] = useState(new Date());
 
-	const handleDateChange = (date: Date | null) => {
+	const handleDateChange = async (date: Date | null) => {
 		setSelectedDate(date);
 	};
 
 	return (
 		<Field
-			label={text('Label', 'Label')}
+			fieldDef={{
+				name: 'singleCalendar',
+				label: text('Label', 'Label'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText,
+				helperText: !disabled && 'Month, Day, Year',
+			}}
 			error={error}
-			errorText={errorText}
-			required={required}
-			disabled={disabled}
-			instructionText={!disabled && instructionText}
-			helperText={!disabled && 'Month, Day, Year'}
 		>
 			<SingleCalendar
-				error={error && errorText.trim().length > 0}
-				disabled={disabled}
+				fieldDef={{
+					name: 'singleCalendar',
+					label: '',
+					disabled,
+					required,
+				}}
+				error={error}
 				onChange={handleDateChange}
-				required={required}
 				value={selectedDate}
 			/>
 		</Field>
@@ -77,8 +103,7 @@ export const SingleCalendarExample = (): ReactElement => {
 
 export const DateRangeCalendarExample = (): ReactElement => {
 	const disabled = boolean('Disabled', false);
-	const error = boolean('Error', false);
-	const errorText = text('Error text', '');
+	const error = text('Error text', '');
 	const instructionText = text(
 		'Instruction text',
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
@@ -97,21 +122,27 @@ export const DateRangeCalendarExample = (): ReactElement => {
 
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={required}
-			disabled={disabled}
+			fieldDef={{
+				name: 'dateRangeCalendar',
+				label: text('Label', 'Label'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText,
+			}}
 			error={error}
-			errorText={errorText}
-			instructionText={!disabled && instructionText}
 		>
 			<DateRangeCalendar
-				error={error && errorText.trim().length > 0}
-				disabled={disabled}
-				fromValue={selectedDateFrom}
-				onChangeFrom={handleDateChangeFrom}
-				onChangeTo={handleDateChangeTo}
-				required={required}
-				toValue={selectedDateTo}
+				error={error}
+				fieldDef={{
+					name: 'dateRangeCalendar',
+					label: '',
+					disabled,
+					required
+				}}
+			// fromValue={selectedDateFrom}
+			// onChangeFrom={handleDateChangeFrom}
+			// onChangeTo={handleDateChangeTo}
+			// toValue={selectedDateTo}
 			/>
 		</Field>
 	);
@@ -119,8 +150,7 @@ export const DateRangeCalendarExample = (): ReactElement => {
 
 export const TimeInputExample = (): ReactElement => {
 	const disabled = boolean('Disabled', false);
-	const error = boolean('Error', false);
-	const errorText = text('Error text', '');
+	const error = text('Error text', '');
 	const instructionText = text(
 		'Instruction text',
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
@@ -130,25 +160,31 @@ export const TimeInputExample = (): ReactElement => {
 		new Date('2014-08-18T21:11:54')
 	);
 
-	const handleTimeChange = (date: Date | null) => {
+	const handleTimeChange = async (date: Date | null) => {
 		setSelectedTime(date);
 	};
 
 	return (
 		<Field
-			label={text('Label', 'Time Input')}
+			fieldDef={{
+				name: 'timeInput',
+				label: text('Label', 'Time input'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText,
+				helperText: !disabled && 'Hour, Minute, AM or PM',
+			}}
 			error={error}
-			errorText={errorText}
-			required={required}
-			disabled={disabled}
-			instructionText={!disabled && instructionText}
-			helperText={!disabled && 'Hour, Minute, AM or PM'}
 		>
 			<TimeInput
-				error={error && errorText.trim().length > 0}
-				disabled={disabled}
+				fieldDef={{
+					name: 'timeInput',
+					label: '',
+					disabled,
+					required,
+				}}
+				error={error}
 				onChange={handleTimeChange}
-				required={required}
 				value={selectedTime}
 			/>
 		</Field>
@@ -157,8 +193,7 @@ export const TimeInputExample = (): ReactElement => {
 
 export const DateTimeInputExample = (): ReactElement => {
 	const disabled = boolean('Disabled', false);
-	const error = boolean('Error', false);
-	const errorText = text('Error text', '');
+	const error = text('Error text', '');
 	const instructionText = text(
 		'Instruction text',
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
@@ -177,22 +212,117 @@ export const DateTimeInputExample = (): ReactElement => {
 
 	return (
 		<Field
-			label={text('Label', 'Label')}
-			required={required}
-			disabled={disabled}
+			fieldDef={{
+				name: 'dateTimeInput',
+				label: text('Label', 'Label'),
+				required,
+				disabled,
+				instructionText: !disabled && instructionText
+			}}
 			error={error}
-			errorText={errorText}
-			instructionText={!disabled && instructionText}
 		>
 			<DateTimeInput
-				error={error && errorText.trim().length > 0}
-				disabled={disabled}
-				required={required}
-				dateValue={selectedDate}
-				onChangeDate={handleDateChange}
-				onChangeTime={handleTimeChange}
-				timeValue={selectedTime}
+				fieldDef={{
+					name: 'dateTimeInput',
+					label: '',
+					disabled,
+					required,
+				}}
+				error={error}
+			// dateValue={selectedDate}
+			// onChangeDate={handleDateChange}
+			// onChangeTime={handleTimeChange}
+			// timeValue={selectedTime}
 			/>
 		</Field>
+	);
+};
+
+export const FormExample = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const disabled = boolean('Disabled', false);
+	const required = boolean('Required', false);
+	const placeholder = text('Placeholder', 'Placeholder');
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "date",
+					label: "Single Date Picker",
+					type: "date",
+					required,
+					disabled,
+					inputSettings: {
+						placeholder,
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				} as FieldDef<DatePickerDef>,
+				{
+					name: "dateRange",
+					label: "Date Range",
+					type: "dateRange",
+					required,
+					disabled,
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				} as FieldDef,
+				{
+					name: "time",
+					label: "Single Time Picker",
+					type: "time",
+					required,
+					disabled,
+					inputSettings: {
+						placeholder,
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				} as FieldDef<TimePickerDef>,
+				{
+					name: "dateTime",
+					label: "Date and Time Picker",
+					type: "dateTime",
+					required,
+					disabled,
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+				} as FieldDef,
+			] as FieldDef[],
+		[required, disabled]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
 	);
 };

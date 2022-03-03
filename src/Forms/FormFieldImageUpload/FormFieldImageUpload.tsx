@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { memo, ReactElement, useRef, useState } from 'react';
+import { memo, ReactElement, useEffect, useRef, useState } from 'react';
 
-import { ImageUploadProps } from './FormFieldImageUploadTypes';
+import { ImageUploadDef, ImageUploadValue } from './FormFieldImageUploadTypes';
+import { MosaicFieldProps } from '@root/components/Field';
 import { isEmpty } from 'lodash';
 
 // Components
@@ -28,8 +29,12 @@ import {
 	UploadButton,
 } from './FormFieldImageUpload.styled';
 
-const ImageUpload = (props: ImageUploadProps): ReactElement => {
-	const { disabled, handleImageCoordinates, handleSetFocus, uploadImage, options, setImgHeight, setImgWidth } = props;
+const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploadValue>): ReactElement => {
+	const {
+		fieldDef,
+		onChange,
+		value,
+	} = props;
 
 	// State variables
 	const [isOver, setIsOver] = useState(false);
@@ -42,9 +47,9 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	const fileInputField = useRef(null);
 
 	/**
-   * @param newFiles 
-   * @returns the added files
-   */
+	 * @param newFiles 
+	 * @returns the added files
+	 */
 	const addNewImage = (newFiles) => {
 		for (const file of newFiles) {
 			return { file };
@@ -53,20 +58,19 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   *  Triggers a click on the input of type file
-   *  to prompt the file selection.
-   */
+	 *  Triggers a click on the input of type file
+	 *  to prompt the file selection.
+	 */
 	const uploadFiles = () => {
 		fileInputField.current.click();
 	};
 
 	/**
-   * Executed when a new file is uploaded.
-   * @param e
-   */
+	 * Executed when a new file is uploaded.
+	 * @param e
+	 */
 	const handleNewFileUpload = (e) => {
 		const { files: imgFile } = e.target;
-
 		const isImageFile = imgFile[0].type.split("/")[0] === "image";
 
 		if (!isImageFile) {
@@ -75,27 +79,34 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 
 		if (imgFile.length) {
 			const uploadedImage = addNewImage(imgFile);
+			const file = uploadedImage.file;
 
 			setFiles(uploadedImage);
-			uploadImage(uploadedImage);
+
+			onChange && onChange({
+				...value,
+				imgName: file.name,
+				size: file.size,
+				type: file.type,
+			});
 		}
 	};
 
 	/**
-   *  Sets focus mode to true to display the canvas
-   *  element and the set focus button.
-   */
+	 *  Sets focus mode to true to display the canvas
+	 *  element and the set focus button.
+	 */
 	const handleView = () => {
 		setFocusMode(true);
 	};
 
 	/**
-   *  Executes the set focus callback and passes
+	 *  Executes the set focus callback and passes
 	 *  the image coordinates to the parent component.
-   */
+	 */
 	const setFocus = () => {
-		handleImageCoordinates(imageCoordinates);
-		handleSetFocus();
+		onChange && onChange({ ...value, imgCoords: imageCoordinates });
+		fieldDef?.inputSettings?.handleSetFocus && fieldDef?.inputSettings?.handleSetFocus();
 		setFocusMode(false);
 	};
 
@@ -109,58 +120,52 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	};
 
 	/**
-   * When the remove button is click the files
-   * uploaded are empty ahd the isOver flagged is
-   * set to false to show the upload view.
-   */
+	 * When the remove button is click the files
+	 * uploaded are empty ahd the isOver flagged is
+	 * set to false to show the upload view.
+	 */
 	const removeFile = () => {
 		setFiles({});
-		uploadImage({});
-		setImgWidth(null);
-		setImgHeight(null);
-		handleImageCoordinates({
-			x: null,
-			y: null
-		})
+		onChange(undefined);
 		setIsOver(false);
 		setFocusMode(false);
 	};
 
 	/**
-   * Executed when a file that's being
-   * dragged is over the drop zone.
-   * @param e
-   */
+	 * Executed when a file that's being
+	 * dragged is over the drop zone.
+	 * @param e
+	 */
 	const dragOver = (e) => {
 		e.preventDefault();
 	};
 
 	/**
-   * When a file that's being dragged enters into 
-   * the drop zone the isOver state is changed 
-   * to apply styles conditionally.
-   * @param e
-   */
+	 * When a file that's being dragged enters into 
+	 * the drop zone the isOver state is changed 
+	 * to apply styles conditionally.
+	 * @param e
+	 */
 	const dragEnter = (e) => {
 		e.preventDefault();
 		setIsOver(true);
 	};
 
 	/**
-   * When the drop zone is leaved the isOver state
-   * is changed to apply styles conditionally.
-   * @param e
-   */
+	 * When the drop zone is leaved the isOver state
+	 * is changed to apply styles conditionally.
+	 * @param e
+	 */
 	const dragLeave = (e) => {
 		e.preventDefault();
 		setIsOver(false);
 	};
 
 	/**
-   * When a file is dropped, the file state is set with the
-   * file dropped and the uploadImage callback is triggered.
-   * @param e
-   */
+	 * When a file is dropped, the file state is set with the
+	 * file dropped and the uploadImage callback is triggered.
+	 * @param e
+	 */
 	const fileDrop = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -179,28 +184,46 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 		}
 
 		if (droppedFiles.length) {
+			const uploadedImage = addNewImage(droppedFiles);
+			const file = uploadedImage.file;
+
 			setFiles(droppedFiles);
-			uploadImage(droppedFiles);
+
+			onChange && onChange({
+				...value,
+				imgName: file.name,
+				size: file.size,
+				type: file.type,
+				...file
+			});
 		}
 	};
 
 	/**
-   * Sets the image dimensions.
-   * @param param0
-   */
+	 * Sets the image dimensions.
+	 * @param param0
+	 */
 	const onImgLoad = ({ target: img }) => {
 		const imageWidth = img.naturalWidth;
-		const imageHeight = img.naturalHeight
+		const imageHeight = img.naturalHeight;
 
 		setHeight(imageHeight);
 		setWidth(imageWidth);
-		setImgWidth(imageWidth);
-		setImgHeight(imageHeight);
 	};
+
+	/**
+	 * Call onChange function once the component is mounted
+	 * to update the form state with the image height and width
+	 */
+	useEffect(() => {
+		if (!isEmpty(files) && onChange) {
+			onChange({ ...value, height, width });
+		}
+	}, [files, height, width])
 
 	return (
 		<>
-			{!disabled ? (
+			{!fieldDef?.disabled ? (
 				<div>
 					{isEmpty(files) ? (
 						<DragAndDropContainer
@@ -220,7 +243,7 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 										Drag & Drop files here or
 									</DragAndDropSpan>
 									<UploadButton
-										disabled={disabled}
+										disabled={fieldDef?.disabled}
 										buttonType='secondary'
 										onClick={uploadFiles}
 									>
@@ -247,20 +270,19 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 										const file = files[fileName];
 
 										return (
-											<div key={fileName}>
-												<ImgLoaded
-													alt={`${fileName} preview`}
-													height={168}
-													onLoad={onImgLoad}
-													src={URL.createObjectURL(file)}
-													width={257}
-												/>
-											</div>
+											<ImgLoaded
+												key={fileName}
+												alt={`${fileName} preview`}
+												height={168}
+												onLoad={onImgLoad}
+												src={URL.createObjectURL(file)}
+												width={257}
+											/>
 										);
 									})}
 									{focusMode && <ImageUploadCanvas mousePosition={mousePosition} />}
 								</ImageColumn>
-								{focusMode ? <SetFocusSpan>Click on the image to set the focus point</SetFocusSpan> :  <ImagePropertiesColumn>
+								{focusMode ? <SetFocusSpan>Click on the image to set the focus point</SetFocusSpan> : <ImagePropertiesColumn>
 									<Row>
 										<SizeLabel>Size</SizeLabel>
 										<SizeValue>
@@ -268,9 +290,9 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 										</SizeValue>
 									</Row>
 								</ImagePropertiesColumn>}
-								{options && !focusMode && (
+								{fieldDef?.inputSettings?.options && !focusMode && (
 									<MenuColumn data-testid='menu-container-test'>
-										<MenuFormFieldCard options={options} />
+										<MenuFormFieldCard options={fieldDef?.inputSettings?.options} />
 									</MenuColumn>
 								)}
 								<ButtonsContainer>
@@ -301,4 +323,4 @@ const ImageUpload = (props: ImageUploadProps): ReactElement => {
 	);
 };
 
-export default memo(ImageUpload);
+export default memo(FormFieldImageUpload);

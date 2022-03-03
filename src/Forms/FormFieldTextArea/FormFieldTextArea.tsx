@@ -1,84 +1,41 @@
 import * as React from 'react';
-import { ReactElement, HTMLAttributes } from 'react';
-
-// Material UI
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { ReactElement, memo } from 'react';
 
 // Types and styles
-import { TextAreaProps } from './FormFieldTextAreaTypes';
-import {
-	StyledTextArea,
-	StyledHelperText,
-	StyledWrapper,
-	TextAreaWrapper,
-	StyledInstructionalText,
-} from './FormFieldTextArea.styled';
-import { Sizes } from '../../theme/sizes';
-import { Label } from '@root/components/Typography';
-
+import { TextAreaDef } from './FormFieldTextAreaTypes';
+import { StyledTextArea } from './FormFieldTextArea.styled';
+import { MosaicFieldProps } from '@root/components/Field';
 
 const TextArea = (
-	props: TextAreaProps & HTMLAttributes<HTMLInputElement>
+	props: MosaicFieldProps<TextAreaDef>
 ): ReactElement => {
 	const {
-		label,
-		htmlFor,
-		placeholder,
-		required,
-		disabled,
-		helperText,
-		maxCharacters,
-		instructionalText,
+		fieldDef,
 		error,
-		errorText,
+		onChange,
+		onBlur,
 		value,
-		className,
-		size = Sizes.lg,
-		onChange
 	} = props;
 
-	let renderedHelperText = helperText && !error ? helperText : null;
-
-	if (errorText && error) {
-		renderedHelperText = (
-			<StyledHelperText>
-				<ErrorOutlineIcon style={{ fontSize: 16, marginRight: '8px' }} />
-				<span>{errorText}</span>
-			</StyledHelperText>
-		);
-	}
+	const errorWithMessage = error?.trim().length > 0;
 
 	return (
-		<StyledWrapper>
-			<TextAreaWrapper error={error} size={size}>
-				<Label
-					disabled={disabled}
-					required={required}
-					htmlFor={htmlFor}
-					value={value}
-					maxCharacters={maxCharacters}
-				>
-					{label}
-				</Label>
-				<StyledTextArea
-					id={htmlFor}
-					value={value}
-					onChange={(e) => onChange(e.target.value)}
-					variant='outlined'
-					error={error}
-					helperText={renderedHelperText}
-					className={className}
-					placeholder={placeholder}
-					disabled={disabled}
-					multiline
-					size={size}
-					inputProps={{ maxLength: maxCharacters > 0 ? maxCharacters : null }}
-					required={required}
-				/>
-			</TextAreaWrapper>
-			{instructionalText && <StyledInstructionalText error={error}>{instructionalText}</StyledInstructionalText>}
-		</StyledWrapper>
+		<StyledTextArea
+			id={fieldDef?.inputSettings?.htmlFor}
+			value={value}
+			onChange={(e) => onChange && onChange(e.target.value)}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			variant='outlined'
+			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
+			className={fieldDef?.className}
+			placeholder={fieldDef?.inputSettings?.placeholder}
+			disabled={fieldDef?.disabled}
+			multiline
+			fieldSize={fieldDef?.inputSettings?.size}
+			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
+			required={fieldDef?.required}
+		/>
 	);
 };
 
-export default TextArea;
+export default memo(TextArea);

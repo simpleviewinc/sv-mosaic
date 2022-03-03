@@ -1,3 +1,4 @@
+import theme from '@root/theme';
 import * as React from 'react';
 import { memo } from 'react';
 import styled from 'styled-components';
@@ -8,11 +9,35 @@ const StyledSection = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	border: ${pr => !pr.hasTitle ? '2px solid transparent' : `2px solid ${theme.colors.grayHover}`};
+	margin-bottom: ${pr => !pr.hasTitle ? '0px' : '40px'};
+
+	& h1 {
+		background-color: ${theme.colors.grayHover}
+		margin: 0px;
+		padding: 16px 40px;
+	}
 `;
+
+const StyledDescription = styled.p`
+	height: 46px;
+	margin: 0px;
+	padding: 50px 40px 20px 40px;
+	font-size: 16px;
+	font-family: ${theme.fontFamily};
+`
 
 const StyledRows = styled.div`
 	display: grid;
 	row-gap: 20px;
+	margin: 0px;
+	padding: ${pr => !pr.hasTitle ? '0px' : '0px 40px 50px 40px'} ;
+`;
+
+const StyledTitle = styled.h1`
+	font-size: 20px;
+	font-family: ${theme.fontFamily};
+	font-weight: 500;
 `;
 
 const Section = (props) => {
@@ -23,14 +48,15 @@ const Section = (props) => {
 		fieldsLayoutPos,
 		dispatch,
 		state,
+		formType,
 	} = props;
 
 	return (
-		<StyledSection>
-			{title && <h1>{title}</h1>}
-			{description && <p>{description}</p>}
+		<StyledSection hasTitle={title} className='section' id={title}>
+			{title && <StyledTitle>{title}</StyledTitle>}
+			{description && <StyledDescription>{description}</StyledDescription>}
 			{fieldsLayoutPos &&
-				<StyledRows>
+				<StyledRows hasTitle={title}>
 					{fieldsLayoutPos.map((row, i) => (
 						<Row
 							key={i}
@@ -38,6 +64,7 @@ const Section = (props) => {
 							state={state}
 							fieldsDef={fieldsDef}
 							dispatch={dispatch}
+							formType={formType}
 						/>
 					))}
 				</StyledRows>

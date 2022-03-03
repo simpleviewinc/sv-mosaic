@@ -1,89 +1,172 @@
 import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useCallback, useMemo } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
-import ImageUpload from './FormFieldImageUpload';
-import Field from '@root/components/Field';
+import Form from '../Form/Form';
+
+// Utils
+import { FieldDef } from '@root/components/Field';
+import { ImageUploadDef } from '.';
+import { menuOptions } from '@root/forms/MenuFormFieldCard/MenuFormFieldUtils';
+import { useForm } from '../Form/formUtils';
 
 export default {
 	title: 'Forms|ImageUpload',
 	decorators: [withKnobs],
 };
 
-export const Example = (): ReactElement => {
-	const [fileLoaded, setFileLoaded] = useState({});
-	const [imageHeight, setImageHeight] = useState(null);
-	const [imageWidth, setimageWidth] = useState(null);
-	const [imageCoordinates, setImageCoordinates] = useState({x: null, y: null});
+const onCancel = () => {
+	alert('Cancelling form, going back to previous site');
+};
 
-	const uploadImage = (files) => {
-		setFileLoaded(files);
-	};
+const handleSetFocus = () => {
+	alert('Set focus is called');
+};
 
-	const setImgHeight = (imgHeight) => {
-		setImageHeight(imgHeight);
-	};
-
-	const setImgWidth = (imgWidth) => {
-		setimageWidth(imgWidth);
-	};
-
-	const handleImageCoordinates = (mouseCoordinates) => {
-		setImageCoordinates(mouseCoordinates);
-	};
-
-	const handleSetFocus = () => {
-		alert('Set focus is called');
-	};
-
-	const handleEdit = () => {
-		alert('Edit clicked');
-	};
-
-	const handleTranslate = () => {
-		alert('Translate clicked');
-	};
-
-	const options = [
-		{
-			label: 'Edit',
-			action: handleEdit,
-		},
-		{
-			label: 'Translate',
-			action: handleTranslate,
-		},
-	];
+export const Playground = (): ReactElement => {
+	const {
+		state,
+		dispatch,
+		events,
+		registerFields,
+		registerOnSubmit,
+	} = useForm();
 
 	const disabled = boolean('Disabled', false);
-	console.log('File loaded :', fileLoaded);
+	const required = boolean('Required', false);
+	const label = text('Label', 'Image Upload Label');
+	const helperText = text('Helper text', 'Helper text');
+	const instructionText = text('Instruction text', 'Instruction text');
+	const showMenu = boolean('Show menu', true);
+	const withSetFocusCallback = boolean('With set focus callback', true);
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: 'imageUpload',
+					label,
+					type: 'imageUpload',
+					required,
+					disabled,
+					helperText,
+					instructionText,
+					inputSettings: {
+						options: showMenu && menuOptions,
+						handleSetFocus: withSetFocusCallback && handleSetFocus,
+					},
+				},
+			] as FieldDef<ImageUploadDef>[],
+		[required, disabled, showMenu, instructionText, helperText, label]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback(
+		(data) => {
+			alert(
+				'Form submitted with the following data: ' +
+				JSON.stringify(data, null, ' ')
+			);
+		},
+		[state.validForm]
+	);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
 
 	return (
 		<>
-			<Field
-				label={text('Label', 'Label')}
-				error={boolean('Error', false)}
-				errorText={text('Error text', '')}
-				required={boolean('Required', false)}
-				disabled={disabled}
-				instructionText={text('Instruction text', 'Instruction text')}
-				helperText={text('Helper text', 'Helper text')}
-				type='imageUpload'
-			>
-				<ImageUpload
-					disabled={disabled}
-					handleSetFocus={handleSetFocus}
-					handleImageCoordinates={handleImageCoordinates}
-					options={options}
-					setImgHeight={setImgHeight}
-					setImgWidth={setImgWidth}
-					uploadImage={uploadImage}
-				/>
-			</Field>
-			<p>Height: {imageHeight}</p>
-			<p>Width: {imageWidth}</p>
-			<p>Mouse position: {imageCoordinates.x} , {imageCoordinates.y}</p>
+			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<Form
+				title={text('Title', 'Form Title')}
+				description={text('Description', 'This is a description example')}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
+	);
+};
+
+const kitchenSinkFields = [
+	{
+		name: 'imageUploadWithMenu',
+		label: 'Image Upload with menu options',
+		type: 'imageUpload',
+		required: false,
+		disabled: false,
+		helperText: 'Helper text',
+		instructionText: 'Instruction text',
+		inputSettings: {
+			options: menuOptions,
+		},
+	},
+	{
+		name: 'imageUploadwithSetFocus',
+		label: 'Image Upload with set focus callback',
+		type: 'imageUpload',
+		required: false,
+		disabled: false,
+		helperText: 'Helper text',
+		instructionText: 'Instruction text',
+		inputSettings: {
+			handleSetFocus: handleSetFocus,
+		},
+	},
+	{
+		name: 'imageUploadDisabled',
+		label: 'Image Upload disabled',
+		type: 'imageUpload',
+		required: false,
+		disabled: true,
+		helperText: 'Helper text',
+		instructionText: 'Instruction text',
+	},
+] as FieldDef<ImageUploadDef>[];
+
+export const KitchenSink = (): ReactElement => {
+	const {
+		state,
+		dispatch,
+		events,
+		registerFields,
+		registerOnSubmit,
+	} = useForm();
+
+	useMemo(() => {
+		registerFields(kitchenSinkFields);
+	}, [kitchenSinkFields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' +
+			JSON.stringify(data, null, ' '));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<Form
+				title={'Form Title'}
+				description={'This is a description example'}
+				state={state}
+				fields={kitchenSinkFields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
 		</>
 	);
 };

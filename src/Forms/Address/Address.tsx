@@ -1,169 +1,66 @@
 import * as React from 'react';
-import { memo, ReactElement, useState, useMemo } from 'react';
+import { memo, ReactElement, useState } from 'react';
 
 // Components
+import AddressDrawer from './AddressDrawer';
 import Button from '@root/forms/Button';
-import FormFieldCheckbox from '@root/forms/FormFieldCheckbox';
-import FormFieldDropdownSingleSelection from '@root/forms/FormFieldDropdownSingleSelection';
-import Modal from '@root/components/Modal';
-import TextField from '@root/forms/FormFieldText';
-
-// Types
-import { AddressProps } from './AddressTypes';
+import Drawer from '@root/components/Drawer.jsx';
 
 // Styles
-import { AddAddressWrapper, FlexContainer, FlexContainerFields, StyledLabel } from './Address.styled';
-import { Sizes } from '@root/theme/sizes';
+import { AddAddressWrapper, FlexContainer } from './Address.styled';
 
 // Utils
-import * as countriesWithStates from './countriesStates.json';
 import AddressCard from './AddressCard';
+import { MosaicFieldProps } from '@root/components/Field';
+import { IAddress } from '.';
 
-const addressTypes = [
-	{
-		label: 'Physical',
-		value: 'physical',
-	},
-	{
-		label: 'Billing',
-		value: 'billing',
-	},
-	{
-		label: 'Shipping',
-		value: 'shipping',
-	},
-];
-
-const Address = (props: AddressProps): ReactElement => {
-	const { label } = props;
+const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => {
+	const {
+		value,
+		onBlur,
+		onChange,
+		fieldDef,
+	} = props;
 
 	// State variables
-	const [addresses, setAddresses] = useState([]);
 	const [open, setOpen] = useState(false);
-	const [countries, setCountries] = useState([]);
-	const [isEditing, setIsEditting] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [addressToEdit, setAddressToEdit] = useState(null)
 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
-	const [addressTypesChecked, setAddressTypesChecked] = useState([]);
-	const [selectedCountry, setSelectedCountry] = useState({
-		title: '',
-		value: {},
-	});
-	const [selectedState, setSelectedState] = useState({
-		title: '',
-		value: {}
-	});
-	const [textFields, setTextFields] = useState({
-		address: '',
-		city: '',
-		postalCode: '',
-	});
-
-	/**
-	 * Gets the lists of states options for the 
-	 * selected country
-	 */
-	const listOfStates = useMemo(() => {
-		if (selectedCountry?.title) {
-			return countriesWithStates
-				.find((country) => country.name === selectedCountry.title)
-				.states.map((state) => ({
-					title: state.name,
-					value: state,
-				}));
-		}
-		return [];
-	}, [selectedCountry?.title]);
-
-	/**
-	 * Sets the selected country of the dropdown and
-	 * resets the selected state.
-	 * @param _event 
-	 * @param option 
-	 */
-	const handleCountryChange = (_event, option) => {
-		setSelectedCountry(option);
-		setSelectedState({
-			title: '',
-			value: {}
-		})
-	};
-
-	/**
-	 * Set the selected state from its respective dropdown.
-	 * @param _event 
-	 * @param option 
-	 */
-	const handleStateChange = (_event, option) => {
-		setSelectedState(option);
-	};
-
-	/**
-	 * Sets the address types that are checked.
-	 * @param addressTypesChecked 
-	 */
-	const handleAddressTypeChange = (addressTypesChecked) => {
-		setAddressTypesChecked(addressTypesChecked);
-	};
-
-	let submitDisabled = true;
-
-	if (addressTypesChecked.length > 0) {
-		submitDisabled = false;
-	}
 
 	/**
 	 * Opens the modal to create an address card 
 	 * and sets editing mode to false.
 	 */
 	const addAddressHandler = () => {
-		setIsEditting(false);
+		setIsEditing(false);
 		setOpen(true);
-	};
-
-	/**
-	 * Closes the modal and resets the values for
-	 * form field.
-	 */
-	const handleClose = () => {
-		setTextFields({
-			address: '',
-			city: '',
-			postalCode: '',
-		});
-		setAddressTypesChecked([]);
-		setSelectedCountry({
-			title: '',
-			value: {}
-		});
-		setSelectedState({
-			title: '',
-			value: {}
-		});
-		setOpen(false);
-	};
-
-	/**
-	 * Handle value change for each text input
-	 * (i.e., address, city and postal code).
-	 * @param e 
-	 */
-	const handleTextFieldsChange = (e) => {
-		setTextFields({
-			...textFields,
-			[e.target.name]: e.target.value
-		});
 	};
 
 	/**
 	 * Removes the clicked address card from the list. 
 	 * @param addressToRemove 
 	 */
-	const removeAddressHandler = (addressIndex) => {
-		const listOfAddresses = [...addresses];
+	const removeAddressHandler = async (addressIndex: number) => {
+		const listOfAddresses = [...value];
 		listOfAddresses.splice(addressIndex, 1);
-		setAddresses(listOfAddresses);
+
+		if (listOfAddresses.length > 0) {
+			await onChange(listOfAddresses);
+		} else {
+			await onChange(undefined);
+		}
+	};
+
+	/**
+	 * Closes the modal and resets the values for
+	 * form field.
+	 */
+	const handleClose = async () => {
+		setOpen(false);
+		await onBlur();
 	};
 
 	/**
@@ -173,157 +70,66 @@ const Address = (props: AddressProps): ReactElement => {
 	 * @param addressToEdit 
 	 */
 	const showEditModal = (addressToEdit, addressIndex) => {
-		setTextFields({
-			address: addressToEdit.address,
-			city: addressToEdit.city,
-			postalCode: addressToEdit.postalCode,
+		const {
+			address1,
+			address2,
+			address3,
+			city,
+			postalCode,
+			types,
+			country,
+			state,
+		} = addressToEdit;
+
+		setAddressToEdit({
+			address1,
+			address2,
+			address3,
+			city,
+			postalCode,
+			types,
+			country,
+			state,
 		});
-		setAddressTypesChecked(addressToEdit.types);
-		setSelectedCountry(addressToEdit.country);
-		setSelectedState(addressToEdit.state);
+
 		setAddressIdx(addressIndex);
-		setIsEditting(true);
+		setIsEditing(true);
 		setOpen(true);
 	};
 
-	/**
-	 * Executed on the form submit if editing mode is true
-	 * @returns the list of addresses with the new updates
-	 */
-	const editAddress = () => {
-		const listOfAddresses = [...addresses];
-
-		listOfAddresses[addressIdx].address = textFields.address;
-		listOfAddresses[addressIdx].city = textFields.city;
-		listOfAddresses[addressIdx].postalCode = textFields.postalCode;
-		listOfAddresses[addressIdx].country = selectedCountry;
-		listOfAddresses[addressIdx].state = selectedState;
-		listOfAddresses[addressIdx].types = addressTypesChecked;
-
-		return listOfAddresses;
-	};
-
-	/**
-	 * Executed on the form submit if editing mode is false
-	 * @returns the lists of addresses with the new ones created
-	 */
-	const addNewAddress = () => {
-		const listOfAddresses = [...addresses];
-		const id = listOfAddresses.length + 1;
-		listOfAddresses.push({
-			id: id,
-			...textFields,
-			country: selectedCountry,
-			state: selectedState,
-			types: addressTypesChecked,
-		});
-		setIsEditting(false);
-
-		return listOfAddresses;
-	};
-
-	/**
-	 * Form submit handler. It adds or edits an address and closes the modal.
-	 * @param e 
-	 */
-	const handleFormSubmit = (e) => {
-		e.preventDefault();
-		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
-		setAddresses(listOfAddresses);
-		handleClose();
-	};
-
-	useMemo(() => {
-		setCountries(
-			countriesWithStates.map((country) => ({
-				title: country.name,
-				value: country,
-			}))
-		);
-	}, []);
-
 	return (
 		<div>
-			<StyledLabel>{label}</StyledLabel>
 			<FlexContainer>
 				<AddAddressWrapper>
-					<Button buttonType='secondary' onClick={addAddressHandler}>
+					<Button disabled={fieldDef.disabled} buttonType='secondary' onClick={addAddressHandler}>
 						ADD ADDRESS
 					</Button>
 				</AddAddressWrapper>
-				{addresses.map((address, idx) => (
-					<AddressCard key={`${address.address}-${idx}`} addressIndex={idx} address={address} onEdit={showEditModal} onRemoveAddress={removeAddressHandler}/>
+				{value && value.map((address, idx) => (
+					<AddressCard
+						key={`${idx}`}
+						address={address}
+						addressIndex={idx}
+						onEdit={showEditModal}
+						disabled={fieldDef.disabled}
+						onRemoveAddress={removeAddressHandler} />
 				))}
 			</FlexContainer>
-			<Modal
-				dialogTitle='Address Information'
-				form='address_form'
+			<Drawer
 				open={open}
 				onClose={handleClose}
-				primaryBtnLabel='Save'
-				secondaryAction={handleClose}
-				secondaryBtnLabel='Cancel'
-				submitDisabled={submitDisabled}
 			>
-				<form id='address_form' onSubmit={handleFormSubmit}>
-					<FormFieldDropdownSingleSelection
-						data-testid='countries-dropdown-test'
-						options={countries}
-						label='Country'
-						size={Sizes.sm}
-						onChange={handleCountryChange}
-						required
-						value={selectedCountry}
-					/>
-					<TextField
-						htmlFor='address'
-						id='address'
-						label='Address'
-						name='address'
-						size={Sizes.lg}
-						onChange={handleTextFieldsChange}
-						required
-						value={textFields.address}
-					/>
-					<FlexContainerFields>
-						<TextField
-							htmlFor='city'
-							id='city'
-							label='City'
-							name='city'
-							size={Sizes.sm}
-							onChange={handleTextFieldsChange}
-							required
-							value={textFields.city}
-						/>
-						<FormFieldDropdownSingleSelection
-							data-testid='states-dropdown-test'
-							options={listOfStates}
-							label='States'
-							onChange={handleStateChange}
-							size={Sizes.sm}
-							value={selectedState}
-						/>
-						<TextField
-							htmlFor='postalCode'
-							id='postalCode'
-							label='Postal Code'
-							name='postalCode'
-							size={Sizes.sm}
-							onChange={handleTextFieldsChange}
-							required
-							value={textFields.postalCode}
-						/>
-					</FlexContainerFields>
-					<FormFieldCheckbox
-						label='Type'
-						checked={addressTypesChecked}
-						options={addressTypes}
-						onChange={handleAddressTypeChange}
-						required
-					/>
-				</form>
-			</Modal>
+				<AddressDrawer
+					open={open}
+					value={value}
+					onChange={onChange}
+					isEditing={isEditing}
+					addressIdx={addressIdx}
+					handleClose={handleClose}
+					setIsEditing={setIsEditing}
+					addressToEdit={addressToEdit}
+				/>
+			</Drawer>
 		</div>
 	);
 };

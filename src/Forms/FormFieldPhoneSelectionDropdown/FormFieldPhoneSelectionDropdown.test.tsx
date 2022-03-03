@@ -1,91 +1,58 @@
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import * as React from 'react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { useState } from 'react';
+
+// Components
 import FormFieldPhoneSelectionDropdown from './FormFieldPhoneSelectionDropdown';
-import { CountryData } from './FormFieldPhoneSelectionDropdownTypes';
 
 afterEach(cleanup);
 
+const { getByText, queryByPlaceholderText } = screen;
+
+const FormFieldPhoneSelectionDropdownExample = () => {
+	const [value, setValue] = useState('No value');
+
+	const handleOnChange = async (value: string) => {
+		setValue(value);
+	};
+
+	return (
+		<>
+			<span>{value}</span>
+			<FormFieldPhoneSelectionDropdown
+				fieldDef={{
+					name: 'phoneSelectDropdown',
+					label: 'Label',
+					disabled: false,
+					inputSettings: { placeholder: 'Phone field placeholder' },
+				}}
+				error={'Error text'}
+				onChange={handleOnChange}
+				value={value}
+			/>
+		</>
+	);
+};
+
 describe('FormFieldPhoneSelectionDropdown component', () => {
-	it('should provide country data related with the entered value', () => {
-		const countryDataObj = '{"name":"Mexico","dialCode":"52","countryCode":"mx","format":"+.. ... ... ...."}';
-		const FormFieldPhoneSelectionDropdownExample = () => {
-			const [value, setValue] = useState('');
-			const [countryData, setCountryData] = useState('No country data');
-
-			const handleOnChange = (value: string, countryData: CountryData) => {
-				setValue(value);
-				setCountryData(JSON.stringify(countryData));
-			};
-
-			return (
-				<>
-					<span>{countryData}</span>
-					<FormFieldPhoneSelectionDropdown
-						disabled={false}
-						error={false}
-						errorText={'Error text'}
-						helperText={'Helper text'}
-						instructionText={'Instruction text'}
-						label={'Label'}
-						onChange={handleOnChange}
-						placeholder={'Placeholder'}
-						required={false}
-						value={value}
-					/>
-				</>
-			);
-		};
-
+	let phoneSelectionContainer;
+	beforeEach(() => {
 		const { container } = render(<FormFieldPhoneSelectionDropdownExample />);
+		phoneSelectionContainer = container;
+	});
 
-		const phoneInput = container.querySelector('.form-control');
-		
-		const noCountryData = screen.getByText('No country data')
-		expect(noCountryData).toBeDefined();
-		
+	it('should provide country data related with the entered value', () => {
+		const phoneInput = phoneSelectionContainer.querySelector('.form-control');
+
+		expect(getByText('No value')).toBeDefined();
+
 		fireEvent.change(phoneInput, { target: { value: '52345' } });
-		
-		const countryData = screen.getByText(countryDataObj)
-		expect(countryData).toBeDefined();
-	});
-});
 
-describe('FormFieldPhoneSelectionDropdown assistive elements', () => {
-	it('should display label, instructionText but not the errorText', () => {
-		render(
-			<FormFieldPhoneSelectionDropdown
-				label='Label'
-				error={false}
-				required={false}
-				instructionText='Instruction'
-				errorText='Error'
-			/>
-		);
-
-		const label = screen.getByText('Label');
-		const instructionText = screen.getByText('Instruction');
-		const errorText = screen.queryByText('Error');
-
-		expect(label).toBeDefined();
-		expect(instructionText).toBeDefined();
-		expect(errorText).toBe(null);
+		expect(getByText('52345')).toBeDefined();
 	});
 
-	it('should display the errorText', () => {
-		const {container} = render(
-			<FormFieldPhoneSelectionDropdown
-				label='Label'
-				error={true}
-				required={true}
-				errorText='Error text'
-			/>
-		);
-		const phoneInput = container.querySelector('.form-control') as HTMLInputElement;
-		const errorText = screen.queryByText('Error');
-    
-		expect(phoneInput.required).toBe(true);
-		expect(errorText).toBeDefined();
+	it('should display the placeholder', () => {
+		expect(queryByPlaceholderText('Phone field placeholder')).toBeTruthy();
 	});
 });
 
@@ -93,27 +60,68 @@ describe('FormFieldPhoneSelectionDropdown disabled state', () => {
 	it('should display "Phone field disabled" when no value is passed', () => {
 		render(
 			<FormFieldPhoneSelectionDropdown
-				label='Label'
-				disabled={true}
+				fieldDef={{
+					name: 'phoneSelectDropdown',
+					label: 'Label',
+					disabled: true,
+				}}
 			/>
 		);
 
-		const disabledText = screen.getByText('Phone field disabled');
-
-		expect(disabledText).toBeDefined();
+		expect(getByText('Phone field disabled')).toBeDefined();
 	});
 
 	it('should display "Phone value:" text plus the value', () => {
 		render(
 			<FormFieldPhoneSelectionDropdown
-				label='Label'
-				disabled={true}
+				fieldDef={{
+					name: 'phoneSelectDropdown',
+					label: 'Label',
+					disabled: true,
+				}}
 				value='345'
 			/>
 		);
 
-		const disabledText = screen.getByText('Phone value: 345');
+		expect(getByText('Phone value: 345')).toBeDefined();
+	});
+});
 
-		expect(disabledText).toBeDefined();
+describe('FormFieldPhoneSelectionDropdown country code prop', () => {
+	it('should display US phone number prefix when no country code is provided ', () => {
+		const { container } = render(
+			<FormFieldPhoneSelectionDropdown
+				fieldDef={{
+					name: 'phoneSelectDropdown',
+					label: 'Label',
+				}}
+			/>
+		);
+
+		const phoneInput = container.querySelector(
+			'.form-control'
+		) as HTMLInputElement;
+
+		expect(phoneInput.value).toBe('+1');
+	});
+
+	it('should display the phone number prefix of the country code provided', () => {
+		const { container } = render(
+			<FormFieldPhoneSelectionDropdown
+				fieldDef={{
+					name: 'phoneSelectDropdown',
+					label: 'Label',
+					inputSettings: {
+						country: 'mx',
+					},
+				}}
+			/>
+		);
+
+		const phoneInput = container.querySelector(
+			'.form-control'
+		) as HTMLInputElement;
+
+		expect(phoneInput.value).toBe('+52');
 	});
 });

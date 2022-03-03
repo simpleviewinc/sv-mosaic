@@ -3,36 +3,25 @@ import { ReactElement } from 'react';
 
 // Components
 import RadioButton from '@root/components/RadioButton';
-import { Label } from '@root/components/Typography';
-import FieldWrapper from '@root/components/FieldWrapper';
-import InstructionText from '@root/components/InstructionText';
-import InputWrapper from '@root/components/InputWrapper';
 
 // Types and styles
-import { FormFieldRadioProps } from './FormFieldRadioTypes';
-import { RadioGroupWrapper, StyledRadioGroup } from './FormFieldRadio.styled';
-import HelperText from '@root/components/HelperText';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldRadioDef } from './FormFieldRadioTypes';
+import { StyledRadioGroup } from './FormFieldRadio.styled';
 
-const FormFieldRadio = (props: FormFieldRadioProps): ReactElement => {
+const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef>): ReactElement => {
 	const {
-		disabled,
-		error,
-		errorText,
-		instructionText,
-		label,
-		required,
+		fieldDef,
 		onChange,
-		options,
 		value,
+		onBlur,
 	} = props;
-
-	const errorField = error && required;
 
 	const listOfRadios = (
 		<>
-			{options.map((option) => (
+			{fieldDef?.inputSettings?.options.map((option) => (
 				<RadioButton
-					disabled={disabled}
+					disabled={fieldDef?.disabled}
 					key={option.label}
 					label={option.label}
 					value={option.value}
@@ -42,20 +31,13 @@ const FormFieldRadio = (props: FormFieldRadioProps): ReactElement => {
 	);
 
 	return (
-		<InputWrapper>
-			<FieldWrapper error={errorField}>
-				<Label disabled={disabled} required={required}>
-					{label}
-				</Label>
-				<RadioGroupWrapper instructionText={instructionText}>
-					<StyledRadioGroup onChange={onChange} value={value}>
-						{listOfRadios}
-					</StyledRadioGroup>
-				</RadioGroupWrapper>
-				{errorText && errorField && <HelperText error>{errorText}</HelperText>}
-			</FieldWrapper>
-			{instructionText && <InstructionText>{instructionText}</InstructionText>}
-		</InputWrapper>
+		<StyledRadioGroup
+			onChange={(e) => onChange && onChange(e.target.value)}
+			value={value}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
+		>
+			{listOfRadios}
+		</StyledRadioGroup>
 	);
 };
 

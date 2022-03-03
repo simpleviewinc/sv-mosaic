@@ -1,10 +1,9 @@
-import { FieldProps } from "@root/components/Field";
 import { MosaicLabelValue } from "@root/types";
 
-export interface FormFieldChipSingleSelectProps extends FieldProps {
+export type FormFieldChipSingleSelectDef = {
 	/**
-   * Array of objects containing each of the options to be displayed within the dropdown.
-   */
+  * Array of objects containing each of the options to be displayed within the dropdown.
+  */
 	options: SelectableOption[];
 	/**
 	 * Function to be executed as callback when an option is selected 
