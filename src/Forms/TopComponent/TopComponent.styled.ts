@@ -129,6 +129,7 @@ export const DesktopTitleActionsRow = styled(FlexContainer)`
 export const MobileColumn = styled(Column)`
   border-bottom: 2px solid ${theme.colors.gray200};
   font-family: ${theme.fontFamily};
+  width: 100%;
 `;
 
 export const MobileActionsRow = styled(Row)`
