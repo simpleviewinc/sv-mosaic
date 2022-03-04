@@ -831,7 +831,7 @@ describe('DISPATCHERS: resetForm', () => {
 	runTests(tests, 'dispatch');
 });
 
-describe('DISPATCHERS: loadForm', () => {
+describe('DISPATCHERS: prepopulateForm', () => {
 	const tests = [
 		{
 			name: 'Prepopulates fields with data',
@@ -846,7 +846,7 @@ describe('DISPATCHERS: loadForm', () => {
 						{ name: 'field2', value: 'value2' },
 					]
 				},
-				action: 'loadForm',
+				action: 'prepopulateForm',
 				calls: [
 					{
 						type: 'FORM_START_DISABLE',

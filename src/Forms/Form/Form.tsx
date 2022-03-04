@@ -31,14 +31,29 @@ const Form = (props: FormProps) => {
 	} = props;
 
 	useEffect(() => {
-		const loadForm = async () => {
+		const loadForm = async (loadCb) => {
 			await dispatch(
-				actions.loadForm()
+				actions.prepopulateForm({
+					callback: loadCb
+				})
 			);
 		}
 
-		if (onLoad)
-			loadForm();
+		if (onLoad) {
+			loadForm(onLoad);
+		} else {
+			let defaultValues = {};
+
+			fields.forEach(field => {
+				if (field.defaultValue)
+					defaultValues = {
+						...defaultValues,
+						[field.name]: field.defaultValue
+					}
+			});
+
+			loadForm(() => defaultValues);
+		}
 	}, [onLoad]);
 
 	const submit = async (e) => {
