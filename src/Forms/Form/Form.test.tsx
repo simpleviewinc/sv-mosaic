@@ -841,12 +841,14 @@ describe('DISPATCHERS: prepopulateForm', () => {
 						{ name: 'field1' },
 						{ name: 'field2' },
 					],
-					onLoad: () => [
-						{ name: 'field1', value: 'value1' },
-						{ name: 'field2', value: 'value2' },
-					]
 				},
 				action: 'prepopulateForm',
+				args: [{
+					callback: () => ({
+						'field1': 'value1',
+						'field2': 'value2',
+					})
+				}],
 				calls: [
 					{
 						type: 'FORM_START_DISABLE',
