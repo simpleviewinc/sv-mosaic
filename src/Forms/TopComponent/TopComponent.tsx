@@ -6,6 +6,8 @@ import Button from '@root/forms/Button';
 import FormNav from '@root/forms/FormNav';
 import Tooltip from '@root/components/Tooltip';
 import Checkbox from '@root/components/Checkbox';
+import MobileView from './Views/MobileView';
+import DrawerView from './Views/DrawerView';
 
 // Types and Utils
 import { BREAKPOINTS } from '@root/theme/theme';
@@ -62,6 +64,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const [isMobileView, setIsMobileView] = useState(false);
 	const [isBigView, setIsBigView] = useState(false);
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+	const [view, setView] = useState('DRAWER');
 
 	const handleCloseTooltip = () => {
 		setTooltipIsOpen(false);
@@ -237,38 +240,76 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		</>
 	);
 
-	const mobileView = (
-		<MobileColumn>
-			<MobileActionsRow>
-				<StyledClearIcon onClick={onCancel} />
-				{submitButton}
-			</MobileActionsRow>
-			<MobileTitleRow>
-				<FormTitle>{title}</FormTitle>
-				<Description>{description}</Description>
-			</MobileTitleRow>
-			{(showActive || tooltipInfo) && (
-				<MobileCheckboxHelpIconRow>
-					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
-					{tooltipInfo && helpIcon}
-				</MobileCheckboxHelpIconRow>
-			)}
-			{children}
-		</MobileColumn>
-	);
+	// const mobileView = (
+	// 	<>
+	// 		<MobileColumn>
+	// 			<MobileActionsRow>
+	// 				<StyledClearIcon onClick={onCancel} />
+	// 				{submitButton}
+	// 			</MobileActionsRow>
+	// 			<MobileTitleRow>
+	// 				<FormTitle>{title}</FormTitle>
+	// 				<Description>{description}</Description>
+	// 			</MobileTitleRow>
+	// 			{(showActive || tooltipInfo) && (
+	// 				<MobileCheckboxHelpIconRow>
+	// 					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
+	// 					{tooltipInfo && helpIcon}
+	// 				</MobileCheckboxHelpIconRow>
+	// 			)}
+	// 		</MobileColumn>
+	// 		{children}
+	// 	</>
+	// );
+
+	const RenderView = () => {
+		if (view === 'MOBILE') {
+			console.log('entering');
+			return (
+				<MobileView
+					onCancel={onCancel}
+					submitButton={submitButton}
+					title={title}
+					description={description}
+					showActive={showActive}
+					tooltipInfo={tooltipInfo}
+					helpIcon={helpIcon}
+					checkbox={checkbox}
+				/>
+			);
+		}
+		if (view === 'DRAWER') return (
+			<DrawerView
+				type={type}
+				onCancel={onCancel}
+				title={title}
+				tooltipInfo={tooltipInfo}
+				helpIcon={helpIcon}
+				buttons={buttons}
+			/>
+		);
+		// if (view === 'RESPONSIVE') return <ResponsiveView />
+		// if (view === 'DESKTOP') return <DesktopView />
+	}
 
 	return (
-		<>
-			{isMobileView ? (
-				mobileView
-			)
-				:
-				type === 'drawer' ? drawerView : (
-					<div style={{ width: '100%' }}>
-						{isResponsiveView ? responsiveView : desktopView}
-					</div>
-				)}
-		</>
+		// <>
+		// 	{isMobileView ? (
+		// 		mobileView
+		// 	)
+		// 		:
+		// 		type === 'drawer' ? drawerView : (
+		// 			<div style={{ width: '100%' }}>
+		// 				{isResponsiveView ? responsiveView : desktopView}
+		// 			</div>
+		// 		)}
+		// </>
+		//Add theme family directly into the div.
+		<div>
+			{<RenderView />}
+			{type === 'drawer' ? <div style={{ padding: '0px 40px' }}>{children}</div> : children}
+
+		</div>
 	);
 };
 
