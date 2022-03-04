@@ -203,14 +203,14 @@ export const actions = {
 			});
 		}
 	},
-	loadForm() {
+	prepopulateForm({ callback }) {
 		return async (dispatch, getState, extraArgs) => {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
 
-			const fieldData = await extraArgs.onLoad();
+			const fieldData = await callback();
 
 			for (let [key, value] of Object.entries(fieldData)) {
 				await dispatch(
@@ -272,9 +272,9 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 		extraArgs.current.onSubmit = fn;
 	}, []);
 
-	const registerOnLoad = useCallback((fn) => {
-		extraArgs.current.onLoad = fn;
-	}, []);
+	// const registerOnLoad = useCallback((fn) => {
+	// 	extraArgs.current.onLoad = fn;
+	// }, []);
 
 	return {
 		events,
@@ -282,7 +282,7 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 		dispatch,
 		registerFields,
 		registerOnSubmit,
-		registerOnLoad,
+		// registerOnLoad,
 	};
 }
 
