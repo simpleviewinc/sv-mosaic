@@ -40,7 +40,7 @@ const Modal = (props: ModalProps): ReactElement => {
 	useEffect(() => {
 		const loadForm = async () => {
 			await dispatch(
-				actions.loadForm()
+				actions.prepopulateForm({ callback: onLoad })
 			);
 		}
 
