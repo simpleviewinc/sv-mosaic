@@ -36,7 +36,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
-	const { state, dispatch, events, registerFields, registerOnSubmit, registerOnLoad } = useForm();
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -424,16 +424,16 @@ export const Playground = (): ReactElement => {
 	];
 
 	const onLoad = useCallback(async () => {
-		await new Promise((res) => setTimeout(res, 2000));
+		// await new Promise((res) => setTimeout(res, 2000));
 
 		return {
 			...prepopulateValues
 		};
 	}, [prepopulateValues]);
 
-	useMemo(() => {
-		registerOnLoad(onLoad);
-	}, [onLoad, registerOnLoad]);
+	// useMemo(() => {
+	// 	registerOnLoad(onLoad);
+	// }, [onLoad, registerOnLoad]);
 
 	useMemo(() => {
 		registerFields(fields);
@@ -1052,6 +1052,55 @@ export const Validators = (): ReactElement => {
 					label: "URL",
 					type: 'text',
 					validators: [validateURL]
+				},
+			] as FieldDef<TextFieldDef>[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title='Validators story'
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onSubmit={onSubmit}
+				onCancel={onCancel}
+			/>
+		</>
+	);
+};
+
+export const DefaultValues = (): ReactElement => {
+	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "required",
+					label: "Required",
+					type: 'text',
+					required: true,
+					defaultValue: 'Passing default value',
 				},
 			] as FieldDef<TextFieldDef>[],
 		[]
