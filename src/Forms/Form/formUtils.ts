@@ -5,72 +5,88 @@ import { joinReducers, useThunkReducer } from "./utils";
 import { SectionDef } from "./FormTypes";
 import { required } from "./validators";
 
-export function coreReducer(state, action) {
+type State = {
+	data: any;
+	touched: unknown;
+	errors: any;
+	validating: any;
+	custom: unknown;
+	validForm: boolean;
+	disabled: unknown;
+}
+
+type Action = {
+	type: string;
+	value: any;
+	name: string;
+}
+
+export function coreReducer(state: State, action: Action): State {
 	switch (action.type) {
-		case "FIELD_ON_CHANGE":
-			return {
-				...state,
-				data: {
-					...state.data,
-					[action.name]: action.value
-				}
-			};
-		case "FIELD_START_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: null
-				},
-				validating: {
-					...state.validating,
-					[action.name]: true
-				}
-			};
-		case "FIELD_END_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: action.value
-				},
-				validating: {
-					...state.validating,
-					[action.name]: undefined
-				}
-			};
-		case "FORM_START_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_END_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_VALIDATE":
-			return {
-				...state,
-				validForm: action.value
-			};
-		case "FORM_RESET":
-			return {
-				...state,
-				data: {},
-				touched: {},
-				errors: {},
-				validating: {},
-				custom: {},
-				validForm: false,
-				disabled: null
+	case "FIELD_ON_CHANGE":
+		return {
+			...state,
+			data: {
+				...state.data,
+				[action.name]: action.value
 			}
-		default:
-			return state;
+		};
+	case "FIELD_START_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: null
+			},
+			validating: {
+				...state.validating,
+				[action.name]: true
+			}
+		};
+	case "FIELD_END_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: action.value
+			},
+			validating: {
+				...state.validating,
+				[action.name]: undefined
+			}
+		};
+	case "FORM_START_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_END_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_VALIDATE":
+		return {
+			...state,
+			validForm: action.value
+		};
+	case "FORM_RESET":
+		return {
+			...state,
+			data: {},
+			touched: {},
+			errors: {},
+			validating: {},
+			custom: {},
+			validForm: false,
+			disabled: null
+		}
+	default:
+		return state;
 	}
 }
 
-async function runValidators(validators, value) {
+async function runValidators(validators: any[], value: unknown): Promise<unknown> {
 	for (const validator of validators) {
 		const result = await validator(value);
 		if (result) {
@@ -82,8 +98,8 @@ async function runValidators(validators, value) {
 }
 
 export const actions = {
-	setFieldValue({ name, value, validate = false }) {
-		return async function (dispatch) {
+	setFieldValue({ name, value, validate = false } : { name: string; value: unknown; validate?: boolean }) {
+		return async function (dispatch): Promise<void> {
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
 				name,
@@ -95,8 +111,8 @@ export const actions = {
 			}
 		};
 	},
-	validateField({ name }) {
-		return async function (dispatch, getState, extraArgs) {
+	validateField({ name }: { name: string }) {
+		return async function (dispatch, getState, extraArgs): Promise<void> {
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			let validators = extraArgs?.fieldMap[name]?.validators;
 
@@ -130,8 +146,8 @@ export const actions = {
 			}
 		};
 	},
-	copyFieldToField({ from, to }) {
-		return async function (dispatch, getState) {
+	copyFieldToField({ from, to } : { from: any;  to: string}) {
+		return async function (dispatch, getState): Promise<void> {
 			const fromValue = getState().data[from];
 			dispatch(
 				actions.setFieldValue({
@@ -142,7 +158,7 @@ export const actions = {
 		};
 	},
 	validateForm({ fields }) {
-		return async (dispatch, getState) => {
+		return async function(dispatch, getState): Promise<boolean> {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
@@ -151,7 +167,7 @@ export const actions = {
 			const touchedFields = getState().data;
 
 			for (let i = 0; i < fields.length; i++) {
-				let currFieldName = fields[i].name;
+				const currFieldName = fields[i].name;
 				(!!touchedFields[currFieldName] === false ||
 					Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === 'object') &&
 					await dispatch(
@@ -161,7 +177,7 @@ export const actions = {
 
 			let validForm = true;
 
-			let errors = getState().errors;
+			const errors = getState().errors;
 			Object.entries(errors).forEach(([key, value]) => {
 				if (value !== undefined)
 					validForm = false;
@@ -183,11 +199,11 @@ export const actions = {
 		}
 	},
 	submitForm() {
-		return async (dispatch, getState, extraArgs) => {
+		return async function(dispatch, getState, extraArgs): Promise<void> {
 			if (getState().disabled)
 				return;
 
-			let isValid = await dispatch(
+			const isValid = await dispatch(
 				actions.validateForm({ fields: extraArgs.fields })
 			);
 
@@ -197,14 +213,14 @@ export const actions = {
 		}
 	},
 	resetForm() {
-		return async (dispatch) => {
+		return async function(dispatch): Promise<void> {
 			dispatch({
 				type: "FORM_RESET",
 			});
 		}
 	},
-	prepopulateForm({ callback }) {
-		return async (dispatch, getState, extraArgs) => {
+	prepopulateForm({ callback } : { callback: () => any }) {
+		return async function(dispatch): Promise<void> {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
@@ -212,7 +228,7 @@ export const actions = {
 
 			const fieldData = await callback();
 
-			for (let [key, value] of Object.entries(fieldData)) {
+			for (const [key, value] of Object.entries(fieldData)) {
 				await dispatch(
 					actions.setFieldValue({
 						name: key,
@@ -229,11 +245,19 @@ export const actions = {
 	}
 };
 
-export function useForm({ customReducer }: { customReducer?: ((state: any, action: any) => any)[] } = {}) {
+type UseFormReturn = {
+	events: any;
+	state: any;
+	dispatch: any;
+	registerFields: (fields: any[]) => void;
+	registerOnSubmit: (fn: any) => void;
+}
+
+export function useForm({ customReducer }: { customReducer?: ((state: State, action: Action) => any)[] } = {}): UseFormReturn {
 	const extraArgs = useRef({
 		fields: [],
 		fieldMap: {},
-		onSubmit: () => { },
+		onSubmit: () => undefined,
 		onLoad: () => [{ name: '', value: '' }],
 	});
 	const reducer = useMemo(() => {
@@ -272,17 +296,12 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 		extraArgs.current.onSubmit = fn;
 	}, []);
 
-	// const registerOnLoad = useCallback((fn) => {
-	// 	extraArgs.current.onLoad = fn;
-	// }, []);
-
 	return {
 		events,
 		state,
 		dispatch,
 		registerFields,
 		registerOnSubmit,
-		// registerOnLoad,
 	};
 }
 
@@ -290,7 +309,7 @@ const isEmpty = (arr) => {
 	return Array.isArray(arr) && (arr.length === 0 || arr.every(isEmpty));
 };
 
-export const generateLayout = ({ sections, fields }: { sections?: any, fields: any }) => {
+export const generateLayout = ({ sections, fields }: { sections?: any, fields: any }): SectionDef[] => {
 	let customLayout: SectionDef[] = [];
 
 	if (sections) {

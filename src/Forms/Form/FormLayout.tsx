@@ -1,16 +1,21 @@
+import { FieldDef } from '@root/components/Field';
 import * as React from 'react';
 import { useMemo, memo } from 'react';
+import { SectionDef } from './FormTypes';
 import { generateLayout } from './formUtils';
+
+// Components
 import Section from './Section';
 
-const FormLayout = (props) => {
-	const {
-		state,
-		dispatch,
-		fields,
-		sections,
-		formType,
-	} = props;
+interface FormLayoutProps {
+  state: any;
+  dispatch: any;
+  fields: FieldDef[];
+  sections: SectionDef[];
+}
+
+const FormLayout = (props: FormLayoutProps) => {
+	const { state, dispatch, fields, sections } = props;
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });
@@ -20,7 +25,6 @@ const FormLayout = (props) => {
 		<>
 			{layout?.map((section, i) => (
 				<Section
-					id={section.title}
 					key={i}
 					title={section.title}
 					description={section.description}
@@ -28,7 +32,6 @@ const FormLayout = (props) => {
 					fieldsLayoutPos={section.fields}
 					state={state}
 					dispatch={dispatch}
-					formType={formType}
 				/>
 			))}
 		</>

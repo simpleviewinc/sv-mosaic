@@ -17,7 +17,7 @@ export type DropdownSingleSelectionDef = {
 	options: Option[],
 }
 
-type Option = {
+export type Option = {
 	title: string;
 	[key: string]: any;
 }

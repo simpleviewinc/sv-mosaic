@@ -58,6 +58,6 @@ export interface FormButtonProps extends HTMLAttributes<HTMLButtonElement> {
 	 */
 	buttonType?: ButtonType;
 
-	type?: any;
+	type?: string;
 	style?: HTMLAttributes<HTMLButtonElement>['style'];
 }
