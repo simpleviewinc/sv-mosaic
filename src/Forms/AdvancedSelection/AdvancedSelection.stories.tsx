@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useMemo } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 // Components
-import { AdvancedSelectionDef, optionsWithCategory } from '.';
+import { AdvancedSelectionDef } from '.';
 import Form from '../Form/Form';
 import { FieldDef } from '@root/components/Field';
 import { useForm } from '../Form/formUtils';
@@ -12,10 +12,6 @@ export default {
 	title: 'Forms|AdvancedSelection',
 	decorators: [withKnobs],
 };
-
-// const externalOptions: optionsWithCategory[] = [
-
-// ];
 
 const additionalOptions = [
 	{
@@ -101,9 +97,7 @@ const additionalOptions = [
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const [options, setOptions] = useState<optionsWithCategory[]>(additionalOptions ? additionalOptions : []);
-
-	const modalTitle = text('Modal title', 'Modal title');
+	const options = additionalOptions ? additionalOptions : [];
 	const label = text('Label', 'Label');
 	const required = boolean('Required', false);
 	const disabled = boolean('Disabled', false);
@@ -172,7 +166,6 @@ export const Playground = (): ReactElement => {
 					instructionText,
 					type: 'advancedSelection',
 					inputSettings: {
-						modalTitle,
 						checkboxOptions: !shouldUseGetOptions ? options : undefined,
 						getOptions: shouldUseGetOptions ? getOptions : undefined,
 						getOptionsLimit: (shouldUseGetOptions && getOptionsLimit) ? getOptionsLimit : undefined,
@@ -188,7 +181,6 @@ export const Playground = (): ReactElement => {
 			disabled,
 			helperText,
 			instructionText,
-			modalTitle,
 			getOptionsLimit,
 			options,
 			shouldUseGetOptions,
@@ -230,7 +222,7 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const [options, setOptions] = useState<optionsWithCategory[]>(additionalOptions ? additionalOptions : []);
+	const options = additionalOptions ? additionalOptions : [];
 
 	const getOptions = async ({ limit, filter, offset }) => {
 		let internalOptionsArr = [...additionalOptions];
@@ -288,7 +280,6 @@ export const KitchenSink = (): ReactElement => {
 					label: 'Advanced selection with checkboxOptions prop',
 					type: 'advancedSelection',
 					inputSettings: {
-						modalTitle: 'CheckboxOptions prop',
 						checkboxOptions: options,
 						getSelected,
 					}
@@ -298,7 +289,6 @@ export const KitchenSink = (): ReactElement => {
 					label: 'Advanced selection with getOptions prop',
 					type: 'advancedSelection',
 					inputSettings: {
-						modalTitle: 'GetOptions prop',
 						getOptions,
 						getOptionsLimit: 5,
 						getSelected,
@@ -310,7 +300,6 @@ export const KitchenSink = (): ReactElement => {
 					label: 'Advanced selection with createNewOption prop',
 					type: 'advancedSelection',
 					inputSettings: {
-						modalTitle: 'createNewOption prop',
 						checkboxOptions: options,
 						getOptionsLimit: 10,
 						getSelected,
