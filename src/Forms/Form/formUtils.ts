@@ -113,7 +113,7 @@ export const actions = {
 				validators.unshift(required);
 			}
 
-			dispatch({
+			await dispatch({
 				type: "FIELD_START_VALIDATE",
 				name
 			});
@@ -122,7 +122,7 @@ export const actions = {
 			const currentValue = getState().data[name];
 
 			if (startValue === currentValue) {
-				dispatch({
+				await dispatch({
 					type: "FIELD_END_VALIDATE",
 					name,
 					value: result
@@ -133,7 +133,7 @@ export const actions = {
 	copyFieldToField({ from, to }) {
 		return async function (dispatch, getState) {
 			const fromValue = getState().data[from];
-			dispatch(
+			await dispatch(
 				actions.setFieldValue({
 					name: to,
 					value: fromValue
@@ -147,6 +147,8 @@ export const actions = {
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
+
+			await new Promise((res) => setTimeout(res, 2000));
 
 			const touchedFields = getState().data;
 
@@ -172,8 +174,6 @@ export const actions = {
 				value: validForm,
 			});
 
-			await new Promise((res) => setTimeout(res, 2000));
-
 			await dispatch({
 				type: "FORM_END_DISABLE",
 				value: false,
@@ -198,7 +198,7 @@ export const actions = {
 	},
 	resetForm() {
 		return async (dispatch) => {
-			dispatch({
+			await dispatch({
 				type: "FORM_RESET",
 			});
 		}

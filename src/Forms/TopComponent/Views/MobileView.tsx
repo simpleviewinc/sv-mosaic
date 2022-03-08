@@ -3,20 +3,19 @@ import { memo, ReactElement } from 'react';
 
 // Styled components
 import styled from 'styled-components';
-import { CheckboxWrapper, Column, Description, FormTitle, Row, StyledClearIcon } from '../TopComponent.styled';
+import {
+	CheckboxWrapper,
+	Row,
+} from '../TopComponent.styled';
+
+// MUI
+import ClearIcon from '@material-ui/icons/Clear';
 
 // Utils
-import theme, { BREAKPOINTS } from '@root/theme/theme';
+import theme from '@root/theme/theme';
+import TitleWrapper from '../Utils/TitleWrapper';
 
-// Mobile view styles
-
-// export const MobileColumn = styled(Column)`
-//   border-bottom: 2px solid ${theme.colors.gray200};
-//   font-family: ${theme.fontFamily};
-//   width: 100%;
-// `;
-
-export const MobileActionsRow = styled(Row)`
+const MobileActionsRow = styled(Row)`
   background-color: ${theme.colors.gray200};
   padding: 12px 20px;
   position: sticky;
@@ -29,11 +28,11 @@ export const MobileActionsRow = styled(Row)`
   }
 `;
 
-export const MobileTitleRow = styled(Row)`
-  padding: 20px 20px;
+const StyledClearIcon = styled(ClearIcon)`
+  color: ${theme.colors.almostBlack};
 `;
 
-export const MobileCheckboxHelpIconRow = styled(Row)`
+const MobileCheckboxHelpIconRow = styled(Row)`
   padding: 0 20px 20px 20px;
 `;
 
@@ -55,10 +54,11 @@ const MobileView = (props): ReactElement => {
 				<StyledClearIcon onClick={onCancel} />
 				{submitButton}
 			</MobileActionsRow>
-			<MobileTitleRow>
-				<FormTitle>{title}</FormTitle>
-				<Description>{description}</Description>
-			</MobileTitleRow>
+			<TitleWrapper
+				title={title}
+				description={description}
+				view={'MOBILE'}
+			/>
 			{(showActive || tooltipInfo) && (
 				<MobileCheckboxHelpIconRow>
 					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
