@@ -219,7 +219,7 @@ export const actions = {
 			});
 		}
 	},
-	prepopulateForm({ callback } : { callback: () => any }) {
+	prepopulateForm({ callback } : { callback: () => unknown }) {
 		return async function(dispatch): Promise<void> {
 			await dispatch({
 				type: "FORM_START_DISABLE",
