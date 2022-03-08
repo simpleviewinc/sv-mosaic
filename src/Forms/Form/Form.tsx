@@ -1,19 +1,10 @@
 import * as React from 'react';
 import { memo, useEffect } from 'react';
-import styled from 'styled-components';
-import { StyledDisabledForm } from './Form.styled';
+import { StyledDisabledForm, StyledForm } from './Form.styled';
 import { FormProps } from './FormTypes';
 import { actions } from './formUtils';
 import FormLayout from './FormLayout';
 import TopComponent from '../TopComponent';
-
-
-const StyledForm = styled.form`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 100%;
-`;
 
 const Form = (props: FormProps) => {
 	const {
@@ -68,19 +59,25 @@ const Form = (props: FormProps) => {
 		onCancel();
 	}
 
+	//THIS IS PRINTING ONCE PER FIELD
+	// console.log(state.disabled);
+	// display: ${pr => pr.disabled ? 'block' : 'none'};
+
 	return (
-		<>
-			<StyledDisabledForm disabled={state?.disabled ? state.disabled : false} />
+		<div style={{ position: 'relative' }}>
+			{state.disabled &&
+				<StyledDisabledForm disabled={!!state?.disabled} />
+			}
 			<StyledForm>
 				{title ?
 					<TopComponent
 						title={title}
 						type={type}
 						description={description}
-						onCancel={(e) => cancel(e)}
-						cancelButtonAttrs={cancelButtonAttrs}
 						onSubmit={(e) => submit(e)}
 						submitButtonAttrs={submitButtonAttrs}
+						onCancel={(e) => cancel(e)}
+						cancelButtonAttrs={cancelButtonAttrs}
 						sections={sections}
 					>
 						<FormLayout
@@ -99,7 +96,7 @@ const Form = (props: FormProps) => {
 					/>
 				}
 			</StyledForm>
-		</>
+		</div>
 	);
 }
 

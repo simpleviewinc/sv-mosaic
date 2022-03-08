@@ -3,16 +3,21 @@ import { memo, ReactElement } from 'react';
 
 // Styled components
 import styled from 'styled-components';
-import { FormTitle, ResponsiveButtonsWrapper, Row, StyledColumn } from '../TopComponent.styled';
+import {
+	ButtonsWrapper,
+	Row,
+	StyledColumn
+} from '../TopComponent.styled';
 
 // Material UI
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 // Utils
-import theme, { BREAKPOINTS } from '@root/theme/theme';
+import theme from '@root/theme/theme';
+import { FormTitle } from '../Utils/TitleWrapper';
 
-export const DrawerViewColumn = styled(StyledColumn)`
+const DrawerViewColumn = styled(StyledColumn)`
   background-color: ${theme.colors.grayHover};
   box-shadow: none;
   display: flex;
@@ -20,10 +25,6 @@ export const DrawerViewColumn = styled(StyledColumn)`
   justify-content: space-between;
   padding: 20px;
   z-index: 9999;
-`;
-
-export const DrawerSectionWrapper = styled.div`
-  padding: 0px 40px;
 `;
 
 const DrawerView = (props): ReactElement => {
@@ -54,7 +55,7 @@ const DrawerView = (props): ReactElement => {
 					<FormTitle type={type}>{title}</FormTitle>
 					{tooltipInfo && helpIcon}
 				</Row>
-				<ResponsiveButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ResponsiveButtonsWrapper>
+				<ButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ButtonsWrapper>
 			</DrawerViewColumn>
 		</>
 	);

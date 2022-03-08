@@ -8,6 +8,8 @@ import Tooltip from '@root/components/Tooltip';
 import Checkbox from '@root/components/Checkbox';
 import MobileView from './Views/MobileView';
 import DrawerView from './Views/DrawerView';
+import ResponsiveView from './Views/ResponsiveView';
+import DesktopView from './Views/DesktopView';
 
 // Types and Utils
 import { BREAKPOINTS } from '@root/theme/theme';
@@ -15,33 +17,15 @@ import { TopComponentProps } from './TopComponentTypes';
 
 // Styles
 import {
-	CheckboxWrapper,
-	Description,
-	DesktopViewColumn,
-	DesktopActionsRow,
-	DesktopTitleActionsRow,
-	FlexContainer,
-	FormTitle,
-	MobileColumn,
-	MobileActionsRow,
-	MobileTitleRow,
-	MobileCheckboxHelpIconRow,
-	NavSectionsWrapper,
-	ResponsiveActionsRow,
-	ResponsiveButtonsWrapper,
-	ResponsiveViewColumn,
 	Row,
 	StyledHelpIcon,
-	StyledClearIcon,
 	StyledHelpIconWrapper,
-	TitleWrapper,
-	DrawerViewColumn,
-	DrawerSectionWrapper,
+	FormContent,
 } from './TopComponent.styled';
 
-// Material UI
-import { IconButton } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+const responsiveBreakpoint = BREAKPOINTS.topComponent.responsiveView;
+const mobileBreakpoint = BREAKPOINTS.mobile;
+const bigScreenBreakpoint = BREAKPOINTS.topComponent.bigScreenView;
 
 const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
@@ -60,11 +44,9 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 
 	// State variables
 	const [activeChecked, setActiveChecked] = useState(false);
-	const [isResponsiveView, setIsResponsiveView] = useState(false);
-	const [isMobileView, setIsMobileView] = useState(false);
 	const [isBigView, setIsBigView] = useState(false);
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-	const [view, setView] = useState('DRAWER');
+	const [view, setView] = useState(null);
 
 	const handleCloseTooltip = () => {
 		setTooltipIsOpen(false);
@@ -78,26 +60,53 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		setActiveChecked(!activeChecked);
 	};
 
+	const debounce = (func, timeout = 300) => {
+		let timer;
+		return (...args) => {
+			clearTimeout(timer);
+			timer = setTimeout(() => { func.apply(this, args); }, timeout);
+		};
+	}
+
+	const setResponsivenessDebounced = debounce(() => setResponsiveness());
+
 	useEffect(() => {
-		const setResponsiveness = () => {
-			setIsResponsiveView(
-				window.innerWidth < BREAKPOINTS.topComponent.responsiveView
-			);
-			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
-			setIsBigView(window.innerWidth > BREAKPOINTS.topComponent.bigScreenView);
-		};
+		if (type === 'drawer') {
+			setView('DRAWER');
+		} else {
+			// setResponsiveness();
+			setResponsivenessDebounced();
+			window.addEventListener('resize', setResponsiveness);
 
-		setResponsiveness();
-		window.addEventListener('resize', setResponsiveness);
-
-		return () => {
-			window.removeEventListener('resize', setResponsiveness);
-		};
+			return () => {
+				window.removeEventListener('resize', setResponsiveness);
+			};
+		}
 	}, []);
+
+	const setResponsiveness = () => {
+		const innerWidth = window.innerWidth;
+		if (innerWidth < mobileBreakpoint) {
+			setView('MOBILE');
+		} else if (innerWidth < responsiveBreakpoint && innerWidth >= mobileBreakpoint) {
+			setView('RESPONSIVE');
+
+		} else if (innerWidth > bigScreenBreakpoint) {
+			setView('DESKTOP');
+		} else {
+			setView('DESKTOP');
+		}
+
+		setIsBigView(innerWidth > bigScreenBreakpoint);
+	};
 
 	const submitButton = useMemo(
 		() => (
-			<Button buttonType='primary' onClick={onSubmit} {...submitButtonAttrs}>
+			<Button
+				buttonType='primary'
+				onClick={onSubmit}
+				{...submitButtonAttrs}
+			>
 				{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Save'}
 			</Button>
 		),
@@ -136,7 +145,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			<StyledHelpIconWrapper
 				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
 				showActive={showActive}
-				isResponsiveView={isResponsiveView}
+				isResponsiveView={view === 'RESPONSIVE'}
 			>
 				<Tooltip
 					open={tooltipIsOpen}
@@ -150,7 +159,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		),
 		[
 			showActive,
-			isResponsiveView,
+			view,
 			tooltipInfo,
 			setTooltipIsOpen,
 			tooltipIsOpen,
@@ -159,157 +168,73 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		]
 	);
 
-	const desktopView = (
-		<>
-			<DesktopViewColumn>
-				<DesktopTitleActionsRow>
-					<TitleWrapper>
-						<FormTitle>{title}</FormTitle>
-						<Description>{description}</Description>
-					</TitleWrapper>
-					<DesktopActionsRow>
-						{tooltipInfo && helpIcon}
-						{showActive && checkbox}
-						{buttons}
-					</DesktopActionsRow>
-				</DesktopTitleActionsRow>
-				{(!isBigView && sections) && (
-					<FlexContainer>
-						<FormNav sections={sections} />
-					</FlexContainer>
-				)}
-			</DesktopViewColumn>
-			{isBigView ? (
-				<Row>
-					{sections &&
-						<FormNav sections={sections} />
-					}
-					<NavSectionsWrapper>{children}</NavSectionsWrapper>
-				</Row>
-			) : (
-				<>
-					<NavSectionsWrapper>{children}</NavSectionsWrapper>
-				</>
-			)}
-		</>
-	);
-
-	const drawerView = (
-		<>
-			<DrawerViewColumn type={type}>
-				<Row>
-					{onCancel && (
-						<IconButton
-							data-testid='close-icon'
-							aria-label='close'
-							disableRipple
-							onClick={onCancel}
-							style={{ marginRight: '8px' }}
-						>
-							<CloseIcon />
-						</IconButton>
-					)}
-					<FormTitle type={type}>{title}</FormTitle>
-					{tooltipInfo && helpIcon}
-				</Row>
-				<ResponsiveButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ResponsiveButtonsWrapper>
-			</DrawerViewColumn>
-			<DrawerSectionWrapper>{children}</DrawerSectionWrapper>
-		</>
-	);
-
-	const responsiveView = (
-		<>
-			<ResponsiveViewColumn>
-				<Row>
-					<TitleWrapper>
-						<FormTitle>{title}</FormTitle>
-						<Description>{description}</Description>
-					</TitleWrapper>
-					{tooltipInfo && helpIcon}
-				</Row>
-				<ResponsiveActionsRow showActive={showActive}>
-					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
-					<ResponsiveButtonsWrapper>{buttons}</ResponsiveButtonsWrapper>
-				</ResponsiveActionsRow>
-				{sections &&
-					<FormNav sections={sections} />
-				}
-			</ResponsiveViewColumn>
-			<NavSectionsWrapper>{children}</NavSectionsWrapper>
-		</>
-	);
-
-	// const mobileView = (
-	// 	<>
-	// 		<MobileColumn>
-	// 			<MobileActionsRow>
-	// 				<StyledClearIcon onClick={onCancel} />
-	// 				{submitButton}
-	// 			</MobileActionsRow>
-	// 			<MobileTitleRow>
-	// 				<FormTitle>{title}</FormTitle>
-	// 				<Description>{description}</Description>
-	// 			</MobileTitleRow>
-	// 			{(showActive || tooltipInfo) && (
-	// 				<MobileCheckboxHelpIconRow>
-	// 					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
-	// 					{tooltipInfo && helpIcon}
-	// 				</MobileCheckboxHelpIconRow>
-	// 			)}
-	// 		</MobileColumn>
-	// 		{children}
-	// 	</>
-	// );
-
 	const RenderView = () => {
-		if (view === 'MOBILE') {
-			console.log('entering');
-			return (
-				<MobileView
-					onCancel={onCancel}
-					submitButton={submitButton}
-					title={title}
-					description={description}
-					showActive={showActive}
-					tooltipInfo={tooltipInfo}
-					helpIcon={helpIcon}
-					checkbox={checkbox}
-				/>
-			);
-		}
+		if (view === 'MOBILE') return (
+			<MobileView
+				title={title}
+				description={description}
+				helpIcon={helpIcon}
+				checkbox={checkbox}
+				onCancel={onCancel}
+				submitButton={submitButton}
+				showActive={showActive}
+				tooltipInfo={tooltipInfo}
+			/>
+		);
 		if (view === 'DRAWER') return (
 			<DrawerView
+				title={title}
 				type={type}
 				onCancel={onCancel}
-				title={title}
 				tooltipInfo={tooltipInfo}
 				helpIcon={helpIcon}
 				buttons={buttons}
 			/>
 		);
-		// if (view === 'RESPONSIVE') return <ResponsiveView />
-		// if (view === 'DESKTOP') return <DesktopView />
+		if (view === 'RESPONSIVE') return (
+			<ResponsiveView
+				title={title}
+				description={description}
+				showActive={showActive}
+				tooltipInfo={tooltipInfo}
+				helpIcon={helpIcon}
+				checkbox={checkbox}
+				buttons={buttons}
+				sections={sections}
+			/>
+		);
+		if (view === 'DESKTOP') return (
+			<DesktopView
+				title={title}
+				description={description}
+				showActive={showActive}
+				tooltipInfo={tooltipInfo}
+				helpIcon={helpIcon}
+				checkbox={checkbox}
+				buttons={buttons}
+				sections={sections}
+				isBigView={isBigView}
+			/>
+		);
+
+		return null;
 	}
 
 	return (
-		// <>
-		// 	{isMobileView ? (
-		// 		mobileView
-		// 	)
-		// 		:
-		// 		type === 'drawer' ? drawerView : (
-		// 			<div style={{ width: '100%' }}>
-		// 				{isResponsiveView ? responsiveView : desktopView}
-		// 			</div>
-		// 		)}
-		// </>
-		//Add theme family directly into the div.
-		<div>
-			{<RenderView />}
-			{type === 'drawer' ? <div style={{ padding: '0px 40px' }}>{children}</div> : children}
+		<>
+			<RenderView />
+			{isBigView ? (
+				<Row>
+					{sections &&
+						<FormNav sections={sections} />
+					}
+					<FormContent view={view}>{children}</FormContent>
+				</Row>
+			) : (
+				<FormContent view={view}>{children}</FormContent>
+			)}
 
-		</div>
+		</>
 	);
 };
 
