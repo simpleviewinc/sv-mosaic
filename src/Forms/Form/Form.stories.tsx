@@ -898,7 +898,7 @@ export const DrawerForm = (): ReactElement => {
 				onClose={onCancel}
 			>
 				<Form
-					title={'yes'}
+					title='Drawer form example'
 					type='drawer'
 					state={state}
 					dispatch={dispatch}
