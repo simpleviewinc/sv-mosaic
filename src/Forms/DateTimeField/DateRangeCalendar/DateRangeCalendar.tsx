@@ -7,7 +7,7 @@ import {
 	DateRangeCalendarWrapper,
 	StyledSpan,
 } from './DateRangeCalendar.styled';
-import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
+import { DateTimePickerWrapper } from '../DateField/DateField.styled';
 import HelperText from '@root/components/Field/HelperText';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';

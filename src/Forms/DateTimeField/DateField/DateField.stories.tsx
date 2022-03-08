@@ -8,7 +8,7 @@ import { useForm } from '@root/forms/Form/formUtils';
 import Form from '../../Form/Form';
 
 export default {
-	title: 'Forms|SingleDateCalendar',
+	title: 'Forms|DateField',
 	decorators: [withKnobs],
 };
 
@@ -25,11 +25,12 @@ export const Playground = (): ReactElement => {
 		registerOnSubmit
 	} = useForm();
 
-	const label = text('Label', 'Single Date Picker');
+	const label = text('Label', 'Date Field Picker');
 	const helperText = text('Helper text', 'Helper text');
 	const instructionText = text('Instruction text', 'Instruction text');
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
+	const showTime = boolean('Show time', false)
 
 	const fields = useMemo(
 		() => [
@@ -41,9 +42,12 @@ export const Playground = (): ReactElement => {
 				disabled,
 				helperText,
 				instructionText,
+				inputSettings: {
+					showTime
+				}
 			}
 		] as FieldDef[],
-		[label, required, disabled, helperText, instructionText]
+		[label, required, disabled, helperText, instructionText, showTime]
 	)
 
 	useMemo(() => {
@@ -80,3 +84,9 @@ export const Playground = (): ReactElement => {
 		</>
 	);
 };
+
+export const KitchenSink = (): ReactElement => {
+	return (
+		<h1>KitchenSink</h1>
+	)
+}
