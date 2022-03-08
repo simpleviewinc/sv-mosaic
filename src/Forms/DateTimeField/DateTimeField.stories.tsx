@@ -6,7 +6,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 // Components
 import DatePicker, { DatePickerDef } from './DatePicker';
 import DateRangeCalendar from './DateRangeCalendar';
-import SingleCalendar from './SingleDateCalendar';
+/* import DateField from './DateField'; */
 import TimePicker from './TimePicker';
 import TimeInput from './TimeInput';
 import DateTimeInput from './DateTimeInput';
@@ -68,11 +68,11 @@ export const SingleCalendarExample = (): ReactElement => {
 	);
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
-	const [selectedDate, setSelectedDate] = useState(new Date());
+	/* const [selectedDate, setSelectedDate] = useState(new Date()); */
 
-	const handleDateChange = async (date: Date | null) => {
+	/* const handleDateChange = async (date: Date | null) => {
 		setSelectedDate(date);
-	};
+	}; */
 
 	return (
 		<Field
@@ -86,7 +86,7 @@ export const SingleCalendarExample = (): ReactElement => {
 			}}
 			error={error}
 		>
-			<SingleCalendar
+			{/* <DateField
 				fieldDef={{
 					name: 'singleCalendar',
 					label: '',
@@ -96,7 +96,7 @@ export const SingleCalendarExample = (): ReactElement => {
 				error={error}
 				onChange={handleDateChange}
 				value={selectedDate}
-			/>
+			/> */}
 		</Field>
 	);
 };
@@ -109,16 +109,16 @@ export const DateRangeCalendarExample = (): ReactElement => {
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 	);
 	const required = boolean('Required', false);
-	const [selectedDateFrom, setSelectedDateFrom] = useState(new Date());
-	const [selectedDateTo, setSelectedDateTo] = useState(new Date());
+	/* const [selectedDateFrom, setSelectedDateFrom] = useState(new Date());
+	const [selectedDateTo, setSelectedDateTo] = useState(new Date()); */
 
-	const handleDateChangeFrom = (date: Date | null) => {
+	/* const handleDateChangeFrom = (date: Date | null) => {
 		setSelectedDateFrom(date);
 	};
 
 	const handleDateChangeTo = (date: Date | null) => {
 		setSelectedDateTo(date);
-	};
+	}; */
 
 	return (
 		<Field
@@ -199,16 +199,16 @@ export const DateTimeInputExample = (): ReactElement => {
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 	);
 	const required = boolean('Required', false);
-	const [selectedDate, setSelectedDate] = useState(new Date());
-	const [selectedTime, setSelectedTime] = useState(new Date());
+	/* const [selectedDate, setSelectedDate] = useState(new Date());
+	const [selectedTime, setSelectedTime] = useState(new Date()); */
 
-	const handleDateChange = (date: Date | null) => {
+	/* const handleDateChange = (date: Date | null) => {
 		setSelectedDate(date);
 	};
 
 	const handleTimeChange = (date: Date | null) => {
 		setSelectedTime(date);
-	};
+	}; */
 
 	return (
 		<Field

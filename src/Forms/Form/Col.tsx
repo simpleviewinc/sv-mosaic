@@ -14,7 +14,7 @@ import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
 import Field from '@root/components/Field';
 import ImageVideoLinkDocumentBrowsing from '../ImageVideoLinkDocumentBrowsing';
 import ColorPicker from '../ColorPicker';
-import SingleDateCalendar from '../DateTimeField/SingleDateCalendar';
+import DateField from '../DateTimeField/DateField';
 import DateRangeCalendar from '../DateTimeField/DateRangeCalendar';
 import TimeInput from '../DateTimeField/TimeInput';
 import DateTimeInput from '../DateTimeField/DateTimeInput';
@@ -59,7 +59,7 @@ const Col = (props) => {
 		toggleSwitch: FormFieldToggleSwitch,
 		imageVideoDocumentLink: ImageVideoLinkDocumentBrowsing,
 		color: ColorPicker,
-		date: SingleDateCalendar,
+		date: DateField,
 		dateRange: DateRangeCalendar,
 		time: TimeInput,
 		dateTime: DateTimeInput,

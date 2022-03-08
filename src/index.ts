@@ -132,8 +132,8 @@ export * from "./forms/TopComponent";
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
 
-export { default as SingleDateCalendar } from "./forms/DateTimeField/SingleDateCalendar";
-export * from "./forms/DateTimeField/SingleDateCalendar";
+export { default as DateField } from "./forms/DateTimeField/DateField";
+export * from "./forms/DateTimeField/DateField";
 
 export { default as Snackbar } from "./components/Snackbar";
 export * from "./components/Snackbar";

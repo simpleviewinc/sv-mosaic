@@ -17,6 +17,10 @@ export type DateTimeInputDef = {
 	 * Value of the time picker
 	 */
 	timeValue: Date;
+	/**
+	 * Value to trigger time field
+	 */
+	showTime: boolean;
 };
 
 // export interface DateTimeInputProps extends InputPickerProps {

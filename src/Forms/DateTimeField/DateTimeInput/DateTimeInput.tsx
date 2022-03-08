@@ -7,7 +7,7 @@ import HelperText from '@root/components/Field/HelperText';
 import TimePicker from '../TimePicker';
 
 // Styles Components
-import { DateTimePickerWrapper } from '../SingleDateCalendar/SingleDateCalendar.styled';
+import { DateTimePickerWrapper } from '../DateField/DateField.styled';
 import { DateTimeInputRow } from './DateTimeInput.styled';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';
