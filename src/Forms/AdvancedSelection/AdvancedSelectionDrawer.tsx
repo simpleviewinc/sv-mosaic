@@ -74,10 +74,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		};
 	}
 
-	const a = debounce(async () => await getMoreOptions());
+	const getMoreOptionsDebounced = debounce(async () => await getMoreOptions());
 
 	useEffect(() => {
-		a();
+		getMoreOptionsDebounced();
 	}, [filter]);
 
 	useEffect(() => {
@@ -88,7 +88,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		} else {
 			setFilter({ prev: filter.new, new: 'options' });
 		}
-
 	}, [state?.data?.searchInput]);
 
 	const loadMoreOptions = () => {

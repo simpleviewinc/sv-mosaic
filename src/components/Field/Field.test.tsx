@@ -20,6 +20,7 @@ describe('Field component label, helper text and instructional text', () => {
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
 				}}
+				colsInRow={1}
 			>
 				<FormFieldText
 					fieldDef={{
@@ -28,7 +29,6 @@ describe('Field component label, helper text and instructional text', () => {
 						helperText: 'Helper text',
 						instructionText: 'Instruction text',
 					}}
-
 				/>
 			</Field>
 		);
@@ -57,6 +57,7 @@ describe('Field component error text and the helper text', () => {
 					helperText: 'Helper text',
 				}}
 				error='Error text'
+				colsInRow={1}
 			>
 				<FormFieldText
 					fieldDef={{
@@ -83,6 +84,7 @@ describe('Field component error text and the helper text', () => {
 					helperText: 'Helper text',
 				}}
 				error=''
+				colsInRow={1}
 			>
 				<FormFieldText
 					fieldDef={{
@@ -119,6 +121,7 @@ describe('Field char counter', () => {
 						maxCharacters: 20,
 					}}
 					value={inputValue}
+					colsInRow={1}
 				>
 					<FormFieldText
 						fieldDef={{

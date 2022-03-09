@@ -37,16 +37,16 @@ const Modal = (props: ModalProps): ReactElement => {
 
 	const [isMobileView, setIsMobileView] = useState(false);
 
-	useEffect(() => {
-		const loadForm = async () => {
-			await dispatch(
-				actions.prepopulateForm({ callback: onLoad })
-			);
-		}
+	// useEffect(() => {
+	// 	const loadForm = async () => {
+	// 		await dispatch(
+	// 			actions.prepopulateForm({ callback: onLoad })
+	// 		);
+	// 	}
 
-		if (onLoad)
-			loadForm();
-	}, [onLoad]);
+	// 	if (onLoad)
+	// 		loadForm();
+	// }, [onLoad]);
 
 	useEffect(() => {
 		const setResponsiveness = () => {

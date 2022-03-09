@@ -12,6 +12,7 @@ const Field = ({
 	children,
 	error,
 	fieldDef,
+	colsInRow,
 	value,
 }: MosaicFieldProps<any>): ReactElement => {
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
@@ -34,21 +35,25 @@ const Field = ({
 	};
 
 	useEffect(() => {
-		handleDescriptionRender();
+		if (colsInRow === 1) {
+			handleDescriptionRender();
 
-		let timeoutId: any = 150;
-		const resizeListener = () => {
-			if (timeoutId) {
-				clearTimeout(timeoutId);
-				timeoutId = setTimeout(() => handleDescriptionRender(), 150);
-			}
-		};
+			let timeoutId: any = 150;
+			const resizeListener = () => {
+				if (timeoutId) {
+					clearTimeout(timeoutId);
+					timeoutId = setTimeout(() => handleDescriptionRender(), 150);
+				}
+			};
 
-		window.addEventListener("resize", resizeListener);
+			window.addEventListener("resize", resizeListener);
 
-		return () => {
-			window.removeEventListener("resize", resizeListener);
-		};
+			return () => {
+				window.removeEventListener("resize", resizeListener);
+			};
+		} else {
+			setRenderAsTooltip(true);
+		}
 	}, []);
 
 	const renderBottomText = () => {
@@ -101,7 +106,7 @@ const Field = ({
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{fieldDef?.instructionText && fieldDef?.type !== 'table' &&
+			{(fieldDef?.instructionText && fieldDef?.type !== 'table' && colsInRow === 1) &&
 				<InstructionText
 					ref={description}
 					tooltip={renderAsTooltip}

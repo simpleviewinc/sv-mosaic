@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { boolean, withKnobs, text } from '@storybook/addon-knobs';
+import { boolean, withKnobs, text, select } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/addon-docs/blocks';
 
 // Components
@@ -66,84 +66,85 @@ export const Example = (): ReactElement => {
 				sections={sections}
 				showActive={boolean('Show Active', true)}
 				tooltipInfo={withInfoIcon && text('Tooltip info', 'Tooltip info')}
+				view={select('View', ['MOBILE', 'DRAWER', 'RESPONSIVE', 'DESKTOP', 'BIG_DESKTOP'], 'RESPONSIVE')}
 			>
 				<div>
 					<Section id='section1' className='section'>
 						<h1>Account Profile</h1>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 					</Section>
 					<Section id='section2' className='section'>
 						<h1>Account Information</h1>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 					</Section>
 					<Section id='section3' className='section'>
 						<h1>Contact Information</h1>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 					</Section>
 					<Section id='section4' className='section'>
 						<h1>Address Information</h1>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 					</Section>
 					<Section id='section5' className='section'>
 						<h1>Tags and User</h1>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 					</Section>
 					<Section id='section6' className='section'>
 						<h1>Connections</h1>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 						<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
 						</p>
 					</Section>
 				</div>
