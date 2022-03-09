@@ -1,9 +1,8 @@
-import { useMemo, useRef, useCallback } from "react";
+import { useMemo, useRef, useCallback, useReducer } from "react";
 import { EventEmitter } from "eventemitter3";
-
-import { joinReducers, useThunkReducer } from "./utils";
 import { SectionDef } from "./FormTypes";
 import { required } from "./validators";
+import { MosaicObject } from "@root/types";
 
 type State = {
 	data: any;
@@ -129,7 +128,7 @@ export const actions = {
 				validators.unshift(required);
 			}
 
-			dispatch({
+			await dispatch({
 				type: "FIELD_START_VALIDATE",
 				name
 			});
@@ -138,7 +137,7 @@ export const actions = {
 			const currentValue = getState().data[name];
 
 			if (startValue === currentValue) {
-				dispatch({
+				await dispatch({
 					type: "FIELD_END_VALIDATE",
 					name,
 					value: result
@@ -149,7 +148,7 @@ export const actions = {
 	copyFieldToField({ from, to } : { from: any;  to: string}) {
 		return async function (dispatch, getState): Promise<void> {
 			const fromValue = getState().data[from];
-			dispatch(
+			await dispatch(
 				actions.setFieldValue({
 					name: to,
 					value: fromValue
@@ -163,6 +162,8 @@ export const actions = {
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
+
+			await new Promise((res) => setTimeout(res, 2000));
 
 			const touchedFields = getState().data;
 
@@ -188,8 +189,6 @@ export const actions = {
 				value: validForm,
 			});
 
-			await new Promise((res) => setTimeout(res, 2000));
-
 			await dispatch({
 				type: "FORM_END_DISABLE",
 				value: false,
@@ -214,21 +213,19 @@ export const actions = {
 	},
 	resetForm() {
 		return async function(dispatch): Promise<void> {
-			dispatch({
+			await dispatch({
 				type: "FORM_RESET",
 			});
 		}
 	},
-	prepopulateForm({ callback } : { callback: () => unknown }) {
+	setFormValues({ values } : { values: MosaicObject }) {
 		return async function(dispatch): Promise<void> {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
 
-			const fieldData = await callback();
-
-			for (const [key, value] of Object.entries(fieldData)) {
+			for (const [key, value] of Object.entries(values)) {
 				await dispatch(
 					actions.setFieldValue({
 						name: key,
@@ -367,3 +364,43 @@ export const generateLayout = ({ sections, fields }: { sections?: any, fields: a
 		return customLayout;
 	}
 };
+
+export function joinReducers(...reducers) {
+	return function (state, action) {
+		let newState = state;
+		for (const reducer of reducers) {
+			newState = reducer(newState, action);
+		}
+		return newState;
+	};
+}
+
+export function useThunkReducer(reducer, initialState, extraArgs) {
+	const lastState = useRef(initialState);
+	const getState = useCallback(() => {
+		const state = lastState.current;
+		return state;
+	}, []);
+	const enhancedReducer = useCallback(
+		(state, action) => {
+			const newState = reducer(state, action);
+			lastState.current = newState;
+			return newState;
+		},
+		[reducer]
+	);
+	const [state, dispatch] = useReducer(enhancedReducer, initialState);
+
+	const customDispatch = useCallback(
+		(action) => {
+			if (typeof action === "function") {
+				return action(customDispatch, getState, extraArgs);
+			} else {
+				return dispatch(action);
+			}
+		},
+		[getState, extraArgs]
+	);
+
+	return [state, customDispatch];
+}

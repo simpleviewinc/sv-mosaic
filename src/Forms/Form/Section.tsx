@@ -10,7 +10,7 @@ import Row from './Row';
 const StyledSection = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: calc(100% - 4px); //LAYOUT: Could be reused.
 	border: ${pr => !pr.hasTitle ? '2px solid transparent' : `2px solid ${theme.colors.grayHover}`};
 	margin-bottom: ${pr => !pr.hasTitle ? '0px' : '40px'};
 
