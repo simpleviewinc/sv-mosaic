@@ -1,8 +1,10 @@
-import theme from '@root/theme';
 import * as React from 'react';
 import { memo } from 'react';
+import theme from '@root/theme';
 import styled from 'styled-components';
+import { FieldDef } from '@root/components/Field';
 
+// Components
 import Row from './Row';
 
 const StyledSection = styled.div`
@@ -40,7 +42,16 @@ const StyledTitle = styled.h1`
 	font-weight: 500;
 `;
 
-const Section = (props) => {
+interface SectionPropTypes {
+	title: string;
+	description: string | JSX.Element;
+	fieldsDef: FieldDef[];
+	fieldsLayoutPos: (string | FieldDef)[][][]
+	dispatch: any;
+	state: any;
+}
+
+const Section = (props: SectionPropTypes) => {
 	const {
 		title,
 		description,
@@ -48,7 +59,6 @@ const Section = (props) => {
 		fieldsLayoutPos,
 		dispatch,
 		state,
-		formType,
 	} = props;
 
 	return (
@@ -64,7 +74,6 @@ const Section = (props) => {
 							state={state}
 							fieldsDef={fieldsDef}
 							dispatch={dispatch}
-							formType={formType}
 						/>
 					))}
 				</StyledRows>

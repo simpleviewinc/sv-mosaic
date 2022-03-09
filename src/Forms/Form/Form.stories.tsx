@@ -314,7 +314,6 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						modalTitle: 'Advanced Selection Modal title',
 						checkboxOptions: externalOptions,
 						getSelected,
 						createNewOption
