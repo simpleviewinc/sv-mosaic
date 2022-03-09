@@ -206,7 +206,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 							<CloseIcon />
 						</IconButton>
 					)}
-					<FormTitle type={type}>{title}</FormTitle>
+					<FormTitle type={type} data-testid='drawer-title-test'>{title}</FormTitle>
 					{tooltipInfo && helpIcon}
 				</Row>
 				<ResponsiveButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ResponsiveButtonsWrapper>

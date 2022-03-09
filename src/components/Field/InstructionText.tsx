@@ -24,4 +24,6 @@ const InstructionText = forwardRef((props: InstructionText, ref): ReactElement =
 	);
 });
 
+InstructionText.displayName = 'InstructionText';
+
 export default InstructionText;
