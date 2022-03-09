@@ -1,19 +1,14 @@
 import * as React from 'react';
 import { memo, useEffect } from 'react';
-import styled from 'styled-components';
-import { StyledDisabledForm } from './Form.styled';
+import { StyledDisabledForm, StyledForm } from './Form.styled';
 import { FormProps } from './FormTypes';
 import { actions } from './formUtils';
 import FormLayout from './FormLayout';
 import TopComponent from '../TopComponent';
-
-
-const StyledForm = styled.form`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 100%;
-`;
+import { FormContent, Row } from '../TopComponent/TopComponent.styled';
+import FormNav from '../FormNav';
+import { useWindowResizer } from './utils';
+import { MosaicObject } from '@root/types';
 
 const Form = (props: FormProps) => {
 	const {
@@ -25,36 +20,40 @@ const Form = (props: FormProps) => {
 		dispatch,
 		state,
 		onCancel,
-		onLoad,
+		getFormValues,
 		cancelButtonAttrs,
 		submitButtonAttrs,
 	} = props;
 
+	const { view } = useWindowResizer(type);
+
 	useEffect(() => {
-		const loadForm = async (loadCb) => {
-			await dispatch(
-				actions.prepopulateForm({
-					callback: loadCb
-				})
-			);
-		}
+		const loadFormValues = async () => {
+			let values: MosaicObject;
 
-		if (onLoad) {
-			loadForm(onLoad);
-		} else {
-			let defaultValues = {};
-
-			fields.forEach(field => {
-				if (field.defaultValue)
-					defaultValues = {
-						...defaultValues,
-						[field.name]: field.defaultValue
+			if (getFormValues) {
+				values = await getFormValues();
+			} else {
+				fields.forEach(field => {
+					if (field.defaultValue) {
+						values = {
+							...values,
+							[field.name]: field.defaultValue
+						};
 					}
-			});
+				});
+			}
 
-			loadForm(() => defaultValues);
+			if (values)
+				await dispatch(
+					actions.setFormValues({
+						values
+					})
+				);
 		}
-	}, [onLoad]);
+
+		loadFormValues();
+	}, [getFormValues]);
 
 	const submit = async (e) => {
 		e.preventDefault();
@@ -69,37 +68,50 @@ const Form = (props: FormProps) => {
 	}
 
 	return (
-		<>
-			<StyledDisabledForm disabled={state?.disabled ? state.disabled : false} />
+		<div style={{ position: 'relative' }}>
+			{state.disabled &&
+				<StyledDisabledForm />
+			}
 			<StyledForm>
-				{title ?
+				{title &&
 					<TopComponent
 						title={title}
 						type={type}
 						description={description}
-						onCancel={(e) => cancel(e)}
-						cancelButtonAttrs={cancelButtonAttrs}
 						onSubmit={(e) => submit(e)}
 						submitButtonAttrs={submitButtonAttrs}
+						onCancel={(e) => cancel(e)}
+						cancelButtonAttrs={cancelButtonAttrs}
 						sections={sections}
-					>
+						view={view}
+					/>
+				}
+				{view === 'BIG_DESKTOP' ? (
+					<Row>
+						{sections &&
+							<FormNav sections={sections} />
+						}
+						<FormContent view={view}>
+							<FormLayout
+								state={state}
+								dispatch={dispatch}
+								fields={fields}
+								sections={sections}
+							/>
+						</FormContent>
+					</Row>
+				) : (
+					<FormContent view={view}>
 						<FormLayout
 							state={state}
 							dispatch={dispatch}
 							fields={fields}
 							sections={sections}
 						/>
-					</TopComponent>
-					:
-					<FormLayout
-						state={state}
-						dispatch={dispatch}
-						fields={fields}
-						sections={sections}
-					/>
-				}
+					</FormContent>
+				)}
 			</StyledForm>
-		</>
+		</div>
 	);
 }
 
