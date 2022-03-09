@@ -133,7 +133,6 @@ const Modal = (props: ModalProps): ReactElement => {
 					{isMobileView ? displayMobile : displayDesktop}
 					<DialogContent>
 						<FormLayout
-							formType='modal'
 							state={state}
 							dispatch={dispatch}
 							fields={fields}

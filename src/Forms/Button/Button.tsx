@@ -15,7 +15,6 @@ const Button = (props: FormButtonProps): ReactElement => {
 		iconPosition = 'left',
 		onClick,
 		smallerButton,
-		// form,
 		type = 'button',
 		style
 	} = props;

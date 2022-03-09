@@ -1,6 +1,6 @@
-import { Option } from './FormFieldCheckboxTypes'
+import { CheckboxOption } from './FormFieldCheckboxTypes'
 
-export const checkboxOptions: Option[] = [
+export const checkboxOptions: CheckboxOption[] = [
 	{
 		label: 'Label 1',
 		value: 'label_1',
