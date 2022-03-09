@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useCallback, useEffect, useMemo } from 'react';
-import { MapCoordinatesModalProps } from '..';
+import { MapCoordinatesDrawerProps } from '..';
 import { FieldDef } from '@root/components/Field/FieldTypes';
 import { MapPosition } from '../MapCoordinatesTypes';
 
@@ -24,7 +24,7 @@ const sections = [
 	}
 ];
 
-const MapCoordinatesDrawer = (props: MapCoordinatesModalProps): ReactElement => {
+const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement => {
 	const {
 		fieldDef,
 		handleClose,
