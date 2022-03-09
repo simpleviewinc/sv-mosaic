@@ -31,7 +31,7 @@ const TextArea = (
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			disabled={fieldDef?.disabled}
 			multiline
-			fieldSize={fieldDef?.inputSettings?.size}
+			fieldSize={fieldDef?.size}
 			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
 			required={fieldDef?.required}
 		/>
