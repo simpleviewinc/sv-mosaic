@@ -11,7 +11,7 @@ const saveCallback = jest.fn();
 
 const sections = [
 	{
-		name: 'Account Profile',
+		title: 'Account Profile',
 		id: 'section1',
 	},
 ];
@@ -81,9 +81,7 @@ describe('TopComponent elements that are conditionally rendered', () => {
 				sections={sections}
 				showActive={true}
 				view='DESKTOP'
-			>
-				<></>
-			</TopComponent>
+			/>
 		);
 
 		const helpIcon = screen.queryByTestId('tooltip-test-id');
@@ -101,9 +99,7 @@ describe('TopComponent elements that are conditionally rendered', () => {
 				sections={sections}
 				showActive={false}
 				view='DESKTOP'
-			>
-				<></>
-			</TopComponent>
+			/>
 		);
 
 		const activeCheckbox = screen.queryByTestId('checkbox-test-id');
