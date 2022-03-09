@@ -46,6 +46,7 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 		if (!isNaN(date?.valueOf())) {
 			
 			const dateString = date.toISOString();
+			const splitDate = dateString.split('T') || [];
 			
 			if (!showTime) {
 				newValue = dateString;
@@ -57,11 +58,9 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 					if (required) {
 						if (position === 0 && timeInput) {
 							const splitTimeInput = timeInput.split('T') || [];
-							const splitDate = dateString.split('T') || [];
 							newValue = `${splitDate[0]}T${splitTimeInput[1]}`
 						} else if (position === 1 && dateInput) {
 							const splitDateInput = dateInput.split('T') || [];
-							const splitDate = dateString.split('T') || [];
 							newValue = `${splitDateInput[0]}T${splitDate[1]}`
 						} else {
 							newValue = undefined;
@@ -71,7 +70,6 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 					}
 				} else {
 					const splitNewValue = newValue.split('T') || [];
-					const splitDate = dateString.split('T') || [];
 					
 					if (position === 0) {
 						newValue = `${splitDate[0]}T${splitNewValue[1]}`
