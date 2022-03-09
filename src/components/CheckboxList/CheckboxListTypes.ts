@@ -1,4 +1,4 @@
-import { Option } from '../../forms/FormFieldCheckbox';
+import { CheckboxOption } from '../../forms/FormFieldCheckbox';
 
 export interface CheckboxListProps {
 	/**
@@ -8,7 +8,7 @@ export interface CheckboxListProps {
 	/**
 	 * List of options
 	 */
-	options: Option[];
+	options: CheckboxOption[];
 	/**
 	 * Function that listens to changes on the checked options.
 	 * @param checked List of checked options

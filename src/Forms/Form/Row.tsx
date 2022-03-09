@@ -1,34 +1,29 @@
+import { FieldDef } from '@root/components/Field';
 import * as React from 'react';
 import { memo } from 'react';
 import styled from 'styled-components';
+
+// Components
 import Col from './Col';
 
 const StyledRow = styled.div`
-	${pr => pr.formType === 'modal' ?
-		`
-			display: flex;
-			flex-wrap: wrap;
-		`
-		:
-		`
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-			column-gap: 10px;
-		`
-	}
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  column-gap: 10px;
 `;
 
-const Row = (props) => {
-	const {
-		row,
-		state,
-		fieldsDef,
-		dispatch,
-		formType,
-	} = props;
+interface RowPropTypes {
+  row: (string | FieldDef)[][];
+  state: any;
+	fieldsDef: FieldDef[];
+  dispatch: any;
+}
+
+const Row = (props: RowPropTypes) => {
+	const { row, state, fieldsDef, dispatch } = props;
 
 	return (
-		<StyledRow formType={formType}>
+		<StyledRow>
 			{row.map((col, i) => (
 				<Col
 					key={i}
@@ -36,7 +31,6 @@ const Row = (props) => {
 					state={state}
 					fieldsDef={fieldsDef}
 					dispatch={dispatch}
-					formType={formType}
 				/>
 			))}
 		</StyledRow>

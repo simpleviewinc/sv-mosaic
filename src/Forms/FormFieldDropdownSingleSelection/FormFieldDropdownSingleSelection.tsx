@@ -7,14 +7,14 @@ import {
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
 import { MosaicFieldProps } from '@root/components/Field';
-import { DropdownSingleSelectionDef } from "./FormFieldDropdownSingleSelectionTypes";
+import { DropdownSingleSelectionDef, Option } from "./FormFieldDropdownSingleSelectionTypes";
 
 // Components
 import InputWrapper from '../../components/InputWrapper';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import TextField from '@material-ui/core/TextField';
 
-const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef>) => {
+const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, Option>) => {
 	const {
 		fieldDef,
 		error,
