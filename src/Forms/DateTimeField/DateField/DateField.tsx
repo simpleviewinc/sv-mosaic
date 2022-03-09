@@ -53,8 +53,22 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 			} else {
 				
 				if (!newValue) {
-					position === 0 ? setDateInput(dateString) : setTimeInput(dateString)
-					newValue = dateString
+					position === 0 ? setDateInput(dateString) : setTimeInput(dateString);
+					if (required) {
+						if (position === 0 && timeInput) {
+							const splitTimeInput = timeInput.split('T') || [];
+							const splitDate = dateString.split('T') || [];
+							newValue = `${splitDate[0]}T${splitTimeInput[1]}`
+						} else if (position === 1 && dateInput) {
+							const splitDateInput = dateInput.split('T') || [];
+							const splitDate = dateString.split('T') || [];
+							newValue = `${splitDateInput[0]}T${splitDate[1]}`
+						} else {
+							newValue = undefined;
+						}
+					} else {
+						newValue = dateString;
+					}
 				} else {
 					const splitNewValue = newValue.split('T') || [];
 					const splitDate = dateString.split('T') || [];
@@ -71,10 +85,10 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 		} else {
 			
 			if (showTime && dateInput && position === 1) {
-				newValue = dateInput
+				newValue = !required ? dateInput : undefined
 				setDateInput(dateInput)
 			} else if (showTime && timeInput && position === 0) {
-				newValue = timeInput
+				newValue = !required ? timeInput : undefined
 				setTimeInput(timeInput)
 			} else {
 				newValue = undefined;
@@ -118,6 +132,7 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 									}
 								}}
 								value={timeInput}
+								onBlur={onBlur}
 							/>
 							<HelperText>Hour, Minute, AM or PM</HelperText>
 						</DateTimePickerWrapper>
