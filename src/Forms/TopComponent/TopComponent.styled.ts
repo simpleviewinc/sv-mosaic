@@ -10,7 +10,7 @@ const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + 'px';
 const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + 'px';
 
 export const FormContent = styled.div`
-	padding: ${pr => pr.view === 'DRAWER' ? '0px 40px' : (pr.view === 'RESPONSIVE' || pr.view === 'DESKTOP') ? '24px 20px 0px 20px' : '0px'};
+	padding: ${pr => pr.view === 'DRAWER' ? '0px 40px' : (pr.view === 'RESPONSIVE' || pr.view === 'DESKTOP' || pr.view === 'BIG_DESKTOP') ? '24px 20px 0px 20px' : '0px'};
 `;
 
 export const ButtonsWrapper = styled.div`

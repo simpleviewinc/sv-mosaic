@@ -57,7 +57,7 @@ const DesktopView = (props): ReactElement => {
 		buttons,
 		sections,
 		checkbox,
-		isBigView,
+		view,
 	} = props;
 
 	return (
@@ -66,7 +66,7 @@ const DesktopView = (props): ReactElement => {
 				<TitleWrapper
 					title={title}
 					description={description}
-					view={'DESKTOP'}
+					view={view}
 				/>
 				<DesktopActionsRow>
 					{tooltipInfo && helpIcon}
@@ -74,7 +74,7 @@ const DesktopView = (props): ReactElement => {
 					{buttons}
 				</DesktopActionsRow>
 			</DesktopTitleActionsRow>
-			{(!isBigView && sections) && (
+			{(view !== 'BIG_DESKTOP' && sections) && (
 				<FlexContainer>
 					<FormNav sections={sections} />
 				</FlexContainer>

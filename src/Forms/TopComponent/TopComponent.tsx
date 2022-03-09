@@ -3,7 +3,6 @@ import { memo, useState, ReactElement, useEffect, useMemo } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
-import FormNav from '@root/forms/FormNav';
 import Tooltip from '@root/components/Tooltip';
 import Checkbox from '@root/components/Checkbox';
 import MobileView from './Views/MobileView';
@@ -12,25 +11,17 @@ import ResponsiveView from './Views/ResponsiveView';
 import DesktopView from './Views/DesktopView';
 
 // Types and Utils
-import { BREAKPOINTS } from '@root/theme/theme';
 import { TopComponentProps } from './TopComponentTypes';
 
 // Styles
 import {
-	Row,
 	StyledHelpIcon,
 	StyledHelpIconWrapper,
-	FormContent,
 } from './TopComponent.styled';
-
-const responsiveBreakpoint = BREAKPOINTS.topComponent.responsiveView;
-const mobileBreakpoint = BREAKPOINTS.mobile;
-const bigScreenBreakpoint = BREAKPOINTS.topComponent.bigScreenView;
 
 const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
 		cancelButtonAttrs,
-		children,
 		description,
 		onCancel,
 		onSubmit,
@@ -40,13 +31,12 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		sections,
 		submitButtonAttrs,
 		type = undefined,
+		view = 'RESPONSIVE',
 	} = props;
 
 	// State variables
 	const [activeChecked, setActiveChecked] = useState(false);
-	const [isBigView, setIsBigView] = useState(false);
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-	const [view, setView] = useState(null);
 
 	const handleCloseTooltip = () => {
 		setTooltipIsOpen(false);
@@ -58,46 +48,6 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 
 	const handleActiveClick = () => {
 		setActiveChecked(!activeChecked);
-	};
-
-	const debounce = (func, timeout = 300) => {
-		let timer;
-		return (...args) => {
-			clearTimeout(timer);
-			timer = setTimeout(() => { func.apply(this, args); }, timeout);
-		};
-	}
-
-	const setResponsivenessDebounced = debounce(() => setResponsiveness());
-
-	useEffect(() => {
-		if (type === 'drawer') {
-			setView('DRAWER');
-		} else {
-			// setResponsiveness();
-			setResponsivenessDebounced();
-			window.addEventListener('resize', setResponsiveness);
-
-			return () => {
-				window.removeEventListener('resize', setResponsiveness);
-			};
-		}
-	}, []);
-
-	const setResponsiveness = () => {
-		const innerWidth = window.innerWidth;
-		if (innerWidth < mobileBreakpoint) {
-			setView('MOBILE');
-		} else if (innerWidth < responsiveBreakpoint && innerWidth >= mobileBreakpoint) {
-			setView('RESPONSIVE');
-
-		} else if (innerWidth > bigScreenBreakpoint) {
-			setView('DESKTOP');
-		} else {
-			setView('DESKTOP');
-		}
-
-		setIsBigView(innerWidth > bigScreenBreakpoint);
 	};
 
 	const submitButton = useMemo(
@@ -203,7 +153,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 				sections={sections}
 			/>
 		);
-		if (view === 'DESKTOP') return (
+		if (view === 'DESKTOP' || view === 'BIG_DESKTOP') return (
 			<DesktopView
 				title={title}
 				description={description}
@@ -213,7 +163,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 				checkbox={checkbox}
 				buttons={buttons}
 				sections={sections}
-				isBigView={isBigView}
+				view={view}
 			/>
 		);
 
@@ -221,20 +171,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	}
 
 	return (
-		<>
-			<RenderView />
-			{isBigView ? (
-				<Row>
-					{sections &&
-						<FormNav sections={sections} />
-					}
-					<FormContent view={view}>{children}</FormContent>
-				</Row>
-			) : (
-				<FormContent view={view}>{children}</FormContent>
-			)}
-
-		</>
+		<RenderView />
 	);
 };
 

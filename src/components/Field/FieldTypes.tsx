@@ -34,6 +34,10 @@ export interface MosaicFieldProps<T = any, U = any> {//FieldProps
 	 * React Element or component to be rendered as child of the field component.
 	 */
 	children?: ReactNode;
+	/**
+	 * Number that represents the amount of fields that share the same row.
+	 */
+	colsInRow?: number;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
