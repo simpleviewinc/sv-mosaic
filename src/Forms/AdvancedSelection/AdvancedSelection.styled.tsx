@@ -4,7 +4,6 @@ import theme from '@root/theme';
 // MUI
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Field from '@root/components/Field';
 
 export const StyledInput = styled.input`
   background-color: ${theme.colors.gray100};

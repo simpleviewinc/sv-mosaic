@@ -7,7 +7,7 @@ export interface MosaicFieldProps<T = any, U = any> {//FieldProps
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
 	 */
-	fieldDef: FieldDef<T>;
+	fieldDef: FieldDef<T, U>;
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
@@ -37,7 +37,7 @@ export interface MosaicFieldProps<T = any, U = any> {//FieldProps
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-export interface FieldDef<T = any> {//Previously FieldProps
+export interface FieldDef<T = any, U = any> {//Previously FieldProps
 	/**
 	 * Significant name related to its field.
 	 */
@@ -102,4 +102,8 @@ export interface FieldDef<T = any> {//Previously FieldProps
 	 * Identifier passed by the developer
 	 */
 	id?: string;
+	/**
+	 * Optional value that devs can define for a field to begin with.
+	 */
+	defaultValue?: U;
 }
