@@ -29,14 +29,15 @@ const TopComponentExample = () => {
 			sections={sections}
 			showActive={true}
 			tooltipInfo={'Tooltip info'}
+			view='DESKTOP'
 		>
 			<div>
 				<div id='section1'>
 					<h1>Account Profile</h1>
 					<p>
-            Try to scroll this section and look at the navigation bar while
-            scrolling! Try to scroll this section and look at the navigation bar
-            while scrolling!
+						Try to scroll this section and look at the navigation bar while
+						scrolling! Try to scroll this section and look at the navigation bar
+						while scrolling!
 					</p>
 				</div>
 			</div>
@@ -79,6 +80,7 @@ describe('TopComponent elements that are conditionally rendered', () => {
 				onSubmit={saveCallback}
 				sections={sections}
 				showActive={true}
+				view='DESKTOP'
 			>
 				<></>
 			</TopComponent>
@@ -98,6 +100,7 @@ describe('TopComponent elements that are conditionally rendered', () => {
 				onSubmit={saveCallback}
 				sections={sections}
 				showActive={false}
+				view='DESKTOP'
 			>
 				<></>
 			</TopComponent>

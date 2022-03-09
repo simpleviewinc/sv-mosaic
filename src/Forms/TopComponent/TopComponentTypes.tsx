@@ -47,4 +47,5 @@ export interface TopComponentProps extends FormNavProps {
 	 * allows for type-specific styling.
 	 */
 	type?: 'drawer';
+	view: 'MOBILE' | 'RESPONSIVE' | 'DRAWER' | 'DESKTOP' | 'BIG_DESKTOP';
 }

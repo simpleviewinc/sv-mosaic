@@ -1,111 +1,50 @@
-import { useReducer, useRef, useCallback } from "react";
+import { useState, useEffect } from 'react';
+import { BREAKPOINTS } from '@root/theme/theme';
 
-// function reducer(state, action) {
-// 	if (action.type === "FIELD_ON_CHANGE") {
-// 		return {
-// 			...state,
-// 			data: {
-// 				...state.data,
-// 				[action.name]: action.value
-// 			},
-// 			touched: {
-// 				...state.touched,
-// 				[action.name]: true
-// 			}
-// 		};
-// 	} else {
-// 		return state;
-// 	}
-// }
+const responsiveBreakpoint = BREAKPOINTS.topComponent.responsiveView;
+const mobileBreakpoint = BREAKPOINTS.mobile;
+const bigScreenBreakpoint = BREAKPOINTS.topComponent.bigScreenView;
 
-// export function useForm({ fields }: { fields: FieldDefProps[] }) {
-// 	const initialFormState = useMemo(() => {
-// 		const data: Record<string, any> = {};
-// 		const touched: Record<string, boolean> = {};
-// 		const errors: Record<string, string> = {};
+export const useWindowResizer = (type) => {
 
-// 		for (const field of fields) {
-// 			data[field.name] = "";
-// 			touched[field.name] = false;
-// 			errors[field.name] = "";
-// 		}
+	const [view, setView] = useState(null);
 
-// 		return {
-// 			data,
-// 			touched,
-// 			errors
-// 		} as FormState;
-// 	}, [fields]);
+	const debounce = (func, timeout = 300) => {
+		let timer;
+		return (...args) => {
+			clearTimeout(timer);
+			timer = setTimeout(() => { func.apply(this, args); }, timeout);
+		};
+	}
 
-// 	const fieldMap = useMemo(() => {
-// 		const map = new Map<string, FieldDefProps>();
-// 		for (const field of fields) {
-// 			map.set(field.name, field);
-// 		}
-// 		return map;
-// 	}, [fields]);
+	const setResponsivenessDebounced = debounce(() => setResponsiveness());
 
-// 	const customReducer = function (state, action) {
-// 		if (action.type === "FIELD_ON_CHANGE") {
-// 			const newState = reducer(state, action);
+	useEffect(() => {
+		if (type === 'drawer') {
+			setView('DRAWER');
+		} else {
+			setResponsivenessDebounced();
+			window.addEventListener('resize', setResponsiveness);
 
-// 			const customReducer = fieldMap.get(action.name)?.onChange;
-// 			if (!customReducer) {
-// 				return newState;
-// 			}
-
-// 			return customReducer(newState, action);
-// 		}
-// 	};
-
-// 	const [formState, dispatch] = useReducer(customReducer, initialFormState);
-
-// 	return {
-// 		formState,
-// 		dispatch
-// 	};
-// }
-
-export function joinReducers(...reducers) {
-	return function (state, action) {
-		let newState = state;
-		for (const reducer of reducers) {
-			newState = reducer(newState, action);
+			return () => {
+				window.removeEventListener('resize', setResponsiveness);
+			};
 		}
-		return newState;
-	};
-}
-
-export function useThunkReducer(reducer, initialState, extraArgs) {
-	const lastState = useRef(initialState);
-	const getState = useCallback(() => {
-		const state = lastState.current;
-		// console.log("state.data", state.data.text2);
-		return state;
 	}, []);
-	const enhancedReducer = useCallback(
-		(state, action) => {
-			// console.log("ENHANCED", state, action);
-			const newState = reducer(state, action);
-			// console.log("REDUCER COMPLETE!");
-			lastState.current = newState;
-			return newState;
-		},
-		[reducer]
-	);
-	const [state, dispatch] = useReducer(enhancedReducer, initialState);
 
-	const customDispatch = useCallback(
-		(action) => {
-			// console.log("CUSTOM DISPATCH", action);
-			if (typeof action === "function") {
-				return action(customDispatch, getState, extraArgs);
-			} else {
-				return dispatch(action);
-			}
-		},
-		[getState, extraArgs]
-	);
+	const setResponsiveness = () => {
+		const innerWidth = window.innerWidth;
+		if (innerWidth < mobileBreakpoint) {
+			setView('MOBILE');
+		} else if (innerWidth < responsiveBreakpoint && innerWidth >= mobileBreakpoint) {
+			setView('RESPONSIVE');
 
-	return [state, customDispatch];
+		} else if (innerWidth > bigScreenBreakpoint) {
+			setView('BIG_DESKTOP');
+		} else {
+			setView('DESKTOP');
+		}
+	};
+
+	return { view };
 }

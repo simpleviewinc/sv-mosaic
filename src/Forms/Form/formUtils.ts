@@ -1,7 +1,5 @@
-import { useMemo, useRef, useCallback } from "react";
+import { useMemo, useRef, useCallback, useReducer } from "react";
 import { EventEmitter } from "eventemitter3";
-
-import { joinReducers, useThunkReducer } from "./utils";
 import { SectionDef } from "./FormTypes";
 import { required } from "./validators";
 
@@ -203,16 +201,14 @@ export const actions = {
 			});
 		}
 	},
-	prepopulateForm({ callback }) {
-		return async (dispatch, getState, extraArgs) => {
+	setFormValues({ values }) {
+		return async (dispatch) => {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
 
-			const fieldData = await callback();
-
-			for (let [key, value] of Object.entries(fieldData)) {
+			for (let [key, value] of Object.entries(values)) {
 				await dispatch(
 					actions.setFieldValue({
 						name: key,
@@ -272,17 +268,12 @@ export function useForm({ customReducer }: { customReducer?: ((state: any, actio
 		extraArgs.current.onSubmit = fn;
 	}, []);
 
-	// const registerOnLoad = useCallback((fn) => {
-	// 	extraArgs.current.onLoad = fn;
-	// }, []);
-
 	return {
 		events,
 		state,
 		dispatch,
 		registerFields,
 		registerOnSubmit,
-		// registerOnLoad,
 	};
 }
 
@@ -348,3 +339,47 @@ export const generateLayout = ({ sections, fields }: { sections?: any, fields: a
 		return customLayout;
 	}
 };
+
+export function joinReducers(...reducers) {
+	return function (state, action) {
+		let newState = state;
+		for (const reducer of reducers) {
+			newState = reducer(newState, action);
+		}
+		return newState;
+	};
+}
+
+export function useThunkReducer(reducer, initialState, extraArgs) {
+	const lastState = useRef(initialState);
+	const getState = useCallback(() => {
+		const state = lastState.current;
+		// console.log("state.data", state.data.text2);
+		return state;
+	}, []);
+	const enhancedReducer = useCallback(
+		(state, action) => {
+			// console.log("ENHANCED", state, action);
+			const newState = reducer(state, action);
+			// console.log("REDUCER COMPLETE!");
+			lastState.current = newState;
+			return newState;
+		},
+		[reducer]
+	);
+	const [state, dispatch] = useReducer(enhancedReducer, initialState);
+
+	const customDispatch = useCallback(
+		(action) => {
+			// console.log("CUSTOM DISPATCH", action);
+			if (typeof action === "function") {
+				return action(customDispatch, getState, extraArgs);
+			} else {
+				return dispatch(action);
+			}
+		},
+		[getState, extraArgs]
+	);
+
+	return [state, customDispatch];
+}

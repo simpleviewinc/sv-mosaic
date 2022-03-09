@@ -458,7 +458,7 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onLoad={loadReady && onLoad}
+				getFormValues={loadReady && onLoad}
 				events={events}
 				sections={showSections && sections}
 				submitButtonAttrs={{ children: text('Submit button', 'Save') }}
@@ -480,7 +480,7 @@ export const FormWithLayout = (): ReactElement => {
 					type: 'text',
 					instructionText: 'Instruction text text1',
 					validators: [validateEmail, validateSlow],
-					layout: { section: 0, row: 1, col: 0 }
+					layout: { section: 0, row: 1, col: 0 },
 				},
 				{
 					name: 'text2',

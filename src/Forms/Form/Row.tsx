@@ -4,18 +4,8 @@ import styled from 'styled-components';
 import Col from './Col';
 
 const StyledRow = styled.div`
-	${pr => pr.formType === 'modal' ?
-		`
-			display: flex;
-			flex-wrap: wrap;
-		`
-		:
-		`
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-			column-gap: 10px;
-		`
-	}
+	display: flex;
+	margin: 0px -20px;
 `;
 
 const Row = (props) => {
@@ -37,6 +27,7 @@ const Row = (props) => {
 					fieldsDef={fieldsDef}
 					dispatch={dispatch}
 					formType={formType}
+					colsInRow={row.length}
 				/>
 			))}
 		</StyledRow>

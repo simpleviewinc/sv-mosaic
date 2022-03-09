@@ -7,10 +7,7 @@ export const StyledFieldWrapper = styled.div`
   padding: 20px;
   background-color: ${(pr) =>
 		pr.error ? theme.colors.lightRed : 'transparent'};
-//   width: ${(pr) => pr.size ? pr.size : Sizes.sm};
   width: ${(pr) => pr.size ? pr.size : 'fit-content'};
-//   width: fit-content;
-  margin-left: -20px; //LAYOUT: Could be moved to another component.
 `;
 
 export const StyledFieldContainer = styled.div`

@@ -24,19 +24,12 @@ import TextEditor from '../TextEditor';
 import AdvancedSelection from '../AdvancedSelection';
 import MapCoordinates from '../MapCoordinates';
 import FormFieldImageUpload from '../FormFieldImageUpload';
+import { Sizes } from '@root/theme/sizes';
 
 const StyledCol = styled.div`
 	display: flex;
 	flex-direction: column;
-	${pr => pr.formType === 'modal' ?
-		`
-			flex: 1 1 auto;
-		`
-		:
-		`
-			width: 100%;
-		`
-	}
+	width: calc(100% / ${pr => pr.colsInRow});
 `;
 
 const Col = (props) => {
@@ -46,6 +39,7 @@ const Col = (props) => {
 		fieldsDef,
 		dispatch,
 		formType,
+		colsInRow,
 	} = props;
 
 	const componentMap = useMemo(() => ({
@@ -115,7 +109,7 @@ const Col = (props) => {
 	}, [fieldsDef]);
 
 	return (
-		<StyledCol formType={formType}>
+		<StyledCol formType={formType} colsInRow={colsInRow}>
 			{col.map((field, i) => {
 				const currentField = fieldsDef?.find(
 					(fieldDef) => {
@@ -140,9 +134,25 @@ const Col = (props) => {
 				const touched = state?.touched[fieldProps.name] || '';
 				const error = state?.errors[fieldProps.name] || '';
 
+				let maxSize = Sizes.sm;
+				if (currentField?.size)
+					switch (colsInRow) {
+						case 1:
+							maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
+							break;
+						case 2:
+							maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
+							break;
+						case 3:
+							maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
+							break;
+						default:
+							break;
+					}
+
 				const children = useMemo(() => (
 					<Component
-						fieldDef={...currentField}
+						fieldDef={{ ...currentField, size: maxSize }}
 						name={name}
 						value={value}
 						touched={touched}
@@ -156,9 +166,10 @@ const Col = (props) => {
 				return (!!componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
-						fieldDef={...currentField}
+						fieldDef={{ ...currentField, size: maxSize }}
 						value={value}
 						error={error}
+						colsInRow={colsInRow}
 					>
 						{children}
 					</Field>
