@@ -112,7 +112,7 @@ export const KitchenSink = (): ReactElement => {
 					instructionText,
 					inputSettings: {
 						showTime: false
-					},
+					}
 				},
 				{
 					name: "disableSingleDate",
@@ -140,7 +140,7 @@ export const KitchenSink = (): ReactElement => {
 				},{
 					name: "disableDateTime",
 					type: "date",
-					label: "Disable Single Date Calendar",
+					label: "Disable Date Time Calendar",
 					required: false,
 					disabled: true,
 					helperText,
