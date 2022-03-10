@@ -6,6 +6,7 @@ import {
 	useEffect,
 	useState
 } from 'react';
+import { ChipListPropsTypes } from '.';
 import {
 	ChipsWrapper,
 	OptionsCheckedModalWrapper,
@@ -16,7 +17,7 @@ import {
 
 const MAX_CHIPS_TO_SHOW = 8;
 
-const ChipList = (props): ReactElement => {
+const ChipList = (props: ChipListPropsTypes): ReactElement => {
 	const {
 		fieldDef,
 	} = props;
@@ -25,10 +26,10 @@ const ChipList = (props): ReactElement => {
 	const [chipsToRender, setChipsToRender] = useState([]);
 
 	/**
-   * Called when the cross icon of a single chip is clicked.
-   * @param optionValue is used to filter the chip from the
-   * optionsChecked array.
-   */
+	 * Called when the cross icon of a single chip is clicked.
+	 * @param optionValue is used to filter the chip from the
+	 * optionsChecked array.
+	 */
 	const onChipDelete = (optionValue) => {
 		const filteredChips = fieldDef?.inputSettings?.selectedOptions.filter((option) => option !== optionValue);
 
@@ -36,17 +37,17 @@ const ChipList = (props): ReactElement => {
 	};
 
 	/**
-   * Used to toggle the state of showMore to
-   * conditionally display 'X more' or 'Hide'.
-   */
+	 * Used to toggle the state of showMore to
+	 * conditionally display 'X more' or 'Hide'.
+	 */
 	const handleShowMore = () => {
 		setShowMore(!showMore);
 	};
 
 	/**
-   * JSX element with the list of selected options displayed
-   * as chips.
-   */
+	 * JSX element with the list of selected options displayed
+	 * as chips.
+	 */
 	useEffect(() => {
 		const getSelectedOptions = async () => {
 			const optionsChecked = await fieldDef?.inputSettings?.getSelected(fieldDef?.inputSettings?.selectedOptions);

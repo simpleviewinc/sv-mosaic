@@ -34,6 +34,84 @@ export default {
 	decorators: [withKnobs],
 };
 
+const deleteTableRow = () => {
+	alert('Delete button clicked');
+};
+
+let externalOptions = [
+	{
+		category: 'Category 1',
+		label: 'Option 1',
+		value: 'option_1-cat_1',
+	},
+	{
+		category: 'Category 1',
+		label: 'Option 2',
+		value: 'option_2-cat_1',
+	},
+	{
+		category: 'Category 1',
+		label: 'Option 3',
+		value: 'option_3-cat_1',
+	},
+	{
+		category: 'Category 1',
+		label: 'Option 4',
+		value: 'option_4-cat_1',
+	},
+	{
+		category: 'Category 2',
+		label: 'Option 1 category 2',
+		value: 'option_1-cat_2',
+	},
+	{
+		category: 'Category 2',
+		label: 'Test option category 2',
+		value: 'option_2-cat_2',
+	},
+	{
+		category: 'Category 2',
+		label: 'Another option of catergory 2',
+		value: 'option_3-cat_2',
+	},
+	{
+		category: 'Category 2',
+		label: 'Option 4 category 2',
+		value: 'option_4-cat_2',
+	},
+	{
+		category: 'Test Category',
+		label: 'You can filter by category',
+		value: 'option_1-test_category',
+	},
+	{
+		category: 'Test Category',
+		label: 'Very long label that does not fit',
+		value: 'option_2-test_category',
+	},
+	{
+		category: 'Category 4',
+		label: 'Option 1 category 4',
+		value: 'option_1-cat_4',
+	},
+	{
+		label: 'Option without category',
+		value: 'option_without_category',
+	},
+];
+
+const createNewOption = (newOption) => {
+	externalOptions = [...externalOptions, newOption];
+};
+
+const getSelected = async (selectedOptions) => {
+	if (!selectedOptions) return;
+
+	return selectedOptions.map((selectedOption) =>
+		externalOptions.find(o => o.value === selectedOption)
+	);
+}
+
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
@@ -62,85 +140,7 @@ export const Playground = (): ReactElement => {
 			'option_1-cat_2',
 			'option_3-cat_2'
 		]
-	})
-
-	const deleteTableRow = () => {
-		alert('Delete button clicked');
-	};
-
-	let externalOptions = [
-		{
-			category: 'Category 1',
-			label: 'Option 1',
-			value: 'option_1-cat_1',
-		},
-		{
-			category: 'Category 1',
-			label: 'Option 2',
-			value: 'option_2-cat_1',
-		},
-		{
-			category: 'Category 1',
-			label: 'Option 3',
-			value: 'option_3-cat_1',
-		},
-		{
-			category: 'Category 1',
-			label: 'Option 4',
-			value: 'option_4-cat_1',
-		},
-		{
-			category: 'Category 2',
-			label: 'Option 1 category 2',
-			value: 'option_1-cat_2',
-		},
-		{
-			category: 'Category 2',
-			label: 'Test option category 2',
-			value: 'option_2-cat_2',
-		},
-		{
-			category: 'Category 2',
-			label: 'Another option of catergory 2',
-			value: 'option_3-cat_2',
-		},
-		{
-			category: 'Category 2',
-			label: 'Option 4 category 2',
-			value: 'option_4-cat_2',
-		},
-		{
-			category: 'Test Category',
-			label: 'You can filter by category',
-			value: 'option_1-test_category',
-		},
-		{
-			category: 'Test Category',
-			label: 'Very long label that does not fit',
-			value: 'option_2-test_category',
-		},
-		{
-			category: 'Category 4',
-			label: 'Option 1 category 4',
-			value: 'option_1-cat_4',
-		},
-		{
-			label: 'Option without category',
-			value: 'option_without_category',
-		},
-	];
-
-	const createNewOption = (newOption) => {
-		externalOptions = [...externalOptions, newOption];
-	};
-
-	const getSelected = async (selectedOptions) => {
-		if (!selectedOptions) return;
-
-		return selectedOptions.map((selectedOption) =>
-			externalOptions.find(o => o.value === selectedOption)
-		);
-	}
+	});
 
 	const fields = useMemo(
 		() =>
@@ -314,7 +314,6 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						modalTitle: 'Advanced Selection Modal title',
 						checkboxOptions: externalOptions,
 						getSelected,
 						createNewOption
@@ -378,7 +377,7 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<MapCoordinatesDef>,
 			] as unknown as FieldDef[],
-		[addTableRow, externalOptions, disabled, required]
+		[externalOptions, disabled, required]
 	);
 
 	const sections = [
@@ -424,16 +423,10 @@ export const Playground = (): ReactElement => {
 	];
 
 	const onLoad = useCallback(async () => {
-		// await new Promise((res) => setTimeout(res, 2000));
-
 		return {
 			...prepopulateValues
 		};
 	}, [prepopulateValues]);
-
-	// useMemo(() => {
-	// 	registerOnLoad(onLoad);
-	// }, [onLoad, registerOnLoad]);
 
 	useMemo(() => {
 		registerFields(fields);
@@ -464,7 +457,7 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onLoad={loadReady && onLoad}
+				getFormValues={loadReady && onLoad}
 				events={events}
 				sections={showSections && sections}
 				submitButtonAttrs={{ children: text('Submit button', 'Save') }}
@@ -486,7 +479,7 @@ export const FormWithLayout = (): ReactElement => {
 					type: 'text',
 					instructionText: 'Instruction text text1',
 					validators: [validateEmail, validateSlow],
-					layout: { section: 0, row: 1, col: 0 }
+					layout: { section: 0, row: 1, col: 0 },
 				},
 				{
 					name: 'text2',
@@ -904,7 +897,7 @@ export const DrawerForm = (): ReactElement => {
 				onClose={onCancel}
 			>
 				<Form
-					title={'yes'}
+					title='Drawer form example'
 					type='drawer'
 					state={state}
 					dispatch={dispatch}

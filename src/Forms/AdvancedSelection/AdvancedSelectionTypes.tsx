@@ -5,11 +5,6 @@ export type optionsWithCategory = {
 } & MosaicLabelValue;
 
 type AdvancedSelectionBasic = {
-	/**
-	 * Descriptive title for the modal displayed on the 
-	 * header.
-	 */
-	modalTitle: string;
 	createNewOption?: (filter: string) => Promise<string>;
 	getSelected: (options: string[]) => Promise<optionsWithCategory[]>;
 	/**
@@ -44,3 +39,36 @@ type AdvancedSelectionExternalOptions = {
 } & AdvancedSelectionBasic;
 
 export type AdvancedSelectionDef = AdvancedSelectionLocalOptions | AdvancedSelectionExternalOptions;
+
+export interface ChipListPropsTypes {
+	fieldDef: {
+    inputSettings: {
+        isModalOpen: boolean;
+        isMobileView: boolean;
+        selectedOptions: any;
+        getSelected: (options: string[]) => Promise<optionsWithCategory[]>;
+        deleteSelectedOption: (e: any) => Promise<void>;
+    };
+    disabled: boolean;
+	}
+}
+
+export interface AdvanceSelectionDrawerPropTypes {
+	value: any;
+	fieldDef: any;
+	onChange: (e: any) => Promise<void>;
+	isModalOpen: boolean;
+	isMobileView: boolean;
+	handleClose: () => Promise<void>;
+}
+
+export interface LoadMoreButtonPropsTypes {
+	fieldDef: {
+		disabled: boolean;
+		inputSettings: {
+			canLoadMore: boolean;
+			parentInputSettings: any;
+			getMoreOptions: () => void;
+		}
+	}
+}

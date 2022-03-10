@@ -507,8 +507,8 @@ function DataViewKitchenSink(): ReactElement {
 	const displayOptions = knobOptions.length > 0 ? knobOptions : undefined;
 	const display =
 		displayOptions === undefined ? undefined :
-			displayOptions.length === 1 ? displayOptions[0] :
-				state.display
+		displayOptions.length === 1 ? displayOptions[0] :
+		state.display
 		;
 
 	const gridConfig: DataViewProps = {

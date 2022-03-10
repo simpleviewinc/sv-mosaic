@@ -6,15 +6,15 @@ afterEach(cleanup);
 
 const sections = [
 	{
-		name: 'Account Profile',
+		title: 'Account Profile',
 		id: 'section1',
 	},
 	{
-		name: 'Account Information',
+		title: 'Account Information',
 		id: 'section2',
 	},
 	{
-		name: 'Contact Information',
+		title: 'Contact Information',
 		id: 'section3',
 	},
 ];
@@ -43,7 +43,7 @@ describe('FormNav component', () => {
 		window.location.replace = jest.fn();
 
 		fireEvent.click(sectionLink);
-  
+
 		expect(window.location.replace).toHaveBeenCalled();
 	});
 });

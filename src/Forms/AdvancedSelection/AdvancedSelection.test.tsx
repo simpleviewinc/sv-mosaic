@@ -1,7 +1,7 @@
 import { FieldDef } from '@root/components/Field';
 import { render, cleanup, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { AdvancedSelectionDef, optionsWithCategory } from '.';
 import Form from '../Form/Form';
 import { useForm } from '../Form/formUtils';
@@ -42,11 +42,6 @@ const additionalOptions = [
 		label: 'Test option category 2',
 		value: 'option_2-cat_2',
 	},
-	// {
-	// 	category: 'Category 2',
-	// 	label: 'Another option of catergory 2',
-	// 	value: 'option_3-cat_2',
-	// },
 	{
 		category: 'Category 2',
 		label: 'Option 4 category 2',
@@ -95,9 +90,8 @@ const additionalOptions = [
 
 const AdvancedSelectExample = () => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const [options, setOptions] = useState<optionsWithCategory[]>(externalOptions ? externalOptions : []);
+	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
-	const modalTitle = 'Modal title';
 	const groupByCategory = false;
 	const label = 'Label';
 	const required = false;
@@ -160,7 +154,6 @@ const AdvancedSelectExample = () => {
 					disabled,
 					type: 'advancedSelection',
 					inputSettings: {
-						modalTitle,
 						checkboxOptions: options,
 						getOptions,
 						getOptionsLimit,
@@ -175,7 +168,6 @@ const AdvancedSelectExample = () => {
 			required,
 			disabled,
 			registerFields,
-			modalTitle,
 			groupByCategory,
 			options,
 			getOptions,
@@ -197,43 +189,32 @@ const AdvancedSelectExample = () => {
 		registerOnSubmit(onSubmit);
 	}, [onSubmit, registerOnSubmit]);
 
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
-
 	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				title='Form Title'
-				description='This is a description example'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				events={events}
-				onCancel={onCancel}
-				onSubmit={onSubmit}
-			/>
-		</>
+		<Form
+			title='Form Title'
+			description='This is a description example'
+			state={state}
+			fields={fields}
+			dispatch={dispatch}
+			events={events}
+			onSubmit={onSubmit}
+		/>
 	);
 }
 
 describe('AdvancedSelection component', () => {
-	let advancedSelectContainer;
 	beforeEach(() => {
-		const { container } = render(
-			<AdvancedSelectExample />
+		render(<AdvancedSelectExample />
 		);
-		advancedSelectContainer = container;
 	});
 
 	it('should select an option and display its chip', async () => {
 		const addButton = screen.getByText('ADD ELEMENT');
 		fireEvent.click(addButton);
+		
+		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
 
-		expect(await screen.findByText('Modal title')).toBeTruthy();
-
-		const optionCheckbox = await screen.findByText('Option 1');
+		const optionCheckbox = await screen.findByText('Option 2');
 		fireEvent.click(optionCheckbox);
 
 		const optionChip = await screen.findByTestId('delete-icon-test-id');
@@ -244,9 +225,9 @@ describe('AdvancedSelection component', () => {
 		const addButton = screen.getByText('ADD ELEMENT');
 		fireEvent.click(addButton);
 
-		expect(await screen.findByText('Modal title')).toBeTruthy();
+		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
 
-		const optionCheckbox = await screen.findByText('Option 1');
+		const optionCheckbox = await screen.findByText('Option 2');
 		fireEvent.click(optionCheckbox);
 
 		const optionChip = await screen.findAllByTestId('delete-icon-test-id');
@@ -261,7 +242,7 @@ describe('AdvancedSelection component', () => {
 		const addButton = screen.getByText('ADD ELEMENT');
 		fireEvent.click(addButton);
 
-		expect(await screen.findByText('Modal title')).toBeTruthy();
+		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
 
 		const inputNode = screen.getByPlaceholderText('Search...');
 		fireEvent.change(inputNode, { target: { value: 'abc' } });
@@ -274,7 +255,7 @@ describe('AdvancedSelection component', () => {
 		const addButton = screen.getByText('ADD ELEMENT');
 		fireEvent.click(addButton);
 
-		expect(await screen.findByText('Modal title')).toBeTruthy();
+		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
 
 		const inputNode = screen.getByPlaceholderText('Search...');
 		fireEvent.change(inputNode, { target: { value: 'Brand new option' } });
