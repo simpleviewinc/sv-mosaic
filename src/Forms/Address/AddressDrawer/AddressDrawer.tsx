@@ -304,6 +304,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	return (
 		<Form
 			title='Address Information'
+			data-testid={'address-testid'}
 			state={state}
 			dispatch={dispatch}
 			sections={sections}

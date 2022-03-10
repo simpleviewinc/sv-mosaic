@@ -14,7 +14,7 @@ import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 // Utils
-import theme from '@root/theme/theme';
+import theme from '../../../theme/theme';
 import { FormTitle } from '../Utils/TitleWrapper';
 
 const DrawerViewColumn = styled(StyledColumn)`
@@ -52,7 +52,7 @@ const DrawerView = (props): ReactElement => {
 							<CloseIcon />
 						</IconButton>
 					)}
-					<FormTitle type={type}>{title}</FormTitle>
+					<FormTitle type={type} data-testid='drawer-title-test'>{title}</FormTitle>
 					{tooltipInfo && helpIcon}
 				</Row>
 				<ButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ButtonsWrapper>

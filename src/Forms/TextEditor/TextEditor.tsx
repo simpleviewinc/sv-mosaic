@@ -69,6 +69,7 @@ const TextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElemen
 				value={value}
 				config={config}
 				onBlur={(e) => updateValue(e)}
+				data-testid={'text-editor-testid'}
 			/>
 		</EditorWrapper>
 	);
