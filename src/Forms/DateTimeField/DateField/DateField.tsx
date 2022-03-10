@@ -25,9 +25,7 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 		error,
 	} = props;
 
-	const {required, disabled, inputSettings: {showTime}} = fieldDef || {}; 
-	
-	//const [dateTimeField, setDateTimeField] = useState(null);
+	const {required, disabled, inputSettings: {showTime}} = fieldDef || {};
 	
 	const [dateInput, setDateInput] = useState(null);
 	const [timeInput, setTimeInput] = useState(null); 
