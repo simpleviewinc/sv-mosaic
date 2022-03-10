@@ -112,7 +112,8 @@ export const KitchenSink = (): ReactElement => {
 					instructionText,
 					inputSettings: {
 						showTime: false
-					}
+					},
+					value: '2018-01-01T00:00:00.000Z'
 				},
 				{
 					name: "disableSingleDate",

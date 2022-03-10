@@ -37,6 +37,7 @@ interface ColPropsTypes {
 	state: any;
 	fieldsDef: FieldDef[];
 	dispatch: any;
+	colsInRow?: number;
 }
 
 const Col = (props: ColPropsTypes) => {
@@ -124,20 +125,20 @@ const Col = (props: ColPropsTypes) => {
 				const touched = state?.touched[fieldProps.name] || '';
 				const error = state?.errors[fieldProps.name] || '';
 
-				let maxSize = Sizes.sm;
+				let maxSize: Sizes | string = Sizes.sm;
 				if (currentField?.size)
 					switch (colsInRow) {
-						case 1:
-							maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
-							break;
-						case 2:
-							maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
-							break;
-						case 3:
-							maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
-							break;
-						default:
-							break;
+					case 1:
+						maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
+						break;
+					case 2:
+						maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
+						break;
+					case 3:
+						maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
+						break;
+					default:
+						break;
 					}
 
 				const children = useMemo(() => (
