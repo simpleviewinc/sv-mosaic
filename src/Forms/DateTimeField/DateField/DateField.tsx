@@ -15,7 +15,7 @@ import { MosaicFieldProps } from '@root/components/Field';
 import { DateTimeInputDef } from '../DateTimeInput';
 
 
-const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElement => {
+const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElement => {
 
 	const {
 		fieldDef,
@@ -156,4 +156,4 @@ const Datefield = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 	);
 };
 
-export default memo(Datefield);
+export default memo(DateField);

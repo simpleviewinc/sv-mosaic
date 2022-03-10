@@ -1,76 +1,95 @@
-<<<<<<< HEAD:src/Forms/DateTimeField/DateField/DateField.test.tsx
-/* import { render } from '@testing-library/react';
+import { FieldDef } from '@root/components/Field';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 import DateField from '.';
+import { DateTimeInputDef } from '../DateTimeInput';
+import {screen} from '@testing-library/dom'
+import '@testing-library/jest-dom'
 
 describe('SingleDateCalendar component', () => {
-	it('should should display the date value', () => {
-		const { getByText } = render(
+	it('should display the date value', () => {
+		render(
 			<DateField
 				fieldDef={{
-					name: 'singleDateCalendar',
-					label: '',
+					name: "date",
+					type: "date",
+					label: "Date Input",
+					required: false,
 					disabled: false,
-				}}
-				value={new Date('2018-01-01T00:00:00.000Z')}
-=======
-// import { render } from '@testing-library/react';
-// import * as React from 'react';
-// import SingleDateCalendar from '.';
+					inputSettings: {
+						showTime: false
+					}
+				} as FieldDef<DateTimeInputDef>}
+				value='2022-01-01T00:00:00.000Z'
 
-// describe('SingleDateCalendar component', () => {
-// 	it('should should display the date value', () => {
-// 		const { getByText } = render(
-// 			<SingleDateCalendar
-// 				fieldDef={{
-// 					name: 'singleDateCalendar',
-// 					label: '',
-// 					disabled: false,
-// 				}}
-// 				value={new Date('2018-01-01T00:00:00.000Z')}
->>>>>>> 85a62dd0f0b76b45fed2f60f05541b8eff330290:src/Forms/DateTimeField/SingleDateCalendar/SingleDateCalendar.test.tsx
+			/>
+		);
+		expect(screen.getByDisplayValue('01/01/2022')).toBeInTheDocument();
 
-// 			/>
-// 		);
+	});
 
-// 		expect(getByText('1/1/2018')).toBeTruthy();
-// 	});
-
-<<<<<<< HEAD:src/Forms/DateTimeField/DateField/DateField.test.tsx
-	it('should display the placeholder when is disabled and no value is provided', () => {
+	it('should display the placeholder when date is disabled and no value is provided', () => {
 		const { getByText } = render(
 			<DateField
 				fieldDef={{
-					name: 'singleDateCalendar',
-					label: '',
+					name: "disableDate",
+					type: "date",
+					label: "Disable Date Input",
+					required: false,
 					disabled: true,
-				}}
+					inputSettings: {
+						showTime: false
+					}
+				} as FieldDef<DateTimeInputDef>}
 				value={null}
-=======
-// 	it('should display the placeholder when is disabled and no value is provided', () => {
-// 		const { getByText } = render(
-// 			<SingleDateCalendar
-// 				fieldDef={{
-// 					name: 'singleDateCalendar',
-// 					label: '',
-// 					disabled: true,
-// 				}}
-// 				value={null}
->>>>>>> 85a62dd0f0b76b45fed2f60f05541b8eff330290:src/Forms/DateTimeField/SingleDateCalendar/SingleDateCalendar.test.tsx
 
-// 			/>
-// 		);
+			/>
+		);
 
-<<<<<<< HEAD:src/Forms/DateTimeField/DateField/DateField.test.tsx
 		expect(getByText('MM / DD / YYYY')).toBeTruthy();
-	})
-});
- */
-it.skip('skip', () => { });
-=======
-// 		expect(getByText('MM / DD / YYYY')).toBeTruthy();
-// 	})
-// });
+	});
 
-it.skip('skip', () => { });
->>>>>>> 85a62dd0f0b76b45fed2f60f05541b8eff330290:src/Forms/DateTimeField/SingleDateCalendar/SingleDateCalendar.test.tsx
+	it('should display the date time values', () => {
+		render(
+			<DateField
+				fieldDef={{
+					name: "dateTime",
+					type: "date",
+					label: "Date Time Input",
+					required: false,
+					disabled: false,
+					inputSettings: {
+						showTime: true
+					}
+				} as FieldDef<DateTimeInputDef>}
+				value='2022-01-01T13:30:00.000Z'
+
+			/>
+		);
+		expect(screen.getByDisplayValue('01/01/2022')).toBeInTheDocument();
+		expect(screen.getByDisplayValue('01:30 PM')).toBeInTheDocument();
+		
+	});
+
+	it('should display the placeholders when date time is disabled and no value is provided', () => {
+		const { getByText } = render(
+			<DateField
+				fieldDef={{
+					name: "disableDateTime",
+					type: "date",
+					label: "Disable Date Time Input",
+					required: false,
+					disabled: true,
+					inputSettings: {
+						showTime: true
+					}
+				} as FieldDef<DateTimeInputDef>}
+				value={null}
+
+			/>
+		);
+
+		expect(getByText('MM / DD / YYYY')).toBeTruthy();
+		expect(getByText('00:00 AM/PM')).toBeTruthy();
+	});
+});
