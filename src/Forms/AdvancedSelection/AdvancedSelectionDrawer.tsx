@@ -21,8 +21,9 @@ import { optionsWithCategory } from './AdvancedSelectionTypes';
 import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
 import LoadMoreButton from './LoadMoreButton';
 import Form from '../Form/Form';
+import { AdvanceSelectionDrawerPropTypes } from '.';
 
-const AdvancedSelectionDrawer = (props): ReactElement => {
+const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
 		value,
 		fieldDef,
@@ -73,10 +74,10 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 		};
 	}
 
-	const a = debounce(async () => await getMoreOptions());
+	const getMoreOptionsDebounced = debounce(async () => await getMoreOptions());
 
 	useEffect(() => {
-		a();
+		getMoreOptionsDebounced();
 	}, [filter]);
 
 	useEffect(() => {
@@ -87,15 +88,6 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 		} else {
 			setFilter({ prev: filter.new, new: 'options' });
 		}
-
-		// if (searchInput !== undefined) {
-		// 	a();
-		// }
-
-		//
-		// if (searchInput?.length === 0 && fieldDef?.inputSettings?.getMoreOptions)
-		// 	setCanLoadMore(true);
-		//
 	}, [state?.data?.searchInput]);
 
 	const loadMoreOptions = () => {
@@ -109,11 +101,7 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 			const trimmedFilter = searchInput?.trim().toLowerCase();
 			return filteredOptions.filter(
 				(option) => searchInput === '' ||
-					option.label.toLowerCase().includes(trimmedFilter) /*||*/
-				// (fieldDef?.inputSettings?.groupByCategory &&
-				// 	option.category?.toLowerCase().includes(trimmedFilter)
-				// )
-
+					option.label.toLowerCase().includes(trimmedFilter)
 			);
 		}
 
@@ -122,51 +110,7 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 		options,
 		filteredOptions,
 		state?.data?.searchInput,
-		// fieldDef?.inputSettings?.groupByCategory
 	]);
-
-	// 	/**
-	//    * Fills a Map with the options ensuring that categories
-	//    * are not repeated.
-	//    */
-	// 	const optionsWithCategories = useMemo(() => {
-	// 		if (fieldDef?.inputSettings?.groupByCategory) {
-	// 			const categories = new Map();
-	// 			filteredList.forEach((checkOption) => {
-	// 				if (!categories.has(checkOption.category)) {
-	// 					const categoryOptions = [checkOption];
-	// 					categories.set(checkOption.category, categoryOptions);
-	// 				} else {
-	// 					const categoryOptions = categories.get(checkOption.category);
-	// 					categoryOptions.push(checkOption);
-	// 					categories.set(checkOption.category, categoryOptions);
-	// 				}
-	// 			});
-	// 			return categories;
-	// 		}
-	// 	}, [fieldDef?.inputSettings?.groupByCategory, filteredList]);
-
-	// useEffect(() => {
-	// 	if (!isModalOpen) {
-	// 		onChange(state?.data.checkboxList);
-	// 	}
-	// }, [isModalOpen, state?.data.checkboxList]);
-
-	// if (fieldDef?.inputSettings?.groupByCategory && optionsWithCategories instanceof Map) {
-	// 	return Array.from(optionsWithCategories).map(([category, value]) => (
-	// 		<CheckboxListWrapper key={`${category}-${value}`}>
-	// 			<OptionsCheckedModalWrapper key={`${category}-${value}`} isModalOpen={isModalOpen}>
-	// 				{category && <CategoryTitle>{category}</CategoryTitle>}
-	// 				<CheckboxList
-	// 					options={value}
-	// 					checked={props.value}
-	// 					onChange={onChangeCheckBoxList}
-	// 					disabled={fieldDef?.disabled}
-	// 				/>
-	// 			</OptionsCheckedModalWrapper>
-	// 		</CheckboxListWrapper>
-	// 	));
-	// } else {
 
 	const searchInput = useCallback((props): ReactElement => {
 		const searchKeyword = props.value.trim();
@@ -188,11 +132,6 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 		 * Adds an options to the list.
 		 */
 		const createOption = async () => {
-			// const newOption: optionsWithCategory = {
-			// 	category: 'New Options',
-			// 	value: `${props.value}_${options?.length}`,
-			// 	label: props.value,
-			// };
 			const canBeCreated = searchKeyword.length > 0;
 			if (canBeCreated) {
 				const newOptionValue = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
@@ -327,14 +266,14 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 				},
 			] as FieldDef[]
 		), [
-		filteredList,
-		searchInput,
-		fieldDef,
-		canLoadMore,
-		getMoreOptions,
-		isModalOpen,
-		isMobileView,
-	]
+			filteredList,
+			searchInput,
+			fieldDef,
+			canLoadMore,
+			getMoreOptions,
+			isModalOpen,
+			isMobileView,
+		]
 	);
 
 	useMemo(() => {
@@ -358,7 +297,6 @@ const AdvancedSelectionDrawer = (props): ReactElement => {
 	return (
 		<Form
 			title={fieldDef?.label}
-			// title={fieldDef?.inputSettings?.modalTitle}
 			type='drawer'
 			state={state}
 			dispatch={dispatch}

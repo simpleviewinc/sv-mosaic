@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import styled from 'styled-components';
 import { actions } from './formUtils';
 
@@ -11,7 +11,7 @@ import FormFieldDropdownSingleSelection from '../FormFieldDropdownSingleSelectio
 import FormFieldPhoneSelectionDropdown from '../FormFieldPhoneSelectionDropdown';
 import FormFieldRadio from '../FormFieldRadio';
 import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
-import Field from '@root/components/Field';
+import Field, { FieldDef } from '@root/components/Field';
 import ImageVideoLinkDocumentBrowsing from '../ImageVideoLinkDocumentBrowsing';
 import ColorPicker from '../ColorPicker';
 import DateField from '../DateTimeField/DateField';
@@ -24,28 +24,28 @@ import TextEditor from '../TextEditor';
 import AdvancedSelection from '../AdvancedSelection';
 import MapCoordinates from '../MapCoordinates';
 import FormFieldImageUpload from '../FormFieldImageUpload';
+import { Sizes } from '@root/theme/sizes';
 
 const StyledCol = styled.div`
 	display: flex;
 	flex-direction: column;
-	${pr => pr.formType === 'modal' ?
-		`
-			flex: 1 1 auto;
-		`
-		:
-		`
-			width: 100%;
-		`
-	}
+	width: calc(100% / ${pr => pr.colsInRow});
 `;
 
-const Col = (props) => {
+interface ColPropsTypes {
+	col: (string | FieldDef)[]
+	state: any;
+	fieldsDef: FieldDef[];
+	dispatch: any;
+}
+
+const Col = (props: ColPropsTypes) => {
 	const {
 		col,
 		state,
 		fieldsDef,
 		dispatch,
-		formType,
+		colsInRow,
 	} = props;
 
 	const componentMap = useMemo(() => ({
@@ -80,14 +80,6 @@ const Col = (props) => {
 						value,
 					})
 				);
-
-				if (curr.onChange) {
-					/**
-					 * Sending the value will allow devs
-					 * to do whatever they want with this value
-					 */
-					curr.onChange(value);
-				}
 			};
 
 			return prev;
@@ -100,14 +92,6 @@ const Col = (props) => {
 				await dispatch(
 					actions.validateField({ name: curr.name })
 				);
-
-				if (curr.onBlur) {
-					/**
-					 * Sending the value will allow devs
-					 * to do whatever they want with this value
-					 */
-					curr.onBlur(value);
-				}
 			};
 
 			return prev;
@@ -115,7 +99,7 @@ const Col = (props) => {
 	}, [fieldsDef]);
 
 	return (
-		<StyledCol formType={formType}>
+		<StyledCol colsInRow={colsInRow}>
 			{col.map((field, i) => {
 				const currentField = fieldsDef?.find(
 					(fieldDef) => {
@@ -140,9 +124,25 @@ const Col = (props) => {
 				const touched = state?.touched[fieldProps.name] || '';
 				const error = state?.errors[fieldProps.name] || '';
 
+				let maxSize = Sizes.sm;
+				if (currentField?.size)
+					switch (colsInRow) {
+						case 1:
+							maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
+							break;
+						case 2:
+							maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
+							break;
+						case 3:
+							maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
+							break;
+						default:
+							break;
+					}
+
 				const children = useMemo(() => (
 					<Component
-						fieldDef={...currentField}
+						fieldDef={{ ...currentField, size: maxSize }}
 						name={name}
 						value={value}
 						touched={touched}
@@ -153,12 +153,13 @@ const Col = (props) => {
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return (!!componentMap[type]) ? (
+				return (typeof type === 'string' && componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
-						fieldDef={...currentField}
+						fieldDef={{ ...currentField, size: maxSize }}
 						value={value}
 						error={error}
+						colsInRow={colsInRow}
 					>
 						{children}
 					</Field>

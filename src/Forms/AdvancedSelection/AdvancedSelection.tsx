@@ -22,7 +22,6 @@ import {
 	AdvancedSelectionWrapper,
 } from './AdvancedSelection.styled';
 import { BREAKPOINTS } from '@root/theme/theme';
-// import { useOutsideAlerter } from '../Form/Col';
 
 const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
 	const {

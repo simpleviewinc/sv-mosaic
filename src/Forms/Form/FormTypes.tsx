@@ -2,6 +2,7 @@ import { FormButtonProps } from "@root/forms/Button";
 import { FieldDef } from "@root/components/Field";
 import { ReactNode } from "react";
 import { Section } from "../FormNav/FormNavTypes";
+import { MosaicObject } from "@root/types";
 
 export interface FormState {
 	data: Record<string, any>;
@@ -29,6 +30,7 @@ export interface FormProps {
 	submitButtonAttrs?: FormButtonProps;
 	onCancel?(...args: any): any;
 	cancelButtonAttrs?: FormButtonProps;
+	getFormValues?(): Promise<MosaicObject>;
 	onLoad?(...args: any): any;
 }
 
