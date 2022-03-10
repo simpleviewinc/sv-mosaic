@@ -6,6 +6,7 @@ import { useForm } from '@root/forms/Form/formUtils';
 
 // Components
 import Form from '../../Form/Form';
+import { DateTimeInputDef } from '../DateTimeInput';
 
 export default {
 	title: 'Forms|DateField',
@@ -30,7 +31,7 @@ export const Playground = (): ReactElement => {
 	const instructionText = text('Instruction text', 'Instruction text');
 	const disabled = boolean('Disabled', false);
 	const required = boolean('Required', false);
-	const showTime = boolean('Show time', false)
+	const showTime = boolean('Show time', false);
 
 	const fields = useMemo(
 		() => [
@@ -86,7 +87,112 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
+
+	const { 
+		state, 
+		dispatch, 
+		events, 
+		registerFields, 
+		registerOnSubmit 
+	} = useForm();
+
+	const helperText = 'Helper text';
+	const instructionText = 'Instruction text';
+
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "singleDate",
+					type: "date",
+					label: "Single Date Calendar",
+					required: false,
+					disabled: false,
+					helperText,
+					instructionText,
+					inputSettings: {
+						showTime: false
+					}
+				},
+				{
+					name: "disableSingleDate",
+					type: "date",
+					label: "Disable Single Date Calendar",
+					required: false,
+					disabled: true,
+					helperText,
+					instructionText,
+					inputSettings: {
+						showTime: false
+					}
+				},
+				{
+					name: "dateTime",
+					type: "date",
+					label: "Date Time Input",
+					required: false,
+					disabled: false,
+					helperText,
+					instructionText,
+					inputSettings: {
+						showTime: true
+					}
+				},{
+					name: "disableDateTime",
+					type: "date",
+					label: "Disable Single Date Calendar",
+					required: false,
+					disabled: true,
+					helperText,
+					instructionText,
+					inputSettings: {
+						showTime: true
+					}
+				},{
+					name: "requiredDateTime",
+					type: "date",
+					label: "Required Single Date Calendar",
+					required: true,
+					disabled: false,
+					helperText,
+					instructionText,
+					inputSettings: {
+						showTime: true
+					}
+				} as FieldDef<DateTimeInputDef>
+			],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert('Cancelling form, going back to previous site');
+	};
+
 	return (
-		<h1>KitchenSink</h1>
-	)
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={'Date Field Calendar'}
+				description={'This is a description example'}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				events={events}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
+			/>
+		</>
+	);
 }
