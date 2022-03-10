@@ -12,10 +12,10 @@ const StyledRow = styled.div`
 `;
 
 interface RowPropTypes {
-  row: (string | FieldDef)[][];
-  state: any;
+	row: (string | FieldDef)[][];
+	state: any;
 	fieldsDef: FieldDef[];
-  dispatch: any;
+	dispatch: any;
 }
 
 const Row = (props: RowPropTypes) => {

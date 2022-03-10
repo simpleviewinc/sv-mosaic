@@ -6,7 +6,7 @@ import { StyledAdvancedTooltip, StyledDefaultTooltip } from './Tooltip.styled';
 const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
 		className,
-		text,
+		text = '',
 		children,
 		open,
 		onClose,
@@ -20,7 +20,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 			open={open}
 			onClose={onClose}
 			onOpen={onOpen}
-			title={ text }
+			title={text}
 			PopperProps={{
 				disablePortal: true,
 			}}
@@ -34,7 +34,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 			open={open}
 			onClose={onClose}
 			onOpen={onOpen}
-			title={ text }
+			title={text}
 			arrow
 			placement={placement}
 			PopperProps={{

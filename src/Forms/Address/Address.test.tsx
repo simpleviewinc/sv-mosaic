@@ -4,7 +4,8 @@ import {
 	cleanup,
 	fireEvent,
 	screen,
-	waitFor
+	waitFor,
+	findAllByText
 } from '@testing-library/react';
 import * as React from 'react';
 import { ReactElement, useCallback, useMemo } from 'react';
@@ -86,7 +87,7 @@ const {
 	queryAllByTestId
 } = screen;
 
-const addNewAddress = () => {
+const addNewAddress = async () => {
 	document.createRange = () => ({
 		setStart: jest.fn(),
 		setEnd: jest.fn(),
@@ -102,16 +103,20 @@ const addNewAddress = () => {
 
 	const addAddressButton = getByText('ADD ADDRESS');
 	fireEvent.click(addAddressButton);
-	const address = getByLabelText('Address');
-	const city = getByLabelText('City');
-	const postalCode = getByLabelText('Postal Code');
-	const dropdowns = getAllByTestId('autocomplete-test-id');
-	const inputs = getAllByRole('textbox') as HTMLInputElement[];
+
+	expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
+
+	const address = await screen.findByLabelText('Address');
+	const city = await screen.findByLabelText('City');
+	const postalCode = await screen.findByLabelText('Postal Code');
+	const dropdowns = await screen.findAllByTestId('autocomplete-test-id');
+	const inputs = await screen.findAllByRole('textbox') as HTMLInputElement[];
 	// The first dropdown refers to the country selector.
 	dropdowns[0].focus();
 
-	const addressTypes = getAllByRole('checkbox') as HTMLInputElement[];
-	const modalSaveButton = getAllByText('Save')[1];
+	// screen.debug(null, 60000);
+	const addressTypes = await screen.findAllByRole('checkbox') as HTMLInputElement[];
+	const modalSaveButton = await screen.findAllByText('Save');
 
 	fireEvent.change(address, { target: { value: 'Address test 1' } });
 	fireEvent.change(city, { target: { value: 'Guadalajara' } });
@@ -121,8 +126,8 @@ const addNewAddress = () => {
 	fireEvent.keyDown(dropdowns[0], { key: 'ArrowDown' });
 	fireEvent.keyDown(dropdowns[0], { key: 'Enter' });
 	fireEvent.click(addressTypes[0]);
-	fireEvent.click(modalSaveButton);
-}; 
+	fireEvent.click(modalSaveButton[1]);
+};
 
 afterEach(cleanup);
 jest.setTimeout(30000);
@@ -132,13 +137,17 @@ describe('Address component', () => {
 		render(<AddressFormFieldExample />);
 	});
 
-	it('should add a new address card and then remove it', async () => {
+	it.only('should add a new address card and then remove it', async () => {
 		expect(queryAllByTestId('address-card-test')).toStrictEqual([]);
-		addNewAddress();
+		await addNewAddress();
 
-		await waitFor(() => {
-			expect(queryAllByTestId('address-card-test').length).toBe(1);
-		}, { timeout: 3000 });
+		screen.debug(null, 100000);
+
+		expect(await screen.findAllByText('Remove')).toHaveLength(1);
+
+		// await waitFor(() => {
+		// 	expect(queryAllByTestId('address-card-test').length).toBe(1);
+		// }, { timeout: 3000 });
 
 		fireEvent.click(getByText('Remove'));
 
@@ -146,9 +155,9 @@ describe('Address component', () => {
 	});
 
 	it('should edit an address card', async () => {
-		addNewAddress();
-		await new Promise((r) => setTimeout(r, 3000));
-		fireEvent.click(getByText('Edit'));
+		await addNewAddress();
+		// await new Promise((r) => setTimeout(r, 5000));
+		fireEvent.click(await screen.findByText('Edit'));
 
 		const address = getByLabelText('Address');
 		const city = getByLabelText('City');

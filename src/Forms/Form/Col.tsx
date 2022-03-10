@@ -37,6 +37,7 @@ interface ColPropsTypes {
 	state: any;
 	fieldsDef: FieldDef[];
 	dispatch: any;
+	colsInRow?: number;
 }
 
 const Col = (props: ColPropsTypes) => {
@@ -124,7 +125,7 @@ const Col = (props: ColPropsTypes) => {
 				const touched = state?.touched[fieldProps.name] || '';
 				const error = state?.errors[fieldProps.name] || '';
 
-				let maxSize = Sizes.sm;
+				let maxSize: Sizes | string = Sizes.sm;
 				if (currentField?.size)
 					switch (colsInRow) {
 						case 1:
