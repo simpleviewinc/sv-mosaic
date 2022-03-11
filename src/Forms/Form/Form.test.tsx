@@ -11,6 +11,7 @@ const runTests = (tests, type) => {
 		testArray(tests, async test => {
 			const state = test['state'] ? test['state'] : {};
 			const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
+			const args = test['args'] ? test['args'] : [];
 
 			const dispatches = [];
 			const dispatch = async action => {
@@ -20,8 +21,9 @@ const runTests = (tests, type) => {
 					dispatches.push(action);
 				}
 			}
+
 			const getState = () => state;
-			const fn = actions[test['action']](...test['args']);
+			const fn = actions[test['action']](...args);
 			await fn(dispatch, getState, extraArgs);
 
 			assert.deepStrictEqual(dispatches, test['calls']);
@@ -831,7 +833,7 @@ describe('DISPATCHERS: resetForm', () => {
 	runTests(tests, 'dispatch');
 });
 
-describe('DISPATCHERS: prepopulateForm', () => {
+describe('DISPATCHERS: setFormValues', () => {
 	const tests = [
 		{
 			name: 'Prepopulates fields with data',
@@ -842,12 +844,12 @@ describe('DISPATCHERS: prepopulateForm', () => {
 						{ name: 'field2' },
 					],
 				},
-				action: 'prepopulateForm',
+				action: 'setFormValues',
 				args: [{
-					callback: () => ({
+					values: {
 						'field1': 'value1',
 						'field2': 'value2',
-					})
+					}
 				}],
 				calls: [
 					{
