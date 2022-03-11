@@ -1,6 +1,6 @@
 import { BasePickerProps } from '@material-ui/pickers/typings/BasePicker';
 
-export type DateTimeInputDef = {
+export type DateFieldDef = {
 	/**
    * Value of the date picker
    */

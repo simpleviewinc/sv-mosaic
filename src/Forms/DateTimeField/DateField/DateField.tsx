@@ -2,19 +2,18 @@ import * as React from 'react';
 import { ReactElement, memo, useState, useEffect } from 'react';
 
 // Components
-import DatePicker from '../DatePicker';
-import TimePicker from '../TimePicker';
+import DatePicker from "../DatePicker";
+import TimePicker from "../TimePicker";
 import HelperText from "@root/components/Field/HelperText";
 
 // Styles
-import { DateTimePickerWrapper } from '../DateField/DateField.styled';
-import { DateTimeInputRow } from '../DateTimeInput/DateTimeInput.styled';
+import { DateTimePickerWrapper, DateTimeInputRow } from '../DateField/DateField.styled';
 import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
 import { MosaicFieldProps } from '@root/components/Field';
-import { DateTimeInputDef } from '../DateTimeInput';
+import { DateFieldDef } from './DateFieldTypes';
 
 
-const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElement => {
+const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement => {
 
 	const {
 		fieldDef,

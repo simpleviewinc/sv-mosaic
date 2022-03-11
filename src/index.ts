@@ -47,12 +47,6 @@ export * from "./forms/ColorPicker";
 export { default as DatePicker } from "./forms/DateTimeField/DatePicker";
 export * from "./forms/DateTimeField/DatePicker";
 
-export { default as DateRangeCalendar } from "./forms/DateTimeField/DateRangeCalendar";
-export * from "./forms/DateTimeField/DateRangeCalendar";
-
-export { default as DateTimeInput } from "./forms/DateTimeField/DateTimeInput";
-export * from "./forms/DateTimeField/DateTimeInput";
-
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
 
@@ -116,9 +110,6 @@ export * from "./forms/FormFieldTextArea";
 //BUG TO BE FIXED
 // export { default as TextEditor } from "./forms/TextEditor";
 // export * from "./forms/TextEditor";
-
-export { default as TimeInput } from "./forms/DateTimeField/TimeInput";
-export * from "./forms/DateTimeField/TimeInput";
 
 export { default as TimePicker } from "./forms/DateTimeField/TimePicker";
 export * from "./forms/DateTimeField/TimePicker";
