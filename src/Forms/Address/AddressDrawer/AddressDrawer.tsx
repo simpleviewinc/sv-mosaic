@@ -64,10 +64,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	useEffect(() => {
 		if (isEditing && open) {
 			const fullCountryData = countriesWithStates?.find(
-				(c) => c.iso2 === addressToEdit?.country?.value
+				(c) => c.name === addressToEdit?.country
 			);
 			const fullStateData = fullCountryData.states.find(
-				(s) => s.state_code === addressToEdit?.state?.value
+				(s) => s.name === addressToEdit?.state
 			);
 			dispatch(
 				actions.setFieldValue({
@@ -116,17 +116,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				actions.setFieldValue({
 					name: 'country',
-					value: { title: fullCountryData?.name, value: fullCountryData?.iso2 },
+					value: fullCountryData?.name,
 				})
 			);
 
 			dispatch(
 				actions.setFieldValue({
 					name: 'states',
-					value: {
-						title: fullStateData?.name,
-						value: fullStateData?.state_code,
-					},
+					value: fullStateData?.name,
 				})
 			);
 		}
@@ -138,14 +135,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
    */
 	const listOfStates = useMemo(() => {
 		const selectedCountryTest = countriesWithStates?.find(
-			(c) => c.name === state?.data?.country?.title
+			(c) => c.name === state?.data?.country
 		);
 
 		if (selectedCountryTest) {
-			return selectedCountryTest.states.map((state) => ({
-				title: state.name,
-				value: state.state_code,
-			}));
+			return selectedCountryTest.states.map((state) => ({title: state.name}));
 		}
 
 		return [];

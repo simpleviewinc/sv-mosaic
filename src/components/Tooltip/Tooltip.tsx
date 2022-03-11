@@ -6,7 +6,7 @@ import { StyledAdvancedTooltip, StyledDefaultTooltip } from './Tooltip.styled';
 const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
 		className,
-		text,
+		text = '',
 		children,
 		open,
 		onClose,
