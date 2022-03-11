@@ -14,10 +14,7 @@ import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
 import Field, { FieldDef } from '@root/components/Field';
 import ImageVideoLinkDocumentBrowsing from '../ImageVideoLinkDocumentBrowsing';
 import ColorPicker from '../ColorPicker';
-import SingleDateCalendar from '../DateTimeField/SingleDateCalendar';
-import DateRangeCalendar from '../DateTimeField/DateRangeCalendar';
-import TimeInput from '../DateTimeField/TimeInput';
-import DateTimeInput from '../DateTimeField/DateTimeInput';
+import DateField from '../DateTimeField/DateField';
 import Address from '../Address';
 import Table from '../Table';
 import TextEditor from '../TextEditor';
@@ -60,10 +57,7 @@ const Col = (props: ColPropsTypes) => {
 		toggleSwitch: FormFieldToggleSwitch,
 		imageVideoDocumentLink: ImageVideoLinkDocumentBrowsing,
 		color: ColorPicker,
-		date: SingleDateCalendar,
-		dateRange: DateRangeCalendar,
-		time: TimeInput,
-		dateTime: DateTimeInput,
+		date: DateField,
 		address: Address,
 		table: Table,
 		textEditor: TextEditor,
