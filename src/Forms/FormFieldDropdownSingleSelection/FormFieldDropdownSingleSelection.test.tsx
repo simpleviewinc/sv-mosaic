@@ -26,7 +26,7 @@ describe('DropdownSingleSelection component', () => {
 						placeholder: 'Placeholder test',
 					}
 				}}
-				value={topFilms[0]}
+				value={topFilms[0].title}
 			/>
 		);
 

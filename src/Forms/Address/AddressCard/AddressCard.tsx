@@ -24,8 +24,8 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			<span>{address?.address1}</span>
 			{address?.address2 && <span>{address?.address2}</span>}
 			{address?.address3 && <span>{address?.address3}</span>}
-			<span>{`${address?.city}, ${address?.state?.title ? address.state.title : ''} ${address?.postalCode}`}</span>
-			<span>{address?.country?.title}</span>
+			<span>{`${address?.city}, ${address?.state ? address.state : ''} ${address?.postalCode}`}</span>
+			<span>{address?.country}</span>
 			<ButtonsWrapper>
 				<Button buttonType='blueText' disabled={disabled} onClick={() => onEdit(address, addressIndex)}>Edit</Button>
 				<Button buttonType='redText' disabled={disabled} onClick={() => onRemoveAddress(addressIndex)}>
