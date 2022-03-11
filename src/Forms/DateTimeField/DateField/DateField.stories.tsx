@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { ReactElement, useMemo, useCallback } from 'react';
+import { ReactElement, useMemo, useCallback } from "react";
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { FieldDef } from '@root/components/Field';
 import { useForm } from '@root/forms/Form/formUtils';
 
 // Components
 import Form from '../../Form/Form';
-import { DateTimeInputDef } from '../DateTimeInput';
+import { DateFieldDef } from './DateFieldTypes';
 
 export default {
 	title: 'Forms|DateField',
@@ -159,7 +159,7 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						showTime: true
 					}
-				} as FieldDef<DateTimeInputDef>
+				} as FieldDef<DateFieldDef>
 			],
 		[]
 	);

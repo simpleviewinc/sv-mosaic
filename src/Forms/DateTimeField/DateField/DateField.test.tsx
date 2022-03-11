@@ -2,12 +2,12 @@ import { FieldDef } from '@root/components/Field';
 import { render } from '@testing-library/react';
 import * as React from 'react';
 import DateField from '.';
-import { DateTimeInputDef } from '../DateTimeInput';
+import { DateFieldDef } from './DateFieldTypes';
 import {screen} from '@testing-library/dom';
 import '@testing-library/jest-dom';
 
-describe('SingleDateCalendar component', () => {
-	it('Should display the date value', () => {
+describe("SingleDateCalendar component", () => {
+	it("Should display the date value", () => {
 		render(
 			<DateField
 				fieldDef={{
@@ -19,7 +19,7 @@ describe('SingleDateCalendar component', () => {
 					inputSettings: {
 						showTime: false
 					}
-				} as FieldDef<DateTimeInputDef>}
+				} as FieldDef<DateFieldDef>}
 				value="2022-01-01T00:00:00.000Z"
 
 			/>
@@ -28,7 +28,7 @@ describe('SingleDateCalendar component', () => {
 
 	});
 
-	it('Should display the placeholder when date is disabled and no value is provided', () => {
+	it("Should display the placeholder when date is disabled and no value is provided", () => {
 		const { getByText } = render(
 			<DateField
 				fieldDef={{
@@ -40,7 +40,7 @@ describe('SingleDateCalendar component', () => {
 					inputSettings: {
 						showTime: false
 					}
-				} as FieldDef<DateTimeInputDef>}
+				} as FieldDef<DateFieldDef>}
 				value={null}
 			/>
 		);
@@ -59,7 +59,7 @@ describe('SingleDateCalendar component', () => {
 					inputSettings: {
 						showTime: true
 					}
-				} as FieldDef<DateTimeInputDef>}
+				} as FieldDef<DateFieldDef>}
 				value="2022-01-01T13:30:00.000Z"
 			/>
 		);
@@ -67,7 +67,7 @@ describe('SingleDateCalendar component', () => {
 		expect(screen.getByDisplayValue("01:30 PM")).toBeInTheDocument();
 	});
 
-	it('Should display the placeholders when date time is disabled and no value is provided', () => {
+	it("Should display the placeholders when date time is disabled and no value is provided", () => {
 		const { getByText } = render(
 			<DateField
 				fieldDef={{
@@ -79,7 +79,7 @@ describe('SingleDateCalendar component', () => {
 					inputSettings: {
 						showTime: true
 					}
-				} as FieldDef<DateTimeInputDef>}
+				} as FieldDef<DateFieldDef>}
 				value={null}
 
 			/>

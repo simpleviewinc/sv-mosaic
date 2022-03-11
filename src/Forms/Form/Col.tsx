@@ -15,9 +15,6 @@ import Field, { FieldDef } from '@root/components/Field';
 import ImageVideoLinkDocumentBrowsing from '../ImageVideoLinkDocumentBrowsing';
 import ColorPicker from '../ColorPicker';
 import DateField from '../DateTimeField/DateField';
-import DateRangeCalendar from '../DateTimeField/DateRangeCalendar';
-import TimeInput from '../DateTimeField/TimeInput';
-import DateTimeInput from '../DateTimeField/DateTimeInput';
 import Address from '../Address';
 import Table from '../Table';
 import TextEditor from '../TextEditor';
@@ -61,9 +58,6 @@ const Col = (props: ColPropsTypes) => {
 		imageVideoDocumentLink: ImageVideoLinkDocumentBrowsing,
 		color: ColorPicker,
 		date: DateField,
-		dateRange: DateRangeCalendar,
-		time: TimeInput,
-		dateTime: DateTimeInput,
 		address: Address,
 		table: Table,
 		textEditor: TextEditor,
