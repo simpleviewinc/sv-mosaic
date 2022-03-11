@@ -16,6 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 // Utils
 import theme from '../../../theme/theme';
 import { FormTitle } from '../Utils/TitleWrapper';
+import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
 
 const DrawerViewColumn = styled(StyledColumn)`
   background-color: ${theme.colors.grayHover};
@@ -27,10 +28,15 @@ const DrawerViewColumn = styled(StyledColumn)`
   z-index: 9999;
 `;
 
-const DrawerView = (props): ReactElement => {
+type DrawerViewProps = {
+	onCancel: TopComponentProps['onCancel'];
+	buttons: JSX.Element;
+} & BaseTopComponentProps;
+
+const DrawerView = (props: DrawerViewProps): ReactElement => {
 	const {
 		onCancel,
-		type,
+		view,
 		title,
 		tooltipInfo,
 		helpIcon,
@@ -39,7 +45,7 @@ const DrawerView = (props): ReactElement => {
 
 	return (
 		<>
-			<DrawerViewColumn type={type}>
+			<DrawerViewColumn type={view}>
 				<Row>
 					{onCancel && (
 						<IconButton
@@ -52,7 +58,7 @@ const DrawerView = (props): ReactElement => {
 							<CloseIcon />
 						</IconButton>
 					)}
-					<FormTitle type={type} data-testid='drawer-title-test'>{title}</FormTitle>
+					<FormTitle type={view} data-testid='drawer-title-test'>{title}</FormTitle>
 					{tooltipInfo && helpIcon}
 				</Row>
 				<ButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ButtonsWrapper>

@@ -60,6 +60,7 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 	 */
 	const handleClose = async () => {
 		setOpen(false);
+		console.log('closing');
 		await onBlur();
 	};
 

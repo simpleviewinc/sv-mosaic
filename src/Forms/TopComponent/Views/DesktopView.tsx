@@ -14,6 +14,7 @@ import {
 // Utils
 import { BREAKPOINTS } from '@root/theme/theme';
 import TitleWrapper from '../Utils/TitleWrapper';
+import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
 
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + 'px';
 
@@ -47,7 +48,13 @@ const DesktopTitleActionsRow = styled(FlexContainer)`
   margin-bottom: 30px;
 `;
 
-const DesktopView = (props): ReactElement => {
+type DesktopViewProps = {
+	buttons: JSX.Element;
+	sections: TopComponentProps['sections'];
+	checkbox: JSX.Element;
+} & BaseTopComponentProps;
+
+const DesktopView = (props: DesktopViewProps): ReactElement => {
 	const {
 		title,
 		description,
