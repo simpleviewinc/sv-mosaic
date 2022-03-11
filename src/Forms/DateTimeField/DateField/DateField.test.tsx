@@ -3,11 +3,11 @@ import { render } from '@testing-library/react';
 import * as React from 'react';
 import DateField from '.';
 import { DateTimeInputDef } from '../DateTimeInput';
-import {screen} from '@testing-library/dom'
-import '@testing-library/jest-dom'
+import {screen} from '@testing-library/dom';
+import '@testing-library/jest-dom';
 
 describe('SingleDateCalendar component', () => {
-	it('should display the date value', () => {
+	it('Should display the date value', () => {
 		render(
 			<DateField
 				fieldDef={{
@@ -20,15 +20,15 @@ describe('SingleDateCalendar component', () => {
 						showTime: false
 					}
 				} as FieldDef<DateTimeInputDef>}
-				value='2022-01-01T00:00:00.000Z'
+				value="2022-01-01T00:00:00.000Z"
 
 			/>
 		);
-		expect(screen.getByDisplayValue('01/01/2022')).toBeInTheDocument();
+		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();
 
 	});
 
-	it('should display the placeholder when date is disabled and no value is provided', () => {
+	it('Should display the placeholder when date is disabled and no value is provided', () => {
 		const { getByText } = render(
 			<DateField
 				fieldDef={{
@@ -42,14 +42,12 @@ describe('SingleDateCalendar component', () => {
 					}
 				} as FieldDef<DateTimeInputDef>}
 				value={null}
-
 			/>
 		);
-
-		expect(getByText('MM / DD / YYYY')).toBeTruthy();
+		expect(getByText("MM / DD / YYYY")).toBeTruthy();
 	});
 
-	it('should display the date time values', () => {
+	it("Should display the date time values", () => {
 		render(
 			<DateField
 				fieldDef={{
@@ -62,16 +60,14 @@ describe('SingleDateCalendar component', () => {
 						showTime: true
 					}
 				} as FieldDef<DateTimeInputDef>}
-				value='2022-01-01T13:30:00.000Z'
-
+				value="2022-01-01T13:30:00.000Z"
 			/>
 		);
-		expect(screen.getByDisplayValue('01/01/2022')).toBeInTheDocument();
-		expect(screen.getByDisplayValue('01:30 PM')).toBeInTheDocument();
-		
+		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();
+		expect(screen.getByDisplayValue("01:30 PM")).toBeInTheDocument();
 	});
 
-	it('should display the placeholders when date time is disabled and no value is provided', () => {
+	it('Should display the placeholders when date time is disabled and no value is provided', () => {
 		const { getByText } = render(
 			<DateField
 				fieldDef={{
@@ -88,8 +84,7 @@ describe('SingleDateCalendar component', () => {
 
 			/>
 		);
-
-		expect(getByText('MM / DD / YYYY')).toBeTruthy();
-		expect(getByText('00:00 AM/PM')).toBeTruthy();
+		expect(getByText("MM / DD / YYYY")).toBeTruthy();
+		expect(getByText("00:00 AM/PM")).toBeTruthy();
 	});
 });

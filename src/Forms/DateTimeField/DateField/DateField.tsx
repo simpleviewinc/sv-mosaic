@@ -1,11 +1,10 @@
-/* eslint-disable use-isnan */
 import * as React from 'react';
 import { ReactElement, memo, useState, useEffect } from 'react';
 
 // Components
 import DatePicker from '../DatePicker';
 import TimePicker from '../TimePicker';
-import HelperText from '@root/components/Field/HelperText';
+import HelperText from "@root/components/Field/HelperText";
 
 // Styles
 import { DateTimePickerWrapper } from '../DateField/DateField.styled';
@@ -32,14 +31,14 @@ const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 	
 
 	useEffect(() => {
-		setDateInput(value || null)
-		setTimeInput(value || null)
-	}, [])
+		setDateInput(value || null);
+		setTimeInput(value || null);
+	}, []);
 
 	const handleOnChange = async (position, date) => {
 
 		let newValue = value;
-		position === 0 ? setDateInput(date) : setTimeInput(date)
+		position === 0 ? setDateInput(date) : setTimeInput(date);
 
 		if (!isNaN(date?.valueOf())) {
 			
@@ -55,11 +54,11 @@ const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 					position === 0 ? setDateInput(dateString) : setTimeInput(dateString);
 					if (required) {
 						if (position === 0 && timeInput) {
-							const splitTimeInput = timeInput.split('T') || [];
-							newValue = `${splitDate[0]}T${splitTimeInput[1]}`
+							const splitTimeInput = timeInput.split("T") || [];
+							newValue = `${splitDate[0]}T${splitTimeInput[1]}`;
 						} else if (position === 1 && dateInput) {
-							const splitDateInput = dateInput.split('T') || [];
-							newValue = `${splitDateInput[0]}T${splitDate[1]}`
+							const splitDateInput = dateInput.split("T") || [];
+							newValue = `${splitDateInput[0]}T${splitDate[1]}`;
 						} else {
 							newValue = undefined;
 						}
@@ -67,32 +66,32 @@ const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 						newValue = dateString;
 					}
 				} else {
-					const splitNewValue = newValue.split('T') || [];
+					const splitNewValue = newValue.split("T") || [];
 					
 					if (position === 0) {
-						newValue = `${splitDate[0]}T${splitNewValue[1]}`
-						setDateInput(newValue)
+						newValue = `${splitDate[0]}T${splitNewValue[1]}`;
+						setDateInput(newValue);
 					} else {
-						newValue = `${splitNewValue[0]}T${splitDate[1]}`
-						setTimeInput(newValue)
+						newValue = `${splitNewValue[0]}T${splitDate[1]}`;
+						setTimeInput(newValue);
 					}
 				}
 			}
 		} else {
 			
 			if (showTime && dateInput && position === 1) {
-				newValue = !required ? dateInput : undefined
-				setDateInput(dateInput)
+				newValue = !required ? dateInput : undefined;
+				setDateInput(dateInput);
 			} else if (showTime && timeInput && position === 0) {
-				newValue = !required ? timeInput : undefined
-				setTimeInput(timeInput)
+				newValue = !required ? timeInput : undefined;
+				setTimeInput(timeInput);
 			} else {
 				newValue = undefined;
 			}
 		}
 
 		await onChange(newValue);
-	}	
+	};
 
 	return (
 		<DateTimeInputRow>
@@ -104,9 +103,9 @@ const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 							onChange={(d) => handleOnChange(0, d)}
 							fieldDef={{
 								name: fieldDef?.name,
-								label: '',
+								label: "",
 								inputSettings: {
-									placeholder: 'MM / DD / YYYY'
+									placeholder: "MM / DD / YYYY"
 								},
 								required: fieldDef?.required,
 							}}
@@ -122,9 +121,9 @@ const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 								onChange={(d) => handleOnChange(1, d)}
 								fieldDef={{
 									name: fieldDef?.name,
-									label: '',
+									label: "",
 									inputSettings: {
-										placeholder: '00:00 AM/PM'
+										placeholder: "00:00 AM/PM"
 									}
 								}}
 								value={timeInput}
@@ -138,15 +137,15 @@ const DateField = (props: MosaicFieldProps<DateTimeInputDef, string>): ReactElem
 				<>
 					<DisabledDateTimeValue>
 						{
-							value ? new Date(value).toLocaleDateString('en', { timeZone: 'UTC' }) 
-							: 'MM / DD / YYYY'
+							value ? new Date(value).toLocaleDateString("en", { timeZone: "UTC" }) 
+							: "MM / DD / YYYY"
 						}
 					</DisabledDateTimeValue>
 					{showTime &&
 						<DisabledDateTimeValue>
 							{
-								value ? new Date(value).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'UTC' })
-								: '00:00 AM/PM'
+								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })
+								: "00:00 AM/PM"
 							}
 						</DisabledDateTimeValue>
 					}
