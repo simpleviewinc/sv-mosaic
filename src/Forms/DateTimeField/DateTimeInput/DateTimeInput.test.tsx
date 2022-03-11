@@ -42,4 +42,4 @@ describe('DateTimeInput component', () => {
 	})
 }); */
 
-it.skip('skip', () => { });
+it.skip('skip', () => undefined);

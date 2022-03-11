@@ -43,4 +43,4 @@
 // 	})
 // });
 
-it.skip('skip', () => { });
+it.skip('skip', () => undefined);

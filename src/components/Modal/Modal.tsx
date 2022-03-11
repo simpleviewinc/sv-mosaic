@@ -27,7 +27,7 @@ const Modal = (props: ModalProps): ReactElement => {
 		title,
 		onSubmit,
 		onCancel,
-		onLoad,
+		// onLoad,
 		submitButtonAttrs,
 		cancelButtonAttrs,
 		state,

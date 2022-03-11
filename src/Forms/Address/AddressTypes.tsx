@@ -43,7 +43,7 @@ export interface AddressDrawerProps {
 	isEditing: boolean;
 	addressIdx: number;
 	open: boolean;
-	onChange?: (event: unknown) => void;
+	onChange?: (event: unknown) => Promise<void>;
 	handleClose: () => void;
 	setIsEditing: Dispatch<SetStateAction<boolean>>;
 	value: IAddress[];
