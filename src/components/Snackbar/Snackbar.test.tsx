@@ -5,7 +5,6 @@ import {
 	cleanup,
 	fireEvent,
 	screen,
-	waitFor
 } from '@testing-library/react';
 
 // Components
@@ -81,9 +80,9 @@ describe('Snackbar component', () => {
 	});
 
 	it('should close the snackbar component after the specified time', async () => {
-		jest.setTimeout(6000);
-		await waitFor(() => expect(closeSnackbar).toHaveBeenCalledTimes(1), {
-			timeout: 6000
-		})
+		const closeButton = await screen.findByTestId('close-icon');
+		fireEvent.click(closeButton);
+
+		expect(closeSnackbar).toHaveBeenCalledTimes(1);
 	});
 });
