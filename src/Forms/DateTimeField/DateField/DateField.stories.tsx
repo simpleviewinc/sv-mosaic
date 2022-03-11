@@ -26,12 +26,12 @@ export const Playground = (): ReactElement => {
 		registerOnSubmit
 	} = useForm();
 
-	const label = text('Label', 'Date Field Picker');
-	const helperText = text('Helper text', 'Helper text');
-	const instructionText = text('Instruction text', 'Instruction text');
-	const disabled = boolean('Disabled', false);
-	const required = boolean('Required', false);
-	const showTime = boolean('Show time', false);
+	const label = text("Label", "Date Field Picker");
+	const helperText = text("Helper text", "Helper text");
+	const instructionText = text("Instruction text", "Instruction text");
+	const disabled = boolean("Disabled", false);
+	const required = boolean("Required", false);
+	const showTime = boolean("Show time", false);
 
 	const fields = useMemo(
 		() => [
@@ -49,7 +49,7 @@ export const Playground = (): ReactElement => {
 			}
 		] as FieldDef[],
 		[label, required, disabled, helperText, instructionText, showTime]
-	)
+	);
 
 	useMemo(() => {
 		registerFields(fields);
@@ -71,10 +71,10 @@ export const Playground = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -96,8 +96,8 @@ export const KitchenSink = (): ReactElement => {
 		registerOnSubmit 
 	} = useForm();
 
-	const helperText = 'Helper text';
-	const instructionText = 'Instruction text';
+	const helperText = "Helper text";
+	const instructionText = "Instruction text";
 
 	const fields = useMemo(
 		() =>
@@ -184,8 +184,8 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={'Date Field Calendar'}
-				description={'This is a description example'}
+				title={"Date Field Calendar"}
+				description={"This is a description example"}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -195,4 +195,4 @@ export const KitchenSink = (): ReactElement => {
 			/>
 		</>
 	);
-}
+};
