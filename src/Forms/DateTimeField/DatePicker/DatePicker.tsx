@@ -18,6 +18,7 @@ const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 		fieldDef,
 		onChange,
 		value,
+		onBlur
 	} = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
@@ -58,6 +59,7 @@ const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 						invalidDateMessage={null}
 						maxDateMessage={null}
 						minDateMessage={null}
+						onBlur={onBlur}
 					/>
 				</DatePickerWrapper>
 			</ThemeProvider>
