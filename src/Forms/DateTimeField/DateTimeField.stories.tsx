@@ -109,16 +109,6 @@ export const DateRangeCalendarExample = (): ReactElement => {
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 	);
 	const required = boolean('Required', false);
-	const [selectedDateFrom, setSelectedDateFrom] = useState(new Date());
-	const [selectedDateTo, setSelectedDateTo] = useState(new Date());
-
-	const handleDateChangeFrom = (date: Date | null) => {
-		setSelectedDateFrom(date);
-	};
-
-	const handleDateChangeTo = (date: Date | null) => {
-		setSelectedDateTo(date);
-	};
 
 	return (
 		<Field
@@ -199,16 +189,6 @@ export const DateTimeInputExample = (): ReactElement => {
 		'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 	);
 	const required = boolean('Required', false);
-	const [selectedDate, setSelectedDate] = useState(new Date());
-	const [selectedTime, setSelectedTime] = useState(new Date());
-
-	const handleDateChange = (date: Date | null) => {
-		setSelectedDate(date);
-	};
-
-	const handleTimeChange = (date: Date | null) => {
-		setSelectedTime(date);
-	};
 
 	return (
 		<Field

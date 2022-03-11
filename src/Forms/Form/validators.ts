@@ -28,7 +28,7 @@ export function validateSlow(str: string): Promise<void | string> {
 			} else {
 				return resolve();
 			}
-		}, 5000);
+		}, 1000);
 	});
 }
 
