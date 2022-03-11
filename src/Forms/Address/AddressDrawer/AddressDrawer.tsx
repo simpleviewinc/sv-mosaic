@@ -202,6 +202,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
 
 		onChange && await onChange(listOfAddresses);
+		console.log('closing with', listOfAddresses);
 		handleClose();
 	}, [state.validForm]);
 
@@ -304,13 +305,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	return (
 		<Form
 			title='Address Information'
+			data-testid={'address-testid'}
 			state={state}
 			dispatch={dispatch}
 			sections={sections}
 			fields={fields}
 			type='drawer'
 			onCancel={handleClose}
-			onSubmit={onSubmit}
+			onSubmit={async () => await onSubmit()}
 			submitButtonAttrs={{ children: 'Save' }}
 			cancelButtonAttrs={{ children: 'Cancel' }}
 		/>
