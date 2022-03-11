@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useState, ReactElement, useEffect, useMemo } from 'react';
+import { memo, useState, ReactElement, useMemo } from 'react';
 
 // Components
 import Button from '@root/forms/Button';
@@ -30,7 +30,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		tooltipInfo,
 		sections,
 		submitButtonAttrs,
-		type = undefined,
+		// type = undefined,
 		view = 'RESPONSIVE',
 	} = props;
 
@@ -129,16 +129,17 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 				submitButton={submitButton}
 				showActive={showActive}
 				tooltipInfo={tooltipInfo}
+				view={view}
 			/>
 		);
 		if (view === 'DRAWER') return (
 			<DrawerView
 				title={title}
-				type={type}
 				onCancel={onCancel}
 				tooltipInfo={tooltipInfo}
 				helpIcon={helpIcon}
 				buttons={buttons}
+				view={view}
 			/>
 		);
 		if (view === 'RESPONSIVE') return (
@@ -151,6 +152,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 				checkbox={checkbox}
 				buttons={buttons}
 				sections={sections}
+				view={view}
 			/>
 		);
 		if (view === 'DESKTOP' || view === 'BIG_DESKTOP') return (

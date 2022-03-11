@@ -5,7 +5,6 @@ import {
 	cleanup,
 	fireEvent,
 	screen,
-	waitFor
 } from '@testing-library/react';
 
 // Components

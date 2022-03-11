@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { memo, ReactElement } from 'react';
 
-// Components
-import FormNav from '@root/forms/FormNav';
-
 // Styled components
 import styled from 'styled-components';
 
@@ -52,11 +49,16 @@ export const TitleRow = styled.div`
 		flex-direction: column;
 		margin-right: auto;
 		`
-	}
-	
+}
 `;
 
-const TitleWrapper = (props): ReactElement => {
+type TitleWrapperProps = {
+	title: string;
+	description: string;
+	view: string
+}
+
+const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	const {
 		title,
 		description,

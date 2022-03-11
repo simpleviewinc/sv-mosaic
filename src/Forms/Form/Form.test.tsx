@@ -7,44 +7,46 @@ import { TextFieldDef } from "../FormFieldText";
 
 const runTests = (tests, type) => {
 	switch (type) {
-		case 'dispatch':
-			testArray(tests, async test => {
-				const state = test['state'] ? test['state'] : {};
-				const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
+	case 'dispatch':
+		testArray(tests, async test => {
+			const state = test['state'] ? test['state'] : {};
+			const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
+			const args = test['args'] ? test['args'] : [];
 
-				const dispatches = [];
-				const dispatch = async action => {
-					if (action instanceof Function) {
-						await action(dispatch, getState, extraArgs);
-					} else {
-						dispatches.push(action);
-					}
+			const dispatches = [];
+			const dispatch = async action => {
+				if (action instanceof Function) {
+					await action(dispatch, getState, extraArgs);
+				} else {
+					dispatches.push(action);
 				}
-				const getState = () => state;
-				const fn = actions[test['action']]({ ...test['args'] });
-				await fn(dispatch, getState, extraArgs);
+			}
 
-				assert.deepStrictEqual(dispatches, test['calls']);
-			});
-			break;
-		case 'reducer':
-			testArray(tests, test => {
-				const state = test['state'] ? test['state'] : {};
-				const result = coreReducer(state, test['action']);
+			const getState = () => state;
+			const fn = actions[test['action']](...args);
+			await fn(dispatch, getState, extraArgs);
 
-				assert.deepStrictEqual(result, test['result']);
-				assert.notStrictEqual(state, result);
-			});
-			break;
-		case 'validator':
-			testArray(tests, async test => {
-				const result = await test['validator'](test['value']);
+			assert.deepStrictEqual(dispatches, test['calls']);
+		});
+		break;
+	case 'reducer':
+		testArray(tests, test => {
+			const state = test['state'] ? test['state'] : {};
+			const result = coreReducer(state, test['action']);
 
-				assert.deepStrictEqual(result, test['result']);
-			});
-			break;
-		default:
-			break;
+			assert.deepStrictEqual(result, test['result']);
+			assert.notStrictEqual(state, result);
+		});
+		break;
+	case 'validator':
+		testArray(tests, async test => {
+			const result = await test['validator'](test['value']);
+
+			assert.deepStrictEqual(result, test['result']);
+		});
+		break;
+	default:
+		break;
 	}
 };
 
