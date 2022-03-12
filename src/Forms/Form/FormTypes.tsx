@@ -32,5 +32,6 @@ export interface FormProps {
 	cancelButtonAttrs?: FormButtonProps;
 	getFormValues?(): Promise<MosaicObject>;
 	onLoad?(...args: any): any;
+	hasUnsavedChanges?: boolean;
 }
 
