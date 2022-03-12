@@ -22,6 +22,8 @@ import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
 import LoadMoreButton from './LoadMoreButton';
 import Form from '../Form/Form';
 import { AdvanceSelectionDrawerPropTypes } from '.';
+// import { isEqual } from 'lodash';
+import _ from 'lodash';
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -37,8 +39,14 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [filteredOptions, setFilteredOptions] = useState<optionsWithCategory[]>([]);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filter, setFilter] = useState({ prev: 'options', new: 'options' });
+	const [unsavedChanges, setUnsavedChanges] = useState(false);
 
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+
+	useEffect(() => {
+		// console.log('entering', value, state.data, !_.isEqual(value, state.data));
+		setUnsavedChanges(!_.isEqual(value, state.data.checkboxList));
+	}, [state.data.checkboxList]);
 
 	useEffect(() => {
 		if (value.length > 0 && isModalOpen)
@@ -266,14 +274,14 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				},
 			] as FieldDef[]
 		), [
-			filteredList,
-			searchInput,
-			fieldDef,
-			canLoadMore,
-			getMoreOptions,
-			isModalOpen,
-			isMobileView,
-		]
+		filteredList,
+		searchInput,
+		fieldDef,
+		canLoadMore,
+		getMoreOptions,
+		isModalOpen,
+		isMobileView,
+	]
 	);
 
 	useMemo(() => {
@@ -305,6 +313,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			onSubmit={handleSave}
 			submitButtonAttrs={{ children: 'Save' }}
 			cancelButtonAttrs={{ children: 'Cancel' }}
+			hasUnsavedChanges={unsavedChanges}
 		/>
 	);
 };
