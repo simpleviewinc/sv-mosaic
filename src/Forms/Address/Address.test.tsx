@@ -166,7 +166,7 @@ describe('Address component', () => {
 			expect(getByText('Address edited')).toBeTruthy();
 			expect(getByText('Physical, Billing Address')).toBeTruthy();
 			expect(getByText('City edited, 000')).toBeTruthy();
-			expect(getByText('Argentina')).toBeTruthy();
+			expect(getByText('AR')).toBeTruthy();
 		}, { timeout: 3000 });
 	});
 });

@@ -20,10 +20,10 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		error,
 		onChange,
 		onBlur,
-		value
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [dropDownValue, setDropDownValue] = useState(null);
 
 	const renderInput = (params) => (
 		<InputWrapper>
@@ -41,18 +41,23 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		setIsOpen(!isOpen)
 	}
 
+	const onDropDownChange = async (option) => {
+		setDropDownValue(option);
+		onChange && await onChange(option?.value)
+	}
+
 	return (
 		<>
 			{!fieldDef?.disabled ?
 				<SingleDropdownWrapper innerWidth={fieldDef?.size}>
 					<StyledAutocomplete
-						value={{title: value}}
+						value={dropDownValue}
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
 						getOptionLabel={(option) => option?.title ? option.title : ''}
-						onChange={(_event, option) => onChange && onChange(option?.title)}
+						onChange={(_event, option) => onDropDownChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}
 						PopperComponent={StyledPopper}
@@ -65,8 +70,8 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
-					{(!value || value?.trim() === '') ?
-						fieldDef?.inputSettings?.placeholder : value
+					{(!dropDownValue || dropDownValue?.title.trim() === '') ?
+						fieldDef?.inputSettings?.placeholder : dropDownValue.title
 					}
 				</StyledDisabledDropdownText>
 			}
