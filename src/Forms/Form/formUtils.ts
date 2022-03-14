@@ -22,66 +22,66 @@ type Action = {
 
 export function coreReducer(state: State, action: Action): State {
 	switch (action.type) {
-	case "FIELD_ON_CHANGE":
-		return {
-			...state,
-			data: {
-				...state.data,
-				[action.name]: action.value
+		case "FIELD_ON_CHANGE":
+			return {
+				...state,
+				data: {
+					...state.data,
+					[action.name]: action.value
+				}
+			};
+		case "FIELD_START_VALIDATE":
+			return {
+				...state,
+				errors: {
+					...state.errors,
+					[action.name]: null
+				},
+				validating: {
+					...state.validating,
+					[action.name]: true
+				}
+			};
+		case "FIELD_END_VALIDATE":
+			return {
+				...state,
+				errors: {
+					...state.errors,
+					[action.name]: action.value
+				},
+				validating: {
+					...state.validating,
+					[action.name]: undefined
+				}
+			};
+		case "FORM_START_DISABLE":
+			return {
+				...state,
+				disabled: action.value
+			};
+		case "FORM_END_DISABLE":
+			return {
+				...state,
+				disabled: action.value
+			};
+		case "FORM_VALIDATE":
+			return {
+				...state,
+				validForm: action.value
+			};
+		case "FORM_RESET":
+			return {
+				...state,
+				data: {},
+				touched: {},
+				errors: {},
+				validating: {},
+				custom: {},
+				validForm: false,
+				disabled: null
 			}
-		};
-	case "FIELD_START_VALIDATE":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: null
-			},
-			validating: {
-				...state.validating,
-				[action.name]: true
-			}
-		};
-	case "FIELD_END_VALIDATE":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: action.value
-			},
-			validating: {
-				...state.validating,
-				[action.name]: undefined
-			}
-		};
-	case "FORM_START_DISABLE":
-		return {
-			...state,
-			disabled: action.value
-		};
-	case "FORM_END_DISABLE":
-		return {
-			...state,
-			disabled: action.value
-		};
-	case "FORM_VALIDATE":
-		return {
-			...state,
-			validForm: action.value
-		};
-	case "FORM_RESET":
-		return {
-			...state,
-			data: {},
-			touched: {},
-			errors: {},
-			validating: {},
-			custom: {},
-			validForm: false,
-			disabled: null
-		}
-	default:
-		return state;
+		default:
+			return state;
 	}
 }
 
@@ -97,7 +97,7 @@ async function runValidators(validators: any[], value: unknown): Promise<unknown
 }
 
 export const actions = {
-	setFieldValue({ name, value, validate = false } : { name: string; value: unknown; validate?: boolean }) {
+	setFieldValue({ name, value, validate = false }: { name: string; value: unknown; validate?: boolean }) {
 		return async function (dispatch): Promise<void> {
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
@@ -145,7 +145,7 @@ export const actions = {
 			}
 		};
 	},
-	copyFieldToField({ from, to } : { from: any;  to: string}) {
+	copyFieldToField({ from, to }: { from: any; to: string }) {
 		return async function (dispatch, getState): Promise<void> {
 			const fromValue = getState().data[from];
 			await dispatch(
@@ -157,13 +157,13 @@ export const actions = {
 		};
 	},
 	validateForm({ fields }) {
-		return async function(dispatch, getState): Promise<boolean> {
+		return async function (dispatch, getState): Promise<boolean> {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
 
-			await new Promise((res) => setTimeout(res, 2000));
+			// await new Promise((res) => setTimeout(res, 2000));
 
 			const touchedFields = getState().data;
 
@@ -198,7 +198,7 @@ export const actions = {
 		}
 	},
 	submitForm() {
-		return async function(dispatch, getState, extraArgs): Promise<void> {
+		return async function (dispatch, getState, extraArgs): Promise<void> {
 			if (getState().disabled)
 				return;
 
@@ -212,14 +212,14 @@ export const actions = {
 		}
 	},
 	resetForm() {
-		return async function(dispatch): Promise<void> {
+		return async function (dispatch): Promise<void> {
 			await dispatch({
 				type: "FORM_RESET",
 			});
 		}
 	},
-	setFormValues({ values } : { values: MosaicObject }) {
-		return async function(dispatch): Promise<void> {
+	setFormValues({ values }: { values: MosaicObject }) {
+		return async function (dispatch): Promise<void> {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,

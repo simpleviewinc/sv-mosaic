@@ -13,6 +13,7 @@ import {
 	StyledColumn
 } from '../TopComponent.styled';
 import TitleWrapper from '../Utils/TitleWrapper';
+import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
 
 const ResponsiveViewColumn = styled(StyledColumn)`
   padding: 20px 20px 0px 20px;
@@ -25,8 +26,13 @@ const ResponsiveActionsRow = styled(Row)`
   margin-bottom: 37px;
 `;
 
+type ResponsiveViewProps = {
+	buttons: JSX.Element;
+	sections: TopComponentProps['sections'];
+	checkbox: JSX.Element;
+} & BaseTopComponentProps;
 
-const ResponsiveDrawer = (props): ReactElement => {
+const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 	const {
 		title,
 		description,
@@ -36,6 +42,7 @@ const ResponsiveDrawer = (props): ReactElement => {
 		buttons,
 		sections,
 		checkbox,
+		view
 	} = props;
 
 	return (
@@ -44,7 +51,7 @@ const ResponsiveDrawer = (props): ReactElement => {
 				<TitleWrapper
 					title={title}
 					description={description}
-					view={'RESPONSIVE'}
+					view={view}
 				/>
 				{tooltipInfo && helpIcon}
 			</Row>

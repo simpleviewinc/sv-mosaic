@@ -45,7 +45,7 @@ const TextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElemen
 
 	const config = {
 		namespace: '',
-		disabled: fieldDef?.disabled,
+		disabled: fieldDef?.disabled ? fieldDef?.disabled : false,
 		buttonsXS: buttonList,
 		buttons: buttonList,
 		buttonsSM: buttonList,
@@ -63,7 +63,7 @@ const TextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElemen
 	}
 
 	return (
-		<EditorWrapper error={error}>
+		<EditorWrapper error={error} data-testid='text-editor-testid'>
 			<JoditEditor
 				ref={editor}
 				value={value}

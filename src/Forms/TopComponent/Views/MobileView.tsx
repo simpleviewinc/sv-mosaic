@@ -14,6 +14,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 // Utils
 import theme from '@root/theme/theme';
 import TitleWrapper from '../Utils/TitleWrapper';
+import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
 
 const MobileActionsRow = styled(Row)`
   background-color: ${theme.colors.gray200};
@@ -36,7 +37,13 @@ const MobileCheckboxHelpIconRow = styled(Row)`
   padding: 0 20px 20px 20px;
 `;
 
-const MobileView = (props): ReactElement => {
+type MobileViewProps = {
+	onCancel: TopComponentProps['onCancel'];
+	submitButton: JSX.Element;
+	checkbox: JSX.Element;
+} & BaseTopComponentProps;
+
+const MobileView = (props: MobileViewProps): ReactElement => {
 	const {
 		onCancel,
 		submitButton,
@@ -46,6 +53,7 @@ const MobileView = (props): ReactElement => {
 		tooltipInfo,
 		helpIcon,
 		checkbox,
+		view,
 	} = props;
 
 	return (
@@ -57,7 +65,7 @@ const MobileView = (props): ReactElement => {
 			<TitleWrapper
 				title={title}
 				description={description}
-				view={'MOBILE'}
+				view={view}
 			/>
 			{(showActive || tooltipInfo) && (
 				<MobileCheckboxHelpIconRow>

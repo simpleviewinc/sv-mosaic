@@ -18,7 +18,8 @@ const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
 		error,
 		fieldDef,
 		onChange,
-		value
+		value,
+		onBlur
 	} = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
@@ -57,6 +58,7 @@ const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
 						invalidDateMessage={null}
 						maxDateMessage={null}
 						minDateMessage={null}
+						onBlur={onBlur}
 					/>
 				</DatePickerWrapper>
 			</ThemeProvider>
