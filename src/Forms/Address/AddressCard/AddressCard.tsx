@@ -14,9 +14,18 @@ import {
 
 // Types
 import { AddressCardProps } from '../AddressTypes';
+import countriesWithStates from '@root/forms/Address/countriesStates.json';
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
+
+	const selectedCountry = countriesWithStates.find(country => {
+		return country.iso2 === address?.country;
+	});
+
+	const selectedState = selectedCountry.states.find(state => {
+		return state.state_code === address?.state;
+	});
 
 	return (
 		<StyledAddressCard data-testid='address-card-test'>
@@ -27,9 +36,9 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			{address?.address2 && <span>{address?.address2}</span>}
 			{address?.address3 && <span>{address?.address3}</span>}
 			<span>
-				{`${address?.city}, ${address?.state ? address.state : ''} ${address?.postalCode}`}
+				{`${address?.city}, ${selectedState ? selectedState.name : ''} ${address?.postalCode}`}
 			</span>
-			<span>{address?.country}</span>
+			<span>{selectedCountry.name}</span>
 			<ButtonsWrapper>
 				<Button 
 					buttonType='blueText' 
