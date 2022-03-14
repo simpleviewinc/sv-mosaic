@@ -24,14 +24,8 @@ const address: IAddress = {
 	address1: '8950 N Oracle Rd',
 	city: 'Oro Valley',
 	postalCode: '85704',
-	country: {
-		title: 'United States',
-		value: 'US',
-	},
-	state: {
-		title: 'Arizona',
-		value: 'AZ',
-	},
+	country: 'US',
+	state: 'AZ',
 	types: ['physical', 'billing'],
 };
 
@@ -168,6 +162,13 @@ describe('AddressCard component', () => {
 		//
 
 		await waitFor(() => {
+			expect(getByText('Address edited')).toBeTruthy();
+			expect(getByText('Physical, Billing Address')).toBeTruthy();
+			expect(getByText('City edited, 000')).toBeTruthy();
+			expect(getByText('AR')).toBeTruthy();
+		}, { timeout: 3000 });
+    
+    await waitFor(() => {
 			expect(container.querySelector('span[data-testid="drawer-title-test"]')).toBeNull();
 		}, { timeout: 10000 });
 
@@ -183,8 +184,6 @@ describe('AddressCard component', () => {
 		// fireEvent.click(getByText('Remove'));
 
 		// expect(queryAllByTestId('address-card-test')).toStrictEqual([]);
-
-
 	});
 });
 

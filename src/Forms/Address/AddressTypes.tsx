@@ -5,11 +5,11 @@ export type IAddress = {
 	address2?: string;
 	address3?: string;
 	city: string;
-	country: { title: string; value: unknown };
+	country: string;
 	countryName?: string;
 	id?: number;
 	postalCode: string;
-	state: { title: string; value: unknown };
+	state: string;
 	stateName?: string;
 	types: string[];
 };
