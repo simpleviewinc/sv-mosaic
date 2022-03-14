@@ -20,6 +20,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		error,
 		onChange,
 		onBlur,
+		value
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -42,16 +43,20 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 	}
 
 	const onDropDownChange = async (option) => {
-		setDropDownValue(option);
-		onChange && await onChange(option?.value)
+		setDropDownValue(option)
+		onChange && await onChange(option?.value);
 	}
+	
+	const selectedOption = fieldDef?.inputSettings?.options.find(option => {
+		return option.value === value;
+	});
 
 	return (
 		<>
 			{!fieldDef?.disabled ?
 				<SingleDropdownWrapper innerWidth={fieldDef?.size}>
 					<StyledAutocomplete
-						value={dropDownValue}
+						value={{title: selectedOption?.title, value: value}}
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
