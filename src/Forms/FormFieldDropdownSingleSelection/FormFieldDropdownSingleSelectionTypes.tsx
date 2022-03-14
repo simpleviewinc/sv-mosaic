@@ -19,5 +19,5 @@ export type DropdownSingleSelectionDef = {
 
 export type Option = {
 	title: string;
-	[key: string]: any;
+	value: any;
 }
