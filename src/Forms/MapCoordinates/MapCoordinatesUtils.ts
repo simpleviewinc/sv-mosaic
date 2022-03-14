@@ -37,6 +37,6 @@ export const address: IAddress = {
 	city: 'Oro Valley',
 	country: 'United States',
 	postalCode: '85704',
-	state: 'AZ',
+	state: "AZ",
 	types: ['physical'],
 };
