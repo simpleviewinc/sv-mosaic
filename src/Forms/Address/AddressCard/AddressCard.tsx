@@ -19,7 +19,7 @@ import countriesWithStates from "@root/forms/Address/countriesStates.json";
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
 
-	const selectedCountry = countriesWithStates.find(country => {
+	const selectedCountry = countriesWithStates.find((country) => {
 		return country.iso2 === address?.country;
 	});
 
@@ -30,7 +30,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 	return (
 		<StyledAddressCard data-testid='address-card-test'>
 			<AddressTitle>
-				{`${address.types?.join(', ').replace(/\w+/g, capitalize)} Address`}
+				{`${address.types?.join(", ").replace(/\w+/g, capitalize)} Address`}
 			</AddressTitle>
 			<span>{address?.address1}</span>
 			{address?.address2 && <span>{address?.address2}</span>}
