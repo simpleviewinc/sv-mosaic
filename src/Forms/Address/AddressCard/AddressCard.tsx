@@ -14,7 +14,7 @@ import {
 
 // Types
 import { AddressCardProps } from '../AddressTypes';
-import countriesWithStates from '@root/forms/Address/countriesStates.json';
+import countriesWithStates from "@root/forms/Address/countriesStates.json";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
@@ -36,7 +36,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			{address?.address2 && <span>{address?.address2}</span>}
 			{address?.address3 && <span>{address?.address3}</span>}
 			<span>
-				{`${address?.city}, ${selectedState ? selectedState.name : ''} ${address?.postalCode}`}
+				{`${address?.city}, ${selectedState ? selectedState.name : ""} ${address?.postalCode}`}
 			</span>
 			<span>{selectedCountry?.name}</span>
 			<ButtonsWrapper>
