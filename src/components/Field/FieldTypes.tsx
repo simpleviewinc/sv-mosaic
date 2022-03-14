@@ -1,8 +1,9 @@
+import { ValidatorsReturn } from '@root/forms/Form/validators';
 import { Sizes } from '@root/theme/sizes';
 import { HTMLAttributes, ReactNode } from 'react';
 
 // MOSAIC GENERIC CONTRACT
-export interface MosaicFieldProps<T = any, U = any> {//FieldProps
+export interface MosaicFieldProps<T = any, U = any> {
 	/**
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
@@ -41,7 +42,7 @@ export interface MosaicFieldProps<T = any, U = any> {//FieldProps
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-export interface FieldDef<T = any, U = any> {//Previously FieldProps
+export interface FieldDef<T = any, U = any> {
 	/**
 	 * Significant name related to its field.
 	 */
@@ -101,7 +102,7 @@ export interface FieldDef<T = any, U = any> {//Previously FieldProps
 	 * Array of validators to be executed by the form when on blur or
 	 * when submitted.
 	 */
-	validators?: (() => string | JSX.Element)[];
+	validators?: ((() => ValidatorsReturn | JSX.Element) | string | { fn: any; options: any })[];
 	/**
 	 * Identifier passed by the developer
 	 */
