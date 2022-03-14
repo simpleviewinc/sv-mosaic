@@ -23,7 +23,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 		return country.iso2 === address?.country;
 	});
 
-	const selectedState = selectedCountry.states.find(state => {
+	const selectedState = selectedCountry?.states.find(state => {
 		return state.state_code === address?.state;
 	});
 
@@ -38,7 +38,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			<span>
 				{`${address?.city}, ${selectedState ? selectedState.name : ''} ${address?.postalCode}`}
 			</span>
-			<span>{selectedCountry.name}</span>
+			<span>{selectedCountry?.name}</span>
 			<ButtonsWrapper>
 				<Button 
 					buttonType='blueText' 

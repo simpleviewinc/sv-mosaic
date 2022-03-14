@@ -68,7 +68,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			);
 
 			const fullStateData = fullCountryData.states.find(
-				(s) => s.iso2 === addressToEdit?.state
+				(s) => s.state_code === addressToEdit?.state
 			);
 			dispatch(
 				actions.setFieldValue({
@@ -117,17 +117,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				actions.setFieldValue({
 					name: 'country',
-					value: { title: fullCountryData?.name, value: fullCountryData?.iso2 },
+					value: fullCountryData?.iso2,
 				})
 			);
 
 			dispatch(
 				actions.setFieldValue({
 					name: 'states',
-					value: {
-						title: fullStateData?.name,
-						value: fullStateData?.state_code,
-					},
+					value: fullStateData?.state_code,
 				})
 			);
 		}
