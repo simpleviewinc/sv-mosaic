@@ -23,8 +23,9 @@ const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-	const handleOpenState = () => {
+	const handleOpenState = async () => {
 		setIsPickerOpen(!isPickerOpen);
+		await onBlur();
 	};
 
 	return (
