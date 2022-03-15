@@ -22,7 +22,10 @@ module.exports = {
 			test : /\.(ts|tsx)$/,
 			use : [
 				{
-					loader : "ts-loader"
+					loader : "ts-loader",
+					options: {
+						transpileOnly: true
+					}
 				}
 			]
 		});
