@@ -30,6 +30,9 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
 
+	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
+	const [dialogOpen, setIsDialogOpen] = useState(false);
+
 	/**
 	 * Opens the modal to create an address card 
 	 * and sets editing mode to false.
@@ -58,11 +61,25 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 	 * Closes the modal and resets the values for
 	 * form field.
 	 */
-	const handleClose = async () => {
-		setOpen(false);
-		console.log('closing');
-		await onBlur();
+	const handleClose = async (save = false) => {
+		if (typeof save === 'boolean' && save) {
+			setOpen(false);
+			await onBlur();
+		} else if (hasUnsavedChanges)
+			setIsDialogOpen(true);
+		else {
+			setOpen(false);
+			await onBlur();
+		}
 	};
+
+	const handleDialogClose = async (close: boolean) => {
+		if (close) {
+			setOpen(false);
+			await onBlur();
+		}
+		setIsDialogOpen(false);
+	}
 
 	/**
 	 * Opens the modal in editing mode and sets the
@@ -129,6 +146,10 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 					handleClose={handleClose}
 					setIsEditing={setIsEditing}
 					addressToEdit={addressToEdit}
+					hasUnsavedChanges={hasUnsavedChanges}
+					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
+					dialogOpen={dialogOpen}
+					handleDialogClose={handleDialogClose}
 				/>
 			</Drawer>
 		</div>
