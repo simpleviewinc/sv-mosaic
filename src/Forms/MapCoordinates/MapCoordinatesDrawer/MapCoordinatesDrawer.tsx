@@ -7,13 +7,13 @@ import { MapPosition } from '../MapCoordinatesTypes';
 // Components
 import Map from '@root/forms/MapCoordinates/Map';
 import { StyledSpan } from '../MapCoordinates.styled';
+import ResetButton from '@root/forms/MapCoordinates/MapCoordinatesDrawer/ResetButton';
 
 // Utils
 import { defaultMapPosition } from '../MapCoordinatesUtils';
 import { actions, useForm } from '@root/forms/Form/formUtils';
 import Form from '@root/forms/Form/Form';
 import _ from 'lodash';
-import ResetButton from '@root/forms/Address/AddressDrawer/ResetButton';
 
 // Layout of the form elements.
 const sections = [
@@ -130,7 +130,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			lng: modalReducer.state.data.lng,
 		}
 
-		// handleSaveCoordinates(latLngValue);
 		await onChange(latLngValue);
 		handleClose(true);
 	}
@@ -247,10 +246,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			onCancel={handleClose}
 			onSubmit={onSubmit}
 			submitButtonAttrs={{
-				children: 'Save Coordinates',
+				label: 'Save Coordinates',
 				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
 			}}
-			cancelButtonAttrs={{ children: 'Cancel' }}
+			cancelButtonAttrs={{ label: 'Cancel' }}
 			dialogOpen={dialogOpen}
 			handleDialogClose={handleDialogClose}
 		/>

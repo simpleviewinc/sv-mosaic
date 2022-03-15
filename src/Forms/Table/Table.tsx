@@ -6,7 +6,7 @@ import { MosaicFieldProps } from '@root/components/Field';
 
 // Components
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@root/forms/Button';
+import Button from "@root/components/Button";
 import DeleteIcon from '@material-ui/icons/Delete';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import EditIcon from '@material-ui/icons/Edit';
@@ -118,23 +118,25 @@ const Table = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactElement => {
 			{rows?.length === 0 ? (
 				<AddElementContainer>
 					<Button
+						color="gray"
+						variant="outlined"
+						label="ADD ELEMENT"
+						muiAttrs={{ disableRipple: true }}
 						disabled={fieldDef?.disabled}
-						buttonType='secondary'
 						onClick={(e) => addElement(e)}
-					>
-            ADD ELEMENT
-					</Button>
+					></Button>
 				</AddElementContainer>
 			) : (
 				<TableContainer>
 					<AddButton
-						buttonType='blueText'
+						color="teal"
+						variant="text"
 						disabled={fieldDef?.disabled}
-						icon={AddIcon}
+						muiAttrs={{ disableRipple: true }}
+						mIcon={AddIcon}
 						onClick={(e) => addElement(e)}
-					>
-            Add Element
-					</AddButton>
+						label="Add Element"
+					></AddButton>
 					<DragDropContext
 						onDragStart={handleDragStart}
 						onDragEnd={handleDragEnd}
@@ -151,7 +153,7 @@ const Table = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactElement => {
 										{renderEmptyHeaders}
 									</TrHead>
 								</THead>
-								<Droppable droppableId='droppable-rows'>
+								<Droppable droppableId="droppable-rows">
 									{(provider) => (
 										<tbody ref={provider.innerRef} {...provider.droppableProps}>
 											{rows?.map((row, rowIndex) => (
@@ -173,26 +175,33 @@ const Table = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactElement => {
 															<Td>
 																<StyledIconButton
 																	disabled={fieldDef?.disabled}
-																	icon={EditIcon}
+																	color="gray"
+																	variant="icon"
+																	mIcon={EditIcon}
 																	onClick={() =>
 																		fieldDef?.inputSettings?.handleEdit(
 																			rowIndex
 																		)
 																	}
-																/>
+																></StyledIconButton>
 																<StyledIconButton
+																	color="gray"
+																	variant="icon"
 																	disabled={fieldDef?.disabled}
-																	icon={DeleteIcon}
+																	mIcon={DeleteIcon}
 																	onClick={() => deleteRow(rowIndex)}
 																/>
-																{fieldDef?.inputSettings?.extraActions?.length > 0 && (
+																{fieldDef?.inputSettings?.extraActions?.length >
+                                  0 && (
 																	<>
 																		{fieldDef?.inputSettings?.extraActions.map(
 																			(action, index) => (
 																				<StyledIconButton
+																					color="gray"
+																					variant="icon"
 																					disabled={fieldDef?.disabled}
 																					key={`${action.label}-${index}`}
-																					icon={action.icon}
+																					mIcon={action.icon}
 																					onClick={() =>
 																						action.actionFnc(rowIndex)
 																					}

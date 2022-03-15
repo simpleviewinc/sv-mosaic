@@ -1,10 +1,9 @@
-import styled from 'styled-components';
-import theme from '@root/theme';
-import { Sizes } from '@root/theme/sizes';
+import styled from "styled-components";
+import theme from "@root/theme";
+import { Sizes } from "@root/theme/sizes";
 
 // Components
-import Button from '@root/forms/Button';
-import IconButton from '@root/components/IconButton';
+import Button from "@root/components/Button";
 
 export const TableContainer = styled.div`
   background-color: white;
@@ -70,8 +69,8 @@ export const Container = styled.div`
   max-width: 1080px;
 `;
 
-export const StyledIconButton = styled(IconButton)`
-  &.MuiIconButton-root {
+export const StyledIconButton = styled(Button)`
+  .MuiIconButton-root {
     margin-right: 8px;
   }
 `;
@@ -86,10 +85,13 @@ export const AddElementContainer = styled.div`
 `;
 
 export const StyledTr = styled.tr`
-  ${(pr) => pr.isDragging ? `
+  ${(pr) =>
+		pr.isDragging
+			? `
         &:active {
             background-color: ${theme.colors.gray200};
-        }` : ''}
+        }`
+			: ""}
 `;
 
 export const TrHead = styled.tr`
