@@ -23,11 +23,11 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 		error,
 	} = props;
 
-	const {required, disabled, inputSettings: {showTime}} = fieldDef || {};
-	
+	const { required, disabled } = fieldDef || {};
+
 	const [dateInput, setDateInput] = useState(null);
-	const [timeInput, setTimeInput] = useState(null); 
-	
+	const [timeInput, setTimeInput] = useState(null);
+
 
 	useEffect(() => {
 		setDateInput(value || null);
@@ -40,15 +40,15 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 		position === 0 ? setDateInput(date) : setTimeInput(date);
 
 		if (!isNaN(date?.valueOf())) {
-			
+
 			const dateString = date.toISOString();
 			const splitDate = dateString.split('T') || [];
-			
-			if (!showTime) {
+
+			if (!fieldDef?.inputSettings?.showTime) {
 				newValue = dateString;
 				setDateInput(newValue);
 			} else {
-				
+
 				if (!newValue) {
 					position === 0 ? setDateInput(dateString) : setTimeInput(dateString);
 					if (required) {
@@ -66,7 +66,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 					}
 				} else {
 					const splitNewValue = newValue.split("T") || [];
-					
+
 					if (position === 0) {
 						newValue = `${splitDate[0]}T${splitNewValue[1]}`;
 						setDateInput(newValue);
@@ -77,11 +77,11 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 				}
 			}
 		} else {
-			
-			if (showTime && dateInput && position === 1) {
+
+			if (fieldDef?.inputSettings?.showTime && dateInput && position === 1) {
 				newValue = !required ? dateInput : undefined;
 				setDateInput(dateInput);
-			} else if (showTime && timeInput && position === 0) {
+			} else if (fieldDef?.inputSettings?.showTime && timeInput && position === 0) {
 				newValue = !required ? timeInput : undefined;
 				setTimeInput(timeInput);
 			} else {
@@ -113,7 +113,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 						/>
 						<HelperText>Month, Day, Year</HelperText>
 					</DateTimePickerWrapper>
-					{showTime &&
+					{fieldDef?.inputSettings?.showTime &&
 						<DateTimePickerWrapper>
 							<TimePicker
 								error={error}
@@ -130,21 +130,21 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 							/>
 							<HelperText>Hour, Minute, AM or PM</HelperText>
 						</DateTimePickerWrapper>
-					}	
+					}
 				</>
 			) : (
 				<>
 					<DisabledDateTimeValue>
 						{
-							value ? new Date(value).toLocaleDateString("en", { timeZone: "UTC" }) 
-							: "MM / DD / YYYY"
+							value ? new Date(value).toLocaleDateString("en", { timeZone: "UTC" })
+								: "MM / DD / YYYY"
 						}
 					</DisabledDateTimeValue>
-					{showTime &&
+					{fieldDef?.inputSettings?.showTime &&
 						<DisabledDateTimeValue>
 							{
 								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })
-								: "00:00 AM/PM"
+									: "00:00 AM/PM"
 							}
 						</DisabledDateTimeValue>
 					}
