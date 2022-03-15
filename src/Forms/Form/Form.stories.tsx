@@ -280,27 +280,6 @@ export const Playground = (): ReactElement => {
 					required,
 				},
 				{
-					name: "dateRange",
-					label: "Date Range",
-					type: "dateRange",
-					disabled,
-					required
-				},
-				{
-					name: "time",
-					label: "Single Time Picker",
-					type: "time",
-					disabled,
-					required
-				},
-				{
-					name: "dateTime",
-					label: "Date and Time Picker",
-					type: "dateTime",
-					disabled,
-					required
-				},
-				{
 					name: 'address',
 					label: 'Address field',
 					type: 'address',
@@ -412,11 +391,8 @@ export const Playground = (): ReactElement => {
 			description: text('Description for section 3', 'Description for section 3'),
 			fields: [
 				// row 1
-				[['color'], ['date'], ['time']],
+				[['color'], ['date'],],
 				// row 2
-				[[], ['dateTime'], []],
-				[['dateRange']],
-				// row 3
 				[['textEditor'], []]
 			]
 		}
@@ -1054,7 +1030,7 @@ export const Validators = (): ReactElement => {
 					disabled: false,
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-					validators: [{fn: 'validateDateRange', options: { endDateName: 'endDate' }}],
+					validators: [{ fn: 'validateDateRange', options: { endDateName: 'endDate' } }],
 					inputSettings: {
 						showTime: false,
 					},
@@ -1067,7 +1043,7 @@ export const Validators = (): ReactElement => {
 					disabled: false,
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-					validators: [{fn: 'validateDateRange', options: { startDateName: 'startDate' }}],
+					validators: [{ fn: 'validateDateRange', options: { startDateName: 'startDate' } }],
 					inputSettings: {
 						showTime: false,
 					},
