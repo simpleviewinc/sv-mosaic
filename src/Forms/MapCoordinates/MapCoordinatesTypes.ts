@@ -71,7 +71,12 @@ export interface LocationSearchInputProps {
 
 export interface MapCoordinatesDrawerProps {
 	fieldDef: FieldDef<MapCoordinatesDef>
-	handleClose: () => void;
+	handleClose: (save?: boolean) => Promise<void>;
 	onChange: (e: MapPosition) => Promise<void>
 	value: MapPosition;
+
+	hasUnsavedChanges?: boolean;
+	handleUnsavedChanges?: (val: boolean) => void;
+	dialogOpen?: boolean;
+	handleDialogClose?: (val: boolean) => void;
 }

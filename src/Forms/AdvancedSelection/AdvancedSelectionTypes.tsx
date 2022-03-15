@@ -42,14 +42,14 @@ export type AdvancedSelectionDef = AdvancedSelectionLocalOptions | AdvancedSelec
 
 export interface ChipListPropsTypes {
 	fieldDef: {
-    inputSettings: {
-        isModalOpen: boolean;
-        isMobileView: boolean;
-        selectedOptions: any;
-        getSelected: (options: string[]) => Promise<optionsWithCategory[]>;
-        deleteSelectedOption: (e: any) => Promise<void>;
-    };
-    disabled: boolean;
+		inputSettings: {
+			isModalOpen: boolean;
+			isMobileView: boolean;
+			selectedOptions: any;
+			getSelected: (options: string[]) => Promise<optionsWithCategory[]>;
+			deleteSelectedOption: (e: any) => Promise<void>;
+		};
+		disabled: boolean;
 	}
 }
 
@@ -59,7 +59,12 @@ export interface AdvanceSelectionDrawerPropTypes {
 	onChange: (e: any) => Promise<void>;
 	isModalOpen: boolean;
 	isMobileView: boolean;
-	handleClose: () => Promise<void>;
+	handleClose: (save?: boolean) => Promise<void>;
+
+	hasUnsavedChanges?: boolean;
+	handleUnsavedChanges?: (val: boolean) => void;
+	dialogOpen?: boolean;
+	handleDialogClose?: (val: boolean) => void;
 }
 
 export interface LoadMoreButtonPropsTypes {
