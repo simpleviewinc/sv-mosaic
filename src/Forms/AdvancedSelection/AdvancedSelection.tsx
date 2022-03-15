@@ -127,6 +127,7 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					isModalOpen={isModalOpen}
 					isMobileView={isMobileView}
 					handleClose={handleClose}
+					hasUnsavedChanges={hasUnsavedChanges}
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
