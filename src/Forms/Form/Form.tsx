@@ -13,28 +13,22 @@ import Dialog from '../../components/Dialog/Dialog';
 
 const Form = (props: FormProps) => {
 	const {
-		title,
-		description,
 		type,
-		sections,
-		fields,
-		dispatch,
 		state,
+		title,
+		fields,
+		sections,
+		dispatch,
 		onCancel,
+		dialogOpen,
+		description,
 		getFormValues,
 		cancelButtonAttrs,
 		submitButtonAttrs,
-		hasUnsavedChanges,
+		handleDialogClose,
 	} = props;
 
 	const { view } = useWindowResizer(type);
-
-	const [dialogOpen, setIsDialogOpen] = useState(false);
-
-	useEffect(() => {
-		if (hasUnsavedChanges)
-			setIsDialogOpen(true);
-	}, [hasUnsavedChanges]);
 
 	useEffect(() => {
 		const loadFormValues = async () => {
@@ -126,11 +120,9 @@ const Form = (props: FormProps) => {
 				<Dialog
 					dialogTitle='Are you sure you want to leave?'
 					open={dialogOpen}
-					primaryAction={() => console.log('submitting')}
-					// primaryAction={() => handleDialogClose(true)}
+					primaryAction={() => handleDialogClose(true)}
 					primaryBtnLabel='Yes, leave'
-					secondaryAction={() => console.log('closing')}
-					// secondaryAction={() => handleDialogClose(false)}
+					secondaryAction={() => handleDialogClose(false)}
 					secondaryBtnLabel='No, stay'
 
 				>

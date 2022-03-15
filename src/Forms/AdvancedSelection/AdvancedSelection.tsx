@@ -35,6 +35,9 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isMobileView, setIsMobileView] = useState(false);
 
+	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
+	const [dialogOpen, setIsDialogOpen] = useState(false);
+
 	useEffect(() => {
 		const setResponsiveness = () => {
 			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
@@ -58,10 +61,25 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 	/**
    * Sets the open state of the modal to false.
    */
-	const handleClose = async () => {
-		setIsModalOpen(false);
-		await onBlur();
+	const handleClose = async (save = false) => {
+		if (typeof save === 'boolean' && save) {
+			setIsModalOpen(false);
+			await onBlur();
+		} else if (hasUnsavedChanges)
+			setIsDialogOpen(true);
+		else {
+			setIsModalOpen(false);
+			await onBlur();
+		}
 	};
+
+	const handleDialogClose = async (close: boolean) => {
+		if (close) {
+			setIsModalOpen(false);
+			await onBlur();
+		}
+		setIsDialogOpen(false);
+	}
 
 	return (
 		<>
@@ -109,6 +127,10 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 					isModalOpen={isModalOpen}
 					isMobileView={isMobileView}
 					handleClose={handleClose}
+					hasUnsavedChanges={hasUnsavedChanges}
+					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
+					dialogOpen={dialogOpen}
+					handleDialogClose={handleDialogClose}
 				/>
 			</Drawer>
 		</>

@@ -22,7 +22,6 @@ import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
 import LoadMoreButton from './LoadMoreButton';
 import Form from '../Form/Form';
 import { AdvanceSelectionDrawerPropTypes } from '.';
-// import { isEqual } from 'lodash';
 import _ from 'lodash';
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
@@ -33,19 +32,21 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		isModalOpen,
 		isMobileView,
 		handleClose,
+		handleUnsavedChanges,
+		dialogOpen,
+		handleDialogClose,
 	} = props;
 
 	const [options, setOptions] = useState<optionsWithCategory[]>([]);
 	const [filteredOptions, setFilteredOptions] = useState<optionsWithCategory[]>([]);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filter, setFilter] = useState({ prev: 'options', new: 'options' });
-	const [unsavedChanges, setUnsavedChanges] = useState(false);
 
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	useEffect(() => {
-		// console.log('entering', value, state.data, !_.isEqual(value, state.data));
-		setUnsavedChanges(!_.isEqual(value, state.data.checkboxList));
+		if (state.data.checkboxList !== undefined)
+			handleUnsavedChanges(!_.isEqual(value, state.data.checkboxList));
 	}, [state.data.checkboxList]);
 
 	useEffect(() => {
@@ -294,7 +295,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const handleSave = async () => {
 		await onChange(state.data.checkboxList);
 
-		handleClose();
+		handleClose(true);
 	};
 
 	useMemo(() => {
@@ -313,7 +314,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			onSubmit={handleSave}
 			submitButtonAttrs={{ children: 'Save' }}
 			cancelButtonAttrs={{ children: 'Cancel' }}
-			hasUnsavedChanges={unsavedChanges}
+			dialogOpen={dialogOpen}
+			handleDialogClose={handleDialogClose}
 		/>
 	);
 };
