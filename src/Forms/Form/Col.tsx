@@ -30,7 +30,7 @@ const StyledCol = styled.div`
 `;
 
 interface ColPropsTypes {
-	col: (string | FieldDef)[]
+	col: (string | FieldDef)[];
 	state: any;
 	fieldsDef: FieldDef[];
 	dispatch: any;

@@ -76,11 +76,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			let editingState = {};
 
 			const fullCountryData = countriesWithStates?.find(
-				(c) => c.iso2 === addressToEdit?.country?.value
+				(c) => c.iso2 === addressToEdit?.country
 			);
 
 			const fullStateData = fullCountryData.states.find(
-				(s) => s.state_code === addressToEdit?.state?.value
+				(s) => s.state_code === addressToEdit?.state
 			);
 
 			dispatch(
@@ -160,7 +160,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				actions.setFieldValue({
 					name: 'country',
-					value: { title: fullCountryData?.name, value: fullCountryData?.iso2 },
+					value: fullCountryData?.iso2,
 				})
 			);
 
@@ -172,10 +172,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				actions.setFieldValue({
 					name: 'states',
-					value: {
-						title: fullStateData?.name,
-						value: fullStateData?.state_code,
-					},
+					value: fullStateData?.state_code,
 				})
 			);
 
@@ -196,24 +193,21 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
    * selected country
    */
 	const listOfStates = useMemo(() => {
-		const selectedCountryTest = countriesWithStates?.find(
-			(c) => c.name === state?.data?.country?.title
+		const selectedCountry = countriesWithStates?.find(
+			(c) => c.iso2 === state?.data?.country
 		);
 
-		if (selectedCountryTest) {
-			return selectedCountryTest.states.map((state) => ({
-				title: state.name,
-				value: state.state_code,
-			}));
+		if (selectedCountry) {
+			return selectedCountry.states.map((state) => ({title: state.name, value: state.state_code}));
 		}
 
 		return [];
 	}, [state?.data?.country]);
 
 	/**
-   * Executed on the form submit if editing mode is true
-   * @returns the list of addresses with the new updates
-   */
+	 * Executed on the form submit if editing mode is true
+	 * @returns the list of addresses with the new updates
+	 */
 	const editAddress = (): IAddress[] => {
 		const listOfAddresses = [...value];
 
@@ -230,9 +224,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	};
 
 	/**
-   * Executed on the form submit if editing mode is false
-   * @returns the lists of addresses with the new ones created
-   */
+	 * Executed on the form submit if editing mode is false
+	 * @returns the lists of addresses with the new ones created
+	 */
 	const addNewAddress = (): IAddress[] => {
 		const listOfAddresses = [...value];
 		const id = listOfAddresses?.length + 1;
@@ -257,12 +251,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
    * Form submit handler. It adds or edits an address and closes the modal.
    * @param e
    */
-	// const onSubmit = useCallback(async () => {
-	// 	const listOfAddresses = isEditing ? editAddress() : addNewAddress();
-
-	// 	onChange && await onChange(listOfAddresses);
-	// 	handleClose(true);
-	// }, [state.validForm]);
 	const onSubmit = async () => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
 

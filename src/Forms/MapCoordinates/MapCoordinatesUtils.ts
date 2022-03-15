@@ -21,7 +21,7 @@ export const libraries: Libraries = ['places'];
 export const getAddressStringFromAddressObject = (addressObj: IAddress): string => {
 	const { address1, city, country, postalCode, state } = addressObj;
 
-	return `${address1} ${postalCode} ${city} ${state.title} ${country.title}`;
+	return `${address1} ${postalCode} ${city} ${state} ${country}`;
 };
 
 /**
@@ -35,14 +35,8 @@ export const defaultMapPosition = { lat: -3.745, lng: -40.523 }
 export const address: IAddress = {
 	address1: '8950 N Oracle Rd',
 	city: 'Oro Valley',
-	country: {
-		title: 'United States',
-		value: {},
-	},
+	country: 'United States',
 	postalCode: '85704',
-	state: {
-		title: 'AZ',
-		value: {},
-	},
+	state: "AZ",
 	types: ['physical'],
 };
