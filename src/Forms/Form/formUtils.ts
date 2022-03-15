@@ -1,8 +1,8 @@
 import { useMemo, useRef, useCallback, useReducer } from "react";
 import { EventEmitter } from "eventemitter3";
 import { SectionDef } from "./FormTypes";
-import { required } from "./validators";
 import { MosaicObject } from "@root/types";
+import { mapsValidators, required, VALIDATE_DATE_RANGE, Validator } from "./validators";
 
 type State = {
 	data: any;
@@ -22,74 +22,86 @@ type Action = {
 
 export function coreReducer(state: State, action: Action): State {
 	switch (action.type) {
-		case "FIELD_ON_CHANGE":
-			return {
-				...state,
-				data: {
-					...state.data,
-					[action.name]: action.value
-				}
-			};
-		case "FIELD_START_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: null
-				},
-				validating: {
-					...state.validating,
-					[action.name]: true
-				}
-			};
-		case "FIELD_END_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: action.value
-				},
-				validating: {
-					...state.validating,
-					[action.name]: undefined
-				}
-			};
-		case "FORM_START_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_END_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_VALIDATE":
-			return {
-				...state,
-				validForm: action.value
-			};
-		case "FORM_RESET":
-			return {
-				...state,
-				data: {},
-				touched: {},
-				errors: {},
-				validating: {},
-				custom: {},
-				validForm: false,
-				disabled: null
+	case "FIELD_ON_CHANGE":
+		return {
+			...state,
+			data: {
+				...state.data,
+				[action.name]: action.value
 			}
-		default:
-			return state;
+		};
+	case "FIELD_START_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: null
+			},
+			validating: {
+				...state.validating,
+				[action.name]: true
+			}
+		};
+	case "FIELD_END_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: action.value
+			},
+			validating: {
+				...state.validating,
+				[action.name]: undefined
+			}
+		};
+	case "FORM_START_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_END_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_VALIDATE":
+		return {
+			...state,
+			validForm: action.value
+		};
+	case "FORM_RESET":
+		return {
+			...state,
+			data: {},
+			touched: {},
+			errors: {},
+			validating: {},
+			custom: {},
+			validForm: false,
+			disabled: null
+		}
+	default:
+		return state;
 	}
 }
 
-async function runValidators(validators: any[], value: unknown): Promise<unknown> {
+async function runValidators(
+	validators: Validator[],
+	value: unknown,
+	data: unknown
+): Promise<{
+  type: string;
+  errorMessage: string;
+  validator: Validator;
+}> {
 	for (const validator of validators) {
-		const result = await validator(value);
+		const result = await validator.fn(value, data, validator.options);
 		if (result) {
-			return result;
+			return {
+				type: result.type,
+				errorMessage: result.errorMessage,
+				validator,
+			};
 		}
 	}
 
@@ -128,19 +140,36 @@ export const actions = {
 				validators.unshift(required);
 			}
 
+			const validatorsMaped = mapsValidators(validators);
+
 			await dispatch({
 				type: "FIELD_START_VALIDATE",
 				name
 			});
+			const data = getState().data;
 			const startValue = getState().data[name];
-			const result = await runValidators(validators, startValue);
+			const result = await runValidators(validatorsMaped, startValue, data);
 			const currentValue = getState().data[name];
 
-			if (startValue === currentValue) {
+			if (result?.type === VALIDATE_DATE_RANGE) {
+				await dispatch({
+					type: "FIELD_END_VALIDATE",
+					name: result?.validator.options.startDateName ? result.validator.options.startDateName : name,
+					value: result?.errorMessage
+				});
+
+				await dispatch({
+					type: "FIELD_END_VALIDATE",
+					name: result?.validator.options.endDateName ? result?.validator.options.endDateName : name,
+					value: result?.errorMessage
+				});
+			}
+
+			if (result?.type !== 'validateDateRange' && startValue === currentValue) {
 				await dispatch({
 					type: "FIELD_END_VALIDATE",
 					name,
-					value: result
+					value: result?.errorMessage
 				});
 			}
 		};

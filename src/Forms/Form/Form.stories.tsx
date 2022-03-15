@@ -1046,7 +1046,33 @@ export const Validators = (): ReactElement => {
 					type: 'text',
 					validators: [validateURL]
 				},
-			] as FieldDef<TextFieldDef>[],
+				{
+					name: 'startDate',
+					type: 'date',
+					label: 'Start date',
+					required: false,
+					disabled: false,
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+					validators: [{fn: 'validateDateRange', options: { endDateName: 'endDate' }}],
+					inputSettings: {
+						showTime: false,
+					},
+				},
+				{
+					name: 'endDate',
+					type: 'date',
+					label: 'End date',
+					required: false,
+					disabled: false,
+					helperText: 'Helper text',
+					instructionText: 'Instruction text',
+					validators: [{fn: 'validateDateRange', options: { startDateName: 'startDate' }}],
+					inputSettings: {
+						showTime: false,
+					},
+				},
+			] as FieldDef[],
 		[]
 	);
 

@@ -162,10 +162,10 @@ describe('AddressCard component', () => {
 		//
 
 		await waitFor(() => {
-			expect(getByText('Address edited')).toBeTruthy();
-			expect(getByText('Physical, Billing Address')).toBeTruthy();
-			expect(getByText('City edited, 000')).toBeTruthy();
-			expect(getByText('AR')).toBeTruthy();
+			expect(screen.getByText('Address edited')).toBeTruthy();
+			expect(screen.getByText('Physical, Billing Address')).toBeTruthy();
+			expect(screen.getByText('City edited, 000')).toBeTruthy();
+			expect(screen.getByText('AR')).toBeTruthy();
 		}, { timeout: 3000 });
     
     await waitFor(() => {
