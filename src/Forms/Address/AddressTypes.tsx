@@ -44,7 +44,12 @@ export interface AddressDrawerProps {
 	addressIdx: number;
 	open: boolean;
 	onChange?: (event: unknown) => Promise<void>;
-	handleClose: () => void;
+	handleClose: (save?: boolean) => Promise<void>;
 	setIsEditing: Dispatch<SetStateAction<boolean>>;
 	value: IAddress[];
+
+	hasUnsavedChanges?: boolean;
+	handleUnsavedChanges?: (val: boolean) => void;
+	dialogOpen?: boolean;
+	handleDialogClose?: (val: boolean) => void;
 }

@@ -13,7 +13,7 @@ export interface CheckboxListProps {
 	 * Function that listens to changes on the checked options.
 	 * @param checked List of checked options
 	 */
-	onChange(checked: string[]): void;
+	onChange(checked: (string | { [key: string]: unknown; })[]): void;
 	/**
 	 * Additional custom css class for styling the component
 	 */
