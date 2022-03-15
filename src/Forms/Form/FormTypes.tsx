@@ -18,20 +18,20 @@ export interface SectionDef extends Section {
 }
 
 export interface FormProps {
-	title?: string;
-	description?: string;
 	type?: 'drawer';
 	state: any;
-	dispatch: any;
-	events?: any;
+	title?: string;
 	fields: FieldDef[];
 	sections?: SectionDef[];
-	onSubmit?(...args: any): any;
-	submitButtonAttrs?: FormButtonProps;
+	dispatch: any;
 	onCancel?(...args: any): any;
-	cancelButtonAttrs?: FormButtonProps;
+	dialogOpen?: boolean;
+	description?: string;
 	getFormValues?(): Promise<MosaicObject>;
-	onLoad?(...args: any): any;
-	hasUnsavedChanges?: boolean;
+	cancelButtonAttrs?: FormButtonProps;
+	submitButtonAttrs?: FormButtonProps;
+	handleDialogClose?: (val: boolean) => void;
+	events?: any;
+	onSubmit?(...args: any): any;
 }
 
