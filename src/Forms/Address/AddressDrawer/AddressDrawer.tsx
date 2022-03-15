@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useCallback, useEffect, useMemo } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldDef } from '@root/components/Field/FieldTypes';
 
 // Components
@@ -12,6 +12,7 @@ import { TextFieldDef } from '@root/forms/FormFieldText';
 import { Sizes } from '@root/theme/sizes';
 import { IAddress } from '@root/forms/Address';
 import { AddressDrawerProps } from '../AddressTypes';
+import _ from 'lodash';
 
 // Layout of the form elements.
 const sections = [
@@ -49,20 +50,31 @@ const addressTypes = [
 
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
+		value,
+		onChange,
+		open,
 		addressToEdit,
 		isEditing,
 		addressIdx,
-		open,
 		handleClose,
-		onChange,
 		setIsEditing,
-		value,
+		handleUnsavedChanges,
+		dialogOpen,
+		handleDialogClose,
 	} = props;
 
 	const { dispatch, state, registerFields, registerOnSubmit } = useForm();
+	const [initialState, setInitialState] = useState(state.data);
+
+	useEffect(() => {
+		if (state.data !== undefined && initialState !== undefined)
+			handleUnsavedChanges(!_.isEqual(initialState, state.data));
+	}, [state.data, initialState]);
 
 	useEffect(() => {
 		if (isEditing && open) {
+			let editingState = {};
+
 			const fullCountryData = countriesWithStates?.find(
 				(c) => c.iso2 === addressToEdit?.country
 			);
@@ -70,6 +82,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			const fullStateData = fullCountryData.states.find(
 				(s) => s.state_code === addressToEdit?.state
 			);
+
 			dispatch(
 				actions.setFieldValue({
 					name: 'address1',
@@ -77,7 +90,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				})
 			);
 
-			if (addressToEdit.address2)
+			editingState = {
+				...editingState,
+				'address1': addressToEdit.address1,
+			};
+
+			if (addressToEdit.address2) {
 				dispatch(
 					actions.setFieldValue({
 						name: 'address2',
@@ -85,7 +103,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					})
 				);
 
-			if (addressToEdit.address3)
+				editingState = {
+					...editingState,
+					'address2': addressToEdit.address2,
+				};
+			}
+			if (addressToEdit.address3) {
 				dispatch(
 					actions.setFieldValue({
 						name: 'address3',
@@ -93,12 +116,22 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					})
 				);
 
+				editingState = {
+					...editingState,
+					'address3': addressToEdit.address3,
+				};
+			}
 			dispatch(
 				actions.setFieldValue({
 					name: 'city',
 					value: addressToEdit.city,
 				})
 			);
+
+			editingState = {
+				...editingState,
+				'city': addressToEdit.city,
+			};
 
 			dispatch(
 				actions.setFieldValue({
@@ -107,12 +140,22 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				})
 			);
 
+			editingState = {
+				...editingState,
+				'postalCode': addressToEdit.postalCode,
+			};
+
 			dispatch(
 				actions.setFieldValue({
 					name: 'type',
 					value: addressToEdit.types,
 				})
 			);
+
+			editingState = {
+				...editingState,
+				'type': addressToEdit.types,
+			};
 
 			dispatch(
 				actions.setFieldValue({
@@ -121,12 +164,27 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				})
 			);
 
+			editingState = {
+				...editingState,
+				'country': { title: fullCountryData?.name, value: fullCountryData?.iso2 },
+			};
+
 			dispatch(
 				actions.setFieldValue({
 					name: 'states',
 					value: fullStateData?.state_code,
 				})
 			);
+
+			editingState = {
+				...editingState,
+				'states': {
+					title: fullStateData?.name,
+					value: fullStateData?.state_code,
+				},
+			};
+
+			setInitialState(editingState);
 		}
 	}, []);
 
@@ -190,16 +248,15 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	};
 
 	/**
-	 * Form submit handler. It adds or edits an address and closes the modal.
-	 * @param e
-	 */
-	const onSubmit = useCallback(async () => {
+   * Form submit handler. It adds or edits an address and closes the modal.
+   * @param e
+   */
+	const onSubmit = async () => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
 
 		onChange && await onChange(listOfAddresses);
-		console.log('closing with', listOfAddresses);
-		handleClose();
-	}, [state.validForm]);
+		handleClose(true);
+	};
 
 	const fields = useMemo(
 		() =>
@@ -310,6 +367,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			onSubmit={async () => await onSubmit()}
 			submitButtonAttrs={{ children: 'Save' }}
 			cancelButtonAttrs={{ children: 'Cancel' }}
+			dialogOpen={dialogOpen}
+			handleDialogClose={handleDialogClose}
 		/>
 	);
 };

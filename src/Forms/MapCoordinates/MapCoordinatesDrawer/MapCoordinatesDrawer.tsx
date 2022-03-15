@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useCallback, useEffect, useMemo } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { MapCoordinatesDrawerProps } from '..';
 import { FieldDef } from '@root/components/Field/FieldTypes';
 import { MapPosition } from '../MapCoordinatesTypes';
@@ -13,6 +13,8 @@ import { StyledSpan } from '../MapCoordinates.styled';
 import { defaultMapPosition } from '../MapCoordinatesUtils';
 import { actions, useForm } from '@root/forms/Form/formUtils';
 import Form from '@root/forms/Form/Form';
+import _ from 'lodash';
+import ResetButton from '@root/forms/Address/AddressDrawer/ResetButton';
 
 // Layout of the form elements.
 const sections = [
@@ -26,13 +28,25 @@ const sections = [
 
 const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement => {
 	const {
+		value,
 		fieldDef,
-		handleClose,
 		onChange,
-		value
+		handleClose,
+		handleUnsavedChanges,
+		dialogOpen,
+		handleDialogClose,
 	} = props;
 
 	const modalReducer = useForm();
+
+	const initialState = { lat: value.lat ? value.lat : undefined, lng: value.lng ? value.lng : undefined };
+
+	useEffect(() => {
+		const { lat, lng } = modalReducer.state.data;
+
+		if (lat !== undefined || lng !== undefined)
+			handleUnsavedChanges(!_.isEqual(initialState, { lat, lng }));
+	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
 
 	/**
 	 * When the map is clicked the lat and lng fields and
@@ -67,14 +81,12 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	/**
 	 * Clear the input fields of latitude and longitude
 	 */
-	const resetLocation = () => {
-		onChange && onChange(undefined);
-
-		modalReducer.dispatch(
+	const resetLocation = async () => {
+		await modalReducer.dispatch(
 			actions.setFieldValue({ name: 'lat', value: undefined })
 		);
 
-		modalReducer.dispatch(
+		await modalReducer.dispatch(
 			actions.setFieldValue({ name: 'lng', value: undefined })
 		);
 	};
@@ -121,7 +133,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		// handleSaveCoordinates(latLngValue);
 		await onChange(latLngValue);
-		handleClose();
+		handleClose(true);
 	}
 
 	useMemo(() => {
@@ -147,20 +159,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			</StyledSpan>
 		</>
 	);
-
-	const renderResetButton = (props): ReactElement => {
-		return props.value ? (
-			<Button
-				buttonType='blueText'
-				onClick={resetLocation}
-				style={{ margin: 'auto 0px 35px 0px' }}
-			>
-				Reset
-			</Button>
-		) : (
-			<></>
-		);
-	};
 
 	const fields = useMemo(
 		() =>
@@ -188,7 +186,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				{
 					name: 'resetButton',
 					label: 'Reset',
-					type: renderResetButton,
+					type: ResetButton,
+					inputSettings: {
+						resetLocation,
+					}
 				},
 			] as FieldDef[],
 		[]
@@ -197,8 +198,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	useMemo(() => {
 		modalReducer?.registerFields(fields);
 	}, [fields, modalReducer?.registerFields]);
-
-
 
 	useEffect(() => {
 		const { lat, lng } = modalReducer.state.data;
@@ -253,6 +252,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
 			}}
 			cancelButtonAttrs={{ children: 'Cancel' }}
+			dialogOpen={dialogOpen}
+			handleDialogClose={handleDialogClose}
 		/>
 	);
 };

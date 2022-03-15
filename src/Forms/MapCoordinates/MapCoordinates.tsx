@@ -56,6 +56,9 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 	const [autocoordinatesChecked, setAutocoordinatesChecked] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
+	const [dialogOpen, setIsDialogOpen] = useState(false);
+
 	/**
 	 * Opens the modal that displays the map.
 	 */
@@ -66,9 +69,16 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 	/**
 	 * Closes the modal.
 	 */
-	const handleClose = async () => {
-		setIsModalOpen(false);
-		await onBlur();
+	const handleClose = async (save = false) => {
+		if (typeof save === 'boolean' && save) {
+			setIsModalOpen(false);
+			await onBlur();
+		} else if (hasUnsavedChanges)
+			setIsDialogOpen(true);
+		else {
+			setIsModalOpen(false);
+			await onBlur();
+		}
 	};
 
 	/**
@@ -138,6 +148,14 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 				: defaultMapPosition.lng,
 	};
 
+	const handleDialogClose = async (close: boolean) => {
+		if (close) {
+			setIsModalOpen(false);
+			await onBlur();
+		}
+		setIsDialogOpen(false);
+	}
+
 	return (
 		<>
 			{value || !isEmpty(fieldDef?.inputSettings?.address) ? (
@@ -203,6 +221,10 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 					fieldDef={fieldDef}
 					onChange={onChange}
 					handleClose={handleClose}
+					hasUnsavedChanges={hasUnsavedChanges}
+					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
+					dialogOpen={dialogOpen}
+					handleDialogClose={handleDialogClose}
 				/>
 			</Drawer>
 		</>
