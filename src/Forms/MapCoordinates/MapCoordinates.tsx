@@ -18,7 +18,7 @@ import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 // Components
-import Button from '@root/forms/Button';
+import Button from "@root/components/Button";
 import ToggleSwitch from '@root/components/ToggleSwitch';
 import MapCoordinatesDrawer from './MapCoordinatesDrawer';
 
@@ -164,14 +164,16 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 						<SwitchContainer>
 							<ToggleSwitch
 								disabled={fieldDef?.disabled}
-								label='Use same as address'
-								labelPlacement='start'
+								label="Use same as address"
+								labelPlacement="start"
 								onChange={handleToggleSwitchChange}
 								checked={autocoordinatesChecked}
 							/>
 						</SwitchContainer>
 					)}
-					<CoordinatesCard hasAddress={!isEmpty(fieldDef?.inputSettings?.address)}>
+					<CoordinatesCard
+						hasAddress={!isEmpty(fieldDef?.inputSettings?.address)}
+					>
 						<MapImageColumn>
 							<GoogleMap
 								mapContainerStyle={mapContainerStyle}
@@ -188,16 +190,29 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 							<LatLngLabel>Longitude</LatLngLabel>
 							<CoordinatesValues>{mapPosition.lng}</CoordinatesValues>
 						</Column>
-						<ButtonsWrapper hasAddress={isEmpty(fieldDef?.inputSettings?.address)}>
+						<ButtonsWrapper
+							hasAddress={isEmpty(fieldDef?.inputSettings?.address)}
+						>
 							{!autocoordinatesChecked && (
-								<Button disabled={fieldDef?.disabled} buttonType='blueText' onClick={handleAddCoordinates}>
-									Edit
-								</Button>
+								<Button
+									color="teal"
+									variant="text"
+									label="Edit"
+									disabled={fieldDef?.disabled}
+									onClick={handleAddCoordinates}
+									muiAttrs={{ disableRipple: true }}
+								></Button>
 							)}
-							{!autocoordinatesChecked && isEmpty(fieldDef?.inputSettings?.address) && (
-								<Button disabled={fieldDef?.disabled} buttonType='redText' onClick={removeLocation}>
-									Remove
-								</Button>
+							{!autocoordinatesChecked &&
+                isEmpty(fieldDef?.inputSettings?.address) && (
+								<Button
+									color="redMosaic"
+									disabled={fieldDef?.disabled}
+									variant="text"
+									label="Remove"
+									onClick={removeLocation}
+									muiAttrs={{ disableRipple: true }}
+								></Button>
 							)}
 						</ButtonsWrapper>
 					</CoordinatesCard>
@@ -205,17 +220,15 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 			) : (
 				<Button
 					disabled={fieldDef?.disabled}
-					buttonType='secondary'
 					onClick={handleAddCoordinates}
-				>
-					ADD COORDINATES
-				</Button>
+					color="gray"
+					variant="outlined"
+					label="ADD COORDINATES"
+					muiAttrs={{ disableRipple: true }}
+				></Button>
 			)}
 
-			<Drawer
-				open={isModalOpen}
-				onClose={handleClose}
-			>
+			<Drawer open={isModalOpen} onClose={handleClose}>
 				<MapCoordinatesDrawer
 					value={value}
 					fieldDef={fieldDef}

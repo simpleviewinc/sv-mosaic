@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { memo, useState, ReactElement } from 'react';
-import { MenuFormFieldCardProps } from './MenuFormFieldCardTypes';
+import * as React from "react";
+import { memo, useState, ReactElement } from "react";
+import { MenuFormFieldCardProps } from "./MenuFormFieldCardTypes";
 
 // Components
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@root/components/IconButton';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@root/components/Button";
 
 // Styles
-import { StyledMenu } from './MenuFormFieldCard.styled';
+import { StyledMenu } from "./MenuFormFieldCard.styled";
 
 const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
 	const { className, disabled, options } = props;
@@ -27,22 +27,24 @@ const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
 
 	return (
 		<div className={className}>
-			<IconButton
-				data-testid='icon-button-test'
-				icon={MoreVertIcon}
+			<Button
+				data-testid="icon-button-test"
+				color="gray"
+				variant="icon"
+				mIcon={MoreVertIcon}
 				onClick={handleMoreIconClick}
 				disabled={disabled}
-			/>
+			></Button>
 			<StyledMenu
 				anchorEl={anchorEl}
 				getContentAnchorEl={null}
 				anchorOrigin={{
-					vertical: 'bottom',
-					horizontal: 'left',
+					vertical: "bottom",
+					horizontal: "left",
 				}}
 				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'left',
+					vertical: "top",
+					horizontal: "left",
 				}}
 				keepMounted
 				open={open}

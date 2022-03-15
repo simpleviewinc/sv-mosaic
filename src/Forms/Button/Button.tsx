@@ -38,7 +38,6 @@ const Button = (props: FormButtonProps): ReactElement => {
 			buttonType={buttonType}
 			className={className}
 			disabled={disabled}
-			// form={form}
 			iconPosition={iconPosition}
 			smallerButton={smallerButton}
 			onClick={onClick}

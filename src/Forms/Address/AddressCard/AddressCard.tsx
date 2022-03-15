@@ -1,19 +1,19 @@
-import * as React from 'react';
-import { memo, ReactElement } from 'react';
-import { capitalize } from 'lodash';
+import * as React from "react";
+import { memo, ReactElement } from "react";
+import { capitalize } from "lodash";
 
 // Components
-import Button from '@root/forms/Button';
+import Button from "@root/components/Button";
 
 // Styles
 import {
 	AddressTitle,
 	ButtonsWrapper,
 	StyledAddressCard,
-} from './AddressCard.styled';
+} from "./AddressCard.styled";
 
 // Types
-import { AddressCardProps } from '../AddressTypes';
+import { AddressCardProps } from "../AddressTypes";
 import countriesWithStates from "@root/forms/Address/countriesStates.json";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
@@ -23,12 +23,12 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 		return country.iso2 === address?.country;
 	});
 
-	const selectedState = selectedCountry?.states.find(state => {
+	const selectedState = selectedCountry?.states.find((state) => {
 		return state.state_code === address?.state;
 	});
 
 	return (
-		<StyledAddressCard data-testid='address-card-test'>
+		<StyledAddressCard data-testid="address-card-test">
 			<AddressTitle>
 				{`${address.types?.join(", ").replace(/\w+/g, capitalize)} Address`}
 			</AddressTitle>
@@ -36,24 +36,28 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			{address?.address2 && <span>{address?.address2}</span>}
 			{address?.address3 && <span>{address?.address3}</span>}
 			<span>
-				{`${address?.city}, ${selectedState ? selectedState.name : ""} ${address?.postalCode}`}
+				{`${address?.city}, ${selectedState ? selectedState.name : ""} ${
+					address?.postalCode
+				}`}
 			</span>
 			<span>{selectedCountry?.name}</span>
 			<ButtonsWrapper>
-				<Button 
-					buttonType='blueText' 
-					disabled={disabled} 
-					onClick={() => onEdit(address, addressIndex)}
-				>
-					Edit
-				</Button>
-				<Button 
-					buttonType='redText'
+				<Button
+					label="Edit"
+					color="teal"
+					variant="text"
 					disabled={disabled}
+					muiAttrs={{ disableRipple: true }}
+					onClick={() => onEdit(address, addressIndex)}
+				></Button>
+				<Button
+					color="redMosaic"
+					variant="text"
+					muiAttrs={{ disableRipple: true }}
+					disabled={disabled}
+					label="Remove"
 					onClick={() => onRemoveAddress(addressIndex)}
-				>
-					Remove
-				</Button>
+				></Button>
 			</ButtonsWrapper>
 		</StyledAddressCard>
 	);
