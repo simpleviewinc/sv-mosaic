@@ -119,7 +119,7 @@ const Col = (props: ColPropsTypes) => {
 				const touched = state?.touched[fieldProps.name] || '';
 				const error = state?.errors[fieldProps.name] || '';
 
-				let maxSize: Sizes | string = Sizes.sm;
+				let maxSize: Sizes | string;
 				if (currentField?.size)
 					switch (colsInRow) {
 					case 1:
