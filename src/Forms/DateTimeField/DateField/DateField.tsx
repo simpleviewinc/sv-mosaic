@@ -90,6 +90,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 		}
 
 		await onChange(newValue);
+		// await onBlur();
 	};
 
 	return (

@@ -24,7 +24,7 @@ export function validateEmail(str: string): ValidatorsReturn | undefined {
 		.match(
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 		);
-	
+
 	if (isValidEmail) return;
 
 	return { type: VALIDATE_EMAIL_TYPE, errorMessage: "The value is not a valid e-mail" };
@@ -107,25 +107,44 @@ export function validateURL(str: string): ValidatorsReturn | undefined {
  * @param options 
  * @returns the error message in case of any
  */
-export function validateDateRange(value, data, options): ValidatorsReturn {
-	if (!value || !data || !options) {
+export function validateDateRange(value, data, options): string | undefined {
+	if (!value || !data || !options || !data[options.pairedFields[0]]) {
 		return;
 	}
 
 	let startDate = new Date(value);
-	let endDate = new Date(data[options.endDateName]);
+	let endDate = new Date(data[options.pairedFields[0]]);
 
-	if (options.startDateName) {
-		startDate = new Date(data[options.startDateName]);
-		endDate = new Date(value);
+	// if (options.startDateName) {
+	// 	startDate = new Date(data[options.startDateName]);
+	// 	endDate = new Date(value);
+	// }
+
+	if (startDate.getTime() > endDate.getTime()) {
+		return "Start date should happen before the end date";
 	}
 
-	if (startDate.getTime() >= endDate.getTime()) {
-		return { type: VALIDATE_DATE_RANGE, errorMessage: "Start date should happen before the end date" };
-	}
-
-	return { type: VALIDATE_DATE_RANGE, errorMessage: undefined };
+	return undefined;
 }
+// export function validateDateRange(value, data, options): ValidatorsReturn {
+// 	if (!value || !data || !options) {
+// 		return;
+// 	}
+
+// 	let startDate = new Date(value);
+// 	let endDate = new Date(data[options.endDateName]);
+
+// 	if (options.startDateName) {
+// 		startDate = new Date(data[options.startDateName]);
+// 		endDate = new Date(value);
+// 	}
+
+// 	if (startDate.getTime() >= endDate.getTime()) {
+// 		return { type: VALIDATE_DATE_RANGE, errorMessage: "Start date should happen before the end date" };
+// 	}
+
+// 	return { type: VALIDATE_DATE_RANGE, errorMessage: undefined };
+// }
 
 export type Validator = { fn: any, options: any };
 /**
@@ -135,7 +154,7 @@ export type Validator = { fn: any, options: any };
  * @param validators 
  * @returns
  */
-export function mapsValidators (validators): Validator[] {
+export function mapsValidators(validators): Validator[] {
 	const validatorsMap = {
 		required: required,
 		validateDateRange: validateDateRange,
@@ -144,7 +163,7 @@ export function mapsValidators (validators): Validator[] {
 		validateSlow: validateSlow,
 		validateURL: validateURL,
 	}
-	
+
 	return validators.map(validator => {
 		if (typeof validator === "string") return { fn: validatorsMap[validator], options: {} };
 		else if (typeof validator === "function") return { fn: validator, options: {} };

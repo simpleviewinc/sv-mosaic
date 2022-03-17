@@ -56,7 +56,79 @@ const Form = (props: FormProps) => {
 		}
 
 		loadFormValues();
-	}, [getFormValues]);
+
+		const pairFields = async () => {
+			let pairedFields = {};
+
+			fields.forEach(field => {
+				if (field.validators) {
+					field.validators.forEach(validator => {
+						if (typeof validator === 'object' && validator.options?.pairedFields) {
+							validator.options.pairedFields.forEach(pairedField => {
+								if (!pairedFields[pairedField]) {
+									pairedFields = {
+										...pairedFields,
+										[pairedField]: [field.name]
+									}
+								} else {
+									pairedFields = {
+										...pairedFields,
+										[pairedField]: [...pairedFields[pairedField], field.name]
+									}
+								}
+							});
+
+
+
+							// if (!pairedFields[field.name]) {
+							// 	pairedFields = {
+							// 		...pairedFields,
+							// 		[field.name]: {},
+							// 	}
+							// }
+
+							// validator.options.pairedFields.forEach(pairedField => {
+							// 	if (!pairedFields[field.name][pairedField]) {
+							// 		pairedFields = {
+							// 			...pairedFields,
+							// 			[field.name]: {
+							// 				...pairedFields[field.name],
+							// 				[pairedField]: [validator.fn],
+							// 			}
+							// 		}
+							// 	} else {
+							// 		pairedFields = {
+							// 			...pairedFields,
+							// 			[field.name]: {
+							// 				...pairedFields[field.name],
+							// 				[pairedField]: [...pairedFields[field.name][pairedField], validator.fn],
+							// 			}
+							// 		}
+							// 	}
+							// });
+
+							/**
+							 * 'startDate': {
+							 * 		'endDate': ['validateDateRange', 'validateEmail'],
+							 *      'anotherField': ['validateDateRange', 'validateEmail'],
+							 * }
+							 */
+						}
+					});
+				}
+			});
+
+			if (pairedFields)
+				await dispatch(
+					actions.setPairedFields({
+						pairedFields
+					})
+				);
+		}
+
+		pairFields();
+
+	}, []);
 
 	const submit = async (e) => {
 		e.preventDefault();

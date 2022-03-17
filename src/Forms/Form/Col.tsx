@@ -83,7 +83,25 @@ const Col = (props: ColPropsTypes) => {
 
 	const onBlurMap = useMemo(() => {
 		return fieldsDef.reduce((prev, curr) => {
-			prev[curr.name] = async function (value) {
+			prev[curr.name] = async function () {
+				// if (curr.validators) {
+				// 	curr.validators.forEach((validator) => {
+				// 		if (typeof validator === 'object' && validator.options?.pairedFields) {
+				// 			validator.options.pairedFields.forEach(async (pairedField: string) => {
+				// 				await dispatch(
+				// 					actions.validateField({ name: pairedField })
+				// 				);
+				// 			});
+				// 		}
+				// 	});
+				// }
+				if (state.pairedFields[curr.name]) {
+					state.pairedFields[curr.name].forEach(async pairedField => {
+						await dispatch(
+							actions.validateField({ name: pairedField })
+						);
+					});
+				}
 				await dispatch(
 					actions.validateField({ name: curr.name })
 				);
@@ -91,7 +109,7 @@ const Col = (props: ColPropsTypes) => {
 
 			return prev;
 		}, {});
-	}, [fieldsDef]);
+	}, [fieldsDef, state.pairedFields]);
 
 	return (
 		<StyledCol colsInRow={colsInRow}>
@@ -122,17 +140,17 @@ const Col = (props: ColPropsTypes) => {
 				let maxSize: Sizes | string;
 				if (currentField?.size)
 					switch (colsInRow) {
-					case 1:
-						maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
-						break;
-					case 2:
-						maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
-						break;
-					case 3:
-						maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
-						break;
-					default:
-						break;
+						case 1:
+							maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
+							break;
+						case 2:
+							maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
+							break;
+						case 3:
+							maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
+							break;
+						default:
+							break;
 					}
 
 				const children = useMemo(() => (
