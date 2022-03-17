@@ -77,42 +77,6 @@ const Form = (props: FormProps) => {
 									}
 								}
 							});
-
-
-
-							// if (!pairedFields[field.name]) {
-							// 	pairedFields = {
-							// 		...pairedFields,
-							// 		[field.name]: {},
-							// 	}
-							// }
-
-							// validator.options.pairedFields.forEach(pairedField => {
-							// 	if (!pairedFields[field.name][pairedField]) {
-							// 		pairedFields = {
-							// 			...pairedFields,
-							// 			[field.name]: {
-							// 				...pairedFields[field.name],
-							// 				[pairedField]: [validator.fn],
-							// 			}
-							// 		}
-							// 	} else {
-							// 		pairedFields = {
-							// 			...pairedFields,
-							// 			[field.name]: {
-							// 				...pairedFields[field.name],
-							// 				[pairedField]: [...pairedFields[field.name][pairedField], validator.fn],
-							// 			}
-							// 		}
-							// 	}
-							// });
-
-							/**
-							 * 'startDate': {
-							 * 		'endDate': ['validateDateRange', 'validateEmail'],
-							 *      'anotherField': ['validateDateRange', 'validateEmail'],
-							 * }
-							 */
 						}
 					});
 				}
