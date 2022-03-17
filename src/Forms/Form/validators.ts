@@ -1,8 +1,3 @@
-export type ValidatorsReturn = {
-	errorMessage?: string;
-	type: string;
-};
-
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
 export const VALIDATE_SLOW_TYPE = "validateSlow";
 export const REQUIRED_TYPE = "required";
@@ -14,7 +9,7 @@ export const VALIDATE_DATE_RANGE = "validateDateRange";
  * Validates an email address using a regular expression taken from:
  * https://stackoverflow.com/questions/46155/whats-the-best-way-to-validate-an-email-address-in-javascript
  */
-export function validateEmail(str: string): ValidatorsReturn | undefined {
+export function validateEmail(str: string): string | undefined {
 	if (!str) {
 		return;
 	}
@@ -27,18 +22,18 @@ export function validateEmail(str: string): ValidatorsReturn | undefined {
 
 	if (isValidEmail) return;
 
-	return { type: VALIDATE_EMAIL_TYPE, errorMessage: "The value is not a valid e-mail" };
+	return "The value is not a valid e-mail";
 }
 
-export function validateSlow(str: string): Promise<void | ValidatorsReturn> {
+export function validateSlow(str: string): Promise<void | string> {
 	if (!str) {
 		return;
 	}
 
-	return new Promise<void | ValidatorsReturn>(function (resolve) {
+	return new Promise<void | string>(function (resolve) {
 		setTimeout(function () {
 			if (str.includes("test")) {
-				return resolve({ type: VALIDATE_SLOW_TYPE, errorMessage: "String cannot include test" });
+				return resolve("String cannot include test");
 			} else {
 				return resolve();
 			}
@@ -49,13 +44,13 @@ export function validateSlow(str: string): Promise<void | ValidatorsReturn> {
 /**
  * Validates a required field.
  */
-export function required(str: string | string[]): ValidatorsReturn | undefined {
+export function required(str: string | string[]): string | undefined {
 	if (!str
 		|| !!str === false
 		|| (typeof str === "string" && str?.trim().length === 0)
 		|| str.length === 0
 	) {
-		return { type: REQUIRED_TYPE, errorMessage: "This field is required, please fill it" };
+		return "This field is required, please fill it";
 	}
 
 	return;
@@ -66,13 +61,13 @@ export function required(str: string | string[]): ValidatorsReturn | undefined {
  * @param value field value
  * @returns an error message string
  */
-export function validateNumber(value: string): ValidatorsReturn | undefined {
+export function validateNumber(value: string): string | undefined {
 	if (!value) {
 		return;
 	}
 
 	if (!(!isNaN(Number(value)) && !isNaN(parseFloat(value)))) {
-		return { type: VALIDATE_NUMBER_TYPE, errorMessage: "The value is not a number" };
+		return "The value is not a number";
 	}
 }
 
@@ -82,7 +77,7 @@ export function validateNumber(value: string): ValidatorsReturn | undefined {
  * @param str to validate
  * @returns an error message string
  */
-export function validateURL(str: string): ValidatorsReturn | undefined {
+export function validateURL(str: string): string | undefined {
 	if (!str) {
 		return;
 	}
@@ -95,7 +90,7 @@ export function validateURL(str: string): ValidatorsReturn | undefined {
 		'(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
 
 	if (!pattern.test(str)) {
-		return { type: VALIDATE_URL, errorMessage: "The value is not a valid URL" };
+		return "The value is not a valid URL";
 	}
 }
 
@@ -107,7 +102,7 @@ export function validateURL(str: string): ValidatorsReturn | undefined {
  * @param options 
  * @returns the error message in case of any
  */
-export function validateDateRange(value, data, options): string | undefined {
+export function validateDateRange(value: string, data: any, options: { [key: string]: any }): string | undefined {
 	if (!value || !data || !options || !data[options.pairedFields[0]]) {
 		return;
 	}
@@ -115,36 +110,12 @@ export function validateDateRange(value, data, options): string | undefined {
 	let startDate = new Date(value);
 	let endDate = new Date(data[options.pairedFields[0]]);
 
-	// if (options.startDateName) {
-	// 	startDate = new Date(data[options.startDateName]);
-	// 	endDate = new Date(value);
-	// }
-
 	if (startDate.getTime() > endDate.getTime()) {
 		return "Start date should happen before the end date";
 	}
 
 	return undefined;
 }
-// export function validateDateRange(value, data, options): ValidatorsReturn {
-// 	if (!value || !data || !options) {
-// 		return;
-// 	}
-
-// 	let startDate = new Date(value);
-// 	let endDate = new Date(data[options.endDateName]);
-
-// 	if (options.startDateName) {
-// 		startDate = new Date(data[options.startDateName]);
-// 		endDate = new Date(value);
-// 	}
-
-// 	if (startDate.getTime() >= endDate.getTime()) {
-// 		return { type: VALIDATE_DATE_RANGE, errorMessage: "Start date should happen before the end date" };
-// 	}
-
-// 	return { type: VALIDATE_DATE_RANGE, errorMessage: undefined };
-// }
 
 export type Validator = { fn: any, options: any };
 /**
