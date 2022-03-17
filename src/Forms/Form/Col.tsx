@@ -84,17 +84,6 @@ const Col = (props: ColPropsTypes) => {
 	const onBlurMap = useMemo(() => {
 		return fieldsDef.reduce((prev, curr) => {
 			prev[curr.name] = async function () {
-				// if (curr.validators) {
-				// 	curr.validators.forEach((validator) => {
-				// 		if (typeof validator === 'object' && validator.options?.pairedFields) {
-				// 			validator.options.pairedFields.forEach(async (pairedField: string) => {
-				// 				await dispatch(
-				// 					actions.validateField({ name: pairedField })
-				// 				);
-				// 			});
-				// 		}
-				// 	});
-				// }
 				if (state.pairedFields[curr.name]) {
 					state.pairedFields[curr.name].forEach(async pairedField => {
 						await dispatch(
