@@ -12,6 +12,7 @@ type State = {
 	custom: unknown;
 	validForm: boolean;
 	disabled: unknown;
+	pairedFields: { [key: string]: string[] };
 }
 
 type Action = {
@@ -78,7 +79,13 @@ export function coreReducer(state: State, action: Action): State {
 				validating: {},
 				custom: {},
 				validForm: false,
-				disabled: null
+				disabled: null,
+				pairedFields: {},
+			}
+		case "PAIR_FIELDS":
+			return {
+				...state,
+				pairedFields: action.value
 			}
 		default:
 			return state;
@@ -90,23 +97,47 @@ async function runValidators(
 	value: unknown,
 	data: unknown
 ): Promise<{
-	type: string;
-	errorMessage: string;
+	// type: string;
+	errorMessage?: string;
 	validator: Validator;
 }> {
 	for (const validator of validators) {
 		const result = await validator.fn(value, data, validator.options);
 		if (result) {
 			return {
-				type: result.type,
-				errorMessage: result.errorMessage,
+				// type: result.type,
+				errorMessage: result,
 				validator,
 			};
+		} else {
+			return { validator }
 		}
 	}
 
 	return;
 }
+// async function runValidators(
+// 	validators: Validator[],
+// 	value: unknown,
+// 	data: unknown
+// ): Promise<{
+// 	type: string;
+// 	errorMessage: string;
+// 	validator: Validator;
+// }> {
+// 	for (const validator of validators) {
+// 		const result = await validator.fn(value, data, validator.options);
+// 		if (result) {
+// 			return {
+// 				type: result.type,
+// 				errorMessage: result.errorMessage,
+// 				validator,
+// 			};
+// 		}
+// 	}
+
+// 	return;
+// }
 
 export const actions = {
 	setFieldValue({ name, value, validate = false }: { name: string; value: unknown; validate?: boolean }) {
@@ -125,55 +156,118 @@ export const actions = {
 	validateField({ name }: { name: string }) {
 		return async function (dispatch, getState, extraArgs): Promise<void> {
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
-			let validators = extraArgs?.fieldMap[name]?.validators;
+			let validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
 
-			if (!validators && !requiredFlag) {
+			// getState().pairedFields?.forEach(field => {
+			// 	if(field.contains(name))
+			// 		extraArgs.fieldMap[field].validators.forEach(validator => {
+
+			// 		});
+			// });
+
+			// getState().pairedFields?.forEach(field => {
+			// 	// if (field[name])
+			// 	// 	console.log(field[name]);
+			// });
+
+			// const pairedFields = getState().pairedFields;
+
+			// if (pairedFields)
+			// 	for (const [key, value] of Object.entries(pairedFields)) {
+			// 		if (value[name])
+			// 			value[name].forEach(validator => {
+			// 				validators.push(validator);
+			// 			});
+			// 	}
+
+			if ((!validators || validators.length === 0) && !requiredFlag) {
 				return;
 			}
 
-			if (!validators && requiredFlag) {
-				validators = [];
+			if ((!validators || validators.length === 0) && requiredFlag) {
 				validators.unshift(required);
 			}
 
-			if (validators && requiredFlag) {
+			if ((validators || validators.length !== 0) && requiredFlag) {
 				validators.unshift(required);
 			}
 
 			const validatorsMap = mapsValidators(validators);
 
+			// REGULAR PROCESS
 			await dispatch({
 				type: "FIELD_START_VALIDATE",
-				name
+				name,
 			});
+
 			const data = getState().data;
 			const startValue = getState().data[name];
 			const result = await runValidators(validatorsMap, startValue, data);
+			// const result = await validator.fn(startValue, data, validator.options);
 			const currentValue = getState().data[name];
 
-			if (startValue === currentValue) {
-				if (result?.type === VALIDATE_DATE_RANGE) {
+			if (startValue === currentValue && result) {
+				validators.find(validator => validator.fn === result.validator.fn.name)?.options.pairedFields?.forEach(async pairedField => {
 					await dispatch({
 						type: "FIELD_END_VALIDATE",
-						name: result?.validator.options.startDateName ? result.validator.options.startDateName : name,
-						value: result?.errorMessage
+						name: pairedField,
+						value: result?.errorMessage ? result?.errorMessage : undefined
 					});
-
-					await dispatch({
-						type: "FIELD_END_VALIDATE",
-						name: result?.validator.options.endDateName ? result?.validator.options.endDateName : name,
-						value: result?.errorMessage
-					});
-				}
-
-				if (result?.type !== 'validateDateRange') {
-					await dispatch({
-						type: "FIELD_END_VALIDATE",
-						name,
-						value: result?.errorMessage
-					});
-				}
+				});
+				await dispatch({
+					type: "FIELD_END_VALIDATE",
+					name,
+					value: result?.errorMessage ? result?.errorMessage : undefined
+				});
 			}
+
+			// validatorsMap.forEach(async (validator) => {
+			// 	if (validator.options?.pairedFields) {
+			// 		validator.options?.pairedFields.forEach(async pairedField => {
+			// 			await dispatch({
+			// 				type: "FIELD_START_VALIDATE",
+			// 				name: pairedField,
+			// 			});
+			// 			const data = getState().data;
+			// 			const startValue = getState().data[pairedField];
+			// 			// const result = await runValidators(validatorsMap, startValue, data);
+			// 			const result = await validator.fn(startValue, data, validator.options);
+			// 			const currentValue = getState().data[pairedField];
+
+			// 			if (startValue === currentValue) {
+			// 				await dispatch({
+			// 					type: "FIELD_END_VALIDATE",
+			// 					name: pairedField,
+			// 					value: result
+			// 				});
+			// 			}
+
+			// 			// if (startValue === currentValue) {
+			// 			// 	if (result?.type === VALIDATE_DATE_RANGE) {
+			// 			// 		await dispatch({
+			// 			// 			type: "FIELD_END_VALIDATE",
+			// 			// 			name: result?.validator.options.startDateName ? result.validator.options.startDateName : name,
+			// 			// 			value: result?.errorMessage
+			// 			// 		});
+
+			// 			// 		await dispatch({
+			// 			// 			type: "FIELD_END_VALIDATE",
+			// 			// 			name: result?.validator.options.endDateName ? result?.validator.options.endDateName : name,
+			// 			// 			value: result?.errorMessage
+			// 			// 		});
+			// 			// 	}
+
+			// 			// 	if (result?.type !== 'validateDateRange') {
+			// 			// 		await dispatch({
+			// 			// 			type: "FIELD_END_VALIDATE",
+			// 			// 			name,
+			// 			// 			value: result?.errorMessage
+			// 			// 		});
+			// 			// 	}
+			// 			// }
+			// 		});
+			// 	}
+			// });
 		};
 	},
 	copyFieldToField({ from, to }: { from: any; to: string }) {
@@ -270,6 +364,24 @@ export const actions = {
 				value: false,
 			});
 		}
+	},
+	setPairedFields({ pairedFields }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: "FORM_START_DISABLE",
+				value: true,
+			});
+
+			await dispatch({
+				type: "PAIR_FIELDS",
+				value: pairedFields
+			});
+
+			await dispatch({
+				type: "FORM_END_DISABLE",
+				value: false,
+			});
+		}
 	}
 };
 
@@ -305,6 +417,7 @@ export function useForm({ customReducer }: { customReducer?: ((state: State, act
 			custom: {},
 			validForm: false,
 			disabled: null,
+			pairedFields: {},
 		},
 		extraArgs.current
 	);
