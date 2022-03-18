@@ -5,7 +5,6 @@ import DateField from ".";
 import { DateFieldDef } from "./DateFieldTypes";
 import { screen } from "@testing-library/dom";
 import "@testing-library/jest-dom";
-import { validateDateRange } from "@root/forms/Form/validators";
 
 describe("DateField component", () => {
 	it("Should display the date value", () => {
@@ -87,39 +86,5 @@ describe("DateField component", () => {
 		);
 		expect(getByText("MM / DD / YYYY")).toBeTruthy();
 		expect(getByText("00:00 AM/PM")).toBeTruthy();
-	});
-});
-
-describe("Date range validator", () => {
-	it("should return an error message since the start date is happening after the end date", async() => {
-		const startDate = "2022-03-03T18:49:00.000Z";
-		const data = {
-			endDate: "2020-03-04T18:38:00.000Z"
-		}
-		const options = { endDateName: "endDate" };
-		const result = {
-			type: "validateDateRange",
-			errorMessage: "Start date should happen before the end date"
-		}
-
-		expect(validateDateRange(startDate, data, options)).toEqual(result);
-	});
-
-	it("should not return an error message since the stat date is happening before the end date", async() => {
-		const startDate = "2020-03-03T18:49:00.000Z";
-		const data = {
-			endDate: "2022-03-04T18:38:00.000Z"
-		}
-		const options = { endDateName: "endDate" };
-		const result = {
-			type: "validateDateRange",
-			errorMessage: undefined
-		}
-
-		expect(validateDateRange(startDate, data, options)).toEqual(result);
-	});
-
-	it("should not return an error message since the stat date is happening before the end date", async() => {
-		expect(validateDateRange(null, null, null)).toEqual(undefined);
 	});
 });
