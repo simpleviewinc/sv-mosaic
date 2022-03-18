@@ -71,11 +71,13 @@ const MapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>)
 	 */
 	const handleClose = async (save = false) => {
 		if (typeof save === 'boolean' && save) {
+			setUnsavedChanges(false);
 			setIsModalOpen(false);
 			await onBlur();
 		} else if (hasUnsavedChanges)
 			setIsDialogOpen(true);
 		else {
+			setUnsavedChanges(false);
 			setIsModalOpen(false);
 			await onBlur();
 		}
