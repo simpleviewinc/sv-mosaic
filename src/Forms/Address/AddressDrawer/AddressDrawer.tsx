@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { FieldDef } from '@root/components/Field/FieldTypes';
 
 // Components
@@ -198,7 +198,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		);
 
 		if (selectedCountry) {
-			return selectedCountry.states.map((state) => ({title: state.name, value: state.state_code}));
+			return selectedCountry.states.map((state) => ({ title: state.name, value: state.state_code }));
 		}
 
 		return [];
