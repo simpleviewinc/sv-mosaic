@@ -24,8 +24,9 @@ const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-	const handleOpenState = () => {
+	const handleOpenState = async () => {
 		setIsPickerOpen(!isPickerOpen);
+		await onBlur();
 	};
 
 	return (

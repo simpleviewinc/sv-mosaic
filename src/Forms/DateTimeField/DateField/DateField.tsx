@@ -23,7 +23,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 		error,
 	} = props;
 
-	const { required, disabled, inputSettings: { showTime }} = fieldDef || {};
+	const { required, disabled } = fieldDef || {};
 
 	const [dateInput, setDateInput] = useState(null);
 	const [timeInput, setTimeInput] = useState(null);
@@ -35,7 +35,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 	}, []);
 
 	const handleOnChange = async (position, date) => {
-		
+
 		let newValue = value || undefined;
 		let year = 0;
 		let month = 0;
@@ -47,7 +47,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 		position === 0 ? setDateInput(date) : setTimeInput(date);
 
 		if (!isNaN(date?.valueOf())) {
-			
+
 			if (position === 0) {
 				year = date.getFullYear();
 				month = date.getMonth();
@@ -64,7 +64,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 				seconds = date.getSeconds();
 			}
 
-			if (required && showTime) {
+			if (required && fieldDef?.inputSettings?.showTime) {
 				if ((position === 0 && timeInput) || (position === 1 && dateInput))
 					newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds)).toISOString();
 			} else {
@@ -72,13 +72,13 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 			}
 
 		} else {
-			if (!required && showTime) {
+			if (!required && fieldDef?.inputSettings?.showTime) {
 				if ((position === 0 && !timeInput) || (position === 1 && !dateInput))
 					newValue = undefined;
-			} else 
+			} else
 				newValue = undefined;
 		}
-		
+
 		await onChange(newValue);
 
 		/* 
@@ -188,14 +188,14 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 					<DisabledDateTimeValue>
 						{
 							value ? new Date(value).toLocaleDateString("en", { timeZone: "UTC" })
-							: "MM / DD / YYYY"
+								: "MM / DD / YYYY"
 						}
 					</DisabledDateTimeValue>
 					{fieldDef?.inputSettings?.showTime &&
 						<DisabledDateTimeValue>
 							{
 								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })
-								: "00:00 AM/PM"
+									: "00:00 AM/PM"
 							}
 						</DisabledDateTimeValue>
 					}
