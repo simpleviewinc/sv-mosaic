@@ -23,7 +23,7 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 		error,
 	} = props;
 
-	const { required, disabled } = fieldDef || {};
+	const { required, disabled, inputSettings: { showTime }} = fieldDef || {};
 
 	const [dateInput, setDateInput] = useState(null);
 	const [timeInput, setTimeInput] = useState(null);
@@ -35,6 +35,54 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 	}, []);
 
 	const handleOnChange = async (position, date) => {
+		
+		let newValue = value || undefined;
+		let year = 0;
+		let month = 0;
+		let day = 0;
+		let hours = 0;
+		let minutes = 0;
+		let seconds = 0;
+
+		position === 0 ? setDateInput(date) : setTimeInput(date);
+
+		if (!isNaN(date?.valueOf())) {
+			
+			if (position === 0) {
+				year = date.getFullYear();
+				month = date.getMonth();
+				day = date.getDate();
+				hours = timeInput?.getHours() || 0;
+				minutes = timeInput?.getMinutes() || 0;
+				seconds = timeInput?.getSeconds() || 0;
+			} else {
+				year = dateInput?.getFullYear() || new Date().getFullYear();
+				month = dateInput?.getMonth() || new Date().getMonth();
+				day = dateInput?.getDate() || new Date().getDate();
+				hours = date.getHours();
+				minutes = date.getMinutes();
+				seconds = date.getSeconds();
+			}
+
+			if (required && showTime) {
+				if ((position === 0 && timeInput) || (position === 1 && dateInput))
+					newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds)).toISOString();
+			} else {
+				newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds)).toISOString();
+			}
+
+		} else {
+			if (!required && showTime) {
+				if ((position === 0 && !timeInput) || (position === 1 && !dateInput))
+					newValue = undefined;
+			} else 
+				newValue = undefined;
+		}
+		
+		await onChange(newValue);
+
+		/* 
+		//Old Approach
 
 		let newValue = value;
 		position === 0 ? setDateInput(date) : setTimeInput(date);
@@ -87,9 +135,11 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 			} else {
 				newValue = undefined;
 			}
-		}
+		} 
 
 		await onChange(newValue);
+
+		*/
 	};
 
 	return (
@@ -137,14 +187,14 @@ const DateField = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement 
 					<DisabledDateTimeValue>
 						{
 							value ? new Date(value).toLocaleDateString("en", { timeZone: "UTC" })
-								: "MM / DD / YYYY"
+							: "MM / DD / YYYY"
 						}
 					</DisabledDateTimeValue>
 					{fieldDef?.inputSettings?.showTime &&
 						<DisabledDateTimeValue>
 							{
 								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })
-									: "00:00 AM/PM"
+								: "00:00 AM/PM"
 							}
 						</DisabledDateTimeValue>
 					}
