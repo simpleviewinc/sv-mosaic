@@ -2,7 +2,7 @@ import { useMemo, useRef, useCallback, useReducer } from "react";
 import { EventEmitter } from "eventemitter3";
 import { SectionDef } from "./FormTypes";
 import { MosaicObject } from "@root/types";
-import { mapsValidators, required, VALIDATE_DATE_RANGE, Validator } from "./validators";
+import { mapsValidators, required, Validator } from "./validators";
 
 type State = {
 	data: any;
@@ -23,72 +23,72 @@ type Action = {
 
 export function coreReducer(state: State, action: Action): State {
 	switch (action.type) {
-		case "FIELD_ON_CHANGE":
-			return {
-				...state,
-				data: {
-					...state.data,
-					[action.name]: action.value
-				}
-			};
-		case "FIELD_START_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: null
-				},
-				validating: {
-					...state.validating,
-					[action.name]: true
-				}
-			};
-		case "FIELD_END_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: action.value
-				},
-				validating: {
-					...state.validating,
-					[action.name]: undefined
-				}
-			};
-		case "FORM_START_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_END_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_VALIDATE":
-			return {
-				...state,
-				validForm: action.value
-			};
-		case "FORM_RESET":
-			return {
-				...state,
-				data: {},
-				touched: {},
-				errors: {},
-				validating: {},
-				custom: {},
-				validForm: false,
-				disabled: null,
-				pairedFields: {},
+	case "FIELD_ON_CHANGE":
+		return {
+			...state,
+			data: {
+				...state.data,
+				[action.name]: action.value
 			}
-		case "PAIR_FIELDS":
-			return {
-				...state,
-				pairedFields: action.value
+		};
+	case "FIELD_START_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: null
+			},
+			validating: {
+				...state.validating,
+				[action.name]: true
 			}
-		default:
-			return state;
+		};
+	case "FIELD_END_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: action.value
+			},
+			validating: {
+				...state.validating,
+				[action.name]: undefined
+			}
+		};
+	case "FORM_START_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_END_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_VALIDATE":
+		return {
+			...state,
+			validForm: action.value
+		};
+	case "FORM_RESET":
+		return {
+			...state,
+			data: {},
+			touched: {},
+			errors: {},
+			validating: {},
+			custom: {},
+			validForm: false,
+			disabled: null,
+			pairedFields: {},
+		}
+	case "PAIR_FIELDS":
+		return {
+			...state,
+			pairedFields: action.value
+		}
+	default:
+		return state;
 	}
 }
 
@@ -130,7 +130,7 @@ export const actions = {
 	validateField({ name }: { name: string }) {
 		return async function (dispatch, getState, extraArgs): Promise<void> {
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
-			let validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
+			const validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
 
 			if ((!validators || validators.length === 0) && !requiredFlag) {
 				return;

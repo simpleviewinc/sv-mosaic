@@ -37,7 +37,7 @@ export function validateSlow(str: string): Promise<void | string> {
 			} else {
 				return resolve();
 			}
-		}, 5000);
+		}, 1000);
 	});
 }
 
@@ -107,8 +107,8 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 		return;
 	}
 
-	let startDate = new Date(value);
-	let endDate = new Date(data[options.pairedFields[0]]);
+	const startDate = new Date(value);
+	const endDate = new Date(data[options.pairedFields[0]]);
 
 	if (startDate.getTime() > endDate.getTime()) {
 		return "Start date should happen before the end date";
