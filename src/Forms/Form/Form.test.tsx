@@ -2,7 +2,7 @@ import testArray from "../../utils/testArray";
 import * as assert from "assert";
 import { actions, coreReducer, generateLayout } from "./formUtils";
 import { FieldDef } from "../../components/Field";
-import { required, validateEmail, validateNumber, validateSlow, validateURL } from './validators';
+import { mapsValidators, required, validateEmail, validateNumber, validateSlow, validateURL } from './validators';
 import { TextFieldDef } from "../FormFieldText";
 
 const runTests = (tests, type) => {
@@ -40,7 +40,11 @@ const runTests = (tests, type) => {
 		break;
 	case 'validator':
 		testArray(tests, async test => {
-			const result = await test['validator'](test['value']);
+			const validator = mapsValidators([test['validator']])[0].fn;
+			const data = test['data'] ? test['data'] : {};
+			const options = test['validator'].options ? test['validator'].options : {}
+
+			const result = await validator(test['value'], data, options);
 
 			assert.deepStrictEqual(result, test['result']);
 		});
@@ -443,6 +447,7 @@ describe('REDUCERS: FORM_RESET', () => {
 					custom: {},
 					validForm: false,
 					disabled: null,
+					pairedFields: {}
 				},
 			},
 		}
@@ -948,7 +953,7 @@ describe('VALIDATORS: validateSlow', () => {
 			args: {
 				validator: validateSlow,
 				value: 'test',
-				result: "String cannot include 'test'",
+				result: "String cannot include test",
 			}
 		},
 	];
@@ -1154,6 +1159,79 @@ describe('VALIDATORS: validateURL', () => {
 				validator: validateURL,
 				value: 'abc',
 				result: 'The value is not a valid URL',
+			}
+		},
+	];
+
+	runTests(tests, 'validator');
+});
+
+describe('VALIDATORS: validateDateRange', () => {
+	const tests = [
+		{
+			name: 'Empty fields',
+			args: {
+				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				value: undefined,
+				data: {
+					"endDate": undefined //"2022-03-25T00:00:00.0000Z"
+				},
+				result: undefined,
+			}
+		},
+		{
+			name: 'startDate with value and endDate without',
+			args: {
+				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				value: "2022-03-25T00:00:00.0000Z",
+				data: {
+					"endDate": undefined //"2022-03-25T00:00:00.0000Z"
+				},
+				result: undefined,
+			}
+		},
+		{
+			name: 'endDate with value and startDate without',
+			args: {
+				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				value: undefined,
+				data: {
+					"endDate": "2022-03-25T00:00:00.0000Z"
+				},
+				result: undefined,
+			}
+		},
+		{
+			name: 'startDate happenning before endDate',
+			args: {
+				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				value: "2022-03-25T00:00:00.0000Z",
+				data: {
+					"endDate": "2022-03-26T00:00:00.0000Z"
+				},
+				result: undefined,
+			}
+		},
+		{
+			name: 'startDate happenning at the same time as endDate',
+			args: {
+				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				value: "2022-03-25T00:00:00.0000Z",
+				data: {
+					"endDate": "2022-03-25T00:00:00.0000Z"
+				},
+				result: undefined,
+			}
+		},
+		{
+			name: 'startDate happenning after endDate',
+			args: {
+				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				value: "2022-03-27T00:00:00.0000Z",
+				data: {
+					"endDate": "2022-03-26T00:00:00.0000Z"
+				},
+				result: "Start date should happen before the end date",
 			}
 		},
 	];

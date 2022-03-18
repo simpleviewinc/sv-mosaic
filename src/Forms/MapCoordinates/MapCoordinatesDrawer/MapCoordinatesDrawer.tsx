@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { MapCoordinatesDrawerProps } from '..';
 import { FieldDef } from '@root/components/Field/FieldTypes';
 import { MapPosition } from '../MapCoordinatesTypes';
 
 // Components
-import Button from '@root/forms/Button';
 import Map from '@root/forms/MapCoordinates/Map';
 import { StyledSpan } from '../MapCoordinates.styled';
 
