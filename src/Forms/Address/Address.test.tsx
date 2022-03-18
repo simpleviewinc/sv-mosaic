@@ -1,12 +1,12 @@
 import { FieldDef } from '@root/components/Field';
 import {
-	render,
-	cleanup,
+	// render,
+	// cleanup,
 	fireEvent,
 	screen,
 	waitFor,
-	waitForElementToBeRemoved,
-	queryByText,
+	// waitForElementToBeRemoved,
+	// queryByText,
 } from '@testing-library/react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
@@ -15,19 +15,19 @@ import { ReactElement, useCallback, useMemo } from 'react';
 import { useForm } from '../Form/formUtils';
 
 // Components
-import AddressCard from './AddressCard';
+// import AddressCard from './AddressCard';
 import Form from '../Form/Form';
 import { IAddress } from '.';
 
-const address: IAddress = {
-	id: 1,
-	address1: '8950 N Oracle Rd',
-	city: 'Oro Valley',
-	postalCode: '85704',
-	country: 'US',
-	state: 'AZ',
-	types: ['physical', 'billing'],
-};
+// const address: IAddress = {
+// 	id: 1,
+// 	address1: '8950 N Oracle Rd',
+// 	city: 'Oro Valley',
+// 	postalCode: '85704',
+// 	country: 'US',
+// 	state: 'AZ',
+// 	types: ['physical', 'billing'],
+// };
 
 const fields = [
 	{
@@ -76,7 +76,7 @@ export const AddressFormFieldExample = (): ReactElement => {
 	);
 };
 
-let container = document.body;
+const container = document.body;
 
 // beforeEach(() => {
 // 	container = document.createElement('div');
@@ -108,7 +108,7 @@ describe('AddressCard component', () => {
 
 		console.log('BREAK 1');
 
-		let buttons = container.querySelectorAll('button');
+		const buttons = container.querySelectorAll('button');
 		// buttons.forEach(button => {
 		// 	screen.debug(button);
 		// });
@@ -167,8 +167,8 @@ describe('AddressCard component', () => {
 			expect(screen.getByText('City edited, 000')).toBeTruthy();
 			expect(screen.getByText('AR')).toBeTruthy();
 		}, { timeout: 3000 });
-    
-    await waitFor(() => {
+
+		await waitFor(() => {
 			expect(container.querySelector('span[data-testid="drawer-title-test"]')).toBeNull();
 		}, { timeout: 10000 });
 

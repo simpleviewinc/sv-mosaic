@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 import { StyledDisabledForm, StyledForm } from './Form.styled';
 import { FormProps } from './FormTypes';
 import { actions } from './formUtils';
@@ -56,7 +56,43 @@ const Form = (props: FormProps) => {
 		}
 
 		loadFormValues();
-	}, [getFormValues]);
+
+		const pairFields = async () => {
+			let pairedFields = {};
+
+			fields.forEach(field => {
+				if (field.validators) {
+					field.validators.forEach(validator => {
+						if (typeof validator === 'object' && validator.options?.pairedFields) {
+							validator.options.pairedFields.forEach(pairedField => {
+								if (!pairedFields[pairedField]) {
+									pairedFields = {
+										...pairedFields,
+										[pairedField]: [field.name]
+									}
+								} else {
+									pairedFields = {
+										...pairedFields,
+										[pairedField]: [...pairedFields[pairedField], field.name]
+									}
+								}
+							});
+						}
+					});
+				}
+			});
+
+			if (pairedFields)
+				await dispatch(
+					actions.setPairedFields({
+						pairedFields
+					})
+				);
+		}
+
+		pairFields();
+
+	}, []);
 
 	const submit = async (e) => {
 		e.preventDefault();

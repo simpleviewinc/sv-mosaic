@@ -83,7 +83,14 @@ const Col = (props: ColPropsTypes) => {
 
 	const onBlurMap = useMemo(() => {
 		return fieldsDef.reduce((prev, curr) => {
-			prev[curr.name] = async function (value) {
+			prev[curr.name] = async function () {
+				if (state.pairedFields[curr.name]) {
+					state.pairedFields[curr.name].forEach(async pairedField => {
+						await dispatch(
+							actions.validateField({ name: pairedField })
+						);
+					});
+				}
 				await dispatch(
 					actions.validateField({ name: curr.name })
 				);
@@ -91,7 +98,7 @@ const Col = (props: ColPropsTypes) => {
 
 			return prev;
 		}, {});
-	}, [fieldsDef]);
+	}, [fieldsDef, state.pairedFields]);
 
 	return (
 		<StyledCol colsInRow={colsInRow}>

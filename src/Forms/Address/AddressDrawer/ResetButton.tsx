@@ -2,7 +2,7 @@ import * as React from 'react';
 import { memo, ReactElement } from 'react';
 import Button from '@root/forms/Button';
 
-const ResetButton = (props): ReactElement => {
+const ResetButton = (props: { value: any; fieldDef: any; }): ReactElement => {
 	const {
 		value,
 		fieldDef,

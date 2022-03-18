@@ -1,4 +1,3 @@
-import { ValidatorsReturn } from '@root/forms/Form/validators';
 import { Sizes } from '@root/theme/sizes';
 import { HTMLAttributes, ReactNode } from 'react';
 
@@ -102,7 +101,7 @@ export interface FieldDef<T = any, U = any> {
 	 * Array of validators to be executed by the form when on blur or
 	 * when submitted.
 	 */
-	validators?: ((() => ValidatorsReturn | JSX.Element) | string | { fn: any; options: any })[];
+	validators?: ((() => string | undefined | JSX.Element) | string | { fn: any; options: any })[];
 	/**
 	 * Identifier passed by the developer
 	 */
