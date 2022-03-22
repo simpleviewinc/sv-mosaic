@@ -41,10 +41,6 @@ describe('Field component label, helper text and instructional text', () => {
 	it('should render a child element with a helper text', () => {
 		expect(getByText('Helper text')).toBeDefined();
 	});
-
-	it('should render a child element an instructional text', () => {
-		expect(getByText('Instruction text')).toBeDefined();
-	});
 });
 
 describe('Field component error text and the helper text', () => {

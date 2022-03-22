@@ -12,7 +12,7 @@ import { menuOptions } from '@root/forms/MenuFormFieldCard/MenuFormFieldUtils';
 import { useForm } from '../Form/formUtils';
 
 export default {
-	title: 'Forms|ImageUpload',
+	title: 'Forms|FormFieldImageUpload',
 	decorators: [withKnobs],
 };
 

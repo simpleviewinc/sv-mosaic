@@ -24,29 +24,29 @@ function Button(props: ButtonProps) {
 	const [tooltipEl, setTooltipEl] = useState(null);
 
 	const addAttrs: MosaicObject = {};
-	
+
 	const MyButton = types[`${props.color}_${props.variant}`];
-	
+
 	if (MyButton === undefined) {
 		throw new Error(`Color '${props.color}' and variant '${props.variant}' combination is not valid`);
 	}
-	
+
 	const MaterialIcon = props.mIcon;
 	const iconPosition = props.iconPosition || "left";
-	
+
 	function openMenu(event) {
 		setAnchorEl(event.currentTarget);
 	}
-	
+
 	function closeMenu() {
 		setAnchorEl(null);
 	}
-	
+
 	function openPopover(event) {
 		setPopoverAnchorEl(event.currentTarget);
 		setTooltipEl(null);
 	}
-	
+
 	function closePopover() {
 		setPopoverAnchorEl(null);
 	}
@@ -58,12 +58,12 @@ function Button(props: ButtonProps) {
 	function onMouseLeave(e) {
 		setTooltipEl(null);
 	}
-	
+
 	const onClick = props.popover ? openPopover
 		: props.menuItems ? openMenu
-		: props.menuContent ? openMenu
-		: props.onClick
-	;
+			: props.menuContent ? openMenu
+				: props.onClick
+		;
 
 	const size = props.size || "medium";
 
@@ -97,7 +97,7 @@ function Button(props: ButtonProps) {
 					href={props.href}
 				>
 					{
-						props.mIcon && iconPosition === "left" && 
+						props.mIcon && iconPosition === "left" &&
 						<MaterialIcon className="icon icon_left" style={{ color: props.mIconColor }}></MaterialIcon>
 					}
 					{props.label}
@@ -114,12 +114,12 @@ function Button(props: ButtonProps) {
 					onClick={onClick}
 					disabled={props.disabled}
 				>
-					{ props.mIcon && <MaterialIcon data-testid="icon-button-test" className="icon"></MaterialIcon> }
+					{props.mIcon && <MaterialIcon data-testid="icon-button-test" className="icon"></MaterialIcon>}
 				</IconButton>
 			}
 			{
 				props.menuItems &&
-				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}/>
+				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu} />
 			}
 			{
 				props.menuContent &&
@@ -144,7 +144,7 @@ function Button(props: ButtonProps) {
 					disableRestoreFocus
 				>
 					<PopoverWrapper>
-						<ButtonPopoverContext.Provider value={{ onClose : closePopover }}>
+						<ButtonPopoverContext.Provider value={{ onClose: closePopover }}>
 							{props.popover}
 						</ButtonPopoverContext.Provider>
 					</PopoverWrapper>
@@ -155,7 +155,7 @@ function Button(props: ButtonProps) {
 				<Popper
 					open={Boolean(tooltipEl)}
 					anchorEl={tooltipEl}
-					style={{ zIndex:10, pointerEvents: "none" }}
+					style={{ zIndex: 10, pointerEvents: "none" }}
 				>
 					<TooltipContent>{props.tooltip}</TooltipContent>
 				</Popper>

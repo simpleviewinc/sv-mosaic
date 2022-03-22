@@ -4,9 +4,9 @@ import { boolean, object, text, withKnobs } from '@storybook/addon-knobs';
 
 // Utils
 import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils'
-import { useTable, headers } from '@root/forms/Table/tableUtils';
+import { useTable, headers } from '@root/forms/FormFieldTable/tableUtils';
 import { useForm, actions } from "./formUtils";
-import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from '@root/forms/ImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils';
+import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from '@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils';
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 import { menuOptions } from '../MenuFormFieldCard/MenuFormFieldUtils';
 
@@ -17,11 +17,11 @@ import Drawer from '@root/components/Drawer.jsx';
 // Types
 import { TextFieldDef } from '../FormFieldText/FormFieldTextTypes';
 import { FieldDef } from '../../components/Field';
-import { AdvancedSelectionDef } from '../AdvancedSelection';
-import { TableDef } from '../Table';
+import { AdvancedSelectionDef } from '../FormFieldAdvancedSelection';
+import { TableDef } from '../FormFieldTable';
 import { ImageUploadDef } from '../FormFieldImageUpload';
-import { MapCoordinatesDef } from '../MapCoordinates';
-import { ImageVideoDocumentLinkBrowsingDef } from '../ImageVideoLinkDocumentBrowsing';
+import { MapCoordinatesDef } from '../FormFieldMapCoordinates';
+import { ImageVideoDocumentLinkBrowsingDef } from '../FormFieldImageVideoLinkDocumentBrowsing';
 import { FormFieldToggleSwitchDef } from '../FormFieldToggleSwitch';
 import { FormFieldRadioDef } from '../FormFieldRadio';
 import { DropdownSingleSelectionDef } from '../FormFieldDropdownSingleSelection';
