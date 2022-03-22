@@ -207,15 +207,15 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 							)}
 							{!autocoordinatesChecked &&
 								isEmpty(fieldDef?.inputSettings?.address) && (
-									<Button
-										color="redMosaic"
-										disabled={fieldDef?.disabled}
-										variant="text"
-										label="Remove"
-										onClick={removeLocation}
-										muiAttrs={{ disableRipple: true }}
-									></Button>
-								)}
+								<Button
+									color="redMosaic"
+									disabled={fieldDef?.disabled}
+									variant="text"
+									label="Remove"
+									onClick={removeLocation}
+									muiAttrs={{ disableRipple: true }}
+								></Button>
+							)}
 						</ButtonsWrapper>
 					</CoordinatesCard>
 				</div>

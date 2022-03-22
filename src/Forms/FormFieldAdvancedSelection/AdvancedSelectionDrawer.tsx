@@ -275,14 +275,14 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				},
 			] as FieldDef[]
 		), [
-		filteredList,
-		searchInput,
-		fieldDef,
-		canLoadMore,
-		getMoreOptions,
-		isModalOpen,
-		isMobileView,
-	]
+			filteredList,
+			searchInput,
+			fieldDef,
+			canLoadMore,
+			getMoreOptions,
+			isModalOpen,
+			isMobileView,
+		]
 	);
 
 	useMemo(() => {

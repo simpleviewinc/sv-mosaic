@@ -285,7 +285,7 @@ export const types = {
 
       &:hover {
         color: ${({ children }) =>
-			!children[0].props.disabled ? theme.colors.blueTealHover : ""};
+		!children[0].props.disabled ? theme.colors.blueTealHover : ""};
       }
     }
 
