@@ -3,7 +3,7 @@ import { memo, ReactElement, useState } from 'react';
 
 // Components
 import AddressDrawer from './AddressDrawer';
-import Button from '@root/forms/Button';
+import Button from "@root/components/Button";
 import Drawer from '@root/components/Drawer.jsx';
 
 // Styles
@@ -119,24 +119,28 @@ const Address = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => 
 		<div>
 			<FlexContainer>
 				<AddAddressWrapper>
-					<Button disabled={fieldDef.disabled} buttonType='secondary' onClick={addAddressHandler}>
-						ADD ADDRESS
-					</Button>
-				</AddAddressWrapper>
-				{value && value.map((address, idx) => (
-					<AddressCard
-						key={`${idx}`}
-						address={address}
-						addressIndex={idx}
-						onEdit={showEditModal}
+					<Button
 						disabled={fieldDef.disabled}
-						onRemoveAddress={removeAddressHandler} />
-				))}
+						color="gray"
+						variant="outlined"
+						label="ADD ADDRESS"
+						onClick={addAddressHandler}
+						muiAttrs={{disableRipple: true}}
+					></Button>
+				</AddAddressWrapper>
+				{value &&
+					value.map((address, idx) => (
+						<AddressCard
+							key={`${idx}`}
+							address={address}
+							addressIndex={idx}
+							onEdit={showEditModal}
+							disabled={fieldDef.disabled}
+							onRemoveAddress={removeAddressHandler}
+						/>
+					))}
 			</FlexContainer>
-			<Drawer
-				open={open}
-				onClose={handleClose}
-			>
+			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
 					open={open}
 					value={value}

@@ -24,7 +24,7 @@ const TopComponentExample = () => {
 			onCancel={cancelCallback}
 			onSubmit={saveCallback}
 			submitButtonAttrs={{
-				children: 'Save'
+				label: 'Save'
 			}}
 			sections={sections}
 			showActive={true}

@@ -1,4 +1,4 @@
-import { FormButtonProps } from "@root/forms/Button";
+import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
 import { ReactNode } from "react";
 import { Section } from "../FormNav/FormNavTypes";
@@ -17,6 +17,8 @@ export interface SectionDef extends Section {
 	children?: ReactNode;
 }
 
+export type ButtonAttrs = Omit<ButtonProps, "color" | "variant">;
+
 export interface FormProps {
 	type?: 'drawer';
 	state: any;
@@ -28,8 +30,8 @@ export interface FormProps {
 	dialogOpen?: boolean;
 	description?: string;
 	getFormValues?(): Promise<MosaicObject>;
-	cancelButtonAttrs?: FormButtonProps;
-	submitButtonAttrs?: FormButtonProps;
+	cancelButtonAttrs?: ButtonAttrs;
+	submitButtonAttrs?: ButtonAttrs;
 	handleDialogClose?: (val: boolean) => void;
 	events?: any;
 	onSubmit?(...args: any): any;

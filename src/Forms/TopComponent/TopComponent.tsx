@@ -1,23 +1,20 @@
-import * as React from 'react';
-import { memo, useState, ReactElement, useMemo } from 'react';
+import * as React from "react";
+import { memo, useState, ReactElement, useMemo } from "react";
 
 // Components
-import Button from '@root/forms/Button';
-import Tooltip from '@root/components/Tooltip';
-import Checkbox from '@root/components/Checkbox';
-import MobileView from './Views/MobileView';
-import DrawerView from './Views/DrawerView';
-import ResponsiveView from './Views/ResponsiveView';
-import DesktopView from './Views/DesktopView';
+import Button from "@root/components/Button";
+import Tooltip from "@root/components/Tooltip";
+import Checkbox from "@root/components/Checkbox";
+import MobileView from "./Views/MobileView";
+import DrawerView from "./Views/DrawerView";
+import ResponsiveView from "./Views/ResponsiveView";
+import DesktopView from "./Views/DesktopView";
 
 // Types and Utils
-import { TopComponentProps } from './TopComponentTypes';
+import { TopComponentProps } from "./TopComponentTypes";
 
 // Styles
-import {
-	StyledHelpIcon,
-	StyledHelpIconWrapper,
-} from './TopComponent.styled';
+import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
 
 const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
@@ -30,8 +27,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		tooltipInfo,
 		sections,
 		submitButtonAttrs,
-		// type = undefined,
-		view = 'RESPONSIVE',
+		view = "RESPONSIVE",
 	} = props;
 
 	// State variables
@@ -53,12 +49,13 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const submitButton = useMemo(
 		() => (
 			<Button
-				buttonType='primary'
+				color="yellow"
+				variant="contained"
+				label={submitButtonAttrs?.label ? submitButtonAttrs.label : 'Save'}
+				disabled={submitButtonAttrs?.disabled}
 				onClick={onSubmit}
-				{...submitButtonAttrs}
-			>
-				{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Save'}
-			</Button>
+				muiAttrs={{ disableRipple: true }}
+			></Button>
 		),
 		[onSubmit, submitButtonAttrs]
 	);
@@ -67,12 +64,13 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		() => (
 			<>
 				<Button
-					buttonType='secondary'
+					color="gray"
+					variant="outlined"
+					disabled={cancelButtonAttrs?.disabled}
+					label={cancelButtonAttrs?.label ? cancelButtonAttrs.label : 'Cancel'}
 					onClick={onCancel}
-					{...cancelButtonAttrs}
-				>
-					{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
-				</Button>
+					muiAttrs={{ disableRipple: true }}
+				></Button>
 				{submitButton}
 			</>
 		),
@@ -82,7 +80,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const checkbox = useMemo(
 		() => (
 			<Checkbox
-				label='Active'
+				label="Active"
 				checked={activeChecked}
 				onClick={handleActiveClick}
 			/>
@@ -95,7 +93,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			<StyledHelpIconWrapper
 				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
 				showActive={showActive}
-				isResponsiveView={view === 'RESPONSIVE'}
+				isResponsiveView={view === "RESPONSIVE"}
 			>
 				<Tooltip
 					open={tooltipIsOpen}
@@ -119,62 +117,64 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	);
 
 	const RenderView = () => {
-		if (view === 'MOBILE') return (
-			<MobileView
-				title={title}
-				description={description}
-				helpIcon={helpIcon}
-				checkbox={checkbox}
-				onCancel={onCancel}
-				submitButton={submitButton}
-				showActive={showActive}
-				tooltipInfo={tooltipInfo}
-				view={view}
-			/>
-		);
-		if (view === 'DRAWER') return (
-			<DrawerView
-				title={title}
-				onCancel={onCancel}
-				tooltipInfo={tooltipInfo}
-				helpIcon={helpIcon}
-				buttons={buttons}
-				view={view}
-			/>
-		);
-		if (view === 'RESPONSIVE') return (
-			<ResponsiveView
-				title={title}
-				description={description}
-				showActive={showActive}
-				tooltipInfo={tooltipInfo}
-				helpIcon={helpIcon}
-				checkbox={checkbox}
-				buttons={buttons}
-				sections={sections}
-				view={view}
-			/>
-		);
-		if (view === 'DESKTOP' || view === 'BIG_DESKTOP') return (
-			<DesktopView
-				title={title}
-				description={description}
-				showActive={showActive}
-				tooltipInfo={tooltipInfo}
-				helpIcon={helpIcon}
-				checkbox={checkbox}
-				buttons={buttons}
-				sections={sections}
-				view={view}
-			/>
-		);
+		if (view === "MOBILE")
+			return (
+				<MobileView
+					title={title}
+					description={description}
+					helpIcon={helpIcon}
+					checkbox={checkbox}
+					onCancel={onCancel}
+					submitButton={submitButton}
+					showActive={showActive}
+					tooltipInfo={tooltipInfo}
+					view={view}
+				/>
+			);
+		if (view === "DRAWER")
+			return (
+				<DrawerView
+					title={title}
+					onCancel={onCancel}
+					tooltipInfo={tooltipInfo}
+					helpIcon={helpIcon}
+					buttons={buttons}
+					view={view}
+				/>
+			);
+		if (view === "RESPONSIVE")
+			return (
+				<ResponsiveView
+					title={title}
+					description={description}
+					showActive={showActive}
+					tooltipInfo={tooltipInfo}
+					helpIcon={helpIcon}
+					checkbox={checkbox}
+					buttons={buttons}
+					sections={sections}
+					view={view}
+				/>
+			);
+		if (view === "DESKTOP" || view === "BIG_DESKTOP")
+			return (
+				<DesktopView
+					title={title}
+					description={description}
+					showActive={showActive}
+					tooltipInfo={tooltipInfo}
+					helpIcon={helpIcon}
+					checkbox={checkbox}
+					buttons={buttons}
+					sections={sections}
+					view={view}
+				/>
+			);
 
 		return null;
-	}
+	};
 
-	return (
-		<RenderView />
-	);
+	return <RenderView />;
 };
 
 export default memo(TopComponent);

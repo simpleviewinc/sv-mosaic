@@ -1,24 +1,24 @@
-import * as React from 'react';
-import { memo, ReactElement, useEffect, useState, useMemo } from 'react';
+import * as React from "react";
+import { memo, ReactElement, useEffect, useState, useMemo } from "react";
 
 // Components
-import Button from '@root/forms/Button';
+import Button from "@root/components/Button";
 
 // Material UI
-import { DialogActions, DialogContent, IconButton } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { DialogActions, DialogContent, IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 // Types and styles
-import { ModalProps } from '.';
+import { ModalProps } from ".";
 import {
 	StyledDialog,
 	StyledDialogDesktopTitle,
 	StyledDialogMobileTitle,
-} from './Modal.styled';
-import FormLayout from '@root/forms/Form/FormLayout';
-import { actions } from '../../forms/Form/formUtils';
-import { StyledDisabledForm } from '@root/forms/Form/Form.styled';
+} from "./Modal.styled";
+import FormLayout from "@root/forms/Form/FormLayout";
+import { actions } from "../../forms/Form/formUtils";
+import { StyledDisabledForm } from "@root/forms/Form/Form.styled";
 
 const Modal = (props: ModalProps): ReactElement => {
 	const {
@@ -27,7 +27,6 @@ const Modal = (props: ModalProps): ReactElement => {
 		title,
 		onSubmit,
 		onCancel,
-		// onLoad,
 		submitButtonAttrs,
 		cancelButtonAttrs,
 		state,
@@ -37,17 +36,6 @@ const Modal = (props: ModalProps): ReactElement => {
 
 	const [isMobileView, setIsMobileView] = useState(false);
 
-	// useEffect(() => {
-	// 	const loadForm = async () => {
-	// 		await dispatch(
-	// 			actions.prepopulateForm({ callback: onLoad })
-	// 		);
-	// 	}
-
-	// 	if (onLoad)
-	// 		loadForm();
-	// }, [onLoad]);
-
 	useEffect(() => {
 		const setResponsiveness = () => {
 			return window.innerWidth < 480
@@ -56,33 +44,36 @@ const Modal = (props: ModalProps): ReactElement => {
 		};
 
 		setResponsiveness();
-		window.addEventListener('resize', setResponsiveness);
+		window.addEventListener("resize", setResponsiveness);
 
 		return () => {
-			window.removeEventListener('resize', setResponsiveness);
+			window.removeEventListener("resize", setResponsiveness);
 		};
 	}, []);
 
 	const submit = async (e) => {
 		e.preventDefault();
-		await dispatch(
-			actions.submitForm()
-		);
-	}
+		await dispatch(actions.submitForm());
+	};
 
 	const cancel = (e) => {
 		e.preventDefault();
 		onCancel();
-	}
+	};
 
-	const PrimaryButton = useMemo(() => (
-		<Button
-			onClick={(e) => submit(e)}
-			{...submitButtonAttrs}
-		>
-			{submitButtonAttrs?.children ? submitButtonAttrs?.children : 'Apply'}
-		</Button>
-	), [submitButtonAttrs?.children, onSubmit]);
+	const PrimaryButton = useMemo(
+		() => (
+			<Button
+				color="yellow"
+				variant="contained"
+				onClick={(e) => submit(e)}
+				label={submitButtonAttrs?.label ? submitButtonAttrs?.label : "Apply"}
+				muiAttrs={{disableRipple: true}}
+				{...submitButtonAttrs}
+			></Button>
+		),
+		[submitButtonAttrs?.label, onSubmit]
+	);
 
 	const displayMobile = useMemo(
 		() => (
@@ -90,8 +81,8 @@ const Modal = (props: ModalProps): ReactElement => {
 				<div>
 					{onCancel && (
 						<IconButton
-							data-testid='arrow-back-icon'
-							aria-label='close'
+							data-testid="arrow-back-icon"
+							aria-label="close"
 							disableRipple
 							onClick={(e) => cancel(e)}
 						>
@@ -103,7 +94,7 @@ const Modal = (props: ModalProps): ReactElement => {
 				{PrimaryButton}
 			</StyledDialogMobileTitle>
 		),
-		[isMobileView, title, onCancel, submitButtonAttrs?.children, onSubmit]
+		[isMobileView, title, onCancel, submitButtonAttrs?.label, onSubmit]
 	);
 
 	const displayDesktop = useMemo(
@@ -112,8 +103,8 @@ const Modal = (props: ModalProps): ReactElement => {
 				<span>{title}</span>
 				{onCancel && (
 					<IconButton
-						data-testid='close-icon'
-						aria-label='close'
+						data-testid="close-icon"
+						aria-label="close"
 						disableRipple
 						onClick={(e) => cancel(e)}
 					>
@@ -126,8 +117,12 @@ const Modal = (props: ModalProps): ReactElement => {
 	);
 
 	return (
-		<StyledDialog fullScreen={isMobileView} open={open} onClose={(e) => cancel(e)}>
-			{open &&
+		<StyledDialog
+			fullScreen={isMobileView}
+			open={open}
+			onClose={(e) => cancel(e)}
+		>
+			{open && (
 				<>
 					<StyledDisabledForm disabled={state.disabled} />
 					{isMobileView ? displayMobile : displayDesktop}
@@ -142,17 +137,19 @@ const Modal = (props: ModalProps): ReactElement => {
 					{!isMobileView && (
 						<DialogActions>
 							<Button
-								buttonType='secondary'
+								color="gray"
+								variant="outlined"
 								onClick={(e) => cancel(e)}
+								label={
+									cancelButtonAttrs?.label ? cancelButtonAttrs?.label : "Cancel"
+								}
 								{...cancelButtonAttrs}
-							>
-								{cancelButtonAttrs?.children ? cancelButtonAttrs?.children : 'Cancel'}
-							</Button>
+							></Button>
 							{PrimaryButton}
 						</DialogActions>
 					)}
 				</>
-			}
+			)}
 		</StyledDialog>
 	);
 };

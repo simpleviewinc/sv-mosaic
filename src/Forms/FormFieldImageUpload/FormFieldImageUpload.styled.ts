@@ -1,20 +1,20 @@
-import styled from 'styled-components';
-import theme from '@root/theme';
+import styled from "styled-components";
+import theme from "@root/theme";
 import {
 	AssetCard,
 	AssetLabel,
 	AssetValue,
 	ButtonsWrapper,
-} from '../ImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsing.styled';
+} from "../ImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsing.styled";
 
 // Components
-import Button from '@root/forms/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from "@root/components/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const DragAndDropContainer = styled.div`
   align-items: center;
-  border: ${(pr) => (pr.isOver ? `1px dashed ${theme.colors.blueTeal}` : '')};
-  background-color: ${(pr) => (pr.isOver ? '#008DA81A' : theme.colors.gray200)};
+  border: ${(pr) => (pr.isOver ? `1px dashed ${theme.colors.blueTeal}` : "")};
+  background-color: ${(pr) => (pr.isOver ? "#008DA81A" : theme.colors.gray200)};
   display: flex;
   flex-direction: column;
   height: 204px;
@@ -26,7 +26,7 @@ export const DragAndDropContainer = styled.div`
 export const DragAndDropSpan = styled.span`
   color: ${(pr) => (pr.isOver ? theme.colors.blueTeal : theme.colors.gray600)};
   font-size: 16px;
-  margin-bottom: ${(pr) => (pr.isOver ? '' : '24px')};
+  margin-bottom: ${(pr) => (pr.isOver ? "" : "24px")};
 `;
 
 export const FileInput = styled.input`
@@ -95,12 +95,11 @@ export const SetFocusSpan = styled.span`
   margin-left: 18px;
 `;
 
-
 // ImageUploadCanvas component styles
 
 export const StyledCanvas = styled.canvas`
   background-color: ${theme.colors.almostBlack};
-  opacity: 0.4 ;
+  opacity: 0.4;
 `;
 
 export const CanvasContainer = styled.div`

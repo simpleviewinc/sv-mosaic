@@ -57,10 +57,10 @@ export const Example = (): ReactElement => {
 				onCancel={handleCancelButton}
 				onSubmit={handleSaveButton}
 				submitButtonAttrs={{
-					children: 'Save'
+					label: 'Save'
 				}}
 				cancelButtonAttrs={{
-					children: 'Cancel'
+					label: 'Cancel'
 				}}
 				title={text('Form title', 'Form title')}
 				sections={sections}

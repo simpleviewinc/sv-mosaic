@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { memo, ReactElement, useEffect, useRef, useState } from 'react';
+import * as React from "react";
+import { memo, ReactElement, useEffect, useRef, useState } from "react";
 
-import { ImageUploadDef, ImageUploadValue } from './FormFieldImageUploadTypes';
-import { MosaicFieldProps } from '@root/components/Field';
-import { isEmpty } from 'lodash';
+import { ImageUploadDef, ImageUploadValue } from "./FormFieldImageUploadTypes";
+import { MosaicFieldProps } from "@root/components/Field";
+import { isEmpty } from "lodash";
 
 // Components
-import Button from '@root/forms/Button';
-import ImageUploadCanvas from './ImageUploadCanvas';
-import MenuFormFieldCard from '@root/forms/MenuFormFieldCard';
+import Button from "@root/components/Button";
+import ImageUploadCanvas from "./ImageUploadCanvas";
+import MenuFormFieldCard from "@root/forms/MenuFormFieldCard";
 
 // Styles
 import {
@@ -27,14 +27,12 @@ import {
 	SizeValue,
 	StyledCircularProgress,
 	UploadButton,
-} from './FormFieldImageUpload.styled';
+} from "./FormFieldImageUpload.styled";
 
-const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploadValue>): ReactElement => {
-	const {
-		fieldDef,
-		onChange,
-		value,
-	} = props;
+const FormFieldImageUpload = (
+	props: MosaicFieldProps<ImageUploadDef, ImageUploadValue>
+): ReactElement => {
+	const { fieldDef, onChange, value } = props;
 
 	// State variables
 	const [isOver, setIsOver] = useState(false);
@@ -42,12 +40,15 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 	const [height, setHeight] = useState(null);
 	const [width, setWidth] = useState(null);
 	const [focusMode, setFocusMode] = useState(false);
-	const [imageCoordinates, setImageCoordinates] = useState({ x: null, y: null });
+	const [imageCoordinates, setImageCoordinates] = useState({
+		x: null,
+		y: null,
+	});
 
 	const fileInputField = useRef(null);
 
 	/**
-	 * @param newFiles 
+	 * @param newFiles
 	 * @returns the added files
 	 */
 	const addNewImage = (newFiles) => {
@@ -83,12 +84,13 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 
 			setFiles(uploadedImage);
 
-			onChange && onChange({
-				...value,
-				imgName: file.name,
-				size: file.size,
-				type: file.type,
-			});
+			onChange &&
+				onChange({
+					...value,
+					imgName: file.name,
+					size: file.size,
+					type: file.type,
+				});
 		}
 	};
 
@@ -106,7 +108,8 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 	 */
 	const setFocus = () => {
 		onChange && onChange({ ...value, imgCoords: imageCoordinates });
-		fieldDef?.inputSettings?.handleSetFocus && fieldDef?.inputSettings?.handleSetFocus();
+		fieldDef?.inputSettings?.handleSetFocus &&
+      fieldDef?.inputSettings?.handleSetFocus();
 		setFocusMode(false);
 	};
 
@@ -116,7 +119,7 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 	 * @param mouseCoordinates
 	 */
 	const mousePosition = (mouseCoordinates) => {
-		setImageCoordinates(mouseCoordinates)
+		setImageCoordinates(mouseCoordinates);
 	};
 
 	/**
@@ -141,8 +144,8 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 	};
 
 	/**
-	 * When a file that's being dragged enters into 
-	 * the drop zone the isOver state is changed 
+	 * When a file that's being dragged enters into
+	 * the drop zone the isOver state is changed
 	 * to apply styles conditionally.
 	 * @param e
 	 */
@@ -189,13 +192,14 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 
 			setFiles(droppedFiles);
 
-			onChange && onChange({
-				...value,
-				imgName: file.name,
-				size: file.size,
-				type: file.type,
-				...file
-			});
+			onChange &&
+				onChange({
+					...value,
+					imgName: file.name,
+					size: file.size,
+					type: file.type,
+					...file,
+				});
 		}
 	};
 
@@ -219,7 +223,7 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 		if (!isEmpty(files) && onChange) {
 			onChange({ ...value, height, width });
 		}
-	}, [files, height, width])
+	}, [files, height, width]);
 
 	return (
 		<>
@@ -243,23 +247,25 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 										Drag & Drop files here or
 									</DragAndDropSpan>
 									<UploadButton
+										color="gray"
+										variant="outlined"
 										disabled={fieldDef?.disabled}
-										buttonType='secondary'
+										label="UPLOAD FILES"
+										buttonType="secondary"
 										onClick={uploadFiles}
-									>
-										UPLOAD FILES
-									</UploadButton>
+										muiAttrs={{disableRipple: true}}
+									></UploadButton>
 								</>
 							)}
 
 							<FileInput
-								accept='image/*'
-								data-testid='input-file-test'
+								accept="image/*"
+								data-testid="input-file-test"
 								ref={fileInputField}
 								onChange={handleNewFileUpload}
-								title=''
-								type='file'
-								value=''
+								title=""
+								type="file"
+								value=""
 							/>
 						</DragAndDropContainer>
 					) : (
@@ -280,34 +286,56 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 											/>
 										);
 									})}
-									{focusMode && <ImageUploadCanvas mousePosition={mousePosition} />}
+									{focusMode && (
+										<ImageUploadCanvas mousePosition={mousePosition} />
+									)}
 								</ImageColumn>
-								{focusMode ? <SetFocusSpan>Click on the image to set the focus point</SetFocusSpan> : <ImagePropertiesColumn>
-									<Row>
-										<SizeLabel>Size</SizeLabel>
-										<SizeValue>
-											{width}x{height}
-										</SizeValue>
-									</Row>
-								</ImagePropertiesColumn>}
+								{focusMode ? (
+									<SetFocusSpan>
+										Click on the image to set the focus point
+									</SetFocusSpan>
+								) : (
+									<ImagePropertiesColumn>
+										<Row>
+											<SizeLabel>Size</SizeLabel>
+											<SizeValue>
+												{width}x{height}
+											</SizeValue>
+										</Row>
+									</ImagePropertiesColumn>
+								)}
 								{fieldDef?.inputSettings?.options && !focusMode && (
-									<MenuColumn data-testid='menu-container-test'>
-										<MenuFormFieldCard options={fieldDef?.inputSettings?.options} />
+									<MenuColumn data-testid="menu-container-test">
+										<MenuFormFieldCard
+											options={fieldDef?.inputSettings?.options}
+										/>
 									</MenuColumn>
 								)}
 								<ButtonsContainer>
 									{focusMode ? (
-										<Button buttonType='blueText' onClick={setFocus}>
-											Set Focus
-										</Button>
+										<Button
+											color="teal"
+											variant="text"
+											label="Set Focus"
+											onClick={setFocus}
+											muiAttrs={{ disableRipple: true }}
+										></Button>
 									) : (
-										<Button buttonType='blueText' onClick={handleView}>
-											View
-										</Button>
+										<Button
+											color="teal"
+											variant="text"
+											label="View"
+											onClick={handleView}
+											muiAttrs={{ disableRipple: true }}
+										></Button>
 									)}
-									<Button buttonType='redText' onClick={removeFile}>
-										Remove
-									</Button>
+									<Button
+										color="redMosaic"
+										variant="text"
+										label="Remove"
+										onClick={removeFile}
+										muiAttrs={{ disableRipple: true }}
+									></Button>
 								</ButtonsContainer>
 							</ImageCard>
 						</>
@@ -315,7 +343,7 @@ const FormFieldImageUpload = (props: MosaicFieldProps<ImageUploadDef, ImageUploa
 				</div>
 			) : (
 				<DragAndDropContainer>
-					<StyledCircularProgress data-testid='circular-progress-test' />
+					<StyledCircularProgress data-testid="circular-progress-test" />
 					<DragAndDropSpan isOver={isOver}>Loading Image</DragAndDropSpan>
 				</DragAndDropContainer>
 			)}

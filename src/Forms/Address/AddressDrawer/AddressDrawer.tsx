@@ -365,8 +365,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			type='drawer'
 			onCancel={handleClose}
 			onSubmit={async () => await onSubmit()}
-			submitButtonAttrs={{ children: 'Save' }}
-			cancelButtonAttrs={{ children: 'Cancel' }}
+			submitButtonAttrs={{ label: 'Save' }}
+			cancelButtonAttrs={{ label: 'Cancel' }}
 			dialogOpen={dialogOpen}
 			handleDialogClose={handleDialogClose}
 		/>

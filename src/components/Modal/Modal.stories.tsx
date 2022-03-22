@@ -1,25 +1,25 @@
-import * as React from 'react';
-import { ReactElement, useState, useMemo } from 'react';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import * as React from "react";
+import { ReactElement, useState, useMemo } from "react";
+import { text, withKnobs } from "@storybook/addon-knobs";
 
 // Components
-import Modal from './Modal';
-import Button from '@root/forms/Button';
-import { FieldDef } from '../Field';
-import { useForm } from '../../forms/Form/formUtils';
-import { TextFieldDef } from '@root/forms/FormFieldText';
+import Modal from "./Modal";
+import Button from "@root/components/Button";
+import { FieldDef } from "../Field";
+import { useForm } from "../../forms/Form/formUtils";
+import { TextFieldDef } from "@root/forms/FormFieldText";
 
 export default {
-	title: 'Components/Modal',
+	title: "Components/Modal",
 	decorators: [withKnobs],
 };
 
 export const Example = (): ReactElement => {
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
-	const dialogTitle = text('Dialog title', 'Dialog title');
-	const primaryBtnLabel = text('Primary button label', 'Apply');
-	const secondaryBtnLabel = text('Secondary button label', 'Cancel');
+	const dialogTitle = text("Dialog title", "Dialog title");
+	const primaryBtnLabel = text("Primary button label", "Apply");
+	const secondaryBtnLabel = text("Secondary button label", "Cancel");
 
 	const [open, setOpen] = useState(false);
 
@@ -32,7 +32,7 @@ export const Example = (): ReactElement => {
 	};
 
 	const primaryAction = () => {
-		alert('The primary button was clicked');
+		alert("The primary button was clicked");
 		setOpen(false);
 	};
 
@@ -50,7 +50,7 @@ export const Example = (): ReactElement => {
 					inputSettings: {
 						maxCharacters: 20,
 					},
-					instructionText: 'testing',
+					instructionText: "testing",
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "text2",
@@ -65,23 +65,23 @@ export const Example = (): ReactElement => {
 						options: [
 							{
 								label: "Label 1",
-								value: "label_1"
+								value: "label_1",
 							},
 							{
 								label: "Label 2",
-								value: "label_2"
+								value: "label_2",
 							},
 							{
 								label: "Label 3",
-								value: "label_3"
-							}
+								value: "label_3",
+							},
 						],
 					},
 				},
 				{
 					name: "text4",
 					label: "Text that receives copy",
-					type: "text"
+					type: "text",
 				} as FieldDef<TextFieldDef>,
 			] as FieldDef[],
 		[]
@@ -92,16 +92,22 @@ export const Example = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const submitButtonAttrs = {
-		children: primaryBtnLabel,
-	}
+		label: primaryBtnLabel,
+	};
 
 	const cancelButtonAttrs = {
-		children: secondaryBtnLabel,
-	}
+		label: secondaryBtnLabel,
+	};
 
 	return (
 		<>
-			<Button onClick={handleClickOpen}>Open modal</Button>
+			<Button
+				color="yellow"
+				variant="contained"
+				onClick={handleClickOpen}
+				label="Open Modal"
+				muiAttrs={{disableRipple: true}}
+			></Button>
 			<Modal
 				state={state}
 				dispatch={dispatch}
@@ -113,7 +119,6 @@ export const Example = (): ReactElement => {
 				submitButtonAttrs={submitButtonAttrs}
 				cancelButtonAttrs={cancelButtonAttrs}
 			/>
-
 		</>
 	);
 };

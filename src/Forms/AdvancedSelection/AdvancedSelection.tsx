@@ -12,7 +12,7 @@ import { MosaicFieldProps } from '@root/components/Field';
 
 // Components
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@root/forms/Button';
+import Button from '@root/components/Button';
 import Drawer from "../../components/Drawer.jsx";
 import AdvancedSelectionDrawer from './AdvancedSelectionDrawer';
 import ChipList from './ChipList';
@@ -88,14 +88,15 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 			{value.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
 					<Button
-						buttonType='blueText'
-						disabled={fieldDef?.disabled}
-						icon={AddIcon}
+						color="teal"
+						variant="text"
+						label="Add Element"
 						onClick={handleOpenModal}
-						style={{ marginBottom: '8px' }}
-					>
-						Add Element
-					</Button>
+						muiAttrs={{ disableRipple: true }}
+						mIcon={AddIcon}
+						disabled={fieldDef?.disabled}
+						attrs={{style: {marginBottom: "8px"}}}
+					></Button>
 					<ChipList
 						fieldDef={{
 							inputSettings: {
@@ -105,23 +106,21 @@ const AdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): React
 								getSelected: fieldDef?.inputSettings?.getSelected,
 								deleteSelectedOption: onChange,
 							},
-							disabled: fieldDef?.disabled
+							disabled: fieldDef?.disabled,
 						}}
 					/>
 				</AdvancedSelectionWrapper>
 			) : (
 				<Button
-					buttonType='secondary'
 					disabled={fieldDef?.disabled}
+					color="gray"
+					variant="outlined"
+					label="ADD ELEMENT"
 					onClick={handleOpenModal}
-				>
-					ADD ELEMENT
-				</Button>
+					muiAttrs={{ disableRipple: true }}
+				></Button>
 			)}
-			<Drawer
-				open={isModalOpen}
-				onClose={handleClose}
-			>
+			<Drawer open={isModalOpen} onClose={handleClose}>
 				<AdvancedSelectionDrawer
 					value={value}
 					fieldDef={fieldDef}

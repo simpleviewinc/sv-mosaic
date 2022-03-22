@@ -95,12 +95,12 @@ export const ButtonsWrapper = styled.div`
   right: 16px;
   bottom: 16px;
 
-  button:first-child {
+  .first {
     border-right: 2px solid ${theme.colors.gray200};
     padding-right: 16px;
   }
 
-  button:last-child {
+  span > button:last-child {
     padding-left: 16px;
   }
 `;
