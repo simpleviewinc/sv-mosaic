@@ -103,12 +103,14 @@ export function validateURL(str: string): string | undefined {
  * @returns the error message in case of any
  */
 export function validateDateRange(value: string, data: any, options: { [key: string]: any }): string | undefined {
-	if (!value || !data || !options || !data[options.pairedFields[0]]) {
-		return;
-	}
+	const startDateStr = data[options.startDateName] ? data[options.startDateName] : value;
+	const endDateStr = data[options.endDateName] ? data[options.endDateName] : value;
 
-	const startDate = new Date(value);
-	const endDate = new Date(data[options.pairedFields[0]]);
+	if (!startDateStr || !endDateStr)
+		return;
+
+	const startDate = new Date(startDateStr);
+	const endDate = new Date(endDateStr);
 
 	if (startDate.getTime() > endDate.getTime()) {
 		return "Start date should happen before the end date";
