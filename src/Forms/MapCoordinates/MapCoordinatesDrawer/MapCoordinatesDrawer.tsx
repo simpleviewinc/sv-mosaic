@@ -249,7 +249,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				label: 'Save Coordinates',
 				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
 			}}
-			cancelButtonAttrs={{ label: 'Cancel' }}
+			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}
 			handleDialogClose={handleDialogClose}
 		/>
