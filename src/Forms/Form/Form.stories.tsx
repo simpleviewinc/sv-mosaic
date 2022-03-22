@@ -112,6 +112,10 @@ const getSelected = async (selectedOptions) => {
 	);
 }
 
+const onCancel = () => {
+	alert('Cancelling form, going back to previous site');
+};
+
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
@@ -436,8 +440,10 @@ export const Playground = (): ReactElement => {
 				getFormValues={loadReady && onLoad}
 				events={events}
 				sections={showSections && sections}
-				submitButtonAttrs={{ children: text('Submit button', 'Save') }}
-				cancelButtonAttrs={{ children: text('Cancel button', 'Cancel') }}
+				submitButtonAttrs={{ label: text('Submit button', 'Save') }}
+				cancelButtonAttrs={{ label: text('Cancel button', 'Cancel') }}
+				onCancel={onCancel}
+				onSubmit={onSubmit}
 			/>
 		</>
 	);
@@ -581,6 +587,7 @@ export const FormWithLayout = (): ReactElement => {
 				fields={fields}
 				dispatch={dispatch}
 				events={events}
+				onCancel={onCancel}
 			/>
 		</>
 	);
@@ -628,6 +635,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 				events={events}
 				title='Performance with submit'
 				onSubmit={onSubmit}
+				onCancel={onCancel}
 			/>
 		</>
 	);
@@ -716,6 +724,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 				dispatch={dispatch}
 				events={events}
 				onSubmit={onSubmit}
+				onCancel={onCancel}
 			/>
 			<div>
 				<p>
@@ -798,6 +807,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 				dispatch={dispatch}
 				events={events}
 				onSubmit={onSubmit}
+				onCancel={onCancel}
 			/>
 			<button onClick={clickHandler}>Submit</button>
 		</>
@@ -861,8 +871,7 @@ export const DrawerForm = (): ReactElement => {
 	}), [state.data.text1]);
 
 	const submitButtonAttrs = useMemo(() => ({
-		children: state?.data?.text2,
-		smallerButton: true,
+		label: state?.data?.text2,
 	}), [state.data.text2]);
 
 	return (
@@ -978,6 +987,7 @@ export const CustomFields = (): ReactElement => {
 				dispatch={dispatch}
 				events={events}
 				onSubmit={onSubmit}
+				onCancel={onCancel}
 			/>
 			<div>
 				<button onClick={setText1Value}>Set Text1 Value</button>
@@ -1111,10 +1121,6 @@ export const DefaultValues = (): ReactElement => {
 	useMemo(() => {
 		registerOnSubmit(onSubmit);
 	}, [onSubmit, registerOnSubmit]);
-
-	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
-	};
 
 	return (
 		<>

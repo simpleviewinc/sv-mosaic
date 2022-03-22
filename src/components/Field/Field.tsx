@@ -36,21 +36,23 @@ const Field = ({
 
 	useEffect(() => {
 		if (colsInRow === 1) {
-			handleDescriptionRender();
+			if (fieldDef?.type === "imageUpload" || fieldDef?.type === 'table') {
+				setRenderAsTooltip(true);
+			} else {
+				handleDescriptionRender();
+				let timeoutId: any = 150;
+				const resizeListener = () => {
+					if (timeoutId) {
+						clearTimeout(timeoutId);
+						timeoutId = setTimeout(() => handleDescriptionRender(), 150);
+					}
+				};
+				window.addEventListener("resize", resizeListener);
 
-			let timeoutId: any = 150;
-			const resizeListener = () => {
-				if (timeoutId) {
-					clearTimeout(timeoutId);
-					timeoutId = setTimeout(() => handleDescriptionRender(), 150);
-				}
-			};
-
-			window.addEventListener("resize", resizeListener);
-
-			return () => {
-				window.removeEventListener("resize", resizeListener);
-			};
+				return () => {
+					window.removeEventListener("resize", resizeListener);
+				};
+			}
 		} else {
 			setRenderAsTooltip(true);
 		}
@@ -106,7 +108,7 @@ const Field = ({
 				{children}
 				{renderBottomText()}
 			</StyledFieldWrapper>
-			{(fieldDef?.instructionText && fieldDef?.type !== 'table' && colsInRow === 1) &&
+			{(fieldDef?.instructionText && colsInRow === 1 && !renderAsTooltip) &&
 				<InstructionText
 					ref={description}
 					tooltip={renderAsTooltip}
