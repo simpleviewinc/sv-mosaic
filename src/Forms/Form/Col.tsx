@@ -12,14 +12,14 @@ import FormFieldPhoneSelectionDropdown from '../FormFieldPhoneSelectionDropdown'
 import FormFieldRadio from '../FormFieldRadio';
 import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
 import Field, { FieldDef } from '@root/components/Field';
-import ImageVideoLinkDocumentBrowsing from '../ImageVideoLinkDocumentBrowsing';
-import ColorPicker from '../ColorPicker';
-import DateField from '../DateTimeField/DateField';
-import Address from '../Address';
-import Table from '../Table';
-import TextEditor from '../TextEditor';
-import AdvancedSelection from '../AdvancedSelection';
-import MapCoordinates from '../MapCoordinates';
+import FormFieldImageVideoLinkDocumentBrowsing from '../FormFieldImageVideoLinkDocumentBrowsing';
+import FormFieldColorPicker from '../FormFieldColorPicker';
+import FormFieldDate from '../FormFieldDate/DateField';
+import FormFieldAddress from '../FormFieldAddress';
+import FormFieldTable from '../FormFieldTable';
+import FormFieldTextEditor from '../FormFieldTextEditor';
+import FormFieldAdvancedSelection from '../FormFieldAdvancedSelection';
+import FormFieldMapCoordinates from '../FormFieldMapCoordinates';
 import FormFieldImageUpload from '../FormFieldImageUpload';
 import { Sizes } from '@root/theme/sizes';
 
@@ -55,14 +55,14 @@ const Col = (props: ColPropsTypes) => {
 		phone: FormFieldPhoneSelectionDropdown,
 		radio: FormFieldRadio,
 		toggleSwitch: FormFieldToggleSwitch,
-		imageVideoDocumentLink: ImageVideoLinkDocumentBrowsing,
-		color: ColorPicker,
-		date: DateField,
-		address: Address,
-		table: Table,
-		textEditor: TextEditor,
-		advancedSelection: AdvancedSelection,
-		mapCoordinates: MapCoordinates,
+		imageVideoDocumentLink: FormFieldImageVideoLinkDocumentBrowsing,
+		color: FormFieldColorPicker,
+		date: FormFieldDate,
+		address: FormFieldAddress,
+		table: FormFieldTable,
+		textEditor: FormFieldTextEditor,
+		advancedSelection: FormFieldAdvancedSelection,
+		mapCoordinates: FormFieldMapCoordinates,
 		imageUpload: FormFieldImageUpload,
 	}), []);
 
@@ -129,17 +129,17 @@ const Col = (props: ColPropsTypes) => {
 				let maxSize: Sizes | string;
 				if (currentField?.size)
 					switch (colsInRow) {
-					case 1:
-						maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
-						break;
-					case 2:
-						maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
-						break;
-					case 3:
-						maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
-						break;
-					default:
-						break;
+						case 1:
+							maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
+							break;
+						case 2:
+							maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
+							break;
+						case 3:
+							maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
+							break;
+						default:
+							break;
 					}
 
 				const children = useMemo(() => (
