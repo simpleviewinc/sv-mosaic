@@ -193,23 +193,23 @@ const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactEle
 																/>
 																{fieldDef?.inputSettings?.extraActions?.length >
 																	0 && (
-																		<>
-																			{fieldDef?.inputSettings?.extraActions.map(
-																				(action, index) => (
-																					<StyledIconButton
-																						color="gray"
-																						variant="icon"
-																						disabled={fieldDef?.disabled}
-																						key={`${action.label}-${index}`}
-																						mIcon={action.icon}
-																						onClick={() =>
-																							action.actionFnc(rowIndex)
-																						}
-																					/>
-																				)
-																			)}
-																		</>
-																	)}
+																	<>
+																		{fieldDef?.inputSettings?.extraActions.map(
+																			(action, index) => (
+																				<StyledIconButton
+																					color="gray"
+																					variant="icon"
+																					disabled={fieldDef?.disabled}
+																					key={`${action.label}-${index}`}
+																					mIcon={action.icon}
+																					onClick={() =>
+																						action.actionFnc(rowIndex)
+																					}
+																				/>
+																			)
+																		)}
+																	</>
+																)}
 															</Td>
 															{row.items.map((item) => (
 																<Td key={item}>{item}</Td>
