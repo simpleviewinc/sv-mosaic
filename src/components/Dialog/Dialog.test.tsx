@@ -23,7 +23,7 @@ const DialogExample = () => {
 				color="yellow"
 				variant="contained"
 				onClick={handleClickOpen}
-				label="Open Dialog"
+				label="Open dialog"
 			></Button>
 			<Dialog
 				dialogTitle="Dialog title"
