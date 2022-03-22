@@ -56,43 +56,7 @@ const Form = (props: FormProps) => {
 		}
 
 		loadFormValues();
-
-		const pairFields = async () => {
-			let pairedFields = {};
-
-			fields.forEach(field => {
-				if (field.validators) {
-					field.validators.forEach(validator => {
-						if (typeof validator === 'object' && validator.options?.pairedFields) {
-							validator.options.pairedFields.forEach(pairedField => {
-								if (!pairedFields[pairedField]) {
-									pairedFields = {
-										...pairedFields,
-										[pairedField]: [field.name]
-									}
-								} else {
-									pairedFields = {
-										...pairedFields,
-										[pairedField]: [...pairedFields[pairedField], field.name]
-									}
-								}
-							});
-						}
-					});
-				}
-			});
-
-			if (pairedFields)
-				await dispatch(
-					actions.setPairedFields({
-						pairedFields
-					})
-				);
-		}
-
-		pairFields();
-
-	}, []);
+	}, [getFormValues]);
 
 	const submit = async (e) => {
 		e.preventDefault();
