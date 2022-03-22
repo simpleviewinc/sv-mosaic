@@ -232,7 +232,7 @@ const BlueOnWhite = styled(ButtonWrapper)`
 `;
 
 export const types = {
-  yellow_contained: styled(BlackOnYellow)`
+	yellow_contained: styled(BlackOnYellow)`
     & > button {
       background-color: ${theme.colors.simplyGold};
       border-radius: 0;
@@ -254,7 +254,7 @@ export const types = {
       color: ${theme.colors.almostBlack};
     }
   `,
-  gray_outlined: styled(GrayOnWhite)`
+	gray_outlined: styled(GrayOnWhite)`
     & > button {
       background-color: white;
       border: 2px solid ${theme.colors.simplyGray};
@@ -278,14 +278,14 @@ export const types = {
       color: ${theme.colors.almostBlack};
     }
   `,
-  teal_text: styled(TealOnWhite)`
+	teal_text: styled(TealOnWhite)`
     span {
       color: ${theme.colors.blueTeal};
       opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
 
       &:hover {
         color: ${({ children }) =>
-		!children[0].props.disabled ? theme.colors.blueTealHover : ""};
+			!children[0].props.disabled ? theme.colors.blueTealHover : ""};
       }
     }
 
@@ -312,7 +312,7 @@ export const types = {
       background-color: transparent;
     }
   `,
-  teal_outlined: styled(TealOnWhite)`
+	teal_outlined: styled(TealOnWhite)`
     & > button {
       background-color: white;
       border-radius: 0;
@@ -336,7 +336,7 @@ export const types = {
       color: ${theme.colors.blueTeal};
     }
   `,
-  blue_outlined: styled(BlueOnWhite)`
+	blue_outlined: styled(BlueOnWhite)`
     & > button {
       background-color: white;
       border-radius: 0;
@@ -361,7 +361,7 @@ export const types = {
       box-shadow: 0 1px 2px ${theme.colors.blue}24;
     }
   `,
-  red_outlined: styled(RedOnWhite)`
+	red_outlined: styled(RedOnWhite)`
     & > button {
       background-color: white;
       border-radius: 0;
@@ -387,7 +387,7 @@ export const types = {
       box-shadow: 0 1px 2px ${theme.colors.red}24;
     }
   `,
-  black_outlined: styled(BlackOnWhite)`
+	black_outlined: styled(BlackOnWhite)`
     & > button {
       background-color: white;
       border-radius: 0;
@@ -409,7 +409,7 @@ export const types = {
       box-shadow: 0 1px 2px ${theme.colors.black}24;
     }
   `,
-  blue_contained: styled(ButtonWrapper)`
+	blue_contained: styled(ButtonWrapper)`
     & > button {
       background: ${theme.colors.blue};
       border-radius: 0;
@@ -430,7 +430,7 @@ export const types = {
       background: ${theme.colors.blueActive};
     }
   `,
-  lightBlue_contained: styled(ButtonWrapper)`
+	lightBlue_contained: styled(ButtonWrapper)`
     & > button {
       background: ${theme.colors.blue}12;
       border-radius: 0;
@@ -451,7 +451,7 @@ export const types = {
       background: ${theme.colors.blue}32;
     }
   `,
-  red_contained: styled(ButtonWrapper)`
+	red_contained: styled(ButtonWrapper)`
     & > button {
       background: ${theme.colors.red};
       border-radius: 0;
@@ -493,8 +493,8 @@ export const types = {
       background: ${theme.colors.gray400};
     }
   `,
-  redMosaic_text: MosaicRedText,
-  blue_text: styled(BlueOnWhite)`
+	redMosaic_text: MosaicRedText,
+	blue_text: styled(BlueOnWhite)`
     span {
       color: ${theme.colors.blue};
       opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
@@ -504,7 +504,7 @@ export const types = {
       font-size: ${({ smallText }) => (smallText ? "14px" : "16px")};
     }
   `,
-  red_text: styled(RedOnWhite)`
+	red_text: styled(RedOnWhite)`
     span {
       color: ${theme.colors.red};
       opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
@@ -514,7 +514,7 @@ export const types = {
       font-size: ${({ smallText }) => (smallText ? "14px" : "16px")};
     }
   `,
-  black_text: styled(BlackOnWhite)`
+	black_text: styled(BlackOnWhite)`
     span {
       color: ${theme.colors.black};
       opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
@@ -524,10 +524,10 @@ export const types = {
       font-size: ${({ smallText }) => (smallText ? "14px" : "16px")};
     }
   `,
-  blue_icon: BlueOnWhite,
-  black_icon: BlackOnWhite,
-  red_icon: RedOnWhite,
-  gray_icon: styled(GrayOnWhite)`
+	blue_icon: BlueOnWhite,
+	black_icon: BlackOnWhite,
+	red_icon: RedOnWhite,
+	gray_icon: styled(GrayOnWhite)`
     & > button {
       color: ${theme.colors.gray600};
     }

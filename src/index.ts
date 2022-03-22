@@ -14,11 +14,11 @@ import Spinner from "./components/Spinner.jsx";
 export * from "./transforms";
 export * from "./types";
 
-export { default as Address } from "./forms/Address";
-export * from "./forms/Address";
+export { default as FormFieldAddress } from "./forms/FormFieldAddress";
+export * from "./forms/FormFieldAddress";
 
-export { default as AdvancedSelection } from "./forms/AdvancedSelection";
-export * from "./forms/AdvancedSelection";
+export { default as FormFieldAdvancedSelection } from "./forms/FormFieldAdvancedSelection";
+export * from "./forms/FormFieldAdvancedSelection";
 
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
@@ -41,11 +41,11 @@ export * from "./components/Chip";
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
 
-export { default as ColorPicker } from "./forms/ColorPicker";
-export * from "./forms/ColorPicker";
+export { default as FormFieldColorPicker } from "./forms/FormFieldColorPicker";
+export * from "./forms/FormFieldColorPicker";
 
-export { default as DatePicker } from "./forms/DateTimeField/DatePicker";
-export * from "./forms/DateTimeField/DatePicker";
+export { default as DatePicker } from "./forms/FormFieldDate/DatePicker";
+export * from "./forms/FormFieldDate/DatePicker";
 
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
@@ -53,8 +53,8 @@ export * from "./components/IconButton";
 // export { default as FormFieldAddLink } from "./forms/FormFieldAddLink";
 // export * from "./forms/FormFieldAddLink";
 
-export { default as FormButton } from "./forms/Button";
-export * from "./forms/Button";
+// export { default as FormButton } from "./forms/Button";
+// export * from "./forms/Button";
 
 export { default as FormDialog } from "./components/Dialog";
 export * from "./components/Dialog";
@@ -80,8 +80,8 @@ export * from "./forms/FormFieldChipSingleSelect";
 export { default as FormNav } from "./forms/FormNav";
 export * from "./forms/FormNav";
 
-export { default as ImageVideoLinkDocumentBrowsing } from "./forms/ImageVideoLinkDocumentBrowsing";
-export * from "./forms/ImageVideoLinkDocumentBrowsing";
+export { default as FormFieldImageVideoLinkDocumentBrowsing } from "./forms/FormFieldImageVideoLinkDocumentBrowsing";
+export * from "./forms/FormFieldImageVideoLinkDocumentBrowsing";
 
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
@@ -101,18 +101,18 @@ export * from "./components/Modal";
 export { default as FormFieldText } from "./forms/FormFieldText";
 export * from "./forms/FormFieldText";
 
-export { default as Table } from "./forms/Table";
-export * from "./forms/Table";
+export { default as FormFieldTable } from "./forms/FormFieldTable";
+export * from "./forms/FormFieldTable";
 
-export { default as TextArea } from "./forms/FormFieldTextArea";
+export { default as FormFieldTextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
 
 //BUG TO BE FIXED
 // export { default as TextEditor } from "./forms/TextEditor";
 // export * from "./forms/TextEditor";
 
-export { default as TimePicker } from "./forms/DateTimeField/TimePicker";
-export * from "./forms/DateTimeField/TimePicker";
+export { default as TimePicker } from "./forms/FormFieldDate/TimePicker";
+export * from "./forms/FormFieldDate/TimePicker";
 
 export { default as ToggleSwitch } from "./components/ToggleSwitch";
 export * from "./components/ToggleSwitch";
@@ -123,8 +123,8 @@ export * from "./forms/TopComponent";
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
 
-export { default as DateField } from "./forms/DateTimeField/DateField";
-export * from "./forms/DateTimeField/DateField";
+export { default as FormFieldDate } from "./forms/FormFieldDate/DateField";
+export * from "./forms/FormFieldDate/DateField";
 
 export { default as Snackbar } from "./components/Snackbar";
 export * from "./components/Snackbar";
