@@ -187,14 +187,14 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 					<DisabledDateTimeValue>
 						{
 							value ? new Date(value).toLocaleDateString("en", { timeZone: "UTC" })
-								: "MM / DD / YYYY"
+							: "MM / DD / YYYY"
 						}
 					</DisabledDateTimeValue>
 					{fieldDef?.inputSettings?.showTime &&
 						<DisabledDateTimeValue>
 							{
 								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })
-									: "00:00 AM/PM"
+								: "00:00 AM/PM"
 							}
 						</DisabledDateTimeValue>
 					}
