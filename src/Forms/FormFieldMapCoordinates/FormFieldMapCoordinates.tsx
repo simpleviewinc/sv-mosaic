@@ -208,7 +208,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 							{!autocoordinatesChecked &&
 								isEmpty(fieldDef?.inputSettings?.address) && (
 								<Button
-									color="redMosaic"
+									color="red"
 									disabled={fieldDef?.disabled}
 									variant="text"
 									label="Remove"
