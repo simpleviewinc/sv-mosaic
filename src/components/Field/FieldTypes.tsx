@@ -110,4 +110,8 @@ export interface FieldDef<T = any, U = any> {
 	 * Optional value that devs can define for a field to begin with.
 	 */
 	defaultValue?: U;
+	/**
+	 * Array of fields linked to a specific field.
+	 */
+	pairedFields?: string[];
 }
