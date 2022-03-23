@@ -236,7 +236,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							onClick={async (e) => await handleBrowse(e, assetType)}
 						></Button>
 						<Button
-							color="redMosaic"
+							color="red"
 							variant="text"
 							label="Remove"
 							muiAttrs={{ disableRipple: true }}
