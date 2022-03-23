@@ -83,6 +83,13 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 		}
 	};
 
+	const handleDialogClose = async (close: boolean) => {
+		if (close) {
+			await handleClose(true);
+		}
+		setIsDialogOpen(false);
+	}
+
 	/**
 	 * Clear values for the entered location.
 	 */
@@ -149,14 +156,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 				? fieldDef.inputSettings.mapPosition.lng
 				: defaultMapPosition.lng,
 	};
-
-	const handleDialogClose = async (close: boolean) => {
-		if (close) {
-			setIsModalOpen(false);
-			await onBlur();
-		}
-		setIsDialogOpen(false);
-	}
 
 	return (
 		<>
@@ -236,7 +235,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 					fieldDef={fieldDef}
 					onChange={onChange}
 					handleClose={handleClose}
-					hasUnsavedChanges={hasUnsavedChanges}
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
