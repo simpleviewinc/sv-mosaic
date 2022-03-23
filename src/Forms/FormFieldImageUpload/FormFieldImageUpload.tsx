@@ -330,7 +330,7 @@ const FormFieldImageUpload = (
 										></Button>
 									)}
 									<Button
-										color="redMosaic"
+										color="red"
 										variant="text"
 										label="Remove"
 										onClick={removeFile}
