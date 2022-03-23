@@ -27,7 +27,6 @@ export const ButtonPlayground = (): ReactElement => {
 			"yellow",
 			"teal",
 			"gray",
-			"redMosaic"
 		],
 		"black"
 	);
