@@ -198,15 +198,15 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 				<AssetCard>
 					{fieldDef?.inputSettings?.src &&
 						!(assetType === DOCUMENT || assetType === LINK) && (
-							<Column>
-								<StyledImg
-									src={fieldDef?.inputSettings?.src}
-									data-testid="image-test"
-									width={257}
-									height={168}
-								/>
-							</Column>
-						)}
+						<Column>
+							<StyledImg
+								src={fieldDef?.inputSettings?.src}
+								data-testid="image-test"
+								width={257}
+								height={168}
+							/>
+						</Column>
+					)}
 					<AssetPropertiesColumn
 						hasImage={
 							fieldDef?.inputSettings?.src &&
