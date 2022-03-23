@@ -60,8 +60,6 @@ export interface AdvanceSelectionDrawerPropTypes {
 	isModalOpen: boolean;
 	isMobileView: boolean;
 	handleClose: (save?: boolean) => Promise<void>;
-
-	hasUnsavedChanges?: boolean;
 	handleUnsavedChanges?: (val: boolean) => void;
 	dialogOpen?: boolean;
 	handleDialogClose?: (val: boolean) => void;
