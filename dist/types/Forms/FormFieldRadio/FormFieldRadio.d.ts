@@ -1,4 +1,5 @@
-import { HTMLAttributes, ReactElement } from 'react';
-import { FormFieldRadioProps } from './FormFieldRadioTypes';
-declare const FormFieldRadio: (props: FormFieldRadioProps & HTMLAttributes<HTMLInputElement>) => ReactElement;
+import { ReactElement } from 'react';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldRadioDef } from './FormFieldRadioTypes';
+declare const FormFieldRadio: (props: MosaicFieldProps<FormFieldRadioDef>) => ReactElement;
 export default FormFieldRadio;

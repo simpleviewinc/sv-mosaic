@@ -1,4 +1,5 @@
 import * as React from 'react';
-import { FormFieldCheckboxProps } from './FormFieldCheckboxTypes';
-declare const _default: React.MemoExoticComponent<(props: FormFieldCheckboxProps & React.HTMLAttributes<HTMLInputElement>) => React.ReactElement<any, string | React.JSXElementConstructor<any>>>;
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldCheckboxDef } from './FormFieldCheckboxTypes';
+declare const _default: React.MemoExoticComponent<(props: MosaicFieldProps<FormFieldCheckboxDef, string[]>) => React.ReactElement<any, string | React.JSXElementConstructor<any>>>;
 export default _default;

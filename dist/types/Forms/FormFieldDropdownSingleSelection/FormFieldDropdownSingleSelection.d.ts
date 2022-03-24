@@ -1,4 +1,5 @@
 import * as React from 'react';
-import { DropdownSingleSelectionProps } from "./FormFieldDropdownSingleSelectionTypes";
-declare const _default: React.MemoExoticComponent<(props: DropdownSingleSelectionProps & React.HTMLAttributes<HTMLInputElement>) => JSX.Element>;
+import { MosaicFieldProps } from '@root/components/Field';
+import { DropdownSingleSelectionDef } from "./FormFieldDropdownSingleSelectionTypes";
+declare const _default: React.MemoExoticComponent<(props: MosaicFieldProps<DropdownSingleSelectionDef, string>) => JSX.Element>;
 export default _default;

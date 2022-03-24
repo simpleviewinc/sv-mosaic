@@ -1,19 +1,39 @@
-import { FormButtonProps } from '@root/forms/Button';
 import { FormNavProps } from '@root/forms/FormNav';
 import { ReactNode } from 'react';
-export interface TopComponentProps extends FormNavProps {
+import { ButtonAttrs } from "../Form/FormTypes";
+export declare type BaseTopComponentProps = {
     /**
-     * It should contains the sections
+     * Mandatory title related with the form.
      */
-    children?: ReactNode;
+    title: string;
     /**
      * Optional description for the current form.
      */
     description?: string;
     /**
-     * Mandatory title related with the form.
+     * If present, the help icon is display with the
+     * string defined with this prop.
      */
-    title: string;
+    tooltipInfo?: string;
+    /**
+     * If present, the active checkbox is displayed.
+     */
+    showActive?: boolean;
+    /**
+     * All different variants for the top comopnent.
+     */
+    view: 'MOBILE' | 'RESPONSIVE' | 'DRAWER' | 'DESKTOP' | 'BIG_DESKTOP';
+    /**
+     * Icon to be displayed when developers pass additional instructions
+     * or information for the form.
+     */
+    helpIcon?: JSX.Element;
+};
+export declare type TopComponentProps = {
+    /**
+     * It should contains the sections
+     */
+    children?: ReactNode;
     /**
      * Callback that will be triggered when clicking
      * on the cancel button.
@@ -25,20 +45,16 @@ export interface TopComponentProps extends FormNavProps {
      */
     onSubmit: (() => void) | ((e: any) => Promise<void>);
     /**
-     * If present, the active checkbox is displayed.
-     */
-    showActive?: boolean;
-    /**
      * Extra attributes for the submit button.
      */
-    submitButtonAttrs?: FormButtonProps;
+    submitButtonAttrs?: ButtonAttrs;
     /**
      * Extra attributes for the cancel button.
      */
-    cancelButtonAttrs?: FormButtonProps;
+    cancelButtonAttrs?: ButtonAttrs;
     /**
-     * If present, the help icon is display with the
-     * string defined with this prop.
+     * Defines the type of form to be working with, which
+     * allows for type-specific styling.
      */
-    tooltipInfo?: string;
-}
+    type?: 'drawer';
+} & FormNavProps & BaseTopComponentProps;

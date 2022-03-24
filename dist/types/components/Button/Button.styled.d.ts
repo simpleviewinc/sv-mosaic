@@ -1,0 +1,23 @@
+export declare const ButtonWrapper: any;
+export declare const PopoverWrapper: any;
+export declare const types: {
+    yellow_contained: any;
+    blue_contained: any;
+    lightBlue_contained: any;
+    red_contained: any;
+    black_contained: any;
+    gray_outlined: any;
+    teal_outlined: any;
+    blue_outlined: any;
+    red_outlined: any;
+    black_outlined: any;
+    teal_text: any;
+    blue_text: any;
+    red_text: any;
+    black_text: any;
+    blue_icon: any;
+    black_icon: any;
+    red_icon: any;
+    gray_icon: any;
+};
+export declare const TooltipContent: any;
