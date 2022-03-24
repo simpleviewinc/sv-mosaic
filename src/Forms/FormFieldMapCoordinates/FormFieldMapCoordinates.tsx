@@ -83,6 +83,13 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 		}
 	};
 
+	const handleDialogClose = async (close: boolean) => {
+		if (close) {
+			await handleClose(true);
+		}
+		setIsDialogOpen(false);
+	}
+
 	/**
 	 * Clear values for the entered location.
 	 */
@@ -150,14 +157,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 				: defaultMapPosition.lng,
 	};
 
-	const handleDialogClose = async (close: boolean) => {
-		if (close) {
-			setIsModalOpen(false);
-			await onBlur();
-		}
-		setIsDialogOpen(false);
-	}
-
 	return (
 		<>
 			{value || !isEmpty(fieldDef?.inputSettings?.address) ? (
@@ -207,15 +206,15 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 							)}
 							{!autocoordinatesChecked &&
 								isEmpty(fieldDef?.inputSettings?.address) && (
-									<Button
-										color="redMosaic"
-										disabled={fieldDef?.disabled}
-										variant="text"
-										label="Remove"
-										onClick={removeLocation}
-										muiAttrs={{ disableRipple: true }}
-									></Button>
-								)}
+								<Button
+									color="red"
+									disabled={fieldDef?.disabled}
+									variant="text"
+									label="Remove"
+									onClick={removeLocation}
+									muiAttrs={{ disableRipple: true }}
+								></Button>
+							)}
 						</ButtonsWrapper>
 					</CoordinatesCard>
 				</div>
@@ -236,7 +235,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 					fieldDef={fieldDef}
 					onChange={onChange}
 					handleClose={handleClose}
-					hasUnsavedChanges={hasUnsavedChanges}
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}

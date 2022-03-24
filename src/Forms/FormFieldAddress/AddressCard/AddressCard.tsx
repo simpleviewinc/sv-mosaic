@@ -49,7 +49,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 					onClick={() => onEdit(address, addressIndex)}
 				></Button>
 				<Button
-					color="redMosaic"
+					color="red"
 					variant="text"
 					muiAttrs={{ disableRipple: true }}
 					disabled={disabled}
