@@ -45,9 +45,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	useEffect(() => {
-		if (state.data.checkboxList !== undefined)
-			handleUnsavedChanges(!_.isEqual(value, state.data.checkboxList));
-	}, [state.data.checkboxList]);
+		if (state.data.checkboxList !== undefined) {
+			handleUnsavedChanges(!_.isEqual([...value], state?.data?.checkboxList));
+		}
+	}, [state.data.checkboxList, value]);
 
 	useEffect(() => {
 		if (value.length > 0 && isModalOpen)
