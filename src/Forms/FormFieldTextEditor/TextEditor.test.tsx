@@ -1,21 +1,24 @@
-import * as React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import * as React from "react";
+import { render, cleanup, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 // Components
-import { useForm } from '../Form/formUtils';
-import { ReactElement, useCallback, useMemo } from 'react';
-import { FieldDef } from '@root/components/Field';
-import Form from '../Form/Form';
+import { useForm } from "../Form/formUtils";
+import { ReactElement, useCallback, useMemo } from "react";
+import { FieldDef } from "@root/components/Field";
+import Form from "../Form/Form";
+import { TextEditorDef } from "./TextEditorTypes";
 
 afterEach(cleanup);
 
-const TextEditorExample = (props): ReactElement => {
+const TextEditorExample = (
+	props: TextEditorDef & { disabled?: boolean }
+): ReactElement => {
 	const {
-		direction = 'ltr',
+		direction = "ltr",
 		maxCharacters = undefined,
-		language = 'en',
-		spellcheck = 'false',
+		language = "en",
+		spellcheck = false,
 		disabled = false,
 	} = props;
 
@@ -29,9 +32,9 @@ const TextEditorExample = (props): ReactElement => {
 
 	const fields = [
 		{
-			label: 'Disabled test',
-			name: 'disabledTextEditor',
-			type: 'textEditor',
+			label: "Disabled test",
+			name: "disabledTextEditor",
+			type: "textEditor",
 			disabled,
 			inputSettings: {
 				direction,
@@ -48,7 +51,10 @@ const TextEditorExample = (props): ReactElement => {
 
 	const onSubmit = useCallback(
 		(data) => {
-			alert('Form submitted with the following data: ' + JSON.stringify(data, null, ' '));
+			alert(
+				"Form submitted with the following data: " +
+          JSON.stringify(data, null, " ")
+			);
 		},
 		[state.validForm]
 	);
@@ -59,8 +65,8 @@ const TextEditorExample = (props): ReactElement => {
 
 	return (
 		<Form
-			title='Title'
-			description='Description'
+			title="Title"
+			description="Description"
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
@@ -68,39 +74,44 @@ const TextEditorExample = (props): ReactElement => {
 			onSubmit={onSubmit}
 		/>
 	);
-}
+};
 
-describe('TextEditor component', () => {
-	it('should be disabled', async () => {
+describe("TextEditor component", () => {
+	it("should be disabled", async () => {
 		render(<TextEditorExample disabled={true} />);
-		const editorContent = await screen.findByTestId('text-editor-testid');
+		const editorContent = await screen.findByTestId("text-editor-testid");
 
-		expect(editorContent.firstChild.childNodes[1].firstChild).not.toHaveAttribute('contenteditable');
+		expect(
+			editorContent.firstChild.childNodes[1].firstChild
+		).not.toHaveAttribute("contenteditable");
 	});
 
-	it('should have an ltr direction', async () => {
-		render(<TextEditorExample direction={'ltr'} />);
-		const editorContent = await screen.findByTestId('text-editor-testid');
+	it("should have an ltr direction", async () => {
+		render(<TextEditorExample direction={"ltr"} />);
+		const editorContent = await screen.findByTestId("text-editor-testid");
 
-		expect(editorContent.firstChild).toHaveAttribute('dir', 'ltr');
+		expect(editorContent.firstChild).toHaveAttribute("dir", "ltr");
 	});
 
-	it('should have an rtl direction', async () => {
-		render(<TextEditorExample direction={'rtl'} />);
-		const editorContent = await screen.findByTestId('text-editor-testid');
+	it("should have an rtl direction", async () => {
+		render(<TextEditorExample direction={"rtl"} />);
+		const editorContent = await screen.findByTestId("text-editor-testid");
 
-		expect(editorContent.firstChild).toHaveAttribute('dir', 'rtl');
+		expect(editorContent.firstChild).toHaveAttribute("dir", "rtl");
 	});
 
-	it('should render in german (de)', async () => {
-		render(<TextEditorExample language={'de'} />);
-		expect(await screen.findAllByLabelText('Fett')).toBeTruthy();
+	it("should render in german (de)", async () => {
+		render(<TextEditorExample language={"de"} />);
+		expect(await screen.findAllByLabelText("Fett")).toBeTruthy();
 	});
 
-	it('should spellcheck', async () => {
-		render(<TextEditorExample spellCheck={true} />);
-		const editorContent = await screen.findByTestId('text-editor-testid');
+	it("should spellcheck", async () => {
+		render(<TextEditorExample spellcheck={true} />);
+		const editorContent = await screen.findByTestId("text-editor-testid");
 
-		expect(editorContent.firstChild.childNodes[1].firstChild).toHaveAttribute('spellcheck', 'true');
+		expect(editorContent.firstChild.childNodes[1].firstChild).toHaveAttribute(
+			"spellcheck",
+			"true"
+		);
 	});
 });

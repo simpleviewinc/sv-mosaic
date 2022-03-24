@@ -23,72 +23,72 @@ type Action = {
 
 export function coreReducer(state: State, action: Action): State {
 	switch (action.type) {
-	case "FIELD_ON_CHANGE":
-		return {
-			...state,
-			data: {
-				...state.data,
-				[action.name]: action.value
+		case "FIELD_ON_CHANGE":
+			return {
+				...state,
+				data: {
+					...state.data,
+					[action.name]: action.value
+				}
+			};
+		case "FIELD_START_VALIDATE":
+			return {
+				...state,
+				errors: {
+					...state.errors,
+					[action.name]: null
+				},
+				validating: {
+					...state.validating,
+					[action.name]: true
+				}
+			};
+		case "FIELD_END_VALIDATE":
+			return {
+				...state,
+				errors: {
+					...state.errors,
+					[action.name]: action.value
+				},
+				validating: {
+					...state.validating,
+					[action.name]: undefined
+				}
+			};
+		case "FORM_START_DISABLE":
+			return {
+				...state,
+				disabled: action.value
+			};
+		case "FORM_END_DISABLE":
+			return {
+				...state,
+				disabled: action.value
+			};
+		case "FORM_VALIDATE":
+			return {
+				...state,
+				validForm: action.value
+			};
+		case "FORM_RESET":
+			return {
+				...state,
+				data: {},
+				touched: {},
+				errors: {},
+				validating: {},
+				custom: {},
+				validForm: false,
+				disabled: null,
+				pairedFields: {},
 			}
-		};
-	case "FIELD_START_VALIDATE":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: null
-			},
-			validating: {
-				...state.validating,
-				[action.name]: true
+		case "PAIR_FIELDS":
+			return {
+				...state,
+				pairedFields: action.value
 			}
-		};
-	case "FIELD_END_VALIDATE":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: action.value
-			},
-			validating: {
-				...state.validating,
-				[action.name]: undefined
-			}
-		};
-	case "FORM_START_DISABLE":
-		return {
-			...state,
-			disabled: action.value
-		};
-	case "FORM_END_DISABLE":
-		return {
-			...state,
-			disabled: action.value
-		};
-	case "FORM_VALIDATE":
-		return {
-			...state,
-			validForm: action.value
-		};
-	case "FORM_RESET":
-		return {
-			...state,
-			data: {},
-			touched: {},
-			errors: {},
-			validating: {},
-			custom: {},
-			validForm: false,
-			disabled: null,
-			pairedFields: {},
-		}
-	case "PAIR_FIELDS":
-		return {
-			...state,
-			pairedFields: action.value
-		}
-	default:
-		return state;
+		default:
+			return state;
 	}
 }
 
@@ -157,35 +157,12 @@ export const actions = {
 			const currentValue = getState().data[name];
 
 			if (startValue === currentValue) {
-				if (result) {
-					validators.find((validator: { fn: { name: string } }) => validator.fn === result.validator.fn.name)
-						?.options
-						.pairedFields
-						?.forEach(async (pairedField: string) => {
-							await dispatch({
-								type: "FIELD_END_VALIDATE",
-								name: pairedField,
-								value: result?.errorMessage ? result?.errorMessage : undefined
-							});
-						});
-				} else {
-					validators.forEach((validator) => {
-						if (validator.options && validator.options.pairedFields)
-							validator.options.pairedFields.forEach(async (pairedField) => {
-								await dispatch({
-									type: "FIELD_END_VALIDATE",
-									name: pairedField,
-									value: undefined
-								});
-							});
-					});
-				}
+				await dispatch({
+					type: "FIELD_END_VALIDATE",
+					name,
+					value: result?.errorMessage ? result?.errorMessage : undefined
+				});
 			}
-			await dispatch({
-				type: "FIELD_END_VALIDATE",
-				name,
-				value: result?.errorMessage ? result?.errorMessage : undefined
-			});
 		};
 	},
 	copyFieldToField({ from, to }: { from: any; to: string }) {

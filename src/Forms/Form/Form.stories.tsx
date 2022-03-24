@@ -1040,7 +1040,8 @@ export const Validators = (): ReactElement => {
 					disabled: false,
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
-					validators: [{ fn: 'validateDateRange', options: { pairedFields: ['endDate'] } }],
+					validators: [{ fn: 'validateDateRange', options: { endDateName: 'endDate' } }],
+					pairedFields: ['endDate'],
 					inputSettings: {
 						showTime: false,
 					},
@@ -1053,6 +1054,8 @@ export const Validators = (): ReactElement => {
 					disabled: false,
 					helperText: 'Helper text',
 					instructionText: 'Instruction text',
+					validators: [{ fn: 'validateDateRange', options: { startDateName: 'startDate' } }],
+					pairedFields: ['startDate'],
 					inputSettings: {
 						showTime: false,
 					},

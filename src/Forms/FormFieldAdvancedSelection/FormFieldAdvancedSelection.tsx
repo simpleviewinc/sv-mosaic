@@ -77,8 +77,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 
 	const handleDialogClose = async (close: boolean) => {
 		if (close) {
-			setIsModalOpen(false);
-			await onBlur();
+			await handleClose(true);
 		}
 		setIsDialogOpen(false);
 	}
@@ -128,7 +127,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 					isModalOpen={isModalOpen}
 					isMobileView={isMobileView}
 					handleClose={handleClose}
-					hasUnsavedChanges={hasUnsavedChanges}
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}

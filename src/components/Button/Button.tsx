@@ -61,8 +61,8 @@ function Button(props: ButtonProps) {
 
 	const onClick = props.popover ? openPopover
 		: props.menuItems ? openMenu
-			: props.menuContent ? openMenu
-				: props.onClick
+		: props.menuContent ? openMenu
+		: props.onClick
 		;
 
 	const size = props.size || "medium";

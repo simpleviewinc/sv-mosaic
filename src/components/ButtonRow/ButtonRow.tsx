@@ -9,7 +9,6 @@ const StyledWrapper = styled.span`
 	${/* ensures that the NEXT button spaces itself, if it isn't an icon button */""}
 	& > .button + .normalButton {
 		margin-left: 10px;
-		margin-bottom: 5px;
 	}
 `;
 
@@ -17,7 +16,7 @@ function ButtonRow(props: ButtonRowProps) {
 	if (props.children && props.buttons) {
 		throw new Error("ButtonRow cannot receive both children and a buttons prop");
 	}
-	
+
 	const children = useMemo(() => {
 		if (props.children) {
 			return props.children;
@@ -26,7 +25,7 @@ function ButtonRow(props: ButtonRowProps) {
 		if (props.buttons) {
 			return props.buttons.map((button, i) => {
 				return (
-					<Button key={i} {...button}/>
+					<Button key={i} {...button} />
 				)
 			});
 		}
