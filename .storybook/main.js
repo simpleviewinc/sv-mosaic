@@ -6,10 +6,11 @@ module.exports = {
 		"../src/index.stories.mdx",
 		"../src/**/*.stories.(tsx|mdx)"
 	],
-	addons : [
+	addons: [
 		"@storybook/addon-knobs/register",
+		'@storybook/addon-viewport',
 		{
-			name : "@storybook/addon-docs",
+			name: "@storybook/addon-docs",
 			options: {
 				configureJSX: true,
 				babelOptions: {},
@@ -17,12 +18,12 @@ module.exports = {
 			}
 		}
 	],
-	webpackFinal : async (config) => {
+	webpackFinal: async (config) => {
 		config.module.rules.push({
-			test : /\.(ts|tsx)$/,
-			use : [
+			test: /\.(ts|tsx)$/,
+			use: [
 				{
-					loader : "ts-loader",
+					loader: "ts-loader",
 					options: {
 						transpileOnly: true
 					}

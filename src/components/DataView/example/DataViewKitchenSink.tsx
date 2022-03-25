@@ -10,8 +10,8 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 import JSONDB from "../../../utils/JSONDB";
 import LocalStorageDB from "../../../utils/LocalStorageDB";
-import * as rawData from "./rawData.json";
-import * as categories from "./categories.json";
+import rawData from "./rawData.json";
+import categories from "./categories.json";
 import MultiSelectHelper from "./MultiSelectHelper";
 import {
 	transform_boolean,
@@ -41,28 +41,28 @@ const ARTIFICIAL_DELAY = 500;
 const categoriesApi = new JSONDB(categories);
 const viewsApi = new LocalStorageDB("views");
 
-const mappedData = rawData.map(function(data) {
+const mappedData = rawData.map(function (data) {
 	// convert the date columns to dates, since they are ISOStrings in the file
 	return {
 		...data,
-		created : data.created ? new Date(data.created) : undefined,
-		updated : data.updated ? new Date(data.updated) : undefined
+		created: data.created ? new Date(data.created) : undefined,
+		updated: data.updated ? new Date(data.updated) : undefined
 	}
 })
-const api =  new JSONDB(mappedData, {
-	relationships : [
+const api = new JSONDB(mappedData, {
+	relationships: [
 		{
-			api : categoriesApi,
-			key : "categories",
-			left_key : "categories_ids",
-			right_key : "id"
+			api: categoriesApi,
+			key: "categories",
+			left_key: "categories_ids",
+			right_key: "id"
 		}
 	]
 });
 
-const processStringFilter = function({ name, data, output }) {
+const processStringFilter = function ({ name, data, output }) {
 	if (data.value === undefined) { return; }
-	
+
 	if (data.comparison === "equals") {
 		output[name] = data.value;
 	} else if (data.comparison === "contains") {
@@ -70,13 +70,13 @@ const processStringFilter = function({ name, data, output }) {
 	} else if (data.comparison === "not_contains") {
 		output[name] = new RegExp(`^((?!${data.value}).)*$`, "i")
 	} else if (data.comparison === "not_equals") {
-		output[name] = { $ne : data.value };
+		output[name] = { $ne: data.value };
 	}
 }
 
-const processDateFilter = function({name, data, output}) {
+const processDateFilter = function ({ name, data, output }) {
 	if (data.rangeStart === undefined && data.rangeEnd === undefined) { return; }
-	
+
 	const outputFilter = {};
 
 	if (data.rangeStart !== undefined) {
@@ -94,15 +94,15 @@ const processDateFilter = function({name, data, output}) {
 	}
 }
 
-const processArrayFilter = function({ name, data, output }) {
+const processArrayFilter = function ({ name, data, output }) {
 	if (data.comparison === "exists") {
-		output[name] = { $exists : true }
+		output[name] = { $exists: true }
 	} else if (data.comparison === "not_exists") {
-		output[name] = { $exists : false }
+		output[name] = { $exists: false }
 	} else if (data.value === undefined || data.value.length === 0) {
 		return;
 	} else if (data.comparison === "in") {
-		output[name] = { $in : data.value };
+		output[name] = { $in: data.value };
 	}
 }
 
@@ -112,10 +112,10 @@ const processSingleSelectFilter = function ({ name, data, output }) {
 }
 
 const categoriesHelper = new MultiSelectHelper({
-	api : categoriesApi,
-	labelColumn : "tag",
-	valueColumn : "id",
-	sortColumn : "sort_tag"
+	api: categoriesApi,
+	labelColumn: "tag",
+	valueColumn: "id",
+	sortColumn: "sort_tag"
 });
 
 const singleSelectCategoriesHelper = new SingleSelectHelper({
@@ -127,30 +127,30 @@ const singleSelectCategoriesHelper = new SingleSelectHelper({
 
 const filters = [
 	{
-		name : "keyword",
-		label : "Keyword",
-		type : "primary",
-		component : DataViewFilterText,
-		column : "title",
-		toFilter : function({ name, data, output }) {
+		name: "keyword",
+		label: "Keyword",
+		type: "primary",
+		component: DataViewFilterText,
+		column: "title",
+		toFilter: function ({ name, data, output }) {
 			processStringFilter({
 				name,
-				data : { value : data.value, comparison : "contains" },
+				data: { value: data.value, comparison: "contains" },
 				output
 			});
 		}
 	},
 	{
-		name : "categories",
-		label : "Categories",
-		type : "primary",
-		component : DataViewFilterMultiselect,
-		args : {
-			getOptions : categoriesHelper.getOptions.bind(categoriesHelper),
-			getSelected : categoriesHelper.getSelected.bind(categoriesHelper)
+		name: "categories",
+		label: "Categories",
+		type: "primary",
+		component: DataViewFilterMultiselect,
+		args: {
+			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
+			getSelected: categoriesHelper.getSelected.bind(categoriesHelper)
 		},
-		column : "categories_ids",
-		toFilter : processArrayFilter
+		column: "categories_ids",
+		toFilter: processArrayFilter
 	},
 	{
 		name: "single_select_category",
@@ -159,202 +159,202 @@ const filters = [
 		component: FilterSingleSelect,
 		args: {
 			getOptions: singleSelectCategoriesHelper.getOptions.bind(singleSelectCategoriesHelper),
-			getSelected : singleSelectCategoriesHelper.getSelected.bind(singleSelectCategoriesHelper)
+			getSelected: singleSelectCategoriesHelper.getSelected.bind(singleSelectCategoriesHelper)
 		},
 		column: "categories_ids",
 		toFilter: processSingleSelectFilter
 	},
 	{
-		name : "categories_with_comparisons",
-		label : "Categories with Comparisons",
-		type : "optional",
-		component : DataViewFilterMultiselect,
-		args : {
-			getOptions : categoriesHelper.getOptions.bind(categoriesHelper),
-			getSelected : categoriesHelper.getSelected.bind(categoriesHelper),
-			comparisons : ["in", "not_in", "all", "exists", "not_exists"]
+		name: "categories_with_comparisons",
+		label: "Categories with Comparisons",
+		type: "optional",
+		component: DataViewFilterMultiselect,
+		args: {
+			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
+			getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
+			comparisons: ["in", "not_in", "all", "exists", "not_exists"]
 		},
-		column : "categories_ids",
-		toFilter : processArrayFilter
+		column: "categories_ids",
+		toFilter: processArrayFilter
 	},
 	{
-		name : "title",
-		label : "Title",
-		type : "optional",
-		component : DataViewFilterText,
-		toFilter : processStringFilter
+		name: "title",
+		label: "Title",
+		type: "optional",
+		component: DataViewFilterText,
+		toFilter: processStringFilter
 	},
 	{
-		name : "created",
-		label : "Created",
-		type : "optional",
-		component : FilterDate,
-		toFilter : processDateFilter
+		name: "created",
+		label: "Created",
+		type: "optional",
+		component: FilterDate,
+		toFilter: processDateFilter
 	},
 	{
-		name : "updated",
-		label : "Updated",
-		type : "optional",
-		component : FilterDate,
-		toFilter : processDateFilter
+		name: "updated",
+		label: "Updated",
+		type: "optional",
+		component: FilterDate,
+		toFilter: processDateFilter
 	},
 	{
-		name : "title_with_comparisons",
-		label : "Title with Comparisons",
-		type : "optional",
-		component : DataViewFilterText,
-		toFilter : processStringFilter,
-		column : "title",
-		args : {
-			comparisons : ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
+		name: "title_with_comparisons",
+		label: "Title with Comparisons",
+		type: "optional",
+		component: DataViewFilterText,
+		toFilter: processStringFilter,
+		column: "title",
+		args: {
+			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
 		}
 	}
 ]
 
 const rootDefaultView = {
-	id : "default",
-	label : "Default View",
-	type : "default",
-	state : {
-		limit : 25,
-		skip : 0,
-		filter : {},
-		sort : {
-			name : "title",
-			dir : "asc"
+	id: "default",
+	label: "Default View",
+	type: "default",
+	state: {
+		limit: 25,
+		skip: 0,
+		filter: {},
+		sort: {
+			name: "title",
+			dir: "asc"
 		},
-		display : "list",
-		activeFilters : [],
-		activeColumns : ["image", "title", "categories", "created"]
+		display: "list",
+		activeFilters: [],
+		activeColumns: ["image", "title", "categories", "created"]
 	}
 }
 
 const listColumns = [
 	{
-		name : "id",
-		label : "ID"
+		name: "id",
+		label: "ID"
 	},
 	{
-		name : "image",
-		label : "Image",
-		transforms : [
+		name: "image",
+		label: "Image",
+		transforms: [
 			transform_get(["resource_raw", "secure_url"]),
-			transform_thumbnail({ width : 75, height : 75 })
+			transform_thumbnail({ width: 75, height: 75 })
 		]
 	},
 	{
-		name : "title",
-		label : "Title",
-		style : {
-			bold : true
+		name: "title",
+		label: "Title",
+		style: {
+			bold: true
 		},
-		sortable : true
+		sortable: true
 	},
 	{
-		name : "description",
-		label : "Description"
+		name: "description",
+		label: "Description"
 	},
 	{
-		name : "content_owner",
-		label : "Content Owner"
+		name: "content_owner",
+		label: "Content Owner"
 	},
 	{
-		name : "categories",
-		label : "Categories",
-		transforms : [
+		name: "categories",
+		label: "Categories",
+		transforms: [
 			transform_mapGet("tag"),
 			transform_join()
 		]
 	},
 	{
-		name : "image_title",
-		label : "Image Title",
-		column : "image",
-		transforms : [
+		name: "image_title",
+		label: "Image Title",
+		column: "image",
+		transforms: [
 			transform_get(["title"])
 		]
 	},
 	{
-		name : "image_notes",
-		label : "Image Notes",
-		column : "image",
-		transforms : [
+		name: "image_notes",
+		label: "Image Notes",
+		column: "image",
+		transforms: [
 			transform_get(["notes"])
 		]
 	},
 	{
-		name : "image_deleted",
-		label : "Image Deleted",
-		column : "image",
-		transforms : [
+		name: "image_deleted",
+		label: "Image Deleted",
+		column: "image",
+		transforms: [
 			transform_get(["deleted"]),
 			transform_boolean()
 		]
 	},
 	{
-		name : "created",
-		label : "Created",
-		sortable : true,
-		transforms : [
+		name: "created",
+		label: "Created",
+		sortable: true,
+		transforms: [
 			transform_dateFormat()
 		]
 	},
 	{
-		name : "updated",
-		label : "Updated",
-		sortable : true,
-		transforms : [
+		name: "updated",
+		label: "Updated",
+		sortable: true,
+		transforms: [
 			transform_dateFormat()
 		]
 	},
 	{
-		name : "bold",
-		label : "Style - bold",
-		column : "content_owner",
-		style : {
-			bold : true
+		name: "bold",
+		label: "Style - bold",
+		column: "content_owner",
+		style: {
+			bold: true
 		}
 	},
 	{
-		name : "italic",
-		label : "Style - italic",
-		column : "content_owner",
-		style : {
-			italic : true
+		name: "italic",
+		label: "Style - italic",
+		column: "content_owner",
+		style: {
+			italic: true
 		}
 	},
 	{
-		name : "strike_through",
-		label : "Style - strikeThrough",
-		column : "content_owner",
-		style : {
-			strikeThrough : true
+		name: "strike_through",
+		label: "Style - strikeThrough",
+		column: "content_owner",
+		style: {
+			strikeThrough: true
 		}
 	},
 	{
-		name : "noWrap",
-		label : "Style - noWrap",
-		column : "title",
-		style : {
-			noWrap : true
+		name: "noWrap",
+		label: "Style - noWrap",
+		column: "title",
+		style: {
+			noWrap: true
 		}
 	},
 	{
-		name : "ellipsis",
-		label : "Style - ellipsis",
-		column : "title",
-		style : {
-			noWrap : true,
-			ellipsis : true,
-			maxWidth : "100px"
+		name: "ellipsis",
+		label: "Style - ellipsis",
+		column: "title",
+		style: {
+			noWrap: true,
+			ellipsis: true,
+			maxWidth: "100px"
 		}
 	},
 	{
-		name : "textTransform",
-		label : "Style - textTransform",
-		column : "content_owner",
-		style : {
-			textTransform : "uppercase"
+		name: "textTransform",
+		label: "Style - textTransform",
+		column: "content_owner",
+		style: {
+			textTransform: "uppercase"
 		}
 	}
 ];
@@ -362,20 +362,20 @@ const listColumns = [
 const gridColumns = [
 	...listColumns,
 	{
-		name : "image_grid",
-		column : "image",
-		label : "Image",
-		transforms : [
+		name: "image_grid",
+		column: "image",
+		label: "Image",
+		transforms: [
 			transform_get(["resource_raw", "secure_url"]),
-			transform_thumbnail({ width : 275, height : 200 })
+			transform_thumbnail({ width: 275, height: 200 })
 		]
 	}
 ]
 
 const gridColumnsMap = {
-	image : "image_grid",
-	primary : "title",
-	secondary : "created"
+	image: "image_grid",
+	primary: "title",
+	secondary: "created"
 }
 
 const StyledDiv = styled.div`
@@ -392,25 +392,25 @@ function DataViewKitchenSink(): ReactElement {
 	const primaryFilters = boolean("primaryFilters", true);
 	const optionalFilters = boolean("optionalFilters", true);
 	const sticky = boolean("sticky", true);
-	const locale: string = select("locale", { en : "en", es : "es", cimode : "cimode", de : "de" }, "en");
+	const locale: string = select("locale", { en: "en", es: "es", cimode: "cimode", de: "de" }, "en");
 	const displayList = boolean("displayList", true);
 	const displayGrid = boolean("displayGrid", true);
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
 	const defaultView = {
 		...rootDefaultView,
-		state : {
+		state: {
 			...rootDefaultView.state,
-			display : displayList ? "list" : displayGrid ? "grid" : undefined
+			display: displayList ? "list" : displayGrid ? "grid" : undefined
 		}
 	}
 
 	const [state, setState] = useState({
-		data : [],
-		count : 0,
-		limit : 25,
-		skip : 0,
-		loading : false,
-		savedView : defaultView,
+		data: [],
+		count: 0,
+		limit: 25,
+		skip: 0,
+		loading: false,
+		savedView: defaultView,
 		...defaultView.state
 	});
 
@@ -422,36 +422,36 @@ function DataViewKitchenSink(): ReactElement {
 			mosaicSettings.i18n.changeLanguage(locale);
 		}
 	}, [locale]);
-	
+
 	const stateRef = useStateRef(state);
-	
-	const filterChange = function(name, value) {
+
+	const filterChange = function (name, value) {
 		setState({
 			...state,
-			filter : {
+			filter: {
 				...state.filter,
-				[name] : value
+				[name]: value
 			},
-			skip : 0
+			skip: 0
 		});
 	}
-	
-	const convertFilter = function(filter) {
+
+	const convertFilter = function (filter) {
 		const queryFilter = {};
-		
+
 		for (const filterObj of filters) {
 			if (filter[filterObj.name] !== undefined) {
 				filterObj.toFilter({
-					name : filterObj.column || filterObj.name,
-					data : filter[filterObj.name],
-					output : queryFilter
+					name: filterObj.column || filterObj.name,
+					data: filter[filterObj.name],
+					output: queryFilter
 				});
 			}
 		}
-		
+
 		return queryFilter;
 	}
-	
+
 	// in order to support the sticky boolean we need to add a class to the html root
 	// then we use the css off that class to apply the proper css to ensure the parent hierarchy will be correct for sticky mechanics
 	useEffect(() => {
@@ -467,35 +467,35 @@ function DataViewKitchenSink(): ReactElement {
 	}, [sticky]);
 
 	useEffect(() => {
-		const fetchData = async function() {
+		const fetchData = async function () {
 			const converted = convertFilter(state.filter);
-			
+
 			const newData = await api.find({
-				limit : state.limit,
-				sort : state.sort,
-				skip : state.skip,
-				filter : converted
+				limit: state.limit,
+				sort: state.sort,
+				skip: state.skip,
+				filter: converted
 			});
-			
+
 			const count = await api.count({
-				filter : converted
+				filter: converted
 			});
-			
+
 			setState({
 				...state,
-				data : newData,
-				count : count,
-				loading : false
+				data: newData,
+				count: count,
+				loading: false
 			});
 		}
-		
-		setTimeout(function() {
+
+		setTimeout(function () {
 			fetchData();
 		}, ARTIFICIAL_DELAY);
-		
+
 		setState({
 			...state,
-			loading : true
+			loading: true
 		});
 	}, [state.limit, state.sort, state.skip, state.filter]);
 
@@ -509,139 +509,139 @@ function DataViewKitchenSink(): ReactElement {
 		displayOptions === undefined ? undefined :
 		displayOptions.length === 1 ? displayOptions[0] :
 		state.display
-	;
-	
+		;
+
 	const gridConfig: DataViewProps = {
-		title : "Your Uploads",
-		columns : (display === "list" || display === undefined) ? listColumns : gridColumns,
+		title: "Your Uploads",
+		columns: (display === "list" || display === undefined) ? listColumns : gridColumns,
 		gridColumnsMap,
-		primaryActions : primaryActions ? [
+		primaryActions: primaryActions ? [
 			{
-				name : "edit",
-				color : "blue",
-				variant : "icon",
-				mIcon : CreateIcon,
-				onClick : function({ data }) {
+				name: "edit",
+				color: "blue",
+				variant: "icon",
+				mIcon: CreateIcon,
+				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
 				}
 			}
 		] : undefined,
-		additionalActions : additionalActions ? [
+		additionalActions: additionalActions ? [
 			{
-				name : "view_children",
-				label : "View Children",
-				onClick : function({ data }) {
+				name: "view_children",
+				label: "View Children",
+				onClick: function ({ data }) {
 					alert(`View Children ${data.id}`);
 				}
 			},
 			{
-				name : "history",
-				label : "History",
-				onClick : function({ data }) {
+				name: "history",
+				label: "History",
+				onClick: function ({ data }) {
 					alert(`History ${data.id}`);
 				}
 			}
 		] : undefined,
-		bulkActions : bulkActions ? [
+		bulkActions: bulkActions ? [
 			{
-				name : "download",
-				color : "blue",
-				variant : "icon",
-				mIcon : CloudDownloadIcon,
-				onClick : function({ data }) {
+				name: "download",
+				color: "blue",
+				variant: "icon",
+				mIcon: CloudDownloadIcon,
+				onClick: function ({ data }) {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
 				}
 			},
 			{
-				name : "delete",
-				color : "blue",
-				variant : "icon",
-				mIcon : DeleteIcon,
-				onClick : function({ data }) {
+				name: "delete",
+				color: "blue",
+				variant: "icon",
+				mIcon: DeleteIcon,
+				onClick: function ({ data }) {
 					alert(`DELETE ${data.map(val => val.id)}`);
 				},
-				onAllClick : bulkAllActions ? function() {
+				onAllClick: bulkAllActions ? function () {
 					alert(`DELETE ALL`);
 				} : undefined
 			}
 		] : undefined,
-		buttons : [
+		buttons: [
 			{
-				name : "create",
-				label : "Create New",
-				mIcon : AddIcon,
-				color : "blue",
-				variant : "outlined",
-				onClick : function() {
+				name: "create",
+				label: "Create New",
+				mIcon: AddIcon,
+				color: "blue",
+				variant: "outlined",
+				onClick: function () {
 					alert("CREATE NEW");
 				}
 			}
 		],
-		filters : validFilters.map(filter => {
+		filters: validFilters.map(filter => {
 			return {
-				name : filter.name,
-				label : filter.label,
-				component : filter.component,
-				type : filter.type,
-				args : filter.args,
-				onChange : function(value) {
+				name: filter.name,
+				label: filter.label,
+				component: filter.component,
+				type: filter.type,
+				args: filter.args,
+				onChange: function (value) {
 					filterChange(filter.name, value);
 				}
 			}
 		}),
 		displayOptions,
 		sticky,
-		onColumnsChange : function(data) {
+		onColumnsChange: function (data) {
 			setState({
 				...state,
-				activeColumns : data
+				activeColumns: data
 			});
 		},
-		onSkipChange : useCallback(function({ skip }) {
+		onSkipChange: useCallback(function ({ skip }) {
 			setState({
 				...stateRef.current,
 				skip
 			});
 		}, [stateRef]),
-		onLimitChange : useCallback(function({ limit }) {
+		onLimitChange: useCallback(function ({ limit }) {
 			setState({
 				...stateRef.current,
 				limit,
-				skip : 0
+				skip: 0
 			});
 		}, [stateRef]),
-		onSortChange : useCallback(function(data) {
+		onSortChange: useCallback(function (data) {
 			setState({
 				...stateRef.current,
-				sort : data,
-				skip : 0
+				sort: data,
+				skip: 0
 			});
 		}, [stateRef]),
-		onDisplayChange : function(data) {
+		onDisplayChange: function (data) {
 			setState({
 				...state,
-				display : data
+				display: data
 			});
 		},
-		onSavedViewSave : function(data) {
+		onSavedViewSave: function (data) {
 			viewsApi.upsert(data);
 			gridConfig.onSavedViewChange(data);
 		},
-		onSavedViewGetOptions : function() {
+		onSavedViewGetOptions: function () {
 			return [defaultView, ...viewsApi.find()];
 		},
-		onSavedViewChange : function(data) {
+		onSavedViewChange: function (data) {
 			setState({
 				...state,
 				...data.state,
-				savedView : data,
-				skip : 0
+				savedView: data,
+				skip: 0
 			});
 		},
-		onSavedViewRemove : function(data) {
+		onSavedViewRemove: function (data) {
 			viewsApi.remove(data);
 		},
-		onActiveFiltersChange : function({ activeFilters, filter }) {
+		onActiveFiltersChange: function ({ activeFilters, filter }) {
 			setState({
 				...state,
 				activeFilters,
@@ -650,12 +650,12 @@ function DataViewKitchenSink(): ReactElement {
 		},
 		savedViewAllowSharedViewSave
 	};
-	
+
 	return (
 		<StyledDiv>
 			<MosaicContext.Provider value={mosaicSettings}>
 				<DataView
-					{ ...gridConfig }
+					{...gridConfig}
 					data={state.data}
 					limit={state.limit}
 					skip={state.skip}
