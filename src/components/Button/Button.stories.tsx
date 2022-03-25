@@ -7,20 +7,40 @@ import StoryBookError from "../StoryBookError";
 import Button from "../Button";
 
 export default {
-	title : "Components|Button",
-	decorators : [withKnobs]
-}
+	title: "Components|Button",
+	decorators: [withKnobs],
+};
 
 export const ButtonPlayground = (): ReactElement => {
-	const buttonVariant = select("Variant", ["text", "outlined", "contained"], "text");
-	const buttonColor = select("Color", ["black", "blue", "lightBlue", "red"], "black");
+	const buttonVariant = select(
+		"Variant",
+		["text", "outlined", "contained"],
+		"contained"
+	);
+	const buttonColor = select(
+		"Color",
+		[
+			"black",
+			"blue",
+			"lightBlue",
+			"red",
+			"yellow",
+			"teal",
+			"gray",
+		],
+		"black"
+	);
 	const fullWidth = boolean("Full Width", false);
 	const disabled = boolean("Disabled", false);
 	const tooltip = text("Tooltip", "");
+	const smallText = boolean("Small text. Used by text buttons", false);
 
 	return (
 		<StoryBookError>
 			<Button
+				attrs={{
+					smallText,
+				}}
 				label="Test"
 				variant={buttonVariant}
 				color={buttonColor}
@@ -29,5 +49,5 @@ export const ButtonPlayground = (): ReactElement => {
 				tooltip={tooltip}
 			/>
 		</StoryBookError>
-	)
-}
+	);
+};

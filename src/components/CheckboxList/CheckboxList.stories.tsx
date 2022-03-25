@@ -1,44 +1,29 @@
 import * as React from "react";
-import { useState, useMemo, useCallback, ReactElement } from "react";
+import { useState, ReactElement } from "react";
 
 import {
 	CheckboxList,
-	CheckboxListProps,
 	P
 } from "@root/index";
+import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils';
 
 export default {
-	title : "Components|CheckboxList"
+	title: "Components|CheckboxList"
 }
 
 export const example = (): ReactElement => {
-	const [checked, setChecked] = useState([]);
+	const [checked, setChecked] = useState<string[]>([]);
 
-	const onChange: CheckboxListProps["onChange"] = useCallback(function(checked) {
-		setChecked(checked);
-	}, [setChecked]);
-	
-	const options = useMemo(() => [
-		{
-			label : "Label 1",
-			value : "label_1"
-		},
-		{
-			label : "Label 2",
-			value : "label_2"
-		},
-		{
-			label : "Label 3",
-			value : "label_3"
-		}
-	], []);
+	const onChange = (c) => {
+		setChecked(c);
+	};
 
 	return (
 		<div>
-			<P>checked: {checked.join(", ")}</P>
+			<P>checked: {JSON.stringify(checked)}</P>
 			<CheckboxList
 				checked={checked}
-				options={options}
+				options={checkboxOptions}
 				onChange={onChange}
 			/>
 		</div>
