@@ -1,30 +1,12 @@
-import { FormButtonProps } from "@root/forms/Button";
-import { FieldDefProps } from "@root/components/Field";
+import { ButtonProps } from "@root/components/Button";
+import { FieldDef } from "@root/components/Field";
 import { ReactNode } from "react";
 import { Section } from "../FormNav/FormNavTypes";
+import { MosaicObject } from "@root/types";
 export interface FormState {
     data: Record<string, any>;
     touched: Record<string, boolean>;
     errors: Record<string, string>;
-}
-export interface FieldProps {
-    name: string;
-    label?: string;
-    required?: boolean;
-    helperText?: string;
-    instructionText?: string;
-    onChange?: any;
-    ref?: string | FieldDef;
-}
-export interface FieldDef extends FieldProps {
-    component: any;
-    inputSettings?: any;
-    type?: string;
-    layout?: {
-        section?: number;
-        row?: number;
-        col?: number;
-    };
 }
 export interface SectionDef extends Section {
     title?: string;
@@ -32,16 +14,21 @@ export interface SectionDef extends Section {
     fields: (string | FieldDef)[][][];
     children?: ReactNode;
 }
+export declare type ButtonAttrs = Omit<ButtonProps, "color" | "variant">;
 export interface FormProps {
+    type?: 'drawer';
     state: any;
-    dispatch: any;
-    events?: any;
     title?: string;
-    description?: string;
-    fields: FieldDefProps[];
+    fields: FieldDef[];
     sections?: SectionDef[];
-    onSubmit?(...args: any): any;
-    submitButtonAttrs?: FormButtonProps;
+    dispatch: any;
     onCancel?(...args: any): any;
-    cancelButtonAttrs?: FormButtonProps;
+    dialogOpen?: boolean;
+    description?: string;
+    getFormValues?(): Promise<MosaicObject>;
+    cancelButtonAttrs?: ButtonAttrs;
+    submitButtonAttrs?: ButtonAttrs;
+    handleDialogClose?: (val: boolean) => void;
+    events?: any;
+    onSubmit?(...args: any): any;
 }

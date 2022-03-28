@@ -1,27 +1,20 @@
-/**
- * Interface that defines structure of the options that the
- * checkbox list receives.
- */
-export interface Option {
-    label: string;
-    value: string | {
-        [key: string]: any;
-    };
-}
+import { CheckboxOption } from '../../forms/FormFieldCheckbox';
 export interface CheckboxListProps {
     /**
      * Flag that indicates if an option has been selected.
      */
-    checked: Option[];
+    checked: string[];
     /**
      * List of options
      */
-    options: Option[];
+    options: CheckboxOption[];
     /**
      * Function that listens to changes on the checked options.
      * @param checked List of checked options
      */
-    onChange(checked: string[]): void;
+    onChange(checked: (string | {
+        [key: string]: unknown;
+    })[]): void;
     /**
      * Additional custom css class for styling the component
      */

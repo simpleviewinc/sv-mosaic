@@ -1,4 +1,5 @@
-import { HTMLAttributes, ReactElement } from 'react';
-import { FormFieldToggleSwitchProps } from './FormFieldToggleSwitchTypes';
-declare const FormFieldToggleSwitch: (props: FormFieldToggleSwitchProps & HTMLAttributes<HTMLInputElement>) => ReactElement;
+import { ReactElement } from 'react';
+import { MosaicFieldProps } from '@root/components/Field';
+import { FormFieldToggleSwitchDef } from './FormFieldToggleSwitchTypes';
+declare const FormFieldToggleSwitch: (props: MosaicFieldProps<FormFieldToggleSwitchDef>) => ReactElement;
 export default FormFieldToggleSwitch;
