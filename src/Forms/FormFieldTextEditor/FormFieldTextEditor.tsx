@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { memo, ReactElement, useRef } from 'react';
-import { MosaicFieldProps } from '@root/components/Field';
-import { EditorWrapper } from './TextEditor.styled';
-import JoditEditor from 'jodit-react';
-import { TextEditorDef } from './TextEditorTypes';
+import * as React from "react";
+import { memo, ReactElement, useRef } from "react";
+import { MosaicFieldProps } from "@root/components/Field";
+import { EditorWrapper } from "./TextEditor.styled";
+import JoditEditor from "jodit-react";
+import { TextEditorDef } from "./TextEditorTypes";
 
 const FormFieldTextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElement => {
 	const {
@@ -17,34 +17,34 @@ const FormFieldTextEditor = (props: MosaicFieldProps<TextEditorDef, string>): Re
 	const editor = useRef(null);
 
 	const buttonList = [
-		'source',
-		'|',
-		'bold',
-		'italic',
-		'underline',
-		'strikethrough',
-		'superscript',
-		'subscript',
-		'paragraph',
-		'fontsize',
-		'font',
-		'ul',
-		'ol',
-		'indent',
-		'outdent',
-		'left',
-		'center',
-		'right',
-		'justify',
-		'link',
-		'image',
-		'eraser',
-		'undo',
-		'redo',
+		"source",
+		"|",
+		"bold",
+		"italic",
+		"underline",
+		"strikethrough",
+		"superscript",
+		"subscript",
+		"paragraph",
+		"fontsize",
+		"font",
+		"ul",
+		"ol",
+		"indent",
+		"outdent",
+		"left",
+		"center",
+		"right",
+		"justify",
+		"link",
+		"image",
+		"eraser",
+		"undo",
+		"redo",
 	];
 
 	const config = {
-		namespace: '',
+		namespace: "",
 		disabled: fieldDef?.disabled ? fieldDef?.disabled : false,
 		buttonsXS: buttonList,
 		buttons: buttonList,
@@ -52,8 +52,8 @@ const FormFieldTextEditor = (props: MosaicFieldProps<TextEditorDef, string>): Re
 		buttonsMD: buttonList,
 		buttonsLG: buttonList,
 		spellcheck: fieldDef?.inputSettings?.spellcheck ? fieldDef?.inputSettings?.spellcheck : false,
-		direction: fieldDef?.inputSettings?.direction ? fieldDef?.inputSettings?.direction : 'ltr',
-		language: fieldDef?.inputSettings?.language ? fieldDef?.inputSettings?.language : 'en',
+		direction: fieldDef?.inputSettings?.direction ? fieldDef?.inputSettings?.direction : "ltr",
+		language: fieldDef?.inputSettings?.language ? fieldDef?.inputSettings?.language : "en",
 		limitChars: fieldDef?.inputSettings?.maxCharacters ? fieldDef?.inputSettings?.maxCharacters : undefined,
 	}
 

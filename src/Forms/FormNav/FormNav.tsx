@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { memo, useState, useRef, useCallback, useEffect, ReactElement } from 'react';
+import * as React from "react";
+import { memo, useState, useRef, useCallback, useEffect, ReactElement } from "react";
 import {
 	FormNavWrapper,
 	FormNavRow,
 	IconWrapper,
 	LinksWrapper,
 	NavItems,
-} from './FormNav.styled';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+} from "./FormNav.styled";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 // Types
-import { FormNavProps } from './FormNavTypes';
+import { FormNavProps } from "./FormNavTypes";
 
 const FormNav = (props: FormNavProps): ReactElement => {
 	const { sections } = props;
@@ -35,7 +35,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
    * @param direction : to scroll to;
    */
 	const handleNav = (direction) => {
-		if (direction === 'left') {
+		if (direction === "left") {
 			navRef ? (navRef.current.scrollLeft -= 200) : null;
 		} else {
 			navRef ? (navRef.current.scrollLeft += 200) : null;
@@ -62,7 +62,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 		window.addEventListener("scroll", navHighlighter);
 
 		return () => {
-			window.removeEventListener('scroll', navHighlighter);
+			window.removeEventListener("scroll", navHighlighter);
 		};
 	}, []);
 
@@ -87,7 +87,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 			<FormNavRow scrollX={scrollX}>
 				{scrollX !== 0 && (
 					<IconWrapper>
-						<ChevronLeftIcon onClick={() => handleNav('left')} />
+						<ChevronLeftIcon onClick={() => handleNav("left")} />
 					</IconWrapper>
 				)}
 				<NavItems ref={navRef} onScroll={scrollCheck}>
@@ -103,7 +103,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 					))}
 				</NavItems>
 				<IconWrapper>
-					<ChevronRightIcon onClick={() => handleNav('right')} />
+					<ChevronRightIcon onClick={() => handleNav("right")} />
 				</IconWrapper>
 			</FormNavRow>
 		</FormNavWrapper>

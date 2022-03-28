@@ -1,17 +1,17 @@
-import * as React from 'react';
-import DateFnsUtils from '@date-io/date-fns';
-import { ReactElement, useState } from 'react';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import * as React from "react";
+import DateFnsUtils from "@date-io/date-fns";
+import { ReactElement, useState } from "react";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 // Components
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import ScheduleIcon from "@material-ui/icons/Schedule";
 
 // Styles
-import { ThemeProvider } from '@material-ui/core/styles';
-import { customTheme, StyledTimePicker } from './TimePicker.styled';
-import { DatePickerWrapper } from '../DatePicker/DatePicker.styled';
-import { MosaicFieldProps } from '@root/components/Field';
-import { TimePickerDef } from './TimePickerTypes';
+import { ThemeProvider } from "@material-ui/core/styles";
+import { customTheme, StyledTimePicker } from "./TimePicker.styled";
+import { DatePickerWrapper } from "../DatePicker/DatePicker.styled";
+import { MosaicFieldProps } from "@root/components/Field";
+import { TimePickerDef } from "./TimePickerTypes";
 
 const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
 	const {
@@ -43,12 +43,12 @@ const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
 						onClose={handleOpenState}
 						PopoverProps={{
 							anchorOrigin: {
-								vertical: 'bottom',
-								horizontal: 'center',
+								vertical: "bottom",
+								horizontal: "center",
 							},
 							transformOrigin: {
-								vertical: 'top',
-								horizontal: 'center',
+								vertical: "top",
+								horizontal: "center",
 							},
 						}}
 						InputProps={{

@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { useMemo, useCallback, ReactElement, HTMLAttributes } from 'react';
-import { xor } from 'lodash';
+import * as React from "react";
+import { useMemo, useCallback, ReactElement, HTMLAttributes } from "react";
+import { xor } from "lodash";
 
-import Checkbox from '@root/components/Checkbox';
-import { useStateRef } from '@root/utils/reactTools';
-import { CheckboxListProps } from './CheckboxListTypes';
-import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from "@root/components/Checkbox";
+import { useStateRef } from "@root/utils/reactTools";
+import { CheckboxListProps } from "./CheckboxListTypes";
+import FormGroup from "@material-ui/core/FormGroup";
 
 const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const checkedRef = useStateRef(props.checked);
@@ -32,7 +32,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 
 				return (
 					<Checkbox
-						className={checked ? 'checked' : ''}
+						className={checked ? "checked" : ""}
 						checked={checked}
 						label={option.label}
 						disabled={props.disabled}

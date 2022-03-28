@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Components
-import CheckboxList from '../../components/CheckboxList';
+import CheckboxList from "../../components/CheckboxList";
 
 // Material UI
-import { default as MUIFormHelperText } from '@material-ui/core/FormHelperText';
-import { default as MUIErrorOutlineIcon } from '@material-ui/icons/ErrorOutline';
+import { default as MUIFormHelperText } from "@material-ui/core/FormHelperText";
+import { default as MUIErrorOutlineIcon } from "@material-ui/icons/ErrorOutline";
 
 // Utils
-import theme from '../../theme/theme';
+import theme from "../../theme/theme";
 
 export const StyledWrapper = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ export const FieldWrapper = styled.div`
   font-family: ${theme.fontFamily};
   padding: 20px;
   background-color: ${pr =>
-		pr.error ? theme.colors.lightRed : 'transparent'};
+		pr.error ? theme.colors.lightRed : "transparent"};
 `;
 
 export const StyledCheckboxList = styled(CheckboxList)`
@@ -47,9 +47,9 @@ export const StyledCheckboxList = styled(CheckboxList)`
 export const StyledText = styled(MUIFormHelperText)`
   &.MuiFormHelperText-root {
     color: ${theme.colors.assistiveText};
-    font-size: ${pr => (pr.error ? '12px' : '14px')};
-    margin-top: ${pr => (!pr.error ? '8px' : null)};
-    margin-bottom: ${pr => (!pr.error ? '8px' : null)};
+    font-size: ${pr => (pr.error ? "12px" : "14px")};
+    margin-top: ${pr => (!pr.error ? "8px" : null)};
+    margin-bottom: ${pr => (!pr.error ? "8px" : null)};
   }
 
   &.MuiFormHelperText-root.Mui-error {

@@ -1,14 +1,14 @@
-import * as React from 'react';
+import * as React from "react";
 import {
 	render,
 	cleanup,
 	fireEvent,
 	screen,
 	createEvent,
-} from '@testing-library/react';
+} from "@testing-library/react";
 
 // Components
-import FormFieldImageUpload from './FormFieldImageUpload';
+import FormFieldImageUpload from "./FormFieldImageUpload";
 
 afterEach(cleanup);
 
@@ -19,11 +19,11 @@ const mockHandleEdit = jest.fn();
 const mockHandleTranslate = jest.fn();
 const options = [
 	{
-		label: 'Edit',
+		label: "Edit",
 		action: mockHandleEdit,
 	},
 	{
-		label: 'Translate',
+		label: "Translate",
 		action: mockHandleTranslate,
 	},
 ];
@@ -32,8 +32,8 @@ const FormFieldImageUploadExample = () => {
 	return (
 		<FormFieldImageUpload
 			fieldDef={{
-				name: 'imageUpload',
-				label: '',
+				name: "imageUpload",
+				label: "",
 				disabled: false,
 				inputSettings: {
 					handleSetFocus: mockHandleSetFocus,
@@ -44,22 +44,22 @@ const FormFieldImageUploadExample = () => {
 	);
 };
 
-describe('FormFieldImageUpload component', () => {
-	it('should display default view', () => {
+describe("FormFieldImageUpload component", () => {
+	it("should display default view", () => {
 		render(<FormFieldImageUploadExample />);
-		const setLinkButton = getByText('UPLOAD FILES');
-		const dragAndDropText = getByText('Drag & Drop files here or');
+		const setLinkButton = getByText("UPLOAD FILES");
+		const dragAndDropText = getByText("Drag & Drop files here or");
 
 		expect(setLinkButton).toBeTruthy();
 		expect(dragAndDropText).toBeTruthy();
 	});
 
-	it('should upload image file', () => {
-		const file = new File(['hello'], 'hello.png', { type: 'image/png' });
+	it("should upload image file", () => {
+		const file = new File(["hello"], "hello.png", { type: "image/png" });
 
 		render(<FormFieldImageUploadExample />);
 
-		const input = getByTestId('input-file-test') as HTMLInputElement;
+		const input = getByTestId("input-file-test") as HTMLInputElement;
 
 		fireEvent.change(input, {
 			target: { files: [file] },
@@ -70,42 +70,42 @@ describe('FormFieldImageUpload component', () => {
 	});
 });
 
-describe('FormFieldImageUpload disabled state', () => {
+describe("FormFieldImageUpload disabled state", () => {
 	it('should display "Loading Image" and the circular progress component', () => {
 		render(
 			<FormFieldImageUpload
 				fieldDef={{
-					name: 'imageUpload',
-					label: '',
+					name: "imageUpload",
+					label: "",
 					disabled: true,
 				}}
 			/>
 		);
 
-		expect(getByText('Loading Image')).toBeTruthy();
-		expect(getByTestId('circular-progress-test')).toBeTruthy();
+		expect(getByText("Loading Image")).toBeTruthy();
+		expect(getByTestId("circular-progress-test")).toBeTruthy();
 	});
 });
 
-describe('FormFieldImageUpload when menu options are not received', () => {
-	it('should not display ', () => {
+describe("FormFieldImageUpload when menu options are not received", () => {
+	it("should not display ", () => {
 		render(
 			<FormFieldImageUpload
 				fieldDef={{
-					name: 'imageUpload',
-					label: '',
+					name: "imageUpload",
+					label: "",
 					disabled: false,
 				}}
 			/>
 		);
 
-		expect(queryByTestId('menu-container-test')).toBe(null);
+		expect(queryByTestId("menu-container-test")).toBe(null);
 	});
 });
 
-describe('FormFieldImageUpload drag and drop events', () => {
-	const file = new File(['hello'], 'hello.png', {
-		type: 'image/png',
+describe("FormFieldImageUpload drag and drop events", () => {
+	const file = new File(["hello"], "hello.png", {
+		type: "image/png",
 	});
 	let fileDropzone;
 	let fileList;
@@ -114,10 +114,10 @@ describe('FormFieldImageUpload drag and drop events', () => {
 	beforeEach(() => {
 		render(<FormFieldImageUploadExample />);
 		fileList = [file];
-		fileDropzone = getByText('Drag & Drop files here or');
+		fileDropzone = getByText("Drag & Drop files here or");
 	});
 
-	it('should test drop event', () => {
+	it("should test drop event", () => {
 		const fileDropEvent = createEvent.drop(fileDropzone);
 
 		Object.defineProperty(fileDropEvent, "dataTransfer", {
@@ -128,11 +128,11 @@ describe('FormFieldImageUpload drag and drop events', () => {
 
 		fireEvent(fileDropzone, fileDropEvent);
 
-		const viewButton = getByText('View');
+		const viewButton = getByText("View");
 		fireEvent.click(viewButton);
 
-		const setFocusButton = getByText('Set Focus');
-		const canvasElement = getByTestId('canvas-el-test');
+		const setFocusButton = getByText("Set Focus");
+		const canvasElement = getByTestId("canvas-el-test");
 
 		expect(setFocusButton).toBeTruthy();
 		expect(canvasElement).toBeTruthy();
@@ -147,7 +147,7 @@ describe('FormFieldImageUpload drag and drop events', () => {
 	it('should display "Release and Drop" when an image file enters in the drop zone', () => {
 		const fileDragEnterEvent = createEvent.dragEnter(fileDropzone);
 
-		Object.defineProperty(fileDragEnterEvent, 'dataTransfer', {
+		Object.defineProperty(fileDragEnterEvent, "dataTransfer", {
 			value: {
 				files: {
 					item: (itemIndex) => fileList[itemIndex],
@@ -158,6 +158,6 @@ describe('FormFieldImageUpload drag and drop events', () => {
 
 		fireEvent(fileDropzone, fileDragEnterEvent);
 
-		expect(getByText('Release and Drop')).toBeTruthy();
+		expect(getByText("Release and Drop")).toBeTruthy();
 	});
 });

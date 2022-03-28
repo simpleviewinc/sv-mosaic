@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { memo, ReactElement } from 'react';
-import { BrowseOptionProps } from '..';
-import { startCase } from 'lodash';
+import * as React from "react";
+import { memo, ReactElement } from "react";
+import { BrowseOptionProps } from "..";
+import { startCase } from "lodash";
 
 // Styles
 import {
@@ -12,7 +12,7 @@ import {
 	StyledLinkIcon,
 	StyledDocumentIcon,
 	StyledVideoIcon,
-} from '../ImageVideoLinkDocumentBrowsing.styled';
+} from "../ImageVideoLinkDocumentBrowsing.styled";
 
 const iconComponentMap = {
 	document: StyledDocumentIcon,

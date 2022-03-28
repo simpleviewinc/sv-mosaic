@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { memo, ReactElement, useMemo, useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { TableDef, TableRow } from './TableTypes';
-import { MosaicFieldProps } from '@root/components/Field';
+import * as React from "react";
+import { memo, ReactElement, useMemo, useState } from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { TableDef, TableRow } from "./TableTypes";
+import { MosaicFieldProps } from "@root/components/Field";
 
 // Components
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
 import Button from "@root/components/Button";
-import DeleteIcon from '@material-ui/icons/Delete';
-import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
-import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from "@material-ui/icons/Delete";
+import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
+import EditIcon from "@material-ui/icons/Edit";
 
 // Styles
 import {
@@ -26,7 +26,7 @@ import {
 	ThDrag,
 	THead,
 	TrHead,
-} from './Table.styled';
+} from "./Table.styled";
 
 const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactElement => {
 	const { fieldDef, value, onChange } = props;

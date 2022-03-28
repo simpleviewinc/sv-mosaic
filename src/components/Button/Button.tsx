@@ -9,7 +9,7 @@ import { ButtonProps, ButtonPopoverContextProps } from "./ButtonTypes";
 import Menu from "../Menu.jsx";
 import MenuBase from "../MenuBase";
 import { MosaicObject } from "../../types";
-import { PopoverWrapper, TooltipContent, types } from './Button.styled';
+import { PopoverWrapper, TooltipContent, types } from "./Button.styled";
 
 export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(null);
 
@@ -133,12 +133,12 @@ function Button(props: ButtonProps) {
 					open={Boolean(popoverAnchorEl)}
 					anchorEl={popoverAnchorEl}
 					anchorOrigin={{
-						vertical: 'top',
-						horizontal: 'left',
+						vertical: "top",
+						horizontal: "left",
 					}}
 					transformOrigin={{
-						vertical: 'top',
-						horizontal: 'left',
+						vertical: "top",
+						horizontal: "left",
 					}}
 					onClose={closePopover}
 					disableRestoreFocus

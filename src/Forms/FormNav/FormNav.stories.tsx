@@ -1,48 +1,48 @@
-import * as React from 'react';
-import { ReactElement } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/addon-docs/blocks';
+import * as React from "react";
+import { ReactElement } from "react";
+import { withKnobs } from "@storybook/addon-knobs";
+import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
-import FormNav from './FormNav';
-import { MainLayout, Section } from './FormNav.styled';
+import FormNav from "./FormNav";
+import { MainLayout, Section } from "./FormNav.styled";
 
 export default {
-	title: 'Forms|FormNav',
+	title: "Forms|FormNav",
 	decorators: [withKnobs],
 } as Meta;
 
 const sections = [
 	{
-		name: 'Account Profile',
-		id: 'section1',
+		name: "Account Profile",
+		id: "section1",
 	},
 	{
-		name: 'Account Information',
-		id: 'section2',
+		name: "Account Information",
+		id: "section2",
 	},
 	{
-		name: 'Contact Information',
-		id: 'section3',
+		name: "Contact Information",
+		id: "section3",
 	},
 	{
-		name: 'Address Information',
-		id: 'section4',
+		name: "Address Information",
+		id: "section4",
 	},
 	{
-		name: 'Tags and User',
-		id: 'section5',
+		name: "Tags and User",
+		id: "section5",
 	},
 	{
-		name: 'Connections',
-		id: 'section6',
+		name: "Connections",
+		id: "section6",
 	}
 ];
 
 export const Example = (): ReactElement => {
 	return (
 		<MainLayout>
-			<div style={{backgroundColor: 'white', height: '120px', position: 'sticky', top: 0}}>
+			<div style={{backgroundColor: "white", height: "120px", position: "sticky", top: 0}}>
 				<h1>Here goes the top component</h1>
 			</div>
 			<FormNav sections={sections} />

@@ -1,4 +1,4 @@
-import { CheckboxOption } from '../../forms/FormFieldCheckbox';
+import { CheckboxOption } from "../../forms/FormFieldCheckbox";
 
 export interface CheckboxListProps {
 	/**

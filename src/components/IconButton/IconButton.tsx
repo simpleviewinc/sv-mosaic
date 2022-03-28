@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ReactElement } from 'react';
+import * as React from "react";
+import { ReactElement } from "react";
 
 // Components
-import Tooltip from '@root/components/Tooltip';
+import Tooltip from "@root/components/Tooltip";
 
 // Types and styles
-import { IconButtonProps } from './IconButtonTypes';
-import { StyledIconButton } from './IconButton.styled';
+import { IconButtonProps } from "./IconButtonTypes";
+import { StyledIconButton } from "./IconButton.styled";
 
 const IconButton = (props: IconButtonProps): ReactElement => {
 	const { className, disabled = false, icon, tooltipText, onClick } = props;

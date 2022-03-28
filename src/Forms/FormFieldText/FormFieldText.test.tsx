@@ -1,61 +1,61 @@
-import { render, screen, cleanup } from '@testing-library/react';
-import * as React from 'react';
+import { render, screen, cleanup } from "@testing-library/react";
+import * as React from "react";
 
 // Components
-import TextField from './FormFieldText';
+import TextField from "./FormFieldText";
 
 afterEach(cleanup);
 
-describe('TextField component', () => {
-	it('should should display the placeholder', () => {
+describe("TextField component", () => {
+	it("should should display the placeholder", () => {
 		render(<TextField
 			fieldDef={{
-				name: 'textField',
-				label: 'Label test',
-				instructionText: 'Instruction text',
+				name: "textField",
+				label: "Label test",
+				instructionText: "Instruction text",
 				inputSettings: {
-					placeholder: 'placeholder',
+					placeholder: "placeholder",
 				}
 			}}
 
 		/>)
-		const placeholderElement = screen.getByPlaceholderText('placeholder');
+		const placeholderElement = screen.getByPlaceholderText("placeholder");
 		expect(placeholderElement).toBeDefined();
 	});
 });
 
-describe('TextField multiline behaviour', () => {
-	it('should render an input element when multiline is off', () => {
+describe("TextField multiline behaviour", () => {
+	it("should render an input element when multiline is off", () => {
 		render(
 			<TextField
 				fieldDef={{
-					name: 'textField',
-					label: 'Label test',
-					helperText: 'Helper text',
+					name: "textField",
+					label: "Label test",
+					helperText: "Helper text",
 					inputSettings: {
-						htmlFor: 'input-test',
-						placeholder: 'placeholder',
+						htmlFor: "input-test",
+						placeholder: "placeholder",
 						multiline: false
 					},
 				}}
 
 			/>
 		);
-		const textField = screen.getByPlaceholderText('placeholder');
+		const textField = screen.getByPlaceholderText("placeholder");
 
-		expect(textField.nodeName).toBe('INPUT');
+		expect(textField.nodeName).toBe("INPUT");
 	});
 
-	it('should render a text area element when the multiline prop is present', () => {
+	it("should render a text area element when the multiline prop is present", () => {
 		render(
 			<TextField
 				fieldDef={{
-					name: 'textField',
-					label: 'Label test',
-					helperText: 'Helper text',
+					name: "textField",
+					label: "Label test",
+					helperText: "Helper text",
 					inputSettings: {
-						htmlFor: 'multiline-tes',
-						placeholder: 'placeholder',
+						htmlFor: "multiline-tes",
+						placeholder: "placeholder",
 						multiline: true,
 					},
 				}}
@@ -63,8 +63,8 @@ describe('TextField multiline behaviour', () => {
 			/>
 		);
 
-		const textField = screen.getByPlaceholderText('placeholder');
+		const textField = screen.getByPlaceholderText("placeholder");
 
-		expect(textField.nodeName).toBe('TEXTAREA');
+		expect(textField.nodeName).toBe("TEXTAREA");
 	});
 });

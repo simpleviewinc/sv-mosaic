@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ReactElement, HTMLAttributes } from 'react';
+import * as React from "react";
+import { ReactElement, HTMLAttributes } from "react";
 
 // Types and styles
-import { RadioButtonProps } from './RadioButtonTypes';
-import { StyledRadioButton } from './RadioButton.styled';
-import StyledFormControlLabel from '@root/components/StyledFormControlLabel'
+import { RadioButtonProps } from "./RadioButtonTypes";
+import { StyledRadioButton } from "./RadioButton.styled";
+import StyledFormControlLabel from "@root/components/StyledFormControlLabel"
 
 const RadioButton = (
 	props: RadioButtonProps & HTMLAttributes<HTMLInputElement>

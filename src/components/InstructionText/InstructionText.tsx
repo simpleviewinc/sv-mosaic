@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { ReactElement, ReactNode } from 'react';
+import * as React from "react";
+import { ReactElement, ReactNode } from "react";
 import {
 	InstructionTextWrapper,
 	StyledInstructionText,
-} from './InstructionText.styled';
+} from "./InstructionText.styled";
 
 interface InstructionText {
   children: ReactNode;

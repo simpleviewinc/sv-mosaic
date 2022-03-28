@@ -1,5 +1,5 @@
-import { Options } from '@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes';
-import { ImageUploadCanvasProps } from './ImageUploadCanvas/ImageUploadCanvas';
+import { Options } from "@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes";
+import { ImageUploadCanvasProps } from "./ImageUploadCanvas/ImageUploadCanvas";
 
 export type ImageUploadDef = {
   /**
