@@ -1,6 +1,6 @@
-import { ChangeEventHandler } from 'react';
-import { RadioGroupProps as MUIRadioGroup } from '@material-ui/core/RadioGroup';
-import { MosaicLabelValue } from '@root/types';
+import { ChangeEventHandler } from "react";
+import { RadioGroupProps as MUIRadioGroup } from "@material-ui/core/RadioGroup";
+import { MosaicLabelValue } from "@root/types";
 
 export type FormFieldRadioDef = {
 	/**
@@ -14,5 +14,5 @@ export type FormFieldRadioDef = {
 	/**
 	 * Value of the selected radio button.
 	 */
-	value?: MUIRadioGroup['value'];
+	value?: MUIRadioGroup["value"];
 }

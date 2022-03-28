@@ -5,7 +5,7 @@ import {
 	CheckboxList,
 	P
 } from "@root/index";
-import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils';
+import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils";
 
 export default {
 	title: "Components|CheckboxList"

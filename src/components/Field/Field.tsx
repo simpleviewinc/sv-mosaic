@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ReactElement, useState, useEffect, useRef, useMemo, memo } from 'react';
-import { StyledFieldContainer, StyledFieldWrapper } from './Field.styled';
+import * as React from "react";
+import { ReactElement, useState, useEffect, useRef, useMemo, memo } from "react";
+import { StyledFieldContainer, StyledFieldWrapper } from "./Field.styled";
 
-import { default as Label } from './Label';
-import { default as HelperText } from './HelperText';
-import { default as InstructionText } from './InstructionText';
-import { MosaicFieldProps } from '.';
-import { Sizes } from '@root/theme/sizes';
+import { default as Label } from "./Label";
+import { default as HelperText } from "./HelperText";
+import { default as InstructionText } from "./InstructionText";
+import { MosaicFieldProps } from ".";
+import { Sizes } from "@root/theme/sizes";
 
 const Field = ({
 	children,
@@ -36,7 +36,7 @@ const Field = ({
 
 	useEffect(() => {
 		if (colsInRow === 1) {
-			if (fieldDef?.type === "imageUpload" || fieldDef?.type === 'table') {
+			if (fieldDef?.type === "imageUpload" || fieldDef?.type === "table") {
 				setRenderAsTooltip(true);
 			} else {
 				handleDescriptionRender();
@@ -67,15 +67,15 @@ const Field = ({
 	};
 
 	const labelMargin = useMemo(() => {
-		let labelMargin = '8px';
+		let labelMargin = "8px";
 		if (
 			//fieldDef?.type === 'advancedSelection' ||
-			fieldDef?.type === 'imageUpload' ||
-			fieldDef?.type === 'address'
+			fieldDef?.type === "imageUpload" ||
+			fieldDef?.type === "address"
 		) {
-			return (labelMargin = '16px');
-		} else if (fieldDef?.type === 'table') {
-			return (labelMargin = '13px');
+			return (labelMargin = "16px");
+		} else if (fieldDef?.type === "table") {
+			return (labelMargin = "13px");
 		}
 
 		return labelMargin;
@@ -85,7 +85,7 @@ const Field = ({
 		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
-				size={(fieldDef?.type === 'chip' || fieldDef?.type === 'linkSetup') ? Sizes.md : fieldDef?.type === 'table' ? 'fit-content' : fieldDef?.size}
+				size={(fieldDef?.type === "chip" || fieldDef?.type === "linkSetup") ? Sizes.md : fieldDef?.type === "table" ? "fit-content" : fieldDef?.size}
 			>
 				{
 					((fieldDef?.label && fieldDef?.label?.length > 0)

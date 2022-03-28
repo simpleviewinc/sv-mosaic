@@ -1,1 +1,1 @@
-export { default } from './LocationSearchInput';
+export { default } from "./LocationSearchInput";

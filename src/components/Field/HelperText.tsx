@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ReactElement, ReactNode } from 'react';
+import * as React from "react";
+import { ReactElement, ReactNode } from "react";
 import {
 	ErrorTextWrapper,
 	StyledErrorIcon,
 	StyledText,
-} from './HelperText.styled';
+} from "./HelperText.styled";
 
 interface HelperTextProps {
   children: ReactNode;

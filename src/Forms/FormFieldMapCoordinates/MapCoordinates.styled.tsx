@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import theme from '@root/theme';
-import { StyledTextField } from '@root/forms/FormFieldText/FormFieldText.styled';
+import styled from "styled-components";
+import theme from "@root/theme";
+import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
 
 // Components
-import ClearIcon from '@material-ui/icons/Clear';
+import ClearIcon from "@material-ui/icons/Clear";
 
 // Styles for the MapCoordinates component
 
@@ -19,9 +19,9 @@ export const CoordinatesCard = styled.div`
   display: flex;
   font-family: ${theme.fontFamily};
   ${(pr) =>
-		pr.hasAddress ? `max-height: 204px;` : `height: 174px;`}
+		pr.hasAddress ? "max-height: 204px;" : "height: 174px;"}
   padding: 16px;
-  padding-bottom: ${pr => pr.hasAddress ? '35px' : '16px'}
+  padding-bottom: ${pr => pr.hasAddress ? "35px" : "16px"}
   position: relative;
   width: 414px;
   background-color: white;
@@ -35,8 +35,8 @@ export const ButtonsWrapper = styled.div`
 
   button:first-child {
     border-right: ${(pr) =>
-		pr.hasAddress ? `2px solid ${theme.colors.gray200}` : ''};
-    padding-right: ${(pr) => (pr.hasAddress ? '16px' : '')};
+		pr.hasAddress ? `2px solid ${theme.colors.gray200}` : ""};
+    padding-right: ${(pr) => (pr.hasAddress ? "16px" : "")};
   }
 
   button:last-child {
@@ -103,7 +103,7 @@ export const SuggestionsContainer = styled.div`
 
 export const SuggestionsDescriptionContainer = styled.div`
   background-color: ${({ isSuggestionActive }) =>
-		isSuggestionActive ? theme.colors.gray200 : 'white'};
+		isSuggestionActive ? theme.colors.gray200 : "white"};
   cursor: pointer;
   width: 683px;
 `;
@@ -121,6 +121,6 @@ export const SuggestionDescription = styled.p`
 
 export const mapContainerStyle = {
 	border: `2px solid ${theme.colors.gray200}`,
-	height: '153px',
-	width: '232px',
+	height: "153px",
+	width: "232px",
 };

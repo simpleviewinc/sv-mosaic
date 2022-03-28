@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const StyledAddressCard = styled.div`
   display: flex;

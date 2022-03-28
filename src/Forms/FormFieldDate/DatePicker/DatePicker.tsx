@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { ReactElement, useState } from 'react';
-import * as DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import * as React from "react";
+import { ReactElement, useState } from "react";
+import * as DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 // Styles
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from "@material-ui/core/styles";
 import {
 	customTheme,
 	DatePickerWrapper,
 	StyledDatePicker,
-} from './DatePicker.styled';
-import { MosaicFieldProps } from '@root/components/Field';
+} from "./DatePicker.styled";
+import { MosaicFieldProps } from "@root/components/Field";
 
 const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 	const {
@@ -45,12 +45,12 @@ const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 						onClose={handleOpenState}
 						PopoverProps={{
 							anchorOrigin: {
-								vertical: 'bottom',
-								horizontal: 'center',
+								vertical: "bottom",
+								horizontal: "center",
 							},
 							transformOrigin: {
-								vertical: 'top',
-								horizontal: 'center',
+								vertical: "top",
+								horizontal: "center",
 							},
 						}}
 						InputProps={{

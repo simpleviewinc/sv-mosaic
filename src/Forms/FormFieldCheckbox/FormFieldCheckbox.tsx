@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ReactElement, memo } from 'react';
+import * as React from "react";
+import { ReactElement, memo } from "react";
 
 // Types and styles
-import { MosaicFieldProps } from '@root/components/Field';
-import { FormFieldCheckboxDef } from './FormFieldCheckboxTypes';
-import { StyledCheckboxList } from './FormFieldCheckbox.styled';
+import { MosaicFieldProps } from "@root/components/Field";
+import { FormFieldCheckboxDef } from "./FormFieldCheckboxTypes";
+import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
 
 const FormFieldCheckbox = (
 	props: MosaicFieldProps<FormFieldCheckboxDef, string[]>

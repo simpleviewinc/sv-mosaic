@@ -1,21 +1,21 @@
-import { Options } from './MenuFormFieldCardTypes';
+import { Options } from "./MenuFormFieldCardTypes";
 
 const handleEdit = (): void => {
-	alert('Edit clicked');
+	alert("Edit clicked");
 };
 
 const handleTranslate = (): void => {
-	alert('Translate clicked');
+	alert("Translate clicked");
 };
 
 // Menu options example.
 export const menuOptions: Options[] = [
 	{
-		label: 'Edit',
+		label: "Edit",
 		action: handleEdit,
 	},
 	{
-		label: 'Translate',
+		label: "Translate",
 		action: handleTranslate,
 	},
 ];

@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import theme from '@root/theme';
+import styled from "styled-components";
+import theme from "@root/theme";
 
 // MUI
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 export const StyledInput = styled.input`
   background-color: ${theme.colors.gray100};
@@ -30,7 +30,7 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   margin-bottom: 40px;
   padding: 0 16px;
-  width: ${pr => pr.isMobileView ? '' : '650px'};
+  width: ${pr => pr.isMobileView ? "" : "650px"};
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
@@ -42,7 +42,7 @@ export const ChipsWrapper = styled.div`
   flex-wrap: wrap;
   row-gap: 4px;
   margin-bottom: 16px;
-  width: ${pr => pr.isMobileView || !pr.isModalOpen ? '' : '684px'};
+  width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "684px"};
 
   & > :not(:last-child) {
     margin-right: 12px;
@@ -54,7 +54,7 @@ export const ChipsWrapper = styled.div`
 `;
 
 export const OptionsCheckedModalWrapper = styled.div`
-  margin-bottom: ${(pr) => (pr.isModalOpen ? '40px' : '')};
+  margin-bottom: ${(pr) => (pr.isModalOpen ? "40px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`

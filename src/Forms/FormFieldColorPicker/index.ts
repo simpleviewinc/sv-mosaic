@@ -1,2 +1,2 @@
-export { default } from './FormFieldColorPicker';
-export * from './FormFieldColorPicker';
+export { default } from "./FormFieldColorPicker";
+export * from "./FormFieldColorPicker";

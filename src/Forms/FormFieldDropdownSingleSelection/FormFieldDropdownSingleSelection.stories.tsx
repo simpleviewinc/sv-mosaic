@@ -1,49 +1,49 @@
-import * as React from 'react';
-import { ReactElement, useCallback, useMemo } from 'react';
-import { boolean, select, withKnobs, text } from '@storybook/addon-knobs';
+import * as React from "react";
+import { ReactElement, useCallback, useMemo } from "react";
+import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
 // Components
-import { DropdownSingleSelectionDef } from '.';
-import { FieldDef } from '@root/components/Field';
-import Form from '../Form/Form';
+import { DropdownSingleSelectionDef } from ".";
+import { FieldDef } from "@root/components/Field";
+import Form from "../Form/Form";
 
 // Utils
-import { Sizes } from '../../theme/sizes';
-import { useForm } from '../Form/formUtils';
+import { Sizes } from "../../theme/sizes";
+import { useForm } from "../Form/formUtils";
 
 export default {
-	title: 'Forms|FormFieldDropdownSingleSelection',
+	title: "Forms|FormFieldDropdownSingleSelection",
 	decorators: [withKnobs],
 };
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const options = [
-	{ title: 'The Shawshank Redemption', value: 1994 },
-	{ title: 'The Godfather', value: 1972 },
-	{ title: 'The Godfather: Part II', value: 1974 },
-	{ title: 'The Dark Knight', value: 2008 },
-	{ title: '12 Angry Men', value: 1957 },
+	{ title: "The Shawshank Redemption", value: 1994 },
+	{ title: "The Godfather", value: 1972 },
+	{ title: "The Godfather: Part II", value: 1974 },
+	{ title: "The Dark Knight", value: 2008 },
+	{ title: "12 Angry Men", value: 1957 },
 	{ title: "Schindler's List", value: 1993 },
-	{ title: 'Pulp Fiction', value: 1994 },
-	{ title: 'The Lord of the Rings: The Return of the King', value: 2003 },
-	{ title: 'The Good, the Bad and the Ugly', value: 1966 },
-	{ title: 'Fight Club', value: 1999 },
-	{ title: 'The Lord of the Rings: The Fellowship of the Ring', value: 2001 },
-	{ title: 'Star Wars: Episode V - The Empire Strikes Back', value: 1980 },
-	{ title: 'Forrest Gump', value: 1994 },
-	{ title: 'Inception', value: 2010 },
-	{ title: 'The Lord of the Rings: The Two Towers', value: 2002 },
+	{ title: "Pulp Fiction", value: 1994 },
+	{ title: "The Lord of the Rings: The Return of the King", value: 2003 },
+	{ title: "The Good, the Bad and the Ugly", value: 1966 },
+	{ title: "Fight Club", value: 1999 },
+	{ title: "The Lord of the Rings: The Fellowship of the Ring", value: 2001 },
+	{ title: "Star Wars: Episode V - The Empire Strikes Back", value: 1980 },
+	{ title: "Forrest Gump", value: 1994 },
+	{ title: "Inception", value: 2010 },
+	{ title: "The Lord of the Rings: The Two Towers", value: 2002 },
 	{ title: "One Flew Over the Cuckoo's Nest", value: 1975 },
-	{ title: 'Goodfellas', value: 1990 },
-	{ title: 'The Matrix', value: 1999 },
-	{ title: 'Seven Samurai', value: 1954 },
-	{ title: 'Star Wars: Episode IV - A New Hope', value: 1977 },
-	{ title: 'City of God', value: 2002 },
-	{ title: 'Se7en', value: 1995 },
+	{ title: "Goodfellas", value: 1990 },
+	{ title: "The Matrix", value: 1999 },
+	{ title: "Seven Samurai", value: 1954 },
+	{ title: "Star Wars: Episode IV - A New Hope", value: 1977 },
+	{ title: "City of God", value: 2002 },
+	{ title: "Se7en", value: 1995 },
 ];
 
 const onCancel = () => {
-	alert('Cancelling form, going back to previous site');
+	alert("Cancelling form, going back to previous site");
 };
 
 export const Playground = (): ReactElement => {
@@ -56,24 +56,24 @@ export const Playground = (): ReactElement => {
 	} = useForm();
 
 	const size = select(
-		'Size',
+		"Size",
 		[Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg],
 		Sizes.sm
 	);
-	const placeholder = text('Placeholder', 'placeholder');
-	const disabled = boolean('Disabled', false);
-	const required = boolean('Required', false);
-	const helperText = text('Helper text', 'Helper text');
-	const instructionText = text('Instruction text', 'Instruction text');
-	const label = text('Label', 'Label');
+	const placeholder = text("Placeholder", "placeholder");
+	const disabled = boolean("Disabled", false);
+	const required = boolean("Required", false);
+	const helperText = text("Helper text", "Helper text");
+	const instructionText = text("Instruction text", "Instruction text");
+	const label = text("Label", "Label");
 
 	const fields = useMemo(
 		() =>
 			[
 				{
-					name: 'dropdown',
+					name: "dropdown",
 					label,
-					type: 'dropdown',
+					type: "dropdown",
 					required,
 					disabled,
 					size,
@@ -105,8 +105,8 @@ export const Playground = (): ReactElement => {
 	const onSubmit = useCallback(
 		(data) => {
 			alert(
-				'Form submitted with the following data: ' +
-          JSON.stringify(data, null, ' ')
+				"Form submitted with the following data: " +
+          JSON.stringify(data, null, " ")
 			);
 		},
 		[state.validForm]
@@ -118,10 +118,10 @@ export const Playground = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -135,79 +135,79 @@ export const Playground = (): ReactElement => {
 
 const kitchenSinkFields = [
 	{
-		name: 'dropdown',
-		label: 'Regular example',
-		type: 'dropdown',
+		name: "dropdown",
+		label: "Regular example",
+		type: "dropdown",
 		size: Sizes.md,
 		inputSettings: {
 			options,
 			size: Sizes.md,
-			placeholder: 'placeholder'
+			placeholder: "placeholder"
 		},
-		helperText: 'Helper text',
-		instructionText: 'Instruction text',
+		helperText: "Helper text",
+		instructionText: "Instruction text",
 	},
 	{
-		name: 'disabledExample',
-		label: 'Disabled',
-		type: 'dropdown',
+		name: "disabledExample",
+		label: "Disabled",
+		type: "dropdown",
 		disabled: true,
 		size: Sizes.md,
 		inputSettings: {
 			options,
 			size: Sizes.md,
-			placeholder: 'placeholder'
+			placeholder: "placeholder"
 		},
-		helperText: 'Helper text',
-		instructionText: 'Instruction text',
+		helperText: "Helper text",
+		instructionText: "Instruction text",
 	},
 	{
-		name: 'xsSize',
-		label: 'Size xs',
-		type: 'dropdown',
+		name: "xsSize",
+		label: "Size xs",
+		type: "dropdown",
 		size: Sizes.xs,
 		inputSettings: {
 			options,
 			size: Sizes.xs,
 		},
-		helperText: 'Helper text',
-		instructionText: 'Instruction text',
+		helperText: "Helper text",
+		instructionText: "Instruction text",
 	},
 	{
-		name: 'smSize',
-		label: 'Size sm',
-		type: 'dropdown',
+		name: "smSize",
+		label: "Size sm",
+		type: "dropdown",
 		size: Sizes.sm,
 		inputSettings: {
 			options,
 			size: Sizes.sm,
 		},
-		helperText: 'Helper text',
-		instructionText: 'Instruction text',
+		helperText: "Helper text",
+		instructionText: "Instruction text",
 	},
 	{
-		name: 'mdSize',
-		label: 'Size md',
-		type: 'dropdown',
+		name: "mdSize",
+		label: "Size md",
+		type: "dropdown",
 		size: Sizes.md,
 		inputSettings: {
 			options,
 			size: Sizes.md,
 		},
-		helperText: 'Helper text',
-		instructionText: 'Instruction text',
+		helperText: "Helper text",
+		instructionText: "Instruction text",
 	},
 	{
-		name: 'lgSize',
-		label: 'Size lg',
-		type: 'dropdown',
+		name: "lgSize",
+		label: "Size lg",
+		type: "dropdown",
 		size: Sizes.lg,
 		inputSettings: {
 			options,
 			size: Sizes.lg,
 		},
-		helperText: 'Helper text',
-		instructionText: 'Instruction text',
+		helperText: "Helper text",
+		instructionText: "Instruction text",
 	},
 ] as FieldDef<DropdownSingleSelectionDef>[];
 
@@ -227,8 +227,8 @@ export const KitchenSink = (): ReactElement => {
 	const onSubmit = useCallback(
 		(data) => {
 			alert(
-				'Form submitted with the following data: ' +
-					JSON.stringify(data, null, ' ')
+				"Form submitted with the following data: " +
+					JSON.stringify(data, null, " ")
 			);
 		},
 		[state.validForm]
@@ -239,12 +239,12 @@ export const KitchenSink = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				title='Form title'
 				description='Form description'

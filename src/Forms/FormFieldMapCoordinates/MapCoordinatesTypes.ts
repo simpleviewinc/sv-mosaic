@@ -1,5 +1,5 @@
-import { FieldDef } from '@root/components/Field/FieldTypes';
-import { IAddress } from '@root/forms/FormFieldAddress/AddressTypes';
+import { FieldDef } from "@root/components/Field/FieldTypes";
+import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
@@ -8,11 +8,11 @@ import { IAddress } from '@root/forms/FormFieldAddress/AddressTypes';
  * establishments, geographic locations, or prominent points of interest, within a defined area.
  */
 export type Libraries = (
-	| 'drawing'
-	| 'geometry'
-	| 'localContext'
-	| 'places'
-	| 'visualization'
+	| "drawing"
+	| "geometry"
+	| "localContext"
+	| "places"
+	| "visualization"
 )[];
 
 /**

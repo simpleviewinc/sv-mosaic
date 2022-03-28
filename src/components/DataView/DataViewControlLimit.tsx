@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
 import { DataViewControlLimitProps } from "./DataViewTypes";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
 import Button from "../Button";

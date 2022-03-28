@@ -2,7 +2,7 @@ import * as React from "react";
 import { useContext, forwardRef, ReactElement } from "react";
 import styled from "styled-components";
 
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import { MosaicObject } from "../../types";
 import { LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
