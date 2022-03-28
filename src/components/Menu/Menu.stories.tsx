@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ReactElement } from "react";
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 
 import { default as Button, ButtonProps } from "../Button";
 

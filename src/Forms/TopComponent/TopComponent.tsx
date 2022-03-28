@@ -51,7 +51,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			<Button
 				color="yellow"
 				variant="contained"
-				label={submitButtonAttrs?.label ? submitButtonAttrs.label : 'Save'}
+				label={submitButtonAttrs?.label ? submitButtonAttrs.label : "Save"}
 				disabled={submitButtonAttrs?.disabled}
 				onClick={onSubmit}
 				muiAttrs={{ disableRipple: true }}
@@ -67,7 +67,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 					color="gray"
 					variant="outlined"
 					disabled={cancelButtonAttrs?.disabled}
-					label={cancelButtonAttrs?.label ? cancelButtonAttrs.label : 'Cancel'}
+					label={cancelButtonAttrs?.label ? cancelButtonAttrs.label : "Cancel"}
 					onClick={onCancel}
 					muiAttrs={{ disableRipple: true }}
 				></Button>

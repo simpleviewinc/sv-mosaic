@@ -1,102 +1,102 @@
-import * as React from 'react';
-import { ReactElement, useEffect, useMemo, useState, useCallback } from 'react';
-import { boolean, object, text, withKnobs } from '@storybook/addon-knobs';
+import * as React from "react";
+import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
+import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
 
 // Utils
-import { checkboxOptions } from '@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils'
-import { useTable, headers } from '@root/forms/FormFieldTable/tableUtils';
+import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
+import { useTable, headers } from "@root/forms/FormFieldTable/tableUtils";
 import { useForm, actions } from "./formUtils";
-import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from '@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils';
+import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
-import { menuOptions } from '../MenuFormFieldCard/MenuFormFieldUtils';
+import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
 
 // Components
-import Form from './Form';
-import Drawer from '@root/components/Drawer.jsx';
+import Form from "./Form";
+import Drawer from "@root/components/Drawer.jsx";
 
 // Types
-import { TextFieldDef } from '../FormFieldText/FormFieldTextTypes';
-import { FieldDef } from '../../components/Field';
-import { AdvancedSelectionDef } from '../FormFieldAdvancedSelection';
-import { TableDef } from '../FormFieldTable';
-import { ImageUploadDef } from '../FormFieldImageUpload';
-import { MapCoordinatesDef } from '../FormFieldMapCoordinates';
-import { ImageVideoDocumentLinkBrowsingDef } from '../FormFieldImageVideoLinkDocumentBrowsing';
-import { FormFieldToggleSwitchDef } from '../FormFieldToggleSwitch';
-import { FormFieldRadioDef } from '../FormFieldRadio';
-import { DropdownSingleSelectionDef } from '../FormFieldDropdownSingleSelection';
-import { FormFieldChipSingleSelectDef } from '../FormFieldChipSingleSelect';
-import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
-import { TextAreaDef } from '../FormFieldTextArea';
+import { TextFieldDef } from "../FormFieldText/FormFieldTextTypes";
+import { FieldDef } from "../../components/Field";
+import { AdvancedSelectionDef } from "../FormFieldAdvancedSelection";
+import { TableDef } from "../FormFieldTable";
+import { ImageUploadDef } from "../FormFieldImageUpload";
+import { MapCoordinatesDef } from "../FormFieldMapCoordinates";
+import { ImageVideoDocumentLinkBrowsingDef } from "../FormFieldImageVideoLinkDocumentBrowsing";
+import { FormFieldToggleSwitchDef } from "../FormFieldToggleSwitch";
+import { FormFieldRadioDef } from "../FormFieldRadio";
+import { DropdownSingleSelectionDef } from "../FormFieldDropdownSingleSelection";
+import { FormFieldChipSingleSelectDef } from "../FormFieldChipSingleSelect";
+import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
+import { TextAreaDef } from "../FormFieldTextArea";
 
 export default {
-	title: 'Forms|Form',
+	title: "Forms|Form",
 	decorators: [withKnobs],
 };
 
 const deleteTableRow = () => {
-	alert('Delete button clicked');
+	alert("Delete button clicked");
 };
 
 let externalOptions = [
 	{
-		category: 'Category 1',
-		label: 'Option 1',
-		value: 'option_1-cat_1',
+		category: "Category 1",
+		label: "Option 1",
+		value: "option_1-cat_1",
 	},
 	{
-		category: 'Category 1',
-		label: 'Option 2',
-		value: 'option_2-cat_1',
+		category: "Category 1",
+		label: "Option 2",
+		value: "option_2-cat_1",
 	},
 	{
-		category: 'Category 1',
-		label: 'Option 3',
-		value: 'option_3-cat_1',
+		category: "Category 1",
+		label: "Option 3",
+		value: "option_3-cat_1",
 	},
 	{
-		category: 'Category 1',
-		label: 'Option 4',
-		value: 'option_4-cat_1',
+		category: "Category 1",
+		label: "Option 4",
+		value: "option_4-cat_1",
 	},
 	{
-		category: 'Category 2',
-		label: 'Option 1 category 2',
-		value: 'option_1-cat_2',
+		category: "Category 2",
+		label: "Option 1 category 2",
+		value: "option_1-cat_2",
 	},
 	{
-		category: 'Category 2',
-		label: 'Test option category 2',
-		value: 'option_2-cat_2',
+		category: "Category 2",
+		label: "Test option category 2",
+		value: "option_2-cat_2",
 	},
 	{
-		category: 'Category 2',
-		label: 'Another option of catergory 2',
-		value: 'option_3-cat_2',
+		category: "Category 2",
+		label: "Another option of catergory 2",
+		value: "option_3-cat_2",
 	},
 	{
-		category: 'Category 2',
-		label: 'Option 4 category 2',
-		value: 'option_4-cat_2',
+		category: "Category 2",
+		label: "Option 4 category 2",
+		value: "option_4-cat_2",
 	},
 	{
-		category: 'Test Category',
-		label: 'You can filter by category',
-		value: 'option_1-test_category',
+		category: "Test Category",
+		label: "You can filter by category",
+		value: "option_1-test_category",
 	},
 	{
-		category: 'Test Category',
-		label: 'Very long label that does not fit',
-		value: 'option_2-test_category',
+		category: "Test Category",
+		label: "Very long label that does not fit",
+		value: "option_2-test_category",
 	},
 	{
-		category: 'Category 4',
-		label: 'Option 1 category 4',
-		value: 'option_1-cat_4',
+		category: "Category 4",
+		label: "Option 1 category 4",
+		value: "option_1-cat_4",
 	},
 	{
-		label: 'Option without category',
-		value: 'option_without_category',
+		label: "Option without category",
+		value: "option_without_category",
 	},
 ];
 
@@ -113,7 +113,7 @@ const getSelected = async (selectedOptions) => {
 }
 
 const onCancel = () => {
-	alert('Cancelling form, going back to previous site');
+	alert("Cancelling form, going back to previous site");
 };
 
 export const Playground = (): ReactElement => {
@@ -122,27 +122,27 @@ export const Playground = (): ReactElement => {
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
-		'table',
+		"table",
 		dispatch
 	);
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, 'imageVideoDocumentLink');
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
-	const prepopulate = boolean('Prepopulate', false);
-	const required = boolean('Required', true);
-	const disabled = boolean('Disabled', false);
-	const showSections = boolean('Show sections', false);
-	const prepopulateValues = object('Prepolulate values', {
-		'textField': 'Text field prepopulated',
-		'textArea': 'Text area prepopulated',
-		'check': [
+	const prepopulate = boolean("Prepopulate", false);
+	const required = boolean("Required", true);
+	const disabled = boolean("Disabled", false);
+	const showSections = boolean("Show sections", false);
+	const prepopulateValues = object("Prepolulate values", {
+		"textField": "Text field prepopulated",
+		"textArea": "Text area prepopulated",
+		"check": [
 			"label_1",
 			"label_2"
 		],
-		'advancedSelection': [
-			'option_1-cat_1',
-			'option_3-cat_1',
-			'option_1-cat_2',
-			'option_3-cat_2'
+		"advancedSelection": [
+			"option_1-cat_1",
+			"option_3-cat_1",
+			"option_1-cat_2",
+			"option_3-cat_2"
 		]
 	});
 
@@ -204,28 +204,28 @@ export const Playground = (): ReactElement => {
 					required,
 					inputSettings: {
 						options: [
-							{ title: 'The Shawshank Redemption', value: 1994 },
-							{ title: 'The Godfather', value: 1972 },
-							{ title: 'The Godfather: Part II', value: 1974 },
-							{ title: 'The Dark Knight', value: 2008 },
-							{ title: '12 Angry Men', value: 1957 },
+							{ title: "The Shawshank Redemption", value: 1994 },
+							{ title: "The Godfather", value: 1972 },
+							{ title: "The Godfather: Part II", value: 1974 },
+							{ title: "The Dark Knight", value: 2008 },
+							{ title: "12 Angry Men", value: 1957 },
 							{ title: "Schindler's List", value: 1993 },
-							{ title: 'Pulp Fiction', value: 1994 },
-							{ title: 'The Lord of the Rings: The Return of the King', value: 2003 },
-							{ title: 'The Good, the Bad and the Ugly', value: 1966 },
-							{ title: 'Fight Club', value: 1999 },
-							{ title: 'The Lord of the Rings: The Fellowship of the Ring', value: 2001 },
-							{ title: 'Star Wars: Episode V - The Empire Strikes Back', value: 1980 },
-							{ title: 'Forrest Gump', value: 1994 },
-							{ title: 'Inception', value: 2010 },
-							{ title: 'The Lord of the Rings: The Two Towers', value: 2002 },
+							{ title: "Pulp Fiction", value: 1994 },
+							{ title: "The Lord of the Rings: The Return of the King", value: 2003 },
+							{ title: "The Good, the Bad and the Ugly", value: 1966 },
+							{ title: "Fight Club", value: 1999 },
+							{ title: "The Lord of the Rings: The Fellowship of the Ring", value: 2001 },
+							{ title: "Star Wars: Episode V - The Empire Strikes Back", value: 1980 },
+							{ title: "Forrest Gump", value: 1994 },
+							{ title: "Inception", value: 2010 },
+							{ title: "The Lord of the Rings: The Two Towers", value: 2002 },
 							{ title: "One Flew Over the Cuckoo's Nest", value: 1975 },
-							{ title: 'Goodfellas', value: 1990 },
-							{ title: 'The Matrix', value: 1999 },
-							{ title: 'Seven Samurai', value: 1954 },
-							{ title: 'Star Wars: Episode IV - A New Hope', value: 1977 },
-							{ title: 'City of God', value: 2002 },
-							{ title: 'Se7en', value: 1995 },
+							{ title: "Goodfellas", value: 1990 },
+							{ title: "The Matrix", value: 1999 },
+							{ title: "Seven Samurai", value: 1954 },
+							{ title: "Star Wars: Episode IV - A New Hope", value: 1977 },
+							{ title: "City of God", value: 2002 },
+							{ title: "Se7en", value: 1995 },
 						],
 					},
 				} as FieldDef<DropdownSingleSelectionDef>,
@@ -260,13 +260,13 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<FormFieldRadioDef>,
 				{
-					name: 'toggleSwitch',
-					label: 'Toggle field',
+					name: "toggleSwitch",
+					label: "Toggle field",
 					disabled,
 					required,
-					type: 'toggleSwitch',
+					type: "toggleSwitch",
 					inputSettings: {
-						toggleLabel: 'To the side'
+						toggleLabel: "To the side"
 					}
 				} as FieldDef<FormFieldToggleSwitchDef>,
 				{
@@ -284,16 +284,16 @@ export const Playground = (): ReactElement => {
 					required,
 				},
 				{
-					name: 'address',
-					label: 'Address field',
-					type: 'address',
+					name: "address",
+					label: "Address field",
+					type: "address",
 					disabled,
 					required
 				},
 				{
-					name: 'advancedSelection',
-					label: 'Advanced Selection field',
-					type: 'advancedSelection',
+					name: "advancedSelection",
+					label: "Advanced Selection field",
+					type: "advancedSelection",
 					disabled,
 					required,
 					inputSettings: {
@@ -303,9 +303,9 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<AdvancedSelectionDef>,
 				{
-					name: 'imageVideoDocumentLink',
-					label: 'Image Video and Document field',
-					type: 'imageVideoDocumentLink',
+					name: "imageVideoDocumentLink",
+					label: "Image Video and Document field",
+					type: "imageVideoDocumentLink",
 					disabled,
 					required,
 					inputSettings: {
@@ -319,16 +319,16 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<ImageVideoDocumentLinkBrowsingDef>,
 				{
-					name: 'textEditor',
-					label: 'Text Editor field',
-					type: 'textEditor',
+					name: "textEditor",
+					label: "Text Editor field",
+					type: "textEditor",
 					disabled,
 					required
 				},
 				{
-					name: 'table',
-					label: 'Table example',
-					type: 'table',
+					name: "table",
+					label: "Table example",
+					type: "table",
 					disabled,
 					required,
 					inputSettings: {
@@ -356,7 +356,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						apiKey: 'AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac'
+						apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					}
 				} as FieldDef<MapCoordinatesDef>,
 			] as unknown as FieldDef[],
@@ -365,39 +365,39 @@ export const Playground = (): ReactElement => {
 
 	const sections = [
 		{
-			title: text('Title section 1', 'Section 1'),
-			description: text('Description for section 1', 'Description for section 1'),
+			title: text("Title section 1", "Section 1"),
+			description: text("Description for section 1", "Description for section 1"),
 			fields: [
 				// row 1
-				[['textField'], ['textArea'], ['check']],
+				[["textField"], ["textArea"], ["check"]],
 				// row 2
-				[['chipSelect'], ['dropdownSingle'], ['table']],
+				[["chipSelect"], ["dropdownSingle"], ["table"]],
 				[[]],
 				// row 3
-				[['phoneSelect'], ['radio']]
+				[["phoneSelect"], ["radio"]]
 			]
 		},
 		{
-			title: text('Title section 2', 'Section 2'),
-			description: text('Description for section 2', 'Description for section 2'),
+			title: text("Title section 2", "Section 2"),
+			description: text("Description for section 2", "Description for section 2"),
 			fields: [
 				// row 1
 				[[], [], []],
 				// row 2
-				[['toggleSwitch'], [], ['mapCoordinates']],
+				[["toggleSwitch"], [], ["mapCoordinates"]],
 				[[]],
 				// row 3
-				[[], ['advancedSelection']]
+				[[], ["advancedSelection"]]
 			]
 		},
 		{
-			title: text('Title section 3', 'Section 3'),
-			description: text('Description for section 3', 'Description for section 3'),
+			title: text("Title section 3", "Section 3"),
+			description: text("Description for section 3", "Description for section 3"),
 			fields: [
 				// row 1
-				[['color'], ['date'],],
+				[["color"], ["date"],],
 				// row 2
-				[['textEditor'], []]
+				[["textEditor"], []]
 			]
 		}
 	];
@@ -413,7 +413,7 @@ export const Playground = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, ' '));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -432,16 +432,16 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
 				getFormValues={loadReady && onLoad}
 				events={events}
 				sections={showSections && sections}
-				submitButtonAttrs={{ label: text('Submit button', 'Save') }}
-				cancelButtonAttrs={{ label: text('Cancel button', 'Cancel') }}
+				submitButtonAttrs={{ label: text("Submit button", "Save") }}
+				cancelButtonAttrs={{ label: text("Cancel button", "Cancel") }}
 				onCancel={onCancel}
 				onSubmit={onSubmit}
 			/>
@@ -456,66 +456,66 @@ export const FormWithLayout = (): ReactElement => {
 		() =>
 			[
 				{
-					name: 'text1',
-					label: 'Simple Text',
-					type: 'text',
-					instructionText: 'Instruction text text1',
+					name: "text1",
+					label: "Simple Text",
+					type: "text",
+					instructionText: "Instruction text text1",
 					validators: [validateEmail, validateSlow],
 					layout: { section: 0, row: 1, col: 0 },
 				},
 				{
-					name: 'text2',
-					label: 'Text with validators and dynamic help',
-					type: 'text',
+					name: "text2",
+					label: "Text with validators and dynamic help",
+					type: "text",
 					help: state.data.text2,
-					instructionText: 'Instruction text text2',
+					instructionText: "Instruction text text2",
 					validators: [validateEmail, validateSlow]
 				},
 				{
-					name: 'text3',
-					label: 'Text that copies to the next input',
-					type: 'text',
-					instructionText: 'Instruction text text3',
+					name: "text3",
+					label: "Text that copies to the next input",
+					type: "text",
+					instructionText: "Instruction text text3",
 				},
 				{
-					name: 'text4',
-					label: 'Text that receives copy',
-					type: 'text',
-					instructionText: 'Instruction text text1'
+					name: "text4",
+					label: "Text that receives copy",
+					type: "text",
+					instructionText: "Instruction text text1"
 				},
 				{
-					name: 'color',
-					label: 'Color selector example',
-					type: 'color',
+					name: "color",
+					label: "Color selector example",
+					type: "color",
 				},
 				{
-					name: 'check',
-					label: 'Checkbox',
-					type: 'checkbox',
+					name: "check",
+					label: "Checkbox",
+					type: "checkbox",
 					inputSettings: {
 						options: checkboxOptions
 					},
 				},
 				{
-					name: 'toggleSwitch',
-					label: 'Toggle field',
-					type: 'toggleSwitch',
+					name: "toggleSwitch",
+					label: "Toggle field",
+					type: "toggleSwitch",
 					inputSettings: {
-						toggleLabel: 'To the side'
+						toggleLabel: "To the side"
 					}
 				},
 				{
-					name: 'imageUpload',
-					label: 'Image Upload example',
-					type: 'imageUpload',
+					name: "imageUpload",
+					label: "Image Upload example",
+					type: "imageUpload",
 					inputSettings: {
 						options: menuOptions
 					}
 				},
 				{
-					name: 'textEditor',
-					label: 'Text Editor field',
-					type: 'textEditor',
+					name: "textEditor",
+					label: "Text Editor field",
+					type: "textEditor",
 				},
 			] as FieldDef[],
 		[]
@@ -523,34 +523,34 @@ export const FormWithLayout = (): ReactElement => {
 
 	const sections = useMemo(() => [
 		{
-			title: 'Section 1',
-			description: 'Description for section 1',
+			title: "Section 1",
+			description: "Description for section 1",
 			fields: [
 				// row 1
-				[['text1'], ['text2'], ['text3']],
+				[["text1"], ["text2"], ["text3"]],
 				// row 2
-				[['check'], ['text4'], ['color']],
+				[["check"], ["text4"], ["color"]],
 				[[]],
 				// row 3
-				[['toggleSwitch'], ['imageUpload']]
+				[["toggleSwitch"], ["imageUpload"]]
 			]
 		},
 		{
-			title: 'Section 2',
-			description: 'Description for section 2',
+			title: "Section 2",
+			description: "Description for section 2",
 			fields: [
 				// row 1
-				[['check'], ['toggleSwitch'], ['color']],
+				[["check"], ["toggleSwitch"], ["color"]],
 				// row 2
 				[[], [], []],
 				[[]],
 				// row 3
-				[[], ['textEditor']]
+				[[], ["textEditor"]]
 			]
 		},
 		{
-			title: 'Section 3',
-			description: 'Description for section 3',
+			title: "Section 3",
+			description: "Description for section 3",
 			fields: [
 				// row 1
 				[[], [], []],
@@ -566,7 +566,7 @@ export const FormWithLayout = (): ReactElement => {
 	useEffect(() => {
 		dispatch(
 			actions.setFieldValue({
-				name: 'text4',
+				name: "text4",
 				value: state.data.text3
 			})
 		);
@@ -578,10 +578,10 @@ export const FormWithLayout = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				sections={sections}
 				state={state}
 				fields={fields}
@@ -603,7 +603,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 			name: `text${i}`,
 			label: `Simple Text ${i}`,
 			type: "text",
-			instructionText: 'testing',
+			instructionText: "testing",
 			validators: [required]
 		})
 	}
@@ -618,7 +618,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -651,7 +651,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 					name: "text1",
 					label: "Simple Text",
 					type: "text",
-					instructionText: 'testing',
+					instructionText: "testing",
 					validators: [validateEmail, validateSlow]
 				},
 				{
@@ -676,7 +676,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 	);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -749,7 +749,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					name: "text1",
 					label: "Full Name",
 					type: "text",
-					instructionText: 'testing',
+					instructionText: "testing",
 				},
 				{
 					name: "text2",
@@ -776,7 +776,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -790,7 +790,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 	}
 
 	const submitForm = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -826,7 +826,7 @@ export const DrawerForm = (): ReactElement => {
 					name: "text1",
 					label: "Full Name",
 					type: "text",
-					instructionText: 'testing',
+					instructionText: "testing",
 					validators: [required, validateEmail],
 				},
 				{
@@ -854,7 +854,7 @@ export const DrawerForm = (): ReactElement => {
 
 	const onSubmit = useCallback((data) => {
 		setOpen(false);
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -863,7 +863,7 @@ export const DrawerForm = (): ReactElement => {
 
 	const onCancel = () => {
 		setOpen(false);
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	const cancelButtonAttrs = useMemo(() => ({
@@ -918,7 +918,7 @@ export const CustomFields = (): ReactElement => {
 					name="vehicle1"
 					value="Bike"
 					onChange={(e) => onChange(value ? undefined : e.target.value)}
-					checked={value === 'Bike'}
+					checked={value === "Bike"}
 				/>
 				<label htmlFor="vehicle1"> I have a bike</label><br />
 			</>
@@ -932,24 +932,24 @@ export const CustomFields = (): ReactElement => {
 					name: "text1",
 					label: "Custom Text",
 					type: CustomText,
-					instructionText: 'testing',
-					helperText: 'helper text bottom',
+					instructionText: "testing",
+					helperText: "helper text bottom",
 					validators: [required]
 				},
 				{
 					name: "textarea",
 					label: "Custom textArea",
 					type: CustomTextArea,
-					instructionText: 'testing',
-					helperText: 'helper text bottom',
+					instructionText: "testing",
+					helperText: "helper text bottom",
 					validators: [required]
 				},
 				{
 					name: "checkbox",
 					label: "Custom checkbox",
 					type: CustomCheckbox,
-					instructionText: 'testing',
-					helperText: 'helper text bottom',
+					instructionText: "testing",
+					helperText: "helper text bottom",
 					validators: [required]
 				},
 			] as FieldDef[],
@@ -961,7 +961,7 @@ export const CustomFields = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -1005,57 +1005,57 @@ export const Validators = (): ReactElement => {
 				{
 					name: "required",
 					label: "Required",
-					type: 'text',
+					type: "text",
 					required: true,
 				},
 				{
 					name: "email",
 					label: "Email",
-					type: 'text',
+					type: "text",
 					validators: [validateEmail]
 				},
 				{
 					name: "slow",
 					label: "Slow",
-					type: 'text',
+					type: "text",
 					validators: [validateSlow]
 				},
 				{
 					name: "number",
 					label: "Number",
-					type: 'text',
+					type: "text",
 					validators: [validateNumber]
 				},
 				{
 					name: "url",
 					label: "URL",
-					type: 'text',
+					type: "text",
 					validators: [validateURL]
 				},
 				{
-					name: 'startDate',
-					type: 'date',
-					label: 'Start date',
+					name: "startDate",
+					type: "date",
+					label: "Start date",
 					required: false,
 					disabled: false,
-					helperText: 'Helper text',
-					instructionText: 'Instruction text',
-					validators: [{ fn: 'validateDateRange', options: { endDateName: 'endDate' } }],
-					pairedFields: ['endDate'],
+					helperText: "Helper text",
+					instructionText: "Instruction text",
+					validators: [{ fn: "validateDateRange", options: { endDateName: "endDate" } }],
+					pairedFields: ["endDate"],
 					inputSettings: {
 						showTime: false,
 					},
 				},
 				{
-					name: 'endDate',
-					type: 'date',
-					label: 'End date',
+					name: "endDate",
+					type: "date",
+					label: "End date",
 					required: false,
 					disabled: false,
-					helperText: 'Helper text',
-					instructionText: 'Instruction text',
-					validators: [{ fn: 'validateDateRange', options: { startDateName: 'startDate' } }],
-					pairedFields: ['startDate'],
+					helperText: "Helper text",
+					instructionText: "Instruction text",
+					validators: [{ fn: "validateDateRange", options: { startDateName: "startDate" } }],
+					pairedFields: ["startDate"],
 					inputSettings: {
 						showTime: false,
 					},
@@ -1069,7 +1069,7 @@ export const Validators = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -1077,7 +1077,7 @@ export const Validators = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (
@@ -1105,9 +1105,9 @@ export const DefaultValues = (): ReactElement => {
 				{
 					name: "required",
 					label: "Required",
-					type: 'text',
+					type: "text",
 					required: true,
-					defaultValue: 'Passing default value',
+					defaultValue: "Passing default value",
 				},
 			] as FieldDef<TextFieldDef>[],
 		[]
@@ -1118,7 +1118,7 @@ export const DefaultValues = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {

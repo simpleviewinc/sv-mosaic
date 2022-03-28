@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import * as React from "react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 
 // Components
-import IconButton from './IconButton';
+import IconButton from "./IconButton";
 
 // Material UI
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 afterEach(cleanup);
 
-describe('IconButton component', () => {
-	it('should render icon button and fire onClick callback', () => {
+describe("IconButton component", () => {
+	it("should render icon button and fire onClick callback", () => {
 		const handleClick = jest.fn();
 		render(
 			<IconButton
@@ -20,9 +20,9 @@ describe('IconButton component', () => {
 				onClick={handleClick}
 			/>
 		);
-		const button = screen.getByRole('button');
-		const icon = screen.getByTestId('icon-button-test');
-		const tooltip = screen.getByTitle('Tooltip text');
+		const button = screen.getByRole("button");
+		const icon = screen.getByTestId("icon-button-test");
+		const tooltip = screen.getByTitle("Tooltip text");
 
 		fireEvent.click(button);
 
@@ -33,7 +33,7 @@ describe('IconButton component', () => {
 	});
 });
 
-describe('Disabled IconButton component', () => {
+describe("Disabled IconButton component", () => {
 	const handleClick = jest.fn();
 	beforeEach(() => {
 		render(
@@ -46,8 +46,8 @@ describe('Disabled IconButton component', () => {
 		);
 	});
 
-	it('should not fire onClick callback', () => {
-		const button = screen.getByRole('button');
+	it("should not fire onClick callback", () => {
+		const button = screen.getByRole("button");
 
 		fireEvent.click(button);
 
@@ -55,8 +55,8 @@ describe('Disabled IconButton component', () => {
 		expect(handleClick).not.toHaveBeenCalled();
 	});
 
-	it('should not show the tooltip', () => {
-		const tooltip = screen.queryByTitle('Tooltip text');
+	it("should not show the tooltip", () => {
+		const tooltip = screen.queryByTitle("Tooltip text");
 
 		expect(tooltip).toBe(null);
 	});

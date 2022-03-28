@@ -1,5 +1,5 @@
-import { Libraries } from './MapCoordinatesTypes';
-import { IAddress } from '@root/forms/FormFieldAddress/AddressTypes';
+import { Libraries } from "./MapCoordinatesTypes";
+import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 
 /**
  * Options to disable interactive actions. For more details take a look at the options interface:
@@ -8,12 +8,12 @@ import { IAddress } from '@root/forms/FormFieldAddress/AddressTypes';
 export const mapOptions = {
 	clickableIcons: false,
 	disableDefaultUI: true,
-	gestureHandling: 'none',
+	gestureHandling: "none",
 	keyboardShortcuts: false,
 	zoomControl: false,
 };
 
-export const libraries: Libraries = ['places'];
+export const libraries: Libraries = ["places"];
 
 /**
  *	Helper function to get a string address from an Address object
@@ -33,10 +33,10 @@ export const defaultMapPosition = { lat: -3.745, lng: -40.523 }
  * Example of an address object.
  */
 export const address: IAddress = {
-	address1: '8950 N Oracle Rd',
-	city: 'Oro Valley',
-	country: 'United States',
-	postalCode: '85704',
+	address1: "8950 N Oracle Rd",
+	city: "Oro Valley",
+	country: "United States",
+	postalCode: "85704",
 	state: "AZ",
-	types: ['physical'],
+	types: ["physical"],
 };

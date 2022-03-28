@@ -77,7 +77,7 @@ describe("Checkbox", function() {
 
 		const checkbox = getByTestId("checkbox-test-id") as HTMLInputElement;
 
-		expect(checkbox.classList.contains('MuiCheckbox-indeterminate')).toBe(true);
+		expect(checkbox.classList.contains("MuiCheckbox-indeterminate")).toBe(true);
 	});
 
 	it("should render a checkbox disabled and indeterminate", () => {
@@ -92,7 +92,7 @@ describe("Checkbox", function() {
 		const checkboxTestId = getByTestId("checkbox-test-id") as HTMLInputElement;
 
 		expect(checkboxByRole.disabled).toBe(true);
-		expect(checkboxTestId.classList.contains('MuiCheckbox-indeterminate')).toBe(true);
+		expect(checkboxTestId.classList.contains("MuiCheckbox-indeterminate")).toBe(true);
 	});
 
 	it("should check with onClick", () => {

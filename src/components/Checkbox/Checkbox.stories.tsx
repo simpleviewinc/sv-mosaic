@@ -19,12 +19,12 @@ export const example = (): ReactElement => {
 
 	return (
 		<Checkbox
-			label={text('Label', 'Example')}
-			checked={boolean('Checked', false)}
+			label={text("Label", "Example")}
+			checked={boolean("Checked", false)}
 			onClick={onClick}
-			disabled={boolean('Disabled', false)}
-			helperText={text('Helper Text', 'Helper text example')}
-			indeterminate={boolean('Indeterminate', false)}
+			disabled={boolean("Disabled", false)}
+			helperText={text("Helper Text", "Helper text example")}
+			indeterminate={boolean("Indeterminate", false)}
 		/>
 	)
 }

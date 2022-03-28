@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Material UI
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from "@material-ui/core/IconButton";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const StyledIconButton = styled(IconButton)`
   &.MuiIconButton-root {

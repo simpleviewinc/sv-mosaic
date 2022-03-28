@@ -1,90 +1,90 @@
-import { FieldDef } from '@root/components/Field';
-import { render, cleanup, fireEvent, screen } from '@testing-library/react';
-import * as React from 'react';
-import { useCallback, useMemo } from 'react';
-import { AdvancedSelectionDef, optionsWithCategory } from '.';
-import Form from '../Form/Form';
-import { useForm } from '../Form/formUtils';
+import { FieldDef } from "@root/components/Field";
+import { render, cleanup, fireEvent, screen } from "@testing-library/react";
+import * as React from "react";
+import { useCallback, useMemo } from "react";
+import { AdvancedSelectionDef, optionsWithCategory } from ".";
+import Form from "../Form/Form";
+import { useForm } from "../Form/formUtils";
 
 afterEach(cleanup);
 
 const externalOptions = [
 	{
-		category: 'Category 1',
-		label: 'Option 1',
-		value: 'option_1-cat_1',
+		category: "Category 1",
+		label: "Option 1",
+		value: "option_1-cat_1",
 	},
 ];
 
 const additionalOptions = [
 	{
-		category: 'Category 1',
-		label: 'Option 2',
-		value: 'option_2-cat_1',
+		category: "Category 1",
+		label: "Option 2",
+		value: "option_2-cat_1",
 	},
 	{
-		category: 'Category 1',
-		label: 'Option 3',
-		value: 'option_3-cat_1',
+		category: "Category 1",
+		label: "Option 3",
+		value: "option_3-cat_1",
 	},
 	{
-		category: 'Category 1',
-		label: 'Option 4',
-		value: 'option_4-cat_1',
+		category: "Category 1",
+		label: "Option 4",
+		value: "option_4-cat_1",
 	},
 	{
-		category: 'Category 2',
-		label: 'Option 1 category 2',
-		value: 'option_1-cat_2',
+		category: "Category 2",
+		label: "Option 1 category 2",
+		value: "option_1-cat_2",
 	},
 	{
-		category: 'Category 2',
-		label: 'Test option category 2',
-		value: 'option_2-cat_2',
+		category: "Category 2",
+		label: "Test option category 2",
+		value: "option_2-cat_2",
 	},
 	{
-		category: 'Category 2',
-		label: 'Option 4 category 2',
-		value: 'option_4-cat_2',
+		category: "Category 2",
+		label: "Option 4 category 2",
+		value: "option_4-cat_2",
 	},
 	{
-		category: 'Test Category',
-		label: 'You can filter by category',
-		value: 'option_1-test_category',
+		category: "Test Category",
+		label: "You can filter by category",
+		value: "option_1-test_category",
 	},
 	{
-		category: 'Test Category',
-		label: 'Very long label that does not fit',
-		value: 'option_2-test_category',
+		category: "Test Category",
+		label: "Very long label that does not fit",
+		value: "option_2-test_category",
 	},
 	{
-		category: 'Category 4',
-		label: 'Option 1 category 4',
-		value: 'option_1-cat_4',
+		category: "Category 4",
+		label: "Option 1 category 4",
+		value: "option_1-cat_4",
 	},
 	{
-		label: 'Option without category',
-		value: 'option_without_category',
+		label: "Option without category",
+		value: "option_without_category",
 	},
 	{
-		category: 'Category 5',
-		label: 'ABC',
-		value: 'ABC_UPPER',
+		category: "Category 5",
+		label: "ABC",
+		value: "ABC_UPPER",
 	},
 	{
-		category: 'Category 5',
-		label: 'abc',
-		value: 'abc_lower',
+		category: "Category 5",
+		label: "abc",
+		value: "abc_lower",
 	},
 	{
-		category: 'Category 5',
-		label: 'abcdef',
-		value: 'option_abcdef',
+		category: "Category 5",
+		label: "abcdef",
+		value: "option_abcdef",
 	},
 	{
-		category: 'Category 5',
-		label: 'abc123',
-		value: 'option_abc123',
+		category: "Category 5",
+		label: "abc123",
+		value: "option_abc123",
 	},
 ];
 
@@ -93,7 +93,7 @@ const AdvancedSelectExample = () => {
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
 	const groupByCategory = false;
-	const label = 'Label';
+	const label = "Label";
 	const required = false;
 	const disabled = false;
 	const getOptionsLimit = 5;
@@ -148,11 +148,11 @@ const AdvancedSelectExample = () => {
 		() => (
 			[
 				{
-					name: 'advancedSelection',
+					name: "advancedSelection",
 					label,
 					required,
 					disabled,
-					type: 'advancedSelection',
+					type: "advancedSelection",
 					inputSettings: {
 						checkboxOptions: options,
 						getOptions,
@@ -182,7 +182,7 @@ const AdvancedSelectExample = () => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -202,65 +202,65 @@ const AdvancedSelectExample = () => {
 	);
 }
 
-describe('AdvancedSelection component', () => {
+describe("AdvancedSelection component", () => {
 	beforeEach(() => {
 		render(<AdvancedSelectExample />
 		);
 	});
 
-	it('should select an option and display its chip', async () => {
-		const addButton = screen.getByText('ADD ELEMENT');
+	it("should select an option and display its chip", async () => {
+		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 		
-		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
 
-		const optionCheckbox = await screen.findByText('Option 2');
+		const optionCheckbox = await screen.findByText("Option 2");
 		fireEvent.click(optionCheckbox);
 
-		const optionChip = await screen.findByTestId('delete-icon-test-id');
+		const optionChip = await screen.findByTestId("delete-icon-test-id");
 		expect(optionChip).toBeTruthy();
 	});
 
-	it('should remove a selected option', async () => {
-		const addButton = screen.getByText('ADD ELEMENT');
+	it("should remove a selected option", async () => {
+		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 
-		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
 
-		const optionCheckbox = await screen.findByText('Option 2');
+		const optionCheckbox = await screen.findByText("Option 2");
 		fireEvent.click(optionCheckbox);
 
-		const optionChip = await screen.findAllByTestId('delete-icon-test-id');
+		const optionChip = await screen.findAllByTestId("delete-icon-test-id");
 		expect(optionChip.length).toBe(1);
 		fireEvent.click(optionChip[0]);
 
-		const remainingChips = await screen.queryAllByTestId('delete-icon-test-id');
+		const remainingChips = await screen.queryAllByTestId("delete-icon-test-id");
 		expect(remainingChips.length).toBe(0);
 	});
 
-	it('should filter the options', async () => {
-		const addButton = screen.getByText('ADD ELEMENT');
+	it("should filter the options", async () => {
+		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 
-		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
 
-		const inputNode = screen.getByPlaceholderText('Search...');
-		fireEvent.change(inputNode, { target: { value: 'abc' } });
+		const inputNode = screen.getByPlaceholderText("Search...");
+		fireEvent.change(inputNode, { target: { value: "abc" } });
 
-		expect(await screen.queryByText('Option 1')).toBe(null);
-		expect(await screen.findByText('abc')).toBeTruthy();
+		expect(await screen.queryByText("Option 1")).toBe(null);
+		expect(await screen.findByText("abc")).toBeTruthy();
 	});
 
-	it('should create a new option', async () => {
-		const addButton = screen.getByText('ADD ELEMENT');
+	it("should create a new option", async () => {
+		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 
-		expect(await screen.findByTestId('drawer-title-test')).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
 
-		const inputNode = screen.getByPlaceholderText('Search...');
-		fireEvent.change(inputNode, { target: { value: 'Brand new option' } });
-		fireEvent.click(await screen.findByText('Create'));
+		const inputNode = screen.getByPlaceholderText("Search...");
+		fireEvent.change(inputNode, { target: { value: "Brand new option" } });
+		fireEvent.click(await screen.findByText("Create"));
 
-		expect(await screen.findByText('Brand new option')).toBeTruthy();
+		expect(await screen.findByText("Brand new option")).toBeTruthy();
 	});
 });

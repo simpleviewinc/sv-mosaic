@@ -1,22 +1,22 @@
-import * as React from 'react';
-import { memo, ReactElement } from 'react';
+import * as React from "react";
+import { memo, ReactElement } from "react";
 
 // Components
-import FormNav from '@root/forms/FormNav';
+import FormNav from "@root/forms/FormNav";
 
 // Styled components
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
 	FlexContainer,
 	StyledColumn
-} from '../TopComponent.styled';
+} from "../TopComponent.styled";
 
 // Utils
-import { BREAKPOINTS } from '@root/theme/theme';
-import TitleWrapper from '../Utils/TitleWrapper';
-import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
+import { BREAKPOINTS } from "@root/theme/theme";
+import TitleWrapper from "../Utils/TitleWrapper";
+import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + 'px';
+const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 const DesktopViewColumn = styled(StyledColumn)`
   justify-content: space-between;
@@ -50,7 +50,7 @@ const DesktopTitleActionsRow = styled(FlexContainer)`
 
 type DesktopViewProps = {
 	buttons: JSX.Element;
-	sections: TopComponentProps['sections'];
+	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
 
@@ -81,7 +81,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 					{buttons}
 				</DesktopActionsRow>
 			</DesktopTitleActionsRow>
-			{(view !== 'BIG_DESKTOP' && sections) && (
+			{(view !== "BIG_DESKTOP" && sections) && (
 				<FlexContainer>
 					<FormNav sections={sections} />
 				</FlexContainer>

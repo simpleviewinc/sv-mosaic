@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import theme from '@root/theme';
-import { Sizes } from '@root/theme/sizes';
+import styled from "styled-components";
+import theme from "@root/theme";
+import { Sizes } from "@root/theme/sizes";
 
 // Components
-import { default as MUIAutocomplete } from '@material-ui/lab/Autocomplete';
-import Popper from '@material-ui/core/Popper';
+import { default as MUIAutocomplete } from "@material-ui/lab/Autocomplete";
+import Popper from "@material-ui/core/Popper";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
@@ -44,8 +44,8 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
       left: -12px;
       right: -12px;
       bottom: 4px;
-      border-right: ${pr => pr.open ? theme.borders.fieldGray : ''};
-      border-left: ${pr => !pr.open ? theme.borders.fieldGray : ''};
+      border-right: ${pr => pr.open ? theme.borders.fieldGray : ""};
+      border-left: ${pr => !pr.open ? theme.borders.fieldGray : ""};
     }
   }
 `;

@@ -1,38 +1,38 @@
-import * as React from 'react';
-import { ReactElement, useCallback, useMemo } from 'react';
-import { text, withKnobs, boolean } from '@storybook/addon-knobs';
+import * as React from "react";
+import { ReactElement, useCallback, useMemo } from "react";
+import { text, withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Components
-import { ImageVideoDocumentLinkBrowsingDef, } from '.';
-import { FieldDef } from '@root/components/Field';
-import Form from '../Form/Form';
+import { ImageVideoDocumentLinkBrowsingDef, } from ".";
+import { FieldDef } from "@root/components/Field";
+import Form from "../Form/Form";
 
 // Utils
-import { useForm } from '../Form/formUtils';
-import { menuOptions } from '@root/forms/MenuFormFieldCard/MenuFormFieldUtils';
-import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from './ImageVideoLinkDocumentBrowsingUtils';
+import { useForm } from "../Form/formUtils";
+import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
+import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "./ImageVideoLinkDocumentBrowsingUtils";
 
 export default {
-	title: 'Forms|FormFieldImageVideoLinkDocumentBrowsing',
+	title: "Forms|FormFieldImageVideoLinkDocumentBrowsing",
 	decorators: [withKnobs],
 };
 
 const onCancel = () => {
-	alert('Cancelling form, going back to previous site');
+	alert("Cancelling form, going back to previous site");
 };
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, 'imageVideoLinkDocumentBrowsing');
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoLinkDocumentBrowsing");
 
-	const label = text('Label', 'Label');
-	const disabled = boolean('Disabled', false);
-	const required = boolean('Required', false);
-	const withVideoOption = boolean('Show video browsing option', false);
-	const withDocumentOption = boolean('Show document browsing option', false);
-	const withImageOption = boolean('Show image browsing option', true);
-	const withLinkOption = boolean('Show link browsing option', false);
-	const withImage = boolean('Show image', true);
+	const label = text("Label", "Label");
+	const disabled = boolean("Disabled", false);
+	const required = boolean("Required", false);
+	const withVideoOption = boolean("Show video browsing option", false);
+	const withDocumentOption = boolean("Show document browsing option", false);
+	const withImageOption = boolean("Show image browsing option", true);
+	const withLinkOption = boolean("Show link browsing option", false);
+	const withImage = boolean("Show image", true);
 
 	const fields = useMemo(
 		() =>
@@ -62,7 +62,7 @@ export const Playground = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -73,8 +73,8 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -88,21 +88,21 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, 'browseAllOptions');
-	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(dispatch, 'browseImage');
-	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(dispatch, 'browseVideo');
-	const { setDocument: browseDocument, handleRemove: removeDocument } = useImageVideoLinkDocumentBrowsing(dispatch, 'browseDocument');
-	const { setLink: browseLink, handleRemove: removeLink } = useImageVideoLinkDocumentBrowsing(dispatch, 'browseLink');
-	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(dispatch, 'browseImageOrVideo');
-	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(dispatch, 'disabledExample');
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "browseAllOptions");
+	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImage");
+	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseVideo");
+	const { setDocument: browseDocument, handleRemove: removeDocument } = useImageVideoLinkDocumentBrowsing(dispatch, "browseDocument");
+	const { setLink: browseLink, handleRemove: removeLink } = useImageVideoLinkDocumentBrowsing(dispatch, "browseLink");
+	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImageOrVideo");
+	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(dispatch, "disabledExample");
 
 	const fields = useMemo(
 		() =>
 			[
 				{
-					name: 'browseAllOptions',
-					label: 'Example with all types of browsing options (document, link, video and image) enabled',
-					type: 'imageVideoDocumentLink',
+					name: "browseAllOptions",
+					label: "Example with all types of browsing options (document, link, video and image) enabled",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: false,
 					inputSettings: {
@@ -116,9 +116,9 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: 'browseImageOrVideo',
-					label: 'Browsing and image or video without a src image specified',
-					type: 'imageVideoDocumentLink',
+					name: "browseImageOrVideo",
+					label: "Browsing and image or video without a src image specified",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: false,
 					inputSettings: {
@@ -129,9 +129,9 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: 'browseImage',
-					label: 'Browsing an image',
-					type: 'imageVideoDocumentLink',
+					name: "browseImage",
+					label: "Browsing an image",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: false,
 					inputSettings: {
@@ -142,9 +142,9 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: 'browseVideo',
-					label: 'Browsing a video',
-					type: 'imageVideoDocumentLink',
+					name: "browseVideo",
+					label: "Browsing a video",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: false,
 					inputSettings: {
@@ -155,9 +155,9 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: 'browseDocument',
-					label: 'Browsing a document',
-					type: 'imageVideoDocumentLink',
+					name: "browseDocument",
+					label: "Browsing a document",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: false,
 					inputSettings: {
@@ -167,9 +167,9 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: 'browseLink',
-					label: 'Browsing a link',
-					type: 'imageVideoDocumentLink',
+					name: "browseLink",
+					label: "Browsing a link",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: false,
 					inputSettings: {
@@ -179,9 +179,9 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: 'withoutAnyBrowsingOption',
-					label: 'Without any browsing option',
-					type: 'imageVideoDocumentLink',
+					name: "withoutAnyBrowsingOption",
+					label: "Without any browsing option",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: false,
 					inputSettings: {
@@ -189,9 +189,9 @@ export const KitchenSink = (): ReactElement => {
 					},
 				},
 				{
-					name: 'disabledExample',
-					label: 'Disabled example',
-					type: 'imageVideoDocumentLink',
+					name: "disabledExample",
+					label: "Disabled example",
+					type: "imageVideoDocumentLink",
 					required: false,
 					disabled: true,
 					inputSettings: {
@@ -208,7 +208,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -219,8 +219,8 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}

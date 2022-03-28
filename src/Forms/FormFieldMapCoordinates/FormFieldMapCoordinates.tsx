@@ -1,26 +1,26 @@
-import * as React from 'react';
+import * as React from "react";
 import {
 	memo,
 	ReactElement,
 	useCallback,
 	useEffect,
 	useState,
-} from 'react';
+} from "react";
 import {
 	MapCoordinatesDef,
 	MapPosition,
-} from './MapCoordinatesTypes';
-import { MosaicFieldProps } from '@root/components/Field';
+} from "./MapCoordinatesTypes";
+import { MosaicFieldProps } from "@root/components/Field";
 
 // External libraries
-import { isEmpty } from 'lodash';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { isEmpty } from "lodash";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 // Components
 import Button from "@root/components/Button";
-import ToggleSwitch from '@root/components/ToggleSwitch';
-import MapCoordinatesDrawer from './MapCoordinatesDrawer';
+import ToggleSwitch from "@root/components/ToggleSwitch";
+import MapCoordinatesDrawer from "./MapCoordinatesDrawer";
 
 // Styles
 import {
@@ -33,7 +33,7 @@ import {
 	LatLngLabel,
 	MapImageColumn,
 	SwitchContainer,
-} from './MapCoordinates.styled';
+} from "./MapCoordinates.styled";
 
 // Utils
 import {
@@ -41,7 +41,7 @@ import {
 	getAddressStringFromAddressObject,
 	libraries,
 	mapOptions,
-} from './MapCoordinatesUtils';
+} from "./MapCoordinatesUtils";
 import Drawer from "../../components/Drawer.jsx";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>): ReactElement => {
@@ -70,7 +70,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 	 * Closes the modal.
 	 */
 	const handleClose = async (save = false) => {
-		if (typeof save === 'boolean' && save) {
+		if (typeof save === "boolean" && save) {
 			setUnsavedChanges(false);
 			setIsModalOpen(false);
 			await onBlur();
@@ -141,8 +141,8 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 		libraries,
 	});
 
-	if (loadError) return <span>{'Error loading maps'}</span>;
-	if (!isLoaded) return <span>{'Loading Maps'}</span>;
+	if (loadError) return <span>{"Error loading maps"}</span>;
+	if (!isLoaded) return <span>{"Loading Maps"}</span>;
 
 	const mapPosition = {
 		lat: value?.lat

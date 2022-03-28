@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 import styled from "styled-components";
-import MUIMenuItem from '@material-ui/core/MenuItem';
+import MUIMenuItem from "@material-ui/core/MenuItem";
 
 import { MenuItemProps } from "./MenuItemTypes";
 import theme from "../../utils/theme";

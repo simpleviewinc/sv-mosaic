@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Material UI
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Popper from '@material-ui/core/Popper';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import Popper from "@material-ui/core/Popper";
 
 // Theme
-import theme from '../../utils/theme.js';
+import theme from "../../utils/theme.js";
 
 export const ChipsWrapper = styled.div`
   width: ${pr => pr.size};
@@ -21,7 +21,7 @@ export const ChipsWrapper = styled.div`
 
 export const FieldWrapper = styled.div`
   background-color: ${pr =>
-		pr.error ? theme.colors.lightRed : 'transparent'};
+		pr.error ? theme.colors.lightRed : "transparent"};
   padding: 20px;
   width: fit-content;
 `;

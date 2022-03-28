@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Theme
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const PhoneInputWrapper = styled.div`
   .react-tel-input {

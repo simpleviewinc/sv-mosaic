@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 // Components
-import Tooltip from '@root/components/Tooltip';
-import ImageIcon from '@material-ui/icons/Image';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import LinkIcon from '@material-ui/icons/Link';
-import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import Tooltip from "@root/components/Tooltip";
+import ImageIcon from "@material-ui/icons/Image";
+import VideocamIcon from "@material-ui/icons/Videocam";
+import LinkIcon from "@material-ui/icons/Link";
+import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 
 export const ImageVideoLinkDocumentBrowsingContainer = styled.div`
 	width: fit-content;
@@ -121,7 +121,7 @@ export const Column = styled.div`
 `;
 
 export const AssetPropertiesColumn = styled(Column)`
-	margin-left: ${({ hasImage }) => hasImage ? '16px' : '0'};
+	margin-left: ${({ hasImage }) => hasImage ? "16px" : "0"};
 `;
 
 export const MenuColumn = styled(Column)`
@@ -149,14 +149,14 @@ export const StyledImg = styled.img`
 
 export const RoundBackground = styled.div`
   align-items: center;
-  cursor: ${({ disabled }) => (!disabled ? 'pointer' : 'auto')};
+  cursor: ${({ disabled }) => (!disabled ? "pointer" : "auto")};
   background-color: ${theme.colors.blueTeal};
   border-radius: 22px;
   display: flex;
   height: 40px;
   justify-content: center;
 	opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-	pointer-events: ${({ disabled }) => (disabled ? 'none' : '')};
+	pointer-events: ${({ disabled }) => (disabled ? "none" : "")};
   width: 40px;
 `;
 

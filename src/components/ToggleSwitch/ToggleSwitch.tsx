@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ReactElement, HTMLAttributes } from 'react';
+import * as React from "react";
+import { ReactElement, HTMLAttributes } from "react";
 
 // Types and styles
-import { ToggleSwitchProps } from './ToggleSwitchTypes';
-import { StyledSwitch } from './ToggleSwitch.styled';
-import StyledFormControlLabel from '@root/components/StyledFormControlLabel';
+import { ToggleSwitchProps } from "./ToggleSwitchTypes";
+import { StyledSwitch } from "./ToggleSwitch.styled";
+import StyledFormControlLabel from "@root/components/StyledFormControlLabel";
 
 const ToggleSwitch = (
 	props: ToggleSwitchProps & HTMLAttributes<HTMLInputElement>
@@ -12,7 +12,7 @@ const ToggleSwitch = (
 	const {
 		checked,
 		label,
-		labelPlacement = 'end',
+		labelPlacement = "end",
 		required = false,
 		disabled = false,
 		onChange,
