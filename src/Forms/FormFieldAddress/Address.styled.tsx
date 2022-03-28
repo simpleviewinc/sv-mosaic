@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const AddAddressWrapper = styled.div`
   align-items: center;

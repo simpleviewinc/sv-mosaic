@@ -1,4 +1,4 @@
-import { Sizes } from '../../theme/sizes';
+import { Sizes } from "../../theme/sizes";
 
 export type TextAreaDef = {
 	/**

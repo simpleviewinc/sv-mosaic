@@ -1,14 +1,14 @@
 // React
-import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import * as React from "react";
+import { ReactElement, useState } from "react";
 
 // Components
-import Chip from '../../components/Chip';
+import Chip from "../../components/Chip";
 
 //Types and styles
-import { MosaicFieldProps } from '@root/components/Field';
-import { FormFieldChipSingleSelectDef } from './FormFieldChipSingleSelectTypes';
-import { StyledChipGroup } from './FormFieldChipSingleSelect.styled';
+import { MosaicFieldProps } from "@root/components/Field";
+import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
+import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
 
 const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef>): ReactElement => {
 	const {

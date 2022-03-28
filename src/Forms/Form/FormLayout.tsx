@@ -1,11 +1,11 @@
-import { FieldDef } from '@root/components/Field';
-import * as React from 'react';
-import { useMemo, memo } from 'react';
-import { SectionDef } from './FormTypes';
-import { generateLayout } from './formUtils';
+import { FieldDef } from "@root/components/Field";
+import * as React from "react";
+import { useMemo, memo } from "react";
+import { SectionDef } from "./FormTypes";
+import { generateLayout } from "./formUtils";
 
 // Components
-import Section from './Section';
+import Section from "./Section";
 
 interface FormLayoutProps {
   state: any;

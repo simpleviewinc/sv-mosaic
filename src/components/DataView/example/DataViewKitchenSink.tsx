@@ -3,10 +3,10 @@ import { useState, useEffect, useCallback, ReactElement } from "react";
 import styled from "styled-components";
 import { boolean, select } from "@storybook/addon-knobs";
 
-import AddIcon from '@material-ui/icons/Add';
-import CreateIcon from '@material-ui/icons/Create';
+import AddIcon from "@material-ui/icons/Add";
+import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 
 import JSONDB from "../../../utils/JSONDB";
 import LocalStorageDB from "../../../utils/LocalStorageDB";
@@ -80,12 +80,12 @@ const processDateFilter = function ({ name, data, output }) {
 	const outputFilter = {};
 
 	if (data.rangeStart !== undefined) {
-		if (data.rangeStart instanceof Date !== true) { throw new Error('rangeStart is not a Date'); }
+		if (data.rangeStart instanceof Date !== true) { throw new Error("rangeStart is not a Date"); }
 		outputFilter["$gte"] = data.rangeStart;
 	}
 
 	if (data.rangeEnd !== undefined) {
-		if (data.rangeEnd instanceof Date !== true) { throw new Error('rangeEnd is not a Date'); }
+		if (data.rangeEnd instanceof Date !== true) { throw new Error("rangeEnd is not a Date"); }
 		outputFilter["$lte"] = data.rangeEnd;
 	}
 
@@ -561,7 +561,7 @@ function DataViewKitchenSink(): ReactElement {
 					alert(`DELETE ${data.map(val => val.id)}`);
 				},
 				onAllClick: bulkAllActions ? function () {
-					alert(`DELETE ALL`);
+					alert("DELETE ALL");
 				} : undefined
 			}
 		] : undefined,

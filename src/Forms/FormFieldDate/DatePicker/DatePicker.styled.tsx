@@ -7,12 +7,12 @@
  * linter rule is disabled for this file.
  */
 
-import styled from 'styled-components';
-import theme from '@root/theme';
-import { createTheme } from '@material-ui/core/styles';
-import { KeyboardDatePicker } from '@material-ui/pickers';
-import { MuiPickersOverrides } from '@material-ui/pickers/typings/overrides';
-import { Sizes } from '@root/theme/sizes';
+import styled from "styled-components";
+import theme from "@root/theme";
+import { createTheme } from "@material-ui/core/styles";
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import { MuiPickersOverrides } from "@material-ui/pickers/typings/overrides";
+import { Sizes } from "@root/theme/sizes";
 
 type overridesNameToClassKey = {
   [P in keyof MuiPickersOverrides]: keyof MuiPickersOverrides[P];
@@ -22,7 +22,7 @@ type CustomType = {
   MuiPickersBasePicker: any;
 };
 
-declare module '@material-ui/core/styles/overrides' {
+declare module "@material-ui/core/styles/overrides" {
   interface ComponentNameToClassKey extends overridesNameToClassKey {}
   export interface ComponentNameToClassKey extends CustomType {}
 }
@@ -31,17 +31,17 @@ export const customTheme = createTheme({
 	overrides: {
 		MuiPaper: {
 			elevation8: {
-				boxShadow: '0px 1px 5px #1A1A1A29',
+				boxShadow: "0px 1px 5px #1A1A1A29",
 				width: Sizes.sm,
 			},
 		},
 
 		MuiPickersBasePicker: {
 			pickerView: {
-				justifyContent: 'none',
+				justifyContent: "none",
 				width: Sizes.sm,
-				minWidth: '0',
-				minHeight: '322px',
+				minWidth: "0",
+				minHeight: "322px",
 				border: `2px solid ${theme.colors.gray200}`,
 			},
 		},
@@ -50,102 +50,102 @@ export const customTheme = createTheme({
 			switchHeader: {
 				color: theme.colors.gray600,
 				fontFamily: theme.fontFamily,
-				marginBottom: '16px',
-				marginTop: '16px',
+				marginBottom: "16px",
+				marginTop: "16px",
 			},
 
 			daysHeader: {
-				justifyContent: 'none',
+				justifyContent: "none",
 			},
 
 			dayLabel: {
-				margin: '0',
-				textTransform: 'uppercase',
-				position: 'relative',
-				width: 'auto',
+				margin: "0",
+				textTransform: "uppercase",
+				position: "relative",
+				width: "auto",
 
-				'&:nth-child(1)': {
-					visibility: 'hidden',
+				"&:nth-child(1)": {
+					visibility: "hidden",
 
-					'&:after': {
+					"&:after": {
 						content: "'S'",
-						display: 'block',
-						visibility: 'visible',
-						position: 'absolute',
+						display: "block",
+						visibility: "visible",
+						position: "absolute",
 						top: 0,
-						left: '20px',
+						left: "20px",
 					},
 				},
 
-				'&:nth-child(2)': {
-					visibility: 'hidden',
-					'&:after': {
+				"&:nth-child(2)": {
+					visibility: "hidden",
+					"&:after": {
 						content: "'M'",
-						display: 'block',
-						visibility: 'visible',
-						position: 'absolute',
+						display: "block",
+						visibility: "visible",
+						position: "absolute",
 						top: 0,
-						left: '37px',
+						left: "37px",
 					},
 				},
 
-				'&:nth-child(3)': {
-					visibility: 'hidden',
-					'&:after': {
+				"&:nth-child(3)": {
+					visibility: "hidden",
+					"&:after": {
 						content: "'T'",
-						display: 'block',
-						visibility: 'visible',
-						position: 'absolute',
+						display: "block",
+						visibility: "visible",
+						position: "absolute",
 						top: 0,
-						left: '54px',
+						left: "54px",
 					},
 				},
 
-				'&:nth-child(4)': {
-					visibility: 'hidden',
-					'&:after': {
+				"&:nth-child(4)": {
+					visibility: "hidden",
+					"&:after": {
 						content: "'W'",
-						display: 'block',
-						visibility: 'visible',
-						position: 'absolute',
+						display: "block",
+						visibility: "visible",
+						position: "absolute",
 						top: 0,
-						left: '72px',
+						left: "72px",
 					},
 				},
 
-				'&:nth-child(5)': {
-					visibility: 'hidden',
-					'&:after': {
+				"&:nth-child(5)": {
+					visibility: "hidden",
+					"&:after": {
 						content: "'T'",
-						display: 'block',
-						visibility: 'visible',
-						position: 'absolute',
+						display: "block",
+						visibility: "visible",
+						position: "absolute",
 						top: 0,
-						left: '90px',
+						left: "90px",
 					},
 				},
 
-				'&:nth-child(6)': {
-					visibility: 'hidden',
-					'&:after': {
+				"&:nth-child(6)": {
+					visibility: "hidden",
+					"&:after": {
 						content: "'F'",
-						display: 'block',
-						visibility: 'visible',
-						position: 'absolute',
+						display: "block",
+						visibility: "visible",
+						position: "absolute",
 						top: 0,
-						left: '109px',
+						left: "109px",
 					},
 				},
 
-				'&:nth-child(7)': {
-					visibility: 'hidden',
-					'&:after': {
+				"&:nth-child(7)": {
+					visibility: "hidden",
+					"&:after": {
 						content: "'S'",
-						display: 'block',
-						visibility: 'visible',
-						position: 'absolute',
+						display: "block",
+						visibility: "visible",
+						position: "absolute",
 						top: 0,
-						left: '128px',
+						left: "128px",
 					},
 				},
 			},
@@ -153,30 +153,30 @@ export const customTheme = createTheme({
 
 		MuiTypography: {
 			body1: {
-				fontSize: '14px',
+				fontSize: "14px",
 			},
 
 			body2: {
-				fontSize: '12px',
+				fontSize: "12px",
 			},
 		},
 
 		MuiPickersCalendar: {
 			transitionContainer: {
-				marginTop: '16px',
+				marginTop: "16px",
 			},
 
 			week: {
-				marginBottom: '24px',
-				justifyContent: 'space-between',
-				margin: '0 16px 0 12px',
+				marginBottom: "24px",
+				justifyContent: "space-between",
+				margin: "0 16px 0 12px",
 
-				'&:last-of-type': {
-					marginBottom: '16px',
+				"&:last-of-type": {
+					marginBottom: "16px",
 				},
 
-				'& div:last-of-type .MuiPickersDay-day': {
-					marginRight: '0',
+				"& div:last-of-type .MuiPickersDay-day": {
+					marginRight: "0",
 				},
 			},
 		},
@@ -185,11 +185,11 @@ export const customTheme = createTheme({
 			day: {
 				color: theme.colors.almostBlack,
 				fontFamily: theme.fontFamily,
-				height: '24px',
-				width: '24px',
-				margin: '0 12px 0 0',
+				height: "24px",
+				width: "24px",
+				margin: "0 12px 0 0",
 
-				'&:hover': {
+				"&:hover": {
 					backgroundColor: theme.colors.blueTealOpacity,
 				},
 			},
@@ -197,7 +197,7 @@ export const customTheme = createTheme({
 			daySelected: {
 				backgroundColor: theme.colors.blueTeal,
 
-				'&:hover': {
+				"&:hover": {
 					backgroundColor: theme.colors.blueTeal,
 				},
 			},

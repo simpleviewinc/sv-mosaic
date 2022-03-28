@@ -1,4 +1,4 @@
-import { MosaicMIcon } from '@root/types';
+import { MosaicMIcon } from "@root/types";
 
 export type TableRow = {
 	/**
@@ -57,7 +57,7 @@ export type TableDataState = {
 }
 
 export type UseTableReturnType = {
-	addTableRow: TableDef['handleAddElement'];
-	editAction: TableDef['handleEdit'];
-	extraActionsTable: TableDef['extraActions'];
+	addTableRow: TableDef["handleAddElement"];
+	editAction: TableDef["handleEdit"];
+	extraActionsTable: TableDef["extraActions"];
 }

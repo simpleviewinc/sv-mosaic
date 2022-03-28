@@ -1,20 +1,20 @@
-import * as React from 'react';
+import * as React from "react";
 import { ReactElement, useMemo, useCallback } from "react";
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { FieldDef } from '@root/components/Field';
-import { useForm } from '@root/forms/Form/formUtils';
+import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { FieldDef } from "@root/components/Field";
+import { useForm } from "@root/forms/Form/formUtils";
 
 // Components
-import Form from '../../Form/Form';
-import { DateFieldDef } from './DateFieldTypes';
+import Form from "../../Form/Form";
+import { DateFieldDef } from "./DateFieldTypes";
 
 export default {
-	title: 'Forms|FormFieldDateField',
+	title: "Forms|FormFieldDateField",
 	decorators: [withKnobs],
 };
 
 const onCancel = () => {
-	alert('Cancelling form, going back to previous site');
+	alert("Cancelling form, going back to previous site");
 };
 
 export const Playground = (): ReactElement => {
@@ -58,8 +58,8 @@ export const Playground = (): ReactElement => {
 	const onSubmit = useCallback(
 		(data) => {
 			alert(
-				'Form submitted with the following data: ' +
-				JSON.stringify(data, null, ' ')
+				"Form submitted with the following data: " +
+				JSON.stringify(data, null, " ")
 			);
 		},
 		[state.validForm]
@@ -169,7 +169,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -177,7 +177,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (

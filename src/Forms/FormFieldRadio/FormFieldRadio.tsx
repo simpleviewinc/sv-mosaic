@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { ReactElement } from 'react';
+import * as React from "react";
+import { ReactElement } from "react";
 
 // Components
-import RadioButton from '@root/components/RadioButton';
+import RadioButton from "@root/components/RadioButton";
 
 // Types and styles
-import { MosaicFieldProps } from '@root/components/Field';
-import { FormFieldRadioDef } from './FormFieldRadioTypes';
-import { StyledRadioGroup } from './FormFieldRadio.styled';
+import { MosaicFieldProps } from "@root/components/Field";
+import { FormFieldRadioDef } from "./FormFieldRadioTypes";
+import { StyledRadioGroup } from "./FormFieldRadio.styled";
 
 const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef>): ReactElement => {
 	const {

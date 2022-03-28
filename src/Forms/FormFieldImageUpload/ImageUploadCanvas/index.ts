@@ -1,1 +1,1 @@
-export { default } from './ImageUploadCanvas';
+export { default } from "./ImageUploadCanvas";

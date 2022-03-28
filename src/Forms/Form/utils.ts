@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { BREAKPOINTS } from '@root/theme/theme';
+import { useState, useEffect } from "react";
+import { BREAKPOINTS } from "@root/theme/theme";
 
 const responsiveBreakpoint = BREAKPOINTS.topComponent.responsiveView;
 const mobileBreakpoint = BREAKPOINTS.mobile;
@@ -20,14 +20,14 @@ export const useWindowResizer = (type) => {
 	const setResponsivenessDebounced = debounce(() => setResponsiveness());
 
 	useEffect(() => {
-		if (type === 'drawer') {
-			setView('DRAWER');
+		if (type === "drawer") {
+			setView("DRAWER");
 		} else {
 			setResponsivenessDebounced();
-			window.addEventListener('resize', setResponsiveness);
+			window.addEventListener("resize", setResponsiveness);
 
 			return () => {
-				window.removeEventListener('resize', setResponsiveness);
+				window.removeEventListener("resize", setResponsiveness);
 			};
 		}
 	}, []);
@@ -35,14 +35,14 @@ export const useWindowResizer = (type) => {
 	const setResponsiveness = () => {
 		const innerWidth = window.innerWidth;
 		if (innerWidth < mobileBreakpoint) {
-			setView('MOBILE');
+			setView("MOBILE");
 		} else if (innerWidth < responsiveBreakpoint && innerWidth >= mobileBreakpoint) {
-			setView('RESPONSIVE');
+			setView("RESPONSIVE");
 
 		} else if (innerWidth > bigScreenBreakpoint) {
-			setView('BIG_DESKTOP');
+			setView("BIG_DESKTOP");
 		} else {
-			setView('DESKTOP');
+			setView("DESKTOP");
 		}
 	};
 
