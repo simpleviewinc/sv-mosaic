@@ -70,7 +70,7 @@ export interface DataViewFilterProps {
 export interface DataViewControlLimitProps {
 	limit: number
 	options: number[]
-	onLimitChange({ limit }: { limit: number }): void
+	onLimitChange: DataViewOnLimitChange
 }
 
 export type DataViewControlViewOption = "list" | "grid";
@@ -139,6 +139,10 @@ export interface DataViewOnSkipChange {
 	({ skip }: { skip : number }): void
 }
 
+export interface DataViewOnLimitChange {
+	({ limit }: { limit : number }): void
+}
+
 export interface DataViewView {
 	id: string
 	label: string
@@ -155,12 +159,22 @@ export interface DataViewView {
 }
 
 export interface DataViewProps {
-	columns: DataViewColumn[]
+	title?: string
+	loading?: boolean
+	count?: number
+	limit?: number
+	skip?: number
+	columns?: DataViewColumn[]
+	activeColumns?: string[]
+	sticky?: boolean
 	/** A list of actions which are always visible for each item in the DataView. */
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
 	bulkActions?: DataViewBulkAction[]
-	onSavedViewChange(view: DataViewView): void
+	onSortChange?: DataViewOnSortChange
+	onSkipChange?: DataViewOnSkipChange
+	onLimitChange?: DataViewOnLimitChange
+	onSavedViewChange?(view: DataViewView): void
 	// temporarily allowing extra properties until we have finished the conversion of DataView to TS
 	[key: string]: unknown
 }
