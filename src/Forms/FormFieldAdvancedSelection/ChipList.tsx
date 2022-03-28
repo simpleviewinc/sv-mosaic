@@ -1,19 +1,19 @@
-import Chip from '@root/components/Chip';
-import * as React from 'react';
+import Chip from "@root/components/Chip";
+import * as React from "react";
 import {
 	memo,
 	ReactElement,
 	useEffect,
 	useState
-} from 'react';
-import { ChipListPropsTypes } from '.';
+} from "react";
+import { ChipListPropsTypes } from ".";
 import {
 	ChipsWrapper,
 	OptionsCheckedModalWrapper,
 	ShowHideSpan,
 	StyledExpandLessIcon,
 	StyledExpandMoreIcon
-} from './AdvancedSelection.styled';
+} from "./AdvancedSelection.styled";
 
 const MAX_CHIPS_TO_SHOW = 8;
 
@@ -93,7 +93,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 				<div onClick={handleShowMore}>
 					{showMore ? (
 						<ShowHideSpan>
-							{'Hide'} <StyledExpandLessIcon />
+							{"Hide"} <StyledExpandLessIcon />
 						</ShowHideSpan>
 					) : (
 						<ShowHideSpan>

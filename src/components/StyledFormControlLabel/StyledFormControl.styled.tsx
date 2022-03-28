@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import theme from '@root/theme';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import styled from "styled-components";
+import theme from "@root/theme";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const StyledFormControlLabel = styled(FormControlLabel)`
   opacity: ${pr => (pr.disabled ? 0.5 : 1)};

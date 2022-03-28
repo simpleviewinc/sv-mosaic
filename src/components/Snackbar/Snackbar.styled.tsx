@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Material UI
-import Snackbar from '@material-ui/core/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from "@material-ui/core/Snackbar";
+import CloseIcon from "@material-ui/icons/Close";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const StyledSnackbar = styled(Snackbar)`
   .MuiIconButton-root {

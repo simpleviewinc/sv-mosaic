@@ -1,20 +1,20 @@
-import * as React from 'react';
-import { memo, ReactElement } from 'react';
+import * as React from "react";
+import { memo, ReactElement } from "react";
 
 // Styled components
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
 	CheckboxWrapper,
 	Row,
-} from '../TopComponent.styled';
+} from "../TopComponent.styled";
 
 // MUI
-import ClearIcon from '@material-ui/icons/Clear';
+import ClearIcon from "@material-ui/icons/Clear";
 
 // Utils
-import theme from '@root/theme/theme';
-import TitleWrapper from '../Utils/TitleWrapper';
-import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
+import theme from "@root/theme/theme";
+import TitleWrapper from "../Utils/TitleWrapper";
+import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const MobileActionsRow = styled(Row)`
   background-color: ${theme.colors.gray200};
@@ -38,7 +38,7 @@ const MobileCheckboxHelpIconRow = styled(Row)`
 `;
 
 type MobileViewProps = {
-	onCancel: TopComponentProps['onCancel'];
+	onCancel: TopComponentProps["onCancel"];
 	submitButton: JSX.Element;
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;

@@ -20,7 +20,7 @@ export interface SectionDef extends Section {
 export type ButtonAttrs = Omit<ButtonProps, "color" | "variant">;
 
 export interface FormProps {
-	type?: 'drawer';
+	type?: "drawer";
 	state: any;
 	title?: string;
 	fields: FieldDef[];

@@ -1,1 +1,1 @@
-export { default } from './BrowseOption';
+export { default } from "./BrowseOption";

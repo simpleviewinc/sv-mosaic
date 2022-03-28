@@ -1,31 +1,31 @@
-import * as React from 'react';
-import { ReactElement, useCallback, useMemo } from 'react';
-import { boolean, withKnobs, text } from '@storybook/addon-knobs';
-import { PhoneSelectionDef } from './FormFieldPhoneSelectionDropdownTypes';
+import * as React from "react";
+import { ReactElement, useCallback, useMemo } from "react";
+import { boolean, withKnobs, text } from "@storybook/addon-knobs";
+import { PhoneSelectionDef } from "./FormFieldPhoneSelectionDropdownTypes";
 
 // Components
-import { FieldDef } from '@root/components/Field';
-import Form from '../Form/Form';
+import { FieldDef } from "@root/components/Field";
+import Form from "../Form/Form";
 
 // Utils
-import { useForm } from '../Form/formUtils';
+import { useForm } from "../Form/formUtils";
 
 export default {
-	title: 'Forms|FormFieldPhoneSelectionDropdown',
+	title: "Forms|FormFieldPhoneSelectionDropdown",
 	decorators: [withKnobs],
 };
 
 export const Playground = () : ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
 
-	const disabled = boolean('Disabled', false);
-	const required = boolean('Required', false);
-	const autoFormat = boolean('Autoformat', true);
-	const country = text('Country code (e.g., us, mx, etc.)', '');
-	const placeholder = text('Placeholder', 'Placeholder');
-	const label = text('Label', 'Label');
-	const helperText = text('Helper text', 'Helper text');
-	const instructionText = text('Instruction text', 'Instruction text')
+	const disabled = boolean("Disabled", false);
+	const required = boolean("Required", false);
+	const autoFormat = boolean("Autoformat", true);
+	const country = text("Country code (e.g., us, mx, etc.)", "");
+	const placeholder = text("Placeholder", "Placeholder");
+	const label = text("Label", "Label");
+	const helperText = text("Helper text", "Helper text");
+	const instructionText = text("Instruction text", "Instruction text")
 
 	const fields = useMemo(
 		() =>
@@ -53,7 +53,7 @@ export const Playground = () : ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -61,15 +61,15 @@ export const Playground = () : ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -93,7 +93,7 @@ export const KitchenSink = (): ReactElement => {
 					type: "phone",
 					required: false,
 					disabled: false,
-					helperText: 'Helper text',
+					helperText: "Helper text",
 					instructionText: 'Default contry code is "us"',
 				},
 				{
@@ -103,9 +103,9 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						country: 'ar',
+						country: "ar",
 					},
-					helperText: 'Helper text',
+					helperText: "Helper text",
 					instructionText: 'The country code of "ar" was provided',
 				},
 				{
@@ -116,10 +116,10 @@ export const KitchenSink = (): ReactElement => {
 					disabled: false,
 					inputSettings: {
 						autoFormat: false,
-						country: 'us',
+						country: "us",
 					},
-					helperText: 'Helper text',
-					instructionText: 'Type a phone number to see the format',
+					helperText: "Helper text",
+					instructionText: "Type a phone number to see the format",
 				},
 				{
 					name: "withPlaceholder",
@@ -128,11 +128,11 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						country: 'us',
-						placeholder: 'Enter phone number'
+						country: "us",
+						placeholder: "Enter phone number"
 					},
-					helperText: 'Helper text',
-					instructionText: 'Remove the phone number prefix to see the placeholder',
+					helperText: "Helper text",
+					instructionText: "Remove the phone number prefix to see the placeholder",
 				},
 			] as FieldDef<PhoneSelectionDef>[],
 		[]
@@ -143,7 +143,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -151,7 +151,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (

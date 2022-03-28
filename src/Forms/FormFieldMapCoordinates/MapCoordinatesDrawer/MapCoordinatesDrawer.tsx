@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { ReactElement, useCallback, useEffect, useMemo } from 'react';
-import { MapCoordinatesDrawerProps } from '..';
-import { FieldDef } from '@root/components/Field/FieldTypes';
-import { MapPosition } from '../MapCoordinatesTypes';
+import * as React from "react";
+import { ReactElement, useCallback, useEffect, useMemo } from "react";
+import { MapCoordinatesDrawerProps } from "..";
+import { FieldDef } from "@root/components/Field/FieldTypes";
+import { MapPosition } from "../MapCoordinatesTypes";
 
 // Components
-import Map from '@root/forms/FormFieldMapCoordinates/Map';
-import { StyledSpan } from '../MapCoordinates.styled';
-import ResetButton from '@root/forms/FormFieldMapCoordinates/MapCoordinatesDrawer/ResetButton';
+import Map from "@root/forms/FormFieldMapCoordinates/Map";
+import { StyledSpan } from "../MapCoordinates.styled";
+import ResetButton from "@root/forms/FormFieldMapCoordinates/MapCoordinatesDrawer/ResetButton";
 
 // Utils
-import { defaultMapPosition } from '../MapCoordinatesUtils';
-import { actions, useForm } from '@root/forms/Form/formUtils';
-import Form from '@root/forms/Form/Form';
-import _ from 'lodash';
+import { defaultMapPosition } from "../MapCoordinatesUtils";
+import { actions, useForm } from "@root/forms/Form/formUtils";
+import Form from "@root/forms/Form/Form";
+import _ from "lodash";
 
 // Layout of the form elements.
 const sections = [
 	{
 		fields: [
-			[['placesList']],
-			[['lat'], ['lng'], ['resetButton']]
+			[["placesList"]],
+			[["lat"], ["lng"], ["resetButton"]]
 		]
 	}
 ];
@@ -57,21 +57,21 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'placesList',
+				name: "placesList",
 				value: { lat: Number(lat), lng: Number(lng) },
 			})
 		);
 
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'lat',
+				name: "lat",
 				value: lat,
 			})
 		);
 
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'lng',
+				name: "lng",
 				value: lng,
 			})
 		);
@@ -82,11 +82,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 */
 	const resetLocation = async () => {
 		await modalReducer.dispatch(
-			actions.setFieldValue({ name: 'lat', value: undefined })
+			actions.setFieldValue({ name: "lat", value: undefined })
 		);
 
 		await modalReducer.dispatch(
-			actions.setFieldValue({ name: 'lng', value: undefined })
+			actions.setFieldValue({ name: "lng", value: undefined })
 		);
 	};
 
@@ -98,21 +98,21 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	const handleCoordinates = (coordinates: MapPosition) => {
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'placesList',
+				name: "placesList",
 				value: coordinates,
 			})
 		);
 
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'lat',
+				name: "lat",
 				value: coordinates.lat,
 			})
 		);
 
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'lng',
+				name: "lng",
 				value: coordinates.lng,
 			})
 		);
@@ -162,28 +162,28 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		() =>
 			[
 				{
-					name: 'placesList',
+					name: "placesList",
 					type: renderMap,
 				},
 				{
-					name: 'lat',
-					label: 'Latitude',
-					type: 'text',
+					name: "lat",
+					label: "Latitude",
+					type: "text",
 					inputSettings: {
-						type: 'number',
+						type: "number",
 					},
 				},
 				{
-					name: 'lng',
-					label: 'Longitude',
-					type: 'text',
+					name: "lng",
+					label: "Longitude",
+					type: "text",
 					inputSettings: {
-						type: 'number',
+						type: "number",
 					},
 				},
 				{
-					name: 'resetButton',
-					label: 'Reset',
+					name: "resetButton",
+					label: "Reset",
 					type: ResetButton,
 					inputSettings: {
 						resetLocation,
@@ -202,18 +202,18 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		if (lat?.toString().length > 0 && lng?.toString().length > 0) {
 			modalReducer.dispatch(
-				actions.setFieldValue({ name: 'resetButton', value: true })
+				actions.setFieldValue({ name: "resetButton", value: true })
 			);
 
 			modalReducer.dispatch(
 				actions.setFieldValue({
-					name: 'placesList',
+					name: "placesList",
 					value: { lat: Number(lat), lng: Number(lng) }
 				})
 			);
 		} else {
 			modalReducer.dispatch(
-				actions.setFieldValue({ name: 'resetButton', value: undefined })
+				actions.setFieldValue({ name: "resetButton", value: undefined })
 			);
 		}
 
@@ -222,14 +222,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	useEffect(() => {
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'lat',
+				name: "lat",
 				value: value?.lat
 			})
 		);
 
 		modalReducer.dispatch(
 			actions.setFieldValue({
-				name: 'lng',
+				name: "lng",
 				value: value?.lng
 			})
 		);
@@ -246,7 +246,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			onCancel={handleClose}
 			onSubmit={onSubmit}
 			submitButtonAttrs={{
-				label: 'Save Coordinates',
+				label: "Save Coordinates",
 				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
 			}}
 			cancelButtonAttrs={{ label: "Cancel" }}

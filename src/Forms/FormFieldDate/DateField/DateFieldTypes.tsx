@@ -1,4 +1,4 @@
-import { BasePickerProps } from '@material-ui/pickers/typings/BasePicker';
+import { BasePickerProps } from "@material-ui/pickers/typings/BasePicker";
 
 export type DateFieldDef = {
 	/**
@@ -8,11 +8,11 @@ export type DateFieldDef = {
 	/**
 	 * onChange callback used by the date picker
 	 */
-	onChangeDate: BasePickerProps['onChange'];
+	onChangeDate: BasePickerProps["onChange"];
 	/**
 	 * onChange callback used by the time picker
 	 */
-	onChangeTime: BasePickerProps['onChange'];
+	onChangeTime: BasePickerProps["onChange"];
 	/**
 	 * Value of the time picker
 	 */

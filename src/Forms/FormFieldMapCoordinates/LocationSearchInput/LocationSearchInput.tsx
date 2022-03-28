@@ -1,10 +1,10 @@
-import { InputAdornment } from '@material-ui/core';
-import * as React from 'react';
-import { memo, ReactElement, useState } from 'react';
+import { InputAdornment } from "@material-ui/core";
+import * as React from "react";
+import { memo, ReactElement, useState } from "react";
 import PlacesAutocomplete, {
 	geocodeByAddress,
 	getLatLng,
-} from 'react-places-autocomplete';
+} from "react-places-autocomplete";
 
 // Styles
 import {
@@ -14,14 +14,14 @@ import {
 	SuggestionDescription,
 	SuggestionsContainer,
 	SuggestionsDescriptionContainer,
-} from '../MapCoordinates.styled';
-import { LocationSearchInputProps } from '../MapCoordinatesTypes';
+} from "../MapCoordinates.styled";
+import { LocationSearchInputProps } from "../MapCoordinatesTypes";
 
 const LocationSearchInput = (props: LocationSearchInputProps): ReactElement => {
 	const { handleCoordinates } = props;
 
 	// State variables
-	const [address, setAddress] = useState('');
+	const [address, setAddress] = useState("");
 	/**
 	 * Gets lat and lng values from the selected suggestion and 
 	 * updates the state of the MapCoordinates component.
@@ -43,7 +43,7 @@ const LocationSearchInput = (props: LocationSearchInputProps): ReactElement => {
 	 * Reset the address value that is displayed in the autocomplete component. 
 	 */
 	const clearValue = () => {
-		setAddress('');
+		setAddress("");
 	};
 
 	return (
@@ -60,12 +60,12 @@ const LocationSearchInput = (props: LocationSearchInputProps): ReactElement => {
 								fieldSize='100%'
 								inputProps={{ "data-testid": "location-search-input" }}
 								{...getInputProps({
-									placeholder: 'Type a location, address or city…',
+									placeholder: "Type a location, address or city…",
 								})}
 								InputProps={{
 									endAdornment: (
 										<InputAdornment position='end'>
-											<StyledClearIcon data-testid={'location-search-clear-icon'} onClick={clearValue} />
+											<StyledClearIcon data-testid={"location-search-clear-icon"} onClick={clearValue} />
 										</InputAdornment>
 									),
 								}}

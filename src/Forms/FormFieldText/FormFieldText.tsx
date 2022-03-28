@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { ReactElement, memo } from 'react';
+import * as React from "react";
+import { ReactElement, memo } from "react";
 
 // Material UI
-import { InputAdornment } from '@material-ui/core';
+import { InputAdornment } from "@material-ui/core";
 
 // Types and styles
-import { TextFieldDef } from './FormFieldTextTypes';
-import { StyledTextField } from './FormFieldText.styled';
-import { MosaicFieldProps } from '@root/components/Field';
+import { TextFieldDef } from "./FormFieldTextTypes";
+import { StyledTextField } from "./FormFieldText.styled";
+import { MosaicFieldProps } from "@root/components/Field";
 
 const TextField = (
 	props: MosaicFieldProps<TextFieldDef>

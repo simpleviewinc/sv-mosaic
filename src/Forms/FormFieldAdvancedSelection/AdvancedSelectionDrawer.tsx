@@ -1,5 +1,5 @@
-import { FieldDef } from '@root/components/Field';
-import * as React from 'react';
+import { FieldDef } from "@root/components/Field";
+import * as React from "react";
 import {
 	ChangeEvent,
 	memo,
@@ -8,21 +8,21 @@ import {
 	useEffect,
 	useMemo,
 	useState
-} from 'react';
-import Button from '../../components/Button';
-import { actions, useForm } from '../Form/formUtils';
+} from "react";
+import Button from "../../components/Button";
+import { actions, useForm } from "../Form/formUtils";
 import {
 	InputWrapper,
 	StyledInput
-} from './AdvancedSelection.styled';
-import AddIcon from '@material-ui/icons/Add';
-import ChipList from './ChipList';
-import { optionsWithCategory } from './AdvancedSelectionTypes';
-import { FormFieldCheckboxDef } from '../FormFieldCheckbox';
-import LoadMoreButton from './LoadMoreButton';
-import Form from '../Form/Form';
-import { AdvanceSelectionDrawerPropTypes } from '.';
-import _ from 'lodash';
+} from "./AdvancedSelection.styled";
+import AddIcon from "@material-ui/icons/Add";
+import ChipList from "./ChipList";
+import { optionsWithCategory } from "./AdvancedSelectionTypes";
+import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
+import LoadMoreButton from "./LoadMoreButton";
+import Form from "../Form/Form";
+import { AdvanceSelectionDrawerPropTypes } from ".";
+import _ from "lodash";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -40,7 +40,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [options, setOptions] = useState<optionsWithCategory[]>([]);
 	const [filteredOptions, setFilteredOptions] = useState<optionsWithCategory[]>([]);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
-	const [filter, setFilter] = useState({ prev: 'options', new: 'options' });
+	const [filter, setFilter] = useState({ prev: "options", new: "options" });
 
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
@@ -54,7 +54,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		if (value.length > 0 && isModalOpen)
 			dispatch(
 				actions.setFieldValue({
-					name: 'checkboxList',
+					name: "checkboxList",
 					value: value,
 				})
 			);
@@ -94,9 +94,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const searchInput = state?.data?.searchInput;
 
 		if (searchInput?.length > 0) {
-			setFilter({ prev: filter.new, new: 'filter' });
+			setFilter({ prev: filter.new, new: "filter" });
 		} else {
-			setFilter({ prev: filter.new, new: 'options' });
+			setFilter({ prev: filter.new, new: "options" });
 		}
 	}, [state?.data?.searchInput]);
 
@@ -110,7 +110,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		if (searchInput) {
 			const trimmedFilter = searchInput?.trim().toLowerCase();
 			return filteredOptions.filter(
-				(option) => searchInput === '' ||
+				(option) => searchInput === "" ||
 					option.label.toLowerCase().includes(trimmedFilter)
 			);
 		}
@@ -132,7 +132,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 			dispatch(
 				actions.setFieldValue({
-					name: 'searchInput',
+					name: "searchInput",
 					value: e.target.value
 				})
 			);
@@ -160,7 +160,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type='text'
 					placeholder='Search...'
 					onChange={onInputChange}
-					value={props.value ? props.value : ''}
+					value={props.value ? props.value : ""}
 					disabled={fieldDef?.disabled}
 				/>
 				{props.value && fieldDef?.inputSettings?.createNewOption && (
@@ -180,7 +180,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const deleteSelectedOption = (newOptions) => {
 		dispatch(
 			actions.setFieldValue({
-				name: 'checkboxList',
+				name: "checkboxList",
 				value: newOptions,
 			})
 		);
@@ -212,19 +212,19 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				setCanLoadMore(false);
 			}
 
-			if (filter.prev === 'filter' && filter.new === 'options') {
+			if (filter.prev === "filter" && filter.new === "options") {
 				setOptions(newOptions);
 			}
 
-			if (filter.prev === 'options' && filter.new === 'options') {
+			if (filter.prev === "options" && filter.new === "options") {
 				setOptions(options.concat(newOptions));
 			}
 
-			if (filter.prev === 'options' && filter.new === 'filter') {
+			if (filter.prev === "options" && filter.new === "filter") {
 				setFilteredOptions(newOptions);
 			}
 
-			if (filter.prev === 'filter' && filter.new === 'filter') {
+			if (filter.prev === "filter" && filter.new === "filter") {
 				setFilteredOptions(filteredOptions.concat(newOptions));
 			}
 		}
@@ -250,16 +250,16 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type: searchInput,
 				},
 				{
-					name: 'checkboxList',
-					type: 'checkbox',
+					name: "checkboxList",
+					type: "checkbox",
 					disabled: fieldDef?.disabled,
 					style: {
-						height: '353px',
-						overflowY: 'auto',
-						flexWrap: 'nowrap',
-						width: '100%',
+						height: "353px",
+						overflowY: "auto",
+						flexWrap: "nowrap",
+						width: "100%",
 					},
-					size: '100%',
+					size: "100%",
 					inputSettings: {
 						options: filteredList,
 					}
@@ -313,8 +313,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			fields={fields}
 			onCancel={handleClose}
 			onSubmit={handleSave}
-			submitButtonAttrs={{ label: 'Save' }}
-			cancelButtonAttrs={{ label: 'Cancel' }}
+			submitButtonAttrs={{ label: "Save" }}
+			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}
 			handleDialogClose={handleDialogClose}
 		/>

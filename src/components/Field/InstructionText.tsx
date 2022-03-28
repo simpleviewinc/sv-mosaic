@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { ReactElement, ReactNode, forwardRef } from 'react';
+import * as React from "react";
+import { ReactElement, ReactNode, forwardRef } from "react";
 import {
 	InstructionTextWrapper,
 	StyledInstructionText,
-} from './InstructionText.styled';
+} from "./InstructionText.styled";
 
 interface InstructionText {
 	children: ReactNode;
@@ -16,7 +16,7 @@ const InstructionText = forwardRef((props: InstructionText, ref): ReactElement =
 	return (
 		<InstructionTextWrapper
 			labelMargin={labelMargin}
-			className={`instruction-text-${!tooltip ? 'right' : 'tooltip'}`}
+			className={`instruction-text-${!tooltip ? "right" : "tooltip"}`}
 			ref={ref}
 		>
 			<StyledInstructionText>{children}</StyledInstructionText>
@@ -24,6 +24,6 @@ const InstructionText = forwardRef((props: InstructionText, ref): ReactElement =
 	);
 });
 
-InstructionText.displayName = 'InstructionText';
+InstructionText.displayName = "InstructionText";
 
 export default InstructionText;
