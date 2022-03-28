@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { useRef, useEffect, ReactElement, useState } from 'react';
+import * as React from "react";
+import { useRef, useEffect, ReactElement, useState } from "react";
 
 // Styles
-import { CanvasContainer, StyledCanvas } from '../FormFieldImageUpload.styled';
+import { CanvasContainer, StyledCanvas } from "../FormFieldImageUpload.styled";
 
 export interface ImageUploadCanvasProps {
 	/**
@@ -24,7 +24,7 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
-		const context = canvas.getContext('2d');
+		const context = canvas.getContext("2d");
 		let animationFrameId
 		const canvasPos = getPosition(canvas);
 		let mouseX = 0;
@@ -38,7 +38,7 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 			context.lineTo(261, mouseY);
 			context.moveTo(mouseX, 0);
 			context.lineTo(mouseX, 261);
-			context.strokeStyle = 'white';
+			context.strokeStyle = "white";
 			context.stroke();
 			context.closePath();
 
@@ -68,10 +68,10 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 			};
 		}
 
-		canvasRef.current.addEventListener('mousemove', setMousePosition, false);
+		canvasRef.current.addEventListener("mousemove", setMousePosition, false);
 
 		return () => {
-			canvasRef.current.removeEventListener('mousemove', setMousePosition);
+			canvasRef.current.removeEventListener("mousemove", setMousePosition);
 			window.cancelAnimationFrame(animationFrameId)
 		}
 

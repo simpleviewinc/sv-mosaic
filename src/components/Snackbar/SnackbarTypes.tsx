@@ -1,4 +1,4 @@
-import { MosaicMIcon } from '@root/types';
+import { MosaicMIcon } from "@root/types";
 
 export type SnackbarAction = {
   label: string;

@@ -1,4 +1,4 @@
-import { MosaicLabelValue } from 'src/types/index'
+import { MosaicLabelValue } from "src/types/index"
 
 export type optionsWithCategory = {
 	category?: string;

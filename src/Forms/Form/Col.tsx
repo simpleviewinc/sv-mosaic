@@ -1,27 +1,27 @@
-import * as React from 'react';
-import { memo, useMemo } from 'react';
-import styled from 'styled-components';
-import { actions } from './formUtils';
+import * as React from "react";
+import { memo, useMemo } from "react";
+import styled from "styled-components";
+import { actions } from "./formUtils";
 
-import FormFieldText from '../FormFieldText';
-import FormFieldTextArea from '../FormFieldTextArea';
-import FormFieldCheckbox from '../FormFieldCheckbox';
-import FormFieldChipSingleSelect from '../FormFieldChipSingleSelect';
-import FormFieldDropdownSingleSelection from '../FormFieldDropdownSingleSelection';
-import FormFieldPhoneSelectionDropdown from '../FormFieldPhoneSelectionDropdown';
-import FormFieldRadio from '../FormFieldRadio';
-import FormFieldToggleSwitch from '../FormFieldToggleSwitch';
-import Field, { FieldDef } from '@root/components/Field';
-import FormFieldImageVideoLinkDocumentBrowsing from '../FormFieldImageVideoLinkDocumentBrowsing';
-import FormFieldColorPicker from '../FormFieldColorPicker';
-import FormFieldDate from '../FormFieldDate/DateField';
-import FormFieldAddress from '../FormFieldAddress';
-import FormFieldTable from '../FormFieldTable';
-import FormFieldTextEditor from '../FormFieldTextEditor';
-import FormFieldAdvancedSelection from '../FormFieldAdvancedSelection';
-import FormFieldMapCoordinates from '../FormFieldMapCoordinates';
-import FormFieldImageUpload from '../FormFieldImageUpload';
-import { Sizes } from '@root/theme/sizes';
+import FormFieldText from "../FormFieldText";
+import FormFieldTextArea from "../FormFieldTextArea";
+import FormFieldCheckbox from "../FormFieldCheckbox";
+import FormFieldChipSingleSelect from "../FormFieldChipSingleSelect";
+import FormFieldDropdownSingleSelection from "../FormFieldDropdownSingleSelection";
+import FormFieldPhoneSelectionDropdown from "../FormFieldPhoneSelectionDropdown";
+import FormFieldRadio from "../FormFieldRadio";
+import FormFieldToggleSwitch from "../FormFieldToggleSwitch";
+import Field, { FieldDef } from "@root/components/Field";
+import FormFieldImageVideoLinkDocumentBrowsing from "../FormFieldImageVideoLinkDocumentBrowsing";
+import FormFieldColorPicker from "../FormFieldColorPicker";
+import FormFieldDate from "../FormFieldDate/DateField";
+import FormFieldAddress from "../FormFieldAddress";
+import FormFieldTable from "../FormFieldTable";
+import FormFieldTextEditor from "../FormFieldTextEditor";
+import FormFieldAdvancedSelection from "../FormFieldAdvancedSelection";
+import FormFieldMapCoordinates from "../FormFieldMapCoordinates";
+import FormFieldImageUpload from "../FormFieldImageUpload";
+import { Sizes } from "@root/theme/sizes";
 
 const StyledCol = styled.div`
 	display: flex;
@@ -111,7 +111,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				const Component = typeof type === 'string' ? componentMap[type] : type;
+				const Component = typeof type === "string" ? componentMap[type] : type;
 
 				if (!Component) {
 					throw new Error(`Invalid type ${type}`);
@@ -122,9 +122,9 @@ const Col = (props: ColPropsTypes) => {
 				const onBlur = onBlurMap[fieldProps.name];
 
 				const name = fieldProps.name;
-				const value = state?.data[fieldProps.name] || '';
-				const touched = state?.touched[fieldProps.name] || '';
-				const error = state?.errors[fieldProps.name] || '';
+				const value = state?.data[fieldProps.name] || "";
+				const touched = state?.touched[fieldProps.name] || "";
+				const error = state?.errors[fieldProps.name] || "";
 
 				let maxSize: Sizes | string;
 				if (currentField?.size)
@@ -155,7 +155,7 @@ const Col = (props: ColPropsTypes) => {
 					/>
 				), [value, error, onChange, onBlur, touched, currentField]);
 
-				return (typeof type === 'string' && componentMap[type]) ? (
+				return (typeof type === "string" && componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
 						fieldDef={{ ...currentField, size: maxSize }}

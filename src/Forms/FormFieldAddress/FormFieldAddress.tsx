@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { memo, ReactElement, useState } from 'react';
+import * as React from "react";
+import { memo, ReactElement, useState } from "react";
 
 // Components
-import AddressDrawer from './AddressDrawer';
+import AddressDrawer from "./AddressDrawer";
 import Button from "@root/components/Button";
-import Drawer from '@root/components/Drawer.jsx';
+import Drawer from "@root/components/Drawer.jsx";
 
 // Styles
-import { AddAddressWrapper, FlexContainer } from './Address.styled';
+import { AddAddressWrapper, FlexContainer } from "./Address.styled";
 
 // Utils
-import AddressCard from './AddressCard';
-import { MosaicFieldProps } from '@root/components/Field';
-import { IAddress } from '.';
+import AddressCard from "./AddressCard";
+import { MosaicFieldProps } from "@root/components/Field";
+import { IAddress } from ".";
 
 const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => {
 	const {
@@ -62,7 +62,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	 * form field.
 	 */
 	const handleClose = async (save = false) => {
-		if (typeof save === 'boolean' && save) {
+		if (typeof save === "boolean" && save) {
 			setOpen(false);
 			await onBlur();
 		} else if (hasUnsavedChanges)

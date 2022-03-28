@@ -1,10 +1,10 @@
-import { FieldDef } from '@root/components/Field';
-import * as React from 'react';
-import { memo } from 'react';
-import styled from 'styled-components';
+import { FieldDef } from "@root/components/Field";
+import * as React from "react";
+import { memo } from "react";
+import styled from "styled-components";
 
 // Components
-import Col from './Col';
+import Col from "./Col";
 
 const StyledRow = styled.div`
 	display: flex;

@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { default as MUICheckbox } from '@material-ui/core/Checkbox';
-import { default as MUIFormControlLabel } from '@material-ui/core/FormControlLabel';
-import { default as MUIFormHelperText } from '@material-ui/core/FormHelperText';
-import theme from '@root/utils/theme';
+import styled from "styled-components";
+import { default as MUICheckbox } from "@material-ui/core/Checkbox";
+import { default as MUIFormControlLabel } from "@material-ui/core/FormControlLabel";
+import { default as MUIFormHelperText } from "@material-ui/core/FormHelperText";
+import theme from "@root/utils/theme";
 
 export const StyledFormControlLabel = styled(MUIFormControlLabel)`
   &.MuiFormControlLabel-root {
@@ -15,7 +15,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
   & > span.checked,
   & > span.MuiCheckbox-indeterminate {
     color: ${theme.colors.simplyGold};
-    opacity: ${(pr) => (pr.disabled ? '50%' : '100%')};
+    opacity: ${(pr) => (pr.disabled ? "50%" : "100%")};
   }
 
   & .MuiFormControlLabel-label {

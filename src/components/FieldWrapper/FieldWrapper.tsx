@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ReactElement, ReactNode } from 'react';
-import { StyledFieldWrapper } from './FieldWrapper.styled';
+import * as React from "react";
+import { ReactElement, ReactNode } from "react";
+import { StyledFieldWrapper } from "./FieldWrapper.styled";
 
 interface FieldWrapperProps {
   children: ReactNode;

@@ -1,5 +1,5 @@
-import { FormNavProps } from '@root/forms/FormNav';
-import { ReactNode } from 'react';
+import { FormNavProps } from "@root/forms/FormNav";
+import { ReactNode } from "react";
 import { ButtonAttrs } from "../Form/FormTypes";
 
 export type BaseTopComponentProps = {
@@ -23,7 +23,7 @@ export type BaseTopComponentProps = {
 	/**
 	 * All different variants for the top comopnent.
 	 */
-	view: 'MOBILE' | 'RESPONSIVE' | 'DRAWER' | 'DESKTOP' | 'BIG_DESKTOP';
+	view: "MOBILE" | "RESPONSIVE" | "DRAWER" | "DESKTOP" | "BIG_DESKTOP";
 	/**
 	 * Icon to be displayed when developers pass additional instructions
 	 * or information for the form.
@@ -58,5 +58,5 @@ export type TopComponentProps = {
 	 * Defines the type of form to be working with, which
 	 * allows for type-specific styling.
 	 */
-	type?: 'drawer';
+	type?: "drawer";
 } & FormNavProps & BaseTopComponentProps;

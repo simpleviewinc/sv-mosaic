@@ -1,20 +1,20 @@
 // React
-import * as React from 'react';
-import { ReactElement, useState } from 'react';
+import * as React from "react";
+import { ReactElement, useState } from "react";
 
 // Material UI
-import TextField from '@material-ui/core/TextField';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import TextField from "@material-ui/core/TextField";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 // Components
-import Chip from '../../components/Chip';
-import Checkbox from '../../components/Checkbox';
-import HelperText from '../../components/HelperText';
-import InputWrapper from '../../components/InputWrapper';
-import { Label } from '@root/components/Typography';
+import Chip from "../../components/Chip";
+import Checkbox from "../../components/Checkbox";
+import HelperText from "../../components/HelperText";
+import InputWrapper from "../../components/InputWrapper";
+import { Label } from "@root/components/Typography";
 
 // Types
-import { FormFieldDropdownMultipleSelectionTypes } from './FormFieldDropdownMultipleSelectionTypes';
+import { FormFieldDropdownMultipleSelectionTypes } from "./FormFieldDropdownMultipleSelectionTypes";
 import {
 	ChipsWrapper,
 	FieldWrapper,
@@ -22,10 +22,10 @@ import {
 	StyledPopper,
 	StyledInstructionText,
 	StyledDisabledDropdownText,
-} from './FormFieldDropdownMultipleSelection.styled';
+} from "./FormFieldDropdownMultipleSelection.styled";
 
 // Theme
-import { Sizes } from '../../theme/sizes';
+import { Sizes } from "../../theme/sizes";
 
 const FormFieldDropdownMultipleSelection = (
 	props: FormFieldDropdownMultipleSelectionTypes

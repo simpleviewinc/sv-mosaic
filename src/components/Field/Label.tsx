@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { ReactElement, ReactNode } from 'react';
-import styled from 'styled-components';
+import * as React from "react";
+import { ReactElement, ReactNode } from "react";
+import styled from "styled-components";
 
 // Material UI
-import { InputLabel } from '@material-ui/core';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import { InputLabel } from "@material-ui/core";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 
-import theme from '../../utils/theme';
-import Tooltip from '../Tooltip';
+import theme from "../../utils/theme";
+import Tooltip from "../Tooltip";
 
 const LabelWrapper = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const LabelWrapper = styled.div`
     word-wrap: break-word;
 
   :after {
-      content: "${(pr) => (pr.required ? '*' : '')}";
+      content: "${(pr) => (pr.required ? "*" : "")}";
       color: ${theme.colors.red};
     }
   }
@@ -94,7 +94,7 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputTooltipWrapper>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
-					{(!value ? '0' : value.length) + '/' + maxCharacters}
+					{(!value ? "0" : value.length) + "/" + maxCharacters}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>

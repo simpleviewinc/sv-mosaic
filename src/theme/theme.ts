@@ -47,9 +47,9 @@ export default {
 		simplyGold : "#FDB924",
 		simplyGoldDisabled : "#FED57B",
 		simplyGoldHover : "#E3A520",
-		simplyGoldOpacity : 'rgb(253, 185, 36, 0.3)',
-		simplyGray : '#BEBEBE',
-		simplyGrayOpacity : 'rgb(190, 190, 190, 0.3)',
+		simplyGoldOpacity : "rgb(253, 185, 36, 0.3)",
+		simplyGray : "#BEBEBE",
+		simplyGrayOpacity : "rgb(190, 190, 190, 0.3)",
 		assistiveText : "#6B6F7C", //Same as gray600
 		label : "#3B424E", //Same as gray700
 		almostBlack : "#1A1A1A",

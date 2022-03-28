@@ -1,10 +1,10 @@
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
-import * as React from 'react';
-import Chip from './Chip';
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import * as React from "react";
+import Chip from "./Chip";
 
 afterEach(cleanup);
 
-describe('Chip component', () => {
+describe("Chip component", () => {
 	beforeEach(() => {
 		render(
 			<Chip
@@ -15,15 +15,15 @@ describe('Chip component', () => {
 		);
 	});
 
-	it('should display Chip label', () => {
-		const labelElement = screen.getByText('Label test');
+	it("should display Chip label", () => {
+		const labelElement = screen.getByText("Label test");
 
 		expect(labelElement).toBeDefined();
 	});
 });
 
-describe('The deletable Chip component', () => {
-	it('should display the delete icon an execute the handleDelete function', () => {
+describe("The deletable Chip component", () => {
+	it("should display the delete icon an execute the handleDelete function", () => {
 		const handleDelete = jest.fn();
 		const DeletableChip = () => {
 			return (
@@ -36,7 +36,7 @@ describe('The deletable Chip component', () => {
 		};
 
 		render(<DeletableChip />);
-		const deleteIcon = screen.getByTestId('delete-icon-test-id');
+		const deleteIcon = screen.getByTestId("delete-icon-test-id");
 		fireEvent.click(deleteIcon);
 
 		expect(deleteIcon).toBeDefined();
@@ -44,8 +44,8 @@ describe('The deletable Chip component', () => {
 	});
 });
 
-describe('A selected Chip component', () => {
-	it('should be able to select a chip', () => {
+describe("A selected Chip component", () => {
+	it("should be able to select a chip", () => {
 		const handleClick = jest.fn();
 
 		render(
@@ -57,7 +57,7 @@ describe('A selected Chip component', () => {
 			/>
 		);
 
-		const chipElement = screen.getByRole('button');
+		const chipElement = screen.getByRole("button");
 		fireEvent.click(chipElement);
 
 		expect(handleClick).toHaveBeenCalled();

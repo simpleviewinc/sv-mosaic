@@ -1,16 +1,16 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
 
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from '@material-ui/icons/Add';
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import HelpIcon from '@material-ui/icons/Help';
-import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
-import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
-import GridOnOutlinedIcon from '@material-ui/icons/GridOnOutlined';
+import AddIcon from "@material-ui/icons/Add";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import HelpIcon from "@material-ui/icons/Help";
+import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
+import FormatListBulletedOutlinedIcon from "@material-ui/icons/FormatListBulletedOutlined";
+import GridOnOutlinedIcon from "@material-ui/icons/GridOnOutlined";
 
 import ButtonRow from "../ButtonRow";
 import Button from "./Button";

@@ -1,27 +1,27 @@
-import * as React from 'react';
-import { ReactElement, ChangeEvent, useState } from 'react';
-import { boolean, withKnobs, text } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/addon-docs/blocks';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import * as React from "react";
+import { ReactElement, ChangeEvent, useState } from "react";
+import { boolean, withKnobs, text } from "@storybook/addon-knobs";
+import { Meta } from "@storybook/addon-docs/blocks";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 // Components
-import RadioButton from './RadioButton';
+import RadioButton from "./RadioButton";
 
 export default {
-	title: 'Components/RadioButton',
+	title: "Components/RadioButton",
 	decorators: [withKnobs],
 } as Meta;
 
 export const Example = (): ReactElement => (
 	<RadioButton
-		label={text('Label', 'Label')}
-		disabled={boolean('Disabled', false)}
-		required={boolean('Required', false)}
+		label={text("Label", "Label")}
+		disabled={boolean("Disabled", false)}
+		required={boolean("Required", false)}
 	/>
 );
 
 export const Group = (): ReactElement => {
-	const [value, setValue] = useState('female');
+	const [value, setValue] = useState("female");
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setValue((event.target as HTMLInputElement).value);

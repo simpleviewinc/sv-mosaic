@@ -2,15 +2,27 @@
 	"parserOptions": {
 		"ecmaVersion": 11,
 		"sourceType": "module",
-		"ecmaFeatures": {"jsx": true}
+		"ecmaFeatures": {
+			"jsx": true
+		}
 	},
 	"overrides": [
 		{
-			"files": ["**/*.ts", "**/*.tsx"],
+			"files": [
+				"**/*.ts",
+				"**/*.tsx"
+			],
 			"parser": "@typescript-eslint/parser",
 			"rules": {
 				"no-unused-vars": "off",
-				"@typescript-eslint/no-unused-vars": [2, {"vars": "all", "args": "none", "ignoreRestSiblings": true}]
+				"@typescript-eslint/no-unused-vars": [
+					2,
+					{
+						"vars": "all",
+						"args": "none",
+						"ignoreRestSiblings": true
+					}
+				]
 			},
 			"extends": [
 				"eslint:recommended",
@@ -30,13 +42,33 @@
 	],
 	"rules": {
 		"prefer-const": 2,
-		"no-unused-vars": [2, {"vars": "all", "args": "none", "ignoreRestSiblings": true}],
+		"no-unused-vars": [
+			2,
+			{
+				"vars": "all",
+				"args": "none",
+				"ignoreRestSiblings": true
+			}
+		],
 		"no-var": 2,
 		"one-var-declaration-per-line": 2,
-		"indent": ["error", "tab", { "flatTernaryExpressions" : true }],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"flatTernaryExpressions": true
+			}
+		],
 		"space-infix-ops": 2,
 		"keyword-spacing": 2,
-		"space-before-blocks": 2
+		"space-before-blocks": 2,
+		"quotes": [
+			2,
+			"double",
+			{
+				"avoidEscape": true
+			}
+		]
 	},
 	"plugins": [
 		"react",
