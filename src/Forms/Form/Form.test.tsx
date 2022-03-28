@@ -1171,10 +1171,10 @@ describe('VALIDATORS: validateDateRange', () => {
 		{
 			name: 'Empty fields',
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: 'validateDateRange', options: { endDateName: 'endDate' } },
 				value: undefined,
 				data: {
-					"endDate": undefined //"2022-03-25T00:00:00.0000Z"
+					"endDate": undefined,
 				},
 				result: undefined,
 			}
@@ -1182,10 +1182,10 @@ describe('VALIDATORS: validateDateRange', () => {
 		{
 			name: 'startDate with value and endDate without',
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: 'validateDateRange', options: { endDateName: 'endDate' } },
 				value: "2022-03-25T00:00:00.0000Z",
 				data: {
-					"endDate": undefined //"2022-03-25T00:00:00.0000Z"
+					"endDate": undefined,
 				},
 				result: undefined,
 			}
@@ -1193,10 +1193,10 @@ describe('VALIDATORS: validateDateRange', () => {
 		{
 			name: 'endDate with value and startDate without',
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: 'validateDateRange', options: { endDateName: 'endDate' } },
 				value: undefined,
 				data: {
-					"endDate": "2022-03-25T00:00:00.0000Z"
+					"endDate": "2022-03-25T00:00:00.0000Z",
 				},
 				result: undefined,
 			}
@@ -1204,10 +1204,10 @@ describe('VALIDATORS: validateDateRange', () => {
 		{
 			name: 'startDate happenning before endDate',
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: 'validateDateRange', options: { endDateName: 'endDate' } },
 				value: "2022-03-25T00:00:00.0000Z",
 				data: {
-					"endDate": "2022-03-26T00:00:00.0000Z"
+					"endDate": "2022-03-26T00:00:00.0000Z",
 				},
 				result: undefined,
 			}
@@ -1215,10 +1215,10 @@ describe('VALIDATORS: validateDateRange', () => {
 		{
 			name: 'startDate happenning at the same time as endDate',
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: 'validateDateRange', options: { endDateName: 'endDate' } },
 				value: "2022-03-25T00:00:00.0000Z",
 				data: {
-					"endDate": "2022-03-25T00:00:00.0000Z"
+					"endDate": "2022-03-25T00:00:00.0000Z",
 				},
 				result: undefined,
 			}
@@ -1226,10 +1226,10 @@ describe('VALIDATORS: validateDateRange', () => {
 		{
 			name: 'startDate happenning after endDate',
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: 'validateDateRange', options: { endDateName: 'endDate' } },
 				value: "2022-03-27T00:00:00.0000Z",
 				data: {
-					"endDate": "2022-03-26T00:00:00.0000Z"
+					"endDate": "2022-03-26T00:00:00.0000Z",
 				},
 				result: "Start date should happen before the end date",
 			}
