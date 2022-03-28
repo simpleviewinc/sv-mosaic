@@ -50,12 +50,6 @@ export * from "./forms/FormFieldDate/DatePicker";
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
 
-// export { default as FormFieldAddLink } from "./forms/FormFieldAddLink";
-// export * from "./forms/FormFieldAddLink";
-
-// export { default as FormButton } from "./forms/Button";
-// export * from "./forms/Button";
-
 export { default as FormDialog } from "./components/Dialog";
 export * from "./components/Dialog";
 
@@ -106,10 +100,6 @@ export * from "./forms/FormFieldTable";
 
 export { default as FormFieldTextArea } from "./forms/FormFieldTextArea";
 export * from "./forms/FormFieldTextArea";
-
-//BUG TO BE FIXED
-// export { default as TextEditor } from "./forms/TextEditor";
-// export * from "./forms/TextEditor";
 
 export { default as TimePicker } from "./forms/FormFieldDate/TimePicker";
 export * from "./forms/FormFieldDate/TimePicker";
