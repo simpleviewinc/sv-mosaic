@@ -1,4 +1,4 @@
-import { MosaicMIcon } from '@root/types';
+import { MosaicMIcon } from "@root/types";
 export declare type TableRow = {
     /**
      * Unique identifier. Used as an
@@ -52,7 +52,7 @@ export declare type TableDataState = {
     table: TableRow[];
 };
 export declare type UseTableReturnType = {
-    addTableRow: TableDef['handleAddElement'];
-    editAction: TableDef['handleEdit'];
-    extraActionsTable: TableDef['extraActions'];
+    addTableRow: TableDef["handleAddElement"];
+    editAction: TableDef["handleEdit"];
+    extraActionsTable: TableDef["extraActions"];
 };

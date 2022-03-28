@@ -1,5 +1,5 @@
-import { Options } from '@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes';
-import { ImageUploadCanvasProps } from './ImageUploadCanvas/ImageUploadCanvas';
+import { Options } from "@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes";
+import { ImageUploadCanvasProps } from "./ImageUploadCanvas/ImageUploadCanvas";
 export declare type ImageUploadDef = {
     /**
      * Callback executed when the set focus button is clicked.

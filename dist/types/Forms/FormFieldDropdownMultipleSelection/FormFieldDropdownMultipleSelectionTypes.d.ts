@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import { MosaicLabelValue } from '@root/types';
-import { Sizes } from '../../theme/sizes';
+import { MosaicLabelValue } from "@root/types";
+import { Sizes } from "../../theme/sizes";
 export interface FormFieldDropdownMultipleSelectionTypes {
     /**
      * Significant name related to its text area.

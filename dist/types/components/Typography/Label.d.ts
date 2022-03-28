@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ReactElement } from 'react';
-import { TypographyGenericProps } from './TypographyTypes';
+import * as React from "react";
+import { ReactElement } from "react";
+import { TypographyGenericProps } from "./TypographyTypes";
 interface LabelProps {
     disabled?: boolean;
     required?: boolean;

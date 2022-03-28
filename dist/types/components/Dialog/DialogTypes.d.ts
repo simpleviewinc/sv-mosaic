@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 export interface DialogProps {
     /**
      * Dialog content, usually the included sub-components.

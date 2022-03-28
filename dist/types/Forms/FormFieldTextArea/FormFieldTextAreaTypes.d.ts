@@ -1,4 +1,4 @@
-import { Sizes } from '../../theme/sizes';
+import { Sizes } from "../../theme/sizes";
 export declare type TextAreaDef = {
     /**
      * Example text within the input to be replaced by the user.

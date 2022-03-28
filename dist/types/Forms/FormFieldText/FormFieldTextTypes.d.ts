@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Sizes } from '@root/theme/sizes';
+import { Sizes } from "@root/theme/sizes";
 /**
  * Base text field props.
  */

@@ -15,7 +15,7 @@ export interface ToggleSwitchProps {
     /**
      * The position of the label.
      */
-    labelPlacement?: MUIFormControlLabelProps['labelPlacement'];
+    labelPlacement?: MUIFormControlLabelProps["labelPlacement"];
     /**
      * Indicates whether the toggle switch is required or not.
      */

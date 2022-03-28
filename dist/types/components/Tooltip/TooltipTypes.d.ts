@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { TooltipProps as MUITooltipProps } from '@material-ui/core/Tooltip';
+import { ReactNode } from "react";
+import { TooltipProps as MUITooltipProps } from "@material-ui/core/Tooltip";
 export interface TooltipProps {
     /**
      * Additional custom css class to style the
@@ -24,11 +24,11 @@ export interface TooltipProps {
      * Advanced: Large white tooltip (mostly used
      * with fields).
      */
-    type?: 'default' | 'advanced';
+    type?: "default" | "advanced";
     /**
      * Tooltip placement.
      */
-    placement?: MUITooltipProps['placement'];
+    placement?: MUITooltipProps["placement"];
     /**
      * If true, the tooltip is shown.
      */

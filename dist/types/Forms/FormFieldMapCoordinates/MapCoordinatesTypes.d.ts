@@ -1,13 +1,13 @@
 /// <reference types="google.maps" />
-import { FieldDef } from '@root/components/Field/FieldTypes';
-import { IAddress } from '@root/forms/FormFieldAddress/AddressTypes';
+import { FieldDef } from "@root/components/Field/FieldTypes";
+import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
  * https://developers.google.com/maps/documentation/javascript/libraries
  * We use places which places enables your application to search for places such as
  * establishments, geographic locations, or prominent points of interest, within a defined area.
  */
-export declare type Libraries = ('drawing' | 'geometry' | 'localContext' | 'places' | 'visualization')[];
+export declare type Libraries = ("drawing" | "geometry" | "localContext" | "places" | "visualization")[];
 /**
  * Used to display the Map's markers and center to center the map at a given latitude and
  * longitude.
