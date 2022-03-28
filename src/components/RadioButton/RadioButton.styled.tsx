@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Material UI
-import Radio from '@material-ui/core/Radio';
+import Radio from "@material-ui/core/Radio";
 
-import theme from '../../utils/theme.js';
+import theme from "../../utils/theme.js";
 
 export const StyledRadioButton = styled(Radio)`
   &.MuiRadio-colorSecondary {

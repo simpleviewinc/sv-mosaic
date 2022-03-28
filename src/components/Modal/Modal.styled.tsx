@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Material UI
-import Dialog from '@material-ui/core/Dialog';
+import Dialog from "@material-ui/core/Dialog";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const StyledDialog = styled(Dialog)`
   z-index: 99999999 !important;
@@ -19,7 +19,7 @@ export const StyledDialog = styled(Dialog)`
   }
 
   .MuiDialogContent-root {
-    padding: ${(pr) => pr.fullScreen ? '20px' : '40px 40px 24px 40px'};
+    padding: ${(pr) => pr.fullScreen ? "20px" : "40px 40px 24px 40px"};
   }
 
   .MuiDialog-paperWidthSm {

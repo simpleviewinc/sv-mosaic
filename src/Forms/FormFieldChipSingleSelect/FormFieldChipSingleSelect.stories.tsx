@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { ReactElement, useCallback, useMemo } from 'react';
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/addon-docs/blocks';
+import * as React from "react";
+import { ReactElement, useCallback, useMemo } from "react";
+import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
 import { FormFieldChipSingleSelectDef } from ".";
-import { FieldDef } from '@root/components/Field';
-import Form from '../Form/Form';
-import { useForm } from '../Form/formUtils';
+import { FieldDef } from "@root/components/Field";
+import Form from "../Form/Form";
+import { useForm } from "../Form/formUtils";
 
 export default {
-	title: 'Forms|FormFieldChipSingleSelect',
+	title: "Forms|FormFieldChipSingleSelect",
 	decorators: [withKnobs],
 } as Meta;
 
@@ -26,24 +26,24 @@ export const Playground = (): ReactElement => {
 	
 	const options = useMemo( ()=> [
 		{
-			label: 'Option 1',
-			value: 'Option_1',
+			label: "Option 1",
+			value: "Option_1",
 		},
 		{
-			label: 'Option 2',
-			value: 'Option_2',
+			label: "Option 2",
+			value: "Option_2",
 		},
 		{
-			label: 'Option 3',
-			value: 'Option_3',
+			label: "Option 3",
+			value: "Option_3",
 		},
 	], []);
 	
-	const label = text('Label', 'Label');
-	const helperText = text('Helper Text', 'Helper Text');
-	const instructionText = text('Instruction text', 'Instruction text');
-	const required = boolean('Required', false);
-	const disabled = boolean('Disabled', false);
+	const label = text("Label", "Label");
+	const helperText = text("Helper Text", "Helper Text");
+	const instructionText = text("Instruction text", "Instruction text");
+	const required = boolean("Required", false);
+	const disabled = boolean("Disabled", false);
 	
 	const fields = useMemo(
 		() =>
@@ -69,7 +69,7 @@ export const Playground = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, "  "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, "  "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -77,15 +77,15 @@ export const Playground = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Title', 'Form Title')}
-				description={text('Description', 'This is a description example')}
+				title={text("Title", "Form Title")}
+				description={text("Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -108,16 +108,16 @@ export const KitchenSink = (): ReactElement => {
 
 	const options = useMemo(() => [
 		{
-			label: 'Option 1',
-			value: 'Option_1',
+			label: "Option 1",
+			value: "Option_1",
 		},
 		{
-			label: 'Option 2',
-			value: 'Option_2',
+			label: "Option 2",
+			value: "Option_2",
 		},
 		{
-			label: 'Option 3',
-			value: 'Option_3',
+			label: "Option 3",
+			value: "Option_3",
 		},
 	], []);
 
@@ -133,8 +133,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 					},
-					helperText: 'Helper text',
-					instructionText: 'Instruction text'
+					helperText: "Helper text",
+					instructionText: "Instruction text"
 				},
 				{
 					name: "chipDisable",
@@ -145,8 +145,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 					},
-					helperText: 'Helper text',
-					instructionText: 'Instruction text'
+					helperText: "Helper text",
+					instructionText: "Instruction text"
 				},
 				{
 					name: "chipRequired",
@@ -157,8 +157,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 					},
-					helperText: 'Helper text',
-					instructionText: 'Instruction text'
+					helperText: "Helper text",
+					instructionText: "Instruction text"
 				}
 			] as FieldDef<FormFieldChipSingleSelectDef>[],
 		[]
@@ -169,7 +169,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -177,7 +177,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (

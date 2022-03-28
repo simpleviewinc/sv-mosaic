@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo } from "react";
 import styled from "styled-components";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import { DataViewControlDisplayProps } from "./DataViewTypes";
 import Button from "../Button";

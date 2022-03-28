@@ -1,27 +1,27 @@
-import * as React from 'react';
-import { ReactElement, useCallback, useMemo } from 'react';
-import { array, boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { TableDef } from './TableTypes';
+import * as React from "react";
+import { ReactElement, useCallback, useMemo } from "react";
+import { array, boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { TableDef } from "./TableTypes";
 
 // Components
-import { FieldDef } from '@root/components/Field';
-import Form from '../Form/Form';
+import { FieldDef } from "@root/components/Field";
+import Form from "../Form/Form";
 
 // Utils
-import { useForm } from '../Form/formUtils';
+import { useForm } from "../Form/formUtils";
 import {
 	headers,
 	deleteTableRow,
 	useTable,
-} from '@root/forms/FormFieldTable/tableUtils';
+} from "@root/forms/FormFieldTable/tableUtils";
 
 export default {
-	title: 'Forms|FormFieldTable',
+	title: "Forms|FormFieldTable",
 	decorators: [withKnobs],
 };
 
 const onCancel = () => {
-	alert('Cancelling form, going back to previous site');
+	alert("Cancelling form, going back to previous site");
 };
 
 export const Playground = (): ReactElement => {
@@ -35,17 +35,17 @@ export const Playground = (): ReactElement => {
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
-		'table',
+		"table",
 		dispatch
 	);
 
-	const disabled = boolean('Disabled', false);
-	const headersKnob = array('Headers', headers);
-	const helperText = text('Helper text', 'Helper text');
-	const label = text('Label', 'Label');
-	const instructionText = text('Instruction text', 'Instruction text');
-	const required = boolean('Required', false);
-	const withMoreActions = boolean('With more actions', false);
+	const disabled = boolean("Disabled", false);
+	const headersKnob = array("Headers", headers);
+	const helperText = text("Helper text", "Helper text");
+	const label = text("Label", "Label");
+	const instructionText = text("Instruction text", "Instruction text");
+	const required = boolean("Required", false);
+	const withMoreActions = boolean("With more actions", false);
 
 	const fields = useMemo(
 		() =>
@@ -62,9 +62,9 @@ export const Playground = (): ReactElement => {
 						headers: headersKnob,
 					},
 					label,
-					name: 'table',
+					name: "table",
 					required,
-					type: 'table',
+					type: "table",
 				},
 			] as FieldDef<TableDef>[],
 		[
@@ -86,8 +86,8 @@ export const Playground = (): ReactElement => {
 	const onSubmit = useCallback(
 		(data) => {
 			alert(
-				'Form submitted with the following data: ' +
-				JSON.stringify(data, null, ' ')
+				"Form submitted with the following data: " +
+				JSON.stringify(data, null, " ")
 			);
 		},
 		[state.validForm]
@@ -99,16 +99,16 @@ export const Playground = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				description={text('Description', 'This is a description example')}
+				description={text("Description", "This is a description example")}
 				dispatch={dispatch}
 				events={events}
 				fields={fields}
 				onCancel={onCancel}
 				onSubmit={onSubmit}
 				state={state}
-				title={text('Title', 'Form Title')}
+				title={text("Title", "Form Title")}
 			/>
 		</>
 	);
@@ -125,12 +125,12 @@ export const KitchenSink = (): ReactElement => {
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
-		'table',
+		"table",
 		dispatch
 	);
 	const { addTableRow: withoutHeaders } = useTable(
 		state.data,
-		'tableWithoutHeaders',
+		"tableWithoutHeaders",
 		dispatch
 	);
 
@@ -140,8 +140,8 @@ export const KitchenSink = (): ReactElement => {
 				{
 					disabled: false,
 					helperText:
-						'The translate and the menu icons are shown to prove that the table can receive multiple actions',
-					instructionText: 'Instruction text',
+						"The translate and the menu icons are shown to prove that the table can receive multiple actions",
+					instructionText: "Instruction text",
 					inputSettings: {
 						handleAddElement: addTableRow,
 						handleEdit: editAction,
@@ -149,15 +149,15 @@ export const KitchenSink = (): ReactElement => {
 						extraActions: extraActionsTable,
 						headers,
 					},
-					label: 'Table example with extra actions',
-					name: 'table',
+					label: "Table example with extra actions",
+					name: "table",
 					required: false,
-					type: 'table',
+					type: "table",
 				},
 				{
 					disabled: false,
-					helperText: 'Default actions are the deletion and edition',
-					instructionText: 'Instruction text',
+					helperText: "Default actions are the deletion and edition",
+					instructionText: "Instruction text",
 					inputSettings: {
 						handleAddElement: withoutHeaders,
 						handleEdit: editAction,
@@ -165,15 +165,15 @@ export const KitchenSink = (): ReactElement => {
 						extraActions: [],
 						headers: [],
 					},
-					label: 'Table without headers and with the default actions',
-					name: 'tableWithoutHeaders',
+					label: "Table without headers and with the default actions",
+					name: "tableWithoutHeaders",
 					required: false,
-					type: 'table',
+					type: "table",
 				},
 				{
 					disabled: true,
-					helperText: 'Helper text',
-					instructionText: 'Instruction text',
+					helperText: "Helper text",
+					instructionText: "Instruction text",
 					inputSettings: {
 						handleAddElement: withoutHeaders,
 						handleEdit: editAction,
@@ -181,10 +181,10 @@ export const KitchenSink = (): ReactElement => {
 						extraActions: [],
 						headers,
 					},
-					label: 'Table disabled',
-					name: 'disabled',
+					label: "Table disabled",
+					name: "disabled",
 					required: false,
-					type: 'table',
+					type: "table",
 				},
 			] as FieldDef<TableDef>[],
 		[addTableRow, withoutHeaders]
@@ -197,8 +197,8 @@ export const KitchenSink = (): ReactElement => {
 	const onSubmit = useCallback(
 		(data) => {
 			alert(
-				'Form submitted with the following data: ' +
-				JSON.stringify(data, null, ' ')
+				"Form submitted with the following data: " +
+				JSON.stringify(data, null, " ")
 			);
 		},
 		[state.validForm]
@@ -210,7 +210,7 @@ export const KitchenSink = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, '  ')}</pre>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				description='Form description'
 				dispatch={dispatch}

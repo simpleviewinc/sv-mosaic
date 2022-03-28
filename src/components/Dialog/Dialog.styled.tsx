@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Material UI
-import Dialog from '@material-ui/core/Dialog';
+import Dialog from "@material-ui/core/Dialog";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const StyledDialog = styled(Dialog)`
 z-index: 99999 !important;

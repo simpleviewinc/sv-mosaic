@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ReactElement, memo } from 'react';
+import * as React from "react";
+import { ReactElement, memo } from "react";
 
 // Types and styles
-import { TextAreaDef } from './FormFieldTextAreaTypes';
-import { StyledTextArea } from './FormFieldTextArea.styled';
-import { MosaicFieldProps } from '@root/components/Field';
+import { TextAreaDef } from "./FormFieldTextAreaTypes";
+import { StyledTextArea } from "./FormFieldTextArea.styled";
+import { MosaicFieldProps } from "@root/components/Field";
 
 const TextArea = (
 	props: MosaicFieldProps<TextAreaDef>

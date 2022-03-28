@@ -4,67 +4,67 @@ import {
 	TableDataState,
 	TableRow,
 	UseTableReturnType,
-} from '@root/forms/FormFieldTable';
+} from "@root/forms/FormFieldTable";
 
 // Utils
-import { actions } from '../Form/formUtils';
+import { actions } from "../Form/formUtils";
 
 // Components
-import MenuIcon from '@material-ui/icons/Menu';
-import TranslateIcon from '@material-ui/icons/Translate';
+import MenuIcon from "@material-ui/icons/Menu";
+import TranslateIcon from "@material-ui/icons/Translate";
 
 /**
  * Rows definition
  */
 export const possibleTableRows: TableRow[] = [
 	{
-		id: '1',
-		items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
+		id: "1",
+		items: ["John", "john@email.com", "01/01/2021", "3231-962-7516"],
 	},
 	{
-		id: '2',
-		items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
+		id: "2",
+		items: ["Sally", "sally@email.com", "12/24/2020", "011-962-111"],
 	},
 	{
-		id: '3',
-		items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
+		id: "3",
+		items: ["Maria", "maria@email.com", "12/01/2020", "788-962-7516"],
 	},
 	{
-		id: '4',
-		items: ['George', 'george@email.com', '01/01/2021', '3231-962-7516'],
+		id: "4",
+		items: ["George", "george@email.com", "01/01/2021", "3231-962-7516"],
 	},
 	{
-		id: '5',
-		items: ['Doe', 'doe@email.com', '12/24/2020', '011-962-111'],
+		id: "5",
+		items: ["Doe", "doe@email.com", "12/24/2020", "011-962-111"],
 	},
 	{
-		id: '6',
-		items: ['Test', 'test@email.com', '12/01/2020', '788-962-7516'],
+		id: "6",
+		items: ["Test", "test@email.com", "12/01/2020", "788-962-7516"],
 	},
 	{
-		id: '7',
-		items: ['John', 'john@email.com', '01/01/2021', '3231-962-7516'],
+		id: "7",
+		items: ["John", "john@email.com", "01/01/2021", "3231-962-7516"],
 	},
 	{
-		id: '8',
-		items: ['Sally', 'sally@email.com', '12/24/2020', '011-962-111'],
+		id: "8",
+		items: ["Sally", "sally@email.com", "12/24/2020", "011-962-111"],
 	},
 	{
-		id: '9',
-		items: ['Maria', 'maria@email.com', '12/01/2020', '788-962-7516'],
+		id: "9",
+		items: ["Maria", "maria@email.com", "12/01/2020", "788-962-7516"],
 	},
 ];
 
 /**
  * Headers definition
  */
-export const headers = ['Label 1', 'Label 2', 'Label 3', 'Label 4'];
+export const headers = ["Label 1", "Label 2", "Label 3", "Label 4"];
 
 /**
  * External delete row callback
  */
 export const deleteTableRow = (): void => {
-	alert('Delete button clicked');
+	alert("Delete button clicked");
 };
 
 /**
@@ -92,7 +92,7 @@ export const useTable = (
 				})
 			);
 		} else if (tableDataLength >= possibleTableRows.length) {
-			alert('There are no more elements to add');
+			alert("There are no more elements to add");
 		} else {
 			let index;
 
@@ -128,12 +128,12 @@ export const useTable = (
 
 	const extraActionsTable: Actions[] = [
 		{
-			label: 'Menu action',
+			label: "Menu action",
 			actionFnc: menuActions,
 			icon: MenuIcon,
 		},
 		{
-			label: 'Translate',
+			label: "Translate",
 			actionFnc: translateAction,
 			icon: TranslateIcon,
 		},

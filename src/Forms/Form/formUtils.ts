@@ -23,72 +23,72 @@ type Action = {
 
 export function coreReducer(state: State, action: Action): State {
 	switch (action.type) {
-		case "FIELD_ON_CHANGE":
-			return {
-				...state,
-				data: {
-					...state.data,
-					[action.name]: action.value
-				}
-			};
-		case "FIELD_START_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: null
-				},
-				validating: {
-					...state.validating,
-					[action.name]: true
-				}
-			};
-		case "FIELD_END_VALIDATE":
-			return {
-				...state,
-				errors: {
-					...state.errors,
-					[action.name]: action.value
-				},
-				validating: {
-					...state.validating,
-					[action.name]: undefined
-				}
-			};
-		case "FORM_START_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_END_DISABLE":
-			return {
-				...state,
-				disabled: action.value
-			};
-		case "FORM_VALIDATE":
-			return {
-				...state,
-				validForm: action.value
-			};
-		case "FORM_RESET":
-			return {
-				...state,
-				data: {},
-				touched: {},
-				errors: {},
-				validating: {},
-				custom: {},
-				validForm: false,
-				disabled: null,
-				pairedFields: {},
+	case "FIELD_ON_CHANGE":
+		return {
+			...state,
+			data: {
+				...state.data,
+				[action.name]: action.value
 			}
-		case "PAIR_FIELDS":
-			return {
-				...state,
-				pairedFields: action.value
+		};
+	case "FIELD_START_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: null
+			},
+			validating: {
+				...state.validating,
+				[action.name]: true
 			}
-		default:
-			return state;
+		};
+	case "FIELD_END_VALIDATE":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: action.value
+			},
+			validating: {
+				...state.validating,
+				[action.name]: undefined
+			}
+		};
+	case "FORM_START_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_END_DISABLE":
+		return {
+			...state,
+			disabled: action.value
+		};
+	case "FORM_VALIDATE":
+		return {
+			...state,
+			validForm: action.value
+		};
+	case "FORM_RESET":
+		return {
+			...state,
+			data: {},
+			touched: {},
+			errors: {},
+			validating: {},
+			custom: {},
+			validForm: false,
+			disabled: null,
+			pairedFields: {},
+		}
+	case "PAIR_FIELDS":
+		return {
+			...state,
+			pairedFields: action.value
+		}
+	default:
+		return state;
 	}
 }
 
@@ -190,7 +190,7 @@ export const actions = {
 			for (let i = 0; i < fields.length; i++) {
 				const currFieldName = fields[i].name;
 				(!!touchedFields[currFieldName] === false ||
-					Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === 'object') &&
+					Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === "object") &&
 					await dispatch(
 						actions.validateField({ name: currFieldName })
 					);
@@ -293,7 +293,7 @@ export function useForm({ customReducer }: { customReducer?: ((state: State, act
 		fields: [],
 		fieldMap: {},
 		onSubmit: () => undefined,
-		onLoad: () => [{ name: '', value: '' }],
+		onLoad: () => [{ name: "", value: "" }],
 	});
 	const reducer = useMemo(() => {
 		return customReducer

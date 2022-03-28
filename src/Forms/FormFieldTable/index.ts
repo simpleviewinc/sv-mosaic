@@ -1,3 +1,3 @@
-export { default } from './FormFieldTable';
-export * from './FormFieldTable';
-export * from './TableTypes';
+export { default } from "./FormFieldTable";
+export * from "./FormFieldTable";
+export * from "./TableTypes";

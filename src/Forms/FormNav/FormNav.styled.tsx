@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const NavItems = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ export const LinksWrapper = styled.div`
 
   a {
     border-bottom: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? '4px solid #FCB731' : ''};
+		pr.idx === pr.selectedTabIdx ? "4px solid #FCB731" : ""};
     color: ${(pr) =>
 		pr.idx === pr.selectedTabIdx
 			? theme.colors.almostBlack
@@ -32,7 +32,7 @@ export const LinksWrapper = styled.div`
     font-family: ${theme.fontFamily};
     font-size: 14px;
     font-weight: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? theme.fontWeight.medium : ''};
+		pr.idx === pr.selectedTabIdx ? theme.fontWeight.medium : ""};
     text-align: center;
     text-decoration: none;
     padding-bottom: 12px;
@@ -40,15 +40,15 @@ export const LinksWrapper = styled.div`
 
   @media (min-width: 1718px) {
     background-color: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? theme.colors.gray200 : ''};
+		pr.idx === pr.selectedTabIdx ? theme.colors.gray200 : ""};
     margin-right: 0;
 
     a {
       border-bottom: 0px;
       border-left: ${(pr) =>
 		pr.idx === pr.selectedTabIdx
-			? '4px solid #FCB731'
-			: '4px solid transparent'};
+			? "4px solid #FCB731"
+			: "4px solid transparent"};
       padding: 16px 0 16px 24px;
     }
   }

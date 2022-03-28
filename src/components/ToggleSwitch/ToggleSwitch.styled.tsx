@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Material UI
-import Switch from '@material-ui/core/Switch';
+import Switch from "@material-ui/core/Switch";
 
 // Utils
-import theme from '@root/theme';
+import theme from "@root/theme";
 
 export const StyledSwitch = styled(Switch)`
   margin-right: 2px;

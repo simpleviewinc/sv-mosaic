@@ -1,27 +1,27 @@
-import * as React from 'react';
+import * as React from "react";
 import {
 	memo,
 	ReactElement,
 	useEffect,
 	useState
-} from 'react';
+} from "react";
 
 // Types
-import { AdvancedSelectionDef } from './AdvancedSelectionTypes';
-import { MosaicFieldProps } from '@root/components/Field';
+import { AdvancedSelectionDef } from "./AdvancedSelectionTypes";
+import { MosaicFieldProps } from "@root/components/Field";
 
 // Components
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@root/components/Button';
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@root/components/Button";
 import Drawer from "../../components/Drawer.jsx";
-import AdvancedSelectionDrawer from './AdvancedSelectionDrawer';
-import ChipList from './ChipList';
+import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";
+import ChipList from "./ChipList";
 
 // Styles
 import {
 	AdvancedSelectionWrapper,
-} from './AdvancedSelection.styled';
-import { BREAKPOINTS } from '@root/theme/theme';
+} from "./AdvancedSelection.styled";
+import { BREAKPOINTS } from "@root/theme/theme";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
 	const {
@@ -44,10 +44,10 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 		};
 
 		setResponsiveness();
-		window.addEventListener('resize', setResponsiveness);
+		window.addEventListener("resize", setResponsiveness);
 
 		return () => {
-			window.removeEventListener('resize', setResponsiveness);
+			window.removeEventListener("resize", setResponsiveness);
 		};
 	}, []);
 
@@ -62,7 +62,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
    * Sets the open state of the modal to false.
    */
 	const handleClose = async (save = false) => {
-		if (typeof save === 'boolean' && save) {
+		if (typeof save === "boolean" && save) {
 			setUnsavedChanges(false);
 			setIsModalOpen(false);
 			await onBlur();

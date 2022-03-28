@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { memo, ReactElement, useState } from 'react';
+import * as React from "react";
+import { memo, ReactElement, useState } from "react";
 // External libraries
-import { ColorResult, SketchPicker } from 'react-color';
+import { ColorResult, SketchPicker } from "react-color";
 
 // Types
-import { MosaicFieldProps } from '@root/components/Field';
+import { MosaicFieldProps } from "@root/components/Field";
 
 // Styles
-import { ColorContainer, ColorDiv, Cover, PopOver } from './ColorPicker.styled';
+import { ColorContainer, ColorDiv, Cover, PopOver } from "./ColorPicker.styled";
 
 const FormFieldColorPicker = (
 	props: MosaicFieldProps<unknown, ColorResult>
@@ -43,7 +43,7 @@ const FormFieldColorPicker = (
 			{displayColorPicker && !fieldDef?.disabled && (
 				<PopOver>
 					<Cover onClick={handleClose} />
-					<SketchPicker color={value ? rgb : '#008DA8'} onChange={onChange} />
+					<SketchPicker color={value ? rgb : "#008DA8"} onChange={onChange} />
 				</PopOver>
 			)}
 		</>

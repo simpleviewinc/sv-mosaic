@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { memo, useEffect } from 'react';
-import { StyledDisabledForm, StyledForm } from './Form.styled';
-import { FormProps } from './FormTypes';
-import { actions } from './formUtils';
-import FormLayout from './FormLayout';
-import TopComponent from '../TopComponent';
-import { FormContent, Row } from '../TopComponent/TopComponent.styled';
-import FormNav from '../FormNav';
-import { useWindowResizer } from './utils';
-import { MosaicObject } from '@root/types';
-import Dialog from '../../components/Dialog/Dialog';
+import * as React from "react";
+import { memo, useEffect } from "react";
+import { StyledDisabledForm, StyledForm } from "./Form.styled";
+import { FormProps } from "./FormTypes";
+import { actions } from "./formUtils";
+import FormLayout from "./FormLayout";
+import TopComponent from "../TopComponent";
+import { FormContent, Row } from "../TopComponent/TopComponent.styled";
+import FormNav from "../FormNav";
+import { useWindowResizer } from "./utils";
+import { MosaicObject } from "@root/types";
+import Dialog from "../../components/Dialog/Dialog";
 
 const Form = (props: FormProps) => {
 	const {
@@ -72,7 +72,7 @@ const Form = (props: FormProps) => {
 
 	return (
 		<>
-			<div style={{ position: 'relative' }}>
+			<div style={{ position: "relative" }}>
 				{state.disabled &&
 					<StyledDisabledForm />
 				}
@@ -90,7 +90,7 @@ const Form = (props: FormProps) => {
 							view={view}
 						/>
 					}
-					{view === 'BIG_DESKTOP' ? (
+					{view === "BIG_DESKTOP" ? (
 						<Row>
 							{sections &&
 								<FormNav sections={sections} />
@@ -116,7 +116,7 @@ const Form = (props: FormProps) => {
 					)}
 				</StyledForm>
 			</div>
-			{type === 'drawer' &&
+			{type === "drawer" &&
 				<Dialog
 					dialogTitle='Are you sure you want to leave?'
 					open={dialogOpen}

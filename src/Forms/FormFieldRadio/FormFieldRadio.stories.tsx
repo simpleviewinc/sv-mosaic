@@ -1,41 +1,41 @@
-import * as React from 'react';
-import { ReactElement, useMemo, useCallback } from 'react';
-import { boolean, withKnobs, text } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/addon-docs/blocks';
-import { useForm } from '../Form/formUtils';
+import * as React from "react";
+import { ReactElement, useMemo, useCallback } from "react";
+import { boolean, withKnobs, text } from "@storybook/addon-knobs";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { useForm } from "../Form/formUtils";
 
 // Components
-import { FormFieldRadioDef } from '.';
-import { FieldDef } from '@root/components/Field';
-import Form from '@root/forms/Form/Form';
+import { FormFieldRadioDef } from ".";
+import { FieldDef } from "@root/components/Field";
+import Form from "@root/forms/Form/Form";
 
 export default {
-	title: 'Forms|FormFieldRadio',
+	title: "Forms|FormFieldRadio",
 	decorators: [withKnobs],
 } as Meta;
 
 const options = [
 	{
-		label: 'Label 1',
-		value: 'label_1',
+		label: "Label 1",
+		value: "label_1",
 	},
 	{
-		label: 'Label 2',
-		value: 'label_2',
+		label: "Label 2",
+		value: "label_2",
 	},
 	{
-		label: 'Label 3',
-		value: 'label_3',
+		label: "Label 3",
+		value: "label_3",
 	},
 ];
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
-	const label = text('Label', 'Label');
-	const required = boolean('Required', false);
-	const disabled = boolean('Disabled', false);
-	const instructionText = text('Instruction text', '');
-	const helperText = text('Helper text', '');
+	const label = text("Label", "Label");
+	const required = boolean("Required", false);
+	const disabled = boolean("Disabled", false);
+	const instructionText = text("Instruction text", "");
+	const helperText = text("Helper text", "");
 
 	const fields = useMemo(
 		() =>
@@ -61,7 +61,7 @@ export const Playground = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -69,15 +69,15 @@ export const Playground = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text('Form Title', 'Form Title')}
-				description={text('Form Description', 'This is a description example')}
+				title={text("Form Title", "Form Title")}
+				description={text("Form Description", "This is a description example")}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
@@ -103,8 +103,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 					},
-					helperText: 'Helper text',
-					instructionText: 'Instruction text',
+					helperText: "Helper text",
+					instructionText: "Instruction text",
 				},
 				{
 					name: "radio-disabled",
@@ -115,8 +115,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 					},
-					helperText: 'Helper text',
-					instructionText: 'Instruction text',
+					helperText: "Helper text",
+					instructionText: "Instruction text",
 				},
 			] as FieldDef<FormFieldRadioDef>[],
 		[]
@@ -127,7 +127,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [fields, registerFields]);
 
 	const onSubmit = useCallback((data) => {
-		alert('Form submitted with the following data: ' + JSON.stringify(data, null, " "));
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	}, [state.validForm]);
 
 	useMemo(() => {
@@ -135,7 +135,7 @@ export const KitchenSink = (): ReactElement => {
 	}, [onSubmit, registerOnSubmit]);
 
 	const onCancel = () => {
-		alert('Cancelling form, going back to previous site');
+		alert("Cancelling form, going back to previous site");
 	};
 
 	return (

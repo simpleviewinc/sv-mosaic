@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { useState, memo } from "react";
 import {
 	StyledAutocomplete,
@@ -6,13 +6,13 @@ import {
 	StyledPopper,
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
-import { MosaicFieldProps } from '@root/components/Field';
+import { MosaicFieldProps } from "@root/components/Field";
 import { DropdownSingleSelectionDef } from "./FormFieldDropdownSingleSelectionTypes";
 
 // Components
-import InputWrapper from '../../components/InputWrapper';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import TextField from '@material-ui/core/TextField';
+import InputWrapper from "../../components/InputWrapper";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import TextField from "@material-ui/core/TextField";
 
 const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, string>) => {
 	const {
@@ -61,7 +61,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
-						getOptionLabel={(option) => option?.title ? option.title : ''}
+						getOptionLabel={(option) => option?.title ? option.title : ""}
 						onChange={(_event, option) => onDropDownChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}

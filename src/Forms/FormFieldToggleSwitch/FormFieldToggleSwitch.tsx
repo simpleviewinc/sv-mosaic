@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ReactElement } from 'react';
+import * as React from "react";
+import { ReactElement } from "react";
 
 // Components
-import ToggleSwitch from '@root/components/ToggleSwitch';
+import ToggleSwitch from "@root/components/ToggleSwitch";
 
 // Types and styles
-import { MosaicFieldProps } from '@root/components/Field';
-import { FormFieldToggleSwitchDef } from './FormFieldToggleSwitchTypes';
+import { MosaicFieldProps } from "@root/components/Field";
+import { FormFieldToggleSwitchDef } from "./FormFieldToggleSwitchTypes";
 
 const FormFieldToggleSwitch = (
 	props: MosaicFieldProps<FormFieldToggleSwitchDef>
