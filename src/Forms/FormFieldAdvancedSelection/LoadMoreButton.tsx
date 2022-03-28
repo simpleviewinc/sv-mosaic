@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { memo, ReactElement } from 'react';
-import { LoadMoreButtonPropsTypes } from '.';
-import Button from '../../components/Button';
+import * as React from "react";
+import { memo, ReactElement } from "react";
+import { LoadMoreButtonPropsTypes } from ".";
+import Button from "../../components/Button";
 
 const LoadMoreButton = (props: LoadMoreButtonPropsTypes): ReactElement => {
 	const { fieldDef } = props;
@@ -14,7 +14,7 @@ const LoadMoreButton = (props: LoadMoreButtonPropsTypes): ReactElement => {
 				disabled={fieldDef?.disabled || !fieldDef?.inputSettings?.canLoadMore}
 				onClick={fieldDef?.inputSettings?.getMoreOptions}
 				label={fieldDef?.inputSettings?.canLoadMore
-					? 'Load more'
+					? "Load more"
 					: "Can't load more options"}
 			/>
 		)

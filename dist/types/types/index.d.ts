@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { SvgIconProps } from "@material-ui/core/SvgIcon";
 /** Simple object with { label, value } strings */
 export interface MosaicLabelValue {
     label: string;

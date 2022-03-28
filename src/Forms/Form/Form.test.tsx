@@ -2,16 +2,16 @@ import testArray from "../../utils/testArray";
 import * as assert from "assert";
 import { actions, coreReducer, generateLayout } from "./formUtils";
 import { FieldDef } from "../../components/Field";
-import { mapsValidators, required, validateEmail, validateNumber, validateSlow, validateURL } from './validators';
+import { mapsValidators, required, validateEmail, validateNumber, validateSlow, validateURL } from "./validators";
 import { TextFieldDef } from "../FormFieldText";
 
 const runTests = (tests, type) => {
 	switch (type) {
-	case 'dispatch':
+	case "dispatch":
 		testArray(tests, async test => {
-			const state = test['state'] ? test['state'] : {};
-			const extraArgs = test['extraArgs'] ? test['extraArgs'] : {};
-			const args = test['args'] ? test['args'] : [];
+			const state = test["state"] ? test["state"] : {};
+			const extraArgs = test["extraArgs"] ? test["extraArgs"] : {};
+			const args = test["args"] ? test["args"] : [];
 
 			const dispatches = [];
 			const dispatch = async action => {
@@ -23,30 +23,30 @@ const runTests = (tests, type) => {
 			}
 
 			const getState = () => state;
-			const fn = actions[test['action']](...args);
+			const fn = actions[test["action"]](...args);
 			await fn(dispatch, getState, extraArgs);
 
-			assert.deepStrictEqual(dispatches, test['calls']);
+			assert.deepStrictEqual(dispatches, test["calls"]);
 		});
 		break;
-	case 'reducer':
+	case "reducer":
 		testArray(tests, test => {
-			const state = test['state'] ? test['state'] : {};
-			const result = coreReducer(state, test['action']);
+			const state = test["state"] ? test["state"] : {};
+			const result = coreReducer(state, test["action"]);
 
-			assert.deepStrictEqual(result, test['result']);
+			assert.deepStrictEqual(result, test["result"]);
 			assert.notStrictEqual(state, result);
 		});
 		break;
-	case 'validator':
+	case "validator":
 		testArray(tests, async test => {
-			const validator = mapsValidators([test['validator']])[0].fn;
-			const data = test['data'] ? test['data'] : {};
-			const options = test['validator'].options ? test['validator'].options : {}
+			const validator = mapsValidators([test["validator"]])[0].fn;
+			const data = test["data"] ? test["data"] : {};
+			const options = test["validator"].options ? test["validator"].options : {}
 
-			const result = await validator(test['value'], data, options);
+			const result = await validator(test["value"], data, options);
 
-			assert.deepStrictEqual(result, test['result']);
+			assert.deepStrictEqual(result, test["result"]);
 		});
 		break;
 	default:
@@ -54,7 +54,7 @@ const runTests = (tests, type) => {
 	}
 };
 
-describe('Layout logic', () => {
+describe("Layout logic", () => {
 	const fields = [
 		{
 			name: "text1",
@@ -101,50 +101,50 @@ describe('Layout logic', () => {
 
 	const tests = [
 		{
-			name: 'Create layout with only fields',
+			name: "Create layout with only fields",
 			args: {
-				type: 'fields',
+				type: "fields",
 				data: fields,
 				result: [
 					{
-						fields: [[['text1']]]
+						fields: [[["text1"]]]
 					},
 					{
-						fields: [[['text2']]]
+						fields: [[["text2"]]]
 					},
 					{
-						fields: [[['text3']]]
+						fields: [[["text3"]]]
 					},
 					{
-						fields: [[['text4']]]
+						fields: [[["text4"]]]
 					},
 				]
 			}
 		},
 		{
-			name: 'Ignore empty positions',
+			name: "Ignore empty positions",
 			args: {
-				type: 'sections',
+				type: "sections",
 				data: sections,
 				result: [
 					{
 						fields: [
-							[['text1'], ['text2'], ['text3']],
-							[['text3'], ['text4'], ['text1']]
+							[["text1"], ["text2"], ["text3"]],
+							[["text3"], ["text4"], ["text1"]]
 						]
 					},
 					{
 						fields: [
-							[['text2'], ['text3']],
+							[["text2"], ["text3"]],
 						]
 					},
 				]
 			}
 		},
 		{
-			name: 'No sections',
+			name: "No sections",
 			args: {
-				type: 'sections',
+				type: "sections",
 				data: [
 					{
 						fields: [
@@ -179,7 +179,7 @@ describe('Layout logic', () => {
 
 	testArray(tests, test => {
 		let result: unknown;
-		test.type === 'fields' ?
+		test.type === "fields" ?
 			result = generateLayout({ fields })
 			:
 			result = generateLayout({ fields, sections: test.data })
@@ -188,67 +188,67 @@ describe('Layout logic', () => {
 	});
 });
 
-describe('REDUCERS: FIELD_ON_CHANGE', () => {
+describe("REDUCERS: FIELD_ON_CHANGE", () => {
 	const tests = [
 		{
-			name: 'Adding text to a field',
+			name: "Adding text to a field",
 			args: {
 				action: {
-					name: 'field1',
-					value: 'newValue',
-					type: 'FIELD_ON_CHANGE',
+					name: "field1",
+					value: "newValue",
+					type: "FIELD_ON_CHANGE",
 				},
 				result: {
 					data: {
-						'field1': 'newValue'
+						"field1": "newValue"
 					}
 				},
 			},
 		},
 		{
-			name: 'Passing undefined',
+			name: "Passing undefined",
 			args: {
 				action: {
-					name: 'field1',
+					name: "field1",
 					value: undefined,
-					type: 'FIELD_ON_CHANGE',
+					type: "FIELD_ON_CHANGE",
 				},
 				result: {
 					data: {
-						'field1': undefined,
+						"field1": undefined,
 					}
 				},
 			},
 		},
 		{
-			name: 'Passing a boolean',
+			name: "Passing a boolean",
 			args: {
 				action: {
-					name: 'field1',
+					name: "field1",
 					value: true,
-					type: 'FIELD_ON_CHANGE',
+					type: "FIELD_ON_CHANGE",
 				},
 				result: {
 					data: {
-						'field1': true,
+						"field1": true,
 					}
 				},
 			},
 		},
 		{
-			name: 'Passing an object',
+			name: "Passing an object",
 			args: {
 				action: {
-					name: 'field1',
+					name: "field1",
 					value: {
-						foo: 'bar',
+						foo: "bar",
 					},
-					type: 'FIELD_ON_CHANGE',
+					type: "FIELD_ON_CHANGE",
 				},
 				result: {
 					data: {
-						'field1': {
-							foo: 'bar',
+						"field1": {
+							foo: "bar",
 						},
 					}
 				},
@@ -256,120 +256,120 @@ describe('REDUCERS: FIELD_ON_CHANGE', () => {
 		},
 	];
 
-	runTests(tests, 'reducer');
+	runTests(tests, "reducer");
 });
 
-describe('REDUCERS: FIELD_START_VALIDATE', () => {
+describe("REDUCERS: FIELD_START_VALIDATE", () => {
 	const tests = [
 		{
-			name: 'FIELD_START_VALIDATE',
+			name: "FIELD_START_VALIDATE",
 			args: {
 				action: {
-					name: 'field1',
-					type: 'FIELD_START_VALIDATE',
+					name: "field1",
+					type: "FIELD_START_VALIDATE",
 				},
 				result: {
 					errors: {
-						'field1': null,
+						"field1": null,
 					},
 					validating: {
-						'field1': true,
+						"field1": true,
 					}
 				},
 			},
 		}
 	];
 
-	runTests(tests, 'reducer');
+	runTests(tests, "reducer");
 });
 
-describe('REDUCERS: FIELD_END_VALIDATE', () => {
+describe("REDUCERS: FIELD_END_VALIDATE", () => {
 	const tests = [
 		{
-			name: 'Invalid field',
+			name: "Invalid field",
 			args: {
 				action: {
-					name: 'field1',
-					value: 'This field is required, please fill it!',
-					type: 'FIELD_END_VALIDATE',
+					name: "field1",
+					value: "This field is required, please fill it!",
+					type: "FIELD_END_VALIDATE",
 				},
 				state: {
 					data: {
-						'foo': 'bar',
+						"foo": "bar",
 					},
 					errors: {
-						'foo': undefined,
+						"foo": undefined,
 					},
 					validating: {
-						'foo': undefined,
+						"foo": undefined,
 					}
 				},
 				result: {
 					data: {
-						'foo': 'bar',
+						"foo": "bar",
 					},
 					errors: {
-						'field1': 'This field is required, please fill it!',
-						'foo': undefined,
+						"field1": "This field is required, please fill it!",
+						"foo": undefined,
 					},
 					validating: {
-						'field1': undefined,
-						'foo': undefined,
+						"field1": undefined,
+						"foo": undefined,
 					}
 				},
 			},
 		},
 		{
-			name: 'Valid field',
+			name: "Valid field",
 			args: {
 				action: {
-					name: 'field1',
+					name: "field1",
 					value: undefined,
-					type: 'FIELD_END_VALIDATE',
+					type: "FIELD_END_VALIDATE",
 				},
 				state: {
 					data: {
-						'foo': 'bar',
-						'field1': 'testValue',
+						"foo": "bar",
+						"field1": "testValue",
 					},
 					errors: {
-						'foo': null,
-						'field1': null,
+						"foo": null,
+						"field1": null,
 					},
 					validating: {
-						'foo': null,
-						'field1': true,
+						"foo": null,
+						"field1": true,
 					}
 				},
 				result: {
 					data: {
-						'foo': 'bar',
-						'field1': 'testValue'
+						"foo": "bar",
+						"field1": "testValue"
 					},
 					errors: {
-						'foo': null,
-						'field1': undefined,
+						"foo": null,
+						"field1": undefined,
 					},
 					validating: {
-						'foo': null,
-						'field1': undefined,
+						"foo": null,
+						"field1": undefined,
 					}
 				}
 			},
 		},
 	];
 
-	runTests(tests, 'reducer');
+	runTests(tests, "reducer");
 });
 
-describe('REDUCERS: FORM_START_DISABLE', () => {
+describe("REDUCERS: FORM_START_DISABLE", () => {
 	const tests = [
 		{
-			name: 'FORM_START_DISABLE',
+			name: "FORM_START_DISABLE",
 			args: {
 				action: {
 					value: true,
-					type: 'FORM_START_DISABLE',
+					type: "FORM_START_DISABLE",
 				},
 				result: {
 					disabled: true,
@@ -378,17 +378,17 @@ describe('REDUCERS: FORM_START_DISABLE', () => {
 		}
 	];
 
-	runTests(tests, 'reducer');
+	runTests(tests, "reducer");
 });
 
-describe('REDUCERS: FORM_END_DISABLE', () => {
+describe("REDUCERS: FORM_END_DISABLE", () => {
 	const tests = [
 		{
-			name: 'FORM_END_DISABLE',
+			name: "FORM_END_DISABLE",
 			args: {
 				action: {
 					value: false,
-					type: 'FORM_END_DISABLE',
+					type: "FORM_END_DISABLE",
 				},
 				result: {
 					disabled: false,
@@ -397,17 +397,17 @@ describe('REDUCERS: FORM_END_DISABLE', () => {
 		}
 	];
 
-	runTests(tests, 'reducer');
+	runTests(tests, "reducer");
 });
 
-describe('REDUCERS: FORM_VALIDATE', () => {
+describe("REDUCERS: FORM_VALIDATE", () => {
 	const tests = [
 		{
-			name: 'Invalid form',
+			name: "Invalid form",
 			args: {
 				action: {
 					value: false,
-					type: 'FORM_VALIDATE',
+					type: "FORM_VALIDATE",
 				},
 				result: {
 					validForm: false,
@@ -415,11 +415,11 @@ describe('REDUCERS: FORM_VALIDATE', () => {
 			},
 		},
 		{
-			name: 'Valid form',
+			name: "Valid form",
 			args: {
 				action: {
 					value: true,
-					type: 'FORM_VALIDATE',
+					type: "FORM_VALIDATE",
 				},
 				result: {
 					validForm: true,
@@ -428,16 +428,16 @@ describe('REDUCERS: FORM_VALIDATE', () => {
 		}
 	];
 
-	runTests(tests, 'reducer');
+	runTests(tests, "reducer");
 });
 
-describe('REDUCERS: FORM_RESET', () => {
+describe("REDUCERS: FORM_RESET", () => {
 	const tests = [
 		{
-			name: 'FORM_RESET',
+			name: "FORM_RESET",
 			args: {
 				action: {
-					type: 'FORM_RESET',
+					type: "FORM_RESET",
 				},
 				result: {
 					data: {},
@@ -453,248 +453,248 @@ describe('REDUCERS: FORM_RESET', () => {
 		}
 	];
 
-	runTests(tests, 'reducer');
+	runTests(tests, "reducer");
 });
 
-describe('DISPATCHERS: setFieldValue', () => {
+describe("DISPATCHERS: setFieldValue", () => {
 	const tests = [
 		{
-			name: 'Sets value to field',
+			name: "Sets value to field",
 			args: {
-				action: 'setFieldValue',
-				args: [{ name: 'testName', value: 'testValue' }],
+				action: "setFieldValue",
+				args: [{ name: "testName", value: "testValue" }],
 				calls: [
 					{
-						type: 'FIELD_ON_CHANGE',
-						name: 'testName',
-						value: 'testValue',
+						type: "FIELD_ON_CHANGE",
+						name: "testName",
+						value: "testValue",
 					}
 				]
 			}
 		},
 	];
 
-	runTests(tests, 'dispatch');
+	runTests(tests, "dispatch");
 });
 
-describe('DISPATCHERS: copyFieldToField', () => {
+describe("DISPATCHERS: copyFieldToField", () => {
 	const tests = [
 		{
-			name: 'Copies value from one field into another',
+			name: "Copies value from one field into another",
 			args: {
 				state: {
 					data: {
-						'firstField': 'testValue'
+						"firstField": "testValue"
 					}
 				},
-				action: 'copyFieldToField',
-				args: [{ from: 'firstField', to: 'secondField' }],
+				action: "copyFieldToField",
+				args: [{ from: "firstField", to: "secondField" }],
 				calls: [
 					{
-						type: 'FIELD_ON_CHANGE',
-						name: 'secondField',
-						value: 'testValue',
+						type: "FIELD_ON_CHANGE",
+						name: "secondField",
+						value: "testValue",
 					}
 				]
 			}
 		},
 	];
 
-	runTests(tests, 'dispatch');
+	runTests(tests, "dispatch");
 });
 
-describe('DISPATCHERS: validateField', () => {
+describe("DISPATCHERS: validateField", () => {
 	const tests = [
 		{
-			name: 'Validates field with value',
+			name: "Validates field with value",
 			args: {
 				state: {
 					data: {
-						'testField': 'testValue'
+						"testField": "testValue"
 					}
 				},
 				extraArgs: {
 					fieldMap: {
-						'testField': {
+						"testField": {
 							validators: [required],
 						}
 					}
 				},
-				action: 'validateField',
-				args: [{ name: 'testField' }],
+				action: "validateField",
+				args: [{ name: "testField" }],
 				calls: [
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'testField',
+						type: "FIELD_START_VALIDATE",
+						name: "testField",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'testField',
+						type: "FIELD_END_VALIDATE",
+						name: "testField",
 						value: undefined,
 					}
 				]
 			}
 		},
 		{
-			name: 'Validates field without value',
+			name: "Validates field without value",
 			args: {
 				state: {
 					data: {}
 				},
 				extraArgs: {
 					fieldMap: {
-						'testField': {
+						"testField": {
 							validators: [required],
 						}
 					}
 				},
-				action: 'validateField',
-				args: [{ name: 'testField' }],
+				action: "validateField",
+				args: [{ name: "testField" }],
 				calls: [
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'testField',
+						type: "FIELD_START_VALIDATE",
+						name: "testField",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'testField',
-						value: 'This field is required, please fill it',
+						type: "FIELD_END_VALIDATE",
+						name: "testField",
+						value: "This field is required, please fill it",
 					}
 				]
 			}
 		},
 	];
 
-	runTests(tests, 'dispatch');
+	runTests(tests, "dispatch");
 });
 
-describe('DISPATCHERS: validateForm', () => {
+describe("DISPATCHERS: validateForm", () => {
 	const tests = [
 		{
-			name: 'Validates a form with unfilled fields',
+			name: "Validates a form with unfilled fields",
 			args: {
 				state: {
 					data: {
-						'field1': 'testValue'
+						"field1": "testValue"
 					},
 					errors: {},
 				},
 				extraArgs: {
 					fieldMap: {
-						'field1': {
+						"field1": {
 							required: true,
 						},
-						'field2': {
+						"field2": {
 							required: true,
 						},
-						'field3': {
+						"field3": {
 							required: true,
 						},
-						'field4': {
+						"field4": {
 							required: true,
 						}
 					}
 				},
-				action: 'validateForm',
+				action: "validateForm",
 				args: [{
 					fields: [
-						{ name: 'field1' },
-						{ name: 'field2' },
-						{ name: 'field3' },
-						{ name: 'field4' },
+						{ name: "field1" },
+						{ name: "field2" },
+						{ name: "field3" },
+						{ name: "field4" },
 					]
 				}],
 				calls: [
 					{
-						type: 'FORM_START_DISABLE',
+						type: "FORM_START_DISABLE",
 						value: true,
 					},
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field2',
+						type: "FIELD_START_VALIDATE",
+						name: "field2",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field2',
-						value: 'This field is required, please fill it',
+						type: "FIELD_END_VALIDATE",
+						name: "field2",
+						value: "This field is required, please fill it",
 					},
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field3',
+						type: "FIELD_START_VALIDATE",
+						name: "field3",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field3',
-						value: 'This field is required, please fill it',
+						type: "FIELD_END_VALIDATE",
+						name: "field3",
+						value: "This field is required, please fill it",
 					},
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field4',
+						type: "FIELD_START_VALIDATE",
+						name: "field4",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field4',
-						value: 'This field is required, please fill it',
+						type: "FIELD_END_VALIDATE",
+						name: "field4",
+						value: "This field is required, please fill it",
 					},
 					{
-						type: 'FORM_VALIDATE',
+						type: "FORM_VALIDATE",
 						value: true,
 					},
 					{
-						type: 'FORM_END_DISABLE',
+						type: "FORM_END_DISABLE",
 						value: false,
 					},
 				]
 			}
 		},
 		{
-			name: 'Validates a form with filled fields',
+			name: "Validates a form with filled fields",
 			args: {
 				state: {
 					data: {
-						'field1': 'testValue',
-						'field2': 'testValue',
-						'field3': 'testValue',
-						'field4': 'testValue',
+						"field1": "testValue",
+						"field2": "testValue",
+						"field3": "testValue",
+						"field4": "testValue",
 					},
 					errors: {},
 				},
 				extraArgs: {
 					fieldMap: {
-						'field1': {
+						"field1": {
 							required: true,
 						},
-						'field2': {
+						"field2": {
 							required: true,
 						},
-						'field3': {
+						"field3": {
 							required: true,
 						},
-						'field4': {
+						"field4": {
 							required: true,
 						}
 					}
 				},
-				action: 'validateForm',
+				action: "validateForm",
 				args: [{
 					fields: [
-						{ name: 'field1' },
-						{ name: 'field2' },
-						{ name: 'field3' },
-						{ name: 'field4' },
+						{ name: "field1" },
+						{ name: "field2" },
+						{ name: "field3" },
+						{ name: "field4" },
 					]
 				}],
 				calls: [
 					{
-						type: 'FORM_START_DISABLE',
+						type: "FORM_START_DISABLE",
 						value: true,
 					},
 					{
-						type: 'FORM_VALIDATE',
+						type: "FORM_VALIDATE",
 						value: true,
 					},
 					{
-						type: 'FORM_END_DISABLE',
+						type: "FORM_END_DISABLE",
 						value: false,
 					},
 				]
@@ -702,177 +702,177 @@ describe('DISPATCHERS: validateForm', () => {
 		},
 	];
 
-	runTests(tests, 'dispatch');
+	runTests(tests, "dispatch");
 });
 
-describe('DISPATCHERS: submitForm', () => {
+describe("DISPATCHERS: submitForm", () => {
 	const tests = [
 		{
-			name: 'Submits a form',
+			name: "Submits a form",
 			args: {
 				state: {
 					data: {
-						'field1': 'testValue'
+						"field1": "testValue"
 					},
 					errors: {},
 				},
 				extraArgs: {
 					fieldMap: {
-						'field1': {
+						"field1": {
 							required: true,
 						},
-						'field2': {
+						"field2": {
 							required: true,
 						},
-						'field3': {
+						"field3": {
 							required: true,
 						},
-						'field4': {
+						"field4": {
 							required: true,
 						}
 					},
 					fields: [
-						{ name: 'field1' },
-						{ name: 'field2' },
-						{ name: 'field3' },
-						{ name: 'field4' },
+						{ name: "field1" },
+						{ name: "field2" },
+						{ name: "field3" },
+						{ name: "field4" },
 					]
 				},
-				action: 'submitForm',
+				action: "submitForm",
 				calls: [
 					{
-						type: 'FORM_START_DISABLE',
+						type: "FORM_START_DISABLE",
 						value: true,
 					},
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field2',
+						type: "FIELD_START_VALIDATE",
+						name: "field2",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field2',
-						value: 'This field is required, please fill it',
+						type: "FIELD_END_VALIDATE",
+						name: "field2",
+						value: "This field is required, please fill it",
 					},
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field3',
+						type: "FIELD_START_VALIDATE",
+						name: "field3",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field3',
-						value: 'This field is required, please fill it',
+						type: "FIELD_END_VALIDATE",
+						name: "field3",
+						value: "This field is required, please fill it",
 					},
 					{
-						type: 'FIELD_START_VALIDATE',
-						name: 'field4',
+						type: "FIELD_START_VALIDATE",
+						name: "field4",
 					},
 					{
-						type: 'FIELD_END_VALIDATE',
-						name: 'field4',
-						value: 'This field is required, please fill it',
+						type: "FIELD_END_VALIDATE",
+						name: "field4",
+						value: "This field is required, please fill it",
 					},
 					{
-						type: 'FORM_VALIDATE',
+						type: "FORM_VALIDATE",
 						value: true,
 					},
 					{
-						type: 'FORM_END_DISABLE',
+						type: "FORM_END_DISABLE",
 						value: false,
 					},
 				]
 			}
 		},
 		{
-			name: 'Submits a disabled form',
+			name: "Submits a disabled form",
 			args: {
 				state: {
 					disabled: true,
 				},
 				extraArgs: {
 					fieldMap: {
-						'field1': {
+						"field1": {
 							required: true,
 						},
-						'field2': {
+						"field2": {
 							required: true,
 						},
-						'field3': {
+						"field3": {
 							required: true,
 						},
-						'field4': {
+						"field4": {
 							required: true,
 						}
 					},
 					fields: [
-						{ name: 'field1' },
-						{ name: 'field2' },
-						{ name: 'field3' },
-						{ name: 'field4' },
+						{ name: "field1" },
+						{ name: "field2" },
+						{ name: "field3" },
+						{ name: "field4" },
 					],
 					onSubmit: jest.fn(),
 				},
-				action: 'submitForm',
+				action: "submitForm",
 				calls: []
 			}
 		},
 	];
 
-	runTests(tests, 'dispatch');
+	runTests(tests, "dispatch");
 });
 
-describe('DISPATCHERS: resetForm', () => {
+describe("DISPATCHERS: resetForm", () => {
 	const tests = [
 		{
-			name: 'resetForm test',
+			name: "resetForm test",
 			args: {
-				action: 'resetForm',
+				action: "resetForm",
 				calls: [
 					{
-						type: 'FORM_RESET',
+						type: "FORM_RESET",
 					}
 				]
 			}
 		},
 	];
 
-	runTests(tests, 'dispatch');
+	runTests(tests, "dispatch");
 });
 
-describe('DISPATCHERS: setFormValues', () => {
+describe("DISPATCHERS: setFormValues", () => {
 	const tests = [
 		{
-			name: 'Prepopulates fields with data',
+			name: "Prepopulates fields with data",
 			args: {
 				extraArgs: {
 					fields: [
-						{ name: 'field1' },
-						{ name: 'field2' },
+						{ name: "field1" },
+						{ name: "field2" },
 					],
 				},
-				action: 'setFormValues',
+				action: "setFormValues",
 				args: [{
 					values: {
-						'field1': 'value1',
-						'field2': 'value2',
+						"field1": "value1",
+						"field2": "value2",
 					}
 				}],
 				calls: [
 					{
-						type: 'FORM_START_DISABLE',
+						type: "FORM_START_DISABLE",
 						value: true,
 					},
 					{
-						type: 'FIELD_ON_CHANGE',
-						name: 'field1',
-						value: 'value1',
+						type: "FIELD_ON_CHANGE",
+						name: "field1",
+						value: "value1",
 					},
 					{
-						type: 'FIELD_ON_CHANGE',
-						name: 'field2',
-						value: 'value2',
+						type: "FIELD_ON_CHANGE",
+						name: "field2",
+						value: "value2",
 					},
 					{
-						type: 'FORM_END_DISABLE',
+						type: "FORM_END_DISABLE",
 						value: false,
 					},
 				]
@@ -880,13 +880,13 @@ describe('DISPATCHERS: setFormValues', () => {
 		},
 	];
 
-	runTests(tests, 'dispatch');
+	runTests(tests, "dispatch");
 });
 
-describe('VALIDATORS: validateEmail', () => {
+describe("VALIDATORS: validateEmail", () => {
 	const tests = [
 		{
-			name: 'Empty field',
+			name: "Empty field",
 			args: {
 				validator: validateEmail,
 				value: undefined,
@@ -894,46 +894,46 @@ describe('VALIDATORS: validateEmail', () => {
 			}
 		},
 		{
-			name: 'Correct email',
+			name: "Correct email",
 			args: {
 				validator: validateEmail,
-				value: 'john.smith@simpleviewinc.com',
+				value: "john.smith@simpleviewinc.com",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Incorrect email',
+			name: "Incorrect email",
 			args: {
 				validator: validateEmail,
-				value: 'john.smith',
-				result: 'The value is not a valid e-mail',
+				value: "john.smith",
+				result: "The value is not a valid e-mail",
 			}
 		},
 		{
-			name: 'Multiple domains',
+			name: "Multiple domains",
 			args: {
 				validator: validateEmail,
-				value: 'john.smith@simpleviewinc.com.mx.abc',
+				value: "john.smith@simpleviewinc.com.mx.abc",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Incomplete email',
+			name: "Incomplete email",
 			args: {
 				validator: validateEmail,
-				value: 'john.smith@simpleviewinc',
-				result: 'The value is not a valid e-mail',
+				value: "john.smith@simpleviewinc",
+				result: "The value is not a valid e-mail",
 			}
 		},
 	];
 
-	runTests(tests, 'validator');
+	runTests(tests, "validator");
 });
 
-describe('VALIDATORS: validateSlow', () => {
+describe("VALIDATORS: validateSlow", () => {
 	const tests = [
 		{
-			name: 'Empty field',
+			name: "Empty field",
 			args: {
 				validator: validateSlow,
 				value: undefined,
@@ -941,53 +941,53 @@ describe('VALIDATORS: validateSlow', () => {
 			}
 		},
 		{
-			name: 'Field with a random value',
+			name: "Field with a random value",
 			args: {
 				validator: validateSlow,
-				value: 'Foo',
+				value: "Foo",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Field with correct value',
+			name: "Field with correct value",
 			args: {
 				validator: validateSlow,
-				value: 'test',
+				value: "test",
 				result: "String cannot include test",
 			}
 		},
 	];
 
-	runTests(tests, 'validator');
+	runTests(tests, "validator");
 });
 
-describe('VALIDATORS: required', () => {
+describe("VALIDATORS: required", () => {
 	const tests = [
 		{
-			name: 'Empty field',
+			name: "Empty field",
 			args: {
 				validator: required,
 				value: undefined,
-				result: 'This field is required, please fill it',
+				result: "This field is required, please fill it",
 			}
 		},
 		{
-			name: 'Field with value',
+			name: "Field with value",
 			args: {
 				validator: required,
-				value: 'Foo',
+				value: "Foo",
 				result: undefined,
 			}
 		},
 	];
 
-	runTests(tests, 'validator');
+	runTests(tests, "validator");
 });
 
-describe('VALIDATORS: validateNumber', () => {
+describe("VALIDATORS: validateNumber", () => {
 	const tests = [
 		{
-			name: 'Empty field',
+			name: "Empty field",
 			args: {
 				validator: validateNumber,
 				value: undefined,
@@ -995,7 +995,7 @@ describe('VALIDATORS: validateNumber', () => {
 			}
 		},
 		{
-			name: 'Positive integer number',
+			name: "Positive integer number",
 			args: {
 				validator: validateNumber,
 				value: 123,
@@ -1003,15 +1003,15 @@ describe('VALIDATORS: validateNumber', () => {
 			}
 		},
 		{
-			name: 'Positive integer number as string',
+			name: "Positive integer number as string",
 			args: {
 				validator: validateNumber,
-				value: '123',
+				value: "123",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Negative integer number',
+			name: "Negative integer number",
 			args: {
 				validator: validateNumber,
 				value: -123,
@@ -1019,23 +1019,23 @@ describe('VALIDATORS: validateNumber', () => {
 			}
 		},
 		{
-			name: 'Negative integer number as string',
+			name: "Negative integer number as string",
 			args: {
 				validator: validateNumber,
-				value: '-123',
+				value: "-123",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Exponential number',
+			name: "Exponential number",
 			args: {
 				validator: validateNumber,
-				value: '10e20',
+				value: "10e20",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Decimal number',
+			name: "Decimal number",
 			args: {
 				validator: validateNumber,
 				value: 123.456,
@@ -1043,30 +1043,30 @@ describe('VALIDATORS: validateNumber', () => {
 			}
 		},
 		{
-			name: 'Decimal number as string',
+			name: "Decimal number as string",
 			args: {
 				validator: validateNumber,
-				value: '123.456',
+				value: "123.456",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Letters',
+			name: "Letters",
 			args: {
 				validator: validateNumber,
-				value: 'abc',
-				result: 'The value is not a number',
+				value: "abc",
+				result: "The value is not a number",
 			}
 		},
 	];
 
-	runTests(tests, 'validator');
+	runTests(tests, "validator");
 });
 
-describe('VALIDATORS: validateURL', () => {
+describe("VALIDATORS: validateURL", () => {
 	const tests = [
 		{
-			name: 'Empty field',
+			name: "Empty field",
 			args: {
 				validator: validateURL,
 				value: undefined,
@@ -1074,167 +1074,167 @@ describe('VALIDATORS: validateURL', () => {
 			}
 		},
 		{
-			name: 'Website without protocol',
+			name: "Website without protocol",
 			args: {
 				validator: validateURL,
-				value: 'www.simpleviewinc.com',
+				value: "www.simpleviewinc.com",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website without www',
+			name: "Website without www",
 			args: {
 				validator: validateURL,
-				value: 'simpleviewinc.com',
+				value: "simpleviewinc.com",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with https protocol',
+			name: "Website with https protocol",
 			args: {
 				validator: validateURL,
-				value: 'https://www.simpleviewinc.com',
+				value: "https://www.simpleviewinc.com",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with http protocol',
+			name: "Website with http protocol",
 			args: {
 				validator: validateURL,
-				value: 'http://www.simpleviewinc.com',
+				value: "http://www.simpleviewinc.com",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with multiple domains',
+			name: "Website with multiple domains",
 			args: {
 				validator: validateURL,
-				value: 'www.simpleviewinc.com.mx',
+				value: "www.simpleviewinc.com.mx",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with subdomain',
+			name: "Website with subdomain",
 			args: {
 				validator: validateURL,
-				value: 'kube.simpleviewinc.com',
+				value: "kube.simpleviewinc.com",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with port',
+			name: "Website with port",
 			args: {
 				validator: validateURL,
-				value: 'www.simpleviewinc.com:1000',
+				value: "www.simpleviewinc.com:1000",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with path',
+			name: "Website with path",
 			args: {
 				validator: validateURL,
-				value: 'www.simpleviewinc.com/new/dms',
+				value: "www.simpleviewinc.com/new/dms",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with port and path',
+			name: "Website with port and path",
 			args: {
 				validator: validateURL,
-				value: 'www.simpleviewinc.com:1000/new/dms',
+				value: "www.simpleviewinc.com:1000/new/dms",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Website with query',
+			name: "Website with query",
 			args: {
 				validator: validateURL,
-				value: 'www.simpleviewinc.com/?q=newdms',
+				value: "www.simpleviewinc.com/?q=newdms",
 				result: undefined,
 			}
 		},
 		{
-			name: 'Invalid website',
+			name: "Invalid website",
 			args: {
 				validator: validateURL,
-				value: 'abc',
-				result: 'The value is not a valid URL',
+				value: "abc",
+				result: "The value is not a valid URL",
 			}
 		},
 	];
 
-	runTests(tests, 'validator');
+	runTests(tests, "validator");
 });
 
-describe('VALIDATORS: validateDateRange', () => {
+describe("VALIDATORS: validateDateRange", () => {
 	const tests = [
 		{
-			name: 'Empty fields',
+			name: "Empty fields",
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: "validateDateRange", options: { endDateName: "endDate" } },
 				value: undefined,
 				data: {
-					"endDate": undefined //"2022-03-25T00:00:00.0000Z"
+					"endDate": undefined,
 				},
 				result: undefined,
 			}
 		},
 		{
-			name: 'startDate with value and endDate without',
+			name: "startDate with value and endDate without",
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: "validateDateRange", options: { endDateName: "endDate" } },
 				value: "2022-03-25T00:00:00.0000Z",
 				data: {
-					"endDate": undefined //"2022-03-25T00:00:00.0000Z"
+					"endDate": undefined,
 				},
 				result: undefined,
 			}
 		},
 		{
-			name: 'endDate with value and startDate without',
+			name: "endDate with value and startDate without",
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: "validateDateRange", options: { endDateName: "endDate" } },
 				value: undefined,
 				data: {
-					"endDate": "2022-03-25T00:00:00.0000Z"
+					"endDate": "2022-03-25T00:00:00.0000Z",
 				},
 				result: undefined,
 			}
 		},
 		{
-			name: 'startDate happenning before endDate',
+			name: "startDate happenning before endDate",
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: "validateDateRange", options: { endDateName: "endDate" } },
 				value: "2022-03-25T00:00:00.0000Z",
 				data: {
-					"endDate": "2022-03-26T00:00:00.0000Z"
+					"endDate": "2022-03-26T00:00:00.0000Z",
 				},
 				result: undefined,
 			}
 		},
 		{
-			name: 'startDate happenning at the same time as endDate',
+			name: "startDate happenning at the same time as endDate",
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: "validateDateRange", options: { endDateName: "endDate" } },
 				value: "2022-03-25T00:00:00.0000Z",
 				data: {
-					"endDate": "2022-03-25T00:00:00.0000Z"
+					"endDate": "2022-03-25T00:00:00.0000Z",
 				},
 				result: undefined,
 			}
 		},
 		{
-			name: 'startDate happenning after endDate',
+			name: "startDate happenning after endDate",
 			args: {
-				validator: { fn: 'validateDateRange', options: { pairedFields: ['endDate'] } },
+				validator: { fn: "validateDateRange", options: { endDateName: "endDate" } },
 				value: "2022-03-27T00:00:00.0000Z",
 				data: {
-					"endDate": "2022-03-26T00:00:00.0000Z"
+					"endDate": "2022-03-26T00:00:00.0000Z",
 				},
 				result: "Start date should happen before the end date",
 			}
 		},
 	];
 
-	runTests(tests, 'validator');
+	runTests(tests, "validator");
 });

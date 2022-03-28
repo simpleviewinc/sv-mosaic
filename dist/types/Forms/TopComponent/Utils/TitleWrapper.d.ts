@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 export declare const FormTitle: any;
 export declare const TitleRow: any;
 declare type TitleWrapperProps = {

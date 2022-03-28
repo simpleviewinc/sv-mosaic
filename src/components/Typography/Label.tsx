@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ReactElement } from 'react';
-import styled from 'styled-components';
+import * as React from "react";
+import { ReactElement } from "react";
+import styled from "styled-components";
 
 // Material UI
-import { InputLabel } from '@material-ui/core';
+import { InputLabel } from "@material-ui/core";
 
-import { TypographyGenericProps } from './TypographyTypes';
-import theme from '../../utils/theme';
+import { TypographyGenericProps } from "./TypographyTypes";
+import theme from "../../utils/theme";
 
 const LabelWrapper = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const LabelWrapper = styled.div`
     word-wrap: break-word;
 
   :after {
-      content: "${(pr) => (pr.required ? '*' : '')}";
+      content: "${(pr) => (pr.required ? "*" : "")}";
       color: ${theme.colors.red};
     }
   }
@@ -52,7 +52,7 @@ const Label = (props: LabelProps & TypographyGenericProps): ReactElement => {
 			<InputLabel htmlFor={htmlFor}>{children}</InputLabel>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
-					{value.length + '/' + maxCharacters}
+					{value.length + "/" + maxCharacters}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>

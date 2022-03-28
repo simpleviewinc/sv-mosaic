@@ -1,5 +1,5 @@
-import { Sizes } from '@root/theme/sizes';
-import { HTMLAttributes, ReactNode } from 'react';
+import { Sizes } from "@root/theme/sizes";
+import { HTMLAttributes, ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any> {
@@ -82,11 +82,11 @@ export interface FieldDef<T = any, U = any> {
 	/**
 	 * Allows additional styling to the current field via className.
 	 */
-	className?: HTMLAttributes<HTMLElement>['className'];
+	className?: HTMLAttributes<HTMLElement>["className"];
 	/**
 	 * Allows additional styling to the current field via style object.
 	 */
-	style?: HTMLAttributes<HTMLElement>['style'];
+	style?: HTMLAttributes<HTMLElement>["style"];
 	/**
 	 * Defines the type of component from a list of components
 	 * found on Col.tsx. This also allows for a custom component type.

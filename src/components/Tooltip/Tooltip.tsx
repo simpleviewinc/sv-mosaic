@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { ReactElement } from 'react';
-import { TooltipProps } from '.';
-import { StyledAdvancedTooltip, StyledDefaultTooltip } from './Tooltip.styled';
+import * as React from "react";
+import { ReactElement } from "react";
+import { TooltipProps } from ".";
+import { StyledAdvancedTooltip, StyledDefaultTooltip } from "./Tooltip.styled";
 
 const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
 		className,
-		text = '',
+		text = "",
 		children,
 		open,
 		onClose,
 		onOpen,
 		type,
-		placement = 'top-start'
+		placement = "top-start"
 	} = props;
 
-	return type !== 'advanced' ? (
+	return type !== "advanced" ? (
 		<StyledDefaultTooltip
 			open={open}
 			onClose={onClose}

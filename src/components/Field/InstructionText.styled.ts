@@ -1,11 +1,11 @@
-import styled from 'styled-components'
-import theme from '@root/theme';
+import styled from "styled-components"
+import theme from "@root/theme";
 
 export const InstructionTextWrapper = styled.div`
   border-left: ${theme.borders.simplyGray};
   height: 51px;
   margin-left: auto;
-  margin-top: ${pr => pr.labelMargin === '16px' ? '52px' : '44px'}
+  margin-top: ${pr => pr.labelMargin === "16px" ? "52px" : "44px"}
   padding-left: 20px;
   width: 400px;
 

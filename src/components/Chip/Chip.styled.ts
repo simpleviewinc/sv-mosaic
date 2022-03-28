@@ -1,6 +1,6 @@
-import Chip from '@material-ui/core/Chip';
-import styled from 'styled-components';
-import theme from '../../utils/theme.js';
+import Chip from "@material-ui/core/Chip";
+import styled from "styled-components";
+import theme from "../../utils/theme.js";
 
 const chipFont = `
   font-size: 14px;

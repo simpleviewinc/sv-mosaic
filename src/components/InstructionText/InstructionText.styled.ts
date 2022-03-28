@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import theme from '@root/theme';
+import styled from "styled-components"
+import theme from "@root/theme";
 
 export const InstructionTextWrapper = styled.div`
   border-left: ${theme.borders.simplyGray};

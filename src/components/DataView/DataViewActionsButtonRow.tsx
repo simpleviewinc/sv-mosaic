@@ -1,6 +1,6 @@
 import * as React from "react";
 import { memo, useMemo } from "react";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 import ButtonRow from "../ButtonRow";
 import Button from "../Button";

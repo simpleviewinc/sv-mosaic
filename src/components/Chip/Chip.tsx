@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ReactElement, HTMLAttributes } from 'react';
+import * as React from "react";
+import { ReactElement, HTMLAttributes } from "react";
 
 // Material UI
-import ClearIcon from '@material-ui/icons/Clear';
+import ClearIcon from "@material-ui/icons/Clear";
 
 // Types and styles
-import { ChipsProps } from './ChipTypes';
-import { StyledChip, StyledDeletableChip, StyledLabel } from './Chip.styled';
+import { ChipsProps } from "./ChipTypes";
+import { StyledChip, StyledDeletableChip, StyledLabel } from "./Chip.styled";
 
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const { label, required, disabled, selected, onDelete, onClick } = props;

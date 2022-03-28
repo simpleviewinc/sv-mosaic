@@ -1,16 +1,16 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Components
-import HelpIcon from '@material-ui/icons/Help';
+import HelpIcon from "@material-ui/icons/Help";
 
 // Utils
-import theme, { BREAKPOINTS } from '@root/theme/theme';
+import theme, { BREAKPOINTS } from "@root/theme/theme";
 
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + 'px';
-const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + 'px';
+const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
+const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
 
 export const FormContent = styled.div`
-	padding: ${pr => pr.view === 'DRAWER' ? '0px 40px' : (pr.view === 'RESPONSIVE' || pr.view === 'DESKTOP' || pr.view === 'BIG_DESKTOP') ? '24px 20px 0px 20px' : '0px'};
+	padding: ${pr => pr.view === "DRAWER" ? "0px 40px" : (pr.view === "RESPONSIVE" || pr.view === "DESKTOP" || pr.view === "BIG_DESKTOP") ? "24px 20px 0px 20px" : "0px"};
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -53,8 +53,8 @@ export const StyledColumn = styled(Column)`
 // Icons
 export const StyledHelpIconWrapper = styled.div`
   border-right: ${(pr) =>
-		pr.showActive ? `2px solid ${theme.colors.gray200}` : ''};
-  padding-right: ${(pr) => (pr.isResponsiveView ? '' : '16px')};
+		pr.showActive ? `2px solid ${theme.colors.gray200}` : ""};
+  padding-right: ${(pr) => (pr.isResponsiveView ? "" : "16px")};
 
   @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
     border-right: none;

@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, ReactElement } from "react";
 import styled from "styled-components";
 import { debounce, throttle } from "lodash";
 
-import SettingsIcon from '@material-ui/icons/Settings';
+import SettingsIcon from "@material-ui/icons/Settings";
 
 import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavItemDef } from "./LeftNavTypes";
 import LeftNavItems from "./LeftNavItems";

@@ -1,40 +1,40 @@
-import * as React from 'react';
-import { render, screen, cleanup } from '@testing-library/react';
+import * as React from "react";
+import { render, screen, cleanup } from "@testing-library/react";
 
 // Components
-import TextArea from './FormFieldTextArea';
+import TextArea from "./FormFieldTextArea";
 
 afterEach(cleanup);
 
-describe('TextArea component', () => {
+describe("TextArea component", () => {
 	let result;
 
 	beforeEach(() => {
 		result = render(
 			<TextArea
 				fieldDef={{
-					name: 'textArea',
-					label: 'Label test',
-					instructionText: 'Instructional text',
+					name: "textArea",
+					label: "Label test",
+					instructionText: "Instructional text",
 					inputSettings: {
-						htmlFor: 'test',
-						placeholder: 'placeholder',
+						htmlFor: "test",
+						placeholder: "placeholder",
 					},
-					id: 'test'
+					id: "test"
 				}}
 
 			/>
 		);
 	});
 
-	it('should render a text area element', () => {
-		const textAreaElement = result.container.querySelector('#test');
+	it("should render a text area element", () => {
+		const textAreaElement = result.container.querySelector("#test");
 
-		expect(textAreaElement.nodeName).toBe('TEXTAREA');
+		expect(textAreaElement.nodeName).toBe("TEXTAREA");
 	});
 
-	it('should display the placeholder', () => {
-		const placeholderElement = screen.getByPlaceholderText('placeholder');
+	it("should display the placeholder", () => {
+		const placeholderElement = screen.getByPlaceholderText("placeholder");
 
 		expect(placeholderElement).toBeDefined();
 	});

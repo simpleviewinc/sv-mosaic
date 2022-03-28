@@ -1,5 +1,5 @@
-import { MouseEventHandler } from 'react';
-import { MosaicMIcon } from '@root/types';
+import { MouseEventHandler } from "react";
+import { MosaicMIcon } from "@root/types";
 export interface IconButtonProps {
     /**
      * Additional custom class.

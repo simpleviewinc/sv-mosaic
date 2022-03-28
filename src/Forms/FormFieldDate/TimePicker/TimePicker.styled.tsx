@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import theme from '@root/theme';
-import { StyledInputPicker } from '../DatePicker/DatePicker.styled';
-import { createTheme } from '@material-ui/core/styles';
-import { KeyboardTimePicker } from '@material-ui/pickers';
-import { Sizes } from '@root/theme/sizes';
+import styled from "styled-components";
+import theme from "@root/theme";
+import { StyledInputPicker } from "../DatePicker/DatePicker.styled";
+import { createTheme } from "@material-ui/core/styles";
+import { KeyboardTimePicker } from "@material-ui/pickers";
+import { Sizes } from "@root/theme/sizes";
 
 export const customTheme = createTheme({
 	palette: {
@@ -22,7 +22,7 @@ export const customTheme = createTheme({
 		},
 		MuiPickersTimePickerToolbar: {
 			toolbarAmpmLeftPadding: {
-				paddingLeft: '0',
+				paddingLeft: "0",
 			},
 		},
 	},

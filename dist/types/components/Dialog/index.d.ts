@@ -1,3 +1,3 @@
-export { default } from './Dialog';
-export * from './Dialog';
-export * from './DialogTypes';
+export { default } from "./Dialog";
+export * from "./Dialog";
+export * from "./DialogTypes";

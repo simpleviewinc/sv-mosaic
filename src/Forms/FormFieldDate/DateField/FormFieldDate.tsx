@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ReactElement, memo, useState, useEffect } from 'react';
+import * as React from "react";
+import { ReactElement, memo, useState, useEffect } from "react";
 
 // Components
 import DatePicker from "../DatePicker";
@@ -7,10 +7,10 @@ import TimePicker from "../TimePicker";
 import HelperText from "@root/components/Field/HelperText";
 
 // Styles
-import { DateTimePickerWrapper, DateTimeInputRow } from './DateField.styled';
-import { DisabledDateTimeValue } from '../DatePicker/DatePicker.styled';
-import { MosaicFieldProps } from '@root/components/Field';
-import { DateFieldDef } from './DateFieldTypes';
+import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";
+import { DisabledDateTimeValue } from "../DatePicker/DatePicker.styled";
+import { MosaicFieldProps } from "@root/components/Field";
+import { DateFieldDef } from "./DateFieldTypes";
 
 const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement => {
 

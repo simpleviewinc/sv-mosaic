@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
+import * as React from "react";
+import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 declare type MobileViewProps = {
-    onCancel: TopComponentProps['onCancel'];
+    onCancel: TopComponentProps["onCancel"];
     submitButton: JSX.Element;
     checkbox: JSX.Element;
 } & BaseTopComponentProps;

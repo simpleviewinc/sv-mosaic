@@ -1,8 +1,8 @@
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
-import * as React from 'react';
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import * as React from "react";
 
 // Components
-import TopComponent from './TopComponent';
+import TopComponent from "./TopComponent";
 
 afterEach(cleanup);
 
@@ -11,8 +11,8 @@ const saveCallback = jest.fn();
 
 const sections = [
 	{
-		title: 'Account Profile',
-		id: 'section1',
+		title: "Account Profile",
+		id: "section1",
 	},
 ];
 
@@ -24,11 +24,11 @@ const TopComponentExample = () => {
 			onCancel={cancelCallback}
 			onSubmit={saveCallback}
 			submitButtonAttrs={{
-				label: 'Save'
+				label: "Save"
 			}}
 			sections={sections}
 			showActive={true}
-			tooltipInfo={'Tooltip info'}
+			tooltipInfo={"Tooltip info"}
 			view='DESKTOP'
 		>
 			<div>
@@ -45,22 +45,22 @@ const TopComponentExample = () => {
 	);
 };
 
-describe('TopComponent', () => {
+describe("TopComponent", () => {
 	beforeEach(() => {
 		render(<TopComponentExample />);
 	});
 
-	it('should display TopComponent content', () => {
-		expect(screen.getByText('Description')).toBeTruthy();
-		expect(screen.getByText('Form title')).toBeTruthy();
-		expect(screen.getAllByText('Account Profile')).toBeTruthy();
-		expect(screen.getByTestId('tooltip-test-id')).toBeTruthy();
-		expect(screen.getByTestId('checkbox-test-id')).toBeTruthy();
+	it("should display TopComponent content", () => {
+		expect(screen.getByText("Description")).toBeTruthy();
+		expect(screen.getByText("Form title")).toBeTruthy();
+		expect(screen.getAllByText("Account Profile")).toBeTruthy();
+		expect(screen.getByTestId("tooltip-test-id")).toBeTruthy();
+		expect(screen.getByTestId("checkbox-test-id")).toBeTruthy();
 	});
 
-	it('should trigger cancel and save onClick callback', () => {
-		const saveButton = screen.getByText('Save');
-		const cancelButton = screen.getByText('Cancel');
+	it("should trigger cancel and save onClick callback", () => {
+		const saveButton = screen.getByText("Save");
+		const cancelButton = screen.getByText("Cancel");
 
 		fireEvent.click(saveButton);
 		fireEvent.click(cancelButton);
@@ -70,8 +70,8 @@ describe('TopComponent', () => {
 	});
 });
 
-describe('TopComponent elements that are conditionally rendered', () => {
-	it('should not display help icon when tooltip info is not provided', () => {
+describe("TopComponent elements that are conditionally rendered", () => {
+	it("should not display help icon when tooltip info is not provided", () => {
 		render(
 			<TopComponent
 				description='Description'
@@ -84,12 +84,12 @@ describe('TopComponent elements that are conditionally rendered', () => {
 			/>
 		);
 
-		const helpIcon = screen.queryByTestId('tooltip-test-id');
+		const helpIcon = screen.queryByTestId("tooltip-test-id");
 
 		expect(helpIcon).toBe(null);
 	});
 
-	it('should not display checkbox if show active is false', () => {
+	it("should not display checkbox if show active is false", () => {
 		render(
 			<TopComponent
 				description='Description'
@@ -102,7 +102,7 @@ describe('TopComponent elements that are conditionally rendered', () => {
 			/>
 		);
 
-		const activeCheckbox = screen.queryByTestId('checkbox-test-id');
+		const activeCheckbox = screen.queryByTestId("checkbox-test-id");
 
 		expect(activeCheckbox).toBe(null);
 	});

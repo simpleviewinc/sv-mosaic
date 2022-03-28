@@ -1,5 +1,5 @@
-import { FieldDef } from '@root/components/Field';
-import * as React from 'react';
+import { FieldDef } from "@root/components/Field";
+import * as React from "react";
 interface RowPropTypes {
     row: (string | FieldDef)[][];
     state: any;

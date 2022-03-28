@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from "react";
 export interface ImageUploadCanvasProps {
     /**
      * Callback used for passing mouse coordinates to the parent component.

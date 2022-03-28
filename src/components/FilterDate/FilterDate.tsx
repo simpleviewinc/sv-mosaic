@@ -34,7 +34,7 @@ export default function FilterDate(props: FilterDateProps): ReactElement {
 	const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
 	const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
 	
-	let valueString = 'any';
+	let valueString = "any";
 	
 	if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
 		valueString = startFormat;

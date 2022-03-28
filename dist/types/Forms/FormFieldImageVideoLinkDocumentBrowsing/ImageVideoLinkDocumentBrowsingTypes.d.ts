@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Options } from '@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes';
+import { Options } from "@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes";
 export declare type AssetProperties = {
     /**
      * Name of the asset property.
@@ -60,9 +60,9 @@ export interface BrowseOptionProps {
  * Return type of the useImageVideoLinkDocumentBrowsing custom hook.
  */
 export declare type UseImageVideoLinkDocumentBrowsingReturn = {
-    setImage: ImageVideoDocumentLinkBrowsingDef['handleSetImage'];
-    setVideo: ImageVideoDocumentLinkBrowsingDef['handleSetVideo'];
-    setDocument: ImageVideoDocumentLinkBrowsingDef['handleSetDocument'];
-    setLink: ImageVideoDocumentLinkBrowsingDef['handleSetLink'];
-    handleRemove: ImageVideoDocumentLinkBrowsingDef['handleRemove'];
+    setImage: ImageVideoDocumentLinkBrowsingDef["handleSetImage"];
+    setVideo: ImageVideoDocumentLinkBrowsingDef["handleSetVideo"];
+    setDocument: ImageVideoDocumentLinkBrowsingDef["handleSetDocument"];
+    setLink: ImageVideoDocumentLinkBrowsingDef["handleSetLink"];
+    handleRemove: ImageVideoDocumentLinkBrowsingDef["handleRemove"];
 };

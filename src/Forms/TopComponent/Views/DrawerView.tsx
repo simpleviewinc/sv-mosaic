@@ -1,22 +1,22 @@
-import * as React from 'react';
-import { memo, ReactElement } from 'react';
+import * as React from "react";
+import { memo, ReactElement } from "react";
 
 // Styled components
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
 	ButtonsWrapper,
 	Row,
 	StyledColumn
-} from '../TopComponent.styled';
+} from "../TopComponent.styled";
 
 // Material UI
-import { IconButton } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
 // Utils
-import theme from '../../../theme/theme';
-import { FormTitle } from '../Utils/TitleWrapper';
-import { BaseTopComponentProps, TopComponentProps } from '../TopComponentTypes';
+import theme from "../../../theme/theme";
+import { FormTitle } from "../Utils/TitleWrapper";
+import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const DrawerViewColumn = styled(StyledColumn)`
   background-color: ${theme.colors.grayHover};
@@ -29,7 +29,7 @@ const DrawerViewColumn = styled(StyledColumn)`
 `;
 
 type DrawerViewProps = {
-	onCancel: TopComponentProps['onCancel'];
+	onCancel: TopComponentProps["onCancel"];
 	buttons: JSX.Element;
 } & BaseTopComponentProps;
 
@@ -53,7 +53,7 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 							aria-label='close'
 							disableRipple
 							onClick={onCancel}
-							style={{ marginRight: '8px' }}
+							style={{ marginRight: "8px" }}
 						>
 							<CloseIcon />
 						</IconButton>
@@ -61,7 +61,7 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 					<FormTitle type={view} data-testid='drawer-title-test'>{title}</FormTitle>
 					{tooltipInfo && helpIcon}
 				</Row>
-				<ButtonsWrapper style={{ alignItems: 'center' }}>{buttons}</ButtonsWrapper>
+				<ButtonsWrapper style={{ alignItems: "center" }}>{buttons}</ButtonsWrapper>
 			</DrawerViewColumn>
 		</>
 	);

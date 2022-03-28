@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { memo } from 'react';
-import theme from '@root/theme';
-import styled from 'styled-components';
-import { FieldDef } from '@root/components/Field';
+import * as React from "react";
+import { memo } from "react";
+import theme from "@root/theme";
+import styled from "styled-components";
+import { FieldDef } from "@root/components/Field";
 
 // Components
-import Row from './Row';
+import Row from "./Row";
 
 const StyledSection = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: calc(100% - 4px); //LAYOUT: Could be reused.
-	border: ${pr => !pr.hasTitle ? '2px solid transparent' : `2px solid ${theme.colors.grayHover}`};
-	margin-bottom: ${pr => !pr.hasTitle ? '0px' : '40px'};
+	border: ${pr => !pr.hasTitle ? "2px solid transparent" : `2px solid ${theme.colors.grayHover}`};
+	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"};
 
 	& h1 {
 		background-color: ${theme.colors.grayHover}
@@ -33,7 +33,7 @@ const StyledRows = styled.div`
 	display: grid;
 	row-gap: 20px;
 	margin: 0px;
-	padding: ${pr => !pr.hasTitle ? '0px' : '0px 40px 50px 40px'} ;
+	padding: ${pr => !pr.hasTitle ? "0px" : "0px 40px 50px 40px"} ;
 `;
 
 const StyledTitle = styled.h1`

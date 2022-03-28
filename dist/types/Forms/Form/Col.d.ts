@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { FieldDef } from '@root/components/Field';
+import * as React from "react";
+import { FieldDef } from "@root/components/Field";
 interface ColPropsTypes {
     col: (string | FieldDef)[];
     state: any;

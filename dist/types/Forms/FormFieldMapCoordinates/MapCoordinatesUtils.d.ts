@@ -1,5 +1,5 @@
-import { Libraries } from './MapCoordinatesTypes';
-import { IAddress } from '@root/forms/FormFieldAddress/AddressTypes';
+import { Libraries } from "./MapCoordinatesTypes";
+import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 /**
  * Options to disable interactive actions. For more details take a look at the options interface:
  * https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions.clickableIcons
