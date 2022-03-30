@@ -1,0 +1,21 @@
+export declare const StyledSpan: any;
+export declare const CoordinatesCard: any;
+export declare const ButtonsWrapper: any;
+export declare const Column: any;
+export declare const MapImageColumn: any;
+export declare const LatLngLabel: any;
+export declare const CoordinatesValues: any;
+export declare const LatitudeValue: any;
+export declare const SwitchContainer: any;
+export declare const MapContainer: any;
+export declare const LocationSearchInputWrapper: any;
+export declare const StyledInputSearch: any;
+export declare const StyledClearIcon: any;
+export declare const SuggestionsContainer: any;
+export declare const SuggestionsDescriptionContainer: any;
+export declare const SuggestionDescription: any;
+export declare const mapContainerStyle: {
+    border: string;
+    height: string;
+    width: string;
+};
