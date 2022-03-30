@@ -5,15 +5,15 @@ import styled from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
 import { debounce } from "lodash";
 
-import HomeIcon from '@material-ui/icons/Home';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import ImageIcon from '@material-ui/icons/Image';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import BuildIcon from '@material-ui/icons/Build';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import HelpIcon from '@material-ui/icons/Help';
-import LinkIcon from '@material-ui/icons/Link';
+import HomeIcon from "@material-ui/icons/Home";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountTreeIcon from "@material-ui/icons/AccountTree";
+import ImageIcon from "@material-ui/icons/Image";
+import ExtensionIcon from "@material-ui/icons/Extension";
+import BuildIcon from "@material-ui/icons/Build";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import HelpIcon from "@material-ui/icons/Help";
+import LinkIcon from "@material-ui/icons/Link";
 
 import {
 	LeftNav,
