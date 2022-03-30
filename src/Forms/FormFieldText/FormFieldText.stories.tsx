@@ -21,7 +21,7 @@ import { useForm } from "../Form/formUtils";
 import Form from "../Form/Form";
 
 export default {
-	title: "Forms|FormFieldText",
+	title: "FormFields|FormFieldText",
 	decorators: [withKnobs],
 } as Meta;
 

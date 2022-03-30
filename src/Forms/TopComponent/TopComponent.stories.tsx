@@ -8,7 +8,7 @@ import TopComponent from "./TopComponent";
 import { MainLayout, Section } from "../FormNav/FormNav.styled";
 
 export default {
-	title: "Forms|TopComponent",
+	title: "FormFields|TopComponent",
 	decorators: [withKnobs],
 } as Meta;
 

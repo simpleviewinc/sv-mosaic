@@ -10,7 +10,7 @@ import { FieldDef } from "@root/components/Field";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "Forms|FormFieldToggleSwitch",
+	title: "FormFields|FormFieldToggleSwitch",
 	decorators: [withKnobs],
 } as Meta;
 

@@ -10,7 +10,7 @@ import Form from "../Form/Form";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "Forms|FormFieldChipSingleSelect",
+	title: "FormFields|FormFieldChipSingleSelect",
 	decorators: [withKnobs],
 } as Meta;
 
