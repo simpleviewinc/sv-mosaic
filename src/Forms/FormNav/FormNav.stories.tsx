@@ -8,7 +8,7 @@ import FormNav from "./FormNav";
 import { MainLayout, Section } from "./FormNav.styled";
 
 export default {
-	title: "Forms|FormNav",
+	title: "FormFields|FormNav",
 	decorators: [withKnobs],
 } as Meta;
 

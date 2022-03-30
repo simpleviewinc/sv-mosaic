@@ -8,7 +8,7 @@ import { useForm } from "../Form/formUtils";
 import { TextEditorDef } from "./TextEditorTypes";
 
 export default {
-	title: "Forms|FormFieldTextEditor",
+	title: "FormFields|FormFieldTextEditor",
 	decorators: [withKnobs],
 };
 

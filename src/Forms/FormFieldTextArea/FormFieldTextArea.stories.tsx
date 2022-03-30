@@ -19,7 +19,7 @@ import { FieldDef } from "@root/components/Field";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "Forms|FormFieldTextArea",
+	title: "FormFields|FormFieldTextArea",
 	decorators: [withKnobs],
 } as Meta;
 

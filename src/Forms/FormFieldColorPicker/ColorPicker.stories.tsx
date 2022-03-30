@@ -8,7 +8,7 @@ import { useForm } from "../Form/formUtils";
 import Form from "../Form/Form";
 
 export default {
-	title: "Forms|FormFieldColorPicker",
+	title: "FormFields|FormFieldColorPicker",
 	decorators: [withKnobs],
 };
 
