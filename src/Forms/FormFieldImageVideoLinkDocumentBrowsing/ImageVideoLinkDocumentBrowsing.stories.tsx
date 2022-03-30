@@ -13,7 +13,7 @@ import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "./ImageVideoLinkDocumentBrowsingUtils";
 
 export default {
-	title: "Forms|FormFieldImageVideoLinkDocumentBrowsing",
+	title: "FormFields|FormFieldImageVideoLinkDocumentBrowsing",
 	decorators: [withKnobs],
 };
 

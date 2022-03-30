@@ -1,7 +1,7 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import * as stories from './Form.stories';
 
-<Meta title='Forms/Form/Readme' />
+<Meta title='Components/Form/Readme' />
 
 # Form
 
@@ -11,7 +11,55 @@ ADD DESCRIPTION
 
 https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/Forms/Form/FormTypes.tsx
 
-## Buttons Examples
+## Form Fields
+
+All fields share a series of props that help the form identify and interact with each field.
+
+### Generic Field Props
+* **name** - `string` required - Significant name related to the field. This shouldn't have spaces as it serves as an identifier to read and write it's corresponding value.
+* **label** - `string | undefined` required - A label to display for the user interacting with the filter.
+...
+
+---
+### FormFieldExample
+This component does this and that, and should only be used if you're trying to...
+
+#### Props (Input Settings)
+* **prop1** - `string` required - Description.
+* **prop2** - `array` of `object` required - Description.
+	* **prop3** - `string` - Description.
+* **prop4** - `object` - Description.
+	* **prop5** - `number` - Description.
+
+#### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				inputSettings: {
+					prop1: 'Value of prop1',
+					prop2: [
+						{
+							prop3: 'Value of prop3'
+						}
+					],
+					prop4: {
+						prop5: 5,
+					},
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+	
+
+## Form Example
 
 <Preview withSource='none'>
   <stories.Playground />

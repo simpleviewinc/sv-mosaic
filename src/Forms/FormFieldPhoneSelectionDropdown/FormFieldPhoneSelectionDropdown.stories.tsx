@@ -11,7 +11,7 @@ import Form from "../Form/Form";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "Forms|FormFieldPhoneSelectionDropdown",
+	title: "FormFields|FormFieldPhoneSelectionDropdown",
 	decorators: [withKnobs],
 };
 
