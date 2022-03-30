@@ -8,7 +8,7 @@ import FormFieldDropdownMultipleSelection from "./FormFieldDropdownMultipleSelec
 import { Sizes } from "@root/theme/sizes";
 
 export default {
-	title: "Forms|FormFieldDropdownMultipleSelection",
+	title: "FormFields|FormFieldDropdownMultipleSelection",
 	decorators: [withKnobs],
 } as Meta;
 

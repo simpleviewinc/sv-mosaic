@@ -9,7 +9,7 @@ import Form from "../../Form/Form";
 import { DateFieldDef } from "./DateFieldTypes";
 
 export default {
-	title: "Forms|FormFieldDateField",
+	title: "FormFields|FormFieldDateField",
 	decorators: [withKnobs],
 };
 
