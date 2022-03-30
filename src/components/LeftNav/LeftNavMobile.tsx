@@ -2,8 +2,8 @@ import * as React from "react";
 import { useState, useMemo, useContext, Fragment, ReactElement } from "react";
 import styled from "styled-components";
 
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import CloseIcon from '@material-ui/icons/Close';
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import CloseIcon from "@material-ui/icons/Close";
 
 import LeftNavDrawer from "./LeftNavDrawer";
 import LeftNavRoot from "./LeftNavRoot";

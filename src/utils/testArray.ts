@@ -11,7 +11,7 @@ type Unpacked<T> = T extends Promise<infer U> ? U : T;
 // Handles test.args whether it is a plain object, or an Promise wrapping a type, or a function wrapping a type
 type TestArgs<T> = T extends ArgsFunc ? Unpacked<ReturnType<T>> : T;
 
-interface Test {
+export interface Test {
 	name: string
 	timeout?: number
 	before?: (test: MosaicObject) => void
