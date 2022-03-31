@@ -18,20 +18,46 @@ All fields share a series of props that help the form identify and interact with
 ### Generic Field Props
 * **name** - `string` required - Significant name related to the field. This shouldn't have spaces as it serves as an identifier to read and write it's corresponding value.
 * **label** - `string | undefined` required - A label to display for the user interacting with the filter.
-...
+* **required** - `boolean` - Marks if the field should be filled or not.
+* **helperText** - `string` - Text that gives context to the user as what the field does.
+* **instructionText** - `string` - Instructions about how to fill the current field.
+* **disabled** - `boolean` - Flag that indicates whether the field can be filled or readonly.
+* **inputSettings** - `object` - Specific props for each specific field (Please see the Props section of each field).
+* **maxCharacters** - `number` - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
+* **size** - `Sizes | string` - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **clasName** - `string` - Follows the same rules as any other html element className.
+* **style** - `object` - Follows the same rules as any other html element style.
+* **type** - `string | JSX Element | (() => JSX Element)` required - Field that will be rendered. This can be a string (see type of each form field) or a custom component.
+* **layout** - `object` - Optional object that defines the position of the field within the layout.
+	* **section** - `number` - Defines the section where the field will appear (begins at 0).
+	* **row** - `number` - Defines the row where the field will appear (begins at 0).
+	* **col** - `number` - Defines the column where the field will appear (begins at 0).
+* **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form. Please see the "Validators" section for more information about default and custom validators.
+* **id** - `string` - Follows the same rules as any other html element id.
+* **defaultValue** - `<U>` - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (Please see onChange return value of each specific field).
+* **pairedFields** - `array` of `string` - Array of field names to be linked to this field.
+
+### Validators
+
+
+### Sizes
+**xs** = 100px
+**sm** = 280px
+**md** = 450px
+**lg** = 620px
 
 ---
-### FormFieldExample
+## FormFieldExample
 This component does this and that, and should only be used if you're trying to...
 
-#### Props (Input Settings)
+### Props (Input Settings)
 * **prop1** - `string` required - Description.
 * **prop2** - `array` of `object` required - Description.
 	* **prop3** - `string` - Description.
 * **prop4** - `object` - Description.
 	* **prop5** - `number` - Description.
 
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() => 
@@ -56,8 +82,6 @@ const fields = useMemo(
 	[]
 );
 ```
-
-	
 
 ## Form Example
 
