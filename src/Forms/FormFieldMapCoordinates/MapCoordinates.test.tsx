@@ -224,6 +224,7 @@ describe("MapCoordinates component with an address object (AUTOCOODINATES)", () 
 			<MapCoordinates
 				fieldDef={{
 					name: "mapCoordinates",
+					type: "mapCoordinates",
 					label: "",
 					inputSettings: {
 						apiKey: "test",

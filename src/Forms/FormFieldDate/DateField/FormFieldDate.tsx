@@ -153,6 +153,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 							fieldDef={{
 								name: fieldDef?.name,
 								label: "",
+								type: "",
 								inputSettings: {
 									placeholder: "MM / DD / YYYY"
 								},
@@ -171,6 +172,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 								fieldDef={{
 									name: fieldDef?.name,
 									label: "",
+									type: "",
 									inputSettings: {
 										placeholder: "00:00 AM/PM"
 									}
