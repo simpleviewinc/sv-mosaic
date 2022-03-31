@@ -34,6 +34,7 @@ const FormFieldImageUploadExample = () => {
 			fieldDef={{
 				name: "imageUpload",
 				label: "",
+				type: "imageUpload",
 				disabled: false,
 				inputSettings: {
 					handleSetFocus: mockHandleSetFocus,
@@ -76,6 +77,7 @@ describe("FormFieldImageUpload disabled state", () => {
 			<FormFieldImageUpload
 				fieldDef={{
 					name: "imageUpload",
+					type: "imageUpload",
 					label: "",
 					disabled: true,
 				}}
@@ -93,6 +95,7 @@ describe("FormFieldImageUpload when menu options are not received", () => {
 			<FormFieldImageUpload
 				fieldDef={{
 					name: "imageUpload",
+					type: "imageUpload",
 					label: "",
 					disabled: false,
 				}}

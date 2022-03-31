@@ -31,7 +31,7 @@ describe("ColorPicker component", () => {
 		render(
 			<FormFieldColorPicker
 				value={value}
-				fieldDef={{ name: "colorPicker", label: "", disabled: false }}
+				fieldDef={{ name: "colorPicker", label: "", disabled: false, type: "color", }}
 
 			/>
 		);
@@ -48,7 +48,7 @@ describe("ColorPicker component", () => {
 		render(
 			<FormFieldColorPicker
 				value={value}
-				fieldDef={{ name: "colorPicker", label: "", disabled: true }}
+				fieldDef={{ name: "colorPicker", label: "", disabled: true, type: "color", }}
 
 			/>
 		);
@@ -63,7 +63,7 @@ describe("ColorPicker component", () => {
 		render(
 			<FormFieldColorPicker
 				value={undefined}
-				fieldDef={{ name: "colorPicker", label: "", disabled: true }}
+				fieldDef={{ name: "colorPicker", label: "", disabled: true, type: "color", }}
 
 			/>
 		);

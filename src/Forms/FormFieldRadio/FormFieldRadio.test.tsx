@@ -37,6 +37,7 @@ const FormFieldRadioExample = () => {
 			<FormFieldRadio
 				fieldDef={{
 					name: "radio",
+					type: "radio",
 					label: "Label",
 					inputSettings: {
 						options

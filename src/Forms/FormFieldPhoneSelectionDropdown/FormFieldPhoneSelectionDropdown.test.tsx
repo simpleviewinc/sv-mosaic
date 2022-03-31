@@ -22,6 +22,7 @@ const FormFieldPhoneSelectionDropdownExample = () => {
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
 					name: "phoneSelectDropdown",
+					type: "phone",
 					label: "Label",
 					disabled: false,
 					inputSettings: { placeholder: "Phone field placeholder" },
@@ -62,6 +63,7 @@ describe("FormFieldPhoneSelectionDropdown disabled state", () => {
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
 					name: "phoneSelectDropdown",
+					type: "phone",
 					label: "Label",
 					disabled: true,
 				}}
@@ -76,6 +78,7 @@ describe("FormFieldPhoneSelectionDropdown disabled state", () => {
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
 					name: "phoneSelectDropdown",
+					type: "phone",
 					label: "Label",
 					disabled: true,
 				}}
@@ -93,6 +96,7 @@ describe("FormFieldPhoneSelectionDropdown country code prop", () => {
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
 					name: "phoneSelectDropdown",
+					type: "phone",
 					label: "Label",
 				}}
 			/>
@@ -110,6 +114,7 @@ describe("FormFieldPhoneSelectionDropdown country code prop", () => {
 			<FormFieldPhoneSelectionDropdown
 				fieldDef={{
 					name: "phoneSelectDropdown",
+					type: "phone",
 					label: "Label",
 					inputSettings: {
 						country: "mx",
