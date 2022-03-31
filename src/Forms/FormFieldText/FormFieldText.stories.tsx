@@ -7,7 +7,6 @@ import {
 	number,
 	select,
 } from "@storybook/addon-knobs";
-import { Meta } from "@storybook/addon-docs/blocks";
 
 // Material UI
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -23,7 +22,7 @@ import Form from "../Form/Form";
 export default {
 	title: "FormFields|FormFieldText",
 	decorators: [withKnobs],
-} as Meta;
+};
 
 const onCancel = () => {
 	alert("Cancelling form, going back to previous site");

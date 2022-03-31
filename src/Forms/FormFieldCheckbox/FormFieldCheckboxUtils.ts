@@ -1,6 +1,6 @@
-import { CheckboxOption } from "./FormFieldCheckboxTypes"
+import { MosaicLabelValue } from "@root/types";
 
-export const checkboxOptions: CheckboxOption[] = [
+export const checkboxOptions: MosaicLabelValue[] = [
 	{
 		label: "Label 1",
 		value: "label_1",
