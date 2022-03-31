@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement } from "react";
 import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
-import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
 import FormFieldDropdownMultipleSelection from "./FormFieldDropdownMultipleSelection";
@@ -10,7 +9,7 @@ import { Sizes } from "@root/theme/sizes";
 export default {
 	title: "FormFields|FormFieldDropdownMultipleSelection",
 	decorators: [withKnobs],
-} as Meta;
+};
 
 const options = [
 	{
