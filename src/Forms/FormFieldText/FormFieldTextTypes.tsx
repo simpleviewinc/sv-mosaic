@@ -26,10 +26,6 @@ export type TextFieldDef = {
 	 */
 	size?: Sizes;
 	/**
-	 * Value written by the user into the text field.
-	 */
-	value?: string;
-	/**
 	 * When true the text field will expand its height.
 	 */
 	multiline?: boolean;
