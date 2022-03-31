@@ -7,7 +7,6 @@ import {
 	number,
 	select,
 } from "@storybook/addon-knobs";
-import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
 import Form from "../Form/Form";
@@ -21,7 +20,7 @@ import { useForm } from "../Form/formUtils";
 export default {
 	title: "FormFields|FormFieldTextArea",
 	decorators: [withKnobs],
-} as Meta;
+}
 
 const onCancel = () => {
 	alert("Cancelling form, going back to previous site");

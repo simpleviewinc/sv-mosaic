@@ -79,67 +79,6 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 		}
 
 		await onChange(newValue);
-
-		/* 
-		//Old Approach
-
-		let newValue = value;
-		position === 0 ? setDateInput(date) : setTimeInput(date);
-
-		if (!isNaN(date?.valueOf())) {
-
-			const dateString = date.toISOString();
-			const splitDate = dateString.split('T') || [];
-
-			if (!fieldDef?.inputSettings?.showTime) {
-				newValue = dateString;
-				setDateInput(newValue);
-			} else {
-
-				if (!newValue) {
-					position === 0 ? setDateInput(dateString) : setTimeInput(dateString);
-					if (required) {
-						if (position === 0 && timeInput) {
-							const splitTimeInput = timeInput.split("T") || [];
-							newValue = `${splitDate[0]}T${splitTimeInput[1]}`;
-						} else if (position === 1 && dateInput) {
-							const splitDateInput = dateInput.split("T") || [];
-							newValue = `${splitDateInput[0]}T${splitDate[1]}`;
-						} else {
-							newValue = undefined;
-						}
-					} else {
-						newValue = dateString;
-					}
-				} else {
-					const splitNewValue = newValue.split("T") || [];
-
-					if (position === 0) {
-						newValue = `${splitDate[0]}T${splitNewValue[1]}`;
-						setDateInput(newValue);
-					} else {
-						newValue = `${splitNewValue[0]}T${splitDate[1]}`;
-						setTimeInput(newValue);
-					}
-				}
-			}
-		} else {
-
-			if (fieldDef?.inputSettings?.showTime && dateInput && position === 1) {
-				newValue = !required ? dateInput : undefined;
-				setDateInput(dateInput);
-			} else if (fieldDef?.inputSettings?.showTime && timeInput && position === 0) {
-				newValue = !required ? timeInput : undefined;
-				setTimeInput(timeInput);
-			} else {
-				newValue = undefined;
-			}
-		} 
-
-		await onChange(newValue);
-		//await onBlur();
-
-		*/
 	};
 
 	return (
@@ -153,6 +92,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 							fieldDef={{
 								name: fieldDef?.name,
 								label: "",
+								type: "",
 								inputSettings: {
 									placeholder: "MM / DD / YYYY"
 								},
@@ -171,6 +111,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 								fieldDef={{
 									name: fieldDef?.name,
 									label: "",
+									type: "",
 									inputSettings: {
 										placeholder: "00:00 AM/PM"
 									}
