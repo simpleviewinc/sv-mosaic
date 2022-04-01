@@ -329,11 +329,12 @@ const fields = useMemo(
 );
 ```
 
-## FormFieldRadioButton
+## FormFieldRadio
 - A group of radio buttons allows users to select a single item from a list of possible options.
 - All possible options are exposed up front for comparison.
 - Users can only make a single selection from the list of possible options.
-- **Playground**: https://simpleviewinc.github.io/sv-mosaic/?path=/story/formfields-formfieldradio--playground
+- [**Playground**](/?path=/story/formfields-formfieldradio--playground)
+- Default Value: `string` - Value of the selected option.
 
 #### Props (Input Settings)
 * **options** - `array` of `object` optional - Predefined set of mutually exclusive options.
@@ -378,15 +379,15 @@ const fields = useMemo(
 - Text input fields are used to enter text information, numbers, e-mail addresses, or passwords. 
 - A text field consists of a label and a line with variations in width.
 - [**Playground**](/?path=/story/formfields-formfieldtext--playground)
+- Default Value: `string` - Value of the input typed.
 
 #### Props (Input Settings)
 
-* **htmlFor** - `string` optional - Specifies which form element a label is bound to.
 * **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 * **multiline** - `boolean` optional - When is enabled the text field will expand its height.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 * **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-* **size** - `Size | string` required - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
 #### How to use in a form?
@@ -418,13 +419,13 @@ const fields = useMemo(
 ## FormFieldTextArea
 - A text area is a multi-line plain-text editing control, is useful when you want to allow users to enter a sizeable amount of free-form text, but defining a specific height and width.
 - [**Playground**](/?path=/story/formfields-formfieldtextarea--playground)
+- Default Value: `string` - Value of the input typed.
 
 #### Props (Input Settings)
 
-* **htmlFor** - `string` optional - Specifies which form element a label is bound to.
 * **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-* **size** - `Size | string` required - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 #### How to use in a form?
 
 ```ts
@@ -453,6 +454,7 @@ const fields = useMemo(
 - The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area.
 - This implementation is based on the [React Jodit WYSIWYG Editor](https://www.npmjs.com/package/jodit-react) package.
 - [**Playground**](/?path=/story/formfields-formfieldtexteditor--playground)
+- Default Value: `string` - Value of the input typed.
 
 
 #### Props (Input Settings)
@@ -489,7 +491,9 @@ const fields = useMemo(
 - Tables are used in some cases inside the form after selecting a list of elements or by using arrays
 - The data table component allows for customization with additional functionality, as needed by your product’s users.
 - [**Playground**](/?path=/story/formfields-formfieldtable--playground)
-
+- Default Value: `array` of `object` - Rows of the table.
+	* **id** - `string` required - Unique identifier. Used as an identifier for the draggable item.
+	* **items** - `string[]` - Data that is shown in the table.
 
 #### Props (Input Settings)
 
@@ -593,6 +597,7 @@ const fields = useMemo(
 - Toggles should be used to turn on or off a preference, notification, or feature
 - Should be used when an instant response is required/desired
 - [**Playground**](/?path=/story/formfields-formfieldtoggleswitch--playground)
+- Default Value: `boolean` - Defines whether the switch is checked or not.
 
 #### Props (Input Settings)
 
