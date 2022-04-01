@@ -17,8 +17,4 @@ export type TextAreaDef = {
 	 * Sizing attribute (dimensions tbd).
 	 */
 	size?: Sizes;
-	/**
-	 * Value written by the user into the text area.
-	 */
-	value?: string;
 }
