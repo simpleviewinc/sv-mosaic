@@ -10,7 +10,7 @@ import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
 const TextField = (
-	props: MosaicFieldProps<TextFieldDef>
+	props: MosaicFieldProps<TextFieldDef, string>
 ): ReactElement => {
 	const {
 		fieldDef,
