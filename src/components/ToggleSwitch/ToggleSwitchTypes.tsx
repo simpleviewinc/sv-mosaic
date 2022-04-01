@@ -26,9 +26,9 @@ export interface ToggleSwitchProps {
 	/**
 	 * Change function inherit from the FormFieldToggleSwitch parent component.
 	 */
-	onChange: MosaicFieldProps<FormFieldToggleSwitchDef, boolean>["onChange"];
+	onChange?: MosaicFieldProps<FormFieldToggleSwitchDef, boolean>["onChange"];
 	/**
 	 * OnBlur function inherit from the FormFieldToggleSwitch parent component.
 	 */
-	onBlur: MosaicFieldProps<FormFieldToggleSwitchDef, boolean>["onBlur"];
+	onBlur?: MosaicFieldProps<FormFieldToggleSwitchDef, boolean>["onBlur"];
 }
