@@ -329,7 +329,7 @@ const fields = useMemo(
 );
 ```
 
-### FormFieldRadioButton
+## FormFieldRadioButton
 - A group of radio buttons allows users to select a single item from a list of possible options.
 - All possible options are exposed up front for comparison.
 - Users can only make a single selection from the list of possible options.
@@ -337,20 +337,18 @@ const fields = useMemo(
 
 #### Props (Input Settings)
 * **options** - `array` of `object` optional - Predefined set of mutually exclusive options.
-	* **label** - `string` - Description of the option.
-	* **value** - `string` - Value of the option, this is stored in the Form state.
+	* **label** - `string` required - Description of the option.
+	* **value** - `string` required - Value of the option, this is stored in the Form state.
 
 #### How to use in a form?
 ```ts
 const fields = useMemo(
 		() =>
 			[
+				//...other fields
 				{
-					name: "radio",
-					label: "Radio button label",
+					//...all generic field props,
 					type: "radio",
-					required: true,
-					disabled: false,
 					inputSettings: {
 						options: [
 							{
@@ -370,12 +368,13 @@ const fields = useMemo(
 					helperText: 'Helper text',
 					instructionText: 'Instruction text'
 				}
+				//...other fields
 			] as FieldDef<FormFieldRadioDef>[],
 		[]
 	);
 ```
 
-### FormFieldText
+## FormFieldText
 - Text input fields are used to enter text information, numbers, e-mail addresses, or passwords. 
 - A text field consists of a label and a line with variations in width.
 - [**Playground**](/?path=/story/formfields-formfieldtext--playground)
@@ -387,7 +386,7 @@ const fields = useMemo(
 * **multiline** - `boolean` optional - When is enabled the text field will expand its height.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 * **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-* **size** - `enum Sizes { xs = '100px', sm = 280px, md = "450px", lg = "620px" }` required - The size of the component.
+* **size** - `Size | string` required - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
 #### How to use in a form?
@@ -396,12 +395,10 @@ const fields = useMemo(
 const fields = useMemo(
 	() =>
 		[
+			//...other fields
 			{
-				name: "textfield",
-				label: "Input label",
+				//...all generic field props,
 				type: "text",
-				required: true,
-				disabled: false,
 				maxCharacters: 20,
 				size: Sizes.md,
 				inputSettings: {
@@ -411,15 +408,14 @@ const fields = useMemo(
 					placeholder: 'placeholder',
 					multiline: true
 				},
-				helperText: 'Helper text',
-				instructionText: 'Instruction text'
 			},
+			//...other fields
 		] as FieldDef<TextFieldDef>[],
 	[]
 );
 ```
 
-### FormFieldTextArea
+## FormFieldTextArea
 - A text area is a multi-line plain-text editing control, is useful when you want to allow users to enter a sizeable amount of free-form text, but defining a specific height and width.
 - [**Playground**](/?path=/story/formfields-formfieldtextarea--playground)
 
@@ -428,20 +424,17 @@ const fields = useMemo(
 * **htmlFor** - `string` optional - Specifies which form element a label is bound to.
 * **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-* **size** - `enum { xs = '100px', sm = 280px, md = "450px", lg = "620px" }` required - The size of the component.
-
+* **size** - `Size | string` required - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 #### How to use in a form?
 
 ```ts
 const fields = useMemo(
 	() =>
 		[
+			//...other fields
 			{
-				name: "regular",
-				label: "Text Area Label",
+				//...all generic field props
 				type: "textArea",
-				required: true,
-				disabled: false,
 				maxCharacters: 20,
 				size: Sizes.md,
 				inputSettings: {
@@ -449,15 +442,14 @@ const fields = useMemo(
 					size: Sizes.md,
 					placeholder: "placeholder"
 				},
-				helperText: "Helper text",
-				instructionText: "Instruction text"
 			},
+			//...other fields
 		] as FieldDef<TextAreaDef>[],
 	[]
 );
 ```
 
-### FormFieldTextEditor
+## FormFieldTextEditor
 - The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area.
 - This implementation is based on the [React Jodit WYSIWYG Editor](https://www.npmjs.com/package/jodit-react) package.
 - [**Playground**](/?path=/story/formfields-formfieldtexteditor--playground)
@@ -476,27 +468,24 @@ const fields = useMemo(
 const fields = useMemo(
 	() =>
 		[
+			//...other fields
 			{
-				name: "textEditor",
-				label: "Text Editor Label",
+				//...all generic field props
 				type: "textEditor",
-				required: true,
 				inputSettings: {
 					spellcheck: true,
 					direction: "rlt",
 					language: "en",
 					maxCharacters: 20,
 				},
-				disabled: false,
-				helperText: "Helper text",
-				instructionText: "Instruction text"
 			},
+			//...other fields
 		] as FieldDef<TextEditorDef>[],
 	[]
 );
 ```
 
-### FormFieldTable
+## FormFieldTable
 - Tables are used in some cases inside the form after selecting a list of elements or by using arrays
 - The data table component allows for customization with additional functionality, as needed by your product’s users.
 - [**Playground**](/?path=/story/formfields-formfieldtable--playground)
@@ -567,10 +556,9 @@ const addTableRow = (): void => {
 const fields = useMemo(
 	() =>
 		[
+			//...other fields
 			{
-				disabled: false,
-				helperText: 'Helper text',
-				instructionText: 'Instruction text',
+				//...all generic field props
 				inputSettings: {
 					handleAddElement: addTableRow,
 					handleEdit: (rowIndex: number): void => { 
@@ -593,17 +581,14 @@ const fields = useMemo(
 					],
 					headers: ["Header 1", "Header 2", "Header 3"],
 				},
-				label: "Table label",
-				name: "table",
-				required: false,
-				type: "table",
+			//...other fields
 			},
 		] as FieldDef<TableDef>[],
 	[addTableRow]
 );
 ```
 
-### FormFieldToggleSwitch
+## FormFieldToggleSwitch
 - Toggle Switch allow users to switch between two possible states. They are commonly used to turn a specific setting on or off
 - Toggles should be used to turn on or off a preference, notification, or feature
 - Should be used when an instant response is required/desired
@@ -611,7 +596,7 @@ const fields = useMemo(
 
 #### Props (Input Settings)
 
-* **toogleLabel** - `string` optional - This label is placed at the right of the switch.
+* **toggleLabel** - `string` optional - This label is placed at the right of the switch.
 
 #### How to use in a form?
 
@@ -619,18 +604,15 @@ const fields = useMemo(
 const fields = useMemo(
 	() =>
 		[
+			//...other fields
 			{
-				name: "toggleSwitch",
-				label: "Toogle Switch",
+				//...all generic field props
 				type: "toggleSwitch",
-				required: false,
-				disabled: false,
 				inputSettings: {
 					toggleLabel: "Toggle label"
 				},
-				helperText: "Helper text",
-				instructionText: "Instruction text"
 			},
+			//...other fields
 		] as FieldDef<FormFieldToggleSwitchDef>[],
 	[]
 );
