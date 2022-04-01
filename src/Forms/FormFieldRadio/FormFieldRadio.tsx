@@ -9,7 +9,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldRadioDef } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
 
-const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef>): ReactElement => {
+const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, string>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
