@@ -1,5 +1,6 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import * as stories from './Form.stories';
+// import * as addressStories from '../FormFieldAddress/Address.stories';
 
 <Meta title='Components/Form/Readme' />
 
@@ -18,20 +19,48 @@ All fields share a series of props that help the form identify and interact with
 ### Generic Field Props
 * **name** - `string` required - Significant name related to the field. This shouldn't have spaces as it serves as an identifier to read and write it's corresponding value.
 * **label** - `string | undefined` required - A label to display for the user interacting with the filter.
-...
+* **required** - `boolean` optional - Marks if the field should be filled or not.
+* **helperText** - `string` optional - Text that gives context to the user as what the field does.
+* **instructionText** - `string` optional - Instructions about how to fill the current field.
+* **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
+* **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
+* **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
+* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **className** - `string` optional - Follows the same rules as any other html element className.
+* **style** - `object` optional - Follows the same rules as any other html element style.
+* **type** - `string | JSX Element | (() => JSX Element)` required - Field that will be rendered. This can be a string (see type of each form field) or a custom component.
+* **layout** - `object` optional - Optional object that defines the position of the field within the layout.
+	* **section** - `number` optional - Defines the section where the field will appear (begins at 0).
+	* **row** - `number` optional - Defines the row where the field will appear (begins at 0).
+	* **col** - `number` optional - Defines the column where the field will appear (begins at 0).
+* **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` optional - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form. Please see the "Validators" section for more information about default and custom validators.
+* **id** - `string` optional - Follows the same rules as any other html element id.
+* **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (Please see onChange return value of each specific field).
+* **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field.
 
----
-### FormFieldExample
+### Validators
+
+### Sizes
+* **xs** = 100px
+* **sm** = 280px
+* **md** = 450px
+* **lg** = 620px
+
+### MosaicLabelValue (Type)
+* **label** - `string`
+* **value** - `string`
+
+## FormFieldExample
 This component does this and that, and should only be used if you're trying to...
 
-#### Props (Input Settings)
+### Props (Input Settings)
 * **prop1** - `string` required - Description.
 * **prop2** - `array` of `object` required - Description.
-	* **prop3** - `string` - Description.
-* **prop4** - `object` - Description.
-	* **prop5** - `number` - Description.
+	* **prop3** - `string` optional - Description.
+* **prop4** - `object` optional - Description.
+	* **prop5** - `number` optional - Description.
 
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() => 
@@ -39,6 +68,7 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
+				type:'typeOfComponent'
 				inputSettings: {
 					prop1: 'Value of prop1',
 					prop2: [
@@ -57,7 +87,247 @@ const fields = useMemo(
 );
 ```
 
----
+
+## FormFieldAddress
+- Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
+- [**Playground**](/?path=/story/formfields-formfieldaddress--playground)
+- Default Value: `object`
+	* **address1** - `string` required - Main address.
+	* **address2** - `string` optional - Additional address.
+	* **address3** - `string` optional - Additional address.
+	* **city** - `string` required - Name of the city.
+	* **country** - `string` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **postalCode** - `string` required - Postal code of the address.
+	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
+
+### Props (Input Settings)
+This component doesn't require any additional props.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: 'address',
+			},
+			//...other fields
+		],
+	[]
+);
+```
+<!-- ### Example
+<Preview withSource='none'>
+  <addressStories.Playground />
+</Preview> -->
+
+
+## FormFieldAdvancedSelection
+- Allow users to select one or more options from a modal menu. 
+- Used for very long lists. 
+- Have the ability to type and search.
+- [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
+- Default Value: `array` of `string` - Array of values of the selected options.
+
+### Props (Input Settings)
+* **createNewOption** - `(filter: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
+* **getSelected** - `(options: string[]) => Promise<{label: string, value: string, category: string}[]>` optional -  Function used to get the full info (label, value, category) of all selected options.
+
+This prop only applies when getting options locally.
+* **checkboxOptions** - `object` optional -  Function used to get the full info (label, value, category) of all selected options.
+	* **label** - `string` required -  Text users will see to identify the option.
+	* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
+	* **category** - `string` SOON TO BE DEPRECATED - Category in which the option belongs to.
+
+These props only apply when getting options from a DB. 
+* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<{label: string, value: string, category: string}[]>` required - Function to get the next set of options.
+* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB.
+
+### How to use in a form?
+```ts
+//Option recommended when getting options locally.
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: 'advancedSelection',
+				inputSettings: {
+					createNewOption: myCreateOptionFn,
+					getSelected: myGetSelectedFn,
+					checkboxOptions: [
+						{
+							label: 'Option1',
+							value: 'value1',
+							category: 'Category1',
+						}
+					]
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: 'advancedSelection',
+				inputSettings: {
+					createNewOption: myCreateOptionFn,
+					getSelected: myGetSelectedFn,
+					getOptions: myGetOptionsFn,
+					getOptionsLimit: 5,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+
+## FormFieldCheckbox
+- A group of checkbox buttons that allows users to select multiple items from a list of possible options.
+- [**Playground**](/?path=/story/formfields-formfieldcheckbox--playground)
+- Default Value: `array` of `string` - Array of values of the selected options.
+
+### Props (Input Settings)
+* **options** - `array` of `MosaicLabelValue` required - Array of options to be rendered containing their corresponding label and value.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: 'checkbox',
+				inputSettings: {
+					options: [
+						{
+							label: 'Option1',
+							value: 'value1',
+						}
+					]
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+
+## FormFieldChipSingleSelect
+- The `FormFieldChipSingleSelect` component is built over a wrapper for [Material-UI Autocomplete](https://material-ui.com/components/autocomplete/) but with SimpleView brand colors.
+- [**Playground**](/?path=/story/formfields-formfieldchipsingleselect--playground)
+- Default Value: `string` - Value of the selected option.
+
+### Props (Input Settings)
+* **options** - `array` of `{ label: string, value: string, selected?: boolean }` required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not.
+* **onSelect** - `(...args) => void` optional - Callback to be executed when an option gets selected.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: 'chip',
+				inputSettings: {
+					options: [
+						{
+							label: 'Option1',
+							value: 'value1',
+							selected: false,
+						}
+					]
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+
+## FormFieldColorPicker
+- The color picker component allows users to select from pre-defined colors (swatches) or custom colors using a HSB selection interface.
+- The implementation of this component is based on the following package: [React Color](https://casesandberg.github.io/react-color/)
+- [**Playground**](/?path=/story/formfields-formfieldcolorpicker--playground)
+- Default Value: `ColorResult` - Object containing all the different variants for the color selected.
+
+### ColorResult (Type)
+* **hex** - `string`
+* **hsl** - `object`
+	* **a** - `number | undefined`
+	* **h** - `number`
+	* **s** - `number`
+	* **l** - `number`
+* **rgb** - `object`
+	* **a** - `number | undefined`
+	* **r** - `number`
+	* **g** - `number`
+	* **b** - `number`
+
+### Props (Input Settings)
+This component doesn't require any additional props.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: 'color',
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+
+## FormFieldDateField
+- It allows the user to view and pick dates from a calendar widget or manually type the date in the text field.
+- [**Playground**](/?path=/story/formfields-formfielddatefield--playground)
+- Default Value: `string` - Date in UTC format transformed to string.
+
+### Props (Input Settings)
+* **showTime** - `boolean` optional - When true a time field will appear next to the date field.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: 'date',
+				inputSettings: {
+					showTime: false,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
 ### FormFieldDropdownSingleSelection
 - `Dropdown Single Selection` is a simple wrapper for [Material-UI Autocomplete](https://material-ui.com/components/autocomplete/#autocomplete) but with our brand colors.
 - [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfielddropdownsingleselection--playground)
@@ -267,7 +537,7 @@ const fields = useMemo(
 	[]
 );
 ```
-
+  
 ## Form Example
 
 <Preview withSource='none'>

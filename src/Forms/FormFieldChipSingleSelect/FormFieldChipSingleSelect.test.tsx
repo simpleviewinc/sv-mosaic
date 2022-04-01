@@ -37,6 +37,7 @@ const FormFieldChipSingleSelectExample = () => {
 			fieldDef={{
 				name: "formFieldChipSingleSelect",
 				label: "Chip test",
+				type: "chip",
 				inputSettings: {
 					options
 				}

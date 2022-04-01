@@ -18,6 +18,7 @@ const FormFieldToggleSwitchExample = ({ disabled }: { disabled: boolean }) => {
 		<FormFieldToggleSwitch
 			fieldDef={{
 				label: "Field label",
+				type: "toggleSwitch",
 				name: "toggleSwitch",
 				disabled: disabled,
 				inputSettings: {
