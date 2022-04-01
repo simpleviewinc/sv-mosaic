@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState, ChangeEvent } from "react";
+import { ReactElement, useState } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
@@ -14,8 +14,8 @@ export default {
 export const Example = (): ReactElement => {
 	const [isChecked, setIsChecked] = useState(false);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setIsChecked(e.target.checked);
+	const handleChange = async (checked: boolean) => {
+		setIsChecked(checked);
 	};
 	return (
 		<>
