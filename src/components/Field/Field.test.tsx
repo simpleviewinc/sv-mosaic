@@ -16,6 +16,7 @@ describe("Field component label, helper text and instructional text", () => {
 			<Field
 				fieldDef={{
 					name: "fieldTest",
+					type: "text",
 					label: "Label",
 					helperText: "Helper text",
 					instructionText: "Instruction text",
@@ -25,6 +26,7 @@ describe("Field component label, helper text and instructional text", () => {
 				<FormFieldText
 					fieldDef={{
 						name: "fieldTest",
+						type: "text",
 						label: "Label",
 						helperText: "Helper text",
 						instructionText: "Instruction text",
@@ -49,6 +51,7 @@ describe("Field component error text and the helper text", () => {
 			<Field
 				fieldDef={{
 					name: "fieldTest",
+					type: "text",
 					label: "Label",
 					helperText: "Helper text",
 				}}
@@ -58,6 +61,7 @@ describe("Field component error text and the helper text", () => {
 				<FormFieldText
 					fieldDef={{
 						name: "fieldTest",
+						type: "text",
 						label: "Label",
 						helperText: "Helper text",
 					}}
@@ -76,6 +80,7 @@ describe("Field component error text and the helper text", () => {
 			<Field
 				fieldDef={{
 					name: "fieldTest",
+					type: "text",
 					label: "Label",
 					helperText: "Helper text",
 				}}
@@ -85,6 +90,7 @@ describe("Field component error text and the helper text", () => {
 				<FormFieldText
 					fieldDef={{
 						name: "fieldTest",
+						type: "text",
 						label: "Label test",
 						helperText: "Helper text",
 						inputSettings: {
@@ -113,6 +119,7 @@ describe("Field char counter", () => {
 				<Field
 					fieldDef={{
 						name: "fieldTest",
+						type: "text",
 						label: "Label",
 						maxCharacters: 20,
 					}}
@@ -122,6 +129,7 @@ describe("Field char counter", () => {
 					<FormFieldText
 						fieldDef={{
 							name: "fieldTest",
+							type: "text",
 							label: "Label",
 							id: "char-test",
 							inputSettings: {

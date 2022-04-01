@@ -1,4 +1,4 @@
-import { CheckboxOption } from "../../forms/FormFieldCheckbox";
+import { MosaicLabelValue } from "@root/types";
 
 export interface CheckboxListProps {
 	/**
@@ -8,7 +8,7 @@ export interface CheckboxListProps {
 	/**
 	 * List of options
 	 */
-	options: CheckboxOption[];
+	options: MosaicLabelValue[];
 	/**
 	 * Function that listens to changes on the checked options.
 	 * @param checked List of checked options
