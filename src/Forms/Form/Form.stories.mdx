@@ -329,6 +329,312 @@ const fields = useMemo(
 );
 ```
 
+### FormFieldRadioButton
+- A group of radio buttons allows users to select a single item from a list of possible options.
+- All possible options are exposed up front for comparison.
+- Users can only make a single selection from the list of possible options.
+- **Playground**: https://simpleviewinc.github.io/sv-mosaic/?path=/story/formfields-formfieldradio--playground
+
+#### Props (Input Settings)
+* **options** - `array` of `object` optional - Predefined set of mutually exclusive options.
+	* **label** - `string` - Description of the option.
+	* **value** - `string` - Value of the option, this is stored in the Form state.
+
+#### How to use in a form?
+```ts
+const fields = useMemo(
+		() =>
+			[
+				{
+					name: "radio",
+					label: "Radio button label",
+					type: "radio",
+					required: true,
+					disabled: false,
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1",
+							},
+							{
+								label: "Label 2",
+								value: "label_2",
+							},
+							{
+								label: "Label 3",
+								value: "label_3",
+							},
+						]
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text'
+				}
+			] as FieldDef<FormFieldRadioDef>[],
+		[]
+	);
+```
+
+### FormFieldText
+- Text input fields are used to enter text information, numbers, e-mail addresses, or passwords. 
+- A text field consists of a label and a line with variations in width.
+- [**Playground**](/?path=/story/formfields-formfieldtext--playground)
+
+#### Props (Input Settings)
+
+* **htmlFor** - `string` optional - Specifies which form element a label is bound to.
+* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
+* **multiline** - `boolean` optional - When is enabled the text field will expand its height.
+* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
+* **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
+* **size** - `enum Sizes { xs = '100px', sm = 280px, md = "450px", lg = "620px" }` required - The size of the component.
+* **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			{
+				name: "textfield",
+				label: "Input label",
+				type: "text",
+				required: true,
+				disabled: false,
+				maxCharacters: 20,
+				size: Sizes.md,
+				inputSettings: {
+					prefixElement: <AccountCircle />,
+					maxCharacters: 20,
+					size: Sizes.md,
+					placeholder: 'placeholder',
+					multiline: true
+				},
+				helperText: 'Helper text',
+				instructionText: 'Instruction text'
+			},
+		] as FieldDef<TextFieldDef>[],
+	[]
+);
+```
+
+### FormFieldTextArea
+- A text area is a multi-line plain-text editing control, is useful when you want to allow users to enter a sizeable amount of free-form text, but defining a specific height and width.
+- [**Playground**](/?path=/story/formfields-formfieldtextarea--playground)
+
+#### Props (Input Settings)
+
+* **htmlFor** - `string` optional - Specifies which form element a label is bound to.
+* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
+* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
+* **size** - `enum { xs = '100px', sm = 280px, md = "450px", lg = "620px" }` required - The size of the component.
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			{
+				name: "regular",
+				label: "Text Area Label",
+				type: "textArea",
+				required: true,
+				disabled: false,
+				maxCharacters: 20,
+				size: Sizes.md,
+				inputSettings: {
+					maxCharacters: 20,
+					size: Sizes.md,
+					placeholder: "placeholder"
+				},
+				helperText: "Helper text",
+				instructionText: "Instruction text"
+			},
+		] as FieldDef<TextAreaDef>[],
+	[]
+);
+```
+
+### FormFieldTextEditor
+- The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area.
+- This implementation is based on the [React Jodit WYSIWYG Editor](https://www.npmjs.com/package/jodit-react) package.
+- [**Playground**](/?path=/story/formfields-formfieldtexteditor--playground)
+
+
+#### Props (Input Settings)
+
+* **direction** - `"rtl" | "ltr" | ""` optional - Defines the starting point at which the typed words will be displayed, "lrt" starts from the left moving to the right and "rlt" vice versa. Default is "rlt".
+* **language** - `string` optional - Defines the language in which the assistive elements of the text editor will be displayed. For example the placeholder and the character and word counter
+* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
+* **spellcheck** - `boolean` optional - If it's enabled the text editor will mark misspellings.
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			{
+				name: "textEditor",
+				label: "Text Editor Label",
+				type: "textEditor",
+				required: true,
+				inputSettings: {
+					spellcheck: true,
+					direction: "rlt",
+					language: "en",
+					maxCharacters: 20,
+				},
+				disabled: false,
+				helperText: "Helper text",
+				instructionText: "Instruction text"
+			},
+		] as FieldDef<TextEditorDef>[],
+	[]
+);
+```
+
+### FormFieldTable
+- Tables are used in some cases inside the form after selecting a list of elements or by using arrays
+- The data table component allows for customization with additional functionality, as needed by your product’s users.
+- [**Playground**](/?path=/story/formfields-formfieldtable--playground)
+
+
+#### Props (Input Settings)
+
+* **handleAddElement** - `() => void` required - Function used to create a new row in the table.
+* **handleEdit** - `(rowIndex: number) => void` required - Function that defines how the clicked row should be editted.
+* **handleDelete** - `() => void` required - Function that will be executed when clicking on the trash icon. It can be used to show some kind of confirmation before removing the row.
+* **extraActions** - `array` of `object` optional - Possible actions that the table could execute and display.
+	* **label** - `string` - Describes the action.
+	* **icon** - `MosaicMIcon` - MUI icon.
+	* **actionFnc** - `actionFnc: (rowIndex: number) => void;` - Function that is executed when the corresponding icon is clicked.
+* **headers** - `string[]` required - Array of the table headers.
+
+#### How to use in a form?
+
+```ts
+const possibleTableRows = [
+	{
+		id: "1",
+		items: ["John", "john@email.com", "01/01/2021", "3231-962-7516"],
+	},
+	{
+		id: "2",
+		items: ["Sally", "sally@email.com", "12/24/2020", "011-962-111"],
+	},
+	{
+		id: "3",
+		items: ["Maria", "maria@email.com", "12/01/2020", "788-962-7516"],
+	}
+];
+
+const addTableRow = (): void => {
+	const tableDataLength = dataState.table ? dataState.table.length : 0;
+
+	if (tableDataLength === 0) {
+		dispatch(
+			actions.setFieldValue({
+				name: "table"
+				value: [possibleTableRows[0]],
+			})
+		);
+	} else if (tableDataLength >= possibleTableRows.length) {
+		alert("There are no more elements to add");
+	} else {
+		let index;
+
+		for (let i = 0; i < possibleTableRows.length; i++) {
+			const element = possibleTableRows[i];
+			const isRepeatedRow = dataState.table.includes(element);
+			if (!isRepeatedRow) {
+				index = i;
+				break;
+			}
+		}
+
+		dispatch(
+			actions.setFieldValue({
+				name,
+				value: [...dataState.table, possibleTableRows[index]],
+			})
+		);
+	}
+};
+
+const fields = useMemo(
+	() =>
+		[
+			{
+				disabled: false,
+				helperText: 'Helper text',
+				instructionText: 'Instruction text',
+				inputSettings: {
+					handleAddElement: addTableRow,
+					handleEdit: (rowIndex: number): void => { 
+						alert(`Edit button clicked of row with index ${rowIndex}`);
+					},
+					handleDelete: (rowIndex: number): void => { 
+						alert(`This will be executed when removing the row: ${rowIndex}`);
+					},
+					extraActions: [
+						{
+							label: "Menu action",
+							actionFnc: (rowIndex: number): void => { alert(`Menu actions for row ${rowIndex}`) },
+							icon: MenuIcon,
+						},
+						{
+							label: "Translate",
+							actionFnc: (rowIndex: number): void => { alert(`Translate row ${rowIndex}`) },
+							icon: TranslateIcon,
+						},
+					],
+					headers: ["Header 1", "Header 2", "Header 3"],
+				},
+				label: "Table label",
+				name: "table",
+				required: false,
+				type: "table",
+			},
+		] as FieldDef<TableDef>[],
+	[addTableRow]
+);
+```
+
+### FormFieldToggleSwitch
+- Toggle Switch allow users to switch between two possible states. They are commonly used to turn a specific setting on or off
+- Toggles should be used to turn on or off a preference, notification, or feature
+- Should be used when an instant response is required/desired
+- [**Playground**](/?path=/story/formfields-formfieldtoggleswitch--playground)
+
+#### Props (Input Settings)
+
+* **toogleLabel** - `string` optional - This label is placed at the right of the switch.
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			{
+				name: "toggleSwitch",
+				label: "Toogle Switch",
+				type: "toggleSwitch",
+				required: false,
+				disabled: false,
+				inputSettings: {
+					toggleLabel: "Toggle label"
+				},
+				helperText: "Helper text",
+				instructionText: "Instruction text"
+			},
+		] as FieldDef<FormFieldToggleSwitchDef>[],
+	[]
+);
+```
 ## Form Example
 
 <Preview withSource='none'>
