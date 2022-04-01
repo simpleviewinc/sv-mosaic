@@ -101,7 +101,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 	 * Managed the switch state to enable or disable autocoordinates.
 	 * @param e
 	 */
-	const handleToggleSwitchChange = (isChecked) => {
+	const handleToggleSwitchChange = async (isChecked: boolean) => {
 		setAutocoordinatesChecked(isChecked);
 	}
 
