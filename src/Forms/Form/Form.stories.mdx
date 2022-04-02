@@ -5,18 +5,80 @@ import * as stories from './Form.stories';
 <Meta title='Components/Form/Readme' />
 
 # Form
+"Forms" was born as a solution to help all SimpleView products currently using MOSAIC standardize both styling and functionality
+of all forms.
 
-ADD DESCRIPTION
+The form component comes pre-filled with multiple generic stylished and functional fields so you can focus on your app's
+functionality and not how to make a form work.
 
 ## Props
+* **type** - `'drawer'` optional - When defined, tells the form whether it's being rendered inside of a drawer or not (this only affects styling).
+* **state** - `any` required - Object which will contain all filled fields and their corresponding value.
+* **title** - `string` optional - Title of the form.
+* **fields** - `FieldDef[]` required - Array of fields containing their respective configuration (see Generic Field Props subsection).
+* **sections** - `SectionDef[]` optional - Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row.
+* **dispatch** - `any` required - Function in charge of updating the state (see Dispatch Actions subsection).
+* **onCancel** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the cancel button of the form.
+* **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = 'drawer'.
+* **description** - `string` optional - Additional text that will render under the title.
+* **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
+* **cancelButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the cancel button (see ButtonAttrs type).
+* **submitButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the save button (see ButtonAttrs type).
+* **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
+* **events** - `any` optional - THIS HAS NEVER BEEN USED, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
+* **onSubmit** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the save button of the form.
 
-https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/Forms/Form/FormTypes.tsx
+## useForm Hook
+
+### State
+### Dispatch
+### RegisterFields
+### RegisterOnSubmit
+
+## How to create a form?
+
+## Types
+
+### MosaicLabelValue (Type)
+* **label** - `string` required
+* **value** - `string` required
+
+### MosaicObject (Type)
+* **[key: string]** - `unknown` required
+
+### MenuItemProps (Type)
+* **label** - `string | JSX Element` required
+* **color** - `"red" | "blue" ` optional
+* **disabled** - `boolean` optional
+* **selected** - `boolean` optional
+* **onClick** - `(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void` required
+* **mIcon** - `MosaicMIcon` optional
+* **attrs** - `MosaicObject` optional
+
+### ButtonAttrs (Type)
+* **label** - `string | JSX Element` optional
+* **className** - `string` optional
+* **href** - `string` optional
+* **color** - `"black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray"` required
+* **mIcon** - `MosaicMIcon` optional - (Any Icon from MUI library).
+* **variant** - `"icon" | "outlined" | "contained" | "text"` required
+* **size** - `"small" | "medium" | "large"` optional
+* **iconPosition** - `"left" | "right"` optional
+* **disabled** - `boolean` optional
+* **fullWidth** - `boolean` optional
+* **tooltip** - `string | JSX Element` optional
+* **popover** - `JSX Element` optional
+* **menuItems** - `MenuItemProps[]` optional
+* **menuContent** - `JSX Element` optional
+* **mIconColor** - `string` optional
+* **onClick** - `(event: React.MouseEvent<HTMLButtonElement>) => void` optional
+* **attrs** - `MosaicObject` optional
+* **muiAttrs** - `MosaicObject` optional
 
 ## Form Fields
+- All fields share a series of props that help the form identify and interact with each field.
 
-All fields share a series of props that help the form identify and interact with each field.
-
-### Generic Field Props
+### Generic Field Props (FieldDef)
 * **name** - `string` required - Significant name related to the field. This shouldn't have spaces as it serves as an identifier to read and write it's corresponding value.
 * **label** - `string | undefined` required - A label to display for the user interacting with the filter.
 * **required** - `boolean` optional - Marks if the field should be filled or not.
@@ -45,48 +107,6 @@ All fields share a series of props that help the form identify and interact with
 * **sm** = 280px
 * **md** = 450px
 * **lg** = 620px
-
-### MosaicLabelValue (Type)
-* **label** - `string`
-* **value** - `string`
-
-## FormFieldExample
-This component does this and that, and should only be used if you're trying to...
-
-### Props (Input Settings)
-* **prop1** - `string` required - Description.
-* **prop2** - `array` of `object` required - Description.
-	* **prop3** - `string` optional - Description.
-* **prop4** - `object` optional - Description.
-	* **prop5** - `number` optional - Description.
-
-### How to use in a form?
-```ts
-const fields = useMemo(
-	() => 
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type:'typeOfComponent'
-				inputSettings: {
-					prop1: 'Value of prop1',
-					prop2: [
-						{
-							prop3: 'Value of prop3'
-						}
-					],
-					prop4: {
-						prop5: 5,
-					},
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
 
 ## FormFieldAddress
 - Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
