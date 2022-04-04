@@ -12,7 +12,6 @@ type State = {
 	custom: unknown;
 	validForm: boolean;
 	disabled: unknown;
-	pairedFields: { [key: string]: string[] };
 }
 
 type Action = {
@@ -80,12 +79,6 @@ export function coreReducer(state: State, action: Action): State {
 			custom: {},
 			validForm: false,
 			disabled: null,
-			pairedFields: {},
-		}
-	case "PAIR_FIELDS":
-		return {
-			...state,
-			pairedFields: action.value
 		}
 	default:
 		return state;
@@ -260,24 +253,6 @@ export const actions = {
 			});
 		}
 	},
-	setPairedFields({ pairedFields }) {
-		return async function (dispatch): Promise<void> {
-			await dispatch({
-				type: "FORM_START_DISABLE",
-				value: true,
-			});
-
-			await dispatch({
-				type: "PAIR_FIELDS",
-				value: pairedFields
-			});
-
-			await dispatch({
-				type: "FORM_END_DISABLE",
-				value: false,
-			});
-		}
-	}
 };
 
 type UseFormReturn = {
@@ -312,7 +287,6 @@ export function useForm({ customReducer }: { customReducer?: ((state: State, act
 			custom: {},
 			validForm: false,
 			disabled: null,
-			pairedFields: {},
 		},
 		extraArgs.current
 	);
