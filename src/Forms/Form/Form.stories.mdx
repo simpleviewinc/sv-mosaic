@@ -5,18 +5,242 @@ import * as stories from './Form.stories';
 <Meta title='Components/Form/Readme' />
 
 # Form
+"Forms" was born as a solution to help all SimpleView products currently using MOSAIC standardize both styling and functionality
+of all forms.
 
-ADD DESCRIPTION
+The form component comes pre-filled with multiple generic stylished and functional fields so you can focus on your app's
+functionality and not how to make a form work.
 
 ## Props
+* **type** - `"drawer"` optional - When defined, tells the form whether it's being rendered inside of a drawer or not (this only affects styling).
+* **state** - `any` required - Object which will contain all filled fields and their corresponding value.
+* **title** - `string` optional - Title of the form.
+* **fields** - `FieldDef[]` required - Array of fields containing their respective configuration (see [Generic Field Props subsection](#generic-field-props-fielddef)).
+* **sections** - `SectionDef[]` optional - Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row.
+* **dispatch** - `any` required - Function in charge of updating the state (see [Dispatch Actions subsection](#dispatch)).
+* **onCancel** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the cancel button of the form.
+* **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer".
+* **description** - `string` optional - Additional text that will render under the title.
+* **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
+* **cancelButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the cancel button (see [ButtonAttrs type](#buttonattrs-type)).
+* **submitButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the save button (see [ButtonAttrs type](#buttonattrs-type)).
+* **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
+* **events** - `any` optional - THIS HAS NEVER BEEN USED, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
+* **onSubmit** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the save button of the form. THIS HAS NEVER BEEN USED SINCE WE USE registerOnSubmit, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
 
-https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/Forms/Form/FormTypes.tsx
+## useForm Hook
+- In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
+- This hook returns a state, a dispatcher, a registerFields and a registerOnSubmit which will be explained in the following subsections.
+
+```ts
+// We recommend placing the useForm hook at the top of your component.
+const App = (props) => {
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
+
+	//...rest of App.tsx
+}
+```
+### State
+The state is an object that contains the following structure:
+* **data** - `object` - Contains a key-value pair of all fields that have a value, for example: "myTextField": "my value".
+* **errors** - `object` - Contains a key-value pair of all fields that have an error message, for example: "myTextField": "This field is required, please fill it".
+* **validating** - `object` - Contains a key-value pair of all fields that are undergoing validation. All validations are run when executing an onBlur pero field or when clicking on the save button.
+* **validForm** - `boolean` - Flag that indicates whether the field is valid or not, this is affected by the errors object".
+* **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
+
+### Dispatch
+The dispatch function allows developers to update the state through the following actions:
+* **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
+* **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
+* **copyFieldToField** - `({from, to}) => Promise<void>` - This action copies the value from one field into another.
+* **validateForm** - `({fields}) => Promise<void>` - This action validates the entire form.
+* **submitForm** - `() => Promise<void>` - This action validates the entire form (calls the action validateForm) and if everything is correct then executes the onSubmit callback passed by the developer. By default this action gets called when the user clicks on the submit button of the form.
+* **resetForm** - `() => Promise<void>` - This action completely empties the state.
+* **setFormValues** - `({values}) => Promise<void>` - This action prepopulates the fields with the values being passed.
+
+### RegisterFields
+This function receives the fields array and allows the Form's dispatch/actions to manipulate the fields.
+We recommend encapsulating this function inside of a useMemo hook for better performance.
+
+### RegisterOnSubmit
+This function receives the onSubmit function to be executed once the form is submitted and valid.
+We recommend encapsulating this function inside of a useMemo hook for better performance.
+
+## Layout
+- By default all Forms are created as one big section made of multiple rows (one per field), and one column per row (containing the field).
+- This setting can be overwritten by adding a sections array (see [Sections subsection](#sections)).
+
+### Sections
+Sections follow the next set of rules:
+* Can have a title and a description.
+* Each section can have multiple rows.
+* Each row must have 1 column min and 3 columns max.
+* Each column can have as many fields as needed.
+
+The Form component is smart enough to delete blank spaces in the layout, for example if a row has 3 columns (A, B, C) but only A, and C have columns then the row will render as a 2 column layout instead of 3.
+This same rule applies for empty rows.
+
+## How to create a form?
+```ts
+const App = (props) => {
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
+	
+	//...rest of App.tsx
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "myTextField",
+					type: "text",
+				},
+				{
+					name: "myTextAreaField",
+					type: "textArea",
+				},
+				//...all other fields
+			],
+			[]
+	);
+
+	const sections = [
+		{
+			title: "Section 1",
+			description: "This will be a short section",
+			fields: [
+				[ //Row 1
+					["myTextField"] // Row 1 Col 1
+				],
+				[ // Row 2
+					["myTextAreaField"] // Row 2 Col 1
+				]
+			]
+		}
+		//...all other sections
+	]
+
+	const onLoad = useCallback(async () => {
+		//Get values from the DB to prepopulate fields
+		const values = await callDB();
+
+		return values;
+	});
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]); //It's recommended to add these as dependencies to re-register if any of them change.
+
+	useMemo(() => {
+		registerOnSubmit(mySubmitFn);
+	}, [mySubmitFn, registerOnSubmit]); //It's recommended to add these as dependencies to re-register if any of them change.
+
+	return (
+		<Form
+			title="My Form"
+			description="This is a description example"
+			state={state}
+			fields={fields}
+			dispatch={dispatch}
+			getFormValues={onLoad}
+			sections={sections}
+			submitButtonAttrs={{ label: "Save" }}
+			cancelButtonAttrs={{ label: "Cancel" }}
+			onCancel={onCancel}
+		/>
+	);
+}
+```
+
+## Types
+
+### MosaicLabelValue (Type)
+* **label** - `string` required
+* **value** - `string` required
+
+### MosaicObject (Type)
+* **[key: string]** - `unknown` required
+
+### MenuItemProps (Type)
+* **label** - `string | JSX Element` required
+* **color** - `"red" | "blue" ` optional
+* **disabled** - `boolean` optional
+* **selected** - `boolean` optional
+* **onClick** - `(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void` required
+* **mIcon** - `MosaicMIcon` optional
+* **attrs** - `MosaicObject` optional
+
+### ButtonAttrs (Type)
+* **label** - `string | JSX Element` optional
+* **className** - `string` optional
+* **href** - `string` optional
+* **color** - `"black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray"` required
+* **mIcon** - `MosaicMIcon` optional - (Any Icon from MUI library).
+* **variant** - `"icon" | "outlined" | "contained" | "text"` required
+* **size** - `"small" | "medium" | "large"` optional
+* **iconPosition** - `"left" | "right"` optional
+* **disabled** - `boolean` optional
+* **fullWidth** - `boolean` optional
+* **tooltip** - `string | JSX Element` optional
+* **popover** - `JSX Element` optional
+* **menuItems** - `MenuItemProps[]` optional
+* **menuContent** - `JSX Element` optional
+* **mIconColor** - `string` optional
+* **onClick** - `(event: React.MouseEvent<HTMLButtonElement>) => void` optional
+* **attrs** - `MosaicObject` optional
+* **muiAttrs** - `MosaicObject` optional
+
+### Sizes (Type)
+* **xs** = 100px
+* **sm** = 280px
+* **md** = 450px
+* **lg** = 620px
+
+## Validators
+All of the following default validators return string (with the error message) or undefined (when no error was found). I
+
+### validateEmail
+* Receives: string
+* Error message returned: "The value is not a valid e-mail"
+* Ways of declaring:
+	* "validateEmail"
+	* { fn: "validateEmail", options: undefined }
+
+### required
+* Receives: string | string[]
+* Error message returned: "This field is required, please fill it"
+* Ways of declaring:
+	* "required"
+	* { fn: "required", options: undefined }
+	* As a boolean prop for all fields (see [Generic Field Props subsection](#generic-field-props-fielddef))
+
+### validateNumber
+* Receives: string
+* Error message returned: "The value is not a number"
+* Ways of declaring:
+	* "validateNumber"
+	* { fn: "validateNumber", options: undefined }
+
+### validateURL
+* Receives: string
+* Error message returned: "The value is not a valid URL"
+* Ways of declaring:
+	* "validateURL"
+	* { fn: "validateURL", options: undefined }
+
+### validateDateRange
+- This is the only validator that requires to be added to 2 fields in order to work: the fields serving as start and end date respectively.
+- The startDate field will add the name of the endDate field linked to in the options attribute. 
+- The endDate field will add the name of the startDate field linked to in the options attribute. 
+
+* Receives: value: `string`, data: `object` (see data attribute on [State](#state)), options: `MosaicObject`
+* Error message returned: "Start date should happen before the end date"
+* Ways of declaring:
+	* { fn: "validateDateRange", options: { endDateName: "nameOfField" } }
+	* { fn: "validateDateRange", options: { startDateName: "nameOfField" } }
 
 ## Form Fields
+- All fields share a series of props that help the form identify and interact with each field.
 
-All fields share a series of props that help the form identify and interact with each field.
-
-### Generic Field Props
+### Generic Field Props (FieldDef)
 * **name** - `string` required - Significant name related to the field. This shouldn't have spaces as it serves as an identifier to read and write it's corresponding value.
 * **label** - `string | undefined` required - A label to display for the user interacting with the filter.
 * **required** - `boolean` optional - Marks if the field should be filled or not.
@@ -25,7 +249,7 @@ All fields share a series of props that help the form identify and interact with
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
 * **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
-* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **className** - `string` optional - Follows the same rules as any other html element className.
 * **style** - `object` optional - Follows the same rules as any other html element style.
 * **type** - `string | JSX Element | (() => JSX Element)` required - Field that will be rendered. This can be a string (see type of each form field) or a custom component.
@@ -33,32 +257,26 @@ All fields share a series of props that help the form identify and interact with
 	* **section** - `number` optional - Defines the section where the field will appear (begins at 0).
 	* **row** - `number` optional - Defines the row where the field will appear (begins at 0).
 	* **col** - `number` optional - Defines the column where the field will appear (begins at 0).
-* **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` optional - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form. Please see the "Validators" section for more information about default and custom validators.
+* **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` optional - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form (see the [Validators section](#validators) for more information about default and custom validators).
 * **id** - `string` optional - Follows the same rules as any other html element id.
-* **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (Please see onChange return value of each specific field).
+* **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see onChange return value of each specific field).
 * **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field.
 
-### Validators
-
-### Sizes
-* **xs** = 100px
-* **sm** = 280px
-* **md** = 450px
-* **lg** = 620px
-
-### MosaicLabelValue (Type)
-* **label** - `string`
-* **value** - `string`
-
-## FormFieldExample
-This component does this and that, and should only be used if you're trying to...
+## FormFieldAddress
+- Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
+- [**Playground**](/?path=/story/formfields-formfieldaddress--playground)
+- Default Value: `object`
+	* **address1** - `string` required - Main address.
+	* **address2** - `string` optional - Additional address.
+	* **address3** - `string` optional - Additional address.
+	* **city** - `string` required - Name of the city.
+	* **country** - `string` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **postalCode** - `string` required - Postal code of the address.
+	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
 
 ### Props (Input Settings)
-* **prop1** - `string` required - Description.
-* **prop2** - `array` of `object` required - Description.
-	* **prop3** - `string` optional - Description.
-* **prop4** - `object` optional - Description.
-	* **prop5** - `number` optional - Description.
+This component doesn't require any additional props.
 
 ### How to use in a form?
 ```ts
@@ -68,17 +286,80 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type:'typeOfComponent'
+				type: "address",
+			},
+			//...other fields
+		],
+	[]
+);
+```
+<!-- ### Example
+<Preview withSource='none'>
+  <addressStories.Playground />
+</Preview> -->
+
+
+## FormFieldAdvancedSelection
+- Allow users to select one or more options from a modal menu. 
+- Used for very long lists. 
+- Have the ability to type and search.
+- [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
+- Default Value: `array` of `string` - Array of values of the selected options.
+
+### Props (Input Settings)
+* **createNewOption** - `(filter: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
+* **getSelected** - `(options: string[]) => Promise<{label: string, value: string, category: string}[]>` optional -  Function used to get the full info (label, value, category) of all selected options.
+
+This prop only applies when getting options locally.
+* **checkboxOptions** - `object` optional -  Function used to get the full info (label, value, category) of all selected options.
+	* **label** - `string` required -  Text users will see to identify the option.
+	* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
+	* **category** - `string` SOON TO BE DEPRECATED - Category in which the option belongs to.
+
+These props only apply when getting options from a DB. 
+* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<{label: string, value: string, category: string}[]>` required - Function to get the next set of options.
+* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB.
+
+### How to use in a form?
+```ts
+//Option recommended when getting options locally.
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "advancedSelection",
 				inputSettings: {
-					prop1: 'Value of prop1',
-					prop2: [
+					createNewOption: myCreateOptionFn,
+					getSelected: myGetSelectedFn,
+					checkboxOptions: [
 						{
-							prop3: 'Value of prop3'
+							label: "Option1",
+							value: "value1",
+							category: "Category1",
 						}
-					],
-					prop4: {
-						prop5: 5,
-					},
+					]
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "advancedSelection",
+				inputSettings: {
+					createNewOption: myCreateOptionFn,
+					getSelected: myGetSelectedFn,
+					getOptions: myGetOptionsFn,
+					getOptionsLimit: 5,
 				}
 			},
 			//...other fields
@@ -87,6 +368,435 @@ const fields = useMemo(
 );
 ```
 
+
+## FormFieldCheckbox
+- A group of checkbox buttons that allows users to select multiple items from a list of possible options.
+- [**Playground**](/?path=/story/formfields-formfieldcheckbox--playground)
+- Default Value: `array` of `string` - Array of values of the selected options.
+
+### Props (Input Settings)
+* **options** - `array` of `MosaicLabelValue` required - Array of options to be rendered containing their corresponding label and value.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "checkbox",
+				inputSettings: {
+					options: [
+						{
+							label: "Option1",
+							value: "value1",
+						}
+					]
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+
+## FormFieldChipSingleSelect
+- The `FormFieldChipSingleSelect` component is built over a wrapper for [Material-UI Autocomplete](https://material-ui.com/components/autocomplete/) but with SimpleView brand colors.
+- [**Playground**](/?path=/story/formfields-formfieldchipsingleselect--playground)
+- Default Value: `string` - Value of the selected option.
+
+### Props (Input Settings)
+* **options** - `array` of `{ label: string, value: string, selected?: boolean }` required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not.
+* **onSelect** - `(...args) => void` optional - Callback to be executed when an option gets selected.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "chip",
+				inputSettings: {
+					options: [
+						{
+							label: "Option1",
+							value: "value1",
+							selected: false,
+						}
+					]
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+
+## FormFieldColorPicker
+- The color picker component allows users to select from pre-defined colors (swatches) or custom colors using a HSB selection interface.
+- The implementation of this component is based on the following package: [React Color](https://casesandberg.github.io/react-color/)
+- [**Playground**](/?path=/story/formfields-formfieldcolorpicker--playground)
+- Default Value: `ColorResult` - Object containing all the different variants for the color selected.
+
+### ColorResult (Type)
+* **hex** - `string`
+* **hsl** - `object`
+	* **a** - `number | undefined`
+	* **h** - `number`
+	* **s** - `number`
+	* **l** - `number`
+* **rgb** - `object`
+	* **a** - `number | undefined`
+	* **r** - `number`
+	* **g** - `number`
+	* **b** - `number`
+
+### Props (Input Settings)
+This component doesn't require any additional props.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "color",
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+
+## FormFieldDateField
+- It allows the user to view and pick dates from a calendar widget or manually type the date in the text field.
+- [**Playground**](/?path=/story/formfields-formfielddatefield--playground)
+- Default Value: `string` - Date in UTC format transformed to string.
+
+### Props (Input Settings)
+* **showTime** - `boolean` optional - When true a time field will appear next to the date field.
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "date",
+				inputSettings: {
+					showTime: false,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+## FormFieldRadio
+- A group of radio buttons allows users to select a single item from a list of possible options.
+- All possible options are exposed up front for comparison.
+- Users can only make a single selection from the list of possible options.
+- [**Playground**](/?path=/story/formfields-formfieldradio--playground)
+- Default Value: `string` - Value of the selected option.
+
+#### Props (Input Settings)
+* **options** - `array` of `object` optional - Predefined set of mutually exclusive options.
+	* **label** - `string` required - Description of the option.
+	* **value** - `string` required - Value of the option, this is stored in the Form state.
+
+#### How to use in a form?
+```ts
+const fields = useMemo(
+		() =>
+			[
+				//...other fields
+				{
+					//...all generic field props,
+					type: "radio",
+					inputSettings: {
+						options: [
+							{
+								label: "Label 1",
+								value: "label_1",
+							},
+							{
+								label: "Label 2",
+								value: "label_2",
+							},
+							{
+								label: "Label 3",
+								value: "label_3",
+							},
+						]
+					},
+					helperText: 'Helper text',
+					instructionText: 'Instruction text'
+				}
+				//...other fields
+			] as FieldDef<FormFieldRadioDef>[],
+		[]
+	);
+```
+
+## FormFieldText
+- Text input fields are used to enter text information, numbers, e-mail addresses, or passwords. 
+- A text field consists of a label and a line with variations in width.
+- [**Playground**](/?path=/story/formfields-formfieldtext--playground)
+- Default Value: `string` - Value of the input typed.
+
+#### Props (Input Settings)
+
+* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
+* **multiline** - `boolean` optional - When is enabled the text field will expand its height.
+* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
+* **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "text",
+				maxCharacters: 20,
+				size: Sizes.md,
+				inputSettings: {
+					prefixElement: <AccountCircle />,
+					maxCharacters: 20,
+					size: Sizes.md,
+					placeholder: "placeholder",
+					multiline: true
+				},
+			},
+			//...other fields
+		] as FieldDef<TextFieldDef>[],
+	[]
+);
+```
+
+## FormFieldTextArea
+- A text area is a multi-line plain-text editing control, is useful when you want to allow users to enter a sizeable amount of free-form text, but defining a specific height and width.
+- [**Playground**](/?path=/story/formfields-formfieldtextarea--playground)
+- Default Value: `string` - Value of the input typed.
+
+#### Props (Input Settings)
+
+* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
+* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "textArea",
+				maxCharacters: 20,
+				size: Sizes.md,
+				inputSettings: {
+					maxCharacters: 20,
+					size: Sizes.md,
+					placeholder: "placeholder"
+				},
+			},
+			//...other fields
+		] as FieldDef<TextAreaDef>[],
+	[]
+);
+```
+
+## FormFieldTextEditor
+- The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area.
+- This implementation is based on the [React Jodit WYSIWYG Editor](https://www.npmjs.com/package/jodit-react) package.
+- [**Playground**](/?path=/story/formfields-formfieldtexteditor--playground)
+- Default Value: `string` - Value of the input typed.
+
+
+#### Props (Input Settings)
+
+* **direction** - `"rtl" | "ltr" | ""` optional - Defines the starting point at which the typed words will be displayed, "lrt" starts from the left moving to the right and "rlt" vice versa. Default is "rlt".
+* **language** - `string` optional - Defines the language in which the assistive elements of the text editor will be displayed. For example the placeholder and the character and word counter
+* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
+* **spellcheck** - `boolean` optional - If it's enabled the text editor will mark misspellings.
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "textEditor",
+				inputSettings: {
+					spellcheck: true,
+					direction: "rlt",
+					language: "en",
+					maxCharacters: 20,
+				},
+			},
+			//...other fields
+		] as FieldDef<TextEditorDef>[],
+	[]
+);
+```
+
+## FormFieldTable
+- Tables are used in some cases inside the form after selecting a list of elements or by using arrays
+- The data table component allows for customization with additional functionality, as needed by your product’s users.
+- [**Playground**](/?path=/story/formfields-formfieldtable--playground)
+- Default Value: `array` of `object` - Rows of the table.
+	* **id** - `string` required - Unique identifier. Used as an identifier for the draggable item.
+	* **items** - `string[]` - Data that is shown in the table.
+
+#### Props (Input Settings)
+
+* **handleAddElement** - `() => void` required - Function used to create a new row in the table.
+* **handleEdit** - `(rowIndex: number) => void` required - Function that defines how the clicked row should be editted.
+* **handleDelete** - `() => void` required - Function that will be executed when clicking on the trash icon. It can be used to show some kind of confirmation before removing the row.
+* **extraActions** - `array` of `object` optional - Possible actions that the table could execute and display.
+	* **label** - `string` - Describes the action.
+	* **icon** - `MosaicMIcon` - MUI icon.
+	* **actionFnc** - `actionFnc: (rowIndex: number) => void;` - Function that is executed when the corresponding icon is clicked.
+* **headers** - `string[]` required - Array of the table headers.
+
+#### How to use in a form?
+
+```ts
+const possibleTableRows = [
+	{
+		id: "1",
+		items: ["John", "john@email.com", "01/01/2021", "3231-962-7516"],
+	},
+	{
+		id: "2",
+		items: ["Sally", "sally@email.com", "12/24/2020", "011-962-111"],
+	},
+	{
+		id: "3",
+		items: ["Maria", "maria@email.com", "12/01/2020", "788-962-7516"],
+	}
+];
+
+const addTableRow = (): void => {
+	const tableDataLength = dataState.table ? dataState.table.length : 0;
+
+	if (tableDataLength === 0) {
+		dispatch(
+			actions.setFieldValue({
+				name: "table"
+				value: [possibleTableRows[0]],
+			})
+		);
+	} else if (tableDataLength >= possibleTableRows.length) {
+		alert("There are no more elements to add");
+	} else {
+		let index;
+
+		for (let i = 0; i < possibleTableRows.length; i++) {
+			const element = possibleTableRows[i];
+			const isRepeatedRow = dataState.table.includes(element);
+			if (!isRepeatedRow) {
+				index = i;
+				break;
+			}
+		}
+
+		dispatch(
+			actions.setFieldValue({
+				name,
+				value: [...dataState.table, possibleTableRows[index]],
+			})
+		);
+	}
+};
+
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				inputSettings: {
+					handleAddElement: addTableRow,
+					handleEdit: (rowIndex: number): void => { 
+						alert(`Edit button clicked of row with index ${rowIndex}`);
+					},
+					handleDelete: (rowIndex: number): void => { 
+						alert(`This will be executed when removing the row: ${rowIndex}`);
+					},
+					extraActions: [
+						{
+							label: "Menu action",
+							actionFnc: (rowIndex: number): void => { alert(`Menu actions for row ${rowIndex}`) },
+							icon: MenuIcon,
+						},
+						{
+							label: "Translate",
+							actionFnc: (rowIndex: number): void => { alert(`Translate row ${rowIndex}`) },
+							icon: TranslateIcon,
+						},
+					],
+					headers: ["Header 1", "Header 2", "Header 3"],
+				},
+			//...other fields
+			},
+		] as FieldDef<TableDef>[],
+	[addTableRow]
+);
+```
+
+## FormFieldToggleSwitch
+- Toggle Switch allow users to switch between two possible states. They are commonly used to turn a specific setting on or off
+- Toggles should be used to turn on or off a preference, notification, or feature
+- Should be used when an instant response is required/desired
+- [**Playground**](/?path=/story/formfields-formfieldtoggleswitch--playground)
+- Default Value: `boolean` - Defines whether the switch is checked or not.
+
+#### Props (Input Settings)
+
+* **toggleLabel** - `string` optional - This label is placed at the right of the switch.
+
+#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "toggleSwitch",
+				inputSettings: {
+					toggleLabel: "Toggle label"
+				},
+			},
+			//...other fields
+		] as FieldDef<FormFieldToggleSwitchDef>[],
+	[]
+);
+```
 
 ## FormFieldAddress
 - Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
@@ -301,7 +1011,6 @@ const fields = useMemo(
 );
 ```
 
-
 ## FormFieldDateField
 - It allows the user to view and pick dates from a calendar widget or manually type the date in the text field.
 - [**Playground**](/?path=/story/formfields-formfielddatefield--playground)
@@ -387,7 +1096,7 @@ const fields = useMemo(
 * **multiline** - `boolean` optional - When is enabled the text field will expand its height.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 * **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
 #### How to use in a form?
@@ -425,7 +1134,8 @@ const fields = useMemo(
 
 * **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+
 #### How to use in a form?
 
 ```ts
@@ -452,12 +1162,12 @@ const fields = useMemo(
 
 ## FormFieldDropdownSingleSelection
 - `Dropdown Single Selection` is a simple wrapper for [Material-UI Autocomplete](https://material-ui.com/components/autocomplete/#autocomplete) but with our brand colors.
-- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfielddropdownsingleselection--playground)
+- [**Playground**](/?path=/docs/formfields-formfielddropdownsingleselection--playground)
 - Default Value: `string` - String of the selected options
 
 #### Props (Input Settings)
 * **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
-* **size** - `Sizes | string` Optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Sizes | string` Optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **options** - `array` of `object` Required - Array of options to be displayed on the options.
 	* **title** - `string` - Title of the option.
 	* **value** - `any` - Value of the option.
@@ -492,7 +1202,7 @@ const fields = useMemo(
 
 ## FormFieldImageUpload
 - `Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents 
-- [[**Playground**]](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldimageupload--playground)
+- [**Playground**](/?path=/docs/formfields-formfieldimageupload--playground)
 - Default Value: `object` Optional - Object of the value arguments
 	* **imgName** `string` Optional - Image name
 	* **size** `number` Optional - Image size
@@ -715,7 +1425,7 @@ const fields = useMemo(
 ## FormFieldImageVideoLinkDocument
 - `Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
 The setup supports images, videos, documents or links. 
-- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
+- [**Playground**](/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
 - Default Value: `array` of `string` - Array of values of the selected options 
 
 #### Props (Input Settings)
@@ -770,7 +1480,7 @@ const fields = useMemo(
 ---
 ## FormFieldMapCoordinates
 - `Map Coordinates` This component is helpful when the user needs browse coordinates in a map.
-- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldmapcoordinates--playground)
+- [**Playground**](/?path=/docs/formfields-formfieldmapcoordinates--playground)
 - Default Value: `object` - Object of the value arguments
 	* **lat** - `number` - Latitude
 	* **lng** - `number` - longitude
@@ -817,7 +1527,7 @@ const fields = useMemo(
 ---
 ## FormFieldPhoneSelectionDropdown
 - `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed. 
-- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
+- [**Playground**](/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
 - Default Value: `string` - String of the selected options
 
 #### Props (Input Settings)
