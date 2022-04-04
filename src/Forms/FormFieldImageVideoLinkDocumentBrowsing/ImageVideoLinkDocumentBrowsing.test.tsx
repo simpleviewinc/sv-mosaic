@@ -136,6 +136,7 @@ afterEach(cleanup);
 
 const { getByText, queryByText, getByTestId, findByText, queryByTestId } = screen;
 
+jest.setTimeout(30000);
 describe("ImageVideoLinkDocumentBrowsing component", () => {
 	it("should display all browsing options", () => {
 		render(<ImageVideoLinkDocumentBrowsingExample />);

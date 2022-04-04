@@ -46,6 +46,7 @@ export const Playground = (): ReactElement => {
 				},
 			] as FieldDef<TextEditorDef>[],
 		[
+			direction,
 			required,
 			disabled,
 			toggleLabel,
