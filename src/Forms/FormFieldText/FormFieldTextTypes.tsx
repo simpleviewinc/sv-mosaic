@@ -10,10 +10,6 @@ export type TextFieldDef = {
 	 */
 	placeholder?: string;
 	/**
-	 * Specifies which form element a label is bound to.
-	 */
-	htmlFor?: string;
-	/**
 	 * Used to show and limit the characters.
 	 */
 	maxCharacters?: number;
