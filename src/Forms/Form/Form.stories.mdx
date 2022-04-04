@@ -446,6 +446,85 @@ const fields = useMemo(
 			},
 			//...other fields
 		] as FieldDef<TextAreaDef>[],
+    []
+  );
+```
+
+### FormFieldDropdownSingleSelection
+- `Dropdown Single Selection` is a simple wrapper for [Material-UI Autocomplete](https://material-ui.com/components/autocomplete/#autocomplete) but with our brand colors.
+- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfielddropdownsingleselection--playground)
+- Default Value: `string` - String of the selected options
+
+#### Props (Input Settings)
+* **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
+* **size** - `Sizes | string` Optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **options** - `array` of `object` Required - Array of options to be displayed on the options.
+	* **title** - `string` - Title of the option.
+	* **value** - `any` - Value of the option.
+
+	#### How to use in a form?
+
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "dropdown",
+				inputSettings: {
+					options: [
+						{ title: "The Shawshank Redemption", value: 1994 },
+						{ title: "The Godfather", value: 1972 },
+						{ title: "The Godfather: Part II", value: 1974 },
+						{ title: "The Dark Knight", value: 2008 }
+					],
+					size: "sm",
+					placeholder: "Placeholder",
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+---
+### FormFieldImageUpload
+- `Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents 
+- [[**Playground**]](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldimageupload--playground)
+- Default Value: `object` - Object of the value arguments 
+
+#### Props (Input Settings)
+* **handleSetFocus** - `void` Optional - Callback executed when the set focus button is clicked.
+* **options** - `array` of `object` Optional - List of menu options that can be executed by the component.
+
+#### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "imageUpload",
+				inputSettings: {
+					handleSetFocus: () => {
+						alert("Set focus is called");
+					},
+					options: [
+						{
+							label: "Edit",
+							action: handleEdit,
+						},
+						{
+							label: "Translate",
+							action: handleTranslate,
+						}
+					]
+				}
+			},
+			//...other fields
+		],
 	[]
 );
 ```
@@ -619,6 +698,138 @@ const fields = useMemo(
 			},
 			//...other fields
 		] as FieldDef<FormFieldToggleSwitchDef>[],
+	[]
+);
+```
+
+---
+### FormFieldImageVideoLinkDocument
+- `Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
+The setup supports images, videos, documents or links. 
+- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
+- Default Value: `array` of `string` - Array of values of the selected options 
+
+#### Props (Input Settings)
+* **handleRemove** - `void` Optional - Callback executed when the remove button is clicked. This function should empty the assetProperties array to go the set up stage.
+* **handleSetDocument** - `Promise<void>` Optional - Callback executed when the document icon clicked. It should fill the assetProperties array with the document properties.
+* **handleSetImage** - `Promise<void>` Required - Callback executed when the image icon clicked. It should fill the assetProperties array with the document properties.
+* **handleSetVideo** - `Promise<void>` Optional - Callback executed when the video icon is clicked. It should fill the assetProperties array with the document properties.
+* **handleSetLink** - `Promise<void>` Optional - Callback executed when the link icon is clicked. It should fill the assetProperties array with the document properties.
+* **options** - `array` of `object` Optional - List of menu options that can be executed by the component.
+* **src** - `string` Optional - If the asset contains an image, its source should be passed via this src prop.
+
+#### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "imageVideoDocumentLink",
+				inputSettings: {
+					options: [
+						{
+							label: "Edit",
+							action: handleEdit,
+						},
+						{
+							label: "Translate",
+							action: handleTranslate,
+						},
+					],
+					handleSetImage: () => {
+						alert("handleSetImage is called");
+					},
+					handleSetDocument: () => {
+						alert("handleSetImage is called");
+					},
+					handleSetVideo: handleSetDocument: () => {
+						alert("handleSetVideo is called");
+					},
+					handleSetLink: handleSetDocument: () => {
+						alert("handleSetLink is called");
+					},
+					src: "Show image"
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+---
+### FormFieldMapCoordinates
+- `Map Coordinates` This component is helpful when the user needs browse coordinates in a map.
+- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldmapcoordinates--playground)
+- Default Value: `object` - Object of the value arguments 
+
+#### Props (Input Settings)
+* **address** - `object` Optional - Address object used to set lat and lng values when using the autocoordinates feature.
+* **apiKey** - `string` Required - Google Maps API key needed to consume the Maps JavaScript API and Places API.
+* **mapPosition** - `object` Optional - Latitude and longitude object.
+
+#### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "mapCoordinates",
+				inputSettings: {
+					apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+					mapPosition: {
+						lat: -3.766925461296721
+						lng: -40.54497265625
+					},
+					address: {
+						id: 1,
+						address1: "8950 N Oracle Rd",
+						city: "Oro Valley",
+						postalCode: "85704",
+						country: "US",
+						state: "AZ",
+						types: ["physical", "billing"]
+					}
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+---
+### FormFieldPhoneSelectionDropdown
+- `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed. 
+- [**Playground**](http://kube.simpleview.io:10000/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
+- Default Value: `string` - String of the selected options
+
+#### Props (Input Settings)
+* **autoFormat** - `boolean` Optional - Phone formatting according to the country selected.
+* **country** - `string` Optional - Initial country. It must be a country code (e.g., us, mx, etc.)
+* **placeholder** - `string` Optional - Example text shown inside of the input field portion of the dropdown
+* **value** - `string` Optional - Input state value.
+
+#### How to use in a form?
+```ts
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "phone",
+				inputSettings: {
+					autoFormat: false,
+					country: "mx",
+					placeholder: "Placeholder",
+				}
+			},
+			//...other fields
+		],
 	[]
 );
 ```
