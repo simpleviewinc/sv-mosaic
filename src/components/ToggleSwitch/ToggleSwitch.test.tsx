@@ -10,7 +10,7 @@ const { getByRole, getByText } = screen;
 const ToggleSwitchExample = () => {
 	const [isChecked, setIsChecked] = useState(false);
 
-	const handleChange = (checked) => {
+	const handleChange = async (checked: boolean) => {
 		setIsChecked(checked);
 	};
 

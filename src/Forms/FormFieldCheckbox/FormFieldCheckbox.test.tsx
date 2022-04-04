@@ -23,6 +23,7 @@ const FormFieldCheckboxExample = () => {
 		<FormFieldCheckbox
 			fieldDef={{
 				name: "formFieldCheckbox",
+				type: "checkbox",
 				label: "test",
 				inputSettings: {
 					options: checkboxOptions,
