@@ -12,30 +12,143 @@ The form component comes pre-filled with multiple generic stylished and function
 functionality and not how to make a form work.
 
 ## Props
-* **type** - `'drawer'` optional - When defined, tells the form whether it's being rendered inside of a drawer or not (this only affects styling).
+* **type** - `"drawer"` optional - When defined, tells the form whether it's being rendered inside of a drawer or not (this only affects styling).
 * **state** - `any` required - Object which will contain all filled fields and their corresponding value.
 * **title** - `string` optional - Title of the form.
-* **fields** - `FieldDef[]` required - Array of fields containing their respective configuration (see Generic Field Props subsection).
+* **fields** - `FieldDef[]` required - Array of fields containing their respective configuration (see [Generic Field Props subsection](#generic-field-props-fielddef)).
 * **sections** - `SectionDef[]` optional - Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row.
-* **dispatch** - `any` required - Function in charge of updating the state (see Dispatch Actions subsection).
+* **dispatch** - `any` required - Function in charge of updating the state (see [Dispatch Actions subsection](#dispatch)).
 * **onCancel** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the cancel button of the form.
-* **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = 'drawer'.
+* **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer".
 * **description** - `string` optional - Additional text that will render under the title.
 * **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
-* **cancelButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the cancel button (see ButtonAttrs type).
-* **submitButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the save button (see ButtonAttrs type).
+* **cancelButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the cancel button (see [ButtonAttrs type](#buttonattrs-type)).
+* **submitButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the save button (see [ButtonAttrs type](#buttonattrs-type)).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
 * **events** - `any` optional - THIS HAS NEVER BEEN USED, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
-* **onSubmit** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the save button of the form.
+* **onSubmit** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the save button of the form. THIS HAS NEVER BEEN USED SINCE WE USE registerOnSubmit, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
 
 ## useForm Hook
+- In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
+- This hook returns a state, a dispatcher, a registerFields and a registerOnSubmit which will be explained in the following subsections.
 
+```ts
+// We recommend placing the useForm hook at the top of your component.
+const App = (props) => {
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
+
+	//...rest of App.tsx
+}
+```
 ### State
+The state is an object that contains the following structure:
+* **data** - `object` - Contains a key-value pair of all fields that have a value, for example: "myTextField": "my value".
+* **errors** - `object` - Contains a key-value pair of all fields that have an error message, for example: "myTextField": "This field is required, please fill it".
+* **validating** - `object` - Contains a key-value pair of all fields that are undergoing validation. All validations are run when executing an onBlur pero field or when clicking on the save button.
+* **validForm** - `boolean` - Flag that indicates whether the field is valid or not, this is affected by the errors object".
+* **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
+
 ### Dispatch
+The dispatch function allows developers to update the state through the following actions:
+* **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
+* **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
+* **copyFieldToField** - `({from, to}) => Promise<void>` - This action copies the value from one field into another.
+* **validateForm** - `({fields}) => Promise<void>` - This action validates the entire form.
+* **submitForm** - `() => Promise<void>` - This action validates the entire form (calls the action validateForm) and if everything is correct then executes the onSubmit callback passed by the developer. By default this action gets called when the user clicks on the submit button of the form.
+* **resetForm** - `() => Promise<void>` - This action completely empties the state.
+* **setFormValues** - `({values}) => Promise<void>` - This action prepopulates the fields with the values being passed.
+
 ### RegisterFields
+This function receives the fields array and allows the Form's dispatch/actions to manipulate the fields.
+We recommend encapsulating this function inside of a useMemo hook for better performance.
+
 ### RegisterOnSubmit
+This function receives the onSubmit function to be executed once the form is submitted and valid.
+We recommend encapsulating this function inside of a useMemo hook for better performance.
+
+## Layout
+- By default all Forms are created as one big section made of multiple rows (one per field), and one column per row (containing the field).
+- This setting can be overwritten by adding a sections array (see [Sections subsection](#sections)).
+
+### Sections
+Sections follow the next set of rules:
+* Can have a title and a description.
+* Each section can have multiple rows.
+* Each row must have 1 column min and 3 columns max.
+* Each column can have as many fields as needed.
+
+The Form component is smart enough to delete blank spaces in the layout, for example if a row has 3 columns (A, B, C) but only A, and C have columns then the row will render as a 2 column layout instead of 3.
+This same rule applies for empty rows.
 
 ## How to create a form?
+```ts
+const App = (props) => {
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
+	
+	//...rest of App.tsx
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "myTextField",
+					type: "text",
+				},
+				{
+					name: "myTextAreaField",
+					type: "textArea",
+				},
+				//...all other fields
+			],
+			[]
+	);
+
+	const sections = [
+		{
+			title: "Section 1",
+			description: "This will be a short section",
+			fields: [
+				[ //Row 1
+					["myTextField"] // Row 1 Col 1
+				],
+				[ // Row 2
+					["myTextAreaField"] // Row 2 Col 1
+				]
+			]
+		}
+		//...all other sections
+	]
+
+	const onLoad = useCallback(async () => {
+		//Get values from the DB to prepopulate fields
+		const values = await callDB();
+
+		return values;
+	});
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]); //It's recommended to add these as dependencies to re-register if any of them change.
+
+	useMemo(() => {
+		registerOnSubmit(mySubmitFn);
+	}, [mySubmitFn, registerOnSubmit]); //It's recommended to add these as dependencies to re-register if any of them change.
+
+	return (
+		<Form
+			title="My Form"
+			description="This is a description example"
+			state={state}
+			fields={fields}
+			dispatch={dispatch}
+			getFormValues={onLoad}
+			sections={sections}
+			submitButtonAttrs={{ label: "Save" }}
+			cancelButtonAttrs={{ label: "Cancel" }}
+			onCancel={onCancel}
+		/>
+	);
+}
+```
 
 ## Types
 
@@ -75,6 +188,55 @@ functionality and not how to make a form work.
 * **attrs** - `MosaicObject` optional
 * **muiAttrs** - `MosaicObject` optional
 
+### Sizes (Type)
+* **xs** = 100px
+* **sm** = 280px
+* **md** = 450px
+* **lg** = 620px
+
+## Validators
+All of the following default validators return string (with the error message) or undefined (when no error was found). I
+
+### validateEmail
+* Receives: string
+* Error message returned: "The value is not a valid e-mail"
+* Ways of declaring:
+	* "validateEmail"
+	* { fn: "validateEmail", options: undefined }
+
+### required
+* Receives: string | string[]
+* Error message returned: "This field is required, please fill it"
+* Ways of declaring:
+	* "required"
+	* { fn: "required", options: undefined }
+	* As a boolean prop for all fields (see [Generic Field Props subsection](#generic-field-props-fielddef))
+
+### validateNumber
+* Receives: string
+* Error message returned: "The value is not a number"
+* Ways of declaring:
+	* "validateNumber"
+	* { fn: "validateNumber", options: undefined }
+
+### validateURL
+* Receives: string
+* Error message returned: "The value is not a valid URL"
+* Ways of declaring:
+	* "validateURL"
+	* { fn: "validateURL", options: undefined }
+
+### validateDateRange
+- This is the only validator that requires to be added to 2 fields in order to work: the fields serving as start and end date respectively.
+- The startDate field will add the name of the endDate field linked to in the options attribute. 
+- The endDate field will add the name of the startDate field linked to in the options attribute. 
+
+* Receives: value: `string`, data: `object` (see data attribute on [State](#state)), options: `MosaicObject`
+* Error message returned: "Start date should happen before the end date"
+* Ways of declaring:
+	* { fn: "validateDateRange", options: { endDateName: "nameOfField" } }
+	* { fn: "validateDateRange", options: { startDateName: "nameOfField" } }
+
 ## Form Fields
 - All fields share a series of props that help the form identify and interact with each field.
 
@@ -87,7 +249,7 @@ functionality and not how to make a form work.
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
 * **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
-* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **className** - `string` optional - Follows the same rules as any other html element className.
 * **style** - `object` optional - Follows the same rules as any other html element style.
 * **type** - `string | JSX Element | (() => JSX Element)` required - Field that will be rendered. This can be a string (see type of each form field) or a custom component.
@@ -95,18 +257,10 @@ functionality and not how to make a form work.
 	* **section** - `number` optional - Defines the section where the field will appear (begins at 0).
 	* **row** - `number` optional - Defines the row where the field will appear (begins at 0).
 	* **col** - `number` optional - Defines the column where the field will appear (begins at 0).
-* **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` optional - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form. Please see the "Validators" section for more information about default and custom validators.
+* **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` optional - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form (see the [Validators section](#validators) for more information about default and custom validators).
 * **id** - `string` optional - Follows the same rules as any other html element id.
-* **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (Please see onChange return value of each specific field).
+* **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see onChange return value of each specific field).
 * **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field.
-
-### Validators
-
-### Sizes
-* **xs** = 100px
-* **sm** = 280px
-* **md** = 450px
-* **lg** = 620px
 
 ## FormFieldAddress
 - Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
@@ -132,7 +286,7 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type: 'address',
+				type: "address",
 			},
 			//...other fields
 		],
@@ -175,15 +329,15 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type: 'advancedSelection',
+				type: "advancedSelection",
 				inputSettings: {
 					createNewOption: myCreateOptionFn,
 					getSelected: myGetSelectedFn,
 					checkboxOptions: [
 						{
-							label: 'Option1',
-							value: 'value1',
-							category: 'Category1',
+							label: "Option1",
+							value: "value1",
+							category: "Category1",
 						}
 					]
 				}
@@ -200,7 +354,7 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type: 'advancedSelection',
+				type: "advancedSelection",
 				inputSettings: {
 					createNewOption: myCreateOptionFn,
 					getSelected: myGetSelectedFn,
@@ -231,12 +385,12 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type: 'checkbox',
+				type: "checkbox",
 				inputSettings: {
 					options: [
 						{
-							label: 'Option1',
-							value: 'value1',
+							label: "Option1",
+							value: "value1",
 						}
 					]
 				}
@@ -265,12 +419,12 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type: 'chip',
+				type: "chip",
 				inputSettings: {
 					options: [
 						{
-							label: 'Option1',
-							value: 'value1',
+							label: "Option1",
+							value: "value1",
 							selected: false,
 						}
 					]
@@ -313,7 +467,7 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type: 'color',
+				type: "color",
 			},
 			//...other fields
 		],
@@ -338,7 +492,7 @@ const fields = useMemo(
 			//...other fields
 			{
 				//...all generic field props,
-				type: 'date',
+				type: "date",
 				inputSettings: {
 					showTime: false,
 				}
@@ -407,7 +561,7 @@ const fields = useMemo(
 * **multiline** - `boolean` optional - When is enabled the text field will expand its height.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 * **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (please see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
 #### How to use in a form?
@@ -426,7 +580,7 @@ const fields = useMemo(
 					prefixElement: <AccountCircle />,
 					maxCharacters: 20,
 					size: Sizes.md,
-					placeholder: 'placeholder',
+					placeholder: "placeholder",
 					multiline: true
 				},
 			},
@@ -445,7 +599,7 @@ const fields = useMemo(
 
 * **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (please see Sizes section), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 #### How to use in a form?
 
 ```ts
@@ -644,6 +798,6 @@ const fields = useMemo(
 ```
 ## Form Example
 
-<Preview withSource='none'>
+<Preview withSource="none">
   <stories.Playground />
 </Preview>
