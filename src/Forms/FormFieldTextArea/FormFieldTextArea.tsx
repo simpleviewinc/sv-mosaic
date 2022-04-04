@@ -21,7 +21,7 @@ const TextArea = (
 
 	return (
 		<StyledTextArea
-			id={fieldDef?.inputSettings?.htmlFor}
+			id={fieldDef.name}
 			value={value}
 			onChange={(e) => onChange && onChange(e.target.value)}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}

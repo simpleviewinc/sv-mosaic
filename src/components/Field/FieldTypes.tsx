@@ -16,11 +16,6 @@ export interface MosaicFieldProps<T = any, U = any> {
 	 * Function that listens to a blur event on the field and executes an action.
 	 */
 	onBlur?: (e?: any) => Promise<void>;
-	// onBlur?: HTMLAttributes<HTMLElement>['onBlur'];
-	/**
-	 * Specifies which form element a label is bound to.
-	 */
-	htmlFor?: string;
 	/**
 	 * Value written by the user into the text field.
 	 */
