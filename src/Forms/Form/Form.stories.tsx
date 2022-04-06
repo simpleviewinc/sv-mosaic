@@ -118,7 +118,7 @@ const onCancel = () => {
 
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -438,19 +438,17 @@ export const Playground = (): ReactElement => {
 				fields={fields}
 				dispatch={dispatch}
 				getFormValues={loadReady && onLoad}
-				events={events}
 				sections={showSections && sections}
 				submitButtonAttrs={{ label: text("Submit button", "Save") }}
 				cancelButtonAttrs={{ label: text("Cancel button", "Cancel") }}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
 };
 
 export const FormWithLayout = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -586,7 +584,6 @@ export const FormWithLayout = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
 			/>
 		</>
@@ -594,7 +591,7 @@ export const FormWithLayout = (): ReactElement => {
 }
 
 export const PerformanceWithSubmit = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const hundredFields = [];
 
@@ -632,9 +629,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				title='Performance with submit'
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 		</>
@@ -642,7 +637,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 };
 
 export const RuntimeBehaviors = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -722,8 +717,6 @@ export const RuntimeBehaviors = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 			<div>
@@ -740,7 +733,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 };
 
 export const SubmitExternalButtons = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -805,8 +798,6 @@ export const SubmitExternalButtons = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 			<button onClick={clickHandler}>Submit</button>
@@ -889,7 +880,6 @@ export const DrawerForm = (): ReactElement => {
 					fields={fields}
 					onCancel={onCancel}
 					cancelButtonAttrs={cancelButtonAttrs}
-					onSubmit={onSubmit}
 					submitButtonAttrs={submitButtonAttrs}
 				/>
 			</Drawer>
@@ -899,7 +889,7 @@ export const DrawerForm = (): ReactElement => {
 };
 
 export const CustomFields = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
@@ -985,8 +975,6 @@ export const CustomFields = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 			<div>
@@ -997,7 +985,7 @@ export const CustomFields = (): ReactElement => {
 };
 
 export const Validators = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1088,8 +1076,6 @@ export const Validators = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 		</>
@@ -1097,7 +1083,7 @@ export const Validators = (): ReactElement => {
 };
 
 export const DefaultValues = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1133,8 +1119,6 @@ export const DefaultValues = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 		</>

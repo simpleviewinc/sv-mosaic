@@ -441,13 +441,11 @@ describe("REDUCERS: FORM_RESET", () => {
 				},
 				result: {
 					data: {},
-					touched: {},
 					errors: {},
 					validating: {},
 					custom: {},
 					validForm: false,
 					disabled: null,
-					pairedFields: {}
 				},
 			},
 		}

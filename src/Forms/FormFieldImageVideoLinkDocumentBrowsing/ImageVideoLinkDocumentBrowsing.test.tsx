@@ -28,7 +28,6 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit,
 	} = useForm();
@@ -126,8 +125,6 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
-			events={events}
-			onSubmit={onSubmit}
 		/>
 	);
 };
