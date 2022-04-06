@@ -1,12 +1,10 @@
 import { useMemo, useRef, useCallback, useReducer } from "react";
-import { EventEmitter } from "eventemitter3";
 import { SectionDef } from "./FormTypes";
 import { MosaicObject } from "@root/types";
 import { mapsValidators, required, Validator } from "./validators";
 
 type State = {
 	data: any;
-	touched: unknown;
 	errors: any;
 	validating: any;
 	custom: unknown;
@@ -73,7 +71,6 @@ export function coreReducer(state: State, action: Action): State {
 		return {
 			...state,
 			data: {},
-			touched: {},
 			errors: {},
 			validating: {},
 			custom: {},
@@ -256,7 +253,6 @@ export const actions = {
 };
 
 type UseFormReturn = {
-	events: any;
 	state: any;
 	dispatch: any;
 	registerFields: (fields: any[]) => void;
@@ -276,12 +272,10 @@ export function useForm({ customReducer }: { customReducer?: ((state: State, act
 			: coreReducer;
 	}, [customReducer]);
 
-	const events = useMemo(() => new EventEmitter(), []);
 	const [state, dispatch] = useThunkReducer(
 		reducer,
 		{
 			data: {},
-			touched: {},
 			errors: {},
 			validating: {},
 			custom: {},
@@ -307,7 +301,6 @@ export function useForm({ customReducer }: { customReducer?: ((state: State, act
 	}, []);
 
 	return {
-		events,
 		state,
 		dispatch,
 		registerFields,

@@ -21,7 +21,6 @@ export const Playground = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit
 	} = useForm();
@@ -78,9 +77,7 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
@@ -91,7 +88,6 @@ export const KitchenSink = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit
 	} = useForm();
@@ -189,9 +185,7 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);

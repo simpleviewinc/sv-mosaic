@@ -38,7 +38,6 @@ export const AddressFormFieldExample = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit
 	} = useForm();
@@ -68,8 +67,6 @@ export const AddressFormFieldExample = (): ReactElement => {
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
-			events={events}
-			onSubmit={onSubmit}
 		/>
 	);
 };
