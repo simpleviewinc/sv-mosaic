@@ -89,7 +89,7 @@ const additionalOptions = [
 ];
 
 const AdvancedSelectExample = () => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
 	const groupByCategory = false;
@@ -196,8 +196,6 @@ const AdvancedSelectExample = () => {
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
-			events={events}
-			onSubmit={onSubmit}
 		/>
 	);
 }

@@ -123,7 +123,6 @@ const Col = (props: ColPropsTypes) => {
 
 				const name = fieldProps.name;
 				const value = state?.data[fieldProps.name] || "";
-				const touched = state?.touched[fieldProps.name] || "";
 				const error = state?.errors[fieldProps.name] || "";
 
 				let maxSize: Sizes | string;
@@ -147,13 +146,12 @@ const Col = (props: ColPropsTypes) => {
 						fieldDef={{ ...currentField, size: maxSize }}
 						name={name}
 						value={value}
-						touched={touched}
 						error={error}
 						onChange={onChange}
 						onBlur={onBlur}
 						key={`${name}_${i}`}
 					/>
-				), [value, error, onChange, onBlur, touched, currentField]);
+				), [value, error, onChange, onBlur, currentField]);
 
 				return (typeof type === "string" && componentMap[type]) ? (
 					<Field

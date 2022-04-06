@@ -115,7 +115,6 @@ export const Example = (): ReactElement => {
 				title={dialogTitle}
 				open={open}
 				onCancel={handleClose}
-				onSubmit={primaryAction}
 				submitButtonAttrs={submitButtonAttrs}
 				cancelButtonAttrs={cancelButtonAttrs}
 			/>

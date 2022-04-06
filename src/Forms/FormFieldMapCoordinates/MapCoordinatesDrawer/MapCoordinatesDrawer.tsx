@@ -244,7 +244,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			sections={sections}
 			fields={fields}
 			onCancel={handleClose}
-			onSubmit={onSubmit}
 			submitButtonAttrs={{
 				label: "Save Coordinates",
 				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
