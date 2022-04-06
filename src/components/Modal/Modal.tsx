@@ -17,7 +17,7 @@ import {
 	StyledDialogMobileTitle,
 } from "./Modal.styled";
 import FormLayout from "@root/forms/Form/FormLayout";
-import { actions } from "../../forms/Form/formUtils";
+import { formActions } from "@root/forms/Form";
 import { StyledDisabledForm } from "@root/forms/Form/Form.styled";
 
 const Modal = (props: ModalProps): ReactElement => {
@@ -53,7 +53,7 @@ const Modal = (props: ModalProps): ReactElement => {
 
 	const submit = async (e) => {
 		e.preventDefault();
-		await dispatch(actions.submitForm());
+		await dispatch(formActions.submitForm());
 	};
 
 	const cancel = (e) => {

@@ -7,7 +7,7 @@ import {
 } from "@root/forms/FormFieldTable";
 
 // Utils
-import { actions } from "../Form/formUtils";
+import { formActions } from "@root/forms/Form";
 
 // Components
 import MenuIcon from "@material-ui/icons/Menu";
@@ -86,7 +86,7 @@ export const useTable = (
 
 		if (tableDataLength === 0) {
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name,
 					value: [possibleTableRows[0]],
 				})
@@ -106,7 +106,7 @@ export const useTable = (
 			}
 
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name,
 					value: [...dataState[name], possibleTableRows[index]],
 				})
