@@ -25,7 +25,6 @@ const TextEditorExample = (
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit,
 	} = useForm();
@@ -70,8 +69,6 @@ const TextEditorExample = (
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
-			events={events}
-			onSubmit={onSubmit}
 		/>
 	);
 };

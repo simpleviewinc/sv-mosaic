@@ -30,7 +30,7 @@ const options = [
 ];
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
 	const disabled = boolean("Disabled", false);
@@ -81,16 +81,14 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 	const fields = useMemo(
 		() =>
 			[
@@ -147,9 +145,7 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
