@@ -1,5 +1,5 @@
 // Utils
-import { actions } from "../Form/formUtils";
+import { formActions } from "@root/forms/Form";
 import { UseImageVideoLinkDocumentBrowsingReturn } from "./ImageVideoLinkDocumentBrowsingTypes";
 
 export const imageVideoSrc = "http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg";
@@ -120,7 +120,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 ) : UseImageVideoLinkDocumentBrowsingReturn => {
 	const setImage = async () => {
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: fieldName,
 				value: imageAssetExample,
 			})
@@ -130,7 +130,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 
 	const setVideo = async () => {
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: fieldName,
 				value: videoAssetExample,
 			})
@@ -140,7 +140,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 
 	const setDocument = async () => {
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: fieldName,
 				value: documentExample,
 			})
@@ -150,7 +150,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 
 	const setLink = async () => {
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: fieldName,
 				value: linkExample
 			})
@@ -160,7 +160,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 
 	const handleRemove = () => {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: fieldName,
 				value: [],
 			})
