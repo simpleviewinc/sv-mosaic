@@ -1,6 +1,7 @@
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
-import { actions, coreReducer, generateLayout } from "./formUtils";
+import { coreReducer, generateLayout } from "./formUtils";
+import { formActions } from "./formActions";
 import { FieldDef } from "../../components/Field";
 import { mapsValidators, required, validateEmail, validateNumber, validateSlow, validateURL } from "./validators";
 import { TextFieldDef } from "../FormFieldText";
@@ -23,7 +24,7 @@ const runTests = (tests, type) => {
 			}
 
 			const getState = () => state;
-			const fn = actions[test["action"]](...args);
+			const fn = formActions[test["action"]](...args);
 			await fn(dispatch, getState, extraArgs);
 
 			assert.deepStrictEqual(dispatches, test["calls"]);

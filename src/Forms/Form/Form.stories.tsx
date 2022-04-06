@@ -5,7 +5,7 @@ import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
 // Utils
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
 import { useTable, headers } from "@root/forms/FormFieldTable/tableUtils";
-import { useForm, actions } from "./formUtils";
+import { useForm, formActions } from "@root/forms/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
@@ -422,7 +422,7 @@ export const Playground = (): ReactElement => {
 
 	useEffect(() => {
 		const resetForm = async () => {
-			await dispatch(actions.resetForm());
+			await dispatch(formActions.resetForm());
 			setLoadReady(true);
 		};
 		prepopulate ? resetForm() : setLoadReady(false);
@@ -563,7 +563,7 @@ export const FormWithLayout = (): ReactElement => {
 
 	useEffect(() => {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text4",
 				value: state.data.text3
 			})
@@ -680,7 +680,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	useEffect(() => {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text4",
 				value: state.data.text3
 			})
@@ -693,7 +693,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	const setText1Value = function () {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text1",
 				value: "My New Value"
 			})
@@ -702,7 +702,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	const setText2Value = function () {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text2",
 				value: "notanemail"
 			})
@@ -778,7 +778,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 	const clickHandler = () => {
 		dispatch(
-			actions.submitForm()
+			formActions.submitForm()
 		);
 	}
 
@@ -815,14 +815,14 @@ export const DrawerForm = (): ReactElement => {
 			[
 				{
 					name: "text1",
-					label: "Full Name",
+					label: "Email",
 					type: "text",
 					instructionText: "testing",
 					validators: [required, validateEmail],
 				},
 				{
 					name: "text2",
-					label: "age",
+					label: "Age",
 					type: "text",
 					validators: [required],
 				},
@@ -960,7 +960,7 @@ export const CustomFields = (): ReactElement => {
 
 	const setText1Value = function () {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text1",
 				value: "My New Value"
 			})
