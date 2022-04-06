@@ -25,8 +25,6 @@ functionality and not how to make a form work.
 * **cancelButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the cancel button (see [ButtonAttrs type](#buttonattrs-type)).
 * **submitButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the save button (see [ButtonAttrs type](#buttonattrs-type)).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
-* **events** - `any` optional - THIS HAS NEVER BEEN USED, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
-* **onSubmit** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the save button of the form. THIS HAS NEVER BEEN USED SINCE WE USE registerOnSubmit, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
@@ -80,6 +78,45 @@ Sections follow the next set of rules:
 The Form component is smart enough to delete blank spaces in the layout, for example if a row has 3 columns (A, B, C) but only A, and C have columns then the row will render as a 2 column layout instead of 3.
 This same rule applies for empty rows.
 
+There are two ways for positioning components inside of a Form:
+
+1. By defining the position of the component with the layout prop. For more details about this prop refer to the [Generic Field Props subsection](#generic-field-props-fielddef).
+
+```ts
+		const fields = useMemo(
+		() =>
+			[
+				{
+					name: "textField",
+					type: "text",
+					layout: { section: 0, row: 1, col: 0 },
+				},
+				// ...all other fields
+			] as FieldDef[],
+		[]
+	);
+```
+
+2. Create a layout with an array of sections.
+
+```ts
+	const sections = [
+		{
+			title: "Section 1",
+			description: "This will be a short section",
+			fields: [
+				[ //Row 1
+					["myTextField"] // Row 1 Col 1
+				],
+				[ // Row 2
+					["myTextAreaField"] // Row 2 Col 1
+				]
+			]
+		}
+		//...all other sections
+	];
+```
+
 ## How to create a form?
 ```ts
 const App = (props) => {
@@ -102,21 +139,9 @@ const App = (props) => {
 			[]
 	);
 
-	const sections = [
-		{
-			title: "Section 1",
-			description: "This will be a short section",
-			fields: [
-				[ //Row 1
-					["myTextField"] // Row 1 Col 1
-				],
-				[ // Row 2
-					["myTextAreaField"] // Row 2 Col 1
-				]
-			]
-		}
-		//...all other sections
-	]
+	// If you want to create a section and included into the 
+	// Form check how is done in the Layout - Sections section
+	// and pass it through the section prop of the Form component.
 
 	const onLoad = useCallback(async () => {
 		//Get values from the DB to prepopulate fields
@@ -141,7 +166,6 @@ const App = (props) => {
 			fields={fields}
 			dispatch={dispatch}
 			getFormValues={onLoad}
-			sections={sections}
 			submitButtonAttrs={{ label: "Save" }}
 			cancelButtonAttrs={{ label: "Cancel" }}
 			onCancel={onCancel}
@@ -187,12 +211,6 @@ const App = (props) => {
 * **onClick** - `(event: React.MouseEvent<HTMLButtonElement>) => void` optional
 * **attrs** - `MosaicObject` optional
 * **muiAttrs** - `MosaicObject` optional
-
-### Sizes (Type)
-* **xs** = 100px
-* **sm** = 280px
-* **md** = 450px
-* **lg** = 620px
 
 ## Validators
 All of the following default validators return string (with the error message) or undefined (when no error was found). I
@@ -249,7 +267,11 @@ All of the following default validators return string (with the error message) o
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
 * **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
-* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+	* **xs** = 100px
+	* **sm** = 280px
+	* **md** = 450px
+	* **lg** = 620px
 * **className** - `string` optional - Follows the same rules as any other html element className.
 * **style** - `object` optional - Follows the same rules as any other html element style.
 * **type** - `string | JSX Element | (() => JSX Element)` required - Field that will be rendered. This can be a string (see type of each form field) or a custom component.
@@ -561,7 +583,7 @@ const fields = useMemo(
 * **multiline** - `boolean` optional - When is enabled the text field will expand its height.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 * **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Generic Field Props subsection](#generic-field-props-fielddef)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
 #### How to use in a form?
@@ -599,7 +621,7 @@ const fields = useMemo(
 
 * **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Generic Field Props subsection](#generic-field-props-fielddef)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 
 #### How to use in a form?
 
@@ -1096,7 +1118,7 @@ const fields = useMemo(
 * **multiline** - `boolean` optional - When is enabled the text field will expand its height.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 * **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Generic Field Props subsection](#generic-field-props-fielddef)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
 #### How to use in a form?
@@ -1134,7 +1156,7 @@ const fields = useMemo(
 
 * **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 * **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Generic Field Props subsection](#generic-field-props-fielddef)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 
 #### How to use in a form?
 
@@ -1167,7 +1189,7 @@ const fields = useMemo(
 
 #### Props (Input Settings)
 * **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
-* **size** - `Sizes | string` Optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Sizes | string` Optional - Size of the field. Could be either one of the predefined sizes (see [Generic Field Props subsection](#generic-field-props-fielddef)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 * **options** - `array` of `object` Required - Array of options to be displayed on the options.
 	* **title** - `string` - Title of the option.
 	* **value** - `any` - Value of the option.
