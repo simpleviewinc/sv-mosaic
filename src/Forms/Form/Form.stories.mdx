@@ -25,8 +25,6 @@ functionality and not how to make a form work.
 * **cancelButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the cancel button (see [ButtonAttrs type](#buttonattrs-type)).
 * **submitButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the save button (see [ButtonAttrs type](#buttonattrs-type)).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
-* **events** - `any` optional - THIS HAS NEVER BEEN USED, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
-* **onSubmit** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the save button of the form. THIS HAS NEVER BEEN USED SINCE WE USE registerOnSubmit, CHECK WITH OWEN IF SHOULD BE DELETED FROM DOCS.
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
@@ -49,7 +47,7 @@ The state is an object that contains the following structure:
 * **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
 
 ### Dispatch
-The dispatch function allows developers to update the state through the following actions:
+The dispatch function allows developers to update the state through the following formActions:
 * **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
 * **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
 * **copyFieldToField** - `({from, to}) => Promise<void>` - This action copies the value from one field into another.
@@ -80,6 +78,45 @@ Sections follow the next set of rules:
 The Form component is smart enough to delete blank spaces in the layout, for example if a row has 3 columns (A, B, C) but only A, and C have columns then the row will render as a 2 column layout instead of 3.
 This same rule applies for empty rows.
 
+There are two ways for positioning components inside of a Form:
+
+1. By defining the position of the component with the layout prop. For more details about this prop refer to the [Generic Field Props subsection](#generic-field-props-fielddef).
+
+```ts
+		const fields = useMemo(
+		() =>
+			[
+				{
+					name: "textField",
+					type: "text",
+					layout: { section: 0, row: 1, col: 0 },
+				},
+				// ...all other fields
+			] as FieldDef[],
+		[]
+	);
+```
+
+2. Create a layout with an array of sections.
+
+```ts
+	const sections = [
+		{
+			title: "Section 1",
+			description: "This will be a short section",
+			fields: [
+				[ //Row 1
+					["myTextField"] // Row 1 Col 1
+				],
+				[ // Row 2
+					["myTextAreaField"] // Row 2 Col 1
+				]
+			]
+		}
+		//...all other sections
+	];
+```
+
 ## How to create a form?
 ```ts
 const App = (props) => {
@@ -102,21 +139,9 @@ const App = (props) => {
 			[]
 	);
 
-	const sections = [
-		{
-			title: "Section 1",
-			description: "This will be a short section",
-			fields: [
-				[ //Row 1
-					["myTextField"] // Row 1 Col 1
-				],
-				[ // Row 2
-					["myTextAreaField"] // Row 2 Col 1
-				]
-			]
-		}
-		//...all other sections
-	]
+	// If you want to create a section and included into the 
+	// Form check how is done in the Layout - Sections section
+	// and pass it through the section prop of the Form component.
 
 	const onLoad = useCallback(async () => {
 		//Get values from the DB to prepopulate fields
@@ -141,7 +166,6 @@ const App = (props) => {
 			fields={fields}
 			dispatch={dispatch}
 			getFormValues={onLoad}
-			sections={sections}
 			submitButtonAttrs={{ label: "Save" }}
 			cancelButtonAttrs={{ label: "Cancel" }}
 			onCancel={onCancel}
@@ -162,7 +186,11 @@ const App = (props) => {
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
 * **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
-* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+	* **xs** = 100px
+	* **sm** = 280px
+	* **md** = 450px
+	* **lg** = 620px
 * **className** - `string` optional - Follows the same rules as any other html element className.
 * **style** - `object` optional - Follows the same rules as any other html element style.
 * **type** - `string | JSX Element | (() => JSX Element)` required - Field that will be rendered. This can be a string (see type of each form field) or a custom component.
@@ -594,7 +622,7 @@ const addTableRow = (): void => {
 
 	if (tableDataLength === 0) {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "table"
 				value: [possibleTableRows[0]],
 			})
@@ -614,7 +642,7 @@ const addTableRow = (): void => {
 		}
 
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name,
 				value: [...dataState.table, possibleTableRows[index]],
 			})
