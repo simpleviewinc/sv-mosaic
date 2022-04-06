@@ -47,7 +47,7 @@ The state is an object that contains the following structure:
 * **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
 
 ### Dispatch
-The dispatch function allows developers to update the state through the following actions:
+The dispatch function allows developers to update the state through the following formActions:
 * **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
 * **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
 * **copyFieldToField** - `({from, to}) => Promise<void>` - This action copies the value from one field into another.
@@ -726,7 +726,7 @@ const addTableRow = (): void => {
 
 	if (tableDataLength === 0) {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "table"
 				value: [possibleTableRows[0]],
 			})
@@ -746,7 +746,7 @@ const addTableRow = (): void => {
 		}
 
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name,
 				value: [...dataState.table, possibleTableRows[index]],
 			})
@@ -1349,7 +1349,7 @@ const addTableRow = (): void => {
 
 	if (tableDataLength === 0) {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "table"
 				value: [possibleTableRows[0]],
 			})
@@ -1369,7 +1369,7 @@ const addTableRow = (): void => {
 		}
 
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name,
 				value: [...dataState.table, possibleTableRows[index]],
 			})
