@@ -2,12 +2,12 @@ import * as React from "react";
 import { memo, useEffect } from "react";
 import { StyledDisabledForm, StyledForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
-import { actions } from "./formUtils";
+import { formActions } from "./formActions";
 import FormLayout from "./FormLayout";
 import TopComponent from "../TopComponent";
 import { FormContent, Row } from "../TopComponent/TopComponent.styled";
 import FormNav from "../FormNav";
-import { useWindowResizer } from "./utils";
+import { useWindowResizer } from "@root/utils/useWindowResizer";
 import { MosaicObject } from "@root/types";
 import Dialog from "../../components/Dialog/Dialog";
 
@@ -49,7 +49,7 @@ const Form = (props: FormProps) => {
 
 			if (values)
 				await dispatch(
-					actions.setFormValues({
+					formActions.setFormValues({
 						values
 					})
 				);
@@ -61,7 +61,7 @@ const Form = (props: FormProps) => {
 	const submit = async (e) => {
 		e.preventDefault();
 		await dispatch(
-			actions.submitForm()
+			formActions.submitForm()
 		);
 	}
 
