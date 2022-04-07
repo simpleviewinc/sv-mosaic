@@ -27,7 +27,7 @@ import { useStoryBookCssReset } from "../../utils/reactTools";
 import "../../utils/storyBookCssReset.css";
 
 export default {
-	title : "Components|LeftNav",
+	title : "Components/LeftNav",
 	decorators : [withKnobs]
 }
 

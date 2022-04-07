@@ -13,7 +13,7 @@ import { checkboxOptions } from "./FormFieldCheckboxUtils";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "FormFields|FormFieldCheckbox",
+	title: "FormFields/FormFieldCheckbox",
 	decorators: [withKnobs],
 } as Meta;
 

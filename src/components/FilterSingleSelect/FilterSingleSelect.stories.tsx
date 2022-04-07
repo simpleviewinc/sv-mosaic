@@ -3,7 +3,7 @@ import { useState, ReactElement } from "react";
 import FilterSingleSelect from "./FilterSingleSelect";
 
 export default {
-	title : "Components|FilterSingleSelect"
+	title : "Components/FilterSingleSelect"
 }
 
 const options = [

@@ -8,7 +8,7 @@ import { FieldDef } from "../../components/Field";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "FormFields|FormFieldAddress",
+	title: "FormFields/FormFieldAddress",
 	decorators: [withKnobs],
 };
 
