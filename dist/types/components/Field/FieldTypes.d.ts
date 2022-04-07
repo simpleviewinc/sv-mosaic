@@ -15,10 +15,6 @@ export interface MosaicFieldProps<T = any, U = any> {
      */
     onBlur?: (e?: any) => Promise<void>;
     /**
-     * Specifies which form element a label is bound to.
-     */
-    htmlFor?: string;
-    /**
      * Value written by the user into the text field.
      */
     value?: U;
@@ -85,18 +81,22 @@ export interface FieldDef<T = any, U = any> {
      * Defines the type of component from a list of components
      * found on Col.tsx. This also allows for a custom component type.
      */
-    type?: string | JSX.Element | (() => JSX.Element);
+    type: string | JSX.Element | (() => JSX.Element);
     /**
      * Object that defines the position of the current field in the
      * form layout.
      */
-    layout?: any;
+    layout?: {
+        section?: number;
+        row?: number;
+        col?: number;
+    };
     /**
      * Array of validators to be executed by the form when on blur or
      * when submitted.
      */
     validators?: ((() => string | undefined | JSX.Element) | string | {
-        fn: any;
+        fn: string;
         options: any;
     })[];
     /**

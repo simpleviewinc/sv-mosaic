@@ -1,4 +1,4 @@
-import { ReactElement, HTMLAttributes } from "react";
+import { ReactElement } from "react";
 import { ToggleSwitchProps } from "./ToggleSwitchTypes";
-declare const ToggleSwitch: (props: ToggleSwitchProps & HTMLAttributes<HTMLInputElement>) => ReactElement;
+declare const ToggleSwitch: (props: ToggleSwitchProps) => ReactElement;
 export default ToggleSwitch;
