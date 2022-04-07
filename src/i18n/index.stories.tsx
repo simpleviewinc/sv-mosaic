@@ -65,7 +65,7 @@ function InnerComponent() {
 }
 
 export default {
-	title : "Utils|i18n",
+	title : "Utils/i18n",
 	decorators : [withKnobs]
 }
 

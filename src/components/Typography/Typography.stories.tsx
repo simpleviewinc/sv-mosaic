@@ -9,7 +9,7 @@ import {
 } from "./";
 
 export default {
-	title : "Components|Typography"
+	title : "Components/Typography"
 }
 
 export function H1(): ReactElement {
