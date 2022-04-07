@@ -9,7 +9,7 @@ import { FieldDef } from "@root/components/Field";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "FormFields|FormFieldAdvancedSelection",
+	title: "FormFields/FormFieldAdvancedSelection",
 	decorators: [withKnobs],
 };
 

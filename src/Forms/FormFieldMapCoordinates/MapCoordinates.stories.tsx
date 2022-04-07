@@ -12,7 +12,7 @@ import { useForm } from "../Form/formUtils";
 import { address, defaultMapPosition } from "./MapCoordinatesUtils";
 
 export default {
-	title: "FormFields|FormFieldMapCoordinates",
+	title: "FormFields/FormFieldMapCoordinates",
 	decorators: [withKnobs],
 };
 

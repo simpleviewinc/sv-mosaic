@@ -16,7 +16,7 @@ import {
 } from "@root/forms/FormFieldTable/tableUtils";
 
 export default {
-	title: "FormFields|FormFieldTable",
+	title: "FormFields/FormFieldTable",
 	decorators: [withKnobs],
 };
 
