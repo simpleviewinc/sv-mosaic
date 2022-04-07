@@ -7,7 +7,6 @@ import {
 	number,
 	select,
 } from "@storybook/addon-knobs";
-import { Meta } from "@storybook/addon-docs/blocks";
 
 // Material UI
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -23,7 +22,7 @@ import Form from "../Form/Form";
 export default {
 	title: "FormFields|FormFieldText",
 	decorators: [withKnobs],
-} as Meta;
+};
 
 const onCancel = () => {
 	alert("Cancelling form, going back to previous site");
@@ -33,7 +32,6 @@ export const Playground = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit,
 	} = useForm();
@@ -112,9 +110,7 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
@@ -239,7 +235,6 @@ export const KitchenSink = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit,
 	} = useForm();
@@ -271,9 +266,7 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={kitchenSinkfields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);

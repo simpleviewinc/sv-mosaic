@@ -22,7 +22,7 @@ const onCancel = () => {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoLinkDocumentBrowsing");
 
 	const label = text("Label", "Label");
@@ -78,16 +78,14 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "browseAllOptions");
 	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImage");
 	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseVideo");
@@ -224,9 +222,7 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);

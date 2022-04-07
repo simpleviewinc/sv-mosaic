@@ -10,7 +10,7 @@ import {
 	useState
 } from "react";
 import Button from "../../components/Button";
-import { actions, useForm } from "../Form/formUtils";
+import { formActions, useForm } from "@root/forms/Form";
 import {
 	InputWrapper,
 	StyledInput
@@ -53,7 +53,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	useEffect(() => {
 		if (value.length > 0 && isModalOpen)
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "checkboxList",
 					value: value,
 				})
@@ -131,7 +131,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		 */
 		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "searchInput",
 					value: e.target.value
 				})
@@ -179,7 +179,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const deleteSelectedOption = (newOptions) => {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "checkboxList",
 				value: newOptions,
 			})
@@ -312,7 +312,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			dispatch={dispatch}
 			fields={fields}
 			onCancel={handleClose}
-			onSubmit={handleSave}
 			submitButtonAttrs={{ label: "Save" }}
 			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}

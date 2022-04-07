@@ -9,7 +9,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldToggleSwitchDef } from "./FormFieldToggleSwitchTypes";
 
 const FormFieldToggleSwitch = (
-	props: MosaicFieldProps<FormFieldToggleSwitchDef>
+	props: MosaicFieldProps<FormFieldToggleSwitchDef, boolean>
 ): ReactElement => {
 	const {
 		fieldDef,

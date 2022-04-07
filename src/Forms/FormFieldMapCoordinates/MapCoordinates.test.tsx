@@ -45,7 +45,6 @@ const MapCoordinatesExample = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit,
 	} = useForm();
@@ -75,8 +74,6 @@ const MapCoordinatesExample = (): ReactElement => {
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
-			events={events}
-			onSubmit={onSubmit}
 		/>
 	);
 };
@@ -224,6 +221,7 @@ describe("MapCoordinates component with an address object (AUTOCOODINATES)", () 
 			<MapCoordinates
 				fieldDef={{
 					name: "mapCoordinates",
+					type: "mapCoordinates",
 					label: "",
 					inputSettings: {
 						apiKey: "test",

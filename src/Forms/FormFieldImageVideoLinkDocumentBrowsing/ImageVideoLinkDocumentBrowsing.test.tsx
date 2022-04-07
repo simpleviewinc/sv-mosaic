@@ -8,7 +8,7 @@ import Form from "../Form/Form";
 
 // Utils
 import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
-import { actions, useForm } from "../Form/formUtils";
+import { formActions, useForm } from "@root/forms/Form";
 import {
 	documentExample,
 	imageAssetExample,
@@ -28,7 +28,6 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	const {
 		state,
 		dispatch,
-		events,
 		registerFields,
 		registerOnSubmit,
 	} = useForm();
@@ -36,7 +35,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	const setImage = async () => {
 		setImageCallback();
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: imageAssetExample,
 			})
@@ -46,7 +45,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	const setVideo = async () => {
 		setVideoCallback();
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: videoAssetExample,
 			})
@@ -55,7 +54,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 
 	const setDocument = async () => {
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: documentExample,
 			})
@@ -65,7 +64,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 
 	const setLink = async () => {
 		await dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: linkExample
 			})
@@ -75,7 +74,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 
 	const handleRemove = () => {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: [],
 			})
@@ -126,8 +125,6 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
-			events={events}
-			onSubmit={onSubmit}
 		/>
 	);
 };
@@ -136,6 +133,7 @@ afterEach(cleanup);
 
 const { getByText, queryByText, getByTestId, findByText, queryByTestId } = screen;
 
+jest.setTimeout(30000);
 describe("ImageVideoLinkDocumentBrowsing component", () => {
 	it("should display all browsing options", () => {
 		render(<ImageVideoLinkDocumentBrowsingExample />);

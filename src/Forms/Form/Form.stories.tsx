@@ -5,7 +5,7 @@ import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
 // Utils
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
 import { useTable, headers } from "@root/forms/FormFieldTable/tableUtils";
-import { useForm, actions } from "./formUtils";
+import { useForm, formActions } from "@root/forms/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
@@ -118,7 +118,7 @@ const onCancel = () => {
 
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -422,7 +422,7 @@ export const Playground = (): ReactElement => {
 
 	useEffect(() => {
 		const resetForm = async () => {
-			await dispatch(actions.resetForm());
+			await dispatch(formActions.resetForm());
 			setLoadReady(true);
 		};
 		prepopulate ? resetForm() : setLoadReady(false);
@@ -438,19 +438,17 @@ export const Playground = (): ReactElement => {
 				fields={fields}
 				dispatch={dispatch}
 				getFormValues={loadReady && onLoad}
-				events={events}
 				sections={showSections && sections}
 				submitButtonAttrs={{ label: text("Submit button", "Save") }}
 				cancelButtonAttrs={{ label: text("Cancel button", "Cancel") }}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
 };
 
 export const FormWithLayout = (): ReactElement => {
-	const { state, dispatch, events, registerFields } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -565,7 +563,7 @@ export const FormWithLayout = (): ReactElement => {
 
 	useEffect(() => {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text4",
 				value: state.data.text3
 			})
@@ -586,7 +584,6 @@ export const FormWithLayout = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
 			/>
 		</>
@@ -594,7 +591,7 @@ export const FormWithLayout = (): ReactElement => {
 }
 
 export const PerformanceWithSubmit = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const hundredFields = [];
 
@@ -632,9 +629,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				title='Performance with submit'
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 		</>
@@ -642,7 +637,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 };
 
 export const RuntimeBehaviors = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -685,7 +680,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	useEffect(() => {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text4",
 				value: state.data.text3
 			})
@@ -698,7 +693,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	const setText1Value = function () {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text1",
 				value: "My New Value"
 			})
@@ -707,7 +702,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	const setText2Value = function () {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text2",
 				value: "notanemail"
 			})
@@ -722,8 +717,6 @@ export const RuntimeBehaviors = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 			<div>
@@ -740,7 +733,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 };
 
 export const SubmitExternalButtons = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -785,7 +778,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 	const clickHandler = () => {
 		dispatch(
-			actions.submitForm()
+			formActions.submitForm()
 		);
 	}
 
@@ -805,8 +798,6 @@ export const SubmitExternalButtons = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 			<button onClick={clickHandler}>Submit</button>
@@ -824,14 +815,14 @@ export const DrawerForm = (): ReactElement => {
 			[
 				{
 					name: "text1",
-					label: "Full Name",
+					label: "Email",
 					type: "text",
 					instructionText: "testing",
 					validators: [required, validateEmail],
 				},
 				{
 					name: "text2",
-					label: "age",
+					label: "Age",
 					type: "text",
 					validators: [required],
 				},
@@ -889,7 +880,6 @@ export const DrawerForm = (): ReactElement => {
 					fields={fields}
 					onCancel={onCancel}
 					cancelButtonAttrs={cancelButtonAttrs}
-					onSubmit={onSubmit}
 					submitButtonAttrs={submitButtonAttrs}
 				/>
 			</Drawer>
@@ -899,7 +889,7 @@ export const DrawerForm = (): ReactElement => {
 };
 
 export const CustomFields = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
@@ -970,7 +960,7 @@ export const CustomFields = (): ReactElement => {
 
 	const setText1Value = function () {
 		dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "text1",
 				value: "My New Value"
 			})
@@ -985,8 +975,6 @@ export const CustomFields = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 			<div>
@@ -997,7 +985,7 @@ export const CustomFields = (): ReactElement => {
 };
 
 export const Validators = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1088,8 +1076,6 @@ export const Validators = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 		</>
@@ -1097,7 +1083,7 @@ export const Validators = (): ReactElement => {
 };
 
 export const DefaultValues = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1133,8 +1119,6 @@ export const DefaultValues = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
-				onSubmit={onSubmit}
 				onCancel={onCancel}
 			/>
 		</>

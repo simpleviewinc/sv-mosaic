@@ -11,6 +11,7 @@ describe("TextField component", () => {
 		render(<TextField
 			fieldDef={{
 				name: "textField",
+				type: "text",
 				label: "Label test",
 				instructionText: "Instruction text",
 				inputSettings: {
@@ -30,10 +31,10 @@ describe("TextField multiline behaviour", () => {
 			<TextField
 				fieldDef={{
 					name: "textField",
+					type: "text",
 					label: "Label test",
 					helperText: "Helper text",
 					inputSettings: {
-						htmlFor: "input-test",
 						placeholder: "placeholder",
 						multiline: false
 					},
@@ -51,10 +52,10 @@ describe("TextField multiline behaviour", () => {
 			<TextField
 				fieldDef={{
 					name: "textField",
+					type: "text",
 					label: "Label test",
 					helperText: "Helper text",
 					inputSettings: {
-						htmlFor: "multiline-tes",
 						placeholder: "placeholder",
 						multiline: true,
 					},
