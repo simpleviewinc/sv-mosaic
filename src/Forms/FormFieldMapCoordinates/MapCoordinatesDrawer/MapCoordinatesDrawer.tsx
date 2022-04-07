@@ -11,7 +11,7 @@ import ResetButton from "@root/forms/FormFieldMapCoordinates/MapCoordinatesDrawe
 
 // Utils
 import { defaultMapPosition } from "../MapCoordinatesUtils";
-import { actions, useForm } from "@root/forms/Form/formUtils";
+import { formActions, useForm } from "@root/forms/Form";
 import Form from "@root/forms/Form/Form";
 import _ from "lodash";
 
@@ -56,21 +56,21 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		const lng = event.latLng.lng();
 
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "placesList",
 				value: { lat: Number(lat), lng: Number(lng) },
 			})
 		);
 
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "lat",
 				value: lat,
 			})
 		);
 
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "lng",
 				value: lng,
 			})
@@ -82,11 +82,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 */
 	const resetLocation = async () => {
 		await modalReducer.dispatch(
-			actions.setFieldValue({ name: "lat", value: undefined })
+			formActions.setFieldValue({ name: "lat", value: undefined })
 		);
 
 		await modalReducer.dispatch(
-			actions.setFieldValue({ name: "lng", value: undefined })
+			formActions.setFieldValue({ name: "lng", value: undefined })
 		);
 	};
 
@@ -97,21 +97,21 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 */
 	const handleCoordinates = (coordinates: MapPosition) => {
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "placesList",
 				value: coordinates,
 			})
 		);
 
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "lat",
 				value: coordinates.lat,
 			})
 		);
 
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "lng",
 				value: coordinates.lng,
 			})
@@ -202,18 +202,18 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		if (lat?.toString().length > 0 && lng?.toString().length > 0) {
 			modalReducer.dispatch(
-				actions.setFieldValue({ name: "resetButton", value: true })
+				formActions.setFieldValue({ name: "resetButton", value: true })
 			);
 
 			modalReducer.dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "placesList",
 					value: { lat: Number(lat), lng: Number(lng) }
 				})
 			);
 		} else {
 			modalReducer.dispatch(
-				actions.setFieldValue({ name: "resetButton", value: undefined })
+				formActions.setFieldValue({ name: "resetButton", value: undefined })
 			);
 		}
 
@@ -221,14 +221,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 	useEffect(() => {
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "lat",
 				value: value?.lat
 			})
 		);
 
 		modalReducer.dispatch(
-			actions.setFieldValue({
+			formActions.setFieldValue({
 				name: "lng",
 				value: value?.lng
 			})
@@ -244,7 +244,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			sections={sections}
 			fields={fields}
 			onCancel={handleClose}
-			onSubmit={onSubmit}
 			submitButtonAttrs={{
 				label: "Save Coordinates",
 				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,

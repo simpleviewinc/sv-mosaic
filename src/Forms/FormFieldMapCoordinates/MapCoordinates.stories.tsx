@@ -21,7 +21,7 @@ const onCancel = () => {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	const addressKnob = object("Address", address);
 	const disabled = boolean("Disabled", false);
@@ -70,9 +70,7 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);
@@ -126,7 +124,7 @@ const kitchenSinkFields = [
 ] as FieldDef<MapCoordinatesDef>[];
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, events, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 
 	useMemo(() => {
 		registerFields(kitchenSinkFields);
@@ -149,9 +147,7 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={kitchenSinkFields}
 				dispatch={dispatch}
-				events={events}
 				onCancel={onCancel}
-				onSubmit={onSubmit}
 			/>
 		</>
 	);

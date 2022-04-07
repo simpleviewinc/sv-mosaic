@@ -7,28 +7,24 @@ import TextArea from "./FormFieldTextArea";
 afterEach(cleanup);
 
 describe("TextArea component", () => {
-	let result;
-
 	beforeEach(() => {
-		result = render(
+		render(
 			<TextArea
 				fieldDef={{
 					name: "textArea",
+					type: "textArea",
 					label: "Label test",
 					instructionText: "Instructional text",
 					inputSettings: {
-						htmlFor: "test",
 						placeholder: "placeholder",
 					},
-					id: "test"
 				}}
-
 			/>
 		);
 	});
 
 	it("should render a text area element", () => {
-		const textAreaElement = result.container.querySelector("#test");
+		const textAreaElement = screen.getByPlaceholderText("placeholder");
 
 		expect(textAreaElement.nodeName).toBe("TEXTAREA");
 	});

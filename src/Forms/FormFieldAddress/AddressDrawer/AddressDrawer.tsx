@@ -7,7 +7,7 @@ import Form from "@root/forms/Form/Form";
 
 // Utils
 import countriesWithStates from "@root/forms/FormFieldAddress/countriesStates.json";
-import { actions, useForm } from "@root/forms/Form/formUtils";
+import { formActions, useForm } from "@root/forms/Form";
 import { TextFieldDef } from "@root/forms/FormFieldText";
 import { Sizes } from "@root/theme/sizes";
 import { IAddress } from "@root/forms/FormFieldAddress";
@@ -84,7 +84,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			);
 
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "address1",
 					value: addressToEdit.address1,
 				})
@@ -97,7 +97,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 			if (addressToEdit.address2) {
 				dispatch(
-					actions.setFieldValue({
+					formActions.setFieldValue({
 						name: "address2",
 						value: addressToEdit.address2,
 					})
@@ -110,7 +110,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			}
 			if (addressToEdit.address3) {
 				dispatch(
-					actions.setFieldValue({
+					formActions.setFieldValue({
 						name: "address3",
 						value: addressToEdit.address3,
 					})
@@ -122,7 +122,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				};
 			}
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "city",
 					value: addressToEdit.city,
 				})
@@ -134,7 +134,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "postalCode",
 					value: addressToEdit.postalCode,
 				})
@@ -146,7 +146,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "type",
 					value: addressToEdit.types,
 				})
@@ -158,7 +158,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "country",
 					value: fullCountryData?.iso2,
 				})
@@ -170,7 +170,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			dispatch(
-				actions.setFieldValue({
+				formActions.setFieldValue({
 					name: "states",
 					value: fullStateData?.state_code,
 				})
@@ -364,7 +364,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			fields={fields}
 			type='drawer'
 			onCancel={handleClose}
-			onSubmit={async () => await onSubmit()}
 			submitButtonAttrs={{ label: "Save" }}
 			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}
