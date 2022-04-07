@@ -10,7 +10,7 @@ import { FieldDef } from "@root/components/Field";
 import Form from "@root/forms/Form/Form";
 
 export default {
-	title: "FormFields|FormFieldRadio",
+	title: "FormFields/FormFieldRadio",
 	decorators: [withKnobs],
 } as Meta;
 

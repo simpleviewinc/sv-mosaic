@@ -6,7 +6,7 @@ import { Meta } from "@storybook/addon-docs/blocks"
 import Checkbox, { CheckboxProps } from "../Checkbox";
 
 export default {
-	title : "Components|Checkbox",
+	title : "Components/Checkbox",
 	decorators: [withKnobs],
 } as Meta;
 

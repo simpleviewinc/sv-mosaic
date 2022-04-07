@@ -3,7 +3,7 @@ import { useState, ReactElement } from "react";
 import FilterDate from "./FilterDate";
 
 export default {
-	title : "Components|FilterDate"
+	title : "Components/FilterDate"
 }
 
 export const example = (): ReactElement => {

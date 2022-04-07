@@ -5,7 +5,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MenuItem from "./MenuItem";
 
 export default {
-	title : "Components|MenuItem"
+	title : "Components/MenuItem"
 }
 
 const onClick = () => undefined;
