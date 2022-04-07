@@ -25,7 +25,6 @@ const Modal = (props: ModalProps): ReactElement => {
 		fields,
 		open,
 		title,
-		onSubmit,
 		onCancel,
 		submitButtonAttrs,
 		cancelButtonAttrs,
@@ -72,7 +71,7 @@ const Modal = (props: ModalProps): ReactElement => {
 				{...submitButtonAttrs}
 			></Button>
 		),
-		[submitButtonAttrs?.label, onSubmit]
+		[submitButtonAttrs?.label]
 	);
 
 	const displayMobile = useMemo(
@@ -94,7 +93,7 @@ const Modal = (props: ModalProps): ReactElement => {
 				{PrimaryButton}
 			</StyledDialogMobileTitle>
 		),
-		[isMobileView, title, onCancel, submitButtonAttrs?.label, onSubmit]
+		[isMobileView, title, onCancel, submitButtonAttrs?.label]
 	);
 
 	const displayDesktop = useMemo(
