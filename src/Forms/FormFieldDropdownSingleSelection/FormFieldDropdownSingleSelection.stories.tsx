@@ -12,7 +12,7 @@ import { Sizes } from "../../theme/sizes";
 import { useForm } from "../Form/formUtils";
 
 export default {
-	title: "FormFields|FormFieldDropdownSingleSelection",
+	title: "FormFields/FormFieldDropdownSingleSelection",
 	decorators: [withKnobs],
 };
 
