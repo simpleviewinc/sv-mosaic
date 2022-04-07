@@ -49,12 +49,54 @@ The state is an object that contains the following structure:
 ### Dispatch
 The dispatch function allows developers to update the state through the following formActions:
 * **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
+	* **name** - setFieldValue
+	* **arguments** - `object`
+		* **name** - `string` - Name of the field. 
+		* **value** - `string` - Value to assign to the field.
+		* **validate** - `boolean` - Whether the field should be validated when finishing executing the onChange.
+	* **return** - `Promise<void>`
 * **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
+	* **name** - validateField
+		* **arguments** - `object`
+			* **name** - `string` - Name of the field. 
+		* **return** - `Promise<void>`
 * **copyFieldToField** - `({from, to}) => Promise<void>` - This action copies the value from one field into another.
+	* **name** - copyFieldToField
+	* **arguments** - `object`
+		* **from** - `string` - Name of the field where the value will be copied from. 
+		* **to** - `string` - Name of the field where the value will be copied to.
+	* **return** - `Promise<void>`
 * **validateForm** - `({fields}) => Promise<void>` - This action validates the entire form.
+	* **name** - validateForm
+	* **arguments** - `object`
+		* **fields** - `FieldDef[]` - Object containing all fields and their definition (see [Generic Field Props subsection](#generic-field-props-fielddef)).
+	* **return** - `Promise<void>`
 * **submitForm** - `() => Promise<void>` - This action validates the entire form (calls the action validateForm) and if everything is correct then executes the onSubmit callback passed by the developer. By default this action gets called when the user clicks on the submit button of the form.
+	* **name** - submitForm
+	* **arguments** - `none`
+	* **return** - `Promise<void>`
 * **resetForm** - `() => Promise<void>` - This action completely empties the state.
+	* **name** - resetForm
+	* **arguments** - `none`
+	* **return** - `Promise<void>`
 * **setFormValues** - `({values}) => Promise<void>` - This action prepopulates the fields with the values being passed.
+	* **name** - setFormValues
+	* **arguments** - `object`
+		* **values** - `MosaicObject` - Object containing all fields and their values.
+	* **return** - `Promise<void>`
+
+```ts
+import { formActions } from "sv-mosaic";
+
+const App = (props) => {
+	const updateValueExample = async () => {
+		await dispatch(
+			formActions.name(arguments)
+		);
+	}
+	//...rest of App
+}
+```
 
 ### RegisterFields
 This function receives the fields array and allows the Form's dispatch/actions to manipulate the fields.
@@ -79,9 +121,7 @@ The Form component is smart enough to delete blank spaces in the layout, for exa
 This same rule applies for empty rows.
 
 There are two ways for positioning components inside of a Form:
-
 1. By defining the position of the component with the layout prop. For more details about this prop refer to the [Generic Field Props subsection](#generic-field-props-fielddef).
-
 ```ts
 		const fields = useMemo(
 		() =>
@@ -98,7 +138,7 @@ There are two ways for positioning components inside of a Form:
 ```
 
 2. Create a layout with an array of sections.
-
+When done through this method, the array must be passed down as a prop to the Form component.
 ```ts
 	const sections = [
 		{
@@ -115,10 +155,17 @@ There are two ways for positioning components inside of a Form:
 		}
 		//...all other sections
 	];
+
+	<Form
+		//...all other props
+		sections={sections}
+	/>
 ```
 
 ## How to create a form?
 ```ts
+import Form, { useForm, formActions, Sizes } from "sv-mosaic";
+
 const App = (props) => {
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
 	
@@ -139,9 +186,8 @@ const App = (props) => {
 			[]
 	);
 
-	// If you want to create a section and included into the 
-	// Form check how is done in the Layout - Sections section
-	// and pass it through the section prop of the Form component.
+	// If you want to create a section and include it into the 
+	// Form check how is done in the Layout - Sections section.
 
 	const onLoad = useCallback(async () => {
 		//Get values from the DB to prepopulate fields
@@ -174,6 +220,73 @@ const App = (props) => {
 }
 ```
 
+## Data
+The Fields and the Form are in constant communication and exchange data. In order to maintain consistency, all fields and ways of updating data obey the following contract.
+```ts
+{
+	"nameOfField1": "Value of field1",
+	"nameOfField2": "Value of field2",
+	...
+	"nameOfFieldN": "Value of fieldN",
+}
+```
+The key of each element allows the form to know which field to work with and what's its value.
+
+This is used in the same way in the following moments:
+1. When updating the state (see data attribute on [State](#state)) through an action (see [Dispatch](#dispatch)).
+2. During an onChange of a field.
+3. When prepopulating a field or an entire form (see getFormValues prop on [Props](#props)).
+4. When assigning a defaultValue to a field.
+
+### How to use on a form?
+```ts
+//Scenario 1
+const updateValues = async () => {
+	await dispatch(
+		formActions.setFieldValue({name: "myField", value: "myValue"})
+	);
+
+	//State will look like this:
+	// { data: { "myField": "myValue" }}
+}
+
+//Scenario 2 can only be seen when executing an onChange on a field.
+
+//Scenario 3
+const getValuesFromDB = async () => {
+	const res = await callToDb();
+	//res = { "myField": "myValue" }
+	return res;
+}
+
+<Form
+	//...all other props
+	getFormValues={getValuesFromDB}
+/>
+
+//Scenario 4
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				name: "myField",
+				type: "text",
+				defaultVaue: "myValue"
+			},
+			//...other fields
+		],
+	[]
+);
+
+useMemo(() => {
+	registerFields(fields);
+	//State will look like this:
+	// { data: { "myField": "myValue" }}
+}, [fields, registerFields]);
+```
+
 ## Form Fields
 - All fields share a series of props that help the form identify and interact with each field.
 
@@ -202,6 +315,43 @@ const App = (props) => {
 * **id** - `string` optional - Follows the same rules as any other html element id.
 * **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
 * **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field.
+
+### How to use in a form?
+```ts
+import { Sizes } from "sv-mosaic";
+
+const fields = useMemo(
+	() => 
+		[
+			//...other fields
+			{
+				name: "myTextField",
+				label: "Age",
+				required: true,
+				helperText: "This is an example of a helper text",
+				instructionText: "This is an example of an instruction text",
+				disabled: false,
+				inputSettings: {}, //Please see inputSettings of each field
+				maxCharacters: 20,
+				size: Sizes.sm,
+				className: "myClassName",
+				style: {{ marginTop: "5px", }},
+				type: "text", //This will vary, please see "How to create in a form?" of each field
+				layout: , //Please see Layout section for different ways of arranging fields on the form.
+				validators: ["validateNumber"], //Please see validators section on ways of adding validators.
+				id: "myId",
+				defaultValue: "42", //Plase see data of each field and data section to better understand how fields interact with values.
+				pairedFields: ["myTextArea"],
+			},
+			{
+				name: "myTextArea",
+				//...all other generic field props
+			}
+			//...other fields
+		],
+	[]
+);
+```
 
 ## FormFieldAddress
 - Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
@@ -248,9 +398,9 @@ const fields = useMemo(
 	* **createNewOption** - `(filter: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
 	* **getSelected** - `(options: string[]) => Promise<{label: string, value: string, category: string}[]>` optional -  Function used to get the full info (label, value, category) of all selected options.
 	* **checkboxOptions** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
-	* **label** - `string` required -  Text users will see to identify the option.
-	* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
-	* **category** - `string` SOON TO BE DEPRECATED - Category in which the option belongs to.
+		* **label** - `string` required -  Text users will see to identify the option.
+		* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
+		* **category** - `string` SOON TO BE DEPRECATED - Category in which the option belongs to.
 	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<{label: string, value: string, category: string}[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
 	* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB.
 
@@ -442,7 +592,7 @@ const fields = useMemo(
 		* **label** - `string` required - Description of the option.
 		* **value** - `string` required - Value of the option, this is stored in the Form state.
 
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 		() =>
@@ -489,8 +639,7 @@ const fields = useMemo(
 	* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
-#### How to use in a form?
-
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() =>
@@ -524,7 +673,7 @@ const fields = useMemo(
 	* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 	* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 
-#### How to use in a form?
+### How to use in a form?
 
 ```ts
 const fields = useMemo(
@@ -559,7 +708,7 @@ const fields = useMemo(
 	* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 	* **spellcheck** - `boolean` optional - If it's enabled the text editor will mark misspellings.
 
-#### How to use in a form?
+### How to use in a form?
 
 ```ts
 const fields = useMemo(
@@ -599,7 +748,7 @@ const fields = useMemo(
 		* **actionFnc** - `actionFnc: (rowIndex: number) => void;` - Function that is executed when the corresponding icon is clicked.
 	* **headers** - `string[]` required - Array of the table headers.
 
-#### How to use in a form?
+### How to use in a form?
 
 ```ts
 const possibleTableRows = [
@@ -694,7 +843,7 @@ const fields = useMemo(
 - inputSettings:
 	* **toggleLabel** - `string` optional - This label is placed at the right of the switch.
 
-#### How to use in a form?
+### How to use in a form?
 
 ```ts
 const fields = useMemo(
@@ -726,7 +875,7 @@ const fields = useMemo(
 	* **postalCode** - `string` required - Postal code of the address.
 	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
 	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
--inputSettings: This component doesn't require any additional props.
+- inputSettings: This component doesn't require any additional props.
 
 ### How to use in a form?
 ```ts
@@ -755,7 +904,7 @@ const fields = useMemo(
 		* **title** - `string` - Title of the option.
 		* **value** - `any` - Value of the option.
 
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() =>
@@ -780,17 +929,16 @@ const fields = useMemo(
 	[]
 );
 ```
----
 
 ## FormFieldImageUpload
-- `Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents 
+`Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents 
 - [**Playground**](/?path=/docs/formfields-formfieldimageupload--playground)
 - Data: `object` Optional - Object of the value arguments
 	* **imgName** `string` Optional - Image name
 	* **size** `number` Optional - Image size
 	* **type** `string` Optional - Image type
 	* **height** `number` Optional - Image height
-	* **width** `number` Optional -Image width
+	* **width** `number` Optional - Image width
 	* **imgCoords** `object` Optional - Image coordinates
 		* **x** `number` - X image coordinates
 		* **y** `number` - Y image coordinates
@@ -798,7 +946,7 @@ const fields = useMemo(
 	* **handleSetFocus** - `() => void` Optional - Callback executed when the set focus button is clicked.
 	* **options** - `array` of `object` Optional - List of menu options that can be executed by the component.
 
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() => 
@@ -830,7 +978,7 @@ const fields = useMemo(
 ```
 
 ## FormFieldImageVideoLinkDocument
-- `Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
+`Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
 The setup supports images, videos, documents or links. 
 - [**Playground**](/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
 - Data: `array` of `string` - Array of values of the selected options 
@@ -843,7 +991,7 @@ The setup supports images, videos, documents or links.
 	* **options** - `array` of `object` Optional - List of menu options that can be executed by the component.
 	* **src** - `string` Optional - If the asset contains an image, its source should be passed via this src prop.
 
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() => 
@@ -883,7 +1031,7 @@ const fields = useMemo(
 	[]
 );
 ```
----
+
 ## FormFieldMapCoordinates
 - `Map Coordinates` This component is helpful when the user needs browse coordinates in a map.
 - [**Playground**](/?path=/docs/formfields-formfieldmapcoordinates--playground)
@@ -895,9 +1043,9 @@ const fields = useMemo(
 	* **apiKey** - `string` Required - Google Maps API key needed to consume the Maps JavaScript API and Places API.
 	* **mapPosition** - `object` Optional - Latitude and longitude object.
 		* **lat** - `number` - Latitude
-		* **lng** - `number` - longitude
+		* **lng** - `number` - Longitude
 	
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() => 
@@ -929,7 +1077,6 @@ const fields = useMemo(
 );
 ```
 
----
 ## FormFieldPhoneSelectionDropdown
 - `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed. 
 - [**Playground**](/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
@@ -940,7 +1087,7 @@ const fields = useMemo(
 	* **placeholder** - `string` Optional - Example text shown inside of the input field portion of the dropdown
 	* **value** - `string` Optional - Input state value.
 
-#### How to use in a form?
+### How to use in a form?
 ```ts
 const fields = useMemo(
 	() => 
