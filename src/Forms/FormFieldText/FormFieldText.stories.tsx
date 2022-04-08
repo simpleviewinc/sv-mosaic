@@ -15,7 +15,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { TextFieldDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import { ReactElement } from "react";
-import { Sizes } from "@root/theme/sizes";
 import { useForm } from "../Form/formUtils";
 import Form from "../Form/Form";
 
@@ -36,7 +35,7 @@ export const Playground = (): ReactElement => {
 		registerOnSubmit,
 	} = useForm();
 
-	const size = select("Size", [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm);
+	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
 	const placeholder = text("Placeholder", "placeholder");
 	const maxCharacters = number("Max characters", 20);
 	const disabled = boolean("Disabled", false);
@@ -61,14 +60,13 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						prefixElement: withIcon && <AccountCircle />,
 						maxCharacters,
-						size,
 						placeholder,
-						multiline,
+						multiline
 					},
 					helperText,
-					instructionText,
+					instructionText
 				},
-			] as FieldDef<TextFieldDef>[],
+			] as unknown as FieldDef<TextFieldDef>[],
 		[
 			label,
 			required,
@@ -122,23 +120,23 @@ const kitchenSinkfields = [
 		label: "Regular example",
 		type: "text",
 		required: false,
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
-			size: Sizes.md,
-			placeholder: "placeholder",
+			size: "md",
+			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text",
-	} as FieldDef<TextFieldDef>,
+		instructionText: "Instruction text"
+	} as unknown as FieldDef<TextFieldDef>,
 	{
 		name: "multiline",
 		label: "Multiline example",
 		type: "text",
 		required: false,
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
 			multiline: true,
-			size: Sizes.md,
+			size: "md",
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
@@ -149,11 +147,11 @@ const kitchenSinkfields = [
 		label: "With a max chars stablished",
 		type: "text",
 		required: false,
-		size: Sizes.md,
+		size: "md",
 		maxCharacters: 20,
 		inputSettings: {
 			maxCharacters: 20,
-			size: Sizes.md,
+			size: "md",
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
@@ -164,10 +162,10 @@ const kitchenSinkfields = [
 		label: "With an icon",
 		type: "text",
 		required: false,
+		size: "md",
 		inputSettings: {
 			prefixElement: <AccountCircle />,
 			placeholder: "placeholder",
-			size: Sizes.md,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -178,9 +176,9 @@ const kitchenSinkfields = [
 		type: "text",
 		required: false,
 		disabled: true,
+		size: "md",
 		inputSettings: {
 			placeholder: "placeholder",
-			size: Sizes.md,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -190,9 +188,7 @@ const kitchenSinkfields = [
 		label: "Size xs",
 		type: "text",
 		required: false,
-		inputSettings: {
-			size: Sizes.xs,
-		},
+		size: "xs",
 		helperText: "Helper text",
 		instructionText: "Instruction text",
 	},
@@ -201,9 +197,7 @@ const kitchenSinkfields = [
 		label: "Size sm",
 		type: "text",
 		required: false,
-		inputSettings: {
-			size: Sizes.sm,
-		},
+		size: "sm",
 		helperText: "Helper text",
 		instructionText: "Instruction text",
 	},
@@ -212,9 +206,7 @@ const kitchenSinkfields = [
 		label: "Size md",
 		type: "text",
 		required: false,
-		inputSettings: {
-			size: Sizes.md,
-		},
+		size: "md",
 		helperText: "Helper text",
 		instructionText: "Instruction text",
 	},
@@ -223,9 +215,7 @@ const kitchenSinkfields = [
 		label: "Size lg",
 		type: "text",
 		required: false,
-		inputSettings: {
-			size: Sizes.lg,
-		},
+		size: "lg",
 		helperText: "Helper text",
 		instructionText: "Instruction text",
 	},

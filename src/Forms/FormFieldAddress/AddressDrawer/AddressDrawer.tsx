@@ -9,7 +9,6 @@ import Form from "@root/forms/Form/Form";
 import countriesWithStates from "@root/forms/FormFieldAddress/countriesStates.json";
 import { formActions, useForm } from "@root/forms/Form";
 import { TextFieldDef } from "@root/forms/FormFieldText";
-import { Sizes } from "@root/theme/sizes";
 import { IAddress } from "@root/forms/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
 import _ from "lodash";
@@ -265,81 +264,65 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					name: "country",
 					type: "dropdown",
 					label: "Country",
-					size: Sizes.sm,
+					size: "sm",
 					required: true,
 					inputSettings: {
 						options: countries,
-						size: Sizes.sm,
 					},
 				},
 				{
 					name: "address1",
 					type: "text",
 					label: "Address",
-					size: Sizes.lg,
+					size: "lg",
 					required: true,
-					inputSettings: {
-						size: Sizes.lg,
-					},
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "address2",
 					type: "text",
 					label: undefined,
-					size: Sizes.lg,
-					inputSettings: {
-						size: Sizes.lg,
-					},
+					size: "lg",
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "address3",
 					type: "text",
 					label: undefined,
-					size: Sizes.lg,
-					inputSettings: {
-						size: Sizes.lg,
-					},
+					size: "lg",
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "city",
 					type: "text",
 					label: "City",
-					size: Sizes.sm,
+					size: "sm",
 					required: true,
-					inputSettings: {
-						size: Sizes.sm,
-					},
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "states",
 					type: "dropdown",
 					label: "States",
-					size: Sizes.sm,
+					size: "sm",
 					inputSettings: {
 						options: listOfStates,
-						size: Sizes.sm,
 					},
 				},
 				{
 					name: "postalCode",
 					type: "text",
 					label: "Postal Code",
-					size: Sizes.sm,
+					size: "sm",
 					required: true,
 					inputSettings: {
 						type: "number",
-						size: Sizes.sm,
 					},
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "type",
 					type: "checkbox",
 					label: "Type",
-					size: Sizes.sm,
+					size: "sm",
 					required: true,
 					inputSettings: {
 						options: addressTypes,
-						size: Sizes.sm,
 					},
 				},
 			] as FieldDef[],
