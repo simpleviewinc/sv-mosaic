@@ -30,7 +30,7 @@ import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import { TextAreaDef } from "../FormFieldTextArea";
 
 export default {
-	title: "Components|Form",
+	title: "Components/Form",
 	decorators: [withKnobs],
 };
 
