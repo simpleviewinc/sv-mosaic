@@ -55,12 +55,12 @@ export const Playground = (): ReactElement => {
 					size,
 					inputSettings: {
 						maxCharacters,
-						placeholder
+						placeholder,
 					},
 					helperText,
-					instructionText
+					instructionText,
 				},
-			] as unknown as FieldDef<TextAreaDef>[],
+			] as FieldDef<TextAreaDef>[],
 		[
 			required,
 			disabled,
@@ -116,7 +116,7 @@ const kitchenSinkFields = [
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "withMaxChar",
@@ -129,7 +129,7 @@ const kitchenSinkFields = [
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "disabledExample",
@@ -141,7 +141,7 @@ const kitchenSinkFields = [
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "xsSize",
@@ -149,7 +149,7 @@ const kitchenSinkFields = [
 		type: "textArea",
 		size: "xs",
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "smSize",
@@ -157,7 +157,7 @@ const kitchenSinkFields = [
 		type: "textArea",
 		size: "sm",
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "mdSize",
@@ -165,7 +165,7 @@ const kitchenSinkFields = [
 		type: "textArea",
 		size: "md",
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "lgSize",
@@ -173,7 +173,7 @@ const kitchenSinkFields = [
 		type: "textArea",
 		size: "lg",
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 ] as FieldDef<TextAreaDef>[];
 
