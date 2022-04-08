@@ -13,7 +13,6 @@ import Form from "../Form/Form";
 import { TextAreaDef } from ".";
 
 // Helpers
-import { Sizes } from "../../theme/sizes";
 import { FieldDef } from "@root/components/Field";
 import { useForm } from "../Form/formUtils";
 
@@ -34,7 +33,7 @@ export const Playground = (): ReactElement => {
 		registerOnSubmit,
 	} = useForm();
 
-	const size = select("Size", [Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg], Sizes.sm);
+	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
 	const placeholder = text("Placeholder", "placeholder");
 	const maxCharacters = number("Max characters", 20);
 	const disabled = boolean("Disabled", false);
@@ -56,13 +55,12 @@ export const Playground = (): ReactElement => {
 					size,
 					inputSettings: {
 						maxCharacters,
-						size,
-						placeholder,
+						placeholder
 					},
 					helperText,
-					instructionText,
+					instructionText
 				},
-			] as FieldDef<TextAreaDef>[],
+			] as unknown as FieldDef<TextAreaDef>[],
 		[
 			required,
 			disabled,
@@ -113,86 +111,71 @@ const kitchenSinkFields = [
 		name: "regular",
 		label: "Regular example",
 		type: "textArea",
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
-			size: Sizes.md,
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text",
+		instructionText: "Instruction text"
 	},
 	{
 		name: "withMaxChar",
 		label: "Established with a max chars",
 		type: "textArea",
 		maxCharacters: 20,
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
 			maxCharacters: 20,
-			size: Sizes.md,
-			placeholder: "placeholder",
+			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text",
+		instructionText: "Instruction text"
 	},
 	{
 		name: "disabledExample",
 		label: "Disabled",
 		type: "textArea",
 		disabled: true,
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
-			size: Sizes.md,
-			placeholder: "placeholder",
+			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text",
+		instructionText: "Instruction text"
 	},
 	{
 		name: "xsSize",
 		label: "Size xs",
 		type: "textArea",
-		size: Sizes.xs,
-		inputSettings: {
-			size: Sizes.xs,
-		},
+		size: "xs",
 		helperText: "Helper text",
-		instructionText: "Instruction text",
+		instructionText: "Instruction text"
 	},
 	{
 		name: "smSize",
 		label: "Size sm",
 		type: "textArea",
-		size: Sizes.sm,
-		inputSettings: {
-			size: Sizes.sm,
-		},
+		size: "sm",
 		helperText: "Helper text",
-		instructionText: "Instruction text",
+		instructionText: "Instruction text"
 	},
 	{
 		name: "mdSize",
 		label: "Size md",
 		type: "textArea",
-		size: Sizes.md,
-		inputSettings: {
-			size: Sizes.md,
-		},
+		size: "md",
 		helperText: "Helper text",
-		instructionText: "Instruction text",
+		instructionText: "Instruction text"
 	},
 	{
 		name: "lgSize",
 		label: "Size lg",
 		type: "textArea",
-		size: Sizes.lg,
-		inputSettings: {
-			size: Sizes.lg,
-		},
+		size: "lg",
 		helperText: "Helper text",
-		instructionText: "Instruction text",
+		instructionText: "Instruction text"
 	},
-] as FieldDef<TextAreaDef>[];
+] as unknown as FieldDef<TextAreaDef>[];
 
 export const KitchenSink = (): ReactElement => {
 	const {

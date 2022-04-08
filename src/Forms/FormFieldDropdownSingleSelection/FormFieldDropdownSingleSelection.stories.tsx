@@ -8,7 +8,6 @@ import { FieldDef } from "@root/components/Field";
 import Form from "../Form/Form";
 
 // Utils
-import { Sizes } from "../../theme/sizes";
 import { useForm } from "../Form/formUtils";
 
 export default {
@@ -56,8 +55,8 @@ export const Playground = (): ReactElement => {
 
 	const size = select(
 		"Size",
-		[Sizes.xs, Sizes.sm, Sizes.md, Sizes.lg],
-		Sizes.sm
+		["xs", "sm", "md", "lg"],
+		"sm"
 	);
 	const placeholder = text("Placeholder", "placeholder");
 	const disabled = boolean("Disabled", false);
@@ -78,7 +77,6 @@ export const Playground = (): ReactElement => {
 					size,
 					inputSettings: {
 						options,
-						size,
 						placeholder,
 					},
 					helperText,
@@ -135,10 +133,9 @@ const kitchenSinkFields = [
 		name: "dropdown",
 		label: "Regular example",
 		type: "dropdown",
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
 			options,
-			size: Sizes.md,
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
@@ -149,10 +146,9 @@ const kitchenSinkFields = [
 		label: "Disabled",
 		type: "dropdown",
 		disabled: true,
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
 			options,
-			size: Sizes.md,
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
@@ -162,10 +158,9 @@ const kitchenSinkFields = [
 		name: "xsSize",
 		label: "Size xs",
 		type: "dropdown",
-		size: Sizes.xs,
+		size: "xs",
 		inputSettings: {
 			options,
-			size: Sizes.xs,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -174,10 +169,9 @@ const kitchenSinkFields = [
 		name: "smSize",
 		label: "Size sm",
 		type: "dropdown",
-		size: Sizes.sm,
+		size: "sm",
 		inputSettings: {
 			options,
-			size: Sizes.sm,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -186,10 +180,9 @@ const kitchenSinkFields = [
 		name: "mdSize",
 		label: "Size md",
 		type: "dropdown",
-		size: Sizes.md,
+		size: "md",
 		inputSettings: {
 			options,
-			size: Sizes.md,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -198,10 +191,9 @@ const kitchenSinkFields = [
 		name: "lgSize",
 		label: "Size lg",
 		type: "dropdown",
-		size: Sizes.lg,
+		size: "lg",
 		inputSettings: {
 			options,
-			size: Sizes.lg,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
