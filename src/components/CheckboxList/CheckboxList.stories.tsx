@@ -8,7 +8,7 @@ import {
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils";
 
 export default {
-	title: "Components|CheckboxList"
+	title: "Components/CheckboxList"
 }
 
 export const example = (): ReactElement => {

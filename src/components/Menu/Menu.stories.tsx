@@ -7,7 +7,7 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import { default as Button, ButtonProps } from "../Button";
 
 export default {
-	title : "Components|Menu"
+	title : "Components/Menu"
 }
 
 const MENU_ITEMS = [
