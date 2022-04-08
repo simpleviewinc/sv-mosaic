@@ -164,7 +164,7 @@ When done through this method, the array must be passed down as a prop to the Fo
 
 ## How to create a form?
 ```ts
-import Form, { useForm, formActions, Sizes } from "sv-mosaic";
+import Form, { useForm, formActions } from "sv-mosaic";
 
 const App = (props) => {
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
@@ -299,7 +299,7 @@ useMemo(() => {
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
 * **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
-* **size** - `Sizes | string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
+* **size** - `string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **xs** = 100px
 	* **sm** = 280px
 	* **md** = 450px
@@ -318,8 +318,6 @@ useMemo(() => {
 
 ### How to use in a form?
 ```ts
-import { Sizes } from "sv-mosaic";
-
 const fields = useMemo(
 	() => 
 		[
@@ -333,7 +331,7 @@ const fields = useMemo(
 				disabled: false,
 				inputSettings: {}, //Please see inputSettings of each field
 				maxCharacters: 20,
-				size: Sizes.sm,
+				size: "sm",
 				className: "myClassName",
 				style: {{ marginTop: "5px", }},
 				type: "text", //This will vary, please see "How to create in a form?" of each field
@@ -636,7 +634,6 @@ const fields = useMemo(
 	* **multiline** - `boolean` optional - When is enabled the text field will expand its height.
 	* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
 	* **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-	* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
 
 ### How to use in a form?
@@ -649,11 +646,10 @@ const fields = useMemo(
 				//...all generic field props,
 				type: "text",
 				maxCharacters: 20,
-				size: Sizes.md,
+				size: "md",
 				inputSettings: {
 					prefixElement: <AccountCircle />,
 					maxCharacters: 20,
-					size: Sizes.md,
 					placeholder: "placeholder",
 					multiline: true
 				},
@@ -671,7 +667,6 @@ const fields = useMemo(
 - inputSettings:
 	* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
 	* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-	* **size** - `Size | string` optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 
 ### How to use in a form?
 
@@ -684,10 +679,9 @@ const fields = useMemo(
 				//...all generic field props
 				type: "textArea",
 				maxCharacters: 20,
-				size: Sizes.md,
+				size: "md",
 				inputSettings: {
 					maxCharacters: 20,
-					size: Sizes.md,
 					placeholder: "placeholder"
 				},
 			},
@@ -899,7 +893,6 @@ const fields = useMemo(
 - Data: `string` - String of the selected options
 - inputSettings:
 	* **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
-	* **size** - `Sizes | string` Optional - Size of the field. Could be either one of the predefined sizes (see [Sizes section](#sizes-type)), or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **options** - `array` of `object` Required - Array of options to be displayed on the options.
 		* **title** - `string` - Title of the option.
 		* **value** - `any` - Value of the option.
@@ -920,7 +913,6 @@ const fields = useMemo(
 						{ title: "The Godfather: Part II", value: 1974 },
 						{ title: "The Dark Knight", value: 2008 }
 					],
-					size: "sm",
 					placeholder: "Placeholder",
 				}
 			},
@@ -1150,12 +1142,6 @@ const fields = useMemo(
 * **onClick** - `(event: React.MouseEvent<HTMLButtonElement>) => void` optional
 * **attrs** - `MosaicObject` optional
 * **muiAttrs** - `MosaicObject` optional
-
-### Sizes (Type)
-* **xs** = 100px
-* **sm** = 280px
-* **md** = 450px
-* **lg** = 620px
 
 ## Validators
 All of the following default validators return string (with the error message) or undefined (when no error was found). I

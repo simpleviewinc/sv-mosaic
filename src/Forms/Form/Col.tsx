@@ -126,16 +126,18 @@ const Col = (props: ColPropsTypes) => {
 				const error = state?.errors[fieldProps.name] || "";
 
 				let maxSize: Sizes | string;
+				const SizeSelected = Sizes[currentField?.size] ? Sizes[currentField?.size] : currentField?.size;
+				
 				if (currentField?.size)
 					switch (colsInRow) {
 					case 1:
-						maxSize = currentField?.size <= Sizes.lg ? currentField.size : Sizes.lg;
+						maxSize = SizeSelected <= Sizes.lg ? SizeSelected : Sizes.lg;
 						break;
 					case 2:
-						maxSize = currentField?.size <= Sizes.md ? currentField.size : Sizes.md;
+						maxSize = SizeSelected <= Sizes.md ? SizeSelected : Sizes.md;
 						break;
 					case 3:
-						maxSize = currentField?.size <= Sizes.sm ? currentField.size : Sizes.sm;
+						maxSize = SizeSelected <= Sizes.sm ? SizeSelected : Sizes.sm;
 						break;
 					default:
 						break;
