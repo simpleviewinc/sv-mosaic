@@ -20,7 +20,7 @@ export type TextFieldDef = {
 	/**
 	 * Sizing attribute (dimensions tbd).
 	 */
-	size?: Sizes;
+	size?: string;
 	/**
 	 * When true the text field will expand its height.
 	 */
