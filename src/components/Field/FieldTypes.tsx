@@ -1,4 +1,3 @@
-import { Sizes } from "@root/theme/sizes";
 import { HTMLAttributes, ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT

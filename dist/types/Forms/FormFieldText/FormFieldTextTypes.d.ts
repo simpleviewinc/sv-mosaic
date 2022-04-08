@@ -1,5 +1,4 @@
 /// <reference types="react" />
-import { Sizes } from "@root/theme/sizes";
 /**
  * Base text field props.
  */
@@ -16,10 +15,6 @@ export declare type TextFieldDef = {
      * Icon at the beginning of the text field.
      */
     prefixElement?: JSX.Element;
-    /**
-     * Sizing attribute (dimensions tbd).
-     */
-    size?: Sizes;
     /**
      * When true the text field will expand its height.
      */

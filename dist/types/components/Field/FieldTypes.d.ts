@@ -1,4 +1,3 @@
-import { Sizes } from "@root/theme/sizes";
 import { HTMLAttributes, ReactNode } from "react";
 export interface MosaicFieldProps<T = any, U = any> {
     /**
@@ -68,7 +67,7 @@ export interface FieldDef<T = any, U = any> {
     /**
      * Defined between 100, 280, 450, and 620 px.
      */
-    size?: Sizes | string;
+    size?: string;
     /**
      * Allows additional styling to the current field via className.
      */
