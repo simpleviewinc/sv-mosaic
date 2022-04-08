@@ -61,10 +61,10 @@ export const Playground = (): ReactElement => {
 						prefixElement: withIcon && <AccountCircle />,
 						maxCharacters,
 						placeholder,
-						multiline
+						multiline,
 					},
 					helperText,
-					instructionText
+					instructionText,
 				},
 			] as FieldDef<TextFieldDef>[],
 		[
