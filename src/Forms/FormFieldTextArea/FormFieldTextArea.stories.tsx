@@ -175,7 +175,7 @@ const kitchenSinkFields = [
 		helperText: "Helper text",
 		instructionText: "Instruction text"
 	},
-] as unknown as FieldDef<TextAreaDef>[];
+] as FieldDef<TextAreaDef>[];
 
 export const KitchenSink = (): ReactElement => {
 	const {

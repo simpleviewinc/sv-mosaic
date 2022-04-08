@@ -66,7 +66,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText
 				},
-			] as unknown as FieldDef<TextFieldDef>[],
+			] as FieldDef<TextFieldDef>[],
 		[
 			label,
 			required,
@@ -122,12 +122,11 @@ const kitchenSinkfields = [
 		required: false,
 		size: "md",
 		inputSettings: {
-			size: "md",
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text"
-	} as unknown as FieldDef<TextFieldDef>,
+	} as FieldDef<TextFieldDef>,
 	{
 		name: "multiline",
 		label: "Multiline example",
@@ -136,7 +135,6 @@ const kitchenSinkfields = [
 		size: "md",
 		inputSettings: {
 			multiline: true,
-			size: "md",
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
@@ -151,7 +149,6 @@ const kitchenSinkfields = [
 		maxCharacters: 20,
 		inputSettings: {
 			maxCharacters: 20,
-			size: "md",
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
