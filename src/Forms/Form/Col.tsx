@@ -126,7 +126,7 @@ const Col = (props: ColPropsTypes) => {
 				const error = state?.errors[fieldProps.name] || "";
 
 				let maxSize: Sizes | string;
-				const SizeSelected = typeof type === "string" ? Sizes[currentField?.size] : currentField?.size;
+				const SizeSelected = Sizes[currentField?.size] ? Sizes[currentField?.size] : currentField?.size;
 				
 				if (currentField?.size)
 					switch (colsInRow) {

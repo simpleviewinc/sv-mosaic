@@ -1,5 +1,3 @@
-import { Sizes } from "@root/theme/sizes";
-
 /**
  * Base text field props.
  */
@@ -17,10 +15,6 @@ export type TextFieldDef = {
 	 * Icon at the beginning of the text field.
 	 */
 	prefixElement?: JSX.Element;
-	/**
-	 * Sizing attribute (dimensions tbd).
-	 */
-	size?: string;
 	/**
 	 * When true the text field will expand its height.
 	 */
