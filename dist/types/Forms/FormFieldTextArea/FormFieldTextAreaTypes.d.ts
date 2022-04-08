@@ -1,4 +1,3 @@
-import { Sizes } from "../../theme/sizes";
 export declare type TextAreaDef = {
     /**
      * Example text within the input to be replaced by the user.
@@ -8,8 +7,4 @@ export declare type TextAreaDef = {
      * When defined a counter with the current length of the text will be shown.
      */
     maxCharacters?: number;
-    /**
-     * Sizing attribute (dimensions tbd).
-     */
-    size?: Sizes;
 };
