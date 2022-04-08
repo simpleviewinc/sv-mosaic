@@ -19,7 +19,7 @@ import { useForm } from "../Form/formUtils";
 import Form from "../Form/Form";
 
 export default {
-	title: "FormFields|FormFieldText",
+	title: "FormFields/FormFieldText",
 	decorators: [withKnobs],
 };
 
