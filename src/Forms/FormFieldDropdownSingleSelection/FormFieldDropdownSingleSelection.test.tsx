@@ -4,10 +4,10 @@ import { render, screen, cleanup } from "@testing-library/react";
 import DropdownSingleSelection from "./FormFieldDropdownSingleSelection";
 
 const topFilms = [
-	{ title: "The Shawshank Redemption", value: 1994 },
-	{ title: "The Godfather", value: 1972 },
-	{ title: "The Godfather: Part II", value: 1974 },
-	{ title: "The Dark Knight", value: 2008 },
+	{ label: "The Shawshank Redemption", value: "1994" },
+	{ label: "The Godfather", value: "1972" },
+	{ label: "The Godfather: Part II", value: "1974" },
+	{ label: "The Dark Knight", value: "2008" },
 ];
 
 const { getByText, getByTestId, getByRole } = screen;

@@ -893,9 +893,7 @@ const fields = useMemo(
 - Data: `string` - String of the selected options
 - inputSettings:
 	* **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
-	* **options** - `array` of `object` Required - Array of options to be displayed on the options.
-		* **title** - `string` - Title of the option.
-		* **value** - `any` - Value of the option.
+	* **options** - `array` of `MosaicLabelValue` Required - Array of options to be displayed on the options.
 
 ### How to use in a form?
 ```ts
@@ -908,10 +906,10 @@ const fields = useMemo(
 				type: "dropdown",
 				inputSettings: {
 					options: [
-						{ title: "The Shawshank Redemption", value: 1994 },
-						{ title: "The Godfather", value: 1972 },
-						{ title: "The Godfather: Part II", value: 1974 },
-						{ title: "The Dark Knight", value: 2008 }
+						{ label: "The Shawshank Redemption", value: "1994" },
+						{ label: "The Godfather", value: "1972" },
+						{ label: "The Godfather: Part II", value: "1974" },
+						{ label: "The Dark Knight", value: "2008" }
 					],
 					placeholder: "Placeholder",
 				}

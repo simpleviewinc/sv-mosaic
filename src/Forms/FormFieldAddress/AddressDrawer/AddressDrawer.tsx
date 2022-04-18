@@ -28,7 +28,7 @@ const sections = [
 ];
 
 const countries = countriesWithStates?.map((country) => ({
-	title: country.name,
+	label: country.name,
 	value: country.iso2,
 }));
 
@@ -165,7 +165,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 			editingState = {
 				...editingState,
-				"country": { title: fullCountryData?.name, value: fullCountryData?.iso2 },
+				"country": { label: fullCountryData?.name, value: fullCountryData?.iso2 },
 			};
 
 			dispatch(
@@ -178,7 +178,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			editingState = {
 				...editingState,
 				"states": {
-					title: fullStateData?.name,
+					label: fullStateData?.name,
 					value: fullStateData?.state_code,
 				},
 			};
@@ -197,7 +197,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		);
 
 		if (selectedCountry) {
-			return selectedCountry.states.map((state) => ({ title: state.name, value: state.state_code }));
+			return selectedCountry.states.map((state) => ({ label: state.name, value: state.state_code }));
 		}
 
 		return [];
