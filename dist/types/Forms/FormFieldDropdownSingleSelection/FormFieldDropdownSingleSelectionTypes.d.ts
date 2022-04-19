@@ -1,3 +1,4 @@
+import { MosaicLabelValue } from "@root/types";
 export declare type DropdownSingleSelectionDef = {
     /**
      * Example text shown inside of the text field
@@ -8,9 +9,5 @@ export declare type DropdownSingleSelectionDef = {
      * Array of options to be displayed on the
      * dropdown.
      */
-    options: Option[];
-};
-export declare type Option = {
-    title: string;
-    value: any;
+    options: MosaicLabelValue[];
 };
