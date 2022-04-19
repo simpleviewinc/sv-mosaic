@@ -56,12 +56,12 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 			{!fieldDef?.disabled ?
 				<SingleDropdownWrapper innerWidth={fieldDef?.size}>
 					<StyledAutocomplete
-						value={{title: selectedOption?.title, value: value}}
+						value={{label: selectedOption?.label, value: value}}
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
-						getOptionLabel={(option) => option?.title ? option.title : ""}
+						getOptionLabel={(option) => option?.label ? option.label : ""}
 						onChange={(_event, option) => onDropDownChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}
@@ -75,8 +75,8 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 				<StyledDisabledDropdownText
 					data-testid="disabled-text-test-id"
 				>
-					{(!dropDownValue || dropDownValue?.title.trim() === "") ?
-						fieldDef?.inputSettings?.placeholder : dropDownValue.title
+					{(!dropDownValue || dropDownValue?.label.trim() === "") ?
+						fieldDef?.inputSettings?.placeholder : dropDownValue.label
 					}
 				</StyledDisabledDropdownText>
 			}
