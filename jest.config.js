@@ -6,5 +6,5 @@ module.exports = {
 	},
 	setupFiles: ["jest-canvas-mock"],
 	testEnvironment: "jsdom",
-	coverageDirectory: "@root/testing",
+	collectCoverage: true,
 }
