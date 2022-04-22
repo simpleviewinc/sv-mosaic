@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import { MosaicMIcon } from "@root/types";
+import { SvgIconComponent } from "@material-ui/icons";
 
 export interface IconButtonProps {
   /**
@@ -13,7 +13,7 @@ export interface IconButtonProps {
   /**
    * Material UI icon
    */
-  icon: MosaicMIcon;
+  icon: SvgIconComponent;
   /**
    * In case the icon button shows a tooltip, this prop
    * represents its content

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createContext } from "react";
-import { MosaicMIcon, MosaicObject } from "../../types";
+import { MosaicObject } from "../../types";
+import { SvgIconComponent } from "@material-ui/icons";
 
 type Variant = "full" | "icons_only" | "hidden" | "mobile";
 
@@ -32,7 +33,7 @@ export interface LeftNavItemDef {
 	type?: "item" | "group"
 	label: string
 	showLabel?: boolean
-	mIcon?: MosaicMIcon
+	mIcon?: SvgIconComponent
 	items?: LeftNavItemDef[]
 	attrs?: MosaicObject
 	onNav?: false | LeftNavOnNav
