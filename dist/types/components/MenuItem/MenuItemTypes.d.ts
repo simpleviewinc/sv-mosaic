@@ -1,11 +1,12 @@
 /// <reference types="react" />
-import { MosaicMIcon, MosaicObject } from "../../types";
+import { MosaicObject } from "../../types";
+import { SvgIconComponent } from "@material-ui/icons";
 export interface MenuItemProps {
     label: string | JSX.Element;
     color?: "red" | "blue";
     disabled?: boolean;
     selected?: boolean;
     onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
-    mIcon?: MosaicMIcon;
+    mIcon?: SvgIconComponent;
     attrs?: MosaicObject;
 }

@@ -11,6 +11,7 @@ import DrawerContent from "./components/DrawerContent.jsx";
 import Menu from "./components/Menu.jsx";
 import Spinner from "./components/Spinner.jsx";
 import { Sizes } from "./theme/sizes";
+import { formActions, useForm } from "./forms/Form";
 
 export * from "./transforms";
 export * from "./types";
@@ -99,5 +100,7 @@ export {
 	DataViewPrimaryFilter as GridPrimaryFilter,
 	Menu,
 	Spinner,
-	Sizes
+	Sizes,
+	useForm,
+	formActions
 }

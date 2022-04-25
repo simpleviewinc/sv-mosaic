@@ -1,5 +1,6 @@
 import * as React from "react";
-import { MosaicMIcon, MosaicObject } from "../../types";
+import { MosaicObject } from "../../types";
+import { SvgIconComponent } from "@material-ui/icons";
 declare type Variant = "full" | "icons_only" | "hidden" | "mobile";
 export interface LeftNavOnNav {
     (args: {
@@ -30,7 +31,7 @@ export interface LeftNavItemDef {
     type?: "item" | "group";
     label: string;
     showLabel?: boolean;
-    mIcon?: MosaicMIcon;
+    mIcon?: SvgIconComponent;
     items?: LeftNavItemDef[];
     attrs?: MosaicObject;
     onNav?: false | LeftNavOnNav;

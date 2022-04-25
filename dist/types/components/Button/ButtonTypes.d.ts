@@ -1,12 +1,13 @@
 /// <reference types="react" />
-import { MosaicMIcon, MosaicObject } from "../../types";
+import { MosaicObject } from "../../types";
 import { MenuItemProps } from "../MenuItem";
+import { SvgIconComponent } from "@material-ui/icons";
 export interface ButtonProps {
     label?: string | JSX.Element;
     className?: string;
     href?: string;
     color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray";
-    mIcon?: MosaicMIcon;
+    mIcon?: SvgIconComponent;
     variant: "icon" | "outlined" | "contained" | "text";
     size?: "small" | "medium" | "large";
     iconPosition?: "left" | "right";
