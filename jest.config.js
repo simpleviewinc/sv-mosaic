@@ -5,5 +5,6 @@ module.exports = {
 		"\\.(css|less)$": "identity-obj-proxy"
 	},
 	setupFiles: ["jest-canvas-mock"],
-	testEnvironment: "jsdom"
+	testEnvironment: "jsdom",
+	collectCoverage: true,
 }
