@@ -1,4 +1,5 @@
-import { MosaicObject, MosaicMIcon, MosaicCallback } from "../../types";
+import { MosaicObject, MosaicCallback } from "../../types";
+import { SvgIconComponent } from "@material-ui/icons";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
@@ -123,7 +124,7 @@ export interface DataViewDisplay {
 	name: string
 	label: string
 	component: React.Component
-	mIcon: MosaicMIcon
+	mIcon: SvgIconComponent
 }
 
 export interface DataViewSort {

@@ -2,12 +2,12 @@ import * as React from "react";
 import { ReactElement } from "react";
 import styled from "styled-components";
 
-import { MosaicMIcon } from "../../types";
+import { SvgIconComponent } from "@material-ui/icons";
 import theme from "../../theme";
 
 interface Props {
 	label: string
-	mIcon?: MosaicMIcon
+	mIcon?: SvgIconComponent;
 }
 
 const StyledH3 = styled.h3`

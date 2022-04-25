@@ -1,4 +1,4 @@
-import { MosaicMIcon } from "@root/types";
+import { SvgIconComponent } from "@material-ui/icons";
 
 export type TableRow = {
 	/**
@@ -20,7 +20,7 @@ export type Actions = {
 	/**
 	 * MUI Icon
 	 */
-	icon: MosaicMIcon;
+	icon: SvgIconComponent;
 	/**
 	 * Callback function that will be triggered
 	 * when the icon for the respective action is clicked.
