@@ -738,7 +738,7 @@ const fields = useMemo(
 	* **handleDelete** - `() => void` required - Function that will be executed when clicking on the trash icon. It can be used to show some kind of confirmation before removing the row.
 	* **extraActions** - `array` of `object` optional - Possible actions that the table could execute and display.
 		* **label** - `string` - Describes the action.
-		* **icon** - `MosaicMIcon` - MUI icon.
+		* **icon** - `SvgIconComponent` - MUI icon.
 		* **actionFnc** - `actionFnc: (rowIndex: number) => void;` - Function that is executed when the corresponding icon is clicked.
 	* **headers** - `string[]` required - Array of the table headers.
 
@@ -1118,7 +1118,7 @@ const fields = useMemo(
 * **disabled** - `boolean` optional
 * **selected** - `boolean` optional
 * **onClick** - `(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void` required
-* **mIcon** - `MosaicMIcon` optional
+* **mIcon** - `SvgIconComponent` optional - MUI Icon
 * **attrs** - `MosaicObject` optional
 
 ### ButtonAttrs (Type)
@@ -1126,7 +1126,7 @@ const fields = useMemo(
 * **className** - `string` optional
 * **href** - `string` optional
 * **color** - `"black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray"` required
-* **mIcon** - `MosaicMIcon` optional - (Any Icon from MUI library).
+* **mIcon** - `SvgIconComponent` optional - Any Icon from MUI library.
 * **variant** - `"icon" | "outlined" | "contained" | "text"` required
 * **size** - `"small" | "medium" | "large"` optional
 * **iconPosition** - `"left" | "right"` optional

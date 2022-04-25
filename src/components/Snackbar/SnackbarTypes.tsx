@@ -1,4 +1,4 @@
-import { MosaicMIcon } from "@root/types";
+import { SvgIconComponent } from "@material-ui/icons";
 
 export type SnackbarAction = {
   label: string;
@@ -19,7 +19,7 @@ export interface SnackbarProps {
   /**
    * Material UI icon
    */
-  leadingIcon?: MosaicMIcon;
+  leadingIcon?: SvgIconComponent;
   /**
    * Function that will be triggered when the
    * close icon is clicked. This function
