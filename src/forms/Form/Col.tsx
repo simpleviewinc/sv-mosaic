@@ -151,6 +151,7 @@ const Col = (props: ColPropsTypes) => {
 						error={error}
 						onChange={onChange}
 						onBlur={onBlur}
+						required={currentField?.required}
 						key={`${name}_${i}`}
 					/>
 				), [value, error, onChange, onBlur, currentField]);
