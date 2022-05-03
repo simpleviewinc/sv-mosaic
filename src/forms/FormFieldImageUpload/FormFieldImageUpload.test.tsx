@@ -12,7 +12,7 @@ import FormFieldImageUpload from "./FormFieldImageUpload";
 
 afterEach(cleanup);
 
-const { getByText, getByTestId, queryByTestId } = screen;
+const { getByText, getByTestId, queryByTestId, queryByText } = screen;
 
 const mockHandleSetFocus = jest.fn();
 const mockHandleEdit = jest.fn();
@@ -28,7 +28,11 @@ const options = [
 	},
 ];
 
-const FormFieldImageUploadExample = () => {
+const FormFieldImageUploadExample = ({
+	useFocusHandler = true,
+}: {
+  useFocusHandler?: boolean;
+}) => {
 	return (
 		<FormFieldImageUpload
 			fieldDef={{
@@ -37,9 +41,9 @@ const FormFieldImageUploadExample = () => {
 				type: "imageUpload",
 				disabled: false,
 				inputSettings: {
-					handleSetFocus: mockHandleSetFocus,
+					handleSetFocus: useFocusHandler ? mockHandleSetFocus : null,
 					options,
-				}
+				},
 			}}
 		/>
 	);
@@ -125,9 +129,9 @@ describe("FormFieldImageUpload drag and drop events", () => {
 
 		Object.defineProperty(fileDropEvent, "dataTransfer", {
 			value: {
-				files: [file]
-			}
-		})
+				files: [file],
+			},
+		});
 
 		fireEvent(fileDropzone, fileDropEvent);
 
@@ -162,5 +166,32 @@ describe("FormFieldImageUpload drag and drop events", () => {
 		fireEvent(fileDropzone, fileDragEnterEvent);
 
 		expect(getByText("Release and Drop")).toBeTruthy();
+	});
+});
+
+describe("FormFieldImageUpload without the setFocus handler", () => {
+	const file = new File(["hello"], "hello.png", {
+		type: "image/png",
+	});
+	let fileDropzone;
+	global.URL.createObjectURL = jest.fn();
+
+	beforeEach(() => {
+		render(<FormFieldImageUploadExample useFocusHandler={false} />);
+		fileDropzone = getByText("Drag & Drop files here or");
+	});
+
+	it("should not show the 'View button since the setFocus callback is not defined'", () => {
+		const fileDropEvent = createEvent.drop(fileDropzone);
+		Object.defineProperty(fileDropEvent, "dataTransfer", {
+			value: {
+				files: [file],
+			},
+		});
+
+		fireEvent(fileDropzone, fileDropEvent);
+
+		expect(queryByText("Set Focus")).toBe(null);
+		expect(queryByTestId("View")).toBe(null);
 	});
 });
