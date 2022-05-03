@@ -143,9 +143,30 @@ const Col = (props: ColPropsTypes) => {
 						break;
 					}
 
+				let requiredFlag = currentField?.required ? currentField.required : false;
+
+				if (currentField?.validators) {
+					currentField.validators.map(validator => {
+						switch (typeof validator) {
+						case "string":
+							if (validator === "required")
+								requiredFlag = true;
+							break;
+						case "function":
+							if (validator.name === "required")
+								requiredFlag = true;
+							break;
+						case "object":
+							if (validator.fn === "required")
+								requiredFlag = true;
+							break;
+						}
+					});
+				}
+
 				const children = useMemo(() => (
 					<Component
-						fieldDef={{ ...currentField, size: maxSize }}
+						fieldDef={{ ...currentField, size: maxSize, required: requiredFlag }}
 						name={name}
 						value={value}
 						error={error}
@@ -159,7 +180,7 @@ const Col = (props: ColPropsTypes) => {
 				return (typeof type === "string" && componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
-						fieldDef={{ ...currentField, size: maxSize }}
+						fieldDef={{ ...currentField, size: maxSize, required: requiredFlag }}
 						value={value}
 						error={error}
 						colsInRow={colsInRow}
