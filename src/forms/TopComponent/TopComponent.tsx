@@ -75,7 +75,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 						muiAttrs={{ disableRipple: true }}
 					></Button>
 				)}
-				{onSubmit && submitButton}
+				{submitButton}
 			</>
 		),
 		[onCancel, cancelButtonAttrs, submitButton]
