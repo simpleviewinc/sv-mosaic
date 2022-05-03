@@ -109,7 +109,7 @@ describe("TopComponent elements that are conditionally rendered", () => {
 		expect(activeCheckbox).toBe(null);
 	});
 
-	it("should display the 'Submit' and 'Cancel' buttons since its functions are defined", () => {
+	it("should display the 'Cancel' buttons since its function are defined", () => {
 		render(
 			<TopComponent
 				description='Description'
@@ -122,11 +122,10 @@ describe("TopComponent elements that are conditionally rendered", () => {
 			/>
 		);
 
-		expect(getByText("Save")).toBeDefined();
 		expect(getByText("Cancel")).toBeDefined();
 	});
 
-	it("should not display checkbox if show active is false", () => {
+	it("should not display the 'Cancel' button since its functions is not implemented", () => {
 		render(
 			<TopComponent
 				description='Description'
@@ -139,7 +138,6 @@ describe("TopComponent elements that are conditionally rendered", () => {
 			/>
 		);
 
-		expect(queryByText("Save")).toBe(null);
 		expect(queryByText("Cancel")).toBe(null);
 	});
 });
