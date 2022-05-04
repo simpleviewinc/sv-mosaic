@@ -64,6 +64,7 @@ export default {
 		simplyGray: "1px solid #BEBEBE"
 	},
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
+	museoSansFont : "@import url('https://use.typekit.net/rvx4ppi.css');",
 	animations : {
 		backgroundMs : "250ms"
 	},
