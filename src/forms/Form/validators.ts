@@ -13,14 +13,16 @@ export function validateEmail(str: string): string | undefined {
 	if (!str) {
 		return;
 	}
-
-	const isValidEmail = str
-		.toLowerCase()
-		.match(
-			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-		);
-
-	if (isValidEmail) return;
+	
+	if (typeof str === "string") {
+		const isValidEmail = str
+			.toLowerCase()
+			.match(
+				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			);
+	
+		if (isValidEmail) return;
+	}
 
 	return "The value is not a valid e-mail";
 }
@@ -68,6 +70,8 @@ export function validateNumber(value: string): string | undefined {
 
 	if (!(!isNaN(Number(value)) && !isNaN(parseFloat(value)))) {
 		return "The value is not a number";
+	} else {
+		return;
 	}
 }
 
@@ -80,18 +84,21 @@ export function validateNumber(value: string): string | undefined {
 export function validateURL(str: string): string | undefined {
 	if (!str) {
 		return;
+	} else if (typeof str === "string") {
+		const pattern = new RegExp("^(https?:\\/\\/)?" + // protocol
+			"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+			"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+			"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+			"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+			"(\\#[-a-z\\d_]*)?$", "i"); // fragment locator
+	
+		if (pattern.test(str)) {
+			return
+		}
 	}
 
-	const pattern = new RegExp("^(https?:\\/\\/)?" + // protocol
-		"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-		"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-		"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-		"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-		"(\\#[-a-z\\d_]*)?$", "i"); // fragment locator
+	return "The value is not a valid URL";
 
-	if (!pattern.test(str)) {
-		return "The value is not a valid URL";
-	}
 }
 
 /**
@@ -103,6 +110,10 @@ export function validateURL(str: string): string | undefined {
  * @returns the error message in case of any
  */
 export function validateDateRange(value: string, data: any, options: { [key: string]: any }): string | undefined {
+	
+	if (!value && !data)
+		return;
+	
 	const startDateStr = data[options.startDateName] ? data[options.startDateName] : value;
 	const endDateStr = data[options.endDateName] ? data[options.endDateName] : value;
 
