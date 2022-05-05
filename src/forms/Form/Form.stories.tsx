@@ -100,9 +100,18 @@ let externalOptions = [
 	},
 ];
 
-const createNewOption = (newOption) => {
-	externalOptions = [...externalOptions, newOption];
-};
+const createNewOption = async (newOptionLabel) => {
+	const value = `${newOptionLabel}_${externalOptions.length}`
+	const newOption = {
+		value,
+		label: newOptionLabel,
+	}
+
+	//Insert to db
+	externalOptions.push(newOption);
+
+	return value;
+}
 
 const getSelected = async (selectedOptions) => {
 	if (!selectedOptions) return;
