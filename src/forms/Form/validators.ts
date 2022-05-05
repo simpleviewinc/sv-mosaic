@@ -88,7 +88,7 @@ export function validateURL(str: string): string | undefined {
 			"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
 			"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
 			"(\\#[-a-z\\d_]*)?$", "i"); // fragment locator
-	
+
 		if (!pattern.test(str))
 			return "The value is not a valid URL";
 	}
