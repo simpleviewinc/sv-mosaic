@@ -51,6 +51,14 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		return option.value === value;
 	});
 
+	const getOptionSelected = (option, value) => {
+		if (value.value === "") {
+			return true;
+		}
+
+		return option.value === value.value
+	}
+
 	return (
 		<>
 			{!fieldDef?.disabled ?
@@ -62,6 +70,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
 						getOptionLabel={(option) => option?.label ? option.label : ""}
+						getOptionSelected={getOptionSelected}
 						onChange={(_event, option) => onDropDownChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}
