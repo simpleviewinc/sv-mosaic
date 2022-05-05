@@ -409,7 +409,7 @@ const fields = useMemo(
 - [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
 - Data: `array` of `string` - Array of values of the selected options.
 - inputSettings:
-	* **createNewOption** - `(filter: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
+	* **createNewOption** - `(newOptionLabel: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
 	* **getSelected** - `(options: string[]) => Promise<{label: string, value: string, category: string}[]>` optional -  Function used to get the full info (label, value, category) of all selected options.
 	* **checkboxOptions** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
 		* **label** - `string` required -  Text users will see to identify the option.
@@ -420,6 +420,37 @@ const fields = useMemo(
 
 ### How to use in a form?
 ```ts
+// List of options
+const externalOptions = [
+	{
+		label: "Option1",
+		value: "value1",
+		category: "Category1",
+	},
+	{
+		label: "Option2",
+		value: "value2",
+		category: "Category2",
+	}
+]
+
+/**
+ * Definition of the funtion that enables the
+ * creation of new options.
+**/
+const myCreateOptionFn = async (newOptionLabel) => {
+	const value = `${newOptionLabel}_${externalOptions.length}`
+	const newOption = {
+		value,
+		label: newOptionLabel,
+	}
+
+	//Insert to db
+	externalOptions.push(newOption);
+
+	return value;
+}
+
 //Option recommended when getting options locally.
 const fields = useMemo(
 	() => 
@@ -431,13 +462,7 @@ const fields = useMemo(
 				inputSettings: {
 					createNewOption: myCreateOptionFn,
 					getSelected: myGetSelectedFn,
-					checkboxOptions: [
-						{
-							label: "Option1",
-							value: "value1",
-							category: "Category1",
-						}
-					]
+					checkboxOptions: externalOptions
 				}
 			},
 			//...other fields
