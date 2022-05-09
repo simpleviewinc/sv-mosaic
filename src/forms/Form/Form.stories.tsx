@@ -38,7 +38,7 @@ const deleteTableRow = () => {
 	alert("Delete button clicked");
 };
 
-let externalOptions = [
+const externalOptions = [
 	{
 		category: "Category 1",
 		label: "Option 1",
