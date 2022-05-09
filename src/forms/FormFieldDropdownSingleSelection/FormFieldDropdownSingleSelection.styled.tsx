@@ -79,8 +79,9 @@ export const StyledPopper = styled(Popper)`
     color: ${theme.colors.gray700};
 
     &[aria-selected='true'] {
-      color: ${theme.colors.black};
-      font-weight: ${theme.fontWeight.semiBold};
+			color: ${({ value }) => value ? theme.colors.gray700 : theme.colors.black };
+			font-weight: ${({ value }) => value ? null : theme.fontWeight.semiBold};
+			background-color: white;
     }
 
     &:hover {
