@@ -83,7 +83,7 @@ describe("DropdownSingleSelection component as a form field", () => {
 	});
 
 	it("should render a dropdown with a placeholder", () => {
-		const input = getByRole("textbox") as HTMLInputElement;
+		const input = getByRole("combobox") as HTMLInputElement;
 
 		expect(input.placeholder).toEqual("Placeholder test");
 	});

@@ -100,7 +100,7 @@ const addNewAddress = () => {
 	const city = getByLabelText("City");
 	const postalCode = getByLabelText("Postal Code");
 	const dropdowns = getAllByTestId("autocomplete-test-id");
-	const inputs = getAllByRole("textbox") as HTMLInputElement[];
+	const inputs = getAllByRole("combobox") as HTMLInputElement[];
 	// The first dropdown refers to the country selector.
 	dropdowns[0].focus();
 
@@ -121,7 +121,7 @@ const addNewAddress = () => {
 afterEach(cleanup);
 jest.setTimeout(30000);
 
-describe("Address component", () => {
+describe("Addressx component", () => {
 	beforeEach(() => {
 		render(<AddressFormFieldExample />);
 	});

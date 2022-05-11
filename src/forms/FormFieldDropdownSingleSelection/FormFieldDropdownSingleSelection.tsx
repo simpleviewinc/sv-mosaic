@@ -11,8 +11,8 @@ import { CustomPopperProps, DropdownSingleSelectionDef } from "./FormFieldDropdo
 
 // Components
 import InputWrapper from "../../components/InputWrapper";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import TextField from "@material-ui/core/TextField";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import TextField from "@mui/material/TextField";
 
 const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, string>) => {
 	const {
@@ -44,7 +44,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 
 	const onDropDownChange = async (option) => {
 		setDropDownValue(option)
-		onChange && await onChange(option?.value);
+		onChange && (await onChange(option?.value));
 	}
 	
 	const selectedOption = fieldDef?.inputSettings?.options.find(option => {

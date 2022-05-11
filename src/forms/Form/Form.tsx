@@ -67,7 +67,7 @@ const Form = (props: FormProps) => {
 
 	const cancel = async (e) => {
 		e.preventDefault();
-		onCancel && await onCancel();
+		onCancel && (await onCancel());
 	}
 
 	return (

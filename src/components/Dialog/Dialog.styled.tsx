@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Material UI
-import Dialog from "@material-ui/core/Dialog";
+import Dialog from "@mui/material/Dialog";
 
 // Utils
 import theme from "@root/theme";

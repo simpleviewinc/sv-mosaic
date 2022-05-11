@@ -10,8 +10,8 @@ import {
 import { formActions } from "@root/forms/Form";
 
 // Components
-import MenuIcon from "@material-ui/icons/Menu";
-import TranslateIcon from "@material-ui/icons/Translate";
+import MenuIcon from "@mui/icons-material/Menu";
+import TranslateIcon from "@mui/icons-material/Translate";
 
 /**
  * Rows definition

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Material UI
-import Switch from "@material-ui/core/Switch";
+import Switch from "@mui/material/Switch";
 
 // Utils
 import theme from "@root/theme";

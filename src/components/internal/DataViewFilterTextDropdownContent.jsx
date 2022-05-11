@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import Button from "../Button";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
