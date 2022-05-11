@@ -4,7 +4,7 @@ import { render, cleanup, fireEvent, screen } from "@testing-library/react";
 
 // Components
 import Table from "./FormFieldTable";
-import TranslateIcon from "@material-ui/icons/Translate";
+import TranslateIcon from "@mui/icons-material/Translate";
 
 afterEach(cleanup);
 

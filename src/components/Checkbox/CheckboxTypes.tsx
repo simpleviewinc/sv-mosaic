@@ -1,4 +1,4 @@
-import { CheckboxProps as MUICheckboxProps } from "@material-ui/core/Checkbox";
+import { CheckboxProps as MUICheckboxProps } from "@mui/material/Checkbox";
 
 export interface CheckboxProps {
 	/**

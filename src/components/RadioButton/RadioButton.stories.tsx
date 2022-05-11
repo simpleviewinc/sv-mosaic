@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, ChangeEvent, useState } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import RadioGroup from "@mui/material/RadioGroup";
 
 // Components
 import RadioButton from "./RadioButton";

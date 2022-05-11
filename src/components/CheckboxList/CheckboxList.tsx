@@ -5,7 +5,7 @@ import { xor } from "lodash";
 import Checkbox from "@root/components/Checkbox";
 import { useStateRef } from "@root/utils/reactTools";
 import { CheckboxListProps } from "./CheckboxListTypes";
-import FormGroup from "@material-ui/core/FormGroup";
+import FormGroup from "@mui/material/FormGroup";
 
 const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const checkedRef = useStateRef(props.checked);

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState, useContext, useMemo, ReactElement } from "react";
 import styled from "styled-components";
-import Popper from "@material-ui/core/Popper";
-import { PopperProps } from "@material-ui/core/Popper";
-import Paper from "@material-ui/core/Paper";
+import Popper from "@mui/material/Popper";
+import { PopperProps } from "@mui/material/Popper";
+import Paper from "@mui/material/Paper";
 import { throttle } from "lodash";
 
 import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";

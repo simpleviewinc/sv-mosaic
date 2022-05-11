@@ -3,8 +3,8 @@ import { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 
 // Material UI
-import { InputLabel } from "@material-ui/core";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import { InputLabel } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import theme from "../../utils/theme";
 import Tooltip from "../Tooltip";

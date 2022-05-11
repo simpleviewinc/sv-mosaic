@@ -5,10 +5,10 @@ import theme from "@root/theme";
 
 // Components
 import Tooltip from "@root/components/Tooltip";
-import ImageIcon from "@material-ui/icons/Image";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import LinkIcon from "@material-ui/icons/Link";
-import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
+import ImageIcon from "@mui/icons-material/Image";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import LinkIcon from "@mui/icons-material/Link";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 export const ImageVideoLinkDocumentBrowsingContainer = styled.div`
 	width: fit-content;

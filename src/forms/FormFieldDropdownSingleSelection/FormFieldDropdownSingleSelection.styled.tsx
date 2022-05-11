@@ -3,8 +3,8 @@ import theme from "@root/theme";
 import { Sizes } from "@root/theme/sizes";
 
 // Components
-import { default as MUIAutocomplete } from "@material-ui/lab/Autocomplete";
-import Popper from "@material-ui/core/Popper";
+import { default as MUIAutocomplete } from "@mui/material/Autocomplete";
+import Popper from "@mui/material/Popper";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {

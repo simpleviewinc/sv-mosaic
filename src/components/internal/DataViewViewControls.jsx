@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ViewQuiltIcon from '@mui/icons-material/ViewQuilt';
 
 import ButtonRow from "../ButtonRow";
 import Button from "../Button";

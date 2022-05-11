@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Material UI
-import Radio from "@material-ui/core/Radio";
+import Radio from "@mui/material/Radio";
 
 import theme from "../../utils/theme.js";
 

@@ -18,7 +18,7 @@ export const ButtonWrapper = styled.span`
     // font-weight: ${theme.fontWeight.semiBold};
     font-weight: ${theme.fontWeight.bold};
     min-width: auto;
-	line-height: 1.715;
+    line-height: 1.715;
   }
 
   &.normalButton > button {
@@ -143,7 +143,7 @@ const TealOnWhite = styled(ButtonWrapper)`
   }
 
   & > button:hover {
-	background-color: transparent;
+		background-color: transparent;
     color: ${theme.colors.blueTealHover};
   }
 `;
@@ -338,6 +338,7 @@ export const types = {
     & > button:hover {
       background-color: ${theme.colors.gray200};
       color: ${theme.colors.almostBlack};
+			border: 2px solid ${theme.colors.simplyGray};
     }
   `,
 	teal_outlined: styled(TealOnWhite)`
@@ -359,6 +360,7 @@ export const types = {
     & > button:hover {
       background-color: ${theme.colors.blueTeal}1a;
       color: ${theme.colors.blueTeal};
+			border: 2px solid ${theme.colors.blueTeal};
     }
   `,
 	blue_outlined: styled(BlueOnWhite)`
@@ -379,6 +381,7 @@ export const types = {
 
     & > button:hover {
       box-shadow: 0 2px 3px ${theme.colors.blue}12;
+			border: 2px solid ${theme.colors.blue};
     }
 
     & > button:active,
@@ -405,6 +408,7 @@ export const types = {
     & > button:hover {
       background-color: #b100001a;
       color: ${theme.colors.red};
+			border: 2px solid ${theme.colors.red};
     }
 
     & > button:active,
@@ -428,6 +432,7 @@ export const types = {
     }
     & > button:hover {
       box-shadow: 0 2px 3px ${theme.colors.black}12;
+			border: 2px solid ${theme.colors.black};
     }
     & > button:active,
     & > button:focus {
