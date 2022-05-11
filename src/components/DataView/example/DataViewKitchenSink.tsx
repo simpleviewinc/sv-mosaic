@@ -3,10 +3,10 @@ import { useState, useEffect, useCallback, ReactElement } from "react";
 import styled from "styled-components";
 import { boolean, select } from "@storybook/addon-knobs";
 
-import AddIcon from "@material-ui/icons/Add";
-import CreateIcon from "@material-ui/icons/Create";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import AddIcon from "@mui/icons-material/Add";
+import CreateIcon from "@mui/icons-material/Create";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 import JSONDB from "../../../utils/JSONDB";
 import LocalStorageDB from "../../../utils/LocalStorageDB";

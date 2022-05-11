@@ -12,7 +12,7 @@ import {
 } from "./Snackbar.styled";
 
 // Material UI
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton";
 import Button from "@root/components/Button";
 
 const Snackbar = (props: SnackbarProps): ReactElement => {
@@ -68,7 +68,7 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
 					disableRipple
 					key="close"
 					onClick={onClose}
-				>
+					size="large">
 					<StyledCloseIcon />
 				</IconButton>
 			</ContentWrapper>

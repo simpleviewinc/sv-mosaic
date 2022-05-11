@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
-import Popover from "@material-ui/core/Popover";
+import Popover from "@mui/material/Popover";
 
 import theme from "../utils/theme.js";
 

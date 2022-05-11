@@ -9,7 +9,7 @@ import {
 } from "../TopComponent.styled";
 
 // MUI
-import ClearIcon from "@material-ui/icons/Clear";
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Utils
 import theme from "@root/theme/theme";

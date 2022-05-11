@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import MUIDrawer from "@material-ui/core/Drawer";
+import MUIDrawer from "@mui/material/Drawer";
 
 import theme from "../utils/theme.js";
 

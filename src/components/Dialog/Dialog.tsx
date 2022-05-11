@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 import Button from "@root/components/Button";
 
 // Material UI
-import { DialogActions, DialogContent } from "@material-ui/core";
+import { DialogActions, DialogContent } from "@mui/material";
 
 // Types and styles
 import { DialogProps } from ".";

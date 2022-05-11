@@ -9,7 +9,7 @@ import {
 
 // Components
 import Button from "@root/components/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const DragAndDropContainer = styled.div`
   align-items: center;

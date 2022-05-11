@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { H1 } from "../Typography";
 import Button from "../Button";

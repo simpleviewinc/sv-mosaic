@@ -5,11 +5,11 @@ import { TableDef, TableRow } from "./TableTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 
 // Components
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import Button from "@root/components/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
-import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import EditIcon from "@mui/icons-material/Edit";
 
 // Styles
 import {
