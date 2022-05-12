@@ -295,6 +295,14 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				}
 			}
 		});
+
+		const popoverP = {
+			"In": "The row must match one of selected option.",
+			"Not In": "The row must match none of the selected options.",
+			"All": "The row must match all of the selected options.",
+			"Exists": "The row must have a value for this filter.",
+			"Not Exists": "The row must not have a value for this filter.",
+		}
 		
 		comparisonDropdown = (
 			<div className="comparisonDropdown">
@@ -314,11 +322,13 @@ function DataViewFilterMultiselectDropdownContent(props) {
 						mIcon={HelpIcon}
 						popover={
 							<PopoverP>
-								<b>In</b> - The row must match one of selected option.<br/>
-								<b>Not in</b> - The row must match none of the selected options.<br/>
-								<b>All</b> - The row must match all of the selected options.<br/>
-								<b>Exists</b> - The row must have a value for this filter.<br/>
-								<b>Not Exists</b> - The row must not have a value for this filter.<br/>
+								{
+									menuItems.map((item, id) => (
+										<span key={id}>
+											<b>{item.label}</b> - {popoverP.[item.label]}<br/>
+										</span>
+									))
+								}
 							</PopoverP>
 						}
 					/>
