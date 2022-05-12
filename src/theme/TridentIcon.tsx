@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ReactElement } from "react";
 
-import SvgIcon from "@material-ui/core/SvgIcon";
-import { SvgIconProps } from "@material-ui/core/SvgIcon";
+import SvgIcon from "@mui/material/SvgIcon";
+import { SvgIconProps } from "@mui/material/SvgIcon";
 
 function TridentIcon(props: SvgIconProps): ReactElement {
 	return (
