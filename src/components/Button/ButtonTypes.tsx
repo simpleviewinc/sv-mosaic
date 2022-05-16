@@ -1,6 +1,6 @@
 import { MosaicObject } from "../../types";
 import { MenuItemProps } from "../MenuItem";
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 
 export interface ButtonProps {
 	label?: string | JSX.Element

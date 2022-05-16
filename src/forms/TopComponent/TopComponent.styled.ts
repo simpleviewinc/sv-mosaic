@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Components
-import HelpIcon from "@material-ui/icons/Help";
+import HelpIcon from "@mui/icons-material/Help";
 
 // Utils
 import theme, { BREAKPOINTS } from "@root/theme/theme";

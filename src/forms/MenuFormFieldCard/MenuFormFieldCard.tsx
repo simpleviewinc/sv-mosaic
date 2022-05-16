@@ -3,8 +3,8 @@ import { memo, useState, ReactElement } from "react";
 import { MenuFormFieldCardProps } from "./MenuFormFieldCardTypes";
 
 // Components
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MenuItem from "@mui/material/MenuItem";
 import Button from "@root/components/Button";
 
 // Styles

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
-import Chip from "@material-ui/core/Chip";
-import InputBase from "@material-ui/core/InputBase";
+import Chip from "@mui/material/Chip";
+import InputBase from "@mui/material/InputBase";
 import { debounce, xor } from "lodash";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SearchIcon from "@material-ui/icons/Search";
-import HelpIcon from '@material-ui/icons/Help';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchIcon from "@mui/icons-material/Search";
+import HelpIcon from '@mui/icons-material/Help';
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import Button from "../Button";

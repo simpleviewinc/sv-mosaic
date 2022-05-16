@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState, memo, createContext } from "react";
-import MUIButton from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Popover from "@material-ui/core/Popover";
-import Popper from "@material-ui/core/Popper";
+import MUIButton from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Popover from "@mui/material/Popover";
+import Popper from "@mui/material/Popper";
 
 import { ButtonProps, ButtonPopoverContextProps } from "./ButtonTypes";
 import Menu from "../Menu.jsx";
@@ -109,11 +109,7 @@ function Button(props: ButtonProps) {
 			}
 			{
 				props.variant === "icon" &&
-				<IconButton
-					{...muiAttrs}
-					onClick={onClick}
-					disabled={props.disabled}
-				>
+				<IconButton {...muiAttrs} onClick={onClick} disabled={props.disabled} size="large">
 					{props.mIcon && <MaterialIcon data-testid="icon-button-test" className="icon"></MaterialIcon>}
 				</IconButton>
 			}
@@ -161,7 +157,7 @@ function Button(props: ButtonProps) {
 				</Popper>
 			}
 		</MyButton>
-	)
+	);
 }
 
 export default memo(Button);

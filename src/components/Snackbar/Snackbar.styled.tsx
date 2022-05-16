@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 // Material UI
-import Snackbar from "@material-ui/core/Snackbar";
-import CloseIcon from "@material-ui/icons/Close";
+import Snackbar from "@mui/material/Snackbar";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Utils
 import theme from "@root/theme";

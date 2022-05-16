@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useContext, useMemo, ReactElement } from "react";
-import Drawer from "@material-ui/core/Drawer";
-import { DrawerProps } from "@material-ui/core/Drawer";
+import Drawer from "@mui/material/Drawer";
+import { DrawerProps } from "@mui/material/Drawer";
 
 import { LeftNavContext } from "./LeftNavTypes";
 
