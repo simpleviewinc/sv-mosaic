@@ -6,7 +6,7 @@ import Radio from "@mui/material/Radio";
 import theme from "../../utils/theme.js";
 
 export const StyledRadioButton = styled(Radio)`
-  &.MuiRadio-colorSecondary {
+  &.MuiRadio-colorPrimary {
     color: ${theme.colors.almostBlack};
 
     &.Mui-checked {
@@ -14,8 +14,8 @@ export const StyledRadioButton = styled(Radio)`
     }
   }
 
-  &.MuiRadio-colorSecondary,
-  &.MuiRadio-colorSecondary.Mui-checked {
+  &.MuiRadio-colorPrimary,
+  &.MuiRadio-colorPrimary.Mui-checked {
     &:hover {
       background-color: ${theme.colors.grayHover};
     }
