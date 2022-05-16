@@ -121,7 +121,7 @@ const addNewAddress = () => {
 afterEach(cleanup);
 jest.setTimeout(60000);
 
-describe("Addressx component", () => {
+describe("Address component", () => {
 	beforeEach(() => {
 		render(<AddressFormFieldExample />);
 	});
