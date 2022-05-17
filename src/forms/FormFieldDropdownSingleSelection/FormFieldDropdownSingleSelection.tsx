@@ -51,7 +51,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		return option.value === value;
 	});
 
-	const getOptionSelected = (option, value) => {
+	const isOptionEqualToValue = (option, value) => {
 		if (value.value === "") {
 			return true;
 		}
@@ -74,7 +74,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
 						getOptionLabel={(option) => option?.label ? option.label : ""}
-						getOptionSelected={getOptionSelected}
+						isOptionEqualToValue={isOptionEqualToValue}
 						onChange={(_event, option) => onDropDownChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}
