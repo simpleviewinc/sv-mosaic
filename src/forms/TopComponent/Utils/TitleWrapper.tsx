@@ -10,8 +10,7 @@ import theme, { BREAKPOINTS } from "@root/theme/theme";
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 export const FormTitle = styled.span`
-	${theme.museoSansFont}
-	font-family: ${pr => !pr.type && `'Museo-Sans', ${theme.fontFamily}`};
+	font-family: ${pr => !pr.type && theme.museoFont};
 	font-weight: ${pr => pr.type && pr.type === "drawer" && "medium"};
 
   color: ${theme.colors.almostBlack};
