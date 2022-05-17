@@ -64,6 +64,7 @@ export default {
 		simplyGray: "1px solid #BEBEBE"
 	},
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
+	museoFont: "Museo-Sans, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	animations : {
 		backgroundMs : "250ms"
 	},
