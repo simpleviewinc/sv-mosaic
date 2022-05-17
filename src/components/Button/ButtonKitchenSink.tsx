@@ -241,6 +241,15 @@ function Buttons(): ReactElement {
 				<Button color="gray" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
 				<Button color="gray" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
 			</div>
+
+			<h2>White Icon Buttons</h2>
+			<div style={{ background: 'black' }}>
+				<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
+				<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
+				<Button color="white" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
+				<Button color="white" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+				<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
+			</div>
 			
 			<h2>Icon Buttons - disabled</h2>
 			<div>
