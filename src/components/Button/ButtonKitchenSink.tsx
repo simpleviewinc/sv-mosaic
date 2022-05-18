@@ -108,8 +108,8 @@ function Buttons(): ReactElement {
 					<Button color="red" variant="contained" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button color="black" variant="contained" label="Cancel" onClick={clickHandler}></Button>
 					<Button color="black" variant="contained" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="yellow" variant="contained" label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="yellow" variant="contained" label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
+					<Button color="yellow" variant="contained" label="Save" onClick={clickHandler}></Button>
+					<Button color="yellow" variant="contained" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 			
@@ -124,8 +124,8 @@ function Buttons(): ReactElement {
 					<Button color="red" variant="contained" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button color="black" variant="contained" disabled label="Cancel" onClick={clickHandler}></Button>
 					<Button color="black" variant="contained" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="yellow" variant="contained" disabled label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="yellow" variant="contained" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
+					<Button color="yellow" variant="contained" disabled label="Save" onClick={clickHandler}></Button>
+					<Button color="yellow" variant="contained" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 			
@@ -138,10 +138,10 @@ function Buttons(): ReactElement {
 					<Button color="red" variant="outlined" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button color="black" variant="outlined" label="Cancel" onClick={clickHandler}></Button>
 					<Button color="black" variant="outlined" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="gray" variant="outlined" label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="gray" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="teal" variant="outlined" label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="teal" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
+					<Button color="gray" variant="outlined" label="Save" onClick={clickHandler}></Button>
+					<Button color="gray" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="teal" variant="outlined" label="Save" onClick={clickHandler}></Button>
+					<Button color="teal" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 			
@@ -154,10 +154,10 @@ function Buttons(): ReactElement {
 					<Button color="red" variant="outlined" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button color="black" variant="outlined" disabled label="Cancel" onClick={clickHandler}></Button>
 					<Button color="black" variant="outlined" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="gray" variant="outlined" disabled label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="gray" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="teal" variant="outlined" disabled label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="teal" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
+					<Button color="gray" variant="outlined" disabled label="Save" onClick={clickHandler}></Button>
+					<Button color="gray" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="teal" variant="outlined" disabled label="Save" onClick={clickHandler}></Button>
+					<Button color="teal" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 			
@@ -170,8 +170,8 @@ function Buttons(): ReactElement {
 					<Button color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
 					<Button color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="teal" variant="text" label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
+					<Button color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
+					<Button color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 			
@@ -184,8 +184,8 @@ function Buttons(): ReactElement {
 					<Button color="red" variant="text" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button color="black" variant="text" disabled label="Cancel" onClick={clickHandler}></Button>
 					<Button color="black" variant="text" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="teal" variant="text" disabled label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button color="teal" variant="text" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
+					<Button color="teal" variant="text" disabled label="Save" onClick={clickHandler}></Button>
+					<Button color="teal" variant="text" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 
@@ -198,8 +198,8 @@ function Buttons(): ReactElement {
 					<Button attrs={{smallText: true}} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
 					<Button attrs={{smallText: true}} color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
 					<Button attrs={{smallText: true}} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="teal" variant="text" label="Save" onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
-					<Button attrs={{smallText: true}} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler} muiAttrs={{disableRipple: true}}></Button>
+					<Button attrs={{smallText: true}} color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
+					<Button attrs={{smallText: true}} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 			
@@ -240,15 +240,12 @@ function Buttons(): ReactElement {
 				<Button color="gray" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
 				<Button color="gray" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
 				<Button color="gray" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-			</div>
-
-			<h2>White Icon Buttons</h2>
-			<div style={{ background: 'black' }}>
-				<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="white" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="white" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
+				<div style={{ background: 'black', display: 'inline-block' }}>
+					<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
+					<Button color="white" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
+					<Button color="white" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+				</div>
 			</div>
 			
 			<h2>Icon Buttons - disabled</h2>
