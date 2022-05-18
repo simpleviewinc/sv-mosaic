@@ -1,25 +1,19 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
-import * as DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import TextField from "@mui/material/TextField";
 
 // Styles
-import { ThemeProvider } from "@material-ui/core/styles";
 import {
-	customTheme,
 	DatePickerWrapper,
-	StyledDatePicker,
+	popperSx,
 } from "./DatePicker.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
-const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
-	const {
-		error,
-		fieldDef,
-		onChange,
-		value,
-		onBlur
-	} = props;
+const DateFieldPicker = (props: MosaicFieldProps<any>): ReactElement => {
+	const { error, fieldDef, onChange, value, onBlur } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -28,44 +22,35 @@ const DatePicker = (props: MosaicFieldProps<any>): ReactElement => {
 		await onBlur();
 	};
 
+	const renderInput = (params) => (
+		<TextField
+			{...params}
+			onBlur={onBlur}
+			required={fieldDef.required}
+			inputProps={{
+				...params.inputProps,
+				placeholder: fieldDef?.inputSettings?.placeholder,
+			}}
+		/>
+	);
+
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils.default}>
-			<ThemeProvider theme={customTheme}>
-				<DatePickerWrapper isPickerOpen={isPickerOpen}>
-					<StyledDatePicker
-						disableToolbar
-						error={!!error}
-						variant='inline'
-						format='MM/dd/yyyy'
-						margin='normal'
-						value={value}
-						onChange={onChange}
-						inputVariant='outlined'
-						onOpen={handleOpenState}
-						onClose={handleOpenState}
-						PopoverProps={{
-							anchorOrigin: {
-								vertical: "bottom",
-								horizontal: "center",
-							},
-							transformOrigin: {
-								vertical: "top",
-								horizontal: "center",
-							},
-						}}
-						InputProps={{
-							placeholder: fieldDef?.inputSettings?.placeholder,
-							required: fieldDef?.required,
-						}}
-						invalidDateMessage={null}
-						maxDateMessage={null}
-						minDateMessage={null}
-						onBlur={onBlur}
-					/>
-				</DatePickerWrapper>
-			</ThemeProvider>
-		</MuiPickersUtilsProvider>
+		<LocalizationProvider dateAdapter={AdapterDateFns}>
+			<DatePickerWrapper error={!!error} isPickerOpen={isPickerOpen}>
+				<DatePicker
+					renderInput={renderInput}
+					inputFormat="MM/dd/yyyy"
+					value={value}
+					onChange={onChange}
+					onOpen={handleOpenState}
+					onClose={handleOpenState}
+					PopperProps={{
+						sx: popperSx,
+					}}
+				/>
+			</DatePickerWrapper>
+		</LocalizationProvider>
 	);
 };
 
-export default DatePicker;
+export default DateFieldPicker;
