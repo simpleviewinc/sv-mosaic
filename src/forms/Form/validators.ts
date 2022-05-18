@@ -10,18 +10,19 @@ export const VALIDATE_DATE_RANGE = "validateDateRange";
  * https://stackoverflow.com/questions/46155/whats-the-best-way-to-validate-an-email-address-in-javascript
  */
 export function validateEmail(str: string): string | undefined {
-		
-	if (!str) return;
-
-	if (typeof str === "string") {
-		const isValidEmail = str
-			.toLowerCase()
-			.match(
-				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-			);
-		if (!isValidEmail) return "The value is not a valid e-mail";
+	if (!str) {
+		return;
 	}
-	return;
+
+	const isValidEmail = str
+		.toLowerCase()
+		.match(
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		);
+
+	if (isValidEmail) return;
+
+	return "The value is not a valid e-mail";
 }
 
 export function validateSlow(str: string): Promise<void | string> {
@@ -61,15 +62,13 @@ export function required(str: string | string[]): string | undefined {
  * @returns an error message string
  */
 export function validateNumber(value: string): string | undefined {
-
-	if (!value) return;
-
-	if (typeof value === "string" || typeof value === "number" ) {
-		if (!(!isNaN(Number(value)) && !isNaN(parseFloat(value)))) {
-			return "The value is not a number";
-		}
+	if (!value) {
+		return;
 	}
-	return;
+
+	if (!(!isNaN(Number(value)) && !isNaN(parseFloat(value)))) {
+		return "The value is not a number";
+	}
 }
 
 /**
@@ -79,20 +78,20 @@ export function validateNumber(value: string): string | undefined {
  * @returns an error message string
  */
 export function validateURL(str: string): string | undefined {
-	if (!str) return;
-
-	if (typeof str === "string") {
-		const pattern = new RegExp("^(https?:\\/\\/)?" + // protocol
-			"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-			"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-			"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-			"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-			"(\\#[-a-z\\d_]*)?$", "i"); // fragment locator
-
-		if (!pattern.test(str))
-			return "The value is not a valid URL";
+	if (!str) {
+		return;
 	}
-	return
+
+	const pattern = new RegExp("^(https?:\\/\\/)?" + // protocol
+		"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+		"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+		"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+		"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+		"(\\#[-a-z\\d_]*)?$", "i"); // fragment locator
+
+	if (!pattern.test(str)) {
+		return "The value is not a valid URL";
+	}
 }
 
 /**
@@ -104,10 +103,6 @@ export function validateURL(str: string): string | undefined {
  * @returns the error message in case of any
  */
 export function validateDateRange(value: string, data: any, options: { [key: string]: any }): string | undefined {
-	
-	if (!value && !data)
-		return;
-	
 	const startDateStr = data[options.startDateName] ? data[options.startDateName] : value;
 	const endDateStr = data[options.endDateName] ? data[options.endDateName] : value;
 
