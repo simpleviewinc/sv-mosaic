@@ -205,12 +205,12 @@ const WhiteOnBlack = styled(ButtonWrapper)`
   }
 
   & > button:hover {
-    background: ${theme.colors.white}12;
+    background: ${theme.colors.white}30;
   }
 
   & > button:active,
   & > button:focus {
-    background: ${theme.colors.white}24;
+    background: ${theme.colors.white}60;
   }
 `;
 
