@@ -54,6 +54,7 @@ export default {
 		label : "#3B424E", //Same as gray700
 		almostBlack : "#1A1A1A",
 		errorBackground: "#B100000D",
+		white: '#FFFFFF'
 	},
 	borders : {
 		black : "1px solid #0A1323",

@@ -6,7 +6,7 @@ export interface ButtonProps {
 	label?: string | JSX.Element
 	className?: string
 	href?: string
-	color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray"
+	color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"
 	mIcon?: SvgIconComponent
 	variant: "icon" | "outlined" | "contained" | "text"
 	size?: "small" | "medium" | "large"
