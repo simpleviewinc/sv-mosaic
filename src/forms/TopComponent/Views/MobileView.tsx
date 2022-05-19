@@ -22,7 +22,7 @@ const MobileActionsRow = styled(Row)`
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 1000;
 
   svg {
     align-self: center;
