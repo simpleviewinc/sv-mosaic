@@ -17,7 +17,7 @@ import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const ResponsiveViewColumn = styled(StyledColumn)`
   padding: 20px 20px 0px 20px;
-  z-index: 9999;
+  z-index: 1000;
 `;
 
 const ResponsiveActionsRow = styled(Row)`

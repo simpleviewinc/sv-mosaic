@@ -22,7 +22,7 @@ const DesktopViewColumn = styled(StyledColumn)`
   justify-content: space-between;
   padding: 24px 20px 0px 20px;
   top: 0;
-  z-index: 99999;
+  z-index: 1000;
 
   @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
     box-shadow: 0px 1px 10px #0000001a;
