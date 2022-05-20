@@ -12,6 +12,10 @@ const DrawerContent = styled.div`
 	font-size: 14px;
 `
 
+const MUIDrawerStyled = styled(MUIDrawer)`
+	z-index: 1100;
+`
+
 function Drawer(props) {
 	const [state, setState] = useState({
 		open: false
@@ -34,15 +38,13 @@ function Drawer(props) {
 	}
 
 	return (
-		<MUIDrawer
+		<MUIDrawerStyled
 			anchor="right"
 			open={props.open}
 			onClose={props.onClose}
 			SlideProps={{
 				onExited
 			}}
-			//TODO: MOVE TO STYLED COMPONENT 
-			style={{ zIndex: 99999 }}
 		>
 			{
 				state.open &&
@@ -50,7 +52,7 @@ function Drawer(props) {
 					{props.children}
 				</DrawerContent>
 			}
-		</MUIDrawer>
+		</MUIDrawerStyled>
 	)
 }
 
