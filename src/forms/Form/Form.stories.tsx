@@ -143,7 +143,7 @@ export const Playground = (): ReactElement => {
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field prepopulated",
 		"textArea": "Text area prepopulated",
-		"date": new Date(),
+		"date": new Date().toString(),
 		"check": [
 			"label_1",
 			"label_2"
