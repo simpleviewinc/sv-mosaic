@@ -13,7 +13,7 @@ const DrawerContent = styled.div`
 `
 
 const MUIDrawerStyled = styled(MUIDrawer)`
-	z-index: 2000;
+	z-index: 1100;
 `
 
 function Drawer(props) {
