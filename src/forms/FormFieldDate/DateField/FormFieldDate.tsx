@@ -31,7 +31,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 	useEffect(() => {
 		setDateInput(value || null);
 		setTimeInput(value || null);
-	}, []);
+	}, [value]);
 
 	const handleOnChange = async (position, date) => {
 
