@@ -22,16 +22,16 @@ function filterAction(action, row) {
 interface Props {
 	primaryActions: DataViewAction[]
 	additionalActions: DataViewAdditionalAction[]
-	row: MosaicObject
+	originalRowData: MosaicObject
 }
 
 function DataViewActionsButtonRow(props: Props) {
 	const primaryActions = useMemo(() => {
 		if (props.primaryActions === undefined) { return []; }
-		
+
 		return props.primaryActions.filter(action => {
-			return filterAction(action, props.row);
-		}).map((action, i) => {
+			return filterAction(action, props.originalRowData);
+		}).map((action) => {
 			const {
 				name,
 				show,
@@ -40,7 +40,7 @@ function DataViewActionsButtonRow(props: Props) {
 			} = action;
 			
 			const newOnClick = () => {
-				onClick({ data : props.row });
+				onClick({ data : props.originalRowData });
 			}
 			
 			return (
@@ -52,13 +52,13 @@ function DataViewActionsButtonRow(props: Props) {
 				/>
 			)
 		});
-	}, [props.primaryActions, props.row]);
+	}, [props.primaryActions, props.originalRowData]);
 	
 	const additionalActions = useMemo(() => {
 		if (props.additionalActions === undefined) { return []; }
 		
 		const additionalActions = props.additionalActions.filter(action => {
-			return filterAction(action, props.row);
+			return filterAction(action, props.originalRowData);
 		});
 		
 		// if no valid actions hide the dots
@@ -86,14 +86,14 @@ function DataViewActionsButtonRow(props: Props) {
 						attrs : { "data-mosaic-id" : `action_additional_${name}` },
 						onClick : () => {
 							onClick({
-								data : props.row
+								data : props.originalRowData
 							});
 						}
 					}
 				})}
 			/>
 		]
-	}, [props.additionalActions, props.row]);
+	}, [props.additionalActions, props.originalRowData]);
 	
 	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
 	const buttons = useMemo(() => {
