@@ -198,6 +198,22 @@ const BlueOnWhite = styled(ButtonWrapper)`
   }
 `;
 
+const WhiteOnBlack = styled(ButtonWrapper)`
+  & > button {
+    color: ${theme.colors.white};
+    border-color: ${theme.colors.white};
+  }
+
+  & > button:hover {
+    background: ${theme.colors.white}30;
+  }
+
+  & > button:active,
+  & > button:focus {
+    background: ${theme.colors.white}60;
+  }
+`;
+
 export const types = {
 	yellow_contained: styled(BlackOnYellow)`
     & > button {
@@ -470,6 +486,7 @@ export const types = {
 	blue_icon: BlueOnWhite,
 	black_icon: BlackOnWhite,
 	red_icon: RedOnWhite,
+	white_icon: WhiteOnBlack,
 	gray_icon: styled(GrayOnWhite)`
     & > button {
       color: ${theme.colors.gray600};
