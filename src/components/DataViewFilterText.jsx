@@ -48,6 +48,11 @@ function DataViewFilterText(props) {
 				required : true
 			},
 			{
+				name: "comparisonDefault",
+				type: "string",
+				required: false
+			},
+			{
 				name : "type",
 				type : "string",
 				required : true
@@ -83,7 +88,7 @@ function DataViewFilterText(props) {
 	});
 	
 	const [anchorEl, setAnchorEl] = useState(null);
-	const comparison = props.data.comparison || "equals";
+	const comparison = props.data.comparison || (props.comparisonDefault || "equals");
 	const value = props.data.value || "";
 	
 	const onClick = function(event) {
