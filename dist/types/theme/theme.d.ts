@@ -47,7 +47,6 @@ declare const _default: {
         label: string;
         almostBlack: string;
         errorBackground: string;
-        white: string;
     };
     borders: {
         black: string;
@@ -58,7 +57,6 @@ declare const _default: {
         simplyGray: string;
     };
     fontFamily: string;
-    museoFont: string;
     animations: {
         backgroundMs: string;
     };

@@ -18,7 +18,6 @@ export declare const types: {
     blue_icon: any;
     black_icon: any;
     red_icon: any;
-    white_icon: any;
     gray_icon: any;
 };
 export declare const TooltipContent: any;
