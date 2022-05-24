@@ -29,7 +29,7 @@ export function transform_get(path: string | string[]): DataViewColumnTransform<
 }
 
 export function transform_mapGet(path: string | string[]): DataViewColumnTransform<MosaicObject[]> {
-	return ({ data }): ReactNode => {
+	return ({ data }): unknown => {
 		const results = map(data, (obj) => {
 			return get(obj, path);
 		});
