@@ -100,7 +100,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 			<div className="inputRow">
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<div className="startRange">
-						<h5>{t("mosaic:common.date_from")}</h5>
+						<h5>{`${t("mosaic:common.date_from")}`}</h5>
 						<DatePicker
 							{...pickerArgs}
 							value={state.rangeStart || null}
@@ -108,7 +108,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 						/>
 					</div>
 					<div className="endRange">
-						<h5>{t("mosaic:common.date_to")}</h5>
+						<h5>{`${t("mosaic:common.date_to")}`}</h5>
 						<DatePicker
 							{...pickerArgs}
 							value={state.rangeEnd || null}
