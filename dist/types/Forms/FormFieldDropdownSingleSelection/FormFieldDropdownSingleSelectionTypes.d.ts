@@ -1,4 +1,3 @@
-import { PopperProps } from "@material-ui/core/Popper";
 import { MosaicLabelValue } from "@root/types";
 export declare type DropdownSingleSelectionDef = {
     /**
@@ -12,6 +11,3 @@ export declare type DropdownSingleSelectionDef = {
      */
     options: MosaicLabelValue[];
 };
-export declare type CustomPopperProps = {
-    value: string;
-} & PopperProps;
