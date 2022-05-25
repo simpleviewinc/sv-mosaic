@@ -60,7 +60,9 @@ class MultiSelectHelper {
 			sort : { name : this.sortColumn, dir : "asc" }
 		});
 		
-		return results.map(val => this.mapOptions(val));
+		return results.length >= 1 
+			? results.map(val => this.mapOptions(val))
+			: [];
 	}
 }
 
