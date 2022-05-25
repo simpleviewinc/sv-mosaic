@@ -50,7 +50,8 @@ function DataViewDisplayList(props) {
 			<GridTBody
 				checked={props.checked}
 				columns={activeColumnObjs}
-				data={transformedData}
+				data={props.data}
+				transformedData={transformedData}
 				bulkActions={props.bulkActions}
 				additionalActions={props.additionalActions}
 				primaryActions={props.primaryActions}
