@@ -53,10 +53,11 @@ export interface DataViewFilterDef {
 	name: string
 	label: string
 	type: DataViewFilterTypes
-	args: MosaicObject
+	args?: MosaicObject
 	component: React.Component
-	column: string
+	column?: string
 	onChange: DataViewFilterOnChange
+	comparisonDefault?: string
 }
 
 export interface DataViewFilterProps {
@@ -144,19 +145,59 @@ export interface DataViewOnLimitChange {
 	({ limit }: { limit : number }): void
 }
 
+export interface StateViewDef {
+	limit: number
+	skip: number
+	filter: MosaicObject
+	sort: DataViewSort
+	display: string
+	activeFilters: string[]
+	activeColumns: string[]
+}
 export interface DataViewView {
 	id: string
 	label: string
 	type: string
-	state: {
-		limit: number
-		skip: number
-		filter: MosaicObject
-		sort: DataViewSort
-		display: string
-		activeFilters: string[]
-		activeColumns: string[]
-	}
+	state: StateViewDef
+}
+
+export interface FilterType {
+	[key:string]: unknown
+}
+
+export interface SavedViewDef {
+	id?: string
+	label?: string
+	type?: "default" | "shared" | "mine"
+	state?: StateViewDef
+} 
+
+export interface dataViewOnSavedViewChange {
+	(view: DataViewView): void
+}
+
+export interface dataViewOnDisplayChange {
+	(display: string): void
+}
+
+export interface dataViewOnActiveFiltersChange {
+	(activeFilters: string[], filter: MosaicObject): void
+}
+
+export interface dataViewOnColumnsChange {
+	(activeColumns: string[]): void
+}
+
+export interface dataViewOnSavedViewSave {
+	(data: MosaicObject): void
+}
+
+export interface dataViewOnSavedViewRemove {
+	(data: void): void
+}
+
+export interface dataViewOnSavedViewGetOptions {
+	(props: void): void
 }
 
 export interface DataViewProps {
@@ -168,6 +209,18 @@ export interface DataViewProps {
 	columns?: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
+	filters?: DataViewFilterDef
+    filter?: MosaicObject
+    activeFilters?: string[]
+    buttons?: ButtonProps[]
+    display?: string
+    savedView?: SavedViewDef[]
+    displayOptions?: string[]
+    data?: MosaicObject
+    sort?: DataViewSort
+    limitOptions?: number[]
+    gridColumnsMap?: MosaicObject
+    savedViewAllowSharedViewSave?: boolean
 	/** A list of actions which are always visible for each item in the DataView. */
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
@@ -175,7 +228,13 @@ export interface DataViewProps {
 	onSortChange?: DataViewOnSortChange
 	onSkipChange?: DataViewOnSkipChange
 	onLimitChange?: DataViewOnLimitChange
-	onSavedViewChange?(view: DataViewView): void
-	// temporarily allowing extra properties until we have finished the conversion of DataView to TS
-	[key: string]: unknown
+	onSavedViewChange?:  dataViewOnSavedViewChange
+    onDisplayChange?: dataViewOnDisplayChange
+    onActiveFiltersChange?: dataViewOnActiveFiltersChange
+    onColumnsChange?: dataViewOnColumnsChange
+    onSavedViewSave?: dataViewOnSavedViewSave
+    onSavedViewRemove?: dataViewOnSavedViewRemove
+    onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
+	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
+	[key: string]: unknown */
 }

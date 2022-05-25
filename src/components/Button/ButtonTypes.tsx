@@ -3,6 +3,7 @@ import { MenuItemProps } from "../MenuItem";
 import { SvgIconComponent } from "@material-ui/icons";
 
 export interface ButtonProps {
+	name?: string
 	label?: string | JSX.Element
 	className?: string
 	href?: string
