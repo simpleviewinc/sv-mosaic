@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 import Checkbox from "@root/components/Checkbox";
 import GridTd from "./GridTd.jsx";
@@ -20,7 +20,7 @@ function GridTr(props) {
 				<DataViewActionsButtonRow
 					primaryActions={props.primaryActions}
 					additionalActions={props.additionalActions}
-					row={props.row}
+					originalRowData={props.originalRowData}
 				/>
 			</GridTd>
 			{
