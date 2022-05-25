@@ -12,8 +12,7 @@ import { DisabledDateTimeValue } from "../DatePicker/DatePicker.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 import { DateFieldDef } from "./DateFieldTypes";
 
-const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElement => {
-
+const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
@@ -23,18 +22,26 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 	} = props;
 
 	const { required, disabled } = fieldDef || {};
-
 	const [dateInput, setDateInput] = useState(null);
 	const [timeInput, setTimeInput] = useState(null);
+	const [prepopulatedDate, setPrepopulatedDate] = useState(null)
+	const [prepopulatedTime, setPrepopulatedTime] = useState(null)
 
+	useEffect(() => {		
+		if (value && !dateInput && !timeInput) {
+			setDateInput(handleValue(0, value) || null);
+			setTimeInput(handleValue(1, value) || null);
+		}
+	}, [value, dateInput, timeInput]);
 
 	useEffect(() => {
-		setDateInput(value || null);
-		setTimeInput(value || null);
-	}, [value]);
+		if (value) {
+			setPrepopulatedDate(value);
+			setPrepopulatedTime(value);
+		}
+	},[value])
 
-	const handleOnChange = async (position, date) => {
-
+	const handleValue = (position: number, date: Date) => {
 		let newValue = value || undefined;
 		let year = 0;
 		let month = 0;
@@ -64,21 +71,30 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 			}
 
 			if (required && fieldDef?.inputSettings?.showTime) {
-				if ((position === 0 && timeInput) || (position === 1 && dateInput))
-					newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds)).toISOString();
+				if ((position === 0 && timeInput) || (position === 1 && dateInput)) {
+					newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
+				}
 			} else {
-				newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds)).toISOString();
+				newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
 			}
 
 		} else {
 			if (!required && fieldDef?.inputSettings?.showTime) {
-				if ((position === 0 && !timeInput) || (position === 1 && !dateInput))
+				if ((position === 0 && !timeInput) || (position === 1 && !dateInput)) {
 					newValue = undefined;
+				}
 			} else
 				newValue = undefined;
 		}
+		return newValue;
+	}
 
-		await onChange(newValue);
+	const handleOnChange = async (position: number, date: Date) => {
+		const newValue = handleValue(position, date);
+		console.log("New value ", newValue)
+		await onChange(newValue)
+		setPrepopulatedDate(null);
+		setPrepopulatedTime(null);
 	};
 
 	return (
@@ -88,7 +104,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 					<DateTimePickerWrapper>
 						<DatePicker
 							error={error}
-							onChange={(d) => handleOnChange(0, d)}
+							onChange={(date) => handleOnChange(0, date)}
 							fieldDef={{
 								name: fieldDef?.name,
 								label: "",
@@ -98,7 +114,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 								},
 								required: fieldDef?.required,
 							}}
-							value={dateInput}
+							value={prepopulatedDate || dateInput}
 							onBlur={onBlur}
 						/>
 						<HelperText>Month, Day, Year</HelperText>
@@ -107,7 +123,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 						<DateTimePickerWrapper>
 							<TimePicker
 								error={error}
-								onChange={(d) => handleOnChange(1, d)}
+								onChange={(date) => handleOnChange(1, date)}
 								fieldDef={{
 									name: fieldDef?.name,
 									label: "",
@@ -116,7 +132,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, string>): ReactElem
 										placeholder: "00:00 AM/PM"
 									}
 								}}
-								value={timeInput}
+								value={prepopulatedTime || timeInput}
 								onBlur={onBlur}
 							/>
 							<HelperText>Hour, Minute, AM or PM</HelperText>
