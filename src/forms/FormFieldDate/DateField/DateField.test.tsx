@@ -20,7 +20,7 @@ describe("DateField component", () => {
 						showTime: false
 					}
 				} as FieldDef<DateFieldDef>}
-				value="2022-01-01T00:00:00.000Z"
+				value={new Date("2022-01-01T00:00:00.000Z")}
 
 			/>
 		);
@@ -60,7 +60,7 @@ describe("DateField component", () => {
 						showTime: true
 					}
 				} as FieldDef<DateFieldDef>}
-				value="2022-01-01T13:30:00.000Z"
+				value={new Date("2022-01-01T13:30:00.000Z")}
 			/>
 		);
 		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();
