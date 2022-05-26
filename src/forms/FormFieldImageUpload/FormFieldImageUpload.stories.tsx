@@ -96,7 +96,7 @@ export const Playground = (): ReactElement => {
 const kitchenSinkFields = [
 	{
 		name: "imageUploadWithMenu",
-		label: "Image Upload with menu options",
+		label: "Image Upload with menu options and without setFocus handler",
 		type: "imageUpload",
 		required: false,
 		disabled: false,

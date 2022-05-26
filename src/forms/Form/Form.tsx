@@ -84,7 +84,7 @@ const Form = (props: FormProps) => {
 							description={description}
 							onSubmit={(e) => submit(e)}
 							submitButtonAttrs={submitButtonAttrs}
-							onCancel={(e) => cancel(e)}
+							onCancel={onCancel ? (e) => cancel(e) : null}
 							cancelButtonAttrs={cancelButtonAttrs}
 							sections={sections}
 							view={view}

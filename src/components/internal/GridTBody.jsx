@@ -43,6 +43,11 @@ function GridTBody(props) {
 				required : true
 			},
 			{
+				name : "transformedData",
+				type : "array",
+				required : true
+			},
+			{
 				name : "primaryActions",
 				type : "array"
 			},
@@ -71,11 +76,12 @@ function GridTBody(props) {
 	return (
 		<StyledTBody>
 			{
-				props.data.map((row, i) => {
+				props.transformedData.map((row, i) => {
 					return (
 						<GridTr
 							key={i}
 							row={row}
+							originalRowData={props.data[i]}
 							bulkActions={props.bulkActions}
 							primaryActions={props.primaryActions}
 							additionalActions={props.additionalActions}

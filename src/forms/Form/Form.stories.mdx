@@ -100,11 +100,27 @@ const App = (props) => {
 
 ### RegisterFields
 This function receives the fields array and allows the Form's dispatch/actions to manipulate the fields.
-We recommend encapsulating this function inside of a useMemo hook for better performance.
+Is mandatory to encapsulate this function inside of a useMemo hook for better performance, because that allows us re-render when a change on the fields occurs.
+
+```ts
+useMemo(() => {
+	registerFields(fields);
+}, [fields, registerFields]); //It's recommended to add these as dependencies to re-register if any of them change.
+```
 
 ### RegisterOnSubmit
 This function receives the onSubmit function to be executed once the form is submitted and valid.
-We recommend encapsulating this function inside of a useMemo hook for better performance.
+Is mandatory to encapsulate this function inside of a useMemo hook for better performance, the submit function must be inside a useCallback with a dependency of state.validForm in order to actually be called once the form has no errors.
+
+```ts
+const onSubmit = useCallback((data) => {
+	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+}, [state.validForm]);
+
+useMemo(() => {
+	registerOnSubmit(onSubmit);
+}, [onSubmit, registerOnSubmit]); //It's recommended to add these as dependencies to re-register if any of them change.
+```
 
 ## Layout
 - By default all Forms are created as one big section made of multiple rows (one per field), and one column per row (containing the field).
@@ -393,7 +409,7 @@ const fields = useMemo(
 - [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
 - Data: `array` of `string` - Array of values of the selected options.
 - inputSettings:
-	* **createNewOption** - `(filter: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
+	* **createNewOption** - `(newOptionLabel: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
 	* **getSelected** - `(options: string[]) => Promise<{label: string, value: string, category: string}[]>` optional -  Function used to get the full info (label, value, category) of all selected options.
 	* **checkboxOptions** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
 		* **label** - `string` required -  Text users will see to identify the option.
@@ -404,6 +420,37 @@ const fields = useMemo(
 
 ### How to use in a form?
 ```ts
+// List of options
+const externalOptions = [
+	{
+		label: "Option1",
+		value: "value1",
+		category: "Category1",
+	},
+	{
+		label: "Option2",
+		value: "value2",
+		category: "Category2",
+	}
+]
+
+/**
+ * Definition of the funtion that enables the
+ * creation of new options.
+**/
+const myCreateOptionFn = async (newOptionLabel) => {
+	const value = `${newOptionLabel}_${externalOptions.length}`
+	const newOption = {
+		value,
+		label: newOptionLabel,
+	}
+
+	//Insert to db
+	externalOptions.push(newOption);
+
+	return value;
+}
+
 //Option recommended when getting options locally.
 const fields = useMemo(
 	() => 
@@ -415,13 +462,7 @@ const fields = useMemo(
 				inputSettings: {
 					createNewOption: myCreateOptionFn,
 					getSelected: myGetSelectedFn,
-					checkboxOptions: [
-						{
-							label: "Option1",
-							value: "value1",
-							category: "Category1",
-						}
-					]
+					checkboxOptions: externalOptions
 				}
 			},
 			//...other fields

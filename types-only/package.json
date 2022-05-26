@@ -1,0 +1,16 @@
+{
+	"name": "@simpleview/sv-mosaic",
+	"version": "4.1.2",
+	"types": "./types/index.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/simpleviewinc/sv-mosaic.git",
+		"directory": "types-only"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"scripts": {
+		"publish": "../dev/publish"
+	}
+}

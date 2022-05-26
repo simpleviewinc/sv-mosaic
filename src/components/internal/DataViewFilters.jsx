@@ -112,14 +112,14 @@ function DataViewFilters(props) {
 					{
 						active.map(filter => {
 							const Component = filter.component;
-							
+							const filterData = props.filter[filter.name] || ((filter.comparisonDefault && filter.name === "title_with_comparisons") ? {comparison: filter.comparisonDefault} : {})
 							return (
 								<Component
 									key={filter.name}
 									label={filter.label}
 									type={filter.type}
 									args={filter.args || {}}
-									data={props.filter[filter.name] || {}}
+									data={filterData}
 									onRemove={onRemove(filter.name)}
 									onChange={filter.onChange}
 								/>

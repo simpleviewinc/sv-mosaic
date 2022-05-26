@@ -103,6 +103,10 @@ export const ButtonWrapper = styled.span`
     // padding: 9px;
 	margin: 4px;
   }
+
+  .MuiTouchRipple-child {
+      opacity: 0.5;
+  }
 `;
 
 export const PopoverWrapper = styled.div`
@@ -191,6 +195,22 @@ const BlueOnWhite = styled(ButtonWrapper)`
   & > button:active,
   & > button:focus {
     background: ${theme.colors.blue}24;
+  }
+`;
+
+const WhiteOnBlack = styled(ButtonWrapper)`
+  & > button {
+    color: ${theme.colors.white};
+    border-color: ${theme.colors.white};
+  }
+
+  & > button:hover {
+    background: ${theme.colors.white}30;
+  }
+
+  & > button:active,
+  & > button:focus {
+    background: ${theme.colors.white}60;
   }
 `;
 
@@ -466,6 +486,7 @@ export const types = {
 	blue_icon: BlueOnWhite,
 	black_icon: BlackOnWhite,
 	red_icon: RedOnWhite,
+	white_icon: WhiteOnBlack,
 	gray_icon: styled(GrayOnWhite)`
     & > button {
       color: ${theme.colors.gray600};

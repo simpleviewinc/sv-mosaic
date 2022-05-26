@@ -38,7 +38,7 @@ const deleteTableRow = () => {
 	alert("Delete button clicked");
 };
 
-let externalOptions = [
+const externalOptions = [
 	{
 		category: "Category 1",
 		label: "Option 1",
@@ -100,9 +100,18 @@ let externalOptions = [
 	},
 ];
 
-const createNewOption = (newOption) => {
-	externalOptions = [...externalOptions, newOption];
-};
+const createNewOption = async (newOptionLabel) => {
+	const value = `${newOptionLabel}_${externalOptions.length}`
+	const newOption = {
+		value,
+		label: newOptionLabel,
+	}
+
+	//Insert to db
+	externalOptions.push(newOption);
+
+	return value;
+}
 
 const getSelected = async (selectedOptions) => {
 	if (!selectedOptions) return;
@@ -318,13 +327,13 @@ export const Playground = (): ReactElement => {
 						src: imageVideoSrc,
 					}
 				} as FieldDef<ImageVideoDocumentLinkBrowsingDef>,
-				{
-					name: "textEditor",
-					label: "Text Editor field",
-					type: "textEditor",
-					disabled,
-					required
-				},
+				// {
+				// 	name: "textEditor",
+				// 	label: "Text Editor field",
+				// 	type: "textEditor",
+				// 	disabled,
+				// 	required
+				// },
 				{
 					name: "table",
 					label: "Table example",
@@ -397,7 +406,7 @@ export const Playground = (): ReactElement => {
 				// row 1
 				[["color"], ["date"],],
 				// row 2
-				[["textEditor"], []]
+				// [["textEditor"], []]
 			]
 		}
 	];
@@ -510,11 +519,11 @@ export const FormWithLayout = (): ReactElement => {
 						options: menuOptions
 					}
 				},
-				{
-					name: "textEditor",
-					label: "Text Editor field",
-					type: "textEditor",
-				},
+				// {
+				// 	name: "textEditor",
+				// 	label: "Text Editor field",
+				// 	type: "textEditor",
+				// },
 			] as FieldDef[],
 		[]
 	);
@@ -543,7 +552,7 @@ export const FormWithLayout = (): ReactElement => {
 				[[], [], []],
 				[[]],
 				// row 3
-				[[], ["textEditor"]]
+				// [[], ["textEditor"]]
 			]
 		},
 		{

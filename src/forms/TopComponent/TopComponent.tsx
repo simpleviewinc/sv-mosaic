@@ -63,14 +63,18 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const buttons = useMemo(
 		() => (
 			<>
-				<Button
-					color="gray"
-					variant="outlined"
-					disabled={cancelButtonAttrs?.disabled}
-					label={cancelButtonAttrs?.label ? cancelButtonAttrs.label : "Cancel"}
-					onClick={onCancel}
-					muiAttrs={{ disableRipple: true }}
-				></Button>
+				{onCancel && (
+					<Button
+						color="gray"
+						variant="outlined"
+						disabled={cancelButtonAttrs?.disabled}
+						label={
+							cancelButtonAttrs?.label ? cancelButtonAttrs.label : "Cancel"
+						}
+						onClick={onCancel}
+						muiAttrs={{ disableRipple: true }}
+					></Button>
+				)}
 				{submitButton}
 			</>
 		),

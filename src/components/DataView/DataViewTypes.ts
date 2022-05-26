@@ -179,3 +179,10 @@ export interface DataViewProps {
 	// temporarily allowing extra properties until we have finished the conversion of DataView to TS
 	[key: string]: unknown
 }
+
+
+export interface DataViewProps {
+	display: string | number | "list";
+	displayOptions: string[];
+	onDisplayChange: (val: string) => void; 
+}

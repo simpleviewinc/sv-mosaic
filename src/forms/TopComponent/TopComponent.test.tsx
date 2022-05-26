@@ -45,22 +45,24 @@ const TopComponentExample = () => {
 	);
 };
 
+const { getByText, getAllByText, getByTestId, queryByTestId, queryByText } = screen;
+
 describe("TopComponent", () => {
 	beforeEach(() => {
 		render(<TopComponentExample />);
 	});
 
 	it("should display TopComponent content", () => {
-		expect(screen.getByText("Description")).toBeTruthy();
-		expect(screen.getByText("Form title")).toBeTruthy();
-		expect(screen.getAllByText("Account Profile")).toBeTruthy();
-		expect(screen.getByTestId("tooltip-test-id")).toBeTruthy();
-		expect(screen.getByTestId("checkbox-test-id")).toBeTruthy();
+		expect(getByText("Description")).toBeTruthy();
+		expect(getByText("Form title")).toBeTruthy();
+		expect(getAllByText("Account Profile")).toBeTruthy();
+		expect(getByTestId("tooltip-test-id")).toBeTruthy();
+		expect(getByTestId("checkbox-test-id")).toBeTruthy();
 	});
 
 	it("should trigger cancel and save onClick callback", () => {
-		const saveButton = screen.getByText("Save");
-		const cancelButton = screen.getByText("Cancel");
+		const saveButton = getByText("Save");
+		const cancelButton = getByText("Cancel");
 
 		fireEvent.click(saveButton);
 		fireEvent.click(cancelButton);
@@ -84,7 +86,7 @@ describe("TopComponent elements that are conditionally rendered", () => {
 			/>
 		);
 
-		const helpIcon = screen.queryByTestId("tooltip-test-id");
+		const helpIcon = queryByTestId("tooltip-test-id");
 
 		expect(helpIcon).toBe(null);
 	});
@@ -102,8 +104,40 @@ describe("TopComponent elements that are conditionally rendered", () => {
 			/>
 		);
 
-		const activeCheckbox = screen.queryByTestId("checkbox-test-id");
+		const activeCheckbox = queryByTestId("checkbox-test-id");
 
 		expect(activeCheckbox).toBe(null);
+	});
+
+	it("should display the 'Cancel' buttons since its function are defined", () => {
+		render(
+			<TopComponent
+				description='Description'
+				title='Form title'
+				onCancel={cancelCallback}
+				onSubmit={saveCallback}
+				sections={sections}
+				showActive={false}
+				view='DESKTOP'
+			/>
+		);
+
+		expect(getByText("Cancel")).toBeDefined();
+	});
+
+	it("should not display the 'Cancel' button since its functions is not implemented", () => {
+		render(
+			<TopComponent
+				description='Description'
+				title='Form title'
+				onCancel={null}
+				onSubmit={null}
+				sections={sections}
+				showActive={false}
+				view='DESKTOP'
+			/>
+		);
+
+		expect(queryByText("Cancel")).toBe(null);
 	});
 });
