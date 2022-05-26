@@ -188,11 +188,11 @@ type dataViewOnSavedViewSave = {
 }
 
 type dataViewOnSavedViewRemove = {
-	(data: void): void
+	(data: MosaicObject): void
 }
 
 type dataViewOnSavedViewGetOptions = {
-	(props: void): void
+	(): MosaicObject[]
 }
 
 export interface DataViewProps {
