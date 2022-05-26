@@ -88,7 +88,7 @@ const additionalOptions = [
 	},
 ];
 
-const AdvancedSelectExample = () => {
+const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"}) => {
 	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
@@ -155,8 +155,8 @@ const AdvancedSelectExample = () => {
 					type: "advancedSelection",
 					inputSettings: {
 						checkboxOptions: options,
-						getOptions,
-						getOptionsLimit,
+						getOptions: optionsOrigin === "db" ? getOptions : undefined,
+						getOptionsLimit: optionsOrigin === "db" ? getOptionsLimit : undefined,
 						getSelected,
 						createNewOption,
 					}
@@ -174,6 +174,7 @@ const AdvancedSelectExample = () => {
 			getOptionsLimit,
 			getSelected,
 			createNewOption,
+			optionsOrigin,
 		]
 	);
 
@@ -201,12 +202,9 @@ const AdvancedSelectExample = () => {
 }
 
 describe("AdvancedSelection component", () => {
-	beforeEach(() => {
-		render(<AdvancedSelectExample />
-		);
-	});
-
 	it("should select an option and display its chip", async () => {
+		render(<AdvancedSelectExample optionsOrigin="db"/>);
+
 		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 		
@@ -220,6 +218,8 @@ describe("AdvancedSelection component", () => {
 	});
 
 	it("should remove a selected option", async () => {
+		render(<AdvancedSelectExample optionsOrigin="db"/>);
+
 		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 
@@ -237,6 +237,8 @@ describe("AdvancedSelection component", () => {
 	});
 
 	it("should filter the options", async () => {
+		render(<AdvancedSelectExample optionsOrigin="db"/>);
+
 		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 
@@ -250,6 +252,8 @@ describe("AdvancedSelection component", () => {
 	});
 
 	it("should create a new option", async () => {
+		render(<AdvancedSelectExample optionsOrigin="local"/>);
+
 		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
 

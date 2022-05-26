@@ -164,4 +164,9 @@ export interface DataViewProps {
     onSavedViewChange?(view: DataViewView): void;
     [key: string]: unknown;
 }
+export interface DataViewProps {
+    display: string | number | "list";
+    displayOptions: string[];
+    onDisplayChange: (val: string) => void;
+}
 export {};
