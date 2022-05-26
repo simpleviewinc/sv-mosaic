@@ -1,10 +1,10 @@
 const env = {
-    local: 'http://kube.simpleview.io:10000/iframe.html',
-    develop: 'https://simpleviewinc.github.io/sv-mosaic/iframe.html',
+	local: "http://kube.simpleview.io:10000/iframe.html",
+	develop: "https://simpleviewinc.github.io/sv-mosaic/iframe.html",
 }
 
 const components = {
-    dataview: 'components-dataview--example'
+	dataview: "components-dataview--example"
 }
 
 export { env, components };
