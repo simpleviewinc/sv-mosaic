@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useRef } from "react";
-import jsvalidator from "jsvalidator";
+import { useState, useEffect, useMemo, useRef, ReactElement } from "react";
+//import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
 import TitleBar from "../internal/TitleBar.jsx";
@@ -10,6 +10,7 @@ import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
+import { DataViewProps } from "./DataViewTypes";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -52,7 +53,8 @@ const StyledWrapper = styled.div`
 	}
 `;
 
-function DataView(props) {
+function DataView (props: DataViewProps): ReactElement  {
+	/*
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -256,7 +258,8 @@ function DataView(props) {
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
-	});
+	}); 
+*/
 
 	// declare the hooks
 	const [state, setState] = useState({
