@@ -54,7 +54,6 @@ const StyledWrapper = styled.div`
 `;
 
 function DataView (props: DataViewProps): ReactElement  {
-	
 	/*
 	jsvalidator.validate(props, {
 		type : "object",
