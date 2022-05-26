@@ -141,7 +141,7 @@ export interface DataViewOnSkipChange {
 	({ skip }: { skip : number }): void
 }
 
-type DataViewOnLimitChange = {
+export interface DataViewOnLimitChange {
 	({ limit }: { limit : number }): void
 }
 
