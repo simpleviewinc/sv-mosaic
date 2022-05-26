@@ -7,7 +7,7 @@ import {
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { DropdownSingleSelectionDef } from "./FormFieldDropdownSingleSelectionTypes";
+import { CustomPopperProps, DropdownSingleSelectionDef } from "./FormFieldDropdownSingleSelectionTypes";
 
 // Components
 import InputWrapper from "../../components/InputWrapper";
@@ -51,6 +51,18 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		return option.value === value;
 	});
 
+	const getOptionSelected = (option, value) => {
+		if (value.value === "") {
+			return true;
+		}
+
+		return option.value === value.value
+	}
+
+	const CustomPopper = (props: CustomPopperProps) => {
+		return <StyledPopper value={value === ""} {...props} />;
+	};
+
 	return (
 		<>
 			{!fieldDef?.disabled ?
@@ -62,10 +74,11 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
 						getOptionLabel={(option) => option?.label ? option.label : ""}
+						getOptionSelected={getOptionSelected}
 						onChange={(_event, option) => onDropDownChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}
-						PopperComponent={StyledPopper}
+						PopperComponent={CustomPopper}
 						popupIcon={<ExpandMoreIcon />}
 						onBlur={(e) => onBlur && onBlur(e.target.value)}
 						open={isOpen}

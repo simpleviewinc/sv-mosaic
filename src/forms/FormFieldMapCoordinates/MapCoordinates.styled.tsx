@@ -21,7 +21,7 @@ export const CoordinatesCard = styled.div`
   ${(pr) =>
 		pr.hasAddress ? "max-height: 204px;" : "height: 174px;"}
   padding: 16px;
-  padding-bottom: ${pr => pr.hasAddress ? "35px" : "16px"}
+  padding-bottom: ${pr => pr.hasAddress ? "35px" : "16px"};
   position: relative;
   width: 414px;
   background-color: white;

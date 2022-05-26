@@ -312,7 +312,7 @@ const FormFieldImageUpload = (
 									</MenuColumn>
 								)}
 								<ButtonsContainer>
-									{focusMode ? (
+									{focusMode && fieldDef?.inputSettings.handleSetFocus ? (
 										<Button
 											color="teal"
 											variant="text"
@@ -321,13 +321,13 @@ const FormFieldImageUpload = (
 											muiAttrs={{ disableRipple: true }}
 										></Button>
 									) : (
-										<Button
+										fieldDef?.inputSettings?.handleSetFocus ? <Button
 											color="teal"
 											variant="text"
 											label="View"
 											onClick={handleView}
 											muiAttrs={{ disableRipple: true }}
-										></Button>
+										></Button> : null
 									)}
 									<Button
 										color="red"
