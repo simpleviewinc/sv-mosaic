@@ -24,22 +24,23 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 	const { required, disabled } = fieldDef || {};
 	const [dateInput, setDateInput] = useState(null);
 	const [timeInput, setTimeInput] = useState(null);
-	const [prepopulatedDate, setPrepopulatedDate] = useState(null)
-	const [prepopulatedTime, setPrepopulatedTime] = useState(null)
 
 	useEffect(() => {		
 		if (value && !dateInput && !timeInput) {
-			setDateInput(handleValue(0, value) || null);
-			setTimeInput(handleValue(1, value) || null);
+			setDateInput(formatDate(value));
+			setTimeInput(formatDate(value));
 		}
 	}, [value, dateInput, timeInput]);
 
-	useEffect(() => {
-		if (value) {
-			setPrepopulatedDate(value);
-			setPrepopulatedTime(value);
-		}
-	},[value])
+
+	const formatDate = (dateValue: Date) => {
+		const stringDate = dateValue.toISOString();
+		const [date, time] = stringDate.split("T");
+		const [year, month, day] = date.split("-");
+		const [hours, minutes] = time.split(":");
+
+		return new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
+	}
 
 	const handleValue = (position: number, date: Date) => {
 		let newValue = value || undefined;
@@ -92,8 +93,6 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 	const handleOnChange = async (position: number, date: Date) => {
 		const newValue = handleValue(position, date);
 		await onChange(newValue)
-		setPrepopulatedDate(null);
-		setPrepopulatedTime(null);
 	};
 
 	return (
@@ -113,7 +112,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 								},
 								required: fieldDef?.required,
 							}}
-							value={prepopulatedDate || dateInput}
+							value={dateInput}
 							onBlur={onBlur}
 						/>
 						<HelperText>Month, Day, Year</HelperText>
@@ -131,7 +130,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 										placeholder: "00:00 AM/PM"
 									}
 								}}
-								value={prepopulatedTime || timeInput}
+								value={timeInput}
 								onBlur={onBlur}
 							/>
 							<HelperText>Hour, Minute, AM or PM</HelperText>
