@@ -145,7 +145,7 @@ type DataViewOnLimitChange = {
 	({ limit }: { limit : number }): void
 }
 
-export interface StateViewDef {
+type StateViewDef = {
 	limit: number
 	skip: number
 	filter: MosaicObject
@@ -161,11 +161,7 @@ export interface DataViewView {
 	state: StateViewDef
 }
 
-export interface FilterType {
-	[key:string]: unknown
-}
-
-export interface SavedViewDef {
+type SavedViewDef = {
 	id?: string
 	label?: string
 	type?: "default" | "shared" | "mine"
@@ -208,6 +204,7 @@ export interface DataViewProps {
 	columns?: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
+	/** A list of actions which are always visible for each item in the DataView. */
 	filters?: DataViewFilterDef
     filter?: MosaicObject
     activeFilters?: string[]
@@ -227,13 +224,12 @@ export interface DataViewProps {
 	onSkipChange?: DataViewOnSkipChange
 	onLimitChange?: DataViewOnLimitChange
 	onSavedViewChange?:  dataViewOnSavedViewChange
+	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
+	[key: string]: unknown */
     onDisplayChange?: dataViewOnDisplayChange
     onActiveFiltersChange?: dataViewOnActiveFiltersChange
     onColumnsChange?: dataViewOnColumnsChange
     onSavedViewSave?: dataViewOnSavedViewSave
     onSavedViewRemove?: dataViewOnSavedViewRemove
     onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
-	/** A list of actions which are always visible for each item in the DataView. */
-	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
-	[key: string]: unknown */
 }
