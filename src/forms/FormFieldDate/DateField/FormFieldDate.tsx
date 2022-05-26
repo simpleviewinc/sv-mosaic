@@ -91,7 +91,6 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 
 	const handleOnChange = async (position: number, date: Date) => {
 		const newValue = handleValue(position, date);
-		console.log("New value ", newValue)
 		await onChange(newValue)
 		setPrepopulatedDate(null);
 		setPrepopulatedTime(null);
