@@ -31,7 +31,7 @@ export class DataviewPage {
 		await this.title.waitFor();
 	}
 
-	async validateSnatshot(component: Locator, name: string): Promise<void> {
+	async validateSnapshot(component: Locator, name: string): Promise<void> {
 		await component.waitFor();
 		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png")
 	}
