@@ -124,7 +124,7 @@ export interface DataViewBulkActionsButtonsRowProps {
 export interface DataViewDisplay {
 	name: string
 	label: string
-	component: React.Component
+	component: React.ElementType
 	mIcon: SvgIconComponent
 }
 
@@ -141,7 +141,7 @@ export interface DataViewOnSkipChange {
 	({ skip }: { skip : number }): void
 }
 
-export interface DataViewOnLimitChange {
+type DataViewOnLimitChange = {
 	({ limit }: { limit : number }): void
 }
 
@@ -172,31 +172,30 @@ export interface SavedViewDef {
 	state?: StateViewDef
 } 
 
-export interface dataViewOnSavedViewChange {
+type dataViewOnSavedViewChange = {
 	(view: DataViewView): void
 }
 
-export interface dataViewOnDisplayChange {
+type dataViewOnDisplayChange = {
 	(display: string): void
 }
-
-export interface dataViewOnActiveFiltersChange {
+type dataViewOnActiveFiltersChange = {
 	(activeFilters: string[], filter: MosaicObject): void
 }
 
-export interface dataViewOnColumnsChange {
+type dataViewOnColumnsChange = {
 	(activeColumns: string[]): void
 }
 
-export interface dataViewOnSavedViewSave {
+type dataViewOnSavedViewSave = {
 	(data: MosaicObject): void
 }
 
-export interface dataViewOnSavedViewRemove {
+type dataViewOnSavedViewRemove = {
 	(data: void): void
 }
 
-export interface dataViewOnSavedViewGetOptions {
+type dataViewOnSavedViewGetOptions = {
 	(props: void): void
 }
 
@@ -221,7 +220,6 @@ export interface DataViewProps {
     limitOptions?: number[]
     gridColumnsMap?: MosaicObject
     savedViewAllowSharedViewSave?: boolean
-	/** A list of actions which are always visible for each item in the DataView. */
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
 	bulkActions?: DataViewBulkAction[]
@@ -235,6 +233,7 @@ export interface DataViewProps {
     onSavedViewSave?: dataViewOnSavedViewSave
     onSavedViewRemove?: dataViewOnSavedViewRemove
     onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
+	/** A list of actions which are always visible for each item in the DataView. */
 	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
 	[key: string]: unknown */
 }

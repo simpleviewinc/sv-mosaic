@@ -11,7 +11,6 @@ import DataViewFilters from "../internal/DataViewFilters.jsx";
 import theme from "../../utils/theme.js";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";
-import { MosaicFieldProps } from "../Field/FieldTypes.js";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -55,7 +54,7 @@ const StyledWrapper = styled.div`
 `;
 
 function DataView (props: DataViewProps): ReactElement  {
-	console.log(props)
+	
 	/*
 	jsvalidator.validate(props, {
 		type : "object",
