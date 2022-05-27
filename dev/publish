@@ -4,9 +4,9 @@ set -e
 npm version $1
 npm publish --access public
 
-# publish types-only repo
-cd types-only
-npm --no-git-tag-version version $1
-npm publish
+# # publish types-only repo
+# cd types-only
+# npm --no-git-tag-version version $1
+# npm publish
 
-cd ..
+# cd ..
