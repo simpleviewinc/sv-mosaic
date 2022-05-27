@@ -30,7 +30,8 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "docs/dist/"),
 		publicPath: "/dist/",
-		filename: "bundle.js"
+		filename: "bundle.js",
+		globalObject: "this",
 	},
 	devServer: {
 		contentBase: path.join(__dirname, "docs/"),

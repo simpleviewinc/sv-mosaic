@@ -22,7 +22,8 @@ const EXTERNALS = [
 	"react-transition-group",
 	"styled-components",
 	"react-draft-wysiwyg",
-	"eventemitter3"
+	"eventemitter3",
+	"jodit-react",
 ];
 
 const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];
