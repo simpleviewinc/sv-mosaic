@@ -1,5 +1,5 @@
 import { MosaicLabelValue } from "@root/types";
-import { PopperProps } from '@mui/material/Popper';
+import { PopperProps } from "@mui/material/Popper";
 
 export type DropdownSingleSelectionDef = {
 	/**

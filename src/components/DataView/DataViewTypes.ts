@@ -212,7 +212,7 @@ export interface DataViewProps {
     display?: string
     savedView?: SavedViewDef[]
     displayOptions?: string[]
-    data?: MosaicObject
+    data?: MosaicObject[]
     sort?: DataViewSort
     limitOptions?: number[]
     gridColumnsMap?: MosaicObject
