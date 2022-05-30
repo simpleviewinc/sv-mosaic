@@ -1,50 +1,85 @@
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo } from "react";
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 //Components
-import FormFieldChipSingleSelect from "./FormFieldChipSingleSelect";
+import Form, { useForm } from "../Form";
+import { FieldDef } from "@root/components/Field";
+import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
 
 afterEach(cleanup);
-
-const options = [
-	{
-		label: "Option 1",
-		value: "Option_1",
-	},
-	{
-		label: "Option 2",
-		value: "Option_2",
-	},
-	{
-		label: "Option 3",
-		value: "Option_3",
-	},
-];
 
 const { getAllByRole, getByText } = screen;
 
 const FormFieldChipSingleSelectExample = () => {
-	const [checked, setChecked] = useState([]);
 
-	const onChange = async (checked) => {
-		setChecked(checked)
-	}
+	const { 
+		state, 
+		dispatch,
+		registerFields, 
+		registerOnSubmit,
+	} = useForm();
+	
+	
+	const options = useMemo( ()=> [
+		{
+			label: "Option 1",
+			value: "Option_1",
+		},
+		{
+			label: "Option 2",
+			value: "Option_2",
+		},
+		{
+			label: "Option 3",
+			value: "Option_3",
+		},
+	], []);
+	
+	const fields = useMemo(
+		() =>
+			[
+				{
+					label: "Chip test",
+					name: "formFieldChipSingleSelect",
+					type: "chip",
+					inputSettings: {
+						options
+					},
+				}
+			] as FieldDef<FormFieldChipSingleSelectDef>[],
+		[]
+	);
+
+	useMemo(() => {
+		registerFields(fields);
+	}, [fields, registerFields]);
+
+	const onSubmit = useCallback((data) => {
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, "  "));
+	}, [state.validForm]);
+
+	useMemo(() => {
+		registerOnSubmit(onSubmit);
+	}, [onSubmit, registerOnSubmit]);
+
+	const onCancel = () => {
+		alert("Cancelling form, going back to previous site");
+	};
 
 	return (
-		<FormFieldChipSingleSelect
-			fieldDef={{
-				name: "formFieldChipSingleSelect",
-				label: "Chip test",
-				type: "chip",
-				inputSettings: {
-					options
-				}
-			}}
-			value={checked}
-			onChange={onChange}
-		/>
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				title={"Form Title"}
+				description={"This is a description example"}
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				onCancel={onCancel}
+			/>
+		</>
 	);
 };
 
@@ -63,8 +98,8 @@ describe("FormFieldChipSingleSelect component", () => {
 		const chipElements = getAllByRole("button") as HTMLInputElement[];
 		fireEvent.click(chipElements[1]);
 
-		expect(chipElements[0]).toHaveClass("cFyGIj")
-		expect(chipElements[1]).toHaveClass("foHfmQ")
-		expect(chipElements[2]).toHaveClass("cFyGIj")
+		expect(window.getComputedStyle(chipElements[0]).backgroundColor).toBe("rgb(240, 242, 245)");
+		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe("rgb(253, 185, 36)");
+		expect(window.getComputedStyle(chipElements[2]).backgroundColor).toBe("rgb(240, 242, 245)");
 	});
 });

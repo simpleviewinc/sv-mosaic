@@ -51,7 +51,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 	
 	const updateSelectedOption = (option) => {
 		const selectedOption = findSelectedOption(option);
-		
+		setPrepouplated(true);
 		onChange(selectedOption?.value || undefined);
 	}
 
