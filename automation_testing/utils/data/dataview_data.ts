@@ -5,7 +5,8 @@ const dataview = {
 	saveAsViewShared: "mosaic_automation_shared",
 	defaultType: "default",
 	viewNotSharedType: "mine",
-	viewSharedType: "shared"
+	viewSharedType: "shared",
+	allSelectedLabelMsg: "records on this page are selected."
 }
 
 export { dataview };
