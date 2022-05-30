@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, ReactElement } from "react";
 import styled from "styled-components";
 import { TextFieldProps } from "@mui/material/TextField";
-import { PropTypes } from "@mui/material";
+import { PropTypes } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 
