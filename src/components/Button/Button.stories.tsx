@@ -30,6 +30,14 @@ export const ButtonPlayground = (): ReactElement => {
 		],
 		"black"
 	);
+	const size = select(
+		"Size",
+		[
+			"small",
+			"medium",
+		],
+		"medium"
+	);
 	const fullWidth = boolean("Full Width", false);
 	const disabled = boolean("Disabled", false);
 	const tooltip = text("Tooltip", "");
@@ -47,6 +55,7 @@ export const ButtonPlayground = (): ReactElement => {
 				fullWidth={fullWidth}
 				disabled={disabled}
 				tooltip={tooltip}
+				size={size}
 			/>
 		</StoryBookError>
 	);
