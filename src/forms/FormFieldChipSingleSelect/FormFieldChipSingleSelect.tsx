@@ -1,6 +1,6 @@
 // React
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 // Components
 import Chip from "../../components/Chip";
@@ -16,14 +16,22 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		error,
 		onChange,
 		onBlur,
+		value,
 	} = props;
 	
 	const { required } = fieldDef || null;
 
 	const [internalOptions, setInternalOptions] = useState([...fieldDef?.inputSettings?.options]);
-	
-	const updateSelectedOption = (option) => {
-		
+	const [prepopulated, setPrepouplated] = useState(false);
+
+	useEffect(() => {
+		if (value && !prepopulated) {
+			findSelectedOption([...internalOptions].find((o) => o.value === value));
+			setPrepouplated(true);
+		}
+	}, [value, prepopulated]);
+
+	const findSelectedOption = (option) => {
 		let newOptions = [...internalOptions];
 
 		newOptions = newOptions.map((o) => (
@@ -37,6 +45,13 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		const selectedOption = newOptions.find(o => o.selected === true);
 
 		setInternalOptions(newOptions);
+
+		return selectedOption;
+	}
+	
+	const updateSelectedOption = (option) => {
+		const selectedOption = findSelectedOption(option);
+		
 		onChange(selectedOption?.value || undefined);
 	}
 
