@@ -13,7 +13,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
 ))`
   width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
-  .MuiOutlinedInput-multiline {
+  .MuiInputBase-multiline {
     align-items: start;
     background-color: ${pr => pr.disabled ? "transparent" : theme.colors.gray100};
     min-height: ${pr => pr.disabled ? "fit-content" : "150px"};
