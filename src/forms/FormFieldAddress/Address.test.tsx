@@ -119,7 +119,7 @@ const addNewAddress = () => {
 };
 
 afterEach(cleanup);
-jest.setTimeout(30000);
+jest.setTimeout(60000);
 
 describe("Address component", () => {
 	beforeEach(() => {

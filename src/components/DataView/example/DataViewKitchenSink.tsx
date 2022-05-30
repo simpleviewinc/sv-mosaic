@@ -393,6 +393,7 @@ function DataViewKitchenSink(): ReactElement {
 	const optionalFilters = boolean("optionalFilters", true);
 	const sticky = boolean("sticky", true);
 	const locale: string = select("locale", { en: "en", es: "es", cimode: "cimode", de: "de" }, "en");
+	const comparisonDefault: string = select("Title comparisonDefault", { "Equals": "equals", "Not Equals": "not_equals", "Contains": "contains", "Not Contains": "not_contains", "Exists": "exists", "Not Exists": "not_exists" }, "contains");
 	const displayList = boolean("displayList", true);
 	const displayGrid = boolean("displayGrid", true);
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
@@ -584,6 +585,7 @@ function DataViewKitchenSink(): ReactElement {
 				component: filter.component,
 				type: filter.type,
 				args: filter.args,
+				comparisonDefault,
 				onChange: function (value) {
 					filterChange(filter.name, value);
 				}
