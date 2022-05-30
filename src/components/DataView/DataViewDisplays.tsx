@@ -1,5 +1,5 @@
-import GridOnIcon from "@material-ui/icons/GridOn";
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import GridOnIcon from "@mui/icons-material/GridOn";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 import { DataViewDisplay } from "./DataViewTypes";
 import { default as List } from "./DataViewDisplayList";

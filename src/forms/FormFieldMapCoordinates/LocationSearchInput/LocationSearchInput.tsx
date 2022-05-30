@@ -1,4 +1,4 @@
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment } from "@mui/material";
 import * as React from "react";
 import { memo, ReactElement, useState } from "react";
 import PlacesAutocomplete, {

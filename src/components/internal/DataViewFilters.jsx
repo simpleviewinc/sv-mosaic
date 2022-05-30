@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { pick, xor } from "lodash";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import Button from "../Button";
 import CheckboxList from "@root/components/CheckboxList";

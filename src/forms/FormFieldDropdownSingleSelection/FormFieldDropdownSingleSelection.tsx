@@ -11,8 +11,8 @@ import { CustomPopperProps, DropdownSingleSelectionDef } from "./FormFieldDropdo
 
 // Components
 import InputWrapper from "../../components/InputWrapper";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import TextField from "@material-ui/core/TextField";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import TextField from "@mui/material/TextField";
 
 const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, string>) => {
 	const {
@@ -44,14 +44,14 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 
 	const onDropDownChange = async (option) => {
 		setDropDownValue(option)
-		onChange && await onChange(option?.value);
+		onChange && (await onChange(option?.value));
 	}
 	
 	const selectedOption = fieldDef?.inputSettings?.options.find(option => {
 		return option.value === value;
 	});
 
-	const getOptionSelected = (option, value) => {
+	const isOptionEqualToValue = (option, value) => {
 		if (value.value === "") {
 			return true;
 		}
@@ -74,7 +74,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						data-testid="autocomplete-test-id"
 						options={fieldDef?.inputSettings?.options}
 						getOptionLabel={(option) => option?.label ? option.label : ""}
-						getOptionSelected={getOptionSelected}
+						isOptionEqualToValue={isOptionEqualToValue}
 						onChange={(_event, option) => onDropDownChange(option)}
 						error={(fieldDef?.required && error) ? error : undefined}
 						renderInput={renderInput}

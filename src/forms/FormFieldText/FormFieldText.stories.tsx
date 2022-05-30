@@ -9,7 +9,7 @@ import {
 } from "@storybook/addon-knobs";
 
 // Material UI
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 // Components
 import { TextFieldDef } from ".";

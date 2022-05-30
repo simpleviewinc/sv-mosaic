@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Material UI
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton";
 
 // Utils
 import theme from "@root/theme";

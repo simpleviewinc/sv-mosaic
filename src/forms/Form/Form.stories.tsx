@@ -175,7 +175,7 @@ export const Playground = (): ReactElement => {
 			"oldHue": 55.13513513513513,
 			"source": "hex"
 		},
-		"date": "2022-05-25T00:00:00.000Z",
+		"date": new Date(),
 		"address": [
 			{
 				"id": 1,

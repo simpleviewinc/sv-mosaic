@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 // Material UI
-import { Tooltip } from "@material-ui/core";
+import { Tooltip } from "@mui/material";
 
 import theme from "@root/theme";
 

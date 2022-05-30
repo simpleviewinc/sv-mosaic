@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 // Material UI
-import { default as MUIErrorOutlineIcon } from "@material-ui/icons/ErrorOutline";
-import { default as MUIFormHelperText } from "@material-ui/core/FormHelperText";
+import { default as MUIErrorOutlineIcon } from "@mui/icons-material/ErrorOutline";
+import { default as MUIFormHelperText } from "@mui/material/FormHelperText";
 
 // Theme
 import theme from "../../utils/theme.js";

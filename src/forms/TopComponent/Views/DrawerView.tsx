@@ -10,8 +10,8 @@ import {
 } from "../TopComponent.styled";
 
 // Material UI
-import { IconButton } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Utils
 import theme from "../../../theme/theme";
@@ -43,28 +43,26 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 		buttons,
 	} = props;
 
-	return (
-		<>
-			<DrawerViewColumn type={view}>
-				<Row>
-					{onCancel && (
-						<IconButton
-							data-testid='close-icon'
-							aria-label='close'
-							disableRipple
-							onClick={onCancel}
-							style={{ marginRight: "8px" }}
-						>
-							<CloseIcon />
-						</IconButton>
-					)}
-					<FormTitle type={view} data-testid='drawer-title-test'>{title}</FormTitle>
-					{tooltipInfo && helpIcon}
-				</Row>
-				<ButtonsWrapper style={{ alignItems: "center" }}>{buttons}</ButtonsWrapper>
-			</DrawerViewColumn>
-		</>
-	);
+	return <>
+		<DrawerViewColumn type={view}>
+			<Row>
+				{onCancel && (
+					<IconButton
+						data-testid='close-icon'
+						aria-label='close'
+						disableRipple
+						onClick={onCancel}
+						style={{ marginRight: "8px" }}
+						size="large">
+						<CloseIcon />
+					</IconButton>
+				)}
+				<FormTitle type={view} data-testid='drawer-title-test'>{title}</FormTitle>
+				{tooltipInfo && helpIcon}
+			</Row>
+			<ButtonsWrapper style={{ alignItems: "center" }}>{buttons}</ButtonsWrapper>
+		</DrawerViewColumn>
+	</>;
 }
 
 export default memo(DrawerView);

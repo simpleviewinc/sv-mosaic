@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "@root/theme"
 
 // Material UI
-import Menu from "@material-ui/core/Menu";
+import Menu from "@mui/material/Menu";
 
 export const StyledMenu = styled(Menu)`
   & .MuiPaper-root {
