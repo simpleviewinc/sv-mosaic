@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createContext, ReactElement } from "react";
-import MUIMenu from "@material-ui/core/Menu";
+import MUIMenu from "@mui/material/Menu";
 
 import { MenuBaseProps, MenuBaseContextProps } from "./MenuBaseTypes";
 

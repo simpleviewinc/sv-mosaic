@@ -3,8 +3,8 @@ import { ReactElement } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 
 // Material UI
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import HelpIcon from "@material-ui/icons/Help";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import HelpIcon from "@mui/icons-material/Help";
 
 // Components
 import IconButton from "./IconButton";
@@ -23,22 +23,20 @@ export const Example = (): ReactElement => {
 		alert("Icon clicked");
 	};
 
-	return (
-		<>
-			<p>More Icon</p>
-			<IconButton
-				disabled={disabled}
-				tooltipText={tooltipText}
-				icon={MoreVertIcon}
-				onClick={handleClick}
-			/>
-			<p>Help Icon</p>
-			<IconButton
-				disabled={disabled}
-				tooltipText={tooltipText}
-				icon={HelpIcon}
-				onClick={handleClick}
-			/>
-		</>
-	);
+	return <>
+		<p>More Icon</p>
+		<IconButton
+			disabled={disabled}
+			tooltipText={tooltipText}
+			icon={MoreVertIcon}
+			onClick={handleClick}
+		/>
+		<p>Help Icon</p>
+		<IconButton
+			disabled={disabled}
+			tooltipText={tooltipText}
+			icon={HelpIcon}
+			onClick={handleClick}
+		/>
+	</>;
 };

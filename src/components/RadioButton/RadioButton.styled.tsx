@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 // Material UI
-import Radio from "@material-ui/core/Radio";
+import Radio from "@mui/material/Radio";
 
 import theme from "../../utils/theme.js";
 
 export const StyledRadioButton = styled(Radio)`
-  &.MuiRadio-colorSecondary {
+  &.MuiRadio-colorPrimary {
     color: ${theme.colors.almostBlack};
 
     &.Mui-checked {
@@ -14,8 +14,8 @@ export const StyledRadioButton = styled(Radio)`
     }
   }
 
-  &.MuiRadio-colorSecondary,
-  &.MuiRadio-colorSecondary.Mui-checked {
+  &.MuiRadio-colorPrimary,
+  &.MuiRadio-colorPrimary.Mui-checked {
     &:hover {
       background-color: ${theme.colors.grayHover};
     }

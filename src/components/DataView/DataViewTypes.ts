@@ -1,5 +1,5 @@
 import { MosaicObject, MosaicCallback } from "../../types";
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
@@ -212,7 +212,7 @@ export interface DataViewProps {
     display?: string
     savedView?: SavedViewDef[]
     displayOptions?: string[]
-    data?: MosaicObject
+    data?: MosaicObject[]
     sort?: DataViewSort
     limitOptions?: number[]
     gridColumnsMap?: MosaicObject

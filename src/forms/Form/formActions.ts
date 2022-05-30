@@ -100,9 +100,9 @@ export const formActions = {
 				const currFieldName = fields[i].name;
 				(!!touchedFields[currFieldName] === false ||
 					Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === "object") &&
-					await dispatch(
+					(await dispatch(
 						formActions.validateField({ name: currFieldName })
-					);
+					));
 			}
 
 			let validForm = true;
@@ -124,7 +124,7 @@ export const formActions = {
 			});
 
 			return validForm;
-		}
+		};
 	},
 	submitForm() {
 		return async function (dispatch, getState, extraArgs): Promise<void> {

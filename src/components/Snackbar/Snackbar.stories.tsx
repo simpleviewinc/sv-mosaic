@@ -7,7 +7,7 @@ import Snackbar from "./Snackbar";
 import Button from "@root/components/Button";
 
 // Material UI
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 // Types
 import { SnackbarAction } from "./SnackbarTypes";
