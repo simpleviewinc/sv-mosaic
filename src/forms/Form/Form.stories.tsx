@@ -292,6 +292,9 @@ export const Playground = (): ReactElement => {
 					type: "date",
 					disabled,
 					required,
+					inputSettings: {
+						showTime: true
+					}
 				},
 				{
 					name: "address",
