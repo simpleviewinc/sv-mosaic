@@ -35,7 +35,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		let newOptions = [...internalOptions];
 
 		newOptions = newOptions.map((o) => (
-			o.value === option.value ?
+			o?.value === option?.value ?
 				{ ...o, selected: required && o.selected ? o.selected : !o.selected }
 				:
 				{ ...o, selected: o.selected = false }
