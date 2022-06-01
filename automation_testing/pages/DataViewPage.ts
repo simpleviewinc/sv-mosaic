@@ -23,15 +23,13 @@ export class DataviewPage {
 		this.saveAsComponent = new SaveAsComponent(page);
 		this.paginationComponent = new PaginationComponent(page);
 		this.createNewBtn = page.locator("[data-mosaic-id=button_create]");
-		this.editIcon = page.locator("[data-mosaic-id=action_primary_edit]").first();
-		this.moreOptions = page.locator("[data-mosaic-id=\"additional_actions_dropdown\"]").first();
-		this.viewChildren = page.locator("[data-mosaic-id=action_additional_view_children]").first();
-		this.history = page.locator("[data-mosaic-id=action_additional_history]").first();
+		this.editIcon = page.locator("[data-mosaic-id=action_primary_edit] button");
+		this.moreOptions = page.locator("[data-mosaic-id='additional_actions_dropdown'] button");
+		this.viewChildren = page.locator("[data-mosaic-id=action_additional_view_children]");
+		this.history = page.locator("[data-mosaic-id=action_additional_history]");
 		this.title = page.locator("text=Your Uploads");
 		this.dataviewTable = page.locator("table tbody");
 		this.loading = page.locator("div.loading");
-
-
 	}
 
 	async visit(): Promise<void> {
@@ -46,7 +44,7 @@ export class DataviewPage {
 
 	async validateDialogMessage(message: string): Promise<void> {
 		await this.page.on("dialog", async dialog => {
-			await expect(dialog.message()).toContain(message);
+			expect(await dialog.message()).toContain(message);
 			dialog.accept();
 		});
 	}
