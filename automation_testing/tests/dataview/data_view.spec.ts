@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test";
 import { DataviewPage } from "../../pages/DataViewPage";
 import { dataview } from "../../utils/data/dataview_data";
 
-
 test.describe("Data View", () => {
 	let dataviewPage: DataviewPage;
 
