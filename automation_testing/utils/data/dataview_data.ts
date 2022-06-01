@@ -5,7 +5,11 @@ const dataview = {
 	saveAsViewShared: "mosaic_automation_shared",
 	defaultType: "default",
 	viewNotSharedType: "mine",
-	viewSharedType: "shared"
+	viewSharedType: "shared",
+	resultPerPageDefault: 25,
+	resultPerPage50: 50,
+	resultPerPage100: 100,
+	totalRecords: 304
 }
 
 export { dataview };

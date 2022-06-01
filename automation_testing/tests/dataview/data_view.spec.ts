@@ -1,7 +1,6 @@
 import { test } from "@playwright/test";
 import { DataviewPage } from "../../pages/DataViewPage";
 
-
 test.describe("Data View", () => {
 	let dataviewPage: DataviewPage;
 
@@ -39,4 +38,3 @@ test.describe("Data View", () => {
 		await dataviewPage.validateDialogMessage("History");
 	});
 });
-
