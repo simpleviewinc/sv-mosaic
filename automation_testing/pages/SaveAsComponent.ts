@@ -22,9 +22,9 @@ export class SaveAsComponent {
 		this.saveAsOptions = page.locator("ul.MuiList-padding");
 		this.saveView = page.locator("//html/body/div[5]/div[3]/div/div");
 		this.saveLabel = page.locator("#label");
-		this.saveViewBtn = page.locator("div[role=\"presentation\"] button:has-text(\"Save\")");
-		this.cancelViewBtn = page.locator("div[role=\"presentation\"] button:has-text(\"Cancel\")");
-		this.viewBtn = page.locator("//*[@id=\"root\"]/div/div/div[1]/div/div[2]/div/span/span[2]/button/span[1]/span");
+		this.saveViewBtn = page.locator("div[role='presentation'] button:has-text('Save')");
+		this.cancelViewBtn = page.locator("div[role='presentation'] button:has-text('Cancel')");
+		this.viewBtn = page.locator("//*[@id='root']/div/div/div[1]/div/div[2]/div/span/span[2]/button/span[1]/span");
 		this.saveAsCheckbox = this.saveView.locator("input[type=checkbox]");
 		this.tableViews = page.locator(".viewContainer table tbody").nth(1);
 		this.editView = page.locator("//html/body/div[6]/div[3]/div/div");
