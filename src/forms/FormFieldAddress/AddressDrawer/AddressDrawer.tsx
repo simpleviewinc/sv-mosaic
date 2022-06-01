@@ -253,7 +253,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const onSubmit = async () => {
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
 
-		onChange && await onChange(listOfAddresses);
+		onChange && (await onChange(listOfAddresses));
 		handleClose(true);
 	};
 

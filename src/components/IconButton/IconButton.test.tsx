@@ -1,16 +1,18 @@
 import * as React from "react";
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent, waitFor } from "@testing-library/react";
 
 // Components
 import IconButton from "./IconButton";
 
 // Material UI
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 afterEach(cleanup);
 
+const { getByRole, getByText, getByTestId, queryByTitle } = screen;
+
 describe("IconButton component", () => {
-	it("should render icon button and fire onClick callback", () => {
+	it("should render icon button and fire onClick callback", async () => {
 		const handleClick = jest.fn();
 		render(
 			<IconButton
@@ -20,16 +22,18 @@ describe("IconButton component", () => {
 				onClick={handleClick}
 			/>
 		);
-		const button = screen.getByRole("button");
-		const icon = screen.getByTestId("icon-button-test");
-		const tooltip = screen.getByTitle("Tooltip text");
-
+		const button = getByRole("button");
+		const icon = getByTestId("icon-button-test");
+	
 		fireEvent.click(button);
 
 		expect(button).toBeDefined();
 		expect(icon).toBeDefined();
-		expect(tooltip).toBeDefined();
+
 		expect(handleClick).toHaveBeenCalled();
+
+		fireEvent.mouseOver(icon);
+		await waitFor(() => getByText("Tooltip text"));
 	});
 });
 
@@ -47,7 +51,7 @@ describe("Disabled IconButton component", () => {
 	});
 
 	it("should not fire onClick callback", () => {
-		const button = screen.getByRole("button");
+		const button = getByRole("button");
 
 		fireEvent.click(button);
 
@@ -56,7 +60,7 @@ describe("Disabled IconButton component", () => {
 	});
 
 	it("should not show the tooltip", () => {
-		const tooltip = screen.queryByTitle("Tooltip text");
+		const tooltip = queryByTitle("Tooltip text");
 
 		expect(tooltip).toBe(null);
 	});

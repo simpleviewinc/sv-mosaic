@@ -15,7 +15,7 @@ import {
 	InputWrapper,
 	StyledInput
 } from "./AdvancedSelection.styled";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import ChipList from "./ChipList";
 import { optionsWithCategory } from "./AdvancedSelectionTypes";
 import { FormFieldCheckboxDef } from "../FormFieldCheckbox";

@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, HTMLAttributes } from "react";
 
 // Material UI
-import ClearIcon from "@material-ui/icons/Clear";
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Types and styles
 import { ChipsProps } from "./ChipTypes";

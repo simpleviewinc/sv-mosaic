@@ -10,7 +10,7 @@ import Button from "@root/components/Button";
 import { SnackbarAction } from "./SnackbarTypes";
 
 // Material UI
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 afterEach(cleanup);
 

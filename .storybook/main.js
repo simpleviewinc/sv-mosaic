@@ -8,7 +8,7 @@ module.exports = {
 	],
 	addons: [
 		"@storybook/addon-knobs/register",
-		'@storybook/addon-viewport',
+		//'@storybook/addon-viewport',
 		{
 			name: "@storybook/addon-docs",
 			options: {
