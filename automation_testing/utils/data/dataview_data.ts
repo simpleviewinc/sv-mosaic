@@ -6,7 +6,10 @@ const dataview = {
 	defaultType: "default",
 	viewNotSharedType: "mine",
 	viewSharedType: "shared",
-	allSelectedLabelMsg: "records on this page are selected."
+	resultPerPageDefault: 25,
+	resultPerPage50: 50,
+	resultPerPage100: 100,
+	totalRecords: 304
 }
 
 export { dataview };
