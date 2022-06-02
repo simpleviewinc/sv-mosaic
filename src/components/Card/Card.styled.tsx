@@ -6,7 +6,7 @@ const sidePaddings = {
 	md: 16,
 }
 
-export const RecentActivityWrapper = styled.div`
+export const CardWrapper = styled.div`
 	border: 2px solid ${theme.colors.gray200};
 	font-family: ${theme.fontFamily};
 	width: 100%;
@@ -24,17 +24,6 @@ export const TitleBar = styled.div`
 export const TitleWrapper = styled.div`
 	display: flex;
 	align-items: center;
-`;
-
-export const RecentActivityTitle = styled.span`
-	color: ${theme.colors.almostBlack}
-	font-weight: ${theme.fontWeight.medium};
-`;
-
-export const SideCardActionsTitle = styled.span`
-	color: ${theme.colors.almostBlack}
-	font-size: 14px;
-	margin-left: 8px;
 `;
 
 export const BottomActionWrapper = styled.div`
