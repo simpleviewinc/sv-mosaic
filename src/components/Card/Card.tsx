@@ -1,16 +1,16 @@
 import * as React from "react";
 import { ReactElement } from "react";
-import { SummaryPageCardProps } from "./SummaryPageCardTypes";
+import { SummaryPageCardProps } from "./CardTypes";
 import Button from "../Button";
 import {
 	BottomActionWrapper,
 	ContentWrapper,
-	RecentActivityWrapper,
+	CardWrapper,
 	TitleWrapper,
 	TitleBar,
-} from "./SummaryPageCard.styled";
+} from "./Card.styled";
 
-const RecentActity = (props: SummaryPageCardProps): ReactElement => {
+const Card = (props: SummaryPageCardProps): ReactElement => {
 	const {
 		bottomAction,
 		content,
@@ -21,24 +21,24 @@ const RecentActity = (props: SummaryPageCardProps): ReactElement => {
 	} = props;
 
 	return (
-		<RecentActivityWrapper>
+		<CardWrapper>
 			<TitleBar size={size}>
 				<TitleWrapper>
 					{titleIcon}
 					{title}
 				</TitleWrapper>
 				{topAction && (
-					<Button {...topAction} muiAttrs={{ disableRipple: true }}></Button>
+					<Button {...topAction}></Button>
 				)}
 			</TitleBar>
 			<ContentWrapper size={size}>{content}</ContentWrapper>
 			{bottomAction && (
 				<BottomActionWrapper>
-					<Button {...bottomAction} muiAttrs={{ disableRipple: true }}></Button>
+					<Button {...bottomAction}></Button>
 				</BottomActionWrapper>
 			)}
-		</RecentActivityWrapper>
+		</CardWrapper>
 	);
 };
 
-export default RecentActity;
+export default Card;
