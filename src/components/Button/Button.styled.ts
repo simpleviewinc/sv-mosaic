@@ -46,25 +46,25 @@ export const ButtonWrapper = styled.span`
   &.normalButton.size_small > button .icon_left {
     margin-right: 4px;
     margin-left: -4px;
-		font-size: 14px;
+		font-size: 16px;
   }
 
   &.normalButton.size_small > button .icon_right {
     margin-left: 4px;
     margin-right: -4px;
-		font-size: 14px;
+		font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_left {
     margin-right: 4px;
     margin-left: -4px;
-		font-size: 14px;
+		font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_right {
     margin-left: 4px;
     margin-right: -4px;
-		font-size: 14px;
+		font-size: 16px;
   }
 
   &.iconButton svg {
