@@ -269,7 +269,6 @@ function Buttons(): ReactElement {
 				<ButtonRow>
 					<Button color="blue" variant="contained" label="Small" size="small"/>
 					<Button color="blue" variant="contained" label="Medium (default)"/>
-					<Button color="blue" variant="contained" label="Large" size="large"/>
 				</ButtonRow>
 			</div>
 			<br/><br/>
@@ -277,7 +276,6 @@ function Buttons(): ReactElement {
 				<ButtonRow>
 					<Button color="blue" variant="outlined" label="Small" size="small" mIcon={AddIcon}/>
 					<Button color="blue" variant="outlined" label="Medium (default)" mIcon={AddIcon}/>
-					<Button color="blue" variant="outlined" label="Large" size="large" mIcon={AddIcon}/>
 				</ButtonRow>
 			</div>
 			<br/><br/>
@@ -285,7 +283,6 @@ function Buttons(): ReactElement {
 				<ButtonRow>
 					<Button color="black" variant="icon" size="small" mIcon={AddIcon}/>
 					<Button color="black" variant="icon" mIcon={AddIcon}/>
-					<Button color="black" variant="icon" size="large" mIcon={AddIcon}/>
 				</ButtonRow>
 			</div>
 
