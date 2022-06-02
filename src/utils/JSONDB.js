@@ -88,11 +88,11 @@ function filterData(data, filter) {
 		}
 
 		if (val.$exists === true) {
-			newData = newData.filter(row => row[key] !== undefined);
+			newData = newData.filter(row => row.categories_ids.length > 0);
 		}
 
 		if (val.$exists === false) {
-			newData = newData.filter(row => row[key] === undefined);
+			newData = newData.filter(row => row.categories_ids.length === 0);
 		}
 
 		if (val instanceof RegExp) {
