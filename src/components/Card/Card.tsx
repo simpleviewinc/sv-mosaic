@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement } from "react";
-import { SummaryPageCardProps } from "./CardTypes";
+import { CardProps } from "./CardTypes";
 import Button from "../Button";
 import {
 	BottomActionWrapper,
@@ -10,7 +10,7 @@ import {
 	TitleBar,
 } from "./Card.styled";
 
-const Card = (props: SummaryPageCardProps): ReactElement => {
+const Card = (props: CardProps): ReactElement => {
 	const {
 		bottomAction,
 		content,
