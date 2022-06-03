@@ -473,6 +473,7 @@ export const types = {
   `,
 	blue_icon: BlueOnWhite,
 	black_icon: BlackOnWhite,
+	teal_icon: TealOnWhite,
 	red_icon: RedOnWhite,
 	white_icon: WhiteOnBlack,
 	gray_icon: styled(GrayOnWhite)`
