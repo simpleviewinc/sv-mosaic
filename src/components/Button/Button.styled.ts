@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "../../utils/theme.js";
 
-// Buttons should be 30/36/42 in height for small/medium/large in ALL variants
+// Buttons should be 30/36 in height for small/medium in ALL variants
 // The styling of text, outlined, and icon are shared. Contained are different because they usually need to get darker on hover/active than the primary color
 
 export const ButtonWrapper = styled.span`
@@ -15,10 +15,10 @@ export const ButtonWrapper = styled.span`
     font-family: ${theme.fontFamily};
     text-transform: none;
     font-size: 14px;
-    // font-weight: ${theme.fontWeight.semiBold};
-    font-weight: ${theme.fontWeight.bold};
+    font-weight: ${theme.fontWeight.medium};
     min-width: auto;
     line-height: 1.715;
+		letter-spacing: 1px;
   }
 
   &.normalButton > button {
@@ -33,10 +33,6 @@ export const ButtonWrapper = styled.span`
     padding: 3px 12px;
   }
 
-  &.normalButton.size_large > button {
-    padding: 9px 24px;
-  }
-
   &.normalButton.size_small.variant_outlined > button {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -47,39 +43,28 @@ export const ButtonWrapper = styled.span`
     padding-bottom: 4px;
   }
 
-  &.normalButton.size_large.variant_outlined > button {
-    padding-top: 7px;
-    padding-bottom: 7px;
-  }
-
   &.normalButton.size_small > button .icon_left {
     margin-right: 4px;
     margin-left: -4px;
+		font-size: 16px;
   }
 
   &.normalButton.size_small > button .icon_right {
     margin-left: 4px;
     margin-right: -4px;
+		font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_left {
     margin-right: 4px;
     margin-left: -4px;
+		font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_right {
     margin-left: 4px;
     margin-right: -4px;
-  }
-
-  &.normalButton.size_large > button .icon_left {
-    margin-right: 7px;
-    margin-left: -7px;
-  }
-
-  &.normalButton.size_large > button .icon_right {
-    margin-left: 7px;
-    margin-right: -7px;
+		font-size: 16px;
   }
 
   &.iconButton svg {
@@ -99,11 +84,6 @@ export const ButtonWrapper = styled.span`
 	margin: 2px;
   }
 
-  &.iconButton.size_large > button {
-    // padding: 9px;
-	margin: 4px;
-  }
-
   .MuiTouchRipple-child {
       opacity: 0.5;
   }
@@ -118,8 +98,6 @@ const BlackOnYellow = styled(ButtonWrapper)`
   & > button {
     color: ${theme.colors.almostBlack};
     font-family: ${theme.fontFamily};
-    font-size: 16px;
-    font-weight: ${theme.fontWeight.bold};
     height: auto;
     min-width: auto;
   }
@@ -129,8 +107,6 @@ const GrayOnWhite = styled(ButtonWrapper)`
   & > button {
     color: ${theme.colors.almostBlack};
     font-family: ${theme.fontFamily};
-    font-size: 16px;
-    font-weight: ${theme.fontWeight.bold};
     height: auto;
     min-width: auto;
   }
@@ -139,11 +115,10 @@ const GrayOnWhite = styled(ButtonWrapper)`
 const TealOnWhite = styled(ButtonWrapper)`
   & > button {
     color: ${theme.colors.blueTeal};
-    font-weight: ${theme.fontWeight.bold};
   }
 
   & > button:hover {
-		background-color: transparent;
+		border-radius: 0;
     color: ${theme.colors.blueTealHover};
   }
 `;
@@ -153,11 +128,11 @@ const RedOnWhite = styled(ButtonWrapper)`
     color: ${theme.colors.red};
     border-color: ${theme.colors.red};
     font-family: ${theme.fontFamily};
-    font-weight: ${theme.fontWeight.bold};
   }
 
   & > button:hover {
     background: ${theme.colors.red}12;
+		border-radius: 0;
   }
 
   & > button:active,
@@ -168,12 +143,13 @@ const RedOnWhite = styled(ButtonWrapper)`
 
 const BlackOnWhite = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.black};
+    color: ${theme.colors.almostBlack};
     border-color: ${theme.colors.gray400};
   }
 
   & > button:hover {
     background: ${theme.colors.gray200};
+		border-radius: 0;
   }
 
   & > button:active,
@@ -190,6 +166,7 @@ const BlueOnWhite = styled(ButtonWrapper)`
 
   & > button:hover {
     background: ${theme.colors.blue}12;
+		border-radius: 0;
   }
 
   & > button:active,
@@ -213,6 +190,12 @@ const WhiteOnBlack = styled(ButtonWrapper)`
     background: ${theme.colors.white}60;
   }
 `;
+
+const textButtonStyles = {
+	opacity: (disabled: boolean) => disabled ? 1 : 0.5,
+	fontSize: (smallText: boolean) => smallText ? "14px" : "14px",
+	lineHeight: 1.5
+}
 
 export const types = {
 	yellow_contained: styled(BlackOnYellow)`
@@ -302,12 +285,12 @@ export const types = {
     & > button {
       background: ${theme.colors.gray200};
       border-radius: 0;
-      color: ${theme.colors.black};
+      color: ${theme.colors.almostBlack};
       font-size: 14px;
       text-transform: uppercase;
     }
     .MuiButton-contained.Mui-disabled {
-      color: ${theme.colors.black};
+      color: ${theme.colors.almostBlack};
       background-color: ${theme.colors.gray200};
       opacity: 0.5;
     }
@@ -420,29 +403,29 @@ export const types = {
     & > button {
       background-color: white;
       border-radius: 0;
-      border: 2px solid ${theme.colors.black};
+      border: 2px solid ${theme.colors.almostBlack};
       font-size: 14px;
       text-transform: uppercase;
     }
     .MuiButton-outlined.Mui-disabled {
       background-color: white;
       opacity: 0.5;
-      border: 2px solid ${theme.colors.black};
-      color: ${theme.colors.black};
+      border: 2px solid ${theme.colors.almostBlack};
+      color: ${theme.colors.almostBlack};
     }
     & > button:hover {
-      box-shadow: 0 2px 3px ${theme.colors.black}12;
-			border: 2px solid ${theme.colors.black};
+      box-shadow: 0 2px 3px ${theme.colors.almostBlack}12;
+			border: 2px solid ${theme.colors.almostBlack};
     }
     & > button:active,
     & > button:focus {
-      box-shadow: 0 1px 2px ${theme.colors.black}24;
+      box-shadow: 0 1px 2px ${theme.colors.almostBlack}24;
     }
   `,
 	teal_text: styled(TealOnWhite)`
-    span {
+    &.normalButton > button {
       color: ${theme.colors.blueTeal};
-      opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
+      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 
       &:hover {
         color: ${({ children }) =>
@@ -451,41 +434,41 @@ export const types = {
     }
 
     & > button {
-      font-size: ${({ smallText }) => (smallText ? "14px" : "16px")};
-	  line-height: 1.5;
+      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+      line-height: ${textButtonStyles.lineHeight};
     }
   `,
 	blue_text: styled(BlueOnWhite)`
-    span {
-      color: ${theme.colors.blue};
-      opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
-    }
+		&.normalButton > button {
+			color: ${theme.colors.blue};
+      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
+		}
 
     & > button {
-      font-size: ${({ smallText }) => (smallText ? "14px" : "16px")};
-	  line-height: 1.5;
+      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+      line-height: ${textButtonStyles.lineHeight};
     }
   `,
 	red_text: styled(RedOnWhite)`
-    span {
+    &.normalButton > button {
       color: ${theme.colors.red};
-      opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
+      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
     }
 
     & > button {
-      font-size: ${({ smallText }) => (smallText ? "14px" : "16px")};
-	  line-height: 1.5;
+      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+      line-height: ${textButtonStyles.lineHeight};
     }
   `,
 	black_text: styled(BlackOnWhite)`
-    span {
-      color: ${theme.colors.black};
-      opacity: ${({ children }) => (!children[0].props.disabled ? 1 : 0.5)};
+    &.normalButton > button {
+      color: ${theme.colors.almostBlack};
+      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
     }
 
     & > button {
-      font-size: ${({ smallText }) => (smallText ? "14px" : "16px")};
-	  line-height: 1.5;
+      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+	    line-height: ${textButtonStyles.lineHeight};
     }
   `,
 	blue_icon: BlueOnWhite,

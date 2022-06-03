@@ -10,7 +10,7 @@ export interface ButtonProps {
 	color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"
 	mIcon?: SvgIconComponent
 	variant: "icon" | "outlined" | "contained" | "text"
-	size?: "small" | "medium" | "large"
+	size?: "small" | "medium"
 	iconPosition?: "left" | "right"
 	disabled?: boolean
 	/** Button will occupy 100% of the width provided to it */
