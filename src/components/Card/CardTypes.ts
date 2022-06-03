@@ -1,6 +1,6 @@
 import { ButtonProps } from "../Button";
 
-export interface SummaryPageCardProps {
+export interface CardProps {
 	bottomAction?: ButtonProps;
 	content: JSX.Element;
 	title: JSX.Element;

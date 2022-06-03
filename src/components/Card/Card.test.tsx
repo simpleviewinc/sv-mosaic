@@ -2,7 +2,7 @@ import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 
 // Components
-import SummaryPageCard from "./Card";
+import Card from "./Card";
 import AddIcon from "@mui/icons-material/Add";
 import ContactsIcon from "@mui/icons-material/Contacts";
 
@@ -12,10 +12,10 @@ const { getByText, getByTestId } = screen;
 const topAction = jest.fn();
 const bottomAction = jest.fn();
 
-describe("SummaryPageCard component", () => {
+describe("Card component", () => {
 	beforeEach(() => {
 		render(
-			<SummaryPageCard
+			<Card
 				content={<h1>Content</h1>}
 				title={<p>Title</p>}
 				titleIcon={
