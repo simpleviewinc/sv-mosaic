@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, number } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
@@ -20,6 +20,7 @@ export default {
 
 export const Example = (): ReactElement => {
 	const [content, setContent] = useState<JSX.Element>(null);
+	const parentHeight = number("Parent height (px)", 500);
 
 	const links: Link[][] = [
 		[
@@ -64,6 +65,7 @@ export const Example = (): ReactElement => {
 		[
 			{
 				label: "Tasks",
+				badge: "10",
 				icon: TaskAltIcon,
 				onClick: () => setContent(<h1>Tasks</h1>),
 				action: {
@@ -78,6 +80,7 @@ export const Example = (): ReactElement => {
 			},
 			{
 				label: "Notes",
+				badge: "00",
 				icon: EventNoteIcon,
 				onClick: () => setContent(<h1>Notes</h1>),
 			},
@@ -85,7 +88,7 @@ export const Example = (): ReactElement => {
 	];
 
 	return (
-		<div style={{ display: "flex" }}>
+		<div style={{ display: "flex", height: parentHeight }}>
 			<Navigation links={links} />
 			<div>{content}</div>
 		</div>

@@ -33,12 +33,14 @@ export const NavigationExample = (): ReactElement => {
 		[
 			{
 				label: "Assets",
+				badge: "00",
 				onClick: () => setContent(<h1>Assets Content</h1>),
 			},
 		],
 		[
 			{
 				label: "Tasks",
+				badge: "10",
 				icon: TaskAltIcon,
 				onClick: () => setContent(<h1>Tasks Content</h1>),
 				action: {
@@ -48,6 +50,7 @@ export const NavigationExample = (): ReactElement => {
 			},
 			{
 				label: "Documents",
+				badge: "5",
 				icon: FolderIcon,
 				onClick: () => setContent(<h1>Documents Content</h1>),
 			},
@@ -103,5 +106,11 @@ describe("Navigation component", () => {
 
 	it("should show three actions since three lists of links are defined", () => {
 		expect(getAllByTestId("section-wrapper").length).toBe(3);
+	});
+
+	it("should display the badge counters", () => {
+		expect(getByText("00")).toBeDefined();
+		expect(getByText("10")).toBeDefined();
+		expect(getByText("5")).toBeDefined();
 	});
 });

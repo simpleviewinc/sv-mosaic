@@ -8,6 +8,10 @@ export interface NavigationProps {
 }
 
 export type Link = {
+	/**
+	 * Optional descriptive mark of the link. 
+	 */
+	badge?: string;
   /**
    * Label that names the link.
    */
