@@ -13,10 +13,6 @@ const LabelWrapper = styled.div`
 	display: flex;
 	align-items: center;
 
-	& > .icon {
-		font-size: 20px;
-	}
-
 	& > .dropdownIcon {
 		color: ${theme.colors.gray600};
 		margin-left: 4px;
@@ -37,9 +33,10 @@ const LabelWrapper = styled.div`
 		background-color: ${theme.colors.blue}45;
 	}
 
-	& > .filterLabel {
+	& > .filter {
 		font-weight: ${theme.fontWeight.normal};
 		margin-right: 8px;
+		text-transform: capitalize;
 	}
 
 	&.type_optional > * {
@@ -78,9 +75,8 @@ function DataViewPrimaryFilter(props) {
 				type_${props.type}
 			`}
 		>
-			<BodyText className="filterLabel">{props.label}:</BodyText>
-			<BodyText className="filterValue">{props.value || "Any"}</BodyText>
-			<ExpandMoreIcon className="icon dropdownIcon"/>
+			<BodyText className="filter">{props.label}:</BodyText>
+			<BodyText className="filter">{props.value || "Any"}</BodyText>
 			{
 				props.type === "optional" &&
 				<CloseIcon
@@ -98,6 +94,8 @@ function DataViewPrimaryFilter(props) {
 			size="small"
 			onClick={props.onClick}
 			label={label}
+			iconPosition="right"
+			mIcon={ExpandMoreIcon}
 		/>
 	)
 }

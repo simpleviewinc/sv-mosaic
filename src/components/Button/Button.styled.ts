@@ -194,7 +194,7 @@ const WhiteOnBlack = styled(ButtonWrapper)`
 const textButtonStyles = {
 	opacity: (disabled: boolean) => disabled ? 1 : 0.5,
 	fontSize: (smallText: boolean) => smallText ? "14px" : "14px",
-	lineHeight: 1.5
+	lineHeight: 1.715
 }
 
 export const types = {
