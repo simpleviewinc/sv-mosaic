@@ -7,12 +7,14 @@ import {
 	SidebarWrap,
 	StyledLink,
 	SectionWrapper,
+	Badge,
+	BadgeWrapper,
 } from "./Navigation.styled";
 import { Link } from "./NavigationTypes";
 
 const Navigation = (props: NavigationProps): ReactElement => {
 	const { links } = props;
-	const [selectedLink, setSelectedLink] = useState(links[0][0].label);
+	const [selectedLink, setSelectedLink] = useState(links ? links[0][0].label : "");
 
 	/**
 	 * Set the clicked link as selected and executes the
@@ -40,14 +42,15 @@ const Navigation = (props: NavigationProps): ReactElement => {
 										onClick={() => onLinkClicked(link)}
 										key={`${link.label}-${idx}`}
 									>
-										{link.icon && (
-											<LinkIcon/>
+										{link.icon && <LinkIcon />}
+										<StyledLink>{link.label}</StyledLink>
+										{link?.badge && (
+											<BadgeWrapper>
+												<Badge>{link.badge}</Badge>
+											</BadgeWrapper>
 										)}
-										<StyledLink>{link.label}</StyledLink>							
 										{link?.action?.icon && (
-											<ActionIcon
-												onClick={link.action.onClick}
-											/>
+											<ActionIcon onClick={link.action.onClick} />
 										)}
 									</LinkWrapper>
 								);
