@@ -1,10 +1,8 @@
 export interface DrawerDef {
-	id?: number;
+	id: number;
 	name: string;
-	component: any;
-	args?: any;
-	onClose?: any;
-	callbacks?: any;
-	props?: any;
-  }
+	callbacks?: Callbacks;
+}
+
+export type Callbacks = { [key: string]: any }
   

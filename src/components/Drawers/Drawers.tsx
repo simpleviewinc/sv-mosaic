@@ -1,58 +1,29 @@
-import MuiDrawer from "@mui/material/Drawer";
 import * as React from "react";
+// import MuiDrawer from "@mui/material/Drawer";
 import { memo } from "react";
-import { DrawerDef } from "./DrawersTypes";
-import { drawerActions } from "./utils/drawerActions";
+import Drawer from "../Drawer";
 
-function Drawers({
-	drawers,
-	dispatch,
-	onCloseLastDrawer
-}: {
-  drawers: DrawerDef[];
-  dispatch: any;
-  onCloseLastDrawer: any;
-}) {
+const Drawers = ({ drawers }: { drawers: JSX.Element[] }): JSX.Element => {
 	if (drawers.length === 0) {
 		return null;
 	}
 
-	const onClose = async (previousData: { childData: any; callbacks: any }) => {
-		await dispatch(
-			drawerActions.navigateBack(
-				previousData?.childData ? { childData: previousData?.childData } : {}
-			)
-		);
-		if (onCloseLastDrawer && drawers.length === 0) {
-			await onCloseLastDrawer({ childData: previousData?.childData });
-		}
-	};
-
 	return (
 		<>
-			{drawers.map((val: DrawerDef, i: number) => {
+			{drawers.map((val, i) => {
 				const open = true;
-				const anchor = i >= drawers.length - 1 ? "right" : "left";
-				const myOnClose = anchor === "right" ? val.onClose : undefined;
-				const sx = i < drawers.length - 2 ? { display: "none" } : undefined;
-
-				const Component = val.component;
+				console.log(i, drawers.length);
+				const anchorStyle = i >= drawers.length - 1 ? "right" : "left";
+				// const display = i < drawers.length - 2 ? false : true;
 
 				return (
-					<MuiDrawer
+					<Drawer
 						key={i}
-						sx={sx}
 						open={open}
-						anchor={anchor}
-						onClose={myOnClose}
+						anchorStyle={anchorStyle}
 					>
-						<Component
-							name={val.name}
-							{...val.args}
-							onClose={onClose}
-							dispatch={dispatch}
-						/>
-					</MuiDrawer>
+						{val}
+					</Drawer>
 				);
 			})}
 		</>
