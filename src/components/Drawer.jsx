@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import MUIDrawer from "@mui/material/Drawer";
 
@@ -16,32 +16,60 @@ const DrawerContent = styled.div`
 const MUIDrawerStyled = styled(MUIDrawer)`
 	z-index: 1100;
 	// display: ${pr => pr.display ? "block" : "none"};
-	.MuiDrawer-paper {
-		// animation: ${pr => pr.anchorStyle === "right" ? "moveToLeft" : "moveToOuterLeft"} 0.5s ease-in-out !important;
-		// animation-delay: 10ms;
-		// left:  ${pr => pr.anchorStyle === "left" ? "0" : "unset"};
-		// right:  ${pr => pr.anchorStyle === "right" ? "0" : "unset"};
-		transition: ${pr => pr.anchorStyle ? "transform 0.5s" : "transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms"} !important;
-		transform: ${pr => pr.anchorStyle ? `translateX(${pr.anchorStyle === "left" ? "-25vw" : "0"})` : "none"} !important;
-	}
+	${pr => pr.anchorstyle && 
+		`.MuiDrawer-paper {
+			// animation: ${pr.anchorstyle === "right" ? "moveToLeft" : "moveToOuterLeft"} 0.5s ease-in-out !important;
+			// animation-delay: 10ms;
+			// animation: ${pr.anchorstyle === "right" && "moveIntoScreen"} 0.5s ease-in-out !important;
+			// animation-delay: 10ms;
+			${(pr.anchorstyle.currentStyle === "right" && pr.anchorstyle.previousStyle === "right") && 
+			`
+				animation: moveIntoScreen 1s ease-in-out !important;
+			`
+}
 
-	// @keyframes moveToLeft {
-	// 	0% {
-	// 		transform: translateX(75vw);
-	// 	}
-	// 	100% {
-	// 		transform: translateX(0);
-	// 	}
-	// }
+			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") && 
+			`
+				background: white;
+				transition: transform 1s ease-in-out !important;
+				transform: translateX(-25vw) !important;
+			`
+}
 
-	// @keyframes moveToOuterLeft {
-	// 	0% {
-	// 		transform: translateX(0);
-	// 	}
-	// 	100% {
-	// 		transform: translateX(-25vw);
-	// 	}
-	// }
+			${(pr.anchorstyle.currentStyle === "right" && pr.anchorstyle.previousStyle === "left") && 
+			`
+				background: white;
+				transition: transform 1s ease-in-out !important;
+				transform: translateX(0) !important;
+			`
+}
+
+			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) && 
+			`
+				background: white;
+				transition: transform 1s ease-in-out !important;
+				transform: translateX(-25vw) !important;
+			`
+}
+
+			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) && 
+			`
+				background: white;
+				transition: transform 1s ease-in-out !important;
+				transform: translateX(-100vw) !important;
+			`
+}
+
+			@keyframes moveIntoScreen {
+				0% {
+					transform: translateX(75vw);
+				}
+				100% {
+					transform: translateX(0);
+				}
+			}
+		}`
+}
 `
 
 // interface DrawerProps {
@@ -54,7 +82,14 @@ const MUIDrawerStyled = styled(MUIDrawer)`
 // }
 
 const Drawer = (props) => {
-	const { open, onClose, children, key, anchor = "right", display, anchorStyle = "right" } = props;
+	const { open, onClose, children, key, anchor = "right", display, anchorstyle } = props;
+
+	//the useRef Hook allows you to persist data between renders
+	const prevStyleRef = useRef();
+	useEffect(() => {
+		//assign the ref's current value to the count Hook
+		prevStyleRef.current = anchorstyle;
+	}, [anchorstyle]); //run this code when the value of count changes
 
 	const [state, setState] = useState({
 		open: false
@@ -77,24 +112,27 @@ const Drawer = (props) => {
 	}
 
 	return (
-		<MUIDrawerStyled
-			key={key}
-			anchorStyle={anchorStyle}
-			anchor={anchor}
-			// display={display}
-			open={open}
-			onClose={onClose}
-			SlideProps={{
-				onExited
-			}}
-		>
-			{
-				state.open &&
-				<DrawerContent>
-					{children}
-				</DrawerContent>
-			}
-		</MUIDrawerStyled>
+		<>
+			<MUIDrawerStyled
+				key={key}
+				anchorstyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
+				anchor={anchor}
+				display={display}
+				open={open}
+				onClose={onClose}
+				SlideProps={{
+					onExited
+				}}
+			>
+				{
+					state.open &&
+					<DrawerContent>
+						<p>Now: {anchorstyle}, Prev: {prevStyleRef.current}</p>
+						{children}
+					</DrawerContent>
+				}
+			</MUIDrawerStyled>
+		</>
 	)
 }
 

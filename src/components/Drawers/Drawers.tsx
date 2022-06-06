@@ -12,15 +12,17 @@ const Drawers = ({ drawers }: { drawers: JSX.Element[] }): JSX.Element => {
 		<>
 			{drawers.map((val, i) => {
 				const open = true;
-				console.log(i, drawers.length);
 				const anchorStyle = i >= drawers.length - 1 ? "right" : "left";
-				// const display = i < drawers.length - 2 ? false : true;
+				const display = i < drawers.length - 2 ? false : true;
+				console.log(i, drawers.length, anchorStyle);
+
 
 				return (
 					<Drawer
 						key={i}
 						open={open}
-						anchorStyle={anchorStyle}
+						anchorstyle={anchorStyle}
+						display={display}
 					>
 						{val}
 					</Drawer>
