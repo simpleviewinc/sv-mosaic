@@ -25,11 +25,12 @@ export function DataViewColumnControl(props) {
 			<Button
 				color="black"
 				label={t("mosaic:DataView.columns")}
-				variant="outlined"
+				variant="icon"
 				size="small"
 				mIcon={SettingsIcon}
 				onClick={gearClick}
 				iconPosition="left"
+				tooltip="Update columns and their order."
 			/>
 			{
 				props.onChange !== undefined &&
