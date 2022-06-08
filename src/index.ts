@@ -73,9 +73,6 @@ export * from "./components/ToggleSwitch";
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
 
-export { default as RecentActivity } from "./components/RecentActivity";
-export * from "./components/RecentActivity";
-
 export { default as Snackbar } from "./components/Snackbar";
 export * from "./components/Snackbar";
 

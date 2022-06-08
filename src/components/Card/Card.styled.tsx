@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import theme from "../../utils/theme.js";
 
-const sidePaddings = {
-	lg: 40,
-	md: 16,
-}
-
 export const CardWrapper = styled.div`
 	border: 2px solid ${theme.colors.gray200};
 	font-family: ${theme.fontFamily};
@@ -18,7 +13,7 @@ export const TitleBar = styled.div`
 	display: flex;
 	height: 56px;
 	justify-content: space-between;
-	padding: 0 ${(pr) => sidePaddings[pr.size]}px;
+	padding: 0 16px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -27,12 +22,16 @@ export const TitleWrapper = styled.div`
 `;
 
 export const BottomActionWrapper = styled.div`
-	display: flex;
 	align-items: center;
+	display: flex;
 	justify-content: center;
 	margin-bottom: 16px;
 `;
 
 export const ContentWrapper = styled.div`
-	padding: 0 ${(pr) => sidePaddings[pr.size]}px;
+	padding: 0 16px;
+`;
+
+export const StyledHr = styled.hr`
+	border-top: 1px solid ${theme.colors.gray200};
 `;
