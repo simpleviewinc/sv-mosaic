@@ -52,8 +52,8 @@ export * from "./components/Dialog";
 export { default as LeftNav } from "./components/LeftNav";
 export * from "./components/LeftNav";
 
-export { default as Navigation } from "./components/Navigation";
-export * from "./components/Navigation";
+export { default as SideNav } from "./components/SideNav";
+export * from "./components/SideNav";
 
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "../../theme";
 
-export const SideNav = styled.nav`
+export const SideNavStyle = styled.nav`
 	background: white;
 	border: 2px solid ${theme.colors.gray200};
 	display: flex;
@@ -47,7 +47,7 @@ export const LinkWrapper = styled.div`
 	}
 
   &:hover {
-    background-color: ${theme.colors.gray100};
+    background-color: ${theme.colors.gray200};
   }
 `;
 
@@ -65,6 +65,7 @@ export const StyledLink = styled.span`
 
 export const SectionWrapper = styled.div`
 	border-bottom: 2px solid ${theme.colors.gray200};
+	cursor: pointer;
 `;
 
 export const Badge = styled.span`
