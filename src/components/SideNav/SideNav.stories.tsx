@@ -4,7 +4,7 @@ import { withKnobs, number } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
-import Navigation, { Link } from ".";
+import SideNav, { Link } from ".";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import CollectionsIcon from "@mui/icons-material/Collections";
@@ -14,7 +14,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export default {
-	title: "Components/Navigation",
+	title: "Components/SideNav",
 	decorators: [withKnobs],
 } as Meta;
 
@@ -89,7 +89,7 @@ export const Example = (): ReactElement => {
 
 	return (
 		<div style={{ display: "flex", height: parentHeight }}>
-			<Navigation links={links} />
+			<SideNav links={links} />
 			<div>{content}</div>
 		</div>
 	);

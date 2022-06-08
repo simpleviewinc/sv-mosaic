@@ -1,18 +1,18 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
-import { NavigationProps } from ".";
+import { SideNavProps } from ".";
 import {
 	LinkWrapper,
-	SideNav,
+	SideNavStyle,
 	SidebarWrap,
 	StyledLink,
 	SectionWrapper,
 	Badge,
 	BadgeWrapper,
-} from "./Navigation.styled";
-import { Link } from "./NavigationTypes";
+} from "./SideNav.styled";
+import { Link } from "./SideNavTypes";
 
-const Navigation = (props: NavigationProps): ReactElement => {
+const SideNav = (props: SideNavProps): ReactElement => {
 	const { links } = props;
 	const [selectedLink, setSelectedLink] = useState(links ? links[0][0].label : "");
 
@@ -27,7 +27,7 @@ const Navigation = (props: NavigationProps): ReactElement => {
 	};
 
 	return (
-		<SideNav>
+		<SideNavStyle>
 			<SidebarWrap>
 				{Object.keys(links).map((key) => {
 					return (
@@ -59,8 +59,8 @@ const Navigation = (props: NavigationProps): ReactElement => {
 					);
 				})}
 			</SidebarWrap>
-		</SideNav>
+		</SideNavStyle>
 	);
 };
 
-export default Navigation;
+export default SideNav;

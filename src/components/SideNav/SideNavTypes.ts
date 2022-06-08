@@ -1,6 +1,6 @@
 import { SvgIconComponent } from "@mui/icons-material";
 
-export interface NavigationProps {
+export interface SideNavProps {
   /**
    * List of lists of links, each list represents a section of links
    */
