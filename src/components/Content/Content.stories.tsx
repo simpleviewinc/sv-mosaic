@@ -16,7 +16,7 @@ const edit = () => alert("Edit button clicked");
 
 const content: ContentProps["content"] = [
 	[
-		{ type: "paragraph", label: "something", value: "Cum quod earum." },
+		{ type: "paragraph", label: "Paragraph label", value: "Cum quod earum." },
 		{ type: "labelValue", label: "Label", value: "value" },
 	],
 	[
@@ -35,7 +35,7 @@ const content: ContentProps["content"] = [
 	[
 		{
 			type: "paragraph",
-			label: "something",
+			label: "Paragraph label",
 			value:
         "Cum quod earum saepe veniam. Quis quis est assumenda in at tempora iusto dicta tempore. Vel mollitia voluptatem pariatur. Cum quod earum saepe veniam. Quis quis est assumenda in at tempora iusto dicta tempore. Vel mollitia voluptatem pariatur.",
 		},
@@ -49,7 +49,7 @@ const content: ContentProps["content"] = [
 	[
 		{
 			type: "paragraph",
-			label: "something",
+			label: "Paragraph label",
 			value:
         "Cum quod earum saepe veniam. Quis quis est assumenda in at tempora iusto dicta tempore. Vel mollitia voluptatem pariatur. Cum quod earum saepe veniam. Quis quis est assumenda in at tempora iusto dicta tempore. Vel mollitia voluptatem pariatur.",
 		},
