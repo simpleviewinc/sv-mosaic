@@ -1,10 +1,10 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
 import { screen, cleanup, render, fireEvent } from "@testing-library/react";
-import { Link } from "./NavigationTypes";
+import { Link } from "./SideNavTypes";
 
 // Components
-import Navigation from "./Navigation";
+import SideNav from "./SideNav";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -15,7 +15,7 @@ afterEach(cleanup);
 
 const addTaskMock = jest.fn();
 
-export const NavigationExample = (): ReactElement => {
+export const SideNavExample = (): ReactElement => {
 	const [content, setContent] = useState<JSX.Element>(null);
 	const links: Link[][] = [
 		[
@@ -59,7 +59,7 @@ export const NavigationExample = (): ReactElement => {
 
 	return (
 		<div style={{ display: "flex" }}>
-			<Navigation links={links} />
+			<SideNav links={links} />
 			<div>{content}</div>
 		</div>
 	);
@@ -67,9 +67,9 @@ export const NavigationExample = (): ReactElement => {
 
 const { getByText, getByTestId, getAllByTestId } = screen;
 
-describe("Navigation component", () => {
+describe("SideNav component", () => {
 	beforeEach(() => {
-		render(<NavigationExample />)
+		render(<SideNavExample />)
 	});
 
 	it("should displays the links labels", () => {
