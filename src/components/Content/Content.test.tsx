@@ -8,7 +8,7 @@ afterEach(cleanup);
 
 const content: ContentProps["content"] = [
 	[
-		{ type: "paragraph", label: "something", value: "First paragraph." },
+		{ type: "paragraph", label: "Paragraph label", value: "First paragraph." },
 		{
 			type: "file",
 			label: "NameFile.pdf",
@@ -21,7 +21,7 @@ const content: ContentProps["content"] = [
 		{ type: "labelValue", label: "Label2", value: "value2" },
 	],
 	[{ type: "tags", label: "Tags Label", value: ["Tag1", "Tag2"] }],
-	[{ type: "paragraph", label: "something", value: "Fourth paragraph" }],
+	[{ type: "paragraph", label: "Paragraph label", value: "Fourth paragraph" }],
 ];
 
 const { getByText, getByTestId, getAllByTestId } = screen;
@@ -41,6 +41,7 @@ describe("Content component", () => {
 
 	it("should display all the content", () => {
 		expect(getByText("Main Section")).toBeDefined();
+		expect(getByText("Paragraph label:")).toBeDefined();
 		expect(getByText("First paragraph.")).toBeDefined();
 		expect(getByText("NameFile.pdf:")).toBeDefined();
 		expect(getByTestId("PictureAsPdfIcon")).toBeDefined();
@@ -52,7 +53,6 @@ describe("Content component", () => {
 		expect(getByText("Tags Label:")).toBeDefined();
 		expect(getByText("Tag1")).toBeDefined();
 		expect(getByText("Tag2")).toBeDefined();
-		screen.debug(null, 200000);
 	});
 
 	it("should execute the onClick edit callback", () => {
@@ -66,6 +66,7 @@ describe("Content component", () => {
 		fireEvent.click(getByText("More Details"));
 
 		expect(getAllByTestId("content-row").length).toBe(4);
+		expect(getByText("Fourth paragraph")).toBeDefined();
 	});
 });
 

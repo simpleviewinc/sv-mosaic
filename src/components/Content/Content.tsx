@@ -19,6 +19,7 @@ import {
 	ValueFile,
 	ContentRow,
 	ContentColumn,
+	ParagraphWrapper,
 } from "./Content.styled";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
@@ -41,14 +42,12 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @param contentItem 
 	 * @returns The content with a sctructure of label: value
 	 */
-	const labelValueContent = (contentItem: ContentType) => {
-		return (
+	const labelValueContent = (contentItem: ContentType) => (
 			<LabelValueWrapper>
 				<Label>{contentItem.label}:</Label>
 				<Value>{contentItem.value}</Value>
 			</LabelValueWrapper>
-		);
-	};
+	);
 
 	/**
 	 * Renders the content of type "paragraph"
@@ -56,7 +55,10 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @returns A paragraph with the value of the content
 	 */
 	const paragraphContent = (contentItem: ContentType) => (
-		<Paragraph>{contentItem.value}</Paragraph>
+		<ParagraphWrapper>
+			<Label>{contentItem.label}:</Label>
+			<Paragraph>{contentItem.value}</Paragraph>
+		</ParagraphWrapper>
 	);
 
 	/**

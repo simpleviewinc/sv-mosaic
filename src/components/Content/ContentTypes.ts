@@ -25,7 +25,7 @@ export interface ContentProps {
  * Each content can contain a type, a lavel, a value and an icon. Depending of the type of content
  * will be type of value.
  */
-export type ContentType = { type: Types, label?: string, value: Value, icon?: SvgIconComponent }
+export type ContentType = { type: Types, label: string, value: Value, icon?: SvgIconComponent }
 /**
  * Possibles types of contents
  */

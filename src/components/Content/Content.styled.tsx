@@ -48,7 +48,11 @@ export const ButtonsWrapper = styled.div`
 export const Paragraph = styled.p`
 	color: ${theme.colors.gray700};
 	font-size: 14px;
-	margin: 0 0 16px;
+	margin: 0;
+`;
+
+export const ParagraphWrapper = styled.div`
+	margin-bottom: 16px;
 `;
 
 // Styles for the LabelValue content type
