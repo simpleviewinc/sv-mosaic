@@ -24,14 +24,14 @@ const MUIDrawerStyled = styled(MUIDrawer)`
 			// animation-delay: 10ms;
 			${(pr.anchorstyle.currentStyle === "right" && pr.anchorstyle.previousStyle === "right") && 
 			`
-				animation: moveIntoScreen 1s ease-in-out !important;
+				animation: moveIntoScreen 255ms ease-in-out !important;
 			`
 }
 
 			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") && 
 			`
 				background: white;
-				transition: transform 1s ease-in-out !important;
+				transition: transform 255ms ease-in-out !important;
 				transform: translateX(-25vw) !important;
 			`
 }
@@ -39,7 +39,7 @@ const MUIDrawerStyled = styled(MUIDrawer)`
 			${(pr.anchorstyle.currentStyle === "right" && pr.anchorstyle.previousStyle === "left") && 
 			`
 				background: white;
-				transition: transform 1s ease-in-out !important;
+				transition: transform 255ms ease-in-out !important;
 				transform: translateX(0) !important;
 			`
 }
@@ -47,7 +47,7 @@ const MUIDrawerStyled = styled(MUIDrawer)`
 			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) && 
 			`
 				background: white;
-				transition: transform 1s ease-in-out !important;
+				transition: transform 255ms ease-in-out !important;
 				transform: translateX(-25vw) !important;
 			`
 }
@@ -55,7 +55,7 @@ const MUIDrawerStyled = styled(MUIDrawer)`
 			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) && 
 			`
 				background: white;
-				transition: transform 1s ease-in-out !important;
+				transition: transform 255ms ease-in-out !important;
 				transform: translateX(-100vw) !important;
 			`
 }
@@ -82,7 +82,7 @@ const MUIDrawerStyled = styled(MUIDrawer)`
 // }
 
 const Drawer = (props) => {
-	const { open, onClose, children, key, anchor = "right", display, anchorstyle } = props;
+	const { open, onClose, children, idx, anchor = "right", display, anchorstyle, onTransitionEnd, onExit } = props;
 
 	//the useRef Hook allows you to persist data between renders
 	const prevStyleRef = useRef();
@@ -103,31 +103,33 @@ const Drawer = (props) => {
 			});
 		}
 	}, [open]);
-
+	
 	const onExited = function () {
 		setState({
 			...state,
-			open: false
+			open: false,
 		});
+		onExit();
 	}
 
 	return (
 		<>
 			<MUIDrawerStyled
-				key={key}
+				key={idx}
 				anchorstyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
 				anchor={anchor}
 				display={display}
 				open={open}
 				onClose={onClose}
 				SlideProps={{
-					onExited
+					onExited,
+					// ontransitionend: onTransitionEnd
 				}}
 			>
 				{
 					state.open &&
 					<DrawerContent>
-						<p>Now: {anchorstyle}, Prev: {prevStyleRef.current}</p>
+						<p>Now: {anchorstyle} prev: {prevStyleRef.current}</p>
 						{children}
 					</DrawerContent>
 				}
