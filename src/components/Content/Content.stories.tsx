@@ -12,7 +12,7 @@ export default {
 	decorators: [withKnobs],
 } as Meta;
 
-const edit = () => alert("Edit button clicked");
+const onEdit = () => alert("Edit button clicked");
 
 const content: ContentProps["content"] = [
 	[
@@ -56,18 +56,20 @@ const content: ContentProps["content"] = [
 	],
 ];
 
-const onClickAdd = () => alert("Add button clicked");
+const onAdd = () => alert("Add button clicked");
 
 export const Playground = (): ReactElement => {
 	const title = text("Title", "Main Section Title");
 	const showEdit = boolean("Show edit button", true);
+	const showAdd = boolean("Show add button", true);
+	const showContent = boolean("Show content", true);
 
 	return (
 		<Content
 			title={title}
-			content={content}
-			onClickEdit={showEdit && edit}
-			onClickAdd={onClickAdd}
+			content={showContent && content}
+			onEdit={showEdit && onEdit}
+			onAdd={showAdd && onAdd}
 		/>
 	);
 };

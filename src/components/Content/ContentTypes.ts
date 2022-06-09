@@ -8,11 +8,11 @@ export interface ContentProps {
 	/**
 	 * Callback that will be executed when the Edit icon is clicked.
 	 */
-	onClickEdit?: () => void;
+	onEdit?: () => void;
 	/**
 	 * Callback that will be executed when the '+' icon is clicked.
 	 */
-	onClickAdd?: () => void;
+	onAdd?: () => void;
 	/**
 	 * List of the types of content that will be display. 
 	 * Each array can only contain at most two items that

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import { ContentProps, ContentType } from "./ContentTypes";
 
 // Components
@@ -16,54 +16,81 @@ import {
 	Paragraph,
 	ChipsWrapper,
 	LabelWrapper,
-	ValueFile,
 	ContentRow,
 	ContentColumn,
-	ParagraphWrapper,
 } from "./Content.styled";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 
+const invalidContents = {
+	tags: (value: string | string[]) => typeof value === "string",
+	paragraph: (value: string | string[]) => Array.isArray(value),
+	labelValue: (value: string | string[]) => Array.isArray(value),
+	file: (value: string | string[]) => Array.isArray(value),
+} 
+
 const Content = (props: ContentProps): ReactElement => {
-	const { title, onClickEdit, content, onClickAdd } = props;
-	const [showOrHide, setShowOrHide] = useState(content.length < 3);
+	const { title, onEdit, content, onAdd } = props;
+	const [show, setShow] = useState(content?.length < 3);
+
+	/**
+	 * Validates if the combinations of the type of content and
+	 * value are allowed.
+	 */
+	useEffect(() => {
+		content?.forEach((contentRow) => {
+			contentRow.forEach((contentElement) => {
+				if (invalidContents[contentElement.type](contentElement.value)) {
+					throw new Error(
+						`Content of type '${
+							contentElement.type
+						}' with a value of type '${typeof contentElement.value}' is not a valid combination`
+					);
+				}
+			});
+		});
+	}, [content]);
 
 	/**
 	 * Toggles the state use to show or hide the content.
 	 */
-	const showOrHideDetails = () => {
-		setShowOrHide(!showOrHide);
+	const showDetails = () => {
+		setShow(!show);
 	};
 
-	const contentForDisplay = showOrHide ? content : content.slice(0, 3);
+	let contentForDisplay;
+
+	if (content) {
+		contentForDisplay = show ? content : content.slice(0, 3);
+	}
 
 	/**
 	 * Renders the content of type "labelValue"
-	 * @param contentItem 
+	 * @param contentItem
 	 * @returns The content with a sctructure of label: value
 	 */
 	const labelValueContent = (contentItem: ContentType) => (
-			<LabelValueWrapper>
-				<Label>{contentItem.label}:</Label>
-				<Value>{contentItem.value}</Value>
-			</LabelValueWrapper>
+		<LabelValueWrapper>
+			<Label>{contentItem.label}:</Label>
+			<Value>{contentItem.value}</Value>
+		</LabelValueWrapper>
 	);
 
 	/**
 	 * Renders the content of type "paragraph"
-	 * @param contentItem 
+	 * @param contentItem
 	 * @returns A paragraph with the value of the content
 	 */
 	const paragraphContent = (contentItem: ContentType) => (
-		<ParagraphWrapper>
+		<LabelValueWrapper>
 			<Label>{contentItem.label}:</Label>
 			<Paragraph>{contentItem.value}</Paragraph>
-		</ParagraphWrapper>
+		</LabelValueWrapper>
 	);
 
 	/**
 	 * Renders the content of type "tags"
-	 * @param contentItem 
+	 * @param contentItem
 	 * @returns The a lists of tags/chips.
 	 */
 	const tagsContent = (contentItem: ContentType) => {
@@ -85,7 +112,7 @@ const Content = (props: ContentProps): ReactElement => {
 
 	/**
 	 * Renders the content of type "file"
-	 * @param contentItem 
+	 * @param contentItem
 	 * @returns The info of the file passed within the label
 	 * and value attributes and it renders an icon if any.
 	 */
@@ -98,7 +125,7 @@ const Content = (props: ContentProps): ReactElement => {
 					{FileIcon && <FileIcon />}
 					<Label>{contentItem.label}:</Label>
 				</LabelWrapper>
-				<ValueFile>{contentItem.value}</ValueFile>
+				<Value isFile>{contentItem.value}</Value>
 			</>
 		);
 	};
@@ -107,42 +134,42 @@ const Content = (props: ContentProps): ReactElement => {
 		<MainWrapper>
 			<TitleWrapper>
 				<Title>{title}</Title>
-				<ButtonsWrapper>
-					{content?.length === 0 ? (
-						<Button color="teal" variant="icon" mIcon={AddIcon} onClick={onClickAdd}></Button>
-					) : (
-						onClickEdit && (
+				<ButtonsWrapper isMaxContent={content?.length < 3}>
+					{content?.length === 0 || !contentForDisplay
+						? onAdd && (
+							<Button
+								color="teal"
+								variant="icon"
+								mIcon={AddIcon}
+								onClick={onAdd}
+							></Button>
+						)
+						: onEdit && (
 							<Button
 								color="gray"
 								variant="icon"
 								mIcon={EditIcon}
-								onClick={onClickEdit}
+								onClick={onEdit}
 							></Button>
-						)
+						)}
+					{content?.length > 3 && (
+						<Button
+							color="teal"
+							variant="text"
+							label={show ? "Less Details" : "More Details"}
+							onClick={showDetails}
+						></Button>
 					)}
-					<Button
-						color="teal"
-						variant="text"
-						label={showOrHide ? "Less Details" : "More Details"}
-						onClick={showOrHideDetails}
-					></Button>
 				</ButtonsWrapper>
 			</TitleWrapper>
 			<div>
-				{contentForDisplay.map((items, idx) => {
+				{contentForDisplay?.map((items, idx) => {
 					return (
-						<ContentRow data-testid={"content-row"} key={`${idx}-contentLayout`}>
+						<ContentRow
+							data-testid={"content-row"}
+							key={`${idx}-contentLayout`}
+						>
 							{items.map((contentItem, idx) => {
-								if (
-									(contentItem.type === "tags" &&
-                    typeof contentItem.value === "string") ||
-                  ((contentItem.type === "paragraph" ||
-                    contentItem.type === "labelValue") &&
-                    Array.isArray(contentItem.value))
-								) {
-									throw new Error(`Content of type '${contentItem.type}' with a value of type '${typeof contentItem.value}' is not a valid combination`);
-								}
-
 								const contentMap = {
 									labelValue: labelValueContent(contentItem),
 									paragraph: paragraphContent(contentItem),
