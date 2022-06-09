@@ -15,59 +15,31 @@ const DrawerContent = styled.div`
 
 const MUIDrawerStyled = styled(MUIDrawer)`
 	z-index: 1100;
-	// display: ${pr => pr.display ? "block" : "none"};
 	${pr => pr.anchorstyle && 
 		`.MuiDrawer-paper {
-			// animation: ${pr.anchorstyle === "right" ? "moveToLeft" : "moveToOuterLeft"} 0.5s ease-in-out !important;
-			// animation-delay: 10ms;
-			// animation: ${pr.anchorstyle === "right" && "moveIntoScreen"} 0.5s ease-in-out !important;
-			// animation-delay: 10ms;
-			${(pr.anchorstyle.currentStyle === "right" && pr.anchorstyle.previousStyle === "right") && 
-			`
-				animation: moveIntoScreen 255ms ease-in-out !important;
-			`
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") && 
+`
+	background: white;
+	transition: transform 255ms ease-in-out !important;
+	transform: translateX(-25vw) !important;
+`
 }
 
-			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") && 
-			`
-				background: white;
-				transition: transform 255ms ease-in-out !important;
-				transform: translateX(-25vw) !important;
-			`
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) && 
+`
+	background: white;
+	transition: transform 255ms ease-in-out !important;
+	transform: translateX(-25vw) !important;
+`
 }
 
-			${(pr.anchorstyle.currentStyle === "right" && pr.anchorstyle.previousStyle === "left") && 
-			`
-				background: white;
-				transition: transform 255ms ease-in-out !important;
-				transform: translateX(0) !important;
-			`
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) && 
+`
+	background: white;
+	transition: transform 255ms ease-in-out !important;
+	transform: translateX(-100vw) !important;
+`
 }
-
-			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) && 
-			`
-				background: white;
-				transition: transform 255ms ease-in-out !important;
-				transform: translateX(-25vw) !important;
-			`
-}
-
-			${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) && 
-			`
-				background: white;
-				transition: transform 255ms ease-in-out !important;
-				transform: translateX(-100vw) !important;
-			`
-}
-
-			@keyframes moveIntoScreen {
-				0% {
-					transform: translateX(75vw);
-				}
-				100% {
-					transform: translateX(0);
-				}
-			}
 		}`
 }
 `
@@ -82,14 +54,12 @@ const MUIDrawerStyled = styled(MUIDrawer)`
 // }
 
 const Drawer = (props) => {
-	const { open, onClose, children, idx, anchor = "right", display, anchorstyle, onTransitionEnd, onExit } = props;
+	const { open, onClose, children, idx, anchor = "right", display, anchorstyle, exitCB } = props;
 
-	//the useRef Hook allows you to persist data between renders
 	const prevStyleRef = useRef();
 	useEffect(() => {
-		//assign the ref's current value to the count Hook
 		prevStyleRef.current = anchorstyle;
-	}, [anchorstyle]); //run this code when the value of count changes
+	}, [anchorstyle]);
 
 	const [state, setState] = useState({
 		open: false
@@ -109,7 +79,7 @@ const Drawer = (props) => {
 			...state,
 			open: false,
 		});
-		onExit();
+		if (exitCB) exitCB();
 	}
 
 	return (
@@ -118,18 +88,16 @@ const Drawer = (props) => {
 				key={idx}
 				anchorstyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
 				anchor={anchor}
-				display={display}
+				display={display.toString()}
 				open={open}
 				onClose={onClose}
 				SlideProps={{
 					onExited,
-					// ontransitionend: onTransitionEnd
 				}}
 			>
 				{
 					state.open &&
 					<DrawerContent>
-						<p>Now: {anchorstyle} prev: {prevStyleRef.current}</p>
 						{children}
 					</DrawerContent>
 				}

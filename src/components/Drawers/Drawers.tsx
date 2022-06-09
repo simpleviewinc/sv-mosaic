@@ -1,41 +1,28 @@
 import * as React from "react";
 // import MuiDrawer from "@mui/material/Drawer";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Drawer from "../Drawer";
 import { DrawersProps } from "./DrawersTypes";
 
 const Drawers = (props: DrawersProps): JSX.Element => {
 	const { drawers } = props;
 
-	const [state, setState] = useState({drawers: []})
+	const [stateDrawers, setStateDrawers] = useState([]);
+	const [ready, setReady] = useState(false);
 
 	useEffect(() => {
-		console.log("entering", drawers, state.drawers);
-		setState({...state, drawers: [...drawers]});
-	}, [drawers]);
-
-	// if (drawers.length === 0) {
-	// 	return null;
-	// }
-	
-	// const onTransitionEnd = () => {
-	// 	setState({drawers: drawers});
-	// }
-
-	const onExited = () => {
-		console.log("exited", drawers, state.drawers);
-		setState({
-			...state,
-			drawers: [...drawers],
-		})
-	};
+		if (ready === true || drawers.length > stateDrawers?.length) {
+			setStateDrawers([...drawers]);
+			setReady(false);
+		}
+	}, [ready, drawers]);
 
 	return (
 		<>
-			{state.drawers?.map((val, i) => {
-				const open = true;
-				const anchorStyle = i >= state.drawers.length - 1 ? "right" : "left";
-				const display = i < state.drawers.length - 2 ? false : true;
+			{stateDrawers?.map((val, i) => {
+				const open = ((stateDrawers?.length > drawers.length) && (i >= stateDrawers.length - 1)) ? false : true;
+				const anchorStyle = i >= stateDrawers.length - 1 ? "right" : "left";
+				const display = i < stateDrawers.length - 2 ? false : true;
 
 				return (
 					<Drawer
@@ -44,8 +31,7 @@ const Drawers = (props: DrawersProps): JSX.Element => {
 						open={open}
 						anchorstyle={anchorStyle}
 						display={display}
-						onClose={onExited}
-						// onTransitionEnd={onTransitionEnd}
+						exitCB={() => setReady(true)}
 					>
 						{val}
 					</Drawer>
