@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import MUIDrawer from "@mui/material/Drawer";
 
 import theme from "../utils/theme.js";
+// import { SxProps } from "@mui/material";
 
 const DrawerContent = styled.div`
 	font-family: ${theme.fontFamily};
@@ -14,45 +15,94 @@ const DrawerContent = styled.div`
 
 const MUIDrawerStyled = styled(MUIDrawer)`
 	z-index: 1100;
+	${pr => pr.anchorstyle && 
+		`.MuiDrawer-paper {
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") && 
+`
+	background: white;
+	transition: transform 255ms ease-in-out !important;
+	transform: translateX(-25vw) !important;
+`
+}
+
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) && 
+`
+	background: white;
+	transition: transform 255ms ease-in-out !important;
+	transform: translateX(-25vw) !important;
+`
+}
+
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) && 
+`
+	background: white;
+	transition: transform 255ms ease-in-out !important;
+	transform: translateX(-100vw) !important;
+`
+}
+		}`
+}
 `
 
-function Drawer(props) {
+// interface DrawerProps {
+// 	open: boolean;
+// 	onClose?: () => unknown;
+// 	children: JSX.Element;
+// 	key?: unknown;
+// 	anchor?: "left" | "right";
+// 	sx?: SxProps;
+// }
+
+const Drawer = (props) => {
+	const { open, onClose, children, idx, anchor = "right", display, anchorstyle, exitCB } = props;
+
+	const prevStyleRef = useRef();
+	useEffect(() => {
+		prevStyleRef.current = anchorstyle;
+	}, [anchorstyle]);
+
 	const [state, setState] = useState({
 		open: false
 	});
 
 	useEffect(() => {
-		if (props.open === true) {
+		if (open === true) {
 			setState({
 				...state,
 				open: true
 			});
 		}
-	}, [props.open]);
-
+	}, [open]);
+	
 	const onExited = function () {
 		setState({
 			...state,
-			open: false
+			open: false,
 		});
+		if (exitCB) exitCB();
 	}
 
 	return (
-		<MUIDrawerStyled
-			anchor="right"
-			open={props.open}
-			onClose={props.onClose}
-			SlideProps={{
-				onExited
-			}}
-		>
-			{
-				state.open &&
-				<DrawerContent>
-					{props.children}
-				</DrawerContent>
-			}
-		</MUIDrawerStyled>
+		<>
+			<MUIDrawerStyled
+				key={idx}
+				anchorstyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
+				anchor={anchor}
+				display={display.toString()}
+				open={open}
+				onClose={onClose}
+				SlideProps={{
+					onExited,
+				}}
+			>
+				{
+					state.open &&
+					<DrawerContent>
+						{children}
+					</DrawerContent>
+				}
+			</MUIDrawerStyled>
+		</>
 	)
 }
 
