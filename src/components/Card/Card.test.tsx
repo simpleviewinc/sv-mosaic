@@ -11,12 +11,20 @@ afterEach(cleanup);
 const { getByText, getByTestId } = screen;
 const topAction = jest.fn();
 const bottomAction = jest.fn();
+const content = [
+	<p key="first-element">First Element</p>,
+	<p key="second-element">Second Element</p>,
+	<div key="div-element">
+		<p>Paragraph</p>
+		<button>Button</button>
+	</div>
+];
 
 describe("Card component", () => {
 	beforeEach(() => {
 		render(
 			<Card
-				content={<h1>Content</h1>}
+				content={content}
 				title={<p>Title</p>}
 				titleIcon={
 					<ContactsIcon
@@ -24,7 +32,6 @@ describe("Card component", () => {
 						sx={{ color: "black", width: 16 }}
 					/>
 				}
-				size="md"
 				topAction={{
 					color: "black",
 					variant: "icon",
@@ -42,10 +49,16 @@ describe("Card component", () => {
 		);
 	});
 
-	it("should display the title, the icon title and the content", () => {
-		expect(getByText("Content"));
+	it("should display the title with the icon title", () => {
 		expect(getByText("Title"));
 		expect(getByTestId("contacts-icon-test"));
+	});
+
+	it("should display the card content", () => {
+		expect(getByText("First Element"));
+		expect(getByText("Second Element"));
+		expect(getByText("Paragraph"));
+		expect(getByText("Button"));
 	});
 
 	it("should execute the bottom an top actions", () => {
