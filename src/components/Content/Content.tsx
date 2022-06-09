@@ -38,6 +38,8 @@ const Content = (props: ContentProps): ReactElement => {
 	 * value are allowed.
 	 */
 	useEffect(() => {
+		if(!content) return;
+
 		content?.forEach((contentRow) => {
 			contentRow.forEach((contentElement) => {
 				if (invalidContents[contentElement.type](contentElement.value)) {
