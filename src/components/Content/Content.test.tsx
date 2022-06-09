@@ -28,13 +28,13 @@ const { getByText, getByTestId, getAllByTestId } = screen;
 const onClickEdit = jest.fn();
 const onClickAdd = jest.fn();
 
-describe("Content component", () => {
+describe("xx component", () => {
 	beforeEach(() => {
 		render(
 			<Content
 				title="Main Section"
 				content={content}
-				onClickEdit={onClickEdit}
+				onEdit={onClickEdit}
 			/>
 		);
 	});
@@ -70,15 +70,34 @@ describe("Content component", () => {
 	});
 });
 
-describe("Content componenent when no content is passed", () => {
-	beforeEach(() => {
+describe("xx componenent when no content is passed", () => {
+	it("should display the '+' button when the content is an empty array", () => {
 		render(
-			<Content title="Main Section" content={[]} onClickAdd={onClickAdd} />
+			<Content title="Main Section" content={[]} onAdd={onClickAdd} />
 		);
+
+		fireEvent.click(getByTestId("icon-button-test"));
+
+		expect(onClickAdd).toHaveBeenCalled();
 	});
 
-	it("should display the '+' button since there is no content", () => {
+	it("should display the '+' button when the content is undefined", () => {
+		render(
+			<Content title="Main Section" content={undefined} onAdd={onClickAdd} />
+		);
+
 		fireEvent.click(getByTestId("icon-button-test"));
+
+		expect(onClickAdd).toHaveBeenCalled();
+	});
+
+	it("should display the '+' button when the content is null", () => {
+		render(
+			<Content title="Main Section" content={null} onAdd={onClickAdd} />
+		);
+
+		fireEvent.click(getByTestId("icon-button-test"));
+
 		expect(onClickAdd).toHaveBeenCalled();
 	});
 });

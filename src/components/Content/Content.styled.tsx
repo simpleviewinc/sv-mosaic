@@ -39,9 +39,28 @@ export const ButtonsWrapper = styled.div`
 	}
 
 	.iconButton {
-		border-right: 1px solid ${theme.colors.gray200};
-		padding-right: 16px;
+		border-right: ${({ isMaxContent }) => isMaxContent ? 0 : `1px solid ${theme.colors.gray200}`};
+		padding-right: ${({ isMaxContent }) => isMaxContent ? 0 : "16px"};
 	}
+`;
+
+export const ContentRow = styled.div`
+	display: flex;
+	width: 100%;
+`;
+
+export const ContentColumn = styled.div`
+	width: calc(100% / ${pr => pr.cols});
+`;
+
+export const LabelValueWrapper = styled.div`
+	margin-bottom: 16px;
+`;
+
+export const Value = styled.span`
+	color: ${theme.colors.gray600};
+	margin-left: ${({ isFile }) => isFile ? "24px" : "8px"};
+	font-size: ${({ isFile }) => isFile ? "12px" : "14px"};
 `;
 
 // Styles for the paragraph content type
@@ -51,24 +70,11 @@ export const Paragraph = styled.p`
 	margin: 0;
 `;
 
-export const ParagraphWrapper = styled.div`
-	margin-bottom: 16px;
-`;
-
 // Styles for the LabelValue content type
-
-export const LabelValueWrapper = styled.div`
-	margin-bottom: 16px;
-`;
 
 export const Label = styled.span`
 	color: ${theme.colors.gray700};
 	font-size: 14px;
-`;
-
-export const Value = styled.span`
-	color: ${theme.colors.gray600};
-	margin-left: 8px;
 `;
 
 // Styles for the tags content type
@@ -90,18 +96,4 @@ export const LabelWrapper = styled.div`
 		margin-right: 12px;
 		width: 16px;
 	}
-`;
-
-export const ValueFile = styled(Value)`
-	font-size: 12px;
-	margin-left: 24px;
-`;
-
-export const ContentRow = styled.div`
-  display: flex;
-	width: 100%;
-`;
-
-export const ContentColumn = styled.div`
-		width: calc(100% / ${pr => pr.cols});
 `;
