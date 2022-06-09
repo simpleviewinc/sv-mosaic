@@ -6,20 +6,21 @@ export const SideNavStyle = styled.nav`
 	border: 2px solid ${theme.colors.gray200};
 	display: flex;
 	flex-direction: column;
-	width: 200px;
+	width: 196px;
+	min-width: 196px;
 	height: 100%;
 	overflow-y: auto;
 `;
 
 export const LinkWrapper = styled.div`
-  align-items: center;
-  display: flex;  
+  	align-items: center;
+  	display: flex;
+  	gap: 8px;
 	background-color: ${(pr) =>
 		pr.idx === pr.selectedLink ? theme.colors.gray200 : ""};
 		border-left: ${(pr) =>
 		pr.idx === pr.selectedLink ? "4px solid #FCB731" : "4px solid transparent"};
-	height: 49px;
-	padding-left: 24px;
+	padding: 12px 20px;
 
 	span {
 		font-weight: ${(pr) =>
@@ -29,21 +30,20 @@ export const LinkWrapper = styled.div`
 	&:hover {
 		.MuiSvgIcon-root:not(:first-child) {
 			display: block;
-			color: ${theme.colors.gray600}
-		margin-right: 12px;
-		margin-left: auto;
-		width: 16px;
+			color: ${theme.colors.gray600};
+			margin-right: -12px;
+			margin-left: auto;
+			width: 16px;
 		}
 	}
 
 	.MuiSvgIcon-root:first-child {
-		color: ${theme.colors.almostBlack}
-		margin-right: 12px;
+		color: ${theme.colors.almostBlack};
 		width: 16px;
 	}
 
 	.MuiSvgIcon-root:not(:first-child) {
-		display: none
+		display: none;
 	}
 
   &:hover {
@@ -52,15 +52,20 @@ export const LinkWrapper = styled.div`
 `;
 
 export const SidebarWrap = styled.div`
-  font-family: ${theme.fontFamily};
+  	font-family: ${theme.fontFamily};
 	div:last-child {
 		border-bottom: 0;
-	}
+	};
 `;
 
 export const StyledLink = styled.span`
 	color: ${theme.colors.almostBlack};
 	font-size: 14px;
+	width: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 20px;
 `;
 
 export const SectionWrapper = styled.div`
@@ -81,6 +86,5 @@ export const BadgeWrapper = styled.div`
 	display: flex;
 	height: 20px;
 	justify-content: center;
-	margin-left: 8px;
-	width: 20px;
+	min-width: 20px;
 `;
