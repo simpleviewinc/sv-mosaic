@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { Callbacks } from "../DrawersTypes";
 import { GridDef, NavigateFn, PageDef } from "./ExampleTypes";
+import Button from "@root/components/Button";
 
 const Grid = ({
 	id,
@@ -25,20 +26,34 @@ const Grid = ({
 	};
 	
 	return (
-		<div>
+		<div style={{display: "flex", flexDirection: "column", gap: 10}}>
 			<h1>
 				{config.args.title} - {id}
 			</h1>
 			<p>{count}</p>
-			<button onClick={() => setCount(0)}>Reset</button>
-			<br />
-			<button onClick={() => setCount(count + 1)}>increment</button>
-			<br />
-			<button onClick={() => navigate({ context: "drawer", name: "grid" })}>
-			Open Drawer
-			</button>
-			<br />
-			<button
+
+			<Button
+				color="teal"
+				variant="outlined"
+				label="Reset"
+				onClick={() => setCount(0)}
+			/>
+			<Button
+				color="teal"
+				variant="outlined"
+				label="Increment"
+				onClick={() => setCount(count + 1)}
+			/>
+			<Button
+				color="teal"
+				variant="outlined"
+				label="Open Regular Drawer"
+				onClick={() => navigate({ context: "drawer", name: "grid" })}
+			/>
+			<Button
+				color="teal"
+				variant="outlined"
+				label="Open Form Drawer"
 				onClick={() =>
 					navigate({
 						context: "drawer",
@@ -46,14 +61,21 @@ const Grid = ({
 						callbacks: { passData }
 					})
 				}
-			>
-			Open Drawer Form With Callbacks
-			</button>
-			<br />
-			<button onClick={() => navigate({ context: "back" })}>Back</button>
-			{callbacks?.passData && (
-				<button onClick={() => callbacks.passData(count)}>Pass Data</button>
-			)}
+			/>
+			<Button
+				color="teal"
+				variant="outlined"
+				label="Go Back"
+				onClick={() => navigate({ context: "back" })}
+			/>
+			{callbacks?.passData &&
+				<Button
+					color="teal"
+					variant="outlined"
+					label="Pass Data"
+					onClick={() => callbacks.passData(count)}
+				/>
+			}
 		</div>
 	);
 }

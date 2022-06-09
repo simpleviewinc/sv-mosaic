@@ -1,5 +1,4 @@
 import * as React from "react";
-// import MuiDrawer from "@mui/material/Drawer";
 import { memo, useEffect, useState } from "react";
 import Drawer from "../Drawer";
 import { DrawersProps } from "./DrawersTypes";

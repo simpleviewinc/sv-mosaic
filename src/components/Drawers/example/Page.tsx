@@ -1,10 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
 import Grid from "./Grid";
-import Form, { useForm } from "../../../forms/Form";
+import Form, { formActions, useForm } from "../../../forms/Form";
 import { PageDef } from "./ExampleTypes";
 import { Callbacks } from "../DrawersTypes";
 import { useCallback, useMemo } from "react";
+import Button from "@root/components/Button";
 
 const components = {
 	Grid,
@@ -67,6 +68,12 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 		navigate({context: "back"});
 	};
 
+	const updateField = (value) => {
+		dispatch(formActions.setFieldValue({name: "text1", value}));
+
+		navigate({context: "back"});
+	}
+
 	const pages: PageDef<any>[] = [
 		{
 			name: "grid",
@@ -123,6 +130,20 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 				callbacks={callbacks}
 				{...def.args}
 			/>
+			{def.component === "Form" && 
+				<Button
+					color="teal"
+					variant="outlined"
+					label="Open New Drawer Form"
+					onClick={() =>
+						navigate({
+							context: "drawer",
+							name: "form",
+							callbacks: { passData: updateField }
+						})
+					} 
+				/>
+			}
 		</Wrap>
 	);
 }
