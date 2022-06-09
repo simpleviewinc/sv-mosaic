@@ -6,6 +6,7 @@ import {
 	BottomActionWrapper,
 	ContentWrapper,
 	CardWrapper,
+	StyledHr,
 	TitleWrapper,
 	TitleBar,
 } from "./Card.styled";
@@ -14,7 +15,6 @@ const Card = (props: CardProps): ReactElement => {
 	const {
 		bottomAction,
 		content,
-		size = "lg",
 		title,
 		titleIcon,
 		topAction,
@@ -22,16 +22,21 @@ const Card = (props: CardProps): ReactElement => {
 
 	return (
 		<CardWrapper>
-			<TitleBar size={size}>
+			<TitleBar>
 				<TitleWrapper>
 					{titleIcon}
 					{title}
 				</TitleWrapper>
-				{topAction && (
-					<Button {...topAction}></Button>
-				)}
+				{topAction && <Button {...topAction}></Button>}
 			</TitleBar>
-			<ContentWrapper size={size}>{content}</ContentWrapper>
+			<ContentWrapper>
+				{content.map((element, idx) => (
+					<div key={`card-content-${idx}`}>
+						{element}
+						{idx !== content.length - 1 && <StyledHr />}
+					</div>
+				))}
+			</ContentWrapper>
 			{bottomAction && (
 				<BottomActionWrapper>
 					<Button {...bottomAction}></Button>
