@@ -1,0 +1,40 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import * as stories from './Drawers.stories';
+
+<Meta title='Components/Drawers/Readme' />
+
+# Drawers
+The `Drawers` component is wrapper that generates several [Material-UI Drawers](https://mui.com/material-ui/react-drawer/#main-content) but with SimpleView brand colors.
+
+The component does not provide a mechanism for navigating between drawers, it only helps stacking one on top of another.
+All the navgitation mechanism should be defined on the parent app creating the Drawers component.
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Drawers/DrawersTypes.tsx
+
+## Usage
+```ts
+// We recommend placing the useForm hook at the top of your component.
+const App = (props) => {
+	//...rest of App.tsx
+	const contentsArr = [
+		<MyContent1 />,
+		<MyContent2 />,
+		...,
+		<MyContentN />
+	]
+
+	return (
+		<>
+			//...rest of JSX code.
+			<Drawers drawers={contentsArr} />
+		</>
+	);
+}
+```
+
+## Drawers Example
+<Preview withSource='none'>
+  <stories.Example />
+</Preview>
