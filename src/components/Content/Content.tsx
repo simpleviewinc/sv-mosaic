@@ -27,7 +27,7 @@ const invalidContents = {
 	paragraph: (value: string | string[]) => Array.isArray(value),
 	labelValue: (value: string | string[]) => Array.isArray(value),
 	file: (value: string | string[]) => Array.isArray(value),
-} 
+};
 
 const Content = (props: ContentProps): ReactElement => {
 	const { title, onEdit, content, onAdd } = props;
@@ -165,29 +165,27 @@ const Content = (props: ContentProps): ReactElement => {
 				</ButtonsWrapper>
 			</TitleWrapper>
 			<div>
-				{contentForDisplay?.map((items, idx) => {
-					return (
-						<ContentRow
-							data-testid={"content-row"}
-							key={`${idx}-contentLayout`}
-						>
-							{items.map((contentItem, idx) => {
-								const contentMap = {
-									labelValue: labelValueContent(contentItem),
-									paragraph: paragraphContent(contentItem),
-									tags: tagsContent(contentItem),
-									file: fileContent(contentItem),
-								};
+				{contentForDisplay?.map((items, idx) => (
+					<ContentRow
+						data-testid={"content-row"}
+						key={`${idx}-contentLayout`}
+					>
+						{items.map((contentItem, idx) => {
+							const contentMap = {
+								labelValue: labelValueContent(contentItem),
+								paragraph: paragraphContent(contentItem),
+								tags: tagsContent(contentItem),
+								file: fileContent(contentItem),
+							};
 
-								return (
-									<ContentColumn cols={items.length} key={idx}>
-										{contentMap[contentItem.type]}
-									</ContentColumn>
-								);
-							})}
-						</ContentRow>
-					);
-				})}
+							return (
+								<ContentColumn cols={items.length} key={idx}>
+									{contentMap[contentItem.type]}
+								</ContentColumn>
+							);
+						})}
+					</ContentRow>
+				))}
 			</div>
 		</MainWrapper>
 	);
