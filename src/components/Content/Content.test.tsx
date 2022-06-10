@@ -28,7 +28,7 @@ const { getByText, getByTestId, getAllByTestId } = screen;
 const onClickEdit = jest.fn();
 const onClickAdd = jest.fn();
 
-describe("xx component", () => {
+describe("Content component", () => {
 	beforeEach(() => {
 		render(
 			<Content
@@ -70,7 +70,7 @@ describe("xx component", () => {
 	});
 });
 
-describe("xx componenent when no content is passed", () => {
+describe("Content componenent when no content is passed", () => {
 	it("should display the '+' button when the content is an empty array", () => {
 		render(
 			<Content title="Main Section" content={[]} onAdd={onClickAdd} />

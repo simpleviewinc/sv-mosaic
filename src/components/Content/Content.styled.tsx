@@ -5,12 +5,14 @@ import EditIcon from "@mui/icons-material/Edit";
 export const MainWrapper = styled.div`
 	font-family: ${theme.fontFamily};
 	border-bottom: 2px solid ${theme.colors.gray200};
+	margin: 32px 40px;
 `;
 
 export const TitleWrapper = styled.div`
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
+	margin: 16px 0;
 `;
 
 export const Title = styled.span`
@@ -50,6 +52,10 @@ export const ContentRow = styled.div`
 `;
 
 export const ContentColumn = styled.div`
+	& > div {
+		margin-right: ${({ cols }) => cols === 1 ? 0 : "60px" };
+	}
+
 	width: calc(100% / ${pr => pr.cols});
 `;
 
@@ -93,7 +99,7 @@ export const LabelWrapper = styled.div`
 
 	.MuiSvgIcon-root {
 		color: ${theme.colors.almostBlack}
-		margin-right: 12px;
+		margin-right: 8px;
 		width: 16px;
 	}
 `;
