@@ -88,7 +88,7 @@ const Drawer = (props) => {
 				key={idx}
 				anchorstyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
 				anchor={anchor}
-				display={display.toString()}
+				display={display}
 				open={open}
 				onClose={onClose}
 				SlideProps={{
