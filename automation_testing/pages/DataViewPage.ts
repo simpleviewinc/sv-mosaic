@@ -22,6 +22,7 @@ export class DataviewPage {
 	readonly allSelectedLabel: Locator;
 	readonly dataviewTable: Locator;
 	readonly loading: Locator;
+	readonly columnHeaders: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -40,6 +41,7 @@ export class DataviewPage {
 		this.allSelectedLabel = page.locator(".bulkText");
 		this.dataviewTable = page.locator("table tbody");
 		this.loading = page.locator("div.loading");
+		this.columnHeaders = page.locator(".columnHeader");
 	}
 
 	async visit(): Promise<void> {
@@ -48,11 +50,12 @@ export class DataviewPage {
 	}
 
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
-		await component.waitFor();
-		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.5, maxDiffPixelRatio: 0.3 })
+		await component.waitFor({ state: "visible" });
+		await component.waitFor({ state: "attached" });
+		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 })
 	}
 
-	async validateDialogMessage(message: string): Promise<void> {
+	async setDialogValidationListener(message: string): Promise<void> {
 		await this.page.on("dialog", async dialog => {
 			expect(await dialog.message()).toContain(message);
 			dialog.accept();
@@ -62,6 +65,7 @@ export class DataviewPage {
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
 		await this.page.on("dialog", async dialog => {
 			expect(await dialog.message().toString().split(",").length).toBe(number);
+			dialog.accept();
 		});
 	}
 
@@ -84,5 +88,9 @@ export class DataviewPage {
 	async getTableRows(): Promise<number> {
 		await this.dataviewTable.waitFor({ state: "visible" });
 		return await this.dataviewTable.locator("tr").count();
+	}
+
+	async getColumnHeadersCount(): Promise<number> {
+		return this.columnHeaders.count();
 	}
 }
