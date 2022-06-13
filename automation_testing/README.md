@@ -12,3 +12,6 @@ Script options:
 * test:chrome
 * test:firefox
 * test:webkit
+
+EG:
+ENV=local npm run test:chrome
