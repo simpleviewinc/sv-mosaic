@@ -12,14 +12,14 @@ test.describe("Data View", () => {
 
 	test("Create New", async () => {
 		await dataviewPage.validateSnapshot(dataviewPage.createNewBtn, "create_new_btn");
+		await dataviewPage.setDialogValidationListener("CREATE NEW");
 		await dataviewPage.createNewBtn.click();
-		await dataviewPage.validateDialogMessage("CREATE NEW");
 	});
 
 	test("Edit Icon", async () => {
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowEditIcon(), "edit_icon");
+		await dataviewPage.setDialogValidationListener("EDIT");
 		await (await dataviewPage.getFirstRowEditIcon()).click();
-		await dataviewPage.validateDialogMessage("EDIT");
 	});
 
 	test("View Children", async () => {
@@ -27,17 +27,19 @@ test.describe("Data View", () => {
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
 
 		await dataviewPage.validateSnapshot(dataviewPage.viewChildren, "view_children");
+		await dataviewPage.setDialogValidationListener("View Children");
 		await dataviewPage.viewChildren.click();
-
-		await dataviewPage.validateDialogMessage("View Children");
 	});
+
 
 	test("History", async () => {
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
 		await dataviewPage.validateSnapshot(dataviewPage.history, "history");
+
+		await dataviewPage.setDialogValidationListener("History");
 		await dataviewPage.history.click();
-		await dataviewPage.validateDialogMessage("History");
 	});
+
 
 	test("Select A Record", async () => {
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowCheckbox(), "checkbox");
@@ -51,15 +53,15 @@ test.describe("Data View", () => {
 	test("Delete A Record", async () => {
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.validateSnapshot(dataviewPage.deleteBtn, "delete_btn");
+		await dataviewPage.setDialogValidationListener("DELETE");
 		await dataviewPage.deleteBtn.click();
-		await dataviewPage.validateDialogMessage("DELETE");
 	});
 
 	test("Download A Record", async () => {
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.validateSnapshot(dataviewPage.downloadBtn, "download_btn");
+		await dataviewPage.setDialogValidationListener("DOWNLOAD");
 		await dataviewPage.downloadBtn.click();
-		await dataviewPage.validateDialogMessage("DOWNLOAD");
 	});
 
 	test("Select all records", async () => {
@@ -80,9 +82,10 @@ test.describe("Data View", () => {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
 		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
+		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await dataviewPage.deleteBtn.click();
 
-		await dataviewPage.validateRecordsNumberInDialogMessage(25);
+
 	});
 
 	test("Download all records", async () => {
@@ -93,8 +96,7 @@ test.describe("Data View", () => {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
 		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
-		await dataviewPage.downloadBtn.click();
-
 		await dataviewPage.validateRecordsNumberInDialogMessage(25);
+		await dataviewPage.downloadBtn.click();
 	});
 });
