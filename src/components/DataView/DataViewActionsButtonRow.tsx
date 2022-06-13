@@ -6,31 +6,19 @@ import ButtonRow from "../ButtonRow";
 import Button from "../Button";
 import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 import { MosaicObject } from "../../types";
-
-function filterAction(action, row) {
-	if (action.show === undefined) {
-		return true;
-	} else if (typeof action.show === "boolean") {
-		return action.show;
-	} else if (typeof action.show === "function") {
-		return action.show({ row : row });
-	} else {
-		throw new Error(`Action ${action.name}.show must be boolean or a function`);
-	}
-}
-
-interface Props {
+import { filterAction } from "./utils/bulkActionsUtils";
+export interface DataViewActionsButtonRowProps {
 	primaryActions: DataViewAction[]
 	additionalActions: DataViewAdditionalAction[]
 	originalRowData: MosaicObject
 }
 
-function DataViewActionsButtonRow(props: Props) {
+function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	const primaryActions = useMemo(() => {
 		if (props.primaryActions === undefined) { return []; }
 
 		return props.primaryActions.filter(action => {
-			return filterAction(action, props.originalRowData);
+			return filterAction(action, { row: props.originalRowData });
 		}).map((action) => {
 			const {
 				name,
@@ -58,7 +46,7 @@ function DataViewActionsButtonRow(props: Props) {
 		if (props.additionalActions === undefined) { return []; }
 		
 		const additionalActions = props.additionalActions.filter(action => {
-			return filterAction(action, props.originalRowData);
+			return filterAction(action, {row: props.originalRowData});
 		});
 		
 		// if no valid actions hide the dots
