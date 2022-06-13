@@ -76,7 +76,7 @@ function DataViewPrimaryFilter(props) {
 			`}
 		>
 			<BodyText className="filter">{props.label}:</BodyText>
-			<BodyText className="filter">{props.value || "Any"}</BodyText>
+			<BodyText className="filter"><b>{props.value || "Any"}</b></BodyText>
 			{
 				props.type === "optional" &&
 				<CloseIcon
