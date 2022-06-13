@@ -1,9 +1,11 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
 import FilterSingleSelect from "./FilterSingleSelect";
+import { boolean, withKnobs } from "@storybook/addon-knobs";
 
 export default {
-	title : "Components/FilterSingleSelect"
+	title : "Components/FilterSingleSelect",
+	decorators: [withKnobs],
 }
 
 const options = [
@@ -14,6 +16,9 @@ const options = [
 ]
 
 export const example = (): ReactElement => {
+
+	const required = boolean("Required", false);
+
 	const [state, setState] = useState({
 		value : undefined
 	});
@@ -43,6 +48,7 @@ export const example = (): ReactElement => {
 			args={{ getOptions, getSelected }}
 			onRemove={onRemove}
 			onChange={onChange}
+			required={required}
 		/>
 	)
 }
