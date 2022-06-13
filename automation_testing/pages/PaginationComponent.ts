@@ -9,17 +9,19 @@ export class PaginationComponent {
 	readonly pagesOption: Locator;
 	readonly backwardArrow: Locator;
 	readonly forwardArrow: Locator;
+	readonly viewTypeBtn: Locator;
+	readonly viewTypeOption: Locator;
 
 	constructor(page: Page) {
 		this.resultAmount = page.locator(".variant_text button.MuiButton-root").nth(4);
 		this.resultOptions = page.locator("ul[role='menu']");
 		this.loading = page.locator("div.loading");
 		this.paginationValue = page.locator(".variant_text button.MuiButton-root").nth(5);
-		this.paginationValue = page.locator(".variant_text button.MuiButton-root").nth(5);
 		this.pagesOption = page.locator(".MuiPopover-paper");
 		this.backwardArrow = page.locator(".size_small.variant_icon").nth(0);
 		this.forwardArrow = page.locator(".size_small.variant_icon").nth(1);
-
+		this.viewTypeBtn = page.locator(".variant_text button.MuiButton-root").nth(3);
+		this.viewTypeOption = page.locator("ul[role='menu']");
 	}
 
 	async selectResultOption(option: number): Promise<void> {
@@ -61,5 +63,15 @@ export class PaginationComponent {
 
 	async getPageGoBtn(): Promise<Locator> {
 		return this.pagesOption.locator("button");
+	}
+
+	async selectViewTypeListOption(): Promise<void> {
+		await this.viewTypeBtn.click();
+		await this.viewTypeOption.locator("li").nth(0).click();
+	}
+
+	async selectViewTypeGridOption(): Promise<void> {
+		await this.viewTypeBtn.click();
+		await this.viewTypeOption.locator("li").nth(1).click();
 	}
 }

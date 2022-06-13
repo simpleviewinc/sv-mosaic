@@ -52,7 +52,6 @@ test.describe("Data View - Pagination", () => {
 	test("Pagination - Validate pages by result per page - Default", async () => {
 		const pages = await pagination.calculatePages(dataview.resultPerPageDefault);
 		await pagination.paginationValue.click();
-		await dataviewPage.validateSnapshot((await pagination.getPagesLabel()), "pagination_pages");
 		expect(await (await pagination.getPagesLabel()).textContent()).toContain(`${pages}`);
 	});
 
@@ -70,7 +69,7 @@ test.describe("Data View - Pagination", () => {
 		expect(await (await pagination.getPagesLabel()).textContent()).toContain(`${pages}`);
 	});
 
-	test("Pagination - Go to a page valid page", async () => {
+	test("Pagination - Go to a valid page", async () => {
 		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview.resultPerPageDefault, 4);
 		await pagination.paginationValue.click();
 		await (await pagination.getPageInput()).type("4");
@@ -78,27 +77,26 @@ test.describe("Data View - Pagination", () => {
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
 	});
 
-	test("Pagination - Go to a page no existing page", async () => {
+	test("Pagination - Go to a no existing page", async () => {
 		await pagination.paginationValue.click();
 		await (await pagination.getPageInput()).type("50");
 		await (await pagination.getPageGoBtn()).click();
 		await dataviewPage.validateSnapshot(await pagination.getPageInput(), "pagination_input_error_no_existing");
 	});
 
-	test("Pagination - Go to a page no valid page", async () => {
+	test("Pagination - Go to a no valid page", async () => {
 		await pagination.paginationValue.click();
 		await (await pagination.getPageInput()).type("p");
 		await (await pagination.getPageGoBtn()).click();
 		await dataviewPage.validateSnapshot(await pagination.getPageInput(), "pagination_input_error_no_valid");
 	});
 
-	test.only("Pagination - Still same page", async () => {
+	test("Pagination - Still same page", async () => {
 		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview.resultPerPageDefault, 1);
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
 		await pagination.paginationValue.click();
 		await (await pagination.getPageGoBtn()).click();
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
-
 	});
 
 	test("Pagination - Navigate backward", async () => {
@@ -122,7 +120,7 @@ test.describe("Data View - Pagination", () => {
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageNext);
 	});
 
-	test("Pagination - Navegate backward on first page", async () => {
+	test("Pagination - Navigate backward on first page", async () => {
 		const recordRangePerPageInit = await pagination.calulateRecordRangePerPage(dataview.resultPerPageDefault, 1);
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
 		await dataviewPage.validateSnapshot(await pagination.backwardArrow, "pagination_backward_arrow_locked");
@@ -130,7 +128,7 @@ test.describe("Data View - Pagination", () => {
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
 	})
 
-	test("Pagination - Navegate forward on last page", async () => {
+	test("Pagination - Navigate forward on last page", async () => {
 		const pages = await pagination.calculatePages(dataview.resultPerPageDefault);
 		const recordRangePerPageInit = await pagination.calulateRecordRangePerPage(dataview.resultPerPageDefault, pages);
 		await pagination.paginationValue.click();
@@ -140,5 +138,19 @@ test.describe("Data View - Pagination", () => {
 		await dataviewPage.validateSnapshot(await pagination.forwardArrow, "pagination_forward_arrow_locked");
 		await pagination.forwardArrow.click();
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
+	});
+
+	test("View Type - Validate grid view type", async () => {
+		await dataviewPage.validateSnapshot(pagination.viewTypeBtn, "view_type_btn");
+		await pagination.selectViewTypeGridOption();
+		expect(await dataviewPage.columnsBtn.isVisible()).toBe(false);
+		expect(await dataviewPage.getColumnHeadersCount()).not.toBe(dataview.defaultColumnHeadersList);
+	});
+
+	test("View Type - Validate list view type", async () => {
+		await dataviewPage.validateSnapshot(pagination.viewTypeBtn, "view_type_btn");
+		await pagination.selectViewTypeListOption();
+		expect(await dataviewPage.columnsBtn.isVisible()).toBe(true);
+		expect(await dataviewPage.getColumnHeadersCount()).toBe(dataview.defaultColumnHeadersList);
 	});
 });

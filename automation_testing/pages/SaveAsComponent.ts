@@ -15,6 +15,7 @@ export class SaveAsComponent {
 	readonly editCheckbox: Locator;
 	readonly closeSaveViewBtn: Locator;
 	readonly closeEditViewBtn: Locator;
+	readonly overwriteBtn: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -24,9 +25,9 @@ export class SaveAsComponent {
 		this.saveLabel = page.locator("#label");
 		this.saveViewBtn = page.locator("div[role='presentation'] button:has-text('Save')");
 		this.cancelViewBtn = page.locator("div[role='presentation'] button:has-text('Cancel')");
-		this.viewBtn = page.locator("//*[@id='root']/div/div/div[1]/div/div[2]/div/span/span[2]/button/span[1]/span");
+		this.viewBtn = page.locator(".MuiButton-contained[type='button']").nth(0);
 		this.saveAsCheckbox = this.saveView.locator("input[type=checkbox]");
-		this.tableViews = page.locator(".viewContainer table tbody").nth(1);
+		this.tableViews = page.locator(".viewContainer table tbody");
 		this.editView = page.locator("//html/body/div[6]/div[3]/div/div");
 		this.editCheckbox = this.editView.locator("input[type=checkbox]");
 		this.closeSaveViewBtn = page.locator("//html/body/div[5]/div[3]/div/div/div[1]/div[1]/span/button");
@@ -61,7 +62,12 @@ export class SaveAsComponent {
 	}
 
 	async findRowByLabel(name: string): Promise<Locator> {
-		return this.tableViews.locator(`tr:has-text("${name}")`);
+
+		if (await this.tableViews.nth(1).isHidden()) {
+			return this.tableViews.locator(`tr:has-text("${name}")`);
+		} else {
+			return this.tableViews.nth(1).locator(`tr:has-text("${name}")`);
+		}
 	}
 
 	async getViewTypeByLabel(name: string): Promise<Locator> {
@@ -71,17 +77,17 @@ export class SaveAsComponent {
 
 	async selectViewBtnByLabel(name: string): Promise<Locator> {
 		const row = await this.findRowByLabel(name);
-		return row.locator("[data-mosaic-id=\"action_primary_select\"]");
+		return row.locator("[data-mosaic-id='action_primary_select']");
 	}
 
 	async editBtnByLabel(name: string): Promise<Locator> {
 		const row = await this.findRowByLabel(name);
-		return row.locator("[data-testid=\"icon-button-test\"]").nth(0);
+		return row.locator("[data-testid='icon-button-test']").nth(0);
 	}
 
 	async moreOptionsBtnByLabel(name: string): Promise<Locator> {
 		const row = await this.findRowByLabel(name);
-		return row.locator("[data-testid=\"icon-button-test\"]").nth(1);
+		return row.locator("[data-testid='icon-button-test']").nth(1);
 	}
 
 	async getRemoveOption(): Promise<Locator> {
@@ -91,5 +97,4 @@ export class SaveAsComponent {
 	async isLabelPresent(name: string): Promise<boolean> {
 		return this.tableViews.locator(`tr:has-text("${name}")`).isVisible();
 	}
-
 }

@@ -2,14 +2,18 @@ import { test, expect } from "@playwright/test";
 import { dataview } from "../../utils/data/dataview_data";
 import { DataviewPage } from "../../pages/DataViewPage";
 import { SaveAsComponent } from "../../pages/SaveAsComponent";
+import { PaginationComponent } from "../../pages/PaginationComponent";
 
 test.describe("Data View - Save As", () => {
 
 	let dataviewPage: DataviewPage;
 	let saveAs: SaveAsComponent;
+	let pagination: PaginationComponent;
+
 	test.beforeEach(async ({ page }) => {
 		dataviewPage = new DataviewPage(page);
 		saveAs = dataviewPage.saveAsComponent;
+		pagination = dataviewPage.paginationComponent;
 
 		await dataviewPage.visit();
 	});
@@ -101,5 +105,32 @@ test.describe("Data View - Save As", () => {
 
 		await saveAs.viewBtn.click();
 		expect(await saveAs.isLabelPresent(dataview.saveAsView)).toBe(false);
+	});
+
+	test("Save As - Overwrite view", async () => {
+		await pagination.selectViewTypeGridOption();
+		await pagination.changeResultPerPage(2);
+		await saveAs.createNewView(dataview.saveAsOverwriteView);
+
+		expect(await pagination.resultAmount.textContent()).toBe(`${dataview.resultPerPage50}`);
+		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview.resultPerPage50, 1);
+		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
+		expect(await saveAs.viewBtn.textContent()).toContain(dataview.saveAsOverwriteView);
+		expect(await dataviewPage.columnsBtn.isVisible()).toBe(false);
+		expect(await dataviewPage.getColumnHeadersCount()).not.toBe(dataview.defaultColumnHeadersList);
+		await pagination.changeResultPerPage(3);
+		await saveAs.saveAsBtn.click();
+		await saveAs.selectSaveAsOption(2);
+		expect(await pagination.resultAmount.textContent()).toBe(`${dataview.resultPerPage100}`);
+
+		await saveAs.viewBtn.click();
+		await (await saveAs.selectViewBtnByLabel(dataview.defaultView)).click();
+		expect(await pagination.resultAmount.textContent()).toBe(`${dataview.resultPerPageDefault}`);
+		expect(await saveAs.viewBtn.textContent()).toContain(dataview.defaultView);
+
+		await saveAs.viewBtn.click();
+		await (await saveAs.selectViewBtnByLabel(dataview.saveAsOverwriteView)).click();
+		expect(await pagination.resultAmount.textContent()).toBe(`${dataview.resultPerPage100}`);
+		expect(await saveAs.viewBtn.textContent()).toContain(dataview.saveAsOverwriteView);
 	});
 });
