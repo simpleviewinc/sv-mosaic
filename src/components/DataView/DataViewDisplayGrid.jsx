@@ -241,7 +241,7 @@ function DataViewDisplayGrid(props) {
 										<DataViewActionsButtonRow
 											primaryActions={props.primaryActions}
 											additionalActions={props.additionalActions}
-											originalRowData={row}
+											originalRowData={ row }
 										/>
 									</div>
 								</div>
