@@ -84,7 +84,8 @@ export interface DataViewControlDisplayProps {
 }
 
 interface DataViewActionShow {
-	({ row }: { row : MosaicObject }): void
+	// ({ row }: { row : MosaicObject }): void
+	(val?: {[key: string]: any}): void
 }
 
 interface DataViewActionOnClick {
@@ -101,7 +102,8 @@ interface ActionAdditional {
 	/** A handler function to be invoked when this action is used. */
 	onClick: DataViewActionOnClick
 	/** A value or function controlling whether or not to display this action. */
-	show?: boolean | DataViewActionShow
+	// show?: boolean | DataViewActionShow
+	show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean];
 }
 
 export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAdditional;
