@@ -17,6 +17,8 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 		options: []
 	});
 
+	if (props.required && !props.data.value) throw new Error("Invalid use-case, a value is required but none was provided")
+
 	const value = props.data.value;
 
 	useEffect(() => {
@@ -76,7 +78,7 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 				anchorEl={state.anchorEl}
 			>
 				<MenuSelect
-					placeholder="Any..."
+					placeholder={!props.required ? "Any..." : undefined}
 					value={value}
 					options={state.options}
 					onChange={onChange}
