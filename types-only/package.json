@@ -7,9 +7,6 @@
 		"url": "git://github.com/simpleviewinc/sv-mosaic.git",
 		"directory": "types-only"
 	},
-	"publishConfig": {
-		"registry": "https://npm.pkg.github.com"
-	},
 	"scripts": {
 		"publish": "../dev/publish"
 	}
