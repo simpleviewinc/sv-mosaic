@@ -2,14 +2,17 @@ import { test, expect } from "@playwright/test";
 import { dataview } from "../../utils/data/dataview_data";
 import { DataviewPage } from "../../pages/DataViewPage";
 import { PaginationComponent } from "../../pages/PaginationComponent";
+import { ColumnsComponent } from "../../pages/ColumnsComponent";
 
 test.describe("Data View - Pagination", () => {
 	let dataviewPage: DataviewPage;
 	let pagination: PaginationComponent;
+	let columns: ColumnsComponent;
 
 	test.beforeEach(async ({ page }) => {
 		dataviewPage = new DataviewPage(page);
 		pagination = dataviewPage.paginationComponent;
+		columns = dataviewPage.columnsComponent;
 		await dataviewPage.visit();
 	});
 
@@ -143,14 +146,14 @@ test.describe("Data View - Pagination", () => {
 	test("View Type - Validate grid view type", async () => {
 		await dataviewPage.validateSnapshot(pagination.viewTypeBtn, "view_type_btn");
 		await pagination.selectViewTypeGridOption();
-		expect(await dataviewPage.columnsBtn.isVisible()).toBe(false);
+		expect(await columns.columnsBtn.isVisible()).toBe(false);
 		expect(await dataviewPage.getColumnHeadersCount()).not.toBe(dataview.defaultColumnHeadersList);
 	});
 
 	test("View Type - Validate list view type", async () => {
 		await dataviewPage.validateSnapshot(pagination.viewTypeBtn, "view_type_btn");
 		await pagination.selectViewTypeListOption();
-		expect(await dataviewPage.columnsBtn.isVisible()).toBe(true);
+		expect(await columns.columnsBtn.isVisible()).toBe(true);
 		expect(await dataviewPage.getColumnHeadersCount()).toBe(dataview.defaultColumnHeadersList);
 	});
 });
