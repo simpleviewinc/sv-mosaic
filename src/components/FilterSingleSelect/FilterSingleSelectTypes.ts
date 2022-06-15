@@ -14,8 +14,8 @@ export interface FilterSingleSelectProps extends DataViewFilterProps {
 			hasMore?: boolean
 		}
 		getSelected(id: string): MosaicLabelValue
+		required?: boolean
 	},
-	required?: boolean
 }
 
 export interface FilterSingleSelectContentProps {
