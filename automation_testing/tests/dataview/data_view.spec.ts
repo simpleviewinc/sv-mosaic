@@ -21,12 +21,14 @@ test.describe("Data View", () => {
 	});
 
 	test("Edit Icon", async () => {
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowEditIcon(), "edit_icon");
 		await dataviewPage.setDialogValidationListener("EDIT");
 		await (await dataviewPage.getFirstRowEditIcon()).click();
 	});
 
 	test("View Children", async () => {
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowMoreOptions(), "more_options");
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
 
@@ -38,6 +40,7 @@ test.describe("Data View", () => {
 
 	test("History", async () => {
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(dataviewPage.history, "history");
 
 		await dataviewPage.setDialogValidationListener("History");
@@ -46,6 +49,7 @@ test.describe("Data View", () => {
 
 
 	test("Select A Record", async () => {
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowCheckbox(), "checkbox");
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowCheckbox(), "checkbox_checked");
