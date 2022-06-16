@@ -9,6 +9,8 @@ export class ColumnsComponent {
 	readonly rightItems: Locator;
 	readonly leftItems: Locator;
 	readonly applyBtn: Locator;
+	readonly btnLocator: string;
+	readonly checkboxLocator: string;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -17,6 +19,8 @@ export class ColumnsComponent {
 		this.rightItems = page.locator(".right div.item");
 		this.leftItems = page.locator(".listItem label");
 		this.applyBtn = page.locator("text=Apply");
+		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
+		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
 	}
 
 	async getRightItemsText(): Promise<string[]> {
@@ -32,7 +36,7 @@ export class ColumnsComponent {
 		const items = await this.leftItems.elementHandles();
 		const resultItems = [];
 		for (const item of items) {
-			if ((await (await item.$("[data-testid='checkbox-test-id'] input")).isChecked()) == true) {
+			if ((await (await item.$(this.checkboxLocator)).isChecked()) == true) {
 				resultItems.push(await (await item.$("span:nth-child(2)")).textContent());
 			}
 		}
@@ -44,19 +48,19 @@ export class ColumnsComponent {
 	}
 
 	async getFirstDownArrow(): Promise<Locator> {
-		return (await this.getFirstRightItem()).locator(".buttons .iconButton.variant_icon button[type='button']").nth(0);
+		return (await this.getFirstRightItem()).locator(this.btnLocator).nth(0);
 	}
 
 	async getFirstUpArrow(): Promise<Locator> {
-		return (await this.getFirstRightItem()).locator(".buttons .iconButton.variant_icon button[type='button']").nth(1);
+		return (await this.getFirstRightItem()).locator(this.btnLocator).nth(1);
 	}
 
 	async getLastDownArrow(): Promise<Locator> {
-		return (await this.getLastRightItem()).locator(".buttons .iconButton.variant_icon button[type='button']").nth(0);
+		return (await this.getLastRightItem()).locator(this.btnLocator).nth(0);
 	}
 
 	async getLasttUpArrow(): Promise<Locator> {
-		return (await this.getLastRightItem()).locator(".buttons .iconButton.variant_icon button[type='button']").nth(1);
+		return (await this.getLastRightItem()).locator(this.btnLocator).nth(1);
 
 	}
 
@@ -71,18 +75,18 @@ export class ColumnsComponent {
 		for (let i = 0; i < itemsNumber; i++) {
 			const item = this.rightItems.nth(i);
 			if (await item.textContent() == itemName) {
-				return item.locator(".buttons .iconButton.variant_icon button[type='button']");
+				return item.locator(this.btnLocator);
 			}
 		}
 	}
 
-	async getDownArrowByIemName(itemName: string): Promise<Locator> {
+	async getDownArrowByItemName(itemName: string): Promise<Locator> {
 		const arrow = (await this.getArrowsByItemName(itemName)).nth(0);
 		arrow.waitFor({ state: "visible" });
 		return arrow;
 	}
 
-	async getUpArrowByIemName(itemName: string): Promise<Locator> {
+	async getUpArrowByItemName(itemName: string): Promise<Locator> {
 		const arrow = (await this.getArrowsByItemName(itemName)).nth(1);
 		arrow.waitFor({ state: "visible" });
 		return arrow;
@@ -99,28 +103,26 @@ export class ColumnsComponent {
 		}
 	}
 
-	async checkLeftItem(item: Locator): Promise<void> {
-		await item.locator("[data-testid='checkbox-test-id'] input").check();
-	}
-
-	async uncheckLeftItem(item: Locator): Promise<void> {
-		await item.locator("[data-testid='checkbox-test-id'] input").uncheck();
-	}
-
-	async uncheckAllItems(): Promise<void> {
-		const items = await this.leftItems.elementHandles();
-		for (const item of items) {
-			if ((await (await item.$("[data-testid='checkbox-test-id'] input")).isChecked()) == true) {
-				await (await item.$("[data-testid='checkbox-test-id'] input")).uncheck();
-			}
+	async checkLeftItem(item: Locator, check: boolean): Promise<void> {
+		if (check) {
+			await item.locator(this.checkboxLocator).check();
+		} else {
+			await item.locator(this.checkboxLocator).uncheck();
 		}
+
 	}
 
-	async checkAllItems(): Promise<void> {
+	async checkAllItems(check: boolean): Promise<void> {
 		const items = await this.leftItems.elementHandles();
 		for (const item of items) {
-			if ((await (await item.$("[data-testid='checkbox-test-id'] input")).isChecked()) == false) {
-				await (await item.$("[data-testid='checkbox-test-id'] input")).check();
+			if (check) {
+				if ((await (await item.$(this.checkboxLocator)).isChecked()) == false) {
+					await (await item.$(this.checkboxLocator)).check();
+				}
+			} else {
+				if ((await (await item.$(this.checkboxLocator)).isChecked()) == true) {
+					await (await item.$(this.checkboxLocator)).uncheck();
+				}
 			}
 		}
 	}

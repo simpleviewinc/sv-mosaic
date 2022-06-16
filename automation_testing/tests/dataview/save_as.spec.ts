@@ -27,7 +27,7 @@ test.describe("Data View - Save As", () => {
 		await dataviewPage.validateSnapshot(saveAs.saveAsOptions, "save_as_options");
 	});
 
-	test("Save As - New View", async () => {
+	test("New View", async () => {
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(1);
 		await dataviewPage.validateSnapshot(saveAs.saveView, "save_as_view");
@@ -39,7 +39,7 @@ test.describe("Data View - Save As", () => {
 		expect(await (await saveAs.getViewTypeByLabel(dataview.saveAsView)).textContent()).toContain(dataview.viewNotSharedType);
 	});
 
-	test("Save As - New View Shared", async () => {
+	test("New View Shared", async () => {
 		await saveAs.fillNewView(dataview.saveAsViewShared);
 		await dataviewPage.validateSnapshot(saveAs.saveAsCheckbox, "save_as_checkbox");
 		expect((await saveAs.saveAsCheckbox.isChecked()).valueOf()).toBe(false);
@@ -57,7 +57,7 @@ test.describe("Data View - Save As", () => {
 		expect(await (await saveAs.getViewTypeByLabel(dataview.defaultView)).textContent()).toContain(dataview.defaultType);
 	});
 
-	test("Save As - Change View", async () => {
+	test("Change View", async () => {
 		await saveAs.createNewView(dataview.saveAsView);
 		await saveAs.viewBtn.click();
 		const selectBtn = await saveAs.selectViewBtnByLabel(dataview.defaultView);
@@ -66,7 +66,7 @@ test.describe("Data View - Save As", () => {
 		expect(await saveAs.viewBtn.textContent()).toContain(dataview.defaultView);
 	});
 
-	test("Save As - Cancel", async () => {
+	test("Cancel", async () => {
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(1);
 		await saveAs.saveLabel.type(dataview.saveAsView);
@@ -77,7 +77,7 @@ test.describe("Data View - Save As", () => {
 		expect(await saveAs.isLabelPresent(dataview.saveAsView)).toBe(false);
 	});
 
-	test("Save As - Edit a View", async () => {
+	test("Edit a View", async () => {
 		await saveAs.createNewView(dataview.saveAsView);
 
 		await saveAs.viewBtn.click();
@@ -96,7 +96,7 @@ test.describe("Data View - Save As", () => {
 		expect(await (await saveAs.getViewTypeByLabel(dataview.saveAsViewEdit)).textContent()).toContain(dataview.viewSharedType);
 	});
 
-	test("Save As - Remove a View", async () => {
+	test("Remove a View", async () => {
 		await saveAs.createNewView(dataview.saveAsView);
 
 		await saveAs.viewBtn.click();
@@ -110,7 +110,7 @@ test.describe("Data View - Save As", () => {
 		expect(await saveAs.isLabelPresent(dataview.saveAsView)).toBe(false);
 	});
 
-	test("Save As - Overwrite view", async () => {
+	test("Overwrite view", async () => {
 		await pagination.selectViewTypeGridOption();
 		await pagination.changeResultPerPage(2);
 		await saveAs.createNewView(dataview.saveAsOverwriteView);
