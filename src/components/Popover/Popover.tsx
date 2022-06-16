@@ -31,7 +31,7 @@ const Popover = (props: PopoverProps): ReactElement => {
 	 * Throws an error if both bottomContent and topContent do not exist.
 	 */
 	useEffect(() => {
-		if (!bottomContent && ! topContent) {
+		if (!bottomContent && !topContent) {
 			throw new Error("Popover component expected some content but none was provided.");
 		}
 	}, [bottomContent, topContent]);
