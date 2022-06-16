@@ -1,3 +1,5 @@
+import { isArray } from "lodash";
+
 import { DataViewActionsButtonRowProps } from "../DataViewActionsButtonRow";
 import { DataViewAction, DataViewAdditionalAction, DataViewBulkAction, DataViewBulkActionsButtonsRowProps } from "../DataViewTypes";
 
@@ -12,11 +14,19 @@ type Action = DataViewAction | DataViewAdditionalAction | DataViewBulkAction;
 export const filterAction = (action: Action, args: FilterActionArgs) => {
 	if (action.show === undefined) {
 		return true;
-	} else if (typeof action.show === "boolean") {
-		return action.show;
-	} else if (typeof action.show === "function") {
-		return action.show(args);
-	} else {
-		throw new Error(`Action ${action.name}.show must be boolean or a function`);
-	}
-}
+	} 
+
+	const shows = isArray(action.show) ? action.show : [action.show];
+
+	const isValid = shows.every(show => {
+		if (typeof show === "boolean") {
+			return show;
+		} else if (typeof show === "function") {
+			return show(args);
+		} else {
+			throw new Error(`Action ${action.name}.show must be boolean or a function`);
+		}
+	});
+
+	return isValid;
+};
