@@ -46,9 +46,9 @@ export const PopperSx = {
 
 export const Arrow = styled.div`
 	position: absolute;
-  font-size: 7px;
-  width: 3em;
-  height: 3em;
+	font-size: 7px;
+	width: 3em;
+	height: 3em;
 	&:before {
 		content: "";
 		margin: auto;
