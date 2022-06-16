@@ -18,26 +18,26 @@ export default {
 } as Meta;
 
 const ExampleWrapper = styled.div`
-  flex-grow: 1;
+	flex-grow: 1;
 `;
 
 const Wrapper = styled.div`
-  height: 400px;
-  overflow: auto;
+	height: 400px;
+	overflow: auto;
 `;
 
 const StyledGrid = styled(Grid)`
-  position: relative;
-  background-color: ${theme.colors.gray100};
-  height: 150%;
-  align-items: center;
-  justify-content: center;
+	position: relative;
+	background-color: ${theme.colors.gray100};
+	height: 150%;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Title = styled.p`
-  color: ${theme.colors.almostBlack};
+	color: ${theme.colors.almostBlack};
 	font-weight: ${theme.fontWeight.semiBold};
-  font-size: 16px;
+	font-size: 16px;
 	margin-bottom: 8px;
 `;
 
