@@ -96,7 +96,28 @@ const dataview = {
 		"Style - textTransform",
 		"Updated"
 	],
-	allItemsCount: 17
+	allItemsCount: 17,
+	validKeywordFilter: "Accessibility",
+	expectedKeywordFilterNumber: 1,
+	validKeywordFilterSeveralResults: "Art",
+	expectedKeywordFilterNumberSeveralResults: 22,
+	keywordNoResultsFilter: "result",
+	regExr: "([Aa]rt)",
+	upperCaseKeywordFilter: "CITY",
+	upperCaseFilterNumber: 13,
+	lowerCaseKeywordFilter: "breakfast",
+	lowerCaseFilterNumber: 2,
+	categoryKeywordFilter: "DMO",
+	categoryFilterNumber: 7,
+	categoryFilterChooseItem: "Ada",
+	categoryFilterChooseItemNumber: 4,
+	categoryFilterMoreThanOne: "Beaches",
+	categoryFilterMoreThanOneNumber: 11,
+	categoryFilterLoadMore: "Cool City",
+	categoryFilterLoadMoreNumber: 5,
+	categoryFilterMoreMessage: "(1 More)",
+	categoryFilterMoreThanTwoNumber: 16,
+
 
 }
 
