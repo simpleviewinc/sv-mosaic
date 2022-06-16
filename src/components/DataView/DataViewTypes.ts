@@ -103,7 +103,7 @@ interface ActionAdditional {
 	onClick: DataViewActionOnClick
 	/** A value or function controlling whether or not to display this action. */
 	// show?: boolean | DataViewActionShow
-	show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean];
+	show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[];
 }
 
 export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAdditional;
