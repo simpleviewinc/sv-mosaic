@@ -51,10 +51,9 @@ export const Playground = (): ReactElement => {
 			label="Testing"
 			type="primary"
 			data={state}
-			args={{ getOptions, getSelected }}
+			args={{ getOptions, getSelected, required }}
 			onRemove={onRemove}
 			onChange={onChange}
-			required={required}
 		/>
 	)
 }

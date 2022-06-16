@@ -1,12 +1,16 @@
 import { test, expect } from "@playwright/test";
+import { ColumnsComponent } from "../../pages/ColumnsComponent";
 import { DataviewPage } from "../../pages/DataViewPage";
 import { dataview } from "../../utils/data/dataview_data";
 
 test.describe("Data View", () => {
 	let dataviewPage: DataviewPage;
+	let columns: ColumnsComponent;
 
 	test.beforeEach(async ({ page }) => {
 		dataviewPage = new DataviewPage(page);
+		columns = dataviewPage.columnsComponent;
+
 		await dataviewPage.visit();
 	});
 
@@ -45,7 +49,7 @@ test.describe("Data View", () => {
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowCheckbox(), "checkbox");
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowCheckbox(), "checkbox_checked");
-		expect(await dataviewPage.columnsBtn.isVisible()).toBe(false);
+		expect(await columns.columnsBtn.isVisible()).toBe(false);
 		expect(await dataviewPage.downloadBtn.isVisible()).toBe(true);
 		expect(await dataviewPage.deleteBtn.isVisible()).toBe(true);
 	});
