@@ -53,6 +53,7 @@ export class DataviewPage {
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
 		await component.waitFor({ state: "visible" });
 		await component.waitFor({ state: "attached" });
+		await this.loading.waitFor({ state: "detached" });
 		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 })
 	}
 
@@ -86,12 +87,60 @@ export class DataviewPage {
 		return this.checkboxRow.nth(0);
 	}
 
-	async getTableRows(): Promise<number> {
+	async getTableRows(): Promise<Locator> {
 		await this.dataviewTable.waitFor({ state: "visible" });
-		return await this.dataviewTable.locator("tr").count();
+		return this.dataviewTable.locator("tr");
 	}
 
 	async getColumnHeadersCount(): Promise<number> {
 		return this.columnHeaders.count();
+	}
+
+	async getRowTitles(): Promise<string[]> {
+		const rows = await (await this.getTableRows()).elementHandles();
+		const titles = [];
+		for (const row of rows) {
+			titles.push((await (await row.$("td:nth-child(4)")).textContent()).toLowerCase());
+		}
+		return titles;
+	}
+
+	async getRowCreated(): Promise<string[]> {
+		const rows = await (await this.getTableRows()).elementHandles();
+		const createdDates = [];
+		for (const row of rows) {
+			createdDates.push((await (await row.$("td:nth-child(6)")).textContent()).toLowerCase());
+		}
+		return createdDates;
+	}
+
+	async getTitleColumn(): Promise<Locator> {
+		return this.columnHeaders.nth(1);
+	}
+
+	async getCreatedColumn(): Promise<Locator> {
+		return this.columnHeaders.nth(3);
+	}
+
+	async getAllRowTitles(resultsPerPage: number): Promise<string[]> {
+		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
+		const titles = [];
+		for (let i = 0; i < pages; i++) {
+			titles.push(...(await this.getRowTitles()));
+			await this.paginationComponent.forwardArrow.click();
+			await this.loading.waitFor({ state: "detached" });
+		}
+		return titles;
+	}
+
+	async getAllRowCreated(resultsPerPage: number): Promise<string[]> {
+		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
+		const createdDates = [];
+		for (let i = 0; i < pages; i++) {
+			createdDates.push(...(await this.getRowCreated()));
+			await this.paginationComponent.forwardArrow.click();
+			await this.loading.waitFor({ state: "detached" });
+		}
+		return createdDates;
 	}
 }
