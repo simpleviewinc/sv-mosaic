@@ -22,16 +22,16 @@ test.describe("Data View - Save As", () => {
 	});
 
 	test("Save As", async () => {
-		await dataviewPage.validateSnapshot(saveAs.saveAsBtn, "save_as_btn");
+		await saveAs.validateSnapshot(saveAs.saveAsBtn, "save_as_btn");
 		await saveAs.saveAsBtn.click();
-		await dataviewPage.validateSnapshot(saveAs.saveAsOptions, "save_as_options");
+		await saveAs.validateSnapshot(saveAs.saveAsOptions, "save_as_options");
 	});
 
 	test("New View", async () => {
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(1);
-		await dataviewPage.validateSnapshot(saveAs.saveView, "save_as_view");
-		await dataviewPage.validateSnapshot(saveAs.saveLabel, "save_as_label");
+		await saveAs.validateSnapshot(saveAs.saveView, "save_as_view");
+		await saveAs.validateSnapshot(saveAs.saveLabel, "save_as_label");
 		await saveAs.saveLabel.type(dataview.saveAsView);
 		await saveAs.saveViewBtn.click();
 		expect(await saveAs.viewBtn.textContent()).toContain(dataview.saveAsView);
@@ -41,10 +41,10 @@ test.describe("Data View - Save As", () => {
 
 	test("New View Shared", async () => {
 		await saveAs.fillNewView(dataview.saveAsViewShared);
-		await dataviewPage.validateSnapshot(saveAs.saveAsCheckbox, "save_as_checkbox");
+		await saveAs.validateSnapshot(saveAs.saveAsCheckbox, "save_as_checkbox");
 		expect((await saveAs.saveAsCheckbox.isChecked()).valueOf()).toBe(false);
 		await saveAs.saveAsCheckbox.check();
-		await dataviewPage.validateSnapshot(saveAs.saveAsCheckbox, "save_as_checkbox_checked");
+		await saveAs.validateSnapshot(saveAs.saveAsCheckbox, "save_as_checkbox_checked");
 		expect((await saveAs.saveAsCheckbox.isChecked()).valueOf()).toBe(true);
 		await saveAs.saveViewBtn.click();
 		expect(await saveAs.viewBtn.textContent()).toContain(dataview.saveAsViewShared);
@@ -61,7 +61,8 @@ test.describe("Data View - Save As", () => {
 		await saveAs.createNewView(dataview.saveAsView);
 		await saveAs.viewBtn.click();
 		const selectBtn = await saveAs.selectViewBtnByLabel(dataview.defaultView);
-		await dataviewPage.validateSnapshot(selectBtn, "save_as_select_btn");
+		await saveAs.wait();
+		await saveAs.validateSnapshot(selectBtn, "save_as_select_btn");
 		await selectBtn.click();
 		expect(await saveAs.viewBtn.textContent()).toContain(dataview.defaultView);
 	});
@@ -81,8 +82,9 @@ test.describe("Data View - Save As", () => {
 		await saveAs.createNewView(dataview.saveAsView);
 
 		await saveAs.viewBtn.click();
+		await saveAs.wait();
 		const editBtn = await saveAs.editBtnByLabel(dataview.saveAsView);
-		await dataviewPage.validateSnapshot(editBtn, "save_as_edit_view_btn");
+		await saveAs.validateSnapshot(editBtn, "save_as_edit_view_btn");
 		expect(await (await saveAs.getViewTypeByLabel(dataview.saveAsView)).textContent()).toContain(dataview.viewNotSharedType);
 		await editBtn.click();
 		await saveAs.saveLabel.fill(dataview.saveAsViewEdit);
@@ -102,7 +104,8 @@ test.describe("Data View - Save As", () => {
 		await saveAs.viewBtn.click();
 		await (await saveAs.moreOptionsBtnByLabel(dataview.saveAsView)).click();
 		const removeOption = await saveAs.getRemoveOption();
-		await dataviewPage.validateSnapshot(removeOption, "save_as_edit_remove_option");
+		await saveAs.wait();
+		await saveAs.validateSnapshot(removeOption, "save_as_edit_remove_option");
 		await removeOption.click();
 		await saveAs.closeSaveViewBtn.click({ force: true });
 
@@ -119,7 +122,7 @@ test.describe("Data View - Save As", () => {
 		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview.resultPerPage50, 1);
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
 		expect(await saveAs.viewBtn.textContent()).toContain(dataview.saveAsOverwriteView);
-		expect(await columns.columnsBtn.isVisible()).toBe(false);
+		await pagination.validateSnapshot(await columns.columnsBtn, "grid_title_arrow");
 		expect(await dataviewPage.getColumnHeadersCount()).not.toBe(dataview.defaultColumnHeadersList);
 		await pagination.changeResultPerPage(3);
 		await saveAs.saveAsBtn.click();
