@@ -19,7 +19,7 @@ test.describe("Data View - Pagination", () => {
 	test("Select result per page - Value by default", async () => {
 		expect(await pagination.resultAmount.textContent()).toBe(`${dataview.resultPerPageDefault}`);
 
-		expect(await dataviewPage.getTableRows()).toBe(dataview.resultPerPageDefault);
+		expect(await (await dataviewPage.getTableRows()).count()).toBe(dataview.resultPerPageDefault);
 	});
 
 	test("Select result per page - Select 50", async () => {
@@ -27,7 +27,7 @@ test.describe("Data View - Pagination", () => {
 		await dataviewPage.validateSnapshot(pagination.resultOptions, "pagination_result_options");
 		await pagination.selectResultOption(2);
 		expect(await pagination.resultAmount.textContent()).toBe(`${dataview.resultPerPage50}`);
-		expect(await dataviewPage.getTableRows()).toBe(dataview.resultPerPage50);
+		expect(await (await dataviewPage.getTableRows()).count()).toBe(dataview.resultPerPage50);
 	});
 
 	test("Select result per page - Select 100", async () => {
@@ -35,7 +35,7 @@ test.describe("Data View - Pagination", () => {
 		await dataviewPage.validateSnapshot(pagination.resultOptions, "pagination_result_options");
 		await pagination.selectResultOption(3);
 		expect(await pagination.resultAmount.textContent()).toBe(`${dataview.resultPerPage100}`);
-		expect(await dataviewPage.getTableRows()).toBe(dataview.resultPerPage100);
+		expect(await (await dataviewPage.getTableRows()).count()).toBe(dataview.resultPerPage100);
 	});
 
 	test("Default Pagination", async () => {
