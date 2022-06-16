@@ -14,7 +14,7 @@ describe("filterAction helper function", () => {
 			color: "blue",
 			name: "edit",
 			onClick: onClick,
-			show: [undefined, undefined]
+			show: undefined
 		}	
 
 		expect(filterAction(action, rowArgs)).toBe(true);
@@ -27,6 +27,30 @@ describe("filterAction helper function", () => {
 			name: "edit",
 			onClick: onClick,
 			show: false
+		}
+
+		expect(filterAction(action, rowArgs)).toBe(false);
+	});
+
+	it("should return true if all the elements of action.show are true", () => {
+		const action: DataViewAdditionalAction = {
+			label: "Action label",
+			color: "blue",
+			name: "edit",
+			onClick: onClick,
+			show: [true, true, () => true]
+		}
+
+		expect(filterAction(action, rowArgs)).toBe(true);
+	});
+
+	it("should return false if at least one element of action.show is false", () => {
+		const action: DataViewAdditionalAction = {
+			label: "Action label",
+			color: "blue",
+			name: "edit",
+			onClick: onClick,
+			show: [true, () => false, true]
 		}
 
 		expect(filterAction(action, rowArgs)).toBe(false);
