@@ -27,5 +27,4 @@ export class Pages {
 			dialog.accept();
 		});
 	}
-
-} 
+}
