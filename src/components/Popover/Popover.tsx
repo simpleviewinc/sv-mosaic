@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import { PopoverProps } from "./PopoverTypes";
 import {
 	ContentWrapper,
@@ -26,6 +26,24 @@ const Popover = (props: PopoverProps): ReactElement => {
 	} = props;
 
 	const [arrowRef, setArrowRef] = useState<HTMLElement | null>(null);
+
+	/**
+	 * Throws an error if both bottomContent and topContent do not exist.
+	 */
+	useEffect(() => {
+		if (!bottomContent && ! topContent) {
+			throw new Error("Popover component expected some content but none was provided.");
+		}
+	}, [bottomContent, topContent]);
+
+	/**
+	 * Throws an error if no anchorEl is given.
+	 */
+	useEffect(() => {
+		if (open && !anchorEl) {
+			throw new Error("Popover component requires an anchor element to position itself but none was provided.");
+		}
+	}, [anchorEl, open]);
 
 	return (
 		<Popper
@@ -76,9 +94,9 @@ const Popover = (props: PopoverProps): ReactElement => {
 							<StyledPaper>
 								<Arrow ref={setArrowRef} className="MuiPopper-arrow" />
 								<ContentWrapper>
-									<div>{topContent}</div>
-									{bottomContent && <StyledHr data-testid="bottom-content-split" />}
-									<div>{bottomContent}</div>
+									{topContent && <div>{topContent}</div>}
+									{bottomContent && topContent && <StyledHr data-testid="bottom-content-split" />}
+									{bottomContent && <div>{bottomContent}</div>}
 								</ContentWrapper>
 							</StyledPaper>
 						</ClickAwayListener>
