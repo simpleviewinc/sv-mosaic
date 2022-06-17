@@ -2,15 +2,19 @@
 import { test, expect } from "@playwright/test";
 import { ColumnsComponent } from "../../pages/ColumnsComponent";
 import { DataviewPage } from "../../pages/DataViewPage";
+import { PaginationComponent } from "../../pages/PaginationComponent";
 import { dataview } from "../../utils/data/dataview_data";
+import { sortDatesAsc, sortDatesDesc } from "../../utils/helper";
 
 test.describe("DataView - Columns", () => {
 	let dataviewPage: DataviewPage;
 	let columns: ColumnsComponent;
+	let pagination: PaginationComponent;
 
 	test.beforeEach(async ({ page }) => {
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
+		pagination = dataviewPage.paginationComponent;
 
 		await dataviewPage.visit();
 	});
@@ -99,5 +103,51 @@ test.describe("DataView - Columns", () => {
 		expect((await columns.getRightItemsText()).toString()).toBe(dataview.allItemsOrder.toString());
 		await columns.applyBtn.click();
 		expect(await dataviewPage.getColumnHeadersCount()).toBe(dataview.allItemsCount);
+	});
+
+	test("Sort title asc", async () => {
+		await pagination.changeResultPerPage(3);
+		const titleColum = await dataviewPage.getTitleColumn();
+		await dataviewPage.validateSnapshot(titleColum, "column_sort_title_asc");
+		const titles = await dataviewPage.getRowTitles();
+		const titlesSort = (await dataviewPage.getRowTitles()).sort(Intl.Collator().compare);
+		expect(titles.toString()).toBe(titlesSort.toString());
+	});
+
+	test("Sort title desc", async () => {
+		await pagination.changeResultPerPage(3);
+		const titleColum = await dataviewPage.getTitleColumn();
+		const titlesSortDesc = (await dataviewPage.getAllRowTitles(dataview.resultPerPage100)).sort(Intl.Collator().compare).reverse();
+		const titleSplitPerPage = await titlesSortDesc.slice(0, dataview.resultPerPage100);
+		await titleColum.click();
+		await dataviewPage.validateSnapshot(titleColum, "column_sort_title_desc");
+		const titles = await dataviewPage.getRowTitles();
+		expect(titles.toString()).toBe(titleSplitPerPage.toString());
+
+	});
+
+	test("Sort created asc", async () => {
+		await pagination.changeResultPerPage(3);
+		const createdColum = await dataviewPage.getCreatedColumn();
+		await dataviewPage.validateSnapshot(createdColum, "column_sort_created_default");
+		const createdSort = sortDatesAsc((await dataviewPage.getAllRowCreated(dataview.resultPerPage100)));
+		const createdSplitPerPage = await createdSort.slice(0, dataview.resultPerPage100);
+		await createdColum.click();
+		await dataviewPage.validateSnapshot(await dataviewPage.getTitleColumn(), "column_sort_title_default");
+		await dataviewPage.validateSnapshot(createdColum, "column_sort_created_asc");
+		const created = await dataviewPage.getRowCreated();
+		expect(created.toString()).toBe(createdSplitPerPage.toString());
+	});
+
+	test("Sort created desc", async () => {
+		await pagination.changeResultPerPage(3);
+		const createdColum = await dataviewPage.getCreatedColumn();
+		const createdSort = sortDatesDesc((await dataviewPage.getAllRowCreated(dataview.resultPerPage100)));
+		const createdSplitPerPage = await createdSort.slice(0, dataview.resultPerPage100);
+		await createdColum.click();
+		await createdColum.click();
+		await dataviewPage.validateSnapshot(createdColum, "column_sort_created_desc");
+		const created = await dataviewPage.getRowCreated();
+		expect(created.toString()).toBe(createdSplitPerPage.toString());
 	});
 });
