@@ -81,6 +81,11 @@ function DataViewFilterMultiselect(props) {
 							type : "string",
 							enum : validComparisonNames
 						}
+					},
+					{
+						name: "placeholder",
+						type: "string",
+						required: false
 					}
 				],
 				allowExtraKeys : false,
@@ -199,6 +204,7 @@ function DataViewFilterMultiselect(props) {
 					isOpen={state.dropdownOpen}
 					onApply={onApply}
 					onClose={onClose}
+					placeholder={props.args?.placeholder}
 				/>
 			</DataViewFilterDropdown>
 		</StyledWrapper>
