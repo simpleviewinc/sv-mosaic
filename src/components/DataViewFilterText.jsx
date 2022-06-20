@@ -68,6 +68,11 @@ function DataViewFilterText(props) {
 							type : "string",
 							enum : validComparisonNames
 						}
+					},
+					{
+						name : "placeholder",
+						type : "string",
+						required : false
 					}
 				],
 				allowExtraKeys : false
@@ -134,6 +139,7 @@ function DataViewFilterText(props) {
 					comparison={comparison}
 					comparisons={activeComparisons}
 					onClose={onClose}
+					placeholder={props.args?.placeholder}
 				/>
 			</DataViewFilterDropdown>
 		</StyledWrapper>
