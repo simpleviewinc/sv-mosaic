@@ -8,7 +8,7 @@ import theme from "../../utils/theme";
 const Styled = styled.span`
 	font-family: ${theme.fontFamily};
 	font-size: 14px;
-	color: ${theme.colors.black};
+	color: ${props => props.color === "teal" ? theme.colors.blueTeal : theme.colors.black};
 `
 
 export default function BodyText(props: TypographyGenericProps): ReactElement {

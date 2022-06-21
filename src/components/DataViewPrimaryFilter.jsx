@@ -50,6 +50,7 @@ function DataViewPrimaryFilter(props) {
 		schema : [
 			{ name : "label", type : "string", required : true },
 			{ name : "value", type : "string" },
+			{ name : "color", type : "string", required : false },
 			{ name : "type", type : "string", enum : ["primary", "optional"], required : true },
 			{ name : "onRemove", type : "function", required : true },
 			{ name : "onClick", type : "function", required : true }
@@ -76,7 +77,7 @@ function DataViewPrimaryFilter(props) {
 			`}
 		>
 			<BodyText className="filter">{props.label}:</BodyText>
-			<BodyText className="filter"><b>{props.value || "Any"}</b></BodyText>
+			<BodyText className="filter" color={ props.color ? props.color : color}><b>{props.value || "Any"}</b></BodyText>
 			{
 				props.type === "optional" &&
 				<CloseIcon
@@ -89,7 +90,7 @@ function DataViewPrimaryFilter(props) {
 
 	return (
 		<Button
-			color={color}
+			color={ props.color ? props.color : color}
 			variant={variant}
 			size="small"
 			onClick={props.onClick}
