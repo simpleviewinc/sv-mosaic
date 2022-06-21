@@ -478,6 +478,7 @@ export const types = {
 			text-transform: capitalize;
 			padding: 0px;
 			font-weight: ${theme.fontWeight.bold};
+      white-space: nowrap;
 		}
 
 		.MuiButton-text:hover {

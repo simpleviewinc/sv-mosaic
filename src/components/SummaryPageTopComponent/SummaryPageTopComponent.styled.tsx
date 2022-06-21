@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "../../theme";
 
-export const SumaryPageTopComponentStyle = styled.nav`
+export const SumaryPageTopComponentStyle = styled.div`
     background: white;
     box-shadow: 0px 1px 10px #0000001A;
     color: ${theme.colors.almostBlack};
@@ -19,18 +19,33 @@ export const SumaryPageTopComponentStyle = styled.nav`
         border-radius: 50%;
         opacity: 1;
     }
-`
+`;
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
-`
+    width: 100%;
+    flex-wrap: wrap;
+    `;
+
+export const ContainerTitle = styled.div`
+    display: flex;
+    align-items: center;
+    `;
+
+export const ContainerMainActions = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    `;
 
 export const Row = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
-`
+    flex-wrap: wrap;
+`;
 
 export const Title = styled.p`
     font-size: 28px;
@@ -39,10 +54,11 @@ export const Title = styled.p`
     text-overflow: ellipsis;
     white-space: nowrap;
     margin: 0 12px 0 0;
-`
+`;
 
 export const ContainerContext = styled.div`
     display: flex;
+    flex-wrap: wrap;
     
     div:first-child {
         padding-left: 0px;
@@ -51,7 +67,7 @@ export const ContainerContext = styled.div`
     div:last-child {
         border: none;
     }
-`
+`;
 
 export const ContextItem = styled.div`
     padding: 0 16px;
@@ -65,4 +81,8 @@ export const ContextItem = styled.div`
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+`;
+
+export const ContainerFilterSingleSelect = styled.div`
+    align-self: flex-end;
 `
