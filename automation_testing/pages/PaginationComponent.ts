@@ -1,5 +1,4 @@
 import { Locator, Page } from "@playwright/test";
-import { dataview } from "../utils/data/dataview_data";
 
 export class PaginationComponent {
 	readonly resultAmount: Locator;
@@ -35,7 +34,7 @@ export class PaginationComponent {
 	}
 
 	async calculatePages(results: number,): Promise<number> {
-		const total = dataview.totalRecords;
+		const total = parseInt((await this.paginationValue.textContent()).split("of ")[1]);
 		let pages = Math.floor(total / results);
 		if (total % results != 0) {
 			pages++;
@@ -44,7 +43,7 @@ export class PaginationComponent {
 	}
 
 	async calulateRecordRangePerPage(results: number, page: number): Promise<string> {
-		const total = dataview.totalRecords;
+		const total = parseInt((await this.paginationValue.textContent()).split("of ")[1]);
 		let final = results * page;
 		const init = final - (results - 1);
 		if (final > total) {

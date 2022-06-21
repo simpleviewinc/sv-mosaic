@@ -54,25 +54,6 @@ export const videoAssetExample = [
 	},
 ];
 
-[
-	{
-		label: "Title",
-		value: "Document example",
-	},
-	{
-		label: "Type",
-		value: "Document",
-	},
-	{
-		label: "Size",
-		value: "333 bytes",
-	},
-	{
-		label: "Size on disk",
-		value: "0 bytes",
-	},
-];
-
 export const documentExample = [
 	{
 		label: "Title",
