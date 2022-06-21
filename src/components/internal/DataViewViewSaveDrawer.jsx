@@ -13,6 +13,7 @@ function DataViewViewSaveDrawer(props) {
 				data={props.data}
 				onClose={props.onClose}
 				onSave={props.onSave}
+				onGetOptions={props.onGetOptions}
 				allowSharedViewSave={props.allowSharedViewSave}
 			/>
 		</Drawer>
