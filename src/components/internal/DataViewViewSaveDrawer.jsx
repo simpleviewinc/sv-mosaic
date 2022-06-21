@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useState } from "react";
 
 import Drawer from "../Drawer.jsx";
 import DataViewViewSaveDrawerContent from "./DataViewViewSaveDrawerContent.jsx";
@@ -14,10 +14,9 @@ function DataViewViewSaveDrawer(props) {
 				onClose={props.onClose}
 				onSave={props.onSave}
 				allowSharedViewSave={props.allowSharedViewSave}
-				onGetOptions={props.onGetOptions}
 			/>
 		</Drawer>
 	)
 }
 
-export default memo(DataViewViewSaveDrawer);
+export default DataViewViewSaveDrawer;
