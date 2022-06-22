@@ -41,7 +41,7 @@ function DataViewViewSaveDrawerContent(props) {
 		if (reason === "clickaway") {
 			return;
 		}
-		setIsViewDuplicated(false);
+		setOpenSnackbar(false);
 		setSnackbarLabel("");
 	};
 	
