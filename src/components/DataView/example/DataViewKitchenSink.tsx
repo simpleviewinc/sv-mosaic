@@ -626,6 +626,13 @@ function DataViewKitchenSink(): ReactElement {
 			});
 		},
 		onSavedViewSave: function (data) {
+			const views = gridConfig.onSavedViewGetOptions();
+			const viewExists = views.find((view) => view.label.toUpperCase() === data.label.toUpperCase());
+
+			if (viewExists) {
+				throw new Error("The view already exists");
+			}
+
 			viewsApi.upsert(data);
 			gridConfig.onSavedViewChange(data);
 		},

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Drawer from "../Drawer.jsx";
 import DataViewViewSaveDrawerContent from "./DataViewViewSaveDrawerContent.jsx";
@@ -13,7 +13,6 @@ function DataViewViewSaveDrawer(props) {
 				data={props.data}
 				onClose={props.onClose}
 				onSave={props.onSave}
-				onGetOptions={props.onGetOptions}
 				allowSharedViewSave={props.allowSharedViewSave}
 			/>
 		</Drawer>

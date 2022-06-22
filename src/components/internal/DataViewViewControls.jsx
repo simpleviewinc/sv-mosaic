@@ -101,7 +101,6 @@ function DataViewViewControls(props) {
 				data={savedViewData}
 				onClose={toggleSaveDrawer}
 				onSave={props.savedViewCallbacks.onSave}
-				onGetOptions={props.savedViewCallbacks.onGetOptions}
 				allowSharedViewSave={props.savedViewAllowSharedViewSave}
 			/>
 			<DataViewViewDrawer

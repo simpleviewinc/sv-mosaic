@@ -32,7 +32,7 @@ function DataViewViewSaveDrawerContent(props) {
 		...props.data,
 		type: (props.allowSharedViewSave === true) ? props.data.type : "mine"
 	});
-	const [isViewDuplicated, setIsViewDuplicated] = useState(false);
+	const [openSnackbar, setOpenSnackbar] = useState(false);
 	const [snackbarLabel, setSnackbarLabel] = useState("");
 
 	const { t } = useMosaicTranslation();
@@ -46,19 +46,18 @@ function DataViewViewSaveDrawerContent(props) {
 	};
 	
 	const onSave = async function() {
-		const results = await props.onGetOptions();
-		const viewExists = results.find((view) => view.label.toUpperCase() === state.label.toUpperCase());
-
-		if (viewExists) {
-			setIsViewDuplicated(true);
-			setSnackbarLabel("A view with this name already exists");
-			return;
+		try {
+			await props.onSave({
+				...state
+			});
+			props.onClose();
+			setOpenSnackbar(false);
+			setSnackbarLabel("");
+		} catch (err) {
+			setOpenSnackbar(true)
+			setSnackbarLabel(err.message)
+			console.error(err);
 		}
-
-		await props.onSave({
-			...state
-		});
-		props.onClose();
 	}
 	
 	const onSubmit = function(event) {
@@ -127,7 +126,7 @@ function DataViewViewSaveDrawerContent(props) {
 			</DrawerContent>
 			<Snackbar
 				label={snackbarLabel}
-				open={isViewDuplicated}
+				open={openSnackbar}
 				onClose={handleClose}
 			/>
 		</>
