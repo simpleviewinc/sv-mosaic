@@ -363,7 +363,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 						<SearchIcon/>
 						<InputBase
 							className="input"
-							placeholder={props.placeholder}
+							placeholder={props.placeholder || t("mosaic:common.keyword___")}
 							autoFocus={true}
 							onChange={keywordChange}
 						/>
