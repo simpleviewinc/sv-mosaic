@@ -125,6 +125,11 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				type : "array"
 			},
 			{
+				name : "placeholder",
+				type : "string",
+				required: false
+			},
+			{
 				name : "comparison",
 				type : "string",
 				required : true
@@ -325,7 +330,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 								{
 									menuItems.map((item, id) => (
 										<span key={id}>
-											<b>{item.label}</b> - {popoverP.[item.label]}<br/>
+											<b>{item.label}</b> - {popoverP[item.label]}<br/>
 										</span>
 									))
 								}
@@ -358,7 +363,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 						<SearchIcon/>
 						<InputBase
 							className="input"
-							placeholder={t("mosaic:common.keyword___")}
+							placeholder={props.placeholder || t("mosaic:common.keyword___")}
 							autoFocus={true}
 							onChange={keywordChange}
 						/>
