@@ -42,6 +42,7 @@ const LabelWrapper = styled.div`
 	& > .filter-value {
 		font-weight: ${theme.fontWeight.normal};
 		margin-right: 8px;
+		text-transform: none;
 	}
 
 	&.type_optional > * {
