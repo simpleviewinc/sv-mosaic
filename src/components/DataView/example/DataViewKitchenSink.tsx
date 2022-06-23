@@ -127,9 +127,6 @@ const singleSelectCategoriesHelper = new SingleSelectHelper({
 
 const filters = [
 	{
-		args: {
-			placeholder: "Filter...",
-		},
 		name: "keyword",
 		label: "Keyword",
 		type: "primary",
@@ -151,7 +148,6 @@ const filters = [
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
 			getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
-			placeholder: "Keyword..."
 		},
 		column: "categories_ids",
 		toFilter: processArrayFilter
@@ -176,8 +172,7 @@ const filters = [
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
 			getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
-			comparisons: ["in", "not_in", "all", "exists", "not_exists"],
-			placeholder: "Keyword..."
+			comparisons: ["in", "not_in", "all", "exists", "not_exists"]
 		},
 		column: "categories_ids",
 		toFilter: processArrayFilter
@@ -187,9 +182,6 @@ const filters = [
 		label: "Title",
 		type: "optional",
 		component: DataViewFilterText,
-		args: {
-			placeholder: "Filter..."
-		},
 		toFilter: processStringFilter
 	},
 	{
@@ -214,8 +206,7 @@ const filters = [
 		toFilter: processStringFilter,
 		column: "title",
 		args: {
-			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
-			placeholder: "Placeholder..."
+			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
 		}
 	}
 ]

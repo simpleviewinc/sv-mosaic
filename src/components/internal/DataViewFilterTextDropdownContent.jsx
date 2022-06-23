@@ -178,7 +178,7 @@ function DataViewFilterTextDropdownContent(props) {
 					autoFocus
 					className={ disabled ? "disabled" : "" }
 					disabled={disabled}
-					placeholder={props.placeholder}
+					placeholder={props.placeholder || t("mosaic:common.filter___")}
 					margin="dense"
 					value={state.value}
 					variant="outlined"
