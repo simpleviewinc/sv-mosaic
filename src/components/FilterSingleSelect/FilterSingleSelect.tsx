@@ -78,7 +78,7 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 				anchorEl={state.anchorEl}
 			>
 				<MenuSelect
-					placeholder={!props.required ? "Any..." : undefined}
+					placeholder={!props.args?.required ? "Any..." : undefined}
 					value={value}
 					options={state.options}
 					onChange={onChange}
