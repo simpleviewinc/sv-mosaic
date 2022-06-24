@@ -2,7 +2,7 @@ import { Locator, Page } from "@playwright/test";
 import { CommonHelper } from "../utils/helpers/common_helper";
 
 export class AdvancedFiltersComponent {
-	readonly page: Page;
+    readonly page: Page;
     readonly commonHelper: CommonHelper;
 
     //Locators
@@ -20,9 +20,21 @@ export class AdvancedFiltersComponent {
     readonly advancedFilterLocator: string;
     readonly categoriesSearchBar: Locator;
     readonly comparisonCategoriesOptions: Locator;
+    readonly applyComparisonCategoriesButton: Locator;
+    readonly cancelComparisonCategoriesButton: Locator;
+    readonly clearComparisonCategoriesButton: Locator;
+    readonly comparisonDropdown: Locator;
+    readonly dropdownOption: Locator;
+    readonly helpComparisonCategoriesDialogButton: Locator;
+    readonly helpComparisonCategoriesDialog: Locator;
+    readonly keywordSearchComparisonCategories: Locator;
+    readonly titleFilterSearch: Locator;
+    readonly searchTitleComparisonDropdown: Locator;
+    readonly searchTitleMenuDropdownItem: Locator;
+    readonly searchTitleComparisonApplyButton: Locator;
 
     constructor(page: Page) {
-		this.page = page;
+        this.page = page;
         this.commonHelper = new CommonHelper();
         this.moreBtn = page.locator("#root .filterRow button").nth(2);
         this.checkboxOptions = page.locator("div.kFkbdN.sc-htoDjs input");
@@ -39,7 +51,20 @@ export class AdvancedFiltersComponent {
 
         this.categoriesSearchBar = page.locator("div.searchBar");
         this.comparisonCategoriesOptions = page.locator("div.options input[type='checkbox']");
-	}
+        this.applyComparisonCategoriesButton = page.locator("div.sc-jnlKLf button",{ hasText: "Apply" });
+        this.cancelComparisonCategoriesButton = page.locator("div.sc-jnlKLf button",{ hasText: "Cancel" });
+        this.clearComparisonCategoriesButton = page.locator("div.sc-jnlKLf button",{ hasText: "Clear" });
+        this.comparisonDropdown = page.locator("div.comparisonDropdown button").nth(0);
+        this.dropdownOption = page.locator("div ul[role='menu'] li");
+        this.helpComparisonCategoriesDialogButton = page.locator("div.comparisonDropdown button").nth(1);
+        this.helpComparisonCategoriesDialog = page.locator("div.sc-htoDjs p");
+        this.keywordSearchComparisonCategories = page.locator("div.options input[type='text']");
+
+        this.titleFilterSearch = page.locator("div.inputRow input");
+        this.searchTitleComparisonDropdown = page.locator("div.inputRow button");
+        this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
+        this.searchTitleComparisonApplyButton = page.locator("div.HjvLs.sc-jnlKLf button",{ hasText: "Apply" });
+    }
 
     async getNumberOfSingleSelectCategoryOptions(): Promise<number>{
         return await this.menuOptions.locator("li").count();
@@ -50,32 +75,36 @@ export class AdvancedFiltersComponent {
     }
 
     async getSpecificMenuItemForSingleSelectCategoryOption(menuPosition:number): Promise<String> {
-		return this.menuOptions.locator("li").nth(menuPosition).textContent();
-	}
+        return await this.menuOptions.locator("li").nth(menuPosition).textContent();
+    }
 
     async getAllCategoriesForSingleSelectCategoryOption(): Promise<String[]> {
         const numberOfOptions = await this.getNumberOfSingleSelectCategoryOptions();
         const options = [];
         for (let i = 0; i < numberOfOptions; i++) {
-			options.push(await this.getSpecificMenuItemForSingleSelectCategoryOption(i));
-		}
-		return options;
-	}
+            options.push(await this.getSpecificMenuItemForSingleSelectCategoryOption(i));
+        }
+        return options;
+    }
 
     async selectARandomCategoryForSingleSelectCategoryOption(): Promise<String> {
-		const positionCategorySelected = await this.commonHelper.randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
-		const categorySelected = await this.getSpecificMenuItemForSingleSelectCategoryOption(positionCategorySelected);
-		await this.menuOptions.locator("li").nth(positionCategorySelected).click();
+        const positionCategorySelected = await this.commonHelper.randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
+        const categorySelected = await this.getSpecificMenuItemForSingleSelectCategoryOption(positionCategorySelected);
+        await this.menuOptions.locator("li").nth(positionCategorySelected).click();
         return categorySelected;
     }
 
     async selectAllAdvancedFilters():Promise<void> {
-        const filters = await this.checkboxOptions.elementHandles();
-		for (const filter of filters) {            
-            if ((await (await filter.$(this.checkboxLocator)).isChecked()) == false) {
-                await (await filter.$(this.checkboxLocator)).check();
-            }
-		}
+        await this.singleSelectCategoryOption.click();
+        await this.categoryWithComparisonOption.click();
+        await this.titleOption.click();
+        await this.createdOption.click();
+        await this.updatedOption.click();
+        await this.titleWithComparisonOption.click();
+    }
+
+    async getSelectedValueForSingleSelectCategoryOption(): Promise<string> {       
+        return (await this.optionalFilters.textContent()).split(":")[1];;
     }
 
     async getAllSelectedValuesForAdvancedFilters(): Promise<string[]> {
@@ -85,12 +114,54 @@ export class AdvancedFiltersComponent {
             result.push((await (await filter.$(this.advancedFilterLocator)).textContent()).split(":")[1]);
         }
         return result;
-	}
+    }
 
-    async selectFIrstCategoriesForCategoryWithComparisonOption(): Promise<void> {
+    async selectFirstCategoriesForCategoryWithComparisonOption(): Promise<String> {
+        const selectedCategory = this.comparisonCategoriesOptions.nth(0).textContent();
         await this.comparisonCategoriesOptions.nth(0).check();
-	}
+        return selectedCategory;
+    }
 
+    async selectComparisonOption(option: string):Promise<void>{
+        await this.comparisonDropdown.click();
+        switch (option){
+            case "In": 
+                await this.dropdownOption.nth(0).click();
+                break;
+            case "Not In": 
+                await this.dropdownOption.nth(1).click();
+                break;
+            case "All": 
+                await this.dropdownOption.nth(2).click();
+                break;
+            case "Exists": 
+                await this.dropdownOption.nth(3).click();
+                break;
+            case "Not Exists":
+                await this.dropdownOption.nth(4).click();
+                break; 
+            default:
+                alert('Option does not exists.')
+                break;
+        };
+    }
 
+    async getHelpDialogFromCategoryWithComparisonOption():Promise<String> {
+        return await this.helpComparisonCategoriesDialog.textContent();
+    }
 
-}
+    async keywordSearchForComparisonCategory(category:string):Promise<String>{
+        await this.keywordSearchComparisonCategories.type(category);
+        return await this.selectFirstCategoriesForCategoryWithComparisonOption();
+    }
+
+    async searchForTitleComparison(title:string):Promise<void>{
+        await this.titleFilterSearch.type(title);    
+    }
+
+    async selectTitleComparisonOptionFromDropdown(option:string):Promise<void>{
+        await this.searchTitleComparisonDropdown.click();
+        await this.searchTitleMenuDropdownItem.locator("li", {hasText: option}).nth(0).click();
+    };
+    
+};
