@@ -21,7 +21,6 @@ import MoreVert from "@mui/icons-material/MoreVert";
 import FilterSingleSelect from "../FilterSingleSelect";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
-	console.log(props)
 
 	if (props.mainActions?.length > 3) throw new Error("mainActions should be maximun three buttons")
 
