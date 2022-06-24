@@ -117,8 +117,7 @@ const dataview = {
 	categoryFilterLoadMoreNumber: 5,
 	categoryFilterMoreMessage: "(1 More)",
 	categoryFilterMoreThanTwoNumber: 16,
-
-
+	categoryComparisonHelpDialog: "In - The row must match one of selected option.Not In - The row must match none of the selected options.All - The row must match all of the selected options.Exists - The row must have a value for this filter.Not Exists - The row must not have a value for this filter."
 }
 
 export { dataview };
