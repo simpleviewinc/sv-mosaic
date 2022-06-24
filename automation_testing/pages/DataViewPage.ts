@@ -103,6 +103,8 @@ export class DataviewPage extends Pages {
 	}
 
 	async getRowTitles(): Promise<string[]> {
+		await this.dataviewTable.waitFor({state: "visible"});
+		await this.loading.waitFor({state: "detached"});
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
 		for (const row of rows) {
