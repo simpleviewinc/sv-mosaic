@@ -1,3 +1,4 @@
+import StarRateRounded from "@mui/icons-material/StarRateRounded";
 import styled from "styled-components";
 import theme from "../../theme";
 
@@ -27,17 +28,18 @@ export const Container = styled.div`
     gap: 16px;
     width: 100%;
     flex-wrap: wrap;
-    `;
+`;
 
 export const ContainerTitle = styled.div`
     display: flex;
     align-items: center;
-    `;
-
-export const ContainerMainActions = styled.div`
-    display: flex;
     flex-wrap: wrap;
-    `;
+    margin-right: 30px;
+`;
+
+export const StarRateRoundedSimplyGold = styled(StarRateRounded)`
+    color: ${theme.colors.simplyGold}
+`;
 
 export const Row = styled.div`
     display: flex;
@@ -56,7 +58,7 @@ export const Title = styled.p`
     margin: 0 12px 0 0;
 `;
 
-export const ContainerContext = styled.div`
+export const ContainerItems = styled.div`
     display: flex;
     flex-wrap: wrap;
     
@@ -69,18 +71,18 @@ export const ContainerContext = styled.div`
     }
 `;
 
-export const ContextItem = styled.div`
+export const Item = styled.div`
     padding: 0 16px;
     border-right: 2px solid ${theme.colors.gray200};
+`;
 
-    p {
-        margin: 0px;
-        font-size: 14px;
-        max-width: 280px; 
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+export const ContextText = styled.p `
+    margin: 0px;
+    font-size: 14px;
+    max-width: 280px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 export const ContainerFilterSingleSelect = styled.div`

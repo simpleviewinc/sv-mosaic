@@ -6,157 +6,119 @@ import {
 	Container,
 	Row,
 	Title,
-	ContainerContext,
-	ContextItem,
+	ContainerItems,
+	Item,
+	ContextText,
 	ContainerTitle,
-	ContainerMainActions,
-	ContainerFilterSingleSelect
+	ContainerFilterSingleSelect,
+	StarRateRoundedSimplyGold
 } from "./SummaryPageTopComponent.styled";
 
 import StarBorder from "@mui/icons-material/StarBorderRounded";
 import Image from "../internal/Image";
 import Button from "../Button";
-import Public from "@mui/icons-material/Public";
-import Mail from "@mui/icons-material/Mail";
-import Edit from "@mui/icons-material/Edit";
 import MoreVert from "@mui/icons-material/MoreVert";
 import FilterSingleSelect from "../FilterSingleSelect";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
+	console.log(props)
 
-	// Color for filterSingleSelect component
-	const color = "teal"
+	if (props.mainActions?.length > 3) throw new Error("mainActions should be maximun three buttons")
 
-	const [state, setState] = useState({
-		value : props?.defaultValue?.value || undefined
-	});
-
-	const required = false;
-
-	const options = [
-		{ label : "Option A", value : "a" },
-		{ label : "Option B", value : "b" },
-		{ label : "Option C", value : "c" },
-		{ label : "Option D", value : "d" }
-	]
-
-	const onChange = function(data) {
-		setState(data);
-	}
-
-	const onRemove = () => undefined;
-
-	const getOptions = function() {
-		return {
-			docs : options,
-			hasMore : false
-		}
-	}
-
-	const getSelected = function(id) {
-		return options.filter(val => val.value === id)[0];
-	}
+	if (props.textLinks?.length > 3) throw new Error("textLinks should be maximun three buttons")
 
 	return (
 		<SumaryPageTopComponentStyle>
-			<Image
-				className="img_rounded"
-				src="https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg"
-			/>
+			{
+				props.imageSrc &&
+					<Image
+						className="img_rounded"
+						src={props.imageSrc}
+					/>
+			}
 			<Container>
-				<Row>
+				<Row className="row-title">
 					<ContainerTitle>
 						<Title>
-							Laudantium est optio voluptas Laudantium est optio voluptas Laudantium est optio voluptas Laudantium est optio voluptas
+							{props.title}
 						</Title>
-						<StarBorder />
+						{
+							props.favorite ? <StarRateRoundedSimplyGold onClick={() => alert("Star clicked")}/>
+							: <StarBorder onClick={() => alert("Star clicked")} />
+						}
 					</ContainerTitle>
-					<ContainerMainActions>
-						<ContextItem>
-							<Button 
-								attrs={{smallText: true}} 
-								color="black" 
-								variant="text" 
-								label="Button" 
-								mIcon={Mail} 
-								onClick={() => alert("Click")}
-							></Button>
-						</ContextItem>
-						<ContextItem>
-							<Button 
-								attrs={{smallText: true}} 
-								color="black" 
-								variant="text" 
-								label="Button" 
-								mIcon={Mail} 
-								onClick={() => alert("Click")}
-							></Button>
-						</ContextItem>
-						<ContextItem>
-							<Button 
-								attrs={{smallText: true}} 
-								color="black" 
-								variant="text" 
-								label="Edit" 
-								mIcon={Edit} 
-								onClick={() => alert("Click")}
-							></Button>
-						</ContextItem>
-						<Button
-							color="black" 
-							variant="icon" 
-							label="Edit" 
-							mIcon={MoreVert} 
-							onClick={() => alert("Click")}
-						></Button>
-					</ContainerMainActions>
+					<ContainerItems>
+						{
+							props.mainActions &&
+								props.mainActions.map((mainAction, i) => (
+									<Item key={i}>
+										<Button 
+											attrs={{smallText: true}} 
+											color="black" 
+											variant="text" 
+											size="small"
+											label={mainAction.label} 
+											mIcon={mainAction.mIcon} 
+											onClick={mainAction.onClick}
+										></Button>
+									</Item>
+								))
+						}
+						{
+							props.aditionalActions &&
+								<Item>
+									<Button
+										color="black" 
+										variant="icon" 
+										label="Edit" 
+										mIcon={MoreVert} 
+										menuItems={props.aditionalActions}
+									></Button>
+								</Item>
+						}
+					</ContainerItems>
 				</Row>
 				<Row>
-					<ContainerContext>
-						<ContextItem>
-							<p>Information</p>
-						</ContextItem>
-						<ContextItem>
-							<p>Example of a very very very long text information…</p>
-						</ContextItem>
-						<ContextItem>
-							<p>Information</p>
-						</ContextItem>
-						<ContextItem>
-							<Button 
-								attrs={{linkButton: true}} 
-								color="black" 
-								variant="text" 
-								label="Text Link" 
-								mIcon={Public} 
-								onClick={()=> console.log("click")}
-								href="https://www.google.com/"
-							>
-							</Button>
-						</ContextItem>
-						<ContextItem>
-							<Button 
-								attrs={{linkButton: true}} 
-								color="black" 
-								variant="text" 
-								label="Text Link" 
-								mIcon={Public} 
-								onClick={()=> console.log("click")}
-								href="https://www.google.com/"
-							>
-							</Button>
-						</ContextItem>
-					</ContainerContext>
-					<ContainerFilterSingleSelect>
-						<FilterSingleSelect
-							label="Testing"
-							type="primary"
-							data={state}
-							args={{ getOptions, getSelected, required, color }}
-							onRemove={onRemove}
-							onChange={onChange}
-						/>
-					</ContainerFilterSingleSelect>
+					<ContainerItems>
+						{
+							props.contextTexts && 
+								props.contextTexts.map((contextText, i) => (
+									<Item key={i}>
+										<ContextText>{contextText}</ContextText>
+									</Item>
+								))
+						}
+						{
+							props.textLinks &&
+								props.textLinks.map((textLink, i) => (
+									<Item key={i}>
+										<Button
+											attrs={{linkButton: true}} 
+											color="black" 
+											variant="text" 
+											label={textLink.label} 
+											mIcon={textLink.mIcon} 
+											onClick={textLink.onClick}
+											href={textLink.href}
+										>
+										</Button>
+									</Item>
+								))
+						}
+					</ContainerItems>
+					{
+						props.filterSingleSelect &&
+							<ContainerFilterSingleSelect>
+								<FilterSingleSelect
+									label="Testing"
+									type="primary"
+									data={props.filterSingleSelect.data}
+									args={props.filterSingleSelect.args}
+									onRemove={props.filterSingleSelect.onRemove}
+									onChange={props.filterSingleSelect.onChange}
+								/>
+							</ContainerFilterSingleSelect>
+					}
 				</Row>
 			</Container>
 		</SumaryPageTopComponentStyle>
