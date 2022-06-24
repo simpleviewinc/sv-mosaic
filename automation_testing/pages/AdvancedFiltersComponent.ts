@@ -62,15 +62,6 @@ export class AdvancedFiltersComponent {
 		return options;
 	}
 
-    async getAllSelectedValuesForSingleSelectCategoryOption(): Promise<string[]> {
-        const filters = await this.optionalFilters.elementHandles();
-        const result = [];
-        for (const filter of filters){
-            result.push((await filter.textContent()).split(":")[1]);
-        }
-        return result;
-	}
-
     async selectARandomCategoryForSingleSelectCategoryOption(): Promise<String> {
 		const positionCategorySelected = await this.commonHelper.randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
 		const categorySelected = await this.getSpecificMenuItemForSingleSelectCategoryOption(positionCategorySelected);
