@@ -197,7 +197,6 @@ export class DataviewPage extends Pages {
 		}
 		return categoriesPerRow;
 	}
-
 	async getUpdatedCreated(): Promise<string[]> {
 		const rows = await (await this.getTableRows()).elementHandles();
 		const createdDates = [];
