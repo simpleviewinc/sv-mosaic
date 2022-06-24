@@ -82,13 +82,8 @@ function DataViewPrimaryFilter(props) {
 				type_${props.type}
 			`}
 		>
-<<<<<<< HEAD
-			<BodyText className="filter">{props.label}:</BodyText>
-			<BodyText className="filter" color={ props.color ? props.color : color}><b>{props.value || "Any"}</b></BodyText>
-=======
 			<BodyText className="filter-label">{props.label}:</BodyText>
-			<BodyText className="filter-value"><b>{props.value || "Any"}</b></BodyText>
->>>>>>> 81914f7b465ae52489258a69f8a94ed7fb83cd37
+			<BodyText className="filter-value" color={ props.color ? props.color : color}><b>{props.value || "Any"}</b></BodyText>
 			{
 				props.type === "optional" &&
 				<CloseIcon
