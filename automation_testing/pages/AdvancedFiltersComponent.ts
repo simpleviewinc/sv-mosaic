@@ -82,12 +82,11 @@ export class AdvancedFiltersComponent extends Pages {
 		return await this.comparisonCategoriesOptions.locator("li").count();
 	}
 
-
-	async getSpecificMenuItemForSingleSelectCategoryOption(menuPosition: number): Promise<string> {
-		return this.menuOptions.locator("li").nth(menuPosition).textContent();
+	async getSpecificMenuItemForSingleSelectCategoryOption(menuPosition: number): Promise<String> {
+		return await this.menuOptions.locator("li").nth(menuPosition).textContent();
 	}
 
-	async getAllCategoriesForSingleSelectCategoryOption(): Promise<string[]> {
+	async getAllCategoriesForSingleSelectCategoryOption(): Promise<String[]> {
 		const numberOfOptions = await this.getNumberOfSingleSelectCategoryOptions();
 		const options = [];
 		for (let i = 0; i < numberOfOptions; i++) {
@@ -96,33 +95,24 @@ export class AdvancedFiltersComponent extends Pages {
 		return options;
 	}
 
-	async selectARandomCategoryForSingleSelectCategoryOption(): Promise<string> {
-		const positionCategorySelected = await randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
+	async selectARandomCategoryForSingleSelectCategoryOption(): Promise<String> {
+		const positionCategorySelected = await this.commonHelper.randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
 		const categorySelected = await this.getSpecificMenuItemForSingleSelectCategoryOption(positionCategorySelected);
 		await this.menuOptions.locator("li").nth(positionCategorySelected).click();
 		return categorySelected;
 	}
 
-	/*async selectAllAdvancedFilters(): Promise<void> {
+	async selectAllAdvancedFilters(): Promise<void> {
 		await this.singleSelectCategoryOption.click();
 		await this.categoryWithComparisonOption.click();
 		await this.titleOption.click();
 		await this.createdOption.click();
 		await this.updatedOption.click();
 		await this.titleWithComparisonOption.click();
-	}*/
-
-	async selectAllAdvancedFilters(): Promise<void> {
-		const filters = await this.checkboxOptions.elementHandles();
-		for (const filter of filters) {
-			if ((await (await filter.$(this.checkboxLocator)).isChecked()) == false) {
-				await (await filter.$(this.checkboxLocator)).check();
-			}
-		}
 	}
 
 	async getSelectedValueForSingleSelectCategoryOption(): Promise<string> {
-		return (await this.optionalFilters.textContent()).split(":")[1];
+		return (await this.optionalFilters.textContent()).split(":")[1];;
 	}
 
 	async getAllSelectedValuesForAdvancedFilters(): Promise<string[]> {
@@ -159,21 +149,14 @@ export class AdvancedFiltersComponent extends Pages {
 				await this.dropdownOption.nth(4).click();
 				break;
 			default:
-				alert("Option does not exists.");
+				alert('Option does not exists.')
 				break;
-		}
+		};
 	}
 
-	async getAdvanceFilterTitles(): Promise<string[]> {
-		const filters = await this.optionalFilters.elementHandles();
-		const result = [];
-		for (const filter of filters) {
-			result.push((await (await filter.$(this.advancedFilterLocator)).textContent()).split(":")[0]);
-		}
-		return result;
+	async getHelpDialogFromCategoryWithComparisonOption(): Promise<String> {
+		return await this.helpComparisonCategoriesDialog.textContent();
 	}
-
-
 
 	async getFieldDate(type: string): Promise<Locator> {
 		if (type == "from") {
@@ -181,10 +164,6 @@ export class AdvancedFiltersComponent extends Pages {
 		} else {
 			return this.createdFilterDiv.locator("input").nth(1);
 		}
-	}
-
-	async getHelpDialogFromCategoryWithComparisonOption(): Promise<string> {
-		return await this.helpComparisonCategoriesDialog.textContent();
 	}
 
 	async keywordSearchForComparisonCategory(category: string): Promise<string> {
