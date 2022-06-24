@@ -78,7 +78,7 @@ export const Example = (): ReactElement => {
 		},
 	]
 
-	const contextTexts = ["Information", "Information", contextText, ]
+	const contextTexts = ["Information", "Information", contextText]
 
 	const [state, setState] = useState({
 		value : undefined
