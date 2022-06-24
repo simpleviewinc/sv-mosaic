@@ -33,10 +33,16 @@ const LabelWrapper = styled.div`
 		background-color: ${theme.colors.blue}45;
 	}
 
-	& > .filter {
+	& > .filter-label {
 		font-weight: ${theme.fontWeight.normal};
 		margin-right: 8px;
 		text-transform: capitalize;
+	}
+
+	& > .filter-value {
+		font-weight: ${theme.fontWeight.normal};
+		margin-right: 8px;
+		text-transform: none;
 	}
 
 	&.type_optional > * {
@@ -76,8 +82,13 @@ function DataViewPrimaryFilter(props) {
 				type_${props.type}
 			`}
 		>
+<<<<<<< HEAD
 			<BodyText className="filter">{props.label}:</BodyText>
 			<BodyText className="filter" color={ props.color ? props.color : color}><b>{props.value || "Any"}</b></BodyText>
+=======
+			<BodyText className="filter-label">{props.label}:</BodyText>
+			<BodyText className="filter-value"><b>{props.value || "Any"}</b></BodyText>
+>>>>>>> 81914f7b465ae52489258a69f8a94ed7fb83cd37
 			{
 				props.type === "optional" &&
 				<CloseIcon

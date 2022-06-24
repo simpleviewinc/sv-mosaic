@@ -147,7 +147,7 @@ const filters = [
 		component: DataViewFilterMultiselect,
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
-			getSelected: categoriesHelper.getSelected.bind(categoriesHelper)
+			getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
 		},
 		column: "categories_ids",
 		toFilter: processArrayFilter
