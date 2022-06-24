@@ -97,20 +97,18 @@ export const KitchenSink = (): ReactElement => {
 				label="Required"
 				type="primary"
 				data={stateRequired}
-				args={{ getOptions, getSelected }}
+				args={{ getOptions, getSelected, required: true }}
 				onRemove={onRemove}
 				onChange={onChangeRequired}
-				required={true}
 			/>
 			<h2>No required</h2>
 			<FilterSingleSelect
 				label="No required"
 				type="primary"
 				data={state}
-				args={{ getOptions, getSelected }}
+				args={{ getOptions, getSelected, required: false }}
 				onRemove={onRemove}
 				onChange={onChange}
-				required={false}
 			/>
 		</>
 	)
