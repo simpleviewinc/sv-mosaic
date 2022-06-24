@@ -54,6 +54,11 @@ function DataViewFilterTextDropdownContent(props) {
 				required : true
 			},
 			{
+				name: "placeholder",
+				type: "string",
+				required: false
+			},
+			{
 				name : "onChange",
 				type : "function",
 				required : true
@@ -173,7 +178,7 @@ function DataViewFilterTextDropdownContent(props) {
 					autoFocus
 					className={ disabled ? "disabled" : "" }
 					disabled={disabled}
-					placeholder={t("mosaic:common.filter___")}
+					placeholder={props.placeholder || t("mosaic:common.filter___")}
 					margin="dense"
 					value={state.value}
 					variant="outlined"

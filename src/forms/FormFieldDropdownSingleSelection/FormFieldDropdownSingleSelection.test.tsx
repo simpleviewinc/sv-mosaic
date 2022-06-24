@@ -56,7 +56,7 @@ describe("DropdownSingleSelection disabled state", () => {
 						placeholder: "placeholder",
 					}
 				}}
-				value={null}
+				value=""
 			/>
 		);
 
@@ -77,7 +77,7 @@ describe("DropdownSingleSelection component as a form field", () => {
 						placeholder: "Placeholder test",
 					}
 				}}
-				value={null}
+				value=""
 			/>
 		);
 	});
