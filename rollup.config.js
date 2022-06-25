@@ -28,6 +28,7 @@ const EXTERNALS = [
 	"react-draft-wysiwyg",
 	"eventemitter3",
 	"jodit-react",
+	"react/jsx-runtime"
 ];
 
 const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];

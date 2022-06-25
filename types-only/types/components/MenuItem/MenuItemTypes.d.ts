@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { MosaicObject } from "../../types";
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 export interface MenuItemProps {
     label: string | JSX.Element;
     color?: "red" | "blue";

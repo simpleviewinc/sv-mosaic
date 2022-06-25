@@ -1,4 +1,4 @@
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 export declare type SnackbarAction = {
     label: string;
     function: () => void;
