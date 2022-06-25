@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import Checkbox from "@root/components/Checkbox";
 import { DataViewColumnControl } from "./DataViewColumnControl";

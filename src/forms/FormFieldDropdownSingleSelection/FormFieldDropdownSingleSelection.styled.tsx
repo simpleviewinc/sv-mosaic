@@ -3,8 +3,8 @@ import theme from "@root/theme";
 import { Sizes } from "@root/theme/sizes";
 
 // Components
-import { default as MUIAutocomplete } from "@material-ui/lab/Autocomplete";
-import Popper from "@material-ui/core/Popper";
+import { default as MUIAutocomplete } from "@mui/material/Autocomplete";
+import Popper from "@mui/material/Popper";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
@@ -72,11 +72,12 @@ export const SingleDropdownWrapper = styled.div`
 
 export const StyledPopper = styled(Popper)`
   z-index: 999999999 !important;
-  .MuiAutocomplete-option {
+  .MuiAutocomplete-listbox .MuiAutocomplete-option {
     font-family: ${theme.fontFamily};
     font-size: 14px;
     min-height: 40px;
     color: ${theme.colors.gray700};
+		background-color: white;
 
     &[aria-selected='true'] {
 			color: ${({ value }) => value ? theme.colors.gray700 : theme.colors.black };
@@ -84,8 +85,8 @@ export const StyledPopper = styled(Popper)`
 			background-color: white;
     }
 
-    &:hover {
-      background-color: ${theme.colors.grayHover};
-    }
+		&[aria-selected="true"].Mui-focused {
+			background-color: ${theme.colors.grayHover};
+		}
   }
 `;

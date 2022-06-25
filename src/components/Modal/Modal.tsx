@@ -5,9 +5,9 @@ import { memo, ReactElement, useEffect, useState, useMemo } from "react";
 import Button from "@root/components/Button";
 
 // Material UI
-import { DialogActions, DialogContent, IconButton } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { DialogActions, DialogContent, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 // Types and styles
 import { ModalProps } from ".";
@@ -84,7 +84,7 @@ const Modal = (props: ModalProps): ReactElement => {
 							aria-label="close"
 							disableRipple
 							onClick={(e) => cancel(e)}
-						>
+							size="large">
 							<ArrowBackIosIcon />
 						</IconButton>
 					)}
@@ -106,7 +106,7 @@ const Modal = (props: ModalProps): ReactElement => {
 						aria-label="close"
 						disableRipple
 						onClick={(e) => cancel(e)}
-					>
+						size="large">
 						<CloseIcon />
 					</IconButton>
 				)}

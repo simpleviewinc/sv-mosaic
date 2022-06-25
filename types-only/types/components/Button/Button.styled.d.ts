@@ -17,6 +17,7 @@ export declare const types: {
     black_text: any;
     blue_icon: any;
     black_icon: any;
+    teal_icon: any;
     red_icon: any;
     white_icon: any;
     gray_icon: any;

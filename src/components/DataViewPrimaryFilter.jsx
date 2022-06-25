@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CloseIcon from '@material-ui/icons/Close';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import CloseIcon from '@mui/icons-material/Close';
 
 import theme from "../utils/theme.js";
 import Button from "../components/Button";
@@ -12,10 +12,6 @@ import { BodyText } from "../components/Typography";
 const LabelWrapper = styled.div`
 	display: flex;
 	align-items: center;
-
-	& > .icon {
-		font-size: 20px;
-	}
 
 	& > .dropdownIcon {
 		color: ${theme.colors.gray600};
@@ -37,9 +33,16 @@ const LabelWrapper = styled.div`
 		background-color: ${theme.colors.blue}45;
 	}
 
-	& > .filterLabel {
+	& > .filter-label {
 		font-weight: ${theme.fontWeight.normal};
 		margin-right: 8px;
+		text-transform: capitalize;
+	}
+
+	& > .filter-value {
+		font-weight: ${theme.fontWeight.normal};
+		margin-right: 8px;
+		text-transform: none;
 	}
 
 	&.type_optional > * {
@@ -78,9 +81,8 @@ function DataViewPrimaryFilter(props) {
 				type_${props.type}
 			`}
 		>
-			<BodyText className="filterLabel">{props.label}:</BodyText>
-			<BodyText className="filterValue">{props.value || "Any"}</BodyText>
-			<ExpandMoreIcon className="icon dropdownIcon"/>
+			<BodyText className="filter-label">{props.label}:</BodyText>
+			<BodyText className="filter-value"><b>{props.value || "Any"}</b></BodyText>
 			{
 				props.type === "optional" &&
 				<CloseIcon
@@ -98,6 +100,8 @@ function DataViewPrimaryFilter(props) {
 			size="small"
 			onClick={props.onClick}
 			label={label}
+			iconPosition="right"
+			mIcon={ExpandMoreIcon}
 		/>
 	)
 }

@@ -1,16 +1,16 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
 
-import CreateIcon from "@material-ui/icons/Create";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import HelpIcon from "@material-ui/icons/Help";
-import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
-import FormatListBulletedOutlinedIcon from "@material-ui/icons/FormatListBulletedOutlined";
-import GridOnOutlinedIcon from "@material-ui/icons/GridOnOutlined";
+import CreateIcon from "@mui/icons-material/Create";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import HelpIcon from "@mui/icons-material/Help";
+import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
+import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 
 import ButtonRow from "../ButtonRow";
 import Button from "./Button";
@@ -240,6 +240,9 @@ function Buttons(): ReactElement {
 				<Button color="gray" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
 				<Button color="gray" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
 				<Button color="gray" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+				<Button color="teal" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
+				<Button color="teal" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
+				<Button color="teal" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
 				<div style={{ background: "black", display: "inline-block" }}>
 					<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
 					<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
@@ -269,7 +272,6 @@ function Buttons(): ReactElement {
 				<ButtonRow>
 					<Button color="blue" variant="contained" label="Small" size="small"/>
 					<Button color="blue" variant="contained" label="Medium (default)"/>
-					<Button color="blue" variant="contained" label="Large" size="large"/>
 				</ButtonRow>
 			</div>
 			<br/><br/>
@@ -277,7 +279,6 @@ function Buttons(): ReactElement {
 				<ButtonRow>
 					<Button color="blue" variant="outlined" label="Small" size="small" mIcon={AddIcon}/>
 					<Button color="blue" variant="outlined" label="Medium (default)" mIcon={AddIcon}/>
-					<Button color="blue" variant="outlined" label="Large" size="large" mIcon={AddIcon}/>
 				</ButtonRow>
 			</div>
 			<br/><br/>
@@ -285,7 +286,6 @@ function Buttons(): ReactElement {
 				<ButtonRow>
 					<Button color="black" variant="icon" size="small" mIcon={AddIcon}/>
 					<Button color="black" variant="icon" mIcon={AddIcon}/>
-					<Button color="black" variant="icon" size="large" mIcon={AddIcon}/>
 				</ButtonRow>
 			</div>
 

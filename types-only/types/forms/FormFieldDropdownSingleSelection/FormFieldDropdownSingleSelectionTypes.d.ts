@@ -1,5 +1,5 @@
-import { PopperProps } from "@material-ui/core/Popper";
 import { MosaicLabelValue } from "@root/types";
+import { PopperProps } from "@mui/material/Popper";
 export declare type DropdownSingleSelectionDef = {
     /**
      * Example text shown inside of the text field

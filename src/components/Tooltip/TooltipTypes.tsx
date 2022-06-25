@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TooltipProps as MUITooltipProps } from "@material-ui/core/Tooltip";
+import { TooltipProps as MUITooltipProps } from "@mui/material/Tooltip";
 
 export interface TooltipProps {
   /**

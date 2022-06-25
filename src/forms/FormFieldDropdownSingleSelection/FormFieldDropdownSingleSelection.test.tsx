@@ -56,7 +56,7 @@ describe("DropdownSingleSelection disabled state", () => {
 						placeholder: "placeholder",
 					}
 				}}
-				value={null}
+				value=""
 			/>
 		);
 
@@ -77,13 +77,13 @@ describe("DropdownSingleSelection component as a form field", () => {
 						placeholder: "Placeholder test",
 					}
 				}}
-				value={null}
+				value=""
 			/>
 		);
 	});
 
 	it("should render a dropdown with a placeholder", () => {
-		const input = getByRole("textbox") as HTMLInputElement;
+		const input = getByRole("combobox") as HTMLInputElement;
 
 		expect(input.placeholder).toEqual("Placeholder test");
 	});

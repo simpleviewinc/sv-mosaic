@@ -2,8 +2,8 @@ import * as React from "react";
 import { memo } from "react";
 import styled from "styled-components";
 
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import Button from "../Button";
 import DataViewPagerPopover from "./DataViewPagerPopover";

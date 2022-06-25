@@ -4,8 +4,8 @@ import styled from "styled-components";
 import CheckboxList from "../../components/CheckboxList";
 
 // Material UI
-import { default as MUIFormHelperText } from "@material-ui/core/FormHelperText";
-import { default as MUIErrorOutlineIcon } from "@material-ui/icons/ErrorOutline";
+import { default as MUIFormHelperText } from "@mui/material/FormHelperText";
+import { default as MUIErrorOutlineIcon } from "@mui/icons-material/ErrorOutline";
 
 // Utils
 import theme from "../../theme/theme";

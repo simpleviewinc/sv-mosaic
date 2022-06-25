@@ -147,12 +147,104 @@ export const Playground = (): ReactElement => {
 			"label_1",
 			"label_2"
 		],
+		"chipSelect": "label_1",
+		"dropdownSingle": "1972",
+		"phoneSelect": "15205751151",
+		"radio": "label_3",
+		"toggleSwitch": true,
+		"color": {
+			"hsl": {
+				"h": 166.53061224489795,
+				"s": 0.7241379310344827,
+				"l": 0.6019607843137255,
+				"a": 1
+			},
+			"hex": "#50e3c2",
+			"rgb": {
+				"r": 80,
+				"g": 227,
+				"b": 194,
+				"a": 1
+			},
+			"hsv": {
+				"h": 166.53061224489795,
+				"s": 0.6475770925110133,
+				"v": 0.8901960784313725,
+				"a": 1
+			},
+			"oldHue": 55.13513513513513,
+			"source": "hex"
+		},
+		"date": new Date(),
+		"address": [
+			{
+				"id": 1,
+				"address1": "8950 N. Oracle Road",
+				"city": "Tuczon",
+				"postalCode": "85704",
+				"country": "US",
+				"state": "AZ",
+				"types": [
+					"physical",
+					"billing",
+					"shipping"
+				]
+			}
+		],
 		"advancedSelection": [
 			"option_1-cat_1",
 			"option_3-cat_1",
 			"option_1-cat_2",
 			"option_3-cat_2"
-		]
+		],
+		"imageVideoDocumentLink": [
+			{
+				"label": "Title",
+				"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
+			},
+			{
+				"label": "Type",
+				"value": "Image Video Thumbnail"
+			},
+			{
+				"label": "Alt",
+				"value": "-"
+			},
+			{
+				"label": "Size",
+				"value": "1280x720"
+			},
+			{
+				"label": "Focus",
+				"value": "No"
+			},
+			{
+				"label": "Locales",
+				"value": "-"
+			}
+		],
+		"table": [
+			{
+				"id": "1",
+				"items": [
+					"John",
+					"john@email.com",
+					"01/01/2021",
+					"3231-962-7516"
+				]
+			}
+		],
+		"imageUpload": {
+			"imgName": "image (2).png",
+			"size": 61571,
+			"type": "image/png",
+			"height": 600,
+			"width": 777
+		},
+		"mapCoordinates": {
+			"lat": 32.3395031,
+			"lng": -110.9864294
+		}
 	});
 
 	const fields = useMemo(

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement } from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import MenuItem from "./MenuItem";
 

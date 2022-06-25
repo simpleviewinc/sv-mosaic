@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 // Material UI
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 
 //Styles & Types
 import theme from "@root/theme";

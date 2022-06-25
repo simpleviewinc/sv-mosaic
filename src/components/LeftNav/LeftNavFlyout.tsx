@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState, useContext, useMemo, ReactElement } from "react";
 import styled from "styled-components";
-import Popper from "@material-ui/core/Popper";
-import { PopperProps } from "@material-ui/core/Popper";
-import Paper from "@material-ui/core/Paper";
+import Popper from "@mui/material/Popper";
+import { PopperUnstyledProps } from "@mui/base/PopperUnstyled"
+import Paper from "@mui/material/Paper";
 import { throttle } from "lodash";
 
 import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";
@@ -21,21 +21,27 @@ const StyledDiv = styled.div`
 `;
 
 // set aside the popperProps so they do not mutate between renders, cause the Popper system to go haywire and move the component around strangely
-const popperProps: Pick<PopperProps, "open" | "placement" | "modifiers"> = {
+// check this https://popper.js.org/docs/v2/ to know more about the PopperProps
+const popperProps: Pick<PopperUnstyledProps, "open" | "placement" | "modifiers"> = {
 	open : true,
 	placement : "right",
-	modifiers : {
-		preventOverflow : {
-			enabled : true,
-			boundariesElement: "viewport"
-		},
+	modifiers : [
 		// this prevents popper from using translated3d which causes blurry
 		// flyouts in Chrome, instead it will just use top/left positioning
-		computeStyle : {
+		{
+			name: "preventOverflow",
 			enabled : true,
-			gpuAcceleration : false
-		}
-	}
+			options: {
+				rootBoundary: "viewport"
+			}
+		},
+		{
+			name: "computeStyles",
+			options: {
+				gpuAcceleration: false,
+			},
+		},
+	],
 }
 
 interface Props {

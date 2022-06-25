@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 interface Props {
     label: string;
     mIcon?: SvgIconComponent;
