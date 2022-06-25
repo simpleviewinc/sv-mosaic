@@ -1,15 +1,16 @@
 /// <reference types="react" />
 import { MosaicObject } from "../../types";
 import { MenuItemProps } from "../MenuItem";
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 export interface ButtonProps {
+    name?: string;
     label?: string | JSX.Element;
     className?: string;
     href?: string;
     color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
     mIcon?: SvgIconComponent;
     variant: "icon" | "outlined" | "contained" | "text";
-    size?: "small" | "medium" | "large";
+    size?: "small" | "medium";
     iconPosition?: "left" | "right";
     disabled?: boolean;
     /** Button will occupy 100% of the width provided to it */

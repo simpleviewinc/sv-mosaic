@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from "react";
-import { RadioGroupProps as MUIRadioGroup } from "@material-ui/core/RadioGroup";
+import { RadioGroupProps as MUIRadioGroup } from "@mui/material/RadioGroup";
 import { MosaicLabelValue } from "@root/types";
 export declare type FormFieldRadioDef = {
     /**
