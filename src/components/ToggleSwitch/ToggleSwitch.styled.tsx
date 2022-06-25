@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Material UI
-import Switch from "@material-ui/core/Switch";
+import Switch from "@mui/material/Switch";
 
 // Utils
 import theme from "@root/theme";
@@ -13,17 +13,17 @@ export const StyledSwitch = styled(Switch)`
     height: 40px;
   }
 
-  .MuiSwitch-colorSecondary,
-  .MuiSwitch-colorSecondary.Mui-disabled {
+  .MuiSwitch-colorPrimary,
+  .MuiSwitch-colorPrimary.Mui-disabled {
     color: white;
   }
 
-  .MuiSwitch-colorSecondary.Mui-checked,
-  .MuiSwitch-colorSecondary.Mui-disabled.Mui-checked {
+  .MuiSwitch-colorPrimary.Mui-checked,
+  .MuiSwitch-colorPrimary.Mui-disabled.Mui-checked {
     color: ${theme.colors.simplyGold};
   }
 
-  .MuiSwitch-colorSecondary {
+  .MuiSwitch-colorPrimary {
     padding: 10px;
 
     &:hover {
@@ -31,7 +31,7 @@ export const StyledSwitch = styled(Switch)`
     }
   }
 
-  .MuiSwitch-colorSecondary {
+  .MuiSwitch-colorPrimary {
     &.Mui-checked {
       &:hover {
         background-color: ${theme.colors.simplyGoldOpacity};
@@ -47,12 +47,12 @@ export const StyledSwitch = styled(Switch)`
     margin: auto 0px;
   }
 
-  .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
+  .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track {
     background-color: #fdb92459;
     opacity: 1;
   }
 
-  .MuiSwitch-colorSecondary.Mui-disabled.Mui-checked + .MuiSwitch-track {
+  .MuiSwitch-colorPrimary.Mui-disabled.Mui-checked + .MuiSwitch-track {
     background-color: #fdb92459;
   }
 

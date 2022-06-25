@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { default as MUICheckbox } from "@material-ui/core/Checkbox";
-import { default as MUIFormControlLabel } from "@material-ui/core/FormControlLabel";
-import { default as MUIFormHelperText } from "@material-ui/core/FormHelperText";
+import { default as MUICheckbox } from "@mui/material/Checkbox";
+import { default as MUIFormControlLabel } from "@mui/material/FormControlLabel";
+import { default as MUIFormHelperText } from "@mui/material/FormHelperText";
 import theme from "@root/utils/theme";
 
 export const StyledFormControlLabel = styled(MUIFormControlLabel)`

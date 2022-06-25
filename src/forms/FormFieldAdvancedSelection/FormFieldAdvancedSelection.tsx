@@ -11,7 +11,7 @@ import { AdvancedSelectionDef } from "./AdvancedSelectionTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 
 // Components
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import Button from "@root/components/Button";
 import Drawer from "../../components/Drawer.jsx";
 import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";

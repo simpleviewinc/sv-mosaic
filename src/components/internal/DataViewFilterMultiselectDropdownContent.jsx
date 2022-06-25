@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
-import Chip from "@material-ui/core/Chip";
-import InputBase from "@material-ui/core/InputBase";
+import Chip from "@mui/material/Chip";
+import InputBase from "@mui/material/InputBase";
 import { debounce, xor } from "lodash";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SearchIcon from "@material-ui/icons/Search";
-import HelpIcon from '@material-ui/icons/Help';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchIcon from "@mui/icons-material/Search";
+import HelpIcon from '@mui/icons-material/Help';
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import Button from "../Button";
@@ -123,6 +123,11 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			{
 				name : "value",
 				type : "array"
+			},
+			{
+				name : "placeholder",
+				type : "string",
+				required: false
 			},
 			{
 				name : "comparison",
@@ -325,7 +330,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 								{
 									menuItems.map((item, id) => (
 										<span key={id}>
-											<b>{item.label}</b> - {popoverP.[item.label]}<br/>
+											<b>{item.label}</b> - {popoverP[item.label]}<br/>
 										</span>
 									))
 								}
@@ -358,7 +363,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 						<SearchIcon/>
 						<InputBase
 							className="input"
-							placeholder={t("mosaic:common.keyword___")}
+							placeholder={props.placeholder || t("mosaic:common.keyword___")}
 							autoFocus={true}
 							onChange={keywordChange}
 						/>

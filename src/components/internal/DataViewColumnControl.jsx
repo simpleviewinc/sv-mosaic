@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import SettingsIcon from "@material-ui/icons/Settings";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import Button from "../Button";
 import GridColumnDrawer from "./GridColumnDrawer.jsx";
@@ -25,11 +25,12 @@ export function DataViewColumnControl(props) {
 			<Button
 				color="black"
 				label={t("mosaic:DataView.columns")}
-				variant="outlined"
+				variant="icon"
 				size="small"
 				mIcon={SettingsIcon}
 				onClick={gearClick}
 				iconPosition="left"
+				tooltip="Update columns and their order."
 			/>
 			{
 				props.onChange !== undefined &&

@@ -2,8 +2,8 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 // Components
 import Tooltip from "./Tooltip";

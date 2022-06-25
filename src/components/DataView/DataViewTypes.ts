@@ -1,5 +1,5 @@
 import { MosaicObject, MosaicCallback } from "../../types";
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
@@ -53,10 +53,11 @@ export interface DataViewFilterDef {
 	name: string
 	label: string
 	type: DataViewFilterTypes
-	args: MosaicObject
+	args?: MosaicObject
 	component: React.Component
-	column: string
+	column?: string
 	onChange: DataViewFilterOnChange
+	comparisonDefault?: string
 }
 
 export interface DataViewFilterProps {
@@ -83,7 +84,8 @@ export interface DataViewControlDisplayProps {
 }
 
 interface DataViewActionShow {
-	({ row }: { row : MosaicObject }): void
+	// ({ row }: { row : MosaicObject }): void
+	(val?: {[key: string]: any}): void
 }
 
 interface DataViewActionOnClick {
@@ -100,7 +102,8 @@ interface ActionAdditional {
 	/** A handler function to be invoked when this action is used. */
 	onClick: DataViewActionOnClick
 	/** A value or function controlling whether or not to display this action. */
-	show?: boolean | DataViewActionShow
+	// show?: boolean | DataViewActionShow
+	show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[];
 }
 
 export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAdditional;
@@ -123,7 +126,7 @@ export interface DataViewBulkActionsButtonsRowProps {
 export interface DataViewDisplay {
 	name: string
 	label: string
-	component: React.Component
+	component: React.ElementType
 	mIcon: SvgIconComponent
 }
 
@@ -144,19 +147,54 @@ export interface DataViewOnLimitChange {
 	({ limit }: { limit : number }): void
 }
 
+type StateViewDef = {
+	limit: number
+	skip: number
+	filter: MosaicObject
+	sort: DataViewSort
+	display: string
+	activeFilters: string[]
+	activeColumns: string[]
+}
 export interface DataViewView {
 	id: string
 	label: string
 	type: string
-	state: {
-		limit: number
-		skip: number
-		filter: MosaicObject
-		sort: DataViewSort
-		display: string
-		activeFilters: string[]
-		activeColumns: string[]
-	}
+	state: StateViewDef
+}
+
+type SavedViewDef = {
+	id?: string
+	label?: string
+	type?: "default" | "shared" | "mine"
+	state?: StateViewDef
+} 
+
+type dataViewOnSavedViewChange = {
+	(view: DataViewView): void
+}
+
+type dataViewOnDisplayChange = {
+	(display: string): void
+}
+type dataViewOnActiveFiltersChange = {
+	(activeFilters: string[], filter: MosaicObject): void
+}
+
+type dataViewOnColumnsChange = {
+	(activeColumns: string[]): void
+}
+
+type dataViewOnSavedViewSave = {
+	(data: MosaicObject): void
+}
+
+type dataViewOnSavedViewRemove = {
+	(data: MosaicObject): void
+}
+
+type dataViewOnSavedViewGetOptions = {
+	(): MosaicObject[]
 }
 
 export interface DataViewProps {
@@ -169,20 +207,31 @@ export interface DataViewProps {
 	activeColumns?: string[]
 	sticky?: boolean
 	/** A list of actions which are always visible for each item in the DataView. */
+	filters?: DataViewFilterDef
+    filter?: MosaicObject
+    activeFilters?: string[]
+    buttons?: ButtonProps[]
+    display?: string
+    savedView?: SavedViewDef[]
+    displayOptions?: string[]
+    data?: MosaicObject[]
+    sort?: DataViewSort
+    limitOptions?: number[]
+    gridColumnsMap?: MosaicObject
+    savedViewAllowSharedViewSave?: boolean
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
 	bulkActions?: DataViewBulkAction[]
 	onSortChange?: DataViewOnSortChange
 	onSkipChange?: DataViewOnSkipChange
 	onLimitChange?: DataViewOnLimitChange
-	onSavedViewChange?(view: DataViewView): void
-	// temporarily allowing extra properties until we have finished the conversion of DataView to TS
-	[key: string]: unknown
-}
-
-
-export interface DataViewProps {
-	display: string | number | "list";
-	displayOptions: string[];
-	onDisplayChange: (val: string) => void; 
+	onSavedViewChange?:  dataViewOnSavedViewChange
+	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
+	[key: string]: unknown */
+    onDisplayChange?: dataViewOnDisplayChange
+    onActiveFiltersChange?: dataViewOnActiveFiltersChange
+    onColumnsChange?: dataViewOnColumnsChange
+    onSavedViewSave?: dataViewOnSavedViewSave
+    onSavedViewRemove?: dataViewOnSavedViewRemove
+    onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
 }

@@ -1,4 +1,4 @@
-import { FormControlLabelProps as MUIFormControlLabelProps } from "@material-ui/core/FormControlLabel";
+import { FormControlLabelProps as MUIFormControlLabelProps } from "@mui/material/FormControlLabel";
 import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldToggleSwitchDef } from "../../forms/FormFieldToggleSwitch";
 

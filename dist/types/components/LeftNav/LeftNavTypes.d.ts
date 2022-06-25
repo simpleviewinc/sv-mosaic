@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MosaicObject } from "../../types";
-import { SvgIconComponent } from "@material-ui/icons";
+import { SvgIconComponent } from "@mui/icons-material";
 declare type Variant = "full" | "icons_only" | "hidden" | "mobile";
 export interface LeftNavOnNav {
     (args: {

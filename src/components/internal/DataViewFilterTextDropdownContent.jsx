@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import Button from "../Button";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
@@ -52,6 +52,11 @@ function DataViewFilterTextDropdownContent(props) {
 				name : "value",
 				type : "string",
 				required : true
+			},
+			{
+				name: "placeholder",
+				type: "string",
+				required: false
 			},
 			{
 				name : "onChange",
@@ -173,7 +178,7 @@ function DataViewFilterTextDropdownContent(props) {
 					autoFocus
 					className={ disabled ? "disabled" : "" }
 					disabled={disabled}
-					placeholder={t("mosaic:common.filter___")}
+					placeholder={props.placeholder || t("mosaic:common.filter___")}
 					margin="dense"
 					value={state.value}
 					variant="outlined"

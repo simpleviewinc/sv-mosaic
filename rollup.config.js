@@ -12,6 +12,10 @@ const EXTERNALS = [
 	/^@material-ui\/core\//,
 	/^@material-ui\/icons\//,
 	/^@material-ui\/pickers\//,
+	/^@mui\/icons-material\//,
+	/^@mui\/lab\//,
+	/^@mui\/material\//,
+	/^@mui\/styles\//,
 	"i18next",
 	"jsvalidator",
 	"lodash",
@@ -24,6 +28,7 @@ const EXTERNALS = [
 	"react-draft-wysiwyg",
 	"eventemitter3",
 	"jodit-react",
+	"react/jsx-runtime"
 ];
 
 const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];

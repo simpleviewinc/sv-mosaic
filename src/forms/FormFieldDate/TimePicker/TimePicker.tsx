@@ -1,26 +1,20 @@
 import * as React from "react";
-import DateFnsUtils from "@date-io/date-fns";
 import { ReactElement, useState } from "react";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
-// Components
-import ScheduleIcon from "@material-ui/icons/Schedule";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import TextField from "@mui/material/TextField";
+import TimePicker from "@mui/lab/TimePicker";
 
 // Styles
-import { ThemeProvider } from "@material-ui/core/styles";
-import { customTheme, StyledTimePicker } from "./TimePicker.styled";
+import { customTheme } from "./TimePicker.styled";
 import { DatePickerWrapper } from "../DatePicker/DatePicker.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 import { TimePickerDef } from "./TimePickerTypes";
+import { ThemeProvider } from "@mui/material/styles";
 
-const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
-	const {
-		error,
-		fieldDef,
-		onChange,
-		value,
-		onBlur
-	} = props;
+const TimeFieldPicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
+	const { error, fieldDef, onChange, value, onBlur } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -29,42 +23,33 @@ const TimePicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
 		await onBlur();
 	};
 
+	const renderInput = (params) => (
+		<TextField
+			{...params}
+			onBlur={onBlur}
+			required={fieldDef.required}
+			inputProps={{
+				...params.inputProps,
+				placeholder: fieldDef?.inputSettings?.placeholder,
+			}}
+		/>
+	);
+
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<ThemeProvider theme={customTheme}>
-				<DatePickerWrapper isPickerOpen={isPickerOpen}>
-					<StyledTimePicker
-						inputVariant='outlined'
-						variant='inline'
+				<DatePickerWrapper isPickerOpen={isPickerOpen} error={!!error}>				
+					<TimePicker
 						value={value}
 						onChange={onChange}
-						keyboardIcon={<ScheduleIcon />}
+						renderInput={renderInput}
 						onOpen={handleOpenState}
 						onClose={handleOpenState}
-						PopoverProps={{
-							anchorOrigin: {
-								vertical: "bottom",
-								horizontal: "center",
-							},
-							transformOrigin: {
-								vertical: "top",
-								horizontal: "center",
-							},
-						}}
-						InputProps={{
-							placeholder: fieldDef?.inputSettings?.placeholder,
-							required: fieldDef?.required,
-						}}
-						error={!!error}
-						invalidDateMessage={null}
-						maxDateMessage={null}
-						minDateMessage={null}
-						onBlur={onBlur}
 					/>
 				</DatePickerWrapper>
 			</ThemeProvider>
-		</MuiPickersUtilsProvider>
+		</LocalizationProvider>
 	);
 };
 
-export default TimePicker;
+export default TimeFieldPicker;
