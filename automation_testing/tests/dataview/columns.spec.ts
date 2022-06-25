@@ -1,4 +1,3 @@
-
 import { test, expect } from "@playwright/test";
 import { ColumnsComponent } from "../../pages/ColumnsComponent";
 import { DataviewPage } from "../../pages/DataViewPage";
