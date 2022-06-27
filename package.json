@@ -47,6 +47,7 @@
 		"identity-obj-proxy": "^3.0.0",
 		"jest": "^27.5.1",
 		"jest-canvas-mock": "^2.3.1",
+		"jest-fail-on-console": "2.4.2",
 		"jodit-react": "^1.1.20",
 		"json-date-parser": "1.0.1",
 		"jsvalidator": "1.2.0",
@@ -118,8 +119,8 @@
 		"docker": "./dev/build && ./dev/run || true",
 		"publish": "./dev/publish",
 		"storybook": "start-storybook -p 10000",
-		"package-lock": "cp package-lock.json package-lock-mounted.json",
-		"style": "eslint . --fix"
+		"style": "eslint . --fix",
+		"sync-state": "./dev/sync-state"
 	},
 	"packageManager": "yarn@3.1.1",
 	"repository": {
