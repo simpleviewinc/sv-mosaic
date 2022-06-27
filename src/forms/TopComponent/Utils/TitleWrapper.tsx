@@ -15,7 +15,7 @@ export const FormTitle = styled.span`
 
   color: ${theme.colors.almostBlack};
   font-size: ${pr => pr.type && pr.type === "drawer" ? "20px" : "28px"};
-  margin: ${pr => pr.type && pr.type === "drawer" ? "auto" : "0 0 8px 0"};
+  margin: ${pr => pr.type && pr.type === "drawer" ? "auto" : ""};
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     margin: 0;
@@ -25,6 +25,7 @@ export const FormTitle = styled.span`
 const Description = styled.span`
   color: ${theme.colors.gray600};
   font-size: 14px;
+  margin-top: 8px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     align-self: center;
@@ -66,7 +67,7 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	return (
 		<TitleRow view={view}>
 			<FormTitle>{title}</FormTitle>
-			<Description>{description}</Description>
+			{description && <Description>{description}</Description>}
 		</TitleRow>
 	);
 };
