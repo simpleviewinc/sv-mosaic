@@ -36,7 +36,7 @@ export const address: IAddress = {
 	address1: "8950 N Oracle Rd",
 	city: "Oro Valley",
 	country: "United States",
-	postalCode: "85704",
+	postalCode: 85704,
 	state: "AZ",
 	types: ["physical"],
 };
