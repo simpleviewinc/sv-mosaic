@@ -3,7 +3,6 @@ docker run --rm -it \
 	-v $PWD/src:/app/src \
 	-v $PWD/dist:/app/dist \
 	-v $PWD/testing:/app/testing \
-	-v $PWD/docs:/app/docs \
 	-v $PWD/.storybook:/app/.storybook \
 	-v $PWD/package.json:/app/mounted/package.json \
 	-v $PWD/yarn.lock:/app/mounted/yarn.lock \
