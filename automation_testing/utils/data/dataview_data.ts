@@ -117,7 +117,11 @@ const dataview = {
 	categoryFilterLoadMoreNumber: 5,
 	categoryFilterMoreMessage: "(1 More)",
 	categoryFilterMoreThanTwoNumber: 16,
-	categoryComparisonHelpDialog: "In - The row must match one of selected option.Not In - The row must match none of the selected options.All - The row must match all of the selected options.Exists - The row must have a value for this filter.Not Exists - The row must not have a value for this filter."
+	createdFilterResults: 20,
+	validStartDateRange: "2019 January 12",
+	validEndDateRange: "2021 July 17",
+	categoryComparisonHelpDialog: "In - The row must match one of selected option.Not In - The row must match none of the selected options.All - The row must match all of the selected options.Exists - The row must have a value for this filter.Not Exists - The row must not have a value for this filter.",
+	errorMessageDates: "End of range cannot be before start of range."
 }
 
 export { dataview };
