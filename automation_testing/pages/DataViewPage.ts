@@ -13,11 +13,8 @@ export class DataviewPage extends Pages {
 	readonly saveAsComponent: SaveAsComponent;
 	readonly paginationComponent: PaginationComponent;
 	readonly columnsComponent: ColumnsComponent;
-<<<<<<< HEAD
 	readonly filterComponent: FilterComponent;
-=======
 	readonly advancedFilterComponent: AdvancedFiltersComponent;
->>>>>>> c0a99a84 (Added method to get categories from dataview)
 	readonly createNewBtn: Locator;
 	readonly dialog: Page;
 	readonly editIcon: Locator;
@@ -38,11 +35,8 @@ export class DataviewPage extends Pages {
 		this.saveAsComponent = new SaveAsComponent(page);
 		this.paginationComponent = new PaginationComponent(page);
 		this.columnsComponent = new ColumnsComponent(page);
-<<<<<<< HEAD
 		this.filterComponent = new FilterComponent(page);
-=======
 		this.advancedFilterComponent = new AdvancedFiltersComponent(page);
->>>>>>> c0a99a84 (Added method to get categories from dataview)
 		this.createNewBtn = page.locator("[data-mosaic-id=button_create]");
 		this.editIcon = page.locator("[data-mosaic-id=action_primary_edit] button");
 		this.moreOptions = page.locator("[data-mosaic-id='additional_actions_dropdown'] button");
@@ -103,8 +97,8 @@ export class DataviewPage extends Pages {
 	}
 
 	async getRowTitles(): Promise<string[]> {
-		await this.dataviewTable.waitFor({state: "visible"});
-		await this.loading.waitFor({state: "detached"});
+		await this.dataviewTable.waitFor({ state: "visible" });
+		await this.loading.waitFor({ state: "detached" });
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
 		for (const row of rows) {
