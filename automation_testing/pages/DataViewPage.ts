@@ -149,8 +149,9 @@ export class DataviewPage extends Pages {
 
 	async validateContainsMoreThanOneKeyword(titles: string[], keywords: string[]): Promise<void> {
 
-		let isContaining = false;
+
 		for (const title of titles) {
+			let isContaining = false;
 			for (const keyword of keywords) {
 				if (title.toLowerCase().includes(keyword.toLowerCase())) {
 					isContaining = true;
