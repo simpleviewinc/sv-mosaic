@@ -27,4 +27,8 @@ export class Pages {
 			dialog.accept();
 		});
 	}
+
+	async waitForElementLoad(): Promise<void> {
+		await this.loading.waitFor({ state: "detached" });
+	}
 }
