@@ -65,8 +65,6 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 		view,
 	} = props;
 
-	console.log("View: ", view);
-
 	return (
 		<TitleRow view={view}>
 			<FormTitle>{title}</FormTitle>
