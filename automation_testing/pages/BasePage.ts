@@ -1,13 +1,21 @@
 import { expect, Page, Locator } from "@playwright/test";
+import { url } from "../utils/formUrls";
 
-export class Pages {
+export class BasePage {
 
 	readonly page: Page;
 	readonly loading: Locator;
+	readonly title: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
+		this.title = page.locator("span.dOZUzk.sc-eTpRJs");
+	}
+
+	async visit(componentUrl:string): Promise<void> {
+		await this.page.goto(url(componentUrl), { timeout: 900000 });
+		await this.title.waitFor();
 	}
 
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
