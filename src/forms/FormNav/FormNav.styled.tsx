@@ -125,7 +125,6 @@ export const FormNavRow = styled.div`
 
 export const FormNavWrapper = styled.div`
   background: white;
-  margin-top: 30px;
   overflow: hidden;
   position: sticky;
   position: -webkit-sticky;
