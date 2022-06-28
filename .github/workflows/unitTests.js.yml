@@ -24,5 +24,5 @@ jobs:
           cache: 'npm'
       - name: setup yarn
         run: corepack enable && yarn set version 3.1.1
-      - run: yarn install
+      - run: yarn install --no-immutable
       - run: yarn test
