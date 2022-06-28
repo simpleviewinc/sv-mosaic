@@ -1,8 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 import { url } from "../utils/formUrls";
-import { Pages } from "./Pages";
+import { BasePage } from "./BasePage";
 
-export class ValidatorPage extends Pages {
+export class ValidatorPage extends BasePage {
 
 	readonly page: Page;
 	readonly fields: string;
