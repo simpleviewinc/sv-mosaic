@@ -59,7 +59,7 @@ The service should now be accessible at http://kube.simpleview.io:10000/
 		```
 		cd /sv/containers/sv-mosaic
 		sudo npm run docker
-		npm test
+		yarn test
 		```
 
 # Repo Structure
