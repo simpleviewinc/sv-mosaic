@@ -142,6 +142,7 @@ export const Playground = (): ReactElement => {
 	const showSections = boolean("Show sections", false);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field prepopulated",
+		"numberField": 4596,
 		"textArea": "Text area prepopulated",
 		"check": [
 			"label_1",
@@ -256,6 +257,16 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					disabled,
 					required
+				} as FieldDef<TextFieldDef>,
+				{
+					name: "numberField",
+					label: "Field of type number",
+					type: "text",
+					disabled,
+					required,
+					inputSettings: {
+						type: "number",
+					},
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "textArea",

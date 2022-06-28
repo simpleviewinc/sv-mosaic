@@ -36,6 +36,7 @@ export const Playground = (): ReactElement => {
 	} = useForm();
 
 	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
+	const type = select("Type", ["number", "text"], "text");
 	const placeholder = text("Placeholder", "placeholder");
 	const maxCharacters = number("Max characters", 20);
 	const disabled = boolean("Disabled", false);
@@ -55,13 +56,14 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					required,
 					disabled,
-					maxCharacters,
+					maxCharacters: type !== "number" && maxCharacters,
 					size,
 					inputSettings: {
 						prefixElement: withIcon && <AccountCircle />,
 						maxCharacters,
 						placeholder,
 						multiline,
+						type
 					},
 					helperText,
 					instructionText,
@@ -78,6 +80,7 @@ export const Playground = (): ReactElement => {
 			multiline,
 			helperText,
 			instructionText,
+			type
 		]
 	);
 
