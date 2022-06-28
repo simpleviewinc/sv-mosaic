@@ -22,5 +22,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
-      - run: npm test
+      - name: setup yarn
+        run: corepack enable && yarn set version 3.1.1
+      - run: yarn ci
+      - run: yarn test
