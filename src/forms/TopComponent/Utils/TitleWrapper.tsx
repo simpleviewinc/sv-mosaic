@@ -11,25 +11,25 @@ const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 export const FormTitle = styled.span`
 	font-family: ${pr => !pr.type && theme.museoFont};
-	font-weight: ${pr => pr.type && pr.type === "drawer" && "medium"};
+	font-weight: ${pr => pr.type && pr.type === "DRAWER" && "medium"};
 
-  color: ${theme.colors.almostBlack};
-  font-size: ${pr => pr.type && pr.type === "drawer" ? "20px" : "28px"};
-  margin: ${pr => pr.type && pr.type === "drawer" ? "auto" : ""};
+	color: ${theme.colors.almostBlack};
+	font-size: ${pr => pr.type && pr.type === "DRAWER" ? "20px" : "28px"};
+	margin: ${pr => pr.type && pr.type === "DRAWER" && "auto"};
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    margin: 0;
-  }
+	@media (max-width: ${theme.breakpoints.mobile}) {
+		margin: 0;
+	}
 `;
 
 const Description = styled.span`
-  color: ${theme.colors.gray600};
-  font-size: 14px;
-  margin-top: 8px;
+	color: ${theme.colors.gray600};
+	font-size: 14px;
+	margin-top: 8px;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    align-self: center;
-  }
+	@media (max-width: ${theme.breakpoints.mobile}) {
+		align-self: center;
+	}
 `;
 
 export const TitleRow = styled.div`
@@ -64,6 +64,9 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 		description,
 		view,
 	} = props;
+
+	console.log("View: ", view);
+
 	return (
 		<TitleRow view={view}>
 			<FormTitle>{title}</FormTitle>

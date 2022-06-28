@@ -20,7 +20,7 @@ const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 const DesktopViewColumn = styled(StyledColumn)`
   justify-content: space-between;
-  padding: 24px 20px 30px 20px;
+  padding: 24px 20px 0px 20px;
   top: 0;
   z-index: 1000;
 
@@ -41,6 +41,10 @@ const DesktopActionsRow = styled(FlexContainer)`
   .MuiFormControlLabel-root {
     margin-right: 20px;
   }
+`;
+
+const DesktopTitleActionsRow = styled(FlexContainer)`
+  margin-bottom: 30px;
 `;
 
 type DesktopViewProps = {
@@ -64,7 +68,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 
 	return (
 		<DesktopViewColumn>
-			<FlexContainer>
+			<DesktopTitleActionsRow>
 				<TitleWrapper
 					title={title}
 					description={description}
@@ -75,7 +79,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 					{showActive && checkbox}
 					{buttons}
 				</DesktopActionsRow>
-			</FlexContainer>
+			</DesktopTitleActionsRow>
 			{(view !== "BIG_DESKTOP" && sections) && (
 				<FlexContainer>
 					<FormNav sections={sections} />
