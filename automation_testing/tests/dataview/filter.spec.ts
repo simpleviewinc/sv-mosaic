@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { DataviewPage } from "../../pages/DataViewPage";
 import { FilterComponent } from "../../pages/FilterComponent";
 import { dataview } from "../../utils/data/dataview_data";
-import { addQuotes, addComma } from "../../utils/helper";
+import { addQuotes, addComma } from "../../utils/helpers/helper";
 
 test.describe("DataView - Filter", () => {
 	let dataviewPage: DataviewPage;
