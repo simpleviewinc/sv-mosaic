@@ -3,24 +3,13 @@ name: Publish storybook to github pages
 on:
   push:
     branches:
-      - develop
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version:
-          - 16.x
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - name: setup yarn
-        run: corepack enable && yarn set version 3.1.1
-      - run: yarn install --no-immutable
+      - uses: ./actions_setup
       - run: yarn run build:storybook
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

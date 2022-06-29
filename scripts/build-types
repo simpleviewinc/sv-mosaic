@@ -1,0 +1,15 @@
+#!/bin/bash
+# Meant to be run inside the docker container
+
+mkdir -p ./dist
+rm -rf ./dist/types/*
+rm -rf ./types-only/types/*
+tsc --project src/tsconfig.types.json
+
+mkdir -p ./types-only
+cp -a ./dist/types/. ./types-only/types
+
+# extract package.json version
+export VERSION=$(jq -r ".version" ./package.json)
+# generate new package json for types
+envsubst < ./src/package-types.json > ./types-only/package.json
