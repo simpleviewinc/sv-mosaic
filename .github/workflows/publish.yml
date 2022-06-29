@@ -1,0 +1,13 @@
+# This workflow publishes to npm when the version has changed
+name: Publish storybook to github pages
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./actions_setup
+      - 

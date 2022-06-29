@@ -1,9 +1,9 @@
 #!/bin/bash
 docker run --rm -it \
 	-v $PWD/src:/app/src \
-	-v $PWD/dist:/app/dist \
 	-v $PWD/testing:/app/testing \
 	-v $PWD/.storybook:/app/.storybook \
+	-v $PWD/scripts:/app/scripts \
 	-v $PWD/package.json:/app/mounted/package.json \
 	-v $PWD/yarn.lock:/app/mounted/yarn.lock \
 	-v $PWD/.yarn:/app/mounted/.yarn \
