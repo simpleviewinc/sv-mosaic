@@ -9,12 +9,8 @@ import postcss from "rollup-plugin-postcss";
 import propTypes from "prop-types";
 
 const EXTERNALS = [
-	new RegExp("^@emotion/react/"),
-	new RegExp("^@emotion/styled/"),
-	new RegExp("^@mui/icons-material/"),
-	new RegExp("^@mui/lab/"),
-	new RegExp("^@mui/material/"),
-	new RegExp("^@mui/styles"),
+	new RegExp("^@emotion/"),
+	new RegExp("^@mui/"),
 	"i18next",
 	"jsvalidator",
 	"lodash",
