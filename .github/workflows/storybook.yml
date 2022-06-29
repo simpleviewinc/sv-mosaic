@@ -1,5 +1,5 @@
 # This workflow publishes the current storybook content to the gh-pages branch
-name: Publish storybook to github pages
+name: Storybook
 on:
   push:
     branches:
