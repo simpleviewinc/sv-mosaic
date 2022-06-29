@@ -148,11 +148,10 @@ export class DataviewPage extends Pages {
 	}
 
 	async validateContainsMoreThanOneKeyword(titles: string[], keywords: string[]): Promise<void> {
-
-
 		for (const title of titles) {
-			let isContaining = false;
+			let isContaining;
 			for (const keyword of keywords) {
+				isContaining = false;
 				if (title.toLowerCase().includes(keyword.toLowerCase())) {
 					isContaining = true;
 				}
@@ -160,7 +159,6 @@ export class DataviewPage extends Pages {
 			expect(isContaining, `Expected contains: '${keywords.toString()}' but was '${title}'`).toBe(true);
 		}
 	}
-
 
 	async getRowCategories(): Promise<string[]> {
 		const rows = await (await this.getTableRows()).elementHandles();
