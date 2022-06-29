@@ -11,5 +11,9 @@ module.exports = {
 		"./src/setup-jest.ts"
 	],
 	testEnvironment: "jsdom",
-	collectCoverage: true,
+	globals: {
+		"ts-jest": {
+			isolatedModules: true
+		}
+	}
 }
