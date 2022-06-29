@@ -6,7 +6,7 @@ import MosaicContext from "../components/MosaicContext";
 
 interface MosaicTranslation {
 	i18n: i18n,
-	t : TFunction
+	t : (key: string) => string
 }
 
 export default function useMosaicTranslation(): MosaicTranslation {
