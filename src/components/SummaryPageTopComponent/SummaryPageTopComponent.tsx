@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import { SummaryPageTopComponentTypes } from ".";
 import { 
 	SumaryPageTopComponentStyle,
@@ -53,13 +53,13 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 									<Item key={i}>
 										<Button 
 											attrs={{smallText: true}} 
-											color="black" 
-											variant="text" 
+											color={mainAction.color} 
+											variant={mainAction.variant} 
 											size="small"
 											label={mainAction.label} 
 											mIcon={mainAction.mIcon} 
 											onClick={mainAction.onClick}
-										></Button>
+										/>
 									</Item>
 								))
 						}
@@ -72,7 +72,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 										label="Edit" 
 										mIcon={MoreVert} 
 										menuItems={props.aditionalActions}
-									></Button>
+									/>
 								</Item>
 						}
 					</ContainerItems>
@@ -99,8 +99,8 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 											mIcon={textLink.mIcon} 
 											onClick={textLink.onClick}
 											href={textLink.href}
-										>
-										</Button>
+											{...textLink}
+										/>
 									</Item>
 								))
 						}
