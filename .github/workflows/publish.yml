@@ -1,5 +1,5 @@
 # This workflow publishes to npm when the version has changed
-name: Publish storybook to github pages
+name: Publish
 on:
   push:
     branches:
