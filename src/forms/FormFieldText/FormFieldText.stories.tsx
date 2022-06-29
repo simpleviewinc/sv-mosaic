@@ -131,6 +131,19 @@ const kitchenSinkfields = [
 		instructionText: "Instruction text"
 	} as FieldDef<TextFieldDef>,
 	{
+		name: "number",
+		label: "Number type example",
+		type: "text",
+		required: false,
+		size: "md",
+		inputSettings: {
+			placeholder: "number",
+			type: "number"
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text"
+	} as FieldDef<TextFieldDef>,
+	{
 		name: "multiline",
 		label: "Multiline example",
 		type: "text",
