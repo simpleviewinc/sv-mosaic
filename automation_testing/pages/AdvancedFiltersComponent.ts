@@ -20,11 +20,18 @@ export class AdvancedFiltersComponent extends Pages {
 	readonly checkboxLocator: string;
 	readonly advancedFilterLocator: string;
 	readonly categoriesSearchBar: Locator;
+<<<<<<< HEAD
 	readonly comparisonInOption: Locator;
 	readonly comparisonNotInOption: Locator;
 	readonly comparisonAllOption: Locator;
 	readonly comparisonExistsOption: Locator;
 	readonly comparisonNotExistsOption: Locator;
+=======
+	readonly comparisonCategoriesOptions: Locator;
+
+	readonly cancelComparisonCategoriesButton: Locator;
+	readonly clearComparisonCategoriesButton: Locator;
+>>>>>>> 932261f3 (Adding created and updated scenarios)
 	readonly comparisonDropdown: Locator;
 	readonly helpComparisonCategoriesDialogButton: Locator;
 	readonly helpComparisonCategoriesDialog: Locator;
@@ -32,6 +39,10 @@ export class AdvancedFiltersComponent extends Pages {
 	readonly titleFilterSearch: Locator;
 	readonly searchTitleComparisonDropdown: Locator;
 	readonly searchTitleMenuDropdownItem: Locator;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 932261f3 (Adding created and updated scenarios)
 	readonly createdFilterDiv: Locator;
 	readonly errorMessageDates: Locator;
 
@@ -54,12 +65,19 @@ export class AdvancedFiltersComponent extends Pages {
 
 		this.categoriesSearchBar = page.locator("div.searchBar");
 		this.createdFilterDiv = page.locator(".MuiPaper-elevation");
+<<<<<<< HEAD
 		this.comparisonInOption = this.dropdownOptions.locator(":scope", { hasText: "In" }).nth(0);
 		this.comparisonNotInOption = this.dropdownOptions.locator(":scope", { hasText: "Not In" }).nth(0);
 		this.comparisonAllOption = this.dropdownOptions.locator(":scope", { hasText: "All" }).nth(0);
 		this.comparisonExistsOption = this.dropdownOptions.locator(":scope", { hasText: "Exists" }).nth(0);
 		this.comparisonNotExistsOption = this.dropdownOptions.locator(":scope", { hasText: "Not Exists" }).nth(0);
 
+=======
+
+
+		this.cancelComparisonCategoriesButton = page.locator("div.sc-jnlKLf button", { hasText: "Cancel" });
+		this.clearComparisonCategoriesButton = page.locator("div.sc-jnlKLf button", { hasText: "Clear" });
+>>>>>>> 932261f3 (Adding created and updated scenarios)
 		this.comparisonDropdown = page.locator("div.comparisonDropdown button").nth(0);
 		this.helpComparisonCategoriesDialogButton = page.locator("div.comparisonDropdown button").nth(1);
 		this.helpComparisonCategoriesDialog = page.locator("[role='presentation'] p");
@@ -68,7 +86,12 @@ export class AdvancedFiltersComponent extends Pages {
 		this.titleFilterSearch = page.locator("div.inputRow input");
 		this.searchTitleComparisonDropdown = page.locator("div.inputRow button");
 		this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 932261f3 (Adding created and updated scenarios)
 		this.errorMessageDates = page.locator(".errorMessage h5");
+
 	}
 
 	async getNumberOfSingleSelectCategoryOptions(): Promise<number> {
@@ -176,5 +199,21 @@ export class AdvancedFiltersComponent extends Pages {
 
 	async getCloseBtn(btn: Locator): Promise<Locator> {
 		return btn.locator("svg").nth(0);
+	}
+
+	async selectFilterDates(startDate: string, endDate: string): Promise<void> {
+		await this.optionalFilters.nth(0).locator("button").click();
+		await this.waitForElementLoad();
+		await (await this.getFieldDate("from")).click();
+		await this.datepicker.selectDate(startDate);
+		await this.datepicker.okBtn.click();
+		await (await this.getFieldDate("To")).click();
+		await this.datepicker.selectDate(endDate);
+		await this.datepicker.okBtn.click();
+		await super.wait();
+	}
+
+	async getCloseBtn(btn: Locator): Promise<Locator> {
+		return await btn.locator("svg").nth(0);
 	}
 }
