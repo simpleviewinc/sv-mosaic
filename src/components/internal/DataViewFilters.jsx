@@ -1,11 +1,12 @@
 import * as React from "react";
+import { useState, useMemo } from "react";
 import styled from "styled-components";
 import { pick, xor } from "lodash";
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DataViewFilterDropdown from "../DataViewFilterDropdown";
+import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent"
 import Button from "../Button";
-import CheckboxList from "@root/components/CheckboxList";
 import theme from "../../utils/theme.js";
 import { useMosaicTranslation } from "@root/i18n";
 
@@ -24,49 +25,88 @@ const StyledDiv = styled.div`
 	}
 `;
 
-const PopoverDiv = styled.div`
-	&.loading {
-		opacity: .5;
-		pointer-events: none;
-	}
-`
-
 function DataViewFilters(props) {
 	const { t } = useMosaicTranslation();
+	const [state, setState] = useState({
+		anchorEl : null,
+		dropdownOpen : false
+	});
 
-	const activeFilters = props.activeFilters || [];
-	
+	const activeFilters = props.activeFilters.value || [];	
 	const primaryFilters = props.filters.filter(val => val.type === "primary");
 	const primaryFilterNames = primaryFilters.map(val => val.name);
 	const optionalFilters = props.filters.filter(val => val.type !== "primary");
 	
 	const active = optionalFilters.filter(val => activeFilters.includes(val.name));
 	const options = optionalFilters.map(val => ({ label : val.label, value : val.name }));
+	const optionsSelected = useMemo(() => {
+		return options.filter(option => activeFilters.includes(option.value))
+	}, [options, activeFilters])
 	
 	const onRemove = (name) => () => {
-		const activeFilters = xor(props.activeFilters, [name]);
-		onActiveFiltersChange(activeFilters);
+		const activeFilters = xor(props.activeFilters.value, [name]);
+		onActiveFiltersChange({ value: activeFilters });
+	}
+
+	const onClick = (event) => {
+		setState({
+			...state,
+			anchorEl : event.currentTarget
+		});
 	}
 	
-	const onActiveFiltersChange = function(activeFilters) {
-		const filter = pick(props.filter, [...primaryFilterNames, ...activeFilters]);
-		
+	const onClose = () => {
+		setState({
+			...state,
+			anchorEl : null
+		});
+	}
+	
+	const onEntered = () => {
+		setState({
+			...state,
+			dropdownOpen : true
+		});
+	}
+	
+	const onExited = function() {
+		setState({
+			...state,
+			dropdownOpen : false
+		});
+	}
+
+	const onActiveFiltersChange = function(activeFiltersParam) {
+		const filter = pick(props.filter, [...primaryFilterNames, ...activeFiltersParam.value]);
+
 		// we only want to pass a new filter obj if we have actually removed a key from it, to prevent unnecessary re-fetches of data
 		const setFilter = Object.keys(filter).join(",") !== Object.keys(props.filter).join(",");
 		
 		props.onActiveFiltersChange({
-			activeFilters,
+			activeFilters: activeFiltersParam,
 			filter : setFilter === true ? filter : props.filter
 		});
-	}
-	
+
+		onClose();
+	};
+
+	const getOptions = (filter) => {	
+		const regex = new RegExp(filter.keyword, "i");
+		const results = options.filter((option) => option.label.match(regex));
+
+		return {
+			docs: results,
+			hasMore: false
+		}
+	};
+
 	return (
 		<StyledDiv>
 			<div className="filterRow">
 				{
 					primaryFilters.map(filter => {
 						const Component = filter.component;
-						
+
 						return (
 							<Component
 								key={filter.name}
@@ -82,28 +122,33 @@ function DataViewFilters(props) {
 				}
 				{
 					optionalFilters.length > 0 &&
-					<Button
-						label={t("mosaic:DataView.more")}
-						variant="text"
-						color="black"
-						size="small"
-						iconPosition="right"
-						mIcon={ExpandMoreIcon}
-						mIconColor={theme.colors.gray600}
-						popover={
-							<PopoverDiv
-								className={`
-									${ props.loading ? "loading" : "" }
-								`}
-							>
-								<CheckboxList
-									options={options}
-									checked={activeFilters}
-									onChange={onActiveFiltersChange}
-								/>
-							</PopoverDiv>
-						}
-					/>
+					<>
+						<Button
+							label={t("mosaic:DataView.more")}
+							variant="text"
+							color="black"
+							size="small"
+							iconPosition="right"
+							mIcon={ExpandMoreIcon}
+							mIconColor={theme.colors.gray600}
+							onClick={onClick}						
+						/>
+						<DataViewFilterDropdown
+							anchorEl={state.anchorEl}
+							onClose={onClose}
+							onEntered={onEntered}
+							onExited={onExited}
+						>
+							<DataViewFilterMultiselectDropdownContent
+								comparison={''}
+								selected={optionsSelected}
+								getOptions={getOptions}
+								isOpen={state.dropdownOpen}
+								onApply={onActiveFiltersChange}
+								onClose={onClose}
+							/>
+						</DataViewFilterDropdown>
+					</>
 				}
 			</div>
 			{
