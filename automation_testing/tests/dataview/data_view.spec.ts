@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { ColumnsComponent } from "../../pages/ColumnsComponent";
 import { DataviewPage } from "../../pages/DataViewPage";
-import { dataview } from "../../utils/data/dataview_data";
+import { dataview_data } from "../../utils/data/dataview_data";
 
 test.describe("Data View", () => {
 	let dataviewPage: DataviewPage;
@@ -79,7 +79,7 @@ test.describe("Data View", () => {
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
-		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
+		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 	});
 
 	test("Delete all records", async () => {
@@ -89,7 +89,7 @@ test.describe("Data View", () => {
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
-		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
+		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await dataviewPage.deleteBtn.click();
 
@@ -103,7 +103,7 @@ test.describe("Data View", () => {
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
-		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
+		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await dataviewPage.downloadBtn.click();
 	});
