@@ -1,7 +1,12 @@
-/* import * as React from "react";
+import * as React from "react";
 import { ReactElement, useState } from "react";
-import { screen, cleanup, render, fireEvent } from "@testing-library/react";
+import { screen, cleanup, render, fireEvent, act } from "@testing-library/react";
 import SummaryPageTopComponent from ".";
+import { Mail, Edit, Public } from "@mui/icons-material";
+import { ButtonProps } from "../Button";
+import { FilterSingleSelectProps } from "../FilterSingleSelect";
+import { MenuItemProps } from "../MenuItem";
+
 
 afterEach(cleanup);
 
@@ -10,57 +15,65 @@ export const SummaryPageTopComponentExample = (): ReactElement => {
 	const title = "Laudantium est optio voluptas";
 	const favorite = true;
 	
-	const mainActions = [
+	const mainActions: ButtonProps[] = [
 		{
 			label: "Button 1",
 			mIcon: Mail,
-			onClick: () => alert("Click"),
+			onClick: jest.fn(),
+			color: "black",
+			variant: "text"
 		},
 		{
 			label: "Button 2",
 			mIcon: Mail,
-			onClick: () => alert("Click"),
+			onClick: jest.fn(),
+			color: "black",
+			variant: "text"
 		},
 		{
 			label: "Edit",
 			mIcon: Edit,
-			onClick: () => alert("Click"),
+			onClick: () => jest.fn(),
+			color: "black",
+			variant: "text",
 		},
 	];
 
-	const aditionalActions = [
+	const aditionalActions: MenuItemProps[] = [
 		{
 			label : "Edit",
-			onClick : function() {
-				alert("EDIT CLICK");
-			}
+			onClick : jest.fn()
 		},
 		{
 			label : "Download",
-			onClick : function() {
-				alert("DOWNLOAD CLICK");
-			}
+			onClick : jest.fn()
 		}
 	];
 
-	const textLinks = [
+	const textLinks: ButtonProps[] = [
 		{
 			label: "Text link",
+			color: "black",
+			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: ()=> console.log("click"),
+			onClick: jest.fn(),
 		},
 		{
 			label: "Text link",
+			color: "black",
+			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: ()=> console.log("click"),
+			onClick: jest.fn(),
 		},
 		{
 			label: "Text link",
+			color: "black",
+			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: ()=> console.log("click"),
+			onClick: jest.fn(),
 		},
 	];
 
@@ -80,7 +93,7 @@ export const SummaryPageTopComponentExample = (): ReactElement => {
 	]
 
 	const onChange = function(data) {
-		setState(data);
+		act(() => setState(data));
 	}
 
 	const onRemove = () => undefined;
@@ -96,12 +109,13 @@ export const SummaryPageTopComponentExample = (): ReactElement => {
 		return options.filter(val => val.value === id)[0];
 	}
 
-	const filterSingleSelect = {
+	const filterSingleSelect: FilterSingleSelectProps = {
+		type: "primary",
 		label: "Testing",
 		data: state,
 		args: { getOptions, getSelected, required, color: "teal" },
-		onRemove: onRemove,
-		onChange: onChange
+		onRemove: jest.fn(),
+		onChange: jest.fn(),
 	}
 
 	return (
@@ -116,5 +130,16 @@ export const SummaryPageTopComponentExample = (): ReactElement => {
 			filterSingleSelect={filterSingleSelect}
 		/>
 	);
-}; */
+};
 
+const { getByText, getByTestId, getAllByTestId } = screen;
+
+describe("SummaryPageTopComponent", () => {
+	beforeEach(() => {
+		render(<SummaryPageTopComponentExample/>)
+	})
+
+	it("should display the title", () => {
+		expect(getByText("Laudantium est optio voluptas"));
+	});
+})

@@ -2,10 +2,13 @@ import * as React from "react";
 import { ReactElement, useState } from "react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
+import { ButtonProps } from "../Button";
+import { FilterSingleSelectProps } from "../FilterSingleSelect";
 
 // Components
 import SummaryPageTopComponent from ".";
 import { Mail, Edit, Public } from "@material-ui/icons";
+import { MenuItemProps } from "../MenuItem";
 
 export default {
 	title: "Components/SummaryPageTopComponent",
@@ -24,25 +27,31 @@ export const Example = (): ReactElement => {
 	const showTextLinks = boolean("Text links", true)
 	const showFilterSingleSelect = boolean("FilterSingleSelect", true)
 	
-	const mainActions = [
+	const mainActions: ButtonProps[] = [
 		{
 			label: "Button 1",
 			mIcon: Mail,
 			onClick: () => alert("Click"),
+			color: "black",
+			variant: "text"
 		},
 		{
 			label: "Button 2",
 			mIcon: Mail,
 			onClick: () => alert("Click"),
+			color: "black",
+			variant: "text"
 		},
 		{
 			label: "Edit",
 			mIcon: Edit,
 			onClick: () => alert("Click"),
+			color: "black",
+			variant: "text"
 		},
 	]
 
-	const aditionalActions = [
+	const aditionalActions: MenuItemProps[] = [
 		{
 			label : "Edit",
 			onClick : function() {
@@ -57,21 +66,27 @@ export const Example = (): ReactElement => {
 		}
 	];
 
-	const textLinks = [
+	const textLinks: ButtonProps[] = [
 		{
 			label: "Text link",
+			color: "black",
+			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
 			onClick: ()=> console.log("click"),
 		},
 		{
 			label: "Text link",
+			color: "black",
+			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
 			onClick: ()=> console.log("click"),
 		},
 		{
 			label: "Text link",
+			color: "black",
+			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
 			onClick: ()=> console.log("click"),
@@ -110,7 +125,8 @@ export const Example = (): ReactElement => {
 		return options.filter(val => val.value === id)[0];
 	}
 
-	const filterSingleSelect = {
+	const filterSingleSelect: FilterSingleSelectProps = {
+		type: "primary",
 		label: "Testing",
 		data: state,
 		args: { getOptions, getSelected, required, color: "teal" },
