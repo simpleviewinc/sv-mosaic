@@ -18,7 +18,7 @@ export class Pages {
 	}
 
 	async wait(): Promise<void> {
-		await this.page.waitForTimeout(1000);
+		await this.page.waitForTimeout(500);
 	}
 
 	async setDialogValidationListener(message: string): Promise<void> {

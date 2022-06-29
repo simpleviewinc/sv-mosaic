@@ -126,4 +126,11 @@ export class ColumnsComponent extends Pages {
 			}
 		}
 	}
+
+	async selectColum(name: string): Promise<void> {
+		await this.columnsBtn.click();
+		const item = await this.getLeftItemByName(name);
+		await this.checkLeftItem(item, true);
+		await this.applyBtn.click();
+	}
 }

@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import { isThisHour } from "date-fns";
 import { randomIntFromInterval } from "../utils/helpers/helper";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { Pages } from "./Pages";
@@ -35,6 +36,8 @@ export class AdvancedFiltersComponent extends Pages {
 	readonly searchTitleComparisonApplyButton: Locator;
 	readonly createdFilterDiv: Locator;
 	readonly applyBtn: Locator;
+	readonly clearBtn: Locator;
+	readonly cancelBtn: Locator;
 	readonly errorMessageDates: Locator;
 
 	constructor(page: Page) {
@@ -57,9 +60,8 @@ export class AdvancedFiltersComponent extends Pages {
 		this.categoriesSearchBar = page.locator("div.searchBar");
 		this.comparisonCategoriesOptions = page.locator("div.options input[type='checkbox']");
 		this.createdFilterDiv = page.locator(".MuiPaper-elevation");
-		this.applyBtn = page.locator("text=Apply");
 
-		this.applyComparisonCategoriesButton = page.locator("div.sc-jnlKLf button", { hasText: "Apply" });
+		this.applyComparisonCategoriesButton = page.locator("div button", { hasText: "Apply" });
 		this.cancelComparisonCategoriesButton = page.locator("div.sc-jnlKLf button", { hasText: "Cancel" });
 		this.clearComparisonCategoriesButton = page.locator("div.sc-jnlKLf button", { hasText: "Clear" });
 		this.comparisonDropdown = page.locator("div.comparisonDropdown button").nth(0);
@@ -73,6 +75,9 @@ export class AdvancedFiltersComponent extends Pages {
 		this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
 		this.searchTitleComparisonApplyButton = page.locator("div.HjvLs.sc-jnlKLf button", { hasText: "Apply" });
 		this.errorMessageDates = page.locator(".errorMessage h5");
+		this.applyBtn = page.locator("text=Apply");
+		this.clearBtn = page.locator("text=Clear");
+		this.cancelBtn = page.locator("text=Cancel");
 	}
 
 	async getNumberOfSingleSelectCategoryOptions(): Promise<number> {
@@ -200,5 +205,21 @@ export class AdvancedFiltersComponent extends Pages {
 	async selectTitleComparisonOptionFromDropdown(option: string): Promise<void> {
 		await this.searchTitleComparisonDropdown.click();
 		await this.searchTitleMenuDropdownItem.locator("li", { hasText: option }).nth(0).click();
+	}
+
+	async selectFilterDates(startDate: string, endDate: string): Promise<void> {
+		await this.optionalFilters.nth(0).locator("button").click();
+		await this.waitForElementLoad();
+		await (await this.getFieldDate("from")).click();
+		await this.datepicker.selectDate(startDate);
+		await this.datepicker.okBtn.click();
+		await (await this.getFieldDate("To")).click();
+		await this.datepicker.selectDate(endDate);
+		await this.datepicker.okBtn.click();
+		await super.wait();
+	}
+
+	async getCloseBtn(btn: Locator): Promise<Locator> {
+		return await btn.locator("svg").nth(0);
 	}
 }

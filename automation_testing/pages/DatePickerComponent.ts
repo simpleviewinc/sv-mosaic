@@ -61,6 +61,5 @@ export class DatePickerComponent {
 		await this.selectYear(values[0]);
 		await this.findMonth(values[1]);
 		await this.selectDay(values[2]);
-
 	}
 }

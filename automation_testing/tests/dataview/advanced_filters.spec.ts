@@ -4,7 +4,8 @@ import { dataview } from "../../utils/data/dataview_data";
 import { AdvancedFiltersComponent } from "../../pages/AdvancedFiltersComponent";
 import { DatePickerComponent } from "../../pages/DatePickerComponent";
 import { PaginationComponent } from "../../pages/PaginationComponent";
-import { sortDatesDesc, isACorrentDateRange } from "../../utils/helpers/helper";
+import { isACorrentDateRange } from "../../utils/helpers/helper";
+import { ColumnsComponent } from "../../pages/ColumnsComponent";
 
 
 test.describe("DataView - Advanced Filters", () => {
@@ -12,12 +13,14 @@ test.describe("DataView - Advanced Filters", () => {
 	let advancedFilters: AdvancedFiltersComponent;
 	let datepicker: DatePickerComponent;
 	let pagination: PaginationComponent;
+	let columns: ColumnsComponent;
 
 	test.beforeEach(async ({ page }) => {
 		dataviewPage = new DataviewPage(page);
 		advancedFilters = dataviewPage.advancedFilterComponent;
 		datepicker = advancedFilters.datepicker;
 		pagination = dataviewPage.paginationComponent;
+		columns = dataviewPage.columnsComponent;
 		await dataviewPage.visit();
 	});
 
@@ -256,27 +259,196 @@ test.describe("DataView - Advanced Filters", () => {
 
 	});
 
-	test.only("Validate created filter with invalid range of dates", async () => {
+	test("Validate created filter with invalid range of dates", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.createdOption.check();
-		expect(await advancedFilters.createdOption.isChecked()).toBe(true);
 		await dataviewPage.title.click({ force: true });
-		await advancedFilters.validateSnapshot(advancedFilters.optionalFilters.nth(0), "created_filter");
-		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.selectFilterDates(endDate, startDate);
+		await advancedFilters.wait();
+		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
+		expect(await advancedFilters.errorMessageDates.textContent()).toContain(dataview.errorMessageDates);
+	});
 
-		const startDate = dataview.validStartDateRange;
+	test("Validate created filter no return results", async () => {
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.createdOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.optionalFilters.nth(0).locator("button").click();
 		const endDate = dataview.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await (await advancedFilters.getFieldDate("from")).click();
 		await datepicker.selectDate(endDate);
 		await datepicker.okBtn.click();
-		await (await advancedFilters.getFieldDate("To")).click();
+		await advancedFilters.wait();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.waitForElementLoad();
+		expect(await dataviewPage.noResults.textContent()).toBe(dataview.noResults);
+	});
+
+	test("Clear created filter", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.createdOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.selectFilterDates(startDate, endDate);
+		await advancedFilters.wait();
+		await advancedFilters.clearBtn.click();
+
+		expect(await (await advancedFilters.getFieldDate("from")).inputValue()).toBe("");
+		expect(await (await advancedFilters.getFieldDate("to")).inputValue()).toBe("");
+	});
+
+	test("Cancel created filter", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.createdOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.selectFilterDates(startDate, endDate);
+		await advancedFilters.cancelBtn.click();
+		await advancedFilters.wait();
+
+		expect(await (await advancedFilters.getFieldDate("from")).isHidden()).toBe(true);
+		expect(await (await advancedFilters.getFieldDate("to")).isHidden()).toBe(true);
+		expect(await advancedFilters.getAllSelectedValuesForAdvancedFilters().toString()).toBe("Any");
+	});
+
+	test("Remove created filter", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.createdOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.selectFilterDates(startDate, endDate);
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.wait();
+		const filterBtn = await advancedFilters.optionalFilters.nth(0).locator("button");
+		await (await advancedFilters.getCloseBtn(await filterBtn)).click();
+		await advancedFilters.waitForElementLoad();
+		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview.resultPerPageDefault} of ${dataview.totalRecords}`);
+	});
+
+	test("Validate updated filter with valid dates", async () => {
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.updatedOption.check();
+		expect(await advancedFilters.updatedOption.isChecked()).toBe(true);
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.validateSnapshot(advancedFilters.optionalFilters.nth(0), "updated_filter");
+
+		await columns.selectColum(dataview.updatedOptionFilter);
+
+		await advancedFilters.waitForElementLoad();
+		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+		await advancedFilters.waitForElementLoad();
+		await advancedFilters.validateSnapshot(advancedFilters.createdFilterDiv, "update_filter_div");
+		await (await advancedFilters.getFieldDate("from")).click();
 		await datepicker.selectDate(startDate);
 		await datepicker.okBtn.click();
+		await (await advancedFilters.getFieldDate("To")).click();
+		await datepicker.selectDate(endDate);
+		await datepicker.okBtn.click();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.waitForElementLoad();
+
+		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview.updateFilterResults} of ${dataview.updateFilterResults}`);
+		const updatedValues = await dataviewPage.getAllRowUpdated(dataview.resultPerPageDefault);
+		const result = isACorrentDateRange(updatedValues, startDate, endDate);
+		expect(result.length).toBe(0);
+	});
+
+	test("Validate updated filter with invalid range of dates", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
+		await columns.selectColum(dataview.updatedOptionFilter);
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.updatedOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.selectFilterDates(endDate, startDate);
 		await advancedFilters.wait();
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(dataview.errorMessageDates);
-
 	});
 
+	test("Validate updated filter no return results", async () => {
+		await columns.selectColum(dataview.updatedOptionFilter);
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.updatedOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		const endDate = dataview.validEndDateRange;
+		await advancedFilters.waitForElementLoad();
+		await (await advancedFilters.getFieldDate("from")).click();
+		await datepicker.selectDate(endDate);
+		await datepicker.okBtn.click();
+		await advancedFilters.wait();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.waitForElementLoad();
+		expect(await dataviewPage.noResults.textContent()).toBe(dataview.noResults);
+	});
+
+	test("Clear updated filter", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
+		await columns.selectColum(dataview.updatedOptionFilter);
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.updatedOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.selectFilterDates(startDate, endDate);
+		await advancedFilters.wait();
+		await advancedFilters.clearBtn.click();
+
+		expect(await (await advancedFilters.getFieldDate("from")).inputValue()).toBe("");
+		expect(await (await advancedFilters.getFieldDate("to")).inputValue()).toBe("");
+	});
+
+	test("Cancel updated filter", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
+		await columns.selectColum(dataview.updatedOptionFilter);
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.updatedOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.selectFilterDates(startDate, endDate);
+		await advancedFilters.cancelBtn.click();
+		await advancedFilters.wait();
+
+		expect(await (await advancedFilters.getFieldDate("from")).isHidden()).toBe(true);
+		expect(await (await advancedFilters.getFieldDate("to")).isHidden()).toBe(true);
+		expect(await (await advancedFilters.getAllSelectedValuesForAdvancedFilters()).toString()).toBe("Any");
+	});
+
+	test("Remove updated filter", async () => {
+		const startDate = dataview.validStartDateRange;
+		const endDate = dataview.validEndDateRange;
+
+		await columns.selectColum(dataview.updatedOptionFilter);
+
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.updatedOption.check();
+		await dataviewPage.title.click({ force: true });
+		await advancedFilters.selectFilterDates(startDate, endDate);
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.wait();
+		const filterBtn = await advancedFilters.optionalFilters.nth(0).locator("button");
+		await (await advancedFilters.getCloseBtn(await filterBtn)).click();
+		await advancedFilters.waitForElementLoad();
+		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview.resultPerPageDefault} of ${dataview.totalRecords}`);
+	});
 });
