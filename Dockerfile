@@ -1,5 +1,8 @@
 FROM node:16.13.1
 
+RUN apt-get update && \
+    apt-get -y install gettext-base jq
+
 # install desired version of yarn
 RUN corepack enable && yarn set version 3.1.1
 
