@@ -118,7 +118,7 @@ const Form = (props: FormProps) => {
 			</div>
 			{type === "drawer" &&
 				<Dialog
-					dialogTitle='Are you sure you want to leave OWEN?'
+					dialogTitle='Are you sure you want to leave?'
 					open={dialogOpen}
 					primaryAction={() => handleDialogClose(true)}
 					primaryBtnLabel='Yes, leave'
