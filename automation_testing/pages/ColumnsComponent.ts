@@ -7,7 +7,6 @@ export class ColumnsComponent extends Pages {
 	readonly columnsBtn: Locator;
 	readonly rightItems: Locator;
 	readonly leftItems: Locator;
-	readonly applyBtn: Locator;
 	readonly btnLocator: string;
 	readonly checkboxLocator: string;
 
@@ -18,7 +17,6 @@ export class ColumnsComponent extends Pages {
 		this.columnsBtn = page.locator(".size_small.variant_icon").nth(2);
 		this.rightItems = page.locator(".right div.item");
 		this.leftItems = page.locator(".listItem label");
-		this.applyBtn = page.locator("text=Apply");
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
 	}
@@ -125,5 +123,12 @@ export class ColumnsComponent extends Pages {
 				}
 			}
 		}
+	}
+
+	async selectColum(name: string): Promise<void> {
+		await this.columnsBtn.click();
+		const item = await this.getLeftItemByName(name);
+		await this.checkLeftItem(item, true);
+		await this.applyBtn.click();
 	}
 }
