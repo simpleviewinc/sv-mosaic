@@ -11,11 +11,14 @@ const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 export const FormTitle = styled.span`
 	font-family: ${pr => !pr.type && theme.museoFont};
-	font-weight: ${pr => pr.type && pr.type === "DRAWER" && "medium"};
-
 	color: ${theme.colors.almostBlack};
 	font-size: ${pr => pr.type && pr.type === "DRAWER" ? "20px" : "28px"};
-	margin: ${pr => pr.type && pr.type === "DRAWER" && "auto"};
+	${(pr) => pr.type === "DRAWER" &&
+			`
+				font-weight: normal;
+				margin: auto;
+			`
+};
 
 	@media (max-width: ${theme.breakpoints.mobile}) {
 		margin: 0;
