@@ -1,5 +1,4 @@
 import { Locator, Page } from "@playwright/test";
-import { date } from "@storybook/addon-knobs";
 import { getMonthFromString } from "../utils/helpers/helper";
 
 export class DatePickerComponent {
@@ -12,8 +11,6 @@ export class DatePickerComponent {
 	readonly rightArrow: Locator;
 	readonly selectorDay: Locator;
 	readonly monthLabel: Locator;
-	readonly clearBtn: Locator;
-	readonly cancelBtn: Locator;
 	readonly okBtn: Locator;
 
 	constructor(page: Page) {
@@ -26,8 +23,6 @@ export class DatePickerComponent {
 		this.rightArrow = page.locator(".MuiPickersCalendarHeader-iconButton").nth(1);
 		this.selectorDay = page.locator(".MuiPickersDay-day");
 		this.monthLabel = page.locator(".MuiPickersCalendarHeader-transitionContainer.MuiPickersSlideTransition-transitionContainer");
-		this.clearBtn = this.datepickerDiv.locator("text=Clear");
-		this.cancelBtn = this.datepickerDiv.locator("text=Cancel");
 		this.okBtn = this.datepickerDiv.locator("text=OK");
 	}
 
@@ -61,6 +56,5 @@ export class DatePickerComponent {
 		await this.selectYear(values[0]);
 		await this.findMonth(values[1]);
 		await this.selectDay(values[2]);
-
 	}
 }

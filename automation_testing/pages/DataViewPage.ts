@@ -28,6 +28,7 @@ export class DataviewPage extends Pages {
 	readonly allSelectedLabel: Locator;
 	readonly dataviewTable: Locator;
 	readonly columnHeaders: Locator;
+	readonly noResults: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -49,6 +50,7 @@ export class DataviewPage extends Pages {
 		this.allSelectedLabel = page.locator(".bulkText");
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
+		this.noResults = page.locator("div.noResults");
 	}
 
 	async visit(): Promise<void> {
@@ -187,7 +189,6 @@ export class DataviewPage extends Pages {
 		return titles;
 	}
 
-
 	async getCategoriesFromRow(): Promise<string[]> {
 		await this.dataviewTable.waitFor({ state: "visible" });
 		await this.loading.waitFor({ state: "detached" });
@@ -197,5 +198,25 @@ export class DataviewPage extends Pages {
 			categoriesPerRow.push(await (await row.$("td:nth-child(5)")).textContent());
 		}
 		return categoriesPerRow;
+	}
+
+	async getUpdatedCreated(): Promise<string[]> {
+		const rows = await (await this.getTableRows()).elementHandles();
+		const createdDates = [];
+		for (const row of rows) {
+			createdDates.push((await (await row.$("td:nth-child(7)")).textContent()).toLowerCase());
+		}
+		return createdDates;
+	}
+
+	async getAllRowUpdated(resultsPerPage: number): Promise<string[]> {
+		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
+		const updatedDates = [];
+		for (let i = 0; i < pages; i++) {
+			updatedDates.push(...(await this.getUpdatedCreated()));
+			await this.paginationComponent.forwardArrow.click();
+			await this.loading.waitFor({ state: "detached" });
+		}
+		return updatedDates;
 	}
 }
