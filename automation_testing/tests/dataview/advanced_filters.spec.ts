@@ -32,7 +32,7 @@ test.describe("DataView - Advanced Filters", () => {
 			expect(allSelectedFilters.toString()).toBe("Any");
 		}
 	});
-
+	
 	test("Validate Single select category", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.singleSelectCategoryOption.click();
@@ -53,8 +53,9 @@ test.describe("DataView - Advanced Filters", () => {
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		await advancedFilters.selectComparisonOption("In");
-		await advancedFilters.applyComparisonCategoriesButton.click();
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonInOption.click();
+		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain(selectedCategory);
@@ -68,9 +69,9 @@ test.describe("DataView - Advanced Filters", () => {
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		console.log(selectedCategory);
-		await advancedFilters.selectComparisonOption("Not In");
-		await advancedFilters.applyComparisonCategoriesButton.click();
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonNotInOption.click();
+		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).not.toContain(selectedCategory);
@@ -84,8 +85,9 @@ test.describe("DataView - Advanced Filters", () => {
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		await advancedFilters.selectComparisonOption("All");
-		await advancedFilters.applyComparisonCategoriesButton.click();
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonAllOption.click();
+		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toBe(selectedCategory);
@@ -97,8 +99,9 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.categoryWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		await advancedFilters.selectComparisonOption("Exists");
-		await advancedFilters.applyComparisonCategoriesButton.click();
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonExistsOption.click();
+		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).not.toBe("");
@@ -110,8 +113,9 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.categoryWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		await advancedFilters.selectComparisonOption("Not Exists");
-		await advancedFilters.applyComparisonCategoriesButton.click();
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonNotExistsOption.click();
+		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain("");
@@ -135,8 +139,9 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.optionalFilters.click();
 		const searchedCategory = "Accessibility";
 		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory(searchedCategory);
-		await advancedFilters.selectComparisonOption("In");
-		await advancedFilters.applyComparisonCategoriesButton.click();
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonInOption.click();
+		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain(selectedCategory);
