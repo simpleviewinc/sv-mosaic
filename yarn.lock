@@ -2588,27 +2588,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/lab@npm:^4.0.0-alpha.60":
-  version: 4.0.0-alpha.61
-  resolution: "@material-ui/lab@npm:4.0.0-alpha.61"
-  dependencies:
-    "@babel/runtime": ^7.4.4
-    "@material-ui/utils": ^4.11.3
-    clsx: ^1.0.4
-    prop-types: ^15.7.2
-    react-is: ^16.8.0 || ^17.0.0
-  peerDependencies:
-    "@material-ui/core": ^4.12.1
-    "@types/react": ^16.8.6 || ^17.0.0
-    react: ^16.8.0 || ^17.0.0
-    react-dom: ^16.8.0 || ^17.0.0
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 8774a07d72615301e0099415580f87ea8f3d1d106f79e0b014738e302dd3e21959abf01d6c0a629e2e9afb8cb91abd8e9686c2886cddff06c27e6a8a8e063ea0
-  languageName: node
-  linkType: hard
-
 "@material-ui/pickers@npm:3.2.10":
   version: 3.2.10
   resolution: "@material-ui/pickers@npm:3.2.10"
@@ -3228,7 +3207,6 @@ __metadata:
     "@hot-loader/react-dom": 16.9.0
     "@material-ui/core": ^4.12.3
     "@material-ui/icons": ^4.11.3
-    "@material-ui/lab": ^4.0.0-alpha.60
     "@material-ui/pickers": 3.2.10
     "@mui/icons-material": ^5.6.2
     "@mui/lab": ^5.0.0-alpha.80
@@ -3246,8 +3224,8 @@ __metadata:
     "@testing-library/react": 12.0.0
     "@types/jest": ^27.4.1
     "@types/lodash": ^4.14.179
-    "@types/react": ^18.0.9
-    "@types/react-dom": ^18.0.3
+    "@types/react": ^18.0.0
+    "@types/react-dom": ^17.0.0
     "@types/react-draft-wysiwyg": ^1.13.3
     "@types/testing-library__jest-dom": ^5.14.1
     "@types/testing-library__react": 10.2.0
@@ -3261,7 +3239,6 @@ __metadata:
     eslint: 8.18.0
     eslint-plugin-react: 7.30.1
     eslint-plugin-react-hooks: 4.6.0
-    eventemitter3: ^4.0.7
     i18next: 19.5.0
     identity-obj-proxy: ^3.0.0
     jest: ^27.5.1
@@ -3295,20 +3272,17 @@ __metadata:
     webpack-cli: 4.10.0
     webpack-dev-server: 4.9.2
   peerDependencies:
-    "@material-ui/core": ^4.4.2
-    "@material-ui/icons": ^4.4.1
-    "@material-ui/pickers": ^3.2.10
+    "@emotion/react": ^11.9.0
+    "@emotion/styled": ^11.8.1
     "@mui/icons-material": ^5.6.2
     "@mui/lab": ^5.0.0-alpha.80
     "@mui/material": ^5.6.4
     "@mui/styles": ^5.6.2
     i18next: ^19.5.0
-    jodit-react: ^1.1.20
     jsvalidator: ^1.2.0
     lodash: ^4.17.15
     react: ^17.0.2
     react-dom: ^17.0.2
-    react-draft-wysiwyg: ^1.14.7
     react-i18next: ^11.7.0
     styled-components: ^4.3.2
   languageName: unknown
@@ -4432,7 +4406,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.3":
+"@types/react-dom@npm:^17.0.0":
+  version: 17.0.17
+  resolution: "@types/react-dom@npm:17.0.17"
+  dependencies:
+    "@types/react": ^17
+  checksum: 23caf98aa03e968811560f92a2c8f451694253ebe16b670929b24eaf0e7fa62ba549abe9db0ac028a9d8a9086acd6ab9c6c773f163fa21224845edbc00ba6232
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^18.0.0":
   version: 18.0.5
   resolution: "@types/react-dom@npm:18.0.5"
   dependencies:
@@ -4499,7 +4482,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.0.9":
+"@types/react@npm:*, @types/react@npm:^18.0.0":
   version: 18.0.14
   resolution: "@types/react@npm:18.0.14"
   dependencies:
@@ -4507,6 +4490,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 608eb57a383eedc54c79949673e5e8314f6b0c61542bff58721c8c47a18c23e2832e77c656050c2c2c004b62cf25582136c7c56fe1b6263a285c065fae31dbcf
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^17":
+  version: 17.0.47
+  resolution: "@types/react@npm:17.0.47"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 2e7fe0eb630cb77da03b6da308c58728c01b38e878118e9ff5cd8045181c8d4f32dc936e328f46a62cadb56e1fe4c5a911b5113584f93a99e1f35df7f059246b
   languageName: node
   linkType: hard
 
@@ -9424,7 +9418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eventemitter3@npm:^4.0.0, eventemitter3@npm:^4.0.4, eventemitter3@npm:^4.0.7":
+"eventemitter3@npm:^4.0.0, eventemitter3@npm:^4.0.4":
   version: 4.0.7
   resolution: "eventemitter3@npm:4.0.7"
   checksum: 1875311c42fcfe9c707b2712c32664a245629b42bb0a5a84439762dd0fd637fc54d078155ea83c2af9e0323c9ac13687e03cfba79b03af9f40c89b4960099374
