@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { DataviewPage } from "../../pages/DataViewPage";
-import { advance_filter_data, dataview_data } from "../../utils/data/dataview_data";
+import { advance_filter_data, dataview_data, filter_data } from "../../utils/data/dataview_data";
 import { AdvancedFiltersComponent } from "../../pages/AdvancedFiltersComponent";
 import { DatePickerComponent } from "../../pages/DatePickerComponent";
 import { PaginationComponent } from "../../pages/PaginationComponent";
@@ -133,8 +133,7 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.categoryWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		const searchedCategory = "Accessibility";
-		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory(searchedCategory);
+		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory(filter_data.validKeywordFilter);
 		await advancedFilters.selectComparisonOption("In");
 		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
@@ -148,13 +147,12 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.titleWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		const searchedTitle = "Ada";
-		await advancedFilters.searchForTitleComparison(searchedTitle);
+		await advancedFilters.searchForTitleComparison(advance_filter_data.searchedTitleSimple);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Contains");
 		await advancedFilters.applyBtn.click();
 		const allTitlesOfRows = await dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).toContain(searchedTitle.toLowerCase());
+			expect(allTitlesOfRows.toString()).toContain(advance_filter_data.searchedTitleSimple.toLowerCase());
 		}
 	});
 
@@ -163,13 +161,12 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.titleWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		const searchedTitle = "Ada Village";
-		await advancedFilters.searchForTitleComparison(searchedTitle);
+		await advancedFilters.searchForTitleComparison(advance_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Contains");
 		await advancedFilters.applyBtn.click();
 		const allTitlesOfRows = await dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).not.toContain(searchedTitle.toLowerCase());
+			expect(allTitlesOfRows.toString()).not.toContain(advance_filter_data.searchedTitle.toLowerCase());
 		}
 	});
 
@@ -178,13 +175,12 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.titleWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		const searchedTitle = "Ada Village";
-		await advancedFilters.searchForTitleComparison(searchedTitle);
+		await advancedFilters.searchForTitleComparison(advance_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Equals");
 		await advancedFilters.applyBtn.click();
 		const allTitlesOfRows = await dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).toContain(searchedTitle.toLowerCase());
+			expect(allTitlesOfRows.toString()).toContain(advance_filter_data.searchedTitle.toLowerCase());
 		}
 	});
 
@@ -193,13 +189,12 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.titleWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		const searchedTitle = "Ada Village";
-		await advancedFilters.searchForTitleComparison(searchedTitle);
+		await advancedFilters.searchForTitleComparison(advance_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Equal");
 		await advancedFilters.applyBtn.click();
 		const allTitlesOfRows = await dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).not.toContain(searchedTitle.toLowerCase());
+			expect(allTitlesOfRows.toString()).not.toContain(advance_filter_data.searchedTitle.toLowerCase());
 		}
 	});
 
