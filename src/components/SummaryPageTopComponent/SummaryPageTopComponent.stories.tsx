@@ -4,11 +4,11 @@ import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { ButtonProps } from "../Button";
 import { FilterSingleSelectProps } from "../FilterSingleSelect";
+import { Mail, Edit, Public } from "@material-ui/icons";
+import { MenuItemProps } from "../MenuItem";
 
 // Components
 import SummaryPageTopComponent from ".";
-import { Mail, Edit, Public } from "@material-ui/icons";
-import { MenuItemProps } from "../MenuItem";
 
 export default {
 	title: "Components/SummaryPageTopComponent",

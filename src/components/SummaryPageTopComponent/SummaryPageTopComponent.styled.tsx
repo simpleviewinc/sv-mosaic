@@ -1,6 +1,6 @@
-import StarRateRounded from "@mui/icons-material/StarRateRounded";
 import styled from "styled-components";
 import theme from "../../theme";
+import StarRateRounded from "@mui/icons-material/StarRateRounded";
 
 export const SumaryPageTopComponentStyle = styled.div`
     background: white;
@@ -37,8 +37,17 @@ export const ContainerTitle = styled.div`
     margin-right: 30px;
 `;
 
+export const Title = styled.p`
+    font-size: 28px;
+    max-width: 650px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0 12px 0 0;
+`;
+
 export const StarRateRoundedSimplyGold = styled(StarRateRounded)`
-    color: ${theme.colors.simplyGold}
+    color: ${theme.colors.simplyGold};
 `;
 
 export const Row = styled.div`
@@ -49,26 +58,16 @@ export const Row = styled.div`
     flex-wrap: wrap;
 `;
 
-export const Title = styled.p`
-    font-size: 28px;
-    max-width: 650px; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 0 12px 0 0;
-`;
-
 export const ContainerItems = styled.div`
     display: flex;
     flex-wrap: wrap;
     
     div:first-child {
         padding-left: 0px;
-    }
-
+    };
     div:last-child {
         border: none;
-    }
+    };
 `;
 
 export const Item = styled.div`
