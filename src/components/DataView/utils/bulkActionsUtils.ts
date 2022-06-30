@@ -11,7 +11,7 @@ type CheckedArgs = CheckedTrue | CheckedFalse;
 type FilterActionArgs = RowArgs | CheckedArgs;
 type Action = DataViewAction | DataViewAdditionalAction | DataViewBulkAction;
 
-export const filterAction = (action: Action, args: FilterActionArgs) => {
+export const filterAction = (action: Action, args: FilterActionArgs): boolean => {
 	if (action.show === undefined) {
 		return true;
 	} 
