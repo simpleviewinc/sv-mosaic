@@ -12,10 +12,10 @@ export class FormWithLayout extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.topComponentContainer = page.locator("div.ehYpWB.sc-cqpYsc");
-		this.topComponentContainerSections = page.locator("div.sc-exkUMo");
-		this.sectionContainer = page.locator(".section");
-		this.sectionRows = page.locator("div.sc-gPzReC div.bOGurL.sc-eXNvrr");
+		this.topComponentContainer = page.locator("//*[@id='root']/div/form/div[1]/div[2]");
+		this.topComponentContainerSections = page.locator("a");
+		this.sectionContainer = page.locator("//*[@id='root']/div/form/div[2]/div");
+		this.sectionRows = page.locator("//*[@id='root']/div/form/div[2]/div[1]/div/div");
 	}
 
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
@@ -83,9 +83,9 @@ export class FormWithLayout extends BasePage {
 		await this.sectionContainer.locator("h1", {hasText: section}).scrollIntoViewIfNeeded();
 	}
 
-	async validateSectionTopComponentElementIsSelected(section:string):Promise<void> {
+	async validateSectionTopComponentElementIsSelected(section:string):Promise<string> {
 		await this.topComponentContainer.waitFor({ state: "visible" });
 		const indexOfSection = await this.getPositionOfSection(section);
-		await expect(this.topComponentContainerSections.nth(indexOfSection)).toHaveClass(/czFTET/);
+		return (await this.topComponentContainerSections.nth(indexOfSection).evaluate(el => getComputedStyle(el).borderBottom)).split("rgb")[1];
 	}
 }
