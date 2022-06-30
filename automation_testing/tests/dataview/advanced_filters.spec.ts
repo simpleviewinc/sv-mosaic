@@ -53,7 +53,8 @@ test.describe("DataView - Advanced Filters", () => {
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		await advancedFilters.selectComparisonOption("In");
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonInOption.click();
 		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -68,8 +69,8 @@ test.describe("DataView - Advanced Filters", () => {
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		console.log(selectedCategory);
-		await advancedFilters.selectComparisonOption("Not In");
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonNotInOption.click();
 		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -84,7 +85,8 @@ test.describe("DataView - Advanced Filters", () => {
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		await advancedFilters.selectComparisonOption("All");
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonAllOption.click();
 		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -97,7 +99,8 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.categoryWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		await advancedFilters.selectComparisonOption("Exists");
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonExistsOption.click();
 		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -110,7 +113,8 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.categoryWithComparisonOption.click();
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
-		await advancedFilters.selectComparisonOption("Not Exists");
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonNotExistsOption.click();
 		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -134,7 +138,8 @@ test.describe("DataView - Advanced Filters", () => {
 		await dataviewPage.title.click({ force: true });
 		await advancedFilters.optionalFilters.click();
 		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory(filter_data.validKeywordFilter);
-		await advancedFilters.selectComparisonOption("In");
+		await advancedFilters.comparisonDropdown.click();
+		await advancedFilters.comparisonInOption.click();
 		await advancedFilters.applyBtn.click();
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -236,6 +241,7 @@ test.describe("DataView - Advanced Filters", () => {
 		const startDate = advance_filter_data.validStartDateRange;
 		const endDate = advance_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
+		await advancedFilters.wait();
 		await advancedFilters.validateSnapshot(advancedFilters.createdFilterDiv, "created_filter_div");
 		await (await advancedFilters.getFieldDate("from")).click();
 		await datepicker.selectDate(startDate);
@@ -345,6 +351,7 @@ test.describe("DataView - Advanced Filters", () => {
 		const startDate = advance_filter_data.validStartDateRange;
 		const endDate = advance_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
+		await advancedFilters.wait();
 		await advancedFilters.validateSnapshot(advancedFilters.createdFilterDiv, "update_filter_div");
 		await (await advancedFilters.getFieldDate("from")).click();
 		await datepicker.selectDate(startDate);
