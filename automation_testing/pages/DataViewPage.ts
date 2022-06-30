@@ -104,7 +104,7 @@ export class DataviewPage extends Pages {
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
 		for (const row of rows) {
-			titles.push((await (await row.$("td:nth-child(4)")).textContent()));
+			titles.push(((await (await row.$("td:nth-child(4)")).textContent()).toLowerCase()));
 		}
 		return titles;
 	}
