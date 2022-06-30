@@ -4,7 +4,6 @@ import { ReactElement, memo, useState, useEffect } from "react";
 // Components
 import DatePicker from "../DatePicker";
 import TimePicker from "../TimePicker";
-import HelperText from "@root/components/Field/HelperText";
 
 // Styles
 import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";
@@ -115,7 +114,6 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 							value={dateInput}
 							onBlur={onBlur}
 						/>
-						<HelperText>Month, Day, Year</HelperText>
 					</DateTimePickerWrapper>
 					{fieldDef?.inputSettings?.showTime &&
 						<DateTimePickerWrapper>
@@ -133,7 +131,6 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 								value={timeInput}
 								onBlur={onBlur}
 							/>
-							<HelperText>Hour, Minute, AM or PM</HelperText>
 						</DateTimePickerWrapper>
 					}
 				</>
