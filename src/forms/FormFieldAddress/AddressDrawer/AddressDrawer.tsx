@@ -135,13 +135,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				formActions.setFieldValue({
 					name: "postalCode",
-					value: addressToEdit.postalCode,
+					value: Number(addressToEdit.postalCode),
 				})
 			);
 
 			editingState = {
 				...editingState,
-				"postalCode": addressToEdit.postalCode,
+				"postalCode": Number(addressToEdit.postalCode),
 			};
 
 			dispatch(
@@ -185,7 +185,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 			setInitialState(editingState);
 		}
-	}, []);
+	}, [addressToEdit]);
 
 	/**
    * Gets the list of states for the
@@ -214,7 +214,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		listOfAddresses[addressIdx].address2 = state?.data?.address2;
 		listOfAddresses[addressIdx].address3 = state?.data?.address3;
 		listOfAddresses[addressIdx].city = state?.data?.city;
-		listOfAddresses[addressIdx].postalCode = state?.data?.postalCode;
+		listOfAddresses[addressIdx].postalCode = Number(state?.data?.postalCode);
 		listOfAddresses[addressIdx].country = state?.data?.country;
 		listOfAddresses[addressIdx].state = state?.data?.states;
 		listOfAddresses[addressIdx].types = state?.data?.type;
@@ -236,7 +236,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			address2: state?.data?.address2,
 			address3: state?.data?.address3,
 			city: state?.data?.city,
-			postalCode: state?.data?.postalCode,
+			postalCode: Number(state?.data?.postalCode),
 			country: state?.data?.country,
 			state: state?.data?.states,
 			types: state?.data?.type,

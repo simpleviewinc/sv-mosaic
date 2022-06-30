@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import { ReactElement, memo, ChangeEvent } from "react";
 
 // Material UI
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,7 +10,7 @@ import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
 const TextField = (
-	props: MosaicFieldProps<TextFieldDef, string>
+	props: MosaicFieldProps<TextFieldDef, string | number>
 ): ReactElement => {
 	const {
 		fieldDef,
@@ -28,13 +28,22 @@ const TextField = (
 		}
 		: null;
 
+	const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value =
+			fieldDef?.inputSettings?.type === "number"
+				? Number(e.target.value)
+				: e.target.value;
+
+		onChange && onChange(value);
+	};
+
 	const errorWithMessage = error?.trim().length > 0;
 
 	return (
 		<StyledTextField
 			id={fieldDef?.name}
 			value={value}
-			onChange={(e) => onChange && onChange(e.target.value)}
+			onChange={onFieldChange}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
