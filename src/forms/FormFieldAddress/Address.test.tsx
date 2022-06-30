@@ -19,7 +19,7 @@ const address: IAddress = {
 	id: 1,
 	address1: "8950 N Oracle Rd",
 	city: "Oro Valley",
-	postalCode: "85704",
+	postalCode: 85704,
 	country: "US",
 	state: "AZ",
 	types: ["physical", "billing"]
@@ -109,7 +109,7 @@ const addNewAddress = () => {
 
 	fireEvent.change(address, { target: { value: "Address test 1" } });
 	fireEvent.change(city, { target: { value: "Guadalajara" } });
-	fireEvent.change(postalCode, { target: { value: "123" } });
+	fireEvent.change(postalCode, { target: { value: 123 } });
 
 	fireEvent.change(inputs[0], { target: { value: "México" } });
 	fireEvent.keyDown(dropdowns[0], { key: "ArrowDown" });
@@ -159,7 +159,7 @@ describe("Address component", () => {
 
 		fireEvent.change(address, { target: { value: "Address edited" } });
 		fireEvent.change(city, { target: { value: "City edited" } });
-		fireEvent.change(postalCode, { target: { value: "000" } });
+		fireEvent.change(postalCode, { target: { value: 456 } });
 		fireEvent.change(countryDropdown, { target: { value: "Argentina" } });
 		fireEvent.click(getByText("Argentina"));
 		fireEvent.click(addressTypes[1]);
@@ -171,7 +171,7 @@ describe("Address component", () => {
 			() => {
 				expect(getByText("Address edited")).toBeTruthy();
 				expect(getByText("Physical, Billing Address")).toBeTruthy();
-				expect(getByText("City edited, 000")).toBeTruthy();
+				expect(getByText("City edited, 456")).toBeTruthy();
 				expect(getByText("Argentina")).toBeTruthy();
 			},
 			{ timeout: 3000 }
