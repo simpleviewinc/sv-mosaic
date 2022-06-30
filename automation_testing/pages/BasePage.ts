@@ -10,7 +10,7 @@ export class BasePage {
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
-		this.title = page.locator("span.dOZUzk.sc-eTpRJs");
+		this.title = page.locator("//*[@id='root']/div/form/div[1]/div[1]/div[1]/span[1]");
 	}
 
 	async visit(componentUrl:string): Promise<void> {
