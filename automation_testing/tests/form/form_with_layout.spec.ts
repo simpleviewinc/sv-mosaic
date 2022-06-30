@@ -33,7 +33,7 @@ test.describe("Form - Form With Layout", () => {
 		const sectionToScroll = allSectionTitles[allSectionTitles.length - 1].toString();
 		await formWithLayoutPage.scrollToSection(sectionToScroll);
 		const selectedSectionInTopComponent = await formWithLayoutPage.getSelectedSectionFromTopComponent();
-		await formWithLayoutPage.validateSectionTopComponentElementIsSelected(selectedSectionInTopComponent);
+		expect(await formWithLayoutPage.validateSectionTopComponentElementIsSelected(selectedSectionInTopComponent)).toBe("(252, 183, 49)")
 	});
 
 });
