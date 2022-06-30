@@ -43,7 +43,7 @@ export const CheckboxWrapper = styled.div`
 
 export const StyledColumn = styled(Column)`
   background-color: white;
-  box-shadow: 0px 1px 10px #0000001a;
+  border-bottom: 2px solid ${theme.colors.gray200};
   margin-bottom: 30px;
   position: sticky;
   position: -webkit-sticky;
@@ -65,4 +65,3 @@ export const StyledHelpIcon = styled(HelpIcon)`
   color: ${theme.colors.almostBlack};
   margin-top: 7px;
 `;
-
