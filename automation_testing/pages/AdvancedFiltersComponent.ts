@@ -69,7 +69,6 @@ export class AdvancedFiltersComponent extends Pages {
 		this.searchTitleComparisonDropdown = page.locator("div.inputRow button");
 		this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
 		this.errorMessageDates = page.locator(".errorMessage h5");
-
 	}
 
 	async getNumberOfSingleSelectCategoryOptions(): Promise<number> {
