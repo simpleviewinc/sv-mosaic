@@ -1,8 +1,7 @@
-
-
+import { Pages } from "../pages/Pages";
 import { Locator, Page } from "@playwright/test";
 
-export class ColumnsComponent {
+export class ColumnsComponent extends Pages {
 	readonly page: Page;
 	readonly title: Locator;
 	readonly columnsBtn: Locator;
@@ -13,6 +12,7 @@ export class ColumnsComponent {
 	readonly checkboxLocator: string;
 
 	constructor(page: Page) {
+		super(page);
 		this.page = page;
 		this.title = page.locator("h1").nth(2);
 		this.columnsBtn = page.locator(".size_small.variant_icon").nth(2);
