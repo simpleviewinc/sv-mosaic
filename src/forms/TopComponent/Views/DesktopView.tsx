@@ -27,7 +27,6 @@ const DesktopViewColumn = styled(StyledColumn)`
 
   @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
     border-bottom: 2px solid ${theme.colors.gray200};
-    height: 66px;
     margin-bottom: 0px;
     padding: 24px 20px 16px 20px;
   }
