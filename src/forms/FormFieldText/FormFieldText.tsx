@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, memo } from "react";
 
 // Material UI
-import { InputAdornment } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
 
 // Types and styles
 import { TextFieldDef } from "./FormFieldTextTypes";

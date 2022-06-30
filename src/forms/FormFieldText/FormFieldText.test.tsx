@@ -1,10 +1,8 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import * as React from "react";
 
 // Components
 import TextField from "./FormFieldText";
-
-afterEach(cleanup);
 
 describe("TextField component", () => {
 	it("should should display the placeholder", () => {
