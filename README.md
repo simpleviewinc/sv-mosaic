@@ -59,7 +59,7 @@ The service should now be accessible at http://kube.simpleview.io:10000/
 		```
 		cd /sv/containers/sv-mosaic
 		sudo npm run docker
-		npm test
+		yarn test
 		```
 
 # Repo Structure
@@ -95,3 +95,10 @@ Good Example Components:
 * /components/LeftNav/
 * /components/CheckboxList/
 * /components/Checkbox/
+
+# Publishing
+
+Publishing to NPM and storybook is automated. You do not need to run build, or publish.
+
+* Whenever a push to master changes the package.json, @simpleview/sv-mosaic and @simpleview/sv-mosaic-types will be published to NPM via the publish github action which runs scripts/conditional-publish
+* Whenever a push to master occurs the storybook is automatically built and pushed to the gh-pages branch via the storybook github action.
