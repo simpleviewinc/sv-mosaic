@@ -9,13 +9,8 @@ import postcss from "rollup-plugin-postcss";
 import propTypes from "prop-types";
 
 const EXTERNALS = [
-	/^@material-ui\/core\//,
-	/^@material-ui\/icons\//,
-	/^@material-ui\/pickers\//,
-	/^@mui\/icons-material\//,
-	/^@mui\/lab\//,
-	/^@mui\/material\//,
-	/^@mui\/styles\//,
+	new RegExp("^@emotion/"),
+	new RegExp("^@mui/"),
 	"i18next",
 	"jsvalidator",
 	"lodash",
@@ -25,9 +20,7 @@ const EXTERNALS = [
 	"react-i18next",
 	"react-transition-group",
 	"styled-components",
-	"react-draft-wysiwyg",
-	"eventemitter3",
-	"jodit-react",
+	"react-draft-wysiwyg"
 ];
 
 const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];

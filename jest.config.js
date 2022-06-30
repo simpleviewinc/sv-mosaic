@@ -4,7 +4,16 @@ module.exports = {
 		"@root/(.*)": "<rootDir>/src/$1",
 		"\\.(css|less)$": "identity-obj-proxy"
 	},
-	setupFiles: ["jest-canvas-mock"],
+	setupFiles: [
+		"jest-canvas-mock"
+	],
+	setupFilesAfterEnv: [
+		"./src/setup-jest.ts"
+	],
 	testEnvironment: "jsdom",
-	collectCoverage: true,
+	globals: {
+		"ts-jest": {
+			isolatedModules: true
+		}
+	}
 }

@@ -4,7 +4,8 @@ const env = {
 }
 
 const components = {
-	dataview: "components-dataview--example"
+	dataview: "components-dataview--example",
+	validator: "components-form--validators"
 }
 
 export { env, components };

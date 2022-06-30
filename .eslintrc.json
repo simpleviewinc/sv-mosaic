@@ -22,7 +22,8 @@
 						"args": "none",
 						"ignoreRestSiblings": true
 					}
-				]
+				],
+				"@typescript-eslint/no-explicit-any": "off"
 			},
 			"extends": [
 				"eslint:recommended",
