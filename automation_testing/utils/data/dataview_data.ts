@@ -129,6 +129,8 @@ const filter_data = {
 }
 
 const advance_filter_data = {
+	searchedTitleSimple: "Ada",
+	searchedTitle: "Ada Village",
 	createdFilterResults: 20,
 	validStartDateRange: "2019 January 12",
 	validEndDateRange: "2021 July 17",
