@@ -38,7 +38,10 @@ function DataViewFilters(props) {
 	const optionalFilters = props.filters.filter(val => val.type !== "primary");
 	
 	const active = optionalFilters.filter(val => activeFilters.includes(val.name));
-	const options = optionalFilters.map(val => ({ label : val.label, value : val.name }));
+	const options = optionalFilters
+    .map((val) => ({ label: val.label, value: val.name }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+
 	const optionsSelected = useMemo(() => {
 		return options.filter(option => activeFilters.includes(option.value))
 	}, [options, activeFilters])
