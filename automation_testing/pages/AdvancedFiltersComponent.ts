@@ -87,7 +87,6 @@ export class AdvancedFiltersComponent extends Pages {
 		const numberOfOptions = await this.getNumberOfSingleSelectCategoryOptions();
 		const options = [];
 		for (let i = 0; i < numberOfOptions; i++) {
-
 			options.push(await this.getSpecificMenuItemForSingleSelectCategoryOption(i));
 		}
 		return options;
