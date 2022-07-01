@@ -6,6 +6,7 @@ import FormNav from "@root/forms/FormNav";
 
 // Styled components
 import styled from "styled-components";
+import theme from "@root/theme";
 import {
 	FlexContainer,
 	StyledColumn
@@ -25,8 +26,7 @@ const DesktopViewColumn = styled(StyledColumn)`
   z-index: 1000;
 
   @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
-    box-shadow: 0px 1px 10px #0000001a;
-    height: 66px;
+    border-bottom: 2px solid ${theme.colors.gray200};
     margin-bottom: 0px;
     padding: 24px 20px 16px 20px;
   }
