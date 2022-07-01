@@ -15,7 +15,7 @@ test.describe("DataView - Columns", () => {
 		columns = dataviewPage.columnsComponent;
 		pagination = dataviewPage.paginationComponent;
 
-		await dataviewPage.visit();
+		await dataviewPage.visitPage();
 	});
 
 	test("Validate Default Columns Information", async () => {
