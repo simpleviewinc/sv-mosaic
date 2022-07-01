@@ -7,7 +7,7 @@ test.describe("Form - Validators", () => {
 
 	test.beforeEach(async ({ page }) => {
 		validatorPage = new ValidatorPage(page);
-		await validatorPage.visit();
+		await validatorPage.visitPage();
 	});
 
 	test("Cancel", async () => {

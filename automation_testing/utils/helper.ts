@@ -23,7 +23,10 @@ const addComma = (words: string[]): string => {
 		}
 	}
 	return result;
-
 }
 
-export { sortDatesAsc, sortDatesDesc, addQuotes, addComma }
+const randomNumber = (max: number): number => {
+	return Math.floor(Math.random() * (max - 0 + 1) + 0);
+}
+
+export { sortDatesAsc, sortDatesDesc, addQuotes, addComma, randomNumber }
