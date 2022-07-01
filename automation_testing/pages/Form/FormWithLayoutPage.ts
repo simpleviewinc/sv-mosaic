@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
 
 export class FormWithLayout extends BasePage {
@@ -7,7 +7,6 @@ export class FormWithLayout extends BasePage {
 	readonly topComponentContainer: Locator;
 	readonly topComponentContainerSections: Locator;
 	readonly sectionContainer: Locator;
-	readonly sectionRows: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -15,7 +14,6 @@ export class FormWithLayout extends BasePage {
 		this.topComponentContainer = page.locator("//*[@id='root']/div/form/div[1]/div[2]");
 		this.topComponentContainerSections = page.locator("a");
 		this.sectionContainer = page.locator("//*[@id='root']/div/form/div[2]/div");
-		this.sectionRows = page.locator("//*[@id='root']/div/form/div[2]/div[1]/div/div");
 	}
 
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
@@ -26,44 +24,55 @@ export class FormWithLayout extends BasePage {
 	async getNumberOfSections():Promise<number> {
 		return await this.sectionContainer.count();
 	} 
-
-	async getSectionsTitlesFromTopComponent():Promise<string[]> {
-		const numberOfSections = await this.getNumberOfSectionsFromTopComponent();
-		const sectionTitles = [];
-		for (let i = 0; i <  numberOfSections; i++) {
-			sectionTitles.push(await this.topComponentContainer.locator("a").nth(i).textContent());
-		}
-		return sectionTitles;
-	}
 	
 	async getPositionOfSection(section:string):Promise<number> {
 		const sections = this.getSectionsTitlesFromTopComponent();
 		return (await sections).indexOf(section);
 	} 
 
-	async getSectionsTitles():Promise<string[]> {
-		const numberOfSections = await this.getNumberOfSectionsFromTopComponent();
-		const sectionTitles = [];
-		for (let i = 0; i <  numberOfSections; i++) {
-			sectionTitles.push(await this.sectionContainer.locator("h1").nth(i).textContent());
+	/**
+	 * This method return the specified data of a provided locator.  
+	 * @param locator: Locator from where the data will be extrated. 
+	 * @param dataType: Type of data to be returned. 
+	 * @returns: Returns an array with the information contained in the provided locator.
+	 */
+	async getSectionData(locator:Locator, dataType: string):Promise<string[]> {
+		const amount = await locator.count();
+		const stringFlag = dataType == "string" ? true : false;
+		let indexOfSection = 0;
+		const result = [];
+		for (let i = 0; i <  amount; i++) {
+			if (stringFlag) {
+				result.push(await locator.nth(i).textContent());
+			} else {
+				indexOfSection = i + 1;
+				result.push(await locator.locator(`//*[@id='root']/div/form/div[2]/div["${indexOfSection}"]/div/div/div`).count());
+			}
 		}
-		return sectionTitles;
+		return result;
+	}
+
+	async getSectionsTitlesFromTopComponent():Promise<string[]> {
+		return await this.getSectionData(this.topComponentContainer.locator("a"), "string");
+	}
+
+	async getSectionsTitles():Promise<string[]> {
+		return await this.getSectionData(this.sectionContainer.locator("h1"), "string");
 	}
 
 	async getSectionsDescriptions():Promise<string[]> {
-		const numberOfSections = await this.getNumberOfSectionsFromTopComponent();
-		const sectionsDescriptions = [];
-		for (let i = 0; i <  numberOfSections; i++) {
-			sectionsDescriptions.push(await this.sectionContainer.locator("p").nth(i).textContent());
-		}
-		return sectionsDescriptions;
+		return await this.getSectionData(this.sectionContainer.locator("p"), "string");
 	}
 
 	async getNumberOfColumsInEachRowFromSections():Promise<number[]> {
-		const numberOfRows = await this.sectionRows.count();
+		let numberOfRowsInSection = 0;
 		const numberOfColumsPerRow = [];
-		for (let i = 0; i <  numberOfRows; i++) {
-			numberOfColumsPerRow.push(await this.sectionRows.nth(i).locator(".sc-gVyKpa").count());
+		const numberOfSections = await this.getNumberOfSectionsFromTopComponent();
+		for (let i = 1; i <= numberOfSections; i++) {
+			numberOfRowsInSection = await this.page.locator("#root > div > form > div:nth-child(2) > div:nth-child(" + i + ") > div > div").count();
+			for (let j = 1; j <= numberOfRowsInSection; j++) {
+				numberOfColumsPerRow.push(await this.page.locator("#root > div > form > div:nth-child(2) > div:nth-child(" + i + ") > div > div:nth-child(" + j + ") > div").count());
+			}
 		}
 		return numberOfColumsPerRow;
 	}

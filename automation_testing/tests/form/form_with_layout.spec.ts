@@ -21,13 +21,13 @@ test.describe("Form - Form With Layout", () => {
 	});
 
 	test("Validate that each row in each section does not have more than 3 columns", async () => {
-		const numberOfColumnsPerRow = await formWithLayoutPage.getNumberOfColumsInEachRowFromSections()
+		const numberOfColumnsPerRow = await formWithLayoutPage.getNumberOfColumsInEachRowFromSections();
 		for (let i = 0; i < numberOfColumnsPerRow.length; i++) {
 			expect(numberOfColumnsPerRow[i]).toBeLessThanOrEqual(3);
 		}
 	});
 
-	test("Validate that when scrolling to the bottom of the page, the correct Section is selected in Top Component", async () => {
+	test("Validate that the correct Section is selected when scrolling", async () => {
 		const allSectionTitles = await formWithLayoutPage.getSectionsTitlesFromTopComponent();
 		//Scroll to last section
 		const sectionToScroll = allSectionTitles[allSectionTitles.length - 1].toString();
