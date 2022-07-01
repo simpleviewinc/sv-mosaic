@@ -42,11 +42,20 @@ const StyledDiv = styled.div`
 			grid-template-columns: repeat(2, 1fr);
 		};
 
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		};
+
 		@media (min-width: ${RESPONSIVE_BREAKPOINT}) {
 			grid-template-columns: repeat(4, 1fr);
 		};
-		@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+
+		@media (min-width: 1296px) {
 			grid-template-columns: repeat(5, 1fr);
+		};
+
+		@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+			grid-template-columns: repeat(6, 1fr);
 		}
 	}
 	
