@@ -1,9 +1,9 @@
+import { Pages } from "../pages/Pages";
 import { Locator, Page } from "@playwright/test";
 
-export class PaginationComponent {
+export class PaginationComponent extends Pages {
 	readonly resultAmount: Locator;
 	readonly resultOptions: Locator;
-	readonly loading: Locator;
 	readonly paginationValue: Locator;
 	readonly pagesOption: Locator;
 	readonly backwardArrow: Locator;
@@ -12,9 +12,9 @@ export class PaginationComponent {
 	readonly viewTypeOption: Locator;
 
 	constructor(page: Page) {
+		super(page);
 		this.resultAmount = page.locator(".variant_text button.MuiButton-root").nth(4);
 		this.resultOptions = page.locator("ul[role='menu']");
-		this.loading = page.locator("div.loading");
 		this.paginationValue = page.locator(".variant_text button.MuiButton-root").nth(5);
 		this.pagesOption = page.locator(".MuiPopover-paper");
 		this.backwardArrow = page.locator(".size_small.variant_icon").nth(0);
@@ -41,6 +41,7 @@ export class PaginationComponent {
 		}
 		return pages;
 	}
+
 
 	async calulateRecordRangePerPage(results: number, page: number): Promise<string> {
 		const total = parseInt((await this.paginationValue.textContent()).split("of ")[1]);
