@@ -471,6 +471,24 @@ export const types = {
 	    line-height: ${textButtonStyles.lineHeight};
     }
   `,
+	black_text_link: styled(BlackOnWhite)`
+		.MuiButton-text {
+			color: ${theme.colors.almostBlack};
+			font-size: 12px;
+			text-transform: capitalize;
+			padding: 0px;
+			font-weight: ${theme.fontWeight.bold};
+      white-space: nowrap;
+		}
+
+		.MuiButton-text:hover {
+			text-decoration: underline;
+		}
+
+		.MuiSvgIcon-root {
+			font-size: 16px;
+		}
+`,
 	blue_icon: BlueOnWhite,
 	black_icon: BlackOnWhite,
 	teal_icon: TealOnWhite,

@@ -25,7 +25,9 @@ function Button(props: ButtonProps) {
 
 	const addAttrs: MosaicObject = {};
 
-	const MyButton = types[`${props.color}_${props.variant}`];
+	const textLink = props.variant === "text" && props.href ? "_link" : "";
+
+	const MyButton = types[`${props.color}_${props.variant}${textLink}`];
 
 	if (MyButton === undefined) {
 		throw new Error(`Color '${props.color}' and variant '${props.variant}' combination is not valid`);
@@ -71,7 +73,7 @@ function Button(props: ButtonProps) {
 		addAttrs.onMouseEnter = onMouseEnter;
 		addAttrs.onMouseLeave = onMouseLeave;
 	}
-
+	
 	return (
 		<MyButton
 			{...attrs}
