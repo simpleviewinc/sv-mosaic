@@ -18,7 +18,7 @@ export const ButtonWrapper = styled.span`
     font-weight: ${theme.fontWeight.medium};
     min-width: auto;
     line-height: 1.715;
-		letter-spacing: 1px;
+	letter-spacing: 1px;
   }
 
   &.normalButton > button {
@@ -43,28 +43,32 @@ export const ButtonWrapper = styled.span`
     padding-bottom: 4px;
   }
 
-  &.normalButton.size_small > button .icon_left {
+  &.normalButton.size_small > button .icon_left,
+  &.normalButton.size_small > a .icon_left {
     margin-right: 4px;
     margin-left: -4px;
-		font-size: 16px;
+	font-size: 16px;
   }
 
-  &.normalButton.size_small > button .icon_right {
+  &.normalButton.size_small > button .icon_right,
+  &.normalButton.size_small > a .icon_right {
     margin-left: 4px;
     margin-right: -4px;
-		font-size: 16px;
+	font-size: 16px;
   }
 
-  &.normalButton.size_medium > button .icon_left {
+  &.normalButton.size_medium > button .icon_left,
+  &.normalButton.size_medium > a .icon_left {
     margin-right: 4px;
     margin-left: -4px;
-		font-size: 16px;
+	font-size: 16px;
   }
 
-  &.normalButton.size_medium > button .icon_right {
+  &.normalButton.size_medium > button .icon_right,
+  &.normalButton.size_medium > a .icon_right {
     margin-left: 4px;
     margin-right: -4px;
-		font-size: 16px;
+	font-size: 16px;
   }
 
   &.iconButton svg {
@@ -400,108 +404,99 @@ export const types = {
     }
   `,
 	black_outlined: styled(BlackOnWhite)`
-    & > button {
-      background-color: white;
-      border-radius: 0;
-      border: 2px solid ${theme.colors.almostBlack};
-      font-size: 14px;
-      text-transform: uppercase;
-    }
-    .MuiButton-outlined.Mui-disabled {
-      background-color: white;
-      opacity: 0.5;
-      border: 2px solid ${theme.colors.almostBlack};
-      color: ${theme.colors.almostBlack};
-    }
-    & > button:hover {
-      box-shadow: 0 2px 3px ${theme.colors.almostBlack}12;
+		& > button {
+			background-color: white;
+			border-radius: 0;
 			border: 2px solid ${theme.colors.almostBlack};
-    }
-    & > button:active,
-    & > button:focus {
-      box-shadow: 0 1px 2px ${theme.colors.almostBlack}24;
-    }
+			font-size: 14px;
+			text-transform: uppercase;
+		}
+		.MuiButton-outlined.Mui-disabled {
+			background-color: white;
+			opacity: 0.5;
+			border: 2px solid ${theme.colors.almostBlack};
+			color: ${theme.colors.almostBlack};
+		}
+		& > button:hover {
+			box-shadow: 0 2px 3px ${theme.colors.almostBlack}12;
+			border: 2px solid ${theme.colors.almostBlack};
+		}
+		& > button:active,
+		& > button:focus {
+			box-shadow: 0 1px 2px ${theme.colors.almostBlack}24;
+		}
   `,
 	teal_text: styled(TealOnWhite)`
-    &.normalButton > button {
-      color: ${theme.colors.blueTeal};
-      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
+		&.normalButton > button {
+			color: ${theme.colors.blueTeal};
+			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 
-      &:hover {
-        color: ${({ children }) =>
-		!children[0].props.disabled ? theme.colors.blueTealHover : ""};
-      }
-    }
+			&:hover {
+				color: ${({ children }) => !children[0].props.disabled ? theme.colors.blueTealHover : ""};
+			}
+		}
 
-    & > button {
-      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
-      line-height: ${textButtonStyles.lineHeight};
-    }
+		& > button {
+			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			line-height: ${textButtonStyles.lineHeight};
+		}
   `,
 	blue_text: styled(BlueOnWhite)`
 		&.normalButton > button {
 			color: ${theme.colors.blue};
-      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
+			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
-    & > button {
-      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
-      line-height: ${textButtonStyles.lineHeight};
-    }
+		& > button {
+			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			line-height: ${textButtonStyles.lineHeight};
+		}
   `,
 	red_text: styled(RedOnWhite)`
-    &.normalButton > button {
-      color: ${theme.colors.red};
-      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
-    }
+		&.normalButton > button {
+			color: ${theme.colors.red};
+			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
+		}
 
-    & > button {
-      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
-      line-height: ${textButtonStyles.lineHeight};
-    }
+		& > button {
+			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			line-height: ${textButtonStyles.lineHeight};
+		}
   `,
 	black_text: styled(BlackOnWhite)`
-    &.normalButton > button {
-      color: ${theme.colors.almostBlack};
-      opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
-    }
-
-    & > button {
-      font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
-	    line-height: ${textButtonStyles.lineHeight};
-    }
-  `,
-	black_text_link: styled(BlackOnWhite)`
-		.MuiButton-text {
+		&.normalButton > button {
 			color: ${theme.colors.almostBlack};
-			font-size: 12px;
-			text-transform: capitalize;
-			padding: 0px;
-			font-weight: ${theme.fontWeight.bold};
-      white-space: nowrap;
+			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
-		.MuiButton-text:hover {
+		& > button, & > a {
+			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			line-height: ${textButtonStyles.lineHeight};
+		}
+
+		& > a {
+			color: ${theme.colors.almostBlack};
+			text-transform: capitalize;
+			font-weight: ${theme.fontWeight.bold};
+		}
+
+		& > a:hover {
 			text-decoration: underline;
 		}
-
-		.MuiSvgIcon-root {
-			font-size: 16px;
-		}
-`,
+  `,
 	blue_icon: BlueOnWhite,
 	black_icon: BlackOnWhite,
 	teal_icon: TealOnWhite,
 	red_icon: RedOnWhite,
 	white_icon: WhiteOnBlack,
 	gray_icon: styled(GrayOnWhite)`
-    & > button {
-      color: ${theme.colors.gray600};
-    }
+		& > button {
+			color: ${theme.colors.gray600};
+		}
 
-    & > button:hover {
-      color: ${theme.colors.almostBlack};
-    }
+		& > button:hover {
+			color: ${theme.colors.almostBlack};
+		}
   `,
 };
 

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import theme from "../../theme";
 import StarRateRounded from "@mui/icons-material/StarRateRounded";
+import StarBorder from "@mui/icons-material/StarBorderRounded";
 
-export const SumaryPageTopComponentStyle = styled.div`
+export const StyledSummaryPageTopComponent = styled.div`
     background: white;
-    box-shadow: 0px 1px 10px #0000001A;
+    border-bottom: 2px solid ${theme.colors.gray200};
     color: ${theme.colors.almostBlack};
     font-family: ${theme.fontFamily};
     padding: 24px 24px 32px 24px;
@@ -12,11 +13,10 @@ export const SumaryPageTopComponentStyle = styled.div`
     gap: 24px;
     align-items: center;
 
-    .img_rounded {
-        width: 75px;
-        height: 75px;
-        border: 2px solid var(---f0f2f5);
-        border: 2px solid #F0F2F5;
+    .img-rounded {
+        width: 71px;
+        height: 71px;
+        border: 2px solid ${theme.colors.grayHover};
         border-radius: 50%;
         opacity: 1;
     }
@@ -34,7 +34,11 @@ export const ContainerTitle = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    margin-right: 30px;
+
+	& > .favorite-icon: {
+		color: red;
+		margin-left: 12px;
+	}
 `;
 
 export const Title = styled.p`
@@ -43,11 +47,18 @@ export const Title = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin: 0 12px 0 0;
+	margin: 0px;
+	padding: 0px;
+	font-family: ${theme.museoFont} !important;
 `;
 
-export const StarRateRoundedSimplyGold = styled(StarRateRounded)`
+export const CheckedStar = styled(StarRateRounded)`
+	margin-left: 12px;
     color: ${theme.colors.simplyGold};
+`;
+
+export const UncheckedStar = styled(StarBorder)`
+	margin-left: 12px;
 `;
 
 export const Row = styled.div`
@@ -61,10 +72,12 @@ export const Row = styled.div`
 export const ContainerItems = styled.div`
     display: flex;
     flex-wrap: wrap;
-    
+	align-items: center;
+
     div:first-child {
         padding-left: 0px;
     };
+	
     div:last-child {
         border: none;
     };
@@ -84,6 +97,6 @@ export const ContextText = styled.p `
     white-space: nowrap;
 `;
 
-export const ContainerFilterSingleSelect = styled.div`
-    align-self: flex-end;
-`
+// export const ContainerFilterSingleSelect = styled.div`
+//     align-self: flex-end;
+// `
