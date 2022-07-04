@@ -1,8 +1,7 @@
 import * as React from "react";
-import { screen, cleanup, render } from "@testing-library/react";
+import { screen, cleanup, render, waitFor, act } from "@testing-library/react";
 import { Mail, Edit, Public } from "@mui/icons-material";
 import { ButtonProps } from "../Button";
-import { FilterSingleSelectProps } from "../FilterSingleSelect";
 import { MenuItemProps } from "../MenuItem";
 
 // Components
@@ -38,38 +37,7 @@ const mainActions: ButtonProps[] = [
 	}
 ];
 
-const largeMainActions: ButtonProps[] = [
-	{
-		label: "Button 1",
-		mIcon: Mail,
-		onClick: jest.fn(),
-		color: "black",
-		variant: "text"
-	},
-	{
-		label: "Button 2",
-		mIcon: Mail,
-		onClick: jest.fn(),
-		color: "black",
-		variant: "text"
-	},
-	{
-		label: "Edit",
-		mIcon: Edit,
-		onClick: () => jest.fn(),
-		color: "black",
-		variant: "text",
-	},
-	{
-		label: "Edit2",
-		mIcon: Edit,
-		onClick: () => jest.fn(),
-		color: "black",
-		variant: "text",
-	},
-];
-
-const aditionalActions: MenuItemProps[] = [
+const additionalActions: MenuItemProps[] = [
 	{
 		label : "Edit",
 		onClick : jest.fn()
@@ -80,62 +48,21 @@ const aditionalActions: MenuItemProps[] = [
 	}
 ];
 
-const textLinks: ButtonProps[] = [
+const textLinks = [
 	{
 		label: "Text link",
-		color: "black",
-		variant: "text",
 		mIcon: Public,
 		href: "https://www.google.com/",
 		onClick: jest.fn(),
 	},
 	{
 		label: "Text link",
-		color: "black",
-		variant: "text",
 		mIcon: Public,
 		href: "https://www.google.com/",
 		onClick: jest.fn(),
 	},
 	{
 		label: "Text link",
-		color: "black",
-		variant: "text",
-		mIcon: Public,
-		href: "https://www.google.com/",
-		onClick: jest.fn(),
-	},
-];
-
-const largeTextLinks: ButtonProps[] = [
-	{
-		label: "Text link",
-		color: "black",
-		variant: "text",
-		mIcon: Public,
-		href: "https://www.google.com/",
-		onClick: jest.fn(),
-	},
-	{
-		label: "Text link",
-		color: "black",
-		variant: "text",
-		mIcon: Public,
-		href: "https://www.google.com/",
-		onClick: jest.fn(),
-	},
-	{
-		label: "Text link",
-		color: "black",
-		variant: "text",
-		mIcon: Public,
-		href: "https://www.google.com/",
-		onClick: jest.fn(),
-	},
-	{
-		label: "Text link",
-		color: "black",
-		variant: "text",
 		mIcon: Public,
 		href: "https://www.google.com/",
 		onClick: jest.fn(),
@@ -144,41 +71,58 @@ const largeTextLinks: ButtonProps[] = [
 
 const contextTexts = ["Information", "Information", "This is an example of a very long text information"];
 
-const state = {value : undefined};
+const options = [
+	{ label : "Option A", value : "a" },
+	{ label : "Option B", value : "b" },
+	{ label : "Option C", value : "c" },
+	{ label : "Option D", value : "d" }
+];
 
-const required = false;
-
-const getOptions = jest.fn()
-
-const getSelected = jest.fn()
-
-const filterSingleSelect: FilterSingleSelectProps = {
-	type: "primary",
-	label: "Testing",
-	data: state,
-	args: { getOptions, getSelected, required, color: "teal" },
-	onRemove: jest.fn(),
-	onChange: jest.fn(),
+const getOptions = () => {
+	return {
+		docs : options,
+		hasMore : false
+	}
 }
+
+const getSelected = (id) => {
+	return options.filter(val => val.value === id)[0];
+}
+
+const filter = {
+	label: "Testing",
+	args: { getOptions, getSelected, required: false },
+};
+
+const favorite = {
+	checked: true,
+	onClick: (val) => jest.fn(val),
+};
 
 const { getByText, getByTestId, getAllByTestId } = screen;
 
 describe("SummaryPageTopComponent", () => {
 	beforeEach(() => {
-		render(<SummaryPageTopComponent
-			title={title}
-			favorite={true}
-			imageSrc={imageSrc}
-			mainActions={mainActions}
-			aditionalActions={aditionalActions}
-			contextTexts={contextTexts}
-			textLinks={textLinks}
-			filterSingleSelect={filterSingleSelect}
-		/>)
-	})
+		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
+		
+		act(() => {
+			render(<SummaryPageTopComponent
+				title={title}
+				favorite={favorite}
+				img={imageSrc}
+				mainActions={mainActions}
+				additionalActions={additionalActions}
+				descriptionTexts={contextTexts}
+				textLinks={textLinks}
+				filter={filter}
+			/>)
+		});
+	});
 
-	it("Should display the image", () => {
-		expect(screen.getByRole("img"));
+	it("Should display the image", async () => {
+		await waitFor(() => {
+			expect(screen.getByRole("img"));
+		});
 	});
 
 	it("Should display the title", () => {
@@ -186,74 +130,26 @@ describe("SummaryPageTopComponent", () => {
 	});
 	
 	it("Should display favorite icon", () => {
-		expect(getByTestId("StarRateRoundedIcon"))
+		expect(getByTestId("StarRateRoundedIcon"));
 	})
 
 	it("Should display three main action buttons", () => { 
-		expect(getAllByTestId("btn-main-action")).toHaveLength(3)
+		expect(getAllByTestId("btn-main-action")).toHaveLength(3);
 	})
 
 	it("Should display aditional action button", () => { 
-		expect(getByTestId("btn-aditional-action"))
+		expect(getByTestId("btn-aditional-action"));
 	})
 
 	it("Should display three context texts", () => { 
-		expect(getAllByTestId("context-text")).toHaveLength(3)
+		expect(getAllByTestId("context-text")).toHaveLength(3);
 	})
 
 	it("Should display three textlink buttons", () => { 
-		expect(getAllByTestId("btn-text-link")).toHaveLength(3)
+		expect(getAllByTestId("btn-text-link")).toHaveLength(3);
 	})
 
 	it("Should display filterSingleSelect button", () => { 
-		expect(getByTestId("btn-filterSingleSelect"))
+		expect(getByTestId("btn-filterSingleSelect"));
 	})
-})
-
-describe("SummaryPageTopComponent variants", () => {
-
-	beforeEach(() => {
-		render(<SummaryPageTopComponent
-			title={title}
-			favorite={false}
-			filterSingleSelect={filterSingleSelect}
-		/>)
-	})
-	
-	it("Should display no favorite icon", () => {
-		expect(getByTestId("StarBorderRoundedIcon"))
-	})
-})
-
-describe("SummaryPageTopComponent error expected", () => {
-
-	it("Should display error when SummaryPageTopComponent has more than three main buttons", () => {
-		expect(() => {
-			render (<SummaryPageTopComponent
-				title={title}
-				favorite={true}
-				imageSrc={imageSrc}
-				mainActions={largeMainActions}
-				aditionalActions={aditionalActions}
-				contextTexts={contextTexts}
-				textLinks={textLinks}
-				filterSingleSelect={filterSingleSelect}
-			/>)
-		}).toThrowError("mainActions should be maximun three buttons");
-	});
-
-	it("Should display error when SummaryPageTopComponent has more than three textlinks", () => {
-		expect(() => {
-			render (<SummaryPageTopComponent
-				title={title}
-				favorite={true}
-				imageSrc={imageSrc}
-				mainActions={mainActions}
-				aditionalActions={aditionalActions}
-				contextTexts={contextTexts}
-				textLinks={largeTextLinks}
-				filterSingleSelect={filterSingleSelect}
-			/>)
-		}).toThrowError("textLinks should be maximun three links");
-	});
-})
+});

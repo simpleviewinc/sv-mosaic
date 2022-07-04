@@ -3,8 +3,7 @@ import { ReactElement, useState } from "react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { ButtonProps } from "../Button";
-import { FilterSingleSelectProps } from "../FilterSingleSelect";
-import { Mail, Edit, Public } from "@material-ui/icons";
+import { Mail, Edit, Public } from "@mui/icons-material";
 import { MenuItemProps } from "../MenuItem";
 
 // Components
@@ -16,42 +15,42 @@ export default {
 } as Meta;
 
 export const Example = (): ReactElement => {
-	
-	const title = text("Title", "Laudantium est optio voluptas")
-	const contextText = text("Context text", "Example of a very long text information")
-	const imageSrc = text("Image src", "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg")
-	const favorite = boolean("favorite", true)
-	const showMainActions = boolean("Main actions", true)
-	const showAditionalActions = boolean("Aditional actions", true)
-	const showContexts = boolean("Context texts", true)
-	const showTextLinks = boolean("Text links", true)
-	const showFilterSingleSelect = boolean("FilterSingleSelect", true)
+	const [checked, setChecked] = useState<boolean>(false);
+
+	const title = text("Title", "Laudantium est optio voluptas");
+	const img = boolean("Image", false);
+	const showFavorite = boolean("Show star", true);
+	const showMainActions = boolean("Main actions", true);
+	const showAdditionalActions = boolean("Aditional actions", true);
+	const showDescription = boolean("Description", true);
+	const showTextLinks = boolean("Text links", true);
+	const showFilter = boolean("Filter", true);
 	
 	const mainActions: ButtonProps[] = [
 		{
 			label: "Button 1",
 			mIcon: Mail,
-			onClick: () => alert("Click"),
+			onClick: () => alert("Button 1 Click"),
 			color: "black",
 			variant: "text"
 		},
 		{
 			label: "Button 2",
 			mIcon: Mail,
-			onClick: () => alert("Click"),
+			onClick: () => alert("Button 2 Click"),
 			color: "black",
 			variant: "text"
 		},
 		{
-			label: "Edit",
+			label: "Button 3",
 			mIcon: Edit,
-			onClick: () => alert("Click"),
+			onClick: () => alert("Button 3 Click"),
 			color: "black",
 			variant: "text"
 		},
-	]
+	];
 
-	const aditionalActions: MenuItemProps[] = [
+	const additionalActions: MenuItemProps[] = [
 		{
 			label : "Edit",
 			onClick : function() {
@@ -66,84 +65,64 @@ export const Example = (): ReactElement => {
 		}
 	];
 
-	const textLinks: ButtonProps[] = [
+	const textLinks = [
 		{
 			label: "Text link",
-			color: "black",
-			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: ()=> console.log("click"),
 		},
 		{
 			label: "Text link",
-			color: "black",
-			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: ()=> console.log("click"),
 		},
 		{
 			label: "Text link",
-			color: "black",
-			variant: "text",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: ()=> console.log("click"),
 		},
-	]
+	];
 
-	const contextTexts = ["Information", "Information", contextText]
-
-	const [state, setState] = useState({
-		value : undefined
-	});
-
-	const required = false;
+	const descriptionTexts = ["Information", "Information", "Example of a very long text information"];
 
 	const options = [
 		{ label : "Option A", value : "a" },
 		{ label : "Option B", value : "b" },
 		{ label : "Option C", value : "c" },
 		{ label : "Option D", value : "d" }
-	]
+	];
 
-	const onChange = function(data) {
-		setState(data);
-	}
-
-	const onRemove = () => undefined;
-
-	const getOptions = function() {
+	const getOptions = () => {
 		return {
 			docs : options,
 			hasMore : false
 		}
 	}
 
-	const getSelected = function(id) {
+	const getSelected = (id) => {
 		return options.filter(val => val.value === id)[0];
 	}
 
-	const filterSingleSelect: FilterSingleSelectProps = {
-		type: "primary",
+	const filter = {
 		label: "Testing",
-		data: state,
-		args: { getOptions, getSelected, required, color: "teal" },
-		onRemove: onRemove,
-		onChange: onChange
+		args: { getOptions, getSelected, required: false },
+	}
+
+	const favorite = {
+		checked: checked,
+		onClick: (val) => {alert(`Star changed to ${val ? "checked" : "unchecked"}`); setChecked(val);},
 	}
 
 	return (
 		<SummaryPageTopComponent
 			title={title}
-			favorite={favorite}
-			imageSrc={imageSrc}
+			favorite={showFavorite && favorite}
+			img={img && "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg"}
 			mainActions={showMainActions && mainActions}
-			aditionalActions={showAditionalActions && aditionalActions}
-			contextTexts={showContexts && contextTexts}
+			additionalActions={showAdditionalActions && additionalActions}
+			descriptionTexts={showDescription && descriptionTexts}
 			textLinks={showTextLinks && textLinks}
-			filterSingleSelect={showFilterSingleSelect && filterSingleSelect}
+			filter={showFilter && filter}
 		/>
 	);
 };

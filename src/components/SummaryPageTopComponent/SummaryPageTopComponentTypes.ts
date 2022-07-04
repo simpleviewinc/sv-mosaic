@@ -10,11 +10,14 @@ export interface SummaryPageTopComponentTypes {
     /**
 	 * Mandatory favorite to show favorite icon or no favorite icon.
 	 */
-    favorite: boolean;
+	favorite: {
+		checked: boolean;
+		onClick: (checked: boolean) => void;
+	};
     /**
 	 * Optional src to show an image.
 	 */
-    imageSrc?: string;
+    img?: string;
     /**
 	 * Optional array of buttons, max three items.
 	 */
@@ -22,17 +25,27 @@ export interface SummaryPageTopComponentTypes {
     /**
 	 * Optional array of buttons, could have infinite items.
 	 */
-    aditionalActions?: MenuItemProps[];
+    additionalActions?: MenuItemProps[];
     /**
 	 * Optional array of strings.
 	 */
-    contextTexts?: string[];
+    descriptionTexts?: string[];
     /**
 	 * Optional array of buttons, max three items.
 	 */
-    textLinks?: ButtonProps[];
+    textLinks?: {
+		label: string;
+		mIcon?: ButtonProps["mIcon"];
+		href: ButtonProps["href"];
+		onClick?: ButtonProps["onClick"];
+	}[];
     /**
 	 * Optional button.
 	 */
-    filterSingleSelect: FilterSingleSelectProps;
+    filter: {
+		label: string;
+		args: FilterSingleSelectProps["args"];
+		//probably will also require the data/value prop;
+		defaultValue?: any;
+	};
   }

@@ -1,10 +1,9 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { SummaryPageTopComponentTypes } from ".";
-import StarBorder from "@mui/icons-material/StarBorderRounded";
 import MoreVert from "@mui/icons-material/MoreVert";
 import { 
-	SumaryPageTopComponentStyle,
+	StyledSummaryPageTopComponent,
 	Container,
 	Row,
 	Title,
@@ -12,8 +11,8 @@ import {
 	Item,
 	ContextText,
 	ContainerTitle,
-	ContainerFilterSingleSelect,
-	StarRateRoundedSimplyGold
+	CheckedStar,
+	UncheckedStar,
 } from "./SummaryPageTopComponent.styled";
 
 // Components
@@ -22,41 +21,67 @@ import Button from "../Button";
 import FilterSingleSelect from "../FilterSingleSelect";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
+	const {
+		title,
+		favorite,
+		img,
+		mainActions,
+		additionalActions,
+		descriptionTexts,
+		textLinks,
+		filter,
+	} = props;
 
 	/**
-	 * Throws an error if developer send more than three elements in props.mainActions.
+	 * Throws an error if developer send more than three elements in mainActions.
 	*/
-	if (props.mainActions?.length > 3) throw new Error("mainActions should be maximun three buttons")
+	if (mainActions?.length > 3) throw new Error("mainActions prop must receive 3 elements or less.");
 
 	/**
-	 * Throws an error if developer send more than three elements in props.textLinks.
+	 * Throws an error if developer send more than three elements in textLinks.
 	*/
-	if (props.textLinks?.length > 3) throw new Error("textLinks should be maximun three links")
+	if (textLinks?.length > 3) throw new Error("textLinks prop must receive 3 elements or less.");
+
+	const [state, setState] = useState({
+		value : filter.defaultValue ? filter.defaultValue : undefined
+	});
+
+	const onChange = function(data) {
+		setState(data);
+	}
+
+	const onRemove = () => undefined;
 
 	return (
-		<SumaryPageTopComponentStyle>
+		<StyledSummaryPageTopComponent>
 			{
-				props.imageSrc &&
+				img &&
 					<Image
-						className="img_rounded"
-						src={props.imageSrc}
+						className="img-rounded"
+						src={img}
 					/>
 			}
 			<Container>
-				<Row className="row-title">
+				<Row>
 					<ContainerTitle>
 						<Title>
-							{props.title}
+							{title}
 						</Title>
 						{
-							props.favorite ? <StarRateRoundedSimplyGold onClick={() => alert("Star clicked")}/>
-							: <StarBorder onClick={() => alert("Star clicked")} />
+							favorite && 
+								<>
+									{
+										favorite?.checked ?
+											<CheckedStar className="favorite-icon" onClick={() => favorite.onClick(false)}/>
+											:
+											<UncheckedStar className="favorite-icon" onClick={() => favorite.onClick(true)} />
+									}
+								</>
 						}
 					</ContainerTitle>
 					<ContainerItems>
 						{
-							props.mainActions &&
-							props.mainActions.map((mainAction, i) => (
+							mainActions?.map((mainAction, i) => (
 								<Item data-testid="btn-main-action" key={i}>
 									<Button
 										attrs={{smallText: true}} 
@@ -71,14 +96,14 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							))
 						}
 						{
-							props.aditionalActions &&
+							additionalActions &&
 							<Item data-testid="btn-aditional-action">
 								<Button
 									color="black" 
 									variant="icon" 
 									label="Edit" 
 									mIcon={MoreVert} 
-									menuItems={props.aditionalActions}
+									menuItems={additionalActions}
 								/>
 							</Item>
 						}
@@ -87,16 +112,14 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 				<Row>
 					<ContainerItems>
 						{
-							props.contextTexts && 
-							props.contextTexts.map((contextText, i) => (
+							descriptionTexts?.map((contextText, i) => (
 								<Item key={i} data-testid="context-text">
 									<ContextText>{contextText}</ContextText>
 								</Item>
 							))
 						}
 						{
-							props.textLinks &&
-							props.textLinks.map((textLink, i) => (
+							textLinks?.map((textLink, i) => (
 								<Item key={i} data-testid="btn-text-link">
 									<Button
 										attrs={{linkButton: true}} 
@@ -113,21 +136,21 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 						}
 					</ContainerItems>
 					{
-						props.filterSingleSelect &&
-						<ContainerFilterSingleSelect data-testid="btn-filterSingleSelect">
+						filter &&
+						<div data-testid="btn-filterSingleSelect">
 							<FilterSingleSelect
-								label="Testing"
+								label={filter.label}
 								type="primary"
-								data={props.filterSingleSelect.data}
-								args={props.filterSingleSelect.args}
-								onRemove={props.filterSingleSelect.onRemove}
-								onChange={props.filterSingleSelect.onChange}
+								data={state}
+								args={{...filter.args, color: "teal"}}
+								onRemove={onRemove}
+								onChange={onChange}
 							/>
-						</ContainerFilterSingleSelect>
+						</div>
 					}
 				</Row>
 			</Container>
-		</SumaryPageTopComponentStyle>
+		</StyledSummaryPageTopComponent>
 	);
 };
 
