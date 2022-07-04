@@ -13,7 +13,7 @@ test.describe("Data View - Pagination", () => {
 		dataviewPage = new DataviewPage(page);
 		pagination = dataviewPage.paginationComponent;
 		columns = dataviewPage.columnsComponent;
-		await dataviewPage.visit();
+		await dataviewPage.visitPage();
 	});
 
 	test("Select result per page - Value by default", async () => {

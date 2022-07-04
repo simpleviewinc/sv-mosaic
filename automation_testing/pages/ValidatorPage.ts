@@ -49,9 +49,8 @@ export class ValidatorPage extends Pages {
 		this.monthCalendar = page.locator("[role='presentation'] .PrivatePickersFadeTransitionGroup-root").nth(0);
 	}
 
-	async visit(): Promise<void> {
-		await this.page.goto(url("validator"), { timeout: 900000 });
-		await this.title.waitFor();
+	async visitPage(): Promise<void> {
+		await this.visit("validator", this.title);
 	}
 
 	async getDateIcon(field: Locator): Promise<Locator> {
