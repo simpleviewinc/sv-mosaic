@@ -16,8 +16,12 @@ export const FormContent = styled.div`
 export const ButtonsWrapper = styled.div`
   display: flex;
 
-  button:first-child {
+	.button {
     margin-right: 20px;
+  }
+
+  .button:last-child {
+    margin-right: 0px;
   }
 `;
 

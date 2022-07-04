@@ -1,8 +1,9 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import { memo, ReactElement, useMemo } from "react";
 
 // Components
 import FormNav from "@root/forms/FormNav";
+import Button from "@root/components/Button";
 
 // Styled components
 import styled from "styled-components";
@@ -16,6 +17,7 @@ import {
 import { BREAKPOINTS } from "@root/theme/theme";
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
@@ -49,7 +51,6 @@ const DesktopTitleActionsRow = styled(FlexContainer)`
 `;
 
 type DesktopViewProps = {
-	buttons: JSX.Element;
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
@@ -59,13 +60,17 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 		title,
 		description,
 		tooltipInfo,
+		buttons,
 		helpIcon,
 		showActive,
-		buttons,
 		sections,
 		checkbox,
 		view,
 	} = props;
+
+	const filteredButtons = useMemo(() => (
+		buttons?.filter(button => filterAction(button))
+	) ,[buttons]);
 
 	return (
 		<DesktopViewColumn>
@@ -78,7 +83,9 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 				<DesktopActionsRow>
 					{tooltipInfo && helpIcon}
 					{showActive && checkbox}
-					{buttons}
+					{filteredButtons && filteredButtons.map((button, idx) => (
+						<Button key={`${button.label}-${idx}`} {...button}/>
+					))}
 				</DesktopActionsRow>
 			</DesktopTitleActionsRow>
 			{(view !== "BIG_DESKTOP" && sections) && (

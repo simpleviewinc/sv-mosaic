@@ -7,13 +7,14 @@ import {
 	waitFor
 } from "@testing-library/react";
 import * as React from "react";
-import { ReactElement, useCallback, useMemo } from "react";
-import { useForm } from "../Form/formUtils";
+import { ReactElement, useMemo } from "react";
+import { useForm, formActions } from "../Form";
 
 // Components
 import AddressCard from "./AddressCard";
 import Form from "../Form/Form";
 import { IAddress } from ".";
+import { ButtonProps } from "@root/components/Button";
 
 const address: IAddress = {
 	id: 1,
@@ -38,30 +39,32 @@ export const AddressFormFieldExample = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		registerFields,
-		registerOnSubmit
+		registerFields
 	} = useForm();
 
 	useMemo(() => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		data => {
-			alert(
-				"Form submitted with the following data: " +
-					JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
+	const onSubmit = async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+	
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+	};
 
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	return (
 		<Form
+			buttons={buttons}
 			title="Title"
 			description="Description"
 			state={state}

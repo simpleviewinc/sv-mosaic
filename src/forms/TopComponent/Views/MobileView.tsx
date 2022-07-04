@@ -1,20 +1,20 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
-
-// Styled components
+import { memo, ReactElement, useMemo } from "react";
 import styled from "styled-components";
+
+// Components
+import ClearIcon from "@mui/icons-material/Clear";
+import Button from "@root/components/Button";
+import TitleWrapper from "../Utils/TitleWrapper";
 import {
 	CheckboxWrapper,
 	Row,
 } from "../TopComponent.styled";
 
-// MUI
-import ClearIcon from "@mui/icons-material/Clear";
-
 // Utils
 import theme from "@root/theme/theme";
-import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
 const MobileActionsRow = styled(Row)`
   background-color: ${theme.colors.gray200};
@@ -23,6 +23,14 @@ const MobileActionsRow = styled(Row)`
   position: -webkit-sticky;
   top: 0;
   z-index: 1000;
+
+	.button {
+    margin-right: 20px;
+  }
+
+  .button:last-child {
+    margin-right: 0px;
+  }
 
   svg {
     align-self: center;
@@ -39,14 +47,13 @@ const MobileCheckboxHelpIconRow = styled(Row)`
 
 type MobileViewProps = {
 	onCancel: TopComponentProps["onCancel"];
-	submitButton: JSX.Element;
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
 
 const MobileView = (props: MobileViewProps): ReactElement => {
 	const {
+		buttons,
 		onCancel,
-		submitButton,
 		title,
 		description,
 		showActive,
@@ -56,11 +63,21 @@ const MobileView = (props: MobileViewProps): ReactElement => {
 		view,
 	} = props;
 
+	const filteredButtons = useMemo(() => (
+		buttons?.filter(button => filterAction(button))
+	) ,[buttons]);
+
 	return (
 		<>
 			<MobileActionsRow>
 				<StyledClearIcon onClick={onCancel} />
-				{submitButton}
+				{filteredButtons && (
+					<div>
+						{filteredButtons.map((button, idx) => (
+							<Button key={`${button.label}-${idx}`} {...button} />
+						))}
+					</div>
+				)}
 			</MobileActionsRow>
 			<TitleWrapper
 				title={title}

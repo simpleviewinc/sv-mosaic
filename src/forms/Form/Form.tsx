@@ -13,6 +13,7 @@ import Dialog from "../../components/Dialog/Dialog";
 
 const Form = (props: FormProps) => {
 	const {
+		buttons,
 		type,
 		state,
 		title,
@@ -23,8 +24,6 @@ const Form = (props: FormProps) => {
 		dialogOpen,
 		description,
 		getFormValues,
-		cancelButtonAttrs,
-		submitButtonAttrs,
 		handleDialogClose,
 	} = props;
 
@@ -58,13 +57,6 @@ const Form = (props: FormProps) => {
 		loadFormValues();
 	}, [getFormValues]);
 
-	const submit = async (e) => {
-		e.preventDefault();
-		await dispatch(
-			formActions.submitForm()
-		);
-	}
-
 	const cancel = async (e) => {
 		e.preventDefault();
 		onCancel && (await onCancel());
@@ -82,12 +74,10 @@ const Form = (props: FormProps) => {
 							title={title}
 							type={type}
 							description={description}
-							onSubmit={(e) => submit(e)}
-							submitButtonAttrs={submitButtonAttrs}
 							onCancel={onCancel ? (e) => cancel(e) : null}
-							cancelButtonAttrs={cancelButtonAttrs}
 							sections={sections}
 							view={view}
+							buttons={buttons}
 						/>
 					}
 					{view === "BIG_DESKTOP" ? (
