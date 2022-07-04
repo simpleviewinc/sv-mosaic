@@ -128,7 +128,7 @@ const filter_data = {
 	categoryFilterMoreThanTwoNumber: 16
 }
 
-const advance_filter_data = {
+const advanced_filter_data = {
 	searchedTitleSimple: "Ada",
 	searchedTitle: "Ada Village",
 	createdFilterResults: 20,
@@ -141,4 +141,4 @@ const advance_filter_data = {
 	noResults: "No results were found."
 }
 
-export { dataview_data, saveAs_data, columns_data, filter_data, advance_filter_data };
+export { dataview_data, saveAs_data, columns_data, filter_data, advanced_filter_data };
