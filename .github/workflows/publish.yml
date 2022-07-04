@@ -1,0 +1,15 @@
+# This workflow publishes to npm when the version has changed
+name: Publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./actions_setup
+      - run: npm run conditional-publish

@@ -1,0 +1,18 @@
+name: "Setup VM"
+runs:
+  using: "composite"
+  steps:
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'npm'
+    - name: setup yarn
+      run: corepack enable && yarn set version 3.1.1
+      shell: bash
+    - run: yarn install --no-immutable
+      shell: bash
+    - run: |
+        sudo apt-get update
+        sudo apt-get -y install gettext-base jq
+      shell: bash

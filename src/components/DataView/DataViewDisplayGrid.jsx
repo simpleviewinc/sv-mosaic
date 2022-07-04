@@ -4,12 +4,16 @@ import styled from "styled-components";
 
 import Checkbox from "../Checkbox";
 import DataViewActionsButtonRow from "./DataViewActionsButtonRow";
-import theme from "../../utils/theme.js";
+import theme, { BREAKPOINTS } from "@root/theme/theme";
 import DataViewBulkActionsButtonsRow from "./DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "./DataViewDisplayGridSortControl";
 import { transformRows } from "../../utils/dataViewTools";
 
 import DataViewBulkAllBar from "./DataViewBulkAllBar";
+
+const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
+const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
+const MOBILE_BREAKPOINT = BREAKPOINTS.mobile + "px";
 
 const StyledDiv = styled.div`
 	& > .topRow {
@@ -30,9 +34,29 @@ const StyledDiv = styled.div`
 
 	& > .grid {
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(1, 1fr);
 		grid-column-gap: 8px;
 		grid-row-gap: 20px;
+
+		@media (min-width: ${MOBILE_BREAKPOINT}) {
+			grid-template-columns: repeat(2, 1fr);
+		};
+
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		};
+
+		@media (min-width: ${RESPONSIVE_BREAKPOINT}) {
+			grid-template-columns: repeat(4, 1fr);
+		};
+
+		@media (min-width: 1296px) {
+			grid-template-columns: repeat(5, 1fr);
+		};
+
+		@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+			grid-template-columns: repeat(6, 1fr);
+		}
 	}
 	
 	& > .grid > .cell {

@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+should_publish=$(node ./src/should-publish.js)
+
+if [ $should_publish == "true" ]; then
+    echo "Publishing version"
+    npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+
+    npm run build
+
+    npm publish --access public
+
+    # publish types-only repo
+    cd types-only
+    npm publish --access public
+else
+    echo "Version already published."
+fi

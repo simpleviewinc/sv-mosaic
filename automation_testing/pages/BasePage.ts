@@ -6,16 +6,22 @@ export class BasePage {
 	readonly page: Page;
 	readonly loading: Locator;
 	readonly title: Locator;
+	readonly applyBtn: Locator;
+	readonly clearBtn: Locator;
+	readonly cancelBtn: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
 		this.title = page.locator("//*[@id='root']/div/form/div[1]/div[1]/div[1]/span[1]");
+		this.applyBtn = page.locator("text=Apply");
+		this.clearBtn = page.locator("text=Clear");
+		this.cancelBtn = page.locator("text=Cancel");
 	}
 
-	async visit(componentUrl:string): Promise<void> {
-		await this.page.goto(url(componentUrl), { timeout: 900000 });
-		await this.title.waitFor();
+	async visit(page: string, element: Locator): Promise<void> {
+		await this.page.goto(url(page), { timeout: 900000 });
+		await element.waitFor();
 	}
 
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
@@ -26,7 +32,7 @@ export class BasePage {
 	}
 
 	async wait(): Promise<void> {
-		await this.page.waitForTimeout(1000);
+		await this.page.waitForTimeout(500);
 	}
 
 	async setDialogValidationListener(message: string): Promise<void> {
@@ -36,4 +42,7 @@ export class BasePage {
 		});
 	}
 
-} 
+	async waitForElementLoad(): Promise<void> {
+		await this.loading.waitFor({ state: "detached" });
+	}
+}
