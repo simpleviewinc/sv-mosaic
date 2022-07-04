@@ -71,6 +71,7 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 				type={props.type}
 				onRemove={props.onRemove}
 				onClick={onClick}
+				color={props.args.color}
 			/>
 			
 			<FilterSingleSelectContent
