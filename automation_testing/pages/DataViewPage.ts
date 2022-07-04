@@ -1,15 +1,19 @@
+import { Pages } from "../pages/Pages";
 import { expect, Locator, Page } from "@playwright/test";
-import { url } from "../utils/formUrls";
+import { AdvancedFiltersComponent } from "./AdvancedFiltersComponent";
 import { ColumnsComponent } from "./ColumnsComponent";
+import { FilterComponent } from "./FilterComponent";
 import { PaginationComponent } from "./PaginationComponent";
 import { SaveAsComponent } from "./SaveAsComponent";
 
-export class DataviewPage {
+export class DataviewPage extends Pages {
 
 	readonly page: Page;
 	readonly saveAsComponent: SaveAsComponent;
 	readonly paginationComponent: PaginationComponent;
 	readonly columnsComponent: ColumnsComponent;
+	readonly filterComponent: FilterComponent;
+	readonly advancedFilterComponent: AdvancedFiltersComponent;
 	readonly createNewBtn: Locator;
 	readonly dialog: Page;
 	readonly editIcon: Locator;
@@ -22,14 +26,17 @@ export class DataviewPage {
 	readonly deleteBtn: Locator;
 	readonly allSelectedLabel: Locator;
 	readonly dataviewTable: Locator;
-	readonly loading: Locator;
 	readonly columnHeaders: Locator;
+	readonly noResults: Locator;
 
 	constructor(page: Page) {
+		super(page);
 		this.page = page;
 		this.saveAsComponent = new SaveAsComponent(page);
 		this.paginationComponent = new PaginationComponent(page);
 		this.columnsComponent = new ColumnsComponent(page);
+		this.filterComponent = new FilterComponent(page);
+		this.advancedFilterComponent = new AdvancedFiltersComponent(page);
 		this.createNewBtn = page.locator("[data-mosaic-id=button_create]");
 		this.editIcon = page.locator("[data-mosaic-id=action_primary_edit] button");
 		this.moreOptions = page.locator("[data-mosaic-id='additional_actions_dropdown'] button");
@@ -41,20 +48,12 @@ export class DataviewPage {
 		this.deleteBtn = page.locator("//*[@id='root']/div/div/div[3]/table/thead/tr[1]/th[2]/span/span[2]/button");
 		this.allSelectedLabel = page.locator(".bulkText");
 		this.dataviewTable = page.locator("table tbody");
-		this.loading = page.locator("div.loading");
 		this.columnHeaders = page.locator(".columnHeader");
+		this.noResults = page.locator("div.noResults");
 	}
 
-	async visit(): Promise<void> {
-		await this.page.goto(url("dataview"), { timeout: 900000 });
-		await this.title.waitFor();
-	}
-
-	async validateSnapshot(component: Locator, name: string): Promise<void> {
-		await component.waitFor({ state: "visible" });
-		await component.waitFor({ state: "attached" });
-		await this.loading.waitFor({ state: "detached" });
-		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 })
+	async visitPage(): Promise<void> {
+		await this.visit("dataview", this.title);
 	}
 
 	async setDialogValidationListener(message: string): Promise<void> {
@@ -89,6 +88,7 @@ export class DataviewPage {
 
 	async getTableRows(): Promise<Locator> {
 		await this.dataviewTable.waitFor({ state: "visible" });
+		await this.loading.waitFor({ state: "detached" });
 		return this.dataviewTable.locator("tr");
 	}
 
@@ -97,10 +97,12 @@ export class DataviewPage {
 	}
 
 	async getRowTitles(): Promise<string[]> {
+		await this.dataviewTable.waitFor({ state: "visible" });
+		await this.loading.waitFor({ state: "detached" });
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
 		for (const row of rows) {
-			titles.push((await (await row.$("td:nth-child(4)")).textContent()).toLowerCase());
+			titles.push(((await (await row.$("td:nth-child(4)")).textContent()).toLowerCase()));
 		}
 		return titles;
 	}
@@ -142,5 +144,75 @@ export class DataviewPage {
 			await this.loading.waitFor({ state: "detached" });
 		}
 		return createdDates;
+	}
+
+	async validateContainsKeyword(titles: string[], keyword: string): Promise<void> {
+		for (const title of titles) {
+			expect(title.toLowerCase()).toContain(keyword.toLowerCase());
+		}
+	}
+
+	async validateContainsMoreThanOneKeyword(titles: string[], keywords: string[]): Promise<void> {
+		for (const title of titles) {
+			let isContaining;
+			for (const keyword of keywords) {
+				isContaining = false;
+				if (title.toLowerCase().includes(keyword.toLowerCase())) {
+					isContaining = true;
+				}
+			}
+			expect(isContaining, `Expected contains: '${keywords.toString()}' but was '${title}'`).toBe(true);
+		}
+	}
+
+	async getRowCategories(): Promise<string[]> {
+		const rows = await (await this.getTableRows()).elementHandles();
+		const titles = [];
+		for (const row of rows) {
+			titles.push((await (await row.$("td:nth-child(5)")).textContent()));
+		}
+		return titles;
+	}
+
+	async getAllRowCategories(resultsPerPage: number): Promise<string[]> {
+		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
+		const titles = [];
+		for (let i = 0; i < pages; i++) {
+			titles.push(...(await this.getRowCategories()));
+			await this.paginationComponent.forwardArrow.click();
+			await this.loading.waitFor({ state: "detached" });
+		}
+		return titles;
+	}
+
+	async getCategoriesFromRow(): Promise<string[]> {
+		await this.dataviewTable.waitFor({ state: "visible" });
+		await this.loading.waitFor({ state: "detached" });
+		const rows = await this.dataviewTable.locator("tr").elementHandles();
+		const categoriesPerRow = [];
+		for (const row of rows) {
+			categoriesPerRow.push(await (await row.$("td:nth-child(5)")).textContent());
+		}
+		return categoriesPerRow;
+	}
+
+	async getUpdatedCreated(): Promise<string[]> {
+		const rows = await (await this.getTableRows()).elementHandles();
+		const createdDates = [];
+		for (const row of rows) {
+			createdDates.push((await (await row.$("td:nth-child(7)")).textContent()).toLowerCase());
+		}
+		return createdDates;
+	}
+
+	async getAllRowUpdated(resultsPerPage: number): Promise<string[]> {
+		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
+		const updatedDates = [];
+		for (let i = 0; i < pages; i++) {
+			updatedDates.push(...(await this.getUpdatedCreated()));
+			await this.paginationComponent.forwardArrow.click();
+			await this.loading.waitFor({ state: "detached" });
+		}
+		return updatedDates;
 	}
 }

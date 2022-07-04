@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { ColumnsComponent } from "../../pages/ColumnsComponent";
 import { DataviewPage } from "../../pages/DataViewPage";
-import { dataview } from "../../utils/data/dataview_data";
+import { dataview_data } from "../../utils/data/dataview_data";
 
 test.describe("Data View", () => {
 	let dataviewPage: DataviewPage;
@@ -11,7 +11,7 @@ test.describe("Data View", () => {
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
 
-		await dataviewPage.visit();
+		await dataviewPage.visitPage();
 	});
 
 	test("Create New", async () => {
@@ -21,12 +21,14 @@ test.describe("Data View", () => {
 	});
 
 	test("Edit Icon", async () => {
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowEditIcon(), "edit_icon");
 		await dataviewPage.setDialogValidationListener("EDIT");
 		await (await dataviewPage.getFirstRowEditIcon()).click();
 	});
 
 	test("View Children", async () => {
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowMoreOptions(), "more_options");
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
 
@@ -38,6 +40,7 @@ test.describe("Data View", () => {
 
 	test("History", async () => {
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(dataviewPage.history, "history");
 
 		await dataviewPage.setDialogValidationListener("History");
@@ -46,6 +49,7 @@ test.describe("Data View", () => {
 
 
 	test("Select A Record", async () => {
+		await dataviewPage.wait();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowCheckbox(), "checkbox");
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowCheckbox(), "checkbox_checked");
@@ -75,7 +79,7 @@ test.describe("Data View", () => {
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
-		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
+		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 	});
 
 	test("Delete all records", async () => {
@@ -85,7 +89,7 @@ test.describe("Data View", () => {
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
-		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
+		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await dataviewPage.deleteBtn.click();
 
@@ -99,7 +103,7 @@ test.describe("Data View", () => {
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
-		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview.allSelectedLabelMsg);
+		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await dataviewPage.downloadBtn.click();
 	});

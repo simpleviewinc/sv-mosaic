@@ -1,6 +1,7 @@
+import { Pages } from "../pages/Pages";
 import { expect, Locator, Page } from "@playwright/test";
 
-export class SaveAsComponent {
+export class SaveAsComponent extends Pages {
 	readonly page: Page;
 	readonly saveAsBtn: Locator;
 	readonly saveAsOptions: Locator;
@@ -18,6 +19,7 @@ export class SaveAsComponent {
 	readonly overwriteBtn: Locator;
 
 	constructor(page: Page) {
+		super(page);
 		this.page = page;
 		this.saveAsBtn = page.locator("text=Save As");
 		this.saveAsOptions = page.locator("ul.MuiList-padding");
