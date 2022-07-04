@@ -3,7 +3,7 @@ import { LeftNavPage } from "../../pages/leftNav/LeftNavPage";
 import { leftnav_data } from "../../utils/data/left_nav_data";
 
 
-test.describe("Form - Validators", () => {
+test.describe("LeftNav", () => {
 	let leftNavPage: LeftNavPage;
 
 	test.beforeEach(async ({ page }) => {
