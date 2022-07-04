@@ -1,0 +1,17 @@
+# This workflow publishes the current storybook content to the gh-pages branch
+name: Storybook
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./actions_setup
+      - run: yarn run build:storybook
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
