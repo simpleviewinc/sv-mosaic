@@ -6,9 +6,6 @@ export class FilterComponent extends Pages {
 	readonly page: Page;
 	readonly keywordBtn: Locator;
 	readonly keywordInput: Locator;
-	readonly applyBtn: Locator;
-	readonly clearBtn: Locator;
-	readonly cancelBtn: Locator;
 	readonly categoryBtn: Locator;
 	readonly categoryKeywordInput: Locator;
 	readonly categoryItems: Locator;
@@ -21,17 +18,12 @@ export class FilterComponent extends Pages {
 		this.page = page;
 		this.keywordBtn = page.locator(".variant_text button").nth(0);
 		this.keywordInput = page.locator("input[value='']");
-		this.applyBtn = page.locator("text='Apply'");
-		this.clearBtn = page.locator("text='Clear'");
-		this.cancelBtn = page.locator("text='Cancel'");
 		this.categoryBtn = page.locator(".variant_text button").nth(1);
 		this.categoryKeywordInput = page.locator("input[type='text']");
 		this.categoryItems = page.locator(".listItem label");
 		this.checkbox = "input[type='checkbox']";
 		this.selectedOptions = page.locator(".chips div");
 		this.loadMoreBtn = page.locator(".loadContainer [type='button']");
-
-
 	}
 
 	async getKeywordText(): Promise<string> {

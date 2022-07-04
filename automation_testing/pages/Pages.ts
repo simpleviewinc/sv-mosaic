@@ -4,10 +4,16 @@ export class Pages {
 
 	readonly page: Page;
 	readonly loading: Locator;
+	readonly applyBtn: Locator;
+	readonly clearBtn: Locator;
+	readonly cancelBtn: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
+		this.applyBtn = page.locator("text=Apply");
+		this.clearBtn = page.locator("text=Clear");
+		this.cancelBtn = page.locator("text=Cancel");
 	}
 
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
@@ -18,7 +24,7 @@ export class Pages {
 	}
 
 	async wait(): Promise<void> {
-		await this.page.waitForTimeout(1000);
+		await this.page.waitForTimeout(500);
 	}
 
 	async setDialogValidationListener(message: string): Promise<void> {
@@ -26,5 +32,9 @@ export class Pages {
 			expect(dialog.message()).toContain(message);
 			dialog.accept();
 		});
+	}
+
+	async waitForElementLoad(): Promise<void> {
+		await this.loading.waitFor({ state: "detached" });
 	}
 }
