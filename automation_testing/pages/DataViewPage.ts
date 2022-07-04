@@ -1,6 +1,5 @@
 import { Pages } from "../pages/Pages";
 import { expect, Locator, Page } from "@playwright/test";
-import { url } from "../utils/formUrls";
 import { AdvancedFiltersComponent } from "./AdvancedFiltersComponent";
 import { ColumnsComponent } from "./ColumnsComponent";
 import { FilterComponent } from "./FilterComponent";
@@ -53,9 +52,8 @@ export class DataviewPage extends Pages {
 		this.noResults = page.locator("div.noResults");
 	}
 
-	async visit(): Promise<void> {
-		await this.page.goto(url("dataview"), { timeout: 900000 });
-		await this.title.waitFor();
+	async visitPage(): Promise<void> {
+		await this.visit("dataview", this.title);
 	}
 
 	async setDialogValidationListener(message: string): Promise<void> {
