@@ -11,7 +11,7 @@ test.describe("Data View", () => {
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
 
-		await dataviewPage.visit();
+		await dataviewPage.visitPage();
 	});
 
 	test("Create New", async () => {

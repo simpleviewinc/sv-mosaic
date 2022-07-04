@@ -46,5 +46,8 @@ const isACorrentDateRange = (dates: string[], start: string, end: string): strin
 	return incorrectRange;
 }
 
+const randomNumber = (max: number): number => {
+	return Math.floor(Math.random() * (max - 0 + 1) + 0);
+}
 
-export { sortDatesAsc, sortDatesDesc, randomIntFromInterval, getMonthFromString, addQuotes, addComma, isACorrentDateRange }
+export { sortDatesAsc, sortDatesDesc, randomIntFromInterval, getMonthFromString, addQuotes, addComma, isACorrentDateRange, randomNumber }

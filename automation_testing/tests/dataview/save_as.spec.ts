@@ -18,7 +18,7 @@ test.describe("Data View - Save As", () => {
 		pagination = dataviewPage.paginationComponent;
 		columns = dataviewPage.columnsComponent;
 
-		await dataviewPage.visit();
+		await dataviewPage.visitPage();
 	});
 
 	test("Save As", async () => {

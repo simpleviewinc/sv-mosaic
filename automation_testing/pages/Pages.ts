@@ -1,4 +1,5 @@
 import { expect, Page, Locator } from "@playwright/test";
+import { url } from "../utils/formUrls";
 
 export class Pages {
 
@@ -14,6 +15,11 @@ export class Pages {
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("text=Cancel");
+	}
+
+	async visit(page: string, element: Locator): Promise<void> {
+		await this.page.goto(url(page), { timeout: 900000 });
+		await element.waitFor();
 	}
 
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
