@@ -10,7 +10,7 @@ test.describe("DataView - Filter", () => {
 	test.beforeEach(async ({ page }) => {
 		dataviewPage = new DataviewPage(page);
 		filter = dataviewPage.filterComponent;
-		await dataviewPage.visit();
+		await dataviewPage.visitPage();
 	});
 
 	test("Filter title with a valid keyword and 1 result", async () => {
