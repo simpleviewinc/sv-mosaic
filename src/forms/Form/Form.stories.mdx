@@ -22,18 +22,17 @@ functionality and not how to make a form work.
 * **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer".
 * **description** - `string` optional - Additional text that will render under the title.
 * **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
-* **cancelButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the cancel button (see [ButtonAttrs type](#buttonattrs-type)).
-* **submitButtonAttrs** - `ButtonAttrs` optional - Additional attributes to change styling and/or functionality of the save button (see [ButtonAttrs type](#buttonattrs-type)).
+* **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type)).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
-- This hook returns a state, a dispatcher, a registerFields and a registerOnSubmit which will be explained in the following subsections.
+- This hook returns a state, a dispatcher, and a registerFields which will be explained in the following subsections.
 
 ```ts
 // We recommend placing the useForm hook at the top of your component.
 const App = (props) => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
+	const { state, dispatch, registerFields } = useForm;
 
 	//...rest of App.tsx
 }
@@ -108,18 +107,27 @@ useMemo(() => {
 }, [fields, registerFields]); //It's recommended to add these as dependencies to re-register if any of them change.
 ```
 
-### RegisterOnSubmit
-This function receives the onSubmit function to be executed once the form is submitted and valid.
-Is mandatory to encapsulate this function inside of a useMemo hook for better performance, the submit function must be inside a useCallback with a dependency of state.validForm in order to actually be called once the form has no errors.
+### Submit
+How the form submission process will be executed is responsible for who is instantiating a Form component and also the definition of the button that will trigger it.
+The submit function should dispatch a form action of type submitForm that will return if the form is valid and also its data which could be handled in any way during the submit process.
+Take a look at the [How to create a form?](#how-to-create-a-form) section for more details.
 
 ```ts
-const onSubmit = useCallback((data) => {
-	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-}, [state.validForm]);
+const onSubmit = useCallback(async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
 
-useMemo(() => {
-	registerOnSubmit(onSubmit);
-}, [onSubmit, registerOnSubmit]); //It's recommended to add these as dependencies to re-register if any of them change.
+		// DO SOMETHING WITH THE DATA
+	}, [dispatch]);
+
+const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained"
+		},
+];
 ```
 
 ## Layout
@@ -183,7 +191,7 @@ When done through this method, the array must be passed down as a prop to the Fo
 import { Form, useForm, formActions } from "sv-mosaic";
 
 const App = (props) => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm;
+	const { state, dispatch, registerFields } = useForm;
 	
 	//...rest of App.tsx
 	const fields = useMemo(
@@ -216,21 +224,37 @@ const App = (props) => {
 		registerFields(fields);
 	}, [fields, registerFields]); //It's recommended to add these as dependencies to re-register if any of them change.
 
-	useMemo(() => {
-		registerOnSubmit(mySubmitFn);
-	}, [mySubmitFn, registerOnSubmit]); //It's recommended to add these as dependencies to re-register if any of them change.
+	const onSubmit = useCallback(async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+
+		// DO SOMETHING WITH THE DATA
+	}, [dispatch]);
+
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained"
+		},
+		{
+			label: "Cancel",
+			onClick: () => { /** Cancel logic **/ },
+			color: "gray",
+			variant: "outlined"
+		},
+	];
 
 	return (
 		<Form
+			buttons={buttons}
 			title="My Form"
 			description="This is a description example"
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
 			getFormValues={onLoad}
-			submitButtonAttrs={{ label: "Save" }}
-			cancelButtonAttrs={{ label: "Cancel" }}
-			onCancel={onCancel}
 		/>
 	);
 }

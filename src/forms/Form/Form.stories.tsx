@@ -28,6 +28,7 @@ import { DropdownSingleSelectionDef } from "../FormFieldDropdownSingleSelection"
 import { FormFieldChipSingleSelectDef } from "../FormFieldChipSingleSelect";
 import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import { TextAreaDef } from "../FormFieldTextArea";
+import { ButtonProps } from "@root/components/Button";
 
 export default {
 	title: "Components/Form",
@@ -125,9 +126,33 @@ const onCancel = () => {
 	alert("Cancelling form, going back to previous site");
 };
 
+const onSubmit = async (dispatch) => {
+	const { valid, data } = await dispatch(formActions.submitForm());
+	if (!valid) return;
+
+	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+};
+
+const renderButtons = (dispatch, show = { showCancel: true, showSave: true }): ButtonProps[] => [
+	{
+		label: "Cancel",
+		onClick: onCancel,
+		color: "gray",
+		variant: "outlined",
+		show: show.showCancel,
+	},
+	{
+		label: "Save",
+		onClick: () => onSubmit(dispatch),
+		color: "yellow",
+		variant: "contained",
+		show: show.showSave
+	},
+];
+
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -137,6 +162,8 @@ export const Playground = (): ReactElement => {
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
 	const prepopulate = boolean("Prepopulate", false);
+	const showSave = boolean("Show SAVE button", true);
+	const showCancel = boolean("Show CANCEL button", true);
 	const required = boolean("Required", true);
 	const disabled = boolean("Disabled", false);
 	const showSections = boolean("Show sections", false);
@@ -513,14 +540,6 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	useEffect(() => {
 		const resetForm = async () => {
 			await dispatch(formActions.resetForm());
@@ -540,9 +559,7 @@ export const Playground = (): ReactElement => {
 				dispatch={dispatch}
 				getFormValues={loadReady && onLoad}
 				sections={showSections && sections}
-				submitButtonAttrs={{ label: text("Submit button", "Save") }}
-				cancelButtonAttrs={{ label: text("Cancel button", "Cancel") }}
-				onCancel={onCancel}
+				buttons={renderButtons(dispatch, { showCancel, showSave })}
 			/>
 		</>
 	);
@@ -679,8 +696,9 @@ export const FormWithLayout = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title={text("Title", "Form Title")}
-				description={text("Description", "This is a description example")}
+				buttons={renderButtons(dispatch)}
+				title="Form Title"
+				description="This is a description example"
 				sections={sections}
 				state={state}
 				fields={fields}
@@ -692,7 +710,7 @@ export const FormWithLayout = (): ReactElement => {
 }
 
 export const PerformanceWithSubmit = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const hundredFields = [];
 
@@ -715,30 +733,22 @@ export const PerformanceWithSubmit = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
 				title='Performance with submit'
-				onCancel={onCancel}
 			/>
 		</>
 	);
 };
 
 export const RuntimeBehaviors = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -771,14 +781,6 @@ export const RuntimeBehaviors = (): ReactElement => {
 		[]
 	);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	useEffect(() => {
 		dispatch(
 			formActions.setFieldValue({
@@ -796,7 +798,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 		dispatch(
 			formActions.setFieldValue({
 				name: "text1",
-				value: "My New Value"
+				value: "test@test.com"
 			})
 		);
 	};
@@ -814,6 +816,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title='Runtime behaviors'
 				state={state}
 				fields={fields}
@@ -834,7 +837,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 };
 
 export const SubmitExternalButtons = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -869,27 +872,11 @@ export const SubmitExternalButtons = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
+	const clickHandler = async () => {
+		const { data } = await dispatch(formActions.submitForm());
+	
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const clickHandler = () => {
-		dispatch(
-			formActions.submitForm()
-		);
-	}
-
-	const submitForm = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(submitForm);
-	}, [submitForm, registerOnSubmit]);
+	};
 
 	return (
 		<>
@@ -907,7 +894,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 };
 
 export const DrawerForm = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const [open, setOpen] = useState(false);
 
@@ -944,27 +931,27 @@ export const DrawerForm = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		setOpen(false);
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	const onCancel = () => {
 		setOpen(false);
 		alert("Cancelling form, going back to previous site");
 	};
 
-	const cancelButtonAttrs = useMemo(() => ({
-		disabled: !!state.data.text1 === false,
-	}), [state.data.text1]);
+	const onDrawerSubmit = async () => {
+		const { data, valid } = await dispatch(formActions.submitForm());
+		if (!valid) return;
 
-	const submitButtonAttrs = useMemo(() => ({
-		label: state?.data?.text2,
-	}), [state.data.text2]);
+		setOpen(false);	
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+	};
+
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onDrawerSubmit,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	return (
 		<>
@@ -974,14 +961,13 @@ export const DrawerForm = (): ReactElement => {
 				onClose={onCancel}
 			>
 				<Form
+					buttons={buttons}
 					title='Drawer form example'
 					type='drawer'
 					state={state}
 					dispatch={dispatch}
 					fields={fields}
 					onCancel={onCancel}
-					cancelButtonAttrs={cancelButtonAttrs}
-					submitButtonAttrs={submitButtonAttrs}
 				/>
 			</Drawer>
 			<button onClick={() => setOpen(true)}>Open drawer</button>
@@ -990,7 +976,7 @@ export const DrawerForm = (): ReactElement => {
 };
 
 export const CustomFields = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
@@ -1002,7 +988,7 @@ export const CustomFields = (): ReactElement => {
 
 	const CustomCheckbox = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return (
-			<>
+			<div>
 				<input
 					type="checkbox"
 					id="vehicle1"
@@ -1012,7 +998,7 @@ export const CustomFields = (): ReactElement => {
 					checked={value === "Bike"}
 				/>
 				<label htmlFor="vehicle1"> I have a bike</label><br />
-			</>
+			</div>
 		)
 	}
 
@@ -1051,14 +1037,6 @@ export const CustomFields = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	const setText1Value = function () {
 		dispatch(
 			formActions.setFieldValue({
@@ -1072,11 +1050,11 @@ export const CustomFields = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title='Custom components'
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 			<div>
 				<button onClick={setText1Value}>Set Text1 Value</button>
@@ -1086,7 +1064,7 @@ export const CustomFields = (): ReactElement => {
 };
 
 export const Validators = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1157,34 +1135,22 @@ export const Validators = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const onCancel = () => {
-		alert("Cancelling form, going back to previous site");
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title='Validators story'
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);
 };
 
 export const DefaultValues = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1204,18 +1170,11 @@ export const DefaultValues = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title='Validators story'
 				state={state}
 				fields={fields}
