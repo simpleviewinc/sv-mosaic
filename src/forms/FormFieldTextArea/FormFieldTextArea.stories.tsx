@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useCallback, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import {
 	boolean,
 	withKnobs,
@@ -7,14 +7,13 @@ import {
 	number,
 	select,
 } from "@storybook/addon-knobs";
+import { TextAreaDef } from ".";
+import { FieldDef } from "@root/components/Field";
+import { useForm, formActions } from "../Form";
+import { ButtonProps } from "@root/components/Button";
 
 // Components
 import Form from "../Form/Form";
-import { TextAreaDef } from ".";
-
-// Helpers
-import { FieldDef } from "@root/components/Field";
-import { useForm } from "../Form/formUtils";
 
 export default {
 	title: "FormFields/FormFieldTextArea",
@@ -25,12 +24,33 @@ const onCancel = () => {
 	alert("Cancelling form, going back to previous site");
 };
 
+const onSubmit = async (dispatch) => {
+	const { valid, data } = await dispatch(formActions.submitForm());
+	if (!valid) return;
+
+	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+};
+
+const renderButtons = (dispatch): ButtonProps[] => [
+	{
+		label: "Save",
+		onClick: () => onSubmit(dispatch),
+		color: "yellow",
+		variant: "contained",
+	},
+	{
+		label: "Cancel",
+		onClick: onCancel,
+		color: "gray",
+		variant: "outlined",
+	},
+];
+
 export const Playground = (): ReactElement => {
 	const {
 		state,
 		dispatch,
 		registerFields,
-		registerOnSubmit,
 	} = useForm();
 
 	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
@@ -77,24 +97,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-          JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}
@@ -182,31 +189,17 @@ export const KitchenSink = (): ReactElement => {
 		state,
 		dispatch,
 		registerFields,
-		registerOnSubmit,
 	} = useForm();
 
 	useMemo(() => {
 		registerFields(kitchenSinkFields);
 	}, [kitchenSinkFields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-          JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title='Form title'
 				description='Form description'
 				state={state}

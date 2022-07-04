@@ -1,7 +1,9 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import { memo, ReactElement, useMemo } from "react";
+import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
 // Components
+import Button from "@root/components/Button";
 import FormNav from "@root/forms/FormNav";
 
 // Styled components
@@ -27,7 +29,6 @@ const ResponsiveActionsRow = styled(Row)`
 `;
 
 type ResponsiveViewProps = {
-	buttons: JSX.Element;
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
@@ -45,6 +46,10 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 		view
 	} = props;
 
+	const filteredButtons = useMemo(() => (
+		buttons?.filter(button => filterAction(button))
+	) ,[buttons]);
+
 	return (
 		<ResponsiveViewColumn>
 			<Row>
@@ -57,7 +62,13 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 			</Row>
 			<ResponsiveActionsRow showActive={showActive}>
 				{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
-				<ButtonsWrapper>{buttons}</ButtonsWrapper>
+				{filteredButtons && (
+					<ButtonsWrapper>
+						{filteredButtons.map((button, idx) => (
+							<Button key={`${button.label}-${idx}`} {...button} />
+						))}
+					</ButtonsWrapper>
+				)}
 			</ResponsiveActionsRow>
 			{sections &&
 				<FormNav sections={sections} />

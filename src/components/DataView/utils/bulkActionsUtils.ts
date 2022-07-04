@@ -1,5 +1,5 @@
 import { isArray } from "lodash";
-
+import { ButtonProps } from "@root/components/Button";
 import { DataViewActionsButtonRowProps } from "../DataViewActionsButtonRow";
 import { DataViewAction, DataViewAdditionalAction, DataViewBulkAction, DataViewBulkActionsButtonsRowProps } from "../DataViewTypes";
 
@@ -8,10 +8,10 @@ type CheckedTrue = { checkedAllPages: true };
 type CheckedFalse = { checkedAllPages: false; data: DataViewBulkActionsButtonsRowProps["data"]};
 type CheckedArgs = CheckedTrue | CheckedFalse;
 
-type FilterActionArgs = RowArgs | CheckedArgs;
-type Action = DataViewAction | DataViewAdditionalAction | DataViewBulkAction;
+type FilterActionArgs = RowArgs | CheckedArgs | { [val: string] : any };
+type Action = DataViewAction | DataViewAdditionalAction | DataViewBulkAction | ButtonProps;
 
-export const filterAction = (action: Action, args: FilterActionArgs): boolean => {
+export const filterAction = (action: Action, args: FilterActionArgs = {}): boolean => {
 	if (action.show === undefined) {
 		return true;
 	} 

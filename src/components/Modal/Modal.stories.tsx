@@ -15,11 +15,9 @@ export default {
 };
 
 export const Example = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const dialogTitle = text("Dialog title", "Dialog title");
-	const primaryBtnLabel = text("Primary button label", "Apply");
-	const secondaryBtnLabel = text("Secondary button label", "Cancel");
 
 	const [open, setOpen] = useState(false);
 
@@ -30,15 +28,6 @@ export const Example = (): ReactElement => {
 	const handleClose = () => {
 		setOpen(false);
 	};
-
-	const primaryAction = () => {
-		alert("The primary button was clicked");
-		setOpen(false);
-	};
-
-	useMemo(() => {
-		registerOnSubmit(primaryAction);
-	}, [primaryAction, registerOnSubmit]);
 
 	const fields = useMemo(
 		() =>
@@ -91,14 +80,6 @@ export const Example = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const submitButtonAttrs = {
-		label: primaryBtnLabel,
-	};
-
-	const cancelButtonAttrs = {
-		label: secondaryBtnLabel,
-	};
-
 	return (
 		<>
 			<Button
@@ -115,8 +96,6 @@ export const Example = (): ReactElement => {
 				title={dialogTitle}
 				open={open}
 				onCancel={handleClose}
-				submitButtonAttrs={submitButtonAttrs}
-				cancelButtonAttrs={cancelButtonAttrs}
 			/>
 		</>
 	);

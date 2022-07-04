@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { i18n, TFunction } from "i18next";
+import { i18n } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import MosaicContext from "../components/MosaicContext";

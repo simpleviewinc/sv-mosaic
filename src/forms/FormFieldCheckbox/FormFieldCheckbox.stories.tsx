@@ -1,16 +1,17 @@
 import * as React from "react";
-import { useMemo, useCallback, ReactElement } from "react";
+import { useMemo, ReactElement } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-
-// Components
+import { ButtonProps } from "@root/components/Button";
 import { FormFieldCheckboxDef } from ".";
 import { FieldDef } from "@root/components/Field";
+
+// Components
 import Form from "../Form/Form";
 
 // Utils
 import { checkboxOptions } from "./FormFieldCheckboxUtils";
-import { useForm } from "../Form/formUtils";
+import { useForm, formActions } from "../Form";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
@@ -21,13 +22,30 @@ const onCancel = () => {
 	alert("Cancelling form, going back to previous site");
 };
 
+const onSubmit = async (dispatch) => {
+	const { valid, data } = await dispatch(formActions.submitForm());
+	if (!valid) return;
+
+	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+};
+
+const renderButtons = (dispatch): ButtonProps[] => [
+	{
+		label: "Save",
+		onClick: () => onSubmit(dispatch),
+		color: "yellow",
+		variant: "contained",
+	},
+	{
+		label: "Cancel",
+		onClick: onCancel,
+		color: "gray",
+		variant: "outlined",
+	},
+];
+
 export const Playground = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit,
-	} = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -58,24 +76,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-          JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}
@@ -125,35 +130,17 @@ const kitchenSinkFields = [
 ] as FieldDef<FormFieldCheckboxDef>[];
 
 export const KitchenSink = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit,
-	} = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	useMemo(() => {
 		registerFields(kitchenSinkFields);
 	}, [kitchenSinkFields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-          JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title='Form Title'
 				description='This is a description example'
 				state={state}

@@ -11,8 +11,6 @@ export interface SectionDef extends Section {
 	children?: ReactNode;
 }
 
-export type ButtonAttrs = Omit<ButtonProps, "color" | "variant">;
-
 export interface FormProps {
 	type?: "drawer";
 	state: any;
@@ -24,7 +22,6 @@ export interface FormProps {
 	dialogOpen?: boolean;
 	description?: string;
 	getFormValues?(): Promise<MosaicObject>;
-	cancelButtonAttrs?: ButtonAttrs;
-	submitButtonAttrs?: ButtonAttrs;
 	handleDialogClose?: (val: boolean) => void;
+	buttons?: ButtonProps[];
 }
