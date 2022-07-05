@@ -1,5 +1,4 @@
 import { Locator, Page } from "@playwright/test";
-import { url } from "../utils/formUrls";
 import { BasePage } from "./BasePage";
 
 export class ValidatorPage extends BasePage {
