@@ -1,7 +1,7 @@
-import { Pages } from "../pages/Pages";
+import { BasePage } from "../pages/BasePage";
 import { expect, Locator, Page } from "@playwright/test";
 
-export class SaveAsComponent extends Pages {
+export class SaveAsComponent extends BasePage {
 	readonly page: Page;
 	readonly saveAsBtn: Locator;
 	readonly saveAsOptions: Locator;
