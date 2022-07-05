@@ -1,4 +1,4 @@
-import { Pages } from "../pages/Pages";
+import { BasePage } from "../pages/BasePage";
 import { expect, Locator, Page } from "@playwright/test";
 import { AdvancedFiltersComponent } from "./AdvancedFiltersComponent";
 import { ColumnsComponent } from "./ColumnsComponent";
@@ -6,7 +6,7 @@ import { FilterComponent } from "./FilterComponent";
 import { PaginationComponent } from "./PaginationComponent";
 import { SaveAsComponent } from "./SaveAsComponent";
 
-export class DataviewPage extends Pages {
+export class DataviewPage extends BasePage {
 
 	readonly page: Page;
 	readonly saveAsComponent: SaveAsComponent;
