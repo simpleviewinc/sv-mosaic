@@ -1,9 +1,9 @@
 import { Locator, Page } from "@playwright/test";
 import { randomIntFromInterval } from "../utils/helpers/helper";
 import { DatePickerComponent } from "./DatePickerComponent";
-import { Pages } from "./Pages";
+import { BasePage } from "./BasePage";
 
-export class AdvancedFiltersComponent extends Pages {
+export class AdvancedFiltersComponent extends BasePage {
 	readonly page: Page;
 	readonly datepicker: DatePickerComponent;
 	//Locators

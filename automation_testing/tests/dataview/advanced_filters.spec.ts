@@ -21,7 +21,7 @@ test.describe("DataView - Advanced Filters", () => {
 		datepicker = advancedFilters.datepicker;
 		pagination = dataviewPage.paginationComponent;
 		columns = dataviewPage.columnsComponent;
-		await dataviewPage.visit();
+		await dataviewPage.visitPage();
 	});
 
 	test("Validate that all advanced filters have default value equal to Any", async () => {
