@@ -1,5 +1,6 @@
-import { FieldDef } from "@root/components/Field";
 import * as React from "react";
+import { ButtonProps } from "@root/components/Button";
+import { FieldDef } from "@root/components/Field";
 import {
 	ChangeEvent,
 	memo,
@@ -42,7 +43,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filter, setFilter] = useState({ prev: "options", new: "options" });
 
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	useEffect(() => {
 		if (state.data.checkboxList !== undefined) {
@@ -291,27 +292,40 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [fields, registerFields]);
 
 	/**
-   * Modal is closed when the Save button is clicked.
-   */
-	const handleSave = async () => {
+	 * Modal is closed when the Save button is clicked.
+	 */
+	const onSubmit = async () => {
+		const { valid } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+
 		await onChange(state.data.checkboxList);
 
 		handleClose(true);
 	};
 
-	useMemo(() => {
-		registerOnSubmit(handleSave);
-	}, [handleSave, registerOnSubmit]);
-
+	const buttons: ButtonProps[] = [
+		{
+			label: "Cancel",
+			onClick: () => handleClose(),
+			color: "gray",
+			variant: "outlined"
+		},
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained"
+		}		
+	];
 
 	return (
 		<Form
 			title={fieldDef?.label}
+			buttons={buttons}
 			type='drawer'
 			state={state}
 			dispatch={dispatch}
 			fields={fields}
-			onCancel={handleClose}
 			submitButtonAttrs={{ label: "Save" }}
 			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}

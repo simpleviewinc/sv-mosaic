@@ -127,17 +127,18 @@ export const formActions = {
 		};
 	},
 	submitForm() {
-		return async function (dispatch, getState, extraArgs): Promise<void> {
+		return async function (dispatch, getState, extraArgs): Promise<{ valid: boolean; data: any; }> {
 			if (getState().disabled)
 				return;
 
-			const isValid = await dispatch(
+			const valid = await dispatch(
 				formActions.validateForm({ fields: extraArgs.fields })
 			);
 
-			if (isValid)
-				extraArgs.onSubmit(getState().data);
-
+			return {
+				valid,
+				data: getState().data
+			}
 		}
 	},
 	resetForm() {
