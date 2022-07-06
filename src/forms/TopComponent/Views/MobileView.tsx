@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement, useMemo } from "react";
+import { memo, ReactElement } from "react";
 import styled from "styled-components";
 
 // Components
@@ -14,7 +14,6 @@ import {
 // Utils
 import theme from "@root/theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
-import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
 const MobileActionsRow = styled(Row)`
   background-color: ${theme.colors.gray200};
@@ -24,7 +23,7 @@ const MobileActionsRow = styled(Row)`
   top: 0;
   z-index: 1000;
 
-	.button {
+  .button {
     margin-right: 20px;
   }
 
@@ -63,17 +62,13 @@ const MobileView = (props: MobileViewProps): ReactElement => {
 		view,
 	} = props;
 
-	const filteredButtons = useMemo(() => (
-		buttons?.filter(button => filterAction(button))
-	) ,[buttons]);
-
 	return (
 		<>
 			<MobileActionsRow>
 				<StyledClearIcon onClick={onCancel} />
-				{filteredButtons && (
+				{buttons && (
 					<div>
-						{filteredButtons.map((button, idx) => (
+						{buttons.map((button, idx) => (
 							<Button key={`${button.label}-${idx}`} {...button} />
 						))}
 					</div>

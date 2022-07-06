@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement, useMemo } from "react";
+import { memo, ReactElement } from "react";
 import styled from "styled-components";
 
 // Components
@@ -12,7 +12,6 @@ import { FormTitle } from "../Utils/TitleWrapper";
 // Utils
 import theme from "../../../theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
-import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
 const DrawerViewColumn = styled(StyledColumn)`
   background-color: ${theme.colors.grayHover};
@@ -38,10 +37,6 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 		helpIcon,
 	} = props;
 
-	const filteredButtons = useMemo(() => (
-		buttons?.filter(button => filterAction(button))
-	) ,[buttons]);
-
 	return (
 		<>
 			<DrawerViewColumn type={view}>
@@ -63,9 +58,9 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 					</FormTitle>
 					{tooltipInfo && helpIcon}
 				</Row>
-				{filteredButtons && (
+				{buttons && (
 					<ButtonsWrapper style={{ alignItems: "center" }}>
-						{filteredButtons.map((button, idx) => (
+						{buttons.map((button, idx) => (
 							<Button key={`${button.label}-${idx}`} {...button} />
 						))}
 					</ButtonsWrapper>

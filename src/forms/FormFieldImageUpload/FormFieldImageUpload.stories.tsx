@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
-import { ButtonProps } from "@root/components/Button";
 import { ImageUploadDef } from ".";
 import { FieldDef } from "@root/components/Field";
 
@@ -10,38 +9,13 @@ import Form from "../Form/Form";
 
 // Utils
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
-import { useForm, formActions } from "../Form";
+import { useForm } from "../Form";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 export default {
 	title: "FormFields/FormFieldImageUpload",
 	decorators: [withKnobs],
 };
-
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
-const onSubmit = async (dispatch) => {
-	const { valid, data } = await dispatch(formActions.submitForm());
-	if (!valid) return;
-
-	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-};
-
-const renderButtons = (dispatch): ButtonProps[] => [
-	{
-		label: "Save",
-		onClick: () => onSubmit(dispatch),
-		color: "yellow",
-		variant: "contained",
-	},
-	{
-		label: "Cancel",
-		onClick: onCancel,
-		color: "gray",
-		variant: "outlined",
-	},
-];
 
 const handleSetFocus = () => {
 	alert("Set focus is called");
