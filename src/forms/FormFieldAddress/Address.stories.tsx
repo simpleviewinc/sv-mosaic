@@ -1,23 +1,20 @@
 import * as React from "react";
-import { ReactElement, useCallback, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { FieldDef } from "../../components/Field";
+import { useForm } from "../Form";
 
 // Components
 import Form from "../Form/Form";
-import { FieldDef } from "../../components/Field";
-import { useForm } from "../Form/formUtils";
 
 export default {
 	title: "FormFields/FormFieldAddress",
 	decorators: [withKnobs],
 };
 
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
@@ -42,18 +39,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}

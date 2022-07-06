@@ -3,6 +3,7 @@ import { memo, ReactElement } from "react";
 
 // Components
 import FormNav from "@root/forms/FormNav";
+import Button from "@root/components/Button";
 
 // Styled components
 import styled from "styled-components";
@@ -49,7 +50,6 @@ const DesktopTitleActionsRow = styled(FlexContainer)`
 `;
 
 type DesktopViewProps = {
-	buttons: JSX.Element;
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
@@ -59,9 +59,9 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 		title,
 		description,
 		tooltipInfo,
+		buttons,
 		helpIcon,
 		showActive,
-		buttons,
 		sections,
 		checkbox,
 		view,
@@ -78,7 +78,9 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 				<DesktopActionsRow>
 					{tooltipInfo && helpIcon}
 					{showActive && checkbox}
-					{buttons}
+					{buttons && buttons.map((button, idx) => (
+						<Button key={`${button.label}-${idx}`} {...button}/>
+					))}
 				</DesktopActionsRow>
 			</DesktopTitleActionsRow>
 			{(view !== "BIG_DESKTOP" && sections) && (
