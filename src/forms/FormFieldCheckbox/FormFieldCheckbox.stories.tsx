@@ -2,7 +2,6 @@ import * as React from "react";
 import { useMemo, ReactElement } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-import { ButtonProps } from "@root/components/Button";
 import { FormFieldCheckboxDef } from ".";
 import { FieldDef } from "@root/components/Field";
 
@@ -11,38 +10,13 @@ import Form from "../Form/Form";
 
 // Utils
 import { checkboxOptions } from "./FormFieldCheckboxUtils";
-import { useForm, formActions } from "../Form";
+import { useForm } from "../Form";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
 	decorators: [withKnobs],
 } as Meta;
-
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
-const onSubmit = async (dispatch) => {
-	const { valid, data } = await dispatch(formActions.submitForm());
-	if (!valid) return;
-
-	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-};
-
-const renderButtons = (dispatch): ButtonProps[] => [
-	{
-		label: "Save",
-		onClick: () => onSubmit(dispatch),
-		color: "yellow",
-		variant: "contained",
-	},
-	{
-		label: "Cancel",
-		onClick: onCancel,
-		color: "gray",
-		variant: "outlined",
-	},
-];
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, registerFields } = useForm();

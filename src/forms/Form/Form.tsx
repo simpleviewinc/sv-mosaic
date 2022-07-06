@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { StyledDisabledForm, StyledForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
@@ -9,6 +9,7 @@ import { FormContent, Row } from "../TopComponent/TopComponent.styled";
 import FormNav from "../FormNav";
 import { useWindowResizer } from "@root/utils/useWindowResizer";
 import { MosaicObject } from "@root/types";
+import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "../../components/Dialog/Dialog";
 
 const Form = (props: FormProps) => {
@@ -62,6 +63,10 @@ const Form = (props: FormProps) => {
 		onCancel && (await onCancel());
 	}
 
+	const filteredButtons = useMemo(() => (
+		buttons?.filter(button => filterAction(button))
+	) ,[buttons]);
+
 	return (
 		<>
 			<div style={{ position: "relative" }}>
@@ -77,7 +82,7 @@ const Form = (props: FormProps) => {
 							onCancel={onCancel ? (e) => cancel(e) : null}
 							sections={sections}
 							view={view}
-							buttons={buttons}
+							buttons={filteredButtons}
 						/>
 					}
 					{view === "BIG_DESKTOP" ? (

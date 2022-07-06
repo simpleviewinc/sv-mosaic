@@ -3,13 +3,13 @@ import { ReactElement, useMemo } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import { DropdownSingleSelectionDef } from ".";
-import { ButtonProps } from "@root/components/Button";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form from "../Form/Form";
 
 // Utils
-import { useForm, formActions } from "../Form";
+import { useForm } from "../Form";
 
 export default {
 	title: "FormFields/FormFieldDropdownSingleSelection",
@@ -40,32 +40,6 @@ const options = [
 	{ label: "Star Wars: Episode IV - A New Hope", value: "1977" },
 	{ label: "City of God", value: "2002" },
 	{ label: "Se7en", value: "1995" },
-];
-
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
-const onSubmit = async (dispatch) => {
-	const { valid, data } = await dispatch(formActions.submitForm());
-	if (!valid) return;
-
-	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-};
-
-const renderButtons = (dispatch): ButtonProps[] => [
-	{
-		label: "Save",
-		onClick: () => onSubmit(dispatch),
-		color: "yellow",
-		variant: "contained",
-	},
-	{
-		label: "Cancel",
-		onClick: onCancel,
-		color: "gray",
-		variant: "outlined",
-	},
 ];
 
 export const Playground = (): ReactElement => {
