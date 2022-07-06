@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement, useMemo } from "react";
+import { memo, ReactElement } from "react";
 
 // Components
 import FormNav from "@root/forms/FormNav";
@@ -17,7 +17,6 @@ import {
 import { BREAKPOINTS } from "@root/theme/theme";
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
-import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
@@ -68,10 +67,6 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 		view,
 	} = props;
 
-	const filteredButtons = useMemo(() => (
-		buttons?.filter(button => filterAction(button))
-	) ,[buttons]);
-
 	return (
 		<DesktopViewColumn>
 			<DesktopTitleActionsRow>
@@ -83,7 +78,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 				<DesktopActionsRow>
 					{tooltipInfo && helpIcon}
 					{showActive && checkbox}
-					{filteredButtons && filteredButtons.map((button, idx) => (
+					{buttons && buttons.map((button, idx) => (
 						<Button key={`${button.label}-${idx}`} {...button}/>
 					))}
 				</DesktopActionsRow>

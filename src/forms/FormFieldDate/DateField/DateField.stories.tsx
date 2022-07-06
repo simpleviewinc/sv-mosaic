@@ -3,8 +3,8 @@ import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import { DateFieldDef } from "./DateFieldTypes";
-import { useForm, formActions } from "@root/forms/Form";
-import { ButtonProps } from "@root/components/Button";
+import { useForm } from "@root/forms/Form";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form from "../../Form/Form";
@@ -13,32 +13,6 @@ export default {
 	title: "FormFields/FormFieldDateField",
 	decorators: [withKnobs],
 };
-
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
-const onSubmit = async (dispatch) => {
-	const { valid, data } = await dispatch(formActions.submitForm());
-	if (!valid) return;
-
-	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-};
-
-const renderButtons = (dispatch): ButtonProps[] => [
-	{
-		label: "Save",
-		onClick: () => onSubmit(dispatch),
-		color: "yellow",
-		variant: "contained",
-	},
-	{
-		label: "Cancel",
-		onClick: onCancel,
-		color: "gray",
-		variant: "outlined",
-	},
-];
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch, registerFields } = useForm();

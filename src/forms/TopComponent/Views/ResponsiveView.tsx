@@ -1,6 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement, useMemo } from "react";
-import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
+import { memo, ReactElement } from "react";
 
 // Components
 import Button from "@root/components/Button";
@@ -46,10 +45,6 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 		view
 	} = props;
 
-	const filteredButtons = useMemo(() => (
-		buttons?.filter(button => filterAction(button))
-	) ,[buttons]);
-
 	return (
 		<ResponsiveViewColumn>
 			<Row>
@@ -62,9 +57,9 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 			</Row>
 			<ResponsiveActionsRow showActive={showActive}>
 				{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
-				{filteredButtons && (
+				{buttons && (
 					<ButtonsWrapper>
-						{filteredButtons.map((button, idx) => (
+						{buttons.map((button, idx) => (
 							<Button key={`${button.label}-${idx}`} {...button} />
 						))}
 					</ButtonsWrapper>
