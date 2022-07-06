@@ -67,6 +67,10 @@ const Form = (props: FormProps) => {
 		buttons?.filter(button => filterAction(button))
 	) ,[buttons]);
 
+	if (!view) {
+		return null;
+	}
+
 	return (
 		<>
 			<div style={{ position: "relative" }}>
