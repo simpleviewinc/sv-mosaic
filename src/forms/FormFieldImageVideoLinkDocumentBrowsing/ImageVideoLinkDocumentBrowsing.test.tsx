@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useCallback } from "react";
+import { useMemo } from "react";
 import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -18,6 +18,7 @@ import {
 } from "./ImageVideoLinkDocumentBrowsingUtils";
 import { ImageVideoDocumentLinkBrowsingDef } from "./ImageVideoLinkDocumentBrowsingTypes";
 import { FieldDef } from "@root/components/Field/FieldTypes";
+import { ButtonProps } from "@root/components/Button";
 
 const setImageCallback = jest.fn();
 const setDocumentCallback = jest.fn();
@@ -29,7 +30,6 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		state,
 		dispatch,
 		registerFields,
-		registerOnSubmit,
 	} = useForm();
 
 	const setImage = async () => {
@@ -104,22 +104,25 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-          JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
+	const onSubmit = async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+	
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+	};
 
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	return (
 		<Form
+			buttons={buttons}
 			title='Form Title'
 			description='Description'
 			state={state}

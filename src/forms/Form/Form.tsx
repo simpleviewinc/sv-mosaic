@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { StyledDisabledForm, StyledForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
@@ -9,10 +9,12 @@ import { FormContent, Row } from "../TopComponent/TopComponent.styled";
 import FormNav from "../FormNav";
 import { useWindowResizer } from "@root/utils/useWindowResizer";
 import { MosaicObject } from "@root/types";
+import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "../../components/Dialog/Dialog";
 
 const Form = (props: FormProps) => {
 	const {
+		buttons,
 		type,
 		state,
 		title,
@@ -23,8 +25,6 @@ const Form = (props: FormProps) => {
 		dialogOpen,
 		description,
 		getFormValues,
-		cancelButtonAttrs,
-		submitButtonAttrs,
 		handleDialogClose,
 	} = props;
 
@@ -58,17 +58,14 @@ const Form = (props: FormProps) => {
 		loadFormValues();
 	}, [getFormValues]);
 
-	const submit = async (e) => {
-		e.preventDefault();
-		await dispatch(
-			formActions.submitForm()
-		);
-	}
-
 	const cancel = async (e) => {
 		e.preventDefault();
 		onCancel && (await onCancel());
 	}
+
+	const filteredButtons = useMemo(() => (
+		buttons?.filter(button => filterAction(button))
+	) ,[buttons]);
 
 	return (
 		<>
@@ -82,12 +79,10 @@ const Form = (props: FormProps) => {
 							title={title}
 							type={type}
 							description={description}
-							onSubmit={(e) => submit(e)}
-							submitButtonAttrs={submitButtonAttrs}
 							onCancel={onCancel ? (e) => cancel(e) : null}
-							cancelButtonAttrs={cancelButtonAttrs}
 							sections={sections}
 							view={view}
+							buttons={filteredButtons}
 						/>
 					}
 					{view === "BIG_DESKTOP" ? (

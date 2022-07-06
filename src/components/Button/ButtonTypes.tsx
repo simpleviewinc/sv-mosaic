@@ -1,6 +1,7 @@
 import { MosaicObject } from "../../types";
 import { MenuItemProps } from "../MenuItem";
 import { SvgIconComponent } from "@mui/icons-material";
+import { ActionAdditional }  from "../DataView";
 
 export interface ButtonProps {
 	name?: string
@@ -27,6 +28,7 @@ export interface ButtonProps {
 	attrs?: MosaicObject
 	/** Attrs for the nested Material UI IconButton or Button */
 	muiAttrs?: MosaicObject
+	show?: ActionAdditional["show"];
 }
 
 export interface ButtonPopoverContextProps {

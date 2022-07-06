@@ -85,7 +85,6 @@ type UseFormReturn = {
 	state: any;
 	dispatch: any;
 	registerFields: (fields: any[]) => void;
-	registerOnSubmit: (fn: any) => void;
 }
 
 export function useForm({ customReducer }: { customReducer?: ((state: State, action: Action) => any)[] } = {}): UseFormReturn {
@@ -125,15 +124,10 @@ export function useForm({ customReducer }: { customReducer?: ((state: State, act
 		extraArgs.current.fieldMap = fieldMap;
 	}, []);
 
-	const registerOnSubmit = useCallback((fn) => {
-		extraArgs.current.onSubmit = fn;
-	}, []);
-
 	return {
 		state,
 		dispatch,
 		registerFields,
-		registerOnSubmit,
 	};
 }
 

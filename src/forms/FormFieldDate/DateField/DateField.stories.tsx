@@ -1,29 +1,21 @@
 import * as React from "react";
-import { ReactElement, useMemo, useCallback } from "react";
+import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { useForm } from "@root/forms/Form/formUtils";
+import { DateFieldDef } from "./DateFieldTypes";
+import { useForm } from "@root/forms/Form";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form from "../../Form/Form";
-import { DateFieldDef } from "./DateFieldTypes";
 
 export default {
 	title: "FormFields/FormFieldDateField",
 	decorators: [withKnobs],
 };
 
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
 export const Playground = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit
-	} = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const label = text("Label", "Date Field Picker");
 	const helperText = text("Helper text", "Helper text");
@@ -54,24 +46,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-				JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}
@@ -84,12 +63,10 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-
 	const {
 		state,
 		dispatch,
-		registerFields,
-		registerOnSubmit
+		registerFields
 	} = useForm();
 
 	const helperText = "Helper text";
@@ -164,22 +141,11 @@ export const KitchenSink = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const onCancel = () => {
-		alert("Cancelling form, going back to previous site");
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={"Date Field Calendar"}
 				description={"This is a description example"}
 				state={state}

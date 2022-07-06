@@ -4,8 +4,8 @@ import Grid from "./Grid";
 import Form, { formActions, useForm } from "../../../forms/Form";
 import { PageDef } from "./ExampleTypes";
 import { Callbacks } from "../DrawersTypes";
-import { useCallback, useMemo } from "react";
-import Button from "@root/components/Button";
+import { useMemo } from "react";
+import Button, { ButtonProps } from "@root/components/Button";
 
 const components = {
 	Grid,
@@ -30,17 +30,15 @@ const MainWrap = styled.div`
 
 const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Element => {
 
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
-	const onSubmit = useCallback((data) => {
+	const onSubmit = async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+	
 		callbacks.passData(data["text1"]);
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-		// navigate({context: "back"});
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+	};
 
 	const fields = useMemo(
 		() => 
@@ -74,6 +72,21 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 		navigate({context: "back"});
 	}
 
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained"
+		},
+		{
+			label: "Cancel",
+			onClick: onCancel,
+			color: "gray",
+			variant: "outlined"
+		},
+	];
+
 	const pages: PageDef<any>[] = [
 		{
 			name: "grid",
@@ -94,6 +107,7 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 			component: "Form",
 			args: {
 				title: "Test Form",
+				buttons: buttons,
 				description: "Test description",
 				type: "drawer",
 				state,

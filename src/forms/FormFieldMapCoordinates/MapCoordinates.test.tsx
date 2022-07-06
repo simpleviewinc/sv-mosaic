@@ -11,13 +11,14 @@ import { getAddressStringFromAddressObject } from "./MapCoordinatesUtils";
 // Components
 import Form from "../Form/Form";
 import MapCoordinates from "./FormFieldMapCoordinates";
-import { ReactElement, useCallback, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { MapCoordinatesDef } from "./MapCoordinatesTypes";
 // Utils
 import { address, defaultMapPosition } from "./MapCoordinatesUtils";
-import { useForm } from "../Form/formUtils";
+import { useForm, formActions } from "../Form";
+import { ButtonProps } from "@root/components/Button";
 
 const {
 	getByLabelText,
@@ -42,33 +43,32 @@ const fields = [
 ] as FieldDef<MapCoordinatesDef>[];
 
 const MapCoordinatesExample = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit,
-	} = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	useMemo(() => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-          JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
 
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+	const onSubmit = async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+	
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+	};
+
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	return (
 		<Form
+			buttons={buttons}
 			title="Form Title"
 			description="This is a description example"
 			state={state}
