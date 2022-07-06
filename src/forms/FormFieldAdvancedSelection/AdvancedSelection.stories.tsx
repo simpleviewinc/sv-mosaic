@@ -1,12 +1,13 @@
 import * as React from "react";
-import { ReactElement, useCallback, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { AdvancedSelectionDef } from ".";
+import { FieldDef } from "@root/components/Field";
+import { useForm } from "../Form";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
-import { AdvancedSelectionDef } from ".";
 import Form from "../Form/Form";
-import { FieldDef } from "@root/components/Field";
-import { useForm } from "../Form/formUtils";
 
 export default {
 	title: "FormFields/FormFieldAdvancedSelection",
@@ -96,7 +97,7 @@ const additionalOptions = [
 ];
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 	const options = additionalOptions ? additionalOptions : [];
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
@@ -191,22 +192,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const onCancel = () => {
-		alert("Cancelling form, going back to previous site");
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}
@@ -219,7 +209,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 	const options = additionalOptions ? additionalOptions : [];
 
 	const getOptions = async ({ limit, filter, offset }) => {
@@ -315,22 +305,11 @@ export const KitchenSink = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
-	const onCancel = () => {
-		alert("Cancelling form, going back to previous site");
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}

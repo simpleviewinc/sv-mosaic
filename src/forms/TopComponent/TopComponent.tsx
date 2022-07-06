@@ -2,7 +2,6 @@ import * as React from "react";
 import { memo, useState, ReactElement, useMemo } from "react";
 
 // Components
-import Button from "@root/components/Button";
 import Tooltip from "@root/components/Tooltip";
 import Checkbox from "@root/components/Checkbox";
 import MobileView from "./Views/MobileView";
@@ -18,15 +17,13 @@ import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
 
 const TopComponent = (props: TopComponentProps): ReactElement => {
 	const {
-		cancelButtonAttrs,
+		buttons,
 		description,
 		onCancel,
-		onSubmit,
 		showActive,
 		title,
 		tooltipInfo,
 		sections,
-		submitButtonAttrs,
 		view = "RESPONSIVE",
 	} = props;
 
@@ -45,41 +42,6 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	const handleActiveClick = () => {
 		setActiveChecked(!activeChecked);
 	};
-
-	const submitButton = useMemo(
-		() => (
-			<Button
-				color="yellow"
-				variant="contained"
-				label={submitButtonAttrs?.label ? submitButtonAttrs.label : "Save"}
-				disabled={submitButtonAttrs?.disabled}
-				onClick={onSubmit}
-				muiAttrs={{ disableRipple: true }}
-			></Button>
-		),
-		[onSubmit, submitButtonAttrs]
-	);
-
-	const buttons = useMemo(
-		() => (
-			<>
-				{onCancel && (
-					<Button
-						color="gray"
-						variant="outlined"
-						disabled={cancelButtonAttrs?.disabled}
-						label={
-							cancelButtonAttrs?.label ? cancelButtonAttrs.label : "Cancel"
-						}
-						onClick={onCancel}
-						muiAttrs={{ disableRipple: true }}
-					></Button>
-				)}
-				{submitButton}
-			</>
-		),
-		[onCancel, cancelButtonAttrs, submitButton]
-	);
 
 	const checkbox = useMemo(
 		() => (
@@ -124,12 +86,12 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		if (view === "MOBILE")
 			return (
 				<MobileView
+					buttons={buttons}
 					title={title}
 					description={description}
 					helpIcon={helpIcon}
 					checkbox={checkbox}
 					onCancel={onCancel}
-					submitButton={submitButton}
 					showActive={showActive}
 					tooltipInfo={tooltipInfo}
 					view={view}
