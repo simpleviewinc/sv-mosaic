@@ -1,26 +1,20 @@
 import * as React from "react";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 //Components
-import Form, { useForm } from "../Form";
+import Form, { useForm, formActions } from "../Form";
 import { FieldDef } from "@root/components/Field";
 import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
+import { ButtonProps } from "@root/components/Button";
 
 afterEach(cleanup);
 
 const { getAllByRole, getByText } = screen;
 
 const FormFieldChipSingleSelectExample = () => {
-
-	const { 
-		state, 
-		dispatch,
-		registerFields, 
-		registerOnSubmit,
-	} = useForm();
-	
+	const { state, dispatch, registerFields } = useForm();
 	
 	const options = useMemo( ()=> [
 		{
@@ -56,13 +50,21 @@ const FormFieldChipSingleSelectExample = () => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, "  "));
-	}, [state.validForm]);
+	const onSubmit = async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+	
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+	};
 
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	const onCancel = () => {
 		alert("Cancelling form, going back to previous site");
@@ -72,6 +74,7 @@ const FormFieldChipSingleSelectExample = () => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={buttons}
 				title={"Form Title"}
 				description={"This is a description example"}
 				state={state}

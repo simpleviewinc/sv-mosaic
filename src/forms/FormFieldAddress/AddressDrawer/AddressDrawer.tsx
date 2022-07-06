@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo, useState } from "react";
 import { FieldDef } from "@root/components/Field/FieldTypes";
+import { ButtonProps } from "@root/components/Button";
 
 // Components
 import Form from "@root/forms/Form/Form";
@@ -62,7 +63,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleDialogClose,
 	} = props;
 
-	const { dispatch, state, registerFields, registerOnSubmit } = useForm();
+	const { dispatch, state, registerFields } = useForm();
 	const [initialState, setInitialState] = useState(state.data);
 
 	useEffect(() => {
@@ -247,10 +248,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	};
 
 	/**
-   * Form submit handler. It adds or edits an address and closes the modal.
-   * @param e
-   */
+	 * Form submit handler.
+	 * It adds a new address or edits an existing one and then
+	 * closes the Drawer.
+	 */
 	const onSubmit = async () => {
+		const { valid } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+
 		const listOfAddresses = isEditing ? editAddress() : addNewAddress();
 
 		onChange && (await onChange(listOfAddresses));
@@ -333,20 +338,31 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+	const buttons: ButtonProps[] = [
+		{
+			label: "Cancel",
+			onClick: () => handleClose(),
+			color: "gray",
+			variant: "outlined"
+		},
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained"
+		}
+	];
 
 	return (
 		<Form
 			title='Address Information'
+			buttons={buttons}
 			data-testid={"address-testid"}
 			state={state}
 			dispatch={dispatch}
 			sections={sections}
 			fields={fields}
 			type='drawer'
-			onCancel={handleClose}
 			submitButtonAttrs={{ label: "Save" }}
 			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}

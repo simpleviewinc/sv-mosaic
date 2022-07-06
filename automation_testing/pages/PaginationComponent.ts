@@ -1,7 +1,7 @@
-import { Pages } from "../pages/Pages";
+import { BasePage } from "../pages/BasePage";
 import { Locator, Page } from "@playwright/test";
 
-export class PaginationComponent extends Pages {
+export class PaginationComponent extends BasePage {
 	readonly resultAmount: Locator;
 	readonly resultOptions: Locator;
 	readonly paginationValue: Locator;

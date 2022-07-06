@@ -1,14 +1,15 @@
 import * as React from "react";
-import { ReactElement, useCallback, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import { text, withKnobs, boolean } from "@storybook/addon-knobs";
+import { FieldDef } from "@root/components/Field";
+import { ImageVideoDocumentLinkBrowsingDef, } from ".";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
-import { ImageVideoDocumentLinkBrowsingDef, } from ".";
-import { FieldDef } from "@root/components/Field";
 import Form from "../Form/Form";
 
 // Utils
-import { useForm } from "../Form/formUtils";
+import { useForm } from "../Form";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "./ImageVideoLinkDocumentBrowsingUtils";
 
@@ -17,12 +18,8 @@ export default {
 	decorators: [withKnobs],
 };
 
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoLinkDocumentBrowsing");
 
 	const label = text("Label", "Label");
@@ -61,18 +58,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}
@@ -85,7 +75,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "browseAllOptions");
 	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImage");
 	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseVideo");
@@ -205,18 +195,11 @@ export const KitchenSink = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}

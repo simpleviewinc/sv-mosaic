@@ -96,7 +96,7 @@ interface DataViewBulkActionOnClick {
 	({ data }: { data: MosaicObject[] }): void
 }
 
-interface ActionAdditional {
+export interface ActionAdditional {
 	/** A unique name for this action. */
 	name: string
 	/** A handler function to be invoked when this action is used. */

@@ -1,10 +1,11 @@
+import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
 import { render, cleanup, fireEvent, screen } from "@testing-library/react";
 import * as React from "react";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { AdvancedSelectionDef, optionsWithCategory } from ".";
 import Form from "../Form/Form";
-import { useForm } from "../Form/formUtils";
+import { useForm, formActions } from "../Form";
 
 afterEach(cleanup);
 
@@ -89,7 +90,7 @@ const additionalOptions = [
 ];
 
 const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"}) => {
-	const { state, dispatch, registerFields, registerOnSubmit } = useForm();
+	const { state, dispatch, registerFields } = useForm();
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
 	const groupByCategory = false;
@@ -182,16 +183,25 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback((data) => {
+	const onSubmit = async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+	
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	}, [state.validForm]);
+	};
 
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	return (
 		<Form
+			buttons={buttons}
 			title='Form Title'
 			description='This is a description example'
 			state={state}
