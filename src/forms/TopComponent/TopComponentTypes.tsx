@@ -1,8 +1,12 @@
+import { ButtonProps } from "@root/components/Button";
 import { FormNavProps } from "@root/forms/FormNav";
 import { ReactNode } from "react";
-import { ButtonAttrs } from "../Form/FormTypes";
 
 export type BaseTopComponentProps = {
+	/**
+	* Array of buttons provided to the Form.
+	*/
+	buttons?: ButtonProps[];
 	/**
 	 * Mandatory title related with the form.
 	 */
@@ -41,19 +45,6 @@ export type TopComponentProps = {
 	 * on the cancel button.
 	 */
 	onCancel: (() => void) | ((e: any) => void);
-	/**
-	 * Callback that will be triggered when clicking
-	 * on the save button.
-	 */
-	onSubmit: (() => void) | ((e: any) => Promise<void>);
-	/**
-	 * Extra attributes for the submit button.
-	 */
-	submitButtonAttrs?: ButtonAttrs;
-	/**
-	 * Extra attributes for the cancel button.
-	 */
-	cancelButtonAttrs?: ButtonAttrs;
 	/**
 	 * Defines the type of form to be working with, which
 	 * allows for type-specific styling.

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useCallback, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import { array, boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { TableDef } from "./TableTypes";
 
@@ -8,29 +8,21 @@ import { FieldDef } from "@root/components/Field";
 import Form from "../Form/Form";
 
 // Utils
-import { useForm } from "../Form/formUtils";
+import { useForm } from "../Form";
 import {
 	headers,
 	deleteTableRow,
 	useTable,
 } from "@root/forms/FormFieldTable/tableUtils";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 export default {
 	title: "FormFields/FormFieldTable",
 	decorators: [withKnobs],
 };
 
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
 export const Playground = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit,
-	} = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -82,24 +74,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-				JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				description={text("Description", "This is a description example")}
 				dispatch={dispatch}
 				fields={fields}
@@ -112,12 +91,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit,
-	} = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -190,24 +164,11 @@ export const KitchenSink = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-				JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				description='Form description'
 				dispatch={dispatch}
 				fields={fields}

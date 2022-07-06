@@ -1,7 +1,7 @@
-import { Pages } from "../pages/Pages";
+import { BasePage } from "../pages/BasePage";
 import { Locator, Page } from "@playwright/test";
 
-export class ColumnsComponent extends Pages {
+export class ColumnsComponent extends BasePage {
 	readonly page: Page;
 	readonly title: Locator;
 	readonly columnsBtn: Locator;

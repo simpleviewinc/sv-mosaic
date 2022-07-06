@@ -1,3 +1,4 @@
+import { ButtonProps } from "@root/components/Button";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 
@@ -16,16 +17,28 @@ const sections = [
 	},
 ];
 
+const buttons: ButtonProps[] = [
+	{
+		label: "Save",
+		onClick: saveCallback,
+		color: "yellow",
+		variant: "contained"
+	},
+	{
+		label: "Cancel",
+		onClick: cancelCallback,
+		color: "gray",
+		variant: "outlined"
+	},
+];
+
 const TopComponentExample = () => {
 	return (
 		<TopComponent
+			buttons={buttons}
 			description='Description'
 			title='Form title'
 			onCancel={cancelCallback}
-			onSubmit={saveCallback}
-			submitButtonAttrs={{
-				label: "Save"
-			}}
 			sections={sections}
 			showActive={true}
 			tooltipInfo={"Tooltip info"}
@@ -76,10 +89,10 @@ describe("TopComponent elements that are conditionally rendered", () => {
 	it("should not display help icon when tooltip info is not provided", () => {
 		render(
 			<TopComponent
+				buttons={buttons}
 				description='Description'
 				title='Form title'
 				onCancel={cancelCallback}
-				onSubmit={saveCallback}
 				sections={sections}
 				showActive={true}
 				view='DESKTOP'
@@ -97,7 +110,6 @@ describe("TopComponent elements that are conditionally rendered", () => {
 				description='Description'
 				title='Form title'
 				onCancel={cancelCallback}
-				onSubmit={saveCallback}
 				sections={sections}
 				showActive={false}
 				view='DESKTOP'
@@ -109,13 +121,13 @@ describe("TopComponent elements that are conditionally rendered", () => {
 		expect(activeCheckbox).toBe(null);
 	});
 
-	it("should display the 'Cancel' buttons since its function are defined", () => {
+	it("should display the provided buttons", () => {
 		render(
 			<TopComponent
+				buttons={buttons}
 				description='Description'
 				title='Form title'
 				onCancel={cancelCallback}
-				onSubmit={saveCallback}
 				sections={sections}
 				showActive={false}
 				view='DESKTOP'
@@ -123,15 +135,15 @@ describe("TopComponent elements that are conditionally rendered", () => {
 		);
 
 		expect(getByText("Cancel")).toBeDefined();
+		expect(getByText("Save")).toBeDefined();
 	});
 
-	it("should not display the 'Cancel' button since its functions is not implemented", () => {
+	it("should not display the provided buttons", () => {
 		render(
 			<TopComponent
 				description='Description'
 				title='Form title'
 				onCancel={null}
-				onSubmit={null}
 				sections={sections}
 				showActive={false}
 				view='DESKTOP'
@@ -139,5 +151,6 @@ describe("TopComponent elements that are conditionally rendered", () => {
 		);
 
 		expect(queryByText("Cancel")).toBe(null);
+		expect(queryByText("Save")).toBe(null);
 	});
 });

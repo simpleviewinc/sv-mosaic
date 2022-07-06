@@ -3,6 +3,7 @@ import { ReactElement, useCallback, useEffect, useMemo } from "react";
 import { MapCoordinatesDrawerProps } from "..";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { MapPosition } from "../MapCoordinatesTypes";
+import { ButtonProps } from "@root/components/Button";
 
 // Components
 import Map from "@root/forms/FormFieldMapCoordinates/Map";
@@ -124,6 +125,9 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * happends.
 	 */
 	const onSubmit = async () => {
+		const { valid } = await modalReducer.dispatch(formActions.submitForm());
+		if (!valid) return;
+		
 		const latLngValue = {
 			...value,
 			lat: modalReducer.state.data.lat,
@@ -132,11 +136,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		await onChange(latLngValue);
 		handleClose(true);
-	}
-
-	useMemo(() => {
-		modalReducer?.registerOnSubmit(onSubmit);
-	}, [onSubmit, modalReducer?.registerOnSubmit]);
+	};
 
 	const renderMap = (props) => (
 		<>
@@ -235,9 +235,26 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		);
 	}, [modalReducer.dispatch, value])
 
+	const buttons: ButtonProps[] = [
+		{
+			label: "Cancel",
+			onClick: () => handleClose(),
+			color: "gray",
+			variant: "outlined"
+		},
+		{
+			label: "Save Coordinates",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained",
+			disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng
+		}		
+	];
+
 	return (
 		<Form
 			title='Map Coordinates'
+			buttons={buttons}
 			type='drawer'
 			state={modalReducer?.state}
 			dispatch={modalReducer?.dispatch}

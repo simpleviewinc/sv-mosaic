@@ -2,6 +2,7 @@ import * as React from "react";
 import { memo, ReactElement } from "react";
 
 // Components
+import Button from "@root/components/Button";
 import FormNav from "@root/forms/FormNav";
 
 // Styled components
@@ -27,7 +28,6 @@ const ResponsiveActionsRow = styled(Row)`
 `;
 
 type ResponsiveViewProps = {
-	buttons: JSX.Element;
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
@@ -57,7 +57,13 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 			</Row>
 			<ResponsiveActionsRow showActive={showActive}>
 				{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
-				<ButtonsWrapper>{buttons}</ButtonsWrapper>
+				{buttons && (
+					<ButtonsWrapper>
+						{buttons.map((button, idx) => (
+							<Button key={`${button.label}-${idx}`} {...button} />
+						))}
+					</ButtonsWrapper>
+				)}
 			</ResponsiveActionsRow>
 			{sections &&
 				<FormNav sections={sections} />

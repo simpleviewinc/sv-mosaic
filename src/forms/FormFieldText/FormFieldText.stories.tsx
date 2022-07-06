@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useCallback, useMemo } from "react";
+import { useMemo, ReactElement } from "react";
 import {
 	boolean,
 	withKnobs,
@@ -7,15 +7,13 @@ import {
 	number,
 	select,
 } from "@storybook/addon-knobs";
-
-// Material UI
-import AccountCircle from "@mui/icons-material/AccountCircle";
-
-// Components
 import { TextFieldDef } from ".";
 import { FieldDef } from "@root/components/Field";
-import { ReactElement } from "react";
-import { useForm } from "../Form/formUtils";
+import { useForm } from "../Form";
+import { onCancel, renderButtons } from "@root/utils/storyUtils";
+
+// Components
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import Form from "../Form/Form";
 
 export default {
@@ -23,17 +21,8 @@ export default {
 	decorators: [withKnobs],
 };
 
-const onCancel = () => {
-	alert("Cancelling form, going back to previous site");
-};
-
 export const Playground = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit,
-	} = useForm();
+	const {	state, dispatch, registerFields	} = useForm();
 
 	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
 	const type = select("Type", ["number", "text"], "text");
@@ -88,24 +77,11 @@ export const Playground = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-					JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				state={state}
@@ -235,35 +211,17 @@ const kitchenSinkfields = [
 ] as FieldDef<TextFieldDef>[];
 
 export const KitchenSink = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-		registerOnSubmit,
-	} = useForm();
+	const { state, dispatch, registerFields } = useForm();
 
 	useMemo(() => {
 		registerFields(kitchenSinkfields);
 	}, [kitchenSinkfields, registerFields]);
 
-	const onSubmit = useCallback(
-		(data) => {
-			alert(
-				"Form submitted with the following data: " +
-          JSON.stringify(data, null, " ")
-			);
-		},
-		[state.validForm]
-	);
-
-	useMemo(() => {
-		registerOnSubmit(onSubmit);
-	}, [onSubmit, registerOnSubmit]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				buttons={renderButtons(dispatch)}
 				title='Form Title'
 				description='Form description'
 				state={state}
