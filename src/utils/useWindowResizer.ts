@@ -1,23 +1,38 @@
 import { useState, useEffect } from "react";
 import { BREAKPOINTS } from "@root/theme/theme";
+import { debounce } from "lodash";
+import { BaseTopComponentProps } from "@root/forms/TopComponent";
 
 const responsiveBreakpoint = BREAKPOINTS.topComponent.responsiveView;
 const mobileBreakpoint = BREAKPOINTS.mobile;
 const bigScreenBreakpoint = BREAKPOINTS.topComponent.bigScreenView;
 
-export const useWindowResizer = (type) => {
 
-	const [view, setView] = useState(null);
-
-	const debounce = (func, timeout = 300) => {
-		let timer;
-		return (...args) => {
-			clearTimeout(timer);
-			timer = setTimeout(() => { func.apply(this, args); }, timeout);
-		};
+const getView = (): BaseTopComponentProps["view"] => {
+	const innerWidth = window.innerWidth;
+	if (innerWidth < mobileBreakpoint) {
+		return "MOBILE";
+	} else if (
+		innerWidth < responsiveBreakpoint &&
+		innerWidth >= mobileBreakpoint
+	) {
+		return "RESPONSIVE";
+	} else if (innerWidth > bigScreenBreakpoint) {
+		return "BIG_DESKTOP";
+	} else {
+		return "DESKTOP";
 	}
+};
 
-	const setResponsivenessDebounced = debounce(() => setResponsiveness());
+export const useWindowResizer = (type) => {
+	const [view, setView] = useState(getView());
+
+	const setResponsiveness = () => {
+		const view = getView();
+		setView(view);
+	};
+
+	const setResponsivenessDebounced = debounce(setResponsiveness, 300);
 
 	useEffect(() => {
 		if (type === "drawer") {
@@ -31,20 +46,6 @@ export const useWindowResizer = (type) => {
 			};
 		}
 	}, []);
-
-	const setResponsiveness = () => {
-		const innerWidth = window.innerWidth;
-		if (innerWidth < mobileBreakpoint) {
-			setView("MOBILE");
-		} else if (innerWidth < responsiveBreakpoint && innerWidth >= mobileBreakpoint) {
-			setView("RESPONSIVE");
-
-		} else if (innerWidth > bigScreenBreakpoint) {
-			setView("BIG_DESKTOP");
-		} else {
-			setView("DESKTOP");
-		}
-	};
 
 	return { view };
 }
