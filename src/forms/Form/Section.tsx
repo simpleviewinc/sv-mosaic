@@ -15,7 +15,7 @@ const StyledSection = styled.div`
 	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"};
 
 	& h1 {
-		background-color: ${theme.colors.grayHover}
+		background-color: ${theme.colors.grayHover};
 		margin: 0px;
 		padding: 16px 40px;
 	}
