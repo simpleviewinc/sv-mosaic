@@ -29,16 +29,16 @@ export interface SummaryPageTopComponentTypes {
     /**
 	 * Optional array of strings.
 	 */
-    descriptionTexts?: string[];
-    /**
-	 * Optional array of buttons, max three items.
-	 */
-    textLinks?: {
-		label: string;
-		mIcon?: ButtonProps["mIcon"];
-		href: ButtonProps["href"];
-		onClick?: ButtonProps["onClick"];
-	}[];
+    descriptionItems?: JSX.Element[];
+    // /**
+	//  * Optional array of buttons, max three items.
+	//  */
+    // textLinks?: {
+	// 	label: string;
+	// 	mIcon?: ButtonProps["mIcon"];
+	// 	href: ButtonProps["href"];
+	// 	onClick?: ButtonProps["onClick"];
+	// }[];
     /**
 	 * Optional button.
 	 */

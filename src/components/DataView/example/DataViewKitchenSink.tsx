@@ -27,10 +27,10 @@ import {
 	DataViewFilterText,
 	DataViewFilterMultiselect,
 	useMosaicSettings,
-	MosaicContext
+	MosaicContext,
+	DataViewFilterDef
 } from "../../../";
 import { useStateRef } from "../../../utils/reactTools.js";
-
 import SingleSelectHelper from "./SingleSelectHelper";
 
 import "./DataViewKitchenSink.css";
@@ -125,7 +125,15 @@ const singleSelectCategoriesHelper = new SingleSelectHelper({
 	sortColumn: "sort_tag"
 });
 
-const filters = [
+const filters: {
+	name: DataViewFilterDef["name"];
+	label: DataViewFilterDef["label"];
+	type: DataViewFilterDef["type"];
+	component: any;
+	args?: DataViewFilterDef["args"];
+	column?: DataViewFilterDef["column"];
+	toFilter?: (val: {name: string; data: any; output: any}) => void;
+}[] = [
 	{
 		name: "keyword",
 		label: "Keyword",
@@ -211,7 +219,7 @@ const filters = [
 	}
 ]
 
-const rootDefaultView = {
+const rootDefaultView: DataViewProps["savedView"] = {
 	id: "default",
 	label: "Default View",
 	type: "default",
@@ -397,7 +405,7 @@ function DataViewKitchenSink(): ReactElement {
 	const displayList = boolean("displayList", true);
 	const displayGrid = boolean("displayGrid", true);
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
-	const defaultView = {
+	const defaultView: DataViewProps["savedView"] = {
 		...rootDefaultView,
 		state: {
 			...rootDefaultView.state,
@@ -578,7 +586,7 @@ function DataViewKitchenSink(): ReactElement {
 				}
 			}
 		],
-		filters: validFilters.map(filter => {
+		filters: validFilters.map((filter): DataViewFilterDef => {
 			return {
 				name: filter.name,
 				label: filter.label,
@@ -625,14 +633,14 @@ function DataViewKitchenSink(): ReactElement {
 				display: data
 			});
 		},
-		onSavedViewSave: function (data) {
+		onSavedViewSave: function (data: DataViewProps["savedView"]) {
 			viewsApi.upsert(data);
 			gridConfig.onSavedViewChange(data);
 		},
 		onSavedViewGetOptions: function () {
 			return [defaultView, ...viewsApi.find()];
 		},
-		onSavedViewChange: function (data) {
+		onSavedViewChange: function (data: DataViewProps["savedView"]) {
 			setState({
 				...state,
 				...data.state,
