@@ -73,7 +73,6 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 				onClick={onClick}
 				color={props.args.color}
 			/>
-			
 			<FilterSingleSelectContent
 				onClose={onClose}
 				anchorEl={state.anchorEl}

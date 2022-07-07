@@ -8,7 +8,7 @@ export const StyledSummaryPageTopComponent = styled.div`
     border-bottom: 2px solid ${theme.colors.gray200};
     color: ${theme.colors.almostBlack};
     font-family: ${theme.fontFamily};
-    padding: 24px 24px 32px 24px;
+    padding: 24px 20px 20px 20px;
     display: flex;
     gap: 24px;
     align-items: center;
@@ -86,17 +86,23 @@ export const ContainerItems = styled.div`
 export const Item = styled.div`
     padding: 0 16px;
     border-right: 2px solid ${theme.colors.gray200};
+
+	& p,
+	& h1,
+	& h2,
+	& h3,
+	& h4,
+	& h5,
+	& h6 {
+		margin: 0px;
+		font-size: 14px;
+		max-width: 280px; 
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 `;
 
 export const ContextText = styled.p `
-    margin: 0px;
-    font-size: 14px;
-    max-width: 280px; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    
 `;
-
-// export const ContainerFilterSingleSelect = styled.div`
-//     align-self: flex-end;
-// `

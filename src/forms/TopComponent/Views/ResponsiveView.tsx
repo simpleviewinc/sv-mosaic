@@ -17,14 +17,14 @@ import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const ResponsiveViewColumn = styled(StyledColumn)`
-  padding: 20px 20px 0px 20px;
-  z-index: 1000;
+	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
+  	z-index: 1000;
 `;
 
 const ResponsiveActionsRow = styled(Row)`
-  align-self: ${(pr) => (pr.showActive ? "" : "flex-end")};
-  margin-top: 16px;
-  margin-bottom: 37px;
+	align-self: ${(pr) => (pr.showActive ? "" : "flex-end")};
+	margin-top: 16px;
+	margin-bottom: 37px;
 `;
 
 type ResponsiveViewProps = {
@@ -46,7 +46,7 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 	} = props;
 
 	return (
-		<ResponsiveViewColumn>
+		<ResponsiveViewColumn sections={sections}>
 			<Row>
 				<TitleWrapper
 					title={title}
