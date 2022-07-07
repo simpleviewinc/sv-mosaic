@@ -1,9 +1,9 @@
-import { BasePage } from "../pages/BasePage";
+import { BasePage } from "../BasePage";
 import { expect, Locator, Page } from "@playwright/test";
 import { AdvancedFiltersComponent } from "./AdvancedFiltersComponent";
 import { ColumnsComponent } from "./ColumnsComponent";
-import { FilterComponent } from "./FilterComponent";
-import { PaginationComponent } from "./PaginationComponent";
+import { FilterComponent } from "../DataView/FilterComponent";
+import { PaginationComponent } from "../DataView/PaginationComponent";
 import { SaveAsComponent } from "./SaveAsComponent";
 
 export class DataviewPage extends BasePage {

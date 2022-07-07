@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { ValidatorPage } from "../../pages/ValidatorPage";
+import { ValidatorPage } from "../../pages/Form/ValidatorPage";
 import { validatorsData as validatorData } from "../../utils/data/form_data";
 
 test.describe("Form - Validators", () => {
