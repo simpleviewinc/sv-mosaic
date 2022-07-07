@@ -363,8 +363,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			sections={sections}
 			fields={fields}
 			type='drawer'
-			submitButtonAttrs={{ label: "Save" }}
-			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}
 			handleDialogClose={handleDialogClose}
 		/>

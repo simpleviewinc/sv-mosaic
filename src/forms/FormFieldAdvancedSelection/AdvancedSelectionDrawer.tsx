@@ -326,8 +326,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			state={state}
 			dispatch={dispatch}
 			fields={fields}
-			submitButtonAttrs={{ label: "Save" }}
-			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}
 			handleDialogClose={handleDialogClose}
 		/>
