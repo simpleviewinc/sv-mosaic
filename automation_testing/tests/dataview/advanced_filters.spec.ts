@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { DataviewPage } from "../../pages/DataViewPage";
+import { DataviewPage } from "../../pages/DataView/DataViewPage";
 import { advanced_filter_data, dataview_data, filter_data } from "../../utils/data/dataview_data";
-import { AdvancedFiltersComponent } from "../../pages/AdvancedFiltersComponent";
-import { DatePickerComponent } from "../../pages/DatePickerComponent";
-import { PaginationComponent } from "../../pages/PaginationComponent";
+import { AdvancedFiltersComponent } from "../../pages/DataView/AdvancedFiltersComponent";
+import { DatePickerComponent } from "../../pages/DataView/DatePickerComponent";
+import { PaginationComponent } from "../../pages/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../utils/helpers/helper";
-import { ColumnsComponent } from "../../pages/ColumnsComponent";
+import { ColumnsComponent } from "../../pages/DataView/ColumnsComponent";
 
 
 test.describe("DataView - Advanced Filters", () => {

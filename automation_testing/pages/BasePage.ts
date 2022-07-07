@@ -9,6 +9,7 @@ export class BasePage {
 	readonly applyBtn: Locator;
 	readonly clearBtn: Locator;
 	readonly cancelBtn: Locator;
+	readonly saveBtn: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -17,6 +18,7 @@ export class BasePage {
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("text=Cancel");
+		this.saveBtn = page.locator("text=Save");
 	}
 
 	async visit(page: string, element: Locator): Promise<void> {
