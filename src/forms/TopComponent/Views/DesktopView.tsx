@@ -21,16 +21,20 @@ import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 const DesktopViewColumn = styled(StyledColumn)`
-  justify-content: space-between;
-  padding: 24px 20px 0px 20px;
-  top: 0;
-  z-index: 1000;
+	justify-content: space-between;
+	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
+	top: 0;
+	z-index: 1000;
 
-  @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
-    border-bottom: 2px solid ${theme.colors.gray200};
-    margin-bottom: 0px;
-    padding: 24px 20px 16px 20px;
-  }
+	& .form-nav-wrapper {
+		margin-top: 30px;
+	}
+
+	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+		border-bottom: 2px solid ${theme.colors.gray200};
+		margin-bottom: 0px;
+		padding: 24px 20px 20px 20px;
+	}
 `;
 
 const DesktopActionsRow = styled(FlexContainer)`
@@ -43,10 +47,6 @@ const DesktopActionsRow = styled(FlexContainer)`
   .MuiFormControlLabel-root {
     margin-right: 20px;
   }
-`;
-
-const DesktopTitleActionsRow = styled(FlexContainer)`
-  margin-bottom: 30px;
 `;
 
 type DesktopViewProps = {
@@ -68,8 +68,8 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 	} = props;
 
 	return (
-		<DesktopViewColumn>
-			<DesktopTitleActionsRow>
+		<DesktopViewColumn sections={sections}>
+			<FlexContainer>
 				<TitleWrapper
 					title={title}
 					description={description}
@@ -82,7 +82,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 						<Button key={`${button.label}-${idx}`} {...button}/>
 					))}
 				</DesktopActionsRow>
-			</DesktopTitleActionsRow>
+			</FlexContainer>
 			{(view !== "BIG_DESKTOP" && sections) && (
 				<FlexContainer>
 					<FormNav sections={sections} />

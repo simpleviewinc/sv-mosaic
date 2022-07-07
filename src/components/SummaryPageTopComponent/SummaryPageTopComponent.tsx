@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, memo, useMemo } from "react";
 import { SummaryPageTopComponentTypes } from ".";
 import MoreVert from "@mui/icons-material/MoreVert";
 import { 
@@ -9,7 +9,6 @@ import {
 	Title,
 	ContainerItems,
 	Item,
-	ContextText,
 	ContainerTitle,
 	CheckedStar,
 	UncheckedStar,
@@ -19,6 +18,7 @@ import {
 import Image from "../internal/Image";
 import Button from "../Button";
 import FilterSingleSelect from "../FilterSingleSelect";
+import { filterAction } from "../DataView/utils/bulkActionsUtils";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
@@ -27,8 +27,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 		img,
 		mainActions,
 		additionalActions,
-		descriptionTexts,
-		textLinks,
+		descriptionItems,
 		filter,
 	} = props;
 
@@ -40,11 +39,19 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	/**
 	 * Throws an error if developer send more than three elements in textLinks.
 	*/
-	if (textLinks?.length > 3) throw new Error("textLinks prop must receive 3 elements or less.");
+	if (descriptionItems?.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
 
 	const [state, setState] = useState({
 		value : filter.defaultValue ? filter.defaultValue : undefined
 	});
+
+	const filteredMainActions = useMemo(() => (
+		mainActions?.filter(button => filterAction(button))
+	), [mainActions]);
+
+	const filteredAdditionalActions = useMemo(() => (
+		additionalActions?.filter(button => filterAction(button))
+	), [additionalActions]);
 
 	const onChange = function(data) {
 		setState(data);
@@ -81,7 +88,8 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 					</ContainerTitle>
 					<ContainerItems>
 						{
-							mainActions?.map((mainAction, i) => (
+							filteredMainActions &&
+							filteredMainActions.map((mainAction, i) => (
 								<Item data-testid="btn-main-action" key={i}>
 									<Button
 										attrs={{smallText: true}} 
@@ -96,14 +104,14 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							))
 						}
 						{
-							additionalActions &&
-							<Item data-testid="btn-aditional-action">
+							filteredAdditionalActions &&
+							<Item data-testid="btn-additional-action">
 								<Button
 									color="black" 
 									variant="icon" 
 									label="Edit" 
 									mIcon={MoreVert} 
-									menuItems={additionalActions}
+									menuItems={filteredAdditionalActions}
 								/>
 							</Item>
 						}
@@ -112,32 +120,17 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 				<Row>
 					<ContainerItems>
 						{
-							descriptionTexts?.map((contextText, i) => (
-								<Item key={i} data-testid="context-text">
-									<ContextText>{contextText}</ContextText>
-								</Item>
-							))
-						}
-						{
-							textLinks?.map((textLink, i) => (
-								<Item key={i} data-testid="btn-text-link">
-									<Button
-										attrs={{linkButton: true}} 
-										color="black" 
-										variant="text" 
-										label={textLink.label} 
-										mIcon={textLink.mIcon} 
-										onClick={textLink.onClick}
-										href={textLink.href}
-										{...textLink}
-									/>
+							descriptionItems &&
+							descriptionItems?.map((item, i) => (
+								<Item key={i} data-testid="description-item">
+									{item}
 								</Item>
 							))
 						}
 					</ContainerItems>
 					{
 						filter &&
-						<div data-testid="btn-filterSingleSelect">
+						<div data-testid="filter">
 							<FilterSingleSelect
 								label={filter.label}
 								type="primary"
@@ -154,4 +147,4 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	);
 };
 
-export default SumaryPageTopComponent;
+export default memo(SumaryPageTopComponent);

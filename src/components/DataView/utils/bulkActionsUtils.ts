@@ -2,6 +2,7 @@ import { isArray } from "lodash";
 import { ButtonProps } from "@root/components/Button";
 import { DataViewActionsButtonRowProps } from "../DataViewActionsButtonRow";
 import { DataViewAction, DataViewAdditionalAction, DataViewBulkAction, DataViewBulkActionsButtonsRowProps } from "../DataViewTypes";
+import { MenuItemProps } from "../../MenuItem";
 
 type RowArgs = { row: DataViewActionsButtonRowProps["originalRowData"] };
 type CheckedTrue = { checkedAllPages: true };
@@ -9,12 +10,12 @@ type CheckedFalse = { checkedAllPages: false; data: DataViewBulkActionsButtonsRo
 type CheckedArgs = CheckedTrue | CheckedFalse;
 
 type FilterActionArgs = RowArgs | CheckedArgs | { [val: string] : any };
-type Action = DataViewAction | DataViewAdditionalAction | DataViewBulkAction | ButtonProps;
+type Action = DataViewAction | DataViewAdditionalAction | DataViewBulkAction | ButtonProps | MenuItemProps;
 
 export const filterAction = (action: Action, args: FilterActionArgs = {}): boolean => {
 	if (action.show === undefined) {
 		return true;
-	} 
+	}
 
 	const shows = isArray(action.show) ? action.show : [action.show];
 

@@ -90,7 +90,7 @@ const Form = (props: FormProps) => {
 							{sections &&
 								<FormNav sections={sections} />
 							}
-							<FormContent view={view}>
+							<FormContent view={view} sections={sections}>
 								<FormLayout
 									state={state}
 									dispatch={dispatch}
@@ -100,7 +100,7 @@ const Form = (props: FormProps) => {
 							</FormContent>
 						</Row>
 					) : (
-						<FormContent view={view}>
+						<FormContent view={view} sections={sections}>
 							<FormLayout
 								state={state}
 								dispatch={dispatch}

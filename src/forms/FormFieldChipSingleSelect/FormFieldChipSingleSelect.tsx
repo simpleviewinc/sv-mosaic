@@ -21,7 +21,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 	
 	const { required } = fieldDef || null;
 
-	const [internalOptions, setInternalOptions] = useState([...fieldDef?.inputSettings?.options]);
+	const [internalOptions, setInternalOptions] = useState(fieldDef.inputSettings && [...fieldDef.inputSettings.options]);
 	const [prepopulated, setPrepouplated] = useState(false);
 
 	useEffect(() => {
