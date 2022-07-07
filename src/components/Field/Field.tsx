@@ -7,6 +7,7 @@ import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { MosaicFieldProps } from ".";
 import { Sizes } from "@root/theme/sizes";
+import { debounce } from "lodash";
 
 const Field = ({
 	children,
@@ -18,17 +19,23 @@ const Field = ({
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
 
 	const description = useRef<HTMLDivElement>(null);
-	const descriptionContainer = useRef<HTMLDivElement>(null);
+	const fieldContainer = useRef<HTMLDivElement>(null);
+	const fieldRef = useRef<HTMLDivElement>(null);
 
 	const errorWithMessage = error?.trim().length > 0;
 
 	const handleDescriptionRender = () => {
-		const container = descriptionContainer.current;
+		const container = fieldContainer.current;
 		const containerStyle = container && window.getComputedStyle(container);
-		const withcontainer = containerStyle ? parseFloat(containerStyle.getPropertyValue("width")) : 611;
+		const widthcontainer = containerStyle && parseFloat(containerStyle.getPropertyValue("width"));
+
+		const field = fieldRef.current;
+		const fieldStyle = field && window.getComputedStyle(field);
+		const fieldWidth = fieldStyle && parseFloat(fieldStyle.getPropertyValue("width"));
+
 		setRenderAsTooltip(false);
 
-		if (withcontainer >= 610) {
+		if (widthcontainer - fieldWidth > 20 && renderAsTooltip === true) {
 			setRenderAsTooltip(false);
 		} else {
 			if (description.current) {
@@ -44,28 +51,25 @@ const Field = ({
 		}
 	};
 
-	useEffect(() => {
-		if (colsInRow === 1) {
-			if (fieldDef?.type === "imageUpload" || fieldDef?.type === "table") {
-				setRenderAsTooltip(true);
-			} else {
-				handleDescriptionRender();
-				let timeoutId: any = 150;
-				const resizeListener = () => {
-					if (timeoutId) {
-						clearTimeout(timeoutId);
-						timeoutId = setTimeout(() => handleDescriptionRender(), 150);
-					}
-				};
-				window.addEventListener("resize", resizeListener);
+	const handleDescriptionDebounced = debounce(handleDescriptionRender, 300);
 
-				return () => {
-					window.removeEventListener("resize", resizeListener);
-				};
+	useEffect(() => {
+		if (fieldDef?.instructionText)
+			if (colsInRow === 1) {
+				if (fieldDef?.type === "imageUpload" || fieldDef?.type === "table") {
+					setRenderAsTooltip(true);
+				} else {
+					handleDescriptionDebounced();
+
+					window.addEventListener("resize", handleDescriptionDebounced);
+
+					return () => {
+						window.removeEventListener("resize", handleDescriptionDebounced);
+					};
+				}
+			} else {
+				setRenderAsTooltip(true);
 			}
-		} else {
-			setRenderAsTooltip(true);
-		}
 	}, []);
 
 	const renderBottomText = () => {
@@ -92,10 +96,11 @@ const Field = ({
 	}, [fieldDef?.type]);
 
 	return (
-		<StyledFieldContainer ref={descriptionContainer} className={fieldDef?.className} style={fieldDef?.style}>
+		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
 				size={(fieldDef?.type === "chip" || fieldDef?.type === "linkSetup") ? Sizes.md : fieldDef?.type === "table" ? "fit-content" : fieldDef?.size}
+				ref={fieldRef}
 			>
 				{
 					((fieldDef?.label && fieldDef?.label?.length > 0)
