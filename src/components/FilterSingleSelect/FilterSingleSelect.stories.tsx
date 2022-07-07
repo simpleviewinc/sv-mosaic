@@ -13,20 +13,27 @@ const options = [
 	{ label : "Option B", value : "b" },
 	{ label : "Option C", value : "c" },
 	{ label : "Option D", value : "d" }
-]
+];
+
+const optionLabels = {
+	a: "Option A",
+	b: "Option B",
+	c: "Option C",
+	d: "Option D",
+}
 
 export const Playground = (): ReactElement => {
 
 	const defaultValue = select(
 		"Default Value",
-		options,
-		{ label : "Option A", value : "a" }
+		optionLabels,
+		"Option A"
 	);
 
 	const required = boolean("Required", false);
 
 	const [state, setState] = useState({
-		value : defaultValue.value || undefined
+		value : defaultValue && options.find(option => option.label === defaultValue).value || undefined
 	});
 
 	const onChange = function(data) {
