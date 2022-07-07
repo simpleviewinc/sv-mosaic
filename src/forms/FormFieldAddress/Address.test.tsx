@@ -8,13 +8,12 @@ import {
 } from "@testing-library/react";
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { useForm, formActions } from "../Form";
+import { useForm } from "../Form";
 
 // Components
 import AddressCard from "./AddressCard";
 import Form from "../Form/Form";
 import { IAddress } from ".";
-import { ButtonProps } from "@root/components/Button";
 
 const address: IAddress = {
 	id: 1,
@@ -46,25 +45,8 @@ export const AddressFormFieldExample = (): ReactElement => {
 		registerFields(fields);
 	}, [fields, registerFields]);
 
-	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-	
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
-
-	const buttons: ButtonProps[] = [
-		{
-			label: "Save",
-			onClick: onSubmit,
-			color: "yellow",
-			variant: "contained",
-		},
-	];
-
 	return (
 		<Form
-			buttons={buttons}
 			title="Title"
 			description="Description"
 			state={state}
@@ -147,6 +129,7 @@ describe("Address component", () => {
 
 	it("should edit an address card", async () => {
 		addNewAddress();
+
 		fireEvent.click(getByText("Save"));
 		await new Promise(r => setTimeout(r, 3000));
 		fireEvent.click(getByText("Edit"));
