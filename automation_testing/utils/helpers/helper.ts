@@ -50,4 +50,12 @@ const randomNumber = (max: number): number => {
 	return Math.floor(Math.random() * (max - 0 + 1) + 0);
 }
 
-export { sortDatesAsc, sortDatesDesc, randomIntFromInterval, getMonthFromString, addQuotes, addComma, isACorrentDateRange, randomNumber }
+const getDateFormatted = (date: Date) : string => {
+	const dd = String(date.getDate()).padStart(2, "0");
+	const mm = String(date.getMonth() + 1).padStart(2, "0");
+	const yyyy = date.getFullYear();
+	const dateFormatted = mm + "/" + dd + "/" + yyyy;
+	return dateFormatted;
+}
+
+export { sortDatesAsc, sortDatesDesc, randomIntFromInterval, getMonthFromString, addQuotes, addComma, isACorrentDateRange, randomNumber, getDateFormatted }
