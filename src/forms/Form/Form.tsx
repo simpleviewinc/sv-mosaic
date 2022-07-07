@@ -90,7 +90,7 @@ const Form = (props: FormProps) => {
 							view={view}
 						/>
 					}
-					{view === "BIG_DESKTOP" ? (
+					{view === "BIG_DESKTOP" && sections ? (
 						<Row>
 							{sections &&
 								<FormNav sections={sections} />
