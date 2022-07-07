@@ -1,13 +1,11 @@
 import { Locator, Page } from "@playwright/test";
-import { BasePage } from "./BasePage";
+import { BasePage } from "../BasePage";
 
 export class ValidatorPage extends BasePage {
 
 	readonly page: Page;
 	readonly fields: string;
 	readonly title: Locator;
-	readonly saveBtn: Locator;
-	readonly cancelBtn: Locator;
 	readonly error: Locator;
 	readonly errorIcon: Locator;
 	readonly requiredTitle: Locator;
@@ -29,8 +27,6 @@ export class ValidatorPage extends BasePage {
 		this.page = page;
 		this.fields = ".MuiInputBase-colorPrimary";
 		this.title = page.locator("text=Validators story");
-		this.saveBtn = page.locator("text=Save");
-		this.cancelBtn = page.locator("text=Cancel");
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.requiredTitle = page.locator("[for='required']");

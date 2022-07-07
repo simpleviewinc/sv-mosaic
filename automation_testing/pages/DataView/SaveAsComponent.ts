@@ -1,4 +1,4 @@
-import { BasePage } from "../pages/BasePage";
+import { BasePage } from "../BasePage";
 import { expect, Locator, Page } from "@playwright/test";
 
 export class SaveAsComponent extends BasePage {
