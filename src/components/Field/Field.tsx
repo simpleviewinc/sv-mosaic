@@ -18,18 +18,28 @@ const Field = ({
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
 
 	const description = useRef<HTMLDivElement>(null);
+	const descriptionContainer = useRef<HTMLDivElement>(null);
 
 	const errorWithMessage = error?.trim().length > 0;
 
 	const handleDescriptionRender = () => {
-		if (description.current) {
-			const node = description.current;
-			const nodeStyle = window.getComputedStyle(node);
-			const marginLeft = parseFloat(nodeStyle.getPropertyValue("margin-left"));
-			if (marginLeft > 24) {
-				setRenderAsTooltip(false);
-			} else {
-				setRenderAsTooltip(true);
+		const container = descriptionContainer.current;
+		const containerStyle = container && window.getComputedStyle(container);
+		const withcontainer = containerStyle ? parseFloat(containerStyle.getPropertyValue("width")) : 611;
+		setRenderAsTooltip(false);
+
+		if (withcontainer >= 610) {
+			setRenderAsTooltip(false);
+		} else {
+			if (description.current) {
+				const node = description.current;
+				const nodeStyle = window.getComputedStyle(node);
+				const marginLeft = parseFloat(nodeStyle.getPropertyValue("margin-left"));
+				if (marginLeft > 20) {
+					setRenderAsTooltip(false);
+				} else {
+					setRenderAsTooltip(true);
+				}
 			}
 		}
 	};
@@ -82,7 +92,7 @@ const Field = ({
 	}, [fieldDef?.type]);
 
 	return (
-		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style}>
+		<StyledFieldContainer ref={descriptionContainer} className={fieldDef?.className} style={fieldDef?.style}>
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
 				size={(fieldDef?.type === "chip" || fieldDef?.type === "linkSetup") ? Sizes.md : fieldDef?.type === "table" ? "fit-content" : fieldDef?.size}
