@@ -7,7 +7,8 @@ const components = {
 	dataview: "components-dataview--example",
 	validator: "components-form--validators",
 	form_with_layout: "components-form--form-with-layout",
-	leftNav: "components-leftnav--example"
+	leftNav: "components-leftnav--example",
+	playground: "components-form--playground"
 }
 
 export { env, components };

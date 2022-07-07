@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { getMonthFromString } from "../utils/helpers/helper";
+import { getMonthFromString } from "../../utils/helpers/helper";
 
 export class DatePickerComponent {
 	readonly page: Page;
