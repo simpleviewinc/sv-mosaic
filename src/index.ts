@@ -64,9 +64,6 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
-export { default as Modal } from "./components/Modal";
-export * from "./components/Modal";
-
 export { default as ToggleSwitch } from "./components/ToggleSwitch";
 export * from "./components/ToggleSwitch";
 

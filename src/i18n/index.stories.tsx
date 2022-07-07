@@ -100,8 +100,10 @@ export function example(): ReactElement {
 	return (
 		<MosaicContext.Provider value={mosaicSettings}>
 			<P>
-				language: {locale}<br/>
-				fallbackLng: {mosaicSettings.i18n.options.fallbackLng}
+				<>
+					language: {locale}<br/>
+					fallbackLng: {mosaicSettings.i18n.options.fallbackLng}
+				</>
 			</P>
 			<hr/>
 			<InnerComponent/>

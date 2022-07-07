@@ -140,5 +140,4 @@ export const FormNavWrapper = styled.div`
 
 export const IconWrapper = styled.div`
   height: 24px;
-  padding-bottom: 16px;
 `;

@@ -171,14 +171,14 @@ type SavedViewDef = {
 } 
 
 type dataViewOnSavedViewChange = {
-	(view: DataViewView): void
+	(view: SavedViewDef): void
 }
 
 type dataViewOnDisplayChange = {
 	(display: string): void
 }
 type dataViewOnActiveFiltersChange = {
-	(activeFilters: string[], filter: MosaicObject): void
+	(val: {activeFilters: string[], filter: MosaicObject}): void
 }
 
 type dataViewOnColumnsChange = {
@@ -186,7 +186,7 @@ type dataViewOnColumnsChange = {
 }
 
 type dataViewOnSavedViewSave = {
-	(data: MosaicObject): void
+	(data: SavedViewDef): void
 }
 
 type dataViewOnSavedViewRemove = {
@@ -207,12 +207,12 @@ export interface DataViewProps {
 	activeColumns?: string[]
 	sticky?: boolean
 	/** A list of actions which are always visible for each item in the DataView. */
-	filters?: DataViewFilterDef
+	filters?: DataViewFilterDef[]
     filter?: MosaicObject
     activeFilters?: string[]
     buttons?: ButtonProps[]
     display?: string
-    savedView?: SavedViewDef[]
+    savedView?: SavedViewDef
     displayOptions?: string[]
     data?: MosaicObject[]
     sort?: DataViewSort

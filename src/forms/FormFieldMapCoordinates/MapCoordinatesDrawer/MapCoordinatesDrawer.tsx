@@ -261,11 +261,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			sections={sections}
 			fields={fields}
 			onCancel={handleClose}
-			submitButtonAttrs={{
-				label: "Save Coordinates",
-				disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng,
-			}}
-			cancelButtonAttrs={{ label: "Cancel" }}
 			dialogOpen={dialogOpen}
 			handleDialogClose={handleDialogClose}
 		/>

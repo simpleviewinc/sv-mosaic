@@ -83,7 +83,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	}, []);
 
 	return (
-		<FormNavWrapper>
+		<FormNavWrapper className="form-nav-wrapper">
 			<FormNavRow scrollX={scrollX}>
 				{scrollX !== 0 && (
 					<IconWrapper>

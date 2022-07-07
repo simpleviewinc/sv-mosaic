@@ -48,7 +48,6 @@ export const CheckboxWrapper = styled.div`
 export const StyledColumn = styled(Column)`
   background-color: white;
   border-bottom: 2px solid ${theme.colors.gray200};
-  margin-bottom: 30px;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
