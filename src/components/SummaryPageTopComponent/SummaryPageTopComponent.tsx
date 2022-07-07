@@ -34,23 +34,23 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	/**
 	 * Throws an error if developer send more than three elements in mainActions.
 	*/
-	if (mainActions?.length > 3) throw new Error("mainActions prop must receive 3 elements or less.");
+	if (mainActions && mainActions.length > 3) throw new Error("mainActions prop must receive 3 elements or less.");
 
 	/**
 	 * Throws an error if developer send more than three elements in textLinks.
 	*/
-	if (descriptionItems?.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
+	if (descriptionItems && descriptionItems.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
 
 	const [state, setState] = useState({
 		value : filter.defaultValue ? filter.defaultValue : undefined
 	});
 
 	const filteredMainActions = useMemo(() => (
-		mainActions?.filter(button => filterAction(button))
+		mainActions && mainActions.filter(button => filterAction(button))
 	), [mainActions]);
 
 	const filteredAdditionalActions = useMemo(() => (
-		additionalActions?.filter(button => filterAction(button))
+		additionalActions && additionalActions.filter(button => filterAction(button))
 	), [additionalActions]);
 
 	const onChange = function(data) {
