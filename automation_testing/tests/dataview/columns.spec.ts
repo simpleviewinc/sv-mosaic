@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { ColumnsComponent } from "../../pages/ColumnsComponent";
-import { DataviewPage } from "../../pages/DataViewPage";
-import { PaginationComponent } from "../../pages/PaginationComponent";
+import { ColumnsComponent } from "../../pages/DataView/ColumnsComponent";
+import { DataviewPage } from "../../pages/DataView/DataViewPage";
+import { PaginationComponent } from "../../pages/DataView/PaginationComponent";
 import { columns_data, dataview_data } from "../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../utils/helpers/helper";
 
