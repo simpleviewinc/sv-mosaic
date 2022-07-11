@@ -71,8 +71,10 @@ const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
 		canvasRef.current.addEventListener("mousemove", setMousePosition, false);
 
 		return () => {
-			canvasRef.current.removeEventListener("mousemove", setMousePosition);
-			window.cancelAnimationFrame(animationFrameId)
+			if (canvasRef.current) {
+				canvasRef.current.removeEventListener("mousemove", setMousePosition);
+				window.cancelAnimationFrame(animationFrameId);
+			}
 		}
 
 	}, [isFocus])
