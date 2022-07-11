@@ -22,7 +22,7 @@ test.describe("DataView - Filter", () => {
 		await filter.keywordInput.type(filter_data.validKeywordFilter);
 		await filter.applyBtn.click();
 		expect(await (await dataviewPage.getTableRows()).count()).toBe(filter_data.expectedKeywordFilterNumber);
-		expect((await dataviewPage.getAllRowTitles(dataview_data.resultPerPageDefault)).toString()).toContain(filter_data.validKeywordFilter);
+		expect((await dataviewPage.getAllRowTitles(dataview_data.resultPerPageDefault)).toString()).toContain(filter_data.validKeywordFilter.toLowerCase());
 		expect(await dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumber} of ${filter_data.expectedKeywordFilterNumber}`);
 		expect(await filter.getKeywordText()).toBe(addQuotes(filter_data.validKeywordFilter));
 	});
