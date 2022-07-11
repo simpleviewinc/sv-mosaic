@@ -37,7 +37,6 @@ const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
 			></Button>
 			<StyledMenu
 				anchorEl={anchorEl}
-				getContentAnchorEl={null}
 				anchorOrigin={{
 					vertical: "bottom",
 					horizontal: "left",
