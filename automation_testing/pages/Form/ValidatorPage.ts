@@ -49,7 +49,7 @@ export class ValidatorPage extends BasePage {
 	}
 
 	async getDateIcon(field: Locator): Promise<Locator> {
-		return await field.locator("xpath=..").locator("button.MuiIconButton-sizeMedium");
+		return field.locator("xpath=..").locator("button.MuiIconButton-sizeMedium");
 	}
 
 	async dateValidation(element: Locator, date: string): Promise<void> {
