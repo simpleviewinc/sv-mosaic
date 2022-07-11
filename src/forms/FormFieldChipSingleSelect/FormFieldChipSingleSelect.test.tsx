@@ -14,7 +14,7 @@ afterEach(cleanup);
 const { getAllByRole, getByText } = screen;
 
 const FormFieldChipSingleSelectExample = () => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 	
 	const options = useMemo( ()=> [
 		{
@@ -45,10 +45,6 @@ const FormFieldChipSingleSelectExample = () => {
 			] as FieldDef<FormFieldChipSingleSelectDef>[],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
