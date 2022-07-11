@@ -21,11 +21,7 @@ export default {
 }
 
 export const Playground = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-	} = useForm();
+	const { state, dispatch } = useForm();
 
 	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
 	const placeholder = text("Placeholder", "placeholder");
@@ -66,10 +62,6 @@ export const Playground = (): ReactElement => {
 			label,
 		]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>
@@ -159,15 +151,7 @@ const kitchenSinkFields = [
 ] as FieldDef<TextAreaDef>[];
 
 export const KitchenSink = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-	} = useForm();
-
-	useMemo(() => {
-		registerFields(kitchenSinkFields);
-	}, [kitchenSinkFields, registerFields]);
+	const {	state, dispatch } = useForm();
 
 	return (
 		<>

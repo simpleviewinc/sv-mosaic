@@ -97,7 +97,7 @@ const additionalOptions = [
 ];
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 	const options = additionalOptions ? additionalOptions : [];
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
@@ -188,10 +188,6 @@ export const Playground = (): ReactElement => {
 		]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -209,7 +205,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 	const options = additionalOptions ? additionalOptions : [];
 
 	const getOptions = async ({ limit, filter, offset }) => {
@@ -300,10 +296,6 @@ export const KitchenSink = (): ReactElement => {
 			options,
 		]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>

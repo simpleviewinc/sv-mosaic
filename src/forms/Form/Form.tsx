@@ -31,6 +31,17 @@ const Form = (props: FormProps) => {
 	const { view } = useWindowResizer(type);
 
 	useEffect(() => {
+		const registerFields = async () => {
+			await dispatch(
+				formActions.init({
+					fields
+				})
+			);
+		}
+		registerFields();
+	},[fields])
+
+	useEffect(() => {
 		const loadFormValues = async () => {
 			let values: MosaicObject;
 

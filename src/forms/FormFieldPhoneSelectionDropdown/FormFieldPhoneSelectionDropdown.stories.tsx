@@ -15,7 +15,7 @@ export default {
 };
 
 export const Playground = () : ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -47,10 +47,6 @@ export const Playground = () : ReactElement => {
 		[disabled, required, autoFormat, country, placeholder, label, helperText, instructionText]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -68,7 +64,7 @@ export const Playground = () : ReactElement => {
 }
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -123,10 +119,6 @@ export const KitchenSink = (): ReactElement => {
 			] as FieldDef<PhoneSelectionDef>[],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>
