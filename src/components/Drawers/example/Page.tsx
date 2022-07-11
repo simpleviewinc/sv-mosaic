@@ -29,8 +29,7 @@ const MainWrap = styled.div`
 	`;
 
 const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Element => {
-
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
@@ -55,10 +54,6 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 			],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const onCancel = () => {
 		alert("Cancelling form, going back to previous site");

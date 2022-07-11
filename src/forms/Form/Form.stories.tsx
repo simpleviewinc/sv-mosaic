@@ -125,7 +125,7 @@ const getSelected = async (selectedOptions) => {
 
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -509,10 +509,6 @@ export const Playground = (): ReactElement => {
 		};
 	}, [prepopulateValues]);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	useEffect(() => {
 		const resetForm = async () => {
 			await dispatch(formActions.resetForm());
@@ -539,7 +535,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const FormWithLayout = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -661,10 +657,6 @@ export const FormWithLayout = (): ReactElement => {
 		);
 	}, [state.data.text3]);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -683,7 +675,7 @@ export const FormWithLayout = (): ReactElement => {
 }
 
 export const PerformanceWithSubmit = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const hundredFields = [];
 
@@ -702,10 +694,6 @@ export const PerformanceWithSubmit = (): ReactElement => {
 		[]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -721,7 +709,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 };
 
 export const RuntimeBehaviors = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -762,10 +750,6 @@ export const RuntimeBehaviors = (): ReactElement => {
 			})
 		);
 	}, [state.data.text3]);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const setText1Value = function () {
 		dispatch(
@@ -810,7 +794,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 };
 
 export const SubmitExternalButtons = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -841,10 +825,6 @@ export const SubmitExternalButtons = (): ReactElement => {
 		[]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	const clickHandler = async () => {
 		const { data } = await dispatch(formActions.submitForm());
 	
@@ -867,7 +847,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 };
 
 export const DrawerForm = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const [open, setOpen] = useState(false);
 
@@ -899,10 +879,6 @@ export const DrawerForm = (): ReactElement => {
 			] as unknown as FieldDef[],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const onCancel = () => {
 		setOpen(false);
@@ -949,7 +925,7 @@ export const DrawerForm = (): ReactElement => {
 };
 
 export const CustomFields = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
@@ -1006,10 +982,6 @@ export const CustomFields = (): ReactElement => {
 		[]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	const setText1Value = function () {
 		dispatch(
 			formActions.setFieldValue({
@@ -1037,7 +1009,7 @@ export const CustomFields = (): ReactElement => {
 };
 
 export const Validators = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1104,10 +1076,6 @@ export const Validators = (): ReactElement => {
 		[]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -1123,7 +1091,7 @@ export const Validators = (): ReactElement => {
 };
 
 export const DefaultValues = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
 		() =>
@@ -1138,10 +1106,6 @@ export const DefaultValues = (): ReactElement => {
 			] as FieldDef<TextFieldDef>[],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>
