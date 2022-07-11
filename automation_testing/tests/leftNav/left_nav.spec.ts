@@ -88,7 +88,6 @@ test.describe("LeftNav", () => {
 	test("Validate menu double", async () => {
 		const item = await leftNavPage.getOptionWithSubmenu(true);
 		const titleItem = await item.textContent();
-		console.log(await titleItem)
 		await item.click();
 		const submenu = await leftNavPage.getSubmenu(titleItem);
 		const submenuElement = await leftNavPage.getSubmenuElement(submenu, 1);
