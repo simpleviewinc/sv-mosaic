@@ -182,9 +182,8 @@ export function joinReducers(...reducers) {
 	};
 }
 
-export function useThunkReducer(reducer, initialState, extraArgsInitial) {
+export function useThunkReducer(reducer, initialState, extraArgs) {
 	const lastState = useRef(initialState);
-	const extraArgs = useRef(extraArgsInitial);
 	const getState = useCallback(() => {
 		const state = lastState.current;
 		return state;
@@ -202,7 +201,7 @@ export function useThunkReducer(reducer, initialState, extraArgsInitial) {
 	const customDispatch = useCallback(
 		(action) => {
 			if (typeof action === "function") {
-				return action(customDispatch, getState, extraArgs.current);
+				return action(customDispatch, getState, extraArgs);
 			} else {
 				return dispatch(action);
 			}
