@@ -193,10 +193,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		[]
 	);
 
-	useMemo(() => {
-		modalReducer?.registerFields(fields);
-	}, [fields, modalReducer?.registerFields]);
-
 	useEffect(() => {
 		const { lat, lng } = modalReducer.state.data;
 

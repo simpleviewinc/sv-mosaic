@@ -15,7 +15,7 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const label = text("Label", "Date Field Picker");
 	const helperText = text("Helper text", "Helper text");
@@ -42,10 +42,6 @@ export const Playground = (): ReactElement => {
 		[label, required, disabled, helperText, instructionText, showTime]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -63,12 +59,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const {
-		state,
-		dispatch,
-		registerFields
-	} = useForm();
-
+	const {	state, dispatch	} = useForm();
 	const helperText = "Helper text";
 	const instructionText = "Instruction text";
 
@@ -136,10 +127,6 @@ export const KitchenSink = (): ReactElement => {
 			],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>

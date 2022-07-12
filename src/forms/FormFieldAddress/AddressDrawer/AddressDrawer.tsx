@@ -63,7 +63,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleDialogClose,
 	} = props;
 
-	const { dispatch, state, registerFields } = useForm();
+	const { dispatch, state } = useForm();
 	const [initialState, setInitialState] = useState(state.data);
 
 	useEffect(() => {
@@ -333,10 +333,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			] as FieldDef[],
 		[countries, listOfStates, addressTypes]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const buttons: ButtonProps[] = [
 		{
