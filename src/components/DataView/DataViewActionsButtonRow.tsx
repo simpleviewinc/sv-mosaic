@@ -61,6 +61,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				variant="icon"
 				mIcon={MoreHorizIcon}
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
+				tooltip="More actions"
 				menuItems={additionalActions.map(action => {
 					const {
 						name,
