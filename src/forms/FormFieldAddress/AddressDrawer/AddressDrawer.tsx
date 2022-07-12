@@ -72,7 +72,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [state.data, initialState]);
 
 	useEffect(() => {
-		if (isEditing && open) {
+		let isMounted = true;
+		if (isEditing && open && isMounted) {
 			let editingState = {};
 
 			const fullCountryData = countriesWithStates?.find(
@@ -185,6 +186,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			setInitialState(editingState);
+		}
+
+		return () => {
+			isMounted = false;
 		}
 	}, [addressToEdit]);
 
