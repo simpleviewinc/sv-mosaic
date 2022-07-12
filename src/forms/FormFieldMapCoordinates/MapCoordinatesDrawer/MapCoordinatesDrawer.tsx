@@ -194,41 +194,56 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	);
 
 	useEffect(() => {
-		const { lat, lng } = modalReducer.state.data;
+		let isMounted = true;
+		if (isMounted) {
+			const { lat, lng } = modalReducer.state.data;
 
-		if (lat?.toString().length > 0 && lng?.toString().length > 0) {
-			modalReducer.dispatch(
-				formActions.setFieldValue({ name: "resetButton", value: true })
-			);
+			if (lat?.toString().length > 0 && lng?.toString().length > 0) {
+				modalReducer.dispatch(
+					formActions.setFieldValue({ name: "resetButton", value: true })
+				);
 
-			modalReducer.dispatch(
-				formActions.setFieldValue({
-					name: "placesList",
-					value: { lat: Number(lat), lng: Number(lng) }
-				})
-			);
-		} else {
-			modalReducer.dispatch(
-				formActions.setFieldValue({ name: "resetButton", value: undefined })
-			);
+				modalReducer.dispatch(
+					formActions.setFieldValue({
+						name: "placesList",
+						value: { lat: Number(lat), lng: Number(lng) }
+					})
+				);
+			} else {
+				modalReducer.dispatch(
+					formActions.setFieldValue({ name: "resetButton", value: undefined })
+				);
+			}
 		}
+
+		return () => {
+			isMounted = false;
+		}		
 
 	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
 
 	useEffect(() => {
-		modalReducer.dispatch(
-			formActions.setFieldValue({
-				name: "lat",
-				value: value?.lat
-			})
-		);
+		let isMounted = true;
 
-		modalReducer.dispatch(
-			formActions.setFieldValue({
-				name: "lng",
-				value: value?.lng
-			})
-		);
+		if (isMounted) {
+			modalReducer.dispatch(
+				formActions.setFieldValue({
+					name: "lat",
+					value: value?.lat
+				})
+			);
+	
+			modalReducer.dispatch(
+				formActions.setFieldValue({
+					name: "lng",
+					value: value?.lng
+				})
+			);
+		}
+
+		return () => {
+			isMounted = false;
+		}
 	}, [modalReducer.dispatch, value])
 
 	const buttons: ButtonProps[] = [
