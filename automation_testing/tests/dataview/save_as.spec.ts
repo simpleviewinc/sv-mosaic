@@ -41,10 +41,8 @@ test.describe("Data View - Save As", () => {
 
 	test("New View Shared", async () => {
 		await saveAs.fillNewView(saveAs_data.saveAsViewShared);
-		await saveAs.validateSnapshot(saveAs.saveAsCheckbox, "save_as_checkbox");
 		expect((await saveAs.saveAsCheckbox.isChecked()).valueOf()).toBe(false);
 		await saveAs.saveAsCheckbox.check();
-		await saveAs.validateSnapshot(saveAs.saveAsCheckbox, "save_as_checkbox_checked");
 		expect((await saveAs.saveAsCheckbox.isChecked()).valueOf()).toBe(true);
 		await saveAs.saveViewBtn.click();
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsViewShared);
@@ -104,8 +102,6 @@ test.describe("Data View - Save As", () => {
 		await saveAs.viewBtn.click();
 		await (await saveAs.moreOptionsBtnByLabel(saveAs_data.saveAsView)).click();
 		const removeOption = await saveAs.getRemoveOption();
-		await saveAs.wait();
-		await saveAs.validateSnapshot(removeOption, "save_as_edit_remove_option");
 		await removeOption.click();
 		await saveAs.closeSaveViewBtn.click({ force: true });
 

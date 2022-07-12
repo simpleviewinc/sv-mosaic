@@ -22,7 +22,6 @@ test.describe("Data View", () => {
 
 	test("Edit Icon", async () => {
 		await dataviewPage.wait();
-		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowEditIcon(), "edit_icon");
 		await dataviewPage.setDialogValidationListener("EDIT");
 		await (await dataviewPage.getFirstRowEditIcon()).click();
 	});

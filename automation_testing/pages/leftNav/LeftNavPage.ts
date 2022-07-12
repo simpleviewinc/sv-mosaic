@@ -43,14 +43,14 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async getSubmenuElement(submenu: Locator, num: number): Promise<Locator> {
-		return await submenu.locator("a").nth(num - 1);
+		return submenu.locator("a").nth(num - 1);
 	}
 
 	async getRandomItems(isVisible: boolean): Promise<Locator> {
 		const itemsCount = await this.getItemsCount();
 		const items = [];
 		for (let i = 0; i < itemsCount; i++) {
-			const item = await this.leftItems.nth(i);
+			const item = this.leftItems.nth(i);
 			const arrow = (await this.getItemParent(item)).locator(".right svg[data-testid='ChevronRightIcon']");
 			if (isVisible) {
 				if (await arrow.isVisible()) {
@@ -72,6 +72,7 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async getOptionWithSubmenu(isDouble: boolean): Promise<Locator> {
+		await this.waitForElementLoad();
 		let isValidItem = true;
 		let item;
 		while (isValidItem) {
