@@ -14,7 +14,7 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
@@ -34,10 +34,6 @@ export const Playground = (): ReactElement => {
 		),
 		[disabled, label, required]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>

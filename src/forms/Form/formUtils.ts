@@ -1,4 +1,4 @@
-import { useMemo, useRef, useCallback, useReducer } from "react";
+import { useRef, useCallback, useReducer } from "react";
 import { SectionDef } from "./FormTypes";
 
 type State = {
@@ -84,24 +84,17 @@ export function coreReducer(state: State, action: Action): State {
 type UseFormReturn = {
 	state: any;
 	dispatch: any;
-	registerFields: (fields: any[]) => void;
 }
 
-export function useForm({ customReducer }: { customReducer?: ((state: State, action: Action) => any)[] } = {}): UseFormReturn {
+export function useForm(): UseFormReturn {
 	const extraArgs = useRef({
 		fields: [],
 		fieldMap: {},
 		onSubmit: () => undefined,
-		onLoad: () => [{ name: "", value: "" }],
 	});
-	const reducer = useMemo(() => {
-		return customReducer
-			? joinReducers(coreReducer, customReducer)
-			: coreReducer;
-	}, [customReducer]);
 
 	const [state, dispatch] = useThunkReducer(
-		reducer,
+		coreReducer,
 		{
 			data: {},
 			errors: {},
@@ -113,22 +106,7 @@ export function useForm({ customReducer }: { customReducer?: ((state: State, act
 		extraArgs.current
 	);
 
-	const registerFields = useCallback((fields) => {
-		extraArgs.current.fields = fields;
-
-		const fieldMap = fields.reduce((prev, curr) => {
-			prev[curr.name] = curr;
-			return prev;
-		}, {});
-
-		extraArgs.current.fieldMap = fieldMap;
-	}, []);
-
-	return {
-		state,
-		dispatch,
-		registerFields,
-	};
+	return { state, dispatch };
 }
 
 const isEmpty = (arr) => {

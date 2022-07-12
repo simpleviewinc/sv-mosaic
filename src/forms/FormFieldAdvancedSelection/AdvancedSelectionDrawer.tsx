@@ -43,7 +43,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filter, setFilter] = useState({ prev: "options", new: "options" });
 
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	useEffect(() => {
 		if (state.data.checkboxList !== undefined) {
@@ -286,10 +286,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			isMobileView,
 		]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	/**
 	 * Modal is closed when the Save button is clicked.
