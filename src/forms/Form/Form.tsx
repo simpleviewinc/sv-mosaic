@@ -31,6 +31,7 @@ const Form = (props: FormProps) => {
 	const { view } = useWindowResizer(type);
 
 	useEffect(() => {
+		let isMounted = true;
 		const registerFields = async () => {
 			await dispatch(
 				formActions.init({
@@ -38,7 +39,14 @@ const Form = (props: FormProps) => {
 				})
 			);
 		}
-		registerFields();
+
+		if (isMounted) {
+			registerFields();
+		}
+
+		return () => {
+			isMounted = false;
+		}
 	},[fields])
 
 	useEffect(() => {
