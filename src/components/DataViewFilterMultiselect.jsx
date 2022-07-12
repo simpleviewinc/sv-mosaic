@@ -116,16 +116,23 @@ function DataViewFilterMultiselect(props) {
 	const comparison = props.data.comparison || "in";
 	
 	useEffect(() => {
+		let isMouting = true;
 		async function fetchData() {
 			const selected = await props.args.getSelected(value);
-			
+
 			setState({
 				...state,
 				selected
 			});
 		}
 		
-		fetchData();
+		if(isMouting) {
+			fetchData();
+		}
+
+		return () => {
+			isMouting = false;
+		}
 	}, [props.data]);
 	
 	const onClick = function(event) {
