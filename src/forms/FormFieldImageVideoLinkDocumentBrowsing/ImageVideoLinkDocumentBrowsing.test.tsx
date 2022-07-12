@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useMemo } from "react";
 import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -26,11 +25,7 @@ const setVideoCallback = jest.fn();
 const setLinkCallback = jest.fn();
 
 const ImageVideoLinkDocumentBrowsingExample = () => {
-	const {
-		state,
-		dispatch,
-		registerFields,
-	} = useForm();
+	const {	state, dispatch	} = useForm();
 
 	const setImage = async () => {
 		setImageCallback();
@@ -99,10 +94,6 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 			},
 		},
 	] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[];
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
