@@ -126,7 +126,7 @@ function DataViewFilterMultiselect(props) {
 			});
 		}
 		
-		if(isMouting) {
+		if (isMouting) {
 			fetchData();
 		}
 
