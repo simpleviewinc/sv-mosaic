@@ -52,16 +52,24 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [state.data.checkboxList, value]);
 
 	useEffect(() => {
-		if (value.length > 0 && isModalOpen)
+		let isMounted = true;
+		if (value.length > 0 && isModalOpen && isMounted) {
 			dispatch(
 				formActions.setFieldValue({
 					name: "checkboxList",
 					value: value,
 				})
 			);
+		}
+
+		return () => {
+			isMounted = false;
+		}
+			
 	}, [value, isModalOpen]);
 
 	useEffect(() => {
+		let isMounted = true;
 		const setInternalOptions = async () => {
 			if (fieldDef?.inputSettings?.getOptions) {
 				await getMoreOptions();
@@ -70,7 +78,13 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			}
 		}
 
-		setInternalOptions();
+		if (isMounted) {
+			setInternalOptions();
+		}
+
+		return () => {
+			isMounted = false;
+		}
 	}, [
 		fieldDef?.inputSettings?.checkboxOptions,
 		fieldDef?.inputSettings?.getOptions,

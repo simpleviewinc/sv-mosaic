@@ -476,6 +476,7 @@ function DataViewKitchenSink(): ReactElement {
 	}, [sticky]);
 
 	useEffect(() => {
+		let isMounted = true;
 		const fetchData = async function () {
 			const converted = convertFilter(state.filter);
 
@@ -490,12 +491,15 @@ function DataViewKitchenSink(): ReactElement {
 				filter: converted
 			});
 
-			setState({
-				...state,
-				data: newData,
-				count: count,
-				loading: false
-			});
+			if (isMounted) {
+				setState({
+					...state,
+					data: newData,
+					count: count,
+					loading: false
+				});
+			}
+			
 		}
 
 		setTimeout(function () {
@@ -506,6 +510,10 @@ function DataViewKitchenSink(): ReactElement {
 			...state,
 			loading: true
 		});
+
+		return () => {
+			isMounted = false;
+		}
 	}, [state.limit, state.sort, state.skip, state.filter]);
 
 	// transpose our display knobs into the displayOptions
