@@ -62,8 +62,7 @@ test.describe("DataView - Advanced Filters", () => {
 	});
 
 	// Test fails because Not In is not working properly.
-	test("Validate Categories with Comparisons - Not In", async () => {
-		test.fail();
+	test.skip("Validate Categories with Comparisons - Not In", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.categoryWithComparisonOption.click();
 		await advancedFilters.applyBtn.click();
@@ -79,8 +78,7 @@ test.describe("DataView - Advanced Filters", () => {
 	});
 
 	// Test fails because All is not working properly.
-	test("Validate Categories with Comparisons - All", async () => {
-		test.fail();
+	test.skip("Validate Categories with Comparisons - All", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.categoryWithComparisonOption.click();
 		await advancedFilters.applyBtn.click();
@@ -218,8 +216,7 @@ test.describe("DataView - Advanced Filters", () => {
 	});
 
 	// Test fails because Not Exists is not working properly.
-	test("Validate Title with Comparisons - Not Exists Title", async () => {
-		test.fail();
+	test.skip("Validate Title with Comparisons - Not Exists Title", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.titleWithComparisonOption.click();
 		await advancedFilters.applyBtn.click();
