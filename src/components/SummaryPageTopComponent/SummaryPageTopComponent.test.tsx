@@ -158,7 +158,6 @@ const ComponentExample = (props: {
 
 describe("SummaryPageTopComponent", () => {
 	it("Should display the image", async () => {
-		// jest.spyOn(console, "error").mockImplementation();
 		act(() => {
 			render(<ComponentExample />)
 		});
@@ -250,11 +249,13 @@ describe("SummaryPageTopComponent", () => {
 		]
 
 		act(() => {
-			try {
-				render(<ComponentExample mainActions={newMainActions} />);
-			} catch (e) {
-				expect(e.message).toEqual("mainActions prop must receive 3 elements or less.");
-			}
+			// try {
+			// 	render(<ComponentExample mainActions={newMainActions} />);
+			// } catch (e) {
+			// 	expect(e.message).toEqual("mainActions prop must receive 3 elements or less.");
+			// }
+
+			expect(() => render(<ComponentExample mainActions={newMainActions} />)).toThrowError("mainActions prop must receive 3 elements or less.");
 		});
 	});
 
@@ -297,11 +298,13 @@ describe("SummaryPageTopComponent", () => {
 		]
 
 		act(() => {
-			try {
-				render(<ComponentExample descriptionItems={newDescriptionItems} />);
-			} catch (e) {
-				expect(e.message).toEqual("descriptionElements prop must receive 6 elements or less.");
-			}
+			// try {
+			// 	render(<ComponentExample descriptionItems={newDescriptionItems} />);
+			// } catch (e) {
+			// 	expect(e.message).toEqual("descriptionElements prop must receive 6 elements or less.");
+			// }
+
+			expect(() => render(<ComponentExample descriptionItems={newDescriptionItems} />)).toThrowError("descriptionElements prop must receive 6 elements or less.");
 		});
 	});
 
