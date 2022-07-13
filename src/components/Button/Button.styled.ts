@@ -12,13 +12,13 @@ export const ButtonWrapper = styled.span`
   }
 
   & > button {
-    font-family: ${theme.fontFamily};
-    text-transform: none;
-    font-size: 14px;
-    font-weight: ${theme.fontWeight.medium};
-    min-width: auto;
-    line-height: 1.715;
-	  letter-spacing: 1px;
+	font-family: ${theme.fontFamily};
+	text-transform: none;
+	font-size: 14px;
+	font-weight: ${theme.fontWeight.medium};
+	min-width: auto;
+	line-height: 1.715;
+	letter-spacing: 1px;
   }
 
   &.normalButton > button {
