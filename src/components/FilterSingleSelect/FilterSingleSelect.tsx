@@ -22,6 +22,7 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 	const value = props.data.value;
 
 	useEffect(() => {
+		let isMounted = true;
 		async function fetchData() {
 			const selected = await props.args.getSelected(value);
 			const options = await props.args.getOptions();
@@ -33,7 +34,13 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 			});
 		}
 
-		fetchData();
+		if (isMounted) {
+			fetchData();
+		}
+
+		return () => {
+			isMounted = false;
+		}
 	}, [props.data]);
 
 	const onClick = function (evt) {
