@@ -13,6 +13,7 @@ const config: PlaywrightTestConfig = {
 		video: "off",
 		screenshot: "off"
 	},
+	timeout: 200000,
 	projects: [
 		{
 			name: "Chromium",
