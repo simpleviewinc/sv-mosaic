@@ -3,6 +3,8 @@ import { BasePage } from "../BasePage";
 
 export class FormWithLayout extends BasePage {
 
+	readonly page_path = "components-form--form-with-layout";
+
 	readonly page: Page;
 	readonly topComponentContainer: Locator;
 	readonly topComponentContainerSections: Locator;
@@ -16,6 +18,10 @@ export class FormWithLayout extends BasePage {
 		this.sectionContainer = page.locator("//*[@id='root']/div/form/div[2]/div");
 	}
 
+	async visitPage(): Promise<void> {
+		await this.visit(this.page_path, this.title);
+	}
+	
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
 		await this.topComponentContainer.waitFor();
 		return await this.topComponentContainerSections.count();

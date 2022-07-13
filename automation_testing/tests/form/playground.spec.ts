@@ -6,7 +6,7 @@ test.describe("Form - Playground", () => {
 
 	test.beforeEach(async ({ page }) => {
 		playgroundPage = new PlaygroundPage(page);
-		await playgroundPage.visit("playground", playgroundPage.title);
+		await playgroundPage.visitPage();
 	});
 
 	test("Validate error messages when saving with empty required fields", async () => {
