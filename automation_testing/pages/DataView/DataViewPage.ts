@@ -8,6 +8,8 @@ import { SaveAsComponent } from "./SaveAsComponent";
 
 export class DataviewPage extends BasePage {
 
+	readonly page_path = "components-dataview--example";
+
 	readonly page: Page;
 	readonly saveAsComponent: SaveAsComponent;
 	readonly paginationComponent: PaginationComponent;
@@ -53,7 +55,7 @@ export class DataviewPage extends BasePage {
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit("dataview", this.title);
+		await this.visit(this.page_path, this.title);
 	}
 
 	async setDialogValidationListener(message: string): Promise<void> {

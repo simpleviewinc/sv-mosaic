@@ -3,6 +3,8 @@ import { BasePage } from "../BasePage";
 
 export class ValidatorPage extends BasePage {
 
+	readonly page_path = "components-form--validators";
+
 	readonly page: Page;
 	readonly fields: string;
 	readonly title: Locator;
@@ -45,7 +47,7 @@ export class ValidatorPage extends BasePage {
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit("validator", this.title);
+		await this.visit(this.page_path, this.title);
 	}
 
 	async getDateIcon(field: Locator): Promise<Locator> {
