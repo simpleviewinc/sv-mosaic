@@ -16,7 +16,7 @@ export default {
 } as Meta;
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const options = useMemo( ()=> [
 		{
@@ -58,10 +58,6 @@ export const Playground = (): ReactElement => {
 		[label, helperText, instructionText, required, disabled]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -79,7 +75,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const options = useMemo(() => [
 		{
@@ -138,10 +134,6 @@ export const KitchenSink = (): ReactElement => {
 			] as FieldDef<FormFieldChipSingleSelectDef>[],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>

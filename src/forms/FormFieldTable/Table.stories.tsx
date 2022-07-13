@@ -22,7 +22,7 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -70,10 +70,6 @@ export const Playground = (): ReactElement => {
 		]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -91,7 +87,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -159,10 +155,6 @@ export const KitchenSink = (): ReactElement => {
 			] as FieldDef<TableDef>[],
 		[addTableRow, withoutHeaders]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>

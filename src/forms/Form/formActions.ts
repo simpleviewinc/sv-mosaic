@@ -23,6 +23,16 @@ async function runValidators(
 }
 
 export const formActions = {
+	init({ fields }) {
+		return async function (_dispatch, _getState, extraArgs): Promise<void> {
+			extraArgs.fields = fields;
+			const fieldMap = fields.reduce((prev, curr) => {
+				prev[curr.name] = curr;
+				return prev;
+			}, {});
+			extraArgs.fieldMap = fieldMap;
+		};
+	},
 	setFieldValue({ name, value, validate = false }: { name: string; value: unknown; validate?: boolean }) {
 		return async function (dispatch): Promise<void> {
 			await dispatch({
