@@ -18,6 +18,16 @@ const ViewSpan = styled.span`
 	}
 `
 
+const TitleButton = styled(Button)`
+	max-width: 300px;
+	& > button > span {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical; 
+	}
+`
+
 function DataViewViewControls(props) {
 	const [state, setState] = useState({
 		viewOpen : false,
@@ -85,7 +95,7 @@ function DataViewViewControls(props) {
 						color="blue"
 						menuItems={saveMenuItems}
 					/>
-					<Button
+					<TitleButton
 						mIcon={ExpandMoreIcon}
 						iconPosition="right"
 						label={ViewLabel}
