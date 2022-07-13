@@ -63,7 +63,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleDialogClose,
 	} = props;
 
-	const { dispatch, state, registerFields } = useForm();
+	const { dispatch, state } = useForm();
 	const [initialState, setInitialState] = useState(state.data);
 
 	useEffect(() => {
@@ -72,7 +72,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [state.data, initialState]);
 
 	useEffect(() => {
-		if (isEditing && open) {
+		let isMounted = true;
+		if (isEditing && open && isMounted) {
 			let editingState = {};
 
 			const fullCountryData = countriesWithStates?.find(
@@ -185,6 +186,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			setInitialState(editingState);
+		}
+
+		return () => {
+			isMounted = false;
 		}
 	}, [addressToEdit]);
 
@@ -333,10 +338,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			] as FieldDef[],
 		[countries, listOfStates, addressTypes]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const buttons: ButtonProps[] = [
 		{

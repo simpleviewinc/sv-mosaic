@@ -90,7 +90,7 @@ const additionalOptions = [
 ];
 
 const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"}) => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
 	const groupByCategory = false;
@@ -168,7 +168,6 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 			label,
 			required,
 			disabled,
-			registerFields,
 			groupByCategory,
 			options,
 			getOptions,
@@ -178,10 +177,6 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 			optionsOrigin,
 		]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
