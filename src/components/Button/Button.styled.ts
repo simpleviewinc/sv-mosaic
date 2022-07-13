@@ -18,7 +18,7 @@ export const ButtonWrapper = styled.span`
     font-weight: ${theme.fontWeight.medium};
     min-width: auto;
     line-height: 1.715;
-	letter-spacing: 1px;
+	  letter-spacing: 1px;
   }
 
   &.normalButton > button {
