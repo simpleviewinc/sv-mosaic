@@ -22,7 +22,7 @@ const handleSetFocus = () => {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -51,10 +51,6 @@ export const Playground = (): ReactElement => {
 			] as FieldDef<ImageUploadDef>[],
 		[required, disabled, showMenu, instructionText, helperText, label]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>
@@ -109,11 +105,7 @@ const kitchenSinkFields = [
 ] as FieldDef<ImageUploadDef>[];
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
-
-	useMemo(() => {
-		registerFields(kitchenSinkFields);
-	}, [kitchenSinkFields, registerFields]);
+	const { state, dispatch } = useForm();
 
 	return (
 		<>

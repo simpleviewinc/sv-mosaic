@@ -77,6 +77,7 @@ export class DataviewPage extends BasePage {
 	}
 
 	async getFirstRowMoreOptions(): Promise<Locator> {
+		await this.waitForElementLoad();
 		return this.moreOptions.first();
 	}
 
@@ -156,11 +157,12 @@ export class DataviewPage extends BasePage {
 
 	async validateContainsMoreThanOneKeyword(titles: string[], keywords: string[]): Promise<void> {
 		for (const title of titles) {
-			let isContaining;
+			let isContaining: boolean;
 			for (const keyword of keywords) {
 				isContaining = false;
 				if (title.toLowerCase().includes(keyword.toLowerCase())) {
 					isContaining = true;
+					break;
 				}
 			}
 			expect(isContaining, `Expected contains: '${keywords.toString()}' but was '${title}'`).toBe(true);
