@@ -17,7 +17,7 @@ import FormFieldColorPicker from "../FormFieldColorPicker";
 import FormFieldDate from "../FormFieldDate/DateField";
 import FormFieldAddress from "../FormFieldAddress";
 import FormFieldTable from "../FormFieldTable";
-// import FormFieldTextEditor from "../FormFieldTextEditor";
+import FormFieldTextEditor from "../FormFieldTextEditor";
 import FormFieldAdvancedSelection from "../FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "../FormFieldMapCoordinates";
 import FormFieldImageUpload from "../FormFieldImageUpload";
@@ -60,7 +60,7 @@ const Col = (props: ColPropsTypes) => {
 		date: FormFieldDate,
 		address: FormFieldAddress,
 		table: FormFieldTable,
-		// textEditor: FormFieldTextEditor,
+		textEditor: FormFieldTextEditor,
 		advancedSelection: FormFieldAdvancedSelection,
 		mapCoordinates: FormFieldMapCoordinates,
 		imageUpload: FormFieldImageUpload,
