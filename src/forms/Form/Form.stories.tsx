@@ -419,13 +419,13 @@ export const Playground = (): ReactElement => {
 						src: imageVideoSrc,
 					}
 				} as FieldDef<ImageVideoDocumentLinkBrowsingDef>,
-				// {
-				// 	name: "textEditor",
-				// 	label: "Text Editor field",
-				// 	type: "textEditor",
-				// 	disabled,
-				// 	required
-				// },
+				{
+					name: "textEditor",
+					label: "Text Editor field",
+					type: "textEditor",
+					disabled,
+					required
+				},
 				{
 					name: "table",
 					label: "Table example",
@@ -498,7 +498,7 @@ export const Playground = (): ReactElement => {
 				// row 1
 				[["color"], ["date"],],
 				// row 2
-				// [["textEditor"], []]
+				[["textEditor"], []]
 			]
 		}
 	];
@@ -597,11 +597,11 @@ export const FormWithLayout = (): ReactElement => {
 						options: menuOptions
 					}
 				},
-				// {
-				// 	name: "textEditor",
-				// 	label: "Text Editor field",
-				// 	type: "textEditor",
-				// },
+				{
+					name: "textEditor",
+					label: "Text Editor field",
+					type: "textEditor",
+				},
 			] as FieldDef[],
 		[]
 	);
@@ -630,7 +630,7 @@ export const FormWithLayout = (): ReactElement => {
 				[[], [], []],
 				[[]],
 				// row 3
-				// [[], ["textEditor"]]
+				[[], ["textEditor"]]
 			]
 		},
 		{
