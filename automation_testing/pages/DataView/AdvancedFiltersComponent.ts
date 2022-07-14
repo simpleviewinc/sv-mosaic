@@ -109,6 +109,7 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async getSelectedValueForSingleSelectCategoryOption(): Promise<string> {
+		await this.waitForElementLoad();
 		return (await this.optionalFilters.textContent()).split(":")[1];
 	}
 
