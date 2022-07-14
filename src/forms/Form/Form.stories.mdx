@@ -27,12 +27,12 @@ functionality and not how to make a form work.
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
-- This hook returns a state, a dispatcher, and a registerFields which will be explained in the following subsections.
+- This hook returns a state and a dispatcher, which will be explained in the following subsections.
 
 ```ts
 // We recommend placing the useForm hook at the top of your component.
 const App = (props) => {
-	const { state, dispatch, registerFields } = useForm;
+	const { state, dispatch } = useForm;
 
 	//...rest of App.tsx
 }
@@ -95,16 +95,6 @@ const App = (props) => {
 	}
 	//...rest of App
 }
-```
-
-### RegisterFields
-This function receives the fields array and allows the Form's dispatch/actions to manipulate the fields.
-Is mandatory to encapsulate this function inside of a useMemo hook for better performance, because that allows us re-render when a change on the fields occurs.
-
-```ts
-useMemo(() => {
-	registerFields(fields);
-}, [fields, registerFields]); //It's recommended to add these as dependencies to re-register if any of them change.
 ```
 
 ### Submit
@@ -191,7 +181,7 @@ When done through this method, the array must be passed down as a prop to the Fo
 import { Form, useForm, formActions } from "sv-mosaic";
 
 const App = (props) => {
-	const { state, dispatch, registerFields } = useForm;
+	const { state, dispatch } = useForm;
 	
 	//...rest of App.tsx
 	const fields = useMemo(
@@ -219,10 +209,6 @@ const App = (props) => {
 
 		return values;
 	});
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]); //It's recommended to add these as dependencies to re-register if any of them change.
 
 	const onSubmit = useCallback(async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
@@ -319,12 +305,6 @@ const fields = useMemo(
 		],
 	[]
 );
-
-useMemo(() => {
-	registerFields(fields);
-	//State will look like this:
-	// { data: { "myField": "myValue" }}
-}, [fields, registerFields]);
 ```
 
 ## Form Fields

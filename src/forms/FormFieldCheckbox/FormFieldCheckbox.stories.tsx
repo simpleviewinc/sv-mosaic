@@ -19,7 +19,7 @@ export default {
 } as Meta;
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -45,10 +45,6 @@ export const Playground = (): ReactElement => {
 			] as FieldDef<FormFieldCheckboxDef>[],
 		[required, disabled, label, instructionText, helperText]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>
@@ -104,11 +100,7 @@ const kitchenSinkFields = [
 ] as FieldDef<FormFieldCheckboxDef>[];
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
-
-	useMemo(() => {
-		registerFields(kitchenSinkFields);
-	}, [kitchenSinkFields, registerFields]);
+	const { state, dispatch } = useForm();
 
 	return (
 		<>

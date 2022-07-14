@@ -18,7 +18,7 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 
 	const addressKnob = object("Address", address);
 	const disabled = boolean("Disabled", false);
@@ -45,10 +45,6 @@ export const Playground = (): ReactElement => {
 			] as FieldDef<MapCoordinatesDef>[],
 		[addressKnob, disabled, label, mapPositionKnob, required, withAddress]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>
@@ -114,11 +110,7 @@ const kitchenSinkFields = [
 ] as FieldDef<MapCoordinatesDef>[];
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
-
-	useMemo(() => {
-		registerFields(kitchenSinkFields);
-	}, [kitchenSinkFields, registerFields]);
+	const { state, dispatch } = useForm();
 
 	return (
 		<>

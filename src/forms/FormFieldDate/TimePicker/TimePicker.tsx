@@ -1,10 +1,10 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
 
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import TextField from "@mui/material/TextField";
-import TimePicker from "@mui/lab/TimePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 // Styles
 import { customTheme } from "./TimePicker.styled";

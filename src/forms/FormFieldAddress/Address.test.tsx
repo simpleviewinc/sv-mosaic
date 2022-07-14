@@ -7,7 +7,7 @@ import {
 	waitFor
 } from "@testing-library/react";
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import { ReactElement } from "react";
 import { useForm } from "../Form";
 
 // Components
@@ -38,12 +38,7 @@ export const AddressFormFieldExample = (): ReactElement => {
 	const {
 		state,
 		dispatch,
-		registerFields
 	} = useForm();
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<Form
