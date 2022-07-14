@@ -5,6 +5,8 @@ import { leftnav_data } from "../../utils/data/left_nav_data";
 
 export class LeftNavPage extends BasePage {
 
+	readonly page_path = "components-leftnav--example";
+
 	readonly page: Page;
 	readonly title: Locator;
 	readonly subtitle: Locator;
@@ -26,7 +28,7 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit("leftNav", this.title);
+		await this.visit(this.page_path, this.title);
 	}
 
 	async getItemParent(item: Locator): Promise<Locator> {

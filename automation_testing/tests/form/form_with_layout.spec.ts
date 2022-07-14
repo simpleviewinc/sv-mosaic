@@ -6,7 +6,7 @@ test.describe("Form - Form With Layout", () => {
 
 	test.beforeEach(async ({ page }) => {
 		formWithLayoutPage = new FormWithLayout(page);
-		await formWithLayoutPage.visit("form_with_layout", formWithLayoutPage.title);
+		await formWithLayoutPage.visitPage();
 	});
 
 	test("Validate that each Section has a Title", async () => {
