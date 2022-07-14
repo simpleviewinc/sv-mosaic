@@ -21,8 +21,8 @@ export class BasePage {
 		this.saveBtn = page.locator("text=Save");
 	}
 
-	async visit(page: string, element: Locator): Promise<void> {
-		await this.page.goto(url(page), { timeout: 900000 });
+	async visit(page_path: string, element: Locator): Promise<void> {
+		await this.page.goto(url(page_path), { timeout: 900000 });
 		await element.waitFor();
 	}
 

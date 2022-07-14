@@ -4,6 +4,8 @@ import { getDateFormatted } from "../../utils/helpers/helper";
 
 export class PlaygroundPage extends BasePage {
 
+	readonly page_path = "components-form--playground";
+
 	readonly page: Page;
 	readonly errorMessage: Locator;
 	readonly simpleText: Locator;
@@ -89,6 +91,10 @@ export class PlaygroundPage extends BasePage {
 		this.saveCoordinatesButton = page.locator("[type='DRAWER'] button", { hasText: "Save Coordinates"})
 	}
 
+	async visitPage(): Promise<void> {
+		await this.visit(this.page_path, this.title);
+	}
+	
 	async getNumberOfFieldsRequired():Promise<number> {
 		return this.page.locator("#root .section [required=''] label").count();
 	}
