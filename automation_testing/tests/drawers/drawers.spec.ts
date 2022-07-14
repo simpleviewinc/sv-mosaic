@@ -17,18 +17,19 @@ test.describe("Drawers", () => {
 		expect(Number(await drawersPage.counterLabel.textContent())).toBe(0);
 	});
 
-	test("Validate elements in a new drawer", async () => {
+	test("Validate elements in a new regular drawer", async () => {
 		await drawersPage.openRegularDrawerButton.click();
-		expect(await drawersPage.page.locator("#root button").count()).toBe(5);
-
-		expect(await drawersPage.page.locator("#root button").nth(0).textContent()).toBe("Reset");
-		expect(await drawersPage.page.locator("#root button").nth(1).textContent()).toBe("Increment");
-		expect(await drawersPage.page.locator("#root button").nth(2).textContent()).toBe("Open Regular Drawer");
-		expect(await drawersPage.page.locator("#root button").nth(3).textContent()).toBe("Open Form Drawer");
-		expect(await drawersPage.page.locator("#root button").nth(4).textContent()).toBe("Go Back");
+		expect(await drawersPage.drawerDiv.locator("h1").textContent()).toContain("Test Grid - ");
+		expect(drawersPage.drawerDiv.locator("p")).toBeVisible();
+		expect(await drawersPage.drawerDiv.locator("button").count()).toBe(5);
+		expect(await drawersPage.drawerDiv.locator("button").nth(0).textContent()).toBe("Reset");
+		expect(await drawersPage.drawerDiv.locator("button").nth(1).textContent()).toBe("Increment");
+		expect(await drawersPage.drawerDiv.locator("button").nth(2).textContent()).toBe("Open Regular Drawer");
+		expect(await drawersPage.drawerDiv.locator("button").nth(3).textContent()).toBe("Open Form Drawer");
+		expect(await drawersPage.drawerDiv.locator("button").nth(4).textContent()).toBe("Go Back");
 	});
 
-	test("Validate form drawer", async () => {
+	test("Validate form drawer saves value to previous form drawer", async () => {
 		const numberOfIncrement = 5;
 		await drawersPage.openFormDrawerButton.click();
 		await drawersPage.simpleTextField.fill(numberOfIncrement.toString());
@@ -38,6 +39,8 @@ test.describe("Drawers", () => {
 
 	test("Validate form drawer carries the saved number", async () => {
 		const numberOfIncrement = 5;
+		//We increment to 3 at the beginning to check that later is replaced correctly.
+		await drawersPage.incrementButton.click({clickCount: 3});
 		await drawersPage.openFormDrawerButton.click();
 		await drawersPage.openNewDrawerFromButton.click();
 		const numberOfDrawers = await drawersPage.drawerDiv.count();
