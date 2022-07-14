@@ -17,6 +17,13 @@ const StyledDiv = styled.div`
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
+
+		& .filter-value {
+			max-width: 200px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 
 	& > .filterRow > * {
