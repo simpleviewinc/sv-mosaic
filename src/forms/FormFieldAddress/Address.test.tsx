@@ -56,7 +56,6 @@ const {
 	getByLabelText,
 	getAllByTestId,
 	getAllByRole,
-	getAllByText,
 	queryAllByTestId
 } = screen;
 
@@ -110,12 +109,9 @@ describe("Address component", () => {
 		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
 		addNewAddress();
 		fireEvent.click(getByText("Save"));
-		await waitFor(
-			() => {
-				expect(queryAllByTestId("address-card-test").length).toBe(1);
-			},
-			{ timeout: 3000 }
-		);
+		await waitFor(() => {
+			expect(queryAllByTestId("address-card-test").length).toBe(1);
+		});
 
 		fireEvent.click(getByText("Remove"));
 
@@ -126,9 +122,11 @@ describe("Address component", () => {
 		addNewAddress();
 
 		fireEvent.click(getByText("Save"));
-		await new Promise(r => setTimeout(r, 3000));
-		fireEvent.click(getByText("Edit"));
+		await waitFor(() => {
+			expect(queryAllByTestId("address-card-test").length).toBe(1);
+		});
 
+		fireEvent.click(getByText("Edit"));
 		const address = getByLabelText("Address");
 		const city = getByLabelText("City");
 		const postalCode = getByLabelText("Postal Code");
@@ -145,18 +143,14 @@ describe("Address component", () => {
 		fireEvent.click(getByText("Argentina"));
 		fireEvent.click(addressTypes[1]);
 
-		fireEvent.click(getAllByText("Save")[1]);
-		await new Promise(r => setTimeout(r, 1000));
+		fireEvent.click(getByText("Save"));
 
-		await waitFor(
-			() => {
-				expect(getByText("Address edited")).toBeTruthy();
-				expect(getByText("Physical, Billing Address")).toBeTruthy();
-				expect(getByText("City edited, 456")).toBeTruthy();
-				expect(getByText("Argentina")).toBeTruthy();
-			},
-			{ timeout: 3000 }
-		);
+		await waitFor(() => {
+			expect(getByText("Address edited")).toBeTruthy();
+			expect(getByText("Physical, Billing Address")).toBeTruthy();
+			expect(getByText("City edited, 456")).toBeTruthy();
+			expect(getByText("Argentina")).toBeTruthy();
+		});
 	});
 });
 

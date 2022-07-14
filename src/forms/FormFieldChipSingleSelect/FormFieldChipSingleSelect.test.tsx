@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, ReactElement } from "react";
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -13,7 +13,7 @@ afterEach(cleanup);
 
 const { getAllByRole, getByText } = screen;
 
-const FormFieldChipSingleSelectExample = () => {
+const FormFieldChipSingleSelectExample = (): ReactElement => {
 	const { state, dispatch } = useForm();
 	
 	const options = useMemo( ()=> [
@@ -97,8 +97,8 @@ describe("FormFieldChipSingleSelect component", () => {
 		const chipElements = getAllByRole("button") as HTMLInputElement[];
 		fireEvent.click(chipElements[1]);
 
-		expect(window.getComputedStyle(chipElements[0]).backgroundColor).toBe("rgb(240, 242, 245)");
 		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe("rgb(253, 185, 36)");
 		expect(window.getComputedStyle(chipElements[2]).backgroundColor).toBe("rgb(240, 242, 245)");
+		expect(window.getComputedStyle(chipElements[3]).backgroundColor).toBe("rgb(240, 242, 245)");
 	});
 });
