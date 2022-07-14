@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render, cleanup, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 
 // Components
 import { useForm } from "../Form/formUtils";
@@ -61,22 +61,26 @@ describe("TextEditor component", () => {
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
 		expect(
-			editorContent.firstChild.childNodes[1].firstChild
-		).not.toHaveAttribute("contenteditable");
+			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
+		).toHaveAttribute("aria-disabled", "true");
 	});
 
 	it("should have an ltr direction", async () => {
 		render(<TextEditorExample direction={"ltr"} />);
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
-		expect(editorContent.firstChild).toHaveAttribute("dir", "ltr");
+		expect(
+			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
+		).toHaveAttribute("dir", "ltr");
 	});
 
 	it("should have an rtl direction", async () => {
 		render(<TextEditorExample direction={"rtl"} />);
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
-		expect(editorContent.firstChild).toHaveAttribute("dir", "rtl");
+		expect(
+			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
+		).toHaveAttribute("dir", "rtl");
 	});
 
 	it("should render in german (de)", async () => {
@@ -88,7 +92,9 @@ describe("TextEditor component", () => {
 		render(<TextEditorExample spellcheck={true} />);
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
-		expect(editorContent.firstChild.childNodes[1].firstChild).toHaveAttribute(
+		expect(
+			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
+		).toHaveAttribute(
 			"spellcheck",
 			"true"
 		);
