@@ -11,7 +11,7 @@ import { getAddressStringFromAddressObject } from "./MapCoordinatesUtils";
 // Components
 import Form from "../Form/Form";
 import MapCoordinates from "./FormFieldMapCoordinates";
-import { ReactElement, useMemo } from "react";
+import { ReactElement } from "react";
 
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { MapCoordinatesDef } from "./MapCoordinatesTypes";
@@ -43,12 +43,7 @@ const fields = [
 ] as FieldDef<MapCoordinatesDef>[];
 
 const MapCoordinatesExample = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
+	const { state, dispatch } = useForm();
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());

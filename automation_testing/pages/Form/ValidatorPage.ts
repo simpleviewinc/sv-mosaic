@@ -51,7 +51,7 @@ export class ValidatorPage extends BasePage {
 	}
 
 	async getDateIcon(field: Locator): Promise<Locator> {
-		return await field.locator("xpath=..").locator("button.MuiIconButton-sizeMedium");
+		return field.locator("xpath=..").locator("button.MuiIconButton-sizeMedium");
 	}
 
 	async dateValidation(element: Locator, date: string): Promise<void> {
@@ -68,12 +68,12 @@ export class ValidatorPage extends BasePage {
 	}
 
 	async selectDate(element: Locator, year: string, month: string, day: string,): Promise<void> {
-		await (await this.getDateIcon(await element)).click();
-		await this.yearArrowCalendar.click();
+		await this.waitForElementLoad();
+		await (await this.getDateIcon(element)).click();
+		await this.yearArrowCalendar.nth(0).click();
 		await this.page.locator(`.PrivatePickersYear-yearButton:has-text('${year}')`).click();
 		await this.findMonth(month);
 		await this.page.locator(`text=${day}`).nth(0).click();
-
 	}
 
 	async findMonth(month: string): Promise<void> {

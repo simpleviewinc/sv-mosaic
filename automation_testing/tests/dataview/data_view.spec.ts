@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ColumnsComponent } from "../../pages/ColumnsComponent";
-import { DataviewPage } from "../../pages/DataViewPage";
+import { ColumnsComponent } from "../../pages/DataView/ColumnsComponent";
+import { DataviewPage } from "../../pages/DataView/DataViewPage";
 import { dataview_data } from "../../utils/data/dataview_data";
 
 test.describe("Data View", () => {
@@ -22,7 +22,6 @@ test.describe("Data View", () => {
 
 	test("Edit Icon", async () => {
 		await dataviewPage.wait();
-		await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowEditIcon(), "edit_icon");
 		await dataviewPage.setDialogValidationListener("EDIT");
 		await (await dataviewPage.getFirstRowEditIcon()).click();
 	});

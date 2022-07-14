@@ -31,7 +31,7 @@ const options = [
 ];
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
 	const disabled = boolean("Disabled", false);
@@ -57,10 +57,6 @@ export const Playground = (): ReactElement => {
 		[label, required, disabled, instructionText, helperText]
 	);
 
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -78,7 +74,7 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch, registerFields } = useForm();
+	const { state, dispatch } = useForm();
 	const fields = useMemo(
 		() =>
 			[
@@ -109,10 +105,6 @@ export const KitchenSink = (): ReactElement => {
 			] as FieldDef<FormFieldRadioDef>[],
 		[]
 	);
-
-	useMemo(() => {
-		registerFields(fields);
-	}, [fields, registerFields]);
 
 	return (
 		<>

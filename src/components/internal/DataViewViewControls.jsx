@@ -16,6 +16,18 @@ const ViewSpan = styled.span`
 	& > .icon {
 		margin-right: 3px;
 	}
+
+	& > p {
+		margin: 0;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical; 
+	}
+`
+
+const TitleButton = styled(Button)`
+	max-width: 300px;
 `
 
 function DataViewViewControls(props) {
@@ -42,7 +54,10 @@ function DataViewViewControls(props) {
 	
 	const ViewLabel = (
 		<ViewSpan>
-			<ViewQuiltIcon className="icon"/> {props.savedView.label}
+			<ViewQuiltIcon className="icon"/> 
+			<p>
+				{props.savedView.label}
+			</p>
 		</ViewSpan>
 	)
 	
@@ -85,7 +100,7 @@ function DataViewViewControls(props) {
 						color="blue"
 						menuItems={saveMenuItems}
 					/>
-					<Button
+					<TitleButton
 						mIcon={ExpandMoreIcon}
 						iconPosition="right"
 						label={ViewLabel}
