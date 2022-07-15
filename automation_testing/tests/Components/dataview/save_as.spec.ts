@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { dataview_data, saveAs_data } from "../../utils/data/dataview_data";
-import { DataviewPage } from "../../pages/DataView/DataViewPage";
-import { SaveAsComponent } from "../../pages/DataView/SaveAsComponent";
-import { PaginationComponent } from "../../pages/DataView/PaginationComponent";
-import { ColumnsComponent } from "../../pages/DataView/ColumnsComponent";
+import { dataview_data, saveAs_data } from "../../../utils/data/dataview_data";
+import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
+import { SaveAsComponent } from "../../../pages/Components/DataView/SaveAsComponent";
+import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
+import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
 test.describe("Data View - Save As", () => {
 

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { PlaygroundPage } from "../../pages/Form/PlaygroundPage";
+import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
 
 test.describe("Form - Playground", () => {
 	let playgroundPage: PlaygroundPage;

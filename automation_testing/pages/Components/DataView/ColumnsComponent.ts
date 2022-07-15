@@ -1,4 +1,4 @@
-import { BasePage } from "../BasePage";
+import { BasePage } from "../../BasePage";
 import { Locator, Page } from "@playwright/test";
 
 export class ColumnsComponent extends BasePage {

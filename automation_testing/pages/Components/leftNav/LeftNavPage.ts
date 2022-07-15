@@ -1,7 +1,7 @@
 import { Page, Locator } from "playwright-core";
-import { BasePage } from "../BasePage";
-import { randomNumber } from "../../utils/helpers/helper";
-import { leftnav_data } from "../../utils/data/left_nav_data";
+import { BasePage } from "../../BasePage";
+import { randomNumber } from "../../../utils/helpers/helper";
+import { leftnav_data } from "../../../utils/data/left_nav_data";
 
 export class LeftNavPage extends BasePage {
 
