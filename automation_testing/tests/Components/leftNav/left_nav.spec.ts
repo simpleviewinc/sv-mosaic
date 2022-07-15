@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { LeftNavPage } from "../../pages/leftNav/LeftNavPage";
-import { leftnav_data } from "../../utils/data/left_nav_data";
+import { leftnav_data } from "../../../utils/data/left_nav_data";
 
 
 test.describe("LeftNav", () => {

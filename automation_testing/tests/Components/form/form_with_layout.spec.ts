@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { FormWithLayout } from "../../pages/Form/FormWithLayoutPage";
+import { FormWithLayout } from "../../../pages/Components/Form/FormWithLayoutPage";
 
 test.describe("Form - Form With Layout", () => {
 	let formWithLayoutPage: FormWithLayout;
