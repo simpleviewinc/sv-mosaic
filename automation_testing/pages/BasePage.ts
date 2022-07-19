@@ -47,4 +47,20 @@ export class BasePage {
 	async waitForElementLoad(): Promise<void> {
 		await this.loading.waitFor({ state: "detached" });
 	}
+
+	async clearAllValuesFromField(): Promise<void> {
+		await this.page.keyboard.press("Home");
+		await this.page.keyboard.down("Shift");
+		await this.page.keyboard.press("End");
+		await this.page.keyboard.up("Shift");
+		await this.page.keyboard.press("Backspace");
+	}
+
+	async getElementWidth(element:Locator):Promise<number> {
+		await element.waitFor({ state: "visible" });
+		const width = (await ((element).evaluate(el => getComputedStyle(el).width))).split("px")[0];
+		const leftPadding = ((await ((element).evaluate(el => getComputedStyle(el).paddingLeft))).split("px")[0]);
+		const rightPadding = ((await ((element).evaluate(el => getComputedStyle(el).paddingRight))).split("px")[0]);
+		return Number(width) + Number(leftPadding) + Number(rightPadding);
+	}
 }
