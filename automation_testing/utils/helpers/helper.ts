@@ -58,4 +58,14 @@ const getDateFormatted = (date: Date) : string => {
 	return dateFormatted;
 }
 
-export { sortDatesAsc, sortDatesDesc, randomIntFromInterval, getMonthFromString, addQuotes, addComma, isACorrentDateRange, randomNumber, getDateFormatted }
+const generateRandomId = (length: number): string => {
+	let newId = "";
+	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	const charactersLength = characters.length;
+	for (let i = 0; i < length; i++) {
+		newId += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return newId;
+}
+
+export { sortDatesAsc, sortDatesDesc, randomIntFromInterval, getMonthFromString, addQuotes, addComma, isACorrentDateRange, randomNumber, getDateFormatted, generateRandomId }
