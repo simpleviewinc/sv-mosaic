@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { ColumnsComponent } from "../../pages/DataView/ColumnsComponent";
-import { DataviewPage } from "../../pages/DataView/DataViewPage";
-import { PaginationComponent } from "../../pages/DataView/PaginationComponent";
-import { columns_data, dataview_data } from "../../utils/data/dataview_data";
-import { sortDatesAsc, sortDatesDesc } from "../../utils/helpers/helper";
+import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
+import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
+import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
+import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
+import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
 
 test.describe("DataView - Columns", () => {
 	let dataviewPage: DataviewPage;
