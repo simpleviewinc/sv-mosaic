@@ -53,8 +53,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	useEffect(() => {
 		let isMounted = true;
-		if (value.length > 0 && isModalOpen && isMounted) {
-			dispatch(
+		if (value.length > 0 && isModalOpen) {
+			isMounted && dispatch(
 				formActions.setFieldValue({
 					name: "checkboxList",
 					value: value,
@@ -65,7 +65,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		return () => {
 			isMounted = false;
 		}
-			
+      
 	}, [value, isModalOpen]);
 
 	useEffect(() => {
@@ -90,116 +90,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		fieldDef?.inputSettings?.getOptions,
 		fieldDef?.inputSettings?.getOptionsLimit
 	]);
-
-	const debounce = (func, timeout = 300) => {
-		let timer;
-		return (...args) => {
-			clearTimeout(timer);
-			timer = setTimeout(() => { func.apply(this, args); }, timeout);
-		};
-	}
-
-	const getMoreOptionsDebounced = debounce(async () => await getMoreOptions());
-
-	useEffect(() => {
-		getMoreOptionsDebounced();
-	}, [filter]);
-
-	useEffect(() => {
-		const searchInput = state?.data?.searchInput;
-
-		if (searchInput?.length > 0) {
-			setFilter({ prev: filter.new, new: "filter" });
-		} else {
-			setFilter({ prev: filter.new, new: "options" });
-		}
-	}, [state?.data?.searchInput]);
-
-	const loadMoreOptions = () => {
-		setFilter({ prev: filter.new, new: filter.new });
-	}
-
-	const filteredList = useMemo(() => {
-		const searchInput = state?.data?.searchInput;
-
-		if (searchInput) {
-			const trimmedFilter = searchInput?.trim().toLowerCase();
-			return filteredOptions.filter(
-				(option) => searchInput === "" ||
-					option.label.toLowerCase().includes(trimmedFilter)
-			);
-		}
-
-		return options;
-	}, [
-		options,
-		filteredOptions,
-		state?.data?.searchInput,
-	]);
-
-	const searchInput = useCallback((props): ReactElement => {
-		const searchKeyword = props.value.trim();
-
-		/**
-		 * Handler for the input element
-		 * @param e input change event
-		 */
-		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-			dispatch(
-				formActions.setFieldValue({
-					name: "searchInput",
-					value: e.target.value
-				})
-			);
-		};
-
-		/**
-		 * Adds an options to the list.
-		 */
-		const createOption = async () => {
-			const canBeCreated = searchKeyword.length > 0;
-			if (canBeCreated) {
-				const newOptionValue = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
-				const newOption = {
-					label: searchKeyword,
-					value: newOptionValue,
-				}
-
-				setFilteredOptions([...filteredOptions, newOption]);
-			}
-		};
-
-		return (
-			<InputWrapper isMobileView={isMobileView}>
-				<StyledInput
-					type='text'
-					placeholder='Search...'
-					onChange={onInputChange}
-					value={props.value ? props.value : ""}
-					disabled={fieldDef?.disabled}
-				/>
-				{props.value && fieldDef?.inputSettings?.createNewOption && (
-					<Button
-						label='Create'
-						variant='text'
-						color='teal'
-						disabled={fieldDef?.disabled}
-						mIcon={AddIcon}
-						onClick={createOption}
-					/>
-				)}
-			</InputWrapper>
-		)
-	}, [fieldDef?.disabled, options]);
-
-	const deleteSelectedOption = (newOptions) => {
-		dispatch(
-			formActions.setFieldValue({
-				name: "checkboxList",
-				value: newOptions,
-			})
-		);
-	}
 
 	const getMoreOptions = async () => {
 		if (fieldDef?.inputSettings?.getOptions) {
@@ -245,51 +135,167 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		}
 	};
 
+	const getMoreOptionsDebounced = _.debounce(getMoreOptions, 300);
+	//const getMoreOptionsDebounced = debounce(async () => await getMoreOptions());
+
+	useEffect(() => {
+		let isMounted = true;
+		isMounted && getMoreOptionsDebounced();
+		return () => {
+			isMounted = false;
+			getMoreOptionsDebounced.cancel();
+		}
+	}, [filter]);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		if (isMounted) {
+			const searchInput = state?.data?.searchInput;
+
+			if (searchInput && searchInput?.length > 0) {
+				setFilter({ prev: filter.new, new: "filter" });
+			} else {
+				setFilter({ prev: filter.new, new: "options" });
+			}
+		}
+
+		return () => {
+			isMounted = false;
+		}
+	}, [state?.data?.searchInput]);
+
+	const loadMoreOptions = () => {
+		setFilter({ prev: filter.new, new: filter.new });
+	}
+
+	const filteredList = useMemo(() => {
+		const searchInput = state?.data?.searchInput;
+
+		if (searchInput) {
+			const trimmedFilter = searchInput?.trim().toLowerCase();
+			return filteredOptions.filter(
+				(option) => searchInput === "" ||
+          option.label.toLowerCase().includes(trimmedFilter)
+			);
+		}
+
+		return options;
+	}, [
+		options,
+		filteredOptions,
+		state?.data?.searchInput,
+	]);
+
+	const searchInput = useCallback((props): ReactElement => {
+		const searchKeyword = props.value.trim();
+
+		/**
+     * Handler for the input element
+     * @param e input change event
+     */
+		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+			dispatch(
+				formActions.setFieldValue({
+					name: "searchInput",
+					value: e.target.value
+				})
+			);
+		};
+
+		/**
+     * Adds an options to the list.
+     */
+		const createOption = async () => {
+			const canBeCreated = searchKeyword.length > 0;
+			if (canBeCreated) {
+				const newOptionValue = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
+				const newOption = {
+					label: searchKeyword,
+					value: newOptionValue,
+				}
+
+				setFilteredOptions([...filteredOptions, newOption]);
+			}
+		};
+
+		return (
+			<InputWrapper isMobileView={isMobileView}>
+				<StyledInput
+					type='text'
+					placeholder='Search...'
+					onChange={onInputChange}
+					value={props.value ? props.value : ""}
+					disabled={fieldDef?.disabled}
+				/>
+				{props.value && fieldDef?.inputSettings?.createNewOption && (
+					<Button
+						label='Create'
+						variant='text'
+						color='teal'
+						disabled={fieldDef?.disabled}
+						mIcon={AddIcon}
+						onClick={createOption}
+					/>
+				)}
+			</InputWrapper>
+		)
+	}, [fieldDef?.disabled, options]);
+
+	const deleteSelectedOption = (newOptions) => {
+		dispatch(
+			formActions.setFieldValue({
+				name: "checkboxList",
+				value: newOptions,
+			})
+		);
+	}
+
 	const fields = useMemo(
 		() => (
-			[
-				{
-					name: "listOfChips",
-					type: ChipList,
-					disabled: fieldDef?.disabled,
-					inputSettings: {
-						getSelected: fieldDef?.inputSettings?.getSelected,
-						isModalOpen,
-						isMobileView,
-						selectedOptions: state?.data?.checkboxList,
-						deleteSelectedOption,
-					}
-				},
-				{
-					name: "searchInput",
-					type: searchInput,
-				},
-				{
-					name: "checkboxList",
-					type: "checkbox",
-					disabled: fieldDef?.disabled,
-					style: {
-						height: "353px",
-						overflowY: "auto",
-						flexWrap: "nowrap",
-						width: "100%",
-					},
-					size: "100%",
-					inputSettings: {
-						options: filteredList,
-					}
-				} as FieldDef<FormFieldCheckboxDef>,
-				{
-					name: "loadMoreButton",
-					type: LoadMoreButton,
-					disabled: fieldDef?.disabled,
-					inputSettings: {
-						canLoadMore,
-						getMoreOptions: loadMoreOptions,
-						parentInputSettings: fieldDef?.inputSettings,
-					}
-				},
-			] as FieldDef[]
+            [
+            	{
+            		name: "listOfChips",
+            		type: ChipList,
+            		disabled: fieldDef?.disabled,
+            		inputSettings: {
+            			getSelected: fieldDef?.inputSettings?.getSelected,
+            			isModalOpen,
+            			isMobileView,
+            			selectedOptions: state?.data?.checkboxList,
+            			deleteSelectedOption,
+            		}
+            	},
+            	{
+            		name: "searchInput",
+            		type: searchInput,
+            	},
+                {
+                	name: "checkboxList",
+                	type: "checkbox",
+                	disabled: fieldDef?.disabled,
+                	style: {
+                		height: "353px",
+                		overflowY: "auto",
+                		flexWrap: "nowrap",
+                		width: "100%",
+                	},
+                	size: "100%",
+                	inputSettings: {
+                		options: filteredList,
+                	}
+                } as FieldDef<FormFieldCheckboxDef>,
+                {
+                	name: "loadMoreButton",
+                	type: LoadMoreButton,
+                	disabled: fieldDef?.disabled,
+                	inputSettings: {
+                		canLoadMore,
+                		getMoreOptions: loadMoreOptions,
+                		parentInputSettings: fieldDef?.inputSettings,
+                	}
+                },
+            ] as FieldDef[]
 		), [
 			filteredList,
 			searchInput,
@@ -302,8 +308,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	);
 
 	/**
-	 * Modal is closed when the Save button is clicked.
-	 */
+   * Modal is closed when the Save button is clicked.
+   */
 	const onSubmit = async () => {
 		const { valid } = await dispatch(formActions.submitForm());
 		if (!valid) return;
@@ -325,7 +331,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			onClick: onSubmit,
 			color: "yellow",
 			variant: "contained"
-		}		
+		}   
 	];
 
 	return (
