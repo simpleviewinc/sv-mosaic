@@ -1,26 +1,26 @@
-const sortDatesAsc = (arr: string[]): string[] => {
+export const sortDatesAsc = (arr: string[]): string[] => {
 	return arr.sort(
 		(a, b): number => new Date(a).getTime() - new Date(b).getTime());
 }
 
-const sortDatesDesc = (arr: string[]): string[] => {
+export const sortDatesDesc = (arr: string[]): string[] => {
 	return arr.sort(
 		(a, b): number => new Date(b).getTime() - new Date(a).getTime());
 }
 
-const randomIntFromInterval = (min: number, max: number): number => {
+export const randomIntFromInterval = (min: number, max: number): number => {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const getMonthFromString = (mon: string): number => {
+export const getMonthFromString = (mon: string): number => {
 	return new Date(Date.parse(mon + " 1, 2012")).getMonth() + 1
 }
 
-const addQuotes = (word: string): string => {
+export const addQuotes = (word: string): string => {
 	return "\"" + word + "\"";
 }
 
-const addComma = (words: string[]): string => {
+export const addComma = (words: string[]): string => {
 	let result = ""
 	const itemNumber = words.length;
 	for (let i = 0; i < itemNumber; i++) {
@@ -33,7 +33,7 @@ const addComma = (words: string[]): string => {
 	return result;
 }
 
-const isACorrentDateRange = (dates: string[], start: string, end: string): string[] => {
+export const isACorrentDateRange = (dates: string[], start: string, end: string): string[] => {
 	const startDate = new Date(start).getTime();
 	const endDate = new Date(end).getTime();
 	const incorrectRange = [];
@@ -46,11 +46,11 @@ const isACorrentDateRange = (dates: string[], start: string, end: string): strin
 	return incorrectRange;
 }
 
-const randomNumber = (max: number): number => {
+export const randomNumber = (max: number): number => {
 	return Math.floor(Math.random() * (max - 0 + 1) + 0);
 }
 
-const getDateFormatted = (date: Date) : string => {
+export const getDateFormatted = (date: Date) : string => {
 	const dd = String(date.getDate()).padStart(2, "0");
 	const mm = String(date.getMonth() + 1).padStart(2, "0");
 	const yyyy = date.getFullYear();
@@ -58,7 +58,7 @@ const getDateFormatted = (date: Date) : string => {
 	return dateFormatted;
 }
 
-const generateRandomId = (length: number): string => {
+export const generateRandomId = (length: number): string => {
 	let newId = "";
 	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	const charactersLength = characters.length;
@@ -67,5 +67,3 @@ const generateRandomId = (length: number): string => {
 	}
 	return newId;
 }
-
-export { sortDatesAsc, sortDatesDesc, randomIntFromInterval, getMonthFromString, addQuotes, addComma, isACorrentDateRange, randomNumber, getDateFormatted, generateRandomId }
