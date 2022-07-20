@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { LeftNavPage } from "../../pages/leftNav/LeftNavPage";
+import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/left_nav_data";
 
 
