@@ -48,11 +48,13 @@ export class FormFieldTextPage extends BasePage {
 	}
 
 	async getLimitOfMaxChar(): Promise<number> {
-		return Number((await this.maxCharCounter.textContent()).split("/")[1]);
+		const textContent = await this.maxCharCounter.textContent();
+		return Number(textContent?.split("/")[1]);
 	}
 	
 	async getNumberOfCharactersInMaxCharField(): Promise<number> {
-		return Number((await this.maxCharCounter.textContent()).split("/")[0]);
+		const textContent = await this.maxCharCounter.textContent();
+		return Number(textContent?.split("/")[0]);
 	}
 
 	async setTextInMultilineField(multilineText:string): Promise<void> {
