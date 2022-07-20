@@ -1,20 +1,17 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
 import styled from "styled-components";
-import { TextFieldProps } from "@mui/material/TextField";
-import { PropTypes } from "@material-ui/core";
-import DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import theme from "../../utils/theme.js";
 import { FilterDateDropdownContentProps } from "./FilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";
+import DatePickerCustom from "@root/forms/FormFieldDate/DatePicker";
 
 const StyledContents = styled.div`
 	& > .inputRow h5 {
 		margin-top:0;
-		margin-bottom: 0;
+		margin-bottom: 8px;
 	}
 
 	& > .inputRow {
@@ -87,35 +84,39 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 		});
 	}
 
-	const pickerArgs = {
-		placeholder : t("mosaic:FilterDate.choose_a_date___"),
-		clearable : true,
-		format : "M/d/yyyy",
-		inputVariant : "outlined" as TextFieldProps["variant"],
-		margin : "dense" as PropTypes.Margin
-	};
-
 	return (
 		<StyledContents>
 			<div className="inputRow">
-				<MuiPickersUtilsProvider utils={DateFnsUtils}>
-					<div className="startRange">
-						<h5>{`${t("mosaic:common.date_from")}`}</h5>
-						<DatePicker
-							{...pickerArgs}
-							value={state.rangeStart || null}
-							onChange={getOnChange("rangeStart")}
-						/>
-					</div>
-					<div className="endRange">
-						<h5>{`${t("mosaic:common.date_to")}`}</h5>
-						<DatePicker
-							{...pickerArgs}
-							value={state.rangeEnd || null}
-							onChange={getOnChange("rangeEnd")}
-						/>
-					</div>
-				</MuiPickersUtilsProvider>
+				<div className="startRange">
+					<h5>{`${t("mosaic:common.date_from")}`}</h5>
+					<DatePickerCustom 
+						onChange={getOnChange("rangeStart")}
+						value={state.rangeStart || null}
+						fieldDef={{
+							name: "",
+							label: "",
+							type: "",
+							inputSettings: {
+								placeholder: t("mosaic:FilterDate.choose_a_date___")
+							},
+						}}
+					/>
+				</div>
+				<div className="endRange">
+					<h5>{`${t("mosaic:common.date_to")}`}</h5>
+					<DatePickerCustom 
+						onChange={getOnChange("rangeEnd")}
+						value={state.rangeEnd || null}
+						fieldDef={{
+							name: "",
+							label: "",
+							type: "",
+							inputSettings: {
+								placeholder: t("mosaic:FilterDate.choose_a_date___")
+							},
+						}}
+					/>
+				</div>
 			</div>
 			{
 				hasError &&
