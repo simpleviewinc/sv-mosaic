@@ -257,7 +257,8 @@ describe("AdvancedSelection component", () => {
 
 		await waitFor(() => {
 			expect(screen.queryByText("Option 1")).toBe(null);
-		})
+		});
+		
 		expect(await screen.findByText("abc")).toBeTruthy();
 	});
 
