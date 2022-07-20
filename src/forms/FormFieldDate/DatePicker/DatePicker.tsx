@@ -4,22 +4,25 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
+import { DatePickerProps } from ".";
 
 // Styles
 import {
 	DatePickerWrapper,
 	popperSx,
 } from "./DatePicker.styled";
-import { MosaicFieldProps } from "@root/components/Field";
 
-const DateFieldPicker = (props: MosaicFieldProps<any>): ReactElement => {
+const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 	const { error, fieldDef, onChange, value, onBlur } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
 	const handleOpenState = async () => {
 		setIsPickerOpen(!isPickerOpen);
-		await onBlur();
+
+		if (onBlur) {
+			await onBlur();
+		}
 	};
 
 	const renderInput = (params) => (
