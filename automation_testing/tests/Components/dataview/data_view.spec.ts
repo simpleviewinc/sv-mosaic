@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { ColumnsComponent } from "../../pages/DataView/ColumnsComponent";
-import { DataviewPage } from "../../pages/DataView/DataViewPage";
-import { dataview_data } from "../../utils/data/dataview_data";
+import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
+import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
+import { dataview_data } from "../../../utils/data/dataview_data";
 
 test.describe("Data View", () => {
 	let dataviewPage: DataviewPage;
