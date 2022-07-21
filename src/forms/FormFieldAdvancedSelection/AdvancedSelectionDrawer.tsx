@@ -188,9 +188,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const searchKeyword = props.value.trim();
 
 		/**
-	* Handler for the input element
-	* @param e input change event
-	*/
+		 * Handler for the input element
+		 * @param e input change event
+		 */
 		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 			dispatch(
 				formActions.setFieldValue({
@@ -201,8 +201,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		};
 
 		/**
-     * Adds an options to the list.
-    */
+		 * Adds an options to the list.
+		 */
 		const createOption = async () => {
 			const canBeCreated = searchKeyword.length > 0;
 			if (canBeCreated) {
@@ -249,51 +249,49 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}
 
 	const fields = useMemo(
-		() => (
-            [
-				{
-					name: "listOfChips",
-					type: ChipList,
-					disabled: fieldDef?.disabled,
-					inputSettings: {
-						getSelected: fieldDef?.inputSettings?.getSelected,
-						isModalOpen,
-						isMobileView,
-						selectedOptions: state?.data?.checkboxList,
-						deleteSelectedOption,
-					}
+		() => ([
+			{
+				name: "listOfChips",
+				type: ChipList,
+				disabled: fieldDef?.disabled,
+				inputSettings: {
+					getSelected: fieldDef?.inputSettings?.getSelected,
+					isModalOpen,
+					isMobileView,
+					selectedOptions: state?.data?.checkboxList,
+					deleteSelectedOption,
+				}
+			},
+			{
+				name: "searchInput",
+				type: searchInput,
+			},
+			{
+				name: "checkboxList",
+				type: "checkbox",
+				disabled: fieldDef?.disabled,
+				style: {
+					height: "353px",
+					overflowY: "auto",
+					flexWrap: "nowrap",
+					width: "100%",
 				},
-				{
-					name: "searchInput",
-					type: searchInput,
-				},
-				{
-					name: "checkboxList",
-					type: "checkbox",
-					disabled: fieldDef?.disabled,
-					style: {
-						height: "353px",
-						overflowY: "auto",
-						flexWrap: "nowrap",
-						width: "100%",
-					},
-					size: "100%",
-					inputSettings: {
-						options: filteredList,
-					}
-				} as FieldDef<FormFieldCheckboxDef>,
-				{
-					name: "loadMoreButton",
-					type: LoadMoreButton,
-					disabled: fieldDef?.disabled,
-					inputSettings: {
-						canLoadMore,
-						getMoreOptions: loadMoreOptions,
-						parentInputSettings: fieldDef?.inputSettings,
-					}
-				},
-            ] as FieldDef[]
-		), [
+				size: "100%",
+				inputSettings: {
+					options: filteredList,
+				}
+			} as FieldDef<FormFieldCheckboxDef>,
+			{
+				name: "loadMoreButton",
+				type: LoadMoreButton,
+				disabled: fieldDef?.disabled,
+				inputSettings: {
+					canLoadMore,
+					getMoreOptions: loadMoreOptions,
+					parentInputSettings: fieldDef?.inputSettings,
+				}
+			},
+		] as FieldDef[] ), [
 			filteredList,
 			searchInput,
 			fieldDef,
@@ -305,8 +303,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	);
 
 	/**
-   * Modal is closed when the Save button is clicked.
-   */
+	 * Modal is closed when the Save button is clicked.
+	 */
 	const onSubmit = async () => {
 		const { valid } = await dispatch(formActions.submitForm());
 		if (!valid) return;
