@@ -581,7 +581,7 @@ function DataViewKitchenSink(): ReactElement {
 					alert("DELETE ALL");
 				} : undefined
 			}
-		] : undefined,
+		] : [],
 		buttons: [
 			{
 				name: "create",
