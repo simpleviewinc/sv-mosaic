@@ -65,7 +65,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		return () => {
 			isMounted = false;
 		}
-      
 	}, [value, isModalOpen]);
 
 	useEffect(() => {
@@ -136,7 +135,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	};
 
 	const getMoreOptionsDebounced = _.debounce(getMoreOptions, 300);
-	//const getMoreOptionsDebounced = debounce(async () => await getMoreOptions());
 
 	useEffect(() => {
 		let isMounted = true;
@@ -175,8 +173,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		if (searchInput) {
 			const trimmedFilter = searchInput?.trim().toLowerCase();
 			return filteredOptions.filter(
-				(option) => searchInput === "" ||
-          option.label.toLowerCase().includes(trimmedFilter)
+				(option) => searchInput === "" || option.label.toLowerCase().includes(trimmedFilter)
 			);
 		}
 
@@ -191,9 +188,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const searchKeyword = props.value.trim();
 
 		/**
-     * Handler for the input element
-     * @param e input change event
-     */
+	* Handler for the input element
+	* @param e input change event
+	*/
 		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 			dispatch(
 				formActions.setFieldValue({
@@ -205,7 +202,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 		/**
      * Adds an options to the list.
-     */
+    */
 		const createOption = async () => {
 			const canBeCreated = searchKeyword.length > 0;
 			if (canBeCreated) {
@@ -254,47 +251,47 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const fields = useMemo(
 		() => (
             [
-            	{
-            		name: "listOfChips",
-            		type: ChipList,
-            		disabled: fieldDef?.disabled,
-            		inputSettings: {
-            			getSelected: fieldDef?.inputSettings?.getSelected,
-            			isModalOpen,
-            			isMobileView,
-            			selectedOptions: state?.data?.checkboxList,
-            			deleteSelectedOption,
-            		}
-            	},
-            	{
-            		name: "searchInput",
-            		type: searchInput,
-            	},
-                {
-                	name: "checkboxList",
-                	type: "checkbox",
-                	disabled: fieldDef?.disabled,
-                	style: {
-                		height: "353px",
-                		overflowY: "auto",
-                		flexWrap: "nowrap",
-                		width: "100%",
-                	},
-                	size: "100%",
-                	inputSettings: {
-                		options: filteredList,
-                	}
-                } as FieldDef<FormFieldCheckboxDef>,
-                {
-                	name: "loadMoreButton",
-                	type: LoadMoreButton,
-                	disabled: fieldDef?.disabled,
-                	inputSettings: {
-                		canLoadMore,
-                		getMoreOptions: loadMoreOptions,
-                		parentInputSettings: fieldDef?.inputSettings,
-                	}
-                },
+				{
+					name: "listOfChips",
+					type: ChipList,
+					disabled: fieldDef?.disabled,
+					inputSettings: {
+						getSelected: fieldDef?.inputSettings?.getSelected,
+						isModalOpen,
+						isMobileView,
+						selectedOptions: state?.data?.checkboxList,
+						deleteSelectedOption,
+					}
+				},
+				{
+					name: "searchInput",
+					type: searchInput,
+				},
+				{
+					name: "checkboxList",
+					type: "checkbox",
+					disabled: fieldDef?.disabled,
+					style: {
+						height: "353px",
+						overflowY: "auto",
+						flexWrap: "nowrap",
+						width: "100%",
+					},
+					size: "100%",
+					inputSettings: {
+						options: filteredList,
+					}
+				} as FieldDef<FormFieldCheckboxDef>,
+				{
+					name: "loadMoreButton",
+					type: LoadMoreButton,
+					disabled: fieldDef?.disabled,
+					inputSettings: {
+						canLoadMore,
+						getMoreOptions: loadMoreOptions,
+						parentInputSettings: fieldDef?.inputSettings,
+					}
+				},
             ] as FieldDef[]
 		), [
 			filteredList,
@@ -331,7 +328,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			onClick: onSubmit,
 			color: "yellow",
 			variant: "contained"
-		}   
+		}
 	];
 
 	return (
