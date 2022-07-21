@@ -12,17 +12,17 @@ export const ColorContainer = styled.div`
 
 export const ColorDiv = styled.div`
   ${({ color }) => {
-    if (
-      color.r !== undefined &&
+		if (
+			color.r !== undefined &&
       color.b !== undefined &&
       color.b !== undefined &&
       color.a !== undefined
-    ) {
-      return `background: rgba(${color.r}, ${color.g}, ${color.b}, ${color.a});`;
-    } else {
-      return `background: ${color};`;
-    }
-  }}
+		) {
+			return `background: rgba(${color.r}, ${color.g}, ${color.b}, ${color.a});`;
+		} else {
+			return `background: ${color};`;
+		}
+	}}
   cursor: ${(pr) => (!pr.disabled ? "pointer" : "auto")};
   height: 31px;
   pointer-events: ${(pr) => (!pr.disabled ? "auto" : "none")};
