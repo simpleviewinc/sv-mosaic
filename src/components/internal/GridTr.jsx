@@ -8,7 +8,7 @@ function GridTr(props) {
 	return (
 		<tr>
 			{
-				props.bulkActions &&
+				props?.bulkActions?.length > 0 &&
 				<GridTd key="_bulk">
 					<Checkbox
 						checked={props.checked === true}
@@ -16,7 +16,7 @@ function GridTr(props) {
 					/>
 				</GridTd>
 			}
-			<GridTd paddingRight={true} paddingLeft={!props.bulkActions}>
+			<GridTd paddingRight={true} paddingLeft={!props?.bulkActions?.length > 0}>
 				<DataViewActionsButtonRow
 					primaryActions={props.primaryActions}
 					additionalActions={props.additionalActions}

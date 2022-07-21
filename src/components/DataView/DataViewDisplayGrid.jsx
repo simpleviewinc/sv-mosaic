@@ -160,12 +160,12 @@ function DataViewDisplayGrid(props) {
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
 
-	const hasTopRow = props.bulkActions !== undefined || props.onSortChange !== undefined;
+	const hasTopRow = props?.bulkActions.length > 0 || props.onSortChange !== undefined;
 	const hasSortControl = props.onSortChange !== undefined && props.sort !== undefined;
 
 	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
 	const showBulkAll =
-		props.bulkActions &&
+		props.bulkActions?.length > 0 &&
 		props.rowCount > 0 &&
 		props.count > props.rowCount &&
 		props.bulkActions.some(action => action.onAllClick !== undefined) &&
@@ -179,14 +179,14 @@ function DataViewDisplayGrid(props) {
 				<div className="topRow">
 					<div className="left">
 						{
-							props.bulkActions &&
+							props?.bulkActions?.length > 0 &&
 							<Checkbox
 								checked={allChecked}
 								onClick={props.onCheckAllClick}
 							/>
 						}
 						{
-							props.bulkActions && anyChecked &&
+							props?.bulkActions?.length > 0 && anyChecked &&
 							<DataViewBulkActionsButtonsRow
 								data={props.data}
 								checked={props.checked}
@@ -237,7 +237,7 @@ function DataViewDisplayGrid(props) {
 									image &&
 									<div className="image">
 										{
-											props.bulkActions &&
+											props.bulkActions?.length > 0 &&
 											<div className="checkboxContainer">
 												<div className="mask"/>
 												<Checkbox
