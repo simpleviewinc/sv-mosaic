@@ -1,7 +1,6 @@
 import * as React from "react";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ColorResult } from "react-color";
 
 // Components
 import FormFieldColorPicker from "./FormFieldColorPicker";
@@ -10,21 +9,7 @@ afterEach(cleanup);
 
 const { getByTestId, getByText, queryByText } = screen;
 
-const value: ColorResult = {
-	hsl: {
-		h: 212.15686274509804,
-		s: 1,
-		l: 0.3,
-		a: 1,
-	},
-	hex: "#004799",
-	rgb: {
-		r: 0,
-		g: 71,
-		b: 153,
-		a: 1,
-	},
-};
+const value = "#004799";
 
 describe("ColorPicker component", () => {
 	it("should display the color picker when the selected color element is clicked", () => {
@@ -32,7 +17,6 @@ describe("ColorPicker component", () => {
 			<FormFieldColorPicker
 				value={value}
 				fieldDef={{ name: "colorPicker", label: "", disabled: false, type: "color", }}
-
 			/>
 		);
 
@@ -64,7 +48,6 @@ describe("ColorPicker component", () => {
 			<FormFieldColorPicker
 				value={undefined}
 				fieldDef={{ name: "colorPicker", label: "", disabled: true, type: "color", }}
-
 			/>
 		);
 
