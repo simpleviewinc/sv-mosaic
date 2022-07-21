@@ -165,11 +165,11 @@ function GridTHead(props) {
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
 
-	const columnCount = (props.bulkActions ? 1 : 0) + 1 + props.columns.length;
+	const columnCount = (props?.bulkActions?.length > 0 ? 1 : 0) + 1 + props.columns.length;
 
 	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
 	const showBulkAll =
-		props.bulkActions &&
+		props?.bulkActions?.length > 0 &&
 		props.rowCount > 0 &&
 		props.count > props.rowCount &&
 		props.bulkActions.some(action => action.onAllClick !== undefined) &&
@@ -180,7 +180,7 @@ function GridTHead(props) {
 		<StyledWrapper>
 			<tr>
 				{
-					props.bulkActions &&
+					props?.bulkActions?.length > 0 &&
 					<StyledTh key="_bulk" className="bulk">
 						<Checkbox
 							checked={allChecked}
@@ -189,7 +189,7 @@ function GridTHead(props) {
 					</StyledTh>
 				}
 				{
-					props.bulkActions && anyChecked &&
+					props?.bulkActions?.length > 0 && anyChecked &&
 					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
 						<DataViewBulkActionsButtonsRow
 							data={props.data}
@@ -203,7 +203,7 @@ function GridTHead(props) {
 					!anyChecked &&
 					<StyledTh key="_actions" className={`
 						paddingRight
-						${ !props.bulkActions ? "paddingLeft" : "" }
+						${ !props?.bulkActions?.length > 0 ? "paddingLeft" : "" }
 					`}>
 						{
 							props.onColumnsChange !== undefined &&
