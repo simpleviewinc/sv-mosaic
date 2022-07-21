@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
-import { FormFieldBasePage } from "../FormFields/formFieldBasePage";
+import { BasePage } from "../BasePage";
 
-export class FormFieldTextPage extends FormFieldBasePage {
+export class FormFieldTextPage extends BasePage {
 
 	readonly page_path = "formfields-formfieldtext--kitchen-sink";
 
