@@ -49,13 +49,20 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 	 * as chips.
 	 */
 	useEffect(() => {
+		let isMounted = true;
 		const getSelectedOptions = async () => {
 			const optionsChecked = await fieldDef?.inputSettings?.getSelected(fieldDef?.inputSettings?.selectedOptions);
 
 			setChipsToRender(optionsChecked);
 		}
 
-		getSelectedOptions();
+		if (isMounted) {
+			getSelectedOptions();
+		}
+
+		return () => {
+			isMounted = false;
+		}
 	}, [
 		fieldDef?.disabled,
 		fieldDef?.inputSettings?.getSelected,
