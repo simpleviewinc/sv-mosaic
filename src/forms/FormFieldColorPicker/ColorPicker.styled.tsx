@@ -11,7 +11,18 @@ export const ColorContainer = styled.div`
 `;
 
 export const ColorDiv = styled.div`
-  ${pr => `background: rgba(${pr.color.r}, ${pr.color.g}, ${pr.color.b}, ${pr.color.a});`}
+  ${({ color }) => {
+    if (
+      color.r !== undefined &&
+      color.b !== undefined &&
+      color.b !== undefined &&
+      color.a !== undefined
+    ) {
+      return `background: rgba(${color.r}, ${color.g}, ${color.b}, ${color.a});`;
+    } else {
+      return `background: ${color};`;
+    }
+  }}
   cursor: ${(pr) => (!pr.disabled ? "pointer" : "auto")};
   height: 31px;
   pointer-events: ${(pr) => (!pr.disabled ? "auto" : "none")};
