@@ -1,6 +1,6 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
-import { render, cleanup, fireEvent, screen } from "@testing-library/react";
+import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { useMemo } from "react";
 import { AdvancedSelectionDef, optionsWithCategory } from ".";
@@ -237,8 +237,11 @@ describe("AdvancedSelection component", () => {
 		expect(optionChip.length).toBe(1);
 		fireEvent.click(optionChip[0]);
 
-		const remainingChips = await screen.queryAllByTestId("delete-icon-test-id");
-		expect(remainingChips.length).toBe(0);
+		const remainingChips = screen.queryAllByTestId("delete-icon-test-id");
+		
+		await waitFor(() => {
+			expect(remainingChips.length).toBe(0);
+		})
 	});
 
 	it("should filter the options", async () => {
@@ -252,7 +255,10 @@ describe("AdvancedSelection component", () => {
 		const inputNode = screen.getByPlaceholderText("Search...");
 		fireEvent.change(inputNode, { target: { value: "abc" } });
 
-		expect(await screen.queryByText("Option 1")).toBe(null);
+		await waitFor(() => {
+			expect(screen.queryByText("Option 1")).toBe(null);
+		});
+		
 		expect(await screen.findByText("abc")).toBeTruthy();
 	});
 
