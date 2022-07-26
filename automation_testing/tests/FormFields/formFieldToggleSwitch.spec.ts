@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { FormFieldToggleSwitchPage } from "../../pages/FormFields/FormFieldToggleSwitchPage";
 
-test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () => {
 	let formFieldToggleSwitchPage: FormFieldToggleSwitchPage;
 
 	test.beforeEach(async ({ page }) => {
