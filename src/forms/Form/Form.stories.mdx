@@ -22,7 +22,7 @@ functionality and not how to make a form work.
 * **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer".
 * **description** - `string` optional - Additional text that will render under the title.
 * **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
-* **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type)).
+* **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type) and [ActionAdditional type](#actionadditional-type) `['show']`).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
 
 ## useForm Hook
@@ -47,6 +47,11 @@ The state is an object that contains the following structure:
 
 ### Dispatch
 The dispatch function allows developers to update the state through the following formActions:
+* **init** - `({fields}) => Promise<void>` - This action registers the fields internally so the Form builder can process their data.
+	* **name** - init.
+	* **arguments** - `object`
+		* **fields** - `FieldDef[]` - Object containing all fields and their definition (see [Generic Field Props subsection](#generic-field-props-fielddef)).
+	* **return** - `Promise<void>`
 * **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
 	* **name** - setFieldValue
 	* **arguments** - `object`
@@ -70,10 +75,10 @@ The dispatch function allows developers to update the state through the followin
 	* **arguments** - `object`
 		* **fields** - `FieldDef[]` - Object containing all fields and their definition (see [Generic Field Props subsection](#generic-field-props-fielddef)).
 	* **return** - `Promise<void>`
-* **submitForm** - `() => Promise<void>` - This action validates the entire form (calls the action validateForm) and if everything is correct then executes the onSubmit callback passed by the developer. By default this action gets called when the user clicks on the submit button of the form.
+* **submitForm** - `() => Promise<{valid, data}>` - This action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time.
 	* **name** - submitForm
 	* **arguments** - `none`
-	* **return** - `Promise<void>`
+	* **return** - `Promise<{valid: boolean, data: any}>`
 * **resetForm** - `() => Promise<void>` - This action completely empties the state.
 	* **name** - resetForm
 	* **arguments** - `none`
@@ -564,21 +569,8 @@ const fields = useMemo(
 - The color picker component allows users to select from pre-defined colors (swatches) or custom colors using a HSB selection interface.
 - The implementation of this component is based on the following package: [React Color](https://casesandberg.github.io/react-color/)
 - [**Playground**](/?path=/story/formfields-formfieldcolorpicker--playground)
-- Data: `ColorResult` - Object containing all the different variants for the color selected.
+- Data: `string` - Text that represents the hex value of the color picker.
 - inputSettings: This component doesn't require any additional props.
-
-### ColorResult (Type)
-* **hex** - `string`
-* **hsl** - `object`
-	* **a** - `number | undefined`
-	* **h** - `number`
-	* **s** - `number`
-	* **l** - `number`
-* **rgb** - `object`
-	* **a** - `number | undefined`
-	* **r** - `number`
-	* **g** - `number`
-	* **b** - `number`
 
 
 ### How to use in a form?
@@ -1307,6 +1299,12 @@ const fields = useMemo(
 * **onClick** - `(event: React.MouseEvent<HTMLButtonElement>) => void` optional
 * **attrs** - `MosaicObject` optional
 * **muiAttrs** - `MosaicObject` optional
+
+### ActionAdditional (Type)
+* **show** - `boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[]` optional
+
+### DataViewActionShow (Interface)
+* `(val?: {[key: string]: any}): void`
 
 ## Validators
 All of the following default validators return string (with the error message) or undefined (when no error was found). I
