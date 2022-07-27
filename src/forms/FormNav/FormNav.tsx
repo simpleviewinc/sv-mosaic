@@ -1,5 +1,6 @@
 import * as React from "react";
-import { memo, useState, useRef, useCallback, useEffect, ReactElement } from "react";
+import { useState, useRef, useEffect, ReactElement } from "react";
+import { debounce } from "lodash";
 import {
 	FormNavWrapper,
 	FormNavRow,
@@ -14,27 +15,47 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { FormNavProps } from "./FormNavTypes";
 
 const FormNav = (props: FormNavProps): ReactElement => {
-	const { sections } = props;
-	const navRef = useRef(null);
+	const { sections, sectionsRefs } = props;
 
 	// State variables
-	const [selectedTab, setSelectedTab] = useState(sections[0].title);
+	const [navWidth, setNavWidth] = useState(0);
+	const [linksWidth, setLinksWidth] = useState(0);
+	const [selectedTab, setSelectedTab] = useState(0);
 	const [scrollX, setscrollX] = useState(0);
+	const navRef = useRef(null);
+	const linkRef = useRef<HTMLDivElement[]>([]);
 
 	/**
-   * Defines if the left scroll
-   * button should be shown.
-   */
+	 * Computes the total width of all the links elements so that it 
+	 * can be compared with the width of the nav in order to know 
+	 * whether to show the arrow that scrolls horizontally to the right.
+	 */
+	useEffect(() => {
+		let totalLinksWidth = 0;
+		linkRef.current.forEach(current => {
+			const linkWidth = current.getBoundingClientRect().width;
+			// 40 corresponds to the extra right margin of each link.
+			totalLinksWidth += linkWidth + 40;
+		});
+
+		setNavWidth(navRef.current.getBoundingClientRect().width)
+		setLinksWidth(totalLinksWidth);
+	}, []);
+
+	/**
+	 * Defines if the left scroll
+	 * button should be shown.
+	 */
 	const scrollCheck = () => {
 		setscrollX(navRef.current.scrollLeft);
 	};
 
 	/**
-   * Handles scrolling by incrementing or decrementing
-   * the scrollLeft property.
-   * @param direction : to scroll to;
-   */
-	const handleNav = (direction) => {
+	 * Handles scrolling by incrementing or decrementing
+	 * the scrollLeft property.
+	 * @param direction : to scroll to;
+	 */
+	const handleNav = (direction: string) => {
 		if (direction === "left") {
 			navRef ? (navRef.current.scrollLeft -= 200) : null;
 		} else {
@@ -43,43 +64,46 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	};
 
 	/**
-   * Goes to the sections that is selected.
-   * @param e
-   * @param newActiveTab
-   * @param sectionId
-   */
-	const handleClick = (e, newActiveTab, sectionId) => {
+	 * Goes to the sections that is selected.
+	 * @param e
+	 * @param idx
+	 * @param sectionId
+	 */
+	const handleClick = (e, idx: number) => {
 		e.preventDefault();
-		setSelectedTab(sectionId);
-		window.location.replace(`#${sectionId}`);
+		sectionsRefs[idx].scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest"});
+		setSelectedTab(idx);
 	};
 
-	//IMPROVE RENDERING
-	let sectionsTest;
-
 	useEffect(() => {
-		sectionsTest = document.getElementsByClassName("section") as unknown as HTMLElement[];
-		window.addEventListener("scroll", navHighlighter);
+		const navHighlighter = () => {
+			const scrollY = window.pageYOffset;
+			if (sectionsRefs.length === 0) {
+				return;
+			}
+
+			sectionsRefs?.forEach(current => {
+				const currentSection = current as HTMLDivElement;
+				const sectionHeight = currentSection?.offsetHeight;
+				const sectionTop = currentSection?.offsetTop - 350;
+				const sectionId = currentSection?.getAttribute("id");
+				if (
+					scrollY > sectionTop &&
+					scrollY <= sectionTop + sectionHeight
+				) {
+					setSelectedTab(Number(sectionId));
+				}
+			});
+		};
+
+		const navHighlighterDebounced = debounce(navHighlighter, 200);
+
+		window.addEventListener("scroll", navHighlighterDebounced);
 
 		return () => {
-			window.removeEventListener("scroll", navHighlighter);
+			window.removeEventListener("scroll", navHighlighterDebounced);
+			navHighlighterDebounced.cancel();
 		};
-	}, []);
-
-	const navHighlighter = useCallback(() => {
-		const scrollY = window.pageYOffset;
-
-		sectionsTest.forEach(current => {
-			const sectionHeight = current.offsetHeight;
-			const sectionTop = current.offsetTop - 350;
-			const sectionId: any = current.getAttribute("id");
-			if (
-				scrollY > sectionTop &&
-				scrollY <= sectionTop + sectionHeight
-			) {
-				setSelectedTab(sectionId);
-			}
-		});
 	}, []);
 
 	return (
@@ -93,21 +117,24 @@ const FormNav = (props: FormNavProps): ReactElement => {
 				<NavItems ref={navRef} onScroll={scrollCheck}>
 					{sections.map((section, idx) => (
 						<LinksWrapper
-							idx={section.title}
-							selectedTabIdx={selectedTab}
+							className={`${idx === selectedTab ? "highlight" : ""}`}
 							key={`${section.title}-${section.id}`}
-							onClick={(e) => handleClick(e, idx, section.title)}
+							onClick={(e) => handleClick(e, idx)}
+							ref={el => linkRef.current[idx] = el} 
 						>
 							<a href={`#${section.title}`}>{section.title}</a>
 						</LinksWrapper>
-					))}
+					)
+					)}
 				</NavItems>
-				<IconWrapper>
-					<ChevronRightIcon onClick={() => handleNav("right")} />
-				</IconWrapper>
+				{linksWidth > navWidth && (
+					<IconWrapper>
+						<ChevronRightIcon onClick={() => handleNav("right")} />
+					</IconWrapper>
+				)}
 			</FormNavRow>
 		</FormNavWrapper>
 	);
 };
 
-export default memo(FormNav);
+export default FormNav;
