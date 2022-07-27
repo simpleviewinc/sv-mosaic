@@ -209,7 +209,6 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			selected : [],
 			comparison : "in",
 			keyword : undefined,
-			skip : 0,
 		});
 	}
 	
