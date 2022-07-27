@@ -656,7 +656,15 @@ function DataViewKitchenSink(): ReactElement {
 				skip: 0
 			});
 		},
-		onSavedViewRemove: function (data) {
+		onSavedViewRemove: function (data: DataViewProps["savedView"]) {
+			if(data.id === state.savedView.id) {
+				setState({
+					...state,
+					...data.state,
+					savedView: defaultView,
+				});
+			}
+
 			viewsApi.remove(data);
 		},
 		onActiveFiltersChange: function ({ activeFilters, filter }) {
