@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { StyledDisabledForm, StyledForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
@@ -29,6 +29,12 @@ const Form = (props: FormProps) => {
 	} = props;
 
 	const { view } = useWindowResizer(type);
+	const sectionsRef = useRef<HTMLDivElement[]>([]);
+	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
+
+	useEffect(() => {
+		setSectionsRefs(sectionsRef.current);
+	}, []);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -106,15 +112,17 @@ const Form = (props: FormProps) => {
 							sections={sections}
 							view={view}
 							buttons={filteredButtons}
+							sectionsRefs={sectionsRefs}
 						/>
 					}
 					{view === "BIG_DESKTOP" && sections ? (
 						<Row>
 							{sections &&
-								<FormNav sections={sections} />
+								<FormNav sectionsRefs={sectionsRefs} sections={sections} />
 							}
 							<FormContent view={view} sections={sections}>
 								<FormLayout
+									ref={sectionsRef}
 									state={state}
 									dispatch={dispatch}
 									fields={fields}
@@ -125,6 +133,7 @@ const Form = (props: FormProps) => {
 					) : (
 						<FormContent view={view} sections={sections}>
 							<FormLayout
+								ref={sectionsRef}
 								state={state}
 								dispatch={dispatch}
 								fields={fields}

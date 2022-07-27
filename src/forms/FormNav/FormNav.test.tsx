@@ -1,5 +1,6 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import FormNav from "./FormNav";
 
 afterEach(cleanup);
@@ -19,9 +20,32 @@ const sections = [
 	},
 ];
 
+const FormNavExample = (): ReactElement => {
+	const sectionsRef = useRef([]);
+	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[] | []>([]);
+
+	useEffect(() => {
+		setSectionsRefs(sectionsRef.current);
+	}, []);
+
+	return (
+		<>
+			<FormNav sections={sections} sectionsRefs={sectionsRefs}/>
+			{sections.map((section, i) => (
+				<section key={i} ref={el => sectionsRef.current[i] = el} >
+					{section.id}
+				</section>
+			))}
+		</>
+	);
+};
+
+const scrollIntoViewMock = jest.fn();
+
+
 describe("FormNav component", () => {
 	beforeEach(() => {
-		render(<FormNav sections={sections} />);
+		render(<FormNavExample />);
 	});
 
 	it("should render FormNav with the list of sections", () => {
@@ -31,19 +55,10 @@ describe("FormNav component", () => {
 	});
 
 	it("should navigate to the selected section", () => {
-		const url = "http://dummy.com";
-		const sectionLink = screen.getByText("Account Information");
-		global.window = Object.create(window);
-		Object.defineProperty(window, "location", {
-			value: {
-				href: url,
-			},
-			writable: true,
-		});
-		window.location.replace = jest.fn();
+		window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
-		fireEvent.click(sectionLink);
+		fireEvent.click(screen.getByText("Account Profile"));
 
-		expect(window.location.replace).toHaveBeenCalled();
+		expect(scrollIntoViewMock).toHaveBeenCalled();
 	});
 });

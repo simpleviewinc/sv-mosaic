@@ -25,6 +25,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		tooltipInfo,
 		sections,
 		view = "RESPONSIVE",
+		sectionsRefs
 	} = props;
 
 	// State variables
@@ -120,11 +121,13 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 					buttons={buttons}
 					sections={sections}
 					view={view}
+					sectionsRefs={sectionsRefs}
 				/>
 			);
 		if (view === "DESKTOP" || view === "BIG_DESKTOP")
 			return (
 				<DesktopView
+					sectionsRefs={sectionsRefs}
 					title={title}
 					description={description}
 					showActive={showActive}
