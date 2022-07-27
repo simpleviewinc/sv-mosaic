@@ -33,13 +33,6 @@ function DataViewViewSaveDrawerContent(props) {
 		type: (props.allowSharedViewSave === true) ? props.data.type : "mine"
 	});
 
-	useEffect(() => {
-		setState({
-			...state,
-			label: "",
-			type: "mine"
-		})
-	}, []);
 
 	const { t } = useMosaicTranslation();
 	
