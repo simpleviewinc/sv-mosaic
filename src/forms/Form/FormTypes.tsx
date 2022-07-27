@@ -7,7 +7,7 @@ import { MosaicObject } from "@root/types";
 export interface SectionDef extends Section {
 	title?: string;
 	description?: string | JSX.Element;
-	fields: (string | FieldDef)[][][];
+	fields: string[][][];
 	children?: ReactNode;
 }
 
