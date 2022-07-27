@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl";
@@ -32,7 +32,6 @@ function DataViewViewSaveDrawerContent(props) {
 		...props.data,
 		type: (props.allowSharedViewSave === true) ? props.data.type : "mine"
 	});
-
 
 	const { t } = useMosaicTranslation();
 	
