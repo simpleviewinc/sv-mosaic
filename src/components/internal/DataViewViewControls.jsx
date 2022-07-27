@@ -82,8 +82,8 @@ function DataViewViewControls(props) {
 	
 	const savedViewData = {
 		id : undefined,
-		label : props.savedView.type === "default" ? "" : props.savedView.label,
-		type : props.savedView.type === "default" ? "mine" : props.savedView.type,
+		label : "",
+		type : "mine",
 		state : props.savedViewState
 	}
 	
