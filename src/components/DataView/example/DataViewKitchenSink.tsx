@@ -62,11 +62,11 @@ const api = new JSONDB(mappedData, {
 
 const processStringFilter = function ({ name, data, output }) {
 	if (data.value === undefined) { return; }
-
+	
 	if (data.comparison === "equals") {
 		output[name] = data.value;
 	} else if (data.comparison === "contains") {
-		output[name] = new RegExp(`.*${data.value}.*`, "i");
+		output[name] = data.value;
 	} else if (data.comparison === "not_contains") {
 		output[name] = new RegExp(`^((?!${data.value}).)*$`, "i")
 	} else if (data.comparison === "not_equals") {
