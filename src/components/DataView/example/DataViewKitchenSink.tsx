@@ -658,11 +658,7 @@ function DataViewKitchenSink(): ReactElement {
 		},
 		onSavedViewRemove: function (data: DataViewProps["savedView"]) {
 			if(data.id === state.savedView.id) {
-				setState({
-					...state,
-					...data.state,
-					savedView: defaultView,
-				});
+				gridConfig.onSavedViewChange(defaultView);
 			}
 
 			viewsApi.remove(data);
