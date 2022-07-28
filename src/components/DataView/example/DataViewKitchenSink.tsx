@@ -657,7 +657,7 @@ function DataViewKitchenSink(): ReactElement {
 			});
 		},
 		onSavedViewRemove: function (data: DataViewProps["savedView"]) {
-			if(data.id === state.savedView.id) {
+			if (data.id === state.savedView.id) {
 				gridConfig.onSavedViewChange(defaultView);
 			}
 
