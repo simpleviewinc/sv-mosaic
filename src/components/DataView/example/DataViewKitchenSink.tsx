@@ -103,6 +103,8 @@ const processArrayFilter = function ({ name, data, output }) {
 		return;
 	} else if (data.comparison === "in") {
 		output[name] = { $in: data.value };
+	} else if (data.comparison === "not_in") {
+		output[name] = { $not_in: data.value };
 	}
 }
 
