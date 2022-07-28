@@ -214,7 +214,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 	
 	const onApply = function() {
 		props.onApply({
-			value : state.selected,
+			value : optionsDisabled ? [] : state.selected,
 			comparison : state.comparison
 		});
 	}
