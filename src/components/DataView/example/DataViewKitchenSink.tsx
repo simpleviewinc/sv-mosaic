@@ -62,7 +62,7 @@ const api = new JSONDB(mappedData, {
 
 const processStringFilter = function ({ name, data, output }) {
 	if (data.value === undefined) { return; }
-	
+
 	if (data.comparison === "equals") {
 		output[name] = data.value;
 	} else if (data.comparison === "contains") {
@@ -103,8 +103,6 @@ const processArrayFilter = function ({ name, data, output }) {
 		return;
 	} else if (data.comparison === "in") {
 		output[name] = { $in: data.value };
-	} else if (data.comparison === "not_in") {
-		output[name] = { $not_in: data.value };
 	}
 }
 
