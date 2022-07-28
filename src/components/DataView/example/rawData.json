@@ -29967,5 +29967,263 @@
 		"categories_ids": [
 			"559c3606e3bd4253522eb11e"
 		]
+	},
+	{
+		"_id": "5d7bea1b3769e5680211855dqq",
+		"title": "Cooking Classes </aaa> /n Hawai`i",
+		"image_id": "5d7bea0f3769e56802118557",
+		"target": false,
+		"created": "2019-09-13T19:10:32.186Z",
+		"content_owner": "default",
+		"image": {
+			"_id": "5d7bea0f3769e56802118557",
+			"original_public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3",
+			"title": "Children Cooking Class - Downtown Market SV",
+			"notes": "Barberstock Import - 1202305\r\n\r\nAdministrator Notes: \r\nRobert Neumann Photography for Simpleville in 2016.",
+			"resource_raw": {
+				"public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3",
+				"version": 1568401901,
+				"signature": "1093f7a6b7f14cedb0c88ec057ee589ea89a3daa",
+				"width": 7360,
+				"height": 4912,
+				"format": "jpg",
+				"resource_type": "image",
+				"created_at": "2019-09-13T19:11:41.000Z",
+				"pages": 1,
+				"bytes": 14317064,
+				"type": "upload",
+				"etag": "f8ef736c171defefa394acc4b4146ffe",
+				"placeholder": false,
+				"url": "http://res.cloudinary.com/simpleview/image/upload/v1568401901/clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3.jpg",
+				"secure_url": "https://res.cloudinary.com/simpleview/image/upload/v1568401901/clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3.jpg",
+				"access_mode": "public",
+				"exif": {
+					"ExifOffset": "80",
+					"ExifVersion": "48, 50, 50, 48",
+					"PixelXDimension": "7360",
+					"PixelYDimension": "4912",
+					"ResolutionUnit": "2",
+					"Compression": "6",
+					"JPEGInterchangeFormat": "164",
+					"JPEGInterchangeFormatLength": "2950",
+					"XResolution": "300/1",
+					"YResolution": "300/1"
+				},
+				"original_filename": "file"
+			},
+			"categories_ids": [
+				"5579b0cfd6accd28742f2ab5",
+				"55774144c8a71c742e047c32",
+				"5568a806b002ea0c5097b7c9",
+				"556cc038d361f8e95d737992"
+			],
+			"tags_ids": [
+				"558029742abf5f8c3bbb3ead"
+			],
+			"alt_text_raw": "A children's cooking at the Downtown Market Simpleville.",
+			"focal_point": {
+				"x": 4710,
+				"y": 1842
+			},
+			"credits": "Experience Simpleville",
+			"barberstock_id": "1202305",
+			"content_owner": "default",
+			"title_sort": "children cooking class - downtown market gr",
+			"updated": "2019-09-13T19:12:15.189Z",
+			"deleted": false,
+			"created": "2019-09-13T19:12:15.190Z",
+			"id": "5d7bea0f3769e56802118557",
+			"type": "image",
+			"resource": {
+				"raw": {
+					"resource_type": "image",
+					"format": "jpg",
+					"pages": 1,
+					"public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3"
+				},
+				"focalPoint": {
+					"x": 4710,
+					"y": 1842
+				}
+			},
+			"inAssetRequest": false,
+			"alt_text": "A children's cooking at the Downtown Market Simpleville."
+		},
+		"id": "5d7bea1b3769e5680211855d",
+		"categories_ids": [
+			"559c3606e3bd4253522eb11e"
+		]
+	},
+	{
+		"_id": "5d7bea1b3769e5680211855dqq",
+		"title": "Cooking Classes </aaa> \n -- Hawai`i",
+		"image_id": "5d7bea0f3769e56802118557",
+		"target": false,
+		"created": "2019-09-13T19:10:32.186Z",
+		"content_owner": "default",
+		"image": {
+			"_id": "5d7bea0f3769e56802118557",
+			"original_public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3",
+			"title": "Children Cooking Class - Downtown Market SV",
+			"notes": "Barberstock Import - 1202305\r\n\r\nAdministrator Notes: \r\nRobert Neumann Photography for Simpleville in 2016.",
+			"resource_raw": {
+				"public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3",
+				"version": 1568401901,
+				"signature": "1093f7a6b7f14cedb0c88ec057ee589ea89a3daa",
+				"width": 7360,
+				"height": 4912,
+				"format": "jpg",
+				"resource_type": "image",
+				"created_at": "2019-09-13T19:11:41.000Z",
+				"pages": 1,
+				"bytes": 14317064,
+				"type": "upload",
+				"etag": "f8ef736c171defefa394acc4b4146ffe",
+				"placeholder": false,
+				"url": "http://res.cloudinary.com/simpleview/image/upload/v1568401901/clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3.jpg",
+				"secure_url": "https://res.cloudinary.com/simpleview/image/upload/v1568401901/clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3.jpg",
+				"access_mode": "public",
+				"exif": {
+					"ExifOffset": "80",
+					"ExifVersion": "48, 50, 50, 48",
+					"PixelXDimension": "7360",
+					"PixelYDimension": "4912",
+					"ResolutionUnit": "2",
+					"Compression": "6",
+					"JPEGInterchangeFormat": "164",
+					"JPEGInterchangeFormatLength": "2950",
+					"XResolution": "300/1",
+					"YResolution": "300/1"
+				},
+				"original_filename": "file"
+			},
+			"categories_ids": [
+				"5579b0cfd6accd28742f2ab5",
+				"55774144c8a71c742e047c32",
+				"5568a806b002ea0c5097b7c9",
+				"556cc038d361f8e95d737992"
+			],
+			"tags_ids": [
+				"558029742abf5f8c3bbb3ead"
+			],
+			"alt_text_raw": "A children's cooking at the Downtown Market Simpleville.",
+			"focal_point": {
+				"x": 4710,
+				"y": 1842
+			},
+			"credits": "Experience Simpleville",
+			"barberstock_id": "1202305",
+			"content_owner": "default",
+			"title_sort": "children cooking class - downtown market gr",
+			"updated": "2019-09-13T19:12:15.189Z",
+			"deleted": false,
+			"created": "2019-09-13T19:12:15.190Z",
+			"id": "5d7bea0f3769e56802118557",
+			"type": "image",
+			"resource": {
+				"raw": {
+					"resource_type": "image",
+					"format": "jpg",
+					"pages": 1,
+					"public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3"
+				},
+				"focalPoint": {
+					"x": 4710,
+					"y": 1842
+				}
+			},
+			"inAssetRequest": false,
+			"alt_text": "A children's cooking at the Downtown Market Simpleville."
+		},
+		"id": "5d7bea1b3769e5680211855d",
+		"categories_ids": [
+			"559c3606e3bd4253522eb11e"
+		]
+	},
+	{
+		"_id": "5d7bea1b3769e5680211855dqq",
+		"title": "<img src=x onerror=alert(123) />",
+		"image_id": "5d7bea0f3769e56802118557",
+		"target": false,
+		"created": "2019-09-13T19:10:32.186Z",
+		"content_owner": "default",
+		"image": {
+			"_id": "5d7bea0f3769e56802118557",
+			"original_public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3",
+			"title": "Children Cooking Class - Downtown Market SV",
+			"notes": "Barberstock Import - 1202305\r\n\r\nAdministrator Notes: \r\nRobert Neumann Photography for Simpleville in 2016.",
+			"resource_raw": {
+				"public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3",
+				"version": 1568401901,
+				"signature": "1093f7a6b7f14cedb0c88ec057ee589ea89a3daa",
+				"width": 7360,
+				"height": 4912,
+				"format": "jpg",
+				"resource_type": "image",
+				"created_at": "2019-09-13T19:11:41.000Z",
+				"pages": 1,
+				"bytes": 14317064,
+				"type": "upload",
+				"etag": "f8ef736c171defefa394acc4b4146ffe",
+				"placeholder": false,
+				"url": "http://res.cloudinary.com/simpleview/image/upload/v1568401901/clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3.jpg",
+				"secure_url": "https://res.cloudinary.com/simpleview/image/upload/v1568401901/clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3.jpg",
+				"access_mode": "public",
+				"exif": {
+					"ExifOffset": "80",
+					"ExifVersion": "48, 50, 50, 48",
+					"PixelXDimension": "7360",
+					"PixelYDimension": "4912",
+					"ResolutionUnit": "2",
+					"Compression": "6",
+					"JPEGInterchangeFormat": "164",
+					"JPEGInterchangeFormatLength": "2950",
+					"XResolution": "300/1",
+					"YResolution": "300/1"
+				},
+				"original_filename": "file"
+			},
+			"categories_ids": [
+				"5579b0cfd6accd28742f2ab5",
+				"55774144c8a71c742e047c32",
+				"5568a806b002ea0c5097b7c9",
+				"556cc038d361f8e95d737992"
+			],
+			"tags_ids": [
+				"558029742abf5f8c3bbb3ead"
+			],
+			"alt_text_raw": "A children's cooking at the Downtown Market Simpleville.",
+			"focal_point": {
+				"x": 4710,
+				"y": 1842
+			},
+			"credits": "Experience Simpleville",
+			"barberstock_id": "1202305",
+			"content_owner": "default",
+			"title_sort": "children cooking class - downtown market gr",
+			"updated": "2019-09-13T19:12:15.189Z",
+			"deleted": false,
+			"created": "2019-09-13T19:12:15.190Z",
+			"id": "5d7bea0f3769e56802118557",
+			"type": "image",
+			"resource": {
+				"raw": {
+					"resource_type": "image",
+					"format": "jpg",
+					"pages": 1,
+					"public_id": "clients/grandrapids/042_3_8967_jpeg_e0d91e37-8827-444c-b5ff-671c842104f3"
+				},
+				"focalPoint": {
+					"x": 4710,
+					"y": 1842
+				}
+			},
+			"inAssetRequest": false,
+			"alt_text": "A children's cooking at the Downtown Market Simpleville."
+		},
+		"id": "5d7bea1b3769e5680211855d",
+		"categories_ids": [
+			"559c3606e3bd4253522eb11e"
+		]
 	}
 ]
