@@ -1,5 +1,25 @@
 # sv-mosaic changelog
 
+## 5.0.0 - 7/26/22
+* **BREAKING** - Major changes in Forms (See more Forms documentation in Storybook):
+	* Devs don't need to register `fields` anymore, instead they must only pass the `fields` array directly as prop.
+	* Devs don't need to register an `onSubmit` function anymore, instead they need to add a button to the `buttons` prop that internally executes the `submitForm` action.
+	* Devs can pass as many buttons as needed through the `buttons` prop.
+		* Each button from `buttons` prop array use the same contract as regular buttons plus an additional `show` prop.
+	* Added `init` action to `formActions` this is in charge of registering the fields.
+	* Updated `submitForm` action from `formActions`, now this action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time. 
+* Updated project to latest version of MUI (5.8.7).
+* Updated `DataView's` `created` and `updated` filters to now use newest MOS date pickers.
+* Added `FormFieldTextEditor` back again.
+* Solved "Unmounted state update" warnings caused by `DataViewFilterMultiselect` and `FilterSingleSelect`.
+* Updated `FormFieldColorPicker's` return value to now be just a string with the hex code.
+* Added conditional to `DataView` to prevent showing showing the bulk-action-checkbox if no bulk actions are propped down.
+* Solved unit tests' warnings.
+* Added "more actions" tooltip to additional actions button in `DataView`.
+* Limited length of view name in `DataView`.
+* Limited length of filter in `DataView`.
+* Improved Form's rendering performance.
+
 ## 6/3/2021
 * Adds `onAllClick` as an option on `bulkActions`. If specified it will allow a user to select content across all pages.
 
