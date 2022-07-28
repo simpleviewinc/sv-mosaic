@@ -100,7 +100,6 @@ function filterData(data, filter) {
 		}
 
 		if (typeof val === "string") {
-			// newData = newData.filter(row => row[key] === val);
 			newData = newData.filter(row => row[key].toLowerCase().indexOf(val.toLowerCase()) >= 0);
 		}
 	}
