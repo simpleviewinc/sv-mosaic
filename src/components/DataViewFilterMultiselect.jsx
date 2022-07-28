@@ -164,6 +164,7 @@ function DataViewFilterMultiselect(props) {
 	}
 	
 	const onApply = function(data) {
+		console.log(data)
 		props.onChange(data);
 		onClose();
 	}
