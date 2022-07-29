@@ -15,5 +15,6 @@ module.exports = {
 		"ts-jest": {
 			isolatedModules: true
 		}
-	}
+	},
+	modulePathIgnorePatterns: ["<rootDir>/automation_testing"]
 }
