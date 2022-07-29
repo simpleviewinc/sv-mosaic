@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { FormFieldCheckboxPage } from "../../pages/FormFields/FormFieldCheckboxPage";
 
-test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 	let formFieldCheckboxPage: FormFieldCheckboxPage;
 
 	test.beforeEach(async ({ page }) => {
