@@ -90,6 +90,14 @@ function filterData(data, filter) {
 			newData = newData.filter(row => row[key] !== val.$ne);
 		}
 
+		if (val.$contains !== undefined) {
+			newData = newData.filter(row => row[key].toLowerCase().indexOf(val.$contains.toLowerCase()) >= 0);
+		}
+
+		if (val.$not_contains !== undefined) {
+			newData = newData.filter(row => row[key].toLowerCase().indexOf(val.$not_contains.toLowerCase()) < 0);
+		}
+
 		if (val.$exists === true) {
 			newData = newData.filter(row => row.categories_ids.length > 0);
 		}
