@@ -50,14 +50,6 @@ export const randomNumber = (max: number): number => {
 	return Math.floor(Math.random() * (max - 0 + 1) + 0);
 }
 
-export const getDateFormatted = (date: Date) : string => {
-	const dd = String(date.getDate()).padStart(2, "0");
-	const mm = String(date.getMonth() + 1).padStart(2, "0");
-	const yyyy = date.getFullYear();
-	const dateFormatted = mm + "/" + dd + "/" + yyyy;
-	return dateFormatted;
-}
-
 export const generateRandomId = (length: number): string => {
 	let newId = "";
 	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
