@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
-import { getDateFormatted } from "../../../utils/helpers/helper";
+import { getDateFormatted } from "../../../utils/helpers/dateHelper";
 
 export class PlaygroundPage extends BasePage {
 
