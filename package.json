@@ -56,11 +56,15 @@
 		"mocha": "5.2.0",
 		"postcss": "^8.3.6",
 		"react": "^18.2.0",
+		"react-beautiful-dnd": "^13.1.0",
+		"react-color": "^2.19.3",
 		"react-dom": "^18.2.0",
 		"react-draft-wysiwyg": "^1.14.7",
 		"react-hot-loader": "4.12.13",
 		"react-i18next": "11.7.0",
 		"react-lorem-ipsum": "1.4.4",
+		"react-phone-input-2": "^2.14.0",
+		"react-places-autocomplete": "^7.3.0",
 		"rollup": "1.26.5",
 		"rollup-plugin-babel": "4.3.3",
 		"rollup-plugin-postcss": "^4.0.1",
@@ -76,11 +80,7 @@
 	"dependencies": {
 		"@babel/polyfill": "7.6.0",
 		"@babel/runtime": "7.6.0",
-		"@react-google-maps/api": "^2.7.0",
-		"react-beautiful-dnd": "^13.1.0",
-		"react-color": "^2.19.3",
-		"react-phone-input-2": "^2.14.0",
-		"react-places-autocomplete": "^7.3.0"
+		"@react-google-maps/api": "^2.7.0"
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.9.0",
