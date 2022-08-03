@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useRef, useEffect, ReactElement } from "react";
+import { useState, useRef, useEffect, ReactElement, memo } from "react";
 import { debounce } from "lodash";
 import {
 	FormNavWrapper,
@@ -137,4 +137,4 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	);
 };
 
-export default FormNav;
+export default memo(FormNav);
