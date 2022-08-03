@@ -35,6 +35,7 @@ test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 	});
 
 	test("Validate Disabled Color Picker", async () => {
-		await expect(ffColorPickerPage.disabledColorPicker).toBeDisabled();
+		expect(await ffColorPickerPage.disabledColorPickerLabel.textContent()).toBe("Disabled Example");
+		expect(await ffColorPickerPage.disabledColorPicker.getAttribute("disabled")).toBe("");
 	});
 });
