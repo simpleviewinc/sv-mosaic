@@ -104,7 +104,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 			window.removeEventListener("scroll", navHighlighterDebounced);
 			navHighlighterDebounced.cancel();
 		};
-	}, []);
+	}, [sectionsRefs]);
 
 	return (
 		<FormNavWrapper className="form-nav-wrapper">
