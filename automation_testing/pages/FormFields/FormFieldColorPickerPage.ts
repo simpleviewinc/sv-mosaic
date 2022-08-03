@@ -27,18 +27,13 @@ export class FormFieldColorPickerPage extends BasePage {
 	}
 
 	async clickRandomColorInSketchPicker(): Promise<void> {
-		const boundaries = await this.colorSketchPicker.boundingBox();
-		console.log("boundaries: ", boundaries)
-		console.log("x:", boundaries[2], "y:", boundaries[3]);
-
-		const rndXPosition = randomIntFromInterval(0, boundaries[2]);
-		const rndYPosition = randomIntFromInterval(0, boundaries[3]);
-		console.log("x:", rndXPosition, "y:", rndYPosition);
-		await this.colorSketchPicker.click({position: {
-			x: rndXPosition,
-			y: rndYPosition
-		}});
-
-
+		const rndXPosition  = randomIntFromInterval(0, (await this.colorSketchPicker.boundingBox()).width);
+		const rndYPosition = randomIntFromInterval(0, (await this.colorSketchPicker.boundingBox()).height);
+		await this.colorSketchPicker.click({
+			position: {
+				x: rndXPosition,
+				y: rndYPosition
+			}
+		});
 	}
 }
