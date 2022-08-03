@@ -66,7 +66,22 @@ const Col = (props: ColPropsTypes) => {
 		imageUpload: FormFieldImageUpload,
 	}), []);
 
+	const doneTypingInterval = 500;
+	let typingTimer;
+
+	const sendValidateField = async (curr) => {
+		await dispatch(formActions.validateField({ name: curr.name }))
+
+		if (curr.pairedFields)
+			curr.pairedFields.forEach(async pairedField => {
+				await dispatch(
+					formActions.validateField({ name: pairedField })
+				);
+			});
+	};
+
 	const onChangeMap = useMemo(() => {
+		clearTimeout(typingTimer);
 		return fieldsDef.reduce((prev, curr) => {
 			prev[curr.name] = async function (value) {
 				await dispatch(
@@ -75,13 +90,14 @@ const Col = (props: ColPropsTypes) => {
 						value,
 					})
 				);
+				typingTimer = setTimeout(async () => await sendValidateField(curr), doneTypingInterval);
 			};
 
 			return prev;
 		}, {});
-	}, [fieldsDef]);
+	}, [fieldsDef, state.pairedFields]);
 
-	const onBlurMap = useMemo(() => {
+	/* const onBlurMap = useMemo(() => {
 		return fieldsDef.reduce((prev, curr) => {
 			prev[curr.name] = async function () {
 				await dispatch(
@@ -98,7 +114,7 @@ const Col = (props: ColPropsTypes) => {
 
 			return prev;
 		}, {});
-	}, [fieldsDef, state.pairedFields]);
+	}, [fieldsDef, state.pairedFields]); */
 
 	return (
 		<StyledCol colsInRow={colsInRow}>
@@ -119,7 +135,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const onChange = onChangeMap[fieldProps.name];
 
-				const onBlur = onBlurMap[fieldProps.name];
+				// const onBlur = onBlurMap[fieldProps.name];
 
 				const name = fieldProps.name;
 				const value = state?.data[fieldProps.name] || "";
@@ -150,10 +166,10 @@ const Col = (props: ColPropsTypes) => {
 						value={value}
 						error={error}
 						onChange={onChange}
-						onBlur={onBlur}
+						// onBlur={onBlur}
 						key={`${name}_${i}`}
 					/>
-				), [value, error, onChange, onBlur, currentField]);
+				), [value, error, onChange, currentField]);
 
 				return (typeof type === "string" && componentMap[type]) ? (
 					<Field
