@@ -628,8 +628,9 @@ export const FormWithLayout = (): ReactElement => {
 				[["check"], ["toggleSwitch"], ["color"]],
 				// row 2
 				[[], [], []],
-				[[]],
 				// row 3
+				[[]],
+				// row 4
 				[[], ["textEditor"]]
 			]
 		},
@@ -645,7 +646,7 @@ export const FormWithLayout = (): ReactElement => {
 				// row 3
 				[[], []]
 			]
-		}
+		},
 	], [fields]);
 
 	useEffect(() => {
