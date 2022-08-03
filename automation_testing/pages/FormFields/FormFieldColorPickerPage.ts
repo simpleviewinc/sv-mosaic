@@ -9,6 +9,7 @@ export class FormFieldColorPickerPage extends BasePage {
 	readonly page: Page;
 	readonly regularColorPicker: Locator;
 	readonly disabledColorPicker: Locator;
+	readonly disabledColorPickerLabel: Locator;
 	readonly hexColorInput: Locator;
 	readonly colorSketchPicker: Locator;
 
@@ -16,8 +17,9 @@ export class FormFieldColorPickerPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.regularColorPicker = page.locator("div[data-testid='colordiv-test']").nth(0);
-		this.disabledColorPicker = page.locator("div[data-testid='colordiv-test']").nth(1);
+		this.regularColorPicker = page.locator("[data-testid='colordiv-test']").nth(0);
+		this.disabledColorPicker = page.locator("[data-testid='colordiv-test']").nth(1);
+		this.disabledColorPickerLabel = page.locator("label[for='colorDisabled']")
 		this.hexColorInput = page.locator(".flexbox-fix input").nth(0);
 		this.colorSketchPicker = page.locator("//*[@id='root']/div/form/div[2]/div[1]/div/div/div/div/div/div[3]/div[2]/div[1]");
 	}
