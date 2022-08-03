@@ -35,6 +35,9 @@ interface ColPropsTypes {
 	fieldsDef: FieldDef[];
 	dispatch: any;
 	colsInRow?: number;
+	colIdx?: number;
+	rowIdx?: number;
+	sectionIdx?: number;
 }
 
 const Col = (props: ColPropsTypes) => {
@@ -44,6 +47,9 @@ const Col = (props: ColPropsTypes) => {
 		fieldsDef,
 		dispatch,
 		colsInRow,
+		colIdx,
+		rowIdx,
+		sectionIdx
 	} = props;
 
 	const componentMap = useMemo(() => ({
@@ -108,6 +114,10 @@ const Col = (props: ColPropsTypes) => {
 						return field === fieldDef.name;
 					}
 				);
+				
+				if (!currentField) {
+					throw new Error(`No field declared for field name '${field}' in section ${sectionIdx}, row ${rowIdx}, column ${colIdx}.`);
+				}
 
 				const { type, ...fieldProps } = currentField;
 
