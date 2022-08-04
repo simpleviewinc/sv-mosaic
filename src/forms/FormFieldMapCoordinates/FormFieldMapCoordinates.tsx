@@ -73,13 +73,13 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 		if (typeof save === "boolean" && save) {
 			setUnsavedChanges(false);
 			setIsModalOpen(false);
-			await onBlur();
+			if (onBlur) await onBlur();
 		} else if (hasUnsavedChanges)
 			setIsDialogOpen(true);
 		else {
 			setUnsavedChanges(false);
 			setIsModalOpen(false);
-			await onBlur();
+			if (onBlur) await onBlur();
 		}
 	};
 
