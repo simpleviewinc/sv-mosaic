@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { FormFieldColorPickerPage } from "../../pages/FormFields/FormFieldColorPickerPage";
 import { getRandomHexCode } from "../../utils/helpers/helper";
 
-test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
 	let ffColorPickerPage: FormFieldColorPickerPage;
 
 	test.beforeEach(async ({ page }) => {
