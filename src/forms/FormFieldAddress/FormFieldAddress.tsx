@@ -64,19 +64,19 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	const handleClose = async (save = false) => {
 		if (typeof save === "boolean" && save) {
 			setOpen(false);
-			await onBlur();
+			if (onBlur) await onBlur();
 		} else if (hasUnsavedChanges)
 			setIsDialogOpen(true);
 		else {
 			setOpen(false);
-			await onBlur();
+			if (onBlur) await onBlur();
 		}
 	};
 
 	const handleDialogClose = async (close: boolean) => {
 		if (close) {
 			setOpen(false);
-			await onBlur();
+			//await onBlur();
 		}
 		setIsDialogOpen(false);
 	}
