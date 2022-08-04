@@ -21,7 +21,6 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 		this.disabledChipSingleSelectDiv = page.locator(".section").nth(1);
 		this.requiredChipSingleSelectDiv = page.locator(".section").nth(2);
 		this.optionButton = "[role='button']";
-
 	}
 
 	async visitPage(): Promise<void> {
@@ -31,9 +30,13 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 	async selectRandomChipOption(chipLocator: Locator): Promise<number> {
 		const numberOfOptions = await chipLocator.locator(this.optionButton).count();
 		const optionSelected = randomIntFromInterval(1, numberOfOptions);
-		// const optionLabel = await chipLocator.locator(this.optionButton).nth(optionSelected - 1).textContent();
 		await chipLocator.locator(this.optionButton).nth(optionSelected - 1).click();
 		return optionSelected;
+	}
+
+	async selectSpecificChipOption(optionSelected: number, isRequired: boolean): Promise<void> {
+		const chipLocator = isRequired == true ? this.requiredChipSingleSelectDiv : this.regularChipSingleSelectDiv;
+		await chipLocator.locator(this.optionButton).nth(optionSelected - 1).click();
 	}
 
 	async getBackgroundColorFromOption(optionSelected: number, isRequired: boolean): Promise<string> {
