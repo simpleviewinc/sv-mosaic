@@ -12,8 +12,6 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 	readonly requiredChipSingleSelectDiv: Locator;
 	readonly optionButton: string;
 
-
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
