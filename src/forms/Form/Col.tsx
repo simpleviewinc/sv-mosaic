@@ -66,7 +66,7 @@ const Col = (props: ColPropsTypes) => {
 		imageUpload: FormFieldImageUpload,
 	}), []);
 
-	const doneTypingInterval = 500;
+	const doneTypingInterval = 300;
 	let typingTimer;
 
 	const sendValidateField = async (curr) => {
@@ -81,7 +81,6 @@ const Col = (props: ColPropsTypes) => {
 	};
 
 	const onChangeMap = useMemo(() => {
-		clearTimeout(typingTimer);
 		return fieldsDef.reduce((prev, curr) => {
 			prev[curr.name] = async function (value) {
 				await dispatch(
@@ -90,6 +89,7 @@ const Col = (props: ColPropsTypes) => {
 						value,
 					})
 				);
+				clearTimeout(typingTimer);
 				typingTimer = setTimeout(async () => await sendValidateField(curr), doneTypingInterval);
 			};
 
