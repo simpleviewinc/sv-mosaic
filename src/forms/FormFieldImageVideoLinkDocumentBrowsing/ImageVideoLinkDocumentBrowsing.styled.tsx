@@ -65,6 +65,7 @@ export const BrowseSpan = styled.span`
 
 export const AssetCard = styled.div`
   display: flex;
+  background-color: white;
   border: 2px solid ${theme.colors.gray200};
   border-radius: 4px;
   padding: 16px;
