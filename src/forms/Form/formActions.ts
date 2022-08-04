@@ -41,7 +41,7 @@ export const formActions = {
 				value
 			});
 
-			if (validate === true) {
+			if (validate) {
 				dispatch(formActions.validateField({ name }));
 			}
 		};
