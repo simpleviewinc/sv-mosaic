@@ -38,9 +38,4 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 		const chipLocator = isRequired == true ? this.requiredChipSingleSelectDiv : this.regularChipSingleSelectDiv;
 		await chipLocator.locator(this.optionButton).nth(optionSelected - 1).click();
 	}
-
-	async getBackgroundColorFromOption(optionSelected: number, isRequired: boolean): Promise<string> {
-		const chipLocator = isRequired == true ? this.requiredChipSingleSelectDiv : this.regularChipSingleSelectDiv;
-		return (await chipLocator.locator(this.optionButton).nth(optionSelected - 1).evaluate(el => getComputedStyle(el).backgroundColor));
-	}
 }

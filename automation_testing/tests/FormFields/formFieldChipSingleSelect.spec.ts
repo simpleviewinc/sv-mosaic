@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { FormFieldChipSingleSelectPage } from "../../pages/FormFields/FormFieldChipSingleSelectPage";
 
-test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldChipSingleSelect - Kitchen Sink", () => {
 	let ffChipSingleSelectPage: FormFieldChipSingleSelectPage;
 
 	test.beforeEach(async ({ page }) => {
@@ -9,12 +9,14 @@ test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 		await ffChipSingleSelectPage.visitPage();
 	});
 
-	test("Validate the selection Regular Chip Single Select ", async () => {
-		const numberOfOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.regularChipSingleSelectDiv);
-		const bgColor = await ffChipSingleSelectPage.getBackgroundColorFromOption(numberOfOptionSelected, false);
-		expect(bgColor).toBe("rgb(252, 188, 47)");
-		await ffChipSingleSelectPage.selectSpecificChipOption(numberOfOptionSelected, false);
-		expect(bgColor).toBe("rgb(240, 241, 240)");
+	test("Validate the selection Regular Chip Single Select", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain('"chipRegular": "' + regularOptionLabel + '"');
+			await dialog.dismiss();
+		});
+		const regularOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.regularChipSingleSelectDiv);
+		const regularOptionLabel = await ffChipSingleSelectPage.regularChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(regularOptionSelected - 1).textContent();
+		await ffChipSingleSelectPage.saveBtn.click();
 	});
 
 	test("Validate the Disabled Regular Chip Single Select", async () => {
@@ -24,12 +26,14 @@ test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 		}
 	});
 
-	test("Validate the selection Required Chip Single Select ", async () => {
-		const numberOfOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.requiredChipSingleSelectDiv);
-		const bgColor = await ffChipSingleSelectPage.getBackgroundColorFromOption(numberOfOptionSelected, true);
-		expect(bgColor).toBe("rgb(252, 188, 47)");
-		await ffChipSingleSelectPage.selectSpecificChipOption(numberOfOptionSelected, false);
-		expect(bgColor).toBe("rgb(240, 241, 240)");
+	test("Validate the selection Required Chip Single Select", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain('"chipRequired": "' + requiredOptionLabel + '"');
+			await dialog.dismiss();
+		});
+		const requiredOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.requiredChipSingleSelectDiv);
+		const requiredOptionLabel = await ffChipSingleSelectPage.requiredChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(requiredOptionSelected - 1).textContent();
+		await ffChipSingleSelectPage.saveBtn.click();
 	});
 
 	test("Validate saving the selection for Chip Single Select", async ({ page }) => {
@@ -43,5 +47,10 @@ test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 		const regularOptionLabel = await ffChipSingleSelectPage.regularChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(regularOptionSelected - 1).textContent();
 		const requiredOptionLabel = await ffChipSingleSelectPage.requiredChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(requiredOptionSelected - 1).textContent();
 		await ffChipSingleSelectPage.saveBtn.click();
+	});
+
+	test("Validate error when trying to save without selecting Required Single Chip", async () => {
+		await ffChipSingleSelectPage.saveBtn.click();
+		await expect(ffChipSingleSelectPage.page.locator("p", { hasText: "This field is required, please fill it" })).toBeVisible();
 	});
 });
