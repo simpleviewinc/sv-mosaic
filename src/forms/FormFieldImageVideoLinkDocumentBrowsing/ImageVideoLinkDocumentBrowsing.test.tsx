@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 // Components
@@ -18,6 +18,7 @@ import {
 import { ImageVideoDocumentLinkBrowsingDef } from "./ImageVideoLinkDocumentBrowsingTypes";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
+import { act } from "react-dom/test-utils";
 
 const setImageCallback = jest.fn();
 const setDocumentCallback = jest.fn();
@@ -125,12 +126,14 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 
 afterEach(cleanup);
 
-const { getByText, queryByText, getByTestId, findByText, queryByTestId } = screen;
+const { getByText, queryByText, getByTestId, findByText, queryByTestId, findByTestId } = screen;
 
 jest.setTimeout(30000);
 describe("ImageVideoLinkDocumentBrowsing component", () => {
-	it("should display all browsing options", () => {
-		render(<ImageVideoLinkDocumentBrowsingExample />);
+	it("should display all browsing options", async () => {
+		await act(async () => {
+			render(<ImageVideoLinkDocumentBrowsingExample />);
+		});
 	
 		expect(getByText("Browse:")).toBeTruthy();
 		expect(getByText("Image")).toBeTruthy();
@@ -141,13 +144,22 @@ describe("ImageVideoLinkDocumentBrowsing component", () => {
 });
 
 describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
-	beforeEach(() => {
-		render(<ImageVideoLinkDocumentBrowsingExample />);
+	beforeEach(async () => {
+		await act(async () => {
+			render(<ImageVideoLinkDocumentBrowsingExample />);
+		});
 	});
 
 	it("should trigger the setImage function twice since the browse button executes it when is clicked", async () => {
-		fireEvent.click(getByTestId("browse-image-test"));
-		fireEvent.click(await findByText("Browse"));
+		const browseTestId = await findByTestId("browse-image-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+
+		const browseButton = await findByText("Browse");
+		await act(async () => {
+			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {			
 			expect(setImageCallback).toHaveBeenCalledTimes(2);
@@ -155,7 +167,10 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 	});
 
 	it("should show only the first 4 labels and values of the asset loaded", async() => {
-		fireEvent.click(getByTestId("browse-image-test"));
+		const browseTestId = await findByTestId("browse-image-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(getByTestId("image-test")).toBeTruthy();
@@ -185,16 +200,30 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 				ownerDocument: document,
 			},
 		});
-		fireEvent.click(getByTestId("browse-image-test"));
-		fireEvent.mouseOver(getByTestId("tooltip-test-id"));
+		const browseTestId = await findByTestId("browse-image-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+
+		const tooltipTestId = await findByTestId("tooltip-test-id");
+		await act(async () => {
+			fireEvent.mouseOver(tooltipTestId);
+		});
 
 		expect(await findByText("Focus")).toBeInTheDocument();
 		expect(await findByText("Locales")).toBeInTheDocument();
 	});
 
 	it("should remove the image loaded and return to the inital step where the browsing options are shown", async () => {
-		fireEvent.click(getByTestId("browse-image-test"));
-		fireEvent.click(getByText("Remove"));
+		const browseTestId = await findByTestId("browse-image-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+
+		const removeButton = await findByText("Remove");
+		await act(async () => {
+			removeButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(getByText("Browse:")).toBeTruthy();
@@ -207,13 +236,22 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 });
 
 describe("ImageVideoLinkDocumentBrowsing when a link is loaded", () => {
-	beforeEach(() => {
-		render(<ImageVideoLinkDocumentBrowsingExample />);
+	beforeEach(async () => {
+		await act(async () => {
+			render(<ImageVideoLinkDocumentBrowsingExample />);
+		});
 	});
 
 	it("should trigger the setLink function twice since the browse button also executes it when is clicked", async () => {
-		fireEvent.click(getByTestId("browse-link-test"));
-		fireEvent.click(await findByText("Browse"));
+		const browseTestId = await findByTestId("browse-link-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+
+		const browseButton = await findByText("Browse");
+		await act(async () => {
+			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(setLinkCallback).toHaveBeenCalledTimes(2);
@@ -221,7 +259,10 @@ describe("ImageVideoLinkDocumentBrowsing when a link is loaded", () => {
 	});
 
 	it("should show labels and values of the link loaded", async () => {
-		fireEvent.click(getByTestId("browse-link-test"));
+		const browseTestId = await findByTestId("browse-link-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(getByText("URL")).toBeTruthy();
@@ -236,13 +277,22 @@ describe("ImageVideoLinkDocumentBrowsing when a link is loaded", () => {
 });
 
 describe("ImageVideoLinkDocumentBrowsing when a document is loaded", () => {
-	beforeEach(() => {
-		render(<ImageVideoLinkDocumentBrowsingExample />);
+	beforeEach(async () => {
+		await act(async () => {
+			render(<ImageVideoLinkDocumentBrowsingExample />);
+		});
 	});
 
 	it("should trigger the setLink function twice since the browse button also executes it when is clicked", async () => {
-		fireEvent.click(getByTestId("browse-document-test"));
-		fireEvent.click(await findByText("Browse"));
+		const browseTestId = await findByTestId("browse-document-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+
+		const browseButton = await findByText("Browse");
+		await act(async () => {
+			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(setDocumentCallback).toHaveBeenCalledTimes(2);
@@ -250,7 +300,10 @@ describe("ImageVideoLinkDocumentBrowsing when a document is loaded", () => {
 	});
 
 	it("should show the labels and values of the document loaded", async () => {
-		fireEvent.click(getByTestId("browse-document-test"));
+		const browseTestId = await findByTestId("browse-document-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(getByText("Title")).toBeTruthy();
@@ -265,13 +318,22 @@ describe("ImageVideoLinkDocumentBrowsing when a document is loaded", () => {
 });
 
 describe("ImageVideoLinkDocumentBrowsing when a video is loaded", () => {
-	beforeEach(() => {
-		render(<ImageVideoLinkDocumentBrowsingExample />);
+	beforeEach(async () => {
+		await act(async () => {
+			render(<ImageVideoLinkDocumentBrowsingExample />);
+		});
 	});
 	
 	it("should trigger the setVideo function twice since the browse button also executes it when is clicked", async () => {
-		fireEvent.click(getByTestId("browse-video-test"));
-		fireEvent.click(await findByText("Browse"));
+		const browseTestId = await findByTestId("browse-video-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+
+		const browseButton = await findByText("Browse");
+		await act(async () => {
+			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(setVideoCallback).toHaveBeenCalledTimes(2);
@@ -279,7 +341,10 @@ describe("ImageVideoLinkDocumentBrowsing when a video is loaded", () => {
 	});
 
 	it("should show the labels and values of the video loaded", async () => {
-		fireEvent.click(getByTestId("browse-video-test"));
+		const browseTestId = await findByTestId("browse-video-test");
+		await act(async () => {
+			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		await waitFor(() => {
 			expect(getByText("Title")).toBeTruthy();
