@@ -1,6 +1,6 @@
 import { FieldDef } from "@root/components/Field";
 import * as React from "react";
-import { useMemo, memo } from "react";
+import { useMemo, memo, forwardRef, RefObject } from "react";
 import { SectionDef } from "./FormTypes";
 import { generateLayout } from "./formUtils";
 
@@ -14,8 +14,9 @@ interface FormLayoutProps {
   sections: SectionDef[];
 }
 
-const FormLayout = (props: FormLayoutProps) => {
+const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 	const { state, dispatch, fields, sections } = props;
+	const sectionRef = ref as RefObject<HTMLDivElement>;
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });
@@ -25,17 +26,21 @@ const FormLayout = (props: FormLayoutProps) => {
 		<>
 			{layout?.map((section, i) => (
 				<Section
-					key={i}
+					ref={el => sectionRef.current[i] = el} 
+					key={`section-${i}`}
 					title={section.title}
+					sectionIdx={i}
 					description={section.description}
 					fieldsDef={fields}
-					fieldsLayoutPos={section.fields}
+					rows={section.fields}
 					state={state}
 					dispatch={dispatch}
 				/>
 			))}
 		</>
 	);
-};
+});
+
+FormLayout.displayName = "FormLayout";
 
 export default memo(FormLayout);

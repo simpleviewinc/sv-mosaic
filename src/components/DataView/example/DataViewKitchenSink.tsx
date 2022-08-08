@@ -66,9 +66,9 @@ const processStringFilter = function ({ name, data, output }) {
 	if (data.comparison === "equals") {
 		output[name] = data.value;
 	} else if (data.comparison === "contains") {
-		output[name] = new RegExp(`.*${data.value}.*`, "i");
+		output[name] = { $contains: data.value };
 	} else if (data.comparison === "not_contains") {
-		output[name] = new RegExp(`^((?!${data.value}).)*$`, "i")
+		output[name] = { $not_contains: data.value };
 	} else if (data.comparison === "not_equals") {
 		output[name] = { $ne: data.value };
 	}
@@ -103,6 +103,8 @@ const processArrayFilter = function ({ name, data, output }) {
 		return;
 	} else if (data.comparison === "in") {
 		output[name] = { $in: data.value };
+	} else if (data.comparison === "not_in") {
+		output[name] = { $not_in: data.value };
 	}
 }
 
@@ -656,7 +658,11 @@ function DataViewKitchenSink(): ReactElement {
 				skip: 0
 			});
 		},
-		onSavedViewRemove: function (data) {
+		onSavedViewRemove: function (data: DataViewProps["savedView"]) {
+			if (data.id === state.savedView.id) {
+				gridConfig.onSavedViewChange(defaultView);
+			}
+
 			viewsApi.remove(data);
 		},
 		onActiveFiltersChange: function ({ activeFilters, filter }) {
