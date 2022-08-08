@@ -104,6 +104,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: imageAssetExample,
+				validate: true
 			})
 		);
 		alert("Set image is called");
@@ -144,6 +145,12 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: [],
+			})
+		);
+
+		dispatch(
+			formActions.validateField({
+				name: fieldName
 			})
 		);
 	};

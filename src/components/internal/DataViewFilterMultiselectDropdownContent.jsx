@@ -209,14 +209,12 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			selected : [],
 			comparison : "in",
 			keyword : undefined,
-			skip : 0,
-			hasMore : false
 		});
 	}
 	
 	const onApply = function() {
 		props.onApply({
-			value : state.selected,
+			value : optionsDisabled ? [] : state.selected,
 			comparison : state.comparison
 		});
 	}
@@ -375,7 +373,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 					{
 						showList &&
 						<CheckboxList
-							checked={state.selected}
+							checked={optionsDisabled ? [] : state.selected}
 							options={state.options}
 							onChange={onChange}
 						/>
@@ -395,26 +393,31 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				</div>
 				<div className="selected">
 					{comparisonDropdown}
-					<H3>{t("mosaic:DataView.selected_options")}</H3>
-					<div className="chips">
-						{
-							showList &&
-							state.selected.map(value => {
-								const option = allOptions.find(val => val.value === value);
-								
-								if (option === undefined) { return null; }
-								
-								return (
-									<Chip
-										className="chip"
-										key={option.value}
-										label={option.label}
-										onDelete={handleToggle(option)}
-									/>
-								)
-							})
-						}
-					</div>
+					{
+						!optionsDisabled &&
+						<>
+							<H3>{t("mosaic:DataView.selected_options")}</H3>
+							<div className="chips">
+								{
+									showList &&
+									state.selected.map(value => {
+										const option = allOptions.find(val => val.value === value);
+										
+										if (option === undefined) { return null; }
+										
+										return (
+											<Chip
+												className="chip"
+												key={option.value}
+												label={option.label}
+												onDelete={handleToggle(option)}
+											/>
+										)
+									})
+								}
+							</div>
+						</>
+					}
 				</div>
 			</div>
 			<DataViewFilterDropdownButtons
