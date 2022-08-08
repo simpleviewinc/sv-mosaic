@@ -97,7 +97,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						autoFormat: false,
+						autoFormat: true,
 						country: "us",
 					},
 					helperText: "Helper text",
