@@ -12,27 +12,34 @@ const StyledRow = styled.div`
 `;
 
 interface RowPropTypes {
-	row: (string | FieldDef)[][];
+	row: string[][];
 	state: any;
 	fieldsDef: FieldDef[];
 	dispatch: any;
+	rowIdx?: number;
+	sectionIdx?: number;
 }
 
 const Row = (props: RowPropTypes) => {
-	const { row, state, fieldsDef, dispatch } = props;
+	const { row, rowIdx, state, fieldsDef, dispatch, sectionIdx } = props;
 
 	return (
 		<StyledRow>
-			{row.map((col, i) => (
-				<Col
-					key={i}
-					col={col}
-					state={state}
-					fieldsDef={fieldsDef}
-					dispatch={dispatch}
-					colsInRow={row.length}
-				/>
-			))}
+			{row.map((col, i) => {
+				return (
+					<Col
+						key={`col-${i}`}
+						colIdx={i}
+						rowIdx={rowIdx}
+						sectionIdx={sectionIdx}
+						col={col}
+						state={state}
+						fieldsDef={fieldsDef}
+						dispatch={dispatch}
+						colsInRow={row.length}
+					/>
+				)
+			})}
 		</StyledRow>
 	);
 };

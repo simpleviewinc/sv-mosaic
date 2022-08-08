@@ -21,34 +21,37 @@ export const NavItems = styled.div`
 export const LinksWrapper = styled.div`
   margin-right: 40px;
 
+  &.highlight > a {
+    color: ${theme.colors.almostBlack};
+    border-bottom: 4px solid #FCB731;
+    font-weight: ${theme.fontWeight.medium};
+  }
+
   a {
-    border-bottom: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? "4px solid #FCB731" : ""};
-    color: ${(pr) =>
-		pr.idx === pr.selectedTabIdx
-			? theme.colors.almostBlack
-			: theme.colors.gray600};
+    color: ${theme.colors.gray600}
     display: inline-block;
     font-family: ${theme.fontFamily};
     font-size: 14px;
-    font-weight: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? theme.fontWeight.medium : ""};
     text-align: center;
     text-decoration: none;
     padding-bottom: 12px;
   }
 
   @media (min-width: 1718px) {
-    background-color: ${(pr) =>
-		pr.idx === pr.selectedTabIdx ? theme.colors.gray200 : ""};
     margin-right: 0;
+
+    &.highlight > a {
+      border-bottom: none;
+      border-left: 4px solid #FCB731;
+  	}
+
+    &.highlight {
+      background-color: ${theme.colors.gray200};
+    }
 
     a {
       border-bottom: 0px;
-      border-left: ${(pr) =>
-		pr.idx === pr.selectedTabIdx
-			? "4px solid #FCB731"
-			: "4px solid transparent"};
+      border-left: 4px solid transparent;
       padding: 16px 0 16px 24px;
     }
   }
@@ -58,7 +61,7 @@ export const Section = styled.div`
   height: 100vh;
   padding-top: 130px;
 
-  @media (max-width: 1075px){
+  @media (max-width: 1075px) {
     padding-top: 210px;
   }
 `;
@@ -78,7 +81,7 @@ export const FormNavRow = styled.div`
   position: relative;
 
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     z-index: 1;
     top: 0;
@@ -119,7 +122,7 @@ export const FormNavRow = styled.div`
       display: none;
     }
 
-	height: 100%;
+    height: 100%;
   }
 `;
 

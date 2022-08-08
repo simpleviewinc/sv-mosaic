@@ -59,7 +59,7 @@ const FormFieldTextEditor = (props: MosaicFieldProps<TextEditorDef, string>): Re
 
 	const updateValue = async (e: string) => {
 		await onChange(e);
-		await onBlur(e);
+		if (onBlur) await onBlur(e);
 	}
 
 	return (

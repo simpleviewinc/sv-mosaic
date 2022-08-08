@@ -63,14 +63,17 @@ function filterData(data, filter) {
 	let newData = data;
 
 	for (const [key, val] of Object.entries(filter)) {
-		if (val.$in !== undefined) {
+		if (val.$in !== undefined || val.$not_in !== undefined) {
 			newData = newData.filter(row => {
 				if (row[key] === undefined) { return false; }
 				
 				if (row[key] instanceof Array) {
-					return intersection(row[key], val.$in).length > 0;
+					return val.$in ? 
+						intersection(row[key], val.$in).length > 0 
+						: !intersection(row[key], val.$not_in).length > 0;
 				} else {
-					return val.$in.includes(row[key])
+					return val.$in ? val.$in.includes(row[key])
+						: !val.$not_in.includes(row[key])
 				}
 			});
 		}
@@ -85,6 +88,14 @@ function filterData(data, filter) {
 
 		if (val.$ne !== undefined) {
 			newData = newData.filter(row => row[key] !== val.$ne);
+		}
+
+		if (val.$contains !== undefined) {
+			newData = newData.filter(row => row[key].toLowerCase().indexOf(val.$contains.toLowerCase()) >= 0);
+		}
+
+		if (val.$not_contains !== undefined) {
+			newData = newData.filter(row => row[key].toLowerCase().indexOf(val.$not_contains.toLowerCase()) < 0);
 		}
 
 		if (val.$exists === true) {
