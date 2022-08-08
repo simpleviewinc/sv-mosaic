@@ -1,5 +1,25 @@
 # sv-mosaic changelog
 
+## 5.1.0 - 8/9/22
+* Fields will now automatically validate onChange after 300ms without interaction.
+* Updated sections logic internally.
+	* Forms will now throw an error if devs add a field that doesn't exist to a section.
+	* Scrolling now using useRef rather than ids.
+* Categories with comparison filter in DataView:
+	* Fixed "Not In" comparison not working as expected.
+	* "Exists" and "Not Exists" now clear selected options.
+	* "Load More" button no longer disappears when clicking "clear".
+* Keyword filter no longer using regex for filtering.
+* DataView View settings:
+	* "Save as new option" no longer reuses current view settings.
+	* Deleting a view no longer keeps that view's settings and moves user to "default view".
+* AUTOMATION TESTING:
+	* FormFieldChipSingleSelect
+	* FormFieldColorPicker
+	* FormFieldDateField
+	* FormFieldDropdownSingleSelection
+	* FormFieldImageUpload
+
 ## 5.0.0 - 7/26/22
 * **BREAKING** - Major changes in Forms (See more Forms documentation in Storybook):
 	* Devs don't need to register `fields` anymore, instead they must only pass the `fields` array directly as prop.
