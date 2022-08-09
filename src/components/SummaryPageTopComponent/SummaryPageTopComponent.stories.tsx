@@ -3,7 +3,9 @@ import { ReactElement, useState } from "react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import Button, { ButtonProps } from "../Button";
-import { Mail, Edit, Public } from "@mui/icons-material";
+import Mail from "@mui/icons-material/Mail";
+import Edit from "@mui/icons-material/Edit";
+import Public from "@mui/icons-material/Public";
 import { MenuItemProps } from "../MenuItem";
 
 // Components

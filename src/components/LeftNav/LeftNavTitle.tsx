@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement } from "react";
 import styled from "styled-components";
 
-import { SvgIconComponent } from "@mui/icons-material";
+import { SvgIconComponent } from "@root/types";
 import theme from "../../theme";
 
 interface Props {

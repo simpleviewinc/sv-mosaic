@@ -1,3 +1,5 @@
+import SvgIcon from "@mui/material/SvgIcon";
+
 /** Simple object with { label, value } strings */
 export interface MosaicLabelValue {
 	label: string
@@ -12,3 +14,5 @@ export interface MosaicObject {
 export interface MosaicCallback {
 	(): void
 }
+
+export type SvgIconComponent = typeof SvgIcon;
