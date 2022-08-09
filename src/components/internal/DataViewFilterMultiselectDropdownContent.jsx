@@ -12,7 +12,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
-import Spinner from "../Spinner.jsx";
+import Spinner from "../Spinner";
 import CheckboxList from "@root/components/CheckboxList";
 import theme from "../../utils/theme.js";
 import { H3 } from "../Typography";

@@ -1,7 +1,7 @@
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 
-import theme from "../utils/theme.js";
+import theme from "@root/theme";
 
 function Spinner(props) {
 	return (
