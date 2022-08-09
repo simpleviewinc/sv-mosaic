@@ -1,5 +1,4 @@
-import { MosaicObject } from "../../types";
-import { SvgIconComponent } from "@mui/icons-material";
+import { MosaicObject, SvgIconComponent } from "@root/types";
 import { ActionAdditional } from "../DataView";
 
 export interface MenuItemProps {
