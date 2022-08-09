@@ -24,7 +24,7 @@ const DesktopViewColumn = styled(StyledColumn)`
 	justify-content: space-between;
 	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
 	top: 0;
-	z-index: 1000;
+	z-index: 100;
 
 	& .form-nav-wrapper {
 		margin-top: 30px;
