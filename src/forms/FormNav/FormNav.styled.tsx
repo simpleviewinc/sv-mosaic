@@ -28,7 +28,7 @@ export const LinksWrapper = styled.div`
   }
 
   a {
-    color: ${theme.colors.gray600}
+    color: ${theme.colors.gray600};
     display: inline-block;
     font-family: ${theme.fontFamily};
     font-size: 14px;
