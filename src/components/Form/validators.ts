@@ -42,6 +42,36 @@ export function validateSlow(str: string): Promise<void | string> {
 }
 
 /**
+ * Validates a latitude
+ * @param lat latitude value
+ * @returns error message
+ */
+export function isLatitude(lat: number): string | undefined {
+	const isValidLatitude = isFinite(lat) && Math.abs(lat) <= 90;
+
+	if (!isValidLatitude) {
+		return "Latitude should be between -90 and 90";
+	}
+
+	return;
+}
+
+/**
+ * Validates a longitude
+ * @param lng longitude value
+ * @returns error message
+ */
+export function isLongitude(lng: number): string | undefined {
+	const isValidLongitude = isFinite(lng) && Math.abs(lng) <= 180;
+
+	if (!isValidLongitude) {
+		return "Longitude should be between -180 and 180";
+	}
+
+	return;
+}
+
+/**
  * Validates a required field.
  */
 export function required(str: string | string[]): string | undefined {
@@ -130,6 +160,8 @@ export type Validator = { fn: any, options: any };
 export function mapsValidators(validators): Validator[] {
 	const validatorsMap = {
 		required: required,
+		isLatitude: isLatitude,
+		isLongitude: isLongitude,
 		validateDateRange: validateDateRange,
 		validateEmail: validateEmail,
 		validateNumber: validateNumber,

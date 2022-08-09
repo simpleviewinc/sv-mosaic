@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useCallback, useEffect, useMemo } from "react";
+import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import { MapCoordinatesDrawerProps } from "..";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { MapPosition } from "../MapCoordinatesTypes";
@@ -7,13 +7,14 @@ import { ButtonProps } from "@root/components/Button";
 
 // Components
 import Map from "@root/forms/FormFieldMapCoordinates/Map";
-import { StyledSpan } from "../MapCoordinates.styled";
+import { MapFormWrapper, StyledSpan } from "../MapCoordinates.styled";
 import ResetButton from "@root/forms/FormFieldMapCoordinates/MapCoordinatesDrawer/ResetButton";
 
 // Utils
 import { defaultMapPosition } from "../MapCoordinatesUtils";
 import Form, { formActions, useForm } from "@root/components/Form";
 import _ from "lodash";
+import { isLatitude, isLongitude } from "@root/components/Form/validators";
 
 // Layout of the form elements.
 const sections = [
@@ -35,44 +36,48 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		dialogOpen,
 		handleDialogClose,
 	} = props;
+	const [isDragging, setIsDragging] = useState(false);
 
-	const modalReducer = useForm();
+	const { state, dispatch } = useForm();
 
 	const initialState = { lat: value?.lat ? value.lat : undefined, lng: value?.lng ? value.lng : undefined };
 
 	useEffect(() => {
-		const { lat, lng } = modalReducer.state.data;
+		const { lat, lng } = state.data;
 
 		if (lat !== undefined || lng !== undefined)
 			handleUnsavedChanges(!_.isEqual(initialState, { lat, lng }));
-	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
+	}, [state.data.lat, state.data.lng]);
 
 	/**
 	 * When the map is clicked the lat and lng fields and
 	 * the coordinates that center the map are updated.
 	 */
-	const onMapClick = useCallback((event) => {
+	const onMapClick = useCallback((event: google.maps.MapMouseEvent) => {
 		const lat = event.latLng.lat();
 		const lng = event.latLng.lng();
 
-		modalReducer.dispatch(
+		dispatch(
 			formActions.setFieldValue({
 				name: "placesList",
 				value: { lat: Number(lat), lng: Number(lng) },
+				validate: true
 			})
 		);
 
-		modalReducer.dispatch(
+		dispatch(
 			formActions.setFieldValue({
 				name: "lat",
 				value: lat,
+				validate: true
 			})
 		);
 
-		modalReducer.dispatch(
+		dispatch(
 			formActions.setFieldValue({
 				name: "lng",
 				value: lng,
+				validate: true
 			})
 		);
 	}, []);
@@ -81,11 +86,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * Clear the input fields of latitude and longitude
 	 */
 	const resetLocation = async () => {
-		await modalReducer.dispatch(
+		await dispatch(
 			formActions.setFieldValue({ name: "lat", value: undefined })
 		);
 
-		await modalReducer.dispatch(
+		await dispatch(
 			formActions.setFieldValue({ name: "lng", value: undefined })
 		);
 	};
@@ -96,24 +101,26 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * google component.
 	 */
 	const handleCoordinates = (coordinates: MapPosition) => {
-		modalReducer.dispatch(
+		dispatch(
 			formActions.setFieldValue({
 				name: "placesList",
 				value: coordinates,
 			})
 		);
 
-		modalReducer.dispatch(
+		dispatch(
 			formActions.setFieldValue({
 				name: "lat",
 				value: coordinates.lat,
+				validate: true
 			})
 		);
 
-		modalReducer.dispatch(
+		dispatch(
 			formActions.setFieldValue({
 				name: "lng",
 				value: coordinates.lng,
+				validate: true
 			})
 		);
 	};
@@ -124,17 +131,42 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * happends.
 	 */
 	const onSubmit = async () => {
-		const { valid } = await modalReducer.dispatch(formActions.submitForm());
+		const { valid } = await dispatch(formActions.submitForm());
 		if (!valid) return;
 
 		const latLngValue = {
 			...value,
-			lat: modalReducer.state.data.lat,
-			lng: modalReducer.state.data.lng,
+			lat: state.data.lat,
+			lng: state.data.lng,
 		}
 
 		await onChange(latLngValue);
 		handleClose(true);
+	};
+
+	const onDragMarkerEnd = (event: google.maps.MapMouseEvent) => {
+		const lat = event.latLng.lat();
+		const lng = event.latLng.lng();
+
+		dispatch(
+			formActions.setFieldValue({
+				name: "lat",
+				value: lat,
+			})
+		);
+
+		dispatch(
+			formActions.setFieldValue({
+				name: "lng",
+				value: lng,
+			})
+		);
+
+		setIsDragging(false)
+	};
+
+	const onDragStart = () => {
+		setIsDragging(true)
 	};
 
 	const renderMap = (props) => (
@@ -142,14 +174,13 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			<Map
 				address={fieldDef?.inputSettings?.address}
 				handleCoordinates={handleCoordinates}
-				mapPosition={
-					props.value
-						? props.value
-						: fieldDef?.inputSettings?.mapPosition
-							? fieldDef?.inputSettings?.mapPosition
-							: defaultMapPosition
-				}
+				mapPosition={fieldDef?.inputSettings?.mapPosition || defaultMapPosition}
+				markerPosition={props?.value}
 				onClick={onMapClick}
+				zoom={fieldDef.inputSettings.zoom}
+				onDragMarkerEnd={onDragMarkerEnd}
+				onDragStart={onDragStart}
+				isDragging={isDragging}
 			/>
 			<StyledSpan>
 				Click on the map to update the lattitude and longitude coordinates
@@ -171,6 +202,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					inputSettings: {
 						type: "number",
 					},
+					validators: [isLatitude]
 				},
 				{
 					name: "lng",
@@ -179,13 +211,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					inputSettings: {
 						type: "number",
 					},
+					validators: [isLongitude]
 				},
 				{
 					name: "resetButton",
 					label: "Reset",
 					type: ResetButton,
 					inputSettings: {
-						resetLocation,
+						resetLocation
 					}
 				},
 			] as FieldDef[],
@@ -195,21 +228,21 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	useEffect(() => {
 		let isMounted = true;
 		if (isMounted) {
-			const { lat, lng } = modalReducer.state.data;
+			const { lat, lng } = state.data;
 
 			if (lat?.toString().length > 0 && lng?.toString().length > 0) {
-				modalReducer.dispatch(
+				dispatch(
 					formActions.setFieldValue({ name: "resetButton", value: true })
 				);
 
-				modalReducer.dispatch(
+				dispatch(
 					formActions.setFieldValue({
 						name: "placesList",
 						value: { lat: Number(lat), lng: Number(lng) }
 					})
 				);
 			} else {
-				modalReducer.dispatch(
+				dispatch(
 					formActions.setFieldValue({ name: "resetButton", value: undefined })
 				);
 			}
@@ -219,20 +252,20 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			isMounted = false;
 		}
 
-	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
+	}, [state.data.lat, state.data.lng]);
 
 	useEffect(() => {
 		let isMounted = true;
 
 		if (isMounted) {
-			modalReducer.dispatch(
+			dispatch(
 				formActions.setFieldValue({
 					name: "lat",
 					value: value?.lat
 				})
 			);
 
-			modalReducer.dispatch(
+			dispatch(
 				formActions.setFieldValue({
 					name: "lng",
 					value: value?.lng
@@ -243,7 +276,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		return () => {
 			isMounted = false;
 		}
-	}, [modalReducer.dispatch, value])
+	}, [dispatch, value])
 
 	const buttons: ButtonProps[] = [
 		{
@@ -257,23 +290,25 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			onClick: onSubmit,
 			color: "yellow",
 			variant: "contained",
-			disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng
+			disabled: !state.data.lat || !state.data.lng || state.errors.lng || state.errors.lat
 		}
 	];
 
 	return (
-		<Form
-			title='Map Coordinates'
-			buttons={buttons}
-			type='drawer'
-			state={modalReducer?.state}
-			dispatch={modalReducer?.dispatch}
-			sections={sections}
-			fields={fields}
-			onCancel={handleClose}
-			dialogOpen={dialogOpen}
-			handleDialogClose={handleDialogClose}
-		/>
+		<MapFormWrapper>
+			<Form
+				title='Map Coordinates'
+				buttons={buttons}
+				type='drawer'
+				state={state}
+				dispatch={dispatch}
+				sections={sections}
+				fields={fields}
+				onCancel={handleClose}
+				dialogOpen={dialogOpen}
+				handleDialogClose={handleDialogClose}
+			/>
+		</MapFormWrapper>
 	);
 };
 
