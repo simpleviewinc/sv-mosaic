@@ -39,7 +39,7 @@ export type MapCoordinatesDef = {
 	 */
 	mapPosition?: MapPosition;
 	/**
-	 * The Google Maps API provides map tiles at various zoom levels for map 
+	 * The Google Maps API provides map tiles at various zoom levels for map
 	 * type imagery. Most roadmap imagery is available from zoom levels 0 to 18
 	 * https://developers.google.com/maps/documentation/javascript/maxzoom
 	 */
