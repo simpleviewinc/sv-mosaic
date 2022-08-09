@@ -1,8 +1,8 @@
 import React from "react";
 import jsvalidator from "jsvalidator";
 
-import MenuBase from "./MenuBase";
-import MenuItem from "./MenuItem";
+import MenuBase from "../MenuBase";
+import MenuItem from "../MenuItem";
 
 function Menu(props) {
 	jsvalidator.validate(props, {
