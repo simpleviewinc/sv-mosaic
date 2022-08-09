@@ -79,7 +79,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			formActions.setFieldValue({
 				name: "lng",
 				value: lng,
-				validate: true
 			})
 		);
 	}, []);
