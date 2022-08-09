@@ -10,7 +10,7 @@ import FormNav from "../FormNav";
 import { useWindowResizer } from "@root/utils/useWindowResizer";
 import { MosaicObject } from "@root/types";
 import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
-import Dialog from "../../components/Dialog/Dialog";
+import Dialog from "@root/components/Dialog";
 
 const Form = (props: FormProps) => {
 	const {

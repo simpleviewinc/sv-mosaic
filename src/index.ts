@@ -5,7 +5,6 @@ import DataViewFilterDropdown from "./components/DataViewFilterDropdown.jsx";
 import DataViewFilterDropdownButtons from "./components/DataViewFilterDropdownButtons.jsx";
 import DataViewFilterMultiselect from "./components/DataViewFilterMultiselect.jsx";
 import DataViewPrimaryFilter from "./components/DataViewPrimaryFilter.jsx";
-import Dialog from "./components/Dialog.jsx";
 import Drawer from "./components/Drawer.jsx";
 import DrawerContent from "./components/DrawerContent.jsx";
 import { Sizes } from "./theme/sizes";
@@ -94,7 +93,6 @@ export {
 	DataViewFilterDropdownButtons,
 	DataViewFilterMultiselect,
 	DataViewPrimaryFilter,
-	Dialog,
 	Drawer,
 	DrawerContent,
 	DataView as Grid,
