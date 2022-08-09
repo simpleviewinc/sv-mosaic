@@ -91,13 +91,13 @@ export const KitchenSink = (): ReactElement => {
 					instructionText: 'The country code of "ar" was provided',
 				},
 				{
-					name: "autoformatDisabled",
-					label: "Autoformat disabled",
+					name: "autoformatEnabled",
+					label: "Autoformat enabled",
 					type: "phone",
 					required: false,
 					disabled: false,
 					inputSettings: {
-						autoFormat: false,
+						autoFormat: true,
 						country: "us",
 					},
 					helperText: "Helper text",
