@@ -7,7 +7,7 @@ import TitleBar from "../internal/TitleBar.jsx";
 import DataViewControlDisplay from "./DataViewControlDisplay";
 import DataViewPager from "./DataViewPager";
 import DataViewControlLimit from "./DataViewControlLimit";
-import DataViewFilters from "../internal/DataViewFilters.jsx";
+import DataViewFilters from "./DataViewFilters";
 import theme from "../../utils/theme.js";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";

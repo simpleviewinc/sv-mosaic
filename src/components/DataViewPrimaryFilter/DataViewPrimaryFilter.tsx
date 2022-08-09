@@ -5,9 +5,9 @@ import jsvalidator from "jsvalidator";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 
-import theme from "../utils/theme.js";
-import Button from "../components/Button";
-import { BodyText } from "../components/Typography";
+import theme from "@root/theme";
+import Button from "@root/components/Button";
+import { BodyText } from "@root/components/Typography";
 
 const LabelWrapper = styled.div`
 	display: flex;

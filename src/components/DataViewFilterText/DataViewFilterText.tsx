@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import DataViewPrimaryFilter from "./DataViewPrimaryFilter.jsx";
-import DataViewFilterTextDropdownContent from "./internal/DataViewFilterTextDropdownContent.jsx";
-import DataViewFilterDropdown from "./DataViewFilterDropdown.jsx";
+import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
+import DataViewFilterTextDropdownContent from "./DataViewFilterTextDropdownContent";
+import DataViewFilterDropdown from "../DataViewFilterDropdown";
 
 const StyledWrapper = styled.span`
 	

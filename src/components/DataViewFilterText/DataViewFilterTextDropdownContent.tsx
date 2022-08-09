@@ -6,8 +6,8 @@ import jsvalidator from "jsvalidator";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import Button from "../Button";
-import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
-import theme from "../../utils/theme.js";
+import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
+import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledContents = styled.div`

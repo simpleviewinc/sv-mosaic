@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import Button from "./Button";
-import ButtonRow from "./ButtonRow";
+import Button from "../Button";
+import ButtonRow from "../ButtonRow";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.div`
