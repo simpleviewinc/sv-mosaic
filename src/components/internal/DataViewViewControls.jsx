@@ -21,7 +21,7 @@ const ViewSpan = styled.span`
 		margin: 0;
 		overflow: hidden;
 		display: -webkit-box;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical; 
 	}
 `
