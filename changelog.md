@@ -1,5 +1,7 @@
 # sv-mosaic changelog
 
+## 5.1.1 - 8/9/22
+* Added missing semicolon to line 31 in FormNav.styled.tsx.
 ## 5.1.0 - 8/9/22
 * Fields will now automatically validate onChange after 300ms without interaction.
 * Updated sections logic internally.
