@@ -3,7 +3,6 @@ import styled from "styled-components";
 import MUIDrawer from "@mui/material/Drawer";
 
 import theme from "../utils/theme.js";
-// import { SxProps } from "@mui/material";
 
 const DrawerContent = styled.div`
 	font-family: ${theme.fontFamily};

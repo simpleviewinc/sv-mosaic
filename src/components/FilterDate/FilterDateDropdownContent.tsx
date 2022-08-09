@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, ReactElement } from "react";
 import styled from "styled-components";
 
-import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
+import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
 import theme from "../../utils/theme.js";
 import { FilterDateDropdownContentProps } from "./FilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";

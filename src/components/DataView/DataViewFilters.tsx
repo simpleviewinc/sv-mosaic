@@ -5,7 +5,7 @@ import { pick, xor } from "lodash";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
-import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent"
+import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect"
 import Button from "../Button";
 import theme from "../../utils/theme.js";
 import { useMosaicTranslation } from "@root/i18n";

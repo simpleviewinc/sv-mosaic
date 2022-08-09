@@ -3,7 +3,7 @@ import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import Popover from "@mui/material/Popover";
 
-import theme from "../utils/theme.js";
+import theme from "@root/theme";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
