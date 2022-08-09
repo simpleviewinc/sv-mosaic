@@ -18,7 +18,7 @@ import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const ResponsiveViewColumn = styled(StyledColumn)`
 	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
-  	z-index: 1000;
+  	z-index: 100;
 `;
 
 const ResponsiveActionsRow = styled(Row)`
