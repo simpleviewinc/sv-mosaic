@@ -8,7 +8,7 @@ import DataViewPrimaryFilter from "./components/DataViewPrimaryFilter.jsx";
 import Dialog from "./components/Dialog.jsx";
 import Drawer from "./components/Drawer.jsx";
 import DrawerContent from "./components/DrawerContent.jsx";
-import Menu from "./components/Menu.jsx";
+import Menu from "./components/Menu";
 import Spinner from "./components/Spinner.jsx";
 import { Sizes } from "./theme/sizes";
 import { formActions, useForm } from "./forms/Form";

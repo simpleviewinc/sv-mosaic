@@ -6,7 +6,7 @@ import Popover from "@mui/material/Popover";
 import Popper from "@mui/material/Popper";
 
 import { ButtonProps, ButtonPopoverContextProps } from "./ButtonTypes";
-import Menu from "../Menu.jsx";
+import Menu from "../Menu";
 import MenuBase from "../MenuBase";
 import { MosaicObject } from "../../types";
 import { PopoverWrapper, TooltipContent, types } from "./Button.styled";
