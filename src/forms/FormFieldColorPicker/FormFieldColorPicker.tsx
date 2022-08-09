@@ -66,7 +66,7 @@ const FormFieldColorPicker = (
 			{displayColorPicker && !fieldDef?.disabled && (
 				<PopOver>
 					<Cover onClick={handleClose} />
-					<SketchPicker color={value ? color?.rgb : "#008DA8"} onChange={onColorChange} />
+					<SketchPicker color={value || "#008DA8"} onChange={onColorChange} />
 				</PopOver>
 			)}
 		</>
