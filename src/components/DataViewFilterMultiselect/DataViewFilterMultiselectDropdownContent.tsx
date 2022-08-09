@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from "@mui/icons-material/Search";
 import HelpIcon from '@mui/icons-material/Help';
 
-import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons.jsx";
+import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";

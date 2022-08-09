@@ -1,10 +1,5 @@
 import DataView from "./components/DataView";
 export * from "./components/DataView";
-import DataViewFilterText from "./components/DataViewFilterText.jsx";
-import DataViewFilterDropdown from "./components/DataViewFilterDropdown.jsx";
-import DataViewFilterDropdownButtons from "./components/DataViewFilterDropdownButtons.jsx";
-import DataViewFilterMultiselect from "./components/DataViewFilterMultiselect.jsx";
-import DataViewPrimaryFilter from "./components/DataViewPrimaryFilter.jsx";
 import Drawer from "./components/Drawer.jsx";
 import DrawerContent from "./components/DrawerContent.jsx";
 import { Sizes } from "./theme/sizes";
@@ -39,6 +34,16 @@ export * from "./components/Chip";
 
 export { default as CheckboxList } from "./components/CheckboxList";
 export * from "./components/CheckboxList";
+
+export { default as DataViewFilterDropdown } from "./components/DataViewFilterDropdown";
+
+export { default as DataViewFilterText } from "./components/DataViewFilterText";
+
+export { default as DataViewFilterDropdownButtons } from "./components/DataViewFilterDropdownButtons";
+
+export { default as DataViewFilterMultiselect } from "./components/DataViewFilterMultiselect";
+
+export { default as DataViewPrimaryFilter } from "./components/DataViewPrimaryFilter";
 
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
@@ -88,19 +93,8 @@ export * from "./i18n";
 
 export {
 	DataView,
-	DataViewFilterText,
-	DataViewFilterDropdown,
-	DataViewFilterDropdownButtons,
-	DataViewFilterMultiselect,
-	DataViewPrimaryFilter,
 	Drawer,
 	DrawerContent,
-	DataView as Grid,
-	DataViewFilterText as GridFilterText,
-	DataViewFilterDropdown as GridFilterDropdown,
-	DataViewFilterDropdownButtons as GridFilterDropdownButtons,
-	DataViewFilterMultiselect as GridFilterMultiselect,
-	DataViewPrimaryFilter as GridPrimaryFilter,
 	Sizes,
 	useForm,
 	formActions
