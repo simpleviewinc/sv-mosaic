@@ -1,5 +1,4 @@
-import { MosaicObject, MosaicCallback } from "../../types";
-import { SvgIconComponent } from "@mui/icons-material";
+import { MosaicObject, MosaicCallback, SvgIconComponent } from "@root/types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
