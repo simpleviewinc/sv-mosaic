@@ -8,8 +8,6 @@ import DataViewPrimaryFilter from "./components/DataViewPrimaryFilter.jsx";
 import Dialog from "./components/Dialog.jsx";
 import Drawer from "./components/Drawer.jsx";
 import DrawerContent from "./components/DrawerContent.jsx";
-import Menu from "./components/Menu";
-import Spinner from "./components/Spinner.jsx";
 import { Sizes } from "./theme/sizes";
 import { formActions, useForm } from "./forms/Form";
 
@@ -54,6 +52,10 @@ export * from "./components/LeftNav";
 
 export { default as SideNav } from "./components/SideNav";
 export * from "./components/SideNav";
+
+export { default as Spinner } from "./components/Spinner";
+
+export { default as Menu } from "./components/Menu";
 
 export { default as MenuBase } from "./components/MenuBase";
 export * from "./components/MenuBase";
@@ -101,8 +103,6 @@ export {
 	DataViewFilterDropdownButtons as GridFilterDropdownButtons,
 	DataViewFilterMultiselect as GridFilterMultiselect,
 	DataViewPrimaryFilter as GridPrimaryFilter,
-	Menu,
-	Spinner,
 	Sizes,
 	useForm,
 	formActions
