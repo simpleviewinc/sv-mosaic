@@ -38,7 +38,7 @@ const StyledTh = styled.th`
 		right: 0;
 		bottom: 0;
 		left: 0;
-		border-bottom: ${theme.borders.gray200};
+		border-bottom: ${theme.colors.gray200};
 		pointer-events: none;
 	}
 	
@@ -203,7 +203,7 @@ function DataViewTHead(props) {
 					!anyChecked &&
 					<StyledTh key="_actions" className={`
 						paddingRight
-						${ !props?.bulkActions?.length > 0 ? "paddingLeft" : "" }
+						${ !props?.bulkActions?.length ? "paddingLeft" : "" }
 					`}>
 						{
 							props.onColumnsChange !== undefined &&
