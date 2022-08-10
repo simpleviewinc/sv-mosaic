@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { ReactNode } from "react";
 import { useMemo } from "react";
 import styled from "styled-components";
 
@@ -58,26 +58,26 @@ const StyledDiv = styled.div`
 			grid-template-columns: repeat(6, 1fr);
 		}
 	}
-	
+
 	& > .grid > .cell {
 		min-width: 0;
 	}
-	
+
 	& > .grid > .cell.checked > .image > .checkboxContainer {
 		opacity: 1;
 	}
-	
+
 	& > .grid > .cell.checked > .image > .checkboxContainer > .mask {
 		opacity: 1;
 		border: 2px solid rgba(255, 255, 255, .5);
 		margin: 6px;
 	}
-	
+
 	& > .grid > .cell > img {
 		max-width: 100%;
 		min-width: 100%;
 	}
-	
+
 	& > .grid > .cell h2 {
 		margin: 0;
 		font-size: 14px;
@@ -86,18 +86,18 @@ const StyledDiv = styled.div`
 		text-overflow: ellipsis;
 		overflow: hidden;
 	}
-	
+
 	& > .grid > .cell h3 {
 		margin: 0;
 		font-weight: normal;
 		font-size: 12px;
 		color: ${theme.colors.gray500};
 	}
-	
+
 	& > .grid > .cell .image {
 		position: relative;
 	}
-	
+
 	& > .grid > .cell > .image > .checkboxContainer {
 		opacity: 0;
 		position: absolute;
@@ -105,11 +105,11 @@ const StyledDiv = styled.div`
 		left: 0px;
 		transition: opacity 150ms;
 	}
-	
+
 	& > .grid > .cell > .image:hover > .checkboxContainer {
 		opacity: 1;
 	}
-	
+
 	& > .grid > .cell > .image > .checkboxContainer > .mask {
 		position: absolute;
 		width: 18px;
@@ -121,22 +121,22 @@ const StyledDiv = styled.div`
 		border-radius: 3px;
 		opacity: .8;
 	}
-	
+
 	& > .grid > .cell .image img {
 		width: 100%;
 	}
-	
+
 	& > .grid > .cell .info {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		max-width: 100%;
 	}
-	
+
 	& > .grid > .cell > .info > .left {
 		min-width: 0;
 	}
-	
+
 	& > .grid > .cell > .info > .right {
 		flex-shrink: 0;
 	}
@@ -147,7 +147,7 @@ function DataViewDisplayGrid(props) {
 	if (!props.gridColumnsMap) {
 		throw new Error("You must specify gridColumnsMap in order to use the grid view.");
 	}
-	
+
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
 		return transformRows(props.data, props.columns);
@@ -156,7 +156,7 @@ function DataViewDisplayGrid(props) {
 	const checkboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
-	
+
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
 
@@ -221,9 +221,9 @@ function DataViewDisplayGrid(props) {
 			<div className="grid">
 				{
 					transformedData.map((row, i) => {
-						const image = row[props.gridColumnsMap.image];
-						const primary = row[props.gridColumnsMap.primary];
-						const secondary = row[props.gridColumnsMap.secondary];
+						const image = row[props.gridColumnsMap.image] as ReactNode;
+						const primary = row[props.gridColumnsMap.primary] as ReactNode;
+						const secondary = row[props.gridColumnsMap.secondary] as ReactNode;
 
 						return (
 							<div
