@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { H1 } from "../Typography";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
-import theme from "../../utils/theme.js";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.div`

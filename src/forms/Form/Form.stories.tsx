@@ -13,7 +13,7 @@ import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form from "./Form";
-import Drawer from "@root/components/Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 
 // Types
 import { TextFieldDef } from "../FormFieldText/FormFieldTextTypes";
