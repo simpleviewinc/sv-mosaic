@@ -96,8 +96,8 @@ export const NavWrapper = function(props: { children?: ReactElement, items : Lef
 	const [state, setState] = useState({
 		open : false,
 		variant : (localStorage.getItem(localKey) ?? "full") as LeftNavProps["variant"],
-		label : "Home",
-		name : "home"
+		label : props.items[0]?.label || "home",
+		name : props.items[0]?.name || "Home"
 	});
 
 	const variant = isMobile() ? "mobile" : state.variant;
