@@ -3,7 +3,7 @@ import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Components
-import FormFieldColorPicker from "./FormFieldColorPicker";
+import FormFieldColorPicker, { RGBAToHexA } from "./FormFieldColorPicker";
 
 afterEach(cleanup);
 
@@ -52,5 +52,16 @@ describe("ColorPicker component", () => {
 		);
 
 		expect(getByTestId("colordiv-test")).toHaveStyle("background:rgb(0, 141, 168)");
+	});
+
+	it("should convert an rgba color value to its hex representation", () => {
+		const rgbaColor = {	
+			r: 48,
+			g: 113,
+			b: 124,
+			a: 0.5
+		};
+
+		expect(RGBAToHexA(rgbaColor)).toBe("#30717c80")
 	});
 });
