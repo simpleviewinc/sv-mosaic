@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CreateIcon from '@mui/icons-material/Create';
+import CreateIcon from "@mui/icons-material/Create";
 
 import DataView from "./DataView";
 import { DataViewProps } from "./DataViewTypes";
