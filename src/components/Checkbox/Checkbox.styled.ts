@@ -21,7 +21,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
   & .MuiFormControlLabel-label {
     font-family: ${theme.fontFamily};
     max-width: 414px;
-    margin-top: 7px;
+    align-self: center;
   }
 `;
 

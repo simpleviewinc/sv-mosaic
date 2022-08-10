@@ -201,24 +201,24 @@ export interface DataViewProps {
 	title?: string
 	loading?: boolean
 	count?: number
-	limit?: number
+	limit: number
 	skip?: number
-	columns?: DataViewColumn[]
+	columns: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
 	/** A list of actions which are always visible for each item in the DataView. */
 	filters?: DataViewFilterDef[]
-    filter?: MosaicObject
-    activeFilters?: string[]
-    buttons?: ButtonProps[]
-    display?: string
-    savedView?: SavedViewDef
-    displayOptions?: string[]
-    data?: MosaicObject[]
-    sort?: DataViewSort
-    limitOptions?: number[]
-    gridColumnsMap?: MosaicObject
-    savedViewAllowSharedViewSave?: boolean
+	filter: MosaicObject
+	activeFilters?: string[]
+	buttons?: ButtonProps[]
+	display?: string
+	savedView?: SavedViewDef
+	displayOptions?: string[]
+	data: MosaicObject[]
+	sort: DataViewSort
+	limitOptions?: number[]
+	gridColumnsMap?: MosaicObject
+	savedViewAllowSharedViewSave?: boolean
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
 	bulkActions?: DataViewBulkAction[]
@@ -228,10 +228,10 @@ export interface DataViewProps {
 	onSavedViewChange?:  dataViewOnSavedViewChange
 	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
 	[key: string]: unknown */
-    onDisplayChange?: dataViewOnDisplayChange
-    onActiveFiltersChange?: dataViewOnActiveFiltersChange
-    onColumnsChange?: dataViewOnColumnsChange
-    onSavedViewSave?: dataViewOnSavedViewSave
-    onSavedViewRemove?: dataViewOnSavedViewRemove
-    onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
+	onDisplayChange?: dataViewOnDisplayChange
+	onActiveFiltersChange?: dataViewOnActiveFiltersChange
+	onColumnsChange?: dataViewOnColumnsChange
+	onSavedViewSave?: dataViewOnSavedViewSave
+	onSavedViewRemove?: dataViewOnSavedViewRemove
+	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
 }

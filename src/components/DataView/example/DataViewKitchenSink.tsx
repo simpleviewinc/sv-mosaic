@@ -672,7 +672,12 @@ function DataViewKitchenSink(): ReactElement {
 				filter
 			});
 		},
-		savedViewAllowSharedViewSave
+		savedViewAllowSharedViewSave,
+		data: state.data,
+		limit: state.limit,
+		sort: state.sort,
+		filter: state.filter,
+		activeFilters: state.activeFilters
 	};
 
 	return (
@@ -680,16 +685,11 @@ function DataViewKitchenSink(): ReactElement {
 			<MosaicContext.Provider value={mosaicSettings}>
 				<DataView
 					{...gridConfig}
-					data={state.data}
-					limit={state.limit}
 					skip={state.skip}
 					count={state.count}
 					display={display}
-					sort={state.sort}
 					loading={state.loading}
-					filter={state.filter}
 					savedView={state.savedView}
-					activeFilters={state.activeFilters}
 					activeColumns={state.activeColumns}
 				></DataView>
 			</MosaicContext.Provider>
