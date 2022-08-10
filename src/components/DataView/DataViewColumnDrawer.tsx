@@ -1,15 +1,15 @@
 import React from "react";
 
 import Drawer from "@root/components/Drawer";
-import GridColumnDrawerContent from "./GridColumnDrawerContent.jsx";
+import DataViewColumnDrawerContent from "./DataViewColumnDrawerContent";
 
-function GridColumnDrawer(props) {
+function DataViewColumnDrawer(props) {
 	return (
 		<Drawer
 			open={props.open}
 			onClose={props.onClose}
 		>
-			<GridColumnDrawerContent
+			<DataViewColumnDrawerContent
 				columns={props.columns}
 				allColumns={props.allColumns}
 				onChange={props.onChange}
@@ -19,4 +19,4 @@ function GridColumnDrawer(props) {
 	)
 }
 
-export default GridColumnDrawer;
+export default DataViewColumnDrawer;

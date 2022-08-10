@@ -43,7 +43,7 @@ const StyledTd = styled.td`
 	}
 `
 
-function GridTd(props) {
+function DataViewTd(props) {
 	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
 	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : false;
 	const paddingLeft = props.paddingLeft !== undefined ? props.paddingLeft : false;
@@ -81,4 +81,4 @@ function GridTd(props) {
 	)
 }
 
-export default memo(GridTd);
+export default memo(DataViewTd);
