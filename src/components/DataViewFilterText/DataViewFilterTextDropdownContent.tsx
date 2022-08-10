@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Button from "../Button";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
