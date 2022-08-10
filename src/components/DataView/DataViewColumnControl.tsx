@@ -3,10 +3,10 @@ import { useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import Button from "../Button";
-import GridColumnDrawer from "./GridColumnDrawer.jsx";
+import DataViewColumnDrawer from "./DataViewColumnDrawer";
 import { useMosaicTranslation } from "@root/i18n";
 
-export function DataViewColumnControl(props) {
+export default function DataViewColumnControl(props) {
 	const [state, setState] = useState({
 		open : false
 	});
@@ -34,7 +34,7 @@ export function DataViewColumnControl(props) {
 			/>
 			{
 				props.onChange !== undefined &&
-				<GridColumnDrawer
+				<DataViewColumnDrawer
 					open={state.open}
 					columns={props.columns}
 					allColumns={props.allColumns}

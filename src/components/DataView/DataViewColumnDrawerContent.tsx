@@ -48,7 +48,7 @@ const StyledWrapper = styled.div`
 	}
 `
 
-function GridColumnDrawerContent(props) {
+function DataViewColumnDrawerContent(props) {
 	const [state, setState] = useState({
 		activeColumns : props.columns.map(val => val.name)
 	});
@@ -146,4 +146,4 @@ function GridColumnDrawerContent(props) {
 	)
 }
 
-export default GridColumnDrawerContent;
+export default DataViewColumnDrawerContent;

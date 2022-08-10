@@ -1,32 +1,32 @@
 import React from "react";
 
 import Checkbox from "@root/components/Checkbox";
-import GridTd from "./GridTd.jsx";
+import DataViewTd from "./DataViewTd";
 import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
 
-function GridTr(props) {
+function DataViewTr(props) {
 	return (
 		<tr>
 			{
 				props?.bulkActions?.length > 0 &&
-				<GridTd key="_bulk">
+				<DataViewTd key="_bulk">
 					<Checkbox
 						checked={props.checked === true}
 						onClick={props.onCheckboxClick}
 					/>
-				</GridTd>
+				</DataViewTd>
 			}
-			<GridTd paddingRight={true} paddingLeft={!props?.bulkActions?.length > 0}>
+			<DataViewTd paddingRight={true} paddingLeft={!props?.bulkActions?.length > 0}>
 				<DataViewActionsButtonRow
 					primaryActions={props.primaryActions}
 					additionalActions={props.additionalActions}
 					originalRowData={props.originalRowData}
 				/>
-			</GridTd>
+			</DataViewTd>
 			{
 				props.columns.map(column => {
 					return (
-						<GridTd
+						<DataViewTd
 							key={column.name}
 							className={column.style === "bold" ? "bold" : undefined}
 							paddingRight={true}
@@ -40,7 +40,7 @@ function GridTr(props) {
 							textTransform={column.style && column.style.textTransform}
 						>
 							{props.row[column.name]}
-						</GridTd>
+						</DataViewTd>
 					);
 				})
 			}
@@ -48,4 +48,4 @@ function GridTr(props) {
 	);
 }
 
-export default GridTr;
+export default DataViewTr;

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import GridTr from "./GridTr.jsx";
-import theme from "../../utils/theme.js";
+import DataViewTr from "./DataViewTr";
+import theme from "@root/theme";
 
 const StyledTBody = styled.tbody`
 	& > tr {
@@ -23,7 +23,7 @@ const StyledTBody = styled.tbody`
 	}
 `
 
-function GridTBody(props) {
+function DataViewTBody(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -78,7 +78,7 @@ function GridTBody(props) {
 			{
 				props.transformedData.map((row, i) => {
 					return (
-						<GridTr
+						<DataViewTr
 							key={i}
 							row={row}
 							originalRowData={props.data[i]}
@@ -96,4 +96,4 @@ function GridTBody(props) {
 	)
 }
 
-export default GridTBody;
+export default DataViewTBody;
