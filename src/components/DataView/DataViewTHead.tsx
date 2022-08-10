@@ -6,11 +6,11 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import Checkbox from "@root/components/Checkbox";
-import { DataViewColumnControl } from "./DataViewColumnControl";
+import DataViewColumnControl from "./DataViewColumnControl";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
 import DataViewBulkAllBar from "../DataView/DataViewBulkAllBar";
 
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.thead`
@@ -97,7 +97,7 @@ function flipDir(sort) {
 	return sort === "asc" ? "desc" : "asc";
 }
 
-function GridTHead(props) {
+function DataViewTHead(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -281,4 +281,4 @@ function GridTHead(props) {
 	)
 }
 
-export default GridTHead;
+export default DataViewTHead;

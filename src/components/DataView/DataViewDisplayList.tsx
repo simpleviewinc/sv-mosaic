@@ -2,8 +2,8 @@ import * as React from "react";
 import { useMemo } from "react";
 import styled from "styled-components";
 
-import GridTHead from "../internal/GridTHead.jsx";
-import GridTBody from "../internal/GridTBody.jsx";
+import DataViewTHead from "./DataViewTHead";
+import DataViewTBody from "./DataViewTBody";
 import { transformRows } from "../../utils/dataViewTools";
 
 const StyledTable = styled.table`
@@ -32,7 +32,7 @@ function DataViewDisplayList(props) {
 
 	return (
 		<StyledTable>
-			<GridTHead
+			<DataViewTHead
 				checked={props.checked}
 				checkedAllPages={props.checkedAllPages}
 				columns={activeColumnObjs}
@@ -47,7 +47,7 @@ function DataViewDisplayList(props) {
 				onCheckAllPagesClick={props.onCheckAllPagesClick}
 				onColumnsChange={props.onColumnsChange}
 			/>
-			<GridTBody
+			<DataViewTBody
 				checked={props.checked}
 				columns={activeColumnObjs}
 				data={props.data}
