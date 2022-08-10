@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo, useState, useCallback, useRef, MouseEventHandler } from "react";
+import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
 import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
 
 // Utils
@@ -10,13 +10,11 @@ import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/Fo
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
-import { useStoryBookCssReset } from "../../utils/reactTools";
 
 // Components
 import Form from "./Form";
 import Drawer from "@root/components/Drawer.jsx";
 import HomeIcon from "@mui/icons-material/Home";
-import MenuIcon from "@mui/icons-material/Menu";
 
 // Types
 import { TextFieldDef } from "../FormFieldText/FormFieldTextTypes";
@@ -33,9 +31,7 @@ import { FormFieldChipSingleSelectDef } from "../FormFieldChipSingleSelect";
 import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import { TextAreaDef } from "../FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
-import LeftNav, { LeftNavProps } from "@root/components/LeftNav";
-import { debounce } from "lodash";
-import styled from "@emotion/styled";
+import { NavWrapper } from "../../components/LeftNav/NavWrapper"
 
 export default {
 	title: "Components/Form",
@@ -1107,184 +1103,17 @@ export const DefaultValues = (): ReactElement => {
 	);
 };
 
-const FakeTopBar = function(props: { variant: string, openNav : MouseEventHandler }): ReactElement {
-
-	const StyledTopBar = styled.div`
-		flex: 0 0 auto;
-		background: #1a1a1a;
-		color: white;
-		padding: 6px 16px;
-		display: flex;
-		align-items: center;
-		min-height: 40px;
-		box-sizing: border-box;
-
-		& > .menuButton {
-			margin-right: 12px;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-		}
-		& > .logo {
-			max-height: 20px;
-		}
-	`;
-
-	const isMobile = Math.max(window.innerHeight, window.innerWidth) < 1024;
-	const variant = isMobile ? "mobile" : props.variant;
-
-	return (
-		<StyledTopBar>
-			{
-				["hidden", "mobile"].includes(variant) &&
-				<span title="Open Navigation" className="menuButton">
-					<MenuIcon onClick={props.openNav}/>
-				</span>
-			}
-			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
-		</StyledTopBar>
-	)
-}
-
 export const DMSExample = (): ReactElement => {
-
-	const AppDiv = styled.div`
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-
-		& > .main {
-			flex: 1 1 0;
-			overflow: hidden;
-			display: flex;
-		}
-
-		& > .main > .left {
-			flex: 0 0 auto;
-			overflow-y: auto;
-		}
-
-		& > .main > .content {
-			padding: 16px;
-			flex: 1 1 0;
-			overflow-y: auto;
-		}
-
-		& h1 {
-			margin-top: 0px;
-		}
-	`;
-
 	
-	const localKey = "sv-mosaic-left-nav-variant";
-	
-	function isMobile() {
-		return window.innerWidth < 1024;
-	}
-
 	const items = [{
 		name : "form_with_layout",
 		label : "Form With Layout",
 		mIcon : HomeIcon
 	}];
 
-
-	useStoryBookCssReset();
-
-	const [state, setState] = useState({
-		open : false,
-		variant : (localStorage.getItem(localKey) ?? "full") as LeftNavProps["variant"],
-		label : items[0].label,
-		name : items[0].name
-	});
-
-	const variant = isMobile() ? "mobile" : state.variant;
-
-	const onClick = function() {
-		setState({
-			...state,
-			open : true
-		});
-	}
-
-	const onClose = function() {
-		setState({
-			...state,
-			open : false
-		})
-	}
-
-	const onNav: LeftNavProps["onNav"] = function({ item }) {
-		setState({
-			...state,
-			open : false,
-			label : item.label,
-			name : item.name
-		})
-	}
-
-	const onVariantChange = function(variant) {
-		localStorage.setItem("sv-mosaic-left-nav-variant", variant);
-
-		setState({
-			...state,
-			variant,
-			open : false
-		});
-	}
-
-	const noop = () => undefined;
-
-	// add a resize listener for handling whether or not we are currently in mobile
-	useEffect(() => {
-		const resizeHandler = debounce(function() {
-			const shouldBeMobile = isMobile();
-
-			// if we are in mobile, ensure we are, if we aren't mobile, ensure we aren't
-			// triggers a re-render just by calling setState()
-			if ((shouldBeMobile && variant !== "mobile") || (!shouldBeMobile && variant === "mobile")) {
-				setState({
-					...state
-				});
-			}
-		}, 100);
-
-		window.addEventListener("resize", resizeHandler);
-
-		return function() {
-			window.removeEventListener("resize", resizeHandler);
-		}
-	}, [state, variant]);
-
-	// on item change scroll to the top
-	const contentRef = useRef(null);
-	useEffect(() => {
-		if (contentRef.current) {
-			contentRef.current.scrollTo(0, 0);
-		}
-	}, [state.label, state.name]);
-
 	return (
-		<AppDiv onClick={noop}>
-			<FakeTopBar variant={variant} openNav={onClick}/>
-			<div className="main">
-				<div className="left">
-					<LeftNav
-						active={state.name}
-						open={state.open}
-						items={items}
-						variant={variant}
-						onClose={onClose}
-						onNav={onNav}
-						onVariantChange={onVariantChange}
-					/>
-				</div>
-				<div className="content" ref={contentRef}>
-					<h1>{state.label}</h1>
-					<h2>{state.name}</h2>
-					<FormWithLayout/>
-				</div>
-			</div>
-		</AppDiv>
+		<NavWrapper items={items}>
+			<FormWithLayout/>
+		</NavWrapper>
 	)
 }
