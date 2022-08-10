@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CloseIcon from '@mui/icons-material/Close';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CloseIcon from "@mui/icons-material/Close";
 
 import theme from "@root/theme";
 import Button from "@root/components/Button";
