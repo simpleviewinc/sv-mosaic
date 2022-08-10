@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CreateIcon from '@mui/icons-material/Create';
 
 import DataView from "../DataView";
-import DrawerContent from "../DrawerContent.jsx";
+import DrawerContent from "@root/components/DrawerContent";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
 import { useMosaicTranslation } from "@root/i18n";
 

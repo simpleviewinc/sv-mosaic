@@ -42,7 +42,7 @@ import {
 	libraries,
 	mapOptions,
 } from "./MapCoordinatesUtils";
-import Drawer from "../../components/Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>): ReactElement => {
 	const {

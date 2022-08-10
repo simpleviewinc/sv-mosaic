@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import DrawerTopBar from "./internal/DrawerTopBar.jsx";
-import DrawerBottom from "./internal/DrawerBottom.jsx";
+import DrawerTopBar from "./DrawerTopBar";
+import DrawerBottom from "./DrawerBottom";
 
 const StyledDiv = styled.div`
 	width: 600px;

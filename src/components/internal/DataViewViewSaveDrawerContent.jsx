@@ -6,7 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import styled from "styled-components";
 
-import DrawerContent from "../DrawerContent.jsx";
+import DrawerContent from "@root/components/DrawerContent";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledForm = styled.form`

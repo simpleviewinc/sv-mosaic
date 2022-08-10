@@ -1,6 +1,6 @@
 import React from "react";
 
-import Drawer from "../Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 import GridColumnDrawerContent from "./GridColumnDrawerContent.jsx";
 
 function GridColumnDrawer(props) {
