@@ -5,8 +5,8 @@ import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 
 import ButtonRow from "../ButtonRow";
 import Button from "../Button";
-import DataViewViewDrawer from "./DataViewViewDrawer.jsx";
-import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
+import DataViewViewDrawer from "./DataViewViewDrawer";
+import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer";
 import { useMosaicTranslation } from "@root/i18n";
 
 const ViewSpan = styled.span`

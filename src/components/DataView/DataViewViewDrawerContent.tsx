@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import CreateIcon from '@mui/icons-material/Create';
 
-import DataView from "../DataView";
+import DataView from "./DataView";
+import { DataViewProps } from "./DataViewTypes";
 import DrawerContent from "@root/components/DrawerContent";
-import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer.jsx";
+import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer";
 import { useMosaicTranslation } from "@root/i18n";
 
 const startingState = {
@@ -50,7 +50,7 @@ function DataViewViewDrawerContent(props) {
 		}
 	}
 	
-	const DataViewConfig = {
+	const DataViewConfig: DataViewProps = {
 		primaryActions : [
 			{
 				name : "select",

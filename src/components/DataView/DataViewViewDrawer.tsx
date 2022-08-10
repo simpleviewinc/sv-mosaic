@@ -1,8 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 
 import Drawer from "@root/components/Drawer";
-import DataViewViewDrawerContent from "./DataViewViewDrawerContent.jsx";
+import DataViewViewDrawerContent from "./DataViewViewDrawerContent";
 
 
 function DataViewViewDrawer(props) {

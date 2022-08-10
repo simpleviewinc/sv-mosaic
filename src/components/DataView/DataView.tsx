@@ -1,14 +1,13 @@
 import * as React from "react";
 import { useState, useEffect, useMemo, useRef, ReactElement } from "react";
-//import jsvalidator from "jsvalidator";
 import styled from "styled-components";
 
-import TitleBar from "../internal/TitleBar.jsx";
+import DataViewTitleBar from "./DataViewTitleBar";
 import DataViewControlDisplay from "./DataViewControlDisplay";
 import DataViewPager from "./DataViewPager";
 import DataViewControlLimit from "./DataViewControlLimit";
 import DataViewFilters from "./DataViewFilters";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";
 
@@ -380,7 +379,7 @@ function DataView (props: DataViewProps): ReactElement  {
 			${ props.sticky ? "sticky" : "" }
 		`}>
 			<div className="headerRow title">
-				<TitleBar
+				<DataViewTitleBar
 					title={props.title}
 					buttons={props.buttons}
 					savedViewEnabled={savedViewEnabled}

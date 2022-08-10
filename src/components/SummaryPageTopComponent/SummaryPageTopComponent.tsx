@@ -15,7 +15,7 @@ import {
 } from "./SummaryPageTopComponent.styled";
 
 // Components
-import Image from "../internal/Image";
+import Image from "@root/components/Image";
 import Button from "../Button";
 import FilterSingleSelect from "../FilterSingleSelect";
 import { filterAction } from "../DataView/utils/bulkActionsUtils";
