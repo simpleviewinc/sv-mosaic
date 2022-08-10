@@ -6,7 +6,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import Button from "../Button";
 import theme from "../../utils/theme.js";
 import CheckboxList from "@root/components/CheckboxList";
-import DrawerContent from "../DrawerContent.jsx";
+import DrawerContent from "@root/components/DrawerContent";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.div`

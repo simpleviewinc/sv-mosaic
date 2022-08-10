@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import MUIDrawer from "@mui/material/Drawer";
 
-import theme from "../utils/theme.js";
+import theme from "@root/theme";
 
 const DrawerContent = styled.div`
 	font-family: ${theme.fontFamily};
