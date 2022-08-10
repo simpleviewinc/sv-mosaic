@@ -14,7 +14,7 @@ import {
 
 // Types
 import { AddressCardProps } from "../AddressTypes";
-import countriesWithStates from "@root/forms/FormFieldAddress/countriesStates.json";
+import countriesWithStates from "@root/forms/FormFieldAddress/utils/trimmedCountriesStates.json";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
@@ -24,7 +24,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 	});
 
 	const selectedState = selectedCountry?.states.find((state) => {
-		return state.state_code === address?.state;
+		return state.code === address?.state;
 	});
 
 	return (
