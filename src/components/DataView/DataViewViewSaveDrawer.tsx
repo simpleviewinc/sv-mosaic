@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Drawer from "@root/components/Drawer";
-import DataViewViewSaveDrawerContent from "./DataViewViewSaveDrawerContent.jsx";
+import DataViewViewSaveDrawerContent from "./DataViewViewSaveDrawerContent";
 
 function DataViewViewSaveDrawer(props) {
 	return (

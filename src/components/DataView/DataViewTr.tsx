@@ -16,7 +16,7 @@ function DataViewTr(props) {
 					/>
 				</DataViewTd>
 			}
-			<DataViewTd paddingRight={true} paddingLeft={!props?.bulkActions?.length > 0}>
+			<DataViewTd paddingRight={true} paddingLeft={!props?.bulkActions?.length}>
 				<DataViewActionsButtonRow
 					primaryActions={props.primaryActions}
 					additionalActions={props.additionalActions}

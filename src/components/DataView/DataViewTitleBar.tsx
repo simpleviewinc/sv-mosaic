@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 
 import ButtonRow from "../ButtonRow";
-import DataViewViewControls from "./DataViewViewControls.jsx";
+import DataViewViewControls from "./DataViewViewControls";
 import { H1 } from "../Typography";
 
 const StyledWrapper = styled.div`
@@ -28,7 +28,7 @@ const StyledWrapper = styled.div`
 	}
 `;
 
-function TitleBar(props) {
+function DataViewTitleBar(props) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -79,4 +79,4 @@ function TitleBar(props) {
 	)
 }
 
-export default TitleBar;
+export default DataViewTitleBar;
