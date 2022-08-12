@@ -33,21 +33,6 @@ const countries = countriesWithStates?.map((country) => ({
 	value: country.iso2,
 }));
 
-const addressTypes = [
-	{
-		label: "Physical",
-		value: "physical",
-	},
-	{
-		label: "Billing",
-		value: "billing",
-	},
-	{
-		label: "Shipping",
-		value: "shipping",
-	},
-];
-
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
 		value,
@@ -61,6 +46,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleUnsavedChanges,
 		dialogOpen,
 		handleDialogClose,
+		addressTypes
 	} = props;
 
 	const { dispatch, state } = useForm();

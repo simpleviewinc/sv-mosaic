@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement, useState } from "react";
+import { memo, ReactElement, useState, useEffect } from "react";
 
 // Components
 import AddressDrawer from "./AddressDrawer";
@@ -20,6 +20,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 		onBlur,
 		onChange,
 		fieldDef,
+		fieldDef : { inputSettings }
 	} = props;
 
 	// State variables
@@ -32,6 +33,60 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
 	const [dialogOpen, setIsDialogOpen] = useState(false);
+	const [addressTypes, setAddressTypes] = useState([]);
+
+	useEffect(() => getAddressTypes(), [value, inputSettings])
+
+	/**
+	 * Gets the number of times each of the 
+	 * address types has been selected
+	 */
+	const getAddressTypesUsed = () => {
+		const amountTypesUsed = {
+			physical: 0,
+			billing: 0,
+			shipping: 0,
+		}
+		
+		if (value) {
+			value.forEach(address => {
+				address.types.forEach(type => {
+					amountTypesUsed[type] >= 0 && amountTypesUsed[type] ++
+				})
+			})
+		}
+
+		return amountTypesUsed
+	}
+
+	/**
+	 * Returns an array with the available 
+	 * address types for the AddressDrawer form
+	 */
+	const getAddressTypes = () => {
+		const addressTypesUsed = getAddressTypesUsed()
+		const initialAddressTypes = [
+			{
+				label: "Physical",
+				value: "physical",
+			},
+			{
+				label: "Billing",
+				value: "billing",
+			},
+			{
+				label: "Shipping",
+				value: "shipping",
+			},
+		]
+
+		setAddressTypes(initialAddressTypes
+			.filter(addressType => addressTypesUsed[addressType.value] < (inputSettings[addressType.value] > 0 
+				? inputSettings[addressType.value] 
+				: inputSettings.amountPerType)
+			)
+		)
+	}
 
 	/**
 	 * Opens the modal to create an address card 
@@ -120,7 +175,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			<FlexContainer>
 				<AddAddressWrapper>
 					<Button
-						disabled={fieldDef.disabled}
+						disabled={addressTypes?.length === 0 ? true : fieldDef.disabled}
 						color="gray"
 						variant="outlined"
 						label="ADD ADDRESS"
@@ -154,6 +209,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
+					addressTypes={addressTypes}
 				/>
 			</Drawer>
 		</div>
