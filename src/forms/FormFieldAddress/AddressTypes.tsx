@@ -36,6 +36,10 @@ export interface AddressCardProps {
 	onEdit?: (address, addressIndex) => void;
 }
 
+interface addressTypes {
+	label: string;
+	name: string;
+}
 export interface AddressDrawerProps {
 	addressToEdit: IAddress;
 	isEditing: boolean;
@@ -45,6 +49,7 @@ export interface AddressDrawerProps {
 	handleClose: (save?: boolean) => Promise<void>;
 	setIsEditing: Dispatch<SetStateAction<boolean>>;
 	value: IAddress[];
+	addressTypes?: addressTypes[];
 
 	hasUnsavedChanges?: boolean;
 	handleUnsavedChanges?: (val: boolean) => void;
