@@ -7,7 +7,7 @@ import { ButtonProps } from "@root/components/Button";
 import Form from "@root/forms/Form/Form";
 
 // Utils
-import countriesWithStates from "@root/forms/FormFieldAddress/countriesStates.json";
+import countriesWithStates from "@root/forms/FormFieldAddress/utils/trimmedCountriesStates.json";
 import { formActions, useForm } from "@root/forms/Form";
 import { TextFieldDef } from "@root/forms/FormFieldText";
 import { IAddress } from "@root/forms/FormFieldAddress";
@@ -67,7 +67,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			);
 
 			const fullStateData = fullCountryData.states.find(
-				(s) => s.state_code === addressToEdit?.state
+				(s) => s.code === addressToEdit?.state
 			);
 
 			dispatch(
@@ -159,7 +159,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				formActions.setFieldValue({
 					name: "states",
-					value: fullStateData?.state_code,
+					value: fullStateData?.code,
 				})
 			);
 
@@ -167,7 +167,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				...editingState,
 				"states": {
 					label: fullStateData?.name,
-					value: fullStateData?.state_code,
+					value: fullStateData?.code,
 				},
 			};
 
@@ -189,7 +189,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		);
 
 		if (selectedCountry) {
-			return selectedCountry.states.map((state) => ({ label: state.name, value: state.state_code }));
+			return selectedCountry.states.map((state) => ({ label: state.name, value: state.code }));
 		}
 
 		return [];
