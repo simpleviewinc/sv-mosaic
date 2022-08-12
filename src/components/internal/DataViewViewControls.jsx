@@ -20,9 +20,9 @@ const ViewSpan = styled.span`
 	& > p {
 		margin: 0;
 		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 1;
-		-webkit-box-orient: vertical; 
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		max-width: 200px;
 	}
 `
 
