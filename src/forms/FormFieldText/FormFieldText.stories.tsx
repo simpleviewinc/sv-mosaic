@@ -1,14 +1,7 @@
 import * as React from "react";
-import { useMemo, ReactElement } from "react";
-import {
-	boolean,
-	withKnobs,
-	text,
-	number,
-	select,
-} from "@storybook/addon-knobs";
-import { TextFieldDef } from ".";
-import { FieldDef } from "@root/components/Field";
+import { useMemo } from "react";
+import FormFieldText, { TextFieldDef } from ".";
+import { FieldDef, MosaicFieldProps } from "@root/components/Field";
 import { useForm } from "../Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
@@ -18,30 +11,27 @@ import Form from "../Form/Form";
 
 export default {
 	title: "FormFields/FormFieldText",
-	decorators: [withKnobs],
+	component: FormFieldText,
+	argTypes: {
+		size: {
+			options: ["xs", "sm", "md", "lg"]
+		},
+		number: {
+			options: ["number", "text"]
+		}
+	} as unknown as MosaicFieldProps<TextFieldDef>
 };
 
-export const Playground = (): ReactElement => {
+const Template = (args) => {
+	const {size, type, placeholder, maxCharacters, disabled, required, multiline, withIcon, helperText, instructionText, label, fields} = args;
 	const { state, dispatch	} = useForm();
 
-	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
-	const type = select("Type", ["number", "text"], "text");
-	const placeholder = text("Placeholder", "placeholder");
-	const maxCharacters = number("Max characters", 20);
-	const disabled = boolean("Disabled", false);
-	const required = boolean("Required", false);
-	const multiline = boolean("Multiline", false);
-	const withIcon = boolean("With icon", false);
-	const helperText = text("Helper text", "Helper text");
-	const instructionText = text("Instruction text", "Instruction text");
-	const label = text("Label", "Label");
-
-	const fields = useMemo(
+	const playgroundField = useMemo(
 		() =>
 			[
 				{
 					name: "textfield",
-					label,
+					label: "testing",
 					type: "text",
 					required,
 					disabled,
@@ -57,7 +47,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			] as FieldDef<TextFieldDef>[],
+			],
 		[
 			label,
 			required,
@@ -78,10 +68,10 @@ export const Playground = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
-				title={text("Title", "Form Title")}
-				description={text("Description", "This is a description example")}
+				title={"Form Title"}
+				description={"This is a description example"}
 				state={state}
-				fields={fields}
+				fields={fields ? fields : playgroundField}
 				dispatch={dispatch}
 				onCancel={onCancel}
 			/>
@@ -89,7 +79,22 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkfields = [
+export const Playground = Template.bind({});
+Playground.args = {
+	size: "sm",
+	type: "text",
+	placeholder: "placeholder",
+	maxCharacters: "20",
+	disabled: false,
+	required: false,
+	multiline: false,
+	withIcon: false,
+	helperText: "Helper text",
+	instructionText: "Instruction text",
+	label: "Label"
+};
+
+const kitchenSinkFields = [
 	{
 		name: "regular",
 		label: "Regular example",
@@ -206,21 +211,7 @@ const kitchenSinkfields = [
 	},
 ] as FieldDef<TextFieldDef>[];
 
-export const KitchenSink = (): ReactElement => {
-	const { state, dispatch } = useForm();
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Form Title'
-				description='Form description'
-				state={state}
-				fields={kitchenSinkfields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
-		</>
-	);
+export const KitchenSink = Template.bind({});
+KitchenSink.args = {
+	fields: kitchenSinkFields,
 };
