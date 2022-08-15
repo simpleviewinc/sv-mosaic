@@ -1,7 +1,7 @@
 export { default } from "./FilterDate";
 export * from "./FilterDateTypes";
 
-import * as localeData from "./FilterDateLocales.json";
+import localeData from "./FilterDateLocales.json";
 import { addCoreResourceBundle } from "../../i18n";
 
 addCoreResourceBundle({

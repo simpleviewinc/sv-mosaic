@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect"
 import Button from "../Button";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledDiv = styled.div`
@@ -33,17 +33,20 @@ const StyledDiv = styled.div`
 `;
 
 function DataViewFilters(props) {
-	const { t } = useMosaicTranslation();
+	const { t, i18n } = useMosaicTranslation();
+
+	console.log(i18n, i18n.options);
+
 	const [state, setState] = useState({
 		anchorEl : null,
 		dropdownOpen : false
 	});
 
-	const activeFilters = props.activeFilters.value || [];	
+	const activeFilters = props.activeFilters.value || [];
 	const primaryFilters = props.filters.filter(val => val.type === "primary");
 	const primaryFilterNames = primaryFilters.map(val => val.name);
 	const optionalFilters = props.filters.filter(val => val.type !== "primary");
-	
+
 	const active = optionalFilters.filter(val => activeFilters.includes(val.name));
 	const options = optionalFilters
 		.map((val) => ({ label: val.label, value: val.name }))
@@ -52,7 +55,7 @@ function DataViewFilters(props) {
 	const optionsSelected = useMemo(() => {
 		return options.filter(option => activeFilters.includes(option.value))
 	}, [options, activeFilters])
-	
+
 	const onRemove = (name) => () => {
 		const activeFilters = xor(props.activeFilters.value, [name]);
 		onActiveFiltersChange({ value: activeFilters });
@@ -64,21 +67,21 @@ function DataViewFilters(props) {
 			anchorEl : event.currentTarget
 		});
 	}
-	
+
 	const onClose = () => {
 		setState({
 			...state,
 			anchorEl : null
 		});
 	}
-	
+
 	const onEntered = () => {
 		setState({
 			...state,
 			dropdownOpen : true
 		});
 	}
-	
+
 	const onExited = function() {
 		setState({
 			...state,
@@ -91,7 +94,7 @@ function DataViewFilters(props) {
 
 		// we only want to pass a new filter obj if we have actually removed a key from it, to prevent unnecessary re-fetches of data
 		const setFilter = Object.keys(filter).join(",") !== Object.keys(props.filter).join(",");
-		
+
 		props.onActiveFiltersChange({
 			activeFilters: activeFiltersParam,
 			filter : setFilter === true ? filter : props.filter
@@ -100,7 +103,7 @@ function DataViewFilters(props) {
 		onClose();
 	};
 
-	const getOptions = (filter) => {	
+	const getOptions = (filter) => {
 		const regex = new RegExp(filter.keyword, "i");
 		const results = options.filter((option) => option.label.match(regex));
 
@@ -141,7 +144,7 @@ function DataViewFilters(props) {
 							iconPosition="right"
 							mIcon={ExpandMoreIcon}
 							mIconColor={theme.colors.gray600}
-							onClick={onClick}						
+							onClick={onClick}
 						/>
 						<DataViewFilterDropdown
 							anchorEl={state.anchorEl}

@@ -14,7 +14,7 @@ import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
 import CheckboxList from "@root/components/CheckboxList";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 import { H3 } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
 
@@ -24,7 +24,7 @@ const StyledWrapper = styled.div`
 		height: 400px;
 		width: 600px;
 	}
-	
+
 	& > .topBlock > .options > .searchBar {
 		position: sticky;
 		top: 0;
@@ -34,18 +34,18 @@ const StyledWrapper = styled.div`
 		z-index: 1;
 		background: white;
 	}
-	
+
 	& > .topBlock > .options > .searchBar > svg {
 		margin-right: 8px;
 		font-size: ${theme.iconFontSize};
 	}
-	
+
 	& > .topBlock > .options > .searchBar > .input {
 		font-family: ${theme.fontFamily};
 		line-height: 2rem;
 		font-size: 16px;
 	}
-	
+
 	& > .topBlock > .options {
 		overflow-y: scroll;
 		flex: 2;
@@ -53,40 +53,40 @@ const StyledWrapper = styled.div`
 		transition: opacity .5s;
 		padding-right: 10px;
 	}
-	
+
 	& > .topBlock > .options.disabled {
 		opacity: .4;
 		pointer-events: none;
 	}
-	
+
 	& > .topBlock > .options .listItem {
 		padding-top: 0px;
 		padding-bottom: 0px;
 	}
-	
+
 	& > .topBlock > .options .listItemIcon {
 		min-width: auto;
 	}
-	
+
 	& > .topBlock > .options > .spinner {
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
-	
+
 	& > .topBlock > .options .checked {
 		color: ${theme.colors.blue};
 	}
-	
+
 	& > .topBlock > .selected {
 		padding: 0px 0px 0px 15px;
 		width: 200px;
 		overflow-y: auto;
 	}
-	
+
 	& .comparisonDropdown {
 		margin-bottom: 1rem;
 	}
-	
+
 	& .chip {
 		display: flex;
 		background-color: ${theme.colors.blue}13;
@@ -95,11 +95,11 @@ const StyledWrapper = styled.div`
 		font-family: ${theme.fontFamily};
 		height: 33px;
 	}
-	
+
 	& .chip:focus {
 		background-color: ${theme.colors.blue}13;
 	}
-	
+
 	& .chip > span {
 		flex: 1;
 		font-size: 14px;
@@ -167,7 +167,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
-	
+
 	const [state, setState] = useState({
 		options : [],
 		selected : props.selected.map(val => val.value),
@@ -177,20 +177,20 @@ function DataViewFilterMultiselectDropdownContent(props) {
 		comparison : props.comparison,
 		loaded : false
 	});
-	
+
 	const { t } = useMosaicTranslation();
 
 	// we need to combine the options we are querying for and the selected options that are passed in
 	// since if they have already selected an item not in the current page, it won't be in the queried options
 	const allOptions = [...props.selected, ...state.options];
-	
+
 	// mark the active comparison
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
-	
+
 	useEffect(() => {
 		async function fetchData() {
 			const options = await props.getOptions({ limit, skip : state.skip });
-			
+
 			setState({
 				...state,
 				options : options.docs,
@@ -199,10 +199,10 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				loaded : true
 			});
 		}
-		
+
 		fetchData();
 	}, []);
-	
+
 	const onClear = function() {
 		setState({
 			...state,
@@ -211,14 +211,14 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			keyword : undefined,
 		});
 	}
-	
+
 	const onApply = function() {
 		props.onApply({
 			value : optionsDisabled ? [] : state.selected,
 			comparison : state.comparison
 		});
 	}
-	
+
 	const handleToggle = option => () => {
 		const newSelected = xor(state.selected, [option.value]);
 		setState({
@@ -226,7 +226,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			selected : newSelected
 		});
 	}
-	
+
 	const loadMore = function(e) {
 		// stash the target to prevent issues with React event persistence in our async callback
 		const target = e.currentTarget;
@@ -237,7 +237,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				skip : state.skip,
 				keyword : state.keyword
 			});
-			
+
 			setState({
 				...state,
 				options : [...state.options, ...newOptions.docs],
@@ -249,10 +249,10 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			// this ensures that our options scrollable maintains it's previous scroll position
 			target.blur();
 		}
-		
+
 		fetchData();
 	}
-	
+
 	const debouncedSetKeyword = debounce(function(value) {
 		async function fetchData() {
 			const newOptions = await props.getOptions({
@@ -260,7 +260,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				skip : 0,
 				keyword : value
 			});
-			
+
 			setState({
 				...state,
 				options : newOptions.docs,
@@ -269,14 +269,14 @@ function DataViewFilterMultiselectDropdownContent(props) {
 				skip : limit
 			});
 		}
-		
+
 		fetchData();
 	}, 200);
-	
+
 	const keywordChange = function(e) {
 		debouncedSetKeyword(e.target.value);
 	}
-	
+
 	let comparisonDropdown;
 	if (props.comparisons) {
 		const menuItems = props.comparisons.map(comparison => {
@@ -290,7 +290,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 							selected : []
 						});
 					}
-					
+
 					setState({
 						...state,
 						comparison : comparison.value
@@ -306,7 +306,7 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			"Exists": "The row must have a value for this filter.",
 			"Not Exists": "The row must not have a value for this filter.",
 		}
-		
+
 		comparisonDropdown = (
 			<div className="comparisonDropdown">
 				<H3>{t("mosaic:DataView.comparison")}</H3>
@@ -339,20 +339,20 @@ function DataViewFilterMultiselectDropdownContent(props) {
 			</div>
 		);
 	}
-	
+
 	// if the user has chosen exists or not_exists then we need to disable the left panel since it isn't valid in that case
 	const optionsDisabled = ["exists", "not_exists"].includes(state.comparison);
-	
+
 	// we want to avoid showing the list until the dropdown is fully open and the results are loaded from the db
 	const showList = props.isOpen && state.loaded;
-	
+
 	const onChange = function(selected) {
 		setState({
 			...state,
 			selected : selected
 		});
 	}
-	
+
 	return (
 		<StyledWrapper>
 			<div className="topBlock">
@@ -402,9 +402,9 @@ function DataViewFilterMultiselectDropdownContent(props) {
 									showList &&
 									state.selected.map(value => {
 										const option = allOptions.find(val => val.value === value);
-										
+
 										if (option === undefined) { return null; }
-										
+
 										return (
 											<Chip
 												className="chip"

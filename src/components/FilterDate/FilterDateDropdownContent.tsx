@@ -3,7 +3,7 @@ import { useState, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 import { FilterDateDropdownContentProps } from "./FilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";
 import DatePickerCustom from "@root/forms/FormFieldDate/DatePicker";
@@ -50,11 +50,11 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 			rangeStart : state.rangeStart,
 			rangeEnd: state.rangeEnd
 		});
-		
+
 		props.onClose();
 	}
-	
-	
+
+
 	const onClear = function() {
 		setState({
 			...state,
@@ -89,7 +89,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 			<div className="inputRow">
 				<div className="startRange">
 					<h5>{`${t("mosaic:common.date_from")}`}</h5>
-					<DatePickerCustom 
+					<DatePickerCustom
 						onChange={getOnChange("rangeStart")}
 						value={state.rangeStart || null}
 						fieldDef={{
@@ -104,7 +104,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 				</div>
 				<div className="endRange">
 					<h5>{`${t("mosaic:common.date_to")}`}</h5>
-					<DatePickerCustom 
+					<DatePickerCustom
 						onChange={getOnChange("rangeEnd")}
 						value={state.rangeEnd || null}
 						fieldDef={{

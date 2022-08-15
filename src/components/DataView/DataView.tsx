@@ -17,7 +17,7 @@ const StyledWrapper = styled.div`
 	font-size: 14px;
 	display: flex;
 	flex-direction: column;
-	
+
 	& > .headerRow {
 		display: flex;
 		justify-content: space-between;
@@ -31,7 +31,7 @@ const StyledWrapper = styled.div`
 	& > .headerRow.title {
 		margin-left: 12px;
 	}
-	
+
 	& > .headerRow > .right {
 		display: flex;
 		align-items: center;
@@ -41,7 +41,7 @@ const StyledWrapper = styled.div`
 	& > .viewContainer {
 		overflow: auto;
 	}
-	
+
 	&.loading {
 		opacity: .5;
 		pointer-events: none;
@@ -257,7 +257,7 @@ function DataView (props: DataViewProps): ReactElement  {
 		],
 		allowExtraKeys : false,
 		throwOnInvalid : true
-	}); 
+	});
 */
 
 	// declare the hooks
@@ -265,35 +265,35 @@ function DataView (props: DataViewProps): ReactElement  {
 		checked : [],
 		checkedAllPages : false
 	});
-	
+
 	// set defaults
 	const display = props.display || "list";
 	const displayOptions = useMemo(() => props.displayOptions || [display], [display, props.displayOptions]);
-	
+
 	const displayControlEnabled = props.onDisplayChange !== undefined && displayOptions.length > 1;
 
-	const savedViewEnabled = 
+	const savedViewEnabled =
 		props.onSavedViewSave !== undefined &&
 		props.onSavedViewChange !== undefined &&
 		props.onSavedViewGetOptions !== undefined &&
 		props.onSavedViewRemove !== undefined &&
 		props.savedView !== undefined
 	;
-	
+
 	const onCheckAllClick = function() {
 		const allChecked = state.checked.every(val => val === true);
-		
+
 		setState({
 			...state,
 			checked : state.checked.map(val => !allChecked),
 			checkedAllPages : false
 		});
 	}
-	
+
 	const onCheckboxClick = function(i) {
 		const newChecked = [...state.checked];
 		newChecked[i] = !newChecked[i];
-		
+
 		setState({
 			...state,
 			checked : newChecked,
@@ -311,7 +311,7 @@ function DataView (props: DataViewProps): ReactElement  {
 			checkedAllPages : !state.checkedAllPages
 		})
 	}
-	
+
 	useEffect(() => {
 		if (props.data && viewContainerRef.current) {
 			// on data change scroll to the top
@@ -346,7 +346,7 @@ function DataView (props: DataViewProps): ReactElement  {
 	}
 
 	const Display = activeDisplay.component;
-	
+
 	const savedViewState = {
 		limit : props.limit,
 		sort : props.sort,
@@ -355,14 +355,14 @@ function DataView (props: DataViewProps): ReactElement  {
 		activeFilters : props.activeFilters,
 		activeColumns : props.activeColumns,
 	}
-	
+
 	const savedViewCallbacks = {
 		onSave : props.onSavedViewSave,
 		onChange : props.onSavedViewChange,
 		onGetOptions : props.onSavedViewGetOptions,
 		onRemove : props.onSavedViewRemove
 	}
-	
+
 	const limitOptions = useMemo(() => {
 		return props.limitOptions || [
 			25,
@@ -370,7 +370,7 @@ function DataView (props: DataViewProps): ReactElement  {
 			100
 		]
 	}, [props.limitOptions]);
-	
+
 	const viewContainerRef = useRef(null);
 
 	return (
