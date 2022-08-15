@@ -1,57 +1,56 @@
-// import * as React from "react";
-// import { ReactElement, ChangeEvent, useState } from "react";
-// import { boolean, withKnobs, text } from "@storybook/addon-knobs";
-// import { Meta } from "@storybook/addon-docs/blocks";
-// import RadioGroup from "@mui/material/RadioGroup";
+import * as React from "react";
+import { ReactElement, ChangeEvent, useState } from "react";
+import RadioGroup from "@mui/material/RadioGroup";
 
-// // Components
-// import RadioButton from "./RadioButton";
+// Components
+import RadioButton from "./RadioButton";
 
-// export default {
-// 	title: "Components/RadioButton",
-// 	decorators: [withKnobs],
-// } as Meta;
+export default {
+	title: "Components/RadioButton",
+	component: RadioButton,
+};
 
-// export const Example = (): ReactElement => (
-// 	<RadioButton
-// 		label={text("Label", "Label")}
-// 		disabled={boolean("Disabled", false)}
-// 		required={boolean("Required", false)}
-// 	/>
-// );
+const Template = (args) => <RadioButton {...args} />;
 
-// export const Group = (): ReactElement => {
-// 	const [value, setValue] = useState("female");
+export const Playground = Template.bind({});
+Playground.args = {
+	label: "Label",
+	disabled: false,
+	required: false,
+}
 
-// 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-// 		setValue((event.target as HTMLInputElement).value);
-// 	};
+export const Group = (): ReactElement => {
+	const [value, setValue] = useState("female");
 
-// 	return (
-// 		<RadioGroup
-// 			aria-label='gender'
-// 			name='gender1'
-// 			value={value}
-// 			onChange={handleChange}
-// 		>
-// 			<RadioButton
-// 				label='Male'
-// 				disabled={false}
-// 				required={false}
-// 				value='male'
-// 			/>
-// 			<RadioButton
-// 				label='Female'
-// 				disabled={false}
-// 				required={false}
-// 				value='female'
-// 			/>
-// 			<RadioButton
-// 				label='(Disabled option)'
-// 				disabled={true}
-// 				required={false}
-// 				value='disabled'
-// 			/>
-// 		</RadioGroup>
-// 	);
-// };
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setValue((event.target as HTMLInputElement).value);
+	};
+
+	return (
+		<RadioGroup
+			aria-label='gender'
+			name='gender1'
+			value={value}
+			onChange={handleChange}
+		>
+			<RadioButton
+				label='Male'
+				disabled={false}
+				required={false}
+				value='male'
+			/>
+			<RadioButton
+				label='Female'
+				disabled={false}
+				required={false}
+				value='female'
+			/>
+			<RadioButton
+				label='(Disabled option)'
+				disabled={true}
+				required={false}
+				value='disabled'
+			/>
+		</RadioGroup>
+	);
+};

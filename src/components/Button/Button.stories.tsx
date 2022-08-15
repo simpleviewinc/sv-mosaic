@@ -1,15 +1,47 @@
-// import * as React from "react";
+import * as React from "react";
 // import { ReactElement } from "react";
 // import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 
-// export { default as KitchenSink } from "./ButtonKitchenSink";
-// import StoryBookError from "../StoryBookError";
-// import Button from "../Button";
+export { default as KitchenSink } from "./ButtonKitchenSink";
+import StoryBookError from "../StoryBookError";
+import Button from "../Button";
 
-// export default {
-// 	title: "Components/Button",
-// 	decorators: [withKnobs],
-// };
+export default {
+	title: "Components/Button",
+	component: Button
+};
+
+const Template = (args) => (
+	<StoryBookError>
+		<Button
+			{...args}
+			// attrs={{
+			// 	smallText,
+			// }}
+			// label="Test"
+			// variant={buttonVariant}
+			// color={buttonColor}
+			// fullWidth={fullWidth}
+			// disabled={disabled}
+			// tooltip={tooltip}
+			// size={size}
+		/>
+	</StoryBookError>
+);
+
+export const Playground = Template.bind({});
+Playground.args = {
+	attrs: {
+		smallText: "Small text. Used by text buttons"
+	},
+	label: "Test",
+	variant: "contained",
+	color: "black",
+	fullWidth: false,
+	disabled: false,
+	tooltip: "",
+	size: "medium",
+}
 
 // export const ButtonPlayground = (): ReactElement => {
 // 	const buttonVariant = select(

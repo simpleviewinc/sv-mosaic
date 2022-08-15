@@ -1,10 +1,10 @@
-const webpack = require("webpack");
+// const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
 	stories: [
 		"../src/index.stories.mdx",
-		"../src/forms/FormFieldText/FormFieldText.stories.@(js|jsx|ts|tsx|md|mdx)",
+		// "../src/forms/FormFieldText/FormFieldText.stories.@(js|jsx|ts|tsx|md|mdx)",
 		"../src/**/*.stories.mdx",
 		"../src/**/*.stories.@(js|jsx|ts|tsx)"
 	],

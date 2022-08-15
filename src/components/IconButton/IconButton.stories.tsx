@@ -1,42 +1,37 @@
-// import * as React from "react";
-// import { ReactElement } from "react";
-// import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import * as React from "react";
 
-// // Material UI
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
-// import HelpIcon from "@mui/icons-material/Help";
+// Material UI
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import HelpIcon from "@mui/icons-material/Help";
 
-// // Components
-// import IconButton from "./IconButton";
+// Components
+import IconButton from "./IconButton";
 
-// export default {
-// 	title: "Components/IconButton",
-// 	decorators: [withKnobs],
-// };
+export default {
+	title: "Components/IconButton",
+	componentn: IconButton,
+	argTypes: {
+		icon: {//TODO: THIS IS NOT A VALID TYPE, CHANGE FOR STRINGS.
+			options: [MoreVertIcon, HelpIcon]
+		}
+	}
+};
 
-// export const Example = (): ReactElement => {
+const Template = (args) => (
+	<>
+		{args.icon === MoreVertIcon ?
+			<p>More Icon</p>
+			:
+			<p>Help Icon</p>
+		}
+		<IconButton {...args} />
+	</>
+);
 
-// 	const disabled = boolean("Disabled", false);
-// 	const tooltipText = text("Tooltip text", "This is the tooltip");
-
-// 	const handleClick = () => {
-// 		alert("Icon clicked");
-// 	};
-
-// 	return <>
-// 		<p>More Icon</p>
-// 		<IconButton
-// 			disabled={disabled}
-// 			tooltipText={tooltipText}
-// 			icon={MoreVertIcon}
-// 			onClick={handleClick}
-// 		/>
-// 		<p>Help Icon</p>
-// 		<IconButton
-// 			disabled={disabled}
-// 			tooltipText={tooltipText}
-// 			icon={HelpIcon}
-// 			onClick={handleClick}
-// 		/>
-// 	</>;
-// };
+export const Playground = Template.bind({});
+Template.args = {
+	disabled: false,
+	tooltipText: "This is the tooltip",
+	handleClick: () => alert("Icon clicked"),
+	icon: MoreVertIcon
+}
