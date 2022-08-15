@@ -6,20 +6,13 @@ export type optionsWithCategory = {
 
 type AdvancedSelectionBasic = {
 	createNewOption?: (filter: string) => Promise<string>;
-	getSelected: (options: string[]) => Promise<optionsWithCategory[]>;
-	/**
-	 * If true, displays a checkbox list for each category
-	 * otherwise displays a single checkbox list with all the
-	 * checkboxOptions.
-	 */
-	// groupByCategory?: boolean;
 }
 
 type AdvancedSelectionLocalOptions = {
 	/**
 	* Options to be display within the Modal.
 	*/
-	checkboxOptions: optionsWithCategory[];
+	options: MosaicLabelValue[];
 } & AdvancedSelectionBasic;
 
 type AdvancedSelectionExternalOptions = {
@@ -34,7 +27,7 @@ type AdvancedSelectionExternalOptions = {
 		filter?: string;
 		limit?: number;
 		offset?: number;
-	}) => Promise<optionsWithCategory[]>;
+	}) => Promise<MosaicLabelValue[]>;
 	getOptionsLimit?: number | string;
 } & AdvancedSelectionBasic;
 
@@ -45,18 +38,17 @@ export interface ChipListPropsTypes {
 		inputSettings: {
 			isModalOpen: boolean;
 			isMobileView: boolean;
-			selectedOptions: any;
-			getSelected: (options: string[]) => Promise<optionsWithCategory[]>;
-			deleteSelectedOption: (e: any) => Promise<void>;
+			selectedOptions: MosaicLabelValue[];
+			deleteSelectedOption: (options: MosaicLabelValue[]) => Promise<void>;
 		};
 		disabled: boolean;
 	}
 }
 
 export interface AdvanceSelectionDrawerPropTypes {
-	value: any;
+	value: MosaicLabelValue[];
 	fieldDef: any;
-	onChange: (e: any) => Promise<void>;
+	onChange: (e: MosaicLabelValue[]) => Promise<void>;
 	isModalOpen: boolean;
 	isMobileView: boolean;
 	handleClose: (save?: boolean) => Promise<void>;

@@ -30,7 +30,7 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   margin-bottom: 40px;
   padding: 0 16px;
-  width: ${pr => pr.isMobileView ? "" : "650px"};
+  width: ${pr => pr.isMobileView ? "" : "684px"};
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
@@ -54,7 +54,8 @@ export const ChipsWrapper = styled.div`
 `;
 
 export const OptionsCheckedModalWrapper = styled.div`
-  margin-bottom: ${(pr) => (pr.isModalOpen ? "40px" : "")};
+  margin-bottom: ${({ isModalOpen }) => (isModalOpen ? "40px" : "")};
+	margin-top: ${({ isModalOpen }) => (isModalOpen ? "40px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`

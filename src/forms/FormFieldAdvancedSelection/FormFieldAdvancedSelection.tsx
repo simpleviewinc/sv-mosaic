@@ -22,8 +22,9 @@ import {
 	AdvancedSelectionWrapper,
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
+import { MosaicLabelValue } from "@root/types";
 
-const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
+const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef, MosaicLabelValue[]>): ReactElement => {
 	const {
 		value,
 		onBlur,
@@ -102,7 +103,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 								isModalOpen,
 								isMobileView,
 								selectedOptions: value,
-								getSelected: fieldDef?.inputSettings?.getSelected,
 								deleteSelectedOption: onChange,
 							},
 							disabled: fieldDef?.disabled,
