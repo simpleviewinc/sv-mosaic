@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { InputLabel } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-import theme from "../../utils/theme";
+import theme from "@root/theme";
 import Tooltip from "../Tooltip";
 
 const LabelWrapper = styled.div`
@@ -15,7 +15,7 @@ const LabelWrapper = styled.div`
   justify-content: space-between;
   width: ${(pr) => pr.size};
   font-family: ${theme.fontFamily};
-  
+
   .MuiInputLabel-root {
     font-family: inherit;
     font-size: 16px;
@@ -86,7 +86,7 @@ const Label = (props: LabelProps): ReactElement => {
 		<LabelWrapper className={className} disabled={disabled} required={required} labelMargin={labelMargin}>
 			<StyledInputTooltipWrapper>
 				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
-				{tooltip && 
+				{tooltip &&
 					<Tooltip text={instructionText} type='advanced'>
 						<StyledInfoOutlinedIcon />
 					</Tooltip>

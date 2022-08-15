@@ -4,36 +4,36 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import Button from "../Button";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 import CheckboxList from "@root/components/CheckboxList";
 import DrawerContent from "@root/components/DrawerContent";
 import { useMosaicTranslation } from "@root/i18n";
 
 const StyledWrapper = styled.div`
 	display: flex;
-	
+
 	& > div > h2 {
 		${theme.h2}
 		padding-left: 15px;
 		margin: 0 0 1rem 0;
 	}
-	
+
 	& > .left {
 		flex: 1;
 		padding-right: 20px;
 		width: 200px;
 	}
-	
+
 	& > .left .listItem {
 		margin: 3px 0px;
 		background: white;
 	}
-	
+
 	& > .right {
 		flex: 1;
 		width: 200px;
 	}
-	
+
 	& > .right > .item {
 		background: white;
 		line-height: 42px;
@@ -42,7 +42,7 @@ const StyledWrapper = styled.div`
 		justify-content: space-between;
 		padding-left: 15px;
 	}
-	
+
 	& > .right > .item > .buttons {
 		text-align: right;
 	}
@@ -54,35 +54,35 @@ function DataViewColumnDrawerContent(props) {
 	});
 
 	const { t } = useMosaicTranslation();
-	
+
 	const saveColumns = function() {
 		props.onClose();
 		props.onChange(state.activeColumns);
 	}
-	
+
 	const onColumnsChange = function(data) {
 		setState({
 			...state,
 			activeColumns : data
 		});
 	}
-	
+
 	const orderClick = (name, num) => () => {
 		// changing the order is actually just swapping one element for another
 		// so we find the elements current position and it's new position and swap the two names
 		const index = state.activeColumns.indexOf(name);
 		const newIndex = index + num;
 		const swapValue = state.activeColumns[newIndex];
-		
+
 		state.activeColumns[index] = swapValue;
 		state.activeColumns[newIndex] = name;
-		
+
 		setState({
 			...state,
 			activeColumns : [...state.activeColumns]
 		});
 	}
-	
+
 	const columnOptions = props.allColumns.map(column => {
 		return {
 			label : column.label,
@@ -91,7 +91,7 @@ function DataViewColumnDrawerContent(props) {
 	}).sort((a, b) => {
 		return a.label.localeCompare(b.label)
 	});
-	
+
 	return (
 		<DrawerContent
 			title={t("mosaic:DataView.table_settings")}
@@ -114,7 +114,7 @@ function DataViewColumnDrawerContent(props) {
 					{
 						state.activeColumns.map((name, i) => {
 							const column = props.allColumns.find(val => val.name === name);
-							
+
 							return (
 								<div className="item" key={column.name}>
 									<span>
