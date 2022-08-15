@@ -1,37 +1,46 @@
 import { intersection } from "lodash";
 
+interface Relationship {
+	api: JSONDB
+	key: string
+	left_key: string
+	right_key: string
+}
+
 class JSONDB {
-	constructor(data, { relationships } = {}) {
+	data: object[]
+	relationships: Relationship[]
+	constructor(data, { relationships }: { relationships?: Relationship[] } = {}) {
 		this.data = data;
 		this.relationships = relationships;
 	}
-	
+
 	async find(query) {
 		let data = this.data.slice();
-		
+
 		if (query.filter !== undefined) {
 			data = filterData(data, query.filter);
 		}
-		
+
 		if (query.sort !== undefined) {
 			const sort = query.sort;
 			data.sort((a, b) => sortArr(a[sort.name], b[sort.name], sort.dir));
 		}
-		
+
 		if (query.skip !== undefined) {
 			data = data.slice(query.skip);
 		}
-		
+
 		if (query.limit !== undefined) {
 			data = data.slice(0, query.limit);
 		}
-		
+
 		if (this.relationships !== undefined) {
 			for (const relationship of this.relationships) {
 				for (const row of data) {
 					const ids = row[relationship.left_key];
 					if (ids === undefined) { continue; }
-					
+
 					const items = await relationship.api.find({
 						filter : {
 							[relationship.right_key] : {
@@ -39,38 +48,53 @@ class JSONDB {
 							}
 						}
 					});
-					
+
 					row[relationship.key] = items;
 				}
 			}
 		}
-		
+
 		return data;
 	}
-	
+
 	async count(query) {
 		let data = this.data.slice();
-		
+
 		if (query.filter !== undefined) {
 			data = filterData(data, query.filter);
 		}
-		
+
 		return data.length;
 	}
 }
 
-function filterData(data, filter) {
+interface FilterKey {
+	$in: unknown[]
+	$not_in: unknown[]
+	$gte: number
+	$lte: number
+	$ne: unknown
+	$contains: string
+	$not_contains: string
+	$exists: boolean
+}
+
+interface FilterObj {
+	[key: string]: FilterKey
+}
+
+function filterData(data, filter: FilterObj) {
 	let newData = data;
 
 	for (const [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined || val.$not_in !== undefined) {
 			newData = newData.filter(row => {
 				if (row[key] === undefined) { return false; }
-				
+
 				if (row[key] instanceof Array) {
-					return val.$in ? 
-						intersection(row[key], val.$in).length > 0 
-						: !intersection(row[key], val.$not_in).length > 0;
+					return val.$in ?
+						intersection(row[key], val.$in).length > 0
+						: intersection(row[key], val.$not_in).length === 0;
 				} else {
 					return val.$in ? val.$in.includes(row[key])
 						: !val.$not_in.includes(row[key])
@@ -114,13 +138,13 @@ function filterData(data, filter) {
 			newData = newData.filter(row => row[key] === val);
 		}
 	}
-	
+
 	return newData;
 }
 
 function sortArr(a, b, dir) {
 	const multiplier = dir === "asc" ? 1 : -1;
-	
+
 	// if both values are undefined, we assume 0
 	if (a === undefined && b === undefined) {
 		return 0;
@@ -135,7 +159,7 @@ function sortArr(a, b, dir) {
 	if (b === undefined) {
 		return -1;
 	}
-	
+
 	if (typeof a === "string") {
 		return a.localeCompare(b) * multiplier;
 	}
