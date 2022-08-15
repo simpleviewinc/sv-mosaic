@@ -5,7 +5,7 @@ import { default as MUIErrorOutlineIcon } from "@mui/icons-material/ErrorOutline
 import { default as MUIFormHelperText } from "@mui/material/FormHelperText";
 
 // Theme
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 
 export const ErrorTextWrapper = styled.div`
   align-items: center;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 
 export const CardWrapper = styled.div`
 	border: 2px solid ${theme.colors.gray200};
