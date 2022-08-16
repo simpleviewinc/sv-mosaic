@@ -35,13 +35,32 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	const [dialogOpen, setIsDialogOpen] = useState(false);
 	const [addressTypes, setAddressTypes] = useState([]);
 
-	useEffect(() => getAddressTypes(), [value, inputSettings])
-
+	const initialAddressTypes = [
+		{
+			label: "Physical",
+			value: "physical",
+		},
+		{
+			label: "Billing",
+			value: "billing",
+		},
+		{
+			label: "Shipping",
+			value: "shipping",
+		},
+	]
+	
+	useEffect(() => {
+		if (!open) {
+			setAddressTypes(getAvailableAddressTypes())
+		}
+	}, [value, inputSettings, open])
+	
 	/**
 	 * Gets the number of times each of the 
 	 * address types has been selected
 	 */
-	const getAddressTypesUsed = () => {
+	const getUsedAddressTypes = () => {
 		const amountTypesUsed = {
 			physical: 0,
 			billing: 0,
@@ -58,34 +77,19 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 
 		return amountTypesUsed
 	}
-
+	
 	/**
 	 * Returns an array with the available 
 	 * address types for the AddressDrawer form
 	 */
-	const getAddressTypes = () => {
-		const addressTypesUsed = getAddressTypesUsed()
-		const initialAddressTypes = [
-			{
-				label: "Physical",
-				value: "physical",
-			},
-			{
-				label: "Billing",
-				value: "billing",
-			},
-			{
-				label: "Shipping",
-				value: "shipping",
-			},
-		]
+	const getAvailableAddressTypes = () => {
+		const addressTypesUsed = getUsedAddressTypes()
 
-		setAddressTypes(initialAddressTypes
+		return initialAddressTypes
 			.filter(addressType => addressTypesUsed[addressType.value] < (inputSettings[addressType.value] > 0 
 				? inputSettings[addressType.value] 
 				: inputSettings.amountPerType)
 			)
-		)
 	}
 
 	/**
@@ -165,6 +169,21 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			state,
 		});
 
+		const typesSelected = initialAddressTypes.filter(addressType => types.find(type => addressType.value === type) !== undefined);
+		const joinTypes = [...typesSelected, ...addressTypes]
+		const uniqueElements = joinTypes.reduce((acc, element) => {
+			const i = acc.findIndex(e => element.value === e.value)
+			if (i >= 0) {
+				Object.assign(acc[i],element)
+			} else {
+				element.value = element.value || 0
+				element.value = element.value || 0
+				acc.push(element)
+			}
+			return acc
+		}, [])
+
+		setAddressTypes(uniqueElements)
 		setAddressIdx(addressIndex);
 		setIsEditing(true);
 		setOpen(true);
