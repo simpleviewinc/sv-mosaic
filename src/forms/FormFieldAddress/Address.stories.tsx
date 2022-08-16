@@ -3,10 +3,7 @@ import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { FieldDef } from "../../components/Field";
-import { useForm } from "../Form";
-
-// Components
-import Form from "../Form/Form";
+import Form, { useForm } from "@root/components/Form";
 
 export default {
 	title: "FormFields/FormFieldAddress",

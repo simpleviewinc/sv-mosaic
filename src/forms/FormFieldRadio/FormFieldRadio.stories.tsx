@@ -2,13 +2,12 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-import { useForm } from "../Form";
 import { FormFieldRadioDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
-import Form from "@root/forms/Form/Form";
+import Form, { useForm } from "@root/components/Form";
 
 export default {
 	title: "FormFields/FormFieldRadio",

@@ -5,10 +5,10 @@ import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
 // Utils
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
 import { useTable, headers } from "@root/forms/FormFieldTable/tableUtils";
-import { useForm, formActions } from "@root/forms/Form";
+import { useForm, formActions } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
-import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
+import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -16,19 +16,19 @@ import Form from "./Form";
 import Drawer from "@root/components/Drawer";
 
 // Types
-import { TextFieldDef } from "../FormFieldText/FormFieldTextTypes";
-import { FieldDef } from "../../components/Field";
-import { AdvancedSelectionDef } from "../FormFieldAdvancedSelection";
-import { TableDef } from "../FormFieldTable";
-import { ImageUploadDef } from "../FormFieldImageUpload";
-import { MapCoordinatesDef } from "../FormFieldMapCoordinates";
-import { ImageVideoDocumentLinkBrowsingDef } from "../FormFieldImageVideoLinkDocumentBrowsing";
-import { FormFieldToggleSwitchDef } from "../FormFieldToggleSwitch";
-import { FormFieldRadioDef } from "../FormFieldRadio";
-import { DropdownSingleSelectionDef } from "../FormFieldDropdownSingleSelection";
-import { FormFieldChipSingleSelectDef } from "../FormFieldChipSingleSelect";
-import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
-import { TextAreaDef } from "../FormFieldTextArea";
+import { TextFieldDef } from "@root/forms/FormFieldText/FormFieldTextTypes";
+import { FieldDef } from "@root/components/Field";
+import { AdvancedSelectionDef } from "@root/forms/FormFieldAdvancedSelection";
+import { TableDef } from "@root/forms/FormFieldTable";
+import { ImageUploadDef } from "@root/forms/FormFieldImageUpload";
+import { MapCoordinatesDef } from "@root/forms/FormFieldMapCoordinates";
+import { ImageVideoDocumentLinkBrowsingDef } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
+import { FormFieldToggleSwitchDef } from "@root/forms/FormFieldToggleSwitch";
+import { FormFieldRadioDef } from "@root/forms/FormFieldRadio";
+import { DropdownSingleSelectionDef } from "@root/forms/FormFieldDropdownSingleSelection";
+import { FormFieldChipSingleSelectDef } from "@root/forms/FormFieldChipSingleSelect";
+import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
+import { TextAreaDef } from "@root/forms/FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
 
 export default {
@@ -828,7 +828,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 	const clickHandler = async () => {
 		const { data } = await dispatch(formActions.submitForm());
-	
+
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	};
 
@@ -890,7 +890,7 @@ export const DrawerForm = (): ReactElement => {
 		const { data, valid } = await dispatch(formActions.submitForm());
 		if (!valid) return;
 
-		setOpen(false);	
+		setOpen(false);
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	};
 

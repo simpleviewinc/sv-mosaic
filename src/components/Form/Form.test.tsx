@@ -4,7 +4,7 @@ import { coreReducer, generateLayout } from "./formUtils";
 import { formActions } from "./formActions";
 import { FieldDef } from "../../components/Field";
 import { mapsValidators, required, validateEmail, validateNumber, validateSlow, validateURL } from "./validators";
-import { TextFieldDef } from "../FormFieldText";
+import { TextFieldDef } from "@root/forms/FormFieldText";
 
 const runTests = (tests, type) => {
 	switch (type) {

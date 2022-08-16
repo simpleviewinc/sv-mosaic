@@ -1,4 +1,4 @@
-import { formActions } from "@root/forms/Form";
+import { formActions } from "@root/components/Form";
 import { ButtonProps } from "@root/components/Button";
 
 export const onCancel = () => {
