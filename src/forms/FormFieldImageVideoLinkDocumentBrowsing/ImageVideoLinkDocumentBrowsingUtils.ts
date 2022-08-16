@@ -1,5 +1,5 @@
 // Utils
-import { formActions } from "@root/forms/Form";
+import { formActions } from "@root/components/Form";
 import { UseImageVideoLinkDocumentBrowsingReturn } from "./ImageVideoLinkDocumentBrowsingTypes";
 
 export const imageVideoSrc = "http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg";
@@ -91,7 +91,7 @@ export const linkExample = [
 /**
  * Custom hook that abstracts the logic of setting an asset type.
  * @param dispatch function used to set form field values
- * @param fieldName serves as a reference to know to know which 
+ * @param fieldName serves as a reference to know to know which
  * field of the form the setFieldValue action is going to be apllied to.
  * @returns setters funcion for each respective asset type.
  */

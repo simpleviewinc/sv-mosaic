@@ -11,7 +11,7 @@ import {
 	useState
 } from "react";
 import Button from "../../components/Button";
-import { formActions, useForm } from "@root/forms/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 import {
 	InputWrapper,
 	StyledInput
@@ -21,7 +21,6 @@ import ChipList from "./ChipList";
 import { optionsWithCategory } from "./AdvancedSelectionTypes";
 import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import LoadMoreButton from "./LoadMoreButton";
-import Form from "../Form/Form";
 import { AdvanceSelectionDrawerPropTypes } from ".";
 import _ from "lodash";
 

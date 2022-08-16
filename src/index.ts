@@ -1,11 +1,8 @@
-import { Sizes } from "./theme/sizes";
-import { formActions, useForm } from "./forms/Form";
-
 export * from "./transforms";
 export * from "./types";
 
-export { default as Form } from "./forms/Form";
-export * from "./forms/Form";
+export { default as Form } from "./components/Form";
+export * from "./components/Form";
 
 export { default as FilterDate } from "./components/FilterDate";
 export * from "./components/FilterDate";
@@ -87,15 +84,10 @@ export { default as MosaicContext } from "./components/MosaicContext";
 export * from "./components/Typography";
 
 export { default as theme } from "./theme";
+export * from "./theme";
 
 export { default as TridentIcon } from "./theme/TridentIcon";
 
 export { default as useMosaicSettings } from "./utils/useMosaicSettings";
 
 export * from "./i18n";
-
-export {
-	Sizes,
-	useForm,
-	formActions
-}

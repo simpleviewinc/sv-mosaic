@@ -2,11 +2,8 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { useForm } from "../Form";
+import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
-
-// Components
-import Form from "../Form/Form";
 
 export default {
 	title: "FormFields/FormFieldColorPicker",

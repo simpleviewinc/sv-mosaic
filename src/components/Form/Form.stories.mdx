@@ -55,19 +55,19 @@ The dispatch function allows developers to update the state through the followin
 * **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
 	* **name** - setFieldValue
 	* **arguments** - `object`
-		* **name** - `string` - Name of the field. 
+		* **name** - `string` - Name of the field.
 		* **value** - `string` - Value to assign to the field.
 		* **validate** - `boolean` - Whether the field should be validated when finishing executing the onChange.
 	* **return** - `Promise<void>`
 * **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
 	* **name** - validateField
 		* **arguments** - `object`
-			* **name** - `string` - Name of the field. 
+			* **name** - `string` - Name of the field.
 		* **return** - `Promise<void>`
 * **copyFieldToField** - `({from, to}) => Promise<void>` - This action copies the value from one field into another.
 	* **name** - copyFieldToField
 	* **arguments** - `object`
-		* **from** - `string` - Name of the field where the value will be copied from. 
+		* **from** - `string` - Name of the field where the value will be copied from.
 		* **to** - `string` - Name of the field where the value will be copied to.
 	* **return** - `Promise<void>`
 * **validateForm** - `({fields}) => Promise<void>` - This action validates the entire form.
@@ -187,7 +187,7 @@ import { Form, useForm, formActions } from "sv-mosaic";
 
 const App = (props) => {
 	const { state, dispatch } = useForm;
-	
+
 	//...rest of App.tsx
 	const fields = useMemo(
 		() =>
@@ -205,7 +205,7 @@ const App = (props) => {
 			[]
 	);
 
-	// If you want to create a section and include it into the 
+	// If you want to create a section and include it into the
 	// Form check how is done in the Layout - Sections section.
 
 	const onLoad = useCallback(async () => {
@@ -297,7 +297,7 @@ const getValuesFromDB = async () => {
 
 //Scenario 4
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -344,7 +344,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -393,7 +393,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -412,8 +412,8 @@ const fields = useMemo(
 
 
 ## FormFieldAdvancedSelection
-- Allow users to select one or more options from a modal menu. 
-- Used for very long lists. 
+- Allow users to select one or more options from a modal menu.
+- Used for very long lists.
 - Have the ability to type and search.
 - [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
 - Data: `array` of `string` - Array of values of the selected options.
@@ -462,7 +462,7 @@ const myCreateOptionFn = async (newOptionLabel) => {
 
 //Option recommended when getting options locally.
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -481,7 +481,7 @@ const fields = useMemo(
 
 //Option recommended when getting options from a database.
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -511,7 +511,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -543,7 +543,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -576,7 +576,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -600,7 +600,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -662,7 +662,7 @@ const fields = useMemo(
 ```
 
 ## FormFieldText
-- Text input fields are used to enter text information, numbers, e-mail addresses, or passwords. 
+- Text input fields are used to enter text information, numbers, e-mail addresses, or passwords.
 - A text field consists of a label and a line with variations in width.
 - [**Playground**](/?path=/story/formfields-formfieldtext--playground)
 - Data: `string | number` - Value of the input typed.
@@ -838,10 +838,10 @@ const fields = useMemo(
 				//...all generic field props
 				inputSettings: {
 					handleAddElement: addTableRow,
-					handleEdit: (rowIndex: number): void => { 
+					handleEdit: (rowIndex: number): void => {
 						alert(`Edit button clicked of row with index ${rowIndex}`);
 					},
-					handleDelete: (rowIndex: number): void => { 
+					handleDelete: (rowIndex: number): void => {
 						alert(`This will be executed when removing the row: ${rowIndex}`);
 					},
 					extraActions: [
@@ -911,7 +911,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -958,7 +958,7 @@ const fields = useMemo(
 ```
 
 ## FormFieldImageUpload
-`Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents 
+`Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents
 - [**Playground**](/?path=/docs/formfields-formfieldimageupload--playground)
 - Data: `object` Optional - Object of the value arguments
 	* **imgName** `string` Optional - Image name
@@ -976,7 +976,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -1006,7 +1006,7 @@ const fields = useMemo(
 
 ## FormFieldImageVideoLinkDocument
 `Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
-The setup supports images, videos, documents or links. 
+The setup supports images, videos, documents or links.
 - [**Playground**](/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
 - Data: `array` of `object` - Array of a label-value objects that represents an asset.
 	* **label** - `number` - Asset property name.
@@ -1024,7 +1024,7 @@ The setup supports images, videos, documents or links.
 
 ### How to use in a form?
 ```ts
-import { formActions } from "@root/forms/Form";
+import formActions from "@simpleview/sv-mosaic/formActions";
 
 const { dispatch } = useForm();
 
@@ -1149,7 +1149,7 @@ const setLink = async () => {
 };
 
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -1193,11 +1193,11 @@ const fields = useMemo(
 	* **mapPosition** - `object` Optional - Latitude and longitude object.
 		* **lat** - `number` - Latitude
 		* **lng** - `number` - Longitude
-	
+
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -1227,7 +1227,7 @@ const fields = useMemo(
 ```
 
 ## FormFieldPhoneSelectionDropdown
-- `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed. 
+- `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed.
 - [**Playground**](/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
 - Data: `string` - String of the selected options
 - inputSettings:
@@ -1239,7 +1239,7 @@ const fields = useMemo(
 ### How to use in a form?
 ```ts
 const fields = useMemo(
-	() => 
+	() =>
 		[
 			//...other fields
 			{
@@ -1340,8 +1340,8 @@ All of the following default validators return string (with the error message) o
 
 ### validateDateRange
 - This is the only validator that requires to be added to 2 fields in order to work: the fields serving as start and end date respectively.
-- The startDate field will add the name of the endDate field linked to in the options attribute. 
-- The endDate field will add the name of the startDate field linked to in the options attribute. 
+- The startDate field will add the name of the endDate field linked to in the options attribute.
+- The endDate field will add the name of the startDate field linked to in the options attribute.
 
 * Receives: value: `string`, data: `object` (see data attribute on [State](#state)), options: `MosaicObject`
 * Error message returned: "Start date should happen before the end date"

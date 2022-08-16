@@ -5,10 +5,9 @@ import { TableDef } from "./TableTypes";
 
 // Components
 import { FieldDef } from "@root/components/Field";
-import Form from "../Form/Form";
+import Form, { useForm } from "@root/components/Form";
 
 // Utils
-import { useForm } from "../Form";
 import {
 	headers,
 	deleteTableRow,
