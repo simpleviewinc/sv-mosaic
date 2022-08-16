@@ -5,7 +5,8 @@ import Button from "../Button";
 import MenuSelect from "./";
 
 export default {
-	title : "Components/MenuSelect"
+	title : "Components/MenuSelect",
+	component: MenuSelect,
 }
 
 const MENU_OPTIONS = [
@@ -54,7 +55,7 @@ const Template = (args) => {
 				variant="contained"
 				menuContent={
 					<MenuSelect
-						placeholder={placeholder}
+						placeholder={placeholder?.length > 0 ? placeholder : undefined}
 						value={state.value}
 						options={options}
 						onChange={onChange}
@@ -68,68 +69,5 @@ const Template = (args) => {
 export const Playground = Template.bind({});
 Playground.args = {
 	options: MENU_OPTIONS,
-	placeholder: "Any..."//TODO: SEE IF THIS CAN BE NULL OR RE-ADD OTHER STORY.
+	placeholder: "Any..."
 }
-
-// export const example = (): ReactElement => {
-// 	const [state, setState] = useState({
-// 		value : ""
-// 	});
-
-// 	const onChange = function(value) {
-// 		setState({
-// 			...state,
-// 			value
-// 		})
-// 	}
-
-// 	return (
-// 		<Fragment>
-// 			<p>Chosen: {state.value}</p>
-// 			<Button
-// 				label="Open"
-// 				color="blue"
-// 				variant="contained"
-// 				menuContent={
-// 					<MenuSelect
-// 						value={state.value}
-// 						options={MENU_OPTIONS}
-// 						onChange={onChange}
-// 					/>
-// 				}
-// 			/>
-// 		</Fragment>
-// 	)
-// }
-
-// export const withPlaceholder = (): ReactElement => {
-// 	const [state, setState] = useState({
-// 		value : ""
-// 	});
-
-// 	const onChange = function(value) {
-// 		setState({
-// 			...state,
-// 			value
-// 		})
-// 	}
-
-// 	return (
-// 		<Fragment>
-// 			<p>Chosen: {state.value}</p>
-// 			<Button
-// 				label="Open"
-// 				color="blue"
-// 				variant="contained"
-// 				menuContent={
-// 					<MenuSelect
-// 						placeholder="Any..."
-// 						value={state.value}
-// 						options={MENU_OPTIONS}
-// 						onChange={onChange}
-// 					/>
-// 				}
-// 			/>
-// 		</Fragment>
-// 	)
-// }

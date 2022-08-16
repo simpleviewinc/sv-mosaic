@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useEffect } from "react";
 import FilterSingleSelect from "./FilterSingleSelect";
 
 const options = [
@@ -21,6 +21,7 @@ export default {
 	component: FilterSingleSelect,
 	argTypes: {
 		defaultValue: {//TODO: NOT WORKING AS EXPECTED.
+			// options: ["Option A", "Option B", "Option C", "Option D"],
 			options: optionLabels,
 			control: "select"
 		}
@@ -34,6 +35,10 @@ const Template = (args) => {
 	const [state, setState] = useState({
 		value : defaultValue && options.find(option => option.label === defaultValue).value || undefined
 	});
+
+	useEffect(() => {
+		onChange({value: defaultValue});
+	}, [defaultValue]);
 
 	const onChange = function(data) {
 		setState(data);

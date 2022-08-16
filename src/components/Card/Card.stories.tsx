@@ -14,13 +14,13 @@ export default {
 };
 
 const SideCardActionsTitle = styled.span`
-	color: ${theme.colors.almostBlack}
+	color: ${theme.colors.almostBlack};
 	font-size: 14px;
 	margin-left: 8px;
 `;
 
 const RecentActivityTitle = styled.span`
-	color: ${theme.colors.almostBlack}
+	color: ${theme.colors.almostBlack};
 	font-weight: ${theme.fontWeight.medium};
 `;
 

@@ -9,8 +9,12 @@ import SummaryPageTopComponent from ".";
 
 export default {
 	title: "Components/SummaryPageTopComponent",
-	component: SummaryPageTopComponent
-	//TODO: ADD IMG AS BOOLEAN.
+	component: SummaryPageTopComponent,
+	argTypes: {
+		img: {
+			control: "boolean"
+		}
+	}
 };
 
 const mainActions: ButtonProps[] = [

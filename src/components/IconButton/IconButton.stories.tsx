@@ -12,19 +12,20 @@ export default {
 	componentn: IconButton,
 	argTypes: {
 		icon: {//TODO: THIS IS NOT A VALID TYPE, CHANGE FOR STRINGS.
-			options: [MoreVertIcon, HelpIcon]
+			options: ["MoreVertIcon", "HelpIcon"],
+			control: "select",
 		}
 	}
 };
 
 const Template = (args) => (
 	<>
-		{args.icon === MoreVertIcon ?
+		{args.icon === "MoreVertIcon" ?
 			<p>More Icon</p>
 			:
 			<p>Help Icon</p>
 		}
-		<IconButton {...args} />
+		<IconButton {...args} icon={args.icon === "MoreVertIcon" ? MoreVertIcon : HelpIcon} />
 	</>
 );
 
@@ -33,5 +34,5 @@ Template.args = {
 	disabled: false,
 	tooltipText: "This is the tooltip",
 	handleClick: () => alert("Icon clicked"),
-	icon: MoreVertIcon
+	icon: "MoreVertIcon"
 }

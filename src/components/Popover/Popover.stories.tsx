@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, MouseEvent, useState } from "react";
+import { MouseEvent, useState } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
 
@@ -49,7 +49,7 @@ const ExampleTopContent = (
 		<Title>Title</Title>
 		<Subtitle>Subtitle</Subtitle>
 	</div>
-)
+);
 
 const ButtonBottomContent = (
 	<div style={{ display: "flex", justifyContent: "center" }}>
@@ -116,54 +116,7 @@ export const Playground = Template.bind({});
 Playground.args = {
 	topContent: ExampleTopContent,
 	bottomContent: ButtonBottomContent,
-}
-
-// export const Example = (): ReactElement => {
-// 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-// 	const [open, setOpen] = useState(false);
-
-// 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-// 		setAnchorEl(event.currentTarget);
-// 		setOpen(true);
-// 	};
-
-// 	const handleClose = () => {
-// 		setOpen(false);
-// 	};
-
-// 	const centerScroll = (element) => {
-// 		if (!element) {
-// 			return;
-// 		}
-
-// 		const container = element.parentElement;
-// 		container.scrollTop = element.clientHeight / 4;
-// 	};
-
-// 	return (
-// 		<ExampleWrapper>
-// 			<Wrapper>
-// 				<StyledGrid container ref={centerScroll}>
-// 					<div>
-// 						<Button
-// 							color="yellow"
-// 							variant="contained"
-// 							label="Open Popover"
-// 							onClick={handleClick}
-// 						></Button>
-// 						<Popover
-// 							anchorEl={anchorEl}
-// 							topContent={ExampleTopContent}
-// 							bottomContent={ButtonBottomContent}
-// 							onClose={handleClose}
-// 							open={open}
-// 						/>
-// 					</div>
-// 				</StyledGrid>
-// 			</Wrapper>
-// 		</ExampleWrapper>
-// 	);
-// };
+};
 
 const StyledInput = styled.input`
 	background-color: ${theme.colors.gray100};
@@ -184,39 +137,7 @@ export const Input = Template.bind({});
 Input.args = {
 	topContent: withInputTopContent,
 	bottomContent: ButtonBottomContent,
-}
-
-// export const Input = (): ReactElement => {
-// 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-// 	const [open, setOpen] = useState(false);
-
-// 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-// 		setAnchorEl(event.currentTarget);
-// 		setOpen(true);
-// 	};
-
-// 	const handleClose = () => {
-// 		setOpen(false);
-// 	};
-
-// 	return (
-// 		<div>
-// 			<Button
-// 				color="yellow"
-// 				variant="contained"
-// 				label="Open Popover"
-// 				onClick={handleClick}
-// 			></Button>
-// 			<Popover
-// 				anchorEl={anchorEl}
-// 				topContent={withInputTopContent}
-// 				bottomContent={ButtonBottomContent}
-// 				onClose={handleClose}
-// 				open={open}
-// 			/>
-// 		</div>
-// 	);
-// };
+};
 
 const LinkTitle = styled.span`
 	color: ${theme.colors.almostBlack};
@@ -231,7 +152,7 @@ const LinkSubtitle = styled.span`
 	font-size: 12px;
 	margin-left: 4px;
 `;
-//TODO: THIS SHOULD BE A REACT ELEMENT NOT A FUNCTION.
+
 const TopContent = (
 	<div>
 		<LinkTitle onClick={() => alert("Title clicked")}>Clickable Title</LinkTitle>
@@ -255,7 +176,7 @@ const options = [
 		label: "Label",
 		value: "Aperiam ut sapiente ut exercitationemat"
 	}
-]
+];
 
 const Label = styled.span`
 	color: ${theme.colors.gray700};
@@ -281,57 +202,23 @@ const Link = styled.span`
 	font-size: 14px;
 `;
 
-const BottomContent = (): ReactElement => {
-	return (
-		<div>
-			{options.map((option, idx) => {
-				return (
-					<div key={`${option.label}-${idx}`} style={{ display: "flex", fontSize: 14 }}>
-						<Label>{option.label}:</Label>
-						<Value>{option.value}</Value>
-					</div>
-				) 
-			})}
-			<Mail>mail@gmail.com</Mail>
-			<Link onClick={() => alert("Link clicked")}>www.link.com</Link>
-		</div>
-	)
-}
+const BottomContent = (
+	<div>
+		{options.map((option, idx) => {
+			return (
+				<div key={`${option.label}-${idx}`} style={{ display: "flex", fontSize: 14 }}>
+					<Label>{option.label}:</Label>
+					<Value>{option.value}</Value>
+				</div>
+			) 
+		})}
+		<Mail>mail@gmail.com</Mail>
+		<Link onClick={() => alert("Link clicked")}>www.link.com</Link>
+	</div>
+);
 
 export const TextAndLinks = Template.bind({});
 TextAndLinks.args = {
 	topContent: TopContent,
 	bottomContent: BottomContent,
-}
-
-// export const TextAndLinks = (): ReactElement => {
-// 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-// 	const [open, setOpen] = useState(false);
-
-// 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-// 		setAnchorEl(event.currentTarget);
-// 		setOpen(true);
-// 	};
-
-// 	const handleClose = () => {
-// 		setOpen(false);
-// 	};
-
-// 	return (
-// 		<div>
-// 			<Button
-// 				color="yellow"
-// 				variant="contained"
-// 				label="Open Popover"
-// 				onClick={handleClick}
-// 			></Button>
-// 			<Popover
-// 				anchorEl={anchorEl}
-// 				topContent={TopContent}
-// 				bottomContent={<BottomContent />}
-// 				onClose={handleClose}
-// 				open={open}
-// 			/>
-// 		</div>
-// 	);
-// };
+};
