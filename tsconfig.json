@@ -1,11 +1,11 @@
 {
 	"compilerOptions": {
-		"sourceMap": true,
 		"jsx": "react",
 		"lib": [
 			"ES2019",
 			"DOM"
 		],
+		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"baseUrl": "./",
 		"paths": {
@@ -15,6 +15,9 @@
 		},
 		"skipLibCheck": true,
 		"esModuleInterop": true,
+		"plugins": [
+			{ "transform": "typescript-transform-paths" }
+		]
 	},
 	"include": [
 		"./src/**/*"
