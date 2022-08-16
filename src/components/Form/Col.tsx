@@ -3,25 +3,25 @@ import { memo, useMemo } from "react";
 import styled from "styled-components";
 import { formActions } from "./formActions";
 
-import FormFieldText from "../FormFieldText";
-import FormFieldTextArea from "../FormFieldTextArea";
-import FormFieldCheckbox from "../FormFieldCheckbox";
-import FormFieldChipSingleSelect from "../FormFieldChipSingleSelect";
-import FormFieldDropdownSingleSelection from "../FormFieldDropdownSingleSelection";
-import FormFieldPhoneSelectionDropdown from "../FormFieldPhoneSelectionDropdown";
-import FormFieldRadio from "../FormFieldRadio";
-import FormFieldToggleSwitch from "../FormFieldToggleSwitch";
+import FormFieldText from "@root/forms/FormFieldText";
+import FormFieldTextArea from "@root/forms/FormFieldTextArea";
+import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
+import FormFieldChipSingleSelect from "@root/forms/FormFieldChipSingleSelect";
+import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
+import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
+import FormFieldRadio from "@root/forms/FormFieldRadio";
+import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import Field, { FieldDef } from "@root/components/Field";
-import FormFieldImageVideoLinkDocumentBrowsing from "../FormFieldImageVideoLinkDocumentBrowsing";
-import FormFieldColorPicker from "../FormFieldColorPicker";
-import FormFieldDate from "../FormFieldDate/DateField";
-import FormFieldAddress from "../FormFieldAddress";
-import FormFieldTable from "../FormFieldTable";
-import FormFieldTextEditor from "../FormFieldTextEditor";
-import FormFieldAdvancedSelection from "../FormFieldAdvancedSelection";
-import FormFieldMapCoordinates from "../FormFieldMapCoordinates";
-import FormFieldImageUpload from "../FormFieldImageUpload";
-import { Sizes } from "@root/theme/sizes";
+import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
+import FormFieldColorPicker from "@root/forms/FormFieldColorPicker";
+import FormFieldDate from "@root/forms/FormFieldDate/DateField";
+import FormFieldAddress from "@root/forms/FormFieldAddress";
+import FormFieldTable from "@root/forms/FormFieldTable";
+import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
+import FormFieldAdvancedSelection from "@root/forms/FormFieldAdvancedSelection";
+import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
+import FormFieldImageUpload from "@root/forms/FormFieldImageUpload";
+import { Sizes } from "@root/theme";
 
 const StyledCol = styled.div`
 	display: flex;
@@ -130,7 +130,7 @@ const Col = (props: ColPropsTypes) => {
 						return field === fieldDef.name;
 					}
 				);
-				
+
 				if (!currentField) {
 					throw new Error(`No field declared for field name '${field}' in section ${sectionIdx}, row ${rowIdx}, column ${colIdx}.`);
 				}
@@ -153,7 +153,7 @@ const Col = (props: ColPropsTypes) => {
 
 				let maxSize: Sizes | string;
 				const SizeSelected = Sizes[currentField?.size] ? Sizes[currentField?.size] : currentField?.size;
-				
+
 				if (currentField?.size)
 					switch (colsInRow) {
 					case 1:

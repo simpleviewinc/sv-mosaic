@@ -6,10 +6,9 @@ import { MapCoordinatesDef } from ".";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
-import Form from "../Form/Form";
+import Form, { useForm } from "@root/components/Form";
 
 // Utils
-import { useForm } from "../Form";
 import { address, defaultMapPosition } from "./MapCoordinatesUtils";
 
 export default {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import Grid from "./Grid";
-import Form, { formActions, useForm } from "../../../forms/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 import { PageDef } from "./ExampleTypes";
 import { Callbacks } from "../DrawersTypes";
 import { useMemo } from "react";
@@ -34,13 +34,13 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
 		if (!valid) return;
-	
+
 		callbacks.passData(data["text1"]);
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	};
 
 	const fields = useMemo(
-		() => 
+		() =>
 			[
 				{
 					name: "text1",
@@ -139,7 +139,7 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 				callbacks={callbacks}
 				{...def.args}
 			/>
-			{def.component === "Form" && 
+			{def.component === "Form" &&
 				<Button
 					color="teal"
 					variant="outlined"
@@ -150,7 +150,7 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 							name: "form",
 							callbacks: { passData: updateField }
 						})
-					} 
+					}
 				/>
 			}
 		</Wrap>

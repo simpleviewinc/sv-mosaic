@@ -1,7 +1,7 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
 import { ReactNode } from "react";
-import { Section } from "../FormNav/FormNavTypes";
+import { Section } from "@root/forms/FormNav/FormNavTypes";
 import { MosaicObject } from "@root/types";
 
 export interface SectionDef extends Section {

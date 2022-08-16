@@ -6,10 +6,9 @@ import { ImageVideoDocumentLinkBrowsingDef, } from ".";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
-import Form from "../Form/Form";
+import Form, { useForm } from "@root/components/Form";
 
 // Utils
-import { useForm } from "../Form";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "./ImageVideoLinkDocumentBrowsingUtils";
 

@@ -7,7 +7,7 @@ import {
 } from "@root/forms/FormFieldTable";
 
 // Utils
-import { formActions } from "@root/forms/Form";
+import { formActions } from "@root/components/Form";
 
 // Components
 import MenuIcon from "@mui/icons-material/Menu";
