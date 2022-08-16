@@ -26,7 +26,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	// State variables
 	const [open, setOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
-	const [addressToEdit, setAddressToEdit] = useState(null)
+	const [addressToEdit, setAddressToEdit] = useState(null);
 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
@@ -48,13 +48,13 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			label: "Shipping",
 			value: "shipping",
 		},
-	]
+	];
 	
 	useEffect(() => {
 		if (!open) {
-			setAddressTypes(getAvailableAddressTypes())
+			setAddressTypes(getAvailableAddressTypes());
 		}
-	}, [value, inputSettings, open])
+	}, [value, inputSettings, open]);
 	
 	/**
 	 * Gets the number of times each of the 
@@ -65,32 +65,32 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			physical: 0,
 			billing: 0,
 			shipping: 0,
-		}
+		};
 		
 		if (value) {
 			value.forEach(address => {
 				address.types.forEach(type => {
-					amountTypesUsed[type] >= 0 && amountTypesUsed[type] ++
+					amountTypesUsed[type] >= 0 && amountTypesUsed[type] ++;
 				})
 			})
 		}
 
-		return amountTypesUsed
-	}
+		return amountTypesUsed;
+	};
 	
 	/**
 	 * Returns an array with the available 
 	 * address types for the AddressDrawer form
 	 */
 	const getAvailableAddressTypes = () => {
-		const addressTypesUsed = getUsedAddressTypes()
+		const addressTypesUsed = getUsedAddressTypes();
 
 		return initialAddressTypes
 			.filter(addressType => addressTypesUsed[addressType.value] < (inputSettings[addressType.value] > 0 
 				? inputSettings[addressType.value] 
 				: inputSettings.amountPerType)
 			)
-	}
+	};
 
 	/**
 	 * Opens the modal to create an address card 
@@ -170,20 +170,20 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 		});
 
 		const typesSelected = initialAddressTypes.filter(addressType => types.find(type => addressType.value === type) !== undefined);
-		const joinTypes = [...typesSelected, ...addressTypes]
-		const uniqueElements = joinTypes.reduce((acc, element) => {
-			const i = acc.findIndex(e => element.value === e.value)
-			if (i >= 0) {
-				Object.assign(acc[i],element)
-			} else {
-				element.value = element.value || 0
-				element.value = element.value || 0
-				acc.push(element)
-			}
-			return acc
-		}, [])
 
-		setAddressTypes(uniqueElements)
+		const joinTypes = [...typesSelected, ...addressTypes];
+
+		const uniqueAddressTypes = joinTypes.reduce((uniqueArr, Addresstype) => {
+			const i = uniqueArr.findIndex(e => Addresstype.value === e.value);
+			if (i >= 0) {
+				Object.assign(uniqueArr[i],Addresstype);
+			} else {
+				uniqueArr.push(Addresstype);
+			}
+			return uniqueArr;
+		}, []);
+
+		setAddressTypes(uniqueAddressTypes);
 		setAddressIdx(addressIndex);
 		setIsEditing(true);
 		setOpen(true);
