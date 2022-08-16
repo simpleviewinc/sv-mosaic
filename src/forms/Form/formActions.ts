@@ -181,3 +181,5 @@ export const formActions = {
 		}
 	},
 };
+
+export default formActions;
