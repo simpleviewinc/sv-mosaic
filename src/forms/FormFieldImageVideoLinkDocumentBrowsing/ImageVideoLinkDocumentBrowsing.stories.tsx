@@ -107,8 +107,8 @@ export const KitchenSink = (): ReactElement => {
 					disabled: false,
 					inputSettings: {
 						options: menuOptions,
-						handleSetImage: setVideoWithoutSrc,
-						handleSetVideo: setImageWithoutSrc,
+						handleSetImage: setImageWithoutSrc,
+						handleSetVideo: setVideoWithoutSrc,
 						handleRemove: removeImageOrVideo
 					},
 				},
