@@ -169,6 +169,8 @@ type SavedViewDef = {
 	state?: StateViewDef
 }
 
+type SavedViewDefRemove = Required<SavedViewDef>
+
 type dataViewOnSavedViewChange = {
 	(view: SavedViewDef): void
 }
@@ -189,7 +191,7 @@ type dataViewOnSavedViewSave = {
 }
 
 type dataViewOnSavedViewRemove = {
-	(data: MosaicObject): void
+	(data: SavedViewDefRemove): void
 }
 
 type dataViewOnSavedViewGetOptions = {

@@ -4,7 +4,7 @@ import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 //Components
-import Form, { useForm, formActions } from "../Form";
+import Form, { useForm, formActions } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
 import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
 import { ButtonProps } from "@root/components/Button";
@@ -15,7 +15,7 @@ const { getAllByRole, getByText } = screen;
 
 const FormFieldChipSingleSelectExample = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	
+
 	const options = useMemo( ()=> [
 		{
 			label: "Option 1",
@@ -30,7 +30,7 @@ const FormFieldChipSingleSelectExample = (): ReactElement => {
 			value: "Option_3",
 		},
 	], []);
-	
+
 	const fields = useMemo(
 		() =>
 			[
@@ -49,7 +49,7 @@ const FormFieldChipSingleSelectExample = (): ReactElement => {
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
 		if (!valid) return;
-	
+
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	};
 

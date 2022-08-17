@@ -30,7 +30,7 @@ class MultiSelectHelper {
 		this.valueColumn = valueColumn;
 		this.sortColumn = sortColumn;
 	}
-	mapOptions(val: Record<string, string>): MosaicLabelValue {
+	mapOptions(val: Record<string, any>): MosaicLabelValue {
 		return ({ label : val[this.labelColumn], value : val[this.valueColumn] });
 	}
 	async getOptions(filter: MultiSelectHelperGetOptionsArgs): Promise<MultiSelectHelperGetOptionsReturn> {
@@ -40,27 +40,27 @@ class MultiSelectHelper {
 			sort : { name : this.sortColumn, dir : "asc" },
 			filter : undefined
 		};
-		
+
 		if (filter.keyword !== undefined) {
 			query.filter = {
 				[this.labelColumn] : new RegExp(filter.keyword, "i")
 			}
 		}
-		
+
 		const results = await this.api.find(query);
-		
+
 		return {
 			docs : results.slice(0, filter.limit).map(val => this.mapOptions(val)),
 			hasMore : results.length > filter.limit
 		};
 	}
-	async getSelected(ids: string[]): Promise<MosaicLabelValue> {
+	async getSelected(ids: string[]): Promise<MosaicLabelValue[]> {
 		const results = await this.api.find({
 			filter : { [this.valueColumn] : { $in : ids } },
 			sort : { name : this.sortColumn, dir : "asc" }
 		});
-		
-		return results.length >= 1 
+
+		return results.length >= 1
 			? results.map(val => this.mapOptions(val))
 			: [];
 	}
