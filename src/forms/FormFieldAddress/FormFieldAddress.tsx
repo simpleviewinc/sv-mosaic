@@ -13,6 +13,7 @@ import { AddAddressWrapper, FlexContainer } from "./Address.styled";
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
 import { IAddress } from ".";
+import { capitalize } from "lodash";
 
 const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => {
 	const {
@@ -85,10 +86,19 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	const getAvailableAddressTypes = () => {
 		const addressTypesUsed = getUsedAddressTypes();
 
+		const newInputSettings = inputSettings === undefined || inputSettings.amountPerType === undefined
+			? {
+				amountPerType: 1,
+				amountShipping: 1,
+				amountPhysical: 1,
+				amountBilling: 1
+			}
+			: inputSettings;
+
 		return initialAddressTypes
-			.filter(addressType => addressTypesUsed[addressType.value] < (inputSettings[addressType.value] > 0 
-				? inputSettings[addressType.value] 
-				: inputSettings.amountPerType)
+			.filter(addressType => addressTypesUsed[addressType.value] < ( newInputSettings[`amount${capitalize(addressType.value)}`] > 0
+				? newInputSettings[`amount${capitalize(addressType.value)}`] 
+				: newInputSettings.amountPerType)
 			)
 	};
 

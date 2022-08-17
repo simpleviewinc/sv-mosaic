@@ -35,9 +35,9 @@ export const Playground = (): ReactElement => {
 					type: "address",
 					inputSettings: {
 						amountPerType,
-						shipping: amountShipping,
-						physical: amountPhysical,
-						billing: amountBilling
+						amountShipping,
+						amountPhysical,
+						amountBilling
 					},
 				},
 			] as FieldDef[]
