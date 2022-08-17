@@ -452,8 +452,8 @@ export const Playground = (): ReactElement => {
 				// row 1
 				[["textField"], ["textArea"], ["check"]],
 				// row 2
-				[["chipSelect"], ["dropdownSingle"], ["table"]],
-				[[]],
+				[["chipSelect"], ["dropdownSingle"]],
+				[["table"]],
 				// row 3
 				[["phoneSelect"], ["radio"]]
 			]
@@ -500,16 +500,18 @@ export const Playground = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				title={text("Title", "Form Title")}
-				description={text("Description", "This is a description example")}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				getFormValues={loadReady && onLoad}
-				sections={showSections && sections}
-				buttons={renderButtons(dispatch, { showCancel, showSave })}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					title={text("Title", "Form Title")}
+					description={text("Description", "This is a description example")}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					getFormValues={loadReady && onLoad}
+					sections={showSections && sections}
+					buttons={renderButtons(dispatch, { showCancel, showSave })}
+				/>
+			</div>
 		</>
 	);
 };
@@ -641,16 +643,18 @@ export const FormWithLayout = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title="Form Title"
-				description="This is a description example"
-				sections={sections}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title="Form Title"
+					description="This is a description example"
+					sections={sections}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 		</>
 	);
 }
@@ -678,13 +682,15 @@ export const PerformanceWithSubmit = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				title='Performance with submit'
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					title='Performance with submit'
+				/>
+			</div>
 		</>
 	);
 };
@@ -753,14 +759,16 @@ export const RuntimeBehaviors = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Runtime behaviors'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Runtime behaviors'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 			<div>
 				<p>
 					Here are some buttons that are not part of the form, but can change
@@ -816,12 +824,14 @@ export const SubmitExternalButtons = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<p>Here is the form</p>
-			<Form
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 			<button onClick={clickHandler}>Submit</button>
 		</>
 	);
@@ -975,13 +985,15 @@ export const CustomFields = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Custom components'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Custom components'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+				/>
+			</div>
 			<div>
 				<button onClick={setText1Value}>Set Text1 Value</button>
 			</div>
@@ -1060,13 +1072,15 @@ export const Validators = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Validators story'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Validators story'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+				/>
+			</div>
 		</>
 	);
 };
@@ -1091,20 +1105,21 @@ export const DefaultValues = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Validators story'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Validators story'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 		</>
 	);
 };
 
 export const DMSExample = (): ReactElement => {
-	
 	const items = [{
 		name : "form_with_layout",
 		label : "Form With Layout",
