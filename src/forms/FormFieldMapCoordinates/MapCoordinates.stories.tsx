@@ -75,6 +75,18 @@ const kitchenSinkFields = [
 		},
 	},
 	{
+		name: "mapZoom",
+		label: "Map with zoom set to 8",
+		type: "mapCoordinates",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			zoom: 8,
+			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
+		},
+	},
+	{
 		name: "mapWithAddress",
 		label: "Map with an address. Autocoordinates enabled",
 		type: "mapCoordinates",
@@ -82,7 +94,8 @@ const kitchenSinkFields = [
 		disabled: false,
 		inputSettings: {
 			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-			address: address
+			address: address,
+			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
 		},
 	},
 	{

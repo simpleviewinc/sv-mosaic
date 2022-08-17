@@ -35,6 +35,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		handleUnsavedChanges,
 		dialogOpen,
 		handleDialogClose,
+		mapPosition
 	} = props;
 	const [isDragging, setIsDragging] = useState(false);
 
@@ -87,11 +88,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 */
 	const resetLocation = async () => {
 		await dispatch(
-			formActions.setFieldValue({ name: "lat", value: undefined })
+			formActions.setFieldValue({ name: "lat", value: 0 })
 		);
 
 		await dispatch(
-			formActions.setFieldValue({ name: "lng", value: undefined })
+			formActions.setFieldValue({ name: "lng", value: 0 })
 		);
 	};
 
@@ -174,8 +175,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			<Map
 				address={fieldDef?.inputSettings?.address}
 				handleCoordinates={handleCoordinates}
-				mapPosition={fieldDef?.inputSettings?.mapPosition || defaultMapPosition}
-				markerPosition={props?.value}
+				mapPosition={mapPosition || defaultMapPosition}
+				value={props?.value}
 				onClick={onMapClick}
 				zoom={fieldDef.inputSettings.zoom}
 				onDragMarkerEnd={onDragMarkerEnd}
@@ -231,8 +232,9 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			const { lat, lng } = state.data;
 
 			if (lat?.toString().length > 0 && lng?.toString().length > 0) {
+				const showResetButton = lat === 0 && lng === 0;
 				dispatch(
-					formActions.setFieldValue({ name: "resetButton", value: true })
+					formActions.setFieldValue({ name: "resetButton", value: !showResetButton })
 				);
 
 				dispatch(
@@ -254,6 +256,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 	}, [state.data.lat, state.data.lng]);
 
+	/**
+	 * Sets the previously saved values to be
+	 * displayed in the Drawer when editing.
+	 */
 	useEffect(() => {
 		let isMounted = true;
 
