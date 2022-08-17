@@ -8,11 +8,10 @@ import {
 } from "@testing-library/react";
 import * as React from "react";
 import { ReactElement } from "react";
-import { useForm } from "../Form";
+import Form, { useForm } from "@root/components/Form";
 
 // Components
 import AddressCard from "./AddressCard";
-import Form from "../Form/Form";
 import { IAddress } from ".";
 
 const address: IAddress = {
