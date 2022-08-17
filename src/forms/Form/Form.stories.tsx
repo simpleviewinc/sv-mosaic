@@ -14,6 +14,7 @@ import { onCancel, renderButtons } from "@root/utils/storyUtils";
 // Components
 import Form from "./Form";
 import Drawer from "@root/components/Drawer.jsx";
+import HomeIcon from "@mui/icons-material/Home";
 
 // Types
 import { TextFieldDef } from "../FormFieldText/FormFieldTextTypes";
@@ -30,6 +31,7 @@ import { FormFieldChipSingleSelectDef } from "../FormFieldChipSingleSelect";
 import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import { TextAreaDef } from "../FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
+import { NavWrapper } from "../../components/LeftNav/NavWrapper"
 
 export default {
 	title: "Components/Form",
@@ -1100,3 +1102,18 @@ export const DefaultValues = (): ReactElement => {
 		</>
 	);
 };
+
+export const DMSExample = (): ReactElement => {
+	
+	const items = [{
+		name : "form_with_layout",
+		label : "Form With Layout",
+		mIcon : HomeIcon
+	}];
+
+	return (
+		<NavWrapper items={items}>
+			<FormWithLayout/>
+		</NavWrapper>
+	)
+}
