@@ -5,6 +5,7 @@ export const StyledForm = styled.form`
 	flex-direction: column;
 	justify-content: space-between;
 	width: 100%;
+	height: 100%;
 `;
 
 export const StyledDisabledForm = styled.div`
