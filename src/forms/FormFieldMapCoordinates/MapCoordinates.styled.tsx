@@ -22,7 +22,7 @@ export const CoordinatesCard = styled.div`
   border-radius: 4px;
   display: flex;
   font-family: ${theme.fontFamily};
-	height: 210px;
+  height: 204px;
   padding: 16px;
   padding-bottom: ${pr => pr.hasAddress ? "35px" : "16px"};
   position: relative;
@@ -34,7 +34,7 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   right: 16px;
   position: absolute;
-  top: 169px;
+  top: 163px;
 
   button:first-child {
     padding-right: 16px;
@@ -87,7 +87,7 @@ export const MapContainer = styled.div`
 
 export const LocationSearchInputWrapper = styled.div`
   margin-bottom: 8px;
-  margin-top: 40px;
+  margin-top: 30px;
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`

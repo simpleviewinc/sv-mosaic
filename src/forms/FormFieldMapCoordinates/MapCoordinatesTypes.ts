@@ -64,7 +64,7 @@ export interface MapProps {
 	/**
 	 * Location of the marker
 	 */
-	markerPosition?: MapPosition;
+	value?: MapPosition;
 	/**
 	 * Function triggered when user clicks on the map.
 	 */
@@ -100,6 +100,7 @@ export interface MapCoordinatesDrawerProps {
 	handleClose: (save?: boolean) => Promise<void>;
 	onChange: (e: MapPosition) => Promise<void>
 	value: MapPosition;
+	mapPosition: MapPosition;
 
 	hasUnsavedChanges?: boolean;
 	handleUnsavedChanges?: (val: boolean) => void;

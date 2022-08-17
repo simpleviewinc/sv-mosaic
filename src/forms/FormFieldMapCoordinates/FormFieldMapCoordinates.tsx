@@ -229,6 +229,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
+					mapPosition={mapPosition}
 				/>
 			</Drawer>
 		</>
