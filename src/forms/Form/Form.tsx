@@ -30,6 +30,7 @@ const Form = (props: FormProps) => {
 
 	const { view } = useWindowResizer(type);
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
+	const contentRef = useRef();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 
 	useEffect(() => {
@@ -98,7 +99,7 @@ const Form = (props: FormProps) => {
 
 	return (
 		<>
-			<div style={{ position: "relative" }}>
+			<div style={{ position: "relative", height: "100%" }}>
 				{state.disabled &&
 					<StyledDisabledForm />
 				}
@@ -113,14 +114,15 @@ const Form = (props: FormProps) => {
 							view={view}
 							buttons={filteredButtons}
 							sectionsRefs={sectionsRefs}
+							contentRef={contentRef}
 						/>
 					}
 					{view === "BIG_DESKTOP" && sections ? (
 						<Row>
 							{sections &&
-								<FormNav sectionsRefs={sectionsRefs} sections={sections} />
+								<FormNav sectionsRefs={sectionsRefs} contentRef={contentRef} sections={sections} />
 							}
-							<FormContent view={view} sections={sections}>
+							<FormContent view={view} sections={sections} ref={contentRef}>
 								<FormLayout
 									ref={sectionsRef}
 									state={state}
@@ -131,7 +133,7 @@ const Form = (props: FormProps) => {
 							</FormContent>
 						</Row>
 					) : (
-						<FormContent view={view} sections={sections}>
+						<FormContent view={view} sections={sections} ref={contentRef}>
 							<FormLayout
 								ref={sectionsRef}
 								state={state}

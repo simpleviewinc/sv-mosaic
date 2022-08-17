@@ -31,6 +31,7 @@ type ResponsiveViewProps = {
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 	sectionsRefs?: any[];
+	contentRef?: any;
 } & BaseTopComponentProps;
 
 const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
@@ -44,6 +45,7 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 		sections,
 		checkbox,
 		sectionsRefs,
+		contentRef,
 		view
 	} = props;
 
@@ -68,7 +70,7 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 				)}
 			</ResponsiveActionsRow>
 			{sections &&
-				<FormNav sectionsRefs={sectionsRefs} sections={sections} />
+				<FormNav sectionsRefs={sectionsRefs} sections={sections} contentRef={contentRef} />
 			}
 		</ResponsiveViewColumn>
 	);
