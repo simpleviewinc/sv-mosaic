@@ -21,7 +21,7 @@ const MobileActionsRow = styled(Row)`
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
 
   .button {
     margin-right: 20px;
