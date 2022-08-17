@@ -26,7 +26,7 @@ const Map = (props: MapProps): ReactElement => {
 		address,
 		handleCoordinates,
 		mapPosition,
-		markerPosition,
+		value,
 		onClick,
 		onDragMarkerEnd,
 		zoom = 0,
@@ -48,11 +48,11 @@ const Map = (props: MapProps): ReactElement => {
 					options={mapOptions}
 				>
 					{isDragging ||
-						(markerPosition &&
-							(markerPosition?.lat !== 0 || markerPosition?.lng !== 0) && (
+						((value || mapPosition) &&
+							(value?.lat !== 0 || value?.lng !== 0) && (
 							<Marker
 								draggable={true}
-								position={markerPosition}
+								position={value || mapPosition}
 								onDragEnd={onDragMarkerEnd}
 								onDragStart={onDragStart}
 							/>

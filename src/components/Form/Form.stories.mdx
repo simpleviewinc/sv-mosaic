@@ -1199,7 +1199,8 @@ const fields = useMemo(
 - inputSettings:
 	* **address** - `object` Optional - Address object used to set lat and lng values when using the autocoordinates feature (please see Address section).
 	* **apiKey** - `string` Required - Google Maps API key needed to consume the Maps JavaScript API and Places API.
-	* **mapPosition** - `object` Optional - Latitude and longitude object.
+	* **zoom** - `number` Optional - Zoom applied to the map. If is not defined the map will be all the way zoomed out.
+	* **mapPosition** - `object` Optional - Latitude and longitude object. If is not defined the map will be positioned at 0,0.
 		* **lat** - `number` - Latitude
 		* **lng** - `number` - Longitude
 
