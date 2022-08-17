@@ -12,6 +12,10 @@ export type IAddress = {
 	types: string[];
 };
 
+export type IAddressFormFieldExample = {
+	inputSettings?: boolean;
+};
+
 export interface AddressCardProps {
 	/**
 	 * Address object that contains all the information
