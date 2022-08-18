@@ -19,6 +19,7 @@ const MAX_CHIPS_TO_SHOW = 8;
 const ChipList = (props: ChipListPropsTypes): ReactElement => {
 	const {
 		fieldDef,
+		value
 	} = props;
 
 	const [showMore, setShowMore] = useState(false);
@@ -29,7 +30,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 	 * optionsChecked array.
 	 */
 	const onChipDelete = (optionValue: string) => {
-		const filteredChips = fieldDef?.inputSettings?.selectedOptions.filter((option) => option.value !== optionValue);
+		const filteredChips = value.filter((option) => option.value !== optionValue);
 
 		fieldDef?.inputSettings?.deleteSelectedOption(filteredChips);
 	};
@@ -42,7 +43,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 		setShowMore(!showMore);
 	};
 
-	return fieldDef?.inputSettings?.selectedOptions?.length > 0 && (
+	return value?.length > 0 && (
 		<OptionsCheckedModalWrapper isModalOpen={fieldDef?.inputSettings?.isModalOpen}>
 			<ChipsWrapper
 				isModalOpen={fieldDef?.inputSettings?.isModalOpen}
@@ -50,7 +51,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 				data-testid='as-chiplist'
 			>
 				{showMore ?
-					fieldDef?.inputSettings?.selectedOptions?.map((option, idx) => (
+					value?.map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
 							key={`${option?.label}-${idx}`}
@@ -59,7 +60,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 						/>
 					))
 					:
-					fieldDef?.inputSettings?.selectedOptions?.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
+					value?.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
 							key={`${option?.label}-${idx}`}
@@ -69,7 +70,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 					))
 				}
 			</ChipsWrapper>
-			{fieldDef?.inputSettings?.selectedOptions.length > MAX_CHIPS_TO_SHOW && (
+			{value.length > MAX_CHIPS_TO_SHOW && (
 				<div onClick={handleShowMore}>
 					{showMore ? (
 						<ShowHideSpan>
@@ -77,7 +78,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 						</ShowHideSpan>
 					) : (
 						<ShowHideSpan>
-							{`${fieldDef?.inputSettings?.selectedOptions.length - MAX_CHIPS_TO_SHOW} more`}
+							{`${value.length - MAX_CHIPS_TO_SHOW} more`}
 							<StyledExpandMoreIcon />
 						</ShowHideSpan>
 					)}

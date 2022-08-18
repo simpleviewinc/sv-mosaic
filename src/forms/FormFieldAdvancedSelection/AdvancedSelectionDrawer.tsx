@@ -58,19 +58,32 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 */
 	useEffect(() => {
 		let isMounted = true;
-		if (value.length > 0 && isModalOpen) {
-			isMounted && dispatch(
-				formActions.setFieldValue({
-					name: "checkboxList",
-					value: value.map(option => option.value)
-				})
-			);
+		if (value?.length > 0 && isModalOpen) {
+			if (isMounted) {
+				dispatch(
+					formActions.setFieldValue({
+						name: "checkboxList",
+						value: value.map(option => option.value)
+					})
+				);
+			}
 		}
 
 		return () => {
 			isMounted = false;
 		}
 	}, [value, isModalOpen]);
+
+	useEffect(() => {
+		const checkedOptions = options?.filter((item) => state?.data?.checkboxList?.includes(item.value));
+		const chips = _.union(state.data.listOfChips, checkedOptions);
+		dispatch(
+			formActions.setFieldValue({
+				name: "listOfChips",
+				value: chips
+			})
+		);
+	}, [options, state?.data?.checkboxList])
 
 	/**
 	 * Loads the options provided  either from 
@@ -253,6 +266,13 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
 		dispatch(
 			formActions.setFieldValue({
+				name: "listOfChips",
+				value: newOptions,
+			})
+		);
+	
+		dispatch(
+			formActions.setFieldValue({
 				name: "checkboxList",
 				value: newOptions.map(option => option.value),
 			})
@@ -269,9 +289,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					inputSettings: {
 						isModalOpen,
 						isMobileView,
-						selectedOptions: options?.filter((item) =>
-							state?.data?.checkboxList?.includes(item.value)
-						),
 						deleteSelectedOption,
 					},
 				},
