@@ -12,9 +12,9 @@ import { AddAddressWrapper, FlexContainer } from "./Address.styled";
 // Utils
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
-import { IAddress } from ".";
+import { IAddress, AddressFieldDef } from ".";
 
-const FormFieldAddress = (props: MosaicFieldProps<any, IAddress[]>): ReactElement => {
+const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>): ReactElement => {
 	const {
 		value,
 		onBlur,
