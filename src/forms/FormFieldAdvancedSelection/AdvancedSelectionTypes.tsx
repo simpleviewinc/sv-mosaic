@@ -38,11 +38,11 @@ export interface ChipListPropsTypes {
 		inputSettings: {
 			isModalOpen: boolean;
 			isMobileView: boolean;
-			selectedOptions: MosaicLabelValue[];
 			deleteSelectedOption: (options: MosaicLabelValue[]) => Promise<void>;
 		};
 		disabled: boolean;
-	}
+	},
+	value: MosaicLabelValue[];
 }
 
 export interface AdvanceSelectionDrawerPropTypes {

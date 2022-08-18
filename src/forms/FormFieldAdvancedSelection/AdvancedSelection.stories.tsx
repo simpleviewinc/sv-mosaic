@@ -26,6 +26,7 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const shouldUseGetOptions = boolean("Obtain options from db", false);
 	const getOptionsLimit = text("Get options limit", "5");
+	const createNewOptionsKnob = boolean("Create new option", true);
 
 	const getOptions: ({
 		filter,
@@ -89,7 +90,7 @@ export const Playground = (): ReactElement => {
 							shouldUseGetOptions && getOptionsLimit
 								? getOptionsLimit
 								: undefined,
-						createNewOption,
+						createNewOption: createNewOptionsKnob ? createNewOption : undefined
 					},
 				},
 			] as FieldDef<AdvancedSelectionDef>[],
@@ -102,6 +103,7 @@ export const Playground = (): ReactElement => {
 			getOptionsLimit,
 			options,
 			shouldUseGetOptions,
+			createNewOptionsKnob
 		]
 	);
 
@@ -209,8 +211,8 @@ export const KitchenSink = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
-				title={text("Title", "Form Title")}
-				description={text("Description", "This is a description example")}
+				title="Form Title"
+				description="Description"
 				state={state}
 				fields={fields}
 				dispatch={dispatch}

@@ -23,6 +23,7 @@ export const StyledInput = styled.input`
 `;
 
 export const InputWrapper = styled.div`
+	align-items: center;
   background-color: ${theme.colors.gray100};
   border: 1px solid ${theme.colors.simplyGray};
   display: flex;
@@ -55,7 +56,7 @@ export const ChipsWrapper = styled.div`
 
 export const OptionsCheckedModalWrapper = styled.div`
   margin-bottom: ${({ isModalOpen }) => (isModalOpen ? "40px" : "")};
-	margin-top: ${({ isModalOpen }) => (isModalOpen ? "40px" : "")};
+  margin-top: ${({ isModalOpen }) => (isModalOpen ? "40px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`

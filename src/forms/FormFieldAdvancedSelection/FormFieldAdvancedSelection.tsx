@@ -98,11 +98,11 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 						attrs={{ style: { marginBottom: "8px" } }}
 					></Button>
 					<ChipList
+						value={value}
 						fieldDef={{
 							inputSettings: {
 								isModalOpen,
 								isMobileView,
-								selectedOptions: value,
 								deleteSelectedOption: onChange,
 							},
 							disabled: fieldDef?.disabled,
