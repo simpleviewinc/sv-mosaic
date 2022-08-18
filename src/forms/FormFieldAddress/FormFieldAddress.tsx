@@ -13,15 +13,13 @@ import { AddAddressWrapper, FlexContainer } from "./Address.styled";
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
 import { IAddress } from ".";
-import { capitalize } from "lodash";
 
-const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => {
+const FormFieldAddress = (props: MosaicFieldProps<any, IAddress[]>): ReactElement => {
 	const {
 		value,
 		onBlur,
 		onChange,
 		fieldDef,
-		fieldDef : { inputSettings }
 	} = props;
 
 	// State variables
@@ -34,9 +32,15 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
 	const [dialogOpen, setIsDialogOpen] = useState(false);
+	const [availableAddresses, setAvailableAddresses] = useState({
+		amountPerType: -1,
+		amountShipping: -1,
+		amountBilling: -1,
+		amountPhysical: -1,
+	});
 	const [addressTypes, setAddressTypes] = useState([]);
 
-	const initialAddressTypes = [
+	const types = [
 		{
 			label: "Physical",
 			value: "physical",
@@ -53,54 +57,48 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	
 	useEffect(() => {
 		if (!open) {
-			setAddressTypes(getAvailableAddressTypes());
-		}
-	}, [value, inputSettings, open]);
-	
-	/**
-	 * Gets the number of times each of the 
-	 * address types has been selected
-	 */
-	const getUsedAddressTypes = () => {
-		const amountTypesUsed = {
-			physical: 0,
-			billing: 0,
-			shipping: 0,
-		};
-		
-		if (value) {
-			value.forEach(address => {
-				address.types.forEach(type => {
-					amountTypesUsed[type] >= 0 && amountTypesUsed[type] ++;
-				})
-			})
-		}
+			const amountPerType = fieldDef?.inputSettings?.amountPerType ? fieldDef?.inputSettings?.amountPerType : 1
 
-		return amountTypesUsed;
-	};
-	
-	/**
-	 * Returns an array with the available 
-	 * address types for the AddressDrawer form
-	 */
-	const getAvailableAddressTypes = () => {
-		const addressTypesUsed = getUsedAddressTypes();
-
-		const newInputSettings = inputSettings === undefined || inputSettings.amountPerType === undefined
-			? {
-				amountPerType: 1,
-				amountShipping: 1,
-				amountPhysical: 1,
-				amountBilling: 1
+			const amountPerTypeProp = {
+				amountPerType: amountPerType, 
+				amountShipping: fieldDef?.inputSettings?.amountShipping !== undefined ? fieldDef?.inputSettings?.amountShipping : amountPerType, 
+				amountBilling: fieldDef?.inputSettings?.amountBilling !== undefined ? fieldDef?.inputSettings?.amountBilling : amountPerType, 
+				amountPhysical: fieldDef?.inputSettings?.amountPhysical !== undefined ? fieldDef?.inputSettings?.amountPhysical : amountPerType, 
 			}
-			: inputSettings;
+			setAvailableAddresses(amountPerTypeProp);
+		}
+	}, [fieldDef?.inputSettings, open]);
 
-		return initialAddressTypes
-			.filter(addressType => addressTypesUsed[addressType.value] < ( newInputSettings[`amount${capitalize(addressType.value)}`] > 0
-				? newInputSettings[`amount${capitalize(addressType.value)}`] 
-				: newInputSettings.amountPerType)
-			)
-	};
+	useEffect(() => {
+		if (!open) {
+			validateAmountPerType();
+		}
+	}, [availableAddresses, open, value]);
+
+	const validateAmountPerType = (editingTypes = []) => {
+		const newTypes = new Map();
+		if (value)
+			value?.forEach(address => {
+				address.types.forEach(type => {
+					let amount = 1;
+				
+					if (newTypes.has(type)) {
+						amount += newTypes.get(type);
+					}
+
+					newTypes.set(type, amount);
+				});
+			});
+
+		const addresses = [];
+
+		types.forEach(type => {
+			if (editingTypes.includes(type.value) || (newTypes.has(type.value) && newTypes.get(type.value) < availableAddresses[`amount${type.label}`]) || (!newTypes.has(type.value) && availableAddresses[`amount${type.label}`] > 0))
+				addresses.push(type);
+		});
+		
+		setAddressTypes(addresses);
+	}
 
 	/**
 	 * Opens the modal to create an address card 
@@ -179,21 +177,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			state,
 		});
 
-		const typesSelected = initialAddressTypes.filter(addressType => types.find(type => addressType.value === type) !== undefined);
-
-		const joinTypes = [...typesSelected, ...addressTypes];
-
-		const uniqueAddressTypes = joinTypes.reduce((uniqueArr, Addresstype) => {
-			const i = uniqueArr.findIndex(e => Addresstype.value === e.value);
-			if (i >= 0) {
-				Object.assign(uniqueArr[i],Addresstype);
-			} else {
-				uniqueArr.push(Addresstype);
-			}
-			return uniqueArr;
-		}, []);
-
-		setAddressTypes(uniqueAddressTypes);
+		validateAmountPerType(types);
 		setAddressIdx(addressIndex);
 		setIsEditing(true);
 		setOpen(true);
