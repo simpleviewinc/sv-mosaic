@@ -9,7 +9,6 @@ docker run --rm -it \
 	-v $PWD/yarn.lock:/app/mounted/yarn.lock \
 	-v $PWD/.yarn:/app/mounted/.yarn \
 	-v $PWD/webpack.config.js:/app/webpack.config.js \
-	-v $PWD/rollup.config.js:/app/rollup.config.js \
 	-v $PWD/.babelrc:/app/.babelrc \
 	-v $PWD/tsconfig.json:/app/tsconfig.json \
 	-v $PWD/tsconfig.cjs.json:/app/tsconfig.cjs.json \
@@ -17,5 +16,7 @@ docker run --rm -it \
 	-v $PWD/.eslintrc.json:/app/.eslintrc.json \
 	-v $PWD/.eslintignore:/app/.eslintignore \
 	-v $PWD/jest.config.js:/app/jest.config.js \
+	-v /home/vagrant/.ssh/github_key:/root/.ssh/github_key \
+	-v /root/.ssh/config:/root/.ssh/config \
 	-p 10000:10000 \
 	sv-mosaic:local /bin/bash
