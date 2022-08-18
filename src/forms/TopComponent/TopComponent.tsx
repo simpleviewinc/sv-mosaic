@@ -25,7 +25,8 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		tooltipInfo,
 		sections,
 		view = "RESPONSIVE",
-		sectionsRefs
+		sectionsRefs,
+		contentRef,
 	} = props;
 
 	// State variables
@@ -122,6 +123,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 					sections={sections}
 					view={view}
 					sectionsRefs={sectionsRefs}
+					contentRef={contentRef}
 				/>
 			);
 		if (view === "DESKTOP" || view === "BIG_DESKTOP")
@@ -137,6 +139,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 					buttons={buttons}
 					sections={sections}
 					view={view}
+					contentRef={contentRef}
 				/>
 			);
 
