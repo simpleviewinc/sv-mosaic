@@ -1,0 +1,25 @@
+"use strict";
+var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+exports.__esModule = true;
+exports.AdvancedSelectionWrapper = exports.CategoryTitle = exports.StyledExpandLessIcon = exports.StyledExpandMoreIcon = exports.ShowHideSpan = exports.OptionsCheckedModalWrapper = exports.ChipsWrapper = exports.InputWrapper = exports.StyledInput = void 0;
+var styled_components_1 = __importDefault(require("styled-components"));
+var theme_1 = __importDefault(require("../../theme"));
+// MUI
+var ExpandLess_1 = __importDefault(require("@mui/icons-material/ExpandLess"));
+var ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
+exports.StyledInput = styled_components_1["default"].input(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  background-color: ", ";\n  border: none;\n  color: ", ";\n  flex-grow: 1;\n  font-family: ", ";\n  font-size: 16px;\n\n  &:focus {\n    outline: none;\n  }\n\n  ::placeholder {\n    color: ", ";\n  }\n"], ["\n  background-color: ", ";\n  border: none;\n  color: ", ";\n  flex-grow: 1;\n  font-family: ", ";\n  font-size: 16px;\n\n  &:focus {\n    outline: none;\n  }\n\n  ::placeholder {\n    color: ", ";\n  }\n"])), theme_1["default"].colors.gray100, theme_1["default"].colors.almostBlack, theme_1["default"].fontFamily, theme_1["default"].colors.gray600);
+exports.InputWrapper = styled_components_1["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  background-color: ", ";\n  border: 1px solid ", ";\n  display: flex;\n  height: 49px;\n  justify-content: space-between;\n  margin-bottom: 40px;\n  padding: 0 16px;\n  width: ", ";\n\n  &:focus-within {\n    border: 1px solid ", ";\n  }\n"], ["\n  background-color: ", ";\n  border: 1px solid ", ";\n  display: flex;\n  height: 49px;\n  justify-content: space-between;\n  margin-bottom: 40px;\n  padding: 0 16px;\n  width: ", ";\n\n  &:focus-within {\n    border: 1px solid ", ";\n  }\n"])), theme_1["default"].colors.gray100, theme_1["default"].colors.simplyGray, function (pr) { return pr.isMobileView ? "" : "650px"; }, theme_1["default"].colors.almostBlack);
+exports.ChipsWrapper = styled_components_1["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  display: flex;\n  flex-wrap: wrap;\n  row-gap: 4px;\n  margin-bottom: 16px;\n  width: ", ";\n\n  & > :not(:last-child) {\n    margin-right: 12px;\n  }\n\n  & > * {\n    margin-top: 8px;\n  }\n"], ["\n  display: flex;\n  flex-wrap: wrap;\n  row-gap: 4px;\n  margin-bottom: 16px;\n  width: ", ";\n\n  & > :not(:last-child) {\n    margin-right: 12px;\n  }\n\n  & > * {\n    margin-top: 8px;\n  }\n"])), function (pr) { return pr.isMobileView || !pr.isModalOpen ? "" : "684px"; });
+exports.OptionsCheckedModalWrapper = styled_components_1["default"].div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  margin-bottom: ", ";\n"], ["\n  margin-bottom: ", ";\n"])), function (pr) { return (pr.isModalOpen ? "40px" : ""); });
+exports.ShowHideSpan = styled_components_1["default"].span(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  color: ", ";\n  cursor: pointer;\n  display: flex;\n  font-family: ", ";\n  width: fit-content;\n"], ["\n  color: ", ";\n  cursor: pointer;\n  display: flex;\n  font-family: ", ";\n  width: fit-content;\n"])), theme_1["default"].colors.gray700, theme_1["default"].fontFamily);
+exports.StyledExpandMoreIcon = (0, styled_components_1["default"])(ExpandMore_1["default"])(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n  color: ", ";\n  margin-left: 14px;\n"], ["\n  color: ", ";\n  margin-left: 14px;\n"])), theme_1["default"].colors.gray600);
+exports.StyledExpandLessIcon = (0, styled_components_1["default"])(ExpandLess_1["default"])(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n  color: ", ";\n  margin-left: 14px;\n"], ["\n  color: ", ";\n  margin-left: 14px;\n"])), theme_1["default"].colors.gray600);
+exports.CategoryTitle = styled_components_1["default"].span(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n  color: ", ";\n  display: inline-block;\n  font-family: ", ";\n  font-size: 16px;\n  font-weight: ", ";\n  margin-bottom: 16px;\n"], ["\n  color: ", ";\n  display: inline-block;\n  font-family: ", ";\n  font-size: 16px;\n  font-weight: ", ";\n  margin-bottom: 16px;\n"])), theme_1["default"].colors.almostBlack, theme_1["default"].fontFamily, theme_1["default"].fontWeight.medium);
+exports.AdvancedSelectionWrapper = styled_components_1["default"].div(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n  max-width: 620px;\n"], ["\n  max-width: 620px;\n"])));
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9;

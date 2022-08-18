@@ -1,9 +1,0 @@
-{
-	"name": "@simpleview/sv-mosaic-types",
-	"version": "${VERSION}",
-	"types": "./types/index.d.ts",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/simpleviewinc/sv-mosaic.git"
-	}
-}
