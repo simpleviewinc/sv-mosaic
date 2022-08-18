@@ -20,9 +20,9 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 	const amountPerType = number("Amount per type", 1);
-	const amountShipping = number("Amount shipping", 0);
-	const amountPhysical = number("Amount physical", 0);
-	const amountBilling = number("Amount billing", 0);
+	const amountShipping = number("Amount shipping", 1);
+	const amountPhysical = number("Amount physical", 1);
+	const amountBilling = number("Amount billing", 1);
 
 	const fields = useMemo(
 		() => (
