@@ -38,6 +38,16 @@ const TextField = (
 		onChange && onChange(value);
 	};
 
+	const onFieldBlur = (e: ChangeEvent<HTMLInputElement>) => {
+		const value =
+			fieldDef?.inputSettings?.type === "number"
+				? Number(e.target.value)
+				: e.target.value;
+
+		onBlur && onBlur(value);
+		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
+	}
+
 	const errorWithMessage = error?.trim().length > 0;
 
 	return (
@@ -45,7 +55,7 @@ const TextField = (
 			id={fieldDef?.name}
 			value={value ?? ""}
 			onChange={onFieldChange}
-			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			onBlur={onFieldBlur}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
 			className={fieldDef?.className}
