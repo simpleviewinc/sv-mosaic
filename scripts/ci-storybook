@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# build the storybook
+# yarn run build:storybook
+
+# publish to sv-mosaic/gh-pages/develop, sv-mosaic/gh-pages/master
+SRC_FOLDER=docs DEST_BRANCH="gh-pages" DEST_FOLDER=$CICLE_BRANCH yarn run git-deploy

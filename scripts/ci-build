@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# build the repo
+# yarn run build
+
+# mkdir -p /app/publish
+# cp /app/package.json /app/publish/package.json
+# cp -r /app/dist /app/publish/dist
+
+git_tag=$CIRCLE_BRANCH-$(date -I)-$(git rev-parse --short HEAD)
+
+DEST_BRANCH=$CIRCLE_BRANCH-publish SRC_FOLDER=publish GIT_TAG=$git_tag yarn run git-deploy
