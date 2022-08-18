@@ -3,6 +3,7 @@ import * as React from "react";
 import { useMemo, memo, forwardRef, RefObject } from "react";
 import { SectionDef } from "./FormTypes";
 import { generateLayout } from "./formUtils";
+import styled from "styled-components";
 
 // Components
 import Section from "./Section";
@@ -14,6 +15,11 @@ interface FormLayoutProps {
   sections: SectionDef[];
 }
 
+const StyledFormLayout = styled.div`
+	margin: 0px auto;
+	max-width: 1160px;
+`;
+
 const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 	const { state, dispatch, fields, sections } = props;
 	const sectionRef = ref as RefObject<HTMLDivElement>;
@@ -23,7 +29,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 	}, [sections, fields]);
 
 	return (
-		<>
+		<StyledFormLayout className='layout'>
 			{layout?.map((section, i) => (
 				<Section
 					ref={el => sectionRef.current[i] = el} 
@@ -37,7 +43,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 					dispatch={dispatch}
 				/>
 			))}
-		</>
+		</StyledFormLayout>
 	);
 });
 
