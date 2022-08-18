@@ -48,7 +48,7 @@ const Map = (props: MapProps): ReactElement => {
 					options={mapOptions}
 				>
 					{isDragging ||
-						((value || mapPosition) &&
+						(value &&
 							(value?.lat !== 0 || value?.lng !== 0) && (
 							<Marker
 								draggable={true}
