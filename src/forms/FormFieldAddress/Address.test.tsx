@@ -4,7 +4,7 @@ import {
 	cleanup,
 	fireEvent,
 	screen,
-	waitFor
+	waitFor,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as React from "react";
@@ -14,7 +14,7 @@ import { useForm } from "../Form";
 // Components
 import AddressCard from "./AddressCard";
 import Form from "../Form/Form";
-import { IAddress, IAddressFormFieldExample } from ".";
+import { IAddress, AddressFieldDef } from ".";
 
 const address: IAddress = {
 	id: 1,
@@ -35,33 +35,23 @@ const fields = [
 	}
 ] as FieldDef[];
 
-const fieldsInputSettings = [
-	{
-		disabled: false,
-		label: "Address Form Field",
-		name: "address",
-		type: "address",
-		inputSettings: {
-			amountPerType: 2,
-			amountShipping: 0,
-			amountPhysical: 0,
-			amountBilling: 0
-		}
-	}
-] as FieldDef[];
-
-export const AddressFormFieldExample = (props: IAddressFormFieldExample): ReactElement => {
+export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef; }): ReactElement => {
 	const {
 		state,
 		dispatch,
 	} = useForm();
+	
+	const newFields = fields.map(field => props?.inputSettings ? ({
+		...field,
+		inputSettings: props.inputSettings,
+	}) : field);
 
 	return (
 		<Form
 			title="Title"
 			description="Description"
 			state={state}
-			fields={props.inputSettings ? fieldsInputSettings : fields}
+			fields={newFields}
 			dispatch={dispatch}
 		/>
 	);
@@ -72,7 +62,8 @@ const {
 	getByLabelText,
 	getAllByTestId,
 	getAllByRole,
-	queryAllByTestId
+	queryAllByTestId,
+	queryByText,
 } = screen;
 
 const addNewAddress = () => {
@@ -183,58 +174,31 @@ describe("AddressCard component", () => {
 	});
 });
 
-describe("Address component with inputSettings prop", () => {
-	beforeEach(() => {
-		render(<AddressFormFieldExample inputSettings={true} />);
-	});
+describe("Address field with specific amount per type", () => {
+	
+	it("should add a new address card with shipping address type", async () => {
 
-	it("should add a new address card and then remove it", async () => {
+		render(<AddressFormFieldExample inputSettings={{
+			amountPerType: 2,
+			amountShipping: 1,
+			amountPhysical: 0,
+			amountBilling: 0,
+		}}/>);
+
 		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
+
 		addNewAddress();
-		addNewAddress();
+
+		expect(queryByText("Physical")).not.toBeInTheDocument();
+		expect(queryByText("Billing")).not.toBeInTheDocument();
+
 		fireEvent.click(getByText("Save"));
+		
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
 		});
 
-		fireEvent.click(getByText("Remove"));
-
-		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
-	});
-
-	it("should edit an address cards and not disable ADD ADDRESS button", async () => {
-		addNewAddress();
-
-		fireEvent.click(getByText("Save"));
 		await waitFor(() => {
-			expect(queryAllByTestId("address-card-test").length).toBe(1);
-		});
-
-		fireEvent.click(getByText("Edit"));
-		const address = getByLabelText("Address");
-		const city = getByLabelText("City");
-		const postalCode = getByLabelText("Postal Code");
-		const dropdowns = getAllByTestId("autocomplete-test-id");
-		const countryDropdown = dropdowns[0].querySelector(
-			".MuiAutocomplete-input"
-		);
-		const addressTypes = getAllByRole("checkbox") as HTMLInputElement[];
-
-		fireEvent.change(address, { target: { value: "Address edited" } });
-		fireEvent.change(city, { target: { value: "City edited" } });
-		fireEvent.change(postalCode, { target: { value: 456 } });
-		fireEvent.change(countryDropdown, { target: { value: "Argentina" } });
-		fireEvent.click(getByText("Argentina"));
-		fireEvent.click(addressTypes[1]);
-		fireEvent.click(addressTypes[2]);
-
-		fireEvent.click(getByText("Save"));
-
-		await waitFor(() => {
-			expect(getByText("Address edited")).toBeTruthy();
-			expect(getByText("Physical, Billing, Shipping Address")).toBeTruthy();
-			expect(getByText("City edited, 456")).toBeTruthy();
-			expect(getByText("Argentina")).toBeTruthy();
 			expect(getByText("ADD ADDRESS")).not.toHaveClass("Mui-disabled");
 		});
 	});
