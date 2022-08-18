@@ -38,6 +38,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		mapPosition
 	} = props;
 	const [isDragging, setIsDragging] = useState(false);
+	const [center, setCenter] = useState(mapPosition || defaultMapPosition);
 
 	const { state, dispatch } = useForm();
 
@@ -102,6 +103,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * google component.
 	 */
 	const handleCoordinates = (coordinates: MapPosition) => {
+		setCenter(coordinates);
 		dispatch(
 			formActions.setFieldValue({
 				name: "placesList",
@@ -175,8 +177,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			<Map
 				address={fieldDef?.inputSettings?.address}
 				handleCoordinates={handleCoordinates}
-				mapPosition={mapPosition || defaultMapPosition}
-				value={props?.value}
+				mapPosition={center}
+				value={props.value || mapPosition}
 				onClick={onMapClick}
 				zoom={fieldDef.inputSettings.zoom}
 				onDragMarkerEnd={onDragMarkerEnd}
@@ -187,7 +189,15 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				Click on the map to update the lattitude and longitude coordinates
 			</StyledSpan>
 		</>
-	);
+	)
+
+	const onBlurLatitude = (latValue: number) => {
+		setCenter({ lat: latValue, lng: mapPosition.lng })
+	}
+
+	const onBlurLongitude = (lngValue: number) => {
+		setCenter({ lat: mapPosition.lat, lng: lngValue })
+	}
 
 	const fields = useMemo(
 		() =>
@@ -200,6 +210,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					name: "lat",
 					label: "Latitude",
 					type: "text",
+					onBlurCb: onBlurLatitude,
 					inputSettings: {
 						type: "number",
 					},
@@ -209,8 +220,9 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					name: "lng",
 					label: "Longitude",
 					type: "text",
+					onBlurCb: onBlurLongitude,
 					inputSettings: {
-						type: "number",
+						type: "number"
 					},
 					validators: [isLongitude]
 				},
@@ -223,7 +235,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					}
 				},
 			] as FieldDef[],
-		[]
+		[center]
 	);
 
 	useEffect(() => {
