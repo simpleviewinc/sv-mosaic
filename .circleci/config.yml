@@ -15,6 +15,8 @@ orbs:
   slack: circleci/slack@4.4.0
 jobs:
   build:
+    docker:
+      - image: cimg/base:2021.04
     working_directory: /app
     steps:
       - checkout
@@ -30,10 +32,6 @@ jobs:
       - run:
           name: Prepublish NPM
           command: docker run sv-mosaic:local yarn run ci:prepublish
-      - run:
-          name: build/deploy/test
-          command: |
-            node /app/lib/default.js
       - slack/notify:
           channel: GT3L59FHP
           event: fail
