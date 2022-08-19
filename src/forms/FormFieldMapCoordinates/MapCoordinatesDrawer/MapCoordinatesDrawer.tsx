@@ -39,6 +39,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	} = props;
 	const [isDragging, setIsDragging] = useState(false);
 	const [center, setCenter] = useState(mapPosition || defaultMapPosition);
+	const [shouldCenter, setShouldCenter] = useState<{field: string, value: number}>(undefined);
 
 	const { state, dispatch } = useForm();
 
@@ -189,15 +190,25 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				Click on the map to update the lattitude and longitude coordinates
 			</StyledSpan>
 		</>
-	)
+	);
+
+	useEffect(() => {
+		if (shouldCenter?.field && shouldCenter.field === "lng") {
+			setCenter({ lat: Number(state.data.lat), lng: shouldCenter.value });
+			setShouldCenter({field: null, value: null})
+		} else if (shouldCenter?.field && shouldCenter.field === "lat") {
+			setCenter({ lat: shouldCenter.value, lng: Number(state.data.lng) });
+			setShouldCenter({field: null, value: null})
+		}
+	}, [state.data.lat, state.data.lng, shouldCenter, mapPosition]);	
 
 	const onBlurLatitude = (latValue: number) => {
-		setCenter({ lat: latValue, lng: mapPosition.lng })
-	}
+		setShouldCenter({field: "lat", value: latValue});
+	};
 
 	const onBlurLongitude = (lngValue: number) => {
-		setCenter({ lat: mapPosition.lat, lng: lngValue })
-	}
+		setShouldCenter({field: "lng", value: lngValue});
+	};
 
 	const fields = useMemo(
 		() =>
