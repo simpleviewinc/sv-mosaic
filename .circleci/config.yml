@@ -17,7 +17,6 @@ jobs:
   build:
     docker:
       - image: cimg/base:2021.04
-    working_directory: /app
     steps:
       - checkout
       - setup_remote_docker:
