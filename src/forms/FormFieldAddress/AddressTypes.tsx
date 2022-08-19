@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { MosaicLabelValue } from "@root/types";
 
 export type IAddress = {
 	address1: string;
@@ -35,7 +36,6 @@ export interface AddressCardProps {
 	 */
 	onEdit?: (address, addressIndex) => void;
 }
-
 export interface AddressDrawerProps {
 	addressToEdit: IAddress;
 	isEditing: boolean;
@@ -45,9 +45,17 @@ export interface AddressDrawerProps {
 	handleClose: (save?: boolean) => Promise<void>;
 	setIsEditing: Dispatch<SetStateAction<boolean>>;
 	value: IAddress[];
+	addressTypes?: MosaicLabelValue[];
 
 	hasUnsavedChanges?: boolean;
 	handleUnsavedChanges?: (val: boolean) => void;
 	dialogOpen?: boolean;
 	handleDialogClose?: (val: boolean) => void;
+}
+
+export type AddressFieldDef = {
+	amountPerType?: number;
+	amountShipping?: number;
+	amountBilling?: number;
+	amountPhysical?: number;
 }
