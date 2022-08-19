@@ -30,7 +30,7 @@ jobs:
           command: docker build . -t sv-mosaic:local
       - run:
           name: debug
-          command: ls -l /root/.ssh
+          command: ls -l ~/.ssh
       # - run:
       #     name: Publish storybook
       #     command: |
