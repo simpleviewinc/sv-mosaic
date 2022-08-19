@@ -26,17 +26,17 @@ jobs:
       - run:
           name: Docker build
           command: docker build . -t sv-mosaic:local
-      - run:
-          name: Publish storybook
-          command: docker run sv-mosaic:local yarn run ci:storybook
-      - run:
-          name: Prepublish NPM
-          command: docker run sv-mosaic:local yarn run ci:prepublish
-      - slack/notify:
-          channel: GT3L59FHP
-          event: fail
-          template: basic_fail_1
-      - slack/notify:
-          channel: GT3L59FHP
-          event: pass
-          template: basic_success_1
+      # - run:
+      #     name: Publish storybook
+      #     command: docker run sv-mosaic:local yarn run ci:storybook
+      # - run:
+      #     name: Prepublish NPM
+      #     command: docker run sv-mosaic:local yarn run ci:prepublish
+      # - slack/notify:
+      #     channel: GT3L59FHP
+      #     event: fail
+      #     template: basic_fail_1
+      # - slack/notify:
+      #     channel: GT3L59FHP
+      #     event: pass
+      #     template: basic_success_1
