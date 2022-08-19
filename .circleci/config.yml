@@ -31,14 +31,14 @@ jobs:
       - run:
           name: debug
           command: ls -l ~/.ssh && cat ~/.ssh/config
-      # - run:
-      #     name: Publish storybook
-      #     command: |
-      #       docker run \
-      #         -e CIRCLE_BRANCH
-      #         -e CIRCLE_SHA1
-      #         -v
-      #         sv-mosaic:local yarn run ci:storybook
+      - run:
+          name: Publish storybook
+          command: |
+            docker run \
+              -e CIRCLE_BRANCH
+              -e CIRCLE_SHA1
+              -v ~/.ssh:/root/.ssh
+              sv-mosaic:local yarn run ci:storybook
       # - run:
       #     name: Prepublish NPM
       #     command: docker run -e CIRCLE_BRANCH -e CIRCLE_SHA1 sv-mosaic:local yarn run ci:prepublish
