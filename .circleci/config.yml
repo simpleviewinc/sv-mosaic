@@ -1,0 +1,44 @@
+version: 2.1
+workflows:
+  build:
+    jobs:
+      - build:
+          context: default
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+                - qa
+                - staging
+orbs:
+  slack: circleci/slack@4.4.0
+jobs:
+  build:
+    working_directory: /app
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 18.09.3
+      - run:
+          name: Docker build
+          command: docker build . -t sv-mosaic:local
+      - run:
+          name: Publish storybook
+          command: docker run sv-mosaic:local yarn run ci:storybook
+      - run:
+          name: Prepublish NPM
+          command: docker run sv-mosaic:local yarn run ci:prepublish
+      - run:
+          name: build/deploy/test
+          command: |
+            node /app/lib/default.js
+      - slack/notify:
+          channel: GT3L59FHP
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          channel: GT3L59FHP
+          event: pass
+          template: basic_success_1
