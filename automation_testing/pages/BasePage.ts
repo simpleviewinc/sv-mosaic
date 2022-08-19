@@ -80,4 +80,8 @@ export class BasePage {
 		const textContent = await locator.textContent();
 		return Number(textContent?.split("/")[0]);
 	}
+
+	async selectOptionFromDropdown(option: string): Promise<void> {
+		await this.page.locator("text=" + option).nth(0).click();
+	}
 }
