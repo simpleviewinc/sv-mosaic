@@ -194,13 +194,13 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 	useEffect(() => {
 		if (shouldCenter?.field && shouldCenter.field === "lng") {
-			setCenter({ lat: Number(state.data.lat), lng: shouldCenter.value });
+			setCenter({ lat: Number(state.data.lat) || 0, lng: shouldCenter.value });
 			setShouldCenter({field: null, value: null})
 		} else if (shouldCenter?.field && shouldCenter.field === "lat") {
-			setCenter({ lat: shouldCenter.value, lng: Number(state.data.lng) });
+			setCenter({ lat: shouldCenter.value, lng: Number(state.data.lng) || 0});
 			setShouldCenter({field: null, value: null})
 		}
-	}, [state.data.lat, state.data.lng, shouldCenter, mapPosition]);	
+	}, [state.data.lat, state.data.lng, shouldCenter]);	
 
 	const onBlurLatitude = (latValue: number) => {
 		setShouldCenter({field: "lat", value: latValue});
