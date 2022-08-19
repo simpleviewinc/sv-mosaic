@@ -12,7 +12,7 @@ if (!CIRCLE_BRANCH) {
 // build the storybook
 execSync(`yarn run build:storybook`);
 
-// publish to sv-mosaic/gh-pages/develop, sv-mosaic/gh-pages/master
+console.log("Publishing to storybook...");
 ghPages.publish("docs", {
 	branch: "gh-pages",
 	dest: CIRCLE_BRANCH,
@@ -23,4 +23,6 @@ ghPages.publish("docs", {
 	}
 }, function(err) {
 	if (err) { throw err }
+
+	console.log("Storybook publish complete");
 });
