@@ -19,23 +19,26 @@ jobs:
       - image: cimg/base:2021.04
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50"
       - setup_remote_docker:
           docker_layer_caching: true
           version: 18.09.3
       - run:
           name: Docker build
           command: docker build . -t sv-mosaic:local
-      # - run:
-      #     name: Publish storybook
-      #     command: docker run sv-mosaic:local yarn run ci:storybook
-      # - run:
-      #     name: Prepublish NPM
-      #     command: docker run sv-mosaic:local yarn run ci:prepublish
-      # - slack/notify:
-      #     channel: GT3L59FHP
-      #     event: fail
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     channel: GT3L59FHP
-      #     event: pass
-      #     template: basic_success_1
+      - run:
+          name: Publish storybook
+          command: docker run sv-mosaic:local yarn run ci:storybook
+      - run:
+          name: Prepublish NPM
+          command: docker run sv-mosaic:local yarn run ci:prepublish
+      - slack/notify:
+          channel: GT3L59FHP
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          channel: GT3L59FHP
+          event: pass
+          template: basic_success_1
