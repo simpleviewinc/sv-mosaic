@@ -9,6 +9,8 @@ if (!CIRCLE_BRANCH) {
 	throw new Error("Must set CIRCLE_BRANCH");
 }
 
+execSync(`ls -la /root/.ssh`, { stdio: "inherit" });
+
 // build the storybook
 execSync(`yarn run build:storybook`, { stdio: "inherit" });
 
