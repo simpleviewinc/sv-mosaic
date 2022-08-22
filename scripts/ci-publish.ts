@@ -13,7 +13,7 @@ if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
 	throw new Error("Must set CIRCLE_BRANCH AND CIRCLE_SHA");
 }
 
-execSync(`yarn run build`, { stdio: "inherit" });
+execSync("yarn run build", { stdio: "inherit" });
 execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
 
 const raw = execSync("npm view @simpleview/sv-mosaic versions --json --quiet");
@@ -22,8 +22,8 @@ const versions = JSON.parse(raw.toString());
 if (CIRCLE_BRANCH === "master") {
 	// When on master we publish to the main semver
 	if (!versions.includes(pkg.version)) {
-		execSync(`npm publish --access public`, { stdio: "inherit" });
-		execSync(`cd types-only && npm publish --access public`, { stdio: "inherit" });
+		execSync("npm publish --access public", { stdio: "inherit" });
+		execSync("cd types-only && npm publish --access public", { stdio: "inherit" });
 	} else {
 		console.log("Version published...");
 	}
@@ -35,7 +35,7 @@ if (CIRCLE_BRANCH === "master") {
 
 	writeFileSync(`${__dirname}/../package.json`, JSON.stringify(pkg, null, "\t"));
 
-	execSync(`yarn run build`, { stdio: "inherit" });
+	execSync("yarn run build", { stdio: "inherit" });
 	execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
-	execSync(`npm publish --access public --tag beta`, { stdio: "inherit" });
+	execSync("npm publish --access public --tag beta", { stdio: "inherit" });
 }
