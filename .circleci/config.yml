@@ -28,7 +28,7 @@ jobs:
     steps:
       - run:
           name: Publish storybook
-          command: yarn run ci:storybook
+          command: ls -la /app
   build:
     docker:
       - image: cimg/base:2021.04
