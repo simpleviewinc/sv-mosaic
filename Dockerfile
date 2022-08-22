@@ -23,5 +23,6 @@ COPY jest.config.js /app/jest.config.js
 COPY webpack.config.js /app/webpack.config.js
 COPY .eslintrc.json /app/.eslintrc.json
 COPY .eslintignore /app/.eslintignore
+COPY README.md /app/README.md
 
 WORKDIR /app
