@@ -15,11 +15,6 @@ workflows:
           requires:
             - build
           context: default
-      - notify:
-          requires:
-            - storybook
-            - publish
-          context: default
       - storybook:
           requires:
             - build
@@ -47,17 +42,6 @@ jobs:
             docker pull $IMAGE || true
             DOCKER_BUILDKIT=1 docker build -t $IMAGE --cache-from $IMAGE .
             docker push $IMAGE
-      # - run:
-      #     name: Prepublish NPM
-      #     command: docker run -e CIRCLE_BRANCH -e CIRCLE_SHA1 sv-mosaic:local yarn run ci:prepublish
-      # - slack/notify:
-      #     channel: GT3L59FHP
-      #     event: fail
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     channel: GT3L59FHP
-      #     event: pass
-      #     template: basic_success_1
   publish:
     docker:
       - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
@@ -88,15 +72,3 @@ jobs:
           command: yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
-  notify:
-    docker:
-      - image: cimg/base:2021.04
-    steps:
-      - slack/notify:
-          channel: GT3L59FHP
-          event: fail
-          template: basic_fail_1
-      - slack/notify:
-          channel: GT3L59FHP
-          event: pass
-          template: basic_success_1
