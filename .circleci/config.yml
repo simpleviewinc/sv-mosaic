@@ -11,33 +11,18 @@ workflows:
                 - master
                 - qa
                 - staging
-      - storybook:
+      - prepublish:
           requires:
             - build
           context: default
+      # - storybook:
+      #     requires:
+      #       - build
+      #     context: default
 
 orbs:
   slack: circleci/slack@4.4.0
 jobs:
-  storybook:
-    docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
-        auth:
-          username: _json_key
-          password: $GCLOUD_SERVICE_KEY
-    working_directory: /app
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
-      - run:
-          name: Add github to known_hosts
-          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run:
-          name: Publish storybook
-          command: yarn run ci:storybook
-          environment:
-            NODE_DEBUG: gh-pages
   build:
     docker:
       - image: cimg/base:2021.04
@@ -68,3 +53,33 @@ jobs:
       #     channel: GT3L59FHP
       #     event: pass
       #     template: basic_success_1
+  prepublish:
+    docker:
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
+    working_directory: /app
+    steps:
+      - run:
+          name: Publish to NPM
+          command: yarn run ci:prepublish
+  storybook:
+    docker:
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
+    working_directory: /app
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - run:
+          name: Add github to known_hosts
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Publish storybook
+          command: yarn run ci:storybook
+          environment:
+            NODE_DEBUG: gh-pages
