@@ -33,7 +33,13 @@ jobs:
           command: ls -l ~/.ssh && cat ~/.ssh/config
       - run:
           name: Publish storybook
-          command: docker run -e CIRCLE_BRANCH -e CIRCLE_SHA1 -v /home/circleci/.ssh/config:/root/.ssh/config sv-mosaic:local ls -l /root/.ssh
+          command: |
+            docker run \
+              -e CIRCLE_BRANCH \
+              -e CIRCLE_SHA1 \
+              -v /home/circleci/.ssh/config:/root/.ssh/config \
+              -v /home/circleci/.ssh/id_rsa_90c48292d082289df4c9d025271e0750:/root/.ssh/id_rsa_90c48292d082289df4c9d025271e0750 \
+              sv-mosaic:local ls -l /root/.ssh
       # - run:
       #     name: Prepublish NPM
       #     command: docker run -e CIRCLE_BRANCH -e CIRCLE_SHA1 sv-mosaic:local yarn run ci:prepublish
