@@ -1,15 +1,21 @@
 import { execSync } from "child_process";
+import { writeFileSync } from "fs";
 import ghPages from "gh-pages";
 
 const {
 	CIRCLE_BRANCH,
+	GITHUB_KEY
 } = process.env;
 
-if (!CIRCLE_BRANCH) {
-	throw new Error("Must set CIRCLE_BRANCH");
+if (!CIRCLE_BRANCH || !GITHUB_KEY) {
+	throw new Error("Must set CIRCLE_BRANCH and GITHUB_KEY");
 }
 
-execSync(`ls -la /root/.ssh`, { stdio: "inherit" });
+writeFileSync(`/root/.ssh/github_key`, GITHUB_KEY, {
+	mode: "600"
+});
+
+execSync(`ls -la ~/.ssh`, { stdio: "inherit" });
 
 // build the storybook
 execSync(`yarn run build:storybook`, { stdio: "inherit" });
