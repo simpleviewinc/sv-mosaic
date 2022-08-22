@@ -29,7 +29,7 @@ jobs:
     steps:
       - run:
           name: debug
-          command: env
+          command: env && whoami
       - run:
           name: Publish storybook
           command: NODE_DEBUG=gh-pages yarn run ci:storybook
