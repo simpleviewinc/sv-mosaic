@@ -28,6 +28,9 @@ jobs:
     working_directory: /app
     steps:
       - run:
+          name: debug
+          command: env
+      - run:
           name: Publish storybook
           command: yarn run ci:storybook
   build:
@@ -39,11 +42,16 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
+          name: Setup Environment Variables
+          command: |
+            echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
+      - run:
           name: Docker build
           command: |
             docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
-            DOCKER_BUILDKIT=1 docker build -t gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH} .
-            docker push gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+            docker pull $IMAGE || true
+            DOCKER_BUILDKIT=1 docker build -t $IMAGE --cache-from $IMAGE .
+            docker push $IMAGE
       # - run:
       #     name: Prepublish NPM
       #     command: docker run -e CIRCLE_BRANCH -e CIRCLE_SHA1 sv-mosaic:local yarn run ci:prepublish
