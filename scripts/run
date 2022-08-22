@@ -17,6 +17,5 @@ docker run --rm -it \
 	-v $PWD/.eslintignore:/app/.eslintignore \
 	-v $PWD/jest.config.js:/app/jest.config.js \
 	-v /home/vagrant/.ssh/github_key:/root/.ssh/github_key \
-	-v /root/.ssh/config:/root/.ssh/config \
 	-p 10000:10000 \
 	sv-mosaic:local /bin/bash

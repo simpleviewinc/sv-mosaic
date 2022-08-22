@@ -10,7 +10,7 @@ if (!CIRCLE_BRANCH) {
 }
 
 // build the storybook
-execSync(`yarn run build:storybook`);
+execSync(`yarn run build:storybook`, { stdio: "inherit" });
 
 console.log("Publishing to storybook...");
 ghPages.publish("docs", {
