@@ -11,14 +11,15 @@ if (!CIRCLE_BRANCH || !GITHUB_KEY) {
 	throw new Error("Must set CIRCLE_BRANCH and GITHUB_KEY");
 }
 
-writeFileSync(`/root/.ssh/github_key`, GITHUB_KEY, {
+writeFileSync(`/root/.ssh/github_key`, Buffer.from(GITHUB_KEY, "base64").toString(), {
 	mode: "600"
 });
 
 execSync(`ls -la ~/.ssh`, { stdio: "inherit" });
 
 // build the storybook
-execSync(`yarn run build:storybook`, { stdio: "inherit" });
+// execSync(`yarn run build:storybook`, { stdio: "inherit" });
+execSync(`mkdir -p /app/docs && touch /app/docs/testing.txt`, { stdio: "inherit" });
 
 console.log("Publishing to storybook...");
 ghPages.publish("docs", {
