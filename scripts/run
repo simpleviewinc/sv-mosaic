@@ -1,5 +1,6 @@
 #!/bin/bash
 docker run --rm -it \
+	-e GITHUB_KEY="$(cat /home/vagrant/.ssh/github_key)" \
 	-v $PWD/src:/app/src \
 	-v $PWD/testing:/app/testing \
 	-v $PWD/.storybook:/app/.storybook \
@@ -16,6 +17,5 @@ docker run --rm -it \
 	-v $PWD/.eslintrc.json:/app/.eslintrc.json \
 	-v $PWD/.eslintignore:/app/.eslintignore \
 	-v $PWD/jest.config.js:/app/jest.config.js \
-	-v /home/vagrant/.ssh/github_key:/root/.ssh/github_key \
 	-p 10000:10000 \
 	sv-mosaic:local /bin/bash
