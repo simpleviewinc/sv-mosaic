@@ -21,6 +21,7 @@ COPY tsconfig.cjs.json /app/tsconfig.cjs.json
 COPY tsconfig.esm.json /app/tsconfig.esm.json
 COPY jest.config.js /app/jest.config.js
 COPY webpack.config.js /app/webpack.config.js
-# COPY --chmod=0600 src/ssh_config /root/.ssh/config
+COPY .eslintrc.json /app/.eslintrc.json
+COPY .eslintignore /app/.eslintignore
 
 WORKDIR /app
