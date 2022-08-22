@@ -27,10 +27,9 @@ jobs:
           password: $GCLOUD_SERVICE_KEY
     working_directory: /app
     steps:
-      - run:
-        - add_ssh_keys:
-            fingerprints:
-              - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
           name: debug
           command: env && whoami && ls -l ~/.ssh && cat ~/.ssh/config
