@@ -33,9 +33,9 @@ jobs:
       - run:
           name: debug
           command: env && whoami && ls -l ~/.ssh && cat ~/.ssh/config
-      # - run:
-      #     name: Publish storybook
-      #     command: NODE_DEBUG=gh-pages yarn run ci:storybook
+      - run:
+          name: Publish storybook
+          command: NODE_DEBUG=gh-pages yarn run ci:storybook
   build:
     docker:
       - image: cimg/base:2021.04
