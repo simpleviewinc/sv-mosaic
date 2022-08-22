@@ -8,7 +8,7 @@ export type IAddress = {
 	city: string;
 	country: string;
 	id?: number;
-	postalCode: number;
+	postalCode: string;
 	state: string;
 	types: string[];
 };
