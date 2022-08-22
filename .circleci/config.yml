@@ -21,19 +21,14 @@ orbs:
 jobs:
   storybook:
     docker:
-      - image: cimg/base:2021.04
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
     steps:
       - run:
           name: Publish storybook
-          command: |
-            docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
-            docker pull gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
-            docker run \
-              -e CIRCLE_BRANCH \
-              -e CIRCLE_SHA1 \
-              -e NODE_DEBUG=gh-pages \
-              -e GITHUB_KEY \
-              sv-mosaic:${CIRCLE_BRANCH} yarn run ci:storybook
+          command: yarn run ci:storybook
   build:
     docker:
       - image: cimg/base:2021.04
