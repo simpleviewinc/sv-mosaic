@@ -74,6 +74,7 @@ jobs:
         auth:
           username: _json_key
           password: $GCLOUD_SERVICE_KEY
+    resource_class: large
     working_directory: /app
     steps:
       - add_ssh_keys:
@@ -93,6 +94,7 @@ jobs:
         auth:
           username: _json_key
           password: $GCLOUD_SERVICE_KEY
+    resource_class: large
     working_directory: /app
     steps:
       - run:
