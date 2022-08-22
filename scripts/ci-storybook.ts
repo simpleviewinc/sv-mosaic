@@ -4,18 +4,18 @@ import ghPages from "gh-pages";
 
 const {
 	CIRCLE_BRANCH,
-	GITHUB_KEY
+	// GITHUB_KEY
 } = process.env;
 
-if (!CIRCLE_BRANCH || !GITHUB_KEY) {
-	throw new Error("Must set CIRCLE_BRANCH and GITHUB_KEY");
+if (!CIRCLE_BRANCH) {
+	throw new Error("Must set CIRCLE_BRANCH");
 }
 
-writeFileSync(`/root/.ssh/github_key`, Buffer.from(GITHUB_KEY, "base64").toString(), {
-	mode: "600"
-});
+// writeFileSync(`/root/.ssh/github_key`, Buffer.from(GITHUB_KEY, "base64").toString(), {
+// 	mode: "600"
+// });
 
-execSync(`ls -la ~/.ssh`, { stdio: "inherit" });
+// execSync(`ls -la ~/.ssh`, { stdio: "inherit" });
 execSync(`cd /tmp && git clone git@github.com:simpleviewinc/sv-mosaic.git`, { stdio: "inherit" });
 
 // build the storybook
