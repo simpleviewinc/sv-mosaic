@@ -11,14 +11,19 @@ workflows:
                 - master
                 - qa
                 - staging
-      - prepublish:
+      - publish:
           requires:
             - build
           context: default
-      # - storybook:
-      #     requires:
-      #       - build
-      #     context: default
+      - notify:
+          requires:
+            - storybook
+            - publish
+          context: default
+      - storybook:
+          requires:
+            - build
+          context: default
 
 orbs:
   slack: circleci/slack@4.4.0
@@ -53,7 +58,7 @@ jobs:
       #     channel: GT3L59FHP
       #     event: pass
       #     template: basic_success_1
-  prepublish:
+  publish:
     docker:
       - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
         auth:
@@ -63,7 +68,7 @@ jobs:
     steps:
       - run:
           name: Publish to NPM
-          command: yarn run ci:prepublish
+          command: yarn run ci:publish
   storybook:
     docker:
       - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
@@ -83,3 +88,15 @@ jobs:
           command: yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
+  notify:
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - slack/notify:
+          channel: GT3L59FHP
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          channel: GT3L59FHP
+          event: pass
+          template: basic_success_1
