@@ -19,7 +19,7 @@ if (!CIRCLE_BRANCH) {
 // execSync(`cd /tmp && git clone git@github.com:simpleviewinc/sv-mosaic.git`, { stdio: "inherit" });
 
 // build the storybook
-execSync(`yarn run build:storybook`, { stdio: "inherit" });
+execSync("yarn run build:storybook", { stdio: "inherit" });
 // execSync(`mkdir -p /app/docs && touch /app/docs/testing.txt`, { stdio: "inherit" });
 
 console.log("Publishing to storybook...");

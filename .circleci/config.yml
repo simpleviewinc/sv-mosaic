@@ -12,13 +12,23 @@ workflows:
                 - qa
                 - staging
       - publish:
+          context: default
           requires:
             - build
-          context: default
+          filters:
+            branches:
+              only:
+                - qa
+                - staging
+                - master
       - storybook:
+          context: default
           requires:
             - build
+      - unit_tests:
           context: default
+          requires:
+            - build
 
 orbs:
   slack: circleci/slack@4.4.0
@@ -72,3 +82,14 @@ jobs:
           command: yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
+  unit_tests:
+    docker:
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
+    working_directory: /app
+    steps:
+      - run:
+          name: Unit tests
+          command: yarn test
