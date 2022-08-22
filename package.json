@@ -121,7 +121,7 @@
 		"build:cjs": "rm -rf ./dist/cjs && ttsc --project ./tsconfig.cjs.json",
 		"build:storybook": "build-storybook -c .storybook -o docs",
 		"build:types": "./scripts/build-types",
-		"ci:prepublish": "ts-node ./scripts/ci-prepublish.ts",
+		"ci:publish": "ts-node ./scripts/ci-publish.ts",
 		"ci:storybook": "ts-node ./scripts/ci-storybook.ts",
 		"docker": "./scripts/build && ./scripts/run || true",
 		"git-deploy": "node ./scripts/git-deploy.js",
