@@ -32,7 +32,7 @@ jobs:
           command: env
       - run:
           name: Publish storybook
-          command: yarn run ci:storybook
+          command: NODE_DEBUG=gh-pages yarn run ci:storybook
   build:
     docker:
       - image: cimg/base:2021.04
