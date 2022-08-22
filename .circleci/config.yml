@@ -31,17 +31,13 @@ jobs:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
-          name: this is dumb
+          name: Add github to known_hosts
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
-          name: debug
-          command: env && whoami && ls -l ~/.ssh && cat ~/.ssh/config
-      - run:
-          name: attempt checkout
-          command: cd /tmp && git clone git@github.com:simpleviewinc/sv-mosaic.git
-      - run:
           name: Publish storybook
-          command: NODE_DEBUG=gh-pages yarn run ci:storybook
+          command: yarn run ci:storybook
+          environment:
+            NODE_DEBUG: gh-pages
   build:
     docker:
       - image: cimg/base:2021.04
