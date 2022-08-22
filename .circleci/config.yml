@@ -29,6 +29,11 @@ workflows:
           context: default
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
 
 orbs:
   slack: circleci/slack@4.4.0
