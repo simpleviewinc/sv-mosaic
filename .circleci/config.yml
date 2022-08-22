@@ -25,10 +25,11 @@ jobs:
         auth:
           username: _json_key
           password: $GCLOUD_SERVICE_KEY
+    working_directory: /app
     steps:
       - run:
           name: Publish storybook
-          command: ls -la /app
+          command: yarn run ci:storybook
   build:
     docker:
       - image: cimg/base:2021.04
