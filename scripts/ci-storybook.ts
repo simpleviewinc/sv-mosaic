@@ -16,7 +16,7 @@ writeFileSync(`/root/.ssh/github_key`, Buffer.from(GITHUB_KEY, "base64").toStrin
 });
 
 execSync(`ls -la ~/.ssh`, { stdio: "inherit" });
-execSync(`cd /tmp && git clone git@github.com:simpleviewinc/sv-mosaic.git`);
+execSync(`cd /tmp && git clone git@github.com:simpleviewinc/sv-mosaic.git`, { stdio: "inherit" });
 
 // build the storybook
 // execSync(`yarn run build:storybook`, { stdio: "inherit" });
