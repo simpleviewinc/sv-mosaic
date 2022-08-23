@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
-import FilterSingleSelect from "./FilterSingleSelect";
+import DataViewFilterSingleSelect from "./DataViewFilterSingleSelect";
 import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
 export default {
-	title : "Components/FilterSingleSelect",
+	title : "Components/DataViewFilterSingleSelect",
 	decorators: [withKnobs],
 }
 
@@ -54,7 +54,7 @@ export const Playground = (): ReactElement => {
 	}
 	
 	return (
-		<FilterSingleSelect
+		<DataViewFilterSingleSelect
 			label="Testing"
 			type="primary"
 			data={state}
@@ -100,7 +100,7 @@ export const KitchenSink = (): ReactElement => {
 	return (
 		<>	
 			<h2>Required</h2>
-			<FilterSingleSelect
+			<DataViewFilterSingleSelect
 				label="Required"
 				type="primary"
 				data={stateRequired}
@@ -109,7 +109,7 @@ export const KitchenSink = (): ReactElement => {
 				onChange={onChangeRequired}
 			/>
 			<h2>No required</h2>
-			<FilterSingleSelect
+			<DataViewFilterSingleSelect
 				label="No required"
 				type="primary"
 				data={state}
