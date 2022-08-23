@@ -1,7 +1,19 @@
 # sv-mosaic changelog
 
+## 6.0.0
+* Refactored to output a cjs and esm bundle to improve import efficiency both in Node (which will use cjs) and when running in webpack environments (which will use esm).
+* Now supports [subpath exports](https://nodejs.org/api/packages.html#subpath-exports). It is recommended to use a subpath export to improve the speed of your import statements, especially when only importing a few pieces of mosaic. See the "exports" key for a list of what's exported.
+* BREAKING - Some references were exported under "Grid" naming schema and this was deprecated in 2019. Those dual exports have been removed. The following shows the old export and the new export. You only need to refactor if using the old export.
+	* Grid -> DataView
+	* GridFilterText -> DataViewFilterText
+	* GridFilterDropdown -> DataViewFilterDropdown
+	* GridFilterDropdownButtons -> DataViewFilterDropdownButtons
+	* GridFilterMultiselect -> DataViewFilterMultiselect
+	* GridPrimaryFilter -> DataViewPrimaryFilter
+
 ## 5.1.1 - 8/9/22
 * Added missing semicolon to line 31 in FormNav.styled.tsx.
+
 ## 5.1.0 - 8/9/22
 * Fields will now automatically validate onChange after 300ms without interaction.
 * Updated sections logic internally.
@@ -29,7 +41,7 @@
 	* Devs can pass as many buttons as needed through the `buttons` prop.
 		* Each button from `buttons` prop array use the same contract as regular buttons plus an additional `show` prop.
 	* Added `init` action to `formActions` this is in charge of registering the fields.
-	* Updated `submitForm` action from `formActions`, now this action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time. 
+	* Updated `submitForm` action from `formActions`, now this action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time.
 * Updated project to latest version of MUI (5.8.7).
 * Updated `DataView's` `created` and `updated` filters to now use newest MOS date pickers.
 * Added `FormFieldTextEditor` back again.
