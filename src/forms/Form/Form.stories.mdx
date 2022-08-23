@@ -340,6 +340,7 @@ const fields = useMemo(
 * **id** - `string` optional - Follows the same rules as any other html element id.
 * **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
 * **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field.
+* **onChangeCb** * - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
 
 ### How to use in a form?
 ```ts

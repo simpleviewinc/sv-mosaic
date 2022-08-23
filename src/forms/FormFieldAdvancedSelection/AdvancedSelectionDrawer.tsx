@@ -46,10 +46,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const { state, dispatch } = useForm();
 
 	useEffect(() => {
-		if (state.data.checkboxList !== undefined) {
-			handleUnsavedChanges(!_.isEqual([...value], state?.data?.checkboxList));
+		if (state.data.listOfChips !== undefined) {
+			handleUnsavedChanges(!_.isEqual([...value], state?.data?.listOfChips));
 		}
-	}, [state.data.checkboxList, value]);
+	}, [state.data.listOfChips, value]);
 
 	/**
 	 * Sets the selected options when the user
@@ -66,6 +66,13 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 						value: value.map(option => option.value)
 					})
 				);
+
+				dispatch(
+					formActions.setFieldValue({
+						name: "listOfChips",
+						value: value
+					})
+				);
 			}
 		}
 
@@ -73,17 +80,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			isMounted = false;
 		}
 	}, [value, isModalOpen]);
-
-	useEffect(() => {
-		const checkedOptions = options?.filter((item) => state?.data?.checkboxList?.includes(item.value));
-		const chips = _.union(state.data.listOfChips, checkedOptions);
-		dispatch(
-			formActions.setFieldValue({
-				name: "listOfChips",
-				value: chips
-			})
-		);
-	}, [options, state?.data?.checkboxList])
 
 	/**
 	 * Loads the options provided  either from 
@@ -279,6 +275,34 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		);
 	}
 
+	/**
+	 * Function executed whenever the checkboxes are clicked.
+	 * @param checkedOptions 
+	 */
+	const checkboxListChanged = (checkedOptions: string[]) => {
+		const availableOptions = _.union(options, filteredOptions);
+		const selectedOptions = _.union(availableOptions, value)?.filter((item) => checkedOptions.includes(item.value));
+		dispatch(
+			formActions.setFieldValue({
+				name: "listOfChips",
+				value: selectedOptions
+			})
+		);
+	};
+
+	/**
+	 * Whenever the state of the list of chips is updated
+	 * its value is set to the checkbox list.
+	 */
+	useEffect(() => {
+		dispatch(
+			formActions.setFieldValue({
+				name: "checkboxList",
+				value: state?.data?.listOfChips?.map(option => option.value)
+			})
+		);
+	}, [state.data.listOfChips]);
+
 	const fields = useMemo(
 		() =>
 			[
@@ -307,6 +331,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 						width: "100%",
 					},
 					size: "100%",
+					onChangeCb: checkboxListChanged,
 					inputSettings: {
 						options: filteredList,
 					},
@@ -340,7 +365,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const { valid } = await dispatch(formActions.submitForm());
 		if (!valid) return;
 
-		await onChange(options?.filter(option => state?.data?.checkboxList?.includes(option.value)));
+		await onChange(state?.data?.listOfChips);
 
 		handleClose(true);
 	};
