@@ -25,6 +25,13 @@ All components are exported individually and should be imported via destructurin
 import { DataView } from "@simpleview/sv-mosaic"
 ```
 
+For faster import statements, import just the resource you want, exposed by [package.json](package.json) "exports" key.
+
+```js
+import DataView from "@simpleview/sv-mosaic/components/DataView";
+import formActions from "@simpleview/sv-mosaic/formActions";
+```
+
 ## Optimization Guidelines
 
 [Optimization Guidelines](optimization.md) - Ensure you're properly using Mosaic and React for optimal client-side performance.
@@ -46,7 +53,7 @@ import { DataView } from "@simpleview/sv-mosaic"
 		```
 		cd /sv/containers/sv-mosaic
 		sudo npm run docker
-		npm start
+		yarn start
 		```
 
 The service should now be accessible at http://kube.simpleview.io:10000/
