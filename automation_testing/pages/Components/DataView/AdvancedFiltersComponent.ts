@@ -163,7 +163,7 @@ export class AdvancedFiltersComponent extends BasePage {
 		await this.dropdownOptions.locator(":scope", { hasText: option }).nth(0).click();
 	}
 
-	async selectDataViewFilterDates(startDate: string, endDate: string): Promise<void> {
+	async selectFilterDates(startDate: string, endDate: string): Promise<void> {
 		await this.optionalFilters.nth(0).locator("button").click();
 		await this.waitForElementLoad();
 		await (await this.getFieldDate("from")).click();
