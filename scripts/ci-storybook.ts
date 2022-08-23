@@ -1,26 +1,16 @@
 import { execSync } from "child_process";
-import { writeFileSync } from "fs";
 import ghPages from "gh-pages";
 
 const {
-	CIRCLE_BRANCH,
-	// GITHUB_KEY
+	CIRCLE_BRANCH
 } = process.env;
 
 if (!CIRCLE_BRANCH) {
 	throw new Error("Must set CIRCLE_BRANCH");
 }
 
-// writeFileSync(`/root/.ssh/github_key`, Buffer.from(GITHUB_KEY, "base64").toString(), {
-// 	mode: "600"
-// });
-
-// execSync(`ls -la ~/.ssh`, { stdio: "inherit" });
-// execSync(`cd /tmp && git clone git@github.com:simpleviewinc/sv-mosaic.git`, { stdio: "inherit" });
-
 // build the storybook
 execSync("yarn run build:storybook", { stdio: "inherit" });
-// execSync(`mkdir -p /app/docs && touch /app/docs/testing.txt`, { stdio: "inherit" });
 
 console.log("Publishing to storybook...");
 ghPages.publish("docs", {
