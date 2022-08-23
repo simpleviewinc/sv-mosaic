@@ -85,7 +85,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 
 	return (
 		<>
-			{value.length > 0 && !isModalOpen ? (
+			{value?.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
 					<Button
 						color="teal"

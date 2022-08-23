@@ -1,4 +1,6 @@
-export const additionalOptions = [
+import { MosaicLabelValue } from "@root/types";
+
+export const additionalOptions: MosaicLabelValue[] = [
 	{
 		label: "Option 1",
 		value: "option_1-cat_1",
@@ -60,7 +62,7 @@ export const additionalOptions = [
 		value: "option_abcdef",
 	},
 	{
-		category: "Category 5",
-		label: "abc123",
+		label: "Category 5",
+		value: "abc123",
 	},
 ];
