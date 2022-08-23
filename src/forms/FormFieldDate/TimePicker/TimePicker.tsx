@@ -20,7 +20,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement =
 
 	const handleOpenState = async () => {
 		setIsPickerOpen(!isPickerOpen);
-		await onBlur();
+		// await onBlur();
 	};
 
 	const renderInput = (params) => (
