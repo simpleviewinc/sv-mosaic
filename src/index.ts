@@ -19,11 +19,11 @@ export * from "./types";
 export { default as Form } from "./forms/Form";
 export * from "./forms/Form";
 
-export { default as FilterDate } from "./components/FilterDate";
-export * from "./components/FilterDate";
+export { default as FilterDate } from "./components/DataViewFilterDate";
+export * from "./components/DataViewFilterDate";
 
-export { default as FilterSingleSelect } from "./components/FilterSingleSelect";
-export * from "./components/FilterSingleSelect";
+export { default as DataViewFilterSingleSelect } from "./components/DataViewFilterSingleSelect";
+export * from "./components/DataViewFilterSingleSelect";
 
 export { default as Button } from "./components/Button";
 export * from "./components/Button";

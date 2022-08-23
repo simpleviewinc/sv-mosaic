@@ -1,13 +1,13 @@
 import { DataViewFilterProps } from "../DataView";
 import { MosaicLabelValue } from "../../types";
 
-export interface FilterSingleSelectData {
+export interface DataViewFilterSingleSelectData {
 	value: string
 }
 
-export interface FilterSingleSelectProps extends DataViewFilterProps {
-	data: FilterSingleSelectData,
-	onChange(value: FilterSingleSelectData): void,
+export interface DataViewFilterSingleSelectProps extends DataViewFilterProps {
+	data: DataViewFilterSingleSelectData,
+	onChange(value: DataViewFilterSingleSelectData): void,
 	args: {
 		getOptions(): {
 			docs : MosaicLabelValue[]
@@ -19,13 +19,13 @@ export interface FilterSingleSelectProps extends DataViewFilterProps {
 	},
 }
 
-export interface FilterSingleSelectContentProps {
+export interface DataViewFilterSingleSelectContentProps {
 	onClose: () => void,
 	anchorEl?: HTMLElement
 	children: React.ReactNode
 }
 
-export interface FilterSingleSelectState {
+export interface DataViewFilterSingleSelectState {
 	anchorEl: HTMLElement
 	selected: MosaicLabelValue | undefined
 	options: MosaicLabelValue[]
