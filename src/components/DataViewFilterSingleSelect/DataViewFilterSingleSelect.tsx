@@ -3,15 +3,15 @@ import { useState, useEffect, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
-import FilterSingleSelectContent from "./FilterSingleSelectContent";
+import DataViewFilterSingleSelectContent from "./DataViewFilterSingleSelectContent";
 import MenuSelect from "../MenuSelect";
 
-import { FilterSingleSelectProps, FilterSingleSelectState } from "./FilterSingleSelectTypes";
+import { DataViewFilterSingleSelectProps, DataViewFilterSingleSelectState } from "./DataViewFilterSingleSelectTypes";
 
 const StyledWrapper = styled.span``;
 
-export default function FilterSingleSelect(props: FilterSingleSelectProps): ReactElement {
-	const [state, setState] = useState<FilterSingleSelectState>({
+export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSelectProps): ReactElement {
+	const [state, setState] = useState<DataViewFilterSingleSelectState>({
 		anchorEl : null,
 		selected : undefined,
 		options: []
@@ -80,7 +80,7 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 				onClick={onClick}
 				color={props.args.color}
 			/>
-			<FilterSingleSelectContent
+			<DataViewFilterSingleSelectContent
 				onClose={onClose}
 				anchorEl={state.anchorEl}
 			>
@@ -90,7 +90,7 @@ export default function FilterSingleSelect(props: FilterSingleSelectProps): Reac
 					options={state.options}
 					onChange={onChange}
 				/>
-			</FilterSingleSelectContent>
+			</DataViewFilterSingleSelectContent>
 		</StyledWrapper>
 	);
 }
