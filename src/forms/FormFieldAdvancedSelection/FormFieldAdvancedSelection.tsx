@@ -92,10 +92,9 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 						variant="text"
 						label="Add Element"
 						onClick={handleOpenModal}
-						muiAttrs={{ disableRipple: true }}
 						mIcon={AddIcon}
 						disabled={fieldDef?.disabled}
-						attrs={{ style: { marginBottom: "8px" } }}
+						attrs={{ style: { marginBottom: "16px" } }}
 					></Button>
 					<ChipList
 						value={value}
@@ -116,7 +115,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 					variant="outlined"
 					label="ADD ELEMENT"
 					onClick={handleOpenModal}
-					muiAttrs={{ disableRipple: true }}
 				></Button>
 			)}
 			<Drawer open={isModalOpen} onClose={handleClose}>
