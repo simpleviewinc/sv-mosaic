@@ -11,7 +11,7 @@ const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
 
 export const FormContent = styled.div`
 	& .layout {
-		padding: ${pr => pr.view === "DRAWER" ? "0px 40px" : (pr.view === "RESPONSIVE" || pr.view === "DESKTOP" || pr.view === "BIG_DESKTOP") ? "24px 20px 0px 20px" : "0px"};
+		padding: ${pr => pr.view === "DRAWER" ? "15px 60px" : (pr.view === "RESPONSIVE" || pr.view === "DESKTOP" || pr.view === "BIG_DESKTOP") ? "24px 20px 0px 20px" : "0px"};
 	}
 	overflow-y: auto;
 	width: 100%;
