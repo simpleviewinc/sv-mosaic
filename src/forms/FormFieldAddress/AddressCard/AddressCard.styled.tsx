@@ -11,7 +11,7 @@ export const StyledAddressCard = styled.div`
   font-family: ${theme.fontFamily};
   min-height: 164px;
   padding: 24px 16px 16px 24px;
-  width: 260px;
+  width: 300px;
 `;
 
 export const AddressTitle = styled.span`
@@ -24,12 +24,12 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   margin-top: auto;
 
-  button:first-child {
+  span:first-child {
     border-right: 2px solid ${theme.colors.gray200};
     padding-right: 16px;
   }
 
-  button:last-child {
+  span:last-child {
     padding-left: 16px;
   }
 `;
