@@ -23,4 +23,8 @@ export interface CheckboxListProps {
 	 * current checkbox can be selected or not
 	 */
 	disabled?: boolean;
+	/**
+	 * Callback executed when the list of options is updated.
+	 */
+	onChangeCb?: (checked: (string | { [key: string]: unknown; })[]) => void;
 }

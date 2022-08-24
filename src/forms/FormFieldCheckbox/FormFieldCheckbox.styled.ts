@@ -37,6 +37,7 @@ export const FieldWrapper = styled.div`
 export const StyledCheckboxList = styled(CheckboxList)`
   &.MuiFormGroup-root {
     margin-left: -12px;
+		height: fit-content !important;
   }
 
   .MuiFormControlLabel-label {
