@@ -57,13 +57,13 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 	
 	useEffect(() => {
 		if (!open) {
-			const amountPerType = fieldDef?.inputSettings?.amountPerType ? fieldDef?.inputSettings?.amountPerType : 1
+			const amountPerType = fieldDef?.inputSettings?.amountPerType ?? 1
 
 			const amountPerTypeProp = {
 				amountPerType: amountPerType, 
-				amountShipping: fieldDef?.inputSettings?.amountShipping !== undefined ? fieldDef?.inputSettings?.amountShipping : amountPerType, 
-				amountBilling: fieldDef?.inputSettings?.amountBilling !== undefined ? fieldDef?.inputSettings?.amountBilling : amountPerType, 
-				amountPhysical: fieldDef?.inputSettings?.amountPhysical !== undefined ? fieldDef?.inputSettings?.amountPhysical : amountPerType, 
+				amountShipping: fieldDef?.inputSettings?.amountShipping ?? amountPerType, 
+				amountBilling: fieldDef?.inputSettings?.amountBilling ?? amountPerType, 
+				amountPhysical: fieldDef?.inputSettings?.amountPhysical ?? amountPerType, 
 			}
 			setAvailableAddresses(amountPerTypeProp);
 		}
