@@ -22,6 +22,7 @@ const FormFieldCheckbox = (
 			checked={value}
 			options={fieldDef?.inputSettings?.options}
 			onChange={onChange}
+			onChangeCb={fieldDef.onChangeCb}
 			onBlur={onBlur}
 			style={fieldDef.style}
 			className={fieldDef.className}
