@@ -32,6 +32,7 @@ import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import { TextAreaDef } from "../FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "../../components/LeftNav/NavWrapper"
+import { additionalOptions } from "../FormFieldAdvancedSelection/advancedSelectionUtils";
 
 export default {
 	title: "Components/Form",
@@ -42,77 +43,15 @@ const deleteTableRow = () => {
 	alert("Delete button clicked");
 };
 
-const externalOptions = [
-	{
-		category: "Category 1",
-		label: "Option 1",
-		value: "option_1-cat_1",
-	},
-	{
-		category: "Category 1",
-		label: "Option 2",
-		value: "option_2-cat_1",
-	},
-	{
-		category: "Category 1",
-		label: "Option 3",
-		value: "option_3-cat_1",
-	},
-	{
-		category: "Category 1",
-		label: "Option 4",
-		value: "option_4-cat_1",
-	},
-	{
-		category: "Category 2",
-		label: "Option 1 category 2",
-		value: "option_1-cat_2",
-	},
-	{
-		category: "Category 2",
-		label: "Test option category 2",
-		value: "option_2-cat_2",
-	},
-	{
-		category: "Category 2",
-		label: "Another option of catergory 2",
-		value: "option_3-cat_2",
-	},
-	{
-		category: "Category 2",
-		label: "Option 4 category 2",
-		value: "option_4-cat_2",
-	},
-	{
-		category: "Test Category",
-		label: "You can filter by category",
-		value: "option_1-test_category",
-	},
-	{
-		category: "Test Category",
-		label: "Very long label that does not fit",
-		value: "option_2-test_category",
-	},
-	{
-		category: "Category 4",
-		label: "Option 1 category 4",
-		value: "option_1-cat_4",
-	},
-	{
-		label: "Option without category",
-		value: "option_without_category",
-	},
-];
-
 const createNewOption = async (newOptionLabel) => {
-	const value = `${newOptionLabel}_${externalOptions.length}`
+	const value = `${newOptionLabel}_${additionalOptions.length}`
 	const newOption = {
 		value,
 		label: newOptionLabel,
 	}
 
 	//Insert to db
-	externalOptions.push(newOption);
+	additionalOptions.push(newOption);
 
 	return value;
 }
@@ -121,7 +60,7 @@ const getSelected = async (selectedOptions) => {
 	if (!selectedOptions) return;
 
 	return selectedOptions.map((selectedOption) =>
-		externalOptions.find(o => o.value === selectedOption)
+		additionalOptions.find(o => o.value === selectedOption)
 	);
 }
 
@@ -172,10 +111,22 @@ export const Playground = (): ReactElement => {
 			}
 		],
 		"advancedSelection": [
-			"option_1-cat_1",
-			"option_3-cat_1",
-			"option_1-cat_2",
-			"option_3-cat_2"
+			{
+				label: "Prepopulated 1",
+				value: "prep option 1"
+			},
+			{
+				label: "Prepopulated 2",
+				value: "prep option 2"
+			},
+			{
+				label: "Prepopulated 3",
+				value: "prep option 3"
+			},
+			{
+				label: "Prepopulated 4",
+				value: "prep option 4"
+			}
 		],
 		"imageVideoDocumentLink": [
 			{
@@ -378,7 +329,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						checkboxOptions: externalOptions,
+						options: additionalOptions,
 						getSelected,
 						createNewOption
 					}
@@ -441,7 +392,7 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<MapCoordinatesDef>,
 			] as unknown as FieldDef[],
-		[externalOptions, disabled, required]
+		[additionalOptions, disabled, required]
 	);
 
 	const sections = [
