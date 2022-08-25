@@ -9,7 +9,7 @@ export const StyledAddressCard = styled.div`
   color: ${theme.colors.almostBlack};
   background-color: ${theme.colors.gray100};
   font-family: ${theme.fontFamily};
-  min-height: 164px;
+  height: 204px;
   padding: 24px 16px 16px 24px;
   width: 300px;
 
