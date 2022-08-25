@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { format, isSameDay, isSameMonth, isSameYear } from "date-fns";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
-import FilterDateDropdownContent from "./FilterDateDropdownContent";
+import DataViewFilterDateDropdownContent from "./DataViewFilterDateDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
-import { FilterDateProps } from "./FilterDateTypes";
+import { DataViewFilterDateProps } from "./DataViewFilterDateTypes";
 
 const StyledWrapper = styled.span``;
 
@@ -18,7 +18,7 @@ function isSame(dateLeft, dateRight) {
 
 const dateFormat = "M/d/yyyy";
 
-export default function FilterDate(props: FilterDateProps): ReactElement {
+export default function DataViewFilterDate(props: DataViewFilterDateProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState(null);
 	
 	const onClick = function(evt) {
@@ -59,7 +59,7 @@ export default function FilterDate(props: FilterDateProps): ReactElement {
 				anchorEl={anchorEl}
 				onClose={onClose}
 			>
-				<FilterDateDropdownContent
+				<DataViewFilterDateDropdownContent
 					onClose={onClose}
 					onChange={props.onChange}
 					rangeStart={props.data.rangeStart}
