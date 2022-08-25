@@ -20,8 +20,8 @@ import {
 	transform_thumbnail,
 	transform_mapGet,
 	transform_join,
-	FilterDate,
-	FilterSingleSelect,
+	DataViewFilterDate,
+	DataViewFilterSingleSelect,
 	DataView,
 	DataViewProps,
 	DataViewFilterText,
@@ -166,7 +166,7 @@ const filters: {
 		name: "single_select_category",
 		label: "Single Select Category",
 		type: "optional",
-		component: FilterSingleSelect,
+		component: DataViewFilterSingleSelect,
 		args: {
 			getOptions: singleSelectCategoriesHelper.getOptions.bind(singleSelectCategoriesHelper),
 			getSelected: singleSelectCategoriesHelper.getSelected.bind(singleSelectCategoriesHelper)
@@ -198,14 +198,14 @@ const filters: {
 		name: "created",
 		label: "Created",
 		type: "optional",
-		component: FilterDate,
+		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
 		name: "updated",
 		label: "Updated",
 		type: "optional",
-		component: FilterDate,
+		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
