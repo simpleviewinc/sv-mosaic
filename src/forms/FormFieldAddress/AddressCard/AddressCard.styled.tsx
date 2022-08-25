@@ -12,6 +12,13 @@ export const StyledAddressCard = styled.div`
   min-height: 164px;
   padding: 24px 16px 16px 24px;
   width: 300px;
+
+  & span {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 `;
 
 export const AddressTitle = styled.span`
