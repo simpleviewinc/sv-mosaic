@@ -10,7 +10,7 @@ test.describe("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await ffAddressPage.visitPage();
 	});
 
-	test("Validate that Postal Code type is equal to Number.", async () => {
+	test("Validate that Postal Code type is equal to String.", async () => {
 		await ffAddressPage.addAddressButton.click();
 		expect(await ffAddressPage.postalCodeField.getAttribute("type")).toBe("string");
 	});
