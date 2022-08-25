@@ -123,13 +123,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				formActions.setFieldValue({
 					name: "postalCode",
-					value: Number(addressToEdit.postalCode),
+					value: addressToEdit.postalCode,
 				})
 			);
 
 			editingState = {
 				...editingState,
-				"postalCode": Number(addressToEdit.postalCode),
+				"postalCode": addressToEdit.postalCode,
 			};
 
 			dispatch(
@@ -206,7 +206,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		listOfAddresses[addressIdx].address2 = state?.data?.address2;
 		listOfAddresses[addressIdx].address3 = state?.data?.address3;
 		listOfAddresses[addressIdx].city = state?.data?.city;
-		listOfAddresses[addressIdx].postalCode = Number(state?.data?.postalCode);
+		listOfAddresses[addressIdx].postalCode = state?.data?.postalCode;
 		listOfAddresses[addressIdx].country = state?.data?.country;
 		listOfAddresses[addressIdx].state = state?.data?.states;
 		listOfAddresses[addressIdx].types = state?.data?.type;
@@ -228,7 +228,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			address2: state?.data?.address2,
 			address3: state?.data?.address3,
 			city: state?.data?.city,
-			postalCode: Number(state?.data?.postalCode),
+			postalCode: state?.data?.postalCode,
 			country: state?.data?.country,
 			state: state?.data?.states,
 			types: state?.data?.type,
@@ -308,7 +308,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					size: "sm",
 					required: true,
 					inputSettings: {
-						type: "number",
+						type: "string",
 					},
 				} as FieldDef<TextFieldDef>,
 				{
