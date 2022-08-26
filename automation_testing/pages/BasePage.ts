@@ -11,6 +11,7 @@ export class BasePage {
 	readonly clearBtn: Locator;
 	readonly cancelBtn: Locator;
 	readonly saveBtn: Locator;
+	readonly table: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -20,6 +21,7 @@ export class BasePage {
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("text=Cancel");
 		this.saveBtn = page.locator("text=Save");
+		this.table = page.locator("table");
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
@@ -77,5 +79,9 @@ export class BasePage {
 	async getNumberOfCharactersInMaxCharField(locator: Locator): Promise<number> {
 		const textContent = await locator.textContent();
 		return Number(textContent?.split("/")[0]);
+	}
+
+	async selectOptionFromDropdown(option: string): Promise<void> {
+		await this.page.locator("text=" + option).nth(0).click();
 	}
 }

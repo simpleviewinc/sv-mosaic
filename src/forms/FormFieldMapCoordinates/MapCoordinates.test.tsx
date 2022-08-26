@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+	act,
 	cleanup,
 	fireEvent,
 	render,
@@ -112,13 +113,18 @@ export const setupGoogleMock = (): void => {
   global.window.google = google as any;
 };
 
-const setCoordinates = () => {
-	const latitudeField = getByLabelText("Latitude");
-	const longitudeField = getByLabelText("Longitude");
-
-	fireEvent.change(latitudeField, { target: { value: 12 } });
-	fireEvent.change(longitudeField, { target: { value: 22 } });
-};
+// const setCoordinates = () => {
+// 	const latitudeField = getByLabelText("Latitude");
+// 	const longitudeField = getByLabelText("Longitude");
+// 	act(() => {
+// 		fireEvent.change(latitudeField, { target: { value: 12 } });
+// 		// fireEvent.change(longitudeField, { target: { value: 22 } });
+// 	});
+// 	act(() => {
+// 		// fireEvent.change(latitudeField, { target: { value: 12 } });
+// 		fireEvent.change(longitudeField, { target: { value: 22 } });
+// 	});
+// };
 
 beforeAll(() => {
 	setupGoogleMock();
@@ -139,7 +145,9 @@ jest.mock("@react-google-maps/api", () => ({
 
 describe("MapCoordinates component without an address", () => {
 	beforeEach(() => {
-		render(<MapCoordinatesExample />);
+		act(() => {
+			render(<MapCoordinatesExample />)
+		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
 		fireEvent.click(addCoordinatesButton);
@@ -151,41 +159,42 @@ describe("MapCoordinates component without an address", () => {
 	});
 
 	it("should remove the saved coordinates", async () => {
-		setCoordinates();
-		const saveCoordinatesButton = getByText("Save Coordinates");
+		const saveCoordinatesButton = await screen.findByText("Save Coordinates");
 
-		await waitFor(() => {
-			fireEvent.click(saveCoordinatesButton);
+		act(() => {
+			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
 		});
 
-		setTimeout(() => {
+		setTimeout(async () => {
 			expect(getAllByText("Latitude")).toHaveLength(1);
 			expect(getByText("12")).toBeTruthy();
 			expect(getAllByText("Longitude")).toHaveLength(1);
 			expect(getByText("22")).toBeTruthy();
-			screen.debug();
-			const removeButton = getByText("Remove");
-			fireEvent.click(removeButton);
+
+			const removeButton = await screen.findByText("Remove");
+			act(() => {
+				removeButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			});
 			expect(getByText("ADD COORDINATES")).toBeTruthy();
 		}, 5000);
 	});
 
 	it("should edit the saved coordinates", async () => {
-		render(<MapCoordinatesExample />);
-		setCoordinates();
-
 		const saveCoordinatesButton = getByText("Save Coordinates");
-		await waitFor(() => {
-			fireEvent.click(saveCoordinatesButton);
+
+		act(() => {
+			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
 		});
 
 		setTimeout(() => {
-			const editButton = getByText("Edit");
-
-			fireEvent.click(editButton);
-			fireEvent.change(getByLabelText("Latitude"), { target: { value: 100 } });
-			fireEvent.change(getByLabelText("Longitude"), { target: { value: 150 } });
-			fireEvent.click(getByText("Save Coordinates"));
+			act(() => {
+				const editButton = getByText("Edit");
+				editButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+				fireEvent.change(getByLabelText("Latitude"), { target: { value: 100 } });
+				fireEvent.change(getByLabelText("Longitude"), { target: { value: 150 } });
+				const saveButton = getByText("Save Coordinates");
+				saveButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			});
 
 			expect(getByText("100")).toBeTruthy();
 			expect(getByText("150")).toBeTruthy();
@@ -211,20 +220,22 @@ describe("MapCoordinates component without an address", () => {
 
 describe("MapCoordinates component with an address object (AUTOCOODINATES)", () => {
 	beforeEach(() => {
-		render(
-			<MapCoordinates
-				fieldDef={{
-					name: "mapCoordinates",
-					type: "mapCoordinates",
-					label: "",
-					inputSettings: {
-						apiKey: "test",
-						mapPosition: defaultMapPosition,
-						address,
-					},
-				}}
-			/>
-		);
+		act(() => {
+			render(
+				<MapCoordinates
+					fieldDef={{
+						name: "mapCoordinates",
+						type: "mapCoordinates",
+						label: "",
+						inputSettings: {
+							apiKey: "test",
+							mapPosition: defaultMapPosition,
+							address,
+						},
+					}}
+				/>
+			);
+		});
 	});
 
 	it("should display the elements that are conditionally rendered by the address object", () => {

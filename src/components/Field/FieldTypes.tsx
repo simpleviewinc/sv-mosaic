@@ -112,4 +112,8 @@ export interface FieldDef<T = any, U = any> {
 	 * Array of fields linked to a specific field.
 	 */
 	pairedFields?: string[];
+	/**
+	 * Callback executed when the current fields has changed
+	 */
+	onChangeCb?: (value?: any) => void;
 }

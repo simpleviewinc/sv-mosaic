@@ -20,8 +20,8 @@ import {
 	transform_thumbnail,
 	transform_mapGet,
 	transform_join,
-	FilterDate,
-	FilterSingleSelect,
+	DataViewFilterDate,
+	DataViewFilterSingleSelect,
 	DataView,
 	DataViewProps,
 	DataViewFilterText,
@@ -166,7 +166,7 @@ const filters: {
 		name: "single_select_category",
 		label: "Single Select Category",
 		type: "optional",
-		component: FilterSingleSelect,
+		component: DataViewFilterSingleSelect,
 		args: {
 			getOptions: singleSelectCategoriesHelper.getOptions.bind(singleSelectCategoriesHelper),
 			getSelected: singleSelectCategoriesHelper.getSelected.bind(singleSelectCategoriesHelper)
@@ -198,14 +198,14 @@ const filters: {
 		name: "created",
 		label: "Created",
 		type: "optional",
-		component: FilterDate,
+		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
 		name: "updated",
 		label: "Updated",
 		type: "optional",
-		component: FilterDate,
+		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
@@ -672,7 +672,12 @@ function DataViewKitchenSink(): ReactElement {
 				filter
 			});
 		},
-		savedViewAllowSharedViewSave
+		savedViewAllowSharedViewSave,
+		data: state.data,
+		limit: state.limit,
+		sort: state.sort,
+		filter: state.filter,
+		activeFilters: state.activeFilters
 	};
 
 	return (
@@ -680,16 +685,11 @@ function DataViewKitchenSink(): ReactElement {
 			<MosaicContext.Provider value={mosaicSettings}>
 				<DataView
 					{...gridConfig}
-					data={state.data}
-					limit={state.limit}
 					skip={state.skip}
 					count={state.count}
 					display={display}
-					sort={state.sort}
 					loading={state.loading}
-					filter={state.filter}
 					savedView={state.savedView}
-					activeFilters={state.activeFilters}
 					activeColumns={state.activeColumns}
 				></DataView>
 			</MosaicContext.Provider>

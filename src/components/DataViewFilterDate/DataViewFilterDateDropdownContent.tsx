@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
 import theme from "@root/theme";
-import { FilterDateDropdownContentProps } from "./FilterDateTypes";
+import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";
 import DatePickerCustom from "@root/forms/FormFieldDate/DatePicker";
 
@@ -30,7 +30,7 @@ const StyledContents = styled.div`
 	}
 `;
 
-export default function FilterDateDropdownContent(props: FilterDateDropdownContentProps): ReactElement {
+export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
 	const [state, setState] = useState({
 		rangeStart : props.rangeStart,
 		rangeEnd : props.rangeEnd
@@ -97,7 +97,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 							label: "",
 							type: "",
 							inputSettings: {
-								placeholder: t("mosaic:FilterDate.choose_a_date___")
+								placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
 							},
 						}}
 					/>
@@ -112,7 +112,7 @@ export default function FilterDateDropdownContent(props: FilterDateDropdownConte
 							label: "",
 							type: "",
 							inputSettings: {
-								placeholder: t("mosaic:FilterDate.choose_a_date___")
+								placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
 							},
 						}}
 					/>

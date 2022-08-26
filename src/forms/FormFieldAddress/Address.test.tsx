@@ -4,21 +4,22 @@ import {
 	cleanup,
 	fireEvent,
 	screen,
-	waitFor
+	waitFor,
 } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import * as React from "react";
 import { ReactElement } from "react";
-import Form, { useForm } from "@root/components/Form";
 
 // Components
 import AddressCard from "./AddressCard";
-import { IAddress } from ".";
+import { IAddress, AddressFieldDef } from ".";
+import Form, { useForm } from "@root/components/Form";
 
 const address: IAddress = {
 	id: 1,
 	address1: "8950 N Oracle Rd",
 	city: "Oro Valley",
-	postalCode: 85704,
+	postalCode: "85704",
 	country: "US",
 	state: "AZ",
 	types: ["physical", "billing"]
@@ -29,22 +30,27 @@ const fields = [
 		disabled: false,
 		label: "Address Form Field",
 		name: "address",
-		type: "address"
+		type: "address",
 	}
 ] as FieldDef[];
 
-export const AddressFormFieldExample = (): ReactElement => {
+export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef; }): ReactElement => {
 	const {
 		state,
 		dispatch,
 	} = useForm();
+
+	const newFields = fields.map(field => props?.inputSettings ? ({
+		...field,
+		inputSettings: props.inputSettings,
+	}) : field);
 
 	return (
 		<Form
 			title="Title"
 			description="Description"
 			state={state}
-			fields={fields}
+			fields={newFields}
 			dispatch={dispatch}
 		/>
 	);
@@ -55,7 +61,8 @@ const {
 	getByLabelText,
 	getAllByTestId,
 	getAllByRole,
-	queryAllByTestId
+	queryAllByTestId,
+	queryByText,
 } = screen;
 
 const addNewAddress = () => {
@@ -87,7 +94,7 @@ const addNewAddress = () => {
 
 	fireEvent.change(address, { target: { value: "Address test 1" } });
 	fireEvent.change(city, { target: { value: "Guadalajara" } });
-	fireEvent.change(postalCode, { target: { value: 123 } });
+	fireEvent.change(postalCode, { target: { value: "123" } });
 
 	fireEvent.change(inputs[0], { target: { value: "México" } });
 	fireEvent.keyDown(dropdowns[0], { key: "ArrowDown" });
@@ -99,7 +106,7 @@ const addNewAddress = () => {
 afterEach(cleanup);
 jest.setTimeout(60000);
 
-describe("Address component", () => {
+describe("Address component without inputSettings prop", () => {
 	beforeEach(() => {
 		render(<AddressFormFieldExample />);
 	});
@@ -117,7 +124,7 @@ describe("Address component", () => {
 		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
 	});
 
-	it("should edit an address card", async () => {
+	it("should edit an address card and disable ADD ADDRESS button", async () => {
 		addNewAddress();
 
 		fireEvent.click(getByText("Save"));
@@ -137,18 +144,20 @@ describe("Address component", () => {
 
 		fireEvent.change(address, { target: { value: "Address edited" } });
 		fireEvent.change(city, { target: { value: "City edited" } });
-		fireEvent.change(postalCode, { target: { value: 456 } });
+		fireEvent.change(postalCode, { target: { value: "456" } });
 		fireEvent.change(countryDropdown, { target: { value: "Argentina" } });
 		fireEvent.click(getByText("Argentina"));
 		fireEvent.click(addressTypes[1]);
+		fireEvent.click(addressTypes[2]);
 
 		fireEvent.click(getByText("Save"));
 
 		await waitFor(() => {
 			expect(getByText("Address edited")).toBeTruthy();
-			expect(getByText("Physical, Billing Address")).toBeTruthy();
+			expect(getByText("Physical, Billing, Shipping Address")).toBeTruthy();
 			expect(getByText("City edited, 456")).toBeTruthy();
 			expect(getByText("Argentina")).toBeTruthy();
+			expect(getByText("ADD ADDRESS")).toHaveClass("Mui-disabled");
 		});
 	});
 });
@@ -161,5 +170,35 @@ describe("AddressCard component", () => {
 		expect(getByText("Physical, Billing Address")).toBeTruthy();
 		expect(getByText("Oro Valley, Arizona 85704")).toBeTruthy();
 		expect(getByText("United States")).toBeTruthy();
+	});
+});
+
+describe("Address field with specific amount per type", () => {
+
+	it("should add a new address card with shipping address type", async () => {
+
+		render(<AddressFormFieldExample inputSettings={{
+			amountPerType: 2,
+			amountShipping: 1,
+			amountPhysical: 0,
+			amountBilling: 0,
+		}}/>);
+
+		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
+
+		addNewAddress();
+
+		expect(queryByText("Physical")).not.toBeInTheDocument();
+		expect(queryByText("Billing")).not.toBeInTheDocument();
+
+		fireEvent.click(getByText("Save"));
+
+		await waitFor(() => {
+			expect(queryAllByTestId("address-card-test").length).toBe(1);
+		});
+
+		await waitFor(() => {
+			expect(getByText("ADD ADDRESS")).not.toHaveClass("Mui-disabled");
+		});
 	});
 });

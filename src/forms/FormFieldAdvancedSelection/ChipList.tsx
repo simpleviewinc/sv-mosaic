@@ -3,7 +3,6 @@ import * as React from "react";
 import {
 	memo,
 	ReactElement,
-	useEffect,
 	useState
 } from "react";
 import { ChipListPropsTypes } from ".";
@@ -20,18 +19,18 @@ const MAX_CHIPS_TO_SHOW = 8;
 const ChipList = (props: ChipListPropsTypes): ReactElement => {
 	const {
 		fieldDef,
+		value
 	} = props;
 
 	const [showMore, setShowMore] = useState(false);
-	const [chipsToRender, setChipsToRender] = useState([]);
 
 	/**
 	 * Called when the cross icon of a single chip is clicked.
 	 * @param optionValue is used to filter the chip from the
 	 * optionsChecked array.
 	 */
-	const onChipDelete = (optionValue) => {
-		const filteredChips = fieldDef?.inputSettings?.selectedOptions.filter((option) => option !== optionValue);
+	const onChipDelete = (optionValue: string) => {
+		const filteredChips = value.filter((option) => option.value !== optionValue);
 
 		fieldDef?.inputSettings?.deleteSelectedOption(filteredChips);
 	};
@@ -44,32 +43,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 		setShowMore(!showMore);
 	};
 
-	/**
-	 * JSX element with the list of selected options displayed
-	 * as chips.
-	 */
-	useEffect(() => {
-		let isMounted = true;
-		const getSelectedOptions = async () => {
-			const optionsChecked = await fieldDef?.inputSettings?.getSelected(fieldDef?.inputSettings?.selectedOptions);
-
-			setChipsToRender(optionsChecked);
-		}
-
-		if (isMounted) {
-			getSelectedOptions();
-		}
-
-		return () => {
-			isMounted = false;
-		}
-	}, [
-		fieldDef?.disabled,
-		fieldDef?.inputSettings?.getSelected,
-		fieldDef?.inputSettings?.selectedOptions,
-	]);
-
-	return fieldDef?.inputSettings?.selectedOptions?.length > 0 && (
+	return value?.length > 0 && (
 		<OptionsCheckedModalWrapper isModalOpen={fieldDef?.inputSettings?.isModalOpen}>
 			<ChipsWrapper
 				isModalOpen={fieldDef?.inputSettings?.isModalOpen}
@@ -77,7 +51,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 				data-testid='as-chiplist'
 			>
 				{showMore ?
-					chipsToRender?.map((option, idx) => (
+					value?.map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
 							key={`${option?.label}-${idx}`}
@@ -86,7 +60,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 						/>
 					))
 					:
-					chipsToRender?.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
+					value?.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
 							key={`${option?.label}-${idx}`}
@@ -96,7 +70,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 					))
 				}
 			</ChipsWrapper>
-			{fieldDef?.inputSettings?.selectedOptions.length > MAX_CHIPS_TO_SHOW && (
+			{value.length > MAX_CHIPS_TO_SHOW && (
 				<div onClick={handleShowMore}>
 					{showMore ? (
 						<ShowHideSpan>
@@ -104,7 +78,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 						</ShowHideSpan>
 					) : (
 						<ShowHideSpan>
-							{`${fieldDef?.inputSettings?.selectedOptions.length - MAX_CHIPS_TO_SHOW} more`}
+							{`${value.length - MAX_CHIPS_TO_SHOW} more`}
 							<StyledExpandMoreIcon />
 						</ShowHideSpan>
 					)}

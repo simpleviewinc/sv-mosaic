@@ -74,13 +74,13 @@ The service should now be accessible at http://kube.simpleview.io:10000/
 When external parties consume this project the assumption is that all exported components are "top-level" meaning that you can destructure all necessary imports. This is necessary to ensure optimal and easy tree shaking.
 
 ```js
-import { DataView, FilterDate, transform_get } from "@simpleview/sv-mosaic";
+import { DataView, DataViewFilterDate, transform_get } from "@simpleview/sv-mosaic";
 ```
 
 * /components/ - Each exported component have it's own sub-folder in this folder.
-	* [Component] - e.g. DataView, FilterDate
+	* [Component] - e.g. DataView, DataViewFilterDate
 		* index.ts
-			* This file File which should re-export the primary component as default. So if in the folder /FilterDate/ then index.ts should re-export /FilterDate/FilterDate.tsx.
+			* This file File which should re-export the primary component as default. So if in the folder /DataViewFilterDate/ then index.ts should re-export /DataViewFilterDate/DataViewFilterDate.tsx.
 			* This file should also export all entities in the [ComponentTypes].ts file. This makes the type definitions usable throughout the project and by external consumers.
 		* [Component].tsx - The primary component file.
 		* [ComponentTypes].ts - If the component needs to declare it's own typescript Interfaces or Types througout the folder, declare them here.

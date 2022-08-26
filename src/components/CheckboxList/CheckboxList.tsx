@@ -17,6 +17,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 			// TODO: Review with Owen
 			//props.onChange(newChecked.length > 0 ? newChecked : undefined);
 			props.onChange(newChecked);
+			props?.onChangeCb && props.onChangeCb(newChecked);
 		},
 		[checkedRef, props.onChange]
 	);
