@@ -3,7 +3,8 @@
 	"files.insertFinalNewline": true,
 	"search.exclude": {
 		"dist/*": true,
-		"docs/*": true
+		"docs/*": true,
+		"node_modules/*": true
 	},
-	"files.eol": "\n",
+	"files.eol": "\n"
 }

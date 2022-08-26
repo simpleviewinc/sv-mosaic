@@ -1,5 +1,5 @@
 import { ButtonProps } from "../Button";
-import { FilterSingleSelectProps } from "../FilterSingleSelect";
+import { DataViewFilterSingleSelectProps } from "../DataViewFilterSingleSelect";
 import { MenuItemProps } from "../MenuItem";
 
 export interface SummaryPageTopComponentTypes {
@@ -44,7 +44,7 @@ export interface SummaryPageTopComponentTypes {
 	 */
     filter: {
 		label: string;
-		args: FilterSingleSelectProps["args"];
+		args: DataViewFilterSingleSelectProps["args"];
 		//probably will also require the data/value prop;
 		defaultValue?: any;
 	};

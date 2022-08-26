@@ -204,7 +204,7 @@ export interface DataViewProps {
 	count?: number
 	limit?: number
 	skip?: number
-	columns?: DataViewColumn[]
+	columns: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
 	/** A list of actions which are always visible for each item in the DataView. */
@@ -215,7 +215,7 @@ export interface DataViewProps {
 	display?: string
 	savedView?: SavedViewDef
 	displayOptions?: string[]
-	data?: MosaicObject[]
+	data: MosaicObject[]
 	sort?: DataViewSort
 	limitOptions?: number[]
 	gridColumnsMap?: MosaicObject

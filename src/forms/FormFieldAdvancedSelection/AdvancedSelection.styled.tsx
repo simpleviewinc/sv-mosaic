@@ -23,14 +23,15 @@ export const StyledInput = styled.input`
 `;
 
 export const InputWrapper = styled.div`
+  align-items: center;
   background-color: ${theme.colors.gray100};
   border: 1px solid ${theme.colors.simplyGray};
   display: flex;
   height: 49px;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   padding: 0 16px;
-  width: ${pr => pr.isMobileView ? "" : "650px"};
+  width: ${pr => pr.isMobileView ? "" : "684px"};
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
@@ -40,7 +41,7 @@ export const InputWrapper = styled.div`
 export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  row-gap: 4px;
+  row-gap: 12px;
   margin-bottom: 16px;
   width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "684px"};
 
@@ -54,7 +55,8 @@ export const ChipsWrapper = styled.div`
 `;
 
 export const OptionsCheckedModalWrapper = styled.div`
-  margin-bottom: ${(pr) => (pr.isModalOpen ? "40px" : "")};
+  margin-bottom: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+  margin-top: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`
@@ -85,5 +87,5 @@ export const CategoryTitle = styled.span`
 `;
 
 export const AdvancedSelectionWrapper = styled.div`
-  max-width: 620px;
+  max-width: 600px;
 `;

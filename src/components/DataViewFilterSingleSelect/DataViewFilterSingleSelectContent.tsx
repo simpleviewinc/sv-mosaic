@@ -3,9 +3,9 @@ import { ReactElement } from "react";
 
 import MenuBase from "../MenuBase";
 
-import { FilterSingleSelectContentProps } from "./FilterSingleSelectTypes";
+import { DataViewFilterSingleSelectContentProps } from "./DataViewFilterSingleSelectTypes";
 
-export default function FilterSingleSelectContent(props: FilterSingleSelectContentProps): ReactElement {
+export default function DataViewFilterSingleSelectContent(props: DataViewFilterSingleSelectContentProps): ReactElement {
 	return (
 		<MenuBase anchorEl={props.anchorEl} open={Boolean(props.anchorEl)} onClose={props.onClose}>
 			{props.children}
