@@ -14,10 +14,11 @@ export const StyledAddressCard = styled.div`
   width: 300px;
 
   & span {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    font-size: 14px;
+    margin: 0;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 
