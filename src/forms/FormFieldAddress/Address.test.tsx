@@ -9,12 +9,11 @@ import {
 import "@testing-library/jest-dom";
 import * as React from "react";
 import { ReactElement } from "react";
-import { useForm } from "../Form";
 
 // Components
 import AddressCard from "./AddressCard";
-import Form from "../Form/Form";
 import { IAddress, AddressFieldDef } from ".";
+import Form, { useForm } from "@root/components/Form";
 
 const address: IAddress = {
 	id: 1,
@@ -40,7 +39,7 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef
 		state,
 		dispatch,
 	} = useForm();
-	
+
 	const newFields = fields.map(field => props?.inputSettings ? ({
 		...field,
 		inputSettings: props.inputSettings,
@@ -175,7 +174,7 @@ describe("AddressCard component", () => {
 });
 
 describe("Address field with specific amount per type", () => {
-	
+
 	it("should add a new address card with shipping address type", async () => {
 
 		render(<AddressFormFieldExample inputSettings={{
@@ -193,7 +192,7 @@ describe("Address field with specific amount per type", () => {
 		expect(queryByText("Billing")).not.toBeInTheDocument();
 
 		fireEvent.click(getByText("Save"));
-		
+
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
 		});

@@ -6,7 +6,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
 import Button from "../Button";
-import theme from "../../utils/theme";
+import theme from "@root/theme";
 
 function DataViewLimit(props: DataViewControlLimitProps) {
 	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
@@ -21,7 +21,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 			}
 		});
 	}, [props.options]);
-	
+
 	const menuContent = (
 		<MenuSelect
 			options={options}

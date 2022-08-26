@@ -3,3 +3,5 @@ package-lock.json
 coverage
 automation_testing/node_modules
 automation_testing/test-results
+dist/*
+!dist/.gitkeep

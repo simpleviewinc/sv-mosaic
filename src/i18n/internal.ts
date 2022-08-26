@@ -1,7 +1,7 @@
 import { default as i18next } from "i18next";
 
 import { MosaicObject } from "../types";
-import * as common from "./common.json";
+import common from "./common.json";
 
 interface AddResourceBundleProps {
 	namespace: string

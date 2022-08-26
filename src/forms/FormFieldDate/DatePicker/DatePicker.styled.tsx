@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { Sizes } from "@root/theme/sizes";
+import { Sizes } from "@root/theme";
 
 export const popperSx = {
 	"& .MuiPaper-root": {

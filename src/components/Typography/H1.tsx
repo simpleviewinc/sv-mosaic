@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import styled from "styled-components";
 
 import { TypographyGenericProps } from "./TypographyTypes";
-import theme from "../../utils/theme";
+import theme from "@root/theme";
 
 const Styled = styled.h1`
 	font-family: ${theme.fontFamily};
