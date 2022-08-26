@@ -14,11 +14,12 @@ import { onCancel, renderButtons } from "@root/utils/storyUtils";
 // Components
 import Form from "./Form";
 import Drawer from "@root/components/Drawer";
+import HomeIcon from "@mui/icons-material/Home";
 
 // Types
 import { TextFieldDef } from "@root/forms/FormFieldText/FormFieldTextTypes";
 import { FieldDef } from "@root/components/Field";
-import { AdvancedSelectionDef } from "@root/forms/FormFieldAdvancedSelection";
+import { AdvancedSelectionDef, additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
 import { TableDef } from "@root/forms/FormFieldTable";
 import { ImageUploadDef } from "@root/forms/FormFieldImageUpload";
 import { MapCoordinatesDef } from "@root/forms/FormFieldMapCoordinates";
@@ -30,6 +31,7 @@ import { FormFieldChipSingleSelectDef } from "@root/forms/FormFieldChipSingleSel
 import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
 import { TextAreaDef } from "@root/forms/FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
+import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 
 export default {
 	title: "Components/Form",
@@ -40,87 +42,17 @@ const deleteTableRow = () => {
 	alert("Delete button clicked");
 };
 
-const externalOptions = [
-	{
-		category: "Category 1",
-		label: "Option 1",
-		value: "option_1-cat_1",
-	},
-	{
-		category: "Category 1",
-		label: "Option 2",
-		value: "option_2-cat_1",
-	},
-	{
-		category: "Category 1",
-		label: "Option 3",
-		value: "option_3-cat_1",
-	},
-	{
-		category: "Category 1",
-		label: "Option 4",
-		value: "option_4-cat_1",
-	},
-	{
-		category: "Category 2",
-		label: "Option 1 category 2",
-		value: "option_1-cat_2",
-	},
-	{
-		category: "Category 2",
-		label: "Test option category 2",
-		value: "option_2-cat_2",
-	},
-	{
-		category: "Category 2",
-		label: "Another option of catergory 2",
-		value: "option_3-cat_2",
-	},
-	{
-		category: "Category 2",
-		label: "Option 4 category 2",
-		value: "option_4-cat_2",
-	},
-	{
-		category: "Test Category",
-		label: "You can filter by category",
-		value: "option_1-test_category",
-	},
-	{
-		category: "Test Category",
-		label: "Very long label that does not fit",
-		value: "option_2-test_category",
-	},
-	{
-		category: "Category 4",
-		label: "Option 1 category 4",
-		value: "option_1-cat_4",
-	},
-	{
-		label: "Option without category",
-		value: "option_without_category",
-	},
-];
-
 const createNewOption = async (newOptionLabel) => {
-	const value = `${newOptionLabel}_${externalOptions.length}`
+	const value = `${newOptionLabel}_${additionalOptions.length}`
 	const newOption = {
 		value,
 		label: newOptionLabel,
 	}
 
 	//Insert to db
-	externalOptions.push(newOption);
+	additionalOptions.push(newOption);
 
 	return value;
-}
-
-const getSelected = async (selectedOptions) => {
-	if (!selectedOptions) return;
-
-	return selectedOptions.map((selectedOption) =>
-		externalOptions.find(o => o.value === selectedOption)
-	);
 }
 
 export const Playground = (): ReactElement => {
@@ -152,29 +84,7 @@ export const Playground = (): ReactElement => {
 		"phoneSelect": "15205751151",
 		"radio": "label_3",
 		"toggleSwitch": true,
-		"color": {
-			"hsl": {
-				"h": 166.53061224489795,
-				"s": 0.7241379310344827,
-				"l": 0.6019607843137255,
-				"a": 1
-			},
-			"hex": "#50e3c2",
-			"rgb": {
-				"r": 80,
-				"g": 227,
-				"b": 194,
-				"a": 1
-			},
-			"hsv": {
-				"h": 166.53061224489795,
-				"s": 0.6475770925110133,
-				"v": 0.8901960784313725,
-				"a": 1
-			},
-			"oldHue": 55.13513513513513,
-			"source": "hex"
-		},
+		"color": "#a8001791",
 		"date": new Date(),
 		"address": [
 			{
@@ -192,10 +102,22 @@ export const Playground = (): ReactElement => {
 			}
 		],
 		"advancedSelection": [
-			"option_1-cat_1",
-			"option_3-cat_1",
-			"option_1-cat_2",
-			"option_3-cat_2"
+			{
+				label: "Prepopulated 1",
+				value: "prep option 1"
+			},
+			{
+				label: "Prepopulated 2",
+				value: "prep option 2"
+			},
+			{
+				label: "Prepopulated 3",
+				value: "prep option 3"
+			},
+			{
+				label: "Prepopulated 4",
+				value: "prep option 4"
+			}
 		],
 		"imageVideoDocumentLink": [
 			{
@@ -398,8 +320,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						checkboxOptions: externalOptions,
-						getSelected,
+						options: additionalOptions,
 						createNewOption
 					}
 				} as FieldDef<AdvancedSelectionDef>,
@@ -461,7 +382,7 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<MapCoordinatesDef>,
 			] as unknown as FieldDef[],
-		[externalOptions, disabled, required]
+		[additionalOptions, disabled, required]
 	);
 
 	const sections = [
@@ -472,8 +393,8 @@ export const Playground = (): ReactElement => {
 				// row 1
 				[["textField"], ["textArea"], ["check"]],
 				// row 2
-				[["chipSelect"], ["dropdownSingle"], ["table"]],
-				[[]],
+				[["chipSelect"], ["dropdownSingle"]],
+				[["table"]],
 				// row 3
 				[["phoneSelect"], ["radio"]]
 			]
@@ -520,16 +441,18 @@ export const Playground = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				title={text("Title", "Form Title")}
-				description={text("Description", "This is a description example")}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				getFormValues={loadReady && onLoad}
-				sections={showSections && sections}
-				buttons={renderButtons(dispatch, { showCancel, showSave })}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					title={text("Title", "Form Title")}
+					description={text("Description", "This is a description example")}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					getFormValues={loadReady && onLoad}
+					sections={showSections && sections}
+					buttons={renderButtons(dispatch, { showCancel, showSave })}
+				/>
+			</div>
 		</>
 	);
 };
@@ -661,16 +584,18 @@ export const FormWithLayout = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title="Form Title"
-				description="This is a description example"
-				sections={sections}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title="Form Title"
+					description="This is a description example"
+					sections={sections}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 		</>
 	);
 }
@@ -698,13 +623,15 @@ export const PerformanceWithSubmit = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				title='Performance with submit'
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					title='Performance with submit'
+				/>
+			</div>
 		</>
 	);
 };
@@ -773,14 +700,16 @@ export const RuntimeBehaviors = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Runtime behaviors'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Runtime behaviors'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 			<div>
 				<p>
 					Here are some buttons that are not part of the form, but can change
@@ -836,12 +765,14 @@ export const SubmitExternalButtons = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<p>Here is the form</p>
-			<Form
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 			<button onClick={clickHandler}>Submit</button>
 		</>
 	);
@@ -995,13 +926,15 @@ export const CustomFields = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Custom components'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Custom components'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+				/>
+			</div>
 			<div>
 				<button onClick={setText1Value}>Set Text1 Value</button>
 			</div>
@@ -1080,13 +1013,15 @@ export const Validators = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Validators story'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Validators story'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+				/>
+			</div>
 		</>
 	);
 };
@@ -1111,14 +1046,30 @@ export const DefaultValues = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Validators story'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Validators story'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 		</>
 	);
 };
+
+export const DMSExample = (): ReactElement => {
+	const items = [{
+		name : "form_with_layout",
+		label : "Form With Layout",
+		mIcon : HomeIcon
+	}];
+
+	return (
+		<NavWrapper items={items}>
+			<FormWithLayout/>
+		</NavWrapper>
+	)
+}

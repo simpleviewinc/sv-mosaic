@@ -340,6 +340,7 @@ const fields = useMemo(
 * **id** - `string` optional - Follows the same rules as any other html element id.
 * **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
 * **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field.
+* **onChangeCb** * - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
 
 ### How to use in a form?
 ```ts
@@ -388,7 +389,11 @@ const fields = useMemo(
 	* **postalCode** - `string` required - Postal code of the address.
 	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
 	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
-- inputSettings: This component doesn't require any additional props.
+- inputSettings: `object`
+	* **amountPerType** - `number` optional - When defined, limits the amount of address types. For example: If a dev adds “amountPerType: 2” then users will be able to add 2 physical, 2 billing, and 2 shipping addresses.
+	* **amountShipping** - `number` optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType.
+	* **amountPhysical** - `number` optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.
+	* **amountBilling** - `number` optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType.
 
 ### How to use in a form?
 ```ts
@@ -399,6 +404,12 @@ const fields = useMemo(
 			{
 				//...all generic field props,
 				type: "address",
+				inputSettings: {
+					amountPerType: 1,
+					amountShipping: 0,
+					amountPhysical: 2,
+					amountBilling: 3
+				},
 			},
 			//...other fields
 		],
@@ -416,14 +427,14 @@ const fields = useMemo(
 - Used for very long lists.
 - Have the ability to type and search.
 - [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
-- Data: `array` of `string` - Array of values of the selected options.
+- Data: `array` of `object` - Array of values of the selected options.
+	* **label** - `string` - Text users will see to identify the option.
+	* **value** - `string[]` - Value that will be saved to the DB when the option gets selected.
 - inputSettings:
 	* **createNewOption** - `(newOptionLabel: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
-	* **getSelected** - `(options: string[]) => Promise<{label: string, value: string, category: string}[]>` optional -  Function used to get the full info (label, value, category) of all selected options.
-	* **checkboxOptions** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
+	* **options** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
 		* **label** - `string` required -  Text users will see to identify the option.
 		* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
-		* **category** - `string` SOON TO BE DEPRECATED - Category in which the option belongs to.
 	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<{label: string, value: string, category: string}[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
 	* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB.
 
@@ -470,8 +481,7 @@ const fields = useMemo(
 				type: "advancedSelection",
 				inputSettings: {
 					createNewOption: myCreateOptionFn,
-					getSelected: myGetSelectedFn,
-					checkboxOptions: externalOptions
+					options: externalOptions
 				}
 			},
 			//...other fields
@@ -489,7 +499,6 @@ const fields = useMemo(
 				type: "advancedSelection",
 				inputSettings: {
 					createNewOption: myCreateOptionFn,
-					getSelected: myGetSelectedFn,
 					getOptions: myGetOptionsFn,
 					getOptionsLimit: 5,
 				}

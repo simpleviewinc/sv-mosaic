@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
-import FilterDate from "./FilterDate";
+import DataViewFilterDate from "./DataViewFilterDate";
 
 export default {
-	title : "Components/FilterDate"
+	title : "Components/DataViewFilterDate"
 }
 
 export const example = (): ReactElement => {
@@ -16,7 +16,7 @@ export const example = (): ReactElement => {
 	const onRemove = () => undefined;
 	
 	return (
-		<FilterDate
+		<DataViewFilterDate
 			label="Testing"
 			type="primary"
 			data={state}
