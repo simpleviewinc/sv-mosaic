@@ -11,4 +11,5 @@ export interface TypographyGenericProps {
 	title?: string
 	/** Additional passed options are automatically added to the html element. */
 	attrs?: MosaicObject
+	color?: string
 }

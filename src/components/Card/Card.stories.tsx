@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { boolean, withKnobs } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import styled from "styled-components";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 
 // Components
 import Card from "./Card";

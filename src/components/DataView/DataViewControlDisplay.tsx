@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { DataViewControlDisplayProps } from "./DataViewTypes";
 import Button from "../Button";
 import { default as MenuSelect } from "../MenuSelect";
-import theme from "../../utils/theme";
+import theme from "@root/theme";
 
 const StyledSpan = styled.span`
 	& .labelIcon {
@@ -34,7 +34,7 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 			value={props.display}
 		/>
 	)
-	
+
 	return (
 		<StyledSpan>
 			<Button

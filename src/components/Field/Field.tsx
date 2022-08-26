@@ -6,7 +6,7 @@ import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { MosaicFieldProps } from ".";
-import { Sizes } from "@root/theme/sizes";
+import { Sizes } from "@root/theme";
 import { debounce } from "lodash";
 
 const Field = ({

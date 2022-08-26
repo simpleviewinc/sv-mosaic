@@ -4,7 +4,7 @@ import { createElement, ReactNode } from "react";
 import { MosaicObject } from "../types";
 import { DataViewColumnTransform } from "../components/DataView";
 
-import Image from "../components/internal/Image";
+import Image from "@root/components/Image";
 
 export function transform_boolean(): DataViewColumnTransform<boolean> {
 	return function({ data }): string {

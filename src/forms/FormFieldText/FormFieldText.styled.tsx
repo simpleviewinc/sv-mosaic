@@ -5,8 +5,7 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 
 //Styles & Types
-import theme from "@root/theme";
-import { Sizes } from "@root/theme/sizes";
+import theme, { Sizes } from "@root/theme";
 
 export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	<TextField {...rest} />

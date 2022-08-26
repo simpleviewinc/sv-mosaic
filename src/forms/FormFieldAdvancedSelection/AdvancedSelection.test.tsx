@@ -4,8 +4,7 @@ import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/re
 import * as React from "react";
 import { useMemo } from "react";
 import { AdvancedSelectionDef, optionsWithCategory } from ".";
-import Form from "../Form/Form";
-import { useForm, formActions } from "../Form";
+import Form, { useForm, formActions } from "@root/components/Form";
 import { additionalOptions } from "./advancedSelectionUtils";
 
 afterEach(cleanup);
@@ -98,7 +97,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
 		if (!valid) return;
-	
+
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	};
 
@@ -129,7 +128,7 @@ describe("AdvancedSelection component", () => {
 
 		const addButton = screen.getByText("ADD ELEMENT");
 		fireEvent.click(addButton);
-		
+
 		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
 
 		const optionCheckbox = await screen.findByText("Option 2");
@@ -155,7 +154,7 @@ describe("AdvancedSelection component", () => {
 		fireEvent.click(optionChip[0]);
 
 		const remainingChips = screen.queryAllByTestId("delete-icon-test-id");
-		
+
 		await waitFor(() => {
 			expect(remainingChips.length).toBe(0);
 		})
@@ -175,7 +174,7 @@ describe("AdvancedSelection component", () => {
 		await waitFor(() => {
 			expect(screen.queryByText("Option 1")).toBe(null);
 		});
-		
+
 		expect(await screen.findByText("abc")).toBeTruthy();
 	});
 

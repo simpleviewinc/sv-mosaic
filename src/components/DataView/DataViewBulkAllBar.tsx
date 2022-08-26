@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo, Fragment } from "react";
 import styled from "styled-components";
 import Button from "../Button";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 import { DataViewBulkAction } from "./DataViewTypes";
 
 const StyledDiv = styled.div`

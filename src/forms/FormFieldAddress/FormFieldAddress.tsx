@@ -4,7 +4,7 @@ import { memo, ReactElement, useState, useEffect } from "react";
 // Components
 import AddressDrawer from "./AddressDrawer";
 import Button from "@root/components/Button";
-import Drawer from "@root/components/Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 
 // Styles
 import { AddAddressWrapper, FlexContainer } from "./Address.styled";

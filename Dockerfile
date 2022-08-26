@@ -12,4 +12,17 @@ COPY .yarn /app/.yarn
 COPY yarn.lock /app/yarn.lock
 RUN cd /app && yarn install
 
+COPY src /app/src
+COPY .storybook /app/.storybook
+COPY scripts /app/scripts
+COPY testing /app/testing
+COPY tsconfig.json /app/tsconfig.json
+COPY tsconfig.cjs.json /app/tsconfig.cjs.json
+COPY tsconfig.esm.json /app/tsconfig.esm.json
+COPY jest.config.js /app/jest.config.js
+COPY webpack.config.js /app/webpack.config.js
+COPY .eslintrc.json /app/.eslintrc.json
+COPY .eslintignore /app/.eslintignore
+COPY README.md /app/README.md
+
 WORKDIR /app

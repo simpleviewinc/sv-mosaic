@@ -12,8 +12,7 @@ import ResetButton from "@root/forms/FormFieldMapCoordinates/MapCoordinatesDrawe
 
 // Utils
 import { defaultMapPosition } from "../MapCoordinatesUtils";
-import { formActions, useForm } from "@root/forms/Form";
-import Form from "@root/forms/Form/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 import _ from "lodash";
 
 // Layout of the form elements.
@@ -120,14 +119,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	};
 
 	/**
-	 * Executed when the onSubmit event of 
+	 * Executed when the onSubmit event of
 	 * the form that is contained inside the modal
 	 * happends.
 	 */
 	const onSubmit = async () => {
 		const { valid } = await modalReducer.dispatch(formActions.submitForm());
 		if (!valid) return;
-		
+
 		const latLngValue = {
 			...value,
 			lat: modalReducer.state.data.lat,
@@ -218,7 +217,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		return () => {
 			isMounted = false;
-		}		
+		}
 
 	}, [modalReducer.state.data.lat, modalReducer.state.data.lng]);
 
@@ -232,7 +231,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					value: value?.lat
 				})
 			);
-	
+
 			modalReducer.dispatch(
 				formActions.setFieldValue({
 					name: "lng",
@@ -259,7 +258,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			color: "yellow",
 			variant: "contained",
 			disabled: !modalReducer.state.data.lat || !modalReducer.state.data.lng
-		}		
+		}
 	];
 
 	return (

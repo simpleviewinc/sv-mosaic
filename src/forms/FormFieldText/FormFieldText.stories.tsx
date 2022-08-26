@@ -9,12 +9,11 @@ import {
 } from "@storybook/addon-knobs";
 import { TextFieldDef } from ".";
 import { FieldDef } from "@root/components/Field";
-import { useForm } from "../Form";
+import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Form from "../Form/Form";
 
 export default {
 	title: "FormFields/FormFieldText",
