@@ -5,7 +5,7 @@ import { AdvancedSelectionDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
-import { additionalOptions } from "./advancedSelectionUtils";
+import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
 
 // Components
 import { MosaicLabelValue } from "@root/types";

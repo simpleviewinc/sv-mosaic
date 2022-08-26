@@ -19,7 +19,7 @@ import HomeIcon from "@mui/icons-material/Home";
 // Types
 import { TextFieldDef } from "@root/forms/FormFieldText/FormFieldTextTypes";
 import { FieldDef } from "@root/components/Field";
-import { AdvancedSelectionDef } from "@root/forms/FormFieldAdvancedSelection";
+import { AdvancedSelectionDef, additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
 import { TableDef } from "@root/forms/FormFieldTable";
 import { ImageUploadDef } from "@root/forms/FormFieldImageUpload";
 import { MapCoordinatesDef } from "@root/forms/FormFieldMapCoordinates";
@@ -31,8 +31,7 @@ import { FormFieldChipSingleSelectDef } from "@root/forms/FormFieldChipSingleSel
 import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
 import { TextAreaDef } from "@root/forms/FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
-import { NavWrapper } from "@root/components/LeftNav/NavWrapper"
-import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection/advancedSelectionUtils";
+import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 
 export default {
 	title: "Components/Form",
@@ -54,14 +53,6 @@ const createNewOption = async (newOptionLabel) => {
 	additionalOptions.push(newOption);
 
 	return value;
-}
-
-const getSelected = async (selectedOptions) => {
-	if (!selectedOptions) return;
-
-	return selectedOptions.map((selectedOption) =>
-		additionalOptions.find(o => o.value === selectedOption)
-	);
 }
 
 export const Playground = (): ReactElement => {
