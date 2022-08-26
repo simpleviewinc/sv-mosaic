@@ -3,11 +3,10 @@ import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/re
 import "@testing-library/jest-dom/extend-expect";
 
 // Components
-import Form from "../Form/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 
 // Utils
 import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
-import { formActions, useForm } from "@root/forms/Form";
 import {
 	documentExample,
 	imageAssetExample,
@@ -99,7 +98,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
 		if (!valid) return;
-	
+
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	};
 
@@ -134,7 +133,7 @@ describe("ImageVideoLinkDocumentBrowsing component", () => {
 		await act(async () => {
 			render(<ImageVideoLinkDocumentBrowsingExample />);
 		});
-	
+
 		expect(getByText("Browse:")).toBeTruthy();
 		expect(getByText("Image")).toBeTruthy();
 		expect(getByText("Document")).toBeTruthy();
@@ -161,7 +160,7 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
 		});
 
-		await waitFor(() => {			
+		await waitFor(() => {
 			expect(setImageCallback).toHaveBeenCalledTimes(2);
 		});
 	});
@@ -184,7 +183,7 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 			expect(getByText("1280x720")).toBeTruthy();
 			expect(queryByText("Focus")).toBe(null);
 			expect(queryByText("Locales")).toBe(null);
-		});		
+		});
 	});
 
 	it("should show the missing labels inside a tooltip", async () => {
@@ -231,7 +230,7 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 			expect(getByText("Document")).toBeTruthy();
 			expect(getByText("Video")).toBeTruthy();
 			expect(getByText("Link")).toBeTruthy();
-		});	
+		});
 	});
 });
 
@@ -323,7 +322,7 @@ describe("ImageVideoLinkDocumentBrowsing when a video is loaded", () => {
 			render(<ImageVideoLinkDocumentBrowsingExample />);
 		});
 	});
-	
+
 	it("should trigger the setVideo function twice since the browse button also executes it when is clicked", async () => {
 		const browseTestId = await findByTestId("browse-video-test");
 		await act(async () => {

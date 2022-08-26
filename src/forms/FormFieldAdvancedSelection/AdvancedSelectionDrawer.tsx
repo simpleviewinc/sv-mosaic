@@ -11,7 +11,7 @@ import {
 	useState
 } from "react";
 import Button from "../../components/Button";
-import { formActions, useForm } from "@root/forms/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 import {
 	InputWrapper,
 	StyledInput
@@ -20,7 +20,6 @@ import AddIcon from "@mui/icons-material/Add";
 import ChipList from "./ChipList";
 import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import LoadMoreButton from "./LoadMoreButton";
-import Form from "../Form/Form";
 import { AdvanceSelectionDrawerPropTypes } from ".";
 import _ from "lodash";
 import { MosaicLabelValue } from "@root/types";

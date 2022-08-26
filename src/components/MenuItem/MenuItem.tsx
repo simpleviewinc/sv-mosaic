@@ -4,7 +4,7 @@ import styled from "styled-components";
 import MUIMenuItem from "@mui/material/MenuItem";
 
 import { MenuItemProps } from "./MenuItemTypes";
-import theme from "../../utils/theme";
+import theme from "@root/theme";
 import { BodyText } from "../Typography";
 
 const StyledMenuItem = styled(MUIMenuItem)`
@@ -46,9 +46,9 @@ const iconTypes = {
 
 export default function MenuItem(props: MenuItemProps): ReactElement {
 	const Icon = props.mIcon;
-	
+
 	const MyIcon = props.color !== undefined ? iconTypes[props.color] : StyledIcon;
-	
+
 	const attrs = props.attrs || {};
 
 	return (

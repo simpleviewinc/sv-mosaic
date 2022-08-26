@@ -3,12 +3,11 @@ import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { AdvancedSelectionDef } from ".";
 import { FieldDef } from "@root/components/Field";
-import { useForm } from "../Form";
+import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { additionalOptions } from "./advancedSelectionUtils";
 
 // Components
-import Form from "../Form/Form";
 import { MosaicLabelValue } from "@root/types";
 
 export default {

@@ -13,7 +13,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 // Components
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@root/components/Button";
-import Drawer from "../../components/Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";
 import ChipList from "./ChipList";
 

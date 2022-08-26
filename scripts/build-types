@@ -1,11 +1,7 @@
 #!/bin/bash
 # Meant to be run inside the docker container
 
-mkdir -p ./dist
-rm -rf ./dist/types/*
-rm -rf ./types-only/types/*
-tsc --project src/tsconfig.types.json
-
+rm -rf ./types-only
 mkdir -p ./types-only
 cp -a ./dist/types/. ./types-only/types
 

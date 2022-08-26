@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import theme from "@root/theme";
-import { Sizes } from "@root/theme/sizes";
+import theme, { Sizes } from "@root/theme";
 
 // Components
 import Button from "@root/components/Button";

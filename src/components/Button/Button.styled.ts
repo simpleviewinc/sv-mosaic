@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 
 // Buttons should be 30/36 in height for small/medium in ALL variants
 // The styling of text, outlined, and icon are shared. Contained are different because they usually need to get darker on hover/active than the primary color
@@ -221,7 +221,7 @@ export const types = {
       color: ${theme.colors.almostBlack};
     }
   `,
-  
+
 	blue_contained: styled(ButtonWrapper)`
     & > button {
       background: ${theme.colors.blue};

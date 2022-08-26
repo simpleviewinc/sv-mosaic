@@ -8,8 +8,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
-import JSONDB from "../../../utils/JSONDB";
-import LocalStorageDB from "../../../utils/LocalStorageDB";
+import JSONDB from "@root/utils/JSONDB";
+import LocalStorageDB from "@root/utils/LocalStorageDB";
 import rawData from "./rawData.json";
 import categories from "./categories.json";
 import MultiSelectHelper from "./MultiSelectHelper";
@@ -30,7 +30,7 @@ import {
 	MosaicContext,
 	DataViewFilterDef
 } from "../../../";
-import { useStateRef } from "../../../utils/reactTools.js";
+import { useStateRef } from "@root/utils/reactTools";
 import SingleSelectHelper from "./SingleSelectHelper";
 
 import "./DataViewKitchenSink.css";
@@ -501,7 +501,7 @@ function DataViewKitchenSink(): ReactElement {
 					loading: false
 				});
 			}
-			
+
 		}
 
 		setTimeout(function () {
@@ -658,7 +658,7 @@ function DataViewKitchenSink(): ReactElement {
 				skip: 0
 			});
 		},
-		onSavedViewRemove: function (data: DataViewProps["savedView"]) {
+		onSavedViewRemove: function (data) {
 			if (data.id === state.savedView.id) {
 				gridConfig.onSavedViewChange(defaultView);
 			}
