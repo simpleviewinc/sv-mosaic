@@ -9,9 +9,17 @@ export const StyledAddressCard = styled.div`
   color: ${theme.colors.almostBlack};
   background-color: ${theme.colors.gray100};
   font-family: ${theme.fontFamily};
-  min-height: 164px;
+  height: 204px;
   padding: 24px 16px 16px 24px;
-  width: 260px;
+  width: 300px;
+
+  & span {
+    font-size: 14px;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const AddressTitle = styled.span`
@@ -24,12 +32,12 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   margin-top: auto;
 
-  button:first-child {
+  span:first-child {
     border-right: 2px solid ${theme.colors.gray200};
     padding-right: 16px;
   }
 
-  button:last-child {
+  span:last-child {
     padding-left: 16px;
   }
 `;
