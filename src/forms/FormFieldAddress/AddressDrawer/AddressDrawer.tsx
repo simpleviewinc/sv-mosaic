@@ -340,18 +340,20 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	];
 
 	return (
-		<Form
-			title='Address Information'
-			buttons={buttons}
-			data-testid={"address-testid"}
-			state={state}
-			dispatch={dispatch}
-			sections={sections}
-			fields={fields}
-			type='drawer'
-			dialogOpen={dialogOpen}
-			handleDialogClose={handleDialogClose}
-		/>
+		<div style={{width: "1160px"}}>
+			<Form
+				title='Address Information'
+				buttons={buttons}
+				data-testid={"address-testid"}
+				state={state}
+				dispatch={dispatch}
+				sections={sections}
+				fields={fields}
+				type='drawer'
+				dialogOpen={dialogOpen}
+				handleDialogClose={handleDialogClose}
+			/>
+		</div>
 	);
 };
 
