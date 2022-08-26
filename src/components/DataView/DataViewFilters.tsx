@@ -35,8 +35,6 @@ const StyledDiv = styled.div`
 function DataViewFilters(props) {
 	const { t, i18n } = useMosaicTranslation();
 
-	console.log(i18n, i18n.options);
-
 	const [state, setState] = useState({
 		anchorEl : null,
 		dropdownOpen : false
