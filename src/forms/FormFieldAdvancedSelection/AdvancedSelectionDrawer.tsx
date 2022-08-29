@@ -81,7 +81,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [value, isModalOpen]);
 
 	/**
-	 * Loads the options provided  either from 
+	 * Loads the options provided  either from
 	 * a database or locally.
 	 */
 	useEffect(() => {
@@ -203,7 +203,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	]);
 
 	const searchInput = useCallback((props): ReactElement => {
-		const searchKeyword = props.value.trim();
+		const searchKeyword = props?.value?.trim();
 
 		/**
 		 * Handler for the input element
@@ -241,7 +241,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type='text'
 					placeholder='Search...'
 					onChange={onInputChange}
-					value={props.value ? props.value : ""}
+					value={props?.value ?? ""}
 					disabled={fieldDef?.disabled}
 				/>
 				{props.value && fieldDef?.inputSettings?.createNewOption && (
@@ -265,7 +265,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				value: newOptions,
 			})
 		);
-	
+
 		dispatch(
 			formActions.setFieldValue({
 				name: "checkboxList",
@@ -276,7 +276,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	/**
 	 * Function executed whenever the checkboxes are clicked.
-	 * @param checkedOptions 
+	 * @param checkedOptions
 	 */
 	const checkboxListChanged = (checkedOptions: string[]) => {
 		const availableOptions = _.union(options, filteredOptions);

@@ -119,7 +119,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 			)}
 			<Drawer open={isModalOpen} onClose={handleClose}>
 				<AdvancedSelectionDrawer
-					value={value}
+					value={value ?? []}
 					fieldDef={fieldDef}
 					onChange={onChange}
 					isModalOpen={isModalOpen}
