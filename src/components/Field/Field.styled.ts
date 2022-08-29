@@ -3,7 +3,7 @@ import theme from "@root/theme";
 
 export const StyledFieldWrapper = styled.div`
   font-family: ${theme.fontFamily};
-  padding: 20px;
+  padding: 15px;
   background-color: ${(pr) =>
 		pr.error ? theme.colors.lightRed : "transparent"};
   width: ${(pr) => pr.size ? pr.size : "fit-content"};
