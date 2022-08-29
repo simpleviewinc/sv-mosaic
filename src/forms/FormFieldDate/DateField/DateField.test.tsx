@@ -63,8 +63,9 @@ describe("DateField component", () => {
 				value={new Date("2022-01-01T13:30:00.000Z")}
 			/>
 		);
+
 		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();
-		expect(screen.getByDisplayValue("01:30 PM")).toBeInTheDocument();
+		expect(screen.getByDisplayValue("01:30 pm")).toBeInTheDocument();
 	});
 
 	it("Should display the placeholders when date time is disabled and no value is provided", () => {
