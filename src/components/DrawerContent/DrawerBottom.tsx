@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
@@ -6,13 +6,18 @@ const StyledDiv = styled.div`
 		flex: 1;
 		padding: 12px;
 	}
-	
+
 	&.background-gray {
 		background: #FAFBFC;
 	}
-`
+`;
 
-function DrawerBottom(props) {
+export interface DrawerBottomProps {
+	background?: string;
+	children: ReactNode
+}
+
+function DrawerBottom(props: DrawerBottomProps) {
 	return (
 		<StyledDiv className={`
 			${props.background ? `background-${props.background}` : ""}
