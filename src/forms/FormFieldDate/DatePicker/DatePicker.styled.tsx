@@ -40,8 +40,7 @@ export const DisabledDateTimeValue = styled.span`
 
 export const DatePickerWrapper = styled.div`
   .MuiOutlinedInput-root {
-		background-color: ${theme.colors.gray100}
-		height: 51px;
+		background-color: ${theme.colors.gray100};
 		width: ${Sizes.sm};
 
     &:hover {
@@ -54,7 +53,8 @@ export const DatePickerWrapper = styled.div`
     }
 
 		.MuiOutlinedInput-input {
-			padding-left: 16px;
+			height: ${theme.inputText.height};
+			padding: ${theme.inputText.padding};
 		}
 
     &.Mui-focused fieldset {

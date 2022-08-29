@@ -10,7 +10,7 @@ export const PhoneInputWrapper = styled.div`
       background-color: ${theme.colors.gray100};
       border-radius: 0px;
       font-family: ${theme.fontFamily};
-      height: 51px;
+      height: 43px;
       padding: 15px 15px 15px 98px;
       width: 280px;
       &:focus {

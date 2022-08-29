@@ -11,7 +11,7 @@ export const ErrorTextWrapper = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-  margin-top: 18px;
+  margin-top: 8px;
 `;
 
 export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`

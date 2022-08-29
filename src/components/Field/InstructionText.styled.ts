@@ -13,8 +13,8 @@ export const InstructionTextWrapper = styled.div`
 	display: block;
 	width: 400px;
 	min-height: 51px;
-	padding-left: 10px;
-	border-left: 1px solid black;
+	padding-left: 20px;
+	border-left: 1px solid ${theme.colors.gray200};
 	margin-left: auto;
   }
 
