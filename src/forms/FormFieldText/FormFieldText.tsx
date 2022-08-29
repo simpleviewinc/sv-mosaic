@@ -9,6 +9,10 @@ import { TextFieldDef } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
+export const getInputValue = (value: string, type?: string) => {
+	return type === "number" ? Number(value) : value;
+}
+
 const TextField = (
 	props: MosaicFieldProps<TextFieldDef, string | number>
 ): ReactElement => {
@@ -29,10 +33,7 @@ const TextField = (
 		: null;
 
 	const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const value =
-			fieldDef?.inputSettings?.type === "number"
-				? Number(e.target.value)
-				: e.target.value;
+		const value = getInputValue(e.target.value, fieldDef?.inputSettings?.type);
 
 		onChange && onChange(value);
 	};
@@ -42,7 +43,7 @@ const TextField = (
 	return (
 		<StyledTextField
 			id={fieldDef?.name}
-			value={value}
+			value={value ?? ""}
 			onChange={onFieldChange}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
