@@ -20,11 +20,11 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   }
 
   .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {
-    padding: ${pr => pr.disabled ? 0 : "15.5px 14px"};
+    padding: ${pr => pr.disabled ? 0 : theme.inputText.padding};
   }
 
   input.MuiOutlinedInput-input {
-    height: 20px;
+    height: ${theme.inputText.height};
   }
 
   input,

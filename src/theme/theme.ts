@@ -71,5 +71,9 @@ export default {
 	},
 	breakpoints : {
 		mobile : `${BREAKPOINTS.mobile}px`
-	}
+	},
+	inputText: {
+		height : "15px",
+		padding: "14px",
+	},
 }
