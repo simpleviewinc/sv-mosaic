@@ -14,7 +14,7 @@ const StyledWrapper = styled.div`
 		justify-content: space-between;
 		padding: 12px;
 	}
-	
+
 	& > .left {
 		display: flex;
 		align-items: center;
@@ -27,9 +27,17 @@ const StyledWrapper = styled.div`
 		position: relative;
 		top: -2px;
 	}
-`
+`;
 
-function DrawerTopBar(props) {
+export interface DrawerTopBarProps {
+	title: string | JSX.Element;
+	onClose: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	onCancel?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	onSave?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	onApply?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+
+function DrawerTopBar(props: DrawerTopBarProps) {
 	const { t } = useMosaicTranslation();
 
 	return (
