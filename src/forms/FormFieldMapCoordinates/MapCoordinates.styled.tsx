@@ -11,6 +11,7 @@ export const StyledSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
   font-size: 14px;
+  margin: 0px 20px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: calc(100vw - 40px);
@@ -34,7 +35,7 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   right: 16px;
   position: absolute;
-  top: 163px;
+  bottom: 8px;
 
   button:first-child {
     padding-right: 16px;
@@ -58,6 +59,7 @@ export const LatLngLabel = styled.span`
   color: ${theme.colors.gray600};
   font-size: 14px;
   font-weight: ${theme.fontWeight.semiBold};
+  margin-bottom: 8px;
 `;
 
 export const CoordinatesValues = styled.span`
@@ -76,7 +78,7 @@ export const SwitchContainer = styled.div`
 // Styles for the Map component
 
 export const MapContainer = styled.div`
-  margin-bottom: 18px;
+  margin: 0px 20px 16px 20px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: calc(100vw - 40px);
@@ -87,7 +89,7 @@ export const MapContainer = styled.div`
 
 export const LocationSearchInputWrapper = styled.div`
   margin-bottom: 8px;
-  margin-top: 30px;
+  margin-top: 15px;
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`
@@ -142,7 +144,7 @@ export const ResetButtonContainer = styled.div`
 
 
 export const MapFormWrapper = styled.div`
-  width: 75vw;
+  width: 1160px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: 100vw;
