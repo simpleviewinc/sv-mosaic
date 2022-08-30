@@ -29,9 +29,9 @@ export const InputWrapper = styled.div`
   display: flex;
   height: 49px;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin: 15px 20px 0px 20px;
   padding: 0 16px;
-  width: ${pr => pr.isMobileView ? "" : "684px"};
+  width: ${pr => pr.isMobileView ? "" : "620px"};
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
@@ -43,7 +43,7 @@ export const ChipsWrapper = styled.div`
   flex-wrap: wrap;
   row-gap: 12px;
   margin-bottom: 16px;
-  width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "684px"};
+  width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "620px"};
 
   & > :not(:last-child) {
     margin-right: 12px;
@@ -57,14 +57,18 @@ export const ChipsWrapper = styled.div`
 export const OptionsCheckedModalWrapper = styled.div`
   margin-bottom: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
   margin-top: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+  margin-left: ${({ isModalOpen }) => (isModalOpen ? "20px" : "")};
+  margin-right: ${({ isModalOpen }) => (isModalOpen ? "20px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`
-  color: ${theme.colors.gray700};
+  color: ${theme.colors.gray600};
   cursor: pointer;
   display: flex;
   font-family: ${theme.fontFamily};
   width: fit-content;
+  font-weight: ${theme.fontWeight.bold};
+  font-size: 16px;
 `;
 
 export const StyledExpandMoreIcon = styled(ExpandMoreIcon)`
