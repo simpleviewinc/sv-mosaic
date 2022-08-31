@@ -12,6 +12,8 @@ export class BasePage {
 	readonly cancelBtn: Locator;
 	readonly saveBtn: Locator;
 	readonly table: Locator;
+	readonly drawerSaveButton: Locator;
+	readonly drawerCancelButton: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -22,6 +24,8 @@ export class BasePage {
 		this.cancelBtn = page.locator("text=Cancel");
 		this.saveBtn = page.locator("text=Save");
 		this.table = page.locator("table");
+		this.drawerSaveButton = page.locator("[type='DRAWER'] button", { hasText: "Save" });
+		this.drawerCancelButton = page.locator("[type='DRAWER'] button", { hasText: "Cancel" });
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
@@ -38,13 +42,6 @@ export class BasePage {
 
 	async wait(): Promise<void> {
 		await this.page.waitForTimeout(500);
-	}
-
-	async setDialogValidationListener(message: string): Promise<void> {
-		this.page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain(message);
-			dialog.accept();
-		});
 	}
 
 	async waitForElementLoad(): Promise<void> {
@@ -75,7 +72,7 @@ export class BasePage {
 		const textContent = await locator.textContent();
 		return Number(textContent?.split("/")[1]);
 	}
-	
+
 	async getNumberOfCharactersInMaxCharField(locator: Locator): Promise<number> {
 		const textContent = await locator.textContent();
 		return Number(textContent?.split("/")[0]);
