@@ -44,7 +44,7 @@ export const popperSx = {
 		},
 	},
 
-	"& .MuiCalendarPicker-root > div:first-child" : {
+	"& .MuiCalendarPicker-root > div:first-of-type" : {
 		marginBottom: "16px",
 		paddingLeft: "16px",
 		paddingRight: "16px",

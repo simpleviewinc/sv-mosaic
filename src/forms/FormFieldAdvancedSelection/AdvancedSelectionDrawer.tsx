@@ -236,7 +236,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		};
 
 		return (
-			<InputWrapper isMobileView={isMobileView}>
+			<InputWrapper isMobileView={isMobileView} createNewOption={props.value && fieldDef?.inputSettings?.createNewOption}>
 				<StyledInput
 					type='text'
 					placeholder='Search...'
@@ -324,7 +324,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type: "checkbox",
 					disabled: fieldDef?.disabled,
 					style: {
-						height: "353px",
+						height: `calc(100vh - 78px - 30px - 49px - 30px - 30px ${fieldDef?.inputSettings?.getOptions ? "- 30px" : ""} - 60px)`,
 						overflowY: "auto",
 						flexWrap: "nowrap",
 						width: "100%",
