@@ -29,13 +29,13 @@ export const StyledDeletableChip = styled(Chip)`
   }
 
   .MuiChip-deleteIcon {
-    color: ${theme.colors.almostBlack};
-    margin: 0;
-    height: 14px;
-    width: 14px;
+    color: ${theme.colors.almostBlack} !important;
+    margin: 0 !important;
+    height: 16px;
+    width: 16px;
 
     &:hover {
-      color: ${theme.colors.almostBlack};
+      color: ${theme.colors.almostBlack} !important;
     }
   }
 
