@@ -31,7 +31,7 @@ export const StyledCheckbox = styled(MUICheckbox)`
     margin-right: 2px;
   }
 
-  & > span > svg {
+  & > svg {
     font-size: 20px;
     border-color: ${theme.colors.almostBlack};
   }

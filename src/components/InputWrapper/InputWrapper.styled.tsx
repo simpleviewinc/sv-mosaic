@@ -7,7 +7,7 @@ export const StyledInputWrapper = styled.div`
   align-items: flex-start;
 
   & .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-    padding: ${theme.inputText.padding};
+    padding: ${theme.fieldSpecs.inputText.padding};
   }
 
   &
@@ -21,6 +21,6 @@ export const StyledInputWrapper = styled.div`
   }
 
   & .MuiOutlinedInput-input {
-    height: ${theme.inputText.height};
+    height: ${theme.fieldSpecs.inputText.height};
   }
 `;

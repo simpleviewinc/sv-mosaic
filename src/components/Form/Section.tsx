@@ -7,12 +7,15 @@ import { FieldDef } from "@root/components/Field";
 // Components
 import Row from "./Row";
 
+// Types
+import { ViewType } from "@root/forms/TopComponent";
+
 const StyledSection = styled.div`
 	scroll-margin-top: 60px;
 	display: flex;
 	flex-direction: column;
 	width: calc(100% - 4px); //LAYOUT: Could be reused.
-	border: ${pr => !pr.hasTitle ? "2px solid transparent" : `2px solid ${theme.colors.grayHover}`};
+	border: ${pr => !pr.hasTitle ? "none" : `2px solid ${theme.colors.grayHover}`};
 	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"};
 
 	& h1 {
@@ -32,9 +35,8 @@ const StyledDescription = styled.p`
 
 const StyledRows = styled.div`
 	display: grid;
-	row-gap: 20px;
 	margin: 0px;
-	padding: ${pr => !pr.hasTitle ? "0px" : "0px 40px 50px 40px"} ;
+	padding: ${pr => pr.view === "MOBILE" ? "0px 30px 30px 30px" : "0px 40px 50px 40px"};
 `;
 
 const StyledTitle = styled.h1`
@@ -51,6 +53,7 @@ interface SectionPropTypes {
 	rows: string[][][];
 	dispatch: any;
 	state: any;
+	view: ViewType;
 }
 
 const Section = forwardRef((props: SectionPropTypes, ref) => {
@@ -61,7 +64,8 @@ const Section = forwardRef((props: SectionPropTypes, ref) => {
 		rows,
 		dispatch,
 		sectionIdx,
-		state
+		state,
+		view
 	} = props;
 
 	return (
@@ -69,7 +73,7 @@ const Section = forwardRef((props: SectionPropTypes, ref) => {
 			{title && <StyledTitle>{title}</StyledTitle>}
 			{description && <StyledDescription>{description}</StyledDescription>}
 			{rows && (
-				<StyledRows hasTitle={title}>
+				<StyledRows view={view}>
 					{rows.map((row, i) => (
 						<Row
 							key={`row-${i}`}
