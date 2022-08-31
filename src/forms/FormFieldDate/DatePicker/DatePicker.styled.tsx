@@ -8,6 +8,18 @@ export const popperSx = {
 		boxShadow: "0px 1px 5px rgba(26, 26, 26, 0.161)",
 	},
 
+	"& .MuiPickersDay-today": {
+		color: `${theme.colors.blueTeal} !important`,
+		border: "none !important",
+		fontFamily: theme.fontFamily,
+		backgroundColor: "transparent !important",
+
+		"&:hover": {
+			color: theme.colors.blueTeal,
+			backgroundColor: `${theme.colors.blueTealOpacity} !important`,
+		},
+	},
+
 	"& .MuiPickersDay-dayWithMargin": {
 		color: theme.colors.almostBlack,
 		fontFamily: theme.fontFamily,
@@ -24,18 +36,25 @@ export const popperSx = {
 
 	"& .MuiPickersDay-root.Mui-selected" : {
 		backgroundColor: `${theme.colors.blueTeal} !important`,
+		color: "#FFFF !important",
 
 		"&:hover": {
-			color: "#FFFF",
+			color: "#FFFF !important",
 			backgroundColor: `${theme.colors.blueTeal} !important`,
 		},
+	},
+
+	"& .MuiCalendarPicker-root > div:first-of-type" : {
+		marginBottom: "16px",
+		paddingLeft: "16px",
+		paddingRight: "16px",
 	}
 };
 
 export const DisabledDateTimeValue = styled.span`
-  color: ${theme.colors.almostBlack};
-  font-family: ${theme.fontFamily};
-  font-size: 16px;
+	color: ${theme.colors.almostBlack};
+	font-family: ${theme.fontFamily};
+	font-size: 16px;
 `;
 
 export const DatePickerWrapper = styled.div`

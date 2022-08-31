@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Key } from "react";
 import styled from "styled-components";
-import MUIDrawer from "@mui/material/Drawer";
+import MUIDrawer, { DrawerProps as MUIDrawerProps } from "@mui/material/Drawer";
 
 import theme from "@root/theme";
+import { SxProps } from "@mui/system";
 
-const DrawerContent = styled.div`
+const StyledDrawerContent = styled.div`
 	font-family: ${theme.fontFamily};
 	display: flex;
 	flex-direction: column;
@@ -14,9 +15,9 @@ const DrawerContent = styled.div`
 
 const MUIDrawerStyled = styled(MUIDrawer)`
 	z-index: 1100;
-	${pr => pr.anchorstyle && 
+	${pr => pr.anchorstyle &&
 		`.MuiDrawer-paper {
-${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") && 
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") &&
 `
 	background: white;
 	transition: transform 255ms ease-in-out !important;
@@ -24,7 +25,7 @@ ${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "r
 `
 }
 
-${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) && 
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) &&
 `
 	background: white;
 	transition: transform 255ms ease-in-out !important;
@@ -32,7 +33,7 @@ ${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "l
 `
 }
 
-${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) && 
+${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) &&
 `
 	background: white;
 	transition: transform 255ms ease-in-out !important;
@@ -43,19 +44,31 @@ ${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "l
 }
 `
 
-// interface DrawerProps {
-// 	open: boolean;
-// 	onClose?: () => unknown;
-// 	children: JSX.Element;
-// 	key?: unknown;
-// 	anchor?: "left" | "right";
-// 	sx?: SxProps;
-// }
+interface DrawerProps extends MUIDrawerProps {
+	open: boolean;
+	onClose?: () => unknown;
+	children: JSX.Element;
+	anchor?: "left" | "right";
+	sx?: SxProps;
+	idx?: Key;
+	exitCB?: () => void;
+	anchorstyle?: "left" | "right";
+	display?: boolean;
+}
 
-const Drawer = (props) => {
-	const { open, onClose, children, idx, anchor = "right", display, anchorstyle, exitCB } = props;
+const Drawer = (props: DrawerProps) => {
+	const {
+		open,
+		onClose,
+		children,
+		idx,
+		anchor = "right",
+		display,
+		anchorstyle,
+		exitCB
+	} = props;
 
-	const prevStyleRef = useRef();
+	const prevStyleRef = useRef<typeof anchorstyle>();
 	useEffect(() => {
 		prevStyleRef.current = anchorstyle;
 	}, [anchorstyle]);
@@ -72,7 +85,7 @@ const Drawer = (props) => {
 			});
 		}
 	}, [open]);
-	
+
 	const onExited = function () {
 		setState({
 			...state,
@@ -96,9 +109,9 @@ const Drawer = (props) => {
 			>
 				{
 					state.open &&
-					<DrawerContent>
+					<StyledDrawerContent>
 						{children}
-					</DrawerContent>
+					</StyledDrawerContent>
 				}
 			</MUIDrawerStyled>
 		</>

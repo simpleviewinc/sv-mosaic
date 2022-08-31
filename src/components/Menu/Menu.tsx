@@ -2,9 +2,16 @@ import React from "react";
 import jsvalidator from "jsvalidator";
 
 import MenuBase from "../MenuBase";
-import MenuItem from "../MenuItem";
+import MenuItem, { MenuItemProps } from "../MenuItem";
 
-function Menu(props) {
+export interface MenuProps {
+	items?: MenuItemProps[];
+	anchorEl?: HTMLElement;
+	open: boolean;
+	onClose: () => void;
+}
+
+function Menu(props: MenuProps) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -65,13 +72,13 @@ function Menu(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
-	
+
 	const menuItems = props.items.map((item, i) => {
 		const onClick = function() {
 			item.onClick();
 			props.onClose();
 		}
-		
+
 		return (
 			<MenuItem
 				key={i}
@@ -80,7 +87,7 @@ function Menu(props) {
 			/>
 		)
 	});
-	
+
 	return (
 		<MenuBase
 			anchorEl={props.anchorEl}

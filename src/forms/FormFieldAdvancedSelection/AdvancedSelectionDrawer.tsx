@@ -81,7 +81,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [value, isModalOpen]);
 
 	/**
-	 * Loads the options provided  either from 
+	 * Loads the options provided  either from
 	 * a database or locally.
 	 */
 	useEffect(() => {
@@ -203,7 +203,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	]);
 
 	const searchInput = useCallback((props): ReactElement => {
-		const searchKeyword = props.value.trim();
+		const searchKeyword = props?.value?.trim();
 
 		/**
 		 * Handler for the input element
@@ -236,12 +236,12 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		};
 
 		return (
-			<InputWrapper isMobileView={isMobileView}>
+			<InputWrapper isMobileView={isMobileView} createNewOption={props.value && fieldDef?.inputSettings?.createNewOption}>
 				<StyledInput
 					type='text'
 					placeholder='Search...'
 					onChange={onInputChange}
-					value={props.value ? props.value : ""}
+					value={props?.value ?? ""}
 					disabled={fieldDef?.disabled}
 				/>
 				{props.value && fieldDef?.inputSettings?.createNewOption && (
@@ -265,7 +265,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				value: newOptions,
 			})
 		);
-	
+
 		dispatch(
 			formActions.setFieldValue({
 				name: "checkboxList",
@@ -276,7 +276,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	/**
 	 * Function executed whenever the checkboxes are clicked.
-	 * @param checkedOptions 
+	 * @param checkedOptions
 	 */
 	const checkboxListChanged = (checkedOptions: string[]) => {
 		const availableOptions = _.union(options, filteredOptions);
@@ -324,7 +324,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type: "checkbox",
 					disabled: fieldDef?.disabled,
 					style: {
-						height: "353px",
+						height: `calc(100vh - 78px - 30px - 49px - 30px - 30px ${fieldDef?.inputSettings?.getOptions ? "- 30px" : ""} - 60px)`,
 						overflowY: "auto",
 						flexWrap: "nowrap",
 						width: "100%",

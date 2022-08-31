@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import DrawerTopBar from "./DrawerTopBar";
-import DrawerBottom from "./DrawerBottom";
+import DrawerTopBar, { DrawerTopBarProps } from "./DrawerTopBar";
+import DrawerBottom, { DrawerBottomProps } from "./DrawerBottom";
 
 const StyledDiv = styled.div`
 	width: 600px;
-`
+`;
 
-function DrawerContent(props) {
+type DrawerContentProps = DrawerTopBarProps & DrawerBottomProps;
+
+function DrawerContent(props: DrawerContentProps) {
 	return (
 		<StyledDiv>
 			<DrawerTopBar

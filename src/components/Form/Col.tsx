@@ -148,7 +148,7 @@ const Col = (props: ColPropsTypes) => {
 				// const onBlur = onBlurMap[fieldProps.name];
 
 				const name = fieldProps.name;
-				const value = state?.data[fieldProps.name] || "";
+				const value = state?.data[fieldProps.name];
 				const error = state?.errors[fieldProps.name] || "";
 
 				let maxSize: Sizes | string;
