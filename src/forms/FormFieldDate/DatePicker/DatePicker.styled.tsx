@@ -58,31 +58,32 @@ export const DisabledDateTimeValue = styled.span`
 `;
 
 export const DatePickerWrapper = styled.div`
-  .MuiOutlinedInput-root {
+  	.MuiOutlinedInput-root {
 		background-color: ${theme.colors.gray100};
 		width: ${Sizes.sm};
+		padding-right: 16px;
 
-    &:hover {
-      background-color: ${theme.colors.gray200};
-    }
+		&:hover {
+			background-color: ${theme.colors.gray200};
+		}
 
-    & fieldset {
-      border-radius: 0;
-      border: ${pr => pr.isPickerOpen ? `1px solid ${theme.colors.almostBlack}` : `1px solid ${theme.colors.simplyGray}`};
-    }
+		& fieldset {
+			border-radius: 0;
+			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.colors.almostBlack}` : `1px solid ${theme.colors.simplyGray}`};
+		}
 
 		.MuiOutlinedInput-input {
 			height: ${theme.fieldSpecs.inputText.height};
 			padding: ${theme.fieldSpecs.inputText.padding};
 		}
 
-    &.Mui-focused fieldset {
-      border-color: ${theme.colors.almostBlack};
-      border-width: 2px;
-    }
-  }
+		&.Mui-focused fieldset {
+			border-color: ${theme.colors.almostBlack};
+			border-width: 2px;
+		}
+  	}
 
-  .MuiIconButton-root {
-    color: ${pr => pr.isPickerOpen ? theme.colors.almostBlack : theme.colors.gray600};
-  }
+	.MuiIconButton-root {
+		color: ${pr => pr.isPickerOpen ? theme.colors.almostBlack : theme.colors.gray600};
+	}
 `;
