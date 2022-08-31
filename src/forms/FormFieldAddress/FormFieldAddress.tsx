@@ -54,16 +54,16 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 			value: "shipping",
 		},
 	];
-	
+
 	useEffect(() => {
 		if (!open) {
 			const amountPerType = fieldDef?.inputSettings?.amountPerType ?? 1
 
 			const amountPerTypeProp = {
-				amountPerType: amountPerType, 
-				amountShipping: fieldDef?.inputSettings?.amountShipping ?? amountPerType, 
-				amountBilling: fieldDef?.inputSettings?.amountBilling ?? amountPerType, 
-				amountPhysical: fieldDef?.inputSettings?.amountPhysical ?? amountPerType, 
+				amountPerType: amountPerType,
+				amountShipping: fieldDef?.inputSettings?.amountShipping ?? amountPerType,
+				amountBilling: fieldDef?.inputSettings?.amountBilling ?? amountPerType,
+				amountPhysical: fieldDef?.inputSettings?.amountPhysical ?? amountPerType,
 			}
 			setAvailableAddresses(amountPerTypeProp);
 		}
@@ -81,7 +81,7 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 			value?.forEach(address => {
 				address.types.forEach(type => {
 					let amount = 1;
-				
+
 					if (newTypes.has(type)) {
 						amount += newTypes.get(type);
 					}
@@ -96,12 +96,12 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 			if (editingTypes.includes(type.value) || (newTypes.has(type.value) && newTypes.get(type.value) < availableAddresses[`amount${type.label}`]) || (!newTypes.has(type.value) && availableAddresses[`amount${type.label}`] > 0))
 				addresses.push(type);
 		});
-		
+
 		setAddressTypes(addresses);
 	}
 
 	/**
-	 * Opens the modal to create an address card 
+	 * Opens the modal to create an address card
 	 * and sets editing mode to false.
 	 */
 	const addAddressHandler = () => {
@@ -110,14 +110,14 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 	};
 
 	/**
-	 * Removes the clicked address card from the list. 
-	 * @param addressToRemove 
+	 * Removes the clicked address card from the list.
+	 * @param addressToRemove
 	 */
 	const removeAddressHandler = async (addressIndex: number) => {
 		const listOfAddresses = [...value];
 		listOfAddresses.splice(addressIndex, 1);
 
-		if (listOfAddresses.length > 0) {
+		if (listOfAddresses?.length > 0) {
 			await onChange(listOfAddresses);
 		} else {
 			await onChange(undefined);
@@ -150,9 +150,9 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 
 	/**
 	 * Opens the modal in editing mode and sets the
-	 * form fields values with the data of the address 
+	 * form fields values with the data of the address
 	 * to be edited.
-	 * @param addressToEdit 
+	 * @param addressToEdit
 	 */
 	const showEditModal = (addressToEdit, addressIndex) => {
 		const {
@@ -211,7 +211,7 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
 					open={open}
-					value={value}
+					value={value ?? []}
 					onChange={onChange}
 					isEditing={isEditing}
 					addressIdx={addressIdx}

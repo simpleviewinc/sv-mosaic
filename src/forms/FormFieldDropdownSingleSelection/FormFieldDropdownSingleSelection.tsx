@@ -20,7 +20,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		error,
 		onChange,
 		onBlur,
-		value
+		value = ""
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +46,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		setDropDownValue(option)
 		onChange && (await onChange(option?.value));
 	}
-	
+
 	const selectedOption = fieldDef?.inputSettings?.options.find(option => {
 		return option.value === value;
 	});

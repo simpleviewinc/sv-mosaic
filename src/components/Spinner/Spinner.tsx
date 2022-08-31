@@ -3,7 +3,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import theme from "@root/theme";
 
-function Spinner(props) {
+interface SpinnerProps {
+	className?: string;
+}
+
+function Spinner(props: SpinnerProps) {
 	return (
 		<CircularProgress style={{ color : theme.colors.blue }} size={30} className={props.className}/>
 	)

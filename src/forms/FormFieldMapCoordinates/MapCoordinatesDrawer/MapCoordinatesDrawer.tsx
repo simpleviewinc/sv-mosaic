@@ -38,7 +38,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 	const modalReducer = useForm();
 
-	const initialState = { lat: value.lat ? value.lat : undefined, lng: value.lng ? value.lng : undefined };
+	const initialState = { lat: value?.lat ? value.lat : undefined, lng: value?.lng ? value.lng : undefined };
 
 	useEffect(() => {
 		const { lat, lng } = modalReducer.state.data;
