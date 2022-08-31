@@ -27,7 +27,6 @@ const Form = (props: FormProps) => {
 		getFormValues,
 		handleDialogClose,
 	} = props;
-
 	const { view } = useWindowResizer(type);
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
 	const contentRef = useRef();
@@ -96,7 +95,6 @@ const Form = (props: FormProps) => {
 	if (!view) {
 		return null;
 	}
-
 	return (
 		<>
 			<div style={{ position: "relative", height: "100%" }}>
@@ -129,6 +127,7 @@ const Form = (props: FormProps) => {
 									dispatch={dispatch}
 									fields={fields}
 									sections={sections}
+									view={view}
 								/>
 							</FormContent>
 						</Row>
@@ -140,6 +139,7 @@ const Form = (props: FormProps) => {
 								dispatch={dispatch}
 								fields={fields}
 								sections={sections}
+								view={view}
 							/>
 						</FormContent>
 					)}
