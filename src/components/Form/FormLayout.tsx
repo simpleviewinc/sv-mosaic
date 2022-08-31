@@ -8,11 +8,15 @@ import styled from "styled-components";
 // Components
 import Section from "./Section";
 
+// Types
+import { ViewType } from "@root/forms/TopComponent";
+
 interface FormLayoutProps {
   state: any;
   dispatch: any;
   fields: FieldDef[];
   sections: SectionDef[];
+  view: ViewType;
 }
 
 const StyledFormLayout = styled.div`
@@ -21,7 +25,7 @@ const StyledFormLayout = styled.div`
 `;
 
 const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
-	const { state, dispatch, fields, sections } = props;
+	const { state, dispatch, fields, sections, view } = props;
 	const sectionRef = ref as RefObject<HTMLDivElement>;
 
 	const layout = useMemo(() => {
@@ -32,7 +36,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 		<StyledFormLayout className='layout'>
 			{layout?.map((section, i) => (
 				<Section
-					ref={el => sectionRef.current[i] = el} 
+					ref={el => sectionRef.current[i] = el}
 					key={`section-${i}`}
 					title={section.title}
 					sectionIdx={i}
@@ -41,6 +45,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 					rows={section.fields}
 					state={state}
 					dispatch={dispatch}
+					view={view}
 				/>
 			))}
 		</StyledFormLayout>

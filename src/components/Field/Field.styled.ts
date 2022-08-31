@@ -6,7 +6,8 @@ export const StyledFieldWrapper = styled.div`
   padding: 15px;
   background-color: ${(pr) =>
 		pr.error ? theme.colors.lightRed : "transparent"};
-  width: ${(pr) => pr.size ? pr.size : "fit-content"};
+  width: fit-content;
+  position: relative;
 `;
 
 export const StyledFieldContainer = styled.div`

@@ -53,8 +53,8 @@ export const DatePickerWrapper = styled.div`
     }
 
 		.MuiOutlinedInput-input {
-			height: ${theme.inputText.height};
-			padding: ${theme.inputText.padding};
+			height: ${theme.fieldSpecs.inputText.height};
+			padding: ${theme.fieldSpecs.inputText.padding};
 		}
 
     &.Mui-focused fieldset {
