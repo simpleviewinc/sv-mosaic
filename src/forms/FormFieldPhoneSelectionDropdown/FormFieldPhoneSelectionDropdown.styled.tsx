@@ -10,8 +10,8 @@ export const PhoneInputWrapper = styled.div`
       background-color: ${theme.colors.gray100};
       border-radius: 0px;
       font-family: ${theme.fontFamily};
-      height: 43px;
-      padding: 15px 15px 15px 98px;
+      height: ${theme.fieldSpecs.inputText.totalHight};
+      padding: 12px 16px 12px 98px;
       width: 280px;
       &:focus {
         color: ${theme.colors.almostBlack};

@@ -1,4 +1,5 @@
 import { FieldDef } from "@root/components/Field";
+import theme from "@root/theme";
 import * as React from "react";
 import { memo } from "react";
 import styled from "styled-components";
@@ -8,7 +9,7 @@ import Col from "./Col";
 
 const StyledRow = styled.div`
 	display: flex;
-	margin: 0px -20px;
+	margin: 0px -${theme.fieldSpecs.inputSpacing.fieldPadding};
 `;
 
 interface RowPropTypes {
