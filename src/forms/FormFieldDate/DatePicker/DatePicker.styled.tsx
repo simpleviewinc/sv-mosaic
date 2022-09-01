@@ -12,6 +12,7 @@ export const popperSx = {
 		color: `${theme.colors.blueTeal} !important`,
 		border: "none !important",
 		fontFamily: theme.fontFamily,
+		fontWeight: theme.fontWeight.bold,
 		backgroundColor: "transparent !important",
 
 		"&:hover": {
@@ -27,6 +28,7 @@ export const popperSx = {
 		"&:hover": {
 			color: theme.colors.blueTeal,
 			backgroundColor: theme.colors.blueTealOpacity,
+			fontWeight: theme.fontWeight.bold,
 		},
 	},
 
@@ -37,6 +39,7 @@ export const popperSx = {
 	"& .MuiPickersDay-root.Mui-selected" : {
 		backgroundColor: `${theme.colors.blueTeal} !important`,
 		color: "#FFFF !important",
+		fontWeight: theme.fontWeight.bold,
 
 		"&:hover": {
 			color: "#FFFF !important",
