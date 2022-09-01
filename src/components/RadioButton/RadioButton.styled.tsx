@@ -27,7 +27,7 @@ export const StyledRadioButton = styled(Radio)`
   }
 
   & svg {
-    height: 20px;
-    width: 20px;
+    height: ${theme.fieldSpecs.selectors.dimentions};
+    width: ${theme.fieldSpecs.selectors.dimentions};
   }
 `;

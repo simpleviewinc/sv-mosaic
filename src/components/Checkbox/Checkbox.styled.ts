@@ -26,14 +26,29 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
 `;
 
 export const StyledCheckbox = styled(MUICheckbox)`
+  &.MuiCheckbox-colorPrimary {
+    color: ${theme.colors.almostBlack};
+
+    &.Mui-checked {
+      color: ${theme.colors.simplyGold};
+    }
+  }
+
+  &.MuiCheckbox-colorPrimary,
+  &.Muicheckbox-colorPrimary.Mui-checked {
+    &:hover {
+      background-color: ${theme.colors.grayHover}
+    }
+  }
+
   &.custom-checkbox {
     padding: 10px;
     margin-right: 2px;
   }
 
-  & > svg {
-    font-size: 20px;
-    border-color: ${theme.colors.almostBlack};
+  & svg {
+    height: ${theme.fieldSpecs.selectors.dimentions};
+    width: ${theme.fieldSpecs.selectors.dimentions};
   }
 `;
 

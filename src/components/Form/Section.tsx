@@ -36,7 +36,7 @@ const StyledDescription = styled.p`
 const StyledRows = styled.div`
 	display: grid;
 	margin: 0px;
-	padding: ${pr => pr.view === "MOBILE" ? "0px 30px 30px 30px" : "0px 40px 50px 40px"};
+	padding: ${pr => pr.view === "MOBILE" ? "0px 30px" : "0px 40px"};
 `;
 
 const StyledTitle = styled.h1`
