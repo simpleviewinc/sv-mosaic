@@ -26,9 +26,7 @@ const StyledSection = styled.div`
 `;
 
 const StyledDescription = styled.p`
-	height: 46px;
-	margin: 0px;
-	padding: 50px 40px 20px 40px;
+	margin: 30px 40px 0px 40px;
 	font-size: 16px;
 	font-family: ${theme.fontFamily};
 `
@@ -36,7 +34,7 @@ const StyledDescription = styled.p`
 const StyledRows = styled.div`
 	display: grid;
 	margin: 0px;
-	padding: ${pr => pr.view === "MOBILE" ? "0px 30px" : "0px 40px"};
+	padding: ${pr => pr.view === "MOBILE" ? "0px 30px" : `${!pr.hasTitle ? "" : "15px 40px"}`};
 `;
 
 const StyledTitle = styled.h1`
@@ -78,7 +76,7 @@ const Section = forwardRef((props: SectionPropTypes, ref) => {
 			{title && <StyledTitle>{title}</StyledTitle>}
 			{description && <StyledDescription>{description}</StyledDescription>}
 			{rows && (
-				<StyledRows view={view}>
+				<StyledRows view={view} hasTitle={title}>
 					{rows.map((row, i) => (
 						<Row
 							key={`row-${i}`}

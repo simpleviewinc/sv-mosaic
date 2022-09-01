@@ -35,7 +35,7 @@ export const StyledCheckbox = styled(MUICheckbox)`
   }
 
   &.MuiCheckbox-colorPrimary,
-  &.Muicheckbox-colorPrimary.Mui-checked {
+  &.MuiCheckbox-colorPrimary.Mui-checked {
     &:hover {
       background-color: ${theme.colors.grayHover}
     }
