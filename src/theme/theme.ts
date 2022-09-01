@@ -74,8 +74,21 @@ export default {
 	},
 	fieldSpecs: {
 		inputText: {
-			height : "15px",
-			padding: "14px",
-		}
+			height : "19px",
+			padding: "12px 16px",
+			totalHight: "43px",
+		},
+		selectors: {
+			dimentions: "20px",
+		},
+		inputSpacing: {
+			instructionText: {
+				marginTop: "8px",
+			},
+			helperText: {
+				marginTop: "8px",
+			},
+			fieldPadding: "15px",
+		},
 	},
 }
