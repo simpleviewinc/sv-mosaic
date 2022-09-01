@@ -82,8 +82,8 @@ export default {
 			dimentions: "20px",
 		},
 		inputSpacing: {
-			instructionText: {
-				marginTop: "8px",
+			label: {
+				marginBottom: "8px",
 			},
 			helperText: {
 				marginTop: "8px",
