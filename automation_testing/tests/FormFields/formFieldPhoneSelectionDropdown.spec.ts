@@ -15,8 +15,7 @@ test.describe("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () 
 		await ffPhoneSelectionDropdownPage.regularPhoneField.type(phoneNumber);
 		expect(await ffPhoneSelectionDropdownPage.regularPhoneField.inputValue()).toBe("+1" + phoneNumber);
 
-		await ffPhoneSelectionDropdownPage.regularPhoneFieldDropdown.click();
-		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown("Mexico");
+		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown(ffPhoneSelectionDropdownPage.regularPhoneFieldDropdown, "Mexico");
 		expect(await ffPhoneSelectionDropdownPage.regularPhoneField.inputValue()).toBe("+52" + phoneNumber);
 	});
 
@@ -30,13 +29,11 @@ test.describe("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () 
 		const expectedFormatNumberUS = "+1 (703) 765-4321";
 		const expectedFormatNumberUK = "+44 2087 599036";
 
-		await ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown.click();
-		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown("United States");
+		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown(ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown, "United States");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(phoneNumberUS);
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUS);
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill("");
-		await ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown.click();
-		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown("United Kingdom");
+		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown(ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown, "United Kingdom");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(phoneNumberUK);
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUK);
 	});
@@ -58,7 +55,7 @@ test.describe("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () 
 		const rndProvidedCodePhone = String(randomIntFromInterval(100000000000000, 999999999999999));
 		const rndAutoformatedPhone = String(randomIntFromInterval(1000000000, 9999999999));
 		const rndCustomPlaceholderPhone = String(randomIntFromInterval(100000000000000, 999999999999999));
-		
+
 		await ffPhoneSelectionDropdownPage.regularPhoneField.fill("");
 		await ffPhoneSelectionDropdownPage.regularPhoneField.fill(rndRegularPhone);
 		await ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField.fill("");
