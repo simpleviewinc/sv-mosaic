@@ -43,6 +43,7 @@ const TextField = (
 	return (
 		<StyledTextField
 			id={fieldDef?.name}
+			data-testid="form-field-text-test-id"
 			value={value ?? ""}
 			onChange={onFieldChange}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
