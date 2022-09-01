@@ -11,7 +11,7 @@ test.describe("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", ()
 
 	test("Validate the regular dropdown", async () => {
 		const option = "The Godfather";
-		await formFieldDropdownSingleSelectionPage.writeOptionInDropdown(formFieldDropdownSingleSelectionPage.regularDropdownInput, option);
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.regularDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.regularDropdownInput.inputValue()).toBe(option);
 	});
 
@@ -22,7 +22,7 @@ test.describe("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", ()
 	test("Validate xs dropdown size is valid", async () => {
 		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.xsSizeDropdownDiv)).toBe(100);
 	});
-	
+
 	test("Validate sm  dropdown size is valid", async () => {
 		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.smSizeDropdownDiv)).toBe(280);
 	});
@@ -37,10 +37,10 @@ test.describe("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", ()
 
 	test("Validate selecting a value in all the dropdown sizes", async () => {
 		const option = "The Godfather";
-		await formFieldDropdownSingleSelectionPage.writeOptionInDropdown(formFieldDropdownSingleSelectionPage.xsSizeDropdownInput, option);
-		await formFieldDropdownSingleSelectionPage.writeOptionInDropdown(formFieldDropdownSingleSelectionPage.smSizeDropdownInput, option);
-		await formFieldDropdownSingleSelectionPage.writeOptionInDropdown(formFieldDropdownSingleSelectionPage.mdSizeDropdownInput, option);
-		await formFieldDropdownSingleSelectionPage.writeOptionInDropdown(formFieldDropdownSingleSelectionPage.lgSizeDropdownInput, option);
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.xsSizeDropdownInput, option);
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.smSizeDropdownInput, option);
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.mdSizeDropdownInput, option);
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.lgSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.xsSizeDropdownInput.inputValue()).toBe(option);
 		expect(await formFieldDropdownSingleSelectionPage.smSizeDropdownInput.inputValue()).toBe(option);
 		expect(await formFieldDropdownSingleSelectionPage.mdSizeDropdownInput.inputValue()).toBe(option);
