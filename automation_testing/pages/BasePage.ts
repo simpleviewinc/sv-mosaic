@@ -12,16 +12,24 @@ export class BasePage {
 	readonly cancelBtn: Locator;
 	readonly saveBtn: Locator;
 	readonly table: Locator;
+	readonly errorMessage: Locator;
+	readonly latitude: Locator;
+	readonly longitude: Locator;
+	readonly saveCoordinatesButton: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
-		this.title = page.locator("//*[@id='root']/div/form/div[1]/div[1]/div[1]/span[1]");
+		this.title = page.locator("text=Form Title");
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("text=Cancel");
-		this.saveBtn = page.locator("text=Save");
+		this.saveBtn = page.locator("text=Save").first();
 		this.table = page.locator("table");
+		this.errorMessage = page.locator("p.Mui-error");
+		this.latitude = page.locator("#lat");
+		this.longitude = page.locator("#lng");
+		this.saveCoordinatesButton = page.locator("[type='DRAWER'] button", { hasText: "Save Coordinates"})
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
@@ -75,13 +83,14 @@ export class BasePage {
 		const textContent = await locator.textContent();
 		return Number(textContent?.split("/")[1]);
 	}
-	
+
 	async getNumberOfCharactersInMaxCharField(locator: Locator): Promise<number> {
 		const textContent = await locator.textContent();
 		return Number(textContent?.split("/")[0]);
 	}
 
-	async selectOptionFromDropdown(option: string): Promise<void> {
+	async selectOptionFromDropdown(dropdown: Locator, option:string): Promise<void> {
+		await dropdown.click({force: true});
 		await this.page.locator("text=" + option).nth(0).click();
 	}
 }
