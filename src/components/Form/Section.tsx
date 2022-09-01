@@ -69,7 +69,12 @@ const Section = forwardRef((props: SectionPropTypes, ref) => {
 	} = props;
 
 	return (
-		<StyledSection ref={ref} hasTitle={title} id={sectionIdx}>
+		<StyledSection
+			ref={ref}
+			hasTitle={title}
+			id={sectionIdx}
+			data-testid="section-test-id"
+		>
 			{title && <StyledTitle>{title}</StyledTitle>}
 			{description && <StyledDescription>{description}</StyledDescription>}
 			{rows && (

@@ -99,7 +99,7 @@ const Form = (props: FormProps) => {
 
 	return (
 		<>
-			<div style={{ position: "relative", height: "100%" }}>
+			<div data-testid="form-test-id" style={{ position: "relative", height: "100%" }}>
 				{state.disabled &&
 					<StyledDisabledForm />
 				}
