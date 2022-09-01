@@ -39,7 +39,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<DatePickerWrapper error={!!error} isPickerOpen={isPickerOpen}>
+			<DatePickerWrapper data-testid="date-picker-test-id" error={!!error} isPickerOpen={isPickerOpen}>
 				<DatePicker
 					renderInput={renderInput}
 					inputFormat="MM/dd/yyyy"

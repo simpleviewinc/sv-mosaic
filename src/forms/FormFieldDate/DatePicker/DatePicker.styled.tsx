@@ -72,10 +72,10 @@ export const DatePickerWrapper = styled.div`
 			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.colors.almostBlack}` : `1px solid ${theme.colors.simplyGray}`};
 		}
 
-		.MuiOutlinedInput-input {
-			height: ${theme.fieldSpecs.inputText.height};
-			padding: ${theme.fieldSpecs.inputText.padding};
-		}
+			.MuiOutlinedInput-input {
+				height: ${theme.fieldSpecs.inputText.height};
+				padding: ${theme.fieldSpecs.inputText.padding};
+			}
 
 		&.Mui-focused fieldset {
 			border-color: ${theme.colors.almostBlack};

@@ -33,7 +33,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 	}, [sections, fields]);
 
 	return (
-		<StyledFormLayout className='layout'>
+		<StyledFormLayout data-testid="form-layout-test-id" className='layout'>
 			{layout?.map((section, i) => (
 				<Section
 					ref={el => sectionRef.current[i] = el}

@@ -95,7 +95,7 @@ const Field = ({
 	}, [fieldDef?.type]);
 
 	return (
-		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style}>
+		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
 				ref={fieldRef}
