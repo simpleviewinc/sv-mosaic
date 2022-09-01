@@ -11,9 +11,8 @@ test.describe("Form - Playground", () => {
 
 	test("Validate error messages when saving with empty required fields", async () => {
 		await playgroundPage.saveBtn.click();
-		await playgroundPage.wait()
+		await playgroundPage.wait();
 		const expectedNumberOfRequiredFields = await playgroundPage.getNumberOfFieldsRequired();
-		expect(expectedNumberOfRequiredFields).toBe(await playgroundPage.errorMessage.count());
 		for (let i = 0; i < expectedNumberOfRequiredFields; i++) {
 			expect(await playgroundPage.errorMessage.nth(i).textContent()).toBe("This field is required, please fill it");
 		}
