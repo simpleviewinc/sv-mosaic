@@ -28,7 +28,7 @@ export const FormTitle = styled.span`
 const Description = styled.span`
 	color: ${theme.colors.gray600};
 	font-size: 14px;
-	margin-top: 8px;
+	margin-top: 5px;
 
 	@media (max-width: ${theme.breakpoints.mobile}) {
 		align-self: center;

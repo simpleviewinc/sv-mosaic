@@ -27,7 +27,7 @@ const DesktopViewColumn = styled(StyledColumn)`
 	z-index: 100;
 
 	& .form-nav-wrapper {
-		margin-top: 30px;
+		margin-top: 20px;
 	}
 
 	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {

@@ -66,7 +66,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 	return (
 		<>
 			{!fieldDef?.disabled ?
-				<SingleDropdownWrapper innerWidth={fieldDef?.size}>
+				<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" innerWidth={fieldDef?.size}>
 					<StyledAutocomplete
 						value={{label: selectedOption?.label, value: value}}
 						onOpen={handleOpen}
