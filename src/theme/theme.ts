@@ -76,7 +76,7 @@ export default {
 		inputText: {
 			height : "19px",
 			padding: "12px 16px",
-			totalHight: "43px",
+			totalHeight: "43px",
 		},
 		selectors: {
 			dimentions: "20px",

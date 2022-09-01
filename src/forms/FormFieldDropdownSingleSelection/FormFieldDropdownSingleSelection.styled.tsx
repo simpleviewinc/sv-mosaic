@@ -61,7 +61,7 @@ export const SingleDropdownWrapper = styled.div`
   padding: 0;
 
   .MuiFormControl-fullWidth {
-    height: ${theme.fieldSpecs.inputText.totalHight};
+    height: ${theme.fieldSpecs.inputText.totalHeight};
     width: ${pr => (pr.innerWidth ? pr.innerWidth : Sizes.sm)};
   }
 
