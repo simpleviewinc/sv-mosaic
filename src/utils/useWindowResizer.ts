@@ -17,7 +17,7 @@ const getView = (): BaseTopComponentProps["view"] => {
 		innerWidth >= mobileBreakpoint
 	) {
 		return "RESPONSIVE";
-	} else if (innerWidth > bigScreenBreakpoint) {
+	} else if (innerWidth >= bigScreenBreakpoint) {
 		return "BIG_DESKTOP";
 	} else {
 		return "DESKTOP";
