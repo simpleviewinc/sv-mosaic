@@ -32,8 +32,4 @@ export class FormFieldMapCoordinatesPage extends BasePage {
 		}
 		return mapCoordinates[index + 1];
 	}
-
-	async getLongitudeFromMapCard(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
 }
