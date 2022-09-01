@@ -2,6 +2,8 @@ import { ButtonProps } from "@root/components/Button";
 import { FormNavProps } from "@root/forms/FormNav";
 import { ReactNode } from "react";
 
+export type ViewType = "MOBILE" | "RESPONSIVE" | "DRAWER" | "DESKTOP" | "BIG_DESKTOP";
+
 export type BaseTopComponentProps = {
 	/**
 	* Array of buttons provided to the Form.
@@ -27,7 +29,7 @@ export type BaseTopComponentProps = {
 	/**
 	 * All different variants for the top comopnent.
 	 */
-	view: "MOBILE" | "RESPONSIVE" | "DRAWER" | "DESKTOP" | "BIG_DESKTOP";
+	view: ViewType;
 	/**
 	 * Icon to be displayed when developers pass additional instructions
 	 * or information for the form.
