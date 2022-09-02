@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import jsvalidator from "jsvalidator";
+// import jsvalidator from "jsvalidator";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloseIcon from "@mui/icons-material/Close";
@@ -48,31 +48,48 @@ const LabelWrapper = styled.div`
 	&.type_optional > * {
 		color: ${theme.colors.blue};
 	}
-`
+`;
 
-function DataViewPrimaryFilter(props) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{ name : "label", type : "string", required : true },
-			{ name : "value", type : "string" },
-			{ name : "color", type : "string", required : false },
-			{ name : "type", type : "string", enum : ["primary", "optional"], required : true },
-			{ name : "onRemove", type : "function", required : true },
-			{ name : "onClick", type : "function", required : true }
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
-	
+interface DataViewPrimaryFilterProps {
+	label?: any;
+	value?: any;
+	color?: any;
+	type?: any;
+	onRemove?: any;
+	onClick?: any;
+}
+// interface DataViewPrimaryFilterProps {
+// 	label?: string;
+// 	value?: string;
+// 	color?: ButtonProps["color"];
+// 	type?: "primary" | "optional";
+// 	onRemove?: () => void;
+// 	onClick?: ButtonProps["onClick"];
+// }
+//TODO PROPS
+function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
+	// jsvalidator.validate(props, {
+	// 	type : "object",
+	// 	schema : [
+	// 		{ name : "label", type : "string", required : true },
+	// 		{ name : "value", type : "string" },
+	// 		{ name : "color", type : "string", required : false },
+	// 		{ name : "type", type : "string", enum : ["primary", "optional"], required : true },
+	// 		{ name : "onRemove", type : "function", required : true },
+	// 		{ name : "onClick", type : "function", required : true }
+	// 	],
+	// 	allowExtraKeys : false,
+	// 	throwOnInvalid : true
+	// });
+
 	const remove = function(e) {
 		// stops the outer wrapping click handler from firing
 		e.stopPropagation();
-		
+
 		// call the passed in onRemove function
 		props.onRemove();
 	}
-	
+
 	const variant = props.type === "primary" ? "text" : "contained";
 	const color = props.type === "primary" ? "black" : "lightBlue";
 

@@ -48,7 +48,14 @@ const StyledWrapper = styled.div`
 	}
 `
 
-function DataViewColumnDrawerContent(props) {
+interface DataViewColumnDrawerContentProps {
+	columns?: any;
+	onClose?: any;
+	onChange?: any;
+	allColumns?: any;
+}
+
+function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [state, setState] = useState({
 		activeColumns : props.columns.map(val => val.name)
 	});

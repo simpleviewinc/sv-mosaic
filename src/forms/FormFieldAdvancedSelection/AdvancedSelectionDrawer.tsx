@@ -236,7 +236,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		};
 
 		return (
-			<InputWrapper isMobileView={isMobileView}>
+			<InputWrapper isMobileView={isMobileView} createNewOption={props.value && fieldDef?.inputSettings?.createNewOption}>
 				<StyledInput
 					type='text'
 					placeholder='Search...'

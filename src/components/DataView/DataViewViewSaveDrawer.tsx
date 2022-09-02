@@ -3,7 +3,23 @@ import React from "react";
 import Drawer from "@root/components/Drawer";
 import DataViewViewSaveDrawerContent from "./DataViewViewSaveDrawerContent";
 
-function DataViewViewSaveDrawer(props) {
+interface DataViewViewSaveDrawerProps {
+	open?: any;
+	onClose?: any;
+	data?: any;
+	onSave?: any;
+	allowSharedViewSave?: any;
+}
+// interface DataViewViewSaveDrawerProps {
+// 	open: boolean;
+// 	onClose: () => void;
+// 	data: any;
+// 	onSave: any;
+// 	allowSharedViewSave: any;
+// }
+
+//TODO PROPS
+function DataViewViewSaveDrawer(props: DataViewViewSaveDrawerProps) {
 	return (
 		<Drawer
 			open={props.open}

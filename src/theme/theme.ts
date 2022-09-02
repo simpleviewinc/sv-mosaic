@@ -71,5 +71,24 @@ export default {
 	},
 	breakpoints : {
 		mobile : `${BREAKPOINTS.mobile}px`
-	}
+	},
+	fieldSpecs: {
+		inputText: {
+			height : "19px",
+			padding: "12px 16px",
+			totalHeight: "43px",
+		},
+		selectors: {
+			dimentions: "20px",
+		},
+		inputSpacing: {
+			label: {
+				marginBottom: "8px",
+			},
+			helperText: {
+				marginTop: "8px",
+			},
+			fieldPadding: "15px",
+		},
+	},
 }
