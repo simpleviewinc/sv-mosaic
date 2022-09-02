@@ -187,7 +187,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				isDragging={isDragging}
 			/>
 			<StyledSpan>
-				Click on the map to update the lattitude and longitude coordinates
+				Click on the map to update the latitude and longitude coordinates
 			</StyledSpan>
 		</>
 	);
@@ -200,7 +200,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			setCenter({ lat: shouldCenter.value, lng: Number(state.data.lng) || 0});
 			setShouldCenter({field: null, value: null})
 		}
-	}, [state.data.lat, state.data.lng, shouldCenter]);	
+	}, [state.data.lat, state.data.lng, shouldCenter]);
 
 	const onBlurLatitude = (latValue: number) => {
 		setShouldCenter({field: "lat", value: latValue});
