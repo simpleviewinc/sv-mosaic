@@ -61,8 +61,4 @@ test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 	});
 
-	test("Validate that the cursor changes when it is positioned over a map.", async () => {
-		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
-		await ffMapCoordinatesPage.map
-	});
 });
