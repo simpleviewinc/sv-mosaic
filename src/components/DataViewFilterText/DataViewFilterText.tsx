@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import jsvalidator from "jsvalidator";
+// import jsvalidator from "jsvalidator";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterTextDropdownContent from "./DataViewFilterTextDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 
 const StyledWrapper = styled.span`
-	
+
 `;
 
-const validComparisons = [
+const validComparisons: { label: string; value: Comparison }[] = [
 	{ label : "Contains", value : "contains" },
 	{ label : "Not Contains", value : "not_contains" },
 	{ label : "Equals", value : "equals" },
@@ -19,7 +19,7 @@ const validComparisons = [
 	{ label : "Not Exists", value : "not_exists" }
 ];
 
-const validComparisonNames = validComparisons.map(val => val.value);
+// const validComparisonNames = validComparisons.map(val => val.value);
 
 const comparisonMap = {
 	equals : "",
@@ -28,83 +28,110 @@ const comparisonMap = {
 	not_contains : "!~"
 }
 
-function DataViewFilterText(props) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "label",
-				type : "string",
-				required : true
-			},
-			{
-				name : "data",
-				type : "object",
-				schema : [
-					{ name : "value", type : "string" },
-					{ name : "comparison", type : "string", enum : validComparisonNames }
-				],
-				allowExtraKeys : false,
-				required : true
-			},
-			{
-				name: "comparisonDefault",
-				type: "string",
-				required: false
-			},
-			{
-				name : "type",
-				type : "string",
-				required : true
-			},
-			{
-				name : "args",
-				type : "object",
-				schema : [
-					{
-						name : "comparisons",
-						type : "array",
-						schema : {
-							type : "string",
-							enum : validComparisonNames
-						}
-					},
-					{
-						name : "placeholder",
-						type : "string",
-						required : false
-					}
-				],
-				allowExtraKeys : false
-			},
-			{
-				name : "onRemove",
-				type : "function",
-				required : true
-			},
-			{
-				name : "onChange",
-				type : "function",
-				required : true
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
-	
+type Comparison = "contains" | "not_contains" | "equals" | "not_equals" | "exists" | "not_exists";
+
+export interface DataViewFilterTextProps {
+	label?: any;
+	data?: any;
+	comparisonDefault?: any;
+	type?: any;
+	args?: any;
+	onRemove?: any;
+	onChange?: any;
+}
+// export interface DataViewFilterTextProps {
+// 	label?: string;
+// 	data?: {
+// 		value?: string;
+// 		comparison?: Comparison;
+// 	};
+// 	comparisonDefault?: Comparison;
+// 	type?: "primary" | "optional";
+// 	args?: {
+// 		comparisons?: Comparison[];
+// 		placeholder?: string;
+// 	}
+// 	onRemove?: () => void;
+// 	onChange?: () => void;
+// }
+//TODO PROPS
+function DataViewFilterText(props: DataViewFilterTextProps) {
+	// jsvalidator.validate(props, {
+	// 	type : "object",
+	// 	schema : [
+	// 		{
+	// 			name : "label",
+	// 			type : "string",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "data",
+	// 			type : "object",
+	// 			schema : [
+	// 				{ name : "value", type : "string" },
+	// 				{ name : "comparison", type : "string", enum : validComparisonNames }
+	// 			],
+	// 			allowExtraKeys : false,
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name: "comparisonDefault",
+	// 			type: "string",
+	// 			required: false
+	// 		},
+	// 		{
+	// 			name : "type",
+	// 			type : "string",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "args",
+	// 			type : "object",
+	// 			schema : [
+	// 				{
+	// 					name : "comparisons",
+	// 					type : "array",
+	// 					schema : {
+	// 						type : "string",
+	// 						enum : validComparisonNames
+	// 					}
+	// 				},
+	// 				{
+	// 					name : "placeholder",
+	// 					type : "string",
+	// 					required : false
+	// 				}
+	// 			],
+	// 			allowExtraKeys : false
+	// 		},
+	// 		{
+	// 			name : "onRemove",
+	// 			type : "function",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "onChange",
+	// 			type : "function",
+	// 			required : true
+	// 		}
+	// 	],
+	// 	allowExtraKeys : false,
+	// 	throwOnInvalid : true
+	// });
+
 	const [anchorEl, setAnchorEl] = useState(null);
 	const comparison = props.data.comparison || (props.comparisonDefault || "equals");
 	const value = props.data.value || "";
-	
+
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
 	}
-	
+
 	const onClose = function() {
 		setAnchorEl(null);
 	}
-	
-	
+
+
 	// based on the state lets figure out what our value should be
 	let valueString;
 	if (comparison === "exists") {
@@ -116,10 +143,10 @@ function DataViewFilterText(props) {
 	} else {
 		valueString = `${comparisonMap[comparison]} "${value}"`
 	}
-	
+
 	// filter the valid comparisons based on what the developer is allowing
 	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
-	
+
 	return (
 		<StyledWrapper>
 			<DataViewPrimaryFilter

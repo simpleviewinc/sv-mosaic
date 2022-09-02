@@ -3,8 +3,34 @@ import React from "react";
 import Checkbox from "@root/components/Checkbox";
 import DataViewTd from "./DataViewTd";
 import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
+// import { MosaicObject } from "@root/types";
+// import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 
-function DataViewTr(props) {
+interface DataViewTrProps {
+	bulkActions?: any;
+	checked?: any;
+	onCheckboxClick?: any;
+	primaryActions?: any;
+	additionalActions?: any;
+	originalRowData?: any;
+	columns?: any;
+	row?: any;
+}
+// interface DataViewTrProps {
+// 	bulkActions: string | any[];
+// 	checked: boolean;
+// 	onCheckboxClick: React.MouseEventHandler<HTMLButtonElement>;
+// 	primaryActions: DataViewAction[];
+// 	additionalActions: DataViewAdditionalAction[];
+// 	originalRowData: MosaicObject;
+// 	columns: any[];
+// 	row: {
+// 		[x: string]: any;
+// 	};
+// }
+
+//TODO PROPS
+function DataViewTr(props: DataViewTrProps) {
 	return (
 		<tr>
 			{
