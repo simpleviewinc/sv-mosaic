@@ -11,7 +11,26 @@ const StyledTable = styled.table`
 	border-collapse: collapse;
 `
 
-function DataViewDisplayList(props) {
+interface DataViewDisplayListProps {
+	activeColumns?: any;
+	columns?: any;
+	data?: any;
+	checked?: any;
+	checkedAllPages?: any;
+	bulkActions?: any;
+	sort?: any;
+	count?: any;
+	rowCount?: any;
+	onSortChange?: any;
+	onCheckAllClick?: any;
+	onCheckAllPagesClick?: any;
+	onColumnsChange?: any;
+	additionalActions?: any;
+	primaryActions?: any;
+	onCheckboxClick?: any;
+}
+
+function DataViewDisplayList(props: DataViewDisplayListProps) {
 	// todo validate props
 	const activeColumns = useMemo(() => {
 		return props.activeColumns || props.columns.map(val => val.name);
@@ -24,7 +43,7 @@ function DataViewDisplayList(props) {
 			return column;
 		});
 	}, [activeColumns, props.columns]);
-	
+
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
 		return transformRows(props.data, activeColumnObjs);

@@ -27,40 +27,57 @@ const classes = {
 	label : "font16"
 }
 
-function DataViewViewSaveDrawerContent(props) {
+interface DataViewViewSaveDrawerContentProps {
+	data?: any;
+	allowSharedViewSave?: any;
+	onSave?: any;
+	onClose?: any;
+}
+// interface DataViewViewSaveDrawerContentProps {
+// 	data: {
+// 		type: any;
+// 		label: any
+// 	};
+// 	allowSharedViewSave: boolean;
+// 	onSave: (arg0: any) => any;
+// 	onClose: () => void;
+// }
+
+//TODO PROPS
+function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps) {
 	const [state, setState] = useState({
 		...props.data,
 		type: (props.allowSharedViewSave === true) ? props.data.type : "mine"
 	});
 
 	const { t } = useMosaicTranslation();
-	
+
 	const onSave = async function() {
 		await props.onSave({
 			...state
 		});
 		props.onClose();
 	}
-	
+
 	const onSubmit = function(event) {
 		event.preventDefault();
 		onSave();
 	}
-	
+
 	const handleChange = name => event => {
 		setState({
 			...state,
 			[name] : event.target.value
 		});
 	}
-	
+
 	const handleSwitch = name => event => {
 		setState({
 			...state,
 			type : event.target.checked ? "shared" : "mine"
 		});
 	}
-	
+
 	return (
 		<DrawerContent
 			title={t("mosaic:DataView.save_view")}

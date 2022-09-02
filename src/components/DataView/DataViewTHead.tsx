@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import jsvalidator from "jsvalidator";
+// import jsvalidator from "jsvalidator";
 
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -12,6 +12,7 @@ import DataViewBulkAllBar from "../DataView/DataViewBulkAllBar";
 
 import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
+// import { MosaicObject, MosaicCallback } from "@root/types";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
@@ -41,7 +42,7 @@ const StyledTh = styled.th`
 		border-bottom: ${theme.colors.gray200};
 		pointer-events: none;
 	}
-	
+
 	& > .columnHeader {
 		display: inline-flex;
 		align-items: center;
@@ -58,14 +59,14 @@ const StyledTh = styled.th`
 	&.sortable > .columnHeader {
 		cursor: pointer;
 	}
-	
+
 	& > .columnHeader > .icon {
 		visibility: hidden;
 		font-size: 18px;
 		margin-left: 0.25rem;
 		margin-top: 1px;
 	}
-	
+
 	&.active {
 		color: ${theme.colors.gray800};
 		font-weight: 700;
@@ -74,20 +75,20 @@ const StyledTh = styled.th`
 	&.active:after {
 		border-bottom: 1px solid ${theme.colors.gray800};
 	}
-	
+
 	&.active > .columnHeader > .icon {
 		visibility: visible;
 	}
-	
+
 	&.active > .columnHeader:hover > .icon {
 		color: black;
 	}
-	
+
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
 		color: ${theme.colors.gray600};
 	}
-	
+
 	&.bulk {
 		width: 52px;
 	}
@@ -97,71 +98,103 @@ function flipDir(sort) {
 	return sort === "asc" ? "desc" : "asc";
 }
 
-function DataViewTHead(props) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "checked",
-				type : "array",
-				required : true
-			},
-			{
-				name : "checkedAllPages",
-				type : "boolean",
-				required : true
-			},
-			{
-				name : "bulkActions",
-				type : "array",
-			},
-			{
-				name : "columns",
-				type : "array"
-			},
-			{
-				name : "allColumns",
-				type : "array"
-			},
-			{
-				name : "data",
-				type : "array"
-			},
-			{
-				name : "sort",
-				type : "object"
-			},
-			{
-				name : "rowCount",
-				type : "number"
-			},
-			{
-				name : "count",
-				type : "number"
-			},
-			{
-				name : "onSortChange",
-				type : "function"
-			},
-			{
-				name : "onCheckAllClick",
-				type : "function"
-			},
-			{
-				name : "onCheckAllPagesClick",
-				type : "function"
-			},
-			{
-				name : "onColumnsChange",
-				type : "function"
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
+interface DataViewTHeadProps {
+	checked?: any;
+	bulkActions?: any;
+	columns?: any;
+	rowCount?: any;
+	count?: any;
+	onCheckAllClick?: any;
+	data?: any;
+	checkedAllPages?: any;
+	onColumnsChange?: any;
+	allColumns?: any;
+	onSortChange?: any;
+	sort?: any;
+	onCheckAllPagesClick?: any;
+}
+// interface DataViewTHeadProps {
+// 	checked: any[];
+// 	bulkActions: any[];
+// 	columns: any[];
+// 	rowCount: number;
+// 	count: number;
+// 	onCheckAllClick: React.MouseEventHandler<HTMLButtonElement>;
+// 	data: MosaicObject[];
+// 	checkedAllPages: boolean;
+// 	onColumnsChange: any;
+// 	allColumns: any;
+// 	onSortChange: (arg0: { name: any; dir: any; }) => void;
+// 	sort: { name: any; dir: string; };
+// 	onCheckAllPagesClick: MosaicCallback;
+// }
+
+//TODO PROPS
+function DataViewTHead(props: DataViewTHeadProps) {
+	// jsvalidator.validate(props, {
+	// 	type : "object",
+	// 	schema : [
+	// 		{
+	// 			name : "checked",
+	// 			type : "array",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "checkedAllPages",
+	// 			type : "boolean",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "bulkActions",
+	// 			type : "array",
+	// 		},
+	// 		{
+	// 			name : "columns",
+	// 			type : "array"
+	// 		},
+	// 		{
+	// 			name : "allColumns",
+	// 			type : "array"
+	// 		},
+	// 		{
+	// 			name : "data",
+	// 			type : "array"
+	// 		},
+	// 		{
+	// 			name : "sort",
+	// 			type : "object"
+	// 		},
+	// 		{
+	// 			name : "rowCount",
+	// 			type : "number"
+	// 		},
+	// 		{
+	// 			name : "count",
+	// 			type : "number"
+	// 		},
+	// 		{
+	// 			name : "onSortChange",
+	// 			type : "function"
+	// 		},
+	// 		{
+	// 			name : "onCheckAllClick",
+	// 			type : "function"
+	// 		},
+	// 		{
+	// 			name : "onCheckAllPagesClick",
+	// 			type : "function"
+	// 		},
+	// 		{
+	// 			name : "onColumnsChange",
+	// 			type : "function"
+	// 		}
+	// 	],
+	// 	allowExtraKeys : false,
+	// 	throwOnInvalid : true
+	// });
 
 	const { t } = useMosaicTranslation();
-	
+
 	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
 	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
 
@@ -229,17 +262,17 @@ function DataViewTHead(props) {
 								dir : clickDir
 							});
 						};
-						
+
 						let active;
 						let Icon;
 						let clickDir;
-						
+
 						if (column.sortable) {
 							active = props.sort.name === column.name;
 							Icon = active && props.sort.dir === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon;
 							clickDir = active ? flipDir(props.sort.dir) : "asc";
 						}
-						
+
 						return (
 							<StyledTh
 								key={column.name}
@@ -254,7 +287,7 @@ function DataViewTHead(props) {
 									onClick={column.sortable ? onClick : undefined}
 								>
 									{column.label}
-									
+
 									{ column.sortable &&
 										<Icon className="icon"/>
 									}
