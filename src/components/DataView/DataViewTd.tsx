@@ -42,8 +42,23 @@ const StyledTd = styled.td`
 		text-overflow: ellipsis;
 	}
 `
+interface DataViewTdProps {
+	expandCell?: any;
+	paddingRight?: any;
+	paddingLeft?: any;
+	bold?: any;
+	italic?: any;
+	strikeThrough?: any;
+	noWrap?: any;
+	ellipsis?: any;
+	maxWidth?: any;
+	textTransform?: any;
+	children?: any;
+	className?: any;
+}
 
-function DataViewTd(props) {
+//TODO PROPS
+function DataViewTd(props: DataViewTdProps) {
 	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
 	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : false;
 	const paddingLeft = props.paddingLeft !== undefined ? props.paddingLeft : false;

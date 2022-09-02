@@ -3,7 +3,7 @@ import { memo, Fragment } from "react";
 import styled from "styled-components";
 import Button from "../Button";
 import theme from "@root/theme";
-import { DataViewBulkAction } from "./DataViewTypes";
+// import { DataViewBulkAction } from "./DataViewTypes";
 
 const StyledDiv = styled.div`
 	text-align: center;
@@ -20,14 +20,20 @@ const StyledDiv = styled.div`
 	}
 `;
 
-interface Props {
-	count: number
-	rowCount: number
-	checkedAllPages: boolean
-	onCheckAllPagesClick: DataViewBulkAction["onAllClick"]
+interface DataViewBulkAllBarProps {
+	count?: any;
+	rowCount?: any;
+	checkedAllPages?: any;
+	onCheckAllPagesClick?: any;
 }
+// interface Props {
+// 	count: number
+// 	rowCount: number
+// 	checkedAllPages: boolean
+// 	onCheckAllPagesClick: DataViewBulkAction["onAllClick"]
+// }
 
-function DataViewBulkAllBar(props: Props) {
+function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
 	return (
 		<StyledDiv>
 			<span className="bulkText">

@@ -10,6 +10,8 @@ import DataViewDisplayGridSortControl from "./DataViewDisplayGridSortControl";
 import { transformRows } from "../../utils/dataViewTools";
 
 import DataViewBulkAllBar from "./DataViewBulkAllBar";
+// import { MosaicCallback, MosaicObject } from "@root/types";
+// import { DataViewOnSortChange, DataViewSort, DataViewAction, DataViewAdditionalAction, DataViewColumn } from "./DataViewTypes";
 
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
@@ -142,7 +144,46 @@ const StyledDiv = styled.div`
 	}
 `
 
-function DataViewDisplayGrid(props) {
+interface DataViewDisplayGridProps {
+	gridColumnsMap?: any;
+	data?: any;
+	columns?: any;
+	onCheckboxClick?: any;
+	checked?: any;
+	bulkActions?: any;
+	onSortChange?: any;
+	sort?: any;
+	rowCount?: any;
+	count?: any;
+	onCheckAllClick?: any;
+	checkedAllPages?: any;
+	onCheckAllPagesClick?: any;
+	primaryActions?: any;
+	additionalActions?: any;
+}
+// interface DataViewDisplayGridProps {
+// 	gridColumnsMap?: {
+// 		image?: string | number;
+// 		primary?: string | number;
+// 		secondary?: string | number;
+// 	};
+// 	data?: MosaicObject[];
+// 	columns?: DataViewColumn[];
+// 	onCheckboxClick?: (arg0: any) => void;
+// 	checked?: any[];
+// 	bulkActions?: any[];
+// 	onSortChange?: DataViewOnSortChange;
+// 	sort?: DataViewSort;
+// 	rowCount?: number;
+// 	count?: number;
+// 	onCheckAllClick?: React.MouseEventHandler<HTMLButtonElement>;
+// 	checkedAllPages?: boolean;
+// 	onCheckAllPagesClick?: MosaicCallback;
+// 	primaryActions?: DataViewAction[];
+// 	additionalActions?: DataViewAdditionalAction[];
+// }
+
+function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 	// TODO VALIDATE PROPS
 	if (!props.gridColumnsMap) {
 		throw new Error("You must specify gridColumnsMap in order to use the grid view.");

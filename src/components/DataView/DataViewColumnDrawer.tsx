@@ -3,7 +3,15 @@ import React from "react";
 import Drawer from "@root/components/Drawer";
 import DataViewColumnDrawerContent from "./DataViewColumnDrawerContent";
 
-function DataViewColumnDrawer(props) {
+interface DataViewColumnDrawerProps {
+	open?: any;
+	onClose?: any;
+	columns?: any;
+	allColumns?: any;
+	onChange?: any;
+}
+
+function DataViewColumnDrawer(props: DataViewColumnDrawerProps) {
 	return (
 		<Drawer
 			open={props.open}

@@ -6,7 +6,13 @@ import Button from "../Button";
 import DataViewColumnDrawer from "./DataViewColumnDrawer";
 import { useMosaicTranslation } from "@root/i18n";
 
-export default function DataViewColumnControl(props) {
+interface DataViewColumnControlProps {
+	onChange?: any;
+	columns?: any;
+	allColumns?: any;
+}
+
+export default function DataViewColumnControl(props: DataViewColumnControlProps) {
 	const [state, setState] = useState({
 		open : false
 	});
