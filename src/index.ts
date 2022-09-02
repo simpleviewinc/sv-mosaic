@@ -83,6 +83,12 @@ export { default as MosaicContext } from "./components/MosaicContext";
 
 export * from "./components/Typography";
 
+export { default as Drawers } from "./components/Drawers";
+export * from "./components/Drawers";
+
+export { default as SummaryPageTopComponent } from "./components/SummaryPageTopComponent";
+export * from "./components/SummaryPageTopComponent";
+
 export { default as theme } from "./theme";
 export * from "./theme";
 
