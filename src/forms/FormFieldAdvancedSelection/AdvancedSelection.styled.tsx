@@ -30,11 +30,15 @@ export const InputWrapper = styled.div`
   height: 49px;
   justify-content: space-between;
   margin: 15px 20px 0px 20px;
-  padding: 0 16px;
+  padding: 12px ${pr => pr.createNewOption ? "8px" : "16px"} 12px 16px;
   width: ${pr => pr.isMobileView ? "" : "620px"};
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
+  }
+
+  & span:first-child {
+	background-color: red;
   }
 `;
 

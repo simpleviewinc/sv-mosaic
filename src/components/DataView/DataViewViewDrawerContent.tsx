@@ -6,6 +6,7 @@ import { DataViewProps } from "./DataViewTypes";
 import DrawerContent from "@root/components/DrawerContent";
 import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer";
 import { useMosaicTranslation } from "@root/i18n";
+// import { MosaicObject } from "@root/types";
 
 const startingState = {
 	options : undefined,
@@ -14,13 +15,31 @@ const startingState = {
 	formData : {}
 }
 
-function DataViewViewDrawerContent(props) {
+interface DataViewViewDrawerContentProps {
+	onGetOptions?: any;
+	allowSharedViewSave?: any;
+	onChange?: any;
+	onClose?: any;
+	onRemove?: any;
+	onSave?: any;
+}
+// interface DataViewViewDrawerContentProps {
+// 	onGetOptions: () => any;
+// 	allowSharedViewSave: any;
+// 	onChange: (arg0: MosaicObject) => any;
+// 	onClose: () => void;
+// 	onRemove: (arg0: MosaicObject) => any;
+// 	onSave: any;
+// }
+
+//TODO PROPS
+function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 	const [state, setState] = useState({
 		...startingState
 	});
 
 	const { t } = useMosaicTranslation();
-	
+
 	useEffect(() => {
 		async function getOptions() {
 			const results = await props.onGetOptions();
@@ -30,10 +49,10 @@ function DataViewViewDrawerContent(props) {
 				options : results
 			});
 		}
-		
+
 		getOptions();
 	}, [state.loading]);
-	
+
 	const closeForm = function() {
 		setState({
 			...startingState
@@ -49,7 +68,7 @@ function DataViewViewDrawerContent(props) {
 			return true;
 		}
 	}
-	
+
 	const DataViewConfig: DataViewProps = {
 		primaryActions : [
 			{
@@ -117,7 +136,7 @@ function DataViewViewDrawerContent(props) {
 		],
 		activeColumns : ["label", "type"]
 	}
-	
+
 	return (
 		<DrawerContent
 			title={t("mosaic:DataView.saved_views")}

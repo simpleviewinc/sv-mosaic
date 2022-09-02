@@ -19,12 +19,15 @@ import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 const ResponsiveViewColumn = styled(StyledColumn)`
 	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
   	z-index: 100;
+
+	& .form-nav-wrapper {
+		margin-top: 20px;
+	}
 `;
 
 const ResponsiveActionsRow = styled(Row)`
 	align-self: ${(pr) => (pr.showActive ? "" : "flex-end")};
 	margin-top: 16px;
-	margin-bottom: 37px;
 `;
 
 type ResponsiveViewProps = {

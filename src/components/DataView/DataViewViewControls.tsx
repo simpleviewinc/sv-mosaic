@@ -12,7 +12,7 @@ import { useMosaicTranslation } from "@root/i18n";
 const ViewSpan = styled.span`
 	display: inline-flex;
 	align-items: center;
-	
+
 	& > .icon {
 		margin-right: 3px;
 	}
@@ -30,37 +30,59 @@ const TitleButton = styled(Button)`
 	max-width: 300px;
 `
 
-function DataViewViewControls(props) {
+interface DataViewViewControlsProps {
+	savedView?: any;
+	savedViewAllowSharedViewSave?: any;
+	savedViewCallbacks?: any;
+	savedViewState?: any;
+}
+// interface DataViewViewControlsProps {
+// 	savedView: {
+// 		label: string |number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal;
+// 		type: string;
+// 	};
+// 	savedViewAllowSharedViewSave: any;
+// 	savedViewCallbacks: {
+// 		onSave: (arg0: any) => any;
+// 		onRemove: any;
+// 		onChange: any;
+// 		onGetOptions: any;
+// 	};
+// 	savedViewState: any;
+// }
+
+//TODO PROPS
+function DataViewViewControls(props: DataViewViewControlsProps) {
 	const [state, setState] = useState({
 		viewOpen : false,
 		saveOpen : false
 	});
 
 	const { t } = useMosaicTranslation();
-	
+
 	const toggleViewDrawer = function() {
 		setState({
 			...state,
 			viewOpen : !state.viewOpen
 		});
 	}
-	
+
 	const toggleSaveDrawer = function() {
 		setState({
 			...state,
 			saveOpen : !state.saveOpen
 		});
 	}
-	
+
 	const ViewLabel = (
 		<ViewSpan>
-			<ViewQuiltIcon className="icon"/> 
+			<ViewQuiltIcon className="icon"/>
 			<p>
 				{props.savedView.label}
 			</p>
 		</ViewSpan>
 	)
-	
+
 	const saveMenuItems = [
 		{
 			label : t("mosaic:DataView.save_as_new_view"),
@@ -79,14 +101,14 @@ function DataViewViewControls(props) {
 			}
 		}
 	]
-	
+
 	const savedViewData = {
 		id : undefined,
 		label : "",
 		type : "mine",
 		state : props.savedViewState
 	}
-	
+
 	return (
 		<div>
 			<div className="right">

@@ -16,6 +16,8 @@ export class BasePage {
 	readonly latitude: Locator;
 	readonly longitude: Locator;
 	readonly saveCoordinatesButton: Locator;
+	readonly drawerSaveButton: Locator;
+	readonly drawerCancelButton: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -30,6 +32,8 @@ export class BasePage {
 		this.latitude = page.locator("#lat");
 		this.longitude = page.locator("#lng");
 		this.saveCoordinatesButton = page.locator("[type='DRAWER'] button", { hasText: "Save Coordinates"})
+		this.drawerSaveButton = page.locator("[type='DRAWER'] button", { hasText: "Save" });
+		this.drawerCancelButton = page.locator("[type='DRAWER'] button", { hasText: "Cancel" });
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
@@ -46,13 +50,6 @@ export class BasePage {
 
 	async wait(): Promise<void> {
 		await this.page.waitForTimeout(500);
-	}
-
-	async setDialogValidationListener(message: string): Promise<void> {
-		this.page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain(message);
-			dialog.accept();
-		});
 	}
 
 	async waitForElementLoad(): Promise<void> {

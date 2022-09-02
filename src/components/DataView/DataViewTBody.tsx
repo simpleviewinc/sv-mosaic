@@ -4,26 +4,53 @@ import jsvalidator from "jsvalidator";
 
 import DataViewTr from "./DataViewTr";
 import theme from "@root/theme";
+// import { MosaicObject } from "@root/types";
+// import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 
 const StyledTBody = styled.tbody`
 	& > tr {
 		border-bottom: ${theme.borders.lightGray};
 	}
-	
+
 	& > tr > td {
 		padding: 5px 0px;
 	}
-	
+
 	& > tr > td.bold {
 		font-weight: 600;
 	}
-	
+
 	& > tr > td > div > .transform_thumbnail {
 		display: block;
 	}
 `
 
-function DataViewTBody(props) {
+interface DataViewTBodyProps {
+	onCheckboxClick?: any;
+	transformedData?: any;
+	data?: any;
+	bulkActions?: any;
+	primaryActions?: any;
+	additionalActions?: any;
+	checked?: any;
+	columns?: any;
+}
+// interface DataViewTBodyProps {
+// 	onCheckboxClick?: any;
+// 	transformedData?: any;
+// 	data?: {
+// 		[x: string]: MosaicObject;
+// 	};
+// 	bulkActions?: any;
+// 	primaryActions?: DataViewAction[];
+// 	additionalActions?: DataViewAdditionalAction[];
+// 	checked?: {
+// 		[x: string]: boolean;
+// 	};
+// 	columns?: any;
+// }
+
+function DataViewTBody(props: DataViewTBodyProps) {
 	jsvalidator.validate(props, {
 		type : "object",
 		schema : [
@@ -68,11 +95,11 @@ function DataViewTBody(props) {
 		allowExtraKeys : false,
 		throwOnInvalid : true
 	});
-	
+
 	const onCheckboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
-	
+
 	return (
 		<StyledTBody>
 			{
