@@ -10,7 +10,11 @@ import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
 export const getInputValue = (value: string, type?: string) => {
-	return type === "number" ? Number(value) : value;
+	if (type === "number" && value !== "") {
+		return Number(value);
+	}
+
+	return value;
 }
 
 const TextField = (
@@ -35,8 +39,15 @@ const TextField = (
 	const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = getInputValue(e.target.value, fieldDef?.inputSettings?.type);
 
-		onChange && onChange(value);
+		onChange && onChange(value === "" ? undefined : value);
 	};
+
+	const onFieldBlur = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = getInputValue(e.target.value, fieldDef?.inputSettings?.type);
+
+		onBlur && onBlur(value === "" ? undefined : value);
+		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
+	}
 
 	const errorWithMessage = error?.trim().length > 0;
 
@@ -46,7 +57,7 @@ const TextField = (
 			data-testid="form-field-text-test-id"
 			value={value ?? ""}
 			onChange={onFieldChange}
-			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			onBlur={onFieldBlur}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
 			className={fieldDef?.className}

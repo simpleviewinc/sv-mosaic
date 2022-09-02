@@ -11,6 +11,11 @@ export const StyledSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
   font-size: 14px;
+  margin: 0px 20px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: calc(100vw - 40px);
+  };
 `;
 
 export const CoordinatesCard = styled.div`
@@ -18,12 +23,11 @@ export const CoordinatesCard = styled.div`
   border-radius: 4px;
   display: flex;
   font-family: ${theme.fontFamily};
-  ${(pr) =>
-		pr.hasAddress ? "max-height: 204px;" : "height: 174px;"}
+  height: 204px;
   padding: 16px;
   padding-bottom: ${pr => pr.hasAddress ? "35px" : "16px"};
   position: relative;
-  width: 414px;
+  width: 450px;
   background-color: white;
 `;
 
@@ -31,12 +35,10 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   right: 16px;
   position: absolute;
-  top: 169px;
+  bottom: 8px;
 
   button:first-child {
-    border-right: ${(pr) =>
-		pr.hasAddress ? `2px solid ${theme.colors.gray200}` : ""};
-    padding-right: ${(pr) => (pr.hasAddress ? "16px" : "")};
+    padding-right: 16px;
   }
 
   button:last-child {
@@ -57,6 +59,7 @@ export const LatLngLabel = styled.span`
   color: ${theme.colors.gray600};
   font-size: 14px;
   font-weight: ${theme.fontWeight.semiBold};
+  margin-bottom: 8px;
 `;
 
 export const CoordinatesValues = styled.span`
@@ -75,13 +78,18 @@ export const SwitchContainer = styled.div`
 // Styles for the Map component
 
 export const MapContainer = styled.div`
-  margin-bottom: 18px;
+  margin: 0px 20px 16px 20px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: calc(100vw - 40px);
+  };
 `;
 
 // Styles for the LocationSearchInput component
 
 export const LocationSearchInputWrapper = styled.div`
   margin-bottom: 8px;
+  margin-top: 15px;
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`
@@ -102,8 +110,7 @@ export const SuggestionsContainer = styled.div`
 `;
 
 export const SuggestionsDescriptionContainer = styled.div`
-  background-color: ${({ isSuggestionActive }) =>
-		isSuggestionActive ? theme.colors.gray200 : "white"};
+  background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.colors.gray200 : "white"};
   cursor: pointer;
   width: 683px;
 `;
@@ -119,8 +126,27 @@ export const SuggestionDescription = styled.p`
   }
 `;
 
-export const mapContainerStyle = {
-	border: `2px solid ${theme.colors.gray200}`,
-	height: "153px",
-	width: "232px",
-};
+export const ResetButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  visibility: ${({ hasValue }) => hasValue ? "visible" : "hidden"};
+  position: relative;
+
+
+  .reset-button {
+    align-self: center;
+    position: absolute;
+    top: 56px;
+    left: 0;
+}
+`;
+
+
+export const MapFormWrapper = styled.div`
+  width: 1160px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 100vw;
+  };
+`;
