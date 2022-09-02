@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, withKnobs, object, text } from "@storybook/addon-knobs";
+import { boolean, withKnobs, object, text, number } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import { MapCoordinatesDef } from ".";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
@@ -25,6 +25,7 @@ export const Playground = (): ReactElement => {
 	const mapPositionKnob = object("Initial map position", defaultMapPosition);
 	const required = boolean("Required", false);
 	const withAddress = boolean("With address", false);
+	const zoom = number("Zoom", 7, { min: 0, max: 18 });
 
 	const fields = useMemo(
 		() =>
@@ -38,11 +39,12 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 						address: withAddress ? addressKnob : {},
-						mapPosition: mapPositionKnob
+						mapPosition: mapPositionKnob,
+						zoom: zoom
 					},
 				},
 			] as FieldDef<MapCoordinatesDef>[],
-		[addressKnob, disabled, label, mapPositionKnob, required, withAddress]
+		[addressKnob, disabled, label, mapPositionKnob, required, withAddress, zoom]
 	);
 
 	return (
@@ -73,6 +75,18 @@ const kitchenSinkFields = [
 		},
 	},
 	{
+		name: "mapZoom",
+		label: "Map with zoom set to 8",
+		type: "mapCoordinates",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			zoom: 8,
+			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
+		},
+	},
+	{
 		name: "mapWithAddress",
 		label: "Map with an address. Autocoordinates enabled",
 		type: "mapCoordinates",
@@ -80,7 +94,8 @@ const kitchenSinkFields = [
 		disabled: false,
 		inputSettings: {
 			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-			address: address
+			address: address,
+			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
 		},
 	},
 	{

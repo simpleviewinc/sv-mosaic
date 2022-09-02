@@ -313,7 +313,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 						isModalOpen,
 						isMobileView,
 						deleteSelectedOption,
-					},
+					}
 				},
 				{
 					name: "searchInput",
