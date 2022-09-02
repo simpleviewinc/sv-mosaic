@@ -392,6 +392,7 @@ function DataView (props: DataViewProps): ReactElement  {
 			<div className="headerRow filters">
 				<div className="left">
 					{
+						//loading isn't being used in DataViewFilters, should it be propped down?
 						props.filters &&
 						<DataViewFilters
 							loading={props.loading}

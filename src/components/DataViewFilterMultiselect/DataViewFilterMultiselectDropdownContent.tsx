@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Chip from "@mui/material/Chip";
 import InputBase from "@mui/material/InputBase";
 import { debounce, xor } from "lodash";
-import jsvalidator from "jsvalidator";
+// import jsvalidator from "jsvalidator";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
@@ -116,57 +116,81 @@ const PopoverP = styled.p`
 
 const limit = 25;
 
-function DataViewFilterMultiselectDropdownContent(props) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "value",
-				type : "array"
-			},
-			{
-				name : "placeholder",
-				type : "string",
-				required: false
-			},
-			{
-				name : "comparison",
-				type : "string",
-				required : true
-			},
-			{
-				name : "comparisons",
-				type : "array"
-			},
-			{
-				name : "getOptions",
-				type : "function",
-				required : true
-			},
-			{
-				name : "selected",
-				type : "array",
-				required : true
-			},
-			{
-				name : "isOpen",
-				type : "boolean",
-				required : true
-			},
-			{
-				name : "onClose",
-				type : "function",
-				required : true
-			},
-			{
-				name : "onApply",
-				type : "function",
-				required : true
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
+interface DataViewFilterMultiselectDropdownContentProps {
+	value?: any;
+	selected?: any;
+	comparison?: any;
+	comparisons?: any;
+	getOptions?: any;
+	onApply?: any;
+	isOpen?: any;
+	placeholder?: any;
+	onClose?: any;
+}
+// interface DataViewFilterMultiselectDropdownContent {
+// 	value?: any;
+// 	selected?: any[];
+// 	comparison?: any;
+// 	comparisons?: any[];
+// 	getOptions?: (arg0: { limit: number; skip: number; keyword?: any; }) => any;
+// 	onApply?: (arg0: { value: any; comparison: any; }) => void;
+// 	isOpen?: any;
+// 	placeholder?: any;
+// 	onClose?: any;
+// }
+
+//TODO PROPS
+function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultiselectDropdownContentProps) {
+	// jsvalidator.validate(props, {
+	// 	type : "object",
+	// 	schema : [
+	// 		{
+	// 			name : "value",
+	// 			type : "array"
+	// 		},
+	// 		{
+	// 			name : "placeholder",
+	// 			type : "string",
+	// 			required: false
+	// 		},
+	// 		{
+	// 			name : "comparison",
+	// 			type : "string",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "comparisons",
+	// 			type : "array"
+	// 		},
+	// 		{
+	// 			name : "getOptions",
+	// 			type : "function",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "selected",
+	// 			type : "array",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "isOpen",
+	// 			type : "boolean",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "onClose",
+	// 			type : "function",
+	// 			required : true
+	// 		},
+	// 		{
+	// 			name : "onApply",
+	// 			type : "function",
+	// 			required : true
+	// 		}
+	// 	],
+	// 	allowExtraKeys : false,
+	// 	throwOnInvalid : true
+	// });
 
 	const [state, setState] = useState({
 		options : [],

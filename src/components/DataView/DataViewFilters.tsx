@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
 import styled from "styled-components";
-import { pick, xor } from "lodash";
+import { /*List,*/ pick, xor } from "lodash";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
@@ -32,8 +32,30 @@ const StyledDiv = styled.div`
 	}
 `;
 
-function DataViewFilters(props) {
-	const { t, i18n } = useMosaicTranslation();
+interface DataViewFiltersProps {
+	activeFilters?: any;
+	filters?: any;
+	filter?: any;
+	onActiveFiltersChange?: any;
+	loading?: any;
+}
+// interface DataViewFiltersProps {
+// 	activeFilters?: {
+// 		value?: any;
+// 	};
+// 	filters?: any;
+// 	filter?: {
+// 		[x: string]: {
+// 			comparison?: any;
+// 		} | {
+// 			comparison?: undefined;
+// 		};
+// 	};
+// 	onActiveFiltersChange?: any;
+// }
+
+function DataViewFilters(props: DataViewFiltersProps) {
+	const { t } = useMosaicTranslation();
 
 	const [state, setState] = useState({
 		anchorEl : null,

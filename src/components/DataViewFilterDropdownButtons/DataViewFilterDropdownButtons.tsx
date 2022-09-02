@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import jsvalidator from "jsvalidator";
+// import jsvalidator from "jsvalidator";
 
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
@@ -14,33 +14,47 @@ const StyledWrapper = styled.div`
 	}
 `
 
-function DataViewFilterDropdownButtons(props) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "onClear",
-				type : "function"
-			},
-			{
-				name : "onCancel",
-				type : "function"
-			},
-			{
-				name : "onApply",
-				type : "function"
-			},
-			{
-				name : "disableApply",
-				type : "boolean"
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
+interface DataViewFilterDropdownButtonsProps {
+	onClear?: any;
+	onCancel?: any;
+	disableApply?: any;
+	onApply?: any;
+}
+// interface DataViewFilterDropdownButtons {
+// 	onClear: () => void;
+// 	onCancel: () => void;
+// 	disableApply?: boolean;
+// 	onApply: () => void
+// }
+
+//TODO PROPS
+function DataViewFilterDropdownButtons(props: DataViewFilterDropdownButtonsProps) {
+	// jsvalidator.validate(props, {
+	// 	type : "object",
+	// 	schema : [
+	// 		{
+	// 			name : "onClear",
+	// 			type : "function"
+	// 		},
+	// 		{
+	// 			name : "onCancel",
+	// 			type : "function"
+	// 		},
+	// 		{
+	// 			name : "onApply",
+	// 			type : "function"
+	// 		},
+	// 		{
+	// 			name : "disableApply",
+	// 			type : "boolean"
+	// 		}
+	// 	],
+	// 	allowExtraKeys : false,
+	// 	throwOnInvalid : true
+	// });
 
 	const { t } = useMosaicTranslation();
-	
+
 	return (
 		<StyledWrapper>
 			<ButtonRow>
