@@ -333,7 +333,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				dispatch={dispatch}
 				sections={sections}
 				fields={fields}
-				onCancel={handleClose}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
 			/>
