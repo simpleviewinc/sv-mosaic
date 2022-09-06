@@ -5,7 +5,7 @@ export type optionsWithCategory = {
 } & MosaicLabelValue;
 
 type AdvancedSelectionBasic = {
-	createNewOption?: (filter: string) => Promise<string>;
+	createNewOption?: (filter: string) => Promise<MosaicLabelValue>;
 }
 
 type AdvancedSelectionLocalOptions = {
