@@ -1,5 +1,9 @@
 # sv-mosaic changelog
 
+## 6.0.1
+* Updated FormFieldColorPicker stories' height to make the color picker component clickable.
+* Updated FormFieldAddress checkbox list's width when creating a new option.
+
 ## 6.0.0
 * Refactored to output a cjs and esm bundle to improve import efficiency both in Node (which will use cjs) and when running in webpack environments (which will use esm).
 * Now supports [subpath exports](https://nodejs.org/api/packages.html#subpath-exports). It is recommended to use a subpath export to improve the speed of your import statements, especially when only importing a few pieces of mosaic. See the "exports" key for a list of what's exported.
