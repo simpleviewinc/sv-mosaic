@@ -26,8 +26,8 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	const linkRef = useRef<HTMLDivElement[]>([]);
 
 	/**
-	 * Computes the total width of all the links elements so that it 
-	 * can be compared with the width of the nav in order to know 
+	 * Computes the total width of all the links elements so that it
+	 * can be compared with the width of the nav in order to know
 	 * whether to show the arrow that scrolls horizontally to the right.
 	 */
 	useEffect(() => {
@@ -96,7 +96,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 			});
 		};
 
-		const navHighlighterDebounced = debounce(navHighlighter, 200);
+		const navHighlighterDebounced = debounce(navHighlighter, 200, { maxWait: 100 });
 
 		contentRef?.current?.addEventListener("scroll", navHighlighterDebounced);
 
@@ -120,7 +120,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 							className={`${idx === selectedTab ? "highlight" : ""}`}
 							key={`${section.title}-${section.id}`}
 							onClick={(e) => handleClick(e, idx)}
-							ref={el => linkRef.current[idx] = el} 
+							ref={el => linkRef.current[idx] = el}
 						>
 							<a href={`#${section.title}`}>{section.title}</a>
 						</LinksWrapper>
