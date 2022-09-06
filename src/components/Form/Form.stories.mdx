@@ -431,7 +431,7 @@ const fields = useMemo(
 	* **label** - `string` - Text users will see to identify the option.
 	* **value** - `string[]` - Value that will be saved to the DB when the option gets selected.
 - inputSettings:
-	* **createNewOption** - `(newOptionLabel: string) => Promise<string>` optional -  Function used to insert more options either on the local options array, or on the DB.
+	* **createNewOption** - `(newOptionLabel: string) => Promise<MosaicLabelValue>` optional -  Function used to insert more options either on the local options array, or on the DB.
 	* **options** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
 		* **label** - `string` required -  Text users will see to identify the option.
 		* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
@@ -468,7 +468,7 @@ const myCreateOptionFn = async (newOptionLabel) => {
 	//Insert to db
 	externalOptions.push(newOption);
 
-	return value;
+	return newOption;
 }
 
 //Option recommended when getting options locally.
