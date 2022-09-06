@@ -34,15 +34,17 @@ export const Playground = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title={text("Title", "Form Title")}
-				description={text("Description", "This is a description example")}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title={text("Title", "Form Title")}
+					description={text("Description", "This is a description example")}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 		</>
 	);
 };
@@ -74,15 +76,17 @@ export const KitchenSink = (): ReactElement => {
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				buttons={renderButtons(dispatch)}
-				title='Form Title'
-				description='This is a description example'
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				onCancel={onCancel}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Form Title'
+					description='This is a description example'
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					onCancel={onCancel}
+				/>
+			</div>
 		</>
 	);
 };
