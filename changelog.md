@@ -1,8 +1,10 @@
 # sv-mosaic changelog
 
 ## 6.0.1
-* Updated FormFieldColorPicker stories' height to make the color picker component clickable.
-* Updated FormFieldAddress checkbox list's width when creating a new option.
+* Updated `FormFieldColorPicker` stories' height to make the color picker component clickable.
+* Updated `FormFieldAddress` checkbox list's width when creating a new option.
+* **BREAKING** `FormFieldAdvancedSelection`:
+	* createNewOption prop now expects a MosaicLabelValue as return value.
 
 ## 6.0.0
 * Refactored to output a cjs and esm bundle to improve import efficiency both in Node (which will use cjs) and when running in webpack environments (which will use esm).
