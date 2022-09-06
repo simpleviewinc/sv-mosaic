@@ -61,14 +61,14 @@ export const Playground = (): ReactElement => {
 	const createNewOption = async (newOptionLabel) => {
 		const value = `${newOptionLabel}_${additionalOptions.length}`;
 		const newOption = {
-			value,
 			label: newOptionLabel,
+			value,
 		};
 
 		//Insert to db
 		additionalOptions.push(newOption);
 
-		return value;
+		return newOption;
 	};
 
 	const fields = useMemo(
@@ -160,14 +160,14 @@ export const KitchenSink = (): ReactElement => {
 	const createNewOption = async (newOptionLabel) => {
 		const value = `${newOptionLabel}_${additionalOptions.length}`;
 		const newOption = {
-			value,
 			label: newOptionLabel,
+			value,
 		};
 
 		//Insert to db
 		additionalOptions.push(newOption);
 
-		return value;
+		return newOption;
 	};
 
 	const fields = useMemo(
