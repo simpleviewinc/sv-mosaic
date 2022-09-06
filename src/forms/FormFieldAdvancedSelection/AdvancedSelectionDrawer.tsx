@@ -225,11 +225,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const createOption = async () => {
 			const canBeCreated = searchKeyword.length > 0;
 			if (canBeCreated) {
-				const newOptionValue = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
-				const newOption = {
-					label: searchKeyword,
-					value: newOptionValue,
-				}
+				const newOption = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
 
 				setFilteredOptions([...filteredOptions, newOption]);
 				setOptions([...options, newOption]);
