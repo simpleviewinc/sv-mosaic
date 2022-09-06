@@ -10,7 +10,6 @@
 	* GridFilterDropdownButtons -> DataViewFilterDropdownButtons
 	* GridFilterMultiselect -> DataViewFilterMultiselect
 	* GridPrimaryFilter -> DataViewPrimaryFilter
-
 * Updated project to use latest version of React (18.2.0).
 * Moved all files from jsx to tsx.
 * Added exports for `Drawers` and `SummaryPageTopComponent`.
