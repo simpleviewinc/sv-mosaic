@@ -14,7 +14,8 @@ import Button from "../../components/Button";
 import Form, { formActions, useForm } from "@root/components/Form";
 import {
 	InputWrapper,
-	StyledInput
+	StyledInput,
+	StyledFormWrapper
 } from "./AdvancedSelection.styled";
 import AddIcon from "@mui/icons-material/Add";
 import ChipList from "./ChipList";
@@ -329,6 +330,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 						flexWrap: "nowrap",
 						width: "100%",
 					},
+					className: "checkbox-list-field-wrapper",
 					size: "100%",
 					onChangeCb: checkboxListChanged,
 					inputSettings: {
@@ -385,16 +387,18 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	];
 
 	return (
-		<Form
-			title={fieldDef?.label}
-			buttons={buttons}
-			type='drawer'
-			state={state}
-			dispatch={dispatch}
-			fields={fields}
-			dialogOpen={dialogOpen}
-			handleDialogClose={handleDialogClose}
-		/>
+		<StyledFormWrapper>
+			<Form
+				title={fieldDef?.label}
+				buttons={buttons}
+				type='drawer'
+				state={state}
+				dispatch={dispatch}
+				fields={fields}
+				dialogOpen={dialogOpen}
+				handleDialogClose={handleDialogClose}
+			/>
+		</StyledFormWrapper>
 	);
 };
 
