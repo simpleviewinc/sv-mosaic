@@ -1,7 +1,7 @@
 # sv-mosaic changelog
 
 ## 6.0.1
-* Updated `FormFieldColorPicker` stories' height to make the color picker component clickable, and improve scrollable logic
+* Updated `FormFieldColorPicker` stories' height to make the color picker component clickable, and improve scrollable logic.
 * Updated `FormFieldAddress` checkbox list's width when creating a new option.
 * **BREAKING** `FormFieldAdvancedSelection`:
 	* createNewOption prop now expects a MosaicLabelValue as return value.
