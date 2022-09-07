@@ -55,12 +55,12 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 	const createNewOption = async (newOptionLabel) => {
 		const value = `${newOptionLabel}_${additionalOptions.length}`
 		const newOption = {
-			value,
 			label: newOptionLabel,
+			value,
 		}
 		additionalOptions.push(newOption);
 
-		return value;
+		return newOption;
 	}
 
 	const fields = useMemo(

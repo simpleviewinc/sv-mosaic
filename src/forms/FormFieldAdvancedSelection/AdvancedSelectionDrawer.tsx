@@ -14,7 +14,8 @@ import Button from "../../components/Button";
 import Form, { formActions, useForm } from "@root/components/Form";
 import {
 	InputWrapper,
-	StyledInput
+	StyledInput,
+	StyledFormWrapper
 } from "./AdvancedSelection.styled";
 import AddIcon from "@mui/icons-material/Add";
 import ChipList from "./ChipList";
@@ -224,11 +225,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const createOption = async () => {
 			const canBeCreated = searchKeyword.length > 0;
 			if (canBeCreated) {
-				const newOptionValue = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
-				const newOption = {
-					label: searchKeyword,
-					value: newOptionValue,
-				}
+				const newOption = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
 
 				setFilteredOptions([...filteredOptions, newOption]);
 				setOptions([...options, newOption]);
@@ -329,6 +326,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 						flexWrap: "nowrap",
 						width: "100%",
 					},
+					className: "checkbox-list-field-wrapper",
 					size: "100%",
 					onChangeCb: checkboxListChanged,
 					inputSettings: {
@@ -385,16 +383,18 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	];
 
 	return (
-		<Form
-			title={fieldDef?.label}
-			buttons={buttons}
-			type='drawer'
-			state={state}
-			dispatch={dispatch}
-			fields={fields}
-			dialogOpen={dialogOpen}
-			handleDialogClose={handleDialogClose}
-		/>
+		<StyledFormWrapper>
+			<Form
+				title={fieldDef?.label}
+				buttons={buttons}
+				type='drawer'
+				state={state}
+				dispatch={dispatch}
+				fields={fields}
+				dialogOpen={dialogOpen}
+				handleDialogClose={handleDialogClose}
+			/>
+		</StyledFormWrapper>
 	);
 };
 
