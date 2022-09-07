@@ -12,7 +12,7 @@ describe("DataViewFilterText component", () => {
 				label = "Title with Comparisons"
 				type = "optional"
 				data = {{}}
-				comparisonDefault = "" 
+				comparisonDefault = ""
 				args = {{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
 				}}
@@ -32,7 +32,7 @@ describe("DataViewFilterText component", () => {
 				label = "Title with Comparisons"
 				type = "optional"
 				data = {{}}
-				comparisonDefault = "not_equals" 
+				comparisonDefault = "not_equals"
 				args = {{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
 				}}
@@ -63,5 +63,43 @@ describe("DataViewFilterText component", () => {
 		fireEvent.click(titleWithComparisonsButton);
 		const filter = await screen.findByText("Equals");
 		expect(filter).toBeTruthy()
+	})
+
+	it("Should throw an error when the developer has passed an invalid comparisonDefault prop", async () => {
+		/* await act(async () => {
+			try {
+				render(
+					<DataViewFilterText
+						label = "Title with Comparisons"
+						type = "optional"
+						data = {{}}
+						comparisonDefault = "invalid_comparison"
+						args = {{
+							comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
+						}}
+						onRemove = {jest.fn()}
+						onChange = {jest.fn()}
+					/>
+				);
+			} catch (e) {
+				expect(e.message).toEqual("The selected comparison is not a valid comparison");
+			}
+		}) */
+
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		jest.spyOn(console, "error").mockImplementation(() => {});
+		expect(() => render(
+			<DataViewFilterText
+				label = "Title with Comparisons"
+				type = "optional"
+				data = {{}}
+				comparisonDefault = "invalid_comparison"
+				args = {{
+					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
+				}}
+				onRemove = {jest.fn()}
+				onChange = {jest.fn()}
+			/>
+		)).toThrow("The selected comparison is not a valid comparison");
 	})
 });
