@@ -11,7 +11,7 @@ export const StyledSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
   font-size: 14px;
-  margin: 0px 20px;
+  margin: 0px 20px 15px 20px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: calc(100vw - 40px);
@@ -72,7 +72,7 @@ export const LatitudeValue = styled(CoordinatesValues)`
 `;
 
 export const SwitchContainer = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: -2px;
 `;
 
 // Styles for the Map component
