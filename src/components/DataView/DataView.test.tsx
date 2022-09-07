@@ -86,8 +86,7 @@ describe("DataViewFilterText component", () => {
 			}
 		}) */
 
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		jest.spyOn(console, "error").mockImplementation(() => {});
+		jest.spyOn(console, "error").mockImplementation(jest.fn());
 		expect(() => render(
 			<DataViewFilterText
 				label = "Title with Comparisons"
