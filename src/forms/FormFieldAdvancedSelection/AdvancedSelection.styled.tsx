@@ -29,7 +29,7 @@ export const InputWrapper = styled.div`
   display: flex;
   height: 49px;
   justify-content: space-between;
-  margin: 15px 20px 0px 20px;
+  margin: 15px 15px 0px 15px;
   padding: 12px ${pr => pr.createNewOption ? "8px" : "16px"} 12px 16px;
   width: ${pr => pr.isMobileView ? "" : "620px"};
 
@@ -61,8 +61,8 @@ export const ChipsWrapper = styled.div`
 export const OptionsCheckedModalWrapper = styled.div`
   margin-bottom: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
   margin-top: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
-  margin-left: ${({ isModalOpen }) => (isModalOpen ? "20px" : "")};
-  margin-right: ${({ isModalOpen }) => (isModalOpen ? "20px" : "")};
+  margin-left: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+  margin-right: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`
@@ -96,4 +96,10 @@ export const CategoryTitle = styled.span`
 
 export const AdvancedSelectionWrapper = styled.div`
   max-width: 600px;
+`;
+
+export const StyledFormWrapper = styled.div`
+	& .checkbox-list-field-wrapper div:first-child {
+		width: 100% !important;
+	}
 `;

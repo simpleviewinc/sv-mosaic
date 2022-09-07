@@ -45,14 +45,14 @@ const deleteTableRow = () => {
 const createNewOption = async (newOptionLabel) => {
 	const value = `${newOptionLabel}_${additionalOptions.length}`
 	const newOption = {
-		value,
 		label: newOptionLabel,
+		value,
 	}
 
 	//Insert to db
 	additionalOptions.push(newOption);
 
-	return value;
+	return newOption;
 }
 
 export const Playground = (): ReactElement => {
