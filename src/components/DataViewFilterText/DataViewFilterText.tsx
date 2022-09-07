@@ -119,8 +119,13 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 	// 	throwOnInvalid : true
 	// });
 
+	if (props.comparisonDefault && validComparisons.find( validComparison => validComparison.value === props.comparisonDefault) === undefined)
+		throw new Error("The selected comparison is not a valid comparison")
+
 	const [anchorEl, setAnchorEl] = useState(null);
-	const comparison = props.data.comparison || (props.comparisonDefault || "equals");
+	const comparison = props.args && props.args.comparisons
+		? props.data.comparison || (props.comparisonDefault || "equals")
+		: props.data.comparison || "equals";
 	const value = props.data.value || "";
 
 	const onClick = function(event) {
