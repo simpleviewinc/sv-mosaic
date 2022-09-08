@@ -12,7 +12,7 @@ export class FormFieldTextEditorPage extends BasePage {
 	readonly textEditorInGermanLanguage: Locator;
 	readonly textEditorWithMaxCharacterLimit: Locator;
 	readonly disabledTextEditor: Locator;
-	
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -25,7 +25,7 @@ export class FormFieldTextEditorPage extends BasePage {
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		await this.visit(this.page_path, this.textEditorWithSpellcheckActive);
 	}
 
 }
