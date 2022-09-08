@@ -602,8 +602,7 @@ function DataViewKitchenSink(): ReactElement {
 				label: filter.label,
 				component: filter.component,
 				type: filter.type,
-				args: filter.args,
-				comparisonDefault,
+				args: {...filter.args, comparisonDefault},
 				onChange: function (value) {
 					filterChange(filter.name, value);
 				}

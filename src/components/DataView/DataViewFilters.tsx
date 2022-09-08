@@ -197,7 +197,6 @@ function DataViewFilters(props: DataViewFiltersProps) {
 									type={filter.type}
 									args={filter.args || {}}
 									data={props.filter[filter.name] || {}}
-									comparisonDefault={filter.comparisonDefault}
 									onRemove={onRemove(filter.name)}
 									onChange={filter.onChange}
 								/>
