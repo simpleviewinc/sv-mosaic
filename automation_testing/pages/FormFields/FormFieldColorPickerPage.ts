@@ -21,7 +21,7 @@ export class FormFieldColorPickerPage extends BasePage {
 		this.disabledColorPicker = page.locator("[data-testid='colordiv-test']").nth(1);
 		this.disabledColorPickerLabel = page.locator("label[for='colorDisabled']")
 		this.hexColorInput = page.locator(".flexbox-fix input").nth(0);
-		this.colorSketchPicker = page.locator("//*[@id='root']/div/form/div[2]/div[1]/div/div/div/div/div/div[3]/div[2]/div[1]");
+		this.colorSketchPicker = page.locator("//*[@id='0']/div/div/div/div/div/div[3]/div/div/div[1]");
 	}
 
 	async visitPage(): Promise<void> {
