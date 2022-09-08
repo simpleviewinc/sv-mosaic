@@ -1,5 +1,4 @@
-import { MosaicObject, MosaicCallback } from "../../types";
-import { SvgIconComponent } from "@mui/icons-material";
+import { MosaicObject, MosaicCallback, SvgIconComponent } from "@root/types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
@@ -168,7 +167,9 @@ type SavedViewDef = {
 	label?: string
 	type?: "default" | "shared" | "mine"
 	state?: StateViewDef
-} 
+}
+
+type SavedViewDefRemove = Required<SavedViewDef>
 
 type dataViewOnSavedViewChange = {
 	(view: SavedViewDef): void
@@ -190,7 +191,7 @@ type dataViewOnSavedViewSave = {
 }
 
 type dataViewOnSavedViewRemove = {
-	(data: MosaicObject): void
+	(data: SavedViewDefRemove): void
 }
 
 type dataViewOnSavedViewGetOptions = {
@@ -201,21 +202,21 @@ export interface DataViewProps {
 	title?: string
 	loading?: boolean
 	count?: number
-	limit: number
+	limit?: number
 	skip?: number
 	columns: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
 	/** A list of actions which are always visible for each item in the DataView. */
 	filters?: DataViewFilterDef[]
-	filter: MosaicObject
+	filter?: MosaicObject
 	activeFilters?: string[]
 	buttons?: ButtonProps[]
 	display?: string
 	savedView?: SavedViewDef
 	displayOptions?: string[]
 	data: MosaicObject[]
-	sort: DataViewSort
+	sort?: DataViewSort
 	limitOptions?: number[]
 	gridColumnsMap?: MosaicObject
 	savedViewAllowSharedViewSave?: boolean

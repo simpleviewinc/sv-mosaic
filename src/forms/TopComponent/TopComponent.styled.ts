@@ -10,7 +10,12 @@ const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
 
 export const FormContent = styled.div`
-  padding: ${pr => pr.view === "DRAWER" ? "0px 40px" : (pr.view === "RESPONSIVE" || pr.view === "DESKTOP" || pr.view === "BIG_DESKTOP") ? "24px 20px 0px 20px" : "0px"};
+	& .layout {
+		padding: ${pr => pr.view === "DRAWER" ? "15px 40px" : (pr.view === "RESPONSIVE" || pr.view === "DESKTOP" || pr.view === "BIG_DESKTOP") ? "24px 20px 0px 20px" : "0px"};
+	}
+	overflow-y: auto;
+	width: 100%;
+	height: 100%;
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -34,6 +39,7 @@ export const Row = styled(FlexContainer)`
 
   @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
     justify-content: flex-start;
+	height: 100%;
   }
 `;
 
@@ -48,9 +54,6 @@ export const CheckboxWrapper = styled.div`
 export const StyledColumn = styled(Column)`
   background-color: white;
   border-bottom: 2px solid ${theme.colors.gray200};
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
 `;
 
 // Icons

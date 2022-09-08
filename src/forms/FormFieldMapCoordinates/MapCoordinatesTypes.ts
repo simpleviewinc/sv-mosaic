@@ -38,6 +38,12 @@ export type MapCoordinatesDef = {
 	 * Latitude and longitude object.
 	 */
 	mapPosition?: MapPosition;
+	/**
+	 * The Google Maps API provides map tiles at various zoom levels for map
+	 * type imagery. Most roadmap imagery is available from zoom levels 0 to 18
+	 * https://developers.google.com/maps/documentation/javascript/maxzoom
+	 */
+	zoom?: number;
 }
 
 export interface MapProps {
@@ -56,9 +62,29 @@ export interface MapProps {
 	 */
 	mapPosition: MapPosition;
 	/**
+	 * Location of the marker
+	 */
+	value?: MapPosition;
+	/**
 	 * Function triggered when user clicks on the map.
 	 */
 	onClick: (e: google.maps.MapMouseEvent) => void;
+	/**
+	 * Zoom level of the Map
+	 */
+	zoom? : MapCoordinatesDef["zoom"];
+	/**
+	 * This event is fired when the user stops dragging the marker.
+	 */
+	onDragMarkerEnd?: ((e: google.maps.MapMouseEvent) => void) | undefined;
+	/**
+	 * This event is fired when the user starts dragging the marker.
+	 */
+	onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined;
+	/**
+	 * Flag that indicates if the marker is being dragged.
+	 */
+	isDragging: boolean;
 }
 
 export interface LocationSearchInputProps {
@@ -74,6 +100,7 @@ export interface MapCoordinatesDrawerProps {
 	handleClose: (save?: boolean) => Promise<void>;
 	onChange: (e: MapPosition) => Promise<void>
 	value: MapPosition;
+	mapPosition: MapPosition;
 
 	hasUnsavedChanges?: boolean;
 	handleUnsavedChanges?: (val: boolean) => void;

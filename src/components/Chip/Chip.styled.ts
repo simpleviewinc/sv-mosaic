@@ -1,6 +1,6 @@
 import Chip from "@mui/material/Chip";
 import styled from "styled-components";
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 
 const chipFont = `
   font-size: 14px;
@@ -29,13 +29,13 @@ export const StyledDeletableChip = styled(Chip)`
   }
 
   .MuiChip-deleteIcon {
-    color: ${theme.colors.almostBlack};
-    margin: 0;
-    height: 14px;
-    width: 14px;
+    color: ${theme.colors.almostBlack} !important;
+    margin: 0 !important;
+    height: 16px;
+    width: 16px;
 
     &:hover {
-      color: ${theme.colors.almostBlack};
+      color: ${theme.colors.almostBlack} !important;
     }
   }
 

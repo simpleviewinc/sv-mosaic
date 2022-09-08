@@ -23,26 +23,31 @@ export const StyledInput = styled.input`
 `;
 
 export const InputWrapper = styled.div`
+  align-items: center;
   background-color: ${theme.colors.gray100};
   border: 1px solid ${theme.colors.simplyGray};
   display: flex;
   height: 49px;
   justify-content: space-between;
-  margin-bottom: 40px;
-  padding: 0 16px;
-  width: ${pr => pr.isMobileView ? "" : "650px"};
+  margin: 15px 15px 0px 15px;
+  padding: 12px ${pr => pr.createNewOption ? "8px" : "16px"} 12px 16px;
+  width: ${pr => pr.isMobileView ? "" : "620px"};
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
+  }
+
+  & span:first-child {
+	background-color: red;
   }
 `;
 
 export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  row-gap: 4px;
+  row-gap: 12px;
   margin-bottom: 16px;
-  width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "684px"};
+  width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "620px"};
 
   & > :not(:last-child) {
     margin-right: 12px;
@@ -54,15 +59,20 @@ export const ChipsWrapper = styled.div`
 `;
 
 export const OptionsCheckedModalWrapper = styled.div`
-  margin-bottom: ${(pr) => (pr.isModalOpen ? "40px" : "")};
+  margin-bottom: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+  margin-top: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+  margin-left: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+  margin-right: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`
-  color: ${theme.colors.gray700};
+  color: ${theme.colors.gray600};
   cursor: pointer;
   display: flex;
   font-family: ${theme.fontFamily};
   width: fit-content;
+  font-weight: ${theme.fontWeight.bold};
+  font-size: 16px;
 `;
 
 export const StyledExpandMoreIcon = styled(ExpandMoreIcon)`
@@ -85,5 +95,11 @@ export const CategoryTitle = styled.span`
 `;
 
 export const AdvancedSelectionWrapper = styled.div`
-  max-width: 620px;
+  max-width: 600px;
+`;
+
+export const StyledFormWrapper = styled.div`
+	& .checkbox-list-field-wrapper div:first-child {
+		width: 100% !important;
+	}
 `;

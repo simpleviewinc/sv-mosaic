@@ -21,7 +21,7 @@ export class FormFieldDropdownSingleSelectionPage extends BasePage {
 	readonly mdSizeDropdownInput: Locator;
 	readonly lgSizeDropdownInput: Locator;
 
-	
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -43,12 +43,4 @@ export class FormFieldDropdownSingleSelectionPage extends BasePage {
 	async visitPage(): Promise<void> {
 		await this.visit(this.page_path, this.title);
 	}
-
-	async writeOptionInDropdown(dropdown: Locator, option:string): Promise<void> {
-		await dropdown.click({force: true});
-		await dropdown.fill(option);
-		await this.page.locator("text=" + option).nth(0).click();
-	}
-
-	
 }

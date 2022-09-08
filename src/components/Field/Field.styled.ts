@@ -3,10 +3,11 @@ import theme from "@root/theme";
 
 export const StyledFieldWrapper = styled.div`
   font-family: ${theme.fontFamily};
-  padding: 20px;
+  padding: ${theme.fieldSpecs.inputSpacing.fieldPadding};
   background-color: ${(pr) =>
 		pr.error ? theme.colors.lightRed : "transparent"};
-  width: ${(pr) => pr.size ? pr.size : "fit-content"};
+  width: fit-content;
+  position: relative;
 `;
 
 export const StyledFieldContainer = styled.div`

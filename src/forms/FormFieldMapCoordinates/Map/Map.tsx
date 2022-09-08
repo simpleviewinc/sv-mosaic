@@ -12,34 +12,51 @@ import { MapContainer } from "../MapCoordinates.styled";
 
 const containerStyle = {
 	display: "flex",
-	height: "200px",
+	height: "400px",
 };
 
 const mapOptions = {
 	disableDefaultUI: true,
 	zoomControl: true,
+	draggableCursor: "crosshair",
 };
 
 const Map = (props: MapProps): ReactElement => {
 	const {
 		address,
 		handleCoordinates,
-		mapPosition = { lat: -3.745, lng: -40.523 },
-		onClick
+		mapPosition,
+		value,
+		onClick,
+		onDragMarkerEnd,
+		zoom = 0,
+		isDragging,
+		onDragStart,
 	} = props;
 
 	return (
 		<MapContainer>
-			{isEmpty(address) && <LocationSearchInput handleCoordinates={handleCoordinates} />}
+			{isEmpty(address) && (
+				<LocationSearchInput handleCoordinates={handleCoordinates} />
+			)}
 			<div>
 				<GoogleMap
 					mapContainerStyle={containerStyle}
 					center={mapPosition}
-					zoom={10}
+					zoom={zoom}
 					onClick={onClick}
 					options={mapOptions}
 				>
-					<Marker position={mapPosition} />
+					{isDragging ||
+						(value &&
+							(value?.lat !== 0 || value?.lng !== 0) && (
+							<Marker
+								draggable={true}
+								position={value || mapPosition}
+								onDragEnd={onDragMarkerEnd}
+								onDragStart={onDragStart}
+							/>
+						))}
 				</GoogleMap>
 			</div>
 		</MapContainer>

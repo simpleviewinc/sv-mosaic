@@ -24,10 +24,10 @@ const DesktopViewColumn = styled(StyledColumn)`
 	justify-content: space-between;
 	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
 	top: 0;
-	z-index: 1000;
+	z-index: 100;
 
 	& .form-nav-wrapper {
-		margin-top: 30px;
+		margin-top: 20px;
 	}
 
 	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
@@ -53,6 +53,7 @@ type DesktopViewProps = {
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 	sectionsRefs?: any[];
+	contentRef?: any;
 } & BaseTopComponentProps;
 
 const DesktopView = (props: DesktopViewProps): ReactElement => {
@@ -66,7 +67,8 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 		sections,
 		checkbox,
 		view,
-		sectionsRefs
+		sectionsRefs,
+		contentRef,
 	} = props;
 
 	return (
@@ -87,7 +89,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 			</FlexContainer>
 			{(view !== "BIG_DESKTOP" && sections) && (
 				<FlexContainer>
-					<FormNav sectionsRefs={sectionsRefs} sections={sections} />
+					<FormNav sectionsRefs={sectionsRefs} sections={sections} contentRef={contentRef}/>
 				</FlexContainer>
 			)}
 		</DesktopViewColumn>

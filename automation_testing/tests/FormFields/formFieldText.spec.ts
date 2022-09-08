@@ -25,8 +25,11 @@ test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
 		await formFieldTextPage.saveBtn.click();
 	});
 
-	test("Validate Regular Number field", async () => {
+	test("Validate Regular Text field type.", async () => {
 		expect(await formFieldTextPage.numberTextField.getAttribute("type")).toBe("number");
+	});
+
+	test("Validate Regular Number field.", async () => {
 		const randomNumber = randomIntFromInterval(0, 99999999);
 		await formFieldTextPage.numberTextField.type(randomNumber.toString());
 		expect(Number(await formFieldTextPage.numberTextField.inputValue())).toBe(randomNumber);

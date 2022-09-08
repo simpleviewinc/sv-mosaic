@@ -6,11 +6,10 @@
 // import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // // Components
-// import Form from "../Form/Form";
+// import Form, { useForm } from "@root/components/Form";
 
 // // Utils
-// import { useForm } from "../Form";
-// import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
+// // import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 // import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "./ImageVideoLinkDocumentBrowsingUtils";
 
 // export default {
@@ -80,112 +79,112 @@
 // 	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImageOrVideo");
 // 	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(dispatch, "disabledExample");
 
-// 	const fields = useMemo(
-// 		() =>
-// 			[
-// 				{
-// 					name: "browseAllOptions",
-// 					label: "Example with all types of browsing options (document, link, video and image) enabled",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: false,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 						handleSetImage: setImage,
-// 						handleSetDocument: setDocument,
-// 						handleSetVideo: setVideo,
-// 						handleSetLink: setLink,
-// 						handleRemove,
-// 						src: imageVideoSrc
-// 					},
+// const fields = useMemo(
+// 	() =>
+// 		[
+// 			{
+// 				name: "browseAllOptions",
+// 				label: "Example with all types of browsing options (document, link, video and image) enabled",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: false,
+// 				inputSettings: {
+// 					options: menuOptions,
+// 					handleSetImage: setImage,
+// 					handleSetDocument: setDocument,
+// 					handleSetVideo: setVideo,
+// 					handleSetLink: setLink,
+// 					handleRemove,
+// 					src: imageVideoSrc
 // 				},
-// 				{
-// 					name: "browseImageOrVideo",
-// 					label: "Browsing and image or video without a src image specified",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: false,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 						handleSetImage: setVideoWithoutSrc,
-// 						handleSetVideo: setImageWithoutSrc,
-// 						handleRemove: removeImageOrVideo
-// 					},
+// 			},
+// 			{
+// 				name: "browseImageOrVideo",
+// 				label: "Browsing and image or video without a src image specified",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: false,
+// 				inputSettings: {
+// 					options: menuOptions,
+// 					handleSetImage: setImageWithoutSrc,
+// 					handleSetVideo: setVideoWithoutSrc,
+// 					handleRemove: removeImageOrVideo
 // 				},
-// 				{
-// 					name: "browseImage",
-// 					label: "Browsing an image",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: false,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 						handleSetImage: browseImage,
-// 						handleRemove: removeImage,
-// 						src: imageVideoSrc
-// 					},
+// 			},
+// 			{
+// 				name: "browseImage",
+// 				label: "Browsing an image",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: false,
+// 				inputSettings: {
+// 					options: menuOptions,
+// 					handleSetImage: browseImage,
+// 					handleRemove: removeImage,
+// 					src: imageVideoSrc
 // 				},
-// 				{
-// 					name: "browseVideo",
-// 					label: "Browsing a video",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: false,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 						handleSetVideo: browseVideo,
-// 						handleRemove: removeVideo,
-// 						src: imageVideoSrc,
-// 					},
+// 			},
+// 			{
+// 				name: "browseVideo",
+// 				label: "Browsing a video",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: false,
+// 				inputSettings: {
+// 					options: menuOptions,
+// 					handleSetVideo: browseVideo,
+// 					handleRemove: removeVideo,
+// 					src: imageVideoSrc,
 // 				},
-// 				{
-// 					name: "browseDocument",
-// 					label: "Browsing a document",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: false,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 						handleSetDocument: browseDocument,
-// 						handleRemove: removeDocument
-// 					},
+// 			},
+// 			{
+// 				name: "browseDocument",
+// 				label: "Browsing a document",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: false,
+// 				inputSettings: {
+// 					options: menuOptions,
+// 					handleSetDocument: browseDocument,
+// 					handleRemove: removeDocument
 // 				},
-// 				{
-// 					name: "browseLink",
-// 					label: "Browsing a link",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: false,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 						handleSetLink: browseLink,
-// 						handleRemove: removeLink
-// 					},
+// 			},
+// 			{
+// 				name: "browseLink",
+// 				label: "Browsing a link",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: false,
+// 				inputSettings: {
+// 					options: menuOptions,
+// 					handleSetLink: browseLink,
+// 					handleRemove: removeLink
 // 				},
-// 				{
-// 					name: "withoutAnyBrowsingOption",
-// 					label: "Without any browsing option",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: false,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 					},
+// 			},
+// 			{
+// 				name: "withoutAnyBrowsingOption",
+// 				label: "Without any browsing option",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: false,
+// 				inputSettings: {
+// 					options: menuOptions,
 // 				},
-// 				{
-// 					name: "disabledExample",
-// 					label: "Disabled example",
-// 					type: "imageVideoDocumentLink",
-// 					required: false,
-// 					disabled: true,
-// 					inputSettings: {
-// 						options: menuOptions,
-// 						handleSetImage: setImageDisabled
-// 					},
+// 			},
+// 			{
+// 				name: "disabledExample",
+// 				label: "Disabled example",
+// 				type: "imageVideoDocumentLink",
+// 				required: false,
+// 				disabled: true,
+// 				inputSettings: {
+// 					options: menuOptions,
+// 					handleSetImage: setImageDisabled
 // 				},
-// 			] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[],
-// 		[menuOptions, setImage, setVideo, setDocument, handleRemove]
-// 	);
+// 			},
+// 		] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[],
+// 	[menuOptions, setImage, setVideo, setDocument, handleRemove]
+// );
 
 // 	return (
 // 		<>

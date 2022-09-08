@@ -1,10 +1,10 @@
 import * as React from "react";
-import { memo, ReactElement, useState } from "react";
+import { memo, ReactElement, useState, useEffect } from "react";
 
 // Components
 import AddressDrawer from "./AddressDrawer";
 import Button from "@root/components/Button";
-import Drawer from "@root/components/Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 
 // Styles
 import { AddAddressWrapper, FlexContainer } from "./Address.styled";
@@ -12,9 +12,9 @@ import { AddAddressWrapper, FlexContainer } from "./Address.styled";
 // Utils
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
-import { IAddress } from ".";
+import { IAddress, AddressFieldDef } from ".";
 
-const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactElement => {
+const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>): ReactElement => {
 	const {
 		value,
 		onBlur,
@@ -25,16 +25,83 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	// State variables
 	const [open, setOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
-	const [addressToEdit, setAddressToEdit] = useState(null)
+	const [addressToEdit, setAddressToEdit] = useState(null);
 
 	// States of the form values
 	const [addressIdx, setAddressIdx] = useState(null);
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
 	const [dialogOpen, setIsDialogOpen] = useState(false);
+	const [availableAddresses, setAvailableAddresses] = useState({
+		amountPerType: -1,
+		amountShipping: -1,
+		amountBilling: -1,
+		amountPhysical: -1,
+	});
+	const [addressTypes, setAddressTypes] = useState([]);
+
+	const types = [
+		{
+			label: "Physical",
+			value: "physical",
+		},
+		{
+			label: "Billing",
+			value: "billing",
+		},
+		{
+			label: "Shipping",
+			value: "shipping",
+		},
+	];
+
+	useEffect(() => {
+		if (!open) {
+			const amountPerType = fieldDef?.inputSettings?.amountPerType ?? 1
+
+			const amountPerTypeProp = {
+				amountPerType: amountPerType,
+				amountShipping: fieldDef?.inputSettings?.amountShipping ?? amountPerType,
+				amountBilling: fieldDef?.inputSettings?.amountBilling ?? amountPerType,
+				amountPhysical: fieldDef?.inputSettings?.amountPhysical ?? amountPerType,
+			}
+			setAvailableAddresses(amountPerTypeProp);
+		}
+	}, [fieldDef?.inputSettings, open]);
+
+	useEffect(() => {
+		if (!open) {
+			validateAmountPerType();
+		}
+	}, [availableAddresses, open, value]);
+
+	const validateAmountPerType = (editingTypes = []) => {
+		const newTypes = new Map();
+		if (value)
+			value?.forEach(address => {
+				address.types.forEach(type => {
+					let amount = 1;
+
+					if (newTypes.has(type)) {
+						amount += newTypes.get(type);
+					}
+
+					newTypes.set(type, amount);
+				});
+			});
+
+		const addresses = [];
+
+		types.forEach(type => {
+			if (editingTypes.includes(type.value) || (newTypes.has(type.value) && newTypes.get(type.value) < availableAddresses[`amount${type.label}`]) || (!newTypes.has(type.value) && availableAddresses[`amount${type.label}`] > 0))
+				addresses.push(type);
+		});
+
+		setAddressTypes(addresses);
+	}
 
 	/**
-	 * Opens the modal to create an address card 
+	 * Opens the modal to create an address card
 	 * and sets editing mode to false.
 	 */
 	const addAddressHandler = () => {
@@ -43,14 +110,14 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 	};
 
 	/**
-	 * Removes the clicked address card from the list. 
-	 * @param addressToRemove 
+	 * Removes the clicked address card from the list.
+	 * @param addressToRemove
 	 */
 	const removeAddressHandler = async (addressIndex: number) => {
 		const listOfAddresses = [...value];
 		listOfAddresses.splice(addressIndex, 1);
 
-		if (listOfAddresses.length > 0) {
+		if (listOfAddresses?.length > 0) {
 			await onChange(listOfAddresses);
 		} else {
 			await onChange(undefined);
@@ -83,9 +150,9 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 
 	/**
 	 * Opens the modal in editing mode and sets the
-	 * form fields values with the data of the address 
+	 * form fields values with the data of the address
 	 * to be edited.
-	 * @param addressToEdit 
+	 * @param addressToEdit
 	 */
 	const showEditModal = (addressToEdit, addressIndex) => {
 		const {
@@ -110,6 +177,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			state,
 		});
 
+		validateAmountPerType(types);
 		setAddressIdx(addressIndex);
 		setIsEditing(true);
 		setOpen(true);
@@ -120,7 +188,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			<FlexContainer>
 				<AddAddressWrapper>
 					<Button
-						disabled={fieldDef.disabled}
+						disabled={addressTypes?.length === 0 ? true : fieldDef.disabled}
 						color="gray"
 						variant="outlined"
 						label="ADD ADDRESS"
@@ -143,7 +211,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
 					open={open}
-					value={value}
+					value={value ?? []}
 					onChange={onChange}
 					isEditing={isEditing}
 					addressIdx={addressIdx}
@@ -154,6 +222,7 @@ const FormFieldAddress = (props: MosaicFieldProps<unknown, IAddress[]>): ReactEl
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
+					addressTypes={addressTypes}
 				/>
 			</Drawer>
 		</div>

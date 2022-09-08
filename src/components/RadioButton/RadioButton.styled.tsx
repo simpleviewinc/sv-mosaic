@@ -3,7 +3,7 @@ import styled from "styled-components";
 // Material UI
 import Radio from "@mui/material/Radio";
 
-import theme from "../../utils/theme.js";
+import theme from "@root/theme";
 
 export const StyledRadioButton = styled(Radio)`
   &.MuiRadio-colorPrimary {
@@ -27,7 +27,7 @@ export const StyledRadioButton = styled(Radio)`
   }
 
   & svg {
-    height: 20px;
-    width: 20px;
+    height: ${theme.fieldSpecs.selectors.dimentions};
+    width: ${theme.fieldSpecs.selectors.dimentions};
   }
 `;

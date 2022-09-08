@@ -9,6 +9,14 @@ import { TextFieldDef } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
+export const getInputValue = (value: string, type?: string) => {
+	if (type === "number" && value !== "") {
+		return Number(value);
+	}
+
+	return value;
+}
+
 const TextField = (
 	props: MosaicFieldProps<TextFieldDef, string | number>
 ): ReactElement => {
@@ -29,22 +37,27 @@ const TextField = (
 		: null;
 
 	const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const value =
-			fieldDef?.inputSettings?.type === "number"
-				? Number(e.target.value)
-				: e.target.value;
+		const value = getInputValue(e.target.value, fieldDef?.inputSettings?.type);
 
-		onChange && onChange(value);
+		onChange && onChange(value === "" ? undefined : value);
 	};
+
+	const onFieldBlur = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = getInputValue(e.target.value, fieldDef?.inputSettings?.type);
+
+		onBlur && onBlur(value === "" ? undefined : value);
+		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
+	}
 
 	const errorWithMessage = error?.trim().length > 0;
 
 	return (
 		<StyledTextField
 			id={fieldDef?.name}
-			value={value}
+			data-testid="form-field-text-test-id"
+			value={value ?? ""}
 			onChange={onFieldChange}
-			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			onBlur={onFieldBlur}
 			variant='outlined'
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
 			className={fieldDef?.className}

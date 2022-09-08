@@ -25,6 +25,13 @@ All components are exported individually and should be imported via destructurin
 import { DataView } from "@simpleview/sv-mosaic"
 ```
 
+For faster import statements, import just the resource you want, exposed by [package.json](package.json) "exports" key.
+
+```js
+import DataView from "@simpleview/sv-mosaic/components/DataView";
+import formActions from "@simpleview/sv-mosaic/formActions";
+```
+
 ## Optimization Guidelines
 
 [Optimization Guidelines](optimization.md) - Ensure you're properly using Mosaic and React for optimal client-side performance.
@@ -46,7 +53,7 @@ import { DataView } from "@simpleview/sv-mosaic"
 		```
 		cd /sv/containers/sv-mosaic
 		sudo npm run docker
-		npm start
+		yarn start
 		```
 
 The service should now be accessible at http://kube.simpleview.io:10000/
@@ -67,13 +74,13 @@ The service should now be accessible at http://kube.simpleview.io:10000/
 When external parties consume this project the assumption is that all exported components are "top-level" meaning that you can destructure all necessary imports. This is necessary to ensure optimal and easy tree shaking.
 
 ```js
-import { DataView, FilterDate, transform_get } from "@simpleview/sv-mosaic";
+import { DataView, DataViewFilterDate, transform_get } from "@simpleview/sv-mosaic";
 ```
 
 * /components/ - Each exported component have it's own sub-folder in this folder.
-	* [Component] - e.g. DataView, FilterDate
+	* [Component] - e.g. DataView, DataViewFilterDate
 		* index.ts
-			* This file File which should re-export the primary component as default. So if in the folder /FilterDate/ then index.ts should re-export /FilterDate/FilterDate.tsx.
+			* This file File which should re-export the primary component as default. So if in the folder /DataViewFilterDate/ then index.ts should re-export /DataViewFilterDate/DataViewFilterDate.tsx.
 			* This file should also export all entities in the [ComponentTypes].ts file. This makes the type definitions usable throughout the project and by external consumers.
 		* [Component].tsx - The primary component file.
 		* [ComponentTypes].ts - If the component needs to declare it's own typescript Interfaces or Types througout the folder, declare them here.

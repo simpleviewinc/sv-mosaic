@@ -1,5 +1,76 @@
 # sv-mosaic changelog
 
+## 6.0.1
+* Updated `FormFieldColorPicker` stories' height to make the color picker component clickable, and improve scrollable logic.
+* Updated `FormFieldAddress` checkbox list's width when creating a new option.
+* **BREAKING** `FormFieldAdvancedSelection`:
+	* createNewOption prop now expects a MosaicLabelValue as return value.
+
+## 6.0.0
+* Refactored to output a cjs and esm bundle to improve import efficiency both in Node (which will use cjs) and when running in webpack environments (which will use esm).
+* Now supports [subpath exports](https://nodejs.org/api/packages.html#subpath-exports). It is recommended to use a subpath export to improve the speed of your import statements, especially when only importing a few pieces of mosaic. See the "exports" key for a list of what's exported.
+* **BREAKING** - Some references were exported under "Grid" naming schema and this was deprecated in 2019. Those dual exports have been removed. The following shows the old export and the new export. You only need to refactor if using the old export.
+	* Grid -> DataView
+	* GridFilterText -> DataViewFilterText
+	* GridFilterDropdown -> DataViewFilterDropdown
+	* GridFilterDropdownButtons -> DataViewFilterDropdownButtons
+	* GridFilterMultiselect -> DataViewFilterMultiselect
+	* GridPrimaryFilter -> DataViewPrimaryFilter
+* Updated project to use latest version of React (18.2.0).
+* Moved all files from jsx to tsx.
+* Added exports for `Drawers` and `SummaryPageTopComponent`.
+* **BREAKING** `Internals` folder is now gone. For the private DataView internals they are moved into the `DataView folder` and renamed to be `DataViewX`, for items that were used in multiple places they were moved them into their own component folders.
+* `DataView`:
+	* View title now adds ellipsis if text is larger than 1 line.
+	* **BREAKING** Previously all of the DataView types were optional, we're currently changing `columns` and `data` to be required, with more to be changed in the near future following the move from jsx to tsx.
+* **BREAKING** Added `DataView-` prefix to the following components:
+	* FilterDate -> DataViewFilterDate.
+	* FilterSingleSelect -> DataViewFilterSingleSelect.
+* `Form`:
+	* **BREAKING** Moved component from "./forms/Form" to "./components/Form".
+	* Major overall restyling to all fields mostly to reduce spacing (e.g. reduced paddings around fields and between tabs and title in top component, reduced height of text fields, etc).
+	* Added DMS example in storybook to show how Forms would look like in a real application.
+* Added 2 optional props to fields (in fieldDef): `onBlurCb` and `onChangeCb` both of these callback functions will be called after finishing executing the respective internal events in the field they were called. These can receive as optional parameter the value of the field.
+* `FormFieldColorPicker` now accepts and returns opacity.
+* `FormFieldAddress`:
+	* Trimmed down unnecessary attributes from our `countriesStates.json` file used in `FormFieldAddress` which helped us reduce bundle size.
+	* **BREAKING** Zip code now works as string.
+	* Added limit props. Developers can now define amountPerType, amountShipping, amountBilling, and amountPhysical. If none of these props get propped down then all will default to 1 (same as it has been currenlty working). The amountPerType will get overwritten if one of the specific amounts get propped too, i.e if amountPerType = 3, and amountShipping = 1, that means users can only add a maximum of 1 shipping address, 3 billing and 3 physical.
+* `FormFieldAdvancedSelection`:
+	* **BREAKING** Field now receives `MosaicLabelValue[]` (Array of objects with the keys: label, value. See Form's readme) instead of `string[]` as value.
+	* **BREAKING** Removed `getSelected` prop. This is no longer needed as the label can be directly passed with the value.
+	* **BREAKING** Prop `checkboxOptions` has been renamed to `options` to match all other components that use an array of options.
+* `FormFieldMapCoordinates`:
+	* If no location gets propped, the map will center at 0,0.
+	* Added optional `zoom` prop.
+	* Visual updates (changed pointer to cross-hair, bigger map, bigger drawer).
+	* Marker can now be dragged to another position. The map won't re-center when clicking or dragging the marker. It will only re-center when manually adding coordinates or a location.
+	* Added validation to latitude (between -90 and 90) and longitude (between -180 and 180).
+	* Map card now rendering static map.
+
+## 5.1.1 - 8/9/22
+* Added missing semicolon to line 31 in FormNav.styled.tsx.
+
+## 5.1.0 - 8/9/22
+* Fields will now automatically validate onChange after 300ms without interaction.
+* Updated sections logic internally.
+	* Forms will now throw an error if devs add a field that doesn't exist to a section.
+	* Scrolling now using useRef rather than ids.
+* Categories with comparison filter in DataView:
+	* Fixed "Not In" comparison not working as expected.
+	* "Exists" and "Not Exists" now clear selected options.
+	* "Load More" button no longer disappears when clicking "clear".
+* Keyword filter no longer using regex for filtering.
+* DataView View settings:
+	* "Save as new option" no longer reuses current view settings.
+	* Deleting a view no longer keeps that view's settings and moves user to "default view".
+* AUTOMATION TESTING:
+	* FormFieldChipSingleSelect
+	* FormFieldColorPicker
+	* FormFieldDateField
+	* FormFieldDropdownSingleSelection
+	* FormFieldImageUpload
+
 ## 5.0.0 - 7/26/22
 * **BREAKING** - Major changes in Forms (See more Forms documentation in Storybook):
 	* Devs don't need to register `fields` anymore, instead they must only pass the `fields` array directly as prop.
@@ -7,7 +78,7 @@
 	* Devs can pass as many buttons as needed through the `buttons` prop.
 		* Each button from `buttons` prop array use the same contract as regular buttons plus an additional `show` prop.
 	* Added `init` action to `formActions` this is in charge of registering the fields.
-	* Updated `submitForm` action from `formActions`, now this action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time. 
+	* Updated `submitForm` action from `formActions`, now this action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time.
 * Updated project to latest version of MUI (5.8.7).
 * Updated `DataView's` `created` and `updated` filters to now use newest MOS date pickers.
 * Added `FormFieldTextEditor` back again.

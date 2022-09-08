@@ -28,7 +28,7 @@ export const LinksWrapper = styled.div`
   }
 
   a {
-    color: ${theme.colors.gray600}
+    color: ${theme.colors.gray600};
     display: inline-block;
     font-family: ${theme.fontFamily};
     font-size: 14px;
@@ -129,13 +129,10 @@ export const FormNavRow = styled.div`
 export const FormNavWrapper = styled.div`
   background: white;
   overflow: hidden;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 106px;
   width: 100%;
 
   @media (min-width: 1718px) {
-    height: calc(100vh - 106px);
+    height: 100%;
     width: 293px;
     border-right: 2px solid ${theme.colors.gray200};
   }

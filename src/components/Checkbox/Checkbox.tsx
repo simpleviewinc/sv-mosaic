@@ -24,7 +24,6 @@ const Checkbox = (props: CheckboxProps) => (
 						${props.checked ? "checked" : ""}
 						${props.className ? props.className : ""}
 					`}
-					color="default"
 					edge={props.edge}
 					checked={props.checked}
 					onClick={props.onClick}

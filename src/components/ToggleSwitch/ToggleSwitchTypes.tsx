@@ -1,6 +1,6 @@
 import { FormControlLabelProps as MUIFormControlLabelProps } from "@mui/material/FormControlLabel";
 import { MosaicFieldProps } from "@root/components/Field";
-import { FormFieldToggleSwitchDef } from "../../forms/FormFieldToggleSwitch";
+import { FormFieldToggleSwitchDef } from "@root/forms/FormFieldToggleSwitch";
 
 export interface ToggleSwitchProps {
   /**

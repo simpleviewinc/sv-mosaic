@@ -1,7 +1,6 @@
 import * as React from "react";
 import { createContext } from "react";
-import { MosaicObject } from "../../types";
-import { SvgIconComponent } from "@mui/icons-material";
+import { MosaicObject, SvgIconComponent } from "@root/types";
 
 type Variant = "full" | "icons_only" | "hidden" | "mobile";
 

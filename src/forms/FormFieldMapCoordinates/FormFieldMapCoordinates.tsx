@@ -14,7 +14,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 
 // External libraries
 import { isEmpty } from "lodash";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { useLoadScript } from "@react-google-maps/api";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 // Components
@@ -26,7 +26,6 @@ import MapCoordinatesDrawer from "./MapCoordinatesDrawer";
 import {
 	ButtonsWrapper,
 	Column,
-	mapContainerStyle,
 	CoordinatesCard,
 	CoordinatesValues,
 	LatitudeValue,
@@ -40,9 +39,8 @@ import {
 	defaultMapPosition,
 	getAddressStringFromAddressObject,
 	libraries,
-	mapOptions,
 } from "./MapCoordinatesUtils";
-import Drawer from "../../components/Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>): ReactElement => {
 	const {
@@ -176,14 +174,10 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 						hasAddress={!isEmpty(fieldDef?.inputSettings?.address)}
 					>
 						<MapImageColumn>
-							<GoogleMap
-								mapContainerStyle={mapContainerStyle}
-								center={mapPosition}
-								zoom={10}
-								options={mapOptions}
-							>
-								<Marker position={mapPosition} />
-							</GoogleMap>
+							<img 
+								src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=232x153&maptype=roadmap&markers=color:red%7C${mapPosition.lat},${mapPosition.lng}&key=${fieldDef.inputSettings.apiKey}`}
+								alt="location"
+							/>
 						</MapImageColumn>
 						<Column>
 							<LatLngLabel>Latitude</LatLngLabel>
@@ -201,7 +195,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 									label="Edit"
 									disabled={fieldDef?.disabled}
 									onClick={handleAddCoordinates}
-									muiAttrs={{ disableRipple: true }}
 								></Button>
 							)}
 							{!autocoordinatesChecked &&
@@ -212,7 +205,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 									variant="text"
 									label="Remove"
 									onClick={removeLocation}
-									muiAttrs={{ disableRipple: true }}
 								></Button>
 							)}
 						</ButtonsWrapper>
@@ -225,7 +217,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 					color="gray"
 					variant="outlined"
 					label="ADD COORDINATES"
-					muiAttrs={{ disableRipple: true }}
 				></Button>
 			)}
 
@@ -238,6 +229,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
+					mapPosition={mapPosition}
 				/>
 			</Drawer>
 		</>

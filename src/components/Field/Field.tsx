@@ -6,7 +6,6 @@ import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { MosaicFieldProps } from ".";
-import { Sizes } from "@root/theme/sizes";
 import { debounce } from "lodash";
 
 const Field = ({
@@ -96,10 +95,9 @@ const Field = ({
 	}, [fieldDef?.type]);
 
 	return (
-		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style}>
+		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
-				size={(fieldDef?.type === "chip" || fieldDef?.type === "linkSetup") ? Sizes.md : fieldDef?.type === "table" ? "fit-content" : fieldDef?.size}
 				ref={fieldRef}
 			>
 				{

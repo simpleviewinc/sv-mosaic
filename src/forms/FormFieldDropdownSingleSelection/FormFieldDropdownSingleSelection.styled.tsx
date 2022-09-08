@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { Sizes } from "@root/theme/sizes";
+import { Sizes } from "@root/theme";
 
 // Components
 import { default as MUIAutocomplete } from "@mui/material/Autocomplete";
@@ -61,12 +61,12 @@ export const SingleDropdownWrapper = styled.div`
   padding: 0;
 
   .MuiFormControl-fullWidth {
-    height: 51px;
+    height: ${theme.fieldSpecs.inputText.totalHeight};
     width: ${pr => (pr.innerWidth ? pr.innerWidth : Sizes.sm)};
   }
 
   .MuiAutocomplete-paper {
-    width: ${pr => pr.innerWidth === Sizes.xs ? Sizes.sm : pr.innerWidth } 
+    width: ${pr => pr.innerWidth === Sizes.xs ? Sizes.sm : pr.innerWidth }
   }
 `;
 

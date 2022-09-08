@@ -15,9 +15,9 @@ import {
 } from "./SummaryPageTopComponent.styled";
 
 // Components
-import Image from "../internal/Image";
+import Image from "@root/components/Image";
 import Button from "../Button";
-import FilterSingleSelect from "../FilterSingleSelect";
+import DataViewFilterSingleSelect from "../DataViewFilterSingleSelect";
 import { filterAction } from "../DataView/utils/bulkActionsUtils";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
@@ -131,7 +131,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 					{
 						filter &&
 						<div data-testid="filter">
-							<FilterSingleSelect
+							<DataViewFilterSingleSelect
 								label={filter.label}
 								type="primary"
 								data={state}

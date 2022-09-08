@@ -13,7 +13,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 // Components
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@root/components/Button";
-import Drawer from "../../components/Drawer.jsx";
+import Drawer from "@root/components/Drawer";
 import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";
 import ChipList from "./ChipList";
 
@@ -22,8 +22,9 @@ import {
 	AdvancedSelectionWrapper,
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
+import { MosaicLabelValue } from "@root/types";
 
-const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef>): ReactElement => {
+const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef, MosaicLabelValue[]>): ReactElement => {
 	const {
 		value,
 		onBlur,
@@ -84,25 +85,23 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 
 	return (
 		<>
-			{value.length > 0 && !isModalOpen ? (
+			{value?.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
 					<Button
 						color="teal"
 						variant="text"
 						label="Add Element"
 						onClick={handleOpenModal}
-						muiAttrs={{ disableRipple: true }}
 						mIcon={AddIcon}
 						disabled={fieldDef?.disabled}
-						attrs={{ style: { marginBottom: "8px" } }}
+						attrs={{ style: { marginBottom: "16px" } }}
 					></Button>
 					<ChipList
+						value={value}
 						fieldDef={{
 							inputSettings: {
 								isModalOpen,
 								isMobileView,
-								selectedOptions: value,
-								getSelected: fieldDef?.inputSettings?.getSelected,
 								deleteSelectedOption: onChange,
 							},
 							disabled: fieldDef?.disabled,
@@ -116,12 +115,11 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 					variant="outlined"
 					label="ADD ELEMENT"
 					onClick={handleOpenModal}
-					muiAttrs={{ disableRipple: true }}
 				></Button>
 			)}
 			<Drawer open={isModalOpen} onClose={handleClose}>
 				<AdvancedSelectionDrawer
-					value={value}
+					value={value ?? []}
 					fieldDef={fieldDef}
 					onChange={onChange}
 					isModalOpen={isModalOpen}

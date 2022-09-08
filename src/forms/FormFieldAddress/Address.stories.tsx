@@ -1,12 +1,9 @@
 // import * as React from "react";
 // import { ReactElement, useMemo } from "react";
-// import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+// import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
 // import { onCancel, renderButtons } from "@root/utils/storyUtils";
 // import { FieldDef } from "../../components/Field";
-// import { useForm } from "../Form";
-
-// // Components
-// import Form from "../Form/Form";
+// import Form, { useForm } from "@root/components/Form";
 
 // export default {
 // 	title: "FormFields/FormFieldAddress",
@@ -16,24 +13,34 @@
 // export const Playground = (): ReactElement => {
 // 	const { state, dispatch } = useForm();
 
-// 	const label = text("Label", "Label");
-// 	const disabled = boolean("Disabled", false);
-// 	const required = boolean("Required", false);
+// const label = text("Label", "Label");
+// const disabled = boolean("Disabled", false);
+// const required = boolean("Required", false);
+// const amountPerType = number("Amount per type", 1);
+// const amountShipping = number("Amount shipping", 1);
+// const amountPhysical = number("Amount physical", 1);
+// const amountBilling = number("Amount billing", 1);
 
-// 	const fields = useMemo(
-// 		() => (
-// 			[
-// 				{
-// 					disabled,
-// 					label,
-// 					required,
-// 					name: "address",
-// 					type: "address",
+// const fields = useMemo(
+// 	() => (
+// 		[
+// 			{
+// 				disabled,
+// 				label,
+// 				required,
+// 				name: "address",
+// 				type: "address",
+// 				inputSettings: {
+// 					amountPerType,
+// 					amountShipping,
+// 					amountPhysical,
+// 					amountBilling
 // 				},
-// 			] as FieldDef[]
-// 		),
-// 		[disabled, label, required]
-// 	);
+// 			},
+// 		] as FieldDef[]
+// 	),
+// 	[disabled, label, required, amountPerType, amountShipping, amountPhysical, amountBilling]
+// );
 
 // 	return (
 // 		<>

@@ -1,5 +1,6 @@
 import { MouseEventHandler } from "react";
-import { SvgIconComponent } from "@mui/icons-material";
+
+import { SvgIconComponent } from "@root/types";
 
 export interface IconButtonProps {
   /**

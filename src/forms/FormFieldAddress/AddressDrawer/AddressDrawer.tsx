@@ -4,11 +4,10 @@ import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 
 // Components
-import Form from "@root/forms/Form/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 
 // Utils
 import countriesWithStates from "@root/forms/FormFieldAddress/utils/trimmedCountriesStates.json";
-import { formActions, useForm } from "@root/forms/Form";
 import { TextFieldDef } from "@root/forms/FormFieldText";
 import { IAddress } from "@root/forms/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
@@ -33,21 +32,6 @@ const countries = countriesWithStates?.map((country) => ({
 	value: country.iso2,
 }));
 
-const addressTypes = [
-	{
-		label: "Physical",
-		value: "physical",
-	},
-	{
-		label: "Billing",
-		value: "billing",
-	},
-	{
-		label: "Shipping",
-		value: "shipping",
-	},
-];
-
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
 		value,
@@ -61,6 +45,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleUnsavedChanges,
 		dialogOpen,
 		handleDialogClose,
+		addressTypes
 	} = props;
 
 	const { dispatch, state } = useForm();
@@ -137,13 +122,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				formActions.setFieldValue({
 					name: "postalCode",
-					value: Number(addressToEdit.postalCode),
+					value: addressToEdit.postalCode,
 				})
 			);
 
 			editingState = {
 				...editingState,
-				"postalCode": Number(addressToEdit.postalCode),
+				"postalCode": addressToEdit.postalCode,
 			};
 
 			dispatch(
@@ -220,7 +205,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		listOfAddresses[addressIdx].address2 = state?.data?.address2;
 		listOfAddresses[addressIdx].address3 = state?.data?.address3;
 		listOfAddresses[addressIdx].city = state?.data?.city;
-		listOfAddresses[addressIdx].postalCode = Number(state?.data?.postalCode);
+		listOfAddresses[addressIdx].postalCode = state?.data?.postalCode.trim();
 		listOfAddresses[addressIdx].country = state?.data?.country;
 		listOfAddresses[addressIdx].state = state?.data?.states;
 		listOfAddresses[addressIdx].types = state?.data?.type;
@@ -242,7 +227,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			address2: state?.data?.address2,
 			address3: state?.data?.address3,
 			city: state?.data?.city,
-			postalCode: Number(state?.data?.postalCode),
+			postalCode: state?.data?.postalCode.trim(),
 			country: state?.data?.country,
 			state: state?.data?.states,
 			types: state?.data?.type,
@@ -322,7 +307,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					size: "sm",
 					required: true,
 					inputSettings: {
-						type: "number",
+						type: "string",
 					},
 				} as FieldDef<TextFieldDef>,
 				{
@@ -355,18 +340,20 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	];
 
 	return (
-		<Form
-			title='Address Information'
-			buttons={buttons}
-			data-testid={"address-testid"}
-			state={state}
-			dispatch={dispatch}
-			sections={sections}
-			fields={fields}
-			type='drawer'
-			dialogOpen={dialogOpen}
-			handleDialogClose={handleDialogClose}
-		/>
+		<div style={{width: "1160px"}}>
+			<Form
+				title='Address Information'
+				buttons={buttons}
+				data-testid={"address-testid"}
+				state={state}
+				dispatch={dispatch}
+				sections={sections}
+				fields={fields}
+				type='drawer'
+				dialogOpen={dialogOpen}
+				handleDialogClose={handleDialogClose}
+			/>
+		</div>
 	);
 };
 

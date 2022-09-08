@@ -1,7 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
 import Button, { ButtonProps } from "../Button";
-import { Mail, Edit, Public } from "@mui/icons-material";
+import Mail from "@mui/icons-material/Mail";
+import Edit from "@mui/icons-material/Edit";
+import Public from "@mui/icons-material/Public";
 import { MenuItemProps } from "../MenuItem";
 
 // Components

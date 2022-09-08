@@ -10,7 +10,7 @@ import {
 import { getAddressStringFromAddressObject } from "./MapCoordinatesUtils";
 
 // Components
-import Form from "../Form/Form";
+import Form, { useForm, formActions } from "@root/components/Form";
 import MapCoordinates from "./FormFieldMapCoordinates";
 import { ReactElement } from "react";
 
@@ -18,7 +18,6 @@ import { FieldDef } from "@root/components/Field/FieldTypes";
 import { MapCoordinatesDef } from "./MapCoordinatesTypes";
 // Utils
 import { address, defaultMapPosition } from "./MapCoordinatesUtils";
-import { useForm, formActions } from "../Form";
 import { ButtonProps } from "@root/components/Button";
 
 const {
@@ -49,7 +48,7 @@ const MapCoordinatesExample = (): ReactElement => {
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
 		if (!valid) return;
-	
+
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
 	};
 
@@ -213,8 +212,8 @@ describe("MapCoordinates component without an address", () => {
 		fireEvent.click(resetButton);
 
 		await waitFor(() => {
-			expect(latitudeField.value).toBe("");
-			expect(longitudeField.value).toBe("");
+			expect(latitudeField.value).toBe("0");
+			expect(longitudeField.value).toBe("0");
 		});
 	});
 });
