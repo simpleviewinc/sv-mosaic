@@ -33,7 +33,6 @@ type Comparison = "contains" | "not_contains" | "equals" | "not_equals" | "exist
 export interface DataViewFilterTextProps {
 	label?: any;
 	data?: any;
-	comparisonDefault?: any;
 	type?: any;
 	args?: any;
 	onRemove?: any;
@@ -119,13 +118,23 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 	// 	throwOnInvalid : true
 	// });
 
-	if (props.comparisonDefault && validComparisons.find( validComparison => validComparison.value === props.comparisonDefault) === undefined)
-		throw new Error("The selected comparison is not a valid comparison")
+	if (props.args.comparisonDefault && validComparisons.find( validComparison => validComparison.value === props.args.comparisonDefault) === undefined)
+		throw new Error("The selected comparison is not a valid comparison");
+
+	const getComparison = () => {
+		if (props.args && props.args.comparisons) {
+			if (props.data.comparison) {
+				return props.data.comparison;
+			} else if (props.args.comparisonDefault) {
+				return props.args.comparisonDefault;
+			}
+		} else {
+			return "equals";
+		}
+	};
 
 	const [anchorEl, setAnchorEl] = useState(null);
-	const comparison = props.args && props.args.comparisons
-		? props.data.comparison || (props.comparisonDefault || "equals")
-		: props.data.comparison || "equals";
+	const comparison = getComparison();
 	const value = props.data.value || "";
 
 	const onClick = function(event) {
