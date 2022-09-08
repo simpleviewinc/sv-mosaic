@@ -1,103 +1,210 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import {
+	render,
+	screen,
+	cleanup,
+	fireEvent,
+	waitFor,
+} from "@testing-library/react";
 import * as React from "react";
-import Content from "./Content";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import { ContentProps } from "./ContentTypes";
+import Content, { transpose } from "./Content";
+import { ContentFieldDef } from "./ContentTypes";
+import {
+	transform_boolean,
+	transform_chips,
+	transform_colorPicker,
+	transform_dateFormat,
+	transform_thumbnail,
+} from "@root/transforms";
+import { MosaicObject } from "@root/types";
+import "@testing-library/jest-dom";
 
 afterEach(cleanup);
 
-const content: ContentProps["content"] = [
-	[
-		{ type: "paragraph", label: "Paragraph label", value: "First paragraph." },
-		{
-			type: "file",
-			label: "NameFile.pdf",
-			value: "· 00/00/0000 at 00:00",
-			icon: PictureAsPdfIcon,
-		},
-	],
-	[
-		{ type: "labelValue", label: "Label1", value: "value1" },
-		{ type: "labelValue", label: "Label2", value: "value2" },
-	],
-	[{ type: "tags", label: "Tags Label", value: ["Tag1", "Tag2"] }],
-	[{ type: "paragraph", label: "Paragraph label", value: "Fourth paragraph" }],
+const fieldDef: ContentFieldDef[] = [
+	{
+		name: "chips",
+		label: "Chips",
+		transforms: [transform_chips()],
+		column: "tags",
+		show: [true, true, () => true]
+	},
+	{
+		name: "toggle",
+		label: "Toggle",
+		transforms: [transform_boolean()],
+		show: [false, false, () => false]
+	},
+	{
+		name: "date",
+		label: "Date using",
+		transforms: [transform_dateFormat()],
+	},
+	{
+		name: "color",
+		label: "Color",
+		transforms: [transform_colorPicker()],
+		column: "colorPicker",
+	},
+	{
+		name: "thumbnail",
+		label: "Thumbnail",
+		transforms: [transform_thumbnail({ width: 150, height: 150 })],
+	},
 ];
 
-const { getByText, getByTestId, getAllByTestId } = screen;
+const sections = [
+	[["tags"], ["colorPicker"]],
+	[["toggle"], ["date"]],
+	[["thumbnail"]],
+];
+
+const values = {
+	tags: [
+		{
+			label: "Chip 1",
+			value: "chip-1",
+		},
+		{
+			label: "Chip 2",
+			value: "chip-2",
+		},
+		{
+			label: "Chip 3",
+			value: "chip-3",
+		},
+		{
+			label: "Chip 4",
+			value: "chip-4",
+		},
+	],
+	date: new Date("December 17, 1995 03:24:00"),
+	toggle: false,
+	colorPicker: "#a8001791",
+	thumbnail:
+    "https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
+};
+
+const getValues = async (): Promise<MosaicObject> => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(values);
+		}, 500);
+	});
+};
+
+const getValuesUndefined = async (): Promise<MosaicObject> => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(undefined);
+		}, 500);
+	});
+};
+
 const onClickEdit = jest.fn();
 const onClickAdd = jest.fn();
+const originalScrollHeight = Object.getOwnPropertyDescriptor(
+	HTMLElement.prototype,
+	"offsetHeight"
+);
 
 describe("Content component", () => {
+	beforeAll(() => {
+		Object.defineProperty(HTMLElement.prototype, "scrollHeight", {
+			configurable: true,
+			value: 500,
+		});
+	});
+
+	afterAll(() => {
+		Object.defineProperty(
+			HTMLElement.prototype,
+			"scrollHeight",
+			originalScrollHeight
+		);
+	});
+
 	beforeEach(() => {
 		render(
 			<Content
 				title="Main Section"
-				content={content}
+				getValues={getValues}
+				fieldDef={fieldDef}
+				sections={sections}
 				onEdit={onClickEdit}
 			/>
 		);
 	});
 
-	it("should display all the content", () => {
-		expect(getByText("Main Section")).toBeDefined();
-		expect(getByText("Paragraph label:")).toBeDefined();
-		expect(getByText("First paragraph.")).toBeDefined();
-		expect(getByText("NameFile.pdf:")).toBeDefined();
-		expect(getByTestId("PictureAsPdfIcon")).toBeDefined();
-		expect(getByText("· 00/00/0000 at 00:00")).toBeDefined();
-		expect(getByText("Label1:")).toBeDefined();
-		expect(getByText("value1")).toBeDefined();
-		expect(getByText("Label2:")).toBeDefined();
-		expect(getByText("value2")).toBeDefined();
-		expect(getByText("Tags Label:")).toBeDefined();
-		expect(getByText("Tag1")).toBeDefined();
-		expect(getByText("Tag2")).toBeDefined();
+	it("should display the content", async () => {
+		await waitFor(() => {
+			const chips = screen.getAllByTestId("chip-testid");
+			const thumbnail = screen.getByRole("img");
+			const date = screen.getByText("12/17/1995");
+			const colorPicker = screen.getByText("#a8001791");
+
+			expect(thumbnail).toBeInTheDocument();
+			expect(chips).toHaveLength(4);
+			expect(date).toBeInTheDocument();
+			expect(colorPicker).toBeInTheDocument();
+		});
 	});
 
-	it("should execute the onClick edit callback", () => {
-		fireEvent.click(getByTestId("icon-button-test"));
-		expect(onClickEdit).toHaveBeenCalled();
+	it("should hide the toggle since all its show values are false", async () => {
+		await waitFor(() => {
+			const toggle = screen.queryByText("No");
+
+			expect(toggle).not.toBeInTheDocument();
+		});
 	});
 
-	it("should show all the content when the 'More Details' button is clicked", () => {
-		expect(getAllByTestId("content-row").length).toBe(3);
+	it("should execute the onClick edit callback", async () => {
+		await waitFor(() => {
+			fireEvent.click(screen.getByTestId("icon-button-test"));
 
-		fireEvent.click(getByText("More Details"));
+			expect(onClickEdit).toHaveBeenCalled();
+		});
+	});
 
-		expect(getAllByTestId("content-row").length).toBe(4);
-		expect(getByText("Fourth paragraph")).toBeDefined();
+	it("should toggle the 'More Details' button when clicked", async () => {
+		await waitFor(() => {
+			const moreDetailsBtn = screen.getByText("More Details");
+			expect(moreDetailsBtn).toBeInTheDocument();
+
+			fireEvent.click(moreDetailsBtn);
+
+			expect(screen.getByText("Less Details")).toBeInTheDocument();
+		});
 	});
 });
 
 describe("Content componenent when no content is passed", () => {
-	it("should display the '+' button when the content is an empty array", () => {
+	it("should display the '+' button when the content is null", async () => {
 		render(
-			<Content title="Main Section" content={[]} onAdd={onClickAdd} />
+			<Content
+				title="Main Section"
+				sections={sections}
+				getValues={getValuesUndefined}
+				fieldDef={fieldDef}
+				onAdd={onClickAdd}
+			/>
 		);
 
-		fireEvent.click(getByTestId("icon-button-test"));
+		await waitFor(() => {
+			fireEvent.click(screen.getByTestId("icon-button-test"));
 
-		expect(onClickAdd).toHaveBeenCalled();
+			expect(onClickAdd).toHaveBeenCalled();
+			expect(screen.queryByText("More Details")).not.toBeInTheDocument();
+		});
 	});
+});
 
-	it("should display the '+' button when the content is undefined", () => {
-		render(
-			<Content title="Main Section" content={undefined} onAdd={onClickAdd} />
-		);
+describe("transpose function", () => {
+	it("should transpose the matrix of sections", async () => {
+		const result = [
+			[["tags"], ["toggle"], ["thumbnail"]],
+			[["colorPicker"], ["date"], undefined]
+		];
 
-		fireEvent.click(getByTestId("icon-button-test"));
-
-		expect(onClickAdd).toHaveBeenCalled();
-	});
-
-	it("should display the '+' button when the content is null", () => {
-		render(
-			<Content title="Main Section" content={null} onAdd={onClickAdd} />
-		);
-
-		fireEvent.click(getByTestId("icon-button-test"));
-
-		expect(onClickAdd).toHaveBeenCalled();
+		expect(transpose(sections)).toStrictEqual(result);
 	});
 });
