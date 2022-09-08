@@ -1,143 +1,150 @@
 import * as React from "react";
-import { ReactElement, useState, useEffect } from "react";
-import { ContentProps, ContentType } from "./ContentTypes";
+import {
+	ReactElement,
+	useState,
+	useEffect,
+	useMemo,
+	useRef,
+} from "react";
+import { ContentProps } from "./ContentTypes";
+import { zip } from "lodash";
+import { MosaicObject } from "@root/types";
+import { isArray } from "lodash";
 
 // Components
-import Button from "../Button";
-import Chip from "../Chip";
 import {
+	ContentColumn,
+	ColumnsContainer,
 	MainWrapper,
-	Title,
 	TitleWrapper,
+	Title,
 	ButtonsWrapper,
 	Label,
-	Value,
-	LabelValueWrapper,
-	Paragraph,
-	ChipsWrapper,
-	LabelWrapper,
-	ContentRow,
-	ContentColumn,
+	FieldContainer,
 } from "./Content.styled";
+import Button from "@root/components/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
+import { ActionAdditional } from "../DataView";
 
-const invalidContents = {
-	tags: (value: string | string[]) => typeof value === "string",
-	paragraph: (value: string | string[]) => Array.isArray(value),
-	labelValue: (value: string | string[]) => Array.isArray(value),
-	file: (value: string | string[]) => Array.isArray(value),
+export const transpose = (matrix: string[][][]) => {
+	return zip(...matrix);
+}
+
+const showContent = (show: ActionAdditional["show"]) => {
+	const conditions = isArray(show) ? show : [show];
+
+	const isValid = conditions.every((show) => {
+		if (typeof show === "boolean") {
+			return show;
+		}
+
+		return show();
+	});
+
+	return isValid;
 };
 
 const Content = (props: ContentProps): ReactElement => {
-	const { title, onEdit, content, onAdd } = props;
-	const [show, setShow] = useState(content?.length < 3);
+	const { fieldDef, getValues, sections, title, onAdd, onEdit } = props;
+	const [values, setValues] = useState<MosaicObject>();
+	const [showMore, setShowMore] = useState(false);
+	const [canShowMore, setCanShowMore] = useState(false);
+	const columnsContainerRef = useRef<HTMLDivElement>(null);
+	const leftColumnRef = useRef<HTMLDivElement>(null);
+
+	const getFieldsValues = async () => {
+		try {
+			const fieldValues = await getValues();
+			setValues(fieldValues);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	/**
-	 * Validates if the combinations of the type of content and
-	 * value are allowed.
+	 * Set the values loaded from a DB call.
 	 */
 	useEffect(() => {
-		if (!content) return;
+		if (getValues) {
+			getFieldsValues();
+		}
+	}, [getValues]);
 
-		content?.forEach((contentRow) => {
-			contentRow.forEach((contentElement) => {
-				if (invalidContents[contentElement.type](contentElement.value)) {
-					throw new Error(
-						`Content of type '${
-							contentElement.type
-						}' with a value of type '${typeof contentElement.value}' is not a valid combination`
-					);
-				}
-			});
-		});
-	}, [content]);
+	useEffect(() => {
+		if (values) {
+			setCanShowMore(columnsContainerRef?.current?.scrollHeight > 179);
+		}
+	}, [values]);
+
+	/**
+	 * Transposes the sections so that the rows become columns.
+	 * The result is separated into left and right columns by
+	 * flattening the arrays to have something like:
+	 * leftColumn: ["field1" , "field2"]
+	 * rightColumn: ["field3" , "field4"]
+	 */
+	const [leftColumn, rightColumn] = useMemo(() => {
+		const sectionsTranspose = transpose(sections);
+
+		if (sectionsTranspose?.length >= 3) {
+			throw new Error("The max of columns allowed are two.");
+		}
+
+		const leftColumn = sectionsTranspose[0]?.flat(1);
+		const rightColumn = sectionsTranspose[1]?.flat(1);
+
+		return [leftColumn, rightColumn];
+	}, [sections, fieldDef]);
 
 	/**
 	 * Toggles the state use to show or hide the content.
 	 */
 	const showDetails = () => {
-		setShow(!show);
-	};
-
-	let contentForDisplay;
-
-	if (content) {
-		contentForDisplay = show ? content : content.slice(0, 3);
-	}
-
-	/**
-	 * Renders the content of type "labelValue"
-	 * @param contentItem
-	 * @returns The content with a sctructure of label: value
-	 */
-	const labelValueContent = (contentItem: ContentType) => (
-		<LabelValueWrapper>
-			<Label>{contentItem.label}:</Label>
-			<Value>{contentItem.value}</Value>
-		</LabelValueWrapper>
-	);
-
-	/**
-	 * Renders the content of type "paragraph"
-	 * @param contentItem
-	 * @returns A paragraph with the value of the content
-	 */
-	const paragraphContent = (contentItem: ContentType) => (
-		<LabelValueWrapper>
-			<Label>{contentItem.label}:</Label>
-			<Paragraph>{contentItem.value}</Paragraph>
-		</LabelValueWrapper>
-	);
-
-	/**
-	 * Renders the content of type "tags"
-	 * @param contentItem
-	 * @returns The a lists of tags/chips.
-	 */
-	const tagsContent = (contentItem: ContentType) => {
-		if (!Array.isArray(contentItem.value)) {
-			return;
-		}
-
-		return (
-			<>
-				<Label>{contentItem.label}:</Label>
-				<ChipsWrapper>
-					{contentItem.value.map((value, idx) => (
-						<Chip key={`${idx}-${value}`} label={value} />
-					))}
-				</ChipsWrapper>
-			</>
-		);
+		setShowMore(!showMore);
 	};
 
 	/**
-	 * Renders the content of type "file"
-	 * @param contentItem
-	 * @returns The info of the file passed within the label
-	 * and value attributes and it renders an icon if any.
+	 * Given a column containing the positioned fields, checks if the
+	 * field exists and executes its transform function.
+	 * @param column that contains the names of the fields to render
+	 * @returns the JSX element created by the transform function.
 	 */
-	const fileContent = (contentItem: ContentType) => {
-		const FileIcon = contentItem?.icon;
+	const renderColumn = (fields: string[], column: string) => {
+		return fields?.map((field) => {
+			const currentField = fieldDef?.find((fieldDef) => {
+				if (fieldDef?.column) {
+					return field === fieldDef.column;
+				}
 
-		return (
-			<>
-				<LabelWrapper>
-					{FileIcon && <FileIcon />}
-					<Label>{contentItem.label}:</Label>
-				</LabelWrapper>
-				<Value isFile>{contentItem.value}</Value>
-			</>
-		);
+				return field === fieldDef.name;
+			});
+
+			if (!currentField && field) {
+				throw new Error(
+					`No field declared for field name '${field}' in the ${column} column.`
+				);
+			}
+
+			if (currentField?.show && !showContent(currentField?.show)) {
+				return;
+			}
+
+			return currentField?.transforms.map((transform) => (
+				<FieldContainer key={currentField.name}>
+					<Label>{currentField.label}</Label>
+					{transform({ data: values[currentField?.column ? currentField?.column : currentField.name] })}
+				</FieldContainer>
+			));
+		});
 	};
 
 	return (
 		<MainWrapper>
 			<TitleWrapper>
 				<Title>{title}</Title>
-				<ButtonsWrapper isMaxContent={content?.length < 3}>
-					{content?.length === 0 || !contentForDisplay
+				<ButtonsWrapper canShowMore={canShowMore}>
+					{!values
 						? onAdd && (
 							<Button
 								color="teal"
@@ -154,39 +161,28 @@ const Content = (props: ContentProps): ReactElement => {
 								onClick={onEdit}
 							></Button>
 						)}
-					{content?.length > 3 && (
+					{canShowMore && (
 						<Button
 							color="teal"
 							variant="text"
-							label={show ? "Less Details" : "More Details"}
+							label={showMore ? "Less Details" : "More Details"}
 							onClick={showDetails}
 						></Button>
 					)}
 				</ButtonsWrapper>
 			</TitleWrapper>
-			<div>
-				{contentForDisplay?.map((items, idx) => (
-					<ContentRow
-						data-testid={"content-row"}
-						key={`${idx}-contentLayout`}
-					>
-						{items.map((contentItem, idx) => {
-							const contentMap = {
-								labelValue: labelValueContent(contentItem),
-								paragraph: paragraphContent(contentItem),
-								tags: tagsContent(contentItem),
-								file: fileContent(contentItem),
-							};
-
-							return (
-								<ContentColumn cols={items.length} key={idx}>
-									{contentMap[contentItem.type]}
-								</ContentColumn>
-							);
-						})}
-					</ContentRow>
-				))}
-			</div>
+			{values && (
+				<ColumnsContainer className={`${showMore ? "expanded" : "collapsed"}`} ref={columnsContainerRef}>
+					<ContentColumn ref={leftColumnRef}>
+						{renderColumn(leftColumn, "left")}
+					</ContentColumn>
+					{rightColumn && (
+						<ContentColumn>
+							{renderColumn(rightColumn, "right")}
+						</ContentColumn>
+					)}
+				</ColumnsContainer>
+			)}
 		</MainWrapper>
 	);
 };
