@@ -72,7 +72,6 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	const handleClick = (e, idx: number) => {
 		e.preventDefault();
 		sectionsRefs[idx].scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest"});
-		setSelectedTab(idx);
 	};
 
 	useEffect(() => {
