@@ -5,6 +5,15 @@
 * Updated `FormFieldAddress` checkbox list's width when creating a new option.
 * **BREAKING** `FormFieldAdvancedSelection`:
 	* createNewOption prop now expects a MosaicLabelValue as return value.
+* Addressed comments from the design team:
+	* `Label` and `Chip` components now have font-weight medium (510).
+	* Improved `Dialog` component's paddings.
+	* Improved spacing between title and address in `FormFieldAddress`.
+	* Improved margins between chips and "show more" button in `FormFieldAdvancedSelection`.
+	* Added border to map in `FormFieldMapCoordinates`' card.
+	* Added box-shadow to `FormFieldText` and `FormFieldTextArea`.
+	* Improved padding space between the firs field in the form and the `TopComponent`.
+	* Improved overall structure of theme.ts file.
 
 ## 6.0.0
 * Refactored to output a cjs and esm bundle to improve import efficiency both in Node (which will use cjs) and when running in webpack environments (which will use esm).
