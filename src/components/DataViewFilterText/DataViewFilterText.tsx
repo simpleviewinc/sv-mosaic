@@ -127,6 +127,8 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 				return props.data.comparison;
 			} else if (props.args.comparisonDefault && props.args.comparisons.includes(props.args.comparisonDefault)) {
 				return props.args.comparisonDefault;
+			} else {
+				return props.args.comparisons[0];
 			}
 		}
 		return "equals";
