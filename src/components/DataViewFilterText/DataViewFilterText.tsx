@@ -125,12 +125,11 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 		if (props.args && props.args.comparisons) {
 			if (props.data.comparison) {
 				return props.data.comparison;
-			} else if (props.args.comparisonDefault) {
+			} else if (props.args.comparisonDefault && props.args.comparisons.includes(props.args.comparisonDefault)) {
 				return props.args.comparisonDefault;
 			}
-		} else {
-			return "equals";
 		}
+		return "equals";
 	};
 
 	const [anchorEl, setAnchorEl] = useState(null);
