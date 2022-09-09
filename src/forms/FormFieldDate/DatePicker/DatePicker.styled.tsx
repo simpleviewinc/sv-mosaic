@@ -82,7 +82,7 @@ export const DatePickerWrapper = styled.div`
 
 		&.Mui-focused fieldset {
 			border-color: ${theme.colors.almostBlack};
-			border-width: 2px;
+			border-width: 1px;
 		}
   	}
 
