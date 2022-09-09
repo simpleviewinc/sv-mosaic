@@ -53,6 +53,8 @@ export const Column = styled.div`
 
 export const MapImageColumn = styled(Column)`
   margin-right: 16px;
+  height: fit-content;
+  margin: 2px solid ${theme.colors.gray200};
 `;
 
 export const LatLngLabel = styled.span`
@@ -65,6 +67,7 @@ export const LatLngLabel = styled.span`
 export const CoordinatesValues = styled.span`
   color: ${theme.colors.almostBlack};
   font-size: 14px;
+  font-weight: ${theme.fontWeight.normal};
 `;
 
 export const LatitudeValue = styled(CoordinatesValues)`
