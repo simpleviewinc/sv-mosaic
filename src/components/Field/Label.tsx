@@ -11,7 +11,7 @@ import Tooltip from "../Tooltip";
 
 const LabelWrapper = styled.div`
   display: flex;
-  margin-bottom: ${pr => pr.labelMargin};
+  margin-bottom: 8px;
   justify-content: space-between;
   width: ${(pr) => pr.size};
   font-family: ${theme.fontFamily};
@@ -52,6 +52,7 @@ const StyledInputTooltipWrapper = styled.div`
 `;
 
 const StyledInputLabel = styled(InputLabel)`
+  font-weight: ${theme.fontWeight.medium} !important;
   align-self: center;
 `;
 
@@ -64,8 +65,7 @@ interface LabelProps {
   value?: string;
   maxCharacters?: number;
   instructionText?: string;
-  tooltip?: boolean
-  labelMargin?: string;
+  tooltip?: boolean;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -79,11 +79,10 @@ const Label = (props: LabelProps): ReactElement => {
 		maxCharacters,
 		tooltip,
 		instructionText,
-		labelMargin,
 	} = props;
 
 	return (
-		<LabelWrapper className={className} disabled={disabled} required={required} labelMargin={labelMargin}>
+		<LabelWrapper className={className} disabled={disabled} required={required}>
 			<StyledInputTooltipWrapper>
 				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
 				{tooltip &&

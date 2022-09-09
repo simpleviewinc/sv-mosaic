@@ -46,7 +46,6 @@ export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   row-gap: 12px;
-  margin-bottom: 16px;
   width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "620px"};
 
   & > :not(:last-child) {
@@ -59,10 +58,7 @@ export const ChipsWrapper = styled.div`
 `;
 
 export const OptionsCheckedModalWrapper = styled.div`
-  margin-bottom: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
-  margin-top: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
-  margin-left: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
-  margin-right: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+  margin: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`
@@ -73,6 +69,7 @@ export const ShowHideSpan = styled.span`
   width: fit-content;
   font-weight: ${theme.fontWeight.bold};
   font-size: 16px;
+  margin-top: 16px;
 `;
 
 export const StyledExpandMoreIcon = styled(ExpandMoreIcon)`
