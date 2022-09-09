@@ -27,19 +27,16 @@
 			},
 			"extends": [
 				"eslint:recommended",
-				"plugin:react/recommended",
 				"plugin:@typescript-eslint/recommended"
 			],
 			"plugins": [
 				"@typescript-eslint",
-				"react",
 				"react-hooks"
 			]
 		}
 	],
 	"extends": [
-		"eslint:recommended",
-		"plugin:react/recommended"
+		"eslint:recommended"
 	],
 	"rules": {
 		"prefer-const": 2,
@@ -125,7 +122,6 @@
 		"keyword-spacing": 2
 	},
 	"plugins": [
-		"react",
 		"react-hooks"
 	],
 	"env": {

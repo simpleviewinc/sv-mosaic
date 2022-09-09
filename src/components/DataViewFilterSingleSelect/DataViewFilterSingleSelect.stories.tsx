@@ -17,8 +17,8 @@ const optionLabels = {
 }
 
 export default {
-	title : "Components/FilterSingleSelect",
-	component: FilterSingleSelect,
+	title : "Components/DataViewFilterSingleSelect",
+	component: DataViewFilterSingleSelect,
 	argTypes: {
 		defaultValue: {//TODO: NOT WORKING AS EXPECTED.
 			// options: ["Option A", "Option B", "Option C", "Option D"],

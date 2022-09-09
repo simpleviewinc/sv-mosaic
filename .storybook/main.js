@@ -1,10 +1,8 @@
-// const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
 	stories: [
 		"../src/index.stories.mdx",
-		// "../src/forms/FormFieldText/FormFieldText.stories.@(js|jsx|ts|tsx|md|mdx)",
 		"../src/**/*.stories.mdx",
 		"../src/**/*.stories.@(js|jsx|ts|tsx)"
 	],
@@ -22,7 +20,13 @@ module.exports = {
 		interactionsDebugger: true,
 	},
 	webpackFinal: async (config) => {
-		config.resolve.alias["@root"] = path.resolve(__dirname, '/../src/');
+		config.resolve = {
+			...config.resolve,
+			alias: {
+				...config.resolve.alias,
+				'@root': path.resolve(__dirname, "/../src/"),
+			}
+		};
 
 		return config;
 	}
