@@ -56,10 +56,9 @@ export const StyledEditIcon = styled(EditIcon)`
 export const ButtonsWrapper = styled.div`
 	align-items: center;
 	display: flex;
-	margin-right: 16px;
 
 	.MuiButton-root {
-		padding-left: 16px;
+		margin-left: 8px;
 	}
 
 	.iconButton {
