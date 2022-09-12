@@ -26,7 +26,7 @@ export class BasePage {
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("text=Cancel");
-		this.saveBtn = page.locator("text=Save").first();
+		this.saveBtn = page.locator("text=Save");
 		this.table = page.locator("table");
 		this.errorMessage = page.locator("p.Mui-error");
 		this.latitude = page.locator("#lat");

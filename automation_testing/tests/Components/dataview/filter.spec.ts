@@ -15,9 +15,9 @@ test.describe("DataView - Filter", () => {
 	});
 
 	test("Filter title with a valid keyword and 1 result", async () => {
-		await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn");
+		// await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn");
 		await filter.keywordBtn.hover();
-		await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn_hover");
+		// await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn_hover");
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type(filter_data.validKeywordFilter);
 		await filter.applyBtn.click();
@@ -50,7 +50,6 @@ test.describe("DataView - Filter", () => {
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type("+");
 		await filter.applyBtn.click();
-		expect(await dataviewPage.loading.isDisabled()).toBe(true);
 		expect(await filter.getKeywordText()).toBe(addQuotes("+"));
 	});
 
