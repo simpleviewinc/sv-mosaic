@@ -234,17 +234,17 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.createdOption.check();
 		expect(await advancedFilters.createdOption.isChecked()).toBe(true);
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.validateSnapshot(advancedFilters.optionalFilters.nth(0), "created_filter");
+		// await advancedFilters.validateSnapshot(advancedFilters.optionalFilters.nth(0), "created_filter");
 		await advancedFilters.optionalFilters.nth(0).locator("button").click();
 
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.wait();
-		await advancedFilters.validateSnapshot(advancedFilters.createdFilterDiv, "created_filter_div");
+		// await advancedFilters.validateSnapshot(advancedFilters.createdFilterDiv, "created_filter_div");
 		await (await advancedFilters.getFieldDate("from")).click();
 		await datepicker.selectDate(startDate);
-		await advancedFilters.validateSnapshot(datepicker.datepickerDiv, "datepicker_div");
+		// await advancedFilters.validateSnapshot(datepicker.datepickerDiv, "datepicker_div");
 		await datepicker.okBtn.click();
 		await (await advancedFilters.getFieldDate("To")).click();
 		await datepicker.selectDate(endDate);
@@ -340,7 +340,7 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.updatedOption.check();
 		expect(await advancedFilters.updatedOption.isChecked()).toBe(true);
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.validateSnapshot(advancedFilters.optionalFilters.nth(0), "updated_filter");
+		// await advancedFilters.validateSnapshot(advancedFilters.optionalFilters.nth(0), "updated_filter");
 
 		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
 
@@ -351,7 +351,7 @@ test.describe("DataView - Advanced Filters", () => {
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.wait();
-		await advancedFilters.validateSnapshot(advancedFilters.createdFilterDiv, "update_filter_div");
+		// await advancedFilters.validateSnapshot(advancedFilters.createdFilterDiv, "update_filter_div");
 		await (await advancedFilters.getFieldDate("from")).click();
 		await datepicker.selectDate(startDate);
 		await datepicker.okBtn.click();
