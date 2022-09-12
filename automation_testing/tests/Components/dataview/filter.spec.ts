@@ -53,15 +53,6 @@ test.describe("DataView - Filter", () => {
 		expect(await filter.getKeywordText()).toBe(addQuotes("+"));
 	});
 
-	test("Filter title with a regular expression", async () => {
-		await filter.keywordBtn.click();
-		await filter.keywordInput.type(filter_data.regExr);
-		await filter.applyBtn.click();
-		expect(await (await dataviewPage.getTableRows()).count()).toBe(filter_data.expectedKeywordFilterNumberSeveralResults);
-		expect(await dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumberSeveralResults} of ${filter_data.expectedKeywordFilterNumberSeveralResults}`);
-		expect(await filter.getKeywordText()).toBe(addQuotes(filter_data.regExr));
-	});
-
 	test("Filter title with an Uppercase keyword", async () => {
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type(filter_data.upperCaseKeywordFilter);
