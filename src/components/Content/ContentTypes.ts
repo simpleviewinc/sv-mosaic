@@ -44,17 +44,13 @@ export interface ContentProps {
    * Includes the configuration of where each field is going to be
    * render. Fields will be render in a max of two columns.
    */
-  sections: SectionDef["fields"];
+  sections?: SectionDef["fields"];
   /**
    * Name of the section or subsection.
    */
   title: string;
   /**
-   * Callback that will be executed when the Edit icon is clicked.
+   * Callback that will be executed when editing the content.
    */
   onEdit?: () => void;
-  /**
-   * Callback that will be executed when the '+' icon is clicked.
-   */
-  onAdd?: () => void;
 }
