@@ -35,6 +35,11 @@ export class AdvancedFiltersComponent extends BasePage {
 	readonly createdFilterDiv: Locator;
 	readonly errorMessageDates: Locator;
 
+	readonly fromCalendarButton: Locator;
+	readonly toCalendarButton: Locator;
+	readonly fromCalendarInput: Locator;
+	readonly toCalendarInput: Locator;
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -69,6 +74,11 @@ export class AdvancedFiltersComponent extends BasePage {
 		this.searchTitleComparisonDropdown = page.locator("div.inputRow button");
 		this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
 		this.errorMessageDates = page.locator(".errorMessage h5");
+
+		this.fromCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
+		this.fromCalendarInput = page.locator("input[type='tel']").nth(0);
+		this.toCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
+		this.toCalendarInput = page.locator("input[type='tel']").nth(1);
 	}
 
 	async getNumberOfSingleSelectCategoryOptions(): Promise<number> {
@@ -137,14 +147,6 @@ export class AdvancedFiltersComponent extends BasePage {
 		return result;
 	}
 
-	async getFieldDate(type: string): Promise<Locator> {
-		if (type == "from") {
-			return this.createdFilterDiv.locator("input").nth(0);
-		} else {
-			return this.createdFilterDiv.locator("input").nth(1);
-		}
-	}
-
 	async getHelpDialogFromCategoryWithComparisonOption(): Promise<string> {
 		return await this.helpComparisonCategoriesDialog.textContent();
 	}
@@ -166,13 +168,11 @@ export class AdvancedFiltersComponent extends BasePage {
 	async selectFilterDates(startDate: string, endDate: string): Promise<void> {
 		await this.optionalFilters.nth(0).locator("button").click();
 		await this.waitForElementLoad();
-		await (await this.getFieldDate("from")).click();
+		await this.fromCalendarButton.click();
 		await this.datepicker.selectDate(startDate);
-		await this.datepicker.okBtn.click();
-		await (await this.getFieldDate("To")).click();
+		await this.datepicker.datepickerDiv.waitFor({state: "detached"});
+		await this.toCalendarButton.click();
 		await this.datepicker.selectDate(endDate);
-		await this.datepicker.okBtn.click();
-		await super.wait();
 	}
 
 	async getCloseBtn(btn: Locator): Promise<Locator> {
