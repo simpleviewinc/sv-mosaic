@@ -77,7 +77,6 @@ test.describe("LeftNav", () => {
 		const titleItem = await item.textContent();
 		await item.click();
 		const submenu = await leftNavPage.getSubmenu(titleItem);
-		expect(await submenu.isVisible()).toBe(true);
 		const submenuElement = await leftNavPage.getSubmenuElement(submenu, 1);
 		const title = await submenuElement.textContent();
 		await submenuElement.click();
