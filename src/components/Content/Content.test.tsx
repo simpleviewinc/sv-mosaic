@@ -101,7 +101,6 @@ const getValuesUndefined = async (): Promise<MosaicObject> => {
 };
 
 const onClickEdit = jest.fn();
-const onClickAdd = jest.fn();
 const originalScrollHeight = Object.getOwnPropertyDescriptor(
 	HTMLElement.prototype,
 	"offsetHeight"
@@ -185,14 +184,14 @@ describe("Content componenent when no content is passed", () => {
 				sections={sections}
 				getValues={getValuesUndefined}
 				fieldDef={fieldDef}
-				onAdd={onClickAdd}
+				onEdit={onClickEdit}
 			/>
 		);
 
 		await waitFor(() => {
 			fireEvent.click(screen.getByTestId("icon-button-test"));
 
-			expect(onClickAdd).toHaveBeenCalled();
+			expect(onClickEdit).toHaveBeenCalled();
 			expect(screen.queryByText("More Details")).not.toBeInTheDocument();
 		});
 	});

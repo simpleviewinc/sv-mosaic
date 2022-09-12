@@ -7,9 +7,8 @@ import {
 	useRef,
 } from "react";
 import { ContentProps } from "./ContentTypes";
-import { zip } from "lodash";
+import { isArray, zip } from "lodash";
 import { MosaicObject } from "@root/types";
-import { isArray } from "lodash";
 
 // Components
 import {
@@ -21,6 +20,7 @@ import {
 	ButtonsWrapper,
 	Label,
 	FieldContainer,
+	TransformContainer,
 } from "./Content.styled";
 import Button from "@root/components/Button";
 import EditIcon from "@mui/icons-material/Edit";
@@ -46,7 +46,7 @@ const showContent = (show: ActionAdditional["show"]) => {
 };
 
 const Content = (props: ContentProps): ReactElement => {
-	const { fieldDef, getValues, sections, title, onAdd, onEdit } = props;
+	const { fieldDef, getValues, sections, title, onEdit } = props;
 	const [values, setValues] = useState<MosaicObject>();
 	const [showMore, setShowMore] = useState(false);
 	const [canShowMore, setCanShowMore] = useState(false);
@@ -85,14 +85,23 @@ const Content = (props: ContentProps): ReactElement => {
 	 * rightColumn: ["field3" , "field4"]
 	 */
 	const [leftColumn, rightColumn] = useMemo(() => {
+		let leftColumn = [];
+		let rightColumn = [];
+
+		if (!sections) {
+			leftColumn = fieldDef.map((field) => field?.column ? field.column : field.name);
+
+			return [leftColumn, rightColumn];
+		}
+
 		const sectionsTranspose = transpose(sections);
 
 		if (sectionsTranspose?.length >= 3) {
 			throw new Error("The max of columns allowed are two.");
 		}
 
-		const leftColumn = sectionsTranspose[0]?.flat(1);
-		const rightColumn = sectionsTranspose[1]?.flat(1);
+		leftColumn = sectionsTranspose[0]?.flat(1);
+		rightColumn = sectionsTranspose[1]?.flat(1);
 
 		return [leftColumn, rightColumn];
 	}, [sections, fieldDef]);
@@ -130,10 +139,14 @@ const Content = (props: ContentProps): ReactElement => {
 				return;
 			}
 
+			const fieldName = currentField?.column ? currentField?.column : currentField?.name;
+
 			return currentField?.transforms.map((transform) => (
 				<FieldContainer key={currentField.name}>
 					<Label>{currentField.label}</Label>
-					{transform({ data: values[currentField?.column ? currentField?.column : currentField.name] })}
+					<TransformContainer>
+						{transform({ data: values[fieldName] })}
+					</TransformContainer>
 				</FieldContainer>
 			));
 		});
@@ -143,14 +156,14 @@ const Content = (props: ContentProps): ReactElement => {
 		<MainWrapper>
 			<TitleWrapper>
 				<Title>{title}</Title>
-				<ButtonsWrapper canShowMore={canShowMore}>
+				<ButtonsWrapper canShowMore={canShowMore && values}>
 					{!values
-						? onAdd && (
+						? onEdit && (
 							<Button
 								color="teal"
 								variant="icon"
 								mIcon={AddIcon}
-								onClick={onAdd}
+								onClick={onEdit}
 							></Button>
 						)
 						: onEdit && (
@@ -161,7 +174,7 @@ const Content = (props: ContentProps): ReactElement => {
 								onClick={onEdit}
 							></Button>
 						)}
-					{canShowMore && (
+					{canShowMore && values && (
 						<Button
 							color="teal"
 							variant="text"
@@ -176,7 +189,7 @@ const Content = (props: ContentProps): ReactElement => {
 					<ContentColumn ref={leftColumnRef}>
 						{renderColumn(leftColumn, "left")}
 					</ContentColumn>
-					{rightColumn && (
+					{rightColumn && rightColumn.length > 0 && (
 						<ContentColumn>
 							{renderColumn(rightColumn, "right")}
 						</ContentColumn>

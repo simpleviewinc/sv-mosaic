@@ -20,10 +20,9 @@ https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Content/C
 	* **show** - `boolean | boolean[] | () => boolean | () => boolean [] | (boolean | () => boolean) | (boolean | () => boolean)[]` optional - The returned value of all show values will determine wheter or not to display the current field.
 	* **column** - `string` optional - If a column is given then it will be used as the name hence, defaults to name.
 * **getValues** - `Promise<MosaicObject>` required - When is enabled the text field will expand its height.
-* **sections** - `string[][][]` required - Defines the position of each field. It is based in columns with a maximun allowed of two. Look at the following example to see how it is declared.
+* **sections** - `string[][][]` optional - Defines the position of each field. It is based in columns with a maximun allowed of two, if no sections are passed the content will be render in one column. Look at the following example to see how it is declared.
 * **title** - `string` required - Name of the section or subsection.
-* **onEdit** - `() => void` optional - Callback that will be executed when the Edit icon is clicked.
-* **onAdd** - `() => void` optional - Callback that will be executed when the '+' icon is clicked. This button will only be visible when there are no values i.e. when the getValues functions resolves to something undefined.
+* **onEdit** - `() => void` optional - Callback that will be executed when editing. A '+' button will be visible when there are no values i.e. when the getValues functions resolves to something undefined adn this button executes this same callback.
 
 ### Example
 ```ts
