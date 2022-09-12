@@ -58,15 +58,15 @@ const oneColumn = [
 	[["colorPicker"]],
 ];
 
-const onAdd = () => alert("Add button clicked");
 const onEdit = () => alert("Edit button clicked");
 
 export const Playground = (): ReactElement => {
 	const title = text("Title", "Main Section Title");
 	const showEdit = boolean("Show edit button", true);
-	const showAdd = boolean("Show add button", true);
+	const useValues = boolean("Resolve values", true);
 	const singleColumn = boolean("Single column", false);
 	const showChips = boolean("Show chips", true);
+	const useSections = boolean("Use sections", true);
 
 	const fieldDef: ContentFieldDef[] = [
 		{
@@ -107,7 +107,7 @@ export const Playground = (): ReactElement => {
 	const getValues = async (): Promise<MosaicObject> => {
 		return new Promise((resolve) => {
 			setTimeout(() => {
-				if (showAdd) {
+				if (useValues) {
 					resolve(values);
 				} else {
 					resolve(undefined)
@@ -121,9 +121,8 @@ export const Playground = (): ReactElement => {
 			title={title}
 			getValues={getValues}
 			fieldDef={fieldDef}
-			sections={singleColumn ? oneColumn : twoColumns}
+			sections={useSections ? singleColumn ? oneColumn : twoColumns : undefined}
 			onEdit={showEdit && onEdit}
-			onAdd={onAdd}
 		/>
 	);
 };

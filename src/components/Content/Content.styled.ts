@@ -39,7 +39,7 @@ export const TitleWrapper = styled.div`
 export const Title = styled.span`
 	color: ${theme.colors.almostBlack};
 	font-size: 16px;
-	font-weight: ${theme.fontWeight.semiBold};
+	font-weight: ${theme.fontWeight.medium};
 `;
 
 export const StyledEditIcon = styled(EditIcon)`
@@ -56,6 +56,7 @@ export const StyledEditIcon = styled(EditIcon)`
 export const ButtonsWrapper = styled.div`
 	align-items: center;
 	display: flex;
+	margin-right: 16px;
 
 	.MuiButton-root {
 		padding-left: 16px;
@@ -78,12 +79,13 @@ export const FieldContainer = styled.div`
 	margin-bottom: 24px;
 `;
 
+export const TransformContainer = styled.div`
+	color: ${theme.colors.gray600};
+	font-size: 14px;
+`;
+
 // Transforms styles
 export const ChipsWrapper = styled.div`
-	div {
-		margin-top: 8px;
-	}
-
 	div:not(:last-child) {
 		margin-right: 12px;
 	}
