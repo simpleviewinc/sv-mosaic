@@ -36,8 +36,8 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async getLastItem(): Promise<Locator> {
-		const items = await this.leftItems;
-		return await items.nth(await items.count() - 1);
+		const items = this.leftItems;
+		return items.nth(await items.count() - 1);
 	}
 
 	async getItemsCount(): Promise<number> {
@@ -48,13 +48,13 @@ export class LeftNavPage extends BasePage {
 		return submenu.locator("a").nth(num - 1);
 	}
 
-	async getRandomItems(isVisible: boolean): Promise<Locator> {
+	async getRandomItems(isArrowVisible: boolean): Promise<Locator> {
 		const itemsCount = await this.getItemsCount();
 		const items = [];
 		for (let i = 0; i < itemsCount; i++) {
 			const item = this.leftItems.nth(i);
 			const arrow = (await this.getItemParent(item)).locator(".right svg[data-testid='ChevronRightIcon']");
-			if (isVisible) {
+			if (isArrowVisible) {
 				if (await arrow.isVisible()) {
 					items.push(item);
 				}
@@ -73,13 +73,13 @@ export class LeftNavPage extends BasePage {
 		return this.page.locator(`h3[title='${title}'] >> xpath=..`);
 	}
 
-	async getOptionWithSubmenu(isDouble: boolean): Promise<Locator> {
+	async getOptionWithSubmenu(isWithSubmenu: boolean): Promise<Locator> {
 		await this.waitForElementLoad();
 		let isValidItem = true;
 		let item;
 		while (isValidItem) {
 			item = await this.getRandomItems(true);
-			if (isDouble) {
+			if (isWithSubmenu) {
 				if ((await item.textContent() == leftnav_data.publicRelations) || (await item.textContent() == leftnav_data.sitemap) && (await item.textContent() != leftnav_data.staticItem)) {
 					isValidItem = false;
 				}
