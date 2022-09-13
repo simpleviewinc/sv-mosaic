@@ -80,5 +80,4 @@ test.describe("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		expect(await formFieldDateFieldPage.requiredDateTimeInput.inputValue()).toBe(todayDate);
 		expect(await formFieldDateFieldPage.requiredDateHourInput.inputValue()).toBe(selectedHourAndMinute);
 	});
-
 });

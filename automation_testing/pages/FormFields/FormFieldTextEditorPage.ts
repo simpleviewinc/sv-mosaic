@@ -27,5 +27,4 @@ export class FormFieldTextEditorPage extends BasePage {
 	async visitPage(): Promise<void> {
 		await this.visit(this.page_path, this.textEditorWithSpellcheckActive);
 	}
-
 }

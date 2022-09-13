@@ -64,7 +64,6 @@ export class SaveAsComponent extends BasePage {
 	}
 
 	async findRowByLabel(name: string): Promise<Locator> {
-
 		if (await this.tableViews.nth(1).isHidden()) {
 			return this.tableViews.locator(`tr:has-text("${name}")`);
 		} else {

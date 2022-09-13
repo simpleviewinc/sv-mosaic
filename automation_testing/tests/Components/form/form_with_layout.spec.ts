@@ -35,5 +35,4 @@ test.describe("Form - Form With Layout", () => {
 		const selectedSectionInTopComponent = await formWithLayoutPage.getSelectedSectionFromTopComponent();
 		expect(await formWithLayoutPage.validateSectionTopComponentElementIsSelected(selectedSectionInTopComponent)).toBe("(252, 183, 49)")
 	});
-
 });
