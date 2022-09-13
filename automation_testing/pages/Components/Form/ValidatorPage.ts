@@ -46,8 +46,6 @@ export class ValidatorPage extends BasePage {
 		this.startDateButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.endDateInput = page.locator("[data-testid='date-picker-test-id'] input").nth(1);
 		this.endDateButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
-
-
 		this.inputError = page.locator(".Mui-error");
 		this.calendarPicker = page.locator(".MuiCalendarPicker-root");
 		this.rightArrowCalendar = page.locator("[data-testid='ArrowRightIcon']");
@@ -71,26 +69,4 @@ export class ValidatorPage extends BasePage {
 	async getDateParentDiv(element: Locator): Promise<Locator> {
 		return element.locator("xpath=.. >> xpath=.. >> xpath=.. >> xpath=.. >> xpath=.. >> xpath=..");
 	}
-
-	// async selectDate(element: Locator, year: string, month: string, day: string,): Promise<void> {
-	// 	await this.waitForElementLoad();
-	// 	await (await this.getDateIcon(element)).click();
-	// 	await this.yearArrowCalendar.nth(0).click();
-	// 	await this.page.locator(`.PrivatePickersYear-yearButton:has-text('${year}')`).click();
-	// 	await this.findMonth(month);
-	// 	await this.page.locator(`text=${day}`).nth(0).click();
-	// }
-
-	// async findMonth(month: string): Promise<void> {
-	// 	let calendar = "";
-	// 	let isMonth = true;
-	// 	while (isMonth) {
-	// 		calendar = await this.monthCalendar.textContent();
-	// 		if (calendar.toLowerCase() != month.toLowerCase()) {
-	// 			await this.rightArrowCalendar.click();
-	// 		} else {
-	// 			isMonth = false;
-	// 		}
-	// 	}
-	// }
 }

@@ -6,7 +6,6 @@ export class FormFieldDropdownSingleSelectionPage extends BasePage {
 	readonly page_path = "formfields-formfielddropdownsingleselection--kitchen-sink";
 
 	readonly page: Page;
-
 	readonly regularDropdownDiv: Locator;
 	readonly regularDropdownInput: Locator;
 	readonly regularDropdownButton: Locator;

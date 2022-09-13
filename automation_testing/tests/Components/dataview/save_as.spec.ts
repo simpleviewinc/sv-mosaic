@@ -17,7 +17,6 @@ test.describe("Data View - Save As", () => {
 		saveAs = dataviewPage.saveAsComponent;
 		pagination = dataviewPage.paginationComponent;
 		// columns = dataviewPage.columnsComponent;
-
 		await dataviewPage.visitPage();
 	});
 
@@ -98,13 +97,11 @@ test.describe("Data View - Save As", () => {
 
 	test("Remove a View", async () => {
 		await saveAs.createNewView(saveAs_data.saveAsView);
-
 		await saveAs.viewBtn.click();
 		await (await saveAs.moreOptionsBtnByLabel(saveAs_data.saveAsView)).click();
 		const removeOption = await saveAs.getRemoveOption();
 		await removeOption.click();
 		await saveAs.closeSaveViewBtn.click({ force: true });
-
 		await saveAs.viewBtn.click();
 		expect(await saveAs.isLabelPresent(saveAs_data.saveAsView)).toBe(false);
 	});
