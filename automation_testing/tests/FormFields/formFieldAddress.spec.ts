@@ -28,6 +28,7 @@ test.describe("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	});
 
 	test("Validate that the user only can add one Physical Address.", async () => {
+		await ffAddressPage.addAddressButton.click({force: true});
 		await ffAddressPage.fillAddresInformation("Physical");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.addressCard.textContent()).toContain("Physical Address");
@@ -36,6 +37,7 @@ test.describe("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	});
 
 	test("Validate that the user only can add one Billing Address.", async () => {
+		await ffAddressPage.addAddressButton.click({force: true});
 		await ffAddressPage.fillAddresInformation("Billing");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.addressCard.textContent()).toContain("Billing Address");
@@ -44,6 +46,7 @@ test.describe("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	});
 
 	test("Validate that the user only can add one Shipping Address.", async () => {
+		await ffAddressPage.addAddressButton.click({force: true});
 		await ffAddressPage.fillAddresInformation("Shipping");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.addressCard.textContent()).toContain("Shipping Address");
@@ -52,11 +55,13 @@ test.describe("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	});
 
 	test("Validate that no more than three type of Address can be added.", async () => {
+		await ffAddressPage.addAddressButton.click({force: true});
 		await ffAddressPage.fillAddresInformation("All");
 		await expect(ffAddressPage.addAddressButton).toBeDisabled();
 	});
 
 	test("Validate that you can add an Address after removing a type of address in the edit.", async () => {
+		await ffAddressPage.addAddressButton.click({force: true});
 		await ffAddressPage.fillAddresInformation("All");
 		await ffAddressPage.page.locator("text=Edit").click();
 		await ffAddressPage.selectTypeOfAddress("Shipping");
