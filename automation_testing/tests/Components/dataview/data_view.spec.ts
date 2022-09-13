@@ -74,7 +74,6 @@ test.describe("Data View", () => {
 	test("Select all records", async () => {
 		await (await dataviewPage.getAllRowCheckbox()).click();
 		const checkboxs = await dataviewPage.checkboxRow.elementHandles();
-
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
@@ -84,21 +83,17 @@ test.describe("Data View", () => {
 	test("Delete all records", async () => {
 		await (await dataviewPage.getAllRowCheckbox()).click();
 		const checkboxs = await dataviewPage.checkboxRow.elementHandles();
-
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}
 		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await dataviewPage.deleteBtn.click();
-
-
 	});
 
 	test("Download all records", async () => {
 		await (await dataviewPage.getAllRowCheckbox()).click();
 		const checkboxs = await dataviewPage.checkboxRow.elementHandles();
-
 		for (const checkbox of checkboxs) {
 			expect(await checkbox.isChecked()).toBe(true);
 		}

@@ -13,7 +13,6 @@ export class FormFieldColorPickerPage extends BasePage {
 	readonly hexColorInput: Locator;
 	readonly colorSketchPicker: Locator;
 
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;

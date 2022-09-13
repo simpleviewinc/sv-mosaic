@@ -26,7 +26,6 @@ export class FormFieldDateFieldPage extends BasePage {
 	readonly requiredDateHourInputCalendarButton: Locator;
 	readonly requiredFieldErrorMessage: Locator;
 
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;

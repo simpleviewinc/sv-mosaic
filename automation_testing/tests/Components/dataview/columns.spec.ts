@@ -14,7 +14,6 @@ test.describe("DataView - Columns", () => {
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
 		pagination = dataviewPage.paginationComponent;
-
 		await dataviewPage.visitPage();
 	});
 
@@ -122,7 +121,6 @@ test.describe("DataView - Columns", () => {
 		// await dataviewPage.validateSnapshot(titleColum, "column_sort_title_desc");
 		const titles = await dataviewPage.getRowTitles();
 		expect(titles.toString()).toBe(titleSplitPerPage.toString());
-
 	});
 
 	test("Sort created asc", async () => {

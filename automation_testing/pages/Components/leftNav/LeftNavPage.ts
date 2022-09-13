@@ -15,7 +15,6 @@ export class LeftNavPage extends BasePage {
 	readonly navDisplayMenu: Locator;
 	readonly menu: Locator;
 
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -91,5 +90,4 @@ export class LeftNavPage extends BasePage {
 		}
 		return item;
 	}
-
 }

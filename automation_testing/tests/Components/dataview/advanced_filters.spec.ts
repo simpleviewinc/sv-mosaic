@@ -7,7 +7,6 @@ import { PaginationComponent } from "../../../pages/Components/DataView/Paginati
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
-
 test.describe("DataView - Advanced Filters", () => {
 	let dataviewPage: DataviewPage;
 	let advancedFilters: AdvancedFiltersComponent;
