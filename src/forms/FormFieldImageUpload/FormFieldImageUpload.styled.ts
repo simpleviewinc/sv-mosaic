@@ -13,7 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export const DragAndDropContainer = styled.div`
   align-items: center;
-  border: ${(pr) => (pr.isOver ? `1px dashed ${theme.colors.blueTeal}` : "")};
+  border: ${(pr) => (pr.isOver ? `1px dashed ${theme.colors.teal}` : "")};
   background-color: ${(pr) => (pr.isOver ? "#008DA81A" : theme.colors.gray200)};
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@ export const DragAndDropContainer = styled.div`
 `;
 
 export const DragAndDropSpan = styled.span`
-  color: ${(pr) => (pr.isOver ? theme.colors.blueTeal : theme.colors.gray600)};
+  color: ${(pr) => (pr.isOver ? theme.colors.teal : theme.colors.gray600)};
   font-size: 16px;
   margin-bottom: ${(pr) => (pr.isOver ? "" : "24px")};
 `;
@@ -81,7 +81,7 @@ export const UploadButton = styled(Button)`
 
 export const StyledCircularProgress = styled(CircularProgress)`
   &.MuiCircularProgress-colorPrimary {
-    color: ${theme.colors.blueTeal};
+    color: ${theme.colors.teal};
   }
 
   margin-bottom: 24px;
