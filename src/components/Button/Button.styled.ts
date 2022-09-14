@@ -118,12 +118,12 @@ const GrayOnWhite = styled(ButtonWrapper)`
 
 const TealOnWhite = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.blueTeal};
+    color: ${theme.colors.teal};
   }
 
   & > button:hover {
 		border-radius: 0;
-    color: ${theme.colors.blueTealHover};
+    color: ${theme.colors.tealHover};
   }
 `;
 
@@ -332,22 +332,22 @@ export const types = {
     & > button {
       background-color: white;
       border-radius: 0;
-      border: 2px solid ${theme.colors.blueTeal};
+      border: 2px solid ${theme.colors.teal};
       font-size: 14px;
       text-transform: uppercase;
     }
 
     .MuiButton-outlined.Mui-disabled {
       background-color: white;
-      border: 2px solid ${theme.colors.blueTeal};
-      color: ${theme.colors.blueTeal};
+      border: 2px solid ${theme.colors.teal};
+      color: ${theme.colors.teal};
       opacity: 0.5;
     }
 
     & > button:hover {
-      background-color: ${theme.colors.blueTeal}1a;
-      color: ${theme.colors.blueTeal};
-			border: 2px solid ${theme.colors.blueTeal};
+      background-color: ${theme.colors.teal}1a;
+      color: ${theme.colors.teal};
+			border: 2px solid ${theme.colors.teal};
     }
   `,
 	blue_outlined: styled(BlueOnWhite)`
@@ -428,11 +428,11 @@ export const types = {
   `,
 	teal_text: styled(TealOnWhite)`
 		&.normalButton > button {
-			color: ${theme.colors.blueTeal};
+			color: ${theme.colors.teal};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 
 			&:hover {
-				color: ${({ children }) => !children[0].props.disabled ? theme.colors.blueTealHover : ""};
+				color: ${({ children }) => !children[0].props.disabled ? theme.colors.tealHover : ""};
 			}
 		}
 

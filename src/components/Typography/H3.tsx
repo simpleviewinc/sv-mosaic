@@ -9,7 +9,7 @@ const Styled = styled.h3`
 	font-family: ${theme.fontFamily};
 	font-size: 14px;
 	font-weight: bold;
-	color: ${theme.colors.black};
+	color: ${props => props.color ? theme.colors[props.color] : theme.colors.black};
 	margin-top: 0px;
 	margin-bottom: 1em;
 `
