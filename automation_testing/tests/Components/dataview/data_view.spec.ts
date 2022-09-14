@@ -91,14 +91,13 @@ test.describe("Data View", () => {
 		await dataviewPage.deleteBtn.click();
 	});
 
-	test("Download all records", async () => {
+	test("Download all records", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message().toString().split(",").length).toBe(25);
+			dialog.accept();
+		});
 		await (await dataviewPage.getAllRowCheckbox()).click();
-		const checkboxs = await dataviewPage.checkboxRow.elementHandles();
-		for (const checkbox of checkboxs) {
-			expect(await checkbox.isChecked()).toBe(true);
-		}
 		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
-		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await dataviewPage.downloadBtn.click();
 	});
 });
