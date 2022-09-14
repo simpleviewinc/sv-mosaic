@@ -14,6 +14,7 @@ export class LeftNavPage extends BasePage {
 	readonly leftItems: Locator;
 	readonly navDisplayMenu: Locator;
 	readonly menu: Locator;
+	readonly topMenuItems: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -21,9 +22,10 @@ export class LeftNavPage extends BasePage {
 		this.title = page.locator(".content h1");
 		this.subtitle = page.locator(".content h2");
 		this.leftNavDiv = page.locator("div.left");
-		this.leftItems = page.locator("a .left");
+		this.leftItems = page.locator(".top a .left");
 		this.navDisplayMenu = page.locator("h3[title='Nav Display'] >> xpath=..");
 		this.menu = page.locator("span.menuButton");
+		this.topMenuItems = page.locator(".top a");
 	}
 
 	async visitPage(): Promise<void> {
@@ -43,8 +45,9 @@ export class LeftNavPage extends BasePage {
 		return await this.leftItems.count();
 	}
 
-	async getSubmenuElement(submenu: Locator, num: number): Promise<Locator> {
-		return submenu.locator("a").nth(num - 1);
+	async getSubmenuElement(submenu: Locator): Promise<Locator> {
+		const numberOfSubMenu = await submenu.locator("a").count();
+		return submenu.locator("a").nth(numberOfSubMenu - 1);
 	}
 
 	async getRandomItems(isArrowVisible: boolean): Promise<Locator> {
@@ -75,19 +78,25 @@ export class LeftNavPage extends BasePage {
 	async getOptionWithSubmenu(isWithSubmenu: boolean): Promise<Locator> {
 		await this.waitForElementLoad();
 		let isValidItem = true;
-		let item;
+		let item, itemText;
 		while (isValidItem) {
 			item = await this.getRandomItems(true);
+			itemText = await item.textContent();
 			if (isWithSubmenu) {
-				if ((await item.textContent() == leftnav_data.publicRelations) || (await item.textContent() == leftnav_data.sitemap) && (await item.textContent() != leftnav_data.staticItem)) {
+				if ((itemText == leftnav_data.publicRelations) || (itemText == leftnav_data.sitemap)) {
 					isValidItem = false;
 				}
 			} else {
-				if ((await item.textContent() != leftnav_data.publicRelations) || (await item.textContent() != leftnav_data.sitemap) || (await item.textContent() != leftnav_data.staticItem)) {
+				if ((itemText != leftnav_data.publicRelations) || (itemText != leftnav_data.sitemap)) {
 					isValidItem = false;
 				}
 			}
 		}
 		return item;
+	}
+
+	async selectTypeOfNavDisplay(type: string): Promise<void> {
+		await (await this.getLastItem()).click();
+		await this.page.locator("text=" + type).click();
 	}
 }
