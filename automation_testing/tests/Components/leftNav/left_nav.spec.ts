@@ -27,42 +27,21 @@ test.describe("LeftNav", () => {
 	});
 
 	test("Validate full view is active", async () => {
-		await (await leftNavPage.getLastItem()).click();
-		const navDisplaySubmenu = await leftNavPage.getSubmenu(leftnav_data.staticItem);
-		let fullItem = await leftNavPage.getSubmenuElement(navDisplaySubmenu, 1);
-		expect(await fullItem.textContent()).toContain(leftnav_data.full);
-		await fullItem.click();
-		// await leftNavPage.validateSnapshot(await leftNavPage.leftNavDiv, "left_nav");
-		await (await leftNavPage.getLastItem()).click();
-		fullItem = await leftNavPage.getSubmenuElement(navDisplaySubmenu, 1);
-		expect(await fullItem.textContent()).toContain(leftnav_data.active);
+		await leftNavPage.selectTypeOfNavDisplay(leftnav_data.full);
+		const numberOfItemsVisible = await leftNavPage.topMenuItems.count();
+		expect(numberOfItemsVisible).toBe(18);
 	});
 
 	test("Validate icons only view is active", async () => {
-		await (await leftNavPage.getLastItem()).click();
-		const navDisplaySubmenu = await leftNavPage.getSubmenu(leftnav_data.staticItem);
-		let iconsOnlyItem = await leftNavPage.getSubmenuElement(navDisplaySubmenu, 2);
-		expect(await iconsOnlyItem.textContent()).toContain(leftnav_data.iconsOnly);
-		await iconsOnlyItem.click();
-		// await leftNavPage.validateSnapshot(await leftNavPage.leftNavDiv, "left_nav_icons_only");
-		await (await leftNavPage.getLastItem()).click();
-		iconsOnlyItem = await leftNavPage.getSubmenuElement(navDisplaySubmenu, 2);
-		expect(await iconsOnlyItem.textContent()).toContain(leftnav_data.active);
+		await leftNavPage.selectTypeOfNavDisplay(leftnav_data.iconsOnly);
+		const numberOfItemsVisible = await leftNavPage.topMenuItems.count();
+		expect(numberOfItemsVisible).toBe(5);
 	});
 
 	test("Validate hidden view is active", async () => {
-		await (await leftNavPage.getLastItem()).click();
-		const navDisplaySubmenu = await leftNavPage.getSubmenu(leftnav_data.staticItem);
-		let hiddenItem = await leftNavPage.getSubmenuElement(navDisplaySubmenu, 3);
-		expect(await hiddenItem.textContent()).toContain(leftnav_data.hidden);
-		await hiddenItem.click();
-		expect(await leftNavPage.getItemsCount()).toBe(0);
-		expect(await leftNavPage.leftNavDiv.isVisible()).toBe(false);
-		await leftNavPage.menu.click();
-		await leftNavPage.wait();
-		await (await leftNavPage.getLastItem()).click();
-		hiddenItem = await leftNavPage.getSubmenuElement(navDisplaySubmenu, 3);
-		expect(await hiddenItem.textContent()).toContain(leftnav_data.active);
+		await leftNavPage.selectTypeOfNavDisplay(leftnav_data.hidden);
+		const numberOfItemsVisible = await leftNavPage.topMenuItems.count();
+		expect(numberOfItemsVisible).toBe(0);
 	});
 
 	test("Validate Title", async () => {
@@ -77,7 +56,7 @@ test.describe("LeftNav", () => {
 		const titleItem = await item.textContent();
 		await item.click();
 		const submenu = await leftNavPage.getSubmenu(titleItem);
-		const submenuElement = await leftNavPage.getSubmenuElement(submenu, 1);
+		const submenuElement = await leftNavPage.getSubmenuElement(submenu);
 		const title = await submenuElement.textContent();
 		await submenuElement.click();
 		await leftNavPage.wait();
@@ -90,11 +69,11 @@ test.describe("LeftNav", () => {
 		const titleItem = await item.textContent();
 		await item.click();
 		const submenu = await leftNavPage.getSubmenu(titleItem);
-		const submenuElement = await leftNavPage.getSubmenuElement(submenu, 1);
+		const submenuElement = await leftNavPage.getSubmenuElement(submenu);
 		const subMenuTitle = await submenuElement.textContent();
 		await submenuElement.click();
 		const subSubmenu = await leftNavPage.getSubmenu(subMenuTitle);
-		const subSubmenuElement = await leftNavPage.getSubmenuElement(subSubmenu, 1);
+		const subSubmenuElement = await leftNavPage.getSubmenuElement(subSubmenu);
 		const title = await subSubmenuElement.textContent();
 		await subSubmenuElement.click();
 		await leftNavPage.wait();
