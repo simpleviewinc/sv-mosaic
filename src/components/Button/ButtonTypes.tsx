@@ -2,12 +2,13 @@ import { MosaicObject, SvgIconComponent } from "@root/types";
 import { MenuItemProps } from "../MenuItem";
 import { ActionAdditional }  from "../DataView";
 
+export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
 export interface ButtonProps {
 	name?: string
 	label?: string | JSX.Element
 	className?: string
 	href?: string
-	color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"
+	color: ColorTypes
 	mIcon?: SvgIconComponent
 	variant: "icon" | "outlined" | "contained" | "text"
 	size?: "small" | "medium"

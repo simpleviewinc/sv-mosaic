@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { MosaicObject } from "../../types"
+import { ColorTypes } from "../Button";
 
 export interface TypographyGenericProps {
 	/** The html element to use. Can be used when you want the style of h1 but the html element h3. */
@@ -11,5 +12,5 @@ export interface TypographyGenericProps {
 	title?: string
 	/** Additional passed options are automatically added to the html element. */
 	attrs?: MosaicObject
-	color?: string
+	color?: ColorTypes
 }
