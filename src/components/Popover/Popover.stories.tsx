@@ -216,7 +216,7 @@ const Mail = styled.span`
 `;
 
 const Link = styled.span`
-	color: ${theme.colors.blueTeal};
+	color: ${theme.colors.teal};
 	cursor: pointer;
 	font-weight: ${theme.fontWeight.semiBold};
 	font-size: 14px;
@@ -231,7 +231,7 @@ const BottomContent = (): ReactElement => {
 						<Label>{option.label}:</Label>
 						<Value>{option.value}</Value>
 					</div>
-				) 
+				)
 			})}
 			<Mail>mail@gmail.com</Mail>
 			<Link onClick={() => alert("Link clicked")}>www.link.com</Link>

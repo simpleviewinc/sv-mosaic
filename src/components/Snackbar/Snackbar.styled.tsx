@@ -42,7 +42,7 @@ export const ContentWrapper = styled.div`
   padding: 16px 16px;
 
   .MuiSvgIcon-root {
-    color: ${theme.colors.blueTeal};
+    color: ${theme.colors.teal};
     font-size: 20px;
   }
 `;
