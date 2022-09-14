@@ -1,5 +1,12 @@
 import * as React from "react";
-import { memo, ReactElement, ReactNode, useEffect, useRef, useState } from "react";
+import {
+	memo,
+	ReactElement,
+	ReactNode,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 // External libraries
 import { ColorResult, SketchPicker, RGBColor } from "react-color";
 
@@ -7,13 +14,14 @@ import { ColorResult, SketchPicker, RGBColor } from "react-color";
 import { MosaicFieldProps } from "@root/components/Field";
 
 // Styles
-import { ColorContainer, ColorDiv, PopOver } from "./ColorPicker.styled";
+import { PopOver } from "./ColorPicker.styled";
+import ColorSelected from "./ColorSelected";
 
 /**
  * Convert an RGBA value to its HEX representation
  * @param rgbaColor: rgba color value
  * @returns hex color value
-*/
+ */
 export const RGBAToHexA = (rgbaColor: RGBColor) => {
 	let r = rgbaColor.r.toString(16);
 	let g = rgbaColor.g.toString(16);
@@ -44,16 +52,19 @@ function useOutsideAlerter(ref, handleCloseCb) {
 		// Bind the event listener
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => {
-		// Unbind the event listener on clean up
+			// Unbind the event listener on clean up
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [ref]);
 }
 
 /**
-   * Component that alerts if you click outside of it
-   */
-function OutsideAlerter(props: { handleClose: () => void; children: ReactNode; }) {
+ * Component that alerts if you click outside of it
+ */
+function OutsideAlerter(props: {
+  handleClose: () => void;
+  children: ReactNode;
+}) {
 	const wrapperRef = useRef(null);
 	useOutsideAlerter(wrapperRef, props.handleClose);
 
@@ -84,17 +95,11 @@ const FormFieldColorPicker = (
 
 	return (
 		<>
-			<ColorContainer
-				displayColorPicker={displayColorPicker}
+			<ColorSelected
 				disabled={fieldDef?.disabled}
-			>
-				<ColorDiv
-					data-testid='colordiv-test'
-					disabled={fieldDef?.disabled}
-					color={color?.rgb || value || { r: 0, g: 141, b: 168, a: 1 }}
-					onClick={handleClick}
-				/>
-			</ColorContainer>
+				color={color?.rgb || value || { r: 0, g: 141, b: 168, a: 1 }}
+				onClick={handleClick}
+			/>
 			{displayColorPicker && !fieldDef?.disabled && (
 				<OutsideAlerter handleClose={handleClose}>
 					<PopOver>

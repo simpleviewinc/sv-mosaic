@@ -9,15 +9,15 @@ export const popperSx = {
 	},
 
 	"& .MuiPickersDay-today": {
-		color: `${theme.colors.blueTeal} !important`,
+		color: `${theme.colors.teal} !important`,
 		border: "none !important",
 		fontFamily: theme.fontFamily,
 		fontWeight: theme.fontWeight.bold,
 		backgroundColor: "transparent !important",
 
 		"&:hover": {
-			color: theme.colors.blueTeal,
-			backgroundColor: `${theme.colors.blueTealOpacity} !important`,
+			color: theme.colors.teal,
+			backgroundColor: `${theme.colors.tealOpacity} !important`,
 		},
 	},
 
@@ -26,8 +26,8 @@ export const popperSx = {
 		fontFamily: theme.fontFamily,
 
 		"&:hover": {
-			color: theme.colors.blueTeal,
-			backgroundColor: theme.colors.blueTealOpacity,
+			color: theme.colors.teal,
+			backgroundColor: theme.colors.tealOpacity,
 			fontWeight: theme.fontWeight.bold,
 		},
 	},
@@ -37,13 +37,13 @@ export const popperSx = {
 	},
 
 	"& .MuiPickersDay-root.Mui-selected" : {
-		backgroundColor: `${theme.colors.blueTeal} !important`,
+		backgroundColor: `${theme.colors.teal} !important`,
 		color: "#FFFF !important",
 		fontWeight: theme.fontWeight.bold,
 
 		"&:hover": {
 			color: "#FFFF !important",
-			backgroundColor: `${theme.colors.blueTeal} !important`,
+			backgroundColor: `${theme.colors.teal} !important`,
 		},
 	},
 

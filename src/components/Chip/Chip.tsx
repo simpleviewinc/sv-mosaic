@@ -19,6 +19,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 			selected={selected}
 			deleteIcon={<ClearIcon data-testid='delete-icon-test-id' />}
 			onDelete={onDelete}
+			data-testid="delete-chip-testid"
 		/>
 	) : (
 		<StyledChip
@@ -29,6 +30,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 			clickable
 			disableRipple
 			onClick={onClick}
+			data-testid="chip-testid"
 		/>
 	);
 };

@@ -38,7 +38,7 @@ const CharCounterWrapper = styled.div`
 
 const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
   && {
-	fill: ${theme.colors.blueTeal};
+	fill: ${theme.colors.teal};
 	font-size: 16px;
 	width: 24px;
 	height: 24px;
