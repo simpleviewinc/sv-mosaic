@@ -59,7 +59,7 @@ export const BrowseSpan = styled.span`
 
 /**
  * Card styles. The following styles are used also
- * by the FormFieldImageUpload: AssetCard, AssetLabel, 
+ * by the FormFieldImageUpload: AssetCard, AssetLabel,
  * AssetValue and ButtonsWrapper.
  */
 
@@ -130,7 +130,7 @@ export const MenuColumn = styled(Column)`
 `;
 
 export const MoreText = styled.span`
-  color: ${theme.colors.blueTeal};
+  color: ${theme.colors.teal};
   font-size: 14px;
   font-weight: ${theme.fontWeight.bold};
   margin-left: 12px;
@@ -151,7 +151,7 @@ export const StyledImg = styled.img`
 export const RoundBackground = styled.div`
   align-items: center;
   cursor: ${({ disabled }) => (!disabled ? "pointer" : "auto")};
-  background-color: ${theme.colors.blueTeal};
+  background-color: ${theme.colors.teal};
   border-radius: 22px;
   display: flex;
   height: 40px;
@@ -162,7 +162,7 @@ export const RoundBackground = styled.div`
 `;
 
 export const StyledAnchor = styled.a`
-  color: ${theme.colors.blueTeal};
+  color: ${theme.colors.teal};
   font-size: 16px;
   word-break: break-all;
 `;
@@ -174,7 +174,7 @@ const iconStyle = `
 		color: white;
 		height: 16px;
 		width: 16px;
-	}	
+	}
 `;
 
 export const StyledImageIcon = styled(ImageIcon)`
