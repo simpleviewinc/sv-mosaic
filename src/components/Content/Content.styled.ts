@@ -62,7 +62,7 @@ export const ButtonsWrapper = styled.div`
 	}
 
 	.iconButton {
-		border-right: ${({ canShowMore }) => canShowMore ? `1px solid ${theme.colors.gray200}` : 0};
+		border-right: ${({ canShowMore }) => canShowMore ? `2px solid ${theme.colors.gray200}` : 0};
 		padding-right: ${({ canShowMore }) => canShowMore ? "16px" : 0};
 	}
 `;
