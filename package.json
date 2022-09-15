@@ -124,7 +124,7 @@
 		"ci:publish": "ts-node ./scripts/ci-publish.ts",
 		"ci:storybook": "ts-node ./scripts/ci-storybook.ts",
 		"docker": "bash ./scripts/run || true",
-		"automation-testing": "bash ./scripts/automation-testing || true",
+		"docker:automation": "bash ./scripts/automation-testing || true",
 		"git-deploy": "node ./scripts/git-deploy.js",
 		"conditional-publish": "./scripts/conditional-publish",
 		"publish:build": "node ./scripts/publish-build.js",

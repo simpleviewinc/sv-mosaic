@@ -50,6 +50,18 @@ workflows:
               only:
                 - develop
                 - /pull.*/
+      - automation_tests:
+          context: default
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+                - qa
+                - staging
+                - /pull.*/
 
 orbs:
   slack: circleci/slack@4.4.0
@@ -86,6 +98,7 @@ jobs:
           command: |
             docker compose build node
             docker compose push node
+      # SAVE TO WORKSPACE FILE
   # publish:
   #   docker:
   #     - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
@@ -204,12 +217,20 @@ jobs:
           password: $GCLOUD_SERVICE_KEY
     resource_class: large
     - run:
-        name: Pull
+        name: Pull node
+        command: |
+          docker compose pull node
+      # change with docker compose pull node_ci
+    - run:
+        name: Run storybook
+        command: docker compose run -rm node yarn start
+    - run:
+        name: Pull automation_testing
         command: |
           docker compose pull automation_testing
       # change with docker compose pull node_ci
     - run:
-        name: Unit tests
+        name: Automation tests
         command: docker compose run -rm automation_testing ENV=local npm run test:chrome
 
 

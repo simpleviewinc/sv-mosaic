@@ -26,6 +26,6 @@ services:
     build: "./automation_testing"
     image: sv-mosaic:automation_testing
     ports:
-      - "10000:10001"
+      - "20000:20000"
     depends_on:
       - "node"

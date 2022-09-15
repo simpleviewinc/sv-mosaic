@@ -26,3 +26,5 @@ COPY .eslintignore /app/.eslintignore
 COPY README.md /app/README.md
 
 WORKDIR /app
+
+CMD ["yarn", "start"]
