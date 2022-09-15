@@ -91,7 +91,7 @@ test.describe("Data View - Save As", () => {
 
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsViewEdit);
 
-		await saveAs.closeEditViewBtn.click({ force: true });
+		await saveAs.closeViewBtn.first().click({ force: true });
 		expect(await (await saveAs.getViewTypeByLabel(saveAs_data.saveAsViewEdit)).textContent()).toContain(saveAs_data.viewSharedType);
 	});
 
@@ -101,7 +101,7 @@ test.describe("Data View - Save As", () => {
 		await (await saveAs.moreOptionsBtnByLabel(saveAs_data.saveAsView)).click();
 		const removeOption = await saveAs.getRemoveOption();
 		await removeOption.click();
-		await saveAs.closeSaveViewBtn.click({ force: true });
+		await saveAs.closeViewBtn.click({ force: true });
 		await saveAs.viewBtn.click();
 		expect(await saveAs.isLabelPresent(saveAs_data.saveAsView)).toBe(false);
 	});
