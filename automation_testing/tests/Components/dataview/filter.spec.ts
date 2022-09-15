@@ -42,7 +42,7 @@ test.describe("DataView - Filter", () => {
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type(filter_data.keywordNoResultsFilter);
 		await filter.applyBtn.click();
-		expect(await (await dataviewPage.getTableRows()).count()).toBe(0);
+		await expect( dataviewPage.page.locator(".noResults")).toBeVisible()
 		expect(await filter.getKeywordText()).toBe(addQuotes(filter_data.keywordNoResultsFilter));
 	});
 

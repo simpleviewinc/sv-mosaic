@@ -143,6 +143,7 @@ test.describe("DataView - Columns", () => {
 		const createdSplitPerPage = await createdSort.slice(0, dataview_data.resultPerPage100);
 		await createdColum.click();
 		await createdColum.click();
+		await pagination.wait();
 		const created = await dataviewPage.getRowCreated();
 		expect(created.toString()).toBe(createdSplitPerPage.toString());
 	});
