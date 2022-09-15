@@ -52,7 +52,7 @@ test.describe("LeftNav", () => {
 	});
 
 	test("Validate menus", async () => {
-		const item = await leftNavPage.getOptionWithSubmenu(false);
+		const item = await leftNavPage.getSpecificMenuItem("Collection Types");
 		const titleItem = await item.textContent();
 		await item.click();
 		const submenu = await leftNavPage.getSubmenu(titleItem);
@@ -65,7 +65,7 @@ test.describe("LeftNav", () => {
 	});
 
 	test("Validate menu double", async () => {
-		const item = await leftNavPage.getOptionWithSubmenu(true);
+		const item =  await leftNavPage.getSpecificMenuItem("Public Relations");
 		const titleItem = await item.textContent();
 		await item.click();
 		const submenu = await leftNavPage.getSubmenu(titleItem);
