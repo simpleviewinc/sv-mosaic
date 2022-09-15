@@ -96,7 +96,6 @@ export class ColumnsComponent extends BasePage {
 			const item = this.leftItems.nth(i);
 			if (await item.textContent() == itemName) {
 				return item;
-
 			}
 		}
 	}
@@ -107,7 +106,6 @@ export class ColumnsComponent extends BasePage {
 		} else {
 			await item.locator(this.checkboxLocator).uncheck();
 		}
-
 	}
 
 	async checkAllItems(check: boolean): Promise<void> {

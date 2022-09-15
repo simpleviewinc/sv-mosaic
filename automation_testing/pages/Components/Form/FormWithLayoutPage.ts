@@ -13,33 +13,33 @@ export class FormWithLayout extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.topComponentContainer = page.locator("//*[@id='root']/div/form/div[1]/div[2]");
-		this.topComponentContainerSections = page.locator("a");
-		this.sectionContainer = page.locator("//*[@id='root']/div/form/div[2]/div");
+		this.topComponentContainer = page.locator("//*[@id='root']/div/div/form/div[1]/div[2]");
+		this.topComponentContainerSections = this.topComponentContainer.locator("a");
+		this.sectionContainer = page.locator("[data-testid='section-test-id']");
 	}
 
 	async visitPage(): Promise<void> {
 		await this.visit(this.page_path, this.title);
 	}
-	
+
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
 		await this.topComponentContainer.waitFor();
 		return await this.topComponentContainerSections.count();
-	}   
+	}
 
 	async getNumberOfSections():Promise<number> {
 		return await this.sectionContainer.count();
-	} 
-	
+	}
+
 	async getPositionOfSection(section:string):Promise<number> {
 		const sections = this.getSectionsTitlesFromTopComponent();
 		return (await sections).indexOf(section);
-	} 
+	}
 
 	/**
-	 * This method return the specified data of a provided locator.  
-	 * @param locator: Locator from where the data will be extrated. 
-	 * @param dataType: Type of data to be returned. 
+	 * This method return the specified data of a provided locator.
+	 * @param locator: Locator from where the data will be extrated.
+	 * @param dataType: Type of data to be returned.
 	 * @returns: Returns an array with the information contained in the provided locator.
 	 */
 	async getSectionData(locator:Locator, dataType: string):Promise<string[]> {
@@ -86,13 +86,13 @@ export class FormWithLayout extends BasePage {
 	async getSelectedSectionFromTopComponent():Promise<string> {
 		await this.topComponentContainer.waitFor();
 		await this.wait();
-		return await this.topComponentContainer.locator(".czFTET").textContent();
+		return await this.topComponentContainer.locator(".highlight").textContent();
 	}
 
 	async isSectionVisible(section:string):Promise<boolean> {
 		return await this.sectionContainer.locator("h1", {hasText: section}).isVisible();
 	}
-	
+
 	async scrollToSection(section:string):Promise<void> {
 		await this.topComponentContainer.waitFor({ state: "visible" });
 		await this.sectionContainer.locator("h1", {hasText: section}).scrollIntoViewIfNeeded();

@@ -24,3 +24,7 @@ export const getDateFormattedForDatePicker = (date: Date) : string => {
 	const yyyy = date.getFullYear();
 	return mm + " " + dd + ", " + yyyy;
 }
+
+export const getMonthNumber = (month: string) : number => {
+	return fullMonthNames.indexOf(month) + 1;
+}

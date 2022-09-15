@@ -53,18 +53,18 @@ test.describe("Drawers", () => {
 
 	test("Validate amount of regular drawers open", async () => {
 		const numberOfDrawers = 3;
-		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);		
+		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);
 		expect(await drawersPage.drawerDiv.count()).toBe(numberOfDrawers);
 	});
 
 	test("Validate go back button", async () => {
 		const numberOfDrawers = 3;
-		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);		
+		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);
 		await drawersPage.goBackSpecificAmountOfRegularDrawers(numberOfDrawers);
 		const numberOfTitles = await drawersPage.page.locator("h1").count();
 		expect(await drawersPage.page.locator("h1").nth(numberOfTitles - 1).textContent()).toBe(await drawersPage.mainGridTitle.textContent());
 	});
-	
+
 	test("Validate when canceling a form, the value is not updated. ", async () => {
 		await drawersPage.openFormDrawerButton.click();
 		await drawersPage.simpleTextField.nth(0).fill("5");

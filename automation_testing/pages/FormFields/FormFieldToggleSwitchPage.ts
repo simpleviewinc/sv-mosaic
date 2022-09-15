@@ -11,7 +11,6 @@ export class FormFieldToggleSwitchPage extends BasePage {
 	readonly disabledToggle: Locator;
 	readonly regularToggleWithoutLabel: Locator;
 
-	
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -19,12 +18,9 @@ export class FormFieldToggleSwitchPage extends BasePage {
 		this.disabledToggle = page.locator("input[type='checkbox']").nth(1);
 		this.regularToggleWithoutLabel = page.locator("input[type='checkbox']").nth(2);
 		this.regularLabel = page.locator("span.MuiFormControlLabel-label").nth(0);
-
 	}
 
 	async visitPage(): Promise<void> {
 		await this.visit(this.page_path, this.title);
 	}
-
-
 }

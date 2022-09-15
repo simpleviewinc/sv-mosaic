@@ -1,6 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { getDateFormatted } from "../../../utils/helpers/dateHelper";
+import { randomIntFromInterval } from "../../../utils/helpers/helper";
 
 export class PlaygroundPage extends BasePage {
 
@@ -126,9 +127,11 @@ export class PlaygroundPage extends BasePage {
 		const imagePath = `${__dirname}/../../../utils/data/Images/image-example.png`;
 		await this.imageUploadExampleButton.setInputFiles(imagePath);
 		// Map Coordinates
+		const rndLatitude = randomIntFromInterval(-90, 90).toString();
+		const rndLongitude = randomIntFromInterval(-180, 180).toString();
 		await this.mapCoordinatesExampleButton.click();
-		await this.latitude.type("37,8393332");
-		await this.longitude.type("-84,2700179");
+		await this.latitude.type(rndLatitude);
+		await this.longitude.type(rndLongitude);
 		await this.saveCoordinatesButton.dblclick();
 	}
 }
