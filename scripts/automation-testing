@@ -1,0 +1,3 @@
+docker compose build automation_testing
+docker compose run --service-ports --rm automation_testing /bin/bash
+docker compose down
