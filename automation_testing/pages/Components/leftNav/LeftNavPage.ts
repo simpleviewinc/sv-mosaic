@@ -11,10 +11,11 @@ export class LeftNavPage extends BasePage {
 	readonly title: Locator;
 	readonly subtitle: Locator;
 	readonly leftNavDiv: Locator;
-	readonly leftItems: Locator;
+	readonly allLeftItems: Locator;
+	readonly topLeftItems: Locator;
 	readonly navDisplayMenu: Locator;
 	readonly menu: Locator;
-
+	readonly topMenuItems: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -22,9 +23,11 @@ export class LeftNavPage extends BasePage {
 		this.title = page.locator(".content h1");
 		this.subtitle = page.locator(".content h2");
 		this.leftNavDiv = page.locator("div.left");
-		this.leftItems = page.locator("a .left");
+		this.allLeftItems = page.locator("a .left");
+		this.topLeftItems = page.locator(".top a .left");
 		this.navDisplayMenu = page.locator("h3[title='Nav Display'] >> xpath=..");
 		this.menu = page.locator("span.menuButton");
+		this.topMenuItems = page.locator(".top a");
 	}
 
 	async visitPage(): Promise<void> {
@@ -36,25 +39,30 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async getLastItem(): Promise<Locator> {
-		const items = await this.leftItems;
-		return await items.nth(await items.count() - 1);
+		const items = this.allLeftItems;
+		return items.nth(await items.count() - 1);
 	}
 
 	async getItemsCount(): Promise<number> {
-		return await this.leftItems.count();
+		return await this.topLeftItems.count();
 	}
 
-	async getSubmenuElement(submenu: Locator, num: number): Promise<Locator> {
-		return submenu.locator("a").nth(num - 1);
+	async getSubmenuElement(submenu: Locator): Promise<Locator> {
+		const numberOfSubMenu = await submenu.locator("a").count();
+		if (numberOfSubMenu > 0) {
+			return submenu.locator("a").nth(numberOfSubMenu - 1);
+		} else {
+			return submenu.locator("a").nth(numberOfSubMenu);
+		}
 	}
 
-	async getRandomItems(isVisible: boolean): Promise<Locator> {
+	async getRandomItems(isArrowVisible: boolean): Promise<Locator> {
 		const itemsCount = await this.getItemsCount();
 		const items = [];
 		for (let i = 0; i < itemsCount; i++) {
-			const item = this.leftItems.nth(i);
+			const item = this.topLeftItems.nth(i);
 			const arrow = (await this.getItemParent(item)).locator(".right svg[data-testid='ChevronRightIcon']");
-			if (isVisible) {
+			if (isArrowVisible) {
 				if (await arrow.isVisible()) {
 					items.push(item);
 				}
@@ -73,18 +81,19 @@ export class LeftNavPage extends BasePage {
 		return this.page.locator(`h3[title='${title}'] >> xpath=..`);
 	}
 
-	async getOptionWithSubmenu(isDouble: boolean): Promise<Locator> {
+	async getOptionWithSubmenu(isWithSubmenu: boolean): Promise<Locator> {
 		await this.waitForElementLoad();
 		let isValidItem = true;
-		let item;
+		let item, itemText;
 		while (isValidItem) {
 			item = await this.getRandomItems(true);
-			if (isDouble) {
-				if ((await item.textContent() == leftnav_data.publicRelations) || (await item.textContent() == leftnav_data.sitemap) && (await item.textContent() != leftnav_data.staticItem)) {
+			itemText = await item.textContent();
+			if (isWithSubmenu) {
+				if ((itemText == leftnav_data.publicRelations) || (itemText == leftnav_data.sitemap)) {
 					isValidItem = false;
 				}
 			} else {
-				if ((await item.textContent() != leftnav_data.publicRelations) || (await item.textContent() != leftnav_data.sitemap) || (await item.textContent() != leftnav_data.staticItem)) {
+				if ((itemText != leftnav_data.publicRelations) || (itemText != leftnav_data.sitemap)) {
 					isValidItem = false;
 				}
 			}
@@ -92,4 +101,12 @@ export class LeftNavPage extends BasePage {
 		return item;
 	}
 
+	async selectTypeOfNavDisplay(type: string): Promise<void> {
+		await (await this.getLastItem()).click();
+		await this.page.locator("text=" + type).click();
+	}
+
+	async getSpecificMenuItem(menuTitle: string): Promise<Locator> {
+		return this.page.locator(`a[title='${menuTitle}']`);
+	}
 }

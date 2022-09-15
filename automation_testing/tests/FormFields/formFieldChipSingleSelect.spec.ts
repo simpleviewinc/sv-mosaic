@@ -28,7 +28,7 @@ test.describe("FormFields - FormFieldChipSingleSelect - Kitchen Sink", () => {
 
 	test("Validate the selection Required Chip Single Select", async ({ page }) => {
 		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain('"chipRequired": "' + requiredOptionLabel + '"');
+			expect(dialog.message()).toContain('"chipRequired": "' + requiredOptionLabel.replace(/ /g,"_") + '"');
 			await dialog.dismiss();
 		});
 		const requiredOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.requiredChipSingleSelectDiv);
@@ -38,8 +38,8 @@ test.describe("FormFields - FormFieldChipSingleSelect - Kitchen Sink", () => {
 
 	test("Validate saving the selection for Chip Single Select", async ({ page }) => {
 		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain('"chipRegular": "' + regularOptionLabel + '"');
-			expect(dialog.message()).toContain('"chipRequired": "' + requiredOptionLabel + '"');
+			expect(dialog.message()).toContain('"chipRegular": "' + regularOptionLabel.replace(/ /g,"_") + '"');
+			expect(dialog.message()).toContain('"chipRequired": "' + requiredOptionLabel.replace(/ /g,"_") + '"');
 			await dialog.dismiss();
 		});
 		const regularOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.regularChipSingleSelectDiv);

@@ -15,14 +15,14 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.regularChipSingleSelectDiv = page.locator(".section").nth(0);
-		this.disabledChipSingleSelectDiv = page.locator(".section").nth(1);
-		this.requiredChipSingleSelectDiv = page.locator(".section").nth(2);
+		this.regularChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(0);
+		this.disabledChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(1);
+		this.requiredChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(2);
 		this.optionButton = "[role='button']";
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		await this.visit(this.page_path, this.regularChipSingleSelectDiv);
 	}
 
 	async selectRandomChipOption(chipLocator: Locator): Promise<number> {

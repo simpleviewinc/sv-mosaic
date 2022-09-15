@@ -26,5 +26,4 @@ test.describe("FormFields - FormFieldRadio - Kitchen Sink", () => {
 			await expect(formFieldRadioPage.disabledRadioButton.locator("input").nth(i)).toBeDisabled();
 		}
 	});
-
 });

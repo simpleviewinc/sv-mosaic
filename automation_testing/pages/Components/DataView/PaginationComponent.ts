@@ -42,7 +42,6 @@ export class PaginationComponent extends BasePage {
 		return pages;
 	}
 
-
 	async calulateRecordRangePerPage(results: number, page: number): Promise<string> {
 		const total = parseInt((await this.paginationValue.textContent()).split("of ")[1]);
 		let final = results * page;

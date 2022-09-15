@@ -19,7 +19,7 @@ export class FormFieldTextPage extends BasePage {
 	readonly smSizeTextField: Locator;
 	readonly mdSizeTextField: Locator;
 	readonly lgSizeTextField: Locator;
-	
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -27,7 +27,7 @@ export class FormFieldTextPage extends BasePage {
 		this.numberTextField = page.locator("#number");
 		this.multilineTextField = page.locator("#multiline");
 		this.fieldMaxCharTextField = page.locator("#withMaxChar");
-		this.maxCharCounter = page.locator("//*[@id='root']/div/form/div[2]/div[4]/div/div/div/div/div[1]/div[1]/div[2]");
+		this.maxCharCounter = page.locator("//*[@id='3']/div/div/div/div/div[1]/div[1]/div[2]");
 		this.fieldWithIconDiv = page.locator("//*[@id='root']/div/form/div[2]/div[5]/div/div/div/div/div[1]/div[2]/div");
 		this.fieldWithIconIcon = page.locator("[data-testid='AccountCircleIcon']");
 		this.fieldWithIconTextField = page.locator("#withIcon");
