@@ -133,8 +133,8 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async selectFirstCategoriesForCategoryWithComparisonOption(): Promise<string> {
-		const selectedCategory = this.checkboxOptions.nth(0).textContent();
-		await this.checkboxOptions.nth(0).check();
+		const selectedCategory = this.checkboxOptions.first().textContent();
+		await this.checkboxOptions.first().click();
 		return selectedCategory;
 	}
 
@@ -152,7 +152,7 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async keywordSearchForComparisonCategory(category: string): Promise<string> {
-		await this.keywordSearchComparisonCategories.type(category);
+		await this.keywordSearchComparisonCategories.fill(category);
 		return await this.selectFirstCategoriesForCategoryWithComparisonOption();
 	}
 
