@@ -60,5 +60,4 @@ test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Longitude should be between -180 and 180");
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 	});
-
 });

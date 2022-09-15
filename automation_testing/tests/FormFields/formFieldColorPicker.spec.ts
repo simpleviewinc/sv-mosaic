@@ -12,7 +12,7 @@ test.describe("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
 
 	test("Validate the selection of a color in Regular Color Picker by clicking", async ({ page }) => {
 		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain('"color": "#' + hexCode + '"');
+			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();
 		});
 		await ffColorPickerPage.regularColorPicker.click();
@@ -23,7 +23,7 @@ test.describe("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
 
 	test("Validate the selection of a color in Regular Color Picker by writing HEX code", async ({ page }) => {
 		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain('"color": "#' + hexCode + '"');
+			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();
 		});
 		const hexCode = getRandomHexCode(6);

@@ -53,13 +53,11 @@ export class FilterComponent extends BasePage {
 		} else {
 			await item.locator(this.checkbox).uncheck();
 		}
-
 	}
 
 	async getCategoriesKeywordText(): Promise<string> {
 		return await this.categoryBtn.locator("span").nth(1).innerText();
 	}
-
 
 	async getCategorySelectedOptionValues(): Promise<string[]> {
 		const itemsNumber = await this.selectedOptions.count();
@@ -68,7 +66,6 @@ export class FilterComponent extends BasePage {
 			selectedOptions.push(await this.selectedOptions.nth(i).locator("span").nth(0).textContent());
 		}
 		return selectedOptions;
-
 	}
 
 	async removeSelectedOptionsByName(name: string): Promise<void> {
@@ -105,5 +102,4 @@ export class FilterComponent extends BasePage {
 			await this.checkItem(this.categoryItems.nth(i), true);
 		}
 	}
-
 }
