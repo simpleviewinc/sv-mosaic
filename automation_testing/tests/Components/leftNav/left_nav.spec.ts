@@ -45,7 +45,7 @@ test.describe("LeftNav", () => {
 	});
 
 	test("Validate Title", async () => {
-		const item = await leftNavPage.getRandomItems(false);
+		const item = await leftNavPage.getSpecificMenuItem("Map Publisher");
 		const title = await item.textContent();
 		await item.click();
 		expect(await leftNavPage.title.textContent()).toBe(title);

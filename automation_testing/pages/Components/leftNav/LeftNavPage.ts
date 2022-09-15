@@ -11,7 +11,8 @@ export class LeftNavPage extends BasePage {
 	readonly title: Locator;
 	readonly subtitle: Locator;
 	readonly leftNavDiv: Locator;
-	readonly leftItems: Locator;
+	readonly allLeftItems: Locator;
+	readonly topLeftItems: Locator;
 	readonly navDisplayMenu: Locator;
 	readonly menu: Locator;
 	readonly topMenuItems: Locator;
@@ -22,7 +23,8 @@ export class LeftNavPage extends BasePage {
 		this.title = page.locator(".content h1");
 		this.subtitle = page.locator(".content h2");
 		this.leftNavDiv = page.locator("div.left");
-		this.leftItems = page.locator(".top a .left");
+		this.allLeftItems = page.locator("a .left");
+		this.topLeftItems = page.locator(".top a .left");
 		this.navDisplayMenu = page.locator("h3[title='Nav Display'] >> xpath=..");
 		this.menu = page.locator("span.menuButton");
 		this.topMenuItems = page.locator(".top a");
@@ -37,24 +39,28 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async getLastItem(): Promise<Locator> {
-		const items = this.leftItems;
+		const items = this.allLeftItems;
 		return items.nth(await items.count() - 1);
 	}
 
 	async getItemsCount(): Promise<number> {
-		return await this.leftItems.count();
+		return await this.topLeftItems.count();
 	}
 
 	async getSubmenuElement(submenu: Locator): Promise<Locator> {
 		const numberOfSubMenu = await submenu.locator("a").count();
-		return submenu.locator("a").nth(numberOfSubMenu - 1);
+		if (numberOfSubMenu > 0) {
+			return submenu.locator("a").nth(numberOfSubMenu - 1);
+		} else {
+			return submenu.locator("a").nth(numberOfSubMenu);
+		}
 	}
 
 	async getRandomItems(isArrowVisible: boolean): Promise<Locator> {
 		const itemsCount = await this.getItemsCount();
 		const items = [];
 		for (let i = 0; i < itemsCount; i++) {
-			const item = this.leftItems.nth(i);
+			const item = this.topLeftItems.nth(i);
 			const arrow = (await this.getItemParent(item)).locator(".right svg[data-testid='ChevronRightIcon']");
 			if (isArrowVisible) {
 				if (await arrow.isVisible()) {
@@ -98,5 +104,9 @@ export class LeftNavPage extends BasePage {
 	async selectTypeOfNavDisplay(type: string): Promise<void> {
 		await (await this.getLastItem()).click();
 		await this.page.locator("text=" + type).click();
+	}
+
+	async getSpecificMenuItem(menuTitle: string): Promise<Locator> {
+		return this.page.locator(`a[title='${menuTitle}']`);
 	}
 }
