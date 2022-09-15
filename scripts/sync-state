@@ -1,6 +1,6 @@
 #!/bin/bash
 # NOTE: Don't run this script with PRs, wait until it's merged to develop, this prevents complicated merge conflicts between pending PRS
-bash ./scripts/build
+docker compose build node
 
 docker create --name sv-mosaic sv-mosaic:local /bin/sh
 
