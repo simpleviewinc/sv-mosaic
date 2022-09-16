@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldCheckboxPage } from "../../pages/FormFields/FormFieldCheckboxPage";
 
 test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldCheckboxPage: FormFieldCheckboxPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldCheckboxPage = new FormFieldCheckboxPage(page);
 		await formFieldCheckboxPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate Regular Radio Button", async () => {
