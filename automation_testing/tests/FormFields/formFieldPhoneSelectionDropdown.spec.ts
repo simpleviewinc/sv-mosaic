@@ -1,16 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldPhoneSelectionDropdownPage } from "../../pages/FormFields/FormFieldPhoneSelectionDropdownPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 
 test.describe("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
+	let page: Page;
 	let ffPhoneSelectionDropdownPage: FormFieldPhoneSelectionDropdownPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffPhoneSelectionDropdownPage = new FormFieldPhoneSelectionDropdownPage(page);
 		await ffPhoneSelectionDropdownPage.visitPage();
 	});
 
-	test("Validate the Regular Phone field.", async () => {
+	test.afterAll(async ({ browser }) => {
+		browser.close;
+	});
+
+	test.skip("Validate the Regular Phone field.", async () => {
 		const phoneNumber = "7021234567";
 		await ffPhoneSelectionDropdownPage.regularPhoneField.type(phoneNumber);
 		expect(await ffPhoneSelectionDropdownPage.regularPhoneField.inputValue()).toBe("+1" + phoneNumber);
