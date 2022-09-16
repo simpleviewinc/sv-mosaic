@@ -1,13 +1,19 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextPage } from "../../pages/FormFields/FormFieldTextPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 
 test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldTextPage: FormFieldTextPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldTextPage = new FormFieldTextPage(page);
 		await formFieldTextPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate Regular Text field", async () => {
