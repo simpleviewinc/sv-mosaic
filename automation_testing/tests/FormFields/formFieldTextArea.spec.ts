@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextAreaPage } from "../../pages/FormFields/FormFieldTextAreaPage";
 
 test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldTextAreaPage: FormFieldTextAreaPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldTextAreaPage = new FormFieldTextAreaPage(page);
 		await formFieldTextAreaPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate that the provided text is saved when submitted.", async ({ page }) => {
@@ -41,7 +47,7 @@ test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 		const width = Number((await ((formFieldTextAreaPage.xsSizeTextArea).evaluate(el => getComputedStyle(el).width))).split("px")[0]);
 		expect(width).toBe(100);
 	});
-	
+
 	test("Validate sm regular text size is valid", async () => {
 		const width = Number((await ((formFieldTextAreaPage.smSizeTextArea).evaluate(el => getComputedStyle(el).width))).split("px")[0]);
 		expect(width).toBe(280);
