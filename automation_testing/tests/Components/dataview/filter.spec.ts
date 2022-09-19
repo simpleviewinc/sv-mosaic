@@ -1,17 +1,27 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { addQuotes, addComma } from "../../../utils/helpers/helper";
 
-test.describe("DataView - Filter", () => {
+test.describe.parallel("DataView - Filter", () => {
+	let page: Page;
 	let dataviewPage: DataviewPage;
 	let filter: FilterComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		filter = dataviewPage.filterComponent;
 		await dataviewPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Filter title with a valid keyword and 1 result", async () => {
