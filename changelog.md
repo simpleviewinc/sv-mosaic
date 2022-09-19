@@ -2,7 +2,7 @@
 
 ## 7.0.0 - 09/20/22
 * **BREAKING** Updated `Typography` components to now only allow the same colors as `Buttons` ("black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"), previously accepted any string.
-* Updated `theme` file to directly export those colors.
+* Updated `Theme` file to directly export those colors.
 	* This will allow devs to use the colors directly rather than having to transform the names, e.g. yellow buttons had to do something like: theme.colors.simplyGold, and now is theme.colors.yellow. This doesn't affect previous styles, only enhances the color list.
 * Added better documentation for `pairedFields` in `Form`'s Readme.
 * Updated `FormNav`'s scrolling listener to improve UX. Scrolling and moving between tabs feels smoother.
