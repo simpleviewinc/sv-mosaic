@@ -15,7 +15,7 @@ export const ButtonWrapper = styled.span`
 	font-family: ${theme.fontFamily};
 	text-transform: none;
 	font-size: 14px;
-	font-weight: ${theme.fontWeight.medium};
+	font-weight: ${theme.fontWeight.bold};
 	min-width: auto;
 	line-height: 1.715;
 	letter-spacing: 1px;
