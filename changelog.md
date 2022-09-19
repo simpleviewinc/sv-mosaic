@@ -1,5 +1,17 @@
 # sv-mosaic changelog
 
+## 7.0.0 - 09/20/22
+* **BREAKING** Updated `Typography` components to now only allow the same colors as `Buttons` ("black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"), previously accepted any string.
+* Updated `theme` file to directly export those colors.
+	* This will allow devs to use the colors directly rather than having to transform the names, e.g. yellow buttons had to do something like: theme.colors.simplyGold, and now is theme.colors.yellow. This doesn't affect previous styles, only enhances the color list.
+* Added better documentation for `pairedFields` in `Form`'s Readme.
+* Updated `FormNav`'s scrolling listener to improve UX. Scrolling and moving between tabs feels smoother.
+* Added `comparisonDefault` prop to `DataViewFilterText`.
+	* Devs can now pass the prop as part of the current `args` prop that all filters currently receive.
+	* The filter will throw an error if devs pass a `comparisonDefault` that's not part of the allowed valid comparisons.
+* **BREAKING** Re-developed `Content` component (`Summary Page Content` in figma). The new `Content` component works almost in the same way as the `Form` component, it receives a fieldDef array with all the "metadata" from the fields, a getValues callback for populating the fields, and a sections array for positioning the fields. Please see Content.stories.mdx for detailed documentation on the new prop structure.
+* Created 2 new transforms: transform_chips, and transform_colorPicker. These work in the exact same way as the other transforms, so they can be used interchangeably between the DataView and the Content component.
+
 ## 6.0.1
 * Updated `FormFieldColorPicker` stories' height to make the color picker component clickable, and improve scrollable logic.
 * Updated `FormFieldAddress` checkbox list's width when creating a new option.
