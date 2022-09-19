@@ -1,19 +1,29 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { dataview_data, saveAs_data } from "../../../utils/data/dataview_data";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
-test.describe("Data View - Pagination", () => {
+test.describe.parallel("Data View - Pagination", () => {
+	let page: Page;
 	let dataviewPage: DataviewPage;
 	let pagination: PaginationComponent;
 	let columns: ColumnsComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		pagination = dataviewPage.paginationComponent;
 		columns = dataviewPage.columnsComponent;
 		await dataviewPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Select result per page - Value by default", async () => {
