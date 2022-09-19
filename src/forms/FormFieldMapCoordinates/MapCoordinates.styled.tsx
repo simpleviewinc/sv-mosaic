@@ -54,7 +54,7 @@ export const Column = styled.div`
 export const MapImageColumn = styled(Column)`
   margin-right: 16px;
   height: fit-content;
-  margin: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.colors.gray200};
 `;
 
 export const LatLngLabel = styled.span`
