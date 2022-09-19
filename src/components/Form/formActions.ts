@@ -22,6 +22,14 @@ async function runValidators(
 	return;
 }
 
+const isValidValue = (value: any) => {
+	if (value === "" || value?.length === 0) {
+		return false
+	}
+
+	return true;
+}
+
 export const formActions = {
 	init({ fields }) {
 		return async function (_dispatch, _getState, extraArgs): Promise<void> {
@@ -38,7 +46,7 @@ export const formActions = {
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
 				name,
-				value
+				value: isValidValue(value) ? value : undefined
 			});
 
 			if (validate) {
