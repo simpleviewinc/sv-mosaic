@@ -1,118 +1,116 @@
-// import * as React from "react";
-// import { useMemo, ReactElement } from "react";
-// import { boolean, withKnobs, text } from "@storybook/addon-knobs";
-// import { Meta } from "@storybook/addon-docs/blocks";
-// import { FormFieldCheckboxDef } from ".";
-// import { FieldDef } from "@root/components/Field";
+import * as React from "react";
+import { useMemo } from "react";
+import { FormFieldCheckboxDef } from ".";
+import { FieldDef } from "@root/components/Field";
 
-// // Components
-// import Form, { useForm } from "@root/components/Form";
+// Components
+import Form, { useForm } from "@root/components/Form";
 
-// // Utils
-// import { checkboxOptions } from "./FormFieldCheckboxUtils";
-// // import { onCancel, renderButtons } from "@root/utils/storyUtils";
+// Utils
+import { checkboxOptions } from "./FormFieldCheckboxUtils";
+import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
 
-// export default {
-// 	title: "FormFields/FormFieldCheckbox",
-// 	decorators: [withKnobs],
-// } as Meta;
+export default {
+	title: "FormFields/FormFieldCheckbox",
+	component: Form,
+};
 
-// export const Playground = (): ReactElement => {
-// 	const { state, dispatch } = useForm();
+const Template = (args) => {
+	const { state, dispatch } = useForm();
+	const {
+		label,
+		required,
+		fields,
+		disabled,
+		helperText,
+		instructionText
+	} = args;
 
-// 	const disabled = boolean("Disabled", false);
-// 	const required = boolean("Required", false);
-// 	const label = text("Label", "Label");
-// 	const instructionText = text("Instruction Text", "Instruction Text");
-// 	const helperText = text("Helper Text", "Helper Text");
+	const playgroundFields = useMemo(
+		() =>
+			[
+				{
+					name: "checkbox",
+					label,
+					type: "checkbox",
+					required,
+					disabled,
+					inputSettings: {
+						options: checkboxOptions,
+					},
+					helperText,
+					instructionText,
+				},
+			] as FieldDef<FormFieldCheckboxDef>[],
+		[required, disabled, label, instructionText, helperText]
+	);
 
-// 	const fields = useMemo(
-// 		() =>
-// 			[
-// 				{
-// 					name: "checkbox",
-// 					label,
-// 					type: "checkbox",
-// 					required,
-// 					disabled,
-// 					inputSettings: {
-// 						options: checkboxOptions,
-// 					},
-// 					helperText,
-// 					instructionText,
-// 				},
-// 			] as FieldDef<FormFieldCheckboxDef>[],
-// 		[required, disabled, label, instructionText, helperText]
-// 	);
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				buttons={renderButtons(dispatch)}
+				title="Form Title"
+				description="This is a description example"
+				state={state}
+				fields={fields ? fields : playgroundFields}
+				dispatch={dispatch}
+				onCancel={onCancel}
+			/>
+		</>
+	);
+};
 
-// 	return (
-// 		<>
-// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-// 			<Form
-// 				buttons={renderButtons(dispatch)}
-// 				title={text("Title", "Form Title")}
-// 				description={text("Description", "This is a description example")}
-// 				state={state}
-// 				fields={fields}
-// 				dispatch={dispatch}
-// 				onCancel={onCancel}
-// 			/>
-// 		</>
-// 	);
-// };
+export const Playground = Template.bind({});
+Playground.parameters = { controls: { exclude: excludedFormFieldsControls } };
+Playground.args = {
+	label: "Label",
+	required: false,
+	disabled: false,
+	instructionText: "Instruction text",
+	helperText: "Helper text",
+};
 
-// const kitchenSinkFields = [
-// 	{
-// 		name: "checkbox",
-// 		label: "Regular example",
-// 		type: "checkbox",
-// 		required: false,
-// 		disabled: false,
-// 		inputSettings: {
-// 			options: checkboxOptions,
-// 		},
-// 		helperText: "Helper Text",
-// 		instructionText: "InstructionText",
-// 	},
-// 	{
-// 		name: "disabledCheckbox",
-// 		label: "Disabled example",
-// 		type: "checkbox",
-// 		required: false,
-// 		disabled: true,
-// 		inputSettings: {
-// 			options: checkboxOptions,
-// 		},
-// 		helperText: "Helper Text",
-// 		instructionText: "InstructionText",
-// 	},
-// 	/* Should inputSettings be an optional prop?
-// 	{
-// 		name: 'withoutOptions',
-// 		label: 'Without options',
-// 		type: 'checkbox',
-// 		required: false,
-// 		disabled: false,
-// 		helperText: 'Helper Text',
-// 		instructionText: 'InstructionText',
-// 	}, */
-// ] as FieldDef<FormFieldCheckboxDef>[];
 
-// export const KitchenSink = (): ReactElement => {
-// 	const { state, dispatch } = useForm();
+const kitchenSinkFields = [
+	{
+		name: "checkbox",
+		label: "Regular example",
+		type: "checkbox",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			options: checkboxOptions,
+		},
+		helperText: "Helper Text",
+		instructionText: "InstructionText",
+	},
+	{
+		name: "disabledCheckbox",
+		label: "Disabled example",
+		type: "checkbox",
+		required: false,
+		disabled: true,
+		inputSettings: {
+			options: checkboxOptions,
+		},
+		helperText: "Helper Text",
+		instructionText: "InstructionText",
+	},
+	/* Should inputSettings be an optional prop?
+	{
+		name: 'withoutOptions',
+		label: 'Without options',
+		type: 'checkbox',
+		required: false,
+		disabled: false,
+		helperText: 'Helper Text',
+		instructionText: 'InstructionText',
+	}, */
+] as FieldDef<FormFieldCheckboxDef>[];
 
-// 	return (
-// 		<>
-// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-// 			<Form
-// 				buttons={renderButtons(dispatch)}
-// 				title='Form Title'
-// 				description='This is a description example'
-// 				state={state}
-// 				fields={kitchenSinkFields}
-// 				dispatch={dispatch}
-// 				onCancel={onCancel}
-// 			/>
-// 		</>
-// 	);
-// };
+export const KitchenSink = Template.bind({});
+KitchenSink.parameters = { controls: { exclude: excludedFormFieldsControls } };
+KitchenSink.args = {
+	fields: kitchenSinkFields,
+};

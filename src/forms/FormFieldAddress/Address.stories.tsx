@@ -1,59 +1,78 @@
-// import * as React from "react";
-// import { ReactElement, useMemo } from "react";
-// import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
-// import { onCancel, renderButtons } from "@root/utils/storyUtils";
-// import { FieldDef } from "../../components/Field";
-// import Form, { useForm } from "@root/components/Form";
+import * as React from "react";
+import { useMemo } from "react";
+import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
+import { FieldDef } from "../../components/Field";
+import Form, { useForm } from "@root/components/Form";
 
-// export default {
-// 	title: "FormFields/FormFieldAddress",
-// 	decorators: [withKnobs],
-// };
+export default {
+	title: "FormFields/FormFieldAddress",
+	component: Form,
+};
 
-// export const Playground = (): ReactElement => {
-// 	const { state, dispatch } = useForm();
+const Template = (args) => {
+	const { state, dispatch } = useForm();
+	const {
+		disabled,
+		label,
+		required,
+		amountPerType,
+		amountShipping,
+		amountPhysical,
+		amountBilling
+	} = args;
 
-// const label = text("Label", "Label");
-// const disabled = boolean("Disabled", false);
-// const required = boolean("Required", false);
-// const amountPerType = number("Amount per type", 1);
-// const amountShipping = number("Amount shipping", 1);
-// const amountPhysical = number("Amount physical", 1);
-// const amountBilling = number("Amount billing", 1);
+	const fields = useMemo(
+		() =>
+			[
+				{
+					disabled,
+					label,
+					required,
+					name: "address",
+					type: "address",
+					inputSettings: {
+						amountPerType,
+						amountShipping,
+						amountPhysical,
+						amountBilling,
+					},
+				},
+			] as FieldDef[],
+		[
+			disabled,
+			label,
+			required,
+			amountPerType,
+			amountShipping,
+			amountPhysical,
+			amountBilling,
+		]
+	);
 
-// const fields = useMemo(
-// 	() => (
-// 		[
-// 			{
-// 				disabled,
-// 				label,
-// 				required,
-// 				name: "address",
-// 				type: "address",
-// 				inputSettings: {
-// 					amountPerType,
-// 					amountShipping,
-// 					amountPhysical,
-// 					amountBilling
-// 				},
-// 			},
-// 		] as FieldDef[]
-// 	),
-// 	[disabled, label, required, amountPerType, amountShipping, amountPhysical, amountBilling]
-// );
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				buttons={renderButtons(dispatch)}
+				title="Form Title"
+				description="This is a description example"
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				onCancel={onCancel}
+			/>
+		</>
+	);
+};
 
-// 	return (
-// 		<>
-// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-// 			<Form
-// 				buttons={renderButtons(dispatch)}
-// 				title={text("Title", "Form Title")}
-// 				description={text("Description", "This is a description example")}
-// 				state={state}
-// 				fields={fields}
-// 				dispatch={dispatch}
-// 				onCancel={onCancel}
-// 			/>
-// 		</>
-// 	);
-// };
+export const Playground = Template.bind({});
+Playground.parameters = { controls: { exclude: excludedFormFieldsControls } };
+Playground.args = {
+	label: "Label",
+	required: false,
+	disabled: false,
+	amountPerType: 1,
+	amountShipping: 1,
+	amountPhysical: 1,
+	amountBilling: 1
+};

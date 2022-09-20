@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useMemo } from "react";
 import FormFieldText, { TextFieldDef } from ".";
-import { FieldDef, MosaicFieldProps } from "@root/components/Field";
+import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -13,31 +13,48 @@ export default {
 	component: FormFieldText,
 	argTypes: {
 		size: {
-			options: ["xs", "sm", "md", "lg"]
+			options: ["xs", "sm", "md", "lg"],
+			control: "select",
 		},
 		number: {
-			options: ["number", "text"]
-		}
-	} as unknown as MosaicFieldProps<TextFieldDef>
+			options: ["number", "text"],
+			control: "select",
+		},
+	},
 };
 
 const Template = (args) => {
-	const {size, type, placeholder, maxCharacters, disabled, required, multiline, withIcon, helperText, instructionText, label, fields} = args;
-	const { state, dispatch	} = useForm();
+	const {
+		size,
+		type,
+		placeholder,
+		maxCharacters,
+		disabled,
+		required,
+		multiline,
+		withIcon,
+		helperText,
+		instructionText,
+		label,
+		fields,
+		prefixElement
+	} = args;
+
+	const { state, dispatch } = useForm();
 
 	const playgroundField = useMemo(
 		() =>
 			[
 				{
 					name: "textfield",
-					label: "testing",
+					label,
 					type: "text",
 					required,
 					disabled,
 					maxCharacters: type !== "number" && maxCharacters,
 					size,
 					inputSettings: {
-						prefixElement: withIcon && <AccountCircle />,
+						prefixElement: withIcon && prefixElement,
 						maxCharacters,
 						placeholder,
 						multiline,
@@ -58,7 +75,7 @@ const Template = (args) => {
 			multiline,
 			helperText,
 			instructionText,
-			type
+			type,
 		]
 	);
 
@@ -79,6 +96,7 @@ const Template = (args) => {
 };
 
 export const Playground = Template.bind({});
+Playground.parameters = { controls: { exclude: excludedFormFieldsControls } };
 Playground.args = {
 	size: "sm",
 	type: "text",
@@ -87,10 +105,11 @@ Playground.args = {
 	disabled: false,
 	required: false,
 	multiline: false,
-	withIcon: false,
+	withIcon: true,
 	helperText: "Helper text",
 	instructionText: "Instruction text",
-	label: "Label"
+	label: "Label",
+	prefixElement: <AccountCircle />
 };
 
 const kitchenSinkFields = [
@@ -101,10 +120,10 @@ const kitchenSinkFields = [
 		required: false,
 		size: "md",
 		inputSettings: {
-			placeholder: "placeholder"
+			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	} as FieldDef<TextFieldDef>,
 	{
 		name: "number",
@@ -114,10 +133,10 @@ const kitchenSinkFields = [
 		size: "md",
 		inputSettings: {
 			placeholder: "number",
-			type: "number"
+			type: "number",
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	} as FieldDef<TextFieldDef>,
 	{
 		name: "multiline",
@@ -211,6 +230,7 @@ const kitchenSinkFields = [
 ] as FieldDef<TextFieldDef>[];
 
 export const KitchenSink = Template.bind({});
+KitchenSink.parameters = { controls: { exclude: [...excludedFormFieldsControls, "size", "number"] } };
 KitchenSink.args = {
 	fields: kitchenSinkFields,
 };

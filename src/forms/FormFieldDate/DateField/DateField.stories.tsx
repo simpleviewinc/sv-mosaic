@@ -1,142 +1,145 @@
-// import * as React from "react";
-// import { ReactElement, useMemo } from "react";
-// import { boolean, text, withKnobs } from "@storybook/addon-knobs";
-// import { FieldDef } from "@root/components/Field";
-// import { DateFieldDef } from "./DateFieldTypes";
-// import Form, { useForm } from "@root/components/Form";
-// import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import * as React from "react";
+import { useMemo } from "react";
+import { FieldDef } from "@root/components/Field";
+import { DateFieldDef } from "./DateFieldTypes";
+import Form, { useForm } from "@root/components/Form";
+import {
+	excludedFormFieldsControls,
+	onCancel,
+	renderButtons,
+} from "@root/utils/storyUtils";
 
-// export default {
-// 	title: "FormFields/FormFieldDateField",
-// 	decorators: [withKnobs],
-// };
+export default {
+	title: "FormFields/FormFieldDateField",
+	component: Form,
+};
 
-// export const Playground = (): ReactElement => {
-// 	const { state, dispatch } = useForm();
+const Template = (args) => {
+	const { state, dispatch } = useForm();
+	const {
+		label,
+		fields,
+		helperText,
+		instructionText,
+		disabled,
+		required,
+		showTime,
+	} = args;
 
-// 	const label = text("Label", "Date Field Picker");
-// 	const helperText = text("Helper text", "Helper text");
-// 	const instructionText = text("Instruction text", "Instruction text");
-// 	const disabled = boolean("Disabled", false);
-// 	const required = boolean("Required", false);
-// 	const showTime = boolean("Show time", false);
+	const playgroundFields = useMemo(
+		() =>
+			[
+				{
+					name: "date",
+					type: "date",
+					label,
+					required,
+					disabled,
+					helperText,
+					instructionText,
+					inputSettings: {
+						showTime,
+					},
+				},
+			] as FieldDef[],
+		[label, required, disabled, helperText, instructionText, showTime]
+	);
 
-// 	const fields = useMemo(
-// 		() => [
-// 			{
-// 				name: "date",
-// 				type: "date",
-// 				label,
-// 				required,
-// 				disabled,
-// 				helperText,
-// 				instructionText,
-// 				inputSettings: {
-// 					showTime
-// 				}
-// 			}
-// 		] as FieldDef[],
-// 		[label, required, disabled, helperText, instructionText, showTime]
-// 	);
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				buttons={renderButtons(dispatch)}
+				title="Form Title"
+				description="This is a description example"
+				state={state}
+				fields={fields ? fields : playgroundFields}
+				dispatch={dispatch}
+				onCancel={onCancel}
+			/>
+		</>
+	);
+};
 
-// 	return (
-// 		<>
-// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-// 			<Form
-// 				buttons={renderButtons(dispatch)}
-// 				title={text("Title", "Form Title")}
-// 				description={text("Description", "This is a description example")}
-// 				state={state}
-// 				fields={fields}
-// 				dispatch={dispatch}
-// 				onCancel={onCancel}
-// 			/>
-// 		</>
-// 	);
-// };
+export const Playground = Template.bind({});
+Playground.parameters = { controls: { exclude: excludedFormFieldsControls } };
+Playground.args = {
+	label: "Label",
+	required: false,
+	disabled: false,
+	instructionText: "Instruction text",
+	helperText: "Helper text",
+	showTime: false
+};
 
-// export const KitchenSink = (): ReactElement => {
-// 	const {	state, dispatch	} = useForm();
-// 	const helperText = "Helper text";
-// 	const instructionText = "Instruction text";
+const helperText = "Helper text";
+const instructionText = "Instruction text";
 
-// 	const fields = useMemo(
-// 		() =>
-// 			[
-// 				{
-// 					name: "singleDate",
-// 					type: "date",
-// 					label: "Single Date Calendar",
-// 					required: false,
-// 					disabled: false,
-// 					helperText,
-// 					instructionText,
-// 					inputSettings: {
-// 						showTime: false
-// 					}
-// 				},
-// 				{
-// 					name: "disableSingleDate",
-// 					type: "date",
-// 					label: "Disable Single Date Calendar",
-// 					required: false,
-// 					disabled: true,
-// 					helperText,
-// 					instructionText,
-// 					inputSettings: {
-// 						showTime: false
-// 					}
-// 				},
-// 				{
-// 					name: "dateTime",
-// 					type: "date",
-// 					label: "Date Time Input",
-// 					required: false,
-// 					disabled: false,
-// 					helperText,
-// 					instructionText,
-// 					inputSettings: {
-// 						showTime: true
-// 					}
-// 				}, {
-// 					name: "disableDateTime",
-// 					type: "date",
-// 					label: "Disable Date Time Calendar",
-// 					required: false,
-// 					disabled: true,
-// 					helperText,
-// 					instructionText,
-// 					inputSettings: {
-// 						showTime: true
-// 					}
-// 				}, {
-// 					name: "requiredDateTime",
-// 					type: "date",
-// 					label: "Required Single Date Calendar",
-// 					required: true,
-// 					disabled: false,
-// 					helperText,
-// 					instructionText,
-// 					inputSettings: {
-// 						showTime: true
-// 					}
-// 				} as FieldDef<DateFieldDef>
-// 			],
-// 		[]
-// 	);
+const kitchenSinkFields = [
+	{
+		name: "singleDate",
+		type: "date",
+		label: "Single Date Calendar",
+		required: false,
+		disabled: false,
+		helperText,
+		instructionText,
+		inputSettings: {
+			showTime: false,
+		},
+	},
+	{
+		name: "disableSingleDate",
+		type: "date",
+		label: "Disable Single Date Calendar",
+		required: false,
+		disabled: true,
+		helperText,
+		instructionText,
+		inputSettings: {
+			showTime: false,
+		},
+	},
+	{
+		name: "dateTime",
+		type: "date",
+		label: "Date Time Input",
+		required: false,
+		disabled: false,
+		helperText,
+		instructionText,
+		inputSettings: {
+			showTime: true,
+		},
+	},
+	{
+		name: "disableDateTime",
+		type: "date",
+		label: "Disable Date Time Calendar",
+		required: false,
+		disabled: true,
+		helperText,
+		instructionText,
+		inputSettings: {
+			showTime: true,
+		},
+	},
+	{
+		name: "requiredDateTime",
+		type: "date",
+		label: "Required Single Date Calendar",
+		required: true,
+		disabled: false,
+		helperText,
+		instructionText,
+		inputSettings: {
+			showTime: true,
+		},
+	} as FieldDef<DateFieldDef>,
+];
 
-// 	return (
-// 		<>
-// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-// 			<Form
-// 				buttons={renderButtons(dispatch)}
-// 				title={"Date Field Calendar"}
-// 				description={"This is a description example"}
-// 				state={state}
-// 				fields={fields}
-// 				dispatch={dispatch}
-// 				onCancel={onCancel}
-// 			/>
-// 		</>
-// 	);
-// };
+export const KitchenSink = Template.bind({});
+KitchenSink.parameters = { controls: { exclude: excludedFormFieldsControls } };
+KitchenSink.args = {
+	fields: kitchenSinkFields,
+};

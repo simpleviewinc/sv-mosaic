@@ -75,9 +75,8 @@ const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactEle
 		let rowDataCopy = [...rows];
 		rowDataCopy.splice(rowIndex, 1);
 
-		if (rowDataCopy.length === 0) rowDataCopy = undefined;
+		if (rowDataCopy.length === 0) rowDataCopy = [];
 
-		setRows(rowDataCopy);
 		onChange(rowDataCopy);
 	};
 
@@ -92,11 +91,13 @@ const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactEle
 			row?.items?.length ? row?.items?.length : 0
 		);
 
-		const maxRowItems = Math.max(...itemsLengths);
-		const headersToAdd = maxRowItems - fieldDef?.inputSettings?.headers.length;
-		if (headersToAdd > 0) {
-			for (let i = 0; i < headersToAdd; i++) {
-				emptyHeaders.push(<Th key={`empty-header-${i}`}></Th>);
+		if (itemsLengths?.length > 0) {
+			const maxRowItems = Math.max(...itemsLengths);
+			const headersToAdd = maxRowItems - fieldDef?.inputSettings?.headers.length;
+			if (headersToAdd > 0) {
+				for (let i = 0; i < headersToAdd; i++) {
+					emptyHeaders.push(<Th key={`empty-header-${i}`}></Th>);
+				}
 			}
 		}
 
@@ -105,7 +106,7 @@ const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactEle
 
 	/**
 	 * Executes the add element callback function
-	 * when the add button is clicked. 
+	 * when the add button is clicked.
 	 * @param e onClick event
 	 */
 	const addElement = (e) => {
@@ -121,7 +122,6 @@ const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactEle
 						color="gray"
 						variant="outlined"
 						label="ADD ELEMENT"
-						muiAttrs={{ disableRipple: true }}
 						disabled={fieldDef?.disabled}
 						onClick={(e) => addElement(e)}
 					></Button>

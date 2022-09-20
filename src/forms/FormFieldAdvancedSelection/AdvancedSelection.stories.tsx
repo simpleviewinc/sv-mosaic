@@ -1,222 +1,249 @@
-// import * as React from "react";
-// import { ReactElement, useMemo } from "react";
-// import { boolean, text, withKnobs } from "@storybook/addon-knobs";
-// import { AdvancedSelectionDef } from ".";
-// import { FieldDef } from "@root/components/Field";
-// import Form, { useForm } from "@root/components/Form";
-// import { onCancel, renderButtons } from "@root/utils/storyUtils";
-// import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
+import * as React from "react";
+import { useMemo } from "react";
+import { AdvancedSelectionDef } from ".";
+import { FieldDef } from "@root/components/Field";
+import Form, { useForm } from "@root/components/Form";
+import {
+	excludedFormFieldsControls,
+	onCancel,
+	renderButtons,
+} from "@root/utils/storyUtils";
+import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
 
 // Components
-// import { MosaicLabelValue } from "@root/types";
+import { MosaicLabelValue } from "@root/types";
 
-// export default {
-// 	title: "FormFields/FormFieldAdvancedSelection",
-// 	decorators: [withKnobs],
-// };
+export default {
+	title: "FormFields/FormFieldAdvancedSelection",
+	component: Form,
+};
 
-// export const Playground = (): ReactElement => {
-// 	const { state, dispatch } = useForm();
-// 	const options = additionalOptions ? additionalOptions : [];
-// 	const label = text("Label", "Label");
-// 	const required = boolean("Required", false);
-// 	const disabled = boolean("Disabled", false);
-// 	const instructionText = text("Instruction text", "Instruction text");
-// 	const helperText = text("Helper text", "Helper text");
-// 	const shouldUseGetOptions = boolean("Obtain options from db", false);
-// 	const getOptionsLimit = text("Get options limit", "5");
-// 	const createNewOptionsKnob = boolean("Create new option", true);
+const Template = (args) => {
+	const { state, dispatch } = useForm();
+	const {
+		additionalOptions,
+		disabled,
+		label,
+		required,
+		instructionText,
+		helperText,
+		shouldUseGetOptions,
+		getOptionsLimit,
+		createNewOptions,
+	} = args;
 
-// 	const getOptions: ({
-// 		filter,
-// 		limit,
-// 		offset,
-// 	}: {
-// 		filter?: string;
-// 		limit?: number;
-// 		offset?: number;
-// 	}) => Promise<MosaicLabelValue[]> = async ({ limit, filter, offset }) => {
-// 		let internalOptionsArr = [...additionalOptions];
+	const options = additionalOptions ? additionalOptions : [];
 
-// 		if (filter) {
-// 			const trimmedFilter = filter.trim().toLowerCase();
-// 			internalOptionsArr = additionalOptions.filter((option) =>
-// 				option.label.toLowerCase().includes(trimmedFilter)
-// 			);
-// 		}
+	const getOptions: ({
+		filter,
+		limit,
+		offset,
+	}: {
+		filter?: string;
+		limit?: number;
+		offset?: number;
+	}) => Promise<MosaicLabelValue[]> = async ({ limit, filter, offset }) => {
+		let internalOptionsArr = [...additionalOptions];
 
-// 		let optionsToReturn = [];
-// 		if (limit) {
-// 			for (let i = offset; i < offset + limit; i++) {
-// 				if (i < internalOptionsArr.length)
-// 					optionsToReturn.push(internalOptionsArr[i]);
-// 			}
-// 		} else {
-// 			optionsToReturn = internalOptionsArr;
-// 		}
+		if (filter) {
+			const trimmedFilter = filter.trim().toLowerCase();
+			internalOptionsArr = additionalOptions.filter((option) =>
+				option.label.toLowerCase().includes(trimmedFilter)
+			);
+		}
 
-// 		return optionsToReturn;
-// 	};
+		let optionsToReturn = [];
+		if (limit) {
+			for (let i = offset; i < offset + limit; i++) {
+				if (i < internalOptionsArr.length)
+					optionsToReturn.push(internalOptionsArr[i]);
+			}
+		} else {
+			optionsToReturn = internalOptionsArr;
+		}
 
-// const createNewOption = async (newOptionLabel) => {
-// 	const value = `${newOptionLabel}_${additionalOptions.length}`;
-// 	const newOption = {
-// 		label: newOptionLabel,
-// 		value,
-// 	};
+		return optionsToReturn;
+	};
 
-// 		//Insert to db
-// 		additionalOptions.push(newOption);
+	const createNewOption = async (newOptionLabel) => {
+		const value = `${newOptionLabel}_${additionalOptions.length}`;
+		const newOption = {
+			label: newOptionLabel,
+			value,
+		};
 
-// 	return newOption;
-// };
+		// Insert to db
+		additionalOptions.push(newOption);
 
-// const fields = useMemo(
-// 	() =>
-// 		[
-// 			{
-// 				name: "advancedSelection",
-// 				label,
-// 				required,
-// 				disabled,
-// 				helperText,
-// 				instructionText,
-// 				type: "advancedSelection",
-// 				inputSettings: {
-// 					options: !shouldUseGetOptions ? options : undefined,
-// 					getOptions: shouldUseGetOptions ? getOptions : undefined,
-// 					getOptionsLimit:
-// 						shouldUseGetOptions && getOptionsLimit
-// 							? getOptionsLimit
-// 							: undefined,
-// 					createNewOption: createNewOptionsKnob ? createNewOption : undefined
-// 				},
-// 			},
-// 		] as FieldDef<AdvancedSelectionDef>[],
-// 	[
-// 		label,
-// 		required,
-// 		disabled,
-// 		helperText,
-// 		instructionText,
-// 		getOptionsLimit,
-// 		options,
-// 		shouldUseGetOptions,
-// 		createNewOptionsKnob
-// 	]
-// );
+		return newOption;
+	};
 
-// 	return (
-// 		<>
-// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-// 			<Form
-// 				buttons={renderButtons(dispatch)}
-// 				title={text("Title", "Form Title")}
-// 				description={text("Description", "This is a description example")}
-// 				state={state}
-// 				fields={fields}
-// 				dispatch={dispatch}
-// 				onCancel={onCancel}
-// 			/>
-// 		</>
-// 	);
-// };
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "advancedSelection",
+					label,
+					required,
+					disabled,
+					helperText,
+					instructionText,
+					type: "advancedSelection",
+					inputSettings: {
+						options: !shouldUseGetOptions ? options : undefined,
+						getOptions: shouldUseGetOptions ? getOptions : undefined,
+						getOptionsLimit:
+							shouldUseGetOptions && getOptionsLimit
+								? getOptionsLimit
+								: undefined,
+						createNewOption: createNewOptions ? createNewOption : undefined,
+					},
+				},
+			] as FieldDef<AdvancedSelectionDef>[],
+		[
+			label,
+			required,
+			disabled,
+			helperText,
+			instructionText,
+			getOptionsLimit,
+			options,
+			shouldUseGetOptions,
+			createNewOptions,
+		]
+	);
 
-// export const KitchenSink = (): ReactElement => {
-// 	const { state, dispatch } = useForm();
-// 	const options = additionalOptions ? additionalOptions : [];
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				buttons={renderButtons(dispatch)}
+				title="Form Title"
+				description="This is a description example"
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				onCancel={onCancel}
+			/>
+		</>
+	);
+};
 
-// const getOptions: ({
-// 	filter,
-// 	limit,
-// 	offset,
-// }: {
-// 	filter?: string;
-// 	limit?: number;
-// 	offset?: number;
-// }) => Promise<MosaicLabelValue[]> = async ({ limit, filter, offset }) => {
-// 	let internalOptionsArr = [...additionalOptions];
+export const Playground = Template.bind({});
+Playground.parameters = { controls: { exclude: excludedFormFieldsControls } };
+Playground.args = {
+	additionalOptions,
+	label: "Label",
+	required: false,
+	disabled: false,
+	instructionText: "Instruction text",
+	helperText: "Helper text",
+	shouldUseGetOptions: false,
+	getOptionsLimit: "5",
+	createNewOptions: true,
+};
 
-// 	if (filter) {
-// 		const trimmedFilter = filter.trim().toLowerCase();
-// 		internalOptionsArr = additionalOptions.filter((option) =>
-// 			option.label.toLowerCase().includes(trimmedFilter)
-// 		);
-// 	}
+const KitchenSinkTemplate = (args) => {
+	const { state, dispatch } = useForm();
+	const options = args.additionalOptions ? args.additionalOptions : [];
 
-// 		let optionsToReturn = [];
-// 		if (limit) {
-// 			for (let i = offset; i < offset + limit; i++) {
-// 				if (i < internalOptionsArr.length)
-// 					optionsToReturn.push(internalOptionsArr[i]);
-// 			}
-// 		} else {
-// 			optionsToReturn = internalOptionsArr;
-// 		}
+	const getOptions: ({
+		filter,
+		limit,
+		offset,
+	}: {
+		filter?: string;
+		limit?: number;
+		offset?: number;
+	}) => Promise<MosaicLabelValue[]> = async ({ limit, filter, offset }) => {
+		let internalOptionsArr = [...additionalOptions];
 
-// 		return optionsToReturn;
-// 	};
+		if (filter) {
+			const trimmedFilter = filter.trim().toLowerCase();
+			internalOptionsArr = additionalOptions.filter((option) =>
+				option.label.toLowerCase().includes(trimmedFilter)
+			);
+		}
 
-// const createNewOption = async (newOptionLabel) => {
-// 	const value = `${newOptionLabel}_${additionalOptions.length}`;
-// 	const newOption = {
-// 		label: newOptionLabel,
-// 		value,
-// 	};
+		let optionsToReturn = [];
+		if (limit) {
+			for (let i = offset; i < offset + limit; i++) {
+				if (i < internalOptionsArr.length)
+					optionsToReturn.push(internalOptionsArr[i]);
+			}
+		} else {
+			optionsToReturn = internalOptionsArr;
+		}
 
-// 		//Insert to db
-// 		additionalOptions.push(newOption);
+		return optionsToReturn;
+	};
 
-// 	return newOption;
-// };
+	const createNewOption = async (newOptionLabel) => {
+		const value = `${newOptionLabel}_${additionalOptions.length}`;
+		const newOption = {
+			label: newOptionLabel,
+			value,
+		};
 
-// const fields = useMemo(
-// 	() =>
-// 		[
-// 			{
-// 				name: "checkboxOptions",
-// 				label: "Advanced selection with options prop",
-// 				type: "advancedSelection",
-// 				inputSettings: {
-// 					options,
-// 				},
-// 			},
-// 			{
-// 				name: "getOptions",
-// 				label: "Advanced selection with getOptions prop",
-// 				type: "advancedSelection",
-// 				inputSettings: {
-// 					getOptions,
-// 					getOptionsLimit: 5,
-// 				},
-// 			},
+		// Insert to db
+		additionalOptions.push(newOption);
 
-// 			{
-// 				name: "createNewOption",
-// 				label: "Advanced selection with createNewOption prop",
-// 				type: "advancedSelection",
-// 				inputSettings: {
-// 					options,
-// 					getOptionsLimit: 10,
-// 					createNewOption,
-// 				},
-// 			},
-// 		] as FieldDef<AdvancedSelectionDef>[],
-// 	[options]
-// );
+		return newOption;
+	};
 
-// 	return (
-// 		<>
-// 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-// 			<Form
-// 				buttons={renderButtons(dispatch)}
-// 				title="Form Title"
-// 				description="Description"
-// 				state={state}
-// 				fields={fields}
-// 				dispatch={dispatch}
-// 				onCancel={onCancel}
-// 			/>
-// 		</>
-// 	);
-// };
+	const fields = useMemo(
+		() =>
+			[
+				{
+					name: "checkboxOptions",
+					label: "Advanced selection with options prop",
+					type: "advancedSelection",
+					inputSettings: {
+						options,
+					},
+				},
+				{
+					name: "getOptions",
+					label: "Advanced selection with getOptions prop",
+					type: "advancedSelection",
+					inputSettings: {
+						getOptions,
+						getOptionsLimit: 5,
+					},
+				},
+
+				{
+					name: "createNewOption",
+					label: "Advanced selection with createNewOption prop",
+					type: "advancedSelection",
+					inputSettings: {
+						options,
+						getOptionsLimit: 10,
+						createNewOption,
+					},
+				},
+			] as FieldDef<AdvancedSelectionDef>[],
+		[options]
+	);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				buttons={renderButtons(dispatch)}
+				title="Form Title"
+				description="Description"
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+				onCancel={onCancel}
+			/>
+		</>
+	);
+};
+
+export const KitchenSink = KitchenSinkTemplate.bind({});
+KitchenSink.parameters = { controls: { exclude: [...excludedFormFieldsControls, "additionalOptions"] } };
+KitchenSink.args = {
+	additionalOptions
+};
