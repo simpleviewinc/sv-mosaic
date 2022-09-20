@@ -10,7 +10,7 @@ const Styled = styled.h1`
 	font-size: 20px;
 	font-weight: normal;
 	letter-spacing: -.5px;
-	color: ${theme.colors.black};
+	color: ${props => props.color ? theme.colors[props.color] : theme.colors.black};
 	margin-top: 0px;
 	margin-bottom: .67em;
 `

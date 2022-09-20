@@ -5,7 +5,7 @@ import theme from "@root/theme";
 const chipFont = `
   font-size: 14px;
   font-family: ${theme.fontFamily};
-  font-weight: ${theme.fontWeight.semiBold};
+  font-weight: ${theme.fontWeight.medium};
 `;
 
 export const StyledDeletableChip = styled(Chip)`

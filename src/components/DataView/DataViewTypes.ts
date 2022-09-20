@@ -56,7 +56,6 @@ export interface DataViewFilterDef {
 	component: React.Component
 	column?: string
 	onChange: DataViewFilterOnChange
-	comparisonDefault?: string
 }
 
 export interface DataViewFilterProps {

@@ -45,7 +45,7 @@ export class DataviewPage extends BasePage {
 		this.viewChildren = page.locator("[data-mosaic-id=action_additional_view_children]");
 		this.history = page.locator("[data-mosaic-id=action_additional_history]");
 		this.title = page.locator("text=Your Uploads");
-		this.checkboxRow = page.locator("input[data-indeterminate='false']");
+		this.checkboxRow = page.locator("input[type='checkbox']");
 		this.downloadBtn = page.locator("[data-mosaic-id='action_bulk_download'] button");
 		this.deleteBtn = page.locator("//*[@id='root']/div/div/div[3]/table/thead/tr[1]/th[2]/span/span[2]/button");
 		this.allSelectedLabel = page.locator(".bulkText");

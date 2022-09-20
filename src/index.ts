@@ -89,6 +89,9 @@ export * from "./components/Drawers";
 export { default as SummaryPageTopComponent } from "./components/SummaryPageTopComponent";
 export * from "./components/SummaryPageTopComponent";
 
+export { default as Content } from "./components/Content";
+export * from "./components/Content";
+
 export { default as theme } from "./theme";
 export * from "./theme";
 

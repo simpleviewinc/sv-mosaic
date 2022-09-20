@@ -19,11 +19,11 @@ z-index: 99999 !important;
   }
 
   .MuiDialogContent-root {
-    padding: 0 80px 40px 80px;
+    padding: 0px 30px 40px 30px;
   }
 
   .MuiDialogActions-root {
-    padding: 40px 40px;
+    padding: 20px 20px;
   }
 
   .MuiDialogActions-spacing > :not(:first-child) {
@@ -35,5 +35,5 @@ export const StyledDialogTitle = styled.div`
   color: ${theme.colors.almostBlack};
   font-size: 20px;
   font-weight: ${theme.fontWeight.medium};
-  padding: 80px 80px 32px 80px;  
+  padding: 40px 30px 24px 30px;
 `;

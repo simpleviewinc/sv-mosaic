@@ -48,7 +48,6 @@ test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 		});
 		const imageName = "image-example.png"
 		const imagePath = `${__dirname}/../../utils/data/Images/` + imageName;
-		console.log(imagePath);
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
 		const size = ((await ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.textContent()).replace("Size", "").replace("Remove", "").split("x"));
 		const width = Number(size[0]);

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, ReactElement, useState } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
 
@@ -65,7 +65,7 @@ const ButtonBottomContent = (
 
 const Template = (args) => {
 	const { topContent, bottomContent } = args;
-	
+
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 	const [open, setOpen] = useState(false);
 
@@ -196,26 +196,28 @@ const Mail = styled.span`
 `;
 
 const Link = styled.span`
-	color: ${theme.colors.blueTeal};
+	color: ${theme.colors.teal};
 	cursor: pointer;
 	font-weight: ${theme.fontWeight.semiBold};
 	font-size: 14px;
 `;
 
-const BottomContent = (
-	<div>
-		{options.map((option, idx) => {
-			return (
-				<div key={`${option.label}-${idx}`} style={{ display: "flex", fontSize: 14 }}>
-					<Label>{option.label}:</Label>
-					<Value>{option.value}</Value>
-				</div>
-			) 
-		})}
-		<Mail>mail@gmail.com</Mail>
-		<Link onClick={() => alert("Link clicked")}>www.link.com</Link>
-	</div>
-);
+const BottomContent = (): ReactElement => {
+	return (
+		<div>
+			{options.map((option, idx) => {
+				return (
+					<div key={`${option.label}-${idx}`} style={{ display: "flex", fontSize: 14 }}>
+						<Label>{option.label}:</Label>
+						<Value>{option.value}</Value>
+					</div>
+				)
+			})}
+			<Mail>mail@gmail.com</Mail>
+			<Link onClick={() => alert("Link clicked")}>www.link.com</Link>
+		</div>
+	)
+}
 
 export const TextAndLinks = Template.bind({});
 TextAndLinks.args = {

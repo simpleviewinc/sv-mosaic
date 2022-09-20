@@ -14,8 +14,7 @@ export class SaveAsComponent extends BasePage {
 	readonly tableViews: Locator;
 	readonly editView: Locator;
 	readonly editCheckbox: Locator;
-	readonly closeSaveViewBtn: Locator;
-	readonly closeEditViewBtn: Locator;
+	readonly closeViewBtn: Locator;
 	readonly overwriteBtn: Locator;
 
 	constructor(page: Page) {
@@ -32,8 +31,7 @@ export class SaveAsComponent extends BasePage {
 		this.tableViews = page.locator(".viewContainer table tbody");
 		this.editView = page.locator("//html/body/div[6]/div[3]/div/div");
 		this.editCheckbox = this.editView.locator("input[type=checkbox]");
-		this.closeSaveViewBtn = page.locator("//html/body/div[5]/div[3]/div/div/div[1]/div[1]/span/button");
-		this.closeEditViewBtn = page.locator("//html/body/div[6]/div[3]/div/div/div[1]/div[1]/span/button");
+		this.closeViewBtn = page.locator(".left .iconButton button");
 	}
 
 	async selectSaveAsOption(option: number): Promise<void> {
@@ -64,7 +62,6 @@ export class SaveAsComponent extends BasePage {
 	}
 
 	async findRowByLabel(name: string): Promise<Locator> {
-
 		if (await this.tableViews.nth(1).isHidden()) {
 			return this.tableViews.locator(`tr:has-text("${name}")`);
 		} else {

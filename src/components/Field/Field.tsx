@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState, useEffect, useRef, useMemo, memo } from "react";
+import { ReactElement, useState, useEffect, useRef, memo } from "react";
 import { StyledFieldContainer, StyledFieldWrapper } from "./Field.styled";
 
 import { default as Label } from "./Label";
@@ -79,21 +79,6 @@ const Field = ({
 		}
 	};
 
-	const labelMargin = useMemo(() => {
-		let labelMargin = "8px";
-		if (
-			//fieldDef?.type === 'advancedSelection' ||
-			fieldDef?.type === "imageUpload" ||
-			fieldDef?.type === "address"
-		) {
-			return (labelMargin = "16px");
-		} else if (fieldDef?.type === "table") {
-			return (labelMargin = "13px");
-		}
-
-		return labelMargin;
-	}, [fieldDef?.type]);
-
 	return (
 		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper
@@ -106,7 +91,6 @@ const Field = ({
 						|| (fieldDef?.instructionText && renderAsTooltip))
 					&&
 					<Label
-						labelMargin={labelMargin}
 						disabled={fieldDef?.disabled}
 						required={fieldDef?.required}
 						htmlFor={fieldDef?.name}
@@ -125,7 +109,6 @@ const Field = ({
 				<InstructionText
 					ref={description}
 					tooltip={renderAsTooltip}
-					labelMargin={labelMargin}
 				>
 					{fieldDef?.instructionText}
 				</InstructionText>

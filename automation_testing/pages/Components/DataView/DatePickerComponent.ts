@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { getMonthFromString } from "../../../utils/helpers/helper";
+import { getMonthNumber } from "../../../utils/helpers/dateHelper";
 
 export class DatePickerComponent {
 	readonly page: Page;
@@ -15,19 +15,17 @@ export class DatePickerComponent {
 
 	constructor(page: Page) {
 		this.page = page;
-
-		this.datepickerDiv = page.locator("div.MuiDialog-paper");
-		this.year = page.locator("h6");
+		this.datepickerDiv = page.locator("div[role='dialog']");
+		this.year = page.locator("[aria-live='polite'][role='presentation'] button");
 		this.selectorYear = page.locator(".MuiPickersYear-root");
-		this.leftArrow = page.locator(".MuiPickersCalendarHeader-iconButton").nth(0);
-		this.rightArrow = page.locator(".MuiPickersCalendarHeader-iconButton").nth(1);
-		this.selectorDay = page.locator(".MuiPickersDay-day");
-		this.monthLabel = page.locator(".MuiPickersCalendarHeader-transitionContainer.MuiPickersSlideTransition-transitionContainer");
-		this.okBtn = this.datepickerDiv.locator("text=OK");
+		this.leftArrow = page.locator("button[title='Previous month']");
+		this.rightArrow = page.locator("button[title='Next month']");
+		this.selectorDay = page.locator("button[role='gridcell']");
+		this.monthLabel = page.locator("[role='presentation'] .PrivatePickersFadeTransitionGroup-root");
 	}
 
 	async selectYear(year: string): Promise<void> {
-		await this.selectorYear.locator(`text=${year}`).click();
+		await this.page.locator("button", {hasText: year} ).click();
 	}
 
 	async selectDay(day: string): Promise<void> {
@@ -36,13 +34,13 @@ export class DatePickerComponent {
 
 	async findMonth(month: string): Promise<void> {
 		let isMonth = true;
+		const expectedMonthNumber = getMonthNumber(month);
 		while (isMonth) {
-			const calendar = (await this.monthLabel.textContent()).split(" ")[0];
-			const currentMonth = await getMonthFromString(calendar);
-			const expectedMonth = await getMonthFromString(month);
-			if (currentMonth > expectedMonth) {
+			const currentMonth = (await this.monthLabel.textContent()).split(" ")[0];
+			const currentMonthNumber = getMonthNumber(currentMonth);
+			if (currentMonthNumber > expectedMonthNumber) {
 				await this.leftArrow.click();
-			} else if (currentMonth < expectedMonth) {
+			} else if (currentMonthNumber < expectedMonthNumber) {
 				await this.rightArrow.click();
 			} else {
 				isMonth = false;

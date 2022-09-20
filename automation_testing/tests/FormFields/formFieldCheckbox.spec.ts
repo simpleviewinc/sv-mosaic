@@ -20,5 +20,4 @@ test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 			await expect(formFieldCheckboxPage.disabledCheckboxButton.locator("[data-testid='label-test-id']").nth(i)).toBeDisabled();
 		}
 	});
-
 });

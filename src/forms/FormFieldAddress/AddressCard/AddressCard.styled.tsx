@@ -19,12 +19,13 @@ export const StyledAddressCard = styled.div`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+	line-height: 20px;
   }
 `;
 
 export const AddressTitle = styled.span`
   font-weight: ${theme.fontWeight.semiBold};
-  margin-bottom: 12px;
+  margin-bottom: 12px !important;
 `;
 
 export const ButtonsWrapper = styled.div`

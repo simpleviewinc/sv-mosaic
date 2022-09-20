@@ -13,7 +13,6 @@ export class FormFieldColorPickerPage extends BasePage {
 	readonly hexColorInput: Locator;
 	readonly colorSketchPicker: Locator;
 
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -21,7 +20,7 @@ export class FormFieldColorPickerPage extends BasePage {
 		this.disabledColorPicker = page.locator("[data-testid='colordiv-test']").nth(1);
 		this.disabledColorPickerLabel = page.locator("label[for='colorDisabled']")
 		this.hexColorInput = page.locator(".flexbox-fix input").nth(0);
-		this.colorSketchPicker = page.locator("//*[@id='root']/div/form/div[2]/div[1]/div/div/div/div/div/div[3]/div[2]/div[1]");
+		this.colorSketchPicker = page.locator(".saturation-black");
 	}
 
 	async visitPage(): Promise<void> {

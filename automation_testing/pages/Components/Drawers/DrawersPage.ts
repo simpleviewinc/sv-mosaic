@@ -47,6 +47,4 @@ export class Drawers extends BasePage {
 			await this.goBackButton.nth(i).click();
 		}
 	}
-
-
 }
