@@ -1,23 +1,32 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { dataview_data, saveAs_data } from "../../../utils/data/dataview_data";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { SaveAsComponent } from "../../../pages/Components/DataView/SaveAsComponent";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 // import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
-test.describe("Data View - Save As", () => {
-
+test.describe.parallel("Data View - Save As", () => {
+	let page: Page;
 	let dataviewPage: DataviewPage;
 	let saveAs: SaveAsComponent;
 	let pagination: PaginationComponent;
 	// let columns: ColumnsComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		saveAs = dataviewPage.saveAsComponent;
 		pagination = dataviewPage.paginationComponent;
 		// columns = dataviewPage.columnsComponent;
 		await dataviewPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await saveAs.removeAllSavedViews();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test.skip("Save As", async () => {
