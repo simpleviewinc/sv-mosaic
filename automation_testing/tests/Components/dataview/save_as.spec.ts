@@ -5,7 +5,7 @@ import { SaveAsComponent } from "../../../pages/Components/DataView/SaveAsCompon
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 // import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
-test.describe.parallel("Data View - Save As", () => {
+test.describe.parallel("Components - Data View - Save As", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let saveAs: SaveAsComponent;

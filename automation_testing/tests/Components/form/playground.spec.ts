@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
 
-test.describe.parallel("Form - Playground", () => {
+test.describe.parallel("Components - Form - Playground", () => {
 	let page: Page;
 	let playgroundPage: PlaygroundPage;
 

@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/left_nav_data";
 
-test.describe.parallel("LeftNav", () => {
+test.describe.parallel("Components - LeftNav", () => {
 	let page: Page;
 	let leftNavPage: LeftNavPage;
 

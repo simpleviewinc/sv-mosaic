@@ -4,7 +4,7 @@ import { FilterComponent } from "../../../pages/Components/DataView/FilterCompon
 import { dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { addQuotes, addComma } from "../../../utils/helpers/helper";
 
-test.describe.parallel("DataView - Filter", () => {
+test.describe.parallel("Components - Data View - Filter", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let filter: FilterComponent;
