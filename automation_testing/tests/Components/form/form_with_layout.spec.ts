@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormWithLayout } from "../../../pages/Components/Form/FormWithLayoutPage";
 
 test.describe("Form - Form With Layout", () => {
+	let page: Page;
 	let formWithLayoutPage: FormWithLayout;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formWithLayoutPage = new FormWithLayout(page);
 		await formWithLayoutPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate that each Section has a Title", async () => {
