@@ -1,16 +1,26 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { ValidatorPage } from "../../../pages/Components/Form/ValidatorPage";
 import { DatePickerComponent } from "../../../pages/Components/DataView/DatePickerComponent";
 import { validatorsData as validatorData } from "../../../utils/data/form_data";
 
-test.describe("Form - Validators", () => {
+test.describe.parallel("Form - Validators", () => {
+	let page: Page;
 	let validatorPage: ValidatorPage;
 	let datepicker: DatePickerComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		validatorPage = new ValidatorPage(page);
 		datepicker = new DatePickerComponent(page);
 		await validatorPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test.skip("Cancel", async () => {
