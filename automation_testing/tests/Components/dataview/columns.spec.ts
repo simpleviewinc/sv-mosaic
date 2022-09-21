@@ -5,7 +5,7 @@ import { PaginationComponent } from "../../../pages/Components/DataView/Paginati
 import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
 
-test.describe.parallel("DataView - Columns", () => {
+test.describe.parallel("Components - Data View - Columns", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let columns: ColumnsComponent;

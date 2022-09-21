@@ -3,7 +3,7 @@ import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComp
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataview_data";
 
-test.describe.parallel("Data View", () => {
+test.describe.parallel("Components - Data View", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let columns: ColumnsComponent;
