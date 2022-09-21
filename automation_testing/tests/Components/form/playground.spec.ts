@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
 
 test.describe.parallel("Form - Playground", () => {
+	let page: Page;
 	let playgroundPage: PlaygroundPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		playgroundPage = new PlaygroundPage(page);
 		await playgroundPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate error messages when saving with empty required fields", async () => {
