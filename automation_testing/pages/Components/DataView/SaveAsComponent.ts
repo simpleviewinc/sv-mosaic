@@ -16,6 +16,7 @@ export class SaveAsComponent extends BasePage {
 	readonly editCheckbox: Locator;
 	readonly closeViewBtn: Locator;
 	readonly overwriteBtn: Locator;
+	readonly threeDotsLocator: string
 
 	constructor(page: Page) {
 		super(page);
@@ -32,6 +33,7 @@ export class SaveAsComponent extends BasePage {
 		this.editView = page.locator("//html/body/div[6]/div[3]/div/div");
 		this.editCheckbox = this.editView.locator("input[type=checkbox]");
 		this.closeViewBtn = page.locator(".left .iconButton button");
+		this.threeDotsLocator = "[data-mosaic-id='additional_actions_dropdown'] [data-testid='icon-button-test']";
 	}
 
 	async selectSaveAsOption(option: number): Promise<void> {
@@ -95,5 +97,20 @@ export class SaveAsComponent extends BasePage {
 
 	async isLabelPresent(name: string): Promise<boolean> {
 		return this.tableViews.locator(`tr:has-text("${name}")`).isVisible();
+	}
+
+	async removeAllSavedViews(): Promise<void> {
+		//First we check that the Saved Views are open.
+		await this.wait();
+		if (!await this.tableViews.nth(1).isVisible()) {
+			await this.viewBtn.click();
+			await this.wait();
+		}
+		const numberOfSavedViews = await this.tableViews.nth(1).locator(this.threeDotsLocator).count();
+		for (let i = 0; i < numberOfSavedViews; i++) {
+			await this.tableViews.nth(1).locator(this.threeDotsLocator).nth(0).click();
+			await this.page.locator("text=Remove").click();
+		}
+		await this.closeViewBtn.click({ force: true });
 	}
 }
