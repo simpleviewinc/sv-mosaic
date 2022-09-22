@@ -11,7 +11,8 @@ export const ButtonWrapper = styled.span`
     display: block;
   }
 
-  & > button {
+  & > button,
+  & > a {
 	font-family: ${theme.fontFamily};
 	text-transform: none;
 	font-size: 14px;
@@ -19,6 +20,10 @@ export const ButtonWrapper = styled.span`
 	min-width: auto;
 	line-height: 1.715;
 	letter-spacing: 1px;
+  }
+
+  & > a {
+	text-transform: uppercase;
   }
 
   &.normalButton > button {
