@@ -432,10 +432,10 @@ const fields = useMemo(
 	* **value** - `string[]` - Value that will be saved to the DB when the option gets selected.
 - inputSettings:
 	* **createNewOption** - `(newOptionLabel: string) => Promise<MosaicLabelValue>` optional -  Function used to insert more options either on the local options array, or on the DB.
-	* **options** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
+	* **options** - `object` optional -  Function used to get the full info (label, value) of all selected options. This prop only applies when getting options locally.
 		* **label** - `string` required -  Text users will see to identify the option.
 		* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
-	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<{label: string, value: string, category: string}[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
+	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
 	* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB.
 
 ### How to use in a form?
@@ -445,12 +445,10 @@ const externalOptions = [
 	{
 		label: "Option1",
 		value: "value1",
-		category: "Category1",
 	},
 	{
 		label: "Option2",
 		value: "value2",
-		category: "Category2",
 	}
 ]
 
@@ -546,7 +544,8 @@ const fields = useMemo(
 - [**Playground**](/?path=/story/formfields-formfieldchipsingleselect--playground)
 - Data: `string` - Value of the selected option.
 - inputSettings:
-	* **options** - `array` of `{ label: string, value: string, selected?: boolean }` required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not.
+	* **options** - `array` of `{ label: string, value: string, selected?: boolean }` optional - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not.
+	* **getOptions** - `() => Promise<MosaicLabelValue[]>` optional - Function to get a set of options. This prop only applies when getting options from a DB.
 	* **onSelect** - `(...args) => void` optional - Callback to be executed when an option gets selected.
 
 ### How to use in a form?
@@ -564,8 +563,14 @@ const fields = useMemo(
 							label: "Option1",
 							value: "value1",
 							selected: false,
+						},
+						{
+							label: "Option2",
+							value: "value2",
+							selected: true,
 						}
-					]
+					],
+					getOptions: myGetOptionsFn,
 				}
 			},
 			//...other fields
