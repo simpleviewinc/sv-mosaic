@@ -27,4 +27,17 @@ export class FormFieldTextEditorPage extends BasePage {
 	async visitPage(): Promise<void> {
 		await this.visit(this.page_path, this.textEditorWithSpellcheckActive);
 	}
+
+	async clearAllValuesFromTextArea(): Promise<void> {
+		await this.textEditorWithSpellcheckActive.selectText();
+		await this.clearAllValuesFromField();
+		await this.textEditorWithLeftToRightDirection.selectText();
+		await this.clearAllValuesFromField();
+		await this.textEditorWithRightToLeftDirection.selectText();
+		await this.clearAllValuesFromField();
+		await this.textEditorInGermanLanguage.selectText();
+		await this.clearAllValuesFromField();
+		await this.textEditorWithMaxCharacterLimit.selectText();
+		await this.clearAllValuesFromField();
+	}
 }
