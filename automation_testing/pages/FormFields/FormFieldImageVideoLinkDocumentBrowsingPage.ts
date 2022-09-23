@@ -33,7 +33,7 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 		this.browsingVideoWithSrcCard = page.locator("//*[@id='3']");
 		this.videoWithSrcButton = page.locator("//*[@id='3']/div/div/div/div/div/div[2]/div/div/div/div[1]");
 		this.browsingDocumentCard = page.locator("//*[@id='4']");
-		this.documentButton = page.locator("//*[@id='4']/div/div/div/div/div/div[2]/div/div/div/div[1]");
+		this.documentButton = page.locator("[data-testid='browse-document-test']").nth(1);
 		this.linkButton = page.locator("//*[@id='5']/div/div/div/div/div/div[2]/div/div/div/div[1]");
 		this.browsingWithoutAnyOptionsCard = page.locator("//*[@id='6']");
 		this.disabledCard = page.locator("//*[@id='7']");
