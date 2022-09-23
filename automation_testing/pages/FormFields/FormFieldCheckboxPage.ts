@@ -9,7 +9,7 @@ export class FormFieldCheckboxPage extends BasePage {
 	readonly page: Page;
 	readonly regularCheckboxButton: Locator;
 	readonly disabledCheckboxButton: Locator;
-	
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -25,5 +25,9 @@ export class FormFieldCheckboxPage extends BasePage {
 		const optionSelected = randomIntFromInterval(1, await this.regularCheckboxButton.locator("[data-testid='label-test-id']").count()) - 1;
 		await this.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(optionSelected).check();
 		return optionSelected;
+	}
+
+	async uncheckCheckboxOption(option: number): Promise<void> {
+		await this.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(option).uncheck();
 	}
 }
