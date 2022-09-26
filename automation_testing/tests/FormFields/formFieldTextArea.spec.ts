@@ -41,7 +41,7 @@ test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 		const width = Number((await ((formFieldTextAreaPage.xsSizeTextArea).evaluate(el => getComputedStyle(el).width))).split("px")[0]);
 		expect(width).toBe(100);
 	});
-	
+
 	test("Validate sm regular text size is valid", async () => {
 		const width = Number((await ((formFieldTextAreaPage.smSizeTextArea).evaluate(el => getComputedStyle(el).width))).split("px")[0]);
 		expect(width).toBe(280);
@@ -55,5 +55,18 @@ test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 	test("Validate lg regular text size is valid", async () => {
 		const width = Number((await ((formFieldTextAreaPage.lgSizeTextArea).evaluate(el => getComputedStyle(el).width))).split("px")[0]);
 		expect(width).toBe(620);
+	});
+
+	test("Validate that the empty value is saved correctly.", async ({ page }) => {
+		const sampleText = "regular example text";
+		await formFieldTextAreaPage.regularTextArea.type(sampleText);
+		await formFieldTextAreaPage.saveBtn.click();
+		await formFieldTextAreaPage.regularTextArea.selectText();
+		await formFieldTextAreaPage.clearAllValuesFromField();
+		await formFieldTextAreaPage.saveBtn.click();
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("Form submitted with the following data: {}");
+			await dialog.accept();
+		});
 	});
 });
