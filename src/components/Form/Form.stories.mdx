@@ -946,7 +946,8 @@ const fields = useMemo(
 - Data: `string` - String of the selected option.
 - inputSettings:
 	* **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
-	* **options** - `array` of `MosaicLabelValue` Required - Array of options to be displayed on the options.
+	* **options** - `array` of `MosaicLabelValue` optional - Array of options to be displayed on the options.
+	* **getOptions** - `() => Promise<MosaicLabelValue[]>` optional - Function to get a set of options. This prop only applies when getting options from a DB.
 
 ### How to use in a form?
 ```ts
@@ -964,6 +965,7 @@ const fields = useMemo(
 						{ label: "The Godfather: Part II", value: "1974" },
 						{ label: "The Dark Knight", value: "2008" }
 					],
+					getOptions: myGetOptionsFn,
 					placeholder: "Placeholder",
 				}
 			},

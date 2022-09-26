@@ -83,7 +83,10 @@ export const Playground = (): ReactElement => {
 			"label": "Label 4",
 			"value": "label_4"
 		},
-		"dropdownSingle": "1972",
+		"dropdownSingle": {
+			label: "Option 1",
+			value: "option1"
+		},
 		"phoneSelect": "15205751151",
 		"radio": {
 			label: "Label 4",

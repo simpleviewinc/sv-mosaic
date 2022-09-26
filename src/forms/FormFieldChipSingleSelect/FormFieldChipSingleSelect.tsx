@@ -10,6 +10,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
 import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
 import { MosaicLabelValue } from "@root/types";
+import { getNewOptions } from "@root/utils/getOptions";
 
 const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef>): ReactElement => {
 	const {
@@ -54,11 +55,6 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 			}
 		}
 	}, [internalOptions]);
-
-	const getNewOptions = async () => {
-		const newOptions = await fieldDef.inputSettings.getOptions()
-		return newOptions
-	}
 
 	const findSelectedOption = (option: MosaicLabelValue) => {
 		let newOptions = [...internalOptions];

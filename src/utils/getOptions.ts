@@ -10,3 +10,8 @@ export const getOptions: () => Promise<MosaicLabelValue[]> = async () => {
 		}, 2000);
 	})
 };
+
+export const getNewOptions: () => Promise<MosaicLabelValue[]> = async () => {
+	const newOptions = await getOptions();
+	return newOptions;
+}
