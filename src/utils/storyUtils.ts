@@ -28,3 +28,27 @@ export const renderButtons = (dispatch: unknown, show = { showCancel: true, show
 		show: show.showSave
 	},
 ];
+
+export const excludedFormFieldsControls = [
+	"type",
+	"state",
+	"title",
+	"fields",
+	"section",
+	"dispatch",
+	"onCancel",
+	"dialogOpen",
+	"descripton",
+	"getFormValues",
+	"handleDialogClose",
+	"buttons",
+	"description",
+	"sections",
+	"fieldDef",
+	"onChange",
+	"onBlur",
+	"value",
+	"error",
+	"children",
+	"colsInRow",
+];

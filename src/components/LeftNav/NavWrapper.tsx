@@ -58,7 +58,6 @@ const AppDiv = styled.div`
 
 	& > .main {
 		flex: 1 1 0;
-		overflow: hidden;
 		display: flex;
 	}
 
