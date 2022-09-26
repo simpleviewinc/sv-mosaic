@@ -178,4 +178,15 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		expect(options).toContain("Edit");
 		expect(options).toContain("Translate");
 	});
+
+	test("Validate that the empty value is saved correctly.", async ({ page }) => {
+		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
+		await ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("button", { hasText: "Remove" }).click();
+		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("Form submitted with the following data: {}");
+			await dialog.accept();
+		});
+	});
 });
