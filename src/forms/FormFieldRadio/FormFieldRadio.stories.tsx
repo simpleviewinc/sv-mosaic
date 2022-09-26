@@ -8,6 +8,7 @@ import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
+import { getOptions } from "@root/utils/getOptions";
 
 export default {
 	title: "FormFields/FormFieldRadio",
@@ -36,6 +37,8 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "");
 	const helperText = text("Helper text", "");
+	const sendOptions = boolean("Options", true)
+	const shouldUseGetOptions = boolean("Obtain options from db", false);
 
 	const fields = useMemo(
 		() =>
@@ -47,13 +50,14 @@ export const Playground = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						options,
+						options: sendOptions ? options : undefined,
+						getOptions: shouldUseGetOptions ? getOptions : undefined,
 					},
 					helperText,
 					instructionText,
 				}
 			] as FieldDef<FormFieldRadioDef>[],
-		[label, required, disabled, instructionText, helperText]
+		[label, required, disabled, instructionText, helperText, shouldUseGetOptions, sendOptions]
 	);
 
 	return (
@@ -97,6 +101,18 @@ export const KitchenSink = (): ReactElement => {
 					disabled: true,
 					inputSettings: {
 						options,
+					},
+					helperText: "Helper text",
+					instructionText: "Instruction text",
+				},
+				{
+					name: "radio-db",
+					label: "From data base example",
+					type: "radio",
+					required: false,
+					disabled: false,
+					inputSettings: {
+						getOptions
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",
