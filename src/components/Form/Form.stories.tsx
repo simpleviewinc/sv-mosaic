@@ -85,7 +85,10 @@ export const Playground = (): ReactElement => {
 		},
 		"dropdownSingle": "1972",
 		"phoneSelect": "15205751151",
-		"radio": "label_3",
+		"radio": {
+			label: "Label 4",
+			value: "label_4"
+		},
 		"toggleSwitch": true,
 		"color": "#a8001791",
 		"date": new Date(),

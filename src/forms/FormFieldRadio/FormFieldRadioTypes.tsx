@@ -12,6 +12,10 @@ export type FormFieldRadioDef = {
 	*/
 	options?: MosaicLabelValue[];
 	/**
+	 * Used to get options from db.
+	 */
+	getOptions?: () => Promise<MosaicLabelValue[]>;
+	/**
 	 * Value of the selected radio button.
 	 */
 	value?: MUIRadioGroup["value"];

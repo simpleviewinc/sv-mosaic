@@ -6,7 +6,7 @@ export type FormFieldChipSingleSelectDef = {
   	*/
 	options?: SelectableOption[];
 	/**
-	 * Used to get the selected options on the parent component.
+	 * Used to get options from db.
 	 */
 	getOptions?: () => Promise<MosaicLabelValue[]>;
 	/**
