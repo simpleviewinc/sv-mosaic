@@ -1,14 +1,15 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { FormFieldToggleSwitchDef } from ".";
+import FormFieldToggleSwitch, { FormFieldToggleSwitchDef } from ".";
 import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
 import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldToggleSwitch",
-	component: Form,
-};
+	component: FormFieldToggleSwitch,
+} as ComponentMeta<typeof FormFieldToggleSwitch>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

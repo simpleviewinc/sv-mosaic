@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
-import { DropdownSingleSelectionDef } from ".";
+import FormFieldDropdownSingleSelection, { DropdownSingleSelectionDef } from ".";
 import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -16,7 +17,7 @@ export default {
 			control: "select",
 		},
 	},
-};
+} as ComponentMeta<typeof FormFieldDropdownSingleSelection>;
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const options = [
@@ -54,7 +55,8 @@ const Template = (args) => {
 		helperText,
 		instructionText,
 		label,
-		disabled
+		disabled,
+		optionsArgs
 	} = args;
 
 	const playgroundFields = useMemo(
@@ -68,7 +70,7 @@ const Template = (args) => {
 					disabled,
 					size,
 					inputSettings: {
-						options,
+						options: optionsArgs,
 						placeholder,
 					},
 					helperText,
@@ -84,6 +86,7 @@ const Template = (args) => {
 			helperText,
 			instructionText,
 			label,
+			optionsArgs
 		]
 	);
 
@@ -112,7 +115,8 @@ Playground.args = {
 	instructionText: "Instruction text",
 	helperText: "Helper text",
 	size: "sm",
-	placeholder: "placeholder"
+	placeholder: "placeholder",
+	optionsArgs: options
 };
 
 const kitchenSinkFields = [

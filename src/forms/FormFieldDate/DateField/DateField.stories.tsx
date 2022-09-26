@@ -1,18 +1,19 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
-import { DateFieldDef } from "./DateFieldTypes";
+import FormFieldDateField, { DateFieldDef } from ".";
 import Form, { useForm } from "@root/components/Form";
 import {
 	excludedFormFieldsControls,
 	onCancel,
 	renderButtons,
 } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldDateField",
-	component: Form,
-};
+	component: FormFieldDateField,
+}  as ComponentMeta<typeof FormFieldDateField>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

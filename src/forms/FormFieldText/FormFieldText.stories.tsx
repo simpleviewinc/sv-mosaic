@@ -4,6 +4,7 @@ import FormFieldText, { TextFieldDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 // Components
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -21,7 +22,7 @@ export default {
 			control: "select",
 		},
 	},
-};
+} as ComponentMeta<typeof FormFieldText>;
 
 const Template = (args) => {
 	const {

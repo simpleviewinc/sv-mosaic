@@ -3,19 +3,20 @@ import * as React from "react";
 import { useMemo } from "react";
 import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
-import { TextEditorDef } from "./FormFieldTextEditorTypes";
 import { excludedFormFieldsControls, renderButtons } from "@root/utils/storyUtils";
+import FormFieldTextEditor, { TextEditorDef } from ".";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldTextEditor",
-	component: Form,
+	component: FormFieldTextEditor,
 	argTypes: {
 		direction: {
 			options: ["ltr", "rtl"],
 			control: "select"
 		},
 	}
-};
+} as ComponentMeta<typeof FormFieldTextEditor>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

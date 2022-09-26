@@ -1,18 +1,19 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { PhoneSelectionDef } from "./FormFieldPhoneSelectionDropdownTypes";
-import { FieldDef } from "@root/components/Field";
+import FormFieldPhoneSelectionDropdown, { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import {
 	excludedFormFieldsControls,
 	onCancel,
 	renderButtons,
 } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldPhoneSelectionDropdown",
-	component: Form,
-};
+	component: FormFieldPhoneSelectionDropdown,
+} as ComponentMeta<typeof FormFieldPhoneSelectionDropdown>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

@@ -38,6 +38,7 @@ const Template = (args) => {
 		instructionText,
 		required,
 		disabled,
+		optionsArgs
 	} = args;
 
 	const playgroundFields = useMemo(
@@ -52,11 +53,11 @@ const Template = (args) => {
 					name: "Form Field Chip Single Select",
 					type: "chip",
 					inputSettings: {
-						options,
+						options: optionsArgs
 					},
 				},
 			] as FieldDef<FormFieldChipSingleSelectDef>[],
-		[label, helperText, instructionText, required, disabled]
+		[label, helperText, instructionText, required, disabled, optionsArgs]
 	);
 
 	return (
@@ -83,6 +84,7 @@ Playground.args = {
 	disabled: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
+	optionsArgs: options
 };
 
 const kitchenSinkFields = [

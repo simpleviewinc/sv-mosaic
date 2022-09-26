@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { FormFieldRadioDef } from ".";
+import FormFieldRadio, { FormFieldRadioDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import {
 	excludedFormFieldsControls,
@@ -8,11 +8,12 @@ import {
 	renderButtons,
 } from "@root/utils/storyUtils";
 import Form, { useForm } from "@root/components/Form";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldRadio",
-	component: Form,
-};
+	component: FormFieldRadio,
+} as ComponentMeta<typeof FormFieldRadio>;
 
 const options = [
 	{

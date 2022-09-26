@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useEffect, useMemo, useState, useCallback, ReactElement } from "react";
+import { ComponentMeta } from "@storybook/react";
 
 // Utils
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils";
@@ -46,7 +47,7 @@ import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 export default {
 	title: "Components/Form",
 	component: Form,
-};
+} as ComponentMeta<typeof Form>;
 
 const deleteTableRow = () => {
 	alert("Delete button clicked");

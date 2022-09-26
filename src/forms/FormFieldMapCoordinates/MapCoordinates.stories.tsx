@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
-import { MapCoordinatesDef } from ".";
+import FormFieldMapCoordinates, { MapCoordinatesDef } from ".";
 import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -12,11 +13,11 @@ import { address, defaultMapPosition } from "./MapCoordinatesUtils";
 
 export default {
 	title: "FormFields/FormFieldMapCoordinates",
-	component: Form,
+	component: FormFieldMapCoordinates,
 	argTypes: {
 		zoom: { control: { type: "number", min: 0, max: 18 } }
 	}
-};
+} as ComponentMeta<typeof FormFieldMapCoordinates>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { FormFieldCheckboxDef } from ".";
+import FormFieldCheckbox, { FormFieldCheckboxDef } from ".";
 import { FieldDef } from "@root/components/Field";
+import { ComponentMeta } from "@storybook/react";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -12,8 +13,8 @@ import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
-	component: Form,
-};
+	component: FormFieldCheckbox,
+} as ComponentMeta<typeof FormFieldCheckbox>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();
@@ -23,7 +24,8 @@ const Template = (args) => {
 		fields,
 		disabled,
 		helperText,
-		instructionText
+		instructionText,
+		options
 	} = args;
 
 	const playgroundFields = useMemo(
@@ -36,13 +38,13 @@ const Template = (args) => {
 					required,
 					disabled,
 					inputSettings: {
-						options: checkboxOptions,
+						options,
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef<FormFieldCheckboxDef>[],
-		[required, disabled, label, instructionText, helperText]
+		[required, disabled, label, instructionText, helperText, options]
 	);
 
 	return (
@@ -69,6 +71,7 @@ Playground.args = {
 	disabled: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
+	options: checkboxOptions
 };
 
 

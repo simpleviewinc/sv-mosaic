@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { ImageUploadDef } from ".";
-import { FieldDef } from "@root/components/Field";
+import FormFieldImageUpload, { FieldDef } from "@root/components/Field";
+import { ComponentMeta } from "@storybook/react";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -12,8 +13,8 @@ import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils
 
 export default {
 	title: "FormFields/FormFieldImageUpload",
-	component: Form,
-};
+	component: FormFieldImageUpload,
+} as ComponentMeta<typeof FormFieldImageUpload>;
 
 const handleSetFocus = () => {
 	alert("Set focus is called");

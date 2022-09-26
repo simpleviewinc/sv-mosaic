@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { TextAreaDef } from ".";
+import FormFieldTextArea, { TextAreaDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import {
@@ -8,17 +8,18 @@ import {
 	onCancel,
 	renderButtons,
 } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldTextArea",
-	component: Form,
+	component: FormFieldTextArea,
 	argTypes: {
 		size: {
 			options: ["xs", "sm", "md", "lg"],
 			control: "select",
 		},
 	},
-};
+} as ComponentMeta<typeof FormFieldTextArea>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

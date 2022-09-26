@@ -1,13 +1,14 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { FieldDef } from "@root/components/Field";
+import FormFieldColorPicker, { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldColorPicker",
 	component: Form,
-};
+} as ComponentMeta<typeof FormFieldColorPicker>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

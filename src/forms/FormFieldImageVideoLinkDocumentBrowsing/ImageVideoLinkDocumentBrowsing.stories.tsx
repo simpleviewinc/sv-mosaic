@@ -1,12 +1,13 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { FieldDef } from "@root/components/Field";
+import FormFieldImageVideoLinkDocumentBrowsing, { FieldDef } from "@root/components/Field";
 import { ImageVideoDocumentLinkBrowsingDef } from ".";
 import {
 	excludedFormFieldsControls,
 	onCancel,
 	renderButtons,
 } from "@root/utils/storyUtils";
+import { ComponentMeta } from "@storybook/react";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -20,8 +21,8 @@ import {
 
 export default {
 	title: "FormFields/FormFieldImageVideoLinkDocumentBrowsing",
-	component: Form,
-};
+	component: FormFieldImageVideoLinkDocumentBrowsing,
+} as ComponentMeta<typeof FormFieldImageVideoLinkDocumentBrowsing>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

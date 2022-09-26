@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { TableDef } from "./TableTypes";
+import FormFieldTable, { TableDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
+import { ComponentMeta } from "@storybook/react";
 
 // Utils
 import {
@@ -14,8 +15,8 @@ import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils
 
 export default {
 	title: "FormFields/FormFieldTable",
-	component: Form,
-};
+	component: FormFieldTable,
+} as ComponentMeta<typeof FormFieldTable>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

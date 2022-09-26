@@ -1,13 +1,14 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { excludedFormFieldsControls, onCancel, renderButtons } from "@root/utils/storyUtils";
-import { FieldDef } from "../../components/Field";
+import FormFieldAddress, { FieldDef } from "../../components/Field";
 import Form, { useForm } from "@root/components/Form";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
 	title: "FormFields/FormFieldAddress",
-	component: Form,
-};
+	component: FormFieldAddress,
+} as ComponentMeta<typeof FormFieldAddress>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();

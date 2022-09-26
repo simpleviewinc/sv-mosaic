@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { AdvancedSelectionDef } from ".";
-import { FieldDef } from "@root/components/Field";
+import FormFieldAdvancedSelection, { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import {
 	excludedFormFieldsControls,
@@ -9,6 +9,7 @@ import {
 	renderButtons,
 } from "@root/utils/storyUtils";
 import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
+import { ComponentMeta } from "@storybook/react";
 
 // Components
 import { MosaicLabelValue } from "@root/types";
@@ -16,7 +17,7 @@ import { MosaicLabelValue } from "@root/types";
 export default {
 	title: "FormFields/FormFieldAdvancedSelection",
 	component: Form,
-};
+} as ComponentMeta<typeof FormFieldAdvancedSelection>;
 
 const Template = (args) => {
 	const { state, dispatch } = useForm();
