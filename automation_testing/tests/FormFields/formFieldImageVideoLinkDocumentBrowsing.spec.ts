@@ -11,6 +11,10 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.visitPage();
 	});
 
+	test.beforeEach(async() => {
+		await ffImageVideoLinkDocumentBrowsingPage.removeAllVisibleCards()
+	});
+
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
@@ -24,7 +28,6 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate Image without src information", async () => {
-		await page.reload();
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
@@ -41,12 +44,10 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 			expect(dialog.message()).toContain("Set video is called");
 			await dialog.accept();
 		});
-		await page.reload();
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithoutSrcButton.click();
 	});
 
 	test("Validate Video without src information", async () => {
-		await page.reload();
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithoutSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
@@ -68,7 +69,6 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate Image with src information", async () => {
-		await page.reload();
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
@@ -90,7 +90,6 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate Video with src information", async () => {
-		await page.reload();
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
@@ -133,7 +132,6 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate Link card information", async () => {
-		await page.reload();
 		await ffImageVideoLinkDocumentBrowsingPage.linkButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
@@ -157,7 +155,6 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate More tooltip options in Card.", async () => {
-		await page.reload();
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.moreButton.hover();
 		await expect(ffImageVideoLinkDocumentBrowsingPage.page.locator("[role='tooltip']")).toBeVisible();
@@ -177,9 +174,10 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		const options = await ffImageVideoLinkDocumentBrowsingPage.getThreePointsOptionsText();
 		expect(options).toContain("Edit");
 		expect(options).toContain("Translate");
+		await page.keyboard.press("Escape");
 	});
 
-	test("Validate that the empty value is saved correctly.", async ({ page }) => {
+	test("Validate that the empty value is saved correctly.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
 		await ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("button", { hasText: "Remove" }).click();
