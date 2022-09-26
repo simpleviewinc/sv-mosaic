@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import {
 	StyledAutocomplete,
 	StyledDisabledDropdownText,
@@ -13,18 +13,41 @@ import { CustomPopperProps, DropdownSingleSelectionDef } from "./FormFieldDropdo
 import InputWrapper from "../../components/InputWrapper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import TextField from "@mui/material/TextField";
+import { MosaicLabelValue } from "@root/types";
+import { getNewOptions } from "@root/utils/getOptions";
 
-const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, string>) => {
+const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, MosaicLabelValue>) => {
 	const {
 		fieldDef,
 		error,
 		onChange,
 		onBlur,
-		value = ""
+		value
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [dropDownValue, setDropDownValue] = useState(null);
+
+	const [internalOptions, setInternalOptions] = useState([]);
+
+	useEffect(() => {
+		if (fieldDef?.inputSettings?.options) {
+			setInternalOptions(fieldDef.inputSettings.options);
+
+		} else if (fieldDef?.inputSettings?.getOptions) {
+			getNewOptions().then((newOptions) => setInternalOptions(newOptions));
+
+		} else {
+			throw new Error("You must provide an options array or the getOptions method");
+		}
+	}, [fieldDef.inputSettings]);
+
+	useEffect(() => {
+		if (value) {
+			if (!internalOptions.find((o) => o?.value === value?.value))
+				setInternalOptions([...internalOptions, value]);
+		}
+	}, [internalOptions, value]);
 
 	const renderInput = (params) => (
 		<InputWrapper>
@@ -42,16 +65,16 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		setIsOpen(!isOpen)
 	}
 
-	const onDropDownChange = async (option) => {
+	const onDropDownChange = async (option: MosaicLabelValue) => {
 		setDropDownValue(option)
-		onChange && (await onChange(option?.value));
+		onChange && (await onChange(option));
 	}
 
-	const selectedOption = fieldDef?.inputSettings?.options.find(option => {
-		return option.value === value;
+	const selectedOption = internalOptions.find(option => {
+		return option.value === value?.value;
 	});
 
-	const isOptionEqualToValue = (option, value) => {
+	const isOptionEqualToValue = (option: MosaicLabelValue, value: MosaicLabelValue) => {
 		if (value.value === "") {
 			return true;
 		}
@@ -60,7 +83,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 	}
 
 	const CustomPopper = (props: CustomPopperProps) => {
-		return <StyledPopper value={value === ""} {...props} />;
+		return <StyledPopper value={value?.value === ""} {...props} />;
 	};
 
 	return (
@@ -72,7 +95,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
-						options={fieldDef?.inputSettings?.options}
+						options={internalOptions}
 						getOptionLabel={(option) => option?.label ? option.label : ""}
 						isOptionEqualToValue={isOptionEqualToValue}
 						onChange={(_event, option) => onDropDownChange(option)}
