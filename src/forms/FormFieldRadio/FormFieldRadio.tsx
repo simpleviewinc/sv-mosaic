@@ -9,6 +9,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldRadioDef } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
 import { MosaicLabelValue } from "@root/types";
+import { getNewOptions } from "@root/utils/getOptions";
 
 const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelValue>): ReactElement => {
 	const {
@@ -38,11 +39,6 @@ const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelVa
 				setInternalOptions([...internalOptions, value]);
 		}
 	}, [internalOptions, value]);
-
-	const getNewOptions = async () => {
-		const newOptions = await fieldDef.inputSettings.getOptions();
-		return newOptions;
-	}
 
 	const listOfRadios = (
 		<>
