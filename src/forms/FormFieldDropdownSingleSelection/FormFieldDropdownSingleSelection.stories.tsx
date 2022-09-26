@@ -7,6 +7,7 @@ import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
+import { getOptions } from "@root/utils/getOptions";
 
 export default {
 	title: "FormFields/FormFieldDropdownSingleSelection",
@@ -53,6 +54,8 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
+	const sendOptions = boolean("Options", true)
+	const shouldUseGetOptions = boolean("Obtain options from db", false);
 
 	const fields = useMemo(
 		() =>
@@ -65,7 +68,8 @@ export const Playground = (): ReactElement => {
 					disabled,
 					size,
 					inputSettings: {
-						options,
+						options: sendOptions ? options : undefined,
+						getOptions: shouldUseGetOptions ? getOptions : undefined,
 						placeholder,
 					},
 					helperText,
@@ -81,6 +85,8 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			label,
+			shouldUseGetOptions,
+			sendOptions
 		]
 	);
 

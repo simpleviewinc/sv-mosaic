@@ -11,7 +11,11 @@ export type DropdownSingleSelectionDef = {
 	 * Array of options to be displayed on the
 	 * dropdown.
 	 */
-	options: MosaicLabelValue[],
+	options: MosaicLabelValue[];
+	/**
+	 * Used to get options from db.
+	 */
+	getOptions?: () => Promise<MosaicLabelValue[]>;
 }
 
 export type CustomPopperProps = {

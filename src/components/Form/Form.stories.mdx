@@ -640,6 +640,7 @@ const fields = useMemo(
 	* **options** - `array` of `object` optional - Predefined set of mutually exclusive options.
 		* **label** - `string` required - Description of the option.
 		* **value** - `string` required - Value of the option, this is stored in the Form state.
+	* **getOptions** - `() => Promise<MosaicLabelValue[]>` optional - Function to get a set of options. This prop only applies when getting options from a DB.
 
 ### How to use in a form?
 ```ts
@@ -664,7 +665,8 @@ const fields = useMemo(
 								label: "Label 3",
 								value: "label_3",
 							},
-						]
+						],
+						getOptions: myGetOptionsFn,
 					},
 					helperText: 'Helper text',
 					instructionText: 'Instruction text'
