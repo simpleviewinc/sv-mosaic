@@ -21,7 +21,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-		
+
 		await expect(ffImageVideoLinkDocumentBrowsingPage.imageOrVideoWithoutSrcCard.locator("img")).not.toBeVisible();
 		expect(type).toBe("Image Video Thumbnail");
 		expect(titles).toContain("Title");
@@ -42,7 +42,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithoutSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-		
+
 		await expect(ffImageVideoLinkDocumentBrowsingPage.imageOrVideoWithoutSrcCard.locator("img")).not.toBeVisible();
 		expect(type).toBe("Video");
 		expect(titles).toContain("Title");
@@ -63,7 +63,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-		
+
 		await expect(ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("img")).toBeVisible();
 		expect(type).toBe("Image Video Thumbnail");
 		expect(titles).toContain("Title");
@@ -84,7 +84,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-		
+
 		await expect(ffImageVideoLinkDocumentBrowsingPage.browsingVideoWithSrcCard.locator("img")).toBeVisible();
 		expect(type).toBe("Video");
 		expect(titles).toContain("Title");
@@ -105,7 +105,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.documentButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-		
+
 		await expect(ffImageVideoLinkDocumentBrowsingPage.documentButton.locator("img")).not.toBeVisible();
 		expect(type).toBe("Document");
 		expect(titles).toContain("Title");
@@ -165,5 +165,16 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		const options = await ffImageVideoLinkDocumentBrowsingPage.getThreePointsOptionsText();
 		expect(options).toContain("Edit");
 		expect(options).toContain("Translate");
+	});
+
+	test("Validate that the empty value is saved correctly.", async ({ page }) => {
+		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
+		await ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("button", { hasText: "Remove" }).click();
+		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("Form submitted with the following data: {}");
+			await dialog.accept();
+		});
 	});
 });
