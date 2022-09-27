@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextPage } from "../../pages/FormFields/FormFieldTextPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 
-test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 	let page: Page;
 	let formFieldTextPage: FormFieldTextPage;
 

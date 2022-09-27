@@ -11,6 +11,10 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 		await ffMapCoordinatesPage.visitPage();
 	});
 
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
@@ -30,7 +34,6 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	});
 
 	test("Validate that the map size is valid.", async () => {
-		await page.reload();
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
 		await ffMapCoordinatesPage.map.click();
 		const latitude = await ffMapCoordinatesPage.getCoordinateFromMapCard(ffMapCoordinatesPage.mapDisabledDefaultLocation);
@@ -41,7 +44,6 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	});
 
 	test("Validate that an error message appears for invalid Latitude values.", async () => {
-		await page.reload();
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
 		await ffMapCoordinatesPage.longitude.type("10");
 		await ffMapCoordinatesPage.latitude.type("91");
@@ -56,7 +58,6 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	});
 
 	test("Validate that an error message appears for invalid Longitude values.", async () => {
-		await page.reload();
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
 		await ffMapCoordinatesPage.latitude.type("10");
 		await ffMapCoordinatesPage.longitude.type("181");

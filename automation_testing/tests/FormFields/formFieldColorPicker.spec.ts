@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldColorPickerPage } from "../../pages/FormFields/FormFieldColorPickerPage";
 import { getRandomHexCode } from "../../utils/helpers/helper";
 
-test.describe("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
 	let page: Page;
 	let ffColorPickerPage: FormFieldColorPickerPage;
 

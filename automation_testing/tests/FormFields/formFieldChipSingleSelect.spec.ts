@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldChipSingleSelectPage } from "../../pages/FormFields/FormFieldChipSingleSelectPage";
 
-test.describe("FormFields - FormFieldChipSingleSelect - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", () => {
 	let page: Page;
 	let ffChipSingleSelectPage: FormFieldChipSingleSelectPage;
 
