@@ -85,6 +85,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 	});
 
 	test("Edit a View", async () => {
+		await page.reload();
 		await saveAs.createNewView(saveAs_data.saveAsView);
 
 		await saveAs.viewBtn.click();
@@ -116,6 +117,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 	});
 
 	test("Overwrite view", async () => {
+		await page.reload();
 		await pagination.selectViewTypeGridOption();
 		await pagination.changeResultPerPage(2);
 		await saveAs.createNewView(saveAs_data.saveAsOverwriteView);
