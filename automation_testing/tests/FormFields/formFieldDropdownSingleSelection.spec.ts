@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldDropdownSingleSelectionPage } from "../../pages/FormFields/FormFieldDropdownSingleSelectionPage";
 
-test.describe("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", () => {
 	let page: Page;
 	let formFieldDropdownSingleSelectionPage: FormFieldDropdownSingleSelectionPage;
 

@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldToggleSwitchPage } from "../../pages/FormFields/FormFieldToggleSwitchPage";
 
-test.describe("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () => {
 	let page: Page;
 	let formFieldToggleSwitchPage: FormFieldToggleSwitchPage;
 

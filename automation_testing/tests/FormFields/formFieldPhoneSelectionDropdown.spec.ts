@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldPhoneSelectionDropdownPage } from "../../pages/FormFields/FormFieldPhoneSelectionDropdownPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 
-test.describe("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
 	let page: Page;
 	let ffPhoneSelectionDropdownPage: FormFieldPhoneSelectionDropdownPage;
 
