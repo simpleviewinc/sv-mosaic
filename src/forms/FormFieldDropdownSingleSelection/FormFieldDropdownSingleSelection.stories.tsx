@@ -120,6 +120,18 @@ const kitchenSinkFields = [
 		instructionText: "Instruction text",
 	},
 	{
+		name: "dropdownDB",
+		label: "From data base example",
+		type: "dropdown",
+		size: "md",
+		inputSettings: {
+			getOptions,
+			placeholder: "placeholder"
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
 		name: "disabledExample",
 		label: "Disabled",
 		type: "dropdown",
