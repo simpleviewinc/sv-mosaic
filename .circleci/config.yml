@@ -83,7 +83,7 @@ jobs:
       - run:
           name: Save to file
           command: |
-            mkdir -p workspace
+            mkdir -p workspace/build/
             docker save sv-mosaic:local | gzip > workspace/build/sv-mosaic-local.tar.gz
       - persist_to_workspace:
           root: /workspace/build/
