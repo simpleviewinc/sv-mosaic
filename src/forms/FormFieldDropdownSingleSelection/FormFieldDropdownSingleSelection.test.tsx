@@ -16,10 +16,6 @@ const { getByText, getByRole } = screen;
 
 afterEach(cleanup);
 
-/* beforeEach(() => {
-	jest.spyOn(console, "warn").mockImplementation(() => jest.fn());
-}); */
-
 describe("DropdownSingleSelection component", () => {
 	it("should render on the screen", () => {
 		render(

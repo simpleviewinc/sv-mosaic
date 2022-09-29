@@ -70,10 +70,6 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		onChange && (await onChange(option));
 	}
 
-	const selectedOption = internalOptions.find(option => {
-		return option.value === value?.value;
-	});
-
 	const isOptionEqualToValue = (option: MosaicLabelValue, value: MosaicLabelValue) => {
 		if (value?.value === "") {
 			return true;
@@ -91,7 +87,6 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 			{!fieldDef?.disabled ?
 				<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" innerWidth={fieldDef?.size}>
 					<StyledAutocomplete
-						disablePortal={true}
 						value={value}
 						onOpen={handleOpen}
 						onClose={handleOpen}
@@ -105,7 +100,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 						PopperComponent={CustomPopper}
 						popupIcon={<ExpandMoreIcon />}
 						onBlur={(e) => onBlur && onBlur(e.target.value)}
-						open={true}
+						open={isOpen}
 					/>
 				</SingleDropdownWrapper>
 				:
