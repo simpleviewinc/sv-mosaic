@@ -4,16 +4,20 @@ vars:
       setup_remote_docker:
         docker_layer_caching: true
         version: 20.10.14
-  setup_environment: &setup_environment
-      run:
-          name: Setup Environment Variables
-          command: |
-            echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
-  docker_login: &docker_login
-      run:
-          name: Docker Login
-          command: |
-            docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
+  load_build_image: &load_build_image
+    run:
+      name: Import build image
+      command: docker load -i workspace/build/sv-mosaic-local.tar.gz
+  # setup_environment: &setup_environment
+  #     run:
+  #         name: Setup Environment Variables
+  #         command: |
+  #           echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
+  # docker_login: &docker_login
+  #     run:
+  #         name: Docker Login
+  #         command: |
+  #           docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
 workflows:
   build:
     jobs:
@@ -72,8 +76,6 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
-      - *setup_environment
-      - *docker_login
       - run:
           name: Build
           command: docker compose build node
@@ -87,27 +89,25 @@ jobs:
           paths: sv-mosaic-local.tar.gz
   publish:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+      - image: cimg/base:2021.04
     steps:
       - checkout
       - *setup_remote_docker
-      - *setup_environment
-      - *docker_login
+      - *load_build_image
       - run:
           name: Publish to NPM
           command: docker compose run --rm node_ci yarn run ci:publish
   storybook:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+      - image: cimg/base:2021.04
     resource_class: large
     steps:
       - checkout
       - *setup_remote_docker
-      - *setup_environment
-      - *docker_login
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - *load_build_image
       - run:
           name: Add github to known_hosts
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
@@ -118,36 +118,27 @@ jobs:
             NODE_DEBUG: gh-pages
   unit_tests:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+      - image: cimg/base:2021.04
     resource_class: large
     attach_workspace:
       at: workspace
     steps:
       - checkout
       - *setup_remote_docker
-      - *setup_environment
-      - *docker_login
-      - run:
-          name: Import build image
-          command: docker load -i workspace/build/sv-mosaic-local.tar.gz
+      - *load_build_image
       - run:
           name: Unit tests
           command: docker compose run -rm node yarn test
   automation_tests:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+      - image: cimg/base:2021.04
     resource_class: large
     attach_workspace:
       at: workspace
     steps:
       - checkout
       - *setup_remote_docker
-      - *setup_environment
-      - *docker_login
-      - run:
-          name: Import build image
-          command: docker load -i workspace/build/sv-mosaic-local.tar.gz
-
+      - *load_build_image
       - run:
           name: Build
           command: docker compose build automation_testing

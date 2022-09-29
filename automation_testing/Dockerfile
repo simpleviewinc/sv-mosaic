@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get -y install gettext-base jq
 
 COPY package.json /app/package.json
-RUN cd /app && npm install
+RUN cd /app && npm install && npx playwright install
 
 COPY pages /app/pages
 COPY tests /app/tests
