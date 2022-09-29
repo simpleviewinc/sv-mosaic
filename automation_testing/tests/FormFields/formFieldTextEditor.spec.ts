@@ -84,7 +84,7 @@ test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => 
 		await ffTextEditorPage.textEditorInGermanLanguage.locator("[contenteditable='true']").type(rndGermanString);
 		await ffTextEditorPage.textEditorWithMaxCharacterLimit.type(rndMaxCharString);
 		await ffTextEditorPage.saveBtn.click();
-		await ffTextEditorPage.clearAllValuesFromTextArea();
+		await ffTextEditorPage.clearAllValuesFromTextEditors();
 		await ffTextEditorPage.saveBtn.click();
 	});
 });
