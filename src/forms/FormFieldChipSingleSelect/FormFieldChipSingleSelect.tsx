@@ -76,10 +76,10 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 	const updateSelectedOption = (option: MosaicLabelValue) => {
 		const selectedOption = findSelectedOption(option);
 		setPrepouplated(true);
-		onChange(selectedOption?.value ?
+		onChange(selectedOption ?
 			{
-				label: selectedOption.label,
-				value: selectedOption.value
+				label: selectedOption?.label,
+				value: selectedOption?.value
 			} : undefined);
 	}
 
