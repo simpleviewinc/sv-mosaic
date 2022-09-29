@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextAreaPage } from "../../pages/FormFields/FormFieldTextAreaPage";
 
-test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 	let page: Page;
 	let formFieldTextAreaPage: FormFieldTextAreaPage;
 
@@ -9,6 +9,10 @@ test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 		page = await browser.newPage();
 		formFieldTextAreaPage = new FormFieldTextAreaPage(page);
 		await formFieldTextAreaPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await formFieldTextAreaPage.removeAllValuesFromTextAreas();
 	});
 
 	test.afterAll(async ({ browser }) => {
