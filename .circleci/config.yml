@@ -73,7 +73,7 @@ jobs:
   build:
     docker:
       - image: cimg/base:2022.09
-    working_directory: /app
+    # working_directory: /app
     steps:
       - checkout
       - *setup_remote_docker
