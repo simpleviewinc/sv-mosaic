@@ -12,7 +12,7 @@ import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
 import { MosaicLabelValue } from "@root/types";
 import { getNewOptions } from "@root/utils/getOptions";
 
-const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef>): ReactElement => {
+const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef, MosaicFieldProps>): ReactElement => {
 	const {
 		fieldDef,
 		error,

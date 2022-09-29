@@ -17,12 +17,26 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	const options = additionalOptions ? additionalOptions : [];
+	const options = [
+		{
+			label: "Label 1",
+			value: "label_1",
+		},
+		{
+			label: "Label 2",
+			value: "label_2",
+		},
+		{
+			label: "Label 3",
+			value: "label_3",
+		},
+	];
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "Instruction text");
 	const helperText = text("Helper text", "Helper text");
+	const sendOptions = boolean("Options", true);
 	const shouldUseGetOptions = boolean("Obtain options from db", false);
 	const getOptionsLimit = text("Get options limit", "5");
 	const createNewOptionsKnob = boolean("Create new option", true);
@@ -83,7 +97,7 @@ export const Playground = (): ReactElement => {
 					instructionText,
 					type: "advancedSelection",
 					inputSettings: {
-						options: !shouldUseGetOptions ? options : undefined,
+						options: sendOptions ? options : undefined,
 						getOptions: shouldUseGetOptions ? getOptions : undefined,
 						getOptionsLimit:
 							shouldUseGetOptions && getOptionsLimit
@@ -101,6 +115,7 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			getOptionsLimit,
 			options,
+			getOptions,
 			shouldUseGetOptions,
 			createNewOptionsKnob
 		]
@@ -179,7 +194,7 @@ export const KitchenSink = (): ReactElement => {
 					type: "advancedSelection",
 					inputSettings: {
 						options,
-					},
+					}
 				},
 				{
 					name: "getOptions",
@@ -187,8 +202,8 @@ export const KitchenSink = (): ReactElement => {
 					type: "advancedSelection",
 					inputSettings: {
 						getOptions,
-						getOptionsLimit: 5,
-					},
+						getOptionsLimit: 5
+					}
 				},
 
 				{
@@ -198,8 +213,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 						getOptionsLimit: 10,
-						createNewOption,
-					},
+						createNewOption
+					}
 				},
 			] as FieldDef<AdvancedSelectionDef>[],
 		[options]

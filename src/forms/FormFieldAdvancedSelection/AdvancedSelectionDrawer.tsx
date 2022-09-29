@@ -88,11 +88,12 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	useEffect(() => {
 		let isMounted = true;
 		const setInternalOptions = async () => {
-			if (fieldDef?.inputSettings?.getOptions) {
-				await getMoreOptions();
-			} else if (fieldDef?.inputSettings?.options) {
+			if (fieldDef?.inputSettings?.options) {
 				setOptions(options.concat(fieldDef?.inputSettings?.options));
 				setFilteredOptions(filteredOptions.concat(fieldDef.inputSettings.options));
+			}
+			else if (!fieldDef?.inputSettings?.options && fieldDef?.inputSettings?.getOptions) {
+				await getMoreOptions();
 			}
 		}
 
@@ -110,7 +111,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	]);
 
 	const getMoreOptions = async () => {
-		if (fieldDef?.inputSettings?.getOptions) {
+		if (fieldDef?.inputSettings?.getOptions && !fieldDef?.inputSettings?.options) {
 			const searchInput = state?.data?.searchInput;
 
 			let newOptions = [];
@@ -278,6 +279,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const checkboxListChanged = (checkedOptions: string[]) => {
 		const availableOptions = _.union(options, filteredOptions);
 		const selectedOptions = _.union(availableOptions, value)?.filter((item) => checkedOptions.includes(item.value));
+		//const selectedUniqueOptions = _.uniqBy(selectedOptions, "value");
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
