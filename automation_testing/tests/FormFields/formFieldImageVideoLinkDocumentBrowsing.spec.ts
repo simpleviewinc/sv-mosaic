@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldImageVideoLinkDocumentBrowsingPage } from "../../pages/FormFields/FormFieldImageVideoLinkDocumentBrowsingPage";
 
-test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	let page: Page;
 	let ffImageVideoLinkDocumentBrowsingPage: FormFieldImageVideoLinkDocumentBrowsingPage;
 
