@@ -7,7 +7,7 @@ vars:
   load_build_image: &load_build_image
     run:
       name: Import build image
-      command: docker load -i /project/sv-mosaic-local.tar.gz
+      command: docker load -i /app/sv-mosaic-local.tar.gz
   # setup_environment: &setup_environment
   #     run:
   #         name: Setup Environment Variables
@@ -73,7 +73,7 @@ jobs:
   build:
     docker:
       - image: cimg/base:2022.09
-    working_directory: /project
+    working_directory: /app
     steps:
       - checkout
       - *setup_remote_docker
@@ -84,9 +84,9 @@ jobs:
       - run:
           name: Save to file
           command: |
-            docker save sv-mosaic:local | gzip > /project/sv-mosaic-local.tar.gz
+            docker save sv-mosaic:local | gzip > /app/sv-mosaic-local.tar.gz
       - persist_to_workspace:
-          root: /project
+          root: /app
           paths:
             - .
   publish:
@@ -96,7 +96,7 @@ jobs:
       - checkout
       - *setup_remote_docker
       - attach_workspace:
-          at: /project
+          at: /app
       - *load_build_image
       - run:
           name: Publish to NPM
@@ -112,7 +112,7 @@ jobs:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - attach_workspace:
-          at: /project
+          at: /app
       - *load_build_image
       - run:
           name: Add github to known_hosts
@@ -130,7 +130,7 @@ jobs:
       - checkout
       - *setup_remote_docker
       - attach_workspace:
-          at: /project
+          at: /app
       - *load_build_image
       - run:
           name: Unit tests
@@ -143,7 +143,7 @@ jobs:
       - checkout
       - *setup_remote_docker
       - attach_workspace:
-          at: /project
+          at: /app
       - *load_build_image
       - run:
           name: Build
