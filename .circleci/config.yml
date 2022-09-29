@@ -134,7 +134,7 @@ jobs:
       - *load_build_image
       - run:
           name: Unit tests
-          command: docker compose run -rm node yarn test
+          command: docker compose run --rm node yarn test
   automation_tests:
     docker:
       - image: cimg/base:2022.09
@@ -150,4 +150,4 @@ jobs:
           command: docker compose build automation_testing
       - run:
           name: Automation tests
-          command: docker compose run -rm automation_testing ENV=local npm run test:chrome
+          command: docker compose run --rm automation_testing ENV=local npm run test:chrome
