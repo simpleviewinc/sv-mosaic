@@ -25,6 +25,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate that you can save when completing all required fields", async () => {
+		await page.reload();
 		await playgroundPage.fillAllRequiredFields();
 		await playgroundPage.wait()
 		await playgroundPage.saveBtn.click();
