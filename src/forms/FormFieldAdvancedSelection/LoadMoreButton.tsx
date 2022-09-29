@@ -7,7 +7,7 @@ const LoadMoreButton = (props: LoadMoreButtonPropsTypes): ReactElement => {
 	const { fieldDef } = props;
 
 	return (
-		fieldDef?.inputSettings?.parentInputSettings?.getOptions ? (
+		fieldDef?.inputSettings?.parentInputSettings?.getOptions && !fieldDef?.inputSettings?.parentInputSettings?.options ? (
 			<Button
 				color='gray'
 				variant='outlined'

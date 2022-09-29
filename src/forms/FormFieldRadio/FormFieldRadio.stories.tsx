@@ -37,7 +37,7 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "");
 	const helperText = text("Helper text", "");
-	const sendOptions = boolean("Options", true)
+	const sendOptions = boolean("Options", true);
 	const shouldUseGetOptions = boolean("Obtain options from db", false);
 
 	const fields = useMemo(
