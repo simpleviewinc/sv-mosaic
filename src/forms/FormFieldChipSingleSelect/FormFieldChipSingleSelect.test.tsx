@@ -117,6 +117,6 @@ describe("FormFieldChipSingleSelect component with options from DB", () => {
 			expect(getByText("Option 2")).toBeTruthy();
 			expect(getByText("Option 3")).toBeTruthy();
 			expect(getByText("Option 4")).toBeTruthy();
-		}, {timeout: 3000});
+		}, {timeout: 1000});
 	});
 });

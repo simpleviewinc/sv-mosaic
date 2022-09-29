@@ -11,6 +11,7 @@ import Form, { useForm } from "@root/components/Form";
 // Utils
 import { checkboxOptions } from "./FormFieldCheckboxUtils";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { getOptions } from "@root/utils/getOptions";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
@@ -25,6 +26,8 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Label");
 	const instructionText = text("Instruction Text", "Instruction Text");
 	const helperText = text("Helper Text", "Helper Text");
+	const sendOptions = boolean("Options", true);
+	const shouldUseGetOptions = boolean("Obtain options from db", false);
 
 	const fields = useMemo(
 		() =>
@@ -36,13 +39,14 @@ export const Playground = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						options: checkboxOptions,
+						options: sendOptions ? checkboxOptions : undefined,
+						getOptions: shouldUseGetOptions ? getOptions : undefined,
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef<FormFieldCheckboxDef>[],
-		[required, disabled, label, instructionText, helperText]
+		[required, disabled, label, instructionText, helperText, shouldUseGetOptions, sendOptions]
 	);
 
 	return (
@@ -82,6 +86,20 @@ const kitchenSinkFields = [
 		disabled: true,
 		inputSettings: {
 			options: checkboxOptions,
+		},
+		helperText: "Helper Text",
+		instructionText: "InstructionText",
+	},
+
+	{
+		name: "checkboxFromDB",
+		label: "Options from DB example",
+		type: "checkbox",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			options: undefined,
+			getOptions
 		},
 		helperText: "Helper Text",
 		instructionText: "InstructionText",

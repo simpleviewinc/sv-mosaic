@@ -76,16 +76,27 @@ export const Playground = (): ReactElement => {
 		"textField": "Text field prepopulated",
 		"textArea": "Text area prepopulated",
 		"check": [
-			"label_1",
-			"label_2"
+			{
+				label: "Label 1",
+				value: "label_1"
+			},
+			{
+				label: "Label 2",
+				value: "label_2"
+			},
+			{
+				label: "ABC",
+				value: "abc"
+			}
 		],
 		"chipSelect": {
 			"label": "Label 4",
 			"value": "label_4"
 		},
-		"dropdownSingle": {
-			label: "Option 1",
-			value: "option1"
+		"dropdownSingle":
+		{
+			"label": "Option 1",
+			"value": "option1"
 		},
 		"phoneSelect": "15205751151",
 		"radio": {
