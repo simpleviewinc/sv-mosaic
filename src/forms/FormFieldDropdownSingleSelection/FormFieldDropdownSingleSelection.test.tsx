@@ -92,9 +92,6 @@ describe("DropdownSingleSelection component as a form field", () => {
 
 describe("DropdownSingleSelection component with options from DB", () => {
 
-	// let dropdownSingleSelection = [];
-
-
 	it("should render on the screen prepopulated with options from DB", async () => {
 		await act( async () => {
 			render(<DropdownSingleSelection
@@ -118,14 +115,6 @@ describe("DropdownSingleSelection component with options from DB", () => {
 			const inputDropdown = getByRole("combobox") as HTMLInputElement;
 			expect(inputDropdown.value).toEqual("Option 4 category 2");
 		}, {timeout: 3000});
-
-		/**
-	 * Since the textfield is the inner-most component, looking if this
-	 * is getting rendered will tell us by default if the dropdown is
-	 * getting rendered too.
-	 */
-
-
 	});
 
 	it("should render on the screen with options from DB", async () => {
