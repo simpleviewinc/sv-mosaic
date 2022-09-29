@@ -84,15 +84,18 @@ jobs:
           command: |
             mkdir -p workspace
             docker save sv-mosaic:local | gzip > workspace/build/sv-mosaic-local.tar.gz
-    persist_to_workspace:
-      root: /workspace/build/
-      paths: sv-mosaic-local.tar.gz
+      - persist_to_workspace:
+          root: /workspace/build/
+          paths:
+            - sv-mosaic-local.tar.gz
   publish:
     docker:
       - image: cimg/base:2021.04
     steps:
       - checkout
       - *setup_remote_docker
+      - attach_workspace:
+          at: workspace
       - *load_build_image
       - run:
           name: Publish to NPM
@@ -107,6 +110,8 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - attach_workspace:
+          at: workspace
       - *load_build_image
       - run:
           name: Add github to known_hosts
@@ -120,11 +125,11 @@ jobs:
     docker:
       - image: cimg/base:2021.04
     resource_class: large
-    attach_workspace:
-      at: workspace
     steps:
       - checkout
       - *setup_remote_docker
+      - attach_workspace:
+          at: workspace
       - *load_build_image
       - run:
           name: Unit tests
@@ -133,16 +138,15 @@ jobs:
     docker:
       - image: cimg/base:2021.04
     resource_class: large
-    attach_workspace:
-      at: workspace
     steps:
       - checkout
       - *setup_remote_docker
+      - attach_workspace:
+          at: workspace
       - *load_build_image
       - run:
           name: Build
           command: docker compose build automation_testing
-
       - run:
           name: Automation tests
           command: docker compose run -rm automation_testing ENV=local npm run test:chrome
