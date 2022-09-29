@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldDateFieldPage } from "../../pages/FormFields/FormFieldDateFieldPage";
 import { getDateFormatted } from "../../utils/helpers/dateHelper";
 
-test.describe("FormFields - FormFieldDateField - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	let page: Page;
 	let formFieldDateFieldPage: FormFieldDateFieldPage;
 
