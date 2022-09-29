@@ -72,7 +72,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:2022.09
     steps:
       - checkout
       - *setup_remote_docker
@@ -86,12 +86,12 @@ jobs:
             mkdir -p workspace/build/
             docker save sv-mosaic:local | gzip > workspace/build/sv-mosaic-local.tar.gz
       - persist_to_workspace:
-          root: /workspace/build/
+          root: workspace/build/
           paths:
             - sv-mosaic-local.tar.gz
   publish:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:2022.09
     steps:
       - checkout
       - *setup_remote_docker
@@ -103,7 +103,7 @@ jobs:
           command: docker compose run --rm node_ci yarn run ci:publish
   storybook:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:2022.09
     resource_class: large
     steps:
       - checkout
@@ -124,7 +124,7 @@ jobs:
             NODE_DEBUG: gh-pages
   unit_tests:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:2022.09
     resource_class: large
     steps:
       - checkout
@@ -137,7 +137,7 @@ jobs:
           command: docker compose run -rm node yarn test
   automation_tests:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:2022.09
     resource_class: large
     steps:
       - checkout
