@@ -14,4 +14,8 @@ export type FormFieldCheckboxDef = {
 	* List of options
 	*/
 	options: MosaicLabelValue[];
+	/**
+	 * Used to get options from db.
+	 */
+	getOptions?: () => Promise<MosaicLabelValue[]>;
 }
