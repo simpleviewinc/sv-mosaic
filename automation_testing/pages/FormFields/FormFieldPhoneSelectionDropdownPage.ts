@@ -32,6 +32,6 @@ export class FormFieldPhoneSelectionDropdownPage extends BasePage {
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		await this.visit(this.page_path, this.regularPhoneField);
 	}
 }

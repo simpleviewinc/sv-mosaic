@@ -27,13 +27,13 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 		this.page = page;
 		this.imageOrVideoWithoutSrcCard = page.locator("//*[@id='1']");
 		this.imageWithoutSrcButton = page.locator("//*[@id='1']/div/div/div/div/div/div[2]/div/div/div[1]/div[1]");
-		this.videoWithoutSrcButton = page.locator("//*[@id='1']/div/div/div/div/div/div[2]/div/div/div[2]/div[1]");
+		this.videoWithoutSrcButton = page.locator("[data-testid='browse-video-test']").nth(1);
 		this.browsingImageWithSrcCard = page.locator("//*[@id='2']");
-		this.imageWithSrcButton = page.locator("//*[@id='2']/div/div/div/div/div/div[2]/div/div/div/div[1]");
+		this.imageWithSrcButton = page.locator("[data-testid='browse-image-test']").nth(2);
 		this.browsingVideoWithSrcCard = page.locator("//*[@id='3']");
 		this.videoWithSrcButton = page.locator("//*[@id='3']/div/div/div/div/div/div[2]/div/div/div/div[1]");
 		this.browsingDocumentCard = page.locator("//*[@id='4']");
-		this.documentButton = page.locator("//*[@id='4']/div/div/div/div/div/div[2]/div/div/div/div[1]");
+		this.documentButton = page.locator("[data-testid='browse-document-test']").nth(1);
 		this.linkButton = page.locator("//*[@id='5']/div/div/div/div/div/div[2]/div/div/div/div[1]");
 		this.browsingWithoutAnyOptionsCard = page.locator("//*[@id='6']");
 		this.disabledCard = page.locator("//*[@id='7']");
@@ -67,5 +67,12 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 			options.push(await this.page.locator("li[role='menuitem']").nth(i).textContent());
 		}
 		return options;
+	}
+
+	async removeAllVisibleCards(): Promise<void> {
+		const numberOfCards = await this.page.locator("button", { hasText: "Remove" }).count();
+		for (let i = 0; i < numberOfCards; i++) {
+			await this.page.locator("text=Remove").nth(0).click();
+		}
 	}
 }

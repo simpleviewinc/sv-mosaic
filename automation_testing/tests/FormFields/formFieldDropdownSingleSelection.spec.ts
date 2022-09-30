@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldDropdownSingleSelectionPage } from "../../pages/FormFields/FormFieldDropdownSingleSelectionPage";
 
-test.describe("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldDropdownSingleSelectionPage: FormFieldDropdownSingleSelectionPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldDropdownSingleSelectionPage = new FormFieldDropdownSingleSelectionPage(page);
 		await formFieldDropdownSingleSelectionPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate the regular dropdown", async () => {
