@@ -1,12 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextAreaPage } from "../../pages/FormFields/FormFieldTextAreaPage";
 
-test.describe("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldTextAreaPage: FormFieldTextAreaPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldTextAreaPage = new FormFieldTextAreaPage(page);
 		await formFieldTextAreaPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await formFieldTextAreaPage.removeAllValuesFromTextAreas();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate that the provided text is saved when submitted.", async ({ page }) => {

@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextEditorPage } from "../../pages/FormFields/FormFieldTextEditorPage";
 
-test.describe("FormFields - FormFieldTextEditor - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => {
+	let page: Page;
 	let ffTextEditorPage: FormFieldTextEditorPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffTextEditorPage = new FormFieldTextEditorPage(page);
 		await ffTextEditorPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate the Text editor with spellcheck active.", async () => {
@@ -78,7 +84,7 @@ test.describe("FormFields - FormFieldTextEditor - Kitchen Sink", () => {
 		await ffTextEditorPage.textEditorInGermanLanguage.locator("[contenteditable='true']").type(rndGermanString);
 		await ffTextEditorPage.textEditorWithMaxCharacterLimit.type(rndMaxCharString);
 		await ffTextEditorPage.saveBtn.click();
-		await ffTextEditorPage.clearAllValuesFromTextArea();
+		await ffTextEditorPage.clearAllValuesFromTextEditors();
 		await ffTextEditorPage.saveBtn.click();
 	});
 });

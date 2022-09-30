@@ -1,20 +1,26 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
 
-test.describe("DataView - Columns", () => {
+test.describe.parallel("Components - Data View - Columns", () => {
+	let page: Page;
 	let dataviewPage: DataviewPage;
 	let columns: ColumnsComponent;
 	let pagination: PaginationComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
 		pagination = dataviewPage.paginationComponent;
 		await dataviewPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate Default Columns Information", async () => {
@@ -23,6 +29,7 @@ test.describe("DataView - Columns", () => {
 		expect(await columns.title.textContent()).toBe(columns_data.columnsTitle);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.defaultColumnsChecked.toString());
+		await columns.closeTableSettingIcon.click();
 	})
 
 	test("Change column order - Down", async () => {
@@ -35,6 +42,7 @@ test.describe("DataView - Columns", () => {
 		downArrow = await columns.getDownArrowByItemName(columns_data.changeItemDown);
 		await downArrow.click();
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.changeColumnsOrderDown.toString());
+		await columns.closeTableSettingIcon.click();
 	});
 
 	test("Change column order - Up", async () => {
@@ -47,6 +55,7 @@ test.describe("DataView - Columns", () => {
 		upArrow = await columns.getUpArrowByItemName(columns_data.changeItemUp);
 		await upArrow.click();
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.changeColumnsOrderUp.toString());
+		await columns.closeTableSettingIcon.click();
 	});
 
 	test("No Chage column order - Down", async () => {
@@ -55,6 +64,7 @@ test.describe("DataView - Columns", () => {
 		// await columns.validateSnapshot(downArrowLocked, "column_down_arrow_locked");
 		expect(await downArrowLocked.isDisabled()).toBe(true);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
+		await columns.closeTableSettingIcon.click();
 	});
 
 	test("No Chage column order - Up", async () => {
@@ -63,6 +73,7 @@ test.describe("DataView - Columns", () => {
 		// await columns.validateSnapshot(upArrowLocked, "column_up_arrow_locked");
 		expect(await upArrowLocked.isDisabled()).toBe(true);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
+		await columns.closeTableSettingIcon.click();
 	});
 
 	test("Add column", async () => {
@@ -77,6 +88,7 @@ test.describe("DataView - Columns", () => {
 	});
 
 	test("Remove column", async () => {
+		await page.reload();
 		await columns.columnsBtn.click();
 		const item = await columns.getLeftItemByName(columns_data.removeItem);
 		await columns.checkLeftItem(item, false);
@@ -87,6 +99,7 @@ test.describe("DataView - Columns", () => {
 	});
 
 	test("Remove all columns", async () => {
+		await page.reload();
 		await columns.columnsBtn.click();
 		await columns.checkAllItems(false);
 		expect((await columns.getColumnsChecked())).not.toContain(columns_data.defaultColumnsOrder.toString());
@@ -95,12 +108,14 @@ test.describe("DataView - Columns", () => {
 	});
 
 	test("Add all columns", async () => {
+		await page.reload();
 		await columns.columnsBtn.click();
 		await columns.checkAllItems(true);
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.allItemsChecked.toString());
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.allItemsOrder.toString());
 		await columns.applyBtn.click();
 		expect(await dataviewPage.getColumnHeadersCount()).toBe(columns_data.allItemsCount);
+		await page.reload();
 	});
 
 	test("Sort title asc", async () => {
@@ -137,6 +152,7 @@ test.describe("DataView - Columns", () => {
 	});
 
 	test("Sort created desc", async () => {
+		await page.reload();
 		await pagination.changeResultPerPage(3);
 		const createdColum = await dataviewPage.getCreatedColumn();
 		const createdSort = sortDatesDesc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPage100)));
