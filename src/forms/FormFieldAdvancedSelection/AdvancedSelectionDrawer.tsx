@@ -63,7 +63,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				dispatch(
 					formActions.setFieldValue({
 						name: "checkboxList",
-						value: value.map(option => option.value)
+						value: value
 					})
 				);
 
@@ -91,8 +91,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			if (fieldDef?.inputSettings?.options) {
 				setOptions(options.concat(fieldDef?.inputSettings?.options));
 				setFilteredOptions(filteredOptions.concat(fieldDef.inputSettings.options));
-			}
-			else if (!fieldDef?.inputSettings?.options && fieldDef?.inputSettings?.getOptions) {
+			} else if (fieldDef?.inputSettings?.getOptions) {
 				await getMoreOptions();
 			}
 		}
@@ -267,7 +266,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		dispatch(
 			formActions.setFieldValue({
 				name: "checkboxList",
-				value: newOptions.map(option => option.value),
+				value: newOptions,
 			})
 		);
 	}
@@ -276,14 +275,11 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 * Function executed whenever the checkboxes are clicked.
 	 * @param checkedOptions
 	 */
-	const checkboxListChanged = (checkedOptions: string[]) => {
-		const availableOptions = _.union(options, filteredOptions);
-		const selectedOptions = _.union(availableOptions, value)?.filter((item) => checkedOptions.includes(item.value));
-		//const selectedUniqueOptions = _.uniqBy(selectedOptions, "value");
+	const checkboxListChanged = (checkedOptions: MosaicLabelValue[]) => {
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
-				value: selectedOptions
+				value: checkedOptions
 			})
 		);
 	};
@@ -296,7 +292,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		dispatch(
 			formActions.setFieldValue({
 				name: "checkboxList",
-				value: state?.data?.listOfChips?.map(option => option.value)
+				value: state?.data?.listOfChips
 			})
 		);
 	}, [state.data.listOfChips]);

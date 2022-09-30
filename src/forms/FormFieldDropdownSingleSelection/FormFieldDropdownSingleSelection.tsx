@@ -14,7 +14,6 @@ import InputWrapper from "../../components/InputWrapper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import TextField from "@mui/material/TextField";
 import { MosaicLabelValue } from "@root/types";
-import { getNewOptions } from "@root/utils/getOptions";
 
 const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, MosaicLabelValue>) => {
 	const {
@@ -31,16 +30,16 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 	const [internalOptions, setInternalOptions] = useState([]);
 
 	useEffect(() => {
-		if (fieldDef?.inputSettings?.options) {
-			setInternalOptions(fieldDef.inputSettings.options);
-
-		} else if (fieldDef?.inputSettings?.getOptions) {
-			getNewOptions().then((newOptions) => setInternalOptions(newOptions));
-
-		} else {
-			throw new Error("You must provide an options array or the getOptions method");
+		const populateOptions = async () => {
+			if (fieldDef?.inputSettings?.options) {
+				setInternalOptions(fieldDef.inputSettings.options);
+			} else  if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef.inputSettings.getOptions();
+				setInternalOptions(newOptions);
+			}
 		}
-	}, [fieldDef.inputSettings]);
+		populateOptions();
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
 
 	useEffect(() => {
 		if (value) {
