@@ -1,48 +1,67 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataview_data";
 
-test.describe("Data View", () => {
+test.describe.parallel("Components - Data View", () => {
+	let page: Page;
 	let dataviewPage: DataviewPage;
 	let columns: ColumnsComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
-
 		await dataviewPage.visitPage();
 	});
 
-	test("Create New", async () => {
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
+	});
+
+	test("Create New", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("CREATE NEW");
+			dialog.accept();
+		});
 		// await dataviewPage.validateSnapshot(dataviewPage.createNewBtn, "create_new_btn");
-		await dataviewPage.setDialogValidationListener("CREATE NEW");
 		await dataviewPage.createNewBtn.click();
 	});
 
-	test("Edit Icon", async () => {
+	test("Edit Icon", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("EDIT");
+			dialog.accept();
+		});
 		await dataviewPage.wait();
-		await dataviewPage.setDialogValidationListener("EDIT");
 		await (await dataviewPage.getFirstRowEditIcon()).click();
 	});
 
-	test("View Children", async () => {
+	test("View Children", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("View Children");
+			dialog.accept();
+		});
 		await dataviewPage.wait();
 		// await dataviewPage.validateSnapshot(await dataviewPage.getFirstRowMoreOptions(), "more_options");
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
-
 		// await dataviewPage.validateSnapshot(dataviewPage.viewChildren, "view_children");
-		await dataviewPage.setDialogValidationListener("View Children");
 		await dataviewPage.viewChildren.click();
 	});
 
 
-	test("History", async () => {
+	test("History", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("History");
+			dialog.accept();
+		});
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
 		await dataviewPage.wait();
 		// await dataviewPage.validateSnapshot(dataviewPage.history, "history");
-
-		await dataviewPage.setDialogValidationListener("History");
 		await dataviewPage.history.click();
 	});
 
@@ -57,17 +76,23 @@ test.describe("Data View", () => {
 		expect(await dataviewPage.deleteBtn.isVisible()).toBe(true);
 	});
 
-	test("Delete A Record", async () => {
+	test("Delete A Record", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("DELETE");
+			dialog.accept();
+		});
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		// await dataviewPage.validateSnapshot(dataviewPage.deleteBtn, "delete_btn");
-		await dataviewPage.setDialogValidationListener("DELETE");
 		await dataviewPage.deleteBtn.click();
 	});
 
-	test("Download A Record", async () => {
+	test("Download A Record", async ({ page }) => {
+		page.on("dialog", async dialog => {
+			expect(dialog.message()).toContain("DOWNLOAD");
+			dialog.accept();
+		});
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		// await dataviewPage.validateSnapshot(dataviewPage.downloadBtn, "download_btn");
-		await dataviewPage.setDialogValidationListener("DOWNLOAD");
 		await dataviewPage.downloadBtn.click();
 	});
 

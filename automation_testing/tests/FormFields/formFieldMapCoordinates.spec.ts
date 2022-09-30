@@ -1,12 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldMapCoordinatesPage } from "../../pages/FormFields/FormFieldMapCoordinatesPage";
 
-test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
+	let page: Page;
 	let ffMapCoordinatesPage: FormFieldMapCoordinatesPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffMapCoordinatesPage = new FormFieldMapCoordinatesPage(page);
 		await ffMapCoordinatesPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate that the map without address fields are empty.", async () => {
@@ -23,7 +33,7 @@ test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 		expect(longitude).toBe("0");
 	});
 
-	test("Validate that the map map size.", async () => {
+	test("Validate that the map size is valid.", async () => {
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
 		await ffMapCoordinatesPage.map.click();
 		const latitude = await ffMapCoordinatesPage.getCoordinateFromMapCard(ffMapCoordinatesPage.mapDisabledDefaultLocation);

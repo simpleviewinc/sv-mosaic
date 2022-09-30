@@ -30,6 +30,7 @@ export class DataviewPage extends BasePage {
 	readonly dataviewTable: Locator;
 	readonly columnHeaders: Locator;
 	readonly noResults: Locator;
+	readonly removeFilterIcon: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -52,6 +53,7 @@ export class DataviewPage extends BasePage {
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
+		this.removeFilterIcon = page.locator(".removeIcon");
 	}
 
 	async visitPage(): Promise<void> {

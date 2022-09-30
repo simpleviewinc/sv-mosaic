@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { advanced_filter_data, dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/AdvancedFiltersComponent";
@@ -7,20 +7,35 @@ import { PaginationComponent } from "../../../pages/Components/DataView/Paginati
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
-test.describe("DataView - Advanced Filters", () => {
+test.describe.parallel("Components - Data View - Advanced Filters", () => {
+	let page: Page;
 	let dataviewPage: DataviewPage;
 	let advancedFilters: AdvancedFiltersComponent;
 	let datepicker: DatePickerComponent;
 	let pagination: PaginationComponent;
 	let columns: ColumnsComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		advancedFilters = dataviewPage.advancedFilterComponent;
 		datepicker = advancedFilters.datepicker;
 		pagination = dataviewPage.paginationComponent;
 		columns = dataviewPage.columnsComponent;
 		await dataviewPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		const numberOfFiltersApplied = await dataviewPage.removeFilterIcon.count()
+		if (numberOfFiltersApplied > 0) {
+			for (let i = 0; i < numberOfFiltersApplied; i++) {
+				await dataviewPage.removeFilterIcon.nth(i).click();
+			}
+		}
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate that all advanced filters have default value equal to Any", async () => {
@@ -33,6 +48,7 @@ test.describe("DataView - Advanced Filters", () => {
 	});
 
 	test("Validate Single select category", async () => {
+		await page.reload();
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.singleSelectCategoryOption.click();
 		await advancedFilters.applyBtn.click();
@@ -60,8 +76,7 @@ test.describe("DataView - Advanced Filters", () => {
 		}
 	});
 
-	// Test fails because Not In is not working properly.
-	test.skip("Validate Categories with Comparisons - Not In", async () => {
+	test("Validate Categories with Comparisons - Not In", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.categoryWithComparisonOption.click();
 		await advancedFilters.applyBtn.click();
@@ -128,6 +143,8 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.helpComparisonCategoriesDialogButton.click();
 		const helpDialog = await advancedFilters.getHelpDialogFromCategoryWithComparisonOption();
 		expect(helpDialog.toString()).toBe(advanced_filter_data.categoryComparisonHelpDialog);
+		await page.keyboard.press("Escape");
+		await advancedFilters.cancelBtn.click();
 	});
 
 	test("Validate Categories with Comparisons - Keyword search", async () => {
@@ -248,13 +265,13 @@ test.describe("DataView - Advanced Filters", () => {
 	test("Validate created filter with invalid range of dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.createdOption.check();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
+		await advancedFilters.cancelBtn.click();
 	});
 
 	test("Validate created filter no return results", async () => {
@@ -275,7 +292,6 @@ test.describe("DataView - Advanced Filters", () => {
 	test("Clear created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.createdOption.check();
 		await advancedFilters.applyBtn.click();
@@ -285,12 +301,12 @@ test.describe("DataView - Advanced Filters", () => {
 
 		expect(await advancedFilters.fromCalendarInput.inputValue()).toBe("");
 		expect(await advancedFilters.toCalendarInput.inputValue()).toBe("");
+		await advancedFilters.cancelBtn.click();
 	});
 
 	test("Cancel created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.createdOption.check();
 		await advancedFilters.applyBtn.click();
@@ -306,7 +322,6 @@ test.describe("DataView - Advanced Filters", () => {
 	test("Remove created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.createdOption.check();
 		await advancedFilters.applyBtn.click();
@@ -326,7 +341,6 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.updatedOption.check();
 		expect(await advancedFilters.updatedOption.isChecked()).toBe(true);
 		await advancedFilters.applyBtn.click();
-		// await advancedFilters.validateSnapshot(advancedFilters.optionalFilters.nth(0), "updated_filter");
 
 		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.waitForElementLoad();
@@ -343,20 +357,18 @@ test.describe("DataView - Advanced Filters", () => {
 	test("Validate updated filter with invalid range of dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-
 		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
-
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
+		await advancedFilters.cancelBtn.click();
 	});
 
 	test("Validate updated filter no return results", async () => {
 		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
-
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
@@ -383,14 +395,13 @@ test.describe("DataView - Advanced Filters", () => {
 		await advancedFilters.clearBtn.click();
 		expect(await advancedFilters.fromCalendarInput.inputValue()).toBe("");
 		expect(await advancedFilters.toCalendarInput.inputValue()).toBe("");
+		await advancedFilters.cancelBtn.click();
 	});
 
 	test("Cancel updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-
 		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
-
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
@@ -406,7 +417,6 @@ test.describe("DataView - Advanced Filters", () => {
 	test("Remove updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-
 		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
 
 		await advancedFilters.moreBtn.click();
