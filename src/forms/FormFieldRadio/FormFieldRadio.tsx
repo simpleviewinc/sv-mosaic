@@ -9,7 +9,6 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldRadioDef } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
 import { MosaicLabelValue } from "@root/types";
-import { getNewOptions } from "@root/utils/getOptions";
 
 const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelValue>): ReactElement => {
 	const {
@@ -22,16 +21,16 @@ const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelVa
 	const [internalOptions, setInternalOptions] = useState([]);
 
 	useEffect(() => {
-		if (fieldDef?.inputSettings?.options) {
-			setInternalOptions(fieldDef.inputSettings.options);
-
-		} else if (fieldDef?.inputSettings?.getOptions) {
-			getNewOptions().then((newOptions) => setInternalOptions(newOptions));
-
-		} else {
-			throw new Error("You must provide an options array or the getOptions method");
+		const populateOptions = async () => {
+			if (fieldDef?.inputSettings?.options) {
+				setInternalOptions(fieldDef.inputSettings.options);
+			} else  if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef.inputSettings.getOptions();
+				setInternalOptions(newOptions);
+			}
 		}
-	}, [fieldDef.inputSettings]);
+		populateOptions();
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
 
 	useEffect(() => {
 		if (value) {
