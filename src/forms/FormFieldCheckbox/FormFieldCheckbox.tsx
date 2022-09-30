@@ -6,7 +6,6 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldCheckboxDef } from "./FormFieldCheckboxTypes";
 import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
 import { MosaicLabelValue } from "@root/types";
-import { getNewOptions } from "@root/utils/getOptions";
 
 const FormFieldCheckbox = (
 	props: MosaicFieldProps<FormFieldCheckboxDef, MosaicLabelValue[]>
@@ -22,19 +21,16 @@ const FormFieldCheckbox = (
 	const [checked, setChecked] = useState<string[]>([]);
 
 	useEffect(() => {
-		if (fieldDef?.inputSettings?.options) {
-			setInternalOptions(fieldDef.inputSettings.options);
-
-		} else if (fieldDef?.inputSettings?.getOptions) {
-			getNewOptions().then((newOptions) => {
-				setInternalOptions(newOptions)
-			});
-
-		} else {
-			throw new Error("You must provide an options array or the getOptions method");
+		const populateOptions = async () => {
+			if (fieldDef?.inputSettings?.options) {
+				setInternalOptions(fieldDef.inputSettings.options);
+			} else  if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef.inputSettings.getOptions();
+				setInternalOptions(newOptions);
+			}
 		}
-
-	}, [fieldDef.inputSettings]);
+		populateOptions();
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
 
 	useEffect(() => {
 		if (value?.length > 0) {
@@ -48,9 +44,11 @@ const FormFieldCheckbox = (
 
 	}, [internalOptions, value]);
 
-	const internalOnChange = (myNewValues: string[]) => {
+	const internalOnChange = (myNewValues: string[], cb:(val:MosaicLabelValue[])=>void) => {
 		const checkedOptions = myNewValues?.map(checkedOption => internalOptions.find(option => option.value === checkedOption));
-		onChange(checkedOptions);
+		if (cb) {
+			cb(checkedOptions)
+		}
 	}
 
 	return (
@@ -58,8 +56,8 @@ const FormFieldCheckbox = (
 			disabled={fieldDef?.disabled}
 			checked={checked}
 			options={internalOptions}
-			onChange={internalOnChange}
-			onChangeCb={fieldDef.onChangeCb}
+			onChange={(val) => internalOnChange(val, onChange)}
+			onChangeCb={(val) => internalOnChange(val, fieldDef.onChangeCb)}
 			onBlur={onBlur}
 			style={fieldDef.style}
 			className={fieldDef.className}

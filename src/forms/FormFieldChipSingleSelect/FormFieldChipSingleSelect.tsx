@@ -10,9 +10,8 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
 import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
 import { MosaicLabelValue } from "@root/types";
-import { getNewOptions } from "@root/utils/getOptions";
 
-const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef, MosaicFieldProps>): ReactElement => {
+const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef, MosaicLabelValue>): ReactElement => {
 	const {
 		fieldDef,
 		error,
@@ -25,46 +24,53 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 
 	const [internalOptions, setInternalOptions] = useState([]);
 	const [prepopulated, setPrepouplated] = useState(false);
+	// true: options
+	// false: getOptions
+	const [origin, setOrigin] = useState(undefined);
+
 
 	useEffect(() => {
-		if (fieldDef?.inputSettings?.options) {
-			setInternalOptions(fieldDef.inputSettings.options);
-
-		} else if (fieldDef?.inputSettings?.getOptions) {
-			getNewOptions().then((newOptions) => setInternalOptions(newOptions));
-
-		} else {
-			throw new Error("You must provide an options array or the getOptions method");
+		const populateOptions = async () => {
+			if (fieldDef?.inputSettings?.options) {
+				setInternalOptions(fieldDef.inputSettings.options);
+				setOrigin(true);
+			} else  if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef.inputSettings.getOptions();
+				setInternalOptions(newOptions);
+				setOrigin(false);
+			}
+			setPrepouplated(false);
 		}
-
-		setPrepouplated(false);
-	}, [fieldDef.inputSettings]);
+		populateOptions();
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
 
 	useEffect(() => {
 		if (value && !prepopulated) {
-			findSelectedOption([...internalOptions].find((o) => o.value === value.value));
+
+			if (origin === true) {
+				findSelectedOption(value);
+			}
+			if (origin === false) {
+				if (![...internalOptions].find((o) => o.value === value.value)) {
+					setInternalOptions([{...value, selected: true}, ...internalOptions])
+				} else {
+					findSelectedOption(value);
+				}
+			}
 			setPrepouplated(true);
 		}
-	}, [value, prepopulated, internalOptions]);
+	}, [value, prepopulated, internalOptions, origin]);
 
-	useEffect(() => {
-		if (value) {
-			if (!internalOptions.find((o) => o?.value === value?.value)) {
-				setInternalOptions([...internalOptions, value]);
-				setPrepouplated(false);
-			}
-		}
-	}, [internalOptions]);
-
-	const findSelectedOption = (option: MosaicLabelValue) => {
+	const findSelectedOption = (option) => {
 		let newOptions = [...internalOptions];
 
 		newOptions = newOptions.map((o) => (
 			o?.value === option?.value ?
 				{ ...o, selected: required && o.selected ? o.selected : !o.selected }
 				:
-				{ ...o, selected: o.selected = false }
-		));
+				{ ...o, selected: false }
+		)
+		);
 
 		const selectedOption = newOptions.find(o => o.selected === true);
 
@@ -73,14 +79,12 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		return selectedOption;
 	}
 
-	const updateSelectedOption = (option: MosaicLabelValue) => {
+	const updateSelectedOption = (option) => {
 		const selectedOption = findSelectedOption(option);
 		setPrepouplated(true);
 		onChange(selectedOption ?
-			{
-				label: selectedOption?.label,
-				value: selectedOption?.value
-			} : undefined);
+			{label: selectedOption.label, value: selectedOption.value}
+			: undefined);
 	}
 
 	const errorWithMessage = error?.trim().length > 0;
