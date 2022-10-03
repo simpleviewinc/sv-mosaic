@@ -46,9 +46,6 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 					name: "text1",
 					label: "Simple Text",
 					type: "text",
-					inputSettings: {
-						type: "number",
-					},
 					instructionText: "testing",
 				},
 			],
