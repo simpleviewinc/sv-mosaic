@@ -9,13 +9,6 @@ import { TextFieldDef } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
-export const getInputValue = (value: string, type?: string) => {
-	if (type === "number" && value !== "") {
-		return Number(value);
-	}
-
-	return value;
-}
 
 const TextField = (
 	props: MosaicFieldProps<TextFieldDef, string | number>
@@ -37,13 +30,13 @@ const TextField = (
 		: null;
 
 	const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const value = getInputValue(e.target.value, fieldDef?.inputSettings?.type);
+		const { value } = e.target;
 
 		onChange && onChange(value === "" ? undefined : value);
 	};
 
 	const onFieldBlur = (e: ChangeEvent<HTMLInputElement>) => {
-		const value = getInputValue(e.target.value, fieldDef?.inputSettings?.type);
+		const { value } = e.target;
 
 		onBlur && onBlur(value === "" ? undefined : value);
 		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
@@ -68,7 +61,7 @@ const TextField = (
 			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
 			InputProps={leadingElement}
 			required={fieldDef?.required}
-			type={fieldDef?.inputSettings?.type}
+			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
 		/>
 	);
 };
