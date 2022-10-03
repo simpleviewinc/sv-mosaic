@@ -1,5 +1,10 @@
 # sv-mosaic changelog
 
+## 8.0.0 - 10/04/22
+* Updated `Button` component's font-weight to 700.
+* **BREAKING** All Fields will now return undefined when users fully delete their value.
+* Updated automation tests to now run simultaneously to improve running times.
+
 ## 7.0.0 - 09/20/22
 * **BREAKING** Updated `Typography` components to now only allow the same colors as `Buttons` ("black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"), previously accepted any string.
 * Updated `Theme` file to directly export those colors.
