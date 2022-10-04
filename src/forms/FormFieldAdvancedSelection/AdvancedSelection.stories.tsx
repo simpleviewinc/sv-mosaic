@@ -17,27 +17,14 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	const options = [
-		{
-			label: "Label 1",
-			value: "label_1",
-		},
-		{
-			label: "Label 2",
-			value: "label_2",
-		},
-		{
-			label: "Label 3",
-			value: "label_3",
-		},
-	];
+	const options = additionalOptions ? additionalOptions : [];
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "Instruction text");
 	const helperText = text("Helper text", "Helper text");
 	const optionsOrigin = select(
-		"OptionsOrigin",
+		"Options Origin",
 		["Local", "DB"],
 		"Local"
 	);

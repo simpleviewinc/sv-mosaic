@@ -27,7 +27,7 @@ export const Playground = (): ReactElement => {
 	const instructionText = text("Instruction Text", "Instruction Text");
 	const helperText = text("Helper Text", "Helper Text");
 	const optionsOrigin = select(
-		"OptionsOrigin",
+		"Options Origin",
 		["Local", "DB"],
 		"Local"
 	);

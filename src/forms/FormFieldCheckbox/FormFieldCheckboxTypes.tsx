@@ -29,6 +29,6 @@ type StrictUnionHelper<T, TAll> =
     T extends any
     ? T & Partial<Record<Exclude<UnionKeys<TAll>, keyof T>, never>> : never;
 
-type StrictUnion<T> = StrictUnionHelper<T, T>
+export type StrictUnion<T> = StrictUnionHelper<T, T>
 
 export type FormFieldCheckboxDef = StrictUnion<FormFieldCheckboxLocalOptions | FormFieldCheckboxExternalOptions>;
