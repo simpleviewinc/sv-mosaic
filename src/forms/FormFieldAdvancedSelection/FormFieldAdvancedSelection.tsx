@@ -52,12 +52,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 		};
 	}, []);
 
-	useEffect(() => {
-		if (!fieldDef?.inputSettings?.options && !fieldDef?.inputSettings?.getOptions)  {
-			throw new Error("You must provide an options array or the getOptions method");
-		}
-	}, [fieldDef.inputSettings])
-
 	/**
    * Sets the open state of the modal to true.
    */

@@ -12,30 +12,14 @@ type AdvancedSelectionLocalOptions = {
 	/**
 	* Options to be display within the Modal.
 	*/
-	options?: MosaicLabelValue[];
-	/**
-	 * Used to get the selected options on the parent component.
-	 */
-	getOptions?: ({
-		filter,
-		limit,
-		offset,
-	}: {
-		filter?: string;
-		limit?: number;
-		offset?: number;
-	}) => Promise<MosaicLabelValue[]>;
+	options: MosaicLabelValue[];
 } & AdvancedSelectionBasic;
 
 type AdvancedSelectionExternalOptions = {
 	/**
-	* Options to be display within the Modal.
-	*/
-	options?: MosaicLabelValue[];
-	/**
 	 * Used to get the selected options on the parent component.
 	 */
-	getOptions?: ({
+	getOptions: ({
 		filter,
 		limit,
 		offset,
