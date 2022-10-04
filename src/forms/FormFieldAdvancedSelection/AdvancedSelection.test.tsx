@@ -126,7 +126,7 @@ describe("AdvancedSelection component", () => {
 	it("should select an option and display its chip", async () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
-		const addButton = screen.getByText("ADD ELEMENT");
+		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
 		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
@@ -141,7 +141,7 @@ describe("AdvancedSelection component", () => {
 	it("should remove a selected option", async () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
-		const addButton = screen.getByText("ADD ELEMENT");
+		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
 		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
@@ -163,7 +163,7 @@ describe("AdvancedSelection component", () => {
 	it("should filter the options", async () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
-		const addButton = screen.getByText("ADD ELEMENT");
+		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
 		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
@@ -181,7 +181,7 @@ describe("AdvancedSelection component", () => {
 	it("should create a new option", async () => {
 		render(<AdvancedSelectExample optionsOrigin="local"/>);
 
-		const addButton = screen.getByText("ADD ELEMENT");
+		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
 		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
