@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo, ReactElement } from "react";
-import { boolean, withKnobs, text } from "@storybook/addon-knobs";
+import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FormFieldCheckboxDef } from ".";
 import { FieldDef } from "@root/components/Field";
@@ -26,8 +26,11 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Label");
 	const instructionText = text("Instruction Text", "Instruction Text");
 	const helperText = text("Helper Text", "Helper Text");
-	const sendOptions = boolean("Options", true);
-	const shouldUseGetOptions = boolean("Obtain options from db", false);
+	const optionsOrigin = select(
+		"OptionsOrigin",
+		["Local", "DB"],
+		"Local"
+	);
 
 	const fields = useMemo(
 		() =>
@@ -39,14 +42,14 @@ export const Playground = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						options: sendOptions ? checkboxOptions : undefined,
-						getOptions: shouldUseGetOptions ? getOptions : undefined,
+						options: optionsOrigin === "Local" ? checkboxOptions : undefined,
+						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef<FormFieldCheckboxDef>[],
-		[required, disabled, label, instructionText, helperText, shouldUseGetOptions, sendOptions]
+		[required, disabled, label, instructionText, helperText, optionsOrigin]
 	);
 
 	return (
