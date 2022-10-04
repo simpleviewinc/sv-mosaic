@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { boolean, text, withKnobs, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FormFieldChipSingleSelectDef } from ".";
 import { FieldDef } from "@root/components/Field";
@@ -13,32 +13,34 @@ export default {
 	decorators: [withKnobs],
 } as Meta;
 
-const options = [
-	{
-		label: "Opt1",
-		value: "Option_1",
-	},
-	{
-		label: "Opt2",
-		value: "Option_2",
-	},
-	{
-		label: "Opt3",
-		value: "Option_3",
-	},
-];
-
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
+	const options = useMemo( ()=> [
+		{
+			label: "Option 1",
+			value: "Option_1",
+		},
+		{
+			label: "Option 2",
+			value: "Option_2",
+		},
+		{
+			label: "Option 3",
+			value: "Option_3",
+		},
+	], []);
 
 	const label = text("Label", "Label");
 	const helperText = text("Helper Text", "Helper Text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const required = boolean("Required", false);
 	const disabled = boolean("Disabled", false);
-	const sendOptions = boolean("Options", true);
-	const shouldUseGetOptions = boolean("Obtain options from db", false);
+	const optionsOrigin = select(
+		"Options Origin",
+		["Local", "DB"],
+		"Local"
+	);
 
 	const fields = useMemo(
 		() =>
@@ -52,12 +54,12 @@ export const Playground = (): ReactElement => {
 					name: "Form Field Chip Single Select",
 					type: "chip",
 					inputSettings: {
-						options: sendOptions ? options : undefined,
-						getOptions: shouldUseGetOptions ? getOptions : undefined,
+						options: optionsOrigin === "Local" ? options : undefined,
+						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 					},
 				}
 			] as FieldDef<FormFieldChipSingleSelectDef>[],
-		[label, helperText, instructionText, required, disabled, shouldUseGetOptions, sendOptions]
+		[label, helperText, instructionText, required, disabled, optionsOrigin]
 	);
 
 	return (
@@ -78,6 +80,22 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	const options = useMemo( ()=> [
+		{
+			label: "Option 1",
+			value: "Option_1",
+		},
+		{
+			label: "Option 2",
+			value: "Option_2",
+		},
+		{
+			label: "Option 3",
+			value: "Option_3",
+		},
+	], []);
+
 	const fields = useMemo(
 		() =>
 			[
