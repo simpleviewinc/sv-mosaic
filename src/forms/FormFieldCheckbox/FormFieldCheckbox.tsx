@@ -30,7 +30,10 @@ const FormFieldCheckbox = (
 			}
 		}
 		populateOptions();
-	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
+	}, [
+		fieldDef?.inputSettings?.options,
+		fieldDef?.inputSettings?.getOptions
+	])
 
 	useEffect(() => {
 		if (value?.length > 0) {
@@ -44,10 +47,10 @@ const FormFieldCheckbox = (
 
 	}, [internalOptions, value]);
 
-	const internalOnChange = (myNewValues: string[], cb:(val:MosaicLabelValue[])=>void) => {
-		const checkedOptions = myNewValues?.map(checkedOption => internalOptions.find(option => option.value === checkedOption));
+	const internalOnChange = (checkedOptions: string[], cb:(val:MosaicLabelValue[])=>void) => {
+		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option.value === checkedOption));
 		if (cb) {
-			cb(checkedOptions)
+			cb(newCheckedOptions)
 		}
 	}
 
