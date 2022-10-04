@@ -52,7 +52,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 			}
 			if (origin === false) {
 				if (![...internalOptions].find((o) => o.value === value.value)) {
-					setInternalOptions([{...value, selected: true}, ...internalOptions])
+					setInternalOptions([...internalOptions, {...value, selected: true}])
 				} else {
 					findSelectedOption(value);
 				}

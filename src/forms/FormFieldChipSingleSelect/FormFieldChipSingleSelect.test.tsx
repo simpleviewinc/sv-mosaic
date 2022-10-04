@@ -20,16 +20,16 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 
 	const options = useMemo( ()=> [
 		{
-			label: "Label 1",
-			value: "Label_1",
+			label: "Option 1",
+			value: "Option_1",
 		},
 		{
-			label: "Label 2",
-			value: "Label_2",
+			label: "Option 2",
+			value: "Option_2",
 		},
 		{
-			label: "Label 3",
-			value: "Label_3",
+			label: "Option 3",
+			value: "Option_3",
 		},
 	], []);
 
@@ -91,9 +91,9 @@ describe("FormFieldChipSingleSelect component", () => {
 	})
 
 	it("should display the list of options", () => {
-		expect(getByText("Label 1")).toBeTruthy();
-		expect(getByText("Label 2")).toBeTruthy();
-		expect(getByText("Label 3")).toBeTruthy();
+		expect(getByText("Option 1")).toBeTruthy();
+		expect(getByText("Option 2")).toBeTruthy();
+		expect(getByText("Option 3")).toBeTruthy();
 	});
 
 	it("should check the clicked option", () => {
