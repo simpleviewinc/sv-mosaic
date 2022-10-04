@@ -24,7 +24,7 @@ const FormFieldCheckbox = (
 		const populateOptions = async () => {
 			if (fieldDef?.inputSettings?.options) {
 				setInternalOptions(fieldDef.inputSettings.options);
-			} else  if (fieldDef?.inputSettings?.getOptions) {
+			} else if (fieldDef?.inputSettings?.getOptions) {
 				const newOptions = await fieldDef.inputSettings.getOptions();
 				setInternalOptions(newOptions);
 			}
