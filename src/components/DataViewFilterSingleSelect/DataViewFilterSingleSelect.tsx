@@ -26,7 +26,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 		async function fetchData() {
 			const selected = await props.args.getSelected(value);
 			const options = await props.args.getOptions();
-			
+
 			setState({
 				...state,
 				options : options.docs,
@@ -66,7 +66,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 		props.onChange({
 			value : value === "" ? undefined : value
 		});
-		
+
 		onClose();
 	}
 
