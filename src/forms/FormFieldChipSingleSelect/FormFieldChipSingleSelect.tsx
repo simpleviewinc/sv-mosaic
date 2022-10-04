@@ -34,7 +34,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 			if (fieldDef?.inputSettings?.options) {
 				setInternalOptions(fieldDef.inputSettings.options);
 				setOrigin(true);
-			} else  if (fieldDef?.inputSettings?.getOptions) {
+			} else if (fieldDef?.inputSettings?.getOptions) {
 				const newOptions = await fieldDef.inputSettings.getOptions();
 				setInternalOptions(newOptions);
 				setOrigin(false);
