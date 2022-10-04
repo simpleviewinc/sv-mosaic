@@ -8,10 +8,25 @@ import theme from "@root/theme";
 import { BodyText } from "../Typography";
 
 const StyledMenuItem = styled(MUIMenuItem)`
-	min-width: 150px;
 
 	&.MuiMenuItem-root {
 		min-height: 42px;
+	}
+
+	&.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+		background-color: ${theme.colors.white};
+		.menuLabel {
+			font-weight: 700;
+		}
+		&:hover {
+			background-color: ${theme.colors.gray200};
+		}
+	}
+
+	&.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+		&:hover {
+			background-color: ${theme.colors.gray200};
+		}
 	}
 
 	& > .icon {
@@ -24,6 +39,7 @@ const StyledMenuItem = styled(MUIMenuItem)`
 
 	& > .menuLabel {
 		font-family: ${theme.fontFamily};
+		color: ${theme.colors.label}
 	}
 `
 
