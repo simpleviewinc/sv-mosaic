@@ -19,25 +19,30 @@ const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelVa
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState([]);
+	// true: options
+	// false: getOptions
+	const [origin, setOrigin] = useState(undefined);
 
 	useEffect(() => {
 		const populateOptions = async () => {
 			if (fieldDef?.inputSettings?.options) {
 				setInternalOptions(fieldDef.inputSettings.options);
+				setOrigin(true);
 			} else if (fieldDef?.inputSettings?.getOptions) {
 				const newOptions = await fieldDef.inputSettings.getOptions();
 				setInternalOptions(newOptions);
+				setOrigin(false);
 			}
 		}
 		populateOptions();
 	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
 
 	useEffect(() => {
-		if (value) {
+		if (value && origin === false) {
 			if (!internalOptions.find((o) => o?.value === value?.value))
 				setInternalOptions([...internalOptions, value]);
 		}
-	}, [internalOptions, value]);
+	}, [internalOptions, value, origin]);
 
 	const listOfRadios = (
 		<>
@@ -60,7 +65,7 @@ const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelVa
 	return (
 		<StyledRadioGroup
 			onChange={(e) => onChange && updateSelectedOption(e.target.value)}
-			value={value?.value ?? ""}
+			value={value ? value.value : ""}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 		>
 			{listOfRadios}

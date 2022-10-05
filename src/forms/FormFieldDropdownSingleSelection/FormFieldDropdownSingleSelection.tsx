@@ -28,25 +28,30 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 	const [dropDownValue, setDropDownValue] = useState(null);
 
 	const [internalOptions, setInternalOptions] = useState([]);
+	// true: options
+	// false: getOptions
+	const [origin, setOrigin] = useState(undefined);
 
 	useEffect(() => {
 		const populateOptions = async () => {
 			if (fieldDef?.inputSettings?.options) {
 				setInternalOptions(fieldDef.inputSettings.options);
+				setOrigin(true);
 			} else if (fieldDef?.inputSettings?.getOptions) {
 				const newOptions = await fieldDef.inputSettings.getOptions();
 				setInternalOptions(newOptions);
+				setOrigin(false);
 			}
 		}
 		populateOptions();
 	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
 
 	useEffect(() => {
-		if (value) {
+		if (value && origin === false) {
 			if (!internalOptions.find((o) => o?.value === value?.value))
 				setInternalOptions([...internalOptions, value]);
 		}
-	}, [internalOptions, value]);
+	}, [internalOptions, value, origin]);
 
 	const renderInput = (params) => (
 		<InputWrapper>
@@ -66,7 +71,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 
 	const onDropDownChange = async (option: MosaicLabelValue) => {
 		setDropDownValue(option)
-		onChange && (await onChange(option));
+		onChange && (await onChange(option ? option : undefined));
 	}
 
 	const isOptionEqualToValue = (option: MosaicLabelValue, value: MosaicLabelValue) => {

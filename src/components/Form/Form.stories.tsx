@@ -84,24 +84,19 @@ export const Playground = (): ReactElement => {
 				label: "Label 2",
 				value: "label_2"
 			},
-			{
-				label: "ABC",
-				value: "abc"
-			}
 		],
 		"chipSelect": {
-			"label": "Label 4",
-			"value": "label_4"
+			"label": "Label 1",
+			"value": "label_1"
 		},
-		"dropdownSingle":
-		{
-			"label": "Option 1",
-			"value": "option1"
+		"dropdownSingle": {
+			"label": "The Dark Knight",
+			"value": "2008"
 		},
 		"phoneSelect": "15205751151",
 		"radio": {
-			label: "Label 4",
-			value: "label_4"
+			label: "Label 2",
+			value: "label_2"
 		},
 		"toggleSwitch": true,
 		"color": "#a8001791",

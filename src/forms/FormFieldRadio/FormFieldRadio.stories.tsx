@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, withKnobs, text } from "@storybook/addon-knobs";
+import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FormFieldRadioDef } from ".";
 import { FieldDef } from "@root/components/Field";
@@ -37,8 +37,11 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "");
 	const helperText = text("Helper text", "");
-	const sendOptions = boolean("Options", true);
-	const shouldUseGetOptions = boolean("Obtain options from db", false);
+	const optionsOrigin = select(
+		"Options Origin",
+		["Local", "DB"],
+		"Local"
+	);
 
 	const fields = useMemo(
 		() =>
@@ -50,14 +53,14 @@ export const Playground = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						options: sendOptions ? options : undefined,
-						getOptions: shouldUseGetOptions ? getOptions : undefined,
+						options: optionsOrigin === "Local" ? options : undefined,
+						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 					},
 					helperText,
 					instructionText,
 				}
 			] as FieldDef<FormFieldRadioDef>[],
-		[label, required, disabled, instructionText, helperText, shouldUseGetOptions, sendOptions]
+		[label, required, disabled, instructionText, helperText, optionsOrigin]
 	);
 
 	return (
