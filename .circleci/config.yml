@@ -79,7 +79,7 @@ jobs:
       - run: docker version
       - run:
           name: Build
-          command: docker compose build node
+          command: docker compose build node_ci
       - run:
           name: Save to file
           command: |
@@ -100,7 +100,7 @@ jobs:
       - *load_build_image
       - run:
           name: Publish to NPM
-          command: docker compose run --rm node yarn run ci:publish
+          command: docker compose run --rm node_ci yarn run ci:publish
   storybook:
     docker:
       - image: cimg/base:2022.09
@@ -119,7 +119,7 @@ jobs:
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Publish storybook
-          command: docker compose run --rm node yarn run ci:storybook
+          command: docker compose run --rm node_ci yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
   unit_tests:
@@ -140,7 +140,7 @@ jobs:
       #     command: ls -la
       - run:
           name: Unit tests
-          command: docker compose run --rm node yarn test
+          command: docker compose run --rm node_ci yarn test
   automation_tests:
     docker:
       - image: cimg/base:2022.09
@@ -156,4 +156,4 @@ jobs:
           command: docker compose build automation_testing
       - run:
           name: Automation tests
-          command: docker compose run --rm automation_testing ENV=local npm run test:chrome
+          command: docker compose run --rm automation_testing_ci ENV=local npm run test:chrome

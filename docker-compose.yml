@@ -22,6 +22,9 @@ services:
       - "./jest.config.js:/app/jest.config.js"
     ports:
       - "10000:10000"
+  node_ci:
+    build: "."
+    image: sv-mosaic:local
   automation_testing:
     build: "./automation_testing"
     image: sv-mosaic:automation_testing
@@ -29,3 +32,8 @@ services:
       - "20000:20000"
     depends_on:
       - "node"
+  automation_testing_ci:
+    build: "./automation_testing"
+    image: sv-mosaic:automation_testing
+    depends_on:
+      - "node_ci"
