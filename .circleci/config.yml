@@ -7,7 +7,7 @@ vars:
   load_build_image: &load_build_image
     run:
       name: Import build image
-      command: docker load -i ~/project/sv-mosaic-local.tar.gz
+      command: docker load -i /tmp/workspace/sv-mosaic-local.tar.gz
   # setup_environment: &setup_environment
   #     run:
   #         name: Setup Environment Variables
@@ -73,7 +73,7 @@ jobs:
   build:
     docker:
       - image: cimg/base:2022.09
-    working_directory: ~/project
+    working_directory: /app
     steps:
       - checkout
       - *setup_remote_docker
@@ -83,20 +83,20 @@ jobs:
           command: docker compose build node
       - run:
           name: Save to file
-          command: docker save sv-mosaic:local | gzip > ~/project/sv-mosaic-local.tar.gz
+          command: docker save sv-mosaic:local | gzip > /tmp/workspace/sv-mosaic-local.tar.gz
       - persist_to_workspace:
-          root: ~/project
+          root: /tmp/workspace
           paths:
             - .
   publish:
     docker:
       - image: cimg/base:2022.09
-    working_directory: ~/project
+    working_directory: /app
     steps:
       - checkout
       - *setup_remote_docker
       - attach_workspace:
-          at: ~/project
+          at: /tmp/workspace
       - *load_build_image
       - run:
           name: Publish to NPM
@@ -104,7 +104,7 @@ jobs:
   storybook:
     docker:
       - image: cimg/base:2022.09
-    working_directory: ~/project
+    working_directory: /app
     resource_class: large
     steps:
       - checkout
@@ -113,7 +113,7 @@ jobs:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - attach_workspace:
-          at: ~/project
+          at: /tmp/workspace
       - *load_build_image
       - run:
           name: Add github to known_hosts
@@ -126,13 +126,13 @@ jobs:
   unit_tests:
     docker:
       - image: cimg/base:2022.09
-    working_directory: ~/project
+    working_directory: /app
     resource_class: large
     steps:
       - checkout
       - *setup_remote_docker
       - attach_workspace:
-          at: ~/project
+          at: /tmp/workspace
       - *load_build_image
       # - run:
       #     name: Print Working Directory
@@ -146,13 +146,13 @@ jobs:
   automation_tests:
     docker:
       - image: cimg/base:2022.09
-    working_directory: ~/project
+    working_directory: /app
     resource_class: large
     steps:
       - checkout
       - *setup_remote_docker
       - attach_workspace:
-          at: ~/project
+          at: /tmp/workspace
       - *load_build_image
       - run:
           name: Build
