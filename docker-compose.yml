@@ -25,9 +25,20 @@ services:
   node_ci:
     build: "."
     image: sv-mosaic:local
+    environment:
+      CIRCLE_BRANCH: ${CIRCLE_BRANCH}
+      CIRCLE_SHA1: ${CIRCLE_SHA1}
+      NPM_TOKEN: ${NPM_TOKEN}
+      GITHUB_KEY: ${GITHUB_KEY}
   automation_testing:
     build: "./automation_testing"
     image: sv-mosaic:automation_testing
+    volumes:
+     - "./automation_testing/package.json:/app/package.json"
+     - "./automation_testing/utils:/app/utils"
+     - "./automation_testing/tests:/app/tests"
+     - "./automation_testing/pages:/app/pages"
+     - "./automation_testing/sv-mosaic.config.ts:/app/sv-mosaic.config.ts"
     ports:
       - "20000:20000"
     depends_on:
