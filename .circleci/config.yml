@@ -82,7 +82,9 @@ jobs:
           command: docker compose build node
       - run:
           name: Save to file
-          command: docker save sv-mosaic:local | gzip > /tmp/workspace/sv-mosaic-local.tar.gz
+          command: |
+            mkdir -p /tmp/workspace
+            docker save sv-mosaic:local | gzip > /tmp/workspace/sv-mosaic-local.tar.gz
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
