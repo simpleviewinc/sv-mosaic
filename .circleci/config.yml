@@ -31,20 +31,20 @@ workflows:
                 - qa
                 - staging
                 - /pull.*/
-      - publish:
-          context: default
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - qa
-                - staging
-                - master
-      - storybook:
-          context: default
-          requires:
-            - build
+      # - publish:
+      #     context: default
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - qa
+      #           - staging
+      #           - master
+      # - storybook:
+      #     context: default
+      #     requires:
+      #       - build
       - unit_tests:
           context: default
           requires:
@@ -54,18 +54,18 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-      - automation_tests:
-          context: default
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - master
-                - qa
-                - staging
-                - /pull.*/
+      # - automation_tests:
+      #     context: default
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - master
+      #           - qa
+      #           - staging
+      #           - /pull.*/
 
 orbs:
   slack: circleci/slack@4.4.0
@@ -83,47 +83,46 @@ jobs:
           command: docker compose build node
       - run:
           name: Save to file
-          command: |
-            docker save sv-mosaic:local | gzip > ~/project/sv-mosaic-local.tar.gz
+          command: docker save sv-mosaic:local | gzip > ~/project/sv-mosaic-local.tar.gz
       - persist_to_workspace:
           root: ~/project
           paths:
             - .
-  publish:
-    docker:
-      - image: cimg/base:2022.09
-    working_directory: ~/project
-    steps:
-      - checkout
-      - *setup_remote_docker
-      - attach_workspace:
-          at: ~/project
-      - *load_build_image
-      - run:
-          name: Publish to NPM
-          command: docker compose run --rm node_ci yarn run ci:publish
-  storybook:
-    docker:
-      - image: cimg/base:2022.09
-    working_directory: ~/project
-    resource_class: large
-    steps:
-      - checkout
-      - *setup_remote_docker
-      - add_ssh_keys:
-          fingerprints:
-            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
-      - attach_workspace:
-          at: ~/project
-      - *load_build_image
-      - run:
-          name: Add github to known_hosts
-          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run:
-          name: Publish storybook
-          command: docker compose run --rm node yarn run ci:storybook
-          environment:
-            NODE_DEBUG: gh-pages
+  # publish:
+  #   docker:
+  #     - image: cimg/base:2022.09
+  #   working_directory: ~/project
+  #   steps:
+  #     - checkout
+  #     - *setup_remote_docker
+  #     - attach_workspace:
+  #         at: ~/project
+  #     - *load_build_image
+  #     - run:
+  #         name: Publish to NPM
+  #         command: docker compose run --rm node yarn run ci:publish
+  # storybook:
+  #   docker:
+  #     - image: cimg/base:2022.09
+  #   working_directory: ~/project
+  #   resource_class: large
+  #   steps:
+  #     - checkout
+  #     - *setup_remote_docker
+  #     - add_ssh_keys:
+  #         fingerprints:
+  #           - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+  #     - attach_workspace:
+  #         at: ~/project
+  #     - *load_build_image
+  #     - run:
+  #         name: Add github to known_hosts
+  #         command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+  #     - run:
+  #         name: Publish storybook
+  #         command: docker compose run --rm node yarn run ci:storybook
+  #         environment:
+  #           NODE_DEBUG: gh-pages
   unit_tests:
     docker:
       - image: cimg/base:2022.09
@@ -136,22 +135,28 @@ jobs:
           at: ~/project
       - *load_build_image
       - run:
-          name: Unit tests
-          command: docker compose run --rm node yarn test
-  automation_tests:
-    docker:
-      - image: cimg/base:2022.09
-    working_directory: ~/project
-    resource_class: large
-    steps:
-      - checkout
-      - *setup_remote_docker
-      - attach_workspace:
-          at: ~/project
-      - *load_build_image
+          name: Print Working Directory
+          command: pwd
       - run:
-          name: Build
-          command: docker compose build automation_testing
-      - run:
-          name: Automation tests
-          command: docker compose run --rm automation_testing ENV=local npm run test:chrome
+          name: List Files
+          command: ls -la
+      # - run:
+      #     name: Unit tests
+      #     command: docker compose run --rm node yarn test
+  # automation_tests:
+  #   docker:
+  #     - image: cimg/base:2022.09
+  #   working_directory: ~/project
+  #   resource_class: large
+  #   steps:
+  #     - checkout
+  #     - *setup_remote_docker
+  #     - attach_workspace:
+  #         at: ~/project
+  #     - *load_build_image
+  #     - run:
+  #         name: Build
+  #         command: docker compose build automation_testing
+  #     - run:
+  #         name: Automation tests
+  #         command: docker compose run --rm automation_testing ENV=local npm run test:chrome
