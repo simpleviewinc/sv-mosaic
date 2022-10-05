@@ -54,8 +54,11 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
-	const sendOptions = boolean("Options", true)
-	const shouldUseGetOptions = boolean("Obtain options from db", false);
+	const optionsOrigin = select(
+		"Options Origin",
+		["Local", "DB"],
+		"Local"
+	);
 
 	const fields = useMemo(
 		() =>
@@ -68,9 +71,8 @@ export const Playground = (): ReactElement => {
 					disabled,
 					size,
 					inputSettings: {
-						options: sendOptions ? options : undefined,
-						getOptions: shouldUseGetOptions ? getOptions : undefined,
-						placeholder,
+						options: optionsOrigin === "Local" ? options : undefined,
+						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 					},
 					helperText,
 					instructionText,
@@ -85,8 +87,7 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			label,
-			shouldUseGetOptions,
-			sendOptions
+			optionsOrigin
 		]
 	);
 
