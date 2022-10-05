@@ -4,6 +4,7 @@ import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
 import DropdownSingleSelection from "./FormFieldDropdownSingleSelection";
 import { getOptions } from "@root/utils/getOptions";
 import "@testing-library/jest-dom"
+import { additionalOptions } from "../FormFieldAdvancedSelection";
 
 const topFilms = [
 	{ label: "The Shawshank Redemption", value: "1994" },
@@ -57,7 +58,6 @@ describe("DropdownSingleSelection disabled state", () => {
 						placeholder: "placeholder",
 					}
 				}}
-				value={undefined}
 			/>
 		);
 
@@ -78,7 +78,6 @@ describe("DropdownSingleSelection component as a form field", () => {
 						placeholder: "Placeholder test",
 					}
 				}}
-				value={undefined}
 			/>
 		);
 	});
@@ -100,15 +99,11 @@ describe("DropdownSingleSelection component with options from DB", () => {
 					type: "dropdown",
 					label: "Label test",
 					inputSettings: {
-						options: undefined,
 						getOptions,
 						placeholder: "Placeholder test",
 					},
 				}}
-				value={{
-					label: "Option 4 category 2",
-					value: "option_4-cat_2",
-				}}
+				value={additionalOptions[7]}
 			/>);
 		});
 		await waitFor(() => {
@@ -125,7 +120,6 @@ describe("DropdownSingleSelection component with options from DB", () => {
 					type: "dropdown",
 					label: "Label test",
 					inputSettings: {
-						options: undefined,
 						getOptions,
 						placeholder: "Placeholder test",
 					},
