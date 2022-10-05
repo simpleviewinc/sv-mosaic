@@ -19,14 +19,17 @@ const FormFieldCheckbox = (
 
 	const [internalOptions, setInternalOptions] = useState<MosaicLabelValue[]>([]);
 	const [checked, setChecked] = useState<string[]>([]);
+	const [origin, setOrigin] = useState(undefined);
 
 	useEffect(() => {
 		const populateOptions = async () => {
 			if (fieldDef?.inputSettings?.options) {
 				setInternalOptions(fieldDef.inputSettings.options);
+				setOrigin(true);
 			} else if (fieldDef?.inputSettings?.getOptions) {
 				const newOptions = await fieldDef.inputSettings.getOptions();
 				setInternalOptions(newOptions);
+				setOrigin(false);
 			}
 		}
 		populateOptions();
@@ -36,7 +39,7 @@ const FormFieldCheckbox = (
 	])
 
 	useEffect(() => {
-		if (value?.length > 0) {
+		if (value && origin === false) {
 			value.forEach((optionValue) => {
 				if (!internalOptions.find((o) => o?.value === optionValue?.value))
 					setInternalOptions([...internalOptions, optionValue]);
@@ -45,7 +48,7 @@ const FormFieldCheckbox = (
 
 		setChecked(value?.map(selectedOption => selectedOption.value));
 
-	}, [internalOptions, value]);
+	}, [internalOptions, value, origin]);
 
 	const internalOnChange = (checkedOptions: string[], cb:(val:MosaicLabelValue[])=>void) => {
 		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option.value === checkedOption));

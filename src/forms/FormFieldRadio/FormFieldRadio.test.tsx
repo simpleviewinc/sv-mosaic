@@ -6,6 +6,7 @@ import { getOptions } from "@root/utils/getOptions";
 // Components
 import FormFieldRadio from "./FormFieldRadio";
 import { MosaicLabelValue } from "@root/types";
+import { additionalOptions } from "../FormFieldAdvancedSelection";
 
 afterEach(cleanup);
 
@@ -89,25 +90,13 @@ describe("FormFieldRadio component from DB", () => {
 	});
 
 	it("should display the value of the clicked option", async () => {
-		expect(getByText("option_3-cat_2")).toBeDefined();
+		expect(getByText(additionalOptions[6].value)).toBeDefined();
 	});
 
 	it("should check the clicked option", () => {
-		expect(radioButtons[0].checked).toEqual(false);
-		expect(radioButtons[1].checked).toEqual(false);
-		expect(radioButtons[2].checked).toEqual(false);
-		expect(radioButtons[3].checked).toEqual(false);
-		expect(radioButtons[4].checked).toEqual(false);
-		expect(radioButtons[5].checked).toEqual(false);
-		expect(radioButtons[6].checked).toEqual(true);
-		expect(radioButtons[7].checked).toEqual(false);
-		expect(radioButtons[8].checked).toEqual(false);
-		expect(radioButtons[9].checked).toEqual(false);
-		expect(radioButtons[10].checked).toEqual(false);
-		expect(radioButtons[11].checked).toEqual(false);
-		expect(radioButtons[12].checked).toEqual(false);
-		expect(radioButtons[13].checked).toEqual(false);
-		expect(radioButtons[14].checked).toEqual(false);
-		expect(radioButtons[15].checked).toEqual(false);
+		radioButtons.forEach( (radioButton, i) => {
+			i === 6 ? expect(radioButton.checked).toEqual(true)
+				: 	expect(radioButton.checked).toEqual(false)
+		})
 	});
 });
