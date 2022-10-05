@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import { useMosaicTranslation } from "@root/i18n";
-import { StyledWrapper, StyledButton, StyledButtonRow } from "./DataViewFilterDropdownButtons.styled";
+import { StyledWrapper, StyledButtonRow } from "./DataViewFilterDropdownButtons.styled";
 
 interface DataViewFilterDropdownButtonsProps {
 	onClear?: any;
@@ -53,8 +53,8 @@ function DataViewFilterDropdownButtons(props: DataViewFilterDropdownButtonsProps
 				<Button label={t("mosaic:common.clear")} color="black" variant="text" onClick={props.onClear}/>
 			</ButtonRow>
 			<StyledButtonRow>
-				<StyledButton label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel}/>
-				<StyledButton label={t("mosaic:common.apply")} color="teal" variant="text" onClick={props.onApply} disabled={ (props.disableApply !== undefined) ? props.disableApply : false }/>
+				<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel}/>
+				<Button label={t("mosaic:common.apply")} color="teal" variant="text" onClick={props.onApply} disabled={ (props.disableApply !== undefined) ? props.disableApply : false }/>
 			</StyledButtonRow>
 		</StyledWrapper>
 	)
