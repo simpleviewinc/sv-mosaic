@@ -73,6 +73,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: optionsOrigin === "Local" ? options : undefined,
 						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
+						placeholder
 					},
 					helperText,
 					instructionText,

@@ -1,6 +1,6 @@
 // React
 import * as React from "react";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState, memo } from "react";
 
 // Components
 import Chip from "../../components/Chip";
@@ -51,7 +51,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 				findSelectedOption(value);
 			}
 			if (origin === false) {
-				if (![...internalOptions].find((o) => o.value === value.value)) {
+				if (!internalOptions.find((o) => o.value === value.value)) {
 					setInternalOptions([...internalOptions, {...value, selected: true}])
 				} else {
 					findSelectedOption(value);
@@ -109,4 +109,4 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 	);
 }
 
-export default FormFieldChipSingleSelect;
+export default memo(FormFieldChipSingleSelect);

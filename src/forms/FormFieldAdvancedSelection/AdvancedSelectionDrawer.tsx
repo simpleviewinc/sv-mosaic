@@ -110,7 +110,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	]);
 
 	const getMoreOptions = async () => {
-		if (fieldDef?.inputSettings?.getOptions && !fieldDef?.inputSettings?.options) {
+		if (fieldDef?.inputSettings?.getOptions) {
 			const searchInput = state?.data?.searchInput;
 
 			let newOptions = [];
