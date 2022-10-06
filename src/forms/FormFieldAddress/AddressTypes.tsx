@@ -6,11 +6,11 @@ export type IAddress = {
 	address2?: string;
 	address3?: string;
 	city: string;
-	country: string;
+	country: MosaicLabelValue;
 	id?: number;
 	postalCode: string;
-	state: string;
-	types: string[];
+	state: MosaicLabelValue;
+	types: MosaicLabelValue[];
 };
 
 export interface AddressCardProps {
