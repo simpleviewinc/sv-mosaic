@@ -61,13 +61,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		if (isEditing && open && isMounted) {
 			let editingState = {};
 
-			const fullCountryData = countriesWithStates?.find(
-				(c) => c.iso2 === addressToEdit?.country
-			);
+			// const fullCountryData = countriesWithStates?.find(
+			// 	(c) => c.iso2 === addressToEdit?.country.value
+			// );
 
-			const fullStateData = fullCountryData.states.find(
-				(s) => s.code === addressToEdit?.state
-			);
+			// const fullStateData = fullCountryData.states.find(
+			// 	(s) => s.code === addressToEdit?.state?.value
+			// );
 
 			dispatch(
 				formActions.setFieldValue({
@@ -146,29 +146,28 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			dispatch(
 				formActions.setFieldValue({
 					name: "country",
-					value: fullCountryData?.iso2,
+					value: { label: addressToEdit.country?.label, value: addressToEdit.country?.value },
 				})
 			);
 
 			editingState = {
 				...editingState,
-				"country": { label: fullCountryData?.name, value: fullCountryData?.iso2 },
+				"country": { label: addressToEdit.country?.label, value: addressToEdit.country?.value },
 			};
 
-			dispatch(
-				formActions.setFieldValue({
-					name: "states",
-					value: fullStateData?.code,
-				})
-			);
+			if (addressToEdit.state) {
+				dispatch(
+					formActions.setFieldValue({
+						name: "states",
+						value: { label: addressToEdit.state?.label, value: addressToEdit.state?.value },
+					})
+				);
 
-			editingState = {
-				...editingState,
-				"states": {
-					label: fullStateData?.name,
-					value: fullStateData?.code,
-				},
-			};
+				editingState = {
+					...editingState,
+					"states": { label: addressToEdit.state?.label, value: addressToEdit.state?.value },
+				};
+			}
 
 			setInitialState(editingState);
 		}
@@ -184,7 +183,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
    */
 	const listOfStates = useMemo(() => {
 		const selectedCountry = countriesWithStates?.find(
-			(c) => c.iso2 === state?.data?.country
+			(c) => c.iso2 === state?.data?.country?.value
 		);
 
 		if (selectedCountry) {
