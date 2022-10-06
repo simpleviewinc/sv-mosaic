@@ -518,6 +518,7 @@ const fields = useMemo(
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
 	() =>
 		[
@@ -532,6 +533,22 @@ const fields = useMemo(
 							value: "value1",
 						}
 					],
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "checkbox",
+				inputSettings: {
 					getOptions: myGetOptionsFn,
 				}
 			},
@@ -552,6 +569,7 @@ const fields = useMemo(
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
 	() =>
 		[
@@ -564,14 +582,28 @@ const fields = useMemo(
 						{
 							label: "Option1",
 							value: "value1",
-							selected: false,
 						},
 						{
 							label: "Option2",
 							value: "value2",
-							selected: true,
 						}
 					],
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "chip",
+				inputSettings: {
 					getOptions: myGetOptionsFn,
 				}
 			},
@@ -640,43 +672,56 @@ const fields = useMemo(
 - Data: `string` - Value of the selected option.
 - inputSettings:
 	* **options** - `array` of `MosaicLabelValue` required - Predefined set of mutually exclusive options.
-		* **label** - `string` required - Description of the option.
-		* **value** - `string` required - Value of the option, this is stored in the Form state.
 	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
-		() =>
-			[
-				//...other fields
-				{
-					//...all generic field props,
-					type: "radio",
-					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1",
-							},
-							{
-								label: "Label 2",
-								value: "label_2",
-							},
-							{
-								label: "Label 3",
-								value: "label_3",
-							},
-						],
-						getOptions: myGetOptionsFn,
-					},
-					helperText: 'Helper text',
-					instructionText: 'Instruction text'
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "radio",
+				inputSettings: {
+					options: [
+						{
+							label: "Label 1",
+							value: "label_1",
+						},
+						{
+							label: "Label 2",
+							value: "label_2",
+						},
+						{
+							label: "Label 3",
+							value: "label_3",
+						},
+					],
 				}
-				//...other fields
-			] as FieldDef<FormFieldRadioDef>[],
-		[]
-	);
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "radio",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
 ```
 
 ## FormFieldText
@@ -953,6 +998,7 @@ const fields = useMemo(
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
 	() =>
 		[
@@ -967,8 +1013,24 @@ const fields = useMemo(
 						{ label: "The Godfather: Part II", value: "1974" },
 						{ label: "The Dark Knight", value: "2008" }
 					],
-					getOptions: myGetOptionsFn,
 					placeholder: "Placeholder",
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "dropdown",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
 				}
 			},
 			//...other fields
