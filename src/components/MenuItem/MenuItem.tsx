@@ -11,21 +11,22 @@ const StyledMenuItem = styled(MUIMenuItem)`
 
 	&.MuiMenuItem-root {
 		min-height: 42px;
+		background-color: ${theme.colors.white} !important;
 	}
 
-	&.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
-		background-color: ${theme.colors.white};
+	&.menu-item.Mui-selected {
 		.menuLabel {
-			font-weight: 700;
-		}
-		&:hover {
-			background-color: ${theme.colors.gray200};
+			font-weight: ${theme.fontWeight.bold};
 		}
 	}
 
-	&.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+	&.menu-item {
+		padding: 8px 16px;
 		&:hover {
-			background-color: ${theme.colors.gray200};
+			background-color: ${theme.colors.gray200} !important;
+		}
+		& .MuiTouchRipple-child {
+			background-color: ${theme.colors.grayHover};
 		}
 	}
 
@@ -73,6 +74,7 @@ export default function MenuItem(props: MenuItemProps): ReactElement {
 			onClick={props.onClick}
 			disabled={props.disabled}
 			selected={props.selected}
+			className="menu-item"
 		>
 			{
 				props.mIcon &&
