@@ -1,6 +1,5 @@
 import * as React from "react";
 import { memo, ReactElement } from "react";
-import { capitalize } from "lodash";
 
 // Components
 import Button from "@root/components/Button";
@@ -14,31 +13,33 @@ import {
 
 // Types
 import { AddressCardProps } from "../AddressTypes";
-import countriesWithStates from "@root/forms/FormFieldAddress/utils/trimmedCountriesStates.json";
+// import countriesWithStates from "@root/forms/FormFieldAddress/utils/trimmedCountriesStates.json";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
 
-	const selectedCountry = countriesWithStates.find((country) => {
-		return country.iso2 === address?.country;
-	});
+	// const selectedCountry = countriesWithStates.find((country) => {
+	// 	return country.iso2 === address?.country;
+	// });
 
-	const selectedState = selectedCountry?.states.find((state) => {
-		return state.code === address?.state;
-	});
+	// const selectedState = selectedCountry?.states.find((state) => {
+	// 	return state.code === address?.state;
+	// });
+
+	const typesLabels = address.types.map(type => type.label);
 
 	return (
 		<StyledAddressCard data-testid="address-card-test">
 			<AddressTitle>
-				{`${address.types?.join(", ").replace(/\w+/g, capitalize)} Address`}
+				{`${typesLabels?.join(", ")} Address`}
 			</AddressTitle>
 			<span>{address?.address1}</span>
 			{address?.address2 && <span>{address?.address2}</span>}
 			{address?.address3 && <span>{address?.address3}</span>}
 			<span>
-				{`${address?.city}, ${selectedState ? selectedState.name : ""} ${address?.postalCode}`}
+				{`${address?.city}, ${address?.state?.label ? address.state.label : ""} ${address?.postalCode}`}
 			</span>
-			<span>{selectedCountry?.name}</span>
+			<span>{address?.country?.label}</span>
 			<ButtonsWrapper>
 				<Button
 					label="Edit"
