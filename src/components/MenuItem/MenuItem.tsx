@@ -25,6 +25,9 @@ const StyledMenuItem = styled(MUIMenuItem)`
 		&:hover {
 			background-color: ${theme.colors.gray200} !important;
 		}
+		&:active span {
+			color: #1a1a1a;
+		}
 		& .MuiTouchRipple-child {
 			background-color: ${theme.colors.grayHover};
 		}
@@ -75,6 +78,7 @@ export default function MenuItem(props: MenuItemProps): ReactElement {
 			disabled={props.disabled}
 			selected={props.selected}
 			className="menu-item"
+			disableRipple={true}
 		>
 			{
 				props.mIcon &&
