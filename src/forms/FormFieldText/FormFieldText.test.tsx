@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 
 // Components
-import TextField, { getInputValue } from "./FormFieldText";
+import TextField from "./FormFieldText";
 
 describe("TextField component", () => {
 	it("should should display the placeholder", () => {
@@ -67,13 +67,3 @@ describe("TextField multiline behaviour", () => {
 		expect(textField.nodeName).toBe("TEXTAREA");
 	});
 });
-
-describe("getInputValue helper function", () => {
-	it("should return a number when the input is of type number", () => {
-		expect(getInputValue("129", "number")).toBe(129);
-	});
-
-	it("should return a string if the input is of type text", () => {
-		expect(getInputValue("value", "text")).toBe("value");
-	});
-})
