@@ -156,4 +156,4 @@ jobs:
           command: docker compose build automation_testing
       - run:
           name: Automation tests
-          command: docker compose run --rm automation_testing_ci ENV=local npm run test:chrome
+          command: docker compose run --rm automation_testing_ci npm run test:chrome
