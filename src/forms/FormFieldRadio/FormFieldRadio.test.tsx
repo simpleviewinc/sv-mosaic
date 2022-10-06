@@ -37,19 +37,33 @@ const FormFieldRadioExample = (props: {fromDB?: boolean}) => {
 	return (
 		<>
 			<span>{value?.value}</span>
-			<FormFieldRadio
-				fieldDef={{
-					name: "radio",
-					type: "radio",
-					label: "Label",
-					inputSettings: {
-						options: props.fromDB ? undefined : options,
-						getOptions: props.fromDB ? getOptions : undefined
-					}
-				}}
-				onChange={handleChange}
-				value={value}
-			/>
+			{!props.fromDB ?
+				<FormFieldRadio
+					fieldDef={{
+						name: "radio",
+						type: "radio",
+						label: "Label",
+						inputSettings: {
+							options: options,
+						}
+					}}
+					onChange={handleChange}
+					value={value}
+				/>
+				:
+				<FormFieldRadio
+					fieldDef={{
+						name: "radio",
+						type: "radio",
+						label: "Label",
+						inputSettings: {
+							getOptions: getOptions
+						}
+					}}
+					onChange={handleChange}
+					value={value}
+				/>
+			}
 		</>
 	);
 };
