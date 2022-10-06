@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs, select } from "@storybook/addon-knobs";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { FormFieldChipSingleSelectDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
@@ -11,25 +10,25 @@ import { getOptions } from "@root/utils/getOptions";
 export default {
 	title: "FormFields/FormFieldChipSingleSelect",
 	decorators: [withKnobs],
-} as Meta;
+};
+
+const options = [
+	{
+		label: "Option 1",
+		value: "Option_1",
+	},
+	{
+		label: "Option 2",
+		value: "Option_2",
+	},
+	{
+		label: "Option 3",
+		value: "Option_3",
+	},
+]
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
-
-	const options = useMemo( ()=> [
-		{
-			label: "Option 1",
-			value: "Option_1",
-		},
-		{
-			label: "Option 2",
-			value: "Option_2",
-		},
-		{
-			label: "Option 3",
-			value: "Option_3",
-		},
-	], []);
 
 	const label = text("Label", "Label");
 	const helperText = text("Helper Text", "Helper Text");
@@ -80,21 +79,6 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
-
-	const options = useMemo( ()=> [
-		{
-			label: "Option 1",
-			value: "Option_1",
-		},
-		{
-			label: "Option 2",
-			value: "Option_2",
-		},
-		{
-			label: "Option 3",
-			value: "Option_3",
-		},
-	], []);
 
 	const fields = useMemo(
 		() =>
