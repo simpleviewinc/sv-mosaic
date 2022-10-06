@@ -16,7 +16,7 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		browser.close;
 	});
 
-	test.skip("Validate the Regular Phone field.", async () => {
+	test("Validate the Regular Phone field.", async () => {
 		const phoneNumber = "7021234567";
 		await ffPhoneSelectionDropdownPage.regularPhoneField.type(phoneNumber);
 		expect(await ffPhoneSelectionDropdownPage.regularPhoneField.inputValue()).toBe("+1" + phoneNumber);
@@ -38,7 +38,7 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown(ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown, "United States");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(phoneNumberUS);
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUS);
-		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill("");
+		await ffPhoneSelectionDropdownPage.selectAndDeleteText(" (703) 765-4321".length);
 		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown(ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown, "United Kingdom");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(phoneNumberUK);
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUK);
