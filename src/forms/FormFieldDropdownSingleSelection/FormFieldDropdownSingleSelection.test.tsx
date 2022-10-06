@@ -108,7 +108,7 @@ describe("DropdownSingleSelection component with options from DB", () => {
 		});
 		await waitFor(() => {
 			const inputDropdown = getByRole("combobox") as HTMLInputElement;
-			expect(inputDropdown.value).toEqual("Option 4 category 2");
+			expect(inputDropdown.value).toEqual(additionalOptions[7].label);
 		}, {timeout: 3000});
 	});
 
@@ -134,7 +134,7 @@ describe("DropdownSingleSelection component with options from DB", () => {
 
 		await waitFor(() => {
 			const singleSelectOptions = screen.getAllByRole("option");
-			expect(singleSelectOptions[0]).toHaveTextContent("Option 1");
+			expect(singleSelectOptions[0]).toHaveTextContent(additionalOptions[0].label);
 		}, {timeout: 1000});
 	});
 });
