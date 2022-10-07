@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldImageUploadPage } from "../../pages/FormFields/FormFieldImageUploadPage";
 
-test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
+	let page: Page;
 	let ffImageUploadPage: FormFieldImageUploadPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffImageUploadPage = new FormFieldImageUploadPage(page);
 		await ffImageUploadPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate Image Upload with menu options and without set Focus handler", async () => {
@@ -23,6 +29,7 @@ test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 			expect(dialog.message()).toContain("Set focus is called");
 			await dialog.dismiss();
 		});
+		await page.reload();
 		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.setInputFiles(imagePath);
 		await expect(ffImageUploadPage.imageUploadWithSetFocusHandlerDiv).toContainText("Size");
@@ -48,7 +55,6 @@ test.describe("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 		});
 		const imageName = "image-example.png"
 		const imagePath = `${__dirname}/../../utils/data/Images/` + imageName;
-		console.log(imagePath);
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
 		const size = ((await ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.textContent()).replace("Size", "").replace("Remove", "").split("x"));
 		const width = Number(size[0]);

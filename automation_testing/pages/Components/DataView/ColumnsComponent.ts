@@ -9,6 +9,7 @@ export class ColumnsComponent extends BasePage {
 	readonly leftItems: Locator;
 	readonly btnLocator: string;
 	readonly checkboxLocator: string;
+	readonly closeTableSettingIcon: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -19,6 +20,7 @@ export class ColumnsComponent extends BasePage {
 		this.leftItems = page.locator(".listItem label");
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
+		this.closeTableSettingIcon = page.locator(".left [data-testid='icon-button-test']");
 	}
 
 	async getRightItemsText(): Promise<string[]> {
@@ -96,7 +98,6 @@ export class ColumnsComponent extends BasePage {
 			const item = this.leftItems.nth(i);
 			if (await item.textContent() == itemName) {
 				return item;
-
 			}
 		}
 	}
@@ -107,7 +108,6 @@ export class ColumnsComponent extends BasePage {
 		} else {
 			await item.locator(this.checkboxLocator).uncheck();
 		}
-
 	}
 
 	async checkAllItems(check: boolean): Promise<void> {

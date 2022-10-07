@@ -12,7 +12,8 @@ export class FormFieldTextEditorPage extends BasePage {
 	readonly textEditorInGermanLanguage: Locator;
 	readonly textEditorWithMaxCharacterLimit: Locator;
 	readonly disabledTextEditor: Locator;
-	
+	readonly genericTextEditor: Locator;
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -22,10 +23,20 @@ export class FormFieldTextEditorPage extends BasePage {
 		this.textEditorInGermanLanguage = page.locator("[data-testid='text-editor-testid']").nth(3);
 		this.textEditorWithMaxCharacterLimit = page.locator("[data-testid='text-editor-testid'] [contenteditable='true']").nth(4);
 		this.disabledTextEditor = page.locator("[data-testid='text-editor-testid']").nth(5);
+		this.genericTextEditor = page.locator("[data-testid='text-editor-testid']");
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		await this.visit(this.page_path, this.textEditorWithSpellcheckActive);
 	}
 
+	async clearAllValuesFromTextEditors(): Promise<void> {
+		const numberOfTxtEditor = await this.genericTextEditor.count();
+		for (let i = 0; i < numberOfTxtEditor; i++) {
+			if (!await this.genericTextEditor.nth(i).isDisabled()) {
+				await this.genericTextEditor.nth(i).click();
+				await this.clearAllValuesFromField();
+			}
+		}
+	}
 }

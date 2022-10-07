@@ -13,6 +13,7 @@ const config: PlaywrightTestConfig = {
 		video: "off",
 		screenshot: "off"
 	},
+	retries: 1,
 	timeout: 200000,
 	projects: [
 		{

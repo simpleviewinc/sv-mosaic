@@ -1,18 +1,24 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldColorPickerPage } from "../../pages/FormFields/FormFieldColorPickerPage";
 import { getRandomHexCode } from "../../utils/helpers/helper";
 
-test.describe("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
+	let page: Page;
 	let ffColorPickerPage: FormFieldColorPickerPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffColorPickerPage = new FormFieldColorPickerPage(page);
 		await ffColorPickerPage.visitPage();
 	});
 
+	test.afterAll(async ({ browser }) => {
+		browser.close;
+	});
+
 	test("Validate the selection of a color in Regular Color Picker by clicking", async ({ page }) => {
 		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain('"color": "#' + hexCode + '"');
+			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();
 		});
 		await ffColorPickerPage.regularColorPicker.click();
@@ -23,7 +29,7 @@ test.describe("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
 
 	test("Validate the selection of a color in Regular Color Picker by writing HEX code", async ({ page }) => {
 		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain('"color": "#' + hexCode + '"');
+			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();
 		});
 		const hexCode = getRandomHexCode(6);

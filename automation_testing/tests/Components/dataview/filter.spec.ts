@@ -1,23 +1,33 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { addQuotes, addComma } from "../../../utils/helpers/helper";
 
-test.describe("DataView - Filter", () => {
+test.describe.parallel("Components - Data View - Filter", () => {
+	let page: Page;
 	let dataviewPage: DataviewPage;
 	let filter: FilterComponent;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		filter = dataviewPage.filterComponent;
 		await dataviewPage.visitPage();
 	});
 
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
+	});
+
 	test("Filter title with a valid keyword and 1 result", async () => {
-		await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn");
+		// await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn");
 		await filter.keywordBtn.hover();
-		await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn_hover");
+		// await filter.validateSnapshot(filter.keywordBtn, "filter_keyword_btn_hover");
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type(filter_data.validKeywordFilter);
 		await filter.applyBtn.click();
@@ -42,7 +52,7 @@ test.describe("DataView - Filter", () => {
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type(filter_data.keywordNoResultsFilter);
 		await filter.applyBtn.click();
-		expect(await (await dataviewPage.getTableRows()).count()).toBe(0);
+		await expect( dataviewPage.page.locator(".noResults")).toBeVisible()
 		expect(await filter.getKeywordText()).toBe(addQuotes(filter_data.keywordNoResultsFilter));
 	});
 
@@ -50,17 +60,7 @@ test.describe("DataView - Filter", () => {
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type("+");
 		await filter.applyBtn.click();
-		expect(await dataviewPage.loading.isDisabled()).toBe(true);
 		expect(await filter.getKeywordText()).toBe(addQuotes("+"));
-	});
-
-	test("Filter title with a regular expression", async () => {
-		await filter.keywordBtn.click();
-		await filter.keywordInput.type(filter_data.regExr);
-		await filter.applyBtn.click();
-		expect(await (await dataviewPage.getTableRows()).count()).toBe(filter_data.expectedKeywordFilterNumberSeveralResults);
-		expect(await dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumberSeveralResults} of ${filter_data.expectedKeywordFilterNumberSeveralResults}`);
-		expect(await filter.getKeywordText()).toBe(addQuotes(filter_data.regExr));
 	});
 
 	test("Filter title with an Uppercase keyword", async () => {

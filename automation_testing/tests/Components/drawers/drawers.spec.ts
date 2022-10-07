@@ -1,12 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { Drawers } from "../../../pages/Components/Drawers/DrawersPage";
 
-test.describe("Drawers", () => {
+test.describe.parallel("Components - Drawers", () => {
+	let page: Page;
 	let drawersPage: Drawers;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		drawersPage = new Drawers(page);
 		await drawersPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate increment and reset button", async () => {
@@ -53,18 +63,18 @@ test.describe("Drawers", () => {
 
 	test("Validate amount of regular drawers open", async () => {
 		const numberOfDrawers = 3;
-		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);		
+		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);
 		expect(await drawersPage.drawerDiv.count()).toBe(numberOfDrawers);
 	});
 
 	test("Validate go back button", async () => {
 		const numberOfDrawers = 3;
-		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);		
+		await drawersPage.openSpecificAmountOfRegularDrawers(numberOfDrawers);
 		await drawersPage.goBackSpecificAmountOfRegularDrawers(numberOfDrawers);
 		const numberOfTitles = await drawersPage.page.locator("h1").count();
 		expect(await drawersPage.page.locator("h1").nth(numberOfTitles - 1).textContent()).toBe(await drawersPage.mainGridTitle.textContent());
 	});
-	
+
 	test("Validate when canceling a form, the value is not updated. ", async () => {
 		await drawersPage.openFormDrawerButton.click();
 		await drawersPage.simpleTextField.nth(0).fill("5");

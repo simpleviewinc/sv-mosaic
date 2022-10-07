@@ -8,6 +8,7 @@ export class FormFieldAddressPage extends BasePage {
 
 	readonly page: Page;
 	readonly addAddressButton: Locator;
+	readonly addressFormLayout: Locator;
 	readonly countryDropdownInput: Locator;
 	readonly countryDropdownButton: Locator;
 	readonly firstAddressField: Locator;
@@ -26,14 +27,15 @@ export class FormFieldAddressPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.addAddressButton = page.locator("button", { hasText: "ADD ADDRESS" });
+		this.addressFormLayout = page.locator("[data-testid='form-layout-test-id']").nth(1);
 		this.countryDropdownInput = page.locator("input[role='combobox']").nth(0);
-		this.countryDropdownButton = page.locator("button[title='Open']").nth(0);
+		this.countryDropdownButton = page.locator("[data-testid='autocomplete-test-id'] button").nth(1);
 		this.firstAddressField = page.locator("#address1");
 		this.secondAddressField = page.locator("#address2");
 		this.thirdAddressField = page.locator("#address3");
 		this.cityField = page.locator("#city");
 		this.statesDropdownInput = page.locator("input[role='combobox']").nth(1);
-		this.statesDropdownButton = page.locator("button[title='Open']").nth(1);
+		this.statesDropdownButton = page.locator("[data-testid='autocomplete-test-id'] button").nth(3);
 		this.postalCodeField = page.locator("#postalCode");
 		this.physicalCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Physical" });
 		this.billingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Billing" });
@@ -42,17 +44,15 @@ export class FormFieldAddressPage extends BasePage {
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		await this.visit(this.page_path, this.addAddressButton);
 	}
 
 	async fillAddresInformation(type:string): Promise<void> {
-		await this.addAddressButton.click();
-		await this.countryDropdownButton.click();
-		await this.selectOptionFromDropdown(us_address.country);
+		await this.wait();
+		await this.selectOptionFromDropdown(this.countryDropdownButton, us_address.country);
 		await this.firstAddressField.fill(us_address.address);
 		await this.cityField.fill(us_address.city);
-		await this.statesDropdownInput.click();
-		await this.selectOptionFromDropdown(us_address.state);
+		await this.selectOptionFromDropdown(this.statesDropdownButton, us_address.state);
 		await this.postalCodeField.fill(us_address.postalCode);
 		await this.selectTypeOfAddress(type);
 		await this.drawerSaveButton.click();

@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldRadioPage } from "../../pages/FormFields/FormFieldRadioPage";
 
-test.describe("FormFields - FormFieldRadio - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldRadioPage: FormFieldRadioPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldRadioPage = new FormFieldRadioPage(page);
 		await formFieldRadioPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate Regular Radio Button", async ({ page }) => {
@@ -26,5 +32,4 @@ test.describe("FormFields - FormFieldRadio - Kitchen Sink", () => {
 			await expect(formFieldRadioPage.disabledRadioButton.locator("input").nth(i)).toBeDisabled();
 		}
 	});
-
 });
