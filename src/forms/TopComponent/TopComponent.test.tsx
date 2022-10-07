@@ -15,6 +15,21 @@ const sections = [
 		title: "Account Profile",
 		id: "section1",
 	},
+	{
+		title: "Section 2",
+		id: "section2",
+	},
+	{
+		title: "Section 3",
+		id: "section3",
+	},
+];
+
+const oneSection = [
+	{
+		title: "Account Profile",
+		id: "section1",
+	},
 ];
 
 const buttons: ButtonProps[] = [
@@ -69,6 +84,8 @@ describe("TopComponent", () => {
 		expect(getByText("Description")).toBeTruthy();
 		expect(getByText("Form title")).toBeTruthy();
 		expect(getAllByText("Account Profile")).toBeTruthy();
+		expect(getAllByText("Section 2")).toBeTruthy();
+		expect(getAllByText("Section 3")).toBeTruthy();
 		expect(getByTestId("tooltip-test-id")).toBeTruthy();
 		expect(getByTestId("checkbox-test-id")).toBeTruthy();
 	});
@@ -152,5 +169,21 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 		expect(queryByText("Cancel")).toBe(null);
 		expect(queryByText("Save")).toBe(null);
+	});
+
+	it("should not display tabs when sections array has only one element", () => {
+		render(
+			<TopComponent
+				buttons={buttons}
+				description='Description'
+				title='Form title'
+				onCancel={cancelCallback}
+				sections={oneSection}
+				showActive={true}
+				view='DESKTOP'
+			/>
+		);
+
+		expect(queryByText("Section 1")).toBeNull();
 	});
 });
