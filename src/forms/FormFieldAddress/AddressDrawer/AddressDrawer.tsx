@@ -61,14 +61,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		if (isEditing && open && isMounted) {
 			let editingState = {};
 
-			// const fullCountryData = countriesWithStates?.find(
-			// 	(c) => c.iso2 === addressToEdit?.country.value
-			// );
-
-			// const fullStateData = fullCountryData.states.find(
-			// 	(s) => s.code === addressToEdit?.state?.value
-			// );
-
 			dispatch(
 				formActions.setFieldValue({
 					name: "address1",
