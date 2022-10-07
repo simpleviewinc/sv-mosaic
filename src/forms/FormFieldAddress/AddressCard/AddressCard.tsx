@@ -13,7 +13,6 @@ import {
 
 // Types
 import { AddressCardProps } from "../AddressTypes";
-// import countriesWithStates from "@root/forms/FormFieldAddress/utils/trimmedCountriesStates.json";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
