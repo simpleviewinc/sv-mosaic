@@ -50,12 +50,16 @@ const fieldDef: ContentFieldDef[] = [
 		label: "Thumbnail",
 		transforms: [transform_thumbnail({ width: 150, height: 150 })],
 	},
+	{
+		name: "header",
+		label: "Header with no transforms"
+	},
 ];
 
 const sections = [
 	[["tags"], ["colorPicker"]],
 	[["toggle"], ["date"]],
-	[["thumbnail"]],
+	[["thumbnail"], ["header"]],
 ];
 
 const values = {
@@ -81,7 +85,8 @@ const values = {
 	toggle: false,
 	colorPicker: "#a8001791",
 	thumbnail:
-    "https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
+		"https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
+	header: <h1>H1 Header</h1>,
 };
 
 const getValues = async (): Promise<MosaicObject> => {
@@ -136,15 +141,17 @@ describe("Content component", () => {
 
 	it("should display the content", async () => {
 		await waitFor(() => {
-			const chips = screen.getAllByTestId("chip-testid");
+ 			const chips = screen.getAllByTestId("chip-testid");
 			const thumbnail = screen.getByRole("img");
 			const date = screen.getByText("12/17/1995");
 			const colorPicker = screen.getByText("#a8001791");
+			const header = screen.getByText("H1 Header");
 
 			expect(thumbnail).toBeInTheDocument();
 			expect(chips).toHaveLength(4);
 			expect(date).toBeInTheDocument();
 			expect(colorPicker).toBeInTheDocument();
+			expect(header).toBeInTheDocument();
 		});
 	});
 
@@ -201,7 +208,7 @@ describe("transpose function", () => {
 	it("should transpose the matrix of sections", async () => {
 		const result = [
 			[["tags"], ["toggle"], ["thumbnail"]],
-			[["colorPicker"], ["date"], undefined]
+			[["colorPicker"], ["date"], ["header"]]
 		];
 
 		expect(transpose(sections)).toStrictEqual(result);

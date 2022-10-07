@@ -5,6 +5,7 @@ import {
 	useEffect,
 	useMemo,
 	useRef,
+	isValidElement,
 } from "react";
 import { ContentProps } from "./ContentTypes";
 import { isArray, zip } from "lodash";
@@ -141,8 +142,22 @@ const Content = (props: ContentProps): ReactElement => {
 
 			const fieldName = currentField?.column ? currentField?.column : currentField?.name;
 
-			return currentField?.transforms.map((transform) => (
-				<FieldContainer key={currentField.name}>
+			if (currentField && !isValidElement(values[fieldName]) && !currentField.transforms) {
+				throw new Error(
+					`The field '${field}' does not contain a tranform function an neither has a value of type JSX.Element.`
+				);
+			}
+
+			if (currentField && !currentField?.transforms) {
+				return (
+					<FieldContainer key={`value-${currentField.name}`}>
+						{renderField(values[fieldName], currentField.label)}
+					</FieldContainer>
+				)
+			}
+
+			return currentField?.transforms?.map((transform) => (
+				<FieldContainer key={`transform-${currentField.name}`}>
 					<Label>{currentField.label}</Label>
 					<TransformContainer>
 						{transform({ data: values[fieldName] })}
@@ -150,6 +165,17 @@ const Content = (props: ContentProps): ReactElement => {
 				</FieldContainer>
 			));
 		});
+	};
+
+	const renderField = (content: unknown, label: string) => {
+		return (
+			<>
+				<Label>{label}</Label>
+				<TransformContainer>
+					{content}
+				</TransformContainer>
+			</>
+		)
 	};
 
 	return (
