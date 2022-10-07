@@ -72,6 +72,7 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", true);
 	const disabled = boolean("Disabled", false);
 	const showSections = boolean("Show sections", false);
+	const showMultipleSections = boolean("Show multiple sections", true);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field prepopulated",
 		"textArea": "Text area prepopulated",
@@ -283,6 +284,20 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<FormFieldRadioDef>,
 				{
+					name: "table",
+					label: "Table example",
+					type: "table",
+					disabled,
+					required,
+					inputSettings: {
+						handleAddElement: addTableRow,
+						handleEdit: editAction,
+						handleDelete: deleteTableRow,
+						extraActions: extraActionsTable,
+						headers,
+					}
+				} as FieldDef<TableDef>,
+				{
 					name: "toggleSwitch",
 					label: "Toggle field",
 					disabled,
@@ -348,20 +363,6 @@ export const Playground = (): ReactElement => {
 					required
 				},
 				{
-					name: "table",
-					label: "Table example",
-					type: "table",
-					disabled,
-					required,
-					inputSettings: {
-						handleAddElement: addTableRow,
-						handleEdit: editAction,
-						handleDelete: deleteTableRow,
-						extraActions: extraActionsTable,
-						headers,
-					}
-				} as FieldDef<TableDef>,
-				{
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
@@ -424,6 +425,9 @@ export const Playground = (): ReactElement => {
 		}
 	];
 
+	const oneSection = sections.slice(0, 1)
+	const oneSectionFields = fields.slice(0, 8)
+
 	const onLoad = useCallback(async () => {
 		return {
 			...prepopulateValues
@@ -446,10 +450,18 @@ export const Playground = (): ReactElement => {
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					state={state}
-					fields={fields}
+					fields={
+						showSections && !showMultipleSections ? oneSectionFields : fields
+					}
 					dispatch={dispatch}
 					getFormValues={loadReady && onLoad}
-					sections={showSections && sections}
+					sections={
+						showSections ?
+							showMultipleSections
+								? sections
+								: oneSection
+							: null
+					}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 				/>
 			</div>
