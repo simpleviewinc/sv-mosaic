@@ -18,14 +18,6 @@ import { AddressCardProps } from "../AddressTypes";
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
 
-	// const selectedCountry = countriesWithStates.find((country) => {
-	// 	return country.iso2 === address?.country;
-	// });
-
-	// const selectedState = selectedCountry?.states.find((state) => {
-	// 	return state.code === address?.state;
-	// });
-
 	const typesLabels = address.types.map(type => type.label);
 
 	return (
