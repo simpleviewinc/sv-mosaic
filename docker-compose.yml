@@ -22,6 +22,12 @@ services:
       - "./jest.config.js:/app/jest.config.js"
     ports:
       - "10000:10000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://node:10000"]
+      interval: 60s
+      timeout: 60s
+      retries: 10
+      start_period: 60s
   node_ci:
     build: "."
     image: sv-mosaic:local
@@ -30,6 +36,12 @@ services:
       CIRCLE_SHA1: ${CIRCLE_SHA1}
       NPM_TOKEN: ${NPM_TOKEN}
       GITHUB_KEY: ${GITHUB_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://node_ci:10000"]
+      interval: 60s
+      timeout: 60s
+      retries: 10
+      start_period: 60s
   automation_testing:
     build: "./automation_testing"
     image: sv-mosaic:automation_testing
@@ -42,21 +54,13 @@ services:
     ports:
       - "20000:20000"
     depends_on:
-      - "node"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://node:10000"]
-      interval: 60s
-      timeout: 60s
-      retries: 20
-      start_period: 60s
+      node:
+        condition: service_healthy
   automation_testing_ci:
     build: "./automation_testing"
     image: sv-mosaic:automation_testing
+    environment:
+      ENV: ${ENV}
     depends_on:
-      - "node_ci"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://node:10000"]
-      interval: 60s
-      timeout: 60s
-      retries: 20
-      start_period: 60s
+      node_ci:
+        condition: service_healthy

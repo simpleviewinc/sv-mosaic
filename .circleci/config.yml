@@ -142,6 +142,9 @@ jobs:
           at: /tmp/workspace
       - *load_build_image
       - run:
+          name: "Setting environment variable"
+          command: echo 'export ENV="ci"' >> "$BASH_ENV"
+      - run:
           name: Build
           command: docker compose build automation_testing_ci
       - run:
