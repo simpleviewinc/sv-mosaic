@@ -8,16 +8,6 @@ vars:
     run:
       name: Import build image
       command: docker load -i /tmp/workspace/sv-mosaic-local.tar.gz
-  # setup_environment: &setup_environment
-  #     run:
-  #         name: Setup Environment Variables
-  #         command: |
-  #           echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
-  # docker_login: &docker_login
-  #     run:
-  #         name: Docker Login
-  #         command: |
-  #           docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
 workflows:
   build:
     jobs:
@@ -153,7 +143,7 @@ jobs:
       - *load_build_image
       - run:
           name: Build
-          command: docker compose build automation_testing
+          command: docker compose build automation_testing_ci
       - run:
           name: Automation tests
           command: docker compose run --rm automation_testing_ci npm run test:chrome
