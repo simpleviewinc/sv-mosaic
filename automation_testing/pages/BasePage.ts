@@ -90,4 +90,14 @@ export class BasePage {
 		await dropdown.click({force: true});
 		await this.page.locator("text=" + option).nth(0).click();
 	}
+
+	async selectAndDeleteText(stringLenght:number): Promise<void> {
+		await this.page.keyboard.press("ArrowRight");
+		await this.page.keyboard.down("Shift");
+		for (let i = 0; i < stringLenght; i++) {
+			await this.page.keyboard.press("ArrowLeft");
+		}
+		await this.page.keyboard.up("Shift");
+		await this.page.keyboard.press("Backspace");
+	}
 }
