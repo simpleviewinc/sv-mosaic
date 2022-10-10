@@ -4,8 +4,7 @@ import {
 	useState,
 	useEffect,
 	useMemo,
-	useRef,
-	isValidElement,
+	useRef
 } from "react";
 import { ContentProps } from "./ContentTypes";
 import { isArray, zip } from "lodash";
@@ -121,7 +120,7 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @returns the JSX element created by the transform function.
 	 */
 	const renderColumn = (fields: string[], column: string) => {
-		return fields?.map((field) => {
+		return fields?.map((field, fieldIdx) => {
 			const currentField = fieldDef?.find((fieldDef) => {
 				if (fieldDef?.column) {
 					return field === fieldDef.column;
@@ -142,12 +141,6 @@ const Content = (props: ContentProps): ReactElement => {
 
 			const fieldName = currentField?.column ? currentField?.column : currentField?.name;
 
-			if (currentField && !isValidElement(values[fieldName]) && !currentField.transforms) {
-				throw new Error(
-					`The field '${field}' does not contain a tranform function an neither has a value of type JSX.Element.`
-				);
-			}
-
 			if (currentField && !currentField?.transforms) {
 				return (
 					<FieldContainer key={`value-${currentField.name}`}>
@@ -156,14 +149,18 @@ const Content = (props: ContentProps): ReactElement => {
 				)
 			}
 
-			return currentField?.transforms?.map((transform) => (
-				<FieldContainer key={`transform-${currentField.name}`}>
-					<Label>{currentField.label}</Label>
-					<TransformContainer>
-						{transform({ data: values[fieldName] })}
-					</TransformContainer>
-				</FieldContainer>
+			const transforms = currentField?.transforms?.map((transform, idx) => (
+				<TransformContainer key={`transform-${idx}`}>
+					{transform({ data: values[fieldName] })}
+				</TransformContainer>
 			));
+
+			return (
+				<FieldContainer key={`trasnformed-${currentField.name}-${fieldIdx}`}>
+					<Label>{currentField?.label}</Label>
+					{transforms}
+				</FieldContainer>
+			)
 		});
 	};
 
