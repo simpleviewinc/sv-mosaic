@@ -141,7 +141,7 @@ describe("Content component", () => {
 
 	it("should display the content", async () => {
 		await waitFor(() => {
- 			const chips = screen.getAllByTestId("chip-testid");
+			const chips = screen.getAllByTestId("chip-testid");
 			const thumbnail = screen.getByRole("img");
 			const date = screen.getByText("12/17/1995");
 			const colorPicker = screen.getByText("#a8001791");
