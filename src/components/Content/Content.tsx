@@ -149,16 +149,15 @@ const Content = (props: ContentProps): ReactElement => {
 				)
 			}
 
-			const transforms = currentField?.transforms?.map((transform, idx) => (
-				<TransformContainer key={`transform-${idx}`}>
-					{transform({ data: values[fieldName] })}
-				</TransformContainer>
-			));
+			let fieldValue = values[fieldName];
+
+			currentField.transforms.forEach(transform => {
+				fieldValue = transform({ data: fieldValue });
+			})
 
 			return (
-				<FieldContainer key={`trasnformed-${currentField.name}-${fieldIdx}`}>
-					<Label>{currentField?.label}</Label>
-					{transforms}
+				<FieldContainer key={`transformed-${currentField.name}-${fieldIdx}`}>
+					{renderField(fieldValue, currentField?.label)}
 				</FieldContainer>
 			)
 		});
