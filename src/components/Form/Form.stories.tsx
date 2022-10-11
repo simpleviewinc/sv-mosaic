@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
-import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
+import { boolean, object, text, withKnobs, select } from "@storybook/addon-knobs";
 
 // Utils
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
@@ -71,8 +71,7 @@ export const Playground = (): ReactElement => {
 	const showCancel = boolean("Show CANCEL button", true);
 	const required = boolean("Required", true);
 	const disabled = boolean("Disabled", false);
-	const showSections = boolean("Show sections", false);
-	const showMultipleSections = boolean("Show multiple sections", true);
+	const showSections = select("Show sections", [0, 1, 2, 3], 0);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field prepopulated",
 		"textArea": "Text area prepopulated",
@@ -284,20 +283,6 @@ export const Playground = (): ReactElement => {
 					}
 				} as FieldDef<FormFieldRadioDef>,
 				{
-					name: "table",
-					label: "Table example",
-					type: "table",
-					disabled,
-					required,
-					inputSettings: {
-						handleAddElement: addTableRow,
-						handleEdit: editAction,
-						handleDelete: deleteTableRow,
-						extraActions: extraActionsTable,
-						headers,
-					}
-				} as FieldDef<TableDef>,
-				{
 					name: "toggleSwitch",
 					label: "Toggle field",
 					disabled,
@@ -363,6 +348,20 @@ export const Playground = (): ReactElement => {
 					required
 				},
 				{
+					name: "table",
+					label: "Table example",
+					type: "table",
+					disabled,
+					required,
+					inputSettings: {
+						handleAddElement: addTableRow,
+						handleEdit: editAction,
+						handleDelete: deleteTableRow,
+						extraActions: extraActionsTable,
+						headers,
+					}
+				} as FieldDef<TableDef>,
+				{
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
@@ -425,8 +424,7 @@ export const Playground = (): ReactElement => {
 		}
 	];
 
-	const oneSection = sections.slice(0, 1)
-	const oneSectionFields = fields.slice(0, 8)
+	const sectionsAmount = sections.slice(0, showSections)
 
 	const onLoad = useCallback(async () => {
 		return {
@@ -450,18 +448,10 @@ export const Playground = (): ReactElement => {
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					state={state}
-					fields={
-						showSections && !showMultipleSections ? oneSectionFields : fields
-					}
+					fields={fields}
 					dispatch={dispatch}
 					getFormValues={loadReady && onLoad}
-					sections={
-						showSections ?
-							showMultipleSections
-								? sections
-								: oneSection
-							: null
-					}
+					sections={showSections > 0 && sectionsAmount}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 				/>
 			</div>
