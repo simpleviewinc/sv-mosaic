@@ -184,6 +184,6 @@ describe("TopComponent elements that are conditionally rendered", () => {
 			/>
 		);
 
-		expect(queryByText("Section 1")).toBeNull();
+		expect(queryByText("Account Profile")).toBeNull();
 	});
 });
