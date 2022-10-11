@@ -108,6 +108,12 @@ jobs:
           name: Add github to known_hosts
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
+          name: Print Working Directory
+          command: pwd
+      - run:
+          name: List Files
+          command: ls -la
+      - run:
           name: Publish storybook
           command: docker compose run --rm node_ci yarn run ci:storybook
           environment:
@@ -132,7 +138,7 @@ jobs:
       - run:
           name: Unit tests
           command: |
-            TEST=$(circleci tests glob "automation_testing/*.spec.ts" | circleci tests split --split-by=timings)
+            TEST=$(circleci tests glob "src/**/*.test.*" | circleci tests split --split-by=timings)
             docker compose run --rm node_ci yarn test $TEST
   # automation_tests:
   #   docker:
