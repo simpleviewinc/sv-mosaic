@@ -31,4 +31,11 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.saveBtn.click();
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
+
+	test("Validate that Toggle field doesn't show error.", async () => {
+		await page.reload();
+		await playgroundPage.toggleField.click();
+		await playgroundPage.toggleField.click();
+		expect(await playgroundPage.errorMessage.count()).toBe(0);
+	});
 });
