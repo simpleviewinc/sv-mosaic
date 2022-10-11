@@ -53,7 +53,7 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 	} = props;
 
 	return (
-		<ResponsiveViewColumn sections={sections}>
+		<ResponsiveViewColumn sections={sections.length > 1}>
 			<Row>
 				<TitleWrapper
 					title={title}
