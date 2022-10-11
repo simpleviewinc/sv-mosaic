@@ -44,18 +44,18 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-      - automation_tests:
-          context: default
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - master
-                - qa
-                - staging
-                - /pull.*/
+      # - automation_tests:
+      #     context: default
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - master
+      #           - qa
+      #           - staging
+      #           - /pull.*/
 
 orbs:
   slack: circleci/slack@4.4.0
@@ -115,6 +115,7 @@ jobs:
   unit_tests:
     docker:
       - image: cimg/base:2022.09
+    parallelism: 5
     resource_class: large
     steps:
       - checkout
@@ -130,23 +131,25 @@ jobs:
       #     command: ls -la
       - run:
           name: Unit tests
-          command: docker compose run --rm node_ci yarn test
-  automation_tests:
-    docker:
-      - image: cimg/base:2022.09
-    resource_class: large
-    steps:
-      - checkout
-      - *setup_remote_docker
-      - attach_workspace:
-          at: /tmp/workspace
-      - *load_build_image
-      - run:
-          name: "Setting environment variable"
-          command: echo 'export ENV="ci"' >> "$BASH_ENV"
-      - run:
-          name: Build
-          command: docker compose build automation_testing_ci
-      - run:
-          name: Automation tests
-          command: docker compose run --rm automation_testing_ci npm run test:chrome
+          command: |
+            TEST=$(circleci tests glob "automation_testing/*.spec.ts" | circleci tests split --split-by=timings)
+            docker compose run --rm node_ci yarn test $TEST
+  # automation_tests:
+  #   docker:
+  #     - image: cimg/base:2022.09
+  #   resource_class: large
+  #   steps:
+  #     - checkout
+  #     - *setup_remote_docker
+  #     - attach_workspace:
+  #         at: /tmp/workspace
+  #     - *load_build_image
+  #     - run:
+  #         name: "Setting environment variable"
+  #         command: echo 'export ENV="ci"' >> "$BASH_ENV"
+  #     - run:
+  #         name: Build
+  #         command: docker compose build automation_testing_ci
+  #     - run:
+  #         name: Automation tests
+  #         command: docker compose run --rm automation_testing_ci npm run test:chrome
