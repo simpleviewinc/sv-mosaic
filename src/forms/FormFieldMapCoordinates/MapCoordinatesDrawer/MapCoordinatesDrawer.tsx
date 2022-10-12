@@ -140,8 +140,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		const latLngValue = {
 			...value,
-			lat: state.data.lat,
-			lng: state.data.lng,
+			lat: Number(state.data.lat),
+			lng: Number(state.data.lng),
 		}
 
 		await onChange(latLngValue);
@@ -203,11 +203,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	}, [state.data.lat, state.data.lng, shouldCenter]);
 
 	const onBlurLatitude = (latValue: number) => {
-		setShouldCenter({field: "lat", value: latValue});
+		setShouldCenter({ field: "lat", value: Number(latValue) });
 	};
 
 	const onBlurLongitude = (lngValue: number) => {
-		setShouldCenter({field: "lng", value: lngValue});
+		setShouldCenter({ field: "lng", value: Number(lngValue) });
 	};
 
 	const fields = useMemo(
@@ -222,9 +222,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					label: "Latitude",
 					type: "text",
 					onBlurCb: onBlurLatitude,
-					inputSettings: {
-						type: "number",
-					},
 					validators: [isLatitude]
 				},
 				{
@@ -232,9 +229,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					label: "Longitude",
 					type: "text",
 					onBlurCb: onBlurLongitude,
-					inputSettings: {
-						type: "number"
-					},
 					validators: [isLongitude]
 				},
 				{
