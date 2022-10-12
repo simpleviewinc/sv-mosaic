@@ -16,7 +16,7 @@ export interface ContentFieldDef {
    * Functions which will receive raw data that will be use to render
    * a component.
    */
-  transforms: DataViewColumnTransform[];
+  transforms?: DataViewColumnTransform[];
   /**
    * A value or array of values or function or array of functions that
    * controlls whether or not to display a field.
