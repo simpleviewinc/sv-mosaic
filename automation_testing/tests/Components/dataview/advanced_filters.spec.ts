@@ -97,6 +97,16 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		}
 	});
 
+	test("Validate Single select category styles", async () => {
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.singleSelectCategoryOption.click();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.optionalFilters.click();
+		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
+		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
+		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
+	});
+
 	test("Validate Categories with Comparisons - In", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.categoryWithComparisonOption.click();
