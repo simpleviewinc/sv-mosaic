@@ -66,7 +66,12 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
-      - run: docker version
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - run:
+          name: Add github to known_hosts
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Build
           command: docker compose build node_ci
@@ -98,21 +103,15 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
-      - add_ssh_keys:
-          fingerprints:
-            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - attach_workspace:
           at: /tmp/workspace
       - *load_build_image
-      - run:
-          name: Add github to known_hosts
-          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run:
-          name: Print Working Directory
-          command: pwd
-      - run:
-          name: List Files
-          command: ls -la
+      # - run:
+      #     name: Add github to known_hosts
+      #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Publish storybook
           command: docker compose run --rm node_ci yarn run ci:storybook
@@ -138,24 +137,27 @@ jobs:
       - run:
           name: Unit tests
           command: |
-            TEST=$(circleci tests glob "src/**/*.test.*" | circleci tests split --split-by=timings)
-            docker compose run --rm node_ci yarn test $TEST
-  # automation_tests:
-  #   docker:
-  #     - image: cimg/base:2022.09
-  #   resource_class: large
-  #   steps:
-  #     - checkout
-  #     - *setup_remote_docker
-  #     - attach_workspace:
-  #         at: /tmp/workspace
-  #     - *load_build_image
-  #     - run:
-  #         name: "Setting environment variable"
-  #         command: echo 'export ENV="ci"' >> "$BASH_ENV"
-  #     - run:
-  #         name: Build
-  #         command: docker compose build automation_testing_ci
-  #     - run:
-  #         name: Automation tests
-  #         command: docker compose run --rm automation_testing_ci npm run test:chrome
+            UNIT_TESTS=$(circleci tests glob "src/**/*.test.*" | circleci tests split --split-by=timings)
+            docker compose run --rm node_ci yarn test $UNIT_TESTS
+  automation_tests:
+    docker:
+      - image: cimg/base:2022.09
+    parallelism: 5
+    resource_class: large
+    steps:
+      - checkout
+      - *setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - *load_build_image
+      - run:
+          name: "Setting environment variable"
+          command: echo 'export ENV="ci"' >> "$BASH_ENV"
+      - run:
+          name: Build
+          command: docker compose build automation_testing_ci
+      - run:
+          name: Automation tests
+          command: |
+            AUTOMATION_TESTS=$(circleci tests glob "automation_testing/**/*.spec.*" | circleci tests split --split-by=timings)
+            docker compose run --rm automation_testing_ci npm run test:chrome $AUTOMATION_TESTS

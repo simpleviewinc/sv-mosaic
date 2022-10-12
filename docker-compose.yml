@@ -31,6 +31,8 @@ services:
   node_ci:
     build: "."
     image: sv-mosaic:local
+    volumes:
+      - "~/.ssh:/root/.ssh"
     environment:
       CIRCLE_BRANCH: ${CIRCLE_BRANCH}
       CIRCLE_SHA1: ${CIRCLE_SHA1}
