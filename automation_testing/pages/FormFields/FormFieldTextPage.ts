@@ -7,7 +7,7 @@ export class FormFieldTextPage extends BasePage {
 
 	readonly page: Page;
 	readonly regularTextField: Locator;
-	readonly numberTextField: Locator;
+	readonly passwordTextField: Locator;
 	readonly multilineTextField: Locator;
 	readonly fieldMaxCharTextField: Locator;
 	readonly maxCharCounter: Locator;
@@ -24,7 +24,7 @@ export class FormFieldTextPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.regularTextField = page.locator("#regular");
-		this.numberTextField = page.locator("#number");
+		this.passwordTextField = page.locator("#password");
 		this.multilineTextField = page.locator("#multiline");
 		this.fieldMaxCharTextField = page.locator("#withMaxChar");
 		this.maxCharCounter = page.locator("//*[@id='3']/div/div/div/div/div[1]/div[1]/div[2]");
