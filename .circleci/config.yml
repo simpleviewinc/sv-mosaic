@@ -35,15 +35,15 @@ workflows:
           context: default
           requires:
             - build
-      - unit_tests:
-          context: default
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - /pull.*/
+      # - unit_tests:
+      #     context: default
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - /pull.*/
       # - automation_tests:
       #     context: default
       #     requires:
@@ -66,12 +66,6 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
-      - add_ssh_keys:
-          fingerprints:
-            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
-      - run:
-          name: Add github to known_hosts
-          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Build
           command: docker compose build node_ci
@@ -103,15 +97,15 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - attach_workspace:
           at: /tmp/workspace
       - *load_build_image
-      # - run:
-      #     name: Add github to known_hosts
-      #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - run:
+          name: Add github to known_hosts
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Publish storybook
           command: docker compose run --rm node_ci yarn run ci:storybook

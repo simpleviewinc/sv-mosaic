@@ -32,7 +32,7 @@ services:
     build: "."
     image: sv-mosaic:local
     volumes:
-      - "~/.ssh:/root/.ssh"
+      - "~/.ssh:/app/.ssh"
     environment:
       CIRCLE_BRANCH: ${CIRCLE_BRANCH}
       CIRCLE_SHA1: ${CIRCLE_SHA1}
