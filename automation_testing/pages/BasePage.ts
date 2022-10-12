@@ -1,6 +1,6 @@
 import { expect, Page, Locator } from "@playwright/test";
 import { url } from "../utils/formUrls";
-import { generateRandomId } from "../utils/helpers/helper";
+import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 
 export class BasePage {
 
@@ -91,6 +91,24 @@ export class BasePage {
 		await this.page.locator("text=" + option).nth(0).click();
 	}
 
+	async validateFontColorFromElement(element: Locator, expectedValue: string, isHex: boolean): Promise<void> {
+		let elementFontColor = (await ((element).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+		if (isHex) {
+			const color = elementFontColor.slice(1, -1);
+			const hex = rgbToHex(Number(color.split(",")[0]), Number(color.split(",")[1]), Number(color.split(",")[2]));
+			elementFontColor = hex;
+		}
+		expect(elementFontColor).toBe(expectedValue);
+	}
+
+	async isFontBold(element: Locator): Promise<boolean> {
+		const fontWeight = (await ((element).evaluate(el => getComputedStyle(el).fontWeight)));
+		if (Number(fontWeight) > 400 || fontWeight === "bold" || fontWeight === "bolder") {
+			return true;
+		}
+		return false;
+  }
+  
 	async selectAndDeleteText(stringLenght:number): Promise<void> {
 		await this.page.keyboard.press("ArrowRight");
 		await this.page.keyboard.down("Shift");
