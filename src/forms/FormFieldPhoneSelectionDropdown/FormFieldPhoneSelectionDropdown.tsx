@@ -36,6 +36,7 @@ const FormFieldPhoneSelectionDropdown = (
 				onChange={onChange}
 				placeholder={fieldDef?.inputSettings?.placeholder}
 				value={value}
+				countryCodeEditable={false}
 				inputProps={{
 					required: fieldDef?.required,
 				}}

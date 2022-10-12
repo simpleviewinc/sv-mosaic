@@ -17,6 +17,8 @@ import { FormNavProps } from "./FormNavTypes";
 const FormNav = (props: FormNavProps): ReactElement => {
 	const { sections, sectionsRefs, contentRef } = props;
 
+	if (sections.length <= 1) return (<></>)
+
 	// State variables
 	const [navWidth, setNavWidth] = useState(0);
 	const [linksWidth, setLinksWidth] = useState(0);
