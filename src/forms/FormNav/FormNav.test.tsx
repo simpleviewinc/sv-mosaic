@@ -20,6 +20,13 @@ const sections = [
 	},
 ];
 
+const oneSection = [
+	{
+		title: "Account Profile",
+		id: "section1",
+	},
+];
+
 const FormNavExample = (): ReactElement => {
 	const sectionsRef = useRef([]);
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[] | []>([]);
@@ -62,3 +69,12 @@ describe("FormNav component", () => {
 		expect(scrollIntoViewMock).toHaveBeenCalled();
 	});
 });
+
+describe("FormNav component recieves a section", () => {
+	it("should not render FormNav with the section", () => {
+
+		render(<FormNav sections={oneSection} />);
+
+		expect(screen.queryByText("Account Profile")).toBeNull();
+	});
+})
