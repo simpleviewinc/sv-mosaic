@@ -21,10 +21,10 @@ export class FormFieldRadioPage extends BasePage {
 		await this.visit(this.page_path, this.title);
 	}
 
-	async selectRandomRadioButtonOption(): Promise<string> {
+	async selectRandomRadioButtonOption(): Promise<([number , string])> {
 		const randomOptionNumber = randomIntFromInterval(1, await this.regularRadioButton.locator("input").count()) - 1;
 		const optionSelected = await this.regularRadioButton.locator("input").nth(randomOptionNumber).inputValue();
 		await this.regularRadioButton.locator("input").nth(randomOptionNumber).check();
-		return optionSelected;
+		return [randomOptionNumber, optionSelected];
 	}
 }
