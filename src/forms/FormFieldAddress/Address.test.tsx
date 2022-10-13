@@ -20,9 +20,9 @@ const address: IAddress = {
 	address1: "8950 N Oracle Rd",
 	city: "Oro Valley",
 	postalCode: "85704",
-	country: "US",
-	state: "AZ",
-	types: ["physical", "billing"]
+	country: {label: "United States", value: "US"},
+	state: {label: "Arizona", value: "AZ"},
+	types: [{label: "Physical", value: "physical"}, {label: "Billing", value: "billing"}]
 };
 
 const fields = [
