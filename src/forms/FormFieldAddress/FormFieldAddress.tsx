@@ -82,11 +82,11 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 				address.types.forEach(type => {
 					let amount = 1;
 
-					if (newTypes.has(type)) {
-						amount += newTypes.get(type);
+					if (newTypes.has(type.value)) {
+						amount += newTypes.get(type.value);
 					}
 
-					newTypes.set(type, amount);
+					newTypes.set(type.value, amount);
 				});
 			});
 
@@ -177,7 +177,7 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 			state,
 		});
 
-		validateAmountPerType(types);
+		validateAmountPerType(types.map(type => type.value));
 		setAddressIdx(addressIndex);
 		setIsEditing(true);
 		setOpen(true);

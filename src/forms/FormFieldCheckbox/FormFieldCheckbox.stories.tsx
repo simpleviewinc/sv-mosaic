@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo, ReactElement } from "react";
-import { boolean, withKnobs, text } from "@storybook/addon-knobs";
+import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FormFieldCheckboxDef } from ".";
 import { FieldDef } from "@root/components/Field";
@@ -11,6 +11,7 @@ import Form, { useForm } from "@root/components/Form";
 // Utils
 import { checkboxOptions } from "./FormFieldCheckboxUtils";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { getOptions } from "@root/utils/getOptions";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
@@ -25,6 +26,11 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Label");
 	const instructionText = text("Instruction Text", "Instruction Text");
 	const helperText = text("Helper Text", "Helper Text");
+	const optionsOrigin = select(
+		"Options Origin",
+		["Local", "DB"],
+		"Local"
+	);
 
 	const fields = useMemo(
 		() =>
@@ -36,13 +42,14 @@ export const Playground = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						options: checkboxOptions,
+						options: optionsOrigin === "Local" ? checkboxOptions : undefined,
+						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef<FormFieldCheckboxDef>[],
-		[required, disabled, label, instructionText, helperText]
+		[required, disabled, label, instructionText, helperText, optionsOrigin]
 	);
 
 	return (
@@ -82,6 +89,20 @@ const kitchenSinkFields = [
 		disabled: true,
 		inputSettings: {
 			options: checkboxOptions,
+		},
+		helperText: "Helper Text",
+		instructionText: "InstructionText",
+	},
+
+	{
+		name: "checkboxFromDB",
+		label: "Options from DB example",
+		type: "checkbox",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			options: undefined,
+			getOptions
 		},
 		helperText: "Helper Text",
 		instructionText: "InstructionText",
