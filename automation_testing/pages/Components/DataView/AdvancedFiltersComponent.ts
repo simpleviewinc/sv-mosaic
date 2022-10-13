@@ -103,7 +103,7 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async selectARandomCategoryForSingleSelectCategoryOption(): Promise<string> {
-		const positionCategorySelected = await randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
+		const positionCategorySelected = randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
 		const categorySelected = await this.getSpecificMenuItemForSingleSelectCategoryOption(positionCategorySelected);
 		await this.dropdownOptions.nth(positionCategorySelected).click();
 		return categorySelected;
