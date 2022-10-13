@@ -1,12 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldImageVideoLinkDocumentBrowsingPage } from "../../pages/FormFields/FormFieldImageVideoLinkDocumentBrowsingPage";
 
-test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
+	let page: Page;
 	let ffImageVideoLinkDocumentBrowsingPage: FormFieldImageVideoLinkDocumentBrowsingPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffImageVideoLinkDocumentBrowsingPage = new FormFieldImageVideoLinkDocumentBrowsingPage(page);
 		await ffImageVideoLinkDocumentBrowsingPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await ffImageVideoLinkDocumentBrowsingPage.removeAllVisibleCards()
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate dialog when pressing the Image without src.", async ({ page }) => {
@@ -21,7 +31,6 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-
 		await expect(ffImageVideoLinkDocumentBrowsingPage.imageOrVideoWithoutSrcCard.locator("img")).not.toBeVisible();
 		expect(type).toBe("Image Video Thumbnail");
 		expect(titles).toContain("Title");
@@ -33,7 +42,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test("Validate dialog when pressing the Video without src.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set video is called");
-			await dialog.dismiss();
+			await dialog.accept();
 		});
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithoutSrcButton.click();
 	});
@@ -54,7 +63,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test("Validate dialog when pressing the Image with src.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set image is called");
-			await dialog.dismiss();
+			await dialog.accept();
 		});
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 	});
@@ -75,7 +84,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test("Validate dialog when pressing the Video with src.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set video is called");
-			await dialog.dismiss();
+			await dialog.accept();
 		});
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithSrcButton.click();
 	});
@@ -96,7 +105,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test("Validate dialog when pressing the Document button.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set document is called");
-			await dialog.dismiss();
+			await dialog.accept();
 		});
 		await ffImageVideoLinkDocumentBrowsingPage.documentButton.click();
 	});
@@ -117,7 +126,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test("Validate dialog when pressing the Link button.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set Link has been called");
-			await dialog.dismiss();
+			await dialog.accept();
 		});
 		await ffImageVideoLinkDocumentBrowsingPage.linkButton.click();
 	});
@@ -165,9 +174,10 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 		const options = await ffImageVideoLinkDocumentBrowsingPage.getThreePointsOptionsText();
 		expect(options).toContain("Edit");
 		expect(options).toContain("Translate");
+		await page.keyboard.press("Escape");
 	});
 
-	test("Validate that the empty value is saved correctly.", async ({ page }) => {
+	test("Validate that the empty value is saved correctly.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
 		await ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("button", { hasText: "Remove" }).click();

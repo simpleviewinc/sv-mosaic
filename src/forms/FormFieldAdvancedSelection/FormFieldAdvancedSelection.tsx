@@ -90,7 +90,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 					<Button
 						color="teal"
 						variant="text"
-						label="Add Element"
+						label="Add"
 						onClick={handleOpenModal}
 						mIcon={AddIcon}
 						disabled={fieldDef?.disabled}
@@ -113,7 +113,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 					disabled={fieldDef?.disabled}
 					color="gray"
 					variant="outlined"
-					label="ADD ELEMENT"
+					label="ADD"
 					onClick={handleOpenModal}
 				></Button>
 			)}

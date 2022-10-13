@@ -1,14 +1,19 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/left_nav_data";
 
-
-test.describe("LeftNav", () => {
+test.describe.parallel("Components - LeftNav", () => {
+	let page: Page;
 	let leftNavPage: LeftNavPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		leftNavPage = new LeftNavPage(page);
 		await leftNavPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test.skip("Validate left nav basic", async () => {
@@ -45,6 +50,7 @@ test.describe("LeftNav", () => {
 	});
 
 	test("Validate Title", async () => {
+		await page.reload();
 		const item = await leftNavPage.getSpecificMenuItem("Map Publisher");
 		const title = await item.textContent();
 		await item.click();

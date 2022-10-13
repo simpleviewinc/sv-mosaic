@@ -1,13 +1,19 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldDateFieldPage } from "../../pages/FormFields/FormFieldDateFieldPage";
 import { getDateFormatted } from "../../utils/helpers/dateHelper";
 
-test.describe("FormFields - FormFieldDateField - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldDateFieldPage: FormFieldDateFieldPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldDateFieldPage = new FormFieldDateFieldPage(page);
 		await formFieldDateFieldPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate Single Date Calendar by writing a date", async () => {

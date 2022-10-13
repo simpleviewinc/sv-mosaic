@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldToggleSwitchPage } from "../../pages/FormFields/FormFieldToggleSwitchPage";
 
-test.describe("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () => {
+	let page: Page;
 	let formFieldToggleSwitchPage: FormFieldToggleSwitchPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		formFieldToggleSwitchPage = new FormFieldToggleSwitchPage(page);
 		await formFieldToggleSwitchPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate the Toggle with label.", async ({ page }) => {

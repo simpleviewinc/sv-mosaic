@@ -24,7 +24,7 @@ export const Playground = (): ReactElement => {
 	const { state, dispatch	} = useForm();
 
 	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
-	const type = select("Type", ["number", "text"], "text");
+	const type = select("Type", ["password", "text"], "text");
 	const placeholder = text("Placeholder", "placeholder");
 	const maxCharacters = number("Max characters", 20);
 	const disabled = boolean("Disabled", false);
@@ -44,7 +44,7 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					required,
 					disabled,
-					maxCharacters: type !== "number" && maxCharacters,
+					maxCharacters: maxCharacters,
 					size,
 					inputSettings: {
 						prefixElement: withIcon && <AccountCircle />,
@@ -102,14 +102,14 @@ const kitchenSinkfields = [
 		instructionText: "Instruction text"
 	} as FieldDef<TextFieldDef>,
 	{
-		name: "number",
-		label: "Number type example",
+		name: "password",
+		label: "Password type example",
 		type: "text",
 		required: false,
 		size: "md",
 		inputSettings: {
-			placeholder: "number",
-			type: "number"
+			placeholder: "Password",
+			type: "Password"
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text"

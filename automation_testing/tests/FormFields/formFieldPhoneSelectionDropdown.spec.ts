@@ -1,13 +1,19 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldPhoneSelectionDropdownPage } from "../../pages/FormFields/FormFieldPhoneSelectionDropdownPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 
-test.describe("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
+	let page: Page;
 	let ffPhoneSelectionDropdownPage: FormFieldPhoneSelectionDropdownPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffPhoneSelectionDropdownPage = new FormFieldPhoneSelectionDropdownPage(page);
 		await ffPhoneSelectionDropdownPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate the Regular Phone field.", async () => {
@@ -32,7 +38,7 @@ test.describe("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () 
 		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown(ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown, "United States");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(phoneNumberUS);
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUS);
-		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill("");
+		await ffPhoneSelectionDropdownPage.selectAndDeleteText(" (703) 765-4321".length);
 		await ffPhoneSelectionDropdownPage.selectOptionFromDropdown(ffPhoneSelectionDropdownPage.autoformatPhoneFieldDropdown, "United Kingdom");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(phoneNumberUK);
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUK);

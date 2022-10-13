@@ -14,6 +14,7 @@ export class FormFieldTextAreaPage extends BasePage {
 	readonly smSizeTextArea: Locator;
 	readonly mdSizeTextArea: Locator;
 	readonly lgSizeTextArea: Locator;
+	readonly genericTextArea: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -26,9 +27,20 @@ export class FormFieldTextAreaPage extends BasePage {
 		this.smSizeTextArea = page.locator("[data-testid='field-test-id'] div div div.MuiInputBase-formControl").nth(4);
 		this.mdSizeTextArea = page.locator("[data-testid='field-test-id'] div div div.MuiInputBase-formControl").nth(5);
 		this.lgSizeTextArea = page.locator("[data-testid='field-test-id'] div div div.MuiInputBase-formControl").nth(6);
+		this.genericTextArea = page.locator("textarea[aria-invalid='false']")
 	}
 
 	async visitPage(): Promise<void> {
 		await this.visit(this.page_path, this.title);
+	}
+
+	async removeAllValuesFromTextAreas(): Promise<void> {
+		const numberOfTxtAreas = await this.genericTextArea.count();
+		for (let i = 0; i < numberOfTxtAreas; i++) {
+			if (!await this.genericTextArea.nth(i).isDisabled()) {
+				await this.genericTextArea.nth(i).click();
+				await this.clearAllValuesFromField();
+			}
+		}
 	}
 }
