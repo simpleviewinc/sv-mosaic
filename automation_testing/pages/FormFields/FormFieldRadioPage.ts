@@ -9,7 +9,7 @@ export class FormFieldRadioPage extends BasePage {
 	readonly page: Page;
 	readonly regularRadioButton: Locator;
 	readonly disabledRadioButton: Locator;
-	
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -21,10 +21,10 @@ export class FormFieldRadioPage extends BasePage {
 		await this.visit(this.page_path, this.title);
 	}
 
-	async selectRandomRadioButtonOption(): Promise<([number , string])> {
+	async selectRandomRadioButtonOption(): Promise<string> {
 		const randomOptionNumber = randomIntFromInterval(1, await this.regularRadioButton.locator("input").count()) - 1;
 		const optionSelected = await this.regularRadioButton.locator("input").nth(randomOptionNumber).inputValue();
 		await this.regularRadioButton.locator("input").nth(randomOptionNumber).check();
-		return [randomOptionNumber, optionSelected];
+		return optionSelected;
 	}
 }
