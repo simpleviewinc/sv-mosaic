@@ -7,6 +7,7 @@ import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
+import { getOptions } from "@root/utils/getOptions";
 
 export default {
 	title: "FormFields/FormFieldDropdownSingleSelection",
@@ -53,6 +54,11 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
+	const optionsOrigin = select(
+		"Options Origin",
+		["Local", "DB"],
+		"Local"
+	);
 
 	const fields = useMemo(
 		() =>
@@ -65,8 +71,9 @@ export const Playground = (): ReactElement => {
 					disabled,
 					size,
 					inputSettings: {
-						options,
-						placeholder,
+						options: optionsOrigin === "Local" ? options : undefined,
+						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
+						placeholder
 					},
 					helperText,
 					instructionText,
@@ -81,6 +88,7 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			label,
+			optionsOrigin
 		]
 	);
 
@@ -108,6 +116,18 @@ const kitchenSinkFields = [
 		size: "md",
 		inputSettings: {
 			options,
+			placeholder: "placeholder"
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
+		name: "dropdownDB",
+		label: "From data base example",
+		type: "dropdown",
+		size: "md",
+		inputSettings: {
+			getOptions,
 			placeholder: "placeholder"
 		},
 		helperText: "Helper text",
