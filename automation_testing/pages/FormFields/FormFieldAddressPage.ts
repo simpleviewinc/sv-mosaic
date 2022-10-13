@@ -29,13 +29,13 @@ export class FormFieldAddressPage extends BasePage {
 		this.addAddressButton = page.locator("button", { hasText: "ADD ADDRESS" });
 		this.addressFormLayout = page.locator("[data-testid='form-layout-test-id']").nth(1);
 		this.countryDropdownInput = page.locator("input[role='combobox']").nth(0);
-		this.countryDropdownButton = page.locator("[data-testid='autocomplete-test-id'] button").nth(1);
+		this.countryDropdownButton = page.locator("[data-testid='dropdown-single-selection-test-id'] button[title='Open']").nth(0);
 		this.firstAddressField = page.locator("#address1");
 		this.secondAddressField = page.locator("#address2");
 		this.thirdAddressField = page.locator("#address3");
 		this.cityField = page.locator("#city");
 		this.statesDropdownInput = page.locator("input[role='combobox']").nth(1);
-		this.statesDropdownButton = page.locator("[data-testid='autocomplete-test-id'] button").nth(3);
+		this.statesDropdownButton = page.locator("[data-testid='dropdown-single-selection-test-id'] button[title='Open']").nth(1);
 		this.postalCodeField = page.locator("#postalCode");
 		this.physicalCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Physical" });
 		this.billingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Billing" });
