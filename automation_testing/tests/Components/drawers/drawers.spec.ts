@@ -1,12 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { Drawers } from "../../../pages/Components/Drawers/DrawersPage";
 
-test.describe("Drawers", () => {
+test.describe.parallel("Components - Drawers", () => {
+	let page: Page;
 	let drawersPage: Drawers;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		drawersPage = new Drawers(page);
 		await drawersPage.visitPage();
+	});
+
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate increment and reset button", async () => {

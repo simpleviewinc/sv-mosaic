@@ -72,7 +72,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 	} = props;
 
 	return (
-		<DesktopViewColumn sections={sections}>
+		<DesktopViewColumn sections={sections && sections.length > 1}>
 			<FlexContainer>
 				<TitleWrapper
 					title={title}

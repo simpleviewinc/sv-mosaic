@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
 
-test.describe("Form - Playground", () => {
+test.describe.parallel("Components - Form - Playground", () => {
+	let page: Page;
 	let playgroundPage: PlaygroundPage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		playgroundPage = new PlaygroundPage(page);
 		await playgroundPage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate error messages when saving with empty required fields", async () => {
@@ -19,9 +25,17 @@ test.describe("Form - Playground", () => {
 	});
 
 	test("Validate that you can save when completing all required fields", async () => {
+		await page.reload();
 		await playgroundPage.fillAllRequiredFields();
 		await playgroundPage.wait()
 		await playgroundPage.saveBtn.click();
+		expect(await playgroundPage.errorMessage.count()).toBe(0);
+	});
+
+	test("Validate that Toggle field doesn't show error.", async () => {
+		await page.reload();
+		await playgroundPage.toggleField.click();
+		await playgroundPage.toggleField.click();
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
 });

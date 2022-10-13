@@ -1,12 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { FormFieldTablePage } from "../../pages/FormFields/FormFieldTablePage";
 
-test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
+	let page: Page;
 	let ffTablePage: FormFieldTablePage;
 
-	test.beforeEach(async ({ page }) => {
+	test.beforeAll(async ({ browser }) => {
+		page = await browser.newPage();
 		ffTablePage = new FormFieldTablePage(page);
 		await ffTablePage.visitPage();
+	});
+
+	test.afterAll(async ({ browser }) => {
+		browser.close;
 	});
 
 	test("Validate labels in Table with extra actions", async () => {
@@ -17,6 +23,7 @@ test.describe("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate labels in Table with default actions", async () => {
+		await page.reload();
 		await ffTablePage.tableWithoutLabelAddElementButton.click();
 		const tableLabels = await ffTablePage.getTableLabels();
 		expect(tableLabels.length).toBe(1);

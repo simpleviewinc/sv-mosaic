@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
-import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
+import { boolean, object, text, withKnobs, select } from "@storybook/addon-knobs";
 
 // Utils
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
@@ -71,7 +71,7 @@ export const Playground = (): ReactElement => {
 	const showCancel = boolean("Show CANCEL button", true);
 	const required = boolean("Required", true);
 	const disabled = boolean("Disabled", false);
-	const showSections = boolean("Show sections", false);
+	const showSections = select("Show sections", [0, 1, 2, 3], 0);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field prepopulated",
 		"textArea": "Text area prepopulated",
@@ -439,6 +439,8 @@ export const Playground = (): ReactElement => {
 		}
 	];
 
+	const sectionsAmount = sections.slice(0, showSections)
+
 	const onLoad = useCallback(async () => {
 		return {
 			...prepopulateValues
@@ -464,7 +466,7 @@ export const Playground = (): ReactElement => {
 					fields={fields}
 					dispatch={dispatch}
 					getFormValues={loadReady && onLoad}
-					sections={showSections && sections}
+					sections={showSections > 0 && sectionsAmount}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 				/>
 			</div>
