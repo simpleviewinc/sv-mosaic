@@ -92,6 +92,9 @@ export * from "./components/SummaryPageTopComponent";
 export { default as Content } from "./components/Content";
 export * from "./components/Content";
 
+export { default as Popover } from "./components/Popover";
+export * from "./components/Popover";
+
 export { default as theme } from "./theme";
 export * from "./theme";
 
