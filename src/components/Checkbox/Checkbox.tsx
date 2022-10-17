@@ -2,11 +2,7 @@ import * as React from "react";
 import { memo } from "react";
 import { CheckboxProps } from "./CheckboxTypes";
 
-import {
-	StyledCheckbox,
-	StyledFormControlLabel,
-	StyledHelperText
-} from "./Checkbox.styled";
+import { StyledCheckbox, StyledFormControlLabel } from "./Checkbox.styled";
 
 const Checkbox = (props: CheckboxProps) => (
 	<>
@@ -32,9 +28,6 @@ const Checkbox = (props: CheckboxProps) => (
 				/>
 			}
 		/>
-		{props.helperText?.trim().length > 0 &&
-			<StyledHelperText>{props.helperText}</StyledHelperText>
-		}
 	</>
 );
 
