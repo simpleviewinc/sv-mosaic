@@ -50,30 +50,30 @@ export const ButtonWrapper = styled.span`
 
   &.normalButton.size_small > button .icon_left,
   &.normalButton.size_small > a .icon_left {
-    margin-right: 4px;
+    margin-right: 12px;
     margin-left: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.normalButton.size_small > button .icon_right,
   &.normalButton.size_small > a .icon_right {
-    margin-left: 4px;
+    margin-left: 12px;
     margin-right: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_left,
   &.normalButton.size_medium > a .icon_left {
-    margin-right: 4px;
+    margin-right: 12px;
     margin-left: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_right,
   &.normalButton.size_medium > a .icon_right {
-    margin-left: 4px;
+    margin-left: 12px;
     margin-right: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.iconButton svg {
