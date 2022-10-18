@@ -9,12 +9,14 @@ export class FormFieldCheckboxPage extends BasePage {
 	readonly page: Page;
 	readonly regularCheckboxButton: Locator;
 	readonly disabledCheckboxButton: Locator;
+	readonly checkboxLabel: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
 		this.regularCheckboxButton = page.locator(".listItem").nth(0);
 		this.disabledCheckboxButton = page.locator(".listItem").nth(1);
+		this.checkboxLabel = page.locator("label[data-testid='label-test-id']");
 	}
 
 	async visitPage(): Promise<void> {

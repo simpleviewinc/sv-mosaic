@@ -37,4 +37,13 @@ test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 			await dialog.accept();
 		});
 	});
+
+	test("Validate the color in the checkbox label.", async ({ page }) => {
+		const numberOfLabels = await formFieldCheckboxPage.checkboxLabel.count();
+		for (let i = 0; i < numberOfLabels; i++) {
+			if (!await formFieldCheckboxPage.checkboxLabel.nth(i).isDisabled()) {
+				await formFieldCheckboxPage.validateFontColorFromElement(formFieldCheckboxPage.checkboxLabel.nth(i), "#3B424E", true);
+			}
+		}
+	});
 });
