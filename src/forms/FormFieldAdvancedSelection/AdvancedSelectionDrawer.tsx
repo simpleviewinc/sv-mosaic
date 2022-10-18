@@ -328,7 +328,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					size: "100%",
 					onChangeCb: checkboxListChanged,
 					inputSettings: {
-						options: filteredList,
+						options: fieldDef?.inputSettings?.options && filteredList,
+						getOptions: fieldDef?.inputSettings?.getOptions && (() => filteredList),
 					},
 				} as FieldDef<FormFieldCheckboxDef>,
 				{
