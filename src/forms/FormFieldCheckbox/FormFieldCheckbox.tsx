@@ -46,12 +46,12 @@ const FormFieldCheckbox = (
 			})
 		}
 
-		setChecked(value?.map(selectedOption => selectedOption.value));
+		setChecked(value?.map(selectedOption => selectedOption?.value));
 
 	}, [internalOptions, value, origin]);
 
 	const internalOnChange = (checkedOptions: string[], cb:(val:MosaicLabelValue[])=>void) => {
-		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option.value === checkedOption));
+		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option?.value === checkedOption));
 		if (cb) {
 			cb(newCheckedOptions)
 		}
