@@ -107,7 +107,7 @@ export class BasePage {
 			return true;
 		}
 		return false;
-  }
+	}
   
 	async selectAndDeleteText(stringLenght:number): Promise<void> {
 		await this.page.keyboard.press("ArrowRight");
