@@ -66,17 +66,17 @@ const Page = ({ name, navigate, context, callbacks, id }: PageProps): JSX.Elemen
 
 	const buttons: ButtonProps[] = [
 		{
-			label: "Save",
-			onClick: onSubmit,
-			color: "yellow",
-			variant: "contained"
-		},
-		{
 			label: "Cancel",
 			onClick: onCancel,
 			color: "gray",
 			variant: "outlined"
 		},
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained"
+		}
 	];
 
 	const pages: PageDef<any>[] = [
