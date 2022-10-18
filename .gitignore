@@ -1,7 +1,7 @@
 node_modules
 package-lock.json
 coverage
-automation_testing/node_modules
-automation_testing/test-results
+src/automation_testing/node_modules
+src/automation_testing/test-results
 dist/*
 !dist/.gitkeep
