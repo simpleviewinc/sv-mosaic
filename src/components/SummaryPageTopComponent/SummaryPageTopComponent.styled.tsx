@@ -43,7 +43,7 @@ export const ContainerTitle = styled.div`
 
 export const Title = styled.p`
     font-size: 28px;
-    font-weight: 250;
+    font-weight: ${theme.fontWeight.light};
     max-width: 650px;
     overflow: hidden;
     text-overflow: ellipsis;
