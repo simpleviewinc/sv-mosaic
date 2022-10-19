@@ -13,6 +13,7 @@ export const FormTitle = styled.span`
 	font-family: ${pr => !pr.type && theme.museoFont};
 	color: ${theme.colors.almostBlack};
 	font-size: ${pr => pr.type && pr.type === "DRAWER" ? "20px" : "28px"};
+	font-weight: ${theme.fontWeight.light};
 	${(pr) => pr.type === "DRAWER" &&
 			`
 				font-weight: normal;
@@ -27,6 +28,8 @@ export const FormTitle = styled.span`
 
 const Description = styled.span`
 	color: ${theme.colors.gray600};
+	font-family: ${theme.museoFont};
+	font-weight: ${theme.fontWeight.light};
 	font-size: 14px;
 	margin-top: 5px;
 
