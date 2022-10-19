@@ -25,8 +25,7 @@ export const Example = (): ReactElement => {
 	const showMainActions = boolean("Main actions", true);
 	const showAdditionalActions = boolean("Aditional actions", true);
 	const showDescription = boolean("Description Items", true);
-	const showFilter = boolean("Filter", true);
-	
+
 	const mainActions: ButtonProps[] = [
 		{
 			label: "Button 1",
@@ -90,58 +89,35 @@ export const Example = (): ReactElement => {
 		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
 		<Button
 			key={4}
-			attrs={{linkButton: true}} 
-			color="black" 
-			variant="text" 
-			label={textLinks[0].label} 
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[0].label}
 			mIcon={textLinks[0].mIcon}
 			href={textLinks[0].href}
 			{...textLinks[0]}
 		/>,
 		<Button
 			key={5}
-			attrs={{linkButton: true}} 
-			color="black" 
-			variant="text" 
-			label={textLinks[1].label} 
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[1].label}
 			mIcon={textLinks[1].mIcon}
 			href={textLinks[1].href}
 			{...textLinks[1]}
 		/>,
 		<Button
 			key={6}
-			attrs={{linkButton: true}} 
-			color="black" 
-			variant="text" 
-			label={textLinks[2].label} 
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[2].label}
 			mIcon={textLinks[2].mIcon}
 			href={textLinks[2].href}
 			{...textLinks[2]}
 		/>,
 	];
-
-	const options = [
-		{ label : "Option A", value : "a" },
-		{ label : "Option B", value : "b" },
-		{ label : "Option C", value : "c" },
-		{ label : "Option D", value : "d" }
-	];
-
-	const getOptions = () => {
-		return {
-			docs : options,
-			hasMore : false
-		}
-	}
-
-	const getSelected = (id) => {
-		return options.filter(val => val.value === id)[0];
-	}
-
-	const filter = {
-		label: "Testing",
-		args: { getOptions, getSelected, required: false },
-	}
 
 	const favorite = {
 		checked: checked,
@@ -156,7 +132,6 @@ export const Example = (): ReactElement => {
 			mainActions={showMainActions && mainActions}
 			additionalActions={showAdditionalActions && additionalActions}
 			descriptionItems={showDescription && descriptionItems}
-			filter={showFilter && filter}
 		/>
 	);
 };
