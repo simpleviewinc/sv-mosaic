@@ -34,7 +34,7 @@ export const ButtonsWrapper = styled.div`
   margin-top: auto;
 
   span:first-child {
-    border-right: 2px solid ${theme.colors.gray200};
+    border-right: 2px solid ${theme.colors.simplyGray};
     padding-right: 16px;
   }
 
