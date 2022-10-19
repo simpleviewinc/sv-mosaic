@@ -8,10 +8,10 @@ import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
 import { MenuItemProps } from "../MenuItem";
 import styled from "styled-components";
+import theme from "@root/theme";
 
 // Components
 import SummaryPageTopComponent from ".";
-import theme from "@root/theme";
 
 const DescriptionItemParagraph = styled.p`
 	font-family: ${theme.museoFont};
