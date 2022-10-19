@@ -7,9 +7,16 @@ import Mail from "@mui/icons-material/Mail";
 import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
 import { MenuItemProps } from "../MenuItem";
+import styled from "styled-components";
 
 // Components
 import SummaryPageTopComponent from ".";
+import theme from "@root/theme";
+
+const DescriptionItemParagraph = styled.p`
+	font-family: ${theme.museoFont};
+	font-weight: 250;
+`;
 
 export default {
 	title: "Components/SummaryPageTopComponent",
@@ -26,7 +33,7 @@ export const Example = (): ReactElement => {
 	const showAdditionalActions = boolean("Aditional actions", true);
 	const showDescription = boolean("Description Items", true);
 	const showFilter = boolean("Filter", true);
-	
+
 	const mainActions: ButtonProps[] = [
 		{
 			label: "Button 1",
@@ -85,35 +92,35 @@ export const Example = (): ReactElement => {
 	];
 
 	const descriptionItems = [
-		<p key={1}>Information</p>,
-		<p key={2}>Information</p>,
-		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
+		<DescriptionItemParagraph key={1}>Information</DescriptionItemParagraph>,
+		<DescriptionItemParagraph key={2}>Information</DescriptionItemParagraph>,
+		<DescriptionItemParagraph key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</DescriptionItemParagraph>,
 		<Button
 			key={4}
-			attrs={{linkButton: true}} 
-			color="black" 
-			variant="text" 
-			label={textLinks[0].label} 
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[0].label}
 			mIcon={textLinks[0].mIcon}
 			href={textLinks[0].href}
 			{...textLinks[0]}
 		/>,
 		<Button
 			key={5}
-			attrs={{linkButton: true}} 
-			color="black" 
-			variant="text" 
-			label={textLinks[1].label} 
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[1].label}
 			mIcon={textLinks[1].mIcon}
 			href={textLinks[1].href}
 			{...textLinks[1]}
 		/>,
 		<Button
 			key={6}
-			attrs={{linkButton: true}} 
-			color="black" 
-			variant="text" 
-			label={textLinks[2].label} 
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[2].label}
 			mIcon={textLinks[2].mIcon}
 			href={textLinks[2].href}
 			{...textLinks[2]}
