@@ -15,7 +15,7 @@ import SummaryPageTopComponent from ".";
 
 const DescriptionItemParagraph = styled.p`
 	font-family: ${theme.museoFont};
-	font-weight: 250;
+	font-weight: ${theme.fontWeight.light};
 `;
 
 export default {
