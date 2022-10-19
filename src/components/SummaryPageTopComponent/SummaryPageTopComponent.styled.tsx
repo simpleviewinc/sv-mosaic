@@ -103,7 +103,3 @@ export const Item = styled.div`
 		white-space: nowrap;
 	}
 `;
-
-export const ContextText = styled.p `
-
-`;
