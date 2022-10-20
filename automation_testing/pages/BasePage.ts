@@ -107,8 +107,8 @@ export class BasePage {
 			return true;
 		}
 		return false;
-  }
-  
+	}
+
 	async selectAndDeleteText(stringLenght:number): Promise<void> {
 		await this.page.keyboard.press("ArrowRight");
 		await this.page.keyboard.down("Shift");
@@ -117,5 +117,20 @@ export class BasePage {
 		}
 		await this.page.keyboard.up("Shift");
 		await this.page.keyboard.press("Backspace");
+	}
+
+	async validateFontWeightFromElement(element: Locator, expectedValue: string): Promise<void> {
+		const elementFontWeight = await ((element).evaluate(el => getComputedStyle(el).fontWeight));
+		expect(elementFontWeight).toBe(expectedValue);
+	}
+
+	async validateMarginValueFromElement(element: Locator, expectedValue: string, isRight: boolean): Promise<void> {
+		let elementMargin: string;
+		if (isRight) {
+			elementMargin = await ((element).evaluate(el => getComputedStyle(el).marginLeft));
+		} else {
+			elementMargin = await ((element).evaluate(el => getComputedStyle(el).marginRight));
+		}
+		expect(elementMargin).toBe(expectedValue);
 	}
 }
