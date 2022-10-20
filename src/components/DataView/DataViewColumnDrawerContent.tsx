@@ -42,7 +42,7 @@ const StyledWrapper = styled.div`
 		justify-content: space-between;
 		padding-left: 15px;
 
-		& > span {
+		& > span:first-child {
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			display: -webkit-box;
