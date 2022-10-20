@@ -61,7 +61,7 @@ const api = new JSONDB(mappedData, {
 });
 
 const processStringFilter = function ({ name, data, output }) {
-	if (data.value === undefined) { return; }
+	if (data.comparison !== "exists" && data.comparison !== "not_exists" && data.value === undefined) { return; }
 
 	if (data.comparison === "equals") {
 		output[name] = data.value;
@@ -71,6 +71,10 @@ const processStringFilter = function ({ name, data, output }) {
 		output[name] = { $not_contains: data.value };
 	} else if (data.comparison === "not_equals") {
 		output[name] = { $ne: data.value };
+	} else if (data.comparison === "exists") {
+		output[name] = { $exists: true };
+	} else if (data.comparison === "not_exists") {
+		output[name] = { $exists: false };
 	}
 }
 
