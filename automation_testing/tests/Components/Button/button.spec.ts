@@ -1,4 +1,4 @@
-import { test, expect, Page } from "@playwright/test";
+import { test, Page } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPage";
 
 test.describe("Components - Button - Kitchen Sink", () => {
@@ -19,8 +19,23 @@ test.describe("Components - Button - Kitchen Sink", () => {
 		const expectedFontWeight = "700";
 		const numberOfButtons = await buttonPage.button.count();
 		for (let i = 0; i < numberOfButtons; i++) {
-			const fontWeight = (await ((buttonPage.button.nth(i)).evaluate(el => getComputedStyle(el).fontWeight)));
-			expect(fontWeight).toBe(expectedFontWeight);
+			buttonPage.validateFontWeightFromElement(buttonPage.button.nth(i), expectedFontWeight);
+		}
+	});
+
+	test("Validate that the left margin of the buttons are valid.", async () => {
+		const expectedMarginValue = "12px";
+		const numberOfButtons = await buttonPage.leftIconButton.count();
+		for (let i = 0; i < numberOfButtons; i++) {
+			await buttonPage.validateMarginValueFromElement(buttonPage.leftIconButton.nth(i), expectedMarginValue, false);
+		}
+	});
+
+	test("Validate that the right margin of the buttons are valid.", async () => {
+		const expectedMarginValue = "12px";
+		const numberOfButtons = await buttonPage.rightIconButton.count();
+		for (let i = 0; i < numberOfButtons; i++) {
+			await buttonPage.validateMarginValueFromElement(buttonPage.rightIconButton.nth(i), expectedMarginValue, true);
 		}
 	});
 });
