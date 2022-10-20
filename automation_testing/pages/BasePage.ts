@@ -133,4 +133,8 @@ export class BasePage {
 		}
 		expect(elementMargin).toBe(expectedValue);
 	}
+
+	async getFontFamilyFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontFamily));
+	}
 }
