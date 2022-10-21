@@ -366,6 +366,14 @@ const listColumns = [
 		style: {
 			textTransform: "uppercase"
 		}
+	},
+	{
+		name: "textTransformLargeText",
+		label: "Style - Text Transform with large field text to order column",
+		column: "content_owner",
+		style: {
+			textTransform: "uppercase"
+		}
 	}
 ];
 
