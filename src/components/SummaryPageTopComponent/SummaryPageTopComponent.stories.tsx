@@ -32,7 +32,6 @@ export const Example = (): ReactElement => {
 	const showMainActions = boolean("Main actions", true);
 	const showAdditionalActions = boolean("Aditional actions", true);
 	const showDescription = boolean("Description Items", true);
-	const showFilter = boolean("Filter", true);
 
 	const mainActions: ButtonProps[] = [
 		{
@@ -127,29 +126,6 @@ export const Example = (): ReactElement => {
 		/>,
 	];
 
-	const options = [
-		{ label : "Option A", value : "a" },
-		{ label : "Option B", value : "b" },
-		{ label : "Option C", value : "c" },
-		{ label : "Option D", value : "d" }
-	];
-
-	const getOptions = () => {
-		return {
-			docs : options,
-			hasMore : false
-		}
-	}
-
-	const getSelected = (id) => {
-		return options.filter(val => val.value === id)[0];
-	}
-
-	const filter = {
-		label: "Testing",
-		args: { getOptions, getSelected, required: false },
-	}
-
 	const favorite = {
 		checked: checked,
 		onClick: (val) => {alert(`Star changed to ${val ? "checked" : "unchecked"}`); setChecked(val);},
@@ -163,7 +139,6 @@ export const Example = (): ReactElement => {
 			mainActions={showMainActions && mainActions}
 			additionalActions={showAdditionalActions && additionalActions}
 			descriptionItems={showDescription && descriptionItems}
-			filter={showFilter && filter}
 		/>
 	);
 };

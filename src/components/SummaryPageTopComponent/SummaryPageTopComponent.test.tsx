@@ -48,30 +48,30 @@ const ComponentExample = (props: {
 			<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
 			<Button
 				key={4}
-				attrs={{linkButton: true}} 
-				color="black" 
-				variant="text" 
-				label={textLinks[0].label} 
+				attrs={{linkButton: true}}
+				color="black"
+				variant="text"
+				label={textLinks[0].label}
 				mIcon={textLinks[0].mIcon}
 				href={textLinks[0].href}
 				{...textLinks[0]}
 			/>,
 			<Button
 				key={5}
-				attrs={{linkButton: true}} 
-				color="black" 
-				variant="text" 
-				label={textLinks[1].label} 
+				attrs={{linkButton: true}}
+				color="black"
+				variant="text"
+				label={textLinks[1].label}
 				mIcon={textLinks[1].mIcon}
 				href={textLinks[1].href}
 				{...textLinks[1]}
 			/>,
 			<Button
 				key={6}
-				attrs={{linkButton: true}} 
-				color="black" 
-				variant="text" 
-				label={textLinks[2].label} 
+				attrs={{linkButton: true}}
+				color="black"
+				variant="text"
+				label={textLinks[2].label}
 				mIcon={textLinks[2].mIcon}
 				href={textLinks[2].href}
 				{...textLinks[2]}
@@ -117,29 +117,6 @@ const ComponentExample = (props: {
 		}
 	];
 
-	const options = [
-		{ label : "Option A", value : "a" },
-		{ label : "Option B", value : "b" },
-		{ label : "Option C", value : "c" },
-		{ label : "Option D", value : "d" }
-	];
-
-	const getOptions = () => {
-		return {
-			docs : options,
-			hasMore : false
-		}
-	}
-
-	const getSelected = (id) => {
-		return options.filter(val => val.value === id)[0];
-	}
-
-	const filter = {
-		label: "Testing",
-		args: { getOptions, getSelected, required: false },
-	};
-
 	const favorite = {
 		checked: checked,
 		onClick: (val) => setChecked(val),
@@ -153,7 +130,6 @@ const ComponentExample = (props: {
 			mainActions={mainActions}
 			additionalActions={additionalActions}
 			descriptionItems={descriptionItems}
-			filter={filter}
 		/>
 	);
 };
@@ -176,7 +152,7 @@ describe("SummaryPageTopComponent", () => {
 		const title = await screen.findByText("Title");
 		expect(title).toBeInTheDocument();
 	});
-	
+
 	it("Should display favorite icon", async () => {
 		await act(async () => {
 			render(<ComponentExample />)
@@ -278,7 +254,7 @@ describe("SummaryPageTopComponent", () => {
 		expect(editButton).toBeInTheDocument();
 	});
 
-	it("Should display 6 description items", async () => { 
+	it("Should display 6 description items", async () => {
 		await act(async () => {
 			render(<ComponentExample />)
 		});
@@ -310,29 +286,4 @@ describe("SummaryPageTopComponent", () => {
 	// 		expect(() => render(<ComponentExample descriptionItems={newDescriptionItems} />)).toThrowError("descriptionElements prop must receive 6 elements or less.");
 	// 	});
 	// });
-
-	it("Should display the filter and select an option", async () => {
-		await act(async () => {
-			render(<ComponentExample />)
-		});
-
-		let filter = await (await screen.findByTestId("filter")).childNodes[0].childNodes[0].childNodes[0].firstChild;
-		expect(filter).toBeInTheDocument();
-
-		await act(async () => {
-			filter.dispatchEvent(new MouseEvent("click", {bubbles: true}));
-		});
-
-		const firstOptionBtn = await screen.findByText("Option A");
-		expect(firstOptionBtn).toBeInTheDocument();
-
-		await act(async () => {
-			firstOptionBtn.dispatchEvent(new MouseEvent("click", {bubbles: true}));
-		});
-
-		filter = await screen.findByTestId("filter");
-
-		const firstOptionText = await screen.findByText("Option A");
-		expect(firstOptionText).toBeInTheDocument();
-	});
 });
