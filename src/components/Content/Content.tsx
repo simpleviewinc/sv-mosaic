@@ -2,6 +2,7 @@ import * as React from "react";
 import {
 	ReactElement,
 	useMemo,
+	useEffect,
 	Fragment
 } from "react";
 import { ContentProps } from "./ContentTypes";
@@ -41,6 +42,19 @@ const showContent = (show: ActionAdditional["show"]) => {
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections, title, buttons } = props;
+
+	/**
+	 * Validates the number of columns per section.
+	 */
+	useEffect(() => {
+		if (sections) {
+			sections?.forEach(section => {
+				if (section.length >= 3) {
+					throw new Error("The max of columns allowed are two.");
+				}
+			});
+		}
+	}, [sections])
 
 	/**
 	 * Checks if the field exists, can be shown and executes its transform function
@@ -136,26 +150,23 @@ const Content = (props: ContentProps): ReactElement => {
 		<MainWrapper>
 			<TitleWrapper>
 				<Title>{title}</Title>
-				<ButtonsWrapper>
-					{buttons.map((button, idx) => (
-						<Button key={`${button.label}-${idx}`} {...button} />
-					))}
-				</ButtonsWrapper>
+				{buttons &&
+					<ButtonsWrapper>
+						{buttons?.map((button, idx) => (
+							<Button key={`${button.label}-${idx}`} {...button} />
+						))}
+					</ButtonsWrapper>}
 			</TitleWrapper>
 			<div>
-				{data && sectionsToRender.map((section, idx) => {
-					if (section?.length >= 3) {
-						throw new Error("The max of columns allowed are two.");
-					}
-					return (
-						<ContentRow key={`${idx}-row`}>
-							{section.map((field, idx) => (
-								<Fragment key={`${field[0]}-${idx}`}>
-									{renderRow(field[0], idx, section?.length)}
-								</Fragment>
-							))}
-						</ContentRow>
-					)})}
+				{data && sectionsToRender.map((section, idx) => (
+					<ContentRow key={`${idx}-row`}>
+						{section.map((field, idx) => (
+							<Fragment key={`${field[0]}-${idx}`}>
+								{renderRow(field[0], idx, section?.length)}
+							</Fragment>
+						))}
+					</ContentRow>
+				))}
 			</div>
 		</MainWrapper>
 	);
