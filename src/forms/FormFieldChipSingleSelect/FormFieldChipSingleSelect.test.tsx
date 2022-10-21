@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useMemo, ReactElement } from "react";
-import { render, cleanup, screen, fireEvent } from "@testing-library/react";
+import { render, cleanup, screen, fireEvent, waitFor } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom/extend-expect";
 
 //Components
@@ -8,12 +9,13 @@ import Form, { useForm, formActions } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
 import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
 import { ButtonProps } from "@root/components/Button";
+import { getOptions } from "@root/utils/getOptions";
 
 afterEach(cleanup);
 
 const { getAllByRole, getByText } = screen;
 
-const FormFieldChipSingleSelectExample = (): ReactElement => {
+const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement => {
 	const { state, dispatch } = useForm();
 
 	const options = useMemo( ()=> [
@@ -39,7 +41,8 @@ const FormFieldChipSingleSelectExample = (): ReactElement => {
 					name: "formFieldChipSingleSelect",
 					type: "chip",
 					inputSettings: {
-						options
+						options: !props.fromDB ? options : undefined,
+						getOptions: props.fromDB ? getOptions : undefined
 					},
 				}
 			] as FieldDef<FormFieldChipSingleSelectDef>[],
@@ -84,7 +87,7 @@ const FormFieldChipSingleSelectExample = (): ReactElement => {
 
 describe("FormFieldChipSingleSelect component", () => {
 	beforeEach(() => {
-		render(<FormFieldChipSingleSelectExample />);
+		render(<FormFieldChipSingleSelectExample fromDB={false} />);
 	})
 
 	it("should display the list of options", () => {
@@ -100,5 +103,20 @@ describe("FormFieldChipSingleSelect component", () => {
 		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe("rgb(253, 185, 36)");
 		expect(window.getComputedStyle(chipElements[2]).backgroundColor).toBe("rgb(240, 242, 245)");
 		expect(window.getComputedStyle(chipElements[3]).backgroundColor).toBe("rgb(240, 242, 245)");
+	});
+});
+
+describe("FormFieldChipSingleSelect component with options from DB", () => {
+	it("should display the list of options from DB", async () => {
+		await act( async() => {
+			render(<FormFieldChipSingleSelectExample fromDB={true} />);
+		});
+
+		await waitFor(() => {
+			expect(getByText("Option 1")).toBeTruthy();
+			expect(getByText("Option 2")).toBeTruthy();
+			expect(getByText("Option 3")).toBeTruthy();
+			expect(getByText("Option 4")).toBeTruthy();
+		}, {timeout: 1000});
 	});
 });

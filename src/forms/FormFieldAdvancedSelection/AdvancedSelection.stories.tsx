@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { boolean, text, withKnobs, select } from "@storybook/addon-knobs";
 import { AdvancedSelectionDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
@@ -23,7 +23,11 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "Instruction text");
 	const helperText = text("Helper text", "Helper text");
-	const shouldUseGetOptions = boolean("Obtain options from db", false);
+	const optionsOrigin = select(
+		"Options Origin",
+		["Local", "DB"],
+		"Local"
+	);
 	const getOptionsLimit = text("Get options limit", "5");
 	const createNewOptionsKnob = boolean("Create new option", true);
 
@@ -83,12 +87,12 @@ export const Playground = (): ReactElement => {
 					instructionText,
 					type: "advancedSelection",
 					inputSettings: {
-						options: !shouldUseGetOptions ? options : undefined,
-						getOptions: shouldUseGetOptions ? getOptions : undefined,
+						options: optionsOrigin === "Local" ? options : undefined,
+						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 						getOptionsLimit:
-							shouldUseGetOptions && getOptionsLimit
-								? getOptionsLimit
-								: undefined,
+						optionsOrigin === "DB" && getOptionsLimit
+							? getOptionsLimit
+							: undefined,
 						createNewOption: createNewOptionsKnob ? createNewOption : undefined
 					},
 				},
@@ -101,7 +105,8 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			getOptionsLimit,
 			options,
-			shouldUseGetOptions,
+			getOptions,
+			optionsOrigin,
 			createNewOptionsKnob
 		]
 	);
@@ -179,7 +184,7 @@ export const KitchenSink = (): ReactElement => {
 					type: "advancedSelection",
 					inputSettings: {
 						options,
-					},
+					}
 				},
 				{
 					name: "getOptions",
@@ -187,8 +192,8 @@ export const KitchenSink = (): ReactElement => {
 					type: "advancedSelection",
 					inputSettings: {
 						getOptions,
-						getOptionsLimit: 5,
-					},
+						getOptionsLimit: 5
+					}
 				},
 
 				{
@@ -198,8 +203,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 						getOptionsLimit: 10,
-						createNewOption,
-					},
+						createNewOption
+					}
 				},
 			] as FieldDef<AdvancedSelectionDef>[],
 		[options]

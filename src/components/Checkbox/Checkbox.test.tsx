@@ -32,16 +32,6 @@ describe("Checkbox", function() {
 		expect(screen.getByText("Label test")).toBeDefined();
 	});
 
-	it("should render a checkbox with a helper text", () => {
-		render(<Checkbox
-			label="Test checkbox"
-			checked={false}
-			helperText="Helper text test"
-		/>);
-
-		expect(screen.getByText("Helper text test")).toBeDefined();
-	});
-
 	it("should render a checkbox disabled and unchecked", () => {
 		const { getByRole } = render(<Checkbox
 			label="Example label"
@@ -113,11 +103,11 @@ describe("Checkbox", function() {
 		}
 
 		const { getByRole } = render(<C/>);
-	
+
 		const checkbox = getByRole("checkbox") as HTMLInputElement;
 
 		expect(checkbox.checked).toEqual(false);
-	
+
 		fireEvent.click(checkbox);
 		expect(checkbox.checked).toEqual(true);
 	});

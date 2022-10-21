@@ -38,6 +38,42 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		browser.close;
 	});
 
+	const validateFilterStyles = async (filter) => {
+		const expectedFontWeight = "700";
+		const expectedFontSize = "14px";
+		const expectedApplyButtonColor = "(0, 141, 168)";
+		const expectedCleanAndCancelButtonColor = "(26, 26, 26)";
+
+		await advancedFilters.moreBtn.click();
+		await filter.check();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.waitForElementLoad();
+
+		const applyFontWeight = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontWeight)));
+		const clearFontWeight = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).fontWeight)));
+		const cancelFontWeight = (await ((advancedFilters.page.locator("text=Cancel")).evaluate(el => getComputedStyle(el).fontWeight)));
+		const applyFontSize = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontSize)));
+		const clearFontSize = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).fontSize)));
+		const cancelFontSize = (await ((advancedFilters.page.locator("text=Cancel")).evaluate(el => getComputedStyle(el).fontSize)));
+		const applyButtonColor = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+		const clearButtonColor = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+		const cancelButtonColor = (await ((advancedFilters.page.locator("text=Cancel")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+
+		//Validate Font Weight
+		expect(applyFontWeight).toBe(expectedFontWeight);
+		expect(clearFontWeight).toBe(expectedFontWeight);
+		expect(cancelFontWeight).toBe(expectedFontWeight);
+		//Validate Font Size
+		expect(applyFontSize).toBe(expectedFontSize);
+		expect(clearFontSize).toBe(expectedFontSize);
+		expect(cancelFontSize).toBe(expectedFontSize);
+		//Validate Button Color
+		expect(applyButtonColor).toBe(expectedApplyButtonColor);
+		expect(clearButtonColor).toBe(expectedCleanAndCancelButtonColor);
+		expect(cancelButtonColor).toBe(expectedCleanAndCancelButtonColor);
+	}
+
 	test("Validate that all advanced filters have default value equal to Any", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.selectAllAdvancedFilters();
@@ -59,6 +95,16 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain(categorySelected);
 		}
+	});
+
+	test("Validate Single select category styles", async () => {
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.singleSelectCategoryOption.click();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.optionalFilters.click();
+		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
+		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
+		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
 	});
 
 	test("Validate Categories with Comparisons - In", async () => {
@@ -429,5 +475,13 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await (await advancedFilters.getCloseBtn(await filterBtn)).click();
 		await advancedFilters.waitForElementLoad();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
+	});
+
+	test("Validate the Created filter styles.", async () => {
+		await validateFilterStyles(advancedFilters.createdOption);
+	});
+
+	test("Validate the Updated filter styles.", async () => {
+		await validateFilterStyles(advancedFilters.updatedOption);
 	});
 });

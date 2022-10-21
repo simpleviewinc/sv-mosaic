@@ -35,15 +35,16 @@ export const ContainerTitle = styled.div`
     align-items: center;
     flex-wrap: wrap;
 
-	& > .favorite-icon: {
-		color: red;
+	& > .favorite-icon {
+		color: ${theme.colors.gray};
 		margin-left: 12px;
 	}
 `;
 
 export const Title = styled.p`
     font-size: 28px;
-    max-width: 650px; 
+    font-weight: ${theme.fontWeight.light};
+    max-width: 650px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -77,7 +78,7 @@ export const ContainerItems = styled.div`
     div:first-child {
         padding-left: 0px;
     };
-	
+
     div:last-child {
         border: none;
     };
@@ -96,13 +97,9 @@ export const Item = styled.div`
 	& h6 {
 		margin: 0px;
 		font-size: 14px;
-		max-width: 280px; 
+		max-width: 280px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-`;
-
-export const ContextText = styled.p `
-    
 `;

@@ -1,9 +1,12 @@
 import * as React from "react";
 import { useState } from "react";
-import { render, screen, fireEvent, cleanup } from "@testing-library/react";
+import { render, screen, fireEvent, cleanup, waitFor, act } from "@testing-library/react";
+import { getOptions } from "@root/utils/getOptions";
 
 // Components
 import FormFieldRadio from "./FormFieldRadio";
+import { MosaicLabelValue } from "@root/types";
+import { additionalOptions } from "../FormFieldAdvancedSelection";
 
 afterEach(cleanup);
 
@@ -24,28 +27,43 @@ const options = [
 	},
 ];
 
-const FormFieldRadioExample = () => {
-	const [value, setValue] = useState("");
+const FormFieldRadioExample = (props: {fromDB?: boolean}) => {
+	const [value, setValue] = useState<MosaicLabelValue>();
 
-	const handleChange = async (value) => {
+	const handleChange = async (value: MosaicLabelValue) => {
 		setValue(value);
 	};
 
 	return (
 		<>
-			<span>{value}</span>
-			<FormFieldRadio
-				fieldDef={{
-					name: "radio",
-					type: "radio",
-					label: "Label",
-					inputSettings: {
-						options
-					}
-				}}
-				onChange={handleChange}
-				value={value}
-			/>
+			<span>{value?.value}</span>
+			{!props.fromDB ?
+				<FormFieldRadio
+					fieldDef={{
+						name: "radio",
+						type: "radio",
+						label: "Label",
+						inputSettings: {
+							options: options,
+						}
+					}}
+					onChange={handleChange}
+					value={value}
+				/>
+				:
+				<FormFieldRadio
+					fieldDef={{
+						name: "radio",
+						type: "radio",
+						label: "Label",
+						inputSettings: {
+							getOptions: getOptions
+						}
+					}}
+					onChange={handleChange}
+					value={value}
+				/>
+			}
 		</>
 	);
 };
@@ -53,7 +71,7 @@ const FormFieldRadioExample = () => {
 describe("FormFieldRadio component", () => {
 	let radioButtons = [];
 	beforeEach(() => {
-		render(<FormFieldRadioExample />);
+		render(<FormFieldRadioExample fromDB={false} />);
 		radioButtons = getAllByRole("radio") as HTMLInputElement[];
 		fireEvent.click(radioButtons[1]);
 	});
@@ -66,5 +84,33 @@ describe("FormFieldRadio component", () => {
 		expect(radioButtons[0].checked).toEqual(false);
 		expect(radioButtons[1].checked).toEqual(true);
 		expect(radioButtons[2].checked).toEqual(false);
+	});
+});
+
+describe("FormFieldRadio component from DB", () => {
+	let radioButtons = [];
+	beforeEach(async () => {
+		await act( async() => {
+			render(<FormFieldRadioExample fromDB={true} />);
+		});
+
+		await waitFor(() => {
+			radioButtons = getAllByRole("radio") as HTMLInputElement[];
+		}, {timeout: 3000});
+
+		await act( async() => {
+			radioButtons[6].dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+	});
+
+	it("should display the value of the clicked option", async () => {
+		expect(getByText(additionalOptions[6].value)).toBeDefined();
+	});
+
+	it("should check the clicked option", () => {
+		radioButtons.forEach( (radioButton, i) => {
+			i === 6 ? expect(radioButton.checked).toEqual(true)
+				: 	expect(radioButton.checked).toEqual(false)
+		})
 	});
 });
