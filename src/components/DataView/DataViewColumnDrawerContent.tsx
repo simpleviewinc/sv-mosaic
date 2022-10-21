@@ -41,6 +41,15 @@ const StyledWrapper = styled.div`
 		display: flex;
 		justify-content: space-between;
 		padding-left: 15px;
+
+		& > span:first-child {
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			display: -webkit-box;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 180px;
+		}
 	}
 
 	& > .right > .item > .buttons {

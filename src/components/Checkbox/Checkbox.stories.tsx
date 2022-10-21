@@ -23,7 +23,6 @@ export const example = (): ReactElement => {
 			checked={boolean("Checked", false)}
 			onClick={onClick}
 			disabled={boolean("Disabled", false)}
-			helperText={text("Helper Text", "Helper text example")}
 			indeterminate={boolean("Indeterminate", false)}
 		/>
 	)

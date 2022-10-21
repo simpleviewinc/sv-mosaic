@@ -107,12 +107,12 @@ export const Playground = (): ReactElement => {
 				"address1": "8950 N. Oracle Road",
 				"city": "Tuczon",
 				"postalCode": "85704",
-				"country": "US",
-				"state": "AZ",
+				"country": {label: "United States", value: "US"},
+				"state": {label: "Arizona", value: "AZ"},
 				"types": [
-					"physical",
-					"billing",
-					"shipping"
+					{label: "Physical", value: "physical"},
+					{label: "Billing", value: "billing"},
+					{label: "Shipping", value: "shipping"}
 				]
 			}
 		],
