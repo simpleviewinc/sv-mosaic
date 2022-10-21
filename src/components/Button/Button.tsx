@@ -1,11 +1,11 @@
 import * as React from "react";
-import { useState, memo, createContext } from "react";
+import { useState, memo, createContext, useMemo, MouseEvent } from "react";
 import MUIButton from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
 import Popper from "@mui/material/Popper";
 
-import { ButtonProps, ButtonPopoverContextProps } from "./ButtonTypes";
+import { ButtonProps, ButtonPopoverContextProps, PopoverObj } from "./ButtonTypes";
 import Menu from "../Menu";
 import MenuBase from "../MenuBase";
 import { MosaicObject } from "../../types";
@@ -16,7 +16,8 @@ export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(nul
 function Button(props: ButtonProps) {
 	const {
 		attrs = {},
-		muiAttrs = {}
+		muiAttrs = {},
+		popover
 	} = props;
 
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -36,6 +37,14 @@ function Button(props: ButtonProps) {
 
 	const MaterialIcon = props.mIcon;
 	const iconPosition = props.iconPosition || "left";
+
+	const openPopoverOnHover = (event: MouseEvent<HTMLElement>) => {
+		setPopoverAnchorEl(event.currentTarget);
+	};
+
+	const closePopoverOnHover = () => {
+		setPopoverAnchorEl(null);
+	};
 
 	function openMenu(event) {
 		setAnchorEl(event.currentTarget);
@@ -62,7 +71,7 @@ function Button(props: ButtonProps) {
 		setTooltipEl(null);
 	}
 
-	const onClick = props.popover ? openPopover
+	const onClick = popover ? openPopover
 		: props.menuItems ? openMenu
 		: props.menuContent ? openMenu
 		: props.onClick
@@ -74,9 +83,20 @@ function Button(props: ButtonProps) {
 		addAttrs.onMouseEnter = onMouseEnter;
 		addAttrs.onMouseLeave = onMouseLeave;
 	}
-	
+
+	const isPopoverOnHover = useMemo(() => {
+		if ((popover as PopoverObj)?.action) {
+			return (popover as PopoverObj).action === "onHover";
+		}
+
+
+		return false;
+	}, [popover]);
+
 	return (
 		<MyButton
+			onMouseEnter={isPopoverOnHover ? openPopoverOnHover : undefined}
+			onMouseLeave={isPopoverOnHover ? closePopoverOnHover : undefined}
 			{...attrs}
 			{...addAttrs}
 			className={`
@@ -127,12 +147,12 @@ function Button(props: ButtonProps) {
 				</MenuBase>
 			}
 			{
-				props.popover &&
+				popover &&
 				<Popover
 					open={Boolean(popoverAnchorEl)}
 					anchorEl={popoverAnchorEl}
 					anchorOrigin={{
-						vertical: "top",
+						vertical: isPopoverOnHover ? "bottom" : "top",
 						horizontal: "left",
 					}}
 					transformOrigin={{
@@ -141,10 +161,11 @@ function Button(props: ButtonProps) {
 					}}
 					onClose={closePopover}
 					disableRestoreFocus
+					style={ isPopoverOnHover ? { pointerEvents: "none" } : null}
 				>
 					<PopoverWrapper>
 						<ButtonPopoverContext.Provider value={{ onClose: closePopover }}>
-							{props.popover}
+							{"element" in popover ? <>{popover.element}</> : <>{popover}</>}
 						</ButtonPopoverContext.Provider>
 					</PopoverWrapper>
 				</Popover>
