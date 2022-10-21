@@ -7,6 +7,7 @@ export class BasePage {
 	readonly page: Page;
 	readonly loading: Locator;
 	readonly title: Locator;
+	readonly description: Locator;
 	readonly applyBtn: Locator;
 	readonly clearBtn: Locator;
 	readonly cancelBtn: Locator;
@@ -23,6 +24,7 @@ export class BasePage {
 		this.page = page;
 		this.loading = page.locator("div.loading");
 		this.title = page.locator("text=Form Title");
+		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span[2]");
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("text=Cancel");
@@ -48,8 +50,8 @@ export class BasePage {
 		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 })
 	}
 
-	async wait(): Promise<void> {
-		await this.page.waitForTimeout(500);
+	async wait(timeout = 500): Promise<void> {
+		await this.page.waitForTimeout(timeout);
 	}
 
 	async waitForElementLoad(): Promise<void> {
@@ -107,8 +109,8 @@ export class BasePage {
 			return true;
 		}
 		return false;
-  }
-  
+	}
+
 	async selectAndDeleteText(stringLenght:number): Promise<void> {
 		await this.page.keyboard.press("ArrowRight");
 		await this.page.keyboard.down("Shift");
@@ -117,5 +119,24 @@ export class BasePage {
 		}
 		await this.page.keyboard.up("Shift");
 		await this.page.keyboard.press("Backspace");
+	}
+
+	async validateFontWeightFromElement(element: Locator, expectedValue: string): Promise<void> {
+		const elementFontWeight = await ((element).evaluate(el => getComputedStyle(el).fontWeight));
+		expect(elementFontWeight).toBe(expectedValue);
+	}
+
+	async validateMarginValueFromElement(element: Locator, expectedValue: string, isRight: boolean): Promise<void> {
+		let elementMargin: string;
+		if (isRight) {
+			elementMargin = await ((element).evaluate(el => getComputedStyle(el).marginLeft));
+		} else {
+			elementMargin = await ((element).evaluate(el => getComputedStyle(el).marginRight));
+		}
+		expect(elementMargin).toBe(expectedValue);
+	}
+
+	async getFontFamilyFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontFamily));
 	}
 }

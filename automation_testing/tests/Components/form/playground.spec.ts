@@ -38,4 +38,12 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.toggleField.click();
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
+
+	test("Validate the font weight of the Title in Top Component.", async () => {
+		await playgroundPage.validateFontWeightFromElement(playgroundPage.title, "250");
+	});
+
+	test("Validate the font weight of the Description in Top Component.", async () => {
+		await playgroundPage.validateFontWeightFromElement(playgroundPage.description, "250");
+	});
 });
