@@ -158,15 +158,15 @@ export const Playground = (): ReactElement => {
 	const buttonsToDisplay = useMemo(() => useSections ? buttons :  buttons.slice(0, 1) ,[buttons]);
 
 	const sectionsToDisplay = useMemo(() => {
-		if(!useSections) {
+		if (!useSections) {
 			return;
 		}
 
-		if(singleColumn) {
+		if (singleColumn) {
 			return showMore ? oneColumn : oneColumn.slice(0, 3);
 		}
 
-		if(!singleColumn) {
+		if (!singleColumn) {
 			return showMore ? twoColumns : twoColumns.slice(0, 2);
 		}
 	}, [useSections, showMore, oneColumn, twoColumns, singleColumn]);
