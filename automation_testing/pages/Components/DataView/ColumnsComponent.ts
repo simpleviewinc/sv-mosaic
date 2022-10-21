@@ -125,7 +125,7 @@ export class ColumnsComponent extends BasePage {
 		}
 	}
 
-	async selectColum(name: string): Promise<void> {
+	async selectColumn(name: string): Promise<void> {
 		await this.columnsBtn.click();
 		const item = await this.getLeftItemByName(name);
 		await this.checkLeftItem(item, true);
