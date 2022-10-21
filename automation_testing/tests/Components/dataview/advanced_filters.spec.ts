@@ -277,18 +277,14 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		}
 	});
 
-	// Test fails because Not Exists is not working properly.
-	test.skip("Validate Title with Comparisons - Not Exists Title", async () => {
+	test("Validate Title with Comparisons - Not Exists Title", async () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.titleWithComparisonOption.click();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.optionalFilters.click();
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Exists");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await dataviewPage.getRowTitles();
-		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).toContainEqual("");
-		}
+		expect(await dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
 	});
 
 	test("Validate created filter with valid dates", async () => {
