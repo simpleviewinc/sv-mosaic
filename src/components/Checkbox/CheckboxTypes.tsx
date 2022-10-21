@@ -39,9 +39,4 @@ export interface CheckboxProps {
 	 * current checkbox can be selected or not
 	 */
 	disabled?: boolean;
-	/**
-	 * Additional text shown under the checkbox
-	 * that helps the user understand the selector
-	 */
-	helperText?: string;
 }

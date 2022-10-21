@@ -73,7 +73,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 					disabled,
 					type: "advancedSelection",
 					inputSettings: {
-						options: options,
+						options: optionsOrigin === "local" ? options : undefined,
 						getOptions: optionsOrigin === "db" ? getOptions : undefined,
 						getOptionsLimit: optionsOrigin === "db" ? getOptionsLimit : undefined,
 						createNewOption,

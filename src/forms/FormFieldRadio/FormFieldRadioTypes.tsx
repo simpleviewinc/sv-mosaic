@@ -1,18 +1,18 @@
-import { ChangeEventHandler } from "react";
-import { RadioGroupProps as MUIRadioGroup } from "@mui/material/RadioGroup";
 import { MosaicLabelValue } from "@root/types";
+import { StrictUnion } from "../FormFieldCheckbox";
 
-export type FormFieldRadioDef = {
+type FormFieldRadioLocalOptions = {
 	/**
-	 * Function that listens to changes on the selected option.
-	 */
-	onChange?: ChangeEventHandler<HTMLInputElement>;
-	/**
-	* Array of objects containing each of the options to be displayed within the radio button.
+	* List of options
 	*/
-	options?: MosaicLabelValue[];
-	/**
-	 * Value of the selected radio button.
-	 */
-	value?: MUIRadioGroup["value"];
+	options: MosaicLabelValue[];
 }
+
+type FormFieldRadioExternalOptions = {
+	/**
+	 * Used to get options from db.
+	 */
+	getOptions: () => Promise<MosaicLabelValue[]>;
+}
+
+export type FormFieldRadioDef = StrictUnion<FormFieldRadioLocalOptions | FormFieldRadioExternalOptions>

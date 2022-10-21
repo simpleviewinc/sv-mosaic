@@ -88,6 +88,10 @@ export const ChipsWrapper = styled.div`
 	div:not(:last-child) {
 		margin-right: 12px;
 	}
+
+	div {
+		margin-bottom: 8px;
+	}
 `;
 
 

@@ -41,15 +41,27 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.lgSizeDropdownDiv)).toBe(620);
 	});
 
-	test("Validate selecting a value in all the dropdown sizes", async () => {
+	test("Validate the xs dropdown", async () => {
 		const option = "The Godfather";
-		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.xsSizeDropdownOpenButton, option);
-		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.smSizeDropdownOpenButton, option);
-		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.mdSizeDropdownOpenButton, option);
-		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.lgSizeDropdownOpenButton, option);
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.xsSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.xsSizeDropdownInput.inputValue()).toBe(option);
+	});
+
+	test("Validate the sm dropdown", async () => {
+		const option = "The Godfather";
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.smSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.smSizeDropdownInput.inputValue()).toBe(option);
+	});
+
+	test("Validate the md dropdown", async () => {
+		const option = "The Godfather";
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.mdSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.mdSizeDropdownInput.inputValue()).toBe(option);
+	});
+
+	test("Validate the lg dropdown", async () => {
+		const option = "The Godfather";
+		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.lgSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.lgSizeDropdownInput.inputValue()).toBe(option);
 	});
 });

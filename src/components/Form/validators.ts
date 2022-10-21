@@ -75,10 +75,9 @@ export function isLongitude(lng: number): string | undefined {
  * Validates a required field.
  */
 export function required(str: string | string[]): string | undefined {
-	if (!str
-		|| !!str === false
+	if (str === undefined
 		|| (typeof str === "string" && str?.trim().length === 0)
-		|| str.length === 0
+		|| str?.length === 0
 	) {
 		return "This field is required, please fill it";
 	}
@@ -127,9 +126,9 @@ export function validateURL(str: string): string | undefined {
 /**
  * Validates that a given range of dates i.e. the
  * start date should always happens before the end date
- * @param value 
- * @param data 
- * @param options 
+ * @param value
+ * @param data
+ * @param options
  * @returns the error message in case of any
  */
 export function validateDateRange(value: string, data: any, options: { [key: string]: any }): string | undefined {
@@ -154,7 +153,7 @@ export type Validator = { fn: any, options: any };
  * Creates an object from a given validator that contains
  * a fn property that could be a string a function or another
  * object and an options property..
- * @param validators 
+ * @param validators
  * @returns
  */
 export function mapsValidators(validators): Validator[] {
