@@ -160,9 +160,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 		<ImageVideoLinkDocumentBrowsingContainer>
 			{(Array.isArray(value) && value?.length === 0) || !value ? (
 				<BrowsingContainer>
-					<BrowseSpan
-						className = { hasOptions ? "has-options" : "" }
-					>
+					<BrowseSpan>
 						{!hasOptions ? "No browsing options" : "Browse:"}
 					</BrowseSpan>
 					{
