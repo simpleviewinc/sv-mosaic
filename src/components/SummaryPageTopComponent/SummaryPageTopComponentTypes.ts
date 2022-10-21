@@ -1,5 +1,4 @@
 import { ButtonProps } from "../Button";
-import { DataViewFilterSingleSelectProps } from "../DataViewFilterSingleSelect";
 import { MenuItemProps } from "../MenuItem";
 
 export interface SummaryPageTopComponentTypes {
@@ -39,13 +38,4 @@ export interface SummaryPageTopComponentTypes {
 	// 	href: ButtonProps["href"];
 	// 	onClick?: ButtonProps["onClick"];
 	// }[];
-    /**
-	 * Optional button.
-	 */
-    filter: {
-		label: string;
-		args: DataViewFilterSingleSelectProps["args"];
-		//probably will also require the data/value prop;
-		defaultValue?: any;
-	};
   }
