@@ -53,8 +53,11 @@ export const BrowseSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
   font-size: 16px;
-  margin-bottom: 24px;
-  margin-top: 43px;
+
+  &.has-options {
+    margin-bottom: 24px;
+    margin-top: 43px;
+  }
 `;
 
 /**
