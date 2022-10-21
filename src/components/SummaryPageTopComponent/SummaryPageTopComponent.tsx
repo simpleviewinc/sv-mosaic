@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactElement, useState, memo, useMemo } from "react";
+import { ReactElement, memo, useMemo } from "react";
 import { SummaryPageTopComponentTypes } from ".";
 import MoreVert from "@mui/icons-material/MoreVert";
-import { 
+import {
 	StyledSummaryPageTopComponent,
 	Container,
 	Row,
@@ -17,7 +17,6 @@ import {
 // Components
 import Image from "@root/components/Image";
 import Button from "../Button";
-import DataViewFilterSingleSelect from "../DataViewFilterSingleSelect";
 import { filterAction } from "../DataView/utils/bulkActionsUtils";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
@@ -28,7 +27,6 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 		mainActions,
 		additionalActions,
 		descriptionItems,
-		filter,
 	} = props;
 
 	/**
@@ -41,10 +39,6 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	*/
 	if (descriptionItems && descriptionItems.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
 
-	const [state, setState] = useState({
-		value : filter.defaultValue ? filter.defaultValue : undefined
-	});
-
 	const filteredMainActions = useMemo(() => (
 		mainActions && mainActions.filter(button => filterAction(button))
 	), [mainActions]);
@@ -52,12 +46,6 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	const filteredAdditionalActions = useMemo(() => (
 		additionalActions && additionalActions.filter(button => filterAction(button))
 	), [additionalActions]);
-
-	const onChange = function(data) {
-		setState(data);
-	}
-
-	const onRemove = () => undefined;
 
 	return (
 		<StyledSummaryPageTopComponent>
@@ -75,7 +63,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							{title}
 						</Title>
 						{
-							favorite && 
+							favorite &&
 								<>
 									{
 										favorite?.checked ?
@@ -92,12 +80,12 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							filteredMainActions.map((mainAction, i) => (
 								<Item data-testid="btn-main-action" key={i}>
 									<Button
-										attrs={{smallText: true}} 
-										color={mainAction.color} 
-										variant={mainAction.variant} 
+										attrs={{smallText: true}}
+										color={mainAction.color}
+										variant={mainAction.variant}
 										size="small"
-										label={mainAction.label} 
-										mIcon={mainAction.mIcon} 
+										label={mainAction.label}
+										mIcon={mainAction.mIcon}
 										onClick={mainAction.onClick}
 									/>
 								</Item>
@@ -107,10 +95,10 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							filteredAdditionalActions &&
 							<Item data-testid="btn-additional-action">
 								<Button
-									color="black" 
-									variant="icon" 
-									label="Edit" 
-									mIcon={MoreVert} 
+									color="black"
+									variant="icon"
+									label="Edit"
+									mIcon={MoreVert}
 									menuItems={filteredAdditionalActions}
 								/>
 							</Item>
@@ -128,19 +116,6 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							))
 						}
 					</ContainerItems>
-					{
-						filter &&
-						<div data-testid="filter">
-							<DataViewFilterSingleSelect
-								label={filter.label}
-								type="primary"
-								data={state}
-								args={{...filter.args, color: "teal"}}
-								onRemove={onRemove}
-								onChange={onChange}
-							/>
-						</div>
-					}
 				</Row>
 			</Container>
 		</StyledSummaryPageTopComponent>

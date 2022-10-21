@@ -388,7 +388,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		expect(await advancedFilters.updatedOption.isChecked()).toBe(true);
 		await advancedFilters.applyBtn.click();
 
-		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
+		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
@@ -403,7 +403,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Validate updated filter with invalid range of dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
+		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
@@ -414,7 +414,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	test("Validate updated filter no return results", async () => {
-		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
+		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
@@ -432,7 +432,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Clear updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
+		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
@@ -447,7 +447,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Cancel updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
+		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
@@ -463,7 +463,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Remove updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await columns.selectColum(advanced_filter_data.updatedOptionFilter);
+		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
