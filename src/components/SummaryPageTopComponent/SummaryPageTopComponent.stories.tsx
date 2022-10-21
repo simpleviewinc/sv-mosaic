@@ -7,9 +7,16 @@ import Mail from "@mui/icons-material/Mail";
 import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
 import { MenuItemProps } from "../MenuItem";
+import styled from "styled-components";
+import theme from "@root/theme";
 
 // Components
 import SummaryPageTopComponent from ".";
+
+const DescriptionItemParagraph = styled.p`
+	font-family: ${theme.museoFont};
+	font-weight: ${theme.fontWeight.light};
+`;
 
 export default {
 	title: "Components/SummaryPageTopComponent",
@@ -84,9 +91,9 @@ export const Example = (): ReactElement => {
 	];
 
 	const descriptionItems = [
-		<p key={1}>Information</p>,
-		<p key={2}>Information</p>,
-		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
+		<DescriptionItemParagraph key={1}>Information</DescriptionItemParagraph>,
+		<DescriptionItemParagraph key={2}>Information</DescriptionItemParagraph>,
+		<DescriptionItemParagraph key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</DescriptionItemParagraph>,
 		<Button
 			key={4}
 			attrs={{linkButton: true}}

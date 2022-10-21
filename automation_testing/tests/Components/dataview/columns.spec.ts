@@ -163,4 +163,10 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		const created = await dataviewPage.getRowCreated();
 		expect(created.toString()).toBe(createdSplitPerPage.toString());
 	});
+
+	test("Validate that column width for long column name is valid.", async () => {
+		await columns.selectColumn("Style - Text Transform with large field text to order column");
+		const longColumnNameLocator = columns.rightItems.locator("text=Style - Text Transform with large field text to order column");
+		expect(await columns.getElementWidth(longColumnNameLocator)).toBe(180);
+	});
 });
