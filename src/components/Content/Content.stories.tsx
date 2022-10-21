@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
@@ -90,6 +90,7 @@ export const Playground = (): ReactElement => {
 	const singleColumn = boolean("Single column", false);
 	const showChips = boolean("Show chips", true);
 	const useSections = boolean("Use sections", true);
+	const useButtons = boolean("Use buttons", true);
 	const [showMore, setShowMore] = useState(false);
 
 	/**
@@ -154,26 +155,29 @@ export const Playground = (): ReactElement => {
 		},
 	];
 
-	let oneColumToDisplay;
-	let twoColumnsToDisplay;
-	let buttonsToDisplay;
+	const buttonsToDisplay = useMemo(() => useSections ? buttons :  buttons.slice(0, 1) ,[buttons]);
 
-	if (fields && data) {
-		oneColumToDisplay = showMore ? oneColumn : oneColumn.slice(0, 3);
-		twoColumnsToDisplay = showMore ? twoColumns : twoColumns.slice(0, 2);
-		buttonsToDisplay = useSections ? buttons :  buttons.slice(0, 1);
-	}
+	const sectionsToDisplay = useMemo(() => {
+		if(!useSections) {
+			return;
+		}
 
+		if(singleColumn) {
+			return showMore ? oneColumn : oneColumn.slice(0, 3);
+		}
+
+		if(!singleColumn) {
+			return showMore ? twoColumns : twoColumns.slice(0, 2);
+		}
+	}, [useSections, showMore, oneColumn, twoColumns, singleColumn]);
 
 	return (
 		<Content
 			title={title}
 			data={data}
 			fields={fields}
-			sections={
-				useSections ? (singleColumn ? oneColumToDisplay : twoColumnsToDisplay) : undefined
-			}
-			buttons={buttonsToDisplay}
+			sections={sectionsToDisplay}
+			buttons={useButtons && buttonsToDisplay}
 		/>
 	);
 };
