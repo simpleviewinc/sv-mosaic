@@ -4,7 +4,7 @@ import {
 	useState,
 	useEffect,
 	useMemo,
-	useRef,
+	useRef
 } from "react";
 import { ContentProps } from "./ContentTypes";
 import { isArray, zip } from "lodash";
@@ -120,7 +120,7 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @returns the JSX element created by the transform function.
 	 */
 	const renderColumn = (fields: string[], column: string) => {
-		return fields?.map((field) => {
+		return fields?.map((field, fieldIdx) => {
 			const currentField = fieldDef?.find((fieldDef) => {
 				if (fieldDef?.column) {
 					return field === fieldDef.column;
@@ -141,15 +141,37 @@ const Content = (props: ContentProps): ReactElement => {
 
 			const fieldName = currentField?.column ? currentField?.column : currentField?.name;
 
-			return currentField?.transforms.map((transform) => (
-				<FieldContainer key={currentField.name}>
-					<Label>{currentField.label}</Label>
-					<TransformContainer>
-						{transform({ data: values[fieldName] })}
-					</TransformContainer>
+			if (currentField && !currentField?.transforms) {
+				return (
+					<FieldContainer key={`value-${currentField.name}`}>
+						{renderField(values[fieldName], currentField.label)}
+					</FieldContainer>
+				)
+			}
+
+			let fieldValue = values[fieldName];
+
+			currentField.transforms.forEach(transform => {
+				fieldValue = transform({ data: fieldValue });
+			})
+
+			return (
+				<FieldContainer key={`transformed-${currentField.name}-${fieldIdx}`}>
+					{renderField(fieldValue, currentField?.label)}
 				</FieldContainer>
-			));
+			)
 		});
+	};
+
+	const renderField = (content: unknown, label: string) => {
+		return (
+			<>
+				<Label>{label}</Label>
+				<TransformContainer>
+					{content}
+				</TransformContainer>
+			</>
+		)
 	};
 
 	return (

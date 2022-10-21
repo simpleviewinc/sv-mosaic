@@ -7,7 +7,7 @@ import FormFieldPhoneSelectionDropdown from "./FormFieldPhoneSelectionDropdown";
 
 afterEach(cleanup);
 
-const { getByText, queryByPlaceholderText } = screen;
+const { getByText, queryByPlaceholderText, getByTitle } = screen;
 
 const FormFieldPhoneSelectionDropdownExample = () => {
 	const [value, setValue] = useState("No value");
@@ -42,14 +42,16 @@ describe("FormFieldPhoneSelectionDropdown component", () => {
 		phoneSelectionContainer = container;
 	});
 
-	it("should provide country data related with the entered value", () => {
+	it("should not change the country data when a value is entered", () => {
 		const phoneInput = phoneSelectionContainer.querySelector(".form-control");
 
 		expect(getByText("No value")).toBeDefined();
 
 		fireEvent.change(phoneInput, { target: { value: "52345" } });
 
-		expect(getByText("52345")).toBeDefined();
+		const countryCode = getByTitle("United States: + 1");
+
+		expect(countryCode).toBeDefined();
 	});
 
 	it("should display the placeholder", () => {

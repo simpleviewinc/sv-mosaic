@@ -65,6 +65,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const StyledHr = styled.hr`
+	border-left: none;
 	border-top: 1px solid ${theme.colors.gray200};
 	margin: 16px -32px;
 `;

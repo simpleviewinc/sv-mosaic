@@ -8,10 +8,29 @@ import theme from "@root/theme";
 import { BodyText } from "../Typography";
 
 const StyledMenuItem = styled(MUIMenuItem)`
-	min-width: 150px;
 
 	&.MuiMenuItem-root {
 		min-height: 42px;
+		background-color: ${theme.colors.white} !important;
+	}
+
+	&.menu-item.Mui-selected {
+		.menuLabel {
+			font-weight: ${theme.fontWeight.bold};
+		}
+	}
+
+	&.menu-item {
+		padding: 8px 16px;
+		&:hover {
+			background-color: ${theme.colors.gray200} !important;
+		}
+		&:active span {
+			color: #1a1a1a;
+		}
+		& .MuiTouchRipple-child {
+			background-color: ${theme.colors.grayHover};
+		}
 	}
 
 	& > .icon {
@@ -24,6 +43,7 @@ const StyledMenuItem = styled(MUIMenuItem)`
 
 	& > .menuLabel {
 		font-family: ${theme.fontFamily};
+		color: ${theme.colors.label}
 	}
 `
 
@@ -57,6 +77,8 @@ export default function MenuItem(props: MenuItemProps): ReactElement {
 			onClick={props.onClick}
 			disabled={props.disabled}
 			selected={props.selected}
+			className="menu-item"
+			disableRipple={true}
 		>
 			{
 				props.mIcon &&

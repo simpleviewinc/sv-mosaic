@@ -1,6 +1,6 @@
 // React
 import * as React from "react";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState, memo } from "react";
 
 // Components
 import Chip from "../../components/Chip";
@@ -9,8 +9,9 @@ import Chip from "../../components/Chip";
 import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
 import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
+import { MosaicLabelValue } from "@root/types";
 
-const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef>): ReactElement => {
+const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef, MosaicLabelValue>): ReactElement => {
 	const {
 		fieldDef,
 		error,
@@ -18,18 +19,47 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 		onBlur,
 		value,
 	} = props;
-	
+
 	const { required } = fieldDef || null;
 
-	const [internalOptions, setInternalOptions] = useState(fieldDef.inputSettings && [...fieldDef.inputSettings.options]);
+	const [internalOptions, setInternalOptions] = useState([]);
 	const [prepopulated, setPrepouplated] = useState(false);
+	// true: options
+	// false: getOptions
+	const [origin, setOrigin] = useState(undefined);
+
+
+	useEffect(() => {
+		const populateOptions = async () => {
+			if (fieldDef?.inputSettings?.options) {
+				setInternalOptions(fieldDef.inputSettings.options);
+				setOrigin(true);
+			} else if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef.inputSettings.getOptions();
+				setInternalOptions(newOptions);
+				setOrigin(false);
+			}
+			setPrepouplated(false);
+		}
+		populateOptions();
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
 
 	useEffect(() => {
 		if (value && !prepopulated) {
-			findSelectedOption([...internalOptions].find((o) => o.value === value));
+
+			if (origin === true) {
+				findSelectedOption(value);
+			}
+			if (origin === false) {
+				if (!internalOptions.find((o) => o.value === value.value)) {
+					setInternalOptions([...internalOptions, {...value, selected: true}])
+				} else {
+					findSelectedOption(value);
+				}
+			}
 			setPrepouplated(true);
 		}
-	}, [value, prepopulated]);
+	}, [value, prepopulated, internalOptions, origin]);
 
 	const findSelectedOption = (option) => {
 		let newOptions = [...internalOptions];
@@ -38,7 +68,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 			o?.value === option?.value ?
 				{ ...o, selected: required && o.selected ? o.selected : !o.selected }
 				:
-				{ ...o, selected: o.selected = false }
+				{ ...o, selected: false }
 		)
 		);
 
@@ -48,11 +78,13 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 
 		return selectedOption;
 	}
-	
+
 	const updateSelectedOption = (option) => {
 		const selectedOption = findSelectedOption(option);
 		setPrepouplated(true);
-		onChange(selectedOption?.value || undefined);
+		onChange(selectedOption ?
+			{label: selectedOption.label, value: selectedOption.value}
+			: undefined);
 	}
 
 	const errorWithMessage = error?.trim().length > 0;
@@ -77,4 +109,4 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 	);
 }
 
-export default FormFieldChipSingleSelect;
+export default memo(FormFieldChipSingleSelect);

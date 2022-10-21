@@ -1,5 +1,37 @@
 # sv-mosaic changelog
 
+## 9.0.0 - 10/18/22
+* **BREAKING** Transforms are no longer required in the `Content` component required anymore. If no transform is given to a field, the component will attempt to render what's directly in its value, if it fails it will throw an error.
+* Updated `DataViewFilterDate`'s style to align with the design comps.
+* Updated `DataViewFilterSingleSelect`'s style to align with the design comps.
+* **BREAKING** Section tabs in `TopComponent` will now only appear after adding 2 or more sections. When having less, the sections will appear but not the tabs.
+* Updated `AdvancedSelection` button copy from "Add Element" to "Add".
+* **BREAKING** Updated `Required validator` to not trigger an error message if the value of the field is false. (Should only trigger when `undefined`).
+* `FormFieldPhoneSelectionDropdown` no longer allows users to edit the country code via typing, they now need to select the country from the flag dropdown.
+* **BREAKING** `FormFieldText` no longer supports `type: number`. This means the field will only "export" and "import" the value as string. From now on, every product / project is responsible of transforming the value from a string to a number (or whatever other type needed).
+* Improved `Number validator` to trigger an error message when it contains any letter or special character not ususally supported by inputs with type number (i.e. -10.5e2 is valid whereas 12.0.02.3-5ew*20 is not).
+* **BREAKING** `FormFieldCheckbox`:
+	* Modified / added the following types:
+		* `options` - Hardcoded list of `MosaicLabelValue[]`.
+		* `getOptions` - Function used for getting options from a DB (should return a `MosaicLabelValue[]`).
+	* Updated value from `string[]` to `MosaicLabelValue[]`.
+* **BREAKING** `FormFieldChipSingleSelect`:
+	* Modified / added the following types:
+		* `options` - Hardcoded list of `MosaicLabelValue[]`.
+		* `getOptions` - Function used for getting options from a DB (should return a `MosaicLabelValue[]`).
+	* Updated value from `any` to `MosaicLabelValue`.
+* **BREAKING** `FormFieldDropdownSingleSelection`:
+	* Modified / added the following types:
+		* `options` - Hardcoded list of `MosaicLabelValue[]`.
+		* `getOptions` - Function used for getting options from a DB (should return a `MosaicLabelValue[]`).
+	* Updated value from `string` to `MosaicLabelValue`.
+* `FormFieldAdvancedSelection`:
+	* Updated the chip and checkbox fields used inside the component to now comunicate using their new contracts / types. (This shouldn't be a breaking change as all changes were done internally and the component was already returning a value of MosaicLabelValue[]).
+* **BREAKING** `FormFieldAddress`:
+	* Updated the dropdown and checkbox fields used inside the component to now comunicate using their new contracts / types. This is a breaking change because now the values `country, state, and types` return MosaicLabelValue (country, state) or MosaicLabelValue[] (types).
+* **BREAKING** `FormFieldMapCoordinates`:
+	* Updated prop `address` to now use the same types as the as FormFieldAddress, which means `country, state, and types` now require to match the same types as above (in FormFieldAddress).
+
 ## 8.0.0 - 10/04/22
 * Updated `Button` component's font-weight to 700.
 * **BREAKING** All Fields will now return undefined when users fully delete their value.

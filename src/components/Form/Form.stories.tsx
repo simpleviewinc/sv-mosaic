@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
-import { boolean, object, text, withKnobs } from "@storybook/addon-knobs";
+import { boolean, object, text, withKnobs, select } from "@storybook/addon-knobs";
 
 // Utils
 import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
@@ -71,18 +71,33 @@ export const Playground = (): ReactElement => {
 	const showCancel = boolean("Show CANCEL button", true);
 	const required = boolean("Required", true);
 	const disabled = boolean("Disabled", false);
-	const showSections = boolean("Show sections", false);
+	const showSections = select("Show sections", [0, 1, 2, 3], 0);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field prepopulated",
 		"textArea": "Text area prepopulated",
 		"check": [
-			"label_1",
-			"label_2"
+			{
+				label: "Label 1",
+				value: "label_1"
+			},
+			{
+				label: "Label 2",
+				value: "label_2"
+			},
 		],
-		"chipSelect": "label_1",
-		"dropdownSingle": "1972",
+		"chipSelect": {
+			"label": "Label 1",
+			"value": "label_1"
+		},
+		"dropdownSingle": {
+			"label": "The Dark Knight",
+			"value": "2008"
+		},
 		"phoneSelect": "15205751151",
-		"radio": "label_3",
+		"radio": {
+			label: "Label 2",
+			value: "label_2"
+		},
 		"toggleSwitch": true,
 		"color": "#a8001791",
 		"date": new Date(),
@@ -92,12 +107,12 @@ export const Playground = (): ReactElement => {
 				"address1": "8950 N. Oracle Road",
 				"city": "Tuczon",
 				"postalCode": "85704",
-				"country": "US",
-				"state": "AZ",
+				"country": {label: "United States", value: "US"},
+				"state": {label: "Arizona", value: "AZ"},
 				"types": [
-					"physical",
-					"billing",
-					"shipping"
+					{label: "Physical", value: "physical"},
+					{label: "Billing", value: "billing"},
+					{label: "Shipping", value: "shipping"}
 				]
 			}
 		],
@@ -424,6 +439,8 @@ export const Playground = (): ReactElement => {
 		}
 	];
 
+	const sectionsAmount = sections.slice(0, showSections)
+
 	const onLoad = useCallback(async () => {
 		return {
 			...prepopulateValues
@@ -449,7 +466,7 @@ export const Playground = (): ReactElement => {
 					fields={fields}
 					dispatch={dispatch}
 					getFormValues={loadReady && onLoad}
-					sections={showSections && sections}
+					sections={showSections > 0 && sectionsAmount}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 				/>
 			</div>
