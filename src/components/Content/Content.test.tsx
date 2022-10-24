@@ -3,11 +3,10 @@ import {
 	screen,
 	cleanup,
 	fireEvent,
-	waitFor,
 } from "@testing-library/react";
 import * as React from "react";
-import Content, { transpose } from "./Content";
-import { ContentFieldDef } from "./ContentTypes";
+import Content from "./Content";
+import { ContentField } from "./ContentTypes";
 import {
 	transform_boolean,
 	transform_chips,
@@ -15,12 +14,14 @@ import {
 	transform_dateFormat,
 	transform_thumbnail,
 } from "@root/transforms";
-import { MosaicObject } from "@root/types";
+import { ButtonProps } from "@root/components/Button";
+import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
 import "@testing-library/jest-dom";
 
 afterEach(cleanup);
 
-const fieldDef: ContentFieldDef[] = [
+const fields: ContentField[] = [
 	{
 		name: "chips",
 		label: "Chips",
@@ -62,7 +63,7 @@ const sections = [
 	[["thumbnail"], ["header"]],
 ];
 
-const values = {
+const data = {
 	tags: [
 		{
 			label: "Chip 1",
@@ -89,128 +90,92 @@ const values = {
 	header: <h1>H1 Header</h1>,
 };
 
-const getValues = async (): Promise<MosaicObject> => {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(values);
-		}, 500);
-	});
-};
-
-const getValuesUndefined = async (): Promise<MosaicObject> => {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(undefined);
-		}, 500);
-	});
-};
-
 const onClickEdit = jest.fn();
-const originalScrollHeight = Object.getOwnPropertyDescriptor(
-	HTMLElement.prototype,
-	"offsetHeight"
-);
+const onClickAdd = jest.fn();
+
+const buttons: ButtonProps[] = [
+	{
+		name: "edit",
+		label: "Edit",
+		mIcon: EditIcon,
+		color: "gray",
+		variant: "icon",
+		onClick: onClickEdit
+	},
+	{
+		name: "add",
+		label: "Add",
+		mIcon: AddIcon,
+		color: "gray",
+		variant: "icon",
+		onClick: onClickAdd
+	},
+]
 
 describe("Content component", () => {
-	beforeAll(() => {
-		Object.defineProperty(HTMLElement.prototype, "scrollHeight", {
-			configurable: true,
-			value: 500,
-		});
-	});
-
-	afterAll(() => {
-		Object.defineProperty(
-			HTMLElement.prototype,
-			"scrollHeight",
-			originalScrollHeight
-		);
-	});
-
 	beforeEach(() => {
 		render(
 			<Content
 				title="Main Section"
-				getValues={getValues}
-				fieldDef={fieldDef}
+				data={data}
+				fields={fields}
 				sections={sections}
-				onEdit={onClickEdit}
+				buttons={buttons}
 			/>
 		);
 	});
 
-	it("should display the content", async () => {
-		await waitFor(() => {
-			const chips = screen.getAllByTestId("chip-testid");
-			const thumbnail = screen.getByRole("img");
-			const date = screen.getByText("12/17/1995");
-			const colorPicker = screen.getByText("#a8001791");
-			const header = screen.getByText("H1 Header");
+	it("should display the content", () => {
+		const chips = screen.getAllByTestId("chip-testid");
+		const thumbnail = screen.getByRole("img");
+		const date = screen.getByText("12/17/1995");
+		const colorPicker = screen.getByText("#a8001791");
+		const header = screen.getByText("H1 Header");
 
-			expect(thumbnail).toBeInTheDocument();
-			expect(chips).toHaveLength(4);
-			expect(date).toBeInTheDocument();
-			expect(colorPicker).toBeInTheDocument();
-			expect(header).toBeInTheDocument();
-		});
+		expect(thumbnail).toBeInTheDocument();
+		expect(chips).toHaveLength(4);
+		expect(date).toBeInTheDocument();
+		expect(colorPicker).toBeInTheDocument();
+		expect(header).toBeInTheDocument();
 	});
 
-	it("should hide the toggle since all its show values are false", async () => {
-		await waitFor(() => {
-			const toggle = screen.queryByText("No");
+	it("should hide the toggle since all its show values are false", () => {
+		const toggle = screen.queryByText("No");
 
-			expect(toggle).not.toBeInTheDocument();
-		});
+		expect(toggle).not.toBeInTheDocument();
 	});
 
-	it("should execute the onClick edit callback", async () => {
-		await waitFor(() => {
-			fireEvent.click(screen.getByTestId("icon-button-test"));
+	it("should execute the button's onClick callbacks", () => {
+		const [editButton, addButton] = screen.getAllByTestId("icon-button-test");
+		fireEvent.click(editButton);
+		fireEvent.click(addButton);
 
-			expect(onClickEdit).toHaveBeenCalled();
-		});
-	});
-
-	it("should toggle the 'More Details' button when clicked", async () => {
-		await waitFor(() => {
-			const moreDetailsBtn = screen.getByText("More Details");
-			expect(moreDetailsBtn).toBeInTheDocument();
-
-			fireEvent.click(moreDetailsBtn);
-
-			expect(screen.getByText("Less Details")).toBeInTheDocument();
-		});
+		expect(onClickEdit).toHaveBeenCalled();
+		expect(onClickAdd).toHaveBeenCalled();
 	});
 });
 
-describe("Content componenent when no content is passed", () => {
-	it("should display the '+' button when the content is null", async () => {
+describe("Content componenent with no sections", () => {
+	it("should display the content even if no sections are defined", async () => {
 		render(
 			<Content
 				title="Main Section"
-				sections={sections}
-				getValues={getValuesUndefined}
-				fieldDef={fieldDef}
-				onEdit={onClickEdit}
+				data={data}
+				fields={fields}
+				buttons={buttons}
 			/>
 		);
 
-		await waitFor(() => {
-			fireEvent.click(screen.getByTestId("icon-button-test"));
+		const chips = screen.getAllByTestId("chip-testid");
+		const thumbnail = screen.getByRole("img");
+		const date = screen.getByText("12/17/1995");
+		const colorPicker = screen.getByText("#a8001791");
+		const header = screen.getByText("H1 Header");
 
-			expect(onClickEdit).toHaveBeenCalled();
-			expect(screen.queryByText("More Details")).not.toBeInTheDocument();
-		});
-	});
-});
-
-describe("transpose function", () => {
-	it("should transpose the matrix of sections", async () => {
-		const result = [
-			[["tags"], ["toggle"], ["thumbnail"]],
-			[["colorPicker"], ["date"], ["header"]]
-		];
-
-		expect(transpose(sections)).toStrictEqual(result);
+		expect(thumbnail).toBeInTheDocument();
+		expect(chips).toHaveLength(4);
+		expect(date).toBeInTheDocument();
+		expect(colorPicker).toBeInTheDocument();
+		expect(header).toBeInTheDocument();
 	});
 });
