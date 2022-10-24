@@ -147,6 +147,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await expect(ffImageVideoLinkDocumentBrowsingPage.browsingWithoutAnyOptionsCard).not.toContainText("Browse:");
 		await expect(ffImageVideoLinkDocumentBrowsingPage.browsingWithoutAnyOptionsCard.locator("data-testid")).not.toBeVisible();
 		await expect(ffImageVideoLinkDocumentBrowsingPage.browsingWithoutAnyOptionsCard).toContainText("No browsing options");
+		expect(await (ffImageVideoLinkDocumentBrowsingPage.browsingWithoutAnyOptionsCard).evaluate(el => getComputedStyle(el).alignItems)).toBe("center");
 	});
 
 	test("Validate disabled card option", async () => {
