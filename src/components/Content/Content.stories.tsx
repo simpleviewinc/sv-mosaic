@@ -1,10 +1,10 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
-import Content, { ContentFieldDef } from ".";
+import Content, { ContentField } from ".";
 import {
 	transform_chips,
 	transform_colorPicker,
@@ -12,9 +12,10 @@ import {
 	transform_thumbnail,
 	transform_boolean,
 } from "@root/transforms/column_transforms";
-import { MosaicObject } from "@root/types";
 import { ChipsWrapper } from "./Content.styled";
 import Chip from "../Chip";
+import EditIcon from "@mui/icons-material/Edit";
+import { ButtonProps } from "@root/components/Button";
 
 export default {
 	title: "Components/Content",
@@ -36,7 +37,7 @@ const chips = [
 	},
 ];
 
-const values = {
+const data = {
 	tags: [
 		{
 			label: "Chip 1",
@@ -84,17 +85,42 @@ const oneColumn = [
 	[["chipsAsValue"]]
 ];
 
-const onEdit = () => alert("Edit button clicked");
-
 export const Playground = (): ReactElement => {
 	const title = text("Title", "Main Section Title");
-	const showEdit = boolean("Show edit button", true);
-	const useValues = boolean("Resolve values", true);
 	const singleColumn = boolean("Single column", false);
 	const showChips = boolean("Show chips", true);
 	const useSections = boolean("Use sections", true);
+	const useButtons = boolean("Use buttons", true);
+	const [showMore, setShowMore] = useState(false);
 
-	const fieldDef: ContentFieldDef[] = [
+	/**
+	 * Toggles the state use to show or hide the content.
+	 */
+	const showDetails = () => {
+		setShowMore(!showMore);
+	};
+
+	const buttons: ButtonProps[] = [
+		{
+			name: "edit",
+			label: "Edit",
+			mIcon: EditIcon,
+			color: "gray",
+			variant: "icon",
+			onClick: function () {
+				alert("Edit button clicked");
+			}
+		},
+		{
+			name: "showDetails",
+			color: "teal",
+			variant: "text",
+			label: showMore ? "Less Details" : "More Details",
+			onClick: showDetails,
+		},
+	]
+
+	const fields: ContentField[] = [
 		{
 			name: "chips",
 			label: "Chips using transform_chips()",
@@ -129,32 +155,29 @@ export const Playground = (): ReactElement => {
 		},
 	];
 
-	/**
-	 * Simulates a DB calls that fetch the values for
-	 * each field.
-	 * @returns the resolved values
-	 */
-	const getValues = async (): Promise<MosaicObject> => {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				if (useValues) {
-					resolve(values);
-				} else {
-					resolve(undefined);
-				}
-			}, 500);
-		});
-	};
+	const buttonsToDisplay = useMemo(() => useSections ? buttons :  buttons.slice(0, 1) ,[buttons]);
+
+	const sectionsToDisplay = useMemo(() => {
+		if (!useSections) {
+			return;
+		}
+
+		if (singleColumn) {
+			return showMore ? oneColumn : oneColumn.slice(0, 3);
+		}
+
+		if (!singleColumn) {
+			return showMore ? twoColumns : twoColumns.slice(0, 2);
+		}
+	}, [useSections, showMore, oneColumn, twoColumns, singleColumn]);
 
 	return (
 		<Content
 			title={title}
-			getValues={getValues}
-			fieldDef={fieldDef}
-			sections={
-				useSections ? (singleColumn ? oneColumn : twoColumns) : undefined
-			}
-			onEdit={showEdit && onEdit}
+			data={data}
+			fields={fields}
+			sections={sectionsToDisplay}
+			buttons={useButtons && buttonsToDisplay}
 		/>
 	);
 };
