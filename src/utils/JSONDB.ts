@@ -123,11 +123,11 @@ function filterData(data, filter: FilterObj) {
 		}
 
 		if (val.$exists === true) {
-			newData = newData.filter(row => row.categories_ids.length > 0);
+			newData = newData.filter(row => row[key]?.length > 0);
 		}
 
 		if (val.$exists === false) {
-			newData = newData.filter(row => row.categories_ids.length === 0);
+			newData = newData.filter(row => row[key]?.length === 0 || row[key] === undefined);
 		}
 
 		if (val instanceof RegExp) {

@@ -61,16 +61,24 @@ const api = new JSONDB(mappedData, {
 });
 
 const processStringFilter = function ({ name, data, output }) {
-	if (data.value === undefined) { return; }
+	if (data.value === undefined) {
+		if (data.comparison === "exists") {
+			output[name] = { $exists: true };
+		} else if (data.comparison === "not_exists") {
+			output[name] = { $exists: false };
+		}
 
-	if (data.comparison === "equals") {
-		output[name] = data.value;
-	} else if (data.comparison === "contains") {
-		output[name] = { $contains: data.value };
-	} else if (data.comparison === "not_contains") {
-		output[name] = { $not_contains: data.value };
-	} else if (data.comparison === "not_equals") {
-		output[name] = { $ne: data.value };
+		return;
+	} else {
+		if (data.comparison === "equals") {
+			output[name] = data.value;
+		} else if (data.comparison === "contains") {
+			output[name] = { $contains: data.value };
+		} else if (data.comparison === "not_contains") {
+			output[name] = { $not_contains: data.value };
+		} else if (data.comparison === "not_equals") {
+			output[name] = { $ne: data.value };
+		}
 	}
 }
 
