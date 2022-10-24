@@ -35,7 +35,7 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 		this.browsingDocumentCard = page.locator("//*[@id='4']");
 		this.documentButton = page.locator("[data-testid='browse-document-test']").nth(1);
 		this.linkButton = page.locator("//*[@id='5']/div/div/div/div/div/div[2]/div/div/div/div[1]");
-		this.browsingWithoutAnyOptionsCard = page.locator("//*[@id='6']");
+		this.browsingWithoutAnyOptionsCard = page.locator("//*[@id='6']/div/div/div/div/div/div[2]/div");
 		this.disabledCard = page.locator("//*[@id='7']");
 		this.disabledButton = page.locator("[data-testid='browse-image-test']").nth(3);
 		this.moreButton = page.locator("[data-testid='tooltip-test-id']");
