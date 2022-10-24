@@ -163,36 +163,40 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 					<BrowseSpan>
 						{!hasOptions ? "No browsing options" : "Browse:"}
 					</BrowseSpan>
-					<BrowseOptionsContainer>
-						{fieldDef?.inputSettings?.handleSetImage && (
-							<BrowseOption
-								disabled={fieldDef?.disabled}
-								handleBrowse={handleBrowse}
-								assetType={IMAGE}
-							/>
-						)}
-						{fieldDef?.inputSettings?.handleSetVideo && (
-							<BrowseOption
-								disabled={fieldDef?.disabled}
-								handleBrowse={handleBrowse}
-								assetType={VIDEO}
-							/>
-						)}
-						{fieldDef?.inputSettings?.handleSetDocument && (
-							<BrowseOption
-								disabled={fieldDef?.disabled}
-								handleBrowse={handleBrowse}
-								assetType={DOCUMENT}
-							/>
-						)}
-						{fieldDef?.inputSettings?.handleSetLink && (
-							<BrowseOption
-								disabled={fieldDef?.disabled}
-								handleBrowse={handleBrowse}
-								assetType={LINK}
-							/>
-						)}
-					</BrowseOptionsContainer>
+					{
+						hasOptions && (
+							<BrowseOptionsContainer>
+								{fieldDef?.inputSettings?.handleSetImage && (
+									<BrowseOption
+										disabled={fieldDef?.disabled}
+										handleBrowse={handleBrowse}
+										assetType={IMAGE}
+									/>
+								)}
+								{fieldDef?.inputSettings?.handleSetVideo && (
+									<BrowseOption
+										disabled={fieldDef?.disabled}
+										handleBrowse={handleBrowse}
+										assetType={VIDEO}
+									/>
+								)}
+								{fieldDef?.inputSettings?.handleSetDocument && (
+									<BrowseOption
+										disabled={fieldDef?.disabled}
+										handleBrowse={handleBrowse}
+										assetType={DOCUMENT}
+									/>
+								)}
+								{fieldDef?.inputSettings?.handleSetLink && (
+									<BrowseOption
+										disabled={fieldDef?.disabled}
+										handleBrowse={handleBrowse}
+										assetType={LINK}
+									/>
+								)}
+							</BrowseOptionsContainer>
+						)
+					}
 				</BrowsingContainer>
 			) : (
 				<AssetCard>
