@@ -18,7 +18,6 @@ export const BrowseOptionsContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-  margin-bottom: 61px;
 
 	div:last-child {
     margin-right: 0px;
@@ -33,6 +32,7 @@ export const BrowsingContainer = styled.div`
   justify-content: center;
   min-height: 204px;
 	min-width: 300px;
+  gap: 24px;
 `;
 
 export const BrowseOptionSpan = styled.div`
@@ -53,8 +53,6 @@ export const BrowseSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
   font-size: 16px;
-  margin-bottom: 24px;
-  margin-top: 43px;
 `;
 
 /**
