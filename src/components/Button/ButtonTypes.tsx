@@ -19,7 +19,8 @@ export interface ButtonProps {
 	/** Display a tooltip on hover of the button */
 	tooltip?: string | JSX.Element
 	/** Trigger a popover on click */
-	popover?: JSX.Element
+	popover?: JSX.Element;
+	popoverEvent?: "onClick" | "onHover"
 	menuItems?: MenuItemProps[]
 	menuContent?: JSX.Element
 	mIconColor?: string
