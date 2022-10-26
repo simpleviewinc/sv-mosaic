@@ -18,16 +18,16 @@ import { ButtonProps } from "./ButtonTypes";
 
 function Buttons(): ReactElement {
 	const [, setAnchorEl] = useState(null);
-	
+
 	function clickHandler() {
 		alert("yes");
 	}
-	
+
 	const openDropdown = function(event) {
 		console.log("EVENT", event);
 		setAnchorEl(event.currentTarget);
 	}
-	
+
 	const dropdownWithIcons: ButtonProps["menuItems"] = [
 		{
 			label : "Edit",
@@ -44,7 +44,7 @@ function Buttons(): ReactElement {
 			}
 		}
 	];
-	
+
 	const dropdownWithColoredIcons: ButtonProps["menuItems"] = [
 		{
 			label : "Edit",
@@ -78,7 +78,7 @@ function Buttons(): ReactElement {
 			}
 		}
 	];
-	
+
 	const dropdownWithText: ButtonProps["menuItems"] = [
 		{
 			label : "Edit",
@@ -93,7 +93,7 @@ function Buttons(): ReactElement {
 			}
 		}
 	];
-	
+
 	return (
 		<div>
 			<h1>Buttons!</h1>
@@ -112,7 +112,7 @@ function Buttons(): ReactElement {
 					<Button color="yellow" variant="contained" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Contained - disabled</h2>
 			<div>
 				<ButtonRow>
@@ -128,7 +128,7 @@ function Buttons(): ReactElement {
 					<Button color="yellow" variant="contained" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Outlined</h2>
 			<div>
 				<ButtonRow>
@@ -144,7 +144,7 @@ function Buttons(): ReactElement {
 					<Button color="teal" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Outlined - disabled</h2>
 			<div>
 				<ButtonRow>
@@ -160,7 +160,7 @@ function Buttons(): ReactElement {
 					<Button color="teal" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Text</h2>
 			<div>
 				<ButtonRow>
@@ -174,7 +174,7 @@ function Buttons(): ReactElement {
 					<Button color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Text - disabled</h2>
 			<div>
 				<ButtonRow>
@@ -202,7 +202,7 @@ function Buttons(): ReactElement {
 					<Button attrs={{smallText: true}} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Icon Positions</h2>
 			<div>
 				<ButtonRow>
@@ -210,7 +210,7 @@ function Buttons(): ReactElement {
 					<Button color="blue" variant="contained" label="Save" iconPosition="right" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Multi-Icon buttons</h2>
 			<div>
 				<ButtonRow>
@@ -222,7 +222,7 @@ function Buttons(): ReactElement {
 					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="text" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
-			
+
 			<h2>Icon Buttons</h2>
 			<div>
 				<Button color="blue" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
@@ -250,7 +250,7 @@ function Buttons(): ReactElement {
 					<Button color="white" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
 				</div>
 			</div>
-			
+
 			<h2>Icon Buttons - disabled</h2>
 			<div>
 				<Button color="blue" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler}></Button>
@@ -298,8 +298,8 @@ function Buttons(): ReactElement {
 					<Button color="blue" variant="icon" mIcon={MoreHorizIcon} menuItems={dropdownWithIcons}/>
 				</ButtonRow>
 			</div>
-			
-			<h2>Buttons that triggers Popover</h2>
+
+			<h2>Buttons that triggers Popover on click</h2>
 			<div>
 				<ButtonRow>
 					<Button
@@ -308,7 +308,33 @@ function Buttons(): ReactElement {
 						popover={<p>Popover Content</p>}
 						label="With Popover"
 					/>
-					<Button color="blue" variant="icon" mIcon={HelpIcon} popover={<p>Help text</p>}/>
+					<Button
+						color="blue"
+						variant="icon"
+						mIcon={HelpIcon}
+						popover={<p>Helper Text</p>}
+						popoverEvent="onClick"
+					/>
+				</ButtonRow>
+			</div>
+
+			<h2>Buttons that triggers Popover on hover</h2>
+			<div>
+				<ButtonRow>
+					<Button
+						color="blue"
+						variant="outlined"
+						popover={<p>Popover Content</p>}
+						popoverEvent="onHover"
+						label="With Popover"
+					/>
+					<Button
+						color="blue"
+						variant="icon"
+						mIcon={HelpIcon}
+						popoverEvent="onHover"
+						popover={<p>Helper Text</p>}
+					/>
 				</ButtonRow>
 			</div>
 
