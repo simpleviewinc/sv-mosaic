@@ -16,6 +16,7 @@ export const InstructionTextWrapper = styled.div`
 	padding-left: 20px;
 	border-left: 1px solid ${theme.colors.gray200};
 	margin-left: auto;
+  	height: calc(100% - 44px);
   }
 
   &.instruction-text-tooltip {

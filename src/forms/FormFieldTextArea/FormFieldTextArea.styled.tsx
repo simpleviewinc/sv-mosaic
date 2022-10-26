@@ -50,9 +50,13 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
       border-color: ${theme.colors.almostBlack};
-	  border-width: 1px;
-	  box-shadow: ${theme.fieldSpecs.inputText.shadow};
+      border-width: 1px;
+      box-shadow: ${theme.fieldSpecs.inputText.shadow};
     }
+
+    &:hover fieldset {
+			border-color: ${theme.colors.simplyGray};
+		}
   }
 
   .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline,
