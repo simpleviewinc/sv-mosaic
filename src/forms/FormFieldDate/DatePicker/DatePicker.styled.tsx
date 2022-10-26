@@ -68,6 +68,9 @@ export const DatePickerWrapper = styled.div`
 
 		&:hover {
 			background-color: ${theme.colors.gray200};
+			& fieldset {
+				border-color: ${theme.colors.simplyGray};
+			}
 		}
 
 		& fieldset {

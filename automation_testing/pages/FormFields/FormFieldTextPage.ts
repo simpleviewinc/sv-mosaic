@@ -6,6 +6,7 @@ export class FormFieldTextPage extends BasePage {
 	readonly page_path = "formfields-formfieldtext--kitchen-sink";
 
 	readonly page: Page;
+	readonly firstSection: Locator;
 	readonly regularTextField: Locator;
 	readonly passwordTextField: Locator;
 	readonly multilineTextField: Locator;
@@ -19,10 +20,12 @@ export class FormFieldTextPage extends BasePage {
 	readonly smSizeTextField: Locator;
 	readonly mdSizeTextField: Locator;
 	readonly lgSizeTextField: Locator;
+	readonly firstInstructionText: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
+		this.firstSection = page.locator("[data-testid='field-test-id']").first();
 		this.regularTextField = page.locator("#regular");
 		this.passwordTextField = page.locator("#password");
 		this.multilineTextField = page.locator("#multiline");
@@ -36,6 +39,7 @@ export class FormFieldTextPage extends BasePage {
 		this.smSizeTextField = page.locator("#smSize");
 		this.mdSizeTextField = page.locator("#mdSize");
 		this.lgSizeTextField = page.locator("#lgSize");
+		this.firstInstructionText = page.locator(".instruction-text-right").first()
 	}
 
 	async visitPage(): Promise<void> {
