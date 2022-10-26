@@ -97,4 +97,11 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 	test("Validate lg regular text size is valid", async () => {
 		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.lgSizeTextField)).toBe(620);
 	});
+
+	test("Validate instruction text height.", async () => {
+		const fullHeigh = (await formFieldTextPage.getHeightFromElement(formFieldTextPage.firstSection)).split("px")[0];
+		const expectedHeight = Number(fullHeigh) - 44;
+		const instructionHeight = (await formFieldTextPage.getHeightFromElement(formFieldTextPage.firstInstructionText)).split("px")[0];
+		expect(parseFloat(instructionHeight).toFixed(3)).toBe(expectedHeight.toString());
+	});
 });
