@@ -1,4 +1,4 @@
-import { test, Page } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPage";
 
 test.describe("Components - Button - Kitchen Sink", () => {
@@ -37,5 +37,16 @@ test.describe("Components - Button - Kitchen Sink", () => {
 		for (let i = 0; i < numberOfButtons; i++) {
 			await buttonPage.validateMarginValueFromElement(buttonPage.rightIconButton.nth(i), expectedMarginValue, true);
 		}
+	});
+
+	test("Validate Button Popover on Click.", async () => {
+		await buttonPage.buttonThatTriggersPopoverOnClick.click();
+		await expect(page.locator("text=Popover Content")).toBeVisible();
+		await buttonPage.page.keyboard.press("Escape");
+	});
+
+	test("Validate Button Popover on Hover.", async () => {
+		await buttonPage.buttonThatTriggersPopoverOnHover.hover();
+		await expect(page.locator("text=Popover Content")).toBeVisible();
 	});
 });
