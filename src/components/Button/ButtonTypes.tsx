@@ -19,7 +19,8 @@ export interface ButtonProps {
 	/** Display a tooltip on hover of the button */
 	tooltip?: string | JSX.Element
 	/** Trigger a popover on click */
-	popover?: JSX.Element | PopoverObj;
+	popover?: JSX.Element;
+	popoverEvent?: "onClick" | "onHover"
 	menuItems?: MenuItemProps[]
 	menuContent?: JSX.Element
 	mIconColor?: string
@@ -34,5 +35,3 @@ export interface ButtonProps {
 export interface ButtonPopoverContextProps {
 	onClose(): void
 }
-
-export interface PopoverObj { element: JSX.Element; action: "onHover" | "onClick" }

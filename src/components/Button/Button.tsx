@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
 import Popper from "@mui/material/Popper";
 
-import { ButtonProps, ButtonPopoverContextProps, PopoverObj } from "./ButtonTypes";
+import { ButtonProps, ButtonPopoverContextProps } from "./ButtonTypes";
 import Menu from "../Menu";
 import MenuBase from "../MenuBase";
 import { MosaicObject } from "../../types";
@@ -17,7 +17,8 @@ function Button(props: ButtonProps) {
 	const {
 		attrs = {},
 		muiAttrs = {},
-		popover
+		popover,
+		popoverEvent = "onClick"
 	} = props;
 
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -37,14 +38,6 @@ function Button(props: ButtonProps) {
 
 	const MaterialIcon = props.mIcon;
 	const iconPosition = props.iconPosition || "left";
-
-	const openPopoverOnHover = (event: MouseEvent<HTMLElement>) => {
-		setPopoverAnchorEl(event.currentTarget);
-	};
-
-	const closePopoverOnHover = () => {
-		setPopoverAnchorEl(null);
-	};
 
 	function openMenu(event) {
 		setAnchorEl(event.currentTarget);
@@ -84,19 +77,12 @@ function Button(props: ButtonProps) {
 		addAttrs.onMouseLeave = onMouseLeave;
 	}
 
-	const isPopoverOnHover = useMemo(() => {
-		if ((popover as PopoverObj)?.action) {
-			return (popover as PopoverObj).action === "onHover";
-		}
-
-
-		return false;
-	}, [popover]);
+	const isPopoverOnHover = useMemo(() => popoverEvent === "onHover", [popoverEvent]);
 
 	return (
 		<MyButton
-			onMouseEnter={isPopoverOnHover ? openPopoverOnHover : undefined}
-			onMouseLeave={isPopoverOnHover ? closePopoverOnHover : undefined}
+			onMouseEnter={isPopoverOnHover ? openPopover : undefined}
+			onMouseLeave={isPopoverOnHover ? closePopover : undefined}
 			{...attrs}
 			{...addAttrs}
 			className={`
@@ -165,7 +151,7 @@ function Button(props: ButtonProps) {
 				>
 					<PopoverWrapper>
 						<ButtonPopoverContext.Provider value={{ onClose: closePopover }}>
-							{"element" in popover ? <>{popover.element}</> : <>{popover}</>}
+							{popover}
 						</ButtonPopoverContext.Provider>
 					</PopoverWrapper>
 				</Popover>

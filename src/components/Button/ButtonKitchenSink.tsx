@@ -312,7 +312,9 @@ function Buttons(): ReactElement {
 						color="blue"
 						variant="icon"
 						mIcon={HelpIcon}
-						popover={{ element: <p>Helper Text</p>, action: "onClick" }}/>
+						popover={<p>Helper Text</p>}
+						popoverEvent="onClick"
+					/>
 				</ButtonRow>
 			</div>
 
@@ -322,14 +324,16 @@ function Buttons(): ReactElement {
 					<Button
 						color="blue"
 						variant="outlined"
-						popover={{ element: <p>Popover Content</p>, action: "onHover" }}
+						popover={<p>Popover Content</p>}
+						popoverEvent="onHover"
 						label="With Popover"
 					/>
 					<Button
 						color="blue"
 						variant="icon"
 						mIcon={HelpIcon}
-						popover={{ element: <p>Helper Text</p>, action: "onHover" }}
+						popoverEvent="onHover"
+						popover={<p>Helper Text</p>}
 					/>
 				</ButtonRow>
 			</div>
