@@ -19,7 +19,8 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 		const expectedFontWeight = "700";
 		const numberOfButtons = await buttonPage.button.count();
 		for (let i = 0; i < numberOfButtons; i++) {
-			await buttonPage.validateFontWeightFromElement(buttonPage.button.nth(i), expectedFontWeight);
+			const buttonFontWeight = await buttonPage.getFontWeightFromElement(buttonPage.button.nth(i));
+			expect(buttonFontWeight).toBe(expectedFontWeight);
 		}
 	});
 
