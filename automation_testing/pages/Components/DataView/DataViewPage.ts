@@ -221,4 +221,13 @@ export class DataviewPage extends BasePage {
 		}
 		return updatedDates;
 	}
+
+	async clearAllAppliedFilters(): Promise<void> {
+		const numberOfFiltersApplied = await this.removeFilterIcon.count()
+		if (numberOfFiltersApplied > 0) {
+			for (let i = 0; i < numberOfFiltersApplied; i++) {
+				await this.removeFilterIcon.nth(i).click({force: true});
+			}
+		}
+	}
 }
