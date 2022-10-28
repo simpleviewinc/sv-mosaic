@@ -19,6 +19,10 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		await dataviewPage.visitPage();
 	});
 
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
@@ -88,7 +92,6 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Remove column", async () => {
-		await page.reload();
 		await columns.columnsBtn.click();
 		const item = await columns.getLeftItemByName(columns_data.removeItem);
 		await columns.checkLeftItem(item, false);
@@ -99,7 +102,6 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Remove all columns", async () => {
-		await page.reload();
 		await columns.columnsBtn.click();
 		await columns.checkAllItems(false);
 		expect((await columns.getColumnsChecked())).not.toContain(columns_data.defaultColumnsOrder.toString());
@@ -108,14 +110,12 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Add all columns", async () => {
-		await page.reload();
 		await columns.columnsBtn.click();
 		await columns.checkAllItems(true);
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.allItemsChecked.toString());
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.allItemsOrder.toString());
 		await columns.applyBtn.click();
 		expect(await dataviewPage.getColumnHeadersCount()).toBe(columns_data.allItemsCount);
-		await page.reload();
 	});
 
 	test("Sort title asc", async () => {
@@ -152,7 +152,6 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Sort created desc", async () => {
-		await page.reload();
 		await pagination.changeResultPerPage(3);
 		const createdColum = await dataviewPage.getCreatedColumn();
 		const createdSort = sortDatesDesc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPage100)));
@@ -165,6 +164,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Validate that column width for long column name is valid.", async () => {
+
 		await columns.selectColumn("Style - Text Transform with large field text to order column");
 		const longColumnNameLocator = columns.rightItems.locator("text=Style - Text Transform with large field text to order column");
 		expect(await columns.getElementWidth(longColumnNameLocator)).toBe(180);
