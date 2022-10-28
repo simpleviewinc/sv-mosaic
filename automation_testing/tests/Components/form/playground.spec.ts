@@ -40,10 +40,12 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate the font weight of the Title in Top Component.", async () => {
-		await playgroundPage.validateFontWeightFromElement(playgroundPage.title, "250");
+		const titleFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.title);
+		expect(titleFontWeight).toBe("250");
 	});
 
 	test("Validate the font weight of the Description in Top Component.", async () => {
-		await playgroundPage.validateFontWeightFromElement(playgroundPage.description, "250");
+		const descriptionFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.description);
+		expect(descriptionFontWeight).toBe("250");
 	});
 });
