@@ -1,4 +1,4 @@
-import { test, expect, Page } from "@playwright/test";
+import { test, expect, Page, Locator } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { advanced_filter_data, dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/AdvancedFiltersComponent";
@@ -26,19 +26,14 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	test.beforeEach(async() => {
-		const numberOfFiltersApplied = await dataviewPage.removeFilterIcon.count()
-		if (numberOfFiltersApplied > 0) {
-			for (let i = 0; i < numberOfFiltersApplied; i++) {
-				await dataviewPage.removeFilterIcon.nth(i).click();
-			}
-		}
+		await dataviewPage.clearAllAppliedFilters();
 	});
 
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
 
-	const validateFilterStyles = async (filter) => {
+	const validateFilterStyles = async (filter: Locator) => {
 		const expectedFontWeight = "700";
 		const expectedFontSize = "14px";
 		const expectedApplyButtonColor = "(0, 141, 168)";
@@ -95,16 +90,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain(categorySelected);
 		}
-	});
-
-	test("Validate Single select category styles", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.singleSelectCategoryOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
-		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
-		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
-		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
 	});
 
 	test("Validate Categories with Comparisons - In", async () => {
@@ -189,8 +174,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.helpComparisonCategoriesDialogButton.click();
 		const helpDialog = await advancedFilters.getHelpDialogFromCategoryWithComparisonOption();
 		expect(helpDialog.toString()).toBe(advanced_filter_data.categoryComparisonHelpDialog);
-		await page.keyboard.press("Escape");
-		await advancedFilters.cancelBtn.click();
+		await page.reload();
 	});
 
 	test("Validate Categories with Comparisons - Keyword search", async () => {
@@ -475,9 +459,21 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 	test("Validate the Created filter styles.", async () => {
 		await validateFilterStyles(advancedFilters.createdOption);
+		await page.reload();
 	});
 
 	test("Validate the Updated filter styles.", async () => {
 		await validateFilterStyles(advancedFilters.updatedOption);
+		await page.reload();
+	});
+
+	test("Validate Single select category styles", async () => {
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.singleSelectCategoryOption.click();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.optionalFilters.click();
+		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
+		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
+		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
 	});
 });
