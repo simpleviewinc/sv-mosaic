@@ -1,0 +1,19 @@
+#!/bin/bash
+docker run --rm -it \
+	-v $PWD/src:/app/src \
+	-v $PWD/src/testing:/app/testing \
+	-v $PWD/scripts:/app/scripts \
+	-v $PWD/dist:/app/dist \
+	-v $PWD/config/.storybook:/app/.storybook \
+	-v $PWD/config/package.json:/app/mounted/package.json \
+	-v $PWD/config/yarn.lock:/app/mounted/yarn.lock \
+	-v $PWD/config/.yarn:/app/mounted/.yarn \
+	-v $PWD/config/webpack.config.js:/app/webpack.config.js \
+	-v $PWD/config/.babelrc:/app/.babelrc \
+	-v $PWD/config/tsconfig.json:/app/tsconfig.json \
+	-v $PWD/config/tsconfig.cjs.json:/app/tsconfig.cjs.json \
+	-v $PWD/config/tsconfig.esm.json:/app/tsconfig.esm.json \
+	-v $PWD/config/.eslintrc.json:/app/.eslintrc.json \
+	-v $PWD/config/.eslintignore:/app/.eslintignore \
+	-p 10000:10000 \
+	sv-mosaic:local /bin/bash
