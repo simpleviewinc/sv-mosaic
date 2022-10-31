@@ -12,7 +12,7 @@ import DataViewBulkAllBar from "../DataView/DataViewBulkAllBar";
 
 import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
-// import { MosaicObject, MosaicCallback } from "@root/types";
+import { MosaicObject } from "@root/types";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
@@ -102,6 +102,7 @@ interface DataViewTHeadProps {
 	checked?: any;
 	bulkActions?: any;
 	columns?: any;
+	onReorder?: (rows: MosaicObject[]) => void;
 	rowCount?: any;
 	count?: any;
 	onCheckAllClick?: any;
@@ -212,6 +213,11 @@ function DataViewTHead(props: DataViewTHeadProps) {
 	return (
 		<StyledWrapper>
 			<tr>
+				{
+					props?.onReorder &&
+					<StyledTh key="_draggable" className="bulk">
+					</StyledTh>
+				}
 				{
 					props?.bulkActions?.length > 0 &&
 					<StyledTh key="_bulk" className="bulk">
