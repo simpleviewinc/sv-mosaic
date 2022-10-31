@@ -5,6 +5,7 @@ import styled from "styled-components";
 import DataViewTHead from "./DataViewTHead";
 import DataViewTBody from "./DataViewTBody";
 import { transformRows } from "../../utils/dataViewTools";
+import { MosaicObject } from "@root/types";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -15,6 +16,7 @@ interface DataViewDisplayListProps {
 	activeColumns?: any;
 	columns?: any;
 	data?: any;
+	onReorder: (rows: MosaicObject[]) => void;
 	checked?: any;
 	checkedAllPages?: any;
 	bulkActions?: any;
@@ -65,6 +67,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				onCheckAllClick={props.onCheckAllClick}
 				onCheckAllPagesClick={props.onCheckAllPagesClick}
 				onColumnsChange={props.onColumnsChange}
+				onReorder={props?.onReorder}
 			/>
 			<DataViewTBody
 				checked={props.checked}
@@ -75,6 +78,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				additionalActions={props.additionalActions}
 				primaryActions={props.primaryActions}
 				onCheckboxClick={props.onCheckboxClick}
+				onReorder={props.onReorder}
 			/>
 		</StyledTable>
 	)
