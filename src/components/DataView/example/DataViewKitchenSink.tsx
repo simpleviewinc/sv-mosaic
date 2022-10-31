@@ -423,6 +423,7 @@ function DataViewKitchenSink(): ReactElement {
 	const displayList = boolean("displayList", true);
 	const displayGrid = boolean("displayGrid", true);
 	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
+	const draggableRows = boolean("draggableRows", true);
 	const defaultView: DataViewProps["savedView"] = {
 		...rootDefaultView,
 		state: {
@@ -692,7 +693,10 @@ function DataViewKitchenSink(): ReactElement {
 		limit: state.limit,
 		sort: state.sort,
 		filter: state.filter,
-		activeFilters: state.activeFilters
+		activeFilters: state.activeFilters,
+		onReorder: draggableRows  ? (newRows) => {
+			alert(`Rows updated: ${newRows.map(val => val.title)}`);
+		} : undefined
 	};
 
 	return (
