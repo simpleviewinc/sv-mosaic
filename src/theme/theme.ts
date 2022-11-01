@@ -54,6 +54,70 @@ const borders = {
 	simplyGray: "1px solid #BEBEBE"
 };
 
+const colorMap = {
+	almostBlack: "26,26,26",
+	darkerRealTeal: "0, 87, 105",
+	darkerRed: "133,0,0",
+	darkerSimplyGold: "227, 165, 32",
+	darkRed: "177,0,0",
+	grey1: "250,250,250",
+	grey2: "240,242,245",
+	grey3: "107,111,124",
+	grey4: "59,66,78",
+	realTeal: "0, 141, 168",
+	simpleGrey: "190,190,190",
+	simplyBlue: "0,164,239",
+	simplyGold: "253,185,36",
+	simplyGreen: "141,198,63",
+}
+
+type MY_OBJECT_KEYS = keyof typeof colorMap
+type Color = {
+	[key: string]: string
+}
+
+// TODO: Change name to colors when the previous ones are removed.
+const newColors: { [key in MY_OBJECT_KEYS]: Color } = {
+	almostBlack: {},
+	darkerRealTeal: {},
+	darkerRed: {},
+	darkerSimplyGold: {},
+	darkRed: {},
+	grey1: {},
+	grey2: {},
+	grey3: {},
+	grey4: {},
+	realTeal: {},
+	simpleGrey: {},
+	simplyBlue: {},
+	simplyGold: {},
+	simplyGreen: {}
+};
+
+const opacities = [1, 0.8, 0.6, 0.4, 0.2];
+
+const rgbaToRGB = (color: string, opacity: number) => {
+	const colors = color.split(",");
+
+	const rNum = Number(colors[0]);
+	const gNum = Number(colors[1]);
+	const bNum = Number(colors[2]);
+	const alpha = Number(opacity);
+
+	const r = Math.round((1 - alpha) * 255 + alpha * rNum);
+	const g = Math.round((1 - alpha) * 255 + alpha * gNum);
+	const b = Math.round((1 - alpha) * 255 + alpha * bNum);
+
+	return `rgb(${r}, ${g}, ${b})`;
+}
+
+for (const [name, rgb] of Object.entries(colorMap)) {
+	newColors[name] = {};
+	for (const opacity of opacities) {
+		newColors[name][opacity * 100] = rgbaToRGB(rgb, opacity);
+	}
+}
+
 export default {
 	h1 : `
 		font-size: 20px;
@@ -72,6 +136,7 @@ export default {
 		bold: 700
 	},
 	colors,
+	newColors,
 	borders,
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	museoFont: "Museo-Sans, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
