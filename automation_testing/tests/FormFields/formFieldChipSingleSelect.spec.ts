@@ -65,7 +65,12 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 	});
 
 	test("Validate the gap between options.", async () => {
+		const expectedMarginValue = "12px";
 		const rowGap = await ((ffChipSingleSelectPage.fromDBOptionDiv).evaluate(el => getComputedStyle(el).rowGap));
-		expect(rowGap).toBe("12px");
+		expect(rowGap).toBe(expectedMarginValue);
+		const numberOfOptions = await ffChipSingleSelectPage.fromDBOptionsChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).count();
+		for (let i = 0; i < numberOfOptions; i++) {
+			await ffChipSingleSelectPage.validateMarginValueFromElement(ffChipSingleSelectPage.disabledChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(i), expectedMarginValue, true);
+		}
 	});
 });
