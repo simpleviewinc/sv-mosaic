@@ -63,4 +63,9 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		const requiredOptionLabel = await ffChipSingleSelectPage.requiredChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(requiredOptionSelected - 1).textContent();
 		await ffChipSingleSelectPage.saveBtn.click();
 	});
+
+	test("Validate the gap between options.", async () => {
+		const rowGap = await ((ffChipSingleSelectPage.fromDBOptionDiv).evaluate(el => getComputedStyle(el).rowGap));
+		expect(rowGap).toBe("12px");
+	});
 });
