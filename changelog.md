@@ -1,5 +1,28 @@
 # sv-mosaic changelog
 
+## 10.0.0 - 11/01/22
+* Fixed `exists` and `not_exists` comparisons in `title with comparison` and `categories with comparison` filters in `DataView` (this only affected Storybook).
+* **BREAKING** Completely removed the `filter` prop from the `SummaryPageTopComponent`.
+* Added optional prop `popoverEvent` to the `Button` component. This allows only two types of events: `onClick` and `onHover`. When not present it will default to `onClick`.
+* Updated sytling in the column order drawer in `DataView` to prevent the column title from pushing the arrows to the right.
+* `Content` component:
+	* **BREAKING** Updated the following props:
+		* `fieldDef` has now been renamed to `fields` and its type has been changed from `ContentFieldDef[]` to `ContentField[]` but internally remains the same. The prop remains required.
+		* `getValues` has now been renamed to `data` and its type has changed from `() => Promise<MosaicObject>` to `MosaicObject`. This means developers no longer have to provide a callback, they now only need to pass whatever amount of data they need. The prop remains required.
+		* `onEdit` has now been renamed to `buttons` and its type has been changed from `() => void` to `ButtonProps[]`. This means developers can now pass an array of buttons which gives them full flexibility on the amount of callbacks and functionality they need. The prop remains optional.
+	* Updated the internals of the component to now render the fields in rows rather than columns (this only affects styling).
+* **BREAKING** Now exporting the `Popover` component.
+* Design changes:
+	* `Button`: Updated space between leading / trailing icons and text.
+	* `Checkbox`: Updated label color.
+	* Overall fields: Updated border when hovering and now allowing the instruction text to grow dynamically with the size of the field.
+	* `Popover`: Fixed weird styling in separator line.
+	* `Drawers`: Changed buttons order (this only affected Storybook).
+	* `SummaryPageTopComponent`: Updated font-family and font-weights of title and description.
+	* `TopComponent`: Updated font-family and font-weights of title and description.
+	* `ImageVideoLinkDocumentBrowsing`: Updated component to vertically center the "No browsing options" text.
+	* `FormFieldAddress`: Updated card's colors.
+
 ## 9.0.0 - 10/18/22
 * **BREAKING** Transforms are no longer required in the `Content` component required anymore. If no transform is given to a field, the component will attempt to render what's directly in its value, if it fails it will throw an error.
 * Updated `DataViewFilterDate`'s style to align with the design comps.
