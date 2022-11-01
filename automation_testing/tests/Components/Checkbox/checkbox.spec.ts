@@ -1,7 +1,7 @@
 import { test, Page } from "@playwright/test";
 import { CheckboxPage } from "../../../pages/Components/Checkbox/CheckboxPage";
 
-test.describe("Components - Checkbox - Kitchen Sink", () => {
+test.describe.parallel("Components - Checkbox - Kitchen Sink", () => {
 	let page: Page;
 	let checkboxPage: CheckboxPage;
 
