@@ -10,6 +10,8 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 	readonly regularChipSingleSelectDiv: Locator;
 	readonly disabledChipSingleSelectDiv: Locator;
 	readonly requiredChipSingleSelectDiv: Locator;
+	readonly fromDBOptionsChipSingleSelectDiv: Locator;
+	readonly fromDBOptionDiv: Locator;
 	readonly optionButton: string;
 
 	constructor(page: Page) {
@@ -18,7 +20,9 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 		this.regularChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(0);
 		this.disabledChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(1);
 		this.requiredChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(2);
+		this.fromDBOptionsChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(3);
 		this.optionButton = "[role='button']";
+		this.fromDBOptionDiv = page.locator("//*[@id='3']/div/div/div/div/div/div[2]");
 	}
 
 	async visitPage(): Promise<void> {
