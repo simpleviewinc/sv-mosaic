@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useEffect, memo } from "react";
 import { SideNavProps } from ".";
 import {
 	LinkWrapper,
@@ -13,8 +13,8 @@ import {
 import { Link } from "./SideNavTypes";
 
 const SideNav = (props: SideNavProps): ReactElement => {
-	const { links } = props;
-	const [selectedLink, setSelectedLink] = useState(links ? links[0][0].label : "");
+	const { links, defaultLink } = props;
+	const [selectedLink, setSelectedLink] = useState("");
 
 	/**
 	 * Set the clicked link as selected and executes the
@@ -25,6 +25,28 @@ const SideNav = (props: SideNavProps): ReactElement => {
 		setSelectedLink(link.label);
 		link.onClick();
 	};
+
+	const findLinkselected = () => {
+		let linkSelected: Link
+		links.forEach(link => link.forEach(l => l.label === defaultLink ? linkSelected = l : null))
+		if (!linkSelected) {
+			throw new Error("Default link is not in the links array.");
+		} else {
+			return linkSelected
+		}
+	}
+
+	useEffect(() => {
+		if  (links) {
+			if (defaultLink) {
+				setSelectedLink(defaultLink)
+				onLinkClicked(findLinkselected())
+			} else {
+				setSelectedLink(links[0][0].label)
+				onLinkClicked(links[0][0])
+			}
+		}
+	}, [defaultLink])
 
 	return (
 		<SideNavStyle>
@@ -63,4 +85,4 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	);
 };
 
-export default SideNav;
+export default memo(SideNav);
