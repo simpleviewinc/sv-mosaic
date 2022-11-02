@@ -59,7 +59,7 @@ export const SideNavExample = (): ReactElement => {
 
 	return (
 		<div style={{ display: "flex" }}>
-			<SideNav links={links} />
+			<SideNav links={links} defaultLink={links[0][1].label} />
 			<div>{content}</div>
 		</div>
 	);
@@ -78,6 +78,10 @@ describe("SideNav component", () => {
 		expect(getByText("Assets"));
 		expect(getByText("Tasks"));
 		expect(getByText("Documents"));
+	});
+
+	it("should displays the Accounts link content by default", () => {
+		expect(getByText("Accounts Content"));
 	});
 
 	it("should displays the content selected", () => {
@@ -100,7 +104,7 @@ describe("SideNav component", () => {
 
 	it("should execute the action of the 'Tasks' link", () => {
 		fireEvent.click(getByTestId("AddCircleOutlineIcon"));
-		
+
 		expect(addTaskMock).toHaveBeenCalled();
 	});
 
