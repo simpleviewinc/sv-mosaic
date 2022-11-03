@@ -222,7 +222,7 @@ export const types = {
     }
 
     & > button:hover {
-      background-color: ${theme.newColors.simplyGold["100"]};
+      background-color: ${theme.newColors.darkerSimplyGold["100"]};
       color: ${theme.colors.almostBlack};
     }
   `,
