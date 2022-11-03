@@ -56,7 +56,7 @@ export class PlaygroundPage extends BasePage {
 		this.phoneTextbox = page.locator("input.form-control");
 		this.phoneSelectedFlagDropdown = page.locator(".selected-flag");
 		this.selectionRadioBtn = page.locator("input[type='radio']");
-		this.toggleField = page.locator("input.MuiSwitch-input[type='checkbox']");
+		this.toggleField = page.locator("input[required=''][type='checkbox']");
 		this.colorSelectorExample = page.locator("[data-testid='colordiv-test']");
 		this.colorSelector = page.locator(".flexbox-fix");
 		this.singleDatePickerIcon = page.locator("button [data-testid='CalendarIcon']");
