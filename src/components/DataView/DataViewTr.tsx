@@ -5,13 +5,13 @@ import DataViewTd from "./DataViewTd";
 import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import { MosaicObject } from "@root/types";
+import { DataViewProps } from "./DataViewTypes";
 // import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 
 interface DataViewTrProps {
 	bulkActions?: any;
 	checked?: any;
-	onReorder?: (rows: MosaicObject[]) => void;
+	onReorder?: DataViewProps["onReorder"];
 	onCheckboxClick?: any;
 	primaryActions?: any;
 	additionalActions?: any;

@@ -695,7 +695,7 @@ function DataViewKitchenSink(): ReactElement {
 		filter: state.filter,
 		activeFilters: state.activeFilters,
 		onReorder: draggableRows  ? (newRows) => {
-			alert(`Rows updated: ${newRows.map(val => val.title)}`);
+			alert(`Rows updated: ${newRows.map(val => "\n" + val.title)}`);
 		} : undefined
 	};
 
