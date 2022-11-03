@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DataViewTHead from "./DataViewTHead";
 import DataViewTBody from "./DataViewTBody";
 import { transformRows } from "../../utils/dataViewTools";
-import { MosaicObject } from "@root/types";
+import { DataViewProps } from "./DataViewTypes";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -16,7 +16,7 @@ interface DataViewDisplayListProps {
 	activeColumns?: any;
 	columns?: any;
 	data?: any;
-	onReorder: (rows: MosaicObject[]) => void;
+	onReorder?: DataViewProps["onReorder"];
 	checked?: any;
 	checkedAllPages?: any;
 	bulkActions?: any;
