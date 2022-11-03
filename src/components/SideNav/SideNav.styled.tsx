@@ -81,7 +81,7 @@ export const Badge = styled.span`
 
 export const BadgeWrapper = styled.div`
 	align-items: center;
-	background-color: ${theme.colors.simplyGold};
+	background-color: ${theme.newColors.simplyGold["100"]};
 	border-radius: 20px;
 	display: flex;
 	height: 20px;

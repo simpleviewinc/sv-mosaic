@@ -55,7 +55,7 @@ export const Title = styled.p`
 
 export const CheckedStar = styled(StarRateRounded)`
 	margin-left: 12px;
-    color: ${theme.colors.simplyGold};
+    color: ${theme.newColors.simplyGold["100"]};
 `;
 
 export const UncheckedStar = styled(StarBorder)`
