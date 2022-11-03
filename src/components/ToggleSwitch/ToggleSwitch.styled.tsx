@@ -20,7 +20,7 @@ export const StyledSwitch = styled(Switch)`
 
   .MuiSwitch-colorPrimary.Mui-checked,
   .MuiSwitch-colorPrimary.Mui-disabled.Mui-checked {
-    color: ${theme.colors.simplyGold};
+    color: ${theme.newColors.simplyGold["100"]};
   }
 
   .MuiSwitch-colorPrimary {
@@ -34,7 +34,7 @@ export const StyledSwitch = styled(Switch)`
   .MuiSwitch-colorPrimary {
     &.Mui-checked {
       &:hover {
-        background-color: ${theme.colors.simplyGoldOpacity};
+        background-color: ${theme.newColors.simplyGold["20"]};
       }
     }
   }
