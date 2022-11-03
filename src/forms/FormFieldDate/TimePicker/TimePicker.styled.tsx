@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 export const customTheme = createTheme({
 	palette: {
 		primary: {
-			main: theme.colors.teal,
+			main: theme.newColors.realTeal["100"],
 		},
 	},
 });

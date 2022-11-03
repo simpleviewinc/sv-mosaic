@@ -128,7 +128,7 @@ export const MenuColumn = styled(Column)`
 `;
 
 export const MoreText = styled.span`
-  color: ${theme.colors.teal};
+  color: ${theme.newColors.realTeal["100"]};
   font-size: 14px;
   font-weight: ${theme.fontWeight.bold};
   margin-left: 12px;
@@ -149,7 +149,7 @@ export const StyledImg = styled.img`
 export const RoundBackground = styled.div`
   align-items: center;
   cursor: ${({ disabled }) => (!disabled ? "pointer" : "auto")};
-  background-color: ${theme.colors.teal};
+  background-color: ${theme.newColors.realTeal["100"]};
   border-radius: 22px;
   display: flex;
   height: 40px;
@@ -160,7 +160,7 @@ export const RoundBackground = styled.div`
 `;
 
 export const StyledAnchor = styled.a`
-  color: ${theme.colors.teal};
+  color: ${theme.newColors.realTeal["100"]};
   font-size: 16px;
   word-break: break-all;
 `;

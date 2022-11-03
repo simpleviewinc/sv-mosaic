@@ -94,7 +94,7 @@ const newColors: { [key in MY_OBJECT_KEYS]: Color } = {
 	simplyGreen: {}
 };
 
-const opacities = [1, 0.8, 0.6, 0.4, 0.2];
+const opacities = [1, 0.8, 0.6, 0.4, 0.2, 0.1];
 
 const rgbaToRGB = (color: string, opacity: number) => {
 	const colors = color.split(",");
