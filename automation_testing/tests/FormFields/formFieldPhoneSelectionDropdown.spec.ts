@@ -17,6 +17,7 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 	});
 
 	test("Validate the Regular Phone field.", async () => {
+		await page.reload();
 		const phoneNumber = "7021234567";
 		await ffPhoneSelectionDropdownPage.regularPhoneField.type(phoneNumber);
 		expect(await ffPhoneSelectionDropdownPage.regularPhoneField.inputValue()).toBe("+1" + phoneNumber);
