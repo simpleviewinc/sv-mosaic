@@ -110,13 +110,29 @@ jobs:
           name: Add github to known_hosts
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
-          name: "Copy host ssh folder into docker service"
+          name: Lift node_ci service up
+          command: docker compose up node_ci
+      - run:
+          name: Copy host ssh folder into docker service
           command: docker compose cp ~/.ssh node_ci:/.ssh
       - run:
           name: Publish storybook
-          command: docker compose run --rm node_ci yarn run ci:storybook
+          command: docker compose exec node_ci yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
+      - run:
+          name: Publish storybook
+          command: |
+            docker compose exec node_ci yarn run ci:storybook
+            docker compose stop node_ci
+            docker composer rm node_ci
+          environment:
+            NODE_DEBUG: gh-pages
+      # - run:
+      #     name: Publish storybook
+      #     command: docker compose run --rm node_ci yarn run ci:storybook
+      #     environment:
+      #       NODE_DEBUG: gh-pages
   unit_tests:
     docker:
       - image: cimg/base:2022.09
