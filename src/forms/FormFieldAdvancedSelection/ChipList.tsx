@@ -17,14 +17,11 @@ import {
 
 const MAX_CHIPS_TO_SHOW = 8;
 
-const ChipList = forwardRef((props: ChipListPropsTypes, ref)=> {
+const ChipList = forwardRef((props: ChipListPropsTypes, ref): ReactElement => {
 	const {
 		fieldDef,
 		value
 	} = props;
-
-	console.log("ref desde chip list: ", ref)
-	console.log("fieldDef: ", fieldDef)
 
 	const [showMore, setShowMore] = useState(false);
 
