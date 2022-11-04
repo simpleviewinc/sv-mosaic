@@ -100,15 +100,12 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - *load_build_image
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
           name: Show me the available ssh keys
           command: "ls -lha ~/.ssh"
-      - run:
-          name: Add ssh keys
-          command: eval "$(ssh-agent)" && ssh-add ~/.ssh/id_rsa_90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
           name: Add github to known_hosts
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts

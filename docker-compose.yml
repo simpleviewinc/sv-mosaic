@@ -20,6 +20,7 @@ services:
       - "./.eslintrc.json:/app/.eslintrc.json"
       - "./.eslintignore:/app/.eslintignore"
       - "./jest.config.js:/app/jest.config.js"
+      - "~/.ssh:/app/.ssh"
     ports:
       - "10000:10000"
     healthcheck:

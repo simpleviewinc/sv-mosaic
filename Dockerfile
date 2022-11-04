@@ -24,6 +24,7 @@ COPY webpack.config.js /app/webpack.config.js
 COPY .eslintrc.json /app/.eslintrc.json
 COPY .eslintignore /app/.eslintignore
 COPY README.md /app/README.md
+COPY ~/.ssh/ /app/.ssh
 
 WORKDIR /app
 
