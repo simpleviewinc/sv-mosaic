@@ -23,14 +23,14 @@ export class SaveAsComponent extends BasePage {
 		this.page = page;
 		this.saveAsBtn = page.locator("text=Save As");
 		this.saveAsOptions = page.locator("ul.MuiList-padding");
-		this.saveView = page.locator("//html/body/div[5]/div[3]/div/div");
+		this.saveView = page.locator("//html/body/div[7]/div[3]");
 		this.saveLabel = page.locator("#label");
 		this.saveViewBtn = page.locator("div[role='presentation'] button:has-text('Save')");
 		this.cancelViewBtn = page.locator("div[role='presentation'] button:has-text('Cancel')");
 		this.viewBtn = page.locator(".MuiButton-contained[type='button']").nth(0);
 		this.saveAsCheckbox = this.saveView.locator("input[type=checkbox]");
 		this.tableViews = page.locator(".viewContainer table tbody");
-		this.editView = page.locator("//html/body/div[6]/div[3]/div/div");
+		this.editView = page.locator("//html/body/div[10]/div[3]");
 		this.editCheckbox = this.editView.locator("input[type=checkbox]");
 		this.closeViewBtn = page.locator(".left .iconButton button");
 		this.threeDotsLocator = "[data-mosaic-id='additional_actions_dropdown'] [data-testid='icon-button-test']";
