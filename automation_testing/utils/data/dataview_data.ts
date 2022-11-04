@@ -104,7 +104,7 @@ const columns_data = {
 		"Style - textTransform",
 		"Updated"
 	],
-	allItemsCount: 17
+	allItemsCount: 18
 }
 
 const filter_data = {
