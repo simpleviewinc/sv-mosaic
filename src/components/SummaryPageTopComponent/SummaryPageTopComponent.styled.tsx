@@ -34,11 +34,6 @@ export const ContainerTitle = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-
-	& > .favorite-icon {
-		color: ${theme.colors.gray};
-		margin-left: 12px;
-	}
 `;
 
 export const Title = styled.p`
