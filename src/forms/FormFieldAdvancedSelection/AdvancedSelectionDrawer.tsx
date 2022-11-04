@@ -46,7 +46,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const { state, dispatch } = useForm();
 
-	const chipListRef = useRef();
+	const chipListRef:{ current?: HTMLDivElement } = useRef();
+
+	const chipListHeight: number = chipListRef?.current?.offsetHeight ? chipListRef?.current?.offsetHeight + 30 : 0
 
 	useEffect(() => {
 		if (state.data.listOfChips !== undefined) {
@@ -323,7 +325,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type: "checkbox",
 					disabled: fieldDef?.disabled,
 					style: {
-						height: `calc(100vh - 78px - 30px - 49px - 30px ${fieldDef?.inputSettings?.getOptions ? "- 30px" : ""})`,
+						height: `calc(100vh - 78px - 30px - 49px - 30px - ${chipListHeight}px ${fieldDef?.inputSettings?.getOptions ? "- 45px" : ""})`,
 						overflowY: "auto",
 						flexWrap: "nowrap",
 						width: "100%",
@@ -384,7 +386,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			variant: "contained"
 		}
 	];
-	console.log("chipListRef: ", chipListRef.current)
+
 	return (
 		<StyledFormWrapper>
 			<Form
