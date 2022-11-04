@@ -23,7 +23,7 @@ test.describe("Components - Checkbox - Kitchen Sink", () => {
 		}
 	});
 
-	test("Validate Checkbox has simplyGold background.", async () => {
+	test("Validate Checkbox has simplyGold color.", async () => {
 		const expectBgColor = (theme.newColors.simplyGold["100"]).split("rgb")[1];
 		const numberOfCheckboxs = await checkboxPage.checkboxInput.count();
 		for (let i = 0; i < numberOfCheckboxs; i++) {
