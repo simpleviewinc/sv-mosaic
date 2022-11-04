@@ -107,7 +107,7 @@ export class DataviewPage extends BasePage {
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
 		for (const row of rows) {
-			titles.push(((await (await row.$("td:nth-child(4)")).textContent()).toLowerCase()));
+			titles.push(((await (await row.$("td:nth-child(5)")).textContent()).toLowerCase()));
 		}
 		return titles;
 	}
@@ -116,7 +116,7 @@ export class DataviewPage extends BasePage {
 		const rows = await (await this.getTableRows()).elementHandles();
 		const createdDates = [];
 		for (const row of rows) {
-			createdDates.push((await (await row.$("td:nth-child(6)")).textContent()).toLowerCase());
+			createdDates.push((await (await row.$("td:nth-child(7)")).textContent()).toLowerCase());
 		}
 		return createdDates;
 	}
@@ -175,7 +175,7 @@ export class DataviewPage extends BasePage {
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
 		for (const row of rows) {
-			titles.push((await (await row.$("td:nth-child(5)")).textContent()));
+			titles.push((await (await row.$("td:nth-child(6)")).textContent()));
 		}
 		return titles;
 	}
@@ -197,7 +197,7 @@ export class DataviewPage extends BasePage {
 		const rows = await this.dataviewTable.locator("tr").elementHandles();
 		const categoriesPerRow = [];
 		for (const row of rows) {
-			categoriesPerRow.push(await (await row.$("td:nth-child(5)")).textContent());
+			categoriesPerRow.push(await (await row.$("td:nth-child(6)")).textContent());
 		}
 		return categoriesPerRow;
 	}
@@ -206,7 +206,7 @@ export class DataviewPage extends BasePage {
 		const rows = await (await this.getTableRows()).elementHandles();
 		const createdDates = [];
 		for (const row of rows) {
-			createdDates.push((await (await row.$("td:nth-child(7)")).textContent()).toLowerCase());
+			createdDates.push((await (await row.$("td:nth-child(8)")).textContent()).toLowerCase());
 		}
 		return createdDates;
 	}
