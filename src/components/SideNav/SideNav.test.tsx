@@ -59,7 +59,7 @@ export const SideNavExample = (): ReactElement => {
 
 	return (
 		<div style={{ display: "flex" }}>
-			<SideNav links={links} defaultLink={links[0][1].label} />
+			<SideNav links={links} active={links[0][1].label} />
 			<div>{content}</div>
 		</div>
 	);

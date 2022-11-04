@@ -5,7 +5,10 @@ export interface SideNavProps {
    * List of lists of links, each list represents a section of links
    */
   links: Link[][];
-  defaultLink?: string;
+  /**
+   * Optional, active link from Links array
+   */
+  active?: string;
 }
 
 export type Link = {
