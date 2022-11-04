@@ -8,7 +8,8 @@ import {
 	useCallback,
 	useEffect,
 	useMemo,
-	useState
+	useState,
+	useRef
 } from "react";
 import Button from "../../components/Button";
 import Form, { formActions, useForm } from "@root/components/Form";
@@ -44,6 +45,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [filter, setFilter] = useState({ prev: "options", new: "options" });
 
 	const { state, dispatch } = useForm();
+
+	const chipListRef = useRef();
 
 	useEffect(() => {
 		if (state.data.listOfChips !== undefined) {
@@ -304,6 +307,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					name: "listOfChips",
 					type: ChipList,
 					disabled: fieldDef?.disabled,
+					ref: chipListRef,
 					inputSettings: {
 						isModalOpen,
 						isMobileView,
@@ -319,7 +323,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type: "checkbox",
 					disabled: fieldDef?.disabled,
 					style: {
-						height: `calc(100vh - 78px - 30px - 49px - 30px - 30px ${fieldDef?.inputSettings?.getOptions ? "- 30px" : ""} - 60px)`,
+						height: `calc(100vh - 78px - 30px - 49px - 30px ${fieldDef?.inputSettings?.getOptions ? "- 30px" : ""})`,
 						overflowY: "auto",
 						flexWrap: "nowrap",
 						width: "100%",
@@ -380,7 +384,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			variant: "contained"
 		}
 	];
-
+	console.log("chipListRef: ", chipListRef.current)
 	return (
 		<StyledFormWrapper>
 			<Form

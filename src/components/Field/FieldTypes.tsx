@@ -41,6 +41,10 @@ export interface FieldDef<T = any, U = any> {
 	 */
 	name: string;
 	/**
+	 * Reference.
+	 */
+	ref?: JSX.Element;
+	/**
 	 * Label that will sit on top of the field.
 	 */
 	label: string | undefined;
