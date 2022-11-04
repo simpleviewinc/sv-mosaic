@@ -3,7 +3,8 @@ import * as React from "react";
 import {
 	memo,
 	ReactElement,
-	useState
+	useState,
+	forwardRef
 } from "react";
 import { ChipListPropsTypes } from ".";
 import {
@@ -16,11 +17,14 @@ import {
 
 const MAX_CHIPS_TO_SHOW = 8;
 
-const ChipList = (props: ChipListPropsTypes): ReactElement => {
+const ChipList = forwardRef((props: ChipListPropsTypes, ref)=> {
 	const {
 		fieldDef,
 		value
 	} = props;
+
+	console.log("ref desde chip list: ", ref)
+	console.log("fieldDef: ", fieldDef)
 
 	const [showMore, setShowMore] = useState(false);
 
@@ -44,7 +48,7 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 	};
 
 	return value?.length > 0 && (
-		<OptionsCheckedModalWrapper isModalOpen={fieldDef?.inputSettings?.isModalOpen}>
+		<OptionsCheckedModalWrapper ref={ref} isModalOpen={fieldDef?.inputSettings?.isModalOpen}>
 			<ChipsWrapper
 				isModalOpen={fieldDef?.inputSettings?.isModalOpen}
 				isMobileView={fieldDef?.inputSettings?.isMobileView}
@@ -86,6 +90,8 @@ const ChipList = (props: ChipListPropsTypes): ReactElement => {
 			)}
 		</OptionsCheckedModalWrapper>
 	);
-}
+})
+
+ChipList.displayName = "ChipList"
 
 export default memo(ChipList);
