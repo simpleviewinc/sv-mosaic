@@ -350,7 +350,7 @@ export const types = {
     }
 
     & > button:hover {
-      background-color: ${theme.newColors.realTeal["100"]}1a;
+      background-color: ${theme.newColors.realTeal["20"]};
       color: ${theme.newColors.realTeal["100"]};
 			border: 2px solid ${theme.newColors.realTeal["100"]};
     }
