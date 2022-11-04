@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPage";
-import theme from "../../../../src/theme"
+import theme from "../../../../src/theme";
 
 test.describe("Components - Button - Kitchen Sink", () => {
 	let page: Page;
