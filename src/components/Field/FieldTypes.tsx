@@ -41,7 +41,7 @@ export interface FieldDef<T = any, U = any> {
 	 */
 	name: string;
 	/**
-	 * Reference.
+	 * ChipList reference to get its height
 	 */
 	ref?: JSX.Element;
 	/**
