@@ -48,7 +48,7 @@ export class DataviewPage extends BasePage {
 		this.title = page.locator("text=Your Uploads");
 		this.checkboxRow = page.locator("input[type='checkbox']");
 		this.downloadBtn = page.locator("[data-mosaic-id='action_bulk_download'] button");
-		this.deleteBtn = page.locator("//*[@id='root']/div/div/div[3]/table/thead/tr[1]/th[2]/span/span[2]/button");
+		this.deleteBtn = page.locator("[data-mosaic-id='action_bulk_delete'] button");
 		this.allSelectedLabel = page.locator(".bulkText");
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
