@@ -86,14 +86,14 @@ export const Example = (): ReactElement => {
 	];
 
 	let linkLabels: string[] = ["Invalid link"]
-	links.forEach(link => link.forEach(l => linkLabels = [...linkLabels, l.label]))
+	links.forEach(section => section.forEach(link => linkLabels = [...linkLabels, link.label]))
 
 	const parentHeight = number("Parent height (px)", 500);
-	const defaultLink = select("Default Link", linkLabels, linkLabels[2])
+	const active = select("Active Link", linkLabels, linkLabels[2])
 
 	return (
 		<div style={{ display: "flex", height: parentHeight }}>
-			<SideNav links={links} defaultLink={defaultLink} />
+			<SideNav links={links} active={active} />
 			<div>{content}</div>
 		</div>
 	);

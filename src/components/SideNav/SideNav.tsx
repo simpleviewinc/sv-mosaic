@@ -13,7 +13,7 @@ import {
 import { Link } from "./SideNavTypes";
 
 const SideNav = (props: SideNavProps): ReactElement => {
-	const { links, defaultLink } = props;
+	const { links, active } = props;
 	const [selectedLink, setSelectedLink] = useState("");
 
 	/**
@@ -26,9 +26,9 @@ const SideNav = (props: SideNavProps): ReactElement => {
 		link.onClick();
 	};
 
-	const findLinkselected = () => {
-		let linkSelected: Link
-		links.forEach(link => link.forEach(l => l.label === defaultLink ? linkSelected = l : null))
+	const findLinkSelected = () => {
+		let linkSelected: Link;
+		links.forEach(section => section.forEach(link => link.label === active ? linkSelected = link : null))
 		if (!linkSelected) {
 			throw new Error("Default link is not in the links array.");
 		} else {
@@ -37,16 +37,12 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	}
 
 	useEffect(() => {
-		if  (links) {
-			if (defaultLink) {
-				setSelectedLink(defaultLink)
-				onLinkClicked(findLinkselected())
-			} else {
-				setSelectedLink(links[0][0].label)
-				onLinkClicked(links[0][0])
-			}
+		if (active) {
+			onLinkClicked(findLinkSelected())
+		} else {
+			onLinkClicked(links[0][0])
 		}
-	}, [defaultLink])
+	}, [active])
 
 	return (
 		<SideNavStyle>
