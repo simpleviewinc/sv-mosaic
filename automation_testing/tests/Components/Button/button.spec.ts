@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPage";
+import theme from "../../../../src/theme"
 
 test.describe("Components - Button - Kitchen Sink", () => {
 	let page: Page;
@@ -48,5 +49,13 @@ test.describe("Components - Button - Kitchen Sink", () => {
 	test("Validate Button Popover on Hover.", async () => {
 		await buttonPage.buttonThatTriggersPopoverOnHover.hover();
 		await expect(page.locator("text=Popover Content")).toBeVisible();
+	});
+
+	test("Validate Button has simplyGold background.", async () => {
+		const expectBgColor = (theme.newColors.simplyGold["100"]);
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(8))).toBe(expectBgColor);
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(9))).toBe(expectBgColor);
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(18))).toBe(expectBgColor);
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(19))).toBe(expectBgColor);
 	});
 });
