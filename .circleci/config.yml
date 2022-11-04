@@ -111,7 +111,7 @@ jobs:
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: "Copy host ssh folder into docker service"
-          command: docker compose cp ~/.ssh node_ci:/.ssh"
+          command: docker compose cp ~/.ssh node_ci:/.ssh
       - run:
           name: Publish storybook
           command: docker compose run --rm node_ci yarn run ci:storybook
