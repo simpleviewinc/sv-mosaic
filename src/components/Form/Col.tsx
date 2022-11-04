@@ -148,6 +148,7 @@ const Col = (props: ColPropsTypes) => {
 				// const onBlur = onBlurMap[fieldProps.name];
 
 				const name = fieldProps.name;
+				const ref = fieldProps.ref;
 				const value = state?.data[fieldProps.name];
 				const error = state?.errors[fieldProps.name] || "";
 
@@ -176,6 +177,7 @@ const Col = (props: ColPropsTypes) => {
 						value={value}
 						error={error}
 						onChange={onChange}
+						ref={ref}
 						// onBlur={onBlur}
 						key={`${name}_${i}`}
 					/>
