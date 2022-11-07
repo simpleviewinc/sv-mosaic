@@ -143,4 +143,12 @@ export class BasePage {
 	async getHeightFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).height));
 	}
+
+	async getBackgroundColorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).backgroundColor));
+	}
+
+	async getColorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).color));
+	}
 }
