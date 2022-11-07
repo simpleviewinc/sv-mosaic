@@ -110,7 +110,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 		});
 	}
 
-	const onActiveFiltersChange = function(activeFiltersParam: { value: DataViewProps["activeFilters"] }) {
+	const onActiveFiltersChange = function(activeFiltersParam: { value: DataViewProps["activeFilters"], comparison?: string }) {
 		const filter = pick(props.filter, [...primaryFilterNames, ...activeFiltersParam.value]);
 
 		// we only want to pass a new filter obj if we have actually removed a key from it, to prevent unnecessary re-fetches of data
