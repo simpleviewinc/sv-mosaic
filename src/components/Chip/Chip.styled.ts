@@ -11,19 +11,19 @@ const chipFont = `
 export const StyledDeletableChip = styled(Chip)`
   &.MuiChip-root {
     background-color: ${pr => pr.disabled ?
-		theme.colors.simplyGoldDisabled
-		: theme.colors.simplyGold};
+		theme.newColors.simplyGold["60"]
+		: theme.newColors.simplyGold["100"]};
     color: ${theme.colors.almostBlack};
     max-width: 186px;
 
     &:hover {
       background-color: ${pr => pr.disabled ?
-		theme.colors.simplyGoldDisabled
-		: theme.colors.simplyGoldHover};
+		theme.newColors.simplyGold["60"]
+		: theme.newColors.darkerSimplyGold["100"]};
     }
 
     &:focus {
-      background-color: ${theme.colors.simplyGold};
+      background-color: ${theme.newColors.simplyGold["100"]};
     }
     padding: 8px 16px;
   }
@@ -53,19 +53,19 @@ export const StyledChip = styled(Chip)`
   &.MuiChip-root {
     background-color: ${pr => {
 		if (pr.selected && !pr.disabled) {
-			return theme.colors.simplyGold;
+			return theme.newColors.simplyGold["100"];
 		} else if (pr.selected && pr.disabled) {
-			return theme.colors.simplyGoldDisabled;
+			return theme.newColors.simplyGold["60"];
 		}
 		return theme.colors.gray200;
 	}};
 
     &:hover {
-      background-color: ${pr => pr.selected ? theme.colors.simplyGoldHover : theme.colors.simplyGray};
+      background-color: ${pr => pr.selected ? theme.newColors.darkerSimplyGold["100"] : theme.colors.simplyGray};
     }
 
     &:focus {
-      background-color: ${pr => pr.selected ? theme.colors.simplyGold : theme.colors.gray200};
+      background-color: ${pr => pr.selected ? theme.newColors.simplyGold["100"] : theme.colors.gray200};
     }
 
     padding: 8px 16px;
