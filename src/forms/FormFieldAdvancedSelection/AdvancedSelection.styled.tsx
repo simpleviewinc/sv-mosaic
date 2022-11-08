@@ -35,7 +35,7 @@ export const InputWrapper = styled.div`
 
   &:focus-within {
     border: 1px solid ${theme.colors.almostBlack};
-	  box-shadow: ${theme.fieldSpecs.inputText.shadow};
+    box-shadow: ${theme.fieldSpecs.inputText.shadow};
   }
 
   & span:first-child {
