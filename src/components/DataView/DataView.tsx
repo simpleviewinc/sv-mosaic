@@ -456,6 +456,7 @@ function DataView (props: DataViewProps): ReactElement  {
 					onCheckAllClick={onCheckAllClick}
 					onCheckboxClick={onCheckboxClick}
 					onCheckAllPagesClick={onCheckAllPagesClick}
+					onReorder={props.onReorder}
 				/>
 			</div>
 			{

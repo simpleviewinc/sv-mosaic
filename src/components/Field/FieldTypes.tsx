@@ -41,6 +41,10 @@ export interface FieldDef<T = any, U = any> {
 	 */
 	name: string;
 	/**
+	 * React ref for the field
+	 */
+	ref?: JSX.Element;
+	/**
 	 * Label that will sit on top of the field.
 	 */
 	label: string | undefined;

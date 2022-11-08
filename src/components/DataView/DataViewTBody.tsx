@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
-
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import DataViewTr from "./DataViewTr";
 import theme from "@root/theme";
-// import { MosaicObject } from "@root/types";
+import { MosaicObject } from "@root/types";
 // import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 
 const StyledTBody = styled.tbody`
@@ -26,8 +26,9 @@ const StyledTBody = styled.tbody`
 `
 
 interface DataViewTBodyProps {
+	onReorder?: (rows: MosaicObject[]) => void;
 	onCheckboxClick?: any;
-	transformedData?: any;
+	transformedData?: MosaicObject[];
 	data?: any;
 	bulkActions?: any;
 	primaryActions?: any;
@@ -58,6 +59,10 @@ function DataViewTBody(props: DataViewTBodyProps) {
 				name : "checked",
 				type : "array",
 				required : true
+			},
+			{
+				name : "onReorder",
+				type : "function",
 			},
 			{
 				name : "columns",
@@ -96,31 +101,60 @@ function DataViewTBody(props: DataViewTBodyProps) {
 		throwOnInvalid : true
 	});
 
+	const [rows, setRows] = useState([]);
+
+	useEffect(() => {
+		if (props.transformedData) {
+			setRows(props.transformedData)
+		}
+	}, [props.transformedData])
+
 	const onCheckboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
 
+	/**
+	 * When a drag has ended the rows are updated
+	 * @param e drag event. It will execute the onReorder
+	 * callback with the new rows
+	 */
+	const handleDragEnd =  ({ destination, source }: DropResult) => {
+		if (!destination) return;
+
+		const rowsCopy = [...rows];
+		const [source_data] = rowsCopy.splice(source.index, 1);
+		rowsCopy.splice(destination.index, 0, source_data);
+		setRows(rowsCopy);
+
+		props.onReorder(rowsCopy);
+	};
+
 	return (
-		<StyledTBody>
-			{
-				props.transformedData.map((row, i) => {
-					return (
-						<DataViewTr
-							key={i}
-							row={row}
-							originalRowData={props.data[i]}
-							bulkActions={props.bulkActions}
-							primaryActions={props.primaryActions}
-							additionalActions={props.additionalActions}
-							onCheckboxClick={onCheckboxClick(i)}
-							checked={props.checked[i]}
-							columns={props.columns}
-						/>
-					)
-				})
-			}
-		</StyledTBody>
-	)
+		<DragDropContext onDragEnd={handleDragEnd}>
+			<Droppable droppableId="droppable-rows">
+				{(provider) => (
+					<StyledTBody ref={provider.innerRef} {...provider.droppableProps}>
+						{rows.map((row, i) => (
+							<DataViewTr
+								key={i}
+								rowIdx={i}
+								row={row}
+								originalRowData={props.data[i]}
+								bulkActions={props.bulkActions}
+								primaryActions={props.primaryActions}
+								additionalActions={props.additionalActions}
+								onCheckboxClick={onCheckboxClick(i)}
+								checked={props.checked[i]}
+								columns={props.columns}
+								onReorder={props.onReorder}
+							/>
+						))}
+						{provider.placeholder}
+					</StyledTBody>
+				)}
+			</Droppable>
+		</DragDropContext>
+	);
 }
 
 export default DataViewTBody;
