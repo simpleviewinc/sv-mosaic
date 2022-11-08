@@ -8,7 +8,8 @@ import {
 	useCallback,
 	useEffect,
 	useMemo,
-	useState
+	useState,
+	useRef
 } from "react";
 import Button from "../../components/Button";
 import Form, { formActions, useForm } from "@root/components/Form";
@@ -44,6 +45,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [filter, setFilter] = useState({ prev: "options", new: "options" });
 
 	const { state, dispatch } = useForm();
+
+	const chipListRef:{ current?: HTMLDivElement } = useRef();
+
+	const chipListHeight: number = chipListRef?.current?.offsetHeight ? chipListRef?.current?.offsetHeight + 30 : 0;
 
 	useEffect(() => {
 		if (state.data.listOfChips !== undefined) {
@@ -304,6 +309,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					name: "listOfChips",
 					type: ChipList,
 					disabled: fieldDef?.disabled,
+					ref: chipListRef,
 					inputSettings: {
 						isModalOpen,
 						isMobileView,
@@ -319,7 +325,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type: "checkbox",
 					disabled: fieldDef?.disabled,
 					style: {
-						height: `calc(100vh - 78px - 30px - 49px - 30px - 30px ${fieldDef?.inputSettings?.getOptions ? "- 30px" : ""} - 60px)`,
+						height: `calc(100vh - 78px - 30px - 49px - 30px - ${chipListHeight}px ${fieldDef?.inputSettings?.getOptions ? "- 45px" : ""})`,
 						overflowY: "auto",
 						flexWrap: "nowrap",
 						width: "100%",
