@@ -6,6 +6,11 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 	readonly page_path = "formfields-formfieldimagevideolinkdocumentbrowsing--kitchen-sink";
 
 	readonly page: Page;
+	readonly browseImageLocator: Locator;
+	readonly browseVideoLocator: Locator;
+	readonly browseDocumentLocator: Locator;
+	readonly browseLinkLocator: Locator;
+
 	readonly imageOrVideoWithoutSrcCard: Locator;
 	readonly imageWithoutSrcButton: Locator;
 	readonly videoWithoutSrcButton: Locator;
@@ -25,19 +30,24 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
+		this.browseImageLocator = page.locator("[data-testid='browse-image-test']");
+		this.browseVideoLocator = page.locator("[data-testid='browse-video-test']");
+		this.browseDocumentLocator = page.locator("[data-testid='browse-document-test']");
+		this.browseLinkLocator = page.locator("[data-testid='browse-link-test']");
+		
 		this.imageOrVideoWithoutSrcCard = page.locator("//*[@id='1']");
 		this.imageWithoutSrcButton = page.locator("//*[@id='1']/div/div/div/div/div/div[2]/div/div/div[1]/div[1]");
-		this.videoWithoutSrcButton = page.locator("[data-testid='browse-video-test']").nth(1);
+		this.videoWithoutSrcButton = this.browseVideoLocator.nth(1);
 		this.browsingImageWithSrcCard = page.locator("//*[@id='2']");
-		this.imageWithSrcButton = page.locator("[data-testid='browse-image-test']").nth(2);
+		this.imageWithSrcButton = this.browseImageLocator.nth(2);
 		this.browsingVideoWithSrcCard = page.locator("//*[@id='3']");
 		this.videoWithSrcButton = page.locator("//*[@id='3']/div/div/div/div/div/div[2]/div/div/div/div[1]");
 		this.browsingDocumentCard = page.locator("//*[@id='4']");
-		this.documentButton = page.locator("[data-testid='browse-document-test']").nth(1);
+		this.documentButton = this.browseDocumentLocator.nth(1);
 		this.linkButton = page.locator("//*[@id='5']/div/div/div/div/div/div[2]/div/div/div/div[1]");
 		this.browsingWithoutAnyOptionsCard = page.locator("//*[@id='6']/div/div/div/div/div/div[2]/div");
 		this.disabledCard = page.locator("//*[@id='7']");
-		this.disabledButton = page.locator("[data-testid='browse-image-test']").nth(3);
+		this.disabledButton = this.browseImageLocator.nth(3);
 		this.moreButton = page.locator("[data-testid='tooltip-test-id']");
 		this.threePointsButton = page.locator("[data-testid='icon-button-test']");
 	}

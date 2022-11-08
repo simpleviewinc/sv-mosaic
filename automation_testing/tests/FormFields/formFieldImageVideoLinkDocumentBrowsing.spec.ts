@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldImageVideoLinkDocumentBrowsingPage } from "../../pages/FormFields/FormFieldImageVideoLinkDocumentBrowsingPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	let page: Page;
@@ -188,4 +189,37 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 			await dialog.accept();
 		});
 	});
+
+	test("Validate Background Color in Browse Image buttons", async () => {
+		const expectBgColor = theme.newColors.realTeal["100"];
+		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseImageLocator.count();
+		for (let i = 0; i < numberOfButtons - 1; i++) {
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseImageLocator.nth(i))).toBe(expectBgColor);
+		}
+	});
+
+	test("Validate Background Color in Browse Video buttons", async () => {
+		const expectBgColor = theme.newColors.realTeal["100"];
+		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseVideoLocator.count();
+		for (let i = 0; i < numberOfButtons - 1; i++) {
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseVideoLocator.nth(i))).toBe(expectBgColor);
+		}
+	});
+
+	test("Validate Background Color in Browse Document buttons", async () => {
+		const expectBgColor = theme.newColors.realTeal["100"];
+		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseDocumentLocator.count();
+		for (let i = 0; i < numberOfButtons - 1; i++) {
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseDocumentLocator.nth(i))).toBe(expectBgColor);
+		}
+	});
+
+	test("Validate Background Color in Browse Link buttons", async () => {
+		const expectBgColor = theme.newColors.realTeal["100"];
+		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseLinkLocator.count();
+		for (let i = 0; i < numberOfButtons - 1; i++) {
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseLinkLocator.nth(i))).toBe(expectBgColor);
+		}
+	});
+
 });
