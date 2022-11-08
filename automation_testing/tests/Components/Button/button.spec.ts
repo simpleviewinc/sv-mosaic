@@ -64,10 +64,10 @@ test.describe("Components - Button - Kitchen Sink", () => {
 		const saveButton = buttonPage.button.nth(8);
 		const addButton = buttonPage.button.nth(9);
 		await saveButton.click();
-		await buttonPage.wait()
+		await buttonPage.wait();
 		expect(await buttonPage.getBackgroundColorFromElement(saveButton)).toBe(expectBgColor);
 		await addButton.click({force: true});
-		await saveButton.waitFor({state: "visible"});
+		await buttonPage.wait();
 		expect(await buttonPage.getBackgroundColorFromElement(addButton)).toBe(expectBgColor);
 	});
 });
