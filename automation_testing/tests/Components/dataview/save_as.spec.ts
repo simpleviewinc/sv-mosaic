@@ -49,9 +49,9 @@ test.describe.parallel("Components - Data View - Save As", () => {
 
 	test("New View Shared", async () => {
 		await saveAs.fillNewView(saveAs_data.saveAsViewShared);
-		expect((await saveAs.saveAsCheckbox.isChecked()).valueOf()).toBe(false);
+		await expect(saveAs.saveAsCheckbox).not.toBeChecked();
 		await saveAs.saveAsCheckbox.check();
-		expect((await saveAs.saveAsCheckbox.isChecked()).valueOf()).toBe(true);
+		await expect(saveAs.saveAsCheckbox).toBeChecked();
 		await saveAs.saveViewBtn.click();
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsViewShared);
 		await saveAs.viewBtn.click();
@@ -91,11 +91,10 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		await saveAs.viewBtn.click();
 		await saveAs.wait();
 		const editBtn = await saveAs.editBtnByLabel(saveAs_data.saveAsView);
-		// await saveAs.validateSnapshot(editBtn, "save_as_edit_view_btn");
 		expect(await (await saveAs.getViewTypeByLabel(saveAs_data.saveAsView)).textContent()).toContain(saveAs_data.viewNotSharedType);
 		await editBtn.click();
 		await saveAs.saveLabel.fill(saveAs_data.saveAsViewEdit);
-		expect((await saveAs.editCheckbox.isChecked()).valueOf()).toBe(false);
+		await expect(saveAs.editCheckbox).not.toBeChecked();
 		await saveAs.editCheckbox.check();
 		await saveAs.saveViewBtn.click();
 
