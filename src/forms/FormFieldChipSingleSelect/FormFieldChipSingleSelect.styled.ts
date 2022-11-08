@@ -2,7 +2,6 @@ import theme from "@root/theme";
 import styled from "styled-components";
 
 export const StyledChipGroup = styled.div`
-
 	display: flex;
     flex-wrap: wrap;
     row-gap: 12px;
