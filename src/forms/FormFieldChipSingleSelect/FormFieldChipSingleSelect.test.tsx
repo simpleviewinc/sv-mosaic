@@ -3,6 +3,7 @@ import { useMemo, ReactElement } from "react";
 import { render, cleanup, screen, fireEvent, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom/extend-expect";
+import theme from "@root/theme";
 
 //Components
 import Form, { useForm, formActions } from "@root/components/Form";
@@ -100,7 +101,7 @@ describe("FormFieldChipSingleSelect component", () => {
 		const chipElements = getAllByRole("button") as HTMLInputElement[];
 		fireEvent.click(chipElements[1]);
 
-		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe("rgb(253, 185, 36)");
+		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe(theme.newColors.simplyGold["100"]);
 		expect(window.getComputedStyle(chipElements[2]).backgroundColor).toBe("rgb(240, 242, 245)");
 		expect(window.getComputedStyle(chipElements[3]).backgroundColor).toBe("rgb(240, 242, 245)");
 	});

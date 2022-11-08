@@ -10,7 +10,7 @@ export const StyledRadioButton = styled(Radio)`
     color: ${theme.colors.almostBlack};
 
     &.Mui-checked {
-      color: ${theme.colors.simplyGold};
+      color: ${theme.newColors.simplyGold["100"]};
     }
   }
 
