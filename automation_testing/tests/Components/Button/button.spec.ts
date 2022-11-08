@@ -58,4 +58,12 @@ test.describe("Components - Button - Kitchen Sink", () => {
 		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(18))).toBe(expectBgColor);
 		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(19))).toBe(expectBgColor);
 	});
+
+	test("Validate Button has realTeal background.", async () => {
+		const expectColor = (theme.newColors.realTeal["100"]);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(28))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(29))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(38))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(39))).toBe(expectColor);
+	});
 });
