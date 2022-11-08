@@ -48,7 +48,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const chipListRef:{ current?: HTMLDivElement } = useRef();
 
-	const chipListHeight: number = chipListRef?.current?.offsetHeight ? chipListRef?.current?.offsetHeight + 30 : 0
+	const chipListHeight: number = chipListRef?.current?.offsetHeight ? chipListRef?.current?.offsetHeight + 30 : 0;
 
 	useEffect(() => {
 		if (state.data.listOfChips !== undefined) {

@@ -8,7 +8,7 @@ const LoadMoreButton = (props: LoadMoreButtonPropsTypes): ReactElement => {
 	const { fieldDef } = props;
 
 	const ButtonWrapper = styled.div`
-		margin-top: 15px;
+		margin: 15px 15px 0 15px;
 	`
 
 	return (
