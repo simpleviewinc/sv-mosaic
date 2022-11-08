@@ -94,7 +94,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		expect(await (await saveAs.getViewTypeByLabel(saveAs_data.saveAsView)).textContent()).toContain(saveAs_data.viewNotSharedType);
 		await editBtn.click();
 		await saveAs.saveLabel.fill(saveAs_data.saveAsViewEdit);
-		await expect(saveAs.saveAsCheckbox).not.toBeChecked();
+		await expect(saveAs.editCheckbox).not.toBeChecked();
 		await saveAs.editCheckbox.check();
 		await saveAs.saveViewBtn.click();
 
