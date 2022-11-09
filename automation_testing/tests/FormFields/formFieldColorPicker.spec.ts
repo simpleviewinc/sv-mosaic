@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldColorPickerPage } from "../../pages/FormFields/FormFieldColorPickerPage";
 import { getRandomHexCode } from "../../utils/helpers/helper";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
 	let page: Page;
@@ -43,5 +44,11 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 	test("Validate Disabled Color Picker", async () => {
 		expect(await ffColorPickerPage.disabledColorPickerLabel.textContent()).toBe("Disabled Example");
 		expect(await ffColorPickerPage.disabledColorPicker.getAttribute("disabled")).toBe("");
+	});
+
+	test("Validate Default Regular Color in Color Picker", async () => {
+		const expectBgColor = theme.newColors.realTeal["100"];
+		expect(await ffColorPickerPage.getBackgroundColorFromElement(ffColorPickerPage.regularColorPicker)).toBe(expectBgColor);
+		expect(await ffColorPickerPage.getBackgroundColorFromElement(ffColorPickerPage.disabledColorPicker)).toBe(expectBgColor);
 	});
 });
