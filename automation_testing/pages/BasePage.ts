@@ -27,7 +27,7 @@ export class BasePage {
 		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span[2]");
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
-		this.cancelBtn = page.locator("text=Cancel");
+		this.cancelBtn = page.locator("button:has-text('Cancel')");
 		this.saveBtn = page.locator("text=Save");
 		this.table = page.locator("table");
 		this.errorMessage = page.locator("p.Mui-error");
@@ -141,5 +141,13 @@ export class BasePage {
 
 	async getHeightFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).height));
+	}
+
+	async getBackgroundColorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).backgroundColor));
+	}
+
+	async getColorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).color));
 	}
 }
