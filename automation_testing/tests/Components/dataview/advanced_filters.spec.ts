@@ -26,7 +26,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	test.beforeEach(async() => {
-		const numberOfFiltersApplied = await dataviewPage.removeFilterIcon.count()
+		const numberOfFiltersApplied = await dataviewPage.removeFilterIcon.count();
 		if (numberOfFiltersApplied > 0) {
 			for (let i = 0; i < numberOfFiltersApplied; i++) {
 				await dataviewPage.removeFilterIcon.nth(i).click();
@@ -52,13 +52,13 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 		const applyFontWeight = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontWeight)));
 		const clearFontWeight = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).fontWeight)));
-		const cancelFontWeight = (await ((advancedFilters.page.locator("text=Cancel")).evaluate(el => getComputedStyle(el).fontWeight)));
+		const cancelFontWeight = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).fontWeight)));
 		const applyFontSize = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontSize)));
 		const clearFontSize = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).fontSize)));
-		const cancelFontSize = (await ((advancedFilters.page.locator("text=Cancel")).evaluate(el => getComputedStyle(el).fontSize)));
+		const cancelFontSize = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).fontSize)));
 		const applyButtonColor = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
 		const clearButtonColor = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
-		const cancelButtonColor = (await ((advancedFilters.page.locator("text=Cancel")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+		const cancelButtonColor = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
 
 		//Validate Font Weight
 		expect(applyFontWeight).toBe(expectedFontWeight);
@@ -72,6 +72,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		expect(applyButtonColor).toBe(expectedApplyButtonColor);
 		expect(clearButtonColor).toBe(expectedCleanAndCancelButtonColor);
 		expect(cancelButtonColor).toBe(expectedCleanAndCancelButtonColor);
+		await advancedFilters.page.keyboard.press("Escape");
 	}
 
 	test("Validate that all advanced filters have default value equal to Any", async () => {
@@ -105,6 +106,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
 		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
 		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
+		await advancedFilters.page.keyboard.press("Escape");
 	});
 
 	test("Validate Categories with Comparisons - In", async () => {
