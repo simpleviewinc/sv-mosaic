@@ -65,5 +65,17 @@ test.describe("Components - Button - Kitchen Sink", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(29))).toBe(expectColor);
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(38))).toBe(expectColor);
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(39))).toBe(expectColor);
+  });
+  
+	test("Validate Button has darkSimplyGold on Hover.", async () => {
+		const expectBgColor = theme.newColors.darkerSimplyGold["100"];
+		const saveButton = buttonPage.button.nth(8);
+		const addButton = buttonPage.button.nth(9);
+		await saveButton.click();
+		await buttonPage.wait();
+		expect(await buttonPage.getBackgroundColorFromElement(saveButton)).toBe(expectBgColor);
+		await addButton.click({force: true});
+		await buttonPage.wait();
+		expect(await buttonPage.getBackgroundColorFromElement(addButton)).toBe(expectBgColor);
 	});
 });
