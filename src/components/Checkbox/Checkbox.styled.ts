@@ -13,7 +13,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
 
   & > span.checked,
   & > span.MuiCheckbox-indeterminate {
-    color: ${theme.colors.simplyGold};
+    color: ${theme.newColors.simplyGold["100"]};
     opacity: ${(pr) => (pr.disabled ? "50%" : "100%")};
   }
 
@@ -29,7 +29,7 @@ export const StyledCheckbox = styled(MUICheckbox)`
     color: ${theme.colors.almostBlack};
 
     &.Mui-checked {
-      color: ${theme.colors.simplyGold};
+      color: ${theme.newColors.simplyGold["100"]};
     }
   }
 

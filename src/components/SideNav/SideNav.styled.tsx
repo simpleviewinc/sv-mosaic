@@ -19,7 +19,7 @@ export const LinkWrapper = styled.div`
 	background-color: ${(pr) =>
 		pr.idx === pr.selectedLink ? theme.colors.gray200 : ""};
 		border-left: ${(pr) =>
-		pr.idx === pr.selectedLink ? "4px solid #FCB731" : "4px solid transparent"};
+		pr.idx === pr.selectedLink ? `4px solid ${theme.newColors.simplyGold["100"]}` : "4px solid transparent"};
 	padding: 12px 20px;
 
 	span {
@@ -81,7 +81,7 @@ export const Badge = styled.span`
 
 export const BadgeWrapper = styled.div`
 	align-items: center;
-	background-color: ${theme.colors.simplyGold};
+	background-color: ${theme.newColors.simplyGold["100"]};
 	border-radius: 20px;
 	display: flex;
 	height: 20px;
