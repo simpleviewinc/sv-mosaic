@@ -216,7 +216,7 @@ const Mail = styled.span`
 `;
 
 const Link = styled.span`
-	color: ${theme.colors.teal};
+	color: ${theme.newColors.realTeal["100"]};
 	cursor: pointer;
 	font-weight: ${theme.fontWeight.semiBold};
 	font-size: 14px;
