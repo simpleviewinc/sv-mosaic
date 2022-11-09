@@ -5,11 +5,15 @@ export interface SideNavProps {
    * List of lists of links, each list represents a section of links
    */
   links: Link[][];
+  /**
+   * Optional, active link from Links array
+   */
+  active?: string;
 }
 
 export type Link = {
 	/**
-	 * Optional descriptive mark of the link. 
+	 * Optional descriptive mark of the link.
 	 */
 	badge?: string;
   /**
@@ -25,9 +29,9 @@ export type Link = {
    */
   onClick: () => void;
   /**
-   * Each link could have an optional action which consists of an 
-   * icon that will be displayed when hovering over the link and 
-   * an onClick callback 
+   * Each link could have an optional action which consists of an
+   * icon that will be displayed when hovering over the link and
+   * an onClick callback
    */
   action?: { icon: SvgIconComponent; onClick: () => void };
 };

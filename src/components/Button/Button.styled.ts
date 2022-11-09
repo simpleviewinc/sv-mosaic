@@ -209,7 +209,7 @@ const textButtonStyles = {
 export const types = {
 	yellow_contained: styled(BlackOnYellow)`
     & > button {
-      background-color: ${theme.colors.simplyGold};
+      background-color: ${theme.newColors.simplyGold["100"]};
       border-radius: 0;
       font-size: 14px;
       text-transform: uppercase;
@@ -217,12 +217,12 @@ export const types = {
 
     .MuiButton-contained.Mui-disabled {
       color: ${theme.colors.almostBlack};
-      background-color: ${theme.colors.simplyGold};
+      background-color: ${theme.newColors.simplyGold["100"]};
       opacity: 0.5;
     }
 
     & > button:hover {
-      background-color: ${theme.colors.simplyGoldHover};
+      background-color: ${theme.newColors.darkerSimplyGold["100"]};
       color: ${theme.colors.almostBlack};
     }
   `,

@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { DraggableProvided } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 import { BodyText } from "../Typography";
@@ -55,6 +56,7 @@ interface DataViewTdProps {
 	textTransform?: any;
 	children?: any;
 	className?: any;
+	draggableProvider?: DraggableProvided;
 }
 
 //TODO PROPS
@@ -80,6 +82,7 @@ function DataViewTd(props: DataViewTdProps) {
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
+			{...props?.draggableProvider?.dragHandleProps}
 		>
 			<BodyText
 				as="div"

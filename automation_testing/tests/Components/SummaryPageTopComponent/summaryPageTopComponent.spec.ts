@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { SummaryPageTopComponentPage } from "../../../pages/Components/SummaryPageTopComponent/SummaryPageTopComponentPage";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", () => {
 	let page: Page;
@@ -24,5 +25,11 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 	test("Validate the font of the title.", async () => {
 		const titleFonts = await summaryPage.getFontFamilyFromElement(summaryPage.summaryTitle);
 		expect(titleFonts).toContain("Museo-Sans");
+	});
+
+	test("Validate Star has simplyGold color.", async () => {
+		const expectColor = (theme.newColors.simplyGold["100"]);
+		await summaryPage.starRateIconUnchecked.click();
+		expect(await summaryPage.getColorFromElement(summaryPage.starRateIconChecked)).toBe(expectColor);
 	});
 });

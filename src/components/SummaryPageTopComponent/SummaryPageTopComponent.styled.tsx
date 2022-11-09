@@ -34,11 +34,6 @@ export const ContainerTitle = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-
-	& > .favorite-icon {
-		color: ${theme.colors.gray};
-		margin-left: 12px;
-	}
 `;
 
 export const Title = styled.p`
@@ -55,7 +50,7 @@ export const Title = styled.p`
 
 export const CheckedStar = styled(StarRateRounded)`
 	margin-left: 12px;
-    color: ${theme.colors.simplyGold};
+    color: ${theme.newColors.simplyGold["100"]};
 `;
 
 export const UncheckedStar = styled(StarBorder)`
