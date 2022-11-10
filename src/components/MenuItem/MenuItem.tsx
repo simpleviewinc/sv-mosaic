@@ -59,7 +59,7 @@ const iconTypes = {
 	`,
 	red : styled(StyledIcon)`
 		& svg {
-			color: ${theme.colors.red};
+			color: ${theme.newColors.darkRed["100"]};
 		}
 	`
 }
