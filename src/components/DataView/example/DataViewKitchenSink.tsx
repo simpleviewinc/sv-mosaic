@@ -695,7 +695,24 @@ function DataViewKitchenSink(): ReactElement {
 		filter: state.filter,
 		activeFilters: state.activeFilters,
 		onReorder: draggableRows  ? (newRows) => {
-			alert(`Rows updated: ${newRows.map(val => "\n" + val.title)}`);
+
+			setTimeout(async () => {
+				const newData = await api.find({
+					limit: state.limit,
+					sort: state.sort,
+					filter: state.filter,
+					skip: state.skip,
+					reorderedList: newRows
+				});
+
+				setState({
+					...state,
+					data: newData,
+					loading: false
+				});
+			}, ARTIFICIAL_DELAY);
+
+			setState({...state, loading: true});
 		} : undefined
 	};
 
