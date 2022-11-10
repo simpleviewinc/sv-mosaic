@@ -7,6 +7,8 @@ import {
 	useRef,
 	useState,
 } from "react";
+import theme from "@root/theme";
+
 // External libraries
 import { ColorResult, SketchPicker, RGBColor } from "react-color";
 
@@ -103,7 +105,7 @@ const FormFieldColorPicker = (
 			{displayColorPicker && !fieldDef?.disabled && (
 				<OutsideAlerter handleClose={handleClose}>
 					<PopOver>
-						<SketchPicker color={value || "#008DA8"} onChange={onColorChange} />
+						<SketchPicker color={value || theme.newColors.realTeal["100"]} onChange={onColorChange} />
 					</PopOver>
 				</OutsideAlerter>
 			)}
