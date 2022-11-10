@@ -7,7 +7,7 @@ export const StyledChipGroup = styled.div`
     row-gap: 12px;
 
 	& .MuiChip-root {
-		border: 1px solid ${pr => pr.error ? theme.colors.red : "transparent"};
+		border: 1px solid ${pr => pr.error ? theme.newColors.darkRed["100"] : "transparent"};
   		margin-right: 12px;
 	}
 
