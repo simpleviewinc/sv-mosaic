@@ -54,6 +54,10 @@ class JSONDB {
 			}
 		}
 
+		if (query.reorderedList !== undefined) {
+			data = query.reorderedList.map(reorderedElement => data.find(element => element.id === reorderedElement))
+		}
+
 		return data;
 	}
 
