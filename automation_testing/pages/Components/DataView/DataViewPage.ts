@@ -135,7 +135,6 @@ export class DataviewPage extends BasePage {
 		for (let i = 0; i < pages; i++) {
 			titles.push(...(await this.getRowTitles()));
 			await this.paginationComponent.forwardArrow.click();
-			await this.loading.waitFor({ state: "detached" });
 		}
 		return titles;
 	}
