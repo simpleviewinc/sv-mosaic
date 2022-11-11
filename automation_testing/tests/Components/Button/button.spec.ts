@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - Button - Kitchen Sink", () => {
+test.describe.parallel("Components - Button - Kitchen Sink", () => {
 	let page: Page;
 	let buttonPage: ButtonPage;
 
@@ -20,7 +20,8 @@ test.describe("Components - Button - Kitchen Sink", () => {
 		const expectedFontWeight = "700";
 		const numberOfButtons = await buttonPage.button.count();
 		for (let i = 0; i < numberOfButtons; i++) {
-			await buttonPage.validateFontWeightFromElement(buttonPage.button.nth(i), expectedFontWeight);
+			const buttonFontWeight = await buttonPage.getFontWeightFromElement(buttonPage.button.nth(i));
+			expect(buttonFontWeight).toBe(expectedFontWeight);
 		}
 	});
 

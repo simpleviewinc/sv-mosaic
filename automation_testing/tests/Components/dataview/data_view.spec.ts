@@ -23,7 +23,7 @@ test.describe.parallel("Components - Data View", () => {
 		browser.close;
 	});
 
-	test("Create New", async ({ page }) => {
+	test("Create New", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("CREATE NEW");
 			dialog.accept();
@@ -32,7 +32,7 @@ test.describe.parallel("Components - Data View", () => {
 		await dataviewPage.createNewBtn.click();
 	});
 
-	test("Edit Icon", async ({ page }) => {
+	test("Edit Icon", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("EDIT");
 			dialog.accept();
@@ -41,7 +41,7 @@ test.describe.parallel("Components - Data View", () => {
 		await (await dataviewPage.getFirstRowEditIcon()).click();
 	});
 
-	test("View Children", async ({ page }) => {
+	test("View Children", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("View Children");
 			dialog.accept();
@@ -54,7 +54,7 @@ test.describe.parallel("Components - Data View", () => {
 	});
 
 
-	test("History", async ({ page }) => {
+	test("History", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("History");
 			dialog.accept();
@@ -76,7 +76,7 @@ test.describe.parallel("Components - Data View", () => {
 		expect(await dataviewPage.deleteBtn.isVisible()).toBe(true);
 	});
 
-	test("Delete A Record", async ({ page }) => {
+	test("Delete A Record", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("DELETE");
 			dialog.accept();
@@ -86,7 +86,7 @@ test.describe.parallel("Components - Data View", () => {
 		await dataviewPage.deleteBtn.click();
 	});
 
-	test("Download A Record", async ({ page }) => {
+	test("Download A Record", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("DOWNLOAD");
 			dialog.accept();
@@ -116,7 +116,7 @@ test.describe.parallel("Components - Data View", () => {
 		await dataviewPage.deleteBtn.click();
 	});
 
-	test("Download all records", async ({ page }) => {
+	test("Download all records", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message().toString().split(",").length).toBe(25);
 			dialog.accept();
