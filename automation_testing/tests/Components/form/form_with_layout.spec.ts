@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormWithLayout } from "../../../pages/Components/Form/FormWithLayoutPage";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Form - Form With Layout", () => {
 	let page: Page;
@@ -34,11 +35,13 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 	});
 
 	test("Validate that the correct Section is selected when scrolling", async () => {
+		const expectColor = (theme.newColors.simplyGold["100"]).split("rgb")[1];
 		const allSectionTitles = await formWithLayoutPage.getSectionsTitlesFromTopComponent();
 		//Scroll to last section
 		const sectionToScroll = allSectionTitles[allSectionTitles.length - 1].toString();
 		await formWithLayoutPage.scrollToSection(sectionToScroll);
+		await formWithLayoutPage.wait();
 		const selectedSectionInTopComponent = await formWithLayoutPage.getSelectedSectionFromTopComponent();
-		expect(await formWithLayoutPage.validateSectionTopComponentElementIsSelected(selectedSectionInTopComponent)).toBe("(252, 183, 49)")
+		expect(await formWithLayoutPage.validateSectionTopComponentElementIsSelected(selectedSectionInTopComponent)).toBe(expectColor);
 	});
 });
