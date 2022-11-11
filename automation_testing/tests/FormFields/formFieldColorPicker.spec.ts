@@ -17,7 +17,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		browser.close;
 	});
 
-	test("Validate the selection of a color in Regular Color Picker by clicking", async ({ page }) => {
+	test("Validate the selection of a color in Regular Color Picker by clicking", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();
@@ -28,7 +28,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		await ffColorPickerPage.saveBtn.click();
 	});
 
-	test("Validate the selection of a color in Regular Color Picker by writing HEX code", async ({ page }) => {
+	test("Validate the selection of a color in Regular Color Picker by writing HEX code", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();

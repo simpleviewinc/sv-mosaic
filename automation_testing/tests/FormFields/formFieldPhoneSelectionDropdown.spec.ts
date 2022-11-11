@@ -12,13 +12,17 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		await ffPhoneSelectionDropdownPage.visitPage();
 	});
 
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
 
 	test("Validate the Regular Phone field.", async () => {
-		await page.reload();
 		const phoneNumber = "7021234567";
+		await ffPhoneSelectionDropdownPage.regularPhoneField.click();
 		await ffPhoneSelectionDropdownPage.regularPhoneField.type(phoneNumber);
 		expect(await ffPhoneSelectionDropdownPage.regularPhoneField.inputValue()).toBe("+1" + phoneNumber);
 

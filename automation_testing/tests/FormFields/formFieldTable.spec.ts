@@ -38,25 +38,25 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffTablePage.actionButton.nth(0).click();
 	});
 
-	test("Validate pressing the Delete action button.", async ({ page }) => {
+	test("Validate pressing the Delete action button.", async () => {
+		await ffTablePage.tableWithExtraActionsAddElementButton.click();
+		await ffTablePage.actionButton.nth(1).click();
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Delete button clicked");
 			await dialog.dismiss();
 		});
-		await ffTablePage.tableWithExtraActionsAddElementButton.click();
-		await ffTablePage.actionButton.nth(1).click();
 	});
 
 	test("Validate pressing the Menu action button.", async ({ page }) => {
+		await ffTablePage.tableWithExtraActionsAddElementButton.click();
+		await ffTablePage.actionButton.nth(2).click();
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Menu actions for row 0");
 			await dialog.dismiss();
 		});
-		await ffTablePage.tableWithExtraActionsAddElementButton.click();
-		await ffTablePage.actionButton.nth(2).click();
 	});
 
-	test("Validate pressing the Translate action button.", async ({ page }) => {
+	test("Validate pressing the Translate action button.", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Translate row 0");
 			await dialog.dismiss();

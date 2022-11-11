@@ -13,19 +13,19 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test.beforeEach(async() => {
-		await ffImageVideoLinkDocumentBrowsingPage.removeAllVisibleCards()
+		await ffImageVideoLinkDocumentBrowsingPage.removeAllVisibleCards();
 	});
 
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
 
-	test("Validate dialog when pressing the Image without src.", async ({ page }) => {
+	test("Validate dialog when pressing the Image without src.", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set image is called");
-			await dialog.dismiss();
+			await dialog.accept();
 		});
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
 	});
 
 	test("Validate Image without src information", async () => {
@@ -61,12 +61,12 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		expect(titles).toContain("Size");
 	});
 
-	test("Validate dialog when pressing the Image with src.", async ({ page }) => {
+	test("Validate dialog when pressing the Image with src.", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set image is called");
 			await dialog.accept();
 		});
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
 	});
 
 	test("Validate Image with src information", async () => {
@@ -103,12 +103,12 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		expect(titles).toContain("Size");
 	});
 
-	test("Validate dialog when pressing the Document button.", async ({ page }) => {
+	test("Validate dialog when pressing the Document button.", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.documentButton.click();
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set document is called");
 			await dialog.accept();
 		});
-		await ffImageVideoLinkDocumentBrowsingPage.documentButton.click();
 	});
 
 	test("Validate Document card information.", async () => {
