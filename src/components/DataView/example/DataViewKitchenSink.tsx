@@ -698,10 +698,6 @@ function DataViewKitchenSink(): ReactElement {
 
 			setTimeout(async () => {
 				const newData = await api.find({
-					limit: state.limit,
-					sort: state.sort,
-					filter: state.filter,
-					skip: state.skip,
 					reorderedList: newRows
 				});
 
