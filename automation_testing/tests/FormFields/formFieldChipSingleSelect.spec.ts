@@ -70,7 +70,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		expect(rowGap).toBe(expectedMarginValue);
 		const numberOfOptions = await ffChipSingleSelectPage.fromDBOptionsChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).count();
 		for (let i = 0; i < numberOfOptions - 1; i++) {
-			await ffChipSingleSelectPage.validateMarginValueFromElement(ffChipSingleSelectPage.disabledChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(i), expectedMarginValue, true);
+			await ffChipSingleSelectPage.validateMarginValueFromElement(ffChipSingleSelectPage.fromDBOptionsChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(i), expectedMarginValue, true);
 		}
 	});
 });
