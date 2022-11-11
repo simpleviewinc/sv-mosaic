@@ -117,6 +117,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Sort title desc", async () => {
+		await dataviewPage.wait();
 		const titleColum = await dataviewPage.getTitleColumn();
 		const titlesSortDesc = (await dataviewPage.getAllRowTitles(dataview_data.resultPerPageDefault)).sort(Intl.Collator().compare).reverse();
 		const titleSplitPerPage = titlesSortDesc.slice(0, dataview_data.resultPerPageDefault);
@@ -138,6 +139,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		const createdColum = await dataviewPage.getCreatedColumn();
 		const createdSort = await sortDatesDesc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault)));
 		const createdSplitPerPage = createdSort.slice(0, dataview_data.resultPerPageDefault);
+		await createdColum.waitFor();
 		await createdColum.click();
 		await createdColum.click();
 		await pagination.wait();
@@ -147,7 +149,6 @@ test.describe.parallel("Components - Data View - Columns", () => {
 
 	test("Validate that column width for long column name is valid.", async () => {
 		await columns.selectColumn("Style - Text Transform with large field text to order column");
-		const longColumnNameLocator = columns.rightItems.locator("text=Style - Text Transform with large field text to order column");
-		expect(await columns.getElementWidth(longColumnNameLocator)).toBe(180);
+		expect(await columns.getElementWidth(columns.rightItems.locator("text=Style - Text Transform with large field text to order column"))).toBe(180);
 	});
 });
