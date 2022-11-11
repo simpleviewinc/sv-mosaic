@@ -24,7 +24,8 @@ test.describe.parallel("Components - Form - Playground", () => {
 		}
 	});
 
-	test("Validate that you can save when completing all required fields", async () => {
+	//Skipping tests until better approach
+	test.skip("Validate that you can save when completing all required fields", async () => {
 		await page.reload();
 		await playgroundPage.fillAllRequiredFields();
 		await playgroundPage.wait()
@@ -40,10 +41,12 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate the font weight of the Title in Top Component.", async () => {
-		await playgroundPage.validateFontWeightFromElement(playgroundPage.title, "250");
+		const titleFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.title);
+		expect(titleFontWeight).toBe("250");
 	});
 
 	test("Validate the font weight of the Description in Top Component.", async () => {
-		await playgroundPage.validateFontWeightFromElement(playgroundPage.description, "250");
+		const descriptionFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.description);
+		expect(descriptionFontWeight).toBe("250");
 	});
 });

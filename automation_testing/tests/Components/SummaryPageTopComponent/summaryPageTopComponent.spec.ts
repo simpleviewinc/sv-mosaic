@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { SummaryPageTopComponentPage } from "../../../pages/Components/SummaryPageTopComponent/SummaryPageTopComponentPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - SummaryPageTopComponent - Kitchen Sink", () => {
+test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", () => {
 	let page: Page;
 	let summaryPage: SummaryPageTopComponentPage;
 
@@ -18,7 +18,8 @@ test.describe("Components - SummaryPageTopComponent - Kitchen Sink", () => {
 
 	test("Validate the font weight of the title.", async () => {
 		const expectedFontWeight = "250";
-		summaryPage.validateFontWeightFromElement(summaryPage.summaryTitle, expectedFontWeight);
+		const titleFontWeight = await summaryPage.getFontWeightFromElement(summaryPage.summaryTitle);
+		expect(titleFontWeight).toBe(expectedFontWeight);
 	});
 
 	test("Validate the font of the title.", async () => {

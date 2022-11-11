@@ -34,9 +34,9 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 		this.browseVideoLocator = page.locator("[data-testid='browse-video-test']");
 		this.browseDocumentLocator = page.locator("[data-testid='browse-document-test']");
 		this.browseLinkLocator = page.locator("[data-testid='browse-link-test']");
-		
+
 		this.imageOrVideoWithoutSrcCard = page.locator("//*[@id='1']");
-		this.imageWithoutSrcButton = page.locator("//*[@id='1']/div/div/div/div/div/div[2]/div/div/div[1]/div[1]");
+		this.imageWithoutSrcButton = this.browseImageLocator.first();
 		this.videoWithoutSrcButton = this.browseVideoLocator.nth(1);
 		this.browsingImageWithSrcCard = page.locator("//*[@id='2']");
 		this.imageWithSrcButton = this.browseImageLocator.nth(2);
