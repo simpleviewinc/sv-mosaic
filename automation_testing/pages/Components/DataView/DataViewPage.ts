@@ -135,7 +135,6 @@ export class DataviewPage extends BasePage {
 		for (let i = 0; i < pages; i++) {
 			titles.push(...(await this.getRowTitles()));
 			await this.paginationComponent.forwardArrow.click();
-			await this.loading.waitFor({ state: "detached" });
 		}
 		return titles;
 	}
@@ -220,5 +219,14 @@ export class DataviewPage extends BasePage {
 			await this.loading.waitFor({ state: "detached" });
 		}
 		return updatedDates;
+	}
+
+	async clearAllAppliedFilters(): Promise<void> {
+		const numberOfFiltersApplied = await this.removeFilterIcon.count()
+		if (numberOfFiltersApplied > 0) {
+			for (let i = 0; i < numberOfFiltersApplied; i++) {
+				await this.removeFilterIcon.nth(i).click({force: true});
+			}
+		}
 	}
 }

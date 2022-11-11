@@ -121,9 +121,8 @@ export class BasePage {
 		await this.page.keyboard.press("Backspace");
 	}
 
-	async validateFontWeightFromElement(element: Locator, expectedValue: string): Promise<void> {
-		const elementFontWeight = await ((element).evaluate(el => getComputedStyle(el).fontWeight));
-		expect(elementFontWeight).toBe(expectedValue);
+	async getFontWeightFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontWeight));
 	}
 
 	async validateMarginValueFromElement(element: Locator, expectedValue: string, isRight: boolean): Promise<void> {

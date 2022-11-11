@@ -19,7 +19,7 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 		expect(await formFieldTextPage.regularTextField.getAttribute("type")).toBe("text");
 	});
 
-	test("Validate that the provided text is saved when submitted.", async ({ page }) => {
+	test("Validate that the provided text is saved when submitted.", async () => {
 		page.on("dialog", async dialog => {
 			const message = dialog.message().split(/[{}]/)[1].split(/[\n":]/).map(el => el.trim()).filter(el => el !== "");
 			expect(message[1]).toBe(sampleText);
