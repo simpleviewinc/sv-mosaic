@@ -27,7 +27,7 @@ test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		}
 	});
 
-	test("Validate that the empty value is saved correctly.", async ({ page }) => {
+	test("Validate that the empty value is saved correctly.", async () => {
 		const selectedOption = await formFieldCheckboxPage.selectRandomCheckboxButton();
 		await formFieldCheckboxPage.saveBtn.click();
 		await formFieldCheckboxPage.uncheckCheckboxOption(selectedOption);
@@ -38,7 +38,7 @@ test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		});
 	});
 
-	test("Validate the color in the checkbox label.", async ({ page }) => {
+	test("Validate the color in the checkbox label.", async () => {
 		const numberOfLabels = await formFieldCheckboxPage.checkboxLabel.count();
 		for (let i = 0; i < numberOfLabels; i++) {
 			if (!await formFieldCheckboxPage.checkboxLabel.nth(i).isDisabled()) {
