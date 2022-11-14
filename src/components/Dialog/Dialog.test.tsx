@@ -88,7 +88,7 @@ describe("Dialog component", () => {
 		expect(screen.getByText("Fourth Button")).toBeDefined();
 	});
 
-	it("should trigger secondary button action", () => {
+	it("should trigger all buttons actions", () => {
 		const secondaryButton = screen.getByText("Close");
 		const primaryButton = screen.getByText("Apply");
 		const thirdButton = screen.getByText("Third Button")
