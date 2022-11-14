@@ -11,6 +11,7 @@ import { useWindowResizer } from "@root/utils/useWindowResizer";
 import { MosaicObject } from "@root/types";
 import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
+import { ButtonProps } from "../Button";
 
 const Form = (props: FormProps) => {
 	const {
@@ -97,6 +98,21 @@ const Form = (props: FormProps) => {
 		return null;
 	}
 
+	const dialogButtons: ButtonProps[] = [
+		{
+			label: "No, stay",
+			onClick: () => handleDialogClose(false),
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: "Yes, leave",
+			onClick: () => handleDialogClose(true),
+			color: "yellow",
+			variant: "contained",
+		},
+	];
+
 	return (
 		<>
 			<div data-testid="form-test-id" style={{ position: "relative", height: "100%" }}>
@@ -149,13 +165,9 @@ const Form = (props: FormProps) => {
 			</div>
 			{type === "drawer" &&
 				<Dialog
+					buttons={dialogButtons}
 					dialogTitle='Are you sure you want to leave?'
 					open={dialogOpen}
-					primaryAction={() => handleDialogClose(true)}
-					primaryBtnLabel='Yes, leave'
-					secondaryAction={() => handleDialogClose(false)}
-					secondaryBtnLabel='No, stay'
-
 				>
 					You have unsaved changes. If you leave all your changes will be lost.
 				</Dialog>
