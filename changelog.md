@@ -1,5 +1,16 @@
 # sv-mosaic changelog
 
+## 11.0.0 - 11/15/22
+* **BREAKING** Updated `DataView` types: `activeFilters` will now always be an array of strings. Previously it was jumping between an array of strings and an object that had `comparison: string`, and `value: string[]`.
+* Added optional prop `onReorder` to `DataView`. This now allows devs to reorder records with a Drag-and-drop functionality.
+* Added optional prop `active` to the `SideNav` component. This now allows devs to update the active tab from outside the component. The component will still work with or without the active prop so devs don't need to worry about updating the active tab when clicking on the links.
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `SimplyGold`.
+	* `DarkerSimplyGold`.
+	* `RealTeal`.
+* Updated the `AdvancedSelectionDrawer` style to now fully adapt to the available space.
+* Updated the `FormFieldChipSingleSelect` style to evenly space chips when spanning multiple rows.
+
 ## 10.0.0 - 11/01/22
 * Fixed `exists` and `not_exists` comparisons in `title with comparison` and `categories with comparison` filters in `DataView` (this only affected Storybook).
 * **BREAKING** Completely removed the `filter` prop from the `SummaryPageTopComponent`.
