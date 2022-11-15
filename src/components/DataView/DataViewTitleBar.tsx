@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
+import theme from "@root/theme";
 // import jsvalidator from "jsvalidator";
 
 import ButtonRow from "../ButtonRow";
@@ -23,8 +24,12 @@ const StyledWrapper = styled.div`
 	}
 
 	& > .left > h1 {
-		margin-right: 20px;
+		color: ${theme.newColors.almostBlack["100"]};
+		font-family: ${theme.museoFont};
+		font-size: 28px;
+		font-weight: 250;
 		margin-bottom: 0px;
+		margin-right: 16px;
 	}
 `;
 
@@ -73,11 +78,13 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 	// });
 
 	const buttons = useMemo(() => {
-		if (props.buttons === undefined) { return; }
+		if (props.buttons === undefined) {
+			return;
+		}
 
-		return props.buttons.map(button => {
+		return props.buttons.map((button) => {
 			const { name, ...buttonArgs } = button;
-			buttonArgs.attrs = { "data-mosaic-id" : `button_${name}` };
+			buttonArgs.attrs = { "data-mosaic-id": `button_${name}` };
 			return buttonArgs;
 		});
 	}, [props.buttons]);
@@ -85,26 +92,19 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 	return (
 		<StyledWrapper>
 			<div className="left">
-				{
-					props.title &&
-					<H1>{props.title}</H1>
-				}
-				{
-					props.buttons &&
-					<ButtonRow buttons={buttons}/>
-				}
+				{props.title && <H1>{props.title}</H1>}
+				{props.savedViewEnabled && (
+					<DataViewViewControls
+						savedView={props.savedView}
+						savedViewState={props.savedViewState}
+						savedViewCallbacks={props.savedViewCallbacks}
+						savedViewAllowSharedViewSave={props.savedViewAllowSharedViewSave}
+					/>
+				)}
 			</div>
-			{
-				props.savedViewEnabled &&
-				<DataViewViewControls
-					savedView={props.savedView}
-					savedViewState={props.savedViewState}
-					savedViewCallbacks={props.savedViewCallbacks}
-					savedViewAllowSharedViewSave={props.savedViewAllowSharedViewSave}
-				/>
-			}
+			{props.buttons && <ButtonRow buttons={buttons} />}
 		</StyledWrapper>
-	)
+	);
 }
 
 export default DataViewTitleBar;

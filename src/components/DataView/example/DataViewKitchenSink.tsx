@@ -231,7 +231,7 @@ const filters: {
 
 const rootDefaultView: DataViewProps["savedView"] = {
 	id: "default",
-	label: "Default View",
+	label: "All",
 	type: "default",
 	state: {
 		limit: 25,
@@ -606,8 +606,8 @@ function DataViewKitchenSink(): ReactElement {
 				name: "create",
 				label: "Create New",
 				mIcon: AddIcon,
-				color: "blue",
-				variant: "outlined",
+				color: "yellow",
+				variant: "contained",
 				onClick: function () {
 					alert("CREATE NEW");
 				}
