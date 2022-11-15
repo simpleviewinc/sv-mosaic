@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 
 import ButtonRow from "../ButtonRow";
 import Button from "../Button";
@@ -24,11 +23,16 @@ const ViewSpan = styled.span`
 		text-overflow: ellipsis;
 		max-width: 200px;
 	}
-`
+`;
 
 const TitleButton = styled(Button)`
 	max-width: 300px;
-`
+	margin-right: 2px;
+
+	p {
+		text-transform: none;
+	}
+`;
 
 interface DataViewViewControlsProps {
 	savedView?: any;
@@ -76,7 +80,6 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 
 	const ViewLabel = (
 		<ViewSpan>
-			<ViewQuiltIcon className="icon"/>
 			<p>
 				{props.savedView.label}
 			</p>
@@ -113,23 +116,23 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 		<div>
 			<div className="right">
 				<ButtonRow>
-					<Button
-						mIcon={ExpandMoreIcon}
-						iconPosition="right"
-						label={t("mosaic:DataView.save_as")}
-						variant="outlined"
-						size="small"
-						color="blue"
-						menuItems={saveMenuItems}
-					/>
 					<TitleButton
 						mIcon={ExpandMoreIcon}
 						iconPosition="right"
 						label={ViewLabel}
 						variant="contained"
 						size="small"
-						color="lightBlue"
+						color="black"
 						onClick={toggleViewDrawer}
+					/>
+					<Button
+						mIcon={ExpandMoreIcon}
+						iconPosition="right"
+						label={t("mosaic:DataView.save_view")}
+						variant="text"
+						size="small"
+						color="teal"
+						menuItems={saveMenuItems}
 					/>
 				</ButtonRow>
 			</div>
