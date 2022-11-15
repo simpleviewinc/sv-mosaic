@@ -6,6 +6,7 @@ import { DatePickerComponent } from "../../../pages/Components/DataView/DatePick
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	let page: Page;
@@ -481,5 +482,18 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 	test("Validate the Updated filter styles.", async () => {
 		await validateFilterStyles(advancedFilters.updatedOption);
+	});
+
+	test("Validate error message has darkRed as color.", async () => {
+		const expectColor = theme.newColors.darkRed["100"];
+		const startDate = advanced_filter_data.validStartDateRange;
+		const endDate = advanced_filter_data.validEndDateRange;
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.createdOption.check();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilterDates(endDate, startDate);
+		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
+		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
+		await advancedFilters.cancelBtn.click();
 	});
 });
