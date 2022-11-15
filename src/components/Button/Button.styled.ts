@@ -134,19 +134,19 @@ const TealOnWhite = styled(ButtonWrapper)`
 
 const RedOnWhite = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.red};
-    border-color: ${theme.colors.red};
+    color: ${theme.newColors.darkRed["100"]};
+    border-color: ${theme.newColors.darkRed["100"]};
     font-family: ${theme.fontFamily};
   }
 
   & > button:hover {
-    background: ${theme.colors.red}12;
+		background: ${theme.newColors.darkRed["20"]};
 		border-radius: 0;
   }
 
   & > button:active,
   & > button:focus {
-    background: ${theme.colors.red}24;
+    background: ${theme.newColors.darkRed["20"]};
   }
 `;
 
@@ -271,7 +271,7 @@ export const types = {
   `,
 	red_contained: styled(ButtonWrapper)`
     & > button {
-      background: ${theme.colors.red};
+      background: ${theme.newColors.darkRed["100"]};
       border-radius: 0;
       color: white;
       font-size: 14px;
@@ -279,7 +279,7 @@ export const types = {
     }
     .MuiButton-contained.Mui-disabled {
       color: white;
-      background-color: ${theme.colors.red};
+      background-color: ${theme.newColors.darkRed["100"]};
       opacity: 0.5;
     }
     & > button:hover {
@@ -385,7 +385,7 @@ export const types = {
     & > button {
       background-color: white;
       border-radius: 0;
-      border: 2px solid ${theme.colors.red};
+      border: 2px solid ${theme.newColors.darkRed["100"]};
       font-size: 14px;
       text-transform: uppercase;
     }
@@ -393,19 +393,19 @@ export const types = {
     .MuiButton-outlined.Mui-disabled {
       background-color: white;
       opacity: 0.5;
-      border: 2px solid ${theme.colors.red};
-      color: ${theme.colors.red};
+      border: 2px solid ${theme.newColors.darkRed["100"]};
+      color: ${theme.newColors.darkRed["100"]};
     }
 
     & > button:hover {
-      background-color: #b100001a;
-      color: ${theme.colors.red};
-			border: 2px solid ${theme.colors.red};
+      background-color: ${theme.newColors.darkRed["20"]};
+      color: ${theme.newColors.darkRed["100"]};
+			border: 2px solid ${theme.newColors.darkRed["100"]};
     }
 
     & > button:active,
     & > button:focus {
-      box-shadow: 0 1px 2px ${theme.colors.red}24;
+      box-shadow: 0 1px 2px ${theme.newColors.darkRed["20"]};
     }
   `,
 	black_outlined: styled(BlackOnWhite)`
@@ -459,7 +459,7 @@ export const types = {
   `,
 	red_text: styled(RedOnWhite)`
 		&.normalButton > button {
-			color: ${theme.colors.red};
+			color: ${theme.newColors.darkRed["100"]};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
