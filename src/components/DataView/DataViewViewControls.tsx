@@ -30,6 +30,7 @@ const TitleButton = styled(Button)`
 	margin-right: 2px;
 
 	p {
+		font-weight: 510;
 		text-transform: none;
 	}
 `;
