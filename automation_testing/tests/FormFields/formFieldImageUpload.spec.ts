@@ -25,7 +25,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		expect(await buttons.locator(":scope", { hasText: "Remove" }).textContent()).toBe("Remove");
 	});
 
-	test("Validate Image Upload with menu options and with set Focus handler", async ({ page }) => {
+	test("Validate Image Upload with menu options and with set Focus handler", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set focus is called");
 			await dialog.dismiss();
@@ -48,7 +48,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		await expect(ffImageUploadPage.disabledImageUploadDiv).toContainText("Loading Image");
 	});
 
-	test("Validate saving Image Upload with menu options and without set Focus", async ({ page }) => {
+	test("Validate saving Image Upload with menu options and without set Focus", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"imgName": "' + imageName + '"');
 			expect(dialog.message()).toContain('"height": ' + height);
