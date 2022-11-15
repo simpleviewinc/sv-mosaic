@@ -42,24 +42,28 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 	});
 
 	test("Validate the xs dropdown", async () => {
+		await page.reload();
 		const option = "The Godfather";
 		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.xsSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.xsSizeDropdownInput.inputValue()).toBe(option);
 	});
 
 	test("Validate the sm dropdown", async () => {
+		await page.reload();
 		const option = "The Godfather";
 		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.smSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.smSizeDropdownInput.inputValue()).toBe(option);
 	});
 
 	test("Validate the md dropdown", async () => {
+		await page.reload();
 		const option = "The Godfather";
 		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.mdSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.mdSizeDropdownInput.inputValue()).toBe(option);
 	});
 
 	test("Validate the lg dropdown", async () => {
+		await page.reload();
 		const option = "The Godfather";
 		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.lgSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.lgSizeDropdownInput.inputValue()).toBe(option);

@@ -15,7 +15,7 @@ test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
 		browser.close;
 	});
 
-	test("Validate Regular Radio Button", async ({ page }) => {
+	test("Validate Regular Radio Button", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain(selectedOptionValue);
 			expect(dialog.message()).toContain(selectedOptionValue.toLocaleLowerCase().replace(/ /g,"_"));

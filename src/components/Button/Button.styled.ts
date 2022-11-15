@@ -128,7 +128,7 @@ const TealOnWhite = styled(ButtonWrapper)`
 
   & > button:hover {
 		border-radius: 0;
-    color: ${theme.colors.tealHover};
+    color: ${theme.newColors.darkerRealTeal[100]};
   }
 `;
 
@@ -437,7 +437,7 @@ export const types = {
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 
 			&:hover {
-				color: ${({ children }) => !children[0].props.disabled ? theme.colors.tealHover : ""};
+				color: ${({ children }) => !children[0].props.disabled ? theme.newColors.darkerRealTeal[100] : ""};
 			}
 		}
 

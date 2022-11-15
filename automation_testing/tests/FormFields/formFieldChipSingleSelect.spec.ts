@@ -21,7 +21,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		await expect(ffChipSingleSelectPage.page.locator("p", { hasText: "This field is required, please fill it" })).toBeVisible();
 	});
 
-	test("Validate the selection Regular Chip Single Select", async ({ page }) => {
+	test("Validate the selection Regular Chip Single Select", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain(regularOptionLabel);
 			expect(dialog.message()).toContain(regularOptionLabel.replace(/ /g,"_"));
@@ -39,7 +39,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		}
 	});
 
-	test("Validate the selection Required Chip Single Select", async ({ page }) => {
+	test("Validate the selection Required Chip Single Select", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain(requiredOptionLabel);
 			expect(dialog.message()).toContain(requiredOptionLabel.replace(/ /g,"_"));
@@ -50,7 +50,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		await ffChipSingleSelectPage.saveBtn.click();
 	});
 
-	test("Validate saving the selection for Chip Single Select", async ({ page }) => {
+	test("Validate saving the selection for Chip Single Select", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain(regularOptionLabel);
 			expect(dialog.message()).toContain(regularOptionLabel.replace(/ /g,"_"));
@@ -70,8 +70,8 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		const rowGap = await ((ffChipSingleSelectPage.fromDBOptionDiv).evaluate(el => getComputedStyle(el).rowGap));
 		expect(rowGap).toBe(expectedMarginValue);
 		const numberOfOptions = await ffChipSingleSelectPage.fromDBOptionsChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).count();
-		for (let i = 0; i < numberOfOptions; i++) {
-			await ffChipSingleSelectPage.validateMarginValueFromElement(ffChipSingleSelectPage.disabledChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(i), expectedMarginValue, true);
+		for (let i = 0; i < numberOfOptions - 1; i++) {
+			await ffChipSingleSelectPage.validateMarginValueFromElement(ffChipSingleSelectPage.fromDBOptionsChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(i), expectedMarginValue, true);
 		}
 	});
 

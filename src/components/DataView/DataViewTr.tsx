@@ -47,7 +47,7 @@ function DataViewTr(props: DataViewTrProps) {
 					{
 						props?.onReorder &&
 						<DataViewTd key="_draggable" draggableProvider={provider}>
-							<DragIndicatorIcon />
+							<DragIndicatorIcon style={{display: "flex"}}/>
 						</DataViewTd>
 					}
 					{
