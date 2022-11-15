@@ -17,7 +17,7 @@ export const ErrorTextWrapper = styled.div`
 export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`
   &.MuiSvgIcon-root {
     font-size: 16px;
-    color: ${theme.colors.red};
+    color: ${theme.newColors.darkRed["100"]};
 	margin-right: 8px;
   }
 `;
@@ -31,7 +31,7 @@ export const StyledText = styled(MUIFormHelperText)`
   }
 
   &.MuiFormHelperText-root.Mui-error {
-    color: ${theme.colors.red};
+    color: ${theme.newColors.darkRed["100"]};
     margin: 0;
   }
 `;
