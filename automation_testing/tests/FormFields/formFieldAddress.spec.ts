@@ -16,7 +16,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		browser.close;
 	});
 
-	test("Validate that Postal Code type is equal to String.", async ({page}) => {
+	test("Validate that Postal Code type is equal to String.", async () => {
 		await ffAddressPage.addAddressButton.click();
 		expect(await ffAddressPage.postalCodeField.getAttribute("type")).toBe("string");
 	});

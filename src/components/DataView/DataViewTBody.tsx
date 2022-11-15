@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
@@ -101,14 +101,6 @@ function DataViewTBody(props: DataViewTBodyProps) {
 		throwOnInvalid : true
 	});
 
-	const [rows, setRows] = useState([]);
-
-	useEffect(() => {
-		if (props.transformedData) {
-			setRows(props.transformedData)
-		}
-	}, [props.transformedData])
-
 	const onCheckboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
@@ -121,10 +113,9 @@ function DataViewTBody(props: DataViewTBodyProps) {
 	const handleDragEnd =  ({ destination, source }: DropResult) => {
 		if (!destination) return;
 
-		const rowsCopy = [...rows];
+		const rowsCopy = [...props.data].map(row => row.id);
 		const [source_data] = rowsCopy.splice(source.index, 1);
 		rowsCopy.splice(destination.index, 0, source_data);
-		setRows(rowsCopy);
 
 		props.onReorder(rowsCopy);
 	};
@@ -134,7 +125,7 @@ function DataViewTBody(props: DataViewTBodyProps) {
 			<Droppable droppableId="droppable-rows">
 				{(provider) => (
 					<StyledTBody ref={provider.innerRef} {...provider.droppableProps}>
-						{rows.map((row, i) => (
+						{props.transformedData.map((row, i) => (
 							<DataViewTr
 								key={i}
 								rowIdx={i}

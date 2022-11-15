@@ -4,7 +4,7 @@ import { text, withKnobs } from "@storybook/addon-knobs";
 
 // Components
 import Dialog from "./Dialog";
-import Button from "@root/components/Button";
+import Button, { ButtonProps } from "@root/components/Button";
 
 export default {
 	title: "Components/Dialog",
@@ -39,6 +39,21 @@ export const Example = (): ReactElement => {
 		setOpen(false);
 	};
 
+	const buttons: ButtonProps[] = [
+		{
+			label: secondaryBtnLabel,
+			onClick: handleClose,
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: primaryBtnLabel,
+			onClick: primaryAction,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
+
 	return (
 		<>
 			<Button
@@ -51,10 +66,7 @@ export const Example = (): ReactElement => {
 			<Dialog
 				dialogTitle={dialogTitle}
 				open={open}
-				primaryAction={primaryAction}
-				primaryBtnLabel={primaryBtnLabel}
-				secondaryAction={handleClose}
-				secondaryBtnLabel={secondaryBtnLabel}
+				buttons={buttons}
 			>
 				{dialogContent}
 			</Dialog>

@@ -16,10 +16,7 @@ const Dialog = (props: DialogProps): ReactElement => {
 		children,
 		dialogTitle,
 		open,
-		primaryAction,
-		primaryBtnLabel = "Apply",
-		secondaryAction,
-		secondaryBtnLabel = "Cancel",
+		buttons,
 	} = props;
 
 	return (
@@ -27,20 +24,9 @@ const Dialog = (props: DialogProps): ReactElement => {
 			<StyledDialogTitle>{dialogTitle}</StyledDialogTitle>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
-				<Button
-					color="gray"
-					variant="outlined"
-					label={secondaryBtnLabel}
-					onClick={secondaryAction}
-					muiAttrs={{disableRipple: true}}
-				></Button>
-				<Button
-					color="yellow"
-					variant="contained"
-					onClick={primaryAction}
-					label={primaryBtnLabel}
-					muiAttrs={{disableRipple: true}}
-				></Button>
+				{buttons?.map((button, idx) => (
+					<Button key={`${button.label}-${idx}`} {...button} />
+				))}
 			</DialogActions>
 		</StyledDialog>
 	);
