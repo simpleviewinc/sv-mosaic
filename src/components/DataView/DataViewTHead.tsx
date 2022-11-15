@@ -6,7 +6,6 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import Checkbox from "@root/components/Checkbox";
-import DataViewColumnControl from "./DataViewColumnControl";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
 import DataViewBulkAllBar from "../DataView/DataViewBulkAllBar";
 
@@ -244,14 +243,6 @@ function DataViewTHead(props: DataViewTHeadProps) {
 						paddingRight
 						${ !props?.bulkActions?.length ? "paddingLeft" : "" }
 					`}>
-						{
-							props.onColumnsChange !== undefined &&
-							<DataViewColumnControl
-								onChange={props.onColumnsChange}
-								columns={props.columns}
-								allColumns={props.allColumns}
-							/>
-						}
 						{
 							// We need to indent the actions by 11px to align with the buttons underneath
 							!props.onColumnsChange &&

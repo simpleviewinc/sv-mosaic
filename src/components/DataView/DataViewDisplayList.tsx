@@ -1,10 +1,8 @@
 import * as React from "react";
-import { useMemo } from "react";
 import styled from "styled-components";
 
 import DataViewTHead from "./DataViewTHead";
 import DataViewTBody from "./DataViewTBody";
-import { transformRows } from "../../utils/dataViewTools";
 import { DataViewProps } from "./DataViewTypes";
 
 const StyledTable = styled.table`
@@ -30,35 +28,19 @@ interface DataViewDisplayListProps {
 	additionalActions?: any;
 	primaryActions?: any;
 	onCheckboxClick?: any;
+	transformedData?: any;
+	activeColumnObjs?: any;
 }
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
-	// todo validate props
-	const activeColumns = useMemo(() => {
-		return props.activeColumns || props.columns.map(val => val.name);
-	}, [props.activeColumns, props.columns]);
-
-	// generate an array of columns based on the ones that are marked active
-	const activeColumnObjs = useMemo(() => {
-		return activeColumns.map(name => {
-			const column = props.columns.find(val => val.name === name);
-			return column;
-		});
-	}, [activeColumns, props.columns]);
-
-	// execute the transforms in the rows
-	const transformedData = useMemo(() => {
-		return transformRows(props.data, activeColumnObjs);
-	}, [props.data, activeColumnObjs]);
-
 	return (
 		<StyledTable>
 			<DataViewTHead
 				checked={props.checked}
 				checkedAllPages={props.checkedAllPages}
-				columns={activeColumnObjs}
+				columns={props.activeColumnObjs}
 				allColumns={props.columns}
-				data={transformedData}
+				data={props.transformedData}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
 				count={props.count}
@@ -71,9 +53,9 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 			/>
 			<DataViewTBody
 				checked={props.checked}
-				columns={activeColumnObjs}
+				columns={props.activeColumnObjs}
 				data={props.data}
-				transformedData={transformedData}
+				transformedData={props.transformedData}
 				bulkActions={props.bulkActions}
 				additionalActions={props.additionalActions}
 				primaryActions={props.primaryActions}
