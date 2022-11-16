@@ -8,7 +8,7 @@ interface Relationship {
 }
 
 class JSONDB {
-	data: object[]
+	data: {[key: string]: any}[]
 	relationships: Relationship[]
 	constructor(data, { relationships }: { relationships?: Relationship[] } = {}) {
 		this.data = data;
