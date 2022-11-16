@@ -19,14 +19,14 @@ callbacks: PageCallbacks;
 		{
 			label: "Cancel",
 			onClick: appContext.removeDrawer,
-			color: "gray" as ButtonProps['color'],
-			variant: "outlined" as ButtonProps['variant'],
+			color: "gray" as ButtonProps["color"],
+			variant: "outlined" as ButtonProps["variant"],
 		},
 		{
 			label: "Save",
 			onClick: () => callbacks.save(state.data),
-			color: "yellow" as ButtonProps['color'],
-			variant: "contained" as ButtonProps['variant'],
+			color: "yellow" as ButtonProps["color"],
+			variant: "contained" as ButtonProps["variant"],
 			show: callbacks.save ? true : false
 		},
 		{
@@ -72,8 +72,8 @@ callbacks: PageCallbacks;
 						},
 					},
 				}),
-			color: "teal" as ButtonProps['color'],
-			variant: "outlined" as ButtonProps['variant'],
+			color: "teal" as ButtonProps["color"],
+			variant: "outlined" as ButtonProps["variant"],
 		},
 	]
 
