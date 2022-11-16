@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-export const ANIMATION_DURATION = 200;
+export const ANIMATION_DURATION = 250;
 
 export const openAnimation = keyframes`
 	from {
