@@ -43,26 +43,6 @@ export const Example = (): ReactElement => {
 		<AppContext.Provider value={appContext}>
 			<div className="App">
 				<h1>Drawer Demo</h1>
-				<ul>
-					<li>
-				While animating, the UI is locked to prevent race conditions with
-				opening/closing new drawers
-					</li>
-					<li>Can open infinite amount of stacked drawers</li>
-					<li>
-				When a drawer is opened, the opener passes callbacks to it to
-				execute when save() is clicked
-					</li>
-					<li>
-				Animations custom built via keyframes rather than using material-ui
-				drawer defaults to handle stacking cleanly
-					</li>
-					<li>
-				App passes to Drawers a JSON Def for each drawer and passes a render
-				prop. This separates the concerns of animating and displaying the
-				drawer (Mosaic) from rendering the content of the drawer (App).
-					</li>
-				</ul>
 				<p>From Form: {JSON.stringify(state.content)}</p>
 				<button
 					onClick={() =>
