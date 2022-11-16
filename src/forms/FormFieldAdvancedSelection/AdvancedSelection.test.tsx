@@ -129,7 +129,7 @@ describe("AdvancedSelection component", () => {
 		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
-		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
 		const optionCheckbox = await screen.findByText("Option 2");
 		fireEvent.click(optionCheckbox);
@@ -144,7 +144,7 @@ describe("AdvancedSelection component", () => {
 		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
-		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
 		const optionCheckbox = await screen.findByText("Option 2");
 		fireEvent.click(optionCheckbox);
@@ -166,7 +166,7 @@ describe("AdvancedSelection component", () => {
 		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
-		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
 		const inputNode = screen.getByPlaceholderText("Search...");
 		fireEvent.change(inputNode, { target: { value: "abc" } });
@@ -184,7 +184,7 @@ describe("AdvancedSelection component", () => {
 		const addButton = screen.getByText("ADD");
 		fireEvent.click(addButton);
 
-		expect(await screen.findByTestId("drawer-title-test")).toBeTruthy();
+		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
 		const inputNode = screen.getByPlaceholderText("Search...");
 		fireEvent.change(inputNode, { target: { value: "Brand new option" } });

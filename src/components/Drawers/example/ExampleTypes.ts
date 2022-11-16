@@ -1,28 +1,29 @@
-import { Callbacks } from "../DrawersTypes";
+import { FieldDef } from "@root/components/Field";
 
-export interface PageDef<T> {
-	name: string;
-	component: string;
-	args: T;
+export type PageConfig = FormConfig | GridConfig;
+
+export type AnyFunc = (...args: any) => any;
+
+export interface FormConfig {
+  type: "form";
+  title: string;
+  fields: FieldDef[];
 }
 
-export interface GridDef {
-	title: string;
+export interface GridConfig {
+  type: "grid";
+  title: string;
+  data: Record<string, string>[];
 }
 
-  
-interface NavigateBack {
-	context: "back";
+export interface DrawerDef {
+  config: PageConfig;
+  callbacks?: PageCallbacks;
 }
 
-interface NavigateForward {
-	context: "main" | "drawer";
-	name: string;
-	callbacks?: Callbacks;
-}
-  
-export type NavigateOptions = NavigateBack | NavigateForward;
+export type PageCallbacks = Record<string, AnyFunc>;
 
-export interface NavigateFn {
-	(options: NavigateOptions): void;
+export interface AppState {
+	content: Record<string, any>;
+	drawers: DrawerDef[];
 }
