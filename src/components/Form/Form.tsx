@@ -4,7 +4,7 @@ import { StyledDisabledForm, StyledForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
 import FormLayout from "./FormLayout";
-import TopComponent from "@root/forms/TopComponent";
+import TopComponent, { ViewType } from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
 import FormNav from "@root/forms/FormNav";
 import { useWindowResizer } from "@root/utils/useWindowResizer";
@@ -127,7 +127,12 @@ const Form = (props: FormProps) => {
 							description={description}
 							onCancel={onCancel ? (e) => cancel(e) : null}
 							sections={sections}
-							view={view}
+							view={
+								type?.toUpperCase() === "DRAWER" ?
+									type.toUpperCase() as ViewType
+									:
+									view
+							}
 							buttons={filteredButtons}
 							sectionsRefs={sectionsRefs}
 							contentRef={contentRef}

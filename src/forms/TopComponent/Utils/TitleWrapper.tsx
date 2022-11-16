@@ -13,13 +13,7 @@ export const FormTitle = styled.span`
 	font-family: ${pr => pr.type  === "DRAWER" ? theme.fontFamily : theme.museoFont};
 	color: ${theme.colors.almostBlack};
 	font-size: ${pr => pr.type && pr.type === "DRAWER" ? "20px" : "28px"};
-	font-weight: ${theme.fontWeight.light};
-	${(pr) => pr.type === "DRAWER" &&
-			`
-				font-weight: ${theme.fontWeight.medium};
-				margin: auto;
-			`
-};
+	font-weight: ${pr => pr.type === "DRAWER" ? theme.fontWeight.medium : theme.fontWeight.light};
 
 	@media (max-width: ${theme.breakpoints.mobile}) {
 		margin: 0;
