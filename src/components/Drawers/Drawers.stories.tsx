@@ -4,17 +4,12 @@ import { ReactElement, useCallback, useMemo, useState } from "react";
 // Components
 import Drawers from "./Drawers";
 import AppContext from "./example/AppContext";
-import { DrawerDef } from "./example/ExampleTypes";
+import { AppState, DrawerDef } from "./example/ExampleTypes";
 import Page from "./example/Page";
 
 export default {
 	title: "Components/Drawers",
 };
-
-interface AppState {
-	content: Record<string, any>;
-	drawers: DrawerDef[];
-}
 
 export const Example = (): ReactElement => {
 	const [state, setState] = useState<AppState>({

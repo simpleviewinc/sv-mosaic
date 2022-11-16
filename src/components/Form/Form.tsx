@@ -23,7 +23,7 @@ const Form = (props: FormProps) => {
 		sections,
 		dispatch,
 		onCancel,
-		dialogOpen,
+		dialogOpen = false,
 		description,
 		getFormValues,
 		handleDialogClose,
