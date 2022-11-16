@@ -111,6 +111,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.keywordBtn.click();
 		await filter.keywordInput.type(filter_data.lowerCaseKeywordFilter);
 		await filter.cancelBtn.click();
+		await filter.cancelBtn.waitFor({ state: "hidden" });
 		expect(await filter.getKeywordText()).toBe("Any");
 		expect(await filter.keywordInput.isVisible()).toBe(false);
 	});
