@@ -22,3 +22,8 @@ export interface DrawerDef {
 }
 
 export type PageCallbacks = Record<string, AnyFunc>;
+
+export interface AppState {
+	content: Record<string, any>;
+	drawers: DrawerDef[];
+}
