@@ -53,7 +53,7 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 							<CloseIcon />
 						</IconButton>
 					)}
-					<FormTitle type={view} data-testid="drawer-title-test">
+					<FormTitle type={"DRAWER"} data-testid="drawer-title-test">
 						{title}
 					</FormTitle>
 					{tooltipInfo && helpIcon}
