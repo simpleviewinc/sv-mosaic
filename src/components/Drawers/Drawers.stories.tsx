@@ -75,7 +75,28 @@ export const Example = (): ReactElement => {
 							config: {
 								type: "form",
 								title: "New Form",
-								fields: ["foo", "bar", "baz", "from_parent"],
+								fields: [
+									{
+										name: "foo",
+										label: "Foo",
+										type: "text",
+									},
+									{
+										name: "bar",
+										label: "Bar",
+										type: "text",
+									},
+									{
+										name: "baz",
+										label: "Baz",
+										type: "text",
+									},
+									{
+										name: "from_parent",
+										label: "From Parent",
+										type: "text",
+									},
+								],
 							},
 							callbacks: {
 								save: (data) => {

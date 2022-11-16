@@ -1,3 +1,5 @@
+import { FieldDef } from "@root/components/Field";
+
 export type PageConfig = FormConfig | GridConfig;
 
 export type AnyFunc = (...args: any) => any;
@@ -5,7 +7,7 @@ export type AnyFunc = (...args: any) => any;
 export interface FormConfig {
   type: "form";
   title: string;
-  fields: string[];
+  fields: FieldDef[];
 }
 
 export interface GridConfig {
