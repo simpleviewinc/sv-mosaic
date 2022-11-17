@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 // import jsvalidator from "jsvalidator";
 
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
+import SwitchRightIcon from "@mui/icons-material/SwitchRight";
 
 import Checkbox from "@root/components/Checkbox";
 import DataViewColumnControl from "./DataViewColumnControl";
@@ -62,9 +62,9 @@ const StyledTh = styled.th`
 
 	& > .columnHeader > .icon {
 		visibility: hidden;
-		font-size: 18px;
-		margin-left: 0.25rem;
-		margin-top: 1px;
+		font-size: 20.58px;
+		margin-left: 12px;
+		transform: rotate(90deg);
 	}
 
 	&.active {
@@ -223,6 +223,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					<StyledTh key="_bulk" className="bulk">
 						<Checkbox
 							checked={allChecked}
+							indeterminate={!allChecked && anyChecked}
 							onClick={props.onCheckAllClick}
 						/>
 					</StyledTh>
@@ -275,7 +276,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 
 						if (column.sortable) {
 							active = props.sort.name === column.name;
-							Icon = active && props.sort.dir === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon;
+							Icon = active && props.sort.dir === "desc" ? SwitchLeftIcon : SwitchRightIcon;
 							clickDir = active ? flipDir(props.sort.dir) : "asc";
 						}
 
