@@ -6,6 +6,8 @@ import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { DataViewProps } from "./DataViewTypes";
+import styled from "styled-components";
+import theme from "@root/theme";
 // import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 
 interface DataViewTrProps {
@@ -33,6 +35,9 @@ interface DataViewTrProps {
 // 	};
 // }
 
+const TableRow = styled.tr`
+	background-color: ${props => props.checked ? theme.newColors.grey1[100] : null};
+`
 //TODO PROPS
 function DataViewTr(props: DataViewTrProps) {
 	return (
@@ -43,7 +48,7 @@ function DataViewTr(props: DataViewTrProps) {
 			isDragDisabled={!props?.onReorder}
 		>
 			{(provider) => (
-				<tr {...provider.draggableProps} ref={provider.innerRef}>
+				<TableRow {...provider.draggableProps} ref={provider.innerRef} checked={props.checked}>
 					{
 						props?.onReorder &&
 						<DataViewTd key="_draggable" draggableProvider={provider}>
@@ -87,7 +92,7 @@ function DataViewTr(props: DataViewTrProps) {
 							);
 						})
 					}
-				</tr>
+				</TableRow>
 			)}
 		</Draggable>
 	);
