@@ -402,6 +402,11 @@ function DataView (props: DataViewProps): ReactElement  {
 					savedViewState={savedViewState}
 					savedViewCallbacks={savedViewCallbacks}
 					savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
+					loading={props.loading}
+					filter={props.filter}
+					filters={props.filters}
+					activeFilters={props.activeFilters}
+					onActiveFiltersChange={props.onActiveFiltersChange}
 				/>
 			</div>
 			<div className={display === "list" ? "headerList" : "headerRow filters"}>

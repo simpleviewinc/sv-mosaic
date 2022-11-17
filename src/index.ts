@@ -95,6 +95,9 @@ export * from "./components/Content";
 export { default as Popover } from "./components/Popover";
 export * from "./components/Popover";
 
+export { default as DrawerHeader } from "./components/DrawerHeader";
+export * from "./components/DrawerHeader";
+
 export { default as theme } from "./theme";
 export * from "./theme";
 
