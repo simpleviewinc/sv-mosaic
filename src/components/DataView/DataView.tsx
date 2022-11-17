@@ -6,7 +6,6 @@ import DataViewTitleBar from "./DataViewTitleBar";
 import DataViewControlDisplay from "./DataViewControlDisplay";
 import DataViewPager from "./DataViewPager";
 import DataViewControlLimit from "./DataViewControlLimit";
-import DataViewFilters from "./DataViewFilters";
 import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";
@@ -26,10 +25,6 @@ const StyledWrapper = styled.div`
 		-webkit-flex: 0 0 auto;
 		flex: 0 0 auto;
 		margin-bottom: 8px;
-	}
-
-	& > .headerRow.title {
-		margin-left: 12px;
 	}
 
 	& > .headerRow > .right {
@@ -387,22 +382,14 @@ function DataView (props: DataViewProps): ReactElement  {
 					savedViewState={savedViewState}
 					savedViewCallbacks={savedViewCallbacks}
 					savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
+					loading={props.loading}
+					filter={props.filter}
+					filters={props.filters}
+					activeFilters={props.activeFilters}
+					onActiveFiltersChange={props.onActiveFiltersChange}
 				/>
 			</div>
 			<div className="headerRow filters">
-				<div className="left">
-					{
-						//loading isn't being used in DataViewFilters, should it be propped down?
-						props.filters &&
-						<DataViewFilters
-							loading={props.loading}
-							filter={props.filter}
-							filters={props.filters}
-							activeFilters={props.activeFilters}
-							onActiveFiltersChange={props.onActiveFiltersChange}
-						/>
-					}
-				</div>
 				<div className="right">
 					{
 						displayControlEnabled &&
