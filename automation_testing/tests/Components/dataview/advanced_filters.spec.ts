@@ -42,7 +42,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.moreBtn.click();
 		await filter.check();
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.optionalFilters.first().click();
 		await advancedFilters.waitForElementLoad();
 
 		const applyFontWeight = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontWeight)));
@@ -85,7 +85,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.singleSelectCategoryOption.click();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.optionalFilters.click();
-		const categorySelected = (await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption());
+		const categorySelected = await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption();
 		expect((await advancedFilters.getSelectedValueForSingleSelectCategoryOption())).toBe(categorySelected);
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -317,7 +317,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.createdOption.check();
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.optionalFilters.first().click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.fromCalendarButton.click();
@@ -367,7 +367,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
-		const filterBtn = advancedFilters.optionalFilters.nth(0).locator("button");
+		const filterBtn = advancedFilters.optionalFilters.first();
 		await (await advancedFilters.getCloseBtn(filterBtn)).click();
 		await advancedFilters.waitForElementLoad();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
@@ -411,7 +411,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.optionalFilters.first().click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.fromCalendarButton.click();
@@ -464,7 +464,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
-		const filterBtn = await advancedFilters.optionalFilters.nth(0).locator("button");
+		const filterBtn = await advancedFilters.optionalFilters.first();
 		await (await advancedFilters.getCloseBtn(await filterBtn)).click();
 		await advancedFilters.waitForElementLoad();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
