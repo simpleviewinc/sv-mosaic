@@ -100,15 +100,15 @@ function flipDir(sort) {
 interface DataViewTHeadProps {
 	checked?: any;
 	bulkActions?: any;
-	columns?: any;
+	columns?: DataViewProps["columns"];
 	onReorder?: DataViewProps["onReorder"];
 	rowCount?: any;
 	count?: any;
 	onCheckAllClick?: any;
 	data?: any;
 	checkedAllPages?: any;
-	onColumnsChange?: any;
-	allColumns?: any;
+	onColumnsChange?: DataViewProps["onColumnsChange"];
+	allColumns?: DataViewProps["columns"];
 	onSortChange?: any;
 	sort?: any;
 	onCheckAllPagesClick?: any;

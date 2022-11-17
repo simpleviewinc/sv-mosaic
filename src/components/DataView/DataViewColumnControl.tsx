@@ -5,11 +5,12 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Button from "../Button";
 import DataViewColumnDrawer from "./DataViewColumnDrawer";
 import { useMosaicTranslation } from "@root/i18n";
+import { DataViewProps } from "./DataViewTypes";
 
 interface DataViewColumnControlProps {
-	onChange?: any;
-	columns?: any;
-	allColumns?: any;
+	onChange?: DataViewProps["onColumnsChange"];
+	columns?:  DataViewProps["columns"];
+	allColumns?: DataViewProps["columns"];
 }
 
 export default function DataViewColumnControl(props: DataViewColumnControlProps) {
