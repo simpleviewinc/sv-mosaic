@@ -4,6 +4,8 @@ import styled from "styled-components";
 import DataViewTHead from "./DataViewTHead";
 import DataViewTBody from "./DataViewTBody";
 import { DataViewProps } from "./DataViewTypes";
+import { useMemo } from "react";
+import { transformRows } from "@root/utils/dataViewTools";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -28,11 +30,15 @@ interface DataViewDisplayListProps {
 	additionalActions?: any;
 	primaryActions?: any;
 	onCheckboxClick?: any;
-	transformedData?: any;
 	activeColumnObjs?: any;
 }
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
+	// execute the transforms in the rows
+	const transformedData = useMemo(() => {
+		return transformRows(props.data, props.activeColumnObjs);
+	}, [props.data, props.activeColumnObjs]);
+
 	return (
 		<StyledTable>
 			<DataViewTHead
@@ -40,7 +46,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				checkedAllPages={props.checkedAllPages}
 				columns={props.activeColumnObjs}
 				allColumns={props.columns}
-				data={props.transformedData}
+				data={transformedData}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
 				count={props.count}
@@ -55,7 +61,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				checked={props.checked}
 				columns={props.activeColumnObjs}
 				data={props.data}
-				transformedData={props.transformedData}
+				transformedData={transformedData}
 				bulkActions={props.bulkActions}
 				additionalActions={props.additionalActions}
 				primaryActions={props.primaryActions}
