@@ -1,72 +1,73 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-
-import Button from "../Button";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import theme from "@root/theme";
 import CheckboxList from "@root/components/CheckboxList";
-import DrawerContent from "@root/components/DrawerContent";
 import { useMosaicTranslation } from "@root/i18n";
+import DrawerHeader from "../DrawerHeader";
+import {
+	DragDropContext,
+	Draggable,
+	Droppable,
+	DropResult,
+} from "react-beautiful-dnd";
+import { DataViewProps } from "./DataViewTypes";
+import { ButtonProps } from "../Button";
+
+const ColumnTitle = styled.h2`
+  color: ${theme.newColors.almostBlack["100"]};
+  font-size: 20px;
+  font-weight: ${theme.fontWeight.normal};
+  line-height: 24px;
+  margin: 0 0 24px 0;
+`;
 
 const StyledWrapper = styled.div`
+  display: flex;
+  margin-top: 30px;
+
+  & > .left {
+    border-right: 2px solid ${theme.newColors.grey2["100"]};
+    flex: 1;
+    padding: 0 32px 0 40px;
+    width: 265px;
+  }
+
+  & > .left .listItem {
+    margin: 3px 0px;
+    background: white;
+  }
+
+  & > .right {
+    flex: 1;
+		margin: 0 44px 0 32px;
+    width: 280px;
+  }
+`;
+
+const ColumItem = styled.div`
 	display: flex;
+	margin-bottom: 27.5px;
 
-	& > div > h2 {
-		${theme.h2}
-		padding-left: 15px;
-		margin: 0 0 1rem 0;
+	span {
+		margin-left: 23px;
 	}
 
-	& > .left {
-		flex: 1;
-		padding-right: 20px;
-		width: 200px;
+	.MuiSvgIcon-root {
+		color: ${theme.newColors.grey3["100"]};
 	}
-
-	& > .left .listItem {
-		margin: 3px 0px;
-		background: white;
-	}
-
-	& > .right {
-		flex: 1;
-		width: 200px;
-	}
-
-	& > .right > .item {
-		background: white;
-		line-height: 42px;
-		margin: 3px 0px;
-		display: flex;
-		justify-content: space-between;
-		padding-left: 15px;
-
-		& > span:first-child {
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			display: -webkit-box;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			width: 180px;
-		}
-	}
-
-	& > .right > .item > .buttons {
-		text-align: right;
-	}
-`
+`;
 
 interface DataViewColumnDrawerContentProps {
-	columns?: any;
-	onClose?: any;
-	onChange?: any;
-	allColumns?: any;
+  columns?: DataViewProps["columns"];
+  onClose?: () => void;
+  onChange?: DataViewProps["onColumnsChange"];
+  allColumns?: DataViewProps["columns"];
 }
 
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [state, setState] = useState({
-		activeColumns : props.columns.map(val => val.name)
+		activeColumns: props.columns.map((val) => val.name),
 	});
 
 	const { t } = useMosaicTranslation();
@@ -74,51 +75,67 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const saveColumns = function() {
 		props.onClose();
 		props.onChange(state.activeColumns);
-	}
+	};
 
 	const onColumnsChange = function(data) {
 		setState({
 			...state,
-			activeColumns : data
+			activeColumns: data,
 		});
-	}
+	};
 
-	const orderClick = (name, num) => () => {
-		// changing the order is actually just swapping one element for another
-		// so we find the elements current position and it's new position and swap the two names
-		const index = state.activeColumns.indexOf(name);
-		const newIndex = index + num;
-		const swapValue = state.activeColumns[newIndex];
+	/**
+   * When a drag has ended the order of the columns are updated.
+   * @param e drag event.
+   */
+	const handleDragEnd = ({ destination, source }: DropResult) => {
+		if (!destination) return;
 
-		state.activeColumns[index] = swapValue;
-		state.activeColumns[newIndex] = name;
+		const activeColumns = [...state.activeColumns];
+		const [source_data] = activeColumns.splice(source.index, 1);
+		activeColumns.splice(destination.index, 0, source_data);
 
 		setState({
 			...state,
-			activeColumns : [...state.activeColumns]
+			activeColumns,
 		});
-	}
+	};
 
-	const columnOptions = props.allColumns.map(column => {
-		return {
-			label : column.label,
-			value : column.name
-		}
-	}).sort((a, b) => {
-		return a.label.localeCompare(b.label)
-	});
+	const columnOptions = props.allColumns
+		.map((column) => {
+			return {
+				label: column.label,
+				value: column.name,
+			};
+		})
+		.sort((a, b) => {
+			return a.label.localeCompare(b.label);
+		});
+
+	const drawerButton: ButtonProps[] = [
+		{
+			label: t("mosaic:common.cancel"),
+			color: "gray",
+			variant: "outlined",
+			onClick: props.onClose,
+		},
+		{
+			label: t("mosaic:common.apply"),
+			onClick: saveColumns,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	return (
-		<DrawerContent
-			title={t("mosaic:DataView.table_settings")}
-			background="gray"
-			onApply={saveColumns}
-			onClose={props.onClose}
-			onCancel={props.onClose}
-		>
+		<div>
+			<DrawerHeader
+				title={t("mosaic:DataView.table_settings")}
+				buttons={drawerButton}
+			/>
 			<StyledWrapper>
 				<div className="left">
-					<h2>{t("mosaic:DataView.columns")}</h2>
+					<ColumnTitle>{t("mosaic:DataView.columns")}</ColumnTitle>
 					<CheckboxList
 						options={columnOptions}
 						checked={state.activeColumns}
@@ -126,40 +143,44 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 					/>
 				</div>
 				<div className="right">
-					<h2>{t("mosaic:DataView.column_order")}</h2>
-					{
-						state.activeColumns.map((name, i) => {
-							const column = props.allColumns.find(val => val.name === name);
+					<ColumnTitle>{t("mosaic:DataView.column_order")}</ColumnTitle>
+					<DragDropContext onDragEnd={handleDragEnd}>
+						<Droppable droppableId="droppable-columns">
+							{(provider) => (
+								<div ref={provider.innerRef} {...provider.droppableProps}>
+									{state.activeColumns.map((name, i) => {
+										const column = props.allColumns.find(
+											(val) => val.name === name
+										);
 
-							return (
-								<div className="item" key={column.name}>
-									<span>
-										{column.label}
-									</span>
-									<span className="buttons">
-										<Button
-											mIcon={ArrowDownwardIcon}
-											variant="icon"
-											color="black"
-											disabled={i === state.activeColumns.length - 1}
-											onClick={orderClick(column.name, 1)}
-										/>
-										<Button
-											mIcon={ArrowUpwardIcon}
-											variant="icon"
-											color="black"
-											disabled={i === 0}
-											onClick={orderClick(column.name, -1)}
-										/>
-									</span>
+										return (
+											<Draggable
+												key={`${column.name}-${i}`}
+												draggableId={`${column.name}-${i}`}
+												index={i}
+											>
+												{(provided) => (
+													<ColumItem
+														ref={provided.innerRef}
+														{...provided.draggableProps}
+														{...provided.dragHandleProps}
+													>
+														<DragIndicatorIcon />
+														<span>{column.label}</span>
+													</ColumItem>
+												)}
+											</Draggable>
+										);
+									})}
+									{provider.placeholder}
 								</div>
-							)
-						})
-					}
+							)}
+						</Droppable>
+					</DragDropContext>
 				</div>
 			</StyledWrapper>
-		</DrawerContent>
-	)
+		</div>
+	);
 }
 
 export default DataViewColumnDrawerContent;
