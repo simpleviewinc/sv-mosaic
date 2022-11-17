@@ -5,7 +5,7 @@ export const StyledFieldWrapper = styled.div`
   font-family: ${theme.fontFamily};
   padding: ${theme.fieldSpecs.inputSpacing.fieldPadding};
   background-color: ${(pr) =>
-		pr.error ? theme.newColors.darkRed["20"] : "transparent"};
+		pr.error ? theme.newColors.darkRed["5"] : "transparent"};
   width: fit-content;
   position: relative;
 `;
