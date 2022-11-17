@@ -5,7 +5,7 @@ import { memo, useState, ReactElement, useMemo } from "react";
 import Tooltip from "@root/components/Tooltip";
 import Checkbox from "@root/components/Checkbox";
 import MobileView from "./Views/MobileView";
-import DrawerView from "./Views/DrawerView";
+import DrawerHeader from "@root/components/DrawerHeader/DrawerHeader";
 import ResponsiveView from "./Views/ResponsiveView";
 import DesktopView from "./Views/DesktopView";
 
@@ -101,13 +101,10 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			);
 		if (view === "DRAWER")
 			return (
-				<DrawerView
+				<DrawerHeader
 					title={title}
-					onCancel={onCancel}
-					tooltipInfo={tooltipInfo}
-					helpIcon={helpIcon}
 					buttons={buttons}
-					view={view}
+					onCancel={onCancel}
 				/>
 			);
 		if (view === "RESPONSIVE")
