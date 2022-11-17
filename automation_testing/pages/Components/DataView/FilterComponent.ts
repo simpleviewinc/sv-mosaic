@@ -16,9 +16,9 @@ export class FilterComponent extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.keywordBtn = page.locator(".variant_text button").nth(0);
-		this.keywordInput = page.locator("input[value='']");
-		this.categoryBtn = page.locator(".variant_text button").nth(1);
+		this.keywordBtn = page.locator(".filterRow button").nth(0);
+		this.keywordInput = page.locator(".inputRow input");
+		this.categoryBtn = page.locator(".filterRow button").nth(1);
 		this.categoryKeywordInput = page.locator("input[type='text']");
 		this.categoryItems = page.locator(".listItem label");
 		this.checkbox = "input[type='checkbox']";

@@ -40,12 +40,12 @@ export class DataviewPage extends BasePage {
 		this.columnsComponent = new ColumnsComponent(page);
 		this.filterComponent = new FilterComponent(page);
 		this.advancedFilterComponent = new AdvancedFiltersComponent(page);
-		this.createNewBtn = page.locator("[data-mosaic-id=button_create]");
+		this.createNewBtn = page.locator("[data-mosaic-id='button_create'] button");
 		this.editIcon = page.locator("[data-mosaic-id=action_primary_edit] button");
 		this.moreOptions = page.locator("[data-mosaic-id='additional_actions_dropdown'] button");
 		this.viewChildren = page.locator("[data-mosaic-id=action_additional_view_children]");
 		this.history = page.locator("[data-mosaic-id=action_additional_history]");
-		this.title = page.locator("text=Your Uploads");
+		this.title = page.locator(".headerRow.title .left h1");
 		this.checkboxRow = page.locator("input[type='checkbox']");
 		this.downloadBtn = page.locator("[data-mosaic-id='action_bulk_download'] button");
 		this.deleteBtn = page.locator("[data-mosaic-id='action_bulk_delete'] button");

@@ -1,12 +1,6 @@
-export interface DrawersProps {
-	drawers: JSX.Element[];
-} 
+import { ReactNode } from "react";
 
-export interface DrawerDef {
-	id: number;
-	name: string;
-	callbacks?: Callbacks;
+export interface DrawersProps<T> {
+	drawers: T[];
+	children: (drawerDef: T) => ReactNode;
 }
-
-export type Callbacks = { [key: string]: any }
-  

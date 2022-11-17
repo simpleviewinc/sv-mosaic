@@ -10,8 +10,6 @@ export class ValidatorPage extends BasePage {
 	readonly datepicker: DatePickerComponent;
 
 	readonly title: Locator;
-	readonly error: Locator;
-	readonly errorIcon: Locator;
 	readonly requiredTitle: Locator;
 	readonly requireField: Locator;
 	readonly emailField: Locator;
@@ -34,8 +32,6 @@ export class ValidatorPage extends BasePage {
 		this.page = page;
 		this.datepicker = new DatePickerComponent(page);
 		this.title = page.locator("text=Validators story");
-		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
-		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.requiredTitle = page.locator("[for='required']");
 		this.requireField = page.locator("#required");
 		this.emailField = page.locator("#email");

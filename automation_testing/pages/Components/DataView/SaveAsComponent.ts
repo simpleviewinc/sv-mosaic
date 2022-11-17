@@ -21,7 +21,7 @@ export class SaveAsComponent extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.saveAsBtn = page.locator("text=Save As");
+		this.saveAsBtn = page.locator(".right button", {hasText: "Save View"});
 		this.saveAsOptions = page.locator("ul.MuiList-padding");
 		this.saveView = page.locator("//html/body/div[7]/div[3]");
 		this.saveLabel = page.locator("#label");

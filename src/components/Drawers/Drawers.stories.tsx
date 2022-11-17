@@ -1,10 +1,10 @@
 import * as React from "react";
-import { ReactElement, useCallback, useMemo, useReducer } from "react";
-import { NavigateOptions } from "./example/ExampleTypes";
-import { reducer } from "./example/utils";
+import { ReactElement, useCallback, useMemo, useState } from "react";
 
 // Components
 import Drawers from "./Drawers";
+import AppContext from "./example/AppContext";
+import { AppState, DrawerDef } from "./example/ExampleTypes";
 import Page from "./example/Page";
 
 export default {
@@ -12,44 +12,94 @@ export default {
 };
 
 export const Example = (): ReactElement => {
-	const [state, dispatch] = useReducer(reducer, {
-		main: "grid",
-		drawers: []
+	const [state, setState] = useState<AppState>({
+		content: {},
+		drawers: [],
 	});
 
-	const navigate = useCallback(
-		function (options: NavigateOptions) {
-			dispatch({
-				...options,
-				type: "navigate"
-			});
-		},
-		[dispatch]
+	const addDrawer = useCallback((drawerDef: DrawerDef) => {
+		setState((state) => ({
+			...state,
+			drawers: [...state.drawers, drawerDef],
+		}));
+	}, []);
+
+	const removeDrawer = useCallback(() => {
+		setState((state) => ({
+			...state,
+			drawers: [...state.drawers.slice(0, -1)],
+		}));
+	}, []);
+
+	const appContext = useMemo(
+		() => ({
+			addDrawer,
+			removeDrawer,
+		}),
+		[addDrawer, removeDrawer]
 	);
 
-	const drawers = useMemo(() => {
-		return state.drawers.map((val, i) => {
-			return (
-				<Page
-					key={i}
-					id={val.id}
-					name={val.name}
-					context="drawer"
-					navigate={navigate}
-					callbacks={val.callbacks}
-				/>
-			);
-		});
-	}, [state.drawers, navigate]);
-
 	return (
-		<>
+		<AppContext.Provider value={appContext}>
 			<div className="App">
-				<div className="main">
-					<Page name={state.main} navigate={navigate} context="main" id={0} />
-				</div>
-				<Drawers drawers={drawers} />
+				<h1>Drawer Demo</h1>
+				<p>From Form: {JSON.stringify(state.content)}</p>
+				<button
+					onClick={() =>
+						addDrawer({
+							config: {
+								type: "form",
+								title: "New Form",
+								fields: [
+									{
+										name: "foo",
+										label: "Foo",
+										type: "text",
+									},
+									{
+										name: "bar",
+										label: "Bar",
+										type: "text",
+									},
+									{
+										name: "baz",
+										label: "Baz",
+										type: "text",
+									},
+									{
+										name: "from_parent",
+										label: "From Parent",
+										type: "text",
+									},
+								],
+							},
+							callbacks: {
+								save: (data) => {
+									setState((state) => ({
+										...state,
+										content: data,
+									}));
+
+									removeDrawer();
+								},
+							},
+						})
+					}
+				>
+					Add Form
+				</button>
+
+				<Drawers drawers={state.drawers}>
+					{(drawerDef) => {
+						return (
+							<Page
+								config={drawerDef.config}
+								callbacks={drawerDef.callbacks ?? {}}
+							/>
+						);
+					}}
+				</Drawers>
 			</div>
-		</>
+		</AppContext.Provider>
 	);
 };
