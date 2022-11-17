@@ -125,4 +125,9 @@ test.describe.parallel("Components - Data View", () => {
 		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 		await dataviewPage.downloadBtn.click();
 	});
+
+	test("Validate dataview title font.", async () => {
+		const titleFonts = await dataviewPage.getFontFamilyFromElement(dataviewPage.title);
+		expect(titleFonts).toContain("Museo-Sans");
+	});
 });
