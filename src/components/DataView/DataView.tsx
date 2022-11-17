@@ -3,12 +3,10 @@ import { useState, useEffect, useMemo, useRef, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
-import DataViewFilters from "./DataViewFilters";
 import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
-import { transformRows } from "@root/utils/dataViewTools";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -24,22 +22,12 @@ const StyledWrapper = styled.div`
 		-ms-flex: 0 0 auto;
 		-webkit-flex: 0 0 auto;
 		flex: 0 0 auto;
-		margin-bottom: 8px;
 	}
 
-	& > .headerList {
+	& > .headerActions {
 		display: flex;
 		flex-direction: column;
-	}
-
-	& > .headerRow.title {
-		margin-left: 12px;
-	}
-
-	& > .headerRow > .right {
-		display: flex;
-		align-items: center;
-		align-self: flex-end;
+		padding: 20px;
 	}
 
 	& > .viewContainer {
@@ -381,11 +369,6 @@ function DataView (props: DataViewProps): ReactElement  {
 		});
 	}, [activeColumns, props.columns]);
 
-	// execute the transforms in the rows
-	const transformedData = useMemo(() => {
-		return transformRows(props.data, activeColumnObjs);
-	}, [props.data, activeColumnObjs]);
-
 	return (
 		<StyledWrapper
 			className={`
@@ -409,36 +392,22 @@ function DataView (props: DataViewProps): ReactElement  {
 					onActiveFiltersChange={props.onActiveFiltersChange}
 				/>
 			</div>
-			<div className={display === "list" ? "headerList" : "headerRow filters"}>
-				<div className="left">
-					{//loading isn't being used in DataViewFilters, should it be propped down?
-						props.filters && (
-							<DataViewFilters
-								loading={props.loading}
-								filter={props.filter}
-								filters={props.filters}
-								activeFilters={props.activeFilters}
-								onActiveFiltersChange={props.onActiveFiltersChange}
-							/>
-						)}
-				</div>
-				<div className="right">
-					<DataViewActionsRow
-						activeColumnObjs={activeColumnObjs}
-						display={display}
-						displayControlEnabled={displayControlEnabled}
-						displayOptionsFull={displayOptionsFull}
-						limit={props.limit}
-						limitOptions={props.limitOptions}
-						onLimitChange={props.onLimitChange}
-						onDisplayChange={props.onDisplayChange}
-						onSkipChange={props.onSkipChange}
-						skip={props.skip}
-						count={props.count}
-						allColumns={props.columns}
-						onColumnsChange={props.onColumnsChange}
-					/>
-				</div>
+			<div className="headerActions">
+				<DataViewActionsRow
+					activeColumnObjs={activeColumnObjs}
+					display={display}
+					displayControlEnabled={displayControlEnabled}
+					displayOptionsFull={displayOptionsFull}
+					limit={props.limit}
+					limitOptions={props.limitOptions}
+					onLimitChange={props.onLimitChange}
+					onDisplayChange={props.onDisplayChange}
+					onSkipChange={props.onSkipChange}
+					skip={props.skip}
+					count={props.count}
+					allColumns={props.columns}
+					onColumnsChange={props.onColumnsChange}
+				/>
 			</div>
 			<div
 				ref={viewContainerRef}
@@ -460,7 +429,6 @@ function DataView (props: DataViewProps): ReactElement  {
 					limit={props.limit}
 					count={props.count}
 					rowCount={props.data.length}
-					transformedData={transformedData}
 					activeColumnObjs={activeColumnObjs}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
