@@ -13,13 +13,13 @@ export class PaginationComponent extends BasePage {
 
 	constructor(page: Page) {
 		super(page);
-		this.resultAmount = page.locator(".variant_text button.MuiButton-root").nth(4);
+		this.resultAmount = page.locator(".filters.headerRow button").nth(1);
 		this.resultOptions = page.locator("ul[role='menu']");
-		this.paginationValue = page.locator(".variant_text button.MuiButton-root").nth(5);
+		this.paginationValue = page.locator(".filters.headerRow button").nth(3);
 		this.pagesOption = page.locator(".MuiPopover-paper");
 		this.backwardArrow = page.locator(".size_small.variant_icon").nth(0);
 		this.forwardArrow = page.locator(".size_small.variant_icon").nth(1);
-		this.viewTypeBtn = page.locator(".variant_text button.MuiButton-root").nth(3);
+		this.viewTypeBtn = page.locator(".filters.headerRow button").nth(0);
 		this.viewTypeOption = page.locator("ul[role='menu']");
 	}
 

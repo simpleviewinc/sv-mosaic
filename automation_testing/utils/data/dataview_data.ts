@@ -7,7 +7,7 @@ const dataview_data = {
 }
 
 const saveAs_data = {
-	defaultView: "Default View",
+	defaultView: "All",
 	saveAsView: "mosaic_automation",
 	saveAsViewEdit: "new_mosaic_automation",
 	saveAsViewShared: "mosaic_automation_shared",

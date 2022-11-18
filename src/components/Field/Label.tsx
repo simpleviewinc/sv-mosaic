@@ -25,7 +25,7 @@ const LabelWrapper = styled.div`
 
   :after {
       content: "${(pr) => (pr.required ? "*" : "")}";
-      color: ${theme.colors.red};
+      color: ${theme.newColors.darkRed["100"]};
     }
   }
 `;
