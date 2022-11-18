@@ -6,6 +6,7 @@ import { DatePickerComponent } from "../../../pages/Components/DataView/DatePick
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	let page: Page;
@@ -42,7 +43,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.moreBtn.click();
 		await filter.check();
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.optionalFilters.first().click();
 		await advancedFilters.waitForElementLoad();
 
 		const applyFontWeight = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontWeight)));
@@ -85,7 +86,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.singleSelectCategoryOption.click();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.optionalFilters.click();
-		const categorySelected = (await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption());
+		const categorySelected = await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption();
 		expect((await advancedFilters.getSelectedValueForSingleSelectCategoryOption())).toBe(categorySelected);
 		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
@@ -317,7 +318,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.createdOption.check();
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.optionalFilters.first().click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.fromCalendarButton.click();
@@ -367,7 +368,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
-		const filterBtn = advancedFilters.optionalFilters.nth(0).locator("button");
+		const filterBtn = advancedFilters.optionalFilters.first();
 		await (await advancedFilters.getCloseBtn(filterBtn)).click();
 		await advancedFilters.waitForElementLoad();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
@@ -411,7 +412,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.moreBtn.click();
 		await advancedFilters.updatedOption.check();
 		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.nth(0).locator("button").click();
+		await advancedFilters.optionalFilters.first().click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.fromCalendarButton.click();
@@ -464,7 +465,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
-		const filterBtn = await advancedFilters.optionalFilters.nth(0).locator("button");
+		const filterBtn = await advancedFilters.optionalFilters.first();
 		await (await advancedFilters.getCloseBtn(await filterBtn)).click();
 		await advancedFilters.waitForElementLoad();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
@@ -478,5 +479,18 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Validate the Updated filter styles.", async () => {
 		await validateFilterStyles(advancedFilters.updatedOption);
 		await page.reload();
+	});
+
+	test("Validate error message has darkRed as color.", async () => {
+		const expectColor = theme.newColors.darkRed["100"];
+		const startDate = advanced_filter_data.validStartDateRange;
+		const endDate = advanced_filter_data.validEndDateRange;
+		await advancedFilters.moreBtn.click();
+		await advancedFilters.createdOption.check();
+		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilterDates(endDate, startDate);
+		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
+		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
+		await advancedFilters.cancelBtn.click();
 	});
 });

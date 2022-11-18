@@ -6,7 +6,7 @@ import theme from "@root/theme";
 export const PhoneInputWrapper = styled.div`
   .react-tel-input {
     .form-control {
-	  ${(pr) => pr.error && `border: 1px solid ${theme.colors.red}`}
+	  ${(pr) => pr.error && `border: 1px solid ${theme.newColors.darkRed["100"]}`}
       background-color: ${theme.colors.gray100};
       border-radius: 0px;
       font-family: ${theme.fontFamily};
