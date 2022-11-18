@@ -32,6 +32,7 @@ const Form = (props: FormProps) => {
 	const { view } = useWindowResizer(type);
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
 	const contentRef = useRef();
+	const topComponentRef = useRef<HTMLDivElement>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 
 	useEffect(() => {
@@ -122,6 +123,7 @@ const Form = (props: FormProps) => {
 				<StyledForm>
 					{title &&
 						<TopComponent
+							ref={topComponentRef}
 							title={title}
 							type={type}
 							description={description}
@@ -139,7 +141,7 @@ const Form = (props: FormProps) => {
 						/>
 					}
 					{view === "BIG_DESKTOP" && sections ? (
-						<Row>
+						<Row topComponentRef={topComponentRef?.current === undefined ? 0 : topComponentRef?.current.offsetHeight}>
 							{sections &&
 								<FormNav sectionsRefs={sectionsRefs} contentRef={contentRef} sections={sections} />
 							}
