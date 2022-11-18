@@ -23,7 +23,7 @@ export const LabelWrapper = styled.div`
   }
 
   .MuiFormLabel-asterisk {
-    color: ${theme.colors.red};
+    color: ${theme.newColors.darkRed["100"]};
   }
 `;
 
@@ -31,7 +31,7 @@ export const FieldWrapper = styled.div`
   font-family: ${theme.fontFamily};
   padding: 20px;
   background-color: ${pr =>
-		pr.error ? theme.colors.lightRed : "transparent"};
+		pr.error ? theme.newColors.darkRed["20"] : "transparent"};
 `;
 
 export const StyledCheckboxList = styled(CheckboxList)`
@@ -54,13 +54,13 @@ export const StyledText = styled(MUIFormHelperText)`
   }
 
   &.MuiFormHelperText-root.Mui-error {
-    color: ${theme.colors.red};
+    color: ${theme.newColors.darkRed["100"]};
   }
 `;
 
 export const ErrorTextWrapper = styled.div`
   align-items: center;
-  color: ${theme.colors.red};
+  color: ${theme.newColors.darkRed["100"]};
   display: flex;
   flex-direction: row;
   margin-top: 8px;
