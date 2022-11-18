@@ -13,24 +13,24 @@ const StyledTable = styled.table`
 `
 
 interface DataViewDisplayListProps {
-	activeColumns?: any;
-	columns?: any;
-	data?: any;
+	activeColumns?: DataViewProps["activeColumns"];
+	columns?: DataViewProps["columns"];
+	data?: DataViewProps["data"];
 	onReorder?: DataViewProps["onReorder"];
-	checked?: any;
-	checkedAllPages?: any;
-	bulkActions?: any;
-	sort?: any;
-	count?: any;
-	rowCount?: any;
-	onSortChange?: any;
-	onCheckAllClick?: any;
-	onCheckAllPagesClick?: any;
-	onColumnsChange?: any;
-	additionalActions?: any;
-	primaryActions?: any;
-	onCheckboxClick?: any;
-	activeColumnObjs?: any;
+	checked?: boolean[];
+	checkedAllPages?: boolean;
+	bulkActions?: DataViewProps["bulkActions"];
+	sort?: DataViewProps["sort"];
+	count?: DataViewProps["count"];
+	rowCount?: number;
+	onSortChange?: DataViewProps["onSortChange"];
+	onCheckAllClick?: () => void;
+	onCheckAllPagesClick?: () => void;
+	onColumnsChange?: DataViewProps["onColumnsChange"];
+	additionalActions?: DataViewProps["additionalActions"];
+	primaryActions?: DataViewProps["primaryActions"];
+	onCheckboxClick?: () => void;
+	activeColumnObjs?: DataViewProps["columns"];
 }
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
