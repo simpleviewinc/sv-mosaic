@@ -118,7 +118,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 
 	test("Sort title desc", async () => {
 		await dataviewPage.wait();
-		const titleColum = await dataviewPage.getTitleColumn();
+		const titleColum = await dataviewPage.getSpecificColumn("Title");
 		const titlesSortDesc = (await dataviewPage.getAllRowTitles(dataview_data.resultPerPageDefault)).sort(Intl.Collator().compare).reverse();
 		const titleSplitPerPage = titlesSortDesc.slice(0, dataview_data.resultPerPageDefault);
 		await titleColum.click();
@@ -127,7 +127,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Sort created asc", async () => {
-		const createdColum = await dataviewPage.getCreatedColumn();
+		const createdColum = await dataviewPage.getSpecificColumn("Created");
 		const createdSort = sortDatesAsc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault)));
 		const createdSplitPerPage = createdSort.slice(0, dataview_data.resultPerPageDefault);
 		await createdColum.click();
@@ -136,7 +136,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Sort created desc", async () => {
-		const createdColum = await dataviewPage.getCreatedColumn();
+		const createdColum = await dataviewPage.getSpecificColumn("Created");
 		const createdSort = await sortDatesDesc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault)));
 		const createdSplitPerPage = createdSort.slice(0, dataview_data.resultPerPageDefault);
 		await createdColum.waitFor();

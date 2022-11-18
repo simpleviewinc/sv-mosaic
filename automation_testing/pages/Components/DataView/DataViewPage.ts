@@ -121,12 +121,18 @@ export class DataviewPage extends BasePage {
 		return createdDates;
 	}
 
-	async getTitleColumn(): Promise<Locator> {
-		return this.columnHeaders.nth(1);
+	async getSpecificColumn(column: string): Promise<Locator> {
+		const index = await this.getPositionOfColumn(column);
+		return this.columnHeaders.nth(index);
 	}
 
-	async getCreatedColumn(): Promise<Locator> {
-		return this.columnHeaders.nth(3);
+	async getPositionOfColumn(column: string): Promise<number> {
+		const numberOfHeaders = await this.getColumnHeadersCount();
+		const columns = [];
+		for (let i = 0; i < numberOfHeaders; i++) {
+			columns.push(await this.columnHeaders.nth(i).textContent());
+		}
+		return columns.indexOf(column);
 	}
 
 	async getAllRowTitles(resultsPerPage: number): Promise<string[]> {
