@@ -7,7 +7,6 @@ import { ButtonProps } from "@root/components/Button";
 import Form, { formActions, useForm } from "@root/components/Form";
 
 // Utils
-import countriesWithStates from "@root/forms/FormFieldAddress/utils/trimmedCountriesStates.json";
 import { TextFieldDef } from "@root/forms/FormFieldText";
 import { IAddress } from "@root/forms/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
@@ -27,11 +26,6 @@ const sections = [
 	},
 ];
 
-const countries = countriesWithStates?.map((country) => ({
-	label: country.name,
-	value: country.iso2,
-}));
-
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
 		value,
@@ -45,7 +39,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleUnsavedChanges,
 		dialogOpen,
 		handleDialogClose,
-		addressTypes
+		addressTypes,
+		getOptionsCountries,
+		getOptionsStates,
 	} = props;
 
 	const { dispatch, state } = useForm();
@@ -58,10 +54,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 	useEffect(() => {
 		let isMounted = true;
-		if (isEditing && open && isMounted) {
+
+		const fillEditingValues = async () => {
 			let editingState = {};
 
-			dispatch(
+			await dispatch(
 				formActions.setFieldValue({
 					name: "address1",
 					value: addressToEdit.address1,
@@ -74,7 +71,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			if (addressToEdit.address2) {
-				dispatch(
+				await dispatch(
 					formActions.setFieldValue({
 						name: "address2",
 						value: addressToEdit.address2,
@@ -87,7 +84,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				};
 			}
 			if (addressToEdit.address3) {
-				dispatch(
+				await dispatch(
 					formActions.setFieldValue({
 						name: "address3",
 						value: addressToEdit.address3,
@@ -99,7 +96,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					"address3": addressToEdit.address3,
 				};
 			}
-			dispatch(
+
+			await dispatch(
 				formActions.setFieldValue({
 					name: "city",
 					value: addressToEdit.city,
@@ -111,7 +109,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				"city": addressToEdit.city,
 			};
 
-			dispatch(
+			await dispatch(
 				formActions.setFieldValue({
 					name: "postalCode",
 					value: addressToEdit.postalCode,
@@ -123,7 +121,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				"postalCode": addressToEdit.postalCode,
 			};
 
-			dispatch(
+			await dispatch(
 				formActions.setFieldValue({
 					name: "type",
 					value: addressToEdit.types,
@@ -135,7 +133,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				"type": addressToEdit.types,
 			};
 
-			dispatch(
+			await dispatch(
 				formActions.setFieldValue({
 					name: "country",
 					value: { label: addressToEdit.country?.label, value: addressToEdit.country?.value },
@@ -148,7 +146,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			if (addressToEdit.state) {
-				dispatch(
+				await dispatch(
 					formActions.setFieldValue({
 						name: "states",
 						value: { label: addressToEdit.state?.label, value: addressToEdit.state?.value },
@@ -162,6 +160,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			}
 
 			setInitialState(editingState);
+		};
+
+		if (isEditing && open && isMounted) {
+			fillEditingValues();
 		}
 
 		return () => {
@@ -170,20 +172,24 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [addressToEdit]);
 
 	/**
-   * Gets the list of states for the
-   * selected country
+   * Clears the selected state every time
+   * the country changes.
    */
-	const listOfStates = useMemo(() => {
-		const selectedCountry = countriesWithStates?.find(
-			(c) => c.iso2 === state?.data?.country?.value
-		);
-
-		if (selectedCountry) {
-			return selectedCountry.states.map((state) => ({ label: state.name, value: state.code }));
+	useEffect(() => {
+		if (isEditing) {
+			if (initialState.country && state.data.country && initialState.country.value !== state.data.country.value) {
+				dispatch(
+					formActions.setFieldValue({name: "states", value: undefined})
+				);
+			}
+		} else {
+			if (initialState.country?.value !== state.data.country?.value) {
+				dispatch(
+					formActions.setFieldValue({name: "states", value: undefined})
+				);
+			}
 		}
-
-		return [];
-	}, [state?.data?.country]);
+	}, [state?.data?.country, initialState, isEditing]);
 
 	/**
 	 * Executed on the form submit if editing mode is true
@@ -253,7 +259,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					size: "sm",
 					required: true,
 					inputSettings: {
-						options: countries,
+						getOptions: getOptionsCountries,
 					},
 				},
 				{
@@ -288,7 +294,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					label: "States",
 					size: "sm",
 					inputSettings: {
-						options: listOfStates,
+						getOptions: () => getOptionsStates(state.data.country?.value),
 					},
 				},
 				{
@@ -312,7 +318,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					},
 				},
 			] as FieldDef[],
-		[countries, listOfStates, addressTypes]
+		[addressTypes, state.data.country]
 	);
 
 	const buttons: ButtonProps[] = [
