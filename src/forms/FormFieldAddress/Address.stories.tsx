@@ -4,6 +4,7 @@ import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { FieldDef } from "../../components/Field";
 import Form, { useForm } from "@root/components/Form";
+import { getOptionsCountries, getOptionsStates } from "./utils/optionGetters";
 
 export default {
 	title: "FormFields/FormFieldAddress",
@@ -34,12 +35,24 @@ export const Playground = (): ReactElement => {
 						amountPerType,
 						amountShipping,
 						amountPhysical,
-						amountBilling
+						amountBilling,
+						getOptionsCountries,
+						getOptionsStates,
 					},
 				},
 			] as FieldDef[]
 		),
-		[disabled, label, required, amountPerType, amountShipping, amountPhysical, amountBilling]
+		[
+			disabled,
+			label,
+			required,
+			amountPerType,
+			amountShipping,
+			amountPhysical,
+			amountBilling,
+			getOptionsCountries,
+			getOptionsStates
+		]
 	);
 
 	return (
