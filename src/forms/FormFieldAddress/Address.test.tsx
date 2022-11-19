@@ -5,6 +5,7 @@ import {
 	fireEvent,
 	screen,
 	waitFor,
+	act,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as React from "react";
@@ -14,6 +15,10 @@ import { ReactElement } from "react";
 import AddressCard from "./AddressCard";
 import { IAddress, AddressFieldDef } from ".";
 import Form, { useForm } from "@root/components/Form";
+
+// Utils
+import { getOptionsCountries, getOptionsStates } from "./utils/optionGetters";
+// import { renderButtons } from "@root/utils/storyUtils";
 
 const address: IAddress = {
 	id: 1,
@@ -52,6 +57,7 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef
 			state={state}
 			fields={newFields}
 			dispatch={dispatch}
+			// buttons={renderButtons(dispatch)}
 		/>
 	);
 };
@@ -63,9 +69,14 @@ const {
 	getAllByRole,
 	queryAllByTestId,
 	queryByText,
+	findAllByTestId,
+	findAllByRole,
+	findByLabelText,
+	findByText,
+	findByTestId,
 } = screen;
 
-const addNewAddress = () => {
+const addNewAddress = async () => {
 	document.createRange = () => ({
 		setStart: jest.fn(),
 		setEnd: jest.fn(),
@@ -79,47 +90,81 @@ const addNewAddress = () => {
 		}
 	});
 
-	const addAddressButton = getByText("ADD ADDRESS");
-	fireEvent.click(addAddressButton);
-	const address = getByLabelText("Address");
-	const city = getByLabelText("City");
-	const postalCode = getByLabelText("Postal Code");
-	const dropdowns = getAllByTestId("autocomplete-test-id");
-	const inputs = getAllByRole("combobox") as HTMLInputElement[];
+	const addAddressButton = await findByText("ADD ADDRESS");
+	await act(async () => {
+		// fireEvent.click(addAddressButton);
+		addAddressButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+	});
+	const address = await findByLabelText("Address");
+	const city = await findByLabelText("City");
+	const postalCode = await findByLabelText("Postal Code");
+	const dropdowns = await findAllByTestId("autocomplete-test-id");
+	const inputs = await findAllByRole("combobox") as HTMLInputElement[];
+	const addressTypes = await findAllByRole("checkbox") as HTMLInputElement[];
+	const modalSaveButton = await findByText("Save");
+
 	// The first dropdown refers to the country selector.
-	dropdowns[0].focus();
 
-	const addressTypes = getAllByRole("checkbox") as HTMLInputElement[];
-	const modalSaveButton = getByText("Save");
 
-	fireEvent.change(address, { target: { value: "Address test 1" } });
-	fireEvent.change(city, { target: { value: "Guadalajara" } });
-	fireEvent.change(postalCode, { target: { value: "123" } });
+	await act(async () => {
+		fireEvent.change(address, { target: { value: "Address test 1" } });
+	});
+	await act(async () => {
+		fireEvent.change(city, { target: { value: "Guadalajara" } });
+	});
+	await act(async () => {
+		fireEvent.change(postalCode, { target: { value: "123" } });
+	});
 
-	fireEvent.change(inputs[0], { target: { value: "México" } });
-	fireEvent.keyDown(dropdowns[0], { key: "ArrowDown" });
-	fireEvent.keyDown(dropdowns[0], { key: "Enter" });
-	fireEvent.click(addressTypes[0]);
-	fireEvent.click(modalSaveButton);
+	await act(async () => {
+		dropdowns[0].focus();
+		fireEvent.change(inputs[0], { target: { value: "México" } });
+		fireEvent.keyDown(dropdowns[0], { key: "ArrowDown" });
+		fireEvent.keyDown(dropdowns[0], { key: "Enter" });
+	});
+
+	await act(async () => {
+		// fireEvent.click(addressTypes[0]);
+		addressTypes[0].dispatchEvent(new MouseEvent("click", {bubbles: true}));
+	});
+
+	await act(async () => {
+		// fireEvent.click(modalSaveButton);
+		modalSaveButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+	});
+
 };
 
 afterEach(cleanup);
 jest.setTimeout(60000);
 
-describe("Address component without inputSettings prop", () => {
+describe("Regular Address component", () => {
 	beforeEach(() => {
-		render(<AddressFormFieldExample />);
+		render(<AddressFormFieldExample inputSettings={{
+			getOptionsCountries,
+			getOptionsStates,
+		}}/>);
 	});
 
-	it("should add a new address card and then remove it", async () => {
-		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
-		addNewAddress();
-		fireEvent.click(getByText("Save"));
+	it.only("should add a new address card and then remove it", async () => {
+		// expect(await findAllByTestId("address-card-test")).not.toBeInTheDocument();
+		await addNewAddress();
+
+		const form = await findAllByTestId("form-test-id");
+		screen.debug(form[1]);
+		// await act(async () => {
+		// 	// fireEvent.click(getByText("Save"));
+		// 	const saveButton = await findByText("Save");
+		// 	saveButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		// });
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
 		});
-
-		fireEvent.click(getByText("Remove"));
+		await act(async () => {
+			// fireEvent.click(getByText("Remove"));
+			const removeButton = await findByText("Remove");
+			removeButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
 	});
@@ -182,16 +227,18 @@ describe("Address field with specific amount per type", () => {
 			amountShipping: 1,
 			amountPhysical: 0,
 			amountBilling: 0,
+			getOptionsCountries,
+			getOptionsStates,
 		}}/>);
 
 		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
 
-		addNewAddress();
+		await addNewAddress();
 
 		expect(queryByText("Physical")).not.toBeInTheDocument();
 		expect(queryByText("Billing")).not.toBeInTheDocument();
 
-		fireEvent.click(getByText("Save"));
+		// fireEvent.click(await findByText("Save"));
 
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
