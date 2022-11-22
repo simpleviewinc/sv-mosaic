@@ -15,7 +15,7 @@ export class ColumnsComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this.title = page.locator("h1").nth(2);
-		this.columnsBtn = page.locator(".size_small.variant_icon").nth(2);
+		this.columnsBtn = page.locator(".headerActions button").first();
 		this.rightItems = page.locator(".right div.item");
 		this.leftItems = page.locator(".listItem label");
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
