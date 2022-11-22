@@ -10,6 +10,7 @@ import { MosaicObject } from "@root/types";
 const StyledTBody = styled.tbody`
 	& > tr {
 		border-bottom: ${theme.borders.lightGray};
+		padding: 8px 12px;
 	}
 
 	& > tr > td {
