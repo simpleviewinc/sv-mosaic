@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
-import DataViewTr from "./DataViewTr";
+import DataViewTr from "./DataViewTr/DataViewTr";
 import theme from "@root/theme";
 import { MosaicObject } from "@root/types";
 // import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";

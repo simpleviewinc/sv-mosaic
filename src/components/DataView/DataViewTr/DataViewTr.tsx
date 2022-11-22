@@ -1,27 +1,14 @@
 import React from "react";
 
 import Checkbox from "@root/components/Checkbox";
-import DataViewTd from "./DataViewTd";
-import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
+import DataViewTd from "../DataViewTd";
+import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import { DataViewProps } from "./DataViewTypes";
-import styled from "styled-components";
-import theme from "@root/theme";
+import { TableRow } from "./DataViewTr.styled";
+import { DataViewTrProps } from "./DataViewTrTypes";
 // import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 
-interface DataViewTrProps {
-	bulkActions?: any;
-	checked?: any;
-	onReorder?: DataViewProps["onReorder"];
-	onCheckboxClick?: any;
-	primaryActions?: any;
-	additionalActions?: any;
-	originalRowData?: any;
-	columns?: any;
-	row?: any;
-	rowIdx: number;
-}
 // interface DataViewTrProps {
 // 	bulkActions: string | any[];
 // 	checked: boolean;
@@ -35,11 +22,9 @@ interface DataViewTrProps {
 // 	};
 // }
 
-const TableRow = styled.tr`
-	background-color: ${props => props.checked ? theme.newColors.grey1[100] : null};
-`
 //TODO PROPS
 function DataViewTr(props: DataViewTrProps) {
+	console.log(props)
 	return (
 		<Draggable
 			key={props.row.id}
@@ -48,7 +33,7 @@ function DataViewTr(props: DataViewTrProps) {
 			isDragDisabled={!props?.onReorder}
 		>
 			{(provider) => (
-				<TableRow {...provider.draggableProps} ref={provider.innerRef} checked={props.checked}>
+				<TableRow {...provider.draggableProps} ref={provider.innerRef} className={props.checked && "checked"}>
 					{
 						props?.onReorder &&
 						<DataViewTd key="_draggable" draggableProvider={provider}>
@@ -76,7 +61,7 @@ function DataViewTr(props: DataViewTrProps) {
 							return (
 								<DataViewTd
 									key={column.name}
-									className={column.style === "bold" ? "bold" : undefined}
+									className={column.style && column.style.bold && "bold"}
 									paddingRight={true}
 									expandCell={true}
 									bold={column.style && column.style.bold}
