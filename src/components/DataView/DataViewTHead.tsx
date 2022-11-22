@@ -49,7 +49,7 @@ const StyledTh = styled.th`
 	}
 
 	&.paddingRight {
-		padding-right: 12px;
+		padding-right: 32px;
 	}
 
 	&.paddingLeft {
@@ -62,7 +62,8 @@ const StyledTh = styled.th`
 
 	& > .columnHeader > .icon {
 		visibility: hidden;
-		font-size: 20.58px;
+		height: 21.34px;
+		width: 36px;
 		margin-left: 12px;
 		transform: rotate(90deg);
 	}
