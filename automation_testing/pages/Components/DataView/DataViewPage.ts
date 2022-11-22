@@ -104,6 +104,7 @@ export class DataviewPage extends BasePage {
 	async getRowTitles(): Promise<string[]> {
 		await this.dataviewTable.waitFor({ state: "visible" });
 		await this.loading.waitFor({ state: "detached" });
+		await this.wait();
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
 		for (const row of rows) {
@@ -121,33 +122,40 @@ export class DataviewPage extends BasePage {
 		return createdDates;
 	}
 
-	async getTitleColumn(): Promise<Locator> {
-		return this.columnHeaders.nth(1);
+	async getSpecificColumn(column: string): Promise<Locator> {
+		const index = await this.getPositionOfColumn(column);
+		return this.columnHeaders.nth(index);
 	}
 
-	async getCreatedColumn(): Promise<Locator> {
-		return this.columnHeaders.nth(3);
-	}
-
-	async getAllRowTitles(resultsPerPage: number): Promise<string[]> {
-		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
-		const titles = [];
-		for (let i = 0; i < pages; i++) {
-			titles.push(...(await this.getRowTitles()));
-			await this.paginationComponent.forwardArrow.click();
+	async getPositionOfColumn(column: string): Promise<number> {
+		const numberOfHeaders = await this.getColumnHeadersCount();
+		const columns = [];
+		for (let i = 0; i < numberOfHeaders; i++) {
+			columns.push(await this.columnHeaders.nth(i).textContent());
 		}
-		return titles;
+		return columns.indexOf(column);
 	}
 
-	async getAllRowCreated(resultsPerPage: number): Promise<string[]> {
+	async getAllRowData(resultsPerPage: number, dataName: string): Promise<string[]> {
 		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
-		const createdDates = [];
+		const data = [];
 		for (let i = 0; i < pages; i++) {
-			createdDates.push(...(await this.getRowCreated()));
-			await this.paginationComponent.forwardArrow.click();
-			await this.loading.waitFor({ state: "detached" });
+			switch (dataName.toLocaleLowerCase()) {
+			case "title":
+				data.push(...(await this.getRowTitles()));
+				break;
+			case "created":
+				data.push(...(await this.getRowCreated()));
+				break;
+			case "updated":
+				data.push(...(await this.getUpdatedCreated()));
+				break;
+			}
+			if (!await this.paginationComponent.forwardArrow.isDisabled()) {
+				await this.paginationComponent.forwardArrow.click();
+			}
 		}
-		return createdDates;
+		return data;
 	}
 
 	async validateContainsKeyword(titles: string[], keyword: string): Promise<void> {
@@ -208,17 +216,6 @@ export class DataviewPage extends BasePage {
 			createdDates.push((await (await row.$("td:nth-child(8)")).textContent()).toLowerCase());
 		}
 		return createdDates;
-	}
-
-	async getAllRowUpdated(resultsPerPage: number): Promise<string[]> {
-		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
-		const updatedDates = [];
-		for (let i = 0; i < pages; i++) {
-			updatedDates.push(...(await this.getUpdatedCreated()));
-			await this.paginationComponent.forwardArrow.click();
-			await this.loading.waitFor({ state: "detached" });
-		}
-		return updatedDates;
 	}
 
 	async clearAllAppliedFilters(): Promise<void> {
