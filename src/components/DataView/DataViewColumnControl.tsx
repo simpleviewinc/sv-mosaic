@@ -27,12 +27,11 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 	}
 
 	return (
-		<>
+		<div>
 			<Button
 				color="black"
 				label={t("mosaic:DataView.columns")}
-				variant="icon"
-				size="small"
+				variant="text"
 				mIcon={SettingsIcon}
 				onClick={gearClick}
 				iconPosition="left"
@@ -48,6 +47,6 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 					onClose={gearClick}
 				/>
 			}
-		</>
+		</div>
 	)
 }

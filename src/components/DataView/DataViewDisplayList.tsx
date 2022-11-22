@@ -1,11 +1,11 @@
 import * as React from "react";
-import { useMemo } from "react";
 import styled from "styled-components";
 
 import DataViewTHead from "./DataViewTHead";
 import DataViewTBody from "./DataViewTBody";
-import { transformRows } from "../../utils/dataViewTools";
 import { DataViewProps } from "./DataViewTypes";
+import { useMemo } from "react";
+import { transformRows } from "@root/utils/dataViewTools";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -13,50 +13,38 @@ const StyledTable = styled.table`
 `
 
 interface DataViewDisplayListProps {
-	activeColumns?: any;
-	columns?: any;
-	data?: any;
+	activeColumns?: DataViewProps["activeColumns"];
+	columns?: DataViewProps["columns"];
+	data?: DataViewProps["data"];
 	onReorder?: DataViewProps["onReorder"];
-	checked?: any;
-	checkedAllPages?: any;
-	bulkActions?: any;
-	sort?: any;
-	count?: any;
-	rowCount?: any;
-	onSortChange?: any;
-	onCheckAllClick?: any;
-	onCheckAllPagesClick?: any;
-	onColumnsChange?: any;
-	additionalActions?: any;
-	primaryActions?: any;
-	onCheckboxClick?: any;
+	checked?: boolean[];
+	checkedAllPages?: boolean;
+	bulkActions?: DataViewProps["bulkActions"];
+	sort?: DataViewProps["sort"];
+	count?: DataViewProps["count"];
+	rowCount?: number;
+	onSortChange?: DataViewProps["onSortChange"];
+	onCheckAllClick?: () => void;
+	onCheckAllPagesClick?: () => void;
+	onColumnsChange?: DataViewProps["onColumnsChange"];
+	additionalActions?: DataViewProps["additionalActions"];
+	primaryActions?: DataViewProps["primaryActions"];
+	onCheckboxClick?: () => void;
+	activeColumnObjs?: DataViewProps["columns"];
 }
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
-	// todo validate props
-	const activeColumns = useMemo(() => {
-		return props.activeColumns || props.columns.map(val => val.name);
-	}, [props.activeColumns, props.columns]);
-
-	// generate an array of columns based on the ones that are marked active
-	const activeColumnObjs = useMemo(() => {
-		return activeColumns.map(name => {
-			const column = props.columns.find(val => val.name === name);
-			return column;
-		});
-	}, [activeColumns, props.columns]);
-
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
-		return transformRows(props.data, activeColumnObjs);
-	}, [props.data, activeColumnObjs]);
+		return transformRows(props.data, props.activeColumnObjs);
+	}, [props.data, props.activeColumnObjs]);
 
 	return (
 		<StyledTable>
 			<DataViewTHead
 				checked={props.checked}
 				checkedAllPages={props.checkedAllPages}
-				columns={activeColumnObjs}
+				columns={props.activeColumnObjs}
 				allColumns={props.columns}
 				data={transformedData}
 				bulkActions={props.bulkActions}
@@ -71,7 +59,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 			/>
 			<DataViewTBody
 				checked={props.checked}
-				columns={activeColumnObjs}
+				columns={props.activeColumnObjs}
 				data={props.data}
 				transformedData={transformedData}
 				bulkActions={props.bulkActions}
