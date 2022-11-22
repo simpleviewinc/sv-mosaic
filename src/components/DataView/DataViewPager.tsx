@@ -32,28 +32,20 @@ function DataViewPager(props: Props) {
 	const currentPage = (props.skip + props.limit) / props.limit;
 	const startItem = (props.skip + 1);
 	const endItem = Math.min(props.skip + props.limit, props.count);
-	
+
 	const skipClick = (skip) => () => {
 		props.onSkipChange({ skip });
 	}
-	
+
 	const previousDisabled = currentPage === 1;
 	const nextDisabled = currentPage === totalPages;
-	
+
 	if (totalPages === 0) {
 		return null;
 	}
-	
+
 	return (
 		<StyledSpan>
-			<Button
-				color="black"
-				variant="icon"
-				size="small"
-				mIcon={ChevronLeftIcon}
-				onClick={skipClick(props.skip - props.limit)}
-				disabled={previousDisabled}
-			/>
 			<Button
 				color="black"
 				variant="text"
@@ -68,6 +60,14 @@ function DataViewPager(props: Props) {
 						onSkipChange={props.onSkipChange}
 					/>
 				}
+			/>
+			<Button
+				color="black"
+				variant="icon"
+				size="small"
+				mIcon={ChevronLeftIcon}
+				onClick={skipClick(props.skip - props.limit)}
+				disabled={previousDisabled}
 			/>
 			<Button
 				color="black"

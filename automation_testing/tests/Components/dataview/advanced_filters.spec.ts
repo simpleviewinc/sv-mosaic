@@ -297,7 +297,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.waitForElementLoad();
 
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${advanced_filter_data.createdFilterResults} of ${advanced_filter_data.createdFilterResults}`);
-		const createdValues = await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault);
+		const createdValues = await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created");
 		const result = isACorrentDateRange(createdValues, startDate, endDate);
 		expect(result.length).toBe(0);
 	});
@@ -389,7 +389,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.waitForElementLoad();
 
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${advanced_filter_data.updateFilterResults} of ${advanced_filter_data.updateFilterResults}`);
-		const updatedValues = await dataviewPage.getAllRowUpdated(dataview_data.resultPerPageDefault);
+		const updatedValues = await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Updated");
 		const result = isACorrentDateRange(updatedValues, startDate, endDate);
 		expect(result.length).toBe(0);
 	});
