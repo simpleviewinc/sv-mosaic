@@ -19,8 +19,8 @@ export class PaginationComponent extends BasePage {
 		this.resultOptions = page.locator("ul[role='menu']");
 		this.paginationValue = this.headerActionsButton.nth(3);
 		this.pagesOption = page.locator(".MuiPopover-paper");
-		this.backwardArrow = page.locator(".size_small.variant_icon").nth(0);
-		this.forwardArrow = page.locator(".size_small.variant_icon").nth(1);
+		this.backwardArrow = this.headerActionsButton.nth(4);
+		this.forwardArrow = this.headerActionsButton.nth(5);
 		this.viewTypeBtn = this.headerActionsButton.nth(1);
 		this.viewTypeOption = page.locator("ul[role='menu']");
 	}

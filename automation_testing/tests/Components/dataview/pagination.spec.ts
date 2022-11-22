@@ -129,8 +129,7 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 	test("Navigate backward on first page", async () => {
 		const recordRangePerPageInit = await pagination.calulateRecordRangePerPage(dataview_data.resultPerPageDefault, 1);
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
-		await pagination.backwardArrow.click();
-		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
+		await expect(pagination.backwardArrow).toBeDisabled();
 	})
 
 	test("Navigate forward on last page", async () => {
@@ -140,8 +139,7 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 		await (await pagination.getPageInput()).type(`${pages}`);
 		await (await pagination.getPageGoBtn()).click();
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
-		await pagination.forwardArrow.click();
-		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
+		await expect(pagination.forwardArrow).toBeDisabled();
 	});
 
 	test("View Type - Validate grid view type", async () => {
