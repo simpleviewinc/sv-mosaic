@@ -15,13 +15,16 @@ import { DataViewProps } from "./DataViewTypes";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
+	&>tr {
+		padding: 0px 12px;
+	};
 `
 
 const StyledTh = styled.th`
 	font-size: 14px;
 	text-align: left;
 	font-weight: 400;
-	padding: 5px 0px;
+	padding: 8px 32px;
 	height: 40px;
 	color: ${theme.colors.gray700};
 	position: sticky;
@@ -244,7 +247,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					<StyledTh key="_actions" className={`
 						paddingRight
 						${ !props?.bulkActions?.length ? "paddingLeft" : "" }
-					`}>
+					`}> <span className="columnHeader">Actions</span>
 						{
 							// We need to indent the actions by 11px to align with the buttons underneath
 							!props.onColumnsChange &&

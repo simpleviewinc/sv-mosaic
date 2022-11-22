@@ -19,7 +19,7 @@ const StyledTd = styled.td`
 	}
 
 	&.paddingLeft {
-		padding-left: 12px;
+		padding-left: 32px;
 	}
 
 	&.bold {
