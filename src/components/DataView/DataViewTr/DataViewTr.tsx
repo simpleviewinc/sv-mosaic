@@ -35,20 +35,20 @@ function DataViewTr(props: DataViewTrProps) {
 				<TableRow {...provider.draggableProps} ref={provider.innerRef} className={props.checked && "checked"}>
 					{
 						props?.onReorder &&
-						<DataViewTd key="_draggable" draggableProvider={provider} paddingRight={true} paddingLeft={true}>
+						<DataViewTd key="_draggable" draggableProvider={provider} paddingRight={true}>
 							<DragIndicatorIcon style={{display: "flex"}}/>
 						</DataViewTd>
 					}
 					{
 						props?.bulkActions?.length > 0 &&
-						<DataViewTd key="_bulk" paddingRight={true} paddingLeft={true}>
+						<DataViewTd key="_bulk" paddingRight={true}>
 							<Checkbox
 								checked={props.checked === true}
 								onClick={props.onCheckboxClick}
 							/>
 						</DataViewTd>
 					}
-					<DataViewTd paddingRight={true} paddingLeft={!!props?.bulkActions?.length}>
+					<DataViewTd paddingRight={true} paddingLeft={!props?.bulkActions?.length}>
 						<DataViewActionsButtonRow
 							primaryActions={props.primaryActions}
 							additionalActions={props.additionalActions}

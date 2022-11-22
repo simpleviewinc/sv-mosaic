@@ -24,7 +24,7 @@ const StyledTh = styled.th`
 	font-size: 14px;
 	text-align: left;
 	font-weight: 400;
-	padding: 8px 32px;
+	padding: 8px 32px 8px 0px;
 	height: 40px;
 	color: ${theme.colors.gray700};
 	position: sticky;
