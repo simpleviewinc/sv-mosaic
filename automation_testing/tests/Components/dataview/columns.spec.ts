@@ -119,7 +119,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	test("Sort title desc", async () => {
 		await dataviewPage.wait();
 		const titleColum = await dataviewPage.getSpecificColumn("Title");
-		const titlesSortDesc = (await dataviewPage.getAllRowTitles(dataview_data.resultPerPageDefault)).sort(Intl.Collator().compare).reverse();
+		const titlesSortDesc = (await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Title")).sort(Intl.Collator().compare).reverse();
 		const titleSplitPerPage = titlesSortDesc.slice(0, dataview_data.resultPerPageDefault);
 		await titleColum.click();
 		const titles = await dataviewPage.getRowTitles();
@@ -128,7 +128,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 
 	test("Sort created asc", async () => {
 		const createdColum = await dataviewPage.getSpecificColumn("Created");
-		const createdSort = sortDatesAsc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault)));
+		const createdSort = sortDatesAsc((await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")));
 		const createdSplitPerPage = createdSort.slice(0, dataview_data.resultPerPageDefault);
 		await createdColum.click();
 		const created = await dataviewPage.getRowCreated();
@@ -137,7 +137,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 
 	test("Sort created desc", async () => {
 		const createdColum = await dataviewPage.getSpecificColumn("Created");
-		const createdSort = await sortDatesDesc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault)));
+		const createdSort = await sortDatesDesc((await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")));
 		const createdSplitPerPage = createdSort.slice(0, dataview_data.resultPerPageDefault);
 		await createdColum.waitFor();
 		await createdColum.click();
@@ -148,7 +148,9 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Validate that column width for long column name is valid.", async () => {
+		await columns.wait();
 		await columns.selectColumn("Style - Text Transform with large field text to order column");
+		await columns.columnsBtn.click();
 		expect(await columns.getElementWidth(columns.rightItems.locator("text=Style - Text Transform with large field text to order column"))).toBe(180);
 	});
 });
