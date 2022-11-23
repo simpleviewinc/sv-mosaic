@@ -2,16 +2,10 @@ import * as React from "react";
 import { useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-import Button from "../Button";
-import DataViewColumnDrawer from "./DataViewColumnDrawer";
+import Button from "../../Button";
+import DataViewColumnDrawer from "../DataViewColumDrawer";
 import { useMosaicTranslation } from "@root/i18n";
-import { DataViewProps } from "./DataViewTypes";
-
-interface DataViewColumnControlProps {
-	onChange?: DataViewProps["onColumnsChange"];
-	columns?:  DataViewProps["columns"];
-	allColumns?: DataViewProps["columns"];
-}
+import { DataViewColumnControlProps } from "./DataViewColumnControlTypes";
 
 export default function DataViewColumnControl(props: DataViewColumnControlProps) {
 	const [state, setState] = useState({
