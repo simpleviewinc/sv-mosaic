@@ -66,6 +66,7 @@ export const Playground = (): ReactElement => {
 	);
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
+	const showState = boolean("Show state", false);
 	const prepopulate = boolean("Prepopulate", false);
 	const showSave = boolean("Show SAVE button", true);
 	const showCancel = boolean("Show CANCEL button", true);
@@ -457,7 +458,9 @@ export const Playground = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					title={text("Title", "Form Title")}
@@ -474,9 +477,10 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-export const FormWithLayout = (): ReactElement => {
+export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const { state, dispatch } = useForm();
-
+	const showState = boolean("Show state", false);
+	const {height = "100vh"} = props;
 	const fields = useMemo(
 		() =>
 			[
@@ -600,8 +604,10 @@ export const FormWithLayout = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<div style={{height: "100vh"}}>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
+			<div style={{height: height}}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title="Form Title"
@@ -619,6 +625,7 @@ export const FormWithLayout = (): ReactElement => {
 
 export const PerformanceWithSubmit = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
 
 	const hundredFields = [];
 
@@ -639,7 +646,9 @@ export const PerformanceWithSubmit = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -655,6 +664,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 
 export const RuntimeBehaviors = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -716,7 +726,9 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -742,6 +754,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 export const SubmitExternalButtons = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -780,7 +793,9 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<p>Here is the form</p>
 			<div style={{height: "100vh"}}>
 				<Form
@@ -797,6 +812,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 export const DrawerForm = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
 
 	const [open, setOpen] = useState(false);
 
@@ -853,7 +869,9 @@ export const DrawerForm = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<Drawer
 				open={open}
 				onClose={onCancel}
@@ -875,6 +893,7 @@ export const DrawerForm = (): ReactElement => {
 
 export const CustomFields = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
@@ -942,7 +961,9 @@ export const CustomFields = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -961,6 +982,7 @@ export const CustomFields = (): ReactElement => {
 
 export const Validators = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -1029,7 +1051,9 @@ export const Validators = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -1045,6 +1069,7 @@ export const Validators = (): ReactElement => {
 
 export const DefaultValues = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -1062,7 +1087,9 @@ export const DefaultValues = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -1085,8 +1112,8 @@ export const DMSExample = (): ReactElement => {
 	}];
 
 	return (
-		<NavWrapper items={items}>
-			<FormWithLayout/>
+		<NavWrapper items={items} onlyContent={true}>
+			<FormWithLayout height="100%"/>
 		</NavWrapper>
 	)
 }

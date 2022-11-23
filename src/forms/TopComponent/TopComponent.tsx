@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useState, ReactElement, useMemo } from "react";
+import { memo, useState, ReactElement, useMemo, forwardRef } from "react";
 
 // Components
 import Tooltip from "@root/components/Tooltip";
@@ -15,7 +15,7 @@ import { TopComponentProps } from "./TopComponentTypes";
 // Styles
 import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
 
-const TopComponent = (props: TopComponentProps): ReactElement => {
+const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopComponentProps, ref): ReactElement => {
 	const {
 		buttons,
 		description,
@@ -126,6 +126,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		if (view === "DESKTOP" || view === "BIG_DESKTOP")
 			return (
 				<DesktopView
+					ref={ref}
 					sectionsRefs={sectionsRefs}
 					title={title}
 					description={description}
@@ -144,6 +145,8 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	};
 
 	return <RenderView />;
-};
+});
+
+TopComponent.displayName = "TopComponent";
 
 export default memo(TopComponent);
