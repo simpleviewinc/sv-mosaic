@@ -7,20 +7,6 @@ import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { TableRow } from "./DataViewTr.styled";
 import { DataViewTrProps } from "./DataViewTrTypes";
-// import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
-
-// interface DataViewTrProps {
-// 	bulkActions: string | any[];
-// 	checked: boolean;
-// 	onCheckboxClick: React.MouseEventHandler<HTMLButtonElement>;
-// 	primaryActions: DataViewAction[];
-// 	additionalActions: DataViewAdditionalAction[];
-// 	originalRowData: MosaicObject;
-// 	columns: any[];
-// 	row: {
-// 		[x: string]: any;
-// 	};
-// }
 
 //TODO PROPS
 function DataViewTr(props: DataViewTrProps) {
