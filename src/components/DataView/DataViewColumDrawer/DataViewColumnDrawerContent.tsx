@@ -99,7 +99,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 					<DragDropContext onDragEnd={handleDragEnd}>
 						<Droppable droppableId="droppable-columns">
 							{(provider) => (
-								<div ref={provider.innerRef} {...provider.droppableProps}>
+								<div ref={provider.innerRef} {...provider.droppableProps} className='droppable-columns'>
 									{state.activeColumns.map((name, i) => {
 										const column = props.allColumns.find(
 											(val) => val.name === name
