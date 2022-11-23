@@ -18,7 +18,6 @@ import Form, { useForm } from "@root/components/Form";
 
 // Utils
 import { getOptionsCountries, getOptionsStates } from "./utils/optionGetters";
-// import { renderButtons } from "@root/utils/storyUtils";
 
 const address: IAddress = {
 	id: 1,
@@ -52,12 +51,9 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef
 
 	return (
 		<Form
-			title="Title"
-			description="Description"
 			state={state}
 			fields={newFields}
 			dispatch={dispatch}
-			// buttons={renderButtons(dispatch)}
 		/>
 	);
 };
@@ -73,7 +69,6 @@ const {
 	findAllByRole,
 	findByLabelText,
 	findByText,
-	findByTestId,
 } = screen;
 
 const addNewAddress = async () => {
@@ -92,29 +87,17 @@ const addNewAddress = async () => {
 
 	const addAddressButton = await findByText("ADD ADDRESS");
 	await act(async () => {
-		// fireEvent.click(addAddressButton);
 		addAddressButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
 	});
 	const address = await findByLabelText("Address");
+	expect(address).toBeInTheDocument();
 	const city = await findByLabelText("City");
+	expect(city).toBeInTheDocument();
 	const postalCode = await findByLabelText("Postal Code");
+	expect(postalCode).toBeInTheDocument();
 	const dropdowns = await findAllByTestId("autocomplete-test-id");
 	const inputs = await findAllByRole("combobox") as HTMLInputElement[];
-	const addressTypes = await findAllByRole("checkbox") as HTMLInputElement[];
-	const modalSaveButton = await findByText("Save");
-
-	// The first dropdown refers to the country selector.
-
-
-	await act(async () => {
-		fireEvent.change(address, { target: { value: "Address test 1" } });
-	});
-	await act(async () => {
-		fireEvent.change(city, { target: { value: "Guadalajara" } });
-	});
-	await act(async () => {
-		fireEvent.change(postalCode, { target: { value: "123" } });
-	});
+	const addressTypes = await findAllByTestId("checkbox-test-id") as HTMLInputElement[];
 
 	await act(async () => {
 		dropdowns[0].focus();
@@ -124,15 +107,20 @@ const addNewAddress = async () => {
 	});
 
 	await act(async () => {
-		// fireEvent.click(addressTypes[0]);
-		addressTypes[0].dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		fireEvent.change(address, { target: { value: "Address test 1" } });
 	});
 
 	await act(async () => {
-		// fireEvent.click(modalSaveButton);
-		modalSaveButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		fireEvent.change(city, { target: { value: "Guadalajara" } });
 	});
 
+	await act(async () => {
+		fireEvent.change(postalCode, { target: { value: "123" } });
+	});
+
+	await act(async () => {
+		fireEvent.click(addressTypes[0]);
+	});
 };
 
 afterEach(cleanup);
@@ -146,33 +134,35 @@ describe("Regular Address component", () => {
 		}}/>);
 	});
 
-	it.only("should add a new address card and then remove it", async () => {
-		// expect(await findAllByTestId("address-card-test")).not.toBeInTheDocument();
+	it("should add a new address card and then remove it", async () => {
+		await(waitFor(() => {
+			expect(queryAllByTestId("address-card-test").length).toBe(0);
+		}));
+
 		await addNewAddress();
 
-		const form = await findAllByTestId("form-test-id");
-		screen.debug(form[1]);
-		// await act(async () => {
-		// 	// fireEvent.click(getByText("Save"));
-		// 	const saveButton = await findByText("Save");
-		// 	saveButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
-		// });
-		await waitFor(() => {
+		const saveButton = getByText("Save");
+		fireEvent.click(saveButton, {bubbles: true});
+		await(waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
-		});
+		}));
+
+		const removeButton = getByText("Remove");
 		await act(async () => {
-			// fireEvent.click(getByText("Remove"));
-			const removeButton = await findByText("Remove");
-			removeButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			fireEvent.click(removeButton, {bubbles: true});
 		});
 
-		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
+		await(waitFor(() => {
+			expect(queryAllByTestId("address-card-test").length).toBe(0);
+		}));
 	});
 
 	it("should edit an address card and disable ADD ADDRESS button", async () => {
-		addNewAddress();
+		await addNewAddress();
 
-		fireEvent.click(getByText("Save"));
+		const saveButton = getByText("Save");
+		fireEvent.click(saveButton, {bubbles: true});
+
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
 		});
@@ -187,13 +177,31 @@ describe("Regular Address component", () => {
 		);
 		const addressTypes = getAllByRole("checkbox") as HTMLInputElement[];
 
-		fireEvent.change(address, { target: { value: "Address edited" } });
-		fireEvent.change(city, { target: { value: "City edited" } });
-		fireEvent.change(postalCode, { target: { value: "456" } });
-		fireEvent.change(countryDropdown, { target: { value: "Argentina" } });
-		fireEvent.click(getByText("Argentina"));
-		fireEvent.click(addressTypes[1]);
-		fireEvent.click(addressTypes[2]);
+		await act(async () => {
+			fireEvent.change(address, { target: { value: "Address edited" } });
+		});
+
+		await act(async () => {
+			fireEvent.change(city, { target: { value: "City edited" } });
+		});
+
+		await act(async () => {
+			fireEvent.change(postalCode, { target: { value: "456" } });
+		});
+
+		await act(async () => {
+			fireEvent.change(countryDropdown, { target: { value: "Argentina" } });
+			fireEvent.click(getByText("Argentina"));
+		});
+
+		await act(async () => {
+			fireEvent.click(addressTypes[1]);
+		});
+
+		await act(async () => {
+			fireEvent.click(addressTypes[2]);
+		});
+
 
 		fireEvent.click(getByText("Save"));
 
@@ -238,7 +246,9 @@ describe("Address field with specific amount per type", () => {
 		expect(queryByText("Physical")).not.toBeInTheDocument();
 		expect(queryByText("Billing")).not.toBeInTheDocument();
 
-		// fireEvent.click(await findByText("Save"));
+		const saveButton = getByText("Save");
+		fireEvent.click(saveButton, {bubbles: true});
+
 
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
