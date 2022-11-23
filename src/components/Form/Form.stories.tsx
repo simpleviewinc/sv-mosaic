@@ -32,6 +32,7 @@ import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
 import { TextAreaDef } from "@root/forms/FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
+import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
 
 export default {
 	title: "Components/Form",
@@ -326,6 +327,10 @@ export const Playground = (): ReactElement => {
 					name: "address",
 					label: "Address field",
 					type: "address",
+					inputSettings: {
+						getOptionsCountries,
+						getOptionsStates,
+					},
 					disabled,
 					required
 				},
