@@ -1,69 +1,21 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import theme from "@root/theme";
 import CheckboxList from "@root/components/CheckboxList";
 import { useMosaicTranslation } from "@root/i18n";
-import DrawerHeader from "../DrawerHeader";
+import DrawerHeader from "../../DrawerHeader";
 import {
 	DragDropContext,
 	Draggable,
 	Droppable,
 	DropResult,
 } from "react-beautiful-dnd";
-import { DataViewProps } from "./DataViewTypes";
-import { ButtonProps } from "../Button";
-
-const ColumnTitle = styled.h2`
-  color: ${theme.newColors.almostBlack["100"]};
-  font-size: 20px;
-  font-weight: ${theme.fontWeight.normal};
-  line-height: 24px;
-  margin: 0 0 24px 0;
-`;
-
-const StyledWrapper = styled.div`
-  display: flex;
-  margin-top: 30px;
-
-  & > .left {
-    border-right: 2px solid ${theme.newColors.grey2["100"]};
-    flex: 1;
-    padding: 0 32px 0 40px;
-    width: 265px;
-  }
-
-  & > .left .listItem {
-    margin: 3px 0px;
-    background: white;
-  }
-
-  & > .right {
-    flex: 1;
-		margin: 0 44px 0 32px;
-    width: 280px;
-  }
-`;
-
-const ColumItem = styled.div`
-	display: flex;
-	margin-bottom: 27.5px;
-
-	span {
-		margin-left: 23px;
-	}
-
-	.MuiSvgIcon-root {
-		color: ${theme.newColors.grey3["100"]};
-	}
-`;
-
-interface DataViewColumnDrawerContentProps {
-  columns?: DataViewProps["columns"];
-  onClose?: () => void;
-  onChange?: DataViewProps["onColumnsChange"];
-  allColumns?: DataViewProps["columns"];
-}
+import { ButtonProps } from "../../Button";
+import { DataViewColumnDrawerContentProps } from "./DataViewColumnDrawerTypes";
+import {
+	StyledWrapper,
+	ColumnTitle,
+	ColumnItem,
+} from "./DataViewColumnDrawer.styled";
 
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [state, setState] = useState({
@@ -85,9 +37,9 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	};
 
 	/**
-   * When a drag has ended the order of the columns are updated.
-   * @param e drag event.
-   */
+	 * When a drag has ended the order of the columns are updated.
+	 * @param e drag event.
+	 */
 	const handleDragEnd = ({ destination, source }: DropResult) => {
 		if (!destination) return;
 
@@ -160,14 +112,14 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 												index={i}
 											>
 												{(provided) => (
-													<ColumItem
+													<ColumnItem
 														ref={provided.innerRef}
 														{...provided.draggableProps}
 														{...provided.dragHandleProps}
 													>
 														<DragIndicatorIcon />
 														<span>{column.label}</span>
-													</ColumItem>
+													</ColumnItem>
 												)}
 											</Draggable>
 										);

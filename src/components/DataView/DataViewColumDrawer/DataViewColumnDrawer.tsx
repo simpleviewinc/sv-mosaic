@@ -2,15 +2,7 @@ import React from "react";
 
 import Drawer from "@root/components/Drawer";
 import DataViewColumnDrawerContent from "./DataViewColumnDrawerContent";
-import { DataViewProps } from "./DataViewTypes";
-
-interface DataViewColumnDrawerProps {
-	open?: boolean;
-	onClose?: () => void;
-	columns?: DataViewProps["columns"];
-	allColumns?: DataViewProps["columns"];
-	onChange?: DataViewProps["onColumnsChange"];
-}
+import { DataViewColumnDrawerProps } from "./DataViewColumnDrawerTypes";
 
 function DataViewColumnDrawer(props: DataViewColumnDrawerProps) {
 	return (
