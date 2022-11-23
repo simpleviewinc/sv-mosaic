@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import DataViewColumnControl from "../DataViewColumnControl";
 import DataViewControlDisplay from "../DataViewControlDisplay";
-import DataViewControlLimit from "../DataViewControlLimit";
+import DataViewControlLimit from "../DataViewLimit";
 import DataViewPager from "../DataViewPager";
 import { DataViewActionsRowWrapper } from "./DataViewActionsRow.styled";
 import { DataViewActionsRowProps } from "./DataViewActionsRowTypes";
