@@ -15,16 +15,13 @@ import { DataViewProps } from "./DataViewTypes";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
-	&>tr {
-		padding: 0px 12px;
-	};
 `
 
 const StyledTh = styled.th`
 	font-size: 14px;
 	text-align: left;
 	font-weight: 400;
-	padding: 8px 32px 8px 0px;
+	padding: 12px 32px 12px 0px;
 	height: 40px;
 	color: ${theme.colors.gray700};
 	position: sticky;
@@ -32,6 +29,13 @@ const StyledTh = styled.th`
 	z-index: 2;
 	background-color: ${theme.colors.gray200};
 	white-space: nowrap;
+
+	&:first-child {
+		padding-left: 8px;
+	}
+	&:last-child {
+		padding-right: 8px;
+	}
 
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
 	&:after {
@@ -64,8 +68,8 @@ const StyledTh = styled.th`
 
 	& > .columnHeader > .icon {
 		visibility: hidden;
-		height: 21.34px;
-		width: 36px;
+		height: 24px;
+		width: 24px;
 		margin-left: 12px;
 		transform: rotate(90deg);
 	}
@@ -117,21 +121,6 @@ interface DataViewTHeadProps {
 	sort?: any;
 	onCheckAllPagesClick?: any;
 }
-// interface DataViewTHeadProps {
-// 	checked: any[];
-// 	bulkActions: any[];
-// 	columns: any[];
-// 	rowCount: number;
-// 	count: number;
-// 	onCheckAllClick: React.MouseEventHandler<HTMLButtonElement>;
-// 	data: MosaicObject[];
-// 	checkedAllPages: boolean;
-// 	onColumnsChange: any;
-// 	allColumns: any;
-// 	onSortChange: (arg0: { name: any; dir: any; }) => void;
-// 	sort: { name: any; dir: string; };
-// 	onCheckAllPagesClick: MosaicCallback;
-// }
 
 //TODO PROPS
 function DataViewTHead(props: DataViewTHeadProps) {
@@ -247,12 +236,8 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					<StyledTh key="_actions" className={`
 						paddingRight
 						${ !props?.bulkActions?.length ? "paddingLeft" : "" }
-					`}> <span className="columnHeader">Actions</span>
-						{
-							// We need to indent the actions by 11px to align with the buttons underneath
-							!props.onColumnsChange &&
-							<span style={{paddingLeft: "11px"}}>{t("mosaic:DataView.actions")}</span>
-						}
+					`}>
+						<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
 					</StyledTh>
 				}
 				{
