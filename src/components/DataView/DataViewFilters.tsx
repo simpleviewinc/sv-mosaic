@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import styled from "styled-components";
 import { /*List,*/ pick, xor } from "lodash";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect"
 import Button from "../Button";
@@ -14,7 +14,7 @@ import { DataViewProps } from "./DataViewTypes";
 const StyledDiv = styled.div`
 	margin-bottom: -4px;
 
-	& > .filterRow {
+/* 	& > .filterRow {
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
@@ -30,7 +30,13 @@ const StyledDiv = styled.div`
 	& > .filterRow > * {
 		margin-right: 4px;
 		margin-bottom: 4px;
-	}
+	} */
+`;
+
+const FiltersRow = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px 24px;
 `;
 
 interface DataViewFiltersProps {
@@ -63,13 +69,15 @@ function DataViewFilters(props: DataViewFiltersProps) {
 		dropdownOpen : false
 	});
 
-	const activeFilters = props.activeFilters || [];
-	const primaryFilters = props.filters.filter(val => val.type === "primary");
-	const primaryFilterNames = primaryFilters.map(val => val.name);
-	const optionalFilters = props.filters.filter(val => val.type !== "primary");
 
-	const active = optionalFilters.filter(val => activeFilters.includes(val.name));
-	const options = optionalFilters
+	const activeFilters = props.activeFilters || [];
+	/* 	const primaryFilters = props.filters.filter(val => val.type === "primary");
+	const primaryFilterNames = primaryFilters.map(val => val.name); */
+	//const optionalFilters = props.filters.filter(val => val.type !== "primary");
+
+	const active = props.filters.filter(val => activeFilters.includes(val.name));
+	console.log("Filters active: ", active)
+	const options = props.filters
 		.map((val) => ({ label: val.label, value: val.name }))
 		.sort((a, b) => a.label.localeCompare(b.label));
 
@@ -111,7 +119,8 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	}
 
 	const onActiveFiltersChange = function(activeFiltersParam: { value: DataViewProps["activeFilters"], comparison?: string }) {
-		const filter = pick(props.filter, [...primaryFilterNames, ...activeFiltersParam.value]);
+		//const filter = pick(props.filter, [...primaryFilterNames, ...activeFiltersParam.value]);
+		const filter = pick(props.filter, [...activeFiltersParam.value]);
 
 		// we only want to pass a new filter obj if we have actually removed a key from it, to prevent unnecessary re-fetches of data
 		const setFilter = Object.keys(filter).join(",") !== Object.keys(props.filter).join(",");
@@ -137,7 +146,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	return (
 		<StyledDiv>
 			<div className="filterRow">
-				{
+				{/* 				{
 					primaryFilters.map(filter => {
 						const Component = filter.component;
 
@@ -153,17 +162,17 @@ function DataViewFilters(props: DataViewFiltersProps) {
 							/>
 						)
 					})
-				}
+				} */}
 				{
-					optionalFilters?.length > 0 &&
-					<>
+					props?.filters?.length > 0 &&
+					<FiltersRow>
 						<Button
-							label={t("mosaic:DataView.more")}
+							label={t("mosaic:DataView.filters")}
 							variant="text"
 							color="black"
 							size="small"
-							iconPosition="right"
-							mIcon={ExpandMoreIcon}
+							iconPosition="left"
+							mIcon={FilterListIcon}
 							mIconColor={theme.colors.gray600}
 							onClick={onClick}
 						/>
@@ -182,12 +191,42 @@ function DataViewFilters(props: DataViewFiltersProps) {
 								onClose={onClose}
 							/>
 						</DataViewFilterDropdown>
-					</>
+						{
+							active?.length > 0 &&
+							<>
+								{
+									active.map(filter => {
+										const Component = filter.component;
+										return (
+											<Component
+												key={filter.name}
+												label={filter.label}
+												type={filter.type}
+												args={filter.args || {}}
+												data={props.filter[filter.name] || {}}
+												onRemove={onRemove(filter.name)}
+												onChange={filter.onChange}
+											/>
+										)
+									})
+								}
+							</>
+						}
+						{
+							active?.length > 0 &&
+							<Button
+								label={t("mosaic:DataView.clear_filters")}
+								variant="text"
+								color="teal"
+								onClick={onClick}
+							/>
+						}
+					</FiltersRow>
 				}
 			</div>
-			{
+			{/* {
 				active.length > 0 &&
-				<div className="filterRow optionalFilters">
+				<div className="filterRow">
 					{
 						active.map(filter => {
 							const Component = filter.component;
@@ -205,7 +244,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 						})
 					}
 				</div>
-			}
+			} */}
 		</StyledDiv>
 	)
 }
