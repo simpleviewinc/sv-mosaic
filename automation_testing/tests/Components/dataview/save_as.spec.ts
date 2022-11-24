@@ -105,21 +105,21 @@ test.describe.parallel("Components - Data View - Save As", () => {
 
 	test("Overwrite view", async () => {
 		await page.reload();
-		await pagination.selectResultOption(50);
 		await pagination.selectViewType("Grid");
+		await pagination.selectResultOption(50, false);
 		await pagination.wait()
 		await saveAs.createNewView(saveAs_data.saveAsOverwriteView);
 
-		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage50}`);
-		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview_data.resultPerPage50, 1);
-		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
+		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage50}`);
+		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview_data.resultPerPage50, 1, false);
+		expect(await pagination.paginationValueGrid.textContent()).toBe(recordRangePerPage);
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsOverwriteView);
 		expect(await dataviewPage.getColumnHeadersCount()).not.toBe(saveAs_data.defaultColumnHeadersList);
-		await pagination.selectResultOption(100);
+		await pagination.selectResultOption(100, false);
 		await pagination.wait();
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(2);
-		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage100}`);
+		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage100}`);
 
 		await saveAs.viewBtn.click();
 		await (await saveAs.selectViewBtnByLabel(saveAs_data.defaultView)).click();
@@ -128,7 +128,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		await pagination.wait();
 		await saveAs.viewBtn.click();
 		await (await saveAs.selectViewBtnByLabel(saveAs_data.saveAsOverwriteView)).click();
-		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage100}`);
+		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage100}`);
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsOverwriteView);
 	});
 });
