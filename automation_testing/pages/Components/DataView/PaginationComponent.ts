@@ -12,6 +12,8 @@ export class PaginationComponent extends BasePage {
 	readonly viewTypeBtn: Locator;
 	readonly viewTypeOption: Locator;
 	readonly menuItem: Locator;
+	readonly resultAmountGrid: Locator;
+	readonly paginationValueGrid: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -25,10 +27,14 @@ export class PaginationComponent extends BasePage {
 		this.viewTypeBtn = this.headerActionsButton.nth(1);
 		this.viewTypeOption = page.locator("ul[role='menu']");
 		this.menuItem = page.locator("[role='menuitem']");
+
+		this.resultAmountGrid = this.headerActionsButton.nth(1);
+		this.paginationValueGrid = this.headerActionsButton.nth(2);
 	}
 
-	async selectResultOption(option: number): Promise<void> {
-		await this.resultAmount.click();
+	async selectResultOption(option: number, isList = true): Promise<void> {
+		const resultLocator = isList ? this.resultAmount : this.resultAmountGrid;
+		await resultLocator.click();
 		await this.menuItem.locator(":scope", { hasText: option.toString() }).click({force: true});
 		await this.loading.waitFor({ state: "detached" });
 	}
@@ -42,8 +48,9 @@ export class PaginationComponent extends BasePage {
 		return pages;
 	}
 
-	async calulateRecordRangePerPage(results: number, page: number): Promise<string> {
-		const total = parseInt((await this.paginationValue.textContent()).split("of ")[1]);
+	async calulateRecordRangePerPage(results: number, page: number, isList = true): Promise<string> {
+		const paginationLocator = isList ? this.paginationValue : this.paginationValueGrid;
+		const total = parseInt((await paginationLocator.textContent()).split("of ")[1]);
 		let final = results * page;
 		const init = final - (results - 1);
 		if (final > total) {
