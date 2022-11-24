@@ -3,12 +3,13 @@ import styled from "styled-components";
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
+import { DataViewFilterMultiselectProps, MultiSelectComparison } from "./DataViewFilterMultiselectTypes";
 
 const StyledWrapper = styled.span`
 
 `;
 
-const validComparisons = [
+const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 	{ label : "In", value : "in" },
 	{ label : "Not In", value : "not_in" },
 	{ label : "All", value : "all" },
@@ -16,116 +17,13 @@ const validComparisons = [
 	{ label : "Not Exists", value : "not_exists" }
 ];
 
-// const validComparisonNames = validComparisons.map(val => val.value);
-
 const comparisonMap = {
 	in : "",
 	not_in : "Not In - ",
 	all : "All - "
 }
 
-interface DataViewFilterMultiselectProps {
-	data?: any;
-	args?: any;
-	onChange?: any;
-	label?: any;
-	type?: any;
-	onRemove?: any;
-}
-// interface DataViewFilterMultiselectProps {
-// 	data?: any;
-// 	args?: {
-// 		getSelected?: (arg0: any) => any;
-// 		comparisons?: string | string[];
-// 		getOptions?: any;
-// 		placeholder?: any;
-// 	};
-// 	onChange?:(arg0: any) => void;
-// 	label?: string;
-// 	type?: "primary" | "optional";
-// 	onRemove?: () => void;
-// }
-
-//TODO PROPS
 function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
-	// jsvalidator.validate(props, {
-	// 	type : "object",
-	// 	schema : [
-	// 		{
-	// 			name : "label",
-	// 			type : "string",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "data",
-	// 			type : "object",
-	// 			schema : [
-	// 				{
-	// 					name : "value",
-	// 					type : "array",
-	// 					schema : {
-	// 						type : "string"
-	// 					}
-	// 				},
-	// 				{
-	// 					name : "comparison",
-	// 					type : "string",
-	// 					enum : validComparisonNames
-	// 				}
-	// 			],
-	// 			allowExtraKeys : false,
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "type",
-	// 			type : "string",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "args",
-	// 			type : "object",
-	// 			schema : [
-	// 				{
-	// 					name : "getOptions",
-	// 					type : "function",
-	// 					required : true
-	// 				},
-	// 				{
-	// 					name : "getSelected",
-	// 					type : "function",
-	// 					required : true
-	// 				},
-	// 				{
-	// 					name : "comparisons",
-	// 					type : "array",
-	// 					schema : {
-	// 						type : "string",
-	// 						enum : validComparisonNames
-	// 					}
-	// 				},
-	// 				{
-	// 					name: "placeholder",
-	// 					type: "string",
-	// 					required: false
-	// 				}
-	// 			],
-	// 			allowExtraKeys : false,
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "onRemove",
-	// 			type : "function",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "onChange",
-	// 			type : "function",
-	// 			required : true
-	// 		}
-	// 	],
-	// 	allowExtraKeys : false,
-	// 	throwOnInvalid : true
-	// });
 
 	const [state, setState] = useState({
 		anchorEl : null,
@@ -208,7 +106,6 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
-				onRemove={props.onRemove}
 				onClick={onClick}
 				multiselect={state?.selected}
 			/>
