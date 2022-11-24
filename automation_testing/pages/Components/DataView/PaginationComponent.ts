@@ -11,6 +11,7 @@ export class PaginationComponent extends BasePage {
 	readonly forwardArrow: Locator;
 	readonly viewTypeBtn: Locator;
 	readonly viewTypeOption: Locator;
+	readonly menuItem: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -23,16 +24,13 @@ export class PaginationComponent extends BasePage {
 		this.forwardArrow = this.headerActionsButton.nth(5);
 		this.viewTypeBtn = this.headerActionsButton.nth(1);
 		this.viewTypeOption = page.locator("ul[role='menu']");
+		this.menuItem = page.locator("[role='menuitem']");
 	}
 
 	async selectResultOption(option: number): Promise<void> {
-		await this.resultOptions.locator("li").nth(option - 1).click({ force: true });
-		await this.loading.waitFor({ state: "detached" });
-	}
-
-	async changeResultPerPage(results: number): Promise<void> {
 		await this.resultAmount.click();
-		await this.selectResultOption(results);
+		await this.menuItem.locator(":scope", { hasText: option.toString() }).click({force: true});
+		await this.loading.waitFor({ state: "detached" });
 	}
 
 	async calculatePages(results: number,): Promise<number> {
