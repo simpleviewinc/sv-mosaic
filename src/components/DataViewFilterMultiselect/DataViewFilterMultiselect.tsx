@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import jsvalidator from "jsvalidator";
-
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
@@ -191,18 +189,13 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 		onClose();
 	}
 
-	let valueString;
+	let valueString: string;
 	if (comparison === "exists") {
 		valueString = "EXISTS";
 	} else if (comparison === "not_exists") {
 		valueString = "NOT EXISTS";
 	} else if (state.selected.length > 0) {
-		let tempString = state.selected.slice(0, 2).map(val => val.label).join(", ");
-		if (state.selected.length > 2) {
-			tempString += ` (${state.selected.length - 2} more)`;
-		}
-
-		valueString = `${comparisonMap[comparison]}${tempString}`;
+		valueString = `${comparisonMap[comparison]}${state.selected[0]?.label}`;
 	} else {
 		valueString = "";
 	}
@@ -215,9 +208,9 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
-				type={props.type}
 				onRemove={props.onRemove}
 				onClick={onClick}
+				multiselect={state?.selected}
 			/>
 			<DataViewFilterDropdown
 				anchorEl={state.anchorEl}
