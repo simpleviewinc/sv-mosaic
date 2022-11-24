@@ -138,7 +138,7 @@ const singleSelectCategoriesHelper = new SingleSelectHelper({
 const filters: {
 	name: DataViewFilterDef["name"];
 	label: DataViewFilterDef["label"];
-	type: DataViewFilterDef["type"];
+	//type?: any;
 	component: any;
 	args?: DataViewFilterDef["args"];
 	column?: DataViewFilterDef["column"];
@@ -147,7 +147,7 @@ const filters: {
 	{
 		name: "keyword",
 		label: "Keyword",
-		type: "primary",
+		//type: "optional",
 		component: DataViewFilterText,
 		column: "title",
 		toFilter: function ({ name, data, output }) {
@@ -161,7 +161,7 @@ const filters: {
 	{
 		name: "categories",
 		label: "Categories",
-		type: "primary",
+		//type: "optional",
 		component: DataViewFilterMultiselect,
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
@@ -173,7 +173,7 @@ const filters: {
 	{
 		name: "single_select_category",
 		label: "Single Select Category",
-		type: "optional",
+		//type: "optional",
 		component: DataViewFilterSingleSelect,
 		args: {
 			getOptions: singleSelectCategoriesHelper.getOptions.bind(singleSelectCategoriesHelper),
@@ -185,7 +185,7 @@ const filters: {
 	{
 		name: "categories_with_comparisons",
 		label: "Categories with Comparisons",
-		type: "optional",
+		//type: "optional",
 		component: DataViewFilterMultiselect,
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
@@ -198,28 +198,28 @@ const filters: {
 	{
 		name: "title",
 		label: "Title",
-		type: "optional",
+		//type: "optional",
 		component: DataViewFilterText,
 		toFilter: processStringFilter
 	},
 	{
 		name: "created",
 		label: "Created",
-		type: "optional",
+		//type: "optional",
 		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
 		name: "updated",
 		label: "Updated",
-		type: "optional",
+		//type: "optional",
 		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
 		name: "title_with_comparisons",
 		label: "Title with Comparisons",
-		type: "optional",
+		//type: "optional",
 		component: DataViewFilterText,
 		toFilter: processStringFilter,
 		column: "title",
@@ -415,14 +415,14 @@ function DataViewKitchenSink(): ReactElement {
 	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
 	const additionalActions = boolean("additionalActions", true);
-	const primaryFilters = boolean("primaryFilters", true);
-	const optionalFilters = boolean("optionalFilters", true);
+/* 	const primaryFilters = boolean("primaryFilters", true);
+	const optionalFilters = boolean("optionalFilters", true); */
 	const sticky = boolean("sticky", true);
 	const locale: string = select("locale", { en: "en", es: "es", cimode: "cimode", de: "de" }, "en");
 	const comparisonDefault: string = select("ComparisonDefault for text filter", { "Equals": "equals", "Not Equals": "not_equals", "Contains": "contains", "Not Contains": "not_contains", "Exists": "exists", "Not Exists": "not_exists", "Invalid Comparison": "invalid_comparison" }, "contains");
 	const displayList = boolean("displayList", true);
 	const displayGrid = boolean("displayGrid", true);
-	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
+	//const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
 	const draggableRows = boolean("draggableRows", true);
 	const defaultView: DataViewProps["savedView"] = {
 		...rootDefaultView,
@@ -613,12 +613,12 @@ function DataViewKitchenSink(): ReactElement {
 				}
 			}
 		],
-		filters: validFilters.map((filter): DataViewFilterDef => {
+		filters: filters.map((filter): DataViewFilterDef => { // Remove type messes styles
 			return {
 				name: filter.name,
 				label: filter.label,
 				component: filter.component,
-				type: filter.type,
+				//type: filter.type,
 				args: {...filter.args, comparisonDefault},
 				onChange: function (value) {
 					filterChange(filter.name, value);

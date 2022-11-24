@@ -51,7 +51,7 @@ export interface DataViewFilterOnChange {
 export interface DataViewFilterDef {
 	name: string
 	label: string
-	type: DataViewFilterTypes
+	//type?: any
 	args?: MosaicObject
 	component: React.Component
 	column?: string
@@ -60,7 +60,7 @@ export interface DataViewFilterDef {
 
 export interface DataViewFilterProps {
 	label: string
-	type: DataViewFilterTypes
+	//type?: any
 	args: MosaicObject
 	data: unknown
 	onChange: unknown

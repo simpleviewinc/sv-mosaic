@@ -46,7 +46,7 @@ const LabelWrapper = styled.div`
 	}
 
 	&.type_optional > * {
-		color: ${theme.colors.blue};
+		color: ${theme.newColors.almostBlack["100"]};
 	}
 `;
 
@@ -90,8 +90,8 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 		props.onRemove();
 	}
 
-	const variant = props.type === "primary" ? "text" : "contained";
-	const color = props.type === "primary" ? "black" : "lightBlue";
+	//const variant = props.type === "primary" ? "text" : "text";
+	//const color = props.type === "primary" ? "black" : "lightBlue";
 
 	const label = (
 		<LabelWrapper
@@ -99,10 +99,18 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 				type_${props.type}
 			`}
 		>
-			<BodyText className="filter-label">{props.label}:</BodyText>
-			<BodyText className="filter-value" color={ props.color ? props.color : color}><b>{props.value || "Any"}</b></BodyText>
+			<BodyText className="filter-label">{props.label}</BodyText>
+			<BodyText
+				className="filter-value"
+				//color={ props.color ? props.color : color}
+			>
+				<b>| {props.value || "Any"}</b>
+				{/* 				<Tooltip text={props.value} type='advanced'>
+					<MoreVertIcon />
+				</Tooltip> */}
+			</BodyText>
 			{
-				props.type === "optional" &&
+				//props.type === "optional" &&
 				<CloseIcon
 					className="icon removeIcon"
 					onClick={remove}
@@ -113,8 +121,9 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 
 	return (
 		<Button
-			color={ props.color ? props.color : color}
-			variant={variant}
+			//color={ props.color ? props.color : color}
+			color="black"
+			variant="contained"
 			size="small"
 			onClick={props.onClick}
 			label={label}
