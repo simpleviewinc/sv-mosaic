@@ -5,12 +5,11 @@ import { BodyText } from "@root/components/Typography";
 import Tooltip from "../Tooltip";
 import { MosaicLabelValue } from "@root/types";
 import { Count, LabelWrapper, MultiselectCounter, Value } from "./DataViewPrimaryFilter.styled";
-import { DataViewFilterProps, DataViewProps } from "../DataView/DataViewTypes";
+import { DataViewFilterProps } from "../DataView/DataViewTypes";
 
 interface DataViewPrimaryFilterProps {
 	label?: DataViewFilterProps["label"];
 	value?: string;
-	onRemove?: DataViewFilterProps["onRemove"];
 	onClick?: (evt: any) => void;
 	multiselect?: MosaicLabelValue[];
 }
@@ -37,14 +36,6 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 	// 	allowExtraKeys : false,
 	// 	throwOnInvalid : true
 	// });
-
-	const remove = function(e) {
-		// stops the outer wrapping click handler from firing
-		e.stopPropagation();
-
-		// call the passed in onRemove function
-		props.onRemove();
-	}
 
 	const label = (
 		<LabelWrapper>

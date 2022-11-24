@@ -415,7 +415,7 @@ function DataViewKitchenSink(): ReactElement {
 	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
 	const additionalActions = boolean("additionalActions", true);
-/* 	const primaryFilters = boolean("primaryFilters", true);
+	/* 	const primaryFilters = boolean("primaryFilters", true);
 	const optionalFilters = boolean("optionalFilters", true); */
 	const sticky = boolean("sticky", true);
 	const locale: string = select("locale", { en: "en", es: "es", cimode: "cimode", de: "de" }, "en");

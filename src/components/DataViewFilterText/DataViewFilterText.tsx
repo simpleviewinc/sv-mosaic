@@ -167,8 +167,6 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
-				type={props.type}
-				onRemove={props.onRemove}
 				onClick={onClick}
 			/>
 			<DataViewFilterDropdown
