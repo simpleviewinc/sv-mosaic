@@ -12,7 +12,7 @@ export const StyledSpan = styled.span`
 	}
 
 	span.button:first-child {
-		padding: 0 4px 0 4px;
+		padding-right: 4px;
 	}
 `;
 
