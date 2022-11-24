@@ -106,7 +106,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 	test("Overwrite view", async () => {
 		await page.reload();
 		await pagination.selectViewType("Grid");
-		await pagination.changeResultPerPage(2);
+		await pagination.selectResultOption(50);
 		await pagination.wait()
 		await saveAs.createNewView(saveAs_data.saveAsOverwriteView);
 
@@ -115,7 +115,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsOverwriteView);
 		expect(await dataviewPage.getColumnHeadersCount()).not.toBe(saveAs_data.defaultColumnHeadersList);
-		await pagination.changeResultPerPage(3);
+		await pagination.selectResultOption(100);
 		await pagination.wait();
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(2);

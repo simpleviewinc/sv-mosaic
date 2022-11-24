@@ -32,15 +32,13 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 	});
 
 	test("Select result per page - Select 50", async () => {
-		await pagination.resultAmount.click();
-		await pagination.selectResultOption(2);
+		await pagination.selectResultOption(50);
 		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage50}`);
 		expect(await (await dataviewPage.getTableRows()).count()).toBe(dataview_data.resultPerPage50);
 	});
 
 	test("Select result per page - Select 100", async () => {
-		await pagination.resultAmount.click();
-		await pagination.selectResultOption(3);
+		await pagination.selectResultOption(100);
 		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage100}`);
 		expect(await (await dataviewPage.getTableRows()).count()).toBe(dataview_data.resultPerPage100);
 	});
@@ -50,12 +48,12 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 	});
 
 	test("Validate new pagination when select result per page - 50 ", async () => {
-		await pagination.changeResultPerPage(2);
+		await pagination.selectResultOption(50);
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPage50} of ${dataview_data.totalRecords}`)
 	});
 
 	test("Validate new pagination when select result per page - 100 ", async () => {
-		await pagination.changeResultPerPage(3);
+		await pagination.selectResultOption(100);
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPage100} of ${dataview_data.totalRecords}`)
 	});
 
@@ -66,14 +64,14 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 	});
 
 	test("Validate pages by result per page - 50", async () => {
-		await pagination.changeResultPerPage(2);
+		await pagination.selectResultOption(50);
 		const pages = await pagination.calculatePages(dataview_data.resultPerPage50);
 		await pagination.paginationValue.click();
 		expect(await (await pagination.getPagesLabel()).textContent()).toContain(`${pages}`);
 	});
 
 	test("Validate pages by result per page - 100", async () => {
-		await pagination.changeResultPerPage(3);
+		await pagination.selectResultOption(100);
 		const pages = await pagination.calculatePages(dataview_data.resultPerPage100);
 		await pagination.paginationValue.click();
 		expect(await (await pagination.getPagesLabel()).textContent()).toContain(`${pages}`);
@@ -150,6 +148,6 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 	test("View Type - Validate list view type", async () => {
 		await pagination.selectViewType("List");
 		expect(await columns.columnsBtn.isVisible()).toBe(true);
-		expect(await dataviewPage.getColumnHeadersCount()).toBe(saveAs_data.defaultColumnHeadersList);
+		expect(await dataviewPage.getColumnHeadersCount() - 1).toBe(saveAs_data.defaultColumnHeadersList);
 	});
 });
