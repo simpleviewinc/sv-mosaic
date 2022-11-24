@@ -46,20 +46,6 @@ interface DataViewFiltersProps {
 	onActiveFiltersChange?: DataViewProps["onActiveFiltersChange"];
 	loading?: DataViewProps["loading"];
 }
-// interface DataViewFiltersProps {
-// 	activeFilters?: {
-// 		value?: any;
-// 	};
-// 	filters?: any;
-// 	filter?: {
-// 		[x: string]: {
-// 			comparison?: any;
-// 		} | {
-// 			comparison?: undefined;
-// 		};
-// 	};
-// 	onActiveFiltersChange?: any;
-// }
 
 function DataViewFilters(props: DataViewFiltersProps) {
 	const { t } = useMosaicTranslation();
@@ -73,7 +59,6 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	const activeFilters = props.activeFilters || [];
 
 	const active = props.filters.filter(val => activeFilters.includes(val.name));
-	// console.log("Filters active: ", active)
 	const options = props.filters
 		.map((val) => ({ label: val.label, value: val.name }))
 		.sort((a, b) => a.label.localeCompare(b.label));
