@@ -105,8 +105,8 @@ test.describe.parallel("Components - Data View - Save As", () => {
 
 	test("Overwrite view", async () => {
 		await page.reload();
-		await pagination.selectViewType("Grid");
 		await pagination.selectResultOption(50);
+		await pagination.selectViewType("Grid");
 		await pagination.wait()
 		await saveAs.createNewView(saveAs_data.saveAsOverwriteView);
 
