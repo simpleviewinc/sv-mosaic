@@ -4,6 +4,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Columns", () => {
 	let page: Page;
@@ -152,5 +153,14 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		await columns.selectColumn("Style - Text Transform with large field text to order column");
 		await columns.columnsBtn.click();
 		expect(await columns.getElementWidth(columns.rightItems.locator("text=Style - Text Transform with large field text to order column"))).toBe(180);
+	});
+
+	test("Validate checked columns to have expedted color.", async () => {
+		const expectedColor = (theme.newColors.simplyGold["100"]);
+		await columns.columnsBtn.click();
+		const numberOfCheckedColumns = await columns.columnCheckbox.locator(".checked").count();
+		for (let i = 0; i < numberOfCheckedColumns; i++) {
+			expect(await columns.getColorFromElement(columns.columnCheckbox.locator(".checked").nth(i))).toBe(expectedColor);
+		}
 	});
 });
