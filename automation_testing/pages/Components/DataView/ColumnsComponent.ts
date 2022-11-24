@@ -10,6 +10,7 @@ export class ColumnsComponent extends BasePage {
 	readonly btnLocator: string;
 	readonly checkboxLocator: string;
 	readonly closeTableSettingIcon: Locator;
+	readonly columnCheckbox: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -21,6 +22,7 @@ export class ColumnsComponent extends BasePage {
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
 		this.closeTableSettingIcon = page.locator(".left [data-testid='icon-button-test']");
+		this.columnCheckbox = page.locator(".left [data-testid='checkbox-test-id']");
 	}
 
 	async getRightItemsText(): Promise<string[]> {
@@ -67,7 +69,6 @@ export class ColumnsComponent extends BasePage {
 	async getLastRightItem(): Promise<Locator> {
 		const itemsNumber = await this.rightItems.count();
 		return this.rightItems.nth((itemsNumber - 1));
-
 	}
 
 	async getArrowsByItemName(itemName: string): Promise<Locator> {
