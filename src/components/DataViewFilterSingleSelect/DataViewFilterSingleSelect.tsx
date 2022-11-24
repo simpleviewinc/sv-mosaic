@@ -75,10 +75,8 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
-				type={props.type}
 				onRemove={props.onRemove}
 				onClick={onClick}
-				color={props.args.color}
 			/>
 			<DataViewFilterSingleSelectContent
 				onClose={onClose}
