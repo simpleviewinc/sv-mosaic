@@ -1,62 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-// import jsvalidator from "jsvalidator";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CloseIcon from "@mui/icons-material/Close";
-
-import theme from "@root/theme";
 import Button from "@root/components/Button";
 import { BodyText } from "@root/components/Typography";
-
-const LabelWrapper = styled.div`
-	display: flex;
-	align-items: center;
-
-	& > .dropdownIcon {
-		color: ${theme.colors.gray600};
-		margin-left: 4px;
-		margin-right: -4px;
-	}
-
-	& > .removeIcon {
-		margin-left: 4px;
-		margin-right: -4px;
-		color: black;
-		background-color: ${theme.colors.blue}12;
-		border-radius: 20px;
-		padding: 3px;
-		box-sizing: border-box;
-	}
-
-	& > .removeIcon:hover {
-		background-color: ${theme.colors.blue}45;
-	}
-
-	& > .filter-label {
-		font-weight: ${theme.fontWeight.normal};
-		margin-right: 8px;
-		text-transform: capitalize;
-	}
-
-	& > .filter-value {
-		font-weight: ${theme.fontWeight.normal};
-		margin-right: 8px;
-		text-transform: none;
-	}
-
-	&.type_optional > * {
-		color: ${theme.newColors.almostBlack["100"]};
-	}
-`;
+import Tooltip from "../Tooltip";
+import { MosaicLabelValue } from "@root/types";
+import { Count, LabelWrapper, MultiselectCounter, Value } from "./DataViewPrimaryFilter.styled";
+import { DataViewFilterProps, DataViewProps } from "../DataView/DataViewTypes";
 
 interface DataViewPrimaryFilterProps {
-	label?: any;
-	value?: any;
-	color?: any;
-	type?: any;
-	onRemove?: any;
-	onClick?: any;
+	label?: DataViewFilterProps["label"];
+	value?: string;
+	onRemove?: DataViewFilterProps["onRemove"];
+	onClick?: (evt: any) => void;
+	multiselect?: MosaicLabelValue[];
 }
 // interface DataViewPrimaryFilterProps {
 // 	label?: string;
@@ -90,38 +46,26 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 		props.onRemove();
 	}
 
-	//const variant = props.type === "primary" ? "text" : "text";
-	//const color = props.type === "primary" ? "black" : "lightBlue";
-
 	const label = (
-		<LabelWrapper
-			className={`
-				type_${props.type}
-			`}
-		>
+		<LabelWrapper>
 			<BodyText className="filter-label">{props.label}</BodyText>
-			<BodyText
-				className="filter-value"
-				//color={ props.color ? props.color : color}
-			>
-				<b>| {props.value || "Any"}</b>
-				{/* 				<Tooltip text={props.value} type='advanced'>
-					<MoreVertIcon />
-				</Tooltip> */}
+			<BodyText	className="filter-value">
+				<Value>| {props.value || "Any"}</Value>
+				{
+					props?.multiselect?.length > 1 && (
+						<Tooltip text={props?.multiselect.slice(1).map(val => val.label).join(", ")} type='advanced'>
+							<MultiselectCounter>
+								<Count>+{props?.multiselect.length - 1}</Count>
+							</MultiselectCounter>
+						</Tooltip>
+					)
+				}
 			</BodyText>
-			{
-				//props.type === "optional" &&
-				<CloseIcon
-					className="icon removeIcon"
-					onClick={remove}
-				/>
-			}
 		</LabelWrapper>
 	)
 
 	return (
 		<Button
-			//color={ props.color ? props.color : color}
 			color="black"
 			variant="contained"
 			size="small"
