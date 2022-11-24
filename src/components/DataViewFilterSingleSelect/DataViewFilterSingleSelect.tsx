@@ -75,7 +75,6 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
-				onRemove={props.onRemove}
 				onClick={onClick}
 			/>
 			<DataViewFilterSingleSelectContent

@@ -56,7 +56,6 @@ export const Playground = (): ReactElement => {
 	return (
 		<DataViewFilterSingleSelect
 			label="Testing"
-			type="primary"
 			data={state}
 			args={{ getOptions, getSelected, required }}
 			onRemove={onRemove}
@@ -102,7 +101,6 @@ export const KitchenSink = (): ReactElement => {
 			<h2>Required</h2>
 			<DataViewFilterSingleSelect
 				label="Required"
-				type="primary"
 				data={stateRequired}
 				args={{ getOptions, getSelected, required: true }}
 				onRemove={onRemove}
@@ -111,7 +109,6 @@ export const KitchenSink = (): ReactElement => {
 			<h2>No required</h2>
 			<DataViewFilterSingleSelect
 				label="No required"
-				type="primary"
 				data={state}
 				args={{ getOptions, getSelected, required: false }}
 				onRemove={onRemove}

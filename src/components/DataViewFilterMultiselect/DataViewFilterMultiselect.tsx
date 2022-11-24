@@ -208,7 +208,6 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
-				onRemove={props.onRemove}
 				onClick={onClick}
 				multiselect={state?.selected}
 			/>
