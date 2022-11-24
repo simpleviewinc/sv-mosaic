@@ -47,11 +47,11 @@ export const MultiselectCounter = styled.div`
 	display: flex;
 	height: 20px;
 	justify-content: center;
-	margin-right: 16px;
 	width: 20px;
 `;
 
 export const Value = styled.b`
+	margin-left: 16px;
 	max-width: 177px;
 	overflow: hidden;
 	text-overflow: ellipsis;
