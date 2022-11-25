@@ -18,23 +18,23 @@ const StyledWrapper = styled.thead`
 `
 
 const StyledTh = styled.th`
-	font-size: 14px;
-	text-align: left;
-	font-weight: 400;
-	padding: 12px 32px 12px 0px;
-	height: 40px;
-	color: ${theme.colors.gray700};
-	position: sticky;
-	top: 0;
-	z-index: 2;
 	background-color: ${theme.colors.gray200};
+	color: ${theme.newColors.almostBlack["100"]};
+	font-size: 14px;
+	font-weight: 510;
+	height: 40px;
+	padding: 12px 32px 12px 0px;
+	position: sticky;
+	text-align: left;
+	top: 0;
 	white-space: nowrap;
+	z-index: 2;
 
 	&:first-child {
 		padding-left: 8px;
 	}
 	&:last-child {
-		padding-right: 8px;
+		padding-right: 8px !important;
 	}
 
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
@@ -45,7 +45,6 @@ const StyledTh = styled.th`
 		right: 0;
 		bottom: 0;
 		left: 0;
-		border-bottom: ${theme.colors.gray200};
 		pointer-events: none;
 	}
 
@@ -75,12 +74,8 @@ const StyledTh = styled.th`
 	}
 
 	&.active {
-		color: ${theme.colors.gray800};
-		font-weight: 700;
-	}
-
-	&.active:after {
-		border-bottom: 1px solid ${theme.colors.gray800};
+		color: ${theme.newColors.almostBlack["100"]};
+		font-weight: 510;
 	}
 
 	&.active > .columnHeader > .icon {
