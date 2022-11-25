@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { DraggableProvided } from "react-beautiful-dnd";
 import styled from "styled-components";
+import theme from "@root/theme";
 
 import { BodyText } from "../Typography";
 
@@ -42,7 +43,12 @@ const StyledTd = styled.td`
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-`
+	& > div {
+		color: ${theme.newColors.almostBlack["100"]};
+		font-weight: 400;
+	}
+`;
+
 interface DataViewTdProps {
 	expandCell?: any;
 	paddingRight?: any;
