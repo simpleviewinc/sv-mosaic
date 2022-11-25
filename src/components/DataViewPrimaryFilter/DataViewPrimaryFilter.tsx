@@ -3,40 +3,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@root/components/Button";
 import { BodyText } from "@root/components/Typography";
 import Tooltip from "../Tooltip";
-import { MosaicLabelValue } from "@root/types";
 import { Count, LabelWrapper, MultiselectCounter, Value } from "./DataViewPrimaryFilter.styled";
-import { DataViewFilterProps } from "../DataView/DataViewTypes";
+import { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
 
-interface DataViewPrimaryFilterProps {
-	label?: DataViewFilterProps["label"];
-	value?: string;
-	onClick?: (evt: any) => void;
-	multiselect?: MosaicLabelValue[];
-}
-// interface DataViewPrimaryFilterProps {
-// 	label?: string;
-// 	value?: string;
-// 	color?: ButtonProps["color"];
-// 	type?: "primary" | "optional";
-// 	onRemove?: () => void;
-// 	onClick?: ButtonProps["onClick"];
-// }
-//TODO PROPS
 function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
-	// jsvalidator.validate(props, {
-	// 	type : "object",
-	// 	schema : [
-	// 		{ name : "label", type : "string", required : true },
-	// 		{ name : "value", type : "string" },
-	// 		{ name : "color", type : "string", required : false },
-	// 		{ name : "type", type : "string", enum : ["primary", "optional"], required : true },
-	// 		{ name : "onRemove", type : "function", required : true },
-	// 		{ name : "onClick", type : "function", required : true }
-	// 	],
-	// 	allowExtraKeys : false,
-	// 	throwOnInvalid : true
-	// });
-
 	const label = (
 		<LabelWrapper>
 			<BodyText className="filter-label">{props.label}</BodyText>
@@ -57,7 +27,7 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 
 	return (
 		<Button
-			color="black"
+			color={props.color ?? "black"}
 			variant="contained"
 			size="small"
 			onClick={props.onClick}

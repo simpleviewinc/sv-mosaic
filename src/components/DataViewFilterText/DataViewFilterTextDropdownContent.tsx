@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
-// import jsvalidator from "jsvalidator";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -9,7 +8,7 @@ import Button from "../Button";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
-// import { DataViewFilterTextProps } from "./DataViewFilterText";
+import { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
 
 const StyledContents = styled.div`
 	& > .inputRow {
@@ -45,61 +44,7 @@ const StyledContents = styled.div`
 
 const existsComparisons = ["exists", "not_exists"];
 
-interface DataViewFilterTextDropdownContentProps {
-	value?: any;
-	placeholder?: any;
-	onChange?: any;
-	comparison?: any;
-	comparisons?: any;
-	onClose?: any;
-}
-// interface DataViewFilterTextDropdownContentProps {
-// 	value?: string;
-// 	placeholder?: string;
-// 	onChange?: (value?: any) => void;
-// 	comparison?: DataViewFilterTextProps["data"]["comparison"];
-// 	comparisons?: { label: string; value: DataViewFilterTextProps["data"]["comparison"] }[];
-// 	onClose?: () => void;
-// }
-//TODO PROPS
 function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownContentProps) {
-	// jsvalidator.validate(props, {
-	// 	type : "object",
-	// 	schema : [
-	// 		{
-	// 			name : "value",
-	// 			type : "string",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name: "placeholder",
-	// 			type: "string",
-	// 			required: false
-	// 		},
-	// 		{
-	// 			name : "onChange",
-	// 			type : "function",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "comparison",
-	// 			type : "string",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "comparisons",
-	// 			type : "array"
-	// 		},
-	// 		{
-	// 			name : "onClose",
-	// 			type : "function",
-	// 			required : true
-	// 		}
-	// 	],
-	// 	allowExtraKeys : false,
-	// 	throwOnInvalid : true
-	// });
-
 	const [state, setState] = useState({
 		value : props.value,
 		comparison : props.comparison
