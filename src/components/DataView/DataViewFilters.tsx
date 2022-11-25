@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
 import styled from "styled-components";
-import { /*List,*/ pick, xor } from "lodash";
+import { pick, xor } from "lodash";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
@@ -13,24 +13,6 @@ import { DataViewProps } from "./DataViewTypes";
 
 const StyledDiv = styled.div`
 	margin-bottom: -4px;
-
-/* 	& > .filterRow {
-		display: flex;
-		align-items: center;
-		flex-wrap: wrap;
-
-		& .filter-value {
-			max-width: 200px;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-	}
-
-	& > .filterRow > * {
-		margin-right: 4px;
-		margin-bottom: 4px;
-	} */
 `;
 
 const FiltersRow = styled.div`
@@ -141,7 +123,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 							size="small"
 							iconPosition="left"
 							mIcon={FilterListIcon}
-							mIconColor={theme.colors.gray600}
+							mIconColor={theme.newColors.almostBlack["100"]}
 							onClick={onClick}
 						/>
 						<DataViewFilterDropdown
@@ -184,6 +166,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 							<Button
 								label={t("mosaic:DataView.clear_filters")}
 								variant="text"
+								size="small"
 								color="teal"
 								onClick={onClearFilters}
 							/>
