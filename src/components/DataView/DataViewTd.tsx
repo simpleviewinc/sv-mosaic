@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { DraggableProvided } from "react-beautiful-dnd";
 import styled from "styled-components";
+import theme from "@root/theme";
 
 import { BodyText } from "../Typography";
 
@@ -22,10 +23,6 @@ const StyledTd = styled.td`
 		padding-left: 32px;
 	}
 
-	&.bold {
-		font-weight: bold;
-	}
-
 	&.italic {
 		font-style: italic;
 	}
@@ -42,7 +39,12 @@ const StyledTd = styled.td`
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-`
+	& > div {
+		color: ${theme.newColors.almostBlack["100"]};
+		font-weight: 400;
+	}
+`;
+
 interface DataViewTdProps {
 	expandCell?: any;
 	paddingRight?: any;
@@ -64,7 +66,6 @@ function DataViewTd(props: DataViewTdProps) {
 	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
 	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : false;
 	const paddingLeft = props.paddingLeft !== undefined ? props.paddingLeft : false;
-	const bold = props.bold !== undefined ? props.bold : false;
 	const italic = props.italic !== undefined ? props.italic : false;
 	const strikeThrough = props.strikeThrough !== undefined ? props.strikeThrough : false;
 	const noWrap = props.noWrap !== undefined ? props.noWrap : false;
@@ -78,7 +79,6 @@ function DataViewTd(props: DataViewTdProps) {
 				${expandCell ? "expandCell" : ""}
 				${paddingRight ? "paddingRight" : ""}
 				${paddingLeft ? "paddingLeft" : ""}
-				${bold ? "bold" : ""}
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
