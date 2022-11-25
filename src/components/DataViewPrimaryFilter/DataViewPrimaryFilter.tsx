@@ -10,7 +10,7 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 	const label = (
 		<LabelWrapper>
 			<BodyText className="filter-label">{props.label}</BodyText>
-			<BodyText	className="filter-value">
+			<BodyText className="filter-value">
 				<Value>| {props.value || "Any"}</Value>
 				{
 					props?.multiselect?.length > 1 && (
