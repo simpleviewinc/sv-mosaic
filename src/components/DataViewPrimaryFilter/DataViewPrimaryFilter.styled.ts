@@ -47,7 +47,7 @@ export const MultiselectCounter = styled.div`
 	display: flex;
 	height: 20px;
 	justify-content: center;
-	margin-right: 16px;
+	margin-left: 16px;
 	width: 20px;
 `;
 
