@@ -3,6 +3,7 @@ import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComp
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Columns", () => {
 	let page: Page;
@@ -29,46 +30,8 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		expect(await columns.title.textContent()).toBe(columns_data.columnsTitle);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.defaultColumnsChecked.toString());
-		await columns.closeTableSettingIcon.click();
+		await columns.cancelBtn.click();
 	})
-
-	test("Change column order - Down", async () => {
-		await columns.columnsBtn.click();
-		let downArrow = await columns.getDownArrowByItemName(columns_data.changeItemDown);
-		await downArrow.focus();
-		await downArrow.click();
-		downArrow = await columns.getDownArrowByItemName(columns_data.changeItemDown);
-		await downArrow.click();
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.changeColumnsOrderDown.toString());
-		await columns.closeTableSettingIcon.click();
-	});
-
-	test("Change column order - Up", async () => {
-		await columns.columnsBtn.click();
-		let upArrow = await columns.getUpArrowByItemName(columns_data.changeItemUp);
-		await upArrow.focus();
-		await upArrow.click();
-		upArrow = await columns.getUpArrowByItemName(columns_data.changeItemUp);
-		await upArrow.click();
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.changeColumnsOrderUp.toString());
-		await columns.closeTableSettingIcon.click();
-	});
-
-	test("No Chage column order - Down", async () => {
-		await columns.columnsBtn.click();
-		const downArrowLocked = await columns.getLastDownArrow();
-		expect(await downArrowLocked.isDisabled()).toBe(true);
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
-		await columns.closeTableSettingIcon.click();
-	});
-
-	test("No Chage column order - Up", async () => {
-		await columns.columnsBtn.click();
-		const upArrowLocked = await columns.getFirstUpArrow();
-		expect(await upArrowLocked.isDisabled()).toBe(true);
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
-		await columns.closeTableSettingIcon.click();
-	});
 
 	test("Add column", async () => {
 		await columns.columnsBtn.click();
@@ -141,10 +104,12 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		expect(actualCreated).toBe(expectedCreatedSort);
 	});
 
-	test("Validate that column width for long column name is valid.", async () => {
-		await columns.wait();
-		await columns.selectColumn("Style - Text Transform with large field text to order column");
+	test("Validate checked columns to have expected color.", async () => {
+		const expectedColor = (theme.newColors.simplyGold["100"]);
 		await columns.columnsBtn.click();
-		expect(await columns.getElementWidth(columns.rightItems.locator("text=Style - Text Transform with large field text to order column"))).toBe(180);
+		const numberOfCheckedColumns = await columns.columnCheckbox.locator(".checked").count();
+		for (let i = 0; i < numberOfCheckedColumns; i++) {
+			expect(await columns.getColorFromElement(columns.columnCheckbox.locator(".checked").nth(i))).toBe(expectedColor);
+		}
 	});
 });
