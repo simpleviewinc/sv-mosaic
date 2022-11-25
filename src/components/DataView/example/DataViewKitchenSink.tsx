@@ -554,7 +554,7 @@ function DataViewKitchenSink(): ReactElement {
 		primaryActions: primaryActions ? [
 			{
 				name: "edit",
-				color: "blue",
+				color: "black",
 				variant: "icon",
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
@@ -581,7 +581,7 @@ function DataViewKitchenSink(): ReactElement {
 		bulkActions: bulkActions ? [
 			{
 				name: "download",
-				color: "blue",
+				color: "black",
 				variant: "icon",
 				mIcon: CloudDownloadIcon,
 				onClick: function ({ data }) {
@@ -590,7 +590,7 @@ function DataViewKitchenSink(): ReactElement {
 			},
 			{
 				name: "delete",
-				color: "blue",
+				color: "black",
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: function ({ data }) {
