@@ -23,6 +23,10 @@ const StyledTd = styled.td`
 		padding-left: 32px;
 	}
 
+	&.bold {
+		font-weight: bold;
+	}
+
 	&.italic {
 		font-style: italic;
 	}
@@ -66,6 +70,7 @@ function DataViewTd(props: DataViewTdProps) {
 	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
 	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : false;
 	const paddingLeft = props.paddingLeft !== undefined ? props.paddingLeft : false;
+	const bold = props.bold !== undefined ? props.bold : false;
 	const italic = props.italic !== undefined ? props.italic : false;
 	const strikeThrough = props.strikeThrough !== undefined ? props.strikeThrough : false;
 	const noWrap = props.noWrap !== undefined ? props.noWrap : false;
@@ -79,6 +84,7 @@ function DataViewTd(props: DataViewTdProps) {
 				${expandCell ? "expandCell" : ""}
 				${paddingRight ? "paddingRight" : ""}
 				${paddingLeft ? "paddingLeft" : ""}
+				${bold ? "bold" : ""}
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
