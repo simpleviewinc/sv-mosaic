@@ -44,6 +44,8 @@ export const ColumnItem = styled.div`
 
 	span {
 		margin-left: 16px;
+		color: ${theme.newColors.almostBlack["100"]};
+		font-weight: ${theme.fontWeight.normal};
 	}
 
 	.MuiSvgIcon-root {
