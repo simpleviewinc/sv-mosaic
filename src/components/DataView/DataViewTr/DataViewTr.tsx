@@ -7,6 +7,7 @@ import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { TableRow } from "./DataViewTr.styled";
 import { DataViewTrProps } from "./DataViewTrTypes";
+import theme from "@root/theme";
 
 //TODO PROPS
 function DataViewTr(props: DataViewTrProps) {
@@ -22,7 +23,7 @@ function DataViewTr(props: DataViewTrProps) {
 					{
 						props?.onReorder &&
 						<DataViewTd key="_draggable" draggableProvider={provider} paddingRight={true}>
-							<DragIndicatorIcon style={{display: "flex"}}/>
+							<DragIndicatorIcon style={{display: "flex", color: theme.newColors.almostBlack["100"]}}/>
 						</DataViewTd>
 					}
 					{

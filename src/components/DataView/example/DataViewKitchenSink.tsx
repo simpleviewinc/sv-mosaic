@@ -6,7 +6,7 @@ import { boolean, select } from "@storybook/addon-knobs";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import GetAppIcon from "@mui/icons-material/GetApp";
 
 import JSONDB from "@root/utils/JSONDB";
 import LocalStorageDB from "@root/utils/LocalStorageDB";
@@ -263,9 +263,6 @@ const listColumns = [
 	{
 		name: "title",
 		label: "Title",
-		style: {
-			bold: true
-		},
 		sortable: true
 	},
 	{
@@ -329,9 +326,6 @@ const listColumns = [
 		name: "bold",
 		label: "Style - bold",
 		column: "content_owner",
-		style: {
-			bold: true
-		}
 	},
 	{
 		name: "italic",
@@ -583,7 +577,7 @@ function DataViewKitchenSink(): ReactElement {
 				name: "download",
 				color: "black",
 				variant: "icon",
-				mIcon: CloudDownloadIcon,
+				mIcon: GetAppIcon,
 				onClick: function ({ data }) {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
 				}

@@ -8,7 +8,7 @@ import { MosaicObject } from "@root/types";
 
 const StyledTBody = styled.tbody`
 	& > tr {
-		border-bottom: ${theme.borders.lightGray};
+		border-bottom: 1px solid ${theme.newColors.grey2["100"]};
 
 		& > td:first-child {
 			padding-left: 8px;
