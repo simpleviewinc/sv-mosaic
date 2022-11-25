@@ -263,9 +263,6 @@ const listColumns = [
 	{
 		name: "title",
 		label: "Title",
-		style: {
-			bold: true
-		},
 		sortable: true
 	},
 	{
@@ -329,9 +326,6 @@ const listColumns = [
 		name: "bold",
 		label: "Style - bold",
 		column: "content_owner",
-		style: {
-			bold: true
-		}
 	},
 	{
 		name: "italic",

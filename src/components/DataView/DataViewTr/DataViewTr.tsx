@@ -50,6 +50,7 @@ function DataViewTr(props: DataViewTrProps) {
 									className={column.style && column.style.bold && "bold"}
 									paddingRight={true}
 									expandCell={true}
+									bold={column.style && column.style.bold}
 									italic={column.style && column.style.italic}
 									strikeThrough={column.style && column.style.strikeThrough}
 									noWrap={column.style && column.style.noWrap}
