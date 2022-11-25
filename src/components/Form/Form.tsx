@@ -33,11 +33,16 @@ const Form = (props: FormProps) => {
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
 	const contentRef = useRef();
 	const topComponentRef = useRef<HTMLDivElement>();
+	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 
 	useEffect(() => {
 		setSectionsRefs(sectionsRef.current);
 	}, []);
+
+	useEffect(() => {
+		setTopComponentHeight(topComponentRef.current?.offsetHeight);
+	}, [topComponentRef.current?.offsetHeight]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -141,7 +146,7 @@ const Form = (props: FormProps) => {
 						/>
 					}
 					{view === "BIG_DESKTOP" && sections ? (
-						<Row topComponentRef={topComponentRef?.current === undefined ? 0 : topComponentRef?.current.offsetHeight}>
+						<Row topComponentHeight={topComponentHeight}>
 							{sections &&
 								<FormNav sectionsRefs={sectionsRefs} contentRef={contentRef} sections={sections} />
 							}

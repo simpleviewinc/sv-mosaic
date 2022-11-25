@@ -88,6 +88,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		if (view === "MOBILE")
 			return (
 				<MobileView
+					ref={ref}
 					buttons={buttons}
 					title={title}
 					description={description}
@@ -110,6 +111,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		if (view === "RESPONSIVE")
 			return (
 				<ResponsiveView
+					ref={ref}
 					title={title}
 					description={description}
 					showActive={showActive}
