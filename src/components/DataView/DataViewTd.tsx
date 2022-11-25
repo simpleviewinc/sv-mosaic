@@ -15,11 +15,11 @@ const StyledTd = styled.td`
 
 	${/* If it has the .paddingRight class, add padding to the right of the cell */""}
 	&.paddingRight {
-		padding-right: 12px;
+		padding-right: 32px;
 	}
 
 	&.paddingLeft {
-		padding-left: 12px;
+		padding-left: 32px;
 	}
 
 	&.bold {
