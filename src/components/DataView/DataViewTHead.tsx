@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 // import jsvalidator from "jsvalidator";
 
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
+import SwitchRightIcon from "@mui/icons-material/SwitchRight";
 
 import Checkbox from "@root/components/Checkbox";
 import DataViewBulkActionsButtonsRow from "../DataView/DataViewBulkActionsButtonsRow";
@@ -21,7 +21,7 @@ const StyledTh = styled.th`
 	font-size: 14px;
 	text-align: left;
 	font-weight: 400;
-	padding: 5px 0px;
+	padding: 12px 32px 12px 0px;
 	height: 40px;
 	color: ${theme.colors.gray700};
 	position: sticky;
@@ -29,6 +29,13 @@ const StyledTh = styled.th`
 	z-index: 2;
 	background-color: ${theme.colors.gray200};
 	white-space: nowrap;
+
+	&:first-child {
+		padding-left: 8px;
+	}
+	&:last-child {
+		padding-right: 8px;
+	}
 
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
 	&:after {
@@ -48,7 +55,7 @@ const StyledTh = styled.th`
 	}
 
 	&.paddingRight {
-		padding-right: 12px;
+		padding-right: 32px;
 	}
 
 	&.paddingLeft {
@@ -61,9 +68,10 @@ const StyledTh = styled.th`
 
 	& > .columnHeader > .icon {
 		visibility: hidden;
-		font-size: 18px;
-		margin-left: 0.25rem;
-		margin-top: 1px;
+		height: 24px;
+		width: 24px;
+		margin-left: 12px;
+		transform: rotate(90deg);
 	}
 
 	&.active {
@@ -113,21 +121,6 @@ interface DataViewTHeadProps {
 	sort?: any;
 	onCheckAllPagesClick?: any;
 }
-// interface DataViewTHeadProps {
-// 	checked: any[];
-// 	bulkActions: any[];
-// 	columns: any[];
-// 	rowCount: number;
-// 	count: number;
-// 	onCheckAllClick: React.MouseEventHandler<HTMLButtonElement>;
-// 	data: MosaicObject[];
-// 	checkedAllPages: boolean;
-// 	onColumnsChange: any;
-// 	allColumns: any;
-// 	onSortChange: (arg0: { name: any; dir: any; }) => void;
-// 	sort: { name: any; dir: string; };
-// 	onCheckAllPagesClick: MosaicCallback;
-// }
 
 //TODO PROPS
 function DataViewTHead(props: DataViewTHeadProps) {
@@ -222,6 +215,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					<StyledTh key="_bulk" className="bulk">
 						<Checkbox
 							checked={allChecked}
+							indeterminate={!allChecked && anyChecked}
 							onClick={props.onCheckAllClick}
 						/>
 					</StyledTh>
@@ -243,11 +237,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 						paddingRight
 						${ !props?.bulkActions?.length ? "paddingLeft" : "" }
 					`}>
-						{
-							// We need to indent the actions by 11px to align with the buttons underneath
-							!props.onColumnsChange &&
-							<span style={{paddingLeft: "11px"}}>{t("mosaic:DataView.actions")}</span>
-						}
+						<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
 					</StyledTh>
 				}
 				{
@@ -266,7 +256,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 
 						if (column.sortable) {
 							active = props.sort.name === column.name;
-							Icon = active && props.sort.dir === "desc" ? ArrowDownwardIcon : ArrowUpwardIcon;
+							Icon = active && props.sort.dir === "desc" ? SwitchLeftIcon : SwitchRightIcon;
 							clickDir = active ? flipDir(props.sort.dir) : "asc";
 						}
 

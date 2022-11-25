@@ -226,4 +226,11 @@ export class DataviewPage extends BasePage {
 			}
 		}
 	}
+
+	async searchForKeyword(keyword: string): Promise<void> {
+		await this.filterComponent.keywordBtn.click();
+		await this.filterComponent.keywordInput.fill(keyword);
+		await this.filterComponent.applyBtn.click();
+		await this.loading.waitFor({ state: "detached" });
+	}
 }
