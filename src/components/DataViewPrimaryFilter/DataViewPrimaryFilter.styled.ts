@@ -11,20 +11,6 @@ export const LabelWrapper = styled.div`
 		margin-right: -4px;
 	}
 
-	& > .removeIcon {
-		margin-left: 4px;
-		margin-right: -4px;
-		color: black;
-		background-color: ${theme.colors.blue}12;
-		border-radius: 20px;
-		padding: 3px;
-		box-sizing: border-box;
-	}
-
-	& > .removeIcon:hover {
-		background-color: ${theme.colors.blue}45;
-	}
-
 	& > .filter-label {
 		font-weight: ${theme.fontWeight.normal};
 		margin-right: 8px;
@@ -48,7 +34,8 @@ export const MultiselectCounter = styled.div`
 	height: 20px;
 	justify-content: center;
 	margin-left: 16px;
-	width: 20px;
+	min-width: 20px;
+	padding: 4px;
 `;
 
 export const Value = styled.b`
@@ -61,5 +48,5 @@ export const Value = styled.b`
 export const Count = styled.span`
 	font-family: ${theme.museoFont};
 	font-size: 10px;
-	font-weight: 700;
+	font-weight: 600;
 `;
