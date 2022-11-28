@@ -1,47 +1,14 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
 // import jsvalidator from "jsvalidator";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Button from "../Button";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
-import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
+import { StyledContents } from "./DataViewFilterText.styled";
 // import { DataViewFilterTextProps } from "./DataViewFilterText";
-
-const StyledContents = styled.div`
-	& > .inputRow {
-		display: flex;
-		align-items: center;
-	}
-
-	& > .inputRow > .disabled {
-		background: #eee;
-	}
-
-	& > .inputRow > .comparisonButton {
-		margin-top: 8px;
-		margin-bottom: 4px;
-		margin-left: 10px;
-	}
-
-	& .MuiOutlinedInput-root.Mui-focused fieldset {
-		border-color: ${theme.colors.blue};
-	}
-
-	& .MuiInputBase-input {
-		font-size: 16px;
-	}
-
-	& .comparisonContainer {
-		border-left: 1px solid #ccc;
-		margin: 5px;
-		padding-left: 5px;
-		flex-shrink: 0;
-	}
-`;
+import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
 
 const existsComparisons = ["exists", "not_exists"];
 
@@ -192,7 +159,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 	return (
 		<StyledContents>
 			<div className="inputRow">
-				<TextField
+				<StyledTextField
 					autoFocus
 					className={ disabled ? "disabled" : "" }
 					disabled={disabled}
