@@ -5,7 +5,10 @@ export const StyledContents = styled.div`
 		display: flex;
 		align-items: center;
 		margin-top: 6px;
-		margin-bottom: 4px;
+	}
+
+	.MuiFormControl-root {
+		margin-bottom: 0;
 	}
 
 	& > .inputRow > .disabled {
@@ -14,7 +17,6 @@ export const StyledContents = styled.div`
 
 	& > .inputRow > .comparisonButton {
 		margin-top: 8px;
-		margin-bottom: 4px;
 		margin-left: 10px;
 	}
 
