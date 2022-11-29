@@ -21,6 +21,7 @@ export class BasePage {
 	readonly drawerCancelButton: Locator;
 	readonly error: Locator;
 	readonly errorIcon: Locator;
+	readonly tooltip: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -40,6 +41,7 @@ export class BasePage {
 		this.drawerCancelButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[1]/button");
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
+		this.tooltip = page.locator("[role='tooltip']");
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
