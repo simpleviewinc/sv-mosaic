@@ -68,7 +68,7 @@ const AppDiv = styled.div`
 	}
 
 	& > .main > .content {
-		padding: 16px;
+		padding: ${props => !props.onlyContent ? "16px" : "0px"};
 		flex: 1 1 0;
 		overflow-y: auto;
 	}
@@ -90,7 +90,7 @@ function isMobile() {
 // https://stackoverflow.com/a/39712411/435223
 const noop = () => undefined;
 
-export const NavWrapper = function(props: { children?: ReactElement, items : LeftNavItemRootDef[] }): ReactElement {
+export const NavWrapper = function(props: { children?: ReactElement, items : LeftNavItemRootDef[], onlyContent?: boolean }): ReactElement {
 	useStoryBookCssReset();
 
 	const [state, setState] = useState({
@@ -169,7 +169,7 @@ export const NavWrapper = function(props: { children?: ReactElement, items : Lef
 	}, [state.label, state.name]);
 
 	return (
-		<AppDiv onClick={noop}>
+		<AppDiv onClick={noop} onlyContent={props.onlyContent}>
 			<FakeTopBar variant={variant} openNav={onClick}/>
 			<div className="main">
 				<div className="left">
@@ -184,8 +184,11 @@ export const NavWrapper = function(props: { children?: ReactElement, items : Lef
 					/>
 				</div>
 				<div className="content" ref={contentRef}>
-					<h1>{state.label}</h1>
-					<h2>{state.name}</h2>
+					{ !props.onlyContent && <>
+						<h1>{state.label}</h1>
+						<h2>{state.name}</h2>
+					</> }
+
 					{props.children ? props.children : lorem}
 				</div>
 			</div>

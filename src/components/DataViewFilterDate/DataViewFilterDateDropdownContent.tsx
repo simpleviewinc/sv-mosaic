@@ -26,7 +26,7 @@ const StyledContents = styled.div`
 	& .errorMessage h5 {
 		margin-top: 0;
 		margin-bottom: 0;
-		color: ${theme.colors.red};
+		color: ${theme.newColors.darkRed["100"]};
 	}
 `;
 

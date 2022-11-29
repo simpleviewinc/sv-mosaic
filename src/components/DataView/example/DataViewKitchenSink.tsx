@@ -6,7 +6,7 @@ import { boolean, select } from "@storybook/addon-knobs";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import GetAppIcon from "@mui/icons-material/GetApp";
 
 import JSONDB from "@root/utils/JSONDB";
 import LocalStorageDB from "@root/utils/LocalStorageDB";
@@ -231,7 +231,7 @@ const filters: {
 
 const rootDefaultView: DataViewProps["savedView"] = {
 	id: "default",
-	label: "Default View",
+	label: "All",
 	type: "default",
 	state: {
 		limit: 25,
@@ -263,9 +263,6 @@ const listColumns = [
 	{
 		name: "title",
 		label: "Title",
-		style: {
-			bold: true
-		},
 		sortable: true
 	},
 	{
@@ -329,9 +326,6 @@ const listColumns = [
 		name: "bold",
 		label: "Style - bold",
 		column: "content_owner",
-		style: {
-			bold: true
-		}
 	},
 	{
 		name: "italic",
@@ -554,7 +548,7 @@ function DataViewKitchenSink(): ReactElement {
 		primaryActions: primaryActions ? [
 			{
 				name: "edit",
-				color: "blue",
+				color: "black",
 				variant: "icon",
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
@@ -581,16 +575,16 @@ function DataViewKitchenSink(): ReactElement {
 		bulkActions: bulkActions ? [
 			{
 				name: "download",
-				color: "blue",
+				color: "black",
 				variant: "icon",
-				mIcon: CloudDownloadIcon,
+				mIcon: GetAppIcon,
 				onClick: function ({ data }) {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
 				}
 			},
 			{
 				name: "delete",
-				color: "blue",
+				color: "black",
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: function ({ data }) {
@@ -606,8 +600,8 @@ function DataViewKitchenSink(): ReactElement {
 				name: "create",
 				label: "Create New",
 				mIcon: AddIcon,
-				color: "blue",
-				variant: "outlined",
+				color: "yellow",
+				variant: "contained",
 				onClick: function () {
 					alert("CREATE NEW");
 				}

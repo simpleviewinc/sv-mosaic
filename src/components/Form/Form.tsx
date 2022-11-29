@@ -4,13 +4,14 @@ import { StyledDisabledForm, StyledForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
 import FormLayout from "./FormLayout";
-import TopComponent from "@root/forms/TopComponent";
+import TopComponent, { ViewType } from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
 import FormNav from "@root/forms/FormNav";
 import { useWindowResizer } from "@root/utils/useWindowResizer";
 import { MosaicObject } from "@root/types";
 import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
+import { ButtonProps } from "../Button";
 
 const Form = (props: FormProps) => {
 	const {
@@ -22,7 +23,7 @@ const Form = (props: FormProps) => {
 		sections,
 		dispatch,
 		onCancel,
-		dialogOpen,
+		dialogOpen = false,
 		description,
 		getFormValues,
 		handleDialogClose,
@@ -31,11 +32,17 @@ const Form = (props: FormProps) => {
 	const { view } = useWindowResizer(type);
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
 	const contentRef = useRef();
+	const topComponentRef = useRef<HTMLDivElement>();
+	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 
 	useEffect(() => {
 		setSectionsRefs(sectionsRef.current);
 	}, []);
+
+	useEffect(() => {
+		setTopComponentHeight(topComponentRef.current?.offsetHeight);
+	}, [topComponentRef.current?.offsetHeight]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -97,6 +104,21 @@ const Form = (props: FormProps) => {
 		return null;
 	}
 
+	const dialogButtons: ButtonProps[] = [
+		{
+			label: "No, stay",
+			onClick: () => handleDialogClose(false),
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: "Yes, leave",
+			onClick: () => handleDialogClose(true),
+			color: "yellow",
+			variant: "contained",
+		},
+	];
+
 	return (
 		<>
 			<div data-testid="form-test-id" style={{ position: "relative", height: "100%" }}>
@@ -106,19 +128,25 @@ const Form = (props: FormProps) => {
 				<StyledForm>
 					{title &&
 						<TopComponent
+							ref={topComponentRef}
 							title={title}
 							type={type}
 							description={description}
 							onCancel={onCancel ? (e) => cancel(e) : null}
 							sections={sections}
-							view={view}
+							view={
+								type?.toUpperCase() === "DRAWER" ?
+									type.toUpperCase() as ViewType
+									:
+									view
+							}
 							buttons={filteredButtons}
 							sectionsRefs={sectionsRefs}
 							contentRef={contentRef}
 						/>
 					}
 					{view === "BIG_DESKTOP" && sections ? (
-						<Row>
+						<Row topComponentHeight={topComponentHeight}>
 							{sections &&
 								<FormNav sectionsRefs={sectionsRefs} contentRef={contentRef} sections={sections} />
 							}
@@ -149,13 +177,9 @@ const Form = (props: FormProps) => {
 			</div>
 			{type === "drawer" &&
 				<Dialog
+					buttons={dialogButtons}
 					dialogTitle='Are you sure you want to leave?'
 					open={dialogOpen}
-					primaryAction={() => handleDialogClose(true)}
-					primaryBtnLabel='Yes, leave'
-					secondaryAction={() => handleDialogClose(false)}
-					secondaryBtnLabel='No, stay'
-
 				>
 					You have unsaved changes. If you leave all your changes will be lost.
 				</Dialog>
