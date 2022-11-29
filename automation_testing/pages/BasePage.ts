@@ -64,12 +64,14 @@ export class BasePage {
 		await this.loading.waitFor({ state: "detached" });
 	}
 
-	async clearAllValuesFromField(): Promise<void> {
+	async clearAllValuesFromField(locator: Locator): Promise<void> {
+		await locator.click();
 		await this.page.keyboard.press("Home");
 		await this.page.keyboard.down("Shift");
 		await this.page.keyboard.press("End");
 		await this.page.keyboard.up("Shift");
 		await this.page.keyboard.press("Backspace");
+		await locator.waitFor();
 	}
 
 	async getElementWidth(element:Locator):Promise<number> {
@@ -158,6 +160,6 @@ export class BasePage {
 	}
 
 	async getOnlyStringWithLetters(text:string): Promise<string> {
-		return text.replace(/[^a-zA-Z]+/g, "");
+		return (text.replace(/[^a-zA-Z ]+/g, "")).trim();
 	}
 }
