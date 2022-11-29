@@ -1,6 +1,5 @@
 import { BasePage } from "../../BasePage";
 import { expect, Locator, Page } from "@playwright/test";
-import { AdvancedFiltersComponent } from "./AdvancedFiltersComponent";
 import { ColumnsComponent } from "./ColumnsComponent";
 import { PaginationComponent } from "./PaginationComponent";
 import { SaveAsComponent } from "./SaveAsComponent";
@@ -13,7 +12,6 @@ export class DataviewPage extends BasePage {
 	readonly saveAsComponent: SaveAsComponent;
 	readonly paginationComponent: PaginationComponent;
 	readonly columnsComponent: ColumnsComponent;
-	readonly advancedFilterComponent: AdvancedFiltersComponent;
 	readonly createNewBtn: Locator;
 	readonly dialog: Page;
 	readonly editIcon: Locator;
@@ -30,6 +28,7 @@ export class DataviewPage extends BasePage {
 	readonly noResults: Locator;
 	readonly removeFilterIcon: Locator;
 	readonly checkboxOptions: Locator;
+	readonly filterRowBtn: Locator;
 	readonly filtersBtn: Locator;
 	readonly clearFiltersBtn: Locator;
 
@@ -39,7 +38,6 @@ export class DataviewPage extends BasePage {
 		this.page = page;
 		this.paginationComponent = new PaginationComponent(page);
 		this.columnsComponent = new ColumnsComponent(page);
-		this.advancedFilterComponent = new AdvancedFiltersComponent(page);
 		this.createNewBtn = page.locator("[data-mosaic-id='button_create'] button");
 		this.editIcon = page.locator("[data-mosaic-id=action_primary_edit] button");
 		this.moreOptions = page.locator("[data-mosaic-id='additional_actions_dropdown'] button");
@@ -55,8 +53,9 @@ export class DataviewPage extends BasePage {
 		this.noResults = page.locator("div.noResults");
 		this.removeFilterIcon = page.locator(".removeIcon");
 		this.checkboxOptions = page.locator("div.listItem label");
-		this.filtersBtn = page.locator(".filterRow button", { hasText: "Filters" });
-		this.clearFiltersBtn = page.locator(".filterRow button", { hasText: "Clear filters" });
+		this.filterRowBtn = page.locator(".filterRow button");
+		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" });
+		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
 	}
 
 	async visitPage(): Promise<void> {
@@ -232,5 +231,9 @@ export class DataviewPage extends BasePage {
 				await this.removeFilterIcon.nth(i).click({force: true});
 			}
 		}
+	}
+
+	async getFilterText(locator: Locator): Promise<string> {
+		return await this.getOnlyStringWithLetters(await locator.locator("b").innerText());
 	}
 }
