@@ -11,8 +11,8 @@ export const StyledContents = styled.div`
 		margin-bottom: 0;
 	}
 
-	& > .inputRow > .disabled {
-		background: #eee;
+	& > .inputRow > .disabled input.Mui-disabled {
+		padding: 12px 16px;
 	}
 
 	& > .inputRow > .comparisonButton {
