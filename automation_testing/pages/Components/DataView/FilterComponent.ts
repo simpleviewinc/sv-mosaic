@@ -1,33 +1,45 @@
 import { BasePage } from "../../BasePage";
+import { DataviewPage } from "../../Components/DataView/DataViewPage";
 import { Page, Locator, expect } from "@playwright/test";
 
 export class FilterComponent extends BasePage {
 
 	readonly page: Page;
+	readonly _dataviewPage: DataviewPage;
+
+	readonly keywordFilterOption: Locator;
 	readonly keywordBtn: Locator;
 	readonly keywordInput: Locator;
+	readonly categoryFilterOption: Locator;
 	readonly categoryBtn: Locator;
 	readonly categoryKeywordInput: Locator;
 	readonly categoryItems: Locator;
 	readonly checkbox: string;
 	readonly selectedOptions: Locator;
 	readonly loadMoreBtn: Locator;
+	readonly moreCategoriesTooltip: Locator;
+	readonly clearBtn: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.keywordBtn = page.locator(".filterRow button").nth(0);
+		this._dataviewPage = new DataviewPage(page);
+		this.keywordFilterOption = this._dataviewPage.checkboxOptions.locator(":scope", { hasText: "Keyword" });
+		this.keywordBtn = page.locator(".filterRow button", { hasText: "Keyword" });
 		this.keywordInput = page.locator(".inputRow input");
-		this.categoryBtn = page.locator(".filterRow button").nth(1);
-		this.categoryKeywordInput = page.locator("input[type='text']");
+		this.categoryFilterOption = this._dataviewPage.checkboxOptions.locator(":scope", { hasText: "Categories" });
+		this.categoryBtn = page.locator(".filterRow button", { hasText: "Categories" }).first();
+		this.categoryKeywordInput = page.locator(".searchBar input");
 		this.categoryItems = page.locator(".listItem label");
 		this.checkbox = "input[type='checkbox']";
 		this.selectedOptions = page.locator(".chips div");
 		this.loadMoreBtn = page.locator(".loadContainer [type='button']");
+		this.moreCategoriesTooltip = page.locator("[data-testid='tooltip-test-id']");
+		this.clearBtn = page.locator("div[role='presentation'] >> text=Clear");
 	}
 
 	async getKeywordText(): Promise<string> {
-		return await this.keywordBtn.locator("span").nth(1).innerText();
+		return await this.getOnlyStringWithLetters(await this.keywordBtn.locator("span").innerText());
 	}
 
 	async validateKeywordFilterIsVisible(isVisible: boolean): Promise<void> {
@@ -56,7 +68,7 @@ export class FilterComponent extends BasePage {
 	}
 
 	async getCategoriesKeywordText(): Promise<string> {
-		return await this.categoryBtn.locator("span").nth(1).innerText();
+		return await this.getOnlyStringWithLetters(await this.categoryBtn.locator("span").nth(1).innerText());
 	}
 
 	async getCategorySelectedOptionValues(): Promise<string[]> {
@@ -101,5 +113,44 @@ export class FilterComponent extends BasePage {
 		for (let i = 0; i < itemsNumber; i++) {
 			await this.checkItem(this.categoryItems.nth(i), true);
 		}
+	}
+
+	async selectFilter(filter: string): Promise<void> {
+		await this._dataviewPage.waitForDataviewIsVisible();
+		await this._dataviewPage.filtersBtn.click();
+		switch (filter.toLocaleLowerCase()) {
+		case "keyword":
+			await this.keywordFilterOption.click();
+			await this.applyBtn.click();
+			break;
+		case "categories":
+			await this.categoryFilterOption.first().click();
+			await this.applyBtn.click();
+			break;
+		default:
+			alert("The Filter selected (" + filter + ") does not exist or is incorrect." )
+			break;
+		}
+	}
+
+	async searchForTerm(typeOfFilter: string, term: string): Promise<void> {
+		switch (typeOfFilter.toLocaleLowerCase()) {
+		case "keyword":
+			await this.selectFilter("keyword");
+			await this.keywordBtn.click();
+			await this.keywordInput.fill(term);
+			break;
+		case "categories":
+			await this.selectFilter("categories");
+			await this.categoryBtn.click();
+			await this.categoryKeywordInput.type(term);
+			await this.selectCategory(term);
+			break;
+		default:
+			alert("The Filter selected (" + typeOfFilter + ") does not exist or is incorrect." );
+			break;
+		}
+		await this.applyBtn.click();
+		await this.loading.waitFor({ state: "detached" });
 	}
 }
