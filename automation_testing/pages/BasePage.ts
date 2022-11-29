@@ -156,4 +156,8 @@ export class BasePage {
 	async getColorFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).color));
 	}
+
+	async getOnlyStringWithLetters(text:string): Promise<string> {
+		return text.replace(/[^a-zA-Z]+/g, "");
+	}
 }
