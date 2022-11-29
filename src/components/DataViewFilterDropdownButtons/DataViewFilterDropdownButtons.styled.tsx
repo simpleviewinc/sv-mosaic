@@ -6,7 +6,7 @@ export const StyledWrapper = styled.div`
   & {
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 24px;
   }
 `;
 
@@ -17,10 +17,10 @@ export const StyledButtonRow = styled(ButtonRow)`
 
   .button:first-child {
     border-right: 2px solid ${theme.colors.gray200};
-    padding-right: 8px;
+    padding-right: 16px;
   }
 
   .button:last-child {
-    padding-left: 8px;
+    padding-left: 16px;
   }
 `;
