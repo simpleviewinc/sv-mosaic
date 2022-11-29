@@ -66,8 +66,8 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(29))).toBe(expectColor);
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(38))).toBe(expectColor);
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(39))).toBe(expectColor);
-  });
-  
+	});
+
 	test("Validate Button has darkSimplyGold on Hover.", async () => {
 		const expectBgColor = theme.newColors.darkerSimplyGold["100"];
 		const saveButton = buttonPage.button.nth(8);
@@ -78,5 +78,34 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 		await addButton.click({force: true});
 		await buttonPage.wait();
 		expect(await buttonPage.getBackgroundColorFromElement(addButton)).toBe(expectBgColor);
+	});
+
+	test("Validate Buttons has darkRed as background.", async () => {
+		const expectColor = (theme.newColors.darkRed["100"]);
+		// Contained
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(4))).toBe(expectColor);
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(5))).toBe(expectColor);
+		// Contained - disabled
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(14))).toBe(expectColor);
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(15))).toBe(expectColor);
+	});
+
+	test("Validate Buttons has darkRed as color.", async () => {
+		const expectColor = (theme.newColors.darkRed["100"]);
+		// Outlined
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(22))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(23))).toBe(expectColor);
+		// Outlined - disabled
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(32))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(33))).toBe(expectColor);
+		// Text
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(42))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(43))).toBe(expectColor);
+		// Text - disabled
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(50))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(51))).toBe(expectColor);
+		// Small Text
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(58))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(59))).toBe(expectColor);
 	});
 });

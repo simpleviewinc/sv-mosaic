@@ -17,7 +17,7 @@ const PopoverDiv = styled.div`
 	}
 
 	&.invalid > input {
-		outline: ${theme.colors.red} auto 1px;
+		outline: ${theme.newColors.darkRed["100"]} auto 1px;
 	}
 
 	& > .goButton {

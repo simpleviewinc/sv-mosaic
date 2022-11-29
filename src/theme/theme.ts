@@ -65,7 +65,7 @@ const colorMap = {
 	grey3: "107,111,124",
 	grey4: "59,66,78",
 	realTeal: "0, 141, 168",
-	simpleGrey: "190,190,190",
+	simplyGrey: "190,190,190",
 	simplyBlue: "0,164,239",
 	simplyGold: "253,185,36",
 	simplyGreen: "141,198,63",
@@ -88,13 +88,13 @@ const newColors: { [key in MY_OBJECT_KEYS]: Color } = {
 	grey3: {},
 	grey4: {},
 	realTeal: {},
-	simpleGrey: {},
+	simplyGrey: {},
 	simplyBlue: {},
 	simplyGold: {},
 	simplyGreen: {}
 };
 
-const opacities = [1, 0.8, 0.6, 0.4, 0.2];
+const opacities = [1, 0.8, 0.6, 0.4, 0.2, 0.05];
 
 const rgbaToRGB = (color: string, opacity: number) => {
 	const colors = color.split(",");
