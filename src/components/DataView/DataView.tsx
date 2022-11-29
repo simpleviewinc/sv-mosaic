@@ -30,6 +30,11 @@ const StyledWrapper = styled.div`
 		padding: 20px;
 	}
 
+	& > .headerActions .grid {
+		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+		padding-bottom: 20px;
+	}
+
 	& > .viewContainer {
 		overflow: auto;
 		margin: 0 20px;
@@ -396,6 +401,9 @@ function DataView (props: DataViewProps): ReactElement  {
 			<div className="headerActions">
 				<DataViewActionsRow
 					activeColumnObjs={activeColumnObjs}
+					columns={props.columns}
+					bulkActions={props.bulkActions}
+					checked={state.checked}
 					display={display}
 					displayControlEnabled={displayControlEnabled}
 					displayOptionsFull={displayOptionsFull}
@@ -408,6 +416,11 @@ function DataView (props: DataViewProps): ReactElement  {
 					count={props.count}
 					allColumns={props.columns}
 					onColumnsChange={props.onColumnsChange}
+					onCheckAllClick={onCheckAllClick}
+					onSortChange={props.onSortChange}
+					sort={props.sort}
+					data={props.data}
+					checkedAllPages={state.checkedAllPages}
 				/>
 			</div>
 			<div
