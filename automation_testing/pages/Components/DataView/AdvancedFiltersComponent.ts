@@ -44,7 +44,7 @@ export class AdvancedFiltersComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this.datepicker = new DatePickerComponent(page);
-		this.moreBtn = page.locator("#root .filterRow button", { hasText: "More" });
+		this.moreBtn = page.locator(".filterRow button").nth(2);
 		this.checkboxOptions = page.locator("div.listItem label");
 		this.singleSelectCategoryOption = this.checkboxOptions.locator(":scope", { hasText: "Single Select Category" });
 		this.categoryWithComparisonOption = this.checkboxOptions.locator(":scope", { hasText: "Categories with Comparisons" });
@@ -52,7 +52,7 @@ export class AdvancedFiltersComponent extends BasePage {
 		this.createdOption = this.checkboxOptions.locator(":scope", { hasText: "Created" });
 		this.updatedOption = this.checkboxOptions.locator(":scope", { hasText: "Updated" });
 		this.titleWithComparisonOption = this.checkboxOptions.locator(":scope", { hasText: "Title with Comparisons" });
-		this.optionalFilters = page.locator("div.optionalFilters");
+		this.optionalFilters = page.locator(".filterRow.optionalFilters button");
 		this.dropdownOptions = page.locator("ul[role='menu'] li");
 		this.advancedFilterLocator = "button";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
@@ -103,7 +103,7 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async selectARandomCategoryForSingleSelectCategoryOption(): Promise<string> {
-		const positionCategorySelected = randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions());
+		const positionCategorySelected = randomIntFromInterval(1, await this.getNumberOfSingleSelectCategoryOptions() - 1);
 		const categorySelected = await this.getSpecificMenuItemForSingleSelectCategoryOption(positionCategorySelected);
 		await this.dropdownOptions.nth(positionCategorySelected).click();
 		return categorySelected;
@@ -124,10 +124,10 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async getAllSelectedValuesForAdvancedFilters(): Promise<string[]> {
-		const filters = await this.optionalFilters.elementHandles();
+		const filters = await this.optionalFilters.count();
 		const result = [];
-		for (const filter of filters) {
-			result.push((await (await filter.$(this.advancedFilterLocator)).textContent()).split(":")[1]);
+		for (let i = 0; i < filters; i++) {
+			result.push((await this.optionalFilters.nth(i).textContent()).split(":")[1]);
 		}
 		return result;
 	}
@@ -166,7 +166,7 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async selectFilterDates(startDate: string, endDate: string): Promise<void> {
-		await this.optionalFilters.nth(0).locator("button").click();
+		await this.optionalFilters.first().click();
 		await this.waitForElementLoad();
 		await this.fromCalendarButton.click();
 		await this.datepicker.selectDate(startDate);

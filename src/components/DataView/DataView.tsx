@@ -3,13 +3,10 @@ import { useState, useEffect, useMemo, useRef, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
-import DataViewControlDisplay from "./DataViewControlDisplay";
-import DataViewPager from "./DataViewPager";
-import DataViewControlLimit from "./DataViewControlLimit";
-import DataViewFilters from "./DataViewFilters";
 import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";
+import DataViewActionsRow from "./DataViewActionsRow";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -25,21 +22,17 @@ const StyledWrapper = styled.div`
 		-ms-flex: 0 0 auto;
 		-webkit-flex: 0 0 auto;
 		flex: 0 0 auto;
-		margin-bottom: 8px;
 	}
 
-	& > .headerRow.title {
-		margin-left: 12px;
-	}
-
-	& > .headerRow > .right {
+	& > .headerActions {
 		display: flex;
-		align-items: center;
-		align-self: flex-end;
+		flex-direction: column;
+		padding: 20px;
 	}
 
 	& > .viewContainer {
 		overflow: auto;
+		margin: 0 20px;
 	}
 
 	&.loading {
@@ -363,21 +356,27 @@ function DataView (props: DataViewProps): ReactElement  {
 		onRemove : props.onSavedViewRemove
 	}
 
-	const limitOptions = useMemo(() => {
-		return props.limitOptions || [
-			25,
-			50,
-			100
-		]
-	}, [props.limitOptions]);
-
 	const viewContainerRef = useRef(null);
 
+	const activeColumns = useMemo(() => {
+		return props.activeColumns || props.columns.map(val => val.name);
+	}, [props.activeColumns, props.columns]);
+
+	// generate an array of columns based on the ones that are marked active
+	const activeColumnObjs = useMemo(() => {
+		return activeColumns.map(name => {
+			const column = props.columns.find(val => val.name === name);
+			return column;
+		});
+	}, [activeColumns, props.columns]);
+
 	return (
-		<StyledWrapper className={`
-			${ props.loading ? "loading" : "" }
-			${ props.sticky ? "sticky" : "" }
-		`}>
+		<StyledWrapper
+			className={`
+			${props.loading ? "loading" : ""}
+			${props.sticky ? "sticky" : ""}
+		`}
+		>
 			<div className="headerRow title">
 				<DataViewTitleBar
 					title={props.title}
@@ -387,49 +386,29 @@ function DataView (props: DataViewProps): ReactElement  {
 					savedViewState={savedViewState}
 					savedViewCallbacks={savedViewCallbacks}
 					savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
+					loading={props.loading}
+					filter={props.filter}
+					filters={props.filters}
+					activeFilters={props.activeFilters}
+					onActiveFiltersChange={props.onActiveFiltersChange}
 				/>
 			</div>
-			<div className="headerRow filters">
-				<div className="left">
-					{
-						//loading isn't being used in DataViewFilters, should it be propped down?
-						props.filters &&
-						<DataViewFilters
-							loading={props.loading}
-							filter={props.filter}
-							filters={props.filters}
-							activeFilters={props.activeFilters}
-							onActiveFiltersChange={props.onActiveFiltersChange}
-						/>
-					}
-				</div>
-				<div className="right">
-					{
-						displayControlEnabled &&
-						<DataViewControlDisplay
-							display={display}
-							displayOptions={displayOptionsFull}
-							onDisplayChange={props.onDisplayChange}
-						/>
-					}
-					{
-						props.onLimitChange !== undefined &&
-						<DataViewControlLimit
-							limit={props.limit}
-							options={limitOptions}
-							onLimitChange={props.onLimitChange}
-						/>
-					}
-					{
-						props.onSkipChange !== undefined &&
-						<DataViewPager
-							limit={props.limit}
-							skip={props.skip}
-							count={props.count}
-							onSkipChange={props.onSkipChange}
-						/>
-					}
-				</div>
+			<div className="headerActions">
+				<DataViewActionsRow
+					activeColumnObjs={activeColumnObjs}
+					display={display}
+					displayControlEnabled={displayControlEnabled}
+					displayOptionsFull={displayOptionsFull}
+					limit={props.limit}
+					limitOptions={props.limitOptions}
+					onLimitChange={props.onLimitChange}
+					onDisplayChange={props.onDisplayChange}
+					onSkipChange={props.onSkipChange}
+					skip={props.skip}
+					count={props.count}
+					allColumns={props.columns}
+					onColumnsChange={props.onColumnsChange}
+				/>
 			</div>
 			<div
 				ref={viewContainerRef}
@@ -451,6 +430,7 @@ function DataView (props: DataViewProps): ReactElement  {
 					limit={props.limit}
 					count={props.count}
 					rowCount={props.data.length}
+					activeColumnObjs={activeColumnObjs}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
 					onCheckAllClick={onCheckAllClick}
@@ -459,14 +439,13 @@ function DataView (props: DataViewProps): ReactElement  {
 					onReorder={props.onReorder}
 				/>
 			</div>
-			{
-				props.loading === false && !props.data.length &&
+			{props.loading === false && !props.data.length && (
 				<div className="noResults">
 					<p>No results were found.</p>
 				</div>
-			}
+			)}
 		</StyledWrapper>
-	)
+	);
 }
 
 export default DataView;

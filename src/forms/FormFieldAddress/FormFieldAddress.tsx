@@ -223,6 +223,8 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
 					addressTypes={addressTypes}
+					getOptionsCountries={fieldDef.inputSettings?.getOptionsCountries}
+					getOptionsStates={fieldDef.inputSettings?.getOptionsStates}
 				/>
 			</Drawer>
 		</div>

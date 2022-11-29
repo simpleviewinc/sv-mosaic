@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import jsvalidator from "jsvalidator";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import DataViewTr from "./DataViewTr";
 import theme from "@root/theme";
 import { MosaicObject } from "@root/types";
-// import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
 
 const StyledTBody = styled.tbody`
 	& > tr {
-		border-bottom: ${theme.borders.lightGray};
+		border-bottom: 1px solid ${theme.newColors.grey2["100"]};
+
+		& > td:first-child {
+			padding-left: 8px;
+		}
+
+		& > td:last-child {
+			padding-right: 8px;
+		}
 	}
 
 	& > tr > td {
-		padding: 5px 0px;
+		padding: 12px 0px;
 	}
 
 	& > tr > td.bold {
@@ -36,20 +43,6 @@ interface DataViewTBodyProps {
 	checked?: any;
 	columns?: any;
 }
-// interface DataViewTBodyProps {
-// 	onCheckboxClick?: any;
-// 	transformedData?: any;
-// 	data?: {
-// 		[x: string]: MosaicObject;
-// 	};
-// 	bulkActions?: any;
-// 	primaryActions?: DataViewAction[];
-// 	additionalActions?: DataViewAdditionalAction[];
-// 	checked?: {
-// 		[x: string]: boolean;
-// 	};
-// 	columns?: any;
-// }
 
 function DataViewTBody(props: DataViewTBodyProps) {
 	jsvalidator.validate(props, {

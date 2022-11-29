@@ -3,21 +3,18 @@ import { dataview_data, saveAs_data } from "../../../utils/data/dataview_data";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { SaveAsComponent } from "../../../pages/Components/DataView/SaveAsComponent";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
-// import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
 test.describe.parallel("Components - Data View - Save As", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let saveAs: SaveAsComponent;
 	let pagination: PaginationComponent;
-	// let columns: ColumnsComponent;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		saveAs = dataviewPage.saveAsComponent;
 		pagination = dataviewPage.paginationComponent;
-		// columns = dataviewPage.columnsComponent;
 		await dataviewPage.visitPage();
 	});
 
@@ -29,17 +26,9 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		browser.close;
 	});
 
-	test.skip("Save As", async () => {
-		await saveAs.validateSnapshot(saveAs.saveAsBtn, "save_as_btn");
-		await saveAs.saveAsBtn.click();
-		await saveAs.validateSnapshot(saveAs.saveAsOptions, "save_as_options");
-	});
-
 	test("New View", async () => {
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(1);
-		// await saveAs.validateSnapshot(saveAs.saveView, "save_as_view");
-		// await saveAs.validateSnapshot(saveAs.saveLabel, "save_as_label");
 		await saveAs.saveLabel.type(saveAs_data.saveAsView);
 		await saveAs.saveViewBtn.click();
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsView);
@@ -68,7 +57,6 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		await saveAs.viewBtn.click();
 		const selectBtn = await saveAs.selectViewBtnByLabel(saveAs_data.defaultView);
 		await saveAs.wait();
-		// await saveAs.validateSnapshot(selectBtn, "save_as_select_btn");
 		await selectBtn.click();
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.defaultView);
 	});
@@ -117,21 +105,21 @@ test.describe.parallel("Components - Data View - Save As", () => {
 
 	test("Overwrite view", async () => {
 		await page.reload();
-		await pagination.selectViewTypeGridOption();
-		await pagination.changeResultPerPage(2);
+		await pagination.selectViewType("Grid");
+		await pagination.selectResultOption(50, false);
 		await pagination.wait()
 		await saveAs.createNewView(saveAs_data.saveAsOverwriteView);
 
-		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage50}`);
-		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview_data.resultPerPage50, 1);
-		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
+		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage50}`);
+		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview_data.resultPerPage50, 1, false);
+		expect(await pagination.paginationValueGrid.textContent()).toBe(recordRangePerPage);
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsOverwriteView);
 		expect(await dataviewPage.getColumnHeadersCount()).not.toBe(saveAs_data.defaultColumnHeadersList);
-		await pagination.changeResultPerPage(3);
+		await pagination.selectResultOption(100, false);
 		await pagination.wait();
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(2);
-		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage100}`);
+		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage100}`);
 
 		await saveAs.viewBtn.click();
 		await (await saveAs.selectViewBtnByLabel(saveAs_data.defaultView)).click();
@@ -140,7 +128,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		await pagination.wait();
 		await saveAs.viewBtn.click();
 		await (await saveAs.selectViewBtnByLabel(saveAs_data.saveAsOverwriteView)).click();
-		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPage100}`);
+		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage100}`);
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsOverwriteView);
 	});
 });

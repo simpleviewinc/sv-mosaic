@@ -1,21 +1,19 @@
 import { test, expect, Page } from "@playwright/test";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
-import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Columns", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let columns: ColumnsComponent;
-	let pagination: PaginationComponent;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
-		pagination = dataviewPage.paginationComponent;
 		await dataviewPage.visitPage();
 	});
 
@@ -32,46 +30,8 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		expect(await columns.title.textContent()).toBe(columns_data.columnsTitle);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.defaultColumnsChecked.toString());
-		await columns.closeTableSettingIcon.click();
+		await columns.cancelBtn.click();
 	})
-
-	test("Change column order - Down", async () => {
-		await columns.columnsBtn.click();
-		let downArrow = await columns.getDownArrowByItemName(columns_data.changeItemDown);
-		await downArrow.focus();
-		await downArrow.click();
-		downArrow = await columns.getDownArrowByItemName(columns_data.changeItemDown);
-		await downArrow.click();
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.changeColumnsOrderDown.toString());
-		await columns.closeTableSettingIcon.click();
-	});
-
-	test("Change column order - Up", async () => {
-		await columns.columnsBtn.click();
-		let upArrow = await columns.getUpArrowByItemName(columns_data.changeItemUp);
-		await upArrow.focus();
-		await upArrow.click();
-		upArrow = await columns.getUpArrowByItemName(columns_data.changeItemUp);
-		await upArrow.click();
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.changeColumnsOrderUp.toString());
-		await columns.closeTableSettingIcon.click();
-	});
-
-	test("No Chage column order - Down", async () => {
-		await columns.columnsBtn.click();
-		const downArrowLocked = await columns.getLastDownArrow();
-		expect(await downArrowLocked.isDisabled()).toBe(true);
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
-		await columns.closeTableSettingIcon.click();
-	});
-
-	test("No Chage column order - Up", async () => {
-		await columns.columnsBtn.click();
-		const upArrowLocked = await columns.getFirstUpArrow();
-		expect(await upArrowLocked.isDisabled()).toBe(true);
-		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
-		await columns.closeTableSettingIcon.click();
-	});
 
 	test("Add column", async () => {
 		await columns.columnsBtn.click();
@@ -80,7 +40,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		expect((await columns.getColumnsChecked()).toString()).toContain(columns_data.addItem);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.addItemOrder.toString());
 		await columns.applyBtn.click();
-		expect(await dataviewPage.getColumnHeadersCount()).toBe(columns_data.addColumnHeadersCount);
+		expect(await dataviewPage.getColumnHeadersCount() - 1).toBe(columns_data.addColumnHeadersCount);
 	});
 
 	test("Remove column", async () => {
@@ -90,7 +50,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		expect((await columns.getColumnsChecked()).toString()).not.toContain(columns_data.removeItem);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.removeItemOrder.toString());
 		await columns.applyBtn.click();
-		expect(await dataviewPage.getColumnHeadersCount()).toBe(columns_data.removeColumnHeadersCount);
+		expect(await dataviewPage.getColumnHeadersCount() - 1).toBe(columns_data.removeColumnHeadersCount);
 	});
 
 	test("Remove all columns", async () => {
@@ -98,7 +58,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		await columns.checkAllItems(false);
 		expect((await columns.getColumnsChecked())).not.toContain(columns_data.defaultColumnsOrder.toString());
 		await columns.applyBtn.click();
-		expect(await dataviewPage.getColumnHeadersCount()).toBe(columns_data.removeAllItemsCount);
+		expect(await dataviewPage.getColumnHeadersCount() - 1).toBe(columns_data.removeAllItemsCount);
 	});
 
 	test("Add all columns", async () => {
@@ -107,48 +67,49 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.allItemsChecked.toString());
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.allItemsOrder.toString());
 		await columns.applyBtn.click();
-		expect(await dataviewPage.getColumnHeadersCount()).toBe(columns_data.allItemsCount);
+		expect(await dataviewPage.getColumnHeadersCount() - 1).toBe(columns_data.allItemsCount);
 	});
 
-	test("Sort title asc", async () => {
+	test("Validate sorting by Title in ascending form.", async () => {
 		const titles = await dataviewPage.getRowTitles();
 		const titlesSort = (await dataviewPage.getRowTitles()).sort(Intl.Collator().compare);
 		expect(titles.toString()).toBe(titlesSort.toString());
 	});
 
-	test("Sort title desc", async () => {
-		await dataviewPage.wait();
-		const titleColum = await dataviewPage.getTitleColumn();
-		const titlesSortDesc = (await dataviewPage.getAllRowTitles(dataview_data.resultPerPageDefault)).sort(Intl.Collator().compare).reverse();
-		const titleSplitPerPage = titlesSortDesc.slice(0, dataview_data.resultPerPageDefault);
-		await titleColum.click();
-		const titles = await dataviewPage.getRowTitles();
-		expect(titles.toString()).toBe(titleSplitPerPage.toString());
+	test("Validate sorting by Title in descending form.", async () => {
+		await dataviewPage.searchForKeyword("Ant");
+		const titlesSortDesc = (await dataviewPage.getRowTitles()).reverse().toString();
+		const titleColumn = await dataviewPage.getSpecificColumn("Title");
+		await titleColumn.click();
+		const titles = (await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Title")).toString();
+		expect(titles).toBe(titlesSortDesc);
 	});
 
-	test("Sort created asc", async () => {
-		const createdColum = await dataviewPage.getCreatedColumn();
-		const createdSort = sortDatesAsc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault)));
-		const createdSplitPerPage = createdSort.slice(0, dataview_data.resultPerPageDefault);
+	test("Validate sorting by Created in ascending form.", async () => {
+		await dataviewPage.searchForKeyword("Ant");
+		const createdColum = await dataviewPage.getSpecificColumn("Created");
+		const expectedCreatedSort = sortDatesAsc(await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")).toString();
 		await createdColum.click();
-		const created = await dataviewPage.getRowCreated();
-		expect(created.toString()).toBe(createdSplitPerPage.toString());
+		const actualCreated = (await dataviewPage.getRowCreated()).toString();
+		expect(actualCreated).toBe(expectedCreatedSort);
 	});
 
-	test("Sort created desc", async () => {
-		const createdColum = await dataviewPage.getCreatedColumn();
-		const createdSort = await sortDatesDesc((await dataviewPage.getAllRowCreated(dataview_data.resultPerPageDefault)));
-		const createdSplitPerPage = createdSort.slice(0, dataview_data.resultPerPageDefault);
-		await createdColum.waitFor();
+	test("Validate sorting by Created in descending form.", async () => {
+		await dataviewPage.searchForKeyword("Ant");
+		const createdColum = await dataviewPage.getSpecificColumn("Created");
+		const expectedCreatedSort = sortDatesDesc(await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")).toString();
 		await createdColum.click();
 		await createdColum.click();
-		await pagination.wait();
-		const created = await dataviewPage.getRowCreated();
-		expect(created.toString()).toBe(createdSplitPerPage.toString());
+		const actualCreated = (await dataviewPage.getRowCreated()).toString();
+		expect(actualCreated).toBe(expectedCreatedSort);
 	});
 
-	test("Validate that column width for long column name is valid.", async () => {
-		await columns.selectColumn("Style - Text Transform with large field text to order column");
-		expect(await columns.getElementWidth(columns.rightItems.locator("text=Style - Text Transform with large field text to order column"))).toBe(180);
+	test("Validate checked columns to have expected color.", async () => {
+		const expectedColor = (theme.newColors.simplyGold["100"]);
+		await columns.columnsBtn.click();
+		const numberOfCheckedColumns = await columns.columnCheckbox.locator(".checked").count();
+		for (let i = 0; i < numberOfCheckedColumns; i++) {
+			expect(await columns.getColorFromElement(columns.columnCheckbox.locator(".checked").nth(i))).toBe(expectedColor);
+		}
 	});
 });

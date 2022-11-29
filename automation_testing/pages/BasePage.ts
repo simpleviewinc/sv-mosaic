@@ -19,6 +19,8 @@ export class BasePage {
 	readonly saveCoordinatesButton: Locator;
 	readonly drawerSaveButton: Locator;
 	readonly drawerCancelButton: Locator;
+	readonly error: Locator;
+	readonly errorIcon: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -33,9 +35,11 @@ export class BasePage {
 		this.errorMessage = page.locator("p.Mui-error");
 		this.latitude = page.locator("#lat");
 		this.longitude = page.locator("#lng");
-		this.saveCoordinatesButton = page.locator("[type='DRAWER'] button", { hasText: "Save Coordinates"})
-		this.drawerSaveButton = page.locator("[type='DRAWER'] button", { hasText: "Save" });
-		this.drawerCancelButton = page.locator("[type='DRAWER'] button", { hasText: "Cancel" });
+		this.saveCoordinatesButton = page.locator("/html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
+		this.drawerSaveButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
+		this.drawerCancelButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[1]/button");
+		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
+		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {

@@ -30,6 +30,7 @@
 		"more": "Más",
 		"overwrite_current_view": "Sobrescribir vista actual",
 		"save_as": "Guardar como",
-		"save_as_new_view": "Guardar como nueva vista"
+		"save_as_new_view": "Guardar como nueva vista",
+		"save_view": "Guardar Vista"
 	}
 }
