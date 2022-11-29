@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Chip from "@mui/material/Chip";
 import InputBase from "@mui/material/InputBase";
 import { debounce, xor } from "lodash";
 // import jsvalidator from "jsvalidator";
@@ -14,119 +12,14 @@ import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
 import CheckboxList from "@root/components/CheckboxList";
-import theme from "@root/theme";
+import Chip from "@root/components/Chip";
 import { H3 } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
-
-const StyledWrapper = styled.div`
-	& > .topBlock {
-		display: flex;
-		height: 400px;
-		width: 600px;
-	}
-
-	& > .topBlock > .options > .searchBar {
-		position: sticky;
-		top: 0;
-		display: flex;
-		align-items: center;
-		padding-left: 14px;
-		z-index: 1;
-		background: white;
-	}
-
-	& > .topBlock > .options > .searchBar > svg {
-		margin-right: 8px;
-		font-size: ${theme.iconFontSize};
-	}
-
-	& > .topBlock > .options > .searchBar > .input {
-		font-family: ${theme.fontFamily};
-		line-height: 2rem;
-		font-size: 16px;
-	}
-
-	& > .topBlock > .options {
-		overflow-y: scroll;
-		flex: 2;
-		position: relative;
-		transition: opacity .5s;
-		padding-right: 10px;
-	}
-
-	& > .topBlock > .options.disabled {
-		opacity: .4;
-		pointer-events: none;
-	}
-
-	& > .topBlock > .options .listItem {
-		padding-top: 0px;
-		padding-bottom: 0px;
-	}
-
-	& > .topBlock > .options .listItemIcon {
-		min-width: auto;
-	}
-
-	& > .topBlock > .options > .spinner {
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-
-	& > .topBlock > .options .checked {
-		color: ${theme.colors.blue};
-	}
-
-	& > .topBlock > .selected {
-		padding: 0px 0px 0px 15px;
-		width: 200px;
-		overflow-y: auto;
-	}
-
-	& .comparisonDropdown {
-		margin-bottom: 1rem;
-	}
-
-	& .chip {
-		display: flex;
-		background-color: ${theme.colors.blue}13;
-		margin-bottom: 4px;
-		justify-content: space-between;
-		font-family: ${theme.fontFamily};
-		height: 33px;
-	}
-
-	& .chip:focus {
-		background-color: ${theme.colors.blue}13;
-	}
-
-	& .chip > span {
-		flex: 1;
-		font-size: 14px;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		white-space: nowrap;
-		display: block;
-	}
-`
-
-const PopoverP = styled.p`
-	margin: 0px;
-`
+import { ChipWrapper, PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewFilterMultiselect.styled";
+import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
 
 const limit = 25;
 
-interface DataViewFilterMultiselectDropdownContentProps {
-	value?: any;
-	selected?: any;
-	comparison?: any;
-	comparisons?: any;
-	getOptions?: any;
-	onApply?: any;
-	isOpen?: any;
-	placeholder?: any;
-	onClose?: any;
-}
 // interface DataViewFilterMultiselectDropdownContent {
 // 	value?: any;
 // 	selected?: any[];
@@ -415,6 +308,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						</div>
 					}
 				</div>
+				<StyledVerticalHr/>
 				<div className="selected">
 					{comparisonDropdown}
 					{
@@ -430,12 +324,14 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 										if (option === undefined) { return null; }
 
 										return (
-											<Chip
-												className="chip"
-												key={option.value}
-												label={option.label}
-												onDelete={handleToggle(option)}
-											/>
+											<ChipWrapper key={option.value}>
+												<Chip
+													className="chip"
+													key={option.value}
+													label={option.label}
+													onDelete={handleToggle(option)}
+												/>
+											</ChipWrapper>
 										)
 									})
 								}
@@ -444,6 +340,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					}
 				</div>
 			</div>
+			<StyledHr/>
 			<DataViewFilterDropdownButtons
 				onApply={onApply}
 				onClear={onClear}
