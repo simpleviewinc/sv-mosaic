@@ -5,6 +5,7 @@ export const StyledSpan = styled.span`
 	& .button {
 		border-right: 2px solid ${theme.newColors.grey2["100"]};
 		padding-right: 4px;
+		padding-left: 4px;
 	}
 
 	& .normalButton > button {
