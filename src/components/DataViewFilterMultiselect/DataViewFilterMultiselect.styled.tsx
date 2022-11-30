@@ -1,18 +1,8 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 
-export const ChipWrapper = styled.div`
-	margin-top: 24px;
-	& .MuiChip-root {
-		display: flex;
-	};
-	& .MuiChip-label {
-		flex: 1 1 0%;
-	};
-`;
-
 export const StyledWrapper = styled.div`
-	padding: 22px 6px 14px;
+	padding: 22px 6px 8px;
 
 	& > .topBlock {
 		display: flex;
@@ -23,28 +13,12 @@ export const StyledWrapper = styled.div`
 	& > .topBlock > .options > .searchBar {
 		position: sticky;
 		top: 0;
-		display: flex;
-		align-items: center;
-		padding: 8px 16px;
-		z-index: 1;
-		background: ${theme.newColors.grey1[100]};
-		border: 1px solid ${theme.newColors.simplyGrey[100]};
 		margin-bottom: 24px;
-	}
-
-	& > .topBlock > .options > .searchBar > svg {
-		margin-right: 8px;
-		font-size: ${theme.iconFontSize};
-	}
-
-	& > .topBlock > .options > .searchBar > .input {
-		font-family: ${theme.fontFamily};
-		line-height: 2rem;
-		font-size: 16px;
+		z-index: 100;
 	}
 
 	& > .topBlock > .options {
-		overflow-y: scroll;
+		overflow-y: auto;
 		flex: 2;
 		position: relative;
 		transition: opacity .5s;
@@ -82,24 +56,11 @@ export const StyledWrapper = styled.div`
 
 	& .chip {
 		display: flex;
-		background-color: ${theme.colors.blue}13;
-		margin-bottom: 4px;
-		justify-content: space-between;
-		font-family: ${theme.fontFamily};
-		height: 33px;
-	}
-
-	& .chip:focus {
-		background-color: ${theme.colors.blue}13;
+		margin-top: 24px;
 	}
 
 	& .chip > span {
-		flex: 1;
-		font-size: 14px;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		white-space: nowrap;
-		display: block;
+		flex: 1 1 0%
 	}
 `
 
@@ -109,7 +70,7 @@ export const PopoverP = styled.p`
 
 export const StyledHr = styled.hr`
 	border: 1px solid ${theme.newColors.grey2[100]};
-	margin: 0 -16px;
+	margin: 0 -16px 18px;
 `;
 
 export const StyledVerticalHr = styled.hr`

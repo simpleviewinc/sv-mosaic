@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import InputBase from "@mui/material/InputBase";
 import { debounce, xor } from "lodash";
 // import jsvalidator from "jsvalidator";
 
@@ -15,10 +14,22 @@ import CheckboxList from "@root/components/CheckboxList";
 import Chip from "@root/components/Chip";
 import { H3 } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
-import { ChipWrapper, PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewFilterMultiselect.styled";
-import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
+import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewFilterMultiselect.styled";
+import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
+import { InputAdornment } from "@mui/material";
 
 const limit = 25;
+interface DataViewFilterMultiselectDropdownContentProps {
+	value?: any;
+	selected?: any;
+	comparison?: any;
+	comparisons?: any;
+	getOptions?: any;
+	onApply?: any;
+	isOpen?: any;
+	placeholder?: any;
+	onClose?: any;
+}
 
 // interface DataViewFilterMultiselectDropdownContent {
 // 	value?: any;
@@ -274,15 +285,14 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		<StyledWrapper>
 			<div className="topBlock">
 				<div className={`options ${optionsDisabled ? "disabled" : "" }`}>
-					<div className="searchBar">
-						<SearchIcon/>
-						<InputBase
-							className="input"
-							placeholder={props.placeholder || t("mosaic:common.keyword___")}
-							autoFocus={true}
-							onChange={keywordChange}
-						/>
-					</div>
+					<StyledTextField
+						InputProps={{ startAdornment: ( <InputAdornment position="start"> <SearchIcon/> </InputAdornment> ), }}
+						className="searchBar"
+						placeholder={props.placeholder || t("mosaic:common.keyword___")}
+						autoFocus={true}
+						onChange={keywordChange}
+						fieldSize="100%"
+					/>
 					{
 						!showList &&
 						<Spinner className="spinner"/>
@@ -324,14 +334,12 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 										if (option === undefined) { return null; }
 
 										return (
-											<ChipWrapper key={option.value}>
-												<Chip
-													className="chip"
-													key={option.value}
-													label={option.label}
-													onDelete={handleToggle(option)}
-												/>
-											</ChipWrapper>
+											<Chip
+												className="chip"
+												key={option.value}
+												label={option.label}
+												onDelete={handleToggle(option)}
+											/>
 										)
 									})
 								}

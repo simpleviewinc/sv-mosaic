@@ -1,6 +1,6 @@
-type ValueTypes = string[];
+/* type ValueTypes = string[];
 
-type ComparisonTypes = "in" | "not_in" | "all" | "exists" | "not_exists" | string;
+type ComparisonTypes = "in" | "not_in" | "all" | "exists" | "not_exists" ;
 
 type DataTypes = {
     value?: ValueTypes;
@@ -37,4 +37,4 @@ export interface DataViewFilterMultiselectDropdownContentProps {
 	isOpen?: boolean;
 	placeholder?: string;
 	onClose?: () => void;
-}
+} */
