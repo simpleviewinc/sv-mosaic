@@ -1,4 +1,4 @@
-import { intersection } from "lodash";
+import { intersection, isEqual, sortBy } from "lodash";
 
 interface Relationship {
 	api: JSONDB
@@ -75,6 +75,7 @@ class JSONDB {
 interface FilterKey {
 	$in: unknown[]
 	$not_in: unknown[]
+	$all: unknown[]
 	$gte: number
 	$lte: number
 	$ne: unknown
@@ -89,7 +90,6 @@ interface FilterObj {
 
 function filterData(data, filter: FilterObj) {
 	let newData = data;
-
 	for (const [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined || val.$not_in !== undefined) {
 			newData = newData.filter(row => {
@@ -104,6 +104,10 @@ function filterData(data, filter: FilterObj) {
 						: !val.$not_in.includes(row[key])
 				}
 			});
+		}
+
+		if (val.$all !== undefined) {
+			newData = newData.filter(row => isEqual( sortBy(row[key]), sortBy(filter[key].$all) ));
 		}
 
 		if (val.$gte !== undefined) {
