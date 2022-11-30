@@ -1,5 +1,5 @@
-import { test, expect, Page, Locator } from "@playwright/test";
-import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
+import { test, expect, Page } from "@playwright/test";
+import { DataviewPage } from "../../../pages/Components/DataView/DataviewPage";
 import { advanced_filter_data, dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/AdvancedFiltersComponent";
 import { DatePickerComponent } from "../../../pages/Components/DataView/DatePickerComponent";
@@ -8,9 +8,9 @@ import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - Data View - Advanced Filters", () => {
+test.describe("Components - Data View - Advanced Filters", () => {
 	let page: Page;
-	let dataviewPage: DataviewPage;
+	let _dataviewPage: DataviewPage;
 	let advancedFilters: AdvancedFiltersComponent;
 	let datepicker: DatePickerComponent;
 	let pagination: PaginationComponent;
@@ -18,42 +18,36 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
-		dataviewPage = new DataviewPage(page);
-		advancedFilters = dataviewPage.advancedFilterComponent;
+		_dataviewPage = new DataviewPage(page);
+		advancedFilters = new AdvancedFiltersComponent(page);
 		datepicker = advancedFilters.datepicker;
-		pagination = dataviewPage.paginationComponent;
-		columns = dataviewPage.columnsComponent;
-		await dataviewPage.visitPage();
+		pagination = _dataviewPage.paginationComponent;
+		columns = _dataviewPage.columnsComponent;
+		await _dataviewPage.visitPage();
 	});
 
-	test.beforeEach(async() => {
-		await dataviewPage.clearAllAppliedFilters();
+	test.afterEach(async() => {
+		await page.reload();
 	});
 
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
 
-	const validateFilterStyles = async (filter: Locator) => {
+	const validateFilterStyles = async () => {
 		const expectedFontWeight = "700";
 		const expectedFontSize = "14px";
 		const expectedApplyButtonColor = "(0, 141, 168)";
 		const expectedCleanAndCancelButtonColor = "(26, 26, 26)";
 
-		await advancedFilters.moreBtn.click();
-		await filter.check();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.first().click();
-		await advancedFilters.waitForElementLoad();
-
 		const applyFontWeight = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontWeight)));
-		const clearFontWeight = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).fontWeight)));
+		const clearFontWeight = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).fontWeight)));
 		const cancelFontWeight = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).fontWeight)));
 		const applyFontSize = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontSize)));
-		const clearFontSize = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).fontSize)));
+		const clearFontSize = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).fontSize)));
 		const cancelFontSize = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).fontSize)));
 		const applyButtonColor = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
-		const clearButtonColor = (await ((advancedFilters.page.locator("text=Clear")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+		const clearButtonColor = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
 		const cancelButtonColor = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
 
 		//Validate Font Weight
@@ -72,33 +66,29 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	}
 
 	test("Validate that all advanced filters have default value equal to Any", async () => {
-		await advancedFilters.moreBtn.click();
+		await advancedFilters._dataviewPage.waitForDataviewIsVisible();
 		await advancedFilters.selectAllAdvancedFilters();
 		const allSelectedFilters = await advancedFilters.getAllSelectedValuesForAdvancedFilters();
 		for (let i = 0; i < allSelectedFilters.length; i++) {
-			expect(allSelectedFilters.toString()).toBe("Any");
+			expect(allSelectedFilters[i].toString()).toBe("Any");
 		}
+		await advancedFilters.page.keyboard.press("Escape");
 	});
 
 	test("Validate Single select category", async () => {
-		await page.reload();
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.singleSelectCategoryOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("singleSelectCategory");
+		await advancedFilters.singleSelectCategoryBtn.click();
 		const categorySelected = await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption();
-		expect((await advancedFilters.getSelectedValueForSingleSelectCategoryOption())).toBe(categorySelected);
-		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
+		expect((await advancedFilters._dataviewPage.getFilterText(advancedFilters.singleSelectCategoryBtn))).toBe(categorySelected);
+		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain(categorySelected);
 		}
 	});
 
 	test("Validate Single select category styles", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.singleSelectCategoryOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("singleSelectCategory");
+		await advancedFilters.singleSelectCategoryBtn.click();
 		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
 		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
 		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
@@ -106,31 +96,26 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	test("Validate Categories with Comparisons - In", async () => {
-		await page.reload();
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.categoryWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonInOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain(selectedCategory);
 		}
 	});
 
 	test("Validate Categories with Comparisons - Not In", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.categoryWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonNotInOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).not.toContain(selectedCategory);
 		}
@@ -138,53 +123,45 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 	// Test fails because All is not working properly.
 	test.skip("Validate Categories with Comparisons - All", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.categoryWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonAllOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toBe(selectedCategory);
 		}
 	});
 
 	test("Validate Categories with Comparisons - Exists", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.categoryWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonExistsOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).not.toBe("");
 		}
 	});
 
 	test("Validate Categories with Comparisons - Not Exists", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.categoryWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonNotExistsOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain("");
 		}
 	});
 
 	test("Validate Categories with Comparisons - Help Dialog", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.categoryWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
 		await advancedFilters.helpComparisonCategoriesDialogButton.click();
 		const helpDialog = await advancedFilters.getHelpDialogFromCategoryWithComparisonOption();
 		expect(helpDialog.toString()).toBe(advanced_filter_data.categoryComparisonHelpDialog);
@@ -192,112 +169,96 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	test("Validate Categories with Comparisons - Keyword search", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.categoryWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
 		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory(filter_data.validKeywordFilter);
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonInOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain(selectedCategory);
 		}
 	});
 
 	test("Validate Title with Comparisons - Contains Title", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.titleWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("titleWithComparisons");
+		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitleSimple);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Contains");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitleSimple.toLowerCase());
 		}
 	});
 
 	test("Validate Title with Comparisons - Not Contains Title", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.titleWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("titleWithComparisons");
+		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Contains");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
 		}
 	});
 
 	test("Validate Title with Comparisons - Equal Title", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.titleWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("titleWithComparisons");
+		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Equals");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitle.toLowerCase());
 		}
 	});
 
 	test("Validate Title with Comparisons - Not Equal Title", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.titleWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("titleWithComparisons");
+		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Equal");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
 		}
 	});
 
 	test("Validate Title with Comparisons - Exists Title", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.titleWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("titleWithComparisons");
+		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Exists");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getRowTitles();
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).not.toBe("");
 		}
 	});
 
 	test("Validate Title with Comparisons - Not Exists Title", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.titleWithComparisonOption.click();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.click();
+		await advancedFilters.selectFilter("titleWithComparisons");
+		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Exists");
 		await advancedFilters.applyBtn.click();
-		expect(await dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
+		expect(await _dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
 	});
 
 	test("Validate created filter with valid dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.createdOption.check();
-		expect(await advancedFilters.createdOption.isChecked()).toBe(true);
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
 
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${advanced_filter_data.createdFilterResults} of ${advanced_filter_data.createdFilterResults}`);
-		const createdValues = await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created");
+		const createdValues = await _dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created");
 		const result = isACorrentDateRange(createdValues, startDate, endDate);
 		expect(result.length).toBe(0);
 	});
@@ -305,9 +266,8 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Validate created filter with invalid range of dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.createdOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
@@ -315,10 +275,8 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	test("Validate created filter no return results", async () => {
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.createdOption.check();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.first().click();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.fromCalendarButton.click();
@@ -326,15 +284,14 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.wait();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
-		expect(await dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
+		expect(await _dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
 	});
 
 	test("Clear created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.createdOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.wait();
 		await advancedFilters.clearBtn.click();
@@ -347,9 +304,8 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Cancel created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.createdOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.cancelBtn.click();
 		await advancedFilters.wait();
@@ -362,14 +318,12 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Remove created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.createdOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
-		const filterBtn = advancedFilters.optionalFilters.first();
-		await (await advancedFilters.getCloseBtn(filterBtn)).click();
+		await advancedFilters.selectFilter("created");
 		await advancedFilters.waitForElementLoad();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
@@ -377,19 +331,16 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Validate updated filter with valid dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.updatedOption.check();
-		expect(await advancedFilters.updatedOption.isChecked()).toBe(true);
-		await advancedFilters.applyBtn.click();
-
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.waitForElementLoad();
+		await advancedFilters.selectFilter("updated");
+		await advancedFilters.updatedBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
 
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${advanced_filter_data.updateFilterResults} of ${advanced_filter_data.updateFilterResults}`);
-		const updatedValues = await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Updated");
+		const updatedValues = await _dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Updated");
 		const result = isACorrentDateRange(updatedValues, startDate, endDate);
 		expect(result.length).toBe(0);
 	});
@@ -398,9 +349,8 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.updatedOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("updated");
+		await advancedFilters.updatedBtn.click();
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
@@ -409,10 +359,8 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 	test("Validate updated filter no return results", async () => {
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.updatedOption.check();
-		await advancedFilters.applyBtn.click();
-		await advancedFilters.optionalFilters.first().click();
+		await advancedFilters.selectFilter("updated");
+		await advancedFilters.updatedBtn.click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
 		await advancedFilters.fromCalendarButton.click();
@@ -420,16 +368,15 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.wait();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
-		expect(await dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
+		expect(await _dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
 	});
 
 	test("Clear updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.updatedOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("updated");
+		await advancedFilters.updatedBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.wait();
 		await advancedFilters.clearBtn.click();
@@ -442,9 +389,8 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.updatedOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("updated");
+		await advancedFilters.updatedBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.cancelBtn.click();
 		await advancedFilters.wait();
@@ -459,35 +405,36 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		const endDate = advanced_filter_data.validEndDateRange;
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.updatedOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("updated");
+		await advancedFilters.updatedBtn.click();
 		await advancedFilters.selectFilterDates(startDate, endDate);
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
-		const filterBtn = await advancedFilters.optionalFilters.first();
-		await (await advancedFilters.getCloseBtn(await filterBtn)).click();
+		await advancedFilters.selectFilter("updated");
 		await advancedFilters.waitForElementLoad();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
 
 	test("Validate the Created filter styles.", async () => {
-		await validateFilterStyles(advancedFilters.createdOption);
-		await page.reload();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
+		await advancedFilters.waitForElementLoad();
+		await validateFilterStyles();
 	});
 
 	test("Validate the Updated filter styles.", async () => {
-		await validateFilterStyles(advancedFilters.updatedOption);
-		await page.reload();
+		await advancedFilters.selectFilter("updated");
+		await advancedFilters.updatedBtn.click();
+		await advancedFilters.waitForElementLoad();
+		await validateFilterStyles();
 	});
 
 	test("Validate error message has darkRed as color.", async () => {
 		const expectColor = theme.newColors.darkRed["100"];
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.moreBtn.click();
-		await advancedFilters.createdOption.check();
-		await advancedFilters.applyBtn.click();
+		await advancedFilters.selectFilter("created");
+		await advancedFilters.createdBtn.click();
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
 		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
