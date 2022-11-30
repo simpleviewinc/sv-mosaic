@@ -1,31 +1,17 @@
 import * as React from "react";
 import { memo } from "react";
-import styled from "styled-components";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-import Button from "../Button";
-import DataViewPagerPopover from "./DataViewPagerPopover";
-import { DataViewOnSkipChange } from "./DataViewTypes";
+import Button from "../../Button";
+import DataViewPagerPopover from "../DataViewPagerPopover";
 import { useMosaicTranslation } from "@root/i18n";
+import { DataViewPagerProps } from "./DataViewPagerTypes";
+import { StyledSpan, StyledLabel, StyledButton } from "./DataViewPager.styled";
 
-const StyledSpan = styled.span`
-	display: inline-flex;
-	align-items: center;
-	white-space: nowrap;
 
-	& > .pagerText { line-height: 100%; }
-`;
-
-interface Props {
-	limit: number
-	count: number
-	skip: number
-	onSkipChange: DataViewOnSkipChange
-}
-
-function DataViewPager(props: Props) {
+function DataViewPager(props: DataViewPagerProps) {
 	const { t } = useMosaicTranslation();
 
 	const totalPages = Math.ceil(props.count / props.limit);
@@ -51,7 +37,7 @@ function DataViewPager(props: Props) {
 				variant="text"
 				size="small"
 				tooltip={t("mosaic:DataView.jump_to_page")}
-				label={`${startItem}-${endItem} of ${props.count}`}
+				label={<span>{startItem}-{endItem} <StyledLabel>of</StyledLabel> {props.count}</span>}
 				popover={
 					<DataViewPagerPopover
 						currentPage={currentPage}
@@ -61,7 +47,7 @@ function DataViewPager(props: Props) {
 					/>
 				}
 			/>
-			<Button
+			<StyledButton
 				color="black"
 				variant="icon"
 				size="small"
@@ -69,7 +55,7 @@ function DataViewPager(props: Props) {
 				onClick={skipClick(props.skip - props.limit)}
 				disabled={previousDisabled}
 			/>
-			<Button
+			<StyledButton
 				color="black"
 				variant="icon"
 				size="small"

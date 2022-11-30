@@ -1,12 +1,12 @@
 import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
-import { DataViewControlLimitProps } from "./DataViewTypes";
-
+import { DataViewControlLimitProps } from "../DataViewTypes";
+import theme from "@root/theme";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { default as MenuSelect, MenuSelectProps } from "../MenuSelect";
-import Button from "../Button";
-import theme from "@root/theme";
+import { default as MenuSelect, MenuSelectProps } from "../../MenuSelect";
+import { StyledButton } from "./DataViewControlLimit.styled";
+
 
 function DataViewLimit(props: DataViewControlLimitProps) {
 	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
@@ -31,14 +31,14 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 	)
 
 	return (
-		<Button
+		<StyledButton
 			color="black"
 			label={props.limit.toString()}
 			variant="text"
 			size="small"
 			iconPosition="right"
 			mIcon={ExpandMoreIcon}
-			mIconColor={theme.colors.gray600}
+			mIconColor={theme.newColors.almostBlack["100"]}
 			menuContent={menuContent}
 		/>
 	)

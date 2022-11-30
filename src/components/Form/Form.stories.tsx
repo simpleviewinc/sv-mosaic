@@ -39,6 +39,8 @@ export default {
 	decorators: [withKnobs],
 };
 
+const ORIGINAL_BODY_MARGIN = document.body.style.margin;
+
 const deleteTableRow = () => {
 	alert("Delete button clicked");
 };
@@ -59,6 +61,14 @@ const createNewOption = async (newOptionLabel) => {
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
 
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
@@ -459,7 +469,7 @@ export const Playground = (): ReactElement => {
 			setLoadReady(true);
 		};
 		prepopulate ? resetForm() : setLoadReady(false);
-	}, [prepopulate])
+	}, [prepopulate]);
 
 	return (
 		<>
@@ -484,6 +494,15 @@ export const Playground = (): ReactElement => {
 
 export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const showState = boolean("Show state", false);
 	const {height = "100vh"} = props;
 	const fields = useMemo(
@@ -632,6 +651,14 @@ export const PerformanceWithSubmit = (): ReactElement => {
 	const { state, dispatch } = useForm();
 	const showState = boolean("Show state", false);
 
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const hundredFields = [];
 
 	for (let i = 0; i < 100; i++) {
@@ -669,6 +696,15 @@ export const PerformanceWithSubmit = (): ReactElement => {
 
 export const RuntimeBehaviors = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
@@ -759,6 +795,15 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 export const SubmitExternalButtons = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
@@ -817,6 +862,15 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 export const DrawerForm = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const showState = boolean("Show state", false);
 
 	const [open, setOpen] = useState(false);
@@ -898,6 +952,15 @@ export const DrawerForm = (): ReactElement => {
 
 export const CustomFields = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const showState = boolean("Show state", false);
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
@@ -987,6 +1050,15 @@ export const CustomFields = (): ReactElement => {
 
 export const Validators = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
@@ -1074,6 +1146,15 @@ export const Validators = (): ReactElement => {
 
 export const DefaultValues = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
