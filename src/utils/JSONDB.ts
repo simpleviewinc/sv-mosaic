@@ -90,6 +90,7 @@ interface FilterObj {
 
 function filterData(data, filter: FilterObj) {
 	let newData = data;
+
 	for (const [key, val] of Object.entries(filter)) {
 		if (val.$in !== undefined || val.$not_in !== undefined) {
 			newData = newData.filter(row => {
