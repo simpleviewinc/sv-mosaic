@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const StyledContents = styled.div`
+	margin: 0px 6px;
+
 	& > .inputRow {
 		display: flex;
 		align-items: center;
