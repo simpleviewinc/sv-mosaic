@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import { forwardRef, memo, ReactElement } from "react";
 
 // Components
 import Button from "@root/components/Button";
@@ -37,7 +37,7 @@ type ResponsiveViewProps = {
 	contentRef?: any;
 } & BaseTopComponentProps;
 
-const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
+const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElement => {
 	const {
 		title,
 		description,
@@ -53,7 +53,7 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 	} = props;
 
 	return (
-		<ResponsiveViewColumn sections={sections && sections.length > 1}>
+		<ResponsiveViewColumn ref={ref} sections={sections && sections.length > 1}>
 			<Row>
 				<TitleWrapper
 					title={title}
@@ -77,6 +77,8 @@ const ResponsiveDrawer = (props: ResponsiveViewProps): ReactElement => {
 			}
 		</ResponsiveViewColumn>
 	);
-}
+});
 
-export default memo(ResponsiveDrawer)
+ResponsiveView.displayName = "ResponsiveView";
+
+export default memo(ResponsiveView)

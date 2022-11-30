@@ -9,18 +9,18 @@ export class ColumnsComponent extends BasePage {
 	readonly leftItems: Locator;
 	readonly btnLocator: string;
 	readonly checkboxLocator: string;
-	readonly closeTableSettingIcon: Locator;
+	readonly columnCheckbox: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.title = page.locator("h1").nth(2);
+		this.title = page.locator("[data-testid='drawer-title-test-id']");
 		this.columnsBtn = page.locator(".headerActions button").first();
-		this.rightItems = page.locator(".right div.item");
+		this.rightItems = page.locator(".right [role='button']");
 		this.leftItems = page.locator(".listItem label");
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
-		this.closeTableSettingIcon = page.locator(".left [data-testid='icon-button-test']");
+		this.columnCheckbox = page.locator(".left [data-testid='checkbox-test-id']");
 	}
 
 	async getRightItemsText(): Promise<string[]> {
@@ -67,7 +67,6 @@ export class ColumnsComponent extends BasePage {
 	async getLastRightItem(): Promise<Locator> {
 		const itemsNumber = await this.rightItems.count();
 		return this.rightItems.nth((itemsNumber - 1));
-
 	}
 
 	async getArrowsByItemName(itemName: string): Promise<Locator> {

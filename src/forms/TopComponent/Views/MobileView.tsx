@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import { forwardRef, memo, ReactElement } from "react";
 import styled from "styled-components";
 
 // Components
@@ -49,7 +49,7 @@ type MobileViewProps = {
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
 
-const MobileView = (props: MobileViewProps): ReactElement => {
+const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileViewProps, ref): ReactElement => {
 	const {
 		buttons,
 		onCancel,
@@ -63,7 +63,7 @@ const MobileView = (props: MobileViewProps): ReactElement => {
 	} = props;
 
 	return (
-		<>
+		<div ref={ref}>
 			<MobileActionsRow>
 				<StyledClearIcon onClick={onCancel} />
 				{buttons && (
@@ -85,8 +85,11 @@ const MobileView = (props: MobileViewProps): ReactElement => {
 					{tooltipInfo && helpIcon}
 				</MobileCheckboxHelpIconRow>
 			)}
-		</>
+		</div>
 	);
-}
+});
+
+MobileView.displayName = "MobileView";
+
 
 export default memo(MobileView);

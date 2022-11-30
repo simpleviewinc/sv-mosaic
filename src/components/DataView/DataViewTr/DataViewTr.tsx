@@ -1,37 +1,13 @@
 import React from "react";
 
 import Checkbox from "@root/components/Checkbox";
-import DataViewTd from "./DataViewTd";
-import DataViewActionsButtonRow from "../DataView/DataViewActionsButtonRow";
+import DataViewTd from "../DataViewTd";
+import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import { DataViewProps } from "./DataViewTypes";
-// import { DataViewAction, DataViewAdditionalAction } from "./DataViewTypes";
-
-interface DataViewTrProps {
-	bulkActions?: any;
-	checked?: any;
-	onReorder?: DataViewProps["onReorder"];
-	onCheckboxClick?: any;
-	primaryActions?: any;
-	additionalActions?: any;
-	originalRowData?: any;
-	columns?: any;
-	row?: any;
-	rowIdx: number;
-}
-// interface DataViewTrProps {
-// 	bulkActions: string | any[];
-// 	checked: boolean;
-// 	onCheckboxClick: React.MouseEventHandler<HTMLButtonElement>;
-// 	primaryActions: DataViewAction[];
-// 	additionalActions: DataViewAdditionalAction[];
-// 	originalRowData: MosaicObject;
-// 	columns: any[];
-// 	row: {
-// 		[x: string]: any;
-// 	};
-// }
+import { TableRow } from "./DataViewTr.styled";
+import { DataViewTrProps } from "./DataViewTrTypes";
+import theme from "@root/theme";
 
 //TODO PROPS
 function DataViewTr(props: DataViewTrProps) {
@@ -43,16 +19,16 @@ function DataViewTr(props: DataViewTrProps) {
 			isDragDisabled={!props?.onReorder}
 		>
 			{(provider) => (
-				<tr {...provider.draggableProps} ref={provider.innerRef}>
+				<TableRow {...provider.draggableProps} ref={provider.innerRef} className={props.checked && "checked"}>
 					{
 						props?.onReorder &&
-						<DataViewTd key="_draggable" draggableProvider={provider}>
-							<DragIndicatorIcon style={{display: "flex"}}/>
+						<DataViewTd key="_draggable" draggableProvider={provider} paddingRight={true}>
+							<DragIndicatorIcon style={{display: "flex", color: theme.newColors.almostBlack["100"]}}/>
 						</DataViewTd>
 					}
 					{
 						props?.bulkActions?.length > 0 &&
-						<DataViewTd key="_bulk">
+						<DataViewTd key="_bulk" paddingRight={true}>
 							<Checkbox
 								checked={props.checked === true}
 								onClick={props.onCheckboxClick}
@@ -71,7 +47,7 @@ function DataViewTr(props: DataViewTrProps) {
 							return (
 								<DataViewTd
 									key={column.name}
-									className={column.style === "bold" ? "bold" : undefined}
+									className={column.style && column.style.bold && "bold"}
 									paddingRight={true}
 									expandCell={true}
 									bold={column.style && column.style.bold}
@@ -87,7 +63,7 @@ function DataViewTr(props: DataViewTrProps) {
 							);
 						})
 					}
-				</tr>
+				</TableRow>
 			)}
 		</Draggable>
 	);
