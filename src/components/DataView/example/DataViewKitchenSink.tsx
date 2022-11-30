@@ -494,6 +494,7 @@ function DataViewKitchenSink(): ReactElement {
 		let isMounted = true;
 		const fetchData = async function () {
 			const converted = convertFilter(state.filter);
+
 			const newData = await api.find({
 				limit: state.limit,
 				sort: state.sort,
