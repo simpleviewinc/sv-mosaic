@@ -53,7 +53,7 @@ export class DataviewPage extends BasePage {
 		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
 		this.checkboxOptions = page.locator("input[type='checkbox']");
 		this.filterRowBtn = page.locator(".filterRow button");
-		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" });
+		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" }).first();
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
 	}
 
