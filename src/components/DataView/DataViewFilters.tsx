@@ -11,10 +11,6 @@ import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
 import { DataViewProps } from "./DataViewTypes";
 
-const StyledDiv = styled.div`
-	margin-bottom: -4px;
-`;
-
 const FiltersRow = styled.div`
 	display: flex;
 	flex-wrap: wrap;
@@ -111,7 +107,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	}
 
 	return (
-		<StyledDiv>
+		<div>
 			<div className="filterRow">
 				{
 					props?.filters?.length > 0 &&
@@ -174,7 +170,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 					</FiltersRow>
 				}
 			</div>
-		</StyledDiv>
+		</div>
 	)
 }
 
