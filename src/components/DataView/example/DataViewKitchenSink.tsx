@@ -113,6 +113,8 @@ const processArrayFilter = function ({ name, data, output }) {
 		output[name] = { $in: data.value };
 	} else if (data.comparison === "not_in") {
 		output[name] = { $not_in: data.value };
+	} else if (data.comparison === "all") {
+		output[name] = { $all: data.value };
 	}
 }
 
@@ -492,7 +494,6 @@ function DataViewKitchenSink(): ReactElement {
 		let isMounted = true;
 		const fetchData = async function () {
 			const converted = convertFilter(state.filter);
-
 			const newData = await api.find({
 				limit: state.limit,
 				sort: state.sort,
