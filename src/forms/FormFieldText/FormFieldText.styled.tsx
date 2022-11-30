@@ -15,11 +15,11 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   &.MuiFormControl-root {
     background-color: ${pr => pr.disabled ? "#fff" : theme.colors.gray100};
     &:hover {
-      background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover};
+    	background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover};
 
-      & fieldset {
-				border-color: ${theme.colors.simplyGray};
-			}
+    	& fieldset {
+			border-color: ${theme.colors.simplyGray};
+		}
     }
   }
 
@@ -28,7 +28,14 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   }
 
   input.MuiOutlinedInput-input {
+    color: ${theme.newColors.almostBlack["100"]};
     height: ${theme.fieldSpecs.inputText.height};
+	font-weight: 400;
+  }
+
+  input::placeholder {
+    color: ${theme.newColors.grey3["100"]};
+	font-weight: 400;
   }
 
   input,
