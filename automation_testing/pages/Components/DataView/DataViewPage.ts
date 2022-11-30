@@ -32,7 +32,6 @@ export class DataviewPage extends BasePage {
 	readonly filtersBtn: Locator;
 	readonly clearFiltersBtn: Locator;
 
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -51,8 +50,8 @@ export class DataviewPage extends BasePage {
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
-		this.removeFilterIcon = page.locator(".removeIcon");
-		this.checkboxOptions = page.locator("div.listItem label");
+		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
+		this.checkboxOptions = page.locator("input[type='checkbox']");
 		this.filterRowBtn = page.locator(".filterRow button");
 		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" });
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
@@ -222,15 +221,6 @@ export class DataviewPage extends BasePage {
 			createdDates.push((await (await row.$("td:nth-child(8)")).textContent()).toLowerCase());
 		}
 		return createdDates;
-	}
-
-	async clearAllAppliedFilters(): Promise<void> {
-		const numberOfFiltersApplied = await this.removeFilterIcon.count()
-		if (numberOfFiltersApplied > 0) {
-			for (let i = 0; i < numberOfFiltersApplied; i++) {
-				await this.removeFilterIcon.nth(i).click({force: true});
-			}
-		}
 	}
 
 	async getFilterText(locator: Locator): Promise<string> {
