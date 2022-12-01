@@ -108,7 +108,7 @@ function filterData(data, filter: FilterObj) {
 		}
 
 		if (val.$all !== undefined) {
-			newData = newData.filter(row => isEqual( sortBy(row[key]), sortBy(filter[key].$all) ));
+			newData = newData.filter(row => isEqual(sortBy(row[key]), sortBy(val.$all)));
 		}
 
 		if (val.$gte !== undefined) {
