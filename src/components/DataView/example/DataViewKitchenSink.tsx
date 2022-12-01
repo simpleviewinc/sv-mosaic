@@ -218,7 +218,7 @@ const filters: {
 			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
 		}
 	}
-]
+];
 
 const rootDefaultView: DataViewProps["savedView"] = {
 	id: "default",
@@ -236,7 +236,7 @@ const rootDefaultView: DataViewProps["savedView"] = {
 		activeFilters: [],
 		activeColumns: ["image", "title", "categories", "created"]
 	}
-}
+};
 
 const listColumns = [
 	{
