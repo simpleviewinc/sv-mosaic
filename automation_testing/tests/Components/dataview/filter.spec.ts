@@ -3,6 +3,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { addComma } from "../../../utils/helpers/helper";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Filter", () => {
 	let page: Page;
@@ -208,5 +209,13 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.categoryBtn.click();
 		await filter.displayAllCategories();
 		expect(await filter.categoryItems.count()).toBe(242);
+	});
+
+	test("Validate selected category style", async () => {
+		const expectBgColor = theme.newColors.simplyGold["100"];
+		await filter.selectFilter("categories");
+		await filter.categoryBtn.click();
+		await filter.selectCategory(filter_data.categoryFilterChooseItem);
+		expect(await filter.getBackgroundColorFromElement(_dataviewPage.selectedChips)).toBe(expectBgColor);
 	});
 });
