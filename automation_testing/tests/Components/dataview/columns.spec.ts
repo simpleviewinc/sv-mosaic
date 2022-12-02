@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
+import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
@@ -9,11 +10,13 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let columns: ColumnsComponent;
+	let filter: FilterComponent;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
+		filter = new FilterComponent(page);
 		await dataviewPage.visitPage();
 	});
 
@@ -77,7 +80,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Validate sorting by Title in descending form.", async () => {
-		await dataviewPage.searchForKeyword("Ant");
+		await filter.searchForTerm("keyword", "Ant");
 		const titlesSortDesc = (await dataviewPage.getRowTitles()).reverse().toString();
 		const titleColumn = await dataviewPage.getSpecificColumn("Title");
 		await titleColumn.click();
@@ -86,7 +89,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Validate sorting by Created in ascending form.", async () => {
-		await dataviewPage.searchForKeyword("Ant");
+		await filter.searchForTerm("keyword", "Ant");
 		const createdColum = await dataviewPage.getSpecificColumn("Created");
 		const expectedCreatedSort = sortDatesAsc(await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")).toString();
 		await createdColum.click();
@@ -95,7 +98,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Validate sorting by Created in descending form.", async () => {
-		await dataviewPage.searchForKeyword("Ant");
+		await filter.searchForTerm("keyword", "Ant");
 		const createdColum = await dataviewPage.getSpecificColumn("Created");
 		const expectedCreatedSort = sortDatesDesc(await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")).toString();
 		await createdColum.click();
