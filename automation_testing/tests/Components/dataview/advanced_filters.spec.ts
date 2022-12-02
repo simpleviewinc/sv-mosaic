@@ -65,16 +65,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.page.keyboard.press("Escape");
 	}
 
-	test("Validate that all advanced filters have default value equal to Any", async () => {
-		await advancedFilters._dataviewPage.waitForDataviewIsVisible();
-		await advancedFilters.selectAllAdvancedFilters();
-		const allSelectedFilters = await advancedFilters.getAllSelectedValuesForAdvancedFilters();
-		for (let i = 0; i < allSelectedFilters.length; i++) {
-			expect(allSelectedFilters[i].toString()).toBe("Any");
-		}
-		await advancedFilters.page.keyboard.press("Escape");
-	});
-
 	test("Validate Single select category", async () => {
 		await advancedFilters.selectFilter("singleSelectCategory");
 		await advancedFilters.singleSelectCategoryBtn.click();
@@ -300,20 +290,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.cancelBtn.click();
 	});
 
-	test("Cancel created filter", async () => {
-		const startDate = advanced_filter_data.validStartDateRange;
-		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.selectFilter("created");
-		await advancedFilters.createdBtn.click();
-		await advancedFilters.selectFilterDates(startDate, endDate);
-		await advancedFilters.cancelBtn.click();
-		await advancedFilters.wait();
-
-		await expect(advancedFilters.fromCalendarInput).toBeHidden();
-		await expect(advancedFilters.toCalendarInput).toBeHidden();
-		expect((await advancedFilters.getAllSelectedValuesForAdvancedFilters()).toString()).toBe("Any");
-	});
-
 	test("Remove created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
@@ -382,21 +358,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		expect(await advancedFilters.fromCalendarInput.inputValue()).toBe("");
 		expect(await advancedFilters.toCalendarInput.inputValue()).toBe("");
 		await advancedFilters.cancelBtn.click();
-	});
-
-	test("Cancel updated filter", async () => {
-		const startDate = advanced_filter_data.validStartDateRange;
-		const endDate = advanced_filter_data.validEndDateRange;
-		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
-		await advancedFilters.selectFilter("updated");
-		await advancedFilters.updatedBtn.click();
-		await advancedFilters.selectFilterDates(startDate, endDate);
-		await advancedFilters.cancelBtn.click();
-		await advancedFilters.wait();
-
-		await expect(advancedFilters.fromCalendarInput).toBeHidden();
-		await expect(advancedFilters.toCalendarInput).toBeHidden();
-		expect((await advancedFilters.getAllSelectedValuesForAdvancedFilters()).toString()).toBe("Any");
 	});
 
 	test("Remove updated filter", async () => {
