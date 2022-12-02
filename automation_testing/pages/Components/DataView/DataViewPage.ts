@@ -31,6 +31,7 @@ export class DataviewPage extends BasePage {
 	readonly filterRowBtn: Locator;
 	readonly filtersBtn: Locator;
 	readonly clearFiltersBtn: Locator;
+	readonly selectedChips: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -50,6 +51,7 @@ export class DataviewPage extends BasePage {
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
+		this.selectedChips = page.locator(".chips div");
 		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
 		this.checkboxOptions = page.locator("input[type='checkbox']");
 		this.filterRowBtn = page.locator(".filterRow button");
@@ -224,6 +226,6 @@ export class DataviewPage extends BasePage {
 	}
 
 	async getFilterText(locator: Locator): Promise<string> {
-		return await this.getOnlyStringWithLetters(await locator.locator("b").innerText());
+		return await this.getOnlyStringWithLetters(await locator.locator(".filter-value p").innerText());
 	}
 }
