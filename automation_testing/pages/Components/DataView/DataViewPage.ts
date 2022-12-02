@@ -226,7 +226,7 @@ export class DataviewPage extends BasePage {
 	}
 
 	async getFilterText(locator: Locator): Promise<string> {
-		return await this.getOnlyStringWithLetters(await locator.locator("b").innerText());
+		return await this.getOnlyStringWithLetters(await locator.locator(".filter-value p").innerText());
 	}
 
 	async searchForKeyword(keyword: string): Promise<void> {

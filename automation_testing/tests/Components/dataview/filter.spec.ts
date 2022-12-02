@@ -50,7 +50,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 
 	test("Filter title with a special character", async () => {
 		await filter.searchForTerm("keyword", "+");
-		expect(await filter.keywordBtn.locator("b").innerText()).toContain("+");
+		expect(await filter.keywordBtn.locator(".filter-value p").innerText()).toContain("+");
 	});
 
 	test("Filter title with an Uppercase keyword", async () => {
