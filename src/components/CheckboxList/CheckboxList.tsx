@@ -27,7 +27,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 	}, [props.options, handleToggle]);
 
 	return (
-		<FormGroup className={`${props.className} listItem`} onBlur={props.onBlur} style={props.style}>
+		<FormGroup className={`${props.className ?? ""} listItem`} onBlur={props.onBlur} style={props.style}>
 			{props?.options?.map((option, i) => {
 				const checked = props?.checked?.length > 0 ? props.checked?.filter(o => o === option.value).length > 0 : false;
 

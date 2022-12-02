@@ -6,7 +6,7 @@ export const StyledWrapper = styled.div`
   & {
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 16px;
   }
 `;
 
