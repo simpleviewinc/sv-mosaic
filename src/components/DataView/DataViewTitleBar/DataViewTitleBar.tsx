@@ -39,7 +39,7 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 			<div>
 				{
 					//loading isn't being used in DataViewFilters, should it be propped down?
-					props.filters &&
+					props?.filters &&
 						<DataViewFilters
 							loading={props.loading}
 							filter={props.filter}
