@@ -264,6 +264,20 @@ function DataView (props: DataViewProps): ReactElement  {
 		checkedAllPages : false
 	});
 
+	/**
+	 * Checks if a provided active filter is a
+	 * valid filter based on the name.
+	 */
+	useEffect(() => {
+		props?.activeFilters?.forEach(activeFilter => {
+			const filterFound = props?.filters?.find(val => val.name === activeFilter);
+
+			if (!filterFound) {
+				throw new Error(`Active filter "${activeFilter}" is not a valid filter.`)
+			}
+		})
+	}, [props.activeFilters, props.filters]);
+
 	// set defaults
 	const display = props.display || "list";
 	const displayOptions = useMemo(() => props.displayOptions || [display], [display, props.displayOptions]);
@@ -371,6 +385,11 @@ function DataView (props: DataViewProps): ReactElement  {
 	const activeColumnObjs = useMemo(() => {
 		return activeColumns.map(name => {
 			const column = props.columns.find(val => val.name === name);
+
+			if (!column) {
+				throw new Error(`Active column "${name}" is not defined in the columns list.`)
+			}
+
 			return column;
 		});
 	}, [activeColumns, props.columns]);
