@@ -6,54 +6,6 @@ export const BREAKPOINTS = {
 	}
 };
 
-const colors = {
-	black : "#0A1323",
-	blue : "#0070F2",
-	blueHover : "rgba(0, 89, 191, 1)",
-	blueActive : "rgba(0, 71, 153, 1)",
-	blueTeal : "#008DA8",
-	tealHover : "#005769",
-	tealOpacity : "rgb(0, 141, 168, 0.2)",
-	grayHover : "#F0F2F5",
-	labelDisabled : "#838791",
-	lightBlue: "#edf5fe",
-	lightRed : "#B100000D",
-	red : "#b10000",
-	redHover : "rgba(138, 0, 0, 1)",
-	redActive : "rgba(110, 0, 0, 1)",
-	gray : "#6B6F7C",
-	gray100 : "#FAFAFA",
-	gray200 : "#F0F2F5",
-	gray300 : "#D7D8DC",
-	gray400 : "#9D9FA7",
-	gray500 : "#848791",
-	gray600 : "#6B6F7C",
-	gray700 : "#3B424E",
-	gray800 : "#0A1323",
-	simplyGold : "#FDB924",
-	yellow : "#FDB924",
-	simplyGoldDisabled : "#FED57B",
-	simplyGoldHover : "#E3A520",
-	simplyGoldOpacity : "rgb(253, 185, 36, 0.3)",
-	simplyGray : "#BEBEBE",
-	simplyGrayOpacity : "rgb(190, 190, 190, 0.3)",
-	teal : "#008DA8",
-	assistiveText : "#6B6F7C", //Same as gray600
-	label : "#3B424E", //Same as gray700
-	almostBlack : "#1A1A1A",
-	errorBackground: "#B100000D",
-	white: "#FFFFFF"
-};
-
-const borders = {
-	black : `1px solid ${colors.gray800}`,
-	lightGray : "1px solid rgba(0, 0, 0, .05)",
-	gray : "1px solid rgba(0, 0, 0, .15)",
-	fieldGray : "1px solid #CCCCCC",
-	error : "1px solid #B10000",
-	simplyGray: "1px solid #BEBEBE"
-};
-
 const colorMap = {
 	almostBlack: "26,26,26",
 	darkerRealTeal: "0, 87, 105",
@@ -117,6 +69,54 @@ for (const [name, rgb] of Object.entries(colorMap)) {
 		newColors[name][opacity * 100] = rgbaToRGB(rgb, opacity);
 	}
 }
+
+const colors = {
+	black : newColors.almostBlack["100"],
+	blue : "#0070F2",
+	blueHover : "rgba(0, 89, 191, 1)",
+	blueActive : "rgba(0, 71, 153, 1)",
+	blueTeal : "#008DA8",
+	tealHover : "#005769",
+	tealOpacity : "rgb(0, 141, 168, 0.2)",
+	grayHover : "#F0F2F5",
+	labelDisabled : "#838791",
+	lightBlue: "#edf5fe",
+	lightRed : "#B100000D",
+	red : "#b10000",
+	redHover : "rgba(138, 0, 0, 1)",
+	redActive : "rgba(110, 0, 0, 1)",
+	gray : "#6B6F7C",
+	gray100 : "#FAFAFA",
+	gray200 : "#F0F2F5",
+	gray300 : "#D7D8DC",
+	gray400 : "#9D9FA7",
+	gray500 : "#848791",
+	gray600 : "#6B6F7C",
+	gray700 : "#3B424E",
+	gray800 : "#0A1323",
+	simplyGold : "#FDB924",
+	yellow : "#FDB924",
+	simplyGoldDisabled : "#FED57B",
+	simplyGoldHover : "#E3A520",
+	simplyGoldOpacity : "rgb(253, 185, 36, 0.3)",
+	simplyGray : "#BEBEBE",
+	simplyGrayOpacity : "rgb(190, 190, 190, 0.3)",
+	teal : "#008DA8",
+	assistiveText : "#6B6F7C", //Same as gray600
+	label : "#3B424E", //Same as gray700
+	almostBlack : "#1A1A1A",
+	errorBackground: "#B100000D",
+	white: "#FFFFFF"
+};
+
+const borders = {
+	black : `1px solid ${colors.gray800}`,
+	lightGray : "1px solid rgba(0, 0, 0, .05)",
+	gray : "1px solid rgba(0, 0, 0, .15)",
+	fieldGray : "1px solid #CCCCCC",
+	error : "1px solid #B10000",
+	simplyGray: "1px solid #BEBEBE"
+};
 
 export default {
 	h1 : `
