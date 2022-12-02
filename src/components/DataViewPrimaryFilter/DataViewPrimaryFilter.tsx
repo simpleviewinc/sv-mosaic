@@ -10,18 +10,21 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 	const label = (
 		<LabelWrapper>
 			<BodyText className="filter-label">{props.label}</BodyText>
-			<BodyText className="filter-value" color={ props.color ? props.color : "black"}>
-				<Value>| {props.value || "Any"}</Value>
-				{
-					props?.multiselect?.length > 1 && (
-						<Tooltip text={props?.multiselect.slice(1).map(val => val.label).join(", ")} type='advanced'>
-							<MultiselectCounter>
-								<Count>+{props?.multiselect.length - 1}</Count>
-							</MultiselectCounter>
-						</Tooltip>
-					)
-				}
-			</BodyText>
+			{props.value &&
+				<BodyText className="filter-value" color={ props.color ? props.color : "black"}>
+					<b>|</b>
+					<Value>{props.value}</Value>
+					{
+						props?.multiselect?.length > 1 && (
+							<Tooltip text={props?.multiselect.slice(1).map(val => val.label).join(", ")} type='advanced'>
+								<MultiselectCounter>
+									<Count>+{props?.multiselect.length - 1}</Count>
+								</MultiselectCounter>
+							</Tooltip>
+						)
+					}
+				</BodyText>
+			}
 		</LabelWrapper>
 	)
 
