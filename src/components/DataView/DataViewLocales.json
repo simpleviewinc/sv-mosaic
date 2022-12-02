@@ -1,11 +1,13 @@
 {
 	"en" : {
 		"actions": "Actions",
+		"clear_filters": "Clear filters",
 		"column_order": "Column Order",
 		"columns": "Columns",
 		"comparison": "Comparison",
 		"default": "Default",
 		"default_view": "Default View",
+		"filters": "Filters",
 		"go": "Go",
 		"jump_to_page": "Jump to Page",
 		"label": "Label",
@@ -24,8 +26,10 @@
 		"type": "Type"
 	},
 	"es" : {
+		"clear_filters": "Limpiar filtros",
 		"columns": "Columnas",
 		"default_view": "Vista predeterminada",
+		"filters": "Filtros",
 		"jump_to_page": "Ir a la página",
 		"more": "Más",
 		"overwrite_current_view": "Sobrescribir vista actual",

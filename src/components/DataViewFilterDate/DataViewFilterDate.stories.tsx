@@ -14,11 +14,10 @@ export const example = (): ReactElement => {
 	}
 
 	const onRemove = () => undefined;
-	
+
 	return (
 		<DataViewFilterDate
 			label="Testing"
-			type="primary"
 			data={state}
 			args={{}}
 			onRemove={onRemove}

@@ -23,10 +23,6 @@ export const StyledButton = styled(Button)`
 			? theme.newColors.simplyGrey["100"]
 			: theme.newColors.grey3["100"]};
 	}
-
-	button {
-		padding: 4px !important;
-	}
 `;
 
 export const StyledLabel = styled.span`
