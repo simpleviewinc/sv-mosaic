@@ -29,6 +29,7 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 				variant="text"
 				mIcon={SettingsIcon}
 				onClick={gearClick}
+				size="small"
 				iconPosition="left"
 				tooltip="Update columns and their order."
 			/>

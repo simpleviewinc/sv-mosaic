@@ -31,7 +31,9 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   }
 
   input.MuiOutlinedInput-input {
+    color: ${theme.newColors.almostBlack["100"]};
     height: ${theme.fieldSpecs.inputText.height};
+	font-weight: 400;
 	::placeholder {
 		font-weight: ${theme.fontWeight.normal};
 		font-size: 16px;

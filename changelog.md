@@ -1,5 +1,23 @@
 # sv-mosaic changelog
 
+## 12.0.0 - 11/29/22
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `DarkerRealTeal`.
+	* `DarkRed`.
+* **BREAKING** Added `getOptionsCountries` and `getOptionsStates` props to `FormFieldAddress`. This means the field is no longer responsible of providing the label and values for each country and / or state. These props are required and are expected to return a MosaicLabelValue[] in order to populate the dropdowns. The prop `getOptionsStates` will recieve as a parameter the value of the selected country.
+* Improved form rendering mechanics / styles to prevent a second scrollbar to appear when rendering on large screens (when the section tabs show on the left side of the form).
+* **BREAKING** Added optional `buttons` prop to the `Dialog` component. This prop receives an array of `ButtonProps`, this allows devs to add as many buttons as needed. Although this is an optional prop, the change might be breaking in the sense that any previously added Dialogs will no longer have the default buttons, so they won't have a way to close them unless added by the developers.
+* **BREAKING** Completely re-engineered the `Drawers` component:
+	* The component now receives a `drawers[]` prop that contains all the information needed to create the drawers (e.g. a json containing all the props, title, buttons, etc.), and a `children` prop which will be used to render a component with each element of the drawers array.
+	* Created a new component called `DrawerHeader` that is being exported. This allows both our internal drawers and external devs' drawers to have the same "design language". This component receives the following optional props: `title`, `buttons[]`, and an `onCancel` callback (when present, this will show an "x" button to the left of the title).
+* **BREAKING** Changes to `DataView`:
+	* Updated `DataViewTitleBar`'s style and overall arrangement. The action button has been moved to the right, and the views buttons have been moved to the left. The filters have been moved up into this component.
+	* Updated the `ColumnsDrawer` style to now use the previously mentioned `DrawerHeader`, the new `CheckboxList`, and updated the ability to arrange columns to now use drag-and-drop rather than arrows.
+	* Created component `DataViewActionsRow` which now contains the list-grid selector, pagination, number of rows, etc. This change is only internal to improve code-readability and shouldn't impact external developers.
+	* `Columns` button has been moved from inside the table to the `DataViewActionsRow`.
+	* Updated the `DataViewTable` style. Added a new indeterminate state to the bulk actions checkbox when the following condition is true: 0 < selected rows < max number of rows.
+	* **BREAKING** The types on all the previously mentioned components (and their sub-components) have been updated. They were mostly using `any` and now they should match what's expected from the DataView.
+
 ## 11.0.0 - 11/15/22
 * **BREAKING** Updated `DataView` types: `activeFilters` will now always be an array of strings. Previously it was jumping between an array of strings and an object that had `comparison: string`, and `value: string[]`.
 * Added optional prop `onReorder` to `DataView`. This now allows devs to reorder records with a Drag-and-drop functionality.
