@@ -324,7 +324,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					{
 						!optionsDisabled &&
 						<>
-							<H3>{t("mosaic:DataView.selected_options")}</H3>
+							<p className='selected-options-title'>{t("mosaic:DataView.selected_options")}</p>
 							<div className="chips">
 								{
 									showList &&

@@ -50,13 +50,26 @@ export const StyledWrapper = styled.div`
 		overflow-y: auto;
 	}
 
+	& > .topBlock > .selected > .selected-options-title {
+		font-weight: ${theme.fontWeight.medium};
+		font-size: 16px;
+		line-height: 19px;
+		color: ${theme.newColors.almostBlack["100"]};
+		margin: 0px 0px 24px 0px;
+	}
+
 	& .comparisonDropdown {
 		margin-bottom: 1rem;
 	}
 
+	& .chips {
+		display: flex;
+		flex-direction: column;
+		row-gap: 24px;
+	}
+
 	& .chip {
 		display: flex;
-		margin-top: 24px;
 	}
 
 	& .chip > span {
@@ -69,11 +82,11 @@ export const PopoverP = styled.p`
 `
 
 export const StyledHr = styled.hr`
-	border: 1px solid ${theme.newColors.grey2[100]};
-	margin: 0 -16px 18px;
+	border: 2px solid ${theme.newColors.grey2[100]};
+	margin: 0px -16px;
 `;
 
 export const StyledVerticalHr = styled.hr`
-	border: 1px solid ${theme.newColors.grey2[100]};
-	margin: -32px 0px 0px;
+	border: 2px solid ${theme.newColors.grey2[100]};
+	margin: -32px 0px 0px 0px;
 `
