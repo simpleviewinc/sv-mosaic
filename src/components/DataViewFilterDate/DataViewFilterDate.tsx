@@ -34,7 +34,7 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 	const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
 	const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
 
-	let valueString = "Any";
+	let valueString: string | undefined = undefined;
 
 	if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
 		valueString = startFormat;
