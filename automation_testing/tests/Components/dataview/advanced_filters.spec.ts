@@ -121,8 +121,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		}
 	});
 
-	// Test fails because All is not working properly.
-	test.skip("Validate Categories with Comparisons - All", async () => {
+	test("Validate Categories with Comparisons - All", async () => {
 		await advancedFilters.selectFilter("categoriesWithComparisons");
 		await advancedFilters.categoryWithComparisonBtn.click();
 		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
