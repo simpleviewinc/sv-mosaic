@@ -106,7 +106,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	}
 
 	return (
-		<div>
+		<>
 			<div className="filterRow">
 				{
 					props?.filters?.length > 0 &&
@@ -169,7 +169,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 					</FiltersRow>
 				}
 			</div>
-		</div>
+		</>
 	)
 }
 
