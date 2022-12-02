@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import { DataViewFilterMultiselectProps, MultiSelectComparison } from "./DataViewFilterMultiselectTypes";
-
-const StyledWrapper = styled.span`
-
-`;
 
 const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 	{ label : "In", value : "in" },
@@ -102,7 +97,7 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
 
 	return (
-		<StyledWrapper>
+		<span>
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
@@ -127,7 +122,7 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 					placeholder={props.args?.placeholder}
 				/>
 			</DataViewFilterDropdown>
-		</StyledWrapper>
+		</span>
 	);
 }
 
