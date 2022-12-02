@@ -79,27 +79,6 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.validateKeywordFilterIsVisible(true);
 	});
 
-	test("Clear keyword filter after apply it", async () => {
-		await filter.searchForTerm("keyword", filter_data.lowerCaseKeywordFilter);
-		await filter.keywordBtn.click();
-		await filter.clearBtn.click();
-		expect(await filter.keywordInput.textContent()).toBe("");
-		await filter.applyBtn.click();
-		await filter.wait();
-		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe("Any");
-		await filter.validateKeywordFilterIsVisible(false);
-	});
-
-	test("Cancel filter", async () => {
-		await filter.selectFilter("keyword");
-		await filter.keywordBtn.click();
-		await filter.keywordInput.type(filter_data.lowerCaseKeywordFilter);
-		await filter.cancelBtn.click();
-		await filter.cancelBtn.waitFor({ state: "hidden" });
-		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe("Any");
-		expect(await filter.keywordInput.isVisible()).toBe(false);
-	});
-
 	test("Filter category searching keyword", async () => {
 		await filter.searchForTerm("categories", filter_data.categoryKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.categoryFilterNumber);
@@ -157,38 +136,6 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter._dataviewPage.validateContainsKeyword(categories, filter_data.categoryFilterChooseItem);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.categoryFilterChooseItemNumber);
 		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toBe(filter_data.categoryFilterChooseItem);
-	});
-
-	test("Clear category filter", async () => {
-		const expectedCategories = [filter_data.categoryFilterChooseItem, filter_data.categoryFilterMoreThanOne].sort();
-		await filter.selectFilter("categories");
-		await filter.categoryBtn.click();
-		for (let i = 0; i < expectedCategories.length; i++) {
-			await filter.clearAllValuesFromField(filter.categoryKeywordInput);
-			await filter.categoryKeywordInput.type(expectedCategories[i]);
-			await filter.selectCategory(expectedCategories[i]);
-		}
-		await filter.clearBtn.click();
-		await filter.wait();
-		expect(await filter.selectedOptions.count()).toBe(0);
-		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toBe("Any");
-		await filter.validateCategoryFilterIsVisible(true);
-	});
-
-	test("Cancel category filter", async () => {
-		const expectedCategories = [filter_data.categoryFilterChooseItem, filter_data.categoryFilterMoreThanOne].sort();
-		await filter.selectFilter("categories");
-		await filter.categoryBtn.click();
-		for (let i = 0; i < expectedCategories.length; i++) {
-			await filter.clearAllValuesFromField(filter.categoryKeywordInput);
-			await filter.categoryKeywordInput.type(expectedCategories[i]);
-			await filter.selectCategory(expectedCategories[i]);
-		}
-		await filter.cancelBtn.click();
-		await filter.wait();
-		expect(await filter.selectedOptions.count()).toBe(0);
-		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toBe("Any");
-		await filter.validateCategoryFilterIsVisible(false);
 	});
 
 	test("Load more category filters", async () => {
