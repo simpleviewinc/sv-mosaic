@@ -1,8 +1,6 @@
 import { BasePage } from "../../BasePage";
 import { expect, Locator, Page } from "@playwright/test";
-import { AdvancedFiltersComponent } from "./AdvancedFiltersComponent";
 import { ColumnsComponent } from "./ColumnsComponent";
-import { FilterComponent } from "./FilterComponent";
 import { PaginationComponent } from "./PaginationComponent";
 import { SaveAsComponent } from "./SaveAsComponent";
 
@@ -14,8 +12,6 @@ export class DataviewPage extends BasePage {
 	readonly saveAsComponent: SaveAsComponent;
 	readonly paginationComponent: PaginationComponent;
 	readonly columnsComponent: ColumnsComponent;
-	readonly filterComponent: FilterComponent;
-	readonly advancedFilterComponent: AdvancedFiltersComponent;
 	readonly createNewBtn: Locator;
 	readonly dialog: Page;
 	readonly editIcon: Locator;
@@ -31,15 +27,16 @@ export class DataviewPage extends BasePage {
 	readonly columnHeaders: Locator;
 	readonly noResults: Locator;
 	readonly removeFilterIcon: Locator;
+	readonly checkboxOptions: Locator;
+	readonly filterRowBtn: Locator;
+	readonly filtersBtn: Locator;
+	readonly clearFiltersBtn: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.saveAsComponent = new SaveAsComponent(page);
 		this.paginationComponent = new PaginationComponent(page);
 		this.columnsComponent = new ColumnsComponent(page);
-		this.filterComponent = new FilterComponent(page);
-		this.advancedFilterComponent = new AdvancedFiltersComponent(page);
 		this.createNewBtn = page.locator("[data-mosaic-id='button_create'] button");
 		this.editIcon = page.locator("[data-mosaic-id=action_primary_edit] button");
 		this.moreOptions = page.locator("[data-mosaic-id='additional_actions_dropdown'] button");
@@ -53,7 +50,11 @@ export class DataviewPage extends BasePage {
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
-		this.removeFilterIcon = page.locator(".removeIcon");
+		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
+		this.checkboxOptions = page.locator("input[type='checkbox']");
+		this.filterRowBtn = page.locator(".filterRow button");
+		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" }).first();
+		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
 	}
 
 	async visitPage(): Promise<void> {
@@ -91,9 +92,13 @@ export class DataviewPage extends BasePage {
 		return this.checkboxRow.nth(0);
 	}
 
-	async getTableRows(): Promise<Locator> {
+	async waitForDataviewIsVisible(): Promise<void> {
 		await this.dataviewTable.waitFor({ state: "visible" });
 		await this.loading.waitFor({ state: "detached" });
+	}
+
+	async getTableRows(): Promise<Locator> {
+		await this.waitForDataviewIsVisible();
 		return this.dataviewTable.locator("tr");
 	}
 
@@ -102,8 +107,7 @@ export class DataviewPage extends BasePage {
 	}
 
 	async getRowTitles(): Promise<string[]> {
-		await this.dataviewTable.waitFor({ state: "visible" });
-		await this.loading.waitFor({ state: "detached" });
+		await this.waitForDataviewIsVisible();
 		await this.wait();
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titles = [];
@@ -192,15 +196,16 @@ export class DataviewPage extends BasePage {
 		const titles = [];
 		for (let i = 0; i < pages; i++) {
 			titles.push(...(await this.getRowCategories()));
-			await this.paginationComponent.forwardArrow.click();
-			await this.loading.waitFor({ state: "detached" });
+			if (!await this.paginationComponent.forwardArrow.isDisabled()) {
+				await this.paginationComponent.forwardArrow.click();
+				await this.loading.waitFor({ state: "detached" });
+			}
 		}
 		return titles;
 	}
 
 	async getCategoriesFromRow(): Promise<string[]> {
-		await this.dataviewTable.waitFor({ state: "visible" });
-		await this.loading.waitFor({ state: "detached" });
+		await this.waitForDataviewIsVisible();
 		const rows = await this.dataviewTable.locator("tr").elementHandles();
 		const categoriesPerRow = [];
 		for (const row of rows) {
@@ -218,13 +223,8 @@ export class DataviewPage extends BasePage {
 		return createdDates;
 	}
 
-	async clearAllAppliedFilters(): Promise<void> {
-		const numberOfFiltersApplied = await this.removeFilterIcon.count()
-		if (numberOfFiltersApplied > 0) {
-			for (let i = 0; i < numberOfFiltersApplied; i++) {
-				await this.removeFilterIcon.nth(i).click({force: true});
-			}
-		}
+	async getFilterText(locator: Locator): Promise<string> {
+		return await this.getOnlyStringWithLetters(await locator.locator("b").innerText());
 	}
 
 	async searchForKeyword(keyword: string): Promise<void> {
