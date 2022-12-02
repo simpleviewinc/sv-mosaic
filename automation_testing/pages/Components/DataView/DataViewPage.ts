@@ -226,11 +226,4 @@ export class DataviewPage extends BasePage {
 	async getFilterText(locator: Locator): Promise<string> {
 		return await this.getOnlyStringWithLetters(await locator.locator("b").innerText());
 	}
-
-	async searchForKeyword(keyword: string): Promise<void> {
-		await this.filterComponent.keywordBtn.click();
-		await this.filterComponent.keywordInput.fill(keyword);
-		await this.filterComponent.applyBtn.click();
-		await this.loading.waitFor({ state: "detached" });
-	}
 }
