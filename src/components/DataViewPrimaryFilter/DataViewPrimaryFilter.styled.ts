@@ -13,7 +13,6 @@ export const LabelWrapper = styled.div`
 
 	& > .filter-label {
 		font-weight: ${theme.fontWeight.normal};
-		margin-right: 8px;
 		text-transform: capitalize;
 	}
 
@@ -21,8 +20,11 @@ export const LabelWrapper = styled.div`
 		align-items: center;
 		display: flex;
 		font-weight: ${theme.fontWeight.normal};
-		margin-right: 8px;
 		text-transform: none;
+	}
+
+	& > .filter-value b {
+		margin: 0px 8px;
 	}
 `;
 
@@ -33,16 +35,18 @@ export const MultiselectCounter = styled.div`
 	display: flex;
 	height: 20px;
 	justify-content: center;
-	margin-left: 16px;
+	margin-left: 12px;
 	min-width: 20px;
 	padding: 4px;
 `;
 
-export const Value = styled.b`
-	max-width: 177px;
+export const Value = styled.p`
+	max-width: 187px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	font-weight: ${theme.fontWeight.bold};
+	margin: 0px;
 `;
 
 export const Count = styled.span`
