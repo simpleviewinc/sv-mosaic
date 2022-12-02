@@ -170,6 +170,14 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		}
 	});
 
+	test("Validate selected category with comparisons style", async () => {
+		const expectBgColor = theme.newColors.simplyGold["100"];
+		await advancedFilters.selectFilter("categoriesWithComparisons");
+		await advancedFilters.categoryWithComparisonBtn.click();
+		await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
+		expect(await advancedFilters.getBackgroundColorFromElement(_dataviewPage.selectedChips)).toBe(expectBgColor);
+	});
+
 	test("Validate Title with Comparisons - Contains Title", async () => {
 		await advancedFilters.selectFilter("titleWithComparisons");
 		await advancedFilters.titleWithComparisonBtn.click();

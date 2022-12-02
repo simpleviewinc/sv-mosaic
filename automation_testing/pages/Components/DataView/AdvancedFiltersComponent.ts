@@ -140,7 +140,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 	}
 
 	async getHelpDialogFromCategoryWithComparisonOption(): Promise<string> {
-		return await this.helpComparisonCategoriesDialog.textContent();
+		return await this.helpComparisonCategoriesDialog.nth(1).textContent();
 	}
 
 	async keywordSearchForComparisonCategory(category: string): Promise<string> {
