@@ -33,7 +33,6 @@ function DataViewFilters(props: DataViewFiltersProps) {
 		dropdownOpen : false
 	});
 
-
 	const activeFilters = props.activeFilters || [];
 
 	const active = props.filters.filter(val => activeFilters.includes(val.name));
