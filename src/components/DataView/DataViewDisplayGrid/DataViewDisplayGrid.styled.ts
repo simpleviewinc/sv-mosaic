@@ -55,7 +55,7 @@ export const StyledDiv = styled.div`
 		margin: 8px 0 8px 0;
 		max-width: 161px;
 		font-size: 13px;
-		font-weight: 590;
+		font-weight: ${theme.fontWeight.semiBold};
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
@@ -63,7 +63,7 @@ export const StyledDiv = styled.div`
 
 	& > .grid > .cell h3 {
 		margin: 0;
-		font-weight: 400;
+		font-weight: ${theme.fontWeight.normal};
 		font-size: 12px;
 		color: ${theme.colors.almostBlack["100"]};
 	}

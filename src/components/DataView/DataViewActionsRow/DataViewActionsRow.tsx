@@ -51,7 +51,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 		<DataViewActionsRowWrapper className={`${display}`}>
 			{
 				display === "grid" && bulkActions?.length > 0 && (
-					<RightControlsContainer>
+					<LeftControlsContainer>
 						<Checkbox
 							checked={allChecked}
 							indeterminate={!allChecked && anyChecked}
@@ -67,7 +67,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 								/>
 							)
 						}
-					</RightControlsContainer>
+					</LeftControlsContainer>
 				)
 			}
 			{onColumnsChange !== undefined && display === "list" && (
@@ -77,7 +77,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 					allColumns={allColumns}
 				/>
 			)}
-			<LeftControlsContainer>
+			<RightControlsContainer>
 				{
 					hasSortControl && display === "grid" &&
 						<DataViewDisplayGridSortControl
@@ -108,7 +108,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 						onSkipChange={onSkipChange}
 					/>
 				)}
-			</LeftControlsContainer>
+			</RightControlsContainer>
 		</DataViewActionsRowWrapper>
 	);
 };

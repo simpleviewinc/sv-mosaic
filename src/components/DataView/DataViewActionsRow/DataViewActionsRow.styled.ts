@@ -6,12 +6,13 @@ export const DataViewActionsRowWrapper = styled.div`
 	justify-content: space-between;
 `;
 
-export const RightControlsContainer = styled.div`
+export const LeftControlsContainer = styled.div`
 	.custom-checkbox {
-		margin-right: 6px;
+		margin-right: 4px;
 	}
 `;
 
-export const LeftControlsContainer = styled.div`
+export const RightControlsContainer = styled.div`
 	display: flex;
+	margin-left: auto;
 `;
