@@ -14,6 +14,10 @@ export class PaginationComponent extends BasePage {
 	readonly menuItem: Locator;
 	readonly resultAmountGrid: Locator;
 	readonly paginationValueGrid: Locator;
+	readonly gridImage: Locator;
+	readonly gridImageCheckbox: Locator;
+	readonly headerActionsCheckbox: Locator;
+	readonly gridImageInfo: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -30,6 +34,11 @@ export class PaginationComponent extends BasePage {
 
 		this.resultAmountGrid = this.headerActionsButton.nth(1);
 		this.paginationValueGrid = this.headerActionsButton.nth(2);
+
+		this.gridImage = page.locator(".image");
+		this.gridImageCheckbox = this.gridImage.locator(".checkboxContainer");
+		this.headerActionsCheckbox = page.locator(".headerActions input");
+		this.gridImageInfo = page.locator(".cell .left");
 	}
 
 	async selectResultOption(option: number, isList = true): Promise<void> {
@@ -71,7 +80,7 @@ export class PaginationComponent extends BasePage {
 		return this.pagesOption.locator("button");
 	}
 
-	async selectViewType(option:string): Promise<void> {
+	async selectViewType(option: "List"|"Grid"): Promise<void> {
 		await this.viewTypeBtn.click();
 		await this.page.locator("text=" + option).first().click();
 	}
