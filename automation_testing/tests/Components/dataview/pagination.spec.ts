@@ -150,4 +150,28 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 		expect(await columns.columnsBtn.isVisible()).toBe(true);
 		expect(await dataviewPage.getColumnHeadersCount() - 1).toBe(saveAs_data.defaultColumnHeadersList);
 	});
+
+	test("Validate that when selecting an image in Grid view, the rest of the checkboxes of the images are visible.", async () => {
+		await pagination.selectViewType("Grid");
+		const numberOfImages = await pagination.gridImageCheckbox.count();
+		await pagination.gridImageCheckbox.first().locator("input").check();
+		for (let i = 1; i < numberOfImages; i++) {
+			await expect(pagination.gridImageCheckbox.nth(i)).toHaveClass("checkboxContainer anyChecked");
+		}
+	});
+
+	test("Validate that when selecting only one image in Grid view, the header checkbox is in an intermidiate state.", async () => {
+		await pagination.selectViewType("Grid");
+		await pagination.gridImageCheckbox.first().locator("input").check();
+		expect(await pagination.headerActionsCheckbox.getAttribute("data-indeterminate")).toBe("true");
+	});
+
+	test("Validate that when a tooltip is shown when the title exceeds a certain lenght.", async () => {
+		const longTitle = "Ai Weiwei at Meijer Gardens: Natural State | Jan 27 - Aug 20";
+		await pagination.selectViewType("Grid");
+		const longTitleImageLocator = pagination.gridImageInfo.locator("h2:has-text('" + longTitle + "')");
+		await longTitleImageLocator.hover();
+		await expect(pagination.page.locator("[role='tooltip']")).toBeVisible();
+		expect(await pagination.page.locator("[role='tooltip']").textContent()).toBe(longTitle);
+	});
 });
