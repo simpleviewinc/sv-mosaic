@@ -65,7 +65,7 @@ export const StyledDiv = styled.div`
 		margin: 0;
 		font-weight: ${theme.fontWeight.normal};
 		font-size: 12px;
-		color: ${theme.colors.almostBlack["100"]};
+		color: ${theme.newColors.almostBlack["100"]};
 	}
 
 	& > .grid > .cell .image {
@@ -135,5 +135,10 @@ export const StyledDiv = styled.div`
 
 	& > .grid > .cell > .info > .right {
 		flex-shrink: 0;
+		margin-left: 4px;
+
+		& > span button {
+			margin: 0px;
+		}
 	}
 `;
