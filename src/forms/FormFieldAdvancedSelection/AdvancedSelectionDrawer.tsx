@@ -43,6 +43,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filter, setFilter] = useState({ prev: "options", new: "options" });
+	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled)
 
 	const { state, dispatch } = useForm();
 
@@ -64,6 +65,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	useEffect(() => {
 		let isMounted = true;
 		if (value?.length > 0 && isModalOpen) {
+			if (value.length >= fieldDef.inputSettings?.selectLimit) {
+				setCheckboxListDisabled(true)
+			}
 			if (isMounted) {
 				dispatch(
 					formActions.setFieldValue({
@@ -103,6 +107,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 		if (isMounted) {
 			setInternalOptions();
+		}
+
+		if (fieldDef.inputSettings?.selectLimit === 0) {
+			setCheckboxListDisabled(true)
 		}
 
 		return () => {
@@ -261,6 +269,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [fieldDef?.disabled, options]);
 
 	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
+		if (newOptions.length <= fieldDef.inputSettings?.selectLimit) {
+			setCheckboxListDisabled(false)
+		}
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
@@ -281,6 +292,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 * @param checkedOptions
 	 */
 	const checkboxListChanged = (checkedOptions: MosaicLabelValue[]) => {
+		if (checkedOptions.length >= fieldDef.inputSettings?.selectLimit) {
+			setCheckboxListDisabled(true)
+		}
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
@@ -323,7 +337,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				{
 					name: "checkboxList",
 					type: "checkbox",
-					disabled: fieldDef?.disabled,
+					disabled: checkboxListDisabled,
 					style: {
 						height: `calc(100vh - 78px - 30px - 49px - 30px - ${chipListHeight}px ${fieldDef?.inputSettings?.getOptions ? "- 45px" : ""})`,
 						overflowY: "auto",
