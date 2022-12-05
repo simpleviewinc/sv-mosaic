@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useRef, useEffect, ReactElement, memo } from "react";
+import { useState, useRef, useEffect, ReactElement, memo, MouseEvent } from "react";
 import { debounce } from "lodash";
 import {
 	FormNavWrapper,
@@ -71,9 +71,11 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	 * @param idx
 	 * @param sectionId
 	 */
-	const handleClick = (e, idx: number) => {
+	const handleClick = (e: MouseEvent, idx: number) => {
 		e.preventDefault();
-		sectionsRefs[idx].scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest"});
+		const sectionId = sectionsRefs[idx]?.getAttribute("id");
+		sectionsRefs[idx].scrollIntoView({ behavior: "auto", block: "center", inline: "center"});
+		setSelectedTab(Number(sectionId));
 	};
 
 	useEffect(() => {
@@ -88,6 +90,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 				const sectionHeight = currentSection?.offsetHeight;
 				const sectionTop = currentSection?.offsetTop - 350;
 				const sectionId = currentSection?.getAttribute("id");
+
 				if (
 					scrollY > sectionTop &&
 					scrollY <= sectionTop + sectionHeight
@@ -105,7 +108,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 			contentRef?.current?.removeEventListener("scroll", navHighlighterDebounced);
 			navHighlighterDebounced.cancel();
 		};
-	}, [sectionsRefs, contentRef]);
+	}, [sectionsRefs, contentRef, selectedTab]);
 
 	return (
 		<FormNavWrapper className="form-nav-wrapper">
