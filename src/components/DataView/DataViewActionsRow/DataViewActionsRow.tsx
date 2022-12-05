@@ -4,11 +4,17 @@ import DataViewColumnControl from "../DataViewColumnControl";
 import DataViewControlDisplay from "../DataViewControlDisplay";
 import DataViewControlLimit from "../DataViewLimit";
 import DataViewPager from "../DataViewPager";
-import { DataViewActionsRowWrapper } from "./DataViewActionsRow.styled";
+import { DataViewActionsRowWrapper, LeftControlsContainer, RightControlsContainer } from "./DataViewActionsRow.styled";
 import { DataViewActionsRowProps } from "./DataViewActionsRowTypes";
+import Checkbox from "../../Checkbox";
+import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow";
+import DataViewDisplayGridSortControl from "../DataViewDisplayGridSortControl";
 
 const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 	const {
+		bulkActions,
+		columns,
+		checked,
 		display,
 		displayControlEnabled,
 		displayOptionsFull,
@@ -21,15 +27,49 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 		count,
 		onColumnsChange,
 		activeColumnObjs,
-		allColumns
+		allColumns,
+		onCheckAllClick,
+		onSortChange,
+		sort,
 	} = props;
 
 	const limitOptionsValue = useMemo(() => {
 		return limitOptions || [25, 50, 100];
 	}, [limitOptions]);
 
+	const [allChecked, anyChecked] = useMemo(() => {
+		const allChecked = checked.length > 0 && checked.every(val => val === true);
+		const anyChecked = checked.length > 0 && checked.some(val => val === true);
+
+		return [allChecked, anyChecked];
+	}, [display, checked])
+
+
+	const hasSortControl = onSortChange !== undefined && sort !== undefined;
+
 	return (
-		<DataViewActionsRowWrapper>
+		<DataViewActionsRowWrapper className={`${display}`}>
+			{
+				display === "grid" && bulkActions?.length > 0 && (
+					<LeftControlsContainer>
+						<Checkbox
+							checked={allChecked}
+							indeterminate={!allChecked && anyChecked}
+							onClick={onCheckAllClick}
+						/>
+						{
+							anyChecked && (
+								<DataViewBulkActionsButtonsRow
+									data={props.data}
+									checked={props.checked}
+									bulkActions={props.bulkActions}
+									checkedAllPages={props.checkedAllPages}
+								/>
+							)
+						}
+					</LeftControlsContainer>
+				)
+			}
 			{onColumnsChange !== undefined && display === "list" && (
 				<DataViewColumnControl
 					onChange={onColumnsChange}
@@ -37,7 +77,15 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 					allColumns={allColumns}
 				/>
 			)}
-			<div>
+			<RightControlsContainer>
+				{
+					hasSortControl && display === "grid" &&
+						<DataViewDisplayGridSortControl
+							columns={columns}
+							sort={sort}
+							onSortChange={onSortChange}
+						/>
+				}
 				{displayControlEnabled && (
 					<DataViewControlDisplay
 						display={display}
@@ -60,7 +108,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 						onSkipChange={onSkipChange}
 					/>
 				)}
-			</div>
+			</RightControlsContainer>
 		</DataViewActionsRowWrapper>
 	);
 };

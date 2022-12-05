@@ -3,15 +3,15 @@ import { TooltipProps as MUITooltipProps } from "@mui/material/Tooltip";
 
 export interface TooltipProps {
   /**
-   * Additional custom css class to style the 
-	 * component.
+   * Additional custom css class to style the
+   * component.
    */
   className?: string;
   /**
    * Text to be displayed once the
    * tooltip gets rendered on the screen.
    */
-  text: string | JSX.Element[];
+  text: string | JSX.Element[] | ReactNode;
   /**
    * Element to be wrapped by the tooltip.
    * When hovering over this child the tooltip
@@ -35,7 +35,7 @@ export interface TooltipProps {
    */
   open?: boolean;
   /**
-   * Callback fired when the component requests to be open. 
+   * Callback fired when the component requests to be open.
    */
   onOpen?: () => void;
   /**
