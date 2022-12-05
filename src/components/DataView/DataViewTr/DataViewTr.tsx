@@ -40,6 +40,7 @@ function DataViewTr(props: DataViewTrProps) {
 							primaryActions={props.primaryActions}
 							additionalActions={props.additionalActions}
 							originalRowData={props.originalRowData}
+							activeDisplay="list"
 						/>
 					</DataViewTd>
 					{
