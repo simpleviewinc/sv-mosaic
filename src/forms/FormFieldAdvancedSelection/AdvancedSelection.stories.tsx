@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, text, withKnobs, select, number } from "@storybook/addon-knobs";
+import { boolean, text, withKnobs, select } from "@storybook/addon-knobs";
 import { AdvancedSelectionDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
@@ -30,7 +30,7 @@ export const Playground = (): ReactElement => {
 	);
 	const getOptionsLimit = text("Get options limit", "5");
 	const createNewOptionsKnob = boolean("Create new option", true);
-	const selectLimit = number("Select limit", 5);
+	const selectLimit = text("Select limit", "");
 
 	const getOptions: ({
 		filter,
@@ -95,7 +95,7 @@ export const Playground = (): ReactElement => {
 							? getOptionsLimit
 							: undefined,
 						createNewOption: createNewOptionsKnob ? createNewOption : undefined,
-						selectLimit
+						selectLimit: selectLimit.trim() !== "" && !isNaN(Number(selectLimit)) ? Number(selectLimit) : undefined
 					},
 				},
 			] as FieldDef<AdvancedSelectionDef>[],
@@ -212,7 +212,7 @@ export const KitchenSink = (): ReactElement => {
 
 				{
 					name: "selectLimitOfOptions",
-					label: "Advanced selection with selectLimit prop",
+					label: "Advanced selection with selectLimit prop (Max 2 options)",
 					type: "advancedSelection",
 					inputSettings: {
 						options,

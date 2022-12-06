@@ -43,7 +43,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filter, setFilter] = useState({ prev: "options", new: "options" });
-	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled)
+	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
 
 	const { state, dispatch } = useForm();
 
@@ -57,17 +57,25 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		}
 	}, [state.data.listOfChips, value]);
 
+	const disableCheckboxList = useCallback((optionsToCompare) => {
+		const selectLimit =  fieldDef?.inputSettings?.selectLimit;
+
+		if (selectLimit === "" || isNaN(selectLimit) || selectLimit === undefined || selectLimit < 0) return;
+
+		const disableList = selectLimit === 0 || optionsToCompare?.length >= selectLimit;
+		setCheckboxListDisabled(disableList);
+
+	}, [fieldDef?.inputSettings?.selectLimit]);
+
 	/**
 	 * Sets the selected options when the user
 	 * wants to add more or remove one previously
 	 * selected.
 	 */
 	useEffect(() => {
+		disableCheckboxList(value);
 		let isMounted = true;
 		if (value?.length > 0 && isModalOpen) {
-			if (value.length >= fieldDef.inputSettings?.selectLimit) {
-				setCheckboxListDisabled(true)
-			}
 			if (isMounted) {
 				dispatch(
 					formActions.setFieldValue({
@@ -107,10 +115,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 		if (isMounted) {
 			setInternalOptions();
-		}
-
-		if (fieldDef.inputSettings?.selectLimit === 0) {
-			setCheckboxListDisabled(true)
 		}
 
 		return () => {
@@ -269,9 +273,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [fieldDef?.disabled, options]);
 
 	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
-		if (newOptions.length <= fieldDef.inputSettings?.selectLimit) {
-			setCheckboxListDisabled(false)
-		}
+		disableCheckboxList(newOptions)
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
@@ -292,9 +294,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 * @param checkedOptions
 	 */
 	const checkboxListChanged = (checkedOptions: MosaicLabelValue[]) => {
-		if (checkedOptions.length >= fieldDef.inputSettings?.selectLimit) {
-			setCheckboxListDisabled(true)
-		}
+		disableCheckboxList(checkedOptions)
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
@@ -337,7 +337,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				{
 					name: "checkboxList",
 					type: "checkbox",
-					disabled: checkboxListDisabled,
+					disabled: fieldDef?.disabled || checkboxListDisabled,
 					style: {
 						height: `calc(100vh - 78px - 30px - 49px - 30px - ${chipListHeight}px ${fieldDef?.inputSettings?.getOptions ? "- 45px" : ""})`,
 						overflowY: "auto",
