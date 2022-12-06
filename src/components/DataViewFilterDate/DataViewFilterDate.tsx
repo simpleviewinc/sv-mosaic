@@ -20,11 +20,11 @@ const dateFormat = "M/d/yyyy";
 
 export default function DataViewFilterDate(props: DataViewFilterDateProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState(null);
-	
+
 	const onClick = function(evt) {
 		setAnchorEl(evt.currentTarget);
 	}
-	
+
 	const onClose = function() {
 		setAnchorEl(null);
 	}
@@ -33,9 +33,9 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 	const hasEnd = props.data.rangeEnd !== undefined;
 	const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
 	const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
-	
-	let valueString = "Any";
-	
+
+	let valueString: string | undefined = undefined;
+
 	if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
 		valueString = startFormat;
 	} else if (hasStart && hasEnd) {
@@ -45,14 +45,12 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 	} else if (hasEnd) {
 		valueString = `to ${endFormat}`;
 	}
-	
+
 	return (
 		<StyledWrapper>
 			<DataViewPrimaryFilter
 				label={props.label}
 				value={valueString}
-				type={props.type}
-				onRemove={props.onRemove}
 				onClick={onClick}
 			/>
 			<DataViewFilterDropdown

@@ -17,23 +17,25 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 
 	return (
 		<StyledDrawerHeader>
-			{onCancel && (
-				<IconButton
-					data-testid="close-icon-test-id"
-					aria-label="close"
-					disableRipple
-					onClick={onCancel}
-					style={{ marginRight: "8px" }}
-					size="large"
-				>
-					<CloseIcon />
-				</IconButton>
-			)}
-			{title &&
-				<FormTitle type={"DRAWER"} data-testid="drawer-title-test-id">
-					{title}
-				</FormTitle>
-			}
+			<div style={{display: "flex", alignItems: "center"}}>
+				{onCancel && (
+					<IconButton
+						data-testid="close-icon-test-id"
+						aria-label="close"
+						disableRipple
+						onClick={onCancel}
+						style={{ marginRight: "8px" }}
+						size="large"
+					>
+						<CloseIcon />
+					</IconButton>
+				)}
+				{title &&
+					<FormTitle type={"DRAWER"} data-testid="drawer-title-test-id">
+						{title}
+					</FormTitle>
+				}
+			</div>
 			{buttons &&
 				<ButtonsWrapper>
 					{buttons.map((button, idx) => (

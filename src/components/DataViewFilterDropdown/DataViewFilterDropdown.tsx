@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import { StyledPopover, StyledWrapper } from "./DataViewFilterDropdown.styled";
 // import jsvalidator from "jsvalidator";
-import Popover from "@mui/material/Popover";
-
-import theme from "@root/theme";
-
-const StyledWrapper = styled.div`
-	font-family: ${theme.fontFamily};
-	padding: 10px;
-	border-radius: 8px;
-	background: white;
-`
-
 interface DataViewFilterDropdownProps {
 	anchorEl?: any;
 	onExited?: any;
@@ -60,7 +49,7 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 	}
 
 	return (
-		<Popover
+		<StyledPopover
 			anchorEl={props.anchorEl}
 			onClose={props.onClose}
 			open={Boolean(props.anchorEl)}
@@ -74,7 +63,7 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 			<StyledWrapper>
 				{props.children}
 			</StyledWrapper>
-		</Popover>
+		</StyledPopover>
 	)
 }
 
