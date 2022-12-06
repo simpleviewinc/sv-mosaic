@@ -19,7 +19,7 @@ export const THead = styled.thead`
 `;
 
 export const Th = styled.th`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   font-weight: ${theme.fontWeight.medium};
   padding: 16px 30px 16px 8px;
   text-align: left;
@@ -40,7 +40,7 @@ export const StyledTable = styled.table`
   }
 
   td:nth-child(3) {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
     font-weight: ${theme.fontWeight.medium};
   }
 `;

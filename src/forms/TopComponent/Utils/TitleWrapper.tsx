@@ -11,7 +11,7 @@ const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 export const FormTitle = styled.span`
 	font-family: ${pr => pr.type  === "DRAWER" ? theme.fontFamily : theme.museoFont};
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-size: ${pr => pr.type && pr.type === "DRAWER" ? "20px" : "28px"};
 	font-weight: ${pr => pr.type === "DRAWER" ? theme.fontWeight.medium : theme.fontWeight.light};
 

@@ -26,7 +26,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
 
 export const StyledCheckbox = styled(MUICheckbox)`
   &.MuiCheckbox-colorPrimary {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
 
     &.Mui-checked {
       color: ${theme.newColors.simplyGold["100"]};

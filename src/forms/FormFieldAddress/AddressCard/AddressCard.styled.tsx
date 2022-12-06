@@ -6,7 +6,7 @@ import theme from "@root/theme";
 export const StyledAddressCard = styled.div`
   display: flex;
   flex-direction: column;
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   background-color: ${theme.colors.gray100};
   font-family: ${theme.fontFamily};
   height: 204px;
