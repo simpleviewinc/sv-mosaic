@@ -1,19 +1,9 @@
 import * as React from "react";
 import { memo } from "react";
-import styled from "styled-components";
-
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-import { DataViewControlDisplayProps } from "./DataViewTypes";
-import Button from "../Button";
-import { default as MenuSelect } from "../MenuSelect";
-import theme from "@root/theme";
-
-const StyledSpan = styled.span`
-	& .labelIcon {
-		font-size: ${theme.iconFontSize};
-	}
-`
+import { DataViewControlDisplayProps } from "../DataViewTypes";
+import Button from "../../Button";
+import { default as MenuSelect } from "../../MenuSelect";
+import { StyledSpan } from "./DataViewControlDisplay.styled";
 
 function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 	const activeDisplay = props.displayOptions.find(val => val.name === props.display);
@@ -43,8 +33,6 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 				label={<Icon/>}
 				iconPosition="right"
 				size="small"
-				mIcon={ExpandMoreIcon}
-				mIconColor={theme.colors.gray600}
 				menuContent={menuContent}
 			/>
 		</StyledSpan>

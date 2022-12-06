@@ -8,6 +8,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { DataViewColumn, DataViewSort, DataViewOnSortChange } from "./DataViewTypes";
 import MenuSelect from "../MenuSelect";
 import Button from "../Button";
+import theme from "@root/theme";
 
 interface Props {
 	columns: DataViewColumn[]
@@ -18,6 +19,8 @@ interface Props {
 const StyledDiv = styled.div`
 	${/* The arrow is comically large without this */""}
 	& > .directionButton svg { font-size: 20px; }
+	border-right: 2px solid ${theme.newColors.grey2["100"]};
+	padding-right: 16px;
 `;
 
 function DataViewDisplayGridSortControl(props: Props) {

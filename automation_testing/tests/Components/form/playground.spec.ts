@@ -24,11 +24,29 @@ test.describe.parallel("Components - Form - Playground", () => {
 		}
 	});
 
-	test("Validate that you can save when completing all required fields", async () => {
+	//Skipping tests until better approach
+	test.skip("Validate that you can save when completing all required fields", async () => {
 		await page.reload();
 		await playgroundPage.fillAllRequiredFields();
 		await playgroundPage.wait()
 		await playgroundPage.saveBtn.click();
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
+	});
+
+	test("Validate that Toggle field doesn't show error.", async () => {
+		await page.reload();
+		await playgroundPage.toggleField.click();
+		await playgroundPage.toggleField.click();
+		expect(await playgroundPage.errorMessage.count()).toBe(0);
+	});
+
+	test("Validate the font weight of the Title in Top Component.", async () => {
+		const titleFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.title);
+		expect(titleFontWeight).toBe("250");
+	});
+
+	test("Validate the font weight of the Description in Top Component.", async () => {
+		const descriptionFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.description);
+		expect(descriptionFontWeight).toBe("250");
 	});
 });

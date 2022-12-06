@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useEffect } from "react";
 import DataViewFilterSingleSelect from "./DataViewFilterSingleSelect";
 import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
@@ -15,12 +15,7 @@ const options = [
 	{ label : "Option D", value : "d" }
 ];
 
-const optionLabels = {
-	a: "Option A",
-	b: "Option B",
-	c: "Option C",
-	d: "Option D",
-}
+const optionLabels = ["Option A", "Option B", "Option C", "Option D"];
 
 export const Playground = (): ReactElement => {
 
@@ -33,8 +28,13 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", false);
 
 	const [state, setState] = useState({
-		value : defaultValue && options.find(option => option.label === defaultValue).value || undefined
+		value: undefined
 	});
+
+	useEffect(() => {
+		const selectedOption = options.find(option => option.label === defaultValue);
+		setState({value: selectedOption.value})
+	}, [defaultValue]);
 
 	const onChange = function(data) {
 		setState(data);
@@ -52,11 +52,10 @@ export const Playground = (): ReactElement => {
 	const getSelected = function(id) {
 		return options.filter(val => val.value === id)[0];
 	}
-	
+
 	return (
 		<DataViewFilterSingleSelect
 			label="Testing"
-			type="primary"
 			data={state}
 			args={{ getOptions, getSelected, required }}
 			onRemove={onRemove}
@@ -96,13 +95,12 @@ export const KitchenSink = (): ReactElement => {
 	const getSelected = function(id) {
 		return options.filter(val => val.value === id)[0];
 	}
-	
+
 	return (
-		<>	
+		<>
 			<h2>Required</h2>
 			<DataViewFilterSingleSelect
 				label="Required"
-				type="primary"
 				data={stateRequired}
 				args={{ getOptions, getSelected, required: true }}
 				onRemove={onRemove}
@@ -111,7 +109,6 @@ export const KitchenSink = (): ReactElement => {
 			<h2>No required</h2>
 			<DataViewFilterSingleSelect
 				label="No required"
-				type="primary"
 				data={state}
 				args={{ getOptions, getSelected, required: false }}
 				onRemove={onRemove}

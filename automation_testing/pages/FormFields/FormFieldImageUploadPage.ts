@@ -12,6 +12,7 @@ export class FormFieldImageUploadPage extends BasePage {
 	readonly imageUploadWithSetFocusHandlerInput: Locator;
 	readonly disabledImageUpload: Locator;
 	readonly disabledImageUploadDiv: Locator;
+	readonly instructionIcon: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -21,7 +22,8 @@ export class FormFieldImageUploadPage extends BasePage {
 		this.imageUploadWithSetFocusHandlerDiv = page.locator("//*[@id='1']/div/div/div/div/div/div[2]/div");
 		this.imageUploadWithSetFocusHandlerInput = page.locator("input[data-testid='input-file-test']").nth(1);
 		this.disabledImageUpload = page.locator("div[disabled='']");
-		this.disabledImageUploadDiv = page.locator("//*[@id='2']/div/div/div/div/div")
+		this.disabledImageUploadDiv = page.locator("//*[@id='2']/div/div/div/div/div");
+		this.instructionIcon = page.locator("[data-testid='field-test-id'] svg")
 	}
 
 	async visitPage(): Promise<void> {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import {
 	StyledAutocomplete,
 	StyledDisabledDropdownText,
@@ -13,18 +13,45 @@ import { CustomPopperProps, DropdownSingleSelectionDef } from "./FormFieldDropdo
 import InputWrapper from "../../components/InputWrapper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import TextField from "@mui/material/TextField";
+import { MosaicLabelValue } from "@root/types";
 
-const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, string>) => {
+const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelectionDef, MosaicLabelValue>) => {
 	const {
 		fieldDef,
 		error,
 		onChange,
 		onBlur,
-		value = ""
+		value
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [dropDownValue, setDropDownValue] = useState(null);
+
+	const [internalOptions, setInternalOptions] = useState([]);
+	// true: options
+	// false: getOptions
+	const [origin, setOrigin] = useState(undefined);
+
+	useEffect(() => {
+		const populateOptions = async () => {
+			if (fieldDef?.inputSettings?.options) {
+				setInternalOptions(fieldDef.inputSettings.options);
+				setOrigin(true);
+			} else if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef.inputSettings.getOptions();
+				setInternalOptions(newOptions);
+				setOrigin(false);
+			}
+		}
+		populateOptions();
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
+
+	useEffect(() => {
+		if (value && origin === false) {
+			if (!internalOptions.find((o) => o?.value === value?.value))
+				setInternalOptions([...internalOptions, value]);
+		}
+	}, [internalOptions, value, origin]);
 
 	const renderInput = (params) => (
 		<InputWrapper>
@@ -42,25 +69,21 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 		setIsOpen(!isOpen)
 	}
 
-	const onDropDownChange = async (option) => {
+	const onDropDownChange = async (option: MosaicLabelValue) => {
 		setDropDownValue(option)
-		onChange && (await onChange(option?.value));
+		onChange && (await onChange(option ? option : undefined));
 	}
 
-	const selectedOption = fieldDef?.inputSettings?.options.find(option => {
-		return option.value === value;
-	});
-
-	const isOptionEqualToValue = (option, value) => {
-		if (value.value === "") {
+	const isOptionEqualToValue = (option: MosaicLabelValue, value: MosaicLabelValue) => {
+		if (value?.value === "") {
 			return true;
 		}
 
-		return option.value === value.value
+		return option.value === value?.value
 	}
 
 	const CustomPopper = (props: CustomPopperProps) => {
-		return <StyledPopper value={value === ""} {...props} />;
+		return <StyledPopper value={value?.value === ""} {...props} />;
 	};
 
 	return (
@@ -68,11 +91,11 @@ const DropdownSingleSelection = (props: MosaicFieldProps<DropdownSingleSelection
 			{!fieldDef?.disabled ?
 				<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" innerWidth={fieldDef?.size}>
 					<StyledAutocomplete
-						value={{label: selectedOption?.label, value: value}}
+						value={value || null}
 						onOpen={handleOpen}
 						onClose={handleOpen}
 						data-testid="autocomplete-test-id"
-						options={fieldDef?.inputSettings?.options}
+						options={internalOptions}
 						getOptionLabel={(option) => option?.label ? option.label : ""}
 						isOptionEqualToValue={isOptionEqualToValue}
 						onChange={(_event, option) => onDropDownChange(option)}

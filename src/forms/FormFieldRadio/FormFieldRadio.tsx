@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, useState, useEffect } from "react";
 
 // Components
 import RadioButton from "@root/components/RadioButton";
@@ -8,8 +8,9 @@ import RadioButton from "@root/components/RadioButton";
 import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldRadioDef } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
+import { MosaicLabelValue } from "@root/types";
 
-const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, string>): ReactElement => {
+const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelValue>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
@@ -17,9 +18,35 @@ const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, string>): Rea
 		onBlur,
 	} = props;
 
+	const [internalOptions, setInternalOptions] = useState([]);
+	// true: options
+	// false: getOptions
+	const [origin, setOrigin] = useState(undefined);
+
+	useEffect(() => {
+		const populateOptions = async () => {
+			if (fieldDef?.inputSettings?.options) {
+				setInternalOptions(fieldDef.inputSettings.options);
+				setOrigin(true);
+			} else if (fieldDef?.inputSettings?.getOptions) {
+				const newOptions = await fieldDef.inputSettings.getOptions();
+				setInternalOptions(newOptions);
+				setOrigin(false);
+			}
+		}
+		populateOptions();
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
+
+	useEffect(() => {
+		if (value && origin === false) {
+			if (!internalOptions.find((o) => o?.value === value?.value))
+				setInternalOptions([...internalOptions, value]);
+		}
+	}, [internalOptions, value, origin]);
+
 	const listOfRadios = (
 		<>
-			{fieldDef?.inputSettings?.options.map((option) => (
+			{internalOptions.map((option) => (
 				<RadioButton
 					disabled={fieldDef?.disabled}
 					key={option.label}
@@ -30,10 +57,15 @@ const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, string>): Rea
 		</>
 	);
 
+	const updateSelectedOption = (option: string) => {
+		const selectedOption: MosaicLabelValue = internalOptions.find(o => o.value === option);
+		onChange(selectedOption);
+	}
+
 	return (
 		<StyledRadioGroup
-			onChange={(e) => onChange && onChange(e.target.value)}
-			value={value ?? ""}
+			onChange={(e) => onChange && updateSelectedOption(e.target.value)}
+			value={value ? value.value : ""}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 		>
 			{listOfRadios}

@@ -6,7 +6,7 @@ import { boolean, select } from "@storybook/addon-knobs";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import GetAppIcon from "@mui/icons-material/GetApp";
 
 import JSONDB from "@root/utils/JSONDB";
 import LocalStorageDB from "@root/utils/LocalStorageDB";
@@ -61,16 +61,24 @@ const api = new JSONDB(mappedData, {
 });
 
 const processStringFilter = function ({ name, data, output }) {
-	if (data.value === undefined) { return; }
+	if (data.value === undefined) {
+		if (data.comparison === "exists") {
+			output[name] = { $exists: true };
+		} else if (data.comparison === "not_exists") {
+			output[name] = { $exists: false };
+		}
 
-	if (data.comparison === "equals") {
-		output[name] = data.value;
-	} else if (data.comparison === "contains") {
-		output[name] = { $contains: data.value };
-	} else if (data.comparison === "not_contains") {
-		output[name] = { $not_contains: data.value };
-	} else if (data.comparison === "not_equals") {
-		output[name] = { $ne: data.value };
+		return;
+	} else {
+		if (data.comparison === "equals") {
+			output[name] = data.value;
+		} else if (data.comparison === "contains") {
+			output[name] = { $contains: data.value };
+		} else if (data.comparison === "not_contains") {
+			output[name] = { $not_contains: data.value };
+		} else if (data.comparison === "not_equals") {
+			output[name] = { $ne: data.value };
+		}
 	}
 }
 
@@ -105,6 +113,8 @@ const processArrayFilter = function ({ name, data, output }) {
 		output[name] = { $in: data.value };
 	} else if (data.comparison === "not_in") {
 		output[name] = { $not_in: data.value };
+	} else if (data.comparison === "all") {
+		output[name] = { $all: data.value };
 	}
 }
 
@@ -130,8 +140,7 @@ const singleSelectCategoriesHelper = new SingleSelectHelper({
 const filters: {
 	name: DataViewFilterDef["name"];
 	label: DataViewFilterDef["label"];
-	type: DataViewFilterDef["type"];
-	component: any;
+	component: DataViewFilterDef["component"];
 	args?: DataViewFilterDef["args"];
 	column?: DataViewFilterDef["column"];
 	toFilter?: (val: {name: string; data: any; output: any}) => void;
@@ -139,7 +148,6 @@ const filters: {
 	{
 		name: "keyword",
 		label: "Keyword",
-		type: "primary",
 		component: DataViewFilterText,
 		column: "title",
 		toFilter: function ({ name, data, output }) {
@@ -153,7 +161,6 @@ const filters: {
 	{
 		name: "categories",
 		label: "Categories",
-		type: "primary",
 		component: DataViewFilterMultiselect,
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
@@ -165,7 +172,6 @@ const filters: {
 	{
 		name: "single_select_category",
 		label: "Single Select Category",
-		type: "optional",
 		component: DataViewFilterSingleSelect,
 		args: {
 			getOptions: singleSelectCategoriesHelper.getOptions.bind(singleSelectCategoriesHelper),
@@ -177,7 +183,6 @@ const filters: {
 	{
 		name: "categories_with_comparisons",
 		label: "Categories with Comparisons",
-		type: "optional",
 		component: DataViewFilterMultiselect,
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
@@ -190,28 +195,24 @@ const filters: {
 	{
 		name: "title",
 		label: "Title",
-		type: "optional",
 		component: DataViewFilterText,
 		toFilter: processStringFilter
 	},
 	{
 		name: "created",
 		label: "Created",
-		type: "optional",
 		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
 		name: "updated",
 		label: "Updated",
-		type: "optional",
 		component: DataViewFilterDate,
 		toFilter: processDateFilter
 	},
 	{
 		name: "title_with_comparisons",
 		label: "Title with Comparisons",
-		type: "optional",
 		component: DataViewFilterText,
 		toFilter: processStringFilter,
 		column: "title",
@@ -219,11 +220,11 @@ const filters: {
 			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
 		}
 	}
-]
+];
 
 const rootDefaultView: DataViewProps["savedView"] = {
 	id: "default",
-	label: "Default View",
+	label: "All",
 	type: "default",
 	state: {
 		limit: 25,
@@ -237,7 +238,7 @@ const rootDefaultView: DataViewProps["savedView"] = {
 		activeFilters: [],
 		activeColumns: ["image", "title", "categories", "created"]
 	}
-}
+};
 
 const listColumns = [
 	{
@@ -255,9 +256,6 @@ const listColumns = [
 	{
 		name: "title",
 		label: "Title",
-		style: {
-			bold: true
-		},
 		sortable: true
 	},
 	{
@@ -321,9 +319,6 @@ const listColumns = [
 		name: "bold",
 		label: "Style - bold",
 		column: "content_owner",
-		style: {
-			bold: true
-		}
 	},
 	{
 		name: "italic",
@@ -366,6 +361,14 @@ const listColumns = [
 		style: {
 			textTransform: "uppercase"
 		}
+	},
+	{
+		name: "textTransformLargeText",
+		label: "Style - Text Transform with large field text to order column",
+		column: "content_owner",
+		style: {
+			textTransform: "uppercase"
+		}
 	}
 ];
 
@@ -399,14 +402,12 @@ function DataViewKitchenSink(): ReactElement {
 	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
 	const additionalActions = boolean("additionalActions", true);
-	const primaryFilters = boolean("primaryFilters", true);
-	const optionalFilters = boolean("optionalFilters", true);
 	const sticky = boolean("sticky", true);
 	const locale: string = select("locale", { en: "en", es: "es", cimode: "cimode", de: "de" }, "en");
 	const comparisonDefault: string = select("ComparisonDefault for text filter", { "Equals": "equals", "Not Equals": "not_equals", "Contains": "contains", "Not Contains": "not_contains", "Exists": "exists", "Not Exists": "not_exists", "Invalid Comparison": "invalid_comparison" }, "contains");
 	const displayList = boolean("displayList", true);
 	const displayGrid = boolean("displayGrid", true);
-	const validFilters = filters.filter(val => (val.type === "primary" && primaryFilters) || (val.type === "optional" && optionalFilters));
+	const draggableRows = boolean("draggableRows", true);
 	const defaultView: DataViewProps["savedView"] = {
 		...rootDefaultView,
 		state: {
@@ -437,14 +438,14 @@ function DataViewKitchenSink(): ReactElement {
 	const stateRef = useStateRef(state);
 
 	const filterChange = function (name, value) {
-		setState({
-			...state,
+		setState((prev) => ({
+			...prev,
 			filter: {
-				...state.filter,
+				...prev.filter,
 				[name]: value
 			},
 			skip: 0
-		});
+		}));
 	}
 
 	const convertFilter = function (filter) {
@@ -537,7 +538,7 @@ function DataViewKitchenSink(): ReactElement {
 		primaryActions: primaryActions ? [
 			{
 				name: "edit",
-				color: "blue",
+				color: "black",
 				variant: "icon",
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
@@ -564,16 +565,16 @@ function DataViewKitchenSink(): ReactElement {
 		bulkActions: bulkActions ? [
 			{
 				name: "download",
-				color: "blue",
+				color: "black",
 				variant: "icon",
-				mIcon: CloudDownloadIcon,
+				mIcon: GetAppIcon,
 				onClick: function ({ data }) {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
 				}
 			},
 			{
 				name: "delete",
-				color: "blue",
+				color: "black",
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: function ({ data }) {
@@ -589,19 +590,18 @@ function DataViewKitchenSink(): ReactElement {
 				name: "create",
 				label: "Create New",
 				mIcon: AddIcon,
-				color: "blue",
-				variant: "outlined",
+				color: "yellow",
+				variant: "contained",
 				onClick: function () {
 					alert("CREATE NEW");
 				}
 			}
 		],
-		filters: validFilters.map((filter): DataViewFilterDef => {
+		filters: filters.map((filter): DataViewFilterDef => {
 			return {
 				name: filter.name,
 				label: filter.label,
 				component: filter.component,
-				type: filter.type,
 				args: {...filter.args, comparisonDefault},
 				onChange: function (value) {
 					filterChange(filter.name, value);
@@ -676,7 +676,22 @@ function DataViewKitchenSink(): ReactElement {
 		limit: state.limit,
 		sort: state.sort,
 		filter: state.filter,
-		activeFilters: state.activeFilters
+		activeFilters: state.activeFilters,
+		onReorder: draggableRows  ? (newRows) => {
+			setTimeout(async () => {
+				const newData = await api.find({
+					reorderedList: newRows
+				});
+
+				setState({
+					...state,
+					data: newData,
+					loading: false
+				});
+			}, ARTIFICIAL_DELAY);
+
+			setState({...state, loading: true});
+		} : undefined
 	};
 
 	return (

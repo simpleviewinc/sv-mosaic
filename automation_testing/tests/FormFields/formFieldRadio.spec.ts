@@ -15,10 +15,10 @@ test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
 		browser.close;
 	});
 
-	test("Validate Regular Radio Button", async ({ page }) => {
+	test("Validate Regular Radio Button", async () => {
 		page.on("dialog", async dialog => {
-			const message = dialog.message().split(/[{}]/)[1].split(/[\n":]/).map(el => el.trim()).filter(el => el !== "");
-			expect(message[1]).toBe(selectedOptionValue);
+			expect(dialog.message()).toContain(selectedOptionValue);
+			expect(dialog.message()).toContain(selectedOptionValue.toLocaleLowerCase().replace(/ /g,"_"));
 			await dialog.dismiss();
 		});
 		const [ selectedOptionNumber, selectedOptionValue] = await formFieldRadioPage.selectRandomRadioButtonOption();

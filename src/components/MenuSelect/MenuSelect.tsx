@@ -14,7 +14,7 @@ export default function MenuSelect(props: MenuSelectProps): ReactElement {
 
 	if (props.placeholder !== undefined) {
 		options.unshift({
-			label : <i>{props.placeholder}</i>,
+			label : props.placeholder,
 			value : ""
 		})
 	}
@@ -25,7 +25,7 @@ export default function MenuSelect(props: MenuSelectProps): ReactElement {
 			menuContext.onClose();
 		}
 
-		const selected = val.value === props.value;
+		const selected = (val.value === "" && props.value === undefined) ||  (val.value === props.value);
 
 		return (
 			<MenuItem
@@ -38,7 +38,7 @@ export default function MenuSelect(props: MenuSelectProps): ReactElement {
 			/>
 		)
 	})
-	
+
 	return (
 		<Fragment>
 			{menuItems}

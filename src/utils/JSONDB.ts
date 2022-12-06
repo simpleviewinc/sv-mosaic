@@ -1,4 +1,4 @@
-import { intersection } from "lodash";
+import { intersection, isEqual, sortBy } from "lodash";
 
 interface Relationship {
 	api: JSONDB
@@ -8,7 +8,7 @@ interface Relationship {
 }
 
 class JSONDB {
-	data: object[]
+	data: {[key: string]: any}[]
 	relationships: Relationship[]
 	constructor(data, { relationships }: { relationships?: Relationship[] } = {}) {
 		this.data = data;
@@ -54,6 +54,10 @@ class JSONDB {
 			}
 		}
 
+		if (query.reorderedList !== undefined) {
+			data = query.reorderedList.map(reorderedElement => data.find(element => element.id === reorderedElement))
+		}
+
 		return data;
 	}
 
@@ -71,6 +75,7 @@ class JSONDB {
 interface FilterKey {
 	$in: unknown[]
 	$not_in: unknown[]
+	$all: unknown[]
 	$gte: number
 	$lte: number
 	$ne: unknown
@@ -102,6 +107,10 @@ function filterData(data, filter: FilterObj) {
 			});
 		}
 
+		if (val.$all !== undefined) {
+			newData = newData.filter(row => isEqual(sortBy(row[key]), sortBy(val.$all)));
+		}
+
 		if (val.$gte !== undefined) {
 			newData = newData.filter(row => row[key] >= val.$gte);
 		}
@@ -123,11 +132,11 @@ function filterData(data, filter: FilterObj) {
 		}
 
 		if (val.$exists === true) {
-			newData = newData.filter(row => row.categories_ids.length > 0);
+			newData = newData.filter(row => row[key]?.length > 0);
 		}
 
 		if (val.$exists === false) {
-			newData = newData.filter(row => row.categories_ids.length === 0);
+			newData = newData.filter(row => row[key]?.length === 0 || row[key] === undefined);
 		}
 
 		if (val instanceof RegExp) {

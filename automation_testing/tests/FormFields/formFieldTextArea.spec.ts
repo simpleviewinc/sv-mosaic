@@ -19,7 +19,7 @@ test.describe.parallel("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 		browser.close;
 	});
 
-	test("Validate that the provided text is saved when submitted.", async ({ page }) => {
+	test("Validate that the provided text is saved when submitted.", async () => {
 		page.on("dialog", async dialog => {
 			const message = dialog.message().split(/[{}]/)[1].split(/[\n":]/).map(el => el.trim()).filter(el => el !== "");
 			expect(message[1]).toBe(sampleText);
@@ -67,7 +67,7 @@ test.describe.parallel("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 		expect(width).toBe(620);
 	});
 
-	test("Validate that the empty value is saved correctly.", async ({ page }) => {
+	test("Validate that the empty value is saved correctly.", async () => {
 		const sampleText = "regular example text";
 		await formFieldTextAreaPage.regularTextArea.type(sampleText);
 		await formFieldTextAreaPage.saveBtn.click();

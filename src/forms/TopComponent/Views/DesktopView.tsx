@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import { memo, ReactElement, forwardRef } from "react";
 
 // Components
 import FormNav from "@root/forms/FormNav";
@@ -56,7 +56,7 @@ type DesktopViewProps = {
 	contentRef?: any;
 } & BaseTopComponentProps;
 
-const DesktopView = (props: DesktopViewProps): ReactElement => {
+const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 	const {
 		title,
 		description,
@@ -72,7 +72,7 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 	} = props;
 
 	return (
-		<DesktopViewColumn sections={sections}>
+		<DesktopViewColumn ref={ref} sections={sections && sections.length > 1}>
 			<FlexContainer>
 				<TitleWrapper
 					title={title}
@@ -94,6 +94,8 @@ const DesktopView = (props: DesktopViewProps): ReactElement => {
 			)}
 		</DesktopViewColumn>
 	);
-};
+});
+
+DesktopView.displayName = "DesktopView";
 
 export default memo(DesktopView);

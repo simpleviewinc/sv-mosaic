@@ -1,19 +1,26 @@
 import { MosaicLabelValue } from "@root/types";
+import { StrictUnion } from "../FormFieldCheckbox";
 
-export type FormFieldChipSingleSelectDef = {
+type FormFieldChipSingleSelectLocalOptions = {
 	/**
-  * Array of objects containing each of the options to be displayed within the dropdown.
-  */
-	options: SelectableOption[];
+	* List of options
+	*/
+	options: MosaicLabelValue[];
 	/**
-	 * Function to be executed as callback when an option is selected 
-	 */
+	* Function to be executed as callback when an option is selected
+	*/
 	onSelect?: (...args) => void;
 }
 
-interface SelectableOption extends MosaicLabelValue {
+type FormFieldChipSingleSelectExternalOptions = {
 	/**
-	 * Indicates whether the current option is selected or not
+	 * Used to get options from db.
 	 */
-	selected?: boolean;
+	getOptions: () => Promise<MosaicLabelValue[]>;
+	/**
+	* Function to be executed as callback when an option is selected
+	*/
+	onSelect?: (...args) => void;
 }
+
+export type FormFieldChipSingleSelectDef = StrictUnion<FormFieldChipSingleSelectLocalOptions | FormFieldChipSingleSelectExternalOptions>;

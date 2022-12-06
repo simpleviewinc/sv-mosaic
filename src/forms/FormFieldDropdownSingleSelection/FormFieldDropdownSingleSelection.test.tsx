@@ -1,7 +1,10 @@
 import * as React from "react";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
 
 import DropdownSingleSelection from "./FormFieldDropdownSingleSelection";
+import { getOptions } from "@root/utils/getOptions";
+import "@testing-library/jest-dom"
+import { additionalOptions } from "../FormFieldAdvancedSelection";
 
 const topFilms = [
 	{ label: "The Shawshank Redemption", value: "1994" },
@@ -10,7 +13,7 @@ const topFilms = [
 	{ label: "The Dark Knight", value: "2008" },
 ];
 
-const { getByText, getByTestId, getByRole } = screen;
+const { getByText, getByRole } = screen;
 
 afterEach(cleanup);
 
@@ -27,7 +30,7 @@ describe("DropdownSingleSelection component", () => {
 						placeholder: "Placeholder test",
 					}
 				}}
-				value={topFilms[0].value.toString()}
+				value={topFilms[0]}
 			/>
 		);
 
@@ -36,9 +39,8 @@ describe("DropdownSingleSelection component", () => {
 	 * is getting rendered will tell us by default if the dropdown is
 	 * getting rendered too.
 	 */
-
-		const textfield = getByTestId("textfield-test-id");
-		expect(textfield).toBeTruthy();
+		const input = getByRole("combobox") as HTMLInputElement;
+		expect(input.value).toEqual("The Shawshank Redemption");
 	});
 });
 
@@ -56,7 +58,6 @@ describe("DropdownSingleSelection disabled state", () => {
 						placeholder: "placeholder",
 					}
 				}}
-				value=""
 			/>
 		);
 
@@ -77,7 +78,6 @@ describe("DropdownSingleSelection component as a form field", () => {
 						placeholder: "Placeholder test",
 					}
 				}}
-				value=""
 			/>
 		);
 	});
@@ -86,5 +86,55 @@ describe("DropdownSingleSelection component as a form field", () => {
 		const input = getByRole("combobox") as HTMLInputElement;
 
 		expect(input.placeholder).toEqual("Placeholder test");
+	});
+});
+
+describe("DropdownSingleSelection component with options from DB", () => {
+
+	it("should render on the screen prepopulated with options from DB", async () => {
+		await act( async () => {
+			render(<DropdownSingleSelection
+				fieldDef={{
+					name: "dropdownSingleSelect",
+					type: "dropdown",
+					label: "Label test",
+					inputSettings: {
+						getOptions,
+						placeholder: "Placeholder test",
+					},
+				}}
+				value={additionalOptions[7]}
+			/>);
+		});
+		await waitFor(() => {
+			const inputDropdown = getByRole("combobox") as HTMLInputElement;
+			expect(inputDropdown.value).toEqual(additionalOptions[7].label);
+		}, {timeout: 3000});
+	});
+
+	it("should render on the screen with options from DB", async () => {
+		await act( async () => {
+			render(<DropdownSingleSelection
+				fieldDef={{
+					name: "dropdownSingleSelect",
+					type: "dropdown",
+					label: "Label test",
+					inputSettings: {
+						getOptions,
+						placeholder: "Placeholder test",
+					},
+				}}
+			/>);
+		});
+
+		await act( async() => {
+			const moreIconButton = screen.getByTestId("ExpandMoreIcon");
+			moreIconButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
+
+		await waitFor(() => {
+			const singleSelectOptions = screen.getAllByRole("option");
+			expect(singleSelectOptions[0]).toHaveTextContent(additionalOptions[0].label);
+		}, {timeout: 1000});
 	});
 });

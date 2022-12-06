@@ -7,7 +7,7 @@ const dataview_data = {
 }
 
 const saveAs_data = {
-	defaultView: "Default View",
+	defaultView: "All",
 	saveAsView: "mosaic_automation",
 	saveAsViewEdit: "new_mosaic_automation",
 	saveAsViewShared: "mosaic_automation_shared",
@@ -79,6 +79,7 @@ const columns_data = {
 		"Style - italic",
 		"Style - noWrap",
 		"Style - strikeThrough",
+		"Style - Text Transform with large field text to order column",
 		"Style - textTransform",
 		"Title",
 		"Updated"
@@ -99,10 +100,11 @@ const columns_data = {
 		"Style - italic",
 		"Style - noWrap",
 		"Style - strikeThrough",
+		"Style - Text Transform with large field text to order column",
 		"Style - textTransform",
 		"Updated"
 	],
-	allItemsCount: 17
+	allItemsCount: 18
 }
 
 const filter_data = {

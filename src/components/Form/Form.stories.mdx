@@ -1,6 +1,5 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import * as stories from './Form.stories';
-// import * as addressStories from '../FormFieldAddress/Address.stories';
 
 <Meta title='Components/Form/Readme' />
 
@@ -340,7 +339,7 @@ const fields = useMemo(
 * **id** - `string` optional - Follows the same rules as any other html element id.
 * **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
 * **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field. When a field is being validated, it will check if it has any associated paired field. If there's one, the validators defined for each paired field will be executed. For a practical example check the [date range validator example](#validatedaterange).
-* **onChangeCb** * - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
+* **onChangeCb** - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
 
 ### How to use in a form?
 ```ts
@@ -394,6 +393,8 @@ const fields = useMemo(
 	* **amountShipping** - `number` optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType.
 	* **amountPhysical** - `number` optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.
 	* **amountBilling** - `number` optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType.
+	* **getOptionsCountries** - `() => Promise<MosaicLabelValue[]>` required - Option for getting the options for the countries dropdown.
+	* **getOptionsStates** - `(country: string) => Promise<MosaicLabelValue[]>` required - Option for getting the options for the states dropdown, it receives a country code as parameter.
 
 ### How to use in a form?
 ```ts
@@ -432,11 +433,12 @@ const fields = useMemo(
 	* **value** - `string[]` - Value that will be saved to the DB when the option gets selected.
 - inputSettings:
 	* **createNewOption** - `(newOptionLabel: string) => Promise<MosaicLabelValue>` optional -  Function used to insert more options either on the local options array, or on the DB.
-	* **options** - `object` optional -  Function used to get the full info (label, value, category) of all selected options. This prop only applies when getting options locally.
+	* **options** - `array` of `MosaicLabelValue` required -  Function used to get the full info (label, value) of all selected options. This prop only applies when getting options locally.
 		* **label** - `string` required -  Text users will see to identify the option.
 		* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
-	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<{label: string, value: string, category: string}[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
+	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
 	* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB.
+	* **selectLimit** - `number` optional - Defines the maximum amount of options users can select. Passing undefined or not passing it at all allows users to select as many as they want.
 
 ### How to use in a form?
 ```ts
@@ -445,12 +447,10 @@ const externalOptions = [
 	{
 		label: "Option1",
 		value: "value1",
-		category: "Category1",
 	},
 	{
 		label: "Option2",
 		value: "value2",
-		category: "Category2",
 	}
 ]
 
@@ -516,9 +516,11 @@ const fields = useMemo(
 - Data: `array` of `string` - Array of values of the selected options.
 - inputSettings:
 	* **options** - `array` of `MosaicLabelValue` required - Array of options to be rendered containing their corresponding label and value.
+	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
 	() =>
 		[
@@ -532,7 +534,24 @@ const fields = useMemo(
 							label: "Option1",
 							value: "value1",
 						}
-					]
+					],
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "checkbox",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
 				}
 			},
 			//...other fields
@@ -546,11 +565,13 @@ const fields = useMemo(
 - [**Playground**](/?path=/story/formfields-formfieldchipsingleselect--playground)
 - Data: `string` - Value of the selected option.
 - inputSettings:
-	* **options** - `array` of `{ label: string, value: string, selected?: boolean }` required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not.
+	* **options** - `array` of `MosaicLabelValue` required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not.
+	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
 	* **onSelect** - `(...args) => void` optional - Callback to be executed when an option gets selected.
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
 	() =>
 		[
@@ -563,9 +584,29 @@ const fields = useMemo(
 						{
 							label: "Option1",
 							value: "value1",
-							selected: false,
+						},
+						{
+							label: "Option2",
+							value: "value2",
 						}
-					]
+					],
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "chip",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
 				}
 			},
 			//...other fields
@@ -632,42 +673,57 @@ const fields = useMemo(
 - [**Playground**](/?path=/story/formfields-formfieldradio--playground)
 - Data: `string` - Value of the selected option.
 - inputSettings:
-	* **options** - `array` of `object` optional - Predefined set of mutually exclusive options.
-		* **label** - `string` required - Description of the option.
-		* **value** - `string` required - Value of the option, this is stored in the Form state.
+	* **options** - `array` of `MosaicLabelValue` required - Predefined set of mutually exclusive options.
+	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
-		() =>
-			[
-				//...other fields
-				{
-					//...all generic field props,
-					type: "radio",
-					inputSettings: {
-						options: [
-							{
-								label: "Label 1",
-								value: "label_1",
-							},
-							{
-								label: "Label 2",
-								value: "label_2",
-							},
-							{
-								label: "Label 3",
-								value: "label_3",
-							},
-						]
-					},
-					helperText: 'Helper text',
-					instructionText: 'Instruction text'
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "radio",
+				inputSettings: {
+					options: [
+						{
+							label: "Label 1",
+							value: "label_1",
+						},
+						{
+							label: "Label 2",
+							value: "label_2",
+						},
+						{
+							label: "Label 3",
+							value: "label_3",
+						},
+					],
 				}
-				//...other fields
-			] as FieldDef<FormFieldRadioDef>[],
-		[]
-	);
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "radio",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
 ```
 
 ## FormFieldText
@@ -939,10 +995,12 @@ const fields = useMemo(
 - Data: `string` - String of the selected option.
 - inputSettings:
 	* **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
-	* **options** - `array` of `MosaicLabelValue` Required - Array of options to be displayed on the options.
+	* **options** - `array` of `MosaicLabelValue` required - Array of options to be displayed on the options.
+	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
 
 ### How to use in a form?
 ```ts
+//Option recommended when getting options locally.
 const fields = useMemo(
 	() =>
 		[
@@ -958,6 +1016,23 @@ const fields = useMemo(
 						{ label: "The Dark Knight", value: "2008" }
 					],
 					placeholder: "Placeholder",
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "dropdown",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
 				}
 			},
 			//...other fields

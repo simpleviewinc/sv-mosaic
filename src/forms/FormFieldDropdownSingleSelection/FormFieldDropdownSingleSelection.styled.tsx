@@ -9,6 +9,9 @@ import Popper from "@mui/material/Popper";
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
     background-color: ${theme.colors.gray100};
+    &:hover {
+      background-color: ${theme.colors.grayHover}
+    }
   }
 
   & .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline {
@@ -33,7 +36,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
   }
 
   .MuiAutocomplete-popupIndicator, .MuiAutocomplete-popupIndicatorOpen {
-    color: ${pr => (pr.error ? theme.colors.red : theme.colors.almostBlack)};
+    color: ${pr => (pr.error ? theme.newColors.darkRed["100"] : theme.colors.almostBlack)};
 
     &:before {
       background: none;

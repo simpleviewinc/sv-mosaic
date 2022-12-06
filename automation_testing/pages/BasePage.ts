@@ -1,12 +1,13 @@
 import { expect, Page, Locator } from "@playwright/test";
 import { url } from "../utils/formUrls";
-import { generateRandomId } from "../utils/helpers/helper";
+import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 
 export class BasePage {
 
 	readonly page: Page;
 	readonly loading: Locator;
 	readonly title: Locator;
+	readonly description: Locator;
 	readonly applyBtn: Locator;
 	readonly clearBtn: Locator;
 	readonly cancelBtn: Locator;
@@ -18,22 +19,31 @@ export class BasePage {
 	readonly saveCoordinatesButton: Locator;
 	readonly drawerSaveButton: Locator;
 	readonly drawerCancelButton: Locator;
+	readonly error: Locator;
+	readonly errorIcon: Locator;
+	readonly checkboxTestIdLocator: Locator;
+	readonly tooltip: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
 		this.title = page.locator("text=Form Title");
+		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span[2]");
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
-		this.cancelBtn = page.locator("text=Cancel");
+		this.cancelBtn = page.locator("button:has-text('Cancel')");
 		this.saveBtn = page.locator("text=Save");
 		this.table = page.locator("table");
 		this.errorMessage = page.locator("p.Mui-error");
 		this.latitude = page.locator("#lat");
 		this.longitude = page.locator("#lng");
-		this.saveCoordinatesButton = page.locator("[type='DRAWER'] button", { hasText: "Save Coordinates"})
-		this.drawerSaveButton = page.locator("[type='DRAWER'] button", { hasText: "Save" });
-		this.drawerCancelButton = page.locator("[type='DRAWER'] button", { hasText: "Cancel" });
+		this.saveCoordinatesButton = page.locator("/html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
+		this.drawerSaveButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
+		this.drawerCancelButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[1]/button");
+		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
+		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
+		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
+		this.tooltip = page.locator("[role='tooltip']");
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
@@ -48,20 +58,22 @@ export class BasePage {
 		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 })
 	}
 
-	async wait(): Promise<void> {
-		await this.page.waitForTimeout(500);
+	async wait(timeout = 500): Promise<void> {
+		await this.page.waitForTimeout(timeout);
 	}
 
 	async waitForElementLoad(): Promise<void> {
 		await this.loading.waitFor({ state: "detached" });
 	}
 
-	async clearAllValuesFromField(): Promise<void> {
+	async clearAllValuesFromField(locator: Locator): Promise<void> {
+		await locator.click();
 		await this.page.keyboard.press("Home");
 		await this.page.keyboard.down("Shift");
 		await this.page.keyboard.press("End");
 		await this.page.keyboard.up("Shift");
 		await this.page.keyboard.press("Backspace");
+		await locator.waitFor();
 	}
 
 	async getElementWidth(element:Locator):Promise<number> {
@@ -91,6 +103,24 @@ export class BasePage {
 		await this.page.locator("text=" + option).nth(0).click();
 	}
 
+	async validateFontColorFromElement(element: Locator, expectedValue: string, isHex: boolean): Promise<void> {
+		let elementFontColor = (await ((element).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+		if (isHex) {
+			const color = elementFontColor.slice(1, -1);
+			const hex = rgbToHex(Number(color.split(",")[0]), Number(color.split(",")[1]), Number(color.split(",")[2]));
+			elementFontColor = hex;
+		}
+		expect(elementFontColor).toBe(expectedValue);
+	}
+
+	async isFontBold(element: Locator): Promise<boolean> {
+		const fontWeight = (await ((element).evaluate(el => getComputedStyle(el).fontWeight)));
+		if (Number(fontWeight) > 400 || fontWeight === "bold" || fontWeight === "bolder") {
+			return true;
+		}
+		return false;
+	}
+
 	async selectAndDeleteText(stringLenght:number): Promise<void> {
 		await this.page.keyboard.press("ArrowRight");
 		await this.page.keyboard.down("Shift");
@@ -99,5 +129,39 @@ export class BasePage {
 		}
 		await this.page.keyboard.up("Shift");
 		await this.page.keyboard.press("Backspace");
+	}
+
+	async getFontWeightFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontWeight));
+	}
+
+	async validateMarginValueFromElement(element: Locator, expectedValue: string, isRight: boolean): Promise<void> {
+		let elementMargin: string;
+		if (isRight) {
+			elementMargin = await ((element).evaluate(el => getComputedStyle(el).marginLeft));
+		} else {
+			elementMargin = await ((element).evaluate(el => getComputedStyle(el).marginRight));
+		}
+		expect(elementMargin).toBe(expectedValue);
+	}
+
+	async getFontFamilyFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontFamily));
+	}
+
+	async getHeightFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).height));
+	}
+
+	async getBackgroundColorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).backgroundColor));
+	}
+
+	async getColorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).color));
+	}
+
+	async getOnlyStringWithLetters(text:string): Promise<string> {
+		return (text.replace(/[^a-zA-Z ]+/g, "")).trim();
 	}
 }

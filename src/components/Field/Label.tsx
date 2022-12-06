@@ -25,7 +25,7 @@ const LabelWrapper = styled.div`
 
   :after {
       content: "${(pr) => (pr.required ? "*" : "")}";
-      color: ${theme.colors.red};
+      color: ${theme.newColors.darkRed["100"]};
     }
   }
 `;
@@ -38,7 +38,7 @@ const CharCounterWrapper = styled.div`
 
 const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
   && {
-	fill: ${theme.colors.teal};
+	fill: ${theme.newColors.realTeal["100"]};
 	font-size: 16px;
 	width: 24px;
 	height: 24px;

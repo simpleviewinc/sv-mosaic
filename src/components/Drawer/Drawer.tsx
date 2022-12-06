@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Key } from "react";
+import React, { useState, useEffect, useRef, Key, ReactElement } from "react";
 import styled from "styled-components";
 import MUIDrawer, { DrawerProps as MUIDrawerProps } from "@mui/material/Drawer";
 
@@ -56,7 +56,7 @@ interface DrawerProps extends MUIDrawerProps {
 	display?: boolean;
 }
 
-const Drawer = (props: DrawerProps) => {
+const Drawer = (props: DrawerProps): ReactElement => {
 	const {
 		open,
 		onClose,

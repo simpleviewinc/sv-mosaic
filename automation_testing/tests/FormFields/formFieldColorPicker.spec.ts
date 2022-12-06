@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldColorPickerPage } from "../../pages/FormFields/FormFieldColorPickerPage";
 import { getRandomHexCode } from "../../utils/helpers/helper";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () => {
 	let page: Page;
@@ -16,7 +17,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		browser.close;
 	});
 
-	test("Validate the selection of a color in Regular Color Picker by clicking", async ({ page }) => {
+	test("Validate the selection of a color in Regular Color Picker by clicking", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();
@@ -27,7 +28,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		await ffColorPickerPage.saveBtn.click();
 	});
 
-	test("Validate the selection of a color in Regular Color Picker by writing HEX code", async ({ page }) => {
+	test("Validate the selection of a color in Regular Color Picker by writing HEX code", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"color": "#' + hexCode);
 			await dialog.dismiss();
@@ -43,5 +44,11 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 	test("Validate Disabled Color Picker", async () => {
 		expect(await ffColorPickerPage.disabledColorPickerLabel.textContent()).toBe("Disabled Example");
 		expect(await ffColorPickerPage.disabledColorPicker.getAttribute("disabled")).toBe("");
+	});
+
+	test("Validate Default Regular Color in Color Picker", async () => {
+		const expectBgColor = theme.newColors.realTeal["100"];
+		expect(await ffColorPickerPage.getBackgroundColorFromElement(ffColorPickerPage.regularColorPicker)).toBe(expectBgColor);
+		expect(await ffColorPickerPage.getBackgroundColorFromElement(ffColorPickerPage.disabledColorPicker)).toBe(expectBgColor);
 	});
 });

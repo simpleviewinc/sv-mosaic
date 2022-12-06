@@ -9,7 +9,7 @@ export class FormFieldRadioPage extends BasePage {
 	readonly page: Page;
 	readonly regularRadioButton: Locator;
 	readonly disabledRadioButton: Locator;
-	
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;

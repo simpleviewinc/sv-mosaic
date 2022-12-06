@@ -84,4 +84,10 @@ test.describe.parallel("Components - Drawers", () => {
 		await drawersPage.cancelBtn.nth(numberOfDrawers - 1).click();
 		expect(Number(await drawersPage.simpleTextField.nth(0).inputValue())).toBe(5);
 	});
+
+	test("Validate Open Drawers buttons order.", async () => {
+		await drawersPage.openFormDrawerButton.click();
+		expect(await drawersPage.page.locator("[type='DRAWER'] .normalButton button").nth(0).textContent()).toBe("Cancel");
+		expect(await drawersPage.page.locator("[type='DRAWER'] .normalButton button").nth(1).textContent()).toBe("Save");
+	});
 });

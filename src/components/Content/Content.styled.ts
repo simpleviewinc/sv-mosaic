@@ -2,27 +2,6 @@ import styled from "styled-components";
 import theme from "@root/theme";
 import EditIcon from "@mui/icons-material/Edit";
 
-export const ColumnsContainer = styled.div`
-	display: flex;
-	margin-bottom: 32px;
-	gap: 60px;
-
-	&.collapsed {
-		max-height: 179px;
-		overflow: hidden;
-	}
-
-	&.expanded {
-		height: fit-content;
-	}
-`;
-
-export const ContentColumn = styled.div`
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-`;
-
 export const MainWrapper = styled.div`
 	font-family: ${theme.fontFamily};
 	border-bottom: 2px solid ${theme.colors.gray200};
@@ -61,9 +40,14 @@ export const ButtonsWrapper = styled.div`
 		margin-left: 8px;
 	}
 
-	.iconButton {
-		border-right: ${({ canShowMore }) => canShowMore ? `2px solid ${theme.colors.gray200}` : 0};
-		padding-right: ${({ canShowMore }) => canShowMore ? "16px" : 0};
+	.button {
+		border-right: 2px solid ${theme.colors.gray200};
+		padding: 0 16px 0 16px;
+	}
+
+	.button:last-child {
+		border-right: none;
+		padding: 0;
 	}
 `;
 
@@ -76,6 +60,7 @@ export const Label = styled.p`
 
 export const FieldContainer = styled.div`
 	margin-bottom: 24px;
+	width: calc(100% / ${pr => pr.columns});
 `;
 
 export const TransformContainer = styled.div`
@@ -88,6 +73,10 @@ export const ChipsWrapper = styled.div`
 	div:not(:last-child) {
 		margin-right: 12px;
 	}
+
+	div {
+		margin-bottom: 8px;
+	}
 `;
 
 
@@ -96,4 +85,9 @@ export const ColorValue = styled.p`
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
+`;
+
+export const ContentRow = styled.div`
+	display: flex;
+	width: 100%;
 `;

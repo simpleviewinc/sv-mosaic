@@ -6,11 +6,11 @@ export type IAddress = {
 	address2?: string;
 	address3?: string;
 	city: string;
-	country: string;
+	country: MosaicLabelValue;
 	id?: number;
 	postalCode: string;
-	state: string;
-	types: string[];
+	state: MosaicLabelValue;
+	types: MosaicLabelValue[];
 };
 
 export interface AddressCardProps {
@@ -46,11 +46,12 @@ export interface AddressDrawerProps {
 	setIsEditing: Dispatch<SetStateAction<boolean>>;
 	value: IAddress[];
 	addressTypes?: MosaicLabelValue[];
-
 	hasUnsavedChanges?: boolean;
 	handleUnsavedChanges?: (val: boolean) => void;
 	dialogOpen?: boolean;
 	handleDialogClose?: (val: boolean) => void;
+	getOptionsCountries: AddressFieldDef["getOptionsCountries"];
+	getOptionsStates: AddressFieldDef["getOptionsStates"];
 }
 
 export type AddressFieldDef = {
@@ -58,4 +59,6 @@ export type AddressFieldDef = {
 	amountShipping?: number;
 	amountBilling?: number;
 	amountPhysical?: number;
+	getOptionsCountries(): Promise<MosaicLabelValue[]>;
+	getOptionsStates(country: string): Promise<MosaicLabelValue[]>;
 }
