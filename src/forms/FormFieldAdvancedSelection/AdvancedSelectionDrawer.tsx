@@ -273,7 +273,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [fieldDef?.disabled, options]);
 
 	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
-		disableCheckboxList(newOptions)
+		disableCheckboxList(newOptions);
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
@@ -294,7 +294,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 * @param checkedOptions
 	 */
 	const checkboxListChanged = (checkedOptions: MosaicLabelValue[]) => {
-		disableCheckboxList(checkedOptions)
+		disableCheckboxList(checkedOptions);
 		dispatch(
 			formActions.setFieldValue({
 				name: "listOfChips",
