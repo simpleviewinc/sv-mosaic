@@ -74,6 +74,13 @@ const TopComponentExample = () => {
 };
 
 const { getByText, getAllByText, getByTestId, queryByTestId, queryByText } = screen;
+const mockIntersectionObserver = jest.fn();
+mockIntersectionObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.IntersectionObserver = mockIntersectionObserver;
 
 describe("TopComponent", () => {
 	beforeEach(() => {
