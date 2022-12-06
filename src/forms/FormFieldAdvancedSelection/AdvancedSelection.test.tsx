@@ -1,6 +1,7 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
 import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import * as React from "react";
 import { useMemo } from "react";
 import { AdvancedSelectionDef, optionsWithCategory } from ".";
@@ -26,6 +27,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 	const required = false;
 	const disabled = false;
 	const getOptionsLimit = 5;
+	const selectLimit = 3;
 
 	const getOptions = async ({ limit, filter, offset }) => {
 		let internalOptionsArr = [...additionalOptions];
@@ -77,6 +79,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 						getOptions: optionsOrigin === "db" ? getOptions : undefined,
 						getOptionsLimit: optionsOrigin === "db" ? getOptionsLimit : undefined,
 						createNewOption,
+						selectLimit
 					}
 				},
 			] as FieldDef<AdvancedSelectionDef>[]
@@ -91,6 +94,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 			getOptionsLimit,
 			createNewOption,
 			optionsOrigin,
+			selectLimit
 		]
 	);
 
@@ -192,4 +196,24 @@ describe("AdvancedSelection component", () => {
 
 		expect(await screen.findByText("Brand new option")).toBeTruthy();
 	});
+
+	it("should allow selected only three options, then checkbokList should be disabled", async () => {
+		render(<AdvancedSelectExample optionsOrigin="db"/>);
+
+		const addButton = screen.getByText("ADD");
+		fireEvent.click(addButton);
+
+		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
+
+		const optionCheckbox = await screen.findAllByTestId("label-test-id");
+
+		for (let i = 0; i <= 3; i++) {
+			fireEvent.click(optionCheckbox[i]);
+		}
+
+		const optionChip = await screen.findAllByTestId("delete-icon-test-id");
+
+		expect(optionChip.length === 3).toBeTruthy();
+		expect(optionCheckbox[3]).toHaveClass("Mui-disabled");
+	})
 });
