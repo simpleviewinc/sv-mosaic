@@ -6,6 +6,7 @@ export type optionsWithCategory = {
 
 type AdvancedSelectionBasic = {
 	createNewOption?: (filter: string) => Promise<MosaicLabelValue>;
+	selectLimit?: number;
 }
 
 type AdvancedSelectionLocalOptions = {

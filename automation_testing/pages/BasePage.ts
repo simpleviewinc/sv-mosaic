@@ -21,6 +21,7 @@ export class BasePage {
 	readonly drawerCancelButton: Locator;
 	readonly error: Locator;
 	readonly errorIcon: Locator;
+	readonly checkboxTestIdLocator: Locator;
 	readonly tooltip: Locator;
 
 	constructor(page: Page) {
@@ -41,6 +42,7 @@ export class BasePage {
 		this.drawerCancelButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[1]/button");
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
+		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
 	}
 
