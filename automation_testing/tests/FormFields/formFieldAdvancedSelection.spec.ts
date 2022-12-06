@@ -21,4 +21,19 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 			expect(await ffAdvancedSelectionPage.advancedSelectionButton.nth(i).textContent()).toBe("ADD");
 		}
 	});
+
+	test("Validate options are disabled once the maximum amount of options is selected.", async () => {
+		await ffAdvancedSelectionPage.advancedSelectionWithSelectLimitButton.click();
+		const numberOfOptions = await ffAdvancedSelectionPage.checkboxTestIdLocator.count();
+		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
+		await ffAdvancedSelectionPage.checkboxTestIdLocator.last().check();
+		for (let i = 0; i < numberOfOptions; i++) {
+			await expect(ffAdvancedSelectionPage.checkboxTestIdLocator.nth(i)).toBeDisabled();
+		}
+
+		await ffAdvancedSelectionPage.deleteSelectedOptionChip.first().click();
+		for (let i = 0; i < numberOfOptions; i++) {
+			await expect(ffAdvancedSelectionPage.checkboxTestIdLocator.nth(i)).toBeEnabled();
+		}
+	});
 });
