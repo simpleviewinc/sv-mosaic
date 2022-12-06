@@ -50,30 +50,30 @@ export const ButtonWrapper = styled.span`
 
   &.normalButton.size_small > button .icon_left,
   &.normalButton.size_small > a .icon_left {
-    margin-right: 4px;
+    margin-right: 12px;
     margin-left: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.normalButton.size_small > button .icon_right,
   &.normalButton.size_small > a .icon_right {
-    margin-left: 4px;
+    margin-left: 12px;
     margin-right: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_left,
   &.normalButton.size_medium > a .icon_left {
-    margin-right: 4px;
+    margin-right: 12px;
     margin-left: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.normalButton.size_medium > button .icon_right,
   &.normalButton.size_medium > a .icon_right {
-    margin-left: 4px;
+    margin-left: 12px;
     margin-right: -4px;
-	font-size: 16px;
+    font-size: 16px;
   }
 
   &.iconButton svg {
@@ -123,30 +123,30 @@ const GrayOnWhite = styled(ButtonWrapper)`
 
 const TealOnWhite = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.teal};
+    color: ${theme.newColors.realTeal["100"]};
   }
 
   & > button:hover {
 		border-radius: 0;
-    color: ${theme.colors.tealHover};
+    color: ${theme.newColors.darkerRealTeal[100]};
   }
 `;
 
 const RedOnWhite = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.red};
-    border-color: ${theme.colors.red};
+    color: ${theme.newColors.darkRed["100"]};
+    border-color: ${theme.newColors.darkRed["100"]};
     font-family: ${theme.fontFamily};
   }
 
   & > button:hover {
-    background: ${theme.colors.red}12;
+		background: ${theme.newColors.darkRed["20"]};
 		border-radius: 0;
   }
 
   & > button:active,
   & > button:focus {
-    background: ${theme.colors.red}24;
+    background: ${theme.newColors.darkRed["20"]};
   }
 `;
 
@@ -209,7 +209,7 @@ const textButtonStyles = {
 export const types = {
 	yellow_contained: styled(BlackOnYellow)`
     & > button {
-      background-color: ${theme.colors.simplyGold};
+      background-color: ${theme.newColors.simplyGold["100"]};
       border-radius: 0;
       font-size: 14px;
       text-transform: uppercase;
@@ -217,12 +217,12 @@ export const types = {
 
     .MuiButton-contained.Mui-disabled {
       color: ${theme.colors.almostBlack};
-      background-color: ${theme.colors.simplyGold};
+      background-color: ${theme.newColors.simplyGold["100"]};
       opacity: 0.5;
     }
 
     & > button:hover {
-      background-color: ${theme.colors.simplyGoldHover};
+      background-color: ${theme.newColors.darkerSimplyGold["100"]};
       color: ${theme.colors.almostBlack};
     }
   `,
@@ -271,7 +271,7 @@ export const types = {
   `,
 	red_contained: styled(ButtonWrapper)`
     & > button {
-      background: ${theme.colors.red};
+      background: ${theme.newColors.darkRed["100"]};
       border-radius: 0;
       color: white;
       font-size: 14px;
@@ -279,7 +279,7 @@ export const types = {
     }
     .MuiButton-contained.Mui-disabled {
       color: white;
-      background-color: ${theme.colors.red};
+      background-color: ${theme.newColors.darkRed["100"]};
       opacity: 0.5;
     }
     & > button:hover {
@@ -337,22 +337,22 @@ export const types = {
     & > button {
       background-color: white;
       border-radius: 0;
-      border: 2px solid ${theme.colors.teal};
+      border: 2px solid ${theme.newColors.realTeal["100"]};
       font-size: 14px;
       text-transform: uppercase;
     }
 
     .MuiButton-outlined.Mui-disabled {
       background-color: white;
-      border: 2px solid ${theme.colors.teal};
-      color: ${theme.colors.teal};
+      border: 2px solid ${theme.newColors.realTeal["100"]};
+      color: ${theme.newColors.realTeal["100"]};
       opacity: 0.5;
     }
 
     & > button:hover {
-      background-color: ${theme.colors.teal}1a;
-      color: ${theme.colors.teal};
-			border: 2px solid ${theme.colors.teal};
+      background-color: ${theme.newColors.realTeal["20"]};
+      color: ${theme.newColors.realTeal["100"]};
+			border: 2px solid ${theme.newColors.realTeal["100"]};
     }
   `,
 	blue_outlined: styled(BlueOnWhite)`
@@ -385,7 +385,7 @@ export const types = {
     & > button {
       background-color: white;
       border-radius: 0;
-      border: 2px solid ${theme.colors.red};
+      border: 2px solid ${theme.newColors.darkRed["100"]};
       font-size: 14px;
       text-transform: uppercase;
     }
@@ -393,19 +393,19 @@ export const types = {
     .MuiButton-outlined.Mui-disabled {
       background-color: white;
       opacity: 0.5;
-      border: 2px solid ${theme.colors.red};
-      color: ${theme.colors.red};
+      border: 2px solid ${theme.newColors.darkRed["100"]};
+      color: ${theme.newColors.darkRed["100"]};
     }
 
     & > button:hover {
-      background-color: #b100001a;
-      color: ${theme.colors.red};
-			border: 2px solid ${theme.colors.red};
+      background-color: ${theme.newColors.darkRed["20"]};
+      color: ${theme.newColors.darkRed["100"]};
+			border: 2px solid ${theme.newColors.darkRed["100"]};
     }
 
     & > button:active,
     & > button:focus {
-      box-shadow: 0 1px 2px ${theme.colors.red}24;
+      box-shadow: 0 1px 2px ${theme.newColors.darkRed["20"]};
     }
   `,
 	black_outlined: styled(BlackOnWhite)`
@@ -433,11 +433,11 @@ export const types = {
   `,
 	teal_text: styled(TealOnWhite)`
 		&.normalButton > button {
-			color: ${theme.colors.teal};
+			color: ${theme.newColors.realTeal["100"]};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 
 			&:hover {
-				color: ${({ children }) => !children[0].props.disabled ? theme.colors.tealHover : ""};
+				color: ${({ children }) => !children[0].props.disabled ? theme.newColors.darkerRealTeal[100] : ""};
 			}
 		}
 
@@ -459,7 +459,7 @@ export const types = {
   `,
 	red_text: styled(RedOnWhite)`
 		&.normalButton > button {
-			color: ${theme.colors.red};
+			color: ${theme.newColors.darkRed["100"]};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 

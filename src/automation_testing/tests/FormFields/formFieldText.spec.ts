@@ -19,7 +19,7 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 		expect(await formFieldTextPage.regularTextField.getAttribute("type")).toBe("text");
 	});
 
-	test("Validate that the provided text is saved when submitted.", async ({ page }) => {
+	test("Validate that the provided text is saved when submitted.", async () => {
 		page.on("dialog", async dialog => {
 			const message = dialog.message().split(/[{}]/)[1].split(/[\n":]/).map(el => el.trim()).filter(el => el !== "");
 			expect(message[1]).toBe(sampleText);
@@ -96,5 +96,12 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 
 	test("Validate lg regular text size is valid", async () => {
 		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.lgSizeTextField)).toBe(620);
+	});
+
+	test("Validate instruction text height.", async () => {
+		const fullHeigh = (await formFieldTextPage.getHeightFromElement(formFieldTextPage.firstSection)).split("px")[0];
+		const expectedHeight = Number(fullHeigh) - 44;
+		const instructionHeight = (await formFieldTextPage.getHeightFromElement(formFieldTextPage.firstInstructionText)).split("px")[0];
+		expect(parseFloat(instructionHeight).toFixed(3)).toBe(expectedHeight.toString());
 	});
 });

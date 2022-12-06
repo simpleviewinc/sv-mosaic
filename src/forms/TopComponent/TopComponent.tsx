@@ -1,11 +1,11 @@
 import * as React from "react";
-import { memo, useState, ReactElement, useMemo } from "react";
+import { memo, useState, ReactElement, useMemo, forwardRef } from "react";
 
 // Components
 import Tooltip from "@root/components/Tooltip";
 import Checkbox from "@root/components/Checkbox";
 import MobileView from "./Views/MobileView";
-import DrawerView from "./Views/DrawerView";
+import DrawerHeader from "@root/components/DrawerHeader/DrawerHeader";
 import ResponsiveView from "./Views/ResponsiveView";
 import DesktopView from "./Views/DesktopView";
 
@@ -15,7 +15,7 @@ import { TopComponentProps } from "./TopComponentTypes";
 // Styles
 import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
 
-const TopComponent = (props: TopComponentProps): ReactElement => {
+const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopComponentProps, ref): ReactElement => {
 	const {
 		buttons,
 		description,
@@ -88,6 +88,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		if (view === "MOBILE")
 			return (
 				<MobileView
+					ref={ref}
 					buttons={buttons}
 					title={title}
 					description={description}
@@ -101,18 +102,16 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 			);
 		if (view === "DRAWER")
 			return (
-				<DrawerView
+				<DrawerHeader
 					title={title}
-					onCancel={onCancel}
-					tooltipInfo={tooltipInfo}
-					helpIcon={helpIcon}
 					buttons={buttons}
-					view={view}
+					onCancel={onCancel}
 				/>
 			);
 		if (view === "RESPONSIVE")
 			return (
 				<ResponsiveView
+					ref={ref}
 					title={title}
 					description={description}
 					showActive={showActive}
@@ -129,6 +128,7 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 		if (view === "DESKTOP" || view === "BIG_DESKTOP")
 			return (
 				<DesktopView
+					ref={ref}
 					sectionsRefs={sectionsRefs}
 					title={title}
 					description={description}
@@ -147,6 +147,8 @@ const TopComponent = (props: TopComponentProps): ReactElement => {
 	};
 
 	return <RenderView />;
-};
+});
+
+TopComponent.displayName = "TopComponent";
 
 export default memo(TopComponent);

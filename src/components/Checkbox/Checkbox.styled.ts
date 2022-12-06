@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { default as MUICheckbox } from "@mui/material/Checkbox";
 import { default as MUIFormControlLabel } from "@mui/material/FormControlLabel";
-import { default as MUIFormHelperText } from "@mui/material/FormHelperText";
 import theme from "@root/theme";
 
 export const StyledFormControlLabel = styled(MUIFormControlLabel)`
@@ -9,12 +8,12 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
     margin-left: 0px;
     margin-right: 0px;
     align-items: flex-start;
-	color:  ${pr => pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
+    color: ${(pr) => pr.disabled ? theme.colors.labelDisabled : theme.colors.gray700};
   }
 
   & > span.checked,
   & > span.MuiCheckbox-indeterminate {
-    color: ${theme.colors.simplyGold};
+    color: ${theme.newColors.simplyGold["100"]};
     opacity: ${(pr) => (pr.disabled ? "50%" : "100%")};
   }
 
@@ -30,14 +29,14 @@ export const StyledCheckbox = styled(MUICheckbox)`
     color: ${theme.colors.almostBlack};
 
     &.Mui-checked {
-      color: ${theme.colors.simplyGold};
+      color: ${theme.newColors.simplyGold["100"]};
     }
   }
 
   &.MuiCheckbox-colorPrimary,
   &.MuiCheckbox-colorPrimary.Mui-checked {
     &:hover {
-      background-color: ${theme.colors.grayHover}
+      background-color: ${theme.colors.grayHover};
     }
   }
 
@@ -49,14 +48,5 @@ export const StyledCheckbox = styled(MUICheckbox)`
   & svg {
     height: ${theme.fieldSpecs.selectors.dimentions};
     width: ${theme.fieldSpecs.selectors.dimentions};
-  }
-`;
-
-export const StyledHelperText = styled(MUIFormHelperText)`
-  &.MuiFormHelperText-root {
-    margin-top: 16px;
-    margin-left: 42px;
-    color: ${theme.colors.assistiveText};
-    font-size: 14px;
   }
 `;

@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldImageUploadPage } from "../../pages/FormFields/FormFieldImageUploadPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 	let page: Page;
@@ -24,12 +25,13 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		expect(await buttons.locator(":scope", { hasText: "Remove" }).textContent()).toBe("Remove");
 	});
 
-	test("Validate Image Upload with menu options and with set Focus handler", async ({ page }) => {
+	test("Validate Image Upload with menu options and with set Focus handler", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set focus is called");
 			await dialog.dismiss();
 		});
 		await page.reload();
+		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.waitFor();
 		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.setInputFiles(imagePath);
 		await expect(ffImageUploadPage.imageUploadWithSetFocusHandlerDiv).toContainText("Size");
@@ -46,7 +48,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		await expect(ffImageUploadPage.disabledImageUploadDiv).toContainText("Loading Image");
 	});
 
-	test("Validate saving Image Upload with menu options and without set Focus", async ({ page }) => {
+	test("Validate saving Image Upload with menu options and without set Focus", async () => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"imgName": "' + imageName + '"');
 			expect(dialog.message()).toContain('"height": ' + height);
@@ -60,5 +62,14 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		const width = Number(size[0]);
 		const height = Number(size[1]);
 		await ffImageUploadPage.saveBtn.click();
+	});
+
+	test("Validate Instruction Icon ", async () => {
+		const expectColor = theme.newColors.realTeal["100"];
+		const numberOfIcons = await ffImageUploadPage.instructionIcon.count();
+		for (let i = 0; i < numberOfIcons - 1; i++) {
+			expect(await ((ffImageUploadPage.instructionIcon.nth(i)).evaluate(el => getComputedStyle(el).fill))).toBe(expectColor);
+		}
+		expect(await ffImageUploadPage.getColorFromElement(ffImageUploadPage.instructionIcon.nth(numberOfIcons - 1))).toBe(expectColor);
 	});
 });

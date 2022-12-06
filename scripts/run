@@ -5,9 +5,9 @@ docker run --rm -it \
 	-v $PWD/scripts:/app/scripts \
 	-v $PWD/dist:/app/dist \
 	-v $PWD/config/.storybook:/app/.storybook \
-	-v $PWD/config/package.json:/app/mounted/package.json \
+	-v $PWD/package.json:/app/mounted/package.json \
 	-v $PWD/config/yarn.lock:/app/mounted/yarn.lock \
-	-v $PWD/config/.yarn:/app/mounted/.yarn \
+	-v $PWD/.yarn:/app/mounted/.yarn \
 	-v $PWD/config/webpack.config.js:/app/webpack.config.js \
 	-v $PWD/config/.babelrc:/app/.babelrc \
 	-v $PWD/config/tsconfig.json:/app/tsconfig.json \

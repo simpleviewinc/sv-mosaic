@@ -2,6 +2,7 @@ import { BasePage } from "../../BasePage";
 import { Locator, Page } from "@playwright/test";
 
 export class PaginationComponent extends BasePage {
+	readonly headerActionsButton: Locator;
 	readonly resultAmount: Locator;
 	readonly resultOptions: Locator;
 	readonly paginationValue: Locator;
@@ -10,27 +11,41 @@ export class PaginationComponent extends BasePage {
 	readonly forwardArrow: Locator;
 	readonly viewTypeBtn: Locator;
 	readonly viewTypeOption: Locator;
+	readonly menuItem: Locator;
+	readonly resultAmountGrid: Locator;
+	readonly paginationValueGrid: Locator;
+	readonly gridImage: Locator;
+	readonly gridImageCheckbox: Locator;
+	readonly headerActionsCheckbox: Locator;
+	readonly gridImageInfo: Locator;
 
 	constructor(page: Page) {
 		super(page);
-		this.resultAmount = page.locator(".variant_text button.MuiButton-root").nth(4);
+		this.headerActionsButton = page.locator(".headerActions button");
+		this.resultAmount = this.headerActionsButton.nth(2);
 		this.resultOptions = page.locator("ul[role='menu']");
-		this.paginationValue = page.locator(".variant_text button.MuiButton-root").nth(5);
+		this.paginationValue = this.headerActionsButton.nth(3);
 		this.pagesOption = page.locator(".MuiPopover-paper");
-		this.backwardArrow = page.locator(".size_small.variant_icon").nth(0);
-		this.forwardArrow = page.locator(".size_small.variant_icon").nth(1);
-		this.viewTypeBtn = page.locator(".variant_text button.MuiButton-root").nth(3);
+		this.backwardArrow = this.headerActionsButton.nth(4);
+		this.forwardArrow = this.headerActionsButton.nth(5);
+		this.viewTypeBtn = this.headerActionsButton.nth(1);
 		this.viewTypeOption = page.locator("ul[role='menu']");
+		this.menuItem = page.locator("[role='menuitem']");
+
+		this.resultAmountGrid = this.headerActionsButton.nth(1);
+		this.paginationValueGrid = this.headerActionsButton.nth(2);
+
+		this.gridImage = page.locator(".image");
+		this.gridImageCheckbox = this.gridImage.locator(".checkboxContainer");
+		this.headerActionsCheckbox = page.locator(".headerActions input");
+		this.gridImageInfo = page.locator(".cell .left");
 	}
 
-	async selectResultOption(option: number): Promise<void> {
-		await this.resultOptions.locator("li").nth(option - 1).click({ force: true });
+	async selectResultOption(option: number, isList = true): Promise<void> {
+		const resultLocator = isList ? this.resultAmount : this.resultAmountGrid;
+		await resultLocator.click();
+		await this.menuItem.locator(":scope", { hasText: option.toString() }).click({force: true});
 		await this.loading.waitFor({ state: "detached" });
-	}
-
-	async changeResultPerPage(results: number): Promise<void> {
-		await this.resultAmount.click();
-		await this.selectResultOption(results);
 	}
 
 	async calculatePages(results: number,): Promise<number> {
@@ -42,8 +57,9 @@ export class PaginationComponent extends BasePage {
 		return pages;
 	}
 
-	async calulateRecordRangePerPage(results: number, page: number): Promise<string> {
-		const total = parseInt((await this.paginationValue.textContent()).split("of ")[1]);
+	async calulateRecordRangePerPage(results: number, page: number, isList = true): Promise<string> {
+		const paginationLocator = isList ? this.paginationValue : this.paginationValueGrid;
+		const total = parseInt((await paginationLocator.textContent()).split("of ")[1]);
 		let final = results * page;
 		const init = final - (results - 1);
 		if (final > total) {
@@ -64,13 +80,8 @@ export class PaginationComponent extends BasePage {
 		return this.pagesOption.locator("button");
 	}
 
-	async selectViewTypeListOption(): Promise<void> {
+	async selectViewType(option: "List"|"Grid"): Promise<void> {
 		await this.viewTypeBtn.click();
-		await this.viewTypeOption.locator("li").nth(0).click();
-	}
-
-	async selectViewTypeGridOption(): Promise<void> {
-		await this.viewTypeBtn.click();
-		await this.viewTypeOption.locator("li").nth(1).click();
+		await this.page.locator("text=" + option).first().click();
 	}
 }

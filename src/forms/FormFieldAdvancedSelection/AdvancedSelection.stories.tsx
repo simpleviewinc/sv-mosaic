@@ -30,6 +30,7 @@ export const Playground = (): ReactElement => {
 	);
 	const getOptionsLimit = text("Get options limit", "5");
 	const createNewOptionsKnob = boolean("Create new option", true);
+	const selectLimit = text("Select limit", "");
 
 	const getOptions: ({
 		filter,
@@ -93,7 +94,8 @@ export const Playground = (): ReactElement => {
 						optionsOrigin === "DB" && getOptionsLimit
 							? getOptionsLimit
 							: undefined,
-						createNewOption: createNewOptionsKnob ? createNewOption : undefined
+						createNewOption: createNewOptionsKnob ? createNewOption : undefined,
+						selectLimit: selectLimit.trim() !== "" && !isNaN(Number(selectLimit)) ? Number(selectLimit) : undefined
 					},
 				},
 			] as FieldDef<AdvancedSelectionDef>[],
@@ -107,7 +109,8 @@ export const Playground = (): ReactElement => {
 			options,
 			getOptions,
 			optionsOrigin,
-			createNewOptionsKnob
+			createNewOptionsKnob,
+			selectLimit
 		]
 	);
 
@@ -204,6 +207,17 @@ export const KitchenSink = (): ReactElement => {
 						options,
 						getOptionsLimit: 10,
 						createNewOption
+					}
+				},
+
+				{
+					name: "selectLimitOfOptions",
+					label: "Advanced selection with selectLimit prop (Max 2 options)",
+					type: "advancedSelection",
+					inputSettings: {
+						options,
+						getOptionsLimit: 10,
+						selectLimit: 2
 					}
 				},
 			] as FieldDef<AdvancedSelectionDef>[],

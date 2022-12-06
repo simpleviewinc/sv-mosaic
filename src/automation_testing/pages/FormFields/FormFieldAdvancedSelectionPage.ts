@@ -10,6 +10,8 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 	readonly advancedSelectionWithOptionsPropButton: Locator;
 	readonly advancedSelectionWithGetOptionsPropButton: Locator;
 	readonly advancedSelectionWithCreateNewOptionPropButton: Locator;
+	readonly advancedSelectionWithSelectLimitButton: Locator;
+	readonly deleteSelectedOptionChip: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -18,6 +20,9 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 		this.advancedSelectionWithOptionsPropButton = this.advancedSelectionButton.nth(0);
 		this.advancedSelectionWithGetOptionsPropButton = this.advancedSelectionButton.nth(1);
 		this.advancedSelectionWithCreateNewOptionPropButton = this.advancedSelectionButton.nth(2);
+		this.advancedSelectionWithSelectLimitButton = page.locator("[data-testid='field-test-id']", { hasText: "Advanced selection with selectLimit prop" })
+			.locator("button");
+		this.deleteSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
 	}
 
 	async visitPage(): Promise<void> {

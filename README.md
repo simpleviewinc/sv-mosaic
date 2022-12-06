@@ -12,7 +12,7 @@ It is built on top of [React Material-UI](https://mui.com/) and is it recommende
 
 Storybook: https://simpleviewinc.github.io/sv-mosaic/
 
-[Changelog](changelog.md) - See the latest changes to sv-mosaic.
+[Changelog](readme/changelog.md) - See the latest changes to sv-mosaic.
 
 # Usage
 
@@ -34,7 +34,7 @@ import formActions from "@simpleview/sv-mosaic/formActions";
 
 ## Optimization Guidelines
 
-[Optimization Guidelines](optimization.md) - Ensure you're properly using Mosaic and React for optimal client-side performance.
+[Optimization Guidelines](readme/optimization.md) - Ensure you're properly using Mosaic and React for optimal client-side performance.
 
 # Installation
 

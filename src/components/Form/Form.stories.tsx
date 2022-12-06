@@ -32,11 +32,14 @@ import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
 import { TextAreaDef } from "@root/forms/FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
+import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
 
 export default {
 	title: "Components/Form",
 	decorators: [withKnobs],
 };
+
+const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
 const deleteTableRow = () => {
 	alert("Delete button clicked");
@@ -59,6 +62,14 @@ export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
 	const { state, dispatch } = useForm();
 
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
 	const { addTableRow, editAction, extraActionsTable } = useTable(
 		state.data,
 		"table",
@@ -66,6 +77,7 @@ export const Playground = (): ReactElement => {
 	);
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
+	const showState = boolean("Show state", false);
 	const prepopulate = boolean("Prepopulate", false);
 	const showSave = boolean("Show SAVE button", true);
 	const showCancel = boolean("Show CANCEL button", true);
@@ -107,12 +119,12 @@ export const Playground = (): ReactElement => {
 				"address1": "8950 N. Oracle Road",
 				"city": "Tuczon",
 				"postalCode": "85704",
-				"country": "US",
-				"state": "AZ",
+				"country": {label: "United States", value: "US"},
+				"state": {label: "Arizona", value: "AZ"},
 				"types": [
-					"physical",
-					"billing",
-					"shipping"
+					{label: "Physical", value: "physical"},
+					{label: "Billing", value: "billing"},
+					{label: "Shipping", value: "shipping"}
 				]
 			}
 		],
@@ -325,6 +337,10 @@ export const Playground = (): ReactElement => {
 					name: "address",
 					label: "Address field",
 					type: "address",
+					inputSettings: {
+						getOptionsCountries,
+						getOptionsStates,
+					},
 					disabled,
 					required
 				},
@@ -453,11 +469,13 @@ export const Playground = (): ReactElement => {
 			setLoadReady(true);
 		};
 		prepopulate ? resetForm() : setLoadReady(false);
-	}, [prepopulate])
+	}, [prepopulate]);
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					title={text("Title", "Form Title")}
@@ -474,9 +492,19 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-export const FormWithLayout = (): ReactElement => {
+export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const { state, dispatch } = useForm();
 
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
+	const {height = "100vh"} = props;
 	const fields = useMemo(
 		() =>
 			[
@@ -600,8 +628,10 @@ export const FormWithLayout = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<div style={{height: "100vh"}}>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
+			<div style={{height: height}}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title="Form Title"
@@ -619,6 +649,15 @@ export const FormWithLayout = (): ReactElement => {
 
 export const PerformanceWithSubmit = (): ReactElement => {
 	const { state, dispatch } = useForm();
+	const showState = boolean("Show state", false);
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
 
 	const hundredFields = [];
 
@@ -639,7 +678,9 @@ export const PerformanceWithSubmit = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -655,6 +696,16 @@ export const PerformanceWithSubmit = (): ReactElement => {
 
 export const RuntimeBehaviors = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -716,7 +767,9 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -742,6 +795,16 @@ export const RuntimeBehaviors = (): ReactElement => {
 
 export const SubmitExternalButtons = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -780,7 +843,9 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<p>Here is the form</p>
 			<div style={{height: "100vh"}}>
 				<Form
@@ -797,6 +862,16 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 export const DrawerForm = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
 
 	const [open, setOpen] = useState(false);
 
@@ -853,7 +928,9 @@ export const DrawerForm = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<Drawer
 				open={open}
 				onClose={onCancel}
@@ -875,6 +952,16 @@ export const DrawerForm = (): ReactElement => {
 
 export const CustomFields = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
@@ -942,7 +1029,9 @@ export const CustomFields = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -961,6 +1050,16 @@ export const CustomFields = (): ReactElement => {
 
 export const Validators = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -1029,7 +1128,9 @@ export const Validators = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -1045,6 +1146,16 @@ export const Validators = (): ReactElement => {
 
 export const DefaultValues = (): ReactElement => {
 	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
 		() =>
@@ -1062,7 +1173,9 @@ export const DefaultValues = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
 			<div style={{height: "100vh"}}>
 				<Form
 					buttons={renderButtons(dispatch)}
@@ -1085,8 +1198,8 @@ export const DMSExample = (): ReactElement => {
 	}];
 
 	return (
-		<NavWrapper items={items}>
-			<FormWithLayout/>
+		<NavWrapper items={items} onlyContent={true}>
+			<FormWithLayout height="100%"/>
 		</NavWrapper>
 	)
 }

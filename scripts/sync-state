@@ -4,9 +4,9 @@ bash ./scripts/build
 
 docker create --name sv-mosaic sv-mosaic:local /bin/sh
 
-docker cp sv-mosaic:/app/package.json ./config/package.json
+docker cp sv-mosaic:/app/package.json ./package.json
 docker cp sv-mosaic:/app/yarn.lock ./config/yarn.lock
-rm -rf ./config/.yarn/*
-docker cp sv-mosaic:/app/.yarn/. ./config/.yarn
+rm -rf ./.yarn/*
+docker cp sv-mosaic:/app/.yarn/. ./.yarn
 docker rm -fv sv-mosaic
 echo "complete"

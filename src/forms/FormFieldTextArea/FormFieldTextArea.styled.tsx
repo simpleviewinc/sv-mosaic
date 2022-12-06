@@ -40,7 +40,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
   }
 
   .MuiFormHelperText-root {
-    color: ${pr => pr.error ? theme.colors.red : theme.colors.assistiveText};
+    color: ${pr => pr.error ? theme.newColors.darkRed["100"] : theme.colors.assistiveText};
   }
 
   fieldset {
@@ -50,13 +50,17 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
       border-color: ${theme.colors.almostBlack};
-	  border-width: 1px;
-	  box-shadow: ${theme.fieldSpecs.inputText.shadow};
+      border-width: 1px;
+      box-shadow: ${theme.fieldSpecs.inputText.shadow};
     }
+
+    &:hover fieldset {
+			border-color: ${theme.colors.simplyGray};
+		}
   }
 
   .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-    border-color: ${pr => pr.error && !pr.disabled ? theme.colors.red : "transparent"};
+    border-color: ${pr => pr.error && !pr.disabled ? theme.newColors.darkRed["100"] : "transparent"};
   }
 `;

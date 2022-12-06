@@ -44,7 +44,7 @@ export class FormFieldAddressPage extends BasePage {
 	}
 
 	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.addAddressButton);
+		await this.visit(this.page_path, this.title);
 	}
 
 	async fillAddresInformation(type:string): Promise<void> {

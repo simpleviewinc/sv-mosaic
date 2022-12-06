@@ -18,7 +18,6 @@ export const BrowseOptionsContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-  margin-bottom: 61px;
 
 	div:last-child {
     margin-right: 0px;
@@ -33,6 +32,7 @@ export const BrowsingContainer = styled.div`
   justify-content: center;
   min-height: 204px;
 	min-width: 300px;
+  gap: 24px;
 `;
 
 export const BrowseOptionSpan = styled.div`
@@ -53,8 +53,6 @@ export const BrowseSpan = styled.span`
   color: ${theme.colors.gray600};
   font-family: ${theme.fontFamily};
   font-size: 16px;
-  margin-bottom: 24px;
-  margin-top: 43px;
 `;
 
 /**
@@ -130,7 +128,7 @@ export const MenuColumn = styled(Column)`
 `;
 
 export const MoreText = styled.span`
-  color: ${theme.colors.teal};
+  color: ${theme.newColors.realTeal["100"]};
   font-size: 14px;
   font-weight: ${theme.fontWeight.bold};
   margin-left: 12px;
@@ -151,7 +149,7 @@ export const StyledImg = styled.img`
 export const RoundBackground = styled.div`
   align-items: center;
   cursor: ${({ disabled }) => (!disabled ? "pointer" : "auto")};
-  background-color: ${theme.colors.teal};
+  background-color: ${theme.newColors.realTeal["100"]};
   border-radius: 22px;
   display: flex;
   height: 40px;
@@ -162,7 +160,7 @@ export const RoundBackground = styled.div`
 `;
 
 export const StyledAnchor = styled.a`
-  color: ${theme.colors.teal};
+  color: ${theme.newColors.realTeal["100"]};
   font-size: 16px;
   word-break: break-all;
 `;

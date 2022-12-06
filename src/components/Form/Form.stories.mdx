@@ -1,6 +1,5 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import * as stories from './Form.stories';
-// import * as addressStories from '../FormFieldAddress/Address.stories';
 
 <Meta title='Components/Form/Readme' />
 
@@ -340,7 +339,7 @@ const fields = useMemo(
 * **id** - `string` optional - Follows the same rules as any other html element id.
 * **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
 * **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field. When a field is being validated, it will check if it has any associated paired field. If there's one, the validators defined for each paired field will be executed. For a practical example check the [date range validator example](#validatedaterange).
-* **onChangeCb** * - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
+* **onChangeCb** - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
 
 ### How to use in a form?
 ```ts
@@ -394,6 +393,8 @@ const fields = useMemo(
 	* **amountShipping** - `number` optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType.
 	* **amountPhysical** - `number` optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.
 	* **amountBilling** - `number` optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType.
+	* **getOptionsCountries** - `() => Promise<MosaicLabelValue[]>` required - Option for getting the options for the countries dropdown.
+	* **getOptionsStates** - `(country: string) => Promise<MosaicLabelValue[]>` required - Option for getting the options for the states dropdown, it receives a country code as parameter.
 
 ### How to use in a form?
 ```ts
@@ -437,6 +438,7 @@ const fields = useMemo(
 		* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
 	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
 	* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB.
+	* **selectLimit** - `number` optional - Defines the maximum amount of options users can select. Passing undefined or not passing it at all allows users to select as many as they want.
 
 ### How to use in a form?
 ```ts
