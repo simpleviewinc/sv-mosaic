@@ -73,42 +73,26 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	 */
 	const handleClick = (e: MouseEvent, idx: number) => {
 		e.preventDefault();
-		const sectionId = sectionsRefs[idx]?.getAttribute("id");
-		sectionsRefs[idx].scrollIntoView({ behavior: "auto", block: "center", inline: "center"});
-		setSelectedTab(Number(sectionId));
+		sectionsRefs[idx].scrollIntoView({ behavior: "smooth", block: "start" });
 	};
 
 	useEffect(() => {
-		const navHighlighter = () => {
-			const scrollY = contentRef.current.scrollTop;
-			if (sectionsRefs.length === 0) {
-				return;
-			}
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				const sectionId = entry?.target.getAttribute("id");
 
-			sectionsRefs?.forEach(current => {
-				const currentSection = current as HTMLDivElement;
-				const sectionHeight = currentSection?.offsetHeight;
-				const sectionTop = currentSection?.offsetTop - 350;
-				const sectionId = currentSection?.getAttribute("id");
-
-				if (
-					scrollY > sectionTop &&
-					scrollY <= sectionTop + sectionHeight
-				) {
+				if (entry.isIntersecting) {
 					setSelectedTab(Number(sectionId));
 				}
-			});
-		};
+			})
+		}, { threshold: 0.9 });
 
-		const navHighlighterDebounced = debounce(navHighlighter, 200, { maxWait: 100 });
+		sectionsRefs?.forEach(section => {
+			observer.observe(section);
+		})
 
-		contentRef?.current?.addEventListener("scroll", navHighlighterDebounced);
-
-		return () => {
-			contentRef?.current?.removeEventListener("scroll", navHighlighterDebounced);
-			navHighlighterDebounced.cancel();
-		};
-	}, [sectionsRefs, contentRef, selectedTab]);
+		return () => observer.disconnect();
+	}, [sectionsRefs])
 
 	return (
 		<FormNavWrapper className="form-nav-wrapper">
