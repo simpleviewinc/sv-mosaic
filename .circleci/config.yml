@@ -8,6 +8,16 @@ vars:
     run:
       name: Import build image
       command: docker load -i /tmp/workspace/sv-mosaic-local.tar.gz
+  setup_environment: &setup_environment
+    run:
+      name: Setup Environment Variables
+      command: |
+        echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
+  docker_login: &docker_login
+    run:
+      name: Docker Login
+      command: |
+        docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
 workflows:
   build:
     jobs:
@@ -35,27 +45,27 @@ workflows:
           context: default
           requires:
             - build
-      # - unit_tests:
-      #     context: default
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - /pull.*/
-      # - automation_tests:
-      #     context: default
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - master
-      #           - qa
-      #           - staging
-      #           - /pull.*/
+      - unit_tests:
+          context: default
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
+      - automation_tests:
+          context: default
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+                - qa
+                - staging
+                - /pull.*/
 
 orbs:
   slack: circleci/slack@4.4.0
@@ -66,9 +76,16 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
+      - *setup_environment
+      - *docker_login
       - run:
           name: Build
-          command: docker compose build node_ci
+          command: |
+            # docker compose build node_ci
+            # docker push node_ci
+            docker compose pull $IMAGE
+            docker compose build $IMAGE
+            docker compose push $IMAGE
       - run:
           name: Save to file
           command: |
@@ -92,47 +109,24 @@ jobs:
           command: docker compose run --rm node_ci yarn run ci:publish
   storybook:
     docker:
-      - image: cimg/base:2022.09
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
     resource_class: large
+    working_directory: /app
     steps:
-      - checkout
-      - *setup_remote_docker
-      - attach_workspace:
-          at: /tmp/workspace
-      - *load_build_image
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
-          name: Show me the available ssh keys
-          command: "ls -lha ~/.ssh"
-      - run:
           name: Add github to known_hosts
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
-          name: Lift node_ci service up
-          command: docker compose up node_ci
-      - run:
-          name: Copy host ssh folder into docker service
-          command: docker compose cp ~/.ssh node_ci:/.ssh
-      - run:
           name: Publish storybook
-          command: docker compose exec node_ci yarn run ci:storybook
+          command: yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
-      - run:
-          name: Publish storybook
-          command: |
-            docker compose exec node_ci yarn run ci:storybook
-            docker compose stop node_ci
-            docker composer rm node_ci
-          environment:
-            NODE_DEBUG: gh-pages
-      # - run:
-      #     name: Publish storybook
-      #     command: docker compose run --rm node_ci yarn run ci:storybook
-      #     environment:
-      #       NODE_DEBUG: gh-pages
   unit_tests:
     docker:
       - image: cimg/base:2022.09
@@ -144,12 +138,6 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - *load_build_image
-      # - run:
-      #     name: Print Working Directory
-      #     command: pwd
-      # - run:
-      #     name: List Files
-      #     command: ls -la
       - run:
           name: Unit tests
           command: |
@@ -158,7 +146,7 @@ jobs:
   automation_tests:
     docker:
       - image: cimg/base:2022.09
-    parallelism: 5
+    parallelism: 10
     resource_class: large
     steps:
       - checkout
