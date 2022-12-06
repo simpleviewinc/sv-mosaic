@@ -36,19 +36,17 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 				</div>
 				{props.buttons && <ButtonRow buttons={buttons} />}
 			</StyledWrapper>
-			<div>
-				{
-					//loading isn't being used in DataViewFilters, should it be propped down?
-					props.filters &&
-						<DataViewFilters
-							loading={props.loading}
-							filter={props.filter}
-							filters={props.filters}
-							activeFilters={props.activeFilters}
-							onActiveFiltersChange={props.onActiveFiltersChange}
-						/>
-				}
-			</div>
+			{
+				//loading isn't being used in DataViewFilters, should it be propped down?
+				props?.filters &&
+					<DataViewFilters
+						loading={props.loading}
+						filter={props.filter}
+						filters={props.filters}
+						activeFilters={props.activeFilters}
+						onActiveFiltersChange={props.onActiveFiltersChange}
+					/>
+			}
 		</TitleBarWrapper>
 	);
 }

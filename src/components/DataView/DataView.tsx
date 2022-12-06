@@ -30,6 +30,11 @@ const StyledWrapper = styled.div`
 		padding: 20px;
 	}
 
+	& > .headerActions .grid {
+		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+		padding-bottom: 20px;
+	}
+
 	& > .viewContainer {
 		overflow: auto;
 		margin: 0 20px;
@@ -259,6 +264,20 @@ function DataView (props: DataViewProps): ReactElement  {
 		checkedAllPages : false
 	});
 
+	/**
+	 * Checks if a provided active filter is a
+	 * valid filter based on the name.
+	 */
+	useEffect(() => {
+		props?.activeFilters?.forEach(activeFilter => {
+			const filterFound = props?.filters?.find(val => val.name === activeFilter);
+
+			if (!filterFound) {
+				throw new Error(`Active filter "${activeFilter}" is not a valid filter.`)
+			}
+		})
+	}, [props.activeFilters, props.filters]);
+
 	// set defaults
 	const display = props.display || "list";
 	const displayOptions = useMemo(() => props.displayOptions || [display], [display, props.displayOptions]);
@@ -366,6 +385,11 @@ function DataView (props: DataViewProps): ReactElement  {
 	const activeColumnObjs = useMemo(() => {
 		return activeColumns.map(name => {
 			const column = props.columns.find(val => val.name === name);
+
+			if (!column) {
+				throw new Error(`Active column "${name}" is not defined in the columns list.`)
+			}
+
 			return column;
 		});
 	}, [activeColumns, props.columns]);
@@ -396,6 +420,9 @@ function DataView (props: DataViewProps): ReactElement  {
 			<div className="headerActions">
 				<DataViewActionsRow
 					activeColumnObjs={activeColumnObjs}
+					columns={props.columns}
+					bulkActions={props.bulkActions}
+					checked={state.checked}
 					display={display}
 					displayControlEnabled={displayControlEnabled}
 					displayOptionsFull={displayOptionsFull}
@@ -408,6 +435,11 @@ function DataView (props: DataViewProps): ReactElement  {
 					count={props.count}
 					allColumns={props.columns}
 					onColumnsChange={props.onColumnsChange}
+					onCheckAllClick={onCheckAllClick}
+					onSortChange={props.onSortChange}
+					sort={props.sort}
+					data={props.data}
+					checkedAllPages={state.checkedAllPages}
 				/>
 			</div>
 			<div
