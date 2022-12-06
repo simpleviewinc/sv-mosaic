@@ -65,7 +65,7 @@ export const LatLngLabel = styled.span`
 `;
 
 export const CoordinatesValues = styled.span`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   font-size: 14px;
   font-weight: ${theme.fontWeight.normal};
 `;

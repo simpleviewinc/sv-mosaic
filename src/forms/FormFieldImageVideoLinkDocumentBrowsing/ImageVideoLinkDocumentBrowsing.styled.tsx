@@ -37,7 +37,7 @@ export const BrowsingContainer = styled.div`
 
 export const BrowseOptionSpan = styled.div`
 	margin-top: 8px;
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 `;
 
 export const BrowseOptionContainer = styled.div`
@@ -80,7 +80,7 @@ export const AssetLabel = styled.span`
 `;
 
 export const AssetValue = styled.span`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   font-size: 14px;
 `;
 

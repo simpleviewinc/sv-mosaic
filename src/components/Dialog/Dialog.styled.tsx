@@ -32,7 +32,7 @@ z-index: 99999 !important;
 `;
 
 export const StyledDialogTitle = styled.div`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   font-size: 20px;
   font-weight: ${theme.fontWeight.medium};
   padding: 40px 30px 24px 30px;

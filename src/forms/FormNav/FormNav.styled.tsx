@@ -22,7 +22,7 @@ export const LinksWrapper = styled.div`
   margin-right: 40px;
 
   &.highlight > a {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
     border-bottom: 4px solid ${theme.newColors.simplyGold["100"]};
     font-weight: ${theme.fontWeight.medium};
   }

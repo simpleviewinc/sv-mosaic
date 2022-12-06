@@ -13,7 +13,7 @@ export const StyledDefaultTooltip = styled(props => (
 	/>
 ))`
 	& .tooltip {
-		background-color: ${theme.colors.almostBlack};
+		background-color: ${theme.newColors.almostBlack["100"]};
 		color: white;
 		padding: 4px 8px;
 		margin-top: 4px;

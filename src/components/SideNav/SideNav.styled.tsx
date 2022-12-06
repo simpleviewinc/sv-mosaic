@@ -38,7 +38,7 @@ export const LinkWrapper = styled.div`
 	}
 
 	.MuiSvgIcon-root:first-child {
-		color: ${theme.colors.almostBlack};
+		color: ${theme.newColors.almostBlack["100"]};
 		width: 16px;
 	}
 
@@ -59,7 +59,7 @@ export const SidebarWrap = styled.div`
 `;
 
 export const StyledLink = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 14px;
 	width: auto;
 	white-space: nowrap;
