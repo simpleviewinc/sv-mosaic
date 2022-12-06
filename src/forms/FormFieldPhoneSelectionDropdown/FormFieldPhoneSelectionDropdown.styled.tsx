@@ -14,7 +14,7 @@ export const PhoneInputWrapper = styled.div`
       padding: 12px 16px 12px 98px;
       width: 280px;
       &:focus {
-        color: ${theme.colors.almostBlack};
+        color: ${theme.newColors.almostBlack["100"]};
         border-color: ${theme.colors.simplyGray};
         box-shadow: none;
       }
