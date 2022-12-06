@@ -15,12 +15,15 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   &.MuiFormControl-root {
     background-color: ${pr => pr.disabled ? "#fff" : theme.colors.gray100};
     &:hover {
-      background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover};
-
-      & fieldset {
-				border-color: ${theme.colors.simplyGray};
-			}
+    	background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover};
+		& fieldset {
+			border-color: ${theme.colors.simplyGray};
+		}
     }
+
+	& svg {
+		color: ${theme.newColors.grey3["100"]};
+	}
   }
 
   .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {
@@ -28,7 +31,15 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   }
 
   input.MuiOutlinedInput-input {
+    color: ${theme.newColors.almostBlack["100"]};
     height: ${theme.fieldSpecs.inputText.height};
+	font-weight: 400;
+	::placeholder {
+		font-weight: ${theme.fontWeight.normal};
+		font-size: 16px;
+		color: ${theme.newColors.grey3["100"]};
+		opacity: 1;
+	}
   }
 
   input,
@@ -58,6 +69,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
   fieldset {
     border-radius: 0px;
+	border-color: ${theme.colors.simplyGray};
   }
 
   & .MuiOutlinedInput-root {

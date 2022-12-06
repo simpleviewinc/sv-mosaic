@@ -1,21 +1,20 @@
 import { Locator, Page } from "@playwright/test";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { DatePickerComponent } from "./DatePickerComponent";
-import { BasePage } from "../../BasePage";
+import { FilterComponent } from "../../Components/DataView/FilterComponent";
 
-export class AdvancedFiltersComponent extends BasePage {
+
+export class AdvancedFiltersComponent extends FilterComponent {
 	readonly page: Page;
 	readonly datepicker: DatePickerComponent;
 	//Locators
-	readonly moreBtn: Locator;
-	readonly checkboxOptions: Locator;
-	readonly singleSelectCategoryOption: Locator;
-	readonly categoryWithComparisonOption: Locator;
-	readonly titleOption: Locator;
-	readonly createdOption: Locator;
-	readonly updatedOption: Locator;
-	readonly titleWithComparisonOption: Locator;
-	readonly optionalFilters: Locator;
+	readonly singleSelectCategoryBtn: Locator;
+	readonly categoryWithComparisonBtn: Locator;
+	readonly titleBtn: Locator;
+	readonly createdBtn: Locator;
+	readonly updatedBtn: Locator;
+	readonly titleWithComparisonBtn: Locator;
+
 	readonly dropdownOptions: Locator;
 	readonly checkboxLocator: string;
 	readonly advancedFilterLocator: string;
@@ -44,18 +43,17 @@ export class AdvancedFiltersComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this.datepicker = new DatePickerComponent(page);
-		this.moreBtn = page.locator(".filterRow button").nth(2);
-		this.checkboxOptions = page.locator("div.listItem label");
-		this.singleSelectCategoryOption = this.checkboxOptions.locator(":scope", { hasText: "Single Select Category" });
-		this.categoryWithComparisonOption = this.checkboxOptions.locator(":scope", { hasText: "Categories with Comparisons" });
-		this.titleOption = this.checkboxOptions.locator(":scope", { hasText: "Title" });
-		this.createdOption = this.checkboxOptions.locator(":scope", { hasText: "Created" });
-		this.updatedOption = this.checkboxOptions.locator(":scope", { hasText: "Updated" });
-		this.titleWithComparisonOption = this.checkboxOptions.locator(":scope", { hasText: "Title with Comparisons" });
-		this.optionalFilters = page.locator(".filterRow.optionalFilters button");
 		this.dropdownOptions = page.locator("ul[role='menu'] li");
 		this.advancedFilterLocator = "button";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
+
+		this.singleSelectCategoryBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Single Select Category" }).first();
+		this.categoryWithComparisonBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Categories with Comparisons" }).first();
+		this.titleBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Title" }).first();
+		this.titleWithComparisonBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Title with Comparisons" }).first();
+		this.createdBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Created" }).first();
+		this.updatedBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Updated" }).first();
+
 
 		this.categoriesSearchBar = page.locator("div.searchBar");
 		this.createdFilterDiv = page.locator(".MuiPaper-elevation");
@@ -86,7 +84,7 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async getNumberOfCategoryWithComparisonOptions(): Promise<number> {
-		return await this.checkboxOptions.locator("li").count();
+		return await this._dataviewPage.checkboxOptions.locator("li").count();
 	}
 
 	async getSpecificMenuItemForSingleSelectCategoryOption(menuPosition: number): Promise<string> {
@@ -110,45 +108,39 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async selectAllAdvancedFilters(): Promise<void> {
-		const filters = await this.checkboxOptions.elementHandles();
-		for (const filter of filters) {
-			if ((await (await filter.$(this.checkboxLocator)).isChecked()) == false) {
-				await (await filter.$(this.checkboxLocator)).check();
+		await this._dataviewPage.filtersBtn.click();
+		await this.wait();
+		const numberOfFilters = await this.filterCheckbox.count();
+		for (let i = 0; i < numberOfFilters; i++) {
+			if (!await this.filterCheckbox.nth(i).isChecked()) {
+				await this.filterCheckbox.nth(i).check();
 			}
 		}
+		await this.applyBtn.click();
 	}
 
 	async getSelectedValueForSingleSelectCategoryOption(): Promise<string> {
 		await this.waitForElementLoad();
-		return (await this.optionalFilters.textContent()).split(":")[1];
+		return (await this.singleSelectCategoryBtn.textContent()).split(":")[1];
 	}
 
 	async getAllSelectedValuesForAdvancedFilters(): Promise<string[]> {
-		const filters = await this.optionalFilters.count();
+		const filters = await this._dataviewPage.filterRowBtn.count() - 1;
 		const result = [];
-		for (let i = 0; i < filters; i++) {
-			result.push((await this.optionalFilters.nth(i).textContent()).split(":")[1]);
+		for (let i = 1; i < filters; i++) {
+			result.push(await this._dataviewPage.getFilterText(this._dataviewPage.filterRowBtn.nth(i)));
 		}
 		return result;
 	}
 
 	async selectFirstCategoriesForCategoryWithComparisonOption(): Promise<string> {
-		const selectedCategory = this.checkboxOptions.first().textContent();
-		await this.checkboxOptions.first().click();
+		const selectedCategory = await this.labelCheckbox.first().textContent();
+		await this.filterCheckbox.first().click();
 		return selectedCategory;
 	}
 
-	async getAdvanceFilterTitles(): Promise<string[]> {
-		const filters = await this.optionalFilters.elementHandles();
-		const result = [];
-		for (const filter of filters) {
-			result.push((await (await filter.$(this.advancedFilterLocator)).textContent()).split(":")[0]);
-		}
-		return result;
-	}
-
 	async getHelpDialogFromCategoryWithComparisonOption(): Promise<string> {
-		return await this.helpComparisonCategoriesDialog.textContent();
+		return await this.helpComparisonCategoriesDialog.nth(1).textContent();
 	}
 
 	async keywordSearchForComparisonCategory(category: string): Promise<string> {
@@ -166,16 +158,11 @@ export class AdvancedFiltersComponent extends BasePage {
 	}
 
 	async selectFilterDates(startDate: string, endDate: string): Promise<void> {
-		await this.optionalFilters.first().click();
 		await this.waitForElementLoad();
 		await this.fromCalendarButton.click();
 		await this.datepicker.selectDate(startDate);
 		await this.datepicker.datepickerDiv.waitFor({state: "detached"});
 		await this.toCalendarButton.click();
 		await this.datepicker.selectDate(endDate);
-	}
-
-	async getCloseBtn(btn: Locator): Promise<Locator> {
-		return btn.locator("svg").nth(0);
 	}
 }

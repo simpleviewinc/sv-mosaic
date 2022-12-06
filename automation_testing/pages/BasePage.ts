@@ -22,6 +22,7 @@ export class BasePage {
 	readonly error: Locator;
 	readonly errorIcon: Locator;
 	readonly checkboxTestIdLocator: Locator;
+	readonly tooltip: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -42,6 +43,7 @@ export class BasePage {
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
+		this.tooltip = page.locator("[role='tooltip']");
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
@@ -64,12 +66,14 @@ export class BasePage {
 		await this.loading.waitFor({ state: "detached" });
 	}
 
-	async clearAllValuesFromField(): Promise<void> {
+	async clearAllValuesFromField(locator: Locator): Promise<void> {
+		await locator.click();
 		await this.page.keyboard.press("Home");
 		await this.page.keyboard.down("Shift");
 		await this.page.keyboard.press("End");
 		await this.page.keyboard.up("Shift");
 		await this.page.keyboard.press("Backspace");
+		await locator.waitFor();
 	}
 
 	async getElementWidth(element:Locator):Promise<number> {
@@ -155,5 +159,9 @@ export class BasePage {
 
 	async getColorFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).color));
+	}
+
+	async getOnlyStringWithLetters(text:string): Promise<string> {
+		return (text.replace(/[^a-zA-Z ]+/g, "")).trim();
 	}
 }

@@ -14,6 +14,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 	return onDelete ? (
 		<StyledDeletableChip
 			label={<StyledLabel>{label}</StyledLabel>}
+			{...props}
 			required={required}
 			disabled={disabled}
 			selected={selected}
@@ -24,6 +25,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 	) : (
 		<StyledChip
 			label={<StyledLabel>{label}</StyledLabel>}
+			{...props}
 			required={required}
 			disabled={disabled}
 			selected={selected}
