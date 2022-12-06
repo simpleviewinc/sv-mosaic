@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useRef, useEffect, ReactElement, memo, MouseEvent } from "react";
-import { debounce } from "lodash";
 import {
 	FormNavWrapper,
 	FormNavRow,
@@ -15,7 +14,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { FormNavProps } from "./FormNavTypes";
 
 const FormNav = (props: FormNavProps): ReactElement => {
-	const { sections, sectionsRefs, contentRef } = props;
+	const { sections, sectionsRefs } = props;
 
 	if (sections.length <= 1) return (<></>)
 
