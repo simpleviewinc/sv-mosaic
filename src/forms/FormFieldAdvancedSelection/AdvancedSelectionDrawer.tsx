@@ -73,9 +73,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 * selected.
 	 */
 	useEffect(() => {
-		disableCheckboxList(value);
 		let isMounted = true;
 		if (value?.length > 0 && isModalOpen) {
+			disableCheckboxList(value);
 			if (isMounted) {
 				dispatch(
 					formActions.setFieldValue({
