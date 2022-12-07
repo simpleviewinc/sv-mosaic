@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState, useRef, useEffect, ReactElement, memo } from "react";
-import { debounce } from "lodash";
+import { useState, useRef, useEffect, ReactElement, memo, MouseEvent } from "react";
 import {
 	FormNavWrapper,
 	FormNavRow,
@@ -15,7 +14,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { FormNavProps } from "./FormNavTypes";
 
 const FormNav = (props: FormNavProps): ReactElement => {
-	const { sections, sectionsRefs, contentRef } = props;
+	const { sections, sectionsRefs } = props;
 
 	if (sections.length <= 1) return (<></>)
 
@@ -71,41 +70,28 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	 * @param idx
 	 * @param sectionId
 	 */
-	const handleClick = (e, idx: number) => {
+	const handleClick = (e: MouseEvent, idx: number) => {
 		e.preventDefault();
-		sectionsRefs[idx].scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest"});
+		sectionsRefs[idx].scrollIntoView({ behavior: "smooth", block: "start" });
 	};
 
 	useEffect(() => {
-		const navHighlighter = () => {
-			const scrollY = contentRef.current.scrollTop;
-			if (sectionsRefs.length === 0) {
-				return;
-			}
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				const sectionId = entry?.target.getAttribute("id");
 
-			sectionsRefs?.forEach(current => {
-				const currentSection = current as HTMLDivElement;
-				const sectionHeight = currentSection?.offsetHeight;
-				const sectionTop = currentSection?.offsetTop - 350;
-				const sectionId = currentSection?.getAttribute("id");
-				if (
-					scrollY > sectionTop &&
-					scrollY <= sectionTop + sectionHeight
-				) {
+				if (entry.isIntersecting) {
 					setSelectedTab(Number(sectionId));
 				}
-			});
-		};
+			})
+		}, { threshold: 0.5, rootMargin: '-20px 0px -20%' });
 
-		const navHighlighterDebounced = debounce(navHighlighter, 200, { maxWait: 100 });
+		sectionsRefs?.forEach(section => {
+			observer.observe(section);
+		})
 
-		contentRef?.current?.addEventListener("scroll", navHighlighterDebounced);
-
-		return () => {
-			contentRef?.current?.removeEventListener("scroll", navHighlighterDebounced);
-			navHighlighterDebounced.cancel();
-		};
-	}, [sectionsRefs, contentRef]);
+		return () => observer.disconnect();
+	}, [sectionsRefs])
 
 	return (
 		<FormNavWrapper className="form-nav-wrapper">
