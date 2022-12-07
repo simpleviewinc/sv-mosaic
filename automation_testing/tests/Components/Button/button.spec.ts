@@ -108,4 +108,12 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(58))).toBe(expectColor);
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(59))).toBe(expectColor);
 	});
+
+	test.skip("Validate Button has darkerRed on Hover.", async () => {
+		const expectColor = theme.newColors.darkerRed["100"];
+		await buttonPage.button.nth(4).hover({ force: true });
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(4))).toBe(expectColor);
+		await buttonPage.button.nth(5).hover({ force: true });
+		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(5))).toBe(expectColor);
+	});
 });
