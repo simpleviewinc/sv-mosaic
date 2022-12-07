@@ -108,4 +108,17 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(58))).toBe(expectColor);
 		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(59))).toBe(expectColor);
 	});
+
+	test("Validate Button has almostBlack color text.", async () => {
+		const expectColor = theme.newColors.almostBlack["100"];
+		//BlackOnYellow
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(8))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(9))).toBe(expectColor);
+		//GrayOnWhite
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(6))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(7))).toBe(expectColor);
+		//BlackOnWhite
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(24))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(25))).toBe(expectColor);
+	});
 });
