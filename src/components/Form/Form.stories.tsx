@@ -607,12 +607,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			description: "Description for section 3",
 			fields: [
 				// row 1
-				[[], [], []],
-				// row 2
-				[[], [], []],
-				[[]],
-				// row 3
-				[[], []]
+				[["text1"], [], []],
 			]
 		},
 	], [fields]);
