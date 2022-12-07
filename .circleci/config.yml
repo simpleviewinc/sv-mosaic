@@ -62,9 +62,6 @@ workflows:
             branches:
               only:
                 - develop
-                - master
-                - qa
-                - staging
                 - /pull.*/
 
 orbs:
