@@ -32,4 +32,9 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		await summaryPage.starRateIconUnchecked.click();
 		expect(await summaryPage.getColorFromElement(summaryPage.starRateIconChecked)).toBe(expectColor);
 	});
+
+	test("Validate Summary title has almostBlack text color.", async () => {
+		const expectColor = theme.newColors.almostBlack["100"];
+		expect(await summaryPage.getColorFromElement(summaryPage.summaryTitle)).toBe(expectColor);
+	});
 });
