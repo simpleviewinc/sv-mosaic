@@ -1,8 +1,8 @@
 import { test, expect, Page } from "@playwright/test";
-import { PopoverPage } from "../../../pages/Components/Popover/PopoverPage";
+import { PopoverPage } from "../../../pages/Components/Popover/PopoverExamplePage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - PopoverPage - Example", () => {
+test.describe.parallel("Components - PopoverPage - Example", () => {
 	let page: Page;
 	let popoverPage: PopoverPage;
 
@@ -16,9 +16,9 @@ test.describe("Components - PopoverPage - Example", () => {
 		await browser.close();
 	});
 
-	test("Validate Add button in popver has realTeal color.", async () => {
+	test("Validate Add button in popover has realTeal color.", async () => {
 		const expectColor = (theme.newColors.realTeal["100"]);
-		popoverPage.openPopoverButton.click();
+		await popoverPage.openPopoverButton.click();
 		expect(await popoverPage.getColorFromElement(popoverPage.popoverAddButton)).toBe(expectColor);
 	});
 });
