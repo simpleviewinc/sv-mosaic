@@ -26,6 +26,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		sections,
 		view = "RESPONSIVE",
 		sectionsRefs,
+		formContentRef,
 	} = props;
 
 	// State variables
@@ -121,6 +122,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 					sections={sections}
 					view={view}
 					sectionsRefs={sectionsRefs}
+					formContentRef={formContentRef}
 				/>
 			);
 		if (view === "DESKTOP" || view === "BIG_DESKTOP")
@@ -137,6 +139,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 					buttons={buttons}
 					sections={sections}
 					view={view}
+					formContentRef={formContentRef}
 				/>
 			);
 

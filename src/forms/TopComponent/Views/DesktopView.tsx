@@ -67,6 +67,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 		checkbox,
 		view,
 		sectionsRefs,
+		formContentRef,
 	} = props;
 
 	return (
@@ -87,7 +88,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 			</FlexContainer>
 			{(view !== "BIG_DESKTOP" && sections) && (
 				<FlexContainer>
-					<FormNav sectionsRefs={sectionsRefs} sections={sections} />
+					<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 				</FlexContainer>
 			)}
 		</DesktopViewColumn>

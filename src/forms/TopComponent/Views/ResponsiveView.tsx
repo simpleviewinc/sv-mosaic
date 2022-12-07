@@ -47,6 +47,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 		sections,
 		checkbox,
 		sectionsRefs,
+		formContentRef,
 		view
 	} = props;
 
@@ -71,7 +72,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 				)}
 			</ResponsiveActionsRow>
 			{sections &&
-				<FormNav sectionsRefs={sectionsRefs} sections={sections} />
+				<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 			}
 		</ResponsiveViewColumn>
 	);

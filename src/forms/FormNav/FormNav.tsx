@@ -84,7 +84,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 					setSelectedTab(Number(sectionId));
 				}
 			})
-		}, { threshold: 0.5, rootMargin: '-20px 0px -20%' });
+		}, { threshold: 0.5, rootMargin: "-20px 0px -20%", root: props.formContentRef?.current });
 
 		sectionsRefs?.forEach(section => {
 			observer.observe(section);
