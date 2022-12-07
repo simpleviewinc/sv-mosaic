@@ -35,6 +35,8 @@ export type BaseTopComponentProps = {
 	 * or information for the form.
 	 */
 	helpIcon?: JSX.Element;
+	sectionsRefs?: FormNavProps["sectionsRefs"];
+	formContentRef?: FormNavProps["formContentRef"];
 }
 
 export type TopComponentProps = {
