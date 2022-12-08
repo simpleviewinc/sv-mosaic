@@ -22,7 +22,7 @@ export const popperSx = {
 	},
 
 	"& .MuiPickersDay-dayWithMargin": {
-		color: theme.colors.almostBlack,
+		color: theme.newColors.almostBlack["100"],
 		fontFamily: theme.fontFamily,
 
 		"&:hover": {
@@ -55,7 +55,7 @@ export const popperSx = {
 };
 
 export const DisabledDateTimeValue = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-family: ${theme.fontFamily};
 	font-size: 16px;
 `;
@@ -75,7 +75,7 @@ export const DatePickerWrapper = styled.div`
 
 		& fieldset {
 			border-radius: 0;
-			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.colors.almostBlack}` : `1px solid ${theme.colors.simplyGray}`};
+			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : `1px solid ${theme.colors.simplyGray}`};
 		}
 
 			.MuiOutlinedInput-input {
@@ -84,12 +84,12 @@ export const DatePickerWrapper = styled.div`
 			}
 
 		&.Mui-focused fieldset {
-			border-color: ${theme.colors.almostBlack};
+			border-color: ${theme.newColors.almostBlack["100"]};
 			border-width: 1px;
 		}
   	}
 
 	.MuiIconButton-root {
-		color: ${pr => pr.isPickerOpen ? theme.colors.almostBlack : theme.colors.gray600};
+		color: ${pr => pr.isPickerOpen ? theme.newColors.almostBlack["100"] : theme.colors.gray600};
 	}
 `;

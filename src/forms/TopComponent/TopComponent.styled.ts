@@ -68,6 +68,6 @@ export const StyledHelpIconWrapper = styled.div`
 `;
 
 export const StyledHelpIcon = styled(HelpIcon)`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   margin-top: 7px;
 `;

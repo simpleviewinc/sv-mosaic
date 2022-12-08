@@ -7,7 +7,7 @@ import theme from "@root/theme";
 
 export const StyledRadioButton = styled(Radio)`
   &.MuiRadio-colorPrimary {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
 
     &.Mui-checked {
       color: ${theme.newColors.simplyGold["100"]};
