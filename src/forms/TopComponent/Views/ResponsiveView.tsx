@@ -34,7 +34,6 @@ type ResponsiveViewProps = {
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 	sectionsRefs?: any[];
-	contentRef?: any;
 } & BaseTopComponentProps;
 
 const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElement => {
@@ -48,7 +47,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 		sections,
 		checkbox,
 		sectionsRefs,
-		contentRef,
+		formContentRef,
 		view
 	} = props;
 
@@ -73,7 +72,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 				)}
 			</ResponsiveActionsRow>
 			{sections &&
-				<FormNav sectionsRefs={sectionsRefs} sections={sections} contentRef={contentRef} />
+				<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 			}
 		</ResponsiveViewColumn>
 	);
