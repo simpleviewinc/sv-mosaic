@@ -10,7 +10,7 @@ export const MenuBaseContext = createContext<MenuBaseContextProps>(null);
 
 const StyledMUIMenu = styled(MUIMenu)`
 	& > div {
-		box-shadow: 0px 2px 6px ${theme.colors.almostBlack}29;
+		box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
 		margin-top: 4px;
 	}
 `

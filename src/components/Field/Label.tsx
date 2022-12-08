@@ -20,7 +20,7 @@ const LabelWrapper = styled.div`
     font-family: inherit;
     font-size: 16px;
     color:  ${pr =>
-		pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
+		pr.disabled ? theme.colors.labelDisabled : theme.newColors.almostBlack["100"]};
     word-wrap: break-word;
 
   :after {

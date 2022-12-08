@@ -11,7 +11,8 @@ export const StyledIconButton = styled(IconButton)`
     padding: 4px;
 
     &.Mui-disabled {
-      color: ${theme.colors.almostBlack};
+      color: ${theme.newColors.almostBlack["100"]};
+
       opacity: 0.5;
     }
   }
@@ -23,6 +24,7 @@ export const StyledIconButton = styled(IconButton)`
   color: ${theme.colors.gray600};
 
   &:hover {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
+
   }
 `;

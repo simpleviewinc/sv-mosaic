@@ -105,7 +105,7 @@ export const PopoverWrapper = styled.div`
 
 const BlackOnYellow = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
     font-family: ${theme.fontFamily};
     height: auto;
     min-width: auto;
@@ -114,7 +114,7 @@ const BlackOnYellow = styled(ButtonWrapper)`
 
 const GrayOnWhite = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
     font-family: ${theme.fontFamily};
     height: auto;
     min-width: auto;
@@ -152,7 +152,7 @@ const RedOnWhite = styled(ButtonWrapper)`
 
 const BlackOnWhite = styled(ButtonWrapper)`
   & > button {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
     border-color: ${theme.colors.gray400};
   }
 
@@ -216,14 +216,14 @@ export const types = {
     }
 
     .MuiButton-contained.Mui-disabled {
-      color: ${theme.colors.almostBlack};
+      color: ${theme.newColors.almostBlack["100"]};
       background-color: ${theme.newColors.simplyGold["100"]};
       opacity: 0.5;
     }
 
     & > button:hover {
       background-color: ${theme.newColors.darkerSimplyGold["100"]};
-      color: ${theme.colors.almostBlack};
+      color: ${theme.newColors.almostBlack["100"]};
     }
   `,
 
@@ -294,12 +294,12 @@ export const types = {
     & > button {
       background: ${theme.colors.gray200};
       border-radius: 0;
-      color: ${theme.colors.almostBlack};
+      color: ${theme.newColors.almostBlack["100"]};
       font-size: 14px;
       text-transform: uppercase;
     }
     .MuiButton-contained.Mui-disabled {
-      color: ${theme.colors.almostBlack};
+      color: ${theme.newColors.almostBlack["100"]};
       background-color: ${theme.colors.gray200};
       opacity: 0.5;
     }
@@ -323,13 +323,13 @@ export const types = {
     .MuiButton-outlined.Mui-disabled {
       background-color: white;
       border: 2px solid ${theme.colors.simplyGray};
-      color: ${theme.colors.almostBlack};
+      color: ${theme.newColors.almostBlack["100"]};
       opacity: 0.5;
     }
 
     & > button:hover {
       background-color: ${theme.colors.gray200};
-      color: ${theme.colors.almostBlack};
+      color: ${theme.newColors.almostBlack["100"]};
 			border: 2px solid ${theme.colors.simplyGray};
     }
   `,
@@ -412,23 +412,23 @@ export const types = {
 		& > button {
 			background-color: white;
 			border-radius: 0;
-			border: 2px solid ${theme.colors.almostBlack};
+			border: 2px solid ${theme.newColors.almostBlack["100"]};
 			font-size: 14px;
 			text-transform: uppercase;
 		}
 		.MuiButton-outlined.Mui-disabled {
 			background-color: white;
 			opacity: 0.5;
-			border: 2px solid ${theme.colors.almostBlack};
-			color: ${theme.colors.almostBlack};
+			border: 2px solid ${theme.newColors.almostBlack["100"]};
+			color: ${theme.newColors.almostBlack["100"]};
 		}
 		& > button:hover {
-			box-shadow: 0 2px 3px ${theme.colors.almostBlack}12;
-			border: 2px solid ${theme.colors.almostBlack};
+			box-shadow: 0 2px 3px ${theme.newColors.almostBlack["20"]};
+			border: 2px solid ${theme.newColors.almostBlack["100"]};
 		}
 		& > button:active,
 		& > button:focus {
-			box-shadow: 0 1px 2px ${theme.colors.almostBlack}24;
+			box-shadow: 0 1px 2px ${theme.newColors.almostBlack["100"]};
 		}
   `,
 	teal_text: styled(TealOnWhite)`
@@ -470,7 +470,7 @@ export const types = {
   `,
 	black_text: styled(BlackOnWhite)`
 		&.normalButton > button {
-			color: ${theme.colors.almostBlack};
+			color: ${theme.newColors.almostBlack};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
@@ -480,7 +480,7 @@ export const types = {
 		}
 
 		& > a {
-			color: ${theme.colors.almostBlack};
+			color: ${theme.newColors.almostBlack};
 			text-transform: capitalize;
 			font-weight: ${theme.fontWeight.bold};
 		}
@@ -500,14 +500,14 @@ export const types = {
 		}
 
 		& > button:hover {
-			color: ${theme.colors.almostBlack};
+			color: ${theme.newColors.almostBlack};
 		}
   `,
 };
 
 export const TooltipContent = styled.div`
   z-index: 100;
-  background: ${theme.colors.almostBlack};
+  background: ${theme.newColors.almostBlack};
   color: white;
   padding: 4px 8px;
   margin-top: 4px;

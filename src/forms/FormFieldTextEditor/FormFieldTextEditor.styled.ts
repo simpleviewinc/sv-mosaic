@@ -36,8 +36,8 @@ export const EditorWrapper = styled.div`
 		}
 
 		&:focus-within {
-			box-shadow: 0px 0px 5px #1A1A1A29;
-			border: 1px solid ${theme.colors.almostBlack} !important;
+			box-shadow: 0px 0px 5px ${theme.newColors.almostBlack["20"]};
+			border: 1px solid ${theme.newColors.almostBlack["100"]} !important;
 		}
 	}
 
@@ -46,8 +46,8 @@ export const EditorWrapper = styled.div`
 	}
 
 	.jodit-workplace:focus-within + .jodit-status-bar {
-		box-shadow: 0px 0px 5px #1A1A1A29;
-		border: 1px solid ${theme.colors.almostBlack} !important;
+		box-shadow: 0px 0px 5px ${theme.newColors.almostBlack["20"]};
+		border: 1px solid ${theme.newColors.almostBlack["100"]} !important;
 		border-top: none !important;
 	}
 

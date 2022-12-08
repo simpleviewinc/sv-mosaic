@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { SideNavPage } from "../../../pages/Components/SideNav/SideNavPage";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - SideNav", () => {
 	let page: Page;
@@ -19,4 +20,12 @@ test.describe.parallel("Components - SideNav", () => {
 		expect(await sideNavPage.title.textContent()).toBe("Accounts");
 	});
 
+	test("Validate Side Nav first section has almostBlack color.", async () => {
+		const expectColor = theme.newColors.almostBlack["100"];
+		for (let i = 0; i < await sideNavPage.sections.count() - 1; i++) {
+			for (let j = 0; j < await sideNavPage.sections.nth(i).count(); j++) {
+				expect(await sideNavPage.getColorFromElement(sideNavPage.sections.nth(j).locator("span").nth(i))).toBe(expectColor);
+			}
+		}
+	});
 });

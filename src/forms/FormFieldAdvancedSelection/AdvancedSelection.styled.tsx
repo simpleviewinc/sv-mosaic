@@ -8,7 +8,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 export const StyledInput = styled.input`
   background-color: ${theme.colors.gray100};
   border: none;
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   flex-grow: 1;
   font-family: ${theme.fontFamily};
   font-size: 16px;
@@ -34,7 +34,7 @@ export const InputWrapper = styled.div`
   width: ${pr => pr.isMobileView ? "" : "620px"};
 
   &:focus-within {
-    border: 1px solid ${theme.colors.almostBlack};
+    border: 1px solid ${theme.newColors.almostBlack["100"]};
     box-shadow: ${theme.fieldSpecs.inputText.shadow};
   }
 
@@ -91,7 +91,7 @@ export const StyledExpandLessIcon = styled(ExpandLessIcon)`
 `;
 
 export const CategoryTitle = styled.span`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   display: inline-block;
   font-family: ${theme.fontFamily};
   font-size: 16px;

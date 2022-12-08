@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo, useRef, ReactElement, MouseEventHandler }
 import styled from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
 import { debounce } from "lodash";
+import theme from "@root/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -15,7 +16,7 @@ import { useStoryBookCssReset } from "../../utils/reactTools";
 
 const StyledTopBar = styled.div`
 	flex: 0 0 auto;
-	background: #1a1a1a;
+	background: ${theme.newColors.almostBlack["100"]};
 	color: white;
 	padding: 6px 16px;
 	display: flex;

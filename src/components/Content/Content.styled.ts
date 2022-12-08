@@ -16,7 +16,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const Title = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 16px;
 	font-weight: ${theme.fontWeight.medium};
 `;

@@ -37,7 +37,7 @@ const MobileActionsRow = styled(Row)`
 `;
 
 const StyledClearIcon = styled(ClearIcon)`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
 `;
 
 const MobileCheckboxHelpIconRow = styled(Row)`

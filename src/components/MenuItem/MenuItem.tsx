@@ -26,7 +26,7 @@ const StyledMenuItem = styled(MUIMenuItem)`
 			background-color: ${theme.colors.gray200} !important;
 		}
 		&:active span {
-			color: #1a1a1a;
+			color: ${theme.newColors.almostBlack["100"]};
 		}
 		& .MuiTouchRipple-child {
 			background-color: ${theme.colors.grayHover};

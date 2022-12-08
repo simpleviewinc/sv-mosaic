@@ -33,9 +33,9 @@ export const StyledSnackbar = styled(Snackbar)`
 
 export const ContentWrapper = styled.div`
   align-items: flex-start;
-  background-color: ${theme.colors.almostBlack};
+  background-color: ${theme.newColors.almostBlack["100"]};
   border-radius: 2px;
-  box-shadow: 0px 2px 6px #1a1a1a40;
+  box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
   display: flex;
   font-family: ${theme.fontFamily};
   max-width: 400px;

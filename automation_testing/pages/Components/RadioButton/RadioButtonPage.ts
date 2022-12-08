@@ -12,7 +12,7 @@ export class RadioButtonPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.radioButtonSpan = page.locator("[data-testid='radio-button-test']");
+		this.radioButtonSpan = page.locator("span[data-testid='radio-button-test']");
 		this.radioButtonInput = page.locator("input[type='radio']");
 	}
 

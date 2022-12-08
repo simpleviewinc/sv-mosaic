@@ -8,7 +8,7 @@ export const StyledPaper = styled(Paper)`
 		border: 1px solid ${theme.colors.gray200};
 		max-width: 620px;
 		border-radius: 5px;
-		box-shadow: 0px 2px 6px #1A1A1A26;
+		box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
 	}
 `;
 // Reference:

@@ -35,7 +35,7 @@ const StyledGrid = styled(Grid)`
 `;
 
 const Title = styled.p`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-weight: ${theme.fontWeight.semiBold};
 	font-size: 16px;
 	margin-bottom: 8px;
@@ -160,7 +160,7 @@ export const Input = (): ReactElement => {
 };
 
 const LinkTitle = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	cursor: pointer;
 	font-size: 16px;
 	font-weight: ${theme.fontWeight.semiBold};
@@ -209,7 +209,7 @@ const Value = styled.span`
 
 const Mail = styled.span`
 	display: block;
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-weight: ${theme.fontWeight.semiBold};
 	font-size: 14px;
 	margin: 16px 0;
