@@ -48,7 +48,7 @@ export { default as DrawerContent } from "./components/DrawerContent";
 export { default as IconButton } from "./components/IconButton";
 export * from "./components/IconButton";
 
-export { default as FormDialog } from "./components/Dialog";
+export { default as Dialog } from "./components/Dialog";
 export * from "./components/Dialog";
 
 export { default as LeftNav } from "./components/LeftNav";
