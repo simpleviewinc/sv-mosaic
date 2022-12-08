@@ -6,5 +6,5 @@ export interface Section {
 export interface FormNavProps {
   sections: Section[];
   sectionsRefs?: HTMLDivElement[] | [];
-  contentRef?: any;
+  formContentRef?: any;
 }
