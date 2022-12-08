@@ -283,7 +283,7 @@ export const types = {
       opacity: 0.5;
     }
     & > button:hover {
-      background: ${theme.colors.redHover};
+      background: ${theme.newColors.darkerRed[100]};
     }
     & > button:active,
     & > button:focus {

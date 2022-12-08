@@ -48,7 +48,13 @@ const FormNavExample = (): ReactElement => {
 };
 
 const scrollIntoViewMock = jest.fn();
-
+const mockIntersectionObserver = jest.fn();
+mockIntersectionObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.IntersectionObserver = mockIntersectionObserver;
 
 describe("FormNav component", () => {
 	beforeEach(() => {
