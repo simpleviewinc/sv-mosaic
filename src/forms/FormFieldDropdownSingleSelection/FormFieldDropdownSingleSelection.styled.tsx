@@ -36,7 +36,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
   }
 
   .MuiAutocomplete-popupIndicator, .MuiAutocomplete-popupIndicatorOpen {
-    color: ${pr => (pr.error ? theme.newColors.darkRed["100"] : theme.colors.almostBlack)};
+    color: ${pr => (pr.error ? theme.newColors.darkRed["100"] : theme.newColors.almostBlack["100"])};
 
     &:before {
       background: none;

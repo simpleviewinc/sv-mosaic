@@ -36,7 +36,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
 
   .MuiInputBase-input.Mui-disabled {
     background-color: transparent;
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
   }
 
   .MuiFormHelperText-root {
@@ -49,7 +49,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
 
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
-      border-color: ${theme.colors.almostBlack};
+      border-color: ${theme.newColors.almostBlack["100"]};
       border-width: 1px;
       box-shadow: ${theme.fieldSpecs.inputText.shadow};
     }

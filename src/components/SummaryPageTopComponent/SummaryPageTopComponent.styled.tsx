@@ -6,7 +6,7 @@ import StarBorder from "@mui/icons-material/StarBorderRounded";
 export const StyledSummaryPageTopComponent = styled.div`
     background: white;
     border-bottom: 2px solid ${theme.colors.gray200};
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
     font-family: ${theme.fontFamily};
     padding: 24px 20px 20px 20px;
     display: flex;

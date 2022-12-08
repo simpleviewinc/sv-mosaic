@@ -13,7 +13,7 @@ export const StyledDeletableChip = styled(Chip)`
     background-color: ${pr => pr.disabled ?
 		theme.newColors.simplyGold["60"]
 		: theme.newColors.simplyGold["100"]};
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
     max-width: 186px;
 
     &:hover {
@@ -29,13 +29,13 @@ export const StyledDeletableChip = styled(Chip)`
   }
 
   .MuiChip-deleteIcon {
-    color: ${theme.colors.almostBlack} !important;
+    color: ${theme.newColors.almostBlack["100"]} !important;
     margin: 0 !important;
     height: 16px;
     width: 16px;
 
     &:hover {
-      color: ${theme.colors.almostBlack} !important;
+      color: ${theme.newColors.almostBlack["100"]} !important;
     }
   }
 
@@ -57,7 +57,7 @@ export const StyledChip = styled(Chip)`
 		}
 		return theme.colors.gray200;
 	}};
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 
     &:hover {
       background-color: ${pr => pr.selected ? theme.newColors.darkerSimplyGold["100"] : theme.colors.simplyGray};
