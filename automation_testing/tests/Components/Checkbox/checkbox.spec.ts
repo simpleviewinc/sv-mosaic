@@ -32,8 +32,8 @@ test.describe.parallel("Components - Checkbox - Kitchen Sink", () => {
 		}
 	});
 
-	test("Validate Checkbox has almostBlack color as text.", async () => {
-		const expectColor = theme.newColors.almostBlack["100"];
+	test("Validate Checkbox has grey4 color as text.", async () => {
+		const expectColor = theme.newColors.grey4["100"];
 		const numberOfCheckboxs = await checkboxPage.checkboxLabel.count();
 		for (let i = 0; i < numberOfCheckboxs; i++) {
 			expect(await checkboxPage.getColorFromElement(checkboxPage.checkboxLabel.nth(i))).toBe(expectColor);
