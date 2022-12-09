@@ -22,7 +22,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
     }
 
 	& svg {
-		color: ${theme.newColors.grey3["100"]};
+		color: ${theme.newColors.almostBlack["100"]};
 	}
   }
 
