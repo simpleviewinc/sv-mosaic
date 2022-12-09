@@ -105,6 +105,7 @@ export const StyledInputSearch = styled(StyledTextField)`
 
 export const StyledClearIcon = styled(ClearIcon)`
   cursor: pointer;
+  color: ${theme.newColors.almostBlack["100"]};
 `;
 
 export const SuggestionsContainer = styled.div`
