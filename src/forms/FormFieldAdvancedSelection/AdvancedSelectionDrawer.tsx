@@ -39,15 +39,15 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		handleDialogClose,
 	} = props;
 
-	const [options, setOptions] = useState<MosaicLabelValue[]>([]);
-	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
-	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filter, setFilter] = useState({ prev: "options", new: "options" });
+	const [options, setOptions] = useState<MosaicLabelValue[]>([]);
+	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
+	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
 	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
 
-	const { state, dispatch } = useForm();
-
 	const chipListRef:{ current?: HTMLDivElement } = useRef();
+
+	const { state, dispatch } = useForm();
 
 	const chipListHeight: number = chipListRef?.current?.offsetHeight ? chipListRef?.current?.offsetHeight + 30 : 0;
 
@@ -57,7 +57,25 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		}
 	}, [state.data.listOfChips, value]);
 
-	const disableCheckboxList = useCallback((optionsToCompare) => {
+	const dispatchCheckboxList = async (newOptions: MosaicLabelValue[]) => {
+		await dispatch(
+			formActions.setFieldValue({
+				name: "checkboxList",
+				value: newOptions
+			})
+		);
+	};
+
+	const dispatchChipList = async (newOptions: MosaicLabelValue[]) => {
+		await dispatch(
+			formActions.setFieldValue({
+				name: "listOfChips",
+				value: newOptions
+			})
+		);
+	};
+
+	const disableCheckboxList = useCallback((optionsToCompare: MosaicLabelValue[]) => {
 		const selectLimit =  fieldDef?.inputSettings?.selectLimit;
 
 		if (selectLimit === "" || isNaN(selectLimit) || selectLimit === undefined || selectLimit < 0) return;
@@ -77,19 +95,21 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		if (value?.length > 0 && isModalOpen) {
 			disableCheckboxList(value);
 			if (isMounted) {
-				dispatch(
-					formActions.setFieldValue({
-						name: "checkboxList",
-						value: value
-					})
-				);
-
-				dispatch(
-					formActions.setFieldValue({
-						name: "listOfChips",
-						value: value
-					})
-				);
+				// THIS MIGHT NOT BE NECESSARY, THERE'S ALREADY A USE EFFECT THAT DOES THIS.
+				// dispatchCheckboxList(value);
+				// dispatch(
+				// 	formActions.setFieldValue({
+				// 		name: "checkboxListx",
+				// 		value: value
+				// 	})
+				// );
+				dispatchChipList(value);
+				// dispatch(
+				// 	formActions.setFieldValue({
+				// 		name: "listOfChipsx",
+				// 		value: value
+				// 	})
+				// );
 			}
 		}
 
@@ -274,33 +294,73 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
 		disableCheckboxList(newOptions);
-		dispatch(
-			formActions.setFieldValue({
-				name: "listOfChips",
-				value: newOptions,
-			})
-		);
+		dispatchChipList(newOptions);
+		// dispatch(
+		// 	formActions.setFieldValue({
+		// 		name: "listOfChipsx",
+		// 		value: newOptions,
+		// 	})
+		// );
 
-		dispatch(
-			formActions.setFieldValue({
-				name: "checkboxList",
-				value: newOptions,
-			})
-		);
+
+		// dispatchCheckboxList(newOptions);
+		// dispatch(
+		// 	formActions.setFieldValue({
+		// 		name: "checkboxListx",
+		// 		value: newOptions,
+		// 	})
+		// );
+		// THIS MIGHT NOT BE NECESSARY, THERE'S ALREADY A USE EFFECT THAT DOES THIS.
 	}
 
 	/**
 	 * Function executed whenever the checkboxes are clicked.
 	 * @param checkedOptions
 	 */
-	const checkboxListChanged = (checkedOptions: MosaicLabelValue[]) => {
+	const checkboxListChanged = async (checkedOptions: MosaicLabelValue[]) => {
+		const cleanCheckedOptions = checkedOptions.filter(checkedOption => checkedOption !== undefined);
+		const completeListOfChips = cleanCheckedOptions;
+
+		/**
+		 * LOGIC IM TRYING TO IMPLEMENT:
+		 * RUN OVER LIST OF CHIPS
+		 * RUN OVER ELEMENTS OF SELECTED CHECKBOXES
+		 * IF THE SELECTED CHECKBOX IS NOT ON THE LIST THEN ADD IT
+		 * IF THE SELECTED CHECKBOX IS... THIS DOESN'T WORK BECAUSE CHECKED OPTIONS DOESN'T RETURN THE UNSELECTED, ONLY THE SELECTED
+		 *
+		 * ANOTHER LOGIC
+		 * RUN OVER LIST OF CHIPS
+		 * RUN OVER THE LIST OF AVAILABLE OPTIONS
+		 * RUN OVER ELEMENTS OF SELECTED CHECKBOXES
+		 * IF SELECTED CHECKBOX IS IN THE LIST OF AVAILABLE OPTIONS BUT NOT ON THE LIST OF CHIPS THEN WE PUSH IT
+		 * IF LIST OF CHIPS CONTAINS A CHIP THAT'S NOT IN THE LIST OF AVAILABLE OPTIONS AND ALSO NOT IN THE LIST OF SELECTED CHECKBOXES THEN WE REMOVE IT.
+		 */
+		// for (let i = 0; i < state.data.listOfChips.length; i++) {
+		// 	for (let j = 0; j < cleanCheckedOptions.length; j++) {
+		// 		if (state.data.listOfChips[i].value === cleanCheckedOptions[j].value) {
+		// 			completeListOfChips = state.data.listOfChips.splice(i, 1);
+		// 		}
+		// 	}
+		// }
+
+		// if (filter.prev === "filter" && filter.new === "filter" || filter.prev === "options" && filter.new === "filter") {
+		// 	console.log("Clean ", cleanCheckedOptions);
+		// 	const filteredListOfChips = state.data.listOfChips.filter(chip => filteredOptions.filter(filteredOption => filteredOption.value !== chip.value));
+		// 	console.log("filtered ", filteredListOfChips);
+		// 	completeListOfChips = state.data?.listOfChips ? _.union(state?.data?.listOfChips, cleanCheckedOptions) : cleanCheckedOptions;
+		// 	console.log("Complete ", completeListOfChips);
+		// }
+
 		disableCheckboxList(checkedOptions);
-		dispatch(
-			formActions.setFieldValue({
-				name: "listOfChips",
-				value: checkedOptions
-			})
-		);
+		dispatchChipList(checkedOptions);
+		// disableCheckboxList(completeListOfChips);
+		// dispatchChipList(completeListOfChips);
+		// await dispatch(
+		// 	formActions.setFieldValue({
+		// 		name: "listOfChipsx",
+		// 		value: completeListOfChips
+		// 	})
+		// );
 	};
 
 	/**
@@ -308,12 +368,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 * its value is set to the checkbox list.
 	 */
 	useEffect(() => {
-		dispatch(
-			formActions.setFieldValue({
-				name: "checkboxList",
-				value: state?.data?.listOfChips
-			})
-		);
+		dispatchCheckboxList(state.data.listOfChips);
 	}, [state.data.listOfChips]);
 
 	const fields = useMemo(
