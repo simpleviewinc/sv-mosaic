@@ -64,8 +64,7 @@ test.describe.parallel("Components - Form - Validators", () => {
 		await validatorPage.title.click();
 		const error = validatorPage.error;
 		expect(await error.textContent()).toBe(validatorData.emailError);
-		await validatorPage.emailField.selectText();
-		await validatorPage.clearAllValuesFromField();
+		await validatorPage.clearAllValuesFromField(validatorPage.emailField);
 		await validatorPage.emailField.type(validatorData.validEmail);
 		await validatorPage.wait();
 		expect(await validatorPage.error.isVisible()).toBe(false);

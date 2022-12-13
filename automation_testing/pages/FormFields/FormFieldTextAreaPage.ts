@@ -38,8 +38,7 @@ export class FormFieldTextAreaPage extends BasePage {
 		const numberOfTxtAreas = await this.genericTextArea.count();
 		for (let i = 0; i < numberOfTxtAreas; i++) {
 			if (!await this.genericTextArea.nth(i).isDisabled()) {
-				await this.genericTextArea.nth(i).click();
-				await this.clearAllValuesFromField();
+				await this.clearAllValuesFromField(this.genericTextArea.nth(i));
 			}
 		}
 	}
