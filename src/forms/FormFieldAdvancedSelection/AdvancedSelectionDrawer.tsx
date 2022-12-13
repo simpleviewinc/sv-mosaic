@@ -104,7 +104,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			disableCheckboxList(value);
 			if (isMounted) {
 				dispatchChipList(value);
-				dispatchCheckboxList(value);
 			}
 		}
 
@@ -289,7 +288,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
 		disableCheckboxList(newOptions);
-		dispatchCheckboxList(newOptions);
 		dispatchChipList(newOptions);
 	}
 
