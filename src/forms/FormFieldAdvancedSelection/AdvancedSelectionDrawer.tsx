@@ -39,7 +39,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		handleDialogClose,
 	} = props;
 
-	const [filter, setFilter] = useState({ prev: "options", new: "options" });
 	const [options, setOptions] = useState<MosaicLabelValue[]>([]);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
@@ -101,8 +100,8 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	useEffect(() => {
 		let isMounted = true;
 		if (value?.length > 0 && isModalOpen) {
-			disableCheckboxList(value);
 			if (isMounted) {
+				disableCheckboxList(value);
 				dispatchChipList(value);
 			}
 		}
@@ -140,46 +139,46 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		fieldDef?.inputSettings?.getOptionsLimit
 	]);
 
-	const getMoreOptions = async () => {
+	const getMoreOptions = async (clicked = false) => {
 		if (fieldDef?.inputSettings?.getOptions) {
-			const searchInput = state.data?.searchInput;
+			const searchInput = state?.data?.searchInput;
 
 			let newOptions = [];
-			if (filter.prev === filter.new) {
-				newOptions = await fieldDef.inputSettings.getOptions({
+			if (clicked === true) {
+				newOptions = await fieldDef?.inputSettings?.getOptions({
 					offset: filteredList ? filteredList.length : 0,
-					limit: fieldDef.inputSettings.getOptionsLimit ? +fieldDef.inputSettings.getOptionsLimit + 1 : null,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
 					filter: searchInput?.length > 0 ? searchInput : undefined,
 				});
 			} else {
-				newOptions = await fieldDef.inputSettings.getOptions({
+				newOptions = await fieldDef?.inputSettings?.getOptions({
 					offset: 0,
-					limit: fieldDef.inputSettings.getOptionsLimit ? +fieldDef.inputSettings.getOptionsLimit + 1 : null,
+					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
 					filter: searchInput?.length > 0 ? searchInput : undefined,
 				});
 			}
 
-			if (newOptions.length > +fieldDef.inputSettings?.getOptionsLimit) {
+			if (newOptions.length > +fieldDef?.inputSettings?.getOptionsLimit) {
 				newOptions.pop();
 				setCanLoadMore(true);
 			} else {
 				setCanLoadMore(false);
 			}
 
-			if (filter.prev === "filter" && filter.new === "options") {
+			if (!clicked && searchInput?.trim() === "" || !searchInput) {
 				setOptions(newOptions);
 			}
 
-			if (filter.prev === "options" && filter.new === "options") {
+			if (clicked && searchInput?.trim() === "" || !searchInput) {
 				setOptions(options.concat(newOptions));
 			}
 
-			if (filter.prev === "options" && filter.new === "filter") {
+			if (!clicked && searchInput?.trim().length > 0) {
 				setFilteredOptions(newOptions);
 			}
 
-			if (filter.prev === "filter" && filter.new === "filter") {
-				setFilteredOptions(filteredOptions.concat(newOptions));
+			if (clicked && searchInput?.trim().length > 0) {
+				setFilteredOptions(_.union(filteredOptions, newOptions));
 			}
 		}
 	};
@@ -193,28 +192,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			isMounted = false;
 			getMoreOptionsDebounced.cancel();
 		}
-	}, [filter]);
-
-	useEffect(() => {
-		let isMounted = true;
-
-		if (isMounted) {
-			const searchInput = state?.data?.searchInput;
-
-			if (searchInput && searchInput?.length > 0) {
-				setFilter({ prev: filter.new, new: "filter" });
-			} else {
-				setFilter({ prev: filter.new, new: "options" });
-			}
-		}
-
-		return () => {
-			isMounted = false;
-		}
-	}, [state?.data?.searchInput]);
+	}, [state.data.searchInput]);
 
 	const loadMoreOptions = () => {
-		setFilter({ prev: filter.new, new: filter.new });
+		getMoreOptions(true);
 	}
 
 	const filteredList = useMemo(() => {
