@@ -13,6 +13,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
   width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
   .MuiInputBase-multiline {
+	color: ${theme.newColors.almostBlack["100"]};
     align-items: start;
     background-color: ${pr => pr.disabled ? "transparent" : theme.colors.gray100};
     min-height: ${pr => pr.disabled ? "fit-content" : "150px"};
@@ -23,7 +24,8 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
     }
   }
 
-  .MuiOutlinedInput-multiline {
+  .MuiOutlinedInput-multiline,
+  & .MuiInputBase-root {
     font-family: ${theme.fontFamily};
   }
 

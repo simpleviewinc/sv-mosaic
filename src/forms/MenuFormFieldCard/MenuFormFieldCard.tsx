@@ -29,7 +29,7 @@ const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
 		<div className={className}>
 			<Button
 				data-testid="icon-button-test"
-				color="gray"
+				color="black"
 				variant="icon"
 				mIcon={MoreVertIcon}
 				onClick={handleMoreIconClick}
