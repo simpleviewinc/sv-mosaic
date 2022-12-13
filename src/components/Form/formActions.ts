@@ -168,11 +168,6 @@ export const formActions = {
 	},
 	setFormValues({ values }: { values: MosaicObject }) {
 		return async function (dispatch): Promise<void> {
-			await dispatch({
-				type: "FORM_START_DISABLE",
-				value: true,
-			});
-
 			for (const [key, value] of Object.entries(values)) {
 				await dispatch(
 					formActions.setFieldValue({
@@ -181,13 +176,16 @@ export const formActions = {
 					})
 				);
 			}
-
-			await dispatch({
-				type: "FORM_END_DISABLE",
-				value: false,
-			});
 		}
 	},
+	disableForm({ disabled = false }: { disabled: boolean }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
+				value: disabled,
+			});
+		}
+	}
 };
 
 export default formActions;

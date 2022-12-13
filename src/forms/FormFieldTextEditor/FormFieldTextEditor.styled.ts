@@ -19,6 +19,7 @@ export const EditorWrapper = styled.div`
 		max-height: 200px !important;
 		overflow-y: auto !important;
 		padding: 16px !important;
+		color: ${theme.newColors.almostBlack["100"]};
 		border: ${(pr) => {
 		if (pr.error) return theme.borders.error;
 		return theme.borders.simplyGray;

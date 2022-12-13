@@ -457,7 +457,14 @@ export const Playground = (): ReactElement => {
 
 	const sectionsAmount = sections.slice(0, showSections)
 
-	const onLoad = useCallback(async () => {
+	/**
+	 * Function that prepopulates the form. Includes
+	 * an artificial delay just to show how the form
+	 * is disabled while fields values are being resolved.
+	 */
+	const getFormValues = useCallback(async () => {
+		await new Promise((res) => setTimeout(res, 1000));
+
 		return {
 			...prepopulateValues
 		};
@@ -483,7 +490,7 @@ export const Playground = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					getFormValues={loadReady && onLoad}
+					getFormValues={loadReady && getFormValues}
 					sections={showSections > 0 && sectionsAmount}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 				/>
