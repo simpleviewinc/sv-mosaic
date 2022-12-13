@@ -31,9 +31,26 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 			await expect(ffAdvancedSelectionPage.checkboxTestIdLocator.nth(i)).toBeDisabled();
 		}
 
-		await ffAdvancedSelectionPage.deleteSelectedOptionChip.first().click();
+		await ffAdvancedSelectionPage.deleteIconSelectedOptionChip.first().click();
 		for (let i = 0; i < numberOfOptions; i++) {
 			await expect(ffAdvancedSelectionPage.checkboxTestIdLocator.nth(i)).toBeEnabled();
 		}
+	});
+
+	test("Validate chip option doesn't disappear when filtering for other options.", async () => {
+		const expectedSelections = [];
+		const actualChipText = [];
+		await ffAdvancedSelectionPage.advancedSelectionWithOptionsPropButton.click();
+		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
+		expectedSelections.push(await ffAdvancedSelectionPage.checkboxLabel.first().textContent());
+		await ffAdvancedSelectionPage.searchOptionInput.type("ABC");
+		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
+		expectedSelections.push(await ffAdvancedSelectionPage.checkboxLabel.first().textContent());
+		await ffAdvancedSelectionPage.clearAllValuesFromField(ffAdvancedSelectionPage.searchOptionInput);
+
+		for (let i = 0; i < await ffAdvancedSelectionPage.selectedChip.count(); i++) {
+			actualChipText.push(await ffAdvancedSelectionPage.selectedChip.nth(i).textContent());
+		}
+		expect(actualChipText.toString()).toBe(expectedSelections.toString());
 	});
 });

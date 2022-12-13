@@ -34,8 +34,7 @@ export class FormFieldTextEditorPage extends BasePage {
 		const numberOfTxtEditor = await this.genericTextEditor.count();
 		for (let i = 0; i < numberOfTxtEditor; i++) {
 			if (!await this.genericTextEditor.nth(i).isDisabled()) {
-				await this.genericTextEditor.nth(i).click();
-				await this.clearAllValuesFromField();
+				await this.clearAllValuesFromField(this.genericTextEditor.nth(i));
 			}
 		}
 	}
