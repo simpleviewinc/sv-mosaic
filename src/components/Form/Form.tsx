@@ -66,9 +66,9 @@ const Form = (props: FormProps) => {
 	useEffect(() => {
 		const loadFormValues = async () => {
 			let values: MosaicObject;
+			await dispatch(formActions.disableForm({ disabled: true }));
 
 			if (getFormValues) {
-				await dispatch(formActions.disableForm(true));
 				values = await getFormValues();
 			} else {
 				fields.forEach(field => {
@@ -90,7 +90,7 @@ const Form = (props: FormProps) => {
 				);
 			}
 
-			await dispatch(formActions.disableForm(false));
+			await dispatch(formActions.disableForm({ disabled: false }));
 		}
 
 		loadFormValues();

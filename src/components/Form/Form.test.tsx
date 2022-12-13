@@ -880,7 +880,7 @@ describe("DISPATCHERS: disableForm", () => {
 			name: "Disables the form",
 			args: {
 				action: "disableForm",
-				args: [true],
+				args: [{ disabled: true }],
 				calls: [
 					{
 						type: "FORM_START_DISABLE",
@@ -893,7 +893,7 @@ describe("DISPATCHERS: disableForm", () => {
 			name: "Enables the form",
 			args: {
 				action: "disableForm",
-				args: [false],
+				args: [{ disabled: false }],
 				calls: [
 					{
 						type: "FORM_END_DISABLE",
