@@ -178,7 +178,7 @@ export const formActions = {
 			}
 		}
 	},
-	disableForm(disabled: boolean) {
+	disableForm({ disabled = false }: { disabled: boolean }) {
 		return async function (dispatch): Promise<void> {
 			await dispatch({
 				type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
