@@ -35,8 +35,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		});
 		const hexCode = getRandomHexCode(6);
 		await ffColorPickerPage.regularColorPicker.click();
-		await ffColorPickerPage.hexColorInput.selectText();
-		await ffColorPickerPage.clearAllValuesFromField();
+		await ffColorPickerPage.clearAllValuesFromField(ffColorPickerPage.hexColorInput);
 		await ffColorPickerPage.hexColorInput.type(hexCode);
 		await ffColorPickerPage.saveBtn.click();
 	});
