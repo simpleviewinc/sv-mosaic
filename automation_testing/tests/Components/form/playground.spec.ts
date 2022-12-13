@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Form - Playground", () => {
 	let page: Page;
@@ -41,12 +42,23 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate the font weight of the Title in Top Component.", async () => {
+		const expectedFontWeight = (theme.fontWeight.light).toString();
 		const titleFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.title);
-		expect(titleFontWeight).toBe("250");
+		expect(titleFontWeight).toBe(expectedFontWeight);
 	});
 
 	test("Validate the font weight of the Description in Top Component.", async () => {
+		const expectedFontWeight = (theme.fontWeight.light).toString();
 		const descriptionFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.description);
-		expect(descriptionFontWeight).toBe("250");
+		expect(descriptionFontWeight).toBe(expectedFontWeight);
+	});
+
+	test("Validate font family and font weight for Drawer Title.", async () => {
+		const expectedFontWeight = (theme.fontWeight.normal).toString();
+		await playgroundPage.advancedSelectionFieldButton.click();
+		const titleFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.drawerTitle);
+		const titleFontFamily = await playgroundPage.getFontFamilyFromElement(playgroundPage.drawerTitle);
+		expect(titleFontWeight).toBe(expectedFontWeight);
+		expect(titleFontFamily).toContain("Museo-Sans");
 	});
 });
