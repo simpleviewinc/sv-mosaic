@@ -68,6 +68,7 @@ const Form = (props: FormProps) => {
 			let values: MosaicObject;
 
 			if (getFormValues) {
+				await dispatch(formActions.disableForm(true));
 				values = await getFormValues();
 			} else {
 				fields.forEach(field => {
@@ -78,14 +79,18 @@ const Form = (props: FormProps) => {
 						};
 					}
 				});
+
 			}
 
-			if (values)
+			if (values) {
 				await dispatch(
 					formActions.setFormValues({
 						values
 					})
 				);
+			}
+
+			await dispatch(formActions.disableForm(false));
 		}
 
 		loadFormValues();
