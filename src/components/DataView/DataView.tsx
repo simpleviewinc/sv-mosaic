@@ -27,7 +27,7 @@ const StyledWrapper = styled.div`
 	& > .headerActions {
 		display: flex;
 		flex-direction: column;
-		padding: 20px;
+		padding: 8px 24px;
 	}
 
 	& > .headerActions .grid {

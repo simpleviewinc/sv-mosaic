@@ -20,7 +20,7 @@ interface FormLayoutProps {
 }
 
 const StyledFormLayout = styled.div`
-	margin: 0px auto;
+	margin: 0px;
 	max-width: 1160px;
 `;
 
