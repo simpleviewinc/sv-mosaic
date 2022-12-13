@@ -17,7 +17,7 @@ import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const ResponsiveViewColumn = styled(StyledColumn)`
-	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
+	padding: ${pr => pr.sections ? "24px 24px 0px 24px" : "24px 24px 16px 24px"};
   	z-index: 100;
 
 	& .form-nav-wrapper {

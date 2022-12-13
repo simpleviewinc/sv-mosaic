@@ -22,7 +22,7 @@ const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 const DesktopViewColumn = styled(StyledColumn)`
 	justify-content: space-between;
-	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
+	padding: ${pr => pr.sections ? "24px 24px 0px 24px" : "24px 24px 16px 24px"};
 	top: 0;
 	z-index: 100;
 
@@ -33,7 +33,7 @@ const DesktopViewColumn = styled(StyledColumn)`
 	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
 		border-bottom: 2px solid ${theme.colors.gray200};
 		margin-bottom: 0px;
-		padding: 24px 20px 20px 20px;
+		padding: 24px 24px 16px 24px;
 	}
 `;
 
