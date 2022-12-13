@@ -165,11 +165,11 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				setCanLoadMore(false);
 			}
 
-			if (!clicked && searchInput?.trim() === "" || !searchInput) {
+			if (!clicked && (searchInput?.trim() === "" || !searchInput)) {
 				setOptions(newOptions);
 			}
 
-			if (clicked && searchInput?.trim() === "" || !searchInput) {
+			if (clicked && (searchInput?.trim() === "" || !searchInput)) {
 				setOptions(options.concat(newOptions));
 			}
 
