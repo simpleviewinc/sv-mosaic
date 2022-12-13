@@ -10,10 +10,10 @@ import theme, { BREAKPOINTS } from "@root/theme/theme";
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 export const FormTitle = styled.span`
-	font-family: ${pr => pr.type  === "DRAWER" ? theme.fontFamily : theme.museoFont};
+	font-family: ${theme.museoFont};
 	color: ${theme.newColors.almostBlack["100"]};
 	font-size: ${pr => pr.type && pr.type === "DRAWER" ? "20px" : "28px"};
-	font-weight: ${pr => pr.type === "DRAWER" ? theme.fontWeight.medium : theme.fontWeight.light};
+	font-weight: ${pr => pr.type === "DRAWER" ? theme.fontWeight.normal : theme.fontWeight.light};
 
 	@media (max-width: ${theme.breakpoints.mobile}) {
 		margin: 0;

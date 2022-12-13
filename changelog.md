@@ -1,5 +1,20 @@
 # sv-mosaic changelog
 
+## 13.0.0 - 01/03/22
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `DarkerRed`.
+	* `AlmostBlack`.
+* Changes to `DataView`:
+	* Updated `DataViewFilterMultiSelect` styles to match newest figma comps.
+	* Updated `DataViewFilterText` styles to match newest figma comps.
+	* Updated `GridView` styles to match newest figma comps.
+	* Updated `ListView` styles to match newest figma comps.
+	* **BREAKING** Filters no longer supporting `types` (primary or optional). All filters will now render until the user selects them from the "filters" button, unless passed as part of the activeFilters prop.
+	* Added better error messages when propping down an activeColumn or an activeFilter that doesn't exist.
+	* Fixed "All" comparison functionality in categories with comparison filter (Only in storybook).
+* Internally updated the `FormNav` tabs mechanics to now use the InteractionObserver API. This allows the last section tab to be selected even if the previous one is also in the screen at the same time.
+* Added new optional prop `selectLimit` to `FormFieldAdvancedSelection`. This allows developers to limit the amount of options users can select.
+
 ## 12.0.0 - 11/29/22
 * Internally updated the color scheme, naming conventions and references in all components of the following colors:
 	* `DarkerRealTeal`.
