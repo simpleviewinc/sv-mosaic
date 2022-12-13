@@ -23,6 +23,7 @@ export class BasePage {
 	readonly errorIcon: Locator;
 	readonly checkboxTestIdLocator: Locator;
 	readonly tooltip: Locator;
+	readonly checkboxLabel: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -44,6 +45,7 @@ export class BasePage {
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
+		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
