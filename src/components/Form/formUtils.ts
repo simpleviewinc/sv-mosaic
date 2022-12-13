@@ -7,7 +7,7 @@ type State = {
 	validating: any;
 	custom: unknown;
 	validForm: boolean;
-	disabled: unknown;
+	disabled: boolean;
 }
 
 type Action = {
@@ -51,6 +51,7 @@ export function coreReducer(state: State, action: Action): State {
 			}
 		};
 	case "FORM_START_DISABLE":
+		//console.log("Action value", action.value)
 		return {
 			...state,
 			disabled: action.value
@@ -73,7 +74,7 @@ export function coreReducer(state: State, action: Action): State {
 			validating: {},
 			custom: {},
 			validForm: false,
-			disabled: null,
+			disabled: false,
 		}
 	default:
 		return state;
@@ -101,7 +102,7 @@ export function useForm(): UseFormReturn {
 			validating: {},
 			custom: {},
 			validForm: false,
-			disabled: null,
+			disabled: false,
 		},
 		extraArgs.current
 	);

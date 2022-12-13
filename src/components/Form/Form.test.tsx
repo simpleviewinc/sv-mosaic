@@ -446,7 +446,7 @@ describe("REDUCERS: FORM_RESET", () => {
 					validating: {},
 					custom: {},
 					validForm: false,
-					disabled: null,
+					disabled: false,
 				},
 			},
 		}
@@ -857,10 +857,6 @@ describe("DISPATCHERS: setFormValues", () => {
 				}],
 				calls: [
 					{
-						type: "FORM_START_DISABLE",
-						value: true,
-					},
-					{
 						type: "FIELD_ON_CHANGE",
 						name: "field1",
 						value: "value1",
@@ -870,6 +866,35 @@ describe("DISPATCHERS: setFormValues", () => {
 						name: "field2",
 						value: "value2",
 					},
+				]
+			}
+		},
+	];
+
+	runTests(tests, "dispatch");
+});
+
+describe("DISPATCHERS: disableForm", () => {
+	const tests = [
+		{
+			name: "Disables the form",
+			args: {
+				action: "disableForm",
+				args: [true],
+				calls: [
+					{
+						type: "FORM_START_DISABLE",
+						value: true,
+					}
+				]
+			}
+		},
+		{
+			name: "Enables the form",
+			args: {
+				action: "disableForm",
+				args: [false],
+				calls: [
 					{
 						type: "FORM_END_DISABLE",
 						value: false,
