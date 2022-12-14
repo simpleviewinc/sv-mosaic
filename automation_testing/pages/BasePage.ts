@@ -183,4 +183,8 @@ export class BasePage {
 			return await ((element).evaluate(el => getComputedStyle(el).paddingLeft));
 		}
 	}
+
+	async getGapFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).gap));
+	}
 }
