@@ -40,14 +40,13 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	} = props;
 
 	const [options, setOptions] = useState<MosaicLabelValue[]>([]);
-	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
-	const [filter, setFilter] = useState({ prev: "options", new: "options" });
+	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
 	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
 
-	const { state, dispatch } = useForm();
-
 	const chipListRef:{ current?: HTMLDivElement } = useRef();
+
+	const { state, dispatch } = useForm();
 
 	const chipListHeight: number = chipListRef?.current?.offsetHeight ? chipListRef?.current?.offsetHeight + 30 : 0;
 
@@ -57,7 +56,33 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		}
 	}, [state.data.listOfChips, value]);
 
-	const disableCheckboxList = useCallback((optionsToCompare) => {
+	/**
+	 * Reusable function that updates the "checkboxList" field by dispatching a new set of options.
+	 * @param newOptions
+	 */
+	const dispatchCheckboxList = async (newOptions: MosaicLabelValue[]) => {
+		await dispatch(
+			formActions.setFieldValue({
+				name: "checkboxList",
+				value: newOptions
+			})
+		);
+	};
+
+	/**
+	 * Reusable function that updates the "listOfChips" field by dispatching a new set of options.
+	 * @param newOptions
+	 */
+	const dispatchChipList = async (newOptions: MosaicLabelValue[]) => {
+		await dispatch(
+			formActions.setFieldValue({
+				name: "listOfChips",
+				value: newOptions
+			})
+		);
+	};
+
+	const disableCheckboxList = useCallback((optionsToCompare: MosaicLabelValue[]) => {
 		const selectLimit =  fieldDef?.inputSettings?.selectLimit;
 
 		if (selectLimit === "" || isNaN(selectLimit) || selectLimit === undefined || selectLimit < 0) return;
@@ -75,21 +100,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	useEffect(() => {
 		let isMounted = true;
 		if (value?.length > 0 && isModalOpen) {
-			disableCheckboxList(value);
 			if (isMounted) {
-				dispatch(
-					formActions.setFieldValue({
-						name: "checkboxList",
-						value: value
-					})
-				);
-
-				dispatch(
-					formActions.setFieldValue({
-						name: "listOfChips",
-						value: value
-					})
-				);
+				disableCheckboxList(value);
+				dispatchChipList(value);
 			}
 		}
 
@@ -126,12 +139,12 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		fieldDef?.inputSettings?.getOptionsLimit
 	]);
 
-	const getMoreOptions = async () => {
+	const getMoreOptions = async (clicked = false) => {
 		if (fieldDef?.inputSettings?.getOptions) {
 			const searchInput = state?.data?.searchInput;
 
 			let newOptions = [];
-			if (filter.prev === filter.new) {
+			if (clicked === true) {
 				newOptions = await fieldDef?.inputSettings?.getOptions({
 					offset: filteredList ? filteredList.length : 0,
 					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
@@ -152,20 +165,20 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				setCanLoadMore(false);
 			}
 
-			if (filter.prev === "filter" && filter.new === "options") {
+			if (!clicked && (searchInput?.trim() === "" || !searchInput)) {
 				setOptions(newOptions);
 			}
 
-			if (filter.prev === "options" && filter.new === "options") {
+			if (clicked && (searchInput?.trim() === "" || !searchInput)) {
 				setOptions(options.concat(newOptions));
 			}
 
-			if (filter.prev === "options" && filter.new === "filter") {
+			if (!clicked && searchInput?.trim().length > 0) {
 				setFilteredOptions(newOptions);
 			}
 
-			if (filter.prev === "filter" && filter.new === "filter") {
-				setFilteredOptions(filteredOptions.concat(newOptions));
+			if (clicked && searchInput?.trim().length > 0) {
+				setFilteredOptions(_.union(filteredOptions, newOptions));
 			}
 		}
 	};
@@ -179,28 +192,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			isMounted = false;
 			getMoreOptionsDebounced.cancel();
 		}
-	}, [filter]);
-
-	useEffect(() => {
-		let isMounted = true;
-
-		if (isMounted) {
-			const searchInput = state?.data?.searchInput;
-
-			if (searchInput && searchInput?.length > 0) {
-				setFilter({ prev: filter.new, new: "filter" });
-			} else {
-				setFilter({ prev: filter.new, new: "options" });
-			}
-		}
-
-		return () => {
-			isMounted = false;
-		}
-	}, [state?.data?.searchInput]);
+	}, [state.data.searchInput]);
 
 	const loadMoreOptions = () => {
-		setFilter({ prev: filter.new, new: filter.new });
+		getMoreOptions(true);
 	}
 
 	const filteredList = useMemo(() => {
@@ -274,33 +269,24 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
 		disableCheckboxList(newOptions);
-		dispatch(
-			formActions.setFieldValue({
-				name: "listOfChips",
-				value: newOptions,
-			})
-		);
-
-		dispatch(
-			formActions.setFieldValue({
-				name: "checkboxList",
-				value: newOptions,
-			})
-		);
+		dispatchChipList(newOptions);
 	}
 
 	/**
 	 * Function executed whenever the checkboxes are clicked.
 	 * @param checkedOptions
 	 */
-	const checkboxListChanged = (checkedOptions: MosaicLabelValue[]) => {
-		disableCheckboxList(checkedOptions);
-		dispatch(
-			formActions.setFieldValue({
-				name: "listOfChips",
-				value: checkedOptions
-			})
-		);
+	const checkboxListChanged = async (checkedOptions: MosaicLabelValue[]) => {
+		const cleanCheckedOptions = checkedOptions.filter(checkedOption => checkedOption !== undefined);
+		let fullOptions = [...cleanCheckedOptions];
+
+		if (state.data?.listOfChips) {
+			const chipsNotInList = state.data.listOfChips.filter(option => !filteredList.some(chip => chip.value === option.value));
+			fullOptions = [...chipsNotInList, ...cleanCheckedOptions];
+		}
+
+		disableCheckboxList(fullOptions);
+		dispatchChipList(fullOptions);
 	};
 
 	/**
@@ -308,12 +294,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	 * its value is set to the checkbox list.
 	 */
 	useEffect(() => {
-		dispatch(
-			formActions.setFieldValue({
-				name: "checkboxList",
-				value: state?.data?.listOfChips
-			})
-		);
+		dispatchCheckboxList(state.data.listOfChips);
 	}, [state.data.listOfChips]);
 
 	const fields = useMemo(
@@ -348,8 +329,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					size: "100%",
 					onChangeCb: checkboxListChanged,
 					inputSettings: {
-						options: fieldDef?.inputSettings?.options && filteredList,
-						getOptions: fieldDef?.inputSettings?.getOptions && (() => filteredList),
+						options:
+							(fieldDef?.inputSettings?.options && filteredList) ||
+							(fieldDef?.inputSettings?.getOptions && (() => filteredList)),
 					},
 				} as FieldDef<FormFieldCheckboxDef>,
 				{
