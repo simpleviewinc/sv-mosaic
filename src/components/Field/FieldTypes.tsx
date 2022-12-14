@@ -123,5 +123,5 @@ export interface FieldDef<T = any, U = any> {
 	/**
 	 * Callback executed when the current fields has changed
 	 */
-	onChangeCb?: (value?: any) => void;
+	onChangeCb?: (value?: any) => void | Promise<void>;
 }
