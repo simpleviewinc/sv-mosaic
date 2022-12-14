@@ -27,5 +27,4 @@ export interface DataViewFilterMultiselectDropdownContentProps {
 	onApply: (val: any) => void;
 	isOpen: boolean;
 	placeholder?: DataViewFilterMultiselectProps["args"]["placeholder"];
-	onClose: () => void;
 }
