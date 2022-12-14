@@ -141,17 +141,18 @@ test.describe.parallel("Components - Form - Validators", () => {
 	});
 
 	test("Save Form with correct values", async () => {
-		await page.reload();
 		const startDate = "2021 September 15";
 		const endDate = "2022 June 14";
 		await validatorPage.requireField.type(validatorData.require);
 		await validatorPage.emailField.type(validatorData.validEmail);
 		await validatorPage.numberField.type(`${validatorData.validNumber}`);
 		await validatorPage.urlField.type(validatorData.validUrl);
-		await validatorPage.startDateButton.click()
+		await validatorPage.startDateButton.click();
 		await datepicker.selectDate(startDate);
 		await validatorPage.title.click();
-		await validatorPage.endDateButton.click()
+		await validatorPage.page.keyboard.press("Escape");
+		await validatorPage.wait();
+		await validatorPage.endDateButton.click({force: true});
 		await datepicker.selectDate(endDate);
 	});
 });
