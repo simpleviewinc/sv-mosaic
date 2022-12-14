@@ -172,8 +172,6 @@ export const formActions = {
 				formActions.validateForm({ fields: extraArgs.fields })
 			);
 
-			console.log("Valid ------------------ ", valid)
-
 			if (valid) {
 				await dispatch({
 					type: "PROPERTY_RESET",
