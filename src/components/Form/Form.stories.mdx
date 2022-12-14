@@ -870,6 +870,7 @@ const addTableRow = (): void => {
 			formActions.setFieldValue({
 				name: "table"
 				value: [possibleTableRows[0]],
+				touched: true
 			})
 		);
 	} else if (tableDataLength >= possibleTableRows.length) {
@@ -890,6 +891,7 @@ const addTableRow = (): void => {
 			formActions.setFieldValue({
 				name,
 				value: [...dataState.table, possibleTableRows[index]],
+				touched: true
 			})
 		);
 	}
@@ -1201,6 +1203,7 @@ const setImage = async () => {
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
 			value: image,
+			touched: true
 		})
 	);
 };
@@ -1210,6 +1213,7 @@ const setVideo = async () => {
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
 			value: video,
+			touched: true
 		})
 	);
 };
@@ -1219,6 +1223,7 @@ const setDocument = async () => {
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
 			value: document,
+			touched: true
 		})
 	);
 };
@@ -1227,7 +1232,8 @@ const setLink = async () => {
 	await dispatch(
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
-			value: link
+			value: link,
+			touched: true
 		})
 	);
 };
