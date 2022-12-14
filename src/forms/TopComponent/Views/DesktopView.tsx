@@ -7,35 +7,14 @@ import Button from "@root/components/Button";
 
 // Styled components
 import styled from "styled-components";
-import theme from "@root/theme";
 import {
 	FlexContainer,
 	StyledColumn
 } from "../TopComponent.styled";
 
 // Utils
-import { BREAKPOINTS } from "@root/theme/theme";
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
-
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
-
-const DesktopViewColumn = styled(StyledColumn)`
-	justify-content: space-between;
-	padding: ${pr => pr.sections ? "24px 24px 0px 24px" : "24px 24px 16px 24px"};
-	top: 0;
-	z-index: 100;
-
-	& .form-nav-wrapper {
-		margin-top: 20px;
-	}
-
-	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
-		border-bottom: 2px solid ${theme.colors.gray200};
-		margin-bottom: 0px;
-		padding: 24px 24px 16px 24px;
-	}
-`;
 
 const DesktopActionsRow = styled(FlexContainer)`
   align-items: flex-start;
@@ -71,7 +50,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 	} = props;
 
 	return (
-		<DesktopViewColumn ref={ref} sections={sections && sections.length > 1}>
+		<StyledColumn ref={ref} sections={sections && sections.length > 1}>
 			<FlexContainer>
 				<TitleWrapper
 					title={title}
@@ -91,7 +70,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 					<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 				</FlexContainer>
 			)}
-		</DesktopViewColumn>
+		</StyledColumn>
 	);
 });
 
