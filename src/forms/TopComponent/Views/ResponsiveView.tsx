@@ -16,15 +16,6 @@ import {
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
-const ResponsiveViewColumn = styled(StyledColumn)`
-	padding: ${pr => pr.sections ? "24px 24px 0px 24px" : "24px 24px 16px 24px"};
-  	z-index: 100;
-
-	& .form-nav-wrapper {
-		margin-top: 20px;
-	}
-`;
-
 const ResponsiveActionsRow = styled(Row)`
 	align-self: ${(pr) => (pr.showActive ? "" : "flex-end")};
 	margin-top: 16px;
@@ -52,7 +43,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 	} = props;
 
 	return (
-		<ResponsiveViewColumn ref={ref} sections={sections && sections.length > 1}>
+		<StyledColumn ref={ref} sections={sections && sections.length > 1}>
 			<Row>
 				<TitleWrapper
 					title={title}
@@ -74,7 +65,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 			{sections &&
 				<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 			}
-		</ResponsiveViewColumn>
+		</StyledColumn>
 	);
 });
 

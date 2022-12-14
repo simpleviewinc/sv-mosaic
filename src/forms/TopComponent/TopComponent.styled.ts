@@ -11,7 +11,7 @@ const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
 
 export const FormContent = styled.div`
 	& .layout {
-		padding: ${pr => pr.view === "DRAWER" ? "15px 40px" : (pr.view === "RESPONSIVE" || pr.view === "DESKTOP" || pr.view === "BIG_DESKTOP") ? "24px" : "0px"};
+		padding: ${pr => pr.view === "MOBILE" ? "0px" :  "24px"};
 	}
 	overflow-y: auto;
 	width: 100%;
@@ -54,6 +54,19 @@ export const CheckboxWrapper = styled.div`
 export const StyledColumn = styled(Column)`
   background-color: white;
   border-bottom: 2px solid ${theme.colors.gray200};
+  justify-content: space-between;
+	padding: ${pr => pr.sections ? "24px 24px 0px 24px" : "24px 24px 16px 24px"};
+	top: 0;
+	z-index: 100;
+
+	& .form-nav-wrapper {
+		margin-top: 20px;
+	}
+
+	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+		margin-bottom: 0px;
+		padding: 24px 24px 16px 24px;
+	}
 `;
 
 // Icons

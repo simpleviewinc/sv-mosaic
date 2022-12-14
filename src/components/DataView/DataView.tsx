@@ -32,7 +32,7 @@ const StyledWrapper = styled.div`
 
 	& > .headerActions .grid {
 		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding-bottom: 20px;
+		padding-bottom: 8px;
 	}
 
 	& > .viewContainer {
