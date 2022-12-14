@@ -37,4 +37,13 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		const expectColor = theme.newColors.almostBlack["100"];
 		expect(await summaryPage.getColorFromElement(summaryPage.summaryTitle)).toBe(expectColor);
 	});
+
+	test("Validate Summary Page Top Component padding is valid.", async () => {
+		const locator = summaryPage.summaryTopComponent;
+		await locator.waitFor();
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "top")).toBe("24px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "right")).toBe("24px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("16px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "left")).toBe("24px");
+	});
 });
