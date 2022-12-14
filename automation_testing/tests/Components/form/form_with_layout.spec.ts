@@ -66,4 +66,9 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		await formWithLayoutPage.formLayout.waitFor();
 		expect(await formWithLayoutPage.getPaddingFromElement(formWithLayoutPage.formLayout)).toBe("24px");
 	});
+
+	test("Validate Top Component with section margin within description and section is valid.", async () => {
+		await formWithLayoutPage.sections.waitFor();
+		expect(await formWithLayoutPage.getSpecificMarginFromElement(formWithLayoutPage.sections, "top")).toBe("24px");
+	});
 });
