@@ -11,6 +11,7 @@ export class FormWithLayout extends BasePage {
 	readonly sectionContainer: Locator;
 	readonly formTopComponent: Locator;
 	readonly formLayout: Locator;
+	readonly sections: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -20,6 +21,7 @@ export class FormWithLayout extends BasePage {
 		this.sectionContainer = page.locator("[data-testid='section-test-id']");
 		this.formTopComponent = page.locator("//*[@id='root']/div/div/form/div[1]");
 		this.formLayout = page.locator("[data-testid='form-layout-test-id']");
+		this.sections = page.locator(".form-nav-wrapper");
 	}
 
 	async visitPage(): Promise<void> {
