@@ -8,7 +8,6 @@ import { StyledWrapper, StyledButtonRow } from "./DataViewFilterDropdownButtons.
 
 interface DataViewFilterDropdownButtonsProps {
 	onClear?: any;
-	onCancel?: any;
 	disableApply?: any;
 	onApply?: any;
 }
@@ -53,8 +52,7 @@ function DataViewFilterDropdownButtons(props: DataViewFilterDropdownButtonsProps
 				<Button label={t("mosaic:common.clear")} color="black" variant="text" onClick={props.onClear}/>
 			</ButtonRow>
 			<StyledButtonRow>
-				<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel}/>
-				<Button label={t("mosaic:common.apply")} color="teal" variant="text" onClick={props.onApply} disabled={ (props.disableApply !== undefined) ? props.disableApply : false }/>
+				<Button label={t("mosaic:common.apply")} color="yellow" variant="contained" onClick={props.onApply} disabled={ (props.disableApply !== undefined) ? props.disableApply : false }/>
 			</StyledButtonRow>
 		</StyledWrapper>
 	)
