@@ -13,12 +13,4 @@ export const StyledButtonRow = styled(ButtonRow)`
   .button + .normalButton {
     margin: 0;
   }
-
-  .button:first-child {
-    padding-right: 8px;
-  }
-
-  .button:last-child {
-    padding-left: 8px;
-  }
 `;
