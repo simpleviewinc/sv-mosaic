@@ -1,13 +1,15 @@
+import { MosaicObject } from "@root/types";
 import { useRef, useCallback, useReducer } from "react";
 import { SectionDef } from "./FormTypes";
 
 type State = {
-	data: any;
+	data: MosaicObject;
 	errors: any;
 	validating: any;
 	custom: unknown;
 	validForm: boolean;
 	disabled: boolean;
+	touched: { [key: string]: boolean };
 }
 
 type Action = {
@@ -23,6 +25,14 @@ export function coreReducer(state: State, action: Action): State {
 			...state,
 			data: {
 				...state.data,
+				[action.name]: action.value
+			}
+		};
+	case "FIELD_TOUCHED":
+		return {
+			...state,
+			touched: {
+				...state.touched,
 				[action.name]: action.value
 			}
 		};
@@ -51,7 +61,6 @@ export function coreReducer(state: State, action: Action): State {
 			}
 		};
 	case "FORM_START_DISABLE":
-		//console.log("Action value", action.value)
 		return {
 			...state,
 			disabled: action.value
@@ -75,6 +84,11 @@ export function coreReducer(state: State, action: Action): State {
 			custom: {},
 			validForm: false,
 			disabled: false,
+		}
+	case "PROPERTY_RESET":
+		return {
+			...state,
+			[action.name]: action.value
 		}
 	default:
 		return state;
@@ -103,6 +117,7 @@ export function useForm(): UseFormReturn {
 			custom: {},
 			validForm: false,
 			disabled: false,
+			touched: {}
 		},
 		extraArgs.current
 	);
