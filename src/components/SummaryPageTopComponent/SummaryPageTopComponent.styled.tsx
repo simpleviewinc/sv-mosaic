@@ -8,7 +8,7 @@ export const StyledSummaryPageTopComponent = styled.div`
     border-bottom: 2px solid ${theme.colors.gray200};
     color: ${theme.newColors.almostBlack["100"]};
     font-family: ${theme.fontFamily};
-    padding: 24px 20px 20px 20px;
+    padding: 24px 24px 16px 24px;
     display: flex;
     gap: 24px;
     align-items: center;

@@ -165,4 +165,10 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.selectCategory(filter_data.categoryFilterChooseItem);
 		expect(await filter.getBackgroundColorFromElement(_dataviewPage.selectedChips)).toBe(expectBgColor);
 	});
+
+	test("Validate Gap between filters is valid.", async () => {
+		await filter.filtersRowLocator.waitFor();
+		await filter.selectAllFilters();
+		expect(await filter.getGapFromElement(filter.filtersRowLocator)).toBe("16px");
+	});
 });

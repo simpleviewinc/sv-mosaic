@@ -104,7 +104,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: imageAssetExample,
-				validate: true
+				validate: true,
+				touched: true
 			})
 		);
 		alert("Set image is called");
@@ -115,6 +116,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: videoAssetExample,
+				touched: true
 			})
 		);
 		alert("Set video is called");
@@ -125,6 +127,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: documentExample,
+				touched: true
 			})
 		);
 		alert("Set document is called");
@@ -134,7 +137,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 		await dispatch(
 			formActions.setFieldValue({
 				name: fieldName,
-				value: linkExample
+				value: linkExample,
+				touched: true
 			})
 		);
 		alert("Set Link has been called");
