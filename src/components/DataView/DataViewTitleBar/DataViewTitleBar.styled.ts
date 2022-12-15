@@ -3,7 +3,7 @@ import theme from "@root/theme";
 
 export const TitleBarWrapper = styled.div`
 	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	padding: 24px 24px 32px 24px;
+	padding: 24px 24px 16px 24px;
 	width: 100%;
 `
 

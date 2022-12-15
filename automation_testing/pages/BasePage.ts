@@ -149,6 +149,19 @@ export class BasePage {
 		expect(elementMargin).toBe(expectedValue);
 	}
 
+	async getSpecificMarginFromElement(element: Locator, margin: "top"|"bottom"|"right"|"left"): Promise<string> {
+		switch (margin) {
+		case "top":
+			return await ((element).evaluate(el => getComputedStyle(el).marginTop));
+		case "bottom":
+			return await ((element).evaluate(el => getComputedStyle(el).marginBottom));
+		case "right":
+			return await ((element).evaluate(el => getComputedStyle(el).marginRight));
+		case "left":
+			return await ((element).evaluate(el => getComputedStyle(el).marginLeft));
+		}
+	}
+
 	async getFontFamilyFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).fontFamily));
 	}
@@ -167,5 +180,26 @@ export class BasePage {
 
 	async getOnlyStringWithLetters(text:string): Promise<string> {
 		return (text.replace(/[^a-zA-Z ]+/g, "")).trim();
+	}
+
+	async getPaddingFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).padding));
+	}
+
+	async getSpecificPaddingFromElement(element: Locator, section: "top"|"bottom"|"right"|"left"): Promise<string> {
+		switch (section) {
+		case "top":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingTop));
+		case "bottom":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingBottom));
+		case "right":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingRight));
+		case "left":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingLeft));
+		}
+	}
+
+	async getGapFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).gap));
 	}
 }
