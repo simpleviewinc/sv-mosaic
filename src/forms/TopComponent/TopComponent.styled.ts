@@ -39,7 +39,7 @@ export const Row = styled(FlexContainer)`
 
   @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
     justify-content: flex-start;
-	height: ${props => props.topComponentHeight ? `calc(100% - ${props.topComponentHeight}px)` : "100%"};
+    height: ${props => props.topComponentHeight ? `calc(100% - ${props.topComponentHeight}px)` : "100%"};
   }
 `;
 
