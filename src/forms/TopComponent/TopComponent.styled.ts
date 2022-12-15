@@ -60,7 +60,7 @@ export const StyledColumn = styled(Column)`
 	z-index: 100;
 
 	& .form-nav-wrapper {
-		margin-top: 20px;
+		margin-top: 24px;
 	}
 
 	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
