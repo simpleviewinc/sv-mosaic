@@ -260,6 +260,43 @@ describe("REDUCERS: FIELD_ON_CHANGE", () => {
 	runTests(tests, "reducer");
 });
 
+describe("REDUCERS: FIELD_ON_CHANGE", () => {
+	const tests = [
+		{
+			name: "Field touched",
+			args: {
+				action: {
+					name: "field1",
+					value: true,
+					type: "FIELD_TOUCHED",
+				},
+				result: {
+					touched: {
+						"field1": true
+					}
+				},
+			},
+		},
+		{
+			name: "Field not touched",
+			args: {
+				action: {
+					name: "field1",
+					value: false,
+					type: "FIELD_TOUCHED",
+				},
+				result: {
+					touched: {
+						"field1": false
+					}
+				},
+			},
+		}
+	];
+
+	runTests(tests, "reducer");
+});
+
 describe("REDUCERS: FIELD_START_VALIDATE", () => {
 	const tests = [
 		{
@@ -455,6 +492,26 @@ describe("REDUCERS: FORM_RESET", () => {
 	runTests(tests, "reducer");
 });
 
+describe("REDUCERS: PROPERTY_RESET", () => {
+	const tests = [
+		{
+			name: "PROPERTY_RESET",
+			args: {
+				action: {
+					name: "touched",
+					value: {},
+					type: "PROPERTY_RESET",
+				},
+				result: {
+					touched: {},
+				},
+			},
+		}
+	];
+
+	runTests(tests, "reducer");
+});
+
 describe("DISPATCHERS: setFieldValue", () => {
 	const tests = [
 		{
@@ -467,6 +524,25 @@ describe("DISPATCHERS: setFieldValue", () => {
 						type: "FIELD_ON_CHANGE",
 						name: "testName",
 						value: "testValue",
+					}
+				]
+			}
+		},
+		{
+			name: "Sets value to field",
+			args: {
+				action: "setFieldValue",
+				args: [{ name: "testName", value: "testValue", touched: true }],
+				calls: [
+					{
+						type: "FIELD_ON_CHANGE",
+						name: "testName",
+						value: "testValue",
+					},
+					{
+						type: "FIELD_TOUCHED",
+						name: "testName",
+						value: true,
 					}
 				]
 			}
