@@ -14,15 +14,6 @@ const StyledTd = styled.td`
 		white-space: nowrap;
 	}
 
-	${/* If it has the .paddingRight class, add padding to the right of the cell */""}
-	&.paddingRight {
-		padding-right: 32px;
-	}
-
-	&.paddingLeft {
-		padding-left: 32px;
-	}
-
 	&.bold {
 		font-weight: bold;
 	}
@@ -51,8 +42,6 @@ const StyledTd = styled.td`
 
 interface DataViewTdProps {
 	expandCell?: any;
-	paddingRight?: any;
-	paddingLeft?: any;
 	bold?: any;
 	italic?: any;
 	strikeThrough?: any;
@@ -68,8 +57,6 @@ interface DataViewTdProps {
 //TODO PROPS
 function DataViewTd(props: DataViewTdProps) {
 	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
-	const paddingRight = props.paddingRight !== undefined ? props.paddingRight : false;
-	const paddingLeft = props.paddingLeft !== undefined ? props.paddingLeft : false;
 	const bold = props.bold !== undefined ? props.bold : false;
 	const italic = props.italic !== undefined ? props.italic : false;
 	const strikeThrough = props.strikeThrough !== undefined ? props.strikeThrough : false;
@@ -82,8 +69,6 @@ function DataViewTd(props: DataViewTdProps) {
 		<StyledTd
 			className={`
 				${expandCell ? "expandCell" : ""}
-				${paddingRight ? "paddingRight" : ""}
-				${paddingLeft ? "paddingLeft" : ""}
 				${bold ? "bold" : ""}
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
