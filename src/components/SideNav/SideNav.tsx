@@ -13,15 +13,22 @@ import {
 import { Item } from "./SideNavTypes";
 
 const SideNav = (props: SideNavProps): ReactElement => {
-	const { items, active } = props;
+	const { items, active, onNav } = props;
 
 	/**
 	 * Set the clicked link as selected and executes the
 	 * external callback that is sent from the parent.
 	 * @param link The clicked link
 	 */
-	const onLinkClicked = (item: Item, e?: MouseEvent) => {
-		item.onNav(item, e);
+	const onLinkClicked = (args: { item: Item, event?: MouseEvent }) => {
+		const { item, event } = args;
+		if (typeof item?.onNav === "function") {
+			// if the nav item has it's own onNav function
+			item.onNav({ item, event });
+		} else {
+			// else we all onNav for the main app to navigate
+			onNav({ item, event });
+		}
 	};
 
 	return (
@@ -37,7 +44,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 									<LinkWrapper
 										idx={item.name}
 										selectedLink={active}
-										onClick={(e) => onLinkClicked(item, e)}
+										onClick={(event) => onLinkClicked({ item, event })}
 										key={`${item.label}-${idx}`}
 									>
 										{item.icon && <LinkIcon />}

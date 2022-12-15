@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
 import { screen, cleanup, render, fireEvent } from "@testing-library/react";
-import { Item } from "./SideNavTypes";
+import { Item, SideNavArgs } from "./SideNavTypes";
 
 // Components
 import SideNav from "./SideNav";
@@ -19,23 +19,24 @@ export const SideNavExample = (): ReactElement => {
 	const [content, setContent] = useState<JSX.Element>(<h1>Accounts Content</h1>);
 	const [active, setActive] = useState("accounts");
 
+	const onNav = (args: SideNavArgs) => {
+		setActive(args.item.name);
+		setContent(<h1>{`${args.item.label} Content`}</h1>);
+	};
+
 	const items: Item[][] = [
 		[
 			{
 				label: "Home",
 				name: "home",
 				icon: HomeIcon,
-				onNav: (item) => {
-					setActive(item.name);
-					setContent(<h1>Home Content</h1>);
-				},
 			},
 			{
 				label: "Accounts",
 				name: "accounts",
 				icon: AccountCircleIcon,
-				onNav: (item) => {
-					setActive(item.name);
+				onNav: (args) => {
+					setActive(args.item.name);
 					setContent(<h1>Accounts Content</h1>)
 				},
 			},
@@ -45,8 +46,8 @@ export const SideNavExample = (): ReactElement => {
 				label: "Assets",
 				name: "assets",
 				badge: "00",
-				onNav: (item) => {
-					setActive(item.name);
+				onNav: (args) => {
+					setActive(args.item.name);
 					setContent(<h1>Assets Content</h1>)
 				},
 			},
@@ -57,8 +58,8 @@ export const SideNavExample = (): ReactElement => {
 				name: "tasks",
 				badge: "10",
 				icon: TaskAltIcon,
-				onNav: (item) => {
-					setActive(item.name);
+				onNav: (args) => {
+					setActive(args.item.name);
 					setContent(<h1>Tasks Content</h1>);
 				},
 				action: {
@@ -71,8 +72,8 @@ export const SideNavExample = (): ReactElement => {
 				name: "documents",
 				badge: "5",
 				icon: FolderIcon,
-				onNav: (item) => {
-					setActive(item.name);
+				onNav: (args) => {
+					setActive(args.item.name);
 					setContent(<h1>Documents Content</h1>);
 				},
 			},
@@ -81,7 +82,7 @@ export const SideNavExample = (): ReactElement => {
 
 	return (
 		<div style={{ display: "flex" }}>
-			<SideNav items={items} active={active} />
+			<SideNav items={items} active={active} onNav={onNav}/>
 			<div>{content}</div>
 		</div>
 	);
