@@ -87,9 +87,11 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 };
 
 describe("FormFieldChipSingleSelect component", () => {
-	beforeEach(() => {
-		render(<FormFieldChipSingleSelectExample fromDB={false} />);
-	})
+	beforeEach(async () => {
+		await act(() => {
+			render(<FormFieldChipSingleSelectExample fromDB={false} />);
+		});
+	});
 
 	it("should display the list of options", () => {
 		expect(getByText("Option 1")).toBeTruthy();
