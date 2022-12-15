@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
+import { knobs } from "../../../utils/data/knobs";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Form - Playground", () => {
@@ -60,5 +61,16 @@ test.describe.parallel("Components - Form - Playground", () => {
 		const titleFontFamily = await playgroundPage.getFontFamilyFromElement(playgroundPage.drawerTitle);
 		expect(titleFontWeight).toBe(expectedFontWeight);
 		expect(titleFontFamily).toContain("Museo-Sans");
+	});
+
+	test("Validate touched property is shown and works properly.", async () => {
+		const notRequiredKnob = knobs.knobRequired + "false";
+		const showStateKnob = knobs.knobShowState + "true";
+		await playgroundPage.visitPageWithKnobs([notRequiredKnob, showStateKnob]);
+		expect(await playgroundPage.showStateLocator.textContent()).toContain("touched");
+
+		await playgroundPage.simpleText.type("Sample text");
+		const expectedTouched = '"textField": true';
+		expect(await playgroundPage.showStateLocator.textContent()).toContain(expectedTouched);
 	});
 });

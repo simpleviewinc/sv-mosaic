@@ -44,4 +44,31 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		const selectedSectionInTopComponent = await formWithLayoutPage.getSelectedSectionFromTopComponent();
 		expect(await formWithLayoutPage.validateSectionTopComponentElementIsSelected(selectedSectionInTopComponent)).toBe(expectColor);
 	});
+
+	test("Validate Form Top Component padding depending the viewport.", async () => {
+		const topComponentLocator = formWithLayoutPage.formTopComponent;
+		// We start with the default viewport size.
+		await topComponentLocator.waitFor();
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "top")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "right")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "bottom")).toBe("0px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "left")).toBe("24px");
+
+		// We change the viewport to have a width higher than 1718px.
+		await page.setViewportSize({ width: 1780, height: 720 });
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "top")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "right")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "bottom")).toBe("16px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "left")).toBe("24px");
+	});
+
+	test("Validate Form Layout padding is valid.", async () => {
+		await formWithLayoutPage.formLayout.waitFor();
+		expect(await formWithLayoutPage.getPaddingFromElement(formWithLayoutPage.formLayout)).toBe("24px");
+	});
+
+	test("Validate Top Component with section margin within description and section is valid.", async () => {
+		await formWithLayoutPage.sections.waitFor();
+		expect(await formWithLayoutPage.getSpecificMarginFromElement(formWithLayoutPage.sections, "top")).toBe("24px");
+	});
 });
