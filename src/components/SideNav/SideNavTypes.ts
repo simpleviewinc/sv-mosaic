@@ -1,17 +1,26 @@
 import { SvgIconComponent } from "@root/types";
+import { MouseEvent } from "react";
+
+export interface SideNavOnNav {
+	(item : Item, event : MouseEvent): void
+}
 
 export interface SideNavProps {
   /**
    * List of lists of links, each list represents a section of links
    */
-  links: Link[][];
+  items: Item[][];
   /**
    * Optional, active link from Links array
    */
   active?: string;
 }
 
-export type Link = {
+export type Item = {
+	/**
+	 * Name of the item. It is used to set it as active when is clicked.
+	 */
+	name: string;
 	/**
 	 * Optional descriptive mark of the link.
 	 */
@@ -27,7 +36,7 @@ export type Link = {
   /**
    * Callback that each link will execute on an onClick event.
    */
-  onClick: () => void;
+  onNav: SideNavOnNav;
   /**
    * Each link could have an optional action which consists of an
    * icon that will be displayed when hovering over the link and
