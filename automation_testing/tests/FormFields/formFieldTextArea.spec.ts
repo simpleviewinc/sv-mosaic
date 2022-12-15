@@ -71,8 +71,7 @@ test.describe.parallel("FormFields - FormFieldsTextArea - Kitchen Sink", () => {
 		const sampleText = "regular example text";
 		await formFieldTextAreaPage.regularTextArea.type(sampleText);
 		await formFieldTextAreaPage.saveBtn.click();
-		await formFieldTextAreaPage.regularTextArea.selectText();
-		await formFieldTextAreaPage.clearAllValuesFromField();
+		await formFieldTextAreaPage.clearAllValuesFromField(formFieldTextAreaPage.regularTextArea);
 		await formFieldTextAreaPage.saveBtn.click();
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain("Form submitted with the following data: {}");

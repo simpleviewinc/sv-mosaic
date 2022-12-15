@@ -21,12 +21,12 @@ const StyledSection = styled.div`
 	& h1 {
 		background-color: ${theme.colors.grayHover};
 		margin: 0px;
-		padding: 16px 40px;
+		padding: 16px 24px;
 	}
 `;
 
 const StyledDescription = styled.p`
-	margin: 30px 40px 0px 40px;
+	margin: 24px 24px 0px 24px;
 	font-size: 16px;
 	font-family: ${theme.fontFamily};
 `
@@ -34,7 +34,7 @@ const StyledDescription = styled.p`
 const StyledRows = styled.div`
 	display: grid;
 	margin: 0px;
-	padding: ${pr => pr.view === "MOBILE" ? "0px 30px" : `${!pr.hasTitle ? "" : "15px 40px"}`};
+	padding: ${pr => pr.view === "MOBILE" ? "0px 30px" : `${!pr.hasTitle ? "" : "16px 24px"}`};
 `;
 
 const StyledTitle = styled.h1`

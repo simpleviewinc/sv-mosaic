@@ -197,7 +197,7 @@ describe("AdvancedSelection component", () => {
 		expect(await screen.findByText("Brand new option")).toBeTruthy();
 	});
 
-	it("should allow selected only three options, then checkbokList should be disabled", async () => {
+	it("should only select three options, then the checkbokList should be disabled", async () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
 		const addButton = screen.getByText("ADD");
