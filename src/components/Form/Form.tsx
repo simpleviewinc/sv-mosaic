@@ -7,7 +7,7 @@ import FormLayout from "./FormLayout";
 import TopComponent, { ViewType } from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
 import FormNav from "@root/forms/FormNav";
-import { useWindowResizer } from "@root/utils/useWindowResizer";
+import { getView } from "@root/utils/useWindowResizer";
 import { MosaicObject } from "@root/types";
 import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
@@ -29,12 +29,24 @@ const Form = (props: FormProps) => {
 		handleDialogClose,
 	} = props;
 
-	const { view } = useWindowResizer(type);
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
+	const formContainerRef = useRef<HTMLDivElement>();
+	const [view, setView] = useState<any>(getView(type, window.innerWidth));
 	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef();
 	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
+
+	useEffect(() => {
+		const observer = new ResizeObserver(entries => {
+			const view = getView(type, entries[0].contentRect.width)
+			setView(view);
+		})
+
+		observer.observe(formContainerRef?.current)
+
+		return () => formContainerRef.current && observer.unobserve(formContainerRef.current)
+	}, []);
 
 	useEffect(() => {
 		setSectionsRefs(sectionsRef.current);
@@ -126,7 +138,11 @@ const Form = (props: FormProps) => {
 
 	return (
 		<>
-			<div data-testid="form-test-id" style={{ position: "relative", height: "100%" }}>
+			<div
+				data-testid="form-test-id"
+				style={{ position: "relative", height: "100%" }}
+				ref={formContainerRef}
+			>
 				{state.disabled &&
 					<StyledDisabledForm />
 				}
@@ -153,7 +169,7 @@ const Form = (props: FormProps) => {
 					{view === "BIG_DESKTOP" && sections ? (
 						<Row topComponentHeight={topComponentHeight}>
 							{sections &&
-								<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
+								<FormNav view={view} sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 							}
 							<FormContent view={view} sections={sections} ref={formContentRef}>
 								<FormLayout

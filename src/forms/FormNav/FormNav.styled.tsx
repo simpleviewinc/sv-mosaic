@@ -10,12 +10,21 @@ export const NavItems = styled.div`
   width: 100%;
   white-space: nowrap;
 
-  @media (min-width: 1718px) {
+  ${props => props.view === "BIG_DESKTOP" && `
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow-y: scroll;
-  }
+    max-width: 250px;
+    overflow-y: auto;
+	`}
+
+/*   @media (min-width: 1718px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+		max-width: 250px;
+    overflow-y: auto;
+  } */
 `;
 
 export const LinksWrapper = styled.div`
@@ -37,7 +46,26 @@ export const LinksWrapper = styled.div`
     padding-bottom: 12px;
   }
 
-  @media (min-width: 1718px) {
+	${props => props.view === "BIG_DESKTOP" && `
+		 margin-right: 0;
+
+		&.highlight > a {
+			border-bottom: none;
+			border-left: 4px solid ${theme.newColors.simplyGold["100"]};
+		}
+
+		&.highlight {
+			background-color: ${theme.colors.gray200};
+		}
+
+		a {
+			border-bottom: 0px;
+			border-left: 4px solid transparent;
+			padding: 16px 0 16px 24px;
+		}
+	`}
+
+/*   @media (min-width: 1200px) {
     margin-right: 0;
 
     &.highlight > a {
@@ -54,7 +82,7 @@ export const LinksWrapper = styled.div`
       border-left: 4px solid transparent;
       padding: 16px 0 16px 24px;
     }
-  }
+  } */
 `;
 
 export const Section = styled.div`
@@ -63,14 +91,6 @@ export const Section = styled.div`
 
   @media (max-width: 1075px) {
     padding-top: 210px;
-  }
-`;
-
-export const MainLayout = styled.div`
-  display: flex;
-
-  @media (max-width: 1718px) {
-    flex-direction: column;
   }
 `;
 
@@ -113,7 +133,7 @@ export const FormNavRow = styled.div`
     z-index: 2;
   }
 
-  @media (min-width: 1718px) {
+/*   @media (min-width: 1200px) {
     &:after {
       content: none;
     }
@@ -124,6 +144,18 @@ export const FormNavRow = styled.div`
 
     height: 100%;
   }
+ */
+	${props => props.view === "BIG_DESKTOP" && `
+		&:after {
+      content: none;
+    }
+
+    svg {
+      display: none;
+    }
+
+    height: 100%;
+	`}
 `;
 
 export const FormNavWrapper = styled.div`
@@ -131,11 +163,18 @@ export const FormNavWrapper = styled.div`
   overflow: hidden;
   width: 100%;
 
-  @media (min-width: 1718px) {
+
+	${props => props.view === "BIG_DESKTOP" && `
+		height: 100%;
+    width: 293px;
+    border-right: 2px solid ${theme.colors.gray200};
+	`}
+
+/*   @media (min-width: 1718px) {
     height: 100%;
     width: 293px;
     border-right: 2px solid ${theme.colors.gray200};
-  }
+  } */
 `;
 
 export const IconWrapper = styled.div`

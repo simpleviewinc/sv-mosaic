@@ -2,7 +2,7 @@ export const BREAKPOINTS = {
 	mobile : 480,
 	topComponent : {
 		responsiveView: 1075,
-		bigScreenView: 1718,
+		bigScreenView: 1200,
 	}
 };
 
