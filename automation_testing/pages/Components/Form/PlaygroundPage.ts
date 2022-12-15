@@ -89,6 +89,10 @@ export class PlaygroundPage extends BasePage {
 		await this.visit(this.page_path, this.title);
 	}
 
+	async visitPageWithKnobs(knobs: string[]): Promise<void> {
+		await this.visitWithKnobs(this.page_path, this.title, knobs);
+	}
+
 	async getNumberOfFieldsRequired():Promise<number> {
 		return this.page.locator("#root .section [required=''] label").count();
 	}
