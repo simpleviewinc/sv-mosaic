@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState, useEffect, memo } from "react";
+import { ReactElement, memo, MouseEvent } from "react";
 import { SideNavProps } from ".";
 import {
 	LinkWrapper,
@@ -10,65 +10,45 @@ import {
 	Badge,
 	BadgeWrapper,
 } from "./SideNav.styled";
-import { Link } from "./SideNavTypes";
+import { Item } from "./SideNavTypes";
 
 const SideNav = (props: SideNavProps): ReactElement => {
-	const { links, active } = props;
-	const [selectedLink, setSelectedLink] = useState("");
+	const { items, active } = props;
 
 	/**
 	 * Set the clicked link as selected and executes the
 	 * external callback that is sent from the parent.
 	 * @param link The clicked link
 	 */
-	const onLinkClicked = (link: Link) => {
-		setSelectedLink(link.label);
-		link.onClick();
+	const onLinkClicked = (item: Item, e?: MouseEvent) => {
+		item.onNav(item, e);
 	};
-
-	const findLinkSelected = () => {
-		let linkSelected: Link;
-		links.forEach(section => section.forEach(link => link.label === active ? linkSelected = link : null))
-		if (!linkSelected) {
-			throw new Error("Default link is not in the links array.");
-		} else {
-			return linkSelected
-		}
-	}
-
-	useEffect(() => {
-		if (active) {
-			onLinkClicked(findLinkSelected())
-		} else {
-			onLinkClicked(links[0][0])
-		}
-	}, [active])
 
 	return (
 		<SideNavStyle>
 			<SidebarWrap>
-				{Object.keys(links).map((key) => {
+				{Object.keys(items).map((key) => {
 					return (
 						<SectionWrapper data-testid="section-wrapper" key={key}>
-							{links[key].map((link, idx) => {
-								const LinkIcon = link.icon;
-								const ActionIcon = link?.action?.icon;
+							{items[key].map((item, idx) => {
+								const LinkIcon = item.icon;
+								const ActionIcon = item?.action?.icon;
 								return (
 									<LinkWrapper
-										idx={link.label}
-										selectedLink={selectedLink}
-										onClick={() => onLinkClicked(link)}
-										key={`${link.label}-${idx}`}
+										idx={item.name}
+										selectedLink={active}
+										onClick={(e) => onLinkClicked(item, e)}
+										key={`${item.label}-${idx}`}
 									>
-										{link.icon && <LinkIcon />}
-										<StyledLink>{link.label}</StyledLink>
-										{link?.badge && (
+										{item.icon && <LinkIcon />}
+										<StyledLink>{item.label}</StyledLink>
+										{item?.badge && (
 											<BadgeWrapper>
-												<Badge>{link.badge}</Badge>
+												<Badge>{item.badge}</Badge>
 											</BadgeWrapper>
 										)}
-										{link?.action?.icon && (
-											<ActionIcon onClick={link.action.onClick} />
+										{item?.action?.icon && (
+											<ActionIcon onClick={item.action.onClick} />
 										)}
 									</LinkWrapper>
 								);

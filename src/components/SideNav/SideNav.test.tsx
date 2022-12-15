@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
 import { screen, cleanup, render, fireEvent } from "@testing-library/react";
-import { Link } from "./SideNavTypes";
+import { Item } from "./SideNavTypes";
 
 // Components
 import SideNav from "./SideNav";
@@ -16,33 +16,51 @@ afterEach(cleanup);
 const addTaskMock = jest.fn();
 
 export const SideNavExample = (): ReactElement => {
-	const [content, setContent] = useState<JSX.Element>(null);
-	const links: Link[][] = [
+	const [content, setContent] = useState<JSX.Element>(<h1>Accounts Content</h1>);
+	const [active, setActive] = useState("accounts");
+
+	const items: Item[][] = [
 		[
 			{
 				label: "Home",
+				name: "home",
 				icon: HomeIcon,
-				onClick: () => setContent(<h1>Home Content</h1>),
+				onNav: (item) => {
+					setActive(item.name);
+					setContent(<h1>Home Content</h1>);
+				},
 			},
 			{
 				label: "Accounts",
+				name: "accounts",
 				icon: AccountCircleIcon,
-				onClick: () => setContent(<h1>Accounts Content</h1>),
+				onNav: (item) => {
+					setActive(item.name);
+					setContent(<h1>Accounts Content</h1>)
+				},
 			},
 		],
 		[
 			{
 				label: "Assets",
+				name: "assets",
 				badge: "00",
-				onClick: () => setContent(<h1>Assets Content</h1>),
+				onNav: (item) => {
+					setActive(item.name);
+					setContent(<h1>Assets Content</h1>)
+				},
 			},
 		],
 		[
 			{
 				label: "Tasks",
+				name: "tasks",
 				badge: "10",
 				icon: TaskAltIcon,
-				onClick: () => setContent(<h1>Tasks Content</h1>),
+				onNav: (item) => {
+					setActive(item.name);
+					setContent(<h1>Tasks Content</h1>);
+				},
 				action: {
 					icon: AddCircleOutlineIcon,
 					onClick: () => addTaskMock(),
@@ -50,16 +68,20 @@ export const SideNavExample = (): ReactElement => {
 			},
 			{
 				label: "Documents",
+				name: "documents",
 				badge: "5",
 				icon: FolderIcon,
-				onClick: () => setContent(<h1>Documents Content</h1>),
+				onNav: (item) => {
+					setActive(item.name);
+					setContent(<h1>Documents Content</h1>);
+				},
 			},
 		],
 	];
 
 	return (
 		<div style={{ display: "flex" }}>
-			<SideNav links={links} active={links[0][1].label} />
+			<SideNav items={items} active={active} />
 			<div>{content}</div>
 		</div>
 	);
@@ -72,7 +94,7 @@ describe("SideNav component", () => {
 		render(<SideNavExample />)
 	});
 
-	it("should displays the links labels", () => {
+	it("should displays the items labels", () => {
 		expect(getByText("Home"));
 		expect(getByText("Accounts"));
 		expect(getByText("Assets"));
@@ -80,7 +102,7 @@ describe("SideNav component", () => {
 		expect(getByText("Documents"));
 	});
 
-	it("should displays the Accounts link content by default", () => {
+	it("should displays the Accounts content by default", () => {
 		expect(getByText("Accounts Content"));
 	});
 
@@ -95,20 +117,20 @@ describe("SideNav component", () => {
 		expect(getByText("Documents Content"));
 	});
 
-	it("should displays the link icons", () => {
+	it("should displays the items icons", () => {
 		expect(getByTestId("HomeIcon"));
 		expect(getByTestId("TaskAltIcon"));
 		expect(getByTestId("AddCircleOutlineIcon"));
 		expect(getByTestId("FolderIcon"));
 	});
 
-	it("should execute the action of the 'Tasks' link", () => {
+	it("should execute the action of the 'Tasks' item", () => {
 		fireEvent.click(getByTestId("AddCircleOutlineIcon"));
 
 		expect(addTaskMock).toHaveBeenCalled();
 	});
 
-	it("should show three actions since three lists of links are defined", () => {
+	it("should show three actions since three lists of items are defined", () => {
 		expect(getAllByTestId("section-wrapper").length).toBe(3);
 	});
 
