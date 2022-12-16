@@ -1,4 +1,4 @@
-import { ViewProvider } from "@root/utils/useWindowResizer";
+import { ViewProvider } from "@root/utils/formViewUtils";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 import { ReactElement, useEffect, useRef, useState } from "react";

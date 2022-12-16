@@ -15,7 +15,7 @@ import { TopComponentProps } from "./TopComponentTypes";
 
 // Styles
 import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
-import { useView } from "@root/utils/useWindowResizer";
+import { useView } from "@root/utils/formViewUtils";
 
 const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopComponentProps, ref): ReactElement => {
 	const {

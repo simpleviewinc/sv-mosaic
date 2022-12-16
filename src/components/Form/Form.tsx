@@ -7,7 +7,7 @@ import FormLayout from "./FormLayout";
 import TopComponent, { ViewType } from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
 import FormNav from "@root/forms/FormNav";
-import { useViewResizer, ViewProvider } from "@root/utils/useWindowResizer";
+import { useViewResizer, ViewProvider } from "@root/utils/formViewUtils";
 import { MosaicObject } from "@root/types";
 import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
