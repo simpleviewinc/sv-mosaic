@@ -10,7 +10,7 @@ import Button from "@root/components/Button";
 import { FormTitle } from "../Utils/TitleWrapper";
 
 // Utils
-import theme from "../../../theme/theme";
+import theme, { Views } from "../../../theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const DrawerViewColumn = styled(StyledColumn)`
@@ -53,7 +53,7 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 							<CloseIcon />
 						</IconButton>
 					)}
-					<FormTitle type={"DRAWER"} data-testid="drawer-title-test">
+					<FormTitle type={Views.drawer} data-testid="drawer-title-test">
 						{title}
 					</FormTitle>
 					{tooltipInfo && helpIcon}

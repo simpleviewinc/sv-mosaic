@@ -4,14 +4,14 @@ import styled from "styled-components";
 import HelpIcon from "@mui/icons-material/Help";
 
 // Utils
-import theme, { BREAKPOINTS } from "@root/theme/theme";
+import theme, { BREAKPOINTS, Views } from "@root/theme/theme";
 
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
 
 export const FormContent = styled.div`
 	& .layout {
-		padding: ${pr => pr.view === "MOBILE" ? "0px" :  "24px"};
+		padding: ${pr => pr.view === Views.mobile ? "0px" :  "24px"};
 	}
 	overflow-y: auto;
 	width: 100%;
