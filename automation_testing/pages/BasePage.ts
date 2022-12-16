@@ -189,12 +189,10 @@ export class BasePage {
 		return (text.replace(/[^a-zA-Z ]+/g, "")).trim();
 	}
 
-	async getPaddingFromElement(element: Locator): Promise<string> {
-		return await ((element).evaluate(el => getComputedStyle(el).padding));
-	}
-
-	async getSpecificPaddingFromElement(element: Locator, section: "top"|"bottom"|"right"|"left"): Promise<string> {
+	async getSpecificPaddingFromElement(element: Locator, section?: "all"|"top"|"bottom"|"right"|"left"): Promise<string> {
 		switch (section) {
+		case "all":
+			return await ((element).evaluate(el => getComputedStyle(el).padding));
 		case "top":
 			return await ((element).evaluate(el => getComputedStyle(el).paddingTop));
 		case "bottom":
@@ -203,6 +201,8 @@ export class BasePage {
 			return await ((element).evaluate(el => getComputedStyle(el).paddingRight));
 		case "left":
 			return await ((element).evaluate(el => getComputedStyle(el).paddingLeft));
+		default:
+			return await ((element).evaluate(el => getComputedStyle(el).padding));
 		}
 	}
 

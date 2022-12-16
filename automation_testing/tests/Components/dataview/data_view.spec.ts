@@ -130,6 +130,6 @@ test.describe.parallel("Components - Data View", () => {
 
 	test("Validate Dataview header actions padding is valid.", async () => {
 		await dataviewPage.headerActionsLocator.waitFor();
-		expect(await dataviewPage.getPaddingFromElement(dataviewPage.headerActionsLocator)).toBe("8px 24px");
+		expect(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.headerActionsLocator)).toBe("8px 24px");
 	});
 });
