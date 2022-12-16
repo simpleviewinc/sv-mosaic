@@ -7,6 +7,7 @@ import { FormTitle } from "@root/forms/TopComponent/Utils/TitleWrapper";
 import { DrawerHeaderProps } from "./DrawerHeaderTypes";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { Views } from "@root/theme/theme";
 
 const DrawerHeader = (props: DrawerHeaderProps) => {
 	const {
@@ -31,7 +32,7 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 					</IconButton>
 				)}
 				{title &&
-					<FormTitle type={"DRAWER"} data-testid="drawer-title-test-id">
+					<FormTitle type={Views.drawer} data-testid="drawer-title-test-id">
 						{title}
 					</FormTitle>
 				}

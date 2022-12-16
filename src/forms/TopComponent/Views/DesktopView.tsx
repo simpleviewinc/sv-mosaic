@@ -15,6 +15,7 @@ import {
 // Utils
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { Views } from "@root/theme/theme";
 
 const DesktopActionsRow = styled(FlexContainer)`
   align-items: flex-start;
@@ -65,7 +66,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 					))}
 				</DesktopActionsRow>
 			</FlexContainer>
-			{(view !== "BIG_DESKTOP" && sections) && (
+			{(view !== Views.bigDesktop && sections) && (
 				<FlexContainer>
 					<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 				</FlexContainer>

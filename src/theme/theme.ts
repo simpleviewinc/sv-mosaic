@@ -6,6 +6,14 @@ export const BREAKPOINTS = {
 	}
 };
 
+export enum Views {
+	bigDesktop = "BIG_DESKTOP",
+	desktop = "DESKTOP",
+	drawer = "DRAWER",
+  mobile = "MOBILE",
+	responsive = "RESPONSIVE"
+}
+
 const colorMap = {
 	almostBlack: "26,26,26",
 	darkerRealTeal: "0, 87, 105",
