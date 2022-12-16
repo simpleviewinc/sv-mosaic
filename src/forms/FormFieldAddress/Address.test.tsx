@@ -124,6 +124,13 @@ const addNewAddress = async () => {
 };
 
 afterEach(cleanup);
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
 jest.setTimeout(60000);
 
 describe("Regular Address component", () => {

@@ -43,8 +43,8 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 	} = props;
 
 	return (
-		<StyledColumn ref={ref} sections={sections && sections.length > 1}>
-			<Row>
+		<StyledColumn className={`${view}`} ref={ref} sections={sections && sections.length > 1}>
+			<Row className={`${view}`}>
 				<TitleWrapper
 					title={title}
 					description={description}
@@ -52,7 +52,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 				/>
 				{tooltipInfo && helpIcon}
 			</Row>
-			<ResponsiveActionsRow showActive={showActive}>
+			<ResponsiveActionsRow className={`${view}`} showActive={showActive}>
 				{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
 				{buttons && (
 					<ButtonsWrapper>

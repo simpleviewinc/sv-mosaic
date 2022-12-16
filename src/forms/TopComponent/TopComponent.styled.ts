@@ -4,10 +4,7 @@ import styled from "styled-components";
 import HelpIcon from "@mui/icons-material/Help";
 
 // Utils
-import theme, { BREAKPOINTS, Views } from "@root/theme/theme";
-
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
-const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
+import theme, { Views } from "@root/theme/theme";
 
 export const FormContent = styled.div`
 	& .layout {
@@ -37,7 +34,7 @@ export const FlexContainer = styled.div`
 export const Row = styled(FlexContainer)`
   justify-content: space-between;
 
-  @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+  &.BIG_DESKTOP {
     justify-content: flex-start;
     height: ${props => props.topComponentHeight ? `calc(100% - ${props.topComponentHeight}px)` : "100%"};
   }
@@ -63,7 +60,7 @@ export const StyledColumn = styled(Column)`
 		margin-top: 24px;
 	}
 
-	@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+	&.BIG_DESKTOP {
 		margin-bottom: 0px;
 		padding: 24px 24px 16px 24px;
 	}
@@ -75,7 +72,7 @@ export const StyledHelpIconWrapper = styled.div`
 		pr.showActive ? `2px solid ${theme.colors.gray200}` : ""};
   padding-right: ${(pr) => (pr.isResponsiveView ? "" : "16px")};
 
-  @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
+  &.RESPONSIVE {
     border-right: none;
   }
 `;

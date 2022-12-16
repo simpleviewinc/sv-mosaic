@@ -39,8 +39,8 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 
 	return (
 		<>
-			<DrawerViewColumn type={view}>
-				<Row>
+			<DrawerViewColumn className={`${view}`} type={view}>
+				<Row className={`${view}`}>
 					{onCancel && (
 						<IconButton
 							data-testid="close-icon"
