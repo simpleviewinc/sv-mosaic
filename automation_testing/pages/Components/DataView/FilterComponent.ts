@@ -63,10 +63,9 @@ export class FilterComponent extends BasePage {
 		expect(await this.keywordInput.isVisible()).toBe(isVisible);
 		expect(await this.applyBtn.isVisible()).toBe(isVisible);
 		expect(await this.clearBtn.isVisible()).toBe(isVisible);
-		expect(await this.cancelBtn.isVisible()).toBe(isVisible);
 	}
 
-	async getItemByName(itemName: string): Promise<Locator> {
+	async getItemByName(itemName: string): Promise<Locator | undefined> {
 		const itemsNumber = await this.categoryItems.count();
 		for (let i = 0; i < itemsNumber; i++) {
 			const item = this.categoryItems.nth(i).locator("span").nth(1);
