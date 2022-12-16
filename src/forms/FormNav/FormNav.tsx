@@ -12,7 +12,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 // Types
 import { FormNavProps } from "./FormNavTypes";
-import { useView } from "@root/utils/useWindowResizer";
+import { useView } from "@root/utils/formViewUtils";
 
 const FormNav = (props: FormNavProps): ReactElement => {
 	const { sections, sectionsRefs } = props;
