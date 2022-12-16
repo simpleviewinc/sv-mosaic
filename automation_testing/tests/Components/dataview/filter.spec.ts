@@ -171,4 +171,22 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.selectAllFilters();
 		expect(await filter.getGapFromElement(filter.filtersRowLocator)).toBe("16px");
 	});
+
+	test("Validate bottons in filters selection are as expected.", async () => {
+		const expectBgColor = theme.newColors.simplyGold["100"];
+		await filter._dataviewPage.filtersBtn.click();
+		await expect(filter.clearBtn).toBeVisible();
+		await expect(filter.applyBtn).toBeVisible();
+		await expect(filter.cancelBtn).not.toBeVisible();
+		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
+
+		// Now we select a filter and check the same conditions.
+		await filter.page.keyboard.press("Escape");
+		await filter.selectFilter("categories");
+		await filter.categoryBtn.click();
+		await expect(filter.clearBtn).toBeVisible();
+		await expect(filter.applyBtn).toBeVisible();
+		await expect(filter.cancelBtn).not.toBeVisible();
+		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
+	});
 });
