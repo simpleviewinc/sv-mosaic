@@ -133,7 +133,6 @@ function DataViewFilters(props: DataViewFiltersProps) {
 								getOptions={getOptions}
 								isOpen={state.dropdownOpen}
 								onApply={onActiveFiltersChange}
-								onClose={onClose}
 							/>
 						</DataViewFilterDropdown>
 						{
