@@ -38,32 +38,23 @@ export const LinksWrapper = styled.div`
     padding-bottom: 12px;
   }
 
-	&.BIG_DESKTOP {
-		margin-right: 0;
+  &.BIG_DESKTOP {
+    margin-right: 0;
 
-		&.highlight > a {
-			border-bottom: none;
-			border-left: 4px solid ${theme.newColors.simplyGold["100"]};
-		}
+    &.highlight > a {
+      border-bottom: none;
+      border-left: 4px solid ${theme.newColors.simplyGold["100"]};
+    }
 
-		&.highlight {
-			background-color: ${theme.colors.gray200};
-		}
+    &.highlight {
+      background-color: ${theme.colors.gray200};
+    }
 
-		a {
-			border-bottom: 0px;
-			border-left: 4px solid transparent;
-			padding: 16px 0 16px 24px;
-		}
-	}
-`;
-
-export const Section = styled.div`
-  height: 100vh;
-  padding-top: 130px;
-
-  @media (max-width: 1075px) {
-    padding-top: 210px;
+    a {
+      border-bottom: 0px;
+      border-left: 4px solid transparent;
+      padding: 16px 0 16px 24px;
+    }
   }
 `;
 

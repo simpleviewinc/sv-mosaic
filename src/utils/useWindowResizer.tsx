@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BREAKPOINTS } from "@root/theme/theme";
-import { BaseTopComponentProps } from "@root/forms/TopComponent";
+import { ViewType } from "@root/forms/TopComponent";
 import {
 	createContext,
 	ReactElement,
@@ -19,7 +19,7 @@ const bigScreenBreakpoint = BREAKPOINTS.topComponent.bigScreenView;
 export const getView = (
 	type: string,
 	formContainerWidth: number
-): BaseTopComponentProps["view"] => {
+): ViewType => {
 	if (type === "drawer") {
 		return Views.drawer;
 	}
@@ -76,12 +76,12 @@ export const ViewProvider = ({
 	return <ViewContext.Provider value={value}>{children}</ViewContext.Provider>;
 };
 
-export const useView = () => {
+export const useView = (defaultValue?: string) => {
 	const view = useContext(ViewContext);
 
 	if (!view) {
 		throw new Error("useView must be used within a ViewProvider");
 	}
 
-	return view;
+	return view || defaultValue;
 };
