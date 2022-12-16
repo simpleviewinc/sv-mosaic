@@ -1,4 +1,5 @@
 import { ButtonProps } from "@root/components/Button";
+import { ViewProvider } from "@root/utils/useWindowResizer";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 
@@ -49,27 +50,29 @@ const buttons: ButtonProps[] = [
 
 const TopComponentExample = () => {
 	return (
-		<TopComponent
-			buttons={buttons}
-			description='Description'
-			title='Form title'
-			onCancel={cancelCallback}
-			sections={sections}
-			showActive={true}
-			tooltipInfo={"Tooltip info"}
-			view='DESKTOP'
-		>
-			<div>
-				<div id='section1'>
-					<h1>Account Profile</h1>
-					<p>
-						Try to scroll this section and look at the navigation bar while
-						scrolling! Try to scroll this section and look at the navigation bar
-						while scrolling!
-					</p>
+		<ViewProvider value="DESKTOP">
+			<TopComponent
+				buttons={buttons}
+				description='Description'
+				title='Form title'
+				onCancel={cancelCallback}
+				sections={sections}
+				showActive={true}
+				tooltipInfo={"Tooltip info"}
+				view='DESKTOP'
+			>
+				<div>
+					<div id='section1'>
+						<h1>Account Profile</h1>
+						<p>
+							Try to scroll this section and look at the navigation bar while
+							scrolling! Try to scroll this section and look at the navigation bar
+							while scrolling!
+						</p>
+					</div>
 				</div>
-			</div>
-		</TopComponent>
+			</TopComponent>
+		</ViewProvider>
 	);
 };
 
@@ -112,15 +115,17 @@ describe("TopComponent", () => {
 describe("TopComponent elements that are conditionally rendered", () => {
 	it("should not display help icon when tooltip info is not provided", () => {
 		render(
-			<TopComponent
-				buttons={buttons}
-				description='Description'
-				title='Form title'
-				onCancel={cancelCallback}
-				sections={sections}
-				showActive={true}
-				view='DESKTOP'
-			/>
+			<ViewProvider value="DESKTOP">
+				<TopComponent
+					buttons={buttons}
+					description='Description'
+					title='Form title'
+					onCancel={cancelCallback}
+					sections={sections}
+					showActive={true}
+					view='DESKTOP'
+				/>
+			</ViewProvider>
 		);
 
 		const helpIcon = queryByTestId("tooltip-test-id");
@@ -130,14 +135,16 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should not display checkbox if show active is false", () => {
 		render(
-			<TopComponent
-				description='Description'
-				title='Form title'
-				onCancel={cancelCallback}
-				sections={sections}
-				showActive={false}
-				view='DESKTOP'
-			/>
+			<ViewProvider value="DESKTOP">
+				<TopComponent
+					description='Description'
+					title='Form title'
+					onCancel={cancelCallback}
+					sections={sections}
+					showActive={false}
+					view='DESKTOP'
+				/>
+			</ViewProvider>
 		);
 
 		const activeCheckbox = queryByTestId("checkbox-test-id");
@@ -147,15 +154,17 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should display the provided buttons", () => {
 		render(
-			<TopComponent
-				buttons={buttons}
-				description='Description'
-				title='Form title'
-				onCancel={cancelCallback}
-				sections={sections}
-				showActive={false}
-				view='DESKTOP'
-			/>
+			<ViewProvider value="DESKTOP">
+				<TopComponent
+					buttons={buttons}
+					description='Description'
+					title='Form title'
+					onCancel={cancelCallback}
+					sections={sections}
+					showActive={false}
+					view='DESKTOP'
+				/>
+			</ViewProvider>
 		);
 
 		expect(getByText("Cancel")).toBeDefined();
@@ -164,14 +173,16 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should not display the provided buttons", () => {
 		render(
-			<TopComponent
-				description='Description'
-				title='Form title'
-				onCancel={null}
-				sections={sections}
-				showActive={false}
-				view='DESKTOP'
-			/>
+			<ViewProvider value="DESKTOP">
+				<TopComponent
+					description='Description'
+					title='Form title'
+					onCancel={null}
+					sections={sections}
+					showActive={false}
+					view='DESKTOP'
+				/>
+			</ViewProvider>
 		);
 
 		expect(queryByText("Cancel")).toBe(null);
@@ -180,15 +191,17 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should not display tabs when sections array has only one element", () => {
 		render(
-			<TopComponent
-				buttons={buttons}
-				description='Description'
-				title='Form title'
-				onCancel={cancelCallback}
-				sections={oneSection}
-				showActive={true}
-				view='DESKTOP'
-			/>
+			<ViewProvider value="DESKTOP">
+				<TopComponent
+					buttons={buttons}
+					description='Description'
+					title='Form title'
+					onCancel={cancelCallback}
+					sections={oneSection}
+					showActive={true}
+					view='DESKTOP'
+				/>
+			</ViewProvider>
 		);
 
 		expect(queryByText("Account Profile")).toBeNull();

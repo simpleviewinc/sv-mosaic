@@ -54,6 +54,14 @@ const TextEditorExample = (
 	);
 };
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 describe("TextEditor component", () => {
 	it("should be disabled", async () => {
 		render(<TextEditorExample disabled={true} />);

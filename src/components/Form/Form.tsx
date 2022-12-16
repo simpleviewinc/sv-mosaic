@@ -28,6 +28,8 @@ const Form = (props: FormProps) => {
 		description,
 		getFormValues,
 		handleDialogClose,
+		tooltipInfo,
+		showActive
 	} = props;
 
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
@@ -155,10 +157,12 @@ const Form = (props: FormProps) => {
 							buttons={filteredButtons}
 							sectionsRefs={sectionsRefs}
 							formContentRef={formContentRef}
+							tooltipInfo={tooltipInfo}
+							showActive={showActive}
 						/>
 						}
 						{view === Views.bigDesktop && sections ? (
-							<Row topComponentHeight={topComponentHeight}>
+							<Row className={`${view}`} topComponentHeight={topComponentHeight}>
 								{sections &&
 								<FormNav
 									sectionsRefs={sectionsRefs}

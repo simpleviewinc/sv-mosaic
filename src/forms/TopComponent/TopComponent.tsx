@@ -15,6 +15,7 @@ import { TopComponentProps } from "./TopComponentTypes";
 
 // Styles
 import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
+import { useView } from "@root/utils/useWindowResizer";
 
 const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopComponentProps, ref): ReactElement => {
 	const {
@@ -25,7 +26,6 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		title,
 		tooltipInfo,
 		sections,
-		view = Views.responsive,
 		sectionsRefs,
 		formContentRef,
 	} = props;
@@ -33,6 +33,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 	// State variables
 	const [activeChecked, setActiveChecked] = useState(false);
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+	const view = useView(Views.responsive);
 
 	const handleCloseTooltip = () => {
 		setTooltipIsOpen(false);
@@ -63,6 +64,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
 				showActive={showActive}
 				isResponsiveView={view === Views.responsive}
+				className={`${view}`}
 			>
 				<Tooltip
 					open={tooltipIsOpen}
