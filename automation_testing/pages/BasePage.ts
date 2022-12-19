@@ -1,5 +1,5 @@
 import { expect, Page, Locator } from "@playwright/test";
-import { url } from "../utils/formUrls";
+import { url, urlWithKnobs } from "../utils/formUrls";
 import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 
 export class BasePage {
@@ -25,6 +25,7 @@ export class BasePage {
 	readonly tooltip: Locator;
 	readonly checkboxLabel: Locator;
 	readonly drawerTitle: Locator;
+	readonly showStateLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -48,10 +49,16 @@ export class BasePage {
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
 		this.drawerTitle = page.locator("[data-testid='drawer-title-test-id']");
+		this.showStateLocator = page.locator("#root pre");
 	}
 
 	async visit(page_path: string, element: Locator): Promise<void> {
 		await this.page.goto(url(page_path), { timeout: 900000 });
+		await element.waitFor();
+	}
+
+	async visitWithKnobs(page_path: string, element: Locator, knobs: string[]): Promise<void> {
+		await this.page.goto(urlWithKnobs(page_path, knobs), { timeout: 900000 });
 		await element.waitFor();
 	}
 
@@ -149,6 +156,19 @@ export class BasePage {
 		expect(elementMargin).toBe(expectedValue);
 	}
 
+	async getSpecificMarginFromElement(element: Locator, margin: "top"|"bottom"|"right"|"left"): Promise<string> {
+		switch (margin) {
+		case "top":
+			return await ((element).evaluate(el => getComputedStyle(el).marginTop));
+		case "bottom":
+			return await ((element).evaluate(el => getComputedStyle(el).marginBottom));
+		case "right":
+			return await ((element).evaluate(el => getComputedStyle(el).marginRight));
+		case "left":
+			return await ((element).evaluate(el => getComputedStyle(el).marginLeft));
+		}
+	}
+
 	async getFontFamilyFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).fontFamily));
 	}
@@ -167,5 +187,26 @@ export class BasePage {
 
 	async getOnlyStringWithLetters(text:string): Promise<string> {
 		return (text.replace(/[^a-zA-Z ]+/g, "")).trim();
+	}
+
+	async getSpecificPaddingFromElement(element: Locator, section?: "all"|"top"|"bottom"|"right"|"left"): Promise<string> {
+		switch (section) {
+		case "all":
+			return await ((element).evaluate(el => getComputedStyle(el).padding));
+		case "top":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingTop));
+		case "bottom":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingBottom));
+		case "right":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingRight));
+		case "left":
+			return await ((element).evaluate(el => getComputedStyle(el).paddingLeft));
+		default:
+			return await ((element).evaluate(el => getComputedStyle(el).padding));
+		}
+	}
+
+	async getGapFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).gap));
 	}
 }

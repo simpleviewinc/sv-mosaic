@@ -89,7 +89,8 @@ export const useTable = (
 				formActions.setFieldValue({
 					name,
 					value: [possibleTableRows[0]],
-					validate: true
+					validate: true,
+					touched: true
 				})
 			);
 		} else if (tableDataLength >= possibleTableRows.length) {
@@ -110,7 +111,8 @@ export const useTable = (
 				formActions.setFieldValue({
 					name,
 					value: [...dataState[name], possibleTableRows[index]],
-					validate: true
+					validate: true,
+					touched: true
 				})
 			);
 		}
