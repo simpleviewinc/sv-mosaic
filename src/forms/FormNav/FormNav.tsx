@@ -97,13 +97,13 @@ const FormNav = (props: FormNavProps): ReactElement => {
 
 	return (
 		<FormNavWrapper className={`form-nav-wrapper ${view}`}>
-			<FormNavRow view={view} className={`${view} test`} scrollX={scrollX}>
+			<FormNavRow view={view} className={view} scrollX={scrollX}>
 				{scrollX !== 0 && (
 					<IconWrapper>
 						<ChevronLeftIcon onClick={() => handleNav("left")} />
 					</IconWrapper>
 				)}
-				<NavItems className={`${view}`} ref={navRef} onScroll={scrollCheck}>
+				<NavItems className={view} ref={navRef} onScroll={scrollCheck}>
 					{sections.map((section, idx) => (
 						<LinksWrapper
 							className={`${view} ${idx === selectedTab ? "highlight" : ""}`}

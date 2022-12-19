@@ -51,7 +51,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 	} = props;
 
 	return (
-		<StyledColumn className={`${view}`} ref={ref} sections={sections && sections.length > 1}>
+		<StyledColumn className={view} ref={ref} sections={sections && sections.length > 1}>
 			<FlexContainer>
 				<TitleWrapper
 					title={title}
