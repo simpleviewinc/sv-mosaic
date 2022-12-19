@@ -10,7 +10,7 @@ export enum Views {
 	bigDesktop = "BIG_DESKTOP",
 	desktop = "DESKTOP",
 	drawer = "DRAWER",
-  mobile = "MOBILE",
+	mobile = "MOBILE",
 	responsive = "RESPONSIVE"
 }
 
