@@ -41,13 +41,31 @@ export const formActions = {
 			extraArgs.fieldMap = fieldMap;
 		};
 	},
-	setFieldValue({ name, value, validate = false }: { name: string; value: unknown; validate?: boolean }) {
-		return async function (dispatch): Promise<void> {
+	setFieldValue({
+		name,
+		value,
+		validate = false,
+		touched = false,
+	}: {
+		name: string;
+		value: unknown;
+		validate?: boolean;
+		touched?: boolean;
+	}) {
+		return async function(dispatch): Promise<void> {
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
 				name,
-				value: isValidValue(value) ? value : undefined
+				value: isValidValue(value) ? value : undefined,
 			});
+
+			if (touched) {
+				await dispatch({
+					type: "FIELD_TOUCHED",
+					name,
+					value: touched,
+				});
+			}
 
 			if (validate) {
 				dispatch(formActions.validateField({ name }));
@@ -126,6 +144,7 @@ export const formActions = {
 			let validForm = true;
 
 			const errors = getState().errors;
+
 			Object.entries(errors).forEach(([key, value]) => {
 				if (value !== undefined)
 					validForm = false;
@@ -153,6 +172,14 @@ export const formActions = {
 				formActions.validateForm({ fields: extraArgs.fields })
 			);
 
+			if (valid) {
+				await dispatch({
+					type: "PROPERTY_RESET",
+					name: "touched",
+					value: {},
+				});
+			}
+
 			return {
 				valid,
 				data: getState().data
@@ -173,6 +200,7 @@ export const formActions = {
 					formActions.setFieldValue({
 						name: key,
 						value: value,
+						touched: false
 					})
 				);
 			}
