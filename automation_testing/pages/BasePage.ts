@@ -209,4 +209,17 @@ export class BasePage {
 	async getGapFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).gap));
 	}
+
+	async getSpecificBorderFromElement(element: Locator, section?: "all"|"right"|"left"): Promise<string> {
+		switch (section) {
+		case "all":
+			return await ((element).evaluate(el => getComputedStyle(el).border));
+		case "right":
+			return await ((element).evaluate(el => getComputedStyle(el).borderRight));
+		case "left":
+			return await ((element).evaluate(el => getComputedStyle(el).borderLeft));
+		default:
+			return await ((element).evaluate(el => getComputedStyle(el).border));
+		}
+	}
 }
