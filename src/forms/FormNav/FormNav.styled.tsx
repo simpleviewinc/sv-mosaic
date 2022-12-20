@@ -9,8 +9,10 @@ export const NavItems = styled.div`
   scroll-behavior: smooth;
   width: 100%;
   white-space: nowrap;
+  gap: 40px;
 
   &.BIG_DESKTOP {
+	gap: 0px;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -20,11 +22,12 @@ export const NavItems = styled.div`
 `;
 
 export const LinksWrapper = styled.div`
-  margin-right: 40px;
+  &.highlight {
+    border-bottom: 4px solid ${theme.newColors.simplyGold["100"]};
+  }
 
   &.highlight > a {
     color: ${theme.newColors.almostBlack["100"]};
-    border-bottom: 4px solid ${theme.newColors.simplyGold["100"]};
     font-weight: ${theme.fontWeight.medium};
   }
 
@@ -36,16 +39,15 @@ export const LinksWrapper = styled.div`
     text-align: center;
     text-decoration: none;
     padding-bottom: 12px;
-    max-width: 246px;
+    max-width: 100%;
     text-overflow: ellipsis;
     display: inline-block;
     overflow: hidden;
   }
 
   &.BIG_DESKTOP {
-    margin-right: 0;
-		border-left: 4px solid transparent;
-		border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
 
     &.highlight {
       border-bottom: none;
@@ -117,12 +119,17 @@ export const FormNavRow = styled.div`
 
 export const FormNavWrapper = styled.div`
   background: white;
-  overflow: hidden;
-  width: 100%;
+  &.DESKTOP,
+  &.DRAWER,
+  &.MOBILE,
+  &.RESPONSIVE {
+	overflow: hidden;
+	width: 100%;
+  }
 
   &.BIG_DESKTOP {
     height: 100%;
-		max-width: 250px;
+	max-width: 250px;
     border-right: 2px solid ${theme.colors.gray200};
   }
 `;
