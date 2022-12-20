@@ -10,6 +10,8 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		page = await browser.newPage();
 		formWithLayoutPage = new FormWithLayout(page);
 		await formWithLayoutPage.visitPage();
+		await page.setViewportSize({ width: 1199, height: 720 });
+		await formWithLayoutPage.wait();
 	});
 
 	test.afterAll(async ({ browser }) => {
