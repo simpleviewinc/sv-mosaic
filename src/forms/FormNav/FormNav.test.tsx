@@ -1,3 +1,4 @@
+import { Views } from "@root/theme/theme";
 import { ViewProvider } from "@root/utils/formViewUtils";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
@@ -60,7 +61,7 @@ window.IntersectionObserver = mockIntersectionObserver;
 describe("FormNav component", () => {
 	beforeEach(() => {
 		render(
-			<ViewProvider value="DESKTOP">
+			<ViewProvider value={Views.desktop}>
 				<FormNavExample />
 			</ViewProvider>);
 	});
@@ -83,7 +84,7 @@ describe("FormNav component", () => {
 describe("FormNav component recieves a section", () => {
 	it("should not render FormNav with the section", () => {
 		render(
-			<ViewProvider value="DESKTOP">
+			<ViewProvider value={Views.desktop}>
 				<FormNav sections={oneSection} />
 			</ViewProvider>
 		);

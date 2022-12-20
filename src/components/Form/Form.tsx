@@ -162,7 +162,7 @@ const Form = (props: FormProps) => {
 						/>
 						}
 						{view === Views.bigDesktop && sections ? (
-							<Row className={`${view}`} topComponentHeight={topComponentHeight}>
+							<Row className={view} topComponentHeight={topComponentHeight}>
 								{sections &&
 								<FormNav
 									sectionsRefs={sectionsRefs}
