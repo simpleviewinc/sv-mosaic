@@ -46,7 +46,7 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		setTopComponentHeight(topComponentRef.current?.offsetHeight);
-	}, [topComponentRef.current?.offsetHeight]);
+	}, [topComponentRef.current?.offsetHeight, view]);
 
 	useEffect(() => {
 		let isMounted = true;

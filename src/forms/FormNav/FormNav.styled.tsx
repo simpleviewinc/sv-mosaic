@@ -14,7 +14,7 @@ export const NavItems = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: 250px;
+    width: 100%;
     overflow-y: auto;
   }
 `;
@@ -36,12 +36,18 @@ export const LinksWrapper = styled.div`
     text-align: center;
     text-decoration: none;
     padding-bottom: 12px;
+    max-width: 246px;
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
   }
 
   &.BIG_DESKTOP {
     margin-right: 0;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
 
-    &.highlight > a {
+    &.highlight {
       border-bottom: none;
       border-left: 4px solid ${theme.newColors.simplyGold["100"]};
     }
@@ -52,8 +58,7 @@ export const LinksWrapper = styled.div`
 
     a {
       border-bottom: 0px;
-      border-left: 4px solid transparent;
-      padding: 16px 0 16px 24px;
+      padding: 16px 24px 16px 24px;
     }
   }
 `;
@@ -117,7 +122,7 @@ export const FormNavWrapper = styled.div`
 
   &.BIG_DESKTOP {
     height: 100%;
-    width: 293px;
+		max-width: 250px;
     border-right: 2px solid ${theme.colors.gray200};
   }
 `;
