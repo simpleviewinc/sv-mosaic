@@ -191,6 +191,7 @@ const Col = (props: ColPropsTypes) => {
 						value={value}
 						error={error}
 						colsInRow={colsInRow}
+						id={name}
 					>
 						{children}
 					</Field>
