@@ -1,4 +1,5 @@
 import { ButtonProps } from "@root/components/Button";
+import { Views } from "@root/theme/theme";
 import { ViewProvider } from "@root/utils/formViewUtils";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
@@ -50,7 +51,7 @@ const buttons: ButtonProps[] = [
 
 const TopComponentExample = () => {
 	return (
-		<ViewProvider value="DESKTOP">
+		<ViewProvider value={Views.desktop}>
 			<TopComponent
 				buttons={buttons}
 				description='Description'
@@ -59,7 +60,7 @@ const TopComponentExample = () => {
 				sections={sections}
 				showActive={true}
 				tooltipInfo={"Tooltip info"}
-				view='DESKTOP'
+				view={Views.desktop}
 			>
 				<div>
 					<div id='section1'>
@@ -115,7 +116,7 @@ describe("TopComponent", () => {
 describe("TopComponent elements that are conditionally rendered", () => {
 	it("should not display help icon when tooltip info is not provided", () => {
 		render(
-			<ViewProvider value="DESKTOP">
+			<ViewProvider value={Views.desktop}>
 				<TopComponent
 					buttons={buttons}
 					description='Description'
@@ -123,7 +124,7 @@ describe("TopComponent elements that are conditionally rendered", () => {
 					onCancel={cancelCallback}
 					sections={sections}
 					showActive={true}
-					view='DESKTOP'
+					view={Views.desktop}
 				/>
 			</ViewProvider>
 		);
@@ -135,14 +136,14 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should not display checkbox if show active is false", () => {
 		render(
-			<ViewProvider value="DESKTOP">
+			<ViewProvider value={Views.desktop}>
 				<TopComponent
 					description='Description'
 					title='Form title'
 					onCancel={cancelCallback}
 					sections={sections}
 					showActive={false}
-					view='DESKTOP'
+					view={Views.desktop}
 				/>
 			</ViewProvider>
 		);
@@ -154,7 +155,7 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should display the provided buttons", () => {
 		render(
-			<ViewProvider value="DESKTOP">
+			<ViewProvider value={Views.desktop}>
 				<TopComponent
 					buttons={buttons}
 					description='Description'
@@ -162,7 +163,7 @@ describe("TopComponent elements that are conditionally rendered", () => {
 					onCancel={cancelCallback}
 					sections={sections}
 					showActive={false}
-					view='DESKTOP'
+					view={Views.desktop}
 				/>
 			</ViewProvider>
 		);
@@ -173,14 +174,14 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should not display the provided buttons", () => {
 		render(
-			<ViewProvider value="DESKTOP">
+			<ViewProvider value={Views.desktop}>
 				<TopComponent
 					description='Description'
 					title='Form title'
 					onCancel={null}
 					sections={sections}
 					showActive={false}
-					view='DESKTOP'
+					view={Views.desktop}
 				/>
 			</ViewProvider>
 		);
@@ -191,7 +192,7 @@ describe("TopComponent elements that are conditionally rendered", () => {
 
 	it("should not display tabs when sections array has only one element", () => {
 		render(
-			<ViewProvider value="DESKTOP">
+			<ViewProvider value={Views.desktop}>
 				<TopComponent
 					buttons={buttons}
 					description='Description'
@@ -199,7 +200,7 @@ describe("TopComponent elements that are conditionally rendered", () => {
 					onCancel={cancelCallback}
 					sections={oneSection}
 					showActive={true}
-					view='DESKTOP'
+					view={Views.desktop}
 				/>
 			</ViewProvider>
 		);

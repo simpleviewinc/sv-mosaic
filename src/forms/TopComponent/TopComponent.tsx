@@ -64,7 +64,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
 				showActive={showActive}
 				isResponsiveView={view === Views.responsive}
-				className={`${view}`}
+				className={view}
 			>
 				<Tooltip
 					open={tooltipIsOpen}
