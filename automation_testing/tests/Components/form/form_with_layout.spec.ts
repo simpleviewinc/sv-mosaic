@@ -58,6 +58,7 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 
 		// We change the viewport to have a width higher than 1718px.
 		await page.setViewportSize({ width: 1780, height: 720 });
+		await formWithLayoutPage.wait();
 		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "top")).toBe("24px");
 		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "right")).toBe("24px");
 		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "bottom")).toBe("16px");
