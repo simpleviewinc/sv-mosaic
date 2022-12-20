@@ -107,6 +107,6 @@ export class FormWithLayout extends BasePage {
 	async validateSectionTopComponentElementIsSelected(section:string):Promise<string> {
 		await this.topComponentContainer.waitFor({ state: "visible" });
 		const indexOfSection = await this.getPositionOfSection(section);
-		return (await this.topComponentContainerSections.nth(indexOfSection).evaluate(el => getComputedStyle(el).borderBottom)).split("rgb")[1];
+		return (await this.topComponentContainerSections.nth(indexOfSection).evaluate(el => getComputedStyle(el.parentElement as Element).borderBottom)).split("rgb")[1];
 	}
 }

@@ -24,4 +24,6 @@ export interface FormProps {
 	getFormValues?(): Promise<MosaicObject>;
 	handleDialogClose?: (val: boolean) => void;
 	buttons?: ButtonProps[];
+	tooltipInfo?: string;
+	showActive?: boolean;
 }
