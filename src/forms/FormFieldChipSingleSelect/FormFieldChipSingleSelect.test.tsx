@@ -86,6 +86,14 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 	);
 };
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 describe("FormFieldChipSingleSelect component", () => {
 	beforeEach(async () => {
 		await act(() => {

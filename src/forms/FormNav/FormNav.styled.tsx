@@ -9,21 +9,25 @@ export const NavItems = styled.div`
   scroll-behavior: smooth;
   width: 100%;
   white-space: nowrap;
+  gap: 40px;
 
-  @media (min-width: 1718px) {
+  &.BIG_DESKTOP {
+	gap: 0px;
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow-y: scroll;
+    width: 100%;
+    overflow-y: auto;
   }
 `;
 
 export const LinksWrapper = styled.div`
-  margin-right: 40px;
+  &.highlight {
+    border-bottom: 4px solid ${theme.newColors.simplyGold["100"]};
+  }
 
   &.highlight > a {
     color: ${theme.newColors.almostBlack["100"]};
-    border-bottom: 4px solid ${theme.newColors.simplyGold["100"]};
     font-weight: ${theme.fontWeight.medium};
   }
 
@@ -35,15 +39,20 @@ export const LinksWrapper = styled.div`
     text-align: center;
     text-decoration: none;
     padding-bottom: 12px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
   }
 
-  @media (min-width: 1718px) {
-    margin-right: 0;
+  &.BIG_DESKTOP {
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
 
-    &.highlight > a {
+    &.highlight {
       border-bottom: none;
       border-left: 4px solid ${theme.newColors.simplyGold["100"]};
-  	}
+    }
 
     &.highlight {
       background-color: ${theme.colors.gray200};
@@ -51,26 +60,8 @@ export const LinksWrapper = styled.div`
 
     a {
       border-bottom: 0px;
-      border-left: 4px solid transparent;
-      padding: 16px 0 16px 24px;
+      padding: 16px 24px 16px 24px;
     }
-  }
-`;
-
-export const Section = styled.div`
-  height: 100vh;
-  padding-top: 130px;
-
-  @media (max-width: 1075px) {
-    padding-top: 210px;
-  }
-`;
-
-export const MainLayout = styled.div`
-  display: flex;
-
-  @media (max-width: 1718px) {
-    flex-direction: column;
   }
 `;
 
@@ -113,7 +104,7 @@ export const FormNavRow = styled.div`
     z-index: 2;
   }
 
-  @media (min-width: 1718px) {
+  &.BIG_DESKTOP {
     &:after {
       content: none;
     }
@@ -128,12 +119,17 @@ export const FormNavRow = styled.div`
 
 export const FormNavWrapper = styled.div`
   background: white;
-  overflow: hidden;
-  width: 100%;
+  &.DESKTOP,
+  &.DRAWER,
+  &.MOBILE,
+  &.RESPONSIVE {
+	overflow: hidden;
+	width: 100%;
+  }
 
-  @media (min-width: 1718px) {
+  &.BIG_DESKTOP {
     height: 100%;
-    width: 293px;
+	max-width: 250px;
     border-right: 2px solid ${theme.colors.gray200};
   }
 `;

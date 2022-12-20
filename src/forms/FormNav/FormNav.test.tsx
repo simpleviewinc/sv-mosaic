@@ -1,3 +1,5 @@
+import { Views } from "@root/theme/theme";
+import { ViewProvider } from "@root/utils/formViewUtils";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 import { ReactElement, useEffect, useRef, useState } from "react";
@@ -37,7 +39,7 @@ const FormNavExample = (): ReactElement => {
 
 	return (
 		<>
-			<FormNav sections={sections} sectionsRefs={sectionsRefs}/>
+			<FormNav  sections={sections} sectionsRefs={sectionsRefs}/>
 			{sections.map((section, i) => (
 				<section key={i} ref={el => sectionsRef.current[i] = el} >
 					{section.id}
@@ -58,7 +60,10 @@ window.IntersectionObserver = mockIntersectionObserver;
 
 describe("FormNav component", () => {
 	beforeEach(() => {
-		render(<FormNavExample />);
+		render(
+			<ViewProvider value={Views.desktop}>
+				<FormNavExample />
+			</ViewProvider>);
 	});
 
 	it("should render FormNav with the list of sections", () => {
@@ -78,8 +83,11 @@ describe("FormNav component", () => {
 
 describe("FormNav component recieves a section", () => {
 	it("should not render FormNav with the section", () => {
-
-		render(<FormNav sections={oneSection} />);
+		render(
+			<ViewProvider value={Views.desktop}>
+				<FormNav sections={oneSection} />
+			</ViewProvider>
+		);
 
 		expect(screen.queryByText("Account Profile")).toBeNull();
 	});

@@ -2,9 +2,17 @@ export const BREAKPOINTS = {
 	mobile : 480,
 	topComponent : {
 		responsiveView: 1075,
-		bigScreenView: 1718,
+		bigScreenView: 1200,
 	}
 };
+
+export enum Views {
+	bigDesktop = "BIG_DESKTOP",
+	desktop = "DESKTOP",
+	drawer = "DRAWER",
+	mobile = "MOBILE",
+	responsive = "RESPONSIVE"
+}
 
 const colorMap = {
 	almostBlack: "26,26,26",
