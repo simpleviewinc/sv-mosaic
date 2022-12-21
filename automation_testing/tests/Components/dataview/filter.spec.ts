@@ -189,4 +189,16 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await expect(filter.cancelBtn).not.toBeVisible();
 		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
 	});
+
+	test("Validate that selected categories are shown properly in Selected Options.", async () => {
+		await filter.selectFilter("categories");
+		await filter.categoryBtn.click();
+		await filter.selectCategory(filter_data.categoryFilterChooseItem);
+		await filter.categoryKeywordInput.type(filter_data.categoryKeywordFilter);
+		await filter.selectCategory(filter_data.categoryKeywordFilter);
+		await filter.clearAllValuesFromField(filter.categoryKeywordInput);
+		expect(await _dataviewPage.selectedChips.count()).toBe(2);
+		expect(await _dataviewPage.selectedChips.first().textContent()).toBe(filter_data.categoryFilterChooseItem);
+		expect(await _dataviewPage.selectedChips.last().textContent()).toBe(filter_data.categoryKeywordFilter);
+	});
 });
