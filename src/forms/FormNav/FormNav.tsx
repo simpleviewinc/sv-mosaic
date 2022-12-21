@@ -12,9 +12,11 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 // Types
 import { FormNavProps } from "./FormNavTypes";
+import { useView } from "@root/utils/formViewUtils";
 
 const FormNav = (props: FormNavProps): ReactElement => {
 	const { sections, sectionsRefs } = props;
+	const view = useView();
 
 	if (sections.length <= 1) return (<></>)
 
@@ -94,17 +96,17 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	}, [sectionsRefs])
 
 	return (
-		<FormNavWrapper className="form-nav-wrapper">
-			<FormNavRow scrollX={scrollX}>
+		<FormNavWrapper className={`form-nav-wrapper ${view}`}>
+			<FormNavRow view={view} className={view} scrollX={scrollX}>
 				{scrollX !== 0 && (
 					<IconWrapper>
 						<ChevronLeftIcon onClick={() => handleNav("left")} />
 					</IconWrapper>
 				)}
-				<NavItems ref={navRef} onScroll={scrollCheck}>
+				<NavItems className={view} ref={navRef} onScroll={scrollCheck}>
 					{sections.map((section, idx) => (
 						<LinksWrapper
-							className={`${idx === selectedTab ? "highlight" : ""}`}
+							className={`${view} ${idx === selectedTab ? "highlight" : ""}`}
 							key={`${section.title}-${section.id}`}
 							onClick={(e) => handleClick(e, idx)}
 							ref={el => linkRef.current[idx] = el}

@@ -8,12 +8,14 @@ import MobileView from "./Views/MobileView";
 import DrawerHeader from "@root/components/DrawerHeader/DrawerHeader";
 import ResponsiveView from "./Views/ResponsiveView";
 import DesktopView from "./Views/DesktopView";
+import { Views } from "@root/theme/theme";
 
 // Types and Utils
 import { TopComponentProps } from "./TopComponentTypes";
 
 // Styles
 import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
+import { useView } from "@root/utils/formViewUtils";
 
 const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopComponentProps, ref): ReactElement => {
 	const {
@@ -24,7 +26,6 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		title,
 		tooltipInfo,
 		sections,
-		view = "RESPONSIVE",
 		sectionsRefs,
 		formContentRef,
 	} = props;
@@ -32,6 +33,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 	// State variables
 	const [activeChecked, setActiveChecked] = useState(false);
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+	const view = useView(Views.responsive);
 
 	const handleCloseTooltip = () => {
 		setTooltipIsOpen(false);
@@ -61,7 +63,8 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			<StyledHelpIconWrapper
 				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
 				showActive={showActive}
-				isResponsiveView={view === "RESPONSIVE"}
+				isResponsiveView={view === Views.responsive}
+				className={view}
 			>
 				<Tooltip
 					open={tooltipIsOpen}
@@ -85,7 +88,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 	);
 
 	const RenderView = () => {
-		if (view === "MOBILE")
+		if (view === Views.mobile)
 			return (
 				<MobileView
 					ref={ref}
@@ -100,7 +103,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 					view={view}
 				/>
 			);
-		if (view === "DRAWER")
+		if (view === Views.drawer)
 			return (
 				<DrawerHeader
 					title={title}
@@ -108,7 +111,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 					onCancel={onCancel}
 				/>
 			);
-		if (view === "RESPONSIVE")
+		if (view === Views.responsive)
 			return (
 				<ResponsiveView
 					ref={ref}
@@ -125,7 +128,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 					formContentRef={formContentRef}
 				/>
 			);
-		if (view === "DESKTOP" || view === "BIG_DESKTOP")
+		if (view === Views.desktop || view === Views.bigDesktop)
 			return (
 				<DesktopView
 					ref={ref}

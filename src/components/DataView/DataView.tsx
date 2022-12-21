@@ -27,12 +27,12 @@ const StyledWrapper = styled.div`
 	& > .headerActions {
 		display: flex;
 		flex-direction: column;
-		padding: 20px;
+		padding: 8px 24px;
 	}
 
 	& > .headerActions .grid {
 		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding-bottom: 20px;
+		padding-bottom: 8px;
 	}
 
 	& > .viewContainer {

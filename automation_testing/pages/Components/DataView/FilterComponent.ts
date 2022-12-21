@@ -28,6 +28,7 @@ export class FilterComponent extends BasePage {
 	readonly createdOption: Locator;
 	readonly updatedOption: Locator;
 	readonly titleWithComparisonOption: Locator;
+	readonly filtersRowLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -55,16 +56,16 @@ export class FilterComponent extends BasePage {
 		this.loadMoreBtn = page.locator(".loadContainer [type='button']");
 		this.moreCategoriesTooltip = page.locator("[data-testid='tooltip-test-id']");
 		this.clearBtn = page.locator("div[role='presentation'] >> text=Clear");
+		this.filtersRowLocator = page.locator("//*[@id='root']/div/div/div[1]/div/div[2]/div");
 	}
 
 	async validateKeywordFilterIsVisible(isVisible: boolean): Promise<void> {
 		expect(await this.keywordInput.isVisible()).toBe(isVisible);
 		expect(await this.applyBtn.isVisible()).toBe(isVisible);
 		expect(await this.clearBtn.isVisible()).toBe(isVisible);
-		expect(await this.cancelBtn.isVisible()).toBe(isVisible);
 	}
 
-	async getItemByName(itemName: string): Promise<Locator> {
+	async getItemByName(itemName: string): Promise<Locator | undefined> {
 		const itemsNumber = await this.categoryItems.count();
 		for (let i = 0; i < itemsNumber; i++) {
 			const item = this.categoryItems.nth(i).locator("span").nth(1);
@@ -179,5 +180,17 @@ export class FilterComponent extends BasePage {
 		}
 		await this.applyBtn.click();
 		await this.loading.waitFor({ state: "detached" });
+	}
+
+	async selectAllFilters(): Promise<void> {
+		await this._dataviewPage.filtersBtn.click();
+		await this.wait();
+		const numberOfFilters = await this.filterCheckbox.count();
+		for (let i = 0; i < numberOfFilters; i++) {
+			if (!await this.filterCheckbox.nth(i).isChecked()) {
+				await this.filterCheckbox.nth(i).check();
+			}
+		}
+		await this.applyBtn.click();
 	}
 }

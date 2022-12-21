@@ -126,6 +126,14 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 	);
 }
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 describe("AdvancedSelection component", () => {
 	it("should select an option and display its chip", async () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
