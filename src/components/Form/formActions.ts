@@ -146,15 +146,15 @@ export const formActions = {
 
 			const errors = getState().errors;
 
-			Object.entries(errors).forEach(([key, value]) => {
+			const entries = Object.entries(errors);
+
+			for (const [key, value] of entries) {
 				if (value !== undefined) {
 					validForm = false;
-
-					if (!firstInvalidField) {
-						firstInvalidField = key;
-					}
+					firstInvalidField = key;
+					break;
 				}
-			});
+			}
 
 			if (firstInvalidField) {
 				document.getElementById(firstInvalidField).scrollIntoView({ behavior: "smooth", block: "start" });
