@@ -59,6 +59,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			selected : [],
 			comparison : "in",
 			keyword : undefined,
+			listOfChips: [],
 		});
 	}
 
@@ -74,7 +75,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		setState({
 			...state,
 			selected : newSelected,
-			listOfChips: state.listOfChips.filter(chip => newSelected.some(newOption => newOption === chip.value))
+			listOfChips: state.listOfChips.filter(chip => chip.value !== option.value)
 		});
 	}
 
@@ -243,6 +244,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 							}}
 							value={optionsDisabled ? [] : state.listOfChips}
 							onChange={onChange}
+							id={"formFieldCheckbox"}
 						/>
 					}
 					{
