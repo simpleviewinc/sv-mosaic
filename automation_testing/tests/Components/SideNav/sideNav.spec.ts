@@ -16,8 +16,19 @@ test.describe.parallel("Components - SideNav", () => {
 		browser.close;
 	});
 
-	test("Validate Side Nav displays the Accounts link content by default.", async () => {
-		expect(await sideNavPage.title.textContent()).toBe("Accounts");
+	test("Validate that the selected active link is the same as the one highlighted.", async () => {
+		const expectBorderColor = theme.newColors.simplyGold["100"];
+		const titleSectionSelected = await sideNavPage.title.textContent();
+		const selectedLocator = await sideNavPage.getLocatorOfSelectedSection(titleSectionSelected);
+		expect(await sideNavPage.getSpecificBorderFromElement(selectedLocator, "left")).toContain(expectBorderColor);
+	});
+
+	test("Validate that when selecting a section, the section is highlighted.", async () => {
+		const sectionToSelect = "Accounts";
+		const expectBorderColor = theme.newColors.simplyGold["100"];
+		await sideNavPage.selectSpecificSection(sectionToSelect);
+		const selectedLocator = await sideNavPage.getLocatorOfSelectedSection(sectionToSelect);
+		expect(await sideNavPage.getSpecificBorderFromElement(selectedLocator, "left")).toContain(expectBorderColor);
 	});
 
 	test("Validate Side Nav first section has almostBlack color.", async () => {

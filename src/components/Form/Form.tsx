@@ -7,11 +7,12 @@ import FormLayout from "./FormLayout";
 import TopComponent, { ViewType } from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
 import FormNav from "@root/forms/FormNav";
-import { useWindowResizer } from "@root/utils/useWindowResizer";
+import { useViewResizer, ViewProvider } from "@root/utils/formViewUtils";
 import { MosaicObject } from "@root/types";
 import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
 import { ButtonProps } from "../Button";
+import { Views } from "@root/theme/theme";
 
 const Form = (props: FormProps) => {
 	const {
@@ -27,14 +28,17 @@ const Form = (props: FormProps) => {
 		description,
 		getFormValues,
 		handleDialogClose,
+		tooltipInfo,
+		showActive
 	} = props;
 
-	const { view } = useWindowResizer(type);
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
+	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef();
 	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
+	const { view } = useViewResizer({ type, formContainerRef });
 
 	useEffect(() => {
 		setSectionsRefs(sectionsRef.current);
@@ -42,7 +46,7 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		setTopComponentHeight(topComponentRef.current?.offsetHeight);
-	}, [topComponentRef.current?.offsetHeight]);
+	}, [topComponentRef.current?.offsetHeight, view]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -126,12 +130,17 @@ const Form = (props: FormProps) => {
 
 	return (
 		<>
-			<div data-testid="form-test-id" style={{ position: "relative", height: "100%" }}>
-				{state.disabled &&
+			<ViewProvider value={view}>
+				<div
+					data-testid="form-test-id"
+					style={{ position: "relative", height: "100%" }}
+					ref={formContainerRef}
+				>
+					{state.disabled &&
 					<StyledDisabledForm />
-				}
-				<StyledForm autoComplete="off">
-					{title &&
+					}
+					<StyledForm autoComplete="off">
+						{title &&
 						<TopComponent
 							ref={topComponentRef}
 							title={title}
@@ -140,7 +149,7 @@ const Form = (props: FormProps) => {
 							onCancel={onCancel ? (e) => cancel(e) : null}
 							sections={sections}
 							view={
-								type?.toUpperCase() === "DRAWER" ?
+								type?.toUpperCase() === Views.drawer ?
 									type.toUpperCase() as ViewType
 									:
 									view
@@ -148,13 +157,31 @@ const Form = (props: FormProps) => {
 							buttons={filteredButtons}
 							sectionsRefs={sectionsRefs}
 							formContentRef={formContentRef}
+							tooltipInfo={tooltipInfo}
+							showActive={showActive}
 						/>
-					}
-					{view === "BIG_DESKTOP" && sections ? (
-						<Row topComponentHeight={topComponentHeight}>
-							{sections &&
-								<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
-							}
+						}
+						{view === Views.bigDesktop && sections ? (
+							<Row className={view} topComponentHeight={topComponentHeight}>
+								{sections &&
+								<FormNav
+									sectionsRefs={sectionsRefs}
+									sections={sections}
+									formContentRef={formContentRef}
+								/>
+								}
+								<FormContent view={view} sections={sections} ref={formContentRef}>
+									<FormLayout
+										ref={sectionsRef}
+										state={state}
+										dispatch={dispatch}
+										fields={fields}
+										sections={sections}
+										view={view}
+									/>
+								</FormContent>
+							</Row>
+						) : (
 							<FormContent view={view} sections={sections} ref={formContentRef}>
 								<FormLayout
 									ref={sectionsRef}
@@ -165,21 +192,10 @@ const Form = (props: FormProps) => {
 									view={view}
 								/>
 							</FormContent>
-						</Row>
-					) : (
-						<FormContent view={view} sections={sections} ref={formContentRef}>
-							<FormLayout
-								ref={sectionsRef}
-								state={state}
-								dispatch={dispatch}
-								fields={fields}
-								sections={sections}
-								view={view}
-							/>
-						</FormContent>
-					)}
-				</StyledForm>
-			</div>
+						)}
+					</StyledForm>
+				</div>
+			</ViewProvider>
 			{type === "drawer" &&
 				<Dialog
 					buttons={dialogButtons}

@@ -118,7 +118,6 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 					getOptions={props.args.getOptions}
 					isOpen={state.dropdownOpen}
 					onApply={onApply}
-					onClose={onClose}
 					placeholder={props.args?.placeholder}
 				/>
 			</DataViewFilterDropdown>

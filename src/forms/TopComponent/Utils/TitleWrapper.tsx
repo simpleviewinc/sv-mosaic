@@ -5,15 +5,15 @@ import { memo, ReactElement } from "react";
 import styled from "styled-components";
 
 // Utils
-import theme, { BREAKPOINTS } from "@root/theme/theme";
+import theme, { BREAKPOINTS, Views } from "@root/theme/theme";
 
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 export const FormTitle = styled.span`
 	font-family: ${theme.museoFont};
 	color: ${theme.newColors.almostBlack["100"]};
-	font-size: ${pr => pr.type && pr.type === "DRAWER" ? "20px" : "28px"};
-	font-weight: ${pr => pr.type === "DRAWER" ? theme.fontWeight.normal : theme.fontWeight.light};
+	font-size: ${pr => pr.type && pr.type === Views.drawer ? "20px" : "28px"};
+	font-weight: ${pr => pr.type === Views.drawer ? theme.fontWeight.normal : theme.fontWeight.light};
 
 	@media (max-width: ${theme.breakpoints.mobile}) {
 		margin: 0;
@@ -35,7 +35,7 @@ const Description = styled.span`
 export const TitleRow = styled.div`
 	display: flex;
 	font-family: ${theme.fontFamily};
-	${pr => pr.view === "MOBILE" ?
+	${pr => pr.view === Views.mobile ?
 		`flex-direction: row;
 		justify-content: space-between;
 

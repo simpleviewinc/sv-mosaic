@@ -126,6 +126,14 @@ export const setupGoogleMock = (): void => {
 // 	});
 // };
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 beforeAll(() => {
 	setupGoogleMock();
 });
@@ -144,21 +152,33 @@ jest.mock("@react-google-maps/api", () => ({
 }));
 
 describe("MapCoordinates component without an address", () => {
-	beforeEach(() => {
+	it("it should display the google maps elements", async () => {
 		act(() => {
 			render(<MapCoordinatesExample />)
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		fireEvent.click(addCoordinatesButton);
-	});
+		act(() => {
+			fireEvent.click(addCoordinatesButton);
+		});
 
-	it("it should display the google maps elements", () => {
-		expect(getByText("Mocked Google Map Component")).toBeTruthy();
-		expect(getByTestId("location-search-input")).toBeTruthy();
+		await waitFor(() => {
+			expect(getByText("Mocked Google Map Component")).toBeTruthy();
+			expect(getByTestId("location-search-input")).toBeTruthy();
+		});
+
 	});
 
 	it("should remove the saved coordinates", async () => {
+		act(() => {
+			render(<MapCoordinatesExample />)
+		});
+
+		const addCoordinatesButton = getByText("ADD COORDINATES");
+		await act(() => {
+			fireEvent.click(addCoordinatesButton);
+		});
+
 		const saveCoordinatesButton = await screen.findByText("Save Coordinates");
 
 		act(() => {
@@ -180,6 +200,15 @@ describe("MapCoordinates component without an address", () => {
 	});
 
 	it("should edit the saved coordinates", async () => {
+		act(() => {
+			render(<MapCoordinatesExample />)
+		});
+
+		const addCoordinatesButton = getByText("ADD COORDINATES");
+		await act(() => {
+			fireEvent.click(addCoordinatesButton);
+		});
+
 		const saveCoordinatesButton = getByText("Save Coordinates");
 
 		act(() => {
@@ -202,6 +231,15 @@ describe("MapCoordinates component without an address", () => {
 	});
 
 	it("should reset coordinates", async () => {
+		act(() => {
+			render(<MapCoordinatesExample />)
+		});
+
+		const addCoordinatesButton = getByText("ADD COORDINATES");
+		await act(() => {
+			fireEvent.click(addCoordinatesButton);
+		});
+
 		const latitudeField = getByLabelText("Latitude") as HTMLInputElement;
 		const longitudeField = getByLabelText("Longitude") as HTMLInputElement;
 

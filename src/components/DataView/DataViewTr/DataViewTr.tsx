@@ -22,20 +22,20 @@ function DataViewTr(props: DataViewTrProps) {
 				<TableRow {...provider.draggableProps} ref={provider.innerRef} className={props.checked && "checked"}>
 					{
 						props?.onReorder &&
-						<DataViewTd key="_draggable" draggableProvider={provider} paddingRight={true}>
+						<DataViewTd key="_draggable" draggableProvider={provider}>
 							<DragIndicatorIcon style={{display: "flex", color: theme.newColors.almostBlack["100"]}}/>
 						</DataViewTd>
 					}
 					{
 						props?.bulkActions?.length > 0 &&
-						<DataViewTd key="_bulk" paddingRight={true}>
+						<DataViewTd key="_bulk">
 							<Checkbox
 								checked={props.checked === true}
 								onClick={props.onCheckboxClick}
 							/>
 						</DataViewTd>
 					}
-					<DataViewTd paddingRight={true} paddingLeft={!props?.bulkActions?.length}>
+					<DataViewTd>
 						<DataViewActionsButtonRow
 							primaryActions={props.primaryActions}
 							additionalActions={props.additionalActions}
@@ -49,7 +49,6 @@ function DataViewTr(props: DataViewTrProps) {
 								<DataViewTd
 									key={column.name}
 									className={column.style && column.style.bold && "bold"}
-									paddingRight={true}
 									expandCell={true}
 									bold={column.style && column.style.bold}
 									italic={column.style && column.style.italic}
