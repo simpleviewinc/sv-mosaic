@@ -9,7 +9,6 @@ import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdo
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
-import CheckboxList from "@root/components/CheckboxList";
 import Chip from "@root/components/Chip";
 import { H3 } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
@@ -17,6 +16,7 @@ import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewF
 import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
 import { InputAdornment } from "@mui/material";
 import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
+import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
 
 const limit = 25;
 
@@ -28,14 +28,11 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		skip : 0,
 		keyword : undefined,
 		comparison : props.comparison,
-		loaded : false
+		loaded : false,
+		listOfChips: props.selected
 	});
 
 	const { t } = useMosaicTranslation();
-
-	// we need to combine the options we are querying for and the selected options that are passed in
-	// since if they have already selected an item not in the current page, it won't be in the queried options
-	const allOptions = [...props.selected, ...state.options];
 
 	// mark the active comparison
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
@@ -76,7 +73,8 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		const newSelected = xor(state.selected, [option.value]);
 		setState({
 			...state,
-			selected : newSelected
+			selected : newSelected,
+			listOfChips: state.listOfChips.filter(chip => newSelected.some(newOption => newOption === chip.value))
 		});
 	}
 
@@ -199,10 +197,17 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 	// we want to avoid showing the list until the dropdown is fully open and the results are loaded from the db
 	const showList = props.isOpen && state.loaded;
 
-	const onChange = function(selected) {
+	const onChange = async function(selected) {
+		const cleanSelectedOptions = selected.filter(selectedOption => selectedOption !== undefined);
+		let fullOptions = [...cleanSelectedOptions];
+		if (state.listOfChips) {
+			const chipsNotInList = state.listOfChips.filter(option => !state.options.some(chip => chip.value === option.value));
+			fullOptions = [...chipsNotInList, ...cleanSelectedOptions];
+		}
 		setState({
 			...state,
-			selected : selected
+			selected : fullOptions.map(option => option.value),
+			listOfChips: fullOptions
 		});
 	}
 
@@ -224,9 +229,19 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					}
 					{
 						showList &&
-						<CheckboxList
-							checked={optionsDisabled ? [] : state.selected}
-							options={state.options}
+						<FormFieldCheckbox
+							fieldDef={{
+								name: "formFieldCheckbox",
+								type: "checkbox",
+								label: "DataView",
+								style: {
+									marginLeft: "0px"
+								},
+								inputSettings: {
+									options: state.options
+								},
+							}}
+							value={optionsDisabled ? [] : state.listOfChips}
 							onChange={onChange}
 						/>
 					}
@@ -253,19 +268,14 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 							<div className="chips">
 								{
 									showList &&
-									state.selected.map(value => {
-										const option = allOptions.find(val => val.value === value);
-
-										if (option === undefined) { return null; }
-
-										return (
-											<Chip
-												className="chip"
-												key={option.value}
-												label={option.label}
-												onDelete={handleToggle(option)}
-											/>
-										)
+									state.listOfChips?.length > 0 &&
+									state.listOfChips.map(option => {
+										return (<Chip
+											className="chip"
+											key={option.value}
+											label={option.label}
+											onDelete={handleToggle(option)}
+										/>)
 									})
 								}
 							</div>
