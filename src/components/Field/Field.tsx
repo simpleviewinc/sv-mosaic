@@ -14,6 +14,7 @@ const Field = ({
 	fieldDef,
 	colsInRow,
 	value,
+	id
 }: MosaicFieldProps<any>): ReactElement => {
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
 
@@ -80,7 +81,7 @@ const Field = ({
 	};
 
 	return (
-		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
+		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper
 				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
 				ref={fieldRef}

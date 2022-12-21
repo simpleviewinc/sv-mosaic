@@ -142,13 +142,23 @@ export const formActions = {
 			}
 
 			let validForm = true;
+			let firstInvalidField: string;
 
 			const errors = getState().errors;
 
-			Object.entries(errors).forEach(([key, value]) => {
-				if (value !== undefined)
+			const entries = Object.entries(errors);
+
+			for (const [key, value] of entries) {
+				if (value !== undefined) {
 					validForm = false;
-			});
+					firstInvalidField = key;
+					break;
+				}
+			}
+
+			if (firstInvalidField) {
+				document.getElementById(firstInvalidField).scrollIntoView({ behavior: "smooth", block: "start" });
+			}
 
 			await dispatch({
 				type: "FORM_VALIDATE",
