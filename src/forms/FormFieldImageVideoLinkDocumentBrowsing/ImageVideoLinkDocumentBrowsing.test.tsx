@@ -126,6 +126,13 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 afterEach(cleanup);
 
 const { getByText, queryByText, getByTestId, findByText, queryByTestId, findByTestId } = screen;
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
 
 jest.setTimeout(30000);
 describe("ImageVideoLinkDocumentBrowsing component", () => {

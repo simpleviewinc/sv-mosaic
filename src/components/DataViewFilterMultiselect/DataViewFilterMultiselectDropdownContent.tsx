@@ -287,7 +287,6 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			<DataViewFilterDropdownButtons
 				onApply={onApply}
 				onClear={onClear}
-				onCancel={props.onClose}
 			/>
 		</StyledWrapper>
 	);

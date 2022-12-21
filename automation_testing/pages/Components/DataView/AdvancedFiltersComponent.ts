@@ -107,18 +107,6 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		return categorySelected;
 	}
 
-	async selectAllAdvancedFilters(): Promise<void> {
-		await this._dataviewPage.filtersBtn.click();
-		await this.wait();
-		const numberOfFilters = await this.filterCheckbox.count();
-		for (let i = 0; i < numberOfFilters; i++) {
-			if (!await this.filterCheckbox.nth(i).isChecked()) {
-				await this.filterCheckbox.nth(i).check();
-			}
-		}
-		await this.applyBtn.click();
-	}
-
 	async getSelectedValueForSingleSelectCategoryOption(): Promise<string> {
 		await this.waitForElementLoad();
 		return (await this.singleSelectCategoryBtn.textContent()).split(":")[1];

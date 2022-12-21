@@ -86,10 +86,20 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 	);
 };
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 describe("FormFieldChipSingleSelect component", () => {
-	beforeEach(() => {
-		render(<FormFieldChipSingleSelectExample fromDB={false} />);
-	})
+	beforeEach(async () => {
+		await act(() => {
+			render(<FormFieldChipSingleSelectExample fromDB={false} />);
+		});
+	});
 
 	it("should display the list of options", () => {
 		expect(getByText("Option 1")).toBeTruthy();

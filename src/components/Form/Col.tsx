@@ -93,6 +93,7 @@ const Col = (props: ColPropsTypes) => {
 					formActions.setFieldValue({
 						name: curr.name,
 						value,
+						touched: true
 					})
 				);
 				clearTimeout(typingTimer);
@@ -190,6 +191,7 @@ const Col = (props: ColPropsTypes) => {
 						value={value}
 						error={error}
 						colsInRow={colsInRow}
+						id={name}
 					>
 						{children}
 					</Field>
