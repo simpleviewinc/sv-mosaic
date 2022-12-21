@@ -53,7 +53,7 @@ export class DataviewPage extends BasePage {
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
-		this.selectedChips = page.locator(".chips div");
+		this.selectedChips = page.locator(".chips .chip");
 		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
 		this.checkboxOptions = page.locator("input[type='checkbox']");
 		this.filterRowBtn = page.locator(".filterRow button");
