@@ -5,7 +5,7 @@ export interface MosaicFieldProps<T = any, U = any> {
 	/**
 	 * Field identifier that matches the field name.
 	 */
-	id: string;
+	id?: string;
 	/**
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
