@@ -27,7 +27,7 @@ export const StyledSwitch = styled(Switch)`
     padding: 10px;
 
     &:hover {
-      background-color: ${theme.colors.simplyGrayOpacity};
+      background-color: ${theme.newColors.simplyGrey["20"]};
     }
   }
 
@@ -40,7 +40,7 @@ export const StyledSwitch = styled(Switch)`
   }
 
   .MuiSwitch-track {
-    background-color: ${theme.colors.simplyGray};
+    background-color: ${theme.newColors.simplyGrey["100"]};
     opacity: 1;
     height: 14px;
     width: 34px;
@@ -57,7 +57,7 @@ export const StyledSwitch = styled(Switch)`
   }
 
   .MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
-    background-color: ${theme.colors.simplyGray};
+    background-color: ${theme.newColors.simplyGrey["100"]};
     opacity: 0.5;
   }
 `;
