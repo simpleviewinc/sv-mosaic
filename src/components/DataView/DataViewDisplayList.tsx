@@ -46,7 +46,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				checkedAllPages={props.checkedAllPages}
 				columns={props.activeColumnObjs}
 				allColumns={props.columns}
-				data={transformedData}
+				data={props.data}
 				bulkActions={props.bulkActions}
 				sort={props.sort}
 				count={props.count}
