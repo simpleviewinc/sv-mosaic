@@ -50,7 +50,7 @@ export const BrowseOptionContainer = styled.div`
 `;
 
 export const BrowseSpan = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-family: ${theme.fontFamily};
   font-size: 16px;
 `;
@@ -73,7 +73,7 @@ export const AssetCard = styled.div`
 `;
 
 export const AssetLabel = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-size: 14px;
   font-weight: ${theme.fontWeight.semiBold};
   margin-right: 24px;

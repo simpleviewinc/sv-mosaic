@@ -25,7 +25,7 @@ const RootDiv = styled(LeftNavRoot)`
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		border-bottom: 1px solid ${theme.colors.gray600};
+		border-bottom: 1px solid ${theme.newColors.grey3["100"]};
 	}
 
 	& > .header > .closeIcon {
