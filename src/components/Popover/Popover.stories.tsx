@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
 const StyledGrid = styled(Grid)`
 	position: relative;
-	background-color: ${theme.colors.gray100};
+	background-color: ${theme.newColors.grey1[100]};
 	height: 150%;
 	align-items: center;
 	justify-content: center;
@@ -113,7 +113,7 @@ export const Example = (): ReactElement => {
 };
 
 const StyledInput = styled.input`
-	background-color: ${theme.colors.gray100};
+	background-color: ${theme.newColors.grey1[100]};
 	border: 1px solid ${theme.colors.simplyGray};
 	height: 47px;
 	border-radius: 0;
