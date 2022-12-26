@@ -47,7 +47,7 @@ export const StyledCheckboxList = styled(CheckboxList)`
 
 export const StyledText = styled(MUIFormHelperText)`
   &.MuiFormHelperText-root {
-    color: ${theme.colors.assistiveText};
+    color: ${theme.newColors.grey3["100"]};
     font-size: ${pr => (pr.error ? "12px" : "14px")};
     margin-top: ${pr => (!pr.error ? "8px" : null)};
     margin-bottom: ${pr => (!pr.error ? "8px" : null)};

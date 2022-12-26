@@ -67,6 +67,6 @@ export const PhoneInputWrapper = styled.div`
 `;
 
 export const StyledDisabledText = styled.p`
-  color: ${theme.colors.assistiveText};
+  color: ${theme.newColors.grey3["100"]};
   font-family: ${theme.fontFamily};
 `;

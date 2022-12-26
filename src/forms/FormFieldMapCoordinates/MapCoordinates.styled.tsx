@@ -8,7 +8,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 // Styles for the MapCoordinates component
 
 export const StyledSpan = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-family: ${theme.fontFamily};
   font-size: 14px;
   margin: 0px 20px 15px 20px;
@@ -58,7 +58,7 @@ export const MapImageColumn = styled(Column)`
 `;
 
 export const LatLngLabel = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-size: 14px;
   font-weight: ${theme.fontWeight.semiBold};
   margin-bottom: 8px;

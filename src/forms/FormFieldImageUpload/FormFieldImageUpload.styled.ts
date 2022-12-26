@@ -24,7 +24,7 @@ export const DragAndDropContainer = styled.div`
 `;
 
 export const DragAndDropSpan = styled.span`
-  color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["100"] : theme.colors.gray600)};
+  color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"])};
   font-size: 16px;
   margin-bottom: ${(pr) => (pr.isOver ? "" : "24px")};
 `;
