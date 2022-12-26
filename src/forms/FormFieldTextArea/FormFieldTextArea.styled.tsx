@@ -57,7 +57,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
     }
 
     &:hover fieldset {
-			border-color: ${theme.colors.simplyGray};
+			border-color: ${theme.newColors.simplyGrey["100"]};
 		}
   }
 
