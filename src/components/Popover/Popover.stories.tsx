@@ -42,7 +42,7 @@ const Title = styled.p`
 `;
 
 const Subtitle = styled.span`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 12px;
 `;
 
@@ -168,7 +168,7 @@ const LinkTitle = styled.span`
 `;
 
 const LinkSubtitle = styled.span`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 12px;
 	margin-left: 4px;
 `;
@@ -177,7 +177,7 @@ const TopContent = (
 	<div>
 		<LinkTitle onClick={() => alert("Title clicked")}>Clickable Title</LinkTitle>
 		<div style={{ display: "flex", alignItems: "center", marginTop: 10 }}>
-			<PlaceIcon sx={{ width: 12, color: theme.colors.gray600 }} />
+			<PlaceIcon sx={{ width: 12, color: theme.newColors.grey3["100"] }} />
 			<LinkSubtitle>Subtitle</LinkSubtitle>
 		</div>
 	</div>
@@ -204,7 +204,7 @@ const Label = styled.span`
 `;
 
 const Value = styled.span`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 `;
 
 const Mail = styled.span`

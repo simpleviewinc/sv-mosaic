@@ -21,7 +21,7 @@ export const FormTitle = styled.span`
 `;
 
 const Description = styled.span`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-family: ${theme.museoFont};
 	font-weight: ${theme.fontWeight.light};
 	font-size: 14px;
