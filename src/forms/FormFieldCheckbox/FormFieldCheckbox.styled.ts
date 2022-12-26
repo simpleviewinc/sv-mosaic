@@ -41,7 +41,7 @@ export const StyledCheckboxList = styled(CheckboxList)`
   }
 
   .MuiFormControlLabel-label {
-    color: ${theme.colors.label};
+    color: ${theme.newColors.grey4};
   }
 `;
 

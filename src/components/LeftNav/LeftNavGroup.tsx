@@ -8,7 +8,7 @@ import LeftNavItems from "./LeftNavItems";
 import theme from "../../theme";
 
 const StyledDiv = styled.div`
-	border-top: 1px solid ${theme.colors.gray700};
+	border-top: 1px solid ${theme.newColors.grey4["100"]};
 `;
 
 function LeftNavGroup(props: LeftNavBlockProps): ReactElement {
