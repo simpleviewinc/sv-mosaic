@@ -110,7 +110,6 @@ const colors = {
 	simplyGray : "#BEBEBE",
 	simplyGrayOpacity : "rgb(190, 190, 190, 0.3)",
 	teal : "#008DA8",
-	assistiveText : "#6B6F7C", //Same as gray600
 	label : "#3B424E", //Same as gray700
 	almostBlack : "#1A1A1A",
 	errorBackground: "#B100000D",

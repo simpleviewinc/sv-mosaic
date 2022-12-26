@@ -6,7 +6,7 @@ export const LabelWrapper = styled.div`
 	align-items: center;
 
 	& > .dropdownIcon {
-		color: ${theme.colors.gray600};
+		color: ${theme.newColors.grey3["100"]};
 		margin-left: 4px;
 		margin-right: -4px;
 	}

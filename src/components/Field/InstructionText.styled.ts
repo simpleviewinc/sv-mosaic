@@ -30,7 +30,7 @@ export const InstructionTextWrapper = styled.div`
 export const StyledInstructionText = styled.p`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  color: ${theme.colors.assistiveText};
+  color: ${theme.newColors.grey3["100"]};
   display: -webkit-box;
   font-family: ${theme.fontFamily};
   font-size: 14px;

@@ -496,7 +496,7 @@ export const types = {
 	white_icon: WhiteOnBlack,
 	gray_icon: styled(GrayOnWhite)`
 		& > button {
-			color: ${theme.colors.gray600};
+			color: ${theme.newColors.grey3["100"]};
 		}
 
 		& > button:hover {

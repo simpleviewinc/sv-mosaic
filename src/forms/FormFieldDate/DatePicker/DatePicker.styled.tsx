@@ -90,6 +90,6 @@ export const DatePickerWrapper = styled.div`
   	}
 
 	.MuiIconButton-root {
-		color: ${pr => pr.isPickerOpen ? theme.newColors.almostBlack["100"] : theme.colors.gray600};
+		color: ${pr => pr.isPickerOpen ? theme.newColors.almostBlack["100"] : theme.newColors.grey3["100"]};
 	}
 `;
