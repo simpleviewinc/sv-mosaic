@@ -21,7 +21,7 @@ export const StyledIconButton = styled(IconButton)`
     font-size: 24px;
   }
 
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
 
   &:hover {
     color: ${theme.newColors.almostBlack["100"]};

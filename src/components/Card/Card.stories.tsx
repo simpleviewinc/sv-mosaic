@@ -38,7 +38,7 @@ const ActivityDescription = styled.p`
 `;
 
 const ActivityDate = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-size: 14px;
 `;
 

@@ -31,7 +31,7 @@ const LabelWrapper = styled.div`
 `;
 
 const CharCounterWrapper = styled.div`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   align-self: flex-end;
   font-size: 12px;
 `;

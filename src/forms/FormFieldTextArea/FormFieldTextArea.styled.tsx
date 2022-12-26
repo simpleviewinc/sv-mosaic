@@ -42,7 +42,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
   }
 
   .MuiFormHelperText-root {
-    color: ${pr => pr.error ? theme.newColors.darkRed["100"] : theme.colors.assistiveText};
+    color: ${pr => pr.error ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
   }
 
   fieldset {
