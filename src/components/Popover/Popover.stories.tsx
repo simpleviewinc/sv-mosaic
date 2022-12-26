@@ -199,7 +199,7 @@ const options = [
 ]
 
 const Label = styled.span`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	margin-right: 8px;
 `;
 
