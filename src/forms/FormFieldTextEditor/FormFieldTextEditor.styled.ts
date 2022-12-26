@@ -15,7 +15,7 @@ export const EditorWrapper = styled.div`
 	}
 
 	.jodit-workplace {
-		background-color: ${theme.newColors.grey1[100]} !important;
+		background-color: ${theme.newColors.grey1["100"]} !important;
 		max-height: 200px !important;
 		overflow-y: auto !important;
 		padding: 16px !important;

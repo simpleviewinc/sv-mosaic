@@ -7,7 +7,7 @@ export const PhoneInputWrapper = styled.div`
   .react-tel-input {
     .form-control {
 	  ${(pr) => pr.error && `border: 1px solid ${theme.newColors.darkRed["100"]}`}
-      background-color: ${theme.newColors.grey1[100]};
+      background-color: ${theme.newColors.grey1["100"]};
       border-radius: 0px;
       font-family: ${theme.fontFamily};
       height: ${theme.fieldSpecs.inputText.totalHeight};
