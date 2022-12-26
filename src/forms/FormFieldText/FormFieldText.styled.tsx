@@ -17,7 +17,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
     &:hover {
     	background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover};
 		& fieldset {
-			border-color: ${theme.colors.simplyGray};
+			border-color: ${theme.newColors.simplyGrey["100"]};
 		}
     }
 
@@ -69,7 +69,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
   fieldset {
     border-radius: 0px;
-	border-color: ${theme.colors.simplyGray};
+	border-color: ${theme.newColors.simplyGrey["100"]};
   }
 
   & .MuiOutlinedInput-root {

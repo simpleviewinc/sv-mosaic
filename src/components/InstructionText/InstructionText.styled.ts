@@ -2,7 +2,7 @@ import styled from "styled-components"
 import theme from "@root/theme";
 
 export const InstructionTextWrapper = styled.div`
-  border-left: ${theme.borders.simplyGray};
+  border-left: 1px solid ${theme.newColors.simplyGrey["100"]};
   height: 51px;
   margin-left: auto;
   margin-top: 44px;
