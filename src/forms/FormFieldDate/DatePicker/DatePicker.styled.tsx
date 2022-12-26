@@ -33,7 +33,7 @@ export const popperSx = {
 	},
 
 	"& .MuiIconButton-edgeStart, .MuiIconButton-edgeEnd" : {
-		color: theme.colors.gray700
+		color: theme.newColors.grey4["100"]
 	},
 
 	"& .MuiPickersDay-root.Mui-selected" : {

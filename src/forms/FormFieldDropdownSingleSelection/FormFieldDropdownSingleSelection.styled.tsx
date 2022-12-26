@@ -81,11 +81,11 @@ export const StyledPopper = styled(Popper)`
     font-family: ${theme.fontFamily};
     font-size: 14px;
     min-height: 40px;
-    color: ${theme.colors.gray700};
+    color: ${theme.newColors.grey4["100"]};
 		background-color: white;
 
     &[aria-selected='true'] {
-			color: ${({ value }) => value ? theme.colors.gray700 : theme.colors.black };
+			color: ${({ value }) => value ? theme.newColors.grey4["100"] : theme.colors.black };
 			font-weight: ${({ value }) => value ? null : theme.fontWeight.semiBold};
 			background-color: white;
     }
