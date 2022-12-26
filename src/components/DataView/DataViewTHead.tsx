@@ -73,7 +73,7 @@ const StyledTh = styled.th`
 
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
-		color: ${theme.colors.gray600};
+		color: ${theme.newColors.grey3["100"]};
 	}
 
 	&.bulk {

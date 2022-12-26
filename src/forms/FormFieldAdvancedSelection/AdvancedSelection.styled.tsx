@@ -18,7 +18,7 @@ export const StyledInput = styled.input`
   }
 
   ::placeholder {
-    color: ${theme.colors.gray600};
+    color: ${theme.newColors.grey3["100"]};
   }
 `;
 
@@ -70,7 +70,7 @@ export const OptionsCheckedModalWrapper = styled.div`
 `;
 
 export const ShowHideSpan = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   cursor: pointer;
   display: flex;
   font-family: ${theme.fontFamily};
@@ -81,12 +81,12 @@ export const ShowHideSpan = styled.span`
 `;
 
 export const StyledExpandMoreIcon = styled(ExpandMoreIcon)`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   margin-left: 14px;
 `;
 
 export const StyledExpandLessIcon = styled(ExpandLessIcon)`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   margin-left: 14px;
 `;
 

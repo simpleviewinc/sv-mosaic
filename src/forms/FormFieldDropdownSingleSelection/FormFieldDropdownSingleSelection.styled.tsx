@@ -57,7 +57,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
 
 export const StyledDisabledDropdownText = styled.p`
   font-size: 16px;
-  color: ${theme.colors.assistiveText};
+  color: ${theme.newColors.grey3["100"]};
   margin-top: 15px;
 `;
 
