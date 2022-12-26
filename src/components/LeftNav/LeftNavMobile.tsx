@@ -39,7 +39,7 @@ const RootDiv = styled(LeftNavRoot)`
 		line-height: 24px;
 		display: flex;
 		align-items: center;
-		border-bottom: 1px solid ${theme.colors.gray700};
+		border-bottom: 1px solid ${theme.newColors.grey4["100"]};
 		cursor: pointer;
 	}
 

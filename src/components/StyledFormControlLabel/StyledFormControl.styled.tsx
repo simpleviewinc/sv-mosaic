@@ -10,13 +10,13 @@ const StyledFormControlLabel = styled(FormControlLabel)`
   }
 
   .MuiFormControlLabel-label {
-    color: ${theme.colors.label};
+    color: ${theme.newColors.grey4};
     font-family: ${theme.fontFamily};
     font-size: 16px;
   }
 
   .MuiFormControlLabel-label.Mui-disabled {
-    color: ${theme.colors.label};
+    color: ${theme.newColors.grey4};
   }
 `;
 
