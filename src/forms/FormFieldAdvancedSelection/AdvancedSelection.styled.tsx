@@ -6,7 +6,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const StyledInput = styled.input`
-  background-color: ${theme.newColors.grey1[100]};
+  background-color: ${theme.newColors.grey1["100"]};
   border: none;
   color: ${theme.newColors.almostBlack["100"]};
   flex-grow: 1;
@@ -24,7 +24,7 @@ export const StyledInput = styled.input`
 
 export const InputWrapper = styled.div`
   align-items: center;
-  background-color: ${theme.newColors.grey1[100]};
+  background-color: ${theme.newColors.grey1["100"]};
   border: 1px solid ${theme.colors.simplyGray};
   display: flex;
   height: 49px;
