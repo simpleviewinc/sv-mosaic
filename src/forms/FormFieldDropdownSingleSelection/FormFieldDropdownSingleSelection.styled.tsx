@@ -8,7 +8,7 @@ import Popper from "@mui/material/Popper";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
-    background-color: ${theme.colors.gray100};
+    background-color: ${theme.newColors.grey1[100]};
 	font-family: ${theme.fontFamily};
 	color: ${theme.newColors.almostBlack["100"]};
     &:hover {
