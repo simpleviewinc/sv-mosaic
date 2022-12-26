@@ -52,7 +52,7 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const Label = styled.p`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
