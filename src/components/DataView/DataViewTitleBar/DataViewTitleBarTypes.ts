@@ -1,13 +1,4 @@
-import { DataViewProps } from "../DataViewTypes";
-
-interface SavedViewState {
-	limit?: DataViewProps["limit"];
-	sort?: DataViewProps["sort"];
-	display?: DataViewProps["display"];
-	filter?: DataViewProps["filter"];
-	activeFilters?: DataViewProps["activeFilters"];
-	activeColumns?: DataViewProps["activeColumns"];
-}
+import { DataViewProps, StateViewDef } from "../DataViewTypes";
 
 interface SavedViewCallbacks {
 	onSave: DataViewProps["onSavedViewSave"];
@@ -21,7 +12,7 @@ export interface DataViewTitleBarProps {
 	title?: DataViewProps["title"];
 	savedViewEnabled?: boolean;
 	savedView?: DataViewProps["savedView"];
-	savedViewState?: SavedViewState;
+	savedViewState?: StateViewDef;
 	savedViewCallbacks?: SavedViewCallbacks;
 	savedViewAllowSharedViewSave?: DataViewProps["savedViewAllowSharedViewSave"];
 	loading?: DataViewProps["loading"];
