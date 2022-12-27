@@ -143,14 +143,14 @@ export interface DataViewOnLimitChange {
 	({ limit }: { limit : number }): void
 }
 
-type StateViewDef = {
-	limit: number
-	skip: number
-	filter: MosaicObject
-	sort: DataViewSort
-	display: string
-	activeFilters: string[]
-	activeColumns: string[]
+export type StateViewDef = {
+	limit?: DataViewProps["limit"],
+	skip?: DataViewProps["skip"],
+	filter?: DataViewProps["filter"],
+	sort?: DataViewProps["sort"],
+	display?: DataViewProps["display"],
+	activeFilters?: DataViewProps["activeFilters"],
+	activeColumns?: DataViewProps["activeColumns"],
 }
 export interface DataViewView {
 	id: string
