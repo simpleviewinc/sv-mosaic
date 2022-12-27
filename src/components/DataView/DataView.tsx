@@ -401,47 +401,53 @@ function DataView (props: DataViewProps): ReactElement  {
 			${props.sticky ? "sticky" : ""}
 		`}
 		>
-			<div className="headerRow title">
-				<DataViewTitleBar
-					title={props.title}
-					buttons={props.buttons}
-					savedViewEnabled={savedViewEnabled}
-					savedView={props.savedView}
-					savedViewState={savedViewState}
-					savedViewCallbacks={savedViewCallbacks}
-					savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
-					loading={props.loading}
-					filter={props.filter}
-					filters={props.filters}
-					activeFilters={props.activeFilters}
-					onActiveFiltersChange={props.onActiveFiltersChange}
-				/>
-			</div>
-			<div className="headerActions">
-				<DataViewActionsRow
-					activeColumnObjs={activeColumnObjs}
-					columns={props.columns}
-					bulkActions={props.bulkActions}
-					checked={state.checked}
-					display={display}
-					displayControlEnabled={displayControlEnabled}
-					displayOptionsFull={displayOptionsFull}
-					limit={props.limit}
-					limitOptions={props.limitOptions}
-					onLimitChange={props.onLimitChange}
-					onDisplayChange={props.onDisplayChange}
-					onSkipChange={props.onSkipChange}
-					skip={props.skip}
-					count={props.count}
-					allColumns={props.columns}
-					onColumnsChange={props.onColumnsChange}
-					onCheckAllClick={onCheckAllClick}
-					onSortChange={props.onSortChange}
-					sort={props.sort}
-					data={props.data}
-					checkedAllPages={state.checkedAllPages}
-				/>
-			</div>
+			{
+				props.title &&
+					<div className="headerRow title">
+						<DataViewTitleBar
+							title={props.title}
+							buttons={props.buttons}
+							savedViewEnabled={savedViewEnabled}
+							savedView={props.savedView}
+							savedViewState={savedViewState}
+							savedViewCallbacks={savedViewCallbacks}
+							savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
+							loading={props.loading}
+							filter={props.filter}
+							filters={props.filters}
+							activeFilters={props.activeFilters}
+							onActiveFiltersChange={props.onActiveFiltersChange}
+						/>
+					</div>
+			}
+			{
+				props.bulkActions &&
+					<div className="headerActions">
+						<DataViewActionsRow
+							activeColumnObjs={activeColumnObjs}
+							columns={props.columns}
+							bulkActions={props.bulkActions}
+							checked={state.checked}
+							display={display}
+							displayControlEnabled={displayControlEnabled}
+							displayOptionsFull={displayOptionsFull}
+							limit={props.limit}
+							limitOptions={props.limitOptions}
+							onLimitChange={props.onLimitChange}
+							onDisplayChange={props.onDisplayChange}
+							onSkipChange={props.onSkipChange}
+							skip={props.skip}
+							count={props.count}
+							allColumns={props.columns}
+							onColumnsChange={props.onColumnsChange}
+							onCheckAllClick={onCheckAllClick}
+							onSortChange={props.onSortChange}
+							sort={props.sort}
+							data={props.data}
+							checkedAllPages={state.checkedAllPages}
+						/>
+					</div>
+			}
 			<div
 				ref={viewContainerRef}
 				className={`
