@@ -75,7 +75,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 				name : "select",
 				variant : "text",
 				label : t("mosaic:common.select"),
-				color : "blue",
+				color : "teal",
 				onClick : async function({ data }) {
 					await props.onChange(data);
 					props.onClose();
@@ -87,7 +87,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 					return canAct(row);
 				},
 				variant : "icon",
-				color : "blue",
+				color : "black",
 				mIcon : CreateIcon,
 				onClick : function({ data }) {
 					setState({
