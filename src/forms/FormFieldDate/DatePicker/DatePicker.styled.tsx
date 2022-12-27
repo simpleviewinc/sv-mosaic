@@ -75,7 +75,7 @@ export const DatePickerWrapper = styled.div`
 
 		& fieldset {
 			border-radius: 0;
-			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : `1px solid ${theme.newColors.simplyGrey["100"]}`};
+			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : theme.borders.simplyGrey};
 		}
 
 			.MuiOutlinedInput-input {

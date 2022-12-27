@@ -25,7 +25,7 @@ export const PhoneInputWrapper = styled.div`
     }
 
     .flag-dropdown {
-      border-right: 1px solid ${theme.newColors.simplyGrey["100"]};
+      border-right: ${theme.borders.simplyGrey};
       &:focus-within {
         border: ${theme.borders.black};
         border-radius: 0px;

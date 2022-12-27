@@ -122,7 +122,7 @@ const borders = {
 	gray : "1px solid rgba(0, 0, 0, .15)",
 	fieldGray : "1px solid #CCCCCC",
 	error : "1px solid #B10000",
-	simplyGray: "1px solid #BEBEBE"
+	simplyGrey: `1px solid ${newColors.simplyGrey["100"]}`
 };
 
 export default {
