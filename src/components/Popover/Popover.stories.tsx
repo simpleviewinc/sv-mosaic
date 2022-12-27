@@ -114,7 +114,7 @@ export const Example = (): ReactElement => {
 
 const StyledInput = styled.input`
 	background-color: ${theme.colors.gray100};
-	border: 1px solid ${theme.colors.simplyGray};
+	border: ${theme.borders.simplyGrey};
 	height: 47px;
 	border-radius: 0;
 `;

@@ -314,7 +314,7 @@ export const types = {
 	gray_outlined: styled(GrayOnWhite)`
     & > button {
       background-color: white;
-      border: 2px solid ${theme.colors.simplyGray};
+      border: 2px solid ${theme.newColors.simplyGrey["100"]};
       border-radius: 0;
       font-size: 14px;
       text-transform: uppercase;
@@ -322,7 +322,7 @@ export const types = {
 
     .MuiButton-outlined.Mui-disabled {
       background-color: white;
-      border: 2px solid ${theme.colors.simplyGray};
+      border: 2px solid ${theme.newColors.simplyGrey["100"]};
       color: ${theme.newColors.almostBlack["100"]};
       opacity: 0.5;
     }
@@ -330,7 +330,7 @@ export const types = {
     & > button:hover {
       background-color: ${theme.colors.gray200};
       color: ${theme.newColors.almostBlack["100"]};
-			border: 2px solid ${theme.colors.simplyGray};
+			border: 2px solid ${theme.newColors.simplyGrey["100"]};
     }
   `,
 	teal_outlined: styled(TealOnWhite)`
