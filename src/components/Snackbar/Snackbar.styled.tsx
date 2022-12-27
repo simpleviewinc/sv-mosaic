@@ -53,7 +53,7 @@ export const ActionWrapper = styled.div`
 
 export const StyledCloseIcon = styled(CloseIcon)`
   &.MuiSvgIcon-root {
-    color: ${theme.colors.simplyGray};
+    color: ${theme.newColors.simplyGrey["100"]};
     font-size: 16px;
   }
 `;
