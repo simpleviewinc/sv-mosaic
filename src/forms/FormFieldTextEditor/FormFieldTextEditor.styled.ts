@@ -11,7 +11,7 @@ export const EditorWrapper = styled.div`
 		background-color: white !important;
 		border-radius: 0px !important;
 		margin-bottom: 8px !important;
-		border: ${(pr) => (pr.error ? theme.borders.error : theme.borders.simplyGray)} !important;
+		border: ${(pr) => (pr.error ? theme.borders.error : theme.borders.simplyGrey)} !important;
 	}
 
 	.jodit-workplace {
@@ -22,7 +22,7 @@ export const EditorWrapper = styled.div`
 		color: ${theme.newColors.almostBlack["100"]};
 		border: ${(pr) => {
 		if (pr.error) return theme.borders.error;
-		return theme.borders.simplyGray;
+		return theme.borders.simplyGrey;
 	}} !important;
 
 		& .jodit-wysiwyg {
@@ -56,7 +56,7 @@ export const EditorWrapper = styled.div`
 		border-radius: 0px !important;
 		border: ${(pr) => {
 		if (pr.error) return theme.borders.error;
-		return theme.borders.simplyGray;
+		return theme.borders.simplyGrey;
 	}} !important;
 		border-top: none !important;
 		font-family: ${theme.fontFamily};
