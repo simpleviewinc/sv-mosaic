@@ -41,9 +41,11 @@ function Button(props: ButtonProps) {
 
 	function openMenu(event) {
 		setAnchorEl(event.currentTarget);
+		setTooltipEl(null);
 	}
 
 	function closeMenu() {
+		setTooltipEl(null);
 		setAnchorEl(null);
 	}
 
@@ -53,6 +55,7 @@ function Button(props: ButtonProps) {
 	}
 
 	function closePopover() {
+		setTooltipEl(null);
 		setPopoverAnchorEl(null);
 	}
 
