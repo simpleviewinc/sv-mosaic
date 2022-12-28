@@ -470,7 +470,7 @@ export const types = {
   `,
 	black_text: styled(BlackOnWhite)`
 		&.normalButton > button {
-			color: ${theme.newColors.almostBlack};
+			color: ${theme.newColors.almostBlack["100"]};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
@@ -480,7 +480,7 @@ export const types = {
 		}
 
 		& > a {
-			color: ${theme.newColors.almostBlack};
+			color: ${theme.newColors.almostBlack["100"]};
 			text-transform: capitalize;
 			font-weight: ${theme.fontWeight.bold};
 		}
@@ -500,14 +500,14 @@ export const types = {
 		}
 
 		& > button:hover {
-			color: ${theme.newColors.almostBlack};
+			color: ${theme.newColors.almostBlack["100"]};
 		}
   `,
 };
 
 export const TooltipContent = styled.div`
   z-index: 100;
-  background: ${theme.newColors.almostBlack};
+  background: ${theme.newColors.almostBlack["100"]};
   color: white;
   padding: 4px 8px;
   margin-top: 4px;
