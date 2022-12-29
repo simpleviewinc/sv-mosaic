@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
 import { DrawerTopBarProps } from "./DrawerTopBar";
@@ -18,9 +17,7 @@ function DrawerContent(props: DrawerContentProps) {
 
 	const { t } = useMosaicTranslation();
 
-	const [drawerButtons, setDrawerButtons] = useState<ButtonProps[]>([]);
-
-	useEffect(() => {
+	const drawerButtons = useMemo(() => {
 		let buttons: ButtonProps[] = [];
 
 		if (props.onCancel)
@@ -54,7 +51,7 @@ function DrawerContent(props: DrawerContentProps) {
 				}
 			];
 
-		setDrawerButtons(buttons);
+		return buttons;
 
 	}, [props.onSave, props.onApply, props.onCancel]);
 
