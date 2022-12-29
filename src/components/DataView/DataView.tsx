@@ -87,10 +87,12 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	const onCheckAllClick = function() {
 		const allChecked = state.checked.every(val => val === true);
+		const checked = state.checked.map(val => !allChecked);
+		props?.onCheckboxClick(checked);
 
 		setState({
 			...state,
-			checked : state.checked.map(val => !allChecked),
+			checked,
 			checkedAllPages : false
 		});
 	}
@@ -98,6 +100,7 @@ function DataView (props: DataViewProps): ReactElement  {
 	const onCheckboxClick = function(i) {
 		const newChecked = [...state.checked];
 		newChecked[i] = !newChecked[i];
+		props?.onCheckboxClick(newChecked);
 
 		setState({
 			...state,
@@ -109,7 +112,7 @@ function DataView (props: DataViewProps): ReactElement  {
 	const onCheckAllPagesClick = function() {
 		// if the checkedAllPages was previously clicked we also uncheck all of the checkboxes
 		const checked = state.checkedAllPages ? state.checked.map(val => false) : state.checked;
-
+		props?.onCheckboxClick(checked);
 		setState({
 			...state,
 			checked,

@@ -195,6 +195,10 @@ type dataViewOnSavedViewGetOptions = {
 	(): MosaicObject[]
 }
 
+type dataViewOnCheckboxClick = {
+	(checked: boolean[]): void;
+}
+
 export interface DataViewProps {
 	title?: string
 	loading?: boolean
@@ -231,4 +235,5 @@ export interface DataViewProps {
 	onSavedViewSave?: dataViewOnSavedViewSave
 	onSavedViewRemove?: dataViewOnSavedViewRemove
 	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
+	onCheckboxClick?: dataViewOnCheckboxClick;
 }
