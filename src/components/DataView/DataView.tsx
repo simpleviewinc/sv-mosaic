@@ -51,213 +51,6 @@ const StyledWrapper = styled.div`
 `;
 
 function DataView (props: DataViewProps): ReactElement  {
-	/*
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "title",
-				type : "string"
-			},
-			{
-				name : "columns",
-				type : "array",
-				schema : {
-					type : "object",
-					schema : [
-						{
-							name : "name",
-							type : "string",
-							required : true
-						},
-						{
-							name : "column",
-							type : "string"
-						},
-						{
-							name : "label",
-							type : "string"
-						},
-						{
-							name : "style",
-							type : "object",
-							schema : [
-								{ name : "bold", type : "boolean" },
-								{ name : "italic", type : "boolean" },
-								{ name : "strikeThrough", type : "boolean" },
-								{ name : "noWrap", type : "boolean" },
-								{ name : "ellipsis", type : "boolean" },
-								{ name : "maxWidth", type : "string" },
-								{ name : "textTransform", type : "string" }
-							],
-							allowExtraKeys : false
-						},
-						{
-							name : "sortable",
-							type : "boolean"
-						},
-						{
-							name : "transforms",
-							type : "array",
-							schema : {
-								type : "function"
-							}
-						}
-					],
-					allowExtraKeys : false
-				}
-			},
-			{
-				name : "filters",
-				type : "array"
-			},
-			{
-				name : "filter",
-				type : "object"
-			},
-			{
-				name : "activeFilters",
-				type : "array",
-				schema : {
-					type : "string"
-				}
-			},
-			{
-				name : "activeColumns",
-				type : "array",
-				schema : {
-					type : "string"
-				}
-			},
-			{
-				name : "primaryActions",
-				type : "array"
-			},
-			{
-				name : "bulkActions",
-				type : "array"
-			},
-			{
-				name : "additionalActions",
-				type : "array"
-			},
-			{
-				name : "buttons",
-				type : "array"
-			},
-			{
-				name : "display",
-				type : "string"
-			},
-			{
-				name : "savedView",
-				type : "object",
-				schema : [
-					{ name : "id", type : "string" },
-					{ name : "label", type : "string" },
-					{ name : "type", type : "string", enum : ["default", "shared", "mine"] },
-					{ name : "state", type : "object" }
-				],
-				allowExtraKeys : false
-			},
-			{
-				name : "displayOptions",
-				type : "array"
-			},
-			{
-				name : "data",
-				type : "array"
-			},
-			{
-				name : "count",
-				type : "number"
-			},
-			{
-				name : "sort",
-				type : "object",
-				schema : [
-					{ name : "name", type : "string" },
-					{ name : "dir", type : "string", enum : ["asc", "desc"] }
-				],
-				allowExtraKeys : false
-			},
-			{
-				name : "limit",
-				type : "number"
-			},
-			{
-				name : "limitOptions",
-				type : "array",
-				schema : {
-					type : "number"
-				}
-			},
-			{
-				name : "skip",
-				type : "number"
-			},
-			{
-				name : "loading",
-				type : "boolean"
-			},
-			{
-				name : "sticky",
-				type : "boolean"
-			},
-			{
-				name : "gridColumnsMap",
-				type : "object"
-			},
-			{
-				name : "onSkipChange",
-				type : "function"
-			},
-			{
-				name : "onLimitChange",
-				type : "function"
-			},
-			{
-				name : "onSortChange",
-				type : "function"
-			},
-			{
-				name : "onDisplayChange",
-				type : "function"
-			},
-			{
-				name : "onActiveFiltersChange",
-				type : "function"
-			},
-			{
-				name : "onColumnsChange",
-				type : "function"
-			},
-			{
-				name : "onSavedViewSave",
-				type : "function"
-			},
-			{
-				name : "onSavedViewChange",
-				type : "function"
-			},
-			{
-				name : "onSavedViewRemove",
-				type : "function"
-			},
-			{
-				name : "onSavedViewGetOptions",
-				type : "function"
-			},
-			{
-				name: "savedViewAllowSharedViewSave",
-				type : "boolean"
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
-*/
-
 	// declare the hooks
 	const [state, setState] = useState({
 		checked : [],
@@ -394,6 +187,50 @@ function DataView (props: DataViewProps): ReactElement  {
 		});
 	}, [activeColumns, props.columns]);
 
+	const shouldRenderTitleBar: boolean = useMemo(() => {
+		if (
+			props.title ??
+			props.buttons ??
+			savedViewEnabled ??
+			props.filters
+		)
+			return true;
+
+		return false;
+	}, [
+		props.title,
+		props.buttons,
+		savedViewEnabled,
+		props.filters
+	]);
+
+	const shouldRenderActionsRow: boolean = useMemo(() => {
+		if (
+			props.display ??
+			props.bulkActions ??
+			props.limitOptions ??
+			props.onColumnsChange ??
+			props.onSortChange ??
+			props.sort ??
+			displayControlEnabled === true ??
+			props.onLimitChange ??
+			props.onSkipChange
+		)
+			return true;
+
+		return false;
+	}, [
+		props.display,
+		props.bulkActions,
+		props.limitOptions,
+		props.onColumnsChange,
+		props.onSortChange,
+		props.sort,
+		displayControlEnabled,
+		props.onLimitChange,
+		props.onSkipChange
+	]);
+
 	return (
 		<StyledWrapper
 			className={`
@@ -402,7 +239,7 @@ function DataView (props: DataViewProps): ReactElement  {
 		`}
 		>
 			{
-				props.title &&
+				shouldRenderTitleBar &&
 					<div className="headerRow title">
 						<DataViewTitleBar
 							title={props.title}
@@ -421,7 +258,7 @@ function DataView (props: DataViewProps): ReactElement  {
 					</div>
 			}
 			{
-				props.bulkActions &&
+				shouldRenderActionsRow &&
 					<div className="headerActions">
 						<DataViewActionsRow
 							activeColumnObjs={activeColumnObjs}
