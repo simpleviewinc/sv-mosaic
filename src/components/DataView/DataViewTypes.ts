@@ -225,8 +225,6 @@ export interface DataViewProps {
 	onSkipChange?: DataViewOnSkipChange
 	onLimitChange?: DataViewOnLimitChange
 	onSavedViewChange?:  dataViewOnSavedViewChange
-	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
-	[key: string]: unknown */
 	onDisplayChange?: dataViewOnDisplayChange
 	onActiveFiltersChange?: dataViewOnActiveFiltersChange
 	onColumnsChange?: dataViewOnColumnsChange
