@@ -7,6 +7,7 @@ import theme from "@root/theme";
 import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";
 import DatePickerCustom from "@root/forms/FormFieldDate/DatePicker";
+import MenuSelect from "../MenuSelect";
 
 const StyledContents = styled.div`
 	& > .inputRow h5 {
@@ -33,7 +34,7 @@ const StyledContents = styled.div`
 export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
 	const [state, setState] = useState({
 		rangeStart : props.rangeStart,
-		rangeEnd : props.rangeEnd
+		rangeEnd : props.rangeEnd,
 	});
 
 	const { t } = useMosaicTranslation();
@@ -45,11 +46,15 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 
 	const hasError = errorMessage !== undefined;
 
-	const onApply = function() {
-		props.onChange({
-			rangeStart : state.rangeStart,
-			rangeEnd: state.rangeEnd
-		});
+	const onApply = function(val?: string) {
+		if (state.rangeStart || state.rangeEnd)
+			props.onChange({
+				rangeStart : state.rangeStart,
+				rangeEnd: state.rangeEnd
+			});
+
+		if (val)
+			props.onChange({option: val});
 
 		props.onClose();
 	}
@@ -86,6 +91,10 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 
 	return (
 		<StyledContents>
+			{
+				props.options &&
+				<MenuSelect options={props.options} onChange={onApply} value={props.options[0].value} />
+			}
 			<div className="inputRow">
 				<div className="startRange">
 					<h5>{`${t("mosaic:common.date_from")}`}</h5>
