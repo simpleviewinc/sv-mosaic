@@ -19,6 +19,22 @@ export const example = (): ReactElement => {
 			value: "today",
 		},
 		{
+			label: "Yesterday",
+			value: "yesterday",
+		},
+		{
+			label: "Tomorrow",
+			value: "tomorrow",
+		},
+		{
+			label: "Last year",
+			value: "last_year",
+		},
+		{
+			label: "Last 2 years",
+			value: "last_2_years",
+		},
+		{
 			label: "Last 3 years",
 			value: "last_3_years",
 		}
@@ -32,7 +48,7 @@ export const example = (): ReactElement => {
 
 	return (
 		<DataViewFilterDate
-			label="Testing"
+			label="Date filter example"
 			data={state}
 			args={{ options: showOptions ? options : undefined}}
 			onRemove={onRemove}
