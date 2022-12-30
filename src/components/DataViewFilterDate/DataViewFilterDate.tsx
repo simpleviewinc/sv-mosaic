@@ -46,9 +46,8 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 		} else if (hasEnd) {
 			valueString = `to ${endFormat}`;
 		}
-	} else if ("option" in props.data) {
-		if (props.data.option !== undefined)
-			valueString = props.data.option;
+	} else if ("option" in props.data && props.data.option !== undefined && props.args.options !== undefined) {
+		valueString = props.args.options.filter(option => "option" in props.data ? option.value === props.data.option : undefined)[0].label;
 	}
 
 	return (
@@ -65,9 +64,10 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 				<DataViewFilterDateDropdownContent
 					onClose={onClose}
 					onChange={props.onChange}
-					rangeStart={"rangeStart" in props.data && props.data.rangeStart}
-					rangeEnd={"rangeEnd" in props.data && props.data.rangeEnd}
+					rangeStart={"rangeStart" in props.data ? props.data.rangeStart : undefined}
+					rangeEnd={"rangeEnd" in props.data ? props.data.rangeEnd : undefined}
 					options={props.args.options}
+					selectedOption={"option" in props.data ? props.data.option : undefined}
 				/>
 			</DataViewFilterDropdown>
 		</StyledWrapper>
