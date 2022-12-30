@@ -22,10 +22,17 @@ export interface DataViewFilterDateProps extends DataViewFilterProps {
 	args: { options?: MosaicLabelValue[] }
 }
 
-export interface DataViewFilterDateDropdownContentProps {
-	options?: MosaicLabelValue[]
+interface DataViewFilterDateDropdownContentOptions {
+	options?: MosaicLabelValue[],
+	selectedOption?: string,
+}
+
+interface DataViewFilterDateDropdownContentRange {
 	rangeStart?: Date
 	rangeEnd?: Date
+}
+
+export type DataViewFilterDateDropdownContentProps = {
 	onChange: DataViewFilterDateOnChange
 	onClose: () => void
-}
+} & (DataViewFilterDateDropdownContentOptions | DataViewFilterDateDropdownContentRange)
