@@ -62,9 +62,9 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() =>
-			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		act(() => {
+			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
 		expect(dropdownContent).toBeInTheDocument();
@@ -75,9 +75,9 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() =>
+		act(() => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;
 		const expectedResult = "Date filter example|from 1/1/2023";
@@ -92,9 +92,9 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() =>
+		act(() => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
 		expect(dropdownContent).toBeInTheDocument();
@@ -105,9 +105,9 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() =>
+		act(() => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;
 		const expectedResult = "Date filter example|to 1/1/2023";
@@ -122,9 +122,9 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() =>
+		act(() => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
 		expect(dropdownContent).toBeInTheDocument();
@@ -140,9 +140,9 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() =>
+		act(() => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;
 		const expectedResult = "Date filter example|12/31/2022 - 1/1/2023";
@@ -157,9 +157,9 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() =>
+		act(() => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
 		expect(dropdownContent).toBeInTheDocument();
@@ -190,9 +190,9 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() =>
+		act(() => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
 		expect(dropdownContent).toBeInTheDocument();
@@ -201,9 +201,9 @@ describe("DataViewFilterDate", () => {
 		const randomMagicValueIdx = Math.floor(Math.random() * magicValues.length);
 		const magicValueSelected = magicValues[randomMagicValueIdx];
 
-		act(() =>
+		act(() => {
 			magicValueSelected.dispatchEvent(new MouseEvent("click", {bubbles: true}))
-		);
+		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;
 		const expectedResult = `Date filter example|${magicValueSelected.textContent}`;
