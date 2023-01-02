@@ -8,7 +8,7 @@ import theme from "@root/theme";
 const StyledDiv = styled.div`
 	text-align: center;
 	font-weight: normal;
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	border-bottom: ${theme.borders.lightGray};
 	line-height: 1.75;
 	display: flex;

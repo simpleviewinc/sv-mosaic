@@ -20,7 +20,7 @@ const StyledTBody = styled.tbody`
 	}
 
 	& > tr > td {
-		padding: 12px 0px;
+		padding: 8px;
 	}
 
 	& > tr > td.bold {

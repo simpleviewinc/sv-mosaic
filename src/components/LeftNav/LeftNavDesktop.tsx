@@ -24,13 +24,13 @@ const RootDiv = styled(LeftNavRoot)`
 
 	& > .bottom {
 		flex: 0 0 auto;
-		border-top: 1px solid ${theme.colors.gray600};
+		border-top: 1px solid ${theme.newColors.grey3["100"]};
 	}
 `
 
 function LeftNavDesktop(props: LeftNavProps): ReactElement {
 	const { t } = useMosaicTranslation();
-	
+
 	const [state, setState] = useState({
 		openName : undefined
 	});
@@ -176,7 +176,7 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 			</LeftNavContext.Provider>
 		</RootDiv>
 	);
-	
+
 	const drawerContent = (
 		<LeftNavDrawer
 			open={props.open}

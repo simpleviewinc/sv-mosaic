@@ -124,7 +124,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 					<h5>Error: {errorMessage}</h5>
 				</div>
 			}
-			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} onCancel={props.onClose} disableApply={hasError}/>
+			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={hasError}/>
 		</StyledContents>
 	)
 }
