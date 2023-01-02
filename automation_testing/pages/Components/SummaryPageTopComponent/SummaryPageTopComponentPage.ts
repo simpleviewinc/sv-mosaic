@@ -9,6 +9,7 @@ export class SummaryPageTopComponentPage extends BasePage {
 	readonly summaryTitle: Locator;
 	readonly starRateIconUnchecked: Locator;
 	readonly starRateIconChecked: Locator;
+	readonly summaryTopComponent: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -16,6 +17,7 @@ export class SummaryPageTopComponentPage extends BasePage {
 		this.summaryTitle = page.locator("#root p").nth(0);
 		this.starRateIconUnchecked = page.locator("[data-testid='StarBorderRoundedIcon']");
 		this.starRateIconChecked = page.locator("[data-testid='StarRateRoundedIcon']");
+		this.summaryTopComponent = page.locator("//*[@id='root']/div");
 	}
 
 	async visitPage(): Promise<void> {

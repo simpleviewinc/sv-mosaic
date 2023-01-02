@@ -64,7 +64,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 
 	return (
 		<div ref={ref}>
-			<MobileActionsRow>
+			<MobileActionsRow className={view}>
 				<StyledClearIcon onClick={onCancel} />
 				{buttons && (
 					<div>

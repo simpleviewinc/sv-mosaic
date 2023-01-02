@@ -14,7 +14,7 @@ import { DataViewProps } from "./DataViewTypes";
 const FiltersRow = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	gap: 16px 24px;
+	gap: 16px;
 `;
 
 interface DataViewFiltersProps {
@@ -133,7 +133,6 @@ function DataViewFilters(props: DataViewFiltersProps) {
 								getOptions={getOptions}
 								isOpen={state.dropdownOpen}
 								onApply={onActiveFiltersChange}
-								onClose={onClose}
 							/>
 						</DataViewFilterDropdown>
 						{

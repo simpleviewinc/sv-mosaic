@@ -22,7 +22,7 @@ export const Title = styled.span`
 `;
 
 export const StyledEditIcon = styled(EditIcon)`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	cursor: pointer;
 
 	&.MuiSvgIcon-root {
@@ -52,7 +52,7 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const Label = styled.p`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
@@ -64,7 +64,7 @@ export const FieldContainer = styled.div`
 `;
 
 export const TransformContainer = styled.div`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 14px;
 `;
 
@@ -81,7 +81,7 @@ export const ChipsWrapper = styled.div`
 
 
 export const ColorValue = styled.p`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;

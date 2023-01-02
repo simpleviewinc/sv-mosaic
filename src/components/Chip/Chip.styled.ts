@@ -60,7 +60,7 @@ export const StyledChip = styled(Chip)`
 	color: ${theme.newColors.almostBlack["100"]};
 
     &:hover {
-      background-color: ${pr => pr.selected ? theme.newColors.darkerSimplyGold["100"] : theme.colors.simplyGray};
+      background-color: ${pr => pr.selected ? theme.newColors.darkerSimplyGold["100"] : theme.newColors.simplyGrey["100"]};
     }
 
     &:focus {

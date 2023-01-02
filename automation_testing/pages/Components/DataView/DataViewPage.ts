@@ -32,6 +32,8 @@ export class DataviewPage extends BasePage {
 	readonly filtersBtn: Locator;
 	readonly clearFiltersBtn: Locator;
 	readonly selectedChips: Locator;
+	readonly headerActionsLocator: Locator;
+	readonly dataviewTopComponent: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -51,12 +53,14 @@ export class DataviewPage extends BasePage {
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
-		this.selectedChips = page.locator(".chips div");
+		this.selectedChips = page.locator(".chips .chip");
 		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
 		this.checkboxOptions = page.locator("input[type='checkbox']");
 		this.filterRowBtn = page.locator(".filterRow button");
 		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" }).first();
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
+		this.headerActionsLocator = page.locator(".headerActions");
+		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
 	}
 
 	async visitPage(): Promise<void> {
