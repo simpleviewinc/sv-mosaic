@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../pages/FormFields/FormFieldAdvancedSelectionPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
 	let page: Page;
@@ -52,5 +53,13 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 			actualChipText.push(await ffAdvancedSelectionPage.selectedChip.nth(i).textContent());
 		}
 		expect(actualChipText.toString()).toBe(expectedSelections.toString());
+	});
+
+	test("Validate all the Advanced Selection buttons have simplyGrey in the border.", async () => {
+		const expectColor = theme.newColors.simplyGrey["100"];
+		const numberOfButtons = await ffAdvancedSelectionPage.advancedSelectionButton.count();
+		for (let i = 0; i < numberOfButtons; i++) {
+			expect(await ffAdvancedSelectionPage.getSpecificBorderFromElement(ffAdvancedSelectionPage.advancedSelectionButton.nth(i))).toContain(expectColor);
+		}
 	});
 });
