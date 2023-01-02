@@ -2,9 +2,17 @@ export const BREAKPOINTS = {
 	mobile : 480,
 	topComponent : {
 		responsiveView: 1075,
-		bigScreenView: 1718,
+		bigScreenView: 1200,
 	}
 };
+
+export enum Views {
+	bigDesktop = "BIG_DESKTOP",
+	desktop = "DESKTOP",
+	drawer = "DRAWER",
+	mobile = "MOBILE",
+	responsive = "RESPONSIVE"
+}
 
 const colorMap = {
 	almostBlack: "26,26,26",
@@ -102,7 +110,6 @@ const colors = {
 	simplyGray : "#BEBEBE",
 	simplyGrayOpacity : "rgb(190, 190, 190, 0.3)",
 	teal : "#008DA8",
-	assistiveText : "#6B6F7C", //Same as gray600
 	label : "#3B424E", //Same as gray700
 	almostBlack : "#1A1A1A",
 	errorBackground: "#B100000D",
@@ -115,7 +122,7 @@ const borders = {
 	gray : "1px solid rgba(0, 0, 0, .15)",
 	fieldGray : "1px solid #CCCCCC",
 	error : "1px solid #B10000",
-	simplyGray: "1px solid #BEBEBE"
+	simplyGrey: `1px solid ${newColors.simplyGrey["100"]}`
 };
 
 export default {

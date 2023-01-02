@@ -124,14 +124,27 @@ const addNewAddress = async () => {
 };
 
 afterEach(cleanup);
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
 jest.setTimeout(60000);
 
 describe("Regular Address component", () => {
-	beforeEach(() => {
-		render(<AddressFormFieldExample inputSettings={{
-			getOptionsCountries,
-			getOptionsStates,
-		}}/>);
+	beforeEach(async () => {
+		await act(() => {
+			render(
+				<AddressFormFieldExample
+					inputSettings={{
+						getOptionsCountries,
+						getOptionsStates,
+					}}
+				/>
+			)
+		});
 	});
 
 	it("should add a new address card and then remove it", async () => {
@@ -229,15 +242,16 @@ describe("AddressCard component", () => {
 describe("Address field with specific amount per type", () => {
 
 	it("should add a new address card with shipping address type", async () => {
-
-		render(<AddressFormFieldExample inputSettings={{
-			amountPerType: 2,
-			amountShipping: 1,
-			amountPhysical: 0,
-			amountBilling: 0,
-			getOptionsCountries,
-			getOptionsStates,
-		}}/>);
+		await act(() => {
+			render(<AddressFormFieldExample inputSettings={{
+				amountPerType: 2,
+				amountShipping: 1,
+				amountPhysical: 0,
+				amountBilling: 0,
+				getOptionsCountries,
+				getOptionsStates,
+			}}/>);
+		});
 
 		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
 

@@ -30,7 +30,7 @@ export const LinkWrapper = styled.div`
 	&:hover {
 		.MuiSvgIcon-root:not(:first-child) {
 			display: block;
-			color: ${theme.colors.gray600};
+			color: ${theme.newColors.grey3["100"]};
 			margin-right: -12px;
 			margin-left: auto;
 			width: 16px;
@@ -74,7 +74,7 @@ export const SectionWrapper = styled.div`
 `;
 
 export const Badge = styled.span`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	font-size: 10px;
 	font-weight: ${theme.fontWeight.semiBold};
 `;

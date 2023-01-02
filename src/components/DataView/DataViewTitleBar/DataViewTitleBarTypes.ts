@@ -1,14 +1,4 @@
-import { MosaicObject } from "@root/types";
-import { DataViewProps, DataViewSort } from "../DataViewTypes";
-
-interface SavedViewState {
-	limit: number;
-	sort: DataViewSort;
-	display: string;
-	filter: MosaicObject;
-	activeFilters: string[];
-	activeColumns: string[];
-}
+import { DataViewProps, StateViewDef } from "../DataViewTypes";
 
 interface SavedViewCallbacks {
 	onSave: DataViewProps["onSavedViewSave"];
@@ -22,7 +12,7 @@ export interface DataViewTitleBarProps {
 	title?: DataViewProps["title"];
 	savedViewEnabled?: boolean;
 	savedView?: DataViewProps["savedView"];
-	savedViewState?: SavedViewState;
+	savedViewState?: StateViewDef;
 	savedViewCallbacks?: SavedViewCallbacks;
 	savedViewAllowSharedViewSave?: DataViewProps["savedViewAllowSharedViewSave"];
 	loading?: DataViewProps["loading"];

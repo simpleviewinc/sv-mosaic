@@ -23,19 +23,12 @@ const StyledTh = styled.th`
 	font-size: 14px;
 	font-weight: 510;
 	height: 40px;
-	padding: 12px 32px 12px 0px;
+	padding: 8px;
 	position: sticky;
 	text-align: left;
 	top: 0;
 	white-space: nowrap;
 	z-index: 2;
-
-	&:first-child {
-		padding-left: 8px;
-	}
-	&:last-child {
-		padding-right: 8px !important;
-	}
 
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
 	&:after {
@@ -51,14 +44,6 @@ const StyledTh = styled.th`
 	& > .columnHeader {
 		display: inline-flex;
 		align-items: center;
-	}
-
-	&.paddingRight {
-		padding-right: 32px;
-	}
-
-	&.paddingLeft {
-		padding-left: 12px;
 	}
 
 	&.sortable > .columnHeader {
@@ -88,7 +73,7 @@ const StyledTh = styled.th`
 
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
-		color: ${theme.colors.gray600};
+		color: ${theme.newColors.grey3["100"]};
 	}
 
 	&.bulk {
@@ -228,10 +213,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 				}
 				{
 					!anyChecked &&
-					<StyledTh key="_actions" className={`
-						paddingRight
-						${ !props?.bulkActions?.length ? "paddingLeft" : "" }
-					`}>
+					<StyledTh key="_actions">
 						<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
 					</StyledTh>
 				}
@@ -261,7 +243,6 @@ function DataViewTHead(props: DataViewTHeadProps) {
 								className={`
 									${column.sortable ? "sortable" : ""}
 									${active ? "active" : ""}
-									paddingRight
 								`}
 							>
 								<span

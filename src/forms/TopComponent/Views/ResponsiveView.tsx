@@ -16,15 +16,6 @@ import {
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
-const ResponsiveViewColumn = styled(StyledColumn)`
-	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
-  	z-index: 100;
-
-	& .form-nav-wrapper {
-		margin-top: 20px;
-	}
-`;
-
 const ResponsiveActionsRow = styled(Row)`
 	align-self: ${(pr) => (pr.showActive ? "" : "flex-end")};
 	margin-top: 16px;
@@ -52,8 +43,8 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 	} = props;
 
 	return (
-		<ResponsiveViewColumn ref={ref} sections={sections && sections.length > 1}>
-			<Row>
+		<StyledColumn className={view} ref={ref} sections={sections && sections.length > 1}>
+			<Row className={view}>
 				<TitleWrapper
 					title={title}
 					description={description}
@@ -61,7 +52,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 				/>
 				{tooltipInfo && helpIcon}
 			</Row>
-			<ResponsiveActionsRow showActive={showActive}>
+			<ResponsiveActionsRow className={view} showActive={showActive}>
 				{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
 				{buttons && (
 					<ButtonsWrapper>
@@ -74,7 +65,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 			{sections &&
 				<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 			}
-		</ResponsiveViewColumn>
+		</StyledColumn>
 	);
 });
 

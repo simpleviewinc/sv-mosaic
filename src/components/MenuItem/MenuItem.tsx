@@ -43,7 +43,8 @@ const StyledMenuItem = styled(MUIMenuItem)`
 
 	& > .menuLabel {
 		font-family: ${theme.fontFamily};
-		color: ${theme.colors.label};
+		color: ${theme.newColors.grey4["100"]};
+
 	}
 `
 

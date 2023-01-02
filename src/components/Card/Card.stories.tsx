@@ -32,13 +32,13 @@ const ActivityWrapper = styled.div`
 `;
 
 const ActivityDescription = styled.p`
-  color: ${theme.colors.gray700};
+  color: ${theme.newColors.grey4["100"]};
   font-size: 14px;
   margin-bottom: 8px;
 `;
 
 const ActivityDate = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-size: 14px;
 `;
 
