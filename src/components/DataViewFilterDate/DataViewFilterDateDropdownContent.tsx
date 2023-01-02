@@ -109,11 +109,11 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 	}
 
 	return (
-		<StyledFilterDate>
+		<StyledFilterDate data-testid="dataview-filter-date-dropdown-content">
 			{
 				"options" in props && props.options &&
 				<>
-					<ul className="options">
+					<ul className="options" data-testid="dataview-filter-date-options-list">
 						{
 							props.options.map(option =>
 								<MenuItem
@@ -130,7 +130,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 				</>
 			}
 			<StyledMainContent>
-				<div>
+				<div data-testid="dataview-filter-date-inputs">
 					<div className="inputRow">
 						<div className="startRange">
 							<h5>{`${t("mosaic:common.date_from")}`}</h5>
@@ -165,7 +165,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 					</div>
 					{
 						hasError &&
-						<div className="errorMessage">
+						<div className="errorMessage" data-testid="dataview-filter-date-error">
 							<h5>Error: {errorMessage}</h5>
 						</div>
 					}
