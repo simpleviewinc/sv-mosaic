@@ -21,4 +21,9 @@ test.describe("Components - ToggleSwitch - Example", () => {
 		await togglePage.toggleInput.click();
 		expect(await togglePage.getColorFromElement(togglePage.toggleSpan)).toBe(expectColor);
 	});
+
+	test("Validate Toggle switch track has simplyGrey as background color.", async () => {
+		const expectColor = (theme.newColors.simplyGrey["100"]);
+		expect(await togglePage.getBackgroundColorFromElement(togglePage.toggleSwitchTrack)).toBe(expectColor);
+	});
 });
