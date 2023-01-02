@@ -85,12 +85,12 @@ export class PlaygroundPage extends BasePage {
 		this.advancedSelectionOptions = page.locator("[data-testid='label-test-id']", {hasText: "Option 1 category 2"});
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
-	async visitPageWithKnobs(knobs: string[]): Promise<void> {
-		await this.visitWithKnobs(this.page_path, this.title, knobs);
+	async visitPage(knobs?: string[]): Promise<void> {
+		if (knobs) {
+			await this.visit(this.page_path, this.title, knobs);
+		} else {
+			await this.visit(this.page_path, this.title);
+		}
 	}
 
 	async getNumberOfFieldsRequired():Promise<number> {
