@@ -399,8 +399,6 @@ export const Browse = (): ReactElement => {
 					const rowToEdit =  state.data.formMatrix.filter(row => row.id === data.id);
 					const pos = state.data.formMatrix.map(e => e.id).indexOf(data.id);
 					setIndexEdit(pos);
-					console.log("rowToEdit: ", rowToEdit);
-					console.log("State: ", state)
 					addDrawer({
 						config: {
 							type: "form",
