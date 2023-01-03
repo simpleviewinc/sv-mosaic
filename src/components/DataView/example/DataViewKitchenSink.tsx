@@ -438,20 +438,14 @@ function DataViewKitchenSink(): ReactElement {
 	const stateRef = useStateRef(state);
 
 	const filterChange = function (name, value) {
-		//console.log( value)
-		setState((prev) => {
-			// console.log("prev: ", prev)
-			// console.log("name: ", name)
-			//if (!prev.filter[name] && !value) return prev
-			return {
-				...prev,
-				filter: {
-					...prev.filter,
-					[name]: value
-				},
-				skip: 0
-			}
-		});
+		setState((prev) => ({
+			...prev,
+			filter: {
+				...prev.filter,
+				[name]: value
+			},
+			skip: 0
+		}));
 	}
 
 	const convertFilter = function (filter) {

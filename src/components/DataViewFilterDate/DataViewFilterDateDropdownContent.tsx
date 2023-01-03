@@ -46,13 +46,17 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 	const hasError = errorMessage !== undefined;
 
 	const onApply = function() {
-		props.onChange({
-			rangeStart : state.rangeStart,
-			rangeEnd: state.rangeEnd
-		});
+		if (!state.rangeStart || !state.rangeEnd) {
+			props.onChange(undefined);
+		} else {
+			props.onChange({
+				rangeStart : state.rangeStart,
+				rangeEnd: state.rangeEnd
+			});
+		}
 
 		props.onClose();
-	}
+	};
 
 
 	const onClear = function() {
