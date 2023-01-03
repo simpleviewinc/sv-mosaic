@@ -52,8 +52,12 @@ export class BasePage {
 		this.showStateLocator = page.locator("#root pre");
 	}
 
-	async visit(page_path: string, element: Locator): Promise<void> {
-		await this.page.goto(url(page_path), { timeout: 900000 });
+	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
+		if (knobs) {
+			await this.page.goto(urlWithKnobs(page_path, knobs), { timeout: 900000 });
+		} else {
+			await this.page.goto(url(page_path), { timeout: 900000 });
+		}
 		await element.waitFor();
 	}
 
