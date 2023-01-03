@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldPhoneSelectionDropdownPage } from "../../pages/FormFields/FormFieldPhoneSelectionDropdownPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
 	let page: Page;
@@ -76,5 +77,13 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill("");
 		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill(rndCustomPlaceholderPhone);
 		await ffPhoneSelectionDropdownPage.saveBtn.dblclick();
+	});
+
+	test("Validate all the Flag Dropdown have simplyGrey as border color.", async () => {
+		const expectColor = theme.newColors.simplyGrey["100"];
+		const numberOfBDropdown = await ffPhoneSelectionDropdownPage.flagDropdown.count();
+		for (let i = 0; i < numberOfBDropdown; i++) {
+			expect(await ffPhoneSelectionDropdownPage.getSpecificBorderFromElement(ffPhoneSelectionDropdownPage.flagDropdown.nth(i), "right")).toContain(expectColor);
+		}
 	});
 });
