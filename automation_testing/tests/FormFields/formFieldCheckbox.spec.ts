@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldCheckboxPage } from "../../pages/FormFields/FormFieldCheckboxPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 	let page: Page;
@@ -43,6 +44,15 @@ test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		for (let i = 0; i < numberOfLabels; i++) {
 			if (!await formFieldCheckboxPage.checkboxLabel.nth(i).isDisabled()) {
 				await formFieldCheckboxPage.validateFontColorFromElement(formFieldCheckboxPage.checkboxLabel.nth(i), "#3B424E", true);
+			}
+		}
+	});
+
+	test("Validate checkbox text has grey4 as color.", async () => {
+		const expectColor = theme.newColors.grey4["100"];
+		for (let i = 0; i < await formFieldCheckboxPage.checkboxLabel.count();i++) {
+			if (!await formFieldCheckboxPage.checkboxLabel.nth(i).isDisabled()) {
+				expect(await formFieldCheckboxPage.getColorFromElement(formFieldCheckboxPage.checkboxLabel.nth(i))).toBe(expectColor);
 			}
 		}
 	});
