@@ -20,4 +20,9 @@ test.describe("Components - MenuItem - With Icon", () => {
 		const expectColor = theme.newColors.darkRed["100"];
 		expect(await menuItemPage.getColorFromElement(menuItemPage.deleteIcon)).toBe(expectColor);
 	});
+
+	test("Validate Icon Text has grey4 as color.", async () => {
+		const expectColor = theme.newColors.grey4["100"];
+		expect(await menuItemPage.getColorFromElement(menuItemPage.menuText)).toBe(expectColor);
+	});
 });
