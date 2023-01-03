@@ -29,14 +29,14 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 		setAnchorEl(null);
 	}
 
-	const hasStart = props.data.rangeStart !== undefined;
-	const hasEnd = props.data.rangeEnd !== undefined;
-	const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
-	const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
+	const hasStart = props.data?.rangeStart !== undefined;
+	const hasEnd = props.data?.rangeEnd !== undefined;
+	const startFormat = hasStart ? format(props.data?.rangeStart, dateFormat) : undefined;
+	const endFormat = hasEnd ? format(props.data?.rangeEnd, dateFormat) : undefined;
 
 	let valueString: string | undefined = undefined;
 
-	if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
+	if (isSame(props.data?.rangeStart, props.data?.rangeEnd)) {
 		valueString = startFormat;
 	} else if (hasStart && hasEnd) {
 		valueString = `${startFormat} - ${endFormat}`;
@@ -60,8 +60,8 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 				<DataViewFilterDateDropdownContent
 					onClose={onClose}
 					onChange={props.onChange}
-					rangeStart={props.data.rangeStart}
-					rangeEnd={props.data.rangeEnd}
+					rangeStart={props.data?.rangeStart}
+					rangeEnd={props.data?.rangeEnd}
 				/>
 			</DataViewFilterDropdown>
 		</StyledWrapper>
