@@ -52,8 +52,12 @@ export class BasePage {
 		this.showStateLocator = page.locator("#root pre");
 	}
 
-	async visit(page_path: string, element: Locator): Promise<void> {
-		await this.page.goto(url(page_path), { timeout: 900000 });
+	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
+		if (knobs) {
+			await this.page.goto(urlWithKnobs(page_path, knobs), { timeout: 900000 });
+		} else {
+			await this.page.goto(url(page_path), { timeout: 900000 });
+		}
 		await element.waitFor();
 	}
 
@@ -210,7 +214,7 @@ export class BasePage {
 		return await ((element).evaluate(el => getComputedStyle(el).gap));
 	}
 
-	async getSpecificBorderFromElement(element: Locator, section?: "all"|"right"|"left"): Promise<string> {
+	async getSpecificBorderFromElement(element: Locator, section?: "all"|"right"|"left"|"top"|"bottom"): Promise<string> {
 		switch (section) {
 		case "all":
 			return await ((element).evaluate(el => getComputedStyle(el).border));
@@ -218,6 +222,10 @@ export class BasePage {
 			return await ((element).evaluate(el => getComputedStyle(el).borderRight));
 		case "left":
 			return await ((element).evaluate(el => getComputedStyle(el).borderLeft));
+		case "top":
+			return await ((element).evaluate(el => getComputedStyle(el).borderTop));
+		case "bottom":
+			return await ((element).evaluate(el => getComputedStyle(el).borderBottom));
 		default:
 			return await ((element).evaluate(el => getComputedStyle(el).border));
 		}
