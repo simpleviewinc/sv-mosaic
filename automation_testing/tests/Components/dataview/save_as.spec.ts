@@ -13,12 +13,12 @@ test.describe.parallel("Components - Data View - Save As", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
-		saveAs = dataviewPage.saveAsComponent;
+		saveAs = new SaveAsComponent(page);
 		pagination = dataviewPage.paginationComponent;
 		await dataviewPage.visitPage();
 	});
 
-	test.beforeEach(async() => {
+	test.afterEach(async() => {
 		await saveAs.removeAllSavedViews();
 	});
 
@@ -104,10 +104,9 @@ test.describe.parallel("Components - Data View - Save As", () => {
 	});
 
 	test("Overwrite view", async () => {
-		await page.reload();
 		await pagination.selectViewType("Grid");
 		await pagination.selectResultOption(50, false);
-		await pagination.wait()
+		await pagination.wait();
 		await saveAs.createNewView(saveAs_data.saveAsOverwriteView);
 
 		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage50}`);

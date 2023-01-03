@@ -32,8 +32,8 @@ export class PaginationComponent extends BasePage {
 		this.viewTypeOption = page.locator("ul[role='menu']");
 		this.menuItem = page.locator("[role='menuitem']");
 
-		this.resultAmountGrid = this.headerActionsButton.nth(1);
-		this.paginationValueGrid = this.headerActionsButton.nth(2);
+		this.resultAmountGrid = this.headerActionsButton.nth(3);
+		this.paginationValueGrid = this.headerActionsButton.nth(4);
 
 		this.gridImage = page.locator(".image");
 		this.gridImageCheckbox = this.gridImage.locator(".checkboxContainer");
