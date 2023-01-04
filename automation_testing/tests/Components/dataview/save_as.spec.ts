@@ -3,6 +3,7 @@ import { dataview_data, saveAs_data } from "../../../utils/data/dataview_data";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { SaveAsComponent } from "../../../pages/Components/DataView/SaveAsComponent";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Save As", () => {
 	let page: Page;
@@ -13,12 +14,12 @@ test.describe.parallel("Components - Data View - Save As", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
-		saveAs = dataviewPage.saveAsComponent;
+		saveAs = new SaveAsComponent(page);
 		pagination = dataviewPage.paginationComponent;
 		await dataviewPage.visitPage();
 	});
 
-	test.beforeEach(async() => {
+	test.afterEach(async() => {
 		await saveAs.removeAllSavedViews();
 	});
 
@@ -130,5 +131,38 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		await (await saveAs.selectViewBtnByLabel(saveAs_data.saveAsOverwriteView)).click();
 		expect(await pagination.resultAmountGrid.textContent()).toBe(`${dataview_data.resultPerPage100}`);
 		expect(await saveAs.viewBtn.textContent()).toContain(saveAs_data.saveAsOverwriteView);
+	});
+
+	test("Validate Select button in the Saved view drawer has realTeal as Color.", async () => {
+		const expectedColor = theme.newColors.realTeal["100"];
+		await saveAs.createNewView(saveAs_data.saveAsView);
+		await saveAs.viewBtn.click();
+		const numberOfButtons = await saveAs.page.locator("button:has-text('Select')").count();
+		for (let i = 0; i < numberOfButtons; i++) {
+			expect(await saveAs.getColorFromElement(saveAs.page.locator("button:has-text('Select')").nth(i))).toBe(expectedColor);
+		}
+	});
+
+	test("Validate text in the Saved view drawer has almostBlack as Color.", async () => {
+		const expectedColor = theme.newColors.almostBlack["100"];
+		await saveAs.createNewView(saveAs_data.saveAsView);
+		await saveAs.viewBtn.click();
+		const rowCount = await saveAs.page.locator("tbody").nth(1).locator("tr").count();
+		for (let i = 0; i < rowCount; i++) {
+			expect(await saveAs.getColorFromElement(saveAs.page.locator("tbody").nth(1).locator("tr").nth(i).locator("td:nth-child(2) >> div"))).toBe(expectedColor);
+			expect(await saveAs.getColorFromElement(saveAs.page.locator("tbody").nth(1).locator("tr").nth(i).locator("td:nth-child(3) >> div"))).toBe(expectedColor);
+		}
+	});
+
+	test("Validate icons in the Saved view drawer has almostBlack as Color.", async () => {
+		const expectedColor = theme.newColors.almostBlack["100"];
+		await saveAs.createNewView(saveAs_data.saveAsView);
+		await saveAs.viewBtn.click();
+		const rowCount = await saveAs.page.locator("tbody").nth(1).locator("tr").count();
+		// We start from 1 because the first row (Default) does not have icons.
+		for (let i = 1; i < rowCount; i++) {
+			expect(await saveAs.getColorFromElement(saveAs.page.locator("tbody").nth(1).locator("tr").nth(i).locator("td:nth-child(1) >> span:nth-child(2) >> button"))).toBe(expectedColor);
+			expect(await saveAs.getColorFromElement(saveAs.page.locator("tbody").nth(1).locator("tr").nth(i).locator("td:nth-child(1) >> span:nth-child(3) >> button"))).toBe(expectedColor);
+		}
 	});
 });
