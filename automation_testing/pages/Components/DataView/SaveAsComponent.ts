@@ -32,7 +32,7 @@ export class SaveAsComponent extends BasePage {
 		this.tableViews = page.locator(".viewContainer table tbody");
 		this.editView = page.locator("//html/body/div[10]/div[3]");
 		this.editCheckbox = this.editView.locator("input[type=checkbox]");
-		this.closeViewBtn = page.locator(".left .iconButton button");
+		this.closeViewBtn = page.locator("button[data-testid='close-icon-test-id']");
 		this.threeDotsLocator = "[data-mosaic-id='additional_actions_dropdown'] [data-testid='icon-button-test']";
 	}
 
