@@ -168,8 +168,8 @@ function DataViewTHead(props: DataViewTHeadProps) {
 
 	const { t } = useMosaicTranslation();
 
-	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
-	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
+	const allChecked = props.checked?.length > 0 && props.checked?.every(val => val === true);
+	const anyChecked = props.checked?.length > 0 && props.checked?.some(val => val === true);
 
 	const columnCount = (props?.bulkActions?.length > 0 ? 1 : 0) + 1 + props.columns.length;
 
@@ -267,7 +267,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 						<DataViewBulkAllBar
 							rowCount={props.rowCount}
 							count={props.count}
-							checkedAllPages={props.checkedAllPages}
+							checkedAllPages={props?.checkedAllPages}
 							onCheckAllPagesClick={props.onCheckAllPagesClick}
 						/>
 					</th>

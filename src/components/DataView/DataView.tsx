@@ -51,12 +51,6 @@ const StyledWrapper = styled.div`
 `;
 
 function DataView (props: DataViewProps): ReactElement  {
-	// declare the hooks
-	const [state, setState] = useState({
-		checked : [],
-		checkedAllPages : false
-	});
-
 	/**
 	 * Checks if a provided active filter is a
 	 * valid filter based on the name.
@@ -86,38 +80,24 @@ function DataView (props: DataViewProps): ReactElement  {
 	;
 
 	const onCheckAllClick = function() {
-		const allChecked = state.checked.every(val => val === true);
-		const checked = state.checked.map(val => !allChecked);
-		props?.onCheckboxClick(checked);
-
-		setState({
-			...state,
-			checked,
-			checkedAllPages : false
-		});
+		const allChecked = props.checked?.every(val => val === true);
+		const checked = props.checked?.map(val => !allChecked);
+		props.onCheckChange?.(checked);
+		props.onCheckAllPagesChange?.(false);
 	}
 
 	const onCheckboxClick = function(i) {
-		const newChecked = [...state.checked];
+		const newChecked = [...props.checked];
 		newChecked[i] = !newChecked[i];
-		props?.onCheckboxClick(newChecked);
-
-		setState({
-			...state,
-			checked : newChecked,
-			checkedAllPages : false
-		});
+		props.onCheckChange?.(newChecked);
+		props.onCheckAllPagesChange?.(false);
 	}
 
 	const onCheckAllPagesClick = function() {
 		// if the checkedAllPages was previously clicked we also uncheck all of the checkboxes
-		const checked = state.checkedAllPages ? state.checked.map(val => false) : state.checked;
-		props?.onCheckboxClick(checked);
-		setState({
-			...state,
-			checked,
-			checkedAllPages : !state.checkedAllPages
-		})
+		const checked = props.checkedAllPages ? props.checked.map(val => false) : props.checked;
+		props?.onCheckChange(checked);
+		props.onCheckAllPagesChange?.(!props.checkedAllPages);
 	}
 
 	useEffect(() => {
@@ -126,13 +106,6 @@ function DataView (props: DataViewProps): ReactElement  {
 			viewContainerRef.current.scrollTo(0, 0);
 		}
 	}, [props.data, props.display])
-
-	useEffect(() => {
-		setState({
-			...state,
-			checked : props.data.map(val => false)
-		});
-	}, [props.data]);
 
 	const displayOptionsFull = useMemo(() => {
 		return displayOptions.map(val => {
@@ -267,7 +240,7 @@ function DataView (props: DataViewProps): ReactElement  {
 							activeColumnObjs={activeColumnObjs}
 							columns={props.columns}
 							bulkActions={props.bulkActions}
-							checked={state.checked}
+							checked={props.checked}
 							display={display}
 							displayControlEnabled={displayControlEnabled}
 							displayOptionsFull={displayOptionsFull}
@@ -284,7 +257,7 @@ function DataView (props: DataViewProps): ReactElement  {
 							onSortChange={props.onSortChange}
 							sort={props.sort}
 							data={props.data}
-							checkedAllPages={state.checkedAllPages}
+							checkedAllPages={props.checkedAllPages}
 						/>
 					</div>
 			}
@@ -295,8 +268,8 @@ function DataView (props: DataViewProps): ReactElement  {
 				`}
 			>
 				<Display
-					checked={state.checked}
-					checkedAllPages={state.checkedAllPages}
+					checked={props.checked}
+					checkedAllPages={props.checkedAllPages}
 					columns={props.columns}
 					bulkActions={props.bulkActions}
 					sort={props.sort}

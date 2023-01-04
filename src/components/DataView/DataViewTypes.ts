@@ -195,8 +195,12 @@ type dataViewOnSavedViewGetOptions = {
 	(): MosaicObject[]
 }
 
-type dataViewOnCheckboxClick = {
+type dataViewOnCheckChange = {
 	(checked: boolean[]): void;
+}
+
+type dataViewOnCheckAllPagesChange = {
+	(val: boolean): void;
 }
 
 export interface DataViewProps {
@@ -235,5 +239,8 @@ export interface DataViewProps {
 	onSavedViewSave?: dataViewOnSavedViewSave
 	onSavedViewRemove?: dataViewOnSavedViewRemove
 	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
-	onCheckboxClick?: dataViewOnCheckboxClick;
+	onCheckChange?: dataViewOnCheckChange;
+	checked?: boolean[];
+	checkedAllPages?: boolean;
+	onCheckAllPagesChange?: dataViewOnCheckAllPagesChange
 }

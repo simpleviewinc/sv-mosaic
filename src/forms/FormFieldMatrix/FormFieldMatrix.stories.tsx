@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useMemo, useState, useCallback } from "react";
+import { ReactElement, useMemo, useState, useCallback, useEffect } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { MatrixDef } from ".";
 import { FieldDef } from "@root/components/Field";
@@ -309,6 +309,10 @@ export const Browse = (): ReactElement => {
 		drawers: [],
 	});
 
+	useEffect(() => {
+		setCheckedRows(mappedData.map(val => false));
+	}, [mappedData]);
+
 	const addDrawer = useCallback(async (drawerDef) => {
 		if (drawerDef.config.type === "form") {
 			await dispatch(
@@ -382,7 +386,8 @@ export const Browse = (): ReactElement => {
 		display: "list",
 		activeColumns: ["id", "title", "description"],
 		savedView: defaultView,
-		onCheckboxClick: (checked) => {
+		checked: rowsChecked,
+		onCheckChange: (checked) => {
 			setCheckedRows(checked);
 		}
 	};
@@ -456,9 +461,6 @@ export const Browse = (): ReactElement => {
 		display: "list",
 		activeColumns: ["id", "title", "description"],
 		savedView: defaultView,
-		onCheckboxClick: (checked) => {
-			setCheckedRows(checked);
-		}
 	};
 
 	const mosaicSettings = useMosaicSettings();
@@ -575,7 +577,7 @@ export const Browse = (): ReactElement => {
 									buttons={drawerButtons}
 								/>
 
-								<DataView {...drawerDef.config.gridConfig}></DataView>
+								<DataView {...dataViewGridConfig}></DataView>
 							</MosaicContext.Provider>
 						);
 					} else {
