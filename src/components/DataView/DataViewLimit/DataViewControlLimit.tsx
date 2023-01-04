@@ -26,14 +26,14 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 		<MenuSelect
 			options={options}
 			onChange={onChange}
-			value={props?.limit?.toString()}
+			value={props.limit.toString()}
 		/>
 	)
 
 	return (
 		<StyledButton
 			color="black"
-			label={props?.limit?.toString()}
+			label={props.limit.toString()}
 			variant="text"
 			size="small"
 			iconPosition="right"
