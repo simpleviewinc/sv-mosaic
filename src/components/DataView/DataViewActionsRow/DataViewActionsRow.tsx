@@ -38,8 +38,8 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 	}, [limitOptions]);
 
 	const [allChecked, anyChecked] = useMemo(() => {
-		const allChecked = checked.length > 0 && checked.every(val => val === true);
-		const anyChecked = checked.length > 0 && checked.some(val => val === true);
+		const allChecked = checked?.length > 0 && checked?.every(val => val === true);
+		const anyChecked = checked?.length > 0 && checked?.some(val => val === true);
 
 		return [allChecked, anyChecked];
 	}, [display, checked])

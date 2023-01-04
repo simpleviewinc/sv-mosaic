@@ -423,7 +423,14 @@ function DataViewKitchenSink(): ReactElement {
 		skip: 0,
 		loading: false,
 		savedView: defaultView,
+		/* 		checked: [],
+		checkedAllPages : false, */
 		...defaultView.state
+	});
+
+	const [checkedState, setCheckedState] = useState({
+		checked: [],
+		checkedAllPages: false
 	});
 
 	const mosaicSettings = useMosaicSettings();
@@ -530,6 +537,13 @@ function DataViewKitchenSink(): ReactElement {
 		displayOptions.length === 1 ? displayOptions[0] :
 		state.display
 		;
+
+	useEffect(() => {
+		setCheckedState({
+			...checkedState,
+			checked : state.data.map(val => false)
+		});
+	}, [state.data]);
 
 	const gridConfig: DataViewProps = {
 		title: "Your Uploads",
@@ -670,6 +684,20 @@ function DataViewKitchenSink(): ReactElement {
 				activeFilters,
 				filter
 			});
+		},
+		checked: checkedState.checked,
+		checkedAllPages: checkedState.checkedAllPages,
+		onCheckChange: (checked) => {
+			setCheckedState((prev) => ({
+				...prev,
+				checked
+			}));
+		},
+		onCheckAllPagesChange: (checkedAllPages) => {
+			setCheckedState((prev) => ({
+				...prev,
+				checkedAllPages
+			}));
 		},
 		savedViewAllowSharedViewSave,
 		data: state.data,

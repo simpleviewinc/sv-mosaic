@@ -51,7 +51,6 @@ function DataViewTBody(props: DataViewTBodyProps) {
 			{
 				name : "checked",
 				type : "array",
-				required : true
 			},
 			{
 				name : "onReorder",
@@ -128,7 +127,7 @@ function DataViewTBody(props: DataViewTBodyProps) {
 								primaryActions={props.primaryActions}
 								additionalActions={props.additionalActions}
 								onCheckboxClick={onCheckboxClick(i)}
-								checked={props.checked[i]}
+								checked={props.checked ? props.checked[i] : false}
 								columns={props.columns}
 								onReorder={props.onReorder}
 							/>
