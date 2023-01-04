@@ -23,7 +23,7 @@ test.describe.parallel("Components - Card - Recent Activity", () => {
 		}
 	});
 
-	test("Validate Icon has grey3 as color.", async () => {
+	test("Validate Activity date has grey3 as color.", async () => {
 		const expectColor = theme.newColors.grey3["100"];
 		for (let i = 3; i < await cardPage.page.locator("span").count();i++) {
 			expect(await cardPage.getColorFromElement(cardPage.page.locator("span").nth(i))).toBe(expectColor);
