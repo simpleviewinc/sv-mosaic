@@ -401,4 +401,12 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
 		await advancedFilters.page.keyboard.press("Escape");
 	});
+
+	test("Validate that Removing emply Title filter doesn't trigger a reload", async () => {
+		await advancedFilters.selectFilter("title");
+		await advancedFilters._dataviewPage.filtersBtn.click();
+		await advancedFilters.titleOption.first().click();
+		await advancedFilters.applyBtn.click();
+		await expect(advancedFilters.loading).not.toBeVisible();
+	});
 });
