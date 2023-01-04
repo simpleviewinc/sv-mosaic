@@ -12,6 +12,7 @@ export class PopoverPage extends BasePage {
 	readonly mail: Locator;
 	readonly labelLocator: Locator;
 	readonly subtitleLocator: Locator;
+	readonly linkSubtitleLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -22,6 +23,7 @@ export class PopoverPage extends BasePage {
 		this.mail = this.popoverTooltip.locator("span", { hasText: "mail@gmail.com" });
 		this.labelLocator = this.popoverTooltip.locator("span", { hasText: "Label" });
 		this.subtitleLocator = this.popoverTooltip.locator("span", { hasText: "Subtitle" });
+		this.linkSubtitleLocator = this.popoverTooltip.locator("svg");
 	}
 
 	async visitPage(): Promise<void> {

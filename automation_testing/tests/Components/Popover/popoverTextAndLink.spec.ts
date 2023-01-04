@@ -35,5 +35,6 @@ test.describe.parallel("Components - PopoverPage - Text And Links", () => {
 		const expectColor = theme.newColors.grey3["100"];
 		await popoverPage.openPopoverButton.click();
 		expect(await popoverPage.getColorFromElement(popoverPage.subtitleLocator)).toBe(expectColor);
+		expect(await popoverPage.getColorFromElement(popoverPage.linkSubtitleLocator)).toBe(expectColor);
 	});
 });
