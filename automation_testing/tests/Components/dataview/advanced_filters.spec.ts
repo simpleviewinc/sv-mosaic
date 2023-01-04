@@ -26,7 +26,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await _dataviewPage.visitPage();
 	});
 
-	test.afterEach(async() => {
+	test.beforeEach(async() => {
 		await page.reload();
 	});
 
