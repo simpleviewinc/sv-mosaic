@@ -22,4 +22,11 @@ test.describe.parallel("Components - Card - Recent Activity", () => {
 			expect(await cardPage.getColorFromElement(cardPage.activityLocator.nth(i))).toBe(expectColor);
 		}
 	});
+
+	test("Validate Activity date has grey3 as color.", async () => {
+		const expectColor = theme.newColors.grey3["100"];
+		for (let i = 3; i < await cardPage.page.locator("span").count();i++) {
+			expect(await cardPage.getColorFromElement(cardPage.page.locator("span").nth(i))).toBe(expectColor);
+		}
+	});
 });
