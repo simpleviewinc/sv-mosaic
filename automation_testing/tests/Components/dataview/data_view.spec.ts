@@ -132,4 +132,13 @@ test.describe.parallel("Components - Data View", () => {
 		await dataviewPage.headerActionsLocator.waitFor();
 		expect(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.headerActionsLocator)).toBe("8px 24px");
 	});
+
+	test("Validate More actions tooltip is not visible when clicking the button.", async () => {
+		await dataviewPage.waitForDataviewIsVisible();
+		await dataviewPage.moreOptions.first().hover();
+		await expect(dataviewPage.tooltip.first()).toBeVisible();
+		expect(await dataviewPage.tooltip.first().textContent()).toBe("More actions");
+		await dataviewPage.moreOptions.first().click();
+		await expect(dataviewPage.tooltip.first()).not.toBeVisible();
+	});
 });
