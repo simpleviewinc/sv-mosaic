@@ -17,8 +17,8 @@ interface DataViewDisplayListProps {
 	columns?: DataViewProps["columns"];
 	data?: DataViewProps["data"];
 	onReorder?: DataViewProps["onReorder"];
-	checked?: boolean[];
-	checkedAllPages?: boolean;
+	checked?: DataViewProps["checked"];
+	checkedAllPages?: DataViewProps["checkedAllPages"];
 	bulkActions?: DataViewProps["bulkActions"];
 	sort?: DataViewProps["sort"];
 	count?: DataViewProps["count"];

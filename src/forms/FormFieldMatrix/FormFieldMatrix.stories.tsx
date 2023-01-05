@@ -345,6 +345,15 @@ export const Browse = (): ReactElement => {
 		}));
 	}, []);
 
+	const updateCheckedOptions = (rowId) => {
+		const newCheckedRows = [...rowsChecked];
+
+		const pos = mappedData.map(row => row.id).indexOf(rowId);
+		newCheckedRows[pos] = false;
+
+		setCheckedRows(newCheckedRows);
+	};
+
 	const dataViewGridConfig: DataViewProps = {
 		columns: listColumns,
 		primaryActions: [
@@ -372,17 +381,6 @@ export const Browse = (): ReactElement => {
 		sticky: true,
 		data: mappedData,
 		limit: 25,
-		onReorder: async (newRows) => {
-			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
-
-			await dispatch(
-				formActions.setFieldValue({
-					name: "formMatrix",
-					value: rows,
-					touched: true
-				})
-			);
-		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
 		savedView: defaultView,
@@ -441,6 +439,8 @@ export const Browse = (): ReactElement => {
 							touched: true
 						})
 					);
+
+					updateCheckedOptions(data.id);
 				}
 			}
 		],
