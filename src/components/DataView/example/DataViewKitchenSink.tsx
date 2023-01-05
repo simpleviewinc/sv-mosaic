@@ -423,8 +423,6 @@ function DataViewKitchenSink(): ReactElement {
 		skip: 0,
 		loading: false,
 		savedView: defaultView,
-		/* 		checked: [],
-		checkedAllPages : false, */
 		...defaultView.state
 	});
 
