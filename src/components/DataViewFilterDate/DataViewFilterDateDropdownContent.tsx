@@ -60,16 +60,24 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 		errorMessage = "End of range cannot be before start of range.";
 	}
 
+	if (state.rangeStart?.toString() === "Invalid Date" || state.rangeEnd?.toString() === "Invalid Date") {
+		errorMessage = "This is not a valid date";
+	}
+
 	const hasError = errorMessage !== undefined;
 
 	const onApply = function() {
-		props.onChange({
-			rangeStart : state.rangeStart,
-			rangeEnd: state.rangeEnd
-		});
+		if (!state.rangeStart && !state.rangeEnd) {
+			props.onChange(undefined);
+		} else {
+			props.onChange({
+				rangeStart: state.rangeStart,
+				rangeEnd: state.rangeEnd
+			});
+		}
 
 		props.onClose();
-	}
+	};
 
 	const onOptionSelect = (optionValue: string) => {
 		props.onChange({option: optionValue});
@@ -104,7 +112,8 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 
 		setState({
 			...state,
-			[name] : date === null ? undefined : date
+			[name] : date === null ? undefined : date,
+			selectedOption: undefined
 		});
 	}
 
