@@ -27,4 +27,6 @@ export interface DataViewActionsRowProps {
 	sort?: DataViewProps["sort"];
 	onSortChange?: DataViewOnSortChange;
 	columns?: DataViewColumn[];
+	anyChecked?: boolean;
+	allChecked?: boolean;
 }

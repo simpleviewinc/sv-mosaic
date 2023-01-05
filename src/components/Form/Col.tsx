@@ -21,6 +21,7 @@ import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/forms/FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
 import FormFieldImageUpload from "@root/forms/FormFieldImageUpload";
+import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import { Sizes } from "@root/theme";
 
 const StyledCol = styled.div`
@@ -70,6 +71,7 @@ const Col = (props: ColPropsTypes) => {
 		advancedSelection: FormFieldAdvancedSelection,
 		mapCoordinates: FormFieldMapCoordinates,
 		imageUpload: FormFieldImageUpload,
+		matrix: FormFieldMatrix
 	}), []);
 
 	const doneTypingInterval = 300;
