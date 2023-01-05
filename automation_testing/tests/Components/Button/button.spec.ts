@@ -129,4 +129,12 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 		await buttonPage.button.nth(5).hover({ force: true });
 		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button.nth(5))).toBe(expectColor);
 	});
+
+	test("Validate Icon has grey3 as color.", async () => {
+		const expectColor = theme.newColors.grey3["100"];
+		// Icon Buttons
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(84))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(85))).toBe(expectColor);
+		expect(await buttonPage.getColorFromElement(buttonPage.button.nth(86))).toBe(expectColor);
+	});
 });
