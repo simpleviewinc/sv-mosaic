@@ -220,7 +220,7 @@ export interface DataViewProps {
 	activeFilters?: string[]
 	buttons?: ButtonProps[]
 	display?: string
-	onReorder?: (rows: MosaicObject[]) => void;
+	onReorder?: (rows: string[]) => void;
 	savedView?: SavedViewDef
 	displayOptions?: string[]
 	data: MosaicObject[]
