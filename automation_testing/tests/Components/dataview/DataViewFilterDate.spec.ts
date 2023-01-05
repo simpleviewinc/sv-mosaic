@@ -25,6 +25,4 @@ test.describe.parallel("Components - DataViewFilterDate - Example", () => {
 		await dataViewFilterDate.menuItem.nth(randomPosition).click();
 		expect(await dataViewFilterDate.dateFilterButton.textContent()).toContain(optionToSelect);
 	});
-
-
 });
