@@ -5,10 +5,10 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { MatrixDef } from "./FormFieldMatrixTypes";
 import { MatrixWrapper, ButtonsWrapper } from "./FormFieldMatrix.styled";
 import Button from "@root/components/Button";
-import DataView from "@root/components/DataView";
+import DataView, { DataViewProps } from "@root/components/DataView";
 
 const FormFieldMatrix = (
-	props: MosaicFieldProps<MatrixDef>
+	props: MosaicFieldProps<MatrixDef, DataViewProps["data"]>
 ): ReactElement => {
 	const {
 		value,
