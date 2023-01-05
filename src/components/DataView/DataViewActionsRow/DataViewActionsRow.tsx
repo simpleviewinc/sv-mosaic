@@ -31,18 +31,13 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 		onCheckAllClick,
 		onSortChange,
 		sort,
+		allChecked,
+		anyChecked
 	} = props;
 
 	const limitOptionsValue = useMemo(() => {
 		return limitOptions || [25, 50, 100];
 	}, [limitOptions]);
-
-	const [allChecked, anyChecked] = useMemo(() => {
-		const allChecked = checked?.length > 0 && checked?.every(val => val === true);
-		const anyChecked = checked?.length > 0 && checked?.some(val => val === true);
-
-		return [allChecked, anyChecked];
-	}, [display, checked])
 
 
 	const hasSortControl = onSortChange !== undefined && sort !== undefined;
@@ -52,16 +47,18 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 			{
 				display === "grid" && bulkActions?.length > 0 && (
 					<LeftControlsContainer>
-						<Checkbox
-							checked={allChecked}
-							indeterminate={!allChecked && anyChecked}
-							onClick={onCheckAllClick}
-						/>
+						{onCheckAllClick &&
+							<Checkbox
+								checked={allChecked}
+								indeterminate={!allChecked && anyChecked}
+								onClick={onCheckAllClick}
+							/>
+						}
 						{
 							anyChecked && (
 								<DataViewBulkActionsButtonsRow
 									data={props.data}
-									checked={props.checked}
+									checked={checked}
 									bulkActions={props.bulkActions}
 									checkedAllPages={props.checkedAllPages}
 								/>
