@@ -2,7 +2,6 @@ import { test, expect, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataviewPage";
 import { advanced_filter_data, dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/AdvancedFiltersComponent";
-import { DatePickerComponent } from "../../../pages/Components/DataView/DatePickerComponent";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
@@ -12,7 +11,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	let page: Page;
 	let _dataviewPage: DataviewPage;
 	let advancedFilters: AdvancedFiltersComponent;
-	let datepicker: DatePickerComponent;
 	let pagination: PaginationComponent;
 	let columns: ColumnsComponent;
 
@@ -20,7 +18,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		page = await browser.newPage();
 		_dataviewPage = new DataviewPage(page);
 		advancedFilters = new AdvancedFiltersComponent(page);
-		datepicker = advancedFilters.datepicker;
 		pagination = _dataviewPage.paginationComponent;
 		columns = _dataviewPage.columnsComponent;
 		await _dataviewPage.visitPage();
@@ -269,8 +266,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.createdBtn.click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
-		await advancedFilters.fromCalendarButton.click();
-		await datepicker.selectDate(endDate);
+		await advancedFilters.selectFilterDates(endDate, endDate);
 		await advancedFilters.wait();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
@@ -339,8 +335,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.updatedBtn.click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
-		await advancedFilters.fromCalendarButton.click();
-		await datepicker.selectDate(endDate);
+		await advancedFilters.selectFilterDates(endDate, endDate);
 		await advancedFilters.wait();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
@@ -400,5 +395,13 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
 		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
 		await advancedFilters.page.keyboard.press("Escape");
+	});
+
+	test("Validate that Removing emply Title filter doesn't trigger a reload", async () => {
+		await advancedFilters.selectFilter("title");
+		await advancedFilters._dataviewPage.filtersBtn.click();
+		await advancedFilters.titleOption.first().click();
+		await advancedFilters.applyBtn.click();
+		await expect(advancedFilters.loading).not.toBeVisible();
 	});
 });
