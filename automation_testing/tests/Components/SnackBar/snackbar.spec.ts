@@ -20,4 +20,11 @@ test.describe.parallel("Components - SnackBarPage - Example", () => {
 		const expectColor = theme.newColors.almostBlack["100"];
 		expect(await snackbarPage.getColorFromElement(snackbarPage.openSnackbarButton)).toBe(expectColor);
 	});
+
+	test("Validate SnackBar close button has simplyGrey color.", async () => {
+		const expectColor = theme.newColors.simplyGrey["100"];
+		await snackbarPage.openSnackbarButton.click();
+		await expect(snackbarPage.snackbar).toBeVisible();
+		expect(await snackbarPage.getColorFromElement(snackbarPage.closeSnackbarButton)).toBe(expectColor);
+	});
 });
