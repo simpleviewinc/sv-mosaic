@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import jsvalidator from "jsvalidator";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import DataViewTr from "./DataViewTr";
 import theme from "@root/theme";
 import { MosaicObject } from "@root/types";
+import { DataViewProps } from "./DataViewTypes";
 
 const StyledTBody = styled.tbody`
 	& > tr {
@@ -33,65 +33,18 @@ const StyledTBody = styled.tbody`
 `
 
 interface DataViewTBodyProps {
-	onReorder?: (rows: MosaicObject[]) => void;
-	onCheckboxClick?: any;
-	transformedData?: MosaicObject[];
-	data?: any;
-	bulkActions?: any;
-	primaryActions?: any;
-	additionalActions?: any;
-	checked?: any;
-	columns?: any;
+	onReorder?: DataViewProps["onReorder"];
+	onCheckboxClick?: DataViewProps["onCheckChange"];
+	transformedData: MosaicObject[];
+	data: DataViewProps["data"];
+	bulkActions?: DataViewProps["bulkActions"];
+	primaryActions?: DataViewProps["primaryActions"];
+	additionalActions?: DataViewProps["additionalActions"];
+	checked?: DataViewProps["checked"];
+	columns: DataViewProps["columns"];
 }
 
 function DataViewTBody(props: DataViewTBodyProps) {
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "checked",
-				type : "array",
-			},
-			{
-				name : "onReorder",
-				type : "function",
-			},
-			{
-				name : "columns",
-				type : "array",
-				required : true
-			},
-			{
-				name : "data",
-				type : "array",
-				required : true
-			},
-			{
-				name : "transformedData",
-				type : "array",
-				required : true
-			},
-			{
-				name : "primaryActions",
-				type : "array"
-			},
-			{
-				name : "additionalActions",
-				type : "array"
-			},
-			{
-				name : "bulkActions",
-				type : "array"
-			},
-			{
-				name : "onCheckboxClick",
-				type : "function",
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
-
 	const onCheckboxClick = (i) => () => {
 		props.onCheckboxClick(i);
 	}
@@ -104,7 +57,7 @@ function DataViewTBody(props: DataViewTBodyProps) {
 	const handleDragEnd =  ({ destination, source }: DropResult) => {
 		if (!destination) return;
 
-		const rowsCopy = [...props.data].map(row => row.id);
+		const rowsCopy = [...props.data].map(row => row.id) as string[];
 		const [source_data] = rowsCopy.splice(source.index, 1);
 		rowsCopy.splice(destination.index, 0, source_data);
 
