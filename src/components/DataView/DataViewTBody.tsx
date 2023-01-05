@@ -126,7 +126,7 @@ function DataViewTBody(props: DataViewTBodyProps) {
 								bulkActions={props.bulkActions}
 								primaryActions={props.primaryActions}
 								additionalActions={props.additionalActions}
-								onCheckboxClick={onCheckboxClick(i)}
+								onCheckboxClick={props.onCheckboxClick ? onCheckboxClick(i) : undefined}
 								checked={props.checked ? props.checked[i] : false}
 								columns={props.columns}
 								onReorder={props.onReorder}
