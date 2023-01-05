@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldAdvancedSelectionPage } from "../../pages/FormFields/FormFieldAdvancedSelectionPage";
+import { FormFieldAdvancedSelectionPage } from "../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionKitchenSinkPage";
 import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
