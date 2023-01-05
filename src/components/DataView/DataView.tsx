@@ -84,14 +84,14 @@ function DataView (props: DataViewProps): ReactElement  {
 		if (props.checkedAllPages)
 			return action.onAllClick && filterAction(action, { checkedAllPages: true })
 		else
-			return action.onClick && filterAction(action, { checkedAllPages: false, data: props.data.filter((val, i) => props.checked[i] === true)})
+			return action.onClick && filterAction(action, { checkedAllPages: false, data: props.data.filter((val, i) => props.checked?.length > 0 && props.checked[i] === true)})
 	});
 
 	const checkboxEnabled =
 		props.checked !== undefined &&
 		props.onCheckChange !== undefined &&
 		validBulkActions !== undefined &&
-		validBulkActions.length > 0
+		validBulkActions?.length > 0
 	;
 
 	const onCheckAllClick = function() {
@@ -227,7 +227,7 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
 	const showBulkAll =
-		validBulkActions.length > 0 &&
+		validBulkActions?.length > 0 &&
 		props.data.length > 0 &&
 		props.count > props.data.length &&
 		validBulkActions.some(action => action.onAllClick !== undefined) &&
