@@ -26,6 +26,7 @@ export class BasePage {
 	readonly checkboxLabel: Locator;
 	readonly drawerTitle: Locator;
 	readonly showStateLocator: Locator;
+	readonly menuItem: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -50,6 +51,7 @@ export class BasePage {
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
 		this.drawerTitle = page.locator("[data-testid='drawer-title-test-id']");
 		this.showStateLocator = page.locator("#root pre");
+		this.menuItem = page.locator("[role='menuitem']");
 	}
 
 	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
