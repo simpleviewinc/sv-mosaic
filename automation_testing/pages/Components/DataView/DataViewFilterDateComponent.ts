@@ -16,7 +16,6 @@ export class DataViewFilterDateComponent extends BasePage {
 		this.dateFilterButton = page.locator("#root button", { hasText: "Date filter example" });
 		this.dataviewFilterDateDropdownContent = page.locator("[data-testid='dataview-filter-date-dropdown-content']");
 		this.dataviewFilterDateOptionsList = page.locator("[data-testid='dataview-filter-date-date-options-list']");
-
 	}
 
 	async visitPage(knobs?: string[]): Promise<void> {
