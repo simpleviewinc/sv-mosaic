@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/left_nav_data";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - LeftNav", () => {
 	let page: Page;
@@ -84,5 +85,16 @@ test.describe.parallel("Components - LeftNav", () => {
 		await subSubmenuElement.click();
 		await leftNavPage.wait();
 		expect(await leftNavPage.title.textContent()).toBe(title);
+	});
+
+	test("Validate border top of Modules and Assets sections has grey4 as border color.", async () => {
+		const expectColor = theme.newColors.grey4["100"];
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.first(), "top")).toContain(expectColor);
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.last(), "top")).toContain(expectColor);
+	});
+
+	test("Validate border top of Bottom sections has grey3 as border color.", async () => {
+		const expectColor = theme.newColors.grey3["100"];
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.divBottomLocator, "top")).toContain(expectColor);
 	});
 });
