@@ -86,7 +86,6 @@ function DataViewTBody(props: DataViewTBodyProps) {
 			{
 				name : "onCheckboxClick",
 				type : "function",
-				required : true
 			}
 		],
 		allowExtraKeys : false,
