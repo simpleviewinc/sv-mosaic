@@ -3,17 +3,9 @@ import { memo } from "react";
 
 import ButtonRow from "../ButtonRow";
 import { DataViewBulkActionsButtonsRowProps } from "./DataViewTypes";
-import { filterAction } from "./utils/bulkActionsUtils";
 
 function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps) {
-	const validActions = props.bulkActions.filter(action => {
-		if (props.checkedAllPages)
-			return action.onAllClick && filterAction(action, { checkedAllPages: true })
-		else
-			return action.onClick && filterAction(action, { checkedAllPages: false, data: props.data.filter((val, i) => props.checked[i] === true)})
-	});
-
-	const buttons = validActions.map(action => {
+	const buttons = props.bulkActions.map(action => {
 		const {
 			name,
 			show,
@@ -29,7 +21,7 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 				if (props.checkedAllPages === true) {
 					onAllClick();
 				} else {
-					const checkedData = props.data.filter((val, i) => props?.checked[i] === true);
+					const checkedData = props.data.filter((val, i) => props.checked?.[i] === true);
 					onClick({ data : checkedData });
 				}
 			}
