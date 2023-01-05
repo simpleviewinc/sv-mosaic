@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldDropdownSingleSelectionPage } from "../../pages/FormFields/FormFieldDropdownSingleSelectionPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", () => {
 	let page: Page;
@@ -67,5 +68,11 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 		const option = "The Godfather";
 		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.lgSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.lgSizeDropdownInput.inputValue()).toBe(option);
+	});
+
+	test("Validate placeholder text has grey3 as Color.", async () => {
+		const expectedColor = theme.newColors.grey3["100"];
+		expect(await formFieldDropdownSingleSelectionPage.
+			getSpecificBorderFromElement(formFieldDropdownSingleSelectionPage.page.locator("p", {hasText: "placeholder"}))).toContain(expectedColor);
 	});
 });
