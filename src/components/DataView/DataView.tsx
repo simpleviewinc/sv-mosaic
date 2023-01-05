@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useRef, ReactElement } from "react";
+import { useEffect, useMemo, useRef, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
@@ -7,6 +7,7 @@ import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
+import { filterAction } from "./utils/bulkActionsUtils";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -79,26 +80,40 @@ function DataView (props: DataViewProps): ReactElement  {
 		props.savedView !== undefined
 	;
 
+	const validBulkActions = props.bulkActions && props.bulkActions.filter(action => {
+		if (props.checkedAllPages)
+			return action.onAllClick && filterAction(action, { checkedAllPages: true })
+		else
+			return action.onClick && filterAction(action, { checkedAllPages: false, data: props.data.filter((val, i) => props.checked[i] === true)})
+	});
+
+	const checkboxEnabled =
+		props.checked !== undefined &&
+		props.onCheckChange !== undefined &&
+		validBulkActions !== undefined &&
+		validBulkActions.length > 0
+	;
+
 	const onCheckAllClick = function() {
-		const allChecked = props.checked?.every(val => val === true);
-		const checked = props.checked?.map(val => !allChecked);
-		props.onCheckChange?.(checked);
+		const allChecked = props.checked.every(val => val === true);
+		const checked = props.checked.map(val => !allChecked);
+		props.onCheckChange(checked);
 		props.onCheckAllPagesChange?.(false);
-	}
+	};
 
 	const onCheckboxClick = function(i) {
 		const newChecked = [...props.checked];
 		newChecked[i] = !newChecked[i];
-		props.onCheckChange?.(newChecked);
+		props.onCheckChange(newChecked);
 		props.onCheckAllPagesChange?.(false);
-	}
+	};
 
 	const onCheckAllPagesClick = function() {
 		// if the checkedAllPages was previously clicked we also uncheck all of the checkboxes
 		const checked = props.checkedAllPages ? props.checked.map(val => false) : props.checked;
-		props?.onCheckChange(checked);
+		props.onCheckChange?.(checked);
 		props.onCheckAllPagesChange?.(!props.checkedAllPages);
-	}
+	};
 
 	useEffect(() => {
 		if (props.data && viewContainerRef.current) {
@@ -183,7 +198,7 @@ function DataView (props: DataViewProps): ReactElement  {
 	const shouldRenderActionsRow: boolean = useMemo(() => {
 		if (
 			props.display ??
-			props.bulkActions ??
+			validBulkActions ??
 			props.limitOptions ??
 			props.onColumnsChange ??
 			props.onSortChange ??
@@ -197,7 +212,7 @@ function DataView (props: DataViewProps): ReactElement  {
 		return false;
 	}, [
 		props.display,
-		props.bulkActions,
+		validBulkActions,
 		props.limitOptions,
 		props.onColumnsChange,
 		props.onSortChange,
@@ -206,6 +221,20 @@ function DataView (props: DataViewProps): ReactElement  {
 		props.onLimitChange,
 		props.onSkipChange
 	]);
+
+	const allChecked = props.checked !== undefined && props.checked.length > 0 && props.checked.every(val => val === true);
+	const anyChecked = props.checked !== undefined && props.checked.length > 0 && props.checked.some(val => val === true);
+
+	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
+	const showBulkAll =
+		validBulkActions.length > 0 &&
+		props.data.length > 0 &&
+		props.count > props.data.length &&
+		validBulkActions.some(action => action.onAllClick !== undefined) &&
+		allChecked &&
+		props.checkedAllPages !== undefined &&
+		props.onCheckAllPagesChange !== undefined
+	;
 
 	return (
 		<StyledWrapper
@@ -239,7 +268,7 @@ function DataView (props: DataViewProps): ReactElement  {
 						<DataViewActionsRow
 							activeColumnObjs={activeColumnObjs}
 							columns={props.columns}
-							bulkActions={props.bulkActions}
+							bulkActions={validBulkActions}
 							checked={props.checked}
 							display={display}
 							displayControlEnabled={displayControlEnabled}
@@ -253,11 +282,13 @@ function DataView (props: DataViewProps): ReactElement  {
 							count={props.count}
 							allColumns={props.columns}
 							onColumnsChange={props.onColumnsChange}
-							onCheckAllClick={onCheckAllClick}
+							onCheckAllClick={checkboxEnabled ? onCheckAllClick : undefined}
 							onSortChange={props.onSortChange}
 							sort={props.sort}
 							data={props.data}
 							checkedAllPages={props.checkedAllPages}
+							allChecked={allChecked}
+							anyChecked={anyChecked}
 						/>
 					</div>
 			}
@@ -271,7 +302,7 @@ function DataView (props: DataViewProps): ReactElement  {
 					checked={props.checked}
 					checkedAllPages={props.checkedAllPages}
 					columns={props.columns}
-					bulkActions={props.bulkActions}
+					bulkActions={validBulkActions}
 					sort={props.sort}
 					data={props.data}
 					additionalActions={props.additionalActions}
@@ -284,10 +315,13 @@ function DataView (props: DataViewProps): ReactElement  {
 					activeColumnObjs={activeColumnObjs}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
-					onCheckAllClick={onCheckAllClick}
-					onCheckboxClick={onCheckboxClick}
+					onCheckAllClick={checkboxEnabled ? onCheckAllClick : undefined}
+					onCheckboxClick={checkboxEnabled ? onCheckboxClick : undefined}
 					onCheckAllPagesClick={onCheckAllPagesClick}
 					onReorder={props.onReorder}
+					showBulkAll={showBulkAll}
+					allChecked={allChecked}
+					anyChecked={anyChecked}
 				/>
 			</div>
 			{props.loading === false && !props.data.length && (

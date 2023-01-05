@@ -27,7 +27,7 @@ function DataViewTr(props: DataViewTrProps) {
 						</DataViewTd>
 					}
 					{
-						props?.bulkActions?.length > 0 &&
+						props.onCheckboxClick &&
 						<DataViewTd key="_bulk">
 							<Checkbox
 								checked={props.checked === true}

@@ -212,6 +212,8 @@ export interface DataViewProps {
 	columns: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
+	checked?: boolean[];
+	checkedAllPages?: boolean;
 	/** A list of actions which are always visible for each item in the DataView. */
 	filters?: DataViewFilterDef[]
 	filter?: MosaicObject
@@ -240,7 +242,5 @@ export interface DataViewProps {
 	onSavedViewRemove?: dataViewOnSavedViewRemove
 	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
 	onCheckChange?: dataViewOnCheckChange;
-	checked?: boolean[];
-	checkedAllPages?: boolean;
 	onCheckAllPagesChange?: dataViewOnCheckAllPagesChange
 }
