@@ -195,6 +195,14 @@ type dataViewOnSavedViewGetOptions = {
 	(): MosaicObject[]
 }
 
+type dataViewOnCheckChange = {
+	(checked: boolean[]): void;
+}
+
+type dataViewOnCheckAllPagesChange = {
+	(val: boolean): void;
+}
+
 export interface DataViewProps {
 	title?: string
 	loading?: boolean
@@ -204,13 +212,15 @@ export interface DataViewProps {
 	columns: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
+	checked?: boolean[];
+	checkedAllPages?: boolean;
 	/** A list of actions which are always visible for each item in the DataView. */
 	filters?: DataViewFilterDef[]
 	filter?: MosaicObject
 	activeFilters?: string[]
 	buttons?: ButtonProps[]
 	display?: string
-	onReorder?: (rows: MosaicObject[]) => void;
+	onReorder?: (rows: string[]) => void;
 	savedView?: SavedViewDef
 	displayOptions?: string[]
 	data: MosaicObject[]
@@ -231,4 +241,6 @@ export interface DataViewProps {
 	onSavedViewSave?: dataViewOnSavedViewSave
 	onSavedViewRemove?: dataViewOnSavedViewRemove
 	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
+	onCheckChange?: dataViewOnCheckChange;
+	onCheckAllPagesChange?: dataViewOnCheckAllPagesChange
 }
