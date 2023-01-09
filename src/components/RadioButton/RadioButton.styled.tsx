@@ -17,7 +17,7 @@ export const StyledRadioButton = styled(Radio)`
   &.MuiRadio-colorPrimary,
   &.MuiRadio-colorPrimary.Mui-checked {
     &:hover {
-      background-color: ${theme.colors.grayHover};
+      background-color: ${theme.newColors.grey2["100"]};
     }
   }
 

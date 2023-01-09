@@ -50,7 +50,7 @@ export const CheckboxWrapper = styled.div`
 
 export const StyledColumn = styled(Column)`
   background-color: white;
-  border-bottom: 2px solid ${theme.colors.gray200};
+  border-bottom: 2px solid ${theme.newColors.grey2["100"]};
   justify-content: space-between;
 	padding: ${pr => pr.sections ? "24px 24px 0px 24px" : "24px 24px 16px 24px"};
 	top: 0;
@@ -69,7 +69,7 @@ export const StyledColumn = styled(Column)`
 // Icons
 export const StyledHelpIconWrapper = styled.div`
   border-right: ${(pr) =>
-		pr.showActive ? `2px solid ${theme.colors.gray200}` : ""};
+		pr.showActive ? `2px solid ${theme.newColors.grey2["100"]}` : ""};
   padding-right: ${(pr) => (pr.isResponsiveView ? "" : "16px")};
 
   &.RESPONSIVE {

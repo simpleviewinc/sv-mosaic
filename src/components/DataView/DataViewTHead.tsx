@@ -18,7 +18,7 @@ const StyledWrapper = styled.thead`
 `
 
 const StyledTh = styled.th`
-	background-color: ${theme.colors.gray200};
+	background-color: ${theme.newColors.grey2["100"]};
 	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 14px;
 	font-weight: 510;
