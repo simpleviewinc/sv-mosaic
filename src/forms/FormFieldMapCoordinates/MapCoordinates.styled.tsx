@@ -19,7 +19,7 @@ export const StyledSpan = styled.span`
 `;
 
 export const CoordinatesCard = styled.div`
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 4px;
   display: flex;
   font-family: ${theme.fontFamily};
@@ -54,7 +54,7 @@ export const Column = styled.div`
 export const MapImageColumn = styled(Column)`
   margin-right: 16px;
   height: fit-content;
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
 `;
 
 export const LatLngLabel = styled.span`
@@ -114,7 +114,7 @@ export const SuggestionsContainer = styled.div`
 `;
 
 export const SuggestionsDescriptionContainer = styled.div`
-  background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.colors.gray200 : "white"};
+  background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.newColors.grey2["100"] : "white"};
   cursor: pointer;
   width: 683px;
 `;

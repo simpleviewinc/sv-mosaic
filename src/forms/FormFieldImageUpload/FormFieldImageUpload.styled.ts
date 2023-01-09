@@ -14,7 +14,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 export const DragAndDropContainer = styled.div`
   align-items: center;
   border: ${(pr) => (pr.isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : "")};
-  background-color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["20"] : theme.colors.gray200)};
+  background-color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"])};
   display: flex;
   flex-direction: column;
   height: 204px;
@@ -67,7 +67,7 @@ export const ImageCard = styled(AssetCard)``;
 export const ButtonsContainer = styled(ButtonsWrapper)``;
 
 export const ImgLoaded = styled.img`
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
   object-fit: contain;
 `;
 

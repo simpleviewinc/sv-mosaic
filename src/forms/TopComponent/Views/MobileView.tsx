@@ -16,7 +16,7 @@ import theme from "@root/theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const MobileActionsRow = styled(Row)`
-  background-color: ${theme.colors.gray200};
+  background-color: ${theme.newColors.grey2["100"]};
   padding: 12px 20px;
   position: sticky;
   position: -webkit-sticky;

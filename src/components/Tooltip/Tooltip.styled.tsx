@@ -36,7 +36,7 @@ export const StyledAdvancedTooltip = styled(props => (
 		font-size: 12px;
 		max-width: 280px;
 		box-shadow: 0px 2px 6px #00000029;
-		border: 1px solid ${theme.colors.gray200};
+		border: 1px solid ${theme.newColors.grey2["100"]};
 		left: ${pr => pr.placement !== "top" ? "-30px !important" : ""};
 		font-family: ${theme.fontFamily};
 		font-weight: ${theme.fontWeight.normal};
