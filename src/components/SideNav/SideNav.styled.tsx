@@ -74,7 +74,7 @@ export const SectionWrapper = styled.div`
 `;
 
 export const Badge = styled.span`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	font-size: 10px;
 	font-weight: ${theme.fontWeight.semiBold};
 `;

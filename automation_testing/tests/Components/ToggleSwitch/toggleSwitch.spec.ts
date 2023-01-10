@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { ToggleSwitchPage } from "../../../pages/Components/ToggleSwitch/ToggleSwitchPage";
 import theme from "../../../../src/theme";
+import { knobs } from "../../../utils/data/knobs";
 
 test.describe("Components - ToggleSwitch - Example", () => {
 	let page: Page;
@@ -20,5 +21,16 @@ test.describe("Components - ToggleSwitch - Example", () => {
 		const expectColor = (theme.newColors.simplyGold["100"]);
 		await togglePage.toggleInput.click();
 		expect(await togglePage.getColorFromElement(togglePage.toggleSpan)).toBe(expectColor);
+	});
+
+	test("Validate Toggle switch track has simplyGrey as background color.", async () => {
+		const expectColor = theme.newColors.simplyGrey["100"];
+		expect(await togglePage.getBackgroundColorFromElement(togglePage.toggleSwitchTrack)).toBe(expectColor);
+	});
+
+	test("Validate Toggle switch track has simplyGrey as background color when disabled.", async () => {
+		const expectColor = theme.newColors.simplyGrey["100"];
+		await togglePage.visitPage([knobs.knobDisabled + "true"]);
+		expect(await togglePage.getBackgroundColorFromElement(togglePage.toggleSwitchTrack)).toBe(expectColor);
 	});
 });

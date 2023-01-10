@@ -3,7 +3,7 @@ import theme from "@root/theme";
 
 export const ColorContainer = styled.div`
   background: ${theme.newColors.grey1["100"]};
-  border: 1px solid ${theme.colors.simplyGray};
+  border: ${theme.borders.simplyGrey};
   margin-bottom: ${(pr) => (pr.displayColorPicker ? "8px" : 0)};
   opacity: ${(pr) => (pr.disabled ? 0.5 : 1)};
   padding: 10px;

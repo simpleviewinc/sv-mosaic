@@ -114,7 +114,7 @@ export const Example = (): ReactElement => {
 
 const StyledInput = styled.input`
 	background-color: ${theme.newColors.grey1["100"]};
-	border: 1px solid ${theme.colors.simplyGray};
+	border: ${theme.borders.simplyGrey};
 	height: 47px;
 	border-radius: 0;
 `;
@@ -199,7 +199,7 @@ const options = [
 ]
 
 const Label = styled.span`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	margin-right: 8px;
 `;
 

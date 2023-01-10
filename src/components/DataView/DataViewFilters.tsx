@@ -78,10 +78,11 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	}
 
 	const onActiveFiltersChange = function(activeFiltersParam: { value: DataViewProps["activeFilters"], comparison?: string }) {
-		const filter = pick(props.filter, [...activeFiltersParam.value]);
+		const cleanFilter = Object.fromEntries(Object.entries(props.filter).filter(value => value[1]));
+		const filter = pick(cleanFilter, [...activeFiltersParam.value]);
 
 		// we only want to pass a new filter obj if we have actually removed a key from it, to prevent unnecessary re-fetches of data
-		const setFilter = Object.keys(filter).join(",") !== Object.keys(props.filter).join(",");
+		const setFilter = Object.keys(filter).join(",") !== Object.keys(cleanFilter).join(",");
 
 		props.onActiveFiltersChange({
 			activeFilters: activeFiltersParam.value,
@@ -102,8 +103,19 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	};
 
 	const onClearFilters = () => {
-		active.forEach(activeFilter => activeFilter.onChange(undefined));
-	}
+		active.forEach(activeFilter => {
+			if (props.filter[activeFilter.name] !== undefined)
+				activeFilter.onChange(undefined);
+		});
+	};
+
+	const onChange = (value, filter) => {
+		if (!props.filter[filter.name] && !value && Object.keys(value) === undefined) {
+			return onClose();
+		} else {
+			filter.onChange(value);
+		}
+	};
 
 	return (
 		<>
@@ -148,7 +160,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 												args={filter.args || {}}
 												data={props.filter[filter.name] || {}}
 												onRemove={onRemove(filter.name)}
-												onChange={filter.onChange}
+												onChange={value => onChange(value, filter)}
 											/>
 										)
 									})

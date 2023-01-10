@@ -17,8 +17,8 @@ interface DataViewDisplayListProps {
 	columns?: DataViewProps["columns"];
 	data?: DataViewProps["data"];
 	onReorder?: DataViewProps["onReorder"];
-	checked?: boolean[];
-	checkedAllPages?: boolean;
+	checked?: DataViewProps["checked"];
+	checkedAllPages?: DataViewProps["checkedAllPages"];
 	bulkActions?: DataViewProps["bulkActions"];
 	sort?: DataViewProps["sort"];
 	count?: DataViewProps["count"];
@@ -31,6 +31,9 @@ interface DataViewDisplayListProps {
 	primaryActions?: DataViewProps["primaryActions"];
 	onCheckboxClick?: () => void;
 	activeColumnObjs?: DataViewProps["columns"];
+	anyChecked?: boolean;
+	allChecked?: boolean;
+	showBulkAll?: boolean;
 }
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
@@ -56,6 +59,9 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				onCheckAllPagesClick={props.onCheckAllPagesClick}
 				onColumnsChange={props.onColumnsChange}
 				onReorder={props?.onReorder}
+				allChecked={props.allChecked}
+				anyChecked={props.anyChecked}
+				showBulkAll={props.showBulkAll}
 			/>
 			<DataViewTBody
 				checked={props.checked}
