@@ -6,7 +6,8 @@
 	* `Gray4`.
 	* `SimplyGray`.
 * `Matrix Field`:
-	*
+	* Added Form and Browse examples in storybook.
+	* Field can now be used in forms using `type: "matrix"`.
 * `Form`:
 	* Updated view mechanics and styles to now render the section tabs on the left as soon as there's available space.
 	* Updated overall styles and sizings to match updates to design comps. These include: form alignment to the left, paddings around top component, tabs, and form layout.
