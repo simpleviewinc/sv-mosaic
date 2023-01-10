@@ -143,14 +143,14 @@ export interface DataViewOnLimitChange {
 	({ limit }: { limit : number }): void
 }
 
-type StateViewDef = {
-	limit: number
-	skip: number
-	filter: MosaicObject
-	sort: DataViewSort
-	display: string
-	activeFilters: string[]
-	activeColumns: string[]
+export type StateViewDef = {
+	limit?: DataViewProps["limit"],
+	skip?: DataViewProps["skip"],
+	filter?: DataViewProps["filter"],
+	sort?: DataViewProps["sort"],
+	display?: DataViewProps["display"],
+	activeFilters?: DataViewProps["activeFilters"],
+	activeColumns?: DataViewProps["activeColumns"],
 }
 export interface DataViewView {
 	id: string
@@ -195,6 +195,14 @@ type dataViewOnSavedViewGetOptions = {
 	(): MosaicObject[]
 }
 
+type dataViewOnCheckChange = {
+	(checked: boolean[]): void;
+}
+
+type dataViewOnCheckAllPagesChange = {
+	(val: boolean): void;
+}
+
 export interface DataViewProps {
 	title?: string
 	loading?: boolean
@@ -204,13 +212,15 @@ export interface DataViewProps {
 	columns: DataViewColumn[]
 	activeColumns?: string[]
 	sticky?: boolean
+	checked?: boolean[];
+	checkedAllPages?: boolean;
 	/** A list of actions which are always visible for each item in the DataView. */
 	filters?: DataViewFilterDef[]
 	filter?: MosaicObject
 	activeFilters?: string[]
 	buttons?: ButtonProps[]
 	display?: string
-	onReorder?: (rows: MosaicObject[]) => void;
+	onReorder?: (rows: string[]) => void;
 	savedView?: SavedViewDef
 	displayOptions?: string[]
 	data: MosaicObject[]
@@ -225,12 +235,12 @@ export interface DataViewProps {
 	onSkipChange?: DataViewOnSkipChange
 	onLimitChange?: DataViewOnLimitChange
 	onSavedViewChange?:  dataViewOnSavedViewChange
-	/* // temporarily allowing extra properties until we have finished the conversion of DataView to TS
-	[key: string]: unknown */
 	onDisplayChange?: dataViewOnDisplayChange
 	onActiveFiltersChange?: dataViewOnActiveFiltersChange
 	onColumnsChange?: dataViewOnColumnsChange
 	onSavedViewSave?: dataViewOnSavedViewSave
 	onSavedViewRemove?: dataViewOnSavedViewRemove
 	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
+	onCheckChange?: dataViewOnCheckChange;
+	onCheckAllPagesChange?: dataViewOnCheckAllPagesChange
 }

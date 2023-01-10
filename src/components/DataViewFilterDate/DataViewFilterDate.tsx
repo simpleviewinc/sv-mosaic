@@ -29,22 +29,27 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 		setAnchorEl(null);
 	}
 
-	const hasStart = props.data.rangeStart !== undefined;
-	const hasEnd = props.data.rangeEnd !== undefined;
-	const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
-	const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
-
 	let valueString: string | undefined = undefined;
 
-	if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
-		valueString = startFormat;
-	} else if (hasStart && hasEnd) {
-		valueString = `${startFormat} - ${endFormat}`;
-	} else if (hasStart) {
-		valueString = `from ${startFormat}`;
-	} else if (hasEnd) {
-		valueString = `to ${endFormat}`;
-	}
+	if (props.data)
+		if ("rangeStart" in props.data || "rangeEnd" in props.data) {
+			const hasStart = props.data.rangeStart !== undefined;
+			const hasEnd = props.data.rangeEnd !== undefined;
+			const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
+			const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
+
+			if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
+				valueString = startFormat;
+			} else if (hasStart && hasEnd) {
+				valueString = `${startFormat} - ${endFormat}`;
+			} else if (hasStart) {
+				valueString = `from ${startFormat}`;
+			} else if (hasEnd) {
+				valueString = `to ${endFormat}`;
+			}
+		} else if ("option" in props.data && props.data.option !== undefined && props.args.options !== undefined) {
+			valueString = props.args.options.filter(option => "option" in props.data ? option.value === props.data.option : undefined)[0].label;
+		}
 
 	return (
 		<StyledWrapper>
@@ -60,8 +65,10 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 				<DataViewFilterDateDropdownContent
 					onClose={onClose}
 					onChange={props.onChange}
-					rangeStart={props.data.rangeStart}
-					rangeEnd={props.data.rangeEnd}
+					rangeStart={props.data && "rangeStart" in props.data ? props.data?.rangeStart : undefined}
+					rangeEnd={props.data && "rangeEnd" in props.data ? props.data?.rangeEnd : undefined}
+					options={props.args.options}
+					selectedOption={props.data && "option" in props.data ? props.data?.option : undefined}
 				/>
 			</DataViewFilterDropdown>
 		</StyledWrapper>
