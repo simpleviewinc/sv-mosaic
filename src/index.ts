@@ -45,9 +45,6 @@ export { default as Drawer } from "./components/Drawer";
 
 export { default as DrawerContent } from "./components/DrawerContent";
 
-export { default as IconButton } from "./components/IconButton";
-export * from "./components/IconButton";
-
 export { default as Dialog } from "./components/Dialog";
 export * from "./components/Dialog";
 
