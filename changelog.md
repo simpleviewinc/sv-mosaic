@@ -1,6 +1,55 @@
 # sv-mosaic changelog
 
-## 13.0.0 - 01/03/22
+## 14.0.0 - 01/17/23
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `Gray3`.
+	* `Gray4`.
+	* `SimplyGray`.
+* `Matrix Field`:
+	*
+* `Form`:
+	* Updated view mechanics and styles to now render the section tabs on the left as soon as there's available space.
+	* Updated overall styles and sizings to match updates to design comps. These include: form alignment to the left, paddings around top component, tabs, and form layout.
+	* Form will now scroll to the nearest error.
+	* Disabled auto-complete on forms (there seems to be an issue with Chrome in which previous entries would still appear but it won't save new entries, this can be "fixed" by deleting all previously saved auto-complete data from the chrome settings).
+	* Improved form-disabling mechanics when loading data from a DB by adding a new form action: `disableForm`.
+	* Added new mechanics that allow developers to know when a field has been touched. The `Form`'s state now includes a new `touched` property which uses a MosaicObject format (e.g. touched: { "myField": true }). This will only get triggered when the user manually changes the value of a field, not when prepopulating.
+* `FormFieldAdvancedSelection`:
+	* Updated internal logic to fix duplicates and erased options bugs.
+* `DataViewFilterMultiselect`:
+	* Updated internal logix to keep showing options even when filtering.
+	* Updated buttons to match newest design comps. Component will no longer show "Cancel" button, only "Clear" and "Apply".
+	* **BREAKING** Updated filter to return `undefined` when no value is present, this allows us to prevent unnecessary triggered reloads.
+* `DataViewFilterDate`:
+	* Updated buttons to match newest design comps. Component will no longer show "Cancel" button, only "Clear" and "Apply".
+	* Added optional arg `options` which is an array of `MosaicLabelValue` that contains a list magic values that the user can select from. When selecting a magic value, the data returned from the filter will have the following format `{option: string}` whereas when manually selecting a date it will look like `{rangeStart: Date, rangeEnd: Date}`.
+	* Added new error message for when the user manually types an invalid date.
+	* **BREAKING** Updated filter to return `undefined` when no value is present, this allows us to prevent unnecessary triggered reloads.
+* `DataViewFilterText`:
+	* Updated buttons to match newest design comps. Component will no longer show "Cancel" button, only "Clear" and "Apply".
+* `DataViewFilterSingleSelect`:
+	* **BREAKING** Updated filter to return `undefined` when no value is present, this allows us to prevent unnecessary triggered reloads.
+* `DrawerHeader`: Updated title font to use Museo Sans, 20px size, and 400 weight.
+* **BREAKING** `SideNav`: Updated props to closely match those used in `LeftNav`, this includes:
+	* Renamed `links` to `items`.
+	* Added required `onNav` prop which will allow devs to know which item has been clicked.
+	* Each `item` previously had a prop called `onClick` which has now been renamed to `onNav`. This is an additional prop that "overrides" the global `onNav` that can be passed to the parent, which means that developers can add specific functionality for when an item gets clicked on.
+* `DataView`:
+	* Updated conditions for rendering `DataViewTitleBar` and `DataViewActionsRow` that were causing blank spaces to appear (this is an internal update).
+	* Updated `DataViewViewDrawerContent` to match newest design comps.
+	* Updated `DrawerContent` to now use `DrawerHeader` component.
+	* Updated `DataViewDisplayList` to pass data to `DataViewTHead`, this allows bulk actions to work with the original data (previously working with transformed data).
+	* Updated all of `StateViewDef`'s types to be optional (they were all previously required).
+	* Updated "Clear filters" button to only update filters if they have value, this allows us to prevent unnecessary triggered reloads.
+	* **BREAKING** DataView will now filter out bulk actions with property "show: false" to allow all its children components to only work with bulk actions that are actually being shown to the user. Reminder: not adding the "show" property to the actions will default to true.
+	* **BREAKING** Moved responsibility of checking rows out of the DataView, this means developers are now responsible of implementing the following props:
+		* `checked`: Optional array of booleans that represent the checked state of each row. Both `checked` and `onCheckChange` are needed (as well as a list of valid bulk actions) to render the checkboxes that allow users to select rows.
+		* `onCheckChange`: Optional callback function that receives the new array of checked options, useful to tell the parent component which rows are checked. Both `checked` and `onCheckChange` are needed (as well as a list of valid bulk actions) to render the checkboxes that allow users to select rows.
+		* `checkedAllPages`: Optional boolean which is used to determine if all options from all pages are being selected or not. Both `checkedAllPages` and `onCheckAllPagesChange` are needed (amongst other props) to render the checkboxes that allow users to select rows.
+		* `onCheckAllPagesChange`: Optional callback function that receives a boolean that indicates the new value for `checkedAllPages`. Both `checkedAllPages` and `onCheckAllPagesChange` are needed (amongst other props) to render the checkboxes that allow users to select rows.
+* `Button`: Updated internal mechanics to remove tooltip when opening a button menu.
+
+## 13.0.0 - 01/03/23
 * Internally updated the color scheme, naming conventions and references in all components of the following colors:
 	* `DarkerRed`.
 	* `AlmostBlack`.
