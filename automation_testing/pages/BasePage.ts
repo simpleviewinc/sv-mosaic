@@ -26,6 +26,7 @@ export class BasePage {
 	readonly checkboxLabel: Locator;
 	readonly drawerTitle: Locator;
 	readonly showStateLocator: Locator;
+	readonly menuItem: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -50,10 +51,15 @@ export class BasePage {
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
 		this.drawerTitle = page.locator("[data-testid='drawer-title-test-id']");
 		this.showStateLocator = page.locator("#root pre");
+		this.menuItem = page.locator("[role='menuitem']");
 	}
 
-	async visit(page_path: string, element: Locator): Promise<void> {
-		await this.page.goto(url(page_path), { timeout: 900000 });
+	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
+		if (knobs) {
+			await this.page.goto(urlWithKnobs(page_path, knobs), { timeout: 900000 });
+		} else {
+			await this.page.goto(url(page_path), { timeout: 900000 });
+		}
 		await element.waitFor();
 	}
 
@@ -210,7 +216,7 @@ export class BasePage {
 		return await ((element).evaluate(el => getComputedStyle(el).gap));
 	}
 
-	async getSpecificBorderFromElement(element: Locator, section?: "all"|"right"|"left"): Promise<string> {
+	async getSpecificBorderFromElement(element: Locator, section?: "all"|"right"|"left"|"top"|"bottom"): Promise<string> {
 		switch (section) {
 		case "all":
 			return await ((element).evaluate(el => getComputedStyle(el).border));
@@ -218,6 +224,10 @@ export class BasePage {
 			return await ((element).evaluate(el => getComputedStyle(el).borderRight));
 		case "left":
 			return await ((element).evaluate(el => getComputedStyle(el).borderLeft));
+		case "top":
+			return await ((element).evaluate(el => getComputedStyle(el).borderTop));
+		case "bottom":
+			return await ((element).evaluate(el => getComputedStyle(el).borderBottom));
 		default:
 			return await ((element).evaluate(el => getComputedStyle(el).border));
 		}

@@ -25,22 +25,10 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 		props.onCheckboxClick(i);
 	}
 
-	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
-	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
-
-	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
-	const showBulkAll =
-		props.bulkActions?.length > 0 &&
-		props.rowCount > 0 &&
-		props.count > props.rowCount &&
-		props.bulkActions.some(action => action.onAllClick !== undefined) &&
-		allChecked
-	;
-
 	return (
 		<StyledDiv>
 			{
-				showBulkAll &&
+				props.showBulkAll &&
 				<div className="topRowBulkAll">
 					<DataViewBulkAllBar
 						rowCount={props.rowCount}
@@ -69,8 +57,8 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 									image &&
 									<div className="image">
 										{
-											props.bulkActions?.length > 0 &&
-											<div className={`checkboxContainer ${anyChecked && !props.checked[i] ? "anyChecked" : ""}`}>
+											props.onCheckboxClick &&
+											<div className={`checkboxContainer ${props.anyChecked && !props.checked?.[i] ? "anyChecked" : ""}`}>
 												<Checkbox
 													className="checkbox"
 													checked={props.checked[i]}

@@ -33,7 +33,7 @@ export const popperSx = {
 	},
 
 	"& .MuiIconButton-edgeStart, .MuiIconButton-edgeEnd" : {
-		color: theme.colors.gray700
+		color: theme.newColors.grey4["100"]
 	},
 
 	"& .MuiPickersDay-root.Mui-selected" : {
@@ -69,13 +69,13 @@ export const DatePickerWrapper = styled.div`
 		&:hover {
 			background-color: ${theme.colors.gray200};
 			& fieldset {
-				border-color: ${theme.colors.simplyGray};
+				border-color: ${theme.newColors.simplyGrey["100"]};
 			}
 		}
 
 		& fieldset {
 			border-radius: 0;
-			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : `1px solid ${theme.colors.simplyGray}`};
+			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : theme.borders.simplyGrey};
 		}
 
 			.MuiOutlinedInput-input {

@@ -25,7 +25,7 @@ export const StyledInput = styled.input`
 export const InputWrapper = styled.div`
   align-items: center;
   background-color: ${theme.newColors.grey1["100"]};
-  border: 1px solid ${theme.colors.simplyGray};
+  border: ${theme.borders.simplyGrey};
   display: flex;
   height: 49px;
   justify-content: space-between;
