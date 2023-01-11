@@ -1,6 +1,6 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
-import { ReactNode } from "react";
+import { ReactNode, Dispatch, SetStateAction } from "react";
 import { Section } from "@root/forms/FormNav/FormNavTypes";
 import { MosaicObject } from "@root/types";
 
@@ -26,6 +26,6 @@ export interface FormProps {
 	buttons?: ButtonProps[];
 	tooltipInfo?: string;
 	showActive?: boolean;
-	setTopComponentDrawerHeight?: any;
-	setFormLayoutPadding?: any;
+	setTopComponentDrawerHeight?: Dispatch<SetStateAction<string>>;
+	setFormLayoutPadding?: Dispatch<SetStateAction<string>>;
 }
