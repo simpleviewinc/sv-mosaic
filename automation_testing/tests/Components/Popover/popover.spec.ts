@@ -17,8 +17,18 @@ test.describe.parallel("Components - PopoverPage - Example", () => {
 	});
 
 	test("Validate Add button in popover has realTeal color.", async () => {
-		const expectColor = (theme.newColors.realTeal["100"]);
-		await popoverPage.openPopoverButton.click();
-		expect(await popoverPage.getColorFromElement(popoverPage.popoverAddButton)).toBe(expectColor);
+		const expectedColor = (theme.newColors.realTeal["100"]);
+		if (!await popoverPage.popoverTooltip.isVisible()) {
+			await popoverPage.openPopoverButton.click();
+		}
+		expect(await popoverPage.getColorFromElement(popoverPage.popoverAddButton)).toBe(expectedColor);
+	});
+
+	test("Validate split in popover has grey2 in border.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		if (!await popoverPage.popoverTooltip.isVisible()) {
+			await popoverPage.openPopoverButton.click();
+		}
+		expect(await popoverPage.getSpecificBorderFromElement(popoverPage.popoverContentSplit, "top")).toContain(expectedColor);
 	});
 });
