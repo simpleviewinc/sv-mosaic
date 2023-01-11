@@ -29,13 +29,15 @@ const Form = (props: FormProps) => {
 		getFormValues,
 		handleDialogClose,
 		tooltipInfo,
-		showActive
+		showActive,
+		setTopComponentDrawerHeight,
+		setFormLayoutPadding
 	} = props;
 
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
-	const formContentRef = useRef();
+	const formContentRef = useRef<HTMLDivElement>();
 	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 	const { view } = useViewResizer({ type, formContainerRef });
@@ -46,6 +48,14 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		setTopComponentHeight(topComponentRef.current?.offsetHeight);
+		setTopComponentDrawerHeight && setTopComponentDrawerHeight(`${topComponentRef.current?.offsetHeight}px`);
+
+		if (formContentRef?.current?.children[0] && setFormLayoutPadding) {
+			const layoutPaddingTop = window?.getComputedStyle(formContentRef.current.children[0]).getPropertyValue("padding-top");
+			const layoutPaddingBottom = window?.getComputedStyle(formContentRef.current.children[0]).getPropertyValue("padding-bottom");
+			setFormLayoutPadding(`${layoutPaddingTop} - ${layoutPaddingBottom}`);
+		}
+
 	}, [topComponentRef.current?.offsetHeight, view]);
 
 	useEffect(() => {
