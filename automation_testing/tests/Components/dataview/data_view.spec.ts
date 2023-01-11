@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataview_data";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View", () => {
 	let page: Page;
@@ -140,5 +141,13 @@ test.describe.parallel("Components - Data View", () => {
 		expect(await dataviewPage.tooltip.first().textContent()).toBe("More actions");
 		await dataviewPage.moreOptions.first().click();
 		await expect(dataviewPage.tooltip.first()).not.toBeVisible();
+	});
+
+	test("Validate Dataview table header has grey2 as background color.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		await dataviewPage.headerActionsLocator.waitFor();
+		for (let i = 0; i < await dataviewPage.dataviewTableHeadLocator.count(); i++) {
+			expect(await dataviewPage.getBackgroundColorFromElement(dataviewPage.dataviewTableHeadLocator.nth(i))).toBe(expectedColor);
+		}
 	});
 });
