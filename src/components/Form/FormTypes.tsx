@@ -26,4 +26,6 @@ export interface FormProps {
 	buttons?: ButtonProps[];
 	tooltipInfo?: string;
 	showActive?: boolean;
+	setTopComponentDrawerHeight?: any;
+	setFormLayoutPadding?: any;
 }
