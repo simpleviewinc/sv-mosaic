@@ -34,6 +34,7 @@ export class DataviewPage extends BasePage {
 	readonly selectedChips: Locator;
 	readonly headerActionsLocator: Locator;
 	readonly dataviewTopComponent: Locator;
+	readonly dataviewTableHeadLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -61,6 +62,7 @@ export class DataviewPage extends BasePage {
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
 		this.headerActionsLocator = page.locator(".headerActions");
 		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
+		this.dataviewTableHeadLocator = page.locator("thead th");
 	}
 
 	async visitPage(): Promise<void> {
