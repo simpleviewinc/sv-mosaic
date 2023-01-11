@@ -32,11 +32,17 @@ test.describe.parallel("Components - SideNav", () => {
 	});
 
 	test("Validate Side Nav first section has almostBlack color.", async () => {
-		const expectColor = theme.newColors.almostBlack["100"];
+		const expectedColor = theme.newColors.almostBlack["100"];
 		for (let i = 0; i < await sideNavPage.sections.count() - 1; i++) {
 			for (let j = 0; j < await sideNavPage.sections.nth(i).count(); j++) {
-				expect(await sideNavPage.getColorFromElement(sideNavPage.sections.nth(j).locator("span").nth(i))).toBe(expectColor);
+				expect(await sideNavPage.getColorFromElement(sideNavPage.sections.nth(j).locator("span").nth(i))).toBe(expectedColor);
 			}
 		}
+	});
+
+	test("Validate selected section has grey2 as background color.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		await sideNavPage.sections.locator("div").first().click();
+		expect(await sideNavPage.getBackgroundColorFromElement(sideNavPage.sections.locator("div").first())).toBe(expectedColor);
 	});
 });
