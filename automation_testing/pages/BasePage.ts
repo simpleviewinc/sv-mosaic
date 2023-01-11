@@ -27,6 +27,7 @@ export class BasePage {
 	readonly drawerTitle: Locator;
 	readonly showStateLocator: Locator;
 	readonly menuItem: Locator;
+	readonly chipTestIDLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -52,6 +53,7 @@ export class BasePage {
 		this.drawerTitle = page.locator("[data-testid='drawer-title-test-id']");
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
+		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
 	}
 
 	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
