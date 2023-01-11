@@ -11,6 +11,7 @@ import { TextFieldDef } from "@root/forms/FormFieldText";
 import { IAddress } from "@root/forms/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
 import _ from "lodash";
+import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 
 // Layout of the form elements.
 const sections = [
@@ -337,7 +338,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	];
 
 	return (
-		<div style={{width: "1160px"}}>
+		<FormDrawerWrapper className="address">
 			<Form
 				title='Address Information'
 				buttons={buttons}
@@ -350,7 +351,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
 			/>
-		</div>
+		</FormDrawerWrapper>
 	);
 };
 
