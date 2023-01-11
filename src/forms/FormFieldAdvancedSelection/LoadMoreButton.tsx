@@ -28,6 +28,6 @@ const LoadMoreButton = forwardRef((props: LoadMoreButtonPropsTypes, ref): ReactE
 	);
 });
 
-LoadMoreButton.displayName = "LoadMoreButton"
+LoadMoreButton.displayName = "LoadMoreButton";
 
 export default memo(LoadMoreButton);
