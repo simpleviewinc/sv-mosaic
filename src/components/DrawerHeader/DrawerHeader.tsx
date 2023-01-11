@@ -48,6 +48,6 @@ const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 	)
 });
 
-DrawerHeader.displayName = "DrawerHeader"
+DrawerHeader.displayName = "DrawerHeader";
 
 export default memo(DrawerHeader);
