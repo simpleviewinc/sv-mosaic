@@ -35,3 +35,8 @@ export const ContentWrapper = styled.div`
 export const StyledHr = styled.hr`
 	border-top: 1px solid ${theme.newColors.grey2["100"]};
 `;
+
+export const ButtonsWrapper = styled.div`
+	display: flex;
+	gap: 16px;
+`;
