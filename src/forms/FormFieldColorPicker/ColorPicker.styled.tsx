@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 export const ColorContainer = styled.div`
-  background: ${theme.colors.gray100};
+  background: ${theme.newColors.grey1["100"]};
   border: ${theme.borders.simplyGrey};
   margin-bottom: ${(pr) => (pr.displayColorPicker ? "8px" : 0)};
   opacity: ${(pr) => (pr.disabled ? 0.5 : 1)};

@@ -62,7 +62,7 @@ export const DisabledDateTimeValue = styled.span`
 
 export const DatePickerWrapper = styled.div`
   	.MuiOutlinedInput-root {
-		background-color: ${theme.colors.gray100};
+		background-color: ${theme.newColors.grey1["100"]};
 		width: ${Sizes.sm};
 		padding-right: 16px;
 
