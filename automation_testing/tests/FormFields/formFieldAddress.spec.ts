@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldAddressPage } from "../../pages/FormFields/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	let page: Page;
@@ -79,5 +80,12 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await ffAddressPage.drawerSaveButton.click();
 		await expect(ffAddressPage.addAddressButton).toBeEnabled();
 		expect(await ffAddressPage.addressCard.textContent()).not.toContain("Shipping");
+	});
+
+	test("Validate that Add Address Drawer Title has grey2 as background color.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		await page.reload();
+		await ffAddressPage.addAddressButton.click({force: true});
+		expect(await ffAddressPage.getBackgroundColorFromElement(ffAddressPage.titleAddAddressDrawerWrapper)).toBe(expectedColor);
 	});
 });

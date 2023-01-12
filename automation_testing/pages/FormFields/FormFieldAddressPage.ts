@@ -22,6 +22,7 @@ export class FormFieldAddressPage extends BasePage {
 	readonly billingCheckboxOption: Locator;
 	readonly shippingCheckboxOption: Locator;
 	readonly addressCard: Locator;
+	readonly titleAddAddressDrawerWrapper: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -41,6 +42,7 @@ export class FormFieldAddressPage extends BasePage {
 		this.billingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Billing" });
 		this.shippingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Shipping" });
 		this.addressCard = page.locator("[data-testid='address-card-test']");
+		this.titleAddAddressDrawerWrapper = this.formTestID.nth(1).locator("form div").first();
 	}
 
 	async visitPage(): Promise<void> {

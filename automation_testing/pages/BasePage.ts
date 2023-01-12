@@ -28,6 +28,7 @@ export class BasePage {
 	readonly showStateLocator: Locator;
 	readonly menuItem: Locator;
 	readonly chipTestIDLocator: Locator;
+	readonly formTestID: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -54,6 +55,7 @@ export class BasePage {
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
+		this.formTestID = page.locator("[data-testid='form-test-id']");
 	}
 
 	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
