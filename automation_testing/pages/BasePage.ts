@@ -41,9 +41,10 @@ export class BasePage {
 		this.saveBtn = page.locator("text=Save");
 		this.table = page.locator("table");
 		this.errorMessage = page.locator("p.Mui-error");
-		this.latitude = page.locator("#lat");
-		this.longitude = page.locator("#lng");
-		this.saveCoordinatesButton = page.locator("/html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
+		this.formTestID = page.locator("[data-testid='form-test-id']");
+		this.latitude = page.locator("input#lat");
+		this.longitude = page.locator("input#lng");
+		this.saveCoordinatesButton = this.formTestID.nth(1).locator("button", { hasText: "Save Coordinates" });
 		this.drawerSaveButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
 		this.drawerCancelButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[1]/button");
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
@@ -55,7 +56,6 @@ export class BasePage {
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
-		this.formTestID = page.locator("[data-testid='form-test-id']");
 	}
 
 	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
