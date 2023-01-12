@@ -31,13 +31,13 @@ export class FormFieldAddressPage extends BasePage {
 		this.addressFormLayout = page.locator("[data-testid='form-layout-test-id']").nth(1);
 		this.countryDropdownInput = page.locator("input[role='combobox']").nth(0);
 		this.countryDropdownButton = page.locator("[data-testid='dropdown-single-selection-test-id'] button[title='Open']").nth(0);
-		this.firstAddressField = page.locator("#address1");
-		this.secondAddressField = page.locator("#address2");
-		this.thirdAddressField = page.locator("#address3");
-		this.cityField = page.locator("#city");
+		this.firstAddressField = page.locator("input#address1");
+		this.secondAddressField = page.locator("input#address2");
+		this.thirdAddressField = page.locator("input#address3");
+		this.cityField = page.locator("input#city");
 		this.statesDropdownInput = page.locator("input[role='combobox']").nth(1);
 		this.statesDropdownButton = page.locator("[data-testid='dropdown-single-selection-test-id'] button[title='Open']").nth(1);
-		this.postalCodeField = page.locator("#postalCode");
+		this.postalCodeField = page.locator("input#postalCode");
 		this.physicalCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Physical" });
 		this.billingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Billing" });
 		this.shippingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Shipping" });

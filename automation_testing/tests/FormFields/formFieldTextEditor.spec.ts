@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextEditorPage } from "../../pages/FormFields/FormFieldTextEditorPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => {
 	let page: Page;
@@ -86,5 +87,10 @@ test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => 
 			expect(dialog.message()).toContain("Form submitted with the following data: {}");
 			await dialog.accept();
 		});
+	});
+
+	test("Validate the Disabled Text editor background color is grey1.", async () => {
+		const expectedColor = theme.newColors.grey1["100"];
+		expect(await ffTextEditorPage.getBackgroundColorFromElement(ffTextEditorPage.disabledTextEditor.locator(".jodit-workplace "))).toBe(expectedColor);
 	});
 });
