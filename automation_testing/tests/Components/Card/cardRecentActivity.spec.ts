@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { CardPage } from "../../../pages/Components/Card/CardPage";
+import { CardPage } from "../../../pages/Components/Card/CardRecentActivityPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Card - Recent Activity", () => {
