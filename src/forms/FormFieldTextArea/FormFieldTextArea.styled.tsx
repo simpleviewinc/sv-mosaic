@@ -15,7 +15,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
   .MuiInputBase-multiline {
 	color: ${theme.newColors.almostBlack["100"]};
     align-items: start;
-    background-color: ${pr => pr.disabled ? "transparent" : theme.colors.gray100};
+    background-color: ${pr => pr.disabled ? "transparent" : theme.newColors.grey1["100"]};
     min-height: ${pr => pr.disabled ? "fit-content" : "150px"};
     padding: ${pr => pr.disabled && 0};
 
