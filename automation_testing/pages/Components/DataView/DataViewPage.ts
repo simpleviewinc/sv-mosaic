@@ -69,15 +69,8 @@ export class DataviewPage extends BasePage {
 		await this.visit(this.page_path, this.title);
 	}
 
-	async setDialogValidationListener(message: string): Promise<void> {
-		this.page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain(message);
-			dialog.accept();
-		});
-	}
-
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
-		this.page.on("dialog", async dialog => {
+		this.page.once("dialog", async dialog => {
 			expect(dialog.message().toString().split(",").length).toBe(number);
 			dialog.accept();
 		});

@@ -79,6 +79,13 @@ export class BasePage {
 		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 })
 	}
 
+	async setDialogValidationListener(_message: string): Promise<void> {
+		this.page.once("dialog", async dialog => {
+			expect(dialog.message()).toContain(_message);
+			await dialog.accept();
+		});
+	}
+
 	async wait(timeout = 500): Promise<void> {
 		await this.page.waitForTimeout(timeout);
 	}
