@@ -13,52 +13,34 @@ test.describe.parallel("Components - Data View", () => {
 		await dataviewPage.visitPage();
 	});
 
-	test.beforeEach(async() => {
-		await page.reload();
-	});
-
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
 
-	test("Create New", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("CREATE NEW");
-			dialog.accept();
-		});
+	test("Validate Create New alert message.", async () => {
+		dataviewPage.setDialogValidationListener("CREATE NEW");
 		await dataviewPage.createNewBtn.click();
 	});
 
-	test("Edit Icon", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("EDIT");
-			dialog.accept();
-		});
+	test("Validate Edit Icon alert message.", async () => {
+		await dataviewPage.setDialogValidationListener("EDIT");
 		await dataviewPage.wait();
 		await (await dataviewPage.getFirstRowEditIcon()).click();
 	});
 
-	test("View Children", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("View Children");
-			dialog.accept();
-		});
+	test("Validate View Children alert message.", async () => {
+		await dataviewPage.setDialogValidationListener("View Children");
 		await dataviewPage.wait();
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
 		await dataviewPage.viewChildren.click();
 	});
 
-
-	test("History", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("History");
-			dialog.accept();
-		});
+	test("Validate History alert message.", async () => {
+		await dataviewPage.setDialogValidationListener("History");
 		await (await dataviewPage.getFirstRowMoreOptions()).click();
 		await dataviewPage.wait();
 		await dataviewPage.history.click();
 	});
-
 
 	test("Select A Record", async () => {
 		await dataviewPage.wait();
@@ -67,22 +49,18 @@ test.describe.parallel("Components - Data View", () => {
 		expect(await dataviewPage.deleteBtn.isVisible()).toBe(true);
 	});
 
-	test("Delete A Record", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("DELETE");
-			dialog.accept();
-		});
+	test("Validate Delete A Record alert message.", async () => {
+		await page.reload();
+		await dataviewPage.setDialogValidationListener("DELETE");
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.deleteBtn.click();
 	});
 
-	test("Download A Record", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("DOWNLOAD");
-			dialog.accept();
-		});
+	test("Validate Download A Record alert message.", async () => {
+		await dataviewPage.setDialogValidationListener("DOWNLOAD");
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.downloadBtn.click();
+
 	});
 
 	test("Select all records", async () => {
@@ -95,6 +73,7 @@ test.describe.parallel("Components - Data View", () => {
 	});
 
 	test("Delete all records", async () => {
+		await page.reload();
 		await (await dataviewPage.getAllRowCheckbox()).click();
 		const checkboxs = await dataviewPage.checkboxRow.elementHandles();
 		for (const checkbox of checkboxs) {
@@ -105,11 +84,8 @@ test.describe.parallel("Components - Data View", () => {
 		await dataviewPage.deleteBtn.click();
 	});
 
-	test("Download all records", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message().toString().split(",").length).toBe(25);
-			dialog.accept();
-		});
+	test("Validate Download All Records alert message.", async () => {
+		await dataviewPage.validateRecordsNumberInDialogMessage(25);
 		await (await dataviewPage.getAllRowCheckbox()).click();
 		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
 		await dataviewPage.downloadBtn.click();
