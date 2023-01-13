@@ -102,9 +102,3 @@ export const CategoryTitle = styled.span`
 export const AdvancedSelectionWrapper = styled.div`
   max-width: 600px;
 `;
-
-export const StyledFormWrapper = styled.div`
-	& .checkbox-list-field-wrapper div:first-child {
-		width: 100% !important;
-	}
-`;
