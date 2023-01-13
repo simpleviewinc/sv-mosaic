@@ -2,14 +2,14 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 export const CardWrapper = styled.div`
-	border: 2px solid ${theme.colors.gray200};
+	border: 2px solid ${theme.newColors.grey2["100"]};
 	font-family: ${theme.fontFamily};
 	width: 100%;
 `;
 
 export const TitleBar = styled.div`
 	align-items: center;
-  background: ${theme.colors.gray200};
+  background: ${theme.newColors.grey2["100"]};
 	display: flex;
 	height: 56px;
 	justify-content: space-between;
@@ -33,7 +33,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const StyledHr = styled.hr`
-	border-top: 1px solid ${theme.colors.gray200};
+	border-top: 1px solid ${theme.newColors.grey2["100"]};
 `;
 
 export const ButtonsWrapper = styled.div`

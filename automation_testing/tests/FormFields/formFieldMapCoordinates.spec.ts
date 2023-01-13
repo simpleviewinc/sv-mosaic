@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldMapCoordinatesPage } from "../../pages/FormFields/FormFieldMapCoordinatesPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 	let page: Page;
@@ -69,5 +70,10 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 		await ffMapCoordinatesPage.longitude.type("-181");
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Longitude should be between -180 and 180");
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
+	});
+
+	test("Validate border color in Map Card is grey2", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		expect(await ffMapCoordinatesPage.getSpecificBorderFromElement(ffMapCoordinatesPage.mapWithAddressDiv, "all")).toContain(expectedColor);
 	});
 });

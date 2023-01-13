@@ -5,7 +5,7 @@ import StarBorder from "@mui/icons-material/StarBorderRounded";
 
 export const StyledSummaryPageTopComponent = styled.div`
     background: white;
-    border-bottom: 2px solid ${theme.colors.gray200};
+    border-bottom: 2px solid ${theme.newColors.grey2["100"]};
     color: ${theme.newColors.almostBlack["100"]};
     font-family: ${theme.fontFamily};
     padding: 24px 24px 16px 24px;
@@ -16,7 +16,7 @@ export const StyledSummaryPageTopComponent = styled.div`
     .img-rounded {
         width: 71px;
         height: 71px;
-        border: 2px solid ${theme.colors.grayHover};
+        border: 2px solid ${theme.newColors.grey2["100"]};
         border-radius: 50%;
         opacity: 1;
     }
@@ -81,7 +81,7 @@ export const ContainerItems = styled.div`
 
 export const Item = styled.div`
     padding: 0 16px;
-    border-right: 2px solid ${theme.colors.gray200};
+    border-right: 2px solid ${theme.newColors.grey2["100"]};
 
 	& p,
 	& h1,
