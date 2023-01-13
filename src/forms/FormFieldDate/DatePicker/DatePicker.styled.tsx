@@ -4,7 +4,7 @@ import { Sizes } from "@root/theme";
 
 export const popperSx = {
 	"& .MuiPaper-root": {
-		border: `2px solid ${theme.colors.gray200}`,
+		border: `2px solid ${theme.newColors.grey2["100"]}`,
 		boxShadow: "0px 1px 5px rgba(26, 26, 26, 0.161)",
 	},
 
@@ -67,7 +67,7 @@ export const DatePickerWrapper = styled.div`
 		padding-right: 16px;
 
 		&:hover {
-			background-color: ${theme.colors.gray200};
+			background-color: ${theme.newColors.grey2["100"]};
 			& fieldset {
 				border-color: ${theme.newColors.simplyGrey["100"]};
 			}

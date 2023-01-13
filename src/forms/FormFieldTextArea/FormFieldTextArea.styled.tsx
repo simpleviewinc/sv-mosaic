@@ -20,7 +20,7 @@ export const StyledTextArea = styled(({ fieldSize, ...rest }) => (
     padding: ${pr => pr.disabled && 0};
 
     &:hover {
-      background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover}
+      background-color: ${pr => pr.disabled ? "transparent" : theme.newColors.grey2["100"]}
     }
   }
 

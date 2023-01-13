@@ -157,7 +157,7 @@ const BlackOnWhite = styled(ButtonWrapper)`
   }
 
   & > button:hover {
-    background: ${theme.colors.gray200};
+    background: ${theme.newColors.grey2["100"]};
 		border-radius: 0;
   }
 
@@ -292,7 +292,7 @@ export const types = {
   `,
 	black_contained: styled(ButtonWrapper)`
     & > button {
-      background: ${theme.colors.gray200};
+      background: ${theme.newColors.grey2["100"]};
       border-radius: 0;
       color: ${theme.newColors.almostBlack["100"]};
       font-size: 14px;
@@ -300,7 +300,7 @@ export const types = {
     }
     .MuiButton-contained.Mui-disabled {
       color: ${theme.newColors.almostBlack["100"]};
-      background-color: ${theme.colors.gray200};
+      background-color: ${theme.newColors.grey2["100"]};
       opacity: 0.5;
     }
     & > button:hover {
@@ -328,7 +328,7 @@ export const types = {
     }
 
     & > button:hover {
-      background-color: ${theme.colors.gray200};
+      background-color: ${theme.newColors.grey2["100"]};
       color: ${theme.newColors.almostBlack["100"]};
 			border: 2px solid ${theme.newColors.simplyGrey["100"]};
     }
