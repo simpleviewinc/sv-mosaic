@@ -1,14 +1,15 @@
 import * as React from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { memo, ReactElement } from "react";
+import { memo, ReactElement, useState } from "react";
 import { MapProps } from "../MapCoordinatesTypes";
 import { isEmpty } from "lodash";
-
-// Components
-import LocationSearchInput from "../LocationSearchInput";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { InputAdornment } from "@mui/material";
 
 // Styles
 import { MapContainer } from "../MapCoordinates.styled";
+import AddressAutocomplete from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete";
+import { StyledClearIcon } from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 
 const containerStyle = {
 	display: "flex",
@@ -34,10 +35,53 @@ const Map = (props: MapProps): ReactElement => {
 		onDragStart,
 	} = props;
 
+	// State variables
+	const [addressValue, setAddressValue] = useState("");
+
+	/**
+ * Gets lat and lng values from the selected suggestion and
+ * updates the state of the MapCoordinates component.
+ * @param value
+ */
+	const onSelect = async (value) => {
+		setAddressValue(value);
+
+		try {
+			const results = await geocodeByAddress(value);
+			const latLng = await getLatLng(results[0]);
+			handleCoordinates(latLng);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	/**
+ * Reset the address value that is displayed in the autocomplete component.
+ */
+	const clearValue = () => {
+		setAddressValue("");
+	};
+
 	return (
 		<MapContainer>
 			{isEmpty(address) && (
-				<LocationSearchInput handleCoordinates={handleCoordinates} />
+				<AddressAutocomplete
+					className={"mapCoordinates"}
+					fieldSize={"100%"}
+					value={addressValue}
+					onChange={setAddressValue}
+					onSelect={onSelect}
+					placeholder="Type a location, address or city…"
+					textField={{
+						InputProps: {
+							endAdornment: (
+								<InputAdornment position='end'>
+									<StyledClearIcon data-testid={"location-search-clear-icon"} onClick={clearValue} />
+								</InputAdornment>
+							),
+						}
+					}}
+				/>
 			)}
 			<div>
 				<GoogleMap
@@ -48,8 +92,7 @@ const Map = (props: MapProps): ReactElement => {
 					options={mapOptions}
 				>
 					{isDragging ||
-						(value &&
-							(value?.lat !== 0 || value?.lng !== 0) && (
+						(value && (value?.lat !== 0 || value?.lng !== 0) && (
 							<Marker
 								draggable={true}
 								position={value || mapPosition}
