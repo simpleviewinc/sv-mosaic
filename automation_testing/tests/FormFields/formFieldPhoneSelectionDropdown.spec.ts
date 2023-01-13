@@ -86,4 +86,12 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 			expect(await ffPhoneSelectionDropdownPage.getSpecificBorderFromElement(ffPhoneSelectionDropdownPage.flagDropdown.nth(i), "right")).toContain(expectColor);
 		}
 	});
+
+	test("Validate phone fields have grey1 as background color.", async () => {
+		const expectedColor = theme.newColors.grey1["100"];
+		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.regularPhoneField)).toBe(expectedColor);
+		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField)).toBe(expectedColor);
+		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.autoformatPhoneField)).toBe(expectedColor);
+		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.customPlaceholderPhoneField)).toBe(expectedColor);
+	});
 });
