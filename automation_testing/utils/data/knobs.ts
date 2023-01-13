@@ -4,3 +4,8 @@ export const knobs = {
 	knobDisabled: "knob-Disabled=",
 	knobShowOptions:"knob-Show%20options="
 }
+
+export const cardKnobs = {
+	knobBottomActions: "knob-Bottom%20actions=",
+	knobTopActions: "knob-Top%20actions="
+}
