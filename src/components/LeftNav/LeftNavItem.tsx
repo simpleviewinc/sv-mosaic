@@ -52,7 +52,7 @@ const StyledA = styled.a`
 	}
 
 	& > .left > .navLabel {
-		color: ${theme.colors.gray200};
+		color: ${theme.newColors.grey2["100"]};
 		font-size: 14px;
 		white-space: nowrap;
 		overflow: hidden;

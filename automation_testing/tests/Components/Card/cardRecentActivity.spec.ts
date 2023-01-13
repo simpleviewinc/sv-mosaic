@@ -29,4 +29,14 @@ test.describe.parallel("Components - Card - Recent Activity", () => {
 			expect(await cardPage.getColorFromElement(cardPage.page.locator("span").nth(i))).toBe(expectColor);
 		}
 	});
+
+	test("Validate Title Bar has grey2 as background color.", async () => {
+		const expectColor = theme.newColors.grey2["100"];
+		expect(await cardPage.getBackgroundColorFromElement(cardPage.cardTitleBar)).toBe(expectColor);
+	});
+
+	test("Validate Card Wrapper has grey2 in border.", async () => {
+		const expectColor = theme.newColors.grey2["100"];
+		expect(await cardPage.getSpecificBorderFromElement(cardPage.cardWrapper)).toContain(expectColor);
+	});
 });

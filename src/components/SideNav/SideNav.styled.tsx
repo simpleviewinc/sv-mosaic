@@ -3,7 +3,7 @@ import theme from "../../theme";
 
 export const SideNavStyle = styled.nav`
 	background: white;
-	border: 2px solid ${theme.colors.gray200};
+	border: 2px solid ${theme.newColors.grey2["100"]};
 	display: flex;
 	flex-direction: column;
 	width: 196px;
@@ -17,7 +17,7 @@ export const LinkWrapper = styled.div`
   	display: flex;
   	gap: 8px;
 	background-color: ${(pr) =>
-		pr.idx === pr.selectedLink ? theme.colors.gray200 : ""};
+		pr.idx === pr.selectedLink ? theme.newColors.grey2["100"] : ""};
 		border-left: ${(pr) =>
 		pr.idx === pr.selectedLink ? `4px solid ${theme.newColors.simplyGold["100"]}` : "4px solid transparent"};
 	padding: 12px 20px;
@@ -47,7 +47,7 @@ export const LinkWrapper = styled.div`
 	}
 
   &:hover {
-    background-color: ${theme.colors.gray200};
+    background-color: ${theme.newColors.grey2["100"]};
   }
 `;
 
@@ -69,7 +69,7 @@ export const StyledLink = styled.span`
 `;
 
 export const SectionWrapper = styled.div`
-	border-bottom: 2px solid ${theme.colors.gray200};
+	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	cursor: pointer;
 `;
 

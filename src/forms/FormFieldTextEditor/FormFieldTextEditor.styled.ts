@@ -60,6 +60,6 @@ export const EditorWrapper = styled.div`
 	}} !important;
 		border-top: none !important;
 		font-family: ${theme.fontFamily};
-		background-color: ${theme.colors.grayHover};
+		background-color: ${theme.newColors.grey2["100"]};
 	}
 `;
