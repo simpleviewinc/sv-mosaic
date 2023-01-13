@@ -110,11 +110,14 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	};
 
 	const onChange = (value, filter) => {
-		if (!props.filter[filter.name] && !value && Object.keys(value) === undefined) {
-			return onClose();
-		} else {
-			filter.onChange(value);
+		if (value !== undefined) {
+			if (!props.filter[filter.name] && Object.keys(value) === undefined) {
+				return onClose();
+			} else {
+				filter.onChange(value);
+			}
 		}
+		return onClose();
 	};
 
 	return (

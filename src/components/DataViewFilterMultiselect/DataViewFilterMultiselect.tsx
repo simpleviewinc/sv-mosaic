@@ -78,7 +78,7 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 	}
 
 	const onApply = function(data) {
-		if (data.value.length > 0) {
+		if (data.value.length > 0 || data.comparison === "exists" || data.comparison === "not_exists") {
 			props.onChange(data);
 		} else {
 			props.onChange(undefined);
