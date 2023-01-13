@@ -53,7 +53,7 @@ export const Playground = (): ReactElement => {
 			comparison: data.comparison || state.comparison,
 			value: data.value,
 		});
-	}
+	};
 
 	const onRemove = () => {
 		alert("on remove");
