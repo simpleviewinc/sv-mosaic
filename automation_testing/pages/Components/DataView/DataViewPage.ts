@@ -34,6 +34,7 @@ export class DataviewPage extends BasePage {
 	readonly selectedChips: Locator;
 	readonly headerActionsLocator: Locator;
 	readonly dataviewTopComponent: Locator;
+	readonly dataviewTableHeadLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -61,21 +62,15 @@ export class DataviewPage extends BasePage {
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
 		this.headerActionsLocator = page.locator(".headerActions");
 		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
+		this.dataviewTableHeadLocator = page.locator("thead th");
 	}
 
 	async visitPage(): Promise<void> {
 		await this.visit(this.page_path, this.title);
 	}
 
-	async setDialogValidationListener(message: string): Promise<void> {
-		this.page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain(message);
-			dialog.accept();
-		});
-	}
-
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
-		this.page.on("dialog", async dialog => {
+		this.page.once("dialog", async dialog => {
 			expect(dialog.message().toString().split(",").length).toBe(number);
 			dialog.accept();
 		});
