@@ -145,12 +145,3 @@ export const ResetButtonContainer = styled.div`
     left: 0;
 }
 `;
-
-
-export const MapFormWrapper = styled.div`
-  width: 1160px;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    width: 100vw;
-  };
-`;
