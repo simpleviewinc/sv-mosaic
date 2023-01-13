@@ -87,8 +87,8 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await page.reload();
 		await ffAddressPage.addAddressButton.click({force: true});
 		expect(await ffAddressPage.getBackgroundColorFromElement(ffAddressPage.titleAddAddressDrawerWrapper)).toBe(expectedColor);
-  });
-    
+	});
+
 	test("Validate that background color of the address card is gray1.", async () => {
 		await page.reload();
 		const expectedColor = theme.newColors.grey1["100"];

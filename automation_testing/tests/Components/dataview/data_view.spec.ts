@@ -13,6 +13,10 @@ test.describe.parallel("Components - Data View", () => {
 		await dataviewPage.visitPage();
 	});
 
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
@@ -50,7 +54,6 @@ test.describe.parallel("Components - Data View", () => {
 	});
 
 	test("Validate Delete A Record alert message.", async () => {
-		await page.reload();
 		await dataviewPage.setDialogValidationListener("DELETE");
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.deleteBtn.click();
@@ -73,7 +76,6 @@ test.describe.parallel("Components - Data View", () => {
 	});
 
 	test("Delete all records", async () => {
-		await page.reload();
 		await (await dataviewPage.getAllRowCheckbox()).click();
 		const checkboxs = await dataviewPage.checkboxRow.elementHandles();
 		for (const checkbox of checkboxs) {
