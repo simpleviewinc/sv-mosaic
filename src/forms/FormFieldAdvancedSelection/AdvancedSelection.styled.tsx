@@ -43,9 +43,9 @@ export const InputWrapper = styled.div`
   }
 
   &:hover {
-    background-color: ${theme.colors.gray200};
+    background-color: ${theme.newColors.grey2["100"]};
     & input {
-      background-color: ${theme.colors.gray200};
+      background-color: ${theme.newColors.grey2["100"]};
     }
   }
 `;

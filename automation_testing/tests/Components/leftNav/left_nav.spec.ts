@@ -88,13 +88,20 @@ test.describe.parallel("Components - LeftNav", () => {
 	});
 
 	test("Validate border top of Modules and Assets sections has grey4 as border color.", async () => {
-		const expectColor = theme.newColors.grey4["100"];
-		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.first(), "top")).toContain(expectColor);
-		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.last(), "top")).toContain(expectColor);
+		const expectedColor = theme.newColors.grey4["100"];
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.first(), "top")).toContain(expectedColor);
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.last(), "top")).toContain(expectedColor);
 	});
 
 	test("Validate border top of Bottom sections has grey3 as border color.", async () => {
-		const expectColor = theme.newColors.grey3["100"];
-		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.divBottomLocator, "top")).toContain(expectColor);
+		const expectedColor = theme.newColors.grey3["100"];
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.divBottomLocator, "top")).toContain(expectedColor);
+	});
+
+	test("Validate nav label has grey2 as color.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		for (let i = 0; i < await leftNavPage.leftNavLabelLocator.count();i++) {
+			expect(await leftNavPage.getColorFromElement(leftNavPage.leftNavLabelLocator.nth(i))).toContain(expectedColor);
+		}
 	});
 });
