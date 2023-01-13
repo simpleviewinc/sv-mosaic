@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { ReactElement, SyntheticEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 
@@ -12,15 +12,24 @@ import { IAddress } from "@root/forms/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
 import _ from "lodash";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
+import AddressAutocomplete from "../AddressAutocomplete";
+import { useLoadScript } from "@react-google-maps/api";
+import { libraries } from "@root/forms/FormFieldMapCoordinates/MapCoordinatesUtils";
+import {	geocodeByAddress } from "react-places-autocomplete";
+import { components, componentsToAddress, initalAddressComponent } from "../utils/addressUtils";
+import { MosaicLabelValue } from "@root/types";
+import Snackbar from "@root/components/Snackbar";
+import Sizes from "@root/theme/sizes";
+import Field from "@root/components/Field";
 
 // Layout of the form elements.
 const sections = [
 	{
 		fields: [
-			[["country"]],
 			[["address1"]],
 			[["address2"]],
 			[["address3"]],
+			[["country"]],
 			[["city"], ["states"], ["postalCode"]],
 			[["type"]],
 		],
@@ -43,10 +52,24 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		addressTypes,
 		getOptionsCountries,
 		getOptionsStates,
+		googleMapsApiKey
 	} = props;
 
 	const { dispatch, state } = useForm();
+	const [address, setAddress] = useState("");
+	const [snackBarLabel, setSnackBarLabel] = useState("");
+	const [openSnackBar, setOpenSnackbar] = useState(false);
 	const [initialState, setInitialState] = useState(state.data);
+	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
+
+	const setFieldValue = async (name: string, value: string | MosaicLabelValue) => {
+		await dispatch(
+			formActions.setFieldValue({
+				name,
+				value,
+			})
+		);
+	};
 
 	useEffect(() => {
 		if (state.data !== undefined && initialState !== undefined)
@@ -59,64 +82,36 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		const fillEditingValues = async () => {
 			let editingState = {};
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "address1",
-					value: addressToEdit.address1,
-				})
-			);
-
+			await setFieldValue("address1", addressToEdit.address1);
 			editingState = {
 				...editingState,
 				"address1": addressToEdit.address1,
 			};
 
 			if (addressToEdit.address2) {
-				await dispatch(
-					formActions.setFieldValue({
-						name: "address2",
-						value: addressToEdit.address2,
-					})
-				);
-
+				await setFieldValue("address2", addressToEdit.address2);
 				editingState = {
 					...editingState,
 					"address2": addressToEdit.address2,
 				};
 			}
-			if (addressToEdit.address3) {
-				await dispatch(
-					formActions.setFieldValue({
-						name: "address3",
-						value: addressToEdit.address3,
-					})
-				);
 
+			if (addressToEdit.address3) {
+				await setFieldValue("address3", addressToEdit.address3);
 				editingState = {
 					...editingState,
 					"address3": addressToEdit.address3,
 				};
 			}
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "city",
-					value: addressToEdit.city,
-				})
-			);
-
+			await setFieldValue("city", addressToEdit.city);
 			editingState = {
 				...editingState,
 				"city": addressToEdit.city,
 			};
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "postalCode",
-					value: addressToEdit.postalCode,
-				})
-			);
 
+			await setFieldValue("postalCode", addressToEdit.postalCode);
 			editingState = {
 				...editingState,
 				"postalCode": addressToEdit.postalCode,
@@ -134,12 +129,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				"type": addressToEdit.types,
 			};
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "country",
-					value: { label: addressToEdit.country?.label, value: addressToEdit.country?.value },
-				})
-			);
+			await setFieldValue("country", { label: addressToEdit.country?.label, value: addressToEdit.country?.value });
 
 			editingState = {
 				...editingState,
@@ -147,12 +137,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			};
 
 			if (addressToEdit.state) {
-				await dispatch(
-					formActions.setFieldValue({
-						name: "states",
-						value: { label: addressToEdit.state?.label, value: addressToEdit.state?.value },
-					})
-				);
+				await setFieldValue("states", { label: addressToEdit.state?.label, value: addressToEdit.state?.value });
 
 				editingState = {
 					...editingState,
@@ -179,15 +164,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	useEffect(() => {
 		if (isEditing) {
 			if (initialState.country && state.data.country && initialState.country.value !== state.data.country.value) {
-				dispatch(
-					formActions.setFieldValue({name: "states", value: undefined})
-				);
+				setFieldValue("states", undefined);
 			}
 		} else {
 			if (initialState.country?.value !== state.data.country?.value) {
-				dispatch(
-					formActions.setFieldValue({name: "states", value: undefined})
-				);
+				setFieldValue("states", undefined);
 			}
 		}
 	}, [state?.data?.country, initialState, isEditing]);
@@ -250,6 +231,107 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleClose(true);
 	};
 
+	useEffect(() => {
+		if (apiState !== undefined)
+			setFieldValue("states", { label: apiState.label, value: apiState.value });
+
+		setApiState(undefined);
+	}, [apiState]);
+
+	const autocompleteAddress = async (addressComponents: google.maps.GeocoderAddressComponent[]) => {
+		let componentsNotFound = "";
+		const addressComponentsMap = {
+			route: initalAddressComponent, // => address
+			locality: initalAddressComponent, // => city
+			postal_town: initalAddressComponent, // => city
+			country: initalAddressComponent, // => country
+			administrative_area_level_1: initalAddressComponent, // => state
+			postal_code: initalAddressComponent // postal_code
+		};
+
+		for (const addressComponent of addressComponents) {
+			const found = addressComponent.types.find(r => components.includes(r));
+			if (found) {
+				addressComponentsMap[found] = { label: addressComponent.long_name, value: addressComponent.short_name };
+			}
+		}
+
+		const country = {
+			label: addressComponentsMap.country.label,
+			value: addressComponentsMap.country.value,
+		};
+
+		setInitialState({
+			...initialState,
+			country,
+		});
+
+		const selectedState = (await getOptionsStates(addressComponentsMap.country.value)).find(state => (
+			state.label.includes(addressComponentsMap.administrative_area_level_1.label)
+		));
+
+		await setFieldValue("address1", addressComponentsMap.route.label);
+		await setFieldValue("country", country);
+		setApiState(selectedState);
+		await setFieldValue("city", addressComponentsMap.locality.label === "" ?  addressComponentsMap.postal_town.label : addressComponentsMap.locality.label);
+		await setFieldValue("postalCode", addressComponentsMap.postal_code.label);
+
+		for (const key in addressComponentsMap) {
+			if (!addressComponentsMap[key].label) {
+				componentsNotFound += componentsToAddress[key] ? `${componentsToAddress[key]}, ` : ""
+			}
+		}
+
+		setSnackBarLabel(componentsNotFound)
+		setOpenSnackbar(componentsNotFound !== "");
+	};
+
+	/**
+	 * When an option selected from the autocomplete options the
+	 * function that fills the fields with the address components
+	 * will be executed.
+	 * @param value
+ 	*/
+	const onSelect = async (value) => {
+		try {
+			const results = await geocodeByAddress(value);
+			autocompleteAddress(results[0].address_components);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const closeSnackbar = (_event?: SyntheticEvent, reason?: string) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpenSnackbar(false);
+	};
+
+	const Autocomplete = useCallback((props): ReactElement => {
+		const { fieldDef } = props;
+		const { inputSettings } = fieldDef;
+
+		return (
+			<Field
+				error={props.error}
+				id={fieldDef.name}
+				fieldDef={{
+					name: fieldDef.name,
+					type: "autocomplete",
+					label: fieldDef.label,
+					required: fieldDef.required,
+				}}
+			>
+				<AddressAutocomplete
+					onChange={(address) => props.onChange(address)}
+					value={props.value ?? ""}
+					fieldSize={Sizes.lg}
+					onSelect={inputSettings.onSelect}
+				/>
+			</Field>
+		)}, []);
+
 	const fields = useMemo(
 		() =>
 			[
@@ -265,11 +347,15 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				},
 				{
 					name: "address1",
-					type: "text",
-					label: "Address",
-					size: "lg",
 					required: true,
-				} as FieldDef<TextFieldDef>,
+					type: Autocomplete,
+					label: "Address",
+					inputSettings: {
+						address,
+						setAddress,
+						onSelect,
+					}
+				},
 				{
 					name: "address2",
 					type: "text",
@@ -319,7 +405,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					},
 				},
 			] as FieldDef[],
-		[addressTypes, state.data.country]
+		[addressTypes, state.data.country, apiState]
 	);
 
 	const buttons: ButtonProps[] = [
@@ -337,6 +423,15 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		}
 	];
 
+	const { isLoaded, loadError } = useLoadScript({
+		googleMapsApiKey,
+		libraries,
+	});
+
+
+	if (loadError) return <span>{"Error loading maps"}</span>;
+	if (!isLoaded) return <span>{"Loading Maps"}</span>;
+
 	return (
 		<FormDrawerWrapper className="address">
 			<Form
@@ -350,6 +445,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				type='drawer'
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
+			/>
+			<Snackbar
+				autoHideDuration={4000}
+				label={`The following fields could not be autocompleted: ${snackBarLabel} please fill them.`}
+				open={openSnackBar}
+				onClose={closeSnackbar}
 			/>
 		</FormDrawerWrapper>
 	);
