@@ -97,4 +97,12 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.getBackgroundColorFromElement(ffAddressPage.addressCard)).toBe(expectedColor);
 	});
+
+	test("Validate drawer title location is fixed.", async () => {
+		await page.setViewportSize({ width: 1280, height: 400 });
+		await ffAddressPage.addAddressButton.click();
+		await expect(ffAddressPage.formTestID.last()).toBeVisible();
+		await ffAddressPage.shippingCheckboxOption.scrollIntoViewIfNeeded();
+		await expect(ffAddressPage.formTestID.last().locator("form div").first()).toBeVisible();
+	});
 });
