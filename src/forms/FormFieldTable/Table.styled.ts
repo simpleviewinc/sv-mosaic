@@ -6,7 +6,7 @@ import Button from "@root/components/Button";
 
 export const TableContainer = styled.div`
   background-color: white;
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 2px;
   max-width: 1080px;
   padding-top: 16px;
@@ -76,7 +76,7 @@ export const StyledIconButton = styled(Button)`
 
 export const AddElementContainer = styled.div`
   align-items: center;
-  background-color: ${theme.colors.gray200};
+  background-color: ${theme.newColors.grey2["100"]};
   display: flex;
   justify-content: center;
   padding: 32px 0;
@@ -88,11 +88,11 @@ export const StyledTr = styled.tr`
 		pr.isDragging
 			? `
         &:active {
-            background-color: ${theme.colors.gray200};
+            background-color: ${theme.newColors.grey2["100"]};
         }`
 			: ""}
 `;
 
 export const TrHead = styled.tr`
-  background-color: ${theme.colors.gray200};
+  background-color: ${theme.newColors.grey2["100"]};
 `;

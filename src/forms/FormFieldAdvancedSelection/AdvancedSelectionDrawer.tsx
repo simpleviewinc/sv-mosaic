@@ -16,7 +16,6 @@ import Form, { formActions, useForm } from "@root/components/Form";
 import {
 	InputWrapper,
 	StyledInput,
-	StyledFormWrapper
 } from "./AdvancedSelection.styled";
 import AddIcon from "@mui/icons-material/Add";
 import ChipList from "./ChipList";
@@ -25,6 +24,7 @@ import LoadMoreButton from "./LoadMoreButton";
 import { AdvanceSelectionDrawerPropTypes } from ".";
 import _ from "lodash";
 import { MosaicLabelValue } from "@root/types";
+import { FormDrawerWrapper } from "../shared/styledComponents";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -411,7 +411,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	];
 
 	return (
-		<StyledFormWrapper>
+		<FormDrawerWrapper className="advancedSelection">
 			<Form
 				title={fieldDef?.label}
 				buttons={buttons}
@@ -424,7 +424,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				setTopComponentDrawerHeight={setTopComponentDrawerHeight}
 				setFormLayoutPadding={setFormLayoutPadding}
 			/>
-		</StyledFormWrapper>
+		</FormDrawerWrapper>
 	);
 };
 

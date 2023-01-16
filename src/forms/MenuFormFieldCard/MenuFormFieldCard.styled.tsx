@@ -6,7 +6,7 @@ import Menu from "@mui/material/Menu";
 
 export const StyledMenu = styled(Menu)`
   & .MuiPaper-root {
-    border: 1px solid ${theme.colors.gray200};
+    border: 1px solid ${theme.newColors.grey2["100"]};
     box-shadow: 0px 1px 3px ${theme.newColors.almostBlack["20"]};
     color: ${theme.newColors.grey4["100"]};
 

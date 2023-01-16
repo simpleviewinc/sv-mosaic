@@ -55,7 +55,7 @@ export const StyledChip = styled(Chip)`
 		} else if (pr.selected && pr.disabled) {
 			return theme.newColors.simplyGold["60"];
 		}
-		return theme.colors.gray200;
+		return theme.newColors.grey2["100"];
 	}};
 	color: ${theme.newColors.almostBlack["100"]};
 
@@ -64,7 +64,7 @@ export const StyledChip = styled(Chip)`
     }
 
     &:focus {
-      background-color: ${pr => pr.selected ? theme.newColors.simplyGold["100"] : theme.colors.gray200};
+      background-color: ${pr => pr.selected ? theme.newColors.simplyGold["100"] : theme.newColors.grey2["100"]};
     }
 
     padding: 8px 16px;

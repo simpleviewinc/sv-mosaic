@@ -18,12 +18,12 @@ export class FormFieldImageUploadPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.imageUploadWithoutSetFocusHandlerDiv = page.locator("//*[@id='0']/div/div/div/div/div/div[2]/div");
-		this.imageUploadWithoutSetFocusHandlerInput = page.locator("input[data-testid='input-file-test']").nth(0);
+		this.imageUploadWithoutSetFocusHandlerInput = page.locator("#imageUploadWithMenu input[data-testid='input-file-test']");
 		this.imageUploadWithSetFocusHandlerDiv = page.locator("//*[@id='1']/div/div/div/div/div/div[2]/div");
-		this.imageUploadWithSetFocusHandlerInput = page.locator("input[data-testid='input-file-test']").nth(1);
-		this.disabledImageUpload = page.locator("div[disabled='']");
-		this.disabledImageUploadDiv = page.locator("//*[@id='2']/div/div/div/div/div");
-		this.instructionIcon = page.locator("[data-testid='field-test-id'] svg")
+		this.imageUploadWithSetFocusHandlerInput = page.locator("#imageUploadwithSetFocus input[data-testid='input-file-test']");
+		this.disabledImageUpload = page.locator("#imageUploadDisabled div[disabled='']");
+		this.disabledImageUploadDiv = page.locator("#imageUploadDisabled div div").last();
+		this.instructionIcon = page.locator("[data-testid='field-test-id'] svg");
 	}
 
 	async visitPage(): Promise<void> {

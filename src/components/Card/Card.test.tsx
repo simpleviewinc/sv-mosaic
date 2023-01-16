@@ -32,19 +32,23 @@ describe("Card component", () => {
 						sx={{ color: "black", width: 16 }}
 					/>
 				}
-				topAction={{
-					color: "black",
-					variant: "icon",
-					onClick: () => topAction(),
-					mIcon: AddIcon,
-				}}
-				bottomAction={{
-					color: "teal",
-					label: "Add a new task",
-					variant: "text",
-					onClick: () => bottomAction(),
-					mIcon: AddIcon,
-				}}
+				topActions={[
+					{
+						color: "black",
+						variant: "icon",
+						onClick: () => topAction(),
+						mIcon: AddIcon,
+					}
+				]}
+				bottomActions={[
+					{
+						color: "teal",
+						label: "Add a new task",
+						variant: "text",
+						onClick: () => bottomAction(),
+						mIcon: AddIcon,
+					}
+				]}
 			/>
 		);
 	});

@@ -17,8 +17,18 @@ test.describe("Components - Dialog - Example", () => {
 	});
 
 	test("Validate Dialog title has almostBlack color.", async () => {
-		const expectColor = theme.newColors.almostBlack["100"];
-		await dialogPage.openDialogButton.click();
-		expect(await dialogPage.getColorFromElement(dialogPage.dialogTitle)).toBe(expectColor);
+		const expectedColor = theme.newColors.almostBlack["100"];
+		if (!await dialogPage.dialog.isVisible()) {
+			await dialogPage.openDialogButton.click();
+		}
+		expect(await dialogPage.getColorFromElement(dialogPage.dialogTitle)).toBe(expectedColor);
+	});
+
+	test("Validate Dialog text has grey2 in border bottom.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		if (!await dialogPage.dialog.isVisible()) {
+			await dialogPage.openDialogButton.click();
+		}
+		expect(await dialogPage.getSpecificBorderFromElement(dialogPage.dialogText, "bottom")).toContain(expectedColor);
 	});
 });

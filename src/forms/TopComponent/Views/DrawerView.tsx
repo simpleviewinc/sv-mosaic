@@ -14,7 +14,7 @@ import theme, { Views } from "../../../theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 
 const DrawerViewColumn = styled(StyledColumn)`
-  background-color: ${theme.colors.grayHover};
+  background-color: ${theme.newColors.grey2["100"]};
   box-shadow: none;
   display: flex;
   flex-direction: row;

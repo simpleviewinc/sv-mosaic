@@ -15,7 +15,7 @@ export const EditorWrapper = styled.div`
 	}
 
 	.jodit-workplace {
-		background-color: ${theme.colors.gray100} !important;
+		background-color: ${theme.newColors.grey1["100"]} !important;
 		max-height: 200px !important;
 		overflow-y: auto !important;
 		padding: 16px !important;
@@ -60,6 +60,6 @@ export const EditorWrapper = styled.div`
 	}} !important;
 		border-top: none !important;
 		font-family: ${theme.fontFamily};
-		background-color: ${theme.colors.grayHover};
+		background-color: ${theme.newColors.grey2["100"]};
 	}
 `;
