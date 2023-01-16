@@ -26,7 +26,7 @@ export const BrowseOptionsContainer = styled.div`
 
 export const BrowsingContainer = styled.div`
   align-items: center;
-  background-color: ${theme.colors.gray200};
+  background-color: ${theme.newColors.grey2["100"]};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,7 +64,7 @@ export const BrowseSpan = styled.span`
 export const AssetCard = styled.div`
   display: flex;
   background-color: white;
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 4px;
   padding: 16px;
   position: relative;
@@ -95,7 +95,7 @@ export const ButtonsWrapper = styled.div`
   bottom: 16px;
 
   .first {
-    border-right: 2px solid ${theme.colors.gray200};
+    border-right: 2px solid ${theme.newColors.grey2["100"]};
     padding-right: 16px;
   }
 
@@ -142,7 +142,7 @@ export const StyledTooltip = styled(Tooltip)`
 `;
 
 export const StyledImg = styled.img`
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
   object-fit: cover;
 `;
 

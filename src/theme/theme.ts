@@ -86,7 +86,6 @@ const colors = {
 	blueTeal : "#008DA8",
 	tealHover : "#005769",
 	tealOpacity : "rgb(0, 141, 168, 0.2)",
-	grayHover : "#F0F2F5",
 	labelDisabled : "#838791",
 	lightBlue: "#edf5fe",
 	lightRed : "#B100000D",
