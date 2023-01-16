@@ -6,7 +6,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const StyledInput = styled.input`
-  background-color: ${theme.colors.gray100};
+  background-color: ${theme.newColors.grey1["100"]};
   border: none;
   color: ${theme.newColors.almostBlack["100"]};
   flex-grow: 1;
@@ -24,7 +24,7 @@ export const StyledInput = styled.input`
 
 export const InputWrapper = styled.div`
   align-items: center;
-  background-color: ${theme.colors.gray100};
+  background-color: ${theme.newColors.grey1["100"]};
   border: ${theme.borders.simplyGrey};
   display: flex;
   height: 49px;
@@ -43,9 +43,9 @@ export const InputWrapper = styled.div`
   }
 
   &:hover {
-    background-color: ${theme.colors.gray200};
+    background-color: ${theme.newColors.grey2["100"]};
     & input {
-      background-color: ${theme.colors.gray200};
+      background-color: ${theme.newColors.grey2["100"]};
     }
   }
 `;
@@ -101,10 +101,4 @@ export const CategoryTitle = styled.span`
 
 export const AdvancedSelectionWrapper = styled.div`
   max-width: 600px;
-`;
-
-export const StyledFormWrapper = styled.div`
-	& .checkbox-list-field-wrapper div:first-child {
-		width: 100% !important;
-	}
 `;

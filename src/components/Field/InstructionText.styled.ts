@@ -14,7 +14,7 @@ export const InstructionTextWrapper = styled.div`
 	width: 400px;
 	min-height: 51px;
 	padding-left: 20px;
-	border-left: 1px solid ${theme.colors.gray200};
+	border-left: 1px solid ${theme.newColors.grey2["100"]};
 	margin-left: auto;
   	height: calc(100% - 44px);
   }

@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { CardPage } from "../../../pages/Components/Card/CardPage";
+import { CardPage } from "../../../pages/Components/Card/CardRecentActivityPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Card - Recent Activity", () => {
@@ -28,5 +28,15 @@ test.describe.parallel("Components - Card - Recent Activity", () => {
 		for (let i = 3; i < await cardPage.page.locator("span").count();i++) {
 			expect(await cardPage.getColorFromElement(cardPage.page.locator("span").nth(i))).toBe(expectColor);
 		}
+	});
+
+	test("Validate Title Bar has grey2 as background color.", async () => {
+		const expectColor = theme.newColors.grey2["100"];
+		expect(await cardPage.getBackgroundColorFromElement(cardPage.cardTitleBar)).toBe(expectColor);
+	});
+
+	test("Validate Card Wrapper has grey2 in border.", async () => {
+		const expectColor = theme.newColors.grey2["100"];
+		expect(await cardPage.getSpecificBorderFromElement(cardPage.cardWrapper)).toContain(expectColor);
 	});
 });

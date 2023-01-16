@@ -13,9 +13,9 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
   &.MuiFormControl-root {
-    background-color: ${pr => pr.disabled ? "#fff" : theme.colors.gray100};
+    background-color: ${pr => pr.disabled ? "#fff" : theme.newColors.grey1["100"]};
     &:hover {
-    	background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover};
+    	background-color: ${pr => pr.disabled ? "transparent" : theme.newColors.grey2["100"]};
 		& fieldset {
 			border-color: ${theme.newColors.simplyGrey["100"]};
 		}
