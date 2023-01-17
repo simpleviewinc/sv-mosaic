@@ -13,6 +13,7 @@ import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
 import { ButtonProps } from "../Button";
 import { Views } from "@root/theme/theme";
+import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext.jsx"
 
 const Form = (props: FormProps) => {
 	const {
@@ -30,16 +31,18 @@ const Form = (props: FormProps) => {
 		handleDialogClose,
 		tooltipInfo,
 		showActive,
-		setTopComponentDrawerHeight,
-		setFormLayoutPadding
 	} = props;
 
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
+
+	const dispatchRef = useRefsDispatch();
+
 	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
+
 	const { view } = useViewResizer({ type, formContainerRef });
 
 	useEffect(() => {
@@ -48,13 +51,23 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		setTopComponentHeight(topComponentRef.current?.offsetHeight);
-		setTopComponentDrawerHeight && setTopComponentDrawerHeight(`${topComponentRef.current?.offsetHeight}px`);
 
-		if (formContentRef?.current?.children[0] && setFormLayoutPadding) {
-			const layoutPaddingTop = window?.getComputedStyle(formContentRef.current.children[0]).getPropertyValue("padding-top");
-			const layoutPaddingBottom = window?.getComputedStyle(formContentRef.current.children[0]).getPropertyValue("padding-bottom");
-			setFormLayoutPadding(`${layoutPaddingTop} - ${layoutPaddingBottom}`);
-		}
+		dispatchRef && topComponentRef.current && dispatchRef({
+			type: "update",
+			ref: {
+				id: "topComponentDrawerRef",
+				current: topComponentRef.current
+			}
+		});
+
+		formContentRef?.current?.children[0] && dispatchRef &&
+			dispatchRef({
+				type: "update",
+				ref: {
+					id: "formLayoutRef",
+					current: formContentRef.current.children[0]
+				}
+			});
 
 	}, [topComponentRef.current?.offsetHeight, view]);
 

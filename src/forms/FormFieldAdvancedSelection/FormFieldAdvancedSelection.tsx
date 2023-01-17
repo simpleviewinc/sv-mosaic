@@ -6,6 +6,9 @@ import {
 	useState
 } from "react";
 
+// Context
+import { RefsProvider } from "../shared/refsContext/RefsContext.jsx";
+
 // Types
 import { AdvancedSelectionDef } from "./AdvancedSelectionTypes";
 import { MosaicFieldProps } from "@root/components/Field";
@@ -84,7 +87,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 	}
 
 	return (
-		<>
+		<RefsProvider>
 			{value?.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
 					<Button
@@ -130,7 +133,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 					handleDialogClose={handleDialogClose}
 				/>
 			</Drawer>
-		</>
+		</RefsProvider>
 	);
 };
 
