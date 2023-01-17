@@ -55,7 +55,7 @@ export const LinksWrapper = styled.div`
     }
 
     &.highlight {
-      background-color: ${theme.colors.gray200};
+      background-color: ${theme.newColors.grey2["100"]};
     }
 
     a {
@@ -130,7 +130,7 @@ export const FormNavWrapper = styled.div`
   &.BIG_DESKTOP {
     height: 100%;
 	max-width: 250px;
-    border-right: 2px solid ${theme.colors.gray200};
+    border-right: 2px solid ${theme.newColors.grey2["100"]};
   }
 `;
 

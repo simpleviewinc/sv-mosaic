@@ -9,6 +9,7 @@ export class PopoverPage extends BasePage {
 	readonly openPopoverButton: Locator;
 	readonly popoverTooltip: Locator;
 	readonly popoverAddButton: Locator;
+	readonly popoverContentSplit: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -16,6 +17,7 @@ export class PopoverPage extends BasePage {
 		this.openPopoverButton = page.locator("button", { hasText: "Open Popover"});
 		this.popoverTooltip = page.locator("[role='tooltip']");
 		this.popoverAddButton = this.popoverTooltip.locator("button");
+		this.popoverContentSplit = page.locator("hr[data-testid='bottom-content-split']");
 	}
 
 	async visitPage(): Promise<void> {

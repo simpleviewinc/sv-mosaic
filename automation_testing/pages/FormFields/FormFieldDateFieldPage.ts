@@ -7,7 +7,6 @@ export class FormFieldDateFieldPage extends BasePage {
 	readonly page_path = "formfields-formfielddatefield--kitchen-sink";
 
 	readonly page: Page;
-	readonly formTestID: Locator;
 	readonly singleDateCalendarInput: Locator;
 	readonly singleDateCalendarButton: Locator;
 	readonly calendarCell: Locator;
@@ -29,7 +28,6 @@ export class FormFieldDateFieldPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.formTestID = page.locator("[data-testid='form-test-id']");
 		this.singleDateCalendarInput = page.locator("input").nth(0);
 		this.singleDateCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.calendarCell = page.locator("[role='row'] button");
