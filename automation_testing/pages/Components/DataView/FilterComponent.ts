@@ -35,7 +35,7 @@ export class FilterComponent extends BasePage {
 		this.page = page;
 		this._dataviewPage = new DataviewPage(page);
 		this.optionsLocator = page.locator(".options");
-		this.labelCheckbox = this.optionsLocator.locator("[data-testid='label-test-id'");
+		this.labelCheckbox = this.optionsLocator.locator("[data-testid='label-test-id']");
 		this.filterCheckbox = this.optionsLocator.locator(this.checkboxInputString);
 		this.keywordFilterOption = this.labelCheckbox.locator(":scope", { hasText: "Keyword" });
 		this.keywordBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Keyword" });
