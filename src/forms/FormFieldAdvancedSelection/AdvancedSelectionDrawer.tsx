@@ -51,9 +51,18 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const { state, dispatch } = useForm();
 
-	const chipListHeight: string = useMemo(() => chipListRef?.current?.offsetHeight
-		? `${chipListRef.current.offsetHeight}px - 30px`
-		: "0px", [chipListRef.current, state.data]);
+	const [chipListHeight, setChipListHeight] = useState("0px");
+
+	useEffect(() => {
+		const observer = new ResizeObserver((entries) => {
+			setChipListHeight(`${entries[0].contentRect.height}px - 30px`);
+		});
+
+		chipListRef?.current && observer.observe(chipListRef?.current);
+
+		return () =>
+			chipListRef.current && observer.unobserve(chipListRef.current);
+	}, [chipListRef.current]);
 
 	const loadMoreButtonMarginTop: string = useMemo(() => loadMoreButtonRef?.current
 		? window?.getComputedStyle(loadMoreButtonRef.current).getPropertyValue("margin-top")
