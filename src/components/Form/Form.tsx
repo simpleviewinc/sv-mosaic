@@ -13,7 +13,7 @@ import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
 import { ButtonProps } from "../Button";
 import { Views } from "@root/theme/theme";
-import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext.jsx"
+import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext.jsx";
 
 const Form = (props: FormProps) => {
 	const {
