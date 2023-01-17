@@ -30,7 +30,7 @@ const Form = (props: FormProps) => {
 		getFormValues,
 		handleDialogClose,
 		tooltipInfo,
-		showActive,
+		showActive
 	} = props;
 
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
@@ -42,7 +42,6 @@ const Form = (props: FormProps) => {
 
 	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
-
 	const { view } = useViewResizer({ type, formContainerRef });
 
 	useEffect(() => {
