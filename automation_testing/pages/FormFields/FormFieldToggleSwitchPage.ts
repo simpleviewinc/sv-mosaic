@@ -14,9 +14,9 @@ export class FormFieldToggleSwitchPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.regularToggleWithLabel = page.locator("input[type='checkbox']").nth(0);
-		this.disabledToggle = page.locator("input[type='checkbox']").nth(1);
-		this.regularToggleWithoutLabel = page.locator("input[type='checkbox']").nth(2);
+		this.regularToggleWithLabel = page.locator(this.checkboxInputString).nth(0);
+		this.disabledToggle = page.locator(this.checkboxInputString).nth(1);
+		this.regularToggleWithoutLabel = page.locator(this.checkboxInputString).nth(2);
 		this.regularLabel = page.locator("span.MuiFormControlLabel-label").nth(0);
 	}
 
