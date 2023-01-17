@@ -44,6 +44,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
 	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
+	const [chipListHeight, setChipListHeight] = useState("0px");
 
 	const chipListRef:{ current?: HTMLDivElement } = useRef();
 	const loadMoreButtonRef:{ current?: HTMLDivElement } = useRef();
@@ -51,17 +52,17 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const { state, dispatch } = useForm();
 
-	const [chipListHeight, setChipListHeight] = useState("0px");
-
 	useEffect(() => {
 		const observer = new ResizeObserver((entries) => {
-			setChipListHeight(`${entries[0].contentRect.height}px - 30px`);
+			const chipListMarginTop = window?.getComputedStyle(entries[0].target).getPropertyValue("margin-top");
+			const chipListMarginBottom =  window?.getComputedStyle(entries[0].target).getPropertyValue("margin-bottom");
+			setChipListHeight(`${entries[0].contentRect.height}px - ${chipListMarginTop} - ${chipListMarginBottom}`);
 		});
 
-		chipListRef?.current && observer.observe(chipListRef?.current);
+		chipListRef?.current && observer.observe(chipListRef.current);
 
 		return () =>
-			chipListRef.current && observer.unobserve(chipListRef.current);
+			chipListRef?.current && observer.unobserve(chipListRef.current);
 	}, [chipListRef.current]);
 
 	const loadMoreButtonMarginTop: string = useMemo(() => loadMoreButtonRef?.current
@@ -70,7 +71,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const loadMoreButtonHeight: string = useMemo(() => fieldDef?.inputSettings?.getOptions && loadMoreButtonRef?.current?.offsetHeight
 		? `${loadMoreButtonRef.current.offsetHeight}px - ${loadMoreButtonMarginTop}`
-		: "0px", [fieldDef.inputSettings.getOptions, loadMoreButtonRef?.current]);
+		: "0px", [fieldDef.inputSettings.getOptions, loadMoreButtonRef.current]);
 
 	const searchInputMarginTop: string = useMemo(() => searchInputRef?.current
 		? window?.getComputedStyle(searchInputRef.current).getPropertyValue("margin-top")
