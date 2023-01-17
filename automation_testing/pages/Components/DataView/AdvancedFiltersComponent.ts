@@ -84,7 +84,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 	}
 
 	async getNumberOfCategoryWithComparisonOptions(): Promise<number> {
-		return await this._dataviewPage.checkboxOptions.locator("li").count();
+		return await this._dataviewPage.checkboxRow.locator("li").count();
 	}
 
 	async getSpecificMenuItemForSingleSelectCategoryOption(menuPosition: number): Promise<string> {
