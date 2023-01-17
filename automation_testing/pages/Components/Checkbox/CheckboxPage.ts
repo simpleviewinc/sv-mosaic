@@ -16,7 +16,7 @@ export class CheckboxPage extends BasePage {
 		this.page = page;
 		this.checkboxList = page.locator(".listItem");
 		this.checkboxLabel = page.locator("label[data-testid='label-test-id']");
-		this.checkboxInput = this.checkboxList.locator("input[type='checkbox']");
+		this.checkboxInput = this.checkboxList.locator(this.checkboxInputString);
 		this.checkboxIcon = page.locator("span[data-testid='checkbox-test-id']");
 	}
 
