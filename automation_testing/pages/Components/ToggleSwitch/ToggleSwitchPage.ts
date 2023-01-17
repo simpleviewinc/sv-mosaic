@@ -14,7 +14,7 @@ export class ToggleSwitchPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.toggleSpan = page.locator("//*[@id='root']/label/span[1]/span[1]");
-		this.toggleInput = page.locator("input[type='checkbox']");
+		this.toggleInput = page.locator(this.checkboxInputString);
 		this.toggleSwitchTrack = page.locator("span.MuiSwitch-track");
 	}
 

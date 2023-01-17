@@ -27,7 +27,6 @@ export class DataviewPage extends BasePage {
 	readonly columnHeaders: Locator;
 	readonly noResults: Locator;
 	readonly removeFilterIcon: Locator;
-	readonly checkboxOptions: Locator;
 	readonly filterRowBtn: Locator;
 	readonly filtersBtn: Locator;
 	readonly clearFiltersBtn: Locator;
@@ -47,7 +46,7 @@ export class DataviewPage extends BasePage {
 		this.viewChildren = page.locator("[data-mosaic-id=action_additional_view_children]");
 		this.history = page.locator("[data-mosaic-id=action_additional_history]");
 		this.title = page.locator(".headerRow.title .left h1");
-		this.checkboxRow = page.locator("input[type='checkbox']");
+		this.checkboxRow = page.locator(this.checkboxInputString);
 		this.downloadBtn = page.locator("[data-mosaic-id='action_bulk_download'] button");
 		this.deleteBtn = page.locator("[data-mosaic-id='action_bulk_delete'] button");
 		this.allSelectedLabel = page.locator(".bulkText");
@@ -56,7 +55,6 @@ export class DataviewPage extends BasePage {
 		this.noResults = page.locator("div.noResults");
 		this.selectedChips = page.locator(".chips .chip");
 		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
-		this.checkboxOptions = page.locator("input[type='checkbox']");
 		this.filterRowBtn = page.locator(".filterRow button");
 		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" }).first();
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });

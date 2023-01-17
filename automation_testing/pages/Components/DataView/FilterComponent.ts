@@ -7,6 +7,7 @@ export class FilterComponent extends BasePage {
 	readonly page: Page;
 	readonly _dataviewPage: DataviewPage;
 
+	readonly optionsLocator: Locator;
 	readonly keywordFilterOption: Locator;
 	readonly keywordBtn: Locator;
 	readonly keywordInput: Locator;
@@ -14,7 +15,6 @@ export class FilterComponent extends BasePage {
 	readonly categoryBtn: Locator;
 	readonly categoryKeywordInput: Locator;
 	readonly categoryItems: Locator;
-	readonly checkbox: string;
 	readonly selectedOptions: Locator;
 	readonly loadMoreBtn: Locator;
 	readonly moreCategoriesTooltip: Locator;
@@ -34,8 +34,9 @@ export class FilterComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this._dataviewPage = new DataviewPage(page);
-		this.labelCheckbox = page.locator(".options [data-testid='label-test-id']");
-		this.filterCheckbox = page.locator(".options input[type='checkbox']");
+		this.optionsLocator = page.locator(".options");
+		this.labelCheckbox = this.optionsLocator.locator("[data-testid='label-test-id']");
+		this.filterCheckbox = this.optionsLocator.locator(this.checkboxInputString);
 		this.keywordFilterOption = this.labelCheckbox.locator(":scope", { hasText: "Keyword" });
 		this.keywordBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Keyword" });
 		this.keywordInput = page.locator(".inputRow input");
@@ -51,7 +52,6 @@ export class FilterComponent extends BasePage {
 		this.titleWithComparisonOption = this.labelCheckbox.locator(":scope", { hasText: "Title with Comparisons" });
 
 		this.categoryItems = page.locator(".listItem label");
-		this.checkbox = "input[type='checkbox']";
 		this.selectedOptions = page.locator(".chips div");
 		this.loadMoreBtn = page.locator(".loadContainer [type='button']");
 		this.moreCategoriesTooltip = page.locator("[data-testid='tooltip-test-id']");
@@ -77,9 +77,9 @@ export class FilterComponent extends BasePage {
 
 	async checkItem(item: Locator, check: boolean): Promise<void> {
 		if (check) {
-			await item.locator(this.checkbox).check();
+			await item.locator(this.checkboxInputString).check();
 		} else {
-			await item.locator(this.checkbox).uncheck();
+			await item.locator(this.checkboxInputString).uncheck();
 		}
 	}
 

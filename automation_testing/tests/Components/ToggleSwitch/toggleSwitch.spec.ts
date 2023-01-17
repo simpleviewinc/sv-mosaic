@@ -3,7 +3,7 @@ import { ToggleSwitchPage } from "../../../pages/Components/ToggleSwitch/ToggleS
 import theme from "../../../../src/theme";
 import { knobs } from "../../../utils/data/knobs";
 
-test.describe("Components - ToggleSwitch - Example", () => {
+test.describe.parallel("Components - ToggleSwitch - Example", () => {
 	let page: Page;
 	let togglePage: ToggleSwitchPage;
 
@@ -24,6 +24,7 @@ test.describe("Components - ToggleSwitch - Example", () => {
 	});
 
 	test("Validate Toggle switch track has simplyGrey as background color.", async () => {
+		await page.reload();
 		const expectColor = theme.newColors.simplyGrey["100"];
 		expect(await togglePage.getBackgroundColorFromElement(togglePage.toggleSwitchTrack)).toBe(expectColor);
 	});
