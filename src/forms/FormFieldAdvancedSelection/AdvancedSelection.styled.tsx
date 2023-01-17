@@ -43,9 +43,9 @@ export const InputWrapper = styled.div`
   }
 
   &:hover {
-    background-color: ${theme.colors.gray200};
+    background-color: ${theme.newColors.grey2["100"]};
     & input {
-      background-color: ${theme.colors.gray200};
+      background-color: ${theme.newColors.grey2["100"]};
     }
   }
 `;
@@ -101,10 +101,4 @@ export const CategoryTitle = styled.span`
 
 export const AdvancedSelectionWrapper = styled.div`
   max-width: 600px;
-`;
-
-export const StyledFormWrapper = styled.div`
-	& .checkbox-list-field-wrapper div:first-child {
-		width: 100% !important;
-	}
 `;
