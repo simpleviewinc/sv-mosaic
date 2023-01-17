@@ -7,8 +7,9 @@ import { ButtonProps } from "@root/components/Button";
 
 // Components
 import Map from "@root/forms/FormFieldMapCoordinates/Map";
-import { MapFormWrapper, StyledSpan } from "../MapCoordinates.styled";
+import { StyledSpan } from "../MapCoordinates.styled";
 import ResetButton from "@root/forms/FormFieldMapCoordinates/MapCoordinatesDrawer/ResetButton";
+import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 
 // Utils
 import { defaultMapPosition } from "../MapCoordinatesUtils";
@@ -318,7 +319,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	];
 
 	return (
-		<MapFormWrapper>
+		<FormDrawerWrapper className="mapCoordinates">
 			<Form
 				title='Map Coordinates'
 				buttons={buttons}
@@ -330,7 +331,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
 			/>
-		</MapFormWrapper>
+		</FormDrawerWrapper>
 	);
 };
 

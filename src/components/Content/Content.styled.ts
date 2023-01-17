@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 export const MainWrapper = styled.div`
 	font-family: ${theme.fontFamily};
-	border-bottom: 2px solid ${theme.colors.gray200};
+	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	margin: 32px 40px;
 `;
 
@@ -26,7 +26,7 @@ export const StyledEditIcon = styled(EditIcon)`
 	cursor: pointer;
 
 	&.MuiSvgIcon-root {
-		border-right: 1px solid ${theme.colors.gray200};
+		border-right: 1px solid ${theme.newColors.grey2["100"]};
 		padding-right: 16px;
 		width: 16px;
 	}
@@ -41,7 +41,7 @@ export const ButtonsWrapper = styled.div`
 	}
 
 	.button {
-		border-right: 2px solid ${theme.colors.gray200};
+		border-right: 2px solid ${theme.newColors.grey2["100"]};
 		padding: 0 16px 0 16px;
 	}
 

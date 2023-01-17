@@ -5,7 +5,7 @@ import theme from "@root/theme";
 
 export const AddAddressWrapper = styled.div`
   align-items: center;
-  background-color: ${theme.colors.gray200};
+  background-color: ${theme.newColors.grey2["100"]};
   display: flex;
   justify-content: center;
   min-height: 204px;

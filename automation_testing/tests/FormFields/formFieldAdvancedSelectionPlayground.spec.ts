@@ -26,4 +26,12 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 		await ffAdvancedSelectionPage.advancedSelectionButton.click();
 		expect(await ffAdvancedSelectionPage.getBackgroundColorFromElement(ffAdvancedSelectionPage.inputSearchLocator)).toContain(expectedColor);
 	});
+
+	test("Validate drawer title location is fixed.", async () => {
+		await page.setViewportSize({ width: 1280, height: 400 });
+		await ffAdvancedSelectionPage.advancedSelectionButton.click();
+		await expect(ffAdvancedSelectionPage.formTestID.last()).toBeVisible();
+		await ffAdvancedSelectionPage.page.locator("input").last().scrollIntoViewIfNeeded();
+		await expect(ffAdvancedSelectionPage.formTestID.last().locator("form div").first()).toBeVisible();
+	});
 });

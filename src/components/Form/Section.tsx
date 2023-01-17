@@ -16,11 +16,11 @@ const StyledSection = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: calc(100% - 4px); //LAYOUT: Could be reused.
-	border: ${pr => !pr.hasTitle ? "none" : `2px solid ${theme.colors.grayHover}`};
+	border: ${pr => !pr.hasTitle ? "none" : `2px solid ${theme.newColors.grey2["100"]}`};
 	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"};
 
 	& h1 {
-		background-color: ${theme.colors.grayHover};
+		background-color: ${theme.newColors.grey2["100"]};
 		margin: 0px;
 		padding: 16px 24px;
 	}

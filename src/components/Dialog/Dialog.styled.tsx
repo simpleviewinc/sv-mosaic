@@ -11,7 +11,7 @@ z-index: 99999 !important;
   font-family: ${theme.fontFamily};
 
   .MuiDialogContent-root {
-    border-bottom: 2px solid ${theme.colors.gray200};
+    border-bottom: 2px solid ${theme.newColors.grey2["100"]};
   }
 
   .MuiPaper-rounded {

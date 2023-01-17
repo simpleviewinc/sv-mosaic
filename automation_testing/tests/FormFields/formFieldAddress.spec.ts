@@ -82,6 +82,13 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		expect(await ffAddressPage.addressCard.textContent()).not.toContain("Shipping");
 	});
 
+	test("Validate that Add Address Drawer Title has grey2 as background color.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		await page.reload();
+		await ffAddressPage.addAddressButton.click({force: true});
+		expect(await ffAddressPage.getBackgroundColorFromElement(ffAddressPage.titleAddAddressDrawerWrapper)).toBe(expectedColor);
+	});
+
 	test("Validate that background color of the address card is gray1.", async () => {
 		await page.reload();
 		const expectedColor = theme.newColors.grey1["100"];
@@ -89,5 +96,13 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await ffAddressPage.fillAddresInformation("Physical");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.getBackgroundColorFromElement(ffAddressPage.addressCard)).toBe(expectedColor);
+	});
+
+	test("Validate drawer title location is fixed.", async () => {
+		await page.setViewportSize({ width: 1280, height: 400 });
+		await ffAddressPage.addAddressButton.click();
+		await expect(ffAddressPage.formTestID.last()).toBeVisible();
+		await ffAddressPage.shippingCheckboxOption.scrollIntoViewIfNeeded();
+		await expect(ffAddressPage.formTestID.last().locator("form div").first()).toBeVisible();
 	});
 });
