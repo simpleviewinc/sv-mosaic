@@ -7,7 +7,7 @@ import {
 } from "react";
 
 // Context
-import { RefsProvider } from "../shared/refsContext/RefsContext.jsx";
+import { RefsProvider } from "../shared/refsContext/RefsContext";
 
 // Types
 import { AdvancedSelectionDef } from "./AdvancedSelectionTypes";
@@ -86,8 +86,13 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 		setIsDialogOpen(false);
 	}
 
+	const initialRefs = {
+		topComponentDrawerRef: null,
+		formLayoutRef: null,
+	}
+
 	return (
-		<RefsProvider>
+		<>
 			{value?.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
 					<Button
@@ -120,20 +125,22 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 					onClick={handleOpenModal}
 				></Button>
 			)}
-			<Drawer open={isModalOpen} onClose={handleClose}>
-				<AdvancedSelectionDrawer
-					value={value ?? []}
-					fieldDef={fieldDef}
-					onChange={onChange}
-					isModalOpen={isModalOpen}
-					isMobileView={isMobileView}
-					handleClose={handleClose}
-					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
-					dialogOpen={dialogOpen}
-					handleDialogClose={handleDialogClose}
-				/>
-			</Drawer>
-		</RefsProvider>
+			<RefsProvider initialRefs={initialRefs}>
+				<Drawer open={isModalOpen} onClose={handleClose}>
+					<AdvancedSelectionDrawer
+						value={value ?? []}
+						fieldDef={fieldDef}
+						onChange={onChange}
+						isModalOpen={isModalOpen}
+						isMobileView={isMobileView}
+						handleClose={handleClose}
+						handleUnsavedChanges={(e) => setUnsavedChanges(e)}
+						dialogOpen={dialogOpen}
+						handleDialogClose={handleDialogClose}
+					/>
+				</Drawer>
+			</RefsProvider>
+		</>
 	);
 };
 

@@ -13,7 +13,7 @@ import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
 import { ButtonProps } from "../Button";
 import { Views } from "@root/theme/theme";
-import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext.jsx";
+import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 
 const Form = (props: FormProps) => {
 	const {
@@ -54,21 +54,22 @@ const Form = (props: FormProps) => {
 		dispatchRef && topComponentRef.current && dispatchRef({
 			type: "update",
 			ref: {
-				id: "topComponentDrawerRef",
-				current: topComponentRef.current
+				topComponentDrawerRef: topComponentRef.current
 			}
 		});
 
-		formContentRef?.current?.children[0] && dispatchRef &&
+	}, [topComponentRef.current?.offsetHeight, view]);
+
+	useEffect(() => {
+		dispatchRef && formContentRef.current?.children[0] &&
 			dispatchRef({
 				type: "update",
 				ref: {
-					id: "formLayoutRef",
-					current: formContentRef.current.children[0]
+					formLayoutRef: formContentRef.current.children[0]
 				}
 			});
 
-	}, [topComponentRef.current?.offsetHeight, view]);
+	}, [formContentRef.current?.children[0], view]);
 
 	useEffect(() => {
 		let isMounted = true;
