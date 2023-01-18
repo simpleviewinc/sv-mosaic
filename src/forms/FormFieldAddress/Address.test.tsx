@@ -34,6 +34,9 @@ export const setupGoogleMock = (): void => {
 	const google = {
 		maps: {
 			places: {
+				AutocompleteService: function() {
+					return { getPlacePredictions: jest.fn() };
+				},
 				PlacesServiceStatus: {
 					INVALID_REQUEST: "INVALID_REQUEST",
 					NOT_FOUND: "NOT_FOUND",
