@@ -25,7 +25,7 @@ import { AdvanceSelectionDrawerPropTypes } from ".";
 import _ from "lodash";
 import { MosaicLabelValue } from "@root/types";
 import { FormDrawerWrapper } from "../shared/styledComponents";
-import { useRefs } from "../shared/refsContext/RefsContext.jsx";
+import { useRefs } from "../shared/refsContext/RefsContext";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -69,9 +69,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		? window?.getComputedStyle(loadMoreButtonRef.current).getPropertyValue("margin-top")
 		: "0px", [loadMoreButtonRef.current]);
 
-	const loadMoreButtonHeight: string = useMemo(() => fieldDef?.inputSettings?.getOptions && loadMoreButtonRef?.current?.offsetHeight
+	const loadMoreButtonHeight: string = useMemo(() => loadMoreButtonRef?.current?.offsetHeight
 		? `${loadMoreButtonRef.current.offsetHeight}px - ${loadMoreButtonMarginTop}`
-		: "0px", [fieldDef.inputSettings.getOptions, loadMoreButtonRef.current]);
+		: "0px", [loadMoreButtonRef.current]);
 
 	const searchInputMarginTop: string = useMemo(() => searchInputRef?.current
 		? window?.getComputedStyle(searchInputRef.current).getPropertyValue("margin-top")
@@ -87,10 +87,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const refs = useRefs();
 
-	const topComponentDrawer: HTMLDivElement = useMemo(() => refs?.filter(ref => ref.id === "topComponentDrawerRef")[0].current, [refs]);
+	const topComponentDrawer: HTMLDivElement = useMemo(() => refs?.topComponentDrawerRef, [refs]);
 	const topComponentDrawerHeight: string = useMemo(() => topComponentDrawer && topComponentDrawer.offsetHeight + "px", [topComponentDrawer]);
 
-	const formLayout: HTMLDivElement = useMemo(() => refs?.filter(ref => ref.id === "formLayoutRef")[0].current, [refs]);
+	const formLayout: HTMLDivElement = useMemo(() => refs?.formLayoutRef, [refs]);
 	const formLayoutPaddingTop: string = useMemo(() => formLayout && window?.getComputedStyle(formLayout).getPropertyValue("padding-top"), [formLayout]);
 	const formLayoutPaddingBottom: string = useMemo(() => formLayout && window?.getComputedStyle(formLayout).getPropertyValue("padding-bottom"), [formLayout]);
 	const formLayoutPadding: string = useMemo(() => `${formLayoutPaddingTop} - ${formLayoutPaddingBottom}`, [formLayoutPaddingTop, formLayoutPaddingBottom]);
