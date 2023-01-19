@@ -1,7 +1,7 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import * as React from "react";
-import { memo, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
@@ -10,15 +10,18 @@ import { UploadData, UploadDef } from "./FormFieldUploadTypes";
 const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	const {
 		fieldDef,
-		// value
+		value,
+		onChange,
 	} = props;
+
 	const {
 		limit,
-		// onFileAdd,  		onFileDelete,
+		onFileAdd,
+		onFileDelete,
 	} = fieldDef.inputSettings;
 
 	const [isOver, setIsOver] = useState(false);
-	const [files, setFiles] = useState<UploadData[]>([]);
+	const [files, setFiles] = useState([]);
 
 	const fileInputField = useRef(null);
 
@@ -75,15 +78,43 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	 * @param e
 	 */
 	const handleNewFileUpload = (e) => {
-		const files = e.target.files;
+		const files = Array.from(e.target.files);
 
 		if (limit !== undefined && limit >= 0 && files.length > limit) {
 			alert(`Upload limited to only ${limit} files`);
 			return;
 		}
 
+		const transformedFiles = files.map(file => (
+			{
+				id: "temp_id_" + file.lastModified,
+				name: file.name,
+				size: file.size + "bytes",
+				url: URL.createObjectURL(file)
+			}
+		));
+		onChange(transformedFiles);
 
+		setFiles(files);
 	};
+
+	const handleFileAdded = useCallback((data) => {
+		let newValues = [data];
+		console.log("file added ", value, newValues);
+		if (value){
+			newValues = [...value, data];
+		}
+		onChange(newValues);
+
+	}, [value]);
+
+	const handleFileDelete = async ({id}) => {
+		await onFileDelete(id);
+
+		const newValues = [...value].filter(file => file.id !== id);
+		setFiles(newValues);
+		await onChange(newValues);
+	}
 
 	return (
 		<>
@@ -93,15 +124,17 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 				onDragEnter={dragEnter}
 				onDragLeave={dragLeave}
 				onDrop={fileDrop}
+				width={"620px"}
+				data-testid="drag-and-drop-container"
 			>
 				{isOver ? (
 					<DragAndDropSpan isOver={isOver}>
-					Release and Drop
+						Release and Drop
 					</DragAndDropSpan>
 				) : (
 					<>
 						<DragAndDropSpan isOver={isOver}>
-						Drag & Drop files here or
+							Drag & Drop files here or
 						</DragAndDropSpan>
 						<Button
 							color="gray"
@@ -110,10 +143,9 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 							label="UPLOAD FILES"
 							onClick={uploadFiles}
 							muiAttrs={{disableRipple: true}}
-						></Button>
+						/>
 					</>
 				)}
-
 				<FileInput
 					data-testid="input-file-test"
 					ref={fileInputField}
@@ -121,14 +153,19 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 					title=""
 					type="file"
 					value=""
-					multiple={limit !== undefined && limit > 1 ? limit : false}
+					multiple={limit === undefined || limit > 1 ? true : false}
 				/>
 			</DragAndDropContainer>
-			<FileCard id={0} name={"testing"} uploadProgress={20} onFileDelete={(e) => onFileDelete({id: 0, onError: (message) => alert(message)})} size={"20mb"} />
 			{files.length > 0 &&
 				<StyledFileGrid>
 					{files.map(file => (
-						<FileCard key={file.id} {...file} onFileDelete={(e) => onFileDelete({id: file.id, onError: (message) => alert(message)})} />
+						<FileCard
+							key={file.name}
+							file={file}
+							onFileDelete={handleFileDelete}
+							onFileAdd={onFileAdd}
+							handleFileAdded={handleFileAdded}
+						/>
 					))}
 				</StyledFileGrid>
 			}
