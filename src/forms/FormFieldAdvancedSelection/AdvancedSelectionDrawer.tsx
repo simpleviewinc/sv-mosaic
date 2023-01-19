@@ -25,6 +25,7 @@ import { AdvanceSelectionDrawerPropTypes } from ".";
 import _ from "lodash";
 import { MosaicLabelValue } from "@root/types";
 import { FormDrawerWrapper } from "../shared/styledComponents";
+import { useRefs } from "../shared/refsContext/RefsContext";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -43,12 +44,56 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
 	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
 	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
+	const [chipListHeight, setChipListHeight] = useState("0px");
 
 	const chipListRef:{ current?: HTMLDivElement } = useRef();
+	const loadMoreButtonRef:{ current?: HTMLDivElement } = useRef();
+	const searchInputRef:{ current?: HTMLDivElement } = useRef();
 
 	const { state, dispatch } = useForm();
 
-	const chipListHeight: number = chipListRef?.current?.offsetHeight ? chipListRef?.current?.offsetHeight + 30 : 0;
+	useEffect(() => {
+		const observer = new ResizeObserver((entries) => {
+			const chipListMarginTop = window?.getComputedStyle(entries[0].target).getPropertyValue("margin-top");
+			const chipListMarginBottom =  window?.getComputedStyle(entries[0].target).getPropertyValue("margin-bottom");
+			setChipListHeight(`${entries[0].contentRect.height}px - ${chipListMarginTop} - ${chipListMarginBottom}`);
+		});
+
+		chipListRef?.current && observer.observe(chipListRef.current);
+
+		return () =>
+			chipListRef?.current && observer.unobserve(chipListRef.current);
+	}, [chipListRef.current]);
+
+	const loadMoreButtonMarginTop: string = useMemo(() => loadMoreButtonRef?.current
+		? window?.getComputedStyle(loadMoreButtonRef.current).getPropertyValue("margin-top")
+		: "0px", [loadMoreButtonRef.current]);
+
+	const loadMoreButtonHeight: string = useMemo(() => loadMoreButtonRef?.current?.offsetHeight
+		? `${loadMoreButtonRef.current.offsetHeight}px - ${loadMoreButtonMarginTop}`
+		: "0px", [loadMoreButtonRef.current]);
+
+	const searchInputMarginTop: string = useMemo(() => searchInputRef?.current
+		? window?.getComputedStyle(searchInputRef.current).getPropertyValue("margin-top")
+		: "0px", [searchInputRef.current]);
+
+	const searchInputMarginBottom: string = useMemo(() => searchInputRef?.current
+		? window?.getComputedStyle(searchInputRef.current).getPropertyValue("margin-bottom")
+		: "0px", [searchInputRef.current]);
+
+	const searchInputHeight: string = useMemo(() => searchInputRef?.current?.offsetHeight
+		? `${searchInputRef.current.offsetHeight}px - ${searchInputMarginTop} - ${searchInputMarginBottom}`
+		: "0px", [searchInputRef.current]);
+
+	const refs = useRefs();
+
+	const topComponentDrawer: HTMLDivElement = useMemo(() => refs?.topComponentDrawerRef, [refs]);
+	const topComponentDrawerHeight: string = useMemo(() => topComponentDrawer && topComponentDrawer.offsetHeight + "px", [topComponentDrawer]);
+
+	const formLayout: HTMLDivElement = useMemo(() => refs?.formLayoutRef, [refs]);
+	const formLayoutPaddingTop: string = useMemo(() => formLayout && window?.getComputedStyle(formLayout).getPropertyValue("padding-top"), [formLayout]);
+	const formLayoutPaddingBottom: string = useMemo(() => formLayout && window?.getComputedStyle(formLayout).getPropertyValue("padding-bottom"), [formLayout]);
+	const formLayoutPadding: string = useMemo(() => `${formLayoutPaddingTop} - ${formLayoutPaddingBottom}`, [formLayoutPaddingTop, formLayoutPaddingBottom]);
 
 	useEffect(() => {
 		if (state.data.listOfChips !== undefined) {
@@ -245,7 +290,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		};
 
 		return (
-			<InputWrapper isMobileView={isMobileView} createNewOption={props.value && fieldDef?.inputSettings?.createNewOption}>
+			<InputWrapper ref={searchInputRef} isMobileView={isMobileView} createNewOption={props.value && fieldDef?.inputSettings?.createNewOption}>
 				<StyledInput
 					type='text'
 					placeholder='Search...'
@@ -320,7 +365,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					type: "checkbox",
 					disabled: fieldDef?.disabled || checkboxListDisabled,
 					style: {
-						height: `calc(100vh - 78px - 30px - 49px - 30px - ${chipListHeight}px ${fieldDef?.inputSettings?.getOptions ? "- 45px" : ""})`,
+						height: `calc(100vh - ${topComponentDrawerHeight} - ${formLayoutPadding} - ${searchInputHeight} - ${chipListHeight} - ${loadMoreButtonHeight})`,
 						overflowY: "auto",
 						flexWrap: "nowrap",
 						width: "100%",
@@ -338,6 +383,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					name: "loadMoreButton",
 					type: LoadMoreButton,
 					disabled: fieldDef?.disabled,
+					ref: loadMoreButtonRef,
 					inputSettings: {
 						canLoadMore,
 						getMoreOptions: loadMoreOptions,
