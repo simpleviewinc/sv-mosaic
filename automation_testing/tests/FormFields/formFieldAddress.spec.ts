@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldAddressPage } from "../../pages/FormFields/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
+import { us_address_2 } from "../../utils/data/address_information_data";
 import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
@@ -37,7 +38,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that the user only can add one Physical Address.", async () => {
 		await page.reload();
 		await ffAddressPage.addAddressButton.click({force: true});
-		await ffAddressPage.fillAddresInformation("Physical");
+		await ffAddressPage.fillAddresInformation("physical");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.addressCard.textContent()).toContain("Physical Address");
 		await ffAddressPage.addAddressButton.click();
@@ -47,7 +48,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that the user only can add one Billing Address.", async () => {
 		await page.reload();
 		await ffAddressPage.addAddressButton.click({force: true});
-		await ffAddressPage.fillAddresInformation("Billing");
+		await ffAddressPage.fillAddresInformation("billing");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.addressCard.textContent()).toContain("Billing Address");
 		await ffAddressPage.addAddressButton.click();
@@ -57,7 +58,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that the user only can add one Shipping Address.", async () => {
 		await page.reload();
 		await ffAddressPage.addAddressButton.click({force: true});
-		await ffAddressPage.fillAddresInformation("Shipping");
+		await ffAddressPage.fillAddresInformation("shipping");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.addressCard.textContent()).toContain("Shipping Address");
 		await ffAddressPage.addAddressButton.click();
@@ -67,16 +68,16 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that no more than three type of Address can be added.", async () => {
 		await page.reload();
 		await ffAddressPage.addAddressButton.click({force: true});
-		await ffAddressPage.fillAddresInformation("All");
+		await ffAddressPage.fillAddresInformation("all");
 		await expect(ffAddressPage.addAddressButton).toBeDisabled();
 	});
 
 	test("Validate that you can add an Address after removing a type of address in the edit.", async () => {
 		await page.reload();
 		await ffAddressPage.addAddressButton.click({force: true});
-		await ffAddressPage.fillAddresInformation("All");
+		await ffAddressPage.fillAddresInformation("all");
 		await ffAddressPage.page.locator("text=Edit").click();
-		await ffAddressPage.selectTypeOfAddress("Shipping");
+		await ffAddressPage.selectTypeOfAddress("shipping");
 		await ffAddressPage.drawerSaveButton.click();
 		await expect(ffAddressPage.addAddressButton).toBeEnabled();
 		expect(await ffAddressPage.addressCard.textContent()).not.toContain("Shipping");
@@ -93,7 +94,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await page.reload();
 		const expectedColor = theme.newColors.grey1["100"];
 		await ffAddressPage.addAddressButton.click({force: true});
-		await ffAddressPage.fillAddresInformation("Physical");
+		await ffAddressPage.fillAddresInformation("physical");
 		await expect(ffAddressPage.addressCard).toBeVisible();
 		expect(await ffAddressPage.getBackgroundColorFromElement(ffAddressPage.addressCard)).toBe(expectedColor);
 	});
@@ -104,5 +105,31 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await expect(ffAddressPage.formTestID.last()).toBeVisible();
 		await ffAddressPage.shippingCheckboxOption.scrollIntoViewIfNeeded();
 		await expect(ffAddressPage.formTestID.last().locator("form div").first()).toBeVisible();
+	});
+
+	test("Validate that when a user select one of the options shown, the fields are filled out.", async () => {
+		await ffAddressPage.addAddressButton.click();
+		await ffAddressPage.firstAddressField.fill(us_address_2.address);
+		await ffAddressPage.roleOptionLocator.locator(":scope", { hasText: "USA" }).first().click({force: true});
+		await ffAddressPage.wait();
+
+		expect(await ffAddressPage.firstAddressField.inputValue()).toBe(us_address_2.address);
+		expect(await ffAddressPage.countryDropdownInput.inputValue()).toBe(us_address_2.country);
+		expect(await ffAddressPage.cityField.inputValue()).toBe(us_address_2.city);
+		expect(await ffAddressPage.statesDropdownInput.inputValue()).toBe(us_address_2.state);
+		expect(await ffAddressPage.postalCodeField.inputValue()).toBe(us_address_2.postalCode);
+	});
+
+	test("Validate that when a user select one of the options shown and saves, the address card has the selected address.", async () => {
+		await ffAddressPage.addAddressButton.click();
+		await ffAddressPage.firstAddressField.fill(us_address_2.address);
+		await ffAddressPage.roleOptionLocator.locator(":scope", { hasText: "USA" }).first().click({force: true});
+		await ffAddressPage.wait();
+		await ffAddressPage.selectTypeOfAddress("physical");
+		await ffAddressPage.saveBtn.nth(1).click();
+
+		expect(await ffAddressPage.addressCard.locator("span").nth(1).textContent()).toBe(us_address_2.address);
+		expect(await ffAddressPage.addressCard.locator("span").nth(2).textContent()).toBe(us_address_2.city + ", " + us_address_2.state + " " + us_address_2.postalCode);
+		expect(await ffAddressPage.addressCard.locator("span").nth(3).textContent()).toBe(us_address_2.country);
 	});
 });
