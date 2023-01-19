@@ -31,7 +31,7 @@ export const DragAndDropContainer = styled.div`
   height: 204px;
   justify-content: center;
   position: relative;
-  width: 300px;
+  width: ${pr => pr.width ? pr.width : "300px"};
 `;
 
 export const DragAndDropSpan = styled.span`
