@@ -106,6 +106,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		if (view === Views.drawer)
 			return (
 				<DrawerHeader
+					ref={ref}
 					title={title}
 					buttons={buttons}
 					onCancel={onCancel}
