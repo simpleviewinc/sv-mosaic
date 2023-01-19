@@ -1,7 +1,7 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import * as React from "react";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, /*useCallback,*/ useRef, useState } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
@@ -10,14 +10,14 @@ import { UploadData, UploadDef } from "./FormFieldUploadTypes";
 const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	const {
 		fieldDef,
-		value,
-		onChange,
+		// value,
+		// onChange,
 	} = props;
 
 	const {
 		limit,
 		onFileAdd,
-		onFileDelete,
+		// onFileDelete,
 	} = fieldDef.inputSettings;
 
 	const [isOver, setIsOver] = useState(false);
@@ -85,36 +85,50 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 			return;
 		}
 
-		const transformedFiles = files.map(file => (
-			{
-				id: "temp_id_" + file.lastModified,
-				name: file.name,
-				size: file.size + "bytes",
-				url: URL.createObjectURL(file)
-			}
-		));
-		onChange(transformedFiles);
+		/**
+		 * Attempt to temporarily store files' metadata
+		 * in value.
+		 */
+		// const transformedFiles = files.map(file => (
+		// 	{
+		// 		id: "temp_id_" + file.lastModified,
+		// 		name: file.name,
+		// 		size: file.size + "bytes",
+		// 		url: URL.createObjectURL(file)
+		// 	}
+		// ));
+		// onChange(transformedFiles);
 
 		setFiles(files);
 	};
 
-	const handleFileAdded = useCallback((data) => {
-		let newValues = [data];
-		console.log("file added ", value, newValues);
-		if (value){
-			newValues = [...value, data];
-		}
-		onChange(newValues);
+	/**
+	 * Attempt to store only successfully loaded
+	 * files in value.
+	 */
+	// const handleFileAdded = useCallback((data) => {
+	// 	let newValues = [data];
+	// 	console.log("file added ", value, newValues);
+	// 	if (value) {
+	// 		newValues = [...value, data];
+	// 	}
+	// 	onChange(newValues);
 
-	}, [value]);
+	// }, [value]);
 
-	const handleFileDelete = async ({id}) => {
-		await onFileDelete(id);
+	/**
+	 * Having value and files there's a mismatch in ids,
+	 * since we're using files to render, but value to delete
+	 * ids could be totally different because they might be
+	 * processed in a DB before returing to us.
+	 */
+	// const handleFileDelete = async ({id}) => {
+	// 	await onFileDelete(id);
 
-		const newValues = [...value].filter(file => file.id !== id);
-		setFiles(newValues);
-		await onChange(newValues);
-	}
+	// 	const newValues = [...value].filter(file => file.id !== id);
+	// 	setFiles(newValues);
+	// 	await onChange(newValues);
+	// }
 
 	return (
 		<>
@@ -162,9 +176,9 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 						<FileCard
 							key={file.name}
 							file={file}
-							onFileDelete={handleFileDelete}
+							// onFileDelete={handleFileDelete}
 							onFileAdd={onFileAdd}
-							handleFileAdded={handleFileAdded}
+							// handleFileAdded={handleFileAdded}
 						/>
 					))}
 				</StyledFileGrid>
