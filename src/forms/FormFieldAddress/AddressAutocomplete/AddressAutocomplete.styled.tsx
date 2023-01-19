@@ -36,7 +36,6 @@ export const SuggestionsContainer = styled.div`
 export const SuggestionsDescriptionContainer = styled.div`
   	background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.colors.gray200 : "white"};
   	cursor: pointer;
-	// width: ${({ fieldSize }) => fieldSize};
 	padding: 6px 16px;
 	width: 100%;
 `;
