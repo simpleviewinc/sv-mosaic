@@ -37,7 +37,7 @@ export const Playground = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 						address: withAddress ? addressKnob : {},
 						mapPosition: mapPositionKnob,
 						zoom: zoom
@@ -117,7 +117,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: true,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address
 		},
 	}

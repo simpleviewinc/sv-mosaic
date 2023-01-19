@@ -29,18 +29,18 @@ export class FormFieldAddressPage extends BasePage {
 		this.page = page;
 		this.addAddressButton = page.locator("button", { hasText: "ADD ADDRESS" });
 		this.addressFormLayout = page.locator("[data-testid='form-layout-test-id']").nth(1);
-		this.countryDropdownInput = page.locator("input[role='combobox']").nth(0);
-		this.countryDropdownButton = page.locator("[data-testid='dropdown-single-selection-test-id'] button[title='Open']").nth(0);
-		this.firstAddressField = page.locator("input#address1");
+		this.countryDropdownInput = page.locator("#country input");
+		this.countryDropdownButton = page.locator("#country button[title='Open']");
+		this.firstAddressField = page.locator("#address1 input");
 		this.secondAddressField = page.locator("input#address2");
 		this.thirdAddressField = page.locator("input#address3");
 		this.cityField = page.locator("input#city");
-		this.statesDropdownInput = page.locator("input[role='combobox']").nth(1);
-		this.statesDropdownButton = page.locator("[data-testid='dropdown-single-selection-test-id'] button[title='Open']").nth(1);
+		this.statesDropdownInput = page.locator("#states input");
+		this.statesDropdownButton = page.locator("#states button[title='Open']");
 		this.postalCodeField = page.locator("input#postalCode");
-		this.physicalCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Physical" });
-		this.billingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Billing" });
-		this.shippingCheckboxOption = page.locator("[data-testid='label-test-id']", { hasText: "Shipping" });
+		this.physicalCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Physical" }).locator("input");
+		this.billingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Billing" }).locator("input");
+		this.shippingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Shipping" }).locator("input");
 		this.addressCard = page.locator("[data-testid='address-card-test']");
 		this.titleAddAddressDrawerWrapper = this.formTestID.nth(1).locator("form div").first();
 	}
@@ -49,7 +49,7 @@ export class FormFieldAddressPage extends BasePage {
 		await this.visit(this.page_path, this.title);
 	}
 
-	async fillAddresInformation(type:string): Promise<void> {
+	async fillAddresInformation(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {
 		await this.wait();
 		await this.selectOptionFromDropdown(this.countryDropdownButton, us_address.country);
 		await this.firstAddressField.fill(us_address.address);
@@ -60,21 +60,21 @@ export class FormFieldAddressPage extends BasePage {
 		await this.drawerSaveButton.click();
 	}
 
-	async selectTypeOfAddress(type:string): Promise<void> {
-		switch (type.toLocaleLowerCase()) {
+	async selectTypeOfAddress(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {
+		switch (type) {
 		case "physical":
-			await this.physicalCheckboxOption.locator("input").click();
+			await this.physicalCheckboxOption.click();
 			break;
 		case "billing":
-			await this.billingCheckboxOption.locator("input").click();
+			await this.billingCheckboxOption.click();
 			break;
 		case "shipping":
-			await this.shippingCheckboxOption.locator("input").click();
+			await this.shippingCheckboxOption.click();
 			break;
 		case "all":
-			await this.physicalCheckboxOption.locator("input").click();
-			await this.billingCheckboxOption.locator("input").click();
-			await this.shippingCheckboxOption.locator("input").click();
+			await this.physicalCheckboxOption.click();
+			await this.billingCheckboxOption.click();
+			await this.shippingCheckboxOption.click();
 			break;
 		}
 	}

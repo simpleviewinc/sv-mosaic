@@ -73,7 +73,7 @@ export class PlaygroundPage extends BasePage {
 		this.mapCoordinatesExampleButton = page.locator("text=ADD COORDINATES");
 		//Address Information
 		this.countryDropdown = page.locator("input[role='combobox']").nth(1);
-		this.firstAddressField = page.locator("input#address1");
+		this.firstAddressField = page.locator("#address1 input");
 		this.secondAddressField = page.locator("input#address2");
 		this.thirdAddressField = page.locator("input#address3");
 		this.cityAddress = page.locator("input#city");
@@ -82,7 +82,7 @@ export class PlaygroundPage extends BasePage {
 		this.drawerButtons = page.locator("[type='DRAWER']");
 		this.saveDrawerButton = page.locator("[type='DRAWER'] button", { hasText: "Save"});
 		//Advanced Selection options
-		this.advancedSelectionOptions = page.locator("[data-testid='label-test-id']", {hasText: "Option 1 category 2"});
+		this.advancedSelectionOptions = page.locator("[data-testid='label-test-id']", { hasText: "Option 1 category 2" });
 	}
 
 	async visitPage(knobs?: string[]): Promise<void> {

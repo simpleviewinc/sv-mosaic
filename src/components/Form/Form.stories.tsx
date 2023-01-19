@@ -343,6 +343,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						getOptionsCountries,
 						getOptionsStates,
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
 					disabled,
 					required
@@ -412,7 +413,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					}
 				} as FieldDef<MapCoordinatesDef>,
 			] as unknown as FieldDef[],

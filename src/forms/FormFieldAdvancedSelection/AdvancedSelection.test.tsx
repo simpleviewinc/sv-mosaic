@@ -1,6 +1,6 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
-import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render, cleanup, fireEvent, screen, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as React from "react";
 import { useMemo } from "react";
@@ -139,7 +139,9 @@ describe("AdvancedSelection component", () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
 		const addButton = screen.getByText("ADD");
-		fireEvent.click(addButton);
+		await act(async () => {
+			fireEvent.click(addButton);
+		});
 
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
@@ -154,7 +156,9 @@ describe("AdvancedSelection component", () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
 		const addButton = screen.getByText("ADD");
-		fireEvent.click(addButton);
+		await act(async () => {
+			fireEvent.click(addButton);
+		});
 
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
@@ -176,7 +180,9 @@ describe("AdvancedSelection component", () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
 		const addButton = screen.getByText("ADD");
-		fireEvent.click(addButton);
+		await act(async () => {
+			fireEvent.click(addButton);
+		});
 
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
@@ -194,7 +200,9 @@ describe("AdvancedSelection component", () => {
 		render(<AdvancedSelectExample optionsOrigin="local"/>);
 
 		const addButton = screen.getByText("ADD");
-		fireEvent.click(addButton);
+		await act(async () => {
+			fireEvent.click(addButton);
+		});
 
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
@@ -209,7 +217,9 @@ describe("AdvancedSelection component", () => {
 		render(<AdvancedSelectExample optionsOrigin="db"/>);
 
 		const addButton = screen.getByText("ADD");
-		fireEvent.click(addButton);
+		await act(async () => {
+			fireEvent.click(addButton);
+		});
 
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
