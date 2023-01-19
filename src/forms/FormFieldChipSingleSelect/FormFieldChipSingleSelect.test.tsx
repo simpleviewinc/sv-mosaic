@@ -107,9 +107,12 @@ describe("FormFieldChipSingleSelect component", () => {
 		expect(getByText("Option 3")).toBeTruthy();
 	});
 
-	it("should check the clicked option", () => {
+	it("should check the clicked option", async () => {
 		const chipElements = getAllByRole("button") as HTMLInputElement[];
-		fireEvent.click(chipElements[1]);
+
+		await act(async () => {
+			fireEvent.click(chipElements[1]);
+		});
 
 		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe(theme.newColors.simplyGold["100"]);
 		expect(window.getComputedStyle(chipElements[2]).backgroundColor).toBe("rgb(240, 242, 245)");
