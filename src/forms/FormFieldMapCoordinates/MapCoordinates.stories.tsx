@@ -71,7 +71,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 		},
 	},
 	{
@@ -81,7 +81,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			zoom: 8,
 			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
 		},
@@ -93,7 +93,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address,
 			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
 		},
@@ -105,7 +105,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address,
 			mapPosition: { lat: 19.3884403, lng: -99.1747252 }
 		},
