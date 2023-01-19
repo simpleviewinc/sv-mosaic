@@ -3,7 +3,7 @@ import * as React from "react";
 import { memo, useEffect, useMemo, useState } from "react";
 import { FileCardProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DoNotDisturb from '@mui/icons-material/DoNotDisturb';
+import DoNotDisturb from "@mui/icons-material/DoNotDisturb";
 import Spinner from "@root/components/Spinner";
 import { StyledFileCard } from "./FileCard.styled";
 import { UploadData } from "../FormFieldUploadTypes";
@@ -13,9 +13,9 @@ import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 const FileCard = (props: FileCardProps) => {
 	const {
 		file,
-		onFileDelete,
+		// onFileDelete,
 		onFileAdd,
-		handleFileAdded,
+		// handleFileAdded,
 	} = props;
 
 	const [progress, setProgress] = useState<number>(0.1);
@@ -28,7 +28,7 @@ const FileCard = (props: FileCardProps) => {
 
 	const onUploadComplete = async (data) => {
 		setFileData(data);
-		await handleFileAdded(data);
+		// await handleFileAdded(data);
 	}
 
 	const onError = (message) => {
@@ -49,7 +49,7 @@ const FileCard = (props: FileCardProps) => {
 		}
 
 		if (!fileData?.url) {
-			if(progress !== undefined && progress < 100) {
+			if (progress !== undefined && progress < 100) {
 				return (
 					<div>
 						<Spinner progress={progress} />
@@ -82,7 +82,7 @@ const FileCard = (props: FileCardProps) => {
 						color="gray"
 						variant="icon"
 						mIcon={DeleteIcon}
-						onClick={(e) => onFileDelete({id: fileData?.id})}
+						// onClick={(e) => onFileDelete({id: fileData?.id})}
 					/>
 				</div>
 			</StyledFileCard>
