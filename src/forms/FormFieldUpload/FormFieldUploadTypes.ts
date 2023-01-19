@@ -14,7 +14,7 @@ export type UploadData =  {
 type OnError = (message: string) => void | Promise<void>;
 
 type OnFileAddData = {
-	blob: Blob;
+	blob: any;
 	onChunkComplete: (data: {percent: number}) => void | Promise<void>;
 	onUploadComplete: (data: UploadData) => void | Promise<void>;
 	onError: OnError;
@@ -22,5 +22,4 @@ type OnFileAddData = {
 
 type OnFileDeleteData = {
 	id: UploadData["id"];
-	onError: OnError;
 }
