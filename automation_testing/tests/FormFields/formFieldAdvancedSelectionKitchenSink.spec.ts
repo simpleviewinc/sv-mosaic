@@ -12,6 +12,10 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 		await ffAdvancedSelectionPage.visitPage();
 	});
 
+	test.beforeEach(async() => {
+		await page.reload();
+	});
+
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
@@ -61,5 +65,36 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 		for (let i = 0; i < numberOfButtons; i++) {
 			expect(await ffAdvancedSelectionPage.getSpecificBorderFromElement(ffAdvancedSelectionPage.advancedSelectionButton.nth(i))).toContain(expectColor);
 		}
+	});
+
+	test("Validate that the expected height for checkbox list is valid in Advanced selection with options prop", async () => {
+		await ffAdvancedSelectionPage.advancedSelectionWithOptionsPropButton.click();
+		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
+		const checkboxListHeight = (await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0];
+		expect(Number(checkboxListHeight)).toBe(expectedHeight);
+	});
+
+	test("Validate that the expected height for checkbox list is valid in Advanced selection with getOptions prop", async () => {
+		await ffAdvancedSelectionPage.advancedSelectionWithGetOptionsPropButton.click();
+		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
+		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
+		const checkboxListHeight = Number((await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0]);
+		expect(checkboxListHeight).toBe(expectedHeight);
+	});
+
+	test("Validate that the expected height for checkbox list is valid in Advanced selection with createNewOption prop", async () => {
+		await ffAdvancedSelectionPage.advancedSelectionWithCreateNewOptionPropButton.click();
+		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
+		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
+		const checkboxListHeight = Number((await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0]);
+		expect(checkboxListHeight).toBe(expectedHeight);
+	});
+
+	test("Validate that the expected height for checkbox list is valid in Advanced selection with selectLimit prop (Max 2 options)", async () => {
+		await ffAdvancedSelectionPage.advancedSelectionWithCreateNewOptionPropButton.click();
+		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
+		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
+		const checkboxListHeight = Number((await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0]);
+		expect(checkboxListHeight).toBe(expectedHeight);
 	});
 });
