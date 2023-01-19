@@ -62,11 +62,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const [initialState, setInitialState] = useState(state.data);
 	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
 
-	const setFieldValue = async (name: string, value: string | MosaicLabelValue) => {
+	const setFieldValue = async (name: string, value: string | MosaicLabelValue, validate = false) => {
 		await dispatch(
 			formActions.setFieldValue({
 				name,
 				value,
+				validate,
 			})
 		);
 	};
@@ -233,7 +234,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 	useEffect(() => {
 		if (apiState !== undefined)
-			setFieldValue("states", { label: apiState.label, value: apiState.value });
+			setFieldValue("states", { label: apiState.label, value: apiState.value }, true);
 
 		setApiState(undefined);
 	}, [apiState]);
@@ -270,11 +271,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			state.label.includes(addressComponentsMap.administrative_area_level_1.label)
 		));
 
-		await setFieldValue("address1", addressComponentsMap.route.label);
-		await setFieldValue("country", country);
+		await setFieldValue("address1", addressComponentsMap.route.label, true);
+		await setFieldValue("country", country, true);
 		setApiState(selectedState);
-		await setFieldValue("city", addressComponentsMap.locality.label === "" ?  addressComponentsMap.postal_town.label : addressComponentsMap.locality.label);
-		await setFieldValue("postalCode", addressComponentsMap.postal_code.label);
+		await setFieldValue("city", addressComponentsMap.locality.label === "" ?  addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
+		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
 
 		for (const key in addressComponentsMap) {
 			if (!addressComponentsMap[key].label) {
