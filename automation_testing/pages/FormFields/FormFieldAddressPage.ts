@@ -38,9 +38,9 @@ export class FormFieldAddressPage extends BasePage {
 		this.statesDropdownInput = page.locator("#states input");
 		this.statesDropdownButton = page.locator("#states button[title='Open']");
 		this.postalCodeField = page.locator("input#postalCode");
-		this.physicalCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Physical" });
-		this.billingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Billing" });
-		this.shippingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Shipping" });
+		this.physicalCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Physical" }).locator("input");
+		this.billingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Billing" }).locator("input");
+		this.shippingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Shipping" }).locator("input");
 		this.addressCard = page.locator("[data-testid='address-card-test']");
 		this.titleAddAddressDrawerWrapper = this.formTestID.nth(1).locator("form div").first();
 	}
@@ -61,20 +61,20 @@ export class FormFieldAddressPage extends BasePage {
 	}
 
 	async selectTypeOfAddress(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {
-		switch (type.toLocaleLowerCase()) {
+		switch (type) {
 		case "physical":
-			await this.physicalCheckboxOption.locator("input").click();
+			await this.physicalCheckboxOption.click();
 			break;
 		case "billing":
-			await this.billingCheckboxOption.locator("input").click();
+			await this.billingCheckboxOption.click();
 			break;
 		case "shipping":
-			await this.shippingCheckboxOption.locator("input").click();
+			await this.shippingCheckboxOption.click();
 			break;
 		case "all":
-			await this.physicalCheckboxOption.locator("input").click();
-			await this.billingCheckboxOption.locator("input").click();
-			await this.shippingCheckboxOption.locator("input").click();
+			await this.physicalCheckboxOption.click();
+			await this.billingCheckboxOption.click();
+			await this.shippingCheckboxOption.click();
 			break;
 		}
 	}
