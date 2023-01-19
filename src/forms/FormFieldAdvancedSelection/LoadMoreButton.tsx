@@ -1,10 +1,10 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import { memo, ReactElement, forwardRef } from "react";
 import { LoadMoreButtonPropsTypes } from ".";
 import Button from "../../components/Button";
 import styled from "styled-components";
 
-const LoadMoreButton = (props: LoadMoreButtonPropsTypes): ReactElement => {
+const LoadMoreButton = forwardRef((props: LoadMoreButtonPropsTypes, ref): ReactElement => {
 	const { fieldDef } = props;
 
 	const ButtonWrapper = styled.div`
@@ -13,7 +13,7 @@ const LoadMoreButton = (props: LoadMoreButtonPropsTypes): ReactElement => {
 
 	return (
 		fieldDef?.inputSettings?.parentInputSettings?.getOptions ? (
-			<ButtonWrapper>
+			<ButtonWrapper ref={ref}>
 				<Button
 					color='gray'
 					variant='outlined'
@@ -26,6 +26,8 @@ const LoadMoreButton = (props: LoadMoreButtonPropsTypes): ReactElement => {
 			</ButtonWrapper>
 		) : null
 	);
-};
+});
+
+LoadMoreButton.displayName = "LoadMoreButton";
 
 export default memo(LoadMoreButton);
