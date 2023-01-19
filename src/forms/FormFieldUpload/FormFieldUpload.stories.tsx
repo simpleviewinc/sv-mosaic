@@ -25,12 +25,30 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
+	const error = boolean("Trigger errors when loading", true);
 
-	const onFileAdd = ({blob, onChunkComplete, onUploadComplete, onError}) => {
-		console.log("file added");
+	const onFileAdd = async ({blob, onChunkComplete, onUploadComplete, onError}) => {
+		let chunk = 1;
+		let chunkInterval = setInterval(async () => {
+			await onChunkComplete({percent: chunk * .25});
+			chunk++;
+			if(chunk > 4) clearInterval(chunkInterval);
+		}, 750);
+
+		if(error && Math.random() < 0.5) {
+			await onError("File size exceeded");
+			return;
+		}
+
+		await onUploadComplete({
+			id: blob.lastModified,
+			name: blob.name,
+			size: `${blob.size} bytes`,
+			url: Math.random() < 0.5 ? URL.createObjectURL(blob) : undefined
+		});
 	};
 
-	const onFileDelete = ({id, onError}) => {
+	const onFileDelete = ({id}) => {
 		console.log("file deleted", id);
 	}
 
