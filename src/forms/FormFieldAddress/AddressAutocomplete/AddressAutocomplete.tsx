@@ -27,7 +27,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		<LocationSearchInputWrapper className={className}>
 			<PlacesAutocomplete value={value} onChange={onChange} onSelect={onSelect}>
 				{({ getInputProps, suggestions, getSuggestionItemProps }) => (
-					<div>
+					<div style={{position: "relative"}}>
 						<StyledInputSearch
 							{...textField}
 							fieldSize={fieldSize}
@@ -43,7 +43,6 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 								{suggestions?.map((suggestion) => {
 									return (
 										<SuggestionsDescriptionContainer
-											fieldSize={fieldSize}
 											{...getSuggestionItemProps(suggestion)}
 											key={suggestion?.placeId}
 											isSuggestionActive={suggestion?.active}
