@@ -1,7 +1,8 @@
-import { ButtonProps } from "@root/components/Button";
-import { UploadData } from "../FormFieldUploadTypes";
+import { UploadData, UploadDef } from "../FormFieldUploadTypes";
 
 export type FileCardProps = {
-	uploadProgress?: number;
-	onFileDelete: ButtonProps["onClick"];
-} & UploadData;
+	onFileDelete: UploadDef["onFileDelete"];
+	onFileAdd: UploadDef["onFileAdd"];
+	file: any;
+	handleFileAdded: (data: UploadData) => void | Promise<void>;
+};
