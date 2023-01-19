@@ -26,20 +26,24 @@ export const StyledClearIcon = styled(ClearIcon)`
 `;
 
 export const SuggestionsContainer = styled.div`
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
   border: ${theme.borders.fieldGray};
   font-family: ${theme.fontFamily};
 `;
 
 export const SuggestionsDescriptionContainer = styled.div`
-  background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.colors.gray200 : "white"};
-  cursor: pointer;
-	width: ${({ fieldSize }) => fieldSize};
+  	background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.colors.gray200 : "white"};
+  	cursor: pointer;
+	// width: ${({ fieldSize }) => fieldSize};
+	padding: 6px 16px;
+	width: 100%;
 `;
 
 export const SuggestionDescription = styled.p`
   font-size: 14px;
   margin: 0;
-  padding: 6px 16px 6px 16px;
 
   &:active {
     color: ${theme.colors.gray800};
