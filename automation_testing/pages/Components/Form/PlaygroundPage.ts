@@ -138,8 +138,4 @@ export class PlaygroundPage extends BasePage {
 		await this.longitude.type(rndLongitude);
 		await this.saveCoordinatesButton.dblclick();
 	}
-
-	async selectAddressInAddressDrawer():Promise<number> {
-		return this.page.locator("#root .section [required=''] label").count();
-	}
 }
