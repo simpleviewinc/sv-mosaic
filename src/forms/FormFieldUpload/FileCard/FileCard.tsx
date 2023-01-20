@@ -36,6 +36,11 @@ const FileCard = (props: FileCardProps) => {
 	}
 
 	useEffect(() => {
+		/**
+		 * NOTES FROM CONVERSATION WITH OWEN:
+		 * File Card should only render UI, all the
+		 * logic will be FormFieldUpload's responsibility.
+		 */
 		onFileAdd({blob: file, onChunkComplete, onUploadComplete, onError});
 	}, []);
 
