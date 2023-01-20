@@ -10,7 +10,7 @@ import { UploadData, UploadDef } from "./FormFieldUploadTypes";
 const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	const {
 		fieldDef,
-		// value,
+		value,
 		// onChange,
 	} = props;
 
@@ -78,9 +78,9 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	 * @param e
 	 */
 	const handleNewFileUpload = (e) => {
-		const files = Array.from(e.target.files);
+		const newFiles = Array.from(e.target.files);
 
-		if (limit !== undefined && limit >= 0 && files.length > limit) {
+		if (limit !== undefined && limit >= 0 && newFiles.length > limit) {
 			alert(`Upload limited to only ${limit} files`);
 			return;
 		}
@@ -88,18 +88,54 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		/**
 		 * Attempt to temporarily store files' metadata
 		 * in value.
-		 */
+		 * NOTES FROM CONVERSATION WITH OWEN:
+		 * We'll have 2 FileGrids, 1 for the successfully
+		 * uploaded files, and 1 for the pending / errors.
+		 *
+		 * We need to update the "files" state to
+		 * match the same format as value with a uuid.
+		*/
 		// const transformedFiles = files.map(file => (
 		// 	{
-		// 		id: "temp_id_" + file.lastModified,
-		// 		name: file.name,
-		// 		size: file.size + "bytes",
-		// 		url: URL.createObjectURL(file)
+		// 		[crypto.randomUUID()]:
+		// 		{
+		// 			data: {
+		// 				name: file.name,
+		// 				size: file.size + "bytes",
+		// 			},
+		// 			percent: 0,
+		// 			error: undefined,
+		// 		}
 		// 	}
 		// ));
+
+		// const files = {
+		// 	"uploadId0": {
+		// 		data,
+		// 		percent,
+		// 		erorr,
+		// 	},
+		// 	"uploadId2": {
+		// 		data,
+		// 		percent,
+		// 		erorr,
+		// 	},
+		// }
+
+		/**
+		 * After transforming the files we need to do 2 things:
+		 * 1. Push them into the pending files (filesState)
+		 * 2. Call onFileAdd with each one of them, the arguments
+		 * it receives will also need to receive the uuid,
+		 * that way we know if we update the percentage, error message,
+		 * or we move them from the pending to the uploaded files
+		 * (via onChange)
+		 */
 		// onChange(transformedFiles);
 
-		setFiles(files);
+		//We need to add, not just assign,
+		// setFiles([...files, newFiles])
+		setFiles(newFiles);
 	};
 
 	/**
@@ -170,6 +206,27 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 					multiple={limit === undefined || limit > 1 ? true : false}
 				/>
 			</DragAndDropContainer>
+			{/**
+			 * NOTES FROM CONVERSATION WITH OWEN:
+			 * We'll have 2 FileGrids, 1 for the successfully
+			 * uploaded files, and 1 for the pending / errors.
+			 *
+			 * We'll also need to update the "files" state to
+			 * match the same format as value with a uuid.
+			 */}
+			{value.length > 0 &&
+				<StyledFileGrid>
+					{files.map(file => (
+						<FileCard
+							key={file.name}
+							file={file}
+							// onFileDelete={handleFileDelete}
+							onFileAdd={onFileAdd}
+							// handleFileAdded={handleFileAdded}
+						/>
+					))}
+				</StyledFileGrid>
+			}
 			{files.length > 0 &&
 				<StyledFileGrid>
 					{files.map(file => (

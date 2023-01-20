@@ -29,13 +29,13 @@ export const Playground = (): ReactElement => {
 
 	const onFileAdd = async ({blob, onChunkComplete, onUploadComplete, onError}) => {
 		let chunk = 1;
-		let chunkInterval = setInterval(async () => {
+		const chunkInterval = setInterval(async () => {
 			await onChunkComplete({percent: chunk * .25});
 			chunk++;
-			if(chunk > 4) clearInterval(chunkInterval);
+			if (chunk > 4) clearInterval(chunkInterval);
 		}, 750);
 
-		if(error && Math.random() < 0.5) {
+		if (error && Math.random() < 0.5) {
 			await onError("File size exceeded");
 			return;
 		}
