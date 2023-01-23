@@ -1,5 +1,22 @@
 # sv-mosaic changelog
 
+## 15.0.0 - 01/31/23
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `Gray1`.
+	* `Gray2`.
+* Added `Storysource` addon to storybook. Developers will now be able to see the code used to create a specific story.
+* Improved all `FormFields` documentation by adding a link that takes storybook readers to the props in `Form`'s readme. Also improved readability of `inputSettings` by changing them into a table view.
+* Added story for `DataViewFilterMultiSelect`.
+* **BREAKING** Removed implementation of `IconButton`. Not to be confused with `Button` variant `icon`. `IconButton` was a first approach at updating the styles of a previous iteration which were later moved to the `icon` variant of `Button`. Internally we were not using the `IconButton` anywhere so it should only be breaking if being consumed (e.g. import {IconButton} from "@simpleview/sv-mosaic).
+* **BREAKING** Updated `Card`'s props:
+	* bottomAction -> bottomActions (now array of button props).
+	* topAction -> topActions (now array of button props).
+* Updated spacing around Drawer fields: `FormFieldAddress`, `FormFieldAdvancedSelection`, and `FormFieldMapCoordinates` to make only the content scroll and keep the header in place.
+* Updated internal refs in `FormFieldAdvancedSelection` to adjust component to screen size.
+* **BREAKING** Updated `FormFieldMapCoordinates`' props:
+	* apiKey -> googleMapsApiKey (remains as string).
+* **BREAKING** Added autocomplete functionality to `FormFieldAddress`. This means the component now requires a `googleMapsApiKey` prop in order to work (more on this on the documentation).
+
 ## 14.0.0 - 01/17/23
 * Internally updated the color scheme, naming conventions and references in all components of the following colors:
 	* `Gray3`.
