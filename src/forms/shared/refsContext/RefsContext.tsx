@@ -1,3 +1,4 @@
+import { MosaicObject } from "@root/types";
 import * as React from "react";
 import { createContext, useContext, useReducer } from "react";
 import { refsReducer } from "./RefsReducer";
@@ -5,7 +6,7 @@ import { refsReducer } from "./RefsReducer";
 export const RefsContext = createContext(null);
 export const RefsDispatchContext = createContext(null);
 
-export function RefsProvider({ children, initialRefs }) {
+export function RefsProvider({ children, initialRefs }: {children: JSX.Element, initialRefs: MosaicObject}) {
 	const [refs, dispatch] = useReducer(
 		refsReducer,
 		initialRefs
