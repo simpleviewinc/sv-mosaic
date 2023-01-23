@@ -25,7 +25,7 @@ import {
 	AdvancedSelectionWrapper,
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
-import { MosaicLabelValue } from "@root/types";
+import { MosaicLabelValue, MosaicObject } from "@root/types";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef, MosaicLabelValue[]>): ReactElement => {
 	const {
@@ -86,7 +86,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef
 		setIsDialogOpen(false);
 	}
 
-	const initialRefs = {
+	const initialRefs: MosaicObject = {
 		topComponentDrawerRef: null,
 		formLayoutRef: null,
 	}
