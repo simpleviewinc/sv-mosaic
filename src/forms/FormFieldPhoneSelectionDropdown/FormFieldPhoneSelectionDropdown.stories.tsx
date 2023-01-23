@@ -18,7 +18,6 @@ export const Playground = () : ReactElement => {
 	const required = boolean("Required", false);
 	const autoFormat = boolean("Autoformat", true);
 	const country = text("Country code (e.g., us, mx, etc.)", "");
-	const placeholder = text("Placeholder", "Placeholder");
 	const label = text("Label", "Label");
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text")
@@ -35,13 +34,12 @@ export const Playground = () : ReactElement => {
 					inputSettings: {
 						autoFormat,
 						country,
-						placeholder,
 					},
 					helperText,
 					instructionText
 				},
 			] as FieldDef<PhoneSelectionDef>[],
-		[disabled, required, autoFormat, country, placeholder, label, helperText, instructionText]
+		[disabled, required, autoFormat, country, label, helperText, instructionText]
 	);
 
 	return (
@@ -99,19 +97,6 @@ export const KitchenSink = (): ReactElement => {
 					},
 					helperText: "Helper text",
 					instructionText: "Type a phone number to see the format",
-				},
-				{
-					name: "withPlaceholder",
-					label: "With a custom placeholder",
-					type: "phone",
-					required: false,
-					disabled: false,
-					inputSettings: {
-						country: "us",
-						placeholder: "Enter phone number"
-					},
-					helperText: "Helper text",
-					instructionText: "Remove the phone number prefix to see the placeholder",
 				},
 			] as FieldDef<PhoneSelectionDef>[],
 		[]
