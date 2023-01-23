@@ -17,7 +17,7 @@ const StyledWrapper = styled.div`
 	flex-direction: column;
 
 	& > .noResults {
-		margin-left: 20px;
+		margin: 0px 20px;
 	}
 
 	& > .headerRow {
