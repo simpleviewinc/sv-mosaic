@@ -34,7 +34,6 @@ const FormFieldPhoneSelectionDropdown = (
 				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : "us"}
 				disabled={fieldDef?.disabled}
 				onChange={onChange}
-				placeholder={fieldDef?.inputSettings?.placeholder}
 				value={value}
 				countryCodeEditable={false}
 				inputProps={{
