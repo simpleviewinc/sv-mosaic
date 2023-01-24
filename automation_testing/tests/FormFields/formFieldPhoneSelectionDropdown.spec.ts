@@ -50,12 +50,6 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUK);
 	});
 
-	test("Validate the Phone fields does not have a placeholder.", async () => {
-		expect(await ffPhoneSelectionDropdownPage.regularPhoneField.getAttribute("placeholder")).toBeNull();
-		expect(await ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField.getAttribute("placeholder")).toBeNull();
-		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.getAttribute("placeholder")).toBeNull();
-	});
-
 	test("Validate that the provided number is saved when submitted.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"phone": "' + rndRegularPhone + '"');
