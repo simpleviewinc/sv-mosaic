@@ -15,18 +15,9 @@ const StyledMainContent = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 
-	& > div .inputRow h5 {
-		margin-top:0;
-		margin-bottom: 8px;
-	}
-
 	& > div .inputRow {
 		display: flex;
 		align-items: center;
-	}
-
-	& > div > .inputRow div.startRange {
-		margin-right: 10px;
 	}
 `;
 
