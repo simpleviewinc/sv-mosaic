@@ -1,7 +1,8 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
+import _ from "lodash";
 import * as React from "react";
-import { memo, /*useCallback,*/ useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
@@ -17,11 +18,13 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	const {
 		limit,
 		onFileAdd,
-		// onFileDelete,
+		onFileDelete,
 	} = fieldDef.inputSettings;
 
 	const [isOver, setIsOver] = useState(false);
-	const [files, setFiles] = useState([]);
+	const [pendingFiles, setPendingFiles] = useState({});
+	const [uploadedFiles, setUploadedFiles] = useState({});
+	const [chunkPercent, setChunkPercent] = useState({});
 
 	const fileInputField = useRef(null);
 
@@ -73,12 +76,85 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		fileInputField.current.click();
 	};
 
+	useEffect(() => {
+		const newPendingFiles = {...pendingFiles};
+
+		for (const [key, value] of Object.entries(chunkPercent)) {
+			newPendingFiles[key] = {
+				...newPendingFiles[key],
+				percent: value
+			}
+		}
+
+		console.log(newPendingFiles);
+
+		setPendingFiles(newPendingFiles);
+	}, [chunkPercent]);
+
+	const onChunkComplete = ({uuid, percent}) => {
+		// const newPendingFiles = {...pendingFiles};
+		// newPendingFiles[uuid] = {
+		// 	...newPendingFiles[uuid],
+		// 	percent: percent * 100,
+		// };
+
+		// console.log("chunkComplete", uuid, newPendingFiles);
+
+		// setPendingFiles(newPendingFiles);
+		const newChunkPercent = {...chunkPercent};
+		newChunkPercent[uuid] = percent;
+		setChunkPercent(newChunkPercent);
+	};
+
+	const onUploadComplete = ({uuid, data}) => {
+		// const newFiles = value !== undefined ? [...value] : [];
+		// newFiles.push(data);
+		// onChange(newFiles);
+
+		// const newPendingFiles = {...pendingFiles};
+		// delete newPendingFiles[uuid];
+		// setPendingFiles(newPendingFiles);
+	};
+
+	const onError = ({uuid, message}) => {
+		// const newPendingFiles = {...pendingFiles};
+		// newPendingFiles[uuid] = {
+		// 	...newPendingFiles[uuid],
+		// 	error: message,
+		// };
+
+		// setPendingFiles(newPendingFiles);
+	};
+
+	useEffect(() => {
+		const testing = async () => {
+			// await Object.entries(pendingFiles).forEach(async ([key, file]: [key: string, file: UploadData & { rawData: File }]) => {
+			// 	await onFileAdd({
+			// 		blob: file?.rawData,
+			// 		onChunkComplete: ({percent}) => onChunkComplete({uuid: key, percent}),
+			// 		onUploadComplete: (data) => onUploadComplete({uuid: key, data}),
+			// 		onError: (message) => onError({uuid: key, message}),
+			// 	})
+			// });
+			for (const [key, file] of Object.entries(pendingFiles)) {
+				await onFileAdd({
+					blob: file?.rawData,
+					onChunkComplete: async ({percent}) => await onChunkComplete({uuid: key, percent}),
+					onUploadComplete: async (data) => await onUploadComplete({uuid: key, data}),
+					onError: async (message) => await onError({uuid: key, message}),
+				})
+			}
+		}
+
+		testing();
+	}, [pendingFiles]);
+
 	/**
 	 * Executed when a new file is uploaded.
 	 * @param e
 	 */
-	const handleNewFileUpload = (e) => {
-		const newFiles = Array.from(e.target.files);
+	const handleNewFileUpload = async (e) => {
+		const newFiles: File[] = Array.from(e.target.files);
 
 		if (limit !== undefined && limit >= 0 && newFiles.length > limit) {
 			alert(`Upload limited to only ${limit} files`);
@@ -86,8 +162,6 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		}
 
 		/**
-		 * Attempt to temporarily store files' metadata
-		 * in value.
 		 * NOTES FROM CONVERSATION WITH OWEN:
 		 * We'll have 2 FileGrids, 1 for the successfully
 		 * uploaded files, and 1 for the pending / errors.
@@ -95,32 +169,36 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		 * We need to update the "files" state to
 		 * match the same format as value with a uuid.
 		*/
-		// const transformedFiles = files.map(file => (
+		// const transformedFiles = newFiles.map(file => (
 		// 	{
-		// 		[crypto.randomUUID()]:
-		// 		{
+		// 		[_.uniqueId()]: {
 		// 			data: {
 		// 				name: file.name,
 		// 				size: file.size + "bytes",
 		// 			},
 		// 			percent: 0,
 		// 			error: undefined,
+		// 			rawData: file,
 		// 		}
 		// 	}
 		// ));
 
-		// const files = {
-		// 	"uploadId0": {
-		// 		data,
-		// 		percent,
-		// 		erorr,
-		// 	},
-		// 	"uploadId2": {
-		// 		data,
-		// 		percent,
-		// 		erorr,
-		// 	},
-		// }
+		let transformedFiles = {};
+
+		newFiles.forEach(file => {
+			transformedFiles = {
+				...transformedFiles,
+				[_.uniqueId()]: {
+					data: {
+						name: file.name,
+						size: file.size + " bytes",
+					},
+					percent: 0,
+					error: undefined,
+					rawData: file,
+				}
+			}
+		});
 
 		/**
 		 * After transforming the files we need to do 2 things:
@@ -131,11 +209,26 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		 * or we move them from the pending to the uploaded files
 		 * (via onChange)
 		 */
-		// onChange(transformedFiles);
+		setUploadedFiles({...uploadedFiles, ...transformedFiles});
+		setPendingFiles({...pendingFiles, ...transformedFiles});
 
-		//We need to add, not just assign,
-		// setFiles([...files, newFiles])
-		setFiles(newFiles);
+		// for (const [key, file] of Object.entries(transformedFiles)) {
+		// 	await onFileAdd({
+		// 		blob: file?.rawData,
+		// 		onChunkComplete: async ({percent}) => await onChunkComplete({uuid: key, percent}),
+		// 		onUploadComplete: async (data) => await onUploadComplete({uuid: key, data}),
+		// 		onError: async (message) => await onError({uuid: key, message}),
+		// 	})
+		// }
+
+		// Object.entries(pendingFiles).forEach(async ([key, file]: [key: string, file: UploadData & { rawData: File }]) => {
+		// 	await onFileAdd({
+		// 		blob: file?.rawData,
+		// 		onChunkComplete: (percent) => onChunkComplete({uuid: key, percent}),
+		// 		onUploadComplete: (data) => onUploadComplete({uuid: key, data}),
+		// 		onError: (message) => onError({uuid: key, message}),
+		// 	})
+		// });
 	};
 
 	/**
@@ -214,30 +307,37 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 			 * We'll also need to update the "files" state to
 			 * match the same format as value with a uuid.
 			 */}
-			{value.length > 0 &&
+			{value?.length > 0 &&
 				<StyledFileGrid>
-					{files.map(file => (
+					{value.map(file => (
 						<FileCard
-							key={file.name}
-							file={file}
-							// onFileDelete={handleFileDelete}
-							onFileAdd={onFileAdd}
-							// handleFileAdded={handleFileAdded}
+							key={file.id}
+							id={file.id}
+							name={file.name}
+							size={file.size}
+							url={file.url}
+							onFileDelete={onFileDelete}
 						/>
 					))}
 				</StyledFileGrid>
 			}
-			{files.length > 0 &&
+			{pendingFiles && Object.keys(pendingFiles).length > 0 &&
 				<StyledFileGrid>
-					{files.map(file => (
-						<FileCard
-							key={file.name}
-							file={file}
-							// onFileDelete={handleFileDelete}
-							onFileAdd={onFileAdd}
-							// handleFileAdded={handleFileAdded}
-						/>
-					))}
+					{Object.entries(pendingFiles).map(([key, file]: [key: string, file: {data: UploadData, error: string, percent: number}]) => {
+						// console.log(file);
+						return (
+							<FileCard
+								key={key}
+								id={key}
+								name={file.data?.name}
+								size={file.data?.size}
+								url={file.data?.url}
+								onFileDelete={onFileDelete}
+								error={file.error}
+								percent={file.percent}
+							/>
+						)
+					})}
 				</StyledFileGrid>
 			}
 		</>
