@@ -13,8 +13,6 @@ export class FormFieldPhoneSelectionDropdownPage extends BasePage {
 	readonly countryCodeProvidedPhoneFieldDropdown: Locator;
 	readonly autoformatPhoneField: Locator;
 	readonly autoformatPhoneFieldDropdown: Locator;
-	readonly customPlaceholderPhoneField: Locator;
-	readonly customPlaceholderPhoneFieldDropdown: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -28,9 +26,6 @@ export class FormFieldPhoneSelectionDropdownPage extends BasePage {
 
 		this.autoformatPhoneField = page.locator("input.form-control").nth(2);
 		this.autoformatPhoneFieldDropdown = this.flagDropdown.nth(2);
-
-		this.customPlaceholderPhoneField = page.locator("input.form-control").nth(3);
-		this.customPlaceholderPhoneFieldDropdown = this.flagDropdown.nth(3);
 	}
 
 	async visitPage(): Promise<void> {

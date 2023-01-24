@@ -1564,7 +1564,6 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | ---- | ---- | ----------- |
 | **`autoFormat`** | `boolean` | Optional - Phone formatting according to the country selected. |
 | **`country`** | `string` | Optional - Initial country. It must be a country code (e.g., us, mx, etc.). |
-| **`placeholder`** | `string` | Optional - Example text shown inside of the input field portion of the dropdown. |
 | **`value`** | `string` | Optional - Input state value. |
 
 ### How to use in a form?
@@ -1579,7 +1578,6 @@ const fields = useMemo(
 				inputSettings: {
 					autoFormat: false,
 					country: "mx",
-					placeholder: "Placeholder",
 				}
 			},
 			//...other fields
