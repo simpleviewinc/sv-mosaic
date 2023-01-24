@@ -177,7 +177,7 @@ export class BasePage {
 		expect(elementMargin).toBe(expectedValue);
 	}
 
-	async getSpecificMarginFromElement(element: Locator, margin: "top"|"bottom"|"right"|"left"): Promise<string> {
+	async getSpecificMarginFromElement(element: Locator, margin: "top"|"bottom"|"right"|"left"|"all"): Promise<string> {
 		switch (margin) {
 		case "top":
 			return await ((element).evaluate(el => getComputedStyle(el).marginTop));
@@ -187,6 +187,10 @@ export class BasePage {
 			return await ((element).evaluate(el => getComputedStyle(el).marginRight));
 		case "left":
 			return await ((element).evaluate(el => getComputedStyle(el).marginLeft));
+		case "all":
+			return await ((element).evaluate(el => getComputedStyle(el).margin));
+		default:
+			return await ((element).evaluate(el => getComputedStyle(el).margin));
 		}
 	}
 
