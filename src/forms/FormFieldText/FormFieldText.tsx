@@ -62,6 +62,8 @@ const TextField = (
 			InputProps={leadingElement}
 			required={fieldDef?.required}
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
+			minRows={fieldDef?.inputSettings?.minRows}
+			maxRows={fieldDef?.inputSettings?.maxRows}
 		/>
 	);
 };
