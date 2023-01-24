@@ -10,6 +10,7 @@ import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { UploadDef } from "./FormFieldUploadTypes";
+import _ from "lodash";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -41,7 +42,7 @@ export const Playground = (): ReactElement => {
 		}
 
 		await onUploadComplete({
-			id: blob.lastModified,
+			id: _.uniqueId(),
 			name: blob.name,
 			size: `${blob.size} bytes`,
 			url: Math.random() < 0.5 ? URL.createObjectURL(blob) : undefined
