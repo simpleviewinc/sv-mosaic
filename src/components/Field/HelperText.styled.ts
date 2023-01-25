@@ -18,7 +18,7 @@ export const ErrorTextWrapper = styled.div`
 export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`
   &.MuiSvgIcon-root {
     font-size: 16px;
-    color: ${props => props.errorColor ? theme.newColors.darkRed["100"] : "transparent"};
+    color: ${props => props.errorcolor ? theme.newColors.darkRed["100"] : "transparent"};
 	margin-right: 8px;
   }
 `;
