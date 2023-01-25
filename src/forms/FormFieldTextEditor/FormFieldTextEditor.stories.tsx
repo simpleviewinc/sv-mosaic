@@ -4,7 +4,6 @@ import { useMemo, ReactElement } from "react";
 import { boolean, number, select, text, withKnobs } from "@storybook/addon-knobs";
 import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
-import { TextEditorDef } from "./FormFieldTextEditorTypes";
 import { renderButtons } from "@root/utils/storyUtils";
 
 export default {
@@ -26,7 +25,7 @@ export const Playground = (): ReactElement => {
 	const language = text("Language", "en");
 	const maxCharacters = number("Max Characters", 100);
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -44,7 +43,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			] as FieldDef<TextEditorDef>[],
+			],
 		[
 			direction,
 			required,
@@ -77,7 +76,7 @@ export const Playground = (): ReactElement => {
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -132,7 +131,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: true,
 				},
-			] as FieldDef<TextEditorDef>[],
+			],
 		[]
 	);
 
