@@ -87,7 +87,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSe
 			: undefined);
 	}
 
-	const errorWithMessage = error?.trim().length > 0;
+	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
 
 	return (
 		<StyledChipGroup

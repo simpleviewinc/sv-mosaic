@@ -104,7 +104,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Validate Categories with Comparisons - All", async () => {
 		await advancedFilters.selectFilter("categoriesWithComparisons");
 		await advancedFilters.categoryWithComparisonBtn.click();
-		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
+		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory("Knowledge Chaser");
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonAllOption.click();
 		await advancedFilters.applyBtn.click();

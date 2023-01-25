@@ -22,7 +22,9 @@ const Field = ({
 	const fieldContainer = useRef<HTMLDivElement>(null);
 	const fieldRef = useRef<HTMLDivElement>(null);
 
-	const errorWithMessage = error?.trim().length > 0;
+	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
+
+	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
 
 	const handleDescriptionRender = () => {
 		const container = fieldContainer.current;
@@ -73,8 +75,12 @@ const Field = ({
 	}, []);
 
 	const renderBottomText = () => {
-		if ((errorWithMessage || (errorWithMessage && fieldDef?.required))) {
-			return <HelperText error={!!error}>{error}</HelperText>;
+		if (shouldRenderError) {
+			return <HelperText error={!!error}>
+				{
+					typeof error === "string" ? error : undefined
+				}
+			</HelperText>;
 		} else if (fieldDef?.helperText) {
 			return <HelperText>{fieldDef?.helperText}</HelperText>;
 		}
@@ -83,7 +89,7 @@ const Field = ({
 	return (
 		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper
-				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
+				error={shouldRenderError}
 				ref={fieldRef}
 			>
 				{
