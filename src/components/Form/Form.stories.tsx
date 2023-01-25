@@ -417,7 +417,7 @@ export const Playground = (): ReactElement => {
 			description: text("Description for section 1", "Description for section 1"),
 			fields: [
 				// row 1
-				[["textField"], ["textField"], ["check"]],
+				[["textField"], ["check"]],
 				// row 2
 				[["chipSelect"], ["dropdownSingle"]],
 				[["table"]],
