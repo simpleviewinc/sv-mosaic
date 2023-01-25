@@ -7,7 +7,7 @@ import FormFieldPhoneSelectionDropdown from "./FormFieldPhoneSelectionDropdown";
 
 afterEach(cleanup);
 
-const { getByText, queryByPlaceholderText, getByTitle } = screen;
+const { getByText, getByTitle } = screen;
 
 const FormFieldPhoneSelectionDropdownExample = () => {
 	const [value, setValue] = useState("No value");
