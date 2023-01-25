@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, ReactElement } from "react";
+import { useMemo, ReactElement, useCallback } from "react";
 import {
 	boolean,
 	withKnobs,
@@ -10,7 +10,7 @@ import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { UploadDef } from "./FormFieldUploadTypes";
-import _ from "lodash";
+import { nanoid } from "nanoid";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -27,31 +27,74 @@ export const Playground = (): ReactElement => {
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
 	const error = boolean("Trigger errors when loading", true);
+	const mockDB = boolean("Mock get files from DB", true);
 
 	const onFileAdd = async ({blob, onChunkComplete, onUploadComplete, onError}) => {
-		let chunk = 1;
-		const chunkInterval = setInterval(async () => {
-			await onChunkComplete({percent: chunk * .25});
-			chunk++;
-			if (chunk > 4) clearInterval(chunkInterval);
-		}, 750);
+		for (let i = 0; i < 10; i++) {
+			await new Promise(resolve => setTimeout(() =>
+				resolve(
+					onChunkComplete({percent: (i + 1) * 0.1})
+				), 300)
+			);
+		}
 
-		if (error && Math.random() < 0.5) {
+		if (error && Math.random() < 0.3) {
 			await onError("File size exceeded");
 			return;
 		}
 
 		await onUploadComplete({
-			id: _.uniqueId(),
+			id: nanoid(),
 			name: blob.name,
 			size: `${blob.size} bytes`,
-			url: Math.random() < 0.5 ? URL.createObjectURL(blob) : undefined
+			url: Math.random() < 0.7 ? URL.createObjectURL(blob) : undefined
 		});
 	};
 
 	const onFileDelete = ({id}) => {
-		console.log("file deleted", id);
+		alert("DELETED FILE: " + id);
 	}
+
+	const getFormValues = useCallback(async () => {
+		await new Promise(res => setTimeout(res, 1000));
+
+		return {
+			"uploadField": [
+				{
+					"id": "1",
+					"name": "roomBlocks.xslx",
+					"size": "386359 bytes",
+				},
+				{
+					"id": "2",
+					"name": "floorplan.jpg",
+					"size": "282010 bytes",
+				},
+				{
+					"id": "3",
+					"name": "SV.png",
+					"size": "151418 bytes",
+					"url": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
+				},
+				{
+					"id": "4",
+					"name": "MyHotel-AZ.png",
+					"size": "1447671 bytes"
+				},
+				{
+					"id": "5",
+					"name": "opportunity.pdf",
+					"size": "20842780 bytes"
+				},
+				{
+					"id": "6",
+					"name": "summit.png",
+					"size": "840038 bytes",
+					"url": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
+				},
+			],
+		}
+	}, []);
 
 	const fields = useMemo(
 		() =>
@@ -90,6 +133,7 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
+				getFormValues={mockDB && getFormValues}
 				onCancel={onCancel}
 			/>
 		</>
