@@ -1,7 +1,7 @@
 import * as React from "react";
 import { memo, ReactElement, useMemo, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { TableDef, TableRow } from "./TableTypes";
+import { TableData, TableInputSettings } from "./TableTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 
 // Components
@@ -28,7 +28,7 @@ import {
 	TrHead,
 } from "./Table.styled";
 
-const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactElement => {
+const FormFieldTable = (props: MosaicFieldProps<"textEditor", TableInputSettings, TableData>): ReactElement => {
 	const { fieldDef, value, onChange } = props;
 
 	// State varialbles
@@ -105,7 +105,7 @@ const FormFieldTable = (props: MosaicFieldProps<TableDef, TableRow[]>): ReactEle
 
 	/**
 	 * Executes the add element callback function
-	 * when the add button is clicked. 
+	 * when the add button is clicked.
 	 * @param e onClick event
 	 */
 	const addElement = (e) => {

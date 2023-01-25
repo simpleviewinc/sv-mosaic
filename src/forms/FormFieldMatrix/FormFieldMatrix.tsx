@@ -2,13 +2,13 @@ import * as React from "react";
 import { ReactElement, memo } from "react";
 
 import { MosaicFieldProps } from "@root/components/Field";
-import { MatrixDef } from "./FormFieldMatrixTypes";
 import { MatrixWrapper, ButtonsWrapper } from "./FormFieldMatrix.styled";
 import Button from "@root/components/Button";
 import DataView, { DataViewProps } from "@root/components/DataView";
+import { MatrixData, MatrixInputSettings } from "./FormFieldMatrixTypes";
 
 const FormFieldMatrix = (
-	props: MosaicFieldProps<MatrixDef, DataViewProps["data"]>
+	props: MosaicFieldProps<"matrix", MatrixInputSettings, MatrixData>
 ): ReactElement => {
 	const {
 		value,
