@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, ReactElement, useCallback } from "react";
+import { useMemo, ReactElement, useCallback, useEffect, useState } from "react";
 import {
 	boolean,
 	withKnobs,
@@ -7,7 +7,7 @@ import {
 	number,
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import Form, { useForm } from "@root/components/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { UploadDef } from "./FormFieldUploadTypes";
 import { nanoid } from "nanoid";
@@ -27,7 +27,18 @@ export const Playground = (): ReactElement => {
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
 	const error = boolean("Trigger errors when loading", true);
-	const mockDB = boolean("Mock get files from DB", true);
+	const mockDB = boolean("Mock get files from DB", false);
+
+	const [loadReady, setLoadReady] = useState(false);
+
+	useEffect(() => {
+		const resetForm = async () => {
+			await dispatch(formActions.resetForm());
+			setLoadReady(true);
+		};
+		mockDB ? resetForm() : setLoadReady(false);
+	}, [mockDB]);
+
 
 	const onFileAdd = async ({blob, onChunkComplete, onUploadComplete, onError}) => {
 		for (let i = 0; i < 10; i++) {
@@ -133,7 +144,7 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				getFormValues={mockDB && getFormValues}
+				getFormValues={loadReady && getFormValues}
 				onCancel={onCancel}
 			/>
 		</>
