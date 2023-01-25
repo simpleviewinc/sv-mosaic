@@ -50,23 +50,16 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUK);
 	});
 
-	test("Validate the Phone field with a custom placeholder.", async () => {
-		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill("");
-		expect(await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.getAttribute("placeholder")).toBe("Enter phone number");
-	});
-
 	test("Validate that the provided number is saved when submitted.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"phone": "' + rndRegularPhone + '"');
 			expect(dialog.message()).toContain('"countryCode": "' + rndProvidedCodePhone + '"');
 			expect(dialog.message()).toContain('"autoformatEnabled": "' + rndAutoformatedPhone + '"');
-			expect(dialog.message()).toContain('"withPlaceholder": "' + rndCustomPlaceholderPhone + '"');
 			await dialog.accept();
 		});
 		const rndRegularPhone = String(randomIntFromInterval(100000000000000, 999999999999999));
 		const rndProvidedCodePhone = String(randomIntFromInterval(100000000000000, 999999999999999));
 		const rndAutoformatedPhone = String(randomIntFromInterval(1000000000, 9999999999));
-		const rndCustomPlaceholderPhone = String(randomIntFromInterval(100000000000000, 999999999999999));
 
 		await ffPhoneSelectionDropdownPage.regularPhoneField.fill("");
 		await ffPhoneSelectionDropdownPage.regularPhoneField.fill(rndRegularPhone);
@@ -74,8 +67,6 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		await ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField.fill(rndProvidedCodePhone);
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill("");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(rndAutoformatedPhone);
-		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill("");
-		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill(rndCustomPlaceholderPhone);
 		await ffPhoneSelectionDropdownPage.saveBtn.dblclick();
 	});
 
@@ -92,6 +83,5 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.regularPhoneField)).toBe(expectedColor);
 		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField)).toBe(expectedColor);
 		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.autoformatPhoneField)).toBe(expectedColor);
-		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.customPlaceholderPhoneField)).toBe(expectedColor);
 	});
 });

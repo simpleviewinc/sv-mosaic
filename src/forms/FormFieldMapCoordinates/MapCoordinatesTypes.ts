@@ -33,7 +33,7 @@ export type MapCoordinatesDef = {
 	 * Google Maps API key needed to consume the Maps JavaScript API
 	 * and Places API
 	 */
-	apiKey: string;
+	googleMapsApiKey: string;
 	/**
 	 * Latitude and longitude object.
 	 */

@@ -16,6 +16,10 @@ const StyledWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 
+	& > .noResults {
+		margin: 0px 20px;
+	}
+
 	& > .headerRow {
 		display: flex;
 		justify-content: space-between;

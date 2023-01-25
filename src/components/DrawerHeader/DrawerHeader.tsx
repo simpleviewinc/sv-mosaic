@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo } from "react";
+import { memo, forwardRef } from "react";
 import Button from "@root/components/Button";
 import { StyledDrawerHeader } from "./DrawerHeader.styled";
 import { ButtonsWrapper } from "@root/forms/TopComponent/TopComponent.styled";
@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Views } from "@root/theme/theme";
 
-const DrawerHeader = (props: DrawerHeaderProps) => {
+const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 	const {
 		title,
 		buttons,
@@ -17,7 +17,7 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 	} = props;
 
 	return (
-		<StyledDrawerHeader>
+		<StyledDrawerHeader ref={ref}>
 			<div style={{display: "flex", alignItems: "center"}}>
 				{onCancel && (
 					<IconButton
@@ -46,6 +46,8 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 			}
 		</StyledDrawerHeader>
 	)
-};
+});
+
+DrawerHeader.displayName = "DrawerHeader";
 
 export default memo(DrawerHeader);

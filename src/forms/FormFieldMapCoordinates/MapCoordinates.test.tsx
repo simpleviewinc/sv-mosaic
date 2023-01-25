@@ -27,6 +27,7 @@ const {
 	getByTestId,
 	getAllByText,
 	queryByText,
+	getAllByRole
 } = screen;
 
 const fields = [
@@ -37,7 +38,7 @@ const fields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "test",
+			googleMapsApiKey: "test",
 		},
 	},
 ] as FieldDef<MapCoordinatesDef>[];
@@ -158,7 +159,7 @@ describe("MapCoordinates component without an address", () => {
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		act(() => {
+		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
@@ -240,8 +241,9 @@ describe("MapCoordinates component without an address", () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
-		const latitudeField = getByLabelText("Latitude") as HTMLInputElement;
-		const longitudeField = getByLabelText("Longitude") as HTMLInputElement;
+		const fields = getAllByRole("textbox");
+		const latitudeField = fields[1] as HTMLInputElement;
+		const longitudeField = fields[2] as HTMLInputElement;
 
 		fireEvent.change(latitudeField, { target: { value: 100 } });
 		fireEvent.change(longitudeField, { target: { value: 150 } });
@@ -266,7 +268,7 @@ describe("MapCoordinates component with an address object (AUTOCOODINATES)", () 
 						type: "mapCoordinates",
 						label: "",
 						inputSettings: {
-							apiKey: "test",
+							googleMapsApiKey: "test",
 							mapPosition: defaultMapPosition,
 							address,
 						},

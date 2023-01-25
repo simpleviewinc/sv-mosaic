@@ -13,6 +13,7 @@ import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
 import { ButtonProps } from "../Button";
 import { Views } from "@root/theme/theme";
+import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 
 const Form = (props: FormProps) => {
 	const {
@@ -35,7 +36,10 @@ const Form = (props: FormProps) => {
 	const sectionsRef = useRef<HTMLDivElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
-	const formContentRef = useRef();
+	const formContentRef = useRef<HTMLDivElement>();
+
+	const dispatchRef = useRefsDispatch();
+
 	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 	const { view } = useViewResizer({ type, formContainerRef });
@@ -46,7 +50,26 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		setTopComponentHeight(topComponentRef.current?.offsetHeight);
+
+		dispatchRef && topComponentRef.current && dispatchRef({
+			type: "update",
+			ref: {
+				topComponentDrawerRef: topComponentRef.current
+			}
+		});
+
 	}, [topComponentRef.current?.offsetHeight, view]);
+
+	useEffect(() => {
+		dispatchRef && formContentRef.current?.children[0] &&
+			dispatchRef({
+				type: "update",
+				ref: {
+					formLayoutRef: formContentRef.current.children[0]
+				}
+			});
+
+	}, [formContentRef.current?.children[0], view]);
 
 	useEffect(() => {
 		let isMounted = true;

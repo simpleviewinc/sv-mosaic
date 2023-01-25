@@ -38,6 +38,7 @@ export const Playground = (): ReactElement => {
 						amountBilling,
 						getOptionsCountries,
 						getOptionsStates,
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
 				},
 			] as FieldDef[]

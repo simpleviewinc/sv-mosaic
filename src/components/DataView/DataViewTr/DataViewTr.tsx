@@ -14,7 +14,7 @@ function DataViewTr(props: DataViewTrProps) {
 	return (
 		<Draggable
 			key={props.row.id}
-			draggableId={props.row.id}
+			draggableId={props.originalRowData.id.toString()}
 			index={props.rowIdx}
 			isDragDisabled={!props?.onReorder}
 		>

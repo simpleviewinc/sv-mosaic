@@ -1,9 +1,5 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
-
-// Components
-import ClearIcon from "@mui/icons-material/Clear";
 
 // Styles for the MapCoordinates component
 
@@ -88,47 +84,7 @@ export const MapContainer = styled.div`
   };
 `;
 
-// Styles for the LocationSearchInput component
-
-export const LocationSearchInputWrapper = styled.div`
-  margin-bottom: 8px;
-  margin-top: 15px;
-`;
-
-export const StyledInputSearch = styled(StyledTextField)`
-  min-width: 684px;
-
-  &.MuiTextField-root {
-    display: flex;
-  }
-`;
-
-export const StyledClearIcon = styled(ClearIcon)`
-  cursor: pointer;
-  color: ${theme.newColors.almostBlack["100"]};
-`;
-
-export const SuggestionsContainer = styled.div`
-  border: ${theme.borders.fieldGray};
-  font-family: ${theme.fontFamily};
-`;
-
-export const SuggestionsDescriptionContainer = styled.div`
-  background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.newColors.grey2["100"] : "white"};
-  cursor: pointer;
-  width: 683px;
-`;
-
-export const SuggestionDescription = styled.p`
-  font-size: 14px;
-  margin: 0;
-  padding: 6px 16px 6px 16px;
-
-  &:active {
-    color: ${theme.colors.gray800};
-    font-weight: ${theme.fontWeight.bold};
-  }
-`;
+// Styles for the Reset Button
 
 export const ResetButtonContainer = styled.div`
   display: flex;
