@@ -210,6 +210,7 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 			</FlexContainer>
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
+					googleMapsApiKey={fieldDef.inputSettings.googleMapsApiKey}
 					open={open}
 					value={value ?? []}
 					onChange={onChange}
