@@ -51,12 +51,12 @@ const FileCard = (props: FileCardProps) => {
 	return (
 		<div data-testid="file-card-container">
 			<StyledFileCard error={error}>
-				<div className='file-img'>
+				<div className='file-img' data-testid="file-img">
 					{renderImg}
 				</div>
-				<div className='file-data'>
-					<p className='file-name'>{name ?? "File title"}</p>
-					<p className='file-size'>{size ?? "File size"}</p>
+				<div className='file-data' data-testid="file-data">
+					<p className='file-name' data-testid="file-name">{name ?? "File title"}</p>
+					<p className='file-size' data-testid="file-size">{size ?? "File size"}</p>
 				</div>
 				{onFileDelete &&
 					<div className='file-delete-btn'>
