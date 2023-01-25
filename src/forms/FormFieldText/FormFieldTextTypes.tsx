@@ -29,10 +29,10 @@ export type TextFieldDef = {
 	 * Minimum number of rows to display when multiline option
 	 * is set to true.
 	 */
-	minRows?: string | number;
+	minRows?: number;
 	/**
 	 * Maximum number of rows to display when multiline
 	 * option is set to true.
 	 */
-	maxRows?: string | number;
+	maxRows?: number;
 };
