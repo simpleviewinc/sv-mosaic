@@ -1,4 +1,4 @@
-import { FieldDef } from "@root/components/Field/FieldTypes";
+import { FieldDefBase } from "@root/components/Field/FieldTypes";
 import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 
 /**
@@ -23,7 +23,7 @@ export type MapPosition = { lat: number; lng: number };
 
 export type AddCordinatesFnc = (coordinates: MapPosition) => void;
 
-export type MapCoordinatesDef = {
+export type MapCoordinatesInputSettings = {
 	/**
 	 * Address object used to set lat and lng values when using
 	 * the autocoordinates feature.
@@ -72,7 +72,7 @@ export interface MapProps {
 	/**
 	 * Zoom level of the Map
 	 */
-	zoom? : MapCoordinatesDef["zoom"];
+	zoom? : MapCoordinatesInputSettings["zoom"];
 	/**
 	 * This event is fired when the user stops dragging the marker.
 	 */
@@ -96,7 +96,7 @@ export interface LocationSearchInputProps {
 }
 
 export interface MapCoordinatesDrawerProps {
-	fieldDef: FieldDef<MapCoordinatesDef>
+	fieldDef: FieldDefMapCoordinates;
 	handleClose: (save?: boolean) => Promise<void>;
 	onChange: (e: MapPosition) => Promise<void>
 	value: MapPosition;
@@ -107,3 +107,7 @@ export interface MapCoordinatesDrawerProps {
 	dialogOpen?: boolean;
 	handleDialogClose?: (val: boolean) => void;
 }
+
+export type MapCoordinatesData = MapPosition;
+
+export type FieldDefMapCoordinates = FieldDefBase<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>

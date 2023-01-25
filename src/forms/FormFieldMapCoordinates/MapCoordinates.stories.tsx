@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, object, text, number } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { MapCoordinatesDef } from ".";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -27,7 +26,7 @@ export const Playground = (): ReactElement => {
 	const withAddress = boolean("With address", false);
 	const zoom = number("Zoom", 7, { min: 0, max: 18 });
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -38,12 +37,12 @@ export const Playground = (): ReactElement => {
 					disabled,
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-						address: withAddress ? addressKnob : {},
+						address: withAddress ? addressKnob : undefined,
 						mapPosition: mapPositionKnob,
 						zoom: zoom
 					},
 				},
-			] as FieldDef<MapCoordinatesDef>[],
+			],
 		[addressKnob, disabled, label, mapPositionKnob, required, withAddress, zoom]
 	);
 
@@ -63,7 +62,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkFields = [
+const kitchenSinkFields: FieldDef[] = [
 	{
 		name: "mapWithoutAddress",
 		label: "Map without an address. Autocoordinates disabled",
@@ -121,7 +120,7 @@ const kitchenSinkFields = [
 			address: address
 		},
 	}
-] as FieldDef<MapCoordinatesDef>[];
+];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();

@@ -1,5 +1,6 @@
 import { MosaicLabelValue } from "@root/types";
 import { StrictUnion } from "../FormFieldCheckbox";
+import { FieldDefBase } from "@root/components/Field";
 
 type FormFieldRadioLocalOptions = {
 	/**
@@ -15,4 +16,8 @@ type FormFieldRadioExternalOptions = {
 	getOptions: () => Promise<MosaicLabelValue[]>;
 }
 
-export type FormFieldRadioDef = StrictUnion<FormFieldRadioLocalOptions | FormFieldRadioExternalOptions>
+export type RadioInputSettings = StrictUnion<FormFieldRadioLocalOptions | FormFieldRadioExternalOptions>
+
+export type RadioData = MosaicLabelValue;
+
+export type FieldDefRadio = FieldDefBase<"radio", RadioInputSettings, RadioData>

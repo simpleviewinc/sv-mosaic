@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-import { FormFieldRadioDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
@@ -43,7 +42,7 @@ export const Playground = (): ReactElement => {
 		"Local"
 	);
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -59,7 +58,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				}
-			] as FieldDef<FormFieldRadioDef>[],
+			],
 		[label, required, disabled, instructionText, helperText, optionsOrigin]
 	);
 
@@ -81,7 +80,7 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -120,7 +119,7 @@ export const KitchenSink = (): ReactElement => {
 					helperText: "Helper text",
 					instructionText: "Instruction text",
 				},
-			] as FieldDef<FormFieldRadioDef>[],
+			],
 		[]
 	);
 

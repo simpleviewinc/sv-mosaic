@@ -1,7 +1,16 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { FieldDefMapCoordinates } from "@root/forms/FormFieldMapCoordinates";
+import { FieldDefMatrix } from "@root/forms/FormFieldMatrix";
+import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
+import { FieldDefRadio } from "@root/forms/FormFieldRadio";
+import { FieldDefTable } from "@root/forms/FormFieldTable";
+import { FieldDefText } from "@root/forms/FormFieldText";
+import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
+import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
+import { MosaicObject } from "@root/types";
+import React, { HTMLAttributes, ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT
-export interface MosaicFieldProps<T = any, U = any> {
+export interface MosaicFieldProps<T extends string, U = any, V = any> {
 	/**
 	 * Field identifier that matches the field name.
 	 */
@@ -10,11 +19,11 @@ export interface MosaicFieldProps<T = any, U = any> {
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
 	 */
-	fieldDef: FieldDef<T, U>;
+	fieldDef: FieldDefBase<T, U, V>;
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
-	onChange?: (e: U) => Promise<void>;
+	onChange?: (e: V) => Promise<void>;
 	/**
 	 * Function that listens to a blur event on the field and executes an action.
 	 */
@@ -22,7 +31,7 @@ export interface MosaicFieldProps<T = any, U = any> {
 	/**
 	 * Value written by the user into the text field.
 	 */
-	value?: U;
+	value?: V;
 	// value?: any | string;
 	/**
 	 * Flag to style text field as erroneous.
@@ -39,7 +48,7 @@ export interface MosaicFieldProps<T = any, U = any> {
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-export interface FieldDef<T = any, U = any> {
+export interface FieldDefBase<Type = any, T = any, U = any> {
 	/**
 	 * Significant name related to its field.
 	 */
@@ -93,7 +102,7 @@ export interface FieldDef<T = any, U = any> {
 	 * Defines the type of component from a list of components
 	 * found on Col.tsx. This also allows for a custom component type.
 	 */
-	type: string | JSX.Element | (() => JSX.Element);
+	type: Type;
 	/**
 	 * Object that defines the position of the current field in the
 	 * form layout.
@@ -129,3 +138,64 @@ export interface FieldDef<T = any, U = any> {
 	 */
 	onChangeCb?: (value?: any) => void | Promise<void>;
 }
+
+type FieldDefCustom = FieldDefBase<React.ElementType, MosaicObject, any>
+
+export type FieldDef =
+  | FieldDefText
+  | FieldDefToggleSwitch
+  | FieldDefTextEditor
+  | FieldDefRadio
+  | FieldDefPhoneSelection
+  | FieldDefTable
+  | FieldDefMatrix
+  | FieldDefCustom
+	| FieldDefMapCoordinates;
+
+
+/* const fields: FieldDef[] = [
+  {
+    name: "text",
+    label: "Text",
+    type: "text",
+    inputSettings: {
+      maxCharacters: 10,
+			spellcheck: true,
+			direction: "ltr",
+    }
+  },
+  {
+    name: "text",
+    label: "text",
+    type: "text",
+    inputSettings: {
+			placeholder: "",
+			type: "password",
+			toggleLabel: "",
+			test: false
+    },
+    defaultValue: "asd"
+  },
+  {
+    name: "bogus_type",
+    label: "Bogus type property",
+    type: "bogus"
+  },
+	{
+		name: "toggleSwitchDefault",
+		label: "Default example",
+		type: "toggleSwitch",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			toggleLabel: "Toggle label",
+			spellCheck: true,
+			placeholder: "",
+			amountPerType: 2
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+]
+
+ */
