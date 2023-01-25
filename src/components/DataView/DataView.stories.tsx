@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect, useCallback, ReactElement } from "react";
 import styled from "styled-components";
-import { boolean, select } from "@storybook/addon-knobs";
+import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
@@ -34,8 +34,6 @@ import { useStateRef } from "@root/utils/reactTools";
 import SingleSelectHelper from "./example/SingleSelectHelper";
 
 import "./example/DataViewPlayground.css";
-
-import { withKnobs } from "@storybook/addon-knobs";
 
 export default {
 	title : "Components/DataView",
