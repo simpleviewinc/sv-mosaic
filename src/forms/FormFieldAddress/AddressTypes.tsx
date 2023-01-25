@@ -38,6 +38,7 @@ export interface AddressCardProps {
 }
 export interface AddressDrawerProps {
 	addressToEdit: IAddress;
+	googleMapsApiKey: string;
 	isEditing: boolean;
 	addressIdx: number;
 	open: boolean;
@@ -61,4 +62,5 @@ export type AddressFieldDef = {
 	amountPhysical?: number;
 	getOptionsCountries(): Promise<MosaicLabelValue[]>;
 	getOptionsStates(country: string): Promise<MosaicLabelValue[]>;
+	googleMapsApiKey: string;
 }

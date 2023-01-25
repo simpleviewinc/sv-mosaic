@@ -37,7 +37,7 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.dateHourInput = page.locator("input").nth(2);
 		this.dateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
 		this.dateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(2);
-		this.hourMinutesOption = page.locator("[role='option']")
+		this.hourMinutesOption = this.roleOptionLocator;
 		this.hourAMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(2);
 		this.hourPMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(3);
 		this.disableDateAndTimeCalendarText = page.locator("//*[@id='3']/div/div/div/div/div[1]/div[2]");
