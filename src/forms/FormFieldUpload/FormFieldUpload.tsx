@@ -94,7 +94,7 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 
 
 	const onUploadComplete = async ({uuid, data}) => {
-		onChange([...prevValueRef.current, data]);
+		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
 
 		setPendingFiles((prevState) => {
 			const newPendingFiles = {...prevState};
