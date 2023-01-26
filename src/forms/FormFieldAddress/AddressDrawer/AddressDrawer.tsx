@@ -273,7 +273,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 		await setFieldValue("address1", addressComponentsMap.route.label, true);
 		await setFieldValue("country", country, true);
+
 		setApiState(selectedState);
+
 		await setFieldValue("city", addressComponentsMap.locality.label === "" ?  addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
 		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
 

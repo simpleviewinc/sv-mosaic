@@ -29,7 +29,7 @@ export const InputWrapper = styled.div`
   display: flex;
   height: 49px;
   justify-content: space-between;
-  margin: 15px 15px 5px 15px;
+  margin: 15px 15px 8px 15px;
   padding: 12px ${pr => pr.createNewOption ? "8px" : "16px"} 12px 16px;
   width: ${pr => pr.isMobileView ? "" : "620px"};
 
