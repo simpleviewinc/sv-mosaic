@@ -71,7 +71,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		this.titleFilterSearch = page.locator("div.inputRow input");
 		this.searchTitleComparisonDropdown = page.locator("div.inputRow button");
 		this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
-		this.errorMessageDates = page.locator(".errorMessage h5");
+		this.errorMessageDates = page.locator("#rangeStart p");
 
 		this.fromCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.fromCalendarInput = page.locator("input[type='tel']").nth(0);

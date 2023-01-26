@@ -27,7 +27,7 @@ export interface MosaicFieldProps<T = any, U = any> {
 	/**
 	 * Flag to style text field as erroneous.
 	 */
-	error?: string;
+	error?: string | boolean;
 	/**
 	 * React Element or component to be rendered as child of the field component.
 	 */
