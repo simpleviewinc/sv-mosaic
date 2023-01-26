@@ -102,7 +102,6 @@ const kitchenSinkfields: FieldDef[] = [
 		size: "md",
 		inputSettings: {
 			placeholder: "placeholder",
-			spellcheck: ""
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text"
@@ -116,7 +115,6 @@ const kitchenSinkfields: FieldDef[] = [
 		inputSettings: {
 			placeholder: "Password",
 			type: "Password",
-			toggleLabel: ""
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text"

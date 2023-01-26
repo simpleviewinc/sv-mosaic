@@ -4,7 +4,7 @@ import { ReactElement, memo } from "react";
 import { MosaicFieldProps } from "@root/components/Field";
 import { MatrixWrapper, ButtonsWrapper } from "./FormFieldMatrix.styled";
 import Button from "@root/components/Button";
-import DataView, { DataViewProps } from "@root/components/DataView";
+import DataView from "@root/components/DataView";
 import { MatrixData, MatrixInputSettings } from "./FormFieldMatrixTypes";
 
 const FormFieldMatrix = (

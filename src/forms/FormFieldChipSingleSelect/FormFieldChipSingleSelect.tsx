@@ -7,11 +7,10 @@ import Chip from "../../components/Chip";
 
 //Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
-import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
+import { ChipData, FormFieldChipSingleSelectInputSettings } from "./FormFieldChipSingleSelectTypes";
 import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
-import { MosaicLabelValue } from "@root/types";
 
-const FormFieldChipSingleSelect = (props: MosaicFieldProps<FormFieldChipSingleSelectDef, MosaicLabelValue>): ReactElement => {
+const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChipSingleSelectInputSettings, ChipData>): ReactElement => {
 	const {
 		fieldDef,
 		error,
