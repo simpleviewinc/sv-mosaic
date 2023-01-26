@@ -1,9 +1,10 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
+import { Snackbar } from "@root/index";
 import { MosaicObject } from "@root/types";
 import _ from "lodash";
 import * as React from "react";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, SyntheticEvent, useEffect, useRef, useState } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
@@ -24,13 +25,14 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 
 	const [isOver, setIsOver] = useState(false);
 	const [pendingFiles, setPendingFiles] = useState({});
+	const [openSnackBar, setOpenSnackbar] = useState(false);
+	const fileInputField = useRef(null);
 	const prevValueRef = useRef([]);
 
 	useEffect(() => {
 		prevValueRef.current = value;
 	}, [value]);
 
-	const fileInputField = useRef(null);
 
 	/**
 	 * Executed when a file that's being
@@ -123,7 +125,7 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		const newFiles: File[] = Array.from(e.target.files);
 
 		if (limit !== undefined && limit >= 0 && newFiles.length > limit) {
-			alert(`Upload limited to only ${limit} files`);
+			setOpenSnackbar(true);
 			return;
 		}
 
@@ -171,6 +173,13 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		const newValues = [...value].filter(file => file.id !== id);
 		await onChange(newValues);
 	}
+
+	const closeSnackbar = (_event?: SyntheticEvent, reason?: string) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpenSnackbar(false);
+	};
 
 	return (
 		<>
@@ -247,6 +256,12 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 					})}
 				</StyledFileGrid>
 			}
+			<Snackbar
+				autoHideDuration={4000}
+				label={`Upload limited to only ${limit} files`}
+				open={openSnackBar}
+				onClose={closeSnackbar}
+			/>
 		</>
 	);
 }
