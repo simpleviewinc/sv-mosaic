@@ -3,7 +3,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataview_data";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - Data View", () => {
+test.describe.parallel("Components - Data View - Playground", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 
