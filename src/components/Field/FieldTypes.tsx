@@ -1,3 +1,11 @@
+import { FieldDefAdvancedSelection } from "@root/forms/FormFieldAdvancedSelection";
+import { FieldDefCheckbox } from "@root/forms/FormFieldCheckbox";
+import { FieldDefChip } from "@root/forms/FormFieldChipSingleSelect";
+import { FieldDefColor } from "@root/forms/FormFieldColorPicker/ColorPickerTypes";
+import { FieldDefDate } from "@root/forms/FormFieldDate/DateField";
+import { FieldDefDropdown } from "@root/forms/FormFieldDropdownSingleSelection";
+import { FieldDefImageUpload } from "@root/forms/FormFieldImageUpload";
+import { FieldDefImageVideoDocumentLink } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
 import { FieldDefMapCoordinates } from "@root/forms/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/forms/FormFieldMatrix";
 import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
@@ -10,7 +18,7 @@ import { MosaicObject } from "@root/types";
 import React, { HTMLAttributes, ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT
-export interface MosaicFieldProps<T extends string, U = any, V = any> {
+export interface MosaicFieldProps<T extends string = any, U = any, V = any> {
 	/**
 	 * Field identifier that matches the field name.
 	 */
@@ -142,18 +150,26 @@ export interface FieldDefBase<Type = any, T = any, U = any> {
 type FieldDefCustom = FieldDefBase<React.ElementType, MosaicObject, any>
 
 export type FieldDef =
-  | FieldDefText
-  | FieldDefToggleSwitch
-  | FieldDefTextEditor
-  | FieldDefRadio
-  | FieldDefPhoneSelection
-  | FieldDefTable
-  | FieldDefMatrix
-  | FieldDefCustom
-	| FieldDefMapCoordinates;
+	| FieldDefText
+	| FieldDefToggleSwitch
+	| FieldDefTextEditor
+	| FieldDefRadio
+	| FieldDefPhoneSelection
+	| FieldDefTable
+	| FieldDefMatrix
+	| FieldDefMapCoordinates
+	| FieldDefImageVideoDocumentLink
+	| FieldDefImageUpload
+	| FieldDefDropdown
+	| FieldDefDate
+	| FieldDefColor
+	| FieldDefChip
+	| FieldDefCheckbox
+	| FieldDefAdvancedSelection
+	| FieldDefCustom
 
-
-/* const fields: FieldDef[] = [
+/*
+const fields: FieldDef[] = [
   {
     name: "text",
     label: "Text",
@@ -161,7 +177,6 @@ export type FieldDef =
     inputSettings: {
       maxCharacters: 10,
 			spellcheck: true,
-			direction: "ltr",
     }
   },
   {
@@ -197,5 +212,4 @@ export type FieldDef =
 		instructionText: "Instruction text",
 	},
 ]
-
  */

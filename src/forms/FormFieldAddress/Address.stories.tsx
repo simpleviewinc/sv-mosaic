@@ -22,7 +22,7 @@ export const Playground = (): ReactElement => {
 	const amountPhysical = number("Amount physical", 1);
 	const amountBilling = number("Amount billing", 1);
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() => (
 			[
 				{
@@ -41,7 +41,7 @@ export const Playground = (): ReactElement => {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
 				},
-			] as FieldDef[]
+			]
 		),
 		[
 			disabled,
