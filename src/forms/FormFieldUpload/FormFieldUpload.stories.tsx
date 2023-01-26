@@ -4,13 +4,14 @@ import {
 	boolean,
 	withKnobs,
 	text,
-	number,
+	select,
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { UploadDef } from "./FormFieldUploadTypes";
 import { nanoid } from "nanoid";
+import { defaultValues } from "./uploadUtils";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -20,7 +21,11 @@ export default {
 export const Playground = (): ReactElement => {
 	const { state, dispatch	} = useForm();
 
-	const limit = number("Limit", undefined);
+	const limit = select(
+		"Limit",
+		["No limit", 1, 2, 3],
+		"No limit"
+	);
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 	const helperText = text("Helper text", "Helper text");
@@ -69,42 +74,7 @@ export const Playground = (): ReactElement => {
 	const getFormValues = useCallback(async () => {
 		await new Promise(res => setTimeout(res, 1000));
 
-		return {
-			"uploadField": [
-				{
-					"id": "1",
-					"name": "roomBlocks.xslx",
-					"size": "386359 bytes",
-				},
-				{
-					"id": "2",
-					"name": "floorplan.jpg",
-					"size": "282010 bytes",
-				},
-				{
-					"id": "3",
-					"name": "SV.png",
-					"size": "151418 bytes",
-					"url": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
-				},
-				{
-					"id": "4",
-					"name": "MyHotel-AZ.png",
-					"size": "1447671 bytes"
-				},
-				{
-					"id": "5",
-					"name": "opportunity.pdf",
-					"size": "20842780 bytes"
-				},
-				{
-					"id": "6",
-					"name": "summit.png",
-					"size": "840038 bytes",
-					"url": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
-				},
-			],
-		}
+		return defaultValues;
 	}, []);
 
 	const fields = useMemo(
@@ -119,7 +89,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 					inputSettings: {
-						limit,
+						limit: limit === "No limit" ? undefined : limit,
 						onFileAdd,
 						onFileDelete
 					}
@@ -131,6 +101,7 @@ export const Playground = (): ReactElement => {
 			disabled,
 			helperText,
 			instructionText,
+			limit,
 		]
 	);
 
