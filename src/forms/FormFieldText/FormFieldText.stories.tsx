@@ -30,6 +30,8 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 	const multiline = boolean("Multiline", false);
+	const minRows = number("Min rows for multiline", 3);
+	const maxRows = number("Max rows for multiline", 4);
 	const withIcon = boolean("With icon", false);
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
@@ -51,7 +53,9 @@ export const Playground = (): ReactElement => {
 						maxCharacters,
 						placeholder,
 						multiline,
-						type
+						type,
+						minRows,
+						maxRows
 					},
 					helperText,
 					instructionText,
@@ -68,6 +72,8 @@ export const Playground = (): ReactElement => {
 			multiline,
 			helperText,
 			instructionText,
+			minRows,
+			maxRows,
 			type
 		]
 	);

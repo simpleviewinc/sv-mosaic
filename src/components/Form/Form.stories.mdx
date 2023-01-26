@@ -167,7 +167,7 @@ When done through this method, the array must be passed down as a prop to the Fo
 					["myTextField"] // Row 1 Col 1
 				],
 				[ // Row 2
-					["myTextAreaField"] // Row 2 Col 1
+					["myCheckboxField"] // Row 2 Col 1
 				]
 			]
 		}
@@ -196,8 +196,8 @@ const App = (props) => {
 					type: "text",
 				},
 				{
-					name: "myTextAreaField",
-					type: "textArea",
+					name: "myCheckboxField",
+					type: "checkbox",
 				},
 				//...all other fields
 			],
@@ -322,7 +322,7 @@ const fields = useMemo(
 * **instructionText** - `string` optional - Instructions about how to fill the current field.
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
-* **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
+* **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for FormFieldText).
 * **size** - `string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **xs** = 100px
 	* **sm** = 280px
@@ -364,10 +364,10 @@ const fields = useMemo(
 				validators: ["validateNumber"], //Please see validators section on ways of adding validators.
 				id: "myId",
 				defaultValue: "42", //Plase see data of each field and data section to better understand how fields interact with values.
-				pairedFields: ["myTextArea"],
+				pairedFields: ["myCheckbox"],
 			},
 			{
-				name: "myTextArea",
+				name: "myCheckbox",
 				//...all other generic field props
 			}
 			//...other fields
@@ -774,6 +774,8 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | **`placeholder`** | `string` | optional - The hint displayed in the input before the user enters a value. |
 | **`prefixElement`** | `JSX.Element` | optional - Icon at the beginning of the text field. |
 | **`type`** | `string` | optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types). |
+| **`maxRows`** | `number` | optional - Maximum number of rows to display when multiline options is set to true. |
+| **`minRows`** | `number` | optional - Minimum number of rows to display when multiline option is set to true. |
 
 ### How to use in a form?
 ```ts
@@ -790,47 +792,13 @@ const fields = useMemo(
 					prefixElement: <AccountCircle />,
 					maxCharacters: 20,
 					placeholder: "placeholder",
-					multiline: true
+					multiline: true,
+					maxRows: 4,
+					minRows: 3
 				},
 			},
 			//...other fields
 		] as FieldDef<TextFieldDef>[],
-	[]
-);
-```
-
-## FormFieldTextArea
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- A text area is a multi-line plain-text editing control, is useful when you want to allow users to enter a sizeable amount of free-form text, but defining a specific height and width.
-- [**Playground**](/?path=/story/formfields-formfieldtextarea--playground)
-- Data: `string` - Value of the input typed.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`maxCharacters`** | `number` | optional - Defines the limit of characters that are allow to type in the input element. |
-| **`placeholder`** | `string` | optional - The hint displayed in the input before the user enters a value. |
-
-### How to use in a form?
-
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props
-				type: "textArea",
-				maxCharacters: 20,
-				size: "md",
-				inputSettings: {
-					maxCharacters: 20,
-					placeholder: "placeholder"
-				},
-			},
-			//...other fields
-		] as FieldDef<TextAreaDef>[],
 	[]
 );
 ```

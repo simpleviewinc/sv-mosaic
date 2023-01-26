@@ -29,7 +29,6 @@ import { FormFieldRadioDef } from "@root/forms/FormFieldRadio";
 import { DropdownSingleSelectionDef } from "@root/forms/FormFieldDropdownSingleSelection";
 import { FormFieldChipSingleSelectDef } from "@root/forms/FormFieldChipSingleSelect";
 import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
-import { TextAreaDef } from "@root/forms/FormFieldTextArea";
 import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
@@ -89,7 +88,6 @@ export const Playground = (): ReactElement => {
 	const showActive = boolean("Show active", false);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field prepopulated",
-		"textArea": "Text area prepopulated",
 		"check": [
 			{
 				label: "Label 1",
@@ -209,13 +207,6 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required
 				} as FieldDef<TextFieldDef>,
-				{
-					name: "textArea",
-					label: "Text Area",
-					type: "textArea",
-					disabled,
-					required
-				} as FieldDef<TextAreaDef>,
 				{
 					name: "check",
 					label: "Checkbox",
@@ -426,7 +417,7 @@ export const Playground = (): ReactElement => {
 			description: text("Description for section 1", "Description for section 1"),
 			fields: [
 				// row 1
-				[["textField"], ["textArea"], ["check"]],
+				[["textField"], ["check"]],
 				// row 2
 				[["chipSelect"], ["dropdownSingle"]],
 				[["table"]],
