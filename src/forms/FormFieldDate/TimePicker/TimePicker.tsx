@@ -13,7 +13,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { TimePickerDef } from "./TimePickerTypes";
 import { ThemeProvider } from "@mui/material/styles";
 
-const TimeFieldPicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement => {
+const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef>): ReactElement => {
 	const { error, fieldDef, onChange, value, onBlur } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
@@ -38,7 +38,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<TimePickerDef>): ReactElement =
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<ThemeProvider theme={customTheme}>
-				<DatePickerWrapper isPickerOpen={isPickerOpen} error={!!error}>				
+				<DatePickerWrapper isPickerOpen={isPickerOpen} error={!!error}>
 					<TimePicker
 						value={value}
 						onChange={onChange}
