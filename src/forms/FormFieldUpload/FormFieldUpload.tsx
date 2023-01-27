@@ -4,7 +4,7 @@ import { Snackbar } from "@root/index";
 import { MosaicObject } from "@root/types";
 import _ from "lodash";
 import * as React from "react";
-import { memo, SyntheticEvent, useEffect, useRef, useState } from "react";
+import { memo, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
@@ -82,7 +82,7 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		fileInputField.current.click();
 	};
 
-	const onChunkComplete = ({uuid, percent}) => {
+	const onChunkComplete = async ({uuid, percent}) => {
 		setPendingFiles((prevState) => (
 			{
 				...prevState,
@@ -105,7 +105,7 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		});
 	};
 
-	const onError = ({uuid, message}) => {
+	const onError = async ({uuid, message}) => {
 		setPendingFiles((prevState) => (
 			{
 				...prevState,
@@ -124,7 +124,13 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
 
-		if (limit !== undefined && limit >= 0 && newFiles.length > limit) {
+		if (
+			limit !== undefined
+			&& limit >= 0
+			&& (
+				(value !== undefined ? value.length : 0) + newFiles.length > limit
+			)
+		) {
 			setOpenSnackbar(true);
 			return;
 		}
@@ -181,46 +187,68 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 		setOpenSnackbar(false);
 	};
 
+	const shouldDisableField = useMemo(() => {
+		return fieldDef.disabled || (limit !== undefined && value?.length >= limit)
+	}, [fieldDef.disabled, limit, value]);
+
 	return (
 		<>
-			<DragAndDropContainer
-				isOver={isOver}
-				onDragOver={dragOver}
-				onDragEnter={dragEnter}
-				onDragLeave={dragLeave}
-				onDrop={fileDrop}
-				width={"620px"}
-				data-testid="drag-and-drop-container"
-			>
-				{isOver ? (
-					<DragAndDropSpan isOver={isOver}>
-						Release and Drop
-					</DragAndDropSpan>
-				) : (
-					<>
+			{!shouldDisableField ?
+				<DragAndDropContainer
+					isOver={isOver}
+					onDragOver={dragOver}
+					onDragEnter={dragEnter}
+					onDragLeave={dragLeave}
+					onDrop={fileDrop}
+					width={"620px"}
+					data-testid="drag-and-drop-container"
+				>
+					{isOver ? (
 						<DragAndDropSpan isOver={isOver}>
+						Release and Drop
+						</DragAndDropSpan>
+					) : (
+						<>
+							<DragAndDropSpan isOver={isOver}>
 							Drag & Drop files here or
+							</DragAndDropSpan>
+							<Button
+								color="gray"
+								variant="outlined"
+								disabled={shouldDisableField}
+								label="UPLOAD FILES"
+								onClick={uploadFiles}
+								muiAttrs={{disableRipple: true}}
+							/>
+						</>
+					)}
+					<FileInput
+						data-testid="input-file-test"
+						ref={fileInputField}
+						onChange={handleNewFileUpload}
+						title=""
+						type="file"
+						value=""
+						multiple={limit === undefined || limit > 1 ? true : false}
+					/>
+				</DragAndDropContainer>
+				:
+				<DragAndDropContainer width={"620px"}>
+					<>
+						<DragAndDropSpan>
+							Drag & Drop files here or DISABLED
 						</DragAndDropSpan>
 						<Button
 							color="gray"
 							variant="outlined"
-							disabled={fieldDef?.disabled}
+							disabled={shouldDisableField}
 							label="UPLOAD FILES"
 							onClick={uploadFiles}
 							muiAttrs={{disableRipple: true}}
 						/>
 					</>
-				)}
-				<FileInput
-					data-testid="input-file-test"
-					ref={fileInputField}
-					onChange={handleNewFileUpload}
-					title=""
-					type="file"
-					value=""
-					multiple={limit === undefined || limit > 1 ? true : false}
-				/>
-			</DragAndDropContainer>
+				</DragAndDropContainer>
+			}
 			{/**
 			 * We'll have 2 FileGrids, 1 for the successfully
 			 * uploaded files, and 1 for the pending / errors.
