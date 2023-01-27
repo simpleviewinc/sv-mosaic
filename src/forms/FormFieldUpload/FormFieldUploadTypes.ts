@@ -1,6 +1,6 @@
 export type UploadDef = {
-	onFileDelete: (deletedData: OnFileDeleteData) => void | Promise<void>;
-	onFileAdd: (addedData: OnFileAddData) => void | Promise<void>;
+	onFileDelete: (deletedData: OnFileDeleteData) => Promise<void>;
+	onFileAdd: (addedData: OnFileAddData) => Promise<void>;
 	limit?: number;
 };
 
@@ -11,12 +11,12 @@ export type UploadData =  {
 	name: string;
 };
 
-type OnError = (message: string) => void | Promise<void>;
+type OnError = (message: string) => Promise<void>;
 
 type OnFileAddData = {
 	blob: any;
-	onChunkComplete: (data: {percent: number}) => void | Promise<void>;
-	onUploadComplete: (data: UploadData) => void | Promise<void>;
+	onChunkComplete: (data: {percent: number}) => Promise<void>;
+	onUploadComplete: (data: UploadData) => Promise<void>;
 	onError: OnError;
 }
 
