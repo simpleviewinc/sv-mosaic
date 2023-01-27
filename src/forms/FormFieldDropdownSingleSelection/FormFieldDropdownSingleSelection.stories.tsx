@@ -59,7 +59,7 @@ export const Playground = (): ReactElement => {
 		"Local"
 	);
 
-	const fields: FieldDef[] = useMemo(
+	const fields = useMemo(
 		() =>
 			[
 				{
@@ -77,7 +77,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			],
+			] as FieldDef[],
 		[
 			required,
 			disabled,

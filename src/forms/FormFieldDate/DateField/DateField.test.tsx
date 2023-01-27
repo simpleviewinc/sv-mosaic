@@ -1,8 +1,6 @@
-import { FieldDef } from "@root/components/Field";
 import { render } from "@testing-library/react";
 import * as React from "react";
 import DateField from ".";
-import { DateFieldDef } from "./DateFieldTypes";
 import { screen } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 
@@ -19,7 +17,7 @@ describe("DateField component", () => {
 					inputSettings: {
 						showTime: false
 					}
-				} as FieldDef<DateFieldDef>}
+				}}
 				value={new Date("2022-01-01T00:00:00.000Z")}
 
 			/>
@@ -40,7 +38,7 @@ describe("DateField component", () => {
 					inputSettings: {
 						showTime: false
 					}
-				} as FieldDef<DateFieldDef>}
+				}}
 				value={null}
 			/>
 		);
@@ -59,7 +57,7 @@ describe("DateField component", () => {
 					inputSettings: {
 						showTime: true
 					}
-				} as FieldDef<DateFieldDef>}
+				}}
 				value={new Date("2022-01-01T13:30:00.000Z")}
 			/>
 		);
@@ -80,7 +78,7 @@ describe("DateField component", () => {
 					inputSettings: {
 						showTime: true
 					}
-				} as FieldDef<DateFieldDef>}
+				}}
 				value={null}
 
 			/>

@@ -6,14 +6,14 @@ import "@testing-library/jest-dom";
 import Form, { useForm } from "@root/components/Form";
 import { ReactElement } from "react";
 import { FieldDef } from "@root/components/Field";
-import { TextEditorDef } from "./FormFieldTextEditorTypes";
+import { TextEditorInputSettings } from "./FormFieldTextEditorTypes";
 import { renderButtons } from "@root/utils/storyUtils";
 import { act } from "react-dom/test-utils";
 
 afterEach(cleanup);
 
 const TextEditorExample = (
-	props: TextEditorDef & { disabled?: boolean }
+	props: TextEditorInputSettings & { disabled?: boolean }
 ): ReactElement => {
 	const {
 		direction = "ltr",

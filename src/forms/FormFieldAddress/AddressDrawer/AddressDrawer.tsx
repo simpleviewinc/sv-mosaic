@@ -7,7 +7,6 @@ import { ButtonProps } from "@root/components/Button";
 import Form, { formActions, useForm } from "@root/components/Form";
 
 // Utils
-import { TextFieldDef } from "@root/forms/FormFieldText";
 import { IAddress } from "@root/forms/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
 import _ from "lodash";
@@ -363,20 +362,20 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					type: "text",
 					label: undefined,
 					size: "lg",
-				} as FieldDef<TextFieldDef>,
+				},
 				{
 					name: "address3",
 					type: "text",
 					label: undefined,
 					size: "lg",
-				} as FieldDef<TextFieldDef>,
+				},
 				{
 					name: "city",
 					type: "text",
 					label: "City",
 					size: "sm",
 					required: true,
-				} as FieldDef<TextFieldDef>,
+				},
 				{
 					name: "states",
 					type: "dropdown",
@@ -395,7 +394,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					inputSettings: {
 						type: "string",
 					},
-				} as FieldDef<TextFieldDef>,
+				},
 				{
 					name: "type",
 					type: "checkbox",

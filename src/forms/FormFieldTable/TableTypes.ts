@@ -65,4 +65,4 @@ export type UseTableReturnType = {
 
 export type TableData = TableRow[];
 
-export type FieldDefTable = FieldDefBase<"textEditor", TableInputSettings, TableData>
+export type FieldDefTable = FieldDefBase<"table", TableInputSettings, TableData>

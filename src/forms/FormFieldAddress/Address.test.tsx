@@ -13,7 +13,7 @@ import { ReactElement } from "react";
 
 // Components
 import AddressCard from "./AddressCard";
-import { IAddress, AddressFieldDef } from ".";
+import { IAddress, AddressFieldInputSettings } from ".";
 import Form, { useForm } from "@root/components/Form";
 
 // Utils
@@ -95,7 +95,7 @@ const fields = [
 	}
 ] as FieldDef[];
 
-export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef; }): ReactElement => {
+export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings; }): ReactElement => {
 	const {
 		state,
 		dispatch,
@@ -109,7 +109,7 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef
 	return (
 		<Form
 			state={state}
-			fields={newFields}
+			fields={newFields as FieldDef[]}
 			dispatch={dispatch}
 		/>
 	);

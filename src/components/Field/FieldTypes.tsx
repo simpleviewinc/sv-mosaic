@@ -68,7 +68,7 @@ export interface FieldDefBase<Type = any, T = any, U = any> {
 	/**
 	 * Label that will sit on top of the field.
 	 */
-	label: string | undefined;
+	label?: string | undefined;
 	/**
 	 * Marks field as required
 	 */
