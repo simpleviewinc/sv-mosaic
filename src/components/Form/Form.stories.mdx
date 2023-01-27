@@ -386,9 +386,9 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 	* **address2** - `string` optional - Additional address.
 	* **address3** - `string` optional - Additional address.
 	* **city** - `string` required - Name of the city.
-	* **country** - `string` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **country** - `MosaicLabelValue` required - Object containing the label and value of the country.
 	* **postalCode** - `string` required - Postal code of the address.
-	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **state** - `MosaicLabelValue` required - Object containing the label and value of the state.
 	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
 - inputSettings:
 
@@ -398,11 +398,22 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | **`amountShipping`** | `number` | optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType. |
 | **`amountPhysical`** | `number` | optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.|
 | **`amountBilling`** | `number` | optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType. |
-| **`getOptionsCountries`** | `() => Promise<MosaicLabelValue[` | required - Option for getting the options for the countries dropdown.|
-| **`getOptionsStates`** | `(country: string) => Promise<MosaicLabelValue[]>` | required - Option for getting the options for the states dropdown, it receives a country code as parameter. |
+| **`getOptionsCountries`** | `(): Promise<MosaicLabelValue[]>` | Required - Returns a list of mapped countries in the shape of label-value array. |
+| **`getOptionsStates`** | `(country: string): Promise<MosaicLabelValue[]>` | Given a country value it returns the list of states of the given country in the shape of label-value array. |
+| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to access Place Autocomplete Google web service that returns place predictions in response to an HTTP request. |
 
 ### How to use in a form?
 ```ts
+const getOptionsCountries = async () => {
+	const countriesArr: MosaicLabelValue[] = await countriesMicroService();
+	return countriesArr;
+}
+
+const getOptionsStates = async (country) => {
+	const statesArr: MosaicLabelValue[] = await statesMicroService(country);
+	return statesArr;
+}
+
 const fields = useMemo(
 	() =>
 		[
@@ -414,7 +425,10 @@ const fields = useMemo(
 					amountPerType: 1,
 					amountShipping: 0,
 					amountPhysical: 2,
-					amountBilling: 3
+					amountBilling: 3,
+					getOptionsCountries,
+					getOptionsStates,
+					googleMapsApiKey: "ABCDEFG1234567890"
 				},
 			},
 			//...other fields
@@ -445,7 +459,7 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | **`createNewOption`** | `(newOptionLabel: string) => Promise<MosaicLabelValue>` | optional -  Function used to insert more options either on the local options array, or on the DB. |
 | **`options`** | `MosaicLabelValue[]` | required -  Used to set the full info (label, value) of all selected options. This prop only applies when getting options locally. The label is the text the users will see to identify the option and the value will be saved to the DV when the option gets selected. |
 | **`getOptions`** | `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` | required - Function to get the next set of options. This prop only applies when getting options from a DB. |
-| **`getOptionsLimit`** | `number | string` | optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB. |
+| **`getOptionsLimit`** | `number or string` | optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB. |
 | **`selectLimit`** | `number` | optional - Defines the maximum amount of options users can select. Passing undefined or not passing it at all allows users to select as many as they want. |
 
 ### How to use in a form?
@@ -991,44 +1005,77 @@ const fields = useMemo(
 );
 ```
 
-## FormFieldAddress
+## FormFieldUpload
 This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-- Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
-- [**Playground**](/?path=/story/formfields-formfieldaddress--playground)
-- Data: `object`
-	* **address1** - `string` required - Main address.
-	* **address2** - `string` optional - Additional address.
-	* **address3** - `string` optional - Additional address.
-	* **city** - `string` required - Name of the city.
-	* **country** - `string` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
-	* **postalCode** - `string` required - Postal code of the address.
-	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
-	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
+- The FormFieldUpload component allows users to upload multiple files of any type.
+- [**Playground**](/?path=/story/formfields-formfieldupload--playground)
+- Data: `array` of `UploadData`:
+	* **id** - `string | number` required - Used to identify which file is being used to work with (delete, add, update its loading percentage, etc).
+	* **name** - `string` required - Name the user will see when the file card gets rendered.
+	* **size** - `string` required - Value that will render under the name. The component doesn't add the suffix "b, mb, kb, ..." to the size, that also needs to come included in the string.
+	* **url** - `string` optional - Link used to render the image next in the file card. If none provided a default file icon will appear instead.
 - inputSettings:
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| **`amountPerType`** | `number` | Optional - Limits the types of addresses that can be selected. |
-| **`amountShipping`** | `number` | Optional - Limits the shipping addresses that can be added. |
-| **`amountBilling`** | `number` | Optional - Limits the billing addresses that can be added. |
-| **`amountPhysical`** | `number` | Optional - Limits the physical addresses that can be added. |
-| **`getOptionsCountries`** | `(): Promise<MosaicLabelValue[]>` | Required - Returns a list of mapped countries in the shape of label-value array. |
-| **`getOptionsStates`** | `(country: string): Promise<MosaicLabelValue[]>` | Given a country value it returns the list of states of the given country in the shape of label-value array. |
-| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to access Place Autocomplete Google web service that returns place predictions in response to an HTTP request. |
+| **`onFileAdd`** | `(addedData: OnFileAddData) => Promise<void>` | required - Callback function executed per uploaded file. |
+| **`onFileDelete`** | `({id: string or number}) => Promise<void>` | required - Callback function executed when the user deletes an uploaded file. |
+| **`limit`** | `number` | optional - Limits the amount of files users can upload. If not passed users can add as many files as needed. |
+
+- OnFileAddData:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`blob`** | `File` | required - asdhjaslk. |
+| **`onChunkComplete`** | `({percent: number}) => Promise<void>` | required - Callback function that allows the file cards to update their progress spinner. The expected percent should be a value between 0 and 1. |
+| **`onUploadComplete`** | `(data: UploadData) => Promise<void>` | required - Callback function that allows the component to update the file cards with the newest data |
+| **`onError`** | `(message: string) => Promise<void>` | required - Callback function that allows the file cards to update their style and error message. |
 
 ### How to use in a form?
+
 ```ts
+const onFileAdd = async ({blob, onChunkComplete, onUploadComplete, onError}) => {
+	for (let i = 0; i < 10; i++) {
+		await new Promise(resolve => setTimeout(() =>
+			resolve(
+				onChunkComplete({percent: (i + 1) * 0.1})
+			), 300)
+		);
+	}
+
+	if (Math.random() < 0.3) {
+		await onError("File size exceeded");
+		return;
+	}
+
+	await onUploadComplete({
+		id: nanoid(),
+		name: blob.name,
+		size: `${blob.size} bytes`,
+		url: Math.random() < 0.7 ? URL.createObjectURL(blob) : undefined
+	});
+};
+
+const onFileDelete = ({id}) => {
+	alert("DELETED FILE: " + id);
+}
+
 const fields = useMemo(
 	() =>
 		[
 			//...other fields
 			{
-				//...all generic field props,
-				type: 'address',
+				//...all generic field props
+				type: "upload",
+				inputSettings: {
+					onFileAdd,
+					onFileDelete,
+					limit: 2,
+				},
 			},
 			//...other fields
-		],
+		] as FieldDef<UploadDef>[],
 	[]
 );
 ```
