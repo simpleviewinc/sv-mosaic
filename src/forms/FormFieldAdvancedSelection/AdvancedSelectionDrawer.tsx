@@ -19,7 +19,6 @@ import {
 } from "./AdvancedSelection.styled";
 import AddIcon from "@mui/icons-material/Add";
 import ChipList from "./ChipList";
-import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import LoadMoreButton from "./LoadMoreButton";
 import { AdvanceSelectionDrawerPropTypes } from ".";
 import _ from "lodash";
@@ -378,7 +377,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 							(fieldDef?.inputSettings?.options && filteredList) ||
 							(fieldDef?.inputSettings?.getOptions && (() => filteredList)),
 					},
-				} as FieldDef<FormFieldCheckboxDef>,
+				},
 				{
 					name: "loadMoreButton",
 					type: LoadMoreButton,
@@ -390,7 +389,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 						parentInputSettings: fieldDef?.inputSettings,
 					},
 				},
-			] as FieldDef[],
+			],
 		[
 			filteredList,
 			searchInput,
@@ -437,7 +436,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				type='drawer'
 				state={state}
 				dispatch={dispatch}
-				fields={fields}
+				fields={fields as FieldDef[]}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
 			/>

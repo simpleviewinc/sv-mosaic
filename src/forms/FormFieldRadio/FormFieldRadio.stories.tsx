@@ -42,7 +42,7 @@ export const Playground = (): ReactElement => {
 		"Local"
 	);
 
-	const fields: FieldDef[] = useMemo(
+	const fields = useMemo(
 		() =>
 			[
 				{
@@ -58,7 +58,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				}
-			],
+			] as FieldDef[],
 		[label, required, disabled, instructionText, helperText, optionsOrigin]
 	);
 
@@ -80,7 +80,7 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	const fields: FieldDef[] = useMemo(
+	const fields = useMemo(
 		() =>
 			[
 				{
@@ -119,7 +119,7 @@ export const KitchenSink = (): ReactElement => {
 					helperText: "Helper text",
 					instructionText: "Instruction text",
 				},
-			],
+			] as FieldDef[],
 		[]
 	);
 

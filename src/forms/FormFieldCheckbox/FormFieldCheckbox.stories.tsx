@@ -31,7 +31,7 @@ export const Playground = (): ReactElement => {
 		"Local"
 	);
 
-	const fields: FieldDef[] = useMemo(
+	const fields = useMemo(
 		() =>
 			[
 				{
@@ -47,7 +47,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			],
+			] as FieldDef[],
 		[required, disabled, label, instructionText, helperText, optionsOrigin]
 	);
 
@@ -67,7 +67,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkFields: FieldDef[] = [
+const kitchenSinkFields = [
 	{
 		name: "checkbox",
 		label: "Regular example",
@@ -116,7 +116,7 @@ const kitchenSinkFields: FieldDef[] = [
 		helperText: 'Helper Text',
 		instructionText: 'InstructionText',
 	}, */
-];
+] as FieldDef[];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
