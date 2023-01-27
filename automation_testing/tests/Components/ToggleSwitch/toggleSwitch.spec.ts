@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { ToggleSwitchPage } from "../../../pages/Components/ToggleSwitch/ToggleSwitchPage";
 import theme from "../../../../src/theme";
-import { knobs } from "../../../utils/data/knobs";
+import { commonKnobs } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - ToggleSwitch - Example", () => {
 	let page: Page;
@@ -31,7 +31,7 @@ test.describe.parallel("Components - ToggleSwitch - Example", () => {
 
 	test("Validate Toggle switch track has simplyGrey as background color when disabled.", async () => {
 		const expectColor = theme.newColors.simplyGrey["100"];
-		await togglePage.visitPage([knobs.knobDisabled + "true"]);
+		await togglePage.visitPage([commonKnobs.knobDisabled + "true"]);
 		expect(await togglePage.getBackgroundColorFromElement(togglePage.toggleSwitchTrack)).toBe(expectColor);
 	});
 });
