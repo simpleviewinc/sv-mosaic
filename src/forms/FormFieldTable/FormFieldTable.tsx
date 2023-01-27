@@ -28,7 +28,7 @@ import {
 	TrHead,
 } from "./Table.styled";
 
-const FormFieldTable = (props: MosaicFieldProps<"textEditor", TableInputSettings, TableData>): ReactElement => {
+const FormFieldTable = (props: MosaicFieldProps<"table", TableInputSettings, TableData>): ReactElement => {
 	const { fieldDef, value, onChange } = props;
 
 	// State varialbles
