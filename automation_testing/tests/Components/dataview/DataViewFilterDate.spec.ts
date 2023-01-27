@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { DataViewFilterDateComponent } from "../../../pages/Components/DataView/DataViewFilterDateComponent";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
-import { knobs } from "../../../utils/data/knobs";
+import { commonKnobs } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - DataViewFilterDate - Example", () => {
 	let page: Page;
@@ -18,7 +18,7 @@ test.describe.parallel("Components - DataViewFilterDate - Example", () => {
 	});
 
 	test("Validate Dataview Filter Date select pre filled values.", async () => {
-		await dataViewFilterDate.visitPage([knobs.knobShowOptions + "true"]);
+		await dataViewFilterDate.visitPage([commonKnobs.knobShowOptions + "true"]);
 		await dataViewFilterDate.dateFilterButton.click();
 		const randomPosition = randomIntFromInterval(1, await dataViewFilterDate.menuItem.count() - 1);
 		const optionToSelect = await dataViewFilterDate.menuItem.nth(randomPosition).textContent();
