@@ -36,29 +36,13 @@ export function coreReducer(state: State, action: Action): State {
 				[action.name]: action.value
 			}
 		};
-	case "FIELD_START_VALIDATE":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: null
-			},
-			validating: {
-				...state.validating,
-				[action.name]: true
-			}
-		};
-	case "FIELD_END_VALIDATE":
+	case "FIELD_VALIDATE":
 		return {
 			...state,
 			errors: {
 				...state.errors,
 				[action.name]: action.value
 			},
-			validating: {
-				...state.validating,
-				[action.name]: undefined
-			}
 		};
 	case "FORM_START_DISABLE":
 		return {
