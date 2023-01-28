@@ -68,7 +68,7 @@ export const formActions = {
 			}
 
 			if (validate) {
-				dispatch(formActions.validateField({ name }));
+				await dispatch(formActions.validateField({ name }));
 			}
 		};
 	},
