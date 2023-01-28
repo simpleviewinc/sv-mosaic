@@ -65,24 +65,33 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			formActions.setFieldValue({
 				name: "placesList",
 				value: { lat: Number(lat), lng: Number(lng) },
-				validate: true
 			})
+		);
+
+		await dispatch(
+			formActions.validateField({name: "placesList"})
 		);
 
 		await dispatch(
 			formActions.setFieldValue({
 				name: "lat",
 				value: lat,
-				validate: true
 			})
+		);
+
+		await dispatch(
+			formActions.validateField({name: "lat"})
 		);
 
 		await dispatch(
 			formActions.setFieldValue({
 				name: "lng",
 				value: lng,
-				validate: true
 			})
+		);
+
+		await dispatch(
+			formActions.validateField({name: "lng"})
 		);
 	}, []);
 
@@ -117,16 +126,22 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			formActions.setFieldValue({
 				name: "lat",
 				value: coordinates.lat,
-				validate: true
 			})
+		);
+
+		await dispatch(
+			formActions.validateField({name: "lat"})
 		);
 
 		await dispatch(
 			formActions.setFieldValue({
 				name: "lng",
 				value: coordinates.lng,
-				validate: true
 			})
+		);
+
+		await dispatch(
+			formActions.validateField({name: "lng"})
 		);
 	};
 
