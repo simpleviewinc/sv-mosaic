@@ -11,5 +11,6 @@ export const cardKnobs = {
 }
 
 export const uploadKnobs = {
-	knobLimit: "knob-Limit="
+	knobUploadLimit: "knob-Limit=",
+	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading="
 }
