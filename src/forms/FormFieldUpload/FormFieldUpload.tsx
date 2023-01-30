@@ -72,6 +72,9 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	const fileDrop = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
+		setIsOver(false);
+		const droppedFiles = { target: { files: e.dataTransfer.files }};
+		handleNewFileUpload(droppedFiles);
 	};
 
 	/**
@@ -124,11 +127,13 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
 
+		const pendingWithoutError = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
+
 		if (
 			limit !== undefined
 			&& limit >= 0
 			&& (
-				(value !== undefined ? value.length : 0) + newFiles.length > limit
+				(value !== undefined ? value.length : 0) + newFiles.length + pendingWithoutError > limit
 			)
 		) {
 			setOpenSnackbar(true);
@@ -178,6 +183,14 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 
 		const newValues = [...value].filter(file => file.id !== id);
 		await onChange(newValues);
+	}
+
+	const handleErrorDelete = async ({id}) => {
+		setPendingFiles((prevState) => {
+			const newPendingFiles = {...prevState};
+			delete newPendingFiles[id];
+			return newPendingFiles;
+		});
 	}
 
 	const closeSnackbar = (_event?: SyntheticEvent, reason?: string) => {
@@ -236,7 +249,7 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 				<DragAndDropContainer width={"620px"}>
 					<>
 						<DragAndDropSpan>
-							Drag & Drop files here or DISABLED
+							Drag & Drop files here or
 						</DragAndDropSpan>
 						<Button
 							color="gray"
@@ -279,14 +292,15 @@ const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
 								url={file.data?.url}
 								error={file.error}
 								percent={file.percent}
+								onFileDelete={file.error && handleErrorDelete}
 							/>
 						)
 					})}
 				</StyledFileGrid>
 			}
 			<Snackbar
-				autoHideDuration={4000}
-				label={`Upload limited to only ${limit} files`}
+				autoHideDuration={6000}
+				label={`Upload limited to only ${limit} files. If there are pending files please try again when all files have finished uploading.`}
 				open={openSnackBar}
 				onClose={closeSnackbar}
 			/>
