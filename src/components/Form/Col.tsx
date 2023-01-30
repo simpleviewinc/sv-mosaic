@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { formActions } from "./formActions";
 
 import FormFieldText from "@root/forms/FormFieldText";
-import FormFieldTextArea from "@root/forms/FormFieldTextArea";
 import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
 import FormFieldChipSingleSelect from "@root/forms/FormFieldChipSingleSelect";
 import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
@@ -55,7 +54,6 @@ const Col = (props: ColPropsTypes) => {
 
 	const componentMap = useMemo(() => ({
 		text: FormFieldText,
-		textArea: FormFieldTextArea,
 		checkbox: FormFieldCheckbox,
 		chip: FormFieldChipSingleSelect,
 		dropdown: FormFieldDropdownSingleSelection,

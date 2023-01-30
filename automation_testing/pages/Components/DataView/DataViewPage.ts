@@ -6,7 +6,7 @@ import { SaveAsComponent } from "./SaveAsComponent";
 
 export class DataviewPage extends BasePage {
 
-	readonly page_path = "components-dataview--example";
+	readonly page_path = "components-dataview--playground";
 
 	readonly page: Page;
 	readonly saveAsComponent: SaveAsComponent;
