@@ -79,6 +79,8 @@ export const Playground = (): ReactElement => {
 
 	const showState = boolean("Show state", false);
 	const prepopulate = boolean("Prepopulate", false);
+	const defaultValuesKnob = select("Default Values", ["None", "Has Defaults"], "None");
+	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
 	const showSave = boolean("Show SAVE button", true);
 	const showCancel = boolean("Show CANCEL button", true);
 	const required = boolean("Required", true);
@@ -199,6 +201,8 @@ export const Playground = (): ReactElement => {
 		}
 	});
 
+	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob ===  "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
+
 	const fields = useMemo(
 		() =>
 			[
@@ -207,14 +211,16 @@ export const Playground = (): ReactElement => {
 					label: "Simple Text",
 					type: "text",
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && "Passing default value",
 				} as FieldDef<TextFieldDef>,
 				{
 					name: "textArea",
 					label: "Text Area",
 					type: "textArea",
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && "Passing default value",
 				} as FieldDef<TextAreaDef>,
 				{
 					name: "check",
@@ -225,6 +231,20 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: checkboxOptions
 					},
+					defaultValue: showDefaultValues && [
+						{
+							label: "Label 1",
+							value: "label_1"
+						},
+						{
+							label: "Label 2",
+							value: "label_2"
+						},
+						{
+							label: "Label 3",
+							value: "label_3"
+						}
+					],
 				} as FieldDef<FormFieldCheckboxDef>,
 				{
 					name: "chipSelect",
@@ -247,7 +267,11 @@ export const Playground = (): ReactElement => {
 						],
 					},
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && {
+						"label": "Label 3",
+						"value": "label_3"
+					}
 				} as FieldDef<FormFieldChipSingleSelectDef>,
 				{
 					name: "dropdownSingle",
@@ -281,13 +305,18 @@ export const Playground = (): ReactElement => {
 							{ label: "Se7en", value: "1995" },
 						],
 					},
+					defaultValue: showDefaultValues && {
+						label: "The Shawshank Redemption",
+						value: "1994"
+					}
 				} as FieldDef<DropdownSingleSelectionDef>,
 				{
 					name: "phoneSelect",
 					label: "Phone selection",
 					type: "phone",
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && "15205751151"
 				},
 				{
 					name: "radio",
@@ -310,6 +339,10 @@ export const Playground = (): ReactElement => {
 								value: "label_3"
 							}
 						],
+					},
+					defaultValue: showDefaultValues && {
+						label: "Label 3",
+						value: "label_3"
 					}
 				} as FieldDef<FormFieldRadioDef>,
 				{
@@ -320,7 +353,8 @@ export const Playground = (): ReactElement => {
 					type: "toggleSwitch",
 					inputSettings: {
 						toggleLabel: "To the side"
-					}
+					},
+					defaultValue: showDefaultValues && true
 				} as FieldDef<FormFieldToggleSwitchDef>,
 				{
 					name: "color",
@@ -328,6 +362,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					type: "color",
+					defaultValue: showDefaultValues && "#19a80091"
 				},
 				{
 					name: "date",
@@ -335,6 +370,7 @@ export const Playground = (): ReactElement => {
 					type: "date",
 					disabled,
 					required,
+					defaultValue: showDefaultValues && new Date()
 				},
 				{
 					name: "address",
@@ -346,7 +382,22 @@ export const Playground = (): ReactElement => {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && [
+						{
+							"id": 1,
+							"address1": "8950 N. Oracle Road",
+							"city": "Tuczon",
+							"postalCode": "85704",
+							"country": {label: "United States", value: "US"},
+							"state": {label: "Arizona", value: "AZ"},
+							"types": [
+								{label: "Physical", value: "physical"},
+								{label: "Billing", value: "billing"},
+								{label: "Shipping", value: "shipping"}
+							]
+						}
+					]
 				},
 				{
 					name: "advancedSelection",
@@ -357,7 +408,45 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: additionalOptions,
 						createNewOption
-					}
+					},
+					defaultValue: showDefaultValues && [
+						{
+							label: "Default Value 1",
+							value: "def option 1"
+						},
+						{
+							label: "Default Value 2",
+							value: "def option 2"
+						},
+						{
+							label: "Option 1",
+							value: "option_1-cat_1",
+						},
+						{
+							label: "Option 2",
+							value: "option_2-cat_1",
+						},
+						{
+							label: "Option 3",
+							value: "option_3-cat_1",
+						},
+						{
+							label: "Option 4",
+							value: "option_4-cat_1",
+						},
+						{
+							label: "Option 1 category 2",
+							value: "option_1-cat_2",
+						},
+						{
+							label: "Test option category 2",
+							value: "option_2-cat_2",
+						},
+						{
+							label: "Another option of catergory 2",
+							value: "option_3-cat_2",
+						},
+					]
 				} as FieldDef<AdvancedSelectionDef>,
 				{
 					name: "imageVideoDocumentLink",
@@ -373,14 +462,41 @@ export const Playground = (): ReactElement => {
 						handleSetLink: setLink,
 						handleRemove,
 						src: imageVideoSrc,
-					}
+					},
+					defaultValue: showDefaultValues && [
+						{
+							"label": "Title",
+							"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
+						},
+						{
+							"label": "Type",
+							"value": "Image Video Thumbnail"
+						},
+						{
+							"label": "Alt",
+							"value": "-"
+						},
+						{
+							"label": "Size",
+							"value": "1280x720"
+						},
+						{
+							"label": "Focus",
+							"value": "No"
+						},
+						{
+							"label": "Locales",
+							"value": "-"
+						}
+					]
 				} as FieldDef<ImageVideoDocumentLinkBrowsingDef>,
 				{
 					name: "textEditor",
 					label: "Text Editor field",
 					type: "textEditor",
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && "Passing default value"
 				},
 				{
 					name: "table",
@@ -394,7 +510,18 @@ export const Playground = (): ReactElement => {
 						handleDelete: deleteTableRow,
 						extraActions: extraActionsTable,
 						headers,
-					}
+					},
+					defaultValue: showDefaultValues && [
+						{
+							"id": "1",
+							"items": [
+								"John",
+								"john@email.com",
+								"01/01/2021",
+								"3231-962-7516"
+							]
+						}
+					]
 				} as FieldDef<TableDef>,
 				{
 					name: "imageUpload",
@@ -404,6 +531,13 @@ export const Playground = (): ReactElement => {
 					required,
 					inputSettings: {
 						options: menuOptions
+					},
+					defaultValue: showDefaultValues && {
+						"imgName": "image (2).png",
+						"size": 61571,
+						"type": "image/png",
+						"height": 600,
+						"width": 777
 					}
 				} as FieldDef<ImageUploadDef>,
 				{
@@ -414,10 +548,14 @@ export const Playground = (): ReactElement => {
 					required,
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
+					},
+					defaultValue: showDefaultValues && {
+						"lat": 32.3395031,
+						"lng": -110.9864294
 					}
 				} as FieldDef<MapCoordinatesDef>,
 			] as unknown as FieldDef[],
-		[additionalOptions, disabled, required]
+		[additionalOptions, disabled, required, showDefaultValues]
 	);
 
 	const sections = [
@@ -469,10 +607,14 @@ export const Playground = (): ReactElement => {
 	const getFormValues = useCallback(async () => {
 		await new Promise((res) => setTimeout(res, 1000));
 
-		return {
-			...prepopulateValues
-		};
-	}, [prepopulateValues]);
+		if (showGetFormValues === "Returns Undefined") {
+			return undefined;
+		} else {
+			return {
+				...prepopulateValues
+			};
+		}
+	}, [prepopulateValues, showGetFormValues, showDefaultValues]);
 
 	useEffect(() => {
 		const resetForm = async () => {
@@ -480,7 +622,7 @@ export const Playground = (): ReactElement => {
 			setLoadReady(true);
 		};
 		prepopulate ? resetForm() : setLoadReady(false);
-	}, [prepopulate]);
+	}, [prepopulate, showGetFormValues, showDefaultValues]);
 
 	return (
 		<>
@@ -494,7 +636,7 @@ export const Playground = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					getFormValues={loadReady && getFormValues}
+					getFormValues={showGetFormValues === "None" ? loadReady && undefined : loadReady && getFormValues}
 					sections={showSections > 0 && sectionsAmount}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 					tooltipInfo={showTooltipInfo && tooltipInfo}
