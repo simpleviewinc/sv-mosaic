@@ -55,7 +55,7 @@ describe("TextField multiline behaviour", () => {
 					helperText: "Helper text",
 					inputSettings: {
 						placeholder: "placeholder",
-						multiline: true,
+						multiline: true
 					},
 				}}
 
