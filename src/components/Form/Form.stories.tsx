@@ -201,7 +201,7 @@ export const Playground = (): ReactElement => {
 		}
 	});
 
-	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob ===  "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
+	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob === "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
 
 	const fields = useMemo(
 		() =>
