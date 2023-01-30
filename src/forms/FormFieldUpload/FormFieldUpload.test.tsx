@@ -83,7 +83,7 @@ describe("FormFieldUpload", () => {
 			target: { files },
 		});
 
-		const snackbar = screen.getByText(`Upload limited to only ${fieldDefWithLimit.inputSettings.limit} files`);
+		const snackbar = screen.getByText(`Upload limited to only ${fieldDefWithLimit.inputSettings.limit} files. If there are pending files please try again when all files have finished uploading.`);
 		expect(snackbar).toBeInTheDocument();
 
 	});
