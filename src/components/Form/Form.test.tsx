@@ -297,31 +297,7 @@ describe("REDUCERS: FIELD_ON_CHANGE", () => {
 	runTests(tests, "reducer");
 });
 
-describe("REDUCERS: FIELD_START_VALIDATE", () => {
-	const tests = [
-		{
-			name: "FIELD_START_VALIDATE",
-			args: {
-				action: {
-					name: "field1",
-					type: "FIELD_START_VALIDATE",
-				},
-				result: {
-					errors: {
-						"field1": null,
-					},
-					validating: {
-						"field1": true,
-					}
-				},
-			},
-		}
-	];
-
-	runTests(tests, "reducer");
-});
-
-describe("REDUCERS: FIELD_END_VALIDATE", () => {
+describe("REDUCERS: FIELD_VALIDATE", () => {
 	const tests = [
 		{
 			name: "Invalid field",
@@ -329,7 +305,7 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 				action: {
 					name: "field1",
 					value: "This field is required, please fill it!",
-					type: "FIELD_END_VALIDATE",
+					type: "FIELD_VALIDATE",
 				},
 				state: {
 					data: {
@@ -338,9 +314,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 					errors: {
 						"foo": undefined,
 					},
-					validating: {
-						"foo": undefined,
-					}
 				},
 				result: {
 					data: {
@@ -350,10 +323,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 						"field1": "This field is required, please fill it!",
 						"foo": undefined,
 					},
-					validating: {
-						"field1": undefined,
-						"foo": undefined,
-					}
 				},
 			},
 		},
@@ -363,7 +332,7 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 				action: {
 					name: "field1",
 					value: undefined,
-					type: "FIELD_END_VALIDATE",
+					type: "FIELD_VALIDATE",
 				},
 				state: {
 					data: {
@@ -374,10 +343,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 						"foo": null,
 						"field1": null,
 					},
-					validating: {
-						"foo": null,
-						"field1": true,
-					}
 				},
 				result: {
 					data: {
@@ -388,10 +353,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 						"foo": null,
 						"field1": undefined,
 					},
-					validating: {
-						"foo": null,
-						"field1": undefined,
-					}
 				}
 			},
 		},
@@ -599,11 +560,7 @@ describe("DISPATCHERS: validateField", () => {
 				args: [{ name: "testField" }],
 				calls: [
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "testField",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "testField",
 						value: undefined,
 					}
@@ -627,11 +584,7 @@ describe("DISPATCHERS: validateField", () => {
 				args: [{ name: "testField" }],
 				calls: [
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "testField",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "testField",
 						value: "This field is required, please fill it",
 					}
@@ -685,29 +638,17 @@ describe("DISPATCHERS: validateForm", () => {
 						value: true,
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field2",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field2",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field3",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field3",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field4",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field4",
 						value: "This field is required, please fill it",
 					},
@@ -820,29 +761,17 @@ describe("DISPATCHERS: submitForm", () => {
 						value: true,
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field2",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field2",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field3",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field3",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field4",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field4",
 						value: "This field is required, please fill it",
 					},
