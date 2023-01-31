@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[27],{2494:function(module,exports){module.exports=function(hljs){return{contains:[{className:"meta",begin:/^([\w.-]+|\s*#_)?=>/,starts:{end:/$/,subLanguage:"clojure"}}]}}}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_clojureRepl.5162e0643416a013e653.bundle.js.map
