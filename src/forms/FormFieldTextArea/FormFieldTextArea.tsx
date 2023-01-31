@@ -22,7 +22,7 @@ const TextArea = (
 	return (
 		<StyledTextArea
 			id={fieldDef.name}
-			value={value ?? ""}
+			value={value}
 			onChange={(e) => onChange && onChange(e.target.value)}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
 			variant='outlined'
