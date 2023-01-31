@@ -32,6 +32,7 @@ import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
 import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
+import { nanoid } from "nanoid";
 
 export default {
 	title: "Components/Form",
@@ -194,8 +195,68 @@ export const Playground = (): ReactElement => {
 		"mapCoordinates": {
 			"lat": 32.3395031,
 			"lng": -110.9864294
-		}
+		},
+		"upload": [
+			{
+				"id": "1",
+				"name": "roomBlocks.xslx",
+				"size": "386359 bytes",
+			},
+			{
+				"id": "2",
+				"name": "floorplan.jpg",
+				"size": "282010 bytes",
+			},
+			{
+				"id": "3",
+				"name": "SV.png",
+				"size": "151418 bytes",
+				"url": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
+			},
+			{
+				"id": "4",
+				"name": "MyHotel-AZ.png",
+				"size": "1447671 bytes"
+			},
+			{
+				"id": "5",
+				"name": "opportunity.pdf",
+				"size": "20842780 bytes"
+			},
+			{
+				"id": "6",
+				"name": "summit.png",
+				"size": "840038 bytes",
+				"url": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
+			},
+		],
 	});
+
+	const onFileAdd = async ({blob, onChunkComplete, onUploadComplete, onError}) => {
+		for (let i = 0; i < 10; i++) {
+			await new Promise(resolve => setTimeout(() =>
+				resolve(
+					onChunkComplete({percent: (i + 1) * 0.1})
+				), 300)
+			);
+		}
+
+		if (Math.random() < 0.3) {
+			await onError("File size exceeded");
+			return;
+		}
+
+		await onUploadComplete({
+			id: nanoid(),
+			name: blob.name,
+			size: `${blob.size} bytes`,
+			url: Math.random() < 0.7 ? URL.createObjectURL(blob) : undefined
+		});
+	};
+
+	const onFileDelete = ({id}) => {
+		alert("DELETED FILE: " + id);
+	}
 
 	const fields = useMemo(
 		() =>
@@ -399,7 +460,7 @@ export const Playground = (): ReactElement => {
 				} as FieldDef<ImageUploadDef>,
 				{
 					name: "mapCoordinates",
-					label: "Map Coordinates Example",
+					label: "Map Coordinates example",
 					type: "mapCoordinates",
 					disabled,
 					required,
@@ -407,6 +468,18 @@ export const Playground = (): ReactElement => {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					}
 				} as FieldDef<MapCoordinatesDef>,
+				{
+					name: "upload",
+					label: "Upload example",
+					type: "upload",
+					disabled,
+					required,
+					inputSettings: {
+						onFileAdd,
+						onFileDelete,
+						limit: undefined,
+					}
+				}
 			] as unknown as FieldDef[],
 		[additionalOptions, disabled, required]
 	);
