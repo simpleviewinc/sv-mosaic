@@ -57,32 +57,41 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * When the map is clicked the lat and lng fields and
 	 * the coordinates that center the map are updated.
 	 */
-	const onMapClick = useCallback((event: google.maps.MapMouseEvent) => {
+	const onMapClick = useCallback(async (event: google.maps.MapMouseEvent) => {
 		const lat = event.latLng.lat();
 		const lng = event.latLng.lng();
 
-		dispatch(
+		await dispatch(
 			formActions.setFieldValue({
 				name: "placesList",
 				value: { lat: Number(lat), lng: Number(lng) },
-				validate: true
 			})
 		);
 
-		dispatch(
+		await dispatch(
+			formActions.validateField({name: "placesList"})
+		);
+
+		await dispatch(
 			formActions.setFieldValue({
 				name: "lat",
 				value: lat,
-				validate: true
 			})
 		);
 
-		dispatch(
+		await dispatch(
+			formActions.validateField({name: "lat"})
+		);
+
+		await dispatch(
 			formActions.setFieldValue({
 				name: "lng",
 				value: lng,
-				validate: true
 			})
+		);
+
+		await dispatch(
+			formActions.validateField({name: "lng"})
 		);
 	}, []);
 
@@ -104,29 +113,35 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * when the user selects one of the suggested options by the autocomplete
 	 * google component.
 	 */
-	const handleCoordinates = (coordinates: MapPosition) => {
+	const handleCoordinates = async (coordinates: MapPosition) => {
 		setCenter(coordinates);
-		dispatch(
+		await dispatch(
 			formActions.setFieldValue({
 				name: "placesList",
 				value: coordinates,
 			})
 		);
 
-		dispatch(
+		await dispatch(
 			formActions.setFieldValue({
 				name: "lat",
 				value: coordinates.lat,
-				validate: true
 			})
 		);
 
-		dispatch(
+		await dispatch(
+			formActions.validateField({name: "lat"})
+		);
+
+		await dispatch(
 			formActions.setFieldValue({
 				name: "lng",
 				value: coordinates.lng,
-				validate: true
 			})
+		);
+
+		await dispatch(
+			formActions.validateField({name: "lng"})
 		);
 	};
 
