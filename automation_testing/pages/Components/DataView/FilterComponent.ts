@@ -53,7 +53,7 @@ export class FilterComponent extends BasePage {
 
 		this.categoryItems = page.locator(".listItem label");
 		this.selectedOptions = page.locator(".chips div");
-		this.loadMoreBtn = page.locator(".loadContainer [type='button']");
+		this.loadMoreBtn = page.locator(".loadContainer button");
 		this.moreCategoriesTooltip = page.locator("[data-testid='tooltip-test-id']");
 		this.clearBtn = page.locator("div[role='presentation'] >> text=Clear");
 		this.filtersRowLocator = page.locator("//*[@id='root']/div/div/div[1]/div/div[2]/div");
@@ -116,6 +116,7 @@ export class FilterComponent extends BasePage {
 
 	async displayAllCategories(): Promise<void> {
 		while (await this.loadMoreBtn.count() >= 1) {
+			await this.loadMoreBtn.scrollIntoViewIfNeeded();
 			await this.loadMoreBtn.click();
 		}
 	}

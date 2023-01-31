@@ -71,11 +71,6 @@ export class BasePage {
 		await element.waitFor();
 	}
 
-	async visitWithKnobs(page_path: string, element: Locator, knobs: string[]): Promise<void> {
-		await this.page.goto(urlWithKnobs(page_path, knobs), { timeout: 900000 });
-		await element.waitFor();
-	}
-
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
 		await component.waitFor({ state: "visible" });
 		await component.waitFor({ state: "attached" });
