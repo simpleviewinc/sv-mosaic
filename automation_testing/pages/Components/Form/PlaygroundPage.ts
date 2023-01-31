@@ -62,13 +62,13 @@ export class PlaygroundPage extends BasePage {
 		this.singleDatePickerIcon = page.locator("button [data-testid='CalendarIcon']");
 		this.singleDatePickerInput = page.locator("input[placeholder='MM / DD / YYYY']")
 		this.addressFieldButton = page.locator("text=ADD ADDRESS");
-		this.advancedSelectionFieldButton = page.locator("//*[@id='11']/div/div/div/div/div/span/button");
+		this.advancedSelectionFieldButton = page.locator("#advancedSelection button");
 		this.browseImageIcon = page.locator("[data-testid='browse-image-test']");
 		this.browseVideoIcon = page.locator("[data-testid='browse-video-test']");
 		this.browseDocumentIcon = page.locator("[data-testid='browse-document-test']");
 		this.browseLinkIcon = page.locator("[data-testid='browse-link-test']");
 		this.textEditorField = page.locator("[data-testid='text-editor-testid'] div[contenteditable='true']");
-		this.tableExampleButton = page.locator("//*[@id='14']/div/div/div/div/div/div[2]/span/button");
+		this.tableExampleButton = page.locator("#table button");
 		this.imageUploadExampleButton = page.locator("input[type='file']");
 		this.mapCoordinatesExampleButton = page.locator("text=ADD COORDINATES");
 		//Address Information
