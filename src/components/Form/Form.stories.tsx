@@ -152,30 +152,7 @@ export const Playground = (): ReactElement => {
 				"label": "Type",
 				"value": "Image Video Thumbnail"
 			}
-		],
-		"textEditor": "Text editor from getFormValues",
-		"table": [
-			{
-				"id": "1",
-				"items": [
-					"John",
-					"john@email.com",
-					"01/01/2021",
-					"3231-962-7516"
-				]
-			}
-		],
-		"imageUpload": {
-			"imgName": "image (2).png",
-			"size": 61571,
-			"type": "image/png",
-			"height": 600,
-			"width": 777
-		},
-		"mapCoordinates": {
-			"lat": 32.3395031,
-			"lng": -110.9864294
-		}
+		]
 	});
 
 	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob === "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
