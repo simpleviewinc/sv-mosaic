@@ -25,4 +25,14 @@ export type TextFieldDef = {
 	 * input type.
 	 */
 	type?: string;
+	/**
+	 * Minimum number of rows to display when multiline option
+	 * is set to true.
+	 */
+	minRows?: number;
+	/**
+	 * Maximum number of rows to display when multiline
+	 * option is set to true.
+	 */
+	maxRows?: number;
 };
