@@ -90,8 +90,8 @@ export const Playground = (): ReactElement => {
 	const showTooltipInfo = boolean("Show Tooltip info", false);
 	const showActive = boolean("Show active", false);
 	const prepopulateValues = object("Prepolulate values", {
-		"textField": "Text field prepopulated",
-		"textArea": "Text area prepopulated",
+		"textField": "Text field from getFormValues",
+		"textArea": "Text area from getFormValues",
 		"check": [
 			{
 				label: "Label 1",
@@ -110,7 +110,7 @@ export const Playground = (): ReactElement => {
 			"label": "The Dark Knight",
 			"value": "2008"
 		},
-		"phoneSelect": "15205751151",
+		"phoneSelect": "15205751152",
 		"radio": {
 			label: "Label 2",
 			value: "label_2"
@@ -128,55 +128,34 @@ export const Playground = (): ReactElement => {
 				"state": {label: "Arizona", value: "AZ"},
 				"types": [
 					{label: "Physical", value: "physical"},
-					{label: "Billing", value: "billing"},
-					{label: "Shipping", value: "shipping"}
 				]
 			}
 		],
 		"advancedSelection": [
 			{
-				label: "Prepopulated 1",
-				value: "prep option 1"
+				label: "getFormValues 1",
+				value: "getFormValues option 1"
 			},
 			{
-				label: "Prepopulated 2",
-				value: "prep option 2"
+				label: "getFormValues 2",
+				value: "getFormValues option 2"
 			},
 			{
-				label: "Prepopulated 3",
-				value: "prep option 3"
+				label: "getFormValues 3",
+				value: "getFormValues option 3"
 			},
 			{
-				label: "Prepopulated 4",
-				value: "prep option 4"
+				label: "getFormValues 4",
+				value: "getFormValues option 4"
 			}
 		],
 		"imageVideoDocumentLink": [
 			{
-				"label": "Title",
-				"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
-			},
-			{
 				"label": "Type",
 				"value": "Image Video Thumbnail"
-			},
-			{
-				"label": "Alt",
-				"value": "-"
-			},
-			{
-				"label": "Size",
-				"value": "1280x720"
-			},
-			{
-				"label": "Focus",
-				"value": "No"
-			},
-			{
-				"label": "Locales",
-				"value": "-"
 			}
 		],
+		"textEditor": "Text editor from getFormValues",
 		"table": [
 			{
 				"id": "1",
@@ -520,6 +499,15 @@ export const Playground = (): ReactElement => {
 								"01/01/2021",
 								"3231-962-7516"
 							]
+						},
+						{
+							"id": "1",
+							"items": [
+								"Mark",
+								"mark@email.com",
+								"01/01/2022",
+								"3231-962-7518"
+							]
 						}
 					]
 				} as FieldDef<TableDef>,
@@ -636,7 +624,7 @@ export const Playground = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					getFormValues={showGetFormValues === "None" ? loadReady && undefined : loadReady && getFormValues}
+					getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
 					sections={showSections > 0 && sectionsAmount}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 					tooltipInfo={showTooltipInfo && tooltipInfo}
