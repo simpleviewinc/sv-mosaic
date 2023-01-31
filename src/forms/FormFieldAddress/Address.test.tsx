@@ -1,4 +1,4 @@
-import { FieldDef } from "@root/components/Field";
+import { FieldDef, FieldDefBase } from "@root/components/Field";
 import {
 	render,
 	cleanup,
@@ -86,38 +86,34 @@ const address: IAddress = {
 	types: [{label: "Physical", value: "physical"}, {label: "Billing", value: "billing"}]
 };
 
-const fields = [
-	{
-		disabled: false,
-		label: "Address Form Field",
-		name: "address",
-		type: "address",
-	}
-] as FieldDef[];
-
 export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings; }): ReactElement => {
 	const {
 		state,
 		dispatch,
 	} = useForm();
 
-	const newFields = fields.map(field => props?.inputSettings ? ({
-		...field,
-		inputSettings: props.inputSettings,
-	}) : field);
+	const fields: FieldDef[] = [
+		{
+			disabled: false,
+			label: "Address Form Field",
+			name: "address",
+			type: "address",
+			inputSettings: props.inputSettings,
+		}
+	];
 
-	return (
-		<Form
-			state={state}
-			fields={newFields as FieldDef[]}
-			dispatch={dispatch}
-		/>
-	);
-};
+		return (
+			<Form
+				state={state}
+				fields={fields}
+				dispatch={dispatch}
+			/>
+		);
+	};
 
-const {
-	getByText,
-	getAllByTestId,
+	const {
+		getByText,
+		getAllByTestId,
 	getAllByRole,
 	queryAllByTestId,
 	queryByText,

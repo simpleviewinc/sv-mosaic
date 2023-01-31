@@ -67,7 +67,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkFields = [
+const kitchenSinkFields: FieldDef[] = [
 	{
 		name: "checkbox",
 		label: "Regular example",
@@ -100,7 +100,6 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			options: undefined,
 			getOptions
 		},
 		helperText: "Helper Text",
@@ -116,7 +115,7 @@ const kitchenSinkFields = [
 		helperText: 'Helper Text',
 		instructionText: 'InstructionText',
 	}, */
-] as FieldDef[];
+];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();

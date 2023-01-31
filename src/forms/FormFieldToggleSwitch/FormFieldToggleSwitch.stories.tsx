@@ -71,8 +71,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						toggleLabel: "Toggle label",
-						spellCheck: false
+						toggleLabel: "Toggle label"
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",
