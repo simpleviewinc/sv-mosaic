@@ -1,3 +1,4 @@
+import { FieldDefAddress } from "@root/forms/FormFieldAddress";
 import { FieldDefAdvancedSelection } from "@root/forms/FormFieldAdvancedSelection";
 import { FieldDefCheckbox } from "@root/forms/FormFieldCheckbox";
 import { FieldDefChip } from "@root/forms/FormFieldChipSingleSelect";
@@ -166,6 +167,7 @@ export type FieldDef =
 	| FieldDefChip
 	| FieldDefCheckbox
 	| FieldDefAdvancedSelection
+	| FieldDefAddress
 	| FieldDefCustom
 
 /*
