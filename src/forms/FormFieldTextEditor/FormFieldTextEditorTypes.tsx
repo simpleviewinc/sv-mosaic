@@ -7,6 +7,6 @@ export type TextEditorInputSettings = {
 	maxCharacters?: number;
 };
 
-export type TextEditorData = string
+export type TextEditorData = string;
 
 export type FieldDefTextEditor = FieldDefBase<"textEditor", TextEditorInputSettings, TextEditorData>
