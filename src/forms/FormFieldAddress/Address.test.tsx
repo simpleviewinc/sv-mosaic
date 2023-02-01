@@ -1,4 +1,4 @@
-import { FieldDef, FieldDefBase } from "@root/components/Field";
+import { FieldDef } from "@root/components/Field";
 import {
 	render,
 	cleanup,
@@ -102,18 +102,18 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInp
 		}
 	];
 
-		return (
-			<Form
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-			/>
-		);
-	};
+	return (
+		<Form
+			state={state}
+			fields={fields}
+			dispatch={dispatch}
+		/>
+	);
+};
 
-	const {
-		getByText,
-		getAllByTestId,
+const {
+	getByText,
+	getAllByTestId,
 	getAllByRole,
 	queryAllByTestId,
 	queryByText,
