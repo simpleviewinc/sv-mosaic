@@ -9,7 +9,6 @@ import {
 import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
-import { UploadDef } from "./FormFieldUploadTypes";
 import { nanoid } from "nanoid";
 import { defaultValues } from "./uploadUtils";
 
@@ -67,7 +66,7 @@ export const Playground = (): ReactElement => {
 		});
 	};
 
-	const onFileDelete = ({id}) => {
+	const onFileDelete = async ({id}) => {
 		alert("DELETED FILE: " + id);
 	}
 
@@ -78,7 +77,7 @@ export const Playground = (): ReactElement => {
 	}, []);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "uploadField",
@@ -94,7 +93,7 @@ export const Playground = (): ReactElement => {
 						onFileDelete
 					}
 				},
-			] as FieldDef<UploadDef>[],
+			],
 		[
 			label,
 			required,
