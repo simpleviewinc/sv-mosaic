@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useMemo } from "react";
+import { ElementType, memo, useMemo } from "react";
 import styled from "styled-components";
 import { formActions } from "./formActions";
 
@@ -128,7 +128,7 @@ const Col = (props: ColPropsTypes) => {
 	return (
 		<StyledCol colsInRow={colsInRow}>
 			{col.map((field, i) => {
-				const currentField = fieldsDef?.find(
+				const currentField: FieldDef = fieldsDef?.find(
 					(fieldDef) => {
 						return field === fieldDef.name;
 					}
@@ -140,7 +140,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				const Component = typeof type === "string" ? componentMap[type] : type;
+				const Component: ElementType = typeof type === "string" ? componentMap[type] : type;
 
 				if (!Component) {
 					throw new Error(`Invalid type ${type}`);
@@ -175,7 +175,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const children = useMemo(() => (
 					<Component
-						fieldDef={{ ...currentField, size: maxSize }}
+						fieldDef={{ ...currentField, size: maxSize, }}
 						name={name}
 						value={value}
 						error={error}

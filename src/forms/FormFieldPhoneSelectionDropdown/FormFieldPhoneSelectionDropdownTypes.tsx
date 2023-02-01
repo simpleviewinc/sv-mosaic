@@ -1,4 +1,6 @@
-export type PhoneSelectionDef = {
+import { FieldDefBase } from "@root/components/Field";
+
+export type PhoneSelectionInputSettings = {
 	/**
 	 * Phone formatting according to the country selected.
 	 */
@@ -12,3 +14,7 @@ export type PhoneSelectionDef = {
 	 */
 	value?: string;
 }
+
+export type PhoneDropdownData = string;
+
+export type FieldDefPhoneSelection = FieldDefBase<"phone", PhoneSelectionInputSettings, PhoneDropdownData>

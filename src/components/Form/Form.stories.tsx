@@ -17,18 +17,8 @@ import Drawer from "@root/components/Drawer";
 import HomeIcon from "@mui/icons-material/Home";
 
 // Types
-import { TextFieldDef } from "@root/forms/FormFieldText/FormFieldTextTypes";
 import { FieldDef } from "@root/components/Field";
-import { AdvancedSelectionDef, additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
-import { TableDef } from "@root/forms/FormFieldTable";
-import { ImageUploadDef } from "@root/forms/FormFieldImageUpload";
-import { MapCoordinatesDef } from "@root/forms/FormFieldMapCoordinates";
-import { ImageVideoDocumentLinkBrowsingDef } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
-import { FormFieldToggleSwitchDef } from "@root/forms/FormFieldToggleSwitch";
-import { FormFieldRadioDef } from "@root/forms/FormFieldRadio";
-import { DropdownSingleSelectionDef } from "@root/forms/FormFieldDropdownSingleSelection";
-import { FormFieldChipSingleSelectDef } from "@root/forms/FormFieldChipSingleSelect";
-import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
+import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
 import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
@@ -254,12 +244,12 @@ export const Playground = (): ReactElement => {
 		});
 	};
 
-	const onFileDelete = ({id}) => {
+	const onFileDelete = async ({id}) => {
 		alert("DELETED FILE: " + id);
 	}
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "textField",
@@ -267,7 +257,7 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					disabled,
 					required
-				} as FieldDef<TextFieldDef>,
+				},
 				{
 					name: "check",
 					label: "Checkbox",
@@ -277,7 +267,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: checkboxOptions
 					},
-				} as FieldDef<FormFieldCheckboxDef>,
+				},
 				{
 					name: "chipSelect",
 					label: "Chip single select",
@@ -300,7 +290,7 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required
-				} as FieldDef<FormFieldChipSingleSelectDef>,
+				},
 				{
 					name: "dropdownSingle",
 					label: "Dropdown single select",
@@ -313,7 +303,7 @@ export const Playground = (): ReactElement => {
 							{ label: "The Godfather", value: "1972" },
 							{ label: "The Godfather: Part II", value: "1974" },
 							{ label: "The Dark Knight", value: "2008" },
-							{ label: "12 Angry Men", value: 1957 },
+							{ label: "12 Angry Men", value: "1957" },
 							{ label: "Schindler's List", value: "1993" },
 							{ label: "Pulp Fiction", value: "1994" },
 							{ label: "The Lord of the Rings: The Return of the King", value: "2003" },
@@ -333,7 +323,7 @@ export const Playground = (): ReactElement => {
 							{ label: "Se7en", value: "1995" },
 						],
 					},
-				} as FieldDef<DropdownSingleSelectionDef>,
+				},
 				{
 					name: "phoneSelect",
 					label: "Phone selection",
@@ -363,7 +353,7 @@ export const Playground = (): ReactElement => {
 							}
 						],
 					}
-				} as FieldDef<FormFieldRadioDef>,
+				},
 				{
 					name: "toggleSwitch",
 					label: "Toggle field",
@@ -373,7 +363,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						toggleLabel: "To the side"
 					}
-				} as FieldDef<FormFieldToggleSwitchDef>,
+				},
 				{
 					name: "color",
 					label: "Color selector example",
@@ -410,7 +400,7 @@ export const Playground = (): ReactElement => {
 						options: additionalOptions,
 						createNewOption
 					}
-				} as FieldDef<AdvancedSelectionDef>,
+				},
 				{
 					name: "imageVideoDocumentLink",
 					label: "Image Video and Document field",
@@ -426,7 +416,7 @@ export const Playground = (): ReactElement => {
 						handleRemove,
 						src: imageVideoSrc,
 					}
-				} as FieldDef<ImageVideoDocumentLinkBrowsingDef>,
+				},
 				{
 					name: "textEditor",
 					label: "Text Editor field",
@@ -447,7 +437,7 @@ export const Playground = (): ReactElement => {
 						extraActions: extraActionsTable,
 						headers,
 					}
-				} as FieldDef<TableDef>,
+				},
 				{
 					name: "imageUpload",
 					label: "Image Upload example",
@@ -457,7 +447,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: menuOptions
 					}
-				} as FieldDef<ImageUploadDef>,
+				},
 				{
 					name: "mapCoordinates",
 					label: "Map Coordinates example",
@@ -467,7 +457,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					}
-				} as FieldDef<MapCoordinatesDef>,
+				},
 				{
 					name: "upload",
 					label: "Upload example",
@@ -480,7 +470,7 @@ export const Playground = (): ReactElement => {
 						limit: undefined,
 					}
 				}
-			] as unknown as FieldDef[],
+			],
 		[additionalOptions, disabled, required]
 	);
 
@@ -583,7 +573,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const showState = boolean("Show state", false);
 	const {height = "100vh"} = props;
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -597,7 +587,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "text",
-					help: state.data.text2,
+					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
 					validators: [validateEmail, validateSlow]
 				},
@@ -647,7 +637,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					label: "Text Editor field",
 					type: "textEditor",
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -743,10 +733,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 		})
 	}
 
-	const fields = useMemo(
-		() => hundredFields as FieldDef<TextFieldDef>[],
-		[]
-	);
+	const fields = useMemo(() : FieldDef[] => hundredFields, []);
 
 	return (
 		<>
@@ -780,7 +767,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -793,7 +780,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "text",
-					help: state.data.text2,
+					helperText: state.data.text2,
 					validators: [validateEmail, validateSlow]
 				},
 				{
@@ -806,7 +793,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 					label: "Text that receives copy",
 					type: "text"
 				}
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -879,7 +866,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -903,7 +890,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					label: "City",
 					type: "text"
 				}
-			] as FieldDef[],
+			] ,
 		[]
 	);
 
@@ -948,7 +935,7 @@ export const DrawerForm = (): ReactElement => {
 	const [open, setOpen] = useState(false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -972,7 +959,7 @@ export const DrawerForm = (): ReactElement => {
 					},
 					validators: [required]
 				},
-			] as unknown as FieldDef[],
+			],
 		[]
 	);
 
@@ -1060,7 +1047,7 @@ export const CustomFields = (): ReactElement => {
 	}
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -1086,7 +1073,7 @@ export const CustomFields = (): ReactElement => {
 					helperText: "helper text bottom",
 					validators: [required]
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -1134,7 +1121,7 @@ export const Validators = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "required",
@@ -1194,7 +1181,7 @@ export const Validators = (): ReactElement => {
 						showTime: false,
 					},
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -1230,7 +1217,7 @@ export const DefaultValues = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "required",
@@ -1239,7 +1226,7 @@ export const DefaultValues = (): ReactElement => {
 					required: true,
 					defaultValue: "Passing default value",
 				},
-			] as FieldDef<TextFieldDef>[],
+			],
 		[]
 	);
 

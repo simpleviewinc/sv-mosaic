@@ -1,4 +1,6 @@
-export type UploadDef = {
+import { FieldDefBase } from "@root/components/Field";
+
+export type UploadFieldInputSettings = {
 	onFileDelete: (deletedData: OnFileDeleteData) => Promise<void>;
 	onFileAdd: (addedData: OnFileAddData) => Promise<void>;
 	limit?: number;
@@ -23,3 +25,5 @@ type OnFileAddData = {
 type OnFileDeleteData = {
 	id: UploadData["id"];
 }
+
+export type FieldDefUpload = FieldDefBase<"upload", UploadFieldInputSettings, UploadData[]>;

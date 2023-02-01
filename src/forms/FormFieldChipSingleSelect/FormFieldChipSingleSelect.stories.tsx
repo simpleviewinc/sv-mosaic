@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs, select } from "@storybook/addon-knobs";
-import { FormFieldChipSingleSelectDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
@@ -42,7 +41,7 @@ export const Playground = (): ReactElement => {
 	);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					label,
@@ -57,7 +56,7 @@ export const Playground = (): ReactElement => {
 						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 					},
 				}
-			] as FieldDef<FormFieldChipSingleSelectDef>[],
+			] as FieldDef[],
 		[label, helperText, instructionText, required, disabled, optionsOrigin]
 	);
 
@@ -81,7 +80,7 @@ export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "chipRegular",
@@ -131,7 +130,7 @@ export const KitchenSink = (): ReactElement => {
 					helperText: "Helper text",
 					instructionText: "Instruction text"
 				}
-			] as FieldDef<FormFieldChipSingleSelectDef>[],
+			],
 		[]
 	);
 

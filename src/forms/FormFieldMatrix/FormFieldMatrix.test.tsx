@@ -18,7 +18,6 @@ import { FieldDef } from "@root/components/Field/FieldTypes";
 
 // Utils
 import { ButtonProps } from "@root/components/Button";
-import { MatrixDef } from "./FormFieldMatrixTypes";
 import { defaultView, listColumns } from "./matrixUtils";
 import { DataViewProps } from "@root/components/DataView";
 import rawData from "../../components/DataView/example/rawData.json";
@@ -93,10 +92,11 @@ const MatrixExample = (): ReactElement => {
 		);
 	};
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
+					label: "Matrix",
 					name: "formMatrix",
 					type: "matrix",
 					inputSettings: {
@@ -112,7 +112,7 @@ const MatrixExample = (): ReactElement => {
 						] as ButtonProps[]
 					},
 				},
-			] as FieldDef<MatrixDef>[],
+			],
 		[gridConfig]
 	);
 

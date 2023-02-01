@@ -7,8 +7,8 @@ import {
 	useState,
 } from "react";
 import {
-	MapCoordinatesDef,
-	MapPosition,
+	MapCoordinatesData,
+	MapCoordinatesInputSettings,
 } from "./MapCoordinatesTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 
@@ -42,7 +42,7 @@ import {
 } from "./MapCoordinatesUtils";
 import Drawer from "@root/components/Drawer";
 
-const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>): ReactElement => {
+const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {
 		value,
 		onBlur,

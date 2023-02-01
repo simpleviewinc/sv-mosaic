@@ -1,7 +1,7 @@
 import * as React from "react";
 import { memo, ReactElement, useEffect, useRef, useState } from "react";
 
-import { ImageUploadDef, ImageUploadValue } from "./FormFieldImageUploadTypes";
+import { ImageUploadValue, ImageUploadInputSettings } from "./FormFieldImageUploadTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 import { isEmpty } from "lodash";
 
@@ -30,7 +30,7 @@ import {
 } from "./FormFieldImageUpload.styled";
 
 const FormFieldImageUpload = (
-	props: MosaicFieldProps<ImageUploadDef, ImageUploadValue>
+	props: MosaicFieldProps<"imageUpload", ImageUploadInputSettings, ImageUploadValue>
 ): ReactElement => {
 	const { fieldDef, onChange, value } = props;
 
