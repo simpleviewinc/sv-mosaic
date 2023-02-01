@@ -53,9 +53,13 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	useEffect(() => {
 		const observer = new ResizeObserver((entries) => {
-			const chipListMarginTop = window?.getComputedStyle(entries[0].target).getPropertyValue("margin-top");
-			const chipListMarginBottom =  window?.getComputedStyle(entries[0].target).getPropertyValue("margin-bottom");
-			setChipListHeight(`${entries[0].contentRect.height}px - ${chipListMarginTop} - ${chipListMarginBottom}`);
+			if (entries[0].contentRect.height > 0) {
+				const chipListMarginTop = window?.getComputedStyle(entries[0].target).getPropertyValue("margin-top");
+				const chipListMarginBottom =  window?.getComputedStyle(entries[0].target).getPropertyValue("margin-bottom");
+				setChipListHeight(`${entries[0].contentRect.height}px - ${chipListMarginTop} - ${chipListMarginBottom}`);
+			} else {
+				setChipListHeight(`${entries[0].contentRect.height}px`);
+			}
 		});
 
 		chipListRef?.current && observer.observe(chipListRef.current);
