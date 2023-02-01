@@ -356,7 +356,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, []);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "country",
@@ -371,15 +371,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				{
 					name: "address1",
 					required: true,
-					type: "custom",
+					type: Autocomplete,
 					label: "Address",
 					inputSettings: {
-						customComponent: Autocomplete,
-						customProps: {
-							address,
-							setAddress,
-							onSelect,
-						}
+						address,
+						setAddress,
+						onSelect,
 					}
 				},
 				{
@@ -430,7 +427,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 						options: addressTypes,
 					},
 				},
-			] as FieldDef[],
+			],
 		[addressTypes, state.data.country, apiState]
 	);
 
