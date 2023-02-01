@@ -22,7 +22,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 
 	test("Validate dialog when pressing the Image without src.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set image is called");
 			await dialog.accept();
 		});
@@ -41,7 +41,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate dialog when pressing the Video without src.", async ({ page }) => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set video is called");
 			await dialog.accept();
 		});
@@ -63,7 +63,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 
 	test("Validate dialog when pressing the Image with src.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set image is called");
 			await dialog.accept();
 		});
@@ -83,7 +83,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate dialog when pressing the Video with src.", async ({ page }) => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set video is called");
 			await dialog.accept();
 		});
@@ -105,7 +105,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 
 	test("Validate dialog when pressing the Document button.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.documentButton.click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set document is called");
 			await dialog.accept();
 		});
@@ -125,7 +125,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate dialog when pressing the Link button.", async ({ page }) => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Set Link has been called");
 			await dialog.accept();
 		});
@@ -184,7 +184,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
 		await ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("button", { hasText: "Remove" }).click();
 		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Form submitted with the following data: {}");
 			await dialog.accept();
 		});

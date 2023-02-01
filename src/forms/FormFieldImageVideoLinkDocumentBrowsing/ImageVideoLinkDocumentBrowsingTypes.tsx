@@ -1,3 +1,4 @@
+import { FieldDefBase } from "@root/components/Field";
 import { Options } from "@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes";
 
 export type AssetProperties = {
@@ -11,7 +12,7 @@ export type AssetProperties = {
   value: string;
 };
 
-export type ImageVideoDocumentLinkBrowsingDef = {
+export type ImageVideoDocumentLinkInputSettings = {
   /**
    * Callback executed when the remove button is clicked.
    * This function should empty the assetProperties array
@@ -29,7 +30,7 @@ export type ImageVideoDocumentLinkBrowsingDef = {
    * It should fill the assetProperties array with the document
    * properties.
    */
-  handleSetImage: () => Promise<void>;
+  handleSetImage?: () => Promise<void>;
   /**
    * Callback executed when the video icon is clicked.
    * It should fill the assetProperties array with the document
@@ -63,9 +64,13 @@ export interface BrowseOptionProps {
  * Return type of the useImageVideoLinkDocumentBrowsing custom hook.
  */
 export type UseImageVideoLinkDocumentBrowsingReturn = {
-  setImage: ImageVideoDocumentLinkBrowsingDef["handleSetImage"];
-  setVideo: ImageVideoDocumentLinkBrowsingDef["handleSetVideo"];
-  setDocument: ImageVideoDocumentLinkBrowsingDef["handleSetDocument"];
-  setLink: ImageVideoDocumentLinkBrowsingDef["handleSetLink"];
-  handleRemove: ImageVideoDocumentLinkBrowsingDef["handleRemove"];
+  setImage: ImageVideoDocumentLinkInputSettings["handleSetImage"];
+  setVideo: ImageVideoDocumentLinkInputSettings["handleSetVideo"];
+  setDocument: ImageVideoDocumentLinkInputSettings["handleSetDocument"];
+  setLink: ImageVideoDocumentLinkInputSettings["handleSetLink"];
+  handleRemove: ImageVideoDocumentLinkInputSettings["handleRemove"];
 };
+
+export type ImageVideoDocumentLinkData = AssetProperties[];
+
+export type FieldDefImageVideoDocumentLink = FieldDefBase<"imageVideoDocumentLink", ImageVideoDocumentLinkInputSettings, ImageVideoDocumentLinkData>

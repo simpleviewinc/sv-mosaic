@@ -19,7 +19,6 @@ import {
 } from "./AdvancedSelection.styled";
 import AddIcon from "@mui/icons-material/Add";
 import ChipList from "./ChipList";
-import { FormFieldCheckboxDef } from "../FormFieldCheckbox";
 import LoadMoreButton from "./LoadMoreButton";
 import { AdvanceSelectionDrawerPropTypes } from ".";
 import _ from "lodash";
@@ -46,9 +45,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
 	const [chipListHeight, setChipListHeight] = useState("0px");
 
-	const chipListRef:{ current?: HTMLDivElement } = useRef();
-	const loadMoreButtonRef:{ current?: HTMLDivElement } = useRef();
-	const searchInputRef:{ current?: HTMLDivElement } = useRef();
+	const chipListRef = useRef<any>();
+	const loadMoreButtonRef = useRef<any>();
+	const searchInputRef = useRef<any>();
 
 	const { state, dispatch } = useForm();
 
@@ -347,7 +346,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [state.data.listOfChips]);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "listOfChips",
@@ -378,11 +377,11 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					size: "100%",
 					onChangeCb: checkboxListChanged,
 					inputSettings: {
-						options:
-							(fieldDef?.inputSettings?.options && filteredList) ||
-							(fieldDef?.inputSettings?.getOptions && (() => filteredList)),
+						options: filteredList
+						// (fieldDef?.inputSettings?.options && filteredList) ||
+						// (fieldDef?.inputSettings?.getOptions && (() => filteredList)),
 					},
-				} as FieldDef<FormFieldCheckboxDef>,
+				},
 				{
 					name: "loadMoreButton",
 					type: LoadMoreButton,
@@ -394,7 +393,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 						parentInputSettings: fieldDef?.inputSettings,
 					},
 				},
-			] as FieldDef[],
+			],
 		[
 			filteredList,
 			searchInput,
