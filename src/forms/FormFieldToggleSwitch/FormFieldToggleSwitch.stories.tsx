@@ -58,49 +58,44 @@ export const Playground = (): ReactElement => {
 	);
 };
 
+const fields: FieldDef[] = [
+	{
+		name: "toggleSwitchDefault",
+		label: "Default example",
+		type: "toggleSwitch",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			toggleLabel: "Toggle label",
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
+		name: "toggleSwitchDisabled",
+		label: "Disabled example",
+		type: "toggleSwitch",
+		required: false,
+		disabled: true,
+		inputSettings: {
+			toggleLabel: "Toggle label",
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
+		name: "toggleSwitchWithoutLabel",
+		label: "Toggle switch without label",
+		type: "toggleSwitch",
+		required : false,
+		disabled: false,
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+];
+
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
-
-	const fields: FieldDef[] = useMemo(
-		() =>
-			[
-				{
-					name: "toggleSwitchDefault",
-					label: "Default example",
-					type: "toggleSwitch",
-					required: false,
-					disabled: false,
-					inputSettings: {
-						toggleLabel: "Toggle label"
-					},
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-				{
-					name: "toggleSwitchDisabled",
-					label: "Disabled example",
-					type: "toggleSwitch",
-					required: false,
-					disabled: true,
-					inputSettings: {
-						toggleLabel: "Toggle label",
-						spellCheck: false
-					},
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-				{
-					name: "toggleSwitchWithoutLabel",
-					label: "Toggle switch without label",
-					type: "toggleSwitch",
-					required : false,
-					disabled: false,
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-			],
-		[]
-	);
 
 	return (
 		<>
