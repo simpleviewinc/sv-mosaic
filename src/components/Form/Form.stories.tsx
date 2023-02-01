@@ -244,7 +244,7 @@ export const Playground = (): ReactElement => {
 		});
 	};
 
-	const onFileDelete = ({id}) => {
+	const onFileDelete = async ({id}) => {
 		alert("DELETED FILE: " + id);
 	}
 
@@ -303,7 +303,7 @@ export const Playground = (): ReactElement => {
 							{ label: "The Godfather", value: "1972" },
 							{ label: "The Godfather: Part II", value: "1974" },
 							{ label: "The Dark Knight", value: "2008" },
-							{ label: "12 Angry Men", value: 1957 },
+							{ label: "12 Angry Men", value: "1957" },
 							{ label: "Schindler's List", value: "1993" },
 							{ label: "Pulp Fiction", value: "1994" },
 							{ label: "The Lord of the Rings: The Return of the King", value: "2003" },
@@ -470,7 +470,7 @@ export const Playground = (): ReactElement => {
 						limit: undefined,
 					}
 				}
-			] as unknown as FieldDef[],
+			],
 		[additionalOptions, disabled, required]
 	);
 
@@ -587,7 +587,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "text",
-					help: state.data.text2,
+					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
 					validators: [validateEmail, validateSlow]
 				},
@@ -637,7 +637,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					label: "Text Editor field",
 					type: "textEditor",
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -780,7 +780,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "text",
-					help: state.data.text2,
+					helperText: state.data.text2,
 					validators: [validateEmail, validateSlow]
 				},
 				{
@@ -793,7 +793,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 					label: "Text that receives copy",
 					type: "text"
 				}
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -890,7 +890,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					label: "City",
 					type: "text"
 				}
-			] as FieldDef[],
+			] ,
 		[]
 	);
 
@@ -959,7 +959,7 @@ export const DrawerForm = (): ReactElement => {
 					},
 					validators: [required]
 				},
-			] as unknown as FieldDef[],
+			],
 		[]
 	);
 
@@ -1052,10 +1052,7 @@ export const CustomFields = (): ReactElement => {
 				{
 					name: "text1",
 					label: "Custom Text",
-					type: "custom",
-					inputSettings: {
-						customComponent: CustomText,
-					},
+					type: CustomText,
 					instructionText: "testing",
 					helperText: "helper text bottom",
 					validators: [required]
@@ -1063,10 +1060,7 @@ export const CustomFields = (): ReactElement => {
 				{
 					name: "textarea",
 					label: "Custom textArea",
-					inputSettings: {
-						customComponent: CustomTextArea
-					},
-					type: "custom",
+					type: CustomTextArea,
 					instructionText: "testing",
 					helperText: "helper text bottom",
 					validators: [required]
@@ -1074,15 +1068,12 @@ export const CustomFields = (): ReactElement => {
 				{
 					name: "checkbox",
 					label: "Custom checkbox",
-					type: "custom",
-					inputSettings: {
-						customComponent: CustomCheckbox
-					},
+					type: CustomCheckbox,
 					instructionText: "testing",
 					helperText: "helper text bottom",
 					validators: [required]
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -1130,7 +1121,7 @@ export const Validators = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "required",
@@ -1190,7 +1181,7 @@ export const Validators = (): ReactElement => {
 						showTime: false,
 					},
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
