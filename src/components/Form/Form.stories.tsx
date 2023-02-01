@@ -187,8 +187,8 @@ export const Playground = (): ReactElement => {
 		}
 	});
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		() : FieldDef[] =>
 			[
 				{
 					name: "textField",
@@ -500,7 +500,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const showState = boolean("Show state", false);
 	const {height = "100vh"} = props;
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -660,7 +660,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 		})
 	}
 
-	const fields: FieldDef[] = useMemo(() => hundredFields, []);
+	const fields = useMemo(() : FieldDef[] => hundredFields, []);
 
 	return (
 		<>
@@ -694,7 +694,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -793,7 +793,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -862,7 +862,7 @@ export const DrawerForm = (): ReactElement => {
 	const [open, setOpen] = useState(false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -974,7 +974,7 @@ export const CustomFields = (): ReactElement => {
 	}
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -1152,8 +1152,8 @@ export const DefaultValues = (): ReactElement => {
 
 	const showState = boolean("Show state", false);
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		() : FieldDef[] =>
 			[
 				{
 					name: "required",

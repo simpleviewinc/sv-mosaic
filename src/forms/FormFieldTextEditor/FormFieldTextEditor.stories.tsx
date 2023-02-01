@@ -25,8 +25,8 @@ export const Playground = (): ReactElement => {
 	const language = text("Language", "en");
 	const maxCharacters = number("Max Characters", 100);
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "textEditor",
