@@ -15,11 +15,11 @@ import { FieldDefTable } from "@root/forms/FormFieldTable";
 import { FieldDefText } from "@root/forms/FormFieldText";
 import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
-import { MosaicObject } from "@root/types";
-import React, { HTMLAttributes, ReactNode } from "react";
+import { FieldDefUpload } from "@root/forms/FormFieldUpload";
+import { HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT
-export interface MosaicFieldProps<T extends string = any, U = any, V = any> {
+export interface MosaicFieldProps<T = any, U = any, V = any> {
 	/**
 	 * Field identifier that matches the field name.
 	 */
@@ -57,7 +57,7 @@ export interface MosaicFieldProps<T extends string = any, U = any, V = any> {
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-export interface FieldDefBase<Type = any, T = any, U = any> {
+export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * Significant name related to its field.
 	 */
@@ -65,7 +65,7 @@ export interface FieldDefBase<Type = any, T = any, U = any> {
 	/**
 	 * React ref for the field
 	 */
-	ref?: JSX.Element;
+	ref?: MutableRefObject<any | undefined>;
 	/**
 	 * Label that will sit on top of the field.
 	 */
@@ -125,7 +125,7 @@ export interface FieldDefBase<Type = any, T = any, U = any> {
 	 * Array of validators to be executed by the form when on blur or
 	 * when submitted.
 	 */
-	validators?: ((() => string | undefined | JSX.Element) | string | { fn: string; options: any })[];
+	validators?: (((args?: any) => string | undefined | JSX.Element | Promise<void | string>) | string | { fn: string; options: any })[];
 	/**
 	 * Identifier passed by the developer
 	 */
@@ -148,14 +148,7 @@ export interface FieldDefBase<Type = any, T = any, U = any> {
 	onChangeCb?: (value?: any) => void | Promise<void>;
 }
 
-interface FieldDefCustomInputSettings {
-  customComponent: React.ElementType,
-  customProps?: MosaicObject,
-}
-
-type FieldDefCustom = FieldDefBase<"custom", FieldDefCustomInputSettings, any>
-
-// type FieldDefCustom = FieldDefBase<React.ElementType, MosaicObject, any>
+type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>
 
 export type FieldDef =
 	| FieldDefText
@@ -175,50 +168,6 @@ export type FieldDef =
 	| FieldDefCheckbox
 	| FieldDefAdvancedSelection
 	| FieldDefAddress
-	| FieldDefCustom
+	| FieldDefUpload
+	| FieldDefCustom;
 
-/*
-const fields: FieldDef[] = [
-  {
-    name: "text",
-    label: "Text",
-    type: "text",
-    inputSettings: {
-      maxCharacters: 10,
-			spellcheck: true,
-    }
-  },
-  {
-    name: "text",
-    label: "text",
-    type: "text",
-    inputSettings: {
-			placeholder: "",
-			type: "password",
-			toggleLabel: "",
-			test: false
-    },
-    defaultValue: "asd"
-  },
-  {
-    name: "bogus_type",
-    label: "Bogus type property",
-    type: "bogus"
-  },
-	{
-		name: "toggleSwitchDefault",
-		label: "Default example",
-		type: "toggleSwitch",
-		required: false,
-		disabled: false,
-		inputSettings: {
-			toggleLabel: "Toggle label",
-			spellCheck: true,
-			placeholder: "",
-			amountPerType: 2
-		},
-		helperText: "Helper text",
-		instructionText: "Instruction text",
-	},
-]
- */
