@@ -126,7 +126,7 @@ const Col = (props: ColPropsTypes) => {
 	return (
 		<StyledCol colsInRow={colsInRow}>
 			{col.map((field, i) => {
-				const currentField = fieldsDef?.find(
+				const currentField: FieldDef = fieldsDef?.find(
 					(fieldDef) => {
 						return field === fieldDef.name;
 					}
@@ -138,7 +138,10 @@ const Col = (props: ColPropsTypes) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				const Component = typeof type === "string" ? componentMap[type] : type;
+				//const Component = typeof type === "string" ? componentMap[type] : type;
+
+				const Component = type === "custom" ? currentField.inputSettings.customComponent : componentMap[type];
+				const inputSettings = type === "custom" ? currentField.inputSettings.customProps : currentField.inputSettings;
 
 				if (!Component) {
 					throw new Error(`Invalid type ${type}`);
@@ -173,7 +176,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const children = useMemo(() => (
 					<Component
-						fieldDef={{ ...currentField, size: maxSize }}
+						fieldDef={{ ...currentField, size: maxSize, inputSettings }}
 						name={name}
 						value={value}
 						error={error}
