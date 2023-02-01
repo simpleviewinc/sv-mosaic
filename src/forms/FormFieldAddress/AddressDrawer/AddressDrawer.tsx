@@ -66,9 +66,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			formActions.setFieldValue({
 				name,
 				value,
-				validate,
 			})
 		);
+		if (validate === true) {
+			await dispatch(
+				formActions.validateField({name})
+			);
+		}
 	};
 
 	useEffect(() => {
@@ -232,10 +236,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	};
 
 	useEffect(() => {
-		if (apiState !== undefined)
-			setFieldValue("states", { label: apiState.label, value: apiState.value }, true);
+		const handleApiStateChange = async () => {
+			if (apiState !== undefined) {
+				await setFieldValue("states", { label: apiState.label, value: apiState.value }, true);
+				setApiState(undefined);
+			}
+		}
 
-		setApiState(undefined);
+		handleApiStateChange();
 	}, [apiState]);
 
 	const autocompleteAddress = async (addressComponents: google.maps.GeocoderAddressComponent[]) => {
@@ -256,24 +264,38 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			}
 		}
 
-		const country = {
-			label: addressComponentsMap.country.label,
-			value: addressComponentsMap.country.value,
-		};
+		// const country = {
+		// 	label: addressComponentsMap.country.label,
+		// 	value: addressComponentsMap.country.value,
+		// };
 
-		setInitialState({
-			...initialState,
-			country,
-		});
-
-		const selectedState = (await getOptionsStates(addressComponentsMap.country.value)).find(state => (
-			state.label.includes(addressComponentsMap.administrative_area_level_1.label)
+		const selectedCountry = (await getOptionsCountries()).find(country => (
+			country.label.toLowerCase().includes(addressComponentsMap.country.label.toLowerCase())
 		));
 
+		if (selectedCountry) {
+			setInitialState({
+				...initialState,
+				country: selectedCountry,
+			});
+			await setFieldValue("country", selectedCountry, true);
+
+			const selectedState = (await getOptionsStates(selectedCountry.value)).find(state => (
+				state.label.toLowerCase().includes(addressComponentsMap.administrative_area_level_1.label.toLowerCase())
+			));
+			if (selectedState) {
+				setApiState(selectedState);
+			} else {
+				console.warn('State response from google "' + addressComponentsMap.administrative_area_level_1.label + '" could not be found in the list of states provided in getOptionsStates');
+				componentsNotFound += `${componentsToAddress.administrative_area_level_1}, `;
+			}
+		} else {
+			console.warn('Country response from google "' + addressComponentsMap.country.label + '" could not be found in the list of countries provided in getOptionsCountries.');
+			componentsNotFound += `${componentsToAddress.country}, ${componentsToAddress.administrative_area_level_1}, `;
+		}
+
 		await setFieldValue("address1", addressComponentsMap.route.label, true);
-		await setFieldValue("country", country, true);
-		setApiState(selectedState);
-		await setFieldValue("city", addressComponentsMap.locality.label === "" ?  addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
+		await setFieldValue("city", addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
 		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
 
 		for (const key in addressComponentsMap) {

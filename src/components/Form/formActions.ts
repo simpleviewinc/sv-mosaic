@@ -68,7 +68,7 @@ export const formActions = {
 			}
 
 			if (validate) {
-				dispatch(formActions.validateField({ name }));
+				await dispatch(formActions.validateField({ name }));
 			}
 		};
 	},
@@ -77,24 +77,15 @@ export const formActions = {
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			const validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
 
-			if ((!validators || validators.length === 0) && !requiredFlag) {
+			if (validators.length === 0 && !requiredFlag) {
 				return;
 			}
 
-			if ((!validators || validators.length === 0) && requiredFlag) {
-				validators.unshift(required);
-			}
-
-			if ((validators || validators.length !== 0) && requiredFlag) {
+			if (requiredFlag) {
 				validators.unshift(required);
 			}
 
 			const validatorsMap = mapsValidators(validators);
-
-			await dispatch({
-				type: "FIELD_START_VALIDATE",
-				name,
-			});
 
 			const data = getState().data;
 			const startValue = getState().data[name];
@@ -103,9 +94,9 @@ export const formActions = {
 
 			if (startValue === currentValue) {
 				await dispatch({
-					type: "FIELD_END_VALIDATE",
+					type: "FIELD_VALIDATE",
 					name,
-					value: result?.errorMessage ? result?.errorMessage : undefined
+					value: result?.errorMessage ?? undefined
 				});
 			}
 		};
@@ -128,8 +119,6 @@ export const formActions = {
 				value: true,
 			});
 
-			// await new Promise((res) => setTimeout(res, 2000));
-
 			const touchedFields = getState().data;
 
 			for (let i = 0; i < fields.length; i++) {
@@ -142,7 +131,7 @@ export const formActions = {
 			}
 
 			let validForm = true;
-			let firstInvalidField: string;
+			let firstInvalidField: string | undefined = undefined;
 
 			const errors = getState().errors;
 
@@ -156,8 +145,8 @@ export const formActions = {
 				}
 			}
 
-			if (firstInvalidField) {
-				document.getElementById(firstInvalidField).scrollIntoView({ behavior: "smooth", block: "start" });
+			if (firstInvalidField !== undefined) {
+				document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
 			}
 
 			await dispatch({
