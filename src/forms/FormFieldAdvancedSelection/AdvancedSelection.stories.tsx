@@ -75,8 +75,8 @@ export const Playground = (): ReactElement => {
 		return newOption;
 	};
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		() : FieldDef[] =>
 			[
 				{
 					name: "advancedSelection",

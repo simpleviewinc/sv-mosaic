@@ -37,7 +37,7 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Label");
 
 	const fields: FieldDef[] = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "textfield",

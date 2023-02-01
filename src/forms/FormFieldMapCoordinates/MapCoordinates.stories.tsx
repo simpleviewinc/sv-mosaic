@@ -26,8 +26,8 @@ export const Playground = (): ReactElement => {
 	const withAddress = boolean("With address", false);
 	const zoom = number("Zoom", 7, { min: 0, max: 18 });
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "map",

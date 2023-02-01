@@ -32,7 +32,7 @@ export const Playground = (): ReactElement => {
 	);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "checkbox",

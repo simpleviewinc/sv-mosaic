@@ -36,8 +36,8 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", false);
 	const withMoreActions = boolean("With more actions", false);
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					disabled,
@@ -98,8 +98,8 @@ export const KitchenSink = (): ReactElement => {
 		dispatch
 	);
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					disabled: false,

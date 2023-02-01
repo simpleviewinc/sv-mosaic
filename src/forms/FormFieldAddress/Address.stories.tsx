@@ -22,8 +22,8 @@ export const Playground = (): ReactElement => {
 	const amountPhysical = number("Amount physical", 1);
 	const amountBilling = number("Amount billing", 1);
 
-	const fields: FieldDef[] = useMemo(
-		() => (
+	const fields = useMemo(
+		() : FieldDef[] => (
 			[
 				{
 					disabled,
