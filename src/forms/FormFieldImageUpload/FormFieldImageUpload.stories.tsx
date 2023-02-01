@@ -30,8 +30,8 @@ export const Playground = (): ReactElement => {
 	const showMenu = boolean("Show menu", true);
 	const withSetFocusCallback = boolean("With set focus callback", true);
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "imageUpload",

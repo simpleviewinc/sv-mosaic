@@ -20,8 +20,8 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", false);
 	const showTime = boolean("Show time", false);
 
-	const fields: FieldDef[] = useMemo(
-		() => [
+	const fields = useMemo(
+		(): FieldDef[] => [
 			{
 				name: "date",
 				type: "date",

@@ -17,8 +17,8 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "color",

@@ -21,8 +21,8 @@ export const Playground = () : ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text")
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "phone",

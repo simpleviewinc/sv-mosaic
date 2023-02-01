@@ -24,7 +24,7 @@ export const Playground = (): ReactElement => {
 	const toggleLabel = text("Toggle label", "Toggle label");
 
 	const fields: FieldDef[] = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "toggleSwitch",

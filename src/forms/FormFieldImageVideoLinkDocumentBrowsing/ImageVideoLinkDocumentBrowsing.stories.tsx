@@ -29,8 +29,8 @@ export const Playground = (): ReactElement => {
 	const withLinkOption = boolean("Show link browsing option", false);
 	const withImage = boolean("Show image", true);
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "imageVideoLinkDocumentBrowsing",
@@ -78,8 +78,8 @@ export const KitchenSink = (): ReactElement => {
 	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImageOrVideo");
 	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(dispatch, "disabledExample");
 
-	const fields: FieldDef[] = useMemo(
-		() =>
+	const fields = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "browseAllOptions",

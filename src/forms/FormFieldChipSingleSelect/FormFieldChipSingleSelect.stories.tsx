@@ -41,7 +41,7 @@ export const Playground = (): ReactElement => {
 	);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					label,
@@ -80,7 +80,7 @@ export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "chipRegular",
@@ -130,7 +130,7 @@ export const KitchenSink = (): ReactElement => {
 					helperText: "Helper text",
 					instructionText: "Instruction text"
 				}
-			] as FieldDef[],
+			],
 		[]
 	);
 
