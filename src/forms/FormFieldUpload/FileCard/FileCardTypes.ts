@@ -1,7 +1,7 @@
-import { UploadData, UploadDef } from "../FormFieldUploadTypes";
+import { UploadData, UploadFieldInputSettings } from "../FormFieldUploadTypes";
 
 export type FileCardProps = {
-	onFileDelete?: UploadDef["onFileDelete"];
+	onFileDelete?: UploadFieldInputSettings["onFileDelete"];
 	percent?: number,
 	error?: string,
 } & UploadData;
