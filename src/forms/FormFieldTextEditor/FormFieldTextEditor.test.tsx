@@ -28,7 +28,7 @@ const TextEditorExample = (
 		dispatch,
 	} = useForm();
 
-	const fields = [
+	const fields: FieldDef[] = [
 		{
 			label: "Disabled test",
 			name: "disabledTextEditor",
@@ -41,7 +41,7 @@ const TextEditorExample = (
 				spellcheck,
 			},
 		},
-	] as FieldDef[];
+	];
 
 	return (
 		<Form
