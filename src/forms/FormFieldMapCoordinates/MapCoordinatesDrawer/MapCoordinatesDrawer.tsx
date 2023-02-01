@@ -227,14 +227,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	};
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "placesList",
-					type: "custom",
-					inputSettings: {
-						customComponent: renderMap
-					}
+					type: renderMap
 				},
 				{
 					name: "lat",
@@ -253,15 +250,12 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				{
 					name: "resetButton",
 					label: "Reset",
-					type: "custom",
+					type: ResetButton,
 					inputSettings: {
-						customComponent: ResetButton,
-						customProps: {
-							resetLocation
-						}
+						resetLocation
 					}
 				},
-			] as FieldDef[],
+			],
 		[center]
 	);
 

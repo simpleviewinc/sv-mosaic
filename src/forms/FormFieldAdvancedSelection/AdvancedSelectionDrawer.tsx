@@ -45,9 +45,9 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
 	const [chipListHeight, setChipListHeight] = useState("0px");
 
-	const chipListRef:{ current?: HTMLDivElement } = useRef();
-	const loadMoreButtonRef:{ current?: HTMLDivElement } = useRef();
-	const searchInputRef:{ current?: HTMLDivElement } = useRef();
+	const chipListRef = useRef<any>();
+	const loadMoreButtonRef = useRef<any>();
+	const searchInputRef = useRef<any>();
 
 	const { state, dispatch } = useForm();
 
@@ -346,28 +346,22 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}, [state.data.listOfChips]);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "listOfChips",
-					type: "custom",
+					type: ChipList,
 					disabled: fieldDef?.disabled,
 					ref: chipListRef,
 					inputSettings: {
-						customComponent: ChipList,
-						customProps: {
-							isModalOpen,
-							isMobileView,
-							deleteSelectedOption,
-						}
+						isModalOpen,
+						isMobileView,
+						deleteSelectedOption,
 					}
 				},
 				{
 					name: "searchInput",
-					type: "custom",
-					inputSettings: {
-						customComponent: searchInput
-					}
+					type: searchInput,
 				},
 				{
 					name: "checkboxList",
@@ -383,23 +377,20 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					size: "100%",
 					onChangeCb: checkboxListChanged,
 					inputSettings: {
-						options:
-							(fieldDef?.inputSettings?.options && filteredList) ||
-							(fieldDef?.inputSettings?.getOptions && (() => filteredList)),
+						options: filteredList
+						// (fieldDef?.inputSettings?.options && filteredList) ||
+						// (fieldDef?.inputSettings?.getOptions && (() => filteredList)),
 					},
 				},
 				{
 					name: "loadMoreButton",
-					type: "custom",
+					type: LoadMoreButton,
 					disabled: fieldDef?.disabled,
 					ref: loadMoreButtonRef,
 					inputSettings: {
-						customComponent: LoadMoreButton,
-						customProps: {
-							canLoadMore,
-							getMoreOptions: loadMoreOptions,
-							parentInputSettings: fieldDef?.inputSettings,
-						}
+						canLoadMore,
+						getMoreOptions: loadMoreOptions,
+						parentInputSettings: fieldDef?.inputSettings,
 					},
 				},
 			],
@@ -449,7 +440,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				type='drawer'
 				state={state}
 				dispatch={dispatch}
-				fields={fields as FieldDef[]}
+				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
 			/>
