@@ -8,9 +8,9 @@ import { memo, SyntheticEvent, useEffect, useMemo, useRef, useState } from "reac
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
-import { UploadData, UploadDef } from "./FormFieldUploadTypes";
+import { UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
 
-const FormFieldUpload = (props: MosaicFieldProps<UploadDef, UploadData[]>) => {
+const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSettings, UploadData[]>) => {
 	const {
 		fieldDef,
 		value,
