@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
-import { PhoneSelectionDef } from "./FormFieldPhoneSelectionDropdownTypes";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
@@ -23,7 +22,7 @@ export const Playground = () : ReactElement => {
 	const instructionText = text("Instruction text", "Instruction text")
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "phone",
@@ -38,7 +37,7 @@ export const Playground = () : ReactElement => {
 					helperText,
 					instructionText
 				},
-			] as FieldDef<PhoneSelectionDef>[],
+			],
 		[disabled, required, autoFormat, country, label, helperText, instructionText]
 	);
 
@@ -61,7 +60,7 @@ export const Playground = () : ReactElement => {
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -98,7 +97,7 @@ export const KitchenSink = (): ReactElement => {
 					helperText: "Helper text",
 					instructionText: "Type a phone number to see the format",
 				},
-			] as FieldDef<PhoneSelectionDef>[],
+			],
 		[]
 	);
 

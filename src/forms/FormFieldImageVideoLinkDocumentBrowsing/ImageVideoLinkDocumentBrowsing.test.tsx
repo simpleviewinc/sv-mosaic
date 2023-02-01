@@ -14,7 +14,6 @@ import {
 	linkExample,
 	videoAssetExample,
 } from "./ImageVideoLinkDocumentBrowsingUtils";
-import { ImageVideoDocumentLinkBrowsingDef } from "./ImageVideoLinkDocumentBrowsingTypes";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 import { act } from "react-dom/test-utils";
@@ -76,7 +75,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		);
 	};
 
-	const fields = [
+	const fields: FieldDef[] = [
 		{
 			name: "imageVideoLinkDocumentBrowsing",
 			label: "Image Video Link Document Browsing",
@@ -93,7 +92,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 				src: imageVideoSrc,
 			},
 		},
-	] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[];
+	];
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());

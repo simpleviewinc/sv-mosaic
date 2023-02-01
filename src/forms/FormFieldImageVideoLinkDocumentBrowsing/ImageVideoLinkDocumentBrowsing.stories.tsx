@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { text, withKnobs, boolean } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { ImageVideoDocumentLinkBrowsingDef, } from ".";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -31,7 +30,7 @@ export const Playground = (): ReactElement => {
 	const withImage = boolean("Show image", true);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "imageVideoLinkDocumentBrowsing",
@@ -49,7 +48,7 @@ export const Playground = (): ReactElement => {
 						src: withImage && imageVideoSrc
 					},
 				}
-			] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[],
+			],
 		[label, required, disabled, menuOptions, setImage, withLinkOption, setLink, withDocumentOption, setDocument, withVideoOption, setVideo]
 	);
 
@@ -80,7 +79,7 @@ export const KitchenSink = (): ReactElement => {
 	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(dispatch, "disabledExample");
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "browseAllOptions",
@@ -182,7 +181,7 @@ export const KitchenSink = (): ReactElement => {
 						handleSetImage: setImageDisabled
 					},
 				},
-			] as FieldDef<ImageVideoDocumentLinkBrowsingDef>[],
+			],
 		[menuOptions, setImage, setVideo, setDocument, handleRemove]
 	);
 

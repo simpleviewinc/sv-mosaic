@@ -3,8 +3,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import FormFieldUpload from "./FormFieldUpload";
 import { defaultValues } from "./uploadUtils";
+import { FieldDef } from "@root/components/Field";
 
-const fieldDef = {
+const fieldDef: FieldDef = {
 	name: "uploadTest",
 	label: "UploadTest",
 	type: "upload",
@@ -15,7 +16,7 @@ const fieldDef = {
 	}
 }
 
-const fieldDefWithLimit = {
+const fieldDefWithLimit: FieldDef = {
 	name: "uploadTest",
 	label: "UploadTest",
 	type: "upload",

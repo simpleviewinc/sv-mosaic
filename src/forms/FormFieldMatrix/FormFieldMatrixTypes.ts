@@ -1,7 +1,8 @@
 import { ButtonProps } from "@root/components/Button";
 import { DataViewProps } from "@root/components/DataView";
+import { FieldDefBase } from "@root/components/Field";
 
-export type MatrixDef = {
+export type MatrixInputSettings = {
 	/**
 	 * Data view configurations.
 	 */
@@ -11,3 +12,7 @@ export type MatrixDef = {
 	 */
 	buttons: ButtonProps[];
 };
+
+export type MatrixData = DataViewProps["data"];
+
+export type FieldDefMatrix = FieldDefBase<"matrix", MatrixInputSettings, MatrixData>

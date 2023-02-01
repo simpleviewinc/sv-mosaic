@@ -5,13 +5,12 @@ import { ReactElement, memo, ChangeEvent } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 
 // Types and styles
-import { TextFieldDef } from "./FormFieldTextTypes";
+import { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
-
 const TextField = (
-	props: MosaicFieldProps<TextFieldDef, string | number>
+	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>
 ): ReactElement => {
 	const {
 		fieldDef,
