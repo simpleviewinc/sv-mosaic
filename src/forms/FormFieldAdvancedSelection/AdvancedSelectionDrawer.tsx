@@ -346,18 +346,24 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			[
 				{
 					name: "listOfChips",
-					type: ChipList,
+					type: "custom",
 					disabled: fieldDef?.disabled,
 					ref: chipListRef,
 					inputSettings: {
-						isModalOpen,
-						isMobileView,
-						deleteSelectedOption,
+						customComponent: ChipList,
+						customProps: {
+							isModalOpen,
+							isMobileView,
+							deleteSelectedOption,
+						}
 					}
 				},
 				{
 					name: "searchInput",
-					type: searchInput,
+					type: "custom",
+					inputSettings: {
+						customComponent: searchInput
+					}
 				},
 				{
 					name: "checkboxList",
@@ -380,13 +386,16 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				},
 				{
 					name: "loadMoreButton",
-					type: LoadMoreButton,
+					type: "custom",
 					disabled: fieldDef?.disabled,
 					ref: loadMoreButtonRef,
 					inputSettings: {
-						canLoadMore,
-						getMoreOptions: loadMoreOptions,
-						parentInputSettings: fieldDef?.inputSettings,
+						customComponent: LoadMoreButton,
+						customProps: {
+							canLoadMore,
+							getMoreOptions: loadMoreOptions,
+							parentInputSettings: fieldDef?.inputSettings,
+						}
 					},
 				},
 			],

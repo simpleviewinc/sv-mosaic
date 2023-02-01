@@ -216,7 +216,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			[
 				{
 					name: "placesList",
-					type: renderMap,
+					type: "custom",
+					inputSettings: {
+						customComponent: renderMap
+					}
 				},
 				{
 					name: "lat",
@@ -235,9 +238,12 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				{
 					name: "resetButton",
 					label: "Reset",
-					type: ResetButton,
+					type: "custom",
 					inputSettings: {
-						resetLocation
+						customComponent: ResetButton,
+						customProps: {
+							resetLocation
+						}
 					}
 				},
 			] as FieldDef[],

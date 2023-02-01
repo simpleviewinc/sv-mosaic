@@ -349,12 +349,15 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				{
 					name: "address1",
 					required: true,
-					type: Autocomplete,
+					type: "custom",
 					label: "Address",
 					inputSettings: {
-						address,
-						setAddress,
-						onSelect,
+						customComponent: Autocomplete,
+						customProps: {
+							address,
+							setAddress,
+							onSelect,
+						}
 					}
 				},
 				{

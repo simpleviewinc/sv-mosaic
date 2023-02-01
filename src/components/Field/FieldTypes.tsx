@@ -148,7 +148,14 @@ export interface FieldDefBase<Type = any, T = any, U = any> {
 	onChangeCb?: (value?: any) => void | Promise<void>;
 }
 
-type FieldDefCustom = FieldDefBase<React.ElementType, MosaicObject, any>
+interface FieldDefCustomInputSettings {
+  customComponent: React.ElementType,
+  customProps?: MosaicObject,
+}
+
+type FieldDefCustom = FieldDefBase<"custom", FieldDefCustomInputSettings, any>
+
+// type FieldDefCustom = FieldDefBase<React.ElementType, MosaicObject, any>
 
 export type FieldDef =
 	| FieldDefText

@@ -979,7 +979,10 @@ export const CustomFields = (): ReactElement => {
 				{
 					name: "text1",
 					label: "Custom Text",
-					type: CustomText,
+					type: "custom",
+					inputSettings: {
+						customComponent: CustomText,
+					},
 					instructionText: "testing",
 					helperText: "helper text bottom",
 					validators: [required]
@@ -987,7 +990,10 @@ export const CustomFields = (): ReactElement => {
 				{
 					name: "textarea",
 					label: "Custom textArea",
-					type: CustomTextArea,
+					inputSettings: {
+						customComponent: CustomTextArea
+					},
+					type: "custom",
 					instructionText: "testing",
 					helperText: "helper text bottom",
 					validators: [required]
@@ -995,7 +1001,10 @@ export const CustomFields = (): ReactElement => {
 				{
 					name: "checkbox",
 					label: "Custom checkbox",
-					type: CustomCheckbox,
+					type: "custom",
+					inputSettings: {
+						customComponent: CustomCheckbox
+					},
 					instructionText: "testing",
 					helperText: "helper text bottom",
 					validators: [required]
