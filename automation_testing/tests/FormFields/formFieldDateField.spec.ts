@@ -1,6 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldDateFieldPage } from "../../pages/FormFields/FormFieldDateFieldPage";
-import { getDateFormatted } from "../../utils/helpers/dateHelper";
 
 test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	let page: Page;
@@ -19,7 +18,7 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	test("Validate Single Date Calendar by writing a date", async () => {
 		await formFieldDateFieldPage.singleDateCalendarInput.type(await formFieldDateFieldPage.getTodayDate());
 		await formFieldDateFieldPage.formTestID.click();
-		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(todayDate);
+		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 	});
 
 	test("Validate Single Date Calendar by selecting a date", async () => {
