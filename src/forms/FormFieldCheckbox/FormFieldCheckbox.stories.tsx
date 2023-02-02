@@ -2,7 +2,6 @@ import * as React from "react";
 import { useMemo, ReactElement } from "react";
 import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-import { FormFieldCheckboxDef } from ".";
 import { FieldDef } from "@root/components/Field";
 
 // Components
@@ -33,7 +32,7 @@ export const Playground = (): ReactElement => {
 	);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "checkbox",
@@ -48,7 +47,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			] as FieldDef<FormFieldCheckboxDef>[],
+			] as FieldDef[],
 		[required, disabled, label, instructionText, helperText, optionsOrigin]
 	);
 
@@ -68,7 +67,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkFields = [
+const kitchenSinkFields: FieldDef[] = [
 	{
 		name: "checkbox",
 		label: "Regular example",
@@ -101,7 +100,6 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			options: undefined,
 			getOptions
 		},
 		helperText: "Helper Text",
@@ -117,7 +115,7 @@ const kitchenSinkFields = [
 		helperText: 'Helper Text',
 		instructionText: 'InstructionText',
 	}, */
-] as FieldDef<FormFieldCheckboxDef>[];
+];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();

@@ -19,3 +19,8 @@ export const playgroundKnobs = {
 	optionReturnData: "Returns%20Data",
 	optionReturnUndefined: "Returns%20Undefined"
 }
+
+export const uploadKnobs = {
+	knobUploadLimit: "knob-Limit=",
+	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading="
+}
