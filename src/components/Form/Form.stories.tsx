@@ -69,6 +69,8 @@ export const Playground = (): ReactElement => {
 
 	const showState = boolean("Show state", false);
 	const prepopulate = boolean("Prepopulate", false);
+	const defaultValuesKnob = select("Default Values", ["None", "Has Defaults"], "None");
+	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
 	const showSave = boolean("Show SAVE button", true);
 	const showCancel = boolean("Show CANCEL button", true);
 	const required = boolean("Required", true);
@@ -78,7 +80,7 @@ export const Playground = (): ReactElement => {
 	const showTooltipInfo = boolean("Show Tooltip info", false);
 	const showActive = boolean("Show active", false);
 	const prepopulateValues = object("Prepolulate values", {
-		"textField": "Text field prepopulated",
+		"textField": "Text field from getFormValues",
 		"check": [
 			{
 				label: "Label 1",
@@ -97,7 +99,7 @@ export const Playground = (): ReactElement => {
 			"label": "The Dark Knight",
 			"value": "2008"
 		},
-		"phoneSelect": "15205751151",
+		"phoneSelect": "15205751152",
 		"radio": {
 			label: "Label 2",
 			value: "label_2"
@@ -115,110 +117,32 @@ export const Playground = (): ReactElement => {
 				"state": {label: "Arizona", value: "AZ"},
 				"types": [
 					{label: "Physical", value: "physical"},
-					{label: "Billing", value: "billing"},
-					{label: "Shipping", value: "shipping"}
 				]
 			}
 		],
 		"advancedSelection": [
 			{
-				label: "Prepopulated 1",
-				value: "prep option 1"
+				label: "getFormValues 1",
+				value: "getFormValues option 1"
 			},
 			{
-				label: "Prepopulated 2",
-				value: "prep option 2"
+				label: "getFormValues 2",
+				value: "getFormValues option 2"
 			},
 			{
-				label: "Prepopulated 3",
-				value: "prep option 3"
+				label: "getFormValues 3",
+				value: "getFormValues option 3"
 			},
 			{
-				label: "Prepopulated 4",
-				value: "prep option 4"
+				label: "getFormValues 4",
+				value: "getFormValues option 4"
 			}
 		],
 		"imageVideoDocumentLink": [
 			{
-				"label": "Title",
-				"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
-			},
-			{
 				"label": "Type",
 				"value": "Image Video Thumbnail"
-			},
-			{
-				"label": "Alt",
-				"value": "-"
-			},
-			{
-				"label": "Size",
-				"value": "1280x720"
-			},
-			{
-				"label": "Focus",
-				"value": "No"
-			},
-			{
-				"label": "Locales",
-				"value": "-"
 			}
-		],
-		"table": [
-			{
-				"id": "1",
-				"items": [
-					"John",
-					"john@email.com",
-					"01/01/2021",
-					"3231-962-7516"
-				]
-			}
-		],
-		"imageUpload": {
-			"imgName": "image (2).png",
-			"size": 61571,
-			"type": "image/png",
-			"height": 600,
-			"width": 777
-		},
-		"mapCoordinates": {
-			"lat": 32.3395031,
-			"lng": -110.9864294
-		},
-		"upload": [
-			{
-				"id": "1",
-				"name": "roomBlocks.xslx",
-				"size": "386359 bytes",
-			},
-			{
-				"id": "2",
-				"name": "floorplan.jpg",
-				"size": "282010 bytes",
-			},
-			{
-				"id": "3",
-				"name": "SV.png",
-				"size": "151418 bytes",
-				"url": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
-			},
-			{
-				"id": "4",
-				"name": "MyHotel-AZ.png",
-				"size": "1447671 bytes"
-			},
-			{
-				"id": "5",
-				"name": "opportunity.pdf",
-				"size": "20842780 bytes"
-			},
-			{
-				"id": "6",
-				"name": "summit.png",
-				"size": "840038 bytes",
-				"url": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
-			},
 		],
 	});
 
@@ -248,6 +172,8 @@ export const Playground = (): ReactElement => {
 		alert("DELETED FILE: " + id);
 	}
 
+	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob === "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
+
 	const fields = useMemo(
 		() : FieldDef[] =>
 			[
@@ -256,7 +182,8 @@ export const Playground = (): ReactElement => {
 					label: "Simple Text",
 					type: "text",
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && "Passing default value",
 				},
 				{
 					name: "check",
@@ -267,6 +194,20 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: checkboxOptions
 					},
+					defaultValue: showDefaultValues && [
+						{
+							label: "Label 1",
+							value: "label_1"
+						},
+						{
+							label: "Label 2",
+							value: "label_2"
+						},
+						{
+							label: "Label 3",
+							value: "label_3"
+						}
+					],
 				},
 				{
 					name: "chipSelect",
@@ -289,7 +230,11 @@ export const Playground = (): ReactElement => {
 						],
 					},
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && {
+						"label": "Label 3",
+						"value": "label_3"
+					}
 				},
 				{
 					name: "dropdownSingle",
@@ -323,13 +268,18 @@ export const Playground = (): ReactElement => {
 							{ label: "Se7en", value: "1995" },
 						],
 					},
+					defaultValue: showDefaultValues && {
+						label: "The Shawshank Redemption",
+						value: "1994"
+					}
 				},
 				{
 					name: "phoneSelect",
 					label: "Phone selection",
 					type: "phone",
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && "15205751151"
 				},
 				{
 					name: "radio",
@@ -352,6 +302,10 @@ export const Playground = (): ReactElement => {
 								value: "label_3"
 							}
 						],
+					},
+					defaultValue: showDefaultValues && {
+						label: "Label 3",
+						value: "label_3"
 					}
 				},
 				{
@@ -362,7 +316,8 @@ export const Playground = (): ReactElement => {
 					type: "toggleSwitch",
 					inputSettings: {
 						toggleLabel: "To the side"
-					}
+					},
+					defaultValue: showDefaultValues && true
 				},
 				{
 					name: "color",
@@ -370,6 +325,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					type: "color",
+					defaultValue: showDefaultValues && "#19a80091"
 				},
 				{
 					name: "date",
@@ -377,6 +333,7 @@ export const Playground = (): ReactElement => {
 					type: "date",
 					disabled,
 					required,
+					defaultValue: showDefaultValues && new Date()
 				},
 				{
 					name: "address",
@@ -388,7 +345,22 @@ export const Playground = (): ReactElement => {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && [
+						{
+							"id": 1,
+							"address1": "8950 N. Oracle Road",
+							"city": "Tuczon",
+							"postalCode": "85704",
+							"country": {label: "United States", value: "US"},
+							"state": {label: "Arizona", value: "AZ"},
+							"types": [
+								{label: "Physical", value: "physical"},
+								{label: "Billing", value: "billing"},
+								{label: "Shipping", value: "shipping"}
+							]
+						}
+					]
 				},
 				{
 					name: "advancedSelection",
@@ -399,7 +371,45 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: additionalOptions,
 						createNewOption
-					}
+					},
+					defaultValue: showDefaultValues && [
+						{
+							label: "Default Value 1",
+							value: "def option 1"
+						},
+						{
+							label: "Default Value 2",
+							value: "def option 2"
+						},
+						{
+							label: "Option 1",
+							value: "option_1-cat_1",
+						},
+						{
+							label: "Option 2",
+							value: "option_2-cat_1",
+						},
+						{
+							label: "Option 3",
+							value: "option_3-cat_1",
+						},
+						{
+							label: "Option 4",
+							value: "option_4-cat_1",
+						},
+						{
+							label: "Option 1 category 2",
+							value: "option_1-cat_2",
+						},
+						{
+							label: "Test option category 2",
+							value: "option_2-cat_2",
+						},
+						{
+							label: "Another option of catergory 2",
+							value: "option_3-cat_2",
+						},
+					]
 				},
 				{
 					name: "imageVideoDocumentLink",
@@ -415,14 +425,41 @@ export const Playground = (): ReactElement => {
 						handleSetLink: setLink,
 						handleRemove,
 						src: imageVideoSrc,
-					}
+					},
+					defaultValue: showDefaultValues && [
+						{
+							"label": "Title",
+							"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
+						},
+						{
+							"label": "Type",
+							"value": "Image Video Thumbnail"
+						},
+						{
+							"label": "Alt",
+							"value": "-"
+						},
+						{
+							"label": "Size",
+							"value": "1280x720"
+						},
+						{
+							"label": "Focus",
+							"value": "No"
+						},
+						{
+							"label": "Locales",
+							"value": "-"
+						}
+					]
 				},
 				{
 					name: "textEditor",
 					label: "Text Editor field",
 					type: "textEditor",
 					disabled,
-					required
+					required,
+					defaultValue: showDefaultValues && "Passing default value"
 				},
 				{
 					name: "table",
@@ -436,7 +473,27 @@ export const Playground = (): ReactElement => {
 						handleDelete: deleteTableRow,
 						extraActions: extraActionsTable,
 						headers,
-					}
+					},
+					defaultValue: showDefaultValues && [
+						{
+							"id": "1",
+							"items": [
+								"John",
+								"john@email.com",
+								"01/01/2021",
+								"3231-962-7516"
+							]
+						},
+						{
+							"id": "1",
+							"items": [
+								"Mark",
+								"mark@email.com",
+								"01/01/2022",
+								"3231-962-7518"
+							]
+						}
+					]
 				},
 				{
 					name: "imageUpload",
@@ -446,6 +503,13 @@ export const Playground = (): ReactElement => {
 					required,
 					inputSettings: {
 						options: menuOptions
+					},
+					defaultValue: showDefaultValues && {
+						"imgName": "image (2).png",
+						"size": 61571,
+						"type": "image/png",
+						"height": 600,
+						"width": 777
 					}
 				},
 				{
@@ -456,6 +520,10 @@ export const Playground = (): ReactElement => {
 					required,
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
+					},
+					defaultValue: showDefaultValues && {
+						"lat": 32.3395031,
+						"lng": -110.9864294
 					}
 				},
 				{
@@ -468,10 +536,44 @@ export const Playground = (): ReactElement => {
 						onFileAdd,
 						onFileDelete,
 						limit: undefined,
-					}
-				}
+					},
+					defaultValue: showDefaultValues && [
+						{
+							"id": "1",
+							"name": "roomBlocks.xslx",
+							"size": "386359 bytes",
+						},
+						{
+							"id": "2",
+							"name": "floorplan.jpg",
+							"size": "282010 bytes",
+						},
+						{
+							"id": "3",
+							"name": "SV.png",
+							"size": "151418 bytes",
+							"url": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
+						},
+						{
+							"id": "4",
+							"name": "MyHotel-AZ.png",
+							"size": "1447671 bytes"
+						},
+						{
+							"id": "5",
+							"name": "opportunity.pdf",
+							"size": "20842780 bytes"
+						},
+						{
+							"id": "6",
+							"name": "summit.png",
+							"size": "840038 bytes",
+							"url": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
+						},
+					],
+				},
 			],
-		[additionalOptions, disabled, required]
+		[additionalOptions, disabled, required, showDefaultValues]
 	);
 
 	const sections = [
@@ -523,10 +625,14 @@ export const Playground = (): ReactElement => {
 	const getFormValues = useCallback(async () => {
 		await new Promise((res) => setTimeout(res, 1000));
 
-		return {
-			...prepopulateValues
-		};
-	}, [prepopulateValues]);
+		if (showGetFormValues === "Returns Undefined") {
+			return undefined;
+		} else {
+			return {
+				...prepopulateValues
+			};
+		}
+	}, [prepopulateValues, showGetFormValues, showDefaultValues]);
 
 	useEffect(() => {
 		const resetForm = async () => {
@@ -534,7 +640,7 @@ export const Playground = (): ReactElement => {
 			setLoadReady(true);
 		};
 		prepopulate ? resetForm() : setLoadReady(false);
-	}, [prepopulate]);
+	}, [prepopulate, showGetFormValues, showDefaultValues]);
 
 	return (
 		<>
@@ -548,7 +654,7 @@ export const Playground = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					getFormValues={loadReady && getFormValues}
+					getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
 					sections={showSections > 0 && sectionsAmount}
 					buttons={renderButtons(dispatch, { showCancel, showSave })}
 					tooltipInfo={showTooltipInfo && tooltipInfo}
