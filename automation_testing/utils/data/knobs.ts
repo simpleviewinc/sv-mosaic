@@ -1,4 +1,4 @@
-export const knobs = {
+export const commonKnobs = {
 	knobShowState: "knob-Show%20state=",
 	knobRequired: "knob-Required=",
 	knobDisabled: "knob-Disabled=",

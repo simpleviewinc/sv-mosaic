@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
-import { knobs } from "../../../utils/data/knobs";
+import { commonKnobs } from "../../../utils/data/knobs";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Form - Playground", () => {
@@ -64,8 +64,8 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate touched property is shown and works properly.", async () => {
-		const notRequiredKnob = knobs.knobRequired + "false";
-		const showStateKnob = knobs.knobShowState + "true";
+		const notRequiredKnob = commonKnobs.knobRequired + "false";
+		const showStateKnob = commonKnobs.knobShowState + "true";
 		await playgroundPage.visitPage([notRequiredKnob, showStateKnob]);
 		expect(await playgroundPage.showStateLocator.textContent()).toContain("touched");
 
