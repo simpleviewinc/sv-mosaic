@@ -1,4 +1,12 @@
 import { FieldDefBase } from "@root/components/Field";
+import { MosaicObject } from "@root/types";
+
+export type TransformedFile = {
+		data: MosaicObject,
+		percent: number,
+		error: string | undefined,
+		rawData: File,
+}
 
 export type UploadFieldInputSettings = {
 	onFileDelete: (deletedData: OnFileDeleteData) => Promise<void>;
@@ -16,7 +24,7 @@ export type UploadData =  {
 type OnError = (message: string) => Promise<void>;
 
 type OnFileAddData = {
-	blob: any;
+	file: File;
 	onChunkComplete: (data: {percent: number}) => Promise<void>;
 	onUploadComplete: (data: UploadData) => Promise<void>;
 	onError: OnError;

@@ -1,14 +1,13 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import { Snackbar } from "@root/index";
-import { MosaicObject } from "@root/types";
 import _ from "lodash";
 import * as React from "react";
 import { memo, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
-import { UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
+import { TransformedFile, UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
 
 const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSettings, UploadData[]>) => {
 	const {
@@ -140,7 +139,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			return;
 		}
 
-		let transformedFiles = {};
+		let transformedFiles: {[key: string]: TransformedFile} = {};
 
 		newFiles.forEach(file => {
 			transformedFiles = {
@@ -168,9 +167,9 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		 */
 		setPendingFiles({...pendingFiles, ...transformedFiles});
 
-		for (const [key, file] of Object.entries(transformedFiles) as [string, MosaicObject][]) {
+		for (const [key, file] of Object.entries(transformedFiles) as [string, TransformedFile][]) {
 			onFileAdd({
-				blob: file?.rawData,
+				file: file?.rawData,
 				onChunkComplete: ({percent}) => onChunkComplete({uuid: key, percent}),
 				onUploadComplete: (data) => onUploadComplete({uuid: key, data}),
 				onError: (message) => onError({uuid: key, message}),

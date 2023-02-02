@@ -6,4 +6,5 @@ export const StyledFileGrid = styled.div`
 	grid-column-gap: 60px;
 	grid-row-gap: 30px;
 	margin-top: 16px;
+	max-width: 620px;
 `;
