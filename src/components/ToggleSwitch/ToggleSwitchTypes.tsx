@@ -1,6 +1,6 @@
 import { FormControlLabelProps as MUIFormControlLabelProps } from "@mui/material/FormControlLabel";
 import { MosaicFieldProps } from "@root/components/Field";
-import { FormFieldToggleSwitchDef } from "@root/forms/FormFieldToggleSwitch";
+import { ToggleSwitchInputSettings } from "@root/forms/FormFieldToggleSwitch";
 
 export interface ToggleSwitchProps {
   /**
@@ -26,9 +26,9 @@ export interface ToggleSwitchProps {
 	/**
 	 * Change function inherit from the FormFieldToggleSwitch parent component.
 	 */
-	onChange?: MosaicFieldProps<FormFieldToggleSwitchDef, boolean>["onChange"];
+	onChange?: MosaicFieldProps<"toggleSwitch", ToggleSwitchInputSettings, boolean>["onChange"];
 	/**
 	 * OnBlur function inherit from the FormFieldToggleSwitch parent component.
 	 */
-	onBlur?: MosaicFieldProps<FormFieldToggleSwitchDef, boolean>["onBlur"];
+	onBlur?: MosaicFieldProps<"toggleSwitch", ToggleSwitchInputSettings, boolean>["onBlur"];
 }

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { MosaicLabelValue } from "@root/types";
+import { FieldDefBase } from "@root/components/Field";
 
 export type IAddress = {
 	address1: string;
@@ -51,11 +52,11 @@ export interface AddressDrawerProps {
 	handleUnsavedChanges?: (val: boolean) => void;
 	dialogOpen?: boolean;
 	handleDialogClose?: (val: boolean) => void;
-	getOptionsCountries: AddressFieldDef["getOptionsCountries"];
-	getOptionsStates: AddressFieldDef["getOptionsStates"];
+	getOptionsCountries: AddressFieldInputSettings["getOptionsCountries"];
+	getOptionsStates: AddressFieldInputSettings["getOptionsStates"];
 }
 
-export type AddressFieldDef = {
+export type AddressFieldInputSettings = {
 	amountPerType?: number;
 	amountShipping?: number;
 	amountBilling?: number;
@@ -64,3 +65,7 @@ export type AddressFieldDef = {
 	getOptionsStates(country: string): Promise<MosaicLabelValue[]>;
 	googleMapsApiKey: string;
 }
+
+export type AddressData = IAddress[];
+
+export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings, AddressData>

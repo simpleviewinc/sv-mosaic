@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { DropdownSingleSelectionDef } from ".";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -61,7 +60,7 @@ export const Playground = (): ReactElement => {
 	);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "dropdown",
@@ -78,7 +77,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			] as FieldDef<DropdownSingleSelectionDef>[],
+			] as FieldDef[],
 		[
 			required,
 			disabled,
@@ -108,7 +107,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkFields = [
+const kitchenSinkFields: FieldDef[] = [
 	{
 		name: "dropdown",
 		label: "Regular example",
@@ -190,7 +189,7 @@ const kitchenSinkFields = [
 		helperText: "Helper text",
 		instructionText: "Instruction text",
 	},
-] as FieldDef<DropdownSingleSelectionDef>[];
+];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();

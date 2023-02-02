@@ -32,6 +32,7 @@ export class BasePage {
 	readonly chipTestIDLocator: Locator;
 	readonly formTestID: Locator;
 	readonly roleOptionLocator: Locator;
+	readonly rolePresentationLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -61,6 +62,7 @@ export class BasePage {
 		this.checkboxInputString = "input[type='checkbox']";
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
 		this.roleOptionLocator = page.locator("[role='option']");
+		this.rolePresentationLocator = page.locator("[role='presentation']");
 	}
 
 	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {

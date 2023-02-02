@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
-import { FormFieldRadioDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
@@ -44,7 +43,7 @@ export const Playground = (): ReactElement => {
 	);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "radio",
@@ -59,7 +58,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				}
-			] as FieldDef<FormFieldRadioDef>[],
+			] as FieldDef[],
 		[label, required, disabled, instructionText, helperText, optionsOrigin]
 	);
 
@@ -79,50 +78,47 @@ export const Playground = (): ReactElement => {
 	);
 };
 
+const kitchenSinkFields: FieldDef[] = [
+	{
+		name: "radio",
+		label: "Regular example",
+		type: "radio",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			options,
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
+		name: "radio-disabled",
+		label: "Disabled example",
+		type: "radio",
+		required: false,
+		disabled: true,
+		inputSettings: {
+			options,
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
+		name: "radio-db",
+		label: "From data base example",
+		type: "radio",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			getOptions
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+];
+
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "radio",
-					label: "Regular example",
-					type: "radio",
-					required: false,
-					disabled: false,
-					inputSettings: {
-						options,
-					},
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-				{
-					name: "radio-disabled",
-					label: "Disabled example",
-					type: "radio",
-					required: false,
-					disabled: true,
-					inputSettings: {
-						options,
-					},
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-				{
-					name: "radio-db",
-					label: "From data base example",
-					type: "radio",
-					required: false,
-					disabled: false,
-					inputSettings: {
-						getOptions
-					},
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-			] as FieldDef<FormFieldRadioDef>[],
-		[]
-	);
 
 	return (
 		<>
@@ -132,7 +128,7 @@ export const KitchenSink = (): ReactElement => {
 				title='Form Title'
 				description='This is a description example'
 				state={state}
-				fields={fields}
+				fields={kitchenSinkFields}
 				dispatch={dispatch}
 				onCancel={onCancel}
 			/>

@@ -17,21 +17,12 @@ import Drawer from "@root/components/Drawer";
 import HomeIcon from "@mui/icons-material/Home";
 
 // Types
-import { TextFieldDef } from "@root/forms/FormFieldText/FormFieldTextTypes";
 import { FieldDef } from "@root/components/Field";
-import { AdvancedSelectionDef, additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
-import { TableDef } from "@root/forms/FormFieldTable";
-import { ImageUploadDef } from "@root/forms/FormFieldImageUpload";
-import { MapCoordinatesDef } from "@root/forms/FormFieldMapCoordinates";
-import { ImageVideoDocumentLinkBrowsingDef } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
-import { FormFieldToggleSwitchDef } from "@root/forms/FormFieldToggleSwitch";
-import { FormFieldRadioDef } from "@root/forms/FormFieldRadio";
-import { DropdownSingleSelectionDef } from "@root/forms/FormFieldDropdownSingleSelection";
-import { FormFieldChipSingleSelectDef } from "@root/forms/FormFieldChipSingleSelect";
-import { FormFieldCheckboxDef } from "@root/forms/FormFieldCheckbox";
+import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
 import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
+import { nanoid } from "nanoid";
 
 export default {
 	title: "Components/Form",
@@ -152,13 +143,39 @@ export const Playground = (): ReactElement => {
 				"label": "Type",
 				"value": "Image Video Thumbnail"
 			}
-		]
+		],
 	});
+
+	const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
+		for (let i = 0; i < 10; i++) {
+			await new Promise(resolve => setTimeout(() =>
+				resolve(
+					onChunkComplete({percent: (i + 1) * 0.1})
+				), 300)
+			);
+		}
+
+		if (Math.random() < 0.3) {
+			await onError("File size exceeded");
+			return;
+		}
+
+		await onUploadComplete({
+			id: nanoid(),
+			name: file.name,
+			size: `${file.size} bytes`,
+			url: Math.random() < 0.7 ? URL.createObjectURL(file) : undefined
+		});
+	};
+
+	const onFileDelete = async ({id}) => {
+		alert("DELETED FILE: " + id);
+	}
 
 	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob === "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "textField",
@@ -167,7 +184,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					defaultValue: showDefaultValues && "Passing default value",
-				} as FieldDef<TextFieldDef>,
+				},
 				{
 					name: "check",
 					label: "Checkbox",
@@ -191,7 +208,7 @@ export const Playground = (): ReactElement => {
 							value: "label_3"
 						}
 					],
-				} as FieldDef<FormFieldCheckboxDef>,
+				},
 				{
 					name: "chipSelect",
 					label: "Chip single select",
@@ -218,7 +235,7 @@ export const Playground = (): ReactElement => {
 						"label": "Label 3",
 						"value": "label_3"
 					}
-				} as FieldDef<FormFieldChipSingleSelectDef>,
+				},
 				{
 					name: "dropdownSingle",
 					label: "Dropdown single select",
@@ -231,7 +248,7 @@ export const Playground = (): ReactElement => {
 							{ label: "The Godfather", value: "1972" },
 							{ label: "The Godfather: Part II", value: "1974" },
 							{ label: "The Dark Knight", value: "2008" },
-							{ label: "12 Angry Men", value: 1957 },
+							{ label: "12 Angry Men", value: "1957" },
 							{ label: "Schindler's List", value: "1993" },
 							{ label: "Pulp Fiction", value: "1994" },
 							{ label: "The Lord of the Rings: The Return of the King", value: "2003" },
@@ -255,7 +272,7 @@ export const Playground = (): ReactElement => {
 						label: "The Shawshank Redemption",
 						value: "1994"
 					}
-				} as FieldDef<DropdownSingleSelectionDef>,
+				},
 				{
 					name: "phoneSelect",
 					label: "Phone selection",
@@ -290,7 +307,7 @@ export const Playground = (): ReactElement => {
 						label: "Label 3",
 						value: "label_3"
 					}
-				} as FieldDef<FormFieldRadioDef>,
+				},
 				{
 					name: "toggleSwitch",
 					label: "Toggle field",
@@ -301,7 +318,7 @@ export const Playground = (): ReactElement => {
 						toggleLabel: "To the side"
 					},
 					defaultValue: showDefaultValues && true
-				} as FieldDef<FormFieldToggleSwitchDef>,
+				},
 				{
 					name: "color",
 					label: "Color selector example",
@@ -393,7 +410,7 @@ export const Playground = (): ReactElement => {
 							value: "option_3-cat_2",
 						},
 					]
-				} as FieldDef<AdvancedSelectionDef>,
+				},
 				{
 					name: "imageVideoDocumentLink",
 					label: "Image Video and Document field",
@@ -435,7 +452,7 @@ export const Playground = (): ReactElement => {
 							"value": "-"
 						}
 					]
-				} as FieldDef<ImageVideoDocumentLinkBrowsingDef>,
+				},
 				{
 					name: "textEditor",
 					label: "Text Editor field",
@@ -477,7 +494,7 @@ export const Playground = (): ReactElement => {
 							]
 						}
 					]
-				} as FieldDef<TableDef>,
+				},
 				{
 					name: "imageUpload",
 					label: "Image Upload example",
@@ -494,10 +511,10 @@ export const Playground = (): ReactElement => {
 						"height": 600,
 						"width": 777
 					}
-				} as FieldDef<ImageUploadDef>,
+				},
 				{
 					name: "mapCoordinates",
-					label: "Map Coordinates Example",
+					label: "Map Coordinates example",
 					type: "mapCoordinates",
 					disabled,
 					required,
@@ -508,8 +525,54 @@ export const Playground = (): ReactElement => {
 						"lat": 32.3395031,
 						"lng": -110.9864294
 					}
-				} as FieldDef<MapCoordinatesDef>,
-			] as unknown as FieldDef[],
+				},
+				{
+					name: "upload",
+					label: "Upload example",
+					type: "upload",
+					disabled,
+					required,
+					inputSettings: {
+						onFileAdd,
+						onFileDelete,
+						limit: undefined,
+					},
+					defaultValue: showDefaultValues && [
+						{
+							"id": "1",
+							"name": "roomBlocks.xslx",
+							"size": "386359 bytes",
+						},
+						{
+							"id": "2",
+							"name": "floorplan.jpg",
+							"size": "282010 bytes",
+						},
+						{
+							"id": "3",
+							"name": "SV.png",
+							"size": "151418 bytes",
+							"url": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
+						},
+						{
+							"id": "4",
+							"name": "MyHotel-AZ.png",
+							"size": "1447671 bytes"
+						},
+						{
+							"id": "5",
+							"name": "opportunity.pdf",
+							"size": "20842780 bytes"
+						},
+						{
+							"id": "6",
+							"name": "summit.png",
+							"size": "840038 bytes",
+							"url": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
+						},
+					],
+				},
+			],
 		[additionalOptions, disabled, required, showDefaultValues]
 	);
 
@@ -616,7 +679,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const showState = boolean("Show state", false);
 	const {height = "100vh"} = props;
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -630,7 +693,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "text",
-					help: state.data.text2,
+					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
 					validators: [validateEmail, validateSlow]
 				},
@@ -680,7 +743,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					label: "Text Editor field",
 					type: "textEditor",
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -776,10 +839,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 		})
 	}
 
-	const fields = useMemo(
-		() => hundredFields as FieldDef<TextFieldDef>[],
-		[]
-	);
+	const fields = useMemo(() : FieldDef[] => hundredFields, []);
 
 	return (
 		<>
@@ -813,7 +873,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -826,7 +886,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "text",
-					help: state.data.text2,
+					helperText: state.data.text2,
 					validators: [validateEmail, validateSlow]
 				},
 				{
@@ -839,7 +899,7 @@ export const RuntimeBehaviors = (): ReactElement => {
 					label: "Text that receives copy",
 					type: "text"
 				}
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -912,7 +972,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -936,7 +996,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					label: "City",
 					type: "text"
 				}
-			] as FieldDef[],
+			] ,
 		[]
 	);
 
@@ -981,7 +1041,7 @@ export const DrawerForm = (): ReactElement => {
 	const [open, setOpen] = useState(false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -1005,7 +1065,7 @@ export const DrawerForm = (): ReactElement => {
 					},
 					validators: [required]
 				},
-			] as unknown as FieldDef[],
+			],
 		[]
 	);
 
@@ -1093,7 +1153,7 @@ export const CustomFields = (): ReactElement => {
 	}
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "text1",
@@ -1119,7 +1179,7 @@ export const CustomFields = (): ReactElement => {
 					helperText: "helper text bottom",
 					validators: [required]
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -1167,7 +1227,7 @@ export const Validators = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "required",
@@ -1227,7 +1287,7 @@ export const Validators = (): ReactElement => {
 						showTime: false,
 					},
 				},
-			] as FieldDef[],
+			],
 		[]
 	);
 
@@ -1263,7 +1323,7 @@ export const DefaultValues = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "required",
@@ -1272,7 +1332,7 @@ export const DefaultValues = (): ReactElement => {
 					required: true,
 					defaultValue: "Passing default value",
 				},
-			] as FieldDef<TextFieldDef>[],
+			],
 		[]
 	);
 

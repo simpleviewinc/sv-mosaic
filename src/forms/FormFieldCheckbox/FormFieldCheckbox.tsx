@@ -3,12 +3,12 @@ import { ReactElement, memo, useEffect, useState } from "react";
 
 // Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
-import { FormFieldCheckboxDef } from "./FormFieldCheckboxTypes";
+import { FormFieldCheckboxInputSettings, CheckboxData } from "./FormFieldCheckboxTypes";
 import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
 import { MosaicLabelValue } from "@root/types";
 
 const FormFieldCheckbox = (
-	props: MosaicFieldProps<FormFieldCheckboxDef, MosaicLabelValue[]>
+	props: MosaicFieldProps<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>
 ): ReactElement => {
 	const {
 		fieldDef,

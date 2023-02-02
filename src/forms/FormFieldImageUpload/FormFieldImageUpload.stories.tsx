@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
-import { ImageUploadDef } from ".";
 import { FieldDef } from "@root/components/Field";
 
 // Components
@@ -32,7 +31,7 @@ export const Playground = (): ReactElement => {
 	const withSetFocusCallback = boolean("With set focus callback", true);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "imageUpload",
@@ -47,7 +46,7 @@ export const Playground = (): ReactElement => {
 						handleSetFocus: withSetFocusCallback && handleSetFocus,
 					},
 				},
-			] as FieldDef<ImageUploadDef>[],
+			],
 		[required, disabled, showMenu, instructionText, helperText, label]
 	);
 
@@ -67,7 +66,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkFields = [
+const kitchenSinkFields: FieldDef[] = [
 	{
 		name: "imageUploadWithMenu",
 		label: "Image Upload with menu options and without setFocus handler",
@@ -101,7 +100,7 @@ const kitchenSinkFields = [
 		helperText: "Helper text",
 		instructionText: "Instruction text",
 	},
-] as FieldDef<ImageUploadDef>[];
+];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();

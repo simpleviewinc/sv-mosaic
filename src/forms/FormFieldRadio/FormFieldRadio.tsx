@@ -6,11 +6,11 @@ import RadioButton from "@root/components/RadioButton";
 
 // Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
-import { FormFieldRadioDef } from "./FormFieldRadioTypes";
+import { RadioInputSettings, RadioData } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
 import { MosaicLabelValue } from "@root/types";
 
-const FormFieldRadio = (props: MosaicFieldProps<FormFieldRadioDef, MosaicLabelValue>): ReactElement => {
+const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, RadioData>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,

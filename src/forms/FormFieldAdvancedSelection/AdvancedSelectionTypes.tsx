@@ -1,3 +1,4 @@
+import { FieldDefBase } from "@root/components/Field";
 import { MosaicLabelValue } from "@root/types";
 
 export type optionsWithCategory = {
@@ -32,7 +33,7 @@ type AdvancedSelectionExternalOptions = {
 	getOptionsLimit?: number | string;
 } & AdvancedSelectionBasic;
 
-export type AdvancedSelectionDef = AdvancedSelectionLocalOptions | AdvancedSelectionExternalOptions;
+export type AdvancedSelectionInputSettings = AdvancedSelectionLocalOptions | AdvancedSelectionExternalOptions;
 
 export interface ChipListPropsTypes {
 	fieldDef: {
@@ -68,3 +69,7 @@ export interface LoadMoreButtonPropsTypes {
 		}
 	}
 }
+
+export type AdvancedSelectionData = MosaicLabelValue[];
+
+export type FieldDefAdvancedSelection = FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>

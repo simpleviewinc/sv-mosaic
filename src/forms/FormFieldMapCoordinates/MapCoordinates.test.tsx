@@ -15,7 +15,6 @@ import MapCoordinates from "./FormFieldMapCoordinates";
 import { ReactElement } from "react";
 
 import { FieldDef } from "@root/components/Field/FieldTypes";
-import { MapCoordinatesDef } from "./MapCoordinatesTypes";
 // Utils
 import { address, defaultMapPosition } from "./MapCoordinatesUtils";
 import { ButtonProps } from "@root/components/Button";
@@ -30,7 +29,7 @@ const {
 	getAllByRole
 } = screen;
 
-const fields = [
+const fields: FieldDef[] = [
 	{
 		name: "map",
 		label: "Map",
@@ -41,7 +40,7 @@ const fields = [
 			googleMapsApiKey: "test",
 		},
 	},
-] as FieldDef<MapCoordinatesDef>[];
+];
 
 const MapCoordinatesExample = (): ReactElement => {
 	const { state, dispatch } = useForm();

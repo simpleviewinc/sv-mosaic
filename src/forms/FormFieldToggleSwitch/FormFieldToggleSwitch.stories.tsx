@@ -4,7 +4,6 @@ import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
-import { FormFieldToggleSwitchDef } from ".";
 import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
@@ -24,8 +23,8 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", false);
 	const toggleLabel = text("Toggle label", "Toggle label");
 
-	const fields = useMemo(
-		() =>
+	const fields: FieldDef[] = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "toggleSwitch",
@@ -39,7 +38,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			] as FieldDef<FormFieldToggleSwitchDef>[],
+			],
 		[required, disabled, toggleLabel, label, helperText, instructionText]
 	);
 
@@ -59,48 +58,44 @@ export const Playground = (): ReactElement => {
 	);
 };
 
+const fields: FieldDef[] = [
+	{
+		name: "toggleSwitchDefault",
+		label: "Default example",
+		type: "toggleSwitch",
+		required: false,
+		disabled: false,
+		inputSettings: {
+			toggleLabel: "Toggle label",
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
+		name: "toggleSwitchDisabled",
+		label: "Disabled example",
+		type: "toggleSwitch",
+		required: false,
+		disabled: true,
+		inputSettings: {
+			toggleLabel: "Toggle label",
+		},
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+	{
+		name: "toggleSwitchWithoutLabel",
+		label: "Toggle switch without label",
+		type: "toggleSwitch",
+		required : false,
+		disabled: false,
+		helperText: "Helper text",
+		instructionText: "Instruction text",
+	},
+];
+
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "toggleSwitchDefault",
-					label: "Default example",
-					type: "toggleSwitch",
-					required: false,
-					disabled: false,
-					inputSettings: {
-						toggleLabel: "Toggle label",
-					},
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-				{
-					name: "toggleSwitchDisabled",
-					label: "Disabled example",
-					type: "toggleSwitch",
-					required: false,
-					disabled: true,
-					inputSettings: {
-						toggleLabel: "Toggle label",
-					},
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-				{
-					name: "toggleSwitchWithoutLabel",
-					label: "Toggle switch without label",
-					type: "toggleSwitch",
-					required : false,
-					disabled: false,
-					helperText: "Helper text",
-					instructionText: "Instruction text",
-				},
-			] as FieldDef<FormFieldToggleSwitchDef>[],
-		[]
-	);
 
 	return (
 		<>
