@@ -153,9 +153,11 @@ export class PlaygroundPage extends BasePage {
 
 	async getColumnDataFromTable(rowPosition: number): Promise<string[]> {
 		const columnCount = await this.tableRowsLocator.nth(rowPosition - 1).locator("td").count();
-		const rowData = [];
+		const rowData: string[] = [];
 		for (let i = 2; i < columnCount; i++) {
-			rowData.push(await this.tableRowsLocator.nth(rowPosition - 1).locator("td").nth(i).textContent());
+			const data = await this.tableRowsLocator.nth(rowPosition - 1).locator("td").nth(i).textContent();
+			if (data)
+				rowData.push(data);
 		}
 		return rowData;
 	}
