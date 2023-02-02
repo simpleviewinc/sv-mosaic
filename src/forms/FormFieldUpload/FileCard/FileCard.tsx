@@ -8,6 +8,7 @@ import Spinner from "@root/components/Spinner";
 import { StyledFileCard } from "./FileCard.styled";
 import HelperText from "@root/components/Field/HelperText";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
+import Tooltip from "@root/components/Tooltip";
 
 const FileCard = (props: FileCardProps) => {
 	const {
@@ -55,7 +56,9 @@ const FileCard = (props: FileCardProps) => {
 					{renderImg}
 				</div>
 				<div className='file-data' data-testid="file-data">
-					<p className='file-name' data-testid="file-name">{name ?? "File title"}</p>
+					<Tooltip type="advanced" text={name ?? "File title"}>
+						<p className='file-name' data-testid="file-name">{name ?? "File title"}</p>
+					</Tooltip>
 					<p className='file-size' data-testid="file-size">{size ?? "File size"}</p>
 				</div>
 				{onFileDelete &&
