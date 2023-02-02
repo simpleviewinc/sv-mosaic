@@ -227,11 +227,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	};
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "placesList",
-					type: renderMap,
+					type: renderMap
 				},
 				{
 					name: "lat",
@@ -255,7 +255,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 						resetLocation
 					}
 				},
-			] as FieldDef[],
+			],
 		[center]
 	);
 

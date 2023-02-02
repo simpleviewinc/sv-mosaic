@@ -3,16 +3,12 @@ import { memo, ReactElement, useRef } from "react";
 import { MosaicFieldProps } from "@root/components/Field";
 import { EditorWrapper } from "./FormFieldTextEditor.styled";
 import JoditEditor from "jodit-react";
-import { TextEditorDef } from "./FormFieldTextEditorTypes";
+import { TextEditorData, TextEditorInputSettings } from "./FormFieldTextEditorTypes";
 
-const FormFieldTextEditor = (props: MosaicFieldProps<TextEditorDef, string>): ReactElement => {
-	const {
-		fieldDef,
-		onChange,
-		onBlur,
-		value,
-		error,
-	} = props;
+const FormFieldTextEditor = (
+	props: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>
+): ReactElement => {
+	const { fieldDef, onChange, onBlur, value, error } = props;
 
 	const editor = useRef(null);
 
@@ -51,19 +47,27 @@ const FormFieldTextEditor = (props: MosaicFieldProps<TextEditorDef, string>): Re
 		buttonsSM: buttonList,
 		buttonsMD: buttonList,
 		buttonsLG: buttonList,
-		spellcheck: fieldDef?.inputSettings?.spellcheck ? fieldDef?.inputSettings?.spellcheck : false,
-		direction: fieldDef?.inputSettings?.direction ? fieldDef?.inputSettings?.direction : "ltr",
-		language: fieldDef?.inputSettings?.language ? fieldDef?.inputSettings?.language : "en",
-		limitChars: fieldDef?.inputSettings?.maxCharacters ? fieldDef?.inputSettings?.maxCharacters : undefined,
-	}
+		spellcheck: fieldDef?.inputSettings?.spellcheck
+			? fieldDef?.inputSettings?.spellcheck
+			: false,
+		direction: fieldDef?.inputSettings?.direction
+			? fieldDef?.inputSettings?.direction
+			: "ltr",
+		language: fieldDef?.inputSettings?.language
+			? fieldDef?.inputSettings?.language
+			: "en",
+		limitChars: fieldDef?.inputSettings?.maxCharacters
+			? fieldDef?.inputSettings?.maxCharacters
+			: undefined,
+	};
 
 	const updateValue = async (e: string) => {
 		await onChange(e);
 		if (onBlur) await onBlur(e);
-	}
+	};
 
 	return (
-		<EditorWrapper error={error} data-testid='text-editor-testid'>
+		<EditorWrapper error={error} data-testid="text-editor-testid">
 			<JoditEditor
 				ref={editor}
 				value={value}

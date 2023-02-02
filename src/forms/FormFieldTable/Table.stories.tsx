@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { array, boolean, text, withKnobs } from "@storybook/addon-knobs";
-import { TableDef } from "./TableTypes";
 
 // Components
 import { FieldDef } from "@root/components/Field";
@@ -38,7 +37,7 @@ export const Playground = (): ReactElement => {
 	const withMoreActions = boolean("With more actions", false);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					disabled,
@@ -56,7 +55,7 @@ export const Playground = (): ReactElement => {
 					required,
 					type: "table",
 				},
-			] as FieldDef<TableDef>[],
+			],
 		[
 			addTableRow,
 			disabled,
@@ -100,7 +99,7 @@ export const KitchenSink = (): ReactElement => {
 	);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					disabled: false,
@@ -151,7 +150,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					type: "table",
 				},
-			] as FieldDef<TableDef>[],
+			],
 		[addTableRow, withoutHeaders]
 	);
 

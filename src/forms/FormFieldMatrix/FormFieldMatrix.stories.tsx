@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo, useState, useCallback, useEffect } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
-import { MatrixDef } from ".";
 import { FieldDef } from "@root/components/Field";
 
 // Components
@@ -194,7 +193,7 @@ export const FormVariant = (): ReactElement => {
 		savedView: defaultView
 	};
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -236,7 +235,7 @@ export const FormVariant = (): ReactElement => {
 						]
 					},
 				},
-			] as FieldDef<MatrixDef>[],
+			],
 		[required, disabled, instructionText, helperText, label, gridConfig, isEditing, indexEdit]
 	);
 
@@ -491,7 +490,7 @@ export const Browse = (): ReactElement => {
 		},
 	] as ButtonProps[];
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -521,7 +520,7 @@ export const Browse = (): ReactElement => {
 						],
 					},
 				},
-			] as FieldDef<MatrixDef>[],
+			],
 		[
 			required,
 			disabled,
