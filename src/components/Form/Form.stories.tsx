@@ -222,7 +222,7 @@ export const Playground = (): ReactElement => {
 		],
 	});
 
-	const onFileAdd = async ({blob, onChunkComplete, onUploadComplete, onError}) => {
+	const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
@@ -238,9 +238,9 @@ export const Playground = (): ReactElement => {
 
 		await onUploadComplete({
 			id: nanoid(),
-			name: blob.name,
-			size: `${blob.size} bytes`,
-			url: Math.random() < 0.7 ? URL.createObjectURL(blob) : undefined
+			name: file.name,
+			size: `${file.size} bytes`,
+			url: Math.random() < 0.7 ? URL.createObjectURL(file) : undefined
 		});
 	};
 
