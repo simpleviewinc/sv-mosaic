@@ -45,13 +45,8 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 		this.searchBarSection = this.advancedSelectionLocator.locator("[data-testid='section-test-id']").nth(1);
 		this.loadMoreSection = this.advancedSelectionLocator.locator("[data-testid='section-test-id']").last();
 		this.loadMoreButton = this.advancedSelectionLocator.locator("button", { hasText: "Load more" });
-
-
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
 	/**
 	 * This method return the expected height of the data of the CheckboxList, according to the following equation.
 	 * (100vh - Height of the drawer header - Height of the chips (if any) - Height of the “load more” button (if present)

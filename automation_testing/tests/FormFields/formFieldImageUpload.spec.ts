@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffImageUploadPage = new FormFieldImageUploadPage(page);
-		await ffImageUploadPage.visitPage();
+		await ffImageUploadPage.visit(ffImageUploadPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
