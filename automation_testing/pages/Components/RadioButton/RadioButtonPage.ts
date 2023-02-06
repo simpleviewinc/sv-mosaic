@@ -15,8 +15,4 @@ export class RadioButtonPage extends BasePage {
 		this.radioButtonSpan = page.locator("span[data-testid='radio-button-test']");
 		this.radioButtonInput = page.locator("input[type='radio']");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.radioButtonInput.first());
-	}
 }

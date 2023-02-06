@@ -25,8 +25,4 @@ export class PopoverPage extends BasePage {
 		this.subtitleLocator = this.popoverTooltip.locator("span", { hasText: "Subtitle" });
 		this.linkSubtitleLocator = this.popoverTooltip.locator("svg");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.openPopoverButton);
-	}
 }
