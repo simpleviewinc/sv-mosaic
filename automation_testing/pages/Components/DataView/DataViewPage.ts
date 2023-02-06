@@ -63,10 +63,6 @@ export class DataviewPage extends BasePage {
 		this.dataviewTableHeadLocator = page.locator("thead th");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
 		this.page.once("dialog", async dialog => {
 			expect(dialog.message().toString().split(",").length).toBe(number);
@@ -224,5 +220,11 @@ export class DataviewPage extends BasePage {
 
 	async getFilterText(locator: Locator): Promise<string> {
 		return await this.getOnlyStringWithLetters(await locator.locator(".filter-value p").innerText());
+	}
+
+	async clearFiltersIfVisible(): Promise<void> {
+		if (this.clearFiltersBtn.isVisible()) {
+			this.clearFiltersBtn.click();
+		}
 	}
 }
