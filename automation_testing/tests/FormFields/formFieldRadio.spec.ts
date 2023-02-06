@@ -8,7 +8,7 @@ test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formFieldRadioPage = new FormFieldRadioPage(page);
-		await formFieldRadioPage.visitPage();
+		await formFieldRadioPage.visit(formFieldRadioPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
