@@ -9,7 +9,7 @@ test.describe("Components - MenuItem - With Icon", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		menuItemPage = new MenuItemPage(page);
-		await menuItemPage.visitPage();
+		await menuItemPage.visit(menuItemPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
