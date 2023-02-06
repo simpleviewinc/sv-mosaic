@@ -9,7 +9,7 @@ test.describe.parallel("Components - Card - Recent Activity", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		cardPage = new CardPage(page);
-		await cardPage.visitPage();
+		await cardPage.visit(cardPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

@@ -9,7 +9,7 @@ test.describe("Components - ContentPage - Playground", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		contentPage = new ContentPage(page);
-		await contentPage.visitPage();
+		await contentPage.visit(contentPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

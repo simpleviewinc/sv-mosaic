@@ -9,7 +9,7 @@ test.describe("Components - Dialog - Example", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dialogPage = new DialogPage(page);
-		await dialogPage.visitPage();
+		await dialogPage.visit(dialogPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

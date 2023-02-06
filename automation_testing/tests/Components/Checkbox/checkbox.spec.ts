@@ -9,7 +9,7 @@ test.describe.parallel("Components - Checkbox - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		checkboxPage = new CheckboxPage(page);
-		await checkboxPage.visitPage();
+		await checkboxPage.visit(checkboxPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
