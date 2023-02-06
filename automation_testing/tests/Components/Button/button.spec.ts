@@ -9,7 +9,7 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		buttonPage = new ButtonPage(page);
-		await buttonPage.visitPage();
+		await buttonPage.visit(buttonPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

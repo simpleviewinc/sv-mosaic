@@ -23,8 +23,4 @@ export class ButtonPage extends BasePage {
 		this.buttonThatTriggersPopoverOnClick = page.locator("text=With Popover").first();
 		this.buttonThatTriggersPopoverOnHover = page.locator("text=With Popover").nth(1);
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.buttonTitle);
-	}
 }
