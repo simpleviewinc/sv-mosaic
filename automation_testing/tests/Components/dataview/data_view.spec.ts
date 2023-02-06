@@ -10,7 +10,7 @@ test.describe.parallel("Components - Data View - Playground", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
-		await dataviewPage.visitPage();
+		await dataviewPage.visit(dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {
