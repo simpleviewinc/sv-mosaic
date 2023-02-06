@@ -9,7 +9,7 @@ test.describe("Components - Chip - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		chipPage = new ChipPage(page);
-		await chipPage.visitPage();
+		await chipPage.visit(chipPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
