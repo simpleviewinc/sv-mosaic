@@ -33,6 +33,7 @@ export class BasePage {
 	readonly formTestID: Locator;
 	readonly roleOptionLocator: Locator;
 	readonly rolePresentationLocator: Locator;
+	readonly deleteIconSelectedOptionChip: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -63,6 +64,7 @@ export class BasePage {
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
 		this.roleOptionLocator = page.locator("[role='option']");
 		this.rolePresentationLocator = page.locator("[role='presentation']");
+		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
