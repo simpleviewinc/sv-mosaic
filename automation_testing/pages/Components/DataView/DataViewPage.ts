@@ -222,9 +222,15 @@ export class DataviewPage extends BasePage {
 		return await this.getOnlyStringWithLetters(await locator.locator(".filter-value p").innerText());
 	}
 
-	async clearFiltersIfVisible(): Promise<void> {
-		if (this.clearFiltersBtn.isVisible()) {
-			this.clearFiltersBtn.click();
+	async removeAllSelectedFilters(): Promise<void> {
+		if (await this.filterRowBtn.count() > 1) {
+			await this.page.keyboard.press("Escape");
+			await this.filtersBtn.click();
+			for (let i = 0; i < await this.deleteIconSelectedOptionChip.count(); i++) {
+				this.deleteIconSelectedOptionChip.first().click();
+			}
+			await this.applyBtn.click();
+			await this.loading.waitFor({ state: "detached" });
 		}
 	}
 }
