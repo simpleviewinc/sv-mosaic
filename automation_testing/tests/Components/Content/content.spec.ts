@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - ContentPage - Playground", () => {
+test.describe.parallel("Components - ContentPage - Playground", () => {
 	let page: Page;
 	let contentPage: ContentPage;
 

@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { DialogPage } from "../../../pages/Components/Dialog/DialogPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - Dialog - Example", () => {
+test.describe.parallel("Components - Dialog - Example", () => {
 	let page: Page;
 	let dialogPage: DialogPage;
 
