@@ -26,7 +26,7 @@ export default {
 export const Playground = (): ReactElement => {
 	const buttonVariant = select(
 		"Variant",
-		["text", "outlined", "contained"],
+		["text", "outlined", "contained", "icon"],
 		"contained"
 	);
 	const buttonColor = select(
@@ -54,6 +54,9 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const tooltip = text("Tooltip", "");
 	const smallText = boolean("Small text. Used by text buttons", false);
+	const href = boolean("Href", false);
+	const showIcon = boolean("Show icon", false);
+	const useIcon = buttonVariant === "icon" || showIcon;
 
 	return (
 		<StoryBookError>
@@ -68,6 +71,8 @@ export const Playground = (): ReactElement => {
 				disabled={disabled}
 				tooltip={tooltip}
 				size={size}
+				mIcon={useIcon && AddIcon}
+				href={href ? "https://www.google.com/" : null}
 			/>
 		</StoryBookError>
 	);
@@ -448,6 +453,14 @@ export const KitchenSink = (): ReactElement => {
 						label="With Link and click handler"
 						href="https://www.bing.com/"
 						onClick={function(e) { e.preventDefault(); alert("Click handler") }}
+					/>
+					<Button
+						color="blue"
+						variant="icon"
+						mIcon={AddIcon}
+						onClick={clickHandler}
+						size="small"
+						href="https://www.google.com/"
 					/>
 				</ButtonRow>
 			</div>
