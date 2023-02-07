@@ -23,7 +23,7 @@ export const ButtonWrapper = styled.span`
   }
 
   & > a {
-	text-transform: uppercase;
+    text-transform: uppercase;
   }
 
   &.normalButton > button {
@@ -80,17 +80,16 @@ export const ButtonWrapper = styled.span`
     font-size: ${theme.iconFontSize};
   }
 
-  &.iconButton > button  {
+  &.iconButton > .MuiIconButton-root  {
     padding: 4px;
   }
 
-  &.iconButton.size_small > button {
+  &.iconButton.size_small > .MuiIconButton-root {
     padding: 3px;
   }
 
-  &.iconButton.size_medium > button {
-    // padding: 4px;
-	margin: 2px;
+  &.iconButton.size_medium > .MuiIconButton-root {
+    margin: 2px;
   }
 
   .MuiTouchRipple-child {
@@ -122,80 +121,80 @@ const GrayOnWhite = styled(ButtonWrapper)`
 `;
 
 const TealOnWhite = styled(ButtonWrapper)`
-  & > button {
+  & > .MuiButtonBase-root {
     color: ${theme.newColors.realTeal["100"]};
   }
 
-  & > button:hover {
+  & > .MuiButtonBase-root:hover {
 		border-radius: 0;
     color: ${theme.newColors.darkerRealTeal[100]};
   }
 `;
 
 const RedOnWhite = styled(ButtonWrapper)`
-  & > button {
+  & > .MuiButtonBase-root {
     color: ${theme.newColors.darkRed["100"]};
     border-color: ${theme.newColors.darkRed["100"]};
     font-family: ${theme.fontFamily};
   }
 
-  & > button:hover {
+  & > .MuiButtonBase-root:hover {
 		background: ${theme.newColors.darkRed["20"]};
 		border-radius: 0;
   }
 
-  & > button:active,
-  & > button:focus {
+  & > .MuiButtonBase-root:active,
+  & > .MuiButtonBase-root:focus {
     background: ${theme.newColors.darkRed["20"]};
   }
 `;
 
 const BlackOnWhite = styled(ButtonWrapper)`
-  & > button {
+  & > .MuiButtonBase-root {
     color: ${theme.newColors.almostBlack["100"]};
     border-color: ${theme.colors.gray400};
   }
 
-  & > button:hover {
+  & > .MuiButtonBase-root:hover {
     background: ${theme.newColors.grey2["100"]};
 		border-radius: 0;
   }
 
-  & > button:active,
-  & > button:focus {
+  & > .MuiButtonBase-root:active,
+  & > .MuiButtonBase-root:focus {
     background: ${theme.colors.gray300};
   }
 `;
 
 const BlueOnWhite = styled(ButtonWrapper)`
-  & > button {
+  & > .MuiButtonBase-root {
     color: ${theme.colors.blue};
     border-color: ${theme.colors.blue};
   }
 
-  & > button:hover {
+  & > .MuiButtonBase-root:hover {
     background: ${theme.colors.blue}12;
 		border-radius: 0;
   }
 
-  & > button:active,
-  & > button:focus {
+  & > .MuiButtonBase-root:active,
+  & > .MuiButtonBase-root:focus {
     background: ${theme.colors.blue}24;
   }
 `;
 
 const WhiteOnBlack = styled(ButtonWrapper)`
-  & > button {
+  & > .MuiButtonBase-root {
     color: ${theme.colors.white};
     border-color: ${theme.colors.white};
   }
 
-  & > button:hover {
+  & > .MuiButtonBase-root:hover {
     background: ${theme.colors.white}30;
   }
 
-  & > button:active,
-  & > button:focus {
+  & > .MuiButtonBase-root:active,
+  & > .MuiButtonBase-root:focus {
     background: ${theme.colors.white}60;
   }
 `;
@@ -495,11 +494,11 @@ export const types = {
 	red_icon: RedOnWhite,
 	white_icon: WhiteOnBlack,
 	gray_icon: styled(GrayOnWhite)`
-		& > button {
+		& > .MuiButtonBase-root {
 			color: ${theme.newColors.grey3["100"]};
 		}
 
-		& > button:hover {
+		& > .MuiButtonBase-root:hover {
 			color: ${theme.newColors.almostBlack["100"]};
 		}
   `,

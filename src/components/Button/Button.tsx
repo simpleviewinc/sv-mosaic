@@ -121,7 +121,7 @@ function Button(props: ButtonProps) {
 			}
 			{
 				props.variant === "icon" &&
-				<IconButton {...muiAttrs} onClick={onClick} disabled={props.disabled} size="large">
+				<IconButton {...muiAttrs} onClick={onClick} disabled={props.disabled} size="large" href={props.href}>
 					{props.mIcon && <MaterialIcon data-testid="icon-button-test" className="icon"></MaterialIcon>}
 				</IconButton>
 			}
