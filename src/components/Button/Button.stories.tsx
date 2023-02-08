@@ -94,6 +94,21 @@ export const Playground = (): ReactElement => {
 		"Undefined"
 	);
 	const label = select("Type of label", ["String", "JSX"], "String")
+	const showIcon = boolean("Show icon", false);
+	const iconColor = select(
+		"mIconColor",
+		[
+			"black",
+			"blue",
+			"lightBlue",
+			"red",
+			"yellow",
+			"teal",
+			"gray",
+			"white"
+		],
+		"black"
+	);
 	const iconPosition = select("Icon position", ["left", "right"], "left");
 	const fullWidth = boolean("Full Width", false);
 	const disabled = boolean("Disabled", false);
@@ -102,7 +117,6 @@ export const Playground = (): ReactElement => {
 	const popoverEvent = select("Popover event", ["onClick", "onHover"], "onClick");
 	const smallText = boolean("Small text. Used by text buttons", false);
 	const href = boolean("Href", false);
-	const showIcon = boolean("Show icon", false);
 	const menuItems = boolean("Menu items", false);
 	const showMenuContent = boolean("Menu content", false);
 	const useIcon = buttonVariant === "icon" || showIcon;
@@ -143,6 +157,7 @@ export const Playground = (): ReactElement => {
 						tooltip={tooltipType}
 						size={size}
 						mIcon={useIcon && AddIcon}
+						mIconColor={useIcon && iconColor}
 						href={href ? "https://www.google.com/" : null}
 						iconPosition={iconPosition}
 						popover={popover && !tooltipType && <p>Popover Content</p>}
