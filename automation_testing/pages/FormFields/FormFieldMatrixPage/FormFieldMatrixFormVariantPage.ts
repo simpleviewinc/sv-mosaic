@@ -24,10 +24,6 @@ export class FormFieldMatrixFormVariantPage extends BasePage {
 		this.deleteIconButton = page.locator("[data-mosaic-id='action_primary_delete'] button");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.addMatrixButton);
-	}
-
 	async getRowDataFromMatrix(column: "ID"|"Title"|"Description"): Promise<string[]> {
 		const rowCount = await this.table.locator("tr").count();
 		const data = [];

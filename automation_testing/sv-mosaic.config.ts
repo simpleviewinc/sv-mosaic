@@ -15,6 +15,8 @@ const config: PlaywrightTestConfig = {
 	},
 	retries: 1,
 	timeout: 200000,
+	reporter: [ ["html", { open: "never", outputFolder: "./playwright-report"}] ],
+	workers: process.env.CI ? 2 : 4,
 	projects: [
 		{
 			name: "Chromium",
