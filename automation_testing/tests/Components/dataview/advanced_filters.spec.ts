@@ -371,7 +371,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
 		await advancedFilters.selectFilter("updated");
-		await advancedFilters.waitForElementLoad();
+		await advancedFilters.wait();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
 
