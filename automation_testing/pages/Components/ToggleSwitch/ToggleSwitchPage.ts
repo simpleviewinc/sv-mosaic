@@ -17,12 +17,4 @@ export class ToggleSwitchPage extends BasePage {
 		this.toggleInput = page.locator(this.checkboxInputString);
 		this.toggleSwitchTrack = page.locator("span.MuiSwitch-track");
 	}
-
-	async visitPage(knobs?: string[]): Promise<void> {
-		if (knobs) {
-			await this.visit(this.page_path, this.toggleInput, knobs);
-		} else {
-			await this.visit(this.page_path, this.toggleInput);
-		}
-	}
 }
