@@ -36,10 +36,6 @@ export class LeftNavPage extends BasePage {
 		this.leftNavLabelLocator = page.locator(".left .navLabel");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async getItemParent(item: Locator): Promise<Locator> {
 		return item.locator("xpath=..");
 	}

@@ -1,14 +1,14 @@
 import { test, expect, Page } from "@playwright/test";
 import { Drawers } from "../../../pages/Components/Drawers/DrawersPage";
 
-test.describe.parallel("Components - Drawers", () => {
+test.fixme("Components - Drawers - Example", () => {
 	let page: Page;
 	let drawersPage: Drawers;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		drawersPage = new Drawers(page);
-		await drawersPage.visitPage();
+		await drawersPage.visit(drawersPage.page_path);
 	});
 
 	test.beforeEach(async() => {

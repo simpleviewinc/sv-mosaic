@@ -19,8 +19,4 @@ export class CardPage extends BasePage {
 		this.cardTitleBar = page.locator("#root div div").first();
 		this.cardWrapper = page.locator("#root div").first();
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.showAllButton);
-	}
 }

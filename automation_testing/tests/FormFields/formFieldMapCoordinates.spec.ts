@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffMapCoordinatesPage = new FormFieldMapCoordinatesPage(page);
-		await ffMapCoordinatesPage.visitPage();
+		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.page_path);
 	});
 
 	test.beforeEach(async() => {
