@@ -322,7 +322,6 @@ const fields = useMemo(
 * **instructionText** - `string` optional - Instructions about how to fill the current field.
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
-* **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for FormFieldText).
 * **size** - `string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **xs** = 100px
 	* **sm** = 280px
@@ -355,7 +354,6 @@ const fields = useMemo(
 				instructionText: "This is an example of an instruction text",
 				disabled: false,
 				inputSettings: {}, //Please see inputSettings of each field
-				maxCharacters: 20,
 				size: "sm",
 				className: "myClassName",
 				style: {{ marginTop: "5px", }},
@@ -800,7 +798,6 @@ const fields: FieldDef[] = useMemo(
 			{
 				//...all generic field props,
 				type: "text",
-				maxCharacters: 20,
 				size: "md",
 				inputSettings: {
 					prefixElement: <AccountCircle />,
