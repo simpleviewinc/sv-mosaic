@@ -10,7 +10,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffColorPickerPage = new FormFieldColorPickerPage(page);
-		await ffColorPickerPage.visitPage();
+		await ffColorPickerPage.visit(ffColorPickerPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

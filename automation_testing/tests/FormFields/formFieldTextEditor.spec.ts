@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffTextEditorPage = new FormFieldTextEditorPage(page);
-		await ffTextEditorPage.visitPage();
+		await ffTextEditorPage.visit(ffTextEditorPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

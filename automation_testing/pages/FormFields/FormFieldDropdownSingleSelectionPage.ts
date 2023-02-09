@@ -23,22 +23,18 @@ export class FormFieldDropdownSingleSelectionPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.regularDropdownDiv = page.locator("[data-testid='textfield-test-id']").nth(0);
-		this.regularDropdownInput = page.locator("input").nth(0);
-		this.regularDropdownButton = page.locator("//*[@id='root']/div/form/div[2]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/div/div/button[2]");
-		this.regularClearDropdownButton = page.locator("//*[@id='root']/div/form/div[2]/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/div/div/button[1]");
-		this.disabledField = page.locator("p[data-testid='disabled-text-test-id']");
-		this.xsSizeDropdownDiv = page.locator("[data-testid='dropdown-single-selection-test-id']").nth(2);
-		this.smSizeDropdownDiv = page.locator("[data-testid='dropdown-single-selection-test-id']").nth(3);
-		this.mdSizeDropdownDiv = page.locator("[data-testid='dropdown-single-selection-test-id']").nth(4);
-		this.lgSizeDropdownDiv = page.locator("[data-testid='dropdown-single-selection-test-id']").nth(5);
+		this.regularDropdownDiv = page.locator("#dropdown [data-testid='textfield-test-id']");
+		this.regularDropdownInput = page.locator("#dropdown input");
+		this.regularDropdownButton = page.locator("#dropdown button[title='Open']");
+		this.regularClearDropdownButton = page.locator("#dropdown button[title='Clear']");
+		this.disabledField = page.locator("#disabledExample p[data-testid='disabled-text-test-id']");
+		this.xsSizeDropdownDiv = page.locator("#xsSize [data-testid='dropdown-single-selection-test-id']");
+		this.smSizeDropdownDiv = page.locator("#smSize [data-testid='dropdown-single-selection-test-id']");
+		this.mdSizeDropdownDiv = page.locator("#mdSize [data-testid='dropdown-single-selection-test-id']");
+		this.lgSizeDropdownDiv = page.locator("#lgSize [data-testid='dropdown-single-selection-test-id']");
 		this.xsSizeDropdownInput = this.xsSizeDropdownDiv.locator("input");
 		this.smSizeDropdownInput = this.smSizeDropdownDiv.locator("input");
 		this.mdSizeDropdownInput = this.mdSizeDropdownDiv.locator("input");
 		this.lgSizeDropdownInput = this.lgSizeDropdownDiv.locator("input");
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
 	}
 }

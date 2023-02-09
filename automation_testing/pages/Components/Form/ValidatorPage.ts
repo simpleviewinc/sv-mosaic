@@ -32,26 +32,22 @@ export class ValidatorPage extends BasePage {
 		this.page = page;
 		this.datepicker = new DatePickerComponent(page);
 		this.title = page.locator("text=Validators story");
-		this.requiredTitle = page.locator("[for='required']");
-		this.requireField = page.locator("#required");
-		this.emailField = page.locator("#email");
-		this.slowField = page.locator("#slow");
-		this.numberField = page.locator("#number");
-		this.urlField = page.locator("#url");
-		this.startDateInput = page.locator("[data-testid='date-picker-test-id'] input").nth(0);
-		this.startDateButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
-		this.endDateInput = page.locator("[data-testid='date-picker-test-id'] input").nth(1);
-		this.endDateButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
+		this.requiredTitle = page.locator("#required label[for='required']");
+		this.requireField = page.locator("input#required");
+		this.emailField = page.locator("input#email");
+		this.slowField = page.locator("input#slow");
+		this.numberField = page.locator("input#number");
+		this.urlField = page.locator("input#url");
+		this.startDateInput = page.locator("#startDate input");
+		this.startDateButton = page.locator("#startDate button");
+		this.endDateInput = page.locator("#endDate input");
+		this.endDateButton = page.locator("#endDate button");
 		this.inputError = page.locator(".Mui-error");
 		this.calendarPicker = page.locator(".MuiCalendarPicker-root");
 		this.rightArrowCalendar = page.locator("[data-testid='ArrowRightIcon']");
 		this.leftArrowCalendar = page.locator("[data-testid='ArrowLeftIcon']");
 		this.yearArrowCalendar = page.locator("[role='presentation'] .MuiIconButton-root.MuiIconButton-sizeSmall");
 		this.monthCalendar = page.locator("[role='presentation'] .PrivatePickersFadeTransitionGroup-root").nth(0);
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
 	}
 
 	async getDateIcon(field: Locator): Promise<Locator> {

@@ -121,7 +121,9 @@ describe("Field char counter", () => {
 						name: "fieldTest",
 						type: "text",
 						label: "Label",
-						maxCharacters: 20,
+						inputSettings: {
+							maxCharacters: 20,
+						}
 					}}
 					value={inputValue}
 					colsInRow={1}

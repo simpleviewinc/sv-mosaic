@@ -33,6 +33,7 @@ export class BasePage {
 	readonly formTestID: Locator;
 	readonly roleOptionLocator: Locator;
 	readonly rolePresentationLocator: Locator;
+	readonly deleteIconSelectedOptionChip: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -63,15 +64,15 @@ export class BasePage {
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
 		this.roleOptionLocator = page.locator("[role='option']");
 		this.rolePresentationLocator = page.locator("[role='presentation']");
+		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
 	}
 
-	async visit(page_path: string, element: Locator, knobs?: string[]): Promise<void> {
+	async visit(page_path: string, knobs?: string[]): Promise<void> {
 		if (knobs) {
-			await this.page.goto(urlWithKnobs(page_path, knobs), { timeout: 900000 });
+			await this.page.goto(urlWithKnobs(page_path, knobs), { waitUntil: "domcontentloaded", timeout: 900000 });
 		} else {
-			await this.page.goto(url(page_path), { timeout: 900000 });
+			await this.page.goto(url(page_path), { waitUntil: "domcontentloaded", timeout: 900000 });
 		}
-		await element.waitFor();
 	}
 
 	async validateSnapshot(component: Locator, name: string): Promise<void> {
@@ -252,5 +253,9 @@ export class BasePage {
 		default:
 			return await ((element).evaluate(el => getComputedStyle(el).border));
 		}
+	}
+
+	async getCursorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).cursor));
 	}
 }
