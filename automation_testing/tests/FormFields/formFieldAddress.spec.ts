@@ -11,7 +11,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffAddressPage = new FormFieldAddressPage(page);
-		await ffAddressPage.visitPage();
+		await ffAddressPage.visit(ffAddressPage.page_path);
 	});
 
 	test.beforeEach(async() => {

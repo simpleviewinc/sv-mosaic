@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffAdvancedSelectionPage = new FormFieldAdvancedSelectionPage(page);
-		await ffAdvancedSelectionPage.visitPage();
+		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
