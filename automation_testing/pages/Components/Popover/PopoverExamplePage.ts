@@ -19,8 +19,4 @@ export class PopoverPage extends BasePage {
 		this.popoverAddButton = this.popoverTooltip.locator("button");
 		this.popoverContentSplit = page.locator("hr[data-testid='bottom-content-split']");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.openPopoverButton);
-	}
 }

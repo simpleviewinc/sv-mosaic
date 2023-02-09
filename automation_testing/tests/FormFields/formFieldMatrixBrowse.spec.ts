@@ -8,7 +8,7 @@ test.describe.parallel("FormFields - FormFieldMatrix - Browse", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffMatrixBrowsePage = new FormFieldMatrixBrowsePage(page);
-		await ffMatrixBrowsePage.visitPage();
+		await ffMatrixBrowsePage.visit(ffMatrixBrowsePage._page_path);
 	});
 
 	test.afterEach(async() => {

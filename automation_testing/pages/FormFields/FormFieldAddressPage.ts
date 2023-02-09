@@ -45,10 +45,6 @@ export class FormFieldAddressPage extends BasePage {
 		this.titleAddAddressDrawerWrapper = this.formTestID.nth(1).locator("form div").first();
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async fillAddresInformation(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {
 		await this.wait();
 		await this.selectOptionFromDropdown(this.countryDropdownButton, us_address.country);

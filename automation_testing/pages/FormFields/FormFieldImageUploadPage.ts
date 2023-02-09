@@ -25,8 +25,4 @@ export class FormFieldImageUploadPage extends BasePage {
 		this.disabledImageUploadDiv = page.locator("#imageUploadDisabled div div").last();
 		this.instructionIcon = page.locator("[data-testid='field-test-id'] svg");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
 }

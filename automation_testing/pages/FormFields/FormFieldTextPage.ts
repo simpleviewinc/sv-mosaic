@@ -40,10 +40,6 @@ export class FormFieldTextPage extends BasePage {
 		this.firstInstructionText = page.locator(".instruction-text-right").first();
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async setTextInMultilineField(multilineText:string): Promise<void> {
 		const words = multilineText.split(" ");
 		for (let i = 0; i < words.length; i++) {
