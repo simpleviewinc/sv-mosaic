@@ -6,21 +6,27 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 	readonly page_path = "formfields-formfieldimagevideolinkdocumentbrowsing--kitchen-sink";
 
 	readonly page: Page;
-	readonly browseImageLocator: Locator;
-	readonly browseVideoLocator: Locator;
-	readonly browseDocumentLocator: Locator;
-	readonly browseLinkLocator: Locator;
+	readonly browseImageLocator: string;
+	readonly browseVideoLocator: string;
+	readonly browseDocumentLocator: string;
+	readonly browseLinkLocator: string;
 
-	readonly imageOrVideoWithoutSrcCard: Locator;
+	readonly browseAllOptionsCardLocator: Locator;
+	readonly browseAllImageWithSrcButton: Locator;
+	readonly browseAllVideoWithSrcButton: Locator;
+	readonly browseAllDocumentWithSrcButton: Locator;
+	readonly browseAllLinkWithSrcButton: Locator;
+	readonly imageOrVideoWithoutSrcCardLocator: Locator;
 	readonly imageWithoutSrcButton: Locator;
 	readonly videoWithoutSrcButton: Locator;
-	readonly browsingImageWithSrcCard: Locator;
-	readonly imageWithSrcButton: Locator;
-	readonly browsingVideoWithSrcCard: Locator;
-	readonly videoWithSrcButton: Locator;
-	readonly browsingDocumentCard: Locator;
-	readonly documentButton: Locator;
-	readonly linkButton: Locator;
+	readonly browsingImageLocator: Locator;
+	readonly browsingImageButton: Locator;
+	readonly browsingVideoLocator: Locator;
+	readonly browsingVideoButton: Locator;
+	readonly browsingDocumentLocator: Locator;
+	readonly browsingDocumentButton: Locator;
+	readonly browsingLinkLocator: Locator;
+	readonly browsingLinkButton: Locator;
 	readonly browsingWithoutAnyOptionsCard: Locator;
 	readonly disabledCard: Locator;
 	readonly disabledButton: Locator;
@@ -30,34 +36,36 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.browseImageLocator = page.locator("[data-testid='browse-image-test']");
-		this.browseVideoLocator = page.locator("[data-testid='browse-video-test']");
-		this.browseDocumentLocator = page.locator("[data-testid='browse-document-test']");
-		this.browseLinkLocator = page.locator("[data-testid='browse-link-test']");
+		this.browseImageLocator = "[data-testid='browse-image-test']";
+		this.browseVideoLocator = "[data-testid='browse-video-test']";
+		this.browseDocumentLocator = "[data-testid='browse-document-test']";
+		this.browseLinkLocator = "[data-testid='browse-link-test']";
 
-		this.imageOrVideoWithoutSrcCard = page.locator("//*[@id='1']");
-		this.imageWithoutSrcButton = this.browseImageLocator.first();
-		this.videoWithoutSrcButton = this.browseVideoLocator.nth(1);
-		this.browsingImageWithSrcCard = page.locator("//*[@id='2']");
-		this.imageWithSrcButton = this.browseImageLocator.nth(2);
-		this.browsingVideoWithSrcCard = page.locator("//*[@id='3']");
-		this.videoWithSrcButton = page.locator("//*[@id='3']/div/div/div/div/div/div[2]/div/div/div/div[1]");
-		this.browsingDocumentCard = page.locator("//*[@id='4']");
-		this.documentButton = this.browseDocumentLocator.nth(1);
-		this.linkButton = page.locator("//*[@id='5']/div/div/div/div/div/div[2]/div/div/div/div[1]");
-		this.browsingWithoutAnyOptionsCard = page.locator("//*[@id='6']/div/div/div/div/div/div[2]/div");
-		this.disabledCard = page.locator("//*[@id='7']");
-		this.disabledButton = this.browseImageLocator.nth(3);
+		this.browseAllOptionsCardLocator = page.locator("#browseAllOptions");
+		this.browseAllImageWithSrcButton = this.browseAllOptionsCardLocator.locator(this.browseImageLocator);
+		this.browseAllVideoWithSrcButton = this.browseAllOptionsCardLocator.locator(this.browseVideoLocator);
+		this.browseAllDocumentWithSrcButton = this.browseAllOptionsCardLocator.locator(this.browseDocumentLocator);
+		this.browseAllLinkWithSrcButton = this.browseAllOptionsCardLocator.locator(this.browseLinkLocator);
+		this.imageOrVideoWithoutSrcCardLocator = page.locator("#browseImageOrVideo");
+		this.imageWithoutSrcButton = this.imageOrVideoWithoutSrcCardLocator.locator(this.browseImageLocator);
+		this.videoWithoutSrcButton = this.imageOrVideoWithoutSrcCardLocator.locator(this.browseVideoLocator);
+		this.browsingImageLocator = page.locator("#browseImage");
+		this.browsingImageButton = this.browsingImageLocator.locator(this.browseImageLocator);
+		this.browsingVideoLocator = page.locator("#browseVideo");
+		this.browsingVideoButton = this.browsingImageLocator.locator(this.browseImageLocator);
+		this.browsingDocumentLocator = page.locator("#browseDocument");
+		this.browsingDocumentButton = this.browsingDocumentLocator.locator(this.browseDocumentLocator);
+		this.browsingLinkLocator = page.locator("#browseDocument");
+		this.browsingLinkButton = this.browsingLinkLocator.locator(this.browseLinkLocator);
+		this.browsingWithoutAnyOptionsCard = page.locator("#withoutAnyBrowsingOption div div div").last();
+		this.disabledCard = page.locator("#disabledExample");
+		this.disabledButton = this.disabledCard.locator(this.browseImageLocator);
 		this.moreButton = page.locator("[data-testid='tooltip-test-id']");
 		this.threePointsButton = page.locator("[data-testid='icon-button-test']");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async getSpecificInfoFromTable(information:string): Promise<string> {
-		return await this.table.locator("tr", {hasText: information}).locator("td").nth(1).textContent();
+		return await this.table.locator("tr", { hasText: information }).locator("td").nth(1).textContent();
 	}
 
 	async getInformationTitlesFromTable(): Promise<string[]> {

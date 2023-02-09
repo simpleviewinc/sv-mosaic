@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formFieldDropdownSingleSelectionPage = new FormFieldDropdownSingleSelectionPage(page);
-		await formFieldDropdownSingleSelectionPage.visitPage();
+		await formFieldDropdownSingleSelectionPage.visit(formFieldDropdownSingleSelectionPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

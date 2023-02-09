@@ -2,14 +2,14 @@ import { test, expect, Page } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - ContentPage - Playground", () => {
+test.describe.parallel("Components - ContentPage - Playground", () => {
 	let page: Page;
 	let contentPage: ContentPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		contentPage = new ContentPage(page);
-		await contentPage.visitPage();
+		await contentPage.visit(contentPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

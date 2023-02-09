@@ -12,7 +12,7 @@ export class FormFieldTablePage extends BasePage {
 	readonly table: Locator;
 	readonly actionButton: Locator;
 	readonly addElementInTableButton: Locator;
-	
+
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
@@ -22,10 +22,6 @@ export class FormFieldTablePage extends BasePage {
 		this.table = page.locator("table");
 		this.actionButton = page.locator(".iconButton button");
 		this.addElementInTableButton = page.locator(".variant_text button");
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
 	}
 
 	async getNumberOfColumnsInTable(): Promise<number> {
@@ -43,5 +39,5 @@ export class FormFieldTablePage extends BasePage {
 			rowText.push(await this.table.locator("tbody >> tr").nth(i).locator("td").nth(columnPosition).textContent());
 		}
 		return rowText;
-	}	
+	}
 }
