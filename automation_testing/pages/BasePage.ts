@@ -254,4 +254,8 @@ export class BasePage {
 			return await ((element).evaluate(el => getComputedStyle(el).border));
 		}
 	}
+
+	async getCursorFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).cursor));
+	}
 }
