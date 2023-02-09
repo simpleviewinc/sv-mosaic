@@ -3,5 +3,6 @@ package-lock.json
 coverage
 automation_testing/node_modules
 automation_testing/test-results
+automation_testing/playwright-report
 dist/*
 !dist/.gitkeep

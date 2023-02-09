@@ -9,7 +9,7 @@ test.describe.parallel("Components - RadioButton - Group", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		radioButtonPage = new RadioButtonPage(page);
-		await radioButtonPage.visitPage();
+		await radioButtonPage.visit(radioButtonPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

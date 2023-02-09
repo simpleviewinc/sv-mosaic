@@ -14,7 +14,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		page = await browser.newPage();
 		_dataviewPage = new DataviewPage(page);
 		filter = new FilterComponent(page);
-		await _dataviewPage.visitPage();
+		await _dataviewPage.visit(_dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {

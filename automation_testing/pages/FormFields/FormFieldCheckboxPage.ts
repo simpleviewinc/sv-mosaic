@@ -23,10 +23,6 @@ export class FormFieldCheckboxPage extends BasePage {
 		this.fromDBCheckboxLocator = page.locator("#checkboxFromDB");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async selectRandomCheckboxButton(): Promise<number> {
 		const optionSelected = randomIntFromInterval(1, await this.regularCheckboxButton.locator("[data-testid='label-test-id']").count()) - 1;
 		await this.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(optionSelected).check();

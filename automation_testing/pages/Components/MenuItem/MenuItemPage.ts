@@ -15,8 +15,4 @@ export class MenuItemPage extends BasePage {
 		this.menuText = page.locator("[role='menuitem'] span");
 		this.deleteIcon = page.locator("[data-testid='DeleteIcon']");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.deleteIcon);
-	}
 }

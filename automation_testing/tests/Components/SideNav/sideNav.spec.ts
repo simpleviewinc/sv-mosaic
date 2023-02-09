@@ -9,7 +9,7 @@ test.describe.parallel("Components - SideNav", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		sideNavPage = new SideNavPage(page);
-		await sideNavPage.visitPage();
+		await sideNavPage.visit(sideNavPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
