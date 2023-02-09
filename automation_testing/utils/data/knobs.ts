@@ -24,3 +24,8 @@ export const uploadKnobs = {
 	knobUploadLimit: "knob-Limit=",
 	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading="
 }
+
+export const dataviewKnobs = {
+	knobBulkAllActions: "knob-bulkAllActions=",
+	knobBulkActions: "knob-bulkActions="
+}
