@@ -32,10 +32,6 @@ export class Drawers extends BasePage {
 		this.openNewDrawerFromButton = page.locator("button",{ hasText: "Open New Drawer Form" });
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.counterLabel);
-	}
-
 	async openSpecificAmountOfRegularDrawers(amount:number):Promise<void> {
 		for (let i = 0; i <  amount; i++) {
 			await this.openRegularDrawerButton.nth(i).click();

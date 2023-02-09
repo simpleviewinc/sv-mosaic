@@ -19,8 +19,4 @@ export class SummaryPageTopComponentPage extends BasePage {
 		this.starRateIconChecked = page.locator("[data-testid='StarRateRoundedIcon']");
 		this.summaryTopComponent = page.locator("//*[@id='root']/div");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.summaryTitle);
-	}
 }

@@ -29,8 +29,6 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 			required={required}
 			disabled={disabled}
 			selected={selected}
-			clickable
-			disableRipple
 			onClick={onClick}
 			data-testid="chip-testid"
 		/>

@@ -18,7 +18,8 @@ const KitchenSinkContainerChip = styled.div`
 `;
 
 export const Playground = (): ReactElement => {
-	const deletable = boolean("Deletable", false);
+	const deletable = boolean("onDelete", false);
+	const clickable = boolean("onClick", false);
 
 	return (
 		deletable ?
@@ -32,6 +33,7 @@ export const Playground = (): ReactElement => {
 				label={text("Label", "Label")}
 				disabled={boolean("Disabled", false)}
 				selected={boolean("Selected", false)}
+				onClick={clickable ? () => alert("onClick") : null}
 			/>
 	)
 };
@@ -44,7 +46,19 @@ export const KitchenSink = (): ReactElement => {
 	return (
 		<KitchenSinkContainerChip>
 			<h1>Chip</h1>
-			<h2>Basic Chip</h2>
+			<h2>Basic Chip with onClick</h2>
+			<Chip
+				label={"Label"}
+				disabled={false}
+				onClick={() => alert("onClick")}
+			/>
+			<Chip
+				label={"Label"}
+				disabled={false}
+				selected={true}
+				onClick={() => alert("onClick")}
+			/>
+			<h2>Basic Chip without onClick</h2>
 			<Chip
 				label={"Label"}
 				disabled={false}

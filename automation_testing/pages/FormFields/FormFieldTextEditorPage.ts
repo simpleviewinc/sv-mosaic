@@ -26,10 +26,6 @@ export class FormFieldTextEditorPage extends BasePage {
 		this.genericTextEditor = page.locator("[data-testid='text-editor-testid']");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.textEditorWithSpellcheckActive);
-	}
-
 	async clearAllValuesFromTextEditors(): Promise<void> {
 		const numberOfTxtEditor = await this.genericTextEditor.count();
 		for (let i = 0; i < numberOfTxtEditor; i++) {
