@@ -11,7 +11,6 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 	readonly advancedSelectionWithGetOptionsPropButton: Locator;
 	readonly advancedSelectionWithCreateNewOptionPropButton: Locator;
 	readonly advancedSelectionWithSelectLimitButton: Locator;
-	readonly deleteIconSelectedOptionChip: Locator;
 	readonly searchOptionInput: Locator;
 	readonly selectedChip: Locator;
 	readonly checkboxListLocator: Locator;
@@ -34,7 +33,6 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 		this.advancedSelectionWithSelectLimitButton = page.locator("[data-testid='field-test-id']", { hasText: "Advanced selection with selectLimit prop" })
 			.locator("button");
 		this.selectedChip = page.locator("[data-testid='delete-chip-testid']");
-		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
 		this.searchOptionInput = page.locator("input[type='text']");
 		this.checkboxListLocator = page.locator("#checkboxList");
 		this.advancedSelectionLocator = page.locator(".advancedSelection");
@@ -45,13 +43,8 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 		this.searchBarSection = this.advancedSelectionLocator.locator("[data-testid='section-test-id']").nth(1);
 		this.loadMoreSection = this.advancedSelectionLocator.locator("[data-testid='section-test-id']").last();
 		this.loadMoreButton = this.advancedSelectionLocator.locator("button", { hasText: "Load more" });
-
-
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
 	/**
 	 * This method return the expected height of the data of the CheckboxList, according to the following equation.
 	 * (100vh - Height of the drawer header - Height of the chips (if any) - Height of the “load more” button (if present)

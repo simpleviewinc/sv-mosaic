@@ -14,8 +14,4 @@ export class ChipPage extends BasePage {
 		this.page = page;
 		this.deletableChip = page.locator("[data-testid='delete-chip-testid']");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.page.locator("h1:has-text('Chip')"));
-	}
 }

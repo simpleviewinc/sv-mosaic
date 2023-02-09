@@ -25,10 +25,6 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 		this.fromDBOptionDiv = page.locator("//*[@id='3']/div/div/div/div/div/div[2]");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.regularChipSingleSelectDiv);
-	}
-
 	async selectRandomChipOption(chipLocator: Locator): Promise<number> {
 		const numberOfOptions = await chipLocator.locator(this.optionButton).count();
 		const optionSelected = randomIntFromInterval(1, numberOfOptions);

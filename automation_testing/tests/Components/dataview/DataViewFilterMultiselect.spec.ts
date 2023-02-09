@@ -8,7 +8,7 @@ test.describe.parallel("Components - DataViewFilterMultiSelect - Kitchen Sink", 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		multiSelectComponent = new DataViewFilterMultiselectComponent(page);
-		await multiSelectComponent.visitPage();
+		await multiSelectComponent.visit(multiSelectComponent.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

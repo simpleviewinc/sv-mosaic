@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formFieldCheckboxPage = new FormFieldCheckboxPage(page);
-		await formFieldCheckboxPage.visitPage();
+		await formFieldCheckboxPage.visit(formFieldCheckboxPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
