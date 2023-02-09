@@ -16,13 +16,9 @@ export class SideNavPage extends BasePage {
 		this.sections = page.locator("[data-testid='section-wrapper']");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async getLocatorOfSelectedSection(sectionTitle: string): Promise<Locator> {
 		const sectionText =  this.sections.locator("div");
-		for (let i = 0; i < await sectionText.count() ;i++) {
+		for (let i = 0; i < await sectionText.count(); i++) {
 			if (await sectionText.nth(i).textContent() == sectionTitle) {
 				return sectionText.nth(i);
 			}
@@ -31,7 +27,7 @@ export class SideNavPage extends BasePage {
 
 	async selectSpecificSection(sectionToSelect: string): Promise<void> {
 		const sections =  this.sections.locator("div");
-		for (let i = 0; i < await sections.count() ;i++) {
+		for (let i = 0; i < await sections.count(); i++) {
 			if (await sections.nth(i).textContent() == sectionToSelect) {
 				await sections.nth(i).click({force: true});
 				break;

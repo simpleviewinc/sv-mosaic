@@ -20,9 +20,9 @@ export interface SideNavProps {
 	 */
 	active?: string;
 	/**
-	 * Handler for when the user clicks an item
+	 * Optional, handler for when the user clicks an item
 	 */
-	onNav: SideNavOnNav;
+	onNav?: SideNavOnNav;
 }
 
 export type Item = {

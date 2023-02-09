@@ -8,7 +8,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffTablePage = new FormFieldTablePage(page);
-		await ffTablePage.visitPage();
+		await ffTablePage.visit(ffTablePage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

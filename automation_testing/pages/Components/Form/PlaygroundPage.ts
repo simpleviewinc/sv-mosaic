@@ -98,14 +98,6 @@ export class PlaygroundPage extends BasePage {
 		this.addressFieldTitle = page.locator("#address [data-testid='address-card-test'] span").first();
 	}
 
-	async visitPage(knobs?: string[]): Promise<void> {
-		if (knobs) {
-			await this.visit(this.page_path, this.title, knobs);
-		} else {
-			await this.visit(this.page_path, this.title);
-		}
-	}
-
 	async getNumberOfFieldsRequired():Promise<number> {
 		return this.page.locator("#root .section [required=''] label").count();
 	}

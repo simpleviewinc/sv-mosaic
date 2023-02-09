@@ -9,7 +9,7 @@ test.describe.parallel("Components - SnackBarPage - Example", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		snackbarPage = new SnackBarPage(page);
-		await snackbarPage.visitPage();
+		await snackbarPage.visit(snackbarPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

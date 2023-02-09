@@ -10,7 +10,6 @@ test.describe.parallel("Components - DataViewFilterDate - Example", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataViewFilterDate = new DataViewFilterDateComponent(page);
-		await dataViewFilterDate.visitPage();
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -18,7 +17,7 @@ test.describe.parallel("Components - DataViewFilterDate - Example", () => {
 	});
 
 	test("Validate Dataview Filter Date select pre filled values.", async () => {
-		await dataViewFilterDate.visitPage([commonKnobs.knobShowOptions + "true"]);
+		await dataViewFilterDate.visit(dataViewFilterDate.page_path, [commonKnobs.knobShowOptions + "true"]);
 		await dataViewFilterDate.dateFilterButton.click();
 		const randomPosition = randomIntFromInterval(1, await dataViewFilterDate.menuItem.count() - 1);
 		const optionToSelect = await dataViewFilterDate.menuItem.nth(randomPosition).textContent();

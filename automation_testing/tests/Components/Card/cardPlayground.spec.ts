@@ -9,7 +9,6 @@ test.describe.parallel("Components - Card - Playground", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		cardPage = new CardPage(page);
-		await cardPage.visitPage();
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -19,7 +18,7 @@ test.describe.parallel("Components - Card - Playground", () => {
 	async function validateNumberOfButtons(knob: string) {
 		const buttonsCount = 3;
 		for (let i = 1; i <= buttonsCount ;i++) {
-			await cardPage.visitPage([knob + i.toString()]);
+			await cardPage.visit(cardPage.page_path, [knob + i.toString()]);
 			expect(await cardPage.sectionTitleLocator.locator("button").count()).toBe(i);
 		}
 	}
