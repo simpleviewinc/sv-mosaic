@@ -10,26 +10,17 @@ test.describe.parallel("Components - LeftNav", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		leftNavPage = new LeftNavPage(page);
-		await leftNavPage.visitPage();
+		await leftNavPage.visit(leftNavPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
 
-	test.skip("Validate left nav basic", async () => {
-		await leftNavPage.validateSnapshot(leftNavPage.leftNavDiv, "left_nav");
-	});
-
 	test("Validate static element", async () => {
 		const lastItem = await leftNavPage.getLastItem();
 		expect(await lastItem.textContent()).toBe(leftnav_data.staticItem);
 		expect(await lastItem.isVisible()).toBe(true);
-	});
-
-	test.skip("Validate static element menu", async () => {
-		await (await leftNavPage.getLastItem()).click();
-		await leftNavPage.validateSnapshot(await leftNavPage.navDisplayMenu, "nav_display_menu")
 	});
 
 	test("Validate full view is active", async () => {

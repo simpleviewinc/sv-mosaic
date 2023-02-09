@@ -26,8 +26,8 @@ const SideNav = (props: SideNavProps): ReactElement => {
 			// if the nav item has it's own onNav function
 			item.onNav({ item, event });
 		} else {
-			// else we all onNav for the main app to navigate
-			onNav({ item, event });
+			// else if onNav exists, we all onNav for the main app to navigate
+			onNav && onNav({ item, event });
 		}
 	};
 

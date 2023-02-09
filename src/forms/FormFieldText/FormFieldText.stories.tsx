@@ -45,7 +45,6 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					required,
 					disabled,
-					maxCharacters: maxCharacters,
 					size,
 					inputSettings: {
 						prefixElement: withIcon && <AccountCircle />,
@@ -138,7 +137,6 @@ const kitchenSinkfields: FieldDef[] = [
 		type: "text",
 		required: false,
 		size: "md",
-		maxCharacters: 20,
 		inputSettings: {
 			maxCharacters: 20,
 			placeholder: "placeholder",

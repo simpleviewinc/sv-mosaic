@@ -17,8 +17,4 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 		this.placeholderText = page.locator("#advancedSelection p").first();
 		this.inputSearchLocator = page.locator("input[type='text']");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.advancedSelectionButton);
-	}
 }
