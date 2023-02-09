@@ -17,8 +17,4 @@ export class SnackBarPage extends BasePage {
 		this.snackbar = page.locator("[role='presentation']");
 		this.closeSnackbarButton = page.locator("[data-testid='close-icon'] [data-testid='CloseIcon']");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.openSnackbarButton);
-	}
 }

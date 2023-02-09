@@ -13,7 +13,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		playgroundPage = new PlaygroundPage(page);
-		await playgroundPage.visitPage();
+		await playgroundPage.visit(playgroundPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -69,7 +69,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test("Validate touched property is shown and works properly.", async () => {
 		const notRequiredKnob = commonKnobs.knobRequired + "false";
 		const showStateKnob = commonKnobs.knobShowState + "true";
-		await playgroundPage.visitPage([notRequiredKnob, showStateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path, [notRequiredKnob, showStateKnob]);
 		expect(await playgroundPage.showStateLocator.textContent()).toContain("touched");
 
 		await playgroundPage.simpleText.type("Sample text");
@@ -80,38 +80,43 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test("Validate that when getFormValues() exists and default values don't exist, it should only use the return getFormValues(). ", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnData;
-		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path, [defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.wait(2500);
+		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateGetFromValuesExpectedResults(simplyGoldColor);
 	});
 
 	test("Validate that when getFormValues() is undefined, and default values exists, it should only use the default values.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionHasDefaultValues;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnUndefined;
-		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.wait();
+		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateDefaultValuesExpectedResults(simplyGoldColor);
 	});
 
 	test("Validate that when getFormValues() exists is undefined, and default values don't exist, the form should be empty.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnUndefined;
-		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateFormIsEmpty(grey2Color);
 	});
 
 	test("Validate that when getFormValues() doesn't exist, and default values exist, it should only use the default values.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionHasDefaultValues;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionNone;
-		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.wait();
+		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateDefaultValuesExpectedResults(simplyGoldColor);
 	});
 
 	test("Validate that when getFormValues() doesn't exist, and default values don't exist, it should be blank.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionNone;
-		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateFormIsEmpty(grey2Color);
 	});
 });

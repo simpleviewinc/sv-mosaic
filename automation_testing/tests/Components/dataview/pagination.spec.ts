@@ -15,7 +15,7 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 		dataviewPage = new DataviewPage(page);
 		pagination = dataviewPage.paginationComponent;
 		columns = dataviewPage.columnsComponent;
-		await dataviewPage.visitPage();
+		await dataviewPage.visit(dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {
