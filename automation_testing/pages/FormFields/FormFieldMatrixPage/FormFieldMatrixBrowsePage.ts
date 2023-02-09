@@ -14,10 +14,6 @@ export class FormFieldMatrixBrowsePage extends FormFieldMatrixFormVariantPage {
 		this.browseTable = page.locator("[role='presentation'] table");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this._page_path, this.addMatrixButton);
-	}
-
 	async getRowDataFromDrawer(column: "ID"|"Title"|"Description", numberOfOptions: number): Promise<string[]> {
 		const data = [];
 		switch (column) {

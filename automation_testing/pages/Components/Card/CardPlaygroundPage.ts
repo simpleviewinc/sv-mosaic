@@ -15,12 +15,4 @@ export class CardPage extends BasePage {
 		this.sectionTitleLocator = page.locator("#root div div").first();
 		this.bottomSectionLocator = page.locator("#root div div").nth(8);
 	}
-
-	async visitPage(knobs?: string[]): Promise<void> {
-		if (knobs) {
-			await this.visit(this.page_path, this.sectionTitleLocator, knobs);
-		} else {
-			await this.visit(this.page_path, this.sectionTitleLocator);
-		}
-	}
 }

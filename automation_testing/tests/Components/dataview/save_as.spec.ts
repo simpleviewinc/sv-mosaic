@@ -16,7 +16,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		dataviewPage = new DataviewPage(page);
 		saveAs = new SaveAsComponent(page);
 		pagination = dataviewPage.paginationComponent;
-		await dataviewPage.visitPage();
+		await dataviewPage.visit(dataviewPage.page_path);
 	});
 
 	test.afterEach(async() => {

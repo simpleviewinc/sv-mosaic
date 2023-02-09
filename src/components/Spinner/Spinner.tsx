@@ -11,7 +11,7 @@ interface SpinnerProps {
 function Spinner(props: SpinnerProps) {
 	return (
 		<CircularProgress
-			style={{ color : theme.colors.blue }}
+			style={{ color : theme.newColors.realTeal["100"] }}
 			size={30}
 			className={props.className}
 			value={props.progress ?? undefined}
