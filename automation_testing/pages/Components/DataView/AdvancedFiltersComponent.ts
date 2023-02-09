@@ -133,6 +133,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 
 	async keywordSearchForComparisonCategory(category: string): Promise<string> {
 		await this.keywordSearchComparisonCategories.fill(category);
+		await this.wait();
 		return await this.selectFirstCategoriesForCategoryWithComparisonOption();
 	}
 

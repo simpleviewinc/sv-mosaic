@@ -19,8 +19,4 @@ export class FormFieldToggleSwitchPage extends BasePage {
 		this.regularToggleWithoutLabel = page.locator(this.checkboxInputString).nth(2);
 		this.regularLabel = page.locator("span.MuiFormControlLabel-label").nth(0);
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
 }

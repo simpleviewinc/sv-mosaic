@@ -2,14 +2,14 @@ import { test, expect, Page } from "@playwright/test";
 import { ChipPage } from "../../../pages/Components/Chip/ChipPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - Chip - Kitchen Sink", () => {
+test.describe.parallel("Components - Chip - Kitchen Sink", () => {
 	let page: Page;
 	let chipPage: ChipPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		chipPage = new ChipPage(page);
-		await chipPage.visitPage();
+		await chipPage.visit(chipPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

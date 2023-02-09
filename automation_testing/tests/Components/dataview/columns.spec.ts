@@ -17,7 +17,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		dataviewPage = new DataviewPage(page);
 		columns = dataviewPage.columnsComponent;
 		filter = new FilterComponent(page);
-		await dataviewPage.visitPage();
+		await dataviewPage.visit(dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {
