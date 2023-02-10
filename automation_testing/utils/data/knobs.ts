@@ -29,3 +29,11 @@ export const dataviewKnobs = {
 	knobBulkAllActions: "knob-bulkAllActions=",
 	knobBulkActions: "knob-bulkActions="
 }
+
+export const buttonKnobs = {
+	knobColor: "knob-Color=",
+	knobPopover: "knob-Popover=",
+	knobPopoverEvent: "knob-Popover%20event=",
+	knobSize: "knob-Size=",
+	knobVariant: "knob-Variant="
+}

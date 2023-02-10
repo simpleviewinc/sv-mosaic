@@ -10,8 +10,6 @@ export class ButtonPage extends BasePage {
 	readonly button: Locator;
 	readonly leftIconButton: Locator;
 	readonly rightIconButton: Locator;
-	readonly buttonThatTriggersPopoverOnClick: Locator;
-	readonly buttonThatTriggersPopoverOnHover: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -20,7 +18,5 @@ export class ButtonPage extends BasePage {
 		this.button = page.locator("button");
 		this.leftIconButton = page.locator("button .icon_left");
 		this.rightIconButton = page.locator("button .icon_right");
-		this.buttonThatTriggersPopoverOnClick = page.locator("text=With Popover").first();
-		this.buttonThatTriggersPopoverOnHover = page.locator("text=With Popover").nth(1);
 	}
 }
