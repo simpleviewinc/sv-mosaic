@@ -68,7 +68,11 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 			</FlexContainer>
 			{(view !== Views.bigDesktop && sections) && (
 				<FlexContainer>
-					<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
+					<FormNav
+						sectionsRefs={sectionsRefs}
+						sections={sections}
+						formContentRef={formContentRef}
+					/>
 				</FlexContainer>
 			)}
 		</StyledColumn>

@@ -15,7 +15,7 @@ import { FormNavProps } from "./FormNavTypes";
 import { useView } from "@root/utils/formViewUtils";
 
 const FormNav = (props: FormNavProps): ReactElement => {
-	const { sections, sectionsRefs } = props;
+	const { sections, sectionsRefs, formContentRef } = props;
 	const view = useView();
 
 	if (sections.length <= 1) return (<></>)
@@ -86,14 +86,14 @@ const FormNav = (props: FormNavProps): ReactElement => {
 					setSelectedTab(Number(sectionId));
 				}
 			})
-		}, { threshold: 0.5, rootMargin: "-20px 0px -20%", root: props.formContentRef?.current });
+		}, { threshold: 0.5, rootMargin: "-20px 0px -20%", root: formContentRef?.current });
 
 		sectionsRefs?.forEach(section => {
 			observer.observe(section);
 		})
 
 		return () => observer.disconnect();
-	}, [sectionsRefs])
+	}, [sectionsRefs]);
 
 	return (
 		<FormNavWrapper className={`form-nav-wrapper ${view}`}>
