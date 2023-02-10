@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StyledDisabledForm, StyledForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
@@ -123,10 +123,10 @@ const Form = (props: FormProps) => {
 		loadFormValues();
 	}, [getFormValues]);
 
-	const cancel = async (e) => {
+	const cancel = useCallback(async (e) => {
 		e.preventDefault();
-		onCancel && (await onCancel());
-	}
+		onCancel ? (await onCancel()) : null;
+	}, [onCancel]);
 
 	const filteredButtons = useMemo(() => (
 		buttons?.filter(button => filterAction(button))
@@ -169,7 +169,7 @@ const Form = (props: FormProps) => {
 							title={title}
 							type={type}
 							description={description}
-							onCancel={onCancel ? (e) => cancel(e) : null}
+							onCancel={cancel}
 							sections={sections}
 							view={
 								type?.toUpperCase() === Views.drawer ?
