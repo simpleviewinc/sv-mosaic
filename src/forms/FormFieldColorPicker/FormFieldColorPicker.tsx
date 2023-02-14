@@ -18,6 +18,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 // Styles
 import { PopOver } from "./ColorPicker.styled";
 import ColorSelected from "./ColorSelected";
+import { ColorData } from "./ColorPickerTypes";
 
 /**
  * Convert an RGBA value to its HEX representation
@@ -74,7 +75,7 @@ function OutsideAlerter(props: {
 }
 
 const FormFieldColorPicker = (
-	props: MosaicFieldProps<unknown, string>
+	props: MosaicFieldProps<"color", unknown, ColorData>
 ): ReactElement => {
 	const { fieldDef, value, onChange } = props;
 

@@ -10,7 +10,7 @@ import {
 import { RefsProvider } from "../shared/refsContext/RefsContext";
 
 // Types
-import { AdvancedSelectionDef } from "./AdvancedSelectionTypes";
+import { AdvancedSelectionData, AdvancedSelectionInputSettings } from "./AdvancedSelectionTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 
 // Components
@@ -25,9 +25,9 @@ import {
 	AdvancedSelectionWrapper,
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
-import { MosaicLabelValue, MosaicObject } from "@root/types";
+import { MosaicObject } from "@root/types";
 
-const FormFieldAdvancedSelection = (props: MosaicFieldProps<AdvancedSelectionDef, MosaicLabelValue[]>): ReactElement => {
+const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {
 	const {
 		value,
 		onBlur,

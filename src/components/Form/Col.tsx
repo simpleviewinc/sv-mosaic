@@ -1,10 +1,9 @@
 import * as React from "react";
-import { memo, useMemo } from "react";
+import { ElementType, memo, useMemo } from "react";
 import styled from "styled-components";
 import { formActions } from "./formActions";
 
 import FormFieldText from "@root/forms/FormFieldText";
-import FormFieldTextArea from "@root/forms/FormFieldTextArea";
 import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
 import FormFieldChipSingleSelect from "@root/forms/FormFieldChipSingleSelect";
 import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
@@ -22,6 +21,7 @@ import FormFieldAdvancedSelection from "@root/forms/FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
 import FormFieldImageUpload from "@root/forms/FormFieldImageUpload";
 import FormFieldMatrix from "@root/forms/FormFieldMatrix";
+import FormFieldUpload from "@root/forms/FormFieldUpload";
 import { Sizes } from "@root/theme";
 
 const StyledCol = styled.div`
@@ -55,7 +55,6 @@ const Col = (props: ColPropsTypes) => {
 
 	const componentMap = useMemo(() => ({
 		text: FormFieldText,
-		textArea: FormFieldTextArea,
 		checkbox: FormFieldCheckbox,
 		chip: FormFieldChipSingleSelect,
 		dropdown: FormFieldDropdownSingleSelection,
@@ -71,7 +70,8 @@ const Col = (props: ColPropsTypes) => {
 		advancedSelection: FormFieldAdvancedSelection,
 		mapCoordinates: FormFieldMapCoordinates,
 		imageUpload: FormFieldImageUpload,
-		matrix: FormFieldMatrix
+		matrix: FormFieldMatrix,
+		upload: FormFieldUpload
 	}), []);
 
 	const doneTypingInterval = 300;
@@ -128,7 +128,7 @@ const Col = (props: ColPropsTypes) => {
 	return (
 		<StyledCol colsInRow={colsInRow}>
 			{col.map((field, i) => {
-				const currentField = fieldsDef?.find(
+				const currentField: FieldDef = fieldsDef?.find(
 					(fieldDef) => {
 						return field === fieldDef.name;
 					}
@@ -140,7 +140,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				const Component = typeof type === "string" ? componentMap[type] : type;
+				const Component: ElementType = typeof type === "string" ? componentMap[type] : type;
 
 				if (!Component) {
 					throw new Error(`Invalid type ${type}`);
@@ -175,7 +175,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const children = useMemo(() => (
 					<Component
-						fieldDef={{ ...currentField, size: maxSize }}
+						fieldDef={{ ...currentField, size: maxSize, }}
 						name={name}
 						value={value}
 						error={error}

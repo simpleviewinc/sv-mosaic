@@ -6,7 +6,7 @@ import PhoneInput from "react-phone-input-2";
 
 // Types and styles
 import "react-phone-input-2/lib/bootstrap.css";
-import { PhoneSelectionDef } from "./FormFieldPhoneSelectionDropdownTypes";
+import { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneSelectionDropdownTypes";
 import {
 	PhoneInputWrapper,
 	StyledDisabledText,
@@ -14,7 +14,7 @@ import {
 import { MosaicFieldProps } from "@root/components/Field";
 
 const FormFieldPhoneSelectionDropdown = (
-	props: MosaicFieldProps<PhoneSelectionDef, string>
+	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>
 ): ReactElement => {
 	const {
 		fieldDef,
@@ -34,7 +34,6 @@ const FormFieldPhoneSelectionDropdown = (
 				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : "us"}
 				disabled={fieldDef?.disabled}
 				onChange={onChange}
-				placeholder={fieldDef?.inputSettings?.placeholder}
 				value={value}
 				countryCodeEditable={false}
 				inputProps={{

@@ -5,7 +5,7 @@ import { memo, useState, useMemo, ReactElement, MouseEvent } from "react";
 import Button from "@root/components/Button";
 
 // Types
-import { AssetProperties, ImageVideoDocumentLinkBrowsingDef } from ".";
+import { ImageVideoDocumentLinkData, ImageVideoDocumentLinkInputSettings } from ".";
 import { MosaicFieldProps } from "@root/components/Field";
 import {
 	AssetCard,
@@ -38,7 +38,11 @@ const LINK = "link";
 const VIDEO = "video";
 
 const FormFieldImageVideoLinkDocumentBrowsing = (
-	props: MosaicFieldProps<ImageVideoDocumentLinkBrowsingDef, AssetProperties[]>
+	props: MosaicFieldProps<
+		"imageVideoDocumentLink",
+		ImageVideoDocumentLinkInputSettings,
+		ImageVideoDocumentLinkData
+	>
 ): ReactElement => {
 	const { fieldDef, value } = props;
 
