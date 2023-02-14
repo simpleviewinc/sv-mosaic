@@ -1,11 +1,14 @@
 import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
-import { knobs } from "../../../utils/data/knobs";
+import { commonKnobs, playgroundKnobs } from "../../../utils/data/knobs";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Form - Playground", () => {
 	let page: Page;
 	let playgroundPage: PlaygroundPage;
+	const prepopulateKnob = playgroundKnobs.knobPrepopulate + true;
+	const simplyGoldColor = theme.newColors.simplyGold["100"];
+	const grey2Color = theme.newColors.grey2["100"];
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
@@ -64,13 +67,51 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate touched property is shown and works properly.", async () => {
-		const notRequiredKnob = knobs.knobRequired + "false";
-		const showStateKnob = knobs.knobShowState + "true";
+		const notRequiredKnob = commonKnobs.knobRequired + "false";
+		const showStateKnob = commonKnobs.knobShowState + "true";
 		await playgroundPage.visitPage([notRequiredKnob, showStateKnob]);
 		expect(await playgroundPage.showStateLocator.textContent()).toContain("touched");
 
 		await playgroundPage.simpleText.type("Sample text");
 		const expectedTouched = '"textField": true';
 		expect(await playgroundPage.showStateLocator.textContent()).toContain(expectedTouched);
+	});
+
+	test("Validate that when getFormValues() exists and default values don't exist, it should only use the return getFormValues(). ", async () => {
+		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
+		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnData;
+		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.wait(2500);
+		await playgroundPage.validateGetFromValuesExpectedResults(simplyGoldColor);
+	});
+
+	test("Validate that when getFormValues() is undefined, and default values exists, it should only use the default values.", async () => {
+		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionHasDefaultValues;
+		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnUndefined;
+		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.wait();
+		await playgroundPage.validateDefaultValuesExpectedResults(simplyGoldColor);
+	});
+
+	test("Validate that when getFormValues() exists is undefined, and default values don't exist, the form should be empty.", async () => {
+		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
+		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnUndefined;
+		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.validateFormIsEmpty(grey2Color);
+	});
+
+	test("Validate that when getFormValues() doesn't exist, and default values exist, it should only use the default values.", async () => {
+		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionHasDefaultValues;
+		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionNone;
+		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.wait();
+		await playgroundPage.validateDefaultValuesExpectedResults(simplyGoldColor);
+	});
+
+	test("Validate that when getFormValues() doesn't exist, and default values don't exist, it should be blank.", async () => {
+		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
+		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionNone;
+		await playgroundPage.visitPage([defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.validateFormIsEmpty(grey2Color);
 	});
 });

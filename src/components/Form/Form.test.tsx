@@ -4,7 +4,6 @@ import { coreReducer, generateLayout } from "./formUtils";
 import { formActions } from "./formActions";
 import { FieldDef } from "../../components/Field";
 import { mapsValidators, required, validateEmail, validateNumber, validateSlow, validateURL } from "./validators";
-import { TextFieldDef } from "@root/forms/FormFieldText";
 
 const runTests = (tests, type) => {
 	switch (type) {
@@ -56,7 +55,7 @@ const runTests = (tests, type) => {
 };
 
 describe("Layout logic", () => {
-	const fields = [
+	const fields: FieldDef[] = [
 		{
 			name: "text1",
 			label: "Simple Text",
@@ -77,7 +76,7 @@ describe("Layout logic", () => {
 			label: "Text that receives copy",
 			type: "text"
 		}
-	] as FieldDef<TextFieldDef>[];
+	];
 
 	const sections = [
 		{

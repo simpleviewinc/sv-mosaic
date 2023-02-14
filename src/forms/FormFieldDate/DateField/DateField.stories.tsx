@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { DateFieldDef } from "./DateFieldTypes";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
@@ -22,7 +21,7 @@ export const Playground = (): ReactElement => {
 	const showTime = boolean("Show time", false);
 
 	const fields = useMemo(
-		() => [
+		(): FieldDef[] => [
 			{
 				name: "date",
 				type: "date",
@@ -35,7 +34,7 @@ export const Playground = (): ReactElement => {
 					showTime
 				}
 			}
-		] as FieldDef[],
+		],
 		[label, required, disabled, helperText, instructionText, showTime]
 	);
 
@@ -60,7 +59,7 @@ export const KitchenSink = (): ReactElement => {
 	const helperText = "Helper text";
 	const instructionText = "Instruction text";
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -120,7 +119,7 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						showTime: true
 					}
-				} as FieldDef<DateFieldDef>
+				}
 			],
 		[]
 	);

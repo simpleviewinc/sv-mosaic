@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs, select } from "@storybook/addon-knobs";
-import { AdvancedSelectionDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
@@ -77,7 +76,7 @@ export const Playground = (): ReactElement => {
 	};
 
 	const fields = useMemo(
-		() =>
+		() : FieldDef[] =>
 			[
 				{
 					name: "advancedSelection",
@@ -98,7 +97,7 @@ export const Playground = (): ReactElement => {
 						selectLimit: selectLimit.trim() !== "" && !isNaN(Number(selectLimit)) ? Number(selectLimit) : undefined
 					},
 				},
-			] as FieldDef<AdvancedSelectionDef>[],
+			],
 		[
 			label,
 			required,
@@ -178,7 +177,7 @@ export const KitchenSink = (): ReactElement => {
 		return newOption;
 	};
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -220,7 +219,7 @@ export const KitchenSink = (): ReactElement => {
 						selectLimit: 2
 					}
 				},
-			] as FieldDef<AdvancedSelectionDef>[],
+			],
 		[options]
 	);
 

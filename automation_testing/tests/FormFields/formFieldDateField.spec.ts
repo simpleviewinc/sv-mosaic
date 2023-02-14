@@ -1,6 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldDateFieldPage } from "../../pages/FormFields/FormFieldDateFieldPage";
-import { getDateFormatted } from "../../utils/helpers/dateHelper";
 
 test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	let page: Page;
@@ -17,18 +16,16 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	});
 
 	test("Validate Single Date Calendar by writing a date", async () => {
-		const todayDate = getDateFormatted(new Date());
-		await formFieldDateFieldPage.singleDateCalendarInput.type(todayDate);
+		await formFieldDateFieldPage.singleDateCalendarInput.type(await formFieldDateFieldPage.getTodayDate());
 		await formFieldDateFieldPage.formTestID.click();
-		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(todayDate);
+		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 	});
 
 	test("Validate Single Date Calendar by selecting a date", async () => {
-		const todayDate = getDateFormatted(new Date());
 		const todayDay = new Date().getDate();
 		await formFieldDateFieldPage.singleDateCalendarButton.click();
 		await formFieldDateFieldPage.selectDayFromDatePicker(todayDay);
-		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(todayDate);
+		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 	});
 
 	test("Validate Disable Single Date Calendar", async () => {
@@ -36,7 +33,7 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	});
 
 	test("Validate the Calendar Date and Time Input by writing the date and time.", async () => {
-		const todayDate = getDateFormatted(new Date());
+		const todayDate = await formFieldDateFieldPage.getTodayDate();
 		const timeHour = "07:30 Am";
 		await formFieldDateFieldPage.dateTimeInput.type(todayDate);
 		await formFieldDateFieldPage.dateHourInput.type(timeHour)
@@ -46,13 +43,12 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	});
 
 	test("Validate the Calendar Date and Time Input by selecting the date and time.", async () => {
-		const todayDate = getDateFormatted(new Date());
 		const todayDay = new Date().getDate();
 		await formFieldDateFieldPage.dateTimeInputCalendarButton.click();
 		await formFieldDateFieldPage.selectDayFromDatePicker(todayDay);
 		await formFieldDateFieldPage.dateHourInputCalendarButton.click();
 		const selectedHourAndMinute = await formFieldDateFieldPage.selectHourAndMinutesInHourPicker("pm");
-		expect(await formFieldDateFieldPage.dateTimeInput.inputValue()).toBe(todayDate);
+		expect(await formFieldDateFieldPage.dateTimeInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 		expect(await formFieldDateFieldPage.dateHourInput.inputValue()).toBe(selectedHourAndMinute);
 	});
 
@@ -67,7 +63,7 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	});
 
 	test("Validate the Requiered Calendar Date and Time Input by writing the date and time.", async () => {
-		const todayDate = getDateFormatted(new Date());
+		const todayDate = await formFieldDateFieldPage.getTodayDate();
 		const timeHour = "07:30 Am";
 		await formFieldDateFieldPage.requiredDateTimeInput.type(todayDate);
 		await formFieldDateFieldPage.requiredDateHourInput.type(timeHour)
@@ -77,13 +73,12 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	});
 
 	test("Validate the Requiered Calendar Date and Time Input by selecting the date and time.", async () => {
-		const todayDate = getDateFormatted(new Date());
 		const todayDay = new Date().getDate();
 		await formFieldDateFieldPage.requiredDateTimeInputCalendarButton.click();
 		await formFieldDateFieldPage.selectDayFromDatePicker(todayDay);
 		await formFieldDateFieldPage.requiredDateHourInputCalendarButton.click();
 		const selectedHourAndMinute = await formFieldDateFieldPage.selectHourAndMinutesInHourPicker("pm");
-		expect(await formFieldDateFieldPage.requiredDateTimeInput.inputValue()).toBe(todayDate);
+		expect(await formFieldDateFieldPage.requiredDateTimeInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 		expect(await formFieldDateFieldPage.requiredDateHourInput.inputValue()).toBe(selectedHourAndMinute);
 	});
 });

@@ -1,8 +1,10 @@
+import { FieldDefBase } from "@root/components/Field";
+
 /**
  * Base text field props.
  */
 // TEXT FIELD SPECIFIC DEVELOPER CONTRACT
-export type TextFieldDef = {
+export type TextFieldInputSettings = {
 	/**
 	 * Example text within the input to be replaced by the user.
 	 */
@@ -25,4 +27,18 @@ export type TextFieldDef = {
 	 * input type.
 	 */
 	type?: string;
+	/**
+	 * Minimum number of rows to display when multiline option
+	 * is set to true.
+	 */
+	minRows?: number;
+	/**
+	 * Maximum number of rows to display when multiline
+	 * option is set to true.
+	 */
+	maxRows?: number;
 };
+
+export type TextFieldData = string | number
+
+export type FieldDefText = FieldDefBase<"text", TextFieldInputSettings, TextFieldData>

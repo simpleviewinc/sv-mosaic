@@ -1,7 +1,25 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { FieldDefAddress } from "@root/forms/FormFieldAddress";
+import { FieldDefAdvancedSelection } from "@root/forms/FormFieldAdvancedSelection";
+import { FieldDefCheckbox } from "@root/forms/FormFieldCheckbox";
+import { FieldDefChip } from "@root/forms/FormFieldChipSingleSelect";
+import { FieldDefColor } from "@root/forms/FormFieldColorPicker/ColorPickerTypes";
+import { FieldDefDate } from "@root/forms/FormFieldDate/DateField";
+import { FieldDefDropdown } from "@root/forms/FormFieldDropdownSingleSelection";
+import { FieldDefImageUpload } from "@root/forms/FormFieldImageUpload";
+import { FieldDefImageVideoDocumentLink } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
+import { FieldDefMapCoordinates } from "@root/forms/FormFieldMapCoordinates";
+import { FieldDefMatrix } from "@root/forms/FormFieldMatrix";
+import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
+import { FieldDefRadio } from "@root/forms/FormFieldRadio";
+import { FieldDefTable } from "@root/forms/FormFieldTable";
+import { FieldDefText } from "@root/forms/FormFieldText";
+import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
+import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
+import { FieldDefUpload } from "@root/forms/FormFieldUpload";
+import { HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT
-export interface MosaicFieldProps<T = any, U = any> {
+export interface MosaicFieldProps<T = any, U = any, V = any> {
 	/**
 	 * Field identifier that matches the field name.
 	 */
@@ -10,11 +28,11 @@ export interface MosaicFieldProps<T = any, U = any> {
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
 	 */
-	fieldDef: FieldDef<T, U>;
+	fieldDef: FieldDefBase<T, U, V>;
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
-	onChange?: (e: U) => Promise<void>;
+	onChange?: (e: V) => Promise<void>;
 	/**
 	 * Function that listens to a blur event on the field and executes an action.
 	 */
@@ -22,12 +40,12 @@ export interface MosaicFieldProps<T = any, U = any> {
 	/**
 	 * Value written by the user into the text field.
 	 */
-	value?: U;
+	value?: V;
 	// value?: any | string;
 	/**
 	 * Flag to style text field as erroneous.
 	 */
-	error?: string;
+	error?: string | boolean;
 	/**
 	 * React Element or component to be rendered as child of the field component.
 	 */
@@ -39,7 +57,7 @@ export interface MosaicFieldProps<T = any, U = any> {
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-export interface FieldDef<T = any, U = any> {
+export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * Significant name related to its field.
 	 */
@@ -47,11 +65,11 @@ export interface FieldDef<T = any, U = any> {
 	/**
 	 * React ref for the field
 	 */
-	ref?: JSX.Element;
+	ref?: MutableRefObject<any | undefined>;
 	/**
 	 * Label that will sit on top of the field.
 	 */
-	label: string | undefined;
+	label?: string | undefined;
 	/**
 	 * Marks field as required
 	 */
@@ -93,7 +111,7 @@ export interface FieldDef<T = any, U = any> {
 	 * Defines the type of component from a list of components
 	 * found on Col.tsx. This also allows for a custom component type.
 	 */
-	type: string | JSX.Element | (() => JSX.Element);
+	type: Type;
 	/**
 	 * Object that defines the position of the current field in the
 	 * form layout.
@@ -107,7 +125,7 @@ export interface FieldDef<T = any, U = any> {
 	 * Array of validators to be executed by the form when on blur or
 	 * when submitted.
 	 */
-	validators?: ((() => string | undefined | JSX.Element) | string | { fn: string; options: any })[];
+	validators?: (((args?: any) => string | undefined | JSX.Element | Promise<void | string>) | string | { fn: string; options: any })[];
 	/**
 	 * Identifier passed by the developer
 	 */
@@ -129,3 +147,27 @@ export interface FieldDef<T = any, U = any> {
 	 */
 	onChangeCb?: (value?: any) => void | Promise<void>;
 }
+
+type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>
+
+export type FieldDef =
+	| FieldDefText
+	| FieldDefToggleSwitch
+	| FieldDefTextEditor
+	| FieldDefRadio
+	| FieldDefPhoneSelection
+	| FieldDefTable
+	| FieldDefMatrix
+	| FieldDefMapCoordinates
+	| FieldDefImageVideoDocumentLink
+	| FieldDefImageUpload
+	| FieldDefDropdown
+	| FieldDefDate
+	| FieldDefColor
+	| FieldDefChip
+	| FieldDefCheckbox
+	| FieldDefAdvancedSelection
+	| FieldDefAddress
+	| FieldDefUpload
+	| FieldDefCustom;
+

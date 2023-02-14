@@ -4,7 +4,7 @@ import { render, cleanup, fireEvent, screen, waitFor, act } from "@testing-libra
 import "@testing-library/jest-dom";
 import * as React from "react";
 import { useMemo } from "react";
-import { AdvancedSelectionDef, optionsWithCategory } from ".";
+import { optionsWithCategory } from ".";
 import Form, { useForm, formActions } from "@root/components/Form";
 import { additionalOptions } from "./advancedSelectionUtils";
 
@@ -65,7 +65,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 		return newOption;
 	}
 
-	const fields = useMemo(
+	const fields: FieldDef[] = useMemo(
 		() => (
 			[
 				{
@@ -82,7 +82,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 						selectLimit
 					}
 				},
-			] as FieldDef<AdvancedSelectionDef>[]
+			]
 		),
 		[
 			label,

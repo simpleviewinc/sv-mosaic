@@ -177,9 +177,8 @@ describe("DataViewFilterDate", () => {
 		const applyButton = await screen.findByText("Apply");
 		expect(applyButton).toHaveProperty("disabled");
 
-		const actualResult = (await screen.findByTestId("dataview-filter-date-error")).textContent;
-		const expectedResult = "Error: End of range cannot be before start of range.";
-		expect(actualResult).toEqual(expectedResult);
+		const errorMessage = await screen.findByText("End of range cannot be before start of range.");
+		expect(errorMessage).toBeInTheDocument();
 	});
 
 	it("Should select a magic value", async () => {

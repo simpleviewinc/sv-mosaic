@@ -1,5 +1,17 @@
 # sv-mosaic changelog
 
+## 16.0.0 - 01/14/23
+* Created `FormFieldUpload`. This new field allows users to upload multiple files, showing the upload status of each one of them while being uploaded. See more in Form's readme.
+* Added optional prop `progress` to `Spinner` component. This allows devs to define how much of the spinner should be filled e.g. 50%. Value expressed from 0 to 100.
+* **BREAKING** Internally updated our field types enforcing consistency. This should only be a breaking change for consumers of mosaic that were incorrectly declaring fields (e.g. not passing the correct inputSettings to a field).
+* Improved `getFormValues` and `defaultValues` mechanics in `Form`. This means forms will always prepopulate with getFormValues as long as its propped down and returns values, else it will use the defaultValues (if present). We also added 2 more knobs to test this functionality in storybook in the `Form Playground`.
+* **BREAKING** `FormFieldPhoneSelectionDropdown` no longer receiving `placeholder` as part of its inputSettings.
+* Improved styling around "No results" message in `DataView` to align with table.
+* Updated `Button` and `DataView` stories to work with new storysource add-on.
+* Updated `DataViewFilterDate` to use our Field component, making its styles closer to regular form fields.
+* **BREAKING** Removed `FormFieldTextArea`. Developers can still use `FormFieldText` to render an input with multiple lines by using the newly added props `minRows` and `maxRows`.
+* Fixed "Draggable requires a draggableId" issue in `DataView`.
+
 ## 15.0.0 - 01/31/23
 * Internally updated the color scheme, naming conventions and references in all components of the following colors:
 	* `Gray1`.
