@@ -7,7 +7,7 @@ import FormFieldPhoneSelectionDropdown from "./FormFieldPhoneSelectionDropdown";
 
 afterEach(cleanup);
 
-const { getByText, queryByPlaceholderText, getByTitle } = screen;
+const { getByText, getByTitle } = screen;
 
 const FormFieldPhoneSelectionDropdownExample = () => {
 	const [value, setValue] = useState("No value");
@@ -25,7 +25,6 @@ const FormFieldPhoneSelectionDropdownExample = () => {
 					type: "phone",
 					label: "Label",
 					disabled: false,
-					inputSettings: { placeholder: "Phone field placeholder" },
 				}}
 				error={"Error text"}
 				onChange={handleOnChange}
@@ -52,10 +51,6 @@ describe("FormFieldPhoneSelectionDropdown component", () => {
 		const countryCode = getByTitle("United States: + 1");
 
 		expect(countryCode).toBeDefined();
-	});
-
-	it("should display the placeholder", () => {
-		expect(queryByPlaceholderText("Phone field placeholder")).toBeTruthy();
 	});
 });
 

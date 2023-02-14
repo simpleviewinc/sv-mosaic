@@ -1,3 +1,4 @@
+import { FieldDefBase } from "@root/components/Field";
 import { MosaicLabelValue } from "@root/types";
 
 type FormFieldCheckboxLocalOptions = {
@@ -22,4 +23,8 @@ type StrictUnionHelper<T, TAll> =
 
 export type StrictUnion<T> = StrictUnionHelper<T, T>
 
-export type FormFieldCheckboxDef = StrictUnion<FormFieldCheckboxLocalOptions | FormFieldCheckboxExternalOptions>;
+export type FormFieldCheckboxInputSettings = StrictUnion<FormFieldCheckboxLocalOptions | FormFieldCheckboxExternalOptions>;
+
+export type CheckboxData = MosaicLabelValue[];
+
+export type FieldDefCheckbox = FieldDefBase<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>

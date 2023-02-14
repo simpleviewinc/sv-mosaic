@@ -1,7 +1,8 @@
+import { FieldDefBase } from "@root/components/Field";
 import { Options } from "@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes";
 import { ImageUploadCanvasProps } from "./ImageUploadCanvas/ImageUploadCanvas";
 
-export type ImageUploadDef = {
+export type ImageUploadInputSettings = {
   /**
    * Callback executed when the set focus button is clicked.
    */
@@ -15,7 +16,7 @@ export type ImageUploadDef = {
 
 
 /**
- * Describes the structure of the value argument received by 
+ * Describes the structure of the value argument received by
  * the onChange function used by the form.
  */
 export type ImageUploadValue = {
@@ -29,3 +30,5 @@ export type ImageUploadValue = {
     y: number;
   };
 };
+
+export type FieldDefImageUpload = FieldDefBase<"imageUpload", ImageUploadInputSettings, ImageUploadValue>

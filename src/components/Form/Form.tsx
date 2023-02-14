@@ -95,9 +95,9 @@ const Form = (props: FormProps) => {
 			let values: MosaicObject;
 			await dispatch(formActions.disableForm({ disabled: true }));
 
-			if (getFormValues) {
-				values = await getFormValues();
-			} else {
+			values = getFormValues ? await getFormValues() : undefined;
+
+			if (values === undefined) {
 				fields.forEach(field => {
 					if (field.defaultValue) {
 						values = {
