@@ -148,11 +148,27 @@ test.describe.parallel("Components - Button - Playground", () => {
 		await expect(buttonPage.listIconLocator).toBeVisible();
 	});
 
-	test.fixme("Validate miconcolor all different variants.", async () => {
+	test("Validate miconcolor all different variants.", async () => {
+		// yellow
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("yellow")]);
 		await buttonPage.button.waitFor({state: "visible"});
-		expect(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe(theme.newColors.simplyGold["100"]);
-
+		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe(theme.newColors.simplyGold["100"]);
+		// black
+		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("black")]);
+		await buttonPage.button.waitFor({state: "visible"});
+		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe(theme.newColors.almostBlack["100"]);
+		// teal
+		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("teal")]);
+		await buttonPage.button.waitFor({state: "visible"});
+		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe(theme.newColors.realTeal["100"]);
+		// red
+		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("red")]);
+		await buttonPage.button.waitFor({state: "visible"});
+		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe(theme.newColors.darkRed["100"]);
+		// gray
+		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("gray")]);
+		await buttonPage.button.waitFor({state: "visible"});
+		expect(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe(theme.newColors.grey2["100"]);
 	});
 
 	test("Validate button width when the full-width knob is active.", async () => {
