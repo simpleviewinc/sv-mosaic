@@ -28,6 +28,7 @@ export class BasePage {
 	readonly drawerTitle: Locator;
 	readonly showStateLocator: Locator;
 	readonly menuItem: Locator;
+	readonly menuLocator: Locator;
 	readonly checkboxInputString: string;
 	readonly chipTestIDLocator: Locator;
 	readonly formTestID: Locator;
@@ -60,6 +61,7 @@ export class BasePage {
 		this.drawerTitle = page.locator("[data-testid='drawer-title-test-id']");
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
+		this.menuLocator = page.locator("[role='menu']");
 		this.checkboxInputString = "input[type='checkbox']";
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
 		this.roleOptionLocator = page.locator("[role='option']");
@@ -257,5 +259,9 @@ export class BasePage {
 
 	async getCursorFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).cursor));
+	}
+
+	async getHRefFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => el.getAttribute("href")));
 	}
 }
