@@ -20,13 +20,13 @@ export default {
 } as Meta;
 
 const SideCardActionsTitle = styled.span`
-	color: ${theme.newColors.almostBlack["100"]}
+	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 14px;
 	margin-left: 8px;
 `;
 
 const RecentActivityTitle = styled.span`
-	color: ${theme.newColors.almostBlack["100"]}
+	color: ${theme.newColors.almostBlack["100"]};
 	font-weight: ${theme.fontWeight.medium};
 `;
 
