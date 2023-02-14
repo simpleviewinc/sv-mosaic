@@ -26,17 +26,11 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 
 	test("Validate that the left margin of the buttons are valid.", async () => {
 		const expectedMarginValue = "12px";
-		const numberOfButtons = await buttonPage.leftIconButton.count();
-		for (let i = 0; i < numberOfButtons; i++) {
-			await buttonPage.validateMarginValueFromElement(buttonPage.leftIconButton.nth(i), expectedMarginValue, false);
-		}
+		await buttonPage.validateMarginOfButton("left", expectedMarginValue);
 	});
 
 	test("Validate that the right margin of the buttons are valid.", async () => {
 		const expectedMarginValue = "12px";
-		const numberOfButtons = await buttonPage.rightIconButton.count();
-		for (let i = 0; i < numberOfButtons; i++) {
-			await buttonPage.validateMarginValueFromElement(buttonPage.rightIconButton.nth(i), expectedMarginValue, true);
-		}
+		await buttonPage.validateMarginOfButton("right", expectedMarginValue);
 	});
 });

@@ -19,4 +19,20 @@ export class ButtonPage extends BasePage {
 		this.leftIconButton = page.locator("button .icon_left");
 		this.rightIconButton = page.locator("button .icon_right");
 	}
+
+	async validateMarginOfButton(margin: "right"|"left", expectedValue: string): Promise<void> {
+		let locator: Locator;
+		let rightFlag: boolean;
+		if (margin === "right") {
+			locator = this.rightIconButton;
+			rightFlag = true;
+		} else {
+			locator = this.leftIconButton;
+			rightFlag = false;
+		}
+		for (let i = 0; i < await locator.count(); i++) {
+			await this.validateMarginValueFromElement(locator.nth(i), expectedValue, rightFlag);
+		}
+	}
+
 }
