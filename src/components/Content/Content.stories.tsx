@@ -172,12 +172,21 @@ export const Playground = (): ReactElement => {
 	}, [useSections, showMore, oneColumn, twoColumns, singleColumn]);
 
 	return (
-		<Content
-			title={title}
-			data={data}
-			fields={fields}
-			sections={sectionsToDisplay}
-			buttons={useButtons && buttonsToDisplay}
-		/>
+		<>
+			<Content
+				title={title}
+				data={data}
+				fields={fields}
+				sections={sectionsToDisplay}
+				buttons={useButtons && buttonsToDisplay}
+			/>
+			<Content
+				title={title}
+				data={data}
+				fields={fields}
+				sections={sectionsToDisplay}
+				buttons={useButtons && buttonsToDisplay}
+			/>
+		</>
 	);
 };
