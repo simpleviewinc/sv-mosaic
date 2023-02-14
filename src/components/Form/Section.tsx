@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, forwardRef } from "react";
+import { memo, forwardRef, useCallback } from "react";
 import theme from "@root/theme";
 import styled from "styled-components";
 import { FieldDef } from "@root/components/Field";
@@ -55,7 +55,7 @@ interface SectionPropTypes {
 	view: ViewType;
 }
 
-const Section = forwardRef((props: SectionPropTypes, ref) => {
+const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 	const {
 		title,
 		description,
@@ -64,8 +64,11 @@ const Section = forwardRef((props: SectionPropTypes, ref) => {
 		dispatch,
 		sectionIdx,
 		state,
-		view
+		view,
 	} = props;
+
+
+	const getRef = useCallback((el) => ref.current[sectionIdx] = el, [])
 
 	return (
 		<StyledSection
@@ -73,7 +76,7 @@ const Section = forwardRef((props: SectionPropTypes, ref) => {
 			id={sectionIdx}
 			data-testid="section-test-id"
 		>
-			{title && <StyledTitle id={sectionIdx} ref={ref}>{title}</StyledTitle>}
+			{title && <StyledTitle ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
 			{description && <StyledDescription>{description}</StyledDescription>}
 			{rows && (
 				<StyledRows view={view} hasTitle={title}>
