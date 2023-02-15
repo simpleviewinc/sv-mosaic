@@ -7,9 +7,9 @@ export interface SummaryPageTopComponentTypes {
 	 */
     title: string;
     /**
-	 * Mandatory favorite to show favorite icon or no favorite icon.
+	 * Optional favorite to show favorite icon or no favorite icon.
 	 */
-	favorite: {
+	favorite?: {
 		checked: boolean;
 		onClick: (checked: boolean) => void;
 	};

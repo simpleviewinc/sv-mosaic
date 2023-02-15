@@ -24,3 +24,24 @@ export const uploadKnobs = {
 	knobUploadLimit: "knob-Limit=",
 	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading="
 }
+
+export const dataviewKnobs = {
+	knobBulkAllActions: "knob-bulkAllActions=",
+	knobBulkActions: "knob-bulkActions="
+}
+
+export const buttonKnobs = {
+	knobColor: "knob-Color=",
+	knobPopover: "knob-Popover=",
+	knobPopoverEvent: "knob-Popover%20event=",
+	knobSize: "knob-Size=",
+	knobVariant: "knob-Variant=",
+	knobHRef: "knob-Href=",
+	knobFullWidth: "knob-Full%20Width=",
+	knobMenuContent: "knob-Menu%20content=",
+	knobMenuItem: "knob-Menu%20items=",
+	knobmIconColor: "knob-mIconColor=",
+	knobShowIcon: "knob-Show%20icon=",
+	knobShow: "knob-Show=",
+	knobTypeOfLabel: "knob-Type%20of%20label="
+}

@@ -92,10 +92,6 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 */
 	inputSettings?: T;
 	/**
-	 * Used to show and limit the characters.
-	 */
-	maxCharacters?: number;
-	/**
 	 * Defined between 100, 280, 450, and 620 px.
 	 */
 	size?: string;

@@ -2,14 +2,14 @@ import { test, expect, Page } from "@playwright/test";
 import { ChipPage } from "../../../pages/Components/Chip/ChipPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - Chip - Kitchen Sink", () => {
+test.describe.parallel("Components - Chip - Kitchen Sink", () => {
 	let page: Page;
 	let chipPage: ChipPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		chipPage = new ChipPage(page);
-		await chipPage.visitPage();
+		await chipPage.visit(chipPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -17,10 +17,11 @@ test.describe("Components - Chip - Kitchen Sink", () => {
 	});
 
 	test("Validate Chip has simplyGold background.", async () => {
-		const expectedColor = (theme.newColors.simplyGold["100"]);
-		const expectedDisabledBgColor = (theme.newColors.simplyGold["60"]);
-		expect(await chipPage.getBackgroundColorFromElement(chipPage.chipTestIDLocator.nth(1))).toBe(expectedColor);
-		expect(await chipPage.getBackgroundColorFromElement(chipPage.chipTestIDLocator.nth(3))).toBe(expectedDisabledBgColor);
+		const expectedColor = theme.newColors.simplyGold["100"];
+		const expectedDisabledBgColor = theme.newColors.simplyGold["60"];
+		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithOnClickSelected)).toBe(expectedColor);
+		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithoutOnClickSelected)).toBe(expectedColor);
+		expect(await chipPage.getBackgroundColorFromElement(chipPage.disabledChipSelected)).toBe(expectedDisabledBgColor);
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.deletableChip)).toBe(expectedColor);
 	});
 
@@ -34,7 +35,16 @@ test.describe("Components - Chip - Kitchen Sink", () => {
 
 	test("Validate Chip has grey2 background.", async () => {
 		const expectedColor = theme.newColors.grey2["100"];
-		expect(await chipPage.getBackgroundColorFromElement(chipPage.chipTestIDLocator.nth(0))).toBe(expectedColor);
-		expect(await chipPage.getBackgroundColorFromElement(chipPage.chipTestIDLocator.nth(2))).toBe(expectedColor);
+		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithOnClickNotSelected)).toBe(expectedColor);
+		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithoutOnClickNotSelected)).toBe(expectedColor);
+	});
+
+	test("Validate type of Cursor for Chip", async () => {
+		const expectedCursorWithOnClick = "pointer";
+		const expectedCursorWithoutOnClick = "default";
+		expect(await chipPage.getCursorFromElement(chipPage.basicChipWithOnClickNotSelected)).toBe(expectedCursorWithOnClick);
+		expect(await chipPage.getCursorFromElement(chipPage.basicChipWithOnClickSelected)).toBe(expectedCursorWithOnClick);
+		expect(await chipPage.getCursorFromElement(chipPage.basicChipWithoutOnClickNotSelected)).toBe(expectedCursorWithoutOnClick);
+		expect(await chipPage.getCursorFromElement(chipPage.basicChipWithoutOnClickSelected)).toBe(expectedCursorWithoutOnClick);
 	});
 });
