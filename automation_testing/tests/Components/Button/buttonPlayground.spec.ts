@@ -201,7 +201,6 @@ test.describe.parallel("Components - Button - Playground", () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobHRef + true]);
 		await buttonPage.hrefLocator.click();
 		await expect(page).toHaveURL("https://www.google.com/");
-		await buttonPage.visit(buttonPage.page_path)
 	});
 
 	test("Validate menu item knob display a menu with two items.", async () => {
