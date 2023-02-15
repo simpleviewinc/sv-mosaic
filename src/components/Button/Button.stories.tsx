@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
-import { boolean, select, withKnobs, text } from "@storybook/addon-knobs";
+import { ReactElement, useMemo, useState } from "react";
+import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
 import StoryBookError from "../StoryBookError";
 import Button from "../Button";
@@ -14,6 +14,8 @@ import HelpIcon from "@mui/icons-material/Help";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
+import MenuItem from "@mui/material/MenuItem";
+import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
 import ButtonRow from "../ButtonRow";
 import { ButtonProps } from "./ButtonTypes";
@@ -23,10 +25,35 @@ export default {
 	decorators: [withKnobs],
 };
 
+const dropdownWithIcons: ButtonProps["menuItems"] = [
+	{
+		label : "Edit",
+		mIcon : CreateIcon,
+		onClick : function() {
+			alert("EDIT CLICK");
+		}
+	},
+	{
+		label : "Download",
+		mIcon : CloudDownloadIcon,
+		onClick : function() {
+			alert("DOWNLOAD CLICK");
+		}
+	}
+];
+
+const menuContent = (
+	<div>
+		<MenuItem >Profile</MenuItem>
+		<MenuItem >My account</MenuItem>
+		<MenuItem >Logout</MenuItem>
+	</div>
+);
+
 export const Playground = (): ReactElement => {
 	const buttonVariant = select(
 		"Variant",
-		["text", "outlined", "contained"],
+		["text", "outlined", "contained", "icon"],
 		"contained"
 	);
 	const buttonColor = select(
@@ -39,6 +66,7 @@ export const Playground = (): ReactElement => {
 			"yellow",
 			"teal",
 			"gray",
+			"white"
 		],
 		"black"
 	);
@@ -50,25 +78,95 @@ export const Playground = (): ReactElement => {
 		],
 		"medium"
 	);
+	const showOptions = select(
+		"Show",
+		[
+			"Undefined",
+			"True",
+			"False",
+			"Function that returns true",
+			"Function that returns false",
+			"Array of true values",
+			"Array with one falsy value",
+			"Array of functions that return true",
+			"Array of functions, one returns false"
+		],
+		"Undefined"
+	);
+	const label = select("Type of label", ["String", "JSX"], "String")
+	const showIcon = boolean("Show icon", false);
+	const iconColor = select(
+		"mIconColor",
+		[
+			"black",
+			"blue",
+			"lightBlue",
+			"red",
+			"yellow",
+			"teal",
+			"gray",
+			"white"
+		],
+		"black"
+	);
+	const iconPosition = select("Icon position", ["left", "right"], "left");
 	const fullWidth = boolean("Full Width", false);
 	const disabled = boolean("Disabled", false);
-	const tooltip = text("Tooltip", "");
+	const tooltip = select("Tooltip", ["string", "JSX", null], null);
+	const popover = boolean("Popover", false);
+	const popoverEvent = select("Popover event", ["onClick", "onHover"], "onClick");
 	const smallText = boolean("Small text. Used by text buttons", false);
+	const href = boolean("Href", false);
+	const menuItems = boolean("Menu items", false);
+	const showMenuContent = boolean("Menu content", false);
+	const useIcon = buttonVariant === "icon" || showIcon;
+	const tooltipType = tooltip ? tooltip === "string" ? "Tooltip string" : <h2>Tooltip as an H2</h2> : undefined;
+	const show = {
+		"Undefined": undefined,
+		"True": true,
+		"False": false,
+		"Function that returns true": () => true,
+		"Function that returns false": () => false,
+		"Array of true values": [true, true, true],
+		"Array with one falsy value": [true, false, true],
+		"Array of functions that return true": [() => true, () => true],
+		"Array of functions, one returns false": [() => false, () => true],
+	};
+
+	const action = {
+		name: "show",
+		onClick: () => alert("Clicked"),
+		show: show[showOptions],
+		color: buttonColor,
+		variant: buttonVariant
+	}
+
+	const showButton = useMemo(() => filterAction(action), [action.show]);
 
 	return (
 		<StoryBookError>
-			<Button
-				attrs={{
-					smallText,
-				}}
-				label="Test"
-				variant={buttonVariant}
-				color={buttonColor}
-				fullWidth={fullWidth}
-				disabled={disabled}
-				tooltip={tooltip}
-				size={size}
-			/>
+			{showButton &&
+				<div style={{ background: buttonColor === "white" ? "black" : "transparent", display: buttonColor === "white" ? "inline-block" : "inline" }}>
+					<Button
+						attrs={{smallText}}
+						label={label === "String" ? "Test" : <FormatListBulletedOutlinedIcon/>}
+						variant={buttonVariant}
+						color={buttonColor}
+						fullWidth={fullWidth}
+						disabled={disabled}
+						tooltip={tooltipType}
+						size={size}
+						mIcon={useIcon && AddIcon}
+						mIconColor={useIcon && iconColor}
+						href={href ? "https://www.google.com/" : null}
+						iconPosition={iconPosition}
+						popover={popover && !tooltipType && <p>Popover Content</p>}
+						popoverEvent={popoverEvent}
+						menuItems={menuItems && dropdownWithIcons}
+						menuContent={showMenuContent && menuContent}
+					/>
+				</div>
+			}
 		</StoryBookError>
 	);
 };
@@ -84,23 +182,6 @@ export const KitchenSink = (): ReactElement => {
 		console.log("EVENT", event);
 		setAnchorEl(event.currentTarget);
 	}
-
-	const dropdownWithIcons: ButtonProps["menuItems"] = [
-		{
-			label : "Edit",
-			mIcon : CreateIcon,
-			onClick : function() {
-				alert("EDIT CLICK");
-			}
-		},
-		{
-			label : "Download",
-			mIcon : CloudDownloadIcon,
-			onClick : function() {
-				alert("DOWNLOAD CLICK");
-			}
-		}
-	];
 
 	const dropdownWithColoredIcons: ButtonProps["menuItems"] = [
 		{
