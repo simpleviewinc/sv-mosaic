@@ -197,6 +197,13 @@ test.describe.parallel("Components - Button - Playground", () => {
 		expect(await buttonPage.getHRefFromElement(buttonPage.hrefLocator)).toBe(expectLink);
 	});
 
+	test("Validate that the redirection when clicking the link goes to the expected URL.", async () => {
+		await buttonPage.visit(buttonPage.page_path, [knob.knobHRef + true]);
+		await buttonPage.hrefLocator.click();
+		await expect(page).toHaveURL("https://www.google.com/");
+		await buttonPage.visit(buttonPage.page_path)
+	});
+
 	test("Validate menu item knob display a menu with two items.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobMenuItem + true]);
 		await buttonPage.button.waitFor();
