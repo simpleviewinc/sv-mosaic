@@ -70,6 +70,14 @@ class JSONDB {
 
 		return data.length;
 	}
+
+	async setData(data) {
+		this.data = data;
+	}
+
+	async getData() {
+		return this.data;
+	}
 }
 
 interface FilterKey {
