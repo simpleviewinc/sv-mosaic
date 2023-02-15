@@ -39,13 +39,12 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 		return limitOptions || [25, 50, 100];
 	}, [limitOptions]);
 
-
 	const hasSortControl = onSortChange !== undefined && sort !== undefined;
 
 	return (
 		<DataViewActionsRowWrapper className={`${display}`}>
 			{
-				display === "grid" && bulkActions?.length > 0 && (
+				display === "grid" && (
 					<LeftControlsContainer>
 						{onCheckAllClick &&
 							<Checkbox
@@ -59,7 +58,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 								<DataViewBulkActionsButtonsRow
 									data={props.data}
 									checked={checked}
-									bulkActions={props.bulkActions}
+									bulkActions={bulkActions}
 									checkedAllPages={props.checkedAllPages}
 								/>
 							)
