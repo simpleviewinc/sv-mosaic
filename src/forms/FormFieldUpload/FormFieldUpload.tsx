@@ -126,14 +126,11 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
 
-		const pendingWithoutError = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
 
 		if (
 			limit !== undefined
 			&& limit >= 0
-			&& (
-				(value !== undefined ? value.length : 0) + newFiles.length + pendingWithoutError > limit
-			)
+			&& (value !== undefined ? value.length : 0) + newFiles.length > limit
 		) {
 			setOpenSnackbar(true);
 			return;
@@ -200,14 +197,17 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const shouldDisableField = useMemo(() => {
-		const numOfPendingFiles = Object.keys(pendingFiles).length;
+		const numOfPendingFiles = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
 
 		return (
 			fieldDef.disabled ||
-			(limit !== undefined && value?.length >= limit ||
-			(value?.length + numOfPendingFiles) >= limit ||
-			numOfPendingFiles >= limit)
-		)}, [fieldDef.disabled, limit, value, pendingFiles]);
+			(
+				limit !== undefined
+				&& limit >= 0
+				&& (value !== undefined ? value.length : 0) + numOfPendingFiles >= limit
+			)
+		)
+	}, [fieldDef.disabled, limit, value, pendingFiles]);
 
 	return (
 		<>
