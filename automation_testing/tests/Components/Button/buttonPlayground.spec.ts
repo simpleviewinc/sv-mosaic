@@ -185,8 +185,9 @@ test.describe.parallel("Components - Button - Playground", () => {
 
 	test("Validate button width when the full-width knob is active.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobFullWidth + true]);
-		const expectedWidth = page.viewportSize().width;
-		expect(await buttonPage.getElementWidth(buttonPage.button)).toBe(expectedWidth);
+		// Width of the viewport minus 16 px of default 8 px in each side.
+		const expectedWidth = page.viewportSize().width - 16;
+		expect(await buttonPage.getElementWidth(buttonPage.button, false)).toBe(expectedWidth);
 	});
 
 	test("Validate the href knob and its link.", async () => {
