@@ -37,124 +37,123 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		formContentRef,
 	} = props;
 
-		// State variables
-		const [activeChecked, setActiveChecked] = useState(false);
-		const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-		const view = useView(Views.responsive);
+	// State variables
+	const [activeChecked, setActiveChecked] = useState(false);
+	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+	const view = useView(Views.responsive);
 
-		const handleActiveClick = useCallback(() => {
-			setActiveChecked((prev) => !prev);
-		}, []);
+	const handleActiveClick = useCallback(() => {
+		setActiveChecked((prev) => !prev);
+	}, []);
 
-		const checkbox = useMemo(
-			() => (
-				<Checkbox
-					label="Active"
-					checked={activeChecked}
-					onClick={handleActiveClick}
-				/>
-			),
-			[activeChecked, handleActiveClick]
-		);
+	const checkbox = useMemo(
+		() => (
+			<Checkbox
+				label="Active"
+				checked={activeChecked}
+				onClick={handleActiveClick}
+			/>
+		),
+		[activeChecked, handleActiveClick]
+	);
 
-		const helpIcon = useMemo(
-			() => (
-				<StyledHelpIconWrapper
-					onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-					showActive={showActive}
-					isResponsiveView={view === Views.responsive}
-					className={view}
+	const helpIcon = useMemo(
+		() => (
+			<StyledHelpIconWrapper
+				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+				showActive={showActive}
+				isResponsiveView={view === Views.responsive}
+				className={view}
+			>
+				<Tooltip
+					open={tooltipIsOpen}
+					onOpen={() => setTooltipIsOpen(true)}
+					onClose={() => setTooltipIsOpen(false)}
+					text={tooltipInfo}
 				>
-					<Tooltip
-						open={tooltipIsOpen}
-						onOpen={() => setTooltipIsOpen(true)}
-						onClose={() => setTooltipIsOpen(false)}
-						text={tooltipInfo}
-					>
-						<StyledHelpIcon />
-					</Tooltip>
-				</StyledHelpIconWrapper>
-			),
-			[showActive, view, tooltipInfo, setTooltipIsOpen, tooltipIsOpen]
-		);
+					<StyledHelpIcon />
+				</Tooltip>
+			</StyledHelpIconWrapper>
+		),
+		[showActive, view, tooltipInfo, setTooltipIsOpen, tooltipIsOpen]
+	);
 
-		const RenderView = useCallback(() => {
-			if (view === Views.mobile)
-				return (
-					<MobileView
-						ref={ref}
-						buttons={buttons}
-						title={title}
-						description={description}
-						helpIcon={helpIcon}
-						checkbox={checkbox}
-						onCancel={onCancel}
-						showActive={showActive}
-						tooltipInfo={tooltipInfo}
-						view={view}
-					/>
-				);
-			if (view === Views.drawer)
-				return (
-					<DrawerHeader
-						ref={ref}
-						title={title}
-						buttons={buttons}
-						onCancel={onCancel}
-					/>
-				);
-			if (view === Views.responsive)
-				return (
-					<ResponsiveView
-						ref={ref}
-						title={title}
-						description={description}
-						showActive={showActive}
-						tooltipInfo={tooltipInfo}
-						helpIcon={helpIcon}
-						checkbox={checkbox}
-						buttons={buttons}
-						sections={sections}
-						view={view}
-						sectionsRefs={sectionsRefs}
-						formContentRef={formContentRef}
-					/>
-				);
-			if (view === Views.desktop || view === Views.bigDesktop)
-				return (
-					<DesktopView
-						ref={ref}
-						sectionsRefs={sectionsRefs}
-						title={title}
-						description={description}
-						showActive={showActive}
-						tooltipInfo={tooltipInfo}
-						helpIcon={helpIcon}
-						checkbox={checkbox}
-						buttons={buttons}
-						sections={sections}
-						view={view}
-						formContentRef={formContentRef}
-					/>
-				);
+	const RenderView = useCallback(() => {
+		if (view === Views.mobile)
+			return (
+				<MobileView
+					ref={ref}
+					buttons={buttons}
+					title={title}
+					description={description}
+					helpIcon={helpIcon}
+					checkbox={checkbox}
+					onCancel={onCancel}
+					showActive={showActive}
+					tooltipInfo={tooltipInfo}
+					view={view}
+				/>
+			);
+		if (view === Views.drawer)
+			return (
+				<DrawerHeader
+					ref={ref}
+					title={title}
+					buttons={buttons}
+					onCancel={onCancel}
+				/>
+			);
+		if (view === Views.responsive)
+			return (
+				<ResponsiveView
+					ref={ref}
+					title={title}
+					description={description}
+					showActive={showActive}
+					tooltipInfo={tooltipInfo}
+					helpIcon={helpIcon}
+					checkbox={checkbox}
+					buttons={buttons}
+					sections={sections}
+					view={view}
+					sectionsRefs={sectionsRefs}
+					formContentRef={formContentRef}
+				/>
+			);
+		if (view === Views.desktop || view === Views.bigDesktop)
+			return (
+				<DesktopView
+					ref={ref}
+					sectionsRefs={sectionsRefs}
+					title={title}
+					description={description}
+					showActive={showActive}
+					tooltipInfo={tooltipInfo}
+					helpIcon={helpIcon}
+					checkbox={checkbox}
+					buttons={buttons}
+					sections={sections}
+					view={view}
+					formContentRef={formContentRef}
+				/>
+			);
 
-			return null;
-		}, [
-			checkbox,
-			description,
-			helpIcon,
-			onCancel,
-			sections,
-			sectionsRefs,
-			showActive,
-			title,
-			tooltipInfo,
-			view,
-		]);
+		return null;
+	}, [
+		checkbox,
+		description,
+		helpIcon,
+		onCancel,
+		sections,
+		sectionsRefs,
+		showActive,
+		title,
+		tooltipInfo,
+		view,
+	]);
 
-		return <RenderView />;
-	}
-);
+	return <RenderView />;
+});
 
 TopComponent.displayName = "TopComponent";
 
