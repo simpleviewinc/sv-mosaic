@@ -146,7 +146,7 @@ export const Playground = (): ReactElement => {
 	return (
 		<StoryBookError>
 			{showButton &&
-				<div style={{ background: buttonColor === "white" ? "black" : "transparent", display: "inline-block" }}>
+				<div style={{ background: buttonColor === "white" ? "black" : "transparent", display: buttonColor === "white" ? "inline-block" : "inline" }}>
 					<Button
 						attrs={{smallText}}
 						label={label === "String" ? "Test" : <FormatListBulletedOutlinedIcon/>}
