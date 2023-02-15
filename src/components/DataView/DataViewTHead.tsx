@@ -183,7 +183,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 				}
 				{
 					props.onCheckAllClick &&
-					<StyledTh key="_bulk" className="bulk" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) && props.columns.length + 2}>
+					<StyledTh key="_bulk" className="bulk" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) ? props.columns.length + 2 : 1}>
 						<Checkbox
 							checked={props.allChecked}
 							indeterminate={!props.allChecked && props.anyChecked}
