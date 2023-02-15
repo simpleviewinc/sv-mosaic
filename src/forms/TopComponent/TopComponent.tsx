@@ -1,5 +1,12 @@
 import * as React from "react";
-import { memo, useState, ReactElement, useMemo, forwardRef } from "react";
+import {
+	memo,
+	useState,
+	ReactElement,
+	useMemo,
+	forwardRef,
+	useCallback,
+} from "react";
 
 // Components
 import Tooltip from "@root/components/Tooltip";
@@ -35,17 +42,9 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
 	const view = useView(Views.responsive);
 
-	const handleCloseTooltip = () => {
-		setTooltipIsOpen(false);
-	};
-
-	const handleOpenTooltip = () => {
-		setTooltipIsOpen(true);
-	};
-
-	const handleActiveClick = () => {
-		setActiveChecked(!activeChecked);
-	};
+	const handleActiveClick = useCallback(() => {
+		setActiveChecked((prev) => !prev);
+	}, []);
 
 	const checkbox = useMemo(
 		() => (
@@ -68,26 +67,18 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			>
 				<Tooltip
 					open={tooltipIsOpen}
-					onOpen={handleOpenTooltip}
-					onClose={handleCloseTooltip}
+					onOpen={() => setTooltipIsOpen(true)}
+					onClose={() => setTooltipIsOpen(false)}
 					text={tooltipInfo}
 				>
 					<StyledHelpIcon />
 				</Tooltip>
 			</StyledHelpIconWrapper>
 		),
-		[
-			showActive,
-			view,
-			tooltipInfo,
-			setTooltipIsOpen,
-			tooltipIsOpen,
-			handleOpenTooltip,
-			handleCloseTooltip,
-		]
+		[showActive, view, tooltipInfo, setTooltipIsOpen, tooltipIsOpen]
 	);
 
-	const RenderView = () => {
+	const RenderView = useCallback(() => {
 		if (view === Views.mobile)
 			return (
 				<MobileView
@@ -148,7 +139,18 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			);
 
 		return null;
-	};
+	}, [
+		checkbox,
+		description,
+		helpIcon,
+		onCancel,
+		sections,
+		sectionsRefs,
+		showActive,
+		title,
+		tooltipInfo,
+		view,
+	]);
 
 	return <RenderView />;
 });

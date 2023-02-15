@@ -10,8 +10,6 @@ export class ButtonPage extends BasePage {
 	readonly button: Locator;
 	readonly leftIconButton: Locator;
 	readonly rightIconButton: Locator;
-	readonly buttonThatTriggersPopoverOnClick: Locator;
-	readonly buttonThatTriggersPopoverOnHover: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -20,11 +18,21 @@ export class ButtonPage extends BasePage {
 		this.button = page.locator("button");
 		this.leftIconButton = page.locator("button .icon_left");
 		this.rightIconButton = page.locator("button .icon_right");
-		this.buttonThatTriggersPopoverOnClick = page.locator("text=With Popover").first();
-		this.buttonThatTriggersPopoverOnHover = page.locator("text=With Popover").nth(1);
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.buttonTitle);
+	async validateMarginOfButton(margin: "right"|"left", expectedValue: string): Promise<void> {
+		let locator: Locator;
+		let rightFlag: boolean;
+		if (margin === "right") {
+			locator = this.rightIconButton;
+			rightFlag = true;
+		} else {
+			locator = this.leftIconButton;
+			rightFlag = false;
+		}
+		for (let i = 0; i < await locator.count(); i++) {
+			await this.validateMarginValueFromElement(locator.nth(i), expectedValue, rightFlag);
+		}
 	}
+
 }

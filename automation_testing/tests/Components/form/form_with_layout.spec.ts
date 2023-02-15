@@ -9,7 +9,7 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formWithLayoutPage = new FormWithLayout(page);
-		await formWithLayoutPage.visitPage();
+		await formWithLayoutPage.visit(formWithLayoutPage.page_path);
 		await page.setViewportSize({ width: 1199, height: 720 });
 		await formWithLayoutPage.wait();
 	});
@@ -48,6 +48,7 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 	});
 
 	test("Validate Form Top Component padding depending the viewport.", async () => {
+		await page.reload();
 		const topComponentLocator = formWithLayoutPage.formTopComponent;
 		// We start with the default viewport size.
 		await topComponentLocator.waitFor();
@@ -71,6 +72,7 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 	});
 
 	test("Validate Top Component with section margin within description and section is valid.", async () => {
+		await page.reload();
 		await formWithLayoutPage.sections.waitFor();
 		expect(await formWithLayoutPage.getSpecificMarginFromElement(formWithLayoutPage.sections, "top")).toBe("24px");
 	});
