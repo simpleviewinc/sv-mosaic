@@ -75,6 +75,12 @@ export const StyledWrapper = styled.div`
 	& .chip > span {
 		flex: 1 1 0%
 	}
+
+	& .realTeal-icon {
+		& svg {
+			color: ${theme.newColors.realTeal[100]};
+		}
+	}
 `
 
 export const PopoverP = styled.p`

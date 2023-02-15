@@ -14,6 +14,7 @@ export interface DataViewFilterMultiselectProps extends DataViewFilterProps {
 		getSelected(val: any): Promise<any> | any;
 		comparisons?:  MultiSelectComparison[];
 		placeholder?: string;
+		limit?: number;
 	}
 	onChange(val: DataViewFilterMultiselectData): void;
 }
@@ -27,4 +28,10 @@ export interface DataViewFilterMultiselectDropdownContentProps {
 	onApply: (val: any) => void;
 	isOpen: boolean;
 	placeholder?: DataViewFilterMultiselectProps["args"]["placeholder"];
+	limit?:  DataViewFilterMultiselectProps["args"]["limit"];
+	onChange?: (val: any) => void;
+	hideButtons?: boolean;
+	createNewOption?: (val: any) => void;
+	disabled?: boolean;
+	selectLimit?: number;
 }
