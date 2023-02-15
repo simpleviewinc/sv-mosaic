@@ -1,7 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { buttonKnobs as knob } from "../../../utils/data/knobs";
-import { ButtonProps, ColorTypes } from "../../../../src/components/Button/ButtonTypes";
 
 export class ButtonPage extends BasePage {
 
@@ -20,19 +19,19 @@ export class ButtonPage extends BasePage {
 		this.hrefLocator = page.locator("a");
 	}
 
-	async getKnobForVariant(variant: ButtonProps["variant"]): Promise<string> {
+	async getKnobForVariant(variant: "icon" | "outlined" | "contained" | "text"): Promise<string> {
 		return (knob.knobVariant + variant).toString();
 	}
 
-	async getKnobForColor(color: ColorTypes): Promise<string> {
+	async getKnobForColor(color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
 		return (knob.knobColor + color).toString();
 	}
 
-	async getKnobForPopoverEvent(event: ButtonProps["popoverEvent"]): Promise<string> {
+	async getKnobForPopoverEvent(event: "onClick" | "onHover"): Promise<string> {
 		return (knob.knobPopoverEvent + event).toString();
 	}
 
-	async getKnobForSize(size: ButtonProps["size"]): Promise<string> {
+	async getKnobForSize(size: "small" | "medium"): Promise<string> {
 		return (knob.knobPopoverEvent + size).toString();
 	}
 
@@ -46,7 +45,7 @@ export class ButtonPage extends BasePage {
 		return (knob.knobTypeOfLabel + type).toString();
 	}
 
-	async getKnobForIconColor(color: ColorTypes): Promise<string> {
+	async getKnobForIconColor(color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
 		return (knob.knobmIconColor + color).toString();
 	}
 }
