@@ -9,7 +9,7 @@ test.describe.parallel("Components - PopoverPage - Example", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		popoverPage = new PopoverPage(page);
-		await popoverPage.visitPage();
+		await popoverPage.visit(popoverPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

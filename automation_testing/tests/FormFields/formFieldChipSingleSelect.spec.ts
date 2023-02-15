@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffChipSingleSelectPage = new FormFieldChipSingleSelectPage(page);
-		await ffChipSingleSelectPage.visitPage();
+		await ffChipSingleSelectPage.visit(ffChipSingleSelectPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

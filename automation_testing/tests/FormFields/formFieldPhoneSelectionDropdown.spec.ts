@@ -10,7 +10,7 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffPhoneSelectionDropdownPage = new FormFieldPhoneSelectionDropdownPage(page);
-		await ffPhoneSelectionDropdownPage.visitPage();
+		await ffPhoneSelectionDropdownPage.visit(ffPhoneSelectionDropdownPage.page_path);
 	});
 
 	test.beforeEach(async() => {

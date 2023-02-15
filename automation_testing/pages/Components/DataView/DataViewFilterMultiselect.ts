@@ -21,8 +21,4 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 		this.comparisonDropdownButton = this.comparisonDropdown.locator("button").first();
 		this.helpDialogButton = this.comparisonDropdown.locator("button").last();
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.hideComparisonSelectorButton);
-	}
 }

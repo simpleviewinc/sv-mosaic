@@ -63,7 +63,7 @@ function Button(props: ButtonProps) {
 		setTooltipEl(e.currentTarget);
 	}
 
-	function onMouseLeave(e) {
+	function onMouseLeave() {
 		setTooltipEl(null);
 	}
 

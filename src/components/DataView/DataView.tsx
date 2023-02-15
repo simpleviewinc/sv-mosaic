@@ -93,9 +93,7 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	const checkboxEnabled =
 		props.checked !== undefined &&
-		props.onCheckChange !== undefined &&
-		validBulkActions !== undefined &&
-		validBulkActions?.length > 0
+		props.onCheckChange !== undefined
 	;
 
 	const onCheckAllClick = function() {

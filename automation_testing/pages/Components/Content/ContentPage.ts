@@ -17,8 +17,4 @@ export class ContentPage extends BasePage {
 		this.editButton = page.locator("button").first();
 		this.mainWrapperLocator = page.locator("#root div").first();
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.mainSectionTitle);
-	}
 }

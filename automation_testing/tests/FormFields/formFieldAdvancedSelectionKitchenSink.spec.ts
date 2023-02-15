@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffAdvancedSelectionPage = new FormFieldAdvancedSelectionPage(page);
-		await ffAdvancedSelectionPage.visitPage();
+		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path);
 	});
 
 	test.beforeEach(async() => {

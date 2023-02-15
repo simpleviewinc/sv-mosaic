@@ -27,8 +27,4 @@ export class FormFieldPhoneSelectionDropdownPage extends BasePage {
 		this.autoformatPhoneField = page.locator("input.form-control").nth(2);
 		this.autoformatPhoneFieldDropdown = this.flagDropdown.nth(2);
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.regularPhoneField);
-	}
 }

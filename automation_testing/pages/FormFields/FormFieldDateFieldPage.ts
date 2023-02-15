@@ -49,10 +49,6 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.requiredFieldErrorMessage = page.locator("p.Mui-error");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.singleDateCalendarInput);
-	}
-
 	async selectDayFromDatePicker(day:number): Promise<void> {
 		await this.calendarCell.nth(day - 1).click();
 	}

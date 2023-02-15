@@ -8,7 +8,7 @@ test.describe.parallel("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formFieldToggleSwitchPage = new FormFieldToggleSwitchPage(page);
-		await formFieldToggleSwitchPage.visitPage();
+		await formFieldToggleSwitchPage.visit(formFieldToggleSwitchPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

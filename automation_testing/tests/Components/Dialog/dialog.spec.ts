@@ -2,14 +2,14 @@ import { test, expect, Page } from "@playwright/test";
 import { DialogPage } from "../../../pages/Components/Dialog/DialogPage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - Dialog - Example", () => {
+test.describe.parallel("Components - Dialog - Example", () => {
 	let page: Page;
 	let dialogPage: DialogPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dialogPage = new DialogPage(page);
-		await dialogPage.visitPage();
+		await dialogPage.visit(dialogPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {

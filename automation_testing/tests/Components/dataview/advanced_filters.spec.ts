@@ -20,11 +20,15 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		advancedFilters = new AdvancedFiltersComponent(page);
 		pagination = _dataviewPage.paginationComponent;
 		columns = _dataviewPage.columnsComponent;
-		await _dataviewPage.visitPage();
+		await _dataviewPage.visit(_dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {
 		await page.reload();
+	});
+
+	test.afterEach(async() => {
+		await _dataviewPage.removeAllSelectedFilters();
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -367,7 +371,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
 		await advancedFilters.selectFilter("updated");
-		await advancedFilters.waitForElementLoad();
+		await advancedFilters.wait();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
 

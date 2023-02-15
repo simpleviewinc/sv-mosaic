@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formFieldDropdownSingleSelectionPage = new FormFieldDropdownSingleSelectionPage(page);
-		await formFieldDropdownSingleSelectionPage.visitPage();
+		await formFieldDropdownSingleSelectionPage.visit(formFieldDropdownSingleSelectionPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -27,19 +27,19 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 	});
 
 	test("Validate xs dropdown size is valid", async () => {
-		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.xsSizeDropdownDiv)).toBe(100);
+		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.xsSizeDropdownDiv, true)).toBe(100);
 	});
 
 	test("Validate sm  dropdown size is valid", async () => {
-		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.smSizeDropdownDiv)).toBe(280);
+		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.smSizeDropdownDiv, true)).toBe(280);
 	});
 
 	test("Validate md dropdown size is valid", async () => {
-		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.mdSizeDropdownDiv)).toBe(450);
+		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.mdSizeDropdownDiv, true)).toBe(450);
 	});
 
 	test("Validate lg dropdown size is valid", async () => {
-		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.lgSizeDropdownDiv)).toBe(620);
+		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.lgSizeDropdownDiv, true)).toBe(620);
 	});
 
 	test("Validate the xs dropdown", async () => {

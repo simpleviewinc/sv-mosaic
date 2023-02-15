@@ -93,7 +93,7 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputTooltipWrapper>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
-					{(!value ? "0" : value.length) + "/" + maxCharacters}
+					{(!value ? "0" : value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").length) + "/" + maxCharacters}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>
