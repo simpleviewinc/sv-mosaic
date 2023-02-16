@@ -1,14 +1,17 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionKitchenSinkPage";
 import theme from "../../../src/theme";
+import { DataViewFilterMultiselectComponent } from "../../pages/Components/DataView/DataViewFilterMultiselect";
 
 test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
 	let page: Page;
 	let ffAdvancedSelectionPage: FormFieldAdvancedSelectionPage;
+	let multiSelect: DataViewFilterMultiselectComponent;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffAdvancedSelectionPage = new FormFieldAdvancedSelectionPage(page);
+		multiSelect = new DataViewFilterMultiselectComponent(page);
 		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path);
 	});
 
@@ -49,12 +52,13 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
 		expectedSelections.push(await ffAdvancedSelectionPage.checkboxLabel.first().textContent());
 		await ffAdvancedSelectionPage.searchOptionInput.type("ABC");
+		await ffAdvancedSelectionPage.wait();
 		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
 		expectedSelections.push(await ffAdvancedSelectionPage.checkboxLabel.first().textContent());
 		await ffAdvancedSelectionPage.clearAllValuesFromField(ffAdvancedSelectionPage.searchOptionInput);
 
-		for (let i = 0; i < await ffAdvancedSelectionPage.selectedChip.count(); i++) {
-			actualChipText.push(await ffAdvancedSelectionPage.selectedChip.nth(i).textContent());
+		for (let i = 0; i < await multiSelect.selectedChips.count(); i++) {
+			actualChipText.push(await multiSelect.selectedChips.nth(i).textContent());
 		}
 		expect(actualChipText.toString()).toBe(expectedSelections.toString());
 	});
@@ -67,34 +71,23 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 		}
 	});
 
-	test("Validate that the expected height for checkbox list is valid in Advanced selection with options prop", async () => {
+	test("Validate that the valid sections are displayed in Advanced selection with options prop", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithOptionsPropButton.click();
-		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
-		const checkboxListHeight = (await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0];
-		expect(Number(checkboxListHeight)).toBe(expectedHeight);
+		await multiSelect.validateMultiselectSectionsAreVisible();
 	});
 
-	test("Validate that the expected height for checkbox list is valid in Advanced selection with getOptions prop", async () => {
+	test("Validate that the valid sections are displayed in Advanced selection with getOptions prop", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithGetOptionsPropButton.click();
-		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
-		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
-		const checkboxListHeight = Number((await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0]);
-		expect(checkboxListHeight).toBe(expectedHeight);
+		await multiSelect.validateMultiselectSectionsAreVisible();
 	});
 
-	test("Validate that the expected height for checkbox list is valid in Advanced selection with createNewOption prop", async () => {
+	test("Validate that the valid sections are displayed in Advanced selection with createNewOption prop", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithCreateNewOptionPropButton.click();
-		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
-		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
-		const checkboxListHeight = Number((await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0]);
-		expect(checkboxListHeight).toBe(expectedHeight);
+		await multiSelect.validateMultiselectSectionsAreVisible();
 	});
 
-	test("Validate that the expected height for checkbox list is valid in Advanced selection with selectLimit prop (Max 2 options)", async () => {
+	test("Validate that the valid sections are displayed in Advanced selection with selectLimit prop (Max 2 options)", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithCreateNewOptionPropButton.click();
-		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
-		const expectedHeight = await ffAdvancedSelectionPage.getExpectedHeightForCheckboxList();
-		const checkboxListHeight = Number((await ffAdvancedSelectionPage.getHeightFromElement(ffAdvancedSelectionPage.checkboxListLocator)).split("px")[0]);
-		expect(checkboxListHeight).toBe(expectedHeight);
+		await multiSelect.validateMultiselectSectionsAreVisible();
 	});
 });
