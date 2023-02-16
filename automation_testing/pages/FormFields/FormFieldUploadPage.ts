@@ -24,7 +24,7 @@ export class FormFieldUploadPage extends BasePage {
 
 	async removeAllUploadedFiles(): Promise<void> {
 		const deleteButtonCount = await this.fileDeleteButton.count();
-		while (deleteButtonCount > 0) {
+		for (let i = 0; i < deleteButtonCount; i++) {
 			await this.fileDeleteButton.first().click();
 		}
 	}
