@@ -87,7 +87,7 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink",
 	});
 
 	test("Validate that the valid sections are displayed in Advanced selection with selectLimit prop (Max 2 options)", async () => {
-		await ffAdvancedSelectionPage.advancedSelectionWithCreateNewOptionPropButton.click();
+		await ffAdvancedSelectionPage.advancedSelectionWithSelectLimitButton.click();
 		await multiSelect.validateMultiselectSectionsAreVisible();
 	});
 });
