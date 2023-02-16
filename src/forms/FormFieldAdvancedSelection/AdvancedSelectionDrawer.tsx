@@ -7,12 +7,11 @@ import {
 	useEffect,
 	useState
 } from "react";
-import { useForm } from "@root/components/Form";
 import { AdvanceSelectionDrawerPropTypes } from ".";
-import _ from "lodash";
 import { FormDrawerWrapper } from "../shared/styledComponents";
 import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
 import DrawerHeader from "@root/components/DrawerHeader";
+import Dialog from "@root/components/Dialog";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -21,20 +20,34 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		onChange,
 		handleClose,
 		handleUnsavedChanges,
+		dialogOpen,
+		handleDialogClose,
 	} = props;
 
 	const { options, getOptions, createNewOption } = fieldDef?.inputSettings || {};
 
-	const { state } = useForm();
-
 	const [selectedOptions, setSelectedOptions] = useState([]);
 
-	useEffect(() => {
-		if (state.data.listOfChips !== undefined) {
-			handleUnsavedChanges(!_.isEqual([...value], state?.data?.listOfChips));
-		}
-	}, [state.data.listOfChips, value]);
+	const dialogButtons: ButtonProps[] = [
+		{
+			label: "No, stay",
+			onClick: () => handleDialogClose(false),
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: "Yes, leave",
+			onClick: () => handleDialogClose(true),
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
+	useEffect(() => {
+		if (selectedOptions.length > 0) {
+			handleUnsavedChanges(true);
+		}
+	}, [selectedOptions]);
 
 	const onSubmit = useCallback(async() => {
 		await onChange(selectedOptions);
@@ -68,7 +81,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			docs: newOptions,
 			hasMore: false
 		}
-	}
+	};
 
 	return (
 		<FormDrawerWrapper className="advancedSelection">
@@ -89,9 +102,16 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				onChange={(value) => setSelectedOptions(value)}
 				hideButtons={true}
 				createNewOption={createNewOption}
-				disabled={fieldDef.disabled}
 			/>
+			<Dialog
+				buttons={dialogButtons}
+				dialogTitle='Are you sure you want to leave?'
+				open={dialogOpen}
+			>
+				You have unsaved changes. If you leave all your changes will be lost.
+			</Dialog>
 		</FormDrawerWrapper>
+
 	);
 };
 
