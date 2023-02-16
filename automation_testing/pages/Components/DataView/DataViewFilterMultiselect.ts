@@ -15,6 +15,7 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 	readonly comparisonDropdownButton: Locator;
 	readonly helpDialogButton: Locator;
 	readonly selectedChips: Locator;
+	readonly inputSearchLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -28,6 +29,7 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 		this.comparisonDropdownButton = this.comparisonDropdown.locator("button").first();
 		this.helpDialogButton = this.comparisonDropdown.locator("button").last();
 		this.selectedChips = page.locator(".chips [data-testid='delete-chip-testid']");
+		this.inputSearchLocator = page.locator(".topBlock input[type='text']")
 	}
 
 	async validateMultiselectSectionsAreVisible(): Promise<void> {
