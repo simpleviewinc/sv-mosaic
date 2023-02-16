@@ -7,6 +7,9 @@ import { useMemo } from "react";
 import { optionsWithCategory } from ".";
 import Form, { useForm, formActions } from "@root/components/Form";
 import { additionalOptions } from "./advancedSelectionUtils";
+import JSONDB from "@root/utils/JSONDB";
+import categories from "@root/components/DataView/example/categories.json";
+import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
 
 afterEach(cleanup);
 
@@ -29,41 +32,37 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 	const getOptionsLimit = 5;
 	const selectLimit = 3;
 
-	const getOptions = async ({ limit, filter, offset }) => {
-		let internalOptionsArr = [...additionalOptions];
+	const categoriesApi = new JSONDB(categories);
 
-		if (filter) {
-			const trimmedFilter = filter.trim().toLowerCase();
-			internalOptionsArr = additionalOptions.filter(
-				option => (
-					option.label.toLowerCase().includes(trimmedFilter)
-				)
-			);
-		}
-
-		let optionsToReturn = [];
-		if (limit) {
-			for (let i = offset; i < offset + limit; i++) {
-				if (i < internalOptionsArr.length)
-					optionsToReturn.push(internalOptionsArr[i]);
-			}
-		} else {
-			optionsToReturn = internalOptionsArr;
-		}
-
-		return optionsToReturn;
-	};
+	const categoriesHelper = new MultiSelectHelper({
+		api: categoriesApi,
+		labelColumn: "tag",
+		valueColumn: "id",
+		sortColumn: "sort_tag"
+	});
 
 	const createNewOption = async (newOptionLabel) => {
-		const value = `${newOptionLabel}_${additionalOptions.length}`
+		const value = `id_${(new Date()).getTime()}`;
 		const newOption = {
-			label: newOptionLabel,
-			value,
-		}
-		additionalOptions.push(newOption);
+			"_id": value,
+			"tag": newOptionLabel,
+			"sort_tag": newOptionLabel,
+			"updated": new Date(),
+			"created": new Date(),
+			"id": value
+		};
 
-		return newOption;
-	}
+		//Insert to db
+		additionalOptions.push({label: newOption.tag, value: newOption.id});
+
+		const data = await categoriesApi.getData();
+
+		const newData = [...data, newOption];
+
+		await categoriesApi.setData(newData);
+
+		return {label: newOption.tag, value: newOption.id};
+	};
 
 	const fields: FieldDef[] = useMemo(
 		() => (
@@ -76,7 +75,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 					type: "advancedSelection",
 					inputSettings: {
 						options: optionsOrigin === "local" ? options : undefined,
-						getOptions: optionsOrigin === "db" ? getOptions : undefined,
+						getOptions: optionsOrigin === "db" ? categoriesHelper.getOptions.bind(categoriesHelper) : undefined,
 						getOptionsLimit: optionsOrigin === "db" ? getOptionsLimit : undefined,
 						createNewOption,
 						selectLimit
@@ -90,7 +89,6 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 			disabled,
 			groupByCategory,
 			options,
-			getOptions,
 			getOptionsLimit,
 			createNewOption,
 			optionsOrigin,
@@ -145,7 +143,7 @@ describe("AdvancedSelection component", () => {
 
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
-		const optionCheckbox = await screen.findByText("Option 2");
+		const optionCheckbox = await screen.findByText("Accessibility");
 		fireEvent.click(optionCheckbox);
 
 		const optionChip = await screen.findByTestId("delete-icon-test-id");
@@ -162,7 +160,7 @@ describe("AdvancedSelection component", () => {
 
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
-		const optionCheckbox = await screen.findByText("Option 2");
+		const optionCheckbox = await screen.findByText("Accessibility");
 		fireEvent.click(optionCheckbox);
 
 		const optionChip = await screen.findAllByTestId("delete-icon-test-id");
@@ -187,13 +185,13 @@ describe("AdvancedSelection component", () => {
 		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
 
 		const inputNode = screen.getByPlaceholderText("Search...");
-		fireEvent.change(inputNode, { target: { value: "abc" } });
+		fireEvent.change(inputNode, { target: { value: "Art" } });
 
 		await waitFor(() => {
-			expect(screen.queryByText("Option 1")).toBe(null);
+			expect(screen.queryByText("Accessibility")).toBe(null);
 		});
 
-		expect(await screen.findByText("abc")).toBeTruthy();
+		expect(await screen.findByText("ArtPrize")).toBeTruthy();
 	});
 
 	it("should create a new option", async () => {
