@@ -126,11 +126,14 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
 
+		const pendingWithoutError = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
 
 		if (
 			limit !== undefined
 			&& limit >= 0
-			&& (value !== undefined ? value.length : 0) + newFiles.length > limit
+			&& (
+				(value !== undefined ? value.length : 0) + newFiles.length + pendingWithoutError > limit
+			)
 		) {
 			setOpenSnackbar(true);
 			return;
