@@ -26,7 +26,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const { options, getOptions, createNewOption } = fieldDef?.inputSettings || {};
 
-	const [selectedOptions, setSelectedOptions] = useState([]);
+	const [selectedOptions, setSelectedOptions] = useState(value?.length > 0 ? value : []);
 
 	const dialogButtons: ButtonProps[] = [
 		{
