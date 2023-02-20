@@ -1,0 +1,50 @@
+export const rows = [
+	{ name: "2023_02_10", title: "Shoulder Before" },
+	{ name: "2023_02_11", title: "Day 1", subtitle: "February 11" },
+	{ name: "2023_02_12", title: "Day 2" },
+	{ name: "2023_02_13", title: "Day 3" },
+];
+
+export const columns = [
+	{ name: "single", title: "Single" },
+	{ name: "double", title: "Double" },
+	{ name: "queen", title: "Queen" },
+	{ name: "king", title: "King" },
+	{ name: "suite", title: "Suite" },
+	{ name: "any", title: "Any" },
+];
+
+export const numberTableDefaultValue = {
+	"2023_02_10": {
+		single: "12",
+		double: "13",
+		queen: "14",
+		king: "15",
+		suite: "16",
+		any: "17",
+	},
+	"2023_02_11": {
+		single: "18",
+		double: "19",
+		queen: "20",
+		king: "21",
+		suite: "22",
+		any: "23",
+	},
+	"2023_02_12": {
+		single: "12",
+		double: "13",
+		queen: "14",
+		king: "15",
+		suite: "16",
+		any: "20",
+	},
+	"2023_02_13": {
+		single: "1",
+		double: "1",
+		queen: "1",
+		king: "1",
+		suite: "1",
+		any: "1",
+	},
+};
