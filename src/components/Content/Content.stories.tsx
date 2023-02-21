@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo, useState } from "react";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
@@ -85,12 +85,28 @@ const oneColumn = [
 	[["chipsAsValue"]]
 ];
 
+const oneColumnSecondContent = [
+	[["tags"]],
+	[["date"]],
+	[["thumbnail"]],
+];
+
+const twoColumnSecondContent = [
+	[["tags"], ["date"]],
+	[["thumbnail"]],
+];
+
 export const Playground = (): ReactElement => {
-	const title = text("Title", "Main Section Title");
+	const title = text("Title", "Main Content Title");
 	const singleColumn = boolean("Single column", false);
 	const showChips = boolean("Show chips", true);
 	const useSections = boolean("Use sections", true);
 	const useButtons = boolean("Use buttons", true);
+	const amountContent = select(
+		"Amount of contents",
+		[1, 2],
+		1
+	);
 	const [showMore, setShowMore] = useState(false);
 
 	/**
@@ -140,7 +156,7 @@ export const Playground = (): ReactElement => {
 		},
 		{
 			name: "color",
-			label: "Color using transfomr_colorPicker()",
+			label: "Color using transform_colorPicker()",
 			transforms: [transform_colorPicker()],
 			column: "colorPicker",
 		},
@@ -180,13 +196,15 @@ export const Playground = (): ReactElement => {
 				sections={sectionsToDisplay}
 				buttons={useButtons && buttonsToDisplay}
 			/>
-			<Content
-				title={title}
-				data={data}
-				fields={fields}
-				sections={sectionsToDisplay}
-				buttons={useButtons && buttonsToDisplay}
-			/>
+			{amountContent === 2 &&
+				<Content
+					title={"Second content"}
+					data={data}
+					fields={fields}
+					sections={singleColumn ? oneColumnSecondContent : twoColumnSecondContent}
+					buttons={useButtons && buttons.slice(0, 1)}
+				/>
+			}
 		</>
 	);
 };
