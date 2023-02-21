@@ -49,7 +49,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 							<div
 								className={`
 									cell
-									${props.checked[i] ? "checked" : ""}
+									${props.checked?.[i] ? "checked" : ""}
 								`}
 								key={i}
 							>
