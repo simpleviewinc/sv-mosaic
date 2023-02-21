@@ -1,421 +1,58 @@
 import * as React from "react";
 import { ButtonProps } from "@root/components/Button";
-import { FieldDef } from "@root/components/Field";
 import {
-	ChangeEvent,
 	memo,
 	ReactElement,
 	useCallback,
 	useEffect,
-	useMemo,
-	useState,
-	useRef
+	useState
 } from "react";
-import Button from "../../components/Button";
-import Form, { formActions, useForm } from "@root/components/Form";
-import {
-	InputWrapper,
-	StyledInput,
-} from "./AdvancedSelection.styled";
-import AddIcon from "@mui/icons-material/Add";
-import ChipList from "./ChipList";
-import LoadMoreButton from "./LoadMoreButton";
 import { AdvanceSelectionDrawerPropTypes } from ".";
-import _ from "lodash";
-import { MosaicLabelValue } from "@root/types";
 import { FormDrawerWrapper } from "../shared/styledComponents";
-import { useRefs } from "../shared/refsContext/RefsContext";
+import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
+import DrawerHeader from "@root/components/DrawerHeader";
+import Dialog from "@root/components/Dialog";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
 		value,
 		fieldDef,
 		onChange,
-		isModalOpen,
-		isMobileView,
 		handleClose,
 		handleUnsavedChanges,
 		dialogOpen,
 		handleDialogClose,
 	} = props;
 
-	const [options, setOptions] = useState<MosaicLabelValue[]>([]);
-	const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
-	const [filteredOptions, setFilteredOptions] = useState<MosaicLabelValue[]>([]);
-	const [checkboxListDisabled, setCheckboxListDisabled] = useState(fieldDef.disabled);
-	const [chipListHeight, setChipListHeight] = useState("0px");
+	const { options, getOptions, createNewOption } = fieldDef?.inputSettings || {};
 
-	const chipListRef = useRef<any>();
-	const loadMoreButtonRef = useRef<any>();
-	const searchInputRef = useRef<any>();
+	const [selectedOptions, setSelectedOptions] = useState(value?.length > 0 ? value : []);
 
-	const { state, dispatch } = useForm();
-
-	useEffect(() => {
-		const observer = new ResizeObserver((entries) => {
-			if (entries[0].contentRect.height > 0) {
-				const chipListMarginTop = window?.getComputedStyle(entries[0].target).getPropertyValue("margin-top");
-				const chipListMarginBottom =  window?.getComputedStyle(entries[0].target).getPropertyValue("margin-bottom");
-				setChipListHeight(`${entries[0].contentRect.height}px - ${chipListMarginTop} - ${chipListMarginBottom}`);
-			} else {
-				setChipListHeight(`${entries[0].contentRect.height}px`);
-			}
-		});
-
-		chipListRef?.current && observer.observe(chipListRef.current);
-
-		return () =>
-			chipListRef?.current && observer.unobserve(chipListRef.current);
-	}, [chipListRef.current]);
-
-	const loadMoreButtonMarginTop: string = useMemo(() => loadMoreButtonRef?.current
-		? window?.getComputedStyle(loadMoreButtonRef.current).getPropertyValue("margin-top")
-		: "0px", [loadMoreButtonRef.current]);
-
-	const loadMoreButtonHeight: string = useMemo(() => loadMoreButtonRef?.current?.offsetHeight
-		? `${loadMoreButtonRef.current.offsetHeight}px - ${loadMoreButtonMarginTop}`
-		: "0px", [loadMoreButtonRef.current]);
-
-	const searchInputMarginTop: string = useMemo(() => searchInputRef?.current
-		? window?.getComputedStyle(searchInputRef.current).getPropertyValue("margin-top")
-		: "0px", [searchInputRef.current]);
-
-	const searchInputMarginBottom: string = useMemo(() => searchInputRef?.current
-		? window?.getComputedStyle(searchInputRef.current).getPropertyValue("margin-bottom")
-		: "0px", [searchInputRef.current]);
-
-	const searchInputHeight: string = useMemo(() => searchInputRef?.current?.offsetHeight
-		? `${searchInputRef.current.offsetHeight}px - ${searchInputMarginTop} - ${searchInputMarginBottom}`
-		: "0px", [searchInputRef.current]);
-
-	const refs = useRefs();
-
-	const topComponentDrawer: HTMLDivElement = useMemo(() => refs?.topComponentDrawerRef, [refs]);
-	const topComponentDrawerHeight: string = useMemo(() => topComponentDrawer && topComponentDrawer.offsetHeight + "px", [topComponentDrawer]);
-
-	const formLayout: HTMLDivElement = useMemo(() => refs?.formLayoutRef, [refs]);
-	const formLayoutPaddingTop: string = useMemo(() => formLayout && window?.getComputedStyle(formLayout).getPropertyValue("padding-top"), [formLayout]);
-	const formLayoutPaddingBottom: string = useMemo(() => formLayout && window?.getComputedStyle(formLayout).getPropertyValue("padding-bottom"), [formLayout]);
-	const formLayoutPadding: string = useMemo(() => `${formLayoutPaddingTop} - ${formLayoutPaddingBottom}`, [formLayoutPaddingTop, formLayoutPaddingBottom]);
+	const dialogButtons: ButtonProps[] = [
+		{
+			label: "No, stay",
+			onClick: () => handleDialogClose(false),
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: "Yes, leave",
+			onClick: () => handleDialogClose(true),
+			color: "yellow",
+			variant: "contained",
+		},
+	];
 
 	useEffect(() => {
-		if (state.data.listOfChips !== undefined) {
-			handleUnsavedChanges(!_.isEqual([...value], state?.data?.listOfChips));
+		if (selectedOptions.length > 0) {
+			handleUnsavedChanges(true);
 		}
-	}, [state.data.listOfChips, value]);
+	}, [selectedOptions]);
 
-	/**
-	 * Reusable function that updates the "checkboxList" field by dispatching a new set of options.
-	 * @param newOptions
-	 */
-	const dispatchCheckboxList = async (newOptions: MosaicLabelValue[]) => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: "checkboxList",
-				value: newOptions
-			})
-		);
-	};
-
-	/**
-	 * Reusable function that updates the "listOfChips" field by dispatching a new set of options.
-	 * @param newOptions
-	 */
-	const dispatchChipList = async (newOptions: MosaicLabelValue[]) => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: "listOfChips",
-				value: newOptions
-			})
-		);
-	};
-
-	const disableCheckboxList = useCallback((optionsToCompare: MosaicLabelValue[]) => {
-		const selectLimit =  fieldDef?.inputSettings?.selectLimit;
-
-		if (selectLimit === "" || isNaN(selectLimit) || selectLimit === undefined || selectLimit < 0) return;
-
-		const disableList = selectLimit === 0 || optionsToCompare?.length >= selectLimit;
-		setCheckboxListDisabled(disableList);
-
-	}, [fieldDef?.inputSettings?.selectLimit]);
-
-	/**
-	 * Sets the selected options when the user
-	 * wants to add more or remove one previously
-	 * selected.
-	 */
-	useEffect(() => {
-		let isMounted = true;
-		if (value?.length > 0 && isModalOpen) {
-			if (isMounted) {
-				disableCheckboxList(value);
-				dispatchChipList(value);
-			}
-		}
-
-		return () => {
-			isMounted = false;
-		}
-	}, [value, isModalOpen]);
-
-	/**
-	 * Loads the options provided  either from
-	 * a database or locally.
-	 */
-	useEffect(() => {
-		let isMounted = true;
-		const setInternalOptions = async () => {
-			if (fieldDef?.inputSettings?.options) {
-				setOptions(options.concat(fieldDef?.inputSettings?.options));
-				setFilteredOptions(filteredOptions.concat(fieldDef.inputSettings.options));
-			} else if (fieldDef?.inputSettings?.getOptions) {
-				await getMoreOptions();
-			}
-		}
-
-		if (isMounted) {
-			setInternalOptions();
-		}
-
-		return () => {
-			isMounted = false;
-		}
-	}, [
-		fieldDef?.inputSettings?.options,
-		fieldDef?.inputSettings?.getOptions,
-		fieldDef?.inputSettings?.getOptionsLimit
-	]);
-
-	const getMoreOptions = async (clicked = false) => {
-		if (fieldDef?.inputSettings?.getOptions) {
-			const searchInput = state?.data?.searchInput;
-
-			let newOptions = [];
-			if (clicked === true) {
-				newOptions = await fieldDef?.inputSettings?.getOptions({
-					offset: filteredList ? filteredList.length : 0,
-					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
-					filter: searchInput?.length > 0 ? searchInput : undefined,
-				});
-			} else {
-				newOptions = await fieldDef?.inputSettings?.getOptions({
-					offset: 0,
-					limit: fieldDef?.inputSettings?.getOptionsLimit ? +fieldDef?.inputSettings?.getOptionsLimit + 1 : null,
-					filter: searchInput?.length > 0 ? searchInput : undefined,
-				});
-			}
-
-			if (newOptions.length > +fieldDef?.inputSettings?.getOptionsLimit) {
-				newOptions.pop();
-				setCanLoadMore(true);
-			} else {
-				setCanLoadMore(false);
-			}
-
-			if (!clicked && (searchInput?.trim() === "" || !searchInput)) {
-				setOptions(newOptions);
-			}
-
-			if (clicked && (searchInput?.trim() === "" || !searchInput)) {
-				setOptions(options.concat(newOptions));
-			}
-
-			if (!clicked && searchInput?.trim().length > 0) {
-				setFilteredOptions(newOptions);
-			}
-
-			if (clicked && searchInput?.trim().length > 0) {
-				setFilteredOptions(_.union(filteredOptions, newOptions));
-			}
-		}
-	};
-
-	const getMoreOptionsDebounced = _.debounce(getMoreOptions, 300);
-
-	useEffect(() => {
-		let isMounted = true;
-		isMounted && getMoreOptionsDebounced();
-		return () => {
-			isMounted = false;
-			getMoreOptionsDebounced.cancel();
-		}
-	}, [state.data.searchInput]);
-
-	const loadMoreOptions = () => {
-		getMoreOptions(true);
-	}
-
-	const filteredList = useMemo(() => {
-		const searchInput = state?.data?.searchInput;
-
-		if (searchInput) {
-			const trimmedFilter = searchInput?.trim().toLowerCase();
-			return filteredOptions.filter(
-				(option) => searchInput === "" || option.label.toLowerCase().includes(trimmedFilter)
-			);
-		}
-
-		return options;
-	}, [
-		options,
-		filteredOptions,
-		state?.data?.searchInput,
-	]);
-
-	const searchInput = useCallback((props): ReactElement => {
-		const searchKeyword = props?.value?.trim();
-
-		/**
-		 * Handler for the input element
-		 * @param e input change event
-		 */
-		const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-			dispatch(
-				formActions.setFieldValue({
-					name: "searchInput",
-					value: e.target.value
-				})
-			);
-		};
-
-		/**
-		 * Adds an options to the list.
-		 */
-		const createOption = async () => {
-			const canBeCreated = searchKeyword.length > 0;
-			if (canBeCreated) {
-				const newOption = await fieldDef?.inputSettings?.createNewOption(searchKeyword);
-
-				setFilteredOptions([...filteredOptions, newOption]);
-				setOptions([...options, newOption]);
-			}
-		};
-
-		return (
-			<InputWrapper ref={searchInputRef} isMobileView={isMobileView} createNewOption={props.value && fieldDef?.inputSettings?.createNewOption}>
-				<StyledInput
-					type='text'
-					placeholder='Search...'
-					onChange={onInputChange}
-					value={props?.value ?? ""}
-					disabled={fieldDef?.disabled}
-				/>
-				{props.value && fieldDef?.inputSettings?.createNewOption && (
-					<Button
-						label='Create'
-						variant='text'
-						color='teal'
-						disabled={fieldDef?.disabled}
-						mIcon={AddIcon}
-						onClick={createOption}
-					/>
-				)}
-			</InputWrapper>
-		)
-	}, [fieldDef?.disabled, options]);
-
-	const deleteSelectedOption = (newOptions: MosaicLabelValue[]) => {
-		disableCheckboxList(newOptions);
-		dispatchChipList(newOptions);
-	}
-
-	/**
-	 * Function executed whenever the checkboxes are clicked.
-	 * @param checkedOptions
-	 */
-	const checkboxListChanged = async (checkedOptions: MosaicLabelValue[]) => {
-		const cleanCheckedOptions = checkedOptions.filter(checkedOption => checkedOption !== undefined);
-		let fullOptions = [...cleanCheckedOptions];
-
-		if (state.data?.listOfChips) {
-			const chipsNotInList = state.data.listOfChips.filter(option => !filteredList.some(chip => chip.value === option.value));
-			fullOptions = [...chipsNotInList, ...cleanCheckedOptions];
-		}
-
-		disableCheckboxList(fullOptions);
-		dispatchChipList(fullOptions);
-	};
-
-	/**
-	 * Whenever the state of the list of chips is updated
-	 * its value is set to the checkbox list.
-	 */
-	useEffect(() => {
-		dispatchCheckboxList(state.data.listOfChips);
-	}, [state.data.listOfChips]);
-
-	const fields = useMemo(
-		(): FieldDef[] =>
-			[
-				{
-					name: "listOfChips",
-					type: ChipList,
-					disabled: fieldDef?.disabled,
-					ref: chipListRef,
-					inputSettings: {
-						isModalOpen,
-						isMobileView,
-						deleteSelectedOption,
-					}
-				},
-				{
-					name: "searchInput",
-					type: searchInput,
-				},
-				{
-					name: "checkboxList",
-					type: "checkbox",
-					disabled: fieldDef?.disabled || checkboxListDisabled,
-					style: {
-						height: `calc(100vh - ${topComponentDrawerHeight} - ${formLayoutPadding} - ${searchInputHeight} - ${chipListHeight} - ${loadMoreButtonHeight})`,
-						overflowY: "auto",
-						flexWrap: "nowrap",
-						width: "100%",
-					},
-					className: "checkbox-list-field-wrapper",
-					size: "100%",
-					onChangeCb: checkboxListChanged,
-					inputSettings: {
-						options: filteredList
-						// (fieldDef?.inputSettings?.options && filteredList) ||
-						// (fieldDef?.inputSettings?.getOptions && (() => filteredList)),
-					},
-				},
-				{
-					name: "loadMoreButton",
-					type: LoadMoreButton,
-					disabled: fieldDef?.disabled,
-					ref: loadMoreButtonRef,
-					inputSettings: {
-						canLoadMore,
-						getMoreOptions: loadMoreOptions,
-						parentInputSettings: fieldDef?.inputSettings,
-					},
-				},
-			],
-		[
-			filteredList,
-			searchInput,
-			fieldDef,
-			canLoadMore,
-			getMoreOptions,
-			isModalOpen,
-			isMobileView,
-		]
-	);
-
-	/**
-	 * Modal is closed when the Save button is clicked.
-	 */
-	const onSubmit = async () => {
-		const { valid } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		await onChange(state?.data?.listOfChips);
-
+	const onSubmit = useCallback(async() => {
+		await onChange(selectedOptions);
 		handleClose(true);
-	};
+	}, [selectedOptions]);
 
 	const buttons: ButtonProps[] = [
 		{
@@ -432,19 +69,49 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		}
 	];
 
+	const getSyncOptions = ({keyword}) => {
+		let newOptions = options || [];
+		const regSearchKeyword = new RegExp(keyword, "i");
+		if (keyword !== undefined && options !== undefined) {
+			newOptions = options.filter(option => {
+				return regSearchKeyword.exec(option.label)
+			})
+		}
+		return {
+			docs: newOptions,
+			hasMore: false
+		}
+	};
+
 	return (
 		<FormDrawerWrapper className="advancedSelection">
-			<Form
+			<DrawerHeader
 				title={fieldDef?.label}
 				buttons={buttons}
-				type='drawer'
-				state={state}
-				dispatch={dispatch}
-				fields={fields}
-				dialogOpen={dialogOpen}
-				handleDialogClose={handleDialogClose}
 			/>
+			<DataViewFilterMultiselectDropdownContent
+				value={value && value.map(v => v.value)}
+				comparison={""}
+				selected={value}
+				getOptions={getOptions ? getOptions : getSyncOptions}
+				isOpen={true}
+				onApply={onSubmit}
+				placeholder={"Search..."}
+				limit={fieldDef?.inputSettings?.getOptionsLimit}
+				selectLimit={fieldDef?.inputSettings?.selectLimit}
+				onChange={(value) => setSelectedOptions(value)}
+				hideButtons={true}
+				createNewOption={createNewOption}
+			/>
+			<Dialog
+				buttons={dialogButtons}
+				dialogTitle='Are you sure you want to leave?'
+				open={dialogOpen}
+			>
+				You have unsaved changes. If you leave all your changes will be lost.
+			</Dialog>
 		</FormDrawerWrapper>
+
 	);
 };
 

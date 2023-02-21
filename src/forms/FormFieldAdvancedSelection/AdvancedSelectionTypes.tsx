@@ -59,17 +59,6 @@ export interface AdvanceSelectionDrawerPropTypes {
 	handleDialogClose?: (val: boolean) => void;
 }
 
-export interface LoadMoreButtonPropsTypes {
-	fieldDef: {
-		disabled: boolean;
-		inputSettings: {
-			canLoadMore: boolean;
-			parentInputSettings: any;
-			getMoreOptions: () => void;
-		}
-	}
-}
-
 export type AdvancedSelectionData = MosaicLabelValue[];
 
 export type FieldDefAdvancedSelection = FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>
