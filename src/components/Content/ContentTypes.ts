@@ -12,7 +12,7 @@ export interface ContentField {
   /**
    * The label is render above of the component.
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * Functions which will receive raw data that will be use to render
    * a component.
@@ -54,4 +54,9 @@ export interface ContentProps {
    * of the component.
    */
   buttons?: ButtonProps[];
+  /**
+   * Variant of the component defines what styles should render
+   * if "card" is passed, content component looks like card component
+   */
+  variant?: "standard" | "card";
 }
