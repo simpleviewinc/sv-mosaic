@@ -164,7 +164,7 @@ function Button(props: ButtonProps) {
 				<Popper
 					open={Boolean(tooltipEl)}
 					anchorEl={tooltipEl}
-					style={{ zIndex: 10, pointerEvents: "none" }}
+					style={{ zIndex: 1500, pointerEvents: "none" }}
 				>
 					<TooltipContent>{props.tooltip}</TooltipContent>
 				</Popper>
