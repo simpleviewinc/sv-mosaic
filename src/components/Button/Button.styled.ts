@@ -496,7 +496,7 @@ export const types = {
 };
 
 export const TooltipContent = styled.div`
-  z-index: 100;
+  z-index: 1500;
   background: ${theme.newColors.almostBlack["100"]};
   color: white;
   padding: 4px 8px;
