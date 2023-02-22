@@ -2,7 +2,6 @@ import * as React from "react";
 import {
 	ReactElement,
 	useMemo,
-	useEffect,
 	Fragment
 } from "react";
 import { ContentProps } from "./ContentTypes";
@@ -42,19 +41,6 @@ const showContent = (show: ActionAdditional["show"]) => {
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections, title, buttons } = props;
-
-	/**
-	 * Validates the number of columns per section.
-	 */
-	useEffect(() => {
-		if (sections) {
-			sections?.forEach(section => {
-				if (section.length >= 3) {
-					throw new Error("The max of columns allowed are two.");
-				}
-			});
-		}
-	}, [sections])
 
 	/**
 	 * Checks if the field exists, can be shown and executes its transform function
@@ -114,7 +100,7 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @param label Text positioned above each field
 	 * @returns JSX Element corresponding to the current field.
 	 */
-	const renderField = (content: unknown, label: string) => {
+	const renderField = (content: unknown, label: React.ReactNode) => {
 		return (
 			<>
 				<Label>{label}</Label>
