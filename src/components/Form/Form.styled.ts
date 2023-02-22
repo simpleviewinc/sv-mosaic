@@ -7,12 +7,9 @@ export const StyledForm = styled.form`
 	height: 100%;
 `;
 
-export const StyledDisabledForm = styled.div`
-	height: 100%;
-	width: 100%;
-	background-color: black;
-	z-index: 1000;
-	display: block;
-	position: absolute;
-	opacity: 30%;
+export const StyledFormContainer = styled.div`
+	&.loading {
+		opacity: .5;
+		pointer-events: none;
+	}
 `;
