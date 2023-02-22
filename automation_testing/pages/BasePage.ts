@@ -176,6 +176,10 @@ export class BasePage {
 		return await ((element).evaluate(el => getComputedStyle(el).fontWeight));
 	}
 
+	async getFontSizeFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontSize));
+	}
+
 	async validateMarginValueFromElement(element: Locator, expectedValue: string, isRight: boolean): Promise<void> {
 		let elementMargin: string;
 		if (isRight) {
