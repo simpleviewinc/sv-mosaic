@@ -74,6 +74,7 @@ callbacks: PageCallbacks;
 				}),
 			color: "teal" as ButtonProps["color"],
 			variant: "outlined" as ButtonProps["variant"],
+			tooltip: "Clicking opens form in a new drawer"
 		},
 	]
 
