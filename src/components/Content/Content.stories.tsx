@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo, useState } from "react";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
@@ -87,6 +87,7 @@ const oneColumn = [
 
 export const Playground = (): ReactElement => {
 	const title = text("Title", "Main Section Title");
+	const variant = select("Varian", ["standard", "card"], "standard")
 	const singleColumn = boolean("Single column", false);
 	const showChips = boolean("Show chips", true);
 	const useSections = boolean("Use sections", true);
@@ -178,6 +179,7 @@ export const Playground = (): ReactElement => {
 			fields={fields}
 			sections={sectionsToDisplay}
 			buttons={useButtons && buttonsToDisplay}
+			variant={variant}
 		/>
 	);
 };
