@@ -7,7 +7,7 @@ export const StyledForm = styled.form`
 	height: 100%;
 `;
 
-export const StyledFormContainer = styled.div`
+export const StyledContainerForm = styled.div`
 	&.loading {
 		opacity: .5;
 		pointer-events: none;
