@@ -24,7 +24,7 @@ export type NumberTableInputSettings = {
   topLeftLabel?: string;
 };
 
-interface Col {
+export interface Col {
   /**
    * Used to know the position of a column or row.
    */
@@ -35,7 +35,7 @@ interface Col {
   title: string;
 }
 
-interface Row extends Col {
+export interface Row extends Col {
   /**
    * Optional label shown below the title of the row.
    */

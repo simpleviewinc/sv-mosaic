@@ -11,7 +11,12 @@ import {
 import Form, { useForm, formActions } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
-import { columns, numberTableDefaultValue, rows } from "./numberTableUtils";
+import {
+	columns,
+	isValidRowCol,
+	numberTableDefaultValue,
+	rows,
+} from "./numberTableUtils";
 
 const NumberTableExample = (): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -20,7 +25,10 @@ const NumberTableExample = (): ReactElement => {
 		const { valid, data } = await dispatch(formActions.submitForm());
 		if (!valid) return;
 
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+		alert(
+			"Form submitted with the following data: " +
+        JSON.stringify(data, null, " ")
+		);
 	};
 
 	const fields = useMemo(
@@ -35,15 +43,11 @@ const NumberTableExample = (): ReactElement => {
 					columnTotalLabel: "No. Rooms",
 					topLeftLabel: "Day",
 					rows: rows,
-					columns: columns
+					columns: columns,
 				},
 			},
 		],
-		[
-			numberTableDefaultValue,
-			rows,
-			columns
-		]
+		[numberTableDefaultValue, rows, columns]
 	);
 
 	const buttons: ButtonProps[] = [
@@ -67,52 +71,50 @@ const NumberTableExample = (): ReactElement => {
 	);
 };
 
-
 const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 const scrollIntoViewMock = jest.fn();
 window.HTMLElement.prototype.scrollTo = scrollIntoViewMock;
 
+const labels = {
+	rowTotal: "TOTAL",
+	columnTotal: "No. Rooms",
+	topLeft: "Day",
+};
 
 afterEach(cleanup);
 
-describe("FormFieldMatrix component", () => {
+describe("FormFieldNumberTable component", () => {
 	beforeEach(async () => {
 		await act(() => {
-			render(
-				<NumberTableExample/>
-			)
+			render(<NumberTableExample />);
 		});
 	});
 
 	it("should display the totals and top left labels", () => {
-		expect(screen.getByText("TOTAL")).toBeInTheDocument();
-		expect(screen.getByText("No. Rooms")).toBeInTheDocument();
-		expect(screen.getByText("TOTAL")).toBeInTheDocument();
-		expect(screen.getByText("Day")).toBeInTheDocument();
+		expect(screen.getByText(labels.rowTotal)).toBeInTheDocument();
+		expect(screen.getByText(labels.columnTotal)).toBeInTheDocument();
+		expect(screen.getByText(labels.topLeft)).toBeInTheDocument();
 	});
 
 	it("should display the columns titles", () => {
-		expect(screen.getByText("Single")).toBeInTheDocument();
-		expect(screen.getByText("Double")).toBeInTheDocument();
-		expect(screen.getByText("Queen")).toBeInTheDocument();
-		expect(screen.getByText("King")).toBeInTheDocument();
-		expect(screen.getByText("Suite")).toBeInTheDocument();
-		expect(screen.getByText("Any")).toBeInTheDocument();
+		for (const column of columns) {
+			expect(screen.getByText(column.title)).toBeInTheDocument();
+		}
 	});
 
-	it("should display the columns titles", () => {
-		expect(screen.getByText("Single")).toBeInTheDocument();
-		expect(screen.getByText("Double")).toBeInTheDocument();
-		expect(screen.getByText("Queen")).toBeInTheDocument();
-		expect(screen.getByText("King")).toBeInTheDocument();
-		expect(screen.getByText("Suite")).toBeInTheDocument();
-		expect(screen.getByText("Any")).toBeInTheDocument();
+	it("should display the rows titles", () => {
+		for (const row of rows) {
+			if (row.subtitle) {
+				expect(screen.getByText(row.subtitle)).toBeInTheDocument();
+			}
+			expect(screen.getByText(row.title)).toBeInTheDocument();
+		}
 	});
 
 	it("should display 24 fields since the table size is 6x4", () => {
@@ -133,5 +135,12 @@ describe("FormFieldMatrix component", () => {
 
 		expect(screen.getByText("44")).toBeInTheDocument(); // Total column updated
 		expect(screen.getByText("7")).toBeInTheDocument(); // Total row updated
+	});
+
+	it("should validate if a column or row are defined", async () => {
+		expect(isValidRowCol("invalidRow", rows)).toBe(false);
+		expect(isValidRowCol("invalidColumn", columns)).toBe(false);
+		expect(isValidRowCol("2023_02_10", rows)).toBe(true);
+		expect(isValidRowCol("single", columns)).toBe(true);
 	});
 });
