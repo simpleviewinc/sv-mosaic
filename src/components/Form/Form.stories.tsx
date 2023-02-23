@@ -23,6 +23,7 @@ import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
 import { nanoid } from "nanoid";
+import { columns, numberTableDefaultValue, rows } from "@root/forms/FormFieldNumberTable/numberTableUtils";
 
 export default {
 	title: "Components/Form",
@@ -145,6 +146,7 @@ export const Playground = (): ReactElement => {
 				"value": "Image Video Thumbnail"
 			}
 		],
+		"numberTable": numberTableDefaultValue
 	});
 
 	const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
@@ -572,6 +574,21 @@ export const Playground = (): ReactElement => {
 							"url": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
 						},
 					],
+				},
+				{
+					name: "numberTable",
+					label: "Number Table",
+					type: "numberTable",
+					required,
+					disabled,
+					defaultValue: showDefaultValues && numberTableDefaultValue,
+					inputSettings: {
+						rowTotalLabel: "TOTAL",
+						columnTotalLabel: "No. Rooms",
+						topLeftLabel: "Day",
+						rows: rows,
+						columns: columns
+					},
 				},
 			],
 		[additionalOptions, disabled, required, showDefaultValues]

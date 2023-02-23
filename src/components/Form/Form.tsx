@@ -1,6 +1,6 @@
 import * as React from "react";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { StyledDisabledForm, StyledForm } from "./Form.styled";
+import { StyledForm, StyledContainerForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
 import FormLayout from "./FormLayout";
@@ -155,14 +155,12 @@ const Form = (props: FormProps) => {
 	return (
 		<>
 			<ViewProvider value={view}>
-				<div
+				<StyledContainerForm
 					data-testid="form-test-id"
 					style={{ position: "relative", height: "100%" }}
 					ref={formContainerRef}
+					className={state.disabled ? "loading" : ""}
 				>
-					{state.disabled &&
-					<StyledDisabledForm />
-					}
 					<StyledForm autoComplete="off">
 						{title &&
 						<TopComponent
@@ -219,7 +217,7 @@ const Form = (props: FormProps) => {
 							</FormContent>
 						)}
 					</StyledForm>
-				</div>
+				</StyledContainerForm>
 			</ViewProvider>
 			{type === "drawer" &&
 				<Dialog
