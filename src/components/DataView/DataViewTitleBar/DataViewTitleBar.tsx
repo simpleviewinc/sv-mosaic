@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import ButtonRow from "../../ButtonRow";
 import DataViewViewControls from "../DataViewViewControls";
-import { H1 } from "../../Typography";
 import DataViewFilters from "../DataViewFilters";
 import { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
 import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
+import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 
 
 function DataViewTitleBar(props: DataViewTitleBarProps) {
@@ -24,7 +24,7 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 		<TitleBarWrapper>
 			<StyledWrapper>
 				<div className="left">
-					{props.title && <H1>{props.title}</H1>}
+					{props.title && <TitleWrapper title={props.title} />}
 					{props.savedViewEnabled && (
 						<DataViewViewControls
 							savedView={props.savedView}
