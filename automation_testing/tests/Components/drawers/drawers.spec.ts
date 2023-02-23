@@ -11,9 +11,9 @@ test.describe.parallel("Components - Drawers - Example", () => {
 		await drawersPage.visit(drawersPage.page_path);
 	});
 
-	// test.beforeEach(async() => {
-	// 	await page.reload();
-	// });
+	test.beforeEach(async() => {
+		await page.reload();
+	});
 
 	test.afterAll(async ({ browser }) => {
 		browser.close;
@@ -31,8 +31,8 @@ test.describe.parallel("Components - Drawers - Example", () => {
 		await expect(drawersPage.cancelBtn).toBeVisible();
 		await expect(drawersPage.saveBtn).toBeVisible();
 		await expect(drawersPage.openNewFormButton).toBeVisible();
+		await drawersPage.openNewFormButton.click();
 		await drawersPage.wait();
-		await drawersPage.openNewFormButton.click({ force: true });
 		expect(await drawersPage.drawerTitle.last().textContent()).toContain("Sub-Form");
 	});
 
@@ -43,35 +43,9 @@ test.describe.parallel("Components - Drawers - Example", () => {
 		await expect(drawersPage.formLocator).not.toBeVisible();
 	});
 
-	// test.fixme("Validate form drawer saves value to previous form drawer", async () => {
-	// 	const numberOfIncrement = 5;
-	// 	await drawersPage.openFormDrawerButton.click();
-	// 	await drawersPage.simpleTextField.fill(numberOfIncrement.toString());
-	// 	await drawersPage.saveBtn.click();
-	// 	expect(Number(await drawersPage.counterLabel.textContent())).toBe(numberOfIncrement);
-	// });
-
-	// test.fixme("Validate when canceling a form, the value is not updated. ", async () => {
-	// 	await drawersPage.openFormDrawerButton.click();
-	// 	await drawersPage.simpleTextField.nth(0).fill("5");
-	// 	await drawersPage.openNewDrawerFromButton.click();
-	// 	const numberOfDrawers = await drawersPage.drawerDiv.count();
-	// 	await drawersPage.simpleTextField.nth(numberOfDrawers - 1).fill("3");
-	// 	await drawersPage.cancelBtn.nth(numberOfDrawers - 1).click();
-	// 	expect(Number(await drawersPage.simpleTextField.nth(0).inputValue())).toBe(5);
-	// });
-
-	// test.fixme("Validate Open Drawers buttons order.", async () => {
-	// 	await drawersPage.openFormDrawerButton.click();
-	// 	expect(await drawersPage.page.locator("[type='DRAWER'] .normalButton button").nth(0).textContent()).toBe("Cancel");
-	// 	expect(await drawersPage.page.locator("[type='DRAWER'] .normalButton button").nth(1).textContent()).toBe("Save");
-	// });
+	test("Validate Open Drawers buttons order.", async () => {
+		await drawersPage.addFormButton.click();
+		expect(await drawersPage.page.locator("form .normalButton button").nth(0).textContent()).toBe("Cancel");
+		expect(await drawersPage.page.locator("form .normalButton button").nth(1).textContent()).toBe("Save");
+	});
 });
-
-
-
-function delay(time) {
-	return new Promise(function (resolve) {
-		setTimeout(resolve, time)
-	})
-}

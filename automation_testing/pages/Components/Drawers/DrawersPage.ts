@@ -15,8 +15,6 @@ export class Drawers extends BasePage {
 		this.page = page;
 		this.addFormButton = page.locator("button", { hasText: "Add Form" });
 		this.openNewFormButton = page.locator("button", { hasText: "OPEN NEW FORM" });
-
-
 	}
 
 	async openSpecificAmountOfNewDrawers(amount: number): Promise<void> {
