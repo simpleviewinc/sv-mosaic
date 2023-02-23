@@ -33,6 +33,14 @@ export const TrHead = styled.tr`
 
 export const Td = styled.td`
   padding: 16px 16px;
+
+  &:first-child {
+	padding-left: 24px;
+  }
+
+  &:last-child {
+	padding-right: 24px;
+  }
 `;
 
 export const TdTitle = styled(Td)`
