@@ -16,7 +16,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	const label = text("Label", "Label");
+	const label = text("Label", "Number of Rooms by Type");
 	const rowTotalLabel = text("Row total label", "TOTAL");
 	const columnTotalLabel = text("Column total label", "No. Rooms");
 	const topLeftLabel = text("Top left label", "Day");

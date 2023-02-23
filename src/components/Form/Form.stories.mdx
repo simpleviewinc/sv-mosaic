@@ -1576,9 +1576,9 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | Name | Type | Default | Description |
 | ---- | ---- | --------| ----------- |
 | **`columns`** | `{ name: string; title: string }[]` | | Columns definition. |
-| **`columnTotalLabel`** | `string` | "Total" | optional - Default: "Total". Label shown on the column that displays the totals.. |
-| **`rows`** | `{ name: string; title: string }[]` | | Rows definition. |
-| **`rowTotalLabel`** | `string` | "Total" | optional - Label shown on the total row.. |
+| **`columnTotalLabel`** | `string` | "Total" | optional - Default: "Total". Label shown on the column that displays the totals. |
+| **`rows`** | `{ name: string; title: string, subtitle?: string }[]` | | Rows definition. |
+| **`rowTotalLabel`** | `string` | "Total" | optional - Label shown on the total row. |
 | **`topLeftLabel`** | `string` | |  optional - Label placed on the top left table corner i.e the first column. |
 
 ### How to use in a form?
@@ -1591,37 +1591,39 @@ const fields: FieldDef[] = useMemo(
 			{
 				//...all generic field props
 				type: "numberTable",
-				defaultValue: "2023_02_10": {
-					single: "12",
-					double: "13",
-					queen: "14",
-					king: "15",
-					suite: "16",
-					any: "17",
-				},
-				"2023_02_11": {
-					single: "18",
-					double: "19",
-					queen: "20",
-					king: "21",
-					suite: "22",
-					any: "23",
-				},
-				"2023_02_12": {
-					single: "12",
-					double: "13",
-					queen: "14",
-					king: "15",
-					suite: "16",
-					any: "20",
-				},
-				"2023_02_13": {
-					single: "1",
-					double: "1",
-					queen: "1",
-					king: "1",
-					suite: "1",
-					any: "1",
+				defaultValue: {
+					"2023_02_10": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "17",
+					},
+					"2023_02_11": {
+						single: "18",
+						double: "19",
+						queen: "20",
+						king: "21",
+						suite: "22",
+						any: "23",
+					},
+					"2023_02_12": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "20",
+					},
+					"2023_02_13": {
+						single: "1",
+						double: "1",
+						queen: "1",
+						king: "1",
+						suite: "1",
+						any: "1",
+					},
 				},
 				inputSettings: {
 					rowTotalLabel: "TOTAL",

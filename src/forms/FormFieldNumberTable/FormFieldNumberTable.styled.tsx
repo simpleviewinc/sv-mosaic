@@ -7,39 +7,12 @@ export const StyledInput = styled(StyledTextField)`
   width: 72px;
 ` as typeof TextField;
 
-export const NumberTableContainer = styled.div`
-  font-family: ${theme.fontFamily};
-  border: 1px solid ${theme.newColors.grey2["100"]};
-`;
-
-export const TitleContainer = styled.div`
-  align-items: center;
-  background: ${theme.newColors.grey2["100"]};
-  display: flex;
-  padding: 16px 24px;
-`;
-
-export const Title = styled.span`
-  font-weight: ${theme.fontWeight.medium};
-  font-size: 18px;
-`;
-
-export const TableContainer = styled.div`
-  padding: 32px 40px;
-`;
-
-export const TableTitle = styled.span`
-  color: ${theme.newColors.almostBlack["100"]};
-  font-weight: ${theme.fontWeight.medium};
-  font-size: 16px;
-`;
-
 export const StyledTable = styled.table`
   border-collapse: collapse;
-  margin-top: 8px;
 `;
 
 export const Th = styled.th`
+  color: ${theme.newColors.almostBlack["100"]};
   padding: 24px 16px;
   font-weight: ${theme.fontWeight.medium};
   font-size: 14px;
@@ -52,21 +25,32 @@ export const TrHead = styled.tr`
   th:first-child {
     padding-left: 24px;
   }
+
+  th:last-child {
+    padding-right: 24px;
+  }
 `;
 
 export const Td = styled.td`
-  padding: 16px 0;
+  padding: 16px 16px;
 `;
 
-export const TdInput = styled(Td)`
-  padding-left: 16px;
-  padding-right: 16px;
-`;
-
-export const TdTItle = styled(Td)`
-  padding-left: 24px;
+export const TdTitle = styled(Td)`
   font-weight: ${theme.fontWeight.semiBold};
   font-size: 14px;
+`;
+
+export const RowTitle = styled.p`
+  margin: 0;
+  font-weight: ${theme.fontWeight.semiBold};
+  font-size: 14px;
+`;
+
+export const RowSubtitle = styled.p`
+  margin: 8px 0 0 0;
+  font-weight: 400;
+  font-size: 14px;
+  color: ${theme.newColors.almostBlack["100"]};
 `;
 
 export const TdTotals = styled.td`
@@ -77,13 +61,14 @@ export const TdTotals = styled.td`
 `;
 
 export const TBody = styled.tbody`
-	tr {
-		border-bottom: 1px solid ${theme.newColors.grey2["100"]};
-	}
+  tr {
+    border-bottom: 1px solid ${theme.newColors.grey2["100"]};
+  }
 
-	tr:last-child {
-		border: none;
-	}
+  tr:last-child,
+  tr:nth-last-child(2) {
+    border: none;
+  }
 `;
 
 export const TrTotals = styled.tr`
@@ -91,6 +76,5 @@ export const TrTotals = styled.tr`
 
   td:last-child {
     font-weight: ${theme.fontWeight.medium};
-		padding-left: 24px;
   }
 `;

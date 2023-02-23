@@ -1,11 +1,13 @@
-export const rows = [
+import { Row, Col } from "./FormFieldNumberTableTypes";
+
+export const rows: Row[] = [
 	{ name: "2023_02_10", title: "Shoulder Before" },
-	{ name: "2023_02_11", title: "Day 1", subtitle: "February 11" },
-	{ name: "2023_02_12", title: "Day 2" },
-	{ name: "2023_02_13", title: "Day 3" },
+	{ name: "2023_02_11", title: "Day 1", subtitle: "Thu, Jan 05 2023" },
+	{ name: "2023_02_12", title: "Day 2", subtitle: "Fri, Jan 06 2023" },
+	{ name: "2023_02_13", title: "Day 3", subtitle: "Sat, Jan 07 2023" },
 ];
 
-export const columns = [
+export const columns: Col[] = [
 	{ name: "single", title: "Single" },
 	{ name: "double", title: "Double" },
 	{ name: "queen", title: "Queen" },
@@ -48,3 +50,7 @@ export const numberTableDefaultValue = {
 		any: "1",
 	},
 };
+
+export const isValidRowCol = (rowCol: string, rowsCols: Col[] | Row[]) => {
+	return rowsCols.map(rowValue => rowValue.name).includes(rowCol);
+}
