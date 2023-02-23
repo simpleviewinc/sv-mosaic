@@ -24,17 +24,7 @@ export const StyledWrapper = styled.div`
 		margin-right: 0px;
 	}
 
-	& > .left > h1 {
-		color: ${theme.newColors.almostBlack["100"]};
-		font-family: ${theme.museoFont};
-		font-size: 28px;
-		font-weight: 250;
-		line-height: 33px;
-		margin-bottom: 0px;
+	& > .left h1 {
 		margin-right: 16px;
-		max-width: 916px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
 	}
 `;

@@ -38,4 +38,5 @@ export interface SummaryPageTopComponentTypes {
 	// 	href: ButtonProps["href"];
 	// 	onClick?: ButtonProps["onClick"];
 	// }[];
+	onBack?: () => void;
   }

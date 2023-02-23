@@ -21,6 +21,7 @@ const Form = (props: FormProps) => {
 		type,
 		state,
 		title,
+		onBack,
 		fields,
 		sections,
 		dispatch,
@@ -167,6 +168,7 @@ const Form = (props: FormProps) => {
 						<TopComponent
 							ref={topComponentRef}
 							title={title}
+							onBack={onBack}
 							type={type}
 							description={description}
 							onCancel={cancel}

@@ -6,10 +6,14 @@ import styled from "styled-components";
 
 // Utils
 import theme, { BREAKPOINTS, Views } from "@root/theme/theme";
+import Button from "@root/components/Button";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
 
 export const FormTitle = styled.span`
+	display: flex;
+	align-items: center;
 	font-family: ${theme.museoFont};
 	color: ${theme.newColors.almostBlack["100"]};
 	font-size: ${pr => pr.type && pr.type === Views.drawer ? "20px" : "28px"};
@@ -50,12 +54,17 @@ export const TitleRow = styled.div`
 		margin-right: auto;
 		`
 }
+
+	& .back-button > button{
+		margin: 0px 8px 0px -2px !important;
+	}
 `;
 
 type TitleWrapperProps = {
 	title: string;
-	description: string;
-	view: string
+	description?: string;
+	view?: string;
+	onBack?: () => void;
 }
 
 const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
@@ -67,7 +76,13 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 
 	return (
 		<TitleRow view={view}>
-			<FormTitle>{title}</FormTitle>
+			<FormTitle>
+				{
+					props.onBack &&
+						<Button className="back-button" color="black" variant="icon" mIcon={ChevronLeftIcon} onClick={props.onBack}/>
+				}
+				{title}
+			</FormTitle>
 			{description && <Description>{description}</Description>}
 		</TitleRow>
 	);

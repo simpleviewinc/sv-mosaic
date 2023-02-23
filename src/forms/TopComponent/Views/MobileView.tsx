@@ -54,6 +54,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 		buttons,
 		onCancel,
 		title,
+		onBack,
 		description,
 		showActive,
 		tooltipInfo,
@@ -76,6 +77,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 			</MobileActionsRow>
 			<TitleWrapper
 				title={title}
+				onBack={onBack}
 				description={description}
 				view={view}
 			/>
