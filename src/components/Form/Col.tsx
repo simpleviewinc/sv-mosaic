@@ -23,7 +23,6 @@ import FormFieldImageUpload from "@root/forms/FormFieldImageUpload";
 import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import { Sizes } from "@root/theme";
-import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 
 const StyledCol = styled.div`
 	display: flex;
@@ -72,8 +71,7 @@ const Col = (props: ColPropsTypes) => {
 		mapCoordinates: FormFieldMapCoordinates,
 		imageUpload: FormFieldImageUpload,
 		matrix: FormFieldMatrix,
-		upload: FormFieldUpload,
-		numberTable: FormFieldNumberTable
+		upload: FormFieldUpload
 	}), []);
 
 	const doneTypingInterval = 300;
