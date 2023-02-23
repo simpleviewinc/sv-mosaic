@@ -8,24 +8,22 @@ import {
 	NumberTableInputSettings,
 } from "./FormFieldNumberTableTypes";
 import {
-	NumberTableContainer,
-	TitleContainer,
-	Title,
-	TableTitle,
-	TableContainer,
 	StyledTable,
 	Th,
 	TrHead,
 	TrTotals,
-	TdTItle,
+	TdTitle,
 	StyledInput,
-	TdInput,
+	Td,
 	TdTotals,
 	TBody,
+	RowTitle,
+	RowSubtitle,
 } from "./FormFieldNumberTable.styled";
 import { isEmpty } from "lodash";
+import { isValidRowCol } from "./numberTableUtils";
 
-const FormFieldRadio = (
+const FormFieldNumberTable = (
 	props: MosaicFieldProps<
     "numberTable",
     NumberTableInputSettings,
@@ -46,7 +44,13 @@ const FormFieldRadio = (
 		const totals = {};
 		if (value) {
 			for (const row in value) {
+				if (!isValidRowCol(row, inputSettings.rows)) {
+					throw new Error(`Row ${row} is not defined.`);
+				}
 				for (const column in value[row]) {
+					if (!isValidRowCol(column, inputSettings.columns)) {
+						throw new Error(`Column ${column} is not defined.`);
+					}
 					totals[column] = (totals[column] || 0) + (Number(value[row][column] || 0));
 				}
 			}
@@ -66,84 +70,79 @@ const FormFieldRadio = (
 	}, [value]);
 
 	/**
- * Updates the value object with the value that is entered at
- * the cell located at the row and column name given.
- * @param e Input change event
- * @param rowName used to identify in which row is located
- * the cell that is changing
- * @param colName used to identify in which column is
- * located the cell that is changing
- */
+	 * Updates the value object with the value that is entered at
+	 * the cell located at the row and column name given.
+	 * @param e Input change event
+	 * @param rowName used to identify in which row is located
+	 * the cell that is changing
+	 * @param colName used to identify in which column is
+	 * located the cell that is changing
+	 */
 	const onChangeCell = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 		rowName: string,
 		colName: string
 	) => {
 		const copyValue = { ...value };
-		if (e.target.value === "" || e.target.value === "0") {
-			copyValue[rowName][colName] = undefined
+		if (e.target.value === "") {
+			copyValue[rowName][colName] = undefined;
 		} else {
-			copyValue[rowName][colName] = e.target.value
+			copyValue[rowName][colName] = e.target.value;
 		}
 		onChange(copyValue);
 	};
 
 	return (
-		<NumberTableContainer>
-			<TitleContainer>
-				<Title>Number of Rooms</Title>
-			</TitleContainer>
-			<TableContainer>
-				<TableTitle>Number of Rooms by Type</TableTitle>
-				<StyledTable>
-					<thead>
-						<TrHead>
-							<Th>{inputSettings.topLeftLabel}</Th>
-							{inputSettings?.columns.map((column, index) => (
-								<Th key={`${column.name}-${index}`}>{column.title}</Th>
-							))}
-							<Th>{inputSettings.columnTotalLabel || "Total"}</Th>
-						</TrHead>
-					</thead>
-					<TBody>
-						{inputSettings.rows.map((row) => (
-							<tr key={`row-${row.name}`}>
-								<TdTItle key={`${row.name}`}>{row.title}</TdTItle>
-								{inputSettings.columns.map((column) => {
-									const strValue = value?.[row.name]?.[column.name] ?? "";
-									const numberValue = isNaN(Number(strValue)) ? 0 : Number(strValue);
-									rowTotals[row.name] = (rowTotals[row.name] || 0) + numberValue;
+		<StyledTable>
+			<thead>
+				<TrHead>
+					<Th>{inputSettings.topLeftLabel}</Th>
+					{inputSettings.columns.map((column, index) => (
+						<Th key={`${column.name}-${index}`}>{column.title}</Th>
+					))}
+					<Th>{inputSettings.columnTotalLabel || "Total"}</Th>
+				</TrHead>
+			</thead>
+			<TBody>
+				{inputSettings.rows.map((row) => (
+					<tr key={`row-${row.name}`}>
+						<Td key={`${row.name}`}>
+							<RowTitle>{row.title}</RowTitle>
+							{row?.subtitle && <RowSubtitle>{row.subtitle}</RowSubtitle>}
+						</Td>
+						{inputSettings.columns.map((column) => {
+							const strValue = value?.[row.name]?.[column.name] ?? "";
+							const numberValue = isNaN(Number(strValue)) ? 0 : Number(strValue);
+							rowTotals[row.name] = (rowTotals[row.name] || 0) + numberValue;
 
-									return (
-										<TdInput key={`${row.name}-${column.name}`}>
-											<StyledInput
-												inputProps={{ "data-testid": `${row.name}-${column.name}` }}
-												placeholder="0"
-												value={strValue}
-												onChange={(e) => onChangeCell(e, row.name, column.name)}
-												disabled={fieldDef.disabled}
-											/>
-										</TdInput>
-									);
-								})}
-								<TdTItle key={`totals-${row.name}`}>
-									{rowTotals[row.name]}
-								</TdTItle>
-							</tr>
-						))}
-						<TrTotals>
-							<TdTItle>{inputSettings.rowTotalLabel || "Total"}</TdTItle>
-							{Object.keys(columnsTotals).map((column) => (
-								<TdTotals key={`column-${column}`}>
-									{columnsTotals[column]}
-								</TdTotals>
-							))}
-						</TrTotals>
-					</TBody>
-				</StyledTable>
-			</TableContainer>
-		</NumberTableContainer>
+							return (
+								<Td key={`${row.name}-${column.name}`}>
+									<StyledInput
+										inputProps={{ "data-testid": `${row.name}-${column.name}` }}
+										placeholder="0"
+										value={strValue}
+										onChange={(e) => onChangeCell(e, row.name, column.name)}
+										disabled={fieldDef.disabled}
+									/>
+								</Td>
+							);
+						})}
+						<TdTitle key={`totals-${row.name}`}>
+							{rowTotals[row.name]}
+						</TdTitle>
+					</tr>
+				))}
+				<TrTotals>
+					<TdTitle>{inputSettings.rowTotalLabel || "Total"}</TdTitle>
+					{Object.keys(columnsTotals).map((column) => (
+						<TdTotals key={`column-${column}`}>
+							{columnsTotals[column]}
+						</TdTotals>
+					))}
+				</TrTotals>
+			</TBody>
+		</StyledTable>
 	);
 };
 
-export default FormFieldRadio;
+export default FormFieldNumberTable;
