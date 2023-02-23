@@ -38,6 +38,7 @@ type DesktopViewProps = {
 const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 	const {
 		title,
+		onBack,
 		description,
 		tooltipInfo,
 		buttons,
@@ -55,6 +56,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 			<FlexContainer>
 				<TitleWrapper
 					title={title}
+					onBack={onBack}
 					description={description}
 					view={view}
 				/>
