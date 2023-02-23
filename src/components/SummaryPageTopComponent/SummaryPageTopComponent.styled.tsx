@@ -34,18 +34,10 @@ export const ContainerTitle = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-`;
 
-export const Title = styled.p`
-    font-size: 28px;
-    font-weight: ${theme.fontWeight.light};
-    max-width: 650px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-	margin: 0px;
-	padding: 0px;
-	font-family: ${theme.museoFont} !important;
+		& h1 {
+			max-width: 650px;
+		}
 `;
 
 export const CheckedStar = styled(StarRateRounded)`
