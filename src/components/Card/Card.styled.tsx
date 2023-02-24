@@ -25,6 +25,11 @@ export const TitleWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 8px;
+
+	& .MuiSvgIcon-root {
+		color: ${theme.newColors.almostBlack["100"]};
+		width: 16px;
+	}
 `;
 
 export const BottomActionWrapper = styled.div`

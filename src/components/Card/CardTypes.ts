@@ -1,4 +1,5 @@
 import { ButtonProps } from "../Button";
+import { SvgIconComponent } from "@root/types";
 
 export interface CardProps {
 	/**
@@ -16,7 +17,7 @@ export interface CardProps {
 	/**
 	 * Optional icon that will be placed to the left of the title.
 	 */
-	titleIcon?: JSX.Element;
+	titleIcon?: SvgIconComponent;
 		/**
 	 * List of buttons that will display at the top of the card.
 	 */
