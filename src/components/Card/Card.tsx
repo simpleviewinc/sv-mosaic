@@ -20,7 +20,7 @@ const Card = (props: CardProps): ReactElement => {
 		<CardWrapper>
 			<TitleBar>
 				<TitleWrapper>
-					<TitleIcon />
+					<TitleIcon data-testid="contacts-icon-test"/>
 					<p className="card-title">{title}</p>
 				</TitleWrapper>
 				{topActions?.length > 0 && (
