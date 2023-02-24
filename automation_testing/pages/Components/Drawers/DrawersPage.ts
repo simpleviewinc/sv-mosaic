@@ -9,7 +9,6 @@ export class Drawers extends BasePage {
 	readonly addFormButton: Locator;
 	readonly openNewFormButton: Locator;
 
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
