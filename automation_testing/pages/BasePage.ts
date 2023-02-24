@@ -214,10 +214,6 @@ export class BasePage {
 		return await ((element).evaluate(el => getComputedStyle(el).fontFamily));
 	}
 
-	async getFontSizeFromElement(element: Locator): Promise<string> {
-		return await ((element).evaluate(el => getComputedStyle(el).fontSize));
-	}
-
 	async getHeightFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).height));
 	}
