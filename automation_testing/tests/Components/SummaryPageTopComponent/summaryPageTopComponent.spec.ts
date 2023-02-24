@@ -16,26 +16,10 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		await browser.close();
 	});
 
-	test("Validate the font weight of the title.", async () => {
-		const expectedFontWeight = "250";
-		const titleFontWeight = await summaryPage.getFontWeightFromElement(summaryPage.summaryTitle);
-		expect(titleFontWeight).toBe(expectedFontWeight);
-	});
-
-	test("Validate the font of the title.", async () => {
-		const titleFonts = await summaryPage.getFontFamilyFromElement(summaryPage.summaryTitle);
-		expect(titleFonts).toContain("Museo-Sans");
-	});
-
 	test("Validate Star has simplyGold color.", async () => {
-		const expectColor = (theme.newColors.simplyGold["100"]);
+		const expectColor = theme.newColors.simplyGold["100"];
 		await summaryPage.starRateIconUnchecked.click();
 		expect(await summaryPage.getColorFromElement(summaryPage.starRateIconChecked)).toBe(expectColor);
-	});
-
-	test("Validate Summary title has almostBlack text color.", async () => {
-		const expectColor = theme.newColors.almostBlack["100"];
-		expect(await summaryPage.getColorFromElement(summaryPage.summaryTitle)).toBe(expectColor);
 	});
 
 	test("Validate Summary Page Top Component padding is valid.", async () => {
@@ -45,5 +29,9 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "right")).toBe("24px");
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("16px");
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "left")).toBe("24px");
+	});
+
+	test("Validate the Summary Page Top Component title style.", async () => {
+		await summaryPage.validateTitleStylingOfLocator(summaryPage.title.last());
 	});
 });
