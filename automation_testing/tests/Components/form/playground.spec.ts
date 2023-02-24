@@ -45,25 +45,15 @@ test.describe.parallel("Components - Form - Playground", () => {
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
 
-	test("Validate the font weight of the Title in Top Component.", async () => {
-		const expectedFontWeight = (theme.fontWeight.light).toString();
-		const titleFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.title);
-		expect(titleFontWeight).toBe(expectedFontWeight);
-	});
-
 	test("Validate the font weight of the Description in Top Component.", async () => {
 		const expectedFontWeight = (theme.fontWeight.light).toString();
 		const descriptionFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.description);
 		expect(descriptionFontWeight).toBe(expectedFontWeight);
 	});
 
-	test("Validate font family and font weight for Drawer Title.", async () => {
-		const expectedFontWeight = (theme.fontWeight.normal).toString();
+	test("Validate Drawer Title style.", async () => {
 		await playgroundPage.advancedSelectionFieldButton.click();
-		const titleFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.drawerTitle);
-		const titleFontFamily = await playgroundPage.getFontFamilyFromElement(playgroundPage.drawerTitle);
-		expect(titleFontWeight).toBe(expectedFontWeight);
-		expect(titleFontFamily).toContain("Museo-Sans");
+		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.advancedSelectionTitle);
 	});
 
 	test("Validate touched property is shown and works properly.", async () => {
@@ -118,5 +108,9 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateFormIsEmpty(grey2Color);
+	});
+
+	test("Validate the Playground title style.", async () => {
+		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.title.last());
 	});
 });
