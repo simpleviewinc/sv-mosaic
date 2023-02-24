@@ -40,8 +40,8 @@ export class BasePage {
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
-		this.title = page.locator("text=Form Title");
-		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span[2]");
+		this.title = page.locator("h1");
+		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span");
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("button:has-text('Cancel')");
