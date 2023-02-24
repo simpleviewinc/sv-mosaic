@@ -25,6 +25,8 @@ export const StyledWrapper = styled.div`
 	}
 
 	& > .left h1 {
+		line-height: 33px;
 		margin-right: 16px;
+		max-width: 916px;
 	}
 `;
