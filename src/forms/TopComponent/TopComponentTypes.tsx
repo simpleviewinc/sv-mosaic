@@ -16,11 +16,11 @@ export type BaseTopComponentProps = {
 	/**
 	 * Optional description for the current form.
 	 */
-	onBack?: () => void;
+	description?: string;
 	/**
 	 * Optional. If present, the Back icon is displayed on the left side of the title.
-	 */
-	description?: string;
+	*/
+	onBack?: () => void;
 	/**
 	 * If present, the help icon is display with the
 	 * string defined with this prop.
