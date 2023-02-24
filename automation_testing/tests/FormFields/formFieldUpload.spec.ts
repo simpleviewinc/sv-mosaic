@@ -46,9 +46,8 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 		const knobUploadLimit = uploadKnobs.knobUploadLimit + fileLimit;
 		await ffUpload.visit(ffUpload.page_path, [knobTriggerErrorsWhenLoading, knobUploadLimit]);
 		await ffUpload.uploadFilesInput.setInputFiles([imagePath, imagePath]);
-
-		expect(await ffUpload.fileCardContainerLocator.count()).toBe(fileLimit);
 		await expect(ffUpload.uploadFilesButton).toBeDisabled();
+		expect(await ffUpload.fileCardContainerLocator.count()).toBe(fileLimit);
 	});
 
 	test("Validate that when trying to upload more than the allowed limit of files at the same time, a snack bar message is displayed.", async () => {

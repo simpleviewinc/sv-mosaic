@@ -133,7 +133,7 @@ const Content = (props: ContentProps): ReactElement => {
 	}, [sections]);
 
 	return (
-		<MainWrapper>
+		<MainWrapper className="content-wrapper">
 			<TitleWrapper>
 				<Title>{title}</Title>
 				{buttons &&

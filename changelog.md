@@ -1,6 +1,32 @@
 # sv-mosaic changelog
 
-## 16.0.0 - 01/14/23
+## 17.0.0 - 02/28/23
+* Improved section highlighting mechanics. This change prevents sections from being re-rendered when a change to a field occurs, making the section tabs to stay in the selected section.
+* `DataView`:
+	* `bulkActions` are no longer needed to render checkboxes.
+	* Fixed `clear` functionality in all filters. Now clearing the filter values should only trigger a re-render when the filter had a value.
+* **BREAKING** `FieldDef` no longer accepts the `maxCharacters` prop. Now it will only be accepted as part of the `inputSettings` that use the prop (e.g. `FormFieldText`, `FormFieldTextEditor`).
+* `favorite` prop is now optional in `SummaryPageTopComponent`.
+* `Chip` will no longer show the cursor as "pointer" when hovering unless the `onClick` prop gets passed.
+* `onNav` prop is now optional in `SideNav`.
+* `FormFieldUpload`:
+	* Added knob that allows devs to controll the seconds mocked files should take to finish uploading.
+	* If a limit gets passed the field will get disabled if the sum of the pending files (files currently being uploaded) and the successfully uploaded files is equal to the limit.
+* `Button`:
+	* `Icon` variant now can be rendered as a link by passing an href.
+	* Updated css file to style buttons based on their class names and not on their html tag. This ensures we're styling all buttons the same, whether they're being transformed by MUI to spans, buttons, or anchor tags.
+	* Improved and added knobs that better represent the expected props for the button component.
+* Updated `FormFieldAdvancedSelection` to internally use `DataViewFilterMultiselect`. This results on styling changes but it shouldn't be a breaking change since none of the props and data returned to the form changed.
+* Added the following prop to `DataViewFilterMultiselect`:
+	* `limit` as an optional prop as part of its args. The component will default the value to 25 if none provided (this was the hardcoded value that has always been used so it shouldn't be a breaking change).
+* Added the following props to `DataViewFilterMultiselectDropdownContent`:
+	* `limit` -> same type definition as the `limit` from `DataViewFilterMultiselect`.
+	* `onChange` -> optional prop callback that receives as parameter the new array of selected options.
+	* `hideButtons` -> optional boolean. When passed, the buttons at the bottom (clear and apply) won't render.
+	* `createNewOption` -> optional prop with the same type definition as the `createNewOption` prop from `AdvancedSelectionInputSettings`.
+	* `selectLimit` -> optional prop with the same type definition as the `selectLimit` prop from `AdvancedSelectionInputSettings`.
+
+## 16.0.0 - 02/14/23
 * Created `FormFieldUpload`. This new field allows users to upload multiple files, showing the upload status of each one of them while being uploaded. See more in Form's readme.
 * Added optional prop `progress` to `Spinner` component. This allows devs to define how much of the spinner should be filled e.g. 50%. Value expressed from 0 to 100.
 * **BREAKING** Internally updated our field types enforcing consistency. This should only be a breaking change for consumers of mosaic that were incorrectly declaring fields (e.g. not passing the correct inputSettings to a field).
