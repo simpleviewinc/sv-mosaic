@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { CardPage } from "../../../pages/Components/Card/CardPlaygroundPage";
 import { cardKnobs } from "../../../utils/data/knobs";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Card - Playground", () => {
 	let page: Page;
@@ -9,6 +10,7 @@ test.describe.parallel("Components - Card - Playground", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		cardPage = new CardPage(page);
+		await cardPage.visit(cardPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -29,5 +31,13 @@ test.describe.parallel("Components - Card - Playground", () => {
 
 	test("Validate card component shows multiple bottom actions.", async () => {
 		await validateNumberOfButtons(cardKnobs.knobTopActions);
+	});
+
+	test("Validate font weight of the Content Title.", async () => {
+		expect(await cardPage.getFontWeightFromElement(cardPage.cardTitle)).toBe((theme.fontWeight.medium).toString());
+	});
+
+	test("Validate font size of the Content Title.", async () => {
+		expect(await cardPage.getFontSizeFromElement(cardPage.cardTitle)).toBe("16px");
 	});
 });

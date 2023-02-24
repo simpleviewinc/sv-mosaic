@@ -4,15 +4,19 @@ import EditIcon from "@mui/icons-material/Edit";
 
 export const MainWrapper = styled.div`
 	font-family: ${theme.fontFamily};
-	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	margin: 32px 40px;
+	padding: 16px 0px;
+	margin: 0px 16px;
+
+	&.content-wrapper + .content-wrapper {
+		border-top: 2px solid ${theme.newColors.grey2["100"]};
+	}
 `;
 
 export const TitleWrapper = styled.div`
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	margin: 16px 0;
+	margin-bottom: 16px;
 `;
 
 export const Title = styled.span`
