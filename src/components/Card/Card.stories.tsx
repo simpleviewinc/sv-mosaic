@@ -102,9 +102,7 @@ export const Playground = (): ReactElement => {
 		<Card
 			content={content}
 			title="Section Title"
-			titleIcon={
-				showTitleIcon && <ContactsIcon sx={{ color: "black", width: 16 }} />
-			}
+			titleIcon={showTitleIcon && ContactsIcon}
 			topActions={showTopAction && slicedTopActions}
 			bottomActions={showBottomAction && slicedBottomActions}
 		/>
