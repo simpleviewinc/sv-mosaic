@@ -5,8 +5,10 @@ import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
-
-// Components
+import JSONDB from "@root/utils/JSONDB";
+import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
+import categories from "@root/components/DataView/example/categories.json";
+import { nanoid } from "nanoid";
 import { MosaicLabelValue } from "@root/types";
 
 export default {
@@ -16,7 +18,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
-	const options = additionalOptions ? additionalOptions : [];
+	const options: MosaicLabelValue[] = additionalOptions ? additionalOptions : [];
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
 	const disabled = boolean("Disabled", false);
@@ -31,48 +33,36 @@ export const Playground = (): ReactElement => {
 	const createNewOptionsKnob = boolean("Create new option", true);
 	const selectLimit = text("Select limit", "");
 
-	const getOptions: ({
-		filter,
-		limit,
-		offset,
-	}: {
-		filter?: string;
-		limit?: number;
-		offset?: number;
-	}) => Promise<MosaicLabelValue[]> = async ({ limit, filter, offset }) => {
-		let internalOptionsArr = [...additionalOptions];
+	const categoriesApi = new JSONDB(categories);
 
-		if (filter) {
-			const trimmedFilter = filter.trim().toLowerCase();
-			internalOptionsArr = additionalOptions.filter((option) =>
-				option.label.toLowerCase().includes(trimmedFilter)
-			);
-		}
-
-		let optionsToReturn = [];
-		if (limit) {
-			for (let i = offset; i < offset + limit; i++) {
-				if (i < internalOptionsArr.length)
-					optionsToReturn.push(internalOptionsArr[i]);
-			}
-		} else {
-			optionsToReturn = internalOptionsArr;
-		}
-
-		return optionsToReturn;
-	};
+	const categoriesHelper = new MultiSelectHelper({
+		api: categoriesApi,
+		labelColumn: "tag",
+		valueColumn: "id",
+		sortColumn: "sort_tag"
+	});
 
 	const createNewOption = async (newOptionLabel) => {
-		const value = `${newOptionLabel}_${additionalOptions.length}`;
+		const value = nanoid();
 		const newOption = {
-			label: newOptionLabel,
-			value,
+			"_id": value,
+			"tag": newOptionLabel,
+			"sort_tag": newOptionLabel,
+			"updated": new Date(),
+			"created": new Date(),
+			"id": value
 		};
 
 		//Insert to db
-		additionalOptions.push(newOption);
+		additionalOptions.push({label: newOption.tag, value: newOption.id});
 
-		return newOption;
+		const data = await categoriesApi.getData();
+
+		const newData = [...data, newOption];
+
+		await categoriesApi.setData(newData);
+
+		return {label: newOption.tag, value: newOption.id};
 	};
 
 	const fields = useMemo(
@@ -88,7 +78,7 @@ export const Playground = (): ReactElement => {
 					type: "advancedSelection",
 					inputSettings: {
 						options: optionsOrigin === "Local" ? options : undefined,
-						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
+						getOptions: optionsOrigin === "DB" ? categoriesHelper.getOptions.bind(categoriesHelper) : undefined,
 						getOptionsLimit:
 						optionsOrigin === "DB" && getOptionsLimit
 							? getOptionsLimit
@@ -106,7 +96,6 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			getOptionsLimit,
 			options,
-			getOptions,
 			optionsOrigin,
 			createNewOptionsKnob,
 			selectLimit
@@ -133,48 +122,36 @@ export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
 	const options = additionalOptions ? additionalOptions : [];
 
-	const getOptions: ({
-		filter,
-		limit,
-		offset,
-	}: {
-		filter?: string;
-		limit?: number;
-		offset?: number;
-	}) => Promise<MosaicLabelValue[]> = async ({ limit, filter, offset }) => {
-		let internalOptionsArr = [...additionalOptions];
+	const categoriesApi = new JSONDB(categories);
 
-		if (filter) {
-			const trimmedFilter = filter.trim().toLowerCase();
-			internalOptionsArr = additionalOptions.filter((option) =>
-				option.label.toLowerCase().includes(trimmedFilter)
-			);
-		}
-
-		let optionsToReturn = [];
-		if (limit) {
-			for (let i = offset; i < offset + limit; i++) {
-				if (i < internalOptionsArr.length)
-					optionsToReturn.push(internalOptionsArr[i]);
-			}
-		} else {
-			optionsToReturn = internalOptionsArr;
-		}
-
-		return optionsToReturn;
-	};
+	const categoriesHelper = new MultiSelectHelper({
+		api: categoriesApi,
+		labelColumn: "tag",
+		valueColumn: "id",
+		sortColumn: "sort_tag"
+	});
 
 	const createNewOption = async (newOptionLabel) => {
-		const value = `${newOptionLabel}_${additionalOptions.length}`;
+		const value = nanoid();
 		const newOption = {
-			label: newOptionLabel,
-			value,
+			"_id": value,
+			"tag": newOptionLabel,
+			"sort_tag": newOptionLabel,
+			"updated": new Date(),
+			"created": new Date(),
+			"id": value
 		};
 
 		//Insert to db
-		additionalOptions.push(newOption);
+		additionalOptions.push({label: newOption.tag, value: newOption.id});
 
-		return newOption;
+		const data = await categoriesApi.getData();
+
+		const newData = [...data, newOption];
+
+		await categoriesApi.setData(newData);
+
+		return {label: newOption.tag, value: newOption.id};
 	};
 
 	const fields: FieldDef[] = useMemo(
@@ -193,7 +170,7 @@ export const KitchenSink = (): ReactElement => {
 					label: "Advanced selection with getOptions prop",
 					type: "advancedSelection",
 					inputSettings: {
-						getOptions,
+						getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
 						getOptionsLimit: 5
 					}
 				},

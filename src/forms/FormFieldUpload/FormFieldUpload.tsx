@@ -170,7 +170,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		for (const [key, file] of Object.entries(transformedFiles) as [string, TransformedFile][]) {
 			onFileAdd({
 				file: file?.rawData,
-				onChunkComplete: ({percent}) => onChunkComplete({uuid: key, percent}),
+				onChunkComplete: ({ percent }) => onChunkComplete({uuid: key, percent}),
 				onUploadComplete: (data) => onUploadComplete({uuid: key, data}),
 				onError: (message) => onError({uuid: key, message}),
 			})
@@ -200,8 +200,17 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const shouldDisableField = useMemo(() => {
-		return fieldDef.disabled || (limit !== undefined && value?.length >= limit)
-	}, [fieldDef.disabled, limit, value]);
+		const numOfPendingFiles = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
+
+		return (
+			fieldDef.disabled ||
+			(
+				limit !== undefined
+				&& limit >= 0
+				&& (value !== undefined ? value.length : 0) + numOfPendingFiles >= limit
+			)
+		)
+	}, [fieldDef.disabled, limit, value, pendingFiles]);
 
 	return (
 		<>

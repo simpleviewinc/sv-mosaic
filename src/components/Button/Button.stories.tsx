@@ -530,6 +530,14 @@ export const KitchenSink = (): ReactElement => {
 						href="https://www.bing.com/"
 						onClick={function(e) { e.preventDefault(); alert("Click handler") }}
 					/>
+					<Button
+						color="blue"
+						variant="icon"
+						mIcon={AddIcon}
+						onClick={clickHandler}
+						size="small"
+						href="https://www.google.com/"
+					/>
 				</ButtonRow>
 			</div>
 		</div>

@@ -25,7 +25,7 @@ describe("Card component", () => {
 		render(
 			<Card
 				content={content}
-				title={<p>Title</p>}
+				title={"Title"}
 				titleIcon={
 					<ContactsIcon
 						data-testid="contacts-icon-test"

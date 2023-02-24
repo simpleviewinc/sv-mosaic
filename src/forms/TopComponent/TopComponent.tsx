@@ -78,82 +78,69 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		[showActive, view, tooltipInfo, setTooltipIsOpen, tooltipIsOpen]
 	);
 
-	const RenderView = useCallback(() => {
-		if (view === Views.mobile)
-			return (
-				<MobileView
-					ref={ref}
-					buttons={buttons}
-					title={title}
-					description={description}
-					helpIcon={helpIcon}
-					checkbox={checkbox}
-					onCancel={onCancel}
-					showActive={showActive}
-					tooltipInfo={tooltipInfo}
-					view={view}
-				/>
-			);
-		if (view === Views.drawer)
-			return (
-				<DrawerHeader
-					ref={ref}
-					title={title}
-					buttons={buttons}
-					onCancel={onCancel}
-				/>
-			);
-		if (view === Views.responsive)
-			return (
-				<ResponsiveView
-					ref={ref}
-					title={title}
-					description={description}
-					showActive={showActive}
-					tooltipInfo={tooltipInfo}
-					helpIcon={helpIcon}
-					checkbox={checkbox}
-					buttons={buttons}
-					sections={sections}
-					view={view}
-					sectionsRefs={sectionsRefs}
-					formContentRef={formContentRef}
-				/>
-			);
-		if (view === Views.desktop || view === Views.bigDesktop)
-			return (
-				<DesktopView
-					ref={ref}
-					sectionsRefs={sectionsRefs}
-					title={title}
-					description={description}
-					showActive={showActive}
-					tooltipInfo={tooltipInfo}
-					helpIcon={helpIcon}
-					checkbox={checkbox}
-					buttons={buttons}
-					sections={sections}
-					view={view}
-					formContentRef={formContentRef}
-				/>
-			);
+	const desktopView = (
+		<DesktopView
+			ref={ref}
+			sectionsRefs={sectionsRefs}
+			title={title}
+			description={description}
+			showActive={showActive}
+			tooltipInfo={tooltipInfo}
+			helpIcon={helpIcon}
+			checkbox={checkbox}
+			buttons={buttons}
+			sections={sections}
+			view={view === Views.bigDesktop ? Views.bigDesktop : Views.desktop}
+			formContentRef={formContentRef}
+		/>
+	);
 
-		return null;
-	}, [
-		checkbox,
-		description,
-		helpIcon,
-		onCancel,
-		sections,
-		sectionsRefs,
-		showActive,
-		title,
-		tooltipInfo,
-		view,
-	]);
+	const ViewToRender = {
+		"MOBILE": (
+			<MobileView
+				ref={ref}
+				buttons={buttons}
+				title={title}
+				description={description}
+				helpIcon={helpIcon}
+				checkbox={checkbox}
+				onCancel={onCancel}
+				showActive={showActive}
+				tooltipInfo={tooltipInfo}
+				view={Views.mobile}
+			/>
+		),
+		"RESPONSIVE": (
+			<ResponsiveView
+				ref={ref}
+				title={title}
+				description={description}
+				showActive={showActive}
+				tooltipInfo={tooltipInfo}
+				helpIcon={helpIcon}
+				checkbox={checkbox}
+				buttons={buttons}
+				sections={sections}
+				view={Views.responsive}
+				sectionsRefs={sectionsRefs}
+				formContentRef={formContentRef}
+			/>
+		),
+		"DRAWER" : (
+			<DrawerHeader
+				ref={ref}
+				title={title}
+				buttons={buttons}
+				onCancel={onCancel}
+			/>
+		),
+		"DESKTOP": desktopView,
+		"BIG_DESKTOP": desktopView
+	};
 
-	return <RenderView />;
-});
+	return ViewToRender[view];
+}
+);
 
 TopComponent.displayName = "TopComponent";
 
