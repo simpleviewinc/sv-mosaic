@@ -48,4 +48,9 @@ test.describe.parallel("Components - Drawers - Example", () => {
 		expect(await drawersPage.page.locator("form .normalButton button").nth(0).textContent()).toBe("Cancel");
 		expect(await drawersPage.page.locator("form .normalButton button").nth(1).textContent()).toBe("Save");
 	});
+
+	test("Validate the Drawer title style.", async () => {
+		await drawersPage.addFormButton.click();
+		await drawersPage.validateTitleStylingOfLocator(drawersPage.drawerTitle);
+	});
 });
