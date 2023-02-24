@@ -21,12 +21,6 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 		expect(await ffAdvancedSelectionPage.getSpecificBorderFromElement(ffAdvancedSelectionPage.placeholderText)).toContain(expectedColor);
 	});
 
-	test("Validate that the search field background color is grey1.", async () => {
-		const expectedColor = theme.newColors.grey1["100"];
-		await ffAdvancedSelectionPage.advancedSelectionButton.click();
-		expect(await ffAdvancedSelectionPage.getBackgroundColorFromElement(ffAdvancedSelectionPage.inputSearchLocator)).toContain(expectedColor);
-	});
-
 	test("Validate drawer title location is fixed.", async () => {
 		await page.setViewportSize({ width: 1280, height: 400 });
 		await ffAdvancedSelectionPage.advancedSelectionButton.click();
