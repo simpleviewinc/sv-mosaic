@@ -17,26 +17,22 @@ test.describe.parallel("Components - Card - Recent Activity", () => {
 	});
 
 	test("Validate activity description has grey4 as color.", async () => {
-		const expectColor = theme.newColors.grey4["100"];
-		for (let i = 2; i < await cardPage.activityLocator.count();i++) {
-			expect(await cardPage.getColorFromElement(cardPage.activityLocator.nth(i))).toBe(expectColor);
+		for (let i = 3; i < await cardPage.activityLocator.count(); i++) {
+			expect(await cardPage.getColorFromElement(cardPage.activityLocator.nth(i))).toBe(theme.newColors.grey4["100"]);
 		}
 	});
 
 	test("Validate Activity date has grey3 as color.", async () => {
-		const expectColor = theme.newColors.grey3["100"];
 		for (let i = 3; i < await cardPage.page.locator("span").count();i++) {
-			expect(await cardPage.getColorFromElement(cardPage.page.locator("span").nth(i))).toBe(expectColor);
+			expect(await cardPage.getColorFromElement(cardPage.page.locator("span").nth(i))).toBe(theme.newColors.grey3["100"]);
 		}
 	});
 
 	test("Validate Title Bar has grey2 as background color.", async () => {
-		const expectColor = theme.newColors.grey2["100"];
-		expect(await cardPage.getBackgroundColorFromElement(cardPage.cardTitleBar)).toBe(expectColor);
+		expect(await cardPage.getBackgroundColorFromElement(cardPage.cardTitleBar)).toBe(theme.newColors.grey2["100"]);
 	});
 
 	test("Validate Card Wrapper has grey2 in border.", async () => {
-		const expectColor = theme.newColors.grey2["100"];
-		expect(await cardPage.getSpecificBorderFromElement(cardPage.cardWrapper)).toContain(expectColor);
+		expect(await cardPage.getSpecificBorderFromElement(cardPage.cardWrapper)).toContain(theme.newColors.grey2["100"]);
 	});
 });

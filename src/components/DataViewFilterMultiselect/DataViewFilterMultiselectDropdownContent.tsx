@@ -37,7 +37,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 
 	const { t } = useMosaicTranslation();
 
-	const limit = +props.limit || 25;
+	const limit = Math.abs(props.limit) || 25;
 
 	// mark the active comparison
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;

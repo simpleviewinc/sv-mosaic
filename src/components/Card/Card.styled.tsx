@@ -9,16 +9,22 @@ export const CardWrapper = styled.div`
 
 export const TitleBar = styled.div`
 	align-items: center;
-  background: ${theme.newColors.grey2["100"]};
+  	background: ${theme.newColors.grey2["100"]};
 	display: flex;
-	height: 56px;
 	justify-content: space-between;
-	padding: 0 16px;
+	padding: 8px 16px;
+	& .card-title {
+		color: ${theme.newColors.almostBlack["100"]};
+		font-size: 16px;
+		font-weight: ${theme.fontWeight.medium};
+		margin: 0px;
+	}
 `;
 
 export const TitleWrapper = styled.div`
 	display: flex;
 	align-items: center;
+	gap: 8px;
 `;
 
 export const BottomActionWrapper = styled.div`
