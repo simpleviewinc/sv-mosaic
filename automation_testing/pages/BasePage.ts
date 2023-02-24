@@ -60,7 +60,7 @@ export class BasePage {
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
-		this.drawerTitle = page.locator("[data-testid='drawer-title-test-id']");
+		this.drawerTitle = page.locator("form h1");
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
 		this.menuLocator = page.locator("[role='menu']");
