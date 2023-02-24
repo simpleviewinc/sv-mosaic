@@ -36,6 +36,7 @@ export class BasePage {
 	readonly roleOptionLocator: Locator;
 	readonly rolePresentationLocator: Locator;
 	readonly deleteIconSelectedOptionChip: Locator;
+	readonly formLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -68,6 +69,7 @@ export class BasePage {
 		this.roleOptionLocator = page.locator("[role='option']");
 		this.rolePresentationLocator = page.locator("[role='presentation']");
 		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
+		this.formLocator = page.locator("form");
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
@@ -175,6 +177,10 @@ export class BasePage {
 
 	async getFontWeightFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).fontWeight));
+	}
+
+	async getFontSizeFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontSize));
 	}
 
 	async validateMarginValueFromElement(element: Locator, expectedValue: string, isRight: boolean): Promise<void> {

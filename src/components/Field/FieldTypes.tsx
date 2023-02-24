@@ -9,6 +9,7 @@ import { FieldDefImageUpload } from "@root/forms/FormFieldImageUpload";
 import { FieldDefImageVideoDocumentLink } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
 import { FieldDefMapCoordinates } from "@root/forms/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/forms/FormFieldMatrix";
+import { FieldDefNumberTable } from "@root/forms/FormFieldNumberTable";
 import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/forms/FormFieldRadio";
 import { FieldDefTable } from "@root/forms/FormFieldTable";
@@ -165,5 +166,6 @@ export type FieldDef =
 	| FieldDefAdvancedSelection
 	| FieldDefAddress
 	| FieldDefUpload
-	| FieldDefCustom;
+	| FieldDefCustom
+	| FieldDefNumberTable;
 

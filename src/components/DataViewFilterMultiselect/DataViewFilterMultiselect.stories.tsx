@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, useState } from "react";
 import DataViewFilterMultiselect from "./DataViewFilterMultiselect";
 import { DataViewFilterMultiselectProps } from "./DataViewFilterMultiselectTypes";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 import MultiSelectHelper from "../DataView/example/MultiSelectHelper";
 import categories from "../DataView/example/categories.json";
 import JSONDB from "@root/utils/JSONDB";
@@ -24,6 +24,7 @@ const categoriesHelper = new MultiSelectHelper({
 export const Playground = (): ReactElement => {
 
 	const showComparisons = boolean("Show comparisons", false);
+	const limit = number("Limit", 25);
 
 	const [state, setState] = useState<DataViewFilterMultiselectProps["data"]>({
 		comparison: "in",
@@ -57,6 +58,7 @@ export const Playground = (): ReactElement => {
 					getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
 					getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
 					comparisons: showComparisons && ["in", "not_in", "all", "exists", "not_exists"],
+					limit,
 				}}
 				data={state}
 				onRemove={onRemove}
