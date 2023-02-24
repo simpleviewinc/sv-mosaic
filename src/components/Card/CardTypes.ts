@@ -12,7 +12,7 @@ export interface CardProps {
 	/**
 	 * Any HTML/React element can be used as a title.
 	 */
-	title: JSX.Element;
+	title: string;
 	/**
 	 * Optional icon that will be placed to the left of the title.
 	 */
