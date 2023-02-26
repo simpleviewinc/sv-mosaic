@@ -5,10 +5,10 @@ import Paper from "@mui/material/Paper";
 export const StyledPaper = styled(Paper)`
 	&.MuiPaper-root {
 		background-color: white;
-		border: 1px solid ${theme.colors.gray200};
+		border: 1px solid ${theme.newColors.grey2["100"]};
 		max-width: 620px;
 		border-radius: 5px;
-		box-shadow: 0px 2px 6px #1A1A1A26;
+		box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
 	}
 `;
 // Reference:
@@ -66,6 +66,6 @@ export const ContentWrapper = styled.div`
 
 export const StyledHr = styled.hr`
 	border-left: none;
-	border-top: 1px solid ${theme.colors.gray200};
+	border-top: 1px solid ${theme.newColors.grey2["100"]};
 	margin: 16px -32px;
 `;

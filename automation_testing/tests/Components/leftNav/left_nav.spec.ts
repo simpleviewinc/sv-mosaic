@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/left_nav_data";
+import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - LeftNav", () => {
 	let page: Page;
@@ -9,26 +10,17 @@ test.describe.parallel("Components - LeftNav", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		leftNavPage = new LeftNavPage(page);
-		await leftNavPage.visitPage();
+		await leftNavPage.visit(leftNavPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
 
-	test.skip("Validate left nav basic", async () => {
-		await leftNavPage.validateSnapshot(leftNavPage.leftNavDiv, "left_nav");
-	});
-
 	test("Validate static element", async () => {
 		const lastItem = await leftNavPage.getLastItem();
 		expect(await lastItem.textContent()).toBe(leftnav_data.staticItem);
 		expect(await lastItem.isVisible()).toBe(true);
-	});
-
-	test.skip("Validate static element menu", async () => {
-		await (await leftNavPage.getLastItem()).click();
-		await leftNavPage.validateSnapshot(await leftNavPage.navDisplayMenu, "nav_display_menu")
 	});
 
 	test("Validate full view is active", async () => {
@@ -84,5 +76,23 @@ test.describe.parallel("Components - LeftNav", () => {
 		await subSubmenuElement.click();
 		await leftNavPage.wait();
 		expect(await leftNavPage.title.textContent()).toBe(title);
+	});
+
+	test("Validate border top of Modules and Assets sections has grey4 as border color.", async () => {
+		const expectedColor = theme.newColors.grey4["100"];
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.first(), "top")).toContain(expectedColor);
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.sectionsLocator.last(), "top")).toContain(expectedColor);
+	});
+
+	test("Validate border top of Bottom sections has grey3 as border color.", async () => {
+		const expectedColor = theme.newColors.grey3["100"];
+		expect(await leftNavPage.getSpecificBorderFromElement(leftNavPage.divBottomLocator, "top")).toContain(expectedColor);
+	});
+
+	test("Validate nav label has grey2 as color.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		for (let i = 0; i < await leftNavPage.leftNavLabelLocator.count();i++) {
+			expect(await leftNavPage.getColorFromElement(leftNavPage.leftNavLabelLocator.nth(i))).toContain(expectedColor);
+		}
 	});
 });

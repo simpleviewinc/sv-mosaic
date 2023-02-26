@@ -40,7 +40,7 @@ const App = (props) => {
 The state is an object that contains the following structure:
 * **data** - `object` - Contains a key-value pair of all fields that have a value, for example: "myTextField": "my value".
 * **errors** - `object` - Contains a key-value pair of all fields that have an error message, for example: "myTextField": "This field is required, please fill it".
-* **validating** - `object` - Contains a key-value pair of all fields that are undergoing validation. All validations are run when executing an onBlur pero field or when clicking on the save button.
+* **validating** - `object` - Contains a key-value pair of all fields that are undergoing validation. All validations are run when executing an onBlur per field or when clicking on the save button.
 * **validForm** - `boolean` - Flag that indicates whether the field is valid or not, this is affected by the errors object".
 * **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
 
@@ -141,7 +141,7 @@ This same rule applies for empty rows.
 There are two ways for positioning components inside of a Form:
 1. By defining the position of the component with the layout prop. For more details about this prop refer to the [Generic Field Props subsection](#generic-field-props-fielddef).
 ```ts
-		const fields = useMemo(
+		const fields: FieldDef[] = useMemo(
 		() =>
 			[
 				{
@@ -150,7 +150,7 @@ There are two ways for positioning components inside of a Form:
 					layout: { section: 0, row: 1, col: 0 },
 				},
 				// ...all other fields
-			] as FieldDef[],
+			],
 		[]
 	);
 ```
@@ -167,7 +167,7 @@ When done through this method, the array must be passed down as a prop to the Fo
 					["myTextField"] // Row 1 Col 1
 				],
 				[ // Row 2
-					["myTextAreaField"] // Row 2 Col 1
+					["myCheckboxField"] // Row 2 Col 1
 				]
 			]
 		}
@@ -196,8 +196,8 @@ const App = (props) => {
 					type: "text",
 				},
 				{
-					name: "myTextAreaField",
-					type: "textArea",
+					name: "myCheckboxField",
+					type: "checkbox",
 				},
 				//...all other fields
 			],
@@ -322,7 +322,6 @@ const fields = useMemo(
 * **instructionText** - `string` optional - Instructions about how to fill the current field.
 * **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
-* **maxCharacters** - `number` optional - When defined, displays the max amount of characters allowed for this field next to the label (only applies for Text and TextArea).
 * **size** - `string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **xs** = 100px
 	* **sm** = 280px
@@ -355,7 +354,6 @@ const fields = useMemo(
 				instructionText: "This is an example of an instruction text",
 				disabled: false,
 				inputSettings: {}, //Please see inputSettings of each field
-				maxCharacters: 20,
 				size: "sm",
 				className: "myClassName",
 				style: {{ marginTop: "5px", }},
@@ -364,10 +362,10 @@ const fields = useMemo(
 				validators: ["validateNumber"], //Please see validators section on ways of adding validators.
 				id: "myId",
 				defaultValue: "42", //Plase see data of each field and data section to better understand how fields interact with values.
-				pairedFields: ["myTextArea"],
+				pairedFields: ["myCheckbox"],
 			},
 			{
-				name: "myTextArea",
+				name: "myCheckbox",
 				//...all other generic field props
 			}
 			//...other fields
@@ -377,6 +375,8 @@ const fields = useMemo(
 ```
 
 ## FormFieldAddress
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
 - [**Playground**](/?path=/story/formfields-formfieldaddress--playground)
 - Data: `object`
@@ -384,20 +384,34 @@ const fields = useMemo(
 	* **address2** - `string` optional - Additional address.
 	* **address3** - `string` optional - Additional address.
 	* **city** - `string` required - Name of the city.
-	* **country** - `string` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **country** - `MosaicLabelValue` required - Object containing the label and value of the country.
 	* **postalCode** - `string` required - Postal code of the address.
-	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
+	* **state** - `MosaicLabelValue` required - Object containing the label and value of the state.
 	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
-- inputSettings: `object`
-	* **amountPerType** - `number` optional - When defined, limits the amount of address types. For example: If a dev adds “amountPerType: 2” then users will be able to add 2 physical, 2 billing, and 2 shipping addresses.
-	* **amountShipping** - `number` optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType.
-	* **amountPhysical** - `number` optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.
-	* **amountBilling** - `number` optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType.
-	* **getOptionsCountries** - `() => Promise<MosaicLabelValue[]>` required - Option for getting the options for the countries dropdown.
-	* **getOptionsStates** - `(country: string) => Promise<MosaicLabelValue[]>` required - Option for getting the options for the states dropdown, it receives a country code as parameter.
+- inputSettings:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`amountPerType`** | `number` | optional - When defined, limits the amount of address types. For example: If a dev adds “amountPerType: 2” then users will be able to add 2 physical, 2 billing, and 2 shipping addresses.|
+| **`amountShipping`** | `number` | optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType. |
+| **`amountPhysical`** | `number` | optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.|
+| **`amountBilling`** | `number` | optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType. |
+| **`getOptionsCountries`** | `(): Promise<MosaicLabelValue[]>` | Required - Returns a list of mapped countries in the shape of label-value array. |
+| **`getOptionsStates`** | `(country: string): Promise<MosaicLabelValue[]>` | Given a country value it returns the list of states of the given country in the shape of label-value array. |
+| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to access Place Autocomplete Google web service that returns place predictions in response to an HTTP request. |
 
 ### How to use in a form?
 ```ts
+const getOptionsCountries = async () => {
+	const countriesArr: MosaicLabelValue[] = await countriesMicroService();
+	return countriesArr;
+}
+
+const getOptionsStates = async (country) => {
+	const statesArr: MosaicLabelValue[] = await statesMicroService(country);
+	return statesArr;
+}
+
 const fields = useMemo(
 	() =>
 		[
@@ -409,7 +423,10 @@ const fields = useMemo(
 					amountPerType: 1,
 					amountShipping: 0,
 					amountPhysical: 2,
-					amountBilling: 3
+					amountBilling: 3,
+					getOptionsCountries,
+					getOptionsStates,
+					googleMapsApiKey: "ABCDEFG1234567890"
 				},
 			},
 			//...other fields
@@ -424,6 +441,8 @@ const fields = useMemo(
 
 
 ## FormFieldAdvancedSelection
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - Allow users to select one or more options from a modal menu.
 - Used for very long lists.
 - Have the ability to type and search.
@@ -432,13 +451,14 @@ const fields = useMemo(
 	* **label** - `string` - Text users will see to identify the option.
 	* **value** - `string[]` - Value that will be saved to the DB when the option gets selected.
 - inputSettings:
-	* **createNewOption** - `(newOptionLabel: string) => Promise<MosaicLabelValue>` optional -  Function used to insert more options either on the local options array, or on the DB.
-	* **options** - `array` of `MosaicLabelValue` required -  Function used to get the full info (label, value) of all selected options. This prop only applies when getting options locally.
-		* **label** - `string` required -  Text users will see to identify the option.
-		* **value** - `string` required -  Value that will be saved to the DB when the option gets selected.
-	* **getOptions** - `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` required - Function to get the next set of options. This prop only applies when getting options from a DB.
-	* **getOptionsLimit** - `number | string` optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB.
-	* **selectLimit** - `number` optional - Defines the maximum amount of options users can select. Passing undefined or not passing it at all allows users to select as many as they want.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`createNewOption`** | `(newOptionLabel: string) => Promise<MosaicLabelValue>` | optional -  Function used to insert more options either on the local options array, or on the DB. |
+| **`options`** | `MosaicLabelValue[]` | required -  Used to set the full info (label, value) of all selected options. This prop only applies when getting options locally. The label is the text the users will see to identify the option and the value will be saved to the DV when the option gets selected. |
+| **`getOptions`** | `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` | required - Function to get the next set of options. This prop only applies when getting options from a DB. |
+| **`getOptionsLimit`** | `number or string` | optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB. |
+| **`selectLimit`** | `number` | optional - Defines the maximum amount of options users can select. Passing undefined or not passing it at all allows users to select as many as they want. |
 
 ### How to use in a form?
 ```ts
@@ -511,12 +531,17 @@ const fields = useMemo(
 
 
 ## FormFieldCheckbox
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - A group of checkbox buttons that allows users to select multiple items from a list of possible options.
 - [**Playground**](/?path=/story/formfields-formfieldcheckbox--playground)
 - Data: `array` of `string` - Array of values of the selected options.
 - inputSettings:
-	* **options** - `array` of `MosaicLabelValue` required - Array of options to be rendered containing their corresponding label and value.
-	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`options`** | `MosaicLabelValue[]` | required - Array of options to be rendered containing their corresponding label and value. |
+| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
 
 ### How to use in a form?
 ```ts
@@ -561,13 +586,18 @@ const fields = useMemo(
 ```
 
 ## FormFieldChipSingleSelect
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - The `FormFieldChipSingleSelect` component is built over a wrapper for [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/#main-content) but with SimpleView brand colors.
 - [**Playground**](/?path=/story/formfields-formfieldchipsingleselect--playground)
 - Data: `string` - Value of the selected option.
 - inputSettings:
-	* **options** - `array` of `MosaicLabelValue` required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not.
-	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
-	* **onSelect** - `(...args) => void` optional - Callback to be executed when an option gets selected.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`options`** | `MosaicLabelValue[]` | required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not. |
+| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` |required - Function to get a set of options. This prop only applies when getting options from a DB. |
+| **`onSelect`** | `(...args) => void` | optional - Callback to be executed when an option gets selected. |
 
 ### How to use in a form?
 ```ts
@@ -616,6 +646,8 @@ const fields = useMemo(
 ```
 
 ## FormFieldColorPicker
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - The color picker component allows users to select from pre-defined colors (swatches) or custom colors using a HSB selection interface.
 - The implementation of this component is based on the following package: [React Color](https://casesandberg.github.io/react-color/)
 - [**Playground**](/?path=/story/formfields-formfieldcolorpicker--playground)
@@ -641,11 +673,17 @@ const fields = useMemo(
 
 
 ## FormFieldDateField
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - It allows the user to view and pick dates from a calendar widget or manually type the date in the text field.
 - [**Playground**](/?path=/story/formfields-formfielddatefield--playground)
 - Data: `string` - Date in UTC format transformed to string.
 - inputSettings:
-	* **showTime** - `boolean` optional - When true a time field will appear next to the date field.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`showTime`** | `boolean` | optional - When true a time field will appear next to the date field. |
+
 
 ### How to use in a form?
 ```ts
@@ -667,14 +705,20 @@ const fields = useMemo(
 ```
 
 ## FormFieldRadio
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - A group of radio buttons allows users to select a single item from a list of possible options.
 - All possible options are exposed up front for comparison.
 - Users can only make a single selection from the list of possible options.
 - [**Playground**](/?path=/story/formfields-formfieldradio--playground)
 - Data: `string` - Value of the selected option.
 - inputSettings:
-	* **options** - `array` of `MosaicLabelValue` required - Predefined set of mutually exclusive options.
-	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`options`** | `MosaicLabelValue[]` | required - Predefined set of mutually exclusive options. |
+| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
+
 
 ### How to use in a form?
 ```ts
@@ -727,87 +771,69 @@ const fields = useMemo(
 ```
 
 ## FormFieldText
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - Text input fields are used to enter text information, numbers, e-mail addresses, or passwords.
 - A text field consists of a label and a line with variations in width.
 - [**Playground**](/?path=/story/formfields-formfieldtext--playground)
 - Data: `string | number` - Value of the input typed.
 - inputSettings:
-	* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
-	* **multiline** - `boolean` optional - When is enabled the text field will expand its height.
-	* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-	* **prefixElement** - `JSX.Element` optional - Icon at the beginning of the text field.
-	* **type** - `string` optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`maxCharacters`** | `number` | optional - Defines the limit of characters that are allow to type in the input element. |
+| **`multiline`** | `boolean` |optional - When is enabled the text field will expand its height.
+| **`placeholder`** | `string` | optional - The hint displayed in the input before the user enters a value. |
+| **`prefixElement`** | `JSX.Element` | optional - Icon at the beginning of the text field. |
+| **`type`** | `string` | optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types). |
+| **`maxRows`** | `number` | optional - Maximum number of rows to display when multiline options is set to true. |
+| **`minRows`** | `number` | optional - Minimum number of rows to display when multiline option is set to true. |
 
 ### How to use in a form?
 ```ts
-const fields = useMemo(
+const fields: FieldDef[] = useMemo(
 	() =>
 		[
 			//...other fields
 			{
 				//...all generic field props,
 				type: "text",
-				maxCharacters: 20,
 				size: "md",
 				inputSettings: {
 					prefixElement: <AccountCircle />,
 					maxCharacters: 20,
 					placeholder: "placeholder",
-					multiline: true
+					multiline: true,
+					maxRows: 4,
+					minRows: 3
 				},
 			},
 			//...other fields
-		] as FieldDef<TextFieldDef>[],
-	[]
-);
-```
-
-## FormFieldTextArea
-- A text area is a multi-line plain-text editing control, is useful when you want to allow users to enter a sizeable amount of free-form text, but defining a specific height and width.
-- [**Playground**](/?path=/story/formfields-formfieldtextarea--playground)
-- Data: `string` - Value of the input typed.
-- inputSettings:
-	* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
-	* **placeholder** - `string` optional - The hint displayed in the input before the user enters a value.
-
-### How to use in a form?
-
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props
-				type: "textArea",
-				maxCharacters: 20,
-				size: "md",
-				inputSettings: {
-					maxCharacters: 20,
-					placeholder: "placeholder"
-				},
-			},
-			//...other fields
-		] as FieldDef<TextAreaDef>[],
+		],
 	[]
 );
 ```
 
 ## FormFieldTextEditor
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area.
 - This implementation is based on the [React Jodit WYSIWYG Editor](https://www.npmjs.com/package/jodit-react) package.
 - [**Playground**](/?path=/story/formfields-formfieldtexteditor--playground)
 - Data: `string` - Value of the input typed.
 - inputSettings:
-	* **direction** - `"rtl" | "ltr" | ""` optional - Defines the starting point at which the typed words will be displayed, "lrt" starts from the left moving to the right and "rlt" vice versa. Default is "rlt".
-	* **language** - `string` optional - Defines the language in which the assistive elements of the text editor will be displayed. For example the placeholder and the character and word counter
-	* **maxCharacters** - `number` optional - Defines the limit of characters that are allow to type in the input element.
-	* **spellcheck** - `boolean` optional - If it's enabled the text editor will mark misspellings.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`direction`** | `"rtl" | "ltr" | ""` | optional - Defines the starting point at which the typed words will be displayed, "lrt" starts from the left moving to the right and "rlt" vice versa. Default is "rlt". |
+| **`language`** | `string` | optional - Defines the language in which the assistive elements of the text editor will be displayed. For example the placeholder and the character and word counter. |
+| **`maxCharacters`** | `number` | optional - Defines the limit of characters that are allow to type in the input element. |
+| **`spellcheck`** | `boolean` | optional - If it's enabled the text editor will mark misspellings. |
 
 ### How to use in a form?
 
 ```ts
-const fields = useMemo(
+const fields: FieldDef[] = useMemo(
 	() =>
 		[
 			//...other fields
@@ -822,12 +848,14 @@ const fields = useMemo(
 				},
 			},
 			//...other fields
-		] as FieldDef<TextEditorDef>[],
+		],
 	[]
 );
 ```
 
 ## FormFieldTable
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - Tables are used in some cases inside the form after selecting a list of elements or by using arrays
 - The data table component allows for customization with additional functionality, as needed by your product’s users.
 - [**Playground**](/?path=/story/formfields-formfieldtable--playground)
@@ -835,14 +863,22 @@ const fields = useMemo(
 	* **id** - `string` required - Unique identifier. Used as an identifier for the draggable item.
 	* **items** - `string[]` - Data that is shown in the table.
 - inputSettings:
-	* **handleAddElement** - `() => void` required - Function used to create a new row in the table.
-	* **handleEdit** - `(rowIndex: number) => void` required - Function that defines how the clicked row should be editted.
-	* **handleDelete** - `() => void` required - Function that will be executed when clicking on the trash icon. It can be used to show some kind of confirmation before removing the row.
-	* **extraActions** - `array` of `object` optional - Possible actions that the table could execute and display.
-		* **label** - `string` - Describes the action.
-		* **icon** - `SvgIconComponent` - MUI icon.
-		* **actionFnc** - `actionFnc: (rowIndex: number) => void;` - Function that is executed when the corresponding icon is clicked.
-	* **headers** - `string[]` required - Array of the table headers.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`handleAddElement`** | `() => void` | required - Function used to create a new row in the table. |
+| **`handleEdit`** | `(rowIndex: number) => void` | required - Function that defines how the clicked row should be editted. |
+| **`handleDelete`** | `() => void` | required - Function that will be executed when clicking on the trash icon. It can be used to show some kind of confirmation before removing the row. |
+| **`headers`** | `string[]` | required - Array of the table headers. |
+| **`extraActions`** | `extraActions[]` | Possible actions that the table could execute and display. |
+
+- extraActions:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`label`** | `string` |  Describes the action. |
+| **`icon`** | `SvgIconComponent` | MUI icon. |
+| **`actionFnc`** | `actionFnc: (rowIndex: number) => void;` | Function that is executed when the corresponding icon is clicked. |
 
 ### How to use in a form?
 
@@ -870,6 +906,7 @@ const addTableRow = (): void => {
 			formActions.setFieldValue({
 				name: "table"
 				value: [possibleTableRows[0]],
+				touched: true
 			})
 		);
 	} else if (tableDataLength >= possibleTableRows.length) {
@@ -890,12 +927,13 @@ const addTableRow = (): void => {
 			formActions.setFieldValue({
 				name,
 				value: [...dataState.table, possibleTableRows[index]],
+				touched: true
 			})
 		);
 	}
 };
 
-const fields = useMemo(
+const fields: FieldDef[] = useMemo(
 	() =>
 		[
 			//...other fields
@@ -925,24 +963,29 @@ const fields = useMemo(
 				},
 			//...other fields
 			},
-		] as FieldDef<TableDef>[],
+		],
 	[addTableRow]
 );
 ```
 
 ## FormFieldToggleSwitch
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - Toggle Switch allow users to switch between two possible states. They are commonly used to turn a specific setting on or off
 - Toggles should be used to turn on or off a preference, notification, or feature
 - Should be used when an instant response is required/desired
 - [**Playground**](/?path=/story/formfields-formfieldtoggleswitch--playground)
 - Data: `boolean` - Defines whether the switch is checked or not.
 - inputSettings:
-	* **toggleLabel** - `string` optional - This label is placed at the right of the switch.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`toggleLabel`** | `string` | optional - This label is placed at the right of the switch. |
 
 ### How to use in a form?
 
 ```ts
-const fields = useMemo(
+const fields: FieldDef[] = useMemo(
 	() =>
 		[
 			//...other fields
@@ -954,34 +997,79 @@ const fields = useMemo(
 				},
 			},
 			//...other fields
-		] as FieldDef<FormFieldToggleSwitchDef>[],
+		],
 	[]
 );
 ```
 
-## FormFieldAddress
-- Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
-- [**Playground**](/?path=/story/formfields-formfieldaddress--playground)
-- Data: `object`
-	* **address1** - `string` required - Main address.
-	* **address2** - `string` optional - Additional address.
-	* **address3** - `string` optional - Additional address.
-	* **city** - `string` required - Name of the city.
-	* **country** - `string` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
-	* **postalCode** - `string` required - Postal code of the address.
-	* **state** - `object` required - Must follow the format given on [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database).
-	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
-- inputSettings: This component doesn't require any additional props.
+## FormFieldUpload
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- The FormFieldUpload component allows users to upload multiple files of any type.
+- [**Playground**](/?path=/story/formfields-formfieldupload--playground)
+- Data: `array` of `UploadData`:
+	* **id** - `string | number` required - Used to identify which file is being used to work with (delete, add, update its loading percentage, etc).
+	* **name** - `string` required - Name the user will see when the file card gets rendered.
+	* **size** - `string` required - Value that will render under the name. The component doesn't add the suffix "b, mb, kb, ..." to the size, that also needs to come included in the string.
+	* **url** - `string` optional - Link used to render the image next in the file card. If none provided a default file icon will appear instead.
+- inputSettings:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`onFileAdd`** | `(addedData: OnFileAddData) => Promise<void>` | required - Callback function executed per uploaded file. |
+| **`onFileDelete`** | `({id: string or number}) => Promise<void>` | required - Callback function executed when the user deletes an uploaded file. |
+| **`limit`** | `number` | optional - Limits the amount of files users can upload. If not passed users can add as many files as needed. |
+
+- OnFileAddData:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`file`** | `File` | required - File uploaded by the user. |
+| **`onChunkComplete`** | `({percent: number}) => Promise<void>` | required - Callback function that allows the file cards to update their progress spinner. The expected percent should be a value between 0 and 1. |
+| **`onUploadComplete`** | `(data: UploadData) => Promise<void>` | required - Callback function that allows the component to update the file cards with the newest data |
+| **`onError`** | `(message: string) => Promise<void>` | required - Callback function that allows the file cards to update their style and error message. |
 
 ### How to use in a form?
+
 ```ts
+const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
+	for (let i = 0; i < 10; i++) {
+		await new Promise(resolve => setTimeout(() =>
+			resolve(
+				onChunkComplete({percent: (i + 1) * 0.1})
+			), 300)
+		);
+	}
+
+	if (Math.random() < 0.3) {
+		await onError("File size exceeded");
+		return;
+	}
+
+	await onUploadComplete({
+		id: nanoid(),
+		name: file.name,
+		size: `${file.size} bytes`,
+		url: Math.random() < 0.7 ? URL.createObjectURL(file) : undefined
+	});
+};
+
+const onFileDelete = ({id}) => {
+	alert("DELETED FILE: " + id);
+}
+
 const fields = useMemo(
 	() =>
 		[
 			//...other fields
 			{
-				//...all generic field props,
-				type: 'address',
+				//...all generic field props
+				type: "upload",
+				inputSettings: {
+					onFileAdd,
+					onFileDelete,
+					limit: 2,
+				},
 			},
 			//...other fields
 		],
@@ -990,13 +1078,18 @@ const fields = useMemo(
 ```
 
 ## FormFieldDropdownSingleSelection
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - `Dropdown Single Selection` is a simple wrapper for [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/#main-content) but with our brand colors.
 - [**Playground**](/?path=/docs/formfields-formfielddropdownsingleselection--playground)
 - Data: `string` - String of the selected option.
 - inputSettings:
-	* **placeholder** - `string` Optional - Example text shown inside of the text field portion of the dropdown.
-	* **options** - `array` of `MosaicLabelValue` required - Array of options to be displayed on the options.
-	* **getOptions** - `() => Promise<MosaicLabelValue[]>` required - Function to get a set of options. This prop only applies when getting options from a DB.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`placeholder`** | `string` | Optional - Example text shown inside of the text field portion of the dropdown. |
+| **`options`** | `MosaicLabelValue[]` | required - Array of options to be displayed on the options. |
+| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
 
 ### How to use in a form?
 ```ts
@@ -1042,6 +1135,8 @@ const fields = useMemo(
 ```
 
 ## FormFieldImageUpload
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 `Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents
 - [**Playground**](/?path=/docs/formfields-formfieldimageupload--playground)
 - Data: `object` Optional - Object of the value arguments
@@ -1056,6 +1151,18 @@ const fields = useMemo(
 - inputSettings:
 	* **handleSetFocus** - `() => void` Optional - Callback executed when the set focus button is clicked.
 	* **options** - `array` of `object` Optional - List of menu options that can be executed by the component.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`handleSetFocus`** | `string` | Optional - Callback executed when the set focus button is clicked. |
+| **`options`** | `options[]` | Optional - List of menu options that can be executed by the component. |
+
+- options:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`label`** | `string` | Required - Name of the option. |
+| **`action`** | `() => void` | Required - Function that will be triggered when the option is clicked |
 
 ### How to use in a form?
 ```ts
@@ -1089,6 +1196,8 @@ const fields = useMemo(
 ```
 
 ## FormFieldImageVideoLinkDocument
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 `Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
 The setup supports images, videos, documents or links.
 - [**Playground**](/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
@@ -1096,15 +1205,23 @@ The setup supports images, videos, documents or links.
 	* **label** - `number` - Asset property name.
 	* **value** - `number` - Asset property value.
 - inputSettings:
-	* **handleRemove** - `() => void` Optional - Callback executed when the remove button is clicked. In order to remove the loaded asset, this function should dispatch a `setFieldValue` form action with a value of an empty array.
-	* **handleSetDocument** - `() => Promise<void>` Optional - Callback executed when the document icon clicked. In order to load a document, it should dispatch a form action of type `setFieldValue` with a document of the type specified in the `Data` section.
-	* **handleSetImage** - `() => Promise<void>` Required - Callback executed when the image icon clicked. In order to load an image, it should dispatch a form action of type `setFieldValue` with an image of the type specified in the `Data` section.
-	* **handleSetVideo** - `() => Promise<void>` Optional - Callback executed when the video icon is clicked. In order to load a video, it should dispatch a form action of type `setFieldValue` with a video of the type specified in the `Data` section.
-	* **handleSetLink** - `() => Promise<void>` Optional - Callback executed when the link icon is clicked. In order to load a link, it should dispatch a form action of type `setFieldValue` with a link of the type specified in the `Data` section.
-	* **options** - `array` of `object` Optional - List of options that will be shown when the three vertical dots icon is clicked.
-		* **label** - `string` - Option label.
-		* **action** - `() => void` - Callback function that will be executed when the option is clicked.
-	* **src** - `string` Optional - If the asset contains an image, its source should be passed via this src prop.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`handleRemove`** | `() => void` | Optional - Callback executed when the remove button is clicked. In order to remove the loaded asset, this function should dispatch a `setFieldValue` form action with a value of an empty array. |
+| **`handleSetDocument`** | `() => Promise<void>` | Optional - Callback executed when the document icon clicked. In order to load a document, it should dispatch a form action of type `setFieldValue` with a document of the type specified in the `Data` section. |
+| **`handleSetImage`** | `() => Promise<void>` | Required - Callback executed when the image icon clicked. In order to load an image, it should dispatch a form action of type `setFieldValue` with an image of the type specified in the `Data` section. |
+| **`handleSetVideo`** | `() => Promise<void>` | Optional - Callback executed when the video icon is clicked. In order to load a video, it should dispatch a form action of type `setFieldValue` with a video of the type specified in the `Data` section. |
+| **`handleSetLink`** | `() => Promise<void>` | Optional - Callback executed when the link icon is clicked. In order to load a link, it should dispatch a form action of type `setFieldValue` with a link of the type specified in the `Data` section. |
+| **`src`** | `string` | Optional - If the asset contains an image, its source should be passed via this src prop. |
+| **`options`** | `options[]` | Optional - List of options that will be shown when the three vertical dots icon is clicked. |
+
+- options:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`label`** | `string` | Required - Name of the option. |
+| **`action`** | `() => void` | Required - Function that will be triggered when the option is clicked |
 
 ### How to use in a form?
 ```ts
@@ -1201,6 +1318,7 @@ const setImage = async () => {
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
 			value: image,
+			touched: true
 		})
 	);
 };
@@ -1210,6 +1328,7 @@ const setVideo = async () => {
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
 			value: video,
+			touched: true
 		})
 	);
 };
@@ -1219,6 +1338,7 @@ const setDocument = async () => {
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
 			value: document,
+			touched: true
 		})
 	);
 };
@@ -1227,7 +1347,8 @@ const setLink = async () => {
 	await dispatch(
 		formActions.setFieldValue({
 			name: "imageVideoDocumentLink",
-			value: link
+			value: link,
+			touched: true
 		})
 	);
 };
@@ -1265,19 +1386,151 @@ const fields = useMemo(
 );
 ```
 
+## FormFieldMatrix
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+`Matrix` This component is used to dynamically create content in a data view. Some examples may be creating rows using a form fields or displaying
+selected rows from another Data View.
+- Data: [`MosaicObject[]`](#mosaicobject-type) - Array of objects containing all data required to popoulate the list
+- inputSettings:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`dataView`** | `DataViewProps` | Data view configurations (see [DataView props](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-dataview-readme--page#props)).|
+| **`buttons`** | `ButtonAttrs[]` | List of buttons that will be display above the data view (see [ButtonAttrs type](#buttonattrs-type)). |
+
+### How to use in a form?
+```ts
+import formActions from "@simpleview/sv-mosaic/formActions";
+
+const { dispatch } = useForm();
+
+const listColumns = [
+	{
+		name: "id",
+		label: "ID"
+	},
+	{
+		name: "description",
+		label: "Description"
+	},
+	{
+		name: "title",
+		label: "Title",
+	},
+];
+
+const gridConfig: DataViewProps = {
+	columns: listColumns,
+	primaryActions: [
+		{
+			name: "edit",
+			color: "black",
+			variant: "icon",
+			mIcon: CreateIcon,
+			onClick: function ({ data }) {
+				alert(`EDIT ${data.id}`);
+			}
+		},
+		{
+			name: "delete",
+			color: "black",
+			variant: "icon",
+			mIcon: DeleteIcon,
+			onClick: function ({ data }) {
+				alert(`EDIT ${data.id}`);
+			}
+		}
+	],
+	sticky: true,
+	data: state.data.formMatrix,
+	limit: 25,
+	onReorder: async (newRows) => {
+		const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
+
+		await dispatch(
+			formActions.setFieldValue({
+				name: "formMatrix",
+				value: rows,
+				touched: true
+			})
+		);
+	},
+	display: "list",
+	activeColumns: ["id", "description", "title"],
+	savedView: defaultView
+};
+
+const addRow = async () => {
+	const mappedData = rawData.slice(1, 4).map((data) => {
+		// convert the date columns to dates, since they are ISOStrings in the file
+		return {
+			...data,
+			created: data.created ? new Date(data.created) : undefined,
+			updated: data.updated ? new Date(data.updated) : undefined
+		}
+	});
+
+	await dispatch(
+		formActions.setFieldValue({
+			name: "formMatrix",
+			value: mappedData,
+			touched: true
+		})
+	);
+};
+
+
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				name: "formMatrix",
+				type: "matrix",
+				inputSettings: {
+						dataView: gridConfig,
+						buttons: [
+							{
+								label: "Add",
+								onClick: addRow,
+								color: "teal",
+								variant: "text",
+								mIcon: AddIcon
+							},
+						] as ButtonProps[]
+					},
+			},
+			//...other fields
+		],
+	[gridConfig]
+);
+```
+
 ## FormFieldMapCoordinates
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - `Map Coordinates` This component is helpful when the user needs browse coordinates in a map.
 - [**Playground**](/?path=/docs/formfields-formfieldmapcoordinates--playground)
 - Data: `object` - Object of the value arguments
 	* **lat** - `number` - Latitude
 	* **lng** - `number` - longitude
 - inputSettings:
-	* **address** - `object` Optional - Address object used to set lat and lng values when using the autocoordinates feature (please see Address section).
-	* **apiKey** - `string` Required - Google Maps API key needed to consume the Maps JavaScript API and Places API.
-	* **zoom** - `number` Optional - Zoom applied to the map. If is not defined the map will be all the way zoomed out.
-	* **mapPosition** - `object` Optional - Latitude and longitude object. If is not defined the map will be positioned at 0,0.
-		* **lat** - `number` - Latitude
-		* **lng** - `number` - Longitude
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`address`** | `object` | Optional - Address object used to set lat and lng values when using the autocoordinates feature (please see Address section). |
+| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to consume the Maps JavaScript API and Places API. |
+| **`zoom`** | `number` | Optional - Zoom applied to the map. If is not defined the map will be all the way zoomed out. |
+| **`mapPosition`** | `object` | Optional - Latitude and longitude object. If is not defined the map will be positioned at 0,0. |
+
+- mapPosition
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`lat`** | `number` | Latitude. |
+| **`lng`** | `number` | Longitude. |
 
 ### How to use in a form?
 ```ts
@@ -1311,15 +1564,106 @@ const fields = useMemo(
 );
 ```
 
+## FormFieldNumberTable
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- [**Playground**](/?path=/story/formfields-formfieldnumbertable--playground)
+- Data: `object` - Object that has the row name as key and nested another object with the column name as key and the value corresponds to text field value.
+	* **rowName: string** - `object` - Row name is used as key identifier.
+		* **columnName: string** - `string` - Value of each text field cell.
+- inputSettings:
+
+| Name | Type | Default | Description |
+| ---- | ---- | --------| ----------- |
+| **`columns`** | `{ name: string; title: string }[]` | | Columns definition. |
+| **`columnTotalLabel`** | `string` | "Total" | optional - Default: "Total". Label shown on the column that displays the totals. |
+| **`rows`** | `{ name: string; title: string, subtitle?: string }[]` | | Rows definition. |
+| **`rowTotalLabel`** | `string` | "Total" | optional - Label shown on the total row. |
+| **`topLeftLabel`** | `string` | |  optional - Label placed on the top left table corner i.e the first column. |
+
+### How to use in a form?
+
+```ts
+const fields: FieldDef[] = useMemo(
+	(): FieldDef[] =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "numberTable",
+				defaultValue: {
+					"2023_02_10": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "17",
+					},
+					"2023_02_11": {
+						single: "18",
+						double: "19",
+						queen: "20",
+						king: "21",
+						suite: "22",
+						any: "23",
+					},
+					"2023_02_12": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "20",
+					},
+					"2023_02_13": {
+						single: "1",
+						double: "1",
+						queen: "1",
+						king: "1",
+						suite: "1",
+						any: "1",
+					},
+				},
+				inputSettings: {
+					rowTotalLabel: "TOTAL",
+					columnTotalLabel: "No. Rooms",
+					topLeftLabel: "Day",
+					rows: [
+						{ name: "2023_02_10", title: "Shoulder Before" },
+						{ name: "2023_02_11", title: "Day 1", subtitle: "February 11" },
+						{ name: "2023_02_12", title: "Day 2" },
+						{ name: "2023_02_13", title: "Day 3" },
+					],
+					columns: [
+						{ name: "single", title: "Single" },
+						{ name: "double", title: "Double" },
+						{ name: "queen", title: "Queen" },
+						{ name: "king", title: "King" },
+						{ name: "suite", title: "Suite" },
+						{ name: "any", title: "Any" },
+					]
+				},
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
 ## FormFieldPhoneSelectionDropdown
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
 - `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed.
 - [**Playground**](/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
 - Data: `string` - String of the selected options
 - inputSettings:
-	* **autoFormat** - `boolean` Optional - Phone formatting according to the country selected.
-	* **country** - `string` Optional - Initial country. It must be a country code (e.g., us, mx, etc.)
-	* **placeholder** - `string` Optional - Example text shown inside of the input field portion of the dropdown
-	* **value** - `string` Optional - Input state value.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`autoFormat`** | `boolean` | Optional - Phone formatting according to the country selected. |
+| **`country`** | `string` | Optional - Initial country. It must be a country code (e.g., us, mx, etc.). |
+| **`value`** | `string` | Optional - Input state value. |
 
 ### How to use in a form?
 ```ts
@@ -1333,7 +1677,6 @@ const fields = useMemo(
 				inputSettings: {
 					autoFormat: false,
 					country: "mx",
-					placeholder: "Placeholder",
 				}
 			},
 			//...other fields

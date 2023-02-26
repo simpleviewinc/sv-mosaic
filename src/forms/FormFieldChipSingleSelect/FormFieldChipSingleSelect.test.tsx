@@ -8,7 +8,6 @@ import theme from "@root/theme";
 //Components
 import Form, { useForm, formActions } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
-import { FormFieldChipSingleSelectDef } from "./FormFieldChipSingleSelectTypes";
 import { ButtonProps } from "@root/components/Button";
 import { getOptions } from "@root/utils/getOptions";
 
@@ -46,7 +45,7 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 						getOptions: props.fromDB ? getOptions : undefined
 					},
 				}
-			] as FieldDef<FormFieldChipSingleSelectDef>[],
+			] as FieldDef[],
 		[]
 	);
 
@@ -86,10 +85,20 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 	);
 };
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 describe("FormFieldChipSingleSelect component", () => {
-	beforeEach(() => {
-		render(<FormFieldChipSingleSelectExample fromDB={false} />);
-	})
+	beforeEach(async () => {
+		await act(() => {
+			render(<FormFieldChipSingleSelectExample fromDB={false} />);
+		});
+	});
 
 	it("should display the list of options", () => {
 		expect(getByText("Option 1")).toBeTruthy();
@@ -97,9 +106,12 @@ describe("FormFieldChipSingleSelect component", () => {
 		expect(getByText("Option 3")).toBeTruthy();
 	});
 
-	it("should check the clicked option", () => {
+	it("should check the clicked option", async () => {
 		const chipElements = getAllByRole("button") as HTMLInputElement[];
-		fireEvent.click(chipElements[1]);
+
+		await act(async () => {
+			fireEvent.click(chipElements[1]);
+		});
 
 		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe(theme.newColors.simplyGold["100"]);
 		expect(window.getComputedStyle(chipElements[2]).backgroundColor).toBe("rgb(240, 242, 245)");

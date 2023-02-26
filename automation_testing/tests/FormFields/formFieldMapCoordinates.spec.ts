@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldMapCoordinatesPage } from "../../pages/FormFields/FormFieldMapCoordinatesPage";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 	let page: Page;
@@ -8,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffMapCoordinatesPage = new FormFieldMapCoordinatesPage(page);
-		await ffMapCoordinatesPage.visitPage();
+		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.page_path);
 	});
 
 	test.beforeEach(async() => {
@@ -69,5 +70,18 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 		await ffMapCoordinatesPage.longitude.type("-181");
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Longitude should be between -180 and 180");
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
+	});
+
+	test("Validate border color in Map Card is grey2", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		expect(await ffMapCoordinatesPage.getSpecificBorderFromElement(ffMapCoordinatesPage.mapWithAddressDiv, "all")).toContain(expectedColor);
+	});
+
+	test("Validate drawer title location is fixed.", async () => {
+		await page.setViewportSize({ width: 1280, height: 400 });
+		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
+		await expect(ffMapCoordinatesPage.formTestID.last()).toBeVisible();
+		await ffMapCoordinatesPage.longitude.scrollIntoViewIfNeeded();
+		await expect(ffMapCoordinatesPage.formTestID.last().locator("form div").first()).toBeVisible();
 	});
 });

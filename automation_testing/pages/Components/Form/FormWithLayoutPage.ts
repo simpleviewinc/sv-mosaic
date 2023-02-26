@@ -9,6 +9,9 @@ export class FormWithLayout extends BasePage {
 	readonly topComponentContainer: Locator;
 	readonly topComponentContainerSections: Locator;
 	readonly sectionContainer: Locator;
+	readonly formTopComponent: Locator;
+	readonly formLayout: Locator;
+	readonly sections: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -16,10 +19,9 @@ export class FormWithLayout extends BasePage {
 		this.topComponentContainer = page.locator("//*[@id='root']/div/div/form/div[1]/div[2]");
 		this.topComponentContainerSections = this.topComponentContainer.locator("a");
 		this.sectionContainer = page.locator("[data-testid='section-test-id']");
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		this.formTopComponent = page.locator("//*[@id='root']/div/div/form/div[1]");
+		this.formLayout = page.locator("[data-testid='form-layout-test-id']");
+		this.sections = page.locator(".form-nav-wrapper");
 	}
 
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
@@ -101,6 +103,6 @@ export class FormWithLayout extends BasePage {
 	async validateSectionTopComponentElementIsSelected(section:string):Promise<string> {
 		await this.topComponentContainer.waitFor({ state: "visible" });
 		const indexOfSection = await this.getPositionOfSection(section);
-		return (await this.topComponentContainerSections.nth(indexOfSection).evaluate(el => getComputedStyle(el).borderBottom)).split("rgb")[1];
+		return (await this.topComponentContainerSections.nth(indexOfSection).evaluate(el => getComputedStyle(el.parentElement as Element).borderBottom)).split("rgb")[1];
 	}
 }

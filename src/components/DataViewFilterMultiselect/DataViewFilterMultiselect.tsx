@@ -78,9 +78,13 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 	}
 
 	const onApply = function(data) {
-		props.onChange(data);
+		if (data.value.length > 0 || data.comparison === "exists" || data.comparison === "not_exists") {
+			props.onChange(data);
+		} else {
+			props.onChange(undefined);
+		}
 		onClose();
-	}
+	};
 
 	let valueString: string;
 	if (comparison === "exists") {
@@ -118,8 +122,8 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 					getOptions={props.args.getOptions}
 					isOpen={state.dropdownOpen}
 					onApply={onApply}
-					onClose={onClose}
 					placeholder={props.args?.placeholder}
+					limit={props.args.limit}
 				/>
 			</DataViewFilterDropdown>
 		</span>

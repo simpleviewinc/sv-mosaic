@@ -10,6 +10,8 @@ export class FormFieldCheckboxPage extends BasePage {
 	readonly regularCheckboxButton: Locator;
 	readonly disabledCheckboxButton: Locator;
 	readonly checkboxLabel: Locator;
+	readonly regularCheckboxLocator: Locator;
+	readonly fromDBCheckboxLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -17,10 +19,8 @@ export class FormFieldCheckboxPage extends BasePage {
 		this.regularCheckboxButton = page.locator(".listItem").nth(0);
 		this.disabledCheckboxButton = page.locator(".listItem").nth(1);
 		this.checkboxLabel = page.locator("label[data-testid='label-test-id']");
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		this.regularCheckboxLocator = page.locator("#checkbox");
+		this.fromDBCheckboxLocator = page.locator("#checkboxFromDB");
 	}
 
 	async selectRandomCheckboxButton(): Promise<number> {

@@ -1,13 +1,15 @@
+import { MosaicObject } from "@root/types";
 import { useRef, useCallback, useReducer } from "react";
 import { SectionDef } from "./FormTypes";
 
 type State = {
-	data: any;
+	data: MosaicObject;
 	errors: any;
 	validating: any;
 	custom: unknown;
 	validForm: boolean;
-	disabled: unknown;
+	disabled: boolean;
+	touched: { [key: string]: boolean };
 }
 
 type Action = {
@@ -26,29 +28,21 @@ export function coreReducer(state: State, action: Action): State {
 				[action.name]: action.value
 			}
 		};
-	case "FIELD_START_VALIDATE":
+	case "FIELD_TOUCHED":
 		return {
 			...state,
-			errors: {
-				...state.errors,
-				[action.name]: null
-			},
-			validating: {
-				...state.validating,
-				[action.name]: true
+			touched: {
+				...state.touched,
+				[action.name]: action.value
 			}
 		};
-	case "FIELD_END_VALIDATE":
+	case "FIELD_VALIDATE":
 		return {
 			...state,
 			errors: {
 				...state.errors,
 				[action.name]: action.value
 			},
-			validating: {
-				...state.validating,
-				[action.name]: undefined
-			}
 		};
 	case "FORM_START_DISABLE":
 		return {
@@ -73,7 +67,12 @@ export function coreReducer(state: State, action: Action): State {
 			validating: {},
 			custom: {},
 			validForm: false,
-			disabled: null,
+			disabled: false,
+		}
+	case "PROPERTY_RESET":
+		return {
+			...state,
+			[action.name]: action.value
 		}
 	default:
 		return state;
@@ -101,7 +100,8 @@ export function useForm(): UseFormReturn {
 			validating: {},
 			custom: {},
 			validForm: false,
-			disabled: null,
+			disabled: false,
+			touched: {}
 		},
 		extraArgs.current
 	);

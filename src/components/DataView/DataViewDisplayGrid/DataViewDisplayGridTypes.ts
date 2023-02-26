@@ -20,4 +20,7 @@ export interface DataViewDisplayGridProps {
 	primaryActions?: DataViewProps["primaryActions"];
 	rowCount?: number;
 	sort?: DataViewProps["sort"];
+	anyChecked?: boolean;
+	allChecked?: boolean;
+	showBulkAll?: boolean;
 }

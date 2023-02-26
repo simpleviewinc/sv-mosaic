@@ -7,7 +7,6 @@ import {
 	number,
 	select,
 } from "@storybook/addon-knobs";
-import { TextFieldDef } from ".";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
@@ -30,13 +29,15 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 	const multiline = boolean("Multiline", false);
+	const minRows = number("Min rows for multiline", 3);
+	const maxRows = number("Max rows for multiline", 4);
 	const withIcon = boolean("With icon", false);
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
 
-	const fields = useMemo(
-		() =>
+	const fields: FieldDef[] = useMemo(
+		(): FieldDef[] =>
 			[
 				{
 					name: "textfield",
@@ -44,19 +45,20 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					required,
 					disabled,
-					maxCharacters: maxCharacters,
 					size,
 					inputSettings: {
 						prefixElement: withIcon && <AccountCircle />,
 						maxCharacters,
 						placeholder,
 						multiline,
-						type
+						type,
+						minRows,
+						maxRows
 					},
 					helperText,
 					instructionText,
 				},
-			] as FieldDef<TextFieldDef>[],
+			],
 		[
 			label,
 			required,
@@ -68,6 +70,8 @@ export const Playground = (): ReactElement => {
 			multiline,
 			helperText,
 			instructionText,
+			minRows,
+			maxRows,
 			type
 		]
 	);
@@ -88,7 +92,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkfields = [
+const kitchenSinkfields: FieldDef[] = [
 	{
 		name: "regular",
 		label: "Regular example",
@@ -96,11 +100,11 @@ const kitchenSinkfields = [
 		required: false,
 		size: "md",
 		inputSettings: {
-			placeholder: "placeholder"
+			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text"
-	} as FieldDef<TextFieldDef>,
+	},
 	{
 		name: "password",
 		label: "Password type example",
@@ -109,11 +113,11 @@ const kitchenSinkfields = [
 		size: "md",
 		inputSettings: {
 			placeholder: "Password",
-			type: "Password"
+			type: "Password",
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text"
-	} as FieldDef<TextFieldDef>,
+	},
 	{
 		name: "multiline",
 		label: "Multiline example",
@@ -133,7 +137,6 @@ const kitchenSinkfields = [
 		type: "text",
 		required: false,
 		size: "md",
-		maxCharacters: 20,
 		inputSettings: {
 			maxCharacters: 20,
 			placeholder: "placeholder",
@@ -203,7 +206,7 @@ const kitchenSinkfields = [
 		helperText: "Helper text",
 		instructionText: "Instruction text",
 	},
-] as FieldDef<TextFieldDef>[];
+];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();

@@ -19,7 +19,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 
 	if (props.args.required && !props.data.value) throw new Error("Invalid use-case, a value is required but none was provided")
 
-	const value = props.data.value;
+	const value = props.data?.value;
 
 	useEffect(() => {
 		let isMounted = true;
@@ -63,12 +63,15 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 	}
 
 	const onChange = function (value: string) {
-		props.onChange({
-			value : value === "" ? undefined : value
-		});
-
+		if (value === "" || value === undefined) {
+			props.onChange(undefined);
+		} else {
+			props.onChange({
+				value : value
+			});
+		}
 		onClose();
-	}
+	};
 
 	return (
 		<StyledWrapper>

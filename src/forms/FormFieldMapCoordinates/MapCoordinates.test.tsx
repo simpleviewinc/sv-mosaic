@@ -15,7 +15,6 @@ import MapCoordinates from "./FormFieldMapCoordinates";
 import { ReactElement } from "react";
 
 import { FieldDef } from "@root/components/Field/FieldTypes";
-import { MapCoordinatesDef } from "./MapCoordinatesTypes";
 // Utils
 import { address, defaultMapPosition } from "./MapCoordinatesUtils";
 import { ButtonProps } from "@root/components/Button";
@@ -27,9 +26,10 @@ const {
 	getByTestId,
 	getAllByText,
 	queryByText,
+	getAllByRole
 } = screen;
 
-const fields = [
+const fields: FieldDef[] = [
 	{
 		name: "map",
 		label: "Map",
@@ -37,10 +37,10 @@ const fields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "test",
+			googleMapsApiKey: "test",
 		},
 	},
-] as FieldDef<MapCoordinatesDef>[];
+];
 
 const MapCoordinatesExample = (): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -126,6 +126,14 @@ export const setupGoogleMock = (): void => {
 // 	});
 // };
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 beforeAll(() => {
 	setupGoogleMock();
 });
@@ -144,21 +152,33 @@ jest.mock("@react-google-maps/api", () => ({
 }));
 
 describe("MapCoordinates component without an address", () => {
-	beforeEach(() => {
+	it("it should display the google maps elements", async () => {
 		act(() => {
 			render(<MapCoordinatesExample />)
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		fireEvent.click(addCoordinatesButton);
-	});
+		await act(async () => {
+			fireEvent.click(addCoordinatesButton);
+		});
 
-	it("it should display the google maps elements", () => {
-		expect(getByText("Mocked Google Map Component")).toBeTruthy();
-		expect(getByTestId("location-search-input")).toBeTruthy();
+		await waitFor(() => {
+			expect(getByText("Mocked Google Map Component")).toBeTruthy();
+			expect(getByTestId("location-search-input")).toBeTruthy();
+		});
+
 	});
 
 	it("should remove the saved coordinates", async () => {
+		act(() => {
+			render(<MapCoordinatesExample />)
+		});
+
+		const addCoordinatesButton = getByText("ADD COORDINATES");
+		await act(() => {
+			fireEvent.click(addCoordinatesButton);
+		});
+
 		const saveCoordinatesButton = await screen.findByText("Save Coordinates");
 
 		act(() => {
@@ -180,6 +200,15 @@ describe("MapCoordinates component without an address", () => {
 	});
 
 	it("should edit the saved coordinates", async () => {
+		act(() => {
+			render(<MapCoordinatesExample />)
+		});
+
+		const addCoordinatesButton = getByText("ADD COORDINATES");
+		await act(() => {
+			fireEvent.click(addCoordinatesButton);
+		});
+
 		const saveCoordinatesButton = getByText("Save Coordinates");
 
 		act(() => {
@@ -202,8 +231,18 @@ describe("MapCoordinates component without an address", () => {
 	});
 
 	it("should reset coordinates", async () => {
-		const latitudeField = getByLabelText("Latitude") as HTMLInputElement;
-		const longitudeField = getByLabelText("Longitude") as HTMLInputElement;
+		act(() => {
+			render(<MapCoordinatesExample />)
+		});
+
+		const addCoordinatesButton = getByText("ADD COORDINATES");
+		await act(() => {
+			fireEvent.click(addCoordinatesButton);
+		});
+
+		const fields = getAllByRole("textbox");
+		const latitudeField = fields[1] as HTMLInputElement;
+		const longitudeField = fields[2] as HTMLInputElement;
 
 		fireEvent.change(latitudeField, { target: { value: 100 } });
 		fireEvent.change(longitudeField, { target: { value: 150 } });
@@ -228,7 +267,7 @@ describe("MapCoordinates component with an address object (AUTOCOODINATES)", () 
 						type: "mapCoordinates",
 						label: "",
 						inputSettings: {
-							apiKey: "test",
+							googleMapsApiKey: "test",
 							mapPosition: defaultMapPosition,
 							address,
 						},

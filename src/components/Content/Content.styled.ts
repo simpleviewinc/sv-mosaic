@@ -4,29 +4,33 @@ import EditIcon from "@mui/icons-material/Edit";
 
 export const MainWrapper = styled.div`
 	font-family: ${theme.fontFamily};
-	border-bottom: 2px solid ${theme.colors.gray200};
-	margin: 32px 40px;
+	padding: 16px 0px;
+	margin: 0px 16px;
+
+	&.content-wrapper + .content-wrapper {
+		border-top: 2px solid ${theme.newColors.grey2["100"]};
+	}
 `;
 
 export const TitleWrapper = styled.div`
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	margin: 16px 0;
+	margin-bottom: 16px;
 `;
 
 export const Title = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 16px;
 	font-weight: ${theme.fontWeight.medium};
 `;
 
 export const StyledEditIcon = styled(EditIcon)`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	cursor: pointer;
 
 	&.MuiSvgIcon-root {
-		border-right: 1px solid ${theme.colors.gray200};
+		border-right: 1px solid ${theme.newColors.grey2["100"]};
 		padding-right: 16px;
 		width: 16px;
 	}
@@ -41,7 +45,7 @@ export const ButtonsWrapper = styled.div`
 	}
 
 	.button {
-		border-right: 2px solid ${theme.colors.gray200};
+		border-right: 2px solid ${theme.newColors.grey2["100"]};
 		padding: 0 16px 0 16px;
 	}
 
@@ -52,7 +56,7 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const Label = styled.p`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
@@ -64,7 +68,7 @@ export const FieldContainer = styled.div`
 `;
 
 export const TransformContainer = styled.div`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 14px;
 `;
 
@@ -81,7 +85,7 @@ export const ChipsWrapper = styled.div`
 
 
 export const ColorValue = styled.p`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;

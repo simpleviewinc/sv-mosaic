@@ -1,3 +1,4 @@
+import { AdvancedSelectionInputSettings } from "@root/forms/FormFieldAdvancedSelection";
 import { DataViewFilterProps } from "../DataView/DataViewTypes";
 
 export type MultiSelectComparison = "in" | "not_in" | "all" | "exists" | "not_exists";
@@ -14,6 +15,7 @@ export interface DataViewFilterMultiselectProps extends DataViewFilterProps {
 		getSelected(val: any): Promise<any> | any;
 		comparisons?:  MultiSelectComparison[];
 		placeholder?: string;
+		limit?: number;
 	}
 	onChange(val: DataViewFilterMultiselectData): void;
 }
@@ -27,5 +29,9 @@ export interface DataViewFilterMultiselectDropdownContentProps {
 	onApply: (val: any) => void;
 	isOpen: boolean;
 	placeholder?: DataViewFilterMultiselectProps["args"]["placeholder"];
-	onClose: () => void;
+	limit?:  DataViewFilterMultiselectProps["args"]["limit"];
+	onChange?: (val: any) => void;
+	hideButtons?: boolean;
+	createNewOption?: AdvancedSelectionInputSettings["createNewOption"];
+	selectLimit?: AdvancedSelectionInputSettings["selectLimit"];
 }

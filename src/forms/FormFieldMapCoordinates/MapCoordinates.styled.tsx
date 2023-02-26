@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
-
-// Components
-import ClearIcon from "@mui/icons-material/Clear";
 
 // Styles for the MapCoordinates component
 
 export const StyledSpan = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-family: ${theme.fontFamily};
   font-size: 14px;
   margin: 0px 20px 15px 20px;
@@ -19,7 +15,7 @@ export const StyledSpan = styled.span`
 `;
 
 export const CoordinatesCard = styled.div`
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 4px;
   display: flex;
   font-family: ${theme.fontFamily};
@@ -54,18 +50,18 @@ export const Column = styled.div`
 export const MapImageColumn = styled(Column)`
   margin-right: 16px;
   height: fit-content;
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
 `;
 
 export const LatLngLabel = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   font-size: 14px;
   font-weight: ${theme.fontWeight.semiBold};
   margin-bottom: 8px;
 `;
 
 export const CoordinatesValues = styled.span`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   font-size: 14px;
   font-weight: ${theme.fontWeight.normal};
 `;
@@ -88,46 +84,7 @@ export const MapContainer = styled.div`
   };
 `;
 
-// Styles for the LocationSearchInput component
-
-export const LocationSearchInputWrapper = styled.div`
-  margin-bottom: 8px;
-  margin-top: 15px;
-`;
-
-export const StyledInputSearch = styled(StyledTextField)`
-  min-width: 684px;
-
-  &.MuiTextField-root {
-    display: flex;
-  }
-`;
-
-export const StyledClearIcon = styled(ClearIcon)`
-  cursor: pointer;
-`;
-
-export const SuggestionsContainer = styled.div`
-  border: ${theme.borders.fieldGray};
-  font-family: ${theme.fontFamily};
-`;
-
-export const SuggestionsDescriptionContainer = styled.div`
-  background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.colors.gray200 : "white"};
-  cursor: pointer;
-  width: 683px;
-`;
-
-export const SuggestionDescription = styled.p`
-  font-size: 14px;
-  margin: 0;
-  padding: 6px 16px 6px 16px;
-
-  &:active {
-    color: ${theme.colors.gray800};
-    font-weight: ${theme.fontWeight.bold};
-  }
-`;
+// Styles for the Reset Button
 
 export const ResetButtonContainer = styled.div`
   display: flex;
@@ -143,13 +100,4 @@ export const ResetButtonContainer = styled.div`
     top: 56px;
     left: 0;
 }
-`;
-
-
-export const MapFormWrapper = styled.div`
-  width: 1160px;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    width: 100vw;
-  };
 `;

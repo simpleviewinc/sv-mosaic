@@ -19,7 +19,7 @@ export const LabelWrapper = styled.div`
     font-family: inherit;
     font-size: 16px;
     color: ${(pr) =>
-		pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
+		pr.disabled ? theme.colors.labelDisabled : theme.newColors.almostBlack["100"]};
   }
 
   .MuiFormLabel-asterisk {
@@ -41,13 +41,14 @@ export const StyledCheckboxList = styled(CheckboxList)`
   }
 
   .MuiFormControlLabel-label {
-    color: ${theme.colors.label};
+    color: ${theme.newColors.grey4["100"]};
+
   }
 `;
 
 export const StyledText = styled(MUIFormHelperText)`
   &.MuiFormHelperText-root {
-    color: ${theme.colors.assistiveText};
+    color: ${theme.newColors.grey3["100"]};
     font-size: ${pr => (pr.error ? "12px" : "14px")};
     margin-top: ${pr => (!pr.error ? "8px" : null)};
     margin-bottom: ${pr => (!pr.error ? "8px" : null)};

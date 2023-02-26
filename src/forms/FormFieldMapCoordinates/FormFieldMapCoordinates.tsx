@@ -7,8 +7,8 @@ import {
 	useState,
 } from "react";
 import {
-	MapCoordinatesDef,
-	MapPosition,
+	MapCoordinatesData,
+	MapCoordinatesInputSettings,
 } from "./MapCoordinatesTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 
@@ -42,7 +42,7 @@ import {
 } from "./MapCoordinatesUtils";
 import Drawer from "@root/components/Drawer";
 
-const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapPosition>): ReactElement => {
+const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {
 		value,
 		onBlur,
@@ -135,7 +135,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 	}, [autocoordinatesChecked, fieldDef?.inputSettings?.address]);
 
 	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: fieldDef?.inputSettings?.apiKey,
+		googleMapsApiKey: fieldDef?.inputSettings?.googleMapsApiKey,
 		libraries,
 	});
 
@@ -174,8 +174,8 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<MapCoordinatesDef, MapP
 						hasAddress={!isEmpty(fieldDef?.inputSettings?.address)}
 					>
 						<MapImageColumn>
-							<img 
-								src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=232x153&maptype=roadmap&markers=color:red%7C${mapPosition.lat},${mapPosition.lng}&key=${fieldDef.inputSettings.apiKey}`}
+							<img
+								src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=232x153&maptype=roadmap&markers=color:red%7C${mapPosition.lat},${mapPosition.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
 								alt="location"
 							/>
 						</MapImageColumn>

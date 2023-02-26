@@ -1,8 +1,9 @@
+import { FieldDefBase } from "@root/components/Field";
 import { SvgIconComponent } from "@root/types";
 
 export type TableRow = {
 	/**
-	 * Unique identifier. Used as an 
+	 * Unique identifier. Used as an
 	 * identifier for the draggable item.
 	 */
 	id: string;
@@ -28,7 +29,7 @@ export type Actions = {
 	actionFnc: (rowIndex: number) => void;
 };
 
-export type TableDef = {
+export type TableInputSettings = {
 	/**
 	 * Possible actions that the table could execute and display.
 	 */
@@ -57,7 +58,11 @@ export type TableDataState = {
 }
 
 export type UseTableReturnType = {
-	addTableRow: TableDef["handleAddElement"];
-	editAction: TableDef["handleEdit"];
-	extraActionsTable: TableDef["extraActions"];
+	addTableRow: TableInputSettings["handleAddElement"];
+	editAction: TableInputSettings["handleEdit"];
+	extraActionsTable: TableInputSettings["extraActions"];
 }
+
+export type TableData = TableRow[];
+
+export type FieldDefTable = FieldDefBase<"table", TableInputSettings, TableData>

@@ -3,7 +3,7 @@ import theme from "../../theme";
 
 export const SideNavStyle = styled.nav`
 	background: white;
-	border: 2px solid ${theme.colors.gray200};
+	border: 2px solid ${theme.newColors.grey2["100"]};
 	display: flex;
 	flex-direction: column;
 	width: 196px;
@@ -17,7 +17,7 @@ export const LinkWrapper = styled.div`
   	display: flex;
   	gap: 8px;
 	background-color: ${(pr) =>
-		pr.idx === pr.selectedLink ? theme.colors.gray200 : ""};
+		pr.idx === pr.selectedLink ? theme.newColors.grey2["100"] : ""};
 		border-left: ${(pr) =>
 		pr.idx === pr.selectedLink ? `4px solid ${theme.newColors.simplyGold["100"]}` : "4px solid transparent"};
 	padding: 12px 20px;
@@ -30,7 +30,7 @@ export const LinkWrapper = styled.div`
 	&:hover {
 		.MuiSvgIcon-root:not(:first-child) {
 			display: block;
-			color: ${theme.colors.gray600};
+			color: ${theme.newColors.grey3["100"]};
 			margin-right: -12px;
 			margin-left: auto;
 			width: 16px;
@@ -38,7 +38,7 @@ export const LinkWrapper = styled.div`
 	}
 
 	.MuiSvgIcon-root:first-child {
-		color: ${theme.colors.almostBlack};
+		color: ${theme.newColors.almostBlack["100"]};
 		width: 16px;
 	}
 
@@ -47,7 +47,7 @@ export const LinkWrapper = styled.div`
 	}
 
   &:hover {
-    background-color: ${theme.colors.gray200};
+    background-color: ${theme.newColors.grey2["100"]};
   }
 `;
 
@@ -59,7 +59,7 @@ export const SidebarWrap = styled.div`
 `;
 
 export const StyledLink = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 14px;
 	width: auto;
 	white-space: nowrap;
@@ -69,12 +69,12 @@ export const StyledLink = styled.span`
 `;
 
 export const SectionWrapper = styled.div`
-	border-bottom: 2px solid ${theme.colors.gray200};
+	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	cursor: pointer;
 `;
 
 export const Badge = styled.span`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	font-size: 10px;
 	font-weight: ${theme.fontWeight.semiBold};
 `;

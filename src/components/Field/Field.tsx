@@ -14,6 +14,7 @@ const Field = ({
 	fieldDef,
 	colsInRow,
 	value,
+	id
 }: MosaicFieldProps<any>): ReactElement => {
 	const [renderAsTooltip, setRenderAsTooltip] = useState(false);
 
@@ -21,7 +22,9 @@ const Field = ({
 	const fieldContainer = useRef<HTMLDivElement>(null);
 	const fieldRef = useRef<HTMLDivElement>(null);
 
-	const errorWithMessage = error?.trim().length > 0;
+	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
+
+	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
 
 	const handleDescriptionRender = () => {
 		const container = fieldContainer.current;
@@ -72,29 +75,33 @@ const Field = ({
 	}, []);
 
 	const renderBottomText = () => {
-		if ((errorWithMessage || (errorWithMessage && fieldDef?.required))) {
-			return <HelperText error={!!error}>{error}</HelperText>;
+		if (shouldRenderError) {
+			return <HelperText error={!!error}>
+				{
+					typeof error === "string" ? error : undefined
+				}
+			</HelperText>;
 		} else if (fieldDef?.helperText) {
 			return <HelperText>{fieldDef?.helperText}</HelperText>;
 		}
 	};
 
 	return (
-		<StyledFieldContainer className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
+		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper
-				error={errorWithMessage || (errorWithMessage && fieldDef?.required)}
+				error={shouldRenderError}
 				ref={fieldRef}
 			>
 				{
 					((fieldDef?.label && fieldDef?.label?.length > 0)
-						|| fieldDef?.maxCharacters
+						|| fieldDef?.inputSettings?.maxCharacters
 						|| (fieldDef?.instructionText && renderAsTooltip))
 					&&
 					<Label
 						disabled={fieldDef?.disabled}
 						required={fieldDef?.required}
 						htmlFor={fieldDef?.name}
-						maxCharacters={fieldDef?.maxCharacters}
+						maxCharacters={fieldDef?.inputSettings?.maxCharacters}
 						value={value}
 						tooltip={renderAsTooltip}
 						instructionText={fieldDef?.instructionText}

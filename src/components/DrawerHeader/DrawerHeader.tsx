@@ -1,14 +1,14 @@
 import * as React from "react";
-import { memo } from "react";
+import { memo, forwardRef } from "react";
 import Button from "@root/components/Button";
 import { StyledDrawerHeader } from "./DrawerHeader.styled";
 import { ButtonsWrapper } from "@root/forms/TopComponent/TopComponent.styled";
-import { FormTitle } from "@root/forms/TopComponent/Utils/TitleWrapper";
 import { DrawerHeaderProps } from "./DrawerHeaderTypes";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 
-const DrawerHeader = (props: DrawerHeaderProps) => {
+const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 	const {
 		title,
 		buttons,
@@ -16,7 +16,7 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 	} = props;
 
 	return (
-		<StyledDrawerHeader>
+		<StyledDrawerHeader ref={ref}>
 			<div style={{display: "flex", alignItems: "center"}}>
 				{onCancel && (
 					<IconButton
@@ -31,9 +31,7 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 					</IconButton>
 				)}
 				{title &&
-					<FormTitle type={"DRAWER"} data-testid="drawer-title-test-id">
-						{title}
-					</FormTitle>
+					<TitleWrapper title={title} data-testid="drawer-title-test-id" />
 				}
 			</div>
 			{buttons &&
@@ -45,6 +43,8 @@ const DrawerHeader = (props: DrawerHeaderProps) => {
 			}
 		</StyledDrawerHeader>
 	)
-};
+});
+
+DrawerHeader.displayName = "DrawerHeader";
 
 export default memo(DrawerHeader);

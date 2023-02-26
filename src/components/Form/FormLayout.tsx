@@ -20,7 +20,7 @@ interface FormLayoutProps {
 }
 
 const StyledFormLayout = styled.div`
-	margin: 0px auto;
+	margin: 0px;
 	max-width: 1160px;
 `;
 
@@ -36,7 +36,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 		<StyledFormLayout data-testid="form-layout-test-id" className='layout'>
 			{layout?.map((section, i) => (
 				<Section
-					ref={el => sectionRef.current[i] = el}
+					ref={sectionRef}
 					key={`section-${i}`}
 					title={section.title}
 					sectionIdx={i}

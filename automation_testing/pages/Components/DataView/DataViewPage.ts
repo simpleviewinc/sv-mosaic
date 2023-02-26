@@ -6,7 +6,7 @@ import { SaveAsComponent } from "./SaveAsComponent";
 
 export class DataviewPage extends BasePage {
 
-	readonly page_path = "components-dataview--example";
+	readonly page_path = "components-dataview--playground";
 
 	readonly page: Page;
 	readonly saveAsComponent: SaveAsComponent;
@@ -27,11 +27,13 @@ export class DataviewPage extends BasePage {
 	readonly columnHeaders: Locator;
 	readonly noResults: Locator;
 	readonly removeFilterIcon: Locator;
-	readonly checkboxOptions: Locator;
 	readonly filterRowBtn: Locator;
 	readonly filtersBtn: Locator;
 	readonly clearFiltersBtn: Locator;
 	readonly selectedChips: Locator;
+	readonly headerActionsLocator: Locator;
+	readonly dataviewTopComponent: Locator;
+	readonly dataviewTableHeadLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -44,34 +46,25 @@ export class DataviewPage extends BasePage {
 		this.viewChildren = page.locator("[data-mosaic-id=action_additional_view_children]");
 		this.history = page.locator("[data-mosaic-id=action_additional_history]");
 		this.title = page.locator(".headerRow.title .left h1");
-		this.checkboxRow = page.locator("input[type='checkbox']");
+		this.checkboxRow = page.locator(this.checkboxInputString);
 		this.downloadBtn = page.locator("[data-mosaic-id='action_bulk_download'] button");
 		this.deleteBtn = page.locator("[data-mosaic-id='action_bulk_delete'] button");
 		this.allSelectedLabel = page.locator(".bulkText");
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
-		this.selectedChips = page.locator(".chips div");
+		this.selectedChips = page.locator(".chips .chip");
 		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
-		this.checkboxOptions = page.locator("input[type='checkbox']");
 		this.filterRowBtn = page.locator(".filterRow button");
 		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" }).first();
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
-	async setDialogValidationListener(message: string): Promise<void> {
-		this.page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain(message);
-			dialog.accept();
-		});
+		this.headerActionsLocator = page.locator(".headerActions");
+		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
+		this.dataviewTableHeadLocator = page.locator("thead th");
 	}
 
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
-		this.page.on("dialog", async dialog => {
+		this.page.once("dialog", async dialog => {
 			expect(dialog.message().toString().split(",").length).toBe(number);
 			dialog.accept();
 		});
@@ -227,5 +220,17 @@ export class DataviewPage extends BasePage {
 
 	async getFilterText(locator: Locator): Promise<string> {
 		return await this.getOnlyStringWithLetters(await locator.locator(".filter-value p").innerText());
+	}
+
+	async removeAllSelectedFilters(): Promise<void> {
+		if (await this.filterRowBtn.count() > 1) {
+			await this.page.keyboard.press("Escape");
+			await this.filtersBtn.click();
+			for (let i = 0; i < await this.deleteIconSelectedOptionChip.count(); i++) {
+				this.deleteIconSelectedOptionChip.first().click();
+			}
+			await this.applyBtn.click();
+			await this.loading.waitFor({ state: "detached" });
+		}
 	}
 }

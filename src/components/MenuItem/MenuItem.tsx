@@ -23,13 +23,13 @@ const StyledMenuItem = styled(MUIMenuItem)`
 	&.menu-item {
 		padding: 8px 16px;
 		&:hover {
-			background-color: ${theme.colors.gray200} !important;
+			background-color: ${theme.newColors.grey2["100"]} !important;
 		}
 		&:active span {
-			color: #1a1a1a;
+			color: ${theme.newColors.almostBlack["100"]};
 		}
 		& .MuiTouchRipple-child {
-			background-color: ${theme.colors.grayHover};
+			background-color: ${theme.newColors.grey2["100"]};
 		}
 	}
 
@@ -43,7 +43,8 @@ const StyledMenuItem = styled(MUIMenuItem)`
 
 	& > .menuLabel {
 		font-family: ${theme.fontFamily};
-		color: ${theme.colors.label}
+		color: ${theme.newColors.grey4["100"]};
+
 	}
 `
 

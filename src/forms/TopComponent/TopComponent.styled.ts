@@ -4,14 +4,11 @@ import styled from "styled-components";
 import HelpIcon from "@mui/icons-material/Help";
 
 // Utils
-import theme, { BREAKPOINTS } from "@root/theme/theme";
-
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
-const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
+import theme, { Views } from "@root/theme/theme";
 
 export const FormContent = styled.div`
 	& .layout {
-		padding: ${pr => pr.view === "DRAWER" ? "15px 40px" : (pr.view === "RESPONSIVE" || pr.view === "DESKTOP" || pr.view === "BIG_DESKTOP") ? "15px 20px 0px 20px" : "0px"};
+		padding: ${pr => pr.view === Views.mobile ? "0px" :  "24px"};
 	}
 	overflow-y: auto;
 	width: 100%;
@@ -37,9 +34,9 @@ export const FlexContainer = styled.div`
 export const Row = styled(FlexContainer)`
   justify-content: space-between;
 
-  @media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
+  &.BIG_DESKTOP {
     justify-content: flex-start;
-	height: ${props => props.topComponentHeight ? `calc(100% - ${props.topComponentHeight}px)` : "100%"};
+    height: ${props => props.topComponentHeight ? `calc(100% - ${props.topComponentHeight}px)` : "100%"};
   }
 `;
 
@@ -53,21 +50,34 @@ export const CheckboxWrapper = styled.div`
 
 export const StyledColumn = styled(Column)`
   background-color: white;
-  border-bottom: 2px solid ${theme.colors.gray200};
+  border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+  justify-content: space-between;
+	padding: ${pr => pr.sections ? "24px 24px 0px 24px" : "24px 24px 16px 24px"};
+	top: 0;
+	z-index: 100;
+
+	& .form-nav-wrapper {
+		margin-top: 24px;
+	}
+
+	&.BIG_DESKTOP {
+		margin-bottom: 0px;
+		padding: 24px 24px 16px 24px;
+	}
 `;
 
 // Icons
 export const StyledHelpIconWrapper = styled.div`
   border-right: ${(pr) =>
-		pr.showActive ? `2px solid ${theme.colors.gray200}` : ""};
+		pr.showActive ? `2px solid ${theme.newColors.grey2["100"]}` : ""};
   padding-right: ${(pr) => (pr.isResponsiveView ? "" : "16px")};
 
-  @media (max-width: ${RESPONSIVE_BREAKPOINT}) {
+  &.RESPONSIVE {
     border-right: none;
   }
 `;
 
 export const StyledHelpIcon = styled(HelpIcon)`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   margin-top: 7px;
 `;

@@ -16,6 +16,9 @@ export class LeftNavPage extends BasePage {
 	readonly navDisplayMenu: Locator;
 	readonly menu: Locator;
 	readonly topMenuItems: Locator;
+	readonly sectionsLocator: Locator;
+	readonly divBottomLocator: Locator;
+	readonly leftNavLabelLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -28,10 +31,9 @@ export class LeftNavPage extends BasePage {
 		this.navDisplayMenu = page.locator("h3[title='Nav Display'] >> xpath=..");
 		this.menu = page.locator("span.menuButton");
 		this.topMenuItems = page.locator(".top a");
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		this.sectionsLocator = page.locator(".top div");
+		this.divBottomLocator = page.locator("div.bottom");
+		this.leftNavLabelLocator = page.locator(".left .navLabel");
 	}
 
 	async getItemParent(item: Locator): Promise<Locator> {

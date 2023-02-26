@@ -71,7 +71,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		this.titleFilterSearch = page.locator("div.inputRow input");
 		this.searchTitleComparisonDropdown = page.locator("div.inputRow button");
 		this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
-		this.errorMessageDates = page.locator(".errorMessage h5");
+		this.errorMessageDates = page.locator("#rangeStart p");
 
 		this.fromCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.fromCalendarInput = page.locator("input[type='tel']").nth(0);
@@ -84,7 +84,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 	}
 
 	async getNumberOfCategoryWithComparisonOptions(): Promise<number> {
-		return await this._dataviewPage.checkboxOptions.locator("li").count();
+		return await this._dataviewPage.checkboxRow.locator("li").count();
 	}
 
 	async getSpecificMenuItemForSingleSelectCategoryOption(menuPosition: number): Promise<string> {
@@ -105,18 +105,6 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		const categorySelected = await this.getSpecificMenuItemForSingleSelectCategoryOption(positionCategorySelected);
 		await this.dropdownOptions.nth(positionCategorySelected).click();
 		return categorySelected;
-	}
-
-	async selectAllAdvancedFilters(): Promise<void> {
-		await this._dataviewPage.filtersBtn.click();
-		await this.wait();
-		const numberOfFilters = await this.filterCheckbox.count();
-		for (let i = 0; i < numberOfFilters; i++) {
-			if (!await this.filterCheckbox.nth(i).isChecked()) {
-				await this.filterCheckbox.nth(i).check();
-			}
-		}
-		await this.applyBtn.click();
 	}
 
 	async getSelectedValueForSingleSelectCategoryOption(): Promise<string> {
@@ -145,6 +133,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 
 	async keywordSearchForComparisonCategory(category: string): Promise<string> {
 		await this.keywordSearchComparisonCategories.fill(category);
+		await this.wait();
 		return await this.selectFirstCategoriesForCategoryWithComparisonOption();
 	}
 

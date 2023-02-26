@@ -2,14 +2,14 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldImageVideoLinkDocumentBrowsingPage } from "../../pages/FormFields/FormFieldImageVideoLinkDocumentBrowsingPage";
 import theme from "../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldImageVideoLinkDocumentBrowsing - Kitchen Sink", () => {
 	let page: Page;
 	let ffImageVideoLinkDocumentBrowsingPage: FormFieldImageVideoLinkDocumentBrowsingPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffImageVideoLinkDocumentBrowsingPage = new FormFieldImageVideoLinkDocumentBrowsingPage(page);
-		await ffImageVideoLinkDocumentBrowsingPage.visitPage();
+		await ffImageVideoLinkDocumentBrowsingPage.visit(ffImageVideoLinkDocumentBrowsingPage.page_path);
 	});
 
 	test.beforeEach(async() => {
@@ -20,128 +20,96 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 		browser.close;
 	});
 
+	async function validateCardInformation(type: string, expectedType: string, titles: string[], expectedTitles: string[]) {
+		expect(type).toBe(expectedType);
+		expect(titles).toHaveLength(expectedTitles.length);
+		for (let i = 0; i < titles.length; i++) {
+			expect(titles[i]).toContain(expectedTitles[i]);
+		}
+	}
+
+	test("Validate dialog when pressing the Image with src.", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set image is called");
+	});
+
+	test("Validate Image with src information", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
+		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
+		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
+		const expectedTitles = ["Title", "Type", "Alt", "Size"];
+		await expect(ffImageVideoLinkDocumentBrowsingPage.browseAllOptionsCardLocator.locator("img")).toBeVisible();
+		await validateCardInformation(type, "Image Video Thumbnail", titles, expectedTitles);
+	});
+
+	test("Validate dialog when pressing the Video with src.", async ({ page }) => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllVideoWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set video is called");
+	});
+
+	test("Validate Video with src information", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllVideoWithSrcButton.click();
+		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
+		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
+		const expectedTitles = ["Title", "Type", "Alt", "Size"];
+		await expect(ffImageVideoLinkDocumentBrowsingPage.browseAllOptionsCardLocator.locator("img")).toBeVisible();
+		await validateCardInformation(type, "Video", titles, expectedTitles);
+	});
+
+	test("Validate dialog when pressing the Document button.", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllDocumentWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set document is called");
+	});
+
+	test("Validate Document card information.", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllDocumentWithSrcButton.click();
+		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
+		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
+		const expectedTitles = ["Title", "Type", "Size", "Size on disk"];
+		await expect(ffImageVideoLinkDocumentBrowsingPage.browseAllOptionsCardLocator.locator("img")).not.toBeVisible();
+		await validateCardInformation(type, "Document", titles, expectedTitles);
+	});
+
+	test("Validate dialog when pressing the Link button.", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllLinkWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set Link has been called");
+	});
+
+	test("Validate Link card information", async () => {
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllLinkWithSrcButton.click();
+		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
+		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
+		const expectedTitles = ["Title", "Type", "URL"];
+		await expect(ffImageVideoLinkDocumentBrowsingPage.browseAllOptionsCardLocator.locator("img")).not.toBeVisible();
+		await validateCardInformation(type, "Asset Library - Image", titles, expectedTitles);
+	});
+
 	test("Validate dialog when pressing the Image without src.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Set image is called");
-			await dialog.accept();
-		});
+		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set image is called");
 	});
 
 	test("Validate Image without src information", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.imageWithoutSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-		await expect(ffImageVideoLinkDocumentBrowsingPage.imageOrVideoWithoutSrcCard.locator("img")).not.toBeVisible();
-		expect(type).toBe("Image Video Thumbnail");
-		expect(titles).toContain("Title");
-		expect(titles).toContain("Type");
-		expect(titles).toContain("Alt");
-		expect(titles).toContain("Size");
+		const expectedTitles = ["Title", "Type", "Alt", "Size"];
+		await expect(ffImageVideoLinkDocumentBrowsingPage.imageOrVideoWithoutSrcCardLocator.locator("img")).not.toBeVisible();
+		await validateCardInformation(type, "Image Video Thumbnail", titles, expectedTitles);
 	});
 
 	test("Validate dialog when pressing the Video without src.", async ({ page }) => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Set video is called");
-			await dialog.accept();
-		});
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithoutSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set video is called");
 	});
 
 	test("Validate Video without src information", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithoutSrcButton.click();
 		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-
-		await expect(ffImageVideoLinkDocumentBrowsingPage.imageOrVideoWithoutSrcCard.locator("img")).not.toBeVisible();
-		expect(type).toBe("Video");
-		expect(titles).toContain("Title");
-		expect(titles).toContain("Type");
-		expect(titles).toContain("Alt");
-		expect(titles).toContain("Size");
-	});
-
-	test("Validate dialog when pressing the Image with src.", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Set image is called");
-			await dialog.accept();
-		});
-	});
-
-	test("Validate Image with src information", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
-		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
-		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-
-		await expect(ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("img")).toBeVisible();
-		expect(type).toBe("Image Video Thumbnail");
-		expect(titles).toContain("Title");
-		expect(titles).toContain("Type");
-		expect(titles).toContain("Alt");
-		expect(titles).toContain("Size");
-	});
-
-	test("Validate dialog when pressing the Video with src.", async ({ page }) => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Set video is called");
-			await dialog.accept();
-		});
-		await ffImageVideoLinkDocumentBrowsingPage.videoWithSrcButton.click();
-	});
-
-	test("Validate Video with src information", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.videoWithSrcButton.click();
-		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
-		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-
-		await expect(ffImageVideoLinkDocumentBrowsingPage.browsingVideoWithSrcCard.locator("img")).toBeVisible();
-		expect(type).toBe("Video");
-		expect(titles).toContain("Title");
-		expect(titles).toContain("Type");
-		expect(titles).toContain("Alt");
-		expect(titles).toContain("Size");
-	});
-
-	test("Validate dialog when pressing the Document button.", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.documentButton.click();
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Set document is called");
-			await dialog.accept();
-		});
-	});
-
-	test("Validate Document card information.", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.documentButton.click();
-		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
-		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-
-		await expect(ffImageVideoLinkDocumentBrowsingPage.documentButton.locator("img")).not.toBeVisible();
-		expect(type).toBe("Document");
-		expect(titles).toContain("Title");
-		expect(titles).toContain("Type");
-		expect(titles).toContain("Size");
-		expect(titles).toContain("Size on disk");
-	});
-
-	test("Validate dialog when pressing the Link button.", async ({ page }) => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Set Link has been called");
-			await dialog.accept();
-		});
-		await ffImageVideoLinkDocumentBrowsingPage.linkButton.click();
-	});
-
-	test("Validate Link card information", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.linkButton.click();
-		const type = await ffImageVideoLinkDocumentBrowsingPage.getSpecificInfoFromTable("Type");
-		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
-
-		await expect(ffImageVideoLinkDocumentBrowsingPage.linkButton.locator("img")).not.toBeVisible();
-		expect(type).toBe("Asset Library - Image");
-		expect(titles).toContain("Title");
-		expect(titles).toContain("Type");
-		expect(titles).toContain("URL");
+		const expectedTitles = ["Title", "Type", "Alt", "Size"];
+		await expect(ffImageVideoLinkDocumentBrowsingPage.imageOrVideoWithoutSrcCardLocator.locator("img")).not.toBeVisible();
+		await validateCardInformation(type, "Video", titles, expectedTitles);
 	});
 
 	test("Validate Card without any browsing option.", async () => {
@@ -157,7 +125,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate More tooltip options in Card.", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.moreButton.hover();
 		await expect(ffImageVideoLinkDocumentBrowsingPage.page.locator("[role='tooltip']")).toBeVisible();
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
@@ -166,13 +134,13 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate removing a selected card.", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
-		await ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("button", {hasText: "Remove"}).click();
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllOptionsCardLocator.locator("button", { hasText: "Remove" }).click();
 		await expect(ffImageVideoLinkDocumentBrowsingPage.table).not.toBeVisible();
 	});
 
 	test("Validate the options in the three points button of a Card.", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
 		const options = await ffImageVideoLinkDocumentBrowsingPage.getThreePointsOptionsText();
 		expect(options).toContain("Edit");
 		expect(options).toContain("Translate");
@@ -180,46 +148,46 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate that the empty value is saved correctly.", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.imageWithSrcButton.click();
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
-		await ffImageVideoLinkDocumentBrowsingPage.browsingImageWithSrcCard.locator("button", { hasText: "Remove" }).click();
+		await ffImageVideoLinkDocumentBrowsingPage.browseAllOptionsCardLocator.locator("button", { hasText: "Remove" }).click();
 		await ffImageVideoLinkDocumentBrowsingPage.saveBtn.click();
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Form submitted with the following data: {}");
-			await dialog.accept();
-		});
+		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Form submitted with the following data: {}");
 	});
 
 	test("Validate Background Color in Browse Image buttons", async () => {
 		const expectBgColor = theme.newColors.realTeal["100"];
-		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseImageLocator.count();
+		const browseImageElement = ffImageVideoLinkDocumentBrowsingPage.page.locator(ffImageVideoLinkDocumentBrowsingPage.browseImageLocator);
+		const numberOfButtons = await browseImageElement.count();
 		for (let i = 0; i < numberOfButtons - 1; i++) {
-			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseImageLocator.nth(i))).toBe(expectBgColor);
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(browseImageElement.nth(i))).toBe(expectBgColor);
 		}
 	});
 
 	test("Validate Background Color in Browse Video buttons", async () => {
 		const expectBgColor = theme.newColors.realTeal["100"];
-		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseVideoLocator.count();
+		const browseVideoElement = ffImageVideoLinkDocumentBrowsingPage.page.locator(ffImageVideoLinkDocumentBrowsingPage.browseVideoLocator);
+		const numberOfButtons = await browseVideoElement.count();
 		for (let i = 0; i < numberOfButtons - 1; i++) {
-			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseVideoLocator.nth(i))).toBe(expectBgColor);
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(browseVideoElement.nth(i))).toBe(expectBgColor);
 		}
 	});
 
 	test("Validate Background Color in Browse Document buttons", async () => {
 		const expectBgColor = theme.newColors.realTeal["100"];
-		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseDocumentLocator.count();
+		const browseDocumentElement = ffImageVideoLinkDocumentBrowsingPage.page.locator(ffImageVideoLinkDocumentBrowsingPage.browseDocumentLocator);
+		const numberOfButtons = await browseDocumentElement.count();
 		for (let i = 0; i < numberOfButtons - 1; i++) {
-			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseDocumentLocator.nth(i))).toBe(expectBgColor);
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(browseDocumentElement.nth(i))).toBe(expectBgColor);
 		}
 	});
 
 	test("Validate Background Color in Browse Link buttons", async () => {
 		const expectBgColor = theme.newColors.realTeal["100"];
-		const numberOfButtons = await ffImageVideoLinkDocumentBrowsingPage.browseLinkLocator.count();
+		const browseLinkElement = ffImageVideoLinkDocumentBrowsingPage.page.locator(ffImageVideoLinkDocumentBrowsingPage.browseLinkLocator);
+		const numberOfButtons = await browseLinkElement.count();
 		for (let i = 0; i < numberOfButtons - 1; i++) {
-			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(ffImageVideoLinkDocumentBrowsingPage.browseLinkLocator.nth(i))).toBe(expectBgColor);
+			expect(await ffImageVideoLinkDocumentBrowsingPage.getBackgroundColorFromElement(browseLinkElement.nth(i))).toBe(expectBgColor);
 		}
 	});
-
 });

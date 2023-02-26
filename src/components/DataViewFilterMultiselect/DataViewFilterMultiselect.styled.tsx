@@ -75,6 +75,12 @@ export const StyledWrapper = styled.div`
 	& .chip > span {
 		flex: 1 1 0%
 	}
+
+	& .realTeal-icon {
+		& svg {
+			color: ${theme.newColors.realTeal[100]};
+		}
+	}
 `
 
 export const PopoverP = styled.p`
@@ -83,10 +89,10 @@ export const PopoverP = styled.p`
 
 export const StyledHr = styled.hr`
 	border: 2px solid ${theme.newColors.grey2[100]};
-	margin: 0px -16px;
+	margin:  ${pr => pr.margin ?? "0px -16px"};
 `;
 
 export const StyledVerticalHr = styled.hr`
 	border: 2px solid ${theme.newColors.grey2[100]};
-	margin: -32px 0px 0px 0px;
+	margin: ${pr => pr.margin ?? "-32px 0px 0px 0px"};
 `

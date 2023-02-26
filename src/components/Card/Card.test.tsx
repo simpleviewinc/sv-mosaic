@@ -25,26 +25,25 @@ describe("Card component", () => {
 		render(
 			<Card
 				content={content}
-				title={<p>Title</p>}
-				titleIcon={
-					<ContactsIcon
-						data-testid="contacts-icon-test"
-						sx={{ color: "black", width: 16 }}
-					/>
-				}
-				topAction={{
-					color: "black",
-					variant: "icon",
-					onClick: () => topAction(),
-					mIcon: AddIcon,
-				}}
-				bottomAction={{
-					color: "teal",
-					label: "Add a new task",
-					variant: "text",
-					onClick: () => bottomAction(),
-					mIcon: AddIcon,
-				}}
+				title={"Title"}
+				titleIcon={ContactsIcon}
+				topActions={[
+					{
+						color: "black",
+						variant: "icon",
+						onClick: () => topAction(),
+						mIcon: AddIcon,
+					}
+				]}
+				bottomActions={[
+					{
+						color: "teal",
+						label: "Add a new task",
+						variant: "text",
+						onClick: () => bottomAction(),
+						mIcon: AddIcon,
+					}
+				]}
 			/>
 		);
 	});

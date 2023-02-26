@@ -6,8 +6,8 @@ import theme from "@root/theme";
 export const StyledAddressCard = styled.div`
   display: flex;
   flex-direction: column;
-  color: ${theme.colors.almostBlack};
-  background-color: ${theme.colors.gray100};
+  color: ${theme.newColors.almostBlack["100"]};
+  background-color: ${theme.newColors.grey1["100"]};
   font-family: ${theme.fontFamily};
   height: 204px;
   padding: 24px 16px 16px 24px;
@@ -34,7 +34,7 @@ export const ButtonsWrapper = styled.div`
   margin-top: auto;
 
   span:first-child {
-    border-right: 1px solid ${theme.colors.simplyGray};
+    border-right: ${theme.borders.simplyGrey};
     padding-right: 16px;
   }
 

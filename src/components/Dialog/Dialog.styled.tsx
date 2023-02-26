@@ -11,7 +11,7 @@ z-index: 99999 !important;
   font-family: ${theme.fontFamily};
 
   .MuiDialogContent-root {
-    border-bottom: 2px solid ${theme.colors.gray200};
+    border-bottom: 2px solid ${theme.newColors.grey2["100"]};
   }
 
   .MuiPaper-rounded {
@@ -32,7 +32,7 @@ z-index: 99999 !important;
 `;
 
 export const StyledDialogTitle = styled.div`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   font-size: 20px;
   font-weight: ${theme.fontWeight.medium};
   padding: 40px 30px 24px 30px;

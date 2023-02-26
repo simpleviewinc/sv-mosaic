@@ -20,7 +20,7 @@ const LabelWrapper = styled.div`
     font-family: inherit;
     font-size: 16px;
     color:  ${pr =>
-		pr.disabled ? theme.colors.labelDisabled : theme.colors.almostBlack};
+		pr.disabled ? theme.colors.labelDisabled : theme.newColors.almostBlack["100"]};
     word-wrap: break-word;
 
   :after {
@@ -31,7 +31,7 @@ const LabelWrapper = styled.div`
 `;
 
 const CharCounterWrapper = styled.div`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   align-self: flex-end;
   font-size: 12px;
 `;
@@ -93,7 +93,7 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputTooltipWrapper>
 			{maxCharacters > 0 && (
 				<CharCounterWrapper>
-					{(!value ? "0" : value.length) + "/" + maxCharacters}
+					{(!value ? "0" : value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").length) + "/" + maxCharacters}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>

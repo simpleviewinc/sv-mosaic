@@ -7,15 +7,15 @@ export const PhoneInputWrapper = styled.div`
   .react-tel-input {
     .form-control {
 	  ${(pr) => pr.error && `border: 1px solid ${theme.newColors.darkRed["100"]}`}
-      background-color: ${theme.colors.gray100};
+      background-color: ${theme.newColors.grey1["100"]};
       border-radius: 0px;
       font-family: ${theme.fontFamily};
       height: ${theme.fieldSpecs.inputText.totalHeight};
       padding: 12px 16px 12px 98px;
       width: 280px;
       &:focus {
-        color: ${theme.colors.almostBlack};
-        border-color: ${theme.colors.simplyGray};
+        color: ${theme.newColors.almostBlack["100"]};
+        border-color: ${theme.newColors.simplyGrey["100"]};
         box-shadow: none;
       }
       &:focus + .flag-dropdown {
@@ -25,7 +25,7 @@ export const PhoneInputWrapper = styled.div`
     }
 
     .flag-dropdown {
-      border-right: 1px solid ${theme.colors.simplyGray};
+      border-right: ${theme.borders.simplyGrey};
       &:focus-within {
         border: ${theme.borders.black};
         border-radius: 0px;
@@ -67,6 +67,6 @@ export const PhoneInputWrapper = styled.div`
 `;
 
 export const StyledDisabledText = styled.p`
-  color: ${theme.colors.assistiveText};
+  color: ${theme.newColors.grey3["100"]};
   font-family: ${theme.fontFamily};
 `;

@@ -3,37 +3,38 @@ import { useState, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
-import theme from "@root/theme";
 import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";
 import DatePickerCustom from "@root/forms/FormFieldDate/DatePicker";
+import { StyledHr, StyledVerticalHr } from "../DataViewFilterMultiselect/DataViewFilterMultiselect.styled";
+import MenuItem from "../MenuItem";
+import Field from "../Field";
 
-const StyledContents = styled.div`
-	& > .inputRow h5 {
-		margin-top:0;
-		margin-bottom: 8px;
-	}
+const StyledMainContent = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 
-	& > .inputRow {
+	& > div .inputRow {
 		display: flex;
 		align-items: center;
 	}
+`;
 
-	& > .inputRow div.startRange {
-		margin-right: 10px;
-	}
-
-	& .errorMessage h5 {
-		margin-top: 0;
-		margin-bottom: 0;
-		color: ${theme.newColors.darkRed["100"]};
+const StyledFilterDate = styled.div`
+	display: flex;
+	flex-direction: row;
+	& .options {
+		padding: 0px;
+    	margin: -10px;
 	}
 `;
 
 export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
 	const [state, setState] = useState({
-		rangeStart : props.rangeStart,
-		rangeEnd : props.rangeEnd
+		rangeStart : "rangeStart" in props ? props.rangeStart : undefined,
+		rangeEnd : "rangeStart" in props ? props.rangeEnd : undefined,
+		selectedOption: "selectedOption" in props ? props.selectedOption : undefined,
 	});
 
 	const { t } = useMosaicTranslation();
@@ -43,13 +44,27 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 		errorMessage = "End of range cannot be before start of range.";
 	}
 
+	if (state.rangeStart?.toString() === "Invalid Date" || state.rangeEnd?.toString() === "Invalid Date") {
+		errorMessage = "This is not a valid date";
+	}
+
 	const hasError = errorMessage !== undefined;
 
 	const onApply = function() {
-		props.onChange({
-			rangeStart : state.rangeStart,
-			rangeEnd: state.rangeEnd
-		});
+		if (!state.rangeStart && !state.rangeEnd) {
+			props.onChange(undefined);
+		} else {
+			props.onChange({
+				rangeStart: state.rangeStart,
+				rangeEnd: state.rangeEnd
+			});
+		}
+
+		props.onClose();
+	};
+
+	const onOptionSelect = (optionValue: string) => {
+		props.onChange({option: optionValue});
 
 		props.onClose();
 	}
@@ -59,7 +74,8 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 		setState({
 			...state,
 			rangeStart : undefined,
-			rangeEnd : undefined
+			rangeEnd : undefined,
+			selectedOption: undefined,
 		});
 	}
 
@@ -80,51 +96,90 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 
 		setState({
 			...state,
-			[name] : date === null ? undefined : date
+			[name] : date === null ? undefined : date,
+			selectedOption: undefined
 		});
 	}
 
 	return (
-		<StyledContents>
-			<div className="inputRow">
-				<div className="startRange">
-					<h5>{`${t("mosaic:common.date_from")}`}</h5>
-					<DatePickerCustom
-						onChange={getOnChange("rangeStart")}
-						value={state.rangeStart || null}
-						fieldDef={{
-							name: "",
-							label: "",
-							type: "",
-							inputSettings: {
-								placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
-							},
-						}}
-					/>
-				</div>
-				<div className="endRange">
-					<h5>{`${t("mosaic:common.date_to")}`}</h5>
-					<DatePickerCustom
-						onChange={getOnChange("rangeEnd")}
-						value={state.rangeEnd || null}
-						fieldDef={{
-							name: "",
-							label: "",
-							type: "",
-							inputSettings: {
-								placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
-							},
-						}}
-					/>
-				</div>
-			</div>
+		<StyledFilterDate data-testid="dataview-filter-date-dropdown-content">
 			{
-				hasError &&
-				<div className="errorMessage">
-					<h5>Error: {errorMessage}</h5>
-				</div>
+				"options" in props && props.options &&
+				<>
+					<ul className="options" data-testid="dataview-filter-date-options-list">
+						{
+							props.options.map(option =>
+								<MenuItem
+									key={`${option.label}-${option.value}`}
+									label={option.label}
+									selected={state.selectedOption === option.value}
+									color="blue"
+									onClick={() => onOptionSelect(option.value)}
+								/>
+							)
+						}
+					</ul>
+					<StyledVerticalHr margin={"-10px 10px"}/>
+				</>
 			}
-			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} onCancel={props.onClose} disableApply={hasError}/>
-		</StyledContents>
+			<StyledMainContent>
+				<div data-testid="dataview-filter-date-inputs">
+					<div className="inputRow">
+						<Field
+							value={state.rangeStart || null}
+							fieldDef={{
+								name: "",
+								label: `${t("mosaic:common.date_from")}`,
+								type: "date",
+								inputSettings: {}
+							}}
+							error={hasError && errorMessage || ""}
+							id={"rangeStart"}
+						>
+							<DatePickerCustom
+								onChange={getOnChange("rangeStart")}
+								value={state.rangeStart || null}
+								fieldDef={{
+									name: "",
+									label: "",
+									type: "",
+									inputSettings: {
+										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
+									},
+								}}
+							/>
+						</Field>
+						<Field
+							value={state.rangeEnd || null}
+							fieldDef={{
+								name: "",
+								label: `${t("mosaic:common.date_to")}`,
+								type: "date",
+								inputSettings: {}
+							}}
+							error={hasError && true || ""}
+							id={"rangeEnd"}
+						>
+							<DatePickerCustom
+								onChange={getOnChange("rangeEnd")}
+								value={state.rangeEnd || null}
+								fieldDef={{
+									name: "",
+									label: "",
+									type: "",
+									inputSettings: {
+										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
+									},
+								}}
+							/>
+						</Field>
+					</div>
+				</div>
+				<div>
+					<StyledHr margin={"10px -16px"} />
+					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={hasError}/>
+				</div>
+			</StyledMainContent>
+		</StyledFilterDate>
 	)
 }

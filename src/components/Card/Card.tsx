@@ -9,25 +9,27 @@ import {
 	StyledHr,
 	TitleWrapper,
 	TitleBar,
+	ButtonsWrapper
 } from "./Card.styled";
 
 const Card = (props: CardProps): ReactElement => {
-	const {
-		bottomAction,
-		content,
-		title,
-		titleIcon,
-		topAction,
-	} = props;
+	const { bottomActions, content, title, titleIcon, topActions } = props;
+	const TitleIcon = titleIcon;
 
 	return (
 		<CardWrapper>
 			<TitleBar>
 				<TitleWrapper>
-					{titleIcon}
-					{title}
+					<TitleIcon data-testid="contacts-icon-test"/>
+					<p className="card-title">{title}</p>
 				</TitleWrapper>
-				{topAction && <Button {...topAction}></Button>}
+				{topActions?.length > 0 && (
+					<ButtonsWrapper>
+						{topActions.map((button, idx) => (
+							<Button key={`${button.label}-${idx}`} {...button} />
+						))}
+					</ButtonsWrapper>
+				)}
 			</TitleBar>
 			<ContentWrapper>
 				{content.map((element, idx) => (
@@ -37,9 +39,13 @@ const Card = (props: CardProps): ReactElement => {
 					</div>
 				))}
 			</ContentWrapper>
-			{bottomAction && (
+			{bottomActions?.length > 0 && (
 				<BottomActionWrapper>
-					<Button {...bottomAction}></Button>
+					<ButtonsWrapper>
+						{bottomActions.map((button, idx) => (
+							<Button key={`${button.label}-${idx}`} {...button} />
+						))}
+					</ButtonsWrapper>
 				</BottomActionWrapper>
 			)}
 		</CardWrapper>

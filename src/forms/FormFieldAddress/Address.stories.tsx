@@ -23,7 +23,7 @@ export const Playground = (): ReactElement => {
 	const amountBilling = number("Amount billing", 1);
 
 	const fields = useMemo(
-		() => (
+		() : FieldDef[] => (
 			[
 				{
 					disabled,
@@ -38,9 +38,10 @@ export const Playground = (): ReactElement => {
 						amountBilling,
 						getOptionsCountries,
 						getOptionsStates,
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
 				},
-			] as FieldDef[]
+			]
 		),
 		[
 			disabled,

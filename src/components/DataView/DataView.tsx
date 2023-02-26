@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useRef, ReactElement } from "react";
+import { useEffect, useMemo, useRef, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
@@ -7,6 +7,7 @@ import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
+import { filterAction } from "./utils/bulkActionsUtils";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -14,6 +15,10 @@ const StyledWrapper = styled.div`
 	font-size: 14px;
 	display: flex;
 	flex-direction: column;
+
+	& > .noResults {
+		margin: 0px 20px;
+	}
 
 	& > .headerRow {
 		display: flex;
@@ -27,12 +32,12 @@ const StyledWrapper = styled.div`
 	& > .headerActions {
 		display: flex;
 		flex-direction: column;
-		padding: 20px;
+		padding: 8px 24px;
 	}
 
 	& > .headerActions .grid {
 		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding-bottom: 20px;
+		padding-bottom: 8px;
 	}
 
 	& > .viewContainer {
@@ -51,219 +56,6 @@ const StyledWrapper = styled.div`
 `;
 
 function DataView (props: DataViewProps): ReactElement  {
-	/*
-	jsvalidator.validate(props, {
-		type : "object",
-		schema : [
-			{
-				name : "title",
-				type : "string"
-			},
-			{
-				name : "columns",
-				type : "array",
-				schema : {
-					type : "object",
-					schema : [
-						{
-							name : "name",
-							type : "string",
-							required : true
-						},
-						{
-							name : "column",
-							type : "string"
-						},
-						{
-							name : "label",
-							type : "string"
-						},
-						{
-							name : "style",
-							type : "object",
-							schema : [
-								{ name : "bold", type : "boolean" },
-								{ name : "italic", type : "boolean" },
-								{ name : "strikeThrough", type : "boolean" },
-								{ name : "noWrap", type : "boolean" },
-								{ name : "ellipsis", type : "boolean" },
-								{ name : "maxWidth", type : "string" },
-								{ name : "textTransform", type : "string" }
-							],
-							allowExtraKeys : false
-						},
-						{
-							name : "sortable",
-							type : "boolean"
-						},
-						{
-							name : "transforms",
-							type : "array",
-							schema : {
-								type : "function"
-							}
-						}
-					],
-					allowExtraKeys : false
-				}
-			},
-			{
-				name : "filters",
-				type : "array"
-			},
-			{
-				name : "filter",
-				type : "object"
-			},
-			{
-				name : "activeFilters",
-				type : "array",
-				schema : {
-					type : "string"
-				}
-			},
-			{
-				name : "activeColumns",
-				type : "array",
-				schema : {
-					type : "string"
-				}
-			},
-			{
-				name : "primaryActions",
-				type : "array"
-			},
-			{
-				name : "bulkActions",
-				type : "array"
-			},
-			{
-				name : "additionalActions",
-				type : "array"
-			},
-			{
-				name : "buttons",
-				type : "array"
-			},
-			{
-				name : "display",
-				type : "string"
-			},
-			{
-				name : "savedView",
-				type : "object",
-				schema : [
-					{ name : "id", type : "string" },
-					{ name : "label", type : "string" },
-					{ name : "type", type : "string", enum : ["default", "shared", "mine"] },
-					{ name : "state", type : "object" }
-				],
-				allowExtraKeys : false
-			},
-			{
-				name : "displayOptions",
-				type : "array"
-			},
-			{
-				name : "data",
-				type : "array"
-			},
-			{
-				name : "count",
-				type : "number"
-			},
-			{
-				name : "sort",
-				type : "object",
-				schema : [
-					{ name : "name", type : "string" },
-					{ name : "dir", type : "string", enum : ["asc", "desc"] }
-				],
-				allowExtraKeys : false
-			},
-			{
-				name : "limit",
-				type : "number"
-			},
-			{
-				name : "limitOptions",
-				type : "array",
-				schema : {
-					type : "number"
-				}
-			},
-			{
-				name : "skip",
-				type : "number"
-			},
-			{
-				name : "loading",
-				type : "boolean"
-			},
-			{
-				name : "sticky",
-				type : "boolean"
-			},
-			{
-				name : "gridColumnsMap",
-				type : "object"
-			},
-			{
-				name : "onSkipChange",
-				type : "function"
-			},
-			{
-				name : "onLimitChange",
-				type : "function"
-			},
-			{
-				name : "onSortChange",
-				type : "function"
-			},
-			{
-				name : "onDisplayChange",
-				type : "function"
-			},
-			{
-				name : "onActiveFiltersChange",
-				type : "function"
-			},
-			{
-				name : "onColumnsChange",
-				type : "function"
-			},
-			{
-				name : "onSavedViewSave",
-				type : "function"
-			},
-			{
-				name : "onSavedViewChange",
-				type : "function"
-			},
-			{
-				name : "onSavedViewRemove",
-				type : "function"
-			},
-			{
-				name : "onSavedViewGetOptions",
-				type : "function"
-			},
-			{
-				name: "savedViewAllowSharedViewSave",
-				type : "boolean"
-			}
-		],
-		allowExtraKeys : false,
-		throwOnInvalid : true
-	});
-*/
-
-	// declare the hooks
-	const [state, setState] = useState({
-		checked : [],
-		checkedAllPages : false
-	});
-
 	/**
 	 * Checks if a provided active filter is a
 	 * valid filter based on the name.
@@ -292,37 +84,38 @@ function DataView (props: DataViewProps): ReactElement  {
 		props.savedView !== undefined
 	;
 
-	const onCheckAllClick = function() {
-		const allChecked = state.checked.every(val => val === true);
+	const validBulkActions = props.bulkActions && props.bulkActions.filter(action => {
+		if (props.checkedAllPages)
+			return action.onAllClick && filterAction(action, { checkedAllPages: true })
+		else
+			return action.onClick && filterAction(action, { checkedAllPages: false, data: props.data.filter((val, i) => props.checked?.length > 0 && props.checked[i] === true)})
+	});
 
-		setState({
-			...state,
-			checked : state.checked.map(val => !allChecked),
-			checkedAllPages : false
-		});
-	}
+	const checkboxEnabled =
+		props.checked !== undefined &&
+		props.onCheckChange !== undefined
+	;
+
+	const onCheckAllClick = function() {
+		const allChecked = props.checked.every(val => val === true);
+		const checked = props.checked.map(val => !allChecked);
+		props.onCheckChange(checked);
+		props.onCheckAllPagesChange?.(false);
+	};
 
 	const onCheckboxClick = function(i) {
-		const newChecked = [...state.checked];
+		const newChecked = [...props.checked];
 		newChecked[i] = !newChecked[i];
-
-		setState({
-			...state,
-			checked : newChecked,
-			checkedAllPages : false
-		});
-	}
+		props.onCheckChange(newChecked);
+		props.onCheckAllPagesChange?.(false);
+	};
 
 	const onCheckAllPagesClick = function() {
 		// if the checkedAllPages was previously clicked we also uncheck all of the checkboxes
-		const checked = state.checkedAllPages ? state.checked.map(val => false) : state.checked;
-
-		setState({
-			...state,
-			checked,
-			checkedAllPages : !state.checkedAllPages
-		})
-	}
+		const checked = props.checkedAllPages ? props.checked.map(val => false) : props.checked;
+		props.onCheckChange?.(checked);
+		props.onCheckAllPagesChange?.(!props.checkedAllPages);
+	};
 
 	useEffect(() => {
 		if (props.data && viewContainerRef.current) {
@@ -330,13 +123,6 @@ function DataView (props: DataViewProps): ReactElement  {
 			viewContainerRef.current.scrollTo(0, 0);
 		}
 	}, [props.data, props.display])
-
-	useEffect(() => {
-		setState({
-			...state,
-			checked : props.data.map(val => false)
-		});
-	}, [props.data]);
 
 	const displayOptionsFull = useMemo(() => {
 		return displayOptions.map(val => {
@@ -394,6 +180,64 @@ function DataView (props: DataViewProps): ReactElement  {
 		});
 	}, [activeColumns, props.columns]);
 
+	const shouldRenderTitleBar: boolean = useMemo(() => {
+		if (
+			props.title ??
+			props.buttons ??
+			savedViewEnabled ??
+			props.filters
+		)
+			return true;
+
+		return false;
+	}, [
+		props.title,
+		props.buttons,
+		savedViewEnabled,
+		props.filters
+	]);
+
+	const shouldRenderActionsRow: boolean = useMemo(() => {
+		if (
+			props.display ??
+			validBulkActions ??
+			props.limitOptions ??
+			props.onColumnsChange ??
+			props.onSortChange ??
+			props.sort ??
+			displayControlEnabled === true ??
+			props.onLimitChange ??
+			props.onSkipChange
+		)
+			return true;
+
+		return false;
+	}, [
+		props.display,
+		validBulkActions,
+		props.limitOptions,
+		props.onColumnsChange,
+		props.onSortChange,
+		props.sort,
+		displayControlEnabled,
+		props.onLimitChange,
+		props.onSkipChange
+	]);
+
+	const allChecked = props.checked !== undefined && props.checked.length > 0 && props.checked.every(val => val === true);
+	const anyChecked = props.checked !== undefined && props.checked.length > 0 && props.checked.some(val => val === true);
+
+	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
+	const showBulkAll =
+		validBulkActions?.length > 0 &&
+		props.data.length > 0 &&
+		props.count > props.data.length &&
+		validBulkActions.some(action => action.onAllClick !== undefined) &&
+		allChecked &&
+		props.checkedAllPages !== undefined &&
+		props.onCheckAllPagesChange !== undefined
+	;
+
 	return (
 		<StyledWrapper
 			className={`
@@ -401,47 +245,55 @@ function DataView (props: DataViewProps): ReactElement  {
 			${props.sticky ? "sticky" : ""}
 		`}
 		>
-			<div className="headerRow title">
-				<DataViewTitleBar
-					title={props.title}
-					buttons={props.buttons}
-					savedViewEnabled={savedViewEnabled}
-					savedView={props.savedView}
-					savedViewState={savedViewState}
-					savedViewCallbacks={savedViewCallbacks}
-					savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
-					loading={props.loading}
-					filter={props.filter}
-					filters={props.filters}
-					activeFilters={props.activeFilters}
-					onActiveFiltersChange={props.onActiveFiltersChange}
-				/>
-			</div>
-			<div className="headerActions">
-				<DataViewActionsRow
-					activeColumnObjs={activeColumnObjs}
-					columns={props.columns}
-					bulkActions={props.bulkActions}
-					checked={state.checked}
-					display={display}
-					displayControlEnabled={displayControlEnabled}
-					displayOptionsFull={displayOptionsFull}
-					limit={props.limit}
-					limitOptions={props.limitOptions}
-					onLimitChange={props.onLimitChange}
-					onDisplayChange={props.onDisplayChange}
-					onSkipChange={props.onSkipChange}
-					skip={props.skip}
-					count={props.count}
-					allColumns={props.columns}
-					onColumnsChange={props.onColumnsChange}
-					onCheckAllClick={onCheckAllClick}
-					onSortChange={props.onSortChange}
-					sort={props.sort}
-					data={props.data}
-					checkedAllPages={state.checkedAllPages}
-				/>
-			</div>
+			{
+				shouldRenderTitleBar &&
+					<div className="headerRow title">
+						<DataViewTitleBar
+							title={props.title}
+							buttons={props.buttons}
+							savedViewEnabled={savedViewEnabled}
+							savedView={props.savedView}
+							savedViewState={savedViewState}
+							savedViewCallbacks={savedViewCallbacks}
+							savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
+							loading={props.loading}
+							filter={props.filter}
+							filters={props.filters}
+							activeFilters={props.activeFilters}
+							onActiveFiltersChange={props.onActiveFiltersChange}
+						/>
+					</div>
+			}
+			{
+				shouldRenderActionsRow &&
+					<div className="headerActions">
+						<DataViewActionsRow
+							activeColumnObjs={activeColumnObjs}
+							columns={props.columns}
+							bulkActions={validBulkActions}
+							checked={props.checked}
+							display={display}
+							displayControlEnabled={displayControlEnabled}
+							displayOptionsFull={displayOptionsFull}
+							limit={props.limit}
+							limitOptions={props.limitOptions}
+							onLimitChange={props.onLimitChange}
+							onDisplayChange={props.onDisplayChange}
+							onSkipChange={props.onSkipChange}
+							skip={props.skip}
+							count={props.count}
+							allColumns={props.columns}
+							onColumnsChange={props.onColumnsChange}
+							onCheckAllClick={checkboxEnabled ? onCheckAllClick : undefined}
+							onSortChange={props.onSortChange}
+							sort={props.sort}
+							data={props.data}
+							checkedAllPages={props.checkedAllPages}
+							allChecked={allChecked}
+							anyChecked={anyChecked}
+						/>
+					</div>
+			}
 			<div
 				ref={viewContainerRef}
 				className={`
@@ -449,10 +301,10 @@ function DataView (props: DataViewProps): ReactElement  {
 				`}
 			>
 				<Display
-					checked={state.checked}
-					checkedAllPages={state.checkedAllPages}
+					checked={props.checked}
+					checkedAllPages={props.checkedAllPages}
 					columns={props.columns}
-					bulkActions={props.bulkActions}
+					bulkActions={validBulkActions}
 					sort={props.sort}
 					data={props.data}
 					additionalActions={props.additionalActions}
@@ -465,10 +317,13 @@ function DataView (props: DataViewProps): ReactElement  {
 					activeColumnObjs={activeColumnObjs}
 					onSortChange={props.onSortChange}
 					onColumnsChange={props.onColumnsChange}
-					onCheckAllClick={onCheckAllClick}
-					onCheckboxClick={onCheckboxClick}
+					onCheckAllClick={checkboxEnabled ? onCheckAllClick : undefined}
+					onCheckboxClick={checkboxEnabled ? onCheckboxClick : undefined}
 					onCheckAllPagesClick={onCheckAllPagesClick}
 					onReorder={props.onReorder}
+					showBulkAll={showBulkAll}
+					allChecked={allChecked}
+					anyChecked={anyChecked}
 				/>
 			</div>
 			{props.loading === false && !props.data.length && (

@@ -1,5 +1,125 @@
 # sv-mosaic changelog
 
+## 17.0.0 - 02/28/23
+* Improved section highlighting mechanics. This change prevents sections from being re-rendered when a change to a field occurs, making the section tabs to stay in the selected section.
+* `DataView`:
+	* `bulkActions` are no longer needed to render checkboxes.
+	* Fixed `clear` functionality in all filters. Now clearing the filter values should only trigger a re-render when the filter had a value.
+* **BREAKING** `FieldDef` no longer accepts the `maxCharacters` prop. Now it will only be accepted as part of the `inputSettings` that use the prop (e.g. `FormFieldText`, `FormFieldTextEditor`).
+* `favorite` prop is now optional in `SummaryPageTopComponent`.
+* `Chip` will no longer show the cursor as "pointer" when hovering unless the `onClick` prop gets passed.
+* `onNav` prop is now optional in `SideNav`.
+* `FormFieldUpload`:
+	* Added knob that allows devs to controll the seconds mocked files should take to finish uploading.
+	* If a limit gets passed the field will get disabled if the sum of the pending files (files currently being uploaded) and the successfully uploaded files is equal to the limit.
+* `Button`:
+	* `Icon` variant now can be rendered as a link by passing an href.
+	* Updated css file to style buttons based on their class names and not on their html tag. This ensures we're styling all buttons the same, whether they're being transformed by MUI to spans, buttons, or anchor tags.
+	* Improved and added knobs that better represent the expected props for the button component.
+* Updated `FormFieldAdvancedSelection` to internally use `DataViewFilterMultiselect`. This results on styling changes but it shouldn't be a breaking change since none of the props and data returned to the form changed.
+* Added the following prop to `DataViewFilterMultiselect`:
+	* `limit` as an optional prop as part of its args. The component will default the value to 25 if none provided (this was the hardcoded value that has always been used so it shouldn't be a breaking change).
+* Added the following props to `DataViewFilterMultiselectDropdownContent`:
+	* `limit` -> same type definition as the `limit` from `DataViewFilterMultiselect`.
+	* `onChange` -> optional prop callback that receives as parameter the new array of selected options.
+	* `hideButtons` -> optional boolean. When passed, the buttons at the bottom (clear and apply) won't render.
+	* `createNewOption` -> optional prop with the same type definition as the `createNewOption` prop from `AdvancedSelectionInputSettings`.
+	* `selectLimit` -> optional prop with the same type definition as the `selectLimit` prop from `AdvancedSelectionInputSettings`.
+
+## 16.0.0 - 02/14/23
+* Created `FormFieldUpload`. This new field allows users to upload multiple files, showing the upload status of each one of them while being uploaded. See more in Form's readme.
+* Added optional prop `progress` to `Spinner` component. This allows devs to define how much of the spinner should be filled e.g. 50%. Value expressed from 0 to 100.
+* **BREAKING** Internally updated our field types enforcing consistency. This should only be a breaking change for consumers of mosaic that were incorrectly declaring fields (e.g. not passing the correct inputSettings to a field).
+* Improved `getFormValues` and `defaultValues` mechanics in `Form`. This means forms will always prepopulate with getFormValues as long as its propped down and returns values, else it will use the defaultValues (if present). We also added 2 more knobs to test this functionality in storybook in the `Form Playground`.
+* **BREAKING** `FormFieldPhoneSelectionDropdown` no longer receiving `placeholder` as part of its inputSettings.
+* Improved styling around "No results" message in `DataView` to align with table.
+* Updated `Button` and `DataView` stories to work with new storysource add-on.
+* Updated `DataViewFilterDate` to use our Field component, making its styles closer to regular form fields.
+* **BREAKING** Removed `FormFieldTextArea`. Developers can still use `FormFieldText` to render an input with multiple lines by using the newly added props `minRows` and `maxRows`.
+* Fixed "Draggable requires a draggableId" issue in `DataView`.
+
+## 15.0.0 - 01/31/23
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `Gray1`.
+	* `Gray2`.
+* Added `Storysource` addon to storybook. Developers will now be able to see the code used to create a specific story.
+* Improved all `FormFields` documentation by adding a link that takes storybook readers to the props in `Form`'s readme. Also improved readability of `inputSettings` by changing them into a table view.
+* Added story for `DataViewFilterMultiSelect`.
+* **BREAKING** Removed implementation of `IconButton`. Not to be confused with `Button` variant `icon`. `IconButton` was a first approach at updating the styles of a previous iteration which were later moved to the `icon` variant of `Button`. Internally we were not using the `IconButton` anywhere so it should only be breaking if being consumed (e.g. import {IconButton} from "@simpleview/sv-mosaic).
+* **BREAKING** Updated `Card`'s props:
+	* bottomAction -> bottomActions (now array of button props).
+	* topAction -> topActions (now array of button props).
+* Updated spacing around Drawer fields: `FormFieldAddress`, `FormFieldAdvancedSelection`, and `FormFieldMapCoordinates` to make only the content scroll and keep the header in place.
+* Updated internal refs in `FormFieldAdvancedSelection` to adjust component to screen size.
+* **BREAKING** Updated `FormFieldMapCoordinates`' props:
+	* apiKey -> googleMapsApiKey (remains as string).
+* **BREAKING** Added autocomplete functionality to `FormFieldAddress`. This means the component now requires a `googleMapsApiKey` prop in order to work (more on this on the documentation).
+
+## 14.0.0 - 01/17/23
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `Gray3`.
+	* `Gray4`.
+	* `SimplyGray`.
+* `Matrix Field`:
+	* Added Form and Browse examples in storybook.
+	* Field can now be used in forms using `type: "matrix"`.
+* `Form`:
+	* Updated view mechanics and styles to now render the section tabs on the left as soon as there's available space.
+	* Updated overall styles and sizings to match updates to design comps. These include: form alignment to the left, paddings around top component, tabs, and form layout.
+	* Form will now scroll to the nearest error.
+	* Disabled auto-complete on forms (there seems to be an issue with Chrome in which previous entries would still appear but it won't save new entries, this can be "fixed" by deleting all previously saved auto-complete data from the chrome settings).
+	* Improved form-disabling mechanics when loading data from a DB by adding a new form action: `disableForm`.
+	* Added new mechanics that allow developers to know when a field has been touched. The `Form`'s state now includes a new `touched` property which uses a MosaicObject format (e.g. touched: { "myField": true }). This will only get triggered when the user manually changes the value of a field, not when prepopulating.
+* `FormFieldAdvancedSelection`:
+	* Updated internal logic to fix duplicates and erased options bugs.
+* `DataViewFilterMultiselect`:
+	* Updated internal logix to keep showing options even when filtering.
+	* Updated buttons to match newest design comps. Component will no longer show "Cancel" button, only "Clear" and "Apply".
+	* **BREAKING** Updated filter to return `undefined` when no value is present, this allows us to prevent unnecessary triggered reloads.
+* `DataViewFilterDate`:
+	* Updated buttons to match newest design comps. Component will no longer show "Cancel" button, only "Clear" and "Apply".
+	* Added optional arg `options` which is an array of `MosaicLabelValue` that contains a list magic values that the user can select from. When selecting a magic value, the data returned from the filter will have the following format `{option: string}` whereas when manually selecting a date it will look like `{rangeStart: Date, rangeEnd: Date}`.
+	* Added new error message for when the user manually types an invalid date.
+	* **BREAKING** Updated filter to return `undefined` when no value is present, this allows us to prevent unnecessary triggered reloads.
+* `DataViewFilterText`:
+	* Updated buttons to match newest design comps. Component will no longer show "Cancel" button, only "Clear" and "Apply".
+* `DataViewFilterSingleSelect`:
+	* **BREAKING** Updated filter to return `undefined` when no value is present, this allows us to prevent unnecessary triggered reloads.
+* `DrawerHeader`: Updated title font to use Museo Sans, 20px size, and 400 weight.
+* **BREAKING** `SideNav`: Updated props to closely match those used in `LeftNav`, this includes:
+	* Renamed `links` to `items`.
+	* Added required `onNav` prop which will allow devs to know which item has been clicked.
+	* Each `item` previously had a prop called `onClick` which has now been renamed to `onNav`. This is an additional prop that "overrides" the global `onNav` that can be passed to the parent, which means that developers can add specific functionality for when an item gets clicked on.
+* `DataView`:
+	* Updated conditions for rendering `DataViewTitleBar` and `DataViewActionsRow` that were causing blank spaces to appear (this is an internal update).
+	* Updated `DataViewViewDrawerContent` to match newest design comps.
+	* Updated `DrawerContent` to now use `DrawerHeader` component.
+	* Updated `DataViewDisplayList` to pass data to `DataViewTHead`, this allows bulk actions to work with the original data (previously working with transformed data).
+	* Updated all of `StateViewDef`'s types to be optional (they were all previously required).
+	* Updated "Clear filters" button to only update filters if they have value, this allows us to prevent unnecessary triggered reloads.
+	* **BREAKING** DataView will now filter out bulk actions with property "show: false" to allow all its children components to only work with bulk actions that are actually being shown to the user. Reminder: not adding the "show" property to the actions will default to true.
+	* **BREAKING** Moved responsibility of checking rows out of the DataView, this means developers are now responsible of implementing the following props:
+		* `checked`: Optional array of booleans that represent the checked state of each row. Both `checked` and `onCheckChange` are needed (as well as a list of valid bulk actions) to render the checkboxes that allow users to select rows.
+		* `onCheckChange`: Optional callback function that receives the new array of checked options, useful to tell the parent component which rows are checked. Both `checked` and `onCheckChange` are needed (as well as a list of valid bulk actions) to render the checkboxes that allow users to select rows.
+		* `checkedAllPages`: Optional boolean which is used to determine if all options from all pages are being selected or not. Both `checkedAllPages` and `onCheckAllPagesChange` are needed (amongst other props) to render the checkboxes that allow users to select rows.
+		* `onCheckAllPagesChange`: Optional callback function that receives a boolean that indicates the new value for `checkedAllPages`. Both `checkedAllPages` and `onCheckAllPagesChange` are needed (amongst other props) to render the checkboxes that allow users to select rows.
+* `Button`: Updated internal mechanics to remove tooltip when opening a button menu.
+
+## 13.0.0 - 01/03/23
+* Internally updated the color scheme, naming conventions and references in all components of the following colors:
+	* `DarkerRed`.
+	* `AlmostBlack`.
+* Changes to `DataView`:
+	* Updated `DataViewFilterMultiSelect` styles to match newest figma comps.
+	* Updated `DataViewFilterText` styles to match newest figma comps.
+	* Updated `GridView` styles to match newest figma comps.
+	* Updated `ListView` styles to match newest figma comps.
+	* **BREAKING** Filters no longer supporting `types` (primary or optional). All filters will now render until the user selects them from the "filters" button, unless passed as part of the activeFilters prop.
+	* Added better error messages when propping down an activeColumn or an activeFilter that doesn't exist.
+	* Fixed "All" comparison functionality in categories with comparison filter (Only in storybook).
+* Internally updated the `FormNav` tabs mechanics to now use the InteractionObserver API. This allows the last section tab to be selected even if the previous one is also in the screen at the same time.
+* Added new optional prop `selectLimit` to `FormFieldAdvancedSelection`. This allows developers to limit the amount of options users can select.
+
 ## 12.0.0 - 11/29/22
 * Internally updated the color scheme, naming conventions and references in all components of the following colors:
 	* `DarkerRealTeal`.

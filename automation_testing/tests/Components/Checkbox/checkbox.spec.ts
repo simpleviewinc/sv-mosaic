@@ -1,4 +1,4 @@
-import { test, Page } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { CheckboxPage } from "../../../pages/Components/Checkbox/CheckboxPage";
 import theme from "../../../../src/theme";
 
@@ -9,7 +9,7 @@ test.describe.parallel("Components - Checkbox - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		checkboxPage = new CheckboxPage(page);
-		await checkboxPage.visitPage();
+		await checkboxPage.visit(checkboxPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -29,6 +29,14 @@ test.describe.parallel("Components - Checkbox - Kitchen Sink", () => {
 		for (let i = 0; i < numberOfCheckboxs; i++) {
 			await checkboxPage.checkboxInput.nth(i).check();
 			await checkboxPage.validateFontColorFromElement(checkboxPage.checkboxIcon.nth(i), expectBgColor, false);
+		}
+	});
+
+	test("Validate Checkbox has grey4 color as text.", async () => {
+		const expectColor = theme.newColors.grey4["100"];
+		const numberOfCheckboxs = await checkboxPage.checkboxLabel.count();
+		for (let i = 0; i < numberOfCheckboxs; i++) {
+			expect(await checkboxPage.getColorFromElement(checkboxPage.checkboxLabel.nth(i))).toBe(expectColor);
 		}
 	});
 });

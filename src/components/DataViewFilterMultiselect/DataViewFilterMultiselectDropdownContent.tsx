@@ -4,12 +4,12 @@ import { debounce, xor } from "lodash";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
 import HelpIcon from "@mui/icons-material/Help";
+import AddIcon from "@mui/icons-material/Add";
 
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
-import CheckboxList from "@root/components/CheckboxList";
 import Chip from "@root/components/Chip";
 import { H3 } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
@@ -17,8 +17,7 @@ import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewF
 import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
 import { InputAdornment } from "@mui/material";
 import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
-
-const limit = 25;
+import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
 
 function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultiselectDropdownContentProps) {
 	const [state, setState] = useState({
@@ -28,17 +27,26 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		skip : 0,
 		keyword : undefined,
 		comparison : props.comparison,
-		loaded : false
+		loaded : false,
+		listOfChips: props.selected
 	});
+
+	const [showCreateOptionButton, setShowCreateOptionButton] = useState(false);
+
+	const [disabled, setDisabled] = useState(false);
 
 	const { t } = useMosaicTranslation();
 
-	// we need to combine the options we are querying for and the selected options that are passed in
-	// since if they have already selected an item not in the current page, it won't be in the queried options
-	const allOptions = [...props.selected, ...state.options];
+	const limit = Math.abs(props.limit) || 25;
 
 	// mark the active comparison
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
+
+	useEffect(() => {
+		state.selected.length >= props.selectLimit
+			? setDisabled(true)
+			: setDisabled(false);
+	}, [state.selected, props.selectLimit]);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -62,6 +70,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			selected : [],
 			comparison : "in",
 			keyword : undefined,
+			listOfChips: [],
 		});
 	}
 
@@ -74,9 +83,15 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 
 	const handleToggle = option => () => {
 		const newSelected = xor(state.selected, [option.value]);
+
+		const newListOfChips = state.listOfChips.filter(chip => chip.value !== option.value);
+
+		props.onChange?.(newListOfChips);
+
 		setState({
 			...state,
-			selected : newSelected
+			selected : newSelected,
+			listOfChips: newListOfChips
 		});
 	}
 
@@ -107,6 +122,8 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 	}
 
 	const debouncedSetKeyword = debounce(function(value) {
+		setShowCreateOptionButton(!!props.createNewOption && value.trim().length > 0);
+
 		async function fetchData() {
 			const newOptions = await props.getOptions({
 				limit,
@@ -130,7 +147,16 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		debouncedSetKeyword(e.target.value);
 	}
 
+	const createOption = async () => {
+		const newOption = await props.createNewOption(state.keyword);
+		setState({
+			...state,
+			options : [...state.options, newOption]
+		});
+	};
+
 	let comparisonDropdown;
+
 	if (props.comparisons) {
 		const menuItems = props.comparisons.map(comparison => {
 			return {
@@ -199,10 +225,18 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 	// we want to avoid showing the list until the dropdown is fully open and the results are loaded from the db
 	const showList = props.isOpen && state.loaded;
 
-	const onChange = function(selected) {
+	const onChange = async function(selected) {
+		const cleanSelectedOptions = selected.filter(selectedOption => selectedOption !== undefined);
+		let fullOptions = [...cleanSelectedOptions];
+		if (state.listOfChips) {
+			const chipsNotInList = state.listOfChips.filter(option => !state.options.some(chip => chip.value === option.value));
+			fullOptions = [...chipsNotInList, ...cleanSelectedOptions];
+		}
+		props.onChange?.(fullOptions);
 		setState({
 			...state,
-			selected : selected
+			selected : fullOptions.map(option => option.value),
+			listOfChips: fullOptions
 		});
 	}
 
@@ -211,7 +245,25 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			<div className="topBlock">
 				<div className={`options ${optionsDisabled ? "disabled" : "" }`}>
 					<StyledTextField
-						InputProps={{ startAdornment: ( <InputAdornment position="start"> <SearchIcon/> </InputAdornment> ), }}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<SearchIcon/>
+								</InputAdornment>
+							),
+							endAdornment: showCreateOptionButton && (
+								<InputAdornment position="end">
+									<Button
+										label='Create'
+										variant='text'
+										color='teal'
+										className='realTeal-icon'
+										mIcon={AddIcon}
+										onClick={createOption}
+									/>
+								</InputAdornment>
+							)
+						}}
 						className="searchBar"
 						placeholder={props.placeholder || t("mosaic:common.keyword___")}
 						autoFocus={true}
@@ -224,10 +276,22 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					}
 					{
 						showList &&
-						<CheckboxList
-							checked={optionsDisabled ? [] : state.selected}
-							options={state.options}
+						<FormFieldCheckbox
+							fieldDef={{
+								name: "formFieldCheckbox",
+								type: "checkbox",
+								label: "DataView",
+								disabled: disabled,
+								style: {
+									marginLeft: "0px"
+								},
+								inputSettings: {
+									options: state.options
+								},
+							}}
+							value={optionsDisabled ? [] : state.listOfChips}
 							onChange={onChange}
+							id={"formFieldCheckbox"}
 						/>
 					}
 					{
@@ -253,19 +317,14 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 							<div className="chips">
 								{
 									showList &&
-									state.selected.map(value => {
-										const option = allOptions.find(val => val.value === value);
-
-										if (option === undefined) { return null; }
-
-										return (
-											<Chip
-												className="chip"
-												key={option.value}
-												label={option.label}
-												onDelete={handleToggle(option)}
-											/>
-										)
+									state.listOfChips?.length > 0 &&
+									state.listOfChips.map(option => {
+										return (<Chip
+											className="chip"
+											key={option.value}
+											label={option.label}
+											onDelete={handleToggle(option)}
+										/>)
 									})
 								}
 							</div>
@@ -273,12 +332,16 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					}
 				</div>
 			</div>
-			<StyledHr/>
-			<DataViewFilterDropdownButtons
-				onApply={onApply}
-				onClear={onClear}
-				onCancel={props.onClose}
-			/>
+			{
+				!props.hideButtons &&
+				<>
+					<StyledHr/>
+					<DataViewFilterDropdownButtons
+						onApply={onApply}
+						onClear={onClear}
+					/>
+				</>
+			}
 		</StyledWrapper>
 	);
 }

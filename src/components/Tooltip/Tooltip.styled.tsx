@@ -13,7 +13,7 @@ export const StyledDefaultTooltip = styled(props => (
 	/>
 ))`
 	& .tooltip {
-		background-color: ${theme.colors.almostBlack};
+		background-color: ${theme.newColors.almostBlack["100"]};
 		color: white;
 		padding: 4px 8px;
 		margin-top: 4px;
@@ -36,7 +36,7 @@ export const StyledAdvancedTooltip = styled(props => (
 		font-size: 12px;
 		max-width: 280px;
 		box-shadow: 0px 2px 6px #00000029;
-		border: 1px solid ${theme.colors.gray200};
+		border: 1px solid ${theme.newColors.grey2["100"]};
 		left: ${pr => pr.placement !== "top" ? "-30px !important" : ""};
 		font-family: ${theme.fontFamily};
 		font-weight: ${theme.fontWeight.normal};

@@ -9,7 +9,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffImageUploadPage = new FormFieldImageUploadPage(page);
-		await ffImageUploadPage.visitPage();
+		await ffImageUploadPage.visit(ffImageUploadPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -65,11 +65,25 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Instruction Icon ", async () => {
-		const expectColor = theme.newColors.realTeal["100"];
+		const expectedColor = theme.newColors.realTeal["100"];
 		const numberOfIcons = await ffImageUploadPage.instructionIcon.count();
 		for (let i = 0; i < numberOfIcons - 1; i++) {
-			expect(await ((ffImageUploadPage.instructionIcon.nth(i)).evaluate(el => getComputedStyle(el).fill))).toBe(expectColor);
+			expect(await ((ffImageUploadPage.instructionIcon.nth(i)).evaluate(el => getComputedStyle(el).fill))).toBe(expectedColor);
 		}
-		expect(await ffImageUploadPage.getColorFromElement(ffImageUploadPage.instructionIcon.nth(numberOfIcons - 1))).toBe(expectColor);
+		expect(await ffImageUploadPage.getColorFromElement(ffImageUploadPage.instructionIcon.nth(numberOfIcons - 1))).toBe(expectedColor);
+	});
+
+	test("Validate Image Upload (without focus)  border has grey2 in border.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
+		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
+		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv, "all")).toContain(expectedColor);
+	});
+
+	test("Validate Image Upload (with focus)  border has grey2 in border.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
+		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.setInputFiles(imagePath);
+		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithSetFocusHandlerDiv, "all")).toContain(expectedColor);
 	});
 });

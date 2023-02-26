@@ -7,7 +7,6 @@ export class FormFieldDateFieldPage extends BasePage {
 	readonly page_path = "formfields-formfielddatefield--kitchen-sink";
 
 	readonly page: Page;
-	readonly formTestID: Locator;
 	readonly singleDateCalendarInput: Locator;
 	readonly singleDateCalendarButton: Locator;
 	readonly calendarCell: Locator;
@@ -29,7 +28,6 @@ export class FormFieldDateFieldPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.formTestID = page.locator("[data-testid='form-test-id']");
 		this.singleDateCalendarInput = page.locator("input").nth(0);
 		this.singleDateCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.calendarCell = page.locator("[role='row'] button");
@@ -39,7 +37,7 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.dateHourInput = page.locator("input").nth(2);
 		this.dateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
 		this.dateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(2);
-		this.hourMinutesOption = page.locator("[role='option']")
+		this.hourMinutesOption = this.roleOptionLocator;
 		this.hourAMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(2);
 		this.hourPMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(3);
 		this.disableDateAndTimeCalendarText = page.locator("//*[@id='3']/div/div/div/div/div[1]/div[2]");
@@ -49,10 +47,6 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.requiredDateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(2);
 		this.requiredDateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(4);
 		this.requiredFieldErrorMessage = page.locator("p.Mui-error");
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.singleDateCalendarInput);
 	}
 
 	async selectDayFromDatePicker(day:number): Promise<void> {

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import theme from "@root/theme";
 
 export const InstructionTextWrapper = styled.div`
-  border-left: ${theme.borders.simplyGray};
+  border-left: ${theme.borders.simplyGrey};
   height: 51px;
   margin-left: auto;
   margin-top: 44px;
@@ -14,7 +14,7 @@ export const InstructionTextWrapper = styled.div`
 	width: 400px;
 	min-height: 51px;
 	padding-left: 20px;
-	border-left: 1px solid ${theme.colors.gray200};
+	border-left: 1px solid ${theme.newColors.grey2["100"]};
 	margin-left: auto;
   	height: calc(100% - 44px);
   }
@@ -30,7 +30,7 @@ export const InstructionTextWrapper = styled.div`
 export const StyledInstructionText = styled.p`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  color: ${theme.colors.assistiveText};
+  color: ${theme.newColors.grey3["100"]};
   display: -webkit-box;
   font-family: ${theme.fontFamily};
   font-size: 14px;

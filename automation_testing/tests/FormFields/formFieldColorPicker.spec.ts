@@ -10,7 +10,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffColorPickerPage = new FormFieldColorPickerPage(page);
-		await ffColorPickerPage.visitPage();
+		await ffColorPickerPage.visit(ffColorPickerPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -35,8 +35,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		});
 		const hexCode = getRandomHexCode(6);
 		await ffColorPickerPage.regularColorPicker.click();
-		await ffColorPickerPage.hexColorInput.selectText();
-		await ffColorPickerPage.clearAllValuesFromField();
+		await ffColorPickerPage.clearAllValuesFromField(ffColorPickerPage.hexColorInput);
 		await ffColorPickerPage.hexColorInput.type(hexCode);
 		await ffColorPickerPage.saveBtn.click();
 	});

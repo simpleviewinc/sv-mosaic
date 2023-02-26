@@ -41,9 +41,11 @@ function Button(props: ButtonProps) {
 
 	function openMenu(event) {
 		setAnchorEl(event.currentTarget);
+		setTooltipEl(null);
 	}
 
 	function closeMenu() {
+		setTooltipEl(null);
 		setAnchorEl(null);
 	}
 
@@ -53,6 +55,7 @@ function Button(props: ButtonProps) {
 	}
 
 	function closePopover() {
+		setTooltipEl(null);
 		setPopoverAnchorEl(null);
 	}
 
@@ -60,7 +63,7 @@ function Button(props: ButtonProps) {
 		setTooltipEl(e.currentTarget);
 	}
 
-	function onMouseLeave(e) {
+	function onMouseLeave() {
 		setTooltipEl(null);
 	}
 
@@ -118,7 +121,7 @@ function Button(props: ButtonProps) {
 			}
 			{
 				props.variant === "icon" &&
-				<IconButton {...muiAttrs} onClick={onClick} disabled={props.disabled} size="large">
+				<IconButton {...muiAttrs} onClick={onClick} disabled={props.disabled} size="large" href={props.href}>
 					{props.mIcon && <MaterialIcon data-testid="icon-button-test" className="icon"></MaterialIcon>}
 				</IconButton>
 			}
@@ -161,7 +164,7 @@ function Button(props: ButtonProps) {
 				<Popper
 					open={Boolean(tooltipEl)}
 					anchorEl={tooltipEl}
-					style={{ zIndex: 10, pointerEvents: "none" }}
+					style={{ zIndex: 1500, pointerEvents: "none" }}
 				>
 					<TooltipContent>{props.tooltip}</TooltipContent>
 				</Popper>

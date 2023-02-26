@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldPhoneSelectionDropdownPage } from "../../pages/FormFields/FormFieldPhoneSelectionDropdownPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
 	let page: Page;
@@ -9,7 +10,7 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffPhoneSelectionDropdownPage = new FormFieldPhoneSelectionDropdownPage(page);
-		await ffPhoneSelectionDropdownPage.visitPage();
+		await ffPhoneSelectionDropdownPage.visit(ffPhoneSelectionDropdownPage.page_path);
 	});
 
 	test.beforeEach(async() => {
@@ -49,23 +50,16 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		expect(await ffPhoneSelectionDropdownPage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUK);
 	});
 
-	test("Validate the Phone field with a custom placeholder.", async () => {
-		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill("");
-		expect(await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.getAttribute("placeholder")).toBe("Enter phone number");
-	});
-
 	test("Validate that the provided number is saved when submitted.", async ({ page }) => {
 		page.on("dialog", async dialog => {
 			expect(dialog.message()).toContain('"phone": "' + rndRegularPhone + '"');
 			expect(dialog.message()).toContain('"countryCode": "' + rndProvidedCodePhone + '"');
 			expect(dialog.message()).toContain('"autoformatEnabled": "' + rndAutoformatedPhone + '"');
-			expect(dialog.message()).toContain('"withPlaceholder": "' + rndCustomPlaceholderPhone + '"');
 			await dialog.accept();
 		});
 		const rndRegularPhone = String(randomIntFromInterval(100000000000000, 999999999999999));
 		const rndProvidedCodePhone = String(randomIntFromInterval(100000000000000, 999999999999999));
 		const rndAutoformatedPhone = String(randomIntFromInterval(1000000000, 9999999999));
-		const rndCustomPlaceholderPhone = String(randomIntFromInterval(100000000000000, 999999999999999));
 
 		await ffPhoneSelectionDropdownPage.regularPhoneField.fill("");
 		await ffPhoneSelectionDropdownPage.regularPhoneField.fill(rndRegularPhone);
@@ -73,8 +67,21 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		await ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField.fill(rndProvidedCodePhone);
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill("");
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill(rndAutoformatedPhone);
-		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill("");
-		await ffPhoneSelectionDropdownPage.customPlaceholderPhoneField.fill(rndCustomPlaceholderPhone);
 		await ffPhoneSelectionDropdownPage.saveBtn.dblclick();
+	});
+
+	test("Validate all the Flag Dropdown have simplyGrey as border color.", async () => {
+		const expectColor = theme.newColors.simplyGrey["100"];
+		const numberOfBDropdown = await ffPhoneSelectionDropdownPage.flagDropdown.count();
+		for (let i = 0; i < numberOfBDropdown; i++) {
+			expect(await ffPhoneSelectionDropdownPage.getSpecificBorderFromElement(ffPhoneSelectionDropdownPage.flagDropdown.nth(i), "right")).toContain(expectColor);
+		}
+	});
+
+	test("Validate phone fields have grey1 as background color.", async () => {
+		const expectedColor = theme.newColors.grey1["100"];
+		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.regularPhoneField)).toBe(expectedColor);
+		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField)).toBe(expectedColor);
+		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.autoformatPhoneField)).toBe(expectedColor);
 	});
 });

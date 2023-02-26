@@ -28,21 +28,21 @@ const Wrapper = styled.div`
 
 const StyledGrid = styled(Grid)`
 	position: relative;
-	background-color: ${theme.colors.gray100};
+	background-color: ${theme.newColors.grey1["100"]};
 	height: 150%;
 	align-items: center;
 	justify-content: center;
 `;
 
 const Title = styled.p`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-weight: ${theme.fontWeight.semiBold};
 	font-size: 16px;
 	margin-bottom: 8px;
 `;
 
 const Subtitle = styled.span`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 12px;
 `;
 
@@ -113,8 +113,8 @@ export const Example = (): ReactElement => {
 };
 
 const StyledInput = styled.input`
-	background-color: ${theme.colors.gray100};
-	border: 1px solid ${theme.colors.simplyGray};
+	background-color: ${theme.newColors.grey1["100"]};
+	border: ${theme.borders.simplyGrey};
 	height: 47px;
 	border-radius: 0;
 `;
@@ -160,7 +160,7 @@ export const Input = (): ReactElement => {
 };
 
 const LinkTitle = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	cursor: pointer;
 	font-size: 16px;
 	font-weight: ${theme.fontWeight.semiBold};
@@ -168,7 +168,7 @@ const LinkTitle = styled.span`
 `;
 
 const LinkSubtitle = styled.span`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 	font-size: 12px;
 	margin-left: 4px;
 `;
@@ -177,7 +177,7 @@ const TopContent = (
 	<div>
 		<LinkTitle onClick={() => alert("Title clicked")}>Clickable Title</LinkTitle>
 		<div style={{ display: "flex", alignItems: "center", marginTop: 10 }}>
-			<PlaceIcon sx={{ width: 12, color: theme.colors.gray600 }} />
+			<PlaceIcon sx={{ width: 12, color: theme.newColors.grey3["100"] }} />
 			<LinkSubtitle>Subtitle</LinkSubtitle>
 		</div>
 	</div>
@@ -199,17 +199,17 @@ const options = [
 ]
 
 const Label = styled.span`
-	color: ${theme.colors.gray700};
+	color: ${theme.newColors.grey4["100"]};
 	margin-right: 8px;
 `;
 
 const Value = styled.span`
-	color: ${theme.colors.gray600};
+	color: ${theme.newColors.grey3["100"]};
 `;
 
 const Mail = styled.span`
 	display: block;
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-weight: ${theme.fontWeight.semiBold};
 	font-size: 14px;
 	margin: 16px 0;

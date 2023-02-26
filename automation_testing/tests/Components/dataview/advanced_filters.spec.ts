@@ -2,7 +2,6 @@ import { test, expect, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataviewPage";
 import { advanced_filter_data, dataview_data, filter_data } from "../../../utils/data/dataview_data";
 import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/AdvancedFiltersComponent";
-import { DatePickerComponent } from "../../../pages/Components/DataView/DatePickerComponent";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
@@ -12,7 +11,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	let page: Page;
 	let _dataviewPage: DataviewPage;
 	let advancedFilters: AdvancedFiltersComponent;
-	let datepicker: DatePickerComponent;
 	let pagination: PaginationComponent;
 	let columns: ColumnsComponent;
 
@@ -20,14 +18,17 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		page = await browser.newPage();
 		_dataviewPage = new DataviewPage(page);
 		advancedFilters = new AdvancedFiltersComponent(page);
-		datepicker = advancedFilters.datepicker;
 		pagination = _dataviewPage.paginationComponent;
 		columns = _dataviewPage.columnsComponent;
-		await _dataviewPage.visitPage();
+		await _dataviewPage.visit(_dataviewPage.page_path);
+	});
+
+	test.beforeEach(async() => {
+		await page.reload();
 	});
 
 	test.afterEach(async() => {
-		await page.reload();
+		await _dataviewPage.removeAllSelectedFilters();
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -35,33 +36,28 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	const validateFilterStyles = async () => {
-		const expectedFontWeight = "700";
+		const expectedFontWeight = (theme.fontWeight.bold).toString();
 		const expectedFontSize = "14px";
-		const expectedApplyButtonColor = "(0, 141, 168)";
-		const expectedCleanAndCancelButtonColor = "(26, 26, 26)";
+		const expectedFontColor = theme.newColors.almostBlack[100];
+		const applyLocator = advancedFilters.applyBtn;
+		const clearLocator = advancedFilters.page.locator("div[role='presentation'] >> text=Clear");
 
-		const applyFontWeight = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontWeight)));
-		const clearFontWeight = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).fontWeight)));
-		const cancelFontWeight = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).fontWeight)));
-		const applyFontSize = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontSize)));
-		const clearFontSize = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).fontSize)));
-		const cancelFontSize = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).fontSize)));
-		const applyButtonColor = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
-		const clearButtonColor = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
-		const cancelButtonColor = (await ((advancedFilters.page.locator("button:has-text('Cancel')")).evaluate(el => getComputedStyle(el).color))).split("rgb")[1];
+		const applyFontWeight = await advancedFilters.getFontWeightFromElement(applyLocator);
+		const clearFontWeight = await advancedFilters.getFontWeightFromElement(clearLocator);
+		const applyFontSize = await advancedFilters.getFontSizeFromElement(applyLocator);
+		const clearFontSize = await advancedFilters.getFontSizeFromElement(clearLocator);
+		const applyButtonColor = await advancedFilters.getColorFromElement(applyLocator);
+		const clearButtonColor = await advancedFilters.getColorFromElement(clearLocator);
 
 		//Validate Font Weight
-		expect(applyFontWeight).toBe(expectedFontWeight);
-		expect(clearFontWeight).toBe(expectedFontWeight);
-		expect(cancelFontWeight).toBe(expectedFontWeight);
+		expect.soft(applyFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
+		expect.soft(clearFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
 		//Validate Font Size
-		expect(applyFontSize).toBe(expectedFontSize);
-		expect(clearFontSize).toBe(expectedFontSize);
-		expect(cancelFontSize).toBe(expectedFontSize);
-		//Validate Button Color
-		expect(applyButtonColor).toBe(expectedApplyButtonColor);
-		expect(clearButtonColor).toBe(expectedCleanAndCancelButtonColor);
-		expect(cancelButtonColor).toBe(expectedCleanAndCancelButtonColor);
+		expect.soft(applyFontSize, "Validate Font Size").toBe(expectedFontSize);
+		expect.soft(clearFontSize, "Validate Font Size").toBe(expectedFontSize);
+		//Validate Button Font Color
+		expect.soft(applyButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
+		expect(clearButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
 		await advancedFilters.page.keyboard.press("Escape");
 	}
 
@@ -114,7 +110,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	test("Validate Categories with Comparisons - All", async () => {
 		await advancedFilters.selectFilter("categoriesWithComparisons");
 		await advancedFilters.categoryWithComparisonBtn.click();
-		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
+		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory("Knowledge Chaser");
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonAllOption.click();
 		await advancedFilters.applyBtn.click();
@@ -268,7 +264,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
-		await advancedFilters.cancelBtn.click();
+		await advancedFilters.page.keyboard.press("Escape");
 	});
 
 	test("Validate created filter no return results", async () => {
@@ -276,8 +272,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.createdBtn.click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
-		await advancedFilters.fromCalendarButton.click();
-		await datepicker.selectDate(endDate);
+		await advancedFilters.selectFilterDates(endDate, endDate);
 		await advancedFilters.wait();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
@@ -295,7 +290,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 		expect(await advancedFilters.fromCalendarInput.inputValue()).toBe("");
 		expect(await advancedFilters.toCalendarInput.inputValue()).toBe("");
-		await advancedFilters.cancelBtn.click();
+		await advancedFilters.page.keyboard.press("Escape");
 	});
 
 	test("Remove created filter", async () => {
@@ -337,7 +332,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
-		await advancedFilters.cancelBtn.click();
+		await advancedFilters.page.keyboard.press("Escape");
 	});
 
 	test("Validate updated filter no return results", async () => {
@@ -346,8 +341,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.updatedBtn.click();
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.waitForElementLoad();
-		await advancedFilters.fromCalendarButton.click();
-		await datepicker.selectDate(endDate);
+		await advancedFilters.selectFilterDates(endDate, endDate);
 		await advancedFilters.wait();
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.waitForElementLoad();
@@ -365,7 +359,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.clearBtn.click();
 		expect(await advancedFilters.fromCalendarInput.inputValue()).toBe("");
 		expect(await advancedFilters.toCalendarInput.inputValue()).toBe("");
-		await advancedFilters.cancelBtn.click();
+		await advancedFilters.page.keyboard.press("Escape");
 	});
 
 	test("Remove updated filter", async () => {
@@ -379,7 +373,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.applyBtn.click();
 		await advancedFilters.wait();
 		await advancedFilters.selectFilter("updated");
-		await advancedFilters.waitForElementLoad();
+		await advancedFilters.wait();
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
 
@@ -406,6 +400,14 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
 		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
-		await advancedFilters.cancelBtn.click();
+		await advancedFilters.page.keyboard.press("Escape");
+	});
+
+	test("Validate that Removing emply Title filter doesn't trigger a reload", async () => {
+		await advancedFilters.selectFilter("title");
+		await advancedFilters._dataviewPage.filtersBtn.click();
+		await advancedFilters.titleOption.first().click();
+		await advancedFilters.applyBtn.click();
+		await expect(advancedFilters.loading).not.toBeVisible();
 	});
 });

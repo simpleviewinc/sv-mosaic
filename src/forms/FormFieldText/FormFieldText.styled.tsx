@@ -13,16 +13,16 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
   &.MuiFormControl-root {
-    background-color: ${pr => pr.disabled ? "#fff" : theme.colors.gray100};
+    background-color: ${pr => pr.disabled ? "#fff" : theme.newColors.grey1["100"]};
     &:hover {
-    	background-color: ${pr => pr.disabled ? "transparent" : theme.colors.grayHover};
+    	background-color: ${pr => pr.disabled ? "transparent" : theme.newColors.grey2["100"]};
 		& fieldset {
-			border-color: ${theme.colors.simplyGray};
+			border-color: ${theme.newColors.simplyGrey["100"]};
 		}
     }
 
 	& svg {
-		color: ${theme.newColors.grey3["100"]};
+		color: ${theme.newColors.almostBlack["100"]};
 	}
   }
 
@@ -60,7 +60,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
   .MuiInputBase-input.Mui-disabled {
     background-color: transparent;
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
   }
 
   .MuiFormHelperText-root.Mui-error {
@@ -69,12 +69,12 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
   fieldset {
     border-radius: 0px;
-	border-color: ${theme.colors.simplyGray};
+	border-color: ${theme.newColors.simplyGrey["100"]};
   }
 
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
-      border-color: ${theme.colors.almostBlack};
+      border-color: ${theme.newColors.almostBlack["100"]};
 	  border-width: 1px;
 	  box-shadow: ${theme.fieldSpecs.inputText.shadow};
     }

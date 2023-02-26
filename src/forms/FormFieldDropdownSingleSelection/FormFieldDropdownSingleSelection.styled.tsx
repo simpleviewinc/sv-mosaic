@@ -8,9 +8,11 @@ import Popper from "@mui/material/Popper";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
-    background-color: ${theme.colors.gray100};
+    background-color: ${theme.newColors.grey1["100"]};
+	font-family: ${theme.fontFamily};
+	color: ${theme.newColors.almostBlack["100"]};
     &:hover {
-      background-color: ${theme.colors.grayHover}
+      background-color: ${theme.newColors.grey2["100"]}
     }
   }
 
@@ -36,7 +38,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
   }
 
   .MuiAutocomplete-popupIndicator, .MuiAutocomplete-popupIndicatorOpen {
-    color: ${pr => (pr.error ? theme.newColors.darkRed["100"] : theme.colors.almostBlack)};
+    color: ${pr => (pr.error ? theme.newColors.darkRed["100"] : theme.newColors.almostBlack["100"])};
 
     &:before {
       background: none;
@@ -55,7 +57,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
 
 export const StyledDisabledDropdownText = styled.p`
   font-size: 16px;
-  color: ${theme.colors.assistiveText};
+  color: ${theme.newColors.grey3["100"]};
   margin-top: 15px;
 `;
 
@@ -79,17 +81,17 @@ export const StyledPopper = styled(Popper)`
     font-family: ${theme.fontFamily};
     font-size: 14px;
     min-height: 40px;
-    color: ${theme.colors.gray700};
+    color: ${theme.newColors.grey4["100"]};
 		background-color: white;
 
     &[aria-selected='true'] {
-			color: ${({ value }) => value ? theme.colors.gray700 : theme.colors.black };
+			color: ${({ value }) => value ? theme.newColors.grey4["100"] : theme.colors.black };
 			font-weight: ${({ value }) => value ? null : theme.fontWeight.semiBold};
 			background-color: white;
     }
 
 		&[aria-selected="true"].Mui-focused {
-			background-color: ${theme.colors.grayHover};
+			background-color: ${theme.newColors.grey2["100"]};
 		}
   }
 `;

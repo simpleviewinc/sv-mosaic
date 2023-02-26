@@ -14,7 +14,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 export const DragAndDropContainer = styled.div`
   align-items: center;
   border: ${(pr) => (pr.isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : "")};
-  background-color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["20"] : theme.colors.gray200)};
+  background-color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"])};
   display: flex;
   flex-direction: column;
   height: 204px;
@@ -24,7 +24,7 @@ export const DragAndDropContainer = styled.div`
 `;
 
 export const DragAndDropSpan = styled.span`
-  color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["100"] : theme.colors.gray600)};
+  color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"])};
   font-size: 16px;
   margin-bottom: ${(pr) => (pr.isOver ? "" : "24px")};
 `;
@@ -67,7 +67,7 @@ export const ImageCard = styled(AssetCard)``;
 export const ButtonsContainer = styled(ButtonsWrapper)``;
 
 export const ImgLoaded = styled.img`
-  border: 2px solid ${theme.colors.gray200};
+  border: 2px solid ${theme.newColors.grey2["100"]};
   object-fit: contain;
 `;
 
@@ -89,7 +89,7 @@ export const StyledCircularProgress = styled(CircularProgress)`
 
 export const SetFocusSpan = styled.span`
   align-self: center;
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
   font-family: ${theme.fontFamily};
   font-size: 14px;
   margin-left: 18px;
@@ -98,7 +98,7 @@ export const SetFocusSpan = styled.span`
 // ImageUploadCanvas component styles
 
 export const StyledCanvas = styled.canvas`
-  background-color: ${theme.colors.almostBlack};
+  background-color: ${theme.newColors.almostBlack["100"]};
   opacity: 0.4;
 `;
 

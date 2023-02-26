@@ -7,6 +7,7 @@ export class FilterComponent extends BasePage {
 	readonly page: Page;
 	readonly _dataviewPage: DataviewPage;
 
+	readonly optionsLocator: Locator;
 	readonly keywordFilterOption: Locator;
 	readonly keywordBtn: Locator;
 	readonly keywordInput: Locator;
@@ -14,7 +15,6 @@ export class FilterComponent extends BasePage {
 	readonly categoryBtn: Locator;
 	readonly categoryKeywordInput: Locator;
 	readonly categoryItems: Locator;
-	readonly checkbox: string;
 	readonly selectedOptions: Locator;
 	readonly loadMoreBtn: Locator;
 	readonly moreCategoriesTooltip: Locator;
@@ -28,13 +28,15 @@ export class FilterComponent extends BasePage {
 	readonly createdOption: Locator;
 	readonly updatedOption: Locator;
 	readonly titleWithComparisonOption: Locator;
+	readonly filtersRowLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
 		this._dataviewPage = new DataviewPage(page);
-		this.labelCheckbox = page.locator(".options [data-testid='label-test-id']");
-		this.filterCheckbox = page.locator(".options input[type='checkbox']");
+		this.optionsLocator = page.locator(".options");
+		this.labelCheckbox = this.optionsLocator.locator("[data-testid='label-test-id']");
+		this.filterCheckbox = this.optionsLocator.locator(this.checkboxInputString);
 		this.keywordFilterOption = this.labelCheckbox.locator(":scope", { hasText: "Keyword" });
 		this.keywordBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Keyword" });
 		this.keywordInput = page.locator(".inputRow input");
@@ -50,21 +52,20 @@ export class FilterComponent extends BasePage {
 		this.titleWithComparisonOption = this.labelCheckbox.locator(":scope", { hasText: "Title with Comparisons" });
 
 		this.categoryItems = page.locator(".listItem label");
-		this.checkbox = "input[type='checkbox']";
 		this.selectedOptions = page.locator(".chips div");
-		this.loadMoreBtn = page.locator(".loadContainer [type='button']");
+		this.loadMoreBtn = page.locator(".loadContainer button");
 		this.moreCategoriesTooltip = page.locator("[data-testid='tooltip-test-id']");
 		this.clearBtn = page.locator("div[role='presentation'] >> text=Clear");
+		this.filtersRowLocator = page.locator("//*[@id='root']/div/div/div[1]/div/div[2]/div");
 	}
 
 	async validateKeywordFilterIsVisible(isVisible: boolean): Promise<void> {
 		expect(await this.keywordInput.isVisible()).toBe(isVisible);
 		expect(await this.applyBtn.isVisible()).toBe(isVisible);
 		expect(await this.clearBtn.isVisible()).toBe(isVisible);
-		expect(await this.cancelBtn.isVisible()).toBe(isVisible);
 	}
 
-	async getItemByName(itemName: string): Promise<Locator> {
+	async getItemByName(itemName: string): Promise<Locator | undefined> {
 		const itemsNumber = await this.categoryItems.count();
 		for (let i = 0; i < itemsNumber; i++) {
 			const item = this.categoryItems.nth(i).locator("span").nth(1);
@@ -76,9 +77,9 @@ export class FilterComponent extends BasePage {
 
 	async checkItem(item: Locator, check: boolean): Promise<void> {
 		if (check) {
-			await item.locator(this.checkbox).check();
+			await item.locator(this.checkboxInputString).check();
 		} else {
-			await item.locator(this.checkbox).uncheck();
+			await item.locator(this.checkboxInputString).uncheck();
 		}
 	}
 
@@ -115,6 +116,7 @@ export class FilterComponent extends BasePage {
 
 	async displayAllCategories(): Promise<void> {
 		while (await this.loadMoreBtn.count() >= 1) {
+			await this.loadMoreBtn.scrollIntoViewIfNeeded();
 			await this.loadMoreBtn.click();
 		}
 	}
@@ -179,5 +181,17 @@ export class FilterComponent extends BasePage {
 		}
 		await this.applyBtn.click();
 		await this.loading.waitFor({ state: "detached" });
+	}
+
+	async selectAllFilters(): Promise<void> {
+		await this._dataviewPage.filtersBtn.click();
+		await this.wait();
+		const numberOfFilters = await this.filterCheckbox.count();
+		for (let i = 0; i < numberOfFilters; i++) {
+			if (!await this.filterCheckbox.nth(i).isChecked()) {
+				await this.filterCheckbox.nth(i).check();
+			}
+		}
+		await this.applyBtn.click();
 	}
 }

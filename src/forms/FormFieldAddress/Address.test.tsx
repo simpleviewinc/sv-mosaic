@@ -13,11 +13,68 @@ import { ReactElement } from "react";
 
 // Components
 import AddressCard from "./AddressCard";
-import { IAddress, AddressFieldDef } from ".";
+import { IAddress, AddressFieldInputSettings } from ".";
 import Form, { useForm } from "@root/components/Form";
 
 // Utils
 import { getOptionsCountries, getOptionsStates } from "./utils/optionGetters";
+import AddressAutocomplete from "./AddressAutocomplete";
+import { InputAdornment } from "@mui/material";
+import { StyledClearIcon } from "./AddressAutocomplete/AddressAutocomplete.styled";
+
+
+const mockGeoCoder = jest
+	.fn()
+	.mockImplementation(() => ({ geocode: jest.fn() }));
+
+/**
+ * Mock Google Maps JavaScript API
+ */
+export const setupGoogleMock = (): void => {
+	const google = {
+		maps: {
+			places: {
+				AutocompleteService: function() {
+					return { getPlacePredictions: jest.fn() };
+				},
+				PlacesServiceStatus: {
+					INVALID_REQUEST: "INVALID_REQUEST",
+					NOT_FOUND: "NOT_FOUND",
+					OK: "OK",
+					OVER_QUERY_LIMIT: "OVER_QUERY_LIMIT",
+					REQUEST_DENIED: "REQUEST_DENIED",
+					UNKNOWN_ERROR: "UNKNOWN_ERROR",
+					ZERO_RESULTS: "ZERO_RESULTS",
+				},
+			},
+			Geocoder: mockGeoCoder,
+			GeocoderStatus: {
+				ERROR: "ERROR",
+				INVALID_REQUEST: "INVALID_REQUEST",
+				OK: "OK",
+				OVER_QUERY_LIMIT: "OVER_QUERY_LIMIT",
+				REQUEST_DENIED: "REQUEST_DENIED",
+				UNKNOWN_ERROR: "UNKNOWN_ERROR",
+				ZERO_RESULTS: "ZERO_RESULTS",
+			},
+		},
+	};
+	// Disabling linter to allow the use of any as type since this is
+	// mocking a google maps object.
+	// eslint-disable-next-line
+  global.window.google = google as any;
+};
+
+jest.mock("@react-google-maps/api", () => ({
+	useLoadScript: () => ({
+		isLoaded: true,
+		loadError: null,
+	}),
+	// eslint-disable-next-line react/display-name
+	GoogleMap: () => <div>Mocked Google Map Component</div>,
+	// eslint-disable-next-line react/display-name
+	Marker: () => <div />,
+}));
 
 const address: IAddress = {
 	id: 1,
@@ -29,30 +86,26 @@ const address: IAddress = {
 	types: [{label: "Physical", value: "physical"}, {label: "Billing", value: "billing"}]
 };
 
-const fields = [
-	{
-		disabled: false,
-		label: "Address Form Field",
-		name: "address",
-		type: "address",
-	}
-] as FieldDef[];
-
-export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef; }): ReactElement => {
+export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings; }): ReactElement => {
 	const {
 		state,
 		dispatch,
 	} = useForm();
 
-	const newFields = fields.map(field => props?.inputSettings ? ({
-		...field,
-		inputSettings: props.inputSettings,
-	}) : field);
+	const fields: FieldDef[] = [
+		{
+			disabled: false,
+			label: "Address Form Field",
+			name: "address",
+			type: "address",
+			inputSettings: props.inputSettings,
+		}
+	];
 
 	return (
 		<Form
 			state={state}
-			fields={newFields}
+			fields={fields}
 			dispatch={dispatch}
 		/>
 	);
@@ -60,16 +113,19 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldDef
 
 const {
 	getByText,
-	getByLabelText,
 	getAllByTestId,
 	getAllByRole,
 	queryAllByTestId,
 	queryByText,
 	findAllByTestId,
 	findAllByRole,
-	findByLabelText,
 	findByText,
+	getByTestId
 } = screen;
+
+const mockOnChange = jest.fn()
+const mockOnSelect = jest.fn()
+const mockClear = jest.fn();
 
 const addNewAddress = async () => {
 	document.createRange = () => ({
@@ -87,35 +143,40 @@ const addNewAddress = async () => {
 
 	const addAddressButton = await findByText("ADD ADDRESS");
 	await act(async () => {
-		addAddressButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+		fireEvent.click(addAddressButton);
 	});
-	const address = await findByLabelText("Address");
+
+	const fields = screen.getAllByRole("textbox");
+	const address = fields[0];
 	expect(address).toBeInTheDocument();
-	const city = await findByLabelText("City");
+
+	const city = fields[3];
 	expect(city).toBeInTheDocument();
-	const postalCode = await findByLabelText("Postal Code");
+
+	const postalCode = fields[4];
 	expect(postalCode).toBeInTheDocument();
+
 	const dropdowns = await findAllByTestId("autocomplete-test-id");
 	const inputs = await findAllByRole("combobox") as HTMLInputElement[];
 	const addressTypes = await findAllByTestId("checkbox-test-id") as HTMLInputElement[];
 
 	await act(async () => {
 		dropdowns[0].focus();
-		fireEvent.change(inputs[0], { target: { value: "México" } });
+		fireEvent.change(inputs[1], { target: { value: "México" } });
 		fireEvent.keyDown(dropdowns[0], { key: "ArrowDown" });
 		fireEvent.keyDown(dropdowns[0], { key: "Enter" });
 	});
 
 	await act(async () => {
-		fireEvent.change(address, { target: { value: "Address test 1" } });
+		fireEvent.change(fields[0], { target: { value: "Address test 1" } });
 	});
 
 	await act(async () => {
-		fireEvent.change(city, { target: { value: "Guadalajara" } });
+		fireEvent.change(fields[3], { target: { value: "Guadalajara" } });
 	});
 
 	await act(async () => {
-		fireEvent.change(postalCode, { target: { value: "123" } });
+		fireEvent.change(fields[4], { target: { value: "123" } });
 	});
 
 	await act(async () => {
@@ -123,15 +184,33 @@ const addNewAddress = async () => {
 	});
 };
 
+beforeAll(() => {
+	setupGoogleMock();
+});
 afterEach(cleanup);
+
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
 jest.setTimeout(60000);
 
 describe("Regular Address component", () => {
-	beforeEach(() => {
-		render(<AddressFormFieldExample inputSettings={{
-			getOptionsCountries,
-			getOptionsStates,
-		}}/>);
+	beforeEach(async () => {
+		await act(() => {
+			render(
+				<AddressFormFieldExample
+					inputSettings={{
+						getOptionsCountries,
+						getOptionsStates,
+						googleMapsApiKey: "test",
+					}}
+				/>
+			)
+		});
 	});
 
 	it("should add a new address card and then remove it", async () => {
@@ -142,14 +221,14 @@ describe("Regular Address component", () => {
 		await addNewAddress();
 
 		const saveButton = getByText("Save");
-		fireEvent.click(saveButton, {bubbles: true});
+		fireEvent.click(saveButton);
 		await(waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
 		}));
 
 		const removeButton = getByText("Remove");
 		await act(async () => {
-			fireEvent.click(removeButton, {bubbles: true});
+			fireEvent.click(removeButton);
 		});
 
 		await(waitFor(() => {
@@ -161,16 +240,20 @@ describe("Regular Address component", () => {
 		await addNewAddress();
 
 		const saveButton = getByText("Save");
-		fireEvent.click(saveButton, {bubbles: true});
+		fireEvent.click(saveButton);
 
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
 		});
 
-		fireEvent.click(getByText("Edit"));
-		const address = getByLabelText("Address");
-		const city = getByLabelText("City");
-		const postalCode = getByLabelText("Postal Code");
+		await act(async () => {
+			fireEvent.click(getByText("Edit"));
+		});
+
+		const fields = screen.getAllByRole("textbox");
+		const address = fields[0];
+		const city = fields[3];
+		const postalCode = fields[4];
 		const dropdowns = getAllByTestId("autocomplete-test-id");
 		const countryDropdown = dropdowns[0].querySelector(
 			".MuiAutocomplete-input"
@@ -227,17 +310,18 @@ describe("AddressCard component", () => {
 });
 
 describe("Address field with specific amount per type", () => {
-
 	it("should add a new address card with shipping address type", async () => {
-
-		render(<AddressFormFieldExample inputSettings={{
-			amountPerType: 2,
-			amountShipping: 1,
-			amountPhysical: 0,
-			amountBilling: 0,
-			getOptionsCountries,
-			getOptionsStates,
-		}}/>);
+		await act(() => {
+			render(<AddressFormFieldExample inputSettings={{
+				googleMapsApiKey: "test",
+				amountPerType: 2,
+				amountShipping: 1,
+				amountPhysical: 0,
+				amountBilling: 0,
+				getOptionsCountries,
+				getOptionsStates,
+			}}/>);
+		});
 
 		expect(queryAllByTestId("address-card-test")).toStrictEqual([]);
 
@@ -257,5 +341,37 @@ describe("Address field with specific amount per type", () => {
 		await waitFor(() => {
 			expect(getByText("ADD ADDRESS")).not.toHaveClass("Mui-disabled");
 		});
+	});
+});
+
+describe("AddressAutocomplete component", () => {
+	it("it should render a default value and execute callbacks", () => {
+		render(
+			<AddressAutocomplete
+				value="Test"
+				onChange={mockOnChange}
+				onSelect={mockOnSelect}
+				textField={{
+					InputProps: {
+						endAdornment: (
+							<InputAdornment position='end'>
+								<StyledClearIcon onClick={mockClear} />
+							</InputAdornment>
+						),
+					}
+				}}
+			/>
+		);
+
+		const inputElement = getByTestId("location-search-input") as HTMLInputElement;
+		expect(inputElement).toHaveValue("Test");
+
+		const clearIcon = getByTestId("ClearIcon");
+
+		fireEvent.change(inputElement, { target: { value: "Monterrey" } });
+		expect(mockOnChange).toHaveBeenCalled();
+
+		fireEvent.click(clearIcon);
+		expect(mockClear).toHaveBeenCalled();
 	});
 });

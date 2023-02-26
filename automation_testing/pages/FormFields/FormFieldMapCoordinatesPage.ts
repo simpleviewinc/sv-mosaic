@@ -9,6 +9,7 @@ export class FormFieldMapCoordinatesPage extends BasePage {
 	readonly map: Locator;
 	readonly mapWithoutAddressAndAutocoordinatesDisabledButton: Locator;
 	readonly mapDisabledDefaultLocation: Locator;
+	readonly mapWithAddressDiv: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -16,10 +17,7 @@ export class FormFieldMapCoordinatesPage extends BasePage {
 		this.map = page.locator("[aria-label='Map']");
 		this.mapWithoutAddressAndAutocoordinatesDisabledButton = page.locator("button", { hasText: "ADD COORDINATES" }).nth(0);
 		this.mapDisabledDefaultLocation = page.locator("//*[@id='4']/div/div/div/div/div/div[2]/div[2]/div[2]");
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		this.mapWithAddressDiv = page.locator("#mapWithAddress div div div").nth(2);
 	}
 
 	async getCoordinateFromMapCard(mapCard: Locator, _isLatitute = true): Promise<string> {

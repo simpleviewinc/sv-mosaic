@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, object, text, number } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { MapCoordinatesDef } from ".";
 import { onCancel, renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -28,7 +27,7 @@ export const Playground = (): ReactElement => {
 	const zoom = number("Zoom", 7, { min: 0, max: 18 });
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "map",
@@ -37,13 +36,13 @@ export const Playground = (): ReactElement => {
 					required,
 					disabled,
 					inputSettings: {
-						apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-						address: withAddress ? addressKnob : {},
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+						address: withAddress ? addressKnob : undefined,
 						mapPosition: mapPositionKnob,
 						zoom: zoom
 					},
 				},
-			] as FieldDef<MapCoordinatesDef>[],
+			],
 		[addressKnob, disabled, label, mapPositionKnob, required, withAddress, zoom]
 	);
 
@@ -63,7 +62,7 @@ export const Playground = (): ReactElement => {
 	);
 };
 
-const kitchenSinkFields = [
+const kitchenSinkFields: FieldDef[] = [
 	{
 		name: "mapWithoutAddress",
 		label: "Map without an address. Autocoordinates disabled",
@@ -71,7 +70,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 		},
 	},
 	{
@@ -81,7 +80,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			zoom: 8,
 			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
 		},
@@ -93,7 +92,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address,
 			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
 		},
@@ -105,7 +104,7 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address,
 			mapPosition: { lat: 19.3884403, lng: -99.1747252 }
 		},
@@ -117,11 +116,11 @@ const kitchenSinkFields = [
 		required: false,
 		disabled: true,
 		inputSettings: {
-			apiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address
 		},
 	}
-] as FieldDef<MapCoordinatesDef>[];
+];
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();

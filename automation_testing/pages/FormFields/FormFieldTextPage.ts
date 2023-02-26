@@ -12,7 +12,6 @@ export class FormFieldTextPage extends BasePage {
 	readonly multilineTextField: Locator;
 	readonly fieldMaxCharTextField: Locator;
 	readonly maxCharCounter: Locator;
-	readonly fieldWithIconDiv: Locator;
 	readonly fieldWithIconIcon: Locator;
 	readonly fieldWithIconTextField: Locator;
 	readonly disabledTextField: Locator;
@@ -26,24 +25,19 @@ export class FormFieldTextPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.firstSection = page.locator("[data-testid='field-test-id']").first();
-		this.regularTextField = page.locator("#regular");
-		this.passwordTextField = page.locator("#password");
-		this.multilineTextField = page.locator("#multiline");
-		this.fieldMaxCharTextField = page.locator("#withMaxChar");
-		this.maxCharCounter = page.locator("//*[@id='3']/div/div/div/div/div[1]/div[1]/div[2]");
-		this.fieldWithIconDiv = page.locator("//*[@id='root']/div/form/div[2]/div[5]/div/div/div/div/div[1]/div[2]/div");
+		this.regularTextField = page.locator("input#regular");
+		this.passwordTextField = page.locator("input#password");
+		this.multilineTextField = page.locator("textarea#multiline");
+		this.fieldMaxCharTextField = page.locator("input#withMaxChar");
+		this.maxCharCounter = page.locator("div#withMaxChar div div div").nth(1);
 		this.fieldWithIconIcon = page.locator("[data-testid='AccountCircleIcon']");
-		this.fieldWithIconTextField = page.locator("#withIcon");
-		this.disabledTextField = page.locator("#disabled");
-		this.xsSizeTextField = page.locator("#xsSize");
-		this.smSizeTextField = page.locator("#smSize");
-		this.mdSizeTextField = page.locator("#mdSize");
-		this.lgSizeTextField = page.locator("#lgSize");
-		this.firstInstructionText = page.locator(".instruction-text-right").first()
-	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
+		this.fieldWithIconTextField = page.locator("input#withIcon");
+		this.disabledTextField = page.locator("input#disabled");
+		this.xsSizeTextField = page.locator("input#xsSize");
+		this.smSizeTextField = page.locator("input#smSize");
+		this.mdSizeTextField = page.locator("input#mdSize");
+		this.lgSizeTextField = page.locator("input#lgSize");
+		this.firstInstructionText = page.locator(".instruction-text-right").first();
 	}
 
 	async setTextInMultilineField(multilineText:string): Promise<void> {

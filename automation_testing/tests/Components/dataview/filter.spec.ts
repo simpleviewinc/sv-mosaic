@@ -14,7 +14,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		page = await browser.newPage();
 		_dataviewPage = new DataviewPage(page);
 		filter = new FilterComponent(page);
-		await _dataviewPage.visitPage();
+		await _dataviewPage.visit(_dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {
@@ -44,7 +44,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 
 	test("Filter title with a valid keyword and no results", async () => {
 		await filter.searchForTerm("keyword", filter_data.keywordNoResultsFilter);
-		await expect(filter.page.locator(".noResults")).toBeVisible()
+		await expect(filter._dataviewPage.noResults).toBeVisible()
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.keywordNoResultsFilter);
 	});
 
@@ -164,5 +164,60 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.categoryBtn.click();
 		await filter.selectCategory(filter_data.categoryFilterChooseItem);
 		expect(await filter.getBackgroundColorFromElement(_dataviewPage.selectedChips)).toBe(expectBgColor);
+	});
+
+	test("Validate Gap between filters is valid.", async () => {
+		await filter.filtersRowLocator.waitFor();
+		await filter.selectAllFilters();
+		expect(await filter.getGapFromElement(filter.filtersRowLocator)).toBe("16px");
+	});
+
+	test("Validate bottons in filters selection are as expected.", async () => {
+		const expectBgColor = theme.newColors.simplyGold["100"];
+		await filter._dataviewPage.filtersBtn.click();
+		await expect(filter.clearBtn).toBeVisible();
+		await expect(filter.applyBtn).toBeVisible();
+		await expect(filter.cancelBtn).not.toBeVisible();
+		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
+
+		// Now we select a filter and check the same conditions.
+		await filter.page.keyboard.press("Escape");
+		await filter.selectFilter("categories");
+		await filter.categoryBtn.click();
+		await expect(filter.clearBtn).toBeVisible();
+		await expect(filter.applyBtn).toBeVisible();
+		await expect(filter.cancelBtn).not.toBeVisible();
+		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
+	});
+
+	test("Validate that selected categories are shown properly in Selected Options.", async () => {
+		await filter.selectFilter("categories");
+		await filter.categoryBtn.click();
+		await filter.selectCategory(filter_data.categoryFilterChooseItem);
+		await filter.categoryKeywordInput.type(filter_data.categoryKeywordFilter);
+		await filter.selectCategory(filter_data.categoryKeywordFilter);
+		await filter.clearAllValuesFromField(filter.categoryKeywordInput);
+		expect(await _dataviewPage.selectedChips.count()).toBe(2);
+		expect(await _dataviewPage.selectedChips.first().textContent()).toBe(filter_data.categoryFilterChooseItem);
+		expect(await _dataviewPage.selectedChips.last().textContent()).toBe(filter_data.categoryKeywordFilter);
+	});
+
+	test("Validate the alingment of the No results message.", async () => {
+		const expectedMargin = "0px 20px"
+		await filter.searchForTerm("keyword", filter_data.keywordNoResultsFilter);
+		await expect(filter._dataviewPage.noResults).toBeVisible();
+		expect(await filter.getSpecificMarginFromElement(filter._dataviewPage.noResults, "all")).toContain(expectedMargin);
+	});
+
+	test("Validate that when clicking the clear button, it removes the selected filter.", async () => {
+		await filter.selectFilter("categories");
+		await filter.categoryBtn.click();
+		await filter.selectCategory(filter_data.categoryFilterChooseItem);
+		await filter.applyBtn.click();
+		await filter.categoryBtn.click();
+		await filter.clearBtn.click();
+		expect(await _dataviewPage.selectedChips.count()).toBe(0);
+		await filter.applyBtn.click();
+		expect(await filter.categoryBtn.textContent()).not.toContain(filter_data.categoryFilterChooseItem);
 	});
 });

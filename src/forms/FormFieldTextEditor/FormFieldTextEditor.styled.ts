@@ -11,17 +11,18 @@ export const EditorWrapper = styled.div`
 		background-color: white !important;
 		border-radius: 0px !important;
 		margin-bottom: 8px !important;
-		border: ${(pr) => (pr.error ? theme.borders.error : theme.borders.simplyGray)} !important;
+		border: ${(pr) => (pr.error ? theme.borders.error : theme.borders.simplyGrey)} !important;
 	}
 
 	.jodit-workplace {
-		background-color: ${theme.colors.gray100} !important;
+		background-color: ${theme.newColors.grey1["100"]} !important;
 		max-height: 200px !important;
 		overflow-y: auto !important;
 		padding: 16px !important;
+		color: ${theme.newColors.almostBlack["100"]};
 		border: ${(pr) => {
 		if (pr.error) return theme.borders.error;
-		return theme.borders.simplyGray;
+		return theme.borders.simplyGrey;
 	}} !important;
 
 		& .jodit-wysiwyg {
@@ -36,8 +37,8 @@ export const EditorWrapper = styled.div`
 		}
 
 		&:focus-within {
-			box-shadow: 0px 0px 5px #1A1A1A29;
-			border: 1px solid ${theme.colors.almostBlack} !important;
+			box-shadow: 0px 0px 5px ${theme.newColors.almostBlack["20"]};
+			border: 1px solid ${theme.newColors.almostBlack["100"]} !important;
 		}
 	}
 
@@ -46,8 +47,8 @@ export const EditorWrapper = styled.div`
 	}
 
 	.jodit-workplace:focus-within + .jodit-status-bar {
-		box-shadow: 0px 0px 5px #1A1A1A29;
-		border: 1px solid ${theme.colors.almostBlack} !important;
+		box-shadow: 0px 0px 5px ${theme.newColors.almostBlack["20"]};
+		border: 1px solid ${theme.newColors.almostBlack["100"]} !important;
 		border-top: none !important;
 	}
 
@@ -55,10 +56,10 @@ export const EditorWrapper = styled.div`
 		border-radius: 0px !important;
 		border: ${(pr) => {
 		if (pr.error) return theme.borders.error;
-		return theme.borders.simplyGray;
+		return theme.borders.simplyGrey;
 	}} !important;
 		border-top: none !important;
 		font-family: ${theme.fontFamily};
-		background-color: ${theme.colors.grayHover};
+		background-color: ${theme.newColors.grey2["100"]};
 	}
 `;

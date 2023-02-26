@@ -9,27 +9,29 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		summaryPage = new SummaryPageTopComponentPage(page);
-		await summaryPage.visitPage();
+		await summaryPage.visit(summaryPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
 		await browser.close();
 	});
 
-	test("Validate the font weight of the title.", async () => {
-		const expectedFontWeight = "250";
-		const titleFontWeight = await summaryPage.getFontWeightFromElement(summaryPage.summaryTitle);
-		expect(titleFontWeight).toBe(expectedFontWeight);
-	});
-
-	test("Validate the font of the title.", async () => {
-		const titleFonts = await summaryPage.getFontFamilyFromElement(summaryPage.summaryTitle);
-		expect(titleFonts).toContain("Museo-Sans");
-	});
-
 	test("Validate Star has simplyGold color.", async () => {
-		const expectColor = (theme.newColors.simplyGold["100"]);
+		const expectColor = theme.newColors.simplyGold["100"];
 		await summaryPage.starRateIconUnchecked.click();
 		expect(await summaryPage.getColorFromElement(summaryPage.starRateIconChecked)).toBe(expectColor);
+	});
+
+	test("Validate Summary Page Top Component padding is valid.", async () => {
+		const locator = summaryPage.summaryTopComponent;
+		await locator.waitFor();
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "top")).toBe("24px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "right")).toBe("24px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("16px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "left")).toBe("24px");
+	});
+
+	test("Validate the Summary Page Top Component title style.", async () => {
+		await summaryPage.validateTitleStylingOfLocator(summaryPage.title.last());
 	});
 });

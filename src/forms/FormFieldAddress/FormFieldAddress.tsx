@@ -12,9 +12,9 @@ import { AddAddressWrapper, FlexContainer } from "./Address.styled";
 // Utils
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
-import { IAddress, AddressFieldDef } from ".";
+import { AddressFieldInputSettings, AddressData } from ".";
 
-const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>): ReactElement => {
+const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
 		value,
 		onBlur,
@@ -210,6 +210,7 @@ const FormFieldAddress = (props: MosaicFieldProps<AddressFieldDef, IAddress[]>):
 			</FlexContainer>
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
+					googleMapsApiKey={fieldDef.inputSettings.googleMapsApiKey}
 					open={open}
 					value={value ?? []}
 					onChange={onChange}

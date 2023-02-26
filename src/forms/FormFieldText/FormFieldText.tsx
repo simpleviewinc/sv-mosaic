@@ -5,13 +5,12 @@ import { ReactElement, memo, ChangeEvent } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 
 // Types and styles
-import { TextFieldDef } from "./FormFieldTextTypes";
+import { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
-
 const TextField = (
-	props: MosaicFieldProps<TextFieldDef, string | number>
+	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>
 ): ReactElement => {
 	const {
 		fieldDef,
@@ -42,7 +41,7 @@ const TextField = (
 		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
 	}
 
-	const errorWithMessage = error?.trim().length > 0;
+	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
 
 	return (
 		<StyledTextField
@@ -62,6 +61,8 @@ const TextField = (
 			InputProps={leadingElement}
 			required={fieldDef?.required}
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
+			minRows={fieldDef?.inputSettings?.minRows}
+			maxRows={fieldDef?.inputSettings?.maxRows}
 		/>
 	);
 };

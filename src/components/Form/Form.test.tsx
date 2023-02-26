@@ -4,7 +4,6 @@ import { coreReducer, generateLayout } from "./formUtils";
 import { formActions } from "./formActions";
 import { FieldDef } from "../../components/Field";
 import { mapsValidators, required, validateEmail, validateNumber, validateSlow, validateURL } from "./validators";
-import { TextFieldDef } from "@root/forms/FormFieldText";
 
 const runTests = (tests, type) => {
 	switch (type) {
@@ -56,7 +55,7 @@ const runTests = (tests, type) => {
 };
 
 describe("Layout logic", () => {
-	const fields = [
+	const fields: FieldDef[] = [
 		{
 			name: "text1",
 			label: "Simple Text",
@@ -77,7 +76,7 @@ describe("Layout logic", () => {
 			label: "Text that receives copy",
 			type: "text"
 		}
-	] as FieldDef<TextFieldDef>[];
+	];
 
 	const sections = [
 		{
@@ -260,21 +259,34 @@ describe("REDUCERS: FIELD_ON_CHANGE", () => {
 	runTests(tests, "reducer");
 });
 
-describe("REDUCERS: FIELD_START_VALIDATE", () => {
+describe("REDUCERS: FIELD_ON_CHANGE", () => {
 	const tests = [
 		{
-			name: "FIELD_START_VALIDATE",
+			name: "Field touched",
 			args: {
 				action: {
 					name: "field1",
-					type: "FIELD_START_VALIDATE",
+					value: true,
+					type: "FIELD_TOUCHED",
 				},
 				result: {
-					errors: {
-						"field1": null,
-					},
-					validating: {
-						"field1": true,
+					touched: {
+						"field1": true
+					}
+				},
+			},
+		},
+		{
+			name: "Field not touched",
+			args: {
+				action: {
+					name: "field1",
+					value: false,
+					type: "FIELD_TOUCHED",
+				},
+				result: {
+					touched: {
+						"field1": false
 					}
 				},
 			},
@@ -284,7 +296,7 @@ describe("REDUCERS: FIELD_START_VALIDATE", () => {
 	runTests(tests, "reducer");
 });
 
-describe("REDUCERS: FIELD_END_VALIDATE", () => {
+describe("REDUCERS: FIELD_VALIDATE", () => {
 	const tests = [
 		{
 			name: "Invalid field",
@@ -292,7 +304,7 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 				action: {
 					name: "field1",
 					value: "This field is required, please fill it!",
-					type: "FIELD_END_VALIDATE",
+					type: "FIELD_VALIDATE",
 				},
 				state: {
 					data: {
@@ -301,9 +313,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 					errors: {
 						"foo": undefined,
 					},
-					validating: {
-						"foo": undefined,
-					}
 				},
 				result: {
 					data: {
@@ -313,10 +322,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 						"field1": "This field is required, please fill it!",
 						"foo": undefined,
 					},
-					validating: {
-						"field1": undefined,
-						"foo": undefined,
-					}
 				},
 			},
 		},
@@ -326,7 +331,7 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 				action: {
 					name: "field1",
 					value: undefined,
-					type: "FIELD_END_VALIDATE",
+					type: "FIELD_VALIDATE",
 				},
 				state: {
 					data: {
@@ -337,10 +342,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 						"foo": null,
 						"field1": null,
 					},
-					validating: {
-						"foo": null,
-						"field1": true,
-					}
 				},
 				result: {
 					data: {
@@ -351,10 +352,6 @@ describe("REDUCERS: FIELD_END_VALIDATE", () => {
 						"foo": null,
 						"field1": undefined,
 					},
-					validating: {
-						"foo": null,
-						"field1": undefined,
-					}
 				}
 			},
 		},
@@ -446,7 +443,27 @@ describe("REDUCERS: FORM_RESET", () => {
 					validating: {},
 					custom: {},
 					validForm: false,
-					disabled: null,
+					disabled: false,
+				},
+			},
+		}
+	];
+
+	runTests(tests, "reducer");
+});
+
+describe("REDUCERS: PROPERTY_RESET", () => {
+	const tests = [
+		{
+			name: "PROPERTY_RESET",
+			args: {
+				action: {
+					name: "touched",
+					value: {},
+					type: "PROPERTY_RESET",
+				},
+				result: {
+					touched: {},
 				},
 			},
 		}
@@ -467,6 +484,25 @@ describe("DISPATCHERS: setFieldValue", () => {
 						type: "FIELD_ON_CHANGE",
 						name: "testName",
 						value: "testValue",
+					}
+				]
+			}
+		},
+		{
+			name: "Sets value to field",
+			args: {
+				action: "setFieldValue",
+				args: [{ name: "testName", value: "testValue", touched: true }],
+				calls: [
+					{
+						type: "FIELD_ON_CHANGE",
+						name: "testName",
+						value: "testValue",
+					},
+					{
+						type: "FIELD_TOUCHED",
+						name: "testName",
+						value: true,
 					}
 				]
 			}
@@ -523,11 +559,7 @@ describe("DISPATCHERS: validateField", () => {
 				args: [{ name: "testField" }],
 				calls: [
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "testField",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "testField",
 						value: undefined,
 					}
@@ -551,11 +583,7 @@ describe("DISPATCHERS: validateField", () => {
 				args: [{ name: "testField" }],
 				calls: [
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "testField",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "testField",
 						value: "This field is required, please fill it",
 					}
@@ -609,29 +637,17 @@ describe("DISPATCHERS: validateForm", () => {
 						value: true,
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field2",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field2",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field3",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field3",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field4",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field4",
 						value: "This field is required, please fill it",
 					},
@@ -744,29 +760,17 @@ describe("DISPATCHERS: submitForm", () => {
 						value: true,
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field2",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field2",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field3",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field3",
 						value: "This field is required, please fill it",
 					},
 					{
-						type: "FIELD_START_VALIDATE",
-						name: "field4",
-					},
-					{
-						type: "FIELD_END_VALIDATE",
+						type: "FIELD_VALIDATE",
 						name: "field4",
 						value: "This field is required, please fill it",
 					},
@@ -857,10 +861,6 @@ describe("DISPATCHERS: setFormValues", () => {
 				}],
 				calls: [
 					{
-						type: "FORM_START_DISABLE",
-						value: true,
-					},
-					{
 						type: "FIELD_ON_CHANGE",
 						name: "field1",
 						value: "value1",
@@ -870,6 +870,35 @@ describe("DISPATCHERS: setFormValues", () => {
 						name: "field2",
 						value: "value2",
 					},
+				]
+			}
+		},
+	];
+
+	runTests(tests, "dispatch");
+});
+
+describe("DISPATCHERS: disableForm", () => {
+	const tests = [
+		{
+			name: "Disables the form",
+			args: {
+				action: "disableForm",
+				args: [{ disabled: true }],
+				calls: [
+					{
+						type: "FORM_START_DISABLE",
+						value: true,
+					}
+				]
+			}
+		},
+		{
+			name: "Enables the form",
+			args: {
+				action: "disableForm",
+				args: [{ disabled: false }],
+				calls: [
 					{
 						type: "FORM_END_DISABLE",
 						value: false,

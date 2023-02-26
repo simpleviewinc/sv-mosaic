@@ -4,7 +4,7 @@ import { Sizes } from "@root/theme";
 
 export const popperSx = {
 	"& .MuiPaper-root": {
-		border: `2px solid ${theme.colors.gray200}`,
+		border: `2px solid ${theme.newColors.grey2["100"]}`,
 		boxShadow: "0px 1px 5px rgba(26, 26, 26, 0.161)",
 	},
 
@@ -22,7 +22,7 @@ export const popperSx = {
 	},
 
 	"& .MuiPickersDay-dayWithMargin": {
-		color: theme.colors.almostBlack,
+		color: theme.newColors.almostBlack["100"],
 		fontFamily: theme.fontFamily,
 
 		"&:hover": {
@@ -33,7 +33,7 @@ export const popperSx = {
 	},
 
 	"& .MuiIconButton-edgeStart, .MuiIconButton-edgeEnd" : {
-		color: theme.colors.gray700
+		color: theme.newColors.grey4["100"]
 	},
 
 	"& .MuiPickersDay-root.Mui-selected" : {
@@ -55,27 +55,27 @@ export const popperSx = {
 };
 
 export const DisabledDateTimeValue = styled.span`
-	color: ${theme.colors.almostBlack};
+	color: ${theme.newColors.almostBlack["100"]};
 	font-family: ${theme.fontFamily};
 	font-size: 16px;
 `;
 
 export const DatePickerWrapper = styled.div`
   	.MuiOutlinedInput-root {
-		background-color: ${theme.colors.gray100};
+		background-color: ${theme.newColors.grey1["100"]};
 		width: ${Sizes.sm};
 		padding-right: 16px;
 
 		&:hover {
-			background-color: ${theme.colors.gray200};
+			background-color: ${theme.newColors.grey2["100"]};
 			& fieldset {
-				border-color: ${theme.colors.simplyGray};
+				border-color: ${theme.newColors.simplyGrey["100"]};
 			}
 		}
 
 		& fieldset {
 			border-radius: 0;
-			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.colors.almostBlack}` : `1px solid ${theme.colors.simplyGray}`};
+			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : theme.borders.simplyGrey};
 		}
 
 			.MuiOutlinedInput-input {
@@ -84,12 +84,12 @@ export const DatePickerWrapper = styled.div`
 			}
 
 		&.Mui-focused fieldset {
-			border-color: ${theme.colors.almostBlack};
+			border-color: ${theme.newColors.almostBlack["100"]};
 			border-width: 1px;
 		}
   	}
 
 	.MuiIconButton-root {
-		color: ${pr => pr.isPickerOpen ? theme.colors.almostBlack : theme.colors.gray600};
+		color: ${pr => pr.isPickerOpen ? theme.newColors.almostBlack["100"] : theme.newColors.grey3["100"]};
 	}
 `;

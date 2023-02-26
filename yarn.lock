@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 5
+  version: 6
   cacheKey: 8
 
 "@adobe/css-tools@npm:^4.0.1":
@@ -3077,6 +3077,7 @@ __metadata:
     "@react-google-maps/api": ^2.7.0
     "@storybook/addon-docs": 5.3.13
     "@storybook/addon-knobs": 5.3.13
+    "@storybook/addon-storysource": 5.3.13
     "@storybook/addon-viewport": 5.3.13
     "@storybook/react": 5.3.13
     "@testing-library/jest-dom": ^5.16.4
@@ -3240,6 +3241,30 @@ __metadata:
   peerDependencies:
     react: "*"
   checksum: 3d78d1bfb42e1b3af11d76bbe56d2c1f4a0fa6b5f5e9e18af544e5c9f3f144a1145a622e8798917d2f50b676b24c9cf8c5a83bc88fdcf93138696664ff9bd49a
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-storysource@npm:5.3.13":
+  version: 5.3.13
+  resolution: "@storybook/addon-storysource@npm:5.3.13"
+  dependencies:
+    "@storybook/addons": 5.3.13
+    "@storybook/components": 5.3.13
+    "@storybook/router": 5.3.13
+    "@storybook/source-loader": 5.3.13
+    "@storybook/theming": 5.3.13
+    core-js: ^3.0.1
+    estraverse: ^4.2.0
+    loader-utils: ^1.2.3
+    prettier: ^1.16.4
+    prop-types: ^15.7.2
+    react-syntax-highlighter: ^11.0.2
+    regenerator-runtime: ^0.13.3
+    util-deprecate: ^1.0.2
+  peerDependencies:
+    "@storybook/source-loader": "*"
+    react: "*"
+  checksum: 76c6458ada7cf198a7a9ba0a9c6b102f7574016fde4655ae9dc78d6c7325d952d017d3699407c83a8e8790e64e569d12837f6fa6f31abf00c5c1cf7464fa1b23
   languageName: node
   linkType: hard
 
@@ -8080,9 +8105,9 @@ __metadata:
   linkType: hard
 
 "decode-uri-component@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "decode-uri-component@npm:0.2.0"
-  checksum: f3749344ab9305ffcfe4bfe300e2dbb61fc6359e2b736812100a3b1b6db0a5668cba31a05e4b45d4d63dbf1a18dfa354cd3ca5bb3ededddabb8cd293f4404f94
+  version: 0.2.2
+  resolution: "decode-uri-component@npm:0.2.2"
+  checksum: 95476a7d28f267292ce745eac3524a9079058bbb35767b76e3ee87d42e34cd0275d2eb19d9d08c3e167f97556e8a2872747f5e65cbebcac8b0c98d83e285f139
   languageName: node
   linkType: hard
 
@@ -18893,11 +18918,11 @@ __metadata:
 
 "typescript@patch:typescript@4.7.4#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=493e53"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 96d3030cb01143570567cb4f3a616b10df65f658f0e74e853e77a089a6a954e35c800be7db8b9bfe9a1ae05d9c2897e281359f65e4caa1caf266368e1c4febd3
+  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
   languageName: node
   linkType: hard
 

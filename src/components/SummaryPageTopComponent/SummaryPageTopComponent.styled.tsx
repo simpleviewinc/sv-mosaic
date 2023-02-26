@@ -5,10 +5,10 @@ import StarBorder from "@mui/icons-material/StarBorderRounded";
 
 export const StyledSummaryPageTopComponent = styled.div`
     background: white;
-    border-bottom: 2px solid ${theme.colors.gray200};
-    color: ${theme.colors.almostBlack};
+    border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+    color: ${theme.newColors.almostBlack["100"]};
     font-family: ${theme.fontFamily};
-    padding: 24px 20px 20px 20px;
+    padding: 24px 24px 16px 24px;
     display: flex;
     gap: 24px;
     align-items: center;
@@ -16,7 +16,7 @@ export const StyledSummaryPageTopComponent = styled.div`
     .img-rounded {
         width: 71px;
         height: 71px;
-        border: 2px solid ${theme.colors.grayHover};
+        border: 2px solid ${theme.newColors.grey2["100"]};
         border-radius: 50%;
         opacity: 1;
     }
@@ -34,18 +34,10 @@ export const ContainerTitle = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-`;
 
-export const Title = styled.p`
-    font-size: 28px;
-    font-weight: ${theme.fontWeight.light};
-    max-width: 650px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-	margin: 0px;
-	padding: 0px;
-	font-family: ${theme.museoFont} !important;
+		& h1 {
+			max-width: 650px;
+		}
 `;
 
 export const CheckedStar = styled(StarRateRounded)`
@@ -81,7 +73,7 @@ export const ContainerItems = styled.div`
 
 export const Item = styled.div`
     padding: 0 16px;
-    border-right: 2px solid ${theme.colors.gray200};
+    border-right: 2px solid ${theme.newColors.grey2["100"]};
 
 	& p,
 	& h1,

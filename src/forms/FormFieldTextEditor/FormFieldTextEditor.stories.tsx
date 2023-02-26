@@ -4,7 +4,6 @@ import { useMemo, ReactElement } from "react";
 import { boolean, number, select, text, withKnobs } from "@storybook/addon-knobs";
 import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
-import { TextEditorDef } from "./FormFieldTextEditorTypes";
 import { renderButtons } from "@root/utils/storyUtils";
 
 export default {
@@ -27,7 +26,7 @@ export const Playground = (): ReactElement => {
 	const maxCharacters = number("Max Characters", 100);
 
 	const fields = useMemo(
-		() =>
+		(): FieldDef[] =>
 			[
 				{
 					name: "textEditor",
@@ -44,7 +43,7 @@ export const Playground = (): ReactElement => {
 					helperText,
 					instructionText,
 				},
-			] as FieldDef<TextEditorDef>[],
+			],
 		[
 			direction,
 			required,
@@ -74,67 +73,63 @@ export const Playground = (): ReactElement => {
 	);
 };
 
+const fields: FieldDef[] = [
+	{
+		name: "spellCheck",
+		label: "Text editor with spellcheck active",
+		type: "textEditor",
+		required: false,
+		inputSettings: {
+			spellcheck: true,
+		},
+	},
+	{
+		name: "ltr",
+		label: "Text editor with left to right direction",
+		type: "textEditor",
+		required: false,
+		inputSettings: {
+			direction: "ltr",
+		},
+	},
+	{
+		name: "rtl",
+		label: "Text editor with right to left direction",
+		type: "textEditor",
+		required: false,
+		inputSettings: {
+			direction: "rtl",
+		},
+	},
+	{
+		name: "german",
+		label: "Text editor in german (de) language",
+		type: "textEditor",
+		required: false,
+		inputSettings: {
+			language: "de",
+		},
+	},
+	{
+		name: "maxChars",
+		label: "Text editor with max character limit",
+		type: "textEditor",
+		required: false,
+		inputSettings: {
+			maxCharacters: 20,
+		},
+	},
+	{
+		name: "disabled",
+		label: "Disabled text editor",
+		type: "textEditor",
+		required: false,
+		disabled: true,
+	},
+];
+
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "spellCheck",
-					label: "Text editor with spellcheck active",
-					type: "textEditor",
-					required: false,
-					inputSettings: {
-						spellcheck: true,
-					},
-				},
-				{
-					name: "ltr",
-					label: "Text editor with left to right direction",
-					type: "textEditor",
-					required: false,
-					inputSettings: {
-						direction: "ltr",
-					},
-				},
-				{
-					name: "rtl",
-					label: "Text editor with right to left direction",
-					type: "textEditor",
-					required: false,
-					inputSettings: {
-						direction: "rtl",
-					},
-				},
-				{
-					name: "german",
-					label: "Text editor in german (de) language",
-					type: "textEditor",
-					required: false,
-					inputSettings: {
-						language: "de",
-					},
-				},
-				{
-					name: "maxChars",
-					label: "Text editor with max character limit",
-					type: "textEditor",
-					required: false,
-					inputSettings: {
-						maxCharacters: 20,
-					},
-				},
-				{
-					name: "disabled",
-					label: "Disabled text editor",
-					type: "textEditor",
-					required: false,
-					disabled: true,
-				},
-			] as FieldDef<TextEditorDef>[],
-		[]
-	);
 
 	return (
 		<>

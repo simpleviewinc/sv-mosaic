@@ -5,51 +5,6 @@ import theme from "@root/theme";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export const StyledInput = styled.input`
-  background-color: ${theme.colors.gray100};
-  border: none;
-  color: ${theme.colors.almostBlack};
-  flex-grow: 1;
-  font-family: ${theme.fontFamily};
-  font-size: 16px;
-
-  &:focus {
-    outline: none;
-  }
-
-  ::placeholder {
-    color: ${theme.colors.gray600};
-  }
-`;
-
-export const InputWrapper = styled.div`
-  align-items: center;
-  background-color: ${theme.colors.gray100};
-  border: 1px solid ${theme.colors.simplyGray};
-  display: flex;
-  height: 49px;
-  justify-content: space-between;
-  margin: 15px 15px 5px 15px;
-  padding: 12px ${pr => pr.createNewOption ? "8px" : "16px"} 12px 16px;
-  width: ${pr => pr.isMobileView ? "" : "620px"};
-
-  &:focus-within {
-    border: 1px solid ${theme.colors.almostBlack};
-    box-shadow: ${theme.fieldSpecs.inputText.shadow};
-  }
-
-  & span:first-child {
-	background-color: red;
-  }
-
-  &:hover {
-    background-color: ${theme.colors.gray200};
-    & input {
-      background-color: ${theme.colors.gray200};
-    }
-  }
-`;
-
 export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -70,7 +25,7 @@ export const OptionsCheckedModalWrapper = styled.div`
 `;
 
 export const ShowHideSpan = styled.span`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   cursor: pointer;
   display: flex;
   font-family: ${theme.fontFamily};
@@ -81,30 +36,15 @@ export const ShowHideSpan = styled.span`
 `;
 
 export const StyledExpandMoreIcon = styled(ExpandMoreIcon)`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   margin-left: 14px;
 `;
 
 export const StyledExpandLessIcon = styled(ExpandLessIcon)`
-  color: ${theme.colors.gray600};
+  color: ${theme.newColors.grey3["100"]};
   margin-left: 14px;
-`;
-
-export const CategoryTitle = styled.span`
-  color: ${theme.colors.almostBlack};
-  display: inline-block;
-  font-family: ${theme.fontFamily};
-  font-size: 16px;
-  font-weight: ${theme.fontWeight.medium};
-  margin-bottom: 16px;
 `;
 
 export const AdvancedSelectionWrapper = styled.div`
   max-width: 600px;
-`;
-
-export const StyledFormWrapper = styled.div`
-	& .checkbox-list-field-wrapper div:first-child {
-		width: 100% !important;
-	}
 `;

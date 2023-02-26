@@ -41,16 +41,34 @@ export const formActions = {
 			extraArgs.fieldMap = fieldMap;
 		};
 	},
-	setFieldValue({ name, value, validate = false }: { name: string; value: unknown; validate?: boolean }) {
-		return async function (dispatch): Promise<void> {
+	setFieldValue({
+		name,
+		value,
+		validate = false,
+		touched = false,
+	}: {
+		name: string;
+		value: unknown;
+		validate?: boolean;
+		touched?: boolean;
+	}) {
+		return async function(dispatch): Promise<void> {
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
 				name,
-				value: isValidValue(value) ? value : undefined
+				value: isValidValue(value) ? value : undefined,
 			});
 
+			if (touched) {
+				await dispatch({
+					type: "FIELD_TOUCHED",
+					name,
+					value: touched,
+				});
+			}
+
 			if (validate) {
-				dispatch(formActions.validateField({ name }));
+				await dispatch(formActions.validateField({ name }));
 			}
 		};
 	},
@@ -59,24 +77,15 @@ export const formActions = {
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			const validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
 
-			if ((!validators || validators.length === 0) && !requiredFlag) {
+			if (validators.length === 0 && !requiredFlag) {
 				return;
 			}
 
-			if ((!validators || validators.length === 0) && requiredFlag) {
-				validators.unshift(required);
-			}
-
-			if ((validators || validators.length !== 0) && requiredFlag) {
+			if (requiredFlag) {
 				validators.unshift(required);
 			}
 
 			const validatorsMap = mapsValidators(validators);
-
-			await dispatch({
-				type: "FIELD_START_VALIDATE",
-				name,
-			});
 
 			const data = getState().data;
 			const startValue = getState().data[name];
@@ -85,9 +94,9 @@ export const formActions = {
 
 			if (startValue === currentValue) {
 				await dispatch({
-					type: "FIELD_END_VALIDATE",
+					type: "FIELD_VALIDATE",
 					name,
-					value: result?.errorMessage ? result?.errorMessage : undefined
+					value: result?.errorMessage ?? undefined
 				});
 			}
 		};
@@ -110,8 +119,6 @@ export const formActions = {
 				value: true,
 			});
 
-			// await new Promise((res) => setTimeout(res, 2000));
-
 			const touchedFields = getState().data;
 
 			for (let i = 0; i < fields.length; i++) {
@@ -124,12 +131,23 @@ export const formActions = {
 			}
 
 			let validForm = true;
+			let firstInvalidField: string | undefined = undefined;
 
 			const errors = getState().errors;
-			Object.entries(errors).forEach(([key, value]) => {
-				if (value !== undefined)
+
+			const entries = Object.entries(errors);
+
+			for (const [key, value] of entries) {
+				if (value !== undefined) {
 					validForm = false;
-			});
+					firstInvalidField = key;
+					break;
+				}
+			}
+
+			if (firstInvalidField !== undefined) {
+				document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
+			}
 
 			await dispatch({
 				type: "FORM_VALIDATE",
@@ -153,6 +171,14 @@ export const formActions = {
 				formActions.validateForm({ fields: extraArgs.fields })
 			);
 
+			if (valid) {
+				await dispatch({
+					type: "PROPERTY_RESET",
+					name: "touched",
+					value: {},
+				});
+			}
+
 			return {
 				valid,
 				data: getState().data
@@ -168,26 +194,25 @@ export const formActions = {
 	},
 	setFormValues({ values }: { values: MosaicObject }) {
 		return async function (dispatch): Promise<void> {
-			await dispatch({
-				type: "FORM_START_DISABLE",
-				value: true,
-			});
-
 			for (const [key, value] of Object.entries(values)) {
 				await dispatch(
 					formActions.setFieldValue({
 						name: key,
 						value: value,
+						touched: false
 					})
 				);
 			}
-
-			await dispatch({
-				type: "FORM_END_DISABLE",
-				value: false,
-			});
 		}
 	},
+	disableForm({ disabled = false }: { disabled: boolean }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
+				value: disabled,
+			});
+		}
+	}
 };
 
 export default formActions;

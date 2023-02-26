@@ -8,7 +8,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
     margin-left: 0px;
     margin-right: 0px;
     align-items: flex-start;
-    color: ${(pr) => pr.disabled ? theme.colors.labelDisabled : theme.colors.gray700};
+    color: ${(pr) => pr.disabled ? theme.colors.labelDisabled : theme.newColors.grey4["100"]};
   }
 
   & > span.checked,
@@ -26,7 +26,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
 
 export const StyledCheckbox = styled(MUICheckbox)`
   &.MuiCheckbox-colorPrimary {
-    color: ${theme.colors.almostBlack};
+    color: ${theme.newColors.almostBlack["100"]};
 
     &.Mui-checked {
       color: ${theme.newColors.simplyGold["100"]};
@@ -36,7 +36,7 @@ export const StyledCheckbox = styled(MUICheckbox)`
   &.MuiCheckbox-colorPrimary,
   &.MuiCheckbox-colorPrimary.Mui-checked {
     &:hover {
-      background-color: ${theme.colors.grayHover};
+      background-color: ${theme.newColors.grey2["100"]};
     }
   }
 

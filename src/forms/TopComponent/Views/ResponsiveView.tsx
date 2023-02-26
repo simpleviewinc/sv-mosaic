@@ -15,15 +15,7 @@ import {
 } from "../TopComponent.styled";
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
-
-const ResponsiveViewColumn = styled(StyledColumn)`
-	padding: ${pr => pr.sections ? "24px 20px 0px 20px" : "24px 20px 20px 20px"};
-  	z-index: 100;
-
-	& .form-nav-wrapper {
-		margin-top: 20px;
-	}
-`;
+import { TitleRow } from "./Views.styled";
 
 const ResponsiveActionsRow = styled(Row)`
 	align-self: ${(pr) => (pr.showActive ? "" : "flex-end")};
@@ -34,7 +26,6 @@ type ResponsiveViewProps = {
 	sections: TopComponentProps["sections"];
 	checkbox: JSX.Element;
 	sectionsRefs?: any[];
-	contentRef?: any;
 } & BaseTopComponentProps;
 
 const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElement => {
@@ -48,21 +39,22 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 		sections,
 		checkbox,
 		sectionsRefs,
-		contentRef,
+		formContentRef,
 		view
 	} = props;
 
 	return (
-		<ResponsiveViewColumn ref={ref} sections={sections && sections.length > 1}>
-			<Row>
-				<TitleWrapper
-					title={title}
-					description={description}
-					view={view}
-				/>
+		<StyledColumn className={view} ref={ref} sections={sections && sections.length > 1}>
+			<Row className={view}>
+				<TitleRow view={view}>
+					<TitleWrapper
+						title={title}
+						description={description}
+					/>
+				</TitleRow>
 				{tooltipInfo && helpIcon}
 			</Row>
-			<ResponsiveActionsRow showActive={showActive}>
+			<ResponsiveActionsRow className={view} showActive={showActive}>
 				{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
 				{buttons && (
 					<ButtonsWrapper>
@@ -73,9 +65,9 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 				)}
 			</ResponsiveActionsRow>
 			{sections &&
-				<FormNav sectionsRefs={sectionsRefs} sections={sections} contentRef={contentRef} />
+				<FormNav sectionsRefs={sectionsRefs} sections={sections} formContentRef={formContentRef} />
 			}
-		</ResponsiveViewColumn>
+		</StyledColumn>
 	);
 });
 

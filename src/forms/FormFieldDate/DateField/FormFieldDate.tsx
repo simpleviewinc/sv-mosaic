@@ -9,9 +9,9 @@ import TimePicker from "../TimePicker";
 import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";
 import { DisabledDateTimeValue } from "../DatePicker/DatePicker.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { DateFieldDef } from "./DateFieldTypes";
+import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
 
-const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElement => {
+const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
@@ -24,7 +24,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 	const [dateInput, setDateInput] = useState(null);
 	const [timeInput, setTimeInput] = useState(null);
 
-	useEffect(() => {		
+	useEffect(() => {
 		if (value && !dateInput && !timeInput) {
 			setDateInput(formatDate(value));
 			setTimeInput(formatDate(value));
@@ -123,7 +123,7 @@ const FormFieldDate = (props: MosaicFieldProps<DateFieldDef, Date>): ReactElemen
 								fieldDef={{
 									name: fieldDef?.name,
 									label: "",
-									type: "",
+									type: "timePicker",
 									inputSettings: {
 										placeholder: "00:00 AM/PM"
 									}

@@ -6,13 +6,14 @@ import "@testing-library/jest-dom";
 import Form, { useForm } from "@root/components/Form";
 import { ReactElement } from "react";
 import { FieldDef } from "@root/components/Field";
-import { TextEditorDef } from "./FormFieldTextEditorTypes";
+import { TextEditorInputSettings } from "./FormFieldTextEditorTypes";
 import { renderButtons } from "@root/utils/storyUtils";
+import { act } from "react-dom/test-utils";
 
 afterEach(cleanup);
 
 const TextEditorExample = (
-	props: TextEditorDef & { disabled?: boolean }
+	props: TextEditorInputSettings & { disabled?: boolean }
 ): ReactElement => {
 	const {
 		direction = "ltr",
@@ -27,7 +28,7 @@ const TextEditorExample = (
 		dispatch,
 	} = useForm();
 
-	const fields = [
+	const fields: FieldDef[] = [
 		{
 			label: "Disabled test",
 			name: "disabledTextEditor",
@@ -40,7 +41,7 @@ const TextEditorExample = (
 				spellcheck,
 			},
 		},
-	] as FieldDef[];
+	];
 
 	return (
 		<Form
@@ -54,9 +55,19 @@ const TextEditorExample = (
 	);
 };
 
+const mockResizeObserver = jest.fn();
+mockResizeObserver.mockReturnValue({
+	observe: () => null,
+	unobserve: () => null,
+	disconnect: () => null
+});
+window.ResizeObserver = mockResizeObserver;
+
 describe("TextEditor component", () => {
 	it("should be disabled", async () => {
-		render(<TextEditorExample disabled={true} />);
+		await act(() => {
+			render(<TextEditorExample disabled={true} />);
+		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
 		expect(
@@ -65,7 +76,9 @@ describe("TextEditor component", () => {
 	});
 
 	it("should have an ltr direction", async () => {
-		render(<TextEditorExample direction={"ltr"} />);
+		await act(() => {
+			render(<TextEditorExample direction={"ltr"} />);
+		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
 		expect(
@@ -74,7 +87,9 @@ describe("TextEditor component", () => {
 	});
 
 	it("should have an rtl direction", async () => {
-		render(<TextEditorExample direction={"rtl"} />);
+		await act(() => {
+			render(<TextEditorExample direction={"rtl"} />);
+		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
 		expect(
@@ -83,12 +98,16 @@ describe("TextEditor component", () => {
 	});
 
 	it("should render in german (de)", async () => {
-		render(<TextEditorExample language={"de"} />);
+		await act(() => {
+			render(<TextEditorExample language={"de"} />);
+		});
 		expect(await screen.findAllByLabelText("Fett")).toBeTruthy();
 	});
 
 	it("should spellcheck", async () => {
-		render(<TextEditorExample spellcheck={true} />);
+		await act(() => {
+			render(<TextEditorExample spellcheck={true} />);
+		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
 
 		expect(

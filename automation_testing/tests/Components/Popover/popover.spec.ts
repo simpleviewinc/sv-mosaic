@@ -1,24 +1,34 @@
 import { test, expect, Page } from "@playwright/test";
-import { PopoverPage } from "../../../pages/Components/Popover/PopoverPage";
+import { PopoverPage } from "../../../pages/Components/Popover/PopoverExamplePage";
 import theme from "../../../../src/theme";
 
-test.describe("Components - PopoverPage - Example", () => {
+test.describe.parallel("Components - PopoverPage - Example", () => {
 	let page: Page;
 	let popoverPage: PopoverPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		popoverPage = new PopoverPage(page);
-		await popoverPage.visitPage();
+		await popoverPage.visit(popoverPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
 		await browser.close();
 	});
 
-	test("Validate Add button in popver has realTeal color.", async () => {
-		const expectColor = (theme.newColors.realTeal["100"]);
-		popoverPage.openPopoverButton.click();
-		expect(await popoverPage.getColorFromElement(popoverPage.popoverAddButton)).toBe(expectColor);
+	test("Validate Add button in popover has realTeal color.", async () => {
+		const expectedColor = (theme.newColors.realTeal["100"]);
+		if (!await popoverPage.popoverTooltip.isVisible()) {
+			await popoverPage.openPopoverButton.click();
+		}
+		expect(await popoverPage.getColorFromElement(popoverPage.popoverAddButton)).toBe(expectedColor);
+	});
+
+	test("Validate split in popover has grey2 in border.", async () => {
+		const expectedColor = theme.newColors.grey2["100"];
+		if (!await popoverPage.popoverTooltip.isVisible()) {
+			await popoverPage.openPopoverButton.click();
+		}
+		expect(await popoverPage.getSpecificBorderFromElement(popoverPage.popoverContentSplit, "top")).toContain(expectedColor);
 	});
 });

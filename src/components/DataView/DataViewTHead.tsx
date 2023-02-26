@@ -18,24 +18,17 @@ const StyledWrapper = styled.thead`
 `
 
 const StyledTh = styled.th`
-	background-color: ${theme.colors.gray200};
+	background-color: ${theme.newColors.grey2["100"]};
 	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 14px;
 	font-weight: 510;
 	height: 40px;
-	padding: 12px 32px 12px 0px;
+	padding: 8px;
 	position: sticky;
 	text-align: left;
 	top: 0;
 	white-space: nowrap;
 	z-index: 2;
-
-	&:first-child {
-		padding-left: 8px;
-	}
-	&:last-child {
-		padding-right: 8px !important;
-	}
 
 	${/* Borders on sticky elements don't carry through, so we put them on the :after element */""}
 	&:after {
@@ -51,14 +44,6 @@ const StyledTh = styled.th`
 	& > .columnHeader {
 		display: inline-flex;
 		align-items: center;
-	}
-
-	&.paddingRight {
-		padding-right: 32px;
-	}
-
-	&.paddingLeft {
-		padding-left: 12px;
 	}
 
 	&.sortable > .columnHeader {
@@ -88,7 +73,7 @@ const StyledTh = styled.th`
 
 	& > .columnHeader:hover > .icon {
 		visibility: visible;
-		color: ${theme.colors.gray600};
+		color: ${theme.newColors.grey3["100"]};
 	}
 
 	&.bulk {
@@ -115,6 +100,9 @@ interface DataViewTHeadProps {
 	onSortChange?: any;
 	sort?: any;
 	onCheckAllPagesClick?: any;
+	anyChecked?: boolean;
+	allChecked?: boolean;
+	showBulkAll?: boolean;
 }
 
 //TODO PROPS
@@ -183,19 +171,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 
 	const { t } = useMosaicTranslation();
 
-	const allChecked = props.checked.length > 0 && props.checked.every(val => val === true);
-	const anyChecked = props.checked.length > 0 && props.checked.some(val => val === true);
-
-	const columnCount = (props?.bulkActions?.length > 0 ? 1 : 0) + 1 + props.columns.length;
-
-	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
-	const showBulkAll =
-		props?.bulkActions?.length > 0 &&
-		props.rowCount > 0 &&
-		props.count > props.rowCount &&
-		props.bulkActions.some(action => action.onAllClick !== undefined) &&
-		allChecked
-	;
+	const columnCount = (props.bulkActions?.length > 0 ? 1 : 0) + 1 + props.columns.length;
 
 	return (
 		<StyledWrapper>
@@ -206,17 +182,17 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					</StyledTh>
 				}
 				{
-					props?.bulkActions?.length > 0 &&
-					<StyledTh key="_bulk" className="bulk">
+					props.onCheckAllClick &&
+					<StyledTh key="_bulk" className="bulk" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) ? props.columns.length + 2 : 1}>
 						<Checkbox
-							checked={allChecked}
-							indeterminate={!allChecked && anyChecked}
+							checked={props.allChecked}
+							indeterminate={!props.allChecked && props.anyChecked}
 							onClick={props.onCheckAllClick}
 						/>
 					</StyledTh>
 				}
 				{
-					props?.bulkActions?.length > 0 && anyChecked &&
+					props?.bulkActions?.length > 0 && props.anyChecked &&
 					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
 						<DataViewBulkActionsButtonsRow
 							data={props.data}
@@ -227,16 +203,13 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					</StyledTh>
 				}
 				{
-					!anyChecked &&
-					<StyledTh key="_actions" className={`
-						paddingRight
-						${ !props?.bulkActions?.length ? "paddingLeft" : "" }
-					`}>
+					!props.anyChecked &&
+					<StyledTh key="_actions">
 						<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
 					</StyledTh>
 				}
 				{
-					!anyChecked &&
+					!props.anyChecked &&
 					props.columns.map(column => {
 						const onClick = function() {
 							props.onSortChange({
@@ -261,7 +234,6 @@ function DataViewTHead(props: DataViewTHeadProps) {
 								className={`
 									${column.sortable ? "sortable" : ""}
 									${active ? "active" : ""}
-									paddingRight
 								`}
 							>
 								<span
@@ -280,7 +252,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 				}
 			</tr>
 			{
-				showBulkAll &&
+				props.showBulkAll &&
 				<tr>
 					<th colSpan={columnCount}>
 						<DataViewBulkAllBar

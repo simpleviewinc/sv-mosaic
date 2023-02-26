@@ -9,7 +9,9 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formWithLayoutPage = new FormWithLayout(page);
-		await formWithLayoutPage.visitPage();
+		await formWithLayoutPage.visit(formWithLayoutPage.page_path);
+		await page.setViewportSize({ width: 1199, height: 720 });
+		await formWithLayoutPage.wait();
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -43,5 +45,35 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		await formWithLayoutPage.wait();
 		const selectedSectionInTopComponent = await formWithLayoutPage.getSelectedSectionFromTopComponent();
 		expect(await formWithLayoutPage.validateSectionTopComponentElementIsSelected(selectedSectionInTopComponent)).toBe(expectColor);
+	});
+
+	test("Validate Form Top Component padding depending the viewport.", async () => {
+		await page.reload();
+		const topComponentLocator = formWithLayoutPage.formTopComponent;
+		// We start with the default viewport size.
+		await topComponentLocator.waitFor();
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "top")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "right")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "bottom")).toBe("0px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "left")).toBe("24px");
+
+		// We change the viewport to have a width higher than 1718px.
+		await page.setViewportSize({ width: 1780, height: 720 });
+		await formWithLayoutPage.wait();
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "top")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "right")).toBe("24px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "bottom")).toBe("16px");
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(topComponentLocator, "left")).toBe("24px");
+	});
+
+	test("Validate Form Layout padding is valid.", async () => {
+		await formWithLayoutPage.formLayout.waitFor();
+		expect(await formWithLayoutPage.getSpecificPaddingFromElement(formWithLayoutPage.formLayout)).toBe("24px");
+	});
+
+	test("Validate Top Component with section margin within description and section is valid.", async () => {
+		await page.reload();
+		await formWithLayoutPage.sections.waitFor();
+		expect(await formWithLayoutPage.getSpecificMarginFromElement(formWithLayoutPage.sections, "top")).toBe("24px");
 	});
 });

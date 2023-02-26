@@ -14,9 +14,10 @@ import {
 // Utils
 import theme from "@root/theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { TitleRow } from "./Views.styled";
 
 const MobileActionsRow = styled(Row)`
-  background-color: ${theme.colors.gray200};
+  background-color: ${theme.newColors.grey2["100"]};
   padding: 12px 20px;
   position: sticky;
   position: -webkit-sticky;
@@ -37,7 +38,7 @@ const MobileActionsRow = styled(Row)`
 `;
 
 const StyledClearIcon = styled(ClearIcon)`
-  color: ${theme.colors.almostBlack};
+  color: ${theme.newColors.almostBlack["100"]};
 `;
 
 const MobileCheckboxHelpIconRow = styled(Row)`
@@ -64,7 +65,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 
 	return (
 		<div ref={ref}>
-			<MobileActionsRow>
+			<MobileActionsRow className={view}>
 				<StyledClearIcon onClick={onCancel} />
 				{buttons && (
 					<div>
@@ -74,11 +75,12 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 					</div>
 				)}
 			</MobileActionsRow>
-			<TitleWrapper
-				title={title}
-				description={description}
-				view={view}
-			/>
+			<TitleRow view={view}>
+				<TitleWrapper
+					title={title}
+					description={description}
+				/>
+			</TitleRow>
 			{(showActive || tooltipInfo) && (
 				<MobileCheckboxHelpIconRow>
 					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}
