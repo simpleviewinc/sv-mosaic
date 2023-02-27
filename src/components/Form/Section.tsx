@@ -19,7 +19,7 @@ const StyledSection = styled.div`
 	border: ${pr => !pr.hasTitle ? "none" : `2px solid ${theme.newColors.grey2["100"]}`};
 	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"};
 
-	& h1 {
+	& .section-title {
 		background-color: ${theme.newColors.grey2["100"]};
 		margin: 0px;
 		padding: 16px 24px;
@@ -76,7 +76,7 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 			id={sectionIdx}
 			data-testid="section-test-id"
 		>
-			{title && <StyledTitle ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
+			{title && <StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
 			{description && <StyledDescription>{description}</StyledDescription>}
 			{rows && (
 				<StyledRows view={view} hasTitle={title}>
