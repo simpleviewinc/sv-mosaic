@@ -23,6 +23,7 @@ https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Content/C
 * **sections** - `string[][][]` optional - Defines the position of each field. It is based in columns with a maximun allowed of two, if no sections are passed the content will be render in one column. Look at the following example to see how it is declared.
 * **title** - `string` required - Name of the section or subsection.
 * **buttons** - `ButtonProps[]` optional - Array of buttons that will be display on the top-right corner of the component.
+* **variant** - `"standard" | "card"` optional - Variant of the component defines what styles should render. If "card" is passed, content component looks like a card component
 
 ### Example
 ```ts
@@ -118,6 +119,7 @@ const ContentExample = (): ReactElement => {
 			getValues={getValues}
 			fieldDef={fieldDef}
 			sections={sections}
+			variant={"card"}
 			onEdit={() => {/**Edit functionality*/}}
 			onAdd={() => {/**Add functionality*/}}
 		/>

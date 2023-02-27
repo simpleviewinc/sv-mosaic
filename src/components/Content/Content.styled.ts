@@ -10,6 +10,21 @@ export const MainWrapper = styled.div`
 	&.content-wrapper + .content-wrapper {
 		border-top: 2px solid ${theme.newColors.grey2["100"]};
 	}
+
+	&.card-wrapper {
+		border: 2px solid ${theme.newColors.grey2["100"]};
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	& .content-wrap {
+		padding: 0 16px;
+
+		& hr {
+			margin: 0px 0px 16px;
+		}
+	}
 `;
 
 export const TitleWrapper = styled.div`
@@ -17,6 +32,11 @@ export const TitleWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 16px;
+
+	&.title-bar {
+		background: ${theme.newColors.grey2["100"]};
+		padding: 8px 16px;
+	}
 `;
 
 export const Title = styled.span`
