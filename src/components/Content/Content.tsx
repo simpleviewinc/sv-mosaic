@@ -20,6 +20,7 @@ import {
 } from "./Content.styled";
 import Button from "@root/components/Button";
 import { ActionAdditional } from "../DataView";
+import { StyledHr } from "../Card/Card.styled";
 
 /**
  * @param show is used to evaluate whether a field should be displayed
@@ -40,7 +41,9 @@ const showContent = (show: ActionAdditional["show"]) => {
 };
 
 const Content = (props: ContentProps): ReactElement => {
-	const { fields, data, sections, title, buttons } = props;
+	const { fields, data, sections, title, buttons, variant } = props;
+
+	const cardVariant = variant === "card" ? true : false;
 
 	/**
 	 * Checks if the field exists, can be shown and executes its transform function
@@ -59,6 +62,14 @@ const Content = (props: ContentProps): ReactElement => {
 
 			return field === fieldDef.name;
 		});
+
+		if (!currentField && !field) {
+			return (
+				<FieldContainer key={`value-${rowIdx}`} columns={sectionLength}>
+					{renderField()}
+				</FieldContainer>
+			)
+		}
 
 		if (!currentField && field) {
 			throw new Error(
@@ -100,12 +111,12 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @param label Text positioned above each field
 	 * @returns JSX Element corresponding to the current field.
 	 */
-	const renderField = (content: unknown, label: React.ReactNode) => {
+	const renderField = (content?: unknown, label?: React.ReactNode) => {
 		return (
 			<>
-				<Label>{label}</Label>
+				<Label>{label && label}</Label>
 				<TransformContainer>
-					{content}
+					{content && content}
 				</TransformContainer>
 			</>
 		)
@@ -133,8 +144,8 @@ const Content = (props: ContentProps): ReactElement => {
 	}, [sections]);
 
 	return (
-		<MainWrapper className="content-wrapper">
-			<TitleWrapper>
+		<MainWrapper className={`${cardVariant ? "card-wrapper" : "content-wrapper"}`}>
+			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
 				{buttons &&
 					<ButtonsWrapper>
@@ -143,15 +154,18 @@ const Content = (props: ContentProps): ReactElement => {
 						))}
 					</ButtonsWrapper>}
 			</TitleWrapper>
-			<div>
+			<div className={cardVariant ? "content-wrap" : ""}>
 				{data && sectionsToRender.map((section, idx) => (
-					<ContentRow key={`${idx}-row`}>
-						{section.map((field, idx) => (
-							<Fragment key={`${field[0]}-${idx}`}>
-								{renderRow(field[0], idx, section?.length)}
-							</Fragment>
-						))}
-					</ContentRow>
+					<Fragment key={`${idx}-row`}>
+						<ContentRow>
+							{section.map((field, idx) => (
+								<Fragment key={`${field[0]}-${idx}`}>
+									{renderRow(field[0], idx, section?.length)}
+								</Fragment>
+							))}
+						</ContentRow>
+						{(cardVariant && idx !== sectionsToRender.length - 1) && <StyledHr />}
+					</Fragment>
 				))}
 			</div>
 		</MainWrapper>

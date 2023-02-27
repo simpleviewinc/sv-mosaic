@@ -56,7 +56,7 @@ export interface ContentProps {
   buttons?: ButtonProps[];
   /**
    * Variant of the component defines what styles should render
-   * if "card" is passed, content component looks like card component
+   * if "card" is passed, content component looks like a card component
    */
   variant?: "standard" | "card";
 }
