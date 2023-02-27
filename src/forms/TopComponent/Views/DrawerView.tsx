@@ -53,7 +53,7 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 							<CloseIcon />
 						</IconButton>
 					)}
-					<TitleWrapper title={title} data-testid="drawer-title-test" />
+					<TitleWrapper title={title} />
 					{tooltipInfo && helpIcon}
 				</Row>
 				{buttons && (
