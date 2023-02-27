@@ -15,6 +15,7 @@ export class FormFieldAddressPage extends BasePage {
 	readonly secondAddressField: Locator;
 	readonly thirdAddressField: Locator;
 	readonly cityField: Locator;
+	readonly statesLabel: Locator;
 	readonly statesDropdownInput: Locator;
 	readonly statesDropdownButton: Locator;
 	readonly postalCodeField: Locator;
@@ -35,6 +36,7 @@ export class FormFieldAddressPage extends BasePage {
 		this.secondAddressField = page.locator("input#address2");
 		this.thirdAddressField = page.locator("input#address3");
 		this.cityField = page.locator("input#city");
+		this.statesLabel = page.locator("#states label");
 		this.statesDropdownInput = page.locator("#states input");
 		this.statesDropdownButton = page.locator("#states button[title='Open']");
 		this.postalCodeField = page.locator("input#postalCode");

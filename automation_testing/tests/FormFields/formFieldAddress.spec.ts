@@ -126,4 +126,9 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		expect(await ffAddressPage.addressCard.locator("span").nth(2).textContent()).toBe(us_address_2.city + ", " + us_address_2.state + " " + us_address_2.postalCode);
 		expect(await ffAddressPage.addressCard.locator("span").nth(3).textContent()).toBe(us_address_2.country);
 	});
+
+	test("Validate State field label.", async () => {
+		await ffAddressPage.addAddressButton.click({force: true});
+		expect(await ffAddressPage.statesLabel.textContent()).toBe("State");
+	});
 });
