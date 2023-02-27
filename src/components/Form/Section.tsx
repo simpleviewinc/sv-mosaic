@@ -38,7 +38,7 @@ const StyledRows = styled.div`
 	padding: ${pr => pr.view === Views.mobile ? "0px 30px" : `${!pr.hasTitle ? "" : "16px 24px"}`};
 `;
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h2`
 	font-size: 20px;
 	font-family: ${theme.fontFamily};
 	font-weight: 500;
