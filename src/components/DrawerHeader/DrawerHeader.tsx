@@ -16,7 +16,7 @@ const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 	} = props;
 
 	return (
-		<StyledDrawerHeader ref={ref}>
+		<StyledDrawerHeader ref={ref} data-testid="drawer-header-test-id">
 			<div style={{display: "flex", alignItems: "center"}}>
 				{onCancel && (
 					<IconButton
@@ -31,7 +31,7 @@ const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 					</IconButton>
 				)}
 				{title &&
-					<TitleWrapper title={title} data-testid="drawer-title-test-id" />
+					<TitleWrapper title={title} />
 				}
 			</div>
 			{buttons &&
