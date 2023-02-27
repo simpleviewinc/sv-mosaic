@@ -7,11 +7,11 @@ import { ButtonsWrapper, Row, StyledColumn } from "../TopComponent.styled";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@root/components/Button";
-import { FormTitle } from "../Utils/TitleWrapper";
 
 // Utils
-import theme, { Views } from "../../../theme/theme";
+import theme from "../../../theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import TitleWrapper from "../Utils/TitleWrapper";
 
 const DrawerViewColumn = styled(StyledColumn)`
   background-color: ${theme.newColors.grey2["100"]};
@@ -53,9 +53,7 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 							<CloseIcon />
 						</IconButton>
 					)}
-					<FormTitle type={Views.drawer} data-testid="drawer-title-test">
-						{title}
-					</FormTitle>
+					<TitleWrapper title={title} data-testid="drawer-title-test" />
 					{tooltipInfo && helpIcon}
 				</Row>
 				{buttons && (

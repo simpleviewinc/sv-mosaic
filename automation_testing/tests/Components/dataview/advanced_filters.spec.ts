@@ -36,26 +36,28 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 	});
 
 	const validateFilterStyles = async () => {
-		const expectedFontWeight = "700";
+		const expectedFontWeight = (theme.fontWeight.bold).toString();
 		const expectedFontSize = "14px";
 		const expectedFontColor = theme.newColors.almostBlack[100];
+		const applyLocator = advancedFilters.applyBtn;
+		const clearLocator = advancedFilters.page.locator("div[role='presentation'] >> text=Clear");
 
-		const applyFontWeight = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontWeight)));
-		const clearFontWeight = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).fontWeight)));
-		const applyFontSize = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).fontSize)));
-		const clearFontSize = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).fontSize)));
-		const applyButtonColor = (await ((advancedFilters.page.locator("text=Apply")).evaluate(el => getComputedStyle(el).color)));
-		const clearButtonColor = (await ((advancedFilters.page.locator("div[role='presentation'] >> text=Clear")).evaluate(el => getComputedStyle(el).color)));
+		const applyFontWeight = await advancedFilters.getFontWeightFromElement(applyLocator);
+		const clearFontWeight = await advancedFilters.getFontWeightFromElement(clearLocator);
+		const applyFontSize = await advancedFilters.getFontSizeFromElement(applyLocator);
+		const clearFontSize = await advancedFilters.getFontSizeFromElement(clearLocator);
+		const applyButtonColor = await advancedFilters.getColorFromElement(applyLocator);
+		const clearButtonColor = await advancedFilters.getColorFromElement(clearLocator);
 
 		//Validate Font Weight
-		expect(applyFontWeight).toBe(expectedFontWeight);
-		expect(clearFontWeight).toBe(expectedFontWeight);
+		expect.soft(applyFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
+		expect.soft(clearFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
 		//Validate Font Size
-		expect(applyFontSize).toBe(expectedFontSize);
-		expect(clearFontSize).toBe(expectedFontSize);
+		expect.soft(applyFontSize, "Validate Font Size").toBe(expectedFontSize);
+		expect.soft(clearFontSize, "Validate Font Size").toBe(expectedFontSize);
 		//Validate Button Font Color
-		expect(applyButtonColor).toBe(expectedFontColor);
-		expect(clearButtonColor).toBe(expectedFontColor);
+		expect.soft(applyButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
+		expect(clearButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
 		await advancedFilters.page.keyboard.press("Escape");
 	}
 
