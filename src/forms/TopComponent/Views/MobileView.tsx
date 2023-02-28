@@ -14,6 +14,7 @@ import {
 // Utils
 import theme from "@root/theme/theme";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { TitleRow } from "./Views.styled";
 
 const MobileActionsRow = styled(Row)`
   background-color: ${theme.newColors.grey2["100"]};
@@ -75,12 +76,13 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 					</div>
 				)}
 			</MobileActionsRow>
-			<TitleWrapper
-				title={title}
-				onBack={onBack}
-				description={description}
-				view={view}
-			/>
+			<TitleRow view={view}>
+				<TitleWrapper
+					title={title}
+					onBack={onBack}
+					description={description}
+				/>
+			</TitleRow>
 			{(showActive || tooltipInfo) && (
 				<MobileCheckboxHelpIconRow>
 					{showActive && <CheckboxWrapper>{checkbox}</CheckboxWrapper>}

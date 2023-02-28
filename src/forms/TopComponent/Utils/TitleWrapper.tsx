@@ -5,22 +5,17 @@ import { memo, ReactElement } from "react";
 import styled from "styled-components";
 
 // Utils
-import theme, { BREAKPOINTS, Views } from "@root/theme/theme";
+import theme from "@root/theme/theme";
+import { H1 } from "@root/components/Typography";
 import Button from "@root/components/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
-
-export const FormTitle = styled.span`
+const StyledWrapper = styled.div`
 	display: flex;
 	align-items: center;
-	font-family: ${theme.museoFont};
-	color: ${theme.newColors.almostBlack["100"]};
-	font-size: ${pr => pr.type && pr.type === Views.drawer ? "20px" : "28px"};
-	font-weight: ${pr => pr.type === Views.drawer ? theme.fontWeight.normal : theme.fontWeight.light};
 
-	@media (max-width: ${theme.breakpoints.mobile}) {
-		margin: 0;
+	& .back-button > button{
+		margin: 0px 8px 0px -2px !important;
 	}
 `;
 
@@ -36,34 +31,9 @@ const Description = styled.span`
 	}
 `;
 
-export const TitleRow = styled.div`
-	display: flex;
-	font-family: ${theme.fontFamily};
-	${pr => pr.view === Views.mobile ?
-		`flex-direction: row;
-		justify-content: space-between;
-
-		@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
-			justify-content: flex-start;
-		}
-		padding: 20px;
-		`
-		:
-		`
-		flex-direction: column;
-		margin-right: auto;
-		`
-}
-
-	& .back-button > button{
-		margin: 0px 8px 0px -2px !important;
-	}
-`;
-
 type TitleWrapperProps = {
 	title: string;
 	description?: string;
-	view?: string;
 	onBack?: () => void;
 }
 
@@ -71,20 +41,19 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	const {
 		title,
 		description,
-		view,
 	} = props;
 
 	return (
-		<TitleRow view={view}>
-			<FormTitle>
+		<>
+			<StyledWrapper>
 				{
 					props.onBack &&
 						<Button className="back-button" color="black" variant="icon" mIcon={ChevronLeftIcon} onClick={props.onBack}/>
 				}
-				{title}
-			</FormTitle>
+				<H1>{title}</H1>
+			</StyledWrapper>
 			{description && <Description>{description}</Description>}
-		</TitleRow>
+		</>
 	);
 };
 

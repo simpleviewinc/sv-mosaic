@@ -26,12 +26,7 @@ describe("Card component", () => {
 			<Card
 				content={content}
 				title={"Title"}
-				titleIcon={
-					<ContactsIcon
-						data-testid="contacts-icon-test"
-						sx={{ color: "black", width: 16 }}
-					/>
-				}
+				titleIcon={ContactsIcon}
 				topActions={[
 					{
 						color: "black",
