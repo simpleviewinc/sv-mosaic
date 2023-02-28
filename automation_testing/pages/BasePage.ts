@@ -36,6 +36,7 @@ export class BasePage {
 	readonly rolePresentationLocator: Locator;
 	readonly deleteIconSelectedOptionChip: Locator;
 	readonly formLocator: Locator;
+	backIconLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;

@@ -18,5 +18,6 @@ export class SummaryPageTopComponentPage extends BasePage {
 		this.starRateIconUnchecked = page.locator("[data-testid='StarBorderRoundedIcon']");
 		this.starRateIconChecked = page.locator("[data-testid='StarRateRoundedIcon']");
 		this.summaryTopComponent = page.locator("//*[@id='root']/div");
+		this.backIconLocator = page.locator("button svg[data-testid='icon-button-test']").first();
 	}
 }
