@@ -38,4 +38,8 @@ export interface SummaryPageTopComponentTypes {
 	// 	href: ButtonProps["href"];
 	// 	onClick?: ButtonProps["onClick"];
 	// }[];
+	/**
+	 * Optional. If present, the Back icon is displayed on the left side of the title.
+	*/
+	onBack?: () => void;
   }

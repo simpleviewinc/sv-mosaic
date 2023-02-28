@@ -18,6 +18,10 @@ export type BaseTopComponentProps = {
 	 */
 	description?: string;
 	/**
+	 * Optional. If present, the Back icon is displayed on the left side of the title.
+	*/
+	onBack?: () => void;
+	/**
 	 * If present, the help icon is display with the
 	 * string defined with this prop.
 	 */

@@ -110,6 +110,13 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.validateFormIsEmpty(grey2Color);
 	});
 
+	test("Validate that when onBack is activated, the back icon is displayed.", async () => {
+		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobOnBack + true]);
+		await expect(playgroundPage.backIconLocator).toBeVisible();
+		await playgroundPage.backIconLocator.click();
+		await playgroundPage.setDialogValidationListener("Cancelling, going back to previous site");
+	});
+
 	test("Validate the Playground title style.", async () => {
 		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.title.last());
 	});
