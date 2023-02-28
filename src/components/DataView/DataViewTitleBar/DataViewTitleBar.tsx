@@ -6,7 +6,6 @@ import { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
 import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
 import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 
-
 function DataViewTitleBar(props: DataViewTitleBarProps) {
 	const buttons = useMemo(() => {
 		if (props.buttons === undefined) {
@@ -24,7 +23,12 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 		<TitleBarWrapper>
 			<StyledWrapper>
 				<div className="left">
-					{props.title && <TitleWrapper title={props.title} />}
+					{props.title &&
+						<TitleWrapper
+							title={props.title}
+							onBack={props.onBack}
+						/>
+					}
 					{props.savedViewEnabled && (
 						<DataViewViewControls
 							savedView={props.savedView}

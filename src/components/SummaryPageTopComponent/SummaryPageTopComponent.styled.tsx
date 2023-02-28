@@ -35,9 +35,9 @@ export const ContainerTitle = styled.div`
     align-items: center;
     flex-wrap: wrap;
 
-		& h1 {
-			max-width: 650px;
-		}
+	& h1 {
+		max-width: 650px;
+	}
 `;
 
 export const CheckedStar = styled(StarRateRounded)`

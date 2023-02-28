@@ -27,6 +27,7 @@ export const Example = (): ReactElement => {
 	const [checked, setChecked] = useState<boolean>(false);
 
 	const title = text("Title", "Laudantium est optio voluptas");
+	const onBack = boolean("onBack", false);
 	const img = boolean("Image", false);
 	const showFavorite = boolean("Show star", true);
 	const showMainActions = boolean("Main actions", true);
@@ -134,6 +135,7 @@ export const Example = (): ReactElement => {
 	return (
 		<SummaryPageTopComponent
 			title={title}
+			onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 			favorite={showFavorite && favorite}
 			img={img && "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg"}
 			mainActions={showMainActions && mainActions}

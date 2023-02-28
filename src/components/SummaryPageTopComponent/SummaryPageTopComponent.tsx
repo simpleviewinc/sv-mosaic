@@ -22,6 +22,7 @@ import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
 		title,
+		onBack,
 		favorite,
 		img,
 		mainActions,
@@ -59,7 +60,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 			<Container>
 				<Row>
 					<ContainerTitle>
-						<TitleWrapper title={title}/>
+						<TitleWrapper title={title} onBack={onBack} />
 						{
 							favorite &&
 								<>

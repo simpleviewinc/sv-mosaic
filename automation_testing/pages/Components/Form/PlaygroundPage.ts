@@ -98,6 +98,7 @@ export class PlaygroundPage extends BasePage {
 		this.latitudeMapCard = page.locator("#mapCoordinates div span").nth(1);
 		this.longitudeMapCard = page.locator("#mapCoordinates div span").nth(3);
 		this.addressFieldTitle = page.locator("#address [data-testid='address-card-test'] span").first();
+		this.backIconLocator = page.locator("button svg[data-testid='icon-button-test']");
 	}
 
 	async getNumberOfFieldsRequired():Promise<number> {
