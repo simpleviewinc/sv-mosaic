@@ -22,17 +22,9 @@ export class FormFieldUploadPage extends BasePage {
 		this.fileImageLocator = page.locator(".file-img");
 	}
 
-	async visitPage(knobs?: string[]): Promise<void> {
-		if (knobs) {
-			await this.visit(this.page_path, this.title, knobs);
-		} else {
-			await this.visit(this.page_path, this.title);
-		}
-	}
-
 	async removeAllUploadedFiles(): Promise<void> {
 		const deleteButtonCount = await this.fileDeleteButton.count();
-		while (deleteButtonCount > 0) {
+		for (let i = 0; i < deleteButtonCount; i++) {
 			await this.fileDeleteButton.first().click();
 		}
 	}

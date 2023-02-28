@@ -24,10 +24,6 @@ export class FormWithLayout extends BasePage {
 		this.sections = page.locator(".form-nav-wrapper");
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
 		await this.topComponentContainer.waitFor();
 		return await this.topComponentContainerSections.count();

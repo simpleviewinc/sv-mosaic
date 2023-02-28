@@ -19,7 +19,12 @@ export const FormDrawerWrapper = styled.div`
     & .checkbox-list-field-wrapper div:first-child {
       width: 100% !important;
     }
+    & .topBlock {
+      min-height: calc(100vh - 110px);
+      padding: 0 14px;
+    }
   }
+
 `;
 
 export const DragAndDropContainer = styled.div`

@@ -94,14 +94,14 @@ const Field = ({
 			>
 				{
 					((fieldDef?.label && fieldDef?.label?.length > 0)
-						|| fieldDef?.maxCharacters
+						|| fieldDef?.inputSettings?.maxCharacters
 						|| (fieldDef?.instructionText && renderAsTooltip))
 					&&
 					<Label
 						disabled={fieldDef?.disabled}
 						required={fieldDef?.required}
 						htmlFor={fieldDef?.name}
-						maxCharacters={fieldDef?.maxCharacters}
+						maxCharacters={fieldDef?.inputSettings?.maxCharacters}
 						value={value}
 						tooltip={renderAsTooltip}
 						instructionText={fieldDef?.instructionText}

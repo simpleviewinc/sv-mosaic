@@ -116,6 +116,10 @@ function DataViewFilters(props: DataViewFiltersProps) {
 			} else {
 				filter.onChange(value);
 			}
+		} else {
+			if (props.filter[filter.name]) {
+				filter.onChange(value);
+			}
 		}
 		return onClose();
 	};

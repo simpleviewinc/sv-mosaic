@@ -19,8 +19,4 @@ export class CheckboxPage extends BasePage {
 		this.checkboxInput = this.checkboxList.locator(this.checkboxInputString);
 		this.checkboxIcon = page.locator("span[data-testid='checkbox-test-id']");
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.checkboxList);
-	}
 }
