@@ -31,6 +31,7 @@ type ResponsiveViewProps = {
 const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElement => {
 	const {
 		title,
+		onBack,
 		description,
 		tooltipInfo,
 		helpIcon,
@@ -49,6 +50,7 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 				<TitleRow view={view}>
 					<TitleWrapper
 						title={title}
+						onBack={onBack}
 						description={description}
 					/>
 				</TitleRow>

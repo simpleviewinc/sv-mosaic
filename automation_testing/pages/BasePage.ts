@@ -37,6 +37,7 @@ export class BasePage {
 	readonly rolePresentationLocator: Locator;
 	readonly deleteIconSelectedOptionChip: Locator;
 	readonly formLocator: Locator;
+	backIconLocator: Locator;
 	readonly inputLocator: Locator;
 	readonly tableBodyRowLocator: Locator;
 	readonly tableBodyColumnLocator: Locator;
