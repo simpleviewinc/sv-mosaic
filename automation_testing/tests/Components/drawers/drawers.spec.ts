@@ -48,4 +48,16 @@ test.describe.parallel("Components - Drawers - Example", () => {
 		expect(await drawersPage.page.locator("form .normalButton button").nth(0).textContent()).toBe("Cancel");
 		expect(await drawersPage.page.locator("form .normalButton button").nth(1).textContent()).toBe("Save");
 	});
+
+	test("Validate the Drawer title style.", async () => {
+		await drawersPage.addFormButton.click();
+		await drawersPage.validateTitleStylingOfLocator(drawersPage.drawerTitle);
+	});
+
+	test("Validate tooltip for Open New Form is visible.", async () => {
+		await drawersPage.addFormButton.click();
+		await drawersPage.openNewFormButton.hover();
+		await expect(drawersPage.tooltip).toBeVisible();
+		expect(await drawersPage.tooltip.textContent()).toBe("Clicking opens form in a new drawer");
+	});
 });
