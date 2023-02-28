@@ -5,6 +5,7 @@ import {
 	withKnobs,
 	text,
 	select,
+	number
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
@@ -32,6 +33,7 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Label");
 	const error = boolean("Trigger errors when loading", true);
 	const mockDB = boolean("Mock get files from DB", false);
+	const timeToLoad = number("Time to load (seconds)", 2);
 
 	const [loadReady, setLoadReady] = useState(false);
 
@@ -43,13 +45,12 @@ export const Playground = (): ReactElement => {
 		mockDB ? resetForm() : setLoadReady(false);
 	}, [mockDB]);
 
-
-	const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
+	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete, onError }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
-					onChunkComplete({percent: (i + 1) * 0.1})
-				), 300)
+					onChunkComplete({ percent: (i + 1) * 0.1 })
+				), (timeToLoad * 1000) / 10)
 			);
 		}
 
@@ -101,6 +102,7 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			limit,
+			timeToLoad
 		]
 	);
 

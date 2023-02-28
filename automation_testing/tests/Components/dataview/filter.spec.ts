@@ -14,7 +14,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		page = await browser.newPage();
 		_dataviewPage = new DataviewPage(page);
 		filter = new FilterComponent(page);
-		await _dataviewPage.visitPage();
+		await _dataviewPage.visit(_dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {
@@ -207,5 +207,17 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.searchForTerm("keyword", filter_data.keywordNoResultsFilter);
 		await expect(filter._dataviewPage.noResults).toBeVisible();
 		expect(await filter.getSpecificMarginFromElement(filter._dataviewPage.noResults, "all")).toContain(expectedMargin);
+	});
+
+	test("Validate that when clicking the clear button, it removes the selected filter.", async () => {
+		await filter.selectFilter("categories");
+		await filter.categoryBtn.click();
+		await filter.selectCategory(filter_data.categoryFilterChooseItem);
+		await filter.applyBtn.click();
+		await filter.categoryBtn.click();
+		await filter.clearBtn.click();
+		expect(await _dataviewPage.selectedChips.count()).toBe(0);
+		await filter.applyBtn.click();
+		expect(await filter.categoryBtn.textContent()).not.toContain(filter_data.categoryFilterChooseItem);
 	});
 });

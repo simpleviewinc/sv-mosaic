@@ -10,7 +10,7 @@ test.describe.parallel("Components - ToggleSwitch - Example", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		togglePage = new ToggleSwitchPage(page);
-		await togglePage.visitPage();
+		await togglePage.visit(togglePage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -31,7 +31,7 @@ test.describe.parallel("Components - ToggleSwitch - Example", () => {
 
 	test("Validate Toggle switch track has simplyGrey as background color when disabled.", async () => {
 		const expectColor = theme.newColors.simplyGrey["100"];
-		await togglePage.visitPage([commonKnobs.knobDisabled + "true"]);
+		await togglePage.visit(togglePage.page_path, [commonKnobs.knobDisabled + "true"]);
 		expect(await togglePage.getBackgroundColorFromElement(togglePage.toggleSwitchTrack)).toBe(expectColor);
 	});
 });

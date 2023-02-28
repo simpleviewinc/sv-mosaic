@@ -20,10 +20,6 @@ export class FormFieldMapCoordinatesPage extends BasePage {
 		this.mapWithAddressDiv = page.locator("#mapWithAddress div div div").nth(2);
 	}
 
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.title);
-	}
-
 	async getCoordinateFromMapCard(mapCard: Locator, _isLatitute = true): Promise<string> {
 		let index: number;
 		const mapCoordinates = (await mapCard.innerText()).split("\n");
