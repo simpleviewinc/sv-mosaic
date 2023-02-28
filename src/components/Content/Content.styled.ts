@@ -17,14 +17,6 @@ export const MainWrapper = styled.div`
 		padding: 0px;
 		margin: 0px;
 	}
-
-	& .content-wrap {
-		padding: 0 16px;
-
-		& hr {
-			margin: 0px 0px 16px;
-		}
-	}
 `;
 
 export const TitleWrapper = styled.div`
@@ -114,4 +106,13 @@ export const ColorValue = styled.p`
 export const ContentRow = styled.div`
 	display: flex;
 	width: 100%;
+
+	&.card-row {
+		padding: 0px 16px;
+	}
+
+	&.card-row + .card-row {
+		border-top: 2px solid ${theme.newColors.grey2["100"]};
+		padding-top: 16px;
+	}
 `;
