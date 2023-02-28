@@ -97,11 +97,6 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		await dataviewPage.downloadBtn.click();
 	});
 
-	test("Validate dataview title font.", async () => {
-		const titleFonts = await dataviewPage.getFontFamilyFromElement(dataviewPage.title);
-		expect(titleFonts).toContain("Museo-Sans");
-	});
-
 	test("Validate Dataview Page Top Component padding is valid.", async () => {
 		const locator = dataviewPage.dataviewTopComponent;
 		await locator.waitFor();
@@ -147,5 +142,9 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		await expect(dataviewPage.backIconLocator).toBeVisible();
 		await dataviewPage.backIconLocator.click();
 		await dataviewPage.setDialogValidationListener("Cancelling, going back to previous site");
+	});
+
+	test("Validate the dataview title style.", async () => {
+		await dataviewPage.validateTitleStylingOfLocator(dataviewPage.title);
 	});
 });

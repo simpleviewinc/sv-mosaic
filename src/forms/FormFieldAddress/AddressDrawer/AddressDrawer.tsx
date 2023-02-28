@@ -401,7 +401,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				{
 					name: "states",
 					type: "dropdown",
-					label: "States",
+					label: "State",
 					size: "sm",
 					inputSettings: {
 						getOptions: () => getOptionsStates(state.data.country?.value),

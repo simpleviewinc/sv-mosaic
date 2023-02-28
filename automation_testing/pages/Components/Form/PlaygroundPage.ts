@@ -25,6 +25,7 @@ export class PlaygroundPage extends BasePage {
 	readonly addressFieldButton: Locator;
 	readonly advancedSelectionFieldButton: Locator;
 	readonly advancedSelectionChip: Locator;
+	readonly advancedSelectionTitle: Locator;
 	readonly advancedSelectionOptions: Locator;
 	readonly browseImageIcon: Locator;
 	readonly browseVideoIcon: Locator;
@@ -89,6 +90,7 @@ export class PlaygroundPage extends BasePage {
 		this.drawerButtons = page.locator("[type='DRAWER']");
 		this.saveDrawerButton = page.locator("[type='DRAWER'] button", { hasText: "Save"});
 		//Advanced Selection options
+		this.advancedSelectionTitle = page.locator(".advancedSelection h1");
 		this.advancedSelectionOptions = page.locator("[data-testid='label-test-id']", { hasText: "Option 1 category 2" });
 
 		this.tableLocator = page.locator("#table table");
