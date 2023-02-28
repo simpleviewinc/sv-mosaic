@@ -8,7 +8,7 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		formFieldTextPage = new FormFieldTextPage(page);
-		await formFieldTextPage.visitPage();
+		await formFieldTextPage.visit(formFieldTextPage.page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -83,19 +83,19 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 	});
 
 	test("Validate xs regular text size is valid", async () => {
-		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.xsSizeTextField)).toBe(100);
+		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.xsSizeTextField, true)).toBe(100);
 	});
 
 	test("Validate sm regular text size is valid", async () => {
-		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.smSizeTextField)).toBe(280);
+		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.smSizeTextField, true)).toBe(280);
 	});
 
 	test("Validate md regular text size is valid", async () => {
-		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.mdSizeTextField)).toBe(450);
+		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.mdSizeTextField, true)).toBe(450);
 	});
 
 	test("Validate lg regular text size is valid", async () => {
-		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.lgSizeTextField)).toBe(620);
+		expect(await formFieldTextPage.getElementWidth(formFieldTextPage.lgSizeTextField, true)).toBe(620);
 	});
 
 	test("Validate instruction text height.", async () => {

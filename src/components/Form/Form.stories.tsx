@@ -576,46 +576,48 @@ export const Playground = (): ReactElement => {
 		[additionalOptions, disabled, required, showDefaultValues]
 	);
 
-	const sections = [
-		{
-			title: text("Title section 1", "Section 1"),
-			description: text("Description for section 1", "Description for section 1"),
-			fields: [
-				// row 1
-				[["textField"], ["check"]],
-				// row 2
-				[["chipSelect"], ["dropdownSingle"]],
-				[["table"]],
-				// row 3
-				[["phoneSelect"], ["radio"]]
-			]
-		},
-		{
-			title: text("Title section 2", "Section 2"),
-			description: text("Description for section 2", "Description for section 2"),
-			fields: [
-				// row 1
-				[[], [], []],
-				// row 2
-				[["toggleSwitch"], [], ["mapCoordinates"]],
-				[[]],
-				// row 3
-				[[], ["advancedSelection"]]
-			]
-		},
-		{
-			title: text("Title section 3", "Section 3"),
-			description: text("Description for section 3", "Description for section 3"),
-			fields: [
-				// row 1
-				[["color"], ["date"],],
-				// row 2
-				[["textEditor"], []]
-			]
-		}
-	];
+	const sections = useMemo(() => {
+		return [
+			{
+				title: text("Title section 1", "Section 1"),
+				description: text("Description for section 1", "Description for section 1"),
+				fields: [
+					// row 1
+					[["textField"], ["check"]],
+					// row 2
+					[["chipSelect"], ["dropdownSingle"]],
+					[["table"]],
+					// row 3
+					[["phoneSelect"], ["radio"]]
+				]
+			},
+			{
+				title: text("Title section 2", "Section 2"),
+				description: text("Description for section 2", "Description for section 2"),
+				fields: [
+					// row 1
+					[[], [], []],
+					// row 2
+					[["toggleSwitch"], [], ["mapCoordinates"]],
+					[[]],
+					// row 3
+					[[], ["advancedSelection"]]
+				]
+			},
+			{
+				title: text("Title section 3", "Section 3"),
+				description: text("Description for section 3", "Description for section 3"),
+				fields: [
+					// row 1
+					[["color"], ["date"],],
+					// row 2
+					[["textEditor"], []]
+				]
+			}
+		];
+	}, []);
 
-	const sectionsAmount = sections.slice(0, showSections)
+	const sectionsAmount = useMemo(() => sections.slice(0, showSections), [sections, showSections]);
 
 	/**
 	 * Function that prepopulates the form. Includes

@@ -2,6 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataview_data";
 import theme from "../../../../src/theme";
+import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - Data View - Playground", () => {
 	let page: Page;
@@ -10,7 +11,7 @@ test.describe.parallel("Components - Data View - Playground", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
-		await dataviewPage.visitPage();
+		await dataviewPage.visit(dataviewPage.page_path);
 	});
 
 	test.beforeEach(async() => {
@@ -20,6 +21,10 @@ test.describe.parallel("Components - Data View - Playground", () => {
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
+
+	async function getNumberOfResultVisible() {
+		return Number(await dataviewPage.paginationComponent.resultAmount.textContent());
+	}
 
 	test("Validate Create New alert message.", async () => {
 		dataviewPage.setDialogValidationListener("CREATE NEW");
@@ -63,7 +68,6 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		await dataviewPage.setDialogValidationListener("DOWNLOAD");
 		await (await dataviewPage.getFirstRowCheckbox()).click();
 		await dataviewPage.downloadBtn.click();
-
 	});
 
 	test("Select all records", async () => {
@@ -127,5 +131,13 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		for (let i = 0; i < await dataviewPage.dataviewTableHeadLocator.count(); i++) {
 			expect(await dataviewPage.getBackgroundColorFromElement(dataviewPage.dataviewTableHeadLocator.nth(i))).toBe(expectedColor);
 		}
+	});
+
+	test("Validate that when bulk actions are deactivated, the checkboxes should remain visible.", async () => {
+		await dataviewPage.visit(dataviewPage.page_path, [knob.knobBulkActions + false, knob.knobBulkAllActions + false]);
+		await dataviewPage.waitForDataviewIsVisible();
+		expect(await dataviewPage.checkboxRow.count()).toEqual(await getNumberOfResultVisible() + 1);
+		await dataviewPage.paginationComponent.selectResultOption(50);
+		expect(await dataviewPage.checkboxRow.count()).toEqual(await getNumberOfResultVisible() + 1);
 	});
 });

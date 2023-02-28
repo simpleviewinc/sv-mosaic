@@ -145,7 +145,7 @@ describe(__filename, function() {
 		it("should render a list of chips given some data", () => {
 			render(<>{transforms.transform_chips()({ data })}</>);
 
-			const chips = screen.getAllByRole("button");
+			const chips = screen.getAllByTestId("chip-testid");
 
 			expect(chips).toHaveLength(4);
 			expect(screen.getByText("Chip 1")).toBeInTheDocument();

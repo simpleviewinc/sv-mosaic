@@ -19,8 +19,4 @@ export class DialogPage extends BasePage {
 		this.dialogTitle = this.dialog.locator("div").first();
 		this.dialogText = this.dialog.locator("div").nth(1);
 	}
-
-	async visitPage(): Promise<void> {
-		await this.visit(this.page_path, this.openDialogButton);
-	}
 }

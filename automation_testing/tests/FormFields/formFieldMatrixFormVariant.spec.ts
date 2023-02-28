@@ -8,7 +8,7 @@ test.describe.parallel("FormFields - FormFieldMatrix - Form Variant", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffMatrixFormVariantPage = new FormFieldMatrixFormVariantPage(page);
-		await ffMatrixFormVariantPage.visitPage();
+		await ffMatrixFormVariantPage.visit(ffMatrixFormVariantPage.page_path);
 	});
 
 	test.afterEach(async() => {

@@ -413,6 +413,7 @@ export const Playground = (): ReactElement => {
 	const displayList = boolean("displayList", true);
 	const displayGrid = boolean("displayGrid", true);
 	const draggableRows = boolean("draggableRows", true);
+	const showCheckboxes = boolean("Show Checkboxes", true);
 	const defaultView: DataViewProps["savedView"] = {
 		...rootDefaultView,
 		state: {
@@ -688,14 +689,14 @@ export const Playground = (): ReactElement => {
 				filter
 			});
 		},
-		checked: checkedState.checked,
+		checked: showCheckboxes ? checkedState.checked : undefined,
 		checkedAllPages: checkedState.checkedAllPages,
-		onCheckChange: (checked) => {
+		onCheckChange: showCheckboxes ? (checked) => {
 			setCheckedState((prev) => ({
 				...prev,
 				checked
 			}));
-		},
+		} : undefined,
 		onCheckAllPagesChange: (checkedAllPages) => {
 			setCheckedState((prev) => ({
 				...prev,
