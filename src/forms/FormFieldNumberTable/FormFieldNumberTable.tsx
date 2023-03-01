@@ -20,7 +20,6 @@ import {
 	RowTitle,
 	RowSubtitle,
 } from "./FormFieldNumberTable.styled";
-import { isEmpty } from "lodash";
 import { isValidRowCol } from "./numberTableUtils";
 
 const FormFieldNumberTable = (
@@ -60,11 +59,9 @@ const FormFieldNumberTable = (
 			});
 		}
 
-		if (!isEmpty(rowTotals)) {
-			totals["row"] = Object.values(rowTotals).reduce(
-				(acc: number, current: number) => acc + current
-			);
-		}
+		totals["mos_col_totals"] = Object.values(totals).reduce(
+			(acc: number, current: number) => acc + current
+		);
 
 		setColumnsTotals(totals);
 	}, [value]);
@@ -83,12 +80,32 @@ const FormFieldNumberTable = (
 		rowName: string,
 		colName: string
 	) => {
-		const copyValue = { ...value };
-		if (e.target.value === "") {
-			copyValue[rowName][colName] = undefined;
+		const typedValue = e.target.value?.trim() === "" ? undefined : e.target.value;
+		let copyValue = { ...value };
+		if (copyValue[rowName]) {
+			copyValue[rowName][colName] = typedValue;
 		} else {
-			copyValue[rowName][colName] = e.target.value;
+			copyValue = {
+				...copyValue,
+				[rowName]: {
+					[colName]: typedValue
+				}
+			}
 		}
+
+		if (typedValue === undefined) {
+			if (Object.values(copyValue[rowName]).every(col => col === undefined)) {
+				copyValue = {
+					...copyValue,
+					[rowName]: undefined
+				}
+			}
+
+			if (Object.values(copyValue).every(row => row === undefined)) {
+				copyValue = undefined;
+			}
+		}
+
 		onChange(copyValue);
 	};
 
@@ -134,11 +151,14 @@ const FormFieldNumberTable = (
 				))}
 				<TrTotals>
 					<TdTitle>{inputSettings.rowTotalLabel || "Total"}</TdTitle>
-					{Object.keys(columnsTotals).map((column) => (
+					{inputSettings.columns.map((column) => (
 						<TdTotals key={`column-${column}`}>
-							{columnsTotals[column]}
+							{columnsTotals[column.name] || 0}
 						</TdTotals>
 					))}
+					<TdTotals>
+						{columnsTotals["mos_col_totals"] || 0}
+					</TdTotals>
 				</TrTotals>
 			</TBody>
 		</StyledTable>
