@@ -17,6 +17,10 @@ export const MainWrapper = styled.div`
 		padding: 0px;
 		margin: 0px;
 	}
+
+	& .card-content {
+		padding: 0px 16px;
+	}
 `;
 
 export const TitleWrapper = styled.div`
@@ -52,18 +56,24 @@ export const ButtonsWrapper = styled.div`
 	align-items: center;
 	display: flex;
 
-	.MuiButton-root {
-		margin-left: 8px;
+	&.standard-buttons {
+		.MuiButton-root {
+			margin-left: 8px;
+		}
+
+		.button {
+			border-right: 2px solid ${theme.newColors.grey2["100"]};
+			padding: 0 16px 0 16px;
+		}
+
+		.button:last-child {
+			border-right: none;
+			padding: 0;
+		}
 	}
 
-	.button {
-		border-right: 2px solid ${theme.newColors.grey2["100"]};
-		padding: 0 16px 0 16px;
-	}
-
-	.button:last-child {
-		border-right: none;
-		padding: 0;
+	&.card-buttons {
+		gap: 16px;
 	}
 `;
 
@@ -106,10 +116,6 @@ export const ColorValue = styled.p`
 export const ContentRow = styled.div`
 	display: flex;
 	width: 100%;
-
-	&.card-row {
-		padding: 0px 16px;
-	}
 
 	&.card-row + .card-row {
 		border-top: 2px solid ${theme.newColors.grey2["100"]};
