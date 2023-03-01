@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
 import theme from "../../../../src/theme";
+import { buttonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - ContentPage - Playground", () => {
 	let page: Page;
@@ -47,5 +48,15 @@ test.describe.parallel("Components - ContentPage - Playground", () => {
 
 	test("Validate font size of the Content Title.", async () => {
 		expect(await contentPage.getFontSizeFromElement(contentPage.mainContentTitle)).toBe("16px");
+	});
+
+	test("Validate Card variant for Content component.", async () => {
+		await contentPage.visit(contentPage.page_path, [knob.knobVariant + "card"]);
+		await expect(contentPage.cardWrapperLocator).toBeVisible();
+		expect(await contentPage.getBackgroundColorFromElement(contentPage.titleBarLocator)).toBe(theme.newColors.grey2["100"]);
+
+		// Get total number of buttons present in the page.
+		const buttonCount = await contentPage.button.count();
+		expect(await contentPage.titleBarLocator.locator("button").count()).toBe(buttonCount);
 	});
 });
