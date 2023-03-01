@@ -48,7 +48,7 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 			<StyledWrapper>
 				{
 					props.onBack &&
-						<Button className="back-button" color="black" variant="icon" mIcon={ChevronLeftIcon} onClick={props.onBack}/>
+						<Button className="back-button" color="gray" variant="icon" mIcon={ChevronLeftIcon} onClick={props.onBack}/>
 				}
 				<H1>{title}</H1>
 			</StyledWrapper>
