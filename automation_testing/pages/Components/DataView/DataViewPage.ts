@@ -61,6 +61,7 @@ export class DataviewPage extends BasePage {
 		this.headerActionsLocator = page.locator(".headerActions");
 		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
 		this.dataviewTableHeadLocator = page.locator("thead th");
+		this.backIconLocator = page.locator(".headerRow button svg[data-testid='icon-button-test']");
 	}
 
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {

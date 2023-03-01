@@ -15,6 +15,7 @@ import {
 } from "../TopComponent.styled";
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { TitleRow } from "./Views.styled";
 
 const ResponsiveActionsRow = styled(Row)`
 	align-self: ${(pr) => (pr.showActive ? "" : "flex-end")};
@@ -30,6 +31,7 @@ type ResponsiveViewProps = {
 const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElement => {
 	const {
 		title,
+		onBack,
 		description,
 		tooltipInfo,
 		helpIcon,
@@ -45,11 +47,13 @@ const ResponsiveView = forwardRef((props: ResponsiveViewProps, ref): ReactElemen
 	return (
 		<StyledColumn className={view} ref={ref} sections={sections && sections.length > 1}>
 			<Row className={view}>
-				<TitleWrapper
-					title={title}
-					description={description}
-					view={view}
-				/>
+				<TitleRow view={view}>
+					<TitleWrapper
+						title={title}
+						onBack={onBack}
+						description={description}
+					/>
+				</TitleRow>
 				{tooltipInfo && helpIcon}
 			</Row>
 			<ResponsiveActionsRow className={view} showActive={showActive}>

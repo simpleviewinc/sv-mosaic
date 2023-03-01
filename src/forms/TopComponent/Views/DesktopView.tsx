@@ -16,6 +16,7 @@ import {
 import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 import { Views } from "@root/theme/theme";
+import { TitleRow } from "./Views.styled";
 
 const DesktopActionsRow = styled(FlexContainer)`
   align-items: flex-start;
@@ -38,6 +39,7 @@ type DesktopViewProps = {
 const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 	const {
 		title,
+		onBack,
 		description,
 		tooltipInfo,
 		buttons,
@@ -53,11 +55,13 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 	return (
 		<StyledColumn className={view} ref={ref} sections={sections && sections.length > 1}>
 			<FlexContainer>
-				<TitleWrapper
-					title={title}
-					description={description}
-					view={view}
-				/>
+				<TitleRow view={view}>
+					<TitleWrapper
+						title={title}
+						onBack={onBack}
+						description={description}
+					/>
+				</TitleRow>
 				<DesktopActionsRow>
 					{tooltipInfo && helpIcon}
 					{showActive && checkbox}

@@ -2,7 +2,8 @@ export const commonKnobs = {
 	knobShowState: "knob-Show%20state=",
 	knobRequired: "knob-Required=",
 	knobDisabled: "knob-Disabled=",
-	knobShowOptions:"knob-Show%20options="
+	knobShowOptions:"knob-Show%20options=",
+	knobOnBack: "knob-onBack="
 }
 
 export const cardKnobs = {
