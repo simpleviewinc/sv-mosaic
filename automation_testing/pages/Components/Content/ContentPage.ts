@@ -10,6 +10,8 @@ export class ContentPage extends BasePage {
 	readonly editButton: Locator;
 	readonly mainWrapperLocator: Locator;
 	readonly contentWrapperLocator: Locator;
+	readonly cardWrapperLocator: Locator;
+	readonly titleBarLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -18,5 +20,7 @@ export class ContentPage extends BasePage {
 		this.editButton = page.locator("button").first();
 		this.mainWrapperLocator = page.locator("#root div").first();
 		this.contentWrapperLocator = page.locator(".content-wrapper");
+		this.cardWrapperLocator = page.locator(".card-wrapper");
+		this.titleBarLocator = page.locator(".title-bar");
 	}
 }
