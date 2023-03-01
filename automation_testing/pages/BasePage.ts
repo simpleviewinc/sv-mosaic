@@ -37,6 +37,7 @@ export class BasePage {
 	readonly rolePresentationLocator: Locator;
 	readonly deleteIconSelectedOptionChip: Locator;
 	readonly formLocator: Locator;
+	readonly button: Locator;
 	backIconLocator: Locator;
 	readonly inputLocator: Locator;
 	readonly tableBodyRowLocator: Locator;
@@ -75,6 +76,7 @@ export class BasePage {
 		this.rolePresentationLocator = page.locator("[role='presentation']");
 		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
 		this.formLocator = page.locator("form");
+		this.button = page.locator("button");
 		this.inputLocator = page.locator("input");
 		this.tableBodyRowLocator = page.locator("tbody tr");
 		this.tableBodyColumnLocator = page.locator("tbody td");
