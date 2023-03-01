@@ -9,10 +9,11 @@ export const StyledInput = styled(StyledTextField)`
 
 export const StyledTable = styled.table`
   border-collapse: collapse;
+  color: ${theme.newColors.almostBlack["100"]};
+  background-color: white;
 `;
 
 export const Th = styled.th`
-  color: ${theme.newColors.almostBlack["100"]};
   padding: 24px 16px;
   font-weight: ${theme.fontWeight.medium};
   font-size: 14px;
@@ -58,13 +59,11 @@ export const RowSubtitle = styled.p`
   margin: 8px 0 0 0;
   font-weight: 400;
   font-size: 14px;
-  color: ${theme.newColors.almostBlack["100"]};
 `;
 
 export const TdTotals = styled.td`
   padding-left: 16px;
   font-weight: ${theme.fontWeight.normal};
-  color: ${theme.newColors.almostBlack["100"]};
   font-size: 14px;
 `;
 
