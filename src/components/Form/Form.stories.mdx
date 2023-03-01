@@ -23,6 +23,7 @@ functionality and not how to make a form work.
 * **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
 * **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type) and [ActionAdditional type](#actionadditional-type) `['show']`).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
+* **onBack** - `() => void` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.

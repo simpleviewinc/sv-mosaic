@@ -6,7 +6,6 @@ import {
 	StyledSummaryPageTopComponent,
 	Container,
 	Row,
-	Title,
 	ContainerItems,
 	Item,
 	ContainerTitle,
@@ -18,10 +17,12 @@ import {
 import Image from "@root/components/Image";
 import Button from "../Button";
 import { filterAction } from "../DataView/utils/bulkActionsUtils";
+import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
 		title,
+		onBack,
 		favorite,
 		img,
 		mainActions,
@@ -59,9 +60,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 			<Container>
 				<Row>
 					<ContainerTitle>
-						<Title>
-							{title}
-						</Title>
+						<TitleWrapper title={title} onBack={onBack} />
 						{
 							favorite &&
 								<>
