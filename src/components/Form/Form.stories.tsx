@@ -69,6 +69,7 @@ export const Playground = (): ReactElement => {
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
 	const showState = boolean("Show state", false);
+	const onBack = boolean("onBack", false);
 	const prepopulate = boolean("Prepopulate", false);
 	const defaultValuesKnob = select("Default Values", ["None", "Has Defaults"], "None");
 	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
@@ -669,6 +670,7 @@ export const Playground = (): ReactElement => {
 			<div style={{height: "100vh"}}>
 				<Form
 					title={text("Title", "Form Title")}
+					onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 					description={text("Description", "This is a description example")}
 					state={state}
 					fields={fields}

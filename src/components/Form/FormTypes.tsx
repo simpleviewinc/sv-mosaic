@@ -15,6 +15,7 @@ export interface FormProps {
 	type?: "drawer";
 	state: any;
 	title?: string;
+	onBack?: () => void;
 	fields: FieldDef[];
 	sections?: SectionDef[];
 	dispatch: any;

@@ -6,14 +6,15 @@ import { TypographyGenericProps } from "./TypographyTypes";
 import theme from "@root/theme";
 
 const Styled = styled.h1`
-	font-family: ${theme.fontFamily};
-	font-size: 20px;
-	font-weight: normal;
-	letter-spacing: -.5px;
-	color: ${props => props.color ? theme.colors[props.color] : theme.colors.black};
-	margin-top: 0px;
-	margin-bottom: .67em;
-`
+	font-family: ${theme.museoFont};
+	font-size: 28px;
+	font-weight: ${theme.fontWeight.light};
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: ${theme.newColors.almostBlack["100"]};
+	margin: 0;
+`;
 
 export default function H1(props: TypographyGenericProps): ReactElement {
 	const {

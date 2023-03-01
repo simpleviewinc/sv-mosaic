@@ -8,7 +8,7 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 
 afterEach(cleanup);
 
-const { getByText, getByTestId } = screen;
+const { getByText, getByTestId, queryByTestId } = screen;
 const topAction = jest.fn();
 const bottomAction = jest.fn();
 const content = [
@@ -26,12 +26,7 @@ describe("Card component", () => {
 			<Card
 				content={content}
 				title={"Title"}
-				titleIcon={
-					<ContactsIcon
-						data-testid="contacts-icon-test"
-						sx={{ color: "black", width: 16 }}
-					/>
-				}
+				titleIcon={ContactsIcon}
 				topActions={[
 					{
 						color: "black",
@@ -71,5 +66,35 @@ describe("Card component", () => {
 
 		fireEvent.click(getByText("Add a new task"));
 		expect(bottomAction).toHaveBeenCalled();
+	});
+});
+
+describe("Card component without title icon", () => {
+	it("should display the title with the icon title", () => {
+		render(
+			<Card
+				content={content}
+				title={"Title"}
+				topActions={[
+					{
+						color: "black",
+						variant: "icon",
+						onClick: () => topAction(),
+						mIcon: AddIcon,
+					}
+				]}
+				bottomActions={[
+					{
+						color: "teal",
+						label: "Add a new task",
+						variant: "text",
+						onClick: () => bottomAction(),
+						mIcon: AddIcon,
+					}
+				]}
+			/>
+		);
+
+		expect(queryByTestId("contacts-icon-test")).toBe(null);
 	});
 });
