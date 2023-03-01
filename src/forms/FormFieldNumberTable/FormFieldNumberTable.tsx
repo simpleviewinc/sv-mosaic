@@ -152,7 +152,7 @@ const FormFieldNumberTable = (
 				<TrTotals>
 					<TdTitle>{inputSettings.rowTotalLabel || "Total"}</TdTitle>
 					{inputSettings.columns.map((column) => (
-						<TdTotals key={`column-${column}`}>
+						<TdTotals key={`column-${column.name}`}>
 							{columnsTotals[column.name] || 0}
 						</TdTotals>
 					))}
