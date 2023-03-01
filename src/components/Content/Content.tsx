@@ -145,13 +145,13 @@ const Content = (props: ContentProps): ReactElement => {
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
 				{buttons &&
-					<ButtonsWrapper>
+					<ButtonsWrapper className={cardVariant ? "card-buttons" : "standard-buttons"}>
 						{buttons?.map((button, idx) => (
 							<Button key={`${button.label}-${idx}`} {...button} />
 						))}
 					</ButtonsWrapper>}
 			</TitleWrapper>
-			<div>
+			<div className={cardVariant ? "card-content" : ""}>
 				{data && sectionsToRender.map((section, idx) => (
 					<ContentRow key={`${idx}-row`} className={cardVariant ? "card-row" : ""}>
 						{section.map((field, idx) => (
