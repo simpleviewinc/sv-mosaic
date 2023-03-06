@@ -20,11 +20,21 @@ export const FormDrawerWrapper = styled.div`
       width: 100% !important;
     }
     & .topBlock {
+      max-width: 800px;
       min-height: calc(100vh - 110px);
+      min-width: 600px;
       padding: 0 14px;
+      width: 50vw;
+
+      .options {
+        width: 70%;
+      }
+
+      .selected {
+        width: 30%;
+      }
     }
   }
-
 `;
 
 export const DragAndDropContainer = styled.div`
