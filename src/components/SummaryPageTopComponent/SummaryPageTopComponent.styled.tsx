@@ -45,7 +45,7 @@ export const ContainerTitle = styled.div`
   & .checked {
     .MuiButtonBase-root:hover,
     .MuiButtonBase-root:focus {
-      background-color: ${theme.newColors.simplyGold["20"]};
+      background-color: ${theme.newColors.darkerSimplyGold["20"]};
     }
 
     .MuiButtonBase-root {
