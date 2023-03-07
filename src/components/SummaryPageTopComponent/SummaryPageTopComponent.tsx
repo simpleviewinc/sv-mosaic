@@ -68,7 +68,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 								<>
 									<Button
 										className={`${favorite?.checked ? "checked" : "unchecked"}`}
-										color="black"
+										color="gray"
 										variant="icon"
 										mIcon={favorite?.checked ? StarRateRounded : StarBorder}
 										onClick={() => favorite.onClick(favorite?.checked ? false : true)}
