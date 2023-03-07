@@ -9,9 +9,11 @@ import {
 	ContainerItems,
 	Item,
 	ContainerTitle,
-	CheckedStar,
-	UncheckedStar,
 } from "./SummaryPageTopComponent.styled";
+
+import StarRateRounded from "@mui/icons-material/StarRateRounded";
+import StarBorder from "@mui/icons-material/StarBorderRounded";
+
 
 // Components
 import Image from "@root/components/Image";
@@ -64,12 +66,13 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 						{
 							favorite &&
 								<>
-									{
-										favorite?.checked ?
-											<CheckedStar className="favorite-icon" onClick={() => favorite.onClick(false)}/>
-											:
-											<UncheckedStar className="favorite-icon" onClick={() => favorite.onClick(true)} />
-									}
+									<Button
+										className={`${favorite?.checked ? "checked" : "unchecked"}`}
+										color="black"
+										variant="icon"
+										mIcon={favorite?.checked ? StarRateRounded : StarBorder}
+										onClick={() => favorite.onClick(favorite?.checked ? false : true)}
+									/>
 								</>
 						}
 					</ContainerTitle>
