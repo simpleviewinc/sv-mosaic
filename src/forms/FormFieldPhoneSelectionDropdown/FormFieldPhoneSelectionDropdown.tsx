@@ -34,7 +34,7 @@ const FormFieldPhoneSelectionDropdown = (
 				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : "us"}
 				disabled={fieldDef?.disabled}
 				onChange={onChange}
-				value={value || ""}
+				value={value}
 				countryCodeEditable={false}
 				inputProps={{
 					required: fieldDef?.required,

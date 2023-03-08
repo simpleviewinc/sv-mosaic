@@ -45,7 +45,7 @@ const FormFieldCheckbox = (
 					setInternalOptions([...internalOptions, optionValue]);
 			})
 		}
-		setChecked(value && value.map(selectedOption => selectedOption?.value));
+		setChecked(value?.map(selectedOption => selectedOption?.value));
 
 	}, [internalOptions, value, origin]);
 
