@@ -147,4 +147,16 @@ test.describe.parallel("Components - Data View - Playground", () => {
 	test("Validate the dataview title style.", async () => {
 		await dataviewPage.validateTitleStylingOfLocator(dataviewPage.title);
 	});
+
+	test("Validate the dataview view container dimensions.", async () => {
+		const tdLocator = dataviewPage.page.locator("td");
+		const messageViewContainer = "Validate View Container margins.";
+		const messagePadding = "Validate Dataview Padding in Row.";
+		expect.soft(await dataviewPage.getSpecificMarginFromElement(dataviewPage.viewContainerLocator, "right"), messageViewContainer).toBe("24px");
+		expect.soft(await dataviewPage.getSpecificMarginFromElement(dataviewPage.viewContainerLocator, "left"), messageViewContainer).toBe("24px");
+		expect.soft(await dataviewPage.getSpecificPaddingFromElement(tdLocator.first(), "left"), messagePadding).toBe("16px");
+		expect.soft(await dataviewPage.getSpecificPaddingFromElement(tdLocator.last(), "right"), messagePadding).toBe("16px");
+		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.dataviewRowHeaderLocator.locator("th").first(), "left"), messagePadding).toBe("16px");
+		expect(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.dataviewRowHeaderLocator.locator("th").last(), "right"), messagePadding).toBe("16px");
+	});
 });
