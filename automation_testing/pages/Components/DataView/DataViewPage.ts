@@ -34,6 +34,7 @@ export class DataviewPage extends BasePage {
 	readonly headerActionsLocator: Locator;
 	readonly dataviewTopComponent: Locator;
 	readonly dataviewTableHeadLocator: Locator;
+	readonly dataviewRowHeaderLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -62,6 +63,7 @@ export class DataviewPage extends BasePage {
 		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
 		this.dataviewTableHeadLocator = page.locator("thead th");
 		this.backIconLocator = page.locator(".headerRow button svg[data-testid='icon-button-test']");
+		this.dataviewRowHeaderLocator = page.locator(".row-header");
 	}
 
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
