@@ -22,7 +22,7 @@ import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
 function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultiselectDropdownContentProps) {
 	const [state, setState] = useState({
 		options : [],
-		selected : props.selected.map(val => val.value),
+		selected : props?.selected ?? props.selected.map(val => val.value),
 		hasMore : false,
 		skip : 0,
 		keyword : undefined,

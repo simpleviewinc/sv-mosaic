@@ -100,7 +100,7 @@ const Form = (props: FormProps) => {
 
 			if (values === undefined) {
 				fields.forEach(field => {
-					if (field.defaultValue) {
+					if ("defaultValue" in field) {
 						values = {
 							...values,
 							[field.name]: field.defaultValue
