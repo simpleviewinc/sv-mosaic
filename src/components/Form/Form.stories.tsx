@@ -186,7 +186,7 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && "Passing default value",
+					defaultValue: !showDefaultValues ? undefined : "Passing default value",
 				},
 				{
 					name: "check",
@@ -197,7 +197,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: checkboxOptions
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							label: "Label 1",
 							value: "label_1"
@@ -234,7 +234,7 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required,
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						"label": "Label 3",
 						"value": "label_3"
 					}
@@ -271,7 +271,7 @@ export const Playground = (): ReactElement => {
 							{ label: "Se7en", value: "1995" },
 						],
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						label: "The Shawshank Redemption",
 						value: "1994"
 					}
@@ -282,7 +282,7 @@ export const Playground = (): ReactElement => {
 					type: "phone",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && "15205751151"
+					defaultValue: !showDefaultValues ? undefined : "15205751151"
 				},
 				{
 					name: "radio",
@@ -306,7 +306,7 @@ export const Playground = (): ReactElement => {
 							}
 						],
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						label: "Label 3",
 						value: "label_3"
 					}
@@ -320,7 +320,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						toggleLabel: "To the side"
 					},
-					defaultValue: showDefaultValues && true
+					defaultValue: !showDefaultValues ? undefined : true
 				},
 				{
 					name: "color",
@@ -328,7 +328,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					type: "color",
-					defaultValue: showDefaultValues && "#19a80091"
+					defaultValue: !showDefaultValues ? undefined : "#19a80091"
 				},
 				{
 					name: "date",
@@ -336,7 +336,7 @@ export const Playground = (): ReactElement => {
 					type: "date",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && new Date()
+					defaultValue: !showDefaultValues ? undefined : new Date()
 				},
 				{
 					name: "address",
@@ -349,7 +349,7 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required,
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"id": 1,
 							"address1": "8950 N. Oracle Road",
@@ -375,7 +375,7 @@ export const Playground = (): ReactElement => {
 						options: additionalOptions,
 						createNewOption
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							label: "Default Value 1",
 							value: "def option 1"
@@ -429,7 +429,7 @@ export const Playground = (): ReactElement => {
 						handleRemove,
 						src: imageVideoSrc,
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"label": "Title",
 							"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
@@ -462,7 +462,7 @@ export const Playground = (): ReactElement => {
 					type: "textEditor",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && "Passing default value"
+					defaultValue: !showDefaultValues ? undefined : "Passing default value"
 				},
 				{
 					name: "table",
@@ -477,7 +477,7 @@ export const Playground = (): ReactElement => {
 						extraActions: extraActionsTable,
 						headers,
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"id": "1",
 							"items": [
@@ -507,7 +507,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: menuOptions
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						"imgName": "image (2).png",
 						"size": 61571,
 						"type": "image/png",
@@ -524,7 +524,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						"lat": 32.3395031,
 						"lng": -110.9864294
 					}
@@ -540,7 +540,7 @@ export const Playground = (): ReactElement => {
 						onFileDelete,
 						limit: undefined,
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"id": "1",
 							"name": "roomBlocks.xslx",
@@ -581,7 +581,7 @@ export const Playground = (): ReactElement => {
 					type: "numberTable",
 					required,
 					disabled,
-					defaultValue: showDefaultValues && numberTableDefaultValue,
+					defaultValue: !showDefaultValues ? undefined : numberTableDefaultValue,
 					inputSettings: {
 						rowTotalLabel: "TOTAL",
 						columnTotalLabel: "No. Rooms",
