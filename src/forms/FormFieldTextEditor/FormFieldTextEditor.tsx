@@ -70,7 +70,7 @@ const FormFieldTextEditor = (
 		<EditorWrapper error={error} data-testid="text-editor-testid">
 			<JoditEditor
 				ref={editor}
-				value={value || ""}
+				value={value}
 				config={config}
 				onBlur={(e) => updateValue(e)}
 			/>
