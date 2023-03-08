@@ -47,7 +47,7 @@ const TextField = (
 		<StyledTextField
 			id={fieldDef?.name}
 			data-testid="form-field-text-test-id"
-			value={value ?? ""}
+			value={value || ""}
 			onChange={onFieldChange}
 			onBlur={onFieldBlur}
 			variant='outlined'
