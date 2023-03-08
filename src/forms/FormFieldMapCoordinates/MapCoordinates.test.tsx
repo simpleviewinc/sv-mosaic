@@ -251,8 +251,8 @@ describe("MapCoordinates component without an address", () => {
 		fireEvent.click(resetButton);
 
 		await waitFor(() => {
-			expect(latitudeField.value).toBe("");
-			expect(longitudeField.value).toBe("");
+			expect(latitudeField.value).toBe("0");
+			expect(longitudeField.value).toBe("0");
 		});
 	});
 });
