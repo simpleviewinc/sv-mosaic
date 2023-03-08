@@ -27,11 +27,11 @@ const FormFieldPhoneSelectionDropdown = (
 	const [dialCode, setDialCode] = useState("");
 
 	const onPhoneChange = (phoneValue: string, data: CountryData) => {
-		onChange(phoneValue);
-
 		if(phoneValue === data.dialCode) {
 			onChange(undefined);
 			setDialCode(data.dialCode);
+		} else {
+			onChange(phoneValue);
 		}
 	}
 
