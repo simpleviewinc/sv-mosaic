@@ -44,6 +44,7 @@ export class BasePage {
 	readonly tableBodyColumnLocator: Locator;
 	readonly tableHeadRowLocator: Locator;
 	readonly iconButtonTestLocator: string;
+	readonly viewContainerLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -83,6 +84,7 @@ export class BasePage {
 		this.tableBodyColumnLocator = page.locator("tbody td");
 		this.tableHeadRowLocator = page.locator("thead tr");
 		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
+		this.viewContainerLocator = page.locator(".viewContainer");
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
@@ -294,5 +296,9 @@ export class BasePage {
 		expect(await this.getFontSizeFromElement(titleLocator), "Checking Font Size of the Title").toBe("28px");
 		expect(await this.getFontWeightFromElement(titleLocator), "Checking Font Weight of the Title").toBe((theme.fontWeight.light).toString());
 		expect(await this.getColorFromElement(titleLocator), "Checking Font Color of the Title").toBe(theme.newColors.almostBlack["100"]);
+	}
+
+	async getZIndexFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).zIndex));
 	}
 }
