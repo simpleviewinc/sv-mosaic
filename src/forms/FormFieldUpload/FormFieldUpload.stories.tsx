@@ -9,7 +9,7 @@ import {
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
 import { defaultValues } from "./uploadUtils";
 
@@ -117,7 +117,6 @@ export const Playground = (): ReactElement => {
 				fields={fields}
 				dispatch={dispatch}
 				getFormValues={loadReady && getFormValues}
-				onCancel={onCancel}
 			/>
 		</>
 	);

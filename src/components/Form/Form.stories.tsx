@@ -9,7 +9,7 @@ import { useForm, formActions } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form from "./Form";
@@ -829,7 +829,6 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 		</>
@@ -963,7 +962,6 @@ export const RuntimeBehaviors = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 			<div>
@@ -1038,7 +1036,6 @@ export const SubmitExternalButtons = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 			<button onClick={clickHandler}>Submit</button>
@@ -1124,11 +1121,9 @@ export const DrawerForm = (): ReactElement => {
 				<Form
 					buttons={buttons}
 					title='Drawer form example'
-					type='drawer'
 					state={state}
 					dispatch={dispatch}
 					fields={fields}
-					onCancel={onCancel}
 				/>
 			</Drawer>
 			<button onClick={() => setOpen(true)}>Open drawer</button>
@@ -1369,7 +1364,6 @@ export const DefaultValues = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 		</>

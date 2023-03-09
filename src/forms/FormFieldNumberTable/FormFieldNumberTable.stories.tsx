@@ -3,7 +3,7 @@ import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FieldDef } from "@root/components/Field";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -67,7 +67,6 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);

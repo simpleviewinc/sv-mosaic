@@ -3,7 +3,6 @@ import { forwardRef, memo, ReactElement } from "react";
 import styled from "styled-components";
 
 // Components
-import ClearIcon from "@mui/icons-material/Clear";
 import Button from "@root/components/Button";
 import TitleWrapper from "../Utils/TitleWrapper";
 import {
@@ -13,7 +12,7 @@ import {
 
 // Utils
 import theme from "@root/theme/theme";
-import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { BaseTopComponentProps } from "../TopComponentTypes";
 import { TitleRow } from "./Views.styled";
 
 const MobileActionsRow = styled(Row)`
@@ -37,23 +36,17 @@ const MobileActionsRow = styled(Row)`
   }
 `;
 
-const StyledClearIcon = styled(ClearIcon)`
-  color: ${theme.newColors.almostBlack["100"]};
-`;
-
 const MobileCheckboxHelpIconRow = styled(Row)`
   padding: 0 20px 20px 20px;
 `;
 
 type MobileViewProps = {
-	onCancel: TopComponentProps["onCancel"];
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
 
 const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileViewProps, ref): ReactElement => {
 	const {
 		buttons,
-		onCancel,
 		title,
 		onBack,
 		description,
@@ -67,7 +60,6 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 	return (
 		<div ref={ref}>
 			<MobileActionsRow className={view}>
-				<StyledClearIcon onClick={onCancel} />
 				{buttons && (
 					<div>
 						{buttons.map((button, idx) => (
