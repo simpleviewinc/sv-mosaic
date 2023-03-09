@@ -10,7 +10,7 @@ import {
 import { AdvanceSelectionDrawerPropTypes } from ".";
 import { FormDrawerWrapper } from "../shared/styledComponents";
 import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
-import DrawerHeader from "@root/components/DrawerHeader";
+import PageHeader from "@root/components/PageHeader";
 import Dialog from "@root/components/Dialog";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
@@ -85,7 +85,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	return (
 		<FormDrawerWrapper className="advancedSelection">
-			<DrawerHeader
+			<PageHeader
 				title={fieldDef?.label}
 				buttons={buttons}
 			/>

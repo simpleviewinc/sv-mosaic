@@ -86,7 +86,6 @@ callbacks: PageCallbacks;
 				dispatch={dispatch}
 				fields={config.fields}
 				buttons={buttons}
-				type="drawer"
 			/>
 			<p>Data: {JSON.stringify(state.data)}</p>
 		</div>

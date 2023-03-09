@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { DrawerTopBarProps } from "./DrawerTopBar";
 import DrawerBottom, { DrawerBottomProps } from "./DrawerBottom";
-import DrawerHeader from "../DrawerHeader";
+import PageHeader from "../PageHeader";
 import { ButtonProps } from "../Button";
 import { useMosaicTranslation } from "@root/i18n";
 
@@ -57,10 +57,10 @@ function DrawerContent(props: DrawerContentProps) {
 
 	return (
 		<StyledDiv>
-			<DrawerHeader
+			<PageHeader
 				title={t(`mosaic:${props.title}`)}
 				buttons={drawerButtons}
-				onCancel={props.onClose}
+				onBack={props.onClose}
 			/>
 			<DrawerBottom
 				background={props.background}
