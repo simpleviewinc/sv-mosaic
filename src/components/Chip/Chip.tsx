@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ReactElement, HTMLAttributes, useRef, useState, useEffect } from "react";
+import Tooltip from "../Tooltip";
 
 // Material UI
 import ClearIcon from "@mui/icons-material/Clear";
@@ -7,7 +8,6 @@ import ClearIcon from "@mui/icons-material/Clear";
 // Types and styles
 import { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledDeletableChip, StyledLabel } from "./Chip.styled";
-import Tooltip from "../Tooltip";
 
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const { label, required, disabled, selected, onDelete, onClick } = props;
