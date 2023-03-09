@@ -254,7 +254,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			postal_town: initalAddressComponent, // => city
 			country: initalAddressComponent, // => country
 			administrative_area_level_1: initalAddressComponent, // => state
-			postal_code: initalAddressComponent // postal_code
+			postal_code: initalAddressComponent, // postal_code
+			street_number: initalAddressComponent // street_number
 		};
 
 		for (const addressComponent of addressComponents) {
@@ -293,8 +294,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			console.warn('Country response from google "' + addressComponentsMap.country.label + '" could not be found in the list of countries provided in getOptionsCountries.');
 			componentsNotFound += `${componentsToAddress.country}, ${componentsToAddress.administrative_area_level_1}, `;
 		}
-
-		await setFieldValue("address1", addressComponentsMap.route.label, true);
+		await setFieldValue("address1", `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`, true);
 		await setFieldValue("city", addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
 		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
 
