@@ -11,11 +11,11 @@ const StyledTBody = styled.tbody`
 		border-bottom: 1px solid ${theme.newColors.grey2["100"]};
 
 		& > td:first-child {
-			padding-left: 8px;
+			padding-left: 16px;
 		}
 
 		& > td:last-child {
-			padding-right: 8px;
+			padding-right: 16px;
 		}
 	}
 

@@ -1,5 +1,25 @@
 # sv-mosaic changelog
 
+## 18.0.0 - 03/09/23
+* Updated z-index when using tooltips in buttons to ensure they render on top of drawers.
+* Updated disabling styling in `Form`. Opacity now looks the same as it currently does in DataView to maintain consistency.
+* **BREAKING** `titleIcon` prop in `Card` component is now of type `SvgIconComponent` (previously `JSX.Element`). This makes the prop behave the same way as the mIcon prop in `Button`.
+* Updated automation tests for `Drawers`.
+* "States" field in `FormFieldAddress` has been relabeled to "State".
+* **BREAKING** `Content` component changes:
+	* `label` in `fields` prop is now of type `ReactNode` (previously `string`). This allows developers to pass strings, components, jsx, boooleans, numbers, and any other value accepted by this type (see more in: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L231).
+	* Added optional prop `variant` which allows the strings "standard" or "card" as values. When the "card" variant gets passed, the `Content` component visually looks as the `Card` component, but maintains the same functionality and rendering mechanics. The prop defaults to "standard" when it doesn't get passed.
+	* Removed 2 column limit, developers can pass as many columns as needed.
+	* Updated styles and spacing to match `Card` component.
+*  `Section` titles have been updated to use h2 (previously using h1).
+* **BREAKING** Updated styles for `H1` component. This is a breaking change in the sense that it might visually push other elements around if being exported independently in another product due to changes in boldness, weight, size, font family, etc.
+* Updated `DataView`, `Form`, `SummaryPageTopComponent`, and `DrawerHeader` to use newly updated `H1` component to maintain consistency.
+* Added optional prop `onBack` to `DataView`, `Form`, and `SummaryPageTopComponent`. When this callback gets passed a left arrow icon gets rendered to the left of each component's title.
+* **BREAKING** `Card` component changes:
+	* `title` prop is now of type `string` (previously `JSX.Element`).
+	* Updated styles and spacing to match `Content` component.
+* Implemented `FormFieldNumberTable`. Field that renders a table with inputs in every cell. The component allows as many columns and rows as needed and displays the total per row, per column, and of the whole table. For more information about the props it receives please look at the documentation in storybook -> Form -> Readme -> FormFieldNumberTable.
+
 ## 17.0.0 - 02/28/23
 * Improved section highlighting mechanics. This change prevents sections from being re-rendered when a change to a field occurs, making the section tabs to stay in the selected section.
 * `DataView`:
