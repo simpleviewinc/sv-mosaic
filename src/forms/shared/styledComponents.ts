@@ -47,6 +47,10 @@ export const DragAndDropContainer = styled.div`
   justify-content: center;
   position: relative;
   width: ${pr => pr.width ? pr.width : "300px"};
+
+  & .button {
+    z-index: 1000;
+  }
 `;
 
 export const DragAndDropSpan = styled.span`
@@ -60,6 +64,7 @@ export const FileInput = styled.input`
   opacity: 0;
   position: absolute;
   width: 100%;
+  z-index: 100;
 
   &:focus {
     outline: none;
