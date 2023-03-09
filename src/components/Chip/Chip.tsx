@@ -9,7 +9,6 @@ import { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledDeletableChip, StyledLabel } from "./Chip.styled";
 import Tooltip from "../Tooltip";
 
-
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const { label, required, disabled, selected, onDelete, onClick } = props;
 
