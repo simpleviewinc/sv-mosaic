@@ -43,6 +43,7 @@ export class BasePage {
 	readonly tableBodyRowLocator: Locator;
 	readonly tableBodyColumnLocator: Locator;
 	readonly tableHeadRowLocator: Locator;
+	readonly iconButtonTestLocator: string;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -81,6 +82,7 @@ export class BasePage {
 		this.tableBodyRowLocator = page.locator("tbody tr");
 		this.tableBodyColumnLocator = page.locator("tbody td");
 		this.tableHeadRowLocator = page.locator("thead tr");
+		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {

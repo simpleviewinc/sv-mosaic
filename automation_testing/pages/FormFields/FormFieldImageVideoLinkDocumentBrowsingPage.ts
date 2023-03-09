@@ -61,7 +61,7 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 		this.disabledCard = page.locator("#disabledExample");
 		this.disabledButton = this.disabledCard.locator(this.browseImageLocator);
 		this.moreButton = page.locator("[data-testid='tooltip-test-id']");
-		this.threePointsButton = page.locator("[data-testid='icon-button-test']");
+		this.threePointsButton = page.locator(this.iconButtonTestLocator);
 	}
 
 	async getSpecificInfoFromTable(information:string): Promise<string> {
