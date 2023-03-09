@@ -6,6 +6,7 @@ import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
 import Button from "../Button";
 import { MenuItemProps } from "../MenuItem";
+import "@testing-library/jest-dom";
 
 // Components
 import SummaryPageTopComponent, { SummaryPageTopComponentTypes } from ".";
@@ -154,19 +155,21 @@ describe("SummaryPageTopComponent", () => {
 	});
 
 	it("Should display favorite icon", async () => {
+		let element;
 		await act(async () => {
-			render(<ComponentExample />)
+			element = render(<ComponentExample />)
 		});
 
-		let star = await screen.findByTestId("StarBorderRoundedIcon");
-		expect(star).toBeInTheDocument();
+		const iconButtons = await screen.findAllByTestId("icon-button-test");
+		const starButton = iconButtons[0];
+		expect(starButton).toBeInTheDocument();
+		expect(element.container.getElementsByClassName("unchecked").length).toBe(1);
 
 		await act(async () => {
-			star.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			starButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
 		});
 
-		star = await screen.findByTestId("StarRateRoundedIcon");
-		expect(star).toBeInTheDocument();
+		expect(element.container.getElementsByClassName("checked").length).toBe(1);
 	});
 
 	it("Should display 3 main action buttons", async () => {

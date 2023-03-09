@@ -83,12 +83,12 @@ export class SaveAsComponent extends BasePage {
 
 	async editBtnByLabel(name: string): Promise<Locator> {
 		const row = await this.findRowByLabel(name);
-		return row.locator("[data-testid='icon-button-test']").nth(0);
+		return row.locator(this.iconButtonTestLocator).nth(0);
 	}
 
 	async moreOptionsBtnByLabel(name: string): Promise<Locator> {
 		const row = await this.findRowByLabel(name);
-		return row.locator("[data-testid='icon-button-test']").nth(1);
+		return row.locator(this.iconButtonTestLocator).nth(1);
 	}
 
 	async getRemoveOption(): Promise<Locator> {

@@ -43,6 +43,7 @@ export class BasePage {
 	readonly tableBodyRowLocator: Locator;
 	readonly tableBodyColumnLocator: Locator;
 	readonly tableHeadRowLocator: Locator;
+	readonly iconButtonTestLocator: string;
 	readonly viewContainerLocator: Locator;
 
 	constructor(page: Page) {
@@ -82,6 +83,7 @@ export class BasePage {
 		this.tableBodyRowLocator = page.locator("tbody tr");
 		this.tableBodyColumnLocator = page.locator("tbody td");
 		this.tableHeadRowLocator = page.locator("thead tr");
+		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
 		this.viewContainerLocator = page.locator(".viewContainer");
 	}
 

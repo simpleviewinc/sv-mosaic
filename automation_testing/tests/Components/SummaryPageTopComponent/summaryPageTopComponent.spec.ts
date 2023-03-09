@@ -19,8 +19,8 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 
 	test("Validate Star has simplyGold color.", async () => {
 		const expectColor = theme.newColors.simplyGold["100"];
-		await summaryPage.starRateIconUnchecked.click();
-		expect(await summaryPage.getColorFromElement(summaryPage.starRateIconChecked)).toBe(expectColor);
+		await summaryPage.starRateIcon.click();
+		expect(await summaryPage.getColorFromElement(summaryPage.starRateIcon)).toBe(expectColor);
 	});
 
 	test("Validate Summary Page Top Component padding is valid.", async () => {

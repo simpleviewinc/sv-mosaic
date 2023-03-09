@@ -118,7 +118,7 @@ const TealOnWhite = styled(ButtonWrapper)`
 
   & > .MuiButtonBase-root:hover {
 		border-radius: 0;
-    color: ${theme.newColors.darkerRealTeal[100]};
+    	color: ${theme.newColors.darkerRealTeal["100"]};
   }
 `;
 
