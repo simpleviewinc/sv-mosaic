@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, HTMLAttributes, useRef, useState, useEffect } from "react";
+import { ReactElement, HTMLAttributes } from "react";
 import Tooltip from "../Tooltip";
 
 // Material UI
@@ -12,18 +12,9 @@ import { StyledChip, StyledDeletableChip, StyledLabel } from "./Chip.styled";
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const { label, required, disabled, selected, onDelete, onClick } = props;
 
-	const [deletableChipWidth, setDeletableChipWidth] = useState(0);
-
-	const deletableChipRef = useRef(null);
-
-	useEffect(() => {
-		setDeletableChipWidth(deletableChipRef?.current?.offsetWidth);
-	}, [onDelete, label])
-
 	return onDelete ? (
-		<Tooltip text={deletableChipWidth >= 186 ? label : ""}>
+		<Tooltip text={label}>
 			<StyledDeletableChip
-				ref={deletableChipRef}
 				label={<StyledLabel>{label}</StyledLabel>}
 				{...props}
 				required={required}
