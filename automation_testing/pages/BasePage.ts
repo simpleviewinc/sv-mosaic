@@ -295,4 +295,8 @@ export class BasePage {
 		expect(await this.getFontWeightFromElement(titleLocator), "Checking Font Weight of the Title").toBe((theme.fontWeight.light).toString());
 		expect(await this.getColorFromElement(titleLocator), "Checking Font Color of the Title").toBe(theme.newColors.almostBlack["100"]);
 	}
+
+	async getZIndexFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).zIndex));
+	}
 }
