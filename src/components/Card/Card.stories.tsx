@@ -19,17 +19,6 @@ export default {
 	decorators: [withKnobs],
 } as Meta;
 
-const SideCardActionsTitle = styled.span`
-	color: ${theme.newColors.almostBlack["100"]}
-	font-size: 14px;
-	margin-left: 8px;
-`;
-
-const RecentActivityTitle = styled.span`
-	color: ${theme.newColors.almostBlack["100"]}
-	font-weight: ${theme.fontWeight.medium};
-`;
-
 const ActivityWrapper = styled.div`
   margin: 32px 0 32px 0;
 `;
@@ -112,10 +101,8 @@ export const Playground = (): ReactElement => {
 	return (
 		<Card
 			content={content}
-			title={<SideCardActionsTitle>Section Title</SideCardActionsTitle>}
-			titleIcon={
-				showTitleIcon && <ContactsIcon sx={{ color: "black", width: 16 }} />
-			}
+			title="Section Title"
+			titleIcon={showTitleIcon && ContactsIcon}
 			topActions={showTopAction && slicedTopActions}
 			bottomActions={showBottomAction && slicedBottomActions}
 		/>
@@ -144,7 +131,7 @@ const recentActivityContent = [
 export const RecentActivity = (): ReactElement => {
 	return (
 		<Card
-			title={<RecentActivityTitle>Recent Activity</RecentActivityTitle>}
+			title={"Recent Activity"}
 			content={recentActivityContent}
 			topActions={[
 				{

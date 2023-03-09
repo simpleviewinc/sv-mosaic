@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo, useState } from "react";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
@@ -16,6 +16,7 @@ import { ChipsWrapper } from "./Content.styled";
 import Chip from "../Chip";
 import EditIcon from "@mui/icons-material/Edit";
 import { ButtonProps } from "@root/components/Button";
+import { Link } from "@mui/material";
 
 export default {
 	title: "Components/Content",
@@ -70,7 +71,7 @@ const data = {
 	),
 };
 
-const twoColumns = [
+const multipleColumns = [
 	[["tags"], ["colorPicker"]],
 	[["toggle"], ["date"]],
 	[["thumbnail"], ["chipsAsValue"]],
@@ -81,16 +82,34 @@ const oneColumn = [
 	[["toggle"]],
 	[["thumbnail"]],
 	[["date"]],
+	[[]],
 	[["colorPicker"]],
 	[["chipsAsValue"]]
 ];
 
+const oneColumnSecondContent = [
+	[["tags"]],
+	[["date"]],
+	[["thumbnail"]],
+];
+
+const multipleColumnSecondContent = [
+	[["tags"], ["date"]],
+	[["thumbnail"]],
+];
+
 export const Playground = (): ReactElement => {
-	const title = text("Title", "Main Section Title");
+	const title = text("Title", "Main Content Title");
+	const variant = select("Variant", ["standard", "card"], "standard")
 	const singleColumn = boolean("Single column", false);
 	const showChips = boolean("Show chips", true);
 	const useSections = boolean("Use sections", true);
 	const useButtons = boolean("Use buttons", true);
+	const amountContent = select(
+		"Amount of contents",
+		[1, 2],
+		1
+	);
 	const [showMore, setShowMore] = useState(false);
 
 	/**
@@ -140,7 +159,7 @@ export const Playground = (): ReactElement => {
 		},
 		{
 			name: "color",
-			label: "Color using transfomr_colorPicker()",
+			label: "Color using transform_colorPicker()",
 			transforms: [transform_colorPicker()],
 			column: "colorPicker",
 		},
@@ -167,17 +186,114 @@ export const Playground = (): ReactElement => {
 		}
 
 		if (!singleColumn) {
-			return showMore ? twoColumns : twoColumns.slice(0, 2);
+			return showMore ? multipleColumns : multipleColumns.slice(0, 2);
 		}
-	}, [useSections, showMore, oneColumn, twoColumns, singleColumn]);
+	}, [useSections, showMore, oneColumn, multipleColumns, singleColumn]);
 
 	return (
-		<Content
-			title={title}
-			data={data}
-			fields={fields}
-			sections={sectionsToDisplay}
-			buttons={useButtons && buttonsToDisplay}
-		/>
+		<>
+			<Content
+				title={title}
+				data={data}
+				fields={fields}
+				sections={sectionsToDisplay}
+				buttons={useButtons && buttonsToDisplay}
+				variant={variant}
+			/>
+			{amountContent === 2 &&
+				<Content
+					title={"Second content"}
+					data={data}
+					fields={fields}
+					sections={singleColumn ? oneColumnSecondContent : multipleColumnSecondContent}
+					buttons={useButtons && buttons.slice(0, 1)}
+					variant={variant}
+				/>
+			}
+		</>
+	);
+};
+
+export const KitchenSink = (): ReactElement => {
+
+	const buttons: ButtonProps[] = [
+		{
+			name: "edit",
+			label: "Edit",
+			mIcon: EditIcon,
+			color: "gray",
+			variant: "icon",
+			onClick: function () {
+				alert("Edit button clicked");
+			}
+		},
+		{
+			name: "showDetails",
+			color: "teal",
+			variant: "text",
+			label: "More Details",
+			onClick: () => alert("More details") ,
+		},
+	]
+
+	const fields: ContentField[] = [
+		{
+			name: "chips",
+			label: "Chips using transform_chips()",
+			transforms: [transform_chips()],
+			column: "tags",
+		},
+		{
+			name: "toggle",
+			label: <Link href="#">Toggle using transform_boolean()</Link>,
+			transforms: [transform_boolean()],
+		},
+		{
+			name: "date",
+			label: "Date using transform_dateFormat()",
+			transforms: [transform_dateFormat()],
+		},
+		{
+			name: "color",
+			label: "Color using transform_colorPicker()",
+			transforms: [transform_colorPicker()],
+			column: "colorPicker",
+		},
+		{
+			name: "thumbnail",
+			label: "Thumbnail using transform_thumbnail()",
+			transforms: [transform_thumbnail({ width: 150, height: 150 })],
+		},
+		{
+			name: "chipsAsValue",
+			label: "Chips with no transform only value"
+		},
+	];
+
+	const columns = [
+		[["tags"], ["colorPicker"], []],
+		[["toggle"], ["date"], ["colorPicker"],],
+		[["thumbnail"], ["chipsAsValue"], ["thumbnail"]],
+	];
+
+	return (
+		<>
+			<Content
+				title={"Standard content"}
+				data={data}
+				fields={fields}
+				sections={columns}
+				buttons={buttons}
+			/>
+			<br/>
+			<Content
+				title={"Card content"}
+				data={data}
+				fields={fields}
+				sections={columns}
+				buttons={buttons.slice(0, 1)}
+				variant={"card"}
+			/>
+		</>
 	);
 };

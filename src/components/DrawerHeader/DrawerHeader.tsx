@@ -3,11 +3,10 @@ import { memo, forwardRef } from "react";
 import Button from "@root/components/Button";
 import { StyledDrawerHeader } from "./DrawerHeader.styled";
 import { ButtonsWrapper } from "@root/forms/TopComponent/TopComponent.styled";
-import { FormTitle } from "@root/forms/TopComponent/Utils/TitleWrapper";
 import { DrawerHeaderProps } from "./DrawerHeaderTypes";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { Views } from "@root/theme/theme";
+import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 
 const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 	const {
@@ -17,7 +16,7 @@ const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 	} = props;
 
 	return (
-		<StyledDrawerHeader ref={ref}>
+		<StyledDrawerHeader ref={ref} data-testid="drawer-header-test-id">
 			<div style={{display: "flex", alignItems: "center"}}>
 				{onCancel && (
 					<IconButton
@@ -32,9 +31,7 @@ const DrawerHeader = forwardRef((props: DrawerHeaderProps, ref) => {
 					</IconButton>
 				)}
 				{title &&
-					<FormTitle type={Views.drawer} data-testid="drawer-title-test-id">
-						{title}
-					</FormTitle>
+					<TitleWrapper title={title} />
 				}
 			</div>
 			{buttons &&

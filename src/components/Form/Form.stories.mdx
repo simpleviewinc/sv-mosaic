@@ -23,6 +23,7 @@ functionality and not how to make a form work.
 * **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
 * **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type) and [ActionAdditional type](#actionadditional-type) `['show']`).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
+* **onBack** - `() => void` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
@@ -1557,6 +1558,93 @@ const fields = useMemo(
 						types: ["physical", "billing"]
 					}
 				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+## FormFieldNumberTable
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- [**Playground**](/?path=/story/formfields-formfieldnumbertable--playground)
+- Data: `object` - Object that has the row name as key and nested another object with the column name as key and the value corresponds to text field value.
+	* **rowName: string** - `object` - Row name is used as key identifier.
+		* **columnName: string** - `string` - Value of each text field cell.
+- inputSettings:
+
+| Name | Type | Default | Description |
+| ---- | ---- | --------| ----------- |
+| **`columns`** | `{ name: string; title: string }[]` | | Columns definition. |
+| **`columnTotalLabel`** | `string` | "Total" | optional - Default: "Total". Label shown on the column that displays the totals. |
+| **`rows`** | `{ name: string; title: string, subtitle?: string }[]` | | Rows definition. |
+| **`rowTotalLabel`** | `string` | "Total" | optional - Label shown on the total row. |
+| **`topLeftLabel`** | `string` | |  optional - Label placed on the top left table corner i.e the first column. |
+
+### How to use in a form?
+
+```ts
+const fields: FieldDef[] = useMemo(
+	(): FieldDef[] =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "numberTable",
+				defaultValue: {
+					"2023_02_10": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "17",
+					},
+					"2023_02_11": {
+						single: "18",
+						double: "19",
+						queen: "20",
+						king: "21",
+						suite: "22",
+						any: "23",
+					},
+					"2023_02_12": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "20",
+					},
+					"2023_02_13": {
+						single: "1",
+						double: "1",
+						queen: "1",
+						king: "1",
+						suite: "1",
+						any: "1",
+					},
+				},
+				inputSettings: {
+					rowTotalLabel: "TOTAL",
+					columnTotalLabel: "No. Rooms",
+					topLeftLabel: "Day",
+					rows: [
+						{ name: "2023_02_10", title: "Shoulder Before" },
+						{ name: "2023_02_11", title: "Day 1", subtitle: "February 11" },
+						{ name: "2023_02_12", title: "Day 2" },
+						{ name: "2023_02_13", title: "Day 3" },
+					],
+					columns: [
+						{ name: "single", title: "Single" },
+						{ name: "double", title: "Double" },
+						{ name: "queen", title: "Queen" },
+						{ name: "king", title: "King" },
+						{ name: "suite", title: "Suite" },
+						{ name: "any", title: "Any" },
+					]
+				},
 			},
 			//...other fields
 		],

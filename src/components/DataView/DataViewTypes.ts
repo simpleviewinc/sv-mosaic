@@ -242,5 +242,6 @@ export interface DataViewProps {
 	onSavedViewRemove?: dataViewOnSavedViewRemove
 	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
 	onCheckChange?: dataViewOnCheckChange;
-	onCheckAllPagesChange?: dataViewOnCheckAllPagesChange
+	onCheckAllPagesChange?: dataViewOnCheckAllPagesChange;
+	onBack?: () => void;
 }

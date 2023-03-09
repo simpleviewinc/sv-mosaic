@@ -2,6 +2,7 @@ import { expect, Page, Locator } from "@playwright/test";
 import { url, urlWithKnobs } from "../utils/formUrls";
 import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 import { getDateFormatted } from "../utils/helpers/dateHelper";
+import theme from "../../src/theme";
 
 export class BasePage {
 
@@ -35,12 +36,19 @@ export class BasePage {
 	readonly roleOptionLocator: Locator;
 	readonly rolePresentationLocator: Locator;
 	readonly deleteIconSelectedOptionChip: Locator;
+	readonly formLocator: Locator;
+	readonly button: Locator;
+	backIconLocator: Locator;
+	readonly inputLocator: Locator;
+	readonly tableBodyRowLocator: Locator;
+	readonly tableBodyColumnLocator: Locator;
+	readonly tableHeadRowLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
 		this.loading = page.locator("div.loading");
-		this.title = page.locator("text=Form Title");
-		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span[2]");
+		this.title = page.locator("h1");
+		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span");
 		this.applyBtn = page.locator("text=Apply");
 		this.clearBtn = page.locator("text=Clear");
 		this.cancelBtn = page.locator("button:has-text('Cancel')");
@@ -58,7 +66,7 @@ export class BasePage {
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
-		this.drawerTitle = page.locator("[data-testid='drawer-title-test-id']");
+		this.drawerTitle = page.locator("form h1");
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
 		this.menuLocator = page.locator("[role='menu']");
@@ -67,6 +75,12 @@ export class BasePage {
 		this.roleOptionLocator = page.locator("[role='option']");
 		this.rolePresentationLocator = page.locator("[role='presentation']");
 		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
+		this.formLocator = page.locator("form");
+		this.button = page.locator("button");
+		this.inputLocator = page.locator("input");
+		this.tableBodyRowLocator = page.locator("tbody tr");
+		this.tableBodyColumnLocator = page.locator("tbody td");
+		this.tableHeadRowLocator = page.locator("thead tr");
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
@@ -176,6 +190,10 @@ export class BasePage {
 		return await ((element).evaluate(el => getComputedStyle(el).fontWeight));
 	}
 
+	async getFontSizeFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).fontSize));
+	}
+
 	async validateMarginValueFromElement(element: Locator, expectedValue: string, isRight: boolean): Promise<void> {
 		let elementMargin: string;
 		if (isRight) {
@@ -267,5 +285,12 @@ export class BasePage {
 
 	async getHRefFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => el.getAttribute("href")));
+	}
+
+	async validateTitleStylingOfLocator(titleLocator: Locator): Promise<void> {
+		expect(await this.getFontFamilyFromElement(titleLocator), "Checking Font Family of the Title").toContain("Museo-Sans");
+		expect(await this.getFontSizeFromElement(titleLocator), "Checking Font Size of the Title").toBe("28px");
+		expect(await this.getFontWeightFromElement(titleLocator), "Checking Font Weight of the Title").toBe((theme.fontWeight.light).toString());
+		expect(await this.getColorFromElement(titleLocator), "Checking Font Color of the Title").toBe(theme.newColors.almostBlack["100"]);
 	}
 }

@@ -31,6 +31,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		onCancel,
 		showActive,
 		title,
+		onBack,
 		tooltipInfo,
 		sections,
 		sectionsRefs,
@@ -83,6 +84,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			ref={ref}
 			sectionsRefs={sectionsRefs}
 			title={title}
+			onBack={onBack}
 			description={description}
 			showActive={showActive}
 			tooltipInfo={tooltipInfo}
@@ -101,6 +103,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 				ref={ref}
 				buttons={buttons}
 				title={title}
+				onBack={onBack}
 				description={description}
 				helpIcon={helpIcon}
 				checkbox={checkbox}
@@ -114,6 +117,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			<ResponsiveView
 				ref={ref}
 				title={title}
+				onBack={onBack}
 				description={description}
 				showActive={showActive}
 				tooltipInfo={tooltipInfo}

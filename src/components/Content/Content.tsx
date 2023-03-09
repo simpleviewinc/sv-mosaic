@@ -2,7 +2,6 @@ import * as React from "react";
 import {
 	ReactElement,
 	useMemo,
-	useEffect,
 	Fragment
 } from "react";
 import { ContentProps } from "./ContentTypes";
@@ -41,20 +40,9 @@ const showContent = (show: ActionAdditional["show"]) => {
 };
 
 const Content = (props: ContentProps): ReactElement => {
-	const { fields, data, sections, title, buttons } = props;
+	const { fields, data, sections, title, buttons, variant } = props;
 
-	/**
-	 * Validates the number of columns per section.
-	 */
-	useEffect(() => {
-		if (sections) {
-			sections?.forEach(section => {
-				if (section.length >= 3) {
-					throw new Error("The max of columns allowed are two.");
-				}
-			});
-		}
-	}, [sections])
+	const cardVariant = variant === "card" ? true : false;
 
 	/**
 	 * Checks if the field exists, can be shown and executes its transform function
@@ -74,6 +62,12 @@ const Content = (props: ContentProps): ReactElement => {
 			return field === fieldDef.name;
 		});
 
+		if (!field) {
+			return (
+				<FieldContainer key={`value-${rowIdx}`} columns={sectionLength} />
+			)
+		}
+
 		if (!currentField && field) {
 			throw new Error(
 				`No field declared for field name '${field}' in the ${rowIdx + 1} row.`
@@ -89,7 +83,7 @@ const Content = (props: ContentProps): ReactElement => {
 		if (currentField && !currentField?.transforms) {
 			return (
 				<FieldContainer key={`value-${currentField.name}`} columns={sectionLength}>
-					{renderField(data[fieldName], currentField.label)}
+					{renderField(currentField.label, data[fieldName])}
 				</FieldContainer>
 			)
 		}
@@ -102,7 +96,7 @@ const Content = (props: ContentProps): ReactElement => {
 
 		return (
 			<FieldContainer key={`transformed-${currentField.name}`} columns={sectionLength}>
-				{renderField(fieldValue, currentField?.label)}
+				{renderField(currentField?.label, fieldValue)}
 			</FieldContainer>
 		)
 	};
@@ -114,7 +108,7 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @param label Text positioned above each field
 	 * @returns JSX Element corresponding to the current field.
 	 */
-	const renderField = (content: unknown, label: string) => {
+	const renderField = (label: React.ReactNode, content?: unknown) => {
 		return (
 			<>
 				<Label>{label}</Label>
@@ -147,19 +141,19 @@ const Content = (props: ContentProps): ReactElement => {
 	}, [sections]);
 
 	return (
-		<MainWrapper>
-			<TitleWrapper>
+		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
+			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
 				{buttons &&
-					<ButtonsWrapper>
+					<ButtonsWrapper className={cardVariant ? "card-buttons" : "standard-buttons"}>
 						{buttons?.map((button, idx) => (
 							<Button key={`${button.label}-${idx}`} {...button} />
 						))}
 					</ButtonsWrapper>}
 			</TitleWrapper>
-			<div>
+			<div className={cardVariant ? "card-content" : ""}>
 				{data && sectionsToRender.map((section, idx) => (
-					<ContentRow key={`${idx}-row`}>
+					<ContentRow key={`${idx}-row`} className={cardVariant ? "card-row" : ""}>
 						{section.map((field, idx) => (
 							<Fragment key={`${field[0]}-${idx}`}>
 								{renderRow(field[0], idx, section?.length)}

@@ -135,9 +135,9 @@ export default {
 	`,
 	iconFontSize : "24px",
 	fontWeight : {
-		light: 250,
+		light: 100,
 		normal: 400,
-		medium: 510,
+		medium: 500,
 		semiBold: 600,
 		bold: 700
 	},

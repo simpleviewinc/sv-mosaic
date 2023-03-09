@@ -1,4 +1,5 @@
 import { ButtonProps } from "../Button";
+import { SvgIconComponent } from "@root/types";
 
 export interface CardProps {
 	/**
@@ -12,11 +13,11 @@ export interface CardProps {
 	/**
 	 * Any HTML/React element can be used as a title.
 	 */
-	title: JSX.Element;
+	title: string;
 	/**
 	 * Optional icon that will be placed to the left of the title.
 	 */
-	titleIcon?: JSX.Element;
+	titleIcon?: SvgIconComponent;
 		/**
 	 * List of buttons that will display at the top of the card.
 	 */
