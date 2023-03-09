@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import { ReactElement, memo, useState } from "react";
 
 // Components
-import PhoneInput from "react-phone-input-2";
+import PhoneInput, { CountryData } from "react-phone-input-2";
 
 // Types and styles
 import "react-phone-input-2/lib/bootstrap.css";
@@ -24,6 +24,17 @@ const FormFieldPhoneSelectionDropdown = (
 		value,
 	} = props;
 
+	const [dialCode, setDialCode] = useState("");
+
+	const onPhoneChange = (phoneValue: string, data: CountryData) => {
+		if(phoneValue === data.dialCode) {
+			onChange(undefined);
+			setDialCode(data.dialCode);
+		} else {
+			onChange(phoneValue);
+		}
+	}
+
 	return !fieldDef?.disabled ? (
 		<PhoneInputWrapper
 			error={!!(fieldDef?.required && error)}
@@ -33,8 +44,8 @@ const FormFieldPhoneSelectionDropdown = (
 				autoFormat={!!fieldDef?.inputSettings?.autoFormat}
 				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : "us"}
 				disabled={fieldDef?.disabled}
-				onChange={onChange}
-				value={value}
+				onChange={onPhoneChange}
+				value={value || dialCode}
 				countryCodeEditable={false}
 				inputProps={{
 					required: fieldDef?.required,
