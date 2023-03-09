@@ -289,7 +289,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			console.warn('Country response from google "' + addressComponentsMap.country.label + '" could not be found in the list of countries provided in getOptionsCountries.');
 			componentsNotFound += `${componentsToAddress.country}, ${componentsToAddress.administrative_area_level_1}, `;
 		}
-		console.log(addressComponentsMap.street_number);
+
 		await setFieldValue("address1", `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`.trim(), true);
 		await setFieldValue("city", addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
 		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
