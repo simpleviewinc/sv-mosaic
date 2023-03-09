@@ -20,11 +20,21 @@ export const FormDrawerWrapper = styled.div`
       width: 100% !important;
     }
     & .topBlock {
+      max-width: 800px;
       min-height: calc(100vh - 110px);
+      min-width: 600px;
       padding: 0 14px;
+      width: 50vw;
+
+      .options {
+        width: 70%;
+      }
+
+      .selected {
+        width: 30%;
+      }
     }
   }
-
 `;
 
 export const DragAndDropContainer = styled.div`
@@ -37,6 +47,10 @@ export const DragAndDropContainer = styled.div`
   justify-content: center;
   position: relative;
   width: ${pr => pr.width ? pr.width : "300px"};
+
+  & .button {
+    z-index: 1000;
+  }
 `;
 
 export const DragAndDropSpan = styled.span`
@@ -50,6 +64,7 @@ export const FileInput = styled.input`
   opacity: 0;
   position: absolute;
   width: 100%;
+  z-index: 100;
 
   &:focus {
     outline: none;
