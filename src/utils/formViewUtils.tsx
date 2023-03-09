@@ -16,14 +16,7 @@ const responsiveBreakpoint = BREAKPOINTS.topComponent.responsiveView;
 const mobileBreakpoint = BREAKPOINTS.mobile;
 const bigScreenBreakpoint = BREAKPOINTS.topComponent.bigScreenView;
 
-export const getView = (
-	type: string,
-	formContainerWidth: number
-): ViewType => {
-	if (type === "drawer") {
-		return Views.drawer;
-	}
-
+export const getView = (formContainerWidth: number): ViewType => {
 	if (formContainerWidth < mobileBreakpoint) {
 		return Views.mobile;
 	} else if (
@@ -38,11 +31,11 @@ export const getView = (
 	}
 };
 
-export const useViewResizer = ({ type, formContainerRef }) => {
-	const [view, setView] = useState(getView(type, window.innerWidth));
+export const useViewResizer = ({ formContainerRef }) => {
+	const [view, setView] = useState(getView(window.innerWidth));
 
 	const setFormView = (formContainerWidth: number) => {
-		const view = getView(type, formContainerWidth);
+		const view = getView(formContainerWidth);
 		setView(view);
 	};
 

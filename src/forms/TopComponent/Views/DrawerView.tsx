@@ -4,13 +4,11 @@ import styled from "styled-components";
 
 // Components
 import { ButtonsWrapper, Row, StyledColumn } from "../TopComponent.styled";
-import { IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import Button from "@root/components/Button";
 
 // Utils
 import theme from "../../../theme/theme";
-import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { BaseTopComponentProps } from "../TopComponentTypes";
 import TitleWrapper from "../Utils/TitleWrapper";
 
 const DrawerViewColumn = styled(StyledColumn)`
@@ -23,14 +21,9 @@ const DrawerViewColumn = styled(StyledColumn)`
   z-index: 9999;
 `;
 
-type DrawerViewProps = {
-  onCancel: TopComponentProps["onCancel"];
-} & BaseTopComponentProps;
-
-const DrawerView = (props: DrawerViewProps): ReactElement => {
+const DrawerView = (props: BaseTopComponentProps): ReactElement => {
 	const {
 		buttons,
-		onCancel,
 		view,
 		title,
 		tooltipInfo,
@@ -41,18 +34,6 @@ const DrawerView = (props: DrawerViewProps): ReactElement => {
 		<>
 			<DrawerViewColumn className={view} type={view}>
 				<Row className={view}>
-					{onCancel && (
-						<IconButton
-							data-testid="close-icon"
-							aria-label="close"
-							disableRipple
-							onClick={onCancel}
-							style={{ marginRight: "8px" }}
-							size="large"
-						>
-							<CloseIcon />
-						</IconButton>
-					)}
 					<TitleWrapper title={title} />
 					{tooltipInfo && helpIcon}
 				</Row>
