@@ -14,13 +14,14 @@ import {
 
 const Card = (props: CardProps): ReactElement => {
 	const { bottomActions, content, title, titleIcon, topActions } = props;
+	const TitleIcon = titleIcon;
 
 	return (
 		<CardWrapper>
 			<TitleBar>
 				<TitleWrapper>
-					{titleIcon}
-					{title}
+					{titleIcon && <TitleIcon data-testid="contacts-icon-test"/>}
+					<p className="card-title">{title}</p>
 				</TitleWrapper>
 				{topActions?.length > 0 && (
 					<ButtonsWrapper>

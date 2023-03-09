@@ -7,7 +7,6 @@ export class ButtonPage extends BasePage {
 
 	readonly page: Page;
 	readonly buttonTitle: Locator;
-	readonly button: Locator;
 	readonly leftIconButton: Locator;
 	readonly rightIconButton: Locator;
 
@@ -15,9 +14,8 @@ export class ButtonPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.buttonTitle = page.locator("h1").nth(1);
-		this.button = page.locator("button");
-		this.leftIconButton = page.locator("button .icon_left");
-		this.rightIconButton = page.locator("button .icon_right");
+		this.leftIconButton = this.button.locator(".icon_left");
+		this.rightIconButton = this.button.locator(".icon_right");
 	}
 
 	async validateMarginOfButton(margin: "right"|"left", expectedValue: string): Promise<void> {

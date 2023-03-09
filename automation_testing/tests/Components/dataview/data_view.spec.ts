@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataview_data";
 import theme from "../../../../src/theme";
-import { dataviewKnobs as knob } from "../../../utils/data/knobs";
+import { dataviewKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - Data View - Playground", () => {
 	let page: Page;
@@ -97,11 +97,6 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		await dataviewPage.downloadBtn.click();
 	});
 
-	test("Validate dataview title font.", async () => {
-		const titleFonts = await dataviewPage.getFontFamilyFromElement(dataviewPage.title);
-		expect(titleFonts).toContain("Museo-Sans");
-	});
-
 	test("Validate Dataview Page Top Component padding is valid.", async () => {
 		const locator = dataviewPage.dataviewTopComponent;
 		await locator.waitFor();
@@ -139,5 +134,17 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		expect(await dataviewPage.checkboxRow.count()).toEqual(await getNumberOfResultVisible() + 1);
 		await dataviewPage.paginationComponent.selectResultOption(50);
 		expect(await dataviewPage.checkboxRow.count()).toEqual(await getNumberOfResultVisible() + 1);
+	});
+
+	test("Validate that when onBack is activated, the back icon is displayed.", async () => {
+		await dataviewPage.visit(dataviewPage.page_path, [commonKnobs.knobOnBack + true]);
+		await dataviewPage.waitForDataviewIsVisible();
+		await expect(dataviewPage.backIconLocator).toBeVisible();
+		await dataviewPage.backIconLocator.click();
+		await dataviewPage.setDialogValidationListener("Cancelling, going back to previous site");
+	});
+
+	test("Validate the dataview title style.", async () => {
+		await dataviewPage.validateTitleStylingOfLocator(dataviewPage.title);
 	});
 });

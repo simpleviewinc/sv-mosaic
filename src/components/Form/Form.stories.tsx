@@ -23,6 +23,7 @@ import { ButtonProps } from "@root/components/Button";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
 import { nanoid } from "nanoid";
+import { columns, numberTableDefaultValue, rows } from "@root/forms/FormFieldNumberTable/numberTableUtils";
 
 export default {
 	title: "Components/Form",
@@ -68,6 +69,7 @@ export const Playground = (): ReactElement => {
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
 	const showState = boolean("Show state", false);
+	const onBack = boolean("onBack", false);
 	const prepopulate = boolean("Prepopulate", false);
 	const defaultValuesKnob = select("Default Values", ["None", "Has Defaults"], "None");
 	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
@@ -144,6 +146,7 @@ export const Playground = (): ReactElement => {
 				"value": "Image Video Thumbnail"
 			}
 		],
+		"numberTable": numberTableDefaultValue
 	});
 
 	const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
@@ -572,6 +575,21 @@ export const Playground = (): ReactElement => {
 						},
 					],
 				},
+				{
+					name: "numberTable",
+					label: "Number Table",
+					type: "numberTable",
+					required,
+					disabled,
+					defaultValue: showDefaultValues && numberTableDefaultValue,
+					inputSettings: {
+						rowTotalLabel: "TOTAL",
+						columnTotalLabel: "No. Rooms",
+						topLeftLabel: "Day",
+						rows: rows,
+						columns: columns
+					},
+				},
 			],
 		[additionalOptions, disabled, required, showDefaultValues]
 	);
@@ -652,6 +670,7 @@ export const Playground = (): ReactElement => {
 			<div style={{height: "100vh"}}>
 				<Form
 					title={text("Title", "Form Title")}
+					onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 					description={text("Description", "This is a description example")}
 					state={state}
 					fields={fields}

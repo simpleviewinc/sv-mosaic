@@ -4,15 +4,35 @@ import EditIcon from "@mui/icons-material/Edit";
 
 export const MainWrapper = styled.div`
 	font-family: ${theme.fontFamily};
-	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	margin: 32px 40px;
+	padding: 16px 0px;
+	margin: 0px 16px;
+
+	&.content-wrapper + .content-wrapper {
+		border-top: 2px solid ${theme.newColors.grey2["100"]};
+	}
+
+	&.card-wrapper {
+		border: 2px solid ${theme.newColors.grey2["100"]};
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	& .card-content {
+		padding: 0px 16px;
+	}
 `;
 
 export const TitleWrapper = styled.div`
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	margin: 16px 0;
+	margin-bottom: 16px;
+
+	&.title-bar {
+		background: ${theme.newColors.grey2["100"]};
+		padding: 8px 16px;
+	}
 `;
 
 export const Title = styled.span`
@@ -36,18 +56,24 @@ export const ButtonsWrapper = styled.div`
 	align-items: center;
 	display: flex;
 
-	.MuiButton-root {
-		margin-left: 8px;
+	&.standard-buttons {
+		.MuiButton-root {
+			margin-left: 8px;
+		}
+
+		.button {
+			border-right: 2px solid ${theme.newColors.grey2["100"]};
+			padding: 0 16px 0 16px;
+		}
+
+		.button:last-child {
+			border-right: none;
+			padding: 0;
+		}
 	}
 
-	.button {
-		border-right: 2px solid ${theme.newColors.grey2["100"]};
-		padding: 0 16px 0 16px;
-	}
-
-	.button:last-child {
-		border-right: none;
-		padding: 0;
+	&.card-buttons {
+		gap: 16px;
 	}
 `;
 
@@ -90,4 +116,9 @@ export const ColorValue = styled.p`
 export const ContentRow = styled.div`
 	display: flex;
 	width: 100%;
+
+	&.card-row + .card-row {
+		border-top: 2px solid ${theme.newColors.grey2["100"]};
+		padding-top: 16px;
+	}
 `;
