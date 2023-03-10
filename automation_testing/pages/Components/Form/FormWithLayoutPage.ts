@@ -97,7 +97,7 @@ export class FormWithLayout extends BasePage {
 
 	async scrollToSection(section:string):Promise<void> {
 		await this.topComponentContainer.waitFor({ state: "visible" });
-		await this.sectionContainer.locator("h1", {hasText: section}).scrollIntoViewIfNeeded();
+		await this.sectionContainer.locator("h2", { hasText: section }).scrollIntoViewIfNeeded();
 	}
 
 	async validateSectionTopComponentElementIsSelected(section:string):Promise<string> {
