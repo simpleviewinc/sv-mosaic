@@ -23,6 +23,10 @@ export const FormDrawerWrapper = styled.div`
       min-height: calc(100vh - 110px);
       padding: 0 14px;
     }
+
+		& .topBlock hr {
+			margin: -24px 0px 0px 0px;
+		}
   }
 
 `;

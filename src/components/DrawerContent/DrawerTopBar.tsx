@@ -31,7 +31,7 @@ const StyledWrapper = styled.div`
 
 export interface DrawerTopBarProps {
 	title: string | JSX.Element;
-	onClose: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	onBack: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onCancel?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onSave?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onApply?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -47,7 +47,7 @@ function DrawerTopBar(props: DrawerTopBarProps) {
 					mIcon={CloseIcon}
 					variant="icon"
 					color="black"
-					onClick={props.onClose}
+					onClick={props.onBack}
 				/>
 				<H1>{props.title}</H1>
 			</div>

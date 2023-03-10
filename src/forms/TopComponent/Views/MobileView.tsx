@@ -3,6 +3,7 @@ import { forwardRef, memo, ReactElement } from "react";
 import styled from "styled-components";
 
 // Components
+import ClearIcon from "@mui/icons-material/Clear";
 import Button from "@root/components/Button";
 import TitleWrapper from "../Utils/TitleWrapper";
 import {
@@ -36,6 +37,10 @@ const MobileActionsRow = styled(Row)`
   }
 `;
 
+const StyledClearIcon = styled(ClearIcon)`
+  color: ${theme.newColors.almostBlack["100"]};
+`;
+
 const MobileCheckboxHelpIconRow = styled(Row)`
   padding: 0 20px 20px 20px;
 `;
@@ -60,6 +65,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 	return (
 		<div ref={ref}>
 			<MobileActionsRow className={view}>
+				<StyledClearIcon onClick={onBack} />
 				{buttons && (
 					<div>
 						{buttons.map((button, idx) => (
