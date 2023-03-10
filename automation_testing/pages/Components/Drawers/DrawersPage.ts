@@ -8,12 +8,14 @@ export class Drawers extends BasePage {
 	readonly page: Page;
 	readonly addFormButton: Locator;
 	readonly openNewFormButton: Locator;
+	readonly drawerTitle: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
 		this.addFormButton = page.locator("button", { hasText: "Add Form" });
 		this.openNewFormButton = page.locator("button", { hasText: "OPEN NEW FORM" });
+		this.drawerTitle = page.locator("[data-testid='drawer-header-test-id'] h1");
 	}
 
 	async openSpecificAmountOfNewDrawers(amount: number): Promise<void> {
