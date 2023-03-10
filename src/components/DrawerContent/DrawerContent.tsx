@@ -60,7 +60,7 @@ function DrawerContent(props: DrawerContentProps) {
 			<PageHeader
 				title={t(`mosaic:${props.title}`)}
 				buttons={drawerButtons}
-				onBack={props.onClose}
+				onBack={props.onBack}
 			/>
 			<DrawerBottom
 				background={props.background}

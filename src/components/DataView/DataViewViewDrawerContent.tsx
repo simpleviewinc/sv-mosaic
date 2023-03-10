@@ -140,7 +140,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 	return (
 		<DrawerContent
 			title={t("mosaic:DataView.saved_views")}
-			onClose={props.onClose}
+			onBack={props.onClose}
 		>
 			{
 				state.options &&

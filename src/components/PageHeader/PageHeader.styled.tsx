@@ -2,8 +2,8 @@ import theme from "@root/theme";
 import styled from "styled-components";
 
 export const StyledPageHeader = styled.div`
-	//background-color: ${theme.newColors.grey2["100"]};
 	display: flex;
+	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
