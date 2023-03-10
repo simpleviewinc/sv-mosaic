@@ -1124,6 +1124,7 @@ export const DrawerForm = (): ReactElement => {
 					state={state}
 					dispatch={dispatch}
 					fields={fields}
+					onBack={onCancel}
 				/>
 			</Drawer>
 			<button onClick={() => setOpen(true)}>Open drawer</button>

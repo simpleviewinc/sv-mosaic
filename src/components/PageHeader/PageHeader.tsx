@@ -14,7 +14,7 @@ const PageHeader = forwardRef((props: PageHeaderProps, ref) => {
 	} = props;
 
 	return (
-		<StyledPageHeader ref={ref} data-testid="drawer-header-test-id">
+		<StyledPageHeader ref={ref} data-testid="page-header-test-id">
 			<div style={{ display: "flex", alignItems: "center" }}>
 				{title &&
 					<TitleWrapper title={title} onBack={onBack} />
