@@ -26,7 +26,6 @@ export class BasePage {
 	readonly checkboxTestIdLocator: Locator;
 	readonly tooltip: Locator;
 	readonly checkboxLabel: Locator;
-	readonly drawerTitle: Locator;
 	readonly showStateLocator: Locator;
 	readonly menuItem: Locator;
 	readonly menuLocator: Locator;
@@ -45,6 +44,7 @@ export class BasePage {
 	readonly tableHeadRowLocator: Locator;
 	readonly iconButtonTestLocator: string;
 	readonly viewContainerLocator: Locator;
+	readonly listItemLabelLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -68,7 +68,6 @@ export class BasePage {
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
-		this.drawerTitle = page.locator("form h1");
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
 		this.menuLocator = page.locator("[role='menu']");
@@ -85,6 +84,7 @@ export class BasePage {
 		this.tableHeadRowLocator = page.locator("thead tr");
 		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
 		this.viewContainerLocator = page.locator(".viewContainer");
+		this.listItemLabelLocator = page.locator(".listItem label")
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
