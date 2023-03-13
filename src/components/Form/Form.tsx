@@ -203,7 +203,6 @@ const Form = (props: FormProps) => {
 	 * @param args
 	 */
 	const onNav = (args: SideNavArgs) => {
-		setActiveSection(args.item.name);
 		const sectionIndex = Number(args.item.name);
 		sectionsRefs[sectionIndex].scrollIntoView({
 			behavior: "smooth",
