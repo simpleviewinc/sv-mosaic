@@ -6,7 +6,6 @@ import { formActions } from "./formActions";
 import FormLayout from "./FormLayout";
 import TopComponent from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
-import FormNav from "@root/forms/FormNav";
 import { useViewResizer, ViewProvider } from "@root/utils/formViewUtils";
 import { MosaicObject } from "@root/types";
 import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
@@ -14,6 +13,7 @@ import Dialog from "@root/components/Dialog";
 import { ButtonProps } from "../Button";
 import { Views } from "@root/theme/theme";
 import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
+import SideNav, { Item, SideNavArgs } from "../SideNav";
 
 const Form = (props: FormProps) => {
 	const {
@@ -36,6 +36,7 @@ const Form = (props: FormProps) => {
 	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
+	const [activeSection, setActiveSection] = useState("0");
 
 	const dispatchRef = useRefsDispatch();
 
@@ -142,6 +143,66 @@ const Form = (props: FormProps) => {
 		},
 	];
 
+	const isBigDesktopWithSections =
+		view === Views.bigDesktop &&
+		sections &&
+		sections?.length > 1;
+
+	/**
+	 * If the Form view is for a big desktop it will create an
+	 * IntersectionObserver the user has scrolled into a section
+	 * and highlighting it.
+	 */
+	useEffect(() => {
+		if (!isBigDesktopWithSections) {
+			return;
+		}
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				const sectionId = entry?.target.getAttribute("id");
+
+				if (entry.isIntersecting) {
+					setActiveSection(sectionId);
+				}
+			})
+		}, { threshold: 0.5, rootMargin: "-20px 0px -20%", root: formContentRef?.current });
+
+		sectionsRefs?.forEach(section => {
+			observer.observe(section);
+		})
+
+		return () => observer.disconnect();
+	}, [sectionsRefs, sections, view]);
+
+	/**
+	 * In order to use the SideNav on a big desktop we need to transform
+	 * the sections array into an array of Items objects. The name will
+	 * be the index of the section since this index corresponds to the
+	 * section id.
+	 */
+	const items: Item[] = useMemo(() => {
+		if (!isBigDesktopWithSections) return;
+
+		return sections?.map((section, idx) => ({
+			label: section.title,
+			name: idx.toString(),
+		}));
+	}, [sections]);
+
+	/**
+	 * Highlights and scrolls to the sections which link
+	 * was clicked.
+	 * @param args
+	 */
+	const onNav = (args: SideNavArgs) => {
+		const sectionIndex = Number(args.item.name);
+		sectionsRefs[sectionIndex].scrollIntoView({
+			behavior: "smooth",
+			block: "start"
+		});
+	};
+
 	return (
 		<>
 			<ViewProvider value={view}>
@@ -167,13 +228,13 @@ const Form = (props: FormProps) => {
 							showActive={showActive}
 						/>
 						}
-						{view === Views.bigDesktop && sections ? (
+						{isBigDesktopWithSections ? (
 							<Row className={view}>
 								{sections &&
-								<FormNav
-									sectionsRefs={sectionsRefs}
-									sections={sections}
-									formContentRef={formContentRef}
+								<SideNav
+									items={[items]}
+									active={activeSection}
+									onNav={onNav}
 								/>
 								}
 								<FormContent view={view} sections={sections} ref={formContentRef}>

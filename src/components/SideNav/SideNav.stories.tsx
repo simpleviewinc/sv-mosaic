@@ -60,6 +60,17 @@ export const Example = (): ReactElement => {
 					setContent(<h1>Sitemap</h1>);
 				},
 			},
+			{
+				label: "Simple View link",
+				name: "sv_link",
+				attrs: {
+					href: "https://www.simpleviewinc.com/"
+				},
+				onNav: (args) => {
+					setActive(args.item.name);
+					setContent(<h1>Redirecting...</h1>)
+				}
+			}
 		],
 		[
 			{
