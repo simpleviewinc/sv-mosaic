@@ -65,10 +65,6 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 		},
 	];
 
-	const onCancel = () => {
-		alert("Cancelling form, going back to previous site");
-	};
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -79,7 +75,6 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);

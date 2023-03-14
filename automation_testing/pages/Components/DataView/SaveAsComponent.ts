@@ -16,7 +16,7 @@ export class SaveAsComponent extends BasePage {
 	readonly editCheckbox: Locator;
 	readonly closeViewBtn: Locator;
 	readonly overwriteBtn: Locator;
-	readonly threeDotsLocator: string
+	readonly threeDotsLocator: string;
 
 	constructor(page: Page) {
 		super(page);
@@ -32,7 +32,7 @@ export class SaveAsComponent extends BasePage {
 		this.tableViews = page.locator(".viewContainer table tbody");
 		this.editView = page.locator("//html/body/div[10]/div[3]");
 		this.editCheckbox = this.editView.locator("input[type=checkbox]");
-		this.closeViewBtn = page.locator("button[data-testid='close-icon-test-id']");
+		this.closeViewBtn = page.locator("[data-testid='page-header-test-id'] button");
 		this.threeDotsLocator = "[data-mosaic-id='additional_actions_dropdown'] [data-testid='icon-button-test']";
 	}
 

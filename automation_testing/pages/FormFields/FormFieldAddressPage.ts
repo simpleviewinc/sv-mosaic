@@ -31,7 +31,7 @@ export class FormFieldAddressPage extends BasePage {
 		this.addAddressButton = page.locator("button", { hasText: "ADD ADDRESS" });
 		this.addressFormLayout = page.locator("[data-testid='form-layout-test-id']").nth(1);
 		this.countryDropdownInput = page.locator("#country input");
-		this.countryDropdownButton = page.locator("#country button[title='Open']");
+		this.countryDropdownButton = page.locator("#country button");
 		this.firstAddressField = page.locator("#address1 input");
 		this.secondAddressField = page.locator("input#address2");
 		this.thirdAddressField = page.locator("input#address3");
@@ -48,14 +48,14 @@ export class FormFieldAddressPage extends BasePage {
 	}
 
 	async fillAddresInformation(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {
-		await this.wait();
-		await this.selectOptionFromDropdown(this.countryDropdownButton, us_address.country);
+		await this.wait(1000);
 		await this.firstAddressField.fill(us_address.address);
+		await this.selectOptionFromDropdown(this.countryDropdownButton, us_address.country);
 		await this.cityField.fill(us_address.city);
 		await this.selectOptionFromDropdown(this.statesDropdownButton, us_address.state);
 		await this.postalCodeField.fill(us_address.postalCode);
 		await this.selectTypeOfAddress(type);
-		await this.drawerSaveButton.click();
+		await this.saveBtn.last().click();
 	}
 
 	async selectTypeOfAddress(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {

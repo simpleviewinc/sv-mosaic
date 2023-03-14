@@ -82,7 +82,7 @@ function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps
 		<DrawerContent
 			title={t("mosaic:DataView.save_view")}
 			onSave={onSave}
-			onClose={props.onClose}
+			onBack={props.onClose}
 			onCancel={props.onClose}
 			background="gray"
 		>

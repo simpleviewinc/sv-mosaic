@@ -461,7 +461,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				dispatch={dispatch}
 				sections={sections}
 				fields={fields}
-				type='drawer'
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
 			/>

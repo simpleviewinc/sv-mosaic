@@ -338,7 +338,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			<Form
 				title='Map Coordinates'
 				buttons={buttons}
-				type='drawer'
 				state={state}
 				dispatch={dispatch}
 				sections={sections}
