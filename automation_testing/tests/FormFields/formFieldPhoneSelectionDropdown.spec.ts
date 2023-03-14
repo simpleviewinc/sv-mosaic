@@ -84,4 +84,14 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.countryCodeProvidedPhoneField)).toBe(expectedColor);
 		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.autoformatPhoneField)).toBe(expectedColor);
 	});
+
+	test("Validate that the phone field doesn't returns invalid data", async () => {
+		const rndRegularPhone = String(randomIntFromInterval(10000000000000, 99999999999999));
+		await ffPhoneSelectionDropdownPage.regularPhoneField.fill(rndRegularPhone);
+		await ffPhoneSelectionDropdownPage.saveBtn.dblclick();
+		await ffPhoneSelectionDropdownPage.setDialogValidationListener(rndRegularPhone);
+		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill("");
+		await ffPhoneSelectionDropdownPage.saveBtn.dblclick();
+		await ffPhoneSelectionDropdownPage.setDialogValidationListener("Form submitted with the following data: {}");
+	});
 });

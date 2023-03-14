@@ -39,7 +39,6 @@ const Form = (props: FormProps) => {
 
 	const dispatchRef = useRefsDispatch();
 
-	const [topComponentHeight, setTopComponentHeight] = useState<number>();
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 	const { view } = useViewResizer({ formContainerRef });
 
@@ -48,8 +47,6 @@ const Form = (props: FormProps) => {
 	}, []);
 
 	useEffect(() => {
-		setTopComponentHeight(topComponentRef.current?.offsetHeight);
-
 		dispatchRef && topComponentRef.current && dispatchRef({
 			type: "update",
 			ref: {
@@ -98,7 +95,7 @@ const Form = (props: FormProps) => {
 
 			if (values === undefined) {
 				fields.forEach(field => {
-					if (field.defaultValue) {
+					if ("defaultValue" in field) {
 						values = {
 							...values,
 							[field.name]: field.defaultValue
@@ -171,7 +168,7 @@ const Form = (props: FormProps) => {
 						/>
 						}
 						{view === Views.bigDesktop && sections ? (
-							<Row className={view} topComponentHeight={topComponentHeight}>
+							<Row className={view}>
 								{sections &&
 								<FormNav
 									sectionsRefs={sectionsRefs}
