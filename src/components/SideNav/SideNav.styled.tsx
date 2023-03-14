@@ -47,9 +47,9 @@ export const LinkWrapper = styled.a`
 		display: none;
 	}
 
-  &:hover {
-    background-color: ${theme.newColors.grey2["100"]};
-  }
+	&:hover {
+		background-color: ${theme.newColors.grey2["100"]};
+	}
 `;
 
 export const SidebarWrap = styled.div`
