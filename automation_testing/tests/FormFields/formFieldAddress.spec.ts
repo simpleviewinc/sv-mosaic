@@ -100,7 +100,6 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that when a user select one of the options shown, the fields are filled out.", async () => {
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
-		// await ffAddressPage.roleOptionLocator.locator(":scope", { hasText: "USA" }).first().click({force: true});
 		await ffAddressPage.page.keyboard.press("Enter");
 		await ffAddressPage.wait();
 
@@ -114,7 +113,6 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
 		await ffAddressPage.page.keyboard.press("Enter");
-		// await ffAddressPage.roleOptionLocator.locator(":scope", { hasText: "USA" }).first().click({force: true});
 		await ffAddressPage.wait();
 		await ffAddressPage.selectTypeOfAddress("physical");
 		await ffAddressPage.saveBtn.nth(1).click();
