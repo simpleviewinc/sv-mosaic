@@ -3,7 +3,7 @@ import theme from "../../theme";
 
 export const SideNavStyle = styled.nav`
 	background: white;
-	border: 2px solid ${theme.newColors.grey2["100"]};
+	border-right: 2px solid ${theme.newColors.grey2["100"]};
 	display: flex;
 	flex-direction: column;
 	width: 196px;
@@ -12,15 +12,16 @@ export const SideNavStyle = styled.nav`
 	overflow-y: auto;
 `;
 
-export const LinkWrapper = styled.div`
-  	align-items: center;
-  	display: flex;
-  	gap: 8px;
+export const LinkWrapper = styled.a`
+	align-items: center;
+	display: flex;
+	gap: 8px;
 	background-color: ${(pr) =>
 		pr.idx === pr.selectedLink ? theme.newColors.grey2["100"] : ""};
 		border-left: ${(pr) =>
 		pr.idx === pr.selectedLink ? `4px solid ${theme.newColors.simplyGold["100"]}` : "4px solid transparent"};
 	padding: 12px 20px;
+	text-decoration: none;
 
 	span {
 		font-weight: ${(pr) =>
