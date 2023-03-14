@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { text, withKnobs, boolean } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -62,7 +62,6 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);
@@ -195,7 +194,6 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);

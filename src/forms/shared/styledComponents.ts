@@ -34,6 +34,10 @@ export const FormDrawerWrapper = styled.div`
         width: 30%;
       }
     }
+
+		& .topBlock hr {
+			margin: -24px 0px 0px 0px;
+		}
   }
 `;
 
