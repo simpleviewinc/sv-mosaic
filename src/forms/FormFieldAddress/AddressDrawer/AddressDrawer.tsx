@@ -254,7 +254,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			postal_town: initalAddressComponent, // => city
 			country: initalAddressComponent, // => country
 			administrative_area_level_1: initalAddressComponent, // => state
-			postal_code: initalAddressComponent // postal_code
+			postal_code: initalAddressComponent, // postal_code
+			street_number: initalAddressComponent // street_number
 		};
 
 		for (const addressComponent of addressComponents) {
@@ -263,11 +264,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				addressComponentsMap[found] = { label: addressComponent.long_name, value: addressComponent.short_name };
 			}
 		}
-
-		// const country = {
-		// 	label: addressComponentsMap.country.label,
-		// 	value: addressComponentsMap.country.value,
-		// };
 
 		const selectedCountry = (await getOptionsCountries()).find(country => (
 			country.label.toLowerCase().includes(addressComponentsMap.country.label.toLowerCase())
@@ -294,7 +290,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			componentsNotFound += `${componentsToAddress.country}, ${componentsToAddress.administrative_area_level_1}, `;
 		}
 
-		await setFieldValue("address1", addressComponentsMap.route.label, true);
+		await setFieldValue("address1", `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`.trim(), true);
 		await setFieldValue("city", addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
 		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
 

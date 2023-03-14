@@ -4,6 +4,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
+import { Drawers } from "../../../pages/Components/Drawers/DrawersPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("Components - Data View - Columns", () => {
@@ -29,6 +30,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Validate Default Columns Information", async () => {
+		const drawerPage = new Drawers(page);
 		await columns.columnsBtn.click();
 		expect(await columns.columnDrawerTitle.textContent()).toBe(columns_data.columnsTitle);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());

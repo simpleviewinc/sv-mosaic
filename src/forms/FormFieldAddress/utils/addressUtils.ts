@@ -4,8 +4,7 @@
  * "https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes">
  * Address Component Types</a> section of the Developer&#39;s Guide.
 */
-export const components = ["route", "locality", "postal_town", "postal_code", "administrative_area_level_1", "country"];
-export const componentsS = ["address", "city", "country", "state", "country", "postalCode"];
+export const components = ["route", "locality", "postal_town", "postal_code", "administrative_area_level_1", "country", "street_number"];
 
 export const initalAddressComponent = {
 	label: "",
@@ -22,5 +21,6 @@ export const componentsToAddress = {
 	locality: "city",
 	country: "country",
 	administrative_area_level_1: "state",
-	postal_code: "postal code"
+	postal_code: "postal code",
+	street_number: "street number",
 }
