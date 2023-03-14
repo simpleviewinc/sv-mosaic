@@ -47,12 +47,12 @@ test.describe.parallel("Components - SideNav", () => {
 
 
 	test("Validate that the nav height can be modified", async () => {
-		const firstExpectHeight = "800";
-		const secondEexpectHeight = "1000";
-		await sideNavPage.visit(sideNavPage.page_path, [knob.knobParentHeight + firstExpectHeight]);
-		expect(await sideNavPage.getHeightFromElement(sideNavPage.navLocator)).toBe(firstExpectHeight + "px");
-		await sideNavPage.visit(sideNavPage.page_path, [knob.knobParentHeight + secondEexpectHeight]);
-		expect(await sideNavPage.getHeightFromElement(sideNavPage.navLocator)).toBe(secondEexpectHeight + "px");
+		const firstExpectedHeight = "800";
+		const secondExpectedHeight = "1000";
+		await sideNavPage.visit(sideNavPage.page_path, [knob.knobParentHeight + firstExpectedHeight]);
+		expect(await sideNavPage.getHeightFromElement(sideNavPage.navLocator)).toBe(firstExpectedHeight + "px");
+		await sideNavPage.visit(sideNavPage.page_path, [knob.knobParentHeight + secondExpectedHeight]);
+		expect(await sideNavPage.getHeightFromElement(sideNavPage.navLocator)).toBe(secondExpectedHeight + "px");
 	});
 
 	test("Validate that the selected section is bold", async () => {
