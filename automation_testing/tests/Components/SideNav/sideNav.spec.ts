@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { SideNavPage } from "../../../pages/Components/SideNav/SideNavPage";
 import theme from "../../../../src/theme";
+import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - SideNav", () => {
 	let page: Page;
@@ -44,5 +45,20 @@ test.describe.parallel("Components - SideNav", () => {
 		const expectedColor = theme.newColors.grey2["100"];
 		await sideNavPage.sections.locator("div").first().click();
 		expect(await sideNavPage.getBackgroundColorFromElement(sideNavPage.sections.locator("div").first())).toBe(expectedColor);
+	});
+
+
+	test("Validate that the nav height can be modified", async () => {
+		const firstExpectHeight = "800";
+		const secondEexpectHeight = "1000";
+		await sideNavPage.visit(sideNavPage.page_path, [knob.knobParentHeight + firstExpectHeight]);
+		expect(await sideNavPage.getHeightFromElement(sideNavPage.navLocator)).toBe(firstExpectHeight + "px");
+		await sideNavPage.visit(sideNavPage.page_path, [knob.knobParentHeight + secondEexpectHeight]);
+		expect(await sideNavPage.getHeightFromElement(sideNavPage.navLocator)).toBe(secondEexpectHeight + "px");
+	});
+
+	test("Validate that the selected section is bold", async () => {
+		await sideNavPage.sections.locator("span").last().click();
+		expect(await sideNavPage.getFontWeightFromElement(sideNavPage.sections.locator("span").last())).toBe((theme.fontWeight.semiBold).toString());
 	});
 });
