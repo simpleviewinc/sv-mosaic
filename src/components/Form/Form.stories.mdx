@@ -11,19 +11,17 @@ The form component comes pre-filled with multiple generic stylished and function
 functionality and not how to make a form work.
 
 ## Props
-* **type** - `"drawer"` optional - When defined, tells the form whether it's being rendered inside of a drawer or not (this only affects styling).
 * **state** - `any` required - Object which will contain all filled fields and their corresponding value.
 * **title** - `string` optional - Title of the form.
 * **fields** - `FieldDef[]` required - Array of fields containing their respective configuration (see [Generic Field Props subsection](#generic-field-props-fielddef)).
 * **sections** - `SectionDef[]` optional - Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row.
 * **dispatch** - `any` required - Function in charge of updating the state (see [Dispatch Actions subsection](#dispatch)).
-* **onCancel** - `(...args: any) => any` optional - Function that will be executed when the user clicks on the cancel button of the form.
 * **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer".
 * **description** - `string` optional - Additional text that will render under the title.
 * **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
 * **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type) and [ActionAdditional type](#actionadditional-type) `['show']`).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
-* **onBack** - `() => void` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
+* **onBack** - `(() => void) | ((...args: any) => void)` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.

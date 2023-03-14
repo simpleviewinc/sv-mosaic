@@ -32,7 +32,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	test("Validate Default Columns Information", async () => {
 		const drawerPage = new Drawers(page);
 		await columns.columnsBtn.click();
-		expect(await drawerPage.drawerTitle.textContent()).toBe(columns_data.columnsTitle);
+		expect(await columns.columnDrawerTitle.textContent()).toBe(columns_data.columnsTitle);
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.defaultColumnsChecked.toString());
 		await columns.cancelBtn.click();

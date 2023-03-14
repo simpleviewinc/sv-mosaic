@@ -1,10 +1,10 @@
 import * as React from "react";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { StyledForm, StyledContainerForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
 import FormLayout from "./FormLayout";
-import TopComponent, { ViewType } from "@root/forms/TopComponent";
+import TopComponent from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
 import FormNav from "@root/forms/FormNav";
 import { useViewResizer, ViewProvider } from "@root/utils/formViewUtils";
@@ -18,14 +18,12 @@ import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 const Form = (props: FormProps) => {
 	const {
 		buttons,
-		type,
 		state,
 		title,
 		onBack,
 		fields,
 		sections,
 		dispatch,
-		onCancel,
 		dialogOpen = false,
 		description,
 		getFormValues,
@@ -42,7 +40,7 @@ const Form = (props: FormProps) => {
 	const dispatchRef = useRefsDispatch();
 
 	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
-	const { view } = useViewResizer({ type, formContainerRef });
+	const { view } = useViewResizer({ formContainerRef });
 
 	useEffect(() => {
 		setSectionsRefs(sectionsRef.current);
@@ -121,11 +119,6 @@ const Form = (props: FormProps) => {
 		loadFormValues();
 	}, [getFormValues]);
 
-	const cancel = useCallback(async (e) => {
-		e.preventDefault();
-		onCancel ? (await onCancel()) : null;
-	}, [onCancel]);
-
 	const filteredButtons = useMemo(() => (
 		buttons?.filter(button => filterAction(button))
 	) ,[buttons]);
@@ -164,16 +157,9 @@ const Form = (props: FormProps) => {
 							ref={topComponentRef}
 							title={title}
 							onBack={onBack}
-							type={type}
 							description={description}
-							onCancel={cancel}
 							sections={sections}
-							view={
-								type?.toUpperCase() === Views.drawer ?
-									type.toUpperCase() as ViewType
-									:
-									view
-							}
+							view={view}
 							buttons={filteredButtons}
 							sectionsRefs={sectionsRefs}
 							formContentRef={formContentRef}
@@ -216,15 +202,13 @@ const Form = (props: FormProps) => {
 					</StyledForm>
 				</StyledContainerForm>
 			</ViewProvider>
-			{type === "drawer" &&
-				<Dialog
-					buttons={dialogButtons}
-					dialogTitle='Are you sure you want to leave?'
-					open={dialogOpen}
-				>
-					You have unsaved changes. If you leave all your changes will be lost.
-				</Dialog>
-			}
+			<Dialog
+				buttons={dialogButtons}
+				dialogTitle='Are you sure you want to leave?'
+				open={dialogOpen}
+			>
+				You have unsaved changes. If you leave all your changes will be lost.
+			</Dialog>
 		</>
 	);
 }

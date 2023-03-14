@@ -8,7 +8,7 @@ import Form, { useForm } from "@root/components/Form";
 
 // Utils
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 export default {
 	title: "FormFields/FormFieldImageUpload",
@@ -60,7 +60,6 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);
@@ -115,7 +114,6 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={kitchenSinkFields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);

@@ -1,4 +1,5 @@
 import { ButtonProps } from "@root/components/Button";
+import { FormProps } from "@root/components/Form";
 import { FormNavProps } from "@root/forms/FormNav";
 import { ReactNode } from "react";
 
@@ -20,7 +21,7 @@ export type BaseTopComponentProps = {
 	/**
 	 * Optional. If present, the Back icon is displayed on the left side of the title.
 	*/
-	onBack?: () => void;
+	onBack?: FormProps["onBack"];
 	/**
 	 * If present, the help icon is display with the
 	 * string defined with this prop.
@@ -48,14 +49,4 @@ export type TopComponentProps = {
 	 * It should contains the sections
 	 */
 	children?: ReactNode;
-	/**
-	 * Callback that will be triggered when clicking
-	 * on the cancel button.
-	 */
-	onCancel: (() => void) | ((e: any) => void);
-	/**
-	 * Defines the type of form to be working with, which
-	 * allows for type-specific styling.
-	 */
-	type?: "drawer";
 } & FormNavProps & BaseTopComponentProps;
