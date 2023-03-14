@@ -3,6 +3,7 @@ import { FormFieldAddressPage } from "../../pages/FormFields/FormFieldAddressPag
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 import { us_address_2 } from "../../utils/data/address_information_data";
 import theme from "../../../src/theme";
+import { us_address } from "../../utils/data/address_information_data";
 
 test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	let page: Page;
@@ -124,5 +125,13 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate State field label.", async () => {
 		await ffAddressPage.addAddressButton.click({force: true});
 		expect(await ffAddressPage.statesLabel.textContent()).toBe("State");
+	});
+
+	test("Validate that the Address with number is displayed correctly.", async () => {
+		const expectedAddress = us_address.address;
+		await ffAddressPage.addAddressButton.click({force: true});
+		await ffAddressPage.firstAddressField.fill(expectedAddress);
+		await page.keyboard.press("Enter");
+		expect(await ffAddressPage.firstAddressField.inputValue()).toBe(expectedAddress);
 	});
 });
