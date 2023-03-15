@@ -88,6 +88,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			<PageHeader
 				title={fieldDef?.label}
 				buttons={buttons}
+				onBack={handleClose}
 			/>
 			<DataViewFilterMultiselectDropdownContent
 				value={value && value.map(v => v.value)}

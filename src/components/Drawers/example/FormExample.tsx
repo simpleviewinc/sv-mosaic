@@ -86,6 +86,7 @@ callbacks: PageCallbacks;
 				dispatch={dispatch}
 				fields={config.fields}
 				buttons={buttons}
+				onBack={appContext.removeDrawer}
 			/>
 			<p>Data: {JSON.stringify(state.data)}</p>
 		</div>

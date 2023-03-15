@@ -84,6 +84,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 			<PageHeader
 				title={t("mosaic:DataView.table_settings")}
 				buttons={drawerButton}
+				onBack={props.onClose}
 			/>
 			<StyledWrapper>
 				<div className="left">
