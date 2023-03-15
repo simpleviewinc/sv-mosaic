@@ -454,6 +454,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	return (
 		<FormDrawerWrapper className="address">
 			<Form
+				onBack={handleClose}
 				title='Address Information'
 				buttons={buttons}
 				data-testid={"address-testid"}
