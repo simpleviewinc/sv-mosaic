@@ -275,6 +275,7 @@ export const FormVariant = (): ReactElement => {
 							state={state}
 							fields={drawerDef.config.fields}
 							dispatch={dispatch}
+							onBack={removeDrawer}
 						/>
 					);
 				}}
@@ -571,6 +572,7 @@ export const Browse = (): ReactElement => {
 								<PageHeader
 									title="Browse"
 									buttons={drawerButtons}
+									onBack={removeDrawer}
 								/>
 								<DataView {...dataViewGridConfig}></DataView>
 							</MosaicContext.Provider>
