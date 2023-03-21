@@ -1,5 +1,39 @@
 # sv-mosaic changelog
 
+## 19.0.0 - 03/28/23
+* `SideNav`:
+	* Added optional prop `attrs` that allows developers to pass any additional prop to each link (e.g. target, href, etc).
+	* Updated styles. Removed top, left, and bottom borders so they don't overlap with other elements.
+* `Form`:
+	* **BREAKING** Removed prop `type`. This means forms will no longer conditionally style depending on whether they're on a drawer or not. This is breaking in the sense that any project previously using this prop might get errors and / or warnings when developing.
+	* **BREAKING** Removed prop `onCancel`. It is now suggested to use the `onBack` prop as it receives the same arguments.
+	* Improved styling for rendering scrollable area when the section tabs are on the side. Now using css flex instead of refs.
+	* Removed bug causing "X" button to render next to the title in Form-like drawers.
+	* Updated `defaultValue` mechanics. Developers can now pass "false" as a default value to fields (or any other value allowed within the "in" operator e.g. "property" in object).
+	* Internally updated to now use the updated `SideNav` component. Props remain the same.
+* **BREAKING** Replaced component `DrawerHeader` with `PageHeader`. This change mostly involves styling changes to make all pages look consistent. It's props are: `title`, `buttons`, and `onBack`. The component is being exported and used internally in the following components:
+	* `AdvancedSelectionDrawer`.
+	* `DataViewColumnDrawerContent`.
+	* `DrawerContent`
+* **BREAKING** Renamed `onClose` prop to `onBack` in `DrawerContent`.
+* Internally updated the favorite icon next to the title to use our `Button` component in `SummaryPageTopComponent`.
+* Fixed bug causing `FormFieldPhoneSelectionDropdown` to pass the country code as value when nothing else was written in the field.
+* Fixed bug causing the "Upload Files" button in `FormFieldUpload` to not show hover state.
+* `Chips`:
+	* Now will only have a hover state if the `onClick` prop gets passed.
+	* Added tooltip to chips that have the `onDelete` prop.
+* `FormFieldAdvancedSelection`:
+	* Updated drawer dimensions.
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button.
+* `FormFieldAddress`:
+	* Will now concatenate a street number to the first "Address" field if found by Google's autocomplete api.
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button.
+* `FormFieldMapCoorindates`:
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button.
+* `FormFieldMatrix`:
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button (ONLY IN STORY EXAMPLES).
+* Updated table styles in `DataView`. Added more padding to the left and right of the first and last elements respectively, and adjusted table to align with title.
+
 ## 18.0.0 - 03/09/23
 * Updated z-index when using tooltips in buttons to ensure they render on top of drawers.
 * Updated disabling styling in `Form`. Opacity now looks the same as it currently does in DataView to maintain consistency.
