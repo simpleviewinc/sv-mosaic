@@ -90,8 +90,13 @@ test.describe.parallel("Components - Button - Playground", () => {
 	});
 
 	test("Validate Icon has grey3 as color.", async () => {
-		await buttonPage.visit(buttonPage.page_path, [knob.knobVariant + "icon", knob.knobColor + "gray"]);
+		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("icon"), await buttonPage.getKnobForColor("gray")]);
 		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(theme.newColors.grey3["100"]);
+	});
+
+	test("Validate Icon has simplyGold as color.", async () => {
+		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("icon"), await buttonPage.getKnobForColor("yellow")]);
+		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(theme.newColors.simplyGold["100"]);
 	});
 
 	test("Validate Contained Buttons has grey2 as background.", async () => {

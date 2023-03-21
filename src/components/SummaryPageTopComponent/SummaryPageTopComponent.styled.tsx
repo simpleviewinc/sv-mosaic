@@ -41,17 +41,6 @@ export const ContainerTitle = styled.div`
   .unchecked {
     margin-left: 6px;
   }
-
-  & .checked {
-    .MuiButtonBase-root:hover,
-    .MuiButtonBase-root:focus {
-      background-color: ${theme.newColors.darkerSimplyGold["20"]};
-    }
-
-    .MuiButtonBase-root {
-      color: ${theme.newColors.simplyGold["100"]};
-    }
-  }
 `;
 
 export const Row = styled.div`
