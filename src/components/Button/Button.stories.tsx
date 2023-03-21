@@ -378,9 +378,14 @@ export const KitchenSink = (): ReactElement => {
 				<Button color="gray" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
 				<Button color="gray" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
 				<Button color="gray" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+				<Button color="teal" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
 				<Button color="teal" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
 				<Button color="teal" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
 				<Button color="teal" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+				<Button color="yellow" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
+				<Button color="yellow" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
+				<Button color="yellow" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
+				<Button color="yellow" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
 				<div style={{ background: "black", display: "inline-block" }}>
 					<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
 					<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
