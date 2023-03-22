@@ -144,7 +144,7 @@ test.describe.parallel("FormFields - FormFieldImageVideoLinkDocumentBrowsing - K
 		const options = await ffImageVideoLinkDocumentBrowsingPage.getThreePointsOptionsText();
 		expect(options).toContain("Edit");
 		expect(options).toContain("Translate");
-		await page.keyboard.press("Escape");
+		await ffImageVideoLinkDocumentBrowsingPage.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate that the empty value is saved correctly.", async () => {
