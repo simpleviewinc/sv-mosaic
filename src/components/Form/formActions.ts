@@ -74,6 +74,20 @@ export const formActions = {
 	},
 	validateField({ name }: { name: string }) {
 		return async function (dispatch, getState, extraArgs): Promise<void> {
+			/**
+			 * We dispatch an undefined so that way, if by any reason
+			 * the field had an error message and then became disabled,
+			 * the error would get removed from the state.
+			 */
+			if (extraArgs?.fieldMap[name].disabled) {
+				await dispatch({
+					type: "FIELD_VALIDATE",
+					name,
+					value: undefined
+				});
+
+				return;
+			}
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			const validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
 
