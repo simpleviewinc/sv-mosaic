@@ -8,7 +8,7 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
     margin-left: 0px;
     margin-right: 0px;
     align-items: flex-start;
-    color: ${(pr) => pr.disabled ? theme.colors.labelDisabled : theme.newColors.grey4["100"]};
+    color: ${theme.newColors.grey4["100"]};
   }
 
   & > span.checked,
