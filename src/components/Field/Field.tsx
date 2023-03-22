@@ -98,7 +98,6 @@ const Field = ({
 						|| (fieldDef?.instructionText && renderAsTooltip))
 					&&
 					<Label
-						disabled={fieldDef?.disabled}
 						required={fieldDef?.required}
 						htmlFor={fieldDef?.name}
 						maxCharacters={fieldDef?.inputSettings?.maxCharacters}
