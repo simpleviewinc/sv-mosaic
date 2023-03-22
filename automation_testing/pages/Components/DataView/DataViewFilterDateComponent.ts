@@ -3,7 +3,7 @@ import { Locator, Page } from "@playwright/test";
 
 export class DataViewFilterDateComponent extends BasePage {
 
-	readonly page_path = "components-dataviewfilterdate--example";
+	readonly page_path = "components-dataviewfilterdate--playground";
 
 	readonly page: Page;
 	readonly dateFilterButton: Locator;
@@ -15,6 +15,6 @@ export class DataViewFilterDateComponent extends BasePage {
 		this.page = page;
 		this.dateFilterButton = page.locator("#root button", { hasText: "Date filter example" });
 		this.dataviewFilterDateDropdownContent = page.locator("[data-testid='dataview-filter-date-dropdown-content']");
-		this.dataviewFilterDateOptionsList = page.locator("[data-testid='dataview-filter-date-date-options-list']");
+		this.dataviewFilterDateOptionsList = page.locator("[data-testid='dataview-filter-date-options-list']");
 	}
 }
