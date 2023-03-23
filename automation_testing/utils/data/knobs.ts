@@ -47,3 +47,8 @@ export const buttonKnobs = {
 	knobShow: "knob-Show=",
 	knobTypeOfLabel: "knob-Type%20of%20label="
 }
+
+export const formFieldNumberTableKnobs = {
+	knobDisplayRowSum: "knob-Display%20rows%20sums=",
+	knobDisplayColumnsSum: "knob-Display%20columns%20sums="
+}
