@@ -81,7 +81,7 @@ export const TBody = styled.tbody`
 export const TrTotals = styled.tr`
   background-color: ${theme.newColors.grey1["100"]};
 
-  td:last-child {
+  .totals-row {
     font-weight: ${theme.fontWeight.medium};
   }
 `;
