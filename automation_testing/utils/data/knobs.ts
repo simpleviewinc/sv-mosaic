@@ -49,6 +49,11 @@ export const buttonKnobs = {
 	knobTypeOfLabel: "knob-Type%20of%20label="
 }
 
+export const pageHeaderKnobs = {
+	knobOnBack: "knob-onBack=",
+	knobButtons: "knob-Buttons="
+}
+
 export const formFieldNumberTableKnobs = {
 	knobDisplayRowSum: "knob-Display%20rows%20sums=",
 	knobDisplayColumnsSum: "knob-Display%20columns%20sums="
