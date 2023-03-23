@@ -5,6 +5,7 @@ import { DataViewProps } from "../DataViewTypes";
 export interface DataViewTrProps {
 	bulkActions?: DataViewProps["bulkActions"];
 	checked?: boolean;
+	hasActions: boolean;
 	onReorder?: DataViewProps["onReorder"];
 	onCheckboxClick?: React.MouseEventHandler<HTMLButtonElement>;
 	primaryActions?: DataViewProps["primaryActions"];
