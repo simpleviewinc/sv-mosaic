@@ -44,7 +44,7 @@ export class FormFieldTextPage extends BasePage {
 		const words = multilineText.split(" ");
 		for (let i = 0; i < words.length; i++) {
 			await this.multilineTextField.type(words[i]);
-			await this.page.keyboard.press("Enter");
+			await this.pressSpecificKeyInKeyboard("Enter");
 		}
 	}
 }

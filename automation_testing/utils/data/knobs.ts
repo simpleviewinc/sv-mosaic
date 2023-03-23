@@ -29,7 +29,8 @@ export const uploadKnobs = {
 
 export const dataviewKnobs = {
 	knobBulkAllActions: "knob-bulkAllActions=",
-	knobBulkActions: "knob-bulkActions="
+	knobBulkActions: "knob-bulkActions=",
+	knobComparison: "knob-Comparison="
 }
 
 export const buttonKnobs = {
@@ -51,4 +52,9 @@ export const buttonKnobs = {
 export const pageHeaderKnobs = {
 	knobOnBack: "knob-onBack=",
 	knobButtons: "knob-Buttons="
+}
+
+export const formFieldNumberTableKnobs = {
+	knobDisplayRowSum: "knob-Display%20rows%20sums=",
+	knobDisplayColumnsSum: "knob-Display%20columns%20sums="
 }

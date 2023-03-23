@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import theme from "../../../src/theme";
 import { FormFieldNumberTablePage } from "../../pages/FormFields/FormFieldNumberTablePage";
-import { commonKnobs } from "../../utils/data/knobs";
+import { commonKnobs, formFieldNumberTableKnobs as knob } from "../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 	let page: Page;
@@ -62,5 +62,11 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 			expect.soft(await ffNumberTablePage.getFontWeightFromElement(columnLocator), "Validating Font Weight the Total of each column.").toBe((theme.fontWeight.normal).toString());
 			expect.soft(await ffNumberTablePage.getFontSizeFromElement(columnLocator), "Validating Font Size the Total of each column.").toBe("14px");
 		}
+	});
+
+	test("Validate that the column and row sums are not displayed.", async () => {
+		await ffNumberTablePage.visit(ffNumberTablePage.page_path, [knob.knobDisplayColumnsSum + "false", knob.knobDisplayRowSum + "false"]);
+		expect(await ffNumberTablePage.numberTableLocator.locator("tr").last().locator("td").first().textContent()).not.toBe("TOTAL");
+		expect(await ffNumberTablePage.numberTableLocator.locator("thead").locator("th").last().textContent()).not.toBe("No. Rooms");
 	});
 });
