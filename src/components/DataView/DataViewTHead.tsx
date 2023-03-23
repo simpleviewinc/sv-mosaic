@@ -96,6 +96,7 @@ function flipDir(sort) {
 }
 
 interface DataViewTHeadProps {
+	hasActions: boolean;
 	checked?: any;
 	bulkActions?: any;
 	columns?: DataViewProps["columns"];
@@ -213,7 +214,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					</StyledTh>
 				}
 				{
-					!props.anyChecked &&
+					!props.anyChecked && props.hasActions &&
 					<StyledTh key="_actions">
 						<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
 					</StyledTh>
