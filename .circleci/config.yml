@@ -79,8 +79,8 @@ jobs:
       - run:
           name: Add github to known_hosts
           command: |
-            eval "$(ssh-agent)" && ssh-add ~/.ssh/known_hosts
             ssh-keyscan github.com >> ~/.ssh/known_hosts
+            eval "$(ssh-agent)" && ssh-add ~/.ssh/known_hosts
       - run:
           name: Save to file
           command: |
