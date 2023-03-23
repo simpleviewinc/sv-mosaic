@@ -101,7 +101,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that when a user select one of the options shown, the fields are filled out.", async () => {
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
-		await ffAddressPage.page.keyboard.press("Enter");
+		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
 		await ffAddressPage.wait();
 
 		expect(await ffAddressPage.countryDropdownInput.inputValue()).toBe(us_address_2.country);
@@ -113,7 +113,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that when a user select one of the options shown and saves, the address card has the selected address.", async () => {
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
-		await ffAddressPage.page.keyboard.press("Enter");
+		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
 		await ffAddressPage.wait();
 		await ffAddressPage.selectTypeOfAddress("physical");
 		await ffAddressPage.saveBtn.nth(1).click();
@@ -131,7 +131,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		const expectedAddress = us_address.address;
 		await ffAddressPage.addAddressButton.click({force: true});
 		await ffAddressPage.firstAddressField.fill(expectedAddress);
-		await page.keyboard.press("Enter");
+		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
 		expect(await ffAddressPage.firstAddressField.inputValue()).toBe(expectedAddress);
 	});
 });
