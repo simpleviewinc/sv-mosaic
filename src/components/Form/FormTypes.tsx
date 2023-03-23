@@ -12,13 +12,12 @@ export interface SectionDef extends Section {
 }
 
 export interface FormProps {
-	type?: "drawer";
 	state: any;
 	title?: string;
+	onBack?: (() => void) | ((...args: any) => void);
 	fields: FieldDef[];
 	sections?: SectionDef[];
 	dispatch: any;
-	onCancel?(...args: any): any;
 	dialogOpen?: boolean;
 	description?: string;
 	getFormValues?(): Promise<MosaicObject>;

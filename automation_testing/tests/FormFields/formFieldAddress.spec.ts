@@ -3,6 +3,7 @@ import { FormFieldAddressPage } from "../../pages/FormFields/FormFieldAddressPag
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 import { us_address_2 } from "../../utils/data/address_information_data";
 import theme from "../../../src/theme";
+import { us_address } from "../../utils/data/address_information_data";
 
 test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	let page: Page;
@@ -34,7 +35,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await ffAddressPage.postalCodeField.type(randomNumber.toString());
 		expect(Number(await ffAddressPage.postalCodeField.inputValue())).toBe(randomNumber);
 		await ffAddressPage.clearAllValuesFromField(ffAddressPage.postalCodeField);
-		await ffAddressPage.postalCodeField.type(randomString);
+		await ffAddressPage.postalCodeField.fill(randomString);
 		expect(await ffAddressPage.postalCodeField.inputValue()).toBe(randomString);
 	});
 
@@ -76,15 +77,9 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await ffAddressPage.fillAddresInformation("all");
 		await ffAddressPage.page.locator("text=Edit").click();
 		await ffAddressPage.selectTypeOfAddress("shipping");
-		await ffAddressPage.drawerSaveButton.click();
+		await ffAddressPage.saveBtn.last().click();
 		await expect(ffAddressPage.addAddressButton).toBeEnabled();
 		expect(await ffAddressPage.addressCard.textContent()).not.toContain("Shipping");
-	});
-
-	test("Validate that Add Address Drawer Title has grey2 as background color.", async () => {
-		const expectedColor = theme.newColors.grey2["100"];
-		await ffAddressPage.addAddressButton.click({force: true});
-		expect(await ffAddressPage.getBackgroundColorFromElement(ffAddressPage.titleAddAddressDrawerWrapper)).toBe(expectedColor);
 	});
 
 	test("Validate that background color of the address card is gray1.", async () => {
@@ -106,7 +101,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that when a user select one of the options shown, the fields are filled out.", async () => {
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
-		await ffAddressPage.roleOptionLocator.locator(":scope", { hasText: "USA" }).first().click({force: true});
+		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
 		await ffAddressPage.wait();
 
 		expect(await ffAddressPage.countryDropdownInput.inputValue()).toBe(us_address_2.country);
@@ -118,12 +113,25 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate that when a user select one of the options shown and saves, the address card has the selected address.", async () => {
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
-		await ffAddressPage.roleOptionLocator.locator(":scope", { hasText: "USA" }).first().click({force: true});
+		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
 		await ffAddressPage.wait();
 		await ffAddressPage.selectTypeOfAddress("physical");
 		await ffAddressPage.saveBtn.nth(1).click();
 
 		expect(await ffAddressPage.addressCard.locator("span").nth(2).textContent()).toBe(us_address_2.city + ", " + us_address_2.state + " " + us_address_2.postalCode);
 		expect(await ffAddressPage.addressCard.locator("span").nth(3).textContent()).toBe(us_address_2.country);
+	});
+
+	test("Validate State field label.", async () => {
+		await ffAddressPage.addAddressButton.click({force: true});
+		expect(await ffAddressPage.statesLabel.textContent()).toBe("State");
+	});
+
+	test("Validate that the Address with number is displayed correctly.", async () => {
+		const expectedAddress = us_address.address;
+		await ffAddressPage.addAddressButton.click({force: true});
+		await ffAddressPage.firstAddressField.fill(expectedAddress);
+		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
+		expect(await ffAddressPage.firstAddressField.inputValue()).toBe(expectedAddress);
 	});
 });

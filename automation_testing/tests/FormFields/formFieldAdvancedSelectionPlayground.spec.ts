@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionPlaygroundPage";
+import { ChipPage } from "../../pages/Components/Chip/ChipPage";
 import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", () => {
@@ -27,5 +28,15 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 		await expect(ffAdvancedSelectionPage.formTestID.last()).toBeVisible();
 		await ffAdvancedSelectionPage.page.locator("input").last().scrollIntoViewIfNeeded();
 		await expect(ffAdvancedSelectionPage.formTestID.last().locator("form div").first()).toBeVisible();
+	});
+
+	test("Validate that a tooltip is displayed when the chip selected is too long.", async () => {
+		const chipPage = new ChipPage(page);
+		const longOpt = "Very long label that does not fit";
+		await ffAdvancedSelectionPage.advancedSelectionButton.click();
+		await ffAdvancedSelectionPage.listItemLabelLocator.locator(":scope", { hasText: longOpt }).click();
+		await chipPage.deletableChip.hover();
+		await expect(ffAdvancedSelectionPage.tooltip).toBeVisible();
+		expect(await ffAdvancedSelectionPage.tooltip.textContent()).toBe(longOpt);
 	});
 });

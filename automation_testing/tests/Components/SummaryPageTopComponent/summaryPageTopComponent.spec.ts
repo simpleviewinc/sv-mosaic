@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { SummaryPageTopComponentPage } from "../../../pages/Components/SummaryPageTopComponent/SummaryPageTopComponentPage";
 import theme from "../../../../src/theme";
+import { commonKnobs } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", () => {
 	let page: Page;
@@ -17,9 +18,10 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 	});
 
 	test("Validate Star has simplyGold color.", async () => {
-		const expectColor = theme.newColors.simplyGold["100"];
-		await summaryPage.starRateIconUnchecked.click();
-		expect(await summaryPage.getColorFromElement(summaryPage.starRateIconChecked)).toBe(expectColor);
+		await summaryPage.starRateIcon.waitFor();
+		expect(await summaryPage.getColorFromElement(summaryPage.starRateIcon)).toBe(theme.newColors.grey3["100"]);
+		await summaryPage.starRateIcon.click();
+		expect(await summaryPage.getColorFromElement(summaryPage.starRateIcon)).toBe(theme.newColors.simplyGold["100"]);
 	});
 
 	test("Validate Summary Page Top Component padding is valid.", async () => {
@@ -29,6 +31,13 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "right")).toBe("24px");
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("16px");
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "left")).toBe("24px");
+	});
+
+	test("Validate that when onBack is activated, the back icon is displayed.", async () => {
+		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobOnBack + true]);
+		await expect(summaryPage.backIconLocator).toBeVisible();
+		await summaryPage.backIconLocator.click();
+		await summaryPage.setDialogValidationListener("Cancelling, going back to previous site");
 	});
 
 	test("Validate the Summary Page Top Component title style.", async () => {

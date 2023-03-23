@@ -34,6 +34,7 @@ export class DataviewPage extends BasePage {
 	readonly headerActionsLocator: Locator;
 	readonly dataviewTopComponent: Locator;
 	readonly dataviewTableHeadLocator: Locator;
+	readonly dataviewRowHeaderLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -61,6 +62,8 @@ export class DataviewPage extends BasePage {
 		this.headerActionsLocator = page.locator(".headerActions");
 		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
 		this.dataviewTableHeadLocator = page.locator("thead th");
+		this.backIconLocator = page.locator(".headerRow button svg[data-testid='icon-button-test']");
+		this.dataviewRowHeaderLocator = page.locator(".row-header");
 	}
 
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
@@ -224,7 +227,7 @@ export class DataviewPage extends BasePage {
 
 	async removeAllSelectedFilters(): Promise<void> {
 		if (await this.filterRowBtn.count() > 1) {
-			await this.page.keyboard.press("Escape");
+			await this.pressSpecificKeyInKeyboard("Escape");
 			await this.filtersBtn.click();
 			for (let i = 0; i < await this.deleteIconSelectedOptionChip.count(); i++) {
 				this.deleteIconSelectedOptionChip.first().click();

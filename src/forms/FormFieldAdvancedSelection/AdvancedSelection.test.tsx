@@ -141,7 +141,7 @@ describe("AdvancedSelection component", () => {
 			fireEvent.click(addButton);
 		});
 
-		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
+		expect(await screen.findByTestId("page-header-test-id")).toBeTruthy();
 
 		const optionCheckbox = await screen.findByText("Accessibility");
 		fireEvent.click(optionCheckbox);
@@ -158,7 +158,7 @@ describe("AdvancedSelection component", () => {
 			fireEvent.click(addButton);
 		});
 
-		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
+		expect(await screen.findByTestId("page-header-test-id")).toBeTruthy();
 
 		const optionCheckbox = await screen.findByText("Accessibility");
 		fireEvent.click(optionCheckbox);
@@ -182,7 +182,7 @@ describe("AdvancedSelection component", () => {
 			fireEvent.click(addButton);
 		});
 
-		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
+		expect(await screen.findByTestId("page-header-test-id")).toBeTruthy();
 
 		const inputNode = screen.getByPlaceholderText("Search...");
 		fireEvent.change(inputNode, { target: { value: "Art" } });
@@ -202,7 +202,7 @@ describe("AdvancedSelection component", () => {
 			fireEvent.click(addButton);
 		});
 
-		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
+		expect(await screen.findByTestId("page-header-test-id")).toBeTruthy();
 
 		const inputNode = screen.getByPlaceholderText("Search...");
 		fireEvent.change(inputNode, { target: { value: "Brand new option" } });
@@ -219,7 +219,7 @@ describe("AdvancedSelection component", () => {
 			fireEvent.click(addButton);
 		});
 
-		expect(await screen.findByTestId("drawer-title-test-id")).toBeTruthy();
+		expect(await screen.findByTestId("page-header-test-id")).toBeTruthy();
 
 		const optionCheckbox = await screen.findAllByTestId("label-test-id");
 

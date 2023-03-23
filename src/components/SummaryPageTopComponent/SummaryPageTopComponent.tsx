@@ -9,9 +9,11 @@ import {
 	ContainerItems,
 	Item,
 	ContainerTitle,
-	CheckedStar,
-	UncheckedStar,
 } from "./SummaryPageTopComponent.styled";
+
+import StarRateRounded from "@mui/icons-material/StarRateRounded";
+import StarBorder from "@mui/icons-material/StarBorderRounded";
+
 
 // Components
 import Image from "@root/components/Image";
@@ -22,6 +24,7 @@ import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
 		title,
+		onBack,
 		favorite,
 		img,
 		mainActions,
@@ -59,16 +62,17 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 			<Container>
 				<Row>
 					<ContainerTitle>
-						<TitleWrapper title={title}/>
+						<TitleWrapper title={title} onBack={onBack} />
 						{
 							favorite &&
 								<>
-									{
-										favorite?.checked ?
-											<CheckedStar className="favorite-icon" onClick={() => favorite.onClick(false)}/>
-											:
-											<UncheckedStar className="favorite-icon" onClick={() => favorite.onClick(true)} />
-									}
+									<Button
+										className={`${favorite?.checked ? "checked" : "unchecked"}`}
+										color={`${favorite?.checked ? "yellow" : "gray"}`}
+										variant="icon"
+										mIcon={favorite?.checked ? StarRateRounded : StarBorder}
+										onClick={() => favorite.onClick(favorite?.checked ? false : true)}
+									/>
 								</>
 						}
 					</ContainerTitle>

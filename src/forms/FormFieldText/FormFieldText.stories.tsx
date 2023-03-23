@@ -9,7 +9,7 @@ import {
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -86,7 +86,6 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);
@@ -221,7 +220,6 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={kitchenSinkfields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);

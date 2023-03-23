@@ -12,7 +12,6 @@ import {
 import Tooltip from "@root/components/Tooltip";
 import Checkbox from "@root/components/Checkbox";
 import MobileView from "./Views/MobileView";
-import DrawerHeader from "@root/components/DrawerHeader/DrawerHeader";
 import ResponsiveView from "./Views/ResponsiveView";
 import DesktopView from "./Views/DesktopView";
 import { Views } from "@root/theme/theme";
@@ -28,9 +27,9 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 	const {
 		buttons,
 		description,
-		onCancel,
 		showActive,
 		title,
+		onBack,
 		tooltipInfo,
 		sections,
 		sectionsRefs,
@@ -83,6 +82,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			ref={ref}
 			sectionsRefs={sectionsRefs}
 			title={title}
+			onBack={onBack}
 			description={description}
 			showActive={showActive}
 			tooltipInfo={tooltipInfo}
@@ -101,10 +101,10 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 				ref={ref}
 				buttons={buttons}
 				title={title}
+				onBack={onBack}
 				description={description}
 				helpIcon={helpIcon}
 				checkbox={checkbox}
-				onCancel={onCancel}
 				showActive={showActive}
 				tooltipInfo={tooltipInfo}
 				view={Views.mobile}
@@ -114,6 +114,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			<ResponsiveView
 				ref={ref}
 				title={title}
+				onBack={onBack}
 				description={description}
 				showActive={showActive}
 				tooltipInfo={tooltipInfo}
@@ -124,14 +125,6 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 				view={Views.responsive}
 				sectionsRefs={sectionsRefs}
 				formContentRef={formContentRef}
-			/>
-		),
-		"DRAWER" : (
-			<DrawerHeader
-				ref={ref}
-				title={title}
-				buttons={buttons}
-				onCancel={onCancel}
 			/>
 		),
 		"DESKTOP": desktopView,

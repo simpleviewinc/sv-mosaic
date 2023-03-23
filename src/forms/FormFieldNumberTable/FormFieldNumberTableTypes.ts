@@ -9,7 +9,14 @@ export type NumberTableInputSettings = {
    * Label shown on the column that displays the totals.
    */
   columnTotalLabel?: string;
-
+  /**
+   * Shows or hides the column that cointains the totals sums.
+   */
+  displaySumColumn?: boolean;
+  /**
+   * Shows or hides the total sums for each row.
+   */
+  displaySumRow?: boolean;
   /**
    * Rows definition.
    */

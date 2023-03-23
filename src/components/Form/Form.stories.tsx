@@ -9,7 +9,7 @@ import { useForm, formActions } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { validateEmail, validateSlow, required, validateNumber, validateURL } from "./validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form from "./Form";
@@ -69,6 +69,7 @@ export const Playground = (): ReactElement => {
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
 	const showState = boolean("Show state", false);
+	const onBack = boolean("onBack", false);
 	const prepopulate = boolean("Prepopulate", false);
 	const defaultValuesKnob = select("Default Values", ["None", "Has Defaults"], "None");
 	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
@@ -185,7 +186,7 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && "Passing default value",
+					defaultValue: !showDefaultValues ? undefined : "Passing default value",
 				},
 				{
 					name: "check",
@@ -196,7 +197,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: checkboxOptions
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							label: "Label 1",
 							value: "label_1"
@@ -233,7 +234,7 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required,
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						"label": "Label 3",
 						"value": "label_3"
 					}
@@ -270,7 +271,7 @@ export const Playground = (): ReactElement => {
 							{ label: "Se7en", value: "1995" },
 						],
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						label: "The Shawshank Redemption",
 						value: "1994"
 					}
@@ -281,7 +282,7 @@ export const Playground = (): ReactElement => {
 					type: "phone",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && "15205751151"
+					defaultValue: !showDefaultValues ? undefined : "15205751151"
 				},
 				{
 					name: "radio",
@@ -305,7 +306,7 @@ export const Playground = (): ReactElement => {
 							}
 						],
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						label: "Label 3",
 						value: "label_3"
 					}
@@ -319,7 +320,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						toggleLabel: "To the side"
 					},
-					defaultValue: showDefaultValues && true
+					defaultValue: !showDefaultValues ? undefined : true
 				},
 				{
 					name: "color",
@@ -327,7 +328,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					type: "color",
-					defaultValue: showDefaultValues && "#19a80091"
+					defaultValue: !showDefaultValues ? undefined : "#19a80091"
 				},
 				{
 					name: "date",
@@ -335,7 +336,7 @@ export const Playground = (): ReactElement => {
 					type: "date",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && new Date()
+					defaultValue: !showDefaultValues ? undefined : new Date()
 				},
 				{
 					name: "address",
@@ -348,7 +349,7 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required,
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"id": 1,
 							"address1": "8950 N. Oracle Road",
@@ -374,7 +375,7 @@ export const Playground = (): ReactElement => {
 						options: additionalOptions,
 						createNewOption
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							label: "Default Value 1",
 							value: "def option 1"
@@ -428,7 +429,7 @@ export const Playground = (): ReactElement => {
 						handleRemove,
 						src: imageVideoSrc,
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"label": "Title",
 							"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
@@ -461,7 +462,7 @@ export const Playground = (): ReactElement => {
 					type: "textEditor",
 					disabled,
 					required,
-					defaultValue: showDefaultValues && "Passing default value"
+					defaultValue: !showDefaultValues ? undefined : "Passing default value"
 				},
 				{
 					name: "table",
@@ -476,7 +477,7 @@ export const Playground = (): ReactElement => {
 						extraActions: extraActionsTable,
 						headers,
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"id": "1",
 							"items": [
@@ -506,7 +507,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: menuOptions
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						"imgName": "image (2).png",
 						"size": 61571,
 						"type": "image/png",
@@ -523,7 +524,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
 					},
-					defaultValue: showDefaultValues && {
+					defaultValue: !showDefaultValues ? undefined : {
 						"lat": 32.3395031,
 						"lng": -110.9864294
 					}
@@ -539,7 +540,7 @@ export const Playground = (): ReactElement => {
 						onFileDelete,
 						limit: undefined,
 					},
-					defaultValue: showDefaultValues && [
+					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"id": "1",
 							"name": "roomBlocks.xslx",
@@ -580,7 +581,7 @@ export const Playground = (): ReactElement => {
 					type: "numberTable",
 					required,
 					disabled,
-					defaultValue: showDefaultValues && numberTableDefaultValue,
+					defaultValue: !showDefaultValues ? undefined : numberTableDefaultValue,
 					inputSettings: {
 						rowTotalLabel: "TOTAL",
 						columnTotalLabel: "No. Rooms",
@@ -669,6 +670,7 @@ export const Playground = (): ReactElement => {
 			<div style={{height: "100vh"}}>
 				<Form
 					title={text("Title", "Form Title")}
+					onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 					description={text("Description", "This is a description example")}
 					state={state}
 					fields={fields}
@@ -827,7 +829,6 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 		</>
@@ -961,7 +962,6 @@ export const RuntimeBehaviors = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 			<div>
@@ -1036,7 +1036,6 @@ export const SubmitExternalButtons = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 			<button onClick={clickHandler}>Submit</button>
@@ -1122,11 +1121,10 @@ export const DrawerForm = (): ReactElement => {
 				<Form
 					buttons={buttons}
 					title='Drawer form example'
-					type='drawer'
 					state={state}
 					dispatch={dispatch}
 					fields={fields}
-					onCancel={onCancel}
+					onBack={onCancel}
 				/>
 			</Drawer>
 			<button onClick={() => setOpen(true)}>Open drawer</button>
@@ -1367,7 +1365,6 @@ export const DefaultValues = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 		</>

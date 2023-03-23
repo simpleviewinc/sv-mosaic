@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 import { FieldDef } from "../../components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { getOptionsCountries, getOptionsStates } from "./utils/optionGetters";
@@ -66,7 +66,6 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);

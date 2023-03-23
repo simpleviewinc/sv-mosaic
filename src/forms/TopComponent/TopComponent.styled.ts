@@ -35,8 +35,9 @@ export const Row = styled(FlexContainer)`
   justify-content: space-between;
 
   &.BIG_DESKTOP {
+    flex: 1 1 auto;
     justify-content: flex-start;
-    height: ${props => props.topComponentHeight ? `calc(100% - ${props.topComponentHeight}px)` : "100%"};
+    min-height: 0;
   }
 `;
 

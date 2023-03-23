@@ -13,7 +13,7 @@ import {
 
 // Utils
 import theme from "@root/theme/theme";
-import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
+import { BaseTopComponentProps } from "../TopComponentTypes";
 import { TitleRow } from "./Views.styled";
 
 const MobileActionsRow = styled(Row)`
@@ -46,15 +46,14 @@ const MobileCheckboxHelpIconRow = styled(Row)`
 `;
 
 type MobileViewProps = {
-	onCancel: TopComponentProps["onCancel"];
 	checkbox: JSX.Element;
 } & BaseTopComponentProps;
 
 const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileViewProps, ref): ReactElement => {
 	const {
 		buttons,
-		onCancel,
 		title,
+		onBack,
 		description,
 		showActive,
 		tooltipInfo,
@@ -66,7 +65,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 	return (
 		<div ref={ref}>
 			<MobileActionsRow className={view}>
-				<StyledClearIcon onClick={onCancel} />
+				<StyledClearIcon onClick={onBack} />
 				{buttons && (
 					<div>
 						{buttons.map((button, idx) => (
@@ -78,6 +77,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 			<TitleRow view={view}>
 				<TitleWrapper
 					title={title}
+					onBack={onBack}
 					description={description}
 				/>
 			</TitleRow>

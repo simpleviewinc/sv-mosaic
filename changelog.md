@@ -1,5 +1,59 @@
 # sv-mosaic changelog
 
+## 19.0.0 - 03/28/23
+* `SideNav`:
+	* Added optional prop `attrs` that allows developers to pass any additional prop to each link (e.g. target, href, etc).
+	* Updated styles. Removed top, left, and bottom borders so they don't overlap with other elements.
+* `Form`:
+	* **BREAKING** Removed prop `type`. This means forms will no longer conditionally style depending on whether they're on a drawer or not. This is breaking in the sense that any project previously using this prop might get errors and / or warnings when developing.
+	* **BREAKING** Removed prop `onCancel`. It is now suggested to use the `onBack` prop as it receives the same arguments.
+	* Improved styling for rendering scrollable area when the section tabs are on the side. Now using css flex instead of refs.
+	* Removed bug causing "X" button to render next to the title in Form-like drawers.
+	* Updated `defaultValue` mechanics. Developers can now pass "false" as a default value to fields (or any other value allowed within the "in" operator e.g. "property" in object).
+	* Internally updated to now use the updated `SideNav` component. Props remain the same.
+* **BREAKING** Replaced component `DrawerHeader` with `PageHeader`. This change mostly involves styling changes to make all pages look consistent. It's props are: `title`, `buttons`, and `onBack`. The component is being exported and used internally in the following components:
+	* `AdvancedSelectionDrawer`.
+	* `DataViewColumnDrawerContent`.
+	* `DrawerContent`
+* **BREAKING** Renamed `onClose` prop to `onBack` in `DrawerContent`.
+* Internally updated the favorite icon next to the title to use our `Button` component in `SummaryPageTopComponent`.
+* Fixed bug causing `FormFieldPhoneSelectionDropdown` to pass the country code as value when nothing else was written in the field.
+* Fixed bug causing the "Upload Files" button in `FormFieldUpload` to not show hover state.
+* `Chips`:
+	* Now will only have a hover state if the `onClick` prop gets passed.
+	* Added tooltip to chips that have the `onDelete` prop.
+* `FormFieldAdvancedSelection`:
+	* Updated drawer dimensions.
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button.
+* `FormFieldAddress`:
+	* Will now concatenate a street number to the first "Address" field if found by Google's autocomplete api.
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button.
+* `FormFieldMapCoorindates`:
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button.
+* `FormFieldMatrix`:
+	* Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button (ONLY IN STORY EXAMPLES).
+* Updated table styles in `DataView`. Added more padding to the left and right of the first and last elements respectively, and adjusted table to align with title.
+
+## 18.0.0 - 03/09/23
+* Updated z-index when using tooltips in buttons to ensure they render on top of drawers.
+* Updated disabling styling in `Form`. Opacity now looks the same as it currently does in DataView to maintain consistency.
+* **BREAKING** `titleIcon` prop in `Card` component is now of type `SvgIconComponent` (previously `JSX.Element`). This makes the prop behave the same way as the mIcon prop in `Button`.
+* Updated automation tests for `Drawers`.
+* "States" field in `FormFieldAddress` has been relabeled to "State".
+* **BREAKING** `Content` component changes:
+	* `label` in `fields` prop is now of type `ReactNode` (previously `string`). This allows developers to pass strings, components, jsx, boooleans, numbers, and any other value accepted by this type (see more in: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L231).
+	* Added optional prop `variant` which allows the strings "standard" or "card" as values. When the "card" variant gets passed, the `Content` component visually looks as the `Card` component, but maintains the same functionality and rendering mechanics. The prop defaults to "standard" when it doesn't get passed.
+	* Removed 2 column limit, developers can pass as many columns as needed.
+	* Updated styles and spacing to match `Card` component.
+*  `Section` titles have been updated to use h2 (previously using h1).
+* **BREAKING** Updated styles for `H1` component. This is a breaking change in the sense that it might visually push other elements around if being exported independently in another product due to changes in boldness, weight, size, font family, etc.
+* Updated `DataView`, `Form`, `SummaryPageTopComponent`, and `DrawerHeader` to use newly updated `H1` component to maintain consistency.
+* Added optional prop `onBack` to `DataView`, `Form`, and `SummaryPageTopComponent`. When this callback gets passed a left arrow icon gets rendered to the left of each component's title.
+* **BREAKING** `Card` component changes:
+	* `title` prop is now of type `string` (previously `JSX.Element`).
+	* Updated styles and spacing to match `Content` component.
+* Implemented `FormFieldNumberTable`. Field that renders a table with inputs in every cell. The component allows as many columns and rows as needed and displays the total per row, per column, and of the whole table. For more information about the props it receives please look at the documentation in storybook -> Form -> Readme -> FormFieldNumberTable.
+
 ## 17.0.0 - 02/28/23
 * Improved section highlighting mechanics. This change prevents sections from being re-rendered when a change to a field occurs, making the section tabs to stay in the selected section.
 * `DataView`:

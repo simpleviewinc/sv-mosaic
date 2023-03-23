@@ -7,6 +7,17 @@ import styled from "styled-components";
 // Utils
 import theme from "@root/theme/theme";
 import { H1 } from "@root/components/Typography";
+import Button from "@root/components/Button";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
+const StyledWrapper = styled.div`
+	display: flex;
+	align-items: center;
+
+	& .back-button > button{
+		margin: 0px 8px 0px -2px !important;
+	}
+`;
 
 const Description = styled.span`
 	color: ${theme.newColors.grey3["100"]};
@@ -20,9 +31,10 @@ const Description = styled.span`
 	}
 `;
 
-type TitleWrapperProps = {
+export type TitleWrapperProps = {
 	title: string;
 	description?: string;
+	onBack?: (() => void) | ((e: any) => void)
 }
 
 const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
@@ -33,7 +45,13 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 
 	return (
 		<>
-			<H1>{title}</H1>
+			<StyledWrapper>
+				{
+					props.onBack &&
+						<Button className="back-button" color="black" variant="icon" mIcon={ChevronLeftIcon} onClick={props.onBack}/>
+				}
+				<H1>{title}</H1>
+			</StyledWrapper>
 			{description && <Description>{description}</Description>}
 		</>
 	);

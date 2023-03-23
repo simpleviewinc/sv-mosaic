@@ -10,6 +10,7 @@ export class ColumnsComponent extends BasePage {
 	readonly btnLocator: string;
 	readonly checkboxLocator: string;
 	readonly columnCheckbox: Locator;
+	readonly columnDrawerTitle: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -17,10 +18,11 @@ export class ColumnsComponent extends BasePage {
 		this.title = page.locator("[data-testid='drawer-title-test-id']");
 		this.columnsBtn = page.locator(".headerActions button").first();
 		this.rightItems = page.locator(".right [role='button']");
-		this.leftItems = page.locator(".listItem label");
+		this.leftItems = this.listItemLabelLocator;
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
 		this.columnCheckbox = page.locator(".left [data-testid='checkbox-test-id']");
+		this.columnDrawerTitle = page.locator("[data-testid='page-header-test-id'] h1")
 	}
 
 	async getRightItemsText(): Promise<string[]> {

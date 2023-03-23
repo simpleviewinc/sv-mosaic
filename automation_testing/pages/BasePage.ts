@@ -19,14 +19,11 @@ export class BasePage {
 	readonly latitude: Locator;
 	readonly longitude: Locator;
 	readonly saveCoordinatesButton: Locator;
-	readonly drawerSaveButton: Locator;
-	readonly drawerCancelButton: Locator;
 	readonly error: Locator;
 	readonly errorIcon: Locator;
 	readonly checkboxTestIdLocator: Locator;
 	readonly tooltip: Locator;
 	readonly checkboxLabel: Locator;
-	readonly drawerTitle: Locator;
 	readonly showStateLocator: Locator;
 	readonly menuItem: Locator;
 	readonly menuLocator: Locator;
@@ -37,6 +34,15 @@ export class BasePage {
 	readonly rolePresentationLocator: Locator;
 	readonly deleteIconSelectedOptionChip: Locator;
 	readonly formLocator: Locator;
+	readonly button: Locator;
+	backIconLocator: Locator;
+	readonly inputLocator: Locator;
+	readonly tableBodyRowLocator: Locator;
+	readonly tableBodyColumnLocator: Locator;
+	readonly tableHeadRowLocator: Locator;
+	readonly iconButtonTestLocator: string;
+	readonly viewContainerLocator: Locator;
+	readonly listItemLabelLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -53,14 +59,11 @@ export class BasePage {
 		this.latitude = page.locator("input#lat");
 		this.longitude = page.locator("input#lng");
 		this.saveCoordinatesButton = this.formTestID.nth(1).locator("button", { hasText: "Save Coordinates" });
-		this.drawerSaveButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
-		this.drawerCancelButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[1]/button");
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
-		this.drawerTitle = page.locator("form h1");
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
 		this.menuLocator = page.locator("[role='menu']");
@@ -70,6 +73,14 @@ export class BasePage {
 		this.rolePresentationLocator = page.locator("[role='presentation']");
 		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
 		this.formLocator = page.locator("form");
+		this.button = page.locator("button");
+		this.inputLocator = page.locator("input");
+		this.tableBodyRowLocator = page.locator("tbody tr");
+		this.tableBodyColumnLocator = page.locator("tbody td");
+		this.tableHeadRowLocator = page.locator("thead tr");
+		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
+		this.viewContainerLocator = page.locator(".viewContainer");
+		this.listItemLabelLocator = page.locator(".listItem label")
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
@@ -104,11 +115,11 @@ export class BasePage {
 
 	async clearAllValuesFromField(locator: Locator): Promise<void> {
 		await locator.click();
-		await this.page.keyboard.press("Home");
+		await this.pressSpecificKeyInKeyboard("Home");
 		await this.page.keyboard.down("Shift");
-		await this.page.keyboard.press("End");
+		await this.pressSpecificKeyInKeyboard("End");
 		await this.page.keyboard.up("Shift");
-		await this.page.keyboard.press("Backspace");
+		await this.pressSpecificKeyInKeyboard("Backspace");
 		await locator.waitFor();
 	}
 
@@ -144,7 +155,7 @@ export class BasePage {
 
 	async selectOptionFromDropdown(dropdown: Locator, option:string): Promise<void> {
 		await dropdown.click({force: true});
-		await this.page.locator("text=" + option).nth(0).click();
+		await this.page.locator("text=" + option).first().click();
 	}
 
 	async validateFontColorFromElement(element: Locator, expectedValue: string, isHex: boolean): Promise<void> {
@@ -166,13 +177,13 @@ export class BasePage {
 	}
 
 	async selectAndDeleteText(stringLenght:number): Promise<void> {
-		await this.page.keyboard.press("ArrowRight");
+		await this.pressSpecificKeyInKeyboard("ArrowRight");
 		await this.page.keyboard.down("Shift");
 		for (let i = 0; i < stringLenght; i++) {
-			await this.page.keyboard.press("ArrowLeft");
+			await this.pressSpecificKeyInKeyboard("ArrowLeft");
 		}
 		await this.page.keyboard.up("Shift");
-		await this.page.keyboard.press("Backspace");
+		await this.pressSpecificKeyInKeyboard("Backspace");
 	}
 
 	async getFontWeightFromElement(element: Locator): Promise<string> {
@@ -282,4 +293,21 @@ export class BasePage {
 		expect(await this.getFontWeightFromElement(titleLocator), "Checking Font Weight of the Title").toBe((theme.fontWeight.light).toString());
 		expect(await this.getColorFromElement(titleLocator), "Checking Font Color of the Title").toBe(theme.newColors.almostBlack["100"]);
 	}
+
+	async getZIndexFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).zIndex));
+	}
+
+	/**
+	 * `key` can specify the intended [keyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+   	 * value or a single character to generate the text for.
+	 * Examples of the keys are:
+	 * * `F1` - `F12`, `Digit0`- `Digit9`, `KeyA`- `KeyZ`, `Backquote`, `Minus`, `Equal`, `Backslash`, `Backspace`, `Tab`,
+	 * * `Delete`, `Escape`, `ArrowDown`, `End`, `Enter`, `Home`, `Insert`, `PageDown`, `PageUp`, `ArrowRight`, `ArrowUp`, etc.
+	 * @param key Name of the key to press or a character to generate, such as `Escape` or `Home`.
+	 */
+	async pressSpecificKeyInKeyboard(key: string): Promise<void> {
+		await this.page.keyboard.press(key);
+	}
+
 }

@@ -402,6 +402,7 @@ const StyledDiv = styled.div`
 `;
 
 export const Playground = (): ReactElement => {
+	const onBack = boolean("onBack", false);
 	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
 	const bulkActions = boolean("bulkActions", true);
 	const bulkAllActions = boolean("bulkAllActions", true);
@@ -551,6 +552,7 @@ export const Playground = (): ReactElement => {
 
 	const gridConfig: DataViewProps = {
 		title: "Your Uploads",
+		onBack: onBack ? () => alert("Cancelling, going back to previous site") : undefined,
 		columns: (display === "list" || display === undefined) ? listColumns : gridColumns,
 		gridColumnsMap,
 		primaryActions: primaryActions ? [

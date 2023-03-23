@@ -3,7 +3,7 @@ import { ReactElement, useMemo } from "react";
 import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FieldDef } from "@root/components/Field";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -24,6 +24,8 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "");
 	const helperText = text("Helper text", "");
+	const displayColumnsSums = boolean("Display columns sums", true);
+	const displayRowsSums = boolean("Display rows sums", true);
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -35,6 +37,8 @@ export const Playground = (): ReactElement => {
 				disabled,
 				defaultValue: numberTableDefaultValue,
 				inputSettings: {
+					displaySumColumn: displayColumnsSums,
+					displaySumRow: displayRowsSums,
 					rowTotalLabel: rowTotalLabel,
 					columnTotalLabel: columnTotalLabel,
 					topLeftLabel: topLeftLabel,
@@ -47,6 +51,8 @@ export const Playground = (): ReactElement => {
 		],
 		[
 			label,
+			displayColumnsSums,
+			displayRowsSums,
 			required,
 			disabled,
 			instructionText,
@@ -67,7 +73,6 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
-				onCancel={onCancel}
 			/>
 		</>
 	);

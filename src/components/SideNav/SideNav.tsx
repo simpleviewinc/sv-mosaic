@@ -26,7 +26,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 			// if the nav item has it's own onNav function
 			item.onNav({ item, event });
 		} else {
-			// else if onNav exists, we all onNav for the main app to navigate
+			// else if onNav exists, we use the main onNav to navigate
 			onNav && onNav({ item, event });
 		}
 	};
@@ -40,8 +40,10 @@ const SideNav = (props: SideNavProps): ReactElement => {
 							{items[key].map((item, idx) => {
 								const LinkIcon = item.icon;
 								const ActionIcon = item?.action?.icon;
+
 								return (
 									<LinkWrapper
+										{...item.attrs}
 										idx={item.name}
 										selectedLink={active}
 										onClick={(event) => onLinkClicked({ item, event })}

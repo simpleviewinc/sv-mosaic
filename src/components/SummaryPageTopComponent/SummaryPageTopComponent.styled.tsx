@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import theme from "../../theme";
-import StarRateRounded from "@mui/icons-material/StarRateRounded";
-import StarBorder from "@mui/icons-material/StarBorderRounded";
 
 export const StyledSummaryPageTopComponent = styled.div`
     background: white;
@@ -31,22 +29,18 @@ export const Container = styled.div`
 `;
 
 export const ContainerTitle = styled.div`
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 
-		& h1 {
-			max-width: 650px;
-		}
-`;
+  & h1 {
+    max-width: 650px;
+  }
 
-export const CheckedStar = styled(StarRateRounded)`
-	margin-left: 12px;
-    color: ${theme.newColors.simplyGold["100"]};
-`;
-
-export const UncheckedStar = styled(StarBorder)`
-	margin-left: 12px;
+  & .checked,
+  .unchecked {
+    margin-left: 6px;
+  }
 `;
 
 export const Row = styled.div`
