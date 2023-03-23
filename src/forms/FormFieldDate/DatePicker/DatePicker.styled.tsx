@@ -54,12 +54,6 @@ export const popperSx = {
 	}
 };
 
-export const DisabledDateTimeValue = styled.span`
-	color: ${theme.newColors.almostBlack["100"]};
-	font-family: ${theme.fontFamily};
-	font-size: 16px;
-`;
-
 export const DatePickerWrapper = styled.div`
   	.MuiOutlinedInput-root {
 		background-color: ${theme.newColors.grey1["100"]};
