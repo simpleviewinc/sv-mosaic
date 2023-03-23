@@ -47,3 +47,8 @@ export const buttonKnobs = {
 	knobShow: "knob-Show=",
 	knobTypeOfLabel: "knob-Type%20of%20label="
 }
+
+export const pageHeaderKnobs = {
+	knobOnBack: "knob-onBack=",
+	knobButtons: "knob-Buttons="
+}
