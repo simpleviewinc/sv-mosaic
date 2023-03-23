@@ -58,7 +58,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		//Validate Button Font Color
 		expect.soft(applyButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
 		expect(clearButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
-		await advancedFilters.page.keyboard.press("Escape");
+		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	}
 
 	test("Validate Single select category", async () => {
@@ -78,7 +78,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
 		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
 		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
-		await advancedFilters.page.keyboard.press("Escape");
+		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate Categories with Comparisons - In", async () => {
@@ -264,7 +264,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
-		await advancedFilters.page.keyboard.press("Escape");
+		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate created filter no return results", async () => {
@@ -290,7 +290,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 
 		expect(await advancedFilters.fromCalendarInput.inputValue()).toBe("");
 		expect(await advancedFilters.toCalendarInput.inputValue()).toBe("");
-		await advancedFilters.page.keyboard.press("Escape");
+		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Remove created filter", async () => {
@@ -332,7 +332,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
-		await advancedFilters.page.keyboard.press("Escape");
+		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate updated filter no return results", async () => {
@@ -359,7 +359,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.clearBtn.click();
 		expect(await advancedFilters.fromCalendarInput.inputValue()).toBe("");
 		expect(await advancedFilters.toCalendarInput.inputValue()).toBe("");
-		await advancedFilters.page.keyboard.press("Escape");
+		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Remove updated filter", async () => {
@@ -400,7 +400,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilterDates(endDate, startDate);
 		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
 		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
-		await advancedFilters.page.keyboard.press("Escape");
+		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate that Removing emply Title filter doesn't trigger a reload", async () => {
