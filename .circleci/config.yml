@@ -63,8 +63,6 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
-      # - *setup_environment
-      # - *docker_login
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
@@ -72,15 +70,10 @@ jobs:
           name: Build
           command: |
             docker compose build node_ci
-            # docker push node_ci
-            # docker compose pull $IMAGE
-            # docker compose build $IMAGE
-            # docker compose push $IMAGE
       - run:
           name: Add github to known_hosts
           command: |
             ssh-keyscan github.com >> ~/.ssh/known_hosts
-            eval "$(ssh-agent)" && ssh-add ~/.ssh/known_hosts
       - run:
           name: Save to file
           command: |
@@ -114,6 +107,10 @@ jobs:
       # - run:
       #     name: Add github to known_hosts
       #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - *setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - *load_build_image
       - run:
           name: Publish storybook
           command: docker compose run --rm node_ci yarn run ci:storybook
