@@ -66,9 +66,7 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 
 	test("Validate that the column and row sums are not displayed.", async () => {
 		await ffNumberTablePage.visit(ffNumberTablePage.page_path, [knob.knobDisplayColumnsSum + "false", knob.knobDisplayRowSum + "false"]);
-
 		expect(await ffNumberTablePage.numberTableLocator.locator("tr").last().locator("td").first().textContent()).not.toBe("TOTAL");
 		expect(await ffNumberTablePage.numberTableLocator.locator("thead").locator("th").last().textContent()).not.toBe("No. Rooms");
-
 	});
 });
