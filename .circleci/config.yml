@@ -8,16 +8,6 @@ vars:
     run:
       name: Import build image
       command: docker load -i /tmp/workspace/sv-mosaic-local.tar.gz
-  setup_environment: &setup_environment
-    run:
-      name: Setup Environment Variables
-      command: |
-        echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
-  docker_login: &docker_login
-    run:
-      name: Docker Login
-      command: |
-        docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
 workflows:
   build:
     jobs:
@@ -73,16 +63,22 @@ jobs:
     steps:
       - checkout
       - *setup_remote_docker
-      - *setup_environment
-      - *docker_login
+      # - *setup_environment
+      # - *docker_login
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
           name: Build
           command: |
-            # docker compose build node_ci
+            docker compose build node_ci
             # docker push node_ci
-            docker compose pull $IMAGE
-            docker compose build $IMAGE
-            docker compose push $IMAGE
+            # docker compose pull $IMAGE
+            # docker compose build $IMAGE
+            # docker compose push $IMAGE
+      - run:
+          name: Add github to known_hosts
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Save to file
           command: |
@@ -106,22 +102,19 @@ jobs:
           command: docker compose run --rm node_ci yarn run ci:publish
   storybook:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
-        auth:
-          username: _json_key
-          password: $GCLOUD_SERVICE_KEY
+      - image: cimg/base:2022.09
     resource_class: large
     working_directory: /app
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
-      - run:
-          name: Add github to known_hosts
-          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      # - run:
+      #     name: Add github to known_hosts
+      #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Publish storybook
-          command: yarn run ci:storybook
+          command: docker compose run --rm node_ci yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
   unit_tests:
