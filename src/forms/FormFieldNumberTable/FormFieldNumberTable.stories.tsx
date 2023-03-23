@@ -24,6 +24,8 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "");
 	const helperText = text("Helper text", "");
+	const displayColumnsSums = boolean("Display columns sums", true);
+	const displayRowsSums = boolean("Display rows sums", true);
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -35,6 +37,8 @@ export const Playground = (): ReactElement => {
 				disabled,
 				defaultValue: numberTableDefaultValue,
 				inputSettings: {
+					displaySumColumn: displayColumnsSums,
+					displaySumRow: displayRowsSums,
 					rowTotalLabel: rowTotalLabel,
 					columnTotalLabel: columnTotalLabel,
 					topLeftLabel: topLeftLabel,
@@ -47,6 +51,8 @@ export const Playground = (): ReactElement => {
 		],
 		[
 			label,
+			displayColumnsSums,
+			displayRowsSums,
 			required,
 			disabled,
 			instructionText,
