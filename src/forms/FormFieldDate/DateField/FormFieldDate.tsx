@@ -7,9 +7,10 @@ import TimePicker from "../TimePicker";
 
 // Styles
 import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";
-import { DisabledDateTimeValue } from "../DatePicker/DatePicker.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
+import { StyledDisabledText } from "@root/forms/shared/styledComponents";
+import { transform_dateFormat } from "@root/transforms";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
@@ -136,19 +137,19 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				</>
 			) : (
 				<>
-					<DisabledDateTimeValue>
+					<StyledDisabledText>
 						{
-							value ? new Date(value).toLocaleDateString("en", { timeZone: "UTC" })
+							value ? transform_dateFormat()({data: value})
 							: "MM / DD / YYYY"
 						}
-					</DisabledDateTimeValue>
+					</StyledDisabledText>
 					{fieldDef?.inputSettings?.showTime &&
-						<DisabledDateTimeValue>
+						<StyledDisabledText>
 							{
 								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })
 								: "00:00 AM/PM"
 							}
-						</DisabledDateTimeValue>
+						</StyledDisabledText>
 					}
 				</>
 			)}
