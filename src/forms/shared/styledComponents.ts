@@ -74,3 +74,13 @@ export const FileInput = styled.input`
     outline: none;
   }
 `;
+
+export const StyledDisabledText = styled.p`
+  color: ${theme.newColors.almostBlack["100"]};
+  font-family: ${theme.fontFamily};
+  font-size: 16px;
+  margin: 0px;
+  padding: 0px;
+  width: ${pr => pr.width ?? "auto"};
+  word-break: break-all;
+`;
