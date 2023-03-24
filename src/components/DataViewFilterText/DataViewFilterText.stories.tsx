@@ -20,7 +20,7 @@ export const Playground = (): ReactElement => {
 	);
 
 	const onChange = function(data) {
-		setState(data);
+		setState(data ?? {});
 	}
 
 	const onRemove = () => undefined;
@@ -49,7 +49,7 @@ export const KitchenSink = (): ReactElement => {
 	const onChange = function(type, data) {
 		const newState = {
 			...state,
-			[type]: data,
+			[type]: data ?? {},
 		};
 		setState(newState);
 	}
