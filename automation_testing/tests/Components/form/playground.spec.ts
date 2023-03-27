@@ -141,5 +141,6 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobDisabled + "true", commonKnobs.knobRequired + "true"]);
 		await playgroundPage.saveBtn.click();
 		await expect(playgroundPage.errorIcon).not.toBeVisible();
+		await expect(playgroundPage.errorMessage).not.toBeVisible();
 	});
 });
