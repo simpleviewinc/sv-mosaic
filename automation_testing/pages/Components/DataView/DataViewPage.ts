@@ -227,7 +227,7 @@ export class DataviewPage extends BasePage {
 
 	async removeAllSelectedFilters(): Promise<void> {
 		if (await this.filterRowBtn.count() > 1) {
-			await this.page.keyboard.press("Escape");
+			await this.pressSpecificKeyInKeyboard("Escape");
 			await this.filtersBtn.click();
 			for (let i = 0; i < await this.deleteIconSelectedOptionChip.count(); i++) {
 				this.deleteIconSelectedOptionChip.first().click();
