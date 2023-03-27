@@ -32,6 +32,7 @@ const FormFieldNumberTable = (
 	const { fieldDef, onChange, value } = props;
 
 	const { inputSettings } = fieldDef;
+	const { displaySumColumn = true, displaySumRow = true } = inputSettings;
 	const rowTotals = {};
 	const [columnsTotals, setColumnsTotals] = useState({});
 
@@ -59,11 +60,12 @@ const FormFieldNumberTable = (
 			});
 		}
 
-		totals["mos_col_totals"] = Object.values(totals).reduce(
-			(acc: number, current: number) => acc + current
-		);
-
-		setColumnsTotals(totals);
+		if (displaySumColumn) {
+			totals["mos_col_totals"] = Object.values(totals).reduce(
+				(acc: number, current: number) => acc + current
+			);
+			setColumnsTotals(totals);
+		}
 	}, [value]);
 
 	/**
@@ -117,7 +119,9 @@ const FormFieldNumberTable = (
 					{inputSettings.columns.map((column, index) => (
 						<Th key={`${column.name}-${index}`}>{column.title}</Th>
 					))}
-					<Th>{inputSettings.columnTotalLabel || "Total"}</Th>
+					{displaySumRow && (
+						<Th>{inputSettings.columnTotalLabel || "Total"}</Th>
+					)}
 				</TrHead>
 			</thead>
 			<TBody>
@@ -129,8 +133,11 @@ const FormFieldNumberTable = (
 						</Td>
 						{inputSettings.columns.map((column) => {
 							const strValue = value?.[row.name]?.[column.name] ?? "";
-							const numberValue = isNaN(Number(strValue)) ? 0 : Number(strValue);
-							rowTotals[row.name] = (rowTotals[row.name] || 0) + numberValue;
+
+							if (displaySumRow) {
+								const numberValue = isNaN(Number(strValue)) ? 0 : Number(strValue);
+								rowTotals[row.name] = (rowTotals[row.name] || 0) + numberValue;
+							}
 
 							return (
 								<Td key={`${row.name}-${column.name}`}>
@@ -144,22 +151,26 @@ const FormFieldNumberTable = (
 								</Td>
 							);
 						})}
-						<TdTitle key={`totals-${row.name}`}>
-							{rowTotals[row.name]}
-						</TdTitle>
+						{displaySumRow && (
+							<TdTitle key={`totals-${row.name}`}>
+								{rowTotals[row.name]}
+							</TdTitle>
+						)}
 					</tr>
 				))}
-				<TrTotals>
-					<TdTitle>{inputSettings.rowTotalLabel || "Total"}</TdTitle>
-					{inputSettings.columns.map((column) => (
-						<TdTotals key={`column-${column.name}`}>
-							{columnsTotals[column.name] || 0}
-						</TdTotals>
-					))}
-					<TdTotals>
-						{columnsTotals["mos_col_totals"] || 0}
-					</TdTotals>
-				</TrTotals>
+				{displaySumColumn && (
+					<TrTotals>
+						<TdTitle>{inputSettings.rowTotalLabel || "Total"}</TdTitle>
+						{inputSettings.columns.map((column) => (
+							<TdTotals key={`column-${column.name}`}>
+								{columnsTotals[column.name] || 0}
+							</TdTotals>
+						))}
+						{displaySumRow && (
+							<TdTotals className="totals-row">{columnsTotals["mos_col_totals"] || 0}</TdTotals>
+						)}
+					</TrTotals>
+				)}
 			</TBody>
 		</StyledTable>
 	);

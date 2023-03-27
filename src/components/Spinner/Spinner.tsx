@@ -15,7 +15,8 @@ function Spinner(props: SpinnerProps) {
 			size={30}
 			className={props.className}
 			value={props.progress ?? undefined}
-			variant={props.progress ? "determinate" : "indeterminate"}
+			variant={props.progress >= 0 && props.progress <= 100 ? "determinate" : "indeterminate"}
+			data-testid="spinner-test-id"
 		/>
 	)
 }

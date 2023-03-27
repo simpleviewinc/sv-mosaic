@@ -1,7 +1,7 @@
 import { formActions } from "@root/components/Form";
 import { ButtonProps } from "@root/components/Button";
 
-const onCancel = () => {
+export const onCancel = () => {
 	alert("Cancelling form, going back to previous site");
 };
 

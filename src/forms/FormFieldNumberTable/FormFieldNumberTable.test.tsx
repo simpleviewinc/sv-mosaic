@@ -18,7 +18,13 @@ import {
 	rows,
 } from "./numberTableUtils";
 
-const NumberTableExample = (): ReactElement => {
+const NumberTableExample = ({
+	displaySumColumn = true,
+	displaySumRow = true,
+}: {
+  displaySumColumn?: boolean;
+  displaySumRow?: boolean;
+}): ReactElement => {
 	const { state, dispatch } = useForm();
 
 	const onSubmit = async () => {
@@ -39,6 +45,8 @@ const NumberTableExample = (): ReactElement => {
 				type: "numberTable",
 				defaultValue: numberTableDefaultValue,
 				inputSettings: {
+					displaySumColumn: displaySumColumn,
+					displaySumRow: displaySumRow,
 					rowTotalLabel: "TOTAL",
 					columnTotalLabel: "No. Rooms",
 					topLeftLabel: "Day",
@@ -142,5 +150,18 @@ describe("FormFieldNumberTable component", () => {
 		expect(isValidRowCol("invalidColumn", columns)).toBe(false);
 		expect(isValidRowCol("2023_02_10", rows)).toBe(true);
 		expect(isValidRowCol("single", columns)).toBe(true);
+	});
+});
+
+describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled", () => {
+	beforeEach(async () => {
+		await act(() => {
+			render(<NumberTableExample displaySumColumn={false} displaySumRow={false}/>);
+		});
+	});
+
+	it("should not display the totals for each row and column", () => {
+		expect(screen.queryByText(labels.rowTotal)).not.toBeInTheDocument();
+		expect(screen.queryByText(labels.columnTotal)).not.toBeInTheDocument();
 	});
 });
