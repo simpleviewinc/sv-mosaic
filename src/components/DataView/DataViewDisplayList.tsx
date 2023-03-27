@@ -37,10 +37,18 @@ interface DataViewDisplayListProps {
 }
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
+	const { primaryActions, additionalActions } = props;
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
 		return transformRows(props.data, props.activeColumnObjs);
 	}, [props.data, props.activeColumnObjs]);
+
+	const hasActions = useMemo(
+		() =>
+			(additionalActions && additionalActions.length > 0) ||
+			(primaryActions && primaryActions.length > 0),
+		[additionalActions, primaryActions]
+	);
 
 	return (
 		<StyledTable>
@@ -62,11 +70,13 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				allChecked={props.allChecked}
 				anyChecked={props.anyChecked}
 				showBulkAll={props.showBulkAll}
+				hasActions={hasActions}
 			/>
 			<DataViewTBody
 				checked={props.checked}
 				columns={props.activeColumnObjs}
 				data={props.data}
+				hasActions={hasActions}
 				transformedData={transformedData}
 				bulkActions={props.bulkActions}
 				additionalActions={props.additionalActions}
