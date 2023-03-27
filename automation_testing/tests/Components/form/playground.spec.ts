@@ -137,7 +137,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 		}
 	});
 
-	test("Validate that when the disabled knob is active, the label of the field have the correct style.", async () => {
+	test("Validate that no error message are displayed when the knob disabled is active.", async () => {
 		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobDisabled + "true", commonKnobs.knobRequired + "true"]);
 		await playgroundPage.saveBtn.click();
 		await expect(playgroundPage.errorIcon).not.toBeVisible();
