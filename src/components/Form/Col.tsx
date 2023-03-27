@@ -155,7 +155,7 @@ const Col = (props: ColPropsTypes) => {
 				const name = fieldProps.name;
 				const ref = fieldProps.ref;
 				const value = state?.data[fieldProps.name];
-				const error = (state?.errors[fieldProps.name] && !currentField.disabled) || "";
+				const error = (state?.errors[fieldProps.name] && !currentField.disabled) ? state.errors[fieldProps.name] : "";
 
 				let maxSize: Sizes | string;
 				const SizeSelected = Sizes[currentField?.size] ? Sizes[currentField?.size] : currentField?.size;
