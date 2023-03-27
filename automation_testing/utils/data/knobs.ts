@@ -32,6 +32,7 @@ export const dataviewKnobs = {
 	knobBulkActions: "knob-bulkActions=",
 	knobPrimaryActions: "knob-primaryActions=",
 	knobAdditionalActions: "knob-additionalActions="
+	knobComparison: "knob-Comparison="
 }
 
 export const buttonKnobs = {
@@ -48,4 +49,14 @@ export const buttonKnobs = {
 	knobShowIcon: "knob-Show%20icon=",
 	knobShow: "knob-Show=",
 	knobTypeOfLabel: "knob-Type%20of%20label="
+}
+
+export const pageHeaderKnobs = {
+	knobOnBack: "knob-onBack=",
+	knobButtons: "knob-Buttons="
+}
+
+export const formFieldNumberTableKnobs = {
+	knobDisplayRowSum: "knob-Display%20rows%20sums=",
+	knobDisplayColumnsSum: "knob-Display%20columns%20sums="
 }
