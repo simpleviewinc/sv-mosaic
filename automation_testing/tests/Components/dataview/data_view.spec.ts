@@ -159,4 +159,15 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.dataviewRowHeaderLocator.locator("th").first(), "left"), messagePadding).toBe("16px");
 		expect(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.dataviewRowHeaderLocator.locator("th").last(), "right"), messagePadding).toBe("16px");
 	});
+
+	test("Validate that when no actions are active, the action column is not displayed.", async () => {
+		const rowHeaderLocator = dataviewPage.dataviewRowHeaderLocator.locator("th");
+		const rowHeaderCountBefore = await rowHeaderLocator.count();
+		await dataviewPage.visit(dataviewPage.page_path, [knob.knobPrimaryActions + false, knob.knobAdditionalActions + false]);
+		const rowHeaderCountAfter = await rowHeaderLocator.count();
+		expect.soft(rowHeaderCountAfter, "Validating that there is one less column.").toBe(rowHeaderCountBefore - 1);
+		for (let i = 0; i < rowHeaderCountAfter; i++) {
+			expect(await rowHeaderLocator.nth(i).textContent()).not.toBe("Actions");
+		}
+	});
 });

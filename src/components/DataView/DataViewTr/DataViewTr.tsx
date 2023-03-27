@@ -35,14 +35,17 @@ function DataViewTr(props: DataViewTrProps) {
 							/>
 						</DataViewTd>
 					}
-					<DataViewTd>
-						<DataViewActionsButtonRow
-							primaryActions={props.primaryActions}
-							additionalActions={props.additionalActions}
-							originalRowData={props.originalRowData}
-							activeDisplay="list"
-						/>
-					</DataViewTd>
+					{
+						props.hasActions &&
+						<DataViewTd>
+							<DataViewActionsButtonRow
+								primaryActions={props.primaryActions}
+								additionalActions={props.additionalActions}
+								originalRowData={props.originalRowData}
+								activeDisplay="list"
+							/>
+						</DataViewTd>
+					}
 					{
 						props.columns.map(column => {
 							return (

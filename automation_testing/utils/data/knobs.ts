@@ -30,6 +30,8 @@ export const uploadKnobs = {
 export const dataviewKnobs = {
 	knobBulkAllActions: "knob-bulkAllActions=",
 	knobBulkActions: "knob-bulkActions=",
+	knobPrimaryActions: "knob-primaryActions=",
+	knobAdditionalActions: "knob-additionalActions="
 	knobComparison: "knob-Comparison="
 }
 
