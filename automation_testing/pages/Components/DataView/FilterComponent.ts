@@ -51,7 +51,7 @@ export class FilterComponent extends BasePage {
 		this.updatedOption = this.labelCheckbox.locator(":scope", { hasText: "Updated" });
 		this.titleWithComparisonOption = this.labelCheckbox.locator(":scope", { hasText: "Title with Comparisons" });
 
-		this.categoryItems = page.locator(".listItem label");
+		this.categoryItems = this.listItemLabelLocator;
 		this.selectedOptions = page.locator(".chips div");
 		this.loadMoreBtn = page.locator(".loadContainer button");
 		this.moreCategoriesTooltip = page.locator("[data-testid='tooltip-test-id']");

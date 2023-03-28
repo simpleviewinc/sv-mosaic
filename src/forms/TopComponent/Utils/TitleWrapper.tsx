@@ -31,10 +31,10 @@ const Description = styled.span`
 	}
 `;
 
-type TitleWrapperProps = {
+export type TitleWrapperProps = {
 	title: string;
 	description?: string;
-	onBack?: () => void;
+	onBack?: (() => void) | ((e: any) => void)
 }
 
 const TitleWrapper = (props: TitleWrapperProps): ReactElement => {

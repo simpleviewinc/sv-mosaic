@@ -15,7 +15,17 @@ import { DataViewProps } from "./DataViewTypes";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
-`
+
+	.row-header {
+		th:first-child {
+			padding-left: 16px;
+		}
+
+		th:last-child {
+			padding-right: 16px;
+		}
+	}
+`;
 
 const StyledTh = styled.th`
 	background-color: ${theme.newColors.grey2["100"]};
@@ -175,7 +185,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 
 	return (
 		<StyledWrapper>
-			<tr>
+			<tr className="row-header">
 				{
 					props?.onReorder &&
 					<StyledTh key="_draggable" className="bulk">
