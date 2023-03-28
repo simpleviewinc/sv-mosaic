@@ -1,5 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldDateFieldPage } from "../../pages/FormFields/FormFieldDateFieldPage";
+import { commonKnobs as knob } from "../../utils/data/knobs";
+import theme from "../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	let page: Page;
@@ -53,8 +55,8 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	});
 
 	test("Validate Disable Date Time Calendar", async () => {
-		expect(await formFieldDateFieldPage.disableDateAndTimeCalendarText.locator("span").nth(0).textContent()).toBe("MM / DD / YYYY");
-		expect(await formFieldDateFieldPage.disableDateAndTimeCalendarText.locator("span").nth(1).textContent()).toBe("00:00 AM/PM");
+		expect(await formFieldDateFieldPage.disableDateAndTimeCalendarText.first().textContent()).toBe("MM / DD / YYYY");
+		expect(await formFieldDateFieldPage.disableDateAndTimeCalendarText.nth(1).textContent()).toBe("00:00 AM/PM");
 	});
 
 	test("Validate error when trying to save with Requiered Calendar Date and Time empty.", async () => {
@@ -80,5 +82,12 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		const selectedHourAndMinute = await formFieldDateFieldPage.selectHourAndMinutesInHourPicker("pm");
 		expect(await formFieldDateFieldPage.requiredDateTimeInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 		expect(await formFieldDateFieldPage.requiredDateHourInput.inputValue()).toBe(selectedHourAndMinute);
+	});
+
+	test("Validate that the disabled text is almost black", async () => {
+		await formFieldDateFieldPage.visit(formFieldDateFieldPage.playground_page_path, [knob.knobDisabled + true]);
+		expect(await formFieldDateFieldPage.getColorFromElement(formFieldDateFieldPage.dateFieldText)).toBe(theme.newColors.almostBlack["100"]);
+		await formFieldDateFieldPage.visit(formFieldDateFieldPage.playground_page_path, [knob.knobDisabled + true, knob.knobShowTime + true]);
+		expect(await formFieldDateFieldPage.getColorFromElement(formFieldDateFieldPage.dateFieldText)).toBe(theme.newColors.almostBlack["100"]);
 	});
 });

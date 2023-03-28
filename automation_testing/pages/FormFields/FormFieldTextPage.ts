@@ -4,6 +4,7 @@ import { BasePage } from "../BasePage";
 export class FormFieldTextPage extends BasePage {
 
 	readonly page_path = "formfields-formfieldtext--kitchen-sink";
+	readonly playground_page_path = "formfields-formfieldtext--playground";
 
 	readonly page: Page;
 	readonly firstSection: Locator;
@@ -20,6 +21,7 @@ export class FormFieldTextPage extends BasePage {
 	readonly mdSizeTextField: Locator;
 	readonly lgSizeTextField: Locator;
 	readonly firstInstructionText: Locator;
+	readonly textFieldText: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -38,6 +40,7 @@ export class FormFieldTextPage extends BasePage {
 		this.mdSizeTextField = page.locator("input#mdSize");
 		this.lgSizeTextField = page.locator("input#lgSize");
 		this.firstInstructionText = page.locator(".instruction-text-right").first();
+		this.textFieldText = page.locator("#textfield p").first();
 	}
 
 	async setTextInMultilineField(multilineText:string): Promise<void> {
