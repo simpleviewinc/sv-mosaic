@@ -1,5 +1,5 @@
 import { SvgIconComponent } from "@root/types";
-import { MouseEvent } from "react";
+import { AnchorHTMLAttributes, MouseEvent } from "react";
 
 export interface SideNavArgs {
 	item: Item,
@@ -27,29 +27,33 @@ export interface SideNavProps {
 
 export type Item = {
 	/**
-	 * Name of the item. It is used to set it as active when is clicked.
-	 */
-	name: string;
-	/**
-	 * Optional descriptive mark of the link.
-	 */
-	badge?: string;
-	/**
-	 * Label that names the link.
-	 */
-	label: string;
-	/**
-	 * Optional link left icon.
-	 */
-	icon?: SvgIconComponent;
-	/**
-	 * Callback that each link will execute on an onClick event.
-	 */
-	onNav?: SideNavOnNav;
-	/**
 	 * Each link could have an optional action which consists of an
 	 * icon that will be displayed when hovering over the link and
 	 * an onClick callback
 	 */
 	action?: { icon: SvgIconComponent; onClick: () => void };
+	/**
+	 * Anchor element attributes.
+	 */
+	attrs?: AnchorHTMLAttributes<HTMLAnchorElement>;
+	/**
+	 * Optional descriptive mark of the link.
+	 */
+	badge?: string;
+	/**
+	 * Optional link left icon.
+	 */
+	icon?: SvgIconComponent;
+	/**
+	 * Label that names the link.
+	 */
+	label: string;
+	/**
+	 * Name of the item. It is used to set it as active when is clicked.
+	*/
+	name: string;
+	/**
+	 * Callback that each link will execute on an onClick event.
+	 */
+	onNav?: SideNavOnNav;
 };

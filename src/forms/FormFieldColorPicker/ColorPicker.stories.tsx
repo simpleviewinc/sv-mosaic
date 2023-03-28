@@ -3,7 +3,7 @@ import { ReactElement, useMemo } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 export default {
 	title: "FormFields/FormFieldColorPicker",
@@ -42,7 +42,6 @@ export const Playground = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 		</>
@@ -84,7 +83,6 @@ export const KitchenSink = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</div>
 		</>

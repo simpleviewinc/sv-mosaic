@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import CheckboxList from "@root/components/CheckboxList";
 import { useMosaicTranslation } from "@root/i18n";
-import DrawerHeader from "../../DrawerHeader";
+import PageHeader from "../../PageHeader";
 import {
 	DragDropContext,
 	Draggable,
@@ -81,9 +81,10 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 
 	return (
 		<div>
-			<DrawerHeader
+			<PageHeader
 				title={t("mosaic:DataView.table_settings")}
 				buttons={drawerButton}
+				onBack={props.onClose}
 			/>
 			<StyledWrapper>
 				<div className="left">

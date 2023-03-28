@@ -19,14 +19,11 @@ export class BasePage {
 	readonly latitude: Locator;
 	readonly longitude: Locator;
 	readonly saveCoordinatesButton: Locator;
-	readonly drawerSaveButton: Locator;
-	readonly drawerCancelButton: Locator;
 	readonly error: Locator;
 	readonly errorIcon: Locator;
 	readonly checkboxTestIdLocator: Locator;
 	readonly tooltip: Locator;
 	readonly checkboxLabel: Locator;
-	readonly drawerTitle: Locator;
 	readonly showStateLocator: Locator;
 	readonly menuItem: Locator;
 	readonly menuLocator: Locator;
@@ -43,6 +40,9 @@ export class BasePage {
 	readonly tableBodyRowLocator: Locator;
 	readonly tableBodyColumnLocator: Locator;
 	readonly tableHeadRowLocator: Locator;
+	readonly iconButtonTestLocator: string;
+	readonly viewContainerLocator: Locator;
+	readonly listItemLabelLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -59,14 +59,11 @@ export class BasePage {
 		this.latitude = page.locator("input#lat");
 		this.longitude = page.locator("input#lng");
 		this.saveCoordinatesButton = this.formTestID.nth(1).locator("button", { hasText: "Save Coordinates" });
-		this.drawerSaveButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[2]/button");
-		this.drawerCancelButton = page.locator("//html/body/div[5]/div[3]/div/div/div/form/div[1]/div/span[1]/button");
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
-		this.drawerTitle = page.locator("form h1");
 		this.showStateLocator = page.locator("#root pre");
 		this.menuItem = page.locator("[role='menuitem']");
 		this.menuLocator = page.locator("[role='menu']");
@@ -81,6 +78,9 @@ export class BasePage {
 		this.tableBodyRowLocator = page.locator("tbody tr");
 		this.tableBodyColumnLocator = page.locator("tbody td");
 		this.tableHeadRowLocator = page.locator("thead tr");
+		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
+		this.viewContainerLocator = page.locator(".viewContainer");
+		this.listItemLabelLocator = page.locator(".listItem label")
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
@@ -155,7 +155,7 @@ export class BasePage {
 
 	async selectOptionFromDropdown(dropdown: Locator, option:string): Promise<void> {
 		await dropdown.click({force: true});
-		await this.page.locator("text=" + option).nth(0).click();
+		await this.page.locator("text=" + option).first().click();
 	}
 
 	async validateFontColorFromElement(element: Locator, expectedValue: string, isHex: boolean): Promise<void> {
@@ -292,5 +292,9 @@ export class BasePage {
 		expect(await this.getFontSizeFromElement(titleLocator), "Checking Font Size of the Title").toBe("28px");
 		expect(await this.getFontWeightFromElement(titleLocator), "Checking Font Weight of the Title").toBe((theme.fontWeight.light).toString());
 		expect(await this.getColorFromElement(titleLocator), "Checking Font Color of the Title").toBe(theme.newColors.almostBlack["100"]);
+	}
+
+	async getZIndexFromElement(element: Locator): Promise<string> {
+		return await ((element).evaluate(el => getComputedStyle(el).zIndex));
 	}
 }

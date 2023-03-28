@@ -59,4 +59,10 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 		await ffUpload.uploadFilesInput.setInputFiles([imagePath, imagePath, imagePath, imagePath, imagePath]);
 		await expect(ffUpload.rolePresentationLocator.locator("p")).toContainText(expectedSnackbar);
 	});
+
+	test("Validate that the z-index of the upload button is valid.", async () => {
+		await ffUpload.visit(ffUpload.page_path);
+		expect(await ffUpload.getZIndexFromElement(ffUpload.uploadFilesSpan)).toBe("1000");
+	});
+
 });
