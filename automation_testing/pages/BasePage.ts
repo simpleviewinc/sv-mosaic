@@ -80,7 +80,7 @@ export class BasePage {
 		this.tableHeadRowLocator = page.locator("thead tr");
 		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
 		this.viewContainerLocator = page.locator(".viewContainer");
-		this.listItemLabelLocator = page.locator(".listItem label")
+		this.listItemLabelLocator = page.locator(".listItem label");
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {

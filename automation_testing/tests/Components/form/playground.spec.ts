@@ -120,4 +120,27 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test("Validate the Playground title style.", async () => {
 		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.title.last());
 	});
+
+	test("Validate that when the disabled knob is active, the label of the field have the correct style.", async () => {
+		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobDisabled + "true"]);
+		const labels = [playgroundPage.page.locator("label[for='textField']"), playgroundPage.page.locator("label[for='check']"),
+			playgroundPage.page.locator("label[for='chipSelect']"), playgroundPage.page.locator("label[for='dropdownSingle']"),
+			playgroundPage.page.locator("label[for='phoneSelect']"), playgroundPage.page.locator("label[for='radio']"),
+			playgroundPage.page.locator("label[for='toggleSwitch']"), playgroundPage.page.locator("label[for='color']"),
+			playgroundPage.page.locator("label[for='date']"), playgroundPage.page.locator("label[for='address']"),
+			playgroundPage.page.locator("label[for='advancedSelection']"), playgroundPage.page.locator("label[for='imageVideoDocumentLink']"),
+			playgroundPage.page.locator("label[for='textEditor']"), playgroundPage.page.locator("label[for='table']"),
+			playgroundPage.page.locator("label[for='imageUpload']"), playgroundPage.page.locator("label[for='mapCoordinates']"),
+			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']") ];
+		for (let i = 0; i < labels.length; i++) {
+			expect(await playgroundPage.getColorFromElement(labels[i]), "Checking Font Color of the Label").toBe(theme.newColors.almostBlack["100"]);
+		}
+	});
+
+	test("Validate that no error message are displayed when the knob disabled is active.", async () => {
+		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobDisabled + "true", commonKnobs.knobRequired + "true"]);
+		await playgroundPage.saveBtn.click();
+		await expect(playgroundPage.errorIcon).not.toBeVisible();
+		await expect(playgroundPage.errorMessage).not.toBeVisible();
+	});
 });
