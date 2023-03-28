@@ -12,7 +12,7 @@ import {
 	deleteTableRow,
 	useTable,
 } from "@root/forms/FormFieldTable/tableUtils";
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 
 export default {
 	title: "FormFields/FormFieldTable",
@@ -76,7 +76,6 @@ export const Playground = (): ReactElement => {
 				description={text("Description", "This is a description example")}
 				dispatch={dispatch}
 				fields={fields}
-				onCancel={onCancel}
 				state={state}
 				title={text("Title", "Form Title")}
 			/>
@@ -162,7 +161,6 @@ export const KitchenSink = (): ReactElement => {
 				description='Form description'
 				dispatch={dispatch}
 				fields={fields}
-				onCancel={onCancel}
 				state={state}
 				title='Form Title'
 			/>

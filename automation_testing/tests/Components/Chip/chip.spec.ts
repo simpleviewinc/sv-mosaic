@@ -47,4 +47,17 @@ test.describe.parallel("Components - Chip - Kitchen Sink", () => {
 		expect(await chipPage.getCursorFromElement(chipPage.basicChipWithoutOnClickNotSelected)).toBe(expectedCursorWithoutOnClick);
 		expect(await chipPage.getCursorFromElement(chipPage.basicChipWithoutOnClickSelected)).toBe(expectedCursorWithoutOnClick);
 	});
+
+	test("Validate Chips without onClick doesn't change styles on Hover.", async () => {
+		let bgColorChipNotSelected: string;
+		let bgColorChipSelected: string;
+		await Promise.race([
+			await chipPage.basicChipWithoutOnClickNotSelected.hover(),
+			bgColorChipNotSelected = await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithoutOnClickNotSelected),
+			await chipPage.basicChipWithoutOnClickSelected.hover(),
+			bgColorChipSelected = await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithoutOnClickSelected),
+		]);
+		expect.soft(bgColorChipSelected).toBe(theme.newColors.simplyGold["100"]);
+		expect(bgColorChipNotSelected).toBe(theme.newColors.grey2["100"]);
+	});
 });

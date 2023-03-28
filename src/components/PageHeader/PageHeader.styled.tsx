@@ -1,9 +1,9 @@
 import theme from "@root/theme";
 import styled from "styled-components";
 
-export const StyledDrawerHeader = styled.div`
-	background-color: ${theme.newColors.grey2["100"]};
+export const StyledPageHeader = styled.div`
 	display: flex;
+	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;

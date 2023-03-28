@@ -13,13 +13,13 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import DataView from "@root/components/DataView";
 
 // Utils
-import { onCancel, renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "@root/utils/storyUtils";
 import { DataViewProps } from "@root/components/DataView";
 import { defaultView, listColumns } from "./matrixUtils";
 import MosaicContext from "@root/components/MosaicContext";
 import useMosaicSettings from "@root/utils/useMosaicSettings";
 import rawData from "@root/components/DataView/example/rawData.json";
-import DrawerHeader from "@root/components/DrawerHeader";
+import PageHeader from "@root/components/PageHeader";
 import { ButtonProps } from "@root/components/Button";
 
 export default {
@@ -251,7 +251,6 @@ export const FormVariant = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</MosaicContext.Provider>
 			<Drawers drawers={drawerState.drawers}>
@@ -276,7 +275,7 @@ export const FormVariant = (): ReactElement => {
 							state={state}
 							fields={drawerDef.config.fields}
 							dispatch={dispatch}
-							type="drawer"
+							onBack={removeDrawer}
 						/>
 					);
 				}}
@@ -563,7 +562,6 @@ export const Browse = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					onCancel={onCancel}
 				/>
 			</MosaicContext.Provider>
 			<Drawers drawers={drawerState.drawers}>
@@ -571,11 +569,11 @@ export const Browse = (): ReactElement => {
 					if (drawerDef.config.type === "dataView") {
 						return (
 							<MosaicContext.Provider value={mosaicSettings}>
-								<DrawerHeader
+								<PageHeader
 									title="Browse"
 									buttons={drawerButtons}
+									onBack={removeDrawer}
 								/>
-
 								<DataView {...dataViewGridConfig}></DataView>
 							</MosaicContext.Provider>
 						);
@@ -600,7 +598,6 @@ export const Browse = (): ReactElement => {
 								state={state}
 								fields={drawerDef.config.fields}
 								dispatch={dispatch}
-								type="drawer"
 							/>
 						);
 					}

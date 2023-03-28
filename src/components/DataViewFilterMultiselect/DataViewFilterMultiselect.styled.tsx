@@ -95,4 +95,4 @@ export const StyledHr = styled.hr`
 export const StyledVerticalHr = styled.hr`
 	border: 2px solid ${theme.newColors.grey2[100]};
 	margin: ${pr => pr.margin ?? "-32px 0px 0px 0px"};
-`
+`;

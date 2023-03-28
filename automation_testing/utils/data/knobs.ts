@@ -3,7 +3,8 @@ export const commonKnobs = {
 	knobRequired: "knob-Required=",
 	knobDisabled: "knob-Disabled=",
 	knobShowOptions:"knob-Show%20options=",
-	knobOnBack: "knob-onBack="
+	knobOnBack: "knob-onBack=",
+	knobParentHeight: "knob-Parent%20height%20(px)="
 }
 
 export const cardKnobs = {
