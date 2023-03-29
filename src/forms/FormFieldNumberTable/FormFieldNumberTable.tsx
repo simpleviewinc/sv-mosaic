@@ -13,7 +13,6 @@ import {
 	TrHead,
 	TrTotals,
 	TdTitle,
-	StyledInput,
 	Td,
 	TdTotals,
 	TBody,
@@ -21,6 +20,8 @@ import {
 	RowSubtitle,
 } from "./FormFieldNumberTable.styled";
 import { isValidRowCol } from "./numberTableUtils";
+import { StyledDisabledText } from "../shared/styledComponents";
+import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 
 const FormFieldNumberTable = (
 	props: MosaicFieldProps<
@@ -141,13 +142,17 @@ const FormFieldNumberTable = (
 
 							return (
 								<Td key={`${row.name}-${column.name}`}>
-									<StyledInput
-										inputProps={{ "data-testid": `${row.name}-${column.name}` }}
-										placeholder="0"
-										value={strValue}
-										onChange={(e) => onChangeCell(e, row.name, column.name)}
-										disabled={fieldDef.disabled}
-									/>
+									{!fieldDef.disabled ?
+										<StyledTextField
+											inputProps={{ "data-testid": `${row.name}-${column.name}` }}
+											placeholder="0"
+											value={strValue}
+											onChange={(e) => onChangeCell(e, row.name, column.name)}
+											fieldSize={"72px"}
+										/>
+										:
+										<StyledDisabledText width={"72px"}>{strValue ?? "0"}</StyledDisabledText>
+									}
 								</Td>
 							);
 						})}
