@@ -11,15 +11,23 @@ export const ButtonWrapper = styled.span`
     display: block;
   }
 
-  & > .MuiButtonBase-root {
-	font-family: ${theme.fontFamily};
-	text-transform: none;
-	font-size: 14px;
-	font-weight: ${theme.fontWeight.bold};
-	min-width: auto;
-	line-height: 1.715;
-	letter-spacing: 1px;
-  }
+	& > .MuiButtonBase-root {
+		font-family: ${theme.fontFamily};
+		text-transform: none;
+		font-size: 14px;
+		font-weight: ${theme.fontWeight.bold};
+		min-width: auto;
+		line-height: 1.715;
+		letter-spacing: 1px;
+		border-radius: 0px;
+	}
+
+
+	& > .MuiButtonBase-root:active,
+	& > .MuiButtonBase-root:focus,
+	& .MuiTouchRipple-child {
+		border-radius: 0px !important;
+	}
 
   &.normalButton > .MuiButtonBase-root {
     box-shadow: none;
