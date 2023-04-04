@@ -75,4 +75,11 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 		expect(await formFieldDropdownSingleSelectionPage.
 			getSpecificBorderFromElement(formFieldDropdownSingleSelectionPage.page.locator("p", {hasText: "placeholder"}))).toContain(expectedColor);
 	});
+
+	test("Validate padding of the input fields.", async () => {
+		const inputCount = await formFieldDropdownSingleSelectionPage.inputLocator.count()
+		for (let i = 0; i < inputCount; i++) {
+			expect(await formFieldDropdownSingleSelectionPage.getSpecificPaddingFromElement(formFieldDropdownSingleSelectionPage.inputLocator.nth(i), "all")).toBe(theme.fieldSpecs.inputText.padding);
+		}
+	});
 });
