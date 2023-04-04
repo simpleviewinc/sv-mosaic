@@ -9,8 +9,9 @@ import Popper from "@mui/material/Popper";
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
     background-color: ${theme.newColors.grey1["100"]};
-	font-family: ${theme.fontFamily};
-	color: ${theme.newColors.almostBlack["100"]};
+    font-family: ${theme.fontFamily};
+    color: ${theme.newColors.almostBlack["100"]};
+
     &:hover {
       background-color: ${theme.newColors.grey2["100"]}
     }
@@ -31,6 +32,14 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
 
   .MuiAutocomplete-clearIndicator {
     margin-right: 20px;
+  }
+
+  .MuiInputBase-input {
+    padding: ${theme.fieldSpecs.inputText.padding} !important;
+  }
+
+  & .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
+    padding: 0 !important;
   }
 
   &.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
