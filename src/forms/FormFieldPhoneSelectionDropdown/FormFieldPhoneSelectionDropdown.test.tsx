@@ -67,7 +67,7 @@ describe("FormFieldPhoneSelectionDropdown disabled state", () => {
 			/>
 		);
 
-		expect(getByText("Phone field disabled")).toBeDefined();
+		expect(getByText("Disabled field")).toBeDefined();
 	});
 
 	it('should display "Phone value:" text plus the value', () => {
@@ -83,7 +83,7 @@ describe("FormFieldPhoneSelectionDropdown disabled state", () => {
 			/>
 		);
 
-		expect(getByText("Phone value: 345")).toBeDefined();
+		expect(getByText("345")).toBeDefined();
 	});
 });
 

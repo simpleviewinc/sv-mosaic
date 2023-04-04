@@ -34,10 +34,10 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	return (
 		<SideNavStyle>
 			<SidebarWrap>
-				{Object.keys(items).map((key) => {
+				{Object.keys(items)?.map((key) => {
 					return (
 						<SectionWrapper data-testid="section-wrapper" key={key}>
-							{items[key].map((item, idx) => {
+							{items[key]?.map((item, idx) => {
 								const LinkIcon = item.icon;
 								const ActionIcon = item?.action?.icon;
 

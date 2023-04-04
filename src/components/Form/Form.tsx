@@ -188,7 +188,7 @@ const Form = (props: FormProps) => {
 			label: section.title,
 			name: idx.toString(),
 		}));
-	}, [sections]);
+	}, [sections, view]);
 
 	/**
 	 * Highlights and scrolls to the sections which link
