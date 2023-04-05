@@ -19,7 +19,7 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 
 	test("Validate Single Date Calendar by writing a date", async () => {
 		await formFieldDateFieldPage.singleDateCalendarInput.type(await formFieldDateFieldPage.getTodayDate());
-		await formFieldDateFieldPage.formTestID.click();
+		await formFieldDateFieldPage.formTestIDLocator.click();
 		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 	});
 
@@ -39,7 +39,7 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		const timeHour = "07:30 Am";
 		await formFieldDateFieldPage.dateTimeInput.type(todayDate);
 		await formFieldDateFieldPage.dateHourInput.type(timeHour)
-		await formFieldDateFieldPage.formTestID.click();
+		await formFieldDateFieldPage.formTestIDLocator.click();
 		expect(await formFieldDateFieldPage.dateTimeInput.inputValue()).toBe(todayDate);
 		expect(await formFieldDateFieldPage.dateHourInput.inputValue()).toBe(timeHour);
 	});
@@ -69,7 +69,7 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		const timeHour = "07:30 Am";
 		await formFieldDateFieldPage.requiredDateTimeInput.type(todayDate);
 		await formFieldDateFieldPage.requiredDateHourInput.type(timeHour)
-		await formFieldDateFieldPage.formTestID.click();
+		await formFieldDateFieldPage.formTestIDLocator.click();
 		expect(await formFieldDateFieldPage.requiredDateTimeInput.inputValue()).toBe(todayDate);
 		expect(await formFieldDateFieldPage.requiredDateHourInput.inputValue()).toBe(timeHour);
 	});
