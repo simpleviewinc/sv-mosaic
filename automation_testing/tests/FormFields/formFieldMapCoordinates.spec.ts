@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldMapCoordinatesPage } from "../../pages/FormFields/FormFieldMapCoordinatesPage";
 import theme from "../../../src/theme";
+import { commonKnobs as knob } from "../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 	let page: Page;
@@ -9,10 +10,10 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffMapCoordinatesPage = new FormFieldMapCoordinatesPage(page);
-		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.page_path);
 	});
 
 	test.beforeEach(async() => {
+		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.page_path);
 		await page.reload();
 	});
 
@@ -80,8 +81,13 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	test("Validate drawer title location is fixed.", async () => {
 		await page.setViewportSize({ width: 1280, height: 400 });
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
-		await expect(ffMapCoordinatesPage.formTestID.last()).toBeVisible();
+		await expect(ffMapCoordinatesPage.formTestIDLocator.last()).toBeVisible();
 		await ffMapCoordinatesPage.longitude.scrollIntoViewIfNeeded();
-		await expect(ffMapCoordinatesPage.formTestID.last().locator("form div").first()).toBeVisible();
+		await expect(ffMapCoordinatesPage.formTestIDLocator.last().locator("form div").first()).toBeVisible();
+	});
+
+	test("Validate that button is disabled.", async () => {
+		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.playground_page_path, [knob.knobDisabled + true]);
+		await expect(ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton).toBeDisabled();
 	});
 });
