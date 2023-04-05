@@ -6,6 +6,7 @@ import {
 	screen,
 	createEvent,
 } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 // Components
 import FormFieldImageUpload from "./FormFieldImageUpload";
@@ -76,7 +77,7 @@ describe("FormFieldImageUpload component", () => {
 });
 
 describe("FormFieldImageUpload disabled state", () => {
-	it('should display "Loading Image" and the circular progress component', () => {
+	it("should disabled the upload files button", () => {
 		render(
 			<FormFieldImageUpload
 				fieldDef={{
@@ -88,8 +89,8 @@ describe("FormFieldImageUpload disabled state", () => {
 			/>
 		);
 
-		expect(getByText("Loading Image")).toBeTruthy();
-		expect(getByTestId("circular-progress-test")).toBeTruthy();
+		const uploadButton = getByText("UPLOAD FILES");
+		expect(uploadButton).toBeDisabled();
 	});
 });
 
