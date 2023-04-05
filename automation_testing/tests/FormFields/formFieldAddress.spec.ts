@@ -1,9 +1,9 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldAddressPage } from "../../pages/FormFields/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
-import { us_address_2 } from "../../utils/data/address_information_data";
+import { us_address, us_address_2 } from "../../utils/data/address_information_data";
 import theme from "../../../src/theme";
-import { us_address } from "../../utils/data/address_information_data";
+import { commonKnobs as knob } from "../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	let page: Page;
@@ -93,9 +93,9 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 	test("Validate drawer title location is fixed.", async () => {
 		await page.setViewportSize({ width: 1280, height: 400 });
 		await ffAddressPage.addAddressButton.click();
-		await expect(ffAddressPage.formTestID.last()).toBeVisible();
+		await expect(ffAddressPage.formTestIDLocator.last()).toBeVisible();
 		await ffAddressPage.shippingCheckboxOption.scrollIntoViewIfNeeded();
-		await expect(ffAddressPage.formTestID.last().locator("form div").first()).toBeVisible();
+		await expect(ffAddressPage.formTestIDLocator.last().locator("form div").first()).toBeVisible();
 	});
 
 	test("Validate that when a user select one of the options shown, the fields are filled out.", async () => {
@@ -133,5 +133,10 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 		await ffAddressPage.firstAddressField.fill(expectedAddress);
 		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
 		expect(await ffAddressPage.firstAddressField.inputValue()).toBe(expectedAddress);
+	});
+
+	test("Validate that button is disabled.", async () => {
+		await ffAddressPage.visit(ffAddressPage.page_path, [knob.knobDisabled + true]);
+		await expect(ffAddressPage.addAddressButton).toBeDisabled();
 	});
 });
