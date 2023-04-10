@@ -6,6 +6,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldCheckboxInputSettings, CheckboxData } from "./FormFieldCheckboxTypes";
 import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
 import { MosaicLabelValue } from "@root/types";
+import { transform_chips } from "@root/transforms";
 
 const FormFieldCheckbox = (
 	props: MosaicFieldProps<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>
@@ -49,24 +50,26 @@ const FormFieldCheckbox = (
 
 	}, [internalOptions, value, origin]);
 
-	const internalOnChange = (checkedOptions: string[], cb:(val:MosaicLabelValue[])=>void) => {
-		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option?.value === checkedOption));
+	const internalOnChange = (checkedOptions: MosaicLabelValue[], cb:(val:MosaicLabelValue[]) => void) => {
+		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option?.value === checkedOption.value));
 		if (cb) {
 			cb(newCheckedOptions)
 		}
 	}
 
 	return (
-		<StyledCheckboxList
-			disabled={fieldDef?.disabled}
-			checked={checked}
-			options={internalOptions}
-			onChange={(val) => internalOnChange(val, onChange)}
-			onChangeCb={(val) => internalOnChange(val, fieldDef.onChangeCb)}
-			onBlur={onBlur}
-			style={fieldDef.style}
-			className={fieldDef.className}
-		/>
+		!fieldDef.disabled ? (
+			<StyledCheckboxList
+				disabled={fieldDef?.disabled}
+				checked={checked}
+				options={internalOptions}
+				onChange={(val) => internalOnChange(val, onChange)}
+				onChangeCb={(val) => internalOnChange(val, fieldDef.onChangeCb)}
+				onBlur={onBlur}
+				style={fieldDef.style}
+				className={fieldDef.className}
+			/>
+		) : value && <>{transform_chips()({ data: value })}</>
 	);
 };
 
