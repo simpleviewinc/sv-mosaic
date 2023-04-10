@@ -13,7 +13,7 @@ const topFilms = [
 	{ label: "The Dark Knight", value: "2008" },
 ];
 
-const { getByText, getByRole } = screen;
+const { queryByTestId, getByRole } = screen;
 
 afterEach(cleanup);
 
@@ -45,7 +45,7 @@ describe("DropdownSingleSelection component", () => {
 });
 
 describe("DropdownSingleSelection disabled state", () => {
-	it("should render a dropdown disabled with no option selected by default", () => {
+	it("should not render the Dropdown since does not have a value", () => {
 		render(
 			<DropdownSingleSelection
 				fieldDef={{
@@ -61,7 +61,7 @@ describe("DropdownSingleSelection disabled state", () => {
 			/>
 		);
 
-		expect(getByText("placeholder")).toBeDefined();
+		expect(queryByTestId("dropdown-single-selection-test-id")).toBe(null);
 	});
 });
 
