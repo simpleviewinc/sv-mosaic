@@ -35,7 +35,7 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", false);
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "");
-	const helperText = text("Helper text", "");
+	const helperText = text("Helper text", "Helper text");
 	const optionsOrigin = select(
 		"Options Origin",
 		["Local", "DB"],

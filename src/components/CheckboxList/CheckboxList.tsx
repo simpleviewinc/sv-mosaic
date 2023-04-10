@@ -14,10 +14,11 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 		(value: string | { [key: string]: unknown; }) => () => {
 			// toggle the item in the array
 			const newChecked = xor(checkedRef.current, [value]);
+			const filteredOptions = props.options.filter(option => newChecked.includes(option.value));
 			// TODO: Review with Owen
 			//props.onChange(newChecked.length > 0 ? newChecked : undefined);
-			props.onChange(newChecked);
-			props?.onChangeCb && props.onChangeCb(newChecked);
+			props.onChange(filteredOptions);
+			props?.onChangeCb && props.onChangeCb(filteredOptions);
 		},
 		[checkedRef, props.onChange]
 	);

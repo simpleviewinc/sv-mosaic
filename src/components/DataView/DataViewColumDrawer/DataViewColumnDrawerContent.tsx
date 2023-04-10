@@ -32,7 +32,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const onColumnsChange = function(data) {
 		setState({
 			...state,
-			activeColumns: data,
+			activeColumns: data.map(d => d.value),
 		});
 	};
 

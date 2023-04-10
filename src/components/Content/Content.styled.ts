@@ -96,12 +96,12 @@ export const TransformContainer = styled.div`
 
 // Transforms styles
 export const ChipsWrapper = styled.div`
+	display: flex;
+	row-gap: 8px;
+	flex-wrap: wrap;
+
 	div:not(:last-child) {
 		margin-right: 12px;
-	}
-
-	div {
-		margin-bottom: 8px;
 	}
 `;
 
