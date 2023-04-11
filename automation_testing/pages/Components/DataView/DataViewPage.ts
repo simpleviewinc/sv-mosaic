@@ -236,4 +236,15 @@ export class DataviewPage extends BasePage {
 			await this.loading.waitFor({ state: "detached" });
 		}
 	}
+
+	async getRowTitlesLocators(): Promise<Locator[]> {
+		await this.waitForDataviewIsVisible();
+		await this.wait();
+		const rows = await (await this.getTableRows()).elementHandles();
+		const titleLocators = [];
+		for (const row of rows) {
+			titleLocators.push(await row.$("td:nth-child(5) div"));
+		}
+		return titleLocators;
+	}
 }
