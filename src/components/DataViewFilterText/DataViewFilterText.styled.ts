@@ -13,7 +13,8 @@ export const StyledContents = styled.div`
 		margin-bottom: 0;
 	}
 
-	& > .inputRow > .disabled input.Mui-disabled {
+	& > .inputRow > .disabled {
+		margin-top: 8px;
 		padding: 12px 16px;
 	}
 

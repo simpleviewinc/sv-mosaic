@@ -484,6 +484,20 @@ export const types = {
 	teal_icon: TealOnWhite,
 	red_icon: RedOnWhite,
 	white_icon: WhiteOnBlack,
+	yellow_icon: styled(ButtonWrapper)`
+		& > .MuiButtonBase-root {
+			color: ${theme.newColors.simplyGold["100"]};
+		}
+
+		& > .MuiButtonBase-root:hover {
+			background: ${theme.newColors.darkerSimplyGold["20"]};
+		}
+
+		& > .MuiButtonBase-root:active,
+		& > .MuiButtonBase-root:focus {
+			background: ${theme.newColors.darkerSimplyGold["20"]};
+		}
+	`,
 	gray_icon: styled(GrayOnWhite)`
 		& > .MuiButtonBase-root {
 			color: ${theme.newColors.grey3["100"]};

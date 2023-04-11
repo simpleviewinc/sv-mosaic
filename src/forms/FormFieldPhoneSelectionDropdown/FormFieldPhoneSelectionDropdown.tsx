@@ -9,9 +9,9 @@ import "react-phone-input-2/lib/bootstrap.css";
 import { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneSelectionDropdownTypes";
 import {
 	PhoneInputWrapper,
-	StyledDisabledText,
 } from "./FormFieldPhoneSelectionDropdown.styled";
 import { MosaicFieldProps } from "@root/components/Field";
+import { StyledDisabledText } from "../shared/styledComponents";
 
 const FormFieldPhoneSelectionDropdown = (
 	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>
@@ -53,7 +53,7 @@ const FormFieldPhoneSelectionDropdown = (
 			/>
 		</PhoneInputWrapper>
 	) : (
-		value ? <StyledDisabledText>Phone value: {value}</StyledDisabledText> : <StyledDisabledText>Phone field disabled</StyledDisabledText>
+		<StyledDisabledText>{value ?? "Disabled field"}</StyledDisabledText>
 	);
 };
 export default memo(FormFieldPhoneSelectionDropdown);

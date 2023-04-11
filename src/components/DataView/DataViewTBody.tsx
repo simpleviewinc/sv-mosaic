@@ -42,6 +42,7 @@ interface DataViewTBodyProps {
 	additionalActions?: DataViewProps["additionalActions"];
 	checked?: DataViewProps["checked"];
 	columns: DataViewProps["columns"];
+	hasActions: boolean;
 }
 
 function DataViewTBody(props: DataViewTBodyProps) {
@@ -82,6 +83,7 @@ function DataViewTBody(props: DataViewTBodyProps) {
 								checked={props.checked ? props.checked[i] : false}
 								columns={props.columns}
 								onReorder={props.onReorder}
+								hasActions={props.hasActions}
 							/>
 						))}
 						{provider.placeholder}

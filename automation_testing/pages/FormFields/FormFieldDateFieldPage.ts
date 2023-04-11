@@ -5,6 +5,7 @@ import { randomIntFromInterval } from "../../utils/helpers/helper";
 export class FormFieldDateFieldPage extends BasePage {
 
 	readonly page_path = "formfields-formfielddatefield--kitchen-sink";
+	readonly playground_page_path = "formfields-formfielddatefield--playground";
 
 	readonly page: Page;
 	readonly singleDateCalendarInput: Locator;
@@ -23,7 +24,7 @@ export class FormFieldDateFieldPage extends BasePage {
 	readonly requiredDateHourInput: Locator;
 	readonly requiredDateTimeInputCalendarButton: Locator;
 	readonly requiredDateHourInputCalendarButton: Locator;
-	readonly requiredFieldErrorMessage: Locator;
+	readonly dateFieldText: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -31,7 +32,7 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.singleDateCalendarInput = page.locator("input").nth(0);
 		this.singleDateCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.calendarCell = page.locator("[role='row'] button");
-		this.disabledSingleDateCalendarText = page.locator("//*[@id='1']/div/div/div/div/div[1]/div[2]/span");
+		this.disabledSingleDateCalendarText = page.locator("#disableSingleDate p").first();
 
 		this.dateTimeInput = page.locator("input").nth(1);
 		this.dateHourInput = page.locator("input").nth(2);
@@ -40,13 +41,13 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.hourMinutesOption = this.roleOptionLocator;
 		this.hourAMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(2);
 		this.hourPMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(3);
-		this.disableDateAndTimeCalendarText = page.locator("//*[@id='3']/div/div/div/div/div[1]/div[2]");
+		this.disableDateAndTimeCalendarText = page.locator("#disableDateTime p");
 
 		this.requiredDateTimeInput = page.locator("input").nth(3);
 		this.requiredDateHourInput = page.locator("input").nth(4);
 		this.requiredDateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(2);
 		this.requiredDateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(4);
-		this.requiredFieldErrorMessage = page.locator("p.Mui-error");
+		this.dateFieldText = page.locator("#date p").first();
 	}
 
 	async selectDayFromDatePicker(day:number): Promise<void> {

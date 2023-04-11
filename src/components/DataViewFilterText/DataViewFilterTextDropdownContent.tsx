@@ -6,6 +6,7 @@ import { useMosaicTranslation } from "@root/i18n";
 import { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
 import { StyledContents } from "./DataViewFilterText.styled";
 import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
+import { StyledDisabledText } from "@root/forms/shared/styledComponents";
 
 const existsComparisons = ["exists", "not_exists"];
 
@@ -102,17 +103,19 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 	return (
 		<StyledContents>
 			<div className="inputRow">
-				<StyledTextField
-					autoFocus
-					className={ disabled ? "disabled" : "" }
-					disabled={disabled}
-					placeholder={props.placeholder || t("mosaic:common.filter___")}
-					margin="dense"
-					value={state.value}
-					variant="outlined"
-					onChange={onInputChange}
-					onKeyPress={onKeyPress}
-				/>
+				{!disabled ?
+					<StyledTextField
+						autoFocus
+						placeholder={props.placeholder || t("mosaic:common.filter___")}
+						margin="dense"
+						value={state.value}
+						variant="outlined"
+						onChange={onInputChange}
+						onKeyPress={onKeyPress}
+					/>
+					:
+					<StyledDisabledText className="disabled">{state.value || props.placeholder || t("mosaic:common.filter___")}</StyledDisabledText>
+				}
 				{comparisonButton}
 			</div>
 			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear}/>
