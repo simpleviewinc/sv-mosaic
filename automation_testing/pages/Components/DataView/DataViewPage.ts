@@ -135,7 +135,9 @@ export class DataviewPage extends BasePage {
 		for (let i = 0; i < numberOfHeaders; i++) {
 			columns.push(await this.columnHeaders.nth(i).textContent());
 		}
-		return columns.indexOf(column);
+		// We add a 3 to the Index because it's not counting the drag and drop column and the checkbox column.
+		// Also, the method that returns the index starts from 0.
+		return columns.indexOf(column) + 3;
 	}
 
 	async getAllRowData(resultsPerPage: number, dataName: string): Promise<string[]> {
@@ -237,13 +239,13 @@ export class DataviewPage extends BasePage {
 		}
 	}
 
-	async getRowTitlesLocators(): Promise<Locator[]> {
+	async getRowLocators(index: number): Promise<Locator[]> {
 		await this.waitForDataviewIsVisible();
 		await this.wait();
 		const rows = await (await this.getTableRows()).elementHandles();
 		const titleLocators = [];
 		for (const row of rows) {
-			titleLocators.push(await row.$("td:nth-child(5) div"));
+			titleLocators.push(await row.$("td:nth-child(" + index + ") div"));
 		}
 		return titleLocators;
 	}
