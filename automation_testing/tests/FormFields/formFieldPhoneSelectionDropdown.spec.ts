@@ -2,6 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldPhoneSelectionDropdownPage } from "../../pages/FormFields/FormFieldPhoneSelectionDropdownPage";
 import { randomIntFromInterval } from "../../utils/helpers/helper";
 import theme from "../../../src/theme";
+import { commonKnobs as knob } from "../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen Sink", () => {
 	let page: Page;
@@ -93,5 +94,10 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		await ffPhoneSelectionDropdownPage.autoformatPhoneField.fill("");
 		await ffPhoneSelectionDropdownPage.saveBtn.dblclick();
 		await ffPhoneSelectionDropdownPage.setDialogValidationListener("Form submitted with the following data: {}");
+	});
+
+	test("Validate that the disabled text is almost black", async () => {
+		await ffPhoneSelectionDropdownPage.visit(ffPhoneSelectionDropdownPage.playground_page_path, [knob.knobDisabled + true]);
+		expect(await ffPhoneSelectionDropdownPage.getColorFromElement(ffPhoneSelectionDropdownPage.phoneFieldText)).toBe(theme.newColors.almostBlack["100"]);
 	});
 });

@@ -181,7 +181,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
 
 		// Now we select a filter and check the same conditions.
-		await filter.page.keyboard.press("Escape");
+		await filter.pressSpecificKeyInKeyboard("Escape");
 		await filter.selectFilter("categories");
 		await filter.categoryBtn.click();
 		await expect(filter.clearBtn).toBeVisible();

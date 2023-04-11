@@ -13,9 +13,9 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
   &.MuiFormControl-root {
-    background-color: ${pr => pr.disabled ? "#fff" : theme.newColors.grey1["100"]};
+    background-color: ${theme.newColors.grey1["100"]};
     &:hover {
-    	background-color: ${pr => pr.disabled ? "transparent" : theme.newColors.grey2["100"]};
+    	background-color: ${theme.newColors.grey2["100"]};
 		& fieldset {
 			border-color: ${theme.newColors.simplyGrey["100"]};
 		}
@@ -27,7 +27,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
   }
 
   .MuiOutlinedInput-multiline, input.MuiOutlinedInput-input {
-    padding: ${pr => pr.disabled ? 0 : theme.fieldSpecs.inputText.padding};
+    padding: ${theme.fieldSpecs.inputText.padding};
   }
 
   input.MuiOutlinedInput-input {
@@ -58,10 +58,6 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
     word-break: break-all;
   }
 
-  .MuiInputBase-input.Mui-disabled {
-    background-color: transparent;
-    color: ${theme.newColors.almostBlack["100"]};
-  }
 
   .MuiFormHelperText-root.Mui-error {
     color: ${theme.newColors.darkRed["100"]}
@@ -80,8 +76,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
     }
   }
 
-  .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline,
   .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-    border-color: ${pr => pr.error && !pr.disabled ? theme.newColors.darkRed["100"] : "transparent"};
+    border-color: ${pr => pr.error ? theme.newColors.darkRed["100"] : "transparent"};
   }
 `;
