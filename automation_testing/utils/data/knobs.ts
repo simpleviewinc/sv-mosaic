@@ -4,7 +4,8 @@ export const commonKnobs = {
 	knobDisabled: "knob-Disabled=",
 	knobShowOptions:"knob-Show%20options=",
 	knobOnBack: "knob-onBack=",
-	knobParentHeight: "knob-Parent%20height%20(px)="
+	knobParentHeight: "knob-Parent%20height%20(px)=",
+	knobShowTime: "knob-Show%20time="
 }
 
 export const cardKnobs = {
@@ -29,7 +30,10 @@ export const uploadKnobs = {
 
 export const dataviewKnobs = {
 	knobBulkAllActions: "knob-bulkAllActions=",
-	knobBulkActions: "knob-bulkActions="
+	knobBulkActions: "knob-bulkActions=",
+	knobPrimaryActions: "knob-primaryActions=",
+	knobAdditionalActions: "knob-additionalActions=",
+	knobComparison: "knob-Comparison="
 }
 
 export const buttonKnobs = {
@@ -46,4 +50,14 @@ export const buttonKnobs = {
 	knobShowIcon: "knob-Show%20icon=",
 	knobShow: "knob-Show=",
 	knobTypeOfLabel: "knob-Type%20of%20label="
+}
+
+export const pageHeaderKnobs = {
+	knobOnBack: "knob-onBack=",
+	knobButtons: "knob-Buttons="
+}
+
+export const formFieldNumberTableKnobs = {
+	knobDisplayRowSum: "knob-Display%20rows%20sums=",
+	knobDisplayColumnsSum: "knob-Display%20columns%20sums="
 }

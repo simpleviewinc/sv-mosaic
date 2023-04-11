@@ -14,19 +14,6 @@ export const StyledWrapper = styled.div`
   display: flex;
 `;
 
-export const LabelWrapper = styled.div`
-  .MuiInputLabel-root {
-    font-family: inherit;
-    font-size: 16px;
-    color: ${(pr) =>
-		pr.disabled ? theme.colors.labelDisabled : theme.newColors.almostBlack["100"]};
-  }
-
-  .MuiFormLabel-asterisk {
-    color: ${theme.newColors.darkRed["100"]};
-  }
-`;
-
 export const FieldWrapper = styled.div`
   font-family: ${theme.fontFamily};
   padding: 20px;
@@ -38,11 +25,6 @@ export const StyledCheckboxList = styled(CheckboxList)`
   &.MuiFormGroup-root {
     margin-left: -12px;
 		height: fit-content !important;
-  }
-
-  .MuiFormControlLabel-label {
-    color: ${theme.newColors.grey4["100"]};
-
   }
 `;
 

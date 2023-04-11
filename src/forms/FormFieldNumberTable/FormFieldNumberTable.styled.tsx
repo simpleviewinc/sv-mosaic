@@ -1,11 +1,5 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
-import TextField from "@mui/material/TextField";
-
-export const StyledInput = styled(StyledTextField)`
-  width: 72px;
-` as typeof TextField;
 
 export const StyledTable = styled.table`
   border-collapse: collapse;
@@ -81,7 +75,7 @@ export const TBody = styled.tbody`
 export const TrTotals = styled.tr`
   background-color: ${theme.newColors.grey1["100"]};
 
-  td:last-child {
+  .totals-row {
     font-weight: ${theme.fontWeight.medium};
   }
 `;

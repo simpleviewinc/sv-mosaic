@@ -94,7 +94,7 @@ test.describe.parallel("Components - Form - Validators", () => {
 		await validatorPage.startDateButton.click();
 		await datepicker.selectDate(startDate);
 		await validatorPage.title.click();
-		await validatorPage.page.keyboard.press("Escape");
+		await validatorPage.pressSpecificKeyInKeyboard("Escape");
 		await validatorPage.wait();
 		await validatorPage.endDateButton.click({force: true});
 		await datepicker.selectDate(endDate);

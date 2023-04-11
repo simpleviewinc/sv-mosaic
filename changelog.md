@@ -1,5 +1,33 @@
 # sv-mosaic changelog
 
+## 20.0.0 - 04/11/23
+* `Button`:
+	* Added `yellow` color variant to `icon` buttons. This includes adding an example to storybook in both playground and kitchen sink.
+* `DataView`:
+	* **BREAKING** Internally updated `DataViewDisplayList`, `DataViewTBody`, `DataViewTHead`, and `DataViewTr` to fix bug causing "actions" column to get rendered even when no `primary` or `additional` actions were propped down. This might be a breaking change if any product consumes any of these components independently because a new mandatory prop `hasActions` has been added to these components; this prop is what decides whether the actions column gets rendered or not.
+* `DataViewFilterDate`:
+	* Added ReadMe and KitchenSink stories in storybook and renamed "Example" story to "Playground".
+* `DataViewFilterText`:
+	* Created ReadMe, Playground, and KitchenSink stories for the component.
+* `Form`:
+	* **BREAKING** Disabled fields will no longer be taken into account when validating the form. We believe it doesn't make much sense for the form to throw an error message on disabled fields because users cannot do anything to change their value. This might be breaking in the sense that previous forms with disabled fields will now be submitted even if those disabled fields have an invalid value.
+	* Disabled fields will now render their label on almostBlack.
+* `PageHeader`:
+	* Created ReadMe, and Playground stories for the component.
+* `Spinner`:
+	* Created ReadMe, Playground, and KitchenSink stories for the component.
+	* Internally updated component to fix issue causing the component not be able to render a "0%" value.
+* `FormFieldDate`:
+	* Updated disabled stylings. Field's value will now render as text in an almostBlack color.
+* `FormFieldNumberTable`:
+	* Added optional props `displaySumColumn` and `displaySumRow` that allow developers to decide whether the totals get rendered both by columns or rows respectively. This includes adding a knob to it's story's playground.
+* `FormFieldPhoneSelectionDropdown`:
+	* Updated disabled stylings. Field's value will now render as text in an almostBlack color.
+* `FormFieldText`:
+	* Updated disabled stylings. Field's value will now render as text in an almostBlack color.
+* `Transforms`:
+	* Added stories for `transform_chips`, `transform_colorPicker`, `transform_dateFormat`, and `transform_thumbnail`. Also updated wording in `transform_boolean` and `transform_join`.
+
 ## 19.0.0 - 03/28/23
 * `SideNav`:
 	* Added optional prop `attrs` that allows developers to pass any additional prop to each link (e.g. target, href, etc).

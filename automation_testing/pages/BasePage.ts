@@ -80,7 +80,7 @@ export class BasePage {
 		this.tableHeadRowLocator = page.locator("thead tr");
 		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
 		this.viewContainerLocator = page.locator(".viewContainer");
-		this.listItemLabelLocator = page.locator(".listItem label")
+		this.listItemLabelLocator = page.locator(".listItem label");
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
@@ -115,11 +115,11 @@ export class BasePage {
 
 	async clearAllValuesFromField(locator: Locator): Promise<void> {
 		await locator.click();
-		await this.page.keyboard.press("Home");
+		await this.pressSpecificKeyInKeyboard("Home");
 		await this.page.keyboard.down("Shift");
-		await this.page.keyboard.press("End");
+		await this.pressSpecificKeyInKeyboard("End");
 		await this.page.keyboard.up("Shift");
-		await this.page.keyboard.press("Backspace");
+		await this.pressSpecificKeyInKeyboard("Backspace");
 		await locator.waitFor();
 	}
 
@@ -177,13 +177,13 @@ export class BasePage {
 	}
 
 	async selectAndDeleteText(stringLenght:number): Promise<void> {
-		await this.page.keyboard.press("ArrowRight");
+		await this.pressSpecificKeyInKeyboard("ArrowRight");
 		await this.page.keyboard.down("Shift");
 		for (let i = 0; i < stringLenght; i++) {
-			await this.page.keyboard.press("ArrowLeft");
+			await this.pressSpecificKeyInKeyboard("ArrowLeft");
 		}
 		await this.page.keyboard.up("Shift");
-		await this.page.keyboard.press("Backspace");
+		await this.pressSpecificKeyInKeyboard("Backspace");
 	}
 
 	async getFontWeightFromElement(element: Locator): Promise<string> {
@@ -297,4 +297,17 @@ export class BasePage {
 	async getZIndexFromElement(element: Locator): Promise<string> {
 		return await ((element).evaluate(el => getComputedStyle(el).zIndex));
 	}
+
+	/**
+	 * `key` can specify the intended [keyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+   	 * value or a single character to generate the text for.
+	 * Examples of the keys are:
+	 * * `F1` - `F12`, `Digit0`- `Digit9`, `KeyA`- `KeyZ`, `Backquote`, `Minus`, `Equal`, `Backslash`, `Backspace`, `Tab`,
+	 * * `Delete`, `Escape`, `ArrowDown`, `End`, `Enter`, `Home`, `Insert`, `PageDown`, `PageUp`, `ArrowRight`, `ArrowUp`, etc.
+	 * @param key Name of the key to press or a character to generate, such as `Escape` or `Home`.
+	 */
+	async pressSpecificKeyInKeyboard(key: string): Promise<void> {
+		await this.page.keyboard.press(key);
+	}
+
 }

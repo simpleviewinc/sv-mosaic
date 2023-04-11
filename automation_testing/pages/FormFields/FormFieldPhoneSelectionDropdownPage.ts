@@ -4,6 +4,7 @@ import { BasePage } from "../BasePage";
 export class FormFieldPhoneSelectionDropdownPage extends BasePage {
 
 	readonly page_path = "formfields-formfieldphoneselectiondropdown--kitchen-sink";
+	readonly playground_page_path = "formfields-formfieldphoneselectiondropdown--playground";
 
 	readonly page: Page;
 	readonly flagDropdown: Locator;
@@ -13,6 +14,7 @@ export class FormFieldPhoneSelectionDropdownPage extends BasePage {
 	readonly countryCodeProvidedPhoneFieldDropdown: Locator;
 	readonly autoformatPhoneField: Locator;
 	readonly autoformatPhoneFieldDropdown: Locator;
+	readonly phoneFieldText: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -26,5 +28,6 @@ export class FormFieldPhoneSelectionDropdownPage extends BasePage {
 
 		this.autoformatPhoneField = page.locator("input.form-control").nth(2);
 		this.autoformatPhoneFieldDropdown = this.flagDropdown.nth(2);
+		this.phoneFieldText = page.locator("#phone p").first();
 	}
 }

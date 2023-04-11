@@ -5,7 +5,7 @@ import * as React from "react";
 import TextField from "./FormFieldText";
 
 describe("TextField component", () => {
-	it("should should display the placeholder", () => {
+	it("should display the placeholder", () => {
 		render(<TextField
 			fieldDef={{
 				name: "textField",
