@@ -233,7 +233,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							<Button
 								color="gray"
 								variant="outlined"
-								disabled={shouldDisableField || fieldDef.disabled}
+								disabled={shouldDisableField}
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
 							/>
@@ -249,16 +249,16 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						multiple={limit === undefined || limit > 1 ? true : false}
 					/>
 				</DragAndDropContainer>
-				: !fieldDef.disabled  && (
+				: !fieldDef.disabled && (
 					<DragAndDropContainer width={"620px"}>
 						<>
 							<DragAndDropSpan>
-								Drag & Drop files here or TEST
+								Drag & Drop files here or
 							</DragAndDropSpan>
 							<Button
 								color="gray"
 								variant="outlined"
-								disabled={shouldDisableField || fieldDef.disabled}
+								disabled={shouldDisableField}
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
 							/>
@@ -280,11 +280,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							size={file.size}
 							url={file.url}
 							onFileDelete={handleFileDelete}
+							disabled={fieldDef.disabled}
 						/>
 					))}
 				</StyledFileGrid>
 			}
-			{pendingFiles && Object.keys(pendingFiles).length > 0 &&
+			{pendingFiles && Object.keys(pendingFiles).length > 0 && !fieldDef.disabled &&
 				<StyledFileGrid>
 					{Object.entries(pendingFiles).map(([key, file]: [key: string, file: {data: UploadData, error: string, percent: number}]) => {
 						return (
