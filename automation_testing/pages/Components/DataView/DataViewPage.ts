@@ -125,11 +125,11 @@ export class DataviewPage extends BasePage {
 	}
 
 	async getSpecificColumn(column: string): Promise<Locator> {
-		const index = await this.getPositionOfColumn(column);
+		const index = await this.getPositionOfColumn(column, false);
 		return this.columnHeaders.nth(index);
 	}
 
-	async getPositionOfColumn(column: string): Promise<number> {
+	async getPositionOfColumn(column: string, fullPosition: boolean): Promise<number> {
 		const numberOfHeaders = await this.getColumnHeadersCount();
 		const columns = [];
 		for (let i = 0; i < numberOfHeaders; i++) {
@@ -137,7 +137,8 @@ export class DataviewPage extends BasePage {
 		}
 		// We add a 3 to the Index because it's not counting the drag and drop column and the checkbox column.
 		// Also, the method that returns the index starts from 0.
-		return columns.indexOf(column) + 3;
+		const position = fullPosition === true ? columns.indexOf(column) + 3 : columns.indexOf(column);
+		return position;
 	}
 
 	async getAllRowData(resultsPerPage: number, dataName: string): Promise<string[]> {
