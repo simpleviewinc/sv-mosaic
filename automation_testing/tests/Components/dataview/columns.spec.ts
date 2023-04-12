@@ -115,4 +115,13 @@ test.describe.parallel("Components - Data View - Columns", () => {
 			expect(await columns.getColorFromElement(columns.columnCheckbox.locator(".checked").nth(i))).toBe(expectedColor);
 		}
 	});
+
+	test("Validate that the bold column style is valid.", async () => {
+		await columns.selectColumn("Style - bold");
+		const columnIndex = await dataviewPage.getPositionOfColumn("Style - bold", true);
+		const titles = await dataviewPage.getRowLocators(columnIndex);
+		for (let i = 0; i < titles.length; i++) {
+			expect(await dataviewPage.getFontWeightFromElement(titles[i])).toBe((theme.fontWeight.bold).toString());
+		}
+	});
 });
