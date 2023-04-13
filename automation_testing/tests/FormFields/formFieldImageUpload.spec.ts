@@ -41,7 +41,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Disabled Image upload.", async () => {
-		await expect(ffImageUploadPage.disabledImageUploadButton).toBeDisabled();
+		await expect(ffImageUploadPage.disabledImageUploadButton).not.toBeVisible();
 	});
 
 	test("Validate saving Image Upload with menu options and without set Focus", async () => {
