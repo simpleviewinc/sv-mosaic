@@ -37,7 +37,7 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 
 	test("Validate that the upload button is disabled when activating the disabled knob.", async () => {
 		await ffUpload.visit(ffUpload.page_path, [commonKnobs.knobDisabled + "true"]);
-		await expect(ffUpload.uploadFilesButton).toBeDisabled();
+		await expect(ffUpload.uploadFilesButton).not.toBeVisible();
 	});
 
 	test("Validate that no more files are allowed to upload once reached the limit.", async () => {
@@ -66,7 +66,10 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 	});
 
 	test("Validate that the delete icons are not visible when the knob disabled is active.", async () => {
-		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobMockGetfilesFromDB + "true"]);
+		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobMockGetfilesFromDB + "true", commonKnobs.knobDisabled + true]);
+		await ffUpload.fileCardContainerLocator.first().waitFor({state: "attached"});
+		await ffUpload.fileCardContainerLocator.first().waitFor({state: "visible"});
+		await ffUpload.wait(1000)
 		await expect(ffUpload.fileDeleteButton).not.toBeVisible();
 	});
 });
