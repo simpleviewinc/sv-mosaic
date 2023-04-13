@@ -6,6 +6,7 @@ export class FormFieldUploadPage extends BasePage {
 	readonly page_path = "formfields-formfieldupload--playground";
 
 	readonly page: Page;
+	readonly uploadFilesLocator: Locator;
 	readonly uploadFilesInput: Locator;
 	readonly uploadFilesButton: Locator;
 	readonly uploadFilesSpan: Locator;
@@ -16,9 +17,10 @@ export class FormFieldUploadPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.uploadFilesInput = page.locator("#uploadField input");
-		this.uploadFilesButton = page.locator("#uploadField button").first();
-		this.uploadFilesSpan = page.locator("#uploadField span.button");
+		this.uploadFilesLocator = page.locator("#uploadField");
+		this.uploadFilesInput = this.uploadFilesLocator.locator("input");
+		this.uploadFilesButton = this.uploadFilesLocator.locator("button").first();
+		this.uploadFilesSpan = this.uploadFilesLocator.locator("span.button");
 		this.fileCardContainerLocator = page.locator("[data-testid='file-card-container']");
 		this.fileDeleteButton = page.locator(".file-delete-btn button");
 		this.fileImageLocator = page.locator(".file-img");
