@@ -4,7 +4,7 @@ export interface CheckboxListProps {
 	/**
 	 * Flag that indicates if an option has been selected.
 	 */
-	checked: string[];
+	checked: MosaicLabelValue[];
 	/**
 	 * List of options
 	 */

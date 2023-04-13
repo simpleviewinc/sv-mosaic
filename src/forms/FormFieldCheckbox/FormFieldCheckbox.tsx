@@ -19,7 +19,7 @@ const FormFieldCheckbox = (
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState<MosaicLabelValue[]>([]);
-	const [checked, setChecked] = useState<string[]>([]);
+	const [checked, setChecked] = useState<MosaicLabelValue[]>([]);
 	const [origin, setOrigin] = useState(undefined);
 
 	useEffect(() => {
@@ -46,7 +46,7 @@ const FormFieldCheckbox = (
 					setInternalOptions([...internalOptions, optionValue]);
 			})
 		}
-		setChecked(value?.map(selectedOption => selectedOption?.value));
+		setChecked(value);
 
 	}, [internalOptions, value, origin]);
 

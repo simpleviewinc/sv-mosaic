@@ -1,6 +1,6 @@
 import { CheckboxProps as MUICheckboxProps } from "@mui/material/Checkbox";
 
-export interface CheckboxProps {
+export interface CheckboxProps extends MUICheckboxProps {
 	/**
 	 * Boolean value that indicates whether the
 	 * current checkbox is selected or not

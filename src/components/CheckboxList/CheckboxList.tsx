@@ -1,36 +1,34 @@
 import * as React from "react";
 import { useMemo, useCallback, ReactElement, HTMLAttributes } from "react";
-import { xor } from "lodash";
+import { xor, xorBy } from "lodash";
 
 import Checkbox from "@root/components/Checkbox";
 import { useStateRef } from "@root/utils/reactTools";
 import { CheckboxListProps } from "./CheckboxListTypes";
 import FormGroup from "@mui/material/FormGroup";
+import { MosaicLabelValue } from "@root/types";
 
 const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const checkedRef = useStateRef(props.checked);
 
 	const handleToggle = useCallback(
-		(value: string | { [key: string]: unknown; }) => () => {
+		(value: MosaicLabelValue | { [key: string]: unknown; }) => () => {
 			// toggle the item in the array
-			const newChecked = xor(checkedRef.current, [value]);
-			const filteredOptions = props.options.filter(option => newChecked.includes(option.value));
-			// TODO: Review with Owen
-			//props.onChange(newChecked.length > 0 ? newChecked : undefined);
-			props.onChange(filteredOptions);
-			props?.onChangeCb && props.onChangeCb(filteredOptions);
+			const newChecked = xorBy(checkedRef.current, [value], (option) => option.value);
+			props.onChange(newChecked);
+			props?.onChangeCb && props.onChangeCb(newChecked);
 		},
-		[checkedRef, props.onChange]
+		[checkedRef, props.onChange, props.options]
 	);
 
 	const callbacks = useMemo(() => {
-		return props?.options?.map((option) => handleToggle(option.value));
+		return props?.options?.map((option) => handleToggle(option));
 	}, [props.options, handleToggle]);
 
 	return (
 		<FormGroup className={`${props.className ?? ""} listItem`} onBlur={props.onBlur} style={props.style}>
 			{props?.options?.map((option, i) => {
-				const checked = props?.checked?.length > 0 ? props.checked?.filter(o => o === option.value).length > 0 : false;
+				const checked = props?.checked?.length > 0 ? props.checked?.filter(checkedOption => checkedOption.value === option.value).length > 0 : false;
 
 				return (
 					<Checkbox
@@ -40,6 +38,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 						disabled={props.disabled}
 						key={`${option.value}-${i}`}
 						onClick={callbacks[i]}
+						value={option.value}
 					/>
 				);
 			})}
