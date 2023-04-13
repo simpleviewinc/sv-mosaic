@@ -160,15 +160,16 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 			{value || !isEmpty(fieldDef?.inputSettings?.address) ? (
 				<div>
 					{!isEmpty(fieldDef?.inputSettings?.address) && (
-						<SwitchContainer>
-							<ToggleSwitch
-								disabled={fieldDef?.disabled}
-								label="Use same as address"
-								labelPlacement="start"
-								onChange={handleToggleSwitchChange}
-								checked={autocoordinatesChecked}
-							/>
-						</SwitchContainer>
+						!fieldDef.disabled &&
+							<SwitchContainer>
+								<ToggleSwitch
+									disabled={fieldDef?.disabled}
+									label="Use same as address"
+									labelPlacement="start"
+									onChange={handleToggleSwitchChange}
+									checked={autocoordinatesChecked}
+								/>
+							</SwitchContainer>
 					)}
 					<CoordinatesCard
 						hasAddress={!isEmpty(fieldDef?.inputSettings?.address)}
@@ -188,7 +189,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 						<ButtonsWrapper
 							hasAddress={isEmpty(fieldDef?.inputSettings?.address)}
 						>
-							{!autocoordinatesChecked && (
+							{!autocoordinatesChecked && !fieldDef.disabled && (
 								<Button
 									color="teal"
 									variant="text"
@@ -197,7 +198,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 									onClick={handleAddCoordinates}
 								></Button>
 							)}
-							{!autocoordinatesChecked &&
+							{!autocoordinatesChecked && !fieldDef.disabled &&
 								isEmpty(fieldDef?.inputSettings?.address) && (
 								<Button
 									color="red"
