@@ -188,6 +188,8 @@ const Col = (props: ColPropsTypes) => {
 					/>
 				), [value, error, onChange, currentField]);
 
+				const shouldRenderEmptyField = !value && currentField.disabled
+
 				return (typeof type === "string" && componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
@@ -197,12 +199,12 @@ const Col = (props: ColPropsTypes) => {
 						colsInRow={colsInRow}
 						id={name}
 					>
-						{children}
+						{shouldRenderEmptyField ? "—" : children}
 					</Field>
 				)
 					:
 					(
-						children
+						shouldRenderEmptyField ? "—" : children
 					);
 			})}
 		</StyledCol>
