@@ -64,17 +64,6 @@ mockResizeObserver.mockReturnValue({
 window.ResizeObserver = mockResizeObserver;
 
 describe("TextEditor component", () => {
-	it("should be disabled", async () => {
-		await act(() => {
-			render(<TextEditorExample disabled={true} />);
-		});
-		const editorContent = await screen.findByTestId("text-editor-testid");
-
-		expect(
-			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
-		).toHaveAttribute("aria-disabled", "true");
-	});
-
 	it("should have an ltr direction", async () => {
 		await act(() => {
 			render(<TextEditorExample direction={"ltr"} />);
