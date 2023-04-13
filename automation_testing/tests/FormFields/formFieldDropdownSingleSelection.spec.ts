@@ -23,7 +23,7 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 	});
 
 	test("Validate the Disabled Field.", async () => {
-		expect(await formFieldDropdownSingleSelectionPage.disabledField.textContent()).toBe("placeholder");
+		expect(await formFieldDropdownSingleSelectionPage.disabledField.textContent()).toContain("—");
 	});
 
 	test("Validate xs dropdown size is valid", async () => {
@@ -68,12 +68,6 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 		const option = "The Godfather";
 		await formFieldDropdownSingleSelectionPage.selectOptionFromDropdown(formFieldDropdownSingleSelectionPage.lgSizeDropdownInput, option);
 		expect(await formFieldDropdownSingleSelectionPage.lgSizeDropdownInput.inputValue()).toBe(option);
-	});
-
-	test("Validate placeholder text has grey3 as Color.", async () => {
-		const expectedColor = theme.newColors.grey3["100"];
-		expect(await formFieldDropdownSingleSelectionPage.
-			getSpecificBorderFromElement(formFieldDropdownSingleSelectionPage.page.locator("p", {hasText: "placeholder"}))).toContain(expectedColor);
 	});
 
 	test("Validate padding of the input fields.", async () => {

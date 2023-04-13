@@ -27,7 +27,7 @@ export class FormFieldDropdownSingleSelectionPage extends BasePage {
 		this.regularDropdownInput = page.locator("#dropdown input");
 		this.regularDropdownButton = page.locator("#dropdown button[title='Open']");
 		this.regularClearDropdownButton = page.locator("#dropdown button[title='Clear']");
-		this.disabledField = page.locator("#disabledExample p[data-testid='disabled-text-test-id']");
+		this.disabledField = page.locator("#disabledExample");
 		this.xsSizeDropdownDiv = page.locator("#xsSize [data-testid='dropdown-single-selection-test-id']");
 		this.smSizeDropdownDiv = page.locator("#smSize [data-testid='dropdown-single-selection-test-id']");
 		this.mdSizeDropdownDiv = page.locator("#mdSize [data-testid='dropdown-single-selection-test-id']");

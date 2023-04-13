@@ -22,7 +22,7 @@ export class FormFieldTextEditorPage extends BasePage {
 		this.textEditorWithRightToLeftDirection = page.locator("[data-testid='text-editor-testid'] [contenteditable='true']").nth(2);
 		this.textEditorInGermanLanguage = page.locator("[data-testid='text-editor-testid']").nth(3);
 		this.textEditorWithMaxCharacterLimit = page.locator("[data-testid='text-editor-testid'] [contenteditable='true']").nth(4);
-		this.disabledTextEditor = page.locator("[data-testid='text-editor-testid']").nth(5);
+		this.disabledTextEditor = page.locator("#disabled");
 		this.genericTextEditor = page.locator("[data-testid='text-editor-testid']");
 	}
 
