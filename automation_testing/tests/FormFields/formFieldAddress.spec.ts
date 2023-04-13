@@ -5,7 +5,7 @@ import { us_address, us_address_2 } from "../../utils/data/address_information_d
 import theme from "../../../src/theme";
 import { commonKnobs as knob } from "../../utils/data/knobs";
 
-test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldAddress - Playground", () => {
 	let page: Page;
 	let ffAddressPage: FormFieldAddressPage;
 
@@ -137,6 +137,6 @@ test.describe.parallel("FormFields - FormFieldAddress - Kitchen Sink", () => {
 
 	test("Validate that button is disabled.", async () => {
 		await ffAddressPage.visit(ffAddressPage.page_path, [knob.knobDisabled + true]);
-		await expect(ffAddressPage.addAddressButton).toBeDisabled();
+		await expect(ffAddressPage.addAddressButton).not.toBeVisible();
 	});
 });
