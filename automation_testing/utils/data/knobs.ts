@@ -25,7 +25,8 @@ export const playgroundKnobs = {
 
 export const uploadKnobs = {
 	knobUploadLimit: "knob-Limit=",
-	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading="
+	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading=",
+	knobMockGetfilesFromDB: "knob-Mock%20get%20files%20from%20DB="
 }
 
 export const dataviewKnobs = {

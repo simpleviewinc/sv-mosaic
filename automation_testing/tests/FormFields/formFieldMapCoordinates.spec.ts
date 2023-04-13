@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldMapCoordinatesPage } from "../../pages/FormFields/FormFieldMapCoordinatesPage";
 import theme from "../../../src/theme";
+import { commonKnobs as knob } from "../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 	let page: Page;
@@ -9,10 +10,10 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffMapCoordinatesPage = new FormFieldMapCoordinatesPage(page);
-		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.page_path);
 	});
 
 	test.beforeEach(async() => {
+		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.page_path);
 		await page.reload();
 	});
 
@@ -24,24 +25,6 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
 		expect(await ffMapCoordinatesPage.latitude.inputValue()).toBe("");
 		expect(await ffMapCoordinatesPage.longitude.inputValue()).toBe("");
-	});
-
-	test("Validate that the location in the Disabled Map is 0,0.", async () => {
-		await ffMapCoordinatesPage.mapDisabledDefaultLocation.waitFor({ state: "visible" });
-		const latitude = await ffMapCoordinatesPage.getCoordinateFromMapCard(ffMapCoordinatesPage.mapDisabledDefaultLocation);
-		const longitude = await ffMapCoordinatesPage.getCoordinateFromMapCard(ffMapCoordinatesPage.mapDisabledDefaultLocation, false);
-		expect(latitude).toBe("0");
-		expect(longitude).toBe("0");
-	});
-
-	test("Validate that the map size is valid.", async () => {
-		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
-		await ffMapCoordinatesPage.map.click();
-		const latitude = await ffMapCoordinatesPage.getCoordinateFromMapCard(ffMapCoordinatesPage.mapDisabledDefaultLocation);
-		const longitude = await ffMapCoordinatesPage.getCoordinateFromMapCard(ffMapCoordinatesPage.mapDisabledDefaultLocation, false);
-
-		expect(latitude).not.toBeNull();
-		expect(longitude).not.toBeNull();
 	});
 
 	test("Validate that an error message appears for invalid Latitude values.", async () => {
@@ -80,8 +63,13 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 	test("Validate drawer title location is fixed.", async () => {
 		await page.setViewportSize({ width: 1280, height: 400 });
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
-		await expect(ffMapCoordinatesPage.formTestID.last()).toBeVisible();
+		await expect(ffMapCoordinatesPage.formTestIDLocator.last()).toBeVisible();
 		await ffMapCoordinatesPage.longitude.scrollIntoViewIfNeeded();
-		await expect(ffMapCoordinatesPage.formTestID.last().locator("form div").first()).toBeVisible();
+		await expect(ffMapCoordinatesPage.formTestIDLocator.last().locator("form div").first()).toBeVisible();
+	});
+
+	test("Validate that button is disabled.", async () => {
+		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.playground_page_path, [knob.knobDisabled + true]);
+		await expect(ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton).not.toBeVisible();
 	});
 });

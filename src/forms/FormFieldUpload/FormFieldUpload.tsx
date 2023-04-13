@@ -84,7 +84,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		fileInputField.current.click();
 	};
 
-	const onChunkComplete = async ({uuid, percent}) => {
+	const onChunkComplete = async ({ uuid, percent }) => {
 		setPendingFiles((prevState) => (
 			{
 				...prevState,
@@ -97,7 +97,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 
-	const onUploadComplete = async ({uuid, data}) => {
+	const onUploadComplete = async ({ uuid, data }) => {
 		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
 
 		setPendingFiles((prevState) => {
@@ -107,7 +107,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		});
 	};
 
-	const onError = async ({uuid, message}) => {
+	const onError = async ({ uuid, message }) => {
 		setPendingFiles((prevState) => (
 			{
 				...prevState,
@@ -200,21 +200,18 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const shouldDisableField = useMemo(() => {
-		const numOfPendingFiles = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
+		const numOfPendingFiles = Object.values(pendingFiles).filter((pendingFile: { error: string }) => pendingFile.error === undefined).length;
 
 		return (
-			fieldDef.disabled ||
-			(
-				limit !== undefined
-				&& limit >= 0
-				&& (value !== undefined ? value.length : 0) + numOfPendingFiles >= limit
-			)
+			limit !== undefined
+			&& limit >= 0
+			&& (value !== undefined ? value.length : 0) + numOfPendingFiles >= limit
 		)
-	}, [fieldDef.disabled, limit, value, pendingFiles]);
+	}, [limit, value, pendingFiles]);
 
 	return (
 		<>
-			{!shouldDisableField ?
+			{!shouldDisableField && !fieldDef.disabled ?
 				<DragAndDropContainer
 					isOver={isOver}
 					onDragOver={dragOver}
@@ -239,7 +236,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								disabled={shouldDisableField}
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
-								muiAttrs={{disableRipple: true}}
 							/>
 						</>
 					)}
@@ -253,22 +249,22 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						multiple={limit === undefined || limit > 1 ? true : false}
 					/>
 				</DragAndDropContainer>
-				:
-				<DragAndDropContainer width={"620px"}>
-					<>
-						<DragAndDropSpan>
-							Drag & Drop files here or
-						</DragAndDropSpan>
-						<Button
-							color="gray"
-							variant="outlined"
-							disabled={shouldDisableField}
-							label="UPLOAD FILES"
-							onClick={uploadFiles}
-							muiAttrs={{disableRipple: true}}
-						/>
-					</>
-				</DragAndDropContainer>
+				: !fieldDef.disabled && (
+					<DragAndDropContainer width={"620px"}>
+						<>
+							<DragAndDropSpan>
+								Drag & Drop files here or
+							</DragAndDropSpan>
+							<Button
+								color="gray"
+								variant="outlined"
+								disabled={shouldDisableField}
+								label="UPLOAD FILES"
+								onClick={uploadFiles}
+							/>
+						</>
+					</DragAndDropContainer>
+				)
 			}
 			{/**
 			 * We'll have 2 FileGrids, 1 for the successfully
@@ -284,11 +280,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							size={file.size}
 							url={file.url}
 							onFileDelete={handleFileDelete}
+							disabled={fieldDef.disabled}
 						/>
 					))}
 				</StyledFileGrid>
 			}
-			{pendingFiles && Object.keys(pendingFiles).length > 0 &&
+			{pendingFiles && Object.keys(pendingFiles).length > 0 && !fieldDef.disabled &&
 				<StyledFileGrid>
 					{Object.entries(pendingFiles).map(([key, file]: [key: string, file: {data: UploadData, error: string, percent: number}]) => {
 						return (
