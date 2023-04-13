@@ -69,7 +69,7 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobMockGetfilesFromDB + "true", commonKnobs.knobDisabled + true]);
 		await ffUpload.fileCardContainerLocator.first().waitFor({state: "attached"});
 		await ffUpload.fileCardContainerLocator.first().waitFor({state: "visible"});
-		await ffUpload.wait(1000)
+		await ffUpload.wait(1000);
 		await expect(ffUpload.fileDeleteButton).not.toBeVisible();
 	});
 });
