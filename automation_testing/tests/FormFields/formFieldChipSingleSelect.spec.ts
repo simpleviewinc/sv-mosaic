@@ -32,11 +32,8 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		await ffChipSingleSelectPage.saveBtn.click();
 	});
 
-	test("Validate the Disabled Regular Chip Single Select", async () => {
-		const numberOfOptions = await ffChipSingleSelectPage.disabledChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).count();
-		for (let i = 0; i < numberOfOptions; i++) {
-			expect(await ffChipSingleSelectPage.disabledChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(i).getAttribute("aria-disabled")).toBe("true");
-		}
+	test("Validate Disabled the Disabled Regular Chip Single Select only displays a dash.", async () => {
+		expect(await ffChipSingleSelectPage.disabledChipSingleSelectDiv.textContent()).toContain("—");
 	});
 
 	test("Validate the selection Required Chip Single Select", async () => {

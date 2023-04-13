@@ -18,7 +18,7 @@ export class FormFieldChipSingleSelectPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.regularChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(0);
-		this.disabledChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(1);
+		this.disabledChipSingleSelectDiv = page.locator("#chipDisable");
 		this.requiredChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(2);
 		this.fromDBOptionsChipSingleSelectDiv = page.locator("[data-testid='field-test-id']").nth(3);
 		this.optionButton = "[role='button']";

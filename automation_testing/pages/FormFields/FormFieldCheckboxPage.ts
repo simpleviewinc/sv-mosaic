@@ -17,7 +17,7 @@ export class FormFieldCheckboxPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.regularCheckboxButton = page.locator(".listItem").nth(0);
-		this.disabledCheckboxButton = page.locator(".listItem").nth(1);
+		this.disabledCheckboxButton = page.locator("#disabledCheckbox");
 		this.checkboxLabel = page.locator("label[data-testid='label-test-id']");
 		this.regularCheckboxLocator = page.locator("#checkbox");
 		this.fromDBCheckboxLocator = page.locator("#checkboxFromDB");

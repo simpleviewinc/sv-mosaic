@@ -14,7 +14,7 @@ export class FormFieldRadioPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.regularRadioButton = page.locator("[role='radiogroup']").nth(0);
-		this.disabledRadioButton = page.locator("[role='radiogroup']").nth(1);
+		this.disabledRadioButton = page.locator("#radio-disabled");
 	}
 
 	async selectRandomRadioButtonOption(): Promise<([number , string])> {
