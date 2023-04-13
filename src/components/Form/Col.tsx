@@ -188,7 +188,7 @@ const Col = (props: ColPropsTypes) => {
 					/>
 				), [value, error, onChange, currentField]);
 
-				const shouldRenderEmptyField = !value && currentField.disabled
+				const shouldRenderEmptyField = value === undefined && currentField.disabled
 
 				return (typeof type === "string" && componentMap[type]) ? (
 					<Field
