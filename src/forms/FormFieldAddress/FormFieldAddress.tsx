@@ -13,6 +13,7 @@ import { AddAddressWrapper, FlexContainer } from "./Address.styled";
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
 import { AddressFieldInputSettings, AddressData } from ".";
+import { isEmpty } from "lodash";
 
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
@@ -186,16 +187,17 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	return (
 		<div>
 			<FlexContainer>
-				<AddAddressWrapper>
-					<Button
-						disabled={addressTypes?.length === 0 ? true : fieldDef.disabled}
-						color="gray"
-						variant="outlined"
-						label="ADD ADDRESS"
-						onClick={addAddressHandler}
-						muiAttrs={{ disableRipple: true }}
-					></Button>
-				</AddAddressWrapper>
+				{(!fieldDef.disabled || isEmpty(value)) && (
+					<AddAddressWrapper>
+						<Button
+							disabled={addressTypes?.length === 0 ? true : fieldDef.disabled}
+							color="gray"
+							variant="outlined"
+							label="ADD ADDRESS"
+							onClick={addAddressHandler}
+						></Button>
+					</AddAddressWrapper>
+				)}
 				{value &&
 					value.map((address, idx) => (
 						<AddressCard

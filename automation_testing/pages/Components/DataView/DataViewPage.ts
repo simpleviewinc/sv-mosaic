@@ -125,17 +125,20 @@ export class DataviewPage extends BasePage {
 	}
 
 	async getSpecificColumn(column: string): Promise<Locator> {
-		const index = await this.getPositionOfColumn(column);
+		const index = await this.getPositionOfColumn(column, false);
 		return this.columnHeaders.nth(index);
 	}
 
-	async getPositionOfColumn(column: string): Promise<number> {
+	async getPositionOfColumn(column: string, fullPosition: boolean): Promise<number> {
 		const numberOfHeaders = await this.getColumnHeadersCount();
 		const columns = [];
 		for (let i = 0; i < numberOfHeaders; i++) {
 			columns.push(await this.columnHeaders.nth(i).textContent());
 		}
-		return columns.indexOf(column);
+		// We add a 3 to the Index because it's not counting the drag and drop column and the checkbox column.
+		// Also, the method that returns the index starts from 0.
+		const position = fullPosition === true ? columns.indexOf(column) + 3 : columns.indexOf(column);
+		return position;
 	}
 
 	async getAllRowData(resultsPerPage: number, dataName: string): Promise<string[]> {
@@ -235,5 +238,16 @@ export class DataviewPage extends BasePage {
 			await this.applyBtn.click();
 			await this.loading.waitFor({ state: "detached" });
 		}
+	}
+
+	async getRowLocators(index: number): Promise<Locator[]> {
+		await this.waitForDataviewIsVisible();
+		await this.wait();
+		const rows = await (await this.getTableRows()).elementHandles();
+		const titleLocators = [];
+		for (const row of rows) {
+			titleLocators.push(await row.$("td:nth-child(" + index + ") div"));
+		}
+		return titleLocators;
 	}
 }

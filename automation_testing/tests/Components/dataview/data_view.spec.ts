@@ -170,4 +170,14 @@ test.describe.parallel("Components - Data View - Playground", () => {
 			expect(await rowHeaderLocator.nth(i).textContent()).not.toBe("Actions");
 		}
 	});
+
+	test("Validate that the title font weight and color are valid.", async () => {
+		await dataviewPage.waitForDataviewIsVisible();
+		const columnIndex = await dataviewPage.getPositionOfColumn("Title", true);
+		const titles = await dataviewPage.getRowLocators(columnIndex);
+		for (let i = 0; i < titles.length; i++) {
+			expect.soft(await dataviewPage.getFontWeightFromElement(titles[i])).toBe((theme.fontWeight.normal).toString());
+			expect(await dataviewPage.getColorFromElement(titles[i])).toBe(theme.newColors.almostBlack["100"]);
+		}
+	});
 });

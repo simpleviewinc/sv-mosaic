@@ -4,6 +4,7 @@ import { BasePage } from "../BasePage";
 export class FormFieldMapCoordinatesPage extends BasePage {
 
 	readonly page_path = "formfields-formfieldmapcoordinates--kitchen-sink";
+	readonly playground_page_path = "formfields-formfieldmapcoordinates--playground";
 
 	readonly page: Page;
 	readonly map: Locator;
@@ -16,7 +17,7 @@ export class FormFieldMapCoordinatesPage extends BasePage {
 		this.page = page;
 		this.map = page.locator("[aria-label='Map']");
 		this.mapWithoutAddressAndAutocoordinatesDisabledButton = page.locator("button", { hasText: "ADD COORDINATES" }).nth(0);
-		this.mapDisabledDefaultLocation = page.locator("//*[@id='4']/div/div/div/div/div/div[2]/div[2]/div[2]");
+		this.mapDisabledDefaultLocation = page.locator("#mapDisabled div div div div").nth(1);
 		this.mapWithAddressDiv = page.locator("#mapWithAddress div div div").nth(2);
 	}
 

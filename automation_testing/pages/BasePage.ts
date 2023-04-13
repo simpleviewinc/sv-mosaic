@@ -29,7 +29,7 @@ export class BasePage {
 	readonly menuLocator: Locator;
 	readonly checkboxInputString: string;
 	readonly chipTestIDLocator: Locator;
-	readonly formTestID: Locator;
+	readonly formTestIDLocator: Locator;
 	readonly roleOptionLocator: Locator;
 	readonly rolePresentationLocator: Locator;
 	readonly deleteIconSelectedOptionChip: Locator;
@@ -55,10 +55,10 @@ export class BasePage {
 		this.saveBtn = page.locator("text=Save");
 		this.table = page.locator("table");
 		this.errorMessage = page.locator("p.Mui-error");
-		this.formTestID = page.locator("[data-testid='form-test-id']");
+		this.formTestIDLocator = page.locator("[data-testid='form-test-id']");
 		this.latitude = page.locator("input#lat");
 		this.longitude = page.locator("input#lng");
-		this.saveCoordinatesButton = this.formTestID.nth(1).locator("button", { hasText: "Save Coordinates" });
+		this.saveCoordinatesButton = this.formTestIDLocator.nth(1).locator("button", { hasText: "Save Coordinates" });
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");

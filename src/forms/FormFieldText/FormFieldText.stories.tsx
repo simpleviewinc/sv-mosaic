@@ -49,7 +49,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						prefixElement: withIcon && <AccountCircle />,
 						maxCharacters,
-						placeholder,
+						placeholder: placeholder === "" ? undefined : placeholder,
 						multiline,
 						type,
 						minRows,

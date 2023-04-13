@@ -25,7 +25,6 @@ import {
 	SetFocusSpan,
 	SizeLabel,
 	SizeValue,
-	StyledCircularProgress,
 	UploadButton,
 } from "./FormFieldImageUpload.styled";
 
@@ -226,128 +225,117 @@ const FormFieldImageUpload = (
 	}, [files, height, width]);
 
 	return (
-		<>
-			{!fieldDef?.disabled ? (
-				<div>
-					{isEmpty(files) ? (
-						<DragAndDropContainer
-							isOver={isOver}
-							onDragOver={dragOver}
-							onDragEnter={dragEnter}
-							onDragLeave={dragLeave}
-							onDrop={fileDrop}
-						>
-							{isOver ? (
-								<DragAndDropSpan isOver={isOver}>
-									Release and Drop
-								</DragAndDropSpan>
-							) : (
-								<>
-									<DragAndDropSpan isOver={isOver}>
-										Drag & Drop files here or
-									</DragAndDropSpan>
-									<UploadButton
-										color="gray"
-										variant="outlined"
-										disabled={fieldDef?.disabled}
-										label="UPLOAD FILES"
-										buttonType="secondary"
-										onClick={uploadFiles}
-										muiAttrs={{disableRipple: true}}
-									></UploadButton>
-								</>
-							)}
-
-							<FileInput
-								accept="image/*"
-								data-testid="input-file-test"
-								ref={fileInputField}
-								onChange={handleNewFileUpload}
-								title=""
-								type="file"
-								value=""
-							/>
-						</DragAndDropContainer>
+		<div>
+			{isEmpty(files) ? (
+				<DragAndDropContainer
+					isOver={isOver}
+					onDragOver={dragOver}
+					onDragEnter={dragEnter}
+					onDragLeave={dragLeave}
+					onDrop={fileDrop}
+				>
+					{isOver ? (
+						<DragAndDropSpan isOver={isOver}>
+							Release and Drop
+						</DragAndDropSpan>
 					) : (
 						<>
-							<ImageCard>
-								<ImageColumn>
-									{Object.keys(files).map((fileName) => {
-										const file = files[fileName];
-
-										return (
-											<ImgLoaded
-												key={fileName}
-												alt={`${fileName} preview`}
-												height={168}
-												onLoad={onImgLoad}
-												src={URL.createObjectURL(file)}
-												width={257}
-											/>
-										);
-									})}
-									{focusMode && (
-										<ImageUploadCanvas mousePosition={mousePosition} />
-									)}
-								</ImageColumn>
-								{focusMode ? (
-									<SetFocusSpan>
-										Click on the image to set the focus point
-									</SetFocusSpan>
-								) : (
-									<ImagePropertiesColumn>
-										<Row>
-											<SizeLabel>Size</SizeLabel>
-											<SizeValue>
-												{width}x{height}
-											</SizeValue>
-										</Row>
-									</ImagePropertiesColumn>
-								)}
-								{fieldDef?.inputSettings?.options && !focusMode && (
-									<MenuColumn data-testid="menu-container-test">
-										<MenuFormFieldCard
-											options={fieldDef?.inputSettings?.options}
-										/>
-									</MenuColumn>
-								)}
-								<ButtonsContainer>
-									{focusMode && fieldDef?.inputSettings.handleSetFocus ? (
-										<Button
-											color="teal"
-											variant="text"
-											label="Set Focus"
-											onClick={setFocus}
-											muiAttrs={{ disableRipple: true }}
-										></Button>
-									) : (
-										fieldDef?.inputSettings?.handleSetFocus ? <Button
-											color="teal"
-											variant="text"
-											label="View"
-											onClick={handleView}
-											muiAttrs={{ disableRipple: true }}
-										></Button> : null
-									)}
-									<Button
-										color="red"
-										variant="text"
-										label="Remove"
-										onClick={removeFile}
-										muiAttrs={{ disableRipple: true }}
-									></Button>
-								</ButtonsContainer>
-							</ImageCard>
+							<DragAndDropSpan isOver={isOver}>
+								Drag & Drop files here or
+							</DragAndDropSpan>
+							<UploadButton
+								color="gray"
+								variant="outlined"
+								disabled={fieldDef?.disabled}
+								label="UPLOAD FILES"
+								buttonType="secondary"
+								onClick={uploadFiles}
+								muiAttrs={{disableRipple: true}}
+							></UploadButton>
 						</>
 					)}
-				</div>
-			) : (
-				<DragAndDropContainer>
-					<StyledCircularProgress data-testid="circular-progress-test" />
-					<DragAndDropSpan isOver={isOver}>Loading Image</DragAndDropSpan>
+					<FileInput
+						accept="image/*"
+						data-testid="input-file-test"
+						ref={fileInputField}
+						onChange={handleNewFileUpload}
+						title=""
+						type="file"
+						value=""
+					/>
 				</DragAndDropContainer>
+			) : (
+				<>
+					<ImageCard>
+						<ImageColumn>
+							{Object.keys(files).map((fileName) => {
+								const file = files[fileName];
+
+								return (
+									<ImgLoaded
+										key={fileName}
+										alt={`${fileName} preview`}
+										height={168}
+										onLoad={onImgLoad}
+										src={URL.createObjectURL(file)}
+										width={257}
+									/>
+								);
+							})}
+							{focusMode && (
+								<ImageUploadCanvas mousePosition={mousePosition} />
+							)}
+						</ImageColumn>
+						{focusMode ? (
+							<SetFocusSpan>
+								Click on the image to set the focus point
+							</SetFocusSpan>
+						) : (
+							<ImagePropertiesColumn>
+								<Row>
+									<SizeLabel>Size</SizeLabel>
+									<SizeValue>
+										{width}x{height}
+									</SizeValue>
+								</Row>
+							</ImagePropertiesColumn>
+						)}
+						{fieldDef?.inputSettings?.options && !focusMode && !fieldDef.disabled && (
+							<MenuColumn data-testid="menu-container-test">
+								<MenuFormFieldCard
+									options={fieldDef?.inputSettings?.options}
+								/>
+							</MenuColumn>
+						)}
+						{!fieldDef.disabled && (
+							<ButtonsContainer>
+								{focusMode && fieldDef?.inputSettings.handleSetFocus ? (
+									<Button
+										color="teal"
+										variant="text"
+										label="Set Focus"
+										onClick={setFocus}
+									></Button>
+								) : (
+									fieldDef?.inputSettings?.handleSetFocus ? <Button
+										color="teal"
+										variant="text"
+										label="View"
+										onClick={handleView}
+									></Button> : null
+								)}
+								<Button
+									color="red"
+									variant="text"
+									label="Remove"
+									onClick={removeFile}
+								></Button>
+							</ButtonsContainer>
+						)}
+					</ImageCard>
+				</>
 			)}
-		</>
+		</div>
 	);
 };
 
