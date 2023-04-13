@@ -4,7 +4,7 @@ export interface CheckboxListProps {
 	/**
 	 * Flag that indicates if an option has been selected.
 	 */
-	checked: string[];
+	checked: MosaicLabelValue[];
 	/**
 	 * List of options
 	 */
@@ -13,7 +13,7 @@ export interface CheckboxListProps {
 	 * Function that listens to changes on the checked options.
 	 * @param checked List of checked options
 	 */
-	onChange(checked: (string | { [key: string]: unknown; })[]): void;
+	onChange(checked: ({ [key: string]: unknown; } | MosaicLabelValue)[]): void;
 	/**
 	 * Additional custom css class for styling the component
 	 */
@@ -26,5 +26,5 @@ export interface CheckboxListProps {
 	/**
 	 * Callback executed when the list of options is updated.
 	 */
-	onChangeCb?: (checked: (string | { [key: string]: unknown; })[]) => void;
+	onChangeCb?: (checked: ({ [key: string]: unknown; } | MosaicLabelValue)[]) => void;
 }

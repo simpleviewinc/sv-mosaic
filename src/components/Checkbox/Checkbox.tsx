@@ -10,7 +10,7 @@ const Checkbox = (props: CheckboxProps) => (
 			label={props.label}
 			labelPlacement="end"
 			data-testid="label-test-id"
-			value="end"
+			value={props.value}
 			disabled={props.disabled}
 			control={
 				<StyledCheckbox
