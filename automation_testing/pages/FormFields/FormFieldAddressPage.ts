@@ -44,7 +44,7 @@ export class FormFieldAddressPage extends BasePage {
 		this.billingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Billing" }).locator("input");
 		this.shippingCheckboxOption = page.locator("#type [data-testid='label-test-id']", { hasText: "Shipping" }).locator("input");
 		this.addressCard = page.locator("[data-testid='address-card-test']");
-		this.titleAddAddressDrawerWrapper = this.formTestID.nth(1).locator("form div").first();
+		this.titleAddAddressDrawerWrapper = this.formTestIDLocator.nth(1).locator("form div").first();
 	}
 
 	async fillAddresInformation(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {

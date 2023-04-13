@@ -19,6 +19,7 @@ const FileCard = (props: FileCardProps) => {
 		onFileDelete,
 		error,
 		percent,
+		disabled,
 	} = props;
 
 	const renderImg = useMemo(() => {
@@ -61,7 +62,7 @@ const FileCard = (props: FileCardProps) => {
 					</Tooltip>
 					<p className='file-size' data-testid="file-size">{size ?? "File size"}</p>
 				</div>
-				{onFileDelete &&
+				{onFileDelete && !disabled &&
 					<div className='file-delete-btn'>
 						<Button
 							color="gray"
