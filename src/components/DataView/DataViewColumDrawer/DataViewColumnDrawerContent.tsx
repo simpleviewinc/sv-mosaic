@@ -20,6 +20,7 @@ import {
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [state, setState] = useState({
 		activeColumns: props.columns.map((val) => val.name),
+		checkedOptions: props.columns.map(col => ({label: col.label, value: col.name})),
 	});
 
 	const { t } = useMosaicTranslation();
@@ -32,7 +33,8 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const onColumnsChange = function(data) {
 		setState({
 			...state,
-			activeColumns: data,
+			activeColumns: data.map(d => d.value),
+			checkedOptions: data,
 		});
 	};
 
@@ -91,7 +93,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 					<ColumnTitle>{t("mosaic:DataView.columns")}</ColumnTitle>
 					<CheckboxList
 						options={columnOptions}
-						checked={state.activeColumns}
+						checked={state.checkedOptions}
 						onChange={onColumnsChange}
 					/>
 				</div>

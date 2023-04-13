@@ -17,7 +17,7 @@ import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewF
 import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
 import { InputAdornment } from "@mui/material";
 import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
-import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
+import CheckboxList from "../CheckboxList";
 
 function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultiselectDropdownContentProps) {
 	const [state, setState] = useState({
@@ -226,12 +226,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 	const showList = props.isOpen && state.loaded;
 
 	const onChange = async function(selected) {
-		const cleanSelectedOptions = selected.filter(selectedOption => selectedOption !== undefined);
-		let fullOptions = [...cleanSelectedOptions];
-		if (state.listOfChips) {
-			const chipsNotInList = state.listOfChips.filter(option => !state.options.some(chip => chip.value === option.value));
-			fullOptions = [...chipsNotInList, ...cleanSelectedOptions];
-		}
+		const fullOptions = [...selected];
 		props.onChange?.(fullOptions);
 		setState({
 			...state,
@@ -276,22 +271,11 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					}
 					{
 						showList &&
-						<FormFieldCheckbox
-							fieldDef={{
-								name: "formFieldCheckbox",
-								type: "checkbox",
-								label: "DataView",
-								disabled: disabled,
-								style: {
-									marginLeft: "0px"
-								},
-								inputSettings: {
-									options: state.options
-								},
-							}}
-							value={optionsDisabled ? [] : state.listOfChips}
+						<CheckboxList
+							checked={optionsDisabled ? [] : state.listOfChips}
+							options={state.options}
 							onChange={onChange}
-							id={"formFieldCheckbox"}
+							disabled={disabled}
 						/>
 					}
 					{
@@ -318,14 +302,14 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 								{
 									showList &&
 									state.listOfChips?.length > 0 &&
-									state.listOfChips.map(option => {
-										return (<Chip
+									state.listOfChips.map(option => (
+										<Chip
 											className="chip"
 											key={option.value}
 											label={option.label}
 											onDelete={handleToggle(option)}
-										/>)
-									})
+										/>
+									))
 								}
 							</div>
 						</>

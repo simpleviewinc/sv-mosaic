@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState, memo, useEffect } from "react";
 import {
 	StyledAutocomplete,
-	StyledDisabledDropdownText,
 	StyledPopper,
 	SingleDropdownWrapper,
 } from "./FormFieldDropdownSingleSelection.styled";
@@ -14,6 +13,7 @@ import InputWrapper from "../../components/InputWrapper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import TextField from "@mui/material/TextField";
 import { MosaicLabelValue } from "@root/types";
+import { transform_chips } from "@root/transforms";
 
 const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSingleSelectionInputSettings, DropdownData>) => {
 	const {
@@ -25,8 +25,6 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
-	const [dropDownValue, setDropDownValue] = useState(null);
-
 	const [internalOptions, setInternalOptions] = useState([]);
 	// true: options
 	// false: getOptions
@@ -70,7 +68,6 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 	}
 
 	const onDropDownChange = async (option: MosaicLabelValue) => {
-		setDropDownValue(option)
 		onChange && (await onChange(option ? option : undefined));
 	}
 
@@ -107,14 +104,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 						open={isOpen}
 					/>
 				</SingleDropdownWrapper>
-				:
-				<StyledDisabledDropdownText
-					data-testid="disabled-text-test-id"
-				>
-					{(!dropDownValue || dropDownValue?.label.trim() === "") ?
-						fieldDef?.inputSettings?.placeholder : dropDownValue.label
-					}
-				</StyledDisabledDropdownText>
+				: value && <>{transform_chips()({ data: [value] })}</>
 			}
 		</>
 	);

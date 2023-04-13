@@ -16,7 +16,7 @@ test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
 	});
 
 	test("Validate Regular Radio Button", async () => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(selectedOptionValue);
 			expect(dialog.message()).toContain(selectedOptionValue.toLocaleLowerCase().replace(/ /g,"_"));
 			await dialog.dismiss();
@@ -27,9 +27,6 @@ test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
 	});
 
 	test("Validate Disabled Radio Button", async () => {
-		const amountOfOption = await formFieldRadioPage.disabledRadioButton.locator("input").count()
-		for (let i = 0; i < amountOfOption; i++) {
-			await expect(formFieldRadioPage.disabledRadioButton.locator("input").nth(i)).toBeDisabled();
-		}
+		expect(await formFieldRadioPage.disabledRadioButton.textContent()).toContain("—");
 	});
 });
