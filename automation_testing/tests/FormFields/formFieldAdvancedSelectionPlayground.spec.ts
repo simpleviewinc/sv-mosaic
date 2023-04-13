@@ -2,6 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionPlaygroundPage";
 import { ChipPage } from "../../pages/Components/Chip/ChipPage";
 import theme from "../../../src/theme";
+import { commonKnobs as knob } from "../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", () => {
 	let page: Page;
@@ -10,6 +11,9 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffAdvancedSelectionPage = new FormFieldAdvancedSelectionPage(page);
+	});
+
+	test.beforeEach(async() => {
 		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path);
 	});
 
@@ -38,5 +42,10 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 		await chipPage.deletableChip.hover();
 		await expect(ffAdvancedSelectionPage.tooltip).toBeVisible();
 		expect(await ffAdvancedSelectionPage.tooltip.textContent()).toBe(longOpt);
+	});
+
+	test("Validate the Disabled Advanced Selection.", async () => {
+		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path, [knob.knobDisabled + true]);
+		expect(await ffAdvancedSelectionPage.advancedSelectionLocator.textContent()).toContain("—");
 	});
 });

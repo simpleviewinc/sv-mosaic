@@ -21,11 +21,8 @@ test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		await expect(formFieldCheckboxPage.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(selectedOption)).toBeChecked();
 	});
 
-	test("Validate Disabled Radio Button.", async () => {
-		const amountOfOption = await formFieldCheckboxPage.disabledCheckboxButton.locator("[data-testid='label-test-id']").count()
-		for (let i = 0; i < amountOfOption; i++) {
-			await expect(formFieldCheckboxPage.disabledCheckboxButton.locator("[data-testid='label-test-id']").nth(i)).toBeDisabled();
-		}
+	test("Validate Disabled Radio Button only displays a dash.", async () => {
+		expect(await formFieldCheckboxPage.disabledCheckboxButton.textContent()).toContain("—");
 	});
 
 	test("Validate that the empty value is saved correctly.", async () => {
