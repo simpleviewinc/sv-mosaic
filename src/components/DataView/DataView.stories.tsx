@@ -324,6 +324,9 @@ const listColumns = [
 		name: "bold",
 		label: "Style - bold",
 		column: "content_owner",
+		style: {
+			bold: true
+		}
 	},
 	{
 		name: "italic",
