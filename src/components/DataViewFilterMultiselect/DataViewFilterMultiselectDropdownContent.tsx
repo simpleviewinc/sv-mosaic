@@ -226,12 +226,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 	const showList = props.isOpen && state.loaded;
 
 	const onChange = async function(selected) {
-		const cleanSelectedOptions = selected.filter(selectedOption => selectedOption !== undefined);
-		let fullOptions = [...cleanSelectedOptions];
-		if (state.listOfChips) {
-			const chipsNotInList = state.listOfChips.filter(option => !state.options.some(chip => chip.value === option.value));
-			fullOptions = [...chipsNotInList, ...cleanSelectedOptions];
-		}
+		const fullOptions = [...selected];
 		props.onChange?.(fullOptions);
 		setState({
 			...state,
@@ -277,7 +272,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					{
 						showList &&
 						<CheckboxList
-							checked={optionsDisabled ? [] : state.selected}
+							checked={optionsDisabled ? [] : state.listOfChips}
 							options={state.options}
 							onChange={onChange}
 							disabled={disabled}

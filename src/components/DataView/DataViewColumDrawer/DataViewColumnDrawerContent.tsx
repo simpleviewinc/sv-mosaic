@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import CheckboxList from "@root/components/CheckboxList";
 import { useMosaicTranslation } from "@root/i18n";
@@ -20,6 +20,7 @@ import {
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [state, setState] = useState({
 		activeColumns: props.columns.map((val) => val.name),
+		checkedOptions: props.columns.map(col => ({label: col.label, value: col.name})),
 	});
 
 	const { t } = useMosaicTranslation();
@@ -33,6 +34,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 		setState({
 			...state,
 			activeColumns: data.map(d => d.value),
+			checkedOptions: data,
 		});
 	};
 
@@ -91,7 +93,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 					<ColumnTitle>{t("mosaic:DataView.columns")}</ColumnTitle>
 					<CheckboxList
 						options={columnOptions}
-						checked={state.activeColumns}
+						checked={state.checkedOptions}
 						onChange={onColumnsChange}
 					/>
 				</div>
