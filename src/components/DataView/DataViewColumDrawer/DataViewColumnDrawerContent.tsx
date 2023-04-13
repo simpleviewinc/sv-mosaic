@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import CheckboxList from "@root/components/CheckboxList";
 import { useMosaicTranslation } from "@root/i18n";
