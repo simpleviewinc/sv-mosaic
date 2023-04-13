@@ -14,7 +14,12 @@ const StyledTd = styled.td`
 		white-space: nowrap;
 	}
 
-	&.bold {
+	& > div {
+		color: ${theme.newColors.almostBlack["100"]};
+		font-weight: 400;
+	}
+
+	&.bold > div {
 		font-weight: bold;
 	}
 
@@ -33,10 +38,6 @@ const StyledTd = styled.td`
 	& > div.ellipsis {
 		overflow: hidden;
 		text-overflow: ellipsis;
-	}
-	& > div {
-		color: ${theme.newColors.almostBlack["100"]};
-		font-weight: 400;
 	}
 `;
 
