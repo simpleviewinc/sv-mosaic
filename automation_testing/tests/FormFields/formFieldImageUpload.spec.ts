@@ -26,10 +26,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Image Upload with menu options and with set Focus handler", async () => {
-		page.on("dialog", async dialog => {
-			expect(dialog.message()).toContain("Set focus is called");
-			await dialog.dismiss();
-		});
+		await ffImageUploadPage.setDialogValidationListener("Set focus is called");
 		await page.reload();
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.waitFor();
 		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
@@ -43,13 +40,12 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerDiv.locator("button", { hasText: "Set Focus" }).click();
 	});
 
-	test("Validate Disabled Image upload", async () => {
-		await expect(ffImageUploadPage.disabledImageUpload).toContainText("Image Upload disabled");
-		await expect(ffImageUploadPage.disabledImageUploadDiv).toContainText("Loading Image");
+	test("Validate Disabled Image upload.", async () => {
+		await expect(ffImageUploadPage.disabledImageUploadButton).not.toBeVisible();
 	});
 
 	test("Validate saving Image Upload with menu options and without set Focus", async () => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain('"imgName": "' + imageName + '"');
 			expect(dialog.message()).toContain('"height": ' + height);
 			expect(dialog.message()).toContain('"width": ' + width);
@@ -64,20 +60,17 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		await ffImageUploadPage.saveBtn.click();
 	});
 
-	test("Validate Instruction Icon ", async () => {
-		const expectedColor = theme.newColors.realTeal["100"];
-		const numberOfIcons = await ffImageUploadPage.instructionIcon.count();
-		for (let i = 0; i < numberOfIcons - 1; i++) {
-			expect(await ((ffImageUploadPage.instructionIcon.nth(i)).evaluate(el => getComputedStyle(el).fill))).toBe(expectedColor);
+	test("Validate that the Instruction Icon color is realTeal", async () => {
+		const iconCount = await ffImageUploadPage.instructionIcon.count();
+		for (let i = 0; i < iconCount; i++) {
+			expect(await ((ffImageUploadPage.instructionIcon.nth(i)).evaluate(el => getComputedStyle(el).fill))).toBe(theme.newColors.realTeal["100"]);
 		}
-		expect(await ffImageUploadPage.getColorFromElement(ffImageUploadPage.instructionIcon.nth(numberOfIcons - 1))).toBe(expectedColor);
 	});
 
-	test("Validate Image Upload (without focus)  border has grey2 in border.", async () => {
-		const expectedColor = theme.newColors.grey2["100"];
+	test("Validate Image Upload (without focus) border has grey2 in border.", async () => {
 		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
-		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv, "all")).toContain(expectedColor);
+		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv, "all")).toContain(theme.newColors.grey2["100"]);
 	});
 
 	test("Validate Image Upload (with focus)  border has grey2 in border.", async () => {

@@ -23,10 +23,6 @@ const StyledTBody = styled.tbody`
 		padding: 8px;
 	}
 
-	& > tr > td.bold {
-		font-weight: 600;
-	}
-
 	& > tr > td > div > .transform_thumbnail {
 		display: block;
 	}
