@@ -65,4 +65,8 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 		expect(await ffUpload.getZIndexFromElement(ffUpload.uploadFilesSpan)).toBe("1000");
 	});
 
+	test("Validate that the delete icons are not visible when the knob disabled is active.", async () => {
+		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobMockGetfilesFromDB + "true"]);
+		await expect(ffUpload.fileDeleteButton).not.toBeVisible();
+	});
 });
