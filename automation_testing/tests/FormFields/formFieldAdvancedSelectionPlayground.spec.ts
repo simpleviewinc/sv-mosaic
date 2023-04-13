@@ -25,9 +25,9 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 	test("Validate drawer title location is fixed.", async () => {
 		await page.setViewportSize({ width: 1280, height: 400 });
 		await ffAdvancedSelectionPage.advancedSelectionButton.click();
-		await expect(ffAdvancedSelectionPage.formTestID.last()).toBeVisible();
+		await expect(ffAdvancedSelectionPage.formTestIDLocator.last()).toBeVisible();
 		await ffAdvancedSelectionPage.page.locator("input").last().scrollIntoViewIfNeeded();
-		await expect(ffAdvancedSelectionPage.formTestID.last().locator("form div").first()).toBeVisible();
+		await expect(ffAdvancedSelectionPage.formTestIDLocator.last().locator("form div").first()).toBeVisible();
 	});
 
 	test("Validate that a tooltip is displayed when the chip selected is too long.", async () => {

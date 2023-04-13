@@ -9,7 +9,6 @@ import {
 
 // Components
 import Button from "@root/components/Button";
-import CircularProgress from "@mui/material/CircularProgress";
 
 export const DragAndDropContainer = styled.div`
   align-items: center;
@@ -77,14 +76,6 @@ export const SizeValue = styled(AssetValue)``;
 
 export const UploadButton = styled(Button)`
   z-index: 1;
-`;
-
-export const StyledCircularProgress = styled(CircularProgress)`
-  &.MuiCircularProgress-colorPrimary {
-    color: ${theme.newColors.realTeal["100"]};
-  }
-
-  margin-bottom: 24px;
 `;
 
 export const SetFocusSpan = styled.span`

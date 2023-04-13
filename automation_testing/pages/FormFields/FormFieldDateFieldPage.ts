@@ -32,7 +32,7 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.singleDateCalendarInput = page.locator("input").nth(0);
 		this.singleDateCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.calendarCell = page.locator("[role='row'] button");
-		this.disabledSingleDateCalendarText = page.locator("#disableSingleDate p").first();
+		this.disabledSingleDateCalendarText = page.locator("#disableSingleDate");
 
 		this.dateTimeInput = page.locator("input").nth(1);
 		this.dateHourInput = page.locator("input").nth(2);
@@ -41,7 +41,7 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.hourMinutesOption = this.roleOptionLocator;
 		this.hourAMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(2);
 		this.hourPMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(3);
-		this.disableDateAndTimeCalendarText = page.locator("#disableDateTime p");
+		this.disableDateAndTimeCalendarText = page.locator("#disableDateTime");
 
 		this.requiredDateTimeInput = page.locator("input").nth(3);
 		this.requiredDateHourInput = page.locator("input").nth(4);
