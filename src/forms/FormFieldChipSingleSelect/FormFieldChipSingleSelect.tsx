@@ -7,8 +7,12 @@ import Chip from "../../components/Chip";
 
 //Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
-import { ChipData, FormFieldChipSingleSelectInputSettings } from "./FormFieldChipSingleSelectTypes";
+import {
+	ChipData,
+	FormFieldChipSingleSelectInputSettings,
+} from "./FormFieldChipSingleSelectTypes";
 import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
+import { transform_chips } from "@root/transforms";
 
 const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChipSingleSelectInputSettings, ChipData>): ReactElement => {
 	const {
@@ -27,7 +31,6 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 	// false: getOptions
 	const [origin, setOrigin] = useState(undefined);
 
-
 	useEffect(() => {
 		const populateOptions = async () => {
 			if (fieldDef?.inputSettings?.options) {
@@ -39,9 +42,9 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 				setOrigin(false);
 			}
 			setPrepouplated(false);
-		}
+		};
 		populateOptions();
-	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions]);
 
 	useEffect(() => {
 		if (value && !prepopulated) {
@@ -63,12 +66,10 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 	const findSelectedOption = (option) => {
 		let newOptions = [...internalOptions];
 
-		newOptions = newOptions.map((o) => (
-			o?.value === option?.value ?
-				{ ...o, selected: required && o.selected ? o.selected : !o.selected }
-				:
-				{ ...o, selected: false }
-		)
+		newOptions = newOptions.map((o) =>
+			o?.value === option?.value
+				? { ...o, selected: required && o.selected ? o.selected : !o.selected }
+				: { ...o, selected: false }
 		);
 
 		const selectedOption = newOptions.find(o => o.selected === true);
@@ -76,7 +77,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 		setInternalOptions(newOptions);
 
 		return selectedOption;
-	}
+	};
 
 	const updateSelectedOption = (option) => {
 		const selectedOption = findSelectedOption(option);
@@ -86,26 +87,26 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 			: undefined);
 	}
 
-	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
+	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 
-	return (
+	return !fieldDef.disabled ? (
 		<StyledChipGroup
-			error={(errorWithMessage || (errorWithMessage && required))}
+			error={errorWithMessage || (errorWithMessage && required)}
 			onBlur={onBlur}
 		>
-			{
-				internalOptions.map(
-					(option) => <Chip
-						key={option.value}
-						label={option.label}
-						disabled={fieldDef?.disabled}
-						selected={option.selected}
-						onClick={() => updateSelectedOption(option)}
-					/>
-				)
-			}
+			{internalOptions.map((option) => (
+				<Chip
+					key={option.value}
+					label={option.label}
+					disabled={fieldDef?.disabled}
+					selected={option.selected}
+					onClick={() => updateSelectedOption(option)}
+				/>
+			))}
 		</StyledChipGroup>
+	) : (
+		value && <>{transform_chips()({ data: [value] })}</>
 	);
-}
+};
 
 export default memo(FormFieldChipSingleSelect);

@@ -39,7 +39,9 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
   }
 
   & .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-    padding: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
   }
 
   &.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
@@ -62,12 +64,6 @@ export const StyledAutocomplete = styled(MUIAutocomplete)`
       border-left: ${pr => !pr.open ? theme.borders.fieldGray : ""};
     }
   }
-`;
-
-export const StyledDisabledDropdownText = styled.p`
-  font-size: 16px;
-  color: ${theme.newColors.grey3["100"]};
-  margin-top: 15px;
 `;
 
 export const SingleDropdownWrapper = styled.div`

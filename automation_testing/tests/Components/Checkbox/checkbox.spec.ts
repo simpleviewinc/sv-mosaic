@@ -1,15 +1,19 @@
 import { test, expect, Page } from "@playwright/test";
 import { CheckboxPage } from "../../../pages/Components/Checkbox/CheckboxPage";
 import theme from "../../../../src/theme";
+import { commonKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - Checkbox - Kitchen Sink", () => {
+test.describe.parallel("Components - Checkbox - Example", () => {
 	let page: Page;
 	let checkboxPage: CheckboxPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		checkboxPage = new CheckboxPage(page);
-		await checkboxPage.visit(checkboxPage.page_path);
+	});
+
+	test.beforeEach(async () => {
+		await checkboxPage.visit(checkboxPage.checkboxlist_page_path);
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -38,5 +42,10 @@ test.describe.parallel("Components - Checkbox - Kitchen Sink", () => {
 		for (let i = 0; i < numberOfCheckboxs; i++) {
 			expect(await checkboxPage.getColorFromElement(checkboxPage.checkboxLabel.nth(i))).toBe(expectColor);
 		}
+	});
+
+	test("Validate checkbox is disabled when knob is active", async () => {
+		await checkboxPage.visit(checkboxPage.checkbox_page_path, [knob.knobDisabled + "true"]);
+		await expect(checkboxPage.checkboxLabel).toBeDisabled();
 	});
 });

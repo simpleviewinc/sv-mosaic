@@ -3,7 +3,8 @@ import { BasePage } from "../../BasePage";
 
 export class CheckboxPage extends BasePage {
 
-	readonly page_path = "components-checkboxlist--example";
+	readonly checkboxlist_page_path = "components-checkboxlist--example";
+	readonly checkbox_page_path = "components-checkbox--example";
 
 	readonly page: Page;
 	readonly checkboxList: Locator;
