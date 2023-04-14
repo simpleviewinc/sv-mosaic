@@ -151,7 +151,7 @@ const FormFieldNumberTable = (
 											fieldSize={"72px"}
 										/>
 										:
-										<StyledDisabledText width={"72px"}>{strValue ?? "0"}</StyledDisabledText>
+										<StyledDisabledText width={"72px"}>{strValue !== "" ? strValue : "0"}</StyledDisabledText>
 									}
 								</Td>
 							);
