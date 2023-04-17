@@ -1,6 +1,5 @@
 import * as React from "react";
 import { memo, useMemo } from "react";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import ButtonRow from "../ButtonRow";
@@ -61,7 +60,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				key="additional"
 				color="black"
 				variant="icon"
-				mIcon={props.activeDisplay && props.activeDisplay === "grid" ? MoreVertIcon : MoreHorizIcon}
+				mIcon={props.activeDisplay && MoreVertIcon}
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				tooltip="More actions"
 				menuItems={additionalActions.map(action => {
