@@ -1,21 +1,34 @@
 import { MosaicObject } from "@root/types";
-import { useRef, useCallback, useReducer } from "react";
+import { useRef, useCallback, useReducer, Dispatch } from "react";
 import { SectionDef } from "./FormTypes";
 
 type State = {
-	data: MosaicObject;
-	errors: any;
-	validating: any;
+	data: any;
+	errors: { [key: string]: string };
+	validating: MosaicObject;
 	custom: unknown;
 	validForm: boolean;
 	disabled: boolean;
 	touched: { [key: string]: boolean };
 }
 
+type ActionTypes =
+	| "FIELD_ON_CHANGE"
+	| "FIELD_TOUCHED"
+	| "FIELD_VALIDATE"
+	| "FORM_START_DISABLE"
+	| "FORM_END_DISABLE"
+	| "FORM_VALIDATE"
+	| "FORM_START_DISABLE"
+	| "FORM_END_DISABLE"
+	| "FORM_VALIDATE"
+	| "FORM_RESET"
+	| "PROPERTY_RESET";
+
 type Action = {
-	type: string;
+	type: ActionTypes;
 	value: any;
-	name: string;
+	name?: string;
 }
 
 export function coreReducer(state: State, action: Action): State {
@@ -79,10 +92,11 @@ export function coreReducer(state: State, action: Action): State {
 	}
 }
 
+type CustomDispatch = (action: any) => any | Dispatch<Action>;
 
 type UseFormReturn = {
-	state: any;
-	dispatch: any;
+	state: State;
+	dispatch:  CustomDispatch;
 }
 
 export function useForm(): UseFormReturn {
@@ -198,7 +212,7 @@ export function useThunkReducer(reducer, initialState, extraArgs) {
 	);
 	const [state, dispatch] = useReducer(enhancedReducer, initialState);
 
-	const customDispatch = useCallback(
+	const customDispatch: CustomDispatch = useCallback(
 		(action) => {
 			if (typeof action === "function") {
 				return action(customDispatch, getState, extraArgs);
