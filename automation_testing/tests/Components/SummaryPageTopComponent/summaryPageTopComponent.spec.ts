@@ -43,4 +43,11 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 	test("Validate the Summary Page Top Component title style.", async () => {
 		await summaryPage.validateTitleStylingOfLocator(summaryPage.title.last());
 	});
+
+	test("Validate that when no addition action is active, the 3 dots button is not displayed.", async () => {
+		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + 3]);
+		await expect(summaryPage.additionButtonLocator).toBeVisible();
+		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + 0]);
+		await expect(summaryPage.additionButtonLocator).not.toBeVisible();
+	});
 });
