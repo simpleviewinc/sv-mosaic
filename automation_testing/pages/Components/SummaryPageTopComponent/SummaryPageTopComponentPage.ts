@@ -9,6 +9,7 @@ export class SummaryPageTopComponentPage extends BasePage {
 	readonly summaryTitle: Locator;
 	readonly starRateIcon: Locator;
 	readonly summaryTopComponent: Locator;
+	readonly additionButtonLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -17,5 +18,6 @@ export class SummaryPageTopComponentPage extends BasePage {
 		this.starRateIcon = page.locator(this.iconButtonTestLocator).first();
 		this.summaryTopComponent = page.locator("//*[@id='root']/div");
 		this.backIconLocator = page.locator("button svg[data-testid='icon-button-test']").first();
+		this.additionButtonLocator = page.locator("[data-testid='btn-additional-action'] button");
 	}
 }
