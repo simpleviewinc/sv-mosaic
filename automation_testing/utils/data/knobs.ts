@@ -5,7 +5,8 @@ export const commonKnobs = {
 	knobShowOptions:"knob-Show%20options=",
 	knobOnBack: "knob-onBack=",
 	knobParentHeight: "knob-Parent%20height%20(px)=",
-	knobShowTime: "knob-Show%20time="
+	knobShowTime: "knob-Show%20time=",
+	knobAdditionalActions: "knob-Additional%20Actions="
 }
 
 export const cardKnobs = {
