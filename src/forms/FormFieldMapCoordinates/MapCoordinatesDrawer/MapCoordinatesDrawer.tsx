@@ -329,7 +329,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			onClick: onSubmit,
 			color: "yellow",
 			variant: "contained",
-			disabled: !state.data.lat || !state.data.lng || state.errors.lng || state.errors.lat
+			disabled: (!state.data.lat || !state.data.lng || state.errors.lng || state.errors.lat) as boolean
 		}
 	];
 
