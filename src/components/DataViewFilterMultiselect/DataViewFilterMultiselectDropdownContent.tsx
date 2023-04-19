@@ -240,6 +240,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			<div className="topBlock">
 				<div className={`options ${optionsDisabled ? "disabled" : "" }`}>
 					<StyledTextField
+						autoComplete="off"
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
