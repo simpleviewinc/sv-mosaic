@@ -11,6 +11,8 @@ import Tooltip from "../Tooltip";
 
 const LabelWrapper = styled.div`
   display: flex;
+  column-gap: 8px;
+  align-items: center;
   margin-bottom: 8px;
   justify-content: space-between;
   width: ${(pr) => pr.size};
@@ -31,7 +33,6 @@ const LabelWrapper = styled.div`
 
 const CharCounterWrapper = styled.div`
   color: ${theme.newColors.grey3["100"]};
-  align-self: flex-end;
   font-size: 12px;
 `;
 
