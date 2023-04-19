@@ -25,7 +25,7 @@ import { ActionAdditional } from "../DataView";
  * @param show is used to evaluate whether a field should be displayed
  * @returns boolean flag comming from the  validation of the show paramater.
  */
-const showContent = (show: ActionAdditional["show"]) => {
+export const showContent = (show: ActionAdditional["show"]) => {
 	const conditions = isArray(show) ? show : [show];
 
 	const isValid = conditions.every((show) => {
@@ -74,7 +74,7 @@ const Content = (props: ContentProps): ReactElement => {
 			);
 		}
 
-		if (currentField?.show && !showContent(currentField?.show)) {
+		if (currentField?.show !== undefined && !showContent(currentField?.show)) {
 			return;
 		}
 
@@ -144,12 +144,17 @@ const Content = (props: ContentProps): ReactElement => {
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
-				{buttons &&
-					<ButtonsWrapper className={cardVariant ? "card-buttons" : "standard-buttons"}>
-						{buttons?.map((button, idx) => (
-							<Button key={`${button.label}-${idx}`} {...button} />
-						))}
-					</ButtonsWrapper>}
+				{buttons && (
+					<ButtonsWrapper
+						className={cardVariant ? "card-buttons" : "standard-buttons"}
+					>
+						{buttons?.map((button, idx) =>
+							button.show !== undefined ? (
+								showContent(button.show) && <Button key={`${button.label}-${idx}`} {...button} />
+							) : <Button key={`${button.label}-${idx}`} {...button} />
+						)}
+					</ButtonsWrapper>
+				)}
 			</TitleWrapper>
 			<div className={cardVariant ? "card-content" : ""}>
 				{data && sectionsToRender.map((section, idx) => (

@@ -5,7 +5,7 @@ import {
 	fireEvent,
 } from "@testing-library/react";
 import * as React from "react";
-import Content from "./Content";
+import Content, { showContent } from "./Content";
 import { ContentField } from "./ContentTypes";
 import {
 	transform_boolean,
@@ -110,6 +110,14 @@ const buttons: ButtonProps[] = [
 		variant: "icon",
 		onClick: onClickAdd
 	},
+	{
+		name: "hidden",
+		label: "Hidden button",
+		color: "teal",
+		variant: "text",
+		onClick: onClickAdd,
+		show: false
+	},
 ]
 
 describe("Content component", () => {
@@ -153,6 +161,12 @@ describe("Content component", () => {
 		expect(onClickEdit).toHaveBeenCalled();
 		expect(onClickAdd).toHaveBeenCalled();
 	});
+
+	it("should not show the buttons that its prop show is set as false", () => {
+		const hiddenButton = screen.queryByText("Hidden button");
+
+		expect(hiddenButton).not.toBeInTheDocument();
+	});
 });
 
 describe("Content componenent with no sections", () => {
@@ -177,5 +191,23 @@ describe("Content componenent with no sections", () => {
 		expect(date).toBeInTheDocument();
 		expect(colorPicker).toBeInTheDocument();
 		expect(header).toBeInTheDocument();
+	});
+});
+
+describe("showContent helper function", () => {
+	it("should return the value of the show paramenter when is defined as a boolean", () => {
+		expect(showContent(false)).toBe(false);
+	});
+
+	it("should return true since all its show values are truthy", () => {
+		const show = [true, () => true];
+
+		expect(showContent(show)).toBe(true);
+	});
+
+	it("should return false since one of the show values is false", () => {
+		const show = [true, () => true, () => false];
+
+		expect(showContent(show)).toBe(false);
 	});
 });
