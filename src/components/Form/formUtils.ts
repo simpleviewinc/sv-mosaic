@@ -3,13 +3,13 @@ import { useRef, useCallback, useReducer, Dispatch } from "react";
 import { SectionDef } from "./FormTypes";
 
 type State = {
-	data: any;
-	errors: { [key: string]: string };
+	data: MosaicObject<any>;
+	errors: MosaicObject<string>;
 	validating: MosaicObject;
 	custom: unknown;
 	validForm: boolean;
 	disabled: boolean;
-	touched: { [key: string]: boolean };
+	touched: MosaicObject<boolean>;
 }
 
 type ActionTypes =
