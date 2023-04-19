@@ -54,7 +54,7 @@ export type TableInputSettings = {
 }
 
 export type TableDataState = {
-  table: TableRow[];
+  [key: string]: TableRow[];
 }
 
 export type UseTableReturnType = {
