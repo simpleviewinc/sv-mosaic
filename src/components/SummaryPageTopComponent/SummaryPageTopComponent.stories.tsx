@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { ReactElement, useMemo, useState } from "react";
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import Button, { ButtonProps } from "../Button";
 import Mail from "@mui/icons-material/Mail";
@@ -31,7 +31,7 @@ export const Example = (): ReactElement => {
 	const img = boolean("Image", false);
 	const showFavorite = boolean("Show star", true);
 	const showMainActions = boolean("Main actions", true);
-	const showAdditionalActions = boolean("Aditional actions", true);
+	const additionalActionsKnob = select("Additional Actions", [1, 2, 0], 2);
 	const showDescription = boolean("Description Items", true);
 
 	const mainActions: ButtonProps[] = [
@@ -72,6 +72,11 @@ export const Example = (): ReactElement => {
 			}
 		}
 	];
+
+	const slicedAdditionalActions = useMemo(
+		() => additionalActions.slice(0, additionalActionsKnob),
+		[additionalActionsKnob, additionalActions]
+	);
 
 	const textLinks = [
 		{
@@ -139,7 +144,7 @@ export const Example = (): ReactElement => {
 			favorite={showFavorite && favorite}
 			img={img && "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg"}
 			mainActions={showMainActions && mainActions}
-			additionalActions={showAdditionalActions && additionalActions}
+			additionalActions={slicedAdditionalActions}
 			descriptionItems={showDescription && descriptionItems}
 		/>
 	);

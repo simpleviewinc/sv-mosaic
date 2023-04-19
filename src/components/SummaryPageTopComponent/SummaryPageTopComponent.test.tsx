@@ -17,8 +17,10 @@ afterEach(cleanup);
 const ComponentExample = (props: {
 	descriptionItems?: SummaryPageTopComponentTypes["descriptionItems"];
 	mainActions?: SummaryPageTopComponentTypes["mainActions"];
+	showAdditionalActions?: boolean;
 }): ReactElement => {
 
+	const { showAdditionalActions = true } = props;
 	const [checked, setChecked] = useState<boolean>(false);
 
 	const textLinks = [
@@ -107,16 +109,20 @@ const ComponentExample = (props: {
 
 	const img = "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg";
 
-	const additionalActions: MenuItemProps[] = [
-		{
-			label : "Edit",
-			onClick : jest.fn()
-		},
-		{
-			label : "Download",
-			onClick : jest.fn()
-		}
-	];
+	let additionalActions: MenuItemProps[] = [];
+
+	if (showAdditionalActions) {
+		additionalActions = [
+			{
+				label : "Edit",
+				onClick : jest.fn()
+			},
+			{
+				label : "Download",
+				onClick : jest.fn()
+			}
+		];
+	}
 
 	const favorite = {
 		checked: checked,
@@ -179,6 +185,15 @@ describe("SummaryPageTopComponent", () => {
 
 		const mainActionButtons = await screen.findAllByTestId("btn-main-action");
 		expect(mainActionButtons).toHaveLength(3);
+	});
+
+	it("Should not display the menu that contains the additional actions", async () => {
+		await act(async () => {
+			render(<ComponentExample showAdditionalActions={false} />)
+		});
+
+		const additionalActions = screen.queryByTestId("btn-additional-action");
+		expect(additionalActions).not.toBeInTheDocument();
 	});
 
 	it.todo("Should throw an error with more than 3 main action buttons");
