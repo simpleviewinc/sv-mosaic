@@ -105,6 +105,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 			<div className="inputRow">
 				{!disabled ?
 					<StyledTextField
+						autoComplete="off"
 						autoFocus
 						placeholder={props.placeholder || t("mosaic:common.filter___")}
 						margin="dense"

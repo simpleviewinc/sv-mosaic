@@ -1,5 +1,48 @@
 # sv-mosaic changelog
 
+## 21.0.0 - 04/25/23
+* `Button`:
+	* Fixed visual bug causing buttons to show round corners when being clicked.
+* `FormFieldDropdownSingleSelection`:
+	* Improved clickable area for opening dropdown. Users previously had to intentionally click on the same line as the text to open the dropdown, now they can click anywhere inside the field to open it.
+* `Form`:
+	* Updated layout to prevent fields and columns from overlapping.
+	* Fields (internal and custom) will now render a "-" when disabled if they don't have a value.
+* `DataView`:
+	* Fixed visual bug causing bold style to render as regular text.
+* `FormFieldUpload`:
+	* Field will no longer render the drag-and-drop / upload button when developers pass the disabled prop as true. This will also only render uploaded files (no error or pending) and remove the trash icon button from the file cards to prevent users from deleting them.
+* `FormFieldAddress`:
+	* Field will no longer render the `ADD ADDRESS` button when developers pass the disabled prop as true. This will also affect current cards by removing any button that might affect the value (e.g. edit, remove, additional actions, etc).
+* `FormFieldImageUpload`:
+	* Field will no longer render the drag-and-drop / upload button when developers pass the disabled prop as true. This will also affect current cards by removing any button that might affect the value (e.g. edit, remove, additional actions, etc).
+* `FormFieldImageVideoLinkDocumentBrowsing`:
+	* Field will no longer render the file buttons when developers pass the disabled prop as true. This will also affect current cards by removing any button that might affect the value (e.g. edit, remove, additional actions, etc).
+* `FormFieldMapCoordinates`:
+	* Field will no longer render the `ADD COORDINATES` button when developers pass the disabled prop as true. This will also affect current cards by removing any button that might affect the value (e.g. edit, remove, additional actions, etc).
+* `Checkbox`:
+	* Interface now extends all props from MUI's Checkbox component.
+* **BREAKING** `CheckboxList`:
+	* All data coming in and out of the component has changed from `string[]` to `MosaicLabelValue[]` but its behavior and logic remains the same.
+		* checked: `string[]` -> `MosaicLabelValue[]`
+		* onChange: `(checked: (string | { [key: string]: unknown; })[]): void` -> `(checked: ({ [key: string]: unknown; } | MosaicLabelValue)[]): void`
+		* onChangeCb: `(checked: (string | { [key: string]: unknown; })[]): void` -> `(checked: ({ [key: string]: unknown; } | MosaicLabelValue)[]): void`
+* `DataViewColumnDrawerContent`:
+	* Internally updated component to pass and receive data from `CheckboxList` in the expected format. This won't affect any callbacks passed to the component as the data is being transformed to the required format by the callbacks (e.g. if an onApply cb was expecting `string[]` it will still receive data in that format).
+* `DataViewFilterMultiselectDropdownContent`:
+	* Internally updated component to pass and receive data from `CheckboxList` in the expected format. This won't affect any callbacks passed to the component as the data is being transformed to the required format by the callbacks (e.g. if an onApply cb was expecting `string[]` it will still receive data in that format).
+* `FormFieldAdvancedSelection`:
+	* Field will no longer render the `ADD` button when developers pass the disabled prop as true. When disabled, the field will render all of its selected options as regular non-clickable chips.
+* `FormFieldCheckbox`:
+	* Internally updated component to pass and receive data from `CheckboxList` in the expected format. This won't affect any callbacks passed to the component as the data is being transformed to the required format by the callbacks (e.g. if an onApply cb was expecting `string[]` it will still receive data in that format).
+	* When disabled, the field will render all of its selected options as regular non-clickable chips.
+* `FormFieldChipSingleSelect`:
+	* When disabled, the field will render all of its selected options as regular non-clickable chips.
+* `FormFieldDropdownSingleSelection`:
+	* When disabled, the field will render all of its selected options as regular non-clickable chips.
+* `FormFieldRadio`:
+	* When disabled, the field will render all of its selected options as regular non-clickable chips.
+
 ## 20.0.0 - 04/11/23
 * `Button`:
 	* Added `yellow` color variant to `icon` buttons. This includes adding an example to storybook in both playground and kitchen sink.
