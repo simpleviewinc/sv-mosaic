@@ -43,4 +43,10 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 	test("Validate the Summary Page Top Component title style.", async () => {
 		await summaryPage.validateTitleStylingOfLocator(summaryPage.title.last());
 	});
+
+	test("Validate that the title attribute is equal to the actual title.", async () => {
+		const title = await summaryPage.title.last().textContent();
+		const attribute = await summaryPage.title.last().getAttribute("title");
+		expect(attribute).toBe(title)
+	});
 });
