@@ -1,7 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextPage } from "../../pages/FormFields/FormFieldTextPage";
 import theme from "../../../src/theme";
-import { commonKnobs as knob } from "../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 	let page: Page;
@@ -118,8 +117,7 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 		});
 	});
 
-	test("Validate that the disabled text is almost black", async () => {
-		await ffTextPage.visit(ffTextPage.playground_page_path, [knob.knobDisabled + true]);
-		expect(await ffTextPage.getColorFromElement(ffTextPage.textFieldText)).toBe(theme.newColors.almostBlack["100"]);
+	test("Validate that the Multiline field has correct height.", async () => {
+		expect(await ffTextPage.getHeightFromElement(ffTextPage.multilineTextField)).toBe(theme.fieldSpecs.inputText.height);
 	});
 });
