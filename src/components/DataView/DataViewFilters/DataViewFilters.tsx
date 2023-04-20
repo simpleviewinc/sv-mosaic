@@ -4,26 +4,19 @@ import styled from "styled-components";
 import { pick, xor } from "lodash";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
-import DataViewFilterDropdown from "../DataViewFilterDropdown";
+import DataViewFilterDropdown from "../../DataViewFilterDropdown";
 import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect"
-import Button from "../Button";
+import Button from "../../Button";
 import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
-import { DataViewProps } from "./DataViewTypes";
+import { DataViewProps } from "../DataViewTypes";
+import { DataViewFiltersProps } from "./DataViewFiltersTypes";
 
 const FiltersRow = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px;
 `;
-
-interface DataViewFiltersProps {
-	activeFilters?: DataViewProps["activeFilters"];
-	filters?: DataViewProps["filters"];
-	filter?: DataViewProps["filter"];
-	onActiveFiltersChange?: DataViewProps["onActiveFiltersChange"];
-	loading?: DataViewProps["loading"];
-}
 
 function DataViewFilters(props: DataViewFiltersProps) {
 	const { t } = useMosaicTranslation();
