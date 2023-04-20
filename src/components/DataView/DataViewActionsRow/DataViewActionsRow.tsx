@@ -7,7 +7,7 @@ import DataViewPager from "../DataViewPager";
 import { DataViewActionsRowWrapper, LeftControlsContainer, RightControlsContainer } from "./DataViewActionsRow.styled";
 import { DataViewActionsRowProps } from "./DataViewActionsRowTypes";
 import Checkbox from "../../Checkbox";
-import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow";
+import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow/DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "../DataViewDisplayGridSortControl";
 
 const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {

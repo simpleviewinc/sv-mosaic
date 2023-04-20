@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { useMemo } from "react";
 
 import Checkbox from "../../Checkbox";
-import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
+import DataViewActionsButtonRow from "../DataViewActionsButtonRow/DataViewActionsButtonRow";
 import { transformRows } from "../../../utils/dataViewTools";
 
 import DataViewBulkAllBar from "../DataViewBulkAllBar";
