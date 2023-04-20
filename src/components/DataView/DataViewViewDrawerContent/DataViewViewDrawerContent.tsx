@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 
-import DataView from "./DataView";
-import { DataViewProps } from "./DataViewTypes";
+import DataView from "../DataView";
+import { DataViewProps } from "../DataViewTypes";
 import DrawerContent from "@root/components/DrawerContent";
-import DataViewViewSaveDrawer from "./DataViewViewSaveDrawer";
+import DataViewViewSaveDrawer from "../DataViewViewSaveDrawer";
 import { useMosaicTranslation } from "@root/i18n";
-// import { MosaicObject } from "@root/types";
+import { DataViewViewDrawerContentProps } from "./DataViewViewDrawerContentTypes";
 
 const startingState = {
 	options : undefined,
@@ -14,23 +14,6 @@ const startingState = {
 	formOpen : false,
 	formData : {}
 }
-
-interface DataViewViewDrawerContentProps {
-	onGetOptions?: any;
-	allowSharedViewSave?: any;
-	onChange?: any;
-	onClose?: any;
-	onRemove?: any;
-	onSave?: any;
-}
-// interface DataViewViewDrawerContentProps {
-// 	onGetOptions: () => any;
-// 	allowSharedViewSave: any;
-// 	onChange: (arg0: MosaicObject) => any;
-// 	onClose: () => void;
-// 	onRemove: (arg0: MosaicObject) => any;
-// 	onSave: any;
-// }
 
 //TODO PROPS
 function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
