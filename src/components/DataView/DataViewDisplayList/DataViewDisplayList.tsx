@@ -1,40 +1,16 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import DataViewTHead from "./DataViewTHead";
-import DataViewTBody from "./DataViewTBody";
-import { DataViewProps } from "./DataViewTypes";
+import DataViewTHead from "../DataViewTHead";
+import DataViewTBody from "../DataViewTBody";
 import { useMemo } from "react";
 import { transformRows } from "@root/utils/dataViewTools";
+import { DataViewDisplayListProps } from "./DataViewDisplayListTypes";
 
 const StyledTable = styled.table`
 	width: 100%;
 	border-collapse: collapse;
 `
-
-interface DataViewDisplayListProps {
-	activeColumns?: DataViewProps["activeColumns"];
-	columns?: DataViewProps["columns"];
-	data?: DataViewProps["data"];
-	onReorder?: DataViewProps["onReorder"];
-	checked?: DataViewProps["checked"];
-	checkedAllPages?: DataViewProps["checkedAllPages"];
-	bulkActions?: DataViewProps["bulkActions"];
-	sort?: DataViewProps["sort"];
-	count?: DataViewProps["count"];
-	rowCount?: number;
-	onSortChange?: DataViewProps["onSortChange"];
-	onCheckAllClick?: () => void;
-	onCheckAllPagesClick?: () => void;
-	onColumnsChange?: DataViewProps["onColumnsChange"];
-	additionalActions?: DataViewProps["additionalActions"];
-	primaryActions?: DataViewProps["primaryActions"];
-	onCheckboxClick?: () => void;
-	activeColumnObjs?: DataViewProps["columns"];
-	anyChecked?: boolean;
-	allChecked?: boolean;
-	showBulkAll?: boolean;
-}
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
 	const { primaryActions, additionalActions } = props;

@@ -65,19 +65,7 @@ export interface DataViewFilterProps {
 	onRemove: () => void
 }
 
-export interface DataViewControlLimitProps {
-	limit: number
-	options: number[]
-	onLimitChange: DataViewOnLimitChange
-}
-
 export type DataViewControlViewOption = "list" | "grid";
-
-export interface DataViewControlDisplayProps {
-	display: string
-	displayOptions: DataViewDisplay[]
-	onDisplayChange(display: string): void
-}
 
 interface DataViewActionShow {
 	// ({ row }: { row : MosaicObject }): void
@@ -110,13 +98,6 @@ export interface DataViewBulkAction extends Omit<DataViewAction, "onClick"> {
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick
 	onAllClick?: MosaicCallback
-}
-
-export interface DataViewBulkActionsButtonsRowProps {
-	bulkActions: DataViewBulkAction[]
-	data: MosaicObject[]
-	checked: boolean[]
-	checkedAllPages: boolean
 }
 
 export interface DataViewDisplay {

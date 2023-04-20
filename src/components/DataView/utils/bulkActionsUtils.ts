@@ -1,8 +1,9 @@
 import { isArray } from "lodash";
 import { ButtonProps } from "@root/components/Button";
-import { DataViewActionsButtonRowProps } from "../DataViewActionsButtonRow";
-import { DataViewAction, DataViewAdditionalAction, DataViewBulkAction, DataViewBulkActionsButtonsRowProps } from "../DataViewTypes";
+import { DataViewAction, DataViewAdditionalAction, DataViewBulkAction } from "../DataViewTypes";
 import { MenuItemProps } from "../../MenuItem";
+import { DataViewBulkActionsButtonsRowProps } from "../DataViewBulkActionsButtonsRow";
+import { DataViewActionsButtonRowProps } from "../DataViewActionsButtonRow";
 
 type RowArgs = { row: DataViewActionsButtonRowProps["originalRowData"] };
 type CheckedTrue = { checkedAllPages: true };
