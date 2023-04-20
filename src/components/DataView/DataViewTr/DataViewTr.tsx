@@ -2,7 +2,7 @@ import React from "react";
 
 import Checkbox from "@root/components/Checkbox";
 import DataViewTd from "../DataViewTd";
-import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
+import DataViewActionsButtonRow from "../DataViewActionsButtonRow/DataViewActionsButtonRow";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { TableRow } from "./DataViewTr.styled";
