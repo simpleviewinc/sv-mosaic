@@ -1,8 +1,8 @@
 import * as React from "react";
 import { memo } from "react";
 
-import ButtonRow from "../ButtonRow";
-import { DataViewBulkActionsButtonsRowProps } from "./DataViewTypes";
+import ButtonRow from "../../ButtonRow";
+import { DataViewBulkActionsButtonsRowProps } from "./DataViewBulkActionsButtonsRowTypes";
 
 function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps) {
 	const buttons = props.bulkActions.map(action => {
