@@ -1,9 +1,9 @@
 import React, { memo } from "react";
-import { DraggableProvided } from "react-beautiful-dnd";
 import styled from "styled-components";
 import theme from "@root/theme";
 
-import { BodyText } from "../Typography";
+import { BodyText } from "../../Typography";
+import { DataViewTdProps } from "./DataViewTdTypes";
 
 const StyledTd = styled.td`
 	height: 40px;
@@ -40,20 +40,6 @@ const StyledTd = styled.td`
 		text-overflow: ellipsis;
 	}
 `;
-
-interface DataViewTdProps {
-	expandCell?: any;
-	bold?: any;
-	italic?: any;
-	strikeThrough?: any;
-	noWrap?: any;
-	ellipsis?: any;
-	maxWidth?: any;
-	textTransform?: any;
-	children?: any;
-	className?: any;
-	draggableProvider?: DraggableProvided;
-}
 
 //TODO PROPS
 function DataViewTd(props: DataViewTdProps) {
