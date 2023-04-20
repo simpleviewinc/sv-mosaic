@@ -1,26 +1,7 @@
 import React from "react";
-
 import Drawer from "@root/components/Drawer";
-import DataViewViewDrawerContent from "./DataViewViewDrawerContent";
-
-interface DataViewViewDrawerProps {
-	open?: any;
-	onClose?: any;
-	onSave?: any;
-	onRemove?: any;
-	onChange?: any;
-	onGetOptions?: any;
-	allowSharedViewSave?: any;
-}
-// interface DataViewViewDrawerProps {
-// 	open: boolean;
-// 	onClose: () => void;
-// 	onSave: any;
-// 	onRemove: any;
-// 	onChange: any;
-// 	onGetOptions: any;
-// 	allowSharedViewSave: any;
-// }
+import DataViewViewDrawerContent from "../DataViewViewDrawerContent";
+import { DataViewViewDrawerProps } from "./DataViewViewDrawerTypes";
 
 //TODO PROPS
 function DataViewViewDrawer(props: DataViewViewDrawerProps) {
