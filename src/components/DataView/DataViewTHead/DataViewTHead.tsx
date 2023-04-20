@@ -6,12 +6,12 @@ import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
 import SwitchRightIcon from "@mui/icons-material/SwitchRight";
 
 import Checkbox from "@root/components/Checkbox";
-import DataViewBulkActionsButtonsRow from "./DataViewBulkActionsButtonsRow/DataViewBulkActionsButtonsRow";
-import DataViewBulkAllBar from "../DataView/DataViewBulkAllBar";
+import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow/DataViewBulkActionsButtonsRow";
+import DataViewBulkAllBar from "../DataViewBulkAllBar";
 
 import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
-import { DataViewProps } from "./DataViewTypes";
+import { DataViewTHeadProps } from "./DataViewTHeadTypes";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
@@ -93,27 +93,6 @@ const StyledTh = styled.th`
 
 function flipDir(sort) {
 	return sort === "asc" ? "desc" : "asc";
-}
-
-interface DataViewTHeadProps {
-	hasActions: boolean;
-	checked?: any;
-	bulkActions?: any;
-	columns?: DataViewProps["columns"];
-	onReorder?: DataViewProps["onReorder"];
-	rowCount?: any;
-	count?: any;
-	onCheckAllClick?: any;
-	data?: any;
-	checkedAllPages?: any;
-	onColumnsChange?: DataViewProps["onColumnsChange"];
-	allColumns?: DataViewProps["columns"];
-	onSortChange?: any;
-	sort?: any;
-	onCheckAllPagesClick?: any;
-	anyChecked?: boolean;
-	allChecked?: boolean;
-	showBulkAll?: boolean;
 }
 
 //TODO PROPS
