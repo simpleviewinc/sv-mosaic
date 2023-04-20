@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
-import DataViewTr from "./DataViewTr";
+import DataViewTr from "../DataViewTr";
 import theme from "@root/theme";
-import { MosaicObject } from "@root/types";
-import { DataViewProps } from "./DataViewTypes";
+import { DataViewTBodyProps } from "./DataViewTBodyTypes";
 
 const StyledTBody = styled.tbody`
 	& > tr {
@@ -27,19 +26,6 @@ const StyledTBody = styled.tbody`
 		display: block;
 	}
 `
-
-interface DataViewTBodyProps {
-	onReorder?: DataViewProps["onReorder"];
-	onCheckboxClick?: DataViewProps["onCheckChange"];
-	transformedData: MosaicObject[];
-	data: DataViewProps["data"];
-	bulkActions?: DataViewProps["bulkActions"];
-	primaryActions?: DataViewProps["primaryActions"];
-	additionalActions?: DataViewProps["additionalActions"];
-	checked?: DataViewProps["checked"];
-	columns: DataViewProps["columns"];
-	hasActions: boolean;
-}
 
 function DataViewTBody(props: DataViewTBodyProps) {
 	const onCheckboxClick = (i) => () => {
