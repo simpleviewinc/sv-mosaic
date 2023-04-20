@@ -1,10 +1,9 @@
 import * as React from "react";
 import { useState, useContext, memo } from "react";
 import styled from "styled-components";
-
-import { default as Button, ButtonPopoverContext } from "../Button";
-import { DataViewOnSkipChange } from "./DataViewTypes";
-import theme from "../../theme";
+import { default as Button, ButtonPopoverContext } from "../../Button";
+import theme from "../../../theme";
+import { DataViewPagerPopoverProps } from "./DataViewPagerPopoverTypes";
 
 const PopoverDiv = styled.div`
 	font-size: 14px;
@@ -25,14 +24,7 @@ const PopoverDiv = styled.div`
 	}
 `;
 
-interface Props {
-	currentPage: number
-	totalPages: number
-	limit: number
-	onSkipChange: DataViewOnSkipChange
-}
-
-function DataViewPagerPopover(props: Props) {
+function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
 	const buttonPopoverContext = useContext(ButtonPopoverContext);
 
 	const [state, setState] = useState({
