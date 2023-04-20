@@ -1,18 +1,10 @@
 import * as React from "react";
 import { memo, useMemo } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-import ButtonRow from "../ButtonRow";
-import Button from "../Button";
-import { DataViewAction, DataViewAdditionalAction, DataViewControlViewOption } from "./DataViewTypes";
-import { MosaicObject } from "../../types";
-import { filterAction } from "./utils/bulkActionsUtils";
-export interface DataViewActionsButtonRowProps {
-	primaryActions: DataViewAction[];
-	additionalActions: DataViewAdditionalAction[];
-	originalRowData: MosaicObject;
-	activeDisplay?: DataViewControlViewOption;
-}
+import ButtonRow from "../../ButtonRow";
+import Button from "../../Button";
+import { filterAction } from "../utils/bulkActionsUtils";
+import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
 
 function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	const primaryActions = useMemo(() => {
