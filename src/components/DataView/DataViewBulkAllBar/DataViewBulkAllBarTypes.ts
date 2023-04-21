@@ -1,12 +1,8 @@
+import { DataViewProps } from "../DataViewTypes";
+
 export interface DataViewBulkAllBarProps {
-	count?: any;
-	rowCount?: any;
-	checkedAllPages?: any;
-	onCheckAllPagesClick?: any;
+	count?: DataViewProps["count"];
+	rowCount?: number;
+	checkedAllPages?: DataViewProps["checkedAllPages"];
+	onCheckAllPagesClick?: () => void;
 }
-// interface Props {
-// 	count: number
-// 	rowCount: number
-// 	checkedAllPages: boolean
-// 	onCheckAllPagesClick: DataViewBulkAction["onAllClick"]
-// }
