@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 
 import DataView from "../DataView";
-import { DataViewProps } from "../DataViewTypes";
+import { DataViewProps, SavedViewDef } from "../DataViewTypes";
 import DrawerContent from "@root/components/DrawerContent";
 import DataViewViewSaveDrawer from "../DataViewViewSaveDrawer";
 import { useMosaicTranslation } from "@root/i18n";
@@ -12,10 +12,14 @@ const startingState = {
 	options : undefined,
 	loading : true,
 	formOpen : false,
-	formData : {}
+	formData : {
+		id: "",
+		label: "",
+		type: "",
+		state: {}
+	}
 }
 
-//TODO PROPS
 function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 	const [state, setState] = useState({
 		...startingState
@@ -72,7 +76,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 				variant : "icon",
 				color : "black",
 				mIcon : CreateIcon,
-				onClick : function({ data }) {
+				onClick : function({ data }: {data: Required<SavedViewDef>}) {
 					setState({
 						...state,
 						formOpen : true,
@@ -88,7 +92,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 					return canAct(row);
 				},
 				label : t("mosaic:common.remove"),
-				onClick : async function({ data }) {
+				onClick : async function({ data }: {data: Required<SavedViewDef>}) {
 					await props.onRemove(data);
 					setState({
 						...state,
