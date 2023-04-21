@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldPhoneSelectionDropdownPage } from "../../../pages/FormFields/FormFieldPhoneSelectionDropdownPage";
+import { FormFieldPhoneSelectionDropdownPage } from "../../../pages/FormFields/FormFieldPhoneSelectionDropdown/FormFieldPhoneSelectionDropdownPage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";

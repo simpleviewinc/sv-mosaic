@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldDropdownSingleSelectionPage } from "../../../pages/FormFields/FormFieldDropdownSingleSelectionPage";
+import { FormFieldDropdownSingleSelectionPage } from "../../../pages/FormFields/FormFieldDropdownSingleSelection/FormFieldDropdownSingleSelectionPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen Sink", () => {

@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldChipSingleSelectPage } from "../../../pages/FormFields/FormFieldChipSingleSelectPage";
+import { FormFieldChipSingleSelectPage } from "../../../pages/FormFields/FormFieldChipSingleSelect/FormFieldChipSingleSelectPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", () => {
