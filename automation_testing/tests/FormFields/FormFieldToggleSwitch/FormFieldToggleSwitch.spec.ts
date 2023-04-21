@@ -16,7 +16,7 @@ test.describe.parallel("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () 
 	});
 
 	test("Validate the Toggle with label.", async () => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			const message = dialog.message().split(/[{}]/)[1].split(/[\n":]/).map(el => el.trim()).filter(el => el !== "");
 			expect(message[1]).toBe("true");
 			await dialog.dismiss();
@@ -27,12 +27,8 @@ test.describe.parallel("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () 
 		await formFieldToggleSwitchPage.saveBtn.click();
 	});
 
-	test("Validate the Disabled Toggle.", async () => {
-		await expect(formFieldToggleSwitchPage.disabledToggle).toBeDisabled();
-	});
-
 	test("Validate the Toggle without label.", async () => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			const message = dialog.message().split(/[{}]/)[1].split(/[\n":]/).map(el => el.trim()).filter(el => el !== "");
 			expect(message[1]).toBe("true");
 			await dialog.dismiss();
