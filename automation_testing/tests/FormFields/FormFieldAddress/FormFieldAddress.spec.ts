@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldAddressPage } from "../../../pages/FormFields/FormFieldAddressPage";
+import { FormFieldAddressPage } from "../../../pages/FormFields/FormFieldAddress/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { us_address, us_address_2 } from "../../../utils/data/addressInformationData";
 import theme from "../../../../src/theme";
