@@ -2,8 +2,8 @@ import { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewDisplayListProps {
 	activeColumns?: DataViewProps["activeColumns"];
-	columns?: DataViewProps["columns"];
-	data?: DataViewProps["data"];
+	columns: DataViewProps["columns"];
+	data: DataViewProps["data"];
 	onReorder?: DataViewProps["onReorder"];
 	checked?: DataViewProps["checked"];
 	checkedAllPages?: DataViewProps["checkedAllPages"];
@@ -18,7 +18,7 @@ export interface DataViewDisplayListProps {
 	additionalActions?: DataViewProps["additionalActions"];
 	primaryActions?: DataViewProps["primaryActions"];
 	onCheckboxClick?: () => void;
-	activeColumnObjs?: DataViewProps["columns"];
+	activeColumnObjs: DataViewProps["columns"];
 	anyChecked?: boolean;
 	allChecked?: boolean;
 	showBulkAll?: boolean;
