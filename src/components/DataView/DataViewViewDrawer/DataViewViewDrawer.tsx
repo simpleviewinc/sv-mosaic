@@ -3,7 +3,6 @@ import Drawer from "@root/components/Drawer";
 import DataViewViewDrawerContent from "../DataViewViewDrawerContent";
 import { DataViewViewDrawerProps } from "./DataViewViewDrawerTypes";
 
-//TODO PROPS
 function DataViewViewDrawer(props: DataViewViewDrawerProps) {
 	return (
 		<Drawer
