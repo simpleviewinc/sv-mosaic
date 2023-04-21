@@ -1,16 +1,10 @@
+import { DataViewProps, SavedViewCallbacks } from "../DataViewTypes";
+
 export interface DataViewViewDrawerContentProps {
-	onGetOptions?: any;
-	allowSharedViewSave?: any;
-	onChange?: any;
-	onClose?: any;
-	onRemove?: any;
-	onSave?: any;
+	onGetOptions: SavedViewCallbacks["onGetOptions"];
+	allowSharedViewSave: DataViewProps["savedViewAllowSharedViewSave"];
+	onChange: SavedViewCallbacks["onChange"];
+	onClose: () => void;
+	onRemove: SavedViewCallbacks["onRemove"];
+	onSave: SavedViewCallbacks["onSave"];
 }
-// interface DataViewViewDrawerContentProps {
-// 	onGetOptions: () => any;
-// 	allowSharedViewSave: any;
-// 	onChange: (arg0: MosaicObject) => any;
-// 	onClose: () => void;
-// 	onRemove: (arg0: MosaicObject) => any;
-// 	onSave: any;
-// }
