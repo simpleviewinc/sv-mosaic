@@ -1,5 +1,6 @@
 import { AdvancedSelectionInputSettings } from "@root/forms/FormFieldAdvancedSelection";
-import { DataViewFilterProps } from "../DataView/DataViewTypes";
+import { DataViewFilterGetOptionsReturn, DataViewFilterProps } from "../DataView";
+import { MosaicLabelValue } from "@root/types";
 
 export type MultiSelectComparison = "in" | "not_in" | "all" | "exists" | "not_exists";
 
@@ -11,7 +12,7 @@ interface DataViewFilterMultiselectData {
 export interface DataViewFilterMultiselectProps extends DataViewFilterProps {
 	data: DataViewFilterMultiselectData;
 	args: {
-		getOptions(val: any): Promise<any> | any;
+		getOptions(val: any): Promise<DataViewFilterGetOptionsReturn> | DataViewFilterGetOptionsReturn;
 		getSelected(val: any): Promise<any> | any;
 		comparisons?:  MultiSelectComparison[];
 		placeholder?: string;
@@ -21,16 +22,15 @@ export interface DataViewFilterMultiselectProps extends DataViewFilterProps {
 }
 
 export interface DataViewFilterMultiselectDropdownContentProps {
-	value?: any;
-	selected: any[];
+	selected: MosaicLabelValue[];
 	comparison: DataViewFilterMultiselectProps["data"]["comparison"];
 	comparisons?: {label: string; value: DataViewFilterMultiselectProps["data"]["comparison"]}[];
 	getOptions: DataViewFilterMultiselectProps["args"]["getOptions"];
-	onApply: (val: any) => void;
+	onApply: ({value, comparison}: {value: string[], comparison: DataViewFilterMultiselectProps["data"]["comparison"]}) => void;
 	isOpen: boolean;
 	placeholder?: DataViewFilterMultiselectProps["args"]["placeholder"];
 	limit?:  DataViewFilterMultiselectProps["args"]["limit"];
-	onChange?: (val: any) => void;
+	onChange?: (val: MosaicLabelValue[]) => void;
 	hideButtons?: boolean;
 	createNewOption?: AdvancedSelectionInputSettings["createNewOption"];
 	selectLimit?: AdvancedSelectionInputSettings["selectLimit"];
