@@ -15,6 +15,7 @@ export class FormFieldNumberTablePage extends BasePage {
 	}
 
 	async validateTotalSumOfEachRow(): Promise<void> {
+		await this.wait(1000);
 		const rowCount = await this.tableBodyRowLocator.count() - 1;
 		let columnCount: number; let inputSum = 0;
 		for (let i = 0; i < rowCount; i++) {
