@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import CreateIcon from "@mui/icons-material/Create";
-import DataViewActionsButtonRow from "../DataViewActionsButtonRow/DataViewActionsButtonRow";
+import DataViewActionsButtonRow from "./DataViewActionsButtonRow";
 import { DataViewAction } from "../DataViewTypes";
 
 afterEach(cleanup);
