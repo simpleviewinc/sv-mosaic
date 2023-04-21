@@ -9,19 +9,18 @@ import { TableRow } from "./DataViewTr.styled";
 import { DataViewTrProps } from "./DataViewTrTypes";
 import theme from "@root/theme";
 
-//TODO PROPS
 function DataViewTr(props: DataViewTrProps) {
 	return (
 		<Draggable
 			key={props.row.id}
 			draggableId={props.originalRowData.id.toString()}
 			index={props.rowIdx}
-			isDragDisabled={!props?.onReorder}
+			isDragDisabled={!props.onReorder}
 		>
 			{(provider) => (
 				<TableRow {...provider.draggableProps} ref={provider.innerRef} className={props.checked && "checked"}>
 					{
-						props?.onReorder &&
+						props.onReorder &&
 						<DataViewTd key="_draggable" draggableProvider={provider}>
 							<DragIndicatorIcon style={{display: "flex", color: theme.newColors.almostBlack["100"]}}/>
 						</DataViewTd>
@@ -51,7 +50,6 @@ function DataViewTr(props: DataViewTrProps) {
 							return (
 								<DataViewTd
 									key={column.name}
-									className={column.style && column.style.bold && "bold"}
 									expandCell={true}
 									bold={column.style && column.style.bold}
 									italic={column.style && column.style.italic}
