@@ -1,15 +1,15 @@
 import { DraggableProvided } from "react-beautiful-dnd";
+import { DataViewColumn } from "../DataViewTypes";
 
 export interface DataViewTdProps {
-	expandCell?: any;
-	bold?: any;
-	italic?: any;
-	strikeThrough?: any;
-	noWrap?: any;
-	ellipsis?: any;
-	maxWidth?: any;
-	textTransform?: any;
-	children?: any;
-	className?: any;
+	expandCell?: boolean;
+	bold?: DataViewColumn["style"]["bold"];
+	italic?: DataViewColumn["style"]["italic"];
+	strikeThrough?: DataViewColumn["style"]["strikeThrough"];
+	noWrap?: DataViewColumn["style"]["noWrap"];
+	ellipsis?: DataViewColumn["style"]["ellipsis"];
+	maxWidth?: DataViewColumn["style"]["maxWidth"];
+	textTransform?: DataViewColumn["style"]["textTransform"];
+	children: React.ReactNode;
 	draggableProvider?: DraggableProvided;
 }
