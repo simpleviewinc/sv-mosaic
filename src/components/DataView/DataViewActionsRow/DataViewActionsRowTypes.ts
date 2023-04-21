@@ -1,13 +1,13 @@
 import { MosaicObject } from "@root/types";
 import {
 	DataViewColumn,
-	DataViewDisplay,
 	DataViewOnSortChange,
 	DataViewProps,
 } from "../DataViewTypes";
+import { DataViewDisplay } from "../DataViewDisplays";
 export interface DataViewActionsRowProps {
 	bulkActions?: DataViewProps["bulkActions"];
-	checked?: boolean[];
+	checked?: DataViewProps["checked"];
 	display: string;
 	displayControlEnabled: boolean;
 	displayOptionsFull: DataViewDisplay[];
@@ -22,7 +22,7 @@ export interface DataViewActionsRowProps {
 	activeColumnObjs: DataViewProps["columns"];
 	allColumns?: DataViewProps["columns"];
 	onCheckAllClick?: () => void;
-	checkedAllPages?: boolean;
+	checkedAllPages?: DataViewProps["checkedAllPages"];
 	data?: MosaicObject[];
 	sort?: DataViewProps["sort"];
 	onSortChange?: DataViewOnSortChange;
