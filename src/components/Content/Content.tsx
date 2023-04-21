@@ -140,18 +140,24 @@ const Content = (props: ContentProps): ReactElement => {
 		return sections;
 	}, [sections]);
 
+	/**
+	 * Filters the buttons based on their show prop. If a button
+	 * does a show value defined it will be rendered.
+	 */
+	const buttonToRender = buttons?.filter((button) => (
+		button.show !== undefined ? showContent(button.show) : true
+	));
+
 	return (
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
-				{buttons && (
+				{buttonToRender.length > 0 && (
 					<ButtonsWrapper
 						className={cardVariant ? "card-buttons" : "standard-buttons"}
 					>
-						{buttons?.map((button, idx) =>
-							button.show !== undefined ? (
-								showContent(button.show) && <Button key={`${button.label}-${idx}`} {...button} />
-							) : <Button key={`${button.label}-${idx}`} {...button} />
+						{buttonToRender?.map((button, idx) =>
+							<Button key={`${button.label}-${idx}`} {...button} />
 						)}
 					</ButtonsWrapper>
 				)}
