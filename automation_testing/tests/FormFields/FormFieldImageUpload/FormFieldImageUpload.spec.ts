@@ -1,10 +1,12 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldImageUploadPage } from "../../../pages/FormFields/FormFieldImageUploadPage";
+import { FormFieldImageUploadPage } from "../../../pages/FormFields/FormFieldImageUpload/FormFieldImageUploadPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () => {
 	let page: Page;
 	let ffImageUploadPage: FormFieldImageUploadPage;
+	const imagePath = `${__dirname}/../../../utils/data/Images/image-example.png`;
+
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
@@ -17,7 +19,6 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Image Upload with menu options and without set Focus handler", async () => {
-		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
 		await expect(ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv).toContainText("Size");
 		const buttons = ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.locator("button");
@@ -29,7 +30,6 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		await ffImageUploadPage.setDialogValidationListener("Set focus is called");
 		await page.reload();
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.waitFor();
-		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.setInputFiles(imagePath);
 		await expect(ffImageUploadPage.imageUploadWithSetFocusHandlerDiv).toContainText("Size");
 		const buttons = ffImageUploadPage.imageUploadWithSetFocusHandlerDiv.locator("button");
@@ -52,7 +52,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 			await dialog.dismiss();
 		});
 		const imageName = "image-example.png"
-		const imagePath = `${__dirname}/../../utils/data/Images/` + imageName;
+		const imagePath = `${__dirname}/../../../utils/data/Images/` + imageName;
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
 		const size = ((await ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.textContent()).replace("Size", "").replace("Remove", "").split("x"));
 		const width = Number(size[0]);
@@ -68,14 +68,12 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Image Upload (without focus) border has grey2 in border.", async () => {
-		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
 		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv, "all")).toContain(theme.newColors.grey2["100"]);
 	});
 
 	test("Validate Image Upload (with focus)  border has grey2 in border.", async () => {
 		const expectedColor = theme.newColors.grey2["100"];
-		const imagePath = `${__dirname}/../../utils/data/Images/image-example.png`;
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.setInputFiles(imagePath);
 		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithSetFocusHandlerDiv, "all")).toContain(expectedColor);
 	});
