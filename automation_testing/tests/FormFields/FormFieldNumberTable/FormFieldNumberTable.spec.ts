@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import theme from "../../../../src/theme";
-import { FormFieldNumberTablePage } from "../../../pages/FormFields/FormFieldNumberTablePage";
+import { FormFieldNumberTablePage } from "../../../pages/FormFields/FormFieldNumberTable/FormFieldNumberTablePage";
 import { commonKnobs, formFieldNumberTableKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {

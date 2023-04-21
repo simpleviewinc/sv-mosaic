@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldCheckboxPage } from "../../../pages/FormFields/FormFieldCheckboxPage";
+import { FormFieldCheckboxPage } from "../../../pages/FormFields/FormFieldCheckbox/FormFieldCheckboxPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {

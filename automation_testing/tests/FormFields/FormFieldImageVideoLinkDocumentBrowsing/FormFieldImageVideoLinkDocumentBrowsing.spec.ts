@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldImageVideoLinkDocumentBrowsingPage } from "../../../pages/FormFields/FormFieldImageVideoLinkDocumentBrowsingPage";
+import { FormFieldImageVideoLinkDocumentBrowsingPage } from "../../../pages/FormFields/FormFieldImageVideoLinkDocumentBrowsing/FormFieldImageVideoLinkDocumentBrowsingPage";
 import theme from "../../../../src/theme";
 
 test.describe.parallel("FormFields - FormFieldImageVideoLinkDocumentBrowsing - Kitchen Sink", () => {

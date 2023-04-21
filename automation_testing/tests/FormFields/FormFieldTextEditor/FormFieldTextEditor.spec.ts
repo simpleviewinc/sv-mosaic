@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldTextEditorPage } from "../../../pages/FormFields/FormFieldTextEditorPage";
+import { FormFieldTextEditorPage } from "../../../pages/FormFields/FormFieldTextEditor/FormFieldTextEditorPage";
 
 test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => {
 	let page: Page;

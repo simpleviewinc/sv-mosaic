@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldMapCoordinatesPage } from "../../../pages/FormFields/FormFieldMapCoordinatesPage";
+import { FormFieldMapCoordinatesPage } from "../../../pages/FormFields/FormFieldMapCoordinates/FormFieldMapCoordinatesPage";
 import theme from "../../../../src/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
