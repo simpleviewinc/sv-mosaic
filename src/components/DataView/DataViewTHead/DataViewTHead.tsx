@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// import jsvalidator from "jsvalidator";
 
 import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
 import SwitchRightIcon from "@mui/icons-material/SwitchRight";
@@ -95,69 +94,7 @@ function flipDir(sort) {
 	return sort === "asc" ? "desc" : "asc";
 }
 
-//TODO PROPS
 function DataViewTHead(props: DataViewTHeadProps) {
-	// jsvalidator.validate(props, {
-	// 	type : "object",
-	// 	schema : [
-	// 		{
-	// 			name : "checked",
-	// 			type : "array",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "checkedAllPages",
-	// 			type : "boolean",
-	// 			required : true
-	// 		},
-	// 		{
-	// 			name : "bulkActions",
-	// 			type : "array",
-	// 		},
-	// 		{
-	// 			name : "columns",
-	// 			type : "array"
-	// 		},
-	// 		{
-	// 			name : "allColumns",
-	// 			type : "array"
-	// 		},
-	// 		{
-	// 			name : "data",
-	// 			type : "array"
-	// 		},
-	// 		{
-	// 			name : "sort",
-	// 			type : "object"
-	// 		},
-	// 		{
-	// 			name : "rowCount",
-	// 			type : "number"
-	// 		},
-	// 		{
-	// 			name : "count",
-	// 			type : "number"
-	// 		},
-	// 		{
-	// 			name : "onSortChange",
-	// 			type : "function"
-	// 		},
-	// 		{
-	// 			name : "onCheckAllClick",
-	// 			type : "function"
-	// 		},
-	// 		{
-	// 			name : "onCheckAllPagesClick",
-	// 			type : "function"
-	// 		},
-	// 		{
-	// 			name : "onColumnsChange",
-	// 			type : "function"
-	// 		}
-	// 	],
-	// 	allowExtraKeys : false,
-	// 	throwOnInvalid : true
-	// });
 
 	const { t } = useMosaicTranslation();
 
@@ -167,7 +104,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 		<StyledWrapper>
 			<tr className="row-header">
 				{
-					props?.onReorder &&
+					props.onReorder &&
 					<StyledTh key="_draggable" className="bulk">
 					</StyledTh>
 				}
@@ -182,7 +119,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					</StyledTh>
 				}
 				{
-					props?.bulkActions?.length > 0 && props.anyChecked &&
+					props.bulkActions?.length > 0 && props.anyChecked &&
 					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
 						<DataViewBulkActionsButtonsRow
 							data={props.data}
