@@ -1,15 +1,8 @@
+import { DataViewProps, DataViewView, SavedViewCallbacks } from "../DataViewTypes";
+
 export interface DataViewViewSaveDrawerContentProps {
-	data?: any;
-	allowSharedViewSave?: any;
-	onSave?: any;
-	onClose?: any;
+	data: DataViewView;
+	allowSharedViewSave?: DataViewProps["savedViewAllowSharedViewSave"];
+	onSave: SavedViewCallbacks["onSave"];
+	onClose: () => void;
 }
-// interface DataViewViewSaveDrawerContentProps {
-// 	data: {
-// 		type: any;
-// 		label: any
-// 	};
-// 	allowSharedViewSave: boolean;
-// 	onSave: (arg0: any) => any;
-// 	onClose: () => void;
-// }

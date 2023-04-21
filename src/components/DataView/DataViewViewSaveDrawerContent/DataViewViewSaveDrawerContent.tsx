@@ -9,6 +9,7 @@ import styled from "styled-components";
 import DrawerContent from "@root/components/DrawerContent";
 import { useMosaicTranslation } from "@root/i18n";
 import { DataViewViewSaveDrawerContentProps } from "./DataViewViewSaveDrawerContentTypes";
+import { SavedViewDef } from "../DataViewTypes";
 
 const StyledForm = styled.form`
 	& .font16 {
@@ -28,11 +29,10 @@ const classes = {
 	label : "font16"
 }
 
-//TODO PROPS
 function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps) {
 	const [state, setState] = useState({
 		...props.data,
-		type: (props.allowSharedViewSave === true) ? props.data.type : "mine"
+		type: (props.allowSharedViewSave === true) ? props.data.type as SavedViewDef["type"] : "mine"
 	});
 
 	const { t } = useMosaicTranslation();
