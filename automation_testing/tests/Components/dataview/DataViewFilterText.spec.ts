@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { DataViewFilterTextComponent } from "../../../pages/Components/DataView/DataViewFilterText";
-import { filter_data } from "../../../utils/data/dataview_data";
+import { filter_data } from "../../../utils/data/dataviewData";
 import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - DataViewFilterText - Playground", () => {

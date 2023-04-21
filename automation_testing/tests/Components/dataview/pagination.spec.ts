@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { dataview_data, saveAs_data } from "../../../utils/data/dataview_data";
+import { dataview_data, saveAs_data } from "../../../utils/data/dataviewData";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
