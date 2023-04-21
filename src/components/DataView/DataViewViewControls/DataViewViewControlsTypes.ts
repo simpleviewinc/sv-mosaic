@@ -1,20 +1,12 @@
+import {
+	DataViewProps,
+	StateViewDef,
+	SavedViewCallbacks,
+} from "../DataViewTypes";
+
 export interface DataViewViewControlsProps {
-	savedView?: any;
-	savedViewAllowSharedViewSave?: any;
-	savedViewCallbacks?: any;
-	savedViewState?: any;
+	savedView: DataViewProps["savedView"];
+	savedViewAllowSharedViewSave: DataViewProps["savedViewAllowSharedViewSave"];
+	savedViewCallbacks: SavedViewCallbacks;
+	savedViewState: StateViewDef;
 }
-// interface DataViewViewControlsProps {
-// 	savedView: {
-// 		label: string |number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal;
-// 		type: string;
-// 	};
-// 	savedViewAllowSharedViewSave: any;
-// 	savedViewCallbacks: {
-// 		onSave: (arg0: any) => any;
-// 		onRemove: any;
-// 		onChange: any;
-// 		onGetOptions: any;
-// 	};
-// 	savedViewState: any;
-// }
