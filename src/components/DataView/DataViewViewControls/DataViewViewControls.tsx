@@ -36,7 +36,6 @@ const TitleButton = styled(Button)`
 	}
 `;
 
-//TODO PROPS
 function DataViewViewControls(props: DataViewViewControlsProps) {
 	const [state, setState] = useState({
 		viewOpen : false,
