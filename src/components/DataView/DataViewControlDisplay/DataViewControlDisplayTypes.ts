@@ -1,4 +1,4 @@
-import { DataViewDisplay } from "../DataViewTypes"
+import { DataViewDisplay } from "../DataViewDisplays"
 
 export interface DataViewControlDisplayProps {
 	display: string
