@@ -1,7 +1,7 @@
 import { expect, test, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
-import { dataview_data, filter_data } from "../../../utils/data/dataview_data";
+import { dataview_data, filter_data } from "../../../utils/data/dataviewData";
 import { addComma } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 

@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
-import { us_address } from "../../utils/data/address_information_data";
+import { us_address } from "../../utils/data/addressInformationData";
 
 export class FormFieldAddressPage extends BasePage {
 

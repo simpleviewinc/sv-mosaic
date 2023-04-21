@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
-import { columns_data, dataview_data } from "../../../utils/data/dataview_data";
+import { columns_data, dataview_data } from "../../../utils/data/dataviewData";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 
