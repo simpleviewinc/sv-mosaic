@@ -3,16 +3,12 @@ import { DataViewProps } from "../DataViewTypes";
 export interface DataViewDisplayGridProps {
 	additionalActions?: DataViewProps["additionalActions"];
 	bulkActions?: DataViewProps["bulkActions"];
-	checked?: boolean[];
-	checkedAllPages?: boolean;
-	columns?: DataViewProps["columns"];
+	checked?: DataViewProps["checked"];
+	checkedAllPages?: DataViewProps["checkedAllPages"];
+	columns: DataViewProps["columns"];
 	count?: DataViewProps["count"];
-	data?: DataViewProps["data"];
-	gridColumnsMap?: {
-		image?: string | number;
-		primary?: string | number;
-		secondary?: string | number;
-	};
+	data: DataViewProps["data"];
+	gridColumnsMap?: DataViewProps["gridColumnsMap"];
 	onCheckAllClick?: () => void;
 	onCheckAllPagesClick?: () => void;
 	onCheckboxClick?: (i: any) => void;
