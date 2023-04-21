@@ -1,11 +1,8 @@
-import { DataViewProps, StateViewDef } from "../DataViewTypes";
-
-interface SavedViewCallbacks {
-	onSave: DataViewProps["onSavedViewSave"];
-	onChange: DataViewProps["onSavedViewChange"];
-	onGetOptions: DataViewProps["onSavedViewGetOptions"];
-	onRemove: DataViewProps["onSavedViewRemove"];
-}
+import {
+	DataViewProps,
+	StateViewDef,
+	SavedViewCallbacks
+} from "../DataViewTypes";
 
 export interface DataViewTitleBarProps {
 	buttons?: DataViewProps["buttons"];
@@ -15,7 +12,6 @@ export interface DataViewTitleBarProps {
 	savedViewState?: StateViewDef;
 	savedViewCallbacks?: SavedViewCallbacks;
 	savedViewAllowSharedViewSave?: DataViewProps["savedViewAllowSharedViewSave"];
-	loading?: DataViewProps["loading"];
 	filter?: DataViewProps["filter"];
 	filters?: DataViewProps["filters"]
 	activeFilters?: DataViewProps["activeFilters"];
