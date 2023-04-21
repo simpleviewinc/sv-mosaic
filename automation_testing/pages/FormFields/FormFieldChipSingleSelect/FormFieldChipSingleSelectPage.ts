@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
-import { BasePage } from "../BasePage";
-import { randomIntFromInterval } from "../../utils/helpers/helper";
+import { BasePage } from "../../BasePage";
+import { randomIntFromInterval } from "../../../utils/helpers/helper";
 
 export class FormFieldChipSingleSelectPage extends BasePage {
 
