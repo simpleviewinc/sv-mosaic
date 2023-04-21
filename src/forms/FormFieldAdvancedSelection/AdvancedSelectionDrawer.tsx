@@ -91,7 +91,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				onBack={handleClose}
 			/>
 			<DataViewFilterMultiselectDropdownContent
-				value={value && value.map(v => v.value)}
 				comparison={""}
 				selected={value}
 				getOptions={getOptions ? getOptions : getSyncOptions}
