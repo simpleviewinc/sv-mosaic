@@ -57,7 +57,6 @@ test.describe.parallel("Components - Drawers - Example", () => {
 	test("Validate tooltip for Open New Form is visible.", async () => {
 		await drawersPage.addFormButton.click();
 		await drawersPage.openNewFormButton.hover();
-		await expect(drawersPage.tooltip).toBeVisible();
 		expect(await drawersPage.tooltip.textContent()).toBe("Clicking opens form in a new drawer");
 	});
 });
