@@ -1,4 +1,4 @@
-import { MosaicObject, MosaicCallback, SvgIconComponent } from "@root/types";
+import { MosaicObject, MosaicCallback, MosaicLabelValue } from "@root/types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
@@ -43,7 +43,9 @@ export interface DataViewColumn {
 	transforms?: DataViewColumnTransform[]
 }
 
+//THIS TYPE DOESN'T SEEM TO BE USED ANYWHERE.
 export type DataViewFilterTypes = "optional" | "primary";
+
 export interface DataViewFilterOnChange {
 	(value: unknown): void
 }
@@ -65,19 +67,12 @@ export interface DataViewFilterProps {
 	onRemove: () => void
 }
 
-export type DataViewControlViewOption = "list" | "grid";
-
 interface DataViewActionShow {
-	// ({ row }: { row : MosaicObject }): void
 	(val?: {[key: string]: any}): void
 }
 
 interface DataViewActionOnClick {
 	({ data }: { data: MosaicObject }): void
-}
-
-interface DataViewBulkActionOnClick {
-	({ data }: { data: MosaicObject[] }): void
 }
 
 export interface ActionAdditional {
@@ -86,8 +81,11 @@ export interface ActionAdditional {
 	/** A handler function to be invoked when this action is used. */
 	onClick: DataViewActionOnClick
 	/** A value or function controlling whether or not to display this action. */
-	// show?: boolean | DataViewActionShow
 	show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[];
+}
+
+interface DataViewBulkActionOnClick {
+	({ data }: { data: MosaicObject[] }): void
 }
 
 export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAdditional;
@@ -98,13 +96,6 @@ export interface DataViewBulkAction extends Omit<DataViewAction, "onClick"> {
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick
 	onAllClick?: MosaicCallback
-}
-
-export interface DataViewDisplay {
-	name: string
-	label: string
-	component: React.ElementType
-	mIcon: SvgIconComponent
 }
 
 export interface DataViewSort {
@@ -133,6 +124,8 @@ export type StateViewDef = {
 	activeFilters?: DataViewProps["activeFilters"],
 	activeColumns?: DataViewProps["activeColumns"],
 }
+
+//THIS TYPE DOESN'T SEEM TO BE USED ANYWHERE.
 export interface DataViewView {
 	id: string
 	label: string
@@ -140,7 +133,7 @@ export interface DataViewView {
 	state: StateViewDef
 }
 
-type SavedViewDef = {
+export type SavedViewDef = {
 	id?: string
 	label?: string
 	type?: "default" | "shared" | "mine"
@@ -149,39 +142,51 @@ type SavedViewDef = {
 
 type SavedViewDefRemove = Required<SavedViewDef>
 
-type dataViewOnSavedViewChange = {
+type DataViewOnSavedViewChange = {
 	(view: SavedViewDef): void
 }
 
-type dataViewOnDisplayChange = {
+type DataViewOnDisplayChange = {
 	(display: string): void
 }
-type dataViewOnActiveFiltersChange = {
+type DataViewOnActiveFiltersChange = {
 	(val: {activeFilters: string[], filter: MosaicObject}): void
 }
 
-type dataViewOnColumnsChange = {
+type DataViewOnColumnsChange = {
 	(activeColumns: string[]): void
 }
 
-type dataViewOnSavedViewSave = {
+type DataViewOnSavedViewSave = {
 	(data: SavedViewDef): void
 }
 
-type dataViewOnSavedViewRemove = {
+type DataViewOnSavedViewRemove = {
 	(data: SavedViewDefRemove): void
 }
 
-type dataViewOnSavedViewGetOptions = {
+type DataViewOnSavedViewGetOptions = {
 	(): MosaicObject[]
 }
 
-type dataViewOnCheckChange = {
+type DataViewOnCheckChange = {
 	(checked: boolean[]): void;
 }
 
-type dataViewOnCheckAllPagesChange = {
+type DataViewOnCheckAllPagesChange = {
 	(val: boolean): void;
+}
+
+export interface SavedViewCallbacks {
+	onSave: DataViewProps["onSavedViewSave"];
+	onChange: DataViewProps["onSavedViewChange"];
+	onGetOptions: DataViewProps["onSavedViewGetOptions"];
+	onRemove: DataViewProps["onSavedViewRemove"];
+}
+
+export interface DataViewFilterGetOptionsReturn {
+	docs: MosaicLabelValue[];
+	hasMore?: boolean;
 }
 
 export interface DataViewProps {
@@ -215,14 +220,14 @@ export interface DataViewProps {
 	onSortChange?: DataViewOnSortChange
 	onSkipChange?: DataViewOnSkipChange
 	onLimitChange?: DataViewOnLimitChange
-	onSavedViewChange?:  dataViewOnSavedViewChange
-	onDisplayChange?: dataViewOnDisplayChange
-	onActiveFiltersChange?: dataViewOnActiveFiltersChange
-	onColumnsChange?: dataViewOnColumnsChange
-	onSavedViewSave?: dataViewOnSavedViewSave
-	onSavedViewRemove?: dataViewOnSavedViewRemove
-	onSavedViewGetOptions?: dataViewOnSavedViewGetOptions
-	onCheckChange?: dataViewOnCheckChange;
-	onCheckAllPagesChange?: dataViewOnCheckAllPagesChange;
+	onSavedViewChange?:  DataViewOnSavedViewChange
+	onDisplayChange?: DataViewOnDisplayChange
+	onActiveFiltersChange?: DataViewOnActiveFiltersChange
+	onColumnsChange?: DataViewOnColumnsChange
+	onSavedViewSave?: DataViewOnSavedViewSave
+	onSavedViewRemove?: DataViewOnSavedViewRemove
+	onSavedViewGetOptions?: DataViewOnSavedViewGetOptions
+	onCheckChange?: DataViewOnCheckChange;
+	onCheckAllPagesChange?: DataViewOnCheckAllPagesChange;
 	onBack?: () => void;
 }
