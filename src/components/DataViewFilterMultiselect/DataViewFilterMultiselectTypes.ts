@@ -1,5 +1,6 @@
 import { AdvancedSelectionInputSettings } from "@root/forms/FormFieldAdvancedSelection";
 import { DataViewFilterProps } from "../DataView/DataViewTypes";
+import { MosaicLabelValue } from "@root/types";
 
 export type MultiSelectComparison = "in" | "not_in" | "all" | "exists" | "not_exists";
 
@@ -7,11 +8,23 @@ interface DataViewFilterMultiselectData {
 	value?: any;
 	comparison?: MultiSelectComparison | "";
 }
+export interface GetOptionsArgs {
+	limit?: number
+	skip?: number
+	keyword?: string
+}
+
+export interface GetOptionsReturn {
+	docs: MosaicLabelValue[]
+	hasMore?: boolean
+}
+
+export type GetOptions = (val: GetOptionsArgs) => Promise<GetOptionsReturn> | GetOptionsReturn;
 
 export interface DataViewFilterMultiselectProps extends DataViewFilterProps {
 	data: DataViewFilterMultiselectData;
 	args: {
-		getOptions(val: any): Promise<any> | any;
+		getOptions: GetOptions
 		getSelected(val: any): Promise<any> | any;
 		comparisons?:  MultiSelectComparison[];
 		placeholder?: string;
