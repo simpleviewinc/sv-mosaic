@@ -41,7 +41,6 @@ const StyledTd = styled.td`
 	}
 `;
 
-//TODO PROPS
 function DataViewTd(props: DataViewTdProps) {
 	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
 	const bold = props.bold !== undefined ? props.bold : false;
@@ -60,7 +59,7 @@ function DataViewTd(props: DataViewTdProps) {
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
-			{...props?.draggableProvider?.dragHandleProps}
+			{...props.draggableProvider?.dragHandleProps}
 		>
 			<BodyText
 				as="div"
@@ -69,7 +68,7 @@ function DataViewTd(props: DataViewTdProps) {
 					${ellipsis ? "ellipsis" : ""}
 				`}
 				style={{ maxWidth, textTransform }}
-				title={ellipsis ? props.children : undefined}
+				title={ellipsis && typeof props.children === "string" ? props.children : undefined}
 			>
 				{props.children}
 			</BodyText>
