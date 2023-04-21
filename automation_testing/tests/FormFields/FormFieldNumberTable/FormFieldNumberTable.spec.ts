@@ -10,6 +10,9 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffNumberTablePage = new FormFieldNumberTablePage(page);
+	});
+
+	test.beforeEach(async() => {
 		await ffNumberTablePage.visit(ffNumberTablePage.page_path);
 	});
 
@@ -23,7 +26,6 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 		for (let i = 0; i < inputCount; i++) {
 			await expect(ffNumberTablePage.inputLocator.nth(i)).toBeDisabled();
 		}
-		await page.reload();
 	});
 
 	test("Validate that the component compute a total for each row.", async () => {

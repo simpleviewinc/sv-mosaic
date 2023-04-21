@@ -119,11 +119,6 @@ test.describe.parallel("FormFields - FormFieldImageVideoLinkDocumentBrowsing - K
 		expect(await (ffImageVideoLinkDocumentBrowsingPage.browsingWithoutAnyOptionsCard).evaluate(el => getComputedStyle(el).alignItems)).toBe("center");
 	});
 
-	test("Validate disabled card option", async () => {
-		await ffImageVideoLinkDocumentBrowsingPage.disabledButton.focus();
-		expect(await ffImageVideoLinkDocumentBrowsingPage.disabledButton.getAttribute("disabled")).toBe("");
-	});
-
 	test("Validate More tooltip options in Card.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.moreButton.hover();

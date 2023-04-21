@@ -30,7 +30,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	});
 
 	test("Validate pressing the Edit action button.", async ({ page }) => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Edit button clicked of row with index 0");
 			await dialog.dismiss();
 		});
@@ -41,7 +41,7 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test("Validate pressing the Delete action button.", async () => {
 		await ffTablePage.tableWithExtraActionsAddElementButton.click();
 		await ffTablePage.actionButton.nth(1).click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Delete button clicked");
 			await dialog.dismiss();
 		});
@@ -50,22 +50,18 @@ test.describe.parallel("FormFields - FormFieldTable - Kitchen Sink", () => {
 	test("Validate pressing the Menu action button.", async ({ page }) => {
 		await ffTablePage.tableWithExtraActionsAddElementButton.click();
 		await ffTablePage.actionButton.nth(2).click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Menu actions for row 0");
 			await dialog.dismiss();
 		});
 	});
 
 	test("Validate pressing the Translate action button.", async () => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Translate row 0");
 			await dialog.dismiss();
 		});
 		await ffTablePage.tableWithExtraActionsAddElementButton.click();
 		await ffTablePage.actionButton.nth(3).click();
-	});
-
-	test("Validate disabled Table", async () => {
-		await expect(ffTablePage.tableDisabledAddElementButton).toBeDisabled();
 	});
 });

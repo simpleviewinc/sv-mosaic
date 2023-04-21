@@ -30,7 +30,7 @@ test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		await formFieldCheckboxPage.saveBtn.click();
 		await formFieldCheckboxPage.uncheckCheckboxOption(selectedOption);
 		await formFieldCheckboxPage.saveBtn.click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Form submitted with the following data: {}");
 			await dialog.accept();
 		});

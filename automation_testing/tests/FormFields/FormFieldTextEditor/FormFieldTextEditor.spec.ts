@@ -47,7 +47,7 @@ test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => 
 	});
 
 	test("Validate that the provided number is saved when submitted.", async ({ page }) => {
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain('"spellCheck": "<p>' + rndSpellCheckString + '</p>"');
 			expect(dialog.message()).toContain('"ltr": "<p>' + rndLTRString + '</p>"');
 			expect(dialog.message()).toContain('"rtl": "<p>' + rndRTLString + '</p>"');
@@ -82,7 +82,7 @@ test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => 
 		await ffTextEditorPage.saveBtn.click();
 		await ffTextEditorPage.clearAllValuesFromTextEditors();
 		await ffTextEditorPage.saveBtn.click();
-		page.on("dialog", async dialog => {
+		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain("Form submitted with the following data: {}");
 			await dialog.accept();
 		});
