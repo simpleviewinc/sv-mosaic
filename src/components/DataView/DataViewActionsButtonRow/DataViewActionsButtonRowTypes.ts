@@ -1,5 +1,7 @@
-import { DataViewAction, DataViewAdditionalAction, DataViewControlViewOption } from "../DataViewTypes";
+import { DataViewAction, DataViewAdditionalAction } from "../DataViewTypes";
 import { MosaicObject } from "../../../types";
+
+export type DataViewControlViewOption = "list" | "grid";
 
 export interface DataViewActionsButtonRowProps {
 	primaryActions: DataViewAction[];
