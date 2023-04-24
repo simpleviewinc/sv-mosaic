@@ -83,7 +83,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		let newOptions: MosaicLabelValue[] = localOptions?.options || [];
 		const regSearchKeyword = new RegExp(keyword, "i");
 		if (keyword !== undefined && localOptions.options !== undefined) {
-			newOptions = localOptions.options.filter(option => {
+			newOptions = localOptions?.options.filter(option => {
 				return regSearchKeyword.exec(option.label)
 			})
 		}
@@ -104,11 +104,11 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				value={value && value.map(v => v.value)}
 				comparison={""}
 				selected={value}
-				getOptions={externalOptions.getOptions ? externalOptions.getOptions : getSyncOptions}
+				getOptions={externalOptions?.getOptions !== undefined ? externalOptions.getOptions : getSyncOptions}
 				isOpen={true}
 				onApply={onSubmit}
 				placeholder={"Search..."}
-				limit={externalOptions.getOptionsLimit}
+				limit={externalOptions?.getOptionsLimit}
 				selectLimit={fieldDef.inputSettings.selectLimit}
 				onChange={(value) => setSelectedOptions(value)}
 				hideButtons={true}

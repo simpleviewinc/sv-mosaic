@@ -184,7 +184,6 @@ export const KitchenSink = (): ReactElement => {
 						createNewOption
 					}
 				},
-
 				{
 					name: "selectLimitOfOptions",
 					label: "Advanced selection with selectLimit prop (Max 2 options)",
