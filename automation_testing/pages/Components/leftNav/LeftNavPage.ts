@@ -19,6 +19,7 @@ export class LeftNavPage extends BasePage {
 	readonly sectionsLocator: Locator;
 	readonly divBottomLocator: Locator;
 	readonly leftNavLabelLocator: Locator;
+	readonly openNavigationButton: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -34,6 +35,7 @@ export class LeftNavPage extends BasePage {
 		this.sectionsLocator = page.locator(".top div");
 		this.divBottomLocator = page.locator("div.bottom");
 		this.leftNavLabelLocator = page.locator(".left .navLabel");
+		this.openNavigationButton = page.locator(".menuButton[title='Open Navigation']");
 	}
 
 	async getItemParent(item: Locator): Promise<Locator> {
@@ -104,6 +106,9 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async selectTypeOfNavDisplay(type: string): Promise<void> {
+		if (!await (await this.getLastItem()).isVisible()) {
+			await this.openNavigationButton.click()
+		}
 		await (await this.getLastItem()).click();
 		await this.page.locator("text=" + type).click();
 	}

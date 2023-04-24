@@ -42,7 +42,7 @@ test.describe.parallel("Components - LeftNav - Example", () => {
 	});
 
 	test("Validate Title", async () => {
-		await page.reload();
+		await leftNavPage.selectTypeOfNavDisplay(leftnav_data.full);
 		const item = await leftNavPage.getSpecificMenuItem("Map Publisher");
 		const title = await item.textContent();
 		await item.click();
