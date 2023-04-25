@@ -102,7 +102,7 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 		const fullHeigh = (await ffTextPage.getHeightFromElement(ffTextPage.firstSection)).split("px")[0];
 		const expectedHeight = Number(fullHeigh) - 44;
 		const instructionHeight = (await ffTextPage.getHeightFromElement(ffTextPage.firstInstructionText)).split("px")[0];
-		expect(parseFloat(instructionHeight).toFixed(3)).toBe(expectedHeight.toString());
+		expect(parseFloat(instructionHeight).toFixed(3)).toBe(parseFloat(expectedHeight.toString()).toFixed(3));
 	});
 
 	test("Validate that an empty value is saved correctly.", async () => {
