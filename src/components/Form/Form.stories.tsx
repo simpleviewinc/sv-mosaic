@@ -374,7 +374,7 @@ export const Playground = (): ReactElement => {
 					required,
 					inputSettings: {
 						options: additionalOptions,
-						createNewOption
+						createNewOption,
 					},
 					defaultValue: !showDefaultValues ? undefined : [
 						{
