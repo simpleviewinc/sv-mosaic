@@ -54,6 +54,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		const imageName = "image-example.png"
 		const imagePath = `${__dirname}/../../../utils/data/Images/` + imageName;
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
+		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.waitFor();
 		const size = ((await ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.textContent()).replace("Size", "").replace("Remove", "").split("x"));
 		const width = Number(size[0]);
 		const height = Number(size[1]);
