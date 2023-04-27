@@ -1,9 +1,9 @@
 import { test, expect, Page } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
 import theme from "../../../../src/theme";
-import { buttonKnobs as knob } from "../../../utils/data/knobs";
+import { buttonKnobs as knob, contentKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - ContentPage - Playground", () => {
+test.describe.parallel("Components - Content - Playground", () => {
 	let page: Page;
 	let contentPage: ContentPage;
 
@@ -58,5 +58,13 @@ test.describe.parallel("Components - ContentPage - Playground", () => {
 		// Get total number of buttons present in the page.
 		const buttonCount = await contentPage.button.count();
 		expect(await contentPage.titleBarLocator.locator("button").count()).toBe(buttonCount);
+	});
+
+	test("Validate the show capability to content buttons.", async () => {
+		await contentPage.visit(contentPage.page_path, [contentKnobs.knobShowEditButton + "false"]);
+		await expect(contentPage.editButton).not.toBeVisible();
+
+		await contentPage.visit(contentPage.page_path, [contentKnobs.knobShowDetailsButton + "false"]);
+		await expect(contentPage.detailsButton).not.toBeVisible();
 	});
 });

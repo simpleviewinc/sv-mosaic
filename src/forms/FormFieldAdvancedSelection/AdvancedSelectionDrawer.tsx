@@ -7,11 +7,12 @@ import {
 	useEffect,
 	useState
 } from "react";
-import { AdvanceSelectionDrawerPropTypes } from ".";
+import { AdvancedSelectionExternalOptions, AdvancedSelectionLocalOptions, AdvanceSelectionDrawerPropTypes } from ".";
 import { FormDrawerWrapper } from "../shared/styledComponents";
-import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
+import { DataViewFilterMultiselectDropdownContent, GetOptions } from "@root/components/DataViewFilterMultiselect";
 import PageHeader from "@root/components/PageHeader";
 import Dialog from "@root/components/Dialog";
+import { MosaicLabelValue } from "@root/types";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -24,7 +25,16 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		handleDialogClose,
 	} = props;
 
-	const { options, getOptions, createNewOption } = fieldDef?.inputSettings || {};
+	let externalOptions: AdvancedSelectionExternalOptions | undefined;
+	let localOptions: AdvancedSelectionLocalOptions | undefined;
+
+	if ("getOptions" in fieldDef.inputSettings) {
+		externalOptions = fieldDef.inputSettings;
+	}
+
+	if ("options" in fieldDef.inputSettings) {
+		localOptions = fieldDef.inputSettings;
+	}
 
 	const [selectedOptions, setSelectedOptions] = useState(value?.length > 0 ? value : []);
 
@@ -69,11 +79,11 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		}
 	];
 
-	const getSyncOptions = ({keyword}) => {
-		let newOptions = options || [];
+	const getSyncOptions: GetOptions = ({ keyword }) => {
+		let newOptions: MosaicLabelValue[] = localOptions?.options || [];
 		const regSearchKeyword = new RegExp(keyword, "i");
-		if (keyword !== undefined && options !== undefined) {
-			newOptions = options.filter(option => {
+		if (keyword !== undefined && localOptions.options !== undefined) {
+			newOptions = localOptions?.options.filter(option => {
 				return regSearchKeyword.exec(option.label)
 			})
 		}
@@ -93,15 +103,15 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			<DataViewFilterMultiselectDropdownContent
 				comparison={""}
 				selected={value}
-				getOptions={getOptions ? getOptions : getSyncOptions}
+				getOptions={externalOptions?.getOptions !== undefined ? externalOptions.getOptions : getSyncOptions}
 				isOpen={true}
 				onApply={onSubmit}
 				placeholder={"Search..."}
-				limit={fieldDef?.inputSettings?.getOptionsLimit}
-				selectLimit={fieldDef?.inputSettings?.selectLimit}
+				limit={externalOptions?.getOptionsLimit}
+				selectLimit={fieldDef.inputSettings.selectLimit}
 				onChange={(value) => setSelectedOptions(value)}
 				hideButtons={true}
-				createNewOption={createNewOption}
+				createNewOption={fieldDef.inputSettings.createNewOption}
 			/>
 			<Dialog
 				buttons={dialogButtons}

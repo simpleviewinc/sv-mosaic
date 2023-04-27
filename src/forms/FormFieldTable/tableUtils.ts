@@ -76,12 +76,11 @@ export const deleteTableRow = (): void => {
  * and the edit action.
  */
 export const useTable = (
-	dataState: TableDataState[],
+	dataState: TableDataState,
 	name: string,
 	dispatch: (action: unknown) => void
 ): UseTableReturnType => {
 	const addTableRow = (): void => {
-
 		const tableDataLength = dataState[name] ? dataState[name].length : 0;
 
 		if (tableDataLength === 0) {
