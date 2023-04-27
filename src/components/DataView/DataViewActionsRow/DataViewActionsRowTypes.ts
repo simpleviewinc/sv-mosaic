@@ -8,7 +8,7 @@ import { DataViewDisplay } from "../DataViewDisplays";
 export interface DataViewActionsRowProps {
 	bulkActions?: DataViewProps["bulkActions"];
 	checked?: DataViewProps["checked"];
-	display: string;
+	display: DataViewProps["display"];
 	displayControlEnabled: boolean;
 	displayOptionsFull: DataViewDisplay[];
 	limit?: DataViewProps["limit"];
