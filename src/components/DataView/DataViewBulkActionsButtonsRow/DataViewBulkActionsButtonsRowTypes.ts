@@ -1,9 +1,9 @@
 import { MosaicObject } from "@root/types"
-import { DataViewBulkAction } from "../DataViewTypes"
+import { DataViewBulkAction, DataViewProps } from "../DataViewTypes"
 
 export interface DataViewBulkActionsButtonsRowProps {
-	bulkActions: DataViewBulkAction[]
-	data: MosaicObject[]
-	checked: boolean[]
-	checkedAllPages: boolean
+	bulkActions: DataViewBulkAction[];
+	data: MosaicObject[];
+	checked: DataViewProps["checked"];
+	checkedAllPages: DataViewProps["checkedAllPages"];
 }
