@@ -113,7 +113,6 @@
 		"no-unsafe-finally": 2,
 		"no-unsafe-negation": 2,
 		"no-unused-labels": 2,
-		// "no-unused-vars": [2, {"vars": "all", "args": "none"}],
 		"no-useless-catch": 2,
 		"no-useless-escape": 2,
 		"no-with": 2,
@@ -122,7 +121,6 @@
 		"valid-typeof": 2,
 		"no-var": 2,
 		"one-var-declaration-per-line": 2,
-		// "indent": ["error", "tab"],
 		"space-infix-ops": 2,
 		"keyword-spacing": 2
 	},

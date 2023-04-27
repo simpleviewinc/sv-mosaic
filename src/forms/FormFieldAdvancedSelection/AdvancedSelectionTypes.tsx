@@ -1,3 +1,4 @@
+import { GetOptions } from "@root/components/DataViewFilterMultiselect";
 import { FieldDefBase } from "@root/components/Field";
 import { MosaicLabelValue } from "@root/types";
 
@@ -10,27 +11,19 @@ type AdvancedSelectionBasic = {
 	selectLimit?: number;
 }
 
-type AdvancedSelectionLocalOptions = {
+export type AdvancedSelectionLocalOptions = {
 	/**
 	* Options to be display within the Modal.
 	*/
 	options: MosaicLabelValue[];
 } & AdvancedSelectionBasic;
 
-type AdvancedSelectionExternalOptions = {
+export type AdvancedSelectionExternalOptions = {
 	/**
 	 * Used to get the selected options on the parent component.
 	 */
-	getOptions: ({
-		filter,
-		limit,
-		offset,
-	}: {
-		filter?: string;
-		limit?: number;
-		offset?: number;
-	}) => Promise<MosaicLabelValue[]>;
-	getOptionsLimit?: number | string;
+	getOptions: GetOptions
+	getOptionsLimit?: number;
 } & AdvancedSelectionBasic;
 
 export type AdvancedSelectionInputSettings = AdvancedSelectionLocalOptions | AdvancedSelectionExternalOptions;
@@ -49,7 +42,7 @@ export interface ChipListPropsTypes {
 
 export interface AdvanceSelectionDrawerPropTypes {
 	value: MosaicLabelValue[];
-	fieldDef: any;
+	fieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>;
 	onChange: (e: MosaicLabelValue[]) => Promise<void>;
 	isModalOpen: boolean;
 	isMobileView: boolean;
