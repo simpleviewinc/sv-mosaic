@@ -5,7 +5,7 @@ import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
 import SwitchRightIcon from "@mui/icons-material/SwitchRight";
 
 import Checkbox from "@root/components/Checkbox";
-import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow/DataViewBulkActionsButtonsRow";
+import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow";
 import DataViewBulkAllBar from "../DataViewBulkAllBar";
 
 import theme from "@root/theme";

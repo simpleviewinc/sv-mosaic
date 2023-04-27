@@ -5,8 +5,8 @@ export interface DataViewColumnDrawerProps extends DataViewColumnDrawerContentPr
 }
 
 export interface DataViewColumnDrawerContentProps {
-  columns: DataViewProps["columns"];
-  onClose: () => void;
-  onChange: DataViewProps["onColumnsChange"];
-  allColumns: DataViewProps["columns"];
+	columns: DataViewProps["columns"];
+	onClose: () => void;
+	onChange: DataViewProps["onColumnsChange"];
+	allColumns: DataViewProps["columns"];
 }
