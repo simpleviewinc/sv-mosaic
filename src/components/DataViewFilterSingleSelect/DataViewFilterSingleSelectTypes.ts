@@ -1,4 +1,4 @@
-import { DataViewFilterProps } from "../DataView";
+import { DataViewFilterGetOptionsReturn, DataViewFilterProps } from "../DataView";
 import { MosaicLabelValue } from "../../types";
 
 export interface DataViewFilterSingleSelectData {
@@ -9,13 +9,9 @@ export interface DataViewFilterSingleSelectProps extends DataViewFilterProps {
 	data: DataViewFilterSingleSelectData,
 	onChange(value: DataViewFilterSingleSelectData): void,
 	args: {
-		getOptions(): {
-			docs : MosaicLabelValue[]
-			hasMore?: boolean
-		}
-		getSelected(id: string): MosaicLabelValue
+		getOptions(): Promise<DataViewFilterGetOptionsReturn> | DataViewFilterGetOptionsReturn
+		getSelected(id: string): Promise<MosaicLabelValue> | MosaicLabelValue
 		required?: boolean,
-		color?: string,
 	},
 }
 

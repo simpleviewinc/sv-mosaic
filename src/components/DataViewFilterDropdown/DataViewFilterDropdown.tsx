@@ -1,29 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyledPopover, StyledWrapper } from "./DataViewFilterDropdown.styled";
-// import jsvalidator from "jsvalidator";
-interface DataViewFilterDropdownProps {
-	anchorEl?: any;
-	onExited?: any;
-	onClose?: any;
-	onEntered?: any;
-	children?: any;
-}
+import { DataViewFilterDropdownProps } from "./DataViewFilterDropdownTypes";
 
-//TODO PROPS
 function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
-	// jsvalidator.validate(props, {
-	// 	type : "object",
-	// 	schema : [
-	// 		{ name : "anchorEl", type : "object" },
-	// 		{ name : "children", type : "object" },
-	// 		{ name : "onClose", type : "function" },
-	// 		{ name : "onEntered", type : "function" },
-	// 		{ name : "onExited", type : "function" }
-	// 	],
-	// 	allowExtraKeys : false,
-	// 	throwOnInvalid : true
-	// });
-
 	// track whether the content of the dropdown should be visible
 	const [exists, setExists] = useState(false);
 

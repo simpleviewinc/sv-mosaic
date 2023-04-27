@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { useMemo } from "react";
 
 import Checkbox from "../../Checkbox";
-import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
+import DataViewActionsButtonRow from "../DataViewActionsButtonRow/DataViewActionsButtonRow";
 import { transformRows } from "../../../utils/dataViewTools";
 
 import DataViewBulkAllBar from "../DataViewBulkAllBar";
@@ -41,9 +41,9 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 			<div className="grid">
 				{
 					transformedData.map((row, i) => {
-						const image = row[props.gridColumnsMap.image] as ReactNode;
-						const primary = row[props.gridColumnsMap.primary] as ReactNode;
-						const secondary = row[props.gridColumnsMap.secondary] as ReactNode;
+						const image = row[props.gridColumnsMap.image as string | number] as ReactNode;
+						const primary = row[props.gridColumnsMap.primary as string | number] as ReactNode;
+						const secondary = row[props.gridColumnsMap.secondary as string | number] as ReactNode;
 
 						return (
 							<div
