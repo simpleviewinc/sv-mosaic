@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, text, withKnobs, select } from "@storybook/addon-knobs";
+import { boolean, text, withKnobs, select, number } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
@@ -29,7 +29,7 @@ export const Playground = (): ReactElement => {
 		["Local", "DB"],
 		"Local"
 	);
-	const getOptionsLimit = text("Get options limit", "5");
+	const getOptionsLimit = number("Get options limit", 5);
 	const createNewOptionsKnob = boolean("Create new option", true);
 	const selectLimit = text("Select limit", "");
 
@@ -184,7 +184,6 @@ export const KitchenSink = (): ReactElement => {
 						createNewOption
 					}
 				},
-
 				{
 					name: "selectLimitOfOptions",
 					label: "Advanced selection with selectLimit prop (Max 2 options)",

@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
-import { getFormAndDefaultValuesExpected } from "../../../utils/data/form_data"
+import { getFormAndDefaultValuesExpected } from "../../../utils/data/formData"
 
 export class PlaygroundPage extends BasePage {
 

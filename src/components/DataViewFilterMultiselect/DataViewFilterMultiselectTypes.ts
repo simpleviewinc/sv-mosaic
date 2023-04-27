@@ -9,10 +9,23 @@ interface DataViewFilterMultiselectData {
 	comparison?: MultiSelectComparison | "";
 }
 
+export interface GetOptionsArgs {
+	limit?: number
+	skip?: number
+	keyword?: string
+}
+
+export interface GetOptionsReturn {
+	docs: MosaicLabelValue[]
+	hasMore?: boolean
+}
+
+export type GetOptions = (val: GetOptionsArgs) => Promise<DataViewFilterGetOptionsReturn> | DataViewFilterGetOptionsReturn;
+
 export interface DataViewFilterMultiselectProps extends DataViewFilterProps {
 	data: DataViewFilterMultiselectData;
 	args: {
-		getOptions(val: any): Promise<DataViewFilterGetOptionsReturn> | DataViewFilterGetOptionsReturn;
+		getOptions: GetOptions
 		getSelected(val: any): Promise<any> | any;
 		comparisons?:  MultiSelectComparison[];
 		placeholder?: string;
