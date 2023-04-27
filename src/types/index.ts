@@ -7,8 +7,8 @@ export interface MosaicLabelValue {
 }
 
 /** Javascript object than can have any keys and any data */
-export interface MosaicObject {
-	[key: string]: unknown
+export interface MosaicObject<T = unknown> {
+	[key: string]: T
 }
 
 export interface MosaicCallback {
