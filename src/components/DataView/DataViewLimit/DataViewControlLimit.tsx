@@ -1,6 +1,6 @@
 import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
-import { DataViewControlLimitProps } from "../DataViewTypes";
+import { DataViewControlLimitProps } from "./DataViewControlLimitTypes";
 import theme from "@root/theme";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 

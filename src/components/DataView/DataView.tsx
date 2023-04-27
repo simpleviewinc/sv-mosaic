@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DataViewTitleBar from "./DataViewTitleBar";
 import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
-import { DataViewProps } from "./DataViewTypes";
+import { DataViewProps, StateViewDef } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
 import { filterAction } from "./utils/bulkActionsUtils";
 
@@ -145,7 +145,7 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	const Display = activeDisplay.component;
 
-	const savedViewState = {
+	const savedViewState: StateViewDef = {
 		limit : props.limit,
 		sort : props.sort,
 		display : props.display,
@@ -257,7 +257,6 @@ function DataView (props: DataViewProps): ReactElement  {
 							savedViewState={savedViewState}
 							savedViewCallbacks={savedViewCallbacks}
 							savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
-							loading={props.loading}
 							filter={props.filter}
 							filters={props.filters}
 							activeFilters={props.activeFilters}

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { memo } from "react";
-import { DataViewControlDisplayProps } from "../DataViewTypes";
+import { DataViewControlDisplayProps } from "./DataViewControlDisplayTypes";
 import Button from "../../Button";
 import { default as MenuSelect } from "../../MenuSelect";
 import { StyledSpan } from "./DataViewControlDisplay.styled";

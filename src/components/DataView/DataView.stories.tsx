@@ -28,7 +28,8 @@ import {
 	DataViewFilterMultiselect,
 	useMosaicSettings,
 	MosaicContext,
-	DataViewFilterDef
+	DataViewFilterDef,
+	DataViewColumn
 } from "../../";
 import { useStateRef } from "@root/utils/reactTools";
 import SingleSelectHelper from "./example/SingleSelectHelper";
@@ -245,7 +246,7 @@ const rootDefaultView: DataViewProps["savedView"] = {
 	}
 };
 
-const listColumns = [
+const listColumns: DataViewColumn[] = [
 	{
 		name: "id",
 		label: "ID"
