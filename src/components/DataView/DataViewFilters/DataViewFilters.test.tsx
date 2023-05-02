@@ -100,6 +100,6 @@ describe("DataViewFilters", () => {
 				realOrder.push(buttons[keywordIndex].textContent.toLowerCase());
 		}
 
-		expect(JSON.stringify(realOrder)).toEqual(JSON.stringify(activeFilters));
+		expect(realOrder).toEqual(activeFilters);
 	});
 });
