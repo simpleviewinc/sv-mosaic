@@ -419,6 +419,7 @@ export const Playground = (): ReactElement => {
 	const displayGrid = boolean("displayGrid", true);
 	const draggableRows = boolean("draggableRows", true);
 	const showCheckboxes = boolean("Show Checkboxes", true);
+	const preloadedActiveFilters = boolean("Preload active filters", false);
 	const defaultView: DataViewProps["savedView"] = {
 		...rootDefaultView,
 		state: {
@@ -436,6 +437,11 @@ export const Playground = (): ReactElement => {
 		savedView: defaultView,
 		...defaultView.state
 	});
+
+	useEffect(() => {
+		if (preloadedActiveFilters && state.activeFilters.length === 0)
+			setState(prev => ({...prev, activeFilters: ["updated", "title", "keyword"]}));
+	}, [preloadedActiveFilters, state.activeFilters]);
 
 	const [checkedState, setCheckedState] = useState({
 		checked: [],
