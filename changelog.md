@@ -1,5 +1,66 @@
 # sv-mosaic changelog
 
+## 22.0.0 - 05/09/23
+* `DataView`:
+	* Updated additional actions button from horizontal to vertical ellipsis.
+	* Moved all DV subcomponents to their own folders. Each folder includes (as minimum) the component file (component.tsx), it's types file, and an index. Doing this also means all files importing these components have been updated.
+	* **BREAKING** Moved some types / interfaces from DataViewTypes to their corresponding component. For example if DVTypes had a type called "DataViewTrDef" that was only used in DataViewTr, then it was moved to that component's types file.
+	* **BREAKING** Removed unused props from several types / interfaces. E.g. DataViewFilterMultiselectDropwodnContent had a "value" prop, but the component didn't use that prop anywhere, so there was no reason for it to be expected in the interface.
+	* **BREAKING** Cleaned props. Previously all props used to be optional (most of them will still be due to the nature of the DataView, as it only really requires few props), but now components have been updated to have optional and required props where needed.
+	* Here are the components that have been updated (either changed from optional to required, or their type definition changed from any to a specific type):
+		* `DataViewActionsButtonRow`: Moved types to their independent file.
+		* `DataViewActionsRow`: Updated some types to match with their corresponding types from `DataViewProps`.
+		* `DataViewBulkActionsButtonsRow`: Moved types from `DataViewTypes` to their independent file.
+		* `DataViewBulkAllBar`: Moved types to their independent file and correctly typed them.
+		* `DataViewColumnDrawer`: Types updated from optional to required.
+		* `DataViewColumnControl`: Some types updated from optional to required.
+		* `DataViewControlDisplay`: Moved types from `DataViewTypes` to their independent file.
+		* `DataViewDisplayGrid`: Updated some types to match with their corresponding types from `DataViewProps`.
+		* `DataViewDisplayGridSortControl`: Moved types to their independent file.
+		* `DataViewDisplayList`: Moved types to their independent file, and updated some types from optional to required.
+		* `DataViewDisplays`: Moved types from `DataViewTypes` to their independent file.
+		* `DataViewFilters`: Moved types to their independent file, and updated some types from optional to required.
+		* `DataViewControlLimit`: Moved types from `DataViewTypes` to their independent file.
+		* `DataViewPagerPopover`: Moved types to their independent file.
+		* `DataViewTBody`: Moved types to their independent file.
+		* `DataViewTHead`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewTd`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewTitleBar`: Removed unused type `loading`.
+		* `DataViewTr`: Some types updated from optional to required.
+		* `DataView`: Updated casing on all types to make them match (this shouldn't impact consumers as these types were not being exported).
+		* `DataViewViewControls`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewViewDrawer`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewViewDrawerContent`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewViewSaveDrawer`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewViewSaveDrawerContent`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewFilterDropdown`: Moved types to their independent file, correctly typed them, and updated some types from optional to required.
+		* `DataViewFilterDropdownButtons`: Moved types to their independent file.
+		* `DataViewFilterMultiselectDropdownContent`: Correctly typed interfaces. Removed unused type `value`.
+		* `DataViewFilterSingleSelect`: Correctly typed interfaces. Removed unused type `color`.
+		* `DataViewFilterText`: Correctly typed interfaces.
+		* `DataViewPrimaryFilters`: Some types updated from optional to required.
+* `DataViewFilterText`:
+	* Disabled autocomplete for `DataViewFilterTextDropdownContent`.
+* `DataViewFilterMultiselect`:
+	* Disabled autocomplete for `DataViewFilterMultiselectDropdownContent`.
+	* **BREAKING** Properly typed `getOptions` prop. This might be a breaking change as it was previously being exported as type `any`.
+* `types`:
+	* Updated `MosaicObject` interface to receive generic (defaults to unknown) which makes it easier to create a generic object without having to create a new interface.
+* `Form`:
+	* **BREAKING** Updated types for `useForm` hook. This might be a breaking change as it was previously being exported as type `any`.
+* `FormFieldAdvancedSelection`:
+	* **BREAKING** Properly typed `getOptions` and `fieldDef` props. This might be a breaking change as they were previously being exported as type `any`.
+* `FormFieldText`:
+	* Updated styles to match height between regular and multiline variants.
+* `TitleWrapper`:
+	* Added native tooltip to title using the title property for text-like elements (e.g. <h1 title="my title" ...>). This component is being used in `Form`, `DataView`, and `SummaryPageTopComponent` so all titles will show this new tooltip when the user hovers over the title.
+* `SummaryPageTopComponent`:
+	* Fixed bug causing additional actions button to show even with empty array.
+* `Content`:
+	* Added show capability to buttons.
+* `Automation tests`:
+	* Updated naming conventions on all tests and pages to make then follow the same standard.
+
 ## 21.0.0 - 04/25/23
 * `Button`:
 	* Fixed visual bug causing buttons to show round corners when being clicked.
