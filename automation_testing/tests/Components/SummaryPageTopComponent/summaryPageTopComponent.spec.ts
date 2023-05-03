@@ -56,4 +56,11 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + 0]);
 		await expect(summaryPage.additionButtonLocator).not.toBeVisible();
 	});
+
+	test("Validate padding and margin for the description items in SummaryPageTopComponent", async () => {
+		for (let i = 0; i < await summaryPage.descriptionItemLocator.count(); i++) {
+			expect(await summaryPage.getSpecificMarginFromElement(summaryPage.descriptionItemLocator.nth(i), "right")).toBe("16px");
+			expect(await summaryPage.getSpecificPaddingFromElement(summaryPage.descriptionItemLocator.nth(i), "right")).toBe("16px");
+		}
+	});
 });
