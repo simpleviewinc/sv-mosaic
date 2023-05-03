@@ -435,7 +435,8 @@ export const Playground = (): ReactElement => {
 		skip: 0,
 		loading: false,
 		savedView: defaultView,
-		...defaultView.state
+		...defaultView.state,
+		activeFilters: preloadedActiveFilters ? ["updated", "title", "keyword"] : []
 	});
 
 	useEffect(() => {
