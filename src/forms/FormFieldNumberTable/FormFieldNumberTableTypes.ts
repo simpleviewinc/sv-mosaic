@@ -18,6 +18,11 @@ export type NumberTableInputSettings = {
    */
   displaySumRow?: boolean;
   /**
+   * Configuration for the formatter, see more at:
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
+   */
+  numberFormatOptions?: Intl.NumberFormatOptions;
+  /**
    * Rows definition.
    */
   rows: Row[];

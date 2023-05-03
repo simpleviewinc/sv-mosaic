@@ -21,9 +21,11 @@ import {
 const NumberTableExample = ({
 	displaySumColumn = true,
 	displaySumRow = true,
+	useNumberFormatter = false
 }: {
   displaySumColumn?: boolean;
   displaySumRow?: boolean;
+	useNumberFormatter?: boolean;
 }): ReactElement => {
 	const { state, dispatch } = useForm();
 
@@ -52,6 +54,7 @@ const NumberTableExample = ({
 					topLeftLabel: "Day",
 					rows: rows,
 					columns: columns,
+					numberFormatOptions: useNumberFormatter && { style: "currency", currency: "USD" }
 				},
 			},
 		],
@@ -163,5 +166,22 @@ describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled"
 	it("should not display the totals for each row and column", () => {
 		expect(screen.queryByText(labels.rowTotal)).not.toBeInTheDocument();
 		expect(screen.queryByText(labels.columnTotal)).not.toBeInTheDocument();
+	});
+});
+
+describe("FormFieldNumberTable with formatted values", () => {
+	beforeEach(async () => {
+		await act(() => {
+			render(<NumberTableExample useNumberFormatter={true}/>);
+		});
+	});
+
+	it("should display the totals formatted", () => {
+		expect(screen.queryByText("$307.00")).toBeInTheDocument();
+		expect(screen.queryByText("$61.00")).toBeInTheDocument();
+		expect(screen.queryByText("$55.00")).toBeInTheDocument();
+		expect(screen.queryByText("$52.00")).toBeInTheDocument();
+		expect(screen.queryByText("$49.00")).toBeInTheDocument();
+		expect(screen.queryByText("$46.00")).toBeInTheDocument();
 	});
 });
