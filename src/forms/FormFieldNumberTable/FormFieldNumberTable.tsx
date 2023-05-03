@@ -112,6 +112,22 @@ const FormFieldNumberTable = (
 		onChange(copyValue);
 	};
 
+	/**
+	 * @param value to be formmated
+	 * @returns the formatted value if formatOptions are
+	 * specified, otherwise returns the original value
+	 */
+	const formatValue = (value: number) => {
+		if (inputSettings.numberFormatOptions) {
+			return new Intl.NumberFormat(
+				navigator.language,
+				inputSettings.numberFormatOptions
+			).format(value);
+		}
+
+		return value;
+	};
+
 	return (
 		<StyledTable>
 			<thead>
@@ -158,7 +174,7 @@ const FormFieldNumberTable = (
 						})}
 						{displaySumRow && (
 							<TdTitle key={`totals-${row.name}`}>
-								{rowTotals[row.name]}
+								{formatValue(rowTotals[row.name])}
 							</TdTitle>
 						)}
 					</tr>
@@ -168,11 +184,11 @@ const FormFieldNumberTable = (
 						<TdTitle>{inputSettings.rowTotalLabel || "Total"}</TdTitle>
 						{inputSettings.columns.map((column) => (
 							<TdTotals key={`column-${column.name}`}>
-								{columnsTotals[column.name] || 0}
+								{formatValue(columnsTotals[column.name]) || 0}
 							</TdTotals>
 						))}
 						{displaySumRow && (
-							<TdTotals className="totals-row">{columnsTotals["mos_col_totals"] || 0}</TdTotals>
+							<TdTotals className="totals-row">{formatValue(columnsTotals["mos_col_totals"]) || 0}</TdTotals>
 						)}
 					</TrTotals>
 				)}

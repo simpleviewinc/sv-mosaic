@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, withKnobs, text } from "@storybook/addon-knobs";
+import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FieldDef } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
@@ -26,6 +26,11 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "");
 	const displayColumnsSums = boolean("Display columns sums", true);
 	const displayRowsSums = boolean("Display rows sums", true);
+	const currency = select(
+		"Currency",
+		["USD", "EUR", "JPY", "GBP", "No format"],
+		"USD"
+	);
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -43,7 +48,8 @@ export const Playground = (): ReactElement => {
 					columnTotalLabel: columnTotalLabel,
 					topLeftLabel: topLeftLabel,
 					rows: rows,
-					columns: columns
+					columns: columns,
+					numberFormatOptions: currency !== "No format" && { style: "currency", currency }
 				},
 				helperText,
 				instructionText,
@@ -51,6 +57,7 @@ export const Playground = (): ReactElement => {
 		],
 		[
 			label,
+			currency,
 			displayColumnsSums,
 			displayRowsSums,
 			required,
