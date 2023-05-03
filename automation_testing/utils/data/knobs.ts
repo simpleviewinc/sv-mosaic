@@ -35,7 +35,8 @@ export const dataviewKnobs = {
 	knobBulkActions: "knob-bulkActions=",
 	knobPrimaryActions: "knob-primaryActions=",
 	knobAdditionalActions: "knob-additionalActions=",
-	knobComparison: "knob-Comparison="
+	knobComparison: "knob-Comparison=",
+	knobPreloadActiveFilters: "knob-Preload%20active%20filters="
 }
 
 export const buttonKnobs = {
