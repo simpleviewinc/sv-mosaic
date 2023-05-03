@@ -71,4 +71,12 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 		expect(await ffNumberTablePage.numberTableLocator.locator("tr").last().locator("td").first().textContent()).not.toBe("TOTAL");
 		expect(await ffNumberTablePage.numberTableLocator.locator("thead").locator("th").last().textContent()).not.toBe("No. Rooms");
 	});
+
+	test("Validate NumberTable's input width.", async () => {
+		const inputLocator = ffNumberTablePage.page.locator("input");
+		const inputCount = await inputLocator.count();
+		for (let i = 0; i < inputCount; i++) {
+			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), true)).toBe(90)
+		}
+	});
 });
