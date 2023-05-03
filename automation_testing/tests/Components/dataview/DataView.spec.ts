@@ -180,4 +180,14 @@ test.describe.parallel("Components - Data View - Playground", () => {
 			expect(await dataviewPage.getColorFromElement(titles[i])).toBe(theme.newColors.almostBlack["100"]);
 		}
 	});
+
+	test("Validate that the Preload Active Filters knob shows preload filters.", async () => {
+		await dataviewPage.visit(dataviewPage.page_path, [knob.knobPreloadActiveFilters + true]);
+		await dataviewPage.waitForDataviewIsVisible();
+		const expectedFiltersOrder = [ "Updated", "Title", "Keyword" ]
+		const actualFilters = await dataviewPage.getAllFiltersSelected();
+		for (let i = 0; i < actualFilters.length; i++) {
+			expect(actualFilters[i]).toBe(expectedFiltersOrder[i])
+		}
+	});
 });
