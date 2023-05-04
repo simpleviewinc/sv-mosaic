@@ -9,6 +9,7 @@ export interface SectionDef extends Section {
 	description?: string | JSX.Element;
 	fields: string[][][];
 	children?: ReactNode;
+	collapsed?: boolean;
 }
 
 export interface FormProps {
