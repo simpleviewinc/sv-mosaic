@@ -699,6 +699,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	}, []);
 
 	const showState = boolean("Show state", false);
+	const collapsed = boolean("Collapse sections", false);
 	const {height = "100vh"} = props;
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -773,6 +774,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 		{
 			title: "Section 1",
 			description: "Description for section 1",
+			collapsed,
 			fields: [
 				// row 1
 				[["text1"], ["text2"], ["text3"]],
@@ -786,6 +788,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 		{
 			title: "Section 2",
 			description: "Description for section 2",
+			collapsed,
 			fields: [
 				// row 1
 				[["check"], ["toggleSwitch"], ["color"]],
@@ -800,12 +803,13 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 		{
 			title: "Section 3",
 			description: "Description for section 3",
+			collapsed,
 			fields: [
 				// row 1
 				[["text1"], [], []],
 			]
 		},
-	], [fields]);
+	], [fields, collapsed]);
 
 	useEffect(() => {
 		dispatch(
