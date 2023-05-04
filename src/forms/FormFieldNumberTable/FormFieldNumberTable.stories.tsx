@@ -26,8 +26,8 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "");
 	const displayColumnsSums = boolean("Display columns sums", true);
 	const displayRowsSums = boolean("Display rows sums", true);
-	const currency = select(
-		"Currency",
+	const formatOptions = select(
+		"Number format options",
 		["USD", "EUR", "JPY", "GBP", "No format"],
 		"USD"
 	);
@@ -49,7 +49,7 @@ export const Playground = (): ReactElement => {
 					topLeftLabel: topLeftLabel,
 					rows: rows,
 					columns: columns,
-					numberFormatOptions: currency !== "No format" && { style: "currency", currency }
+					numberFormatOptions: formatOptions !== "No format" && { style: "currency", currency: formatOptions }
 				},
 				helperText,
 				instructionText,
@@ -57,7 +57,7 @@ export const Playground = (): ReactElement => {
 		],
 		[
 			label,
-			currency,
+			formatOptions,
 			displayColumnsSums,
 			displayRowsSums,
 			required,
