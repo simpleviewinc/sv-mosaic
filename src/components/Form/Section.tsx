@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, forwardRef, useCallback } from "react";
+import { memo, forwardRef, useCallback, useState, useEffect } from "react";
 import theme from "@root/theme";
 import styled from "styled-components";
 import { FieldDef } from "@root/components/Field";
@@ -10,27 +10,44 @@ import Row from "./Row";
 // Types
 import { ViewType } from "@root/forms/TopComponent";
 import { Views } from "@root/theme/theme";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const StyledSection = styled.div`
+const StyledAccordion = styled(Accordion)`
+	box-shadow: none !important;
+	border-radius: 0px;
 	scroll-margin-top: 60px;
-	display: flex;
-	flex-direction: column;
-	width: calc(100% - 4px); //LAYOUT: Could be reused.
-	border: ${pr => !pr.hasTitle ? "none" : `2px solid ${theme.newColors.grey2["100"]}`};
-	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"};
+	border: ${pr => !pr.hasTitle ? "none" : `2px solid ${theme.newColors.grey2["100"]}`} !important;
+	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"} !important;
 
-	& .section-title {
-		background-color: ${theme.newColors.grey2["100"]};
-		margin: 0px;
-		padding: 16px 24px;
+	&:before {
+		content: none !important;
 	}
+`;
+
+const StyledSectionHeader = styled(AccordionSummary)`
+	background-color: ${theme.newColors.grey2["100"]} !important;
+	margin: 0px !important;
+	padding: 16px 24px !important;
+	min-height: 0px !important;
+
+	& :first-child {
+		margin: 0px !important;
+	}
+`;
+
+const StyledSectionContent = styled(AccordionDetails)`
+	padding: 0px !important;
+	margin: 0px !important;
 `;
 
 const StyledDescription = styled.p`
 	margin: 24px 24px 0px 24px;
 	font-size: 16px;
 	font-family: ${theme.fontFamily};
-`
+`;
 
 const StyledRows = styled.div`
 	margin: 0px;
@@ -41,6 +58,7 @@ const StyledTitle = styled.h2`
 	font-size: 20px;
 	font-family: ${theme.fontFamily};
 	font-weight: 500;
+	margin: 0px;
 `;
 
 interface SectionPropTypes {
@@ -52,6 +70,7 @@ interface SectionPropTypes {
 	dispatch: any;
 	state: any;
 	view: ViewType;
+	collapsed?: boolean;
 }
 
 const Section = forwardRef((props: SectionPropTypes, ref: any) => {
@@ -64,35 +83,78 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 		sectionIdx,
 		state,
 		view,
+		collapsed = false,
 	} = props;
 
+	const [expanded, setExpanded] = useState<boolean>(false);
+	const getRef = useCallback((el) => ref.current[sectionIdx] = el, []);
 
-	const getRef = useCallback((el) => ref.current[sectionIdx] = el, [])
+	useEffect(() => {
+		setExpanded(!collapsed);
+	}, [collapsed]);
+
+	const onExpandChange = (_e, newExpandVal) => {
+		setExpanded(newExpandVal);
+	}
 
 	return (
-		<StyledSection
-			hasTitle={title}
-			id={sectionIdx}
+		// <StyledSection
+		// 	hasTitle={title}
+		// 	id={sectionIdx}
+		// 	data-testid="section-test-id"
+		// >
+		// 	{title && <StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
+		// 	{description && <StyledDescription>{description}</StyledDescription>}
+		// 	{rows && (
+		// 		<StyledRows view={view} hasTitle={title}>
+		// 			{rows.map((row, i) => (
+		// 				<Row
+		// 					key={`row-${i}`}
+		// 					row={row}
+		// 					rowIdx={i}
+		// 					sectionIdx={sectionIdx}
+		// 					state={state}
+		// 					fieldsDef={fieldsDef}
+		// 					dispatch={dispatch}
+		// 				/>
+		// 			))}
+		// 		</StyledRows>
+		// 	)}
+		// </StyledSection>
+		<StyledAccordion
+			id={title + sectionIdx}
 			data-testid="section-test-id"
+			expanded={expanded}
+			onChange={onExpandChange}
+			square={true}
+			hasTitle={title}
+			defaultExpanded={!collapsed}
 		>
-			{title && <StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
-			{description && <StyledDescription>{description}</StyledDescription>}
-			{rows && (
-				<StyledRows view={view} hasTitle={title}>
-					{rows.map((row, i) => (
-						<Row
-							key={`row-${i}`}
-							row={row}
-							rowIdx={i}
-							sectionIdx={sectionIdx}
-							state={state}
-							fieldsDef={fieldsDef}
-							dispatch={dispatch}
-						/>
-					))}
-				</StyledRows>
-			)}
-		</StyledSection>
+			<StyledSectionHeader
+				expandIcon={<ExpandMoreIcon />}
+				aria-controls="panel1a-content"
+			>
+				{title && <StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
+			</StyledSectionHeader>
+			<StyledSectionContent>
+				{description && <StyledDescription>{description}</StyledDescription>}
+				{rows && (
+					<StyledRows view={view} hasTitle={title}>
+						{rows.map((row, i) => (
+							<Row
+								key={`row-${i}`}
+								row={row}
+								rowIdx={i}
+								sectionIdx={sectionIdx}
+								state={state}
+								fieldsDef={fieldsDef}
+								dispatch={dispatch}
+							/>
+						))}
+					</StyledRows>
+				)}
+			</StyledSectionContent>
+		</StyledAccordion>
 	);
 });
 
