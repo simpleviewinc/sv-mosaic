@@ -250,4 +250,13 @@ export class DataviewPage extends BasePage {
 		}
 		return titleLocators;
 	}
+
+	async getAllFiltersSelected(): Promise<string[]> {
+		const filters = [];
+		for (let i = 1; i < await this.filterRowBtn.count() - 1; i++) {
+			this.filterRowBtn.nth(i).textContent();
+			filters.push(await this.getOnlyStringWithLetters(await this.filterRowBtn.nth(i).textContent()));
+		}
+		return filters;
+	}
 }

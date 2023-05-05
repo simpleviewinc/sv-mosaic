@@ -26,3 +26,5 @@ export interface FormProps {
 	tooltipInfo?: string;
 	showActive?: boolean;
 }
+
+export { FieldDef };
