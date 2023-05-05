@@ -709,12 +709,10 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					label: "Simple Text",
 					type: "text",
 					instructionText: "Instruction text text1",
-					validators: [validateEmail, validateSlow],
-					layout: { section: 0, row: 1, col: 0 },
 				},
 				{
 					name: "text2",
-					label: "Text with validators and dynamic help",
+					label: "TextField that validates email",
 					type: "text",
 					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
@@ -724,6 +722,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "text3",
 					label: "Text that copies to the next input",
 					type: "text",
+					required: true,
 					instructionText: "Instruction text text3",
 				},
 				{
@@ -741,6 +740,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "check",
 					label: "Checkbox",
 					type: "checkbox",
+					required: true,
 					inputSettings: {
 						options: checkboxOptions
 					},
@@ -765,6 +765,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "textEditor",
 					label: "Text Editor field",
 					type: "textEditor",
+					required: true
 				},
 			],
 		[]
@@ -777,12 +778,12 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			collapsed,
 			fields: [
 				// row 1
-				[["text1"], ["text2"], ["text3"]],
+				[["text1"], ["text2"], []],
 				// row 2
-				[["check"], ["text4"], ["color"]],
+				[["text3"], ["text4"], ["color"]],
 				[[]],
 				// row 3
-				[["toggleSwitch"], ["imageUpload"]]
+				[["toggleSwitch"]]
 			]
 		},
 		{
@@ -791,7 +792,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			collapsed,
 			fields: [
 				// row 1
-				[["check"], ["toggleSwitch"], ["color"]],
+				[["check"], [], []],
 				// row 2
 				[[], [], []],
 				// row 3
@@ -806,7 +807,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			collapsed,
 			fields: [
 				// row 1
-				[["text1"], [], []],
+				[["imageUpload"], [], []],
 			]
 		},
 	], [fields, collapsed]);

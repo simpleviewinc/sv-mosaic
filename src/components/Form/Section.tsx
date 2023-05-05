@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, forwardRef, useCallback, useState, useEffect } from "react";
+import { memo, forwardRef, useCallback, useState, useEffect, useMemo } from "react";
 import theme from "@root/theme";
 import styled from "styled-components";
 import { FieldDef } from "@root/components/Field";
@@ -19,8 +19,8 @@ const StyledAccordion = styled(Accordion)`
 	box-shadow: none !important;
 	border-radius: 0px;
 	scroll-margin-top: 60px;
-	border: ${pr => !pr.hasTitle ? "none" : `2px solid ${theme.newColors.grey2["100"]}`} !important;
-	margin-bottom: ${pr => !pr.hasTitle ? "0px" : "40px"} !important;
+	border: ${pr => !pr.hastitle ? "none" : `2px solid ${theme.newColors.grey2["100"]}`} !important;
+	margin: ${pr => !pr.hastitle ? "0px" : "0px 0px 40px 0px"} !important;
 
 	&:before {
 		content: none !important;
@@ -51,7 +51,7 @@ const StyledDescription = styled.p`
 
 const StyledRows = styled.div`
 	margin: 0px;
-	padding: ${pr => pr.view === Views.mobile ? "0px 30px" : `${!pr.hasTitle ? "" : "16px 24px"}`};
+	padding: ${pr => pr.view === Views.mobile ? "0px 30px" : `${!pr.hastitle ? "" : "16px 24px"}`};
 `;
 
 const StyledTitle = styled.h2`
@@ -97,49 +97,46 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 		setExpanded(newExpandVal);
 	}
 
+	const fieldsInSection = useMemo(() => {
+		const fieldNames = [];
+		for (let i = 0; i < rows.length; i++) {
+			for (let j = 0; j < rows[i].length; j++) {
+				fieldNames.push(rows[i][j]);
+			}
+		}
+		return fieldNames;
+	}, [rows]);
+
+	useEffect(() => {
+		for (let i = 0; i < fieldsInSection.length; i++) {
+			if (state.errors?.[fieldsInSection[i]]) {
+				setExpanded(true);
+				break;
+			}
+		}
+	}, [state.errors, fieldsInSection.length]);
+
 	return (
-		// <StyledSection
-		// 	hasTitle={title}
-		// 	id={sectionIdx}
-		// 	data-testid="section-test-id"
-		// >
-		// 	{title && <StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
-		// 	{description && <StyledDescription>{description}</StyledDescription>}
-		// 	{rows && (
-		// 		<StyledRows view={view} hasTitle={title}>
-		// 			{rows.map((row, i) => (
-		// 				<Row
-		// 					key={`row-${i}`}
-		// 					row={row}
-		// 					rowIdx={i}
-		// 					sectionIdx={sectionIdx}
-		// 					state={state}
-		// 					fieldsDef={fieldsDef}
-		// 					dispatch={dispatch}
-		// 				/>
-		// 			))}
-		// 		</StyledRows>
-		// 	)}
-		// </StyledSection>
 		<StyledAccordion
-			id={title + sectionIdx}
+			id={sectionIdx}
 			data-testid="section-test-id"
 			expanded={expanded}
 			onChange={onExpandChange}
 			square={true}
-			hasTitle={title}
-			defaultExpanded={!collapsed}
+			hastitle={title}
 		>
-			<StyledSectionHeader
-				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel1a-content"
-			>
-				{title && <StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>}
-			</StyledSectionHeader>
+			{title &&
+				<StyledSectionHeader
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel1a-content"
+				>
+					<StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>
+				</StyledSectionHeader>
+			}
 			<StyledSectionContent>
 				{description && <StyledDescription>{description}</StyledDescription>}
 				{rows && (
-					<StyledRows view={view} hasTitle={title}>
+					<StyledRows view={view} hastitle={title}>
 						{rows.map((row, i) => (
 							<Row
 								key={`row-${i}`}
