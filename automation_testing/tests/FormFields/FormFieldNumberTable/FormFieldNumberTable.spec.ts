@@ -78,6 +78,14 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 			await ffNumberTablePage.visitPageWithNumberFormat(formatsToValidate[i]);
 			await ffNumberTablePage.validateTotalColumnHasValidNumberFormat(formatsToValidate[i]);
 			await ffNumberTablePage.validateTotalRowHasValidNumberFormat(formatsToValidate[i]);
+    }
+  });
+  
+	test("Validate NumberTable's input width.", async () => {
+		const inputLocator = ffNumberTablePage.page.locator("input");
+		const inputCount = await inputLocator.count();
+		for (let i = 0; i < inputCount; i++) {
+			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), true)).toBe(90)
 		}
 	});
 });

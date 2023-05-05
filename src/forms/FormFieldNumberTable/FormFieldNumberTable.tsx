@@ -164,7 +164,7 @@ const FormFieldNumberTable = (
 											placeholder="0"
 											value={strValue}
 											onChange={(e) => onChangeCell(e, row.name, column.name)}
-											fieldSize={"72px"}
+											fieldSize={"90px"}
 										/>
 										:
 										<StyledDisabledText width={"72px"}>{strValue !== "" ? strValue : "0"}</StyledDisabledText>

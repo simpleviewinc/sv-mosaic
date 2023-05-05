@@ -28,7 +28,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 
 	const activeFilters = props.activeFilters || [];
 
-	const active = props.filters.filter(val => activeFilters.includes(val.name));
+	const active = activeFilters.map(activeFilter => props.filters.find(filter => filter.name === activeFilter));
 	const options = props.filters
 		.map((val) => ({ label: val.label, value: val.name }))
 		.sort((a, b) => a.label.localeCompare(b.label));
