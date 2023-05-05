@@ -71,4 +71,13 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 		expect(await ffNumberTablePage.numberTableLocator.locator("tr").last().locator("td").first().textContent()).not.toBe("TOTAL");
 		expect(await ffNumberTablePage.numberTableLocator.locator("thead").locator("th").last().textContent()).not.toBe("No. Rooms");
 	});
+
+	test("Validate that the different ", async () => {
+		const formatsToValidate = ["USD", "EUR", "JPY", "GBP"];
+		for (let i = 0; i < formatsToValidate.length; i++) {
+			await ffNumberTablePage.visitPageWithNumberFormat(formatsToValidate[i]);
+			await ffNumberTablePage.validateTotalColumnHasValidNumberFormat(formatsToValidate[i]);
+			await ffNumberTablePage.validateTotalRowHasValidNumberFormat(formatsToValidate[i]);
+		}
+	});
 });
