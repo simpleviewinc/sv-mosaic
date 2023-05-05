@@ -81,6 +81,7 @@ export const Playground = (): ReactElement => {
 	const tooltipInfo = text("Tooltip info", "Tooltip info");
 	const showTooltipInfo = boolean("Show Tooltip info", false);
 	const showActive = boolean("Show active", false);
+	const collapsed = boolean("Collapse sections", false);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field from getFormValues",
 		"check": [
@@ -600,6 +601,7 @@ export const Playground = (): ReactElement => {
 			{
 				title: text("Title section 1", "Section 1"),
 				description: text("Description for section 1", "Description for section 1"),
+				collapsed,
 				fields: [
 					// row 1
 					[["textField"], ["check"]],
@@ -613,6 +615,7 @@ export const Playground = (): ReactElement => {
 			{
 				title: text("Title section 2", "Section 2"),
 				description: text("Description for section 2", "Description for section 2"),
+				collapsed,
 				fields: [
 					// row 1
 					[[], [], []],
@@ -626,6 +629,7 @@ export const Playground = (): ReactElement => {
 			{
 				title: text("Title section 3", "Section 3"),
 				description: text("Description for section 3", "Description for section 3"),
+				collapsed,
 				fields: [
 					// row 1
 					[["color"], ["date"],],
@@ -634,7 +638,7 @@ export const Playground = (): ReactElement => {
 				]
 			}
 		];
-	}, []);
+	}, [collapsed]);
 
 	const sectionsAmount = useMemo(() => sections.slice(0, showSections), [sections, showSections]);
 
