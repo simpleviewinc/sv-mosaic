@@ -13,7 +13,7 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 	});
 
 	test.beforeEach(async() => {
-		await ffNumberTablePage.visit(ffNumberTablePage.page_path);
+		await ffNumberTablePage.visitPageWithNumberFormat("No format");
 	});
 
 	test.afterAll(async ({ browser }) => {
@@ -72,11 +72,20 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 		expect(await ffNumberTablePage.numberTableLocator.locator("thead").locator("th").last().textContent()).not.toBe("No. Rooms");
 	});
 
+	test("Validate that the different format are displayed correctly.", async () => {
+		const formatsToValidate = ["USD", "EUR", "JPY", "GBP"];
+		for (let i = 0; i < formatsToValidate.length; i++) {
+			await ffNumberTablePage.visitPageWithNumberFormat(formatsToValidate[i]);
+			await ffNumberTablePage.validateTotalColumnHasValidNumberFormat(formatsToValidate[i]);
+			await ffNumberTablePage.validateTotalRowHasValidNumberFormat(formatsToValidate[i]);
+		}
+	});
+
 	test("Validate NumberTable's input width.", async () => {
 		const inputLocator = ffNumberTablePage.page.locator("input");
 		const inputCount = await inputLocator.count();
 		for (let i = 0; i < inputCount; i++) {
-			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), true)).toBe(90)
+			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), true)).toBe(90);
 		}
 	});
 });
