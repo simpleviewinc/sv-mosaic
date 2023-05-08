@@ -46,7 +46,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 		setState({
 			...state,
 			value : "",
-			comparison : "equals"
+			comparison : props.comparison
 		});
 	}
 
@@ -115,7 +115,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 						onKeyPress={onKeyPress}
 					/>
 					:
-					<StyledDisabledText className="disabled">{state.value || props.placeholder || t("mosaic:common.filter___")}</StyledDisabledText>
+					<StyledDisabledText className="disabled">{state.value || t("mosaic:common.filter___")}</StyledDisabledText>
 				}
 				{comparisonButton}
 			</div>

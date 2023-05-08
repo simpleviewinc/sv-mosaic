@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Sizes from "@root/theme/sizes";
 
 export const StyledContents = styled.div`
 	margin: 0px 6px;
@@ -15,7 +16,8 @@ export const StyledContents = styled.div`
 
 	& > .inputRow > .disabled {
 		margin-top: 8px;
-		padding: 12px 16px;
+		padding: 12px 16px 12px 8px;
+		width: ${Sizes.sm};
 	}
 
 	& > .inputRow > .comparisonButton {
