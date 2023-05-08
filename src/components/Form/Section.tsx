@@ -99,11 +99,11 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 
 	const fieldsInSection = useMemo(() => {
 		const fieldNames = [];
-		for (let i = 0; i < rows.length; i++) {
-			for (let j = 0; j < rows[i].length; j++) {
-				fieldNames.push(rows[i][j]);
-			}
+
+		for (const row of rows) {
+			fieldNames.push(...row);
 		}
+
 		return fieldNames;
 	}, [rows]);
 
