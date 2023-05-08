@@ -62,7 +62,8 @@ export const pageHeaderKnobs = {
 
 export const formFieldNumberTableKnobs = {
 	knobDisplayRowSum: "knob-Display%20rows%20sums=",
-	knobDisplayColumnsSum: "knob-Display%20columns%20sums="
+	knobDisplayColumnsSum: "knob-Display%20columns%20sums=",
+	knobNumberFormatOptions: "knob-Number%20format%20options="
 }
 
 export const contentKnobs = {
