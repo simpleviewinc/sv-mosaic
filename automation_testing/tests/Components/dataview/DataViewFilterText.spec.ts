@@ -45,4 +45,20 @@ test.describe.parallel("Components - DataViewFilterText - Playground", () => {
 		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("Not Exists").toUpperCase());
 	});
 
+	test("Validate that the text filter comparison logic is consistent.", async () => {
+		const comparisonsToValidate = ["Equals", "Not Equal", "Contains", "Not Contains", "Exists", "Not Exists"];
+		for (let i = 0; i < comparisonsToValidate.length; i++) {
+			await dvFilterComponent.visitPageWithDefaultComparison(comparisonsToValidate[i]);
+			await dvFilterComponent.filterTextButton.waitFor();
+			await dvFilterComponent.filterTextButton.click();
+			expect.soft(await dvFilterComponent.comparisonButton.textContent()).toBe(comparisonsToValidate[i]);
+			if (i === 0) {
+				await dvFilterComponent.selectComparison(comparisonsToValidate[i + 1]);
+			} else {
+				await dvFilterComponent.selectComparison(comparisonsToValidate[0]);
+			}
+			await dvFilterComponent.clearBtn.click();
+			expect.soft(await dvFilterComponent.comparisonButton.textContent()).toBe(comparisonsToValidate[i]);
+		}
+	});
 });
