@@ -1,6 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormWithLayout } from "../../../pages/Components/Form/FormWithLayoutPage";
 import theme from "../../../../src/theme";
+import { playgroundKnobs } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - Form - Form With Layout", () => {
 	let page: Page;
@@ -75,5 +76,27 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		await page.reload();
 		await formWithLayoutPage.sections.waitFor();
 		expect(await formWithLayoutPage.getSpecificMarginFromElement(formWithLayoutPage.sections, "top")).toBe("24px");
+	});
+
+	test("Validate that when a section is collapsed, can be opened.", async () => {
+		await page.setViewportSize({ width: 1399, height: 720 });
+		await formWithLayoutPage.visit(formWithLayoutPage.page_path, [playgroundKnobs.knobCollapseSections + "true"]);
+		const panelCount = await formWithLayoutPage.panelContentLocator.count();
+		for (let i = 0; i < panelCount; i++) {
+			await expect(formWithLayoutPage.panelContentLocator.nth(i)).not.toBeVisible();
+			await formWithLayoutPage.expandMoreIconLocator.nth(i).click();
+			await expect(formWithLayoutPage.panelContentLocator.nth(i)).toBeVisible();
+		}
+	});
+
+	test("Validate that when a requiered element is not entered, the form expands the section with the requiered field.", async () => {
+		await page.setViewportSize({ width: 1399, height: 720 });
+		await formWithLayoutPage.visit(formWithLayoutPage.page_path, [playgroundKnobs.knobCollapseSections + "true"]);
+		await formWithLayoutPage.expandMoreIconLocator.first().click();
+		await formWithLayoutPage.page.locator("input#text3").fill("Sample Text");
+		await expect(formWithLayoutPage.panelContentLocator.nth(1)).not.toBeVisible();
+		await formWithLayoutPage.saveBtn.click();
+		await expect(formWithLayoutPage.panelContentLocator.nth(1)).toBeVisible();
+		await expect(formWithLayoutPage.errorMessage.first()).toBeVisible();
 	});
 });
