@@ -2,16 +2,15 @@ import styled from "styled-components";
 import Sizes from "@root/theme/sizes";
 
 export const StyledContents = styled.div`
-	margin: 0px 6px;
-
 	& > .inputRow {
 		display: flex;
 		align-items: center;
-		margin-top: 6px;
+		padding: 16px 16px 0;
 	}
 
 	.MuiFormControl-root {
 		margin-bottom: 0;
+		margin-top: 0;
 	}
 
 	& > .inputRow > .disabled {
