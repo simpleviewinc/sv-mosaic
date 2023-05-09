@@ -23,7 +23,7 @@ export const FormDrawerWrapper = styled.div`
       max-width: 800px;
       min-height: calc(100vh - 110px);
       min-width: 600px;
-      padding: 0 14px;
+      padding-left: 16px;
       width: 50vw;
 
       .options {
@@ -35,22 +35,24 @@ export const FormDrawerWrapper = styled.div`
       }
     }
 
-		& .topBlock hr {
-			margin: -24px 0px 0px 0px;
-		}
+    & .topBlock hr {
+      margin: -16px 0px 0px 0px;
+    }
   }
 `;
 
 export const DragAndDropContainer = styled.div`
   align-items: center;
-  border: ${(pr) => (pr.isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : "")};
-  background-color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"])};
+  border: ${(pr) =>
+		pr.isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : ""};
+  background-color: ${(pr) =>
+		pr.isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"]};
   display: flex;
   flex-direction: column;
   height: 204px;
   justify-content: center;
   position: relative;
-  width: ${pr => pr.width ? pr.width : "300px"};
+  width: ${(pr) => (pr.width ? pr.width : "300px")};
 
   & .button {
     z-index: 1000;
@@ -58,7 +60,8 @@ export const DragAndDropContainer = styled.div`
 `;
 
 export const DragAndDropSpan = styled.span`
-  color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"])};
+  color: ${(pr) =>
+		pr.isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"]};
   font-size: 16px;
   margin-bottom: ${(pr) => (pr.isOver ? "" : "24px")};
 `;
@@ -81,6 +84,6 @@ export const StyledDisabledText = styled.p`
   font-size: 16px;
   margin: 0px;
   padding: 0px;
-  width: ${pr => pr.width ?? "auto"};
+  width: ${(pr) => pr.width ?? "auto"};
   word-break: break-all;
 `;
