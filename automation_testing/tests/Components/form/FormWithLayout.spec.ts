@@ -99,4 +99,13 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		await expect(formWithLayoutPage.panelContentLocator.nth(1)).toBeVisible();
 		await expect(formWithLayoutPage.errorMessage.first()).toBeVisible();
 	});
+
+	test("Validate that when a requiered element is not entered, all the sections with requiered fields are open.", async () => {
+		await page.setViewportSize({ width: 1399, height: 720 });
+		await formWithLayoutPage.visit(formWithLayoutPage.page_path, [playgroundKnobs.knobCollapseSections + "true"]);
+		await formWithLayoutPage.saveBtn.click();
+		await expect(formWithLayoutPage.panelContentLocator.nth(0)).toBeVisible();
+		await expect(formWithLayoutPage.panelContentLocator.nth(1)).toBeVisible();
+		expect(await formWithLayoutPage.errorMessage.count()).toBe(3);
+	});
 });
