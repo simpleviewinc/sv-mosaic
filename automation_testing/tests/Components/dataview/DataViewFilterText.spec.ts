@@ -61,4 +61,10 @@ test.describe.parallel("Components - DataViewFilterText - Playground", () => {
 			expect.soft(await dvFilterComponent.comparisonButton.textContent()).toBe(comparisonsToValidate[i]);
 		}
 	});
+
+	test("Validate that the padding in the input row.", async () => {
+		const expectedPadding = "16px 16px 0px"
+		await dvFilterComponent.filterTextButton.click();
+		expect(await dvFilterComponent.getSpecificPaddingFromElement(dvFilterComponent.inputRowLocator, "all")).toBe(expectedPadding);
+	});
 });
