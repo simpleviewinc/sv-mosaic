@@ -1,5 +1,6 @@
 import { test, expect, Page, Locator } from "@playwright/test";
 import { DataViewFilterMultiselectComponent } from "../../../pages/Components/DataView/DataViewFilterMultiselect";
+import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - DataViewFilterMultiSelect - Kitchen Sink", () => {
 	let page: Page;
@@ -29,6 +30,7 @@ test.describe.parallel("Components - DataViewFilterMultiSelect - Kitchen Sink", 
 	});
 
 	test("Validate that DataView Filter MultiSelect shows the Comparison dropdown.", async () => {
+		await multiSelectComponent.visit(multiSelectComponent.page_path, [knob.knobComparison + "true"]);
 		await multiSelectComponent.showComparisonSelectorButton.click();
 		await expect(multiSelectComponent.comparisonDropdown).toBeVisible();
 		expect(await multiSelectComponent.comparisonDropdown.locator("h3").textContent()).toBe("Comparison");
