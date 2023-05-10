@@ -159,8 +159,10 @@ export const formActions = {
 				}
 			}
 
-			if (firstInvalidField !== undefined) {
-				document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
+			if (!validForm && firstInvalidField !== undefined) {
+				setTimeout(() => {
+					document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
+				}, 500);
 			}
 
 			await dispatch({
