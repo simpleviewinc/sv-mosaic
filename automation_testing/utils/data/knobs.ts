@@ -21,7 +21,8 @@ export const playgroundKnobs = {
 	optionHasDefaultValues: "Has%20Defaults",
 	optionNone: "None",
 	optionReturnData: "Returns%20Data",
-	optionReturnUndefined: "Returns%20Undefined"
+	optionReturnUndefined: "Returns%20Undefined",
+	knobCollapseSections: "knob-Collapse%20sections="
 }
 
 export const uploadKnobs = {

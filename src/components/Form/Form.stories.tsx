@@ -81,6 +81,7 @@ export const Playground = (): ReactElement => {
 	const tooltipInfo = text("Tooltip info", "Tooltip info");
 	const showTooltipInfo = boolean("Show Tooltip info", false);
 	const showActive = boolean("Show active", false);
+	const collapsed = boolean("Collapse sections", false);
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field from getFormValues",
 		"check": [
@@ -600,6 +601,7 @@ export const Playground = (): ReactElement => {
 			{
 				title: text("Title section 1", "Section 1"),
 				description: text("Description for section 1", "Description for section 1"),
+				collapsed,
 				fields: [
 					// row 1
 					[["textField"], ["check"]],
@@ -613,6 +615,7 @@ export const Playground = (): ReactElement => {
 			{
 				title: text("Title section 2", "Section 2"),
 				description: text("Description for section 2", "Description for section 2"),
+				collapsed,
 				fields: [
 					// row 1
 					[[], [], []],
@@ -626,6 +629,7 @@ export const Playground = (): ReactElement => {
 			{
 				title: text("Title section 3", "Section 3"),
 				description: text("Description for section 3", "Description for section 3"),
+				collapsed,
 				fields: [
 					// row 1
 					[["color"], ["date"],],
@@ -634,7 +638,7 @@ export const Playground = (): ReactElement => {
 				]
 			}
 		];
-	}, []);
+	}, [collapsed]);
 
 	const sectionsAmount = useMemo(() => sections.slice(0, showSections), [sections, showSections]);
 
@@ -699,6 +703,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	}, []);
 
 	const showState = boolean("Show state", false);
+	const collapsed = boolean("Collapse sections", false);
 	const {height = "100vh"} = props;
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -708,12 +713,10 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					label: "Simple Text",
 					type: "text",
 					instructionText: "Instruction text text1",
-					validators: [validateEmail, validateSlow],
-					layout: { section: 0, row: 1, col: 0 },
 				},
 				{
 					name: "text2",
-					label: "Text with validators and dynamic help",
+					label: "TextField that validates email",
 					type: "text",
 					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
@@ -723,6 +726,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "text3",
 					label: "Text that copies to the next input",
 					type: "text",
+					required: true,
 					instructionText: "Instruction text text3",
 				},
 				{
@@ -740,6 +744,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "check",
 					label: "Checkbox",
 					type: "checkbox",
+					required: true,
 					inputSettings: {
 						options: checkboxOptions
 					},
@@ -764,6 +769,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "textEditor",
 					label: "Text Editor field",
 					type: "textEditor",
+					required: true
 				},
 			],
 		[]
@@ -773,22 +779,24 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 		{
 			title: "Section 1",
 			description: "Description for section 1",
+			collapsed,
 			fields: [
 				// row 1
-				[["text1"], ["text2"], ["text3"]],
+				[["text1"], ["text2"], []],
 				// row 2
-				[["check"], ["text4"], ["color"]],
+				[["text3"], ["text4"], ["color"]],
 				[[]],
 				// row 3
-				[["toggleSwitch"], ["imageUpload"]]
+				[["toggleSwitch"]]
 			]
 		},
 		{
 			title: "Section 2",
 			description: "Description for section 2",
+			collapsed,
 			fields: [
 				// row 1
-				[["check"], ["toggleSwitch"], ["color"]],
+				[["check"], [], []],
 				// row 2
 				[[], [], []],
 				// row 3
@@ -800,12 +808,13 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 		{
 			title: "Section 3",
 			description: "Description for section 3",
+			collapsed,
 			fields: [
 				// row 1
-				[["text1"], [], []],
+				[["imageUpload"], [], []],
 			]
 		},
-	], [fields]);
+	], [fields, collapsed]);
 
 	useEffect(() => {
 		dispatch(

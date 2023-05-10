@@ -14,7 +14,7 @@ functionality and not how to make a form work.
 * **state** - `any` required - Object which will contain all filled fields and their corresponding value.
 * **title** - `string` optional - Title of the form.
 * **fields** - `FieldDef[]` required - Array of fields containing their respective configuration (see [Generic Field Props subsection](#generic-field-props-fielddef)).
-* **sections** - `SectionDef[]` optional - Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row.
+* **sections** - `SectionDef[]` optional - Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row (see [SectionDef subsection](#sectiondef)).
 * **dispatch** - `any` required - Function in charge of updating the state (see [Dispatch Actions subsection](#dispatch)).
 * **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer".
 * **description** - `string` optional - Additional text that will render under the title.
@@ -133,6 +133,14 @@ Sections follow the next set of rules:
 * Each section can have multiple rows.
 * Each row must have 1 column min and 3 columns max.
 * Each column can have as many fields as needed.
+
+#### SectionDef
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`title`** | `string` | optional - Text that helps users identify the section. This is also used when rendering tabs to scroll the user to the selected section. |
+| **`description`** | `string` or `JSX.Element` | optional - Additional text that allows users to understand the purpose or instructions of a section better. |
+| **`fields`** | `string[][][]` | required - Structure that serves as a map to position fields across rows and columns. Each section can have multiple rows, each row multiple columns, and each column multiple fields ([rows][columns][fields]) |
+| **`collapsed`** | `boolean` | optional - Allows developers to decide whether the section will be first rendered collapsed or expanded. It defaults to false when no value is provided. |
 
 The Form component is smart enough to delete blank spaces in the layout, for example if a row has 3 columns (A, B, C) but only A, and C have columns then the row will render as a 2 column layout instead of 3.
 This same rule applies for empty rows.

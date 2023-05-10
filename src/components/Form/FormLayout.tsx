@@ -46,6 +46,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 					state={state}
 					dispatch={dispatch}
 					view={view}
+					collapsed={section.collapsed}
 				/>
 			))}
 		</StyledFormLayout>
