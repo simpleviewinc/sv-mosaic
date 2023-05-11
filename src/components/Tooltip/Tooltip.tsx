@@ -21,9 +21,6 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 			onClose={onClose}
 			onOpen={onOpen}
 			title={text}
-			PopperProps={{
-				disablePortal: true,
-			}}
 			data-testid='tooltip-test-id'
 		>
 			{children}
@@ -37,9 +34,6 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 			title={text}
 			arrow
 			placement={placement}
-			PopperProps={{
-				disablePortal: true,
-			}}
 			data-testid='tooltip-test-id'
 		>
 			{children}
