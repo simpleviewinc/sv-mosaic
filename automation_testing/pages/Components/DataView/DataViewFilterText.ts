@@ -7,23 +7,26 @@ export class DataViewFilterTextComponent extends BasePage {
 	readonly page_path = "components-dataviewfiltertext--playground";
 
 	readonly page: Page;
+
 	readonly filterTextButton: Locator;
 	readonly inputRowLocator: Locator;
 	readonly wordFilterLocator: Locator;
+	readonly inputLocator: Locator;
 	readonly comparisonButton: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
+		this.inputRowLocator = page.locator(".inputRow");
 		this.filterTextButton = page.locator("#root button");
-		this.inputRowLocator = page.locator(".inputRow input");
+		this.inputLocator = this.inputRowLocator.locator("input");
 		this.wordFilterLocator = this.filterTextButton.locator("p");
 		this.comparisonButton = page.locator(".inputRow .comparisonButton button");
 	}
 
 	async searchForWord(word: string): Promise<void> {
 		await this.filterTextButton.click();
-		await this.inputRowLocator.fill(word);
+		await this.inputLocator.fill(word);
 		await this.applyBtn.click({force: true});
 		await this.filterTextButton.waitFor();
 	}
@@ -37,7 +40,7 @@ export class DataViewFilterTextComponent extends BasePage {
 		await this.filterTextButton.click();
 		await this.selectComparison(comparison);
 		if (comparison == "Contains" || comparison == "Not Contains" || comparison == "Equals" || comparison == "Not Equal") {
-			await this.inputRowLocator.fill(word);
+			await this.inputLocator.fill(word);
 		}
 		await this.wait();
 		await this.applyBtn.click({force: true});
