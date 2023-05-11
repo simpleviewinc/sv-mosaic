@@ -2,11 +2,11 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 export const StyledWrapper = styled.div`
-	padding: 22px 6px 8px;
-
 	& > .topBlock {
 		display: flex;
 		height: 400px;
+		padding-left: 16px;
+		margin-top: 16px;
 		width: 600px;
 	}
 
@@ -45,7 +45,7 @@ export const StyledWrapper = styled.div`
 	}
 
 	& > .topBlock > .selected {
-		padding: 0px 0px 0px 32px;
+		padding: 0px 16px 0px 32px;
 		width: 200px;
 		overflow-y: auto;
 	}

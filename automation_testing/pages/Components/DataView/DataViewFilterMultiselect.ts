@@ -6,6 +6,7 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 	readonly page_path = "components-dataviewfiltermultiselect--kitchen-sink";
 
 	readonly page: Page;
+	readonly topBlockLocator: Locator;
 	readonly optionsLocator: Locator;
 	readonly selectedOptionsLocator: Locator;
 	readonly optionDivider: Locator;
@@ -20,8 +21,9 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.optionsLocator = page.locator(".topBlock .options");
-		this.selectedOptionsLocator = page.locator(".topBlock .selected");
+		this.topBlockLocator = page.locator(".topBlock");
+		this.optionsLocator = this.topBlockLocator.locator(".options");
+		this.selectedOptionsLocator = this.topBlockLocator.locator(".selected");
 		this.optionDivider = page.locator(".topBlock hr");
 		this.hideComparisonSelectorButton = page.locator("#root button").first();
 		this.showComparisonSelectorButton = page.locator("#root button").last();
@@ -29,7 +31,7 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 		this.comparisonDropdownButton = this.comparisonDropdown.locator("button").first();
 		this.helpDialogButton = this.comparisonDropdown.locator("button").last();
 		this.selectedChips = page.locator(".chips [data-testid='delete-chip-testid']");
-		this.inputSearchLocator = page.locator(".topBlock input[type='text']")
+		this.inputSearchLocator = this.topBlockLocator.locator("input[type='text']");
 	}
 
 	async validateMultiselectSectionsAreVisible(): Promise<void> {
