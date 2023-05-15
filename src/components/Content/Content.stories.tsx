@@ -103,9 +103,8 @@ export const Playground = (): ReactElement => {
 	const variant = select("Variant", ["standard", "card"], "standard")
 	const singleColumn = boolean("Single column", false);
 	const showChips = boolean("Show chips", true);
+	const showButtons = select("Buttons", ["1", "2", "0", "undefined"], "2");
 	const useSections = boolean("Use sections", true);
-	const showEditBtn = boolean("Show edit button", true);
-	const showDetailsBtn = boolean("Show details button", true);
 	const amountContent = select(
 		"Amount of contents",
 		[1, 2],
@@ -127,7 +126,7 @@ export const Playground = (): ReactElement => {
 			mIcon: EditIcon,
 			color: "gray",
 			variant: "icon",
-			show: showEditBtn,
+			show: showButtons !== "undefined" && Number(showButtons) >= 1,
 			onClick: function () {
 				alert("Edit button clicked");
 			}
@@ -138,7 +137,7 @@ export const Playground = (): ReactElement => {
 			variant: "text",
 			label: showMore ? "Less Details" : "More Details",
 			onClick: showDetails,
-			show: [showDetailsBtn],
+			show: [showButtons !== "undefined" && Number(showButtons) >= 2],
 		},
 	]
 
@@ -200,7 +199,7 @@ export const Playground = (): ReactElement => {
 				data={data}
 				fields={fields}
 				sections={sectionsToDisplay}
-				buttons={buttonsToDisplay}
+				buttons={showButtons === "undefined" ? undefined : buttonsToDisplay}
 				variant={variant}
 			/>
 			{amountContent === 2 &&

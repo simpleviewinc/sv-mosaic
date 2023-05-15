@@ -152,7 +152,7 @@ const Content = (props: ContentProps): ReactElement => {
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
-				{buttonToRender.length > 0 && (
+				{buttonToRender && (buttonToRender.length > 0) && (
 					<ButtonsWrapper
 						className={cardVariant ? "card-buttons" : "standard-buttons"}
 					>
