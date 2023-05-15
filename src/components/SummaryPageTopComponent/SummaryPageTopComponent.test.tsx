@@ -20,7 +20,7 @@ const ComponentExample = (props: {
 	showAdditionalActions?: boolean;
 }): ReactElement => {
 
-	const { showAdditionalActions = true } = props;
+	const { showAdditionalActions = true, mainActions, descriptionItems } = props;
 	const [checked, setChecked] = useState<boolean>(false);
 
 	const textLinks = [
@@ -44,72 +44,71 @@ const ComponentExample = (props: {
 		},
 	];
 
-	const {
-		descriptionItems = [
-			<p key={1}>Information</p>,
-			<p key={2}>Information</p>,
-			<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
-			<Button
-				key={4}
-				attrs={{linkButton: true}}
-				color="black"
-				variant="text"
-				label={textLinks[0].label}
-				mIcon={textLinks[0].mIcon}
-				href={textLinks[0].href}
-				{...textLinks[0]}
-			/>,
-			<Button
-				key={5}
-				attrs={{linkButton: true}}
-				color="black"
-				variant="text"
-				label={textLinks[1].label}
-				mIcon={textLinks[1].mIcon}
-				href={textLinks[1].href}
-				{...textLinks[1]}
-			/>,
-			<Button
-				key={6}
-				attrs={{linkButton: true}}
-				color="black"
-				variant="text"
-				label={textLinks[2].label}
-				mIcon={textLinks[2].mIcon}
-				href={textLinks[2].href}
-				{...textLinks[2]}
-			/>,
-		],
-		mainActions = [
-			{
-				label: "Button 1",
-				mIcon: Mail,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text"
-			},
-			{
-				label: "Button 2",
-				mIcon: Mail,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text"
-			},
-			{
-				label: "Edit",
-				mIcon: Edit,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text",
-			}
-		]
-	} = props;
+	const tempDescriptionItems = [
+		<p key={1}>Information</p>,
+		<p key={2}>Information</p>,
+		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
+		<Button
+			key={4}
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[0].label}
+			mIcon={textLinks[0].mIcon}
+			href={textLinks[0].href}
+			{...textLinks[0]}
+		/>,
+		<Button
+			key={5}
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[1].label}
+			mIcon={textLinks[1].mIcon}
+			href={textLinks[1].href}
+			{...textLinks[1]}
+		/>,
+		<Button
+			key={6}
+			attrs={{linkButton: true}}
+			color="black"
+			variant="text"
+			label={textLinks[2].label}
+			mIcon={textLinks[2].mIcon}
+			href={textLinks[2].href}
+			{...textLinks[2]}
+		/>,
+	];
+
+	const tempMainActions: SummaryPageTopComponentTypes["mainActions"] = [
+		{
+			label: "Button 1",
+			mIcon: Mail,
+			onClick: jest.fn(),
+			color: "black",
+			variant: "text"
+		},
+		{
+			label: "Button 2",
+			mIcon: Mail,
+			onClick: jest.fn(),
+			color: "black",
+			variant: "text"
+		},
+		{
+			label: "Edit",
+			mIcon: Edit,
+			onClick: jest.fn(),
+			color: "black",
+			variant: "text",
+		}
+	];
 
 	const title = "Title";
 
 	const img = "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg";
 
-	let additionalActions: MenuItemProps[] = [];
+	let additionalActions: MenuItemProps[] | undefined = undefined;
 
 	if (showAdditionalActions) {
 		additionalActions = [
@@ -134,9 +133,9 @@ const ComponentExample = (props: {
 			title={title}
 			favorite={favorite}
 			img={img}
-			mainActions={mainActions}
+			mainActions={mainActions ?? tempMainActions}
 			additionalActions={additionalActions}
-			descriptionItems={descriptionItems}
+			descriptionItems={descriptionItems ?? tempDescriptionItems}
 		/>
 	);
 };
@@ -196,65 +195,56 @@ describe("SummaryPageTopComponent", () => {
 		expect(additionalActions).not.toBeInTheDocument();
 	});
 
-	it.todo("Should throw an error with more than 3 main action buttons");
-	// it.todo("Should throw an error with more than 3 main action buttons", async () => {
-	// 	jest.spyOn(console, "error").mockImplementation();
+	it("Should throw an error with more than 3 main action buttons", async () => {
+		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
 
-	// 	const newMainActions: SummaryPageTopComponentTypes["mainActions"] = [
-	// 		{
-	// 			label: "Button 1",
-	// 			mIcon: Mail,
-	// 			onClick: jest.fn(),
-	// 			color: "black",
-	// 			variant: "text"
-	// 		},
-	// 		{
-	// 			label: "Button 2",
-	// 			mIcon: Mail,
-	// 			onClick: jest.fn(),
-	// 			color: "black",
-	// 			variant: "text"
-	// 		},
-	// 		{
-	// 			label: "Edit",
-	// 			mIcon: Edit,
-	// 			onClick: jest.fn(),
-	// 			color: "black",
-	// 			variant: "text",
-	// 		},
-	// 		{
-	// 			label: "Button 1",
-	// 			mIcon: Mail,
-	// 			onClick: jest.fn(),
-	// 			color: "black",
-	// 			variant: "text"
-	// 		},
-	// 		{
-	// 			label: "Button 2",
-	// 			mIcon: Mail,
-	// 			onClick: jest.fn(),
-	// 			color: "black",
-	// 			variant: "text"
-	// 		},
-	// 		{
-	// 			label: "Edit",
-	// 			mIcon: Edit,
-	// 			onClick: jest.fn(),
-	// 			color: "black",
-	// 			variant: "text",
-	// 		}
-	// 	]
+		const newMainActions: SummaryPageTopComponentTypes["mainActions"] = [
+			{
+				label: "Button 1",
+				mIcon: Mail,
+				onClick: jest.fn(),
+				color: "black",
+				variant: "text"
+			},
+			{
+				label: "Button 2",
+				mIcon: Mail,
+				onClick: jest.fn(),
+				color: "black",
+				variant: "text"
+			},
+			{
+				label: "Edit",
+				mIcon: Edit,
+				onClick: jest.fn(),
+				color: "black",
+				variant: "text",
+			},
+			{
+				label: "Button 1",
+				mIcon: Mail,
+				onClick: jest.fn(),
+				color: "black",
+				variant: "text"
+			},
+			{
+				label: "Button 2",
+				mIcon: Mail,
+				onClick: jest.fn(),
+				color: "black",
+				variant: "text"
+			},
+			{
+				label: "Edit",
+				mIcon: Edit,
+				onClick: jest.fn(),
+				color: "black",
+				variant: "text",
+			}
+		]
 
-	// 	await act(async () => {
-	// 		// try {
-	// 		// 	render(<ComponentExample mainActions={newMainActions} />);
-	// 		// } catch (e) {
-	// 		// 	expect(e.message).toEqual("mainActions prop must receive 3 elements or less.");
-	// 		// }
-
-	// 		expect(() => render(<ComponentExample mainActions={newMainActions} />)).toThrowError("mainActions prop must receive 3 elements or less.");
-	// 	});
-	// });
+		expect(() => render(<ComponentExample mainActions={newMainActions} />)).toThrow("mainActions prop must receive 3 elements or less.");
+	});
 
 	it("Should display additional action button", async () => {
 		await act(async () => {
@@ -281,27 +271,19 @@ describe("SummaryPageTopComponent", () => {
 		expect(descriptionItems).toHaveLength(6);
 	});
 
-	it.todo("Should throw an error with more than 6 description elements");
-	// it.todo("Should throw an error with more than 6 description elements", async () => {
-	// 	jest.spyOn(console, "error").mockImplementation();
+	it("Should throw an error with more than 6 description elements", async () => {
+		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
 
-	// 	const newDescriptionItems = [
-	// 		<p key={1}>Information</p>,
-	// 		<p key={2}>Information</p>,
-	// 		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
-	// 		<p key={4}>Information</p>,
-	// 		<p key={5}>Information</p>,
-	// 		<p key={6}>Information</p>,
-	// 		<p key={7}>Information</p>,
-	// 	]
+		const newDescriptionItems = [
+			<p key={1}>Information</p>,
+			<p key={2}>Information</p>,
+			<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
+			<p key={4}>Information</p>,
+			<p key={5}>Information</p>,
+			<p key={6}>Information</p>,
+			<p key={7}>Information</p>,
+		];
 
-	// 	await act(async () => {
-	// 		// try {
-	// 		// 	render(<ComponentExample descriptionItems={newDescriptionItems} />);
-	// 		// } catch (e) {
-	// 		// 	expect(e.message).toEqual("descriptionElements prop must receive 6 elements or less.");
-	// 		// }
-	// 		expect(() => render(<ComponentExample descriptionItems={newDescriptionItems} />)).toThrowError("descriptionElements prop must receive 6 elements or less.");
-	// 	});
-	// });
+		expect(() => render(<ComponentExample descriptionItems={newDescriptionItems} />)).toThrowError("descriptionElements prop must receive 6 elements or less.");
+	});
 });

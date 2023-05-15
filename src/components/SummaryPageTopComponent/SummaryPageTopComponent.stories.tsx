@@ -31,7 +31,7 @@ export const Example = (): ReactElement => {
 	const img = boolean("Image", false);
 	const showFavorite = boolean("Show star", true);
 	const showMainActions = boolean("Main actions", true);
-	const additionalActionsKnob = select("Additional Actions", [1, 2, 0], 2);
+	const additionalActionsKnob = select("Additional Actions", ["1", "2", "0", "undefined"], "2");
 	const showDescription = boolean("Description Items", true);
 
 	const mainActions: ButtonProps[] = [
@@ -73,10 +73,12 @@ export const Example = (): ReactElement => {
 		}
 	];
 
-	const slicedAdditionalActions = useMemo(
-		() => additionalActions.slice(0, additionalActionsKnob),
-		[additionalActionsKnob, additionalActions]
-	);
+	const slicedAdditionalActions = useMemo(() => {
+		if (additionalActionsKnob === "undefined") return undefined;
+
+		const amountActions = Number(additionalActionsKnob);
+		return additionalActions.slice(0, amountActions);
+	}, [additionalActionsKnob, additionalActions]);
 
 	const textLinks = [
 		{
