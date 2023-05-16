@@ -55,6 +55,8 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		await expect(summaryPage.additionButtonLocator).toBeVisible();
 		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + 0]);
 		await expect(summaryPage.additionButtonLocator).not.toBeVisible();
+		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + "undefined"]);
+		await expect(summaryPage.additionButtonLocator).not.toBeVisible();
 	});
 
 	test("Validate padding and margin for the description items in SummaryPageTopComponent", async () => {
