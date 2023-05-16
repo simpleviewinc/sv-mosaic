@@ -1,5 +1,29 @@
 # sv-mosaic changelog
 
+## 23.0.0 - 05/23/23
+* `DataViewFilters`:
+	* Updated internal logic to render `activeFilters` in the order they're passed by the developer and not the order they're set in the `filters` array. Added knob in storybook to test this functionality.
+* `DataViewFilterDropdown`:
+	* Updated spacing to make it consistent between filters.
+* `DataViewFilterDropdownButtons`:
+	* Updated spacing to make it consistent between filters.
+* `DataViewFilterMultiselect`:
+	* Updated spacing to make it consistent between filters.
+* `DataViewFilterText`:
+	* Updated internal logic to keep comparison when the user clicks on "Clear".
+	* Updated spacing to make it consistent between filters.
+* `Form`:
+	* Now exporting `FieldDef` type through the Form types. This allows developers to import it directly without having to import each field's types individually.
+	* Sections are now rendered as collapsible accordions which default to being expanded. Developers can decide whether they collapse a specific section or not through the new section prop `collapsed`. Added documentation for this in `Form` Readme.
+	* **BREAKING** Removed unused prop `children` from `Section` component. Although the prop didn't seem to be used anywhere, it might be a breaking change if it was being consumed.
+* `SummaryPageTopComponent`:
+	* Updated spacing around description items. The first element had previously 0px of padding left, causing any element with padding to be overwritten.
+* `NumberTable`:
+	* Updated size of text fields from 72 to 90 px.
+	* Added functionality for new optional prop `numberFormatOptions` as well as its proper documentation in `Form` Readme. This allows developers to format the calculated values of the table (totals) e.g. to dollars.
+* `FormFieldAdvancedSelection`:
+	* Updated styles to add space between chips and scrollbar.
+
 ## 22.0.0 - 05/09/23
 * `DataView`:
 	* Updated additional actions button from horizontal to vertical ellipsis.
