@@ -51,6 +51,9 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		let minutes = 0;
 		let seconds = 0;
 
+		//THIS LOGIC SHOULD ALSO BE UPDATED, I'M GUESSING IT COULD GO AFTER NEWVALUE
+		//ALSO IT DOESN'T MAKE MUCH SENSE TO UPDATE THE STATE HERE AND THEN WANTING TO USE IT BELOW,
+		//THIS MIGHT LEAD TO RACE CONDITIONS.
 		position === 0 ? setDateInput(date) : setTimeInput(date);
 
 		if (!isNaN(date?.valueOf())) {
@@ -59,9 +62,9 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				year = date.getFullYear();
 				month = date.getMonth();
 				day = date.getDate();
-				hours = timeInput?.getHours() || 0;
-				minutes = timeInput?.getMinutes() || 0;
-				seconds = timeInput?.getSeconds() || 0;
+				hours = fieldDef?.inputSettings?.showTime ? timeInput?.getHours() : 0; //THIS ONLY SOLVES THE ONCHANGE, BUT THE VALUE STILL APPEARS ON THE FIELD
+				minutes = fieldDef?.inputSettings?.showTime ? timeInput?.getMinutes() : 0;
+				seconds = fieldDef?.inputSettings?.showTime ? timeInput?.getSeconds() : 0;
 			} else {
 				year = dateInput?.getFullYear() || new Date().getFullYear();
 				month = dateInput?.getMonth() || new Date().getMonth();
