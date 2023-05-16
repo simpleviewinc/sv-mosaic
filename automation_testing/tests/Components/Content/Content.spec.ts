@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
 import theme from "../../../../src/theme";
-import { buttonKnobs as knob, contentKnobs } from "../../../utils/data/knobs";
+import { buttonKnobs as knob, contentKnobs, pageHeaderKnobs } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - Content - Playground", () => {
 	let page: Page;
@@ -65,6 +65,12 @@ test.describe.parallel("Components - Content - Playground", () => {
 		await expect(contentPage.editButton).not.toBeVisible();
 
 		await contentPage.visit(contentPage.page_path, [contentKnobs.knobShowDetailsButton + "false"]);
+		await expect(contentPage.detailsButton).not.toBeVisible();
+	});
+
+	test("Validate that when the buttons knob is undefined, the additional buttons are not displayed.", async () => {
+		await contentPage.visit(contentPage.page_path, [pageHeaderKnobs.knobButtons + "undefined"]);
+		await expect(contentPage.editButton).not.toBeVisible();
 		await expect(contentPage.detailsButton).not.toBeVisible();
 	});
 });
