@@ -94,7 +94,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							))
 						}
 						{
-							filteredAdditionalActions.length > 0 &&
+							filteredAdditionalActions && (filteredAdditionalActions.length > 0) &&
 							<Item data-testid="btn-additional-action">
 								<Button
 									color="black"
