@@ -194,6 +194,31 @@ describe("Content componenent with no sections", () => {
 	});
 });
 
+describe("Content componenent with no buttons", () => {
+	it("should display the content when buttons are not defined", async () => {
+		render(
+			<Content
+				title="Main Section"
+				data={data}
+				fields={fields}
+				buttons={undefined}
+			/>
+		);
+
+		const chips = screen.getAllByTestId("chip-testid");
+		const thumbnail = screen.getByRole("img");
+		const date = screen.getByText("12/17/1995");
+		const colorPicker = screen.getByText("#a8001791");
+		const header = screen.getByText("H1 Header");
+
+		expect(thumbnail).toBeInTheDocument();
+		expect(chips).toHaveLength(4);
+		expect(date).toBeInTheDocument();
+		expect(colorPicker).toBeInTheDocument();
+		expect(header).toBeInTheDocument();
+	});
+});
+
 describe("showContent helper function", () => {
 	it("should return the value of the show paramenter when is defined as a boolean", () => {
 		expect(showContent(false)).toBe(false);
