@@ -32,6 +32,11 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		}
 	}, [value, dateInput, timeInput]);
 
+	useEffect(() => {
+		if (!fieldDef.inputSettings?.showTime) {
+			setTimeInput(null);
+		}
+	}, [fieldDef.inputSettings?.showTime]);
 
 	const formatDate = (dateValue: Date) => {
 		const stringDate = dateValue.toISOString();
@@ -51,7 +56,13 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		let minutes = 0;
 		let seconds = 0;
 
-		position === 0 ? setDateInput(date) : setTimeInput(date);
+		let newTimeInput = date;
+
+		if (!fieldDef.inputSettings?.showTime) {
+			newTimeInput = null;
+		}
+
+		position === 0 ? setDateInput(date) : setTimeInput(newTimeInput);
 
 		if (!isNaN(date?.valueOf())) {
 
@@ -59,9 +70,9 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				year = date.getFullYear();
 				month = date.getMonth();
 				day = date.getDate();
-				hours = timeInput?.getHours() || 0;
-				minutes = timeInput?.getMinutes() || 0;
-				seconds = timeInput?.getSeconds() || 0;
+				hours = fieldDef?.inputSettings?.showTime && timeInput?.getHours() ? timeInput?.getHours() : 0;
+				minutes = fieldDef?.inputSettings?.showTime && timeInput?.getMinutes() ? timeInput?.getMinutes() : 0;
+				seconds = fieldDef?.inputSettings?.showTime && timeInput?.getSeconds() ? timeInput?.getSeconds() : 0;
 			} else {
 				year = dateInput?.getFullYear() || new Date().getFullYear();
 				month = dateInput?.getMonth() || new Date().getMonth();
