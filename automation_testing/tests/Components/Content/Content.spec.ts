@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
 import theme from "../../../../src/theme";
-import { buttonKnobs as knob, contentKnobs, pageHeaderKnobs } from "../../../utils/data/knobs";
+import { buttonKnobs as knob, pageHeaderKnobs } from "../../../utils/data/knobs";
 
 test.describe.parallel("Components - Content - Playground", () => {
 	let page: Page;
@@ -61,10 +61,8 @@ test.describe.parallel("Components - Content - Playground", () => {
 	});
 
 	test("Validate the show capability to content buttons.", async () => {
-		await contentPage.visit(contentPage.page_path, [contentKnobs.knobShowEditButton + "false"]);
+		await contentPage.visit(contentPage.page_path, [pageHeaderKnobs.knobButtons + 0]);
 		await expect(contentPage.editButton).not.toBeVisible();
-
-		await contentPage.visit(contentPage.page_path, [contentKnobs.knobShowDetailsButton + "false"]);
 		await expect(contentPage.detailsButton).not.toBeVisible();
 	});
 
