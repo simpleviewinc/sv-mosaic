@@ -12,4 +12,5 @@ export interface DataViewTdProps {
 	textTransform?: DataViewColumn["style"]["textTransform"];
 	children: React.ReactNode;
 	draggableProvider?: DraggableProvided;
+	ariaLabel?: HTMLElement["ariaLabel"];
 }
