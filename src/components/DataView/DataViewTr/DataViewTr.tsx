@@ -50,6 +50,7 @@ function DataViewTr(props: DataViewTrProps) {
 							return (
 								<DataViewTd
 									key={column.name}
+									ariaLabel={column.label}
 									expandCell={true}
 									bold={column.style && column.style.bold}
 									italic={column.style && column.style.italic}
