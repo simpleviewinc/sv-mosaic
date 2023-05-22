@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import { ChangeEvent, ReactElement, useEffect, useRef, useState } from "react";
 
 // Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
@@ -34,8 +34,11 @@ const FormFieldNumberTable = (
 
 	const { inputSettings } = fieldDef;
 	const { displaySumColumn = true, displaySumRow = true } = inputSettings;
-	const rowTotals = {};
+
 	const [columnsTotals, setColumnsTotals] = useState({});
+	const cellRefs = useRef<(HTMLInputElement | null)[][]>([]);
+
+	const rowTotals = {};
 
 	/**
    * Computes the sums for each column by creating an
@@ -128,6 +131,31 @@ const FormFieldNumberTable = (
 		return value;
 	};
 
+	const onKeyDown = (e: any, row: number, col: number) => {
+		switch (e.keyCode) {
+		case 37: //Left
+			if (e.target.selectionStart === 0 && col > 0)
+				cellRefs.current[row][col - 1].focus();
+			break;
+		case 38: //Up
+			if (row > 0)
+				cellRefs.current[row - 1][col].focus();
+			break;
+		case 39: //Right
+			if (e.target.selectionStart === e.target.value?.length && col < inputSettings.columns.length - 1)
+				cellRefs.current[row][col + 1].focus();
+			break;
+		case 40: //Down
+			if (row < inputSettings.rows.length - 1)
+				cellRefs.current[row + 1][col].focus();
+			break;
+		default:
+			break;
+		}
+
+
+	}
+
 	return (
 		<StyledTable>
 			<thead>
@@ -142,13 +170,13 @@ const FormFieldNumberTable = (
 				</TrHead>
 			</thead>
 			<TBody>
-				{inputSettings.rows.map((row) => (
+				{inputSettings.rows.map((row, rowIdx) => (
 					<tr key={`row-${row.name}`}>
 						<Td key={`${row.name}`}>
 							<RowTitle>{row.title}</RowTitle>
 							{row?.subtitle && <RowSubtitle>{row.subtitle}</RowSubtitle>}
 						</Td>
-						{inputSettings.columns.map((column) => {
+						{inputSettings.columns.map((column, colIdx) => {
 							const strValue = value?.[row.name]?.[column.name] ?? "";
 
 							if (displaySumRow) {
@@ -165,6 +193,13 @@ const FormFieldNumberTable = (
 											value={strValue}
 											onChange={(e) => onChangeCell(e, row.name, column.name)}
 											fieldSize={"90px"}
+											inputRef={(el) => {
+												if (cellRefs?.current) {
+													cellRefs.current[rowIdx] = cellRefs.current[rowIdx] || [];
+													cellRefs.current[rowIdx][colIdx] = el;
+												}
+											}}
+											onKeyDown={(e) => onKeyDown(e, rowIdx, colIdx)}
 										/>
 										:
 										<StyledDisabledText width={"72px"}>{strValue !== "" ? strValue : "0"}</StyledDisabledText>

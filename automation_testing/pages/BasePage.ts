@@ -305,9 +305,15 @@ export class BasePage {
 	 * * `F1` - `F12`, `Digit0`- `Digit9`, `KeyA`- `KeyZ`, `Backquote`, `Minus`, `Equal`, `Backslash`, `Backspace`, `Tab`,
 	 * * `Delete`, `Escape`, `ArrowDown`, `End`, `Enter`, `Home`, `Insert`, `PageDown`, `PageUp`, `ArrowRight`, `ArrowUp`, etc.
 	 * @param key Name of the key to press or a character to generate, such as `Escape` or `Home`.
+	 * @param numberOfAction Number of times that the key has to be pressed.
 	 */
-	async pressSpecificKeyInKeyboard(key: string): Promise<void> {
-		await this.page.keyboard.press(key);
+	async pressSpecificKeyInKeyboard(key: string, numberOfAction = 1): Promise<void> {
+		for (let i = 0; i < numberOfAction; i++) {
+			await this.page.keyboard.press(key);
+		}
 	}
 
+	async isElementFocused(element: Locator): Promise<boolean> {
+		return await (element).evaluate(el => el === document.activeElement)
+	}
 }
