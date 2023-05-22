@@ -62,7 +62,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.upperCaseKeywordFilter);
 	});
 
-	test("Filter title with a Lowerrcase keyword", async () => {
+	test("Filter the title with a Lowercase keyword.", async () => {
 		await filter.searchForTerm("keyword", filter_data.lowerCaseKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.lowerCaseFilterNumber);
 		const titles = await filter._dataviewPage.getAllRowData("Title");
