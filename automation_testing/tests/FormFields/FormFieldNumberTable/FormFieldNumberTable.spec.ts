@@ -88,4 +88,13 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), true)).toBe(90);
 		}
 	});
+
+	test("Validate arrow key navigation in the NumberTable.", async () => {
+		await ffNumberTablePage.wait();
+		await ffNumberTablePage.inputLocator.first().click();
+		await ffNumberTablePage.pressSpecificKeyInKeyboard("ArrowRight");
+		expect(await ffNumberTablePage.isElementFocused(ffNumberTablePage.inputLocator.nth(1))).toBe(true);
+		await ffNumberTablePage.pressSpecificKeyInKeyboard("ArrowLeft", 3);
+		expect(await ffNumberTablePage.isElementFocused(ffNumberTablePage.inputLocator.first())).toBe(true);
+	});
 });
