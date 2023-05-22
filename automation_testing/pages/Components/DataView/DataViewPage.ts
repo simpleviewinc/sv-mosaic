@@ -68,10 +68,10 @@ export class DataviewPage extends BasePage {
 		this.dataviewTableHeadLocator = page.locator("thead th");
 		this.backIconLocator = page.locator(".headerRow button svg[data-testid='icon-button-test']");
 		this.dataviewRowHeaderLocator = page.locator(".row-header");
-		this.ariaLabelRowTitleLocator = page.getByLabel("Title")
-		this.ariaLabelRowCategoryLocator = page.getByLabel("Categories");
-		this.ariaLabelRowCreatedLocator = page.getByLabel("Created");
-		this.ariaLabelRowUpdatedLocator = page.getByLabel("Updated");
+		this.ariaLabelRowTitleLocator = page.locator("[aria-label='Title'] div");
+		this.ariaLabelRowCategoryLocator = page.locator("[aria-label='Categories'] div");
+		this.ariaLabelRowCreatedLocator = page.locator("[aria-label='Created'] div");
+		this.ariaLabelRowUpdatedLocator = page.locator("[aria-label='Updated'] div");
 	}
 
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {

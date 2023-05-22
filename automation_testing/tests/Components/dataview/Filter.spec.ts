@@ -29,7 +29,8 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.searchForTerm("keyword", filter_data.validKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.expectedKeywordFilterNumber);
 		await _dataviewPage.waitForDataviewIsVisible();
-		expect(await filter._dataviewPage.getAllRowData("Title")).toContain(filter_data.validKeywordFilter.toLowerCase());
+		const titles = await filter._dataviewPage.getAllRowData("Title");
+		expect(titles).toContain(filter_data.validKeywordFilter.toLowerCase());
 		expect(await filter._dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumber} of ${filter_data.expectedKeywordFilterNumber}`);
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.validKeywordFilter);
 	});
