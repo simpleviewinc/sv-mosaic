@@ -1,7 +1,7 @@
 import { expect, test, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
-import { dataview_data, filter_data } from "../../../utils/data/dataviewData";
+import { filter_data } from "../../../utils/data/dataviewData";
 import { addComma } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 
@@ -28,7 +28,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 	test("Filter title with a valid keyword and 1 result", async () => {
 		await filter.searchForTerm("keyword", filter_data.validKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.expectedKeywordFilterNumber);
-		expect((await filter._dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Title")).toString()).toContain(filter_data.validKeywordFilter.toLowerCase());
+		expect((await filter._dataviewPage.getAllRowData("Title")).toString()).toContain(filter_data.validKeywordFilter.toLowerCase());
 		expect(await filter._dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumber} of ${filter_data.expectedKeywordFilterNumber}`);
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.validKeywordFilter);
 	});
@@ -36,7 +36,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 	test("Filter title with a valid keyword and several results", async () => {
 		await filter.searchForTerm("keyword", filter_data.validKeywordFilterSeveralResults);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.expectedKeywordFilterNumberSeveralResults);
-		const titles = await filter._dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Title");
+		const titles = await filter._dataviewPage.getAllRowData("Title");
 		await filter._dataviewPage.validateContainsKeyword(titles, filter_data.validKeywordFilterSeveralResults);
 		expect(await filter._dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumberSeveralResults} of ${filter_data.expectedKeywordFilterNumberSeveralResults}`);
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.validKeywordFilterSeveralResults);
@@ -56,7 +56,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 	test("Filter title with an Uppercase keyword", async () => {
 		await filter.searchForTerm("keyword", filter_data.upperCaseKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.upperCaseFilterNumber);
-		const titles = await filter._dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Title");
+		const titles = await filter._dataviewPage.getAllRowData("Title");
 		await filter._dataviewPage.validateContainsKeyword(titles, filter_data.upperCaseKeywordFilter);
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.upperCaseKeywordFilter);
 	});
@@ -64,7 +64,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 	test("Filter title with a Lowerrcase keyword", async () => {
 		await filter.searchForTerm("keyword", filter_data.lowerCaseKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.lowerCaseFilterNumber);
-		const titles = await filter._dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Title");
+		const titles = await filter._dataviewPage.getAllRowData("Title");
 		await filter._dataviewPage.validateContainsKeyword(titles, filter_data.lowerCaseKeywordFilter);
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.lowerCaseKeywordFilter);
 		await filter.validateKeywordFilterIsVisible(false);
@@ -83,7 +83,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 	test("Filter category searching keyword", async () => {
 		await filter.searchForTerm("categories", filter_data.categoryKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.categoryFilterNumber);
-		const categories = await filter._dataviewPage.getAllRowCategories(dataview_data.resultPerPageDefault);
+		const categories = await filter._dataviewPage.getAllRowData("Category");
 		await filter._dataviewPage.validateContainsKeyword(categories, filter_data.categoryKeywordFilter);
 		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toBe(filter_data.categoryKeywordFilter);
 	});
@@ -91,7 +91,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 	test("Filter categories choosing a value from the list", async () => {
 		await filter.searchForTerm("categories", filter_data.categoryFilterChooseItem);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.categoryFilterChooseItemNumber);
-		const categories = await filter._dataviewPage.getAllRowCategories(dataview_data.resultPerPageDefault);
+		const categories = await filter._dataviewPage.getAllRowData("Category");
 		await filter._dataviewPage.validateContainsKeyword(categories, filter_data.categoryFilterChooseItem);
 		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toBe(filter_data.categoryFilterChooseItem);
 	});
@@ -133,7 +133,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.wait();
 		await filter.removeSelectedOptionsByName(filter_data.categoryFilterMoreThanOne);
 		await filter.applyBtn.click();
-		const categories = await filter._dataviewPage.getAllRowCategories(dataview_data.resultPerPageDefault);
+		const categories = await filter._dataviewPage.getAllRowData("Category");
 		await filter._dataviewPage.validateContainsKeyword(categories, filter_data.categoryFilterChooseItem);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.categoryFilterChooseItemNumber);
 		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toBe(filter_data.categoryFilterChooseItem);
@@ -146,7 +146,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await filter.selectCategory(filter_data.categoryFilterLoadMore);
 		await filter.applyBtn.click();
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.categoryFilterLoadMoreNumber);
-		const categories = await filter._dataviewPage.getAllRowCategories(dataview_data.resultPerPageDefault);
+		const categories = await filter._dataviewPage.getAllRowData("Category");
 		await filter._dataviewPage.validateContainsKeyword(categories, filter_data.categoryFilterLoadMore);
 		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toBe(filter_data.categoryFilterLoadMore);
 	});

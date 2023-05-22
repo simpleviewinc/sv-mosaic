@@ -66,9 +66,10 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.singleSelectCategoryBtn.click();
 		const categorySelected = await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption();
 		expect((await advancedFilters._dataviewPage.getFilterText(advancedFilters.singleSelectCategoryBtn))).toBe(categorySelected);
-		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
+		await _dataviewPage.waitForDataviewIsVisible();
+		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toContain(categorySelected);
+			expect(allCategoriesOfRows.toString()).toContain(categorySelected.toLowerCase());
 		}
 	});
 
@@ -88,9 +89,9 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonInOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toContain(selectedCategory);
+			expect(allCategoriesOfRows.toString()).toContain(selectedCategory.toLowerCase());
 		}
 	});
 
@@ -101,7 +102,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonNotInOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).not.toContain(selectedCategory);
 		}
@@ -114,9 +115,9 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonAllOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toBe(selectedCategory);
+			expect(allCategoriesOfRows.toString()).toBe(selectedCategory.toLowerCase());
 		}
 	});
 
@@ -126,7 +127,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonExistsOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).not.toBe("");
 		}
@@ -138,7 +139,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonNotExistsOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
 			expect(allCategoriesOfRows.toString()).toContain("");
 		}
@@ -160,9 +161,9 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.comparisonDropdown.click();
 		await advancedFilters.comparisonInOption.click();
 		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getCategoriesFromRow();
+		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
 		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toContain(selectedCategory);
+			expect(allCategoriesOfRows.toString()).toContain(selectedCategory.toLowerCase());
 		}
 	});
 
@@ -180,7 +181,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitleSimple);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Contains");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitleSimple.toLowerCase());
 		}
@@ -192,7 +193,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Contains");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
 		}
@@ -204,7 +205,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Equals");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitle.toLowerCase());
 		}
@@ -216,7 +217,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Equal");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
 		}
@@ -227,7 +228,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Exists");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getRowTitles();
+		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).not.toBe("");
 		}
@@ -251,7 +252,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.waitForElementLoad();
 
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${advanced_filter_data.createdFilterResults} of ${advanced_filter_data.createdFilterResults}`);
-		const createdValues = await _dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created");
+		const createdValues = await _dataviewPage.getAllRowData("Created", dataview_data.resultPerPageDefault,);
 		const result = isACorrentDateRange(createdValues, startDate, endDate);
 		expect(result.length).toBe(0);
 	});
@@ -318,7 +319,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.waitForElementLoad();
 
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${advanced_filter_data.updateFilterResults} of ${advanced_filter_data.updateFilterResults}`);
-		const updatedValues = await _dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Updated");
+		const updatedValues = await _dataviewPage.getAllRowData("Updated", dataview_data.resultPerPageDefault);
 		const result = isACorrentDateRange(updatedValues, startDate, endDate);
 		expect(result.length).toBe(0);
 	});
