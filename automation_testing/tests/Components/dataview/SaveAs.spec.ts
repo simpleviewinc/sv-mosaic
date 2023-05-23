@@ -133,6 +133,7 @@ test.describe.parallel("Components - Data View - Save As", () => {
 	});
 
 	test("Validate Select button in the Saved view drawer has realTeal as Color.", async () => {
+		await page.reload();
 		const expectedColor = theme.newColors.realTeal["100"];
 		await saveAs.createNewView(saveAs_data.saveAsView);
 		await saveAs.viewBtn.click();
