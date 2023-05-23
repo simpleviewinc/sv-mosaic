@@ -35,6 +35,10 @@ export class DataviewPage extends BasePage {
 	readonly dataviewTopComponent: Locator;
 	readonly dataviewTableHeadLocator: Locator;
 	readonly dataviewRowHeaderLocator: Locator;
+	readonly ariaLabelRowTitleLocator: Locator;
+	readonly ariaLabelRowCategoryLocator: Locator;
+	readonly ariaLabelRowCreatedLocator: Locator;
+	readonly ariaLabelRowUpdatedLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -64,6 +68,10 @@ export class DataviewPage extends BasePage {
 		this.dataviewTableHeadLocator = page.locator("thead th");
 		this.backIconLocator = page.locator(".headerRow button svg[data-testid='icon-button-test']");
 		this.dataviewRowHeaderLocator = page.locator(".row-header");
+		this.ariaLabelRowTitleLocator = page.locator("[aria-label='Title'] div");
+		this.ariaLabelRowCategoryLocator = page.locator("[aria-label='Categories'] div");
+		this.ariaLabelRowCreatedLocator = page.locator("[aria-label='Created'] div");
+		this.ariaLabelRowUpdatedLocator = page.locator("[aria-label='Updated'] div");
 	}
 
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
@@ -104,26 +112,6 @@ export class DataviewPage extends BasePage {
 		return this.columnHeaders.count();
 	}
 
-	async getRowTitles(): Promise<string[]> {
-		await this.waitForDataviewIsVisible();
-		await this.wait();
-		const rows = await (await this.getTableRows()).elementHandles();
-		const titles = [];
-		for (const row of rows) {
-			titles.push(((await (await row.$("td:nth-child(5)")).textContent()).toLowerCase()));
-		}
-		return titles;
-	}
-
-	async getRowCreated(): Promise<string[]> {
-		const rows = await (await this.getTableRows()).elementHandles();
-		const createdDates = [];
-		for (const row of rows) {
-			createdDates.push((await (await row.$("td:nth-child(7)")).textContent()).toLowerCase());
-		}
-		return createdDates;
-	}
-
 	async getSpecificColumn(column: string): Promise<Locator> {
 		const index = await this.getPositionOfColumn(column, false);
 		return this.columnHeaders.nth(index);
@@ -141,23 +129,36 @@ export class DataviewPage extends BasePage {
 		return position;
 	}
 
-	async getAllRowData(resultsPerPage: number, dataName: string): Promise<string[]> {
+	async getAllRowData(dataName: "Title"|"Category"|"Created"|"Updated", resultsPerPage = 25): Promise<string[]> {
+		await this.waitForDataviewIsVisible();
+		await this.wait();
 		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
 		const data = [];
+		let locator: Locator;
+		
+		switch (dataName) {
+		case "Title":
+			locator = this.ariaLabelRowTitleLocator;
+			break;
+		case "Category":
+			locator = this.ariaLabelRowCategoryLocator;
+			break;
+		case "Created":
+			locator = this.ariaLabelRowCreatedLocator;
+			break;
+		case "Updated":
+			locator = this.ariaLabelRowUpdatedLocator;
+			break;
+		}
+		let locatorCount = await locator.count();
 		for (let i = 0; i < pages; i++) {
-			switch (dataName.toLocaleLowerCase()) {
-			case "title":
-				data.push(...(await this.getRowTitles()));
-				break;
-			case "created":
-				data.push(...(await this.getRowCreated()));
-				break;
-			case "updated":
-				data.push(...(await this.getUpdatedCreated()));
-				break;
+			for (let j = 0; j < locatorCount; j++) {
+				data.push((await locator.nth(j).textContent()).toLowerCase());
 			}
 			if (!await this.paginationComponent.forwardArrow.isDisabled()) {
 				await this.paginationComponent.forwardArrow.click();
+				await this.wait();
+				locatorCount = await locator.count();
 			}
 		}
 		return data;
@@ -181,47 +182,6 @@ export class DataviewPage extends BasePage {
 			}
 			expect(isContaining, `Expected contains: '${keywords.toString()}' but was '${title}'`).toBe(true);
 		}
-	}
-
-	async getRowCategories(): Promise<string[]> {
-		const rows = await (await this.getTableRows()).elementHandles();
-		const titles = [];
-		for (const row of rows) {
-			titles.push((await (await row.$("td:nth-child(6)")).textContent()));
-		}
-		return titles;
-	}
-
-	async getAllRowCategories(resultsPerPage: number): Promise<string[]> {
-		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
-		const titles = [];
-		for (let i = 0; i < pages; i++) {
-			titles.push(...(await this.getRowCategories()));
-			if (!await this.paginationComponent.forwardArrow.isDisabled()) {
-				await this.paginationComponent.forwardArrow.click();
-				await this.loading.waitFor({ state: "detached" });
-			}
-		}
-		return titles;
-	}
-
-	async getCategoriesFromRow(): Promise<string[]> {
-		await this.waitForDataviewIsVisible();
-		const rows = await this.dataviewTable.locator("tr").elementHandles();
-		const categoriesPerRow = [];
-		for (const row of rows) {
-			categoriesPerRow.push(await (await row.$("td:nth-child(6)")).textContent());
-		}
-		return categoriesPerRow;
-	}
-
-	async getUpdatedCreated(): Promise<string[]> {
-		const rows = await (await this.getTableRows()).elementHandles();
-		const createdDates = [];
-		for (const row of rows) {
-			createdDates.push((await (await row.$("td:nth-child(8)")).textContent()).toLowerCase());
-		}
-		return createdDates;
 	}
 
 	async getFilterText(locator: Locator): Promise<string> {

@@ -74,36 +74,37 @@ test.describe.parallel("Components - Data View - Columns", () => {
 	});
 
 	test("Validate sorting by Title in ascending form.", async () => {
-		const titles = await dataviewPage.getRowTitles();
-		const titlesSort = (await dataviewPage.getRowTitles()).sort(Intl.Collator().compare);
+		await filter.searchForTerm("categories", "Accessibility");
+		const titles = await dataviewPage.getAllRowData("Title");
+		const titlesSort = (await dataviewPage.getAllRowData("Title")).sort(Intl.Collator().compare);
 		expect(titles.toString()).toBe(titlesSort.toString());
 	});
 
 	test("Validate sorting by Title in descending form.", async () => {
 		await filter.searchForTerm("keyword", "Ant");
-		const titlesSortDesc = (await dataviewPage.getRowTitles()).reverse().toString();
+		const titlesSortDesc = (await dataviewPage.getAllRowData("Title")).reverse().toString();
 		const titleColumn = await dataviewPage.getSpecificColumn("Title");
 		await titleColumn.click();
-		const titles = (await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Title")).toString();
+		const titles = (await dataviewPage.getAllRowData("Title", dataview_data.resultPerPageDefault)).toString();
 		expect(titles).toBe(titlesSortDesc);
 	});
 
 	test("Validate sorting by Created in ascending form.", async () => {
 		await filter.searchForTerm("keyword", "Ant");
 		const createdColum = await dataviewPage.getSpecificColumn("Created");
-		const expectedCreatedSort = sortDatesAsc(await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")).toString();
+		const expectedCreatedSort = sortDatesAsc(await dataviewPage.getAllRowData("Created", dataview_data.resultPerPageDefault)).toString();
 		await createdColum.click();
-		const actualCreated = (await dataviewPage.getRowCreated()).toString();
+		const actualCreated = (await dataviewPage.getAllRowData("Created")).toString();
 		expect(actualCreated).toBe(expectedCreatedSort);
 	});
 
 	test("Validate sorting by Created in descending form.", async () => {
 		await filter.searchForTerm("keyword", "Ant");
 		const createdColum = await dataviewPage.getSpecificColumn("Created");
-		const expectedCreatedSort = sortDatesDesc(await dataviewPage.getAllRowData(dataview_data.resultPerPageDefault, "Created")).toString();
+		const expectedCreatedSort = sortDatesDesc(await dataviewPage.getAllRowData("Created", dataview_data.resultPerPageDefault)).toString();
 		await createdColum.click();
 		await createdColum.click();
-		const actualCreated = (await dataviewPage.getRowCreated()).toString();
+		const actualCreated = (await dataviewPage.getAllRowData("Created")).toString();
 		expect(actualCreated).toBe(expectedCreatedSort);
 	});
 

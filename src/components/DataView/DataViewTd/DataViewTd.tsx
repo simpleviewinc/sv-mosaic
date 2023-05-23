@@ -60,6 +60,7 @@ function DataViewTd(props: DataViewTdProps) {
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
 			{...props.draggableProvider?.dragHandleProps}
+			aria-label={props.ariaLabel}
 		>
 			<BodyText
 				as="div"
