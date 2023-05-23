@@ -193,7 +193,8 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
 		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Contains");
 		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
+		await pagination.selectResultOption(100);
+		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title", 100);
 		for (let i = 0; i < allTitlesOfRows.length; i++) {
 			expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
 		}
