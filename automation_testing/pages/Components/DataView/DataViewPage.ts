@@ -135,28 +135,31 @@ export class DataviewPage extends BasePage {
 		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
 		const data = [];
 		let locator: Locator;
+		
+		switch (dataName) {
+		case "Title":
+			locator = this.ariaLabelRowTitleLocator;
+			break;
+		case "Category":
+			locator = this.ariaLabelRowCategoryLocator;
+			break;
+		case "Created":
+			locator = this.ariaLabelRowCreatedLocator;
+			break;
+		case "Updated":
+			locator = this.ariaLabelRowUpdatedLocator;
+			break;
+		}
+		let locatorCount = await locator.count();
 		for (let i = 0; i < pages; i++) {
-			switch (dataName) {
-			case "Title":
-				locator = this.ariaLabelRowTitleLocator;
-				break;
-			case "Category":
-				locator = this.ariaLabelRowCategoryLocator;
-				break;
-			case "Created":
-				locator = this.ariaLabelRowCreatedLocator;
-				break;
-			case "Updated":
-				locator = this.ariaLabelRowUpdatedLocator;
-				break;
+			for (let j = 0; j < locatorCount; j++) {
+				data.push((await locator.nth(j).textContent()).toLowerCase());
 			}
 			if (!await this.paginationComponent.forwardArrow.isDisabled()) {
 				await this.paginationComponent.forwardArrow.click();
+				await this.wait();
+				locatorCount = await locator.count();
 			}
-		}
-		const locatorCount = await locator.count();
-		for (let i = 0; i < locatorCount; i++) {
-			data.push((await locator.nth(i).textContent()).toLowerCase());
 		}
 		return data;
 	}
