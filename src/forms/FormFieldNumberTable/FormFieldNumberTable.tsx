@@ -121,7 +121,7 @@ const FormFieldNumberTable = (
 	 * specified, otherwise returns the original value
 	 */
 	const formatValue = (value: number) => {
-		if (inputSettings.numberFormatOptions) {
+		if (inputSettings.numberFormatOptions && value) {
 			return new Intl.NumberFormat(
 				navigator.language,
 				inputSettings.numberFormatOptions
