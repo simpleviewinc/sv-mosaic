@@ -1,12 +1,12 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FieldDef } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
-import Form, { useForm } from "@root/components/Form";
+import Form, { formActions, useForm } from "@root/components/Form";
 import { columns, numberTableDefaultValue, rows } from "./numberTableUtils";
 
 export default {
@@ -26,11 +26,19 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "");
 	const displayColumnsSums = boolean("Display columns sums", true);
 	const displayRowsSums = boolean("Display rows sums", true);
+	const prepopulate = boolean("Prepopulate", true);
 	const formatOptions = select(
 		"Number format options",
 		["USD", "EUR", "JPY", "GBP", "No format"],
 		"USD"
 	);
+
+	useEffect(() => {
+		if (!prepopulate)
+			dispatch(formActions.setFieldValue({name: "numberTable", value: undefined}));
+		else
+			dispatch(formActions.setFieldValue({name: "numberTable", value: numberTableDefaultValue}));
+	}, [prepopulate]);
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -40,7 +48,6 @@ export const Playground = (): ReactElement => {
 				type: "numberTable",
 				required,
 				disabled,
-				defaultValue: numberTableDefaultValue,
 				inputSettings: {
 					displaySumColumn: displayColumnsSums,
 					displaySumRow: displayRowsSums,
