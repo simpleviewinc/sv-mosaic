@@ -97,4 +97,13 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 		await ffNumberTablePage.pressSpecificKeyInKeyboard("ArrowLeft", 3);
 		expect(await ffNumberTablePage.isElementFocused(ffNumberTablePage.inputLocator.first())).toBe(true);
 	});
+
+	test("Validate when the table is empty that the format is valid.", async () => {
+		const inputCount = await ffNumberTablePage.inputLocator.count();
+		for (let i = 0; i < inputCount;i++) {
+			await ffNumberTablePage.inputLocator.nth(i).type("0");
+		}
+		await ffNumberTablePage.validateTotalSumOfEachColumn();
+		await ffNumberTablePage.validateTotalSumOfEachRow();
+	});
 });
