@@ -1,5 +1,18 @@
 # sv-mosaic changelog
 
+## 24.0.0 - 06/06/23
+* `Content`:
+	* Fixed bug caused when the prop `buttons` is undefined. The component used to try to map over the prop when its length was greater than 0, but didn't take into account if it was defined.
+* `DataViewTd`:
+	* Added `aria-label` property to make it easier for external consumers to tag each cell in their tests.
+* `SummaryPageTopComponent`:
+	* Fixed bug caused when the prop `additionalActions` is undefined. The component used to try to map over the prop when its length was greater than 0, but didn't take into account if it was defined.
+* `FormFieldDate`:
+	* **BREAKING** Updated component to now reset the time to 00:00:00 when the `showTime` prop has a falsy value and the user makes any change in the date input. This prevents internal changes in the dates due to time-zone differences. This might be a breaking change in the sense that any custom logic added to account for this time shift could now need to change.
+* `FormFieldNumberTable`:
+	* Users can now move across the cells using their keyboard arrow keys.
+	* Fixed bug caused when the prop `numberFormatOptions` was present but the user didn't have a value on one column. To make it easier to understand, if the column totals expected a value to be formatted but the column didn't have a value yet (on any of its cells), it would render a "NaN" because it would try to sum undefined values.
+
 ## 23.0.0 - 05/23/23
 * `DataViewFilters`:
 	* Updated internal logic to render `activeFilters` in the order they're passed by the developer and not the order they're set in the `filters` array. Added knob in storybook to test this functionality.
