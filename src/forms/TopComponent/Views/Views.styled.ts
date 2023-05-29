@@ -14,11 +14,16 @@ export const TitleRow = styled.div`
 			justify-content: flex-start;
 		}
 		padding: 20px;
+		width: 100%;
+		& > div {
+			max-width: 50%;
+		}
 		`
 		:
 		`
 		flex-direction: column;
 		margin-right: auto;
+		max-width: 60%;
 		`
 }
 `;

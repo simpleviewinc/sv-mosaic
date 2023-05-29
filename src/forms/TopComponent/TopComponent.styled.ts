@@ -71,7 +71,7 @@ export const StyledColumn = styled(Column)`
 export const StyledHelpIconWrapper = styled.div`
   border-right: ${(pr) =>
 		pr.showActive ? `2px solid ${theme.newColors.grey2["100"]}` : ""};
-  padding-right: ${(pr) => (pr.isResponsiveView ? "" : "16px")};
+  padding-right: 16px;
 
   &.RESPONSIVE {
     border-right: none;
