@@ -12,18 +12,12 @@ import {
 import { debounce } from "lodash";
 import { Views } from "@root/theme/theme";
 
-const responsiveBreakpoint = BREAKPOINTS.topComponent.responsiveView;
 const mobileBreakpoint = BREAKPOINTS.mobile;
 const bigScreenBreakpoint = BREAKPOINTS.topComponent.bigScreenView;
 
 export const getView = (formContainerWidth: number): ViewType => {
 	if (formContainerWidth < mobileBreakpoint) {
 		return Views.mobile;
-	} else if (
-		formContainerWidth < responsiveBreakpoint &&
-    formContainerWidth >= mobileBreakpoint
-	) {
-		return Views.responsive;
 	} else if (formContainerWidth >= bigScreenBreakpoint) {
 		return Views.bigDesktop;
 	} else {

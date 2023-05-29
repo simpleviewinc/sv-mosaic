@@ -12,7 +12,6 @@ import {
 import Tooltip from "@root/components/Tooltip";
 import Checkbox from "@root/components/Checkbox";
 import MobileView from "./Views/MobileView";
-import ResponsiveView from "./Views/ResponsiveView";
 import DesktopView from "./Views/DesktopView";
 import { Views } from "@root/theme/theme";
 
@@ -61,7 +60,6 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			<StyledHelpIconWrapper
 				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
 				showActive={showActive}
-				isResponsiveView={view === Views.responsive}
 				className={view}
 			>
 				<Tooltip
@@ -95,38 +93,23 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		/>
 	);
 
+	const mobileView = (
+		<MobileView
+			ref={ref}
+			buttons={buttons}
+			title={title}
+			onBack={onBack}
+			description={description}
+			helpIcon={helpIcon}
+			checkbox={checkbox}
+			showActive={showActive}
+			tooltipInfo={tooltipInfo}
+			view={Views.mobile}
+		/>
+	)
+
 	const ViewToRender = {
-		"MOBILE": (
-			<MobileView
-				ref={ref}
-				buttons={buttons}
-				title={title}
-				onBack={onBack}
-				description={description}
-				helpIcon={helpIcon}
-				checkbox={checkbox}
-				showActive={showActive}
-				tooltipInfo={tooltipInfo}
-				view={Views.mobile}
-			/>
-		),
-		"RESPONSIVE": (
-			<ResponsiveView
-				ref={ref}
-				title={title}
-				onBack={onBack}
-				description={description}
-				showActive={showActive}
-				tooltipInfo={tooltipInfo}
-				helpIcon={helpIcon}
-				checkbox={checkbox}
-				buttons={buttons}
-				sections={sections}
-				view={Views.responsive}
-				sectionsRefs={sectionsRefs}
-				formContentRef={formContentRef}
-			/>
-		),
+		"MOBILE": mobileView,
 		"DESKTOP": desktopView,
 		"BIG_DESKTOP": desktopView
 	};
