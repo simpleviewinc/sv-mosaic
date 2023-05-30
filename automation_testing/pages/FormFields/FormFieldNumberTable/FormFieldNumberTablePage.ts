@@ -44,13 +44,24 @@ export class FormFieldNumberTablePage extends BasePage {
 			inputSum = 0;
 		}
 	}
-
-	async visitPageWithNumberFormat(format: "USD"|"EUR"|"JPY"|"GBP"|"No format"|string): Promise<void> {
-		await this.visit(this.page_path, [knob.knobNumberFormatOptions + format.replace(" ", "%20")]);
+	/**
+	 * This method visits the FormFieldNumberTable with a specific currency.
+	 * * Types of Currency: `USD` - `EUR`, `JPY`- `GBP`, `No-format`
+	 * @param format: Type of currency.
+	 */
+	async visitPageWithNumberFormat(format: "USD"|"EUR"|"JPY"|"GBP"|"No-format"|string): Promise<void> {
+		const option = format === "No-format" ? "{}" : `{"style":"currency","currency":"${format}"}`;
+		// const encodedOption = decodeURI(option);
+		await this.visit(this.page_path, [knob.knobNumberFormatOptions + option]);
 	}
 
-	async getExpectedFormatNumber(format: "USD"|"EUR"|"JPY"|"GBP"|"No format"|string): Promise<string> {
-		switch (format) {
+	/**
+	 * This method returns the expected symbol for a specific currency.
+	 * * Types of Currency: `USD` - `EUR`, `JPY`- `GBP`, `No-format`
+	 * @param currency: Type of currency.
+	 */
+	async getExpectedFormatNumber(currency: "USD"|"EUR"|"JPY"|"GBP"|"No-format"|string): Promise<string> {
+		switch (currency) {
 		case "USD":
 			return "$";
 		case "EUR":
@@ -82,4 +93,23 @@ export class FormFieldNumberTablePage extends BasePage {
 			expect.soft(await this.tableBodyRowLocator.nth(rowCount - 1).locator("td").nth(i).textContent()).toContain(expectedFormat);
 		}
 	}
+
+	async getTotalFromRow(rowPosition: number): Promise<string> {
+		const rowCount = await this.tableBodyRowLocator.count();
+		if (rowPosition > rowCount) {
+			throw new Error(`The row position ('${rowPosition}') is greater that the total number of rows ('${rowCount}') that exist in the table.`);
+		}
+		const columnCount = await this.tableBodyRowLocator.nth(rowPosition - 1).locator("td").count();
+		return await this.tableBodyRowLocator.nth(rowPosition - 1).locator("td").nth(columnCount - 1).textContent();
+	}
+
+	async getTotalFromColumn(columnPosition: number): Promise<string> {
+		const rowCount = await this.tableBodyRowLocator.count();
+		const columnCount = await this.tableBodyRowLocator.first().locator("td").count() - 2;
+		if (columnPosition > columnCount) {
+			throw new Error(`The column position ('${columnPosition}') is greater that the total number of columns with totals ('${columnCount}') that exist in the table.`);
+		}
+		return await this.tableBodyRowLocator.nth(rowCount - 1).locator("td").nth(columnPosition).textContent();
+	}
+
 }
