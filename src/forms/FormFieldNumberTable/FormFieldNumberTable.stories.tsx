@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo } from "react";
-import { boolean, withKnobs, text, select } from "@storybook/addon-knobs";
+import { boolean, withKnobs, text, object } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import { FieldDef } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
@@ -27,11 +27,7 @@ export const Playground = (): ReactElement => {
 	const displayColumnsSums = boolean("Display columns sums", true);
 	const displayRowsSums = boolean("Display rows sums", true);
 	const prepopulate = boolean("Prepopulate", true);
-	const formatOptions = select(
-		"Number format options",
-		["USD", "EUR", "JPY", "GBP", "No format"],
-		"USD"
-	);
+	const formatOptions = object("Number format options", { style: "currency", currency: "USD" });
 
 	useEffect(() => {
 		if (!prepopulate)
@@ -56,7 +52,7 @@ export const Playground = (): ReactElement => {
 					topLeftLabel: topLeftLabel,
 					rows: rows,
 					columns: columns,
-					numberFormatOptions: formatOptions !== "No format" && { style: "currency", currency: formatOptions }
+					numberFormatOptions: formatOptions
 				},
 				helperText,
 				instructionText,
