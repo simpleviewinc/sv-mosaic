@@ -13,12 +13,18 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 	});
 
 	test.beforeEach(async() => {
-		await ffNumberTablePage.visitPageWithNumberFormat("No format");
+		await ffNumberTablePage.visitPageWithNumberFormat("No-format");
 	});
 
 	test.afterAll(async ({ browser }) => {
 		browser.close;
 	});
+
+	async function setNumberOnRow(numbers: string[], row: number) {
+		for (let i = 0; i < numbers.length; i++) {
+			await ffNumberTablePage.tableBodyRowLocator.nth(row - 1).locator("input").nth(i).fill(numbers[i].toString());
+		}
+	}
 
 	test("Validate the Disabled Knob.", async () => {
 		await ffNumberTablePage.visit(ffNumberTablePage.page_path, [commonKnobs.knobDisabled + "true"]);
@@ -100,10 +106,26 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 
 	test("Validate when the table is empty that the format is valid.", async () => {
 		const inputCount = await ffNumberTablePage.inputLocator.count();
-		for (let i = 0; i < inputCount;i++) {
+		for (let i = 0; i < inputCount; i++) {
 			await ffNumberTablePage.inputLocator.nth(i).type("0");
 		}
 		await ffNumberTablePage.validateTotalSumOfEachColumn();
 		await ffNumberTablePage.validateTotalSumOfEachRow();
+	});
+
+	test("Validate that the decimals format in the table is displayed correctly.", async () => {
+		const numberWithDecimals = [ "12.555", "13.75", "14.24", "15.66", "16.12", "17.56" ];
+		const rowPosition = 2;
+
+		await ffNumberTablePage.visitPageWithNumberFormat("USD");
+		await setNumberOnRow(numberWithDecimals, rowPosition);
+		await ffNumberTablePage.validateTotalRowHasValidNumberFormat("USD");
+		expect(await ffNumberTablePage.getTotalFromRow(rowPosition)).toBe("$89.89");
+		expect(await ffNumberTablePage.getTotalFromColumn(1)).toBe("$37.56");
+
+		await ffNumberTablePage.visitPageWithNumberFormat("No-format");
+		await setNumberOnRow(numberWithDecimals, rowPosition);
+		expect(await ffNumberTablePage.getTotalFromRow(rowPosition)).toBe("89.885");
+		expect(await ffNumberTablePage.getTotalFromColumn(1)).toBe("37.555");
 	});
 });
