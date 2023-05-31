@@ -1,7 +1,7 @@
 import * as React from "react";
 import { memo, forwardRef } from "react";
 import Button from "@root/components/Button";
-import { StyledPageHeader } from "./PageHeader.styled";
+import { StyledPageHeader, StyledTitleRow } from "./PageHeader.styled";
 import { ButtonsWrapper } from "@root/forms/TopComponent/TopComponent.styled";
 import { PageHeaderProps } from "./PageHeaderTypes";
 import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
@@ -15,11 +15,11 @@ const PageHeader = forwardRef((props: PageHeaderProps, ref) => {
 
 	return (
 		<StyledPageHeader ref={ref} data-testid="page-header-test-id">
-			<div style={{ display: "flex", alignItems: "center" }}>
+			<StyledTitleRow>
 				{title &&
 					<TitleWrapper title={title} onBack={onBack} />
 				}
-			</div>
+			</StyledTitleRow>
 			{buttons &&
 				<ButtonsWrapper>
 					{buttons.map((button, idx) => (
