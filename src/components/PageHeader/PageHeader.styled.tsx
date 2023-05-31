@@ -11,3 +11,13 @@ export const StyledPageHeader = styled.div`
 	min-height: 80px;
 	max-height: 80px;
 `;
+
+export const StyledTitleRow = styled.div`
+	display: flex;
+	align-items: center;
+	max-width: 60%;
+
+	& > div {
+		width: 100%;
+	}
+`;
