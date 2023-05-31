@@ -36,7 +36,6 @@ type Color = {
 	[key: string]: string
 }
 
-// TODO: Change name to colors when the previous ones are removed.
 const newColors: { [key in MY_OBJECT_KEYS]: Color } = {
 	almostBlack: {},
 	darkerRealTeal: {},
