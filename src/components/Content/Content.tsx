@@ -5,7 +5,6 @@ import {
 	Fragment
 } from "react";
 import { ContentProps } from "./ContentTypes";
-import { isArray } from "lodash";
 
 // Components
 import {
@@ -19,25 +18,7 @@ import {
 	ContentRow,
 } from "./Content.styled";
 import Button from "@root/components/Button";
-import { ActionAdditional } from "../DataView";
-
-/**
- * @param show is used to evaluate whether a field should be displayed
- * @returns boolean flag comming from the  validation of the show paramater.
- */
-export const showContent = (show: ActionAdditional["show"]) => {
-	const conditions = isArray(show) ? show : [show];
-
-	const isValid = conditions.every((show) => {
-		if (typeof show === "boolean") {
-			return show;
-		}
-
-		return show();
-	});
-
-	return isValid;
-};
+import evaluateShow from "@root/utils/show/evaluateShow";
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections, title, buttons, variant } = props;
@@ -74,7 +55,7 @@ const Content = (props: ContentProps): ReactElement => {
 			);
 		}
 
-		if (currentField?.show !== undefined && !showContent(currentField?.show)) {
+		if (!evaluateShow(currentField?.show)) {
 			return;
 		}
 
@@ -144,9 +125,7 @@ const Content = (props: ContentProps): ReactElement => {
 	 * Filters the buttons based on their show prop. If a button
 	 * does a show value defined it will be rendered.
 	 */
-	const buttonToRender = buttons?.filter((button) => (
-		button.show !== undefined ? showContent(button.show) : true
-	));
+	const buttonToRender = buttons?.filter((button) => evaluateShow(button.show));
 
 	return (
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>

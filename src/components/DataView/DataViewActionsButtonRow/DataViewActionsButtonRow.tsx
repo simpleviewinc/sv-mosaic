@@ -3,15 +3,15 @@ import { memo, useMemo } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ButtonRow from "../../ButtonRow";
 import Button from "../../Button";
-import { filterAction } from "../utils/bulkActionsUtils";
 import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
+import evaluateShow from "@root/utils/show/evaluateShow";
 
 function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	const primaryActions = useMemo(() => {
 		if (props.primaryActions === undefined) { return []; }
 
 		return props.primaryActions.filter(action => {
-			return filterAction(action, { row: props.originalRowData });
+			return evaluateShow(action.show, { row: props.originalRowData });
 		}).map((action) => {
 			const {
 				name,
@@ -39,7 +39,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 		if (props.additionalActions === undefined) { return []; }
 
 		const additionalActions = props.additionalActions.filter(action => {
-			return filterAction(action, {row: props.originalRowData});
+			return evaluateShow(action.show, {row: props.originalRowData});
 		});
 
 		// if no valid actions hide the dots
