@@ -69,7 +69,7 @@ export const Example = (): ReactElement => {
 			label : "Download",
 			onClick : function() {
 				alert("DOWNLOAD CLICK");
-			}
+			},
 		}
 	];
 
