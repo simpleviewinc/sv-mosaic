@@ -24,6 +24,7 @@ import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
+import evaluateShow from "@root/utils/show/evaluateShow";
 
 const StyledCol = styled.div`
 	display: flex;
@@ -33,6 +34,7 @@ const StyledCol = styled.div`
 
 interface ColPropsTypes {
 	col: (string | FieldDef)[];
+	// TODO Use something other than any
 	state: any;
 	fieldsDef: FieldDef[];
 	dispatch: any;
@@ -189,8 +191,9 @@ const Col = (props: ColPropsTypes) => {
 				), [value, error, onChange, currentField]);
 
 				const shouldRenderEmptyField = value === undefined && currentField.disabled
+				const shouldShow = useMemo(() => evaluateShow(currentField.show, {data: state?.data}), [currentField.show, state?.data]);
 
-				return (typeof type === "string" && componentMap[type]) ? (
+				return shouldShow ? ((typeof type === "string" && componentMap[type]) ? (
 					<Field
 						key={`${name}_${i}`}
 						fieldDef={{ ...currentField, size: maxSize }}
@@ -201,11 +204,9 @@ const Col = (props: ColPropsTypes) => {
 					>
 						{shouldRenderEmptyField ? "—" : children}
 					</Field>
-				)
-					:
-					(
-						shouldRenderEmptyField ? "—" : children
-					);
+				) : (
+					shouldRenderEmptyField ? "—" : children
+				)) : null;
 			})}
 		</StyledCol>
 	);
