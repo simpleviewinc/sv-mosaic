@@ -1,6 +1,5 @@
-import { MosaicObject, SvgIconComponent } from "@root/types";
+import { MosaicObject, MosaicShow, SvgIconComponent } from "@root/types";
 import { MenuItemProps } from "../MenuItem";
-import { ActionAdditional }  from "../DataView";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
 export interface ButtonProps {
@@ -29,7 +28,7 @@ export interface ButtonProps {
 	attrs?: MosaicObject
 	/** Attrs for the nested Material UI IconButton or Button */
 	muiAttrs?: MosaicObject
-	show?: ActionAdditional["show"];
+	show?: MosaicShow;
 }
 
 export interface ButtonPopoverContextProps {

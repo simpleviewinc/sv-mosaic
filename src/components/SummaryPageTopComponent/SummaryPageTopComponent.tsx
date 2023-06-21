@@ -18,8 +18,8 @@ import StarBorder from "@mui/icons-material/StarBorderRounded";
 // Components
 import Image from "@root/components/Image";
 import Button from "../Button";
-import { filterAction } from "../DataView/utils/bulkActionsUtils";
 import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
+import evaluateShow from "@root/utils/show/evaluateShow";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
@@ -43,11 +43,11 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	if (descriptionItems && descriptionItems.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
 
 	const filteredMainActions = useMemo(() => (
-		mainActions && mainActions.filter(button => filterAction(button))
+		mainActions && mainActions.filter(button => evaluateShow(button.show))
 	), [mainActions]);
 
 	const filteredAdditionalActions = useMemo(() => (
-		additionalActions && additionalActions.filter(button => filterAction(button))
+		additionalActions && additionalActions.filter(button => evaluateShow(button.show))
 	), [additionalActions]);
 
 	return (
