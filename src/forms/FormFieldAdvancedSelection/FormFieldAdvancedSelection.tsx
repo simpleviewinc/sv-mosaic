@@ -40,9 +40,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isMobileView, setIsMobileView] = useState(false);
 
-	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
-	const [dialogOpen, setIsDialogOpen] = useState(false);
-
 	useEffect(() => {
 		const setResponsiveness = () => {
 			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
@@ -68,24 +65,13 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
    */
 	const handleClose = async (save = false) => {
 		if (typeof save === "boolean" && save) {
-			setUnsavedChanges(false);
 			setIsModalOpen(false);
 			if (onBlur) await onBlur();
-		} else if (hasUnsavedChanges)
-			setIsDialogOpen(true);
-		else {
-			setUnsavedChanges(false);
+		} else {
 			setIsModalOpen(false);
 			if (onBlur) await onBlur();
 		}
 	};
-
-	const handleDialogClose = async (close: boolean) => {
-		if (close) {
-			await handleClose(true);
-		}
-		setIsDialogOpen(false);
-	}
 
 	const initialRefs: MosaicObject = {
 		topComponentDrawerRef: null,
@@ -132,7 +118,10 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 				)
 			)}
 			<RefsProvider initialRefs={initialRefs}>
-				<Drawer open={isModalOpen} onClose={handleClose}>
+				<Drawer
+					open={isModalOpen}
+					onClose={handleClose} backdropCloseHandler={false}
+				>
 					<AdvancedSelectionDrawer
 						value={value ?? []}
 						fieldDef={fieldDef}
@@ -140,9 +129,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 						isModalOpen={isModalOpen}
 						isMobileView={isMobileView}
 						handleClose={handleClose}
-						handleUnsavedChanges={(e) => setUnsavedChanges(e)}
-						dialogOpen={dialogOpen}
-						handleDialogClose={handleDialogClose}
 					/>
 				</Drawer>
 			</RefsProvider>
