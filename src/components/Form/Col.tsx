@@ -24,6 +24,7 @@ import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
+import Blank from "@root/components/Blank";
 
 const StyledCol = styled.div`
 	display: flex;
@@ -199,12 +200,12 @@ const Col = (props: ColPropsTypes) => {
 						colsInRow={colsInRow}
 						id={name}
 					>
-						{shouldRenderEmptyField ? "—" : children}
+						{shouldRenderEmptyField ? <Blank /> : children}
 					</Field>
 				)
 					:
 					(
-						shouldRenderEmptyField ? "—" : children
+						shouldRenderEmptyField ? <Blank /> : children
 					);
 			})}
 		</StyledCol>
