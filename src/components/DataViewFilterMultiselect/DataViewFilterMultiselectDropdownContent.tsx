@@ -33,20 +33,13 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 
 	const [showCreateOptionButton, setShowCreateOptionButton] = useState(false);
 
-	const [disabled, setDisabled] = useState(false);
-
 	const { t } = useMosaicTranslation();
 
 	const limit = Math.abs(props.limit) || 25;
 
 	// mark the active comparison
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
-
-	useEffect(() => {
-		state.selected.length >= props.selectLimit
-			? setDisabled(true)
-			: setDisabled(false);
-	}, [state.selected, props.selectLimit]);
+	const disabled = state.selected.length >= props.selectLimit;
 
 	useEffect(() => {
 		async function fetchData() {
