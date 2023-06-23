@@ -26,26 +26,16 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		}
 	}
 
-	.MuiInputBase-multiline {
-		padding: 0px;
-	}
-
 	.MuiOutlinedInput-input {
 		color: ${theme.newColors.almostBlack["100"]};
-		height: ${theme.fieldSpecs.inputText.height} !important;
 		font-family: ${theme.fontFamily};
 		font-weight: 400;
-		padding: ${theme.fieldSpecs.inputText.padding};
 		::placeholder {
 			font-weight: ${theme.fontWeight.normal};
 			font-size: 16px;
 			color: ${theme.newColors.grey3["100"]};
 			opacity: 1;
 		}
-	}
-
-	.MuiInputBase-root {
-		line-height: 1.3em;
 	}
 
 	.MuiFormHelperText-contained {
