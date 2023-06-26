@@ -20,6 +20,7 @@ jobs:
             - .
   unit_tests:
     executor: node/default
+    resource_class: large
     steps:
       - attach_workspace:
           at: ~/project
