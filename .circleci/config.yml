@@ -18,12 +18,13 @@ jobs:
           root: ~/project
           paths:
             - .
-  test:
+  unit_tests:
     executor: node/default
     steps:
       - attach_workspace:
           at: ~/project
       - run:
+          name: Run Unit Tests
           command: yarn test
 
 
@@ -37,7 +38,7 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-      - test:
+      - unit_tests:
           context: default
           requires:
             - build
