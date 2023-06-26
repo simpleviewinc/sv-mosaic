@@ -76,5 +76,4 @@ workflows:
                 - develop
                 - /pull.*/
           requires:
-            - build
             - unit_tests
