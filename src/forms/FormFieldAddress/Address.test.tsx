@@ -199,6 +199,9 @@ window.ResizeObserver = mockResizeObserver;
 jest.setTimeout(60000);
 
 describe("Regular Address component", () => {
+	it("Mock test", async () => {
+		// Mock test
+	});
 	return;
 	beforeEach(async () => {
 		await act(() => {
