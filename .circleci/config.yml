@@ -1,13 +1,13 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.2
+  envsubst: sawadashota/envsubst@volatile
 
 jobs:
   build:
-    docker:
-      - image: cimg/base:2021.04
     executor: node/default
     steps:
+      - envsubst/install
       - checkout
       - node/install-packages:
           pkg-manager: yarn
