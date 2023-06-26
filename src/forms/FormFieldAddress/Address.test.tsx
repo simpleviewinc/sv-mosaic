@@ -200,6 +200,7 @@ jest.setTimeout(60000);
 
 describe("Regular Address component", () => {
 	beforeEach(async () => {
+		// Is this consistent?
 		await act(() => {
 			render(
 				<AddressFormFieldExample
