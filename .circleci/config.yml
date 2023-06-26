@@ -5,7 +5,9 @@ orbs:
 
 jobs:
   build:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: '16'
     steps:
       - envsubst/install
       - checkout
@@ -19,7 +21,9 @@ jobs:
           paths:
             - .
   storybook:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: '16'
     resource_class: large
     steps:
       - attach_workspace:
@@ -39,7 +43,9 @@ jobs:
           environment:
             NODE_DEBUG: gh-pages
   unit_tests:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: '16'
     resource_class: large
     steps:
       - attach_workspace:
