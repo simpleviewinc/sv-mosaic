@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useContext, useMemo, ReactElement } from "react";
 import styled from "styled-components";
 import Popper from "@mui/material/Popper";
-import { PopperUnstyledProps } from "@mui/base/PopperUnstyled"
+import { PopperProps } from "@mui/base/Popper"
 import Paper from "@mui/material/Paper";
 import { throttle } from "lodash";
 
@@ -22,7 +22,7 @@ const StyledDiv = styled.div`
 
 // set aside the popperProps so they do not mutate between renders, cause the Popper system to go haywire and move the component around strangely
 // check this https://popper.js.org/docs/v2/ to know more about the PopperProps
-const popperProps: Pick<PopperUnstyledProps, "open" | "placement" | "modifiers"> = {
+const popperProps: Pick<PopperProps, "open" | "placement" | "modifiers"> = {
 	open : true,
 	placement : "right",
 	modifiers : [

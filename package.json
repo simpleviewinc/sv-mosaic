@@ -15,6 +15,7 @@
 		"@emotion/react": "^11.9.0",
 		"@emotion/styled": "^11.8.1",
 		"@hot-loader/react-dom": "16.9.0",
+		"@mui/base": "^5.0.0-beta.5",
 		"@mui/icons-material": "^5.8.4",
 		"@mui/material": "^5.8.7",
 		"@mui/styles": "^5.6.2",
@@ -83,6 +84,7 @@
 	"peerDependencies": {
 		"@emotion/react": "^11.9.0",
 		"@emotion/styled": "^11.8.1",
+		"@mui/base": "^5.0.0-beta.5",
 		"@mui/icons-material": "^5.8.4",
 		"@mui/material": "^5.8.7",
 		"@mui/styles": "^5.6.2",
@@ -133,7 +135,7 @@
 		"storybook": "start-storybook -p 10000",
 		"style": "eslint . --fix",
 		"sync-state": "./scripts/sync-state",
-		"types": "tsc --noEmit"
+		"types": "tsc --noEmit --skipLibCheck"
 	},
 	"files": [
 		"dist"

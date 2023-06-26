@@ -1,13 +1,13 @@
-import { PopperUnstyledProps } from "@mui/base/PopperUnstyled";
+import { PopperProps } from "@mui/base/Popper";
 
 export interface PopoverProps {
   /**
    * An HTML element, or a function that returns one.
-   * It's used to set the position of the popover. This 
+   * It's used to set the position of the popover. This
 	 * prop is required because the reference of the element
 	 * is needed to display the pointing arrow
    */
-  anchorEl: PopperUnstyledProps["anchorEl"];
+  anchorEl: PopperProps["anchorEl"];
   /**
    * Content displayed at the bottom of the Popover
    */
