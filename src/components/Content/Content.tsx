@@ -85,7 +85,7 @@ const Content = (props: ContentProps): ReactElement => {
 		if (fieldValue === undefined || fieldValue === "") {
 			return (
 				<FieldContainer key={`value-${currentField.name}`} columns={sectionLength}>
-					<Blank />
+					{renderField(currentField.label, <Blank />)}
 				</FieldContainer>
 			)
 		}
