@@ -84,7 +84,7 @@ describe("DataViewFilterDate", () => {
 		expect(actualResult).toEqual(expectedResult);
 	});
 
-	it("Should select a from date", async () => {
+	it("Should select a to date", async () => {
 		await act(async () => {
 			render(<DataViewFilterDateExample />);
 		});
@@ -92,7 +92,7 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() => {
+		await act(async () => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -105,7 +105,7 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() => {
+		await act(async () => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -122,7 +122,7 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() => {
+		await act(async () => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -140,7 +140,7 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() => {
+		await act(async () => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
