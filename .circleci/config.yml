@@ -14,11 +14,30 @@ jobs:
       - run:
           command: yarn build
           name: Build app
+      - persist_to_workspace
+        root: ~/project
+        paths:
+          - .
+  test:
+    executor: node/default
+    steps:
+      - attach_workspace
+        at: ~/project
+      - run:
+        command: yarn test
+
 
 workflows:
   build:
     jobs:
       - build:
+          context: default
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
+      - test:
           context: default
           filters:
             branches:
