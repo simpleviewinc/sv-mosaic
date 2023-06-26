@@ -7,7 +7,7 @@ jobs:
   build:
     executor:
       name: node/default
-      tag: '16'
+      tag: '16.13.1'
     steps:
       - envsubst/install
       - checkout
@@ -23,7 +23,7 @@ jobs:
   storybook:
     executor:
       name: node/default
-      tag: '16'
+      tag: '16.13.1'
     resource_class: large
     steps:
       - attach_workspace:
@@ -45,7 +45,7 @@ jobs:
   unit_tests:
     executor:
       name: node/default
-      tag: '16'
+      tag: '16.13.1'
     resource_class: large
     steps:
       - attach_workspace:
