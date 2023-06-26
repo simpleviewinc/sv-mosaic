@@ -16,4 +16,12 @@ jobs:
 workflows:
   build:
     jobs:
-      - build
+      - build:
+          context: default
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
