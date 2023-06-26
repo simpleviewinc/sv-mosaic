@@ -39,6 +39,8 @@ workflows:
                 - /pull.*/
       - test:
           context: default
+          requires:
+            - build
           filters:
             branches:
               only:
