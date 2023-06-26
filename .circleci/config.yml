@@ -21,10 +21,10 @@ jobs:
   test:
     executor: node/default
     steps:
-      - attach_workspace
-        at: ~/project
+      - attach_workspace:
+          at: ~/project
       - run:
-        command: yarn test
+          command: yarn test
 
 
 workflows:
