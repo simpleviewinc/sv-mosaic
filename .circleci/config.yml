@@ -23,7 +23,7 @@ jobs:
             - .
   unit_tests:
     docker:
-      - image: build:5000/sv-mosaic
+      - image: cimg/base:2021.04
     resource_class: large
     working_directory: /app
     steps:
@@ -32,6 +32,9 @@ jobs:
       - run:
           name: Load docker image
           command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: List images
+          command: docker image ls
   # build:
   #   executor:
   #     name: node/default
