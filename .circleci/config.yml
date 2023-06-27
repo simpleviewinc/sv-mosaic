@@ -19,7 +19,7 @@ jobs:
             DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
             docker save -o sv_mosaic_build.tar sv-mosaic
       - persist_to_workspace:
-          root: ~/project
+          root: ~/BUILD_IMAGE
           paths:
             - .
   unit_tests:
@@ -28,19 +28,15 @@ jobs:
     resource_class: large
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/BUILD_IMAGE
       - setup_remote_docker:
           docker_layer_caching: true
           version: 20.10.14
       - run:
           name: Load docker image
-          command: docker load -i sv_mosaic_build.tar
-      - run:
-          name: List images
-          command: docker image ls
-      - run:
-          name: Run Tests
-          command: docker run sv-mosaic yarn test
+          command: |
+            docker load -i sv_mosaic_build.tar
+            docker run sv-mosaic yarn test
   # build:
   #   executor:
   #     name: node/default
