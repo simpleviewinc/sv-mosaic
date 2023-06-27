@@ -3,10 +3,8 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-
   build:
     docker:
-      - name: build
       - image: cimg/base:2021.04
     steps:
       - checkout
@@ -16,18 +14,18 @@ jobs:
       - run:
           name: Docker registry
           command: |
-            docker run -d -p 5000:5000 --name registry registry:2.7
+            docker run -d -p 5000:5000 --name registry --hostname registry registry:2.7
       - run:
           name: Docker build
           command: |
-            DOCKER_BUILDKIT=1 docker build -t "localhost:5000/sv-mosaic" .
+            DOCKER_BUILDKIT=1 docker build -t "registry:5000/sv-mosaic" .
       # - persist_to_workspace:
       #     root: ~/project
       #     paths:
       #       - .
   unit_tests:
     docker:
-      - image: build:5000/sv-mosaic
+      - image: registry:5000/sv-mosaic
     resource_class: large
     working_directory: /app
     steps:
