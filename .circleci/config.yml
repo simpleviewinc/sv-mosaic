@@ -40,7 +40,7 @@ jobs:
           command: docker image ls
       - run:
           name: Run Tests
-          command: docker run sv-mosaic
+          command: docker run sv-mosaic yarn test
   # build:
   #   executor:
   #     name: node/default
