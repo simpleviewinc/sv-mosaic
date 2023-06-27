@@ -12,10 +12,6 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: Docker registry
-          command: |
-            docker run -d -p 5000:5000 --name registry registry:2.7
-      - run:
           name: Docker build
           command: |
             DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
