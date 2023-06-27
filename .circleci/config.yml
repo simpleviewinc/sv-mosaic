@@ -34,42 +34,32 @@ jobs:
           version: 20.10.14
       - run:
           name: Load docker image
-          command: |
-            docker load -i sv_mosaic_build.tar
-            docker run sv-mosaic yarn test
-  # build:
-  #   executor:
-  #     name: node/default
-  #     tag: '16.14.2'
-  #   steps:
-  #     - envsubst/install
-  #     - checkout
-  #     - node/install-packages:
-  #         pkg-manager: yarn
-  #     - run:
-  #         command: yarn build
-  #         name: Build app
-  #     - persist_to_workspace:
-  #         root: ~/project
-  #         paths:
-  #           - .
+          command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: Run tests
+          command: docker run sv-mosaic yarn test
   storybook:
-    executor:
-      name: node/default
-      tag: '16.14.2'
+    docker:
+      - image: cimg/base:2021.04
     resource_class: large
     steps:
       - attach_workspace:
           at: ~/project
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
+      - run:
+          name: Load docker image
+          command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: Run tests
+          command: docker run -it sv-mosaic
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
           name: Add github to known_hosts
-          command: |
-            mkdir -p ~/.ssh/
-            chmod 700 ~/.ssh/
-            ssh-keyscan github.com >> ~/.ssh/known_hosts
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Publish storybook
           command: yarn run ci:storybook
