@@ -19,7 +19,8 @@ jobs:
           name: Docker build
           command: |
             DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
-            docker push localhost:5001/sv-mosaic
+            docker tag sv-mosaic localhost:5000/sv-mosaic
+            docker push localhost:5000/sv-mosaic
       # - persist_to_workspace:
       #     root: ~/project
       #     paths:
