@@ -27,11 +27,10 @@ jobs:
     docker:
       - image: localhost:5000/sv-mosaic
     resource_class: large
+    working_directory: /app
     steps:
-      - attach_workspace:
-          at: ~/project
       - run:
-          name: Run Unit Tests
+          name: Unit tests
           command: yarn test
   # build:
   #   executor:
