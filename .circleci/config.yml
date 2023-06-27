@@ -25,7 +25,6 @@ jobs:
     docker:
       - image: cimg/base:2021.04
     resource_class: large
-    working_directory: /app
     steps:
       - attach_workspace:
           at: ~/project
