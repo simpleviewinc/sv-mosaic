@@ -12,14 +12,10 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: Setup Environment Variables
-          command: |
-            echo 'export IMAGE="sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
-      - run:
           name: Docker build
           command: |
-            DOCKER_BUILDKIT=1 docker build -t $IMAGE --cache-from $IMAGE .
-            docker save $IMAGE build_image.tar
+            DOCKER_BUILDKIT=1 docker build -t build_image .
+            docker save -o build_image.tar build_image
       - run:
           name: List Dir
           command: ls -la
