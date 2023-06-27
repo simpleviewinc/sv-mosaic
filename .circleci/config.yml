@@ -25,7 +25,7 @@ jobs:
       #       - .
   unit_tests:
     docker:
-      - image: build_image
+      - image: localhost:5000/sv-mosaic
     resource_class: large
     steps:
       - attach_workspace:
