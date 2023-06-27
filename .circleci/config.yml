@@ -38,6 +38,9 @@ jobs:
       - run:
           name: List images
           command: docker image ls
+      - run
+          name: Run Tests
+          command: docker run sv-mosaic
   # build:
   #   executor:
   #     name: node/default
