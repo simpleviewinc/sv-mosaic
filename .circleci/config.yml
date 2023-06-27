@@ -114,3 +114,12 @@ workflows:
               only:
                 - develop
                 - /pull.*/
+      - storybook:
+          context: default
+          requires:
+            - unit_tests
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
