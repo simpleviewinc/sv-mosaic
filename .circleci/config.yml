@@ -3,8 +3,10 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
+
   build:
     docker:
+      - name: build
       - image: cimg/base:2021.04
     steps:
       - checkout
@@ -25,7 +27,7 @@ jobs:
       #       - .
   unit_tests:
     docker:
-      - image: localhost:5000/sv-mosaic
+      - image: build:5000/sv-mosaic
     resource_class: large
     working_directory: /app
     steps:
