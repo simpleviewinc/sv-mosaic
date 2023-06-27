@@ -107,3 +107,12 @@ workflows:
               only:
                 - develop
                 - /pull.*/
+      - unit_tests:
+          context: default
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
