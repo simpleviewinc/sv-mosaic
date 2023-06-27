@@ -1,25 +1,48 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.2
-  envsubst: sawadashota/envsubst@volatile
 
 jobs:
   build:
-    executor:
-      name: node/default
-      tag: '16.14.2'
+    docker:
+      - image: cimg/base:2021.04
     steps:
-      - envsubst/install
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
       - run:
-          command: yarn build
-          name: Build app
+          name: Setup Environment Variables
+          command: |
+            echo 'export IMAGE="sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
+      - run:
+          name: Docker build
+          command: |
+            DOCKER_BUILDKIT=1 docker build -t $IMAGE --cache-from $IMAGE .
+            docker save $IMAGE build_image.tar
+      - run:
+          name: List Dir
+          command: ls -la
       - persist_to_workspace:
           root: ~/project
           paths:
             - .
+  # build:
+  #   executor:
+  #     name: node/default
+  #     tag: '16.14.2'
+  #   steps:
+  #     - envsubst/install
+  #     - checkout
+  #     - node/install-packages:
+  #         pkg-manager: yarn
+  #     - run:
+  #         command: yarn build
+  #         name: Build app
+  #     - persist_to_workspace:
+  #         root: ~/project
+  #         paths:
+  #           - .
   storybook:
     executor:
       name: node/default
@@ -54,6 +77,34 @@ jobs:
           name: Run Unit Tests
           command: yarn test
 
+# workflows:
+#   build:
+#     jobs:
+#       - build:
+#           context: default
+#           filters:
+#             branches:
+#               only:
+#                 - develop
+#                 - /pull.*/
+#       - unit_tests:
+#           context: default
+#           requires:
+#             - build
+#           filters:
+#             branches:
+#               only:
+#                 - develop
+#                 - /pull.*/
+#       - storybook:
+#           context: default
+#           filters:
+#             branches:
+#               only:
+#                 - develop
+#                 - /pull.*/
+#           requires:
+#             - unit_tests
 
 workflows:
   build:
@@ -65,21 +116,3 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-      - unit_tests:
-          context: default
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - /pull.*/
-      - storybook:
-          context: default
-          filters:
-            branches:
-              only:
-                - develop
-                - /pull.*/
-          requires:
-            - unit_tests
