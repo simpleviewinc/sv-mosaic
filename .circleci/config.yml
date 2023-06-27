@@ -14,18 +14,19 @@ jobs:
       - run:
           name: Docker registry
           command: |
-            docker run -d -p 5000:5000 --name registry --hostname registry registry:2.7
+            docker run -d -p 5000:5000 --name registry registry:2.7
       - run:
           name: Docker build
           command: |
-            DOCKER_BUILDKIT=1 docker build -t "registry:5000/sv-mosaic" .
+            DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
+            docker push localhost:5000/sv-mosaic
       # - persist_to_workspace:
       #     root: ~/project
       #     paths:
       #       - .
   unit_tests:
     docker:
-      - image: registry:5000/sv-mosaic
+      - image: localhost:5000/sv-mosaic
     resource_class: large
     working_directory: /app
     steps:
