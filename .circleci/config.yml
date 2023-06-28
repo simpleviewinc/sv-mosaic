@@ -76,7 +76,7 @@ jobs:
           command: |
             docker run \
             sv-mosaic \
-            echo whoami
+            whoami
       # - run:
       #     name: Add github to known_hosts
       #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
