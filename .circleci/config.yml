@@ -58,9 +58,9 @@ jobs:
           name: Run tests
           command: |
             docker run -d \
-            -t
+            -t \
             -v ~/.ssh:~/.ssh \
-            sv-mosaic
+            sv-mosaic \
             ls -la ~/.ssh
       # - run:
       #     name: Add github to known_hosts
