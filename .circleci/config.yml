@@ -81,7 +81,8 @@ jobs:
               -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
               sv-mosaic \
               ; \
-            }
+            } \
+            | tr "\n" " "
 
 # workflows:
 #   build:
