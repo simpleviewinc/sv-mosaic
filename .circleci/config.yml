@@ -66,8 +66,8 @@ jobs:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
-          name: Print 20 SSH chars
-          command: head -c 20 ~/.ssh/authorized_keys
+          name: List .ssh dir
+          command: ls -la ~/.ssh
       - run:
           name: Load Mosaic Docker image
           command: |
