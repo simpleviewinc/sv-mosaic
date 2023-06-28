@@ -66,7 +66,7 @@ jobs:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
-          name: Load docker image
+          name: Load Mosaic Docker image
           command: |
             docker load \
             -i \
@@ -75,8 +75,9 @@ jobs:
           name: Spin up container and publish to GitHub pages
           command: |
             docker run \
+            -v ~/.ssh:/root/.ssh
             sv-mosaic \
-            whoami
+            ls -ls /root/.ssh
       # - run:
       #     name: Add github to known_hosts
       #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
