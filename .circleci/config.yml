@@ -14,10 +14,18 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: Docker build
+          name: Build Docker image
           command: |
-            DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
-            docker save -o sv_mosaic_build.tar sv-mosaic
+            DOCKER_BUILDKIT=1 \
+            docker build \
+            -t "sv-mosaic" \
+            .
+      - run:
+          name: Save Docker image
+          command: |
+            docker save \
+            -o sv_mosaic_build.tar \
+            sv-mosaic
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -33,11 +41,17 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: Load docker image
-          command: docker load -i sv_mosaic_build.tar
+          name: Load Docker image
+          command: |
+            docker load \
+            -i \
+            sv_mosaic_build.tar
       - run:
-          name: Run tests
-          command: docker run sv-mosaic yarn test
+          name: Spin up container and run unit tests
+          command: |
+            docker run \
+            sv-mosaic \
+            yarn test
   storybook:
     docker:
       - image: cimg/base:2021.04
@@ -53,13 +67,16 @@ jobs:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
           name: Load docker image
-          command: docker load -i sv_mosaic_build.tar
+          command: |
+            docker load \
+            -i \
+            sv_mosaic_build.tar
       - run:
-          name: Run tests
+          name: Spin up container and publish to GitHub pages
           command: |
             docker run \
             sv-mosaic \
-            echo 1
+            echo whoami
       # - run:
       #     name: Add github to known_hosts
       #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
