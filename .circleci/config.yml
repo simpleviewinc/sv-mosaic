@@ -57,6 +57,9 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: large
     steps:
+      - run:
+          name: Check SSH agent
+          command: ssh-agent
       - add_ssh_keys:
           fingerprints:
             - "90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50"
