@@ -73,17 +73,15 @@ jobs:
           name: Spin up container and publish to GitHub pages
           command: |
             { \
-              echo "IMAGE="
-              &
+              echo "IMAGE=" \
+              & \
               docker run \
               -d \
               -v ~/.ssh:/root/.ssh \
               -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
               sv-mosaic \
-              ;
+              ; \
             }
-      - run:
-          name: Show
 
 # workflows:
 #   build:
