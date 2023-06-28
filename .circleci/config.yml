@@ -70,10 +70,10 @@ jobs:
           name: List keys
           command: ssh-add -l
       - run:
-          name: Spin up container and publish to GitHub pages
+          name: Spin up container
           command: |
             { \
-              echo "IMAGE=" \
+              echo "CONTAINER_ID=" \
               & \
               docker run \
               -d \
@@ -82,7 +82,10 @@ jobs:
               sv-mosaic \
               ; \
             } \
-            | tr "\n" " "
+            | tr "\n" "" >> $BASH_ENV
+      - run:
+          name: Show container ID
+          command: echo ${CONTAINER_ID}
 
 # workflows:
 #   build:
