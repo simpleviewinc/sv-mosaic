@@ -66,8 +66,8 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: List .ssh dir
-          command: ls -la ~/.ssh
+          name: SSH Line count with add_ssh_keys
+          command: wc -l ~/.ssh/authorized_keys
       - run:
           name: Load Mosaic Docker image
           command: |
