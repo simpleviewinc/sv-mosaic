@@ -73,7 +73,7 @@ jobs:
             -v ~/.ssh:/root/.ssh \
             -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
             sv-mosaic \
-            yarn run ci:storybook
+            ssh-keyscan github.com >> ~/.ssh/known_hosts && yarn run ci:storybook
 
 # workflows:
 #   build:
