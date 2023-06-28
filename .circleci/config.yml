@@ -57,7 +57,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            docker run -d \
+            docker run \
             sv-mosaic \
             echo 1
       # - run:
