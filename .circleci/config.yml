@@ -67,7 +67,7 @@ jobs:
           version: 20.10.14
       - run:
           name: SSH Line count with add_ssh_keys
-          command: find ~/.ssh -maxdepth 1 | xargs wc -l
+          command: find ~/.ssh -maxdepth 1 -type f | xargs wc -l
       - run:
           name: Load Mosaic Docker image
           command: |
