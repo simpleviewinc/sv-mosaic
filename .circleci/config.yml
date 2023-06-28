@@ -59,7 +59,6 @@ jobs:
           command: |
             docker run -d \
             -t \
-            # -v ~/.ssh:~/.ssh \
             sv-mosaic \
             whoami
       # - run:
