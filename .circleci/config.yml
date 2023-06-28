@@ -75,7 +75,7 @@ jobs:
           name: Spin up container and publish to GitHub pages
           command: |
             docker run \
-            -v ~/.ssh:/root/.ssh
+            -v ~/.ssh:/root/.ssh \
             sv-mosaic \
             ls -ls /root/.ssh
       # - run:
