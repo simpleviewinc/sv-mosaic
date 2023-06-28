@@ -82,7 +82,7 @@ jobs:
               sv-mosaic \
               ; \
             } \
-            | tr "\n" "" >> $BASH_ENV
+            | sed ':a;N;s/\n/ /;ba'
       - run:
           name: Show container ID
           command: echo ${CONTAINER_ID}
