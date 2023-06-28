@@ -75,6 +75,7 @@ jobs:
             docker run \
             -v ~/.ssh:/root/.ssh \
             -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
+            -a stderr
             sv-mosaic \
             yarn run ci:storybook
 
