@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-// import ghPages from "gh-pages";
+import ghPages from "gh-pages";
 
 const {
 	CIRCLE_BRANCH
@@ -13,16 +13,16 @@ if (!CIRCLE_BRANCH) {
 execSync("yarn run build:storybook", { stdio: "inherit" });
 
 console.log("Publishing to storybook...");
-// ghPages.publish("docs", {
-// 	branch: "gh-pages",
-// 	dest: CIRCLE_BRANCH,
-// 	repo: "git@github.com:simpleviewinc/sv-mosaic.git",
-// 	user: {
-// 		name: "Owen Allen",
-// 		email: "owenallenaz@gmail.com"
-// 	}
-// }, function(err) {
-// 	if (err) { throw err }
+ghPages.publish("docs", {
+	branch: "gh-pages",
+	dest: CIRCLE_BRANCH,
+	repo: "git@github.com:simpleviewinc/sv-mosaic.git",
+	user: {
+		name: "Owen Allen",
+		email: "owenallenaz@gmail.com"
+	}
+}, function(err) {
+	if (err) { throw err }
 
-// 	console.log("Storybook publish complete");
-// });
+	console.log("Storybook publish complete");
+});
