@@ -60,7 +60,7 @@ jobs:
             docker run -d \
             -t \
             sv-mosaic \
-            echo $( getent passwd "$USER" | cut -d: -f6 )
+            echo 1
       # - run:
       #     name: Add github to known_hosts
       #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
