@@ -72,11 +72,18 @@ jobs:
       - run:
           name: Spin up container and publish to GitHub pages
           command: |
-            docker run \
-            -v ~/.ssh:/root/.ssh \
-            -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
-            sv-mosaic \
-            sh -c "eval `ssh-agent -s` && ssh-add -l"
+            { \
+              echo "IMAGE="
+              &
+              docker run \
+              -d \
+              -v ~/.ssh:/root/.ssh \
+              -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
+              sv-mosaic \
+              ;
+            }
+      - run:
+          name: Show
 
 # workflows:
 #   build:
