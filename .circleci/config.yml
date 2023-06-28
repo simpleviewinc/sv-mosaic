@@ -76,7 +76,8 @@ jobs:
           command: |
             docker load \
             -i \
-            sv_mosaic_build.tar
+            sv_mosaic_build.tar \
+            yarn run ci:storybook
       - run:
           name: Spin up container and publish to GitHub pages
           command: |
@@ -84,14 +85,6 @@ jobs:
             -v ~/.ssh:/root/.ssh \
             sv-mosaic \
             head -c 20 /root/.ssh/authorized_keys
-      # - run:
-      #     name: Add github to known_hosts
-      #     command: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      # - run:
-      #     name: Publish storybook
-      #     command: yarn run ci:storybook
-      #     environment:
-      #       NODE_DEBUG: gh-pages
 
 # workflows:
 #   build:
