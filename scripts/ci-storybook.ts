@@ -23,9 +23,8 @@ ghPages.publish("docs", {
 		email: "owenallenaz@gmail.com"
 	}
 }, function(err) {
-	console.log("Done publishing");
-
 	if (err) {
+		console.error("Error publishing GitHub Pages:");
 		console.error(err);
 		throw err
 	}
