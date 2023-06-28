@@ -76,7 +76,7 @@ jobs:
             -v ~/.ssh:/root/.ssh \
             -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
             sv-mosaic \
-            ssh-add -l
+            sh -c "ssh-agent -s && ssh-add -l"
 
 # workflows:
 #   build:
