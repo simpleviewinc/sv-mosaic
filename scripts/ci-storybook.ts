@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import ghPages from "gh-pages";
+// import ghPages from "gh-pages";
 
 const {
 	CIRCLE_BRANCH
