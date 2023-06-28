@@ -25,7 +25,10 @@ ghPages.publish("docs", {
 }, function(err) {
 	console.log("Done publishing");
 
-	if (err) { throw err }
+	if (err) {
+		console.error(err);
+		throw err
+	}
 
 	console.log("Storybook publish complete");
 });
