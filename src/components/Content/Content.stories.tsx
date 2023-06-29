@@ -69,6 +69,8 @@ const data = {
 			))}
 		</ChipsWrapper>
 	),
+	undefinedValue: undefined,
+	emptyStringValue: "",
 };
 
 const multipleColumns = [
@@ -270,12 +272,21 @@ export const KitchenSink = (): ReactElement => {
 			name: "chipsAsValue",
 			label: "Chips with no transform only value"
 		},
+		{
+			name: "undefinedValue",
+			label: "Field with undefined value"
+		},
+		{
+			name: "emptyStringValue",
+			label: "Field with empty string value"
+		},
 	];
 
 	const columns = [
 		[["tags"], ["colorPicker"], []],
 		[["toggle"], ["date"], ["colorPicker"],],
 		[["thumbnail"], ["chipsAsValue"], ["thumbnail"]],
+		[["undefinedValue"], ["emptyStringValue"]]
 	];
 
 	return (

@@ -20,6 +20,7 @@ import {
 } from "./Content.styled";
 import Button from "@root/components/Button";
 import { ActionAdditional } from "../DataView";
+import Blank from "@root/components/Blank";
 
 /**
  * @param show is used to evaluate whether a field should be displayed
@@ -79,6 +80,15 @@ const Content = (props: ContentProps): ReactElement => {
 		}
 
 		const fieldName = currentField?.column ? currentField?.column : currentField?.name;
+		let fieldValue = data[fieldName];
+
+		if (fieldValue === undefined || fieldValue === "") {
+			return (
+				<FieldContainer key={`value-${currentField.name}`} columns={sectionLength}>
+					{renderField(currentField.label, <Blank />)}
+				</FieldContainer>
+			)
+		}
 
 		if (currentField && !currentField?.transforms) {
 			return (
@@ -87,8 +97,6 @@ const Content = (props: ContentProps): ReactElement => {
 				</FieldContainer>
 			)
 		}
-
-		let fieldValue = data[fieldName];
 
 		currentField?.transforms.forEach(transform => {
 			fieldValue = transform({ data: fieldValue });
