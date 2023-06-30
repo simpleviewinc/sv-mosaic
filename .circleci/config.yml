@@ -61,7 +61,7 @@ jobs:
             docker run \
             -v reports:~/reports \
             sv-mosaic \
-            yarn test:ci
+            pwd
       - store_test_results:
           path: ./reports/
   storybook:
