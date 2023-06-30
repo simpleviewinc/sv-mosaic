@@ -731,9 +731,12 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 				},
 				{
 					name: "text4",
-					label: "Text that receives copy",
+					label: "Multiline text that receives copy",
 					type: "text",
-					instructionText: "Instruction text text1"
+					instructionText: "Instruction text text1",
+					inputSettings: {
+						multiline: true
+					}
 				},
 				{
 					name: "color",

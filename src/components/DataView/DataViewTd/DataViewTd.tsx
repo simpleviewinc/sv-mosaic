@@ -20,7 +20,7 @@ const StyledTd = styled.td`
 	}
 
 	&.bold > div {
-		font-weight: bold;
+		font-weight: 600;
 	}
 
 	&.italic {
