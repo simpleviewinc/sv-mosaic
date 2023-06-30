@@ -116,7 +116,8 @@
 		}
 	},
 	"scripts": {
-		"test": "jest --maxWorkers=3",
+		"test": "jest",
+		"test:ci": "jest --ci --runInBand --reporters=default --reporters=jest-junit",
 		"tsc": "tsc",
 		"start": "yarn run storybook",
 		"build": "yarn run build:esm && yarn run build:types && yarn run build:cjs",
