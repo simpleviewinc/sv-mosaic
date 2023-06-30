@@ -25,6 +25,7 @@ import FormFieldUpload from "@root/forms/FormFieldUpload";
 import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
+import Blank from "@root/components/Blank";
 
 const StyledCol = styled.div`
 	display: flex;
@@ -202,10 +203,10 @@ const Col = (props: ColPropsTypes) => {
 						colsInRow={colsInRow}
 						id={name}
 					>
-						{shouldRenderEmptyField ? "—" : children}
+						{shouldRenderEmptyField ? <Blank /> : children}
 					</Field>
 				) : (
-					shouldRenderEmptyField ? "—" : children
+					shouldRenderEmptyField ? <Blank /> : children
 				)) : null;
 			})}
 		</StyledCol>
