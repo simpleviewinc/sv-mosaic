@@ -52,10 +52,15 @@ jobs:
     steps:
       - load_mosaic_image
       - run:
+          name: Create reports directory
+          command: |
+            mkdir reports
+      - run:
           name: Spin up container and run unit tests
           command: |
             docker run \
             sv-mosaic \
+            -v ./reports:~/reports \
             yarn test:ci
       - store_test_results:
           path: ./reports/
