@@ -184,11 +184,11 @@ const Form = (props: FormProps) => {
 	const items: Item[] = useMemo(() => {
 		if (!isBigDesktopWithSections) return;
 
-		return sections?.map((section, idx) => ({
+		return sections?.map((section, idx) => evaluateShow(section.show, {data: state.data}) && ({
 			label: section.title,
 			name: idx.toString(),
-		}));
-	}, [sections, view]);
+		})).filter(Boolean);
+	}, [sections, state.data, view]);
 
 	/**
 	 * Highlights and scrolls to the sections which link
