@@ -59,7 +59,6 @@ jobs:
           name: Spin up container and run unit tests
           command: |
             docker run \
-            -v reports:~/reports \
             sv-mosaic \
             pwd
       - store_test_results:
