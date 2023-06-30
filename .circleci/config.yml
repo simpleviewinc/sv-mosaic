@@ -59,8 +59,9 @@ jobs:
           name: Spin up container and run unit tests
           command: |
             docker run \
+            -v ./reports:/app/reports \
             sv-mosaic \
-            pwd
+            yarn test:ci
       - store_test_results:
           path: ./reports/
   storybook:
