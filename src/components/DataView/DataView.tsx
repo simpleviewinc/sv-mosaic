@@ -7,7 +7,7 @@ import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps, StateViewDef } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
-import { filterAction } from "./utils/bulkActionsUtils";
+import evaluateShow from "@root/utils/show/evaluateShow";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -86,9 +86,9 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	const validBulkActions = props.bulkActions && props.bulkActions.filter(action => {
 		if (props.checkedAllPages)
-			return action.onAllClick && filterAction(action, { checkedAllPages: true })
+			return action.onAllClick && evaluateShow(action.show, { checkedAllPages: true })
 		else
-			return action.onClick && filterAction(action, { checkedAllPages: false, data: props.data.filter((val, i) => props.checked?.length > 0 && props.checked[i] === true)})
+			return action.onClick && evaluateShow(action.show, { checkedAllPages: false, data: props.data.filter((val, i) => props.checked?.length > 0 && props.checked[i] === true)})
 	});
 
 	const checkboxEnabled =

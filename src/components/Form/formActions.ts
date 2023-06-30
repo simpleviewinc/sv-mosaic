@@ -1,5 +1,6 @@
 import { MosaicObject } from "@root/types";
 import { mapsValidators, required, Validator } from "./validators";
+import evaluateShow from "@root/utils/show/evaluateShow";
 
 async function runValidators(
 	validators: Validator[],
@@ -102,6 +103,16 @@ export const formActions = {
 			const validatorsMap = mapsValidators(validators);
 
 			const data = getState().data;
+
+			if (!evaluateShow(extraArgs?.fieldMap[name]?.show, {data})) {
+				await dispatch({
+					type: "FIELD_VALIDATE",
+					name,
+					value: undefined
+				});
+				return;
+			}
+
 			const startValue = getState().data[name];
 			const result = await runValidators(validatorsMap, startValue, data);
 			const currentValue = getState().data[name];

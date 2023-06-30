@@ -15,8 +15,8 @@ import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 import MenuItem from "@mui/material/MenuItem";
-import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 
+import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow";
 import { ButtonProps } from "./ButtonTypes";
 
@@ -91,7 +91,7 @@ export const Playground = (): ReactElement => {
 			"Array of functions that return true",
 			"Array of functions, one returns false"
 		],
-		"Undefined"
+		"Undefined",
 	);
 	const label = select("Type of label", ["String", "JSX"], "String")
 	const showIcon = boolean("Show icon", false);
@@ -141,7 +141,7 @@ export const Playground = (): ReactElement => {
 		variant: buttonVariant
 	}
 
-	const showButton = useMemo(() => filterAction(action), [action.show]);
+	const showButton = useMemo(() => evaluateShow(action.show), [action.show]);
 
 	return (
 		<StoryBookError>
