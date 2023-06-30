@@ -61,12 +61,12 @@ jobs:
             docker run \
             -v reports:/app/reports \
             sv-mosaic \
-            sh -c "yarn test:ci && ls -la reports"
+            sh -c "yarn test:ci && pwd && ls -la reports"
       - store_test_results:
           path: ./reports/
       - run:
           name: ls
-          command: ls -la reports
+          command: pwd && ls -la reports
   storybook:
     docker:
       - image: cimg/base:2021.04
