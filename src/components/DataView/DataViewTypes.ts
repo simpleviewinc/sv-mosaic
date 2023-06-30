@@ -1,7 +1,9 @@
-import { MosaicObject, MosaicCallback, MosaicLabelValue } from "@root/types";
+import { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicShow } from "@root/types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
+import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRow";
+import { DataViewBulkActionsButtonsRowProps } from "./DataViewBulkActionsButtonsRow";
 
 export interface DataViewColumnTransformArgs<T = unknown> {
 	/** The value of the specific column that is being transformed */
@@ -67,10 +69,6 @@ export interface DataViewFilterProps {
 	onRemove: () => void
 }
 
-interface DataViewActionShow {
-	(val?: {[key: string]: any}): void
-}
-
 interface DataViewActionOnClick {
 	({ data }: { data: MosaicObject }): void
 }
@@ -81,21 +79,26 @@ export interface ActionAdditional {
 	/** A handler function to be invoked when this action is used. */
 	onClick: DataViewActionOnClick
 	/** A value or function controlling whether or not to display this action. */
-	show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[];
+	// show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[];
+	show?: MosaicShow<{ row: DataViewActionsButtonRowProps["originalRowData"] }>
 }
 
 interface DataViewBulkActionOnClick {
 	({ data }: { data: MosaicObject[] }): void
 }
 
-export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs"> & ActionAdditional;
+export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs" | "show"> & ActionAdditional;
 
-export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs"> & ActionAdditional;
+export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs" | "show"> & ActionAdditional;
 
-export interface DataViewBulkAction extends Omit<DataViewAction, "onClick"> {
+type CheckedTrue = { checkedAllPages: true };
+type CheckedFalse = { checkedAllPages: false; data: DataViewBulkActionsButtonsRowProps["data"]};
+
+export interface DataViewBulkAction extends Omit<DataViewAction, "onClick" | "show"> {
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick
-	onAllClick?: MosaicCallback
+	onAllClick?: MosaicCallback,
+	show?: MosaicShow<CheckedTrue | CheckedFalse>
 }
 
 export interface DataViewSort {

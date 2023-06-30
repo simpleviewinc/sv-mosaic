@@ -17,6 +17,7 @@ import { FieldDefText } from "@root/forms/FormFieldText";
 import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
 import { FieldDefUpload } from "@root/forms/FormFieldUpload";
+import { MosaicShow } from "@root/types";
 import { HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT
@@ -143,6 +144,10 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 * Callback executed when the current fields has changed
 	 */
 	onChangeCb?: (value?: any) => void | Promise<void>;
+	/**
+	 * Whether or not to show this field
+	 */
+	show?: MosaicShow
 }
 
 type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>

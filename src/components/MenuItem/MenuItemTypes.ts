@@ -1,5 +1,4 @@
-import { MosaicObject, SvgIconComponent } from "@root/types";
-import { ActionAdditional } from "../DataView";
+import { MosaicObject, MosaicShow, SvgIconComponent } from "@root/types";
 
 export interface MenuItemProps {
 	label: string | JSX.Element;
@@ -10,5 +9,5 @@ export interface MenuItemProps {
 	onClick(event?: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
 	attrs?: MosaicObject;
 	name?: string;
-	show?: ActionAdditional["show"];
+	show?: MosaicShow;
 }
