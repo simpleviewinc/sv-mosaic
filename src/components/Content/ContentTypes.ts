@@ -1,5 +1,5 @@
-import { MosaicObject } from "@root/types";
-import { ActionAdditional, DataViewColumnTransform } from "../DataView";
+import { MosaicObject, MosaicShow } from "@root/types";
+import { DataViewColumnTransform } from "../DataView";
 import { SectionDef } from "../Form/FormTypes";
 import { ButtonProps } from "@root/components/Button";
 
@@ -22,7 +22,7 @@ export interface ContentField {
    * A value or array of values or function or array of functions that
    * controlls whether or not to display a field.
    */
-  show?: ActionAdditional["show"];
+  show?: MosaicShow;
   /**
    * If a column is given then it will be used as the name, hence
    * defaults to name.

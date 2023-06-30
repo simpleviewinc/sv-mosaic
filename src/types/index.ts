@@ -16,3 +16,8 @@ export interface MosaicCallback {
 }
 
 export type SvgIconComponent = typeof SvgIcon;
+
+export type MosaicShowResult = boolean;
+export type MosaicShowCallback<T> = (params: T) => MosaicShowResult;
+
+export type MosaicShow<T = unknown> = MosaicShowResult | MosaicShowCallback<T> | Array<MosaicShowResult | MosaicShowCallback<T>>

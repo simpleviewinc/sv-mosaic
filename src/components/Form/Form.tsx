@@ -8,10 +8,10 @@ import TopComponent from "@root/forms/TopComponent";
 import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
 import { useViewResizer, ViewProvider } from "@root/utils/formViewUtils";
 import { MosaicObject } from "@root/types";
-import { filterAction } from "@root/components/DataView/utils/bulkActionsUtils";
 import Dialog from "@root/components/Dialog";
-import { ButtonProps } from "../Button";
 import { Views } from "@root/theme/theme";
+import evaluateShow from "@root/utils/show/evaluateShow";
+import { ButtonProps } from "../Button";
 import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 import SideNav, { Item, SideNavArgs } from "../SideNav";
 
@@ -121,7 +121,7 @@ const Form = (props: FormProps) => {
 	}, [getFormValues]);
 
 	const filteredButtons = useMemo(() => (
-		buttons?.filter(button => filterAction(button))
+		buttons?.filter(button => evaluateShow(button.show))
 	) ,[buttons]);
 
 	if (!view) {

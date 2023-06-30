@@ -5,7 +5,7 @@ import {
 	fireEvent,
 } from "@testing-library/react";
 import * as React from "react";
-import Content, { showContent } from "./Content";
+import Content from "./Content";
 import { ContentField } from "./ContentTypes";
 import {
 	transform_boolean,
@@ -216,23 +216,5 @@ describe("Content componenent with no buttons", () => {
 		expect(date).toBeInTheDocument();
 		expect(colorPicker).toBeInTheDocument();
 		expect(header).toBeInTheDocument();
-	});
-});
-
-describe("showContent helper function", () => {
-	it("should return the value of the show paramenter when is defined as a boolean", () => {
-		expect(showContent(false)).toBe(false);
-	});
-
-	it("should return true since all its show values are truthy", () => {
-		const show = [true, () => true];
-
-		expect(showContent(show)).toBe(true);
-	});
-
-	it("should return false since one of the show values is false", () => {
-		const show = [true, () => true, () => false];
-
-		expect(showContent(show)).toBe(false);
 	});
 });
