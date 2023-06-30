@@ -1009,6 +1009,7 @@ export const ConditionalFields = (): ReactElement => {
 					label: "Dependency",
 					type: "text",
 					instructionText: `Type "${KEY_PHRASE}" to show another field`,
+					required: true
 				},
 				{
 					name: "dependent",
@@ -1017,7 +1018,8 @@ export const ConditionalFields = (): ReactElement => {
 					helperText: state.data.text2,
 					show: ({ data }) => {
 						return data?.dependency === KEY_PHRASE
-					}
+					},
+					required: true
 				}
 			],
 		[]
