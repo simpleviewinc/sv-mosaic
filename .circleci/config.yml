@@ -60,7 +60,6 @@ jobs:
           command: |
             docker run \
             sv-mosaic \
-            -v ./reports:~/reports \
             yarn test:ci
       - store_test_results:
           path: ./reports/
