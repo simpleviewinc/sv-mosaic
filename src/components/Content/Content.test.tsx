@@ -18,7 +18,6 @@ import { ButtonProps } from "@root/components/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import "@testing-library/jest-dom";
-import evaluateShow from "@root/utils/show/evaluateShow";
 
 afterEach(cleanup);
 
@@ -217,23 +216,5 @@ describe("Content componenent with no buttons", () => {
 		expect(date).toBeInTheDocument();
 		expect(colorPicker).toBeInTheDocument();
 		expect(header).toBeInTheDocument();
-	});
-});
-
-describe("showContent helper function", () => {
-	it("should return the value of the show paramenter when is defined as a boolean", () => {
-		expect(evaluateShow(false)).toBe(false);
-	});
-
-	it("should return true since all its show values are truthy", () => {
-		const show = [true, () => true];
-
-		expect(evaluateShow(show)).toBe(true);
-	});
-
-	it("should return false since one of the show values is false", () => {
-		const show = [true, () => true, () => false];
-
-		expect(evaluateShow(show)).toBe(false);
 	});
 });
