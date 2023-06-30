@@ -60,6 +60,10 @@ jobs:
           command: |
             ls -la
       - run:
+          name: pwd
+          command: |
+            pwd
+      - run:
           name: Spin up container and run unit tests
           command: |
             docker run \
