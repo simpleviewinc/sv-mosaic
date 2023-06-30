@@ -56,7 +56,9 @@ jobs:
           command: |
             docker run \
             sv-mosaic \
-            yarn test
+            JEST_JUNIT_OUTPUT_DIR=./reports/ yarn test:ci
+      - store_test_results:
+          path: ./reports/
   storybook:
     docker:
       - image: cimg/base:2021.04
