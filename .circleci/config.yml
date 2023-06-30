@@ -56,22 +56,17 @@ jobs:
           command: |
             mkdir reports
       - run:
-          name: ls
-          command: |
-            ls -la
-      - run:
-          name: pwd
-          command: |
-            pwd
-      - run:
           name: Spin up container and run unit tests
           command: |
             docker run \
             -v reports:/app/reports \
             sv-mosaic \
-            yarn test:ci
+            sh -c "yarn test:ci && ls -la reports"
       - store_test_results:
           path: ./reports/
+      - run:
+          name: ls
+          command: ls -la reports
   storybook:
     docker:
       - image: cimg/base:2021.04
