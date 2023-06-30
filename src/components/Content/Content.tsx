@@ -19,6 +19,7 @@ import {
 } from "./Content.styled";
 import Button from "@root/components/Button";
 import evaluateShow from "@root/utils/show/evaluateShow";
+import Blank from "@root/components/Blank";
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections, title, buttons, variant } = props;
@@ -60,6 +61,15 @@ const Content = (props: ContentProps): ReactElement => {
 		}
 
 		const fieldName = currentField?.column ? currentField?.column : currentField?.name;
+		let fieldValue = data[fieldName];
+
+		if (fieldValue === undefined || fieldValue === "") {
+			return (
+				<FieldContainer key={`value-${currentField.name}`} columns={sectionLength}>
+					{renderField(currentField.label, <Blank />)}
+				</FieldContainer>
+			)
+		}
 
 		if (currentField && !currentField?.transforms) {
 			return (
@@ -68,8 +78,6 @@ const Content = (props: ContentProps): ReactElement => {
 				</FieldContainer>
 			)
 		}
-
-		let fieldValue = data[fieldName];
 
 		currentField?.transforms.forEach(transform => {
 			fieldValue = transform({ data: fieldValue });
