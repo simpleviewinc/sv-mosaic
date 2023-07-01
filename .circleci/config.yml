@@ -57,7 +57,7 @@ jobs:
             mkdir reports
       - run:
           name: Spin up container
-          command: yarn ci:docker
+          command: ./scripts/run-capture-id
       - run:
           name: Show container name
           command: echo "Container ID - ${CONTAINER_ID}"
