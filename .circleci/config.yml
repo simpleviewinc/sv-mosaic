@@ -18,7 +18,7 @@ commands:
             sv_mosaic_build.tar
 
 jobs:
-  build:
+  public_build:
     docker:
       - image: cimg/base:2021.04
         name: build
@@ -78,12 +78,7 @@ jobs:
       - load_mosaic_image
       - run:
           name: Spin up container
-          command: |
-            docker run \
-              -v ~/.ssh:/root/.ssh \
-              -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
-              sv-mosaic \
-              sh -c "ssh-keyscan github.com >> ~/.ssh/known_hosts && ls -la /root/.ssh"
+          command: yarn ci:docker
 
 # workflows:
 #   build:
@@ -117,7 +112,7 @@ jobs:
 workflows:
   build:
     jobs:
-      - build:
+      - public_build:
           context: default
           filters:
             branches:
@@ -127,7 +122,7 @@ workflows:
       - unit_tests:
           context: default
           requires:
-            - build
+            - public_build
           filters:
             branches:
               only:
