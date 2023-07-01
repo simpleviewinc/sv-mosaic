@@ -131,7 +131,7 @@ workflows:
       - storybook:
           context: default
           requires:
-            - build
+            - public_build
           filters:
             branches:
               only:
