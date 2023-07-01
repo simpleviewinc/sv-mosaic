@@ -128,6 +128,7 @@
 		"build:types": "./scripts/build-types",
 		"ci:publish": "ts-node ./scripts/ci-publish.ts",
 		"ci:storybook": "ts-node ./scripts/ci-storybook.ts",
+		"ci:docker": "./scripts/run-capture-id",
 		"docker": "./scripts/build && ./scripts/run || true",
 		"git-deploy": "node ./scripts/git-deploy.js",
 		"conditional-publish": "./scripts/conditional-publish",

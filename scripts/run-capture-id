@@ -1,0 +1,6 @@
+CID=$(docker run \
+    -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
+    sv-mosaic \
+    sh -c "ssh-keyscan github.com >> ~/.ssh/known_hosts && ls -la /root/.ssh")
+
+echo CID
