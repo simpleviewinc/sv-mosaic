@@ -5,5 +5,7 @@ CONTAINER_ID=$( \
     sv-mosaic \
 )
 
-echo ${CONTAINER_ID}
-echo 'export CONTAINER_ID=${CONTAINER_ID}' >> "$BASH_ENV"
+EXPORT_STRING="export CONTAINER_ID=${CONTAINER_ID}"
+
+echo "${EXPORT_STRING}"
+echo "${EXPORT_STRING}" >> "$BASH_ENV"
