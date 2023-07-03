@@ -6,4 +6,4 @@ CONTAINER_ID=$( \
 )
 
 echo ${CONTAINER_ID}
-echo 'export CONTAINER_ID=/path/to/foo/bin' >> "$BASH_ENV"
+echo 'export CONTAINER_ID=${CONTAINER_ID}' >> "$BASH_ENV"
