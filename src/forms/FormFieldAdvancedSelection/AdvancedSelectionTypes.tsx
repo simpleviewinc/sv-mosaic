@@ -47,9 +47,6 @@ export interface AdvanceSelectionDrawerPropTypes {
 	isModalOpen: boolean;
 	isMobileView: boolean;
 	handleClose: (save?: boolean) => Promise<void>;
-	handleUnsavedChanges?: (val: boolean) => void;
-	dialogOpen?: boolean;
-	handleDialogClose?: (val: boolean) => void;
 }
 
 export type AdvancedSelectionData = MosaicLabelValue[];

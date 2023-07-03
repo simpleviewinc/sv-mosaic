@@ -54,6 +54,7 @@ interface DrawerProps extends MUIDrawerProps {
 	exitCB?: () => void;
 	anchorstyle?: "left" | "right";
 	display?: boolean;
+	backdropCloseHandler?: boolean
 }
 
 const Drawer = (props: DrawerProps): ReactElement => {
@@ -65,7 +66,8 @@ const Drawer = (props: DrawerProps): ReactElement => {
 		anchor = "right",
 		display,
 		anchorstyle,
-		exitCB
+		exitCB,
+		backdropCloseHandler = true
 	} = props;
 
 	const prevStyleRef = useRef<typeof anchorstyle>();
@@ -94,6 +96,14 @@ const Drawer = (props: DrawerProps): ReactElement => {
 		if (exitCB) exitCB();
 	}
 
+	const onDrawClose = (e, r) => {
+		if (!backdropCloseHandler && r === "backdropClick") {
+			return;
+		}
+
+		onClose();
+	}
+
 	return (
 		<>
 			<MUIDrawerStyled
@@ -102,7 +112,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 				anchor={anchor}
 				display={display}
 				open={open}
-				onClose={onClose}
+				onClose={onDrawClose}
 				SlideProps={{
 					onExited,
 				}}
