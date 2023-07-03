@@ -4,14 +4,12 @@ import {
 	memo,
 	ReactElement,
 	useCallback,
-	useEffect,
 	useState
 } from "react";
 import { AdvancedSelectionExternalOptions, AdvancedSelectionLocalOptions, AdvanceSelectionDrawerPropTypes } from ".";
 import { FormDrawerWrapper } from "../shared/styledComponents";
 import { DataViewFilterMultiselectDropdownContent, GetOptions } from "@root/components/DataViewFilterMultiselect";
 import PageHeader from "@root/components/PageHeader";
-import Dialog from "@root/components/Dialog";
 import { MosaicLabelValue } from "@root/types";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
@@ -20,9 +18,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		fieldDef,
 		onChange,
 		handleClose,
-		handleUnsavedChanges,
-		dialogOpen,
-		handleDialogClose,
 	} = props;
 
 	let externalOptions: AdvancedSelectionExternalOptions | undefined;
@@ -37,27 +32,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	}
 
 	const [selectedOptions, setSelectedOptions] = useState(value?.length > 0 ? value : []);
-
-	const dialogButtons: ButtonProps[] = [
-		{
-			label: "No, stay",
-			onClick: () => handleDialogClose(false),
-			color: "gray",
-			variant: "outlined",
-		},
-		{
-			label: "Yes, leave",
-			onClick: () => handleDialogClose(true),
-			color: "yellow",
-			variant: "contained",
-		},
-	];
-
-	useEffect(() => {
-		if (selectedOptions.length > 0) {
-			handleUnsavedChanges(true);
-		}
-	}, [selectedOptions]);
 
 	const onSubmit = useCallback(async() => {
 		await onChange(selectedOptions);
@@ -113,13 +87,6 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				hideButtons={true}
 				createNewOption={fieldDef.inputSettings.createNewOption}
 			/>
-			<Dialog
-				buttons={dialogButtons}
-				dialogTitle='Are you sure you want to leave?'
-				open={dialogOpen}
-			>
-				You have unsaved changes. If you leave all your changes will be lost.
-			</Dialog>
 		</FormDrawerWrapper>
 
 	);
