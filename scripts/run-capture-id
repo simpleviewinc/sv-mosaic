@@ -1,7 +1,9 @@
-CONTAINER_ID=$(docker run \
+CONTAINER_ID=$( \
+    docker run \
     -d \
     -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
-    sv-mosaic)
+    sv-mosaic \
+)
 
 echo ${CONTAINER_ID}
-echo 'export CONTAINER_ID="${CONTAINER_ID}"' >> $BASH_ENV
+echo 'export CONTAINER_ID=/path/to/foo/bin' >> "$BASH_ENV"
