@@ -57,7 +57,7 @@ jobs:
             mkdir reports
       - run:
           name: Spin up container
-          command: ./scripts/run-capture-id
+          command: chmod +x ./scripts/run-capture-id && ./scripts/run-capture-id
       - run:
           name: Show container name
           command: echo "Container ID - ${CONTAINER_ID}"
