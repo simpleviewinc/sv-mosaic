@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 import { CardProps } from "./CardTypes";
-import Button from "../Button";
+
 import {
 	BottomActionWrapper,
 	ContentWrapper,
@@ -37,11 +37,7 @@ const Card = (props: CardProps): ReactElement => {
 			</ContentWrapper>
 			{bottomActions?.length > 0 && (
 				<BottomActionWrapper>
-					<ButtonRow>
-						{bottomActions.map((button, idx) => (
-							<Button key={`${button.label}-${idx}`} {...button} />
-						))}
-					</ButtonRow>
+					<ButtonRow buttons={bottomActions} />
 				</BottomActionWrapper>
 			)}
 		</CardWrapper>
