@@ -1,10 +1,9 @@
 import * as React from "react";
 import { memo, forwardRef } from "react";
-import Button from "@root/components/Button";
 import { StyledPageHeader, StyledTitleRow } from "./PageHeader.styled";
-import { ButtonsWrapper } from "@root/forms/TopComponent/TopComponent.styled";
 import { PageHeaderProps } from "./PageHeaderTypes";
 import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
+import ButtonRow from "../ButtonRow/ButtonRow";
 
 const PageHeader = forwardRef((props: PageHeaderProps, ref) => {
 	const {
@@ -21,11 +20,7 @@ const PageHeader = forwardRef((props: PageHeaderProps, ref) => {
 				}
 			</StyledTitleRow>
 			{buttons &&
-				<ButtonsWrapper>
-					{buttons.map((button, idx) => (
-						<Button key={`${button.label}-${idx}`} {...button} />
-					))}
-				</ButtonsWrapper>
+				<ButtonRow buttons={buttons} />
 			}
 		</StyledPageHeader>
 	)
