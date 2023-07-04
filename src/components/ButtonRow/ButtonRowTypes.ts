@@ -4,4 +4,6 @@ export interface ButtonRowProps {
 	buttons?: ButtonProps[]
 	children?: React.ReactNode
 	className?: string
+	separator?: boolean
+	gap?: "small" | "large"
 }

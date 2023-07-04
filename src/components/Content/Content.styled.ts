@@ -52,31 +52,6 @@ export const StyledEditIcon = styled(EditIcon)`
 	}
 `;
 
-export const ButtonsWrapper = styled.div`
-	align-items: center;
-	display: flex;
-
-	&.standard-buttons {
-		.MuiButton-root {
-			margin-left: 8px;
-		}
-
-		.button {
-			border-right: 2px solid ${theme.newColors.grey2["100"]};
-			padding: 0 16px 0 16px;
-		}
-
-		.button:last-child {
-			border-right: none;
-			padding: 0;
-		}
-	}
-
-	&.card-buttons {
-		gap: 16px;
-	}
-`;
-
 export const Label = styled.p`
 	color: ${theme.newColors.grey4["100"]};
 	font-size: 14px;

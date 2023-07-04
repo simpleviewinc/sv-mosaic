@@ -62,10 +62,6 @@ export const ContainerItems = styled.div`
 `;
 
 export const Item = styled.div`
-  padding: 0 16px 0 0;
-  margin-right: 16px;
-  border-right: 2px solid ${theme.newColors.grey2["100"]};
-
   & p,
   & h1,
   & h2,
