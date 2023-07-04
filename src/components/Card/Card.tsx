@@ -8,9 +8,9 @@ import {
 	CardWrapper,
 	StyledHr,
 	TitleWrapper,
-	TitleBar,
-	ButtonsWrapper
+	TitleBar
 } from "./Card.styled";
+import ButtonRow from "../ButtonRow/ButtonRow";
 
 const Card = (props: CardProps): ReactElement => {
 	const { bottomActions, content, title, titleIcon, topActions } = props;
@@ -24,11 +24,7 @@ const Card = (props: CardProps): ReactElement => {
 					<p className="card-title">{title}</p>
 				</TitleWrapper>
 				{topActions?.length > 0 && (
-					<ButtonsWrapper>
-						{topActions.map((button, idx) => (
-							<Button key={`${button.label}-${idx}`} {...button} />
-						))}
-					</ButtonsWrapper>
+					<ButtonRow buttons={topActions} />
 				)}
 			</TitleBar>
 			<ContentWrapper>
@@ -41,11 +37,11 @@ const Card = (props: CardProps): ReactElement => {
 			</ContentWrapper>
 			{bottomActions?.length > 0 && (
 				<BottomActionWrapper>
-					<ButtonsWrapper>
+					<ButtonRow>
 						{bottomActions.map((button, idx) => (
 							<Button key={`${button.label}-${idx}`} {...button} />
 						))}
-					</ButtonsWrapper>
+					</ButtonRow>
 				</BottomActionWrapper>
 			)}
 		</CardWrapper>
