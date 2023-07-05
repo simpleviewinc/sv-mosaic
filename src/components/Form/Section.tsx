@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, forwardRef, useCallback, useState, useEffect, useMemo } from "react";
+import { memo, useRef, useState, useEffect, useMemo } from "react";
 import theme from "@root/theme";
 import styled from "styled-components";
 import { FieldDef } from "@root/components/Field";
@@ -71,9 +71,10 @@ interface SectionPropTypes {
 	state: any;
 	view: ViewType;
 	collapsed?: boolean;
+	registerRef?: (ref: HTMLElement) => () => void
 }
 
-const Section = forwardRef((props: SectionPropTypes, ref: any) => {
+const Section = (props: SectionPropTypes) => {
 	const {
 		title,
 		description,
@@ -84,10 +85,11 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 		state,
 		view,
 		collapsed = false,
+		registerRef
 	} = props;
 
 	const [expanded, setExpanded] = useState<boolean>(false);
-	const getRef = useCallback((el) => ref.current[sectionIdx] = el, []);
+	const ref = useRef<HTMLDivElement>();
 
 	useEffect(() => {
 		setExpanded(!collapsed);
@@ -116,6 +118,11 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 		}
 	}, [state.errors, fieldsInSection.length]);
 
+	useEffect(() => {
+		const unregister = registerRef(ref.current);
+		return unregister;
+	}, [ref.current])
+
 	return (
 		<StyledAccordion
 			id={sectionIdx}
@@ -124,13 +131,14 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 			onChange={onExpandChange}
 			square={true}
 			hastitle={title}
+			ref={ref}
 		>
 			{title &&
 				<StyledSectionHeader
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel1a-content"
 				>
-					<StyledTitle className="section-title" ref={getRef} id={sectionIdx}>{title}</StyledTitle>
+					<StyledTitle className="section-title" id={sectionIdx}>{title}</StyledTitle>
 				</StyledSectionHeader>
 			}
 			<StyledSectionContent>
@@ -153,7 +161,7 @@ const Section = forwardRef((props: SectionPropTypes, ref: any) => {
 			</StyledSectionContent>
 		</StyledAccordion>
 	);
-});
+};
 
 Section.displayName = "Section";
 
