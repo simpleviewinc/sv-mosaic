@@ -1,5 +1,6 @@
 import * as React from "react";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { debounce } from "lodash";
 import { StyledForm, StyledContainerForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
@@ -14,6 +15,9 @@ import evaluateShow from "@root/utils/show/evaluateShow";
 import { ButtonProps } from "../Button";
 import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 import SideNav, { Item, SideNavArgs } from "../SideNav";
+import { getOuterHeight } from "@root/utils/dom/getOuterHeight";
+import { getInnerHeight } from "@root/utils/dom/getInnerHeight";
+import { getViewportContentOffset } from "@root/utils/dom/getEdgeDifference";
 
 const Form = (props: FormProps) => {
 	const {
@@ -32,20 +36,24 @@ const Form = (props: FormProps) => {
 		showActive
 	} = props;
 
-	const sectionsRef = useRef<HTMLDivElement[]>([]);
+	// const sectionsRef = useRef<HTMLDivElement[]>([]);
+	const sectionRefs = useRef<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
-	const [activeSection, setActiveSection] = useState("0");
+	const [scrollActiveSection, setScrollActiveSection] = useState("0");
+	const [userActiveSection, setUserActiveSection] = useState<string | null>(null);
+	const activeSection = userActiveSection !== null ? userActiveSection : scrollActiveSection;
+	const clearUserActiveSectionDebounced = useRef(debounce(() => setUserActiveSection(null), 100));
 
 	const dispatchRef = useRefsDispatch();
 
-	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
+	// const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 	const { view } = useViewResizer({ formContainerRef });
 
-	useEffect(() => {
-		setSectionsRefs(sectionsRef.current);
-	}, []);
+	// useEffect(() => {
+	// 	setSectionsRefs(sectionsRef.current);
+	// }, []);
 
 	useEffect(() => {
 		dispatchRef && topComponentRef.current && dispatchRef({
@@ -148,6 +156,41 @@ const Form = (props: FormProps) => {
 		sections &&
 		sections?.length > 1;
 
+	const registerRef: ((ref: HTMLElement) => () => void) = React.useCallback((ref) => {
+		sectionRefs.current.push(ref);
+
+		return () => {
+			sectionRefs.current = sectionRefs.current.filter(r => r !== ref);
+		}
+	}, []);
+
+	const getScrollActiveSection = React.useCallback((container: HTMLElement) => {
+		const {scrollTop, scrollHeight} = container;
+
+		const scrollMax = scrollHeight - getInnerHeight(container);
+		const scrolled = scrollTop / scrollMax;
+		const contentSpan = scrollHeight
+			- getViewportContentOffset(container, sectionRefs.current[0], "top")
+			- getViewportContentOffset(container, sectionRefs.current[0], "bottom");
+
+		const sectionHeights = sectionRefs.current.map(ref => getOuterHeight(ref));
+		const segments = sectionHeights.reduce((acc, height) => [
+			...acc,
+			(height / contentSpan) + (acc[acc.length - 1] || 0)
+		], []);
+
+		for (let i = 0; i < segments.length; i++) {
+			const lastPortion = segments[i - 1] || 0;
+			const portion = segments[i];
+
+			if (scrolled >= lastPortion && scrolled <= portion) {
+				return i
+			}
+		}
+
+		return 0;
+	}, [sectionRefs.current]);
+
 	/**
 	 * If the Form view is for a big desktop it will create an
 	 * IntersectionObserver the user has scrolled into a section
@@ -158,22 +201,19 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				const sectionId = entry?.target.getAttribute("id");
+		const formContent = formContentRef.current;
 
-				if (entry.isIntersecting) {
-					setActiveSection(sectionId);
-				}
-			})
-		}, { threshold: 0.5, rootMargin: "-20px 0px -20%", root: formContentRef?.current });
+		const onScroll = () => {
+			clearUserActiveSectionDebounced.current();
+			const section = getScrollActiveSection(formContent);
 
-		sectionsRefs?.forEach(section => {
-			observer.observe(section);
-		})
+			setScrollActiveSection(String(section));
+		}
 
-		return () => observer.disconnect();
-	}, [sectionsRefs, sections, view]);
+		formContent.addEventListener("scroll", onScroll, {passive: true})
+
+		return () => formContent.removeEventListener("scroll", onScroll);
+	}, [sectionRefs, sections, view]);
 
 	/**
 	 * In order to use the SideNav on a big desktop we need to transform
@@ -197,7 +237,15 @@ const Form = (props: FormProps) => {
 	 */
 	const onNav = (args: SideNavArgs) => {
 		const sectionIndex = Number(args.item.name);
-		sectionsRefs[sectionIndex].scrollIntoView({
+		const section = sectionRefs.current[sectionIndex];
+
+		if (!section) {
+			return;
+		}
+
+		setUserActiveSection(args.item.name)
+
+		section.scrollIntoView({
 			behavior: "smooth",
 			block: "start"
 		});
@@ -222,7 +270,7 @@ const Form = (props: FormProps) => {
 							sections={sections}
 							view={view}
 							buttons={filteredButtons}
-							sectionsRefs={sectionsRefs}
+							// sectionsRefs={sectionsRefs}
 							formContentRef={formContentRef}
 							tooltipInfo={tooltipInfo}
 							showActive={showActive}
@@ -239,7 +287,8 @@ const Form = (props: FormProps) => {
 								}
 								<FormContent view={view} sections={sections} ref={formContentRef}>
 									<FormLayout
-										ref={sectionsRef}
+										// ref={sectionsRef}
+										registerRef={registerRef}
 										state={state}
 										dispatch={dispatch}
 										fields={fields}
@@ -251,7 +300,8 @@ const Form = (props: FormProps) => {
 						) : (
 							<FormContent view={view} sections={sections} ref={formContentRef}>
 								<FormLayout
-									ref={sectionsRef}
+									// ref={sectionsRef}
+									registerRef={registerRef}
 									state={state}
 									dispatch={dispatch}
 									fields={fields}
