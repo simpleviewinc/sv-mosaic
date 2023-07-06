@@ -88,7 +88,7 @@ const Section = (props: SectionPropTypes) => {
 		registerRef
 	} = props;
 
-	const [expanded, setExpanded] = useState<boolean>(false);
+	const [expanded, setExpanded] = useState<boolean>(!collapsed);
 	const ref = useRef<HTMLDivElement>();
 
 	useEffect(() => {
