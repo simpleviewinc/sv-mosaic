@@ -5,7 +5,7 @@ import { debounce } from "lodash";
 export default function useScrollSpy({
 	refs,
 	container,
-	threshold = 0.4
+	threshold = 0.2
 }: ScrollSpyProps): ScrollSpyResult {
 	const [scrollActiveSection, setScrollActiveSection] = useState<number>(0);
 	const [userActiveSection, setUserActiveSection] = useState<number | null>(null);
