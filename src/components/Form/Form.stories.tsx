@@ -814,9 +814,34 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			collapsed,
 			fields: [
 				// row 1
+				// row 1
+				[["text1"], ["text2"], []],
+				// row 2
+				[["text3"], ["text4"], ["color"]],
+				// row 1
+				[["text1"], ["text2"], []],
+				// row 2
+				[["text3"], ["text4"], ["color"]],
+			]
+		},
+		{
+			title: "Section 4",
+			description: "Description for section 3",
+			collapsed,
+			fields: [
+				// row 1
 				[["imageUpload"], [], []],
 			]
 		},
+		// ...Array.from(Array(10).keys()).map((_, i) => ({
+		// 	title: `Section ${i}`,
+		// 	description: `Description for section ${i}`,
+		// 	collapsed,
+		// 	fields: [
+		// 		// row 1
+		// 		[["imageUpload"], [], []],
+		// 	]
+		// }))
 	], [fields, collapsed]);
 
 	useEffect(() => {
