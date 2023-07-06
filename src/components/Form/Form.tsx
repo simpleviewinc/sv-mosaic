@@ -1,5 +1,5 @@
-import * as React from "react";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import React from "react";
+import { memo, useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { debounce } from "lodash";
 import { StyledForm, StyledContainerForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
@@ -17,7 +17,7 @@ import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 import SideNav, { Item, SideNavArgs } from "../SideNav";
 import { getOuterHeight } from "@root/utils/dom/getOuterHeight";
 import { getInnerHeight } from "@root/utils/dom/getInnerHeight";
-import { getViewportContentOffset } from "@root/utils/dom/getEdgeDifference";
+import { sum } from "@root/utils/math/sum";
 
 const Form = (props: FormProps) => {
 	const {
@@ -86,10 +86,12 @@ const Form = (props: FormProps) => {
 			);
 		}
 
+		// TODO This is always true?
 		if (isMounted) {
 			registerFields();
 		}
 
+		// TODO This is redundant
 		return () => {
 			isMounted = false;
 		}
@@ -156,7 +158,7 @@ const Form = (props: FormProps) => {
 		sections &&
 		sections?.length > 1;
 
-	const registerRef: ((ref: HTMLElement) => () => void) = React.useCallback((ref) => {
+	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
 		sectionRefs.current.push(ref);
 
 		return () => {
@@ -164,20 +166,25 @@ const Form = (props: FormProps) => {
 		}
 	}, []);
 
-	const getScrollActiveSection = React.useCallback((container: HTMLElement) => {
+	const getSectionScrollSegments = useCallback(() => {
+		const sectionHeights = sectionRefs.current.map(ref => getOuterHeight(ref));
+		const totalSectionHeight = sum(sectionHeights);
+		const segments = sectionHeights.reduce((acc, height) => [
+			...acc,
+			(height / totalSectionHeight) + (acc[acc.length - 1] || 0)
+		], []);
+
+		return segments;
+	}, [sectionRefs.current]);
+
+	const getScrollActiveSection = useCallback(() => {
+		const {current: container} = formContentRef;
 		const {scrollTop, scrollHeight} = container;
 
 		const scrollMax = scrollHeight - getInnerHeight(container);
 		const scrolled = scrollTop / scrollMax;
-		const contentSpan = scrollHeight
-			- getViewportContentOffset(container, sectionRefs.current[0], "top")
-			- getViewportContentOffset(container, sectionRefs.current[0], "bottom");
 
-		const sectionHeights = sectionRefs.current.map(ref => getOuterHeight(ref));
-		const segments = sectionHeights.reduce((acc, height) => [
-			...acc,
-			(height / contentSpan) + (acc[acc.length - 1] || 0)
-		], []);
+		const segments = getSectionScrollSegments();
 
 		for (let i = 0; i < segments.length; i++) {
 			const lastPortion = segments[i - 1] || 0;
@@ -189,13 +196,8 @@ const Form = (props: FormProps) => {
 		}
 
 		return 0;
-	}, [sectionRefs.current]);
+	}, [formContentRef.current, sectionRefs.current]);
 
-	/**
-	 * If the Form view is for a big desktop it will create an
-	 * IntersectionObserver the user has scrolled into a section
-	 * and highlighting it.
-	 */
 	useEffect(() => {
 		if (!isBigDesktopWithSections) {
 			return;
@@ -205,7 +207,7 @@ const Form = (props: FormProps) => {
 
 		const onScroll = () => {
 			clearUserActiveSectionDebounced.current();
-			const section = getScrollActiveSection(formContent);
+			const section = getScrollActiveSection();
 
 			setScrollActiveSection(String(section));
 		}
@@ -243,12 +245,25 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
+		const {current: container} = formContentRef;
+		const {scrollHeight} = container;
+
 		setUserActiveSection(args.item.name)
 
-		section.scrollIntoView({
-			behavior: "smooth",
-			block: "start"
-		});
+		const segments = getSectionScrollSegments();
+		const segment = segments[sectionIndex - 1] || 0;
+		const scrollMax = scrollHeight;
+		const top = scrollMax * segment;
+
+		container.scrollTo({ top, behavior: "smooth" })
+
+		// Can't do this - the rules of what's considered "in view" need to match
+		// those used to calculate the current section on scroll
+
+		// section.scrollIntoView({
+		// 	behavior: "smooth",
+		// 	block: "start"
+		// });
 	};
 
 	return (
