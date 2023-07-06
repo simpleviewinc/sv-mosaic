@@ -21,7 +21,6 @@ export default function useScrollSpy({
 		}
 
 		const containerBox = container.getBoundingClientRect();
-
 		for (let i = 0; i < refs.length; i++) {
 			const section = refs[i];
 			const box = section.getBoundingClientRect();
@@ -36,6 +35,11 @@ export default function useScrollSpy({
 
 		return newActiveSection;
 	}, [container, refs]);
+
+	useEffect(() => {
+		const section = getScrollActiveSection();
+		setScrollActiveSection(section);
+	}, [refs])
 
 	useEffect(() => {
 		if (!container) {
