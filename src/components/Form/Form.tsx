@@ -14,7 +14,7 @@ import evaluateShow from "@root/utils/show/evaluateShow";
 import { ButtonProps } from "../Button";
 import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 import SideNav, { Item, SideNavArgs } from "../SideNav";
-import { useScrollSpy } from "@root/utils/hooks/useScrollSpy";
+import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 
 const Form = (props: FormProps) => {
 	const {
