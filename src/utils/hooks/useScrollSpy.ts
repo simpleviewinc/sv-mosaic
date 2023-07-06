@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ScrollSpyProps } from "./ScrollSpyTypes";
+import { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
 import { debounce } from "lodash";
 
-export function useScrollSpy({refs, container}: ScrollSpyProps) {
-	const [scrollActiveSection, setScrollActiveSection] = useState("0");
+export default function useScrollSpy({
+	refs,
+	container,
+	threshold = 0.4
+}: ScrollSpyProps): ScrollSpyResult {
+	const [scrollActiveSection, setScrollActiveSection] = useState<number>(0);
 	const [userActiveSection, setUserActiveSection] = useState<number | null>(null);
 	const activeSection = userActiveSection !== null ? userActiveSection : scrollActiveSection;
 	const isProgramScroll = useRef<boolean>(false);
@@ -22,7 +26,7 @@ export function useScrollSpy({refs, container}: ScrollSpyProps) {
 			const section = refs[i];
 			const box = section.getBoundingClientRect();
 
-			if (box.top > containerBox.top + (containerBox.height / 2)) {
+			if (box.top > containerBox.top + (containerBox.height * threshold)) {
 				break;
 			}
 
@@ -59,7 +63,7 @@ export function useScrollSpy({refs, container}: ScrollSpyProps) {
 			}
 
 			const section = getScrollActiveSection();
-			setScrollActiveSection(String(section));
+			setScrollActiveSection(section);
 		}
 
 		container.addEventListener("scroll", onScroll, {passive: true})
@@ -85,11 +89,6 @@ export function useScrollSpy({refs, container}: ScrollSpyProps) {
 
 	return {
 		activeSection,
-		scrollActiveSection,
-		setScrollActiveSection,
-		setActiveSection,
-		clearIsProgramScrollDebounced,
-		isProgramScroll,
-		getScrollActiveSection
+		setActiveSection
 	}
 }
