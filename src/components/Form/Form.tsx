@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
 import { StyledForm, StyledContainerForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
@@ -33,7 +33,7 @@ const Form = (props: FormProps) => {
 		showActive
 	} = props;
 
-	const sectionRefs = useRef<HTMLElement[]>([]);
+	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
@@ -42,7 +42,7 @@ const Form = (props: FormProps) => {
 		activeSection,
 		setActiveSection,
 	} = useScrollSpy({
-		refs: sectionRefs.current,
+		refs: sectionRefs,
 		container: formContentRef.current
 	});
 
@@ -153,10 +153,10 @@ const Form = (props: FormProps) => {
 		sections?.length > 1;
 
 	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
-		sectionRefs.current.push(ref);
+		setSectionRefs(refs => [...refs, ref]);
 
 		return () => {
-			sectionRefs.current = sectionRefs.current.filter(r => r !== ref);
+			setSectionRefs(refs => refs.filter(r => r !== ref));
 		}
 	}, []);
 
