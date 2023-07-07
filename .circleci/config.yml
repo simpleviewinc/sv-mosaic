@@ -90,35 +90,6 @@ jobs:
               sv-mosaic \
               sh -c "ssh-keyscan github.com >> ~/.ssh/known_hosts && ls -la /root/.ssh"
 
-# workflows:
-#   build:
-#     jobs:
-#       - build:
-#           context: default
-#           filters:
-#             branches:
-#               only:
-#                 - develop
-#                 - /pull.*/
-#       - unit_tests:
-#           context: default
-#           requires:
-#             - build
-#           filters:
-#             branches:
-#               only:
-#                 - develop
-#                 - /pull.*/
-#       - storybook:
-#           context: default
-#           filters:
-#             branches:
-#               only:
-#                 - develop
-#                 - /pull.*/
-#           requires:
-#             - unit_tests
-
 workflows:
   build:
     jobs:
