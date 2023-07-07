@@ -1,11 +1,11 @@
 CONTAINER_ID=$( \
     docker container create \
-    -it \
+    -t \
     --name sv-mosaic \
     sv-mosaic \
 )
 
-docker container start -i sv-mosaic
+docker container start sv-mosaic
 
 EXPORT_STRING="export CONTAINER_ID=${CONTAINER_ID}"
 
