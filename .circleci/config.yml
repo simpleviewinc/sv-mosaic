@@ -45,6 +45,7 @@ jobs:
           root: ~/project
           paths:
             - sv_mosaic_build.tar
+            - scripts
   unit_tests:
     docker:
       - image: cimg/base:2021.04
