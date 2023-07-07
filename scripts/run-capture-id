@@ -1,6 +1,6 @@
 CONTAINER_ID=$( \
     docker container create \
-    \ -it
+    -it \
     --name sv-mosaic \
     sv-mosaic \
 )
