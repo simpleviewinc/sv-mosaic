@@ -731,12 +731,9 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 				},
 				{
 					name: "text4",
-					label: "Multiline text that receives copy",
+					label: "Text that receives copy",
 					type: "text",
-					instructionText: "Instruction text text1",
-					inputSettings: {
-						multiline: true
-					}
+					instructionText: "Instruction text text1"
 				},
 				{
 					name: "color",
@@ -814,34 +811,9 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			collapsed,
 			fields: [
 				// row 1
-				// row 1
-				[["text1"], ["text2"], []],
-				// row 2
-				[["text3"], ["text4"], ["color"]],
-				// row 1
-				[["text1"], ["text2"], []],
-				// row 2
-				[["text3"], ["text4"], ["color"]],
-			]
-		},
-		{
-			title: "Section 4",
-			description: "Description for section 3",
-			collapsed,
-			fields: [
-				// row 1
 				[["imageUpload"], [], []],
 			]
 		},
-		// ...Array.from(Array(10).keys()).map((_, i) => ({
-		// 	title: `Section ${i}`,
-		// 	description: `Description for section ${i}`,
-		// 	collapsed,
-		// 	fields: [
-		// 		// row 1
-		// 		[["imageUpload"], [], []],
-		// 	]
-		// }))
 	], [fields, collapsed]);
 
 	useEffect(() => {
@@ -1458,6 +1430,123 @@ export const DefaultValues = (): ReactElement => {
 					title='Validators story'
 					state={state}
 					fields={fields}
+					dispatch={dispatch}
+				/>
+			</div>
+		</>
+	);
+};
+
+
+export const VaryingSections = (): ReactElement => {
+	const { state, dispatch } = useForm();
+
+	useEffect(() => {
+		document.body.style.margin = "0px";
+
+		return () => {
+			document.body.style.margin = ORIGINAL_BODY_MARGIN;
+		}
+	}, []);
+
+	const showState = boolean("Show state", false);
+
+	const fields = useMemo(
+		() : FieldDef[] =>
+			[
+				{
+					name: "field",
+					label: "Field",
+					type: "text"
+				}
+			],
+		[]
+	);
+
+
+
+	const sections = useMemo(() => [
+		{
+			title: "Section 1",
+			description: "Description for section 1",
+			collapsed: true,
+			fields: [
+				// row 1
+				[["field"]],
+				[["field"]],
+			]
+		},
+		{
+			title: "Section 2",
+			description: "Description for section 2",
+			collapsed: false,
+			fields: [
+				// row 1
+				[["field"]]
+			]
+		},
+		{
+			title: "Section 3",
+			description: "Description for section 3",
+			collapsed: false,
+			fields: [
+				// row 1
+				[["field"]],
+				[["field"]],
+				[["field"]],
+				[["field"]],
+				[["field"]],
+			]
+		},
+		...Array(10).fill(null).map((_, i) => ({
+			title: `Section ${i + 4}`,
+			description: `Description for section ${i + 4}`,
+			collapsed: true,
+			fields: [
+				// row 1
+				[["field"]],
+				[["field"]],
+				[["field"]],
+				[["field"]],
+				[["field"]],
+			]
+		})),
+		{
+			title: "Section 14",
+			description: "Description for section 14",
+			collapsed: false,
+			fields: [
+				// row 1
+				[["field"]],
+				[["field"]],
+				[["field"]],
+				[["field"]],
+				[["field"]],
+			]
+		},
+		{
+			title: "Section 15",
+			description: "Description for section 15",
+			collapsed: false,
+			fields: [
+				// row 1
+				[["field"]],
+			]
+		},
+	], []);
+
+	return (
+		<>
+			{
+				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+			}
+			<div style={{height: "100vh"}}>
+				<Form
+					buttons={renderButtons(dispatch)}
+					title='Varying Sections'
+					state={state}
+					fields={fields}
+					sections={sections}
 					dispatch={dispatch}
 				/>
 			</div>

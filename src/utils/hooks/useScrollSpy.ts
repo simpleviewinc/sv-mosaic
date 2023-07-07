@@ -60,6 +60,7 @@ export default function useScrollSpy({
 		}
 
 		const onScroll = () => {
+			console.log("on scroll");
 			clearIsProgramScrollDebounced.current();
 
 			if (!isProgramScroll.current) {
