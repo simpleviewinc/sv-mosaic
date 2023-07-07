@@ -5,6 +5,8 @@ CONTAINER_ID=$( \
     sv-mosaic \
 )
 
+docker container start $CONTAINER_ID
+
 EXPORT_STRING="export CONTAINER_ID=${CONTAINER_ID}"
 
 echo "${EXPORT_STRING}"
