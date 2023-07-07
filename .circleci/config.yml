@@ -71,8 +71,8 @@ jobs:
       #       -v /home/circleci/project/reports:/app/reports \
       #       sv-mosaic \
       #       sh -c "yarn test:ci && pwd && ls -la reports"
-      # - store_test_results:
-      #     path: ./reports/
+      - store_test_results:
+          path: ./reports/
   storybook:
     docker:
       - image: cimg/base:2021.04
