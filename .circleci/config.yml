@@ -1,21 +1,4 @@
 version: 2.1
-orbs:
-  node: circleci/node@5.0.2
-
-commands:
-  load_mosaic_image:
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 20.10.14
-      - run:
-          name: Load Mosaic Docker image
-          command: |
-            docker load \
-            -i \
-            sv_mosaic_build.tar
 
 jobs:
   public_build:
@@ -29,18 +12,11 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: Build Mosaic Docker image
-          command: |
-            DOCKER_BUILDKIT=1 \
-            docker build \
-            -t "sv-mosaic" \
-            .
+          name: Build public image
+          command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
       - run:
-          name: Save Mosaic Docker image
-          command: |
-            docker save \
-            -o sv_mosaic_build.tar \
-            sv-mosaic
+          name: Save public image
+          command: docker save -o sv_mosaic_build.tar sv-mosaic
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -51,9 +27,16 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: large
     steps:
-      - load_mosaic_image
+      - attach_workspace:
+          at: ~/project
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
       - run:
-          name: Spin up container
+          name: Load public image
+          command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: Spin up sub-container
           command: chmod +x ./scripts/run-capture-id && ./scripts/run-capture-id
       - run:
           name: Run tests
@@ -61,35 +44,8 @@ jobs:
       - run:
           name: Extract reports
           command: docker cp $CONTAINER_ID:/app/reports ~/reports
-      - run:
-          name: List reports dir
-          command: ls -la ~/reports
-      # - run:
-      #     name: Spin up container and run unit tests
-      #     command: |
-      #       docker run \
-      #       -v /home/circleci/project/reports:/app/reports \
-      #       sv-mosaic \
-      #       sh -c "yarn test:ci && pwd && ls -la reports"
       - store_test_results:
-          path: ./reports/
-  storybook:
-    docker:
-      - image: cimg/base:2021.04
-    resource_class: large
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50"
-      - load_mosaic_image
-      - run:
-          name: Spin up container
-          command: |
-            docker run \
-              -v ~/.ssh:/root/.ssh \
-              -e CIRCLE_BRANCH=${CIRCLE_BRANCH} \
-              sv-mosaic \
-              sh -c "ssh-keyscan github.com >> ~/.ssh/known_hosts && ls -la /root/.ssh"
+          path: ~/reports
 
 workflows:
   build:
@@ -110,11 +66,3 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-      - storybook:
-          context: default
-          requires:
-            - public_build
-          filters:
-            branches:
-              only:
-                - develop
