@@ -1,6 +1,6 @@
 # sv-mosaic changelog
 
-## 25.0.0 - 07/10/23
+## 25.0.0 - 07/11/23
 * `DataView`:
 	* Reduced font weight of the bold-styled column type to keep consistency from `bold` to `500`
 * `FormFieldText`:
