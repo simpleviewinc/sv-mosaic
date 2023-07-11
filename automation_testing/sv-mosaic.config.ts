@@ -2,7 +2,7 @@ import { PlaywrightTestConfig } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
 
-	testDir: "tests/Components/RadioButton",
+	testDir: "tests",
 	use: {
 		headless: true,
 		viewport: { width: 1280, height: 720 },
