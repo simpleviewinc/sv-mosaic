@@ -115,6 +115,17 @@ jobs:
           command: yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
+  publish:
+    docker:
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
+    working_directory: /app
+    steps:
+      - run:
+          name: Publish to NPM
+          command: yarn run ci:publish
 
 workflows:
   build:
@@ -126,12 +137,17 @@ workflows:
               only:
                 - develop
                 - /pull.*/
+                - ci-testing
       - private_build:
           context: default
           filters:
             branches:
               only:
                 - develop
+                - ci-testing
+                - qa
+                - staging
+                - master
       - unit_tests:
           context: default
           requires:
@@ -141,6 +157,7 @@ workflows:
               only:
                 - develop
                 - /pull.*/
+                - ci-testing
       - e2e_tests:
           context: default
           requires:
@@ -150,6 +167,7 @@ workflows:
               only:
                 - develop
                 - /pull.*/
+                - ci-testing
       - storybook:
           context: default
           requires:
@@ -160,3 +178,20 @@ workflows:
             branches:
               only:
                 - develop
+                - ci-testing
+                - qa
+                - staging
+                - master
+      - publish:
+          context: default
+          requires:
+            - unit_tests
+            - e2e_tests
+            - private_build
+          filters:
+            branches:
+              only:
+                - ci-testing
+                - qa
+                - staging
+                - master
