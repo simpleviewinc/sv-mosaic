@@ -51,6 +51,7 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: large
     steps:
+      - checkout
       # - attach_workspace:
       #     at: ~/project
       # - setup_remote_docker:
