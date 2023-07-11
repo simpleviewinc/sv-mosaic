@@ -11,8 +11,4 @@ services:
   e2e:
     container_name: sv-mosaic-e2e
     image: mcr.microsoft.com/playwright:v1.27.1
-    command: tail -F anything
-    volumes:
-      - ./:/app/automation_testing
-      - ../src/theme:/app/src/theme
     working_dir: /app
