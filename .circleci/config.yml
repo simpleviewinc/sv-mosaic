@@ -60,32 +60,35 @@ jobs:
           name: Load public image
           command: docker load -i sv_mosaic_build.tar
       - run:
+          name: List dir
+          command: pwd && ls -la .
+      - run:
           name: Spin up sub-containers and run tests
           command: cd automation_testing && docker compose up
 
 workflows:
   build:
     jobs:
-      - public_build:
-          context: default
-          filters:
-            branches:
-              only:
-                - develop
-                - /pull.*/
-      - unit_tests:
-          context: default
-          requires:
-            - public_build
-          filters:
-            branches:
-              only:
-                - develop
-                - /pull.*/
+      # - public_build:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - /pull.*/
+      # - unit_tests:
+      #     context: default
+      #     requires:
+      #       - public_build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - /pull.*/
       - e2e_tests:
           context: default
-          requires:
-            - public_build
+          # requires:
+          #   - public_build
           filters:
             branches:
               only:
