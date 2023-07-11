@@ -1,45 +1,28 @@
 version: 2.1
-workflows:
-  build:
-    jobs:
-      - build:
-          context: default
-          filters:
-            branches:
-              only:
-                - develop
-                - master
-                - qa
-                - staging
-                - /pull.*/
-      - publish:
-          context: default
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - qa
-                - staging
-                - master
-      - storybook:
-          context: default
-          requires:
-            - build
-      - unit_tests:
-          context: default
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - /pull.*/
 
-orbs:
-  slack: circleci/slack@4.4.0
 jobs:
-  build:
+  public_build:
+    docker:
+      - image: cimg/base:2021.04
+        name: build
+    resource_class: large
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
+      - run:
+          name: Build public image
+          command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
+      - run:
+          name: Save public image
+          command: docker save -o sv_mosaic_build.tar sv-mosaic
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - sv_mosaic_build.tar
+            - scripts
+  private_build:
     docker:
       - image: cimg/base:2021.04
     steps:
@@ -58,17 +41,60 @@ jobs:
             docker pull $IMAGE || true
             DOCKER_BUILDKIT=1 docker build -t $IMAGE --cache-from $IMAGE .
             docker push $IMAGE
-  publish:
+  unit_tests:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
-        auth:
-          username: _json_key
-          password: $GCLOUD_SERVICE_KEY
-    working_directory: /app
+      - image: cimg/base:2021.04
+    resource_class: large
     steps:
+      - attach_workspace:
+          at: ~/project
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
       - run:
-          name: Publish to NPM
-          command: yarn run ci:publish
+          name: Load public image
+          command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: Spin up sub-container
+          command: chmod +x ./scripts/run-capture-id && ./scripts/run-capture-id
+      - run:
+          name: Run tests
+          command: docker exec $CONTAINER_ID yarn test:ci
+      - run:
+          name: Extract reports
+          command: docker cp $CONTAINER_ID:/app/reports ~/reports
+      - store_test_results:
+          path: ~/reports
+  e2e_tests:
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: large
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
+      - run:
+          name: Load public image
+          command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: Spin up test containers
+          command: cd automation_testing && docker-compose up --detach
+      - run:
+          name: Copy tests to container
+          command: |
+            docker cp ./automation_testing sv-mosaic-e2e:/app/automation_testing
+            docker exec sv-mosaic-e2e chmod +x automation_testing/scripts/try-storybook
+            docker exec sv-mosaic-e2e mkdir /app/src
+            docker cp ./src/theme sv-mosaic-e2e:/app/src/theme
+      - run:
+          name: List dir
+          command: docker exec sv-mosaic-e2e ls -la ./automation_testing
+      - run:
+          name: Run tests
+          command: docker exec sv-mosaic-e2e ./automation_testing/scripts/try-storybook
   storybook:
     docker:
       - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
@@ -89,15 +115,48 @@ jobs:
           command: yarn run ci:storybook
           environment:
             NODE_DEBUG: gh-pages
-  unit_tests:
-    docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
-        auth:
-          username: _json_key
-          password: $GCLOUD_SERVICE_KEY
-    resource_class: large
-    working_directory: /app
-    steps:
-      - run:
-          name: Unit tests
-          command: yarn test
+
+workflows:
+  build:
+    jobs:
+      - public_build:
+          context: default
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
+      - private_build:
+          context: default
+          filters:
+            branches:
+              only:
+                - develop
+      - unit_tests:
+          context: default
+          requires:
+            - public_build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
+      - e2e_tests:
+          context: default
+          requires:
+            - public_build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
+      - storybook:
+          context: default
+          requires:
+            - unit_tests
+            - e2e_tests
+            - private_build
+          filters:
+            branches:
+              only:
+                - develop
