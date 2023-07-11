@@ -11,7 +11,11 @@ const gapMap: Record<ButtonRowProps["gap"], string> = {
 export const Row = styled.div`
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
+
+	${({wrap}) => wrap && `
+		flex-wrap: wrap;
+	`}
+
 `;
 
 export const Item = styled.div`

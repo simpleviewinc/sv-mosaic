@@ -6,4 +6,5 @@ export interface ButtonRowProps {
 	className?: string
 	separator?: boolean
 	gap?: "small" | "large"
+	wrap?: boolean
 }
