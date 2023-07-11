@@ -65,7 +65,7 @@ jobs:
           command: pwd && ls -la .
       - run:
           name: Spin up sub-containers and run tests
-          command: cd automation_testing && docker compose up
+          command: cd automation_testing && docker-compose up
 
 workflows:
   build:
