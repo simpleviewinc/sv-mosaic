@@ -52,14 +52,14 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      # - attach_workspace:
-      #     at: ~/project
-      # - setup_remote_docker:
-      #     docker_layer_caching: true
-      #     version: 20.10.14
-      # - run:
-      #     name: Load public image
-      #     command: docker load -i sv_mosaic_build.tar
+      - attach_workspace:
+          at: ~/project
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
+      - run:
+          name: Load public image
+          command: docker load -i sv_mosaic_build.tar
       - run:
           name: List dir
           command: pwd && ls -la .
@@ -70,26 +70,26 @@ jobs:
 workflows:
   build:
     jobs:
-      # - public_build:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - /pull.*/
-      # - unit_tests:
-      #     context: default
-      #     requires:
-      #       - public_build
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - /pull.*/
+      - public_build:
+          context: default
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
+      - unit_tests:
+          context: default
+          requires:
+            - public_build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
       - e2e_tests:
           context: default
-          # requires:
-          #   - public_build
+          requires:
+            - public_build
           filters:
             branches:
               only:
