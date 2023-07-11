@@ -65,7 +65,10 @@ jobs:
           command: cd automation_testing && docker-compose up --detach
       - run:
           name: List dir
-          command: docker exec sv-mosaic-e2e ls -la
+          command: docker exec sv-mosaic-e2e ls -la ./automation_testing
+      - run:
+          name: Run tests
+          command: docker exec sv-mosaic-e2e ./automation_testing/scripts/try-storybook
 
 workflows:
   build:
