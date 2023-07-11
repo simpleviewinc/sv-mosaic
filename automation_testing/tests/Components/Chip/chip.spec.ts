@@ -12,10 +12,6 @@ test.describe.parallel("Components - Chip - Kitchen Sink", () => {
 		await chipPage.visit(chipPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Chip has simplyGold background.", async () => {
 		const expectedColor = theme.newColors.simplyGold["100"];
 		const expectedDisabledBgColor = theme.newColors.simplyGold["60"];

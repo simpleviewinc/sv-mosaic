@@ -16,10 +16,6 @@ test.describe.parallel("Components - Checkbox - Example", () => {
 		await checkboxPage.visit(checkboxPage.checkboxlist_page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate the color in the checkbox label.", async () => {
 		const numberOfLabels = await checkboxPage.checkboxLabel.count();
 		for (let i = 0; i < numberOfLabels; i++) {

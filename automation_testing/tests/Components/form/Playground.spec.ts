@@ -16,10 +16,6 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.visit(playgroundPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate error messages when saving with empty required fields", async () => {
 		await playgroundPage.saveBtn.click();
 		await playgroundPage.wait();

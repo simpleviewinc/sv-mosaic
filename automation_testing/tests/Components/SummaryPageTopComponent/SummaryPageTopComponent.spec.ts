@@ -13,10 +13,6 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		await summaryPage.visit(summaryPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Star has simplyGold color.", async () => {
 		await summaryPage.starRateIcon.waitFor();
 		expect(await summaryPage.getColorFromElement(summaryPage.starRateIcon)).toBe(theme.newColors.grey3["100"]);

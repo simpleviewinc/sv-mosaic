@@ -18,10 +18,6 @@ test.describe.parallel("Components - Data View - Playground", () => {
 		await page.reload();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	async function getNumberOfResultVisible() {
 		return Number(await dataviewPage.paginationComponent.resultAmount.textContent());
 	}
