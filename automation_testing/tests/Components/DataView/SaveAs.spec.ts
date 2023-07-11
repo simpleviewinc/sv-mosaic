@@ -23,10 +23,6 @@ test.describe.parallel("Components - Data View - Save As", () => {
 		await saveAs.removeAllSavedViews();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("New View", async () => {
 		await saveAs.saveAsBtn.click();
 		await saveAs.selectSaveAsOption(1);

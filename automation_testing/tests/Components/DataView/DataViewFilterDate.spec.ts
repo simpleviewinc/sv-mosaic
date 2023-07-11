@@ -12,10 +12,6 @@ test.describe.parallel("Components - DataViewFilterDate - Playground", () => {
 		dvFilterDate = new DataViewFilterDateComponent(page);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate Dataview Filter Date select pre filled values.", async () => {
 		await dvFilterDate.visit(dvFilterDate.page_path, [commonKnobs.knobShowOptions + "true"]);
 		await dvFilterDate.dateFilterButton.click();

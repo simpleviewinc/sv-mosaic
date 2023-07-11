@@ -19,10 +19,6 @@ test.describe.parallel("Components - Form - Validators", () => {
 		await page.reload();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate Error when saving with empty mandatory fields.", async () => {
 		const required = validatorPage.requiredTitle;
 		expect(await required.isVisible()).toBe(true);

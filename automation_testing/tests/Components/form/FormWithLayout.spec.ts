@@ -15,10 +15,6 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		await formWithLayoutPage.wait();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate that each Section has a Title", async () => {
 		const expectedNumberOfTitles = await formWithLayoutPage.getNumberOfSectionsFromTopComponent();
 		const numberOfSections = await formWithLayoutPage.getNumberOfSections();

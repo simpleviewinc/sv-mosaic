@@ -12,10 +12,6 @@ test.describe.parallel("Components - DataViewFilterMultiSelect - Kitchen Sink", 
 		await multiSelectComponent.visit(multiSelectComponent.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	async function validateSelectedOption(comparisonLocator: Locator) {
 		const optionLocator = multiSelectComponent.page.locator(multiSelectComponent.checkboxInputString).first();
 		const optionSelected = await optionLocator.textContent();
