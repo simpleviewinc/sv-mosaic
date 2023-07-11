@@ -62,7 +62,7 @@ jobs:
           command: docker load -i sv_mosaic_build.tar
       - run:
           name: Spin up test containers
-          command: cd automation_testing && docker-compose up
+          command: cd automation_testing && docker-compose up --detach
       - run:
           name: List dir
           command: docker exec sv-mosaic-e2e ls -la
