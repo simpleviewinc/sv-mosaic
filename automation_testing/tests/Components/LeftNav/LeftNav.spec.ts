@@ -13,10 +13,6 @@ test.describe.parallel("Components - LeftNav - Example", () => {
 		await leftNavPage.visit(leftNavPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate static element", async () => {
 		const lastItem = await leftNavPage.getLastItem();
 		expect(await lastItem.textContent()).toBe(leftnav_data.staticItem);

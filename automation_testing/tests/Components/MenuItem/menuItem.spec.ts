@@ -12,10 +12,6 @@ test.describe.parallel("Components - MenuItem - With Icon", () => {
 		await menuItemPage.visit(menuItemPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Icon has darkRed color.", async () => {
 		const expectColor = theme.newColors.darkRed["100"];
 		expect(await menuItemPage.getColorFromElement(menuItemPage.deleteIcon)).toBe(expectColor);

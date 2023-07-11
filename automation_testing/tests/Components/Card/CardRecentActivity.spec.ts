@@ -12,10 +12,6 @@ test.describe.parallel("Components - Card - Recent Activity", () => {
 		await cardPage.visit(cardPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate activity description has grey4 as color.", async () => {
 		for (let i = 3; i < await cardPage.activityLocator.count(); i++) {
 			expect(await cardPage.getColorFromElement(cardPage.activityLocator.nth(i))).toBe(theme.newColors.grey4["100"]);

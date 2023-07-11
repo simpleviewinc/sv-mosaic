@@ -12,10 +12,6 @@ test.describe.parallel("Components - SnackBarPage - Example", () => {
 		await snackbarPage.visit(snackbarPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate SnackBar button has almostBlack text color.", async () => {
 		const expectColor = theme.newColors.almostBlack["100"];
 		expect(await snackbarPage.getColorFromElement(snackbarPage.openSnackbarButton)).toBe(expectColor);

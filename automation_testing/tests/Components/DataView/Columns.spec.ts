@@ -24,10 +24,6 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		await page.reload();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate Default Columns Information", async () => {
 		await columns.columnsBtn.click();
 		expect(await columns.columnDrawerTitle.textContent()).toBe(columns_data.columnsTitle);
