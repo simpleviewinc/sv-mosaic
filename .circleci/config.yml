@@ -46,6 +46,22 @@ jobs:
           command: docker cp $CONTAINER_ID:/app/reports ~/reports
       - store_test_results:
           path: ~/reports
+  e2e_tests:
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: large
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
+      - run:
+          name: Load public image
+          command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: Spin up sub-containers and run tests
+          command: cd automation_testing && docker compose up
 
 workflows:
   build:
@@ -58,6 +74,15 @@ workflows:
                 - develop
                 - /pull.*/
       - unit_tests:
+          context: default
+          requires:
+            - public_build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
+      - e2e_tests:
           context: default
           requires:
             - public_build
