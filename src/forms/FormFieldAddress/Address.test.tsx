@@ -239,8 +239,10 @@ describe("Regular Address component", () => {
 	it("should edit an address card and disable ADD ADDRESS button", async () => {
 		await addNewAddress();
 
-		const saveButton = getByText("Save");
-		fireEvent.click(saveButton);
+		await act(async () => {
+			const saveButton = getByText("Save");
+			fireEvent.click(saveButton);
+		});
 
 		await waitFor(() => {
 			expect(queryAllByTestId("address-card-test").length).toBe(1);
@@ -285,8 +287,9 @@ describe("Regular Address component", () => {
 			fireEvent.click(addressTypes[2]);
 		});
 
-
-		fireEvent.click(getByText("Save"));
+		await act(async () => {
+			fireEvent.click(getByText("Save"));
+		});
 
 		await waitFor(() => {
 			expect(getByText("Address edited")).toBeTruthy();
