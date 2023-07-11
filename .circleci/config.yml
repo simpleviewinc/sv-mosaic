@@ -22,6 +22,25 @@ jobs:
           paths:
             - sv_mosaic_build.tar
             - scripts
+  private_build:
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
+      - run:
+          name: Docker build
+          command: |
+            docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
+            docker pull $IMAGE || true
+            DOCKER_BUILDKIT=1 docker build -t $IMAGE --cache-from $IMAGE .
+            docker push $IMAGE
   unit_tests:
     docker:
       - image: cimg/base:2021.04
@@ -76,6 +95,26 @@ jobs:
       - run:
           name: Run tests
           command: docker exec sv-mosaic-e2e ./automation_testing/scripts/try-storybook
+  storybook:
+    docker:
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
+    resource_class: large
+    working_directory: /app
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - run:
+          name: Add github to known_hosts
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Publish storybook
+          command: yarn run ci:storybook
+          environment:
+            NODE_DEBUG: gh-pages
 
 workflows:
   build:
@@ -87,15 +126,21 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-      # - unit_tests:
-      #     context: default
-      #     requires:
-      #       - public_build
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - /pull.*/
+      - private_build:
+          context: default
+          filters:
+            branches:
+              only:
+                - develop
+      - unit_tests:
+          context: default
+          requires:
+            - public_build
+          filters:
+            branches:
+              only:
+                - develop
+                - /pull.*/
       - e2e_tests:
           context: default
           requires:
@@ -105,3 +150,13 @@ workflows:
               only:
                 - develop
                 - /pull.*/
+      - storybook:
+          context: default
+          requires:
+            - unit_tests
+            - e2e_tests
+            - private_build
+          filters:
+            branches:
+              only:
+                - develop
