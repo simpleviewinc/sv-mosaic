@@ -66,8 +66,8 @@ jobs:
       - run:
           name: Copy tests to container
           command: |
-            docker cp ./automation_testing sv-mosaic-e2e:/app/automation_testing \
-            docker exec sv-mosaic-e2e mkdir /app/src \
+            docker cp ./automation_testing sv-mosaic-e2e:/app/automation_testing
+            docker exec sv-mosaic-e2e mkdir /app/src
             docker cp ./src/theme sv-mosaic-e2e:/app/src/theme
       - run:
           name: List dir
