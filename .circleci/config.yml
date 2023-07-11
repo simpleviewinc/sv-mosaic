@@ -62,10 +62,7 @@ jobs:
           command: docker load -i sv_mosaic_build.tar
       - run:
           name: List dir
-          command: pwd && ls -la .
-      - run:
-          name: Spin up sub-containers and run tests
-          command: cd automation_testing && docker-compose up
+          command: docker exec sv-mosaic-e2e ls -la
 
 workflows:
   build:
