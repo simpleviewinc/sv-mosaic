@@ -128,7 +128,7 @@ export const Playground = (): ReactElement => {
 			mIcon: EditIcon,
 			color: "gray",
 			variant: "icon",
-			show: showButtons !== "undefined" && Number(showButtons) >= 1,
+			show: [showButtons !== "undefined", Number(showButtons) >= 1],
 			onClick: function () {
 				alert("Edit button clicked");
 			}
@@ -139,7 +139,7 @@ export const Playground = (): ReactElement => {
 			variant: "text",
 			label: showMore ? "Less Details" : "More Details",
 			onClick: showDetails,
-			show: [showButtons !== "undefined" && Number(showButtons) >= 2],
+			show: [showButtons !== "undefined", Number(showButtons) >= 2],
 		},
 	]
 
