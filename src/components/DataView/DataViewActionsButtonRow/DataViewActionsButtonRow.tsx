@@ -90,7 +90,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	}
 
 	return (
-		<ButtonRow>
+		<ButtonRow gap="small">
 			{buttons}
 		</ButtonRow>
 	)
