@@ -31,8 +31,8 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		onBack,
 		tooltipInfo,
 		sections,
-		sectionsRefs,
-		formContentRef,
+		activeSection,
+		onSectionSelect
 	} = props;
 
 	// State variables
@@ -78,7 +78,6 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 	const desktopView = (
 		<DesktopView
 			ref={ref}
-			sectionsRefs={sectionsRefs}
 			title={title}
 			onBack={onBack}
 			description={description}
@@ -89,7 +88,8 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 			buttons={buttons}
 			sections={sections}
 			view={view === Views.bigDesktop ? Views.bigDesktop : Views.desktop}
-			formContentRef={formContentRef}
+			activeSection={activeSection}
+			onSectionSelect={onSectionSelect}
 		/>
 	);
 
