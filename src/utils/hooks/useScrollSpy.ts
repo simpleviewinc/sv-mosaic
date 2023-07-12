@@ -9,9 +9,11 @@ export default function useScrollSpy({
 }: ScrollSpyProps): ScrollSpyResult {
 	const [scrollActiveSection, setScrollActiveSection] = useState<number>(0);
 	const [userActiveSection, setUserActiveSection] = useState<number | null>(null);
-	const activeSection = userActiveSection !== null ? userActiveSection : scrollActiveSection;
+
 	const isProgramScroll = useRef<boolean>(false);
 	const clearIsProgramScrollDebounced = useRef(debounce(() => (isProgramScroll.current = false), 100));
+
+	const activeSection = userActiveSection !== null ? userActiveSection : scrollActiveSection;
 
 	const getScrollActiveSection = useCallback(() => {
 		let newActiveSection = 0;
@@ -34,7 +36,7 @@ export default function useScrollSpy({
 		}
 
 		return newActiveSection;
-	}, [container, refs]);
+	}, [container, refs, threshold]);
 
 	useEffect(() => {
 		const section = getScrollActiveSection();
@@ -60,7 +62,6 @@ export default function useScrollSpy({
 		}
 
 		const onScroll = () => {
-			console.log("on scroll");
 			clearIsProgramScrollDebounced.current();
 
 			if (!isProgramScroll.current) {
