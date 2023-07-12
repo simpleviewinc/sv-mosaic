@@ -125,6 +125,7 @@ export const KitchenSink = (): ReactElement => {
 
 	return (
 		<>
+			<pre>{Object.keys(state.data).map((key, index) => <div key={index}>{key}: {state.data[key] && state.data[key].toString()}</div>)}</pre>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
