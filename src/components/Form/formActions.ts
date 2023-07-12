@@ -1,6 +1,5 @@
 import { MosaicObject } from "@root/types";
 import { mapsValidators, required, Validator } from "./validators";
-import evaluateShow from "@root/utils/show/evaluateShow";
 
 async function runValidators(
 	validators: Validator[],
@@ -75,6 +74,12 @@ export const formActions = {
 	},
 	validateField({ name }: { name: string }) {
 		return async function (dispatch, getState, extraArgs): Promise<void> {
+			const {data, mounted} = getState();
+
+			if (!mounted[name]) {
+				return;
+			}
+
 			/**
 			 * We dispatch an undefined so that way, if by any reason
 			 * the field had an error message and then became disabled,
@@ -101,17 +106,6 @@ export const formActions = {
 			}
 
 			const validatorsMap = mapsValidators(validators);
-
-			const data = getState().data;
-
-			if (!evaluateShow(extraArgs?.fieldMap[name]?.show, {data})) {
-				await dispatch({
-					type: "FIELD_VALIDATE",
-					name,
-					value: undefined
-				});
-				return;
-			}
 
 			const startValue = getState().data[name];
 			const result = await runValidators(validatorsMap, startValue, data);
@@ -239,7 +233,23 @@ export const formActions = {
 				value: disabled,
 			});
 		}
-	}
+	},
+	mountField({ name }: { name: string }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: "MOUNT_FIELD",
+				name
+			})
+		}
+	},
+	unmountField({ name }: { name: string }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: "UNMOUNT_FIELD",
+				name
+			})
+		}
+	},
 };
 
 export default formActions;
