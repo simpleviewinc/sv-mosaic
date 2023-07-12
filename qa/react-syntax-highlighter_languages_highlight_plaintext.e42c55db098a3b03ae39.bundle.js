@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[121],{2668:function(module,exports){module.exports=function(hljs){return{disableAutodetect:!0}}}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_plaintext.e42c55db098a3b03ae39.bundle.js.map
