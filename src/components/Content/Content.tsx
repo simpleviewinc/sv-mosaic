@@ -11,18 +11,17 @@ import {
 	MainWrapper,
 	TitleWrapper,
 	Title,
-	ButtonsWrapper,
 	Label,
 	FieldContainer,
 	TransformContainer,
 	ContentRow,
 } from "./Content.styled";
-import Button from "@root/components/Button";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import Blank from "@root/components/Blank";
+import ButtonRow from "../ButtonRow/ButtonRow";
 
 const Content = (props: ContentProps): ReactElement => {
-	const { fields, data, sections, title, buttons, variant } = props;
+	const { fields, data, sections, title, buttons = [], variant } = props;
 
 	const cardVariant = variant === "card" ? true : false;
 
@@ -139,14 +138,11 @@ const Content = (props: ContentProps): ReactElement => {
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
-				{buttonToRender && (buttonToRender.length > 0) && (
-					<ButtonsWrapper
-						className={cardVariant ? "card-buttons" : "standard-buttons"}
-					>
-						{buttonToRender?.map((button, idx) =>
-							<Button key={`${button.label}-${idx}`} {...button} />
-						)}
-					</ButtonsWrapper>
+				{buttonToRender.length > 0 && (
+					<ButtonRow
+						buttons={buttonToRender}
+						separator={!cardVariant}
+					/>
 				)}
 			</TitleWrapper>
 			<div className={cardVariant ? "card-content" : ""}>

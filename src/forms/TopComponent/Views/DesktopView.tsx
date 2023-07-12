@@ -3,7 +3,6 @@ import { memo, ReactElement, forwardRef } from "react";
 
 // Components
 import FormNav from "@root/forms/FormNav";
-import Button from "@root/components/Button";
 
 // Styled components
 import styled from "styled-components";
@@ -17,13 +16,10 @@ import TitleWrapper from "../Utils/TitleWrapper";
 import { BaseTopComponentProps, TopComponentProps } from "../TopComponentTypes";
 import { Views } from "@root/theme/theme";
 import { TitleRow } from "./Views.styled";
+import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 
 const DesktopActionsRow = styled(FlexContainer)`
   align-items: flex-start;
-
-  button:last-child {
-    margin-left: 20px;
-  }
 
   .MuiFormControlLabel-root {
     margin-right: 20px;
@@ -65,9 +61,9 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 				<DesktopActionsRow>
 					{tooltipInfo && helpIcon}
 					{showActive && checkbox}
-					{buttons && buttons.map((button, idx) => (
-						<Button key={`${button.label}-${idx}`} {...button}/>
-					))}
+					{buttons && (
+						<ButtonRow buttons={buttons} />
+					)}
 				</DesktopActionsRow>
 			</FlexContainer>
 			{(view !== Views.bigDesktop && sections) && (
