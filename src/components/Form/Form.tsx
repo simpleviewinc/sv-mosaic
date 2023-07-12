@@ -203,20 +203,20 @@ const Form = (props: FormProps) => {
 							sections={sections}
 							view={view}
 							buttons={filteredButtons}
-							// sectionsRefs={sectionsRefs}
-							formContentRef={formContentRef}
+							activeSection={activeSection}
 							tooltipInfo={tooltipInfo}
 							showActive={showActive}
+							onSectionSelect={setActiveSection}
 						/>
 						}
 						{isBigDesktopWithSections ? (
 							<Row className={view}>
 								{sections &&
-								<SideNav
-									items={[items]}
-									active={String(activeSection)}
-									onNav={onNav}
-								/>
+									<SideNav
+										items={[items]}
+										active={String(activeSection)}
+										onNav={onNav}
+									/>
 								}
 								<FormContent view={view} sections={sections} ref={formContentRef}>
 									<FormLayout

@@ -4,7 +4,7 @@ export interface Section {
 }
 
 export interface FormNavProps {
+  activeSection?: number;
   sections: Section[];
-  sectionsRefs?: HTMLDivElement[] | [];
-  formContentRef?: any;
+  onSectionSelect: (section: number) => void
 }
