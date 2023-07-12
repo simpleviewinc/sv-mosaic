@@ -10,6 +10,7 @@ type State = {
 	validForm: boolean;
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
+	mounted: MosaicObject<boolean>;
 }
 
 type ActionTypes =
@@ -23,7 +24,9 @@ type ActionTypes =
 	| "FORM_END_DISABLE"
 	| "FORM_VALIDATE"
 	| "FORM_RESET"
-	| "PROPERTY_RESET";
+	| "PROPERTY_RESET"
+	| "MOUNT_FIELD"
+	| "UNMOUNT_FIELD"
 
 type Action = {
 	type: ActionTypes;
@@ -87,6 +90,26 @@ export function coreReducer(state: State, action: Action): State {
 			...state,
 			[action.name]: action.value
 		}
+	case "MOUNT_FIELD":
+		return {
+			...state,
+			mounted: {
+				...state.mounted,
+				[action.name]: true
+			}
+		}
+	case "UNMOUNT_FIELD":
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: undefined
+			},
+			mounted: {
+				...state.mounted,
+				[action.name]: false
+			}
+		}
 	default:
 		return state;
 	}
@@ -115,7 +138,8 @@ export function useForm(): UseFormReturn {
 			custom: {},
 			validForm: false,
 			disabled: false,
-			touched: {}
+			touched: {},
+			mounted: {}
 		},
 		extraArgs.current
 	);
@@ -131,7 +155,8 @@ export const generateLayout = ({ sections, fields }: { sections?: any, fields: a
 	let customLayout: SectionDef[] = [];
 
 	if (sections) {
-		customLayout = JSON.parse(JSON.stringify(sections));
+		customLayout = sections.map(({fields, ...section}) => ({...section, fields: [...fields]}));
+
 		customLayout.forEach((section, idx) => {
 			const nonEmptyRows = section.fields.map(row => {
 				const nonEmptyCols = row.filter(col => !isEmpty(col));

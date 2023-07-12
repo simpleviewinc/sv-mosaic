@@ -58,7 +58,7 @@ const topActions = [
 	},
 	{
 		label: "Remove",
-		onClick: () => alert("Save button clicked"),
+		onClick: () => alert("Remove button clicked"),
 		color: "gray",
 		variant: "outlined",
 		mIcon: DeleteIcon,

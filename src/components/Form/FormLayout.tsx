@@ -10,6 +10,7 @@ import Section from "./Section";
 
 // Types
 import { ViewType } from "@root/forms/TopComponent";
+import evaluateShow from "@root/utils/show/evaluateShow";
 
 interface FormLayoutProps {
   state: any;
@@ -35,7 +36,7 @@ const FormLayout = (props: FormLayoutProps) => {
 	return (
 		<StyledFormLayout data-testid="form-layout-test-id" className='layout'>
 			{layout?.map((section, i) => (
-				<Section
+				evaluateShow(section.show, {data: state.data}) && <Section
 					registerRef={registerRef}
 					key={`section-${i}`}
 					title={section.title}

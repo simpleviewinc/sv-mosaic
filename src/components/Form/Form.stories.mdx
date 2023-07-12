@@ -141,6 +141,7 @@ Sections follow the next set of rules:
 | **`description`** | `string` or `JSX.Element` | optional - Additional text that allows users to understand the purpose or instructions of a section better. |
 | **`fields`** | `string[][][]` | required - Structure that serves as a map to position fields across rows and columns. Each section can have multiple rows, each row multiple columns, and each column multiple fields ([rows][columns][fields]) |
 | **`collapsed`** | `boolean` | optional - Allows developers to decide whether the section will be first rendered collapsed or expanded. It defaults to false when no value is provided. |
+| **`show`** | [`MosaicShow`](#mosaicshow-t-type) | optional - Show callbacks will be called with `{data: formState.data}` |
 
 The Form component is smart enough to delete blank spaces in the layout, for example if a row has 3 columns (A, B, C) but only A, and C have columns then the row will render as a 2 column layout instead of 3.
 This same rule applies for empty rows.

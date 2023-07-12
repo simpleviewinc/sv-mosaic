@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 // Components
 import ClearIcon from "@mui/icons-material/Clear";
-import Button from "@root/components/Button";
 import TitleWrapper from "../Utils/TitleWrapper";
 import {
 	CheckboxWrapper,
@@ -15,6 +14,7 @@ import {
 import theme from "@root/theme/theme";
 import { BaseTopComponentProps } from "../TopComponentTypes";
 import { TitleRow } from "./Views.styled";
+import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 
 const MobileActionsRow = styled(Row)`
   background-color: ${theme.newColors.grey2["100"]};
@@ -23,14 +23,6 @@ const MobileActionsRow = styled(Row)`
   position: -webkit-sticky;
   top: 0;
   z-index: 100;
-
-  .button {
-    margin-right: 20px;
-  }
-
-  .button:last-child {
-    margin-right: 0px;
-  }
 
   svg {
     align-self: center;
@@ -67,11 +59,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 			<MobileActionsRow className={view}>
 				<StyledClearIcon onClick={onBack} />
 				{buttons && (
-					<div>
-						{buttons.map((button, idx) => (
-							<Button key={`${button.label}-${idx}`} {...button} />
-						))}
-					</div>
+					<ButtonRow buttons={buttons} gap="small" />
 				)}
 			</MobileActionsRow>
 			<TitleRow view={view}>

@@ -10,7 +10,7 @@ import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingl
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/forms/FormFieldRadio";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
-import Field, { FieldDef } from "@root/components/Field";
+import { FieldDef } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/forms/FormFieldColorPicker";
 import FormFieldDate from "@root/forms/FormFieldDate/DateField";
@@ -26,6 +26,7 @@ import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import Blank from "@root/components/Blank";
+import RegisteredField from "../Field/RegisteredField";
 
 const StyledCol = styled.div`
 	display: flex;
@@ -195,16 +196,18 @@ const Col = (props: ColPropsTypes) => {
 				const shouldShow = useMemo(() => evaluateShow(currentField.show, {data: state?.data}), [currentField.show, state?.data]);
 
 				return shouldShow ? ((typeof type === "string" && componentMap[type]) ? (
-					<Field
+					<RegisteredField
 						key={`${name}_${i}`}
 						fieldDef={{ ...currentField, size: maxSize }}
 						value={value}
 						error={error}
 						colsInRow={colsInRow}
 						id={name}
+						name={name}
+						dispatch={dispatch}
 					>
 						{shouldRenderEmptyField ? <Blank /> : children}
-					</Field>
+					</RegisteredField>
 				) : (
 					shouldRenderEmptyField ? <Blank /> : children
 				)) : null;

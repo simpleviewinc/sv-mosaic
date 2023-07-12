@@ -1,5 +1,15 @@
 # sv-mosaic changelog
 
+## 25.0.0 - 07/11/23
+* `DataView`:
+	* Reduced font weight of the bold-styled column type to keep consistency from `bold` to `500`
+* `FormFieldText`:
+	* Reverted a previous change that introduced a bug causing the multiline variation not to expand according to the content within
+* `Content`
+	* Introduced a `Blank` component than can be used to represent non-values, like empty strings and `undefined`. This component is now being consumed by `Content` and `Field` components. Right now, it's comprised of an em-dash.
+* `FormFieldAdvancedSelection`
+	* Drops behaviour that allows the user to click the draw backdrop to close the draw - the draw's "X" and back buttons' behaviour remains the same and will still close the draw. This release also drops the "unsaved changes" prompt that was displayed when the user attempted to close the draw after making selection adjustments.
+
 ## 24.0.0 - 06/06/23
 * `Content`:
 	* Fixed bug caused when the prop `buttons` is undefined. The component used to try to map over the prop when its length was greater than 0, but didn't take into account if it was defined.

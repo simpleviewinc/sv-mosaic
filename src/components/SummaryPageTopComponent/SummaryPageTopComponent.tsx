@@ -6,7 +6,6 @@ import {
 	StyledSummaryPageTopComponent,
 	Container,
 	Row,
-	ContainerItems,
 	Item,
 	ContainerTitle,
 } from "./SummaryPageTopComponent.styled";
@@ -14,12 +13,12 @@ import {
 import StarRateRounded from "@mui/icons-material/StarRateRounded";
 import StarBorder from "@mui/icons-material/StarBorderRounded";
 
-
 // Components
 import Image from "@root/components/Image";
 import Button from "../Button";
 import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 import evaluateShow from "@root/utils/show/evaluateShow";
+import ButtonRow from "../ButtonRow/ButtonRow";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
@@ -76,48 +75,46 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 								</>
 						}
 					</ContainerTitle>
-					<ContainerItems>
+					<ButtonRow separator gap="small" wrap>
 						{
 							filteredMainActions &&
 							filteredMainActions.map((mainAction, i) => (
-								<Item data-testid="btn-main-action" key={i}>
-									<Button
-										attrs={{smallText: true}}
-										color={mainAction.color}
-										variant={mainAction.variant}
-										size="small"
-										label={mainAction.label}
-										mIcon={mainAction.mIcon}
-										onClick={mainAction.onClick}
-									/>
-								</Item>
+								<Button
+									data-testid="btn-main-action" key={i}
+									attrs={{smallText: true}}
+									color={mainAction.color}
+									variant={mainAction.variant}
+									size="small"
+									label={mainAction.label}
+									mIcon={mainAction.mIcon}
+									onClick={mainAction.onClick}
+								/>
 							))
 						}
 						{
 							filteredAdditionalActions && (filteredAdditionalActions.length > 0) &&
-							<Item data-testid="btn-additional-action">
-								<Button
-									color="black"
-									variant="icon"
-									label="Edit"
-									mIcon={MoreVert}
-									menuItems={filteredAdditionalActions}
-								/>
-							</Item>
+							<Button
+								color="black"
+								variant="icon"
+								label="Edit"
+								mIcon={MoreVert}
+								menuItems={filteredAdditionalActions}
+							/>
 						}
-					</ContainerItems>
+					</ButtonRow>
 				</Row>
 				<Row>
-					<ContainerItems>
-						{
-							descriptionItems &&
-							descriptionItems?.map((item, i) => (
-								<Item key={i} data-testid="description-item">
-									{item}
-								</Item>
-							))
-						}
-					</ContainerItems>
+					{descriptionItems && (
+						<ButtonRow separator gap="small" wrap>
+							{
+								descriptionItems.map((item, i) => (
+									<Item key={i} data-testid="description-item">
+										{item}
+									</Item>
+								))
+							}
+						</ButtonRow>
+					)}
 				</Row>
 			</Container>
 		</StyledSummaryPageTopComponent>

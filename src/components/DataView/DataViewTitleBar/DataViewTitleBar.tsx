@@ -5,11 +5,12 @@ import DataViewFilters from "../DataViewFilters";
 import { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
 import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
 import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
+import { ButtonProps } from "@root/components/Button";
 
 function DataViewTitleBar(props: DataViewTitleBarProps) {
-	const buttons = useMemo(() => {
+	const buttons: ButtonProps[] = useMemo(() => {
 		if (props.buttons === undefined) {
-			return;
+			return [];
 		}
 
 		return props.buttons.map((button) => {
@@ -38,7 +39,7 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 						/>
 					)}
 				</div>
-				{props.buttons && <ButtonRow buttons={buttons} />}
+				{buttons.length > 0 && <ButtonRow buttons={buttons} />}
 			</StyledWrapper>
 			{
 				props?.filters &&
