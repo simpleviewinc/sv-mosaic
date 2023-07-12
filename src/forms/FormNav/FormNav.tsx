@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useRef, useEffect, ReactElement, memo, MouseEvent } from "react";
+import { useState, useRef, useEffect, ReactElement, memo } from "react";
 import {
 	FormNavWrapper,
 	FormNavRow,
@@ -15,7 +15,7 @@ import { FormNavProps } from "./FormNavTypes";
 import { useView } from "@root/utils/formViewUtils";
 
 const FormNav = (props: FormNavProps): ReactElement => {
-	const { sections, sectionsRefs, formContentRef } = props;
+	const { sections, activeSection, onSectionSelect } = props;
 	const view = useView();
 
 	if (sections.length <= 1) return (<></>)
@@ -23,7 +23,6 @@ const FormNav = (props: FormNavProps): ReactElement => {
 	// State variables
 	const [navWidth, setNavWidth] = useState(0);
 	const [linksWidth, setLinksWidth] = useState(0);
-	const [selectedTab, setSelectedTab] = useState(0);
 	const [scrollX, setscrollX] = useState(0);
 	const navRef = useRef(null);
 	const linkRef = useRef<HTMLDivElement[]>([]);
@@ -66,35 +65,6 @@ const FormNav = (props: FormNavProps): ReactElement => {
 		}
 	};
 
-	/**
-	 * Goes to the sections that is selected.
-	 * @param e
-	 * @param idx
-	 * @param sectionId
-	 */
-	const handleClick = (e: MouseEvent, idx: number) => {
-		e.preventDefault();
-		sectionsRefs[idx].scrollIntoView({ behavior: "smooth", block: "start" });
-	};
-
-	useEffect(() => {
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				const sectionId = entry?.target.getAttribute("id");
-
-				if (entry.isIntersecting) {
-					setSelectedTab(Number(sectionId));
-				}
-			})
-		}, { threshold: 0.5, rootMargin: "-20px 0px -20%", root: formContentRef?.current });
-
-		sectionsRefs?.forEach(section => {
-			observer.observe(section);
-		})
-
-		return () => observer.disconnect();
-	}, [sectionsRefs]);
-
 	return (
 		<FormNavWrapper className={`form-nav-wrapper ${view}`}>
 			<FormNavRow view={view} className={view} scrollX={scrollX}>
@@ -106,9 +76,9 @@ const FormNav = (props: FormNavProps): ReactElement => {
 				<NavItems className={view} ref={navRef} onScroll={scrollCheck}>
 					{sections.map((section, idx) => (
 						<LinksWrapper
-							className={`${view} ${idx === selectedTab ? "highlight" : ""}`}
+							className={`${view} ${idx === activeSection ? "highlight" : ""}`}
 							key={`${section.title}-${section.id}`}
-							onClick={(e) => handleClick(e, idx)}
+							onClick={() => onSectionSelect(idx)}
 							ref={el => linkRef.current[idx] = el}
 						>
 							<a href={`#${section.title}`}>{section.title}</a>
