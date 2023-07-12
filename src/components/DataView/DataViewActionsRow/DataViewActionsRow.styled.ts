@@ -11,8 +11,3 @@ export const LeftControlsContainer = styled.div`
 		margin-right: 4px;
 	}
 `;
-
-export const RightControlsContainer = styled.div`
-	display: flex;
-	margin-left: auto;
-`;

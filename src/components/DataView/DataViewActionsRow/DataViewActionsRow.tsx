@@ -4,11 +4,12 @@ import DataViewColumnControl from "../DataViewColumnControl";
 import DataViewControlDisplay from "../DataViewControlDisplay";
 import DataViewControlLimit from "../DataViewLimit";
 import DataViewPager from "../DataViewPager";
-import { DataViewActionsRowWrapper, LeftControlsContainer, RightControlsContainer } from "./DataViewActionsRow.styled";
+import { DataViewActionsRowWrapper, LeftControlsContainer } from "./DataViewActionsRow.styled";
 import { DataViewActionsRowProps } from "./DataViewActionsRowTypes";
 import Checkbox from "../../Checkbox";
 import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "../DataViewDisplayGridSortControl";
+import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 
 const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 	const {
@@ -73,7 +74,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 					allColumns={allColumns}
 				/>
 			)}
-			<RightControlsContainer>
+			<ButtonRow separator gap="small">
 				{
 					hasSortControl && display === "grid" &&
 						<DataViewDisplayGridSortControl
@@ -104,7 +105,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 						onSkipChange={onSkipChange}
 					/>
 				)}
-			</RightControlsContainer>
+			</ButtonRow>
 		</DataViewActionsRowWrapper>
 	);
 };
