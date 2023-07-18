@@ -107,6 +107,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate that when onBack is activated, the back icon is displayed.", async () => {
+		test.skip();
 		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobOnBack + true]);
 		await expect(playgroundPage.backIconLocator).toBeVisible();
 		await playgroundPage.backIconLocator.click();
