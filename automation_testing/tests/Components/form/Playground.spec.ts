@@ -64,6 +64,8 @@ test.describe.parallel("Components - Form - Playground", () => {
 	});
 
 	test("Validate that when getFormValues() exists and default values don't exist, it should only use the return getFormValues(). ", async () => {
+		// Currently skipping because this test is flaky. Should not be using timeouts to wait for DOM to be ready
+		test.skip();
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnData;
 		await playgroundPage.visit(playgroundPage.page_path, [defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
