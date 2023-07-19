@@ -40,8 +40,8 @@ export type BaseTopComponentProps = {
 	 * or information for the form.
 	 */
 	helpIcon?: JSX.Element;
-	sectionsRefs?: FormNavProps["sectionsRefs"];
-	formContentRef?: FormNavProps["formContentRef"];
+	activeSection?: number
+	onSectionSelect?: (section?: number) => void
 }
 
 export type TopComponentProps = {

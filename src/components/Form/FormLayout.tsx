@@ -1,6 +1,6 @@
 import { FieldDef } from "@root/components/Field";
 import * as React from "react";
-import { useMemo, memo, forwardRef, RefObject } from "react";
+import { useMemo, memo } from "react";
 import { SectionDef } from "./FormTypes";
 import { generateLayout } from "./formUtils";
 import styled from "styled-components";
@@ -18,6 +18,7 @@ interface FormLayoutProps {
   fields: FieldDef[];
   sections: SectionDef[];
   view: ViewType;
+  registerRef?: (ref: HTMLElement) => () => void
 }
 
 const StyledFormLayout = styled.div`
@@ -25,9 +26,8 @@ const StyledFormLayout = styled.div`
 	max-width: 1160px;
 `;
 
-const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
-	const { state, dispatch, fields, sections, view } = props;
-	const sectionRef = ref as RefObject<HTMLDivElement>;
+const FormLayout = (props: FormLayoutProps) => {
+	const { state, dispatch, fields, sections, view, registerRef } = props;
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });
@@ -37,7 +37,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 		<StyledFormLayout data-testid="form-layout-test-id" className='layout'>
 			{layout?.map((section, i) => (
 				evaluateShow(section.show, {data: state.data}) && <Section
-					ref={sectionRef}
+					registerRef={registerRef}
 					key={`section-${i}`}
 					title={section.title}
 					sectionIdx={i}
@@ -52,7 +52,7 @@ const FormLayout = forwardRef((props: FormLayoutProps, ref) => {
 			))}
 		</StyledFormLayout>
 	);
-});
+};
 
 FormLayout.displayName = "FormLayout";
 
