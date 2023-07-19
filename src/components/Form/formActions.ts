@@ -185,7 +185,9 @@ export const formActions = {
 	},
 	submitForm() {
 		return async function (dispatch, getState, extraArgs): Promise<{ valid: boolean; data: any; }> {
-			if (getState().disabled)
+			const { disabled, data, mounted } = getState();
+
+			if (disabled)
 				return;
 
 			const valid = await dispatch(
@@ -200,9 +202,14 @@ export const formActions = {
 				});
 			}
 
+			const cleanData = Object.keys(data).reduce((acc, curr) => ({
+				...acc,
+				[curr]: mounted[curr] ? data[curr] : undefined
+			}), {});
+
 			return {
 				valid,
-				data: getState().data
+				data: cleanData
 			}
 		}
 	},
