@@ -1,5 +1,5 @@
-import * as React from "react";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { useState } from "react";
+import { memo, useEffect, useMemo, useRef, useCallback } from "react";
 import { StyledForm, StyledContainerForm } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
@@ -14,6 +14,7 @@ import evaluateShow from "@root/utils/show/evaluateShow";
 import { ButtonProps } from "../Button";
 import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 import SideNav, { Item, SideNavArgs } from "../SideNav";
+import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 
 const Form = (props: FormProps) => {
 	const {
@@ -32,20 +33,21 @@ const Form = (props: FormProps) => {
 		showActive
 	} = props;
 
-	const sectionsRef = useRef<HTMLDivElement[]>([]);
+	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
-	const [activeSection, setActiveSection] = useState("0");
+
+	const {
+		activeSection,
+		setActiveSection,
+	} = useScrollSpy({
+		refs: sectionRefs,
+		container: formContentRef.current
+	});
 
 	const dispatchRef = useRefsDispatch();
-
-	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[]>([]);
 	const { view } = useViewResizer({ formContainerRef });
-
-	useEffect(() => {
-		setSectionsRefs(sectionsRef.current);
-	}, []);
 
 	useEffect(() => {
 		dispatchRef && topComponentRef.current && dispatchRef({
@@ -78,10 +80,12 @@ const Form = (props: FormProps) => {
 			);
 		}
 
+		// TODO This is always true?
 		if (isMounted) {
 			registerFields();
 		}
 
+		// TODO This is redundant
 		return () => {
 			isMounted = false;
 		}
@@ -148,32 +152,13 @@ const Form = (props: FormProps) => {
 		sections &&
 		sections?.length > 1;
 
-	/**
-	 * If the Form view is for a big desktop it will create an
-	 * IntersectionObserver the user has scrolled into a section
-	 * and highlighting it.
-	 */
-	useEffect(() => {
-		if (!isBigDesktopWithSections) {
-			return;
+	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
+		setSectionRefs(refs => [...refs, ref]);
+
+		return () => {
+			setSectionRefs(refs => refs.filter(r => r !== ref));
 		}
-
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				const sectionId = entry?.target.getAttribute("id");
-
-				if (entry.isIntersecting) {
-					setActiveSection(sectionId);
-				}
-			})
-		}, { threshold: 0.5, rootMargin: "-20px 0px -20%", root: formContentRef?.current });
-
-		sectionsRefs?.forEach(section => {
-			observer.observe(section);
-		})
-
-		return () => observer.disconnect();
-	}, [sectionsRefs, sections, view]);
+	}, []);
 
 	/**
 	 * In order to use the SideNav on a big desktop we need to transform
@@ -199,13 +184,9 @@ const Form = (props: FormProps) => {
 	 * was clicked.
 	 * @param args
 	 */
-	const onNav = (args: SideNavArgs) => {
-		const sectionIndex = Number(args.item.name);
-		sectionsRefs[sectionIndex].scrollIntoView({
-			behavior: "smooth",
-			block: "start"
-		});
-	};
+	const onNav = useCallback((args: SideNavArgs) => {
+		setActiveSection(Number(args.item.name))
+	}, [setActiveSection]);
 
 	return (
 		<>
@@ -226,24 +207,25 @@ const Form = (props: FormProps) => {
 							sections={topComponentSections}
 							view={view}
 							buttons={filteredButtons}
-							sectionsRefs={sectionsRefs}
-							formContentRef={formContentRef}
+							activeSection={activeSection}
 							tooltipInfo={tooltipInfo}
 							showActive={showActive}
+							onSectionSelect={setActiveSection}
 						/>
 						}
 						{isBigDesktopWithSections ? (
 							<Row className={view}>
 								{sections &&
-								<SideNav
-									items={[items]}
-									active={activeSection}
-									onNav={onNav}
-								/>
+									<SideNav
+										items={[items]}
+										active={String(activeSection)}
+										onNav={onNav}
+									/>
 								}
 								<FormContent view={view} sections={sections} ref={formContentRef}>
 									<FormLayout
-										ref={sectionsRef}
+										// ref={sectionsRef}
+										registerRef={registerRef}
 										state={state}
 										dispatch={dispatch}
 										fields={fields}
@@ -255,7 +237,8 @@ const Form = (props: FormProps) => {
 						) : (
 							<FormContent view={view} sections={sections} ref={formContentRef}>
 								<FormLayout
-									ref={sectionsRef}
+									// ref={sectionsRef}
+									registerRef={registerRef}
 									state={state}
 									dispatch={dispatch}
 									fields={fields}
