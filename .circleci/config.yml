@@ -117,13 +117,11 @@ jobs:
           name: Add github to known_hosts
           command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
-          name: Publish
-          command: docker exec -t sv-mosaic yarn run ci:storybook
+          name: Ls
+          command: docker exec -t sv-mosaic sh -c "ls -la /home/circleci"
       # - run:
-      #     name: Publish storybook
-      #     command: docker run --name sv-mosaic -it ls ~
-      #     environment:
-      #       NODE_DEBUG: gh-pages
+      #     name: Publish
+      #     command: docker exec -t sv-mosaic yarn run ci:storybook
   publish:
     docker:
       - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
