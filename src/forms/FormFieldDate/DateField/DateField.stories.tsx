@@ -55,7 +55,7 @@ export const Playground = (): ReactElement => {
 
 const getFormValues = async () => {
 	return {
-		dateTimePrefilled: new Date(1993, 2, 12, 0, 15, 15)
+		dateTimePrefilled: new Date("2023-07-31T14:00:00.000Z")
 	};
 };
 
