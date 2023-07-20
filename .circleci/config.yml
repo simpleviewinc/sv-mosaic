@@ -109,7 +109,7 @@ jobs:
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Spin up publishing container
-          command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -it sv-mosaic sh -c "eval echo ~$USER && ls -la ~"
+          command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -v ~/.ssh:/root/.ssh sv-mosaic -it sh -c "ls -la && yarn run ci:storybook"
       # - run:
       #     name: Publish storybook
       #     command: docker run --name sv-mosaic -it ls ~
