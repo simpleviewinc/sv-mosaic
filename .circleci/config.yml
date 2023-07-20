@@ -96,12 +96,8 @@ jobs:
           command: docker exec sv-mosaic-e2e ./automation_testing/scripts/try-storybook
   storybook:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
-        auth:
-          username: _json_key
-          password: $GCLOUD_SERVICE_KEY
+      - image: cimg/base:2021.04
     resource_class: large
-    working_directory: /app
     steps:
       - checkout
       - load_public_build
