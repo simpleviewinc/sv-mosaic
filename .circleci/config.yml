@@ -144,7 +144,7 @@ workflows:
             branches:
               only:
                 - develop
-                # - ci-testing
+                - ci-testing
                 - qa
                 - staging
                 - master
@@ -171,8 +171,8 @@ workflows:
       - storybook:
           context: default
           requires:
-            - unit_tests
-            - e2e_tests
+            # - unit_tests
+            # - e2e_tests
             - private_build
           filters:
             branches:
