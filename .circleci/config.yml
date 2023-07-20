@@ -112,8 +112,7 @@ jobs:
           command: |
             docker cp ~/.ssh sv-mosaic:/root/.ssh
             docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
-            docker exec -t sv-mosaic sh -c "find ~/.ssh/ -type f -exec grep -l "PRIVATE" {} \; | xargs ssh-add &> /dev/null"
-            docker exec -t sv-mosaic sed -i 's#/home/circleci#/root#g' ~/.ssh/config
+            docker exec -t sv-mosaic sh -c "cd ~ && pwd"
       - run:
           name: Add github to known_hosts
           command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
