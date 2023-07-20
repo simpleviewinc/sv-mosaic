@@ -95,8 +95,16 @@ jobs:
           name: Run tests
           command: docker exec sv-mosaic-e2e ./automation_testing/scripts/try-storybook
   storybook:
-    - load_public_build
+    docker:
+      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
+        auth:
+          username: _json_key
+          password: $GCLOUD_SERVICE_KEY
+    resource_class: large
+    working_directory: /app
     steps:
+      - checkout
+      - load_public_build
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
@@ -105,12 +113,12 @@ jobs:
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Spin up publishing container
-          command: docker run --name sv-mosaic -it ls ~
-      - run:
-          name: Publish storybook
-          command: yarn run ci:storybook
-          environment:
-            NODE_DEBUG: gh-pages
+          command: docker run --name sv-mosaic -it sh -c "ls ~ && pwd ~"
+      # - run:
+      #     name: Publish storybook
+      #     command: docker run --name sv-mosaic -it ls ~
+      #     environment:
+      #       NODE_DEBUG: gh-pages
   publish:
     docker:
       - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
