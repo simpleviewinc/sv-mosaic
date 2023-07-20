@@ -157,7 +157,7 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-                - ci-testing
+                # - ci-testing
       - e2e_tests:
           context: default
           requires:
@@ -178,7 +178,7 @@ workflows:
             branches:
               only:
                 - develop
-                # - ci-testing
+                - ci-testing
                 - qa
                 - staging
                 - master
