@@ -109,7 +109,9 @@ jobs:
           command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -t -d sv-mosaic
       - run:
           name: Copy SSH
-          command: docker cp ~/.ssh sv-mosaic:/root/.ssh
+          command: |
+            docker cp ~/.ssh sv-mosaic:/root/.ssh
+            docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
       - run:
           name: Add github to known_hosts
           command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
