@@ -15,6 +15,10 @@ import { isEqual } from "date-fns";
 import { matchTime, textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 
+const ENTER_VALID_DATE = `Please enter a valid ${DATE_FORMAT_FULL_PLACEHOLDER} date`;
+const ENTER_VALID_TIME = `Please enter a valid ${TIME_FORMAT_FULL_PLACEHOLDER} time`;
+const PROVIDE_TIME = "Please also provide a time";
+
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
 		fieldDef,
@@ -22,6 +26,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		value = null,
 		onBlur,
 		error,
+		dispatch
 	} = props;
 
 	const { disabled } = fieldDef || {};
@@ -42,32 +47,87 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		setTimeChosen((time) => isEqual(time, value) ? time : value);
 	}, [value]);
 
-	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
-		if (keyboardInputValue === undefined || textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL)) {
-			setDateChosen(date);
+	const setError = (msg: string) => dispatch((d) => {
+		d({
+			type: "FIELD_VALIDATE",
+			name: fieldDef.name,
+			value: msg,
+		})
+	});
 
-			if (!showTime || timeChosen) {
-				matchTime(date, showTime && timeChosen ? timeChosen : [0, 0, 0, 0]);
-				onChange(date);
-			} else {
-				onChange(undefined);
-			}
-		} else {
-			onChange(undefined);
+	const clearError = () => dispatch((d) => {
+		d({
+			type: "FIELD_UNVALIDATE",
+			name: fieldDef.name
+		})
+	});
+
+	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
+		const isKeyboardEvent = keyboardInputValue !== undefined;
+		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
+
+		clearError();
+
+		if (isKeyboardEvent && !validKeyboardInput) {
+			// This handler was caused by keyboard input, but it's not a valid date
+			setError(ENTER_VALID_DATE);
+			return onChange(undefined);
 		}
+
+		setDateChosen(date);
+
+		/**
+		 * -- START --
+		 * To force the user to pick a time if a date is chosen (regardless
+		 * of whether or not it's required), do this:
+		 */
+
+		// if (showTime && !timeChosen) {
+		// 	setError(PROVIDE_TIME);
+		// }
+
+		// if (!showTime || timeChosen) {
+		// 	matchTime(date, showTime && timeChosen ? timeChosen : [0, 0, 0, 0]);
+		// 	onChange(date);
+		// } else {
+		// 	onChange(undefined);
+		// }
+
+		/**
+		 * Otherwise do this
+		 */
+
+		if (showTime) {
+			if (fieldDef.required && !timeChosen) {
+				setError(PROVIDE_TIME);
+				return onChange(undefined);
+			}
+
+			matchTime(date, timeChosen ? timeChosen : [0, 0, 0, 0]);
+		}
+
+		onChange(date);
+
 	}
 
 	const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
-		if (keyboardInputValue === undefined || textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL)) {
-			setTimeChosen(time);
+		const isKeyboardEvent = keyboardInputValue !== undefined;
+		const validKeyboardInput = textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL);
 
-			if (dateChosen) {
-				const newDate = new Date(dateChosen.getTime());
-				matchTime(newDate, time);
-				onChange(newDate);
-			}
-		} else {
-			onChange(undefined);
+		clearError();
+
+		if (!time || (isKeyboardEvent && !validKeyboardInput)) {
+			// This handler was caused by keyboard input, but it's not a valid date
+			setError(ENTER_VALID_TIME);
+			return onChange(undefined);
+		}
+
+		setTimeChosen(time);
+
+		if (dateChosen) {
+			const newDate = new Date(dateChosen.getTime());
+			matchTime(newDate, time);
+			onChange(newDate);
 		}
 	}
 

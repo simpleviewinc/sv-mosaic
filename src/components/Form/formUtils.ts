@@ -16,6 +16,7 @@ type ActionTypes =
 	| "FIELD_ON_CHANGE"
 	| "FIELD_TOUCHED"
 	| "FIELD_VALIDATE"
+	| "FIELD_UNVALIDATE"
 	| "FORM_START_DISABLE"
 	| "FORM_END_DISABLE"
 	| "FORM_VALIDATE"
@@ -50,13 +51,24 @@ export function coreReducer(state: State, action: Action): State {
 			}
 		};
 	case "FIELD_VALIDATE":
-		return {
+		// TODO this is bad there's no support for multiple errors, but will be refactored in
+		// https://simpleviewtools.atlassian.net/browse/MOS-1131
+		return state.errors[action.name] ? state : {
 			...state,
 			errors: {
 				...state.errors,
 				[action.name]: action.value
 			},
 		};
+	case "FIELD_UNVALIDATE": {
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: undefined
+			},
+		};
+	}
 	case "FORM_START_DISABLE":
 		return {
 			...state,
