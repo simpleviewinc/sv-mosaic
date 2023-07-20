@@ -106,7 +106,7 @@ jobs:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
           name: Spin up publishing container
-          command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -t sv-mosaic
+          command: docker container create --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -t sv-mosaic
       - run:
           name: Copy SSH
           command: docker cp ~/.ssh sv-mosaic:/root/.ssh
