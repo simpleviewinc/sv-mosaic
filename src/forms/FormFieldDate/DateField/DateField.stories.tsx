@@ -121,8 +121,6 @@ export const KitchenSink = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{Object.keys(state.data).map((key, index) => <div key={index}>{key}: {state.data[key] && state.data[key].toString()}</div>)}</pre>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
 				title={"Date Field Calendar"}
@@ -132,6 +130,10 @@ export const KitchenSink = (): ReactElement => {
 				dispatch={dispatch}
 				getFormValues={getFormValues}
 			/>
+			<h3>Date.toString()</h3>
+			<pre>{Object.keys(state.data).map((key, index) => <div key={index}>{key}: {state.data[key] && state.data[key].toString()}</div>)}</pre>
+			<h3>State</h3>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };
