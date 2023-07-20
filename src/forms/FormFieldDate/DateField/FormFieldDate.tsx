@@ -13,7 +13,7 @@ import { StyledDisabledText } from "@root/forms/shared/styledComponents";
 import { transform_dateFormat } from "@root/transforms";
 import { isEqual } from "date-fns";
 import { matchTime, textIsValidDate } from "@root/utils/date";
-import { DATE_FORMAT_FULL, TIME_FORMAT_FULL } from "@root/constants";
+import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
@@ -29,7 +29,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 	// State splitting is necessary because the form value is a
 	// single date object, which provides no way of differentiating
-	// between a valid date / invalid time combo and all variations of it
+	// between a valid date / invalid time combo or any variation thereof
 	const [dateChosen, setDateChosen] = useState<null | Date>(value);
 	const [timeChosen, setTimeChosen] = useState<null | Date>(value);
 
@@ -84,7 +84,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 								label: "",
 								type: "",
 								inputSettings: {
-									placeholder: "MM / DD / YYYY"
+									placeholder: DATE_FORMAT_FULL_PLACEHOLDER
 								},
 								required: fieldDef?.required,
 							}}
@@ -102,7 +102,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 									label: "",
 									type: "timePicker",
 									inputSettings: {
-										placeholder: "00:00 AM/PM"
+										placeholder: TIME_FORMAT_FULL_PLACEHOLDER
 									}
 								}}
 								value={timeChosen}
