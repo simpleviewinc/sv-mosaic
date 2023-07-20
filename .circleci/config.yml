@@ -112,16 +112,13 @@ jobs:
           command: |
             docker cp ~/.ssh sv-mosaic:/root/.ssh
             docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
-            docker exec -t sv-mosaic sed -i 's#/home/circleci#/root#g' /root/.ssh/config
+            docker exec -t sv-mosaic sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
       - run:
           name: Add github to known_hosts
           command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
-          name: Ls
-          command: docker exec -t sv-mosaic sh -c "ls -la /home/circleci"
-      # - run:
-      #     name: Publish
-      #     command: docker exec -t sv-mosaic yarn run ci:storybook
+          name: Publish
+          command: docker exec -t sv-mosaic yarn run ci:storybook
   publish:
     docker:
       - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
