@@ -47,7 +47,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		setTimeChosen((time) => isEqual(time, value) ? time : value);
 	}, [value]);
 
-	const setError = (msg: string) => dispatch((d) => {
+	const setError = (msg: string) => dispatch && dispatch((d) => {
 		d({
 			type: "FIELD_VALIDATE",
 			name: fieldDef.name,
@@ -55,7 +55,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		})
 	});
 
-	const clearError = () => dispatch((d) => {
+	const clearError = () => dispatch && dispatch((d) => {
 		d({
 			type: "FIELD_UNVALIDATE",
 			name: fieldDef.name
