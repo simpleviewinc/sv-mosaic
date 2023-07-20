@@ -110,7 +110,7 @@ jobs:
       - run:
           name: Copy SSH
           command: |
-            docker cp ~/.ssh sv-mosaic:/root/.ssh
+            docker cp ~/.ssh sv-mosaic:/home/circleci/.ssh
             docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
       - run:
           name: Add github to known_hosts
