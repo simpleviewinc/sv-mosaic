@@ -107,7 +107,7 @@ jobs:
       - run:
           name: Add github to known_hosts
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run
+      - run:
           name: List .ssh
           command: ls -la ~/.ssh
       - run:
