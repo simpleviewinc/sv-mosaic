@@ -111,7 +111,7 @@ jobs:
           name: Copy SSH
           command: |
             docker cp ~/.ssh sv-mosaic:/root/.ssh
-            docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
+            docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
       - run:
           name: Add github to known_hosts
           command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
