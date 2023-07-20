@@ -109,7 +109,7 @@ jobs:
           command: ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Spin up publishing container
-          command: docker run --name sv-mosaic sv-mosaic sh -c "cd ~/app && yarn run ci:storybook"
+          command: docker run --name sv-mosaic sv-mosaic sh -c "ls -la && yarn run ci:storybook"
       # - run:
       #     name: Publish storybook
       #     command: docker run --name sv-mosaic -it ls ~
