@@ -53,6 +53,12 @@ export const Playground = (): ReactElement => {
 	);
 };
 
+const getFormValues = async () => {
+	return {
+		dateTimePrefilled: new Date(1993, 2, 12, 0, 15, 15)
+	};
+};
+
 export const KitchenSink = (): ReactElement => {
 	const {	state, dispatch	} = useForm();
 	const helperText = "Helper text";
@@ -74,18 +80,6 @@ export const KitchenSink = (): ReactElement => {
 					}
 				},
 				{
-					name: "disableSingleDate",
-					type: "date",
-					label: "Disable Single Date Calendar",
-					required: false,
-					disabled: true,
-					helperText,
-					instructionText,
-					inputSettings: {
-						showTime: false
-					}
-				},
-				{
 					name: "dateTime",
 					type: "date",
 					label: "Date Time Input",
@@ -96,18 +90,20 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						showTime: true
 					}
-				}, {
-					name: "disableDateTime",
+				},
+				{
+					name: "dateTimePrefilled",
 					type: "date",
-					label: "Disable Date Time Calendar",
+					label: "Date Time with preset values",
 					required: false,
-					disabled: true,
+					disabled: false,
 					helperText,
 					instructionText,
 					inputSettings: {
 						showTime: true
 					}
-				}, {
+				},
+				{
 					name: "requiredDateTime",
 					type: "date",
 					label: "Required Single Date Calendar",
@@ -134,6 +130,7 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
+				getFormValues={getFormValues}
 			/>
 		</>
 	);

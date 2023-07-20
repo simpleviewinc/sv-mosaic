@@ -1,4 +1,4 @@
-function sanitizeInputDate(date: Date | null) {
+function validateDate(date: Date | null) {
 	if (!date) {
 		return;
 	}
@@ -13,4 +13,4 @@ function sanitizeInputDate(date: Date | null) {
 	return date;
 }
 
-export default sanitizeInputDate;
+export default validateDate;

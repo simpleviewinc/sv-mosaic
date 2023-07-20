@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, memo, useState } from "react";
+import { ReactElement, useEffect, useState, memo } from "react";
 
 // Components
 import DatePicker from "../DatePicker";
@@ -11,64 +11,64 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
 import { StyledDisabledText } from "@root/forms/shared/styledComponents";
 import { transform_dateFormat } from "@root/transforms";
-import { matchTime, sanitizeInputDate } from "@root/utils/date";
+import { isEqual } from "date-fns";
+import { matchTime, textIsValidDate } from "@root/utils/date";
+import { DATE_FORMAT_FULL, TIME_FORMAT_FULL } from "@root/constants";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
-		value,
+		value = null,
 		onBlur,
 		error,
 	} = props;
 
 	const { disabled } = fieldDef || {};
-	const [dateInput, setDateInput] = useState<null | Date>(null);
-	const [timeInput, setTimeInput] = useState<null | Date>(null);
 	const showTime = fieldDef?.inputSettings?.showTime;
 
-	const handleDateChange = async (date: Date) => {
-		const sanitizedDate = sanitizeInputDate(date);
+	// State splitting is necessary because the form value is a
+	// single date object, which provides no way of differentiating
+	// between a valid date / invalid time combo and all variations of it
+	const [dateChosen, setDateChosen] = useState<null | Date>(value);
+	const [timeChosen, setTimeChosen] = useState<null | Date>(value);
 
-		if (!sanitizedDate) {
-			onChange(undefined);
+	useEffect(() => {
+		if (!value) {
 			return;
 		}
 
-		// If the chosen date is the same as the current value,
-		// don't update any state
-		if (value && value.getTime() === date.getTime()) {
-			return;
-		}
+		setDateChosen((date) => isEqual(date, value) ? date : value);
+		setTimeChosen((time) => isEqual(time, value) ? time : value);
+	}, [value]);
 
-		if (showTime && value) {
-			matchTime(sanitizedDate, value);
+	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
+		if (keyboardInputValue === undefined || textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL)) {
+			setDateChosen(date);
+
+			if (!showTime || timeChosen) {
+				matchTime(date, showTime && timeChosen ? timeChosen : [0, 0, 0, 0]);
+				onChange(date);
+			} else {
+				onChange(undefined);
+			}
 		} else {
-			sanitizedDate.setHours(0, 0, 0, 0)
+			onChange(undefined);
 		}
-
-		setDateInput(sanitizedDate);
-		onChange(sanitizedDate);
 	}
 
-	const handleTimeChange = async (time: Date) => {
-		const sanitizedDate = sanitizeInputDate(time);
+	const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
+		if (keyboardInputValue === undefined || textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL)) {
+			setTimeChosen(time);
 
-		if (!sanitizedDate) {
+			if (dateChosen) {
+				const newDate = new Date(dateChosen.getTime());
+				matchTime(newDate, time);
+				onChange(newDate);
+			}
+		} else {
 			onChange(undefined);
-			return;
 		}
-
-		// If the chosen date is the same as the current value,
-		// don't update any state
-		if (value && value.getTime() === time.getTime()) {
-			return;
-		}
-
-		matchTime(sanitizedDate, time);
-
-		setTimeInput(sanitizedDate);
-		onChange(sanitizedDate);
 	}
 
 	return (
@@ -88,7 +88,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 								},
 								required: fieldDef?.required,
 							}}
-							value={dateInput}
+							value={dateChosen}
 							onBlur={onBlur}
 						/>
 					</DateTimePickerWrapper>
@@ -105,7 +105,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 										placeholder: "00:00 AM/PM"
 									}
 								}}
-								value={timeInput}
+								value={timeChosen}
 								onBlur={onBlur}
 							/>
 						</DateTimePickerWrapper>
