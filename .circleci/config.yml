@@ -144,16 +144,16 @@ workflows:
                 - develop
                 - /pull.*/
                 - ci-testing
-      - private_build:
-          context: default
-          filters:
-            branches:
-              only:
-                - develop
-                # - ci-testing
-                - qa
-                - staging
-                - master
+      # - private_build:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - ci-testing
+      #           - qa
+      #           - staging
+      #           - master
       - unit_tests:
           context: default
           requires:
@@ -163,7 +163,7 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-                # - ci-testing
+                - ci-testing
       - e2e_tests:
           context: default
           requires:
@@ -173,18 +173,18 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-                # - ci-testing
+                - ci-testing
       - storybook:
           context: default
           requires:
-            # - unit_tests
-            # - e2e_tests
+            - unit_tests
+            - e2e_tests
             - public_build
           filters:
             branches:
               only:
                 - develop
-                # - ci-testing
+                - ci-testing
                 - qa
                 - staging
                 - master
@@ -193,7 +193,7 @@ workflows:
           requires:
             - unit_tests
             - e2e_tests
-            - public_build
+            - storybook
           filters:
             branches:
               only:
