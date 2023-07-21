@@ -22,6 +22,10 @@ export const StyledFileCard = styled.div`
 	& .file-img {
 		border: 2px solid ${theme.newColors.grey2["100"]};
 
+		a, img {
+			display: block;
+		}
+
 		img, div {
 			width: 62px;
 			height: 62px;

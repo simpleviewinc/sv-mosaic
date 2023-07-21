@@ -16,8 +16,9 @@ export type UploadFieldInputSettings = {
 
 export type UploadData =  {
 	id: string | number;
-	url?: string;
-	size: string;
+	attachmentUrl?: string;
+	thumbnailUrl?: string;
+	size: number;
 	name: string;
 };
 
