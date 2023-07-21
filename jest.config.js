@@ -16,6 +16,5 @@ module.exports = {
 			isolatedModules: true
 		}
 	},
-	modulePathIgnorePatterns: ["<rootDir>/automation_testing"],
-	reporters: [ "default", "jest-junit" ]
+	modulePathIgnorePatterns: ["<rootDir>/automation_testing"]
 }
