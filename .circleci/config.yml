@@ -136,7 +136,7 @@ workflows:
           filters:
             branches:
               only:
-                - ci-testing
+                # - ci-testing
                 - foo
       - e2e_tests:
           context: default
@@ -145,7 +145,7 @@ workflows:
           filters:
             branches:
               only:
-                - ci-testing
+                # - ci-testing
                 - foo
       - storybook:
           context: default
@@ -171,5 +171,5 @@ workflows:
           filters:
             branches:
               only:
-                # - ci-testing
+                - ci-testing
                 - foo
