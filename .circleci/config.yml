@@ -155,6 +155,7 @@ workflows:
             branches:
               only:
                 # - ci-testing
+                foo
       - publish:
           context: default
           requires:
@@ -168,3 +169,4 @@ workflows:
             branches:
               only:
                 # - ci-testing
+                foo
