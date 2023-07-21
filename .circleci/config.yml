@@ -128,6 +128,7 @@ workflows:
             branches:
               only:
                 - ci-testing
+                - foo
       - unit_tests:
           context: default
           requires:
@@ -136,6 +137,7 @@ workflows:
             branches:
               only:
                 - ci-testing
+                - foo
       - e2e_tests:
           context: default
           requires:
@@ -144,6 +146,7 @@ workflows:
             branches:
               only:
                 - ci-testing
+                - foo
       - storybook:
           context: default
           requires:
@@ -155,7 +158,7 @@ workflows:
             branches:
               only:
                 # - ci-testing
-                foo
+                - foo
       - publish:
           context: default
           requires:
@@ -169,4 +172,4 @@ workflows:
             branches:
               only:
                 # - ci-testing
-                foo
+                - foo
