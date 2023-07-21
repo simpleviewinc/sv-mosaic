@@ -37,9 +37,6 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 		/>
 	);
 
-	const d = new Date();
-	d.setMonth(11);
-
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<DatePickerWrapper data-testid="date-picker-test-id" error={!!error} isPickerOpen={isPickerOpen}>
