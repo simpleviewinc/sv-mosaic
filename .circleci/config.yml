@@ -62,13 +62,15 @@ jobs:
       - load_public_build
       - run:
           name: Spin up sub-container
-          command: chmod +x ./scripts/run-capture-id && ./scripts/run-capture-id
+          command: |
+            docker container create -t --name sv-mosaic sv-mosaic
+            docker container start sv-mosaic
       - run:
           name: Run tests
-          command: docker exec $CONTAINER_ID yarn test:ci
+          command: docker exec sv-mosaic yarn test:ci
       - run:
           name: Extract reports
-          command: docker cp $CONTAINER_ID:/app/reports ~/reports
+          command: docker cp sv-mosaic:/app/reports ~/reports
       - store_test_results:
           path: ~/reports
   e2e_tests:
@@ -144,16 +146,6 @@ workflows:
                 - develop
                 - /pull.*/
                 - ci-testing
-      # - private_build:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - ci-testing
-      #           - qa
-      #           - staging
-      #           - master
       - unit_tests:
           context: default
           requires:
@@ -173,7 +165,7 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-                - ci-testing
+                # - ci-testing
       - storybook:
           context: default
           requires:
@@ -184,7 +176,7 @@ workflows:
             branches:
               only:
                 - develop
-                - ci-testing
+                # - ci-testing
                 - qa
                 - staging
                 - master
@@ -197,7 +189,7 @@ workflows:
           filters:
             branches:
               only:
-                - ci-testing
+                # - ci-testing
                 - qa
                 - staging
                 - master
