@@ -49,11 +49,13 @@ jobs:
       - run:
           name: Run tests
           command: docker exec sv-mosaic yarn test:ci
-      - run:
-          name: Extract reports
-          command: docker cp sv-mosaic:/app/reports ~/reports
-      - store_test_results:
-          path: ~/reports
+      # This exports reports to CircleCI, but doesn't seem to really
+      # be worth doing at the moment
+      # - run:
+      #     name: Extract reports
+      #     command: docker cp sv-mosaic:/app/reports ~/reports
+      # - store_test_results:
+      #     path: ~/reports
   e2e_tests:
     docker:
       - image: cimg/base:2021.04
