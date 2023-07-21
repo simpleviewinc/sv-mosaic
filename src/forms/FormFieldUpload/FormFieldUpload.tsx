@@ -147,7 +147,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 				[_.uniqueId()]: {
 					data: {
 						name: file.name,
-						size: file.size + " bytes",
+						size: file.size,
 					},
 					percent: 0,
 					error: undefined,
@@ -200,7 +200,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const shouldDisableField = useMemo(() => {
-		const numOfPendingFiles = Object.values(pendingFiles).filter((pendingFile: { error: string }) => pendingFile.error === undefined).length;
+		const numOfPendingFiles = Object.values(pendingFiles).length;
 
 		return (
 			limit !== undefined
@@ -218,7 +218,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 					onDragEnter={dragEnter}
 					onDragLeave={dragLeave}
 					onDrop={fileDrop}
-					width={"620px"}
 					data-testid="drag-and-drop-container"
 				>
 					{isOver ? (
@@ -250,7 +249,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 					/>
 				</DragAndDropContainer>
 				: !fieldDef.disabled && (
-					<DragAndDropContainer width={"620px"}>
+					<DragAndDropContainer>
 						<>
 							<DragAndDropSpan>
 								Drag & Drop files here or
@@ -278,7 +277,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							id={file.id}
 							name={file.name}
 							size={file.size}
-							url={file.url}
+							thumbnailUrl={file.thumbnailUrl}
+							attachmentUrl={file.attachmentUrl}
 							onFileDelete={handleFileDelete}
 							disabled={fieldDef.disabled}
 						/>
@@ -294,7 +294,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								id={key}
 								name={file.data?.name}
 								size={file.data?.size}
-								url={file.data?.url}
+								thumbnailUrl={file.data?.thumbnailUrl}
+								attachmentUrl={file.data?.attachmentUrl}
 								error={file.error}
 								percent={file.percent}
 								onFileDelete={file.error && handleErrorDelete}
