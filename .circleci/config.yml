@@ -117,19 +117,21 @@ jobs:
           name: Add github to known_hosts
           command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
-          name: Publish
+          name: Publish to GitHub pages
           command: docker exec -t sv-mosaic yarn run ci:storybook
   publish:
     docker:
-      - image: gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}
-        auth:
-          username: _json_key
-          password: $GCLOUD_SERVICE_KEY
-    working_directory: /app
+      - image: cimg/base:2021.04
+    resource_class: large
     steps:
+      - checkout
+      - load_public_build
+      - run:
+          name: Spin up publishing container
+          command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} -t -d sv-mosaic
       - run:
           name: Publish to NPM
-          command: yarn run ci:publish
+          command: docker exec -t sv-mosaic yarn run ci:publish
 
 workflows:
   build:
@@ -161,7 +163,7 @@ workflows:
               only:
                 - develop
                 - /pull.*/
-                - ci-testing
+                # - ci-testing
       - e2e_tests:
           context: default
           requires:
@@ -182,7 +184,7 @@ workflows:
             branches:
               only:
                 - develop
-                - ci-testing
+                # - ci-testing
                 - qa
                 - staging
                 - master
@@ -191,11 +193,11 @@ workflows:
           requires:
             - unit_tests
             - e2e_tests
-            - private_build
+            - public_build
           filters:
             branches:
               only:
-                # - ci-testing
+                - ci-testing
                 - qa
                 - staging
                 - master
