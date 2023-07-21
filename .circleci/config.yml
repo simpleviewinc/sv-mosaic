@@ -157,7 +157,7 @@ workflows:
           filters:
             branches:
               only:
-                # - ci-testing
+                - ci-testing
                 - foo
       - publish:
           context: default
