@@ -122,13 +122,19 @@ jobs:
 workflows:
   build:
     jobs:
+      # Everything needs a build
       - public_build:
           context: default
           filters:
             branches:
               only:
                 - ci-testing
-                - foo
+                - /pull.*/
+                - develop
+                - qa
+                - staging
+                - master
+      # Pull request branches and the develop branch have tests run for them
       - unit_tests:
           context: default
           requires:
@@ -136,8 +142,9 @@ workflows:
           filters:
             branches:
               only:
-                # - ci-testing
-                - foo
+                - ci-testing
+                - /pull.*/
+                - develop
       - e2e_tests:
           context: default
           requires:
@@ -145,31 +152,37 @@ workflows:
           filters:
             branches:
               only:
-                # - ci-testing
-                - foo
+                - ci-testing
+                - /pull.*/
+                - develop
+      # Branches develop, qa, staging and master get published to GH pages.
+      # For the develop branch, the tests must finish successfully before publishing
       - storybook:
           context: default
           requires:
             - public_build
-            # Require tests be done before sending to GH pages
             - unit_tests
             - e2e_tests
           filters:
             branches:
               only:
                 - ci-testing
-                - foo
+                - develop
+                - qa
+                - staging
+                - master
+      # Branches qa, staging and master get published to NPM.
+      # The build must have successfully been published to GH pages before
+      # being published to NPM
       - publish:
           context: default
           requires:
             - public_build
-            # Require tests be done and successful publish to GH
-            # pages happened before sending to NPM
-            - unit_tests
-            - e2e_tests
             - storybook
           filters:
             branches:
               only:
                 - ci-testing
-                - foo
+                - qa
+                - staging
+                - master
