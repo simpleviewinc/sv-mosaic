@@ -11,11 +11,36 @@ import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
-import { defaultValues } from "./uploadUtils";
 
 export default {
 	title: "FormFields/FormFieldUpload",
 	decorators: [withKnobs],
+};
+
+const initialValues = {
+	uploadField: [
+		{
+			id: 0,
+			attachmentUrl: "http://placekitten.com/200/300",
+			thumbnailUrl: "http://placekitten.com/64/64",
+			size: Math.random(),
+			name: "Lipsum",
+		},
+		{
+			id: 1,
+			attachmentUrl: "http://placekitten.com/537/355",
+			thumbnailUrl: "http://placekitten.com/65/65",
+			size: Math.random(),
+			name: "Lipsum",
+		},
+		{
+			id: 2,
+			attachmentUrl: "http://placekitten.com/642/245",
+			thumbnailUrl: "http://placekitten.com/55/55",
+			size: Math.random(),
+			name: "Lipsum",
+		},
+	]
 };
 
 export const Playground = (): ReactElement => {
@@ -31,7 +56,7 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
-	const error = boolean("Trigger errors when loading", true);
+	const error = boolean("Trigger errors when loading", false);
 	const mockDB = boolean("Mock get files from DB", false);
 	const timeToLoad = number("Time to load (seconds)", 2);
 
@@ -54,6 +79,11 @@ export const Playground = (): ReactElement => {
 			);
 		}
 
+		if (file.name === "broken_file") {
+			await onError("That file is broken");
+			return;
+		}
+
 		if (error && Math.random() < 0.3) {
 			await onError("File size exceeded");
 			return;
@@ -62,8 +92,9 @@ export const Playground = (): ReactElement => {
 		await onUploadComplete({
 			id: nanoid(),
 			name: file.name,
-			size: `${file.size} bytes`,
-			url: Math.random() < 0.7 ? URL.createObjectURL(file) : undefined
+			size: file.size,
+			thumbnailUrl: URL.createObjectURL(file),
+			attachmentUrl: URL.createObjectURL(file)
 		});
 	};
 
@@ -74,8 +105,8 @@ export const Playground = (): ReactElement => {
 	const getFormValues = useCallback(async () => {
 		await new Promise(res => setTimeout(res, 1000));
 
-		return defaultValues;
-	}, []);
+		return initialValues;
+	}, [initialValues]);
 
 	const fields = useMemo(
 		(): FieldDef[] =>

@@ -3,19 +3,23 @@ import * as React from "react";
 import { memo, useMemo } from "react";
 import { FileCardProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CloudDownload from "@mui/icons-material/CloudDownload";
 import DoNotDisturb from "@mui/icons-material/DoNotDisturb";
 import Spinner from "@root/components/Spinner";
 import { StyledFileCard } from "./FileCard.styled";
 import HelperText from "@root/components/Field/HelperText";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import Tooltip from "@root/components/Tooltip";
+import ButtonRow from "@root/components/ButtonRow/ButtonRow";
+import pretty from "pretty-bytes";
 
 const FileCard = (props: FileCardProps) => {
 	const {
 		id,
 		name,
 		size,
-		url,
+		attachmentUrl,
+		thumbnailUrl,
 		onFileDelete,
 		error,
 		percent,
@@ -31,7 +35,7 @@ const FileCard = (props: FileCardProps) => {
 			);
 		}
 
-		if (!url) {
+		if (!thumbnailUrl) {
 			if (percent !== undefined && percent < 100) {
 				return (
 					<div>
@@ -47,31 +51,54 @@ const FileCard = (props: FileCardProps) => {
 			);
 		}
 
-		return <img src={url} />
-	}, [percent, url, error]);
+		return <img src={thumbnailUrl} />
+	}, [percent, thumbnailUrl, error]);
+
+	const sizeHuman = useMemo(() => pretty(size), [size]);
 
 	return (
 		<div data-testid="file-card-container">
 			<StyledFileCard error={error}>
 				<div className='file-img' data-testid="file-img">
-					{renderImg}
+					{attachmentUrl ? (
+						<a href={attachmentUrl} rel="noreferrer" target="_blank">{renderImg}</a>
+					) : (
+						renderImg
+					)}
 				</div>
 				<div className='file-data' data-testid="file-data">
 					<Tooltip type="advanced" text={name ?? "File title"}>
-						<p className='file-name' data-testid="file-name">{name ?? "File title"}</p>
+						{attachmentUrl ? (
+							<a href={attachmentUrl} rel="noreferrer" target="_blank" className='file-name' data-testid="file-name">{name ?? "File title"}</a>
+						) : (
+							<p className='file-name' data-testid="file-name">{name ?? "File title"}</p>
+						)}
 					</Tooltip>
-					<p className='file-size' data-testid="file-size">{size ?? "File size"}</p>
+					<p className='file-size' data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
-				{onFileDelete && !disabled &&
-					<div className='file-delete-btn'>
-						<Button
-							color="gray"
-							variant="icon"
-							mIcon={DeleteIcon}
-							onClick={(e) => onFileDelete({id: id})}
-						/>
-					</div>
-				}
+				<ButtonRow separator gap="small">
+					{attachmentUrl && (
+						<div className="file-download-btn">
+							<Button
+								muiAttrs={{download: true}}
+								href={attachmentUrl}
+								color="gray"
+								variant="icon"
+								mIcon={CloudDownload}
+							/>
+						</div>
+					)}
+					{onFileDelete && !disabled &&
+						<div className='file-delete-btn'>
+							<Button
+								color="gray"
+								variant="icon"
+								mIcon={DeleteIcon}
+								onClick={(e) => onFileDelete({id: id})}
+							/>
+						</div>
+					}
+				</ButtonRow>
 			</StyledFileCard>
 			{error &&
 				<HelperText error={error !== undefined}>{error}</HelperText>
