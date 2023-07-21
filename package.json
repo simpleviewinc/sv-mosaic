@@ -47,7 +47,6 @@
 		"jest": "^27.5.1",
 		"jest-canvas-mock": "^2.3.1",
 		"jest-fail-on-console": "2.4.2",
-		"jest-junit": "^16.0.0",
 		"json-date-parser": "1.0.1",
 		"mocha": "5.2.0",
 		"nanoid": "4.0.0",
@@ -118,7 +117,7 @@
 	},
 	"scripts": {
 		"test": "jest",
-		"test:ci": "JEST_JUNIT_OUTPUT_DIR=./reports/ jest --ci --runInBand --reporters=default --reporters=jest-junit",
+		"test:ci": "jest --ci",
 		"tsc": "tsc",
 		"start": "yarn run storybook",
 		"build": "yarn run build:esm && yarn run build:types && yarn run build:cjs",
