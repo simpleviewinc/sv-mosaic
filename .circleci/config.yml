@@ -34,25 +34,6 @@ jobs:
           paths:
             - sv_mosaic_build.tar
             - scripts
-  private_build:
-    docker:
-      - image: cimg/base:2021.04
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 20.10.14
-      - run:
-          name: Setup Environment Variables
-          command: |
-            echo 'export IMAGE="gcr.io/sv-shared-231700/sv-mosaic:${CIRCLE_BRANCH}"' >> $BASH_ENV
-      - run:
-          name: Docker build
-          command: |
-            docker login -u _json_key -p "${GCLOUD_SERVICE_KEY}" https://gcr.io
-            docker pull $IMAGE || true
-            DOCKER_BUILDKIT=1 docker build -t $IMAGE --cache-from $IMAGE .
-            docker push $IMAGE
   unit_tests:
     docker:
       - image: cimg/base:2021.04
@@ -112,8 +93,11 @@ jobs:
       - run:
           name: Copy SSH
           command: |
+            # Copy base container's .ssh to publishing container's .ssh
             docker cp ~/.ssh sv-mosaic:/root/.ssh
+            # Give ~/.ssh and the keys inside the correct ownership and permissions
             docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
+            # Replace the base container's home path with the publishing container's home path in the .ssh/config file
             docker exec -t sv-mosaic sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
       - run:
           name: Add github to known_hosts
@@ -143,8 +127,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - /pull.*/
                 - ci-testing
       - unit_tests:
           context: default
@@ -153,8 +135,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - /pull.*/
                 - ci-testing
       - e2e_tests:
           context: default
@@ -163,26 +143,24 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - /pull.*/
-                # - ci-testing
+                - ci-testing
       - storybook:
           context: default
           requires:
+            - public_build
+            # Require tests be done before sending to GH pages
             - unit_tests
             - e2e_tests
-            - public_build
           filters:
             branches:
               only:
-                - develop
                 # - ci-testing
-                - qa
-                - staging
-                - master
       - publish:
           context: default
           requires:
+            - public_build
+            # Require tests be done and successful publish to GH
+            # pages happened before sending to NPM
             - unit_tests
             - e2e_tests
             - storybook
@@ -190,6 +168,3 @@ workflows:
             branches:
               only:
                 # - ci-testing
-                - qa
-                - staging
-                - master
