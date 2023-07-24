@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const LeftNavRoot = styled.div`
+const LeftNavRoot = styled.nav`
 	background: #2e2e31;
 	display: flex;
 	flex-direction: column;
