@@ -56,9 +56,10 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
-	const error = boolean("Trigger errors when loading", false);
-	const mockDB = boolean("Mock get files from DB", false);
-	const timeToLoad = number("Time to load (seconds)", 2);
+	const mockDB = boolean("Simulate initial field value", false);
+	const timeToLoad = number("Time to upload load (seconds)", 2);
+	const thumbnailUrl = text("Override onUploadComplete thumbail URL", "");
+	const attachmentUrl = text("Override onUploadComplete attachment URL", "");
 
 	const [loadReady, setLoadReady] = useState(false);
 
@@ -70,7 +71,8 @@ export const Playground = (): ReactElement => {
 		mockDB ? resetForm() : setLoadReady(false);
 	}, [mockDB]);
 
-	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete, onError }) => {
+
+	const onFileAdd = useCallback(async ({ file, onChunkComplete, onUploadComplete, onError }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
@@ -79,13 +81,8 @@ export const Playground = (): ReactElement => {
 			);
 		}
 
-		if (file.name === "broken_file") {
+		if (file.name.substring(0, 11) === "broken_file") {
 			await onError("That file is broken");
-			return;
-		}
-
-		if (error && Math.random() < 0.3) {
-			await onError("File size exceeded");
 			return;
 		}
 
@@ -93,10 +90,14 @@ export const Playground = (): ReactElement => {
 			id: nanoid(),
 			name: file.name,
 			size: file.size,
-			thumbnailUrl: URL.createObjectURL(file),
-			attachmentUrl: URL.createObjectURL(file)
+			thumbnailUrl: thumbnailUrl || URL.createObjectURL(file),
+			attachmentUrl: attachmentUrl || URL.createObjectURL(file)
 		});
-	};
+	}, [
+		timeToLoad,
+		thumbnailUrl,
+		attachmentUrl
+	]);
 
 	const onFileDelete = async ({id}) => {
 		alert("DELETED FILE: " + id);
@@ -133,7 +134,8 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			limit,
-			timeToLoad
+			timeToLoad,
+			onFileAdd
 		]
 	);
 
