@@ -139,7 +139,6 @@ export const Playground = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
@@ -149,6 +148,7 @@ export const Playground = (): ReactElement => {
 				dispatch={dispatch}
 				getFormValues={loadReady && getFormValues}
 			/>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };
