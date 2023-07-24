@@ -114,7 +114,7 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 			onClose={onClose}
 		>
 			<LeftNavContext.Provider value={newContext}>
-				<RootDiv>
+				<RootDiv aria-label="Main">
 					<div className="header">
 						<TridentIcon/>
 						<CloseIcon onClick={onClose} className="closeIcon"/>
