@@ -12,19 +12,24 @@ import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import Tooltip from "@root/components/Tooltip";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import pretty from "pretty-bytes";
+import Downloader from "@root/components/Downloader/Downloader";
 
 const FileCard = (props: FileCardProps) => {
 	const {
 		id,
 		name,
 		size,
-		attachmentUrl,
+		fileUrl,
 		thumbnailUrl,
+		downloadUrl,
+		downloadStrategy: providedDownloadStrategy,
 		onFileDelete,
 		error,
 		percent,
 		disabled,
 	} = props;
+
+	const downloadStrategy = providedDownloadStrategy !== undefined ? providedDownloadStrategy : downloadUrl ? "iframe" : "anchor";
 
 	const renderImg = useMemo(() => {
 		if (error) {
@@ -60,16 +65,16 @@ const FileCard = (props: FileCardProps) => {
 		<div data-testid="file-card-container">
 			<StyledFileCard error={error}>
 				<div className='file-img' data-testid="file-img">
-					{attachmentUrl ? (
-						<a href={attachmentUrl} rel="noreferrer" target="_blank">{renderImg}</a>
+					{fileUrl ? (
+						<a href={fileUrl} rel="noreferrer" target="_blank">{renderImg}</a>
 					) : (
 						renderImg
 					)}
 				</div>
 				<div className='file-data' data-testid="file-data">
 					<Tooltip type="advanced" text={name ?? "File title"}>
-						{attachmentUrl ? (
-							<a href={attachmentUrl} rel="noreferrer" target="_blank" className='file-name' data-testid="file-name">{name ?? "File title"}</a>
+						{fileUrl ? (
+							<a href={fileUrl} rel="noreferrer" target="_blank" className='file-name' data-testid="file-name">{name ?? "File title"}</a>
 						) : (
 							<p className='file-name' data-testid="file-name">{name ?? "File title"}</p>
 						)}
@@ -77,15 +82,23 @@ const FileCard = (props: FileCardProps) => {
 					<p className='file-size' data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
 				<ButtonRow separator gap="small">
-					{attachmentUrl && (
+					{(downloadUrl || fileUrl) && (
 						<div className="file-download-btn">
-							<Button
-								muiAttrs={{download: true}}
-								href={attachmentUrl}
-								color="gray"
-								variant="icon"
-								mIcon={CloudDownload}
-							/>
+							{downloadStrategy === "anchor" ? (
+								<Button
+									muiAttrs={{download: true}}
+									href={fileUrl}
+									color="gray"
+									variant="icon"
+									mIcon={CloudDownload}
+								/>
+							) : (
+								<Downloader
+									url={downloadUrl || fileUrl}
+									color="gray"
+									variant="icon"
+								/>
+							)}
 						</div>
 					)}
 					{onFileDelete && !disabled &&
