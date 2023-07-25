@@ -168,7 +168,7 @@ export const Playground = (): ReactElement => {
 			id: nanoid(),
 			name: file.name,
 			size: file.size,
-			attachmentUrl: URL.createObjectURL(file),
+			fileUrl: URL.createObjectURL(file),
 			thumbnailUrl: URL.createObjectURL(file)
 		});
 	};
@@ -558,7 +558,7 @@ export const Playground = (): ReactElement => {
 							"id": "3",
 							"name": "SV.png",
 							"size": 151418,
-							"attachmentUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg",
+							"fileUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg",
 							"thumbnailUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
 						},
 						{
@@ -575,7 +575,7 @@ export const Playground = (): ReactElement => {
 							"id": "6",
 							"name": "summit.png",
 							"size": 840038,
-							"attachmentUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg",
+							"fileUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg",
 							"thumbnailUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg",
 						},
 					],

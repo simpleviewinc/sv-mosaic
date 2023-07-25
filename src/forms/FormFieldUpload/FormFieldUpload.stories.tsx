@@ -11,6 +11,7 @@ import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
+import { OnFileAdd } from "./FormFieldUploadTypes";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -21,21 +22,21 @@ const initialValues = {
 	uploadField: [
 		{
 			id: 0,
-			attachmentUrl: "http://placekitten.com/200/300",
+			fileUrl: "http://placekitten.com/200/300",
 			thumbnailUrl: "http://placekitten.com/64/64",
 			size: Math.random(),
 			name: "Lipsum",
 		},
 		{
 			id: 1,
-			attachmentUrl: "http://placekitten.com/537/355",
+			fileUrl: "http://placekitten.com/537/355",
 			thumbnailUrl: "http://placekitten.com/65/65",
 			size: Math.random(),
 			name: "Lipsum",
 		},
 		{
 			id: 2,
-			attachmentUrl: "http://placekitten.com/642/245",
+			fileUrl: "http://placekitten.com/642/245",
 			thumbnailUrl: "http://placekitten.com/55/55",
 			size: Math.random(),
 			name: "Lipsum",
@@ -59,7 +60,8 @@ export const Playground = (): ReactElement => {
 	const mockDB = boolean("Simulate initial field value", false);
 	const timeToLoad = number("Time to upload load (seconds)", 2);
 	const thumbnailUrl = text("Override onUploadComplete thumbail URL", "");
-	const attachmentUrl = text("Override onUploadComplete attachment URL", "");
+	const fileUrl = text("Override onUploadComplete file URL", "");
+	const downloadUrl = text("Override onUploadComplete download URL", "");
 
 	const [loadReady, setLoadReady] = useState(false);
 
@@ -72,7 +74,7 @@ export const Playground = (): ReactElement => {
 	}, [mockDB]);
 
 
-	const onFileAdd = useCallback(async ({ file, onChunkComplete, onUploadComplete, onError }) => {
+	const onFileAdd: OnFileAdd = useCallback(async ({ file, onChunkComplete, onUploadComplete, onError }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
@@ -91,12 +93,14 @@ export const Playground = (): ReactElement => {
 			name: file.name,
 			size: file.size,
 			thumbnailUrl: thumbnailUrl || URL.createObjectURL(file),
-			attachmentUrl: attachmentUrl || URL.createObjectURL(file)
+			fileUrl: fileUrl || URL.createObjectURL(file),
+			downloadUrl: downloadUrl,
 		});
 	}, [
 		timeToLoad,
 		thumbnailUrl,
-		attachmentUrl
+		fileUrl,
+		downloadUrl
 	]);
 
 	const onFileDelete = async ({id}) => {
