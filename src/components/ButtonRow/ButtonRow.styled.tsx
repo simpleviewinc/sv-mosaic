@@ -15,7 +15,6 @@ export const Row = styled.div`
 	${({wrap}) => wrap && `
 		flex-wrap: wrap;
 	`}
-
 `;
 
 export const Item = styled.div`
