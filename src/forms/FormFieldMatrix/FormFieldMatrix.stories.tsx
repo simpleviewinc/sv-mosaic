@@ -229,7 +229,7 @@ export const FormVariant = (): ReactElement => {
 										}
 									}),
 								color: "teal",
-								variant: "text",
+								variant: "outlined",
 								mIcon: AddIcon
 							},
 						]
@@ -513,7 +513,7 @@ export const Browse = (): ReactElement => {
 										},
 									}),
 								color: "teal",
-								variant: "text",
+								variant: "outlined",
 								mIcon: AddIcon,
 							},
 						],

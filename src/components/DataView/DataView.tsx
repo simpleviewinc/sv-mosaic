@@ -199,7 +199,6 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	const shouldRenderActionsRow: boolean = useMemo(() => {
 		if (
-			props.display ??
 			validBulkActions ??
 			props.limitOptions ??
 			props.onColumnsChange ??
