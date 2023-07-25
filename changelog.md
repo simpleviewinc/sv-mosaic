@@ -1,5 +1,27 @@
 # sv-mosaic changelog
 
+## 25.1.0 - 07/25/23
+
+### Features
+
+* `useScrollSpy`:
+    * Introduces the useScrollSpy hook which can be used to watch a viewport and get updates about the section that is considered active based on it’s vertical position in the viewport
+
+### Improvements & Fixes
+
+* `Form`:
+    * Utilises the new `useScrollSpy` hook to fix navigation indicator issues that were made apparent when viewing forms with multiple sections.
+    * Introduces the `show` property as seen in the `Content` component. The `show` property can be used to conditionally show fields or even entire form sections based on real time form data.
+* `ButtonRow`
+	* Improve consistency by consuming the `ButtonRow` in more places across multiple Mosaic components. The components that now use the `ButtonRow` component are as follows:
+		* `Card` (top buttons and bottom buttons)
+		* `Content`
+		* `DataViewActions`
+		* `PageHeader`
+		* `SummaryPageTopComponent`
+		* `Form` (Desktop and Mobile views)
+	* Exposes the `ButtonRow` for use by consuming products, which can improve consistency further
+
 ## 25.0.0 - 07/11/23
 * `DataView`:
 	* Reduced font weight of the bold-styled column type to keep consistency from `bold` to `500`
