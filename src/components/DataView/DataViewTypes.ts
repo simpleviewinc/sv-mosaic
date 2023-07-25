@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicShow } from "@root/types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
@@ -203,6 +204,7 @@ export interface DataViewProps {
 	sticky?: boolean
 	checked?: boolean[];
 	checkedAllPages?: boolean;
+	noResults?: ReactElement | string,
 	/** A list of actions which are always visible for each item in the DataView. */
 	filters?: DataViewFilterDef[]
 	filter?: MosaicObject
