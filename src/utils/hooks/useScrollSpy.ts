@@ -52,7 +52,7 @@ export default function useScrollSpy({
 			isProgramScroll.current = false;
 		}
 
-		container.addEventListener("wheel", onMouseWheel);
+		container.addEventListener("wheel", onMouseWheel, { passive: true });
 		return () => container.removeEventListener("wheel", onMouseWheel);
 	}, [container]);
 
