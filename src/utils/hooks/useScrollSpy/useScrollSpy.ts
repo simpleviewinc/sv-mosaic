@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
 import { debounce } from "lodash";
 import { useAnimate } from "../useAnimate";
+import clamp from "@root/utils/math/clamp";
 
+const MIN_SCROLL_DURATION = 400;
 const MAX_SCROLL_DURATION = 1500;
 
 export default function useScrollSpy({
@@ -98,16 +100,16 @@ export default function useScrollSpy({
 
 		const { scrollTop } = container;
 
-		// There might be some extra offset if the first section
-		// does not sit flush with the container, so calculate that
-		// to start with
-		const firstBox = first.getBoundingClientRect();
-		const firstOffset = firstBox.top + scrollTop;
-
-		// Now calculate the start and end points of the scroll animation
+		// Calculate the start and end points of the scroll animation
 		// based on the sections position relative to the container
 		const sectionBox = ref.getBoundingClientRect();
 		const containerBox = container.getBoundingClientRect();
+
+		// There might be some extra offset if the first section
+		// does not sit flush with the container, so calculate that
+		// and take it away from the scroll target
+		const firstBox = first.getBoundingClientRect();
+		const firstOffset = firstBox.top + scrollTop - containerBox.top;
 
 		const newScrollTop = sectionBox.top + scrollTop - containerBox.top - firstOffset;
 		const scrollMax = container.scrollHeight - containerBox.height;
@@ -123,8 +125,10 @@ export default function useScrollSpy({
 			},
 			valueStart,
 			valueEnd,
-			// There's a nicer way to do this, I just don't know it yet
-			duration: Math.min(Math.abs(valueEnd - valueStart) * 0.75, MAX_SCROLL_DURATION)
+			duration: clamp(Math.abs(valueEnd - valueStart) * 0.75, {
+				min: MIN_SCROLL_DURATION,
+				max: MAX_SCROLL_DURATION
+			})
 		});
 	}, [container, refs]);
 
