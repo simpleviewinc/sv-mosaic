@@ -1,2 +1,2 @@
-export * from "./ScrollSpyTypes";
-export {default} from "./useScrollSpy";
+export * from "./useScrollSpy"
+export { default as useScrollSpy } from "./useScrollSpy"
