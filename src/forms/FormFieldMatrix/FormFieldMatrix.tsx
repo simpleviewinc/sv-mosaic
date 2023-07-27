@@ -18,10 +18,11 @@ const FormFieldMatrix = (
 
 	const { buttons, dataView } = fieldDef.inputSettings;
 	const data = (dataView.data !== undefined ? dataView.data : value) || [];
+	const hasValue = data.length > 0;
 
 	return (
-		<MatrixWrapper hasValue>
-			<MatrixActions hasValue>
+		<MatrixWrapper hasValue={hasValue}>
+			<MatrixActions hasValue={hasValue}>
 				<ButtonRow>
 					{buttons.map((button, idx) => (
 						<Button key={`${button.label}-${idx}`} {...button} />
