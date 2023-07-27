@@ -65,6 +65,11 @@ const FormNav = (props: FormNavProps): ReactElement => {
 		}
 	};
 
+	const onLinkClick = (idx: number) => (e) => {
+		e.preventDefault();
+		onSectionSelect(idx)
+	}
+
 	return (
 		<FormNavWrapper className={`form-nav-wrapper ${view}`}>
 			<FormNavRow view={view} className={view} scrollX={scrollX}>
@@ -78,7 +83,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 						<LinksWrapper
 							className={`${view} ${idx === activeSection ? "highlight" : ""}`}
 							key={`${section.title}-${section.id}`}
-							onClick={() => onSectionSelect(idx)}
+							onClick={onLinkClick(idx)}
 							ref={el => linkRef.current[idx] = el}
 						>
 							<a href={`#${section.title}`}>{section.title}</a>
