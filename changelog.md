@@ -1,5 +1,13 @@
 # sv-mosaic changelog
 
+## 25.1.1 - 07/27/23
+
+### Improvements & Fixes
+
+* `useScrollSpy`:
+	* Fixes a bug that caused scroll glitching in Chrome when `setActiveSection` was invoked. Drops `scrollTo` in favour of new implementation.
+* Split `Form` stories into individual files to improve performance in Storybook “docs” tab.
+
 ## 25.1.0 - 07/25/23
 
 ### Features
