@@ -30,7 +30,8 @@ const Form = (props: FormProps) => {
 		getFormValues,
 		handleDialogClose,
 		tooltipInfo,
-		showActive
+		showActive,
+		scrollSpyThreshold = 0.15
 	} = props;
 
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
@@ -43,7 +44,8 @@ const Form = (props: FormProps) => {
 		setActiveSection,
 	} = useScrollSpy({
 		refs: sectionRefs,
-		container: formContentRef.current
+		container: formContentRef.current,
+		threshold: scrollSpyThreshold
 	});
 
 	const dispatchRef = useRefsDispatch();
