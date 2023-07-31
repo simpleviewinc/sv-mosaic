@@ -191,8 +191,6 @@ const Form = (props: FormProps) => {
 		setActiveSection(Number(args.item.name))
 	}, [setActiveSection]);
 
-	// const loading = Object.values(state.loading).filter(Boolean).length > 0;
-
 	return (
 		<>
 			<ViewProvider value={view}>
