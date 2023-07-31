@@ -13,7 +13,7 @@ import {
 } from "./DatePicker.styled";
 
 const DateFieldPicker = (props: DatePickerProps): ReactElement => {
-	const { error, fieldDef, onChange, value, onBlur } = props;
+	const { error, fieldDef, onChange, value = null, onBlur } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
