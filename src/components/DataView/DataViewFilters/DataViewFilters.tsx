@@ -26,7 +26,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 		dropdownOpen : false
 	});
 
-	const activeFilters = props.activeFilters || [];
+	const activeFilters = useMemo(() => props.activeFilters || [], [props.activeFilters]);
 
 	const active = activeFilters.map(activeFilter => props.filters.find(filter => filter.name === activeFilter));
 	const options = props.filters
