@@ -1,6 +1,6 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
-import { Snackbar } from "@root/index";
+import { formActions, Snackbar } from "@root/index";
 import _ from "lodash";
 import * as React from "react";
 import { memo, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -14,6 +14,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		fieldDef,
 		value,
 		onChange,
+		dispatch
 	} = props;
 
 	const {
@@ -98,6 +99,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 
 
 	const onUploadComplete = async ({ uuid, data }) => {
+		dispatch && dispatch(formActions.endLoad({ name: `uploading/${fieldDef.name}/${uuid}` }));
+
 		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
 
 		setPendingFiles((prevState) => {
@@ -108,6 +111,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const onError = async ({ uuid, message }) => {
+		dispatch && dispatch(formActions.endLoad({ name: `uploading/${fieldDef.name}/${uuid}` }));
+
 		setPendingFiles((prevState) => (
 			{
 				...prevState,
@@ -168,6 +173,11 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		setPendingFiles({...pendingFiles, ...transformedFiles});
 
 		for (const [key, file] of Object.entries(transformedFiles) as [string, TransformedFile][]) {
+			dispatch && dispatch(formActions.startLoad({
+				name: `uploading/${fieldDef.name}/${key}`,
+				value: `${fieldDef.label} currently has an upload in progress`
+			}));
+
 			onFileAdd({
 				file: file?.rawData,
 				onChunkComplete: ({ percent }) => onChunkComplete({uuid: key, percent}),
