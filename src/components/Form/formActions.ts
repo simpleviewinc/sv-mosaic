@@ -41,6 +41,14 @@ export const formActions = {
 			extraArgs.fieldMap = fieldMap;
 		};
 	},
+	setSubmitWarning({ value }: { value: string }) {
+		return async function(dispatch): Promise<void> {
+			return dispatch({
+				type: "SET_SUBMIT_WARNING",
+				value
+			})
+		}
+	},
 	setFieldValue({
 		name,
 		value,
@@ -191,10 +199,20 @@ export const formActions = {
 	},
 	submitForm() {
 		return async function (dispatch, getState, extraArgs): Promise<{ valid: boolean; data: any; }> {
-			const { disabled, data, mounted } = getState();
+			const { disabled, data, mounted, loading } = getState();
 
 			if (disabled)
 				return;
+
+			const loadingMessages = Object.values(loading).filter(Boolean);
+			if (loadingMessages.length > 0) {
+				dispatch({
+					type: "SET_SUBMIT_WARNING",
+					value: `The form cannot be submitted at this time: ${loadingMessages.join(" ")}`
+				});
+
+				return;
+			}
 
 			const valid = await dispatch(
 				formActions.validateForm({ fields: extraArgs.fields })
@@ -244,6 +262,23 @@ export const formActions = {
 			await dispatch({
 				type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
 				value: disabled,
+			});
+		}
+	},
+	startLoad({ name, value }: { name: string, value: string }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: "FORM_START_LOAD",
+				name,
+				value
+			});
+		}
+	},
+	endLoad({ name }: { name: string }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: "FORM_END_LOAD",
+				name,
 			});
 		}
 	},

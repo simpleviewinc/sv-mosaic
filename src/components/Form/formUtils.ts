@@ -11,6 +11,8 @@ type State = {
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
 	mounted: MosaicObject<boolean>;
+	loading: MosaicObject<boolean>;
+	submitWarning: string
 }
 
 type ActionTypes =
@@ -28,6 +30,9 @@ type ActionTypes =
 	| "PROPERTY_RESET"
 	| "MOUNT_FIELD"
 	| "UNMOUNT_FIELD"
+	| "FORM_START_LOAD"
+	| "FORM_END_LOAD"
+	| "SET_SUBMIT_WARNING"
 
 type Action = {
 	type: ActionTypes;
@@ -122,6 +127,30 @@ export function coreReducer(state: State, action: Action): State {
 				[action.name]: false
 			}
 		}
+	case "FORM_START_LOAD": {
+		return {
+			...state,
+			loading: {
+				...state.loading,
+				[action.name]: action.value
+			}
+		}
+	}
+	case "FORM_END_LOAD": {
+		return {
+			...state,
+			loading: {
+				...state.loading,
+				[action.name]: undefined
+			}
+		}
+	}
+	case "SET_SUBMIT_WARNING": {
+		return {
+			...state,
+			submitWarning: action.value
+		}
+	}
 	default:
 		return state;
 	}
@@ -151,7 +180,9 @@ export function useForm(): UseFormReturn {
 			validForm: false,
 			disabled: false,
 			touched: {},
-			mounted: {}
+			mounted: {},
+			loading: {},
+			submitWarning: ""
 		},
 		extraArgs.current
 	);
