@@ -70,6 +70,8 @@ function DataView (props: DataViewProps): ReactElement  {
 		})
 	}, [props.activeFilters, props.filters]);
 
+	const { noResults = "No results were found." } = props;
+
 	// set defaults
 	const display = props.display || "list";
 	const displayOptions = useMemo(() => props.displayOptions || [display], [display, props.displayOptions]);
@@ -199,7 +201,6 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	const shouldRenderActionsRow: boolean = useMemo(() => {
 		if (
-			props.display ??
 			validBulkActions ??
 			props.limitOptions ??
 			props.onColumnsChange ??
@@ -326,10 +327,14 @@ function DataView (props: DataViewProps): ReactElement  {
 					anyChecked={anyChecked}
 				/>
 			</div>
-			{props.loading === false && !props.data.length && (
-				<div className="noResults">
-					<p>No results were found.</p>
-				</div>
+			{!props.loading && !props.data.length && (
+				typeof noResults === "string" ? (
+					<div className="noResults">
+						<p>{noResults}</p>
+					</div>
+				) : (
+					noResults
+				)
 			)}
 		</StyledWrapper>
 	);

@@ -2,10 +2,11 @@ import * as React from "react";
 import { ReactElement, memo } from "react";
 
 import { MosaicFieldProps } from "@root/components/Field";
-import { MatrixWrapper, ButtonsWrapper } from "./FormFieldMatrix.styled";
+import { MatrixActions, MatrixWrapper } from "./FormFieldMatrix.styled";
 import Button from "@root/components/Button";
 import DataView from "@root/components/DataView";
 import { MatrixData, MatrixInputSettings } from "./FormFieldMatrixTypes";
+import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 
 const FormFieldMatrix = (
 	props: MosaicFieldProps<"matrix", MatrixInputSettings, MatrixData>
@@ -16,20 +17,22 @@ const FormFieldMatrix = (
 	} = props;
 
 	const { buttons, dataView } = fieldDef.inputSettings;
+	const data = (dataView.data !== undefined ? dataView.data : value) || [];
+	const hasValue = data.length > 0;
 
 	return (
-		<MatrixWrapper hasValue={value}>
-			<ButtonsWrapper>
-				{buttons.map((button, idx) => (
-					<Button key={`${button.label}-${idx}`} {...button} />
-				))}
-			</ButtonsWrapper>
-			{value &&
-				<DataView
-					data={value}
-					{...dataView}
-				></DataView>
-			}
+		<MatrixWrapper hasValue={hasValue}>
+			<MatrixActions hasValue={hasValue}>
+				<ButtonRow>
+					{buttons.map((button, idx) => (
+						<Button key={`${button.label}-${idx}`} {...button} />
+					))}
+				</ButtonRow>
+			</MatrixActions>
+			<DataView
+				data={[]}
+				{...{...dataView, data}}
+			/>
 		</MatrixWrapper>
 	);
 };
