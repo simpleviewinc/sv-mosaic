@@ -155,7 +155,7 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 	}
 
 	const navContent = (
-		<RootDiv onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+		<RootDiv aria-label="Main" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			<LeftNavContext.Provider value={newContext}>
 				<LeftNavScroller className="top" attrs={scrollerAttrs}>
 					<LeftNavItems
