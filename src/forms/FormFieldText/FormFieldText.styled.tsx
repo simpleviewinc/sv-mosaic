@@ -28,19 +28,23 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
 	.MuiOutlinedInput-input {
 		padding: 12px 14px;
-		line-height: 18px;
+		line-height: 20px;
 		font-size: 15px;
 		height: 43px;
 		box-sizing: border-box;
-
 		color: ${theme.newColors.almostBlack["100"]};
 		font-family: ${theme.fontFamily};
 		font-weight: 400;
+
 		::placeholder {
 			font-weight: ${theme.fontWeight.normal};
 			color: ${theme.newColors.grey3["100"]};
 			opacity: 1;
 		}
+	}
+
+	.MuiInputAdornment-root + .MuiOutlinedInput-input{
+		padding-left: 0;
 	}
 
 	.MuiInputBase-multiline{
