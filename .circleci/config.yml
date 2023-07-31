@@ -1,7 +1,7 @@
 version: 2.1
 
 commands:
-  load_public_build:
+  load_build:
     steps:
       - attach_workspace:
           at: ~/project
@@ -13,7 +13,7 @@ commands:
           command: docker load -i sv_mosaic_build.tar
 
 jobs:
-  public_build:
+  build:
     docker:
       - image: cimg/base:2021.04
         name: build
@@ -40,7 +40,7 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - load_public_build
+      - load_build
       - run:
           name: Spin up sub-container
           command: |
@@ -62,7 +62,7 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - load_public_build
+      - load_build
       - run:
           name: Spin up test containers
           command: cd automation_testing && docker-compose up --detach
@@ -85,7 +85,7 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - load_public_build
+      - load_build
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
@@ -113,7 +113,7 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - load_public_build
+      - load_build
       - run:
           name: Spin up publishing container
           command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} -t -d sv-mosaic
@@ -125,7 +125,7 @@ workflows:
   build:
     jobs:
       # Everything needs a build
-      - public_build:
+      - build:
           context: default
           filters:
             branches:
@@ -140,7 +140,7 @@ workflows:
       - unit_tests:
           context: default
           requires:
-            - public_build
+            - build
           filters:
             branches:
               only:
@@ -150,7 +150,7 @@ workflows:
       - e2e_tests:
           context: default
           requires:
-            - public_build
+            - build
           filters:
             branches:
               only:
@@ -162,7 +162,7 @@ workflows:
       - storybook:
           context: default
           requires:
-            - public_build
+            - build
             - unit_tests
             - e2e_tests
           filters:
@@ -179,7 +179,7 @@ workflows:
       - publish:
           context: default
           requires:
-            - public_build
+            - build
             - storybook
           filters:
             branches:
