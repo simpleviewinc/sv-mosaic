@@ -56,7 +56,7 @@ export function coreReducer(state: State, action: Action): State {
 	case "FIELD_VALIDATE":
 		// TODO this is bad there's no support for multiple errors, but will be refactored in
 		// https://simpleviewtools.atlassian.net/browse/MOS-1131
-		return state.errors[action.name] ? state : {
+		return state.errors[action.name] !== undefined ? state : {
 			...state,
 			errors: {
 				...state.errors,
