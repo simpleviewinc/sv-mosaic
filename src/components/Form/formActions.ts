@@ -87,9 +87,8 @@ export const formActions = {
 			 */
 			if (extraArgs?.fieldMap[name].disabled) {
 				await dispatch({
-					type: "FIELD_VALIDATE",
-					name,
-					value: undefined
+					type: "FIELD_UNVALIDATE",
+					name
 				});
 
 				return;
@@ -112,11 +111,18 @@ export const formActions = {
 			const currentValue = getState().data[name];
 
 			if (startValue === currentValue) {
-				await dispatch({
-					type: "FIELD_VALIDATE",
-					name,
-					value: result?.errorMessage ?? undefined
-				});
+				if (result?.errorMessage) {
+					await dispatch({
+						type: "FIELD_VALIDATE",
+						name,
+						value: result?.errorMessage
+					});
+				} else {
+					await dispatch({
+						type: "FIELD_UNVALIDATE",
+						name
+					});
+				}
 			}
 		};
 	},
