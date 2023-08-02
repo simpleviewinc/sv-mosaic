@@ -13,29 +13,12 @@ export const AddAddressWrapper = styled.div`
 `;
 
 export const FlexContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  border-style: solid;
+  border-color: ${theme.newColors.grey2["100"]};
+  border-width: 2px;
+	padding: 0.5rem;
 
-  & > :not(:last-child) {
-    margin-right: 25px;
-  }
-
-  & > * {
-    margin-bottom: 20px;
-  }
-
-  @media (min-width: 1440px) {
-    & > :not(:last-child) {
-      margin-right: 80px;
-    }
-  }
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    & > :not(:last-child) {
-      margin-bottom: 20px;
-      margin-right: 0px;
-    }
-    display: flex;
-    flex-direction: column;
-  }
+  flex-grow: 1;
+  width: 600px;
+  max-width: 100%;
 `;
