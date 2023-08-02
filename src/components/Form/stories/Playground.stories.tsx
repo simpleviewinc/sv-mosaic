@@ -496,6 +496,11 @@ export const Playground = (): ReactElement => {
 					]
 				},
 				{
+					name: "address",
+					type: "address",
+					label: "Address",
+				},
+				{
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
@@ -602,7 +607,7 @@ export const Playground = (): ReactElement => {
 					[["textField"], ["check"]],
 					// row 2
 					[["chipSelect"], ["dropdownSingle"]],
-					[["table"]],
+					[["address"], ["table"]],
 					// row 3
 					[["phoneSelect"], ["radio"]]
 				]

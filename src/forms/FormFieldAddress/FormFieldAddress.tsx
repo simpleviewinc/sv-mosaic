@@ -7,7 +7,7 @@ import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
 
 // Styles
-import { AddAddressWrapper, FlexContainer } from "./Address.styled";
+import { FlexContainer } from "./Address.styled";
 
 // Utils
 import AddressCard from "./AddressCard";
@@ -187,8 +187,33 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	return (
 		<div>
 			<FlexContainer>
+				{value ? (
+					<div style={{display: "flex", flexWrap: "wrap", gap: 16}}>
+						{value.map((address, idx) => (
+							<AddressCard
+								key={`${idx}`}
+								address={address}
+								addressIndex={idx}
+								onEdit={showEditModal}
+								disabled={fieldDef.disabled}
+								onRemoveAddress={removeAddressHandler}
+							/>
+						))}
+					</div>
+				) : (
+					<div style={{
+						width: 300,
+						backgroundColor: "#fafafa",
+						color: "#444",
+						fontStyle: "italic",
+						padding: "24px 16px 24px 24px",
+						fontSize: 14
+					}}>
+						No address provided
+					</div>
+				)}
 				{(!fieldDef.disabled || isEmpty(value)) && (
-					<AddAddressWrapper>
+					<div style={{marginTop: "0.5rem"}}>
 						<Button
 							disabled={addressTypes?.length === 0 ? true : fieldDef.disabled}
 							color="gray"
@@ -196,19 +221,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 							label="ADD ADDRESS"
 							onClick={addAddressHandler}
 						></Button>
-					</AddAddressWrapper>
+					</div>
 				)}
-				{value &&
-					value.map((address, idx) => (
-						<AddressCard
-							key={`${idx}`}
-							address={address}
-							addressIndex={idx}
-							onEdit={showEditModal}
-							disabled={fieldDef.disabled}
-							onRemoveAddress={removeAddressHandler}
-						/>
-					))}
 			</FlexContainer>
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
