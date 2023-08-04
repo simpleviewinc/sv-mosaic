@@ -29,6 +29,11 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const fileInputField = useRef(null);
 	const prevValueRef = useRef([]);
 
+	const pendingWithoutError = useMemo(() =>
+		Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length,
+	[pendingFiles]
+	);
+
 	useEffect(() => {
 		prevValueRef.current = value;
 	}, [value]);
@@ -97,10 +102,20 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		));
 	};
 
+	useEffect(() => {
+		if (!dispatch) {
+			return;
+		}
+
+		if (pendingWithoutError) {
+			dispatch(formActions.startBusy({ name: fieldDef.name, value: `${fieldDef.label} is currently uploading` }));
+		} else {
+			dispatch(formActions.endBusy({ name: fieldDef.name }));
+		}
+	}, [pendingWithoutError]);
+
 
 	const onUploadComplete = async ({ uuid, data }) => {
-		dispatch && dispatch(formActions.endLoad({ name: `uploading/${fieldDef.name}/${uuid}` }));
-
 		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
 
 		setPendingFiles((prevState) => {
@@ -111,8 +126,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const onError = async ({ uuid, message }) => {
-		dispatch && dispatch(formActions.endLoad({ name: `uploading/${fieldDef.name}/${uuid}` }));
-
 		setPendingFiles((prevState) => (
 			{
 				...prevState,
@@ -130,8 +143,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	 */
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
-
-		const pendingWithoutError = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
 
 		if (
 			limit !== undefined
@@ -173,11 +184,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		setPendingFiles({...pendingFiles, ...transformedFiles});
 
 		for (const [key, file] of Object.entries(transformedFiles) as [string, TransformedFile][]) {
-			dispatch && dispatch(formActions.startLoad({
-				name: `uploading/${fieldDef.name}/${key}`,
-				value: `${fieldDef.label} currently has an upload in progress`
-			}));
-
 			onFileAdd({
 				file: file?.rawData,
 				onChunkComplete: ({ percent }) => onChunkComplete({uuid: key, percent}),
