@@ -29,10 +29,12 @@ const FormFieldMatrix = (
 					))}
 				</ButtonRow>
 			</MatrixActions>
-			<DataView
-				data={[]}
-				{...{...dataView, data}}
-			/>
+			{hasValue && (
+				<DataView
+					data={[]}
+					{...{...dataView, data}}
+				/>
+			)}
 		</MatrixWrapper>
 	);
 };
