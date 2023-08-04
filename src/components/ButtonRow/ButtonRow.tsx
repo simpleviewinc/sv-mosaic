@@ -33,7 +33,7 @@ function ButtonRow(props: ButtonRowProps) {
 	}
 
 	return (
-		<Row className={props.className} wrap={wrap}>
+		<Row className={props.className} $wrap={wrap}>
 			{children.map((elem: React.ReactNode, i: number) => (
 				<Item key={i} separator={props.separator} gap={gap}>
 					{elem}

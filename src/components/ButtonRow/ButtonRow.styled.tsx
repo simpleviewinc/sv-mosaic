@@ -12,7 +12,7 @@ export const Row = styled.div`
 	display: flex;
 	align-items: center;
 
-	${({wrap}) => wrap && `
+	${({$wrap}) => $wrap && `
 		flex-wrap: wrap;
 	`}
 `;
