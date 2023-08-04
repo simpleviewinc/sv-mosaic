@@ -85,7 +85,7 @@ export const formActions = {
 			 * the field had an error message and then became disabled,
 			 * the error would get removed from the state.
 			 */
-			if (extraArgs?.fieldMap[name].disabled) {
+			if (extraArgs?.fieldMap[name]?.disabled) {
 				await dispatch({
 					type: "FIELD_UNVALIDATE",
 					name
