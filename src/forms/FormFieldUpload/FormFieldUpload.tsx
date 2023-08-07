@@ -108,9 +108,14 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		}
 
 		if (pendingWithoutError) {
-			dispatch(formActions.startBusy({ name: fieldDef.name, value: `${fieldDef.label} is currently uploading` }));
+			dispatch(formActions.startBusy({
+				name: fieldDef.name,
+				value: `${fieldDef.label} is currently uploading ${pendingWithoutError} files(s)`
+			}));
 		} else {
-			dispatch(formActions.endBusy({ name: fieldDef.name }));
+			dispatch(formActions.endBusy({
+				name: fieldDef.name
+			}));
 		}
 	}, [pendingWithoutError]);
 

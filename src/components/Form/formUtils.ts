@@ -11,7 +11,7 @@ type State = {
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
 	mounted: MosaicObject<boolean>;
-	busy: MosaicObject<boolean>;
+	busyFields: MosaicObject<boolean>;
 	submitWarning: string
 }
 
@@ -130,8 +130,8 @@ export function coreReducer(state: State, action: Action): State {
 	case "FORM_START_BUSY": {
 		return {
 			...state,
-			busy: {
-				...state.busy,
+			busyFields: {
+				...state.busyFields,
 				[action.name]: action.value
 			}
 		}
@@ -139,8 +139,8 @@ export function coreReducer(state: State, action: Action): State {
 	case "FORM_END_BUSY": {
 		return {
 			...state,
-			busy: {
-				...state.busy,
+			busyFields: {
+				...state.busyFields,
 				[action.name]: undefined
 			}
 		}
