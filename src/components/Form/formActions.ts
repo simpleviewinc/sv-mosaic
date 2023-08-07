@@ -199,19 +199,13 @@ export const formActions = {
 	},
 	submitForm() {
 		return async function (dispatch, getState, extraArgs): Promise<{ valid: boolean; data: any; }> {
-			const { disabled, data, mounted, busy } = getState();
+			const { data, mounted } = getState();
 
-			if (disabled)
-				return;
-
-			const busyMessages = Object.values(busy).filter(Boolean);
-			if (busyMessages.length > 0) {
-				dispatch({
-					type: "SET_SUBMIT_WARNING",
-					value: `The form cannot be submitted at this time: ${busyMessages.join(" ")}`
-				});
-
-				return;
+			if (!dispatch(formActions.isSubmittable())) {
+				return {
+					valid: false,
+					data: null
+				};
 			}
 
 			const valid = await dispatch(
@@ -298,6 +292,38 @@ export const formActions = {
 			})
 		}
 	},
+	isSubmittable () {
+		return function (dispatch, getState): boolean {
+			const { disabled, busyFields } = getState();
+
+			if (disabled) {
+				// The user should never hit this since they shouldn't
+				// be able to physically submit whilst the form is disabled,
+				// but we'll keep it here for consistency
+				dispatch({
+					type: "SET_SUBMIT_WARNING",
+					value: "The form cannot be submitted whilst it is disabled"
+				});
+
+				return false;
+			}
+
+			const busyMessages = Object.values(busyFields).filter(Boolean);
+			if (busyMessages.length > 0) {
+				dispatch({
+					type: "SET_SUBMIT_WARNING",
+					value: {
+						lead: "The form cannot be submitted at this time:",
+						reasons: busyMessages
+					}
+				});
+
+				return false;
+			}
+
+			return true;
+		}
+	}
 };
 
 export default formActions;
