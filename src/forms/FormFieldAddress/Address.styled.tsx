@@ -12,13 +12,12 @@ export const AddAddressWrapper = styled.div`
   width: 300px;
 `;
 
-export const FlexContainer = styled.div`
-  border-style: solid;
-  border-color: ${theme.newColors.grey2["100"]};
-  border-width: 2px;
-	padding: 0.5rem;
-
-  flex-grow: 1;
-  width: 600px;
-  max-width: 100%;
+export const AddressItems = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 `;
+
+export const Footer = styled.div`
+  margin-top: 16px;
+`

@@ -6,14 +6,12 @@ import AddressDrawer from "./AddressDrawer";
 import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
 
-// Styles
-import { FlexContainer } from "./Address.styled";
-
 // Utils
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
 import { AddressFieldInputSettings, AddressData } from ".";
 import { isEmpty } from "lodash";
+import { AddressItems, Footer } from "./Address.styled";
 
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
@@ -185,45 +183,32 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	};
 
 	return (
-		<div>
-			<FlexContainer>
-				{value ? (
-					<div style={{display: "flex", flexWrap: "wrap", gap: 16}}>
-						{value.map((address, idx) => (
-							<AddressCard
-								key={`${idx}`}
-								address={address}
-								addressIndex={idx}
-								onEdit={showEditModal}
-								disabled={fieldDef.disabled}
-								onRemoveAddress={removeAddressHandler}
-							/>
-						))}
-					</div>
-				) : (
-					<div style={{
-						width: 300,
-						backgroundColor: "#fafafa",
-						color: "#444",
-						fontStyle: "italic",
-						padding: "24px 16px 24px 24px",
-						fontSize: 14
-					}}>
-						No address provided
-					</div>
-				)}
-				{(!fieldDef.disabled || isEmpty(value)) && (
-					<div style={{marginTop: "0.5rem"}}>
-						<Button
-							disabled={addressTypes?.length === 0 ? true : fieldDef.disabled}
-							color="gray"
-							variant="outlined"
-							label="ADD ADDRESS"
-							onClick={addAddressHandler}
-						></Button>
-					</div>
-				)}
-			</FlexContainer>
+		<>
+			{!!value && (
+				<AddressItems>
+					{value.map((address, idx) => (
+						<AddressCard
+							key={`${idx}`}
+							address={address}
+							addressIndex={idx}
+							onEdit={showEditModal}
+							disabled={fieldDef.disabled}
+							onRemoveAddress={removeAddressHandler}
+						/>
+					))}
+				</AddressItems>
+			)}
+			{(!fieldDef.disabled || isEmpty(value)) && addressTypes?.length > 0 && (
+				<Footer>
+					<Button
+						disabled={fieldDef.disabled}
+						color="gray"
+						variant="outlined"
+						label="ADD ADDRESS"
+						onClick={addAddressHandler}
+					/>
+				</Footer>
+			)}
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
 					googleMapsApiKey={fieldDef.inputSettings.googleMapsApiKey}
@@ -244,7 +229,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 					getOptionsStates={fieldDef.inputSettings?.getOptionsStates}
 				/>
 			</Drawer>
-		</div>
+		</>
 	);
 };
 
