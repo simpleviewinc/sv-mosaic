@@ -191,6 +191,19 @@ const Form = (props: FormProps) => {
 		setActiveSection(Number(args.item.name))
 	}, [setActiveSection]);
 
+	const submitWarningContent = typeof state.submitWarning === "object" ? (
+		<>
+			<div>{state.submitWarning.lead}</div>
+			<ul>
+				{state.submitWarning.reasons.map(reason => (
+					<li key={reason}>{reason}</li>
+				))}
+			</ul>
+		</>
+	) : (
+		state.submitWarning
+	);
+
 	return (
 		<>
 			<ViewProvider value={view}>
@@ -261,7 +274,7 @@ const Form = (props: FormProps) => {
 				You have unsaved changes. If you leave all your changes will be lost.
 			</Dialog>
 			<Snackbar
-				label={state.submitWarning}
+				label={submitWarningContent}
 				open={Boolean(state.submitWarning)}
 				onClose={() => dispatch(formActions.setSubmitWarning({ value: "" }))}
 				autoHideDuration={4000}
