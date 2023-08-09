@@ -15,6 +15,13 @@ export default {
 	decorators: [withKnobs],
 };
 
+const getFormValues = async () => ({
+	map: {
+		"lat": 78.65665391667302,
+		"lng": 16.35480434300188
+	}
+});
+
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
@@ -25,6 +32,7 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", false);
 	const withAddress = boolean("With address", false);
 	const zoom = number("Zoom", 7, { min: 0, max: 18 });
+	const prepopulate = boolean("Prepopulate", false);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -48,7 +56,6 @@ export const Playground = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
@@ -56,7 +63,9 @@ export const Playground = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
+				getFormValues={prepopulate ? getFormValues : undefined}
 			/>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };
