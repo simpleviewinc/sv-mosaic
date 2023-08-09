@@ -15,6 +15,7 @@ import { ButtonProps } from "../Button";
 import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
 import SideNav, { Item, SideNavArgs } from "../SideNav";
 import useScrollSpy from "@root/utils/hooks/useScrollSpy";
+import Snackbar from "../Snackbar/Snackbar";
 
 const Form = (props: FormProps) => {
 	const {
@@ -190,6 +191,19 @@ const Form = (props: FormProps) => {
 		setActiveSection(Number(args.item.name))
 	}, [setActiveSection]);
 
+	const submitWarningContent = typeof state.submitWarning === "object" ? (
+		<>
+			<div>{state.submitWarning.lead}</div>
+			<ul>
+				{state.submitWarning.reasons.map(reason => (
+					<li key={reason}>{reason}</li>
+				))}
+			</ul>
+		</>
+	) : (
+		state.submitWarning
+	);
+
 	return (
 		<>
 			<ViewProvider value={view}>
@@ -197,7 +211,7 @@ const Form = (props: FormProps) => {
 					data-testid="form-test-id"
 					style={{ position: "relative", height: "100%" }}
 					ref={formContainerRef}
-					className={state.disabled ? "loading" : ""}
+					className={state.disabled ? "disabled" : ""}
 				>
 					<StyledForm autoComplete="off">
 						{title &&
@@ -259,6 +273,12 @@ const Form = (props: FormProps) => {
 			>
 				You have unsaved changes. If you leave all your changes will be lost.
 			</Dialog>
+			<Snackbar
+				label={submitWarningContent}
+				open={Boolean(state.submitWarning)}
+				onClose={() => dispatch(formActions.setSubmitWarning({ value: "" }))}
+				autoHideDuration={4000}
+			/>
 		</>
 	);
 }
