@@ -41,6 +41,14 @@ export const formActions = {
 			extraArgs.fieldMap = fieldMap;
 		};
 	},
+	setSubmitWarning({ value }: { value: string }) {
+		return async function(dispatch): Promise<void> {
+			return dispatch({
+				type: "SET_SUBMIT_WARNING",
+				value
+			})
+		}
+	},
 	setFieldValue({
 		name,
 		value,
@@ -191,10 +199,14 @@ export const formActions = {
 	},
 	submitForm() {
 		return async function (dispatch, getState, extraArgs): Promise<{ valid: boolean; data: any; }> {
-			const { disabled, data, mounted } = getState();
+			const { data, mounted } = getState();
 
-			if (disabled)
-				return;
+			if (!dispatch(formActions.isSubmittable())) {
+				return {
+					valid: false,
+					data: null
+				};
+			}
 
 			const valid = await dispatch(
 				formActions.validateForm({ fields: extraArgs.fields })
@@ -247,6 +259,23 @@ export const formActions = {
 			});
 		}
 	},
+	startBusy({ name, value }: { name: string, value: string }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: "FORM_START_BUSY",
+				name,
+				value
+			});
+		}
+	},
+	endBusy({ name }: { name: string }) {
+		return async function (dispatch): Promise<void> {
+			await dispatch({
+				type: "FORM_END_BUSY",
+				name,
+			});
+		}
+	},
 	mountField({ name }: { name: string }) {
 		return async function (dispatch): Promise<void> {
 			await dispatch({
@@ -263,6 +292,38 @@ export const formActions = {
 			})
 		}
 	},
+	isSubmittable () {
+		return function (dispatch, getState): boolean {
+			const { disabled, busyFields } = getState();
+
+			if (disabled) {
+				// The user should never hit this since they shouldn't
+				// be able to physically submit whilst the form is disabled,
+				// but we'll keep it here for consistency
+				dispatch({
+					type: "SET_SUBMIT_WARNING",
+					value: "The form cannot be submitted whilst it is disabled"
+				});
+
+				return false;
+			}
+
+			const busyMessages = Object.values(busyFields).filter(Boolean);
+			if (busyMessages.length > 0) {
+				dispatch({
+					type: "SET_SUBMIT_WARNING",
+					value: {
+						lead: "The form cannot be submitted at this time:",
+						reasons: busyMessages
+					}
+				});
+
+				return false;
+			}
+
+			return true;
+		}
+	}
 };
 
 export default formActions;
