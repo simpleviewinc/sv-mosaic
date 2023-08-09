@@ -38,9 +38,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		handleDialogClose,
 		mapPosition
 	} = props;
+	const defaultCenter = mapPosition || defaultMapPosition;
+
 	const [isDragging, setIsDragging] = useState(false);
-	const [center, setCenter] = useState(mapPosition || defaultMapPosition);
-	const [shouldCenter, setShouldCenter] = useState<{field: string, value: number}>(undefined);
+	const [center, setCenter] = useState(defaultCenter);
+	// const [shouldCenter, setShouldCenter] = useState<{field: string, value: number}>(undefined);
 
 	const { state, dispatch } = useForm();
 
@@ -100,12 +102,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 */
 	const resetLocation = async () => {
 		await dispatch(
-			formActions.setFieldValue({ name: "lat", value: 0 })
+			formActions.setFieldValue({ name: "lat", value: undefined })
 		);
 
 		await dispatch(
-			formActions.setFieldValue({ name: "lng", value: 0 })
+			formActions.setFieldValue({ name: "lng", value: undefined })
 		);
+
+		setCenter(defaultCenter);
 	};
 
 	/**
@@ -113,7 +117,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * when the user selects one of the suggested options by the autocomplete
 	 * google component.
 	 */
-	const handleCoordinates = async (coordinates: MapPosition) => {
+	const handleCoordinates = useCallback(async (coordinates: MapPosition) => {
 		setCenter(coordinates);
 		await dispatch(
 			formActions.setFieldValue({
@@ -143,7 +147,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		await dispatch(
 			formActions.validateField({name: "lng"})
 		);
-	};
+	}, [dispatch]);
 
 	/**
 	 * Executed when the onSubmit event of
@@ -164,7 +168,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		handleClose(true);
 	};
 
-	const onDragMarkerEnd = (event: google.maps.MapMouseEvent) => {
+	const onDragMarkerEnd = useCallback((event: google.maps.MapMouseEvent) => {
 		const lat = event.latLng.lat();
 		const lng = event.latLng.lng();
 
@@ -182,49 +186,75 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			})
 		);
 
-		setIsDragging(false)
-	};
+		// setIsDragging(false)
+	}, [dispatch]);
 
-	const onDragStart = () => {
+	const onDragStart = useCallback(() => {
 		setIsDragging(true)
-	};
+	}, []);
 
-	const renderMap = (props) => (
-		<>
-			<Map
-				address={fieldDef?.inputSettings?.address}
-				handleCoordinates={handleCoordinates}
-				mapPosition={center}
-				value={props.value || mapPosition}
-				onClick={onMapClick}
-				zoom={fieldDef.inputSettings.zoom}
-				onDragMarkerEnd={onDragMarkerEnd}
-				onDragStart={onDragStart}
-				isDragging={isDragging}
-			/>
-			<StyledSpan>
-				Click on the map to update the latitude and longitude coordinates
-			</StyledSpan>
-		</>
-	);
 
-	useEffect(() => {
-		if (shouldCenter?.field && shouldCenter.field === "lng") {
-			setCenter({ lat: Number(state.data.lat) || 0, lng: shouldCenter.value });
-			setShouldCenter({field: null, value: null})
-		} else if (shouldCenter?.field && shouldCenter.field === "lat") {
-			setCenter({ lat: shouldCenter.value, lng: Number(state.data.lng) || 0});
-			setShouldCenter({field: null, value: null})
+	const renderMap = useCallback((props) => {
+		const value = useMemo(() => props.value, [props.value]);
+
+		return (
+			<>
+				<Map
+					address={fieldDef?.inputSettings?.address}
+					handleCoordinates={handleCoordinates}
+					mapPosition={center}
+					value={value}
+					onClick={onMapClick}
+					zoom={fieldDef.inputSettings.zoom}
+					onDragMarkerEnd={onDragMarkerEnd}
+					onDragStart={onDragStart}
+					isDragging={isDragging}
+				/>
+				<StyledSpan>
+					Click on the map to update the latitude and longitude coordinates
+				</StyledSpan>
+			</>
+		)
+	}, [
+		fieldDef?.inputSettings?.address,
+		handleCoordinates,
+		center,
+		onMapClick,
+		fieldDef.inputSettings.zoom,
+		onDragMarkerEnd,
+		onDragStart,
+		isDragging
+	]);
+
+	// useEffect(() => {
+	// 	if (shouldCenter?.field && shouldCenter.field === "lng") {
+	// 		setCenter({ lat: Number(state.data.lat) || 0, lng: shouldCenter.value });
+	// 		setShouldCenter({field: null, value: null})
+	// 	} else if (shouldCenter?.field && shouldCenter.field === "lat") {
+	// 		setCenter({ lat: shouldCenter.value, lng: Number(state.data.lng) || 0});
+	// 		setShouldCenter({field: null, value: null})
+	// 	}
+	// }, [state.data.lat, state.data.lng, shouldCenter]);
+
+	const onBlurLatitude = useCallback((latValue: string) => {
+		if (latValue === "" || latValue === undefined || state.data.lng === "" || state.data.lng === undefined) {
+			return;
 		}
-	}, [state.data.lat, state.data.lng, shouldCenter]);
 
-	const onBlurLatitude = (latValue: number) => {
-		setShouldCenter({ field: "lat", value: Number(latValue) });
-	};
+		const lat = Number(latValue);
+		console.log(latValue, state.data.lng)
+		setCenter((center) => center.lat === lat ? center : {lat, lng: Number(state.data.lng)});
+	}, [state.data.lng]);
 
-	const onBlurLongitude = (lngValue: number) => {
-		setShouldCenter({ field: "lng", value: Number(lngValue) });
-	};
+	const onBlurLongitude = useCallback((lngValue: string) => {
+		if (lngValue === "" || lngValue === undefined || state.data.lat === "" || state.data.lat === undefined) {
+			return;
+		}
+
+		const lng = Number(lngValue);
+		console.log(lngValue, state.data.lat)
+		setCenter((center) => center.lng === lng ? center : {lng, lat: Number(state.data.lat)});
+	}, [state.data.lat]);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -256,7 +286,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					}
 				},
 			],
-		[center]
+		[center, onBlurLatitude, onBlurLongitude]
 	);
 
 	useEffect(() => {
@@ -335,6 +365,20 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 	return (
 		<FormDrawerWrapper className="mapCoordinates">
+			{/* <Map
+				address={fieldDef?.inputSettings?.address}
+				handleCoordinates={handleCoordinates}
+				mapPosition={center}
+				value={props.value}
+				onClick={onMapClick}
+				zoom={fieldDef.inputSettings.zoom}
+				onDragMarkerEnd={onDragMarkerEnd}
+				onDragStart={onDragStart}
+				isDragging={isDragging}
+			/>
+			<StyledSpan>
+				Click on the map to update the latitude and longitude coordinates
+			</StyledSpan> */}
 			<Form
 				onBack={handleClose}
 				title='Map Coordinates'
