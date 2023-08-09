@@ -184,11 +184,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const editAddress = (): IAddress[] => {
 		const listOfAddresses = [...value];
 
-		listOfAddresses[addressIdx].address1 = state?.data?.address1.trim();
-		listOfAddresses[addressIdx].address2 = state?.data?.address2.trim();
-		listOfAddresses[addressIdx].address3 = state?.data?.address3.trim();
-		listOfAddresses[addressIdx].city = state?.data?.city.trim();
-		listOfAddresses[addressIdx].postalCode = state?.data?.postalCode.trim();
+		listOfAddresses[addressIdx].address1 = state?.data?.address1?.trim();
+		listOfAddresses[addressIdx].address2 = state?.data?.address2?.trim();
+		listOfAddresses[addressIdx].address3 = state?.data?.address3?.trim();
+		listOfAddresses[addressIdx].city = state?.data?.city?.trim();
+		listOfAddresses[addressIdx].postalCode = state?.data?.postalCode?.trim();
 		listOfAddresses[addressIdx].country = state?.data?.country;
 		listOfAddresses[addressIdx].state = state?.data?.states;
 		listOfAddresses[addressIdx].types = state?.data?.type;
@@ -206,11 +206,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 		listOfAddresses.push({
 			id: id,
-			address1: state?.data?.address1.trim(),
-			address2: state?.data?.address2.trim(),
-			address3: state?.data?.address3.trim(),
-			city: state?.data?.city.trim(),
-			postalCode: state?.data?.postalCode.trim(),
+			address1: state?.data?.address1?.trim(),
+			address2: state?.data?.address2?.trim(),
+			address3: state?.data?.address3?.trim(),
+			city: state?.data?.city?.trim(),
+			postalCode: state?.data?.postalCode?.trim(),
 			country: state?.data?.country,
 			state: state?.data?.states,
 			types: state?.data?.type,
