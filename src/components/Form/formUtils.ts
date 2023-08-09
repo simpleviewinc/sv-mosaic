@@ -181,7 +181,7 @@ export function useForm(): UseFormReturn {
 			disabled: false,
 			touched: {},
 			mounted: {},
-			loading: {},
+			busyFields: {},
 			submitWarning: ""
 		},
 		extraArgs.current
