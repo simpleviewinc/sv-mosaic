@@ -154,11 +154,6 @@ export const Playground = (): ReactElement => {
 			);
 		}
 
-		if (Math.random() < 0.3) {
-			await onError("File size exceeded");
-			return;
-		}
-
 		await onUploadComplete({
 			id: nanoid(),
 			name: file.name,

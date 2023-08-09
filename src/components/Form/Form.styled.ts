@@ -8,7 +8,7 @@ export const StyledForm = styled.form`
 `;
 
 export const StyledContainerForm = styled.div`
-	&.loading {
+	&.disabled {
 		opacity: .5;
 		pointer-events: none;
 	}
