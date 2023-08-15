@@ -184,6 +184,17 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	return (
 		<>
+			{(!fieldDef.disabled || isEmpty(value)) && addressTypes?.length > 0 && (
+				<Footer>
+					<Button
+						disabled={fieldDef.disabled}
+						color="gray"
+						variant="outlined"
+						label="ADD ADDRESS"
+						onClick={addAddressHandler}
+					/>
+				</Footer>
+			)}
 			{!!value && (
 				<AddressItems>
 					{value.map((address, idx) => (
@@ -197,17 +208,6 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 						/>
 					))}
 				</AddressItems>
-			)}
-			{(!fieldDef.disabled || isEmpty(value)) && addressTypes?.length > 0 && (
-				<Footer>
-					<Button
-						disabled={fieldDef.disabled}
-						color="gray"
-						variant="outlined"
-						label="ADD ADDRESS"
-						onClick={addAddressHandler}
-					/>
-				</Footer>
 			)}
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
