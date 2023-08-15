@@ -6,14 +6,12 @@ import AddressDrawer from "./AddressDrawer";
 import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
 
-// Styles
-import { AddAddressWrapper, FlexContainer } from "./Address.styled";
-
 // Utils
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
 import { AddressFieldInputSettings, AddressData } from ".";
 import { isEmpty } from "lodash";
+import { AddressItems, Footer } from "./Address.styled";
 
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
@@ -185,21 +183,21 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	};
 
 	return (
-		<div>
-			<FlexContainer>
-				{(!fieldDef.disabled || isEmpty(value)) && (
-					<AddAddressWrapper>
-						<Button
-							disabled={addressTypes?.length === 0 ? true : fieldDef.disabled}
-							color="gray"
-							variant="outlined"
-							label="ADD ADDRESS"
-							onClick={addAddressHandler}
-						></Button>
-					</AddAddressWrapper>
-				)}
-				{value &&
-					value.map((address, idx) => (
+		<>
+			{(!fieldDef.disabled || isEmpty(value)) && addressTypes?.length > 0 && (
+				<Footer>
+					<Button
+						disabled={fieldDef.disabled}
+						color="gray"
+						variant="outlined"
+						label="ADD ADDRESS"
+						onClick={addAddressHandler}
+					/>
+				</Footer>
+			)}
+			{!!value && (
+				<AddressItems>
+					{value.map((address, idx) => (
 						<AddressCard
 							key={`${idx}`}
 							address={address}
@@ -209,7 +207,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 							onRemoveAddress={removeAddressHandler}
 						/>
 					))}
-			</FlexContainer>
+				</AddressItems>
+			)}
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
 					googleMapsApiKey={fieldDef.inputSettings.googleMapsApiKey}
@@ -230,7 +229,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 					getOptionsStates={fieldDef.inputSettings?.getOptionsStates}
 				/>
 			</Drawer>
-		</div>
+		</>
 	);
 };
 
