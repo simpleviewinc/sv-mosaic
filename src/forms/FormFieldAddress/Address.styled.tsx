@@ -19,5 +19,5 @@ export const AddressItems = styled.div`
 `;
 
 export const Footer = styled.div`
-  margin-top: 16px;
+  margin-bottom: 16px;
 `
