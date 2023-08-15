@@ -145,7 +145,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 								type: "",
 								inputSettings: {
 									placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
-									minDate: fieldDef?.inputSettings.minDate
+									minDate: fieldDef?.inputSettings?.minDate
 								},
 								required: fieldDef?.required,
 							}}
