@@ -67,7 +67,7 @@ const FormNav = (props: FormNavProps): ReactElement => {
 
 	const onLinkClick = (idx: number) => (e) => {
 		e.preventDefault();
-		onSectionSelect(idx)
+		onSectionSelect && onSectionSelect(idx)
 	}
 
 	return (

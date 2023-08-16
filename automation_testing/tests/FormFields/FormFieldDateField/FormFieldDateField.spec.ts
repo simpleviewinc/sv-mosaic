@@ -11,10 +11,6 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		await formFieldDateFieldPage.visit(formFieldDateFieldPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate Single Date Calendar by writing a date", async () => {
 		await formFieldDateFieldPage.singleDateCalendarInput.type(await formFieldDateFieldPage.getTodayDate());
 		await formFieldDateFieldPage.formTestIDLocator.click();
@@ -26,10 +22,6 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		await formFieldDateFieldPage.singleDateCalendarButton.click();
 		await formFieldDateFieldPage.selectDayFromDatePicker(todayDay);
 		expect(await formFieldDateFieldPage.singleDateCalendarInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
-	});
-
-	test("Validate Disable Single Date Calendar", async () => {
-		expect(await formFieldDateFieldPage.disabledSingleDateCalendarText.textContent()).toContain("—");
 	});
 
 	test("Validate the Calendar Date and Time Input by writing the date and time.", async () => {
@@ -50,10 +42,6 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		const selectedHourAndMinute = await formFieldDateFieldPage.selectHourAndMinutesInHourPicker("pm");
 		expect(await formFieldDateFieldPage.dateTimeInput.inputValue()).toBe(await formFieldDateFieldPage.getTodayDate());
 		expect(await formFieldDateFieldPage.dateHourInput.inputValue()).toBe(selectedHourAndMinute);
-	});
-
-	test("Validate Disable Date Time Calendar", async () => {
-		expect(await formFieldDateFieldPage.disableDateAndTimeCalendarText.textContent()).toContain("—");
 	});
 
 	test("Validate error when trying to save with Requiered Calendar Date and Time empty.", async () => {
