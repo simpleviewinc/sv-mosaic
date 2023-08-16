@@ -31,6 +31,8 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		line-height: 20px;
 		font-size: 15px;
 		height: 43px;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
 		box-sizing: border-box;
 		color: ${theme.newColors.almostBlack["100"]};
 		font-family: ${theme.fontFamily};
