@@ -4,6 +4,8 @@ import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
+import { textIsValidDate } from "@root/utils/date";
+import { DATE_FORMAT_FULL } from "@root/constants";
 
 export default {
 	title: "FormFields/FormFieldDateField",
@@ -19,6 +21,13 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 	const showTime = boolean("Show time", false);
+	const minDateStr = text("Minimum Date", "");
+
+	const minDate = minDateStr && textIsValidDate(minDateStr, DATE_FORMAT_FULL) ? new Date(
+		Number(minDateStr.split("/")[2]),
+		Number(minDateStr.split("/")[1]) - 1,
+		Number(minDateStr.split("/")[0])
+	) : undefined;
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -31,11 +40,12 @@ export const Playground = (): ReactElement => {
 				helperText,
 				instructionText,
 				inputSettings: {
-					showTime
+					showTime,
+					minDate
 				}
 			}
 		],
-		[label, required, disabled, helperText, instructionText, showTime]
+		[label, required, disabled, helperText, instructionText, showTime, minDate]
 	);
 
 	return (

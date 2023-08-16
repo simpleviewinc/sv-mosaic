@@ -50,6 +50,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 					PopperProps={{
 						sx: popperSx,
 					}}
+					minDate={fieldDef?.inputSettings?.minDate}
 				/>
 			</DatePickerWrapper>
 		</LocalizationProvider>
