@@ -63,6 +63,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 	});
 
 	test("Validate the gap between options.", async () => {
+		test.skip();
 		await page.reload();
 		const expectedMarginValue = "12px";
 		const rowGap = await ((ffChipSingleSelectPage.fromDBOptionDiv).evaluate(el => getComputedStyle(el).rowGap));

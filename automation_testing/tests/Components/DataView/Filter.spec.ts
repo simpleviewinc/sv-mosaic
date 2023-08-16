@@ -21,10 +21,6 @@ test.describe.parallel("Components - Data View - Filter", () => {
 		await page.reload();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Filter title with a valid keyword and 1 result", async () => {
 		await filter.searchForTerm("keyword", filter_data.validKeywordFilter);
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.expectedKeywordFilterNumber);

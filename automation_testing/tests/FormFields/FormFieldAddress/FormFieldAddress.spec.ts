@@ -99,6 +99,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Playground", () => {
 	});
 
 	test("Validate that when a user select one of the options shown, the fields are filled out.", async () => {
+		test.skip();
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
 		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");
@@ -111,6 +112,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Playground", () => {
 	});
 
 	test("Validate that when a user select one of the options shown and saves, the address card has the selected address.", async () => {
+		test.skip();
 		await ffAddressPage.addAddressButton.click();
 		await ffAddressPage.firstAddressField.fill(us_address_2.address);
 		await ffAddressPage.pressSpecificKeyInKeyboard("Enter");

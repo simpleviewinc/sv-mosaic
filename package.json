@@ -118,6 +118,7 @@
 	},
 	"scripts": {
 		"test": "jest",
+		"test:ci": "jest --ci",
 		"tsc": "tsc",
 		"start": "yarn run storybook",
 		"build": "yarn run build:esm && yarn run build:types && yarn run build:cjs",
