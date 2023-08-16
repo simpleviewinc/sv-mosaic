@@ -21,45 +21,17 @@ const FormFieldPhoneSelectionDropdown = (
 		error,
 		onChange,
 		onBlur,
-		value,
-		dispatch
+		value
 	} = props;
 
 	const [dialCode, setDialCode] = useState("");
 
-	// TODO Instead of dispatching actions in the field components,
-	// emit onInvalid and onValid events that can be subscribed to
-	const setError = (msg: string) => dispatch && dispatch((d) => {
-		d({
-			type: "FIELD_VALIDATE",
-			name: fieldDef.name,
-			value: msg,
-		})
-	});
-
-	const clearError = () => dispatch && dispatch((d) => {
-		d({
-			type: "FIELD_UNVALIDATE",
-			name: fieldDef.name
-		})
-	});
-
 	const onPhoneChange = (phoneValue: string, data: CountryData) => {
-
 		if (phoneValue === data.dialCode) {
 			onChange(undefined);
 			setDialCode(data.dialCode);
-			clearError();
 		} else {
 			onChange(phoneValue);
-
-			// A very specific check to ensure US (country code +1)
-			// numbers are exactly 10 digits in length (exc. the leading 1)
-			if (data.dialCode === "1" && phoneValue.length !== 11) {
-				setError("Phone number must be exactly 10 numbers excluding the country code")
-			} else {
-				clearError();
-			}
 		}
 	}
 
