@@ -150,7 +150,9 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 
 /**
  * Validate that the value is a correctly formed phone number
- * it only supports US (+1) phone numbers
+ * it only supports US (+1) phone numbers. Numbers for other countries
+ * are always considered valid
+ * @param value The value that has been entered by the user
  *
  */
 export function validatePhoneNumber(value: string) {
