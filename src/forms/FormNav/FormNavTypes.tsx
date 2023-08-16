@@ -6,5 +6,5 @@ export interface Section {
 export interface FormNavProps {
   activeSection?: number;
   sections: Section[];
-  onSectionSelect: (section: number) => void
+  onSectionSelect?: (section: number) => void
 }
