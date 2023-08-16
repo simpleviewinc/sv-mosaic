@@ -144,8 +144,9 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 									label: "",
 									type: "",
 									inputSettings: {
-										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
-									},
+										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___"),
+										minDate: props.minDate
+									}
 								}}
 							/>
 						</Field>
@@ -168,8 +169,9 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 									label: "",
 									type: "",
 									inputSettings: {
-										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___")
-									},
+										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___"),
+										minDate: props.minDate
+									}
 								}}
 							/>
 						</Field>
