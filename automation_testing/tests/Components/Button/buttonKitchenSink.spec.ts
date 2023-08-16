@@ -11,10 +11,6 @@ test.describe.parallel("Components - Button - Kitchen Sink", () => {
 		await buttonPage.visit(buttonPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate that each button has the expected font weight", async () => {
 		const expectedFontWeight = "700";
 		const numberOfButtons = await buttonPage.button.count();

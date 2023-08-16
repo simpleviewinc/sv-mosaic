@@ -13,10 +13,6 @@ test.describe.parallel("Components - ToggleSwitch - Example", () => {
 		await togglePage.visit(togglePage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Toggle has simplyGold color.", async () => {
 		const expectColor = (theme.newColors.simplyGold["100"]);
 		await togglePage.toggleInput.click();

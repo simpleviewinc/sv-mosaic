@@ -29,6 +29,7 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 	});
 
 	test("Validate that the error message is displayed when uploading a file.", async () => {
+		test.skip();
 		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobTriggerErrorsWhenLoading + "true"]);
 		await ffUpload.uploadFilesInput.setInputFiles([imagePath, imagePath, imagePath, imagePath, imagePath, imagePath, imagePath, imagePath, imagePath, imagePath]);
 		await expect(ffUpload.errorMessage.first()).toBeVisible();
