@@ -15,10 +15,6 @@ test.describe.parallel("Components - Drawers - Example", () => {
 		await page.reload();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate the amount of new drawers opened.", async () => {
 		const numberOfDrawers = 4;
 		await drawersPage.openSpecificAmountOfNewDrawers(numberOfDrawers);

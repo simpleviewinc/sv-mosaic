@@ -13,10 +13,6 @@ test.describe.parallel("Components - DataViewFilterText - Playground", () => {
 		await dvFilterComponent.visit(dvFilterComponent.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate that the filter is displayed when searched.", async () => {
 		const expectedWord = filter_data.validKeywordFilter;
 		await dvFilterComponent.searchForWord(expectedWord);

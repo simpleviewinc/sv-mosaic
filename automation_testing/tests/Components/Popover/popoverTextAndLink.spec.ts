@@ -12,10 +12,6 @@ test.describe.parallel("Components - PopoverPage - Text And Links", () => {
 		await popoverPage.visit(popoverPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Title has almostBlack color.", async () => {
 		const expectColor = theme.newColors.almostBlack["100"];
 		await popoverPage.openPopoverButton.click();
