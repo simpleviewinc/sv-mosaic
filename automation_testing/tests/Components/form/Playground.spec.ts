@@ -132,7 +132,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 			playgroundPage.page.locator("label[for='imageUpload']"), playgroundPage.page.locator("label[for='mapCoordinates']"),
 			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']") ];
 		for (let i = 0; i < labels.length; i++) {
-			expect(await playgroundPage.getColorFromElement(labels[i]), "Checking Font Color of the Label").toBe(theme.newColors.almostBlack["100"]);
+			expect(await playgroundPage.getColorFromElement(labels[i].first()), "Checking Font Color of the Label").toBe(theme.newColors.almostBlack["100"]);
 		}
 	});
 

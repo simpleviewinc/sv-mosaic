@@ -296,7 +296,7 @@ describe("Regular Address component", () => {
 			expect(getByText("Physical, Billing, Shipping Address")).toBeTruthy();
 			expect(getByText("City edited, 456")).toBeTruthy();
 			expect(getByText("Argentina")).toBeTruthy();
-			expect(getByText("ADD ADDRESS")).toHaveClass("Mui-disabled");
+			expect(queryByText("ADD ADDRESS")).toBeNull();
 		});
 	});
 });

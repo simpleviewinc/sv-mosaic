@@ -69,7 +69,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Playground", () => {
 	test("Validate that no more than three type of Address can be added.", async () => {
 		await ffAddressPage.addAddressButton.click({force: true});
 		await ffAddressPage.fillAddresInformation("all");
-		await expect(ffAddressPage.addAddressButton).toBeDisabled();
+		await expect(ffAddressPage.addAddressButton).not.toBeVisible();
 	});
 
 	test("Validate that you can add an Address after removing a type of address in the edit.", async () => {
