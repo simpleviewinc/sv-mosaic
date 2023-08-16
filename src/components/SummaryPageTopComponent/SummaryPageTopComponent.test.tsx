@@ -96,7 +96,7 @@ const ComponentExample = (props: {
 			variant: "text"
 		},
 		{
-			label: "Edit",
+			label: "Button 3",
 			mIcon: Edit,
 			onClick: jest.fn(),
 			color: "black",
