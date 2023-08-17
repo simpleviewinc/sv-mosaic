@@ -26,17 +26,14 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		}
 	}
 
+	& :not(.MuiInputBase-multiline) .MuiOutlinedInput-input,
+	& .MuiInputBase-multiline{
+		padding: 10px 16px;
+	}
+
 	.MuiOutlinedInput-input {
-		padding: 12px 14px;
-		line-height: 20px;
-		font-size: 15px;
-		height: 43px;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
 		color: ${theme.newColors.almostBlack["100"]};
 		font-family: ${theme.fontFamily};
-		font-weight: 400;
 
 		::placeholder {
 			font-weight: ${theme.fontWeight.normal};
@@ -45,21 +42,12 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		}
 	}
 
-	.MuiInputAdornment-root + .MuiOutlinedInput-input{
-		padding-left: 0;
-	}
-
-	.MuiInputBase-multiline{
-		padding: 0;
-	}
-
 	.MuiFormHelperText-contained {
 		font-family: ${theme.fontFamily};
 		margin-top: ${pr => pr.error ? "9px" : "7px"};
 		margin-left: 0;
 		word-break: break-all;
 	}
-
 
 	.MuiFormHelperText-root.Mui-error {
 		color: ${theme.newColors.darkRed["100"]}
@@ -72,9 +60,9 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
 	& .MuiOutlinedInput-root {
 		&.Mui-focused fieldset {
-		border-color: ${theme.newColors.almostBlack["100"]};
-		border-width: 1px;
-		box-shadow: ${theme.fieldSpecs.inputText.shadow};
+			border-color: ${theme.newColors.almostBlack["100"]};
+			border-width: 1px;
+			box-shadow: ${theme.fieldSpecs.inputText.shadow};
 		}
 	}
 
