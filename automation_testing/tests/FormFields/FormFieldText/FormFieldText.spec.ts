@@ -84,19 +84,19 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 
 	test("Validate xs regular text size is valid", async () => {
 		page.pause();
-		expect(await ffTextPage.getElementWidth(ffTextPage.xsSizeTextField, false)).toBe(100);
+		expect(await ffTextPage.getElementWidth(ffTextPage.xsSizeTextField, true)).toBe(100);
 	});
 
 	test("Validate sm regular text size is valid", async () => {
-		expect(await ffTextPage.getElementWidth(ffTextPage.smSizeTextField, false)).toBe(280);
+		expect(await ffTextPage.getElementWidth(ffTextPage.smSizeTextField, true)).toBe(280);
 	});
 
 	test("Validate md regular text size is valid", async () => {
-		expect(await ffTextPage.getElementWidth(ffTextPage.mdSizeTextField, false)).toBe(450);
+		expect(await ffTextPage.getElementWidth(ffTextPage.mdSizeTextField, true)).toBe(450);
 	});
 
 	test("Validate lg regular text size is valid", async () => {
-		expect(await ffTextPage.getElementWidth(ffTextPage.lgSizeTextField, false)).toBe(620);
+		expect(await ffTextPage.getElementWidth(ffTextPage.lgSizeTextField, true)).toBe(620);
 	});
 
 	test("Validate instruction text height.", async () => {

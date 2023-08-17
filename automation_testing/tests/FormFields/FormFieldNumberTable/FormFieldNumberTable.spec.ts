@@ -91,7 +91,7 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 		const inputLocator = ffNumberTablePage.page.locator("input");
 		const inputCount = await inputLocator.count();
 		for (let i = 0; i < inputCount; i++) {
-			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), false)).toBe(90);
+			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), true)).toBe(90);
 		}
 	});
 
