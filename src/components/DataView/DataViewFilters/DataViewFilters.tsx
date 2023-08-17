@@ -34,8 +34,10 @@ function DataViewFilters(props: DataViewFiltersProps) {
 		.sort((a, b) => a.label.localeCompare(b.label));
 
 	const optionsSelected = useMemo(() => {
-		return options.filter(option => activeFilters.includes(option.value))
-	}, [options, activeFilters])
+		return activeFilters
+			.map(value => options.find(option => option.value === value) || null)
+			.filter(Boolean)
+	}, [options, activeFilters]);
 
 	const onRemove = (name: string) => () => {
 		const activeFilters = xor(props.activeFilters, [name]);
