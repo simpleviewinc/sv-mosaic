@@ -148,21 +148,6 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 	return undefined;
 }
 
-/**
- * Validate that the value is a correctly formed phone number
- * it only supports US (+1) phone numbers. Numbers for other countries
- * are always considered valid
- * @param value The value that has been entered by the user
- *
- */
-export function validatePhoneNumber(value: string) {
-	if (!value || value[0] !== "1" || value.length === 11) {
-		return;
-	}
-
-	return "Phone number must be exactly 10 numbers excluding the country code";
-}
-
 export type Validator = { fn: any, options: any };
 /**
  * Creates an object from a given validator that contains
