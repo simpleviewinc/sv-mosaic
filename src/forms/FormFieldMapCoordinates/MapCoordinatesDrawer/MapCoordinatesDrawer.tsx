@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactElement, useCallback, useEffect, useMemo } from "react";
 import { MapCoordinatesDrawerProps } from "..";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { MapPosition } from "../MapCoordinatesTypes";
@@ -38,10 +38,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		handleDialogClose,
 		mapPosition
 	} = props;
-	const defaultCenter = mapPosition || defaultMapPosition;
-
-	const [isDragging, setIsDragging] = useState(false);
-	const [center, setCenter] = useState(defaultCenter);
+	const center = mapPosition || defaultMapPosition;
 	// const [shouldCenter, setShouldCenter] = useState<{field: string, value: number}>(undefined);
 
 	const { state, dispatch } = useForm();
@@ -64,36 +61,13 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		const lng = event.latLng.lng();
 
 		await dispatch(
-			formActions.setFieldValue({
-				name: "placesList",
-				value: { lat: Number(lat), lng: Number(lng) },
+			formActions._setFieldValues({
+				values: {
+					placesList: { lat: Number(lat), lng: Number(lng) },
+					lat,
+					lng
+				}
 			})
-		);
-
-		await dispatch(
-			formActions.validateField({name: "placesList"})
-		);
-
-		await dispatch(
-			formActions.setFieldValue({
-				name: "lat",
-				value: lat,
-			})
-		);
-
-		await dispatch(
-			formActions.validateField({name: "lat"})
-		);
-
-		await dispatch(
-			formActions.setFieldValue({
-				name: "lng",
-				value: lng,
-			})
-		);
-
-		await dispatch(
-			formActions.validateField({name: "lng"})
 		);
 	}, []);
 
@@ -108,8 +82,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		await dispatch(
 			formActions.setFieldValue({ name: "lng", value: undefined })
 		);
-
-		setCenter(defaultCenter);
 	};
 
 	/**
@@ -118,7 +90,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * google component.
 	 */
 	const handleCoordinates = useCallback(async (coordinates: MapPosition) => {
-		setCenter(coordinates);
 		await dispatch(
 			formActions.setFieldValue({
 				name: "placesList",
@@ -189,10 +160,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		// setIsDragging(false)
 	}, [dispatch]);
 
-	const onDragStart = useCallback(() => {
-		setIsDragging(true)
-	}, []);
-
 
 	const renderMap = useCallback((props) => {
 		const value = useMemo(() => props.value, [props.value]);
@@ -202,13 +169,11 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				<Map
 					address={fieldDef?.inputSettings?.address}
 					handleCoordinates={handleCoordinates}
-					mapPosition={center}
+					mapPosition={mapPosition}
 					value={value}
 					onClick={onMapClick}
 					zoom={fieldDef.inputSettings.zoom}
 					onDragMarkerEnd={onDragMarkerEnd}
-					onDragStart={onDragStart}
-					isDragging={isDragging}
 				/>
 				<StyledSpan>
 					Click on the map to update the latitude and longitude coordinates
@@ -222,8 +187,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		onMapClick,
 		fieldDef.inputSettings.zoom,
 		onDragMarkerEnd,
-		onDragStart,
-		isDragging
 	]);
 
 	// useEffect(() => {
@@ -236,25 +199,23 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	// 	}
 	// }, [state.data.lat, state.data.lng, shouldCenter]);
 
-	const onBlurLatitude = useCallback((latValue: string) => {
-		if (latValue === "" || latValue === undefined || state.data.lng === "" || state.data.lng === undefined) {
-			return;
-		}
+	// const onBlurLatitude = useCallback((latValue: string) => {
+	// 	if (latValue === "" || latValue === undefined || state.data.lng === "" || state.data.lng === undefined) {
+	// 		return;
+	// 	}
 
-		const lat = Number(latValue);
-		console.log(latValue, state.data.lng)
-		setCenter((center) => center.lat === lat ? center : {lat, lng: Number(state.data.lng)});
-	}, [state.data.lng]);
+	// 	const lat = Number(latValue);
+	// 	// setCenter((center) => center.lat === lat ? center : {lat, lng: Number(state.data.lng)});
+	// }, [state.data.lng]);
 
-	const onBlurLongitude = useCallback((lngValue: string) => {
-		if (lngValue === "" || lngValue === undefined || state.data.lat === "" || state.data.lat === undefined) {
-			return;
-		}
+	// const onBlurLongitude = useCallback((lngValue: string) => {
+	// 	if (lngValue === "" || lngValue === undefined || state.data.lat === "" || state.data.lat === undefined) {
+	// 		return;
+	// 	}
 
-		const lng = Number(lngValue);
-		console.log(lngValue, state.data.lat)
-		setCenter((center) => center.lng === lng ? center : {lng, lat: Number(state.data.lat)});
-	}, [state.data.lat]);
+	// 	const lng = Number(lngValue);
+	// 	// setCenter((center) => center.lng === lng ? center : {lng, lat: Number(state.data.lat)});
+	// }, [state.data.lat]);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -267,14 +228,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					name: "lat",
 					label: "Latitude",
 					type: "text",
-					onBlurCb: onBlurLatitude,
+					// onBlurCb: onBlurLatitude,
 					validators: [isLatitude]
 				},
 				{
 					name: "lng",
 					label: "Longitude",
 					type: "text",
-					onBlurCb: onBlurLongitude,
+					// onBlurCb: onBlurLongitude,
 					validators: [isLongitude]
 				},
 				{
@@ -286,7 +247,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					}
 				},
 			],
-		[center, onBlurLatitude, onBlurLongitude]
+		[center]
 	);
 
 	useEffect(() => {

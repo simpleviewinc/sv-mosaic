@@ -81,10 +81,6 @@ export interface MapProps {
 	 * This event is fired when the user starts dragging the marker.
 	 */
 	onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined;
-	/**
-	 * Flag that indicates if the marker is being dragged.
-	 */
-	isDragging: boolean;
 }
 
 export interface LocationSearchInputProps {
