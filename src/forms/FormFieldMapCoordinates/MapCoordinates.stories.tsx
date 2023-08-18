@@ -17,8 +17,8 @@ export default {
 
 const getFormValues = async () => ({
 	map: {
-		"lat": 78.65665391667302,
-		"lng": 16.35480434300188
+		"lat": 48.85827127725773,
+		"lng": 2.294223808441186
 	}
 });
 
