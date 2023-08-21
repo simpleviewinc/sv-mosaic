@@ -6,6 +6,9 @@
 
 * `FormFieldAddress`:
   * [MOS-1121](https://simpleviewtools.atlassian.net/browse/MOS-1121) Trims each part of the address when the address drawer is saved to remove any leading or traling spaces.
+  * [MOS-1125](https://simpleviewtools.atlassian.net/browse/MOS-1125) Amends address field styling to improve user experience
+* `FormFieldDate`:
+  * [MOS-1127](https://simpleviewtools.atlassian.net/browse/MOS-1127) Adds support to provide a custom minimum date to datepickers allowing users to select a date prior to 1900 (which is the default minimum date)
 * `Field`:
   * [MOS-1066](https://simpleviewtools.atlassian.net/browse/MOS-1066) Fixes a bug that caused `getElementById` console warnings if no field name was provided.
 * `FormFieldUpload`
