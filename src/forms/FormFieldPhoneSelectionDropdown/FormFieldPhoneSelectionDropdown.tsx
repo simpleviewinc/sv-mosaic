@@ -21,7 +21,7 @@ const FormFieldPhoneSelectionDropdown = (
 		error,
 		onChange,
 		onBlur,
-		value,
+		value
 	} = props;
 
 	const [dialCode, setDialCode] = useState("");

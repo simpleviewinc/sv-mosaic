@@ -1,5 +1,5 @@
 import { MosaicObject } from "@root/types";
-import { mapsValidators, required, Validator } from "./validators";
+import { mapsValidators, required, validatePhoneNumber, Validator } from "./validators";
 
 async function runValidators(
 	validators: Validator[],
@@ -104,12 +104,16 @@ export const formActions = {
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			const validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
 
-			if (validators.length === 0 && !requiredFlag) {
-				return;
-			}
-
 			if (requiredFlag) {
 				validators.unshift(required);
+			}
+
+			if (extraArgs?.fieldMap[name].type === "phone") {
+				validators.push(validatePhoneNumber);
+			}
+
+			if (validators.length === 0) {
+				return;
 			}
 
 			const validatorsMap = mapsValidators(validators);
