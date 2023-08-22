@@ -1,4 +1,4 @@
-import { Libraries } from "./MapCoordinatesTypes";
+import { Libraries, MapPosition } from "./MapCoordinatesTypes";
 import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 
 export const libraries: Libraries = ["places"];
@@ -28,3 +28,43 @@ export const address: IAddress = {
 	state: {label: "Arizona", value: "AZ"},
 	types: [{label: "Physical", value: "physical"}],
 };
+
+/**
+ * Returns the map bounds if they're available, or waits
+ * until the bounds have changed to return them
+ */
+export async function getMapBounds(map: google.maps.Map): Promise<google.maps.LatLngBounds | undefined> {
+	const bounds = map.getBounds();
+
+	if (bounds) {
+		return bounds;
+	}
+
+	let listener: google.maps.MapsEventListener;
+
+	return new Promise((resolve) => {
+		listener = google.maps.event.addListener(map, "bounds_changed", () => {
+			resolve(map.getBounds());
+			google.maps.event.removeListener(listener);
+		})
+	});
+}
+
+/**
+ * Validates a latitude/longitude object. It's only valid if it matches the shape of
+ * { lat: number, lng: number }
+ */
+export function isValidLatLng(latLng: MapPosition | undefined): latLng is MapPosition {
+	if (!latLng) {
+		return false;
+	}
+
+	if (
+		latLng.lat === undefined || latLng.lng === undefined ||
+		Number.isNaN(latLng.lat) || Number.isNaN(latLng.lng)
+	) {
+		return false;
+	}
+
+	return true;
+}

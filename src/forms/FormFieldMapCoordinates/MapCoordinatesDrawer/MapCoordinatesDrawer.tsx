@@ -7,15 +7,14 @@ import { ButtonProps } from "@root/components/Button";
 
 // Components
 import Map from "@root/forms/FormFieldMapCoordinates/Map";
-import { StyledSpan } from "../MapCoordinates.styled";
-import ResetButton from "@root/forms/FormFieldMapCoordinates/MapCoordinatesDrawer/ResetButton";
+import { ResetButtonContainer, StyledSpan } from "../MapCoordinates.styled";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 
 // Utils
-import { defaultMapPosition } from "../MapCoordinatesUtils";
+import { defaultMapPosition, isValidLatLng } from "../MapCoordinatesUtils";
 import Form, { formActions, useForm } from "@root/components/Form";
-import _ from "lodash";
 import { isLatitude, isLongitude } from "@root/components/Form/validators";
+import Button from "@root/components/Button/Button";
 
 // Layout of the form elements.
 const sections = [
@@ -33,92 +32,42 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		fieldDef,
 		onChange,
 		handleClose,
-		handleUnsavedChanges,
 		dialogOpen,
 		handleDialogClose,
-		mapPosition
+		handleUnsavedChanges,
+		initialCenter = defaultMapPosition
 	} = props;
-	const center = mapPosition || defaultMapPosition;
-	// const [shouldCenter, setShouldCenter] = useState<{field: string, value: number}>(undefined);
+
+	const getFormValues = useCallback(async () => {
+		const lat = value ? value.lat : undefined;
+		const lng = value ? value.lng : undefined;
+
+		return { lat, lng, placesList: { lat, lng } };
+	}, [value]);
 
 	const { state, dispatch } = useForm();
 
-	const initialState = { lat: value?.lat ? value.lat : undefined, lng: value?.lng ? value.lng : undefined };
+	const parentLatLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
 
+	const latLng = useMemo(() => {
+		const unsanitized = { lat: Number(state.data.lat), lng: Number(state.data.lng) };
+		return isValidLatLng(unsanitized) ? unsanitized : undefined
+	}, [
+		state.data.lat,
+		state.data.lng
+	]);
+
+	// If the local lat/lng is different to the parent form,
+	// show the unsaved changes prompt
 	useEffect(() => {
-		const { lat, lng } = state.data;
+		const isEqual =
+			// Both the parent value and the local value are the same (undefined)
+			(parentLatLng === latLng) ||
+			// Both the parent value and the local value have the same lat and lng values
+			(parentLatLng && latLng && parentLatLng.lat === latLng.lat && parentLatLng.lng === latLng.lng);
 
-		if (lat !== undefined || lng !== undefined)
-			handleUnsavedChanges(!_.isEqual(initialState, { lat, lng }));
-	}, [state.data.lat, state.data.lng]);
-
-	/**
-	 * When the map is clicked the lat and lng fields and
-	 * the coordinates that center the map are updated.
-	 */
-	const onMapClick = useCallback(async (event: google.maps.MapMouseEvent) => {
-		const lat = event.latLng.lat();
-		const lng = event.latLng.lng();
-
-		await dispatch(
-			formActions._setFieldValues({
-				values: {
-					placesList: { lat: Number(lat), lng: Number(lng) },
-					lat,
-					lng
-				}
-			})
-		);
-	}, []);
-
-	/**
-	 * Clear the input fields of latitude and longitude
-	 */
-	const resetLocation = async () => {
-		await dispatch(
-			formActions.setFieldValue({ name: "lat", value: undefined })
-		);
-
-		await dispatch(
-			formActions.setFieldValue({ name: "lng", value: undefined })
-		);
-	};
-
-	/**
-	 * Callback function that is executed by the LocationSearchInput
-	 * when the user selects one of the suggested options by the autocomplete
-	 * google component.
-	 */
-	const handleCoordinates = useCallback(async (coordinates: MapPosition) => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: "placesList",
-				value: coordinates,
-			})
-		);
-
-		await dispatch(
-			formActions.setFieldValue({
-				name: "lat",
-				value: coordinates.lat,
-			})
-		);
-
-		await dispatch(
-			formActions.validateField({name: "lat"})
-		);
-
-		await dispatch(
-			formActions.setFieldValue({
-				name: "lng",
-				value: coordinates.lng,
-			})
-		);
-
-		await dispatch(
-			formActions.validateField({name: "lng"})
-		);
-	}, [dispatch]);
+		handleUnsavedChanges(!isEqual);
+	}, [parentLatLng, latLng]);
 
 	/**
 	 * Executed when the onSubmit event of
@@ -131,182 +80,107 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		const latLngValue = {
 			...value,
-			lat: Number(state.data.lat),
-			lng: Number(state.data.lng),
+			...latLng
 		}
 
 		await onChange(latLngValue);
 		handleClose(true);
 	};
 
-	const onDragMarkerEnd = useCallback((event: google.maps.MapMouseEvent) => {
-		const lat = event.latLng.lat();
-		const lng = event.latLng.lng();
+	const onCoordinatesChange = useCallback((coords: MapPosition | undefined) => {
+		const lat = coords ? coords.lat : undefined;
+		const lng = coords ? coords.lng : undefined;
 
 		dispatch(
-			formActions.setFieldValue({
-				name: "lat",
-				value: lat,
+			formActions._setFieldValues({
+				values: {
+					placesList: { lat, lng },
+					lat,
+					lng
+				}
 			})
 		);
-
-		dispatch(
-			formActions.setFieldValue({
-				name: "lng",
-				value: lng,
-			})
-		);
-
-		// setIsDragging(false)
 	}, [dispatch]);
 
+	const MapWithMarkerField = useMemo(() => {
+		function MapWithMarker(props: any) {
+			const value = useMemo(() => props.value, [props.value]);
 
-	const renderMap = useCallback((props) => {
-		const value = useMemo(() => props.value, [props.value]);
+			return (
+				<>
+					<Map
+						address={fieldDef?.inputSettings?.address}
+						initialCenter={initialCenter}
+						value={value}
+						zoom={fieldDef.inputSettings.zoom}
+						onCoordinatesChange={onCoordinatesChange}
+					/>
+					<StyledSpan>
+						Click on the map to update the latitude and longitude coordinates
+					</StyledSpan>
+				</>
+			)
+		}
 
-		return (
-			<>
-				<Map
-					address={fieldDef?.inputSettings?.address}
-					handleCoordinates={handleCoordinates}
-					mapPosition={mapPosition}
-					value={value}
-					onClick={onMapClick}
-					zoom={fieldDef.inputSettings.zoom}
-					onDragMarkerEnd={onDragMarkerEnd}
-				/>
-				<StyledSpan>
-					Click on the map to update the latitude and longitude coordinates
-				</StyledSpan>
-			</>
-		)
+		return MapWithMarker;
 	}, [
 		fieldDef?.inputSettings?.address,
-		handleCoordinates,
-		center,
-		onMapClick,
 		fieldDef.inputSettings.zoom,
-		onDragMarkerEnd,
+		onCoordinatesChange,
+		initialCenter
 	]);
 
-	// useEffect(() => {
-	// 	if (shouldCenter?.field && shouldCenter.field === "lng") {
-	// 		setCenter({ lat: Number(state.data.lat) || 0, lng: shouldCenter.value });
-	// 		setShouldCenter({field: null, value: null})
-	// 	} else if (shouldCenter?.field && shouldCenter.field === "lat") {
-	// 		setCenter({ lat: shouldCenter.value, lng: Number(state.data.lng) || 0});
-	// 		setShouldCenter({field: null, value: null})
-	// 	}
-	// }, [state.data.lat, state.data.lng, shouldCenter]);
+	const ResetButtonField = useMemo(() => {
+		const onClick = () => dispatch(formActions._setFieldValues({
+			values: {
+				lat: undefined,
+				lng: undefined,
+				placesList: undefined
+			}
+		}));
 
-	// const onBlurLatitude = useCallback((latValue: string) => {
-	// 	if (latValue === "" || latValue === undefined || state.data.lng === "" || state.data.lng === undefined) {
-	// 		return;
-	// 	}
-
-	// 	const lat = Number(latValue);
-	// 	// setCenter((center) => center.lat === lat ? center : {lat, lng: Number(state.data.lng)});
-	// }, [state.data.lng]);
-
-	// const onBlurLongitude = useCallback((lngValue: string) => {
-	// 	if (lngValue === "" || lngValue === undefined || state.data.lat === "" || state.data.lat === undefined) {
-	// 		return;
-	// 	}
-
-	// 	const lng = Number(lngValue);
-	// 	// setCenter((center) => center.lng === lng ? center : {lng, lat: Number(state.data.lat)});
-	// }, [state.data.lat]);
+		return function ResetButton() {
+			return (
+				<ResetButtonContainer>
+					<Button
+						className="reset-button"
+						color="teal"
+						variant="text"
+						label="Reset"
+						onClick={onClick}
+					/>
+				</ResetButtonContainer>
+			);
+		}
+	}, [dispatch]);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
 			[
 				{
 					name: "placesList",
-					type: renderMap
+					type: MapWithMarkerField
 				},
 				{
 					name: "lat",
 					label: "Latitude",
 					type: "text",
-					// onBlurCb: onBlurLatitude,
 					validators: [isLatitude]
 				},
 				{
 					name: "lng",
 					label: "Longitude",
 					type: "text",
-					// onBlurCb: onBlurLongitude,
 					validators: [isLongitude]
 				},
 				{
 					name: "resetButton",
 					label: "Reset",
-					type: ResetButton,
-					inputSettings: {
-						resetLocation
-					}
+					type: ResetButtonField
 				},
 			],
-		[center]
+		[]
 	);
-
-	useEffect(() => {
-		let isMounted = true;
-		if (isMounted) {
-			const { lat, lng } = state.data;
-
-			if (lat?.toString().length > 0 && lng?.toString().length > 0) {
-				const showResetButton = lat === 0 && lng === 0;
-				dispatch(
-					formActions.setFieldValue({ name: "resetButton", value: !showResetButton })
-				);
-
-				dispatch(
-					formActions.setFieldValue({
-						name: "placesList",
-						value: { lat: Number(lat), lng: Number(lng) }
-					})
-				);
-			} else {
-				dispatch(
-					formActions.setFieldValue({ name: "resetButton", value: undefined })
-				);
-			}
-		}
-
-		return () => {
-			isMounted = false;
-		}
-
-	}, [state.data.lat, state.data.lng]);
-
-	/**
-	 * Sets the previously saved values to be
-	 * displayed in the Drawer when editing.
-	 */
-	useEffect(() => {
-		let isMounted = true;
-
-		if (isMounted) {
-			dispatch(
-				formActions.setFieldValue({
-					name: "lat",
-					value: value?.lat
-				})
-			);
-
-			dispatch(
-				formActions.setFieldValue({
-					name: "lng",
-					value: value?.lng
-				})
-			);
-		}
-
-		return () => {
-			isMounted = false;
-		}
-	}, [dispatch, value])
 
 	const buttons: ButtonProps[] = [
 		{
@@ -320,26 +194,12 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			onClick: onSubmit,
 			color: "yellow",
 			variant: "contained",
-			disabled: (!state.data.lat || !state.data.lng || state.errors.lng || state.errors.lat) as boolean
+			disabled: latLng === undefined
 		}
 	];
 
 	return (
 		<FormDrawerWrapper className="mapCoordinates">
-			{/* <Map
-				address={fieldDef?.inputSettings?.address}
-				handleCoordinates={handleCoordinates}
-				mapPosition={center}
-				value={props.value}
-				onClick={onMapClick}
-				zoom={fieldDef.inputSettings.zoom}
-				onDragMarkerEnd={onDragMarkerEnd}
-				onDragStart={onDragStart}
-				isDragging={isDragging}
-			/>
-			<StyledSpan>
-				Click on the map to update the latitude and longitude coordinates
-			</StyledSpan> */}
 			<Form
 				onBack={handleClose}
 				title='Map Coordinates'
@@ -350,6 +210,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
+				getFormValues={getFormValues}
 			/>
 		</FormDrawerWrapper>
 	);
