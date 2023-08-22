@@ -90,7 +90,6 @@ export const ResetButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  visibility: ${({ hasValue }) => hasValue ? "visible" : "hidden"};
   position: relative;
 
 
