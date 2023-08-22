@@ -28,10 +28,10 @@ export const Playground = (): ReactElement => {
 	const addressKnob = object("Address", address);
 	const disabled = boolean("Disabled", false);
 	const label = text("Label", "Map Coordinates Example");
-	const mapPositionKnob = object("Initial map position", defaultMapPosition);
+	const initialCenterKnob = object("Initial map position", defaultMapPosition);
 	const required = boolean("Required", false);
 	const withAddress = boolean("With address", false);
-	const zoom = number("Zoom", 7, { min: 0, max: 18 });
+	const zoom = number("Zoom", 7, { min: 0, max: 18, range: true });
 	const prepopulate = boolean("Prepopulate", false);
 
 	const fields = useMemo(
@@ -46,12 +46,12 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 						address: withAddress ? addressKnob : undefined,
-						mapPosition: mapPositionKnob,
+						initialCenter: initialCenterKnob,
 						zoom: zoom
 					},
 				},
 			],
-		[addressKnob, disabled, label, mapPositionKnob, required, withAddress, zoom]
+		[addressKnob, disabled, label, initialCenterKnob, required, withAddress, zoom]
 	);
 
 	return (
@@ -90,7 +90,7 @@ const kitchenSinkFields: FieldDef[] = [
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			zoom: 8,
-			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
+			initialCenter: { lat: 40.7127753, lng: -74.0059728 }
 		},
 	},
 	{
@@ -102,7 +102,7 @@ const kitchenSinkFields: FieldDef[] = [
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address,
-			mapPosition: { lat: 40.7127753, lng: -74.0059728 }
+			initialCenter: { lat: 40.7127753, lng: -74.0059728 }
 		},
 	},
 	{
@@ -114,7 +114,7 @@ const kitchenSinkFields: FieldDef[] = [
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			address: address,
-			mapPosition: { lat: 19.3884403, lng: -99.1747252 }
+			initialCenter: { lat: 19.3884403, lng: -99.1747252 }
 		},
 	},
 	{

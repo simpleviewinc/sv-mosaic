@@ -21,9 +21,18 @@ export type Libraries = (
  */
 export type MapPosition = { lat: number; lng: number };
 
-export type AddCordinatesFnc = (coordinates: MapPosition) => void;
-
-export type MapCoordinatesInputSettings = {
+export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
+	/**
+	 * Latitude and longitude object.
+	 * @deprecated Use initialCenter instead
+	 */
+	mapPosition?: MapPosition;
+	/**
+	 * Where to center the map initially and when
+	 * the reset button is clicked. Defaults to
+	 * Simpleview HQ in Tucson if not provided
+	 */
+	initialCenter?: MapPosition
 	/**
 	 * Address object used to set lat and lng values when using
 	 * the autocoordinates feature.
@@ -34,10 +43,6 @@ export type MapCoordinatesInputSettings = {
 	 * and Places API
 	 */
 	googleMapsApiKey: string;
-	/**
-	 * Latitude and longitude object.
-	 */
-	mapPosition?: MapPosition;
 	/**
 	 * The Google Maps API provides map tiles at various zoom levels for map
 	 * type imagery. Most roadmap imagery is available from zoom levels 0 to 18
@@ -53,54 +58,47 @@ export interface MapProps {
 	 */
 	address?: IAddress;
 	/**
-	 * Callback function that is executed when user selects one of the
-	 * suggestions of the autocomplete google component.
+	 * Where to center the map initially and when
+	 * the reset button is clicked. Defaults to
+	 * Simpleview HQ in Tucson if not provided
 	 */
-	handleCoordinates?: AddCordinatesFnc
-	/**
-	 * Latitude and longitude object.
-	 */
-	mapPosition: MapPosition;
+	initialCenter?: MapPosition
 	/**
 	 * Location of the marker
 	 */
 	value?: MapPosition;
 	/**
-	 * Function triggered when user clicks on the map.
-	 */
-	onClick: (e: google.maps.MapMouseEvent) => void;
-	/**
 	 * Zoom level of the Map
 	 */
 	zoom? : MapCoordinatesInputSettings["zoom"];
 	/**
-	 * This event is fired when the user stops dragging the marker.
-	 */
-	onDragMarkerEnd?: ((e: google.maps.MapMouseEvent) => void) | undefined;
-	/**
 	 * This event is fired when the user starts dragging the marker.
 	 */
 	onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined;
-}
-
-export interface LocationSearchInputProps {
 	/**
-	 * Callback function that is executed when user selects one of the
-	 * suggestions of the autocomplete google component.
+	 * This is fired when the marker coordinates change, either by dragging
+	 * an existing marker, clicking the map or selecting an address
 	 */
-	handleCoordinates?: AddCordinatesFnc
+	onCoordinatesChange?: (coords: MapPosition) => void
 }
 
-export interface MapCoordinatesDrawerProps {
+export type MapFocusProps = Pick<MapProps, "value" | "initialCenter" | "onDragStart"> & {
+	onDragMarkerEnd?: (e: google.maps.MapMouseEvent) => void
+};
+
+export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"> & {
 	fieldDef: FieldDefMapCoordinates;
+
 	handleClose: (save?: boolean) => Promise<void>;
+
 	onChange: (e: MapPosition) => Promise<void>
-	value: MapPosition;
-	mapPosition: MapPosition;
 
 	hasUnsavedChanges?: boolean;
+
 	handleUnsavedChanges?: (val: boolean) => void;
+
 	dialogOpen?: boolean;
+
 	handleDialogClose?: (val: boolean) => void;
 }
 

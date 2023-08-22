@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect } from "react";
 import { GoogleMap, Marker, useGoogleMap } from "@react-google-maps/api";
 import { memo, ReactElement, useState } from "react";
-import { MapPosition, MapProps } from "../MapCoordinatesTypes";
+import { MapFocusProps, MapProps } from "../MapCoordinatesTypes";
 import { isEmpty } from "lodash";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { InputAdornment } from "@mui/material";
@@ -11,6 +11,7 @@ import { InputAdornment } from "@mui/material";
 import { MapContainer } from "../MapCoordinates.styled";
 import AddressAutocomplete from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete";
 import { StyledClearIcon } from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
+import { getMapBounds, isValidLatLng } from "../MapCoordinatesUtils";
 
 const containerStyle = {
 	display: "flex",
@@ -23,95 +24,66 @@ const mapOptions = {
 	draggableCursor: "crosshair",
 };
 
-async function getMapBounds(map: google.maps.Map): Promise<google.maps.LatLngBounds | undefined> {
-	const bounds = map.getBounds();
-
-	if (bounds) {
-		return bounds;
-	}
-
-	return new Promise((resolve) => {
-		google.maps.event.addListener(map, "bounds_changed", () => {
-			resolve(map.getBounds());
-		})
-	});
-}
-
-function isValidLatLng(latLng: MapPosition | undefined): latLng is MapPosition {
-	if (!latLng) {
-		return false;
-	}
-
-	if (
-		latLng.lat === undefined || latLng.lng === undefined ||
-		Number.isNaN(latLng.lat) || Number.isNaN(latLng.lng)
-	) {
-		return false;
-	}
-
-	return true;
-}
-
 const MapInner = ({
 	value,
-	mapPosition,
+	initialCenter,
 	onDragMarkerEnd,
 	onDragStart
-}: Pick<MapProps, "value" | "mapPosition" | "onDragMarkerEnd" | "onDragStart">): ReactElement => {
+}: MapFocusProps): ReactElement => {
 	const map = useGoogleMap();
 	const currentTarget = React.useRef<google.maps.LatLng | null>(null);
 
 	useEffect(() => {
 		(async () => {
 			const bounds = await getMapBounds(map);
-			const { lat, lng } = isValidLatLng(value) ? value : mapPosition ? mapPosition : {lat: 0, lng: 0};
+			const { lat, lng } = isValidLatLng(value) ? value : initialCenter ? initialCenter : {lat: 0, lng: 0};
 			const target = new google.maps.LatLng(lat, lng);
 
-			if (bounds && target) {
-				if (currentTarget.current && currentTarget.current.equals(target)) {
-					return;
-				}
+			if (!bounds || !target) {
+				return;
+			}
 
-				currentTarget.current = target;
+			if (currentTarget.current && currentTarget.current.equals(target)) {
+				return;
+			}
 
-				// The center of the viewport is already to target
-				if (bounds.getCenter().equals(target)) {
-					return;
-				}
+			currentTarget.current = target;
 
-				if (!bounds.contains(target)) {
-					map.setCenter(target);
-				} else {
-					map.panTo(target);
-				}
+			// The center of the viewport is already the target
+			if (bounds.getCenter().equals(target)) {
+				return;
+			}
+
+			if (!bounds.contains(target)) {
+				map.setCenter(target);
+			} else {
+				map.panTo(target);
 			}
 		})();
 	}, [map, value]);
 
+	if (!value || value.lat === undefined || value.lng === undefined) {
+		return;
+	}
+
 	return (
-		<>
-			{(value && (value?.lat !== 0 || value?.lng !== 0) && (
-				<Marker
-					draggable={true}
-					position={value || mapPosition}
-					onDragEnd={onDragMarkerEnd}
-					onDragStart={onDragStart}
-				/>
-			))}
-		</>
+		<Marker
+			draggable={true}
+			position={value}
+			onDragEnd={onDragMarkerEnd}
+			onDragStart={onDragStart}
+		/>
 	)
 }
 
 const Map = (props: MapProps): ReactElement => {
 	const {
 		address,
-		handleCoordinates,
-		mapPosition,
+		initialCenter,
 		value,
-		onClick,
-		onDragMarkerEnd,
 		zoom = 0,
 		onDragStart,
+		onCoordinatesChange
 	} = props;
 
 	// State variables
@@ -128,20 +100,34 @@ const Map = (props: MapProps): ReactElement => {
 		try {
 			const results = await geocodeByAddress(value);
 			const latLng = await getLatLng(results[0]);
-			handleCoordinates(latLng);
+			onCoordinatesChange(latLng);
 		} catch (error) {
 			// TODO Catch this
 		}
 	};
 
 	/**
- * Reset the address value that is displayed in the autocomplete component.
- */
+	 * Reset the address value that is displayed in the autocomplete component.
+	 */
 	const clearValue = () => {
 		setAddressValue("");
 	};
 
 	const map = React.useRef<GoogleMap | undefined>();
+
+	const onDragMarkerEnd = ({ latLng }: google.maps.MapMouseEvent) => {
+		const lat = latLng.lat();
+		const lng = latLng.lng();
+
+		onCoordinatesChange({ lat, lng });
+	}
+
+	const onClick = ({ latLng }: google.maps.MapMouseEvent) => {
+		const lat = latLng.lat();
+		const lng = latLng.lng();
+
+		onCoordinatesChange({ lat, lng });
+	}
 
 	return (
 		<MapContainer>
@@ -167,7 +153,7 @@ const Map = (props: MapProps): ReactElement => {
 			<div>
 				<GoogleMap
 					mapContainerStyle={containerStyle}
-					center={mapPosition}
+					center={initialCenter}
 					zoom={zoom}
 					onClick={onClick}
 					options={mapOptions}
@@ -175,7 +161,7 @@ const Map = (props: MapProps): ReactElement => {
 				>
 					<MapInner
 						value={value}
-						mapPosition={mapPosition}
+						initialCenter={initialCenter}
 						onDragMarkerEnd={onDragMarkerEnd}
 						onDragStart={onDragStart}
 					/>

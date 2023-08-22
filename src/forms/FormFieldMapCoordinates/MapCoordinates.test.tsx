@@ -268,7 +268,7 @@ describe("MapCoordinates component with an address object (AUTOCOODINATES)", () 
 						label: "",
 						inputSettings: {
 							googleMapsApiKey: "test",
-							mapPosition: defaultMapPosition,
+							initialCenter: defaultMapPosition,
 							address,
 						},
 					}}
