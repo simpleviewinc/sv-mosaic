@@ -17,15 +17,19 @@ export default {
 
 const getFormValues = async () => ({
 	map: {
-		"lat": 48.85827127725773,
-		"lng": 2.294223808441186
+		"lat": 32.369247319672866,
+		"lng": -110.96678114089914
 	}
 });
+
+// Liverpool Office: 53.37997840196994, -2.9729752639886544
+// Tucson Office: 32.369247319672866, -110.96678114089914
+// Eiffel Tower: 48.858321470423576, 2.2945004162050564
+// Niagra Falls: 43.08280759102605, -79.07415774620223
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
-	const addressKnob = object("Address", address);
 	const disabled = boolean("Disabled", false);
 	const label = text("Label", "Map Coordinates Example");
 	const initialCenterKnob = object("Initial map position", defaultMapPosition);
@@ -33,6 +37,7 @@ export const Playground = (): ReactElement => {
 	const withAddress = boolean("With address", false);
 	const zoom = number("Zoom", 7, { min: 0, max: 18, range: true });
 	const prepopulate = boolean("Prepopulate", false);
+	const addressKnob = object("Address", address);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -47,7 +52,7 @@ export const Playground = (): ReactElement => {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 						address: withAddress ? addressKnob : undefined,
 						initialCenter: initialCenterKnob,
-						zoom: zoom
+						zoom: zoom,
 					},
 				},
 			],
