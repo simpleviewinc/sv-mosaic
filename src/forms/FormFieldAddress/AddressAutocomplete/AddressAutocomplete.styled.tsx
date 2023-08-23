@@ -26,11 +26,15 @@ export const StyledClearIcon = styled(ClearIcon)`
 `;
 
 export const SuggestionsContainer = styled.div`
+  background-color: white;
   position: absolute;
   z-index: 9999;
   width: 100%;
   border: ${theme.borders.fieldGray};
+  border-top: 0;
   font-family: ${theme.fontFamily};
+  padding: 8px 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
 `;
 
 export const SuggestionsDescriptionContainer = styled.div`

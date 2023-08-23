@@ -15,7 +15,7 @@ export const getAddressStringFromAddressObject = (addressObj: IAddress): string 
 /**
  * Default map position
  */
-export const defaultMapPosition = { lat: 78.65665391667302, lng: 16.35480434300188 }
+export const defaultMapPosition = { lat: 48.858321470423576, lng: 2.2945004162050564 }
 
 /**
  * Example of an address object.
@@ -67,4 +67,24 @@ export function isValidLatLng(latLng: MapPosition | undefined): latLng is MapPos
 	}
 
 	return true;
+}
+
+export function isValidCoords(coords: string | undefined) {
+	if (!coords) {
+		return false;
+	}
+
+	const rx = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
+
+	return rx.test(coords);
+}
+
+export function isSameCoords(coords1: MapPosition | undefined, coords2: MapPosition | undefined) {
+	const isEqual =
+			// Both the coords1 value and the coords2 value are the same (undefined)
+			(coords1 === coords2) ||
+			// Both the coords1 value and the coords2 value have the same lat and lng values
+			(coords1 && coords2 && coords1.lat === coords2.lat && coords1.lng === coords2.lng);
+
+	return isEqual;
 }

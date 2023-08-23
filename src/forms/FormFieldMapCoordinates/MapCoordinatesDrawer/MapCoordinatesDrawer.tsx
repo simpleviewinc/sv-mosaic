@@ -6,15 +6,14 @@ import { MapPosition } from "../MapCoordinatesTypes";
 import { ButtonProps } from "@root/components/Button";
 
 // Components
-import Map from "@root/forms/FormFieldMapCoordinates/Map";
-import { ResetButtonContainer, StyledSpan } from "../MapCoordinates.styled";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 
 // Utils
-import { defaultMapPosition, isValidLatLng } from "../MapCoordinatesUtils";
+import { defaultMapPosition, isSameCoords, isValidCoords, isValidLatLng } from "../MapCoordinatesUtils";
 import Form, { formActions, useForm } from "@root/components/Form";
 import { isLatitude, isLongitude } from "@root/components/Form/validators";
-import Button from "@root/components/Button/Button";
+import MapWithMarker from "../Map/MapWithMarker";
+import ResetButton from "../Map/ResetButton";
 
 // Layout of the form elements.
 const sections = [
@@ -25,6 +24,8 @@ const sections = [
 		]
 	}
 ];
+
+
 
 const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement => {
 	const {
@@ -57,15 +58,79 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		state.data.lng
 	]);
 
+	// If it looks like the user is trying to paste full coordinates
+	// into the latitude field, split it into two
+	useEffect(() => {
+		if (!state.data.lat) {
+			return;
+		}
+
+		const lat = String(state.data.lat);
+		const parts = lat.split(",");
+		if (parts.length !== 2 || !isValidCoords(lat)) {
+			return;
+		}
+
+		dispatch(formActions._setFieldValues({
+			values: {
+				lat: parts[0].trim(),
+				lng: parts[1].trim()
+			}
+		}));
+	}, [
+		state.data.lat,
+		state.data.lng
+	]);
+
+	// Sync up the lat and lng form values with the reset button
+	useEffect(() => {
+		const shouldShowReset = state.data.lat !== undefined || state.data.lng !== undefined;
+
+		if (shouldShowReset === state.data.resetButton) {
+			return;
+		}
+
+		dispatch(formActions.setFieldValue({
+			name: "resetButton",
+			value: shouldShowReset
+		}));
+	}, [
+		state.data.lat,
+		state.data.lng,
+		state.data.reset
+	]);
+
+	// Sync up the lat and lng form values with placesList,
+	// TODO Why can't these be the same state?
+	useEffect(() => {
+		if (!latLng) {
+			dispatch(formActions.setFieldValue({
+				name: "placesList",
+				value: undefined
+			}));
+
+			return;
+		}
+
+		const isEqual = isSameCoords(state.data.placesList, latLng);
+
+		if (isEqual) {
+			return;
+		}
+
+		dispatch(formActions.setFieldValue({
+			name: "placesList",
+			value: { lat: latLng.lat, lng: latLng.lng }
+		}));
+	}, [
+		state.data.placesList,
+		latLng
+	])
+
 	// If the local lat/lng is different to the parent form,
 	// show the unsaved changes prompt
 	useEffect(() => {
-		const isEqual =
-			// Both the parent value and the local value are the same (undefined)
-			(parentLatLng === latLng) ||
-			// Both the parent value and the local value have the same lat and lng values
-			(parentLatLng && latLng && parentLatLng.lat === latLng.lat && parentLatLng.lng === latLng.lng);
-
+		const isEqual = isSameCoords(parentLatLng, latLng);
 		handleUnsavedChanges(!isEqual);
 	}, [parentLatLng, latLng]);
 
@@ -95,71 +160,30 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			formActions._setFieldValues({
 				values: {
 					placesList: { lat, lng },
-					lat,
-					lng
+					lat: String(lat),
+					lng: String(lng)
 				}
 			})
 		);
 	}, [dispatch]);
 
-	const MapWithMarkerField = useMemo(() => {
-		function MapWithMarker(props: any) {
-			const value = useMemo(() => props.value, [props.value]);
-
-			return (
-				<>
-					<Map
-						address={fieldDef?.inputSettings?.address}
-						initialCenter={initialCenter}
-						value={value}
-						zoom={fieldDef.inputSettings.zoom}
-						onCoordinatesChange={onCoordinatesChange}
-					/>
-					<StyledSpan>
-						Click on the map to update the latitude and longitude coordinates
-					</StyledSpan>
-				</>
-			)
-		}
-
-		return MapWithMarker;
-	}, [
-		fieldDef?.inputSettings?.address,
-		fieldDef.inputSettings.zoom,
-		onCoordinatesChange,
-		initialCenter
-	]);
-
-	const ResetButtonField = useMemo(() => {
-		const onClick = () => dispatch(formActions._setFieldValues({
-			values: {
-				lat: undefined,
-				lng: undefined,
-				placesList: undefined
-			}
-		}));
-
-		return function ResetButton() {
-			return (
-				<ResetButtonContainer>
-					<Button
-						className="reset-button"
-						color="teal"
-						variant="text"
-						label="Reset"
-						onClick={onClick}
-					/>
-				</ResetButtonContainer>
-			);
-		}
-	}, [dispatch]);
+	const address = fieldDef?.inputSettings?.address;
+	const zoom = fieldDef?.inputSettings?.zoom;
+	const focusZoom = fieldDef?.inputSettings?.focusZoom;
 
 	const fields = useMemo(
 		(): FieldDef[] =>
 			[
 				{
 					name: "placesList",
-					type: MapWithMarkerField
+					type: ({value}) => <MapWithMarker
+						address={address}
+						zoom={zoom}
+						focusZoom={focusZoom}
+						initialCenter={initialCenter}
+						onCoordinatesChange={onCoordinatesChange}
+						value={value}
+					/>
 				},
 				{
 					name: "lat",
@@ -176,10 +200,26 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				{
 					name: "resetButton",
 					label: "Reset",
-					type: ResetButtonField
+					type: ({value}) => <ResetButton
+						show={value}
+						onClick={() => dispatch(formActions._setFieldValues({
+							values: {
+								lat: undefined,
+								lng: undefined,
+								placesList: undefined
+							}
+						}))}
+					/>
 				},
 			],
-		[]
+		[
+			address,
+			zoom,
+			focusZoom,
+			initialCenter,
+			onCoordinatesChange,
+			dispatch
+		]
 	);
 
 	const buttons: ButtonProps[] = [
@@ -193,8 +233,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			label: "Save Coordinates",
 			onClick: onSubmit,
 			color: "yellow",
-			variant: "contained",
-			disabled: latLng === undefined
+			variant: "contained"
 		}
 	];
 

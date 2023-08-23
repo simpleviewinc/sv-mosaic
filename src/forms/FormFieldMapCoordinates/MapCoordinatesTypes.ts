@@ -36,6 +36,8 @@ export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 	/**
 	 * Address object used to set lat and lng values when using
 	 * the autocoordinates feature.
+	 *
+	 * @deprecated
 	 */
 	address?: IAddress;
 	/**
@@ -49,12 +51,18 @@ export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 	 * https://developers.google.com/maps/documentation/javascript/maxzoom
 	 */
 	zoom?: number;
+	/**
+	 * How far to zoom when a marker is chosen
+	 */
+	focusZoom?: number;
 }
 
 export interface MapProps {
 	/**
 	 * Address object used to set lat and lng values when using
 	 * the autocoordinates feature.
+	 *
+	 * @deprecated
 	 */
 	address?: IAddress;
 	/**
@@ -72,9 +80,9 @@ export interface MapProps {
 	 */
 	zoom? : MapCoordinatesInputSettings["zoom"];
 	/**
-	 * This event is fired when the user starts dragging the marker.
+	 * Zoom level of the Map
 	 */
-	onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined;
+	focusZoom? : MapCoordinatesInputSettings["focusZoom"];
 	/**
 	 * This is fired when the marker coordinates change, either by dragging
 	 * an existing marker, clicking the map or selecting an address
@@ -82,8 +90,20 @@ export interface MapProps {
 	onCoordinatesChange?: (coords: MapPosition) => void
 }
 
-export type MapFocusProps = Pick<MapProps, "value" | "initialCenter" | "onDragStart"> & {
+export type MapWithMarkerProps = Pick<MapProps, "address" | "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter">
+
+export type ResetButtonProps = {
+	show?: boolean,
+	onClick?: () => void
+}
+
+export type MapFocusProps = Pick<MapProps, "value" | "initialCenter" | "zoom"> & {
 	onDragMarkerEnd?: (e: google.maps.MapMouseEvent) => void
+
+	/**
+	 * The zoom at which to set the map when a marker is set
+	 */
+	focusZoom?: number
 };
 
 export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"> & {
