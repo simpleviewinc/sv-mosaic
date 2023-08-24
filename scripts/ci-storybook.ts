@@ -12,7 +12,8 @@ if (!CIRCLE_BRANCH) {
 // build the storybook
 execSync("yarn run build:storybook", { stdio: "inherit" });
 
-console.log("Publishing to storybook...");
+console.log(`Publishing to GitHub pages at ${CIRCLE_BRANCH}`);
+
 ghPages.publish("docs", {
 	branch: "gh-pages",
 	dest: CIRCLE_BRANCH,
@@ -22,7 +23,11 @@ ghPages.publish("docs", {
 		email: "owenallenaz@gmail.com"
 	}
 }, function(err) {
-	if (err) { throw err }
+	if (err) {
+		console.error("Error publishing GitHub Pages:");
+		console.error(err);
+		throw err
+	}
 
 	console.log("Storybook publish complete");
 });

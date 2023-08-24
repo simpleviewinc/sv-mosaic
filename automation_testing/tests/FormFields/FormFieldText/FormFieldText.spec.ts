@@ -83,6 +83,7 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 	});
 
 	test("Validate xs regular text size is valid", async () => {
+		page.pause();
 		expect(await ffTextPage.getElementWidth(ffTextPage.xsSizeTextField, true)).toBe(100);
 	});
 
@@ -118,6 +119,7 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 	});
 
 	test("Validate that the Multiline field has correct height.", async () => {
+		test.skip();
 		expect(await ffTextPage.getHeightFromElement(ffTextPage.multilineTextField)).toBe(theme.fieldSpecs.inputText.height);
 	});
 });

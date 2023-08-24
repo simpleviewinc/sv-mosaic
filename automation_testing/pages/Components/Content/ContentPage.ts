@@ -18,8 +18,8 @@ export class ContentPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.mainContentTitle = page.locator("span", { hasText: "Main Content Title" });
-		this.editButton = page.locator(".standard-buttons button [data-testid='icon-button-test']");
-		this.detailsButton = page.locator(".standard-buttons button", { hasText: "More Details" });
+		this.editButton = page.locator("[data-testid='button-row'] button [data-testid='icon-button-test']");
+		this.detailsButton = page.locator("[data-testid='button-row'] button", { hasText: "More Details" });
 		this.mainWrapperLocator = page.locator("#root div").first();
 		this.contentWrapperLocator = page.locator(".content-wrapper");
 		this.cardWrapperLocator = page.locator(".card-wrapper");

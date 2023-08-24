@@ -22,10 +22,6 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 		await page.reload();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Select result per page - Value by default", async () => {
 		expect(await pagination.resultAmount.textContent()).toBe(`${dataview_data.resultPerPageDefault}`);
 		expect(await (await dataviewPage.getTableRows()).count()).toBe(dataview_data.resultPerPageDefault);

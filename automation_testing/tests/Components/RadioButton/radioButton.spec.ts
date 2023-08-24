@@ -12,10 +12,6 @@ test.describe.parallel("Components - RadioButton - Group", () => {
 		await radioButtonPage.visit(radioButtonPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate selected radio button has simplyGold color.", async () => {
 		const expectColor = (theme.newColors.simplyGold["100"]);
 		await radioButtonPage.radioButtonInput.first().check();

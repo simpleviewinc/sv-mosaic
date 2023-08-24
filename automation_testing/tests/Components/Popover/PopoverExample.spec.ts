@@ -12,10 +12,6 @@ test.describe.parallel("Components - PopoverPage - Example", () => {
 		await popoverPage.visit(popoverPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Add button in popover has realTeal color.", async () => {
 		const expectedColor = (theme.newColors.realTeal["100"]);
 		if (!await popoverPage.popoverTooltip.isVisible()) {
