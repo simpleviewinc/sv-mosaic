@@ -178,7 +178,7 @@ export function useForm(): UseFormReturn {
 			validating: {},
 			custom: {},
 			validForm: false,
-			disabled: false,
+			disabled: true,
 			touched: {},
 			mounted: {},
 			busyFields: {},
