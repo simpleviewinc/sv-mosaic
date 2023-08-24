@@ -215,7 +215,7 @@ const Form = (props: FormProps) => {
 					ref={formContainerRef}
 					className={state.disabled ? "disabled" : ""}
 					aria-busy={isBusy ? "true" : "false"}
-					aria-role="form"
+					role="form"
 					aria-label={title}
 				>
 					<StyledForm autoComplete="off">
