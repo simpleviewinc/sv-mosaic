@@ -154,11 +154,6 @@ export const Playground = (): ReactElement => {
 			);
 		}
 
-		if (Math.random() < 0.3) {
-			await onError("File size exceeded");
-			return;
-		}
-
 		await onUploadComplete({
 			id: nanoid(),
 			name: file.name,
@@ -496,6 +491,11 @@ export const Playground = (): ReactElement => {
 					]
 				},
 				{
+					name: "address",
+					type: "address",
+					label: "Address",
+				},
+				{
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
@@ -602,7 +602,7 @@ export const Playground = (): ReactElement => {
 					[["textField"], ["check"]],
 					// row 2
 					[["chipSelect"], ["dropdownSingle"]],
-					[["table"]],
+					[["address"], ["table"]],
 					// row 3
 					[["phoneSelect"], ["radio"]]
 				]

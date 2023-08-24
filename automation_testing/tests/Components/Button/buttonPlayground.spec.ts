@@ -13,10 +13,6 @@ test.describe.parallel("Components - Button - Playground", () => {
 		buttonPage = new ButtonPage(page);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Button has simplyGold background.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("contained"), await buttonPage.getKnobForColor("yellow")]);
 		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button)).toBe(theme.newColors.simplyGold["100"]);

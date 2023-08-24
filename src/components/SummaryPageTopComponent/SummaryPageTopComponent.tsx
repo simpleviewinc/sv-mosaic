@@ -80,7 +80,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							filteredMainActions &&
 							filteredMainActions.map((mainAction, i) => (
 								<Button
-									data-testid="btn-main-action" key={i}
+									key={i}
 									attrs={{smallText: true}}
 									color={mainAction.color}
 									variant={mainAction.variant}
@@ -88,6 +88,9 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 									label={mainAction.label}
 									mIcon={mainAction.mIcon}
 									onClick={mainAction.onClick}
+									muiAttrs={{
+										"data-testid": "btn-main-action"
+									}}
 								/>
 							))
 						}
@@ -99,6 +102,9 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 								label="Edit"
 								mIcon={MoreVert}
 								menuItems={filteredAdditionalActions}
+								muiAttrs={{
+									"data-testid": "btn-additional-action"
+								}}
 							/>
 						}
 					</ButtonRow>

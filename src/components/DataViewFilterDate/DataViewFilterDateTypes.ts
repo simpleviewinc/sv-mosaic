@@ -19,7 +19,7 @@ export interface DataViewFilterDateOnChange {
 export interface DataViewFilterDateProps extends DataViewFilterProps {
 	data: DataViewFilterDateData,
 	onChange: DataViewFilterDateOnChange
-	args: { options?: MosaicLabelValue[] }
+	args: { options?: MosaicLabelValue[], minDate?: Date }
 }
 
 interface DataViewFilterDateDropdownContentOptions {
@@ -35,4 +35,5 @@ interface DataViewFilterDateDropdownContentRange {
 export type DataViewFilterDateDropdownContentProps = {
 	onChange: DataViewFilterDateOnChange
 	onClose: () => void
+	minDate?: Date
 } & (DataViewFilterDateDropdownContentOptions | DataViewFilterDateDropdownContentRange)

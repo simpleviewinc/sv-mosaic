@@ -1,6 +1,6 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
-import { Snackbar } from "@root/index";
+import { formActions, Snackbar } from "@root/index";
 import _ from "lodash";
 import * as React from "react";
 import { memo, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -14,6 +14,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		fieldDef,
 		value,
 		onChange,
+		dispatch
 	} = props;
 
 	const {
@@ -27,6 +28,11 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 	const fileInputField = useRef(null);
 	const prevValueRef = useRef([]);
+
+	const pendingWithoutError = useMemo(() =>
+		Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length,
+	[pendingFiles]
+	);
 
 	useEffect(() => {
 		prevValueRef.current = value;
@@ -96,6 +102,23 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		));
 	};
 
+	useEffect(() => {
+		if (!dispatch) {
+			return;
+		}
+
+		if (pendingWithoutError) {
+			dispatch(formActions.startBusy({
+				name: fieldDef.name,
+				value: `${fieldDef.label} is currently uploading ${pendingWithoutError} files(s)`
+			}));
+		} else {
+			dispatch(formActions.endBusy({
+				name: fieldDef.name
+			}));
+		}
+	}, [pendingWithoutError]);
+
 
 	const onUploadComplete = async ({ uuid, data }) => {
 		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
@@ -125,8 +148,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	 */
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
-
-		const pendingWithoutError = Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length;
 
 		if (
 			limit !== undefined

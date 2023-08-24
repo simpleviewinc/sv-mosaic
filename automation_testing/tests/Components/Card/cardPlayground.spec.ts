@@ -13,10 +13,6 @@ test.describe.parallel("Components - Card - Playground", () => {
 		await cardPage.visit(cardPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	async function validateNumberOfButtons(knob: string) {
 		const buttonsCount = 3;
 		for (let i = 1; i <= buttonsCount ;i++) {
