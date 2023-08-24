@@ -233,7 +233,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			label: "Save Coordinates",
 			onClick: onSubmit,
 			color: "yellow",
-			variant: "contained"
+			variant: "contained",
+			disabled: !latLng
 		}
 	];
 
