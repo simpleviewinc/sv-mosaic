@@ -146,7 +146,7 @@ jest.mock("@react-google-maps/api", () => ({
 		loadError: null,
 	}),
 	// eslint-disable-next-line react/display-name
-	GoogleMap: () => <div>Mocked Google Map Component</div>,
+	GoogleMap: React.forwardRef(() => <div>Mocked Google Map Component</div>),
 	// eslint-disable-next-line react/display-name
 	Marker: () => <div />,
 }));
@@ -251,8 +251,8 @@ describe("MapCoordinates component without an address", () => {
 		fireEvent.click(resetButton);
 
 		await waitFor(() => {
-			expect(latitudeField.value).toBe("0");
-			expect(longitudeField.value).toBe("0");
+			expect(latitudeField.value).toBe("");
+			expect(longitudeField.value).toBe("");
 		});
 	});
 });
