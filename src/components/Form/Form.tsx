@@ -97,7 +97,6 @@ const Form = (props: FormProps) => {
 	useEffect(() => {
 		const loadFormValues = async () => {
 			let values: MosaicObject;
-			await dispatch(formActions.disableForm({ disabled: true }));
 
 			values = getFormValues ? await getFormValues() : undefined;
 
