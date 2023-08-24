@@ -1,5 +1,23 @@
 # sv-mosaic changelog
 
+## 25.2.1
+
+### Improvements & Fixes
+
+* `FormFieldAddress`:
+  * [MOS-1121](https://simpleviewtools.atlassian.net/browse/MOS-1121) Trims each part of the address when the address drawer is saved to remove any leading or traling spaces.
+  * [MOS-1125](https://simpleviewtools.atlassian.net/browse/MOS-1125) Amends address field styling to improve user experience
+* `FormFieldDate`:
+  * [MOS-1127](https://simpleviewtools.atlassian.net/browse/MOS-1127) Adds support to provide a custom minimum date to datepickers allowing users to select a date prior to 1900 (which is the default minimum date)
+* `Field`:
+  * [MOS-1066](https://simpleviewtools.atlassian.net/browse/MOS-1066) Fixes a bug that caused `getElementById` console warnings if no field name was provided.
+* `FormFieldUpload`
+  * [MOS-1120](https://simpleviewtools.atlassian.net/browse/MOS-1120) Introduces a `busy` state on the form's state that can be utilised by this and other field components. Specifically in this case, it prevents the user from submitting the form whilst an upload is in progress, instead alerting them with a `Snackbar`
+* `FormFieldText`:
+  * [MOS-1099](https://simpleviewtools.atlassian.net/browse/MOS-1099) Fixes the padding on text fields to align with the Figma design
+* `DataView`:
+  * [MOS-1065](https://simpleviewtools.atlassian.net/browse/MOS-1065https:/) Fixes a bug that caused pre-applied filters to be reordered by the filter popup
+
 ## 25.2.0
 
 ### Improvements & Fixes

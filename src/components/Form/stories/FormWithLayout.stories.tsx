@@ -46,6 +46,15 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					instructionText: "Instruction text text1",
 				},
 				{
+					name: "textarea",
+					label: "Big Text",
+					type: "text",
+					instructionText: "Instruction text text1",
+					inputSettings: {
+						multiline: true
+					}
+				},
+				{
 					name: "text2",
 					label: "TextField that validates email",
 					type: "text",
@@ -113,7 +122,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			collapsed,
 			fields: [
 				// row 1
-				[["text1"], ["text2"], []],
+				[["text1"], ["textarea"], ["text2"]],
 				// row 2
 				[["text3"], ["text4"], ["color"]],
 				[[]],

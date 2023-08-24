@@ -26,13 +26,17 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		}
 	}
 
+	& :not(.MuiInputBase-multiline) .MuiOutlinedInput-input,
+	& .MuiInputBase-multiline{
+		padding: 10px 16px;
+	}
+
 	.MuiOutlinedInput-input {
 		color: ${theme.newColors.almostBlack["100"]};
 		font-family: ${theme.fontFamily};
-		font-weight: 400;
+
 		::placeholder {
 			font-weight: ${theme.fontWeight.normal};
-			font-size: 16px;
 			color: ${theme.newColors.grey3["100"]};
 			opacity: 1;
 		}
@@ -45,7 +49,6 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		word-break: break-all;
 	}
 
-
 	.MuiFormHelperText-root.Mui-error {
 		color: ${theme.newColors.darkRed["100"]}
 	}
@@ -57,9 +60,9 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
 	& .MuiOutlinedInput-root {
 		&.Mui-focused fieldset {
-		border-color: ${theme.newColors.almostBlack["100"]};
-		border-width: 1px;
-		box-shadow: ${theme.fieldSpecs.inputText.shadow};
+			border-color: ${theme.newColors.almostBlack["100"]};
+			border-width: 1px;
+			box-shadow: ${theme.fieldSpecs.inputText.shadow};
 		}
 	}
 
