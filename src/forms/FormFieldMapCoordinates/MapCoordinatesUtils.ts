@@ -1,3 +1,4 @@
+import { isLatitude, isLongitude } from "@root/components/Form/validators";
 import { Libraries, MapPosition } from "./MapCoordinatesTypes";
 import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 
@@ -63,6 +64,10 @@ export function isValidLatLng(latLng: MapPosition | undefined): latLng is MapPos
 		latLng.lat === undefined || latLng.lng === undefined ||
 		Number.isNaN(latLng.lat) || Number.isNaN(latLng.lng)
 	) {
+		return false;
+	}
+
+	if (typeof isLatitude(latLng.lat) === "string" || typeof isLongitude(latLng.lng) === "string") {
 		return false;
 	}
 
