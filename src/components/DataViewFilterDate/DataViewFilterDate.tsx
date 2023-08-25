@@ -29,7 +29,7 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 		setAnchorEl(null);
 	}
 
-	let valueString: string | undefined = undefined;
+	let valueString: string | undefined = undefined
 
 	if (props.data)
 		if ("rangeStart" in props.data || "rangeEnd" in props.data) {
@@ -69,6 +69,7 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 					rangeEnd={props.data && "rangeEnd" in props.data ? props.data?.rangeEnd : undefined}
 					options={props.args.options}
 					selectedOption={props.data && "option" in props.data ? props.data?.option : undefined}
+					minDate={props?.args.minDate}
 				/>
 			</DataViewFilterDropdown>
 		</StyledWrapper>

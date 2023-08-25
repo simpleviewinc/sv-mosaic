@@ -12,10 +12,6 @@ test.describe.parallel("Components - Page Header - Playground", () => {
 		await pageHeaderPage.visit(pageHeaderPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate the page header title style.", async () => {
 		await pageHeaderPage.validateTitleStylingOfLocator(pageHeaderPage.titleLocator);
 	});

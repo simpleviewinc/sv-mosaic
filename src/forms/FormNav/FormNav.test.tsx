@@ -1,9 +1,10 @@
 import { Views } from "@root/theme/theme";
 import { ViewProvider } from "@root/utils/formViewUtils";
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import * as React from "react";
-import { ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, useState } from "react";
 import FormNav from "./FormNav";
+import { useScrollSpy } from "@root/utils/hooks";
 
 afterEach(cleanup);
 
@@ -29,34 +30,47 @@ const oneSection = [
 	},
 ];
 
-const FormNavExample = (): ReactElement => {
-	const sectionsRef = useRef([]);
-	const [sectionsRefs, setSectionsRefs] = useState<HTMLDivElement[] | []>([]);
+const SectionWithRefRegister = ({ children, registerRef }: React.PropsWithChildren<{registerRef: (ref: HTMLElement) => () => void}>): ReactElement => {
+	const ref = React.useRef();
 
-	useEffect(() => {
-		setSectionsRefs(sectionsRef.current);
+	React.useEffect(() => {
+		const unregister = registerRef(ref.current);
+		return unregister;
+	}, [ref.current])
+
+	return <section ref={ref}>{children}</section>
+}
+
+const FormNavExample = (): ReactElement => {
+	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
+
+	const {
+		activeSection,
+		setActiveSection,
+	} = useScrollSpy({
+		refs: sectionRefs,
+		container: window.document.documentElement
+	});
+
+	const registerRef: ((ref: HTMLElement) => () => void) = React.useCallback((ref) => {
+		setSectionRefs(refs => [...refs, ref]);
+
+		return () => {
+			setSectionRefs(refs => refs.filter(r => r !== ref));
+		}
 	}, []);
 
 	return (
 		<>
-			<FormNav  sections={sections} sectionsRefs={sectionsRefs}/>
+			<FormNav sections={sections} onSectionSelect={setActiveSection} activeSection={activeSection} />
 			{sections.map((section, i) => (
-				<section key={i} ref={el => sectionsRef.current[i] = el} >
+				<SectionWithRefRegister key={i} registerRef={registerRef}>
 					{section.id}
-				</section>
+				</SectionWithRefRegister>
 			))}
 		</>
 	);
 };
-
-const scrollIntoViewMock = jest.fn();
-const mockIntersectionObserver = jest.fn();
-mockIntersectionObserver.mockReturnValue({
-	observe: () => null,
-	unobserve: () => null,
-	disconnect: () => null
-});
-window.IntersectionObserver = mockIntersectionObserver;
 
 describe("FormNav component", () => {
 	beforeEach(() => {
@@ -70,14 +84,6 @@ describe("FormNav component", () => {
 		expect(screen.getByText("Account Profile")).toBeTruthy();
 		expect(screen.getByText("Account Information")).toBeTruthy();
 		expect(screen.getByText("Contact Information")).toBeTruthy();
-	});
-
-	it("should navigate to the selected section", () => {
-		window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
-
-		fireEvent.click(screen.getByText("Account Profile"));
-
-		expect(scrollIntoViewMock).toHaveBeenCalled();
 	});
 });
 

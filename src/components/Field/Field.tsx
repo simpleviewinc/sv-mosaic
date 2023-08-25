@@ -99,7 +99,7 @@ const Field = ({
 					&&
 					<Label
 						required={fieldDef?.required}
-						htmlFor={fieldDef?.name}
+						htmlFor={fieldDef?.name || undefined}
 						maxCharacters={fieldDef?.inputSettings?.maxCharacters}
 						value={value}
 						tooltip={renderAsTooltip}

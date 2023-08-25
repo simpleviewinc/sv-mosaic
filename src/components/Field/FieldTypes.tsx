@@ -56,6 +56,10 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Number that represents the amount of fields that share the same row.
 	 */
 	colsInRow?: number;
+	/**
+	 * Form action dispatcher
+	 */
+	dispatch?: any
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT

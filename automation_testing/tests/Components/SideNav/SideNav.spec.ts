@@ -14,10 +14,6 @@ test.describe.parallel("Components - SideNav - Example", () => {
 		await sideNavPage.visit(sideNavPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	test("Validate that the selected active link is the same as the one highlighted.", async () => {
 		const selectedLocator = sideNavPage.sections.locator("a").first();
 		expect(await sideNavPage.getSpecificBorderFromElement(selectedLocator, "left")).toContain(expectsimplyGoldBorderColor);

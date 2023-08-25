@@ -21,6 +21,7 @@ import useMosaicSettings from "@root/utils/useMosaicSettings";
 import rawData from "@root/components/DataView/example/rawData.json";
 import PageHeader from "@root/components/PageHeader";
 import { ButtonProps } from "@root/components/Button";
+import Button from "@root/components/Button/Button";
 
 export default {
 	title: "FormFields/FormFieldMatrix",
@@ -121,7 +122,33 @@ export const FormVariant = (): ReactElement => {
 		removeDrawer();
 	};
 
+	const onAddClick = () =>
+		addDrawer({
+			config: {
+				type: "form",
+				title: "Drawer Form",
+				fields: [
+					{
+						name: "title",
+						label: "Title",
+						type: "text",
+					},
+					{
+						name: "description",
+						label: "Description",
+						type: "text",
+					},
+				],
+			}
+		})
+
 	const gridConfig: DataViewProps = {
+		noResults: (
+			<div style={{ padding: "1rem 0.5rem", alignItems: "center", justifyContent: "center", display: "flex", flexDirection: "column", gap: 10 }}>
+				<div>Custom <em>no results</em> component.</div>
+				<Button variant="outlined" color="gray" label="Create one" onClick={onAddClick} />
+			</div>
+		),
 		columns: listColumns,
 		primaryActions: [
 			{
@@ -209,25 +236,7 @@ export const FormVariant = (): ReactElement => {
 						buttons: [
 							{
 								label: "Add",
-								onClick: () =>
-									addDrawer({
-										config: {
-											type: "form",
-											title: "Drawer Form",
-											fields: [
-												{
-													name: "title",
-													label: "Title",
-													type: "text",
-												},
-												{
-													name: "description",
-													label: "Description",
-													type: "text",
-												},
-											],
-										}
-									}),
+								onClick: onAddClick,
 								color: "teal",
 								variant: "text",
 								mIcon: AddIcon
@@ -459,6 +468,7 @@ export const Browse = (): ReactElement => {
 		display: "list",
 		activeColumns: ["id", "title", "description"],
 		savedView: defaultView,
+		noResults: "No records selected"
 	};
 
 	const mosaicSettings = useMosaicSettings();
@@ -513,7 +523,7 @@ export const Browse = (): ReactElement => {
 										},
 									}),
 								color: "teal",
-								variant: "text",
+								variant: "outlined",
 								mIcon: AddIcon,
 							},
 						],

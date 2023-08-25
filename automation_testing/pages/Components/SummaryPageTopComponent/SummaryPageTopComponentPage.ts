@@ -19,7 +19,7 @@ export class SummaryPageTopComponentPage extends BasePage {
 		this.starRateIcon = page.locator(this.iconButtonTestLocator).first();
 		this.summaryTopComponent = page.locator("//*[@id='root']/div");
 		this.backIconLocator = page.locator("button svg[data-testid='icon-button-test']").first();
-		this.additionButtonLocator = page.locator("[data-testid='btn-additional-action'] button");
+		this.additionButtonLocator = page.locator("[data-testid='btn-additional-action']");
 		this.descriptionItemLocator = page.locator("[data-testid='description-item']");
 	}
 }
