@@ -31,7 +31,7 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
-	const error = boolean("Trigger errors when loading", true);
+	const error = boolean("Trigger errors when loading", false);
 	const mockDB = boolean("Mock get files from DB", false);
 	const timeToLoad = number("Time to load (seconds)", 2);
 
@@ -54,7 +54,7 @@ export const Playground = (): ReactElement => {
 			);
 		}
 
-		if (error && Math.random() < 0.3) {
+		if (error) {
 			await onError("File size exceeded");
 			return;
 		}
@@ -63,7 +63,7 @@ export const Playground = (): ReactElement => {
 			id: nanoid(),
 			name: file.name,
 			size: `${file.size} bytes`,
-			url: Math.random() < 0.7 ? URL.createObjectURL(file) : undefined
+			url: URL.createObjectURL(file)
 		});
 	};
 
@@ -102,7 +102,8 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			limit,
-			timeToLoad
+			timeToLoad,
+			error
 		]
 	);
 
