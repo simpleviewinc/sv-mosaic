@@ -101,6 +101,11 @@
 			"import": "./dist/esm/index.js",
 			"require": "./dist/cjs/index.js"
 		},
+		"./theme": {
+			"types": "./dist/types/theme/index.d.ts",
+			"import": "./dist/esm/theme/index.js",
+			"require": "./dist/cjs/theme/index.js"
+		},
 		"./transforms": {
 			"types": "./dist/types/transforms/index.d.ts",
 			"import": "./dist/esm/transforms/index.js",
