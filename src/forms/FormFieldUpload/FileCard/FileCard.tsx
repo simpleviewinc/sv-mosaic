@@ -11,8 +11,8 @@ import HelperText from "@root/components/Field/HelperText";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import Tooltip from "@root/components/Tooltip";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
-import pretty from "pretty-bytes";
 import Downloader from "@root/components/Downloader/Downloader";
+import { pretty } from "@root/utils/formatters";
 
 const FileCard = (props: FileCardProps) => {
 	const {
@@ -59,7 +59,11 @@ const FileCard = (props: FileCardProps) => {
 		return <img src={thumbnailUrl} />
 	}, [percent, thumbnailUrl, error]);
 
-	const sizeHuman = useMemo(() => pretty(size), [size]);
+	const sizeHuman = useMemo(() => {
+		// Support legacy string size, i.e. "123 bytes"
+		const sanitized = parseInt(String(size), 10);
+		return pretty(sanitized)
+	}, [size]);
 
 	return (
 		<div data-testid="file-card-container">
