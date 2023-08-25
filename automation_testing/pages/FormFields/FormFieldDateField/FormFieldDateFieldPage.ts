@@ -19,7 +19,6 @@ export class FormFieldDateFieldPage extends BasePage {
 	readonly hourMinutesOption: Locator;
 	readonly hourAMButton: Locator;
 	readonly hourPMButton: Locator;
-	readonly disableDateAndTimeCalendarText: Locator;
 	readonly requiredDateTimeInput: Locator;
 	readonly requiredDateHourInput: Locator;
 	readonly requiredDateTimeInputCalendarButton: Locator;
@@ -41,12 +40,11 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.hourMinutesOption = this.roleOptionLocator;
 		this.hourAMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(2);
 		this.hourPMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(3);
-		this.disableDateAndTimeCalendarText = page.locator("#disableDateTime");
 
-		this.requiredDateTimeInput = page.locator("input").nth(3);
-		this.requiredDateHourInput = page.locator("input").nth(4);
-		this.requiredDateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(2);
-		this.requiredDateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(4);
+		this.requiredDateTimeInput = page.locator("input").nth(5);
+		this.requiredDateHourInput = page.locator("input").nth(6);
+		this.requiredDateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(3);
+		this.requiredDateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(6);
 		this.dateFieldText = page.locator("#date p").first();
 	}
 

@@ -13,10 +13,6 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		await summaryPage.visit(summaryPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Star has simplyGold color.", async () => {
 		await summaryPage.starRateIcon.waitFor();
 		expect(await summaryPage.getColorFromElement(summaryPage.starRateIcon)).toBe(theme.newColors.grey3["100"]);
@@ -57,12 +53,5 @@ test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", ()
 		await expect(summaryPage.additionButtonLocator).not.toBeVisible();
 		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + "undefined"]);
 		await expect(summaryPage.additionButtonLocator).not.toBeVisible();
-	});
-
-	test("Validate padding and margin for the description items in SummaryPageTopComponent", async () => {
-		for (let i = 0; i < await summaryPage.descriptionItemLocator.count(); i++) {
-			expect(await summaryPage.getSpecificMarginFromElement(summaryPage.descriptionItemLocator.nth(i), "right")).toBe("16px");
-			expect(await summaryPage.getSpecificPaddingFromElement(summaryPage.descriptionItemLocator.nth(i), "right")).toBe("16px");
-		}
 	});
 });

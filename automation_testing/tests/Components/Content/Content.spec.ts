@@ -13,10 +13,6 @@ test.describe.parallel("Components - Content - Playground", () => {
 		await contentPage.visit(contentPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Content title has almostBlack color.", async () => {
 		const expectedColor = theme.newColors.almostBlack["100"];
 		expect(await contentPage.getColorFromElement(contentPage.mainContentTitle)).toBe(expectedColor);

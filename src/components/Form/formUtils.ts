@@ -11,12 +11,15 @@ type State = {
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
 	mounted: MosaicObject<boolean>;
+	busyFields: MosaicObject<boolean>;
+	submitWarning: string
 }
 
 type ActionTypes =
 	| "FIELD_ON_CHANGE"
 	| "FIELD_TOUCHED"
 	| "FIELD_VALIDATE"
+	| "FIELD_UNVALIDATE"
 	| "FORM_START_DISABLE"
 	| "FORM_END_DISABLE"
 	| "FORM_VALIDATE"
@@ -27,6 +30,9 @@ type ActionTypes =
 	| "PROPERTY_RESET"
 	| "MOUNT_FIELD"
 	| "UNMOUNT_FIELD"
+	| "FORM_START_BUSY"
+	| "FORM_END_BUSY"
+	| "SET_SUBMIT_WARNING"
 
 type Action = {
 	type: ActionTypes;
@@ -53,13 +59,24 @@ export function coreReducer(state: State, action: Action): State {
 			}
 		};
 	case "FIELD_VALIDATE":
-		return {
+		// TODO this is bad there's no support for multiple errors, but will be refactored in
+		// https://simpleviewtools.atlassian.net/browse/MOS-1131
+		return state.errors[action.name] !== undefined ? state : {
 			...state,
 			errors: {
 				...state.errors,
 				[action.name]: action.value
 			},
 		};
+	case "FIELD_UNVALIDATE": {
+		return {
+			...state,
+			errors: {
+				...state.errors,
+				[action.name]: undefined
+			},
+		};
+	}
 	case "FORM_START_DISABLE":
 		return {
 			...state,
@@ -110,6 +127,30 @@ export function coreReducer(state: State, action: Action): State {
 				[action.name]: false
 			}
 		}
+	case "FORM_START_BUSY": {
+		return {
+			...state,
+			busyFields: {
+				...state.busyFields,
+				[action.name]: action.value
+			}
+		}
+	}
+	case "FORM_END_BUSY": {
+		return {
+			...state,
+			busyFields: {
+				...state.busyFields,
+				[action.name]: undefined
+			}
+		}
+	}
+	case "SET_SUBMIT_WARNING": {
+		return {
+			...state,
+			submitWarning: action.value
+		}
+	}
 	default:
 		return state;
 	}
@@ -139,7 +180,9 @@ export function useForm(): UseFormReturn {
 			validForm: false,
 			disabled: false,
 			touched: {},
-			mounted: {}
+			mounted: {},
+			busyFields: {},
+			submitWarning: ""
 		},
 		extraArgs.current
 	);

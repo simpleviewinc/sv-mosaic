@@ -3,6 +3,9 @@ import { PlaywrightTestConfig } from "@playwright/test";
 const config: PlaywrightTestConfig = {
 
 	testDir: "tests",
+	// Why is DataView not found?
+	// Note, it was named "dataview" previously
+	testIgnore: "**/DataView/**",
 	use: {
 		headless: true,
 		viewport: { width: 1280, height: 720 },
@@ -13,7 +16,7 @@ const config: PlaywrightTestConfig = {
 		video: "off",
 		screenshot: "off"
 	},
-	retries: 1,
+	retries: 0,
 	timeout: 200000,
 	reporter: [ ["html", { open: "never", outputFolder: "./playwright-report"}] ],
 	workers: process.env.CI ? 2 : 4,

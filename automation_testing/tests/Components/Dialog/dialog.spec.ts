@@ -12,10 +12,6 @@ test.describe.parallel("Components - Dialog - Example", () => {
 		await dialogPage.visit(dialogPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
-		await browser.close();
-	});
-
 	test("Validate Dialog title has almostBlack color.", async () => {
 		const expectedColor = theme.newColors.almostBlack["100"];
 		if (!await dialogPage.dialog.isVisible()) {
