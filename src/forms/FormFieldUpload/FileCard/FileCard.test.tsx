@@ -9,26 +9,27 @@ const fileCards = [
 	{ // Uploaded with img
 		id: "1",
 		name: "MyCard.jpg",
-		size: "123 bytes",
-		url: "myurl.com",
+		size: 123,
+		attachmentUrl: "myurl.com",
+		thumbnailUrl: "myurl.com",
 		onFileDelete
 	},
 	{ // Uploaded without img
 		id: "1",
 		name: "MyCard.jpg",
-		size: "123 bytes",
+		size: 123,
 		onFileDelete,
 	},
 	{ // Pending
 		id: "1",
 		name: "MyCard.jpg",
-		size: "123 bytes",
+		size: 123,
 		percent: 50,
 	},
 	{ // Error
 		id: "1",
 		name: "MyCard.jpg",
-		size: "123 bytes",
+		size: 123,
 		error: "File size exceeded"
 	},
 ];
@@ -44,8 +45,8 @@ describe("File card", () => {
 		fireEvent.click(deleteIcon);
 
 		expect(name.textContent).toBe(fileCards[0].name);
-		expect(size.textContent).toBe(fileCards[0].size);
-		expect(img.getAttribute("src")).toBe(fileCards[0].url);
+		expect(size.textContent).toBe(`${fileCards[0].size} B`);
+		expect(img.getAttribute("src")).toBe(fileCards[0].thumbnailUrl);
 		expect(deleteIcon).toBeInTheDocument();
 		expect(onFileDelete).toHaveBeenCalled();
 	});
@@ -60,7 +61,7 @@ describe("File card", () => {
 		fireEvent.click(deleteIcon);
 
 		expect(name.textContent).toBe(fileCards[1].name);
-		expect(size.textContent).toBe(fileCards[1].size);
+		expect(size.textContent).toBe(`${fileCards[1].size} B`);
 		expect(fileIcon).toBeInTheDocument();
 		expect(deleteIcon).toBeInTheDocument();
 		expect(onFileDelete).toHaveBeenCalled();
@@ -74,7 +75,7 @@ describe("File card", () => {
 		const progressBar = screen.getByRole("progressbar");
 
 		expect(name.textContent).toBe(fileCards[2].name);
-		expect(size.textContent).toBe(fileCards[2].size);
+		expect(size.textContent).toBe(`${fileCards[2].size} B`);
 		expect(progressBar.getAttribute("aria-valuenow")).toBe(fileCards[2].percent.toString());
 	});
 
@@ -87,7 +88,7 @@ describe("File card", () => {
 		const errorMessage = screen.getByText("File size exceeded")
 
 		expect(name.textContent).toBe(fileCards[3].name);
-		expect(size.textContent).toBe(fileCards[3].size);
+		expect(size.textContent).toBe(`${fileCards[3].size} B`);
 		expect(errorIcon).toBeInTheDocument();
 		expect(errorMessage.textContent).toBe(fileCards[3].error);
 	});
