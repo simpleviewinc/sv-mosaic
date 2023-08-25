@@ -4,7 +4,7 @@ import { ReactElement } from "react";
 import SideNav from "@root/components/SideNav/SideNav";
 import { SideNavArgs } from "@root/components/SideNav";
 import useScrollSpy from "./useScrollSpy";
-import { useStoryBookCssReset } from "../reactTools";
+import { useStoryBookCssReset } from "../../reactTools";
 import { withKnobs, number, boolean } from "@storybook/addon-knobs";
 
 export default {

@@ -189,6 +189,7 @@ const Col = (props: ColPropsTypes) => {
 						ref={ref}
 						// onBlur={onBlur}
 						key={`${name}_${i}`}
+						dispatch={dispatch}
 					/>
 				), [value, error, onChange, currentField]);
 

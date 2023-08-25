@@ -31,10 +31,6 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await _dataviewPage.removeAllSelectedFilters();
 	});
 
-	test.afterAll(async ({ browser }) => {
-		browser.close;
-	});
-
 	const validateFilterStyles = async () => {
 		const expectedFontWeight = (theme.fontWeight.bold).toString();
 		const expectedFontSize = "14px";

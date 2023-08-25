@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
 import { debounce } from "lodash";
+import { useAnimate } from "../useAnimate";
+import clamp from "@root/utils/math/clamp";
+
+const MIN_SCROLL_DURATION = 400;
+const MAX_SCROLL_DURATION = 1500;
 
 export default function useScrollSpy({
 	refs,
@@ -23,6 +28,7 @@ export default function useScrollSpy({
 		}
 
 		const containerBox = container.getBoundingClientRect();
+
 		for (let i = 0; i < refs.length; i++) {
 			const section = refs[i];
 			const box = section.getBoundingClientRect();
@@ -49,10 +55,11 @@ export default function useScrollSpy({
 		}
 
 		const onMouseWheel = () => {
+			animation.stop();
 			isProgramScroll.current = false;
 		}
 
-		container.addEventListener("wheel", onMouseWheel);
+		container.addEventListener("wheel", onMouseWheel, { passive: true });
 		return () => container.removeEventListener("wheel", onMouseWheel);
 	}, [container]);
 
@@ -72,26 +79,58 @@ export default function useScrollSpy({
 			setScrollActiveSection(section);
 		}
 
-		container.addEventListener("scroll", onScroll, {passive: true})
+		container.addEventListener("scroll", onScroll, { passive: true })
 
 		return () => container.removeEventListener("scroll", onScroll);
 	}, [container, getScrollActiveSection]);
 
+	const animation = useAnimate()
+
 	const setActiveSection = useCallback((refIndex: number) => {
+		const [first] = refs;
 		const ref = refs[refIndex];
 
-		if (!ref) {
+		if (!first || !ref || !container) {
 			return;
 		}
 
 		setUserActiveSection(refIndex);
 
 		isProgramScroll.current = true;
-		ref.scrollIntoView({
-			behavior: "smooth",
-			block: "start"
+
+		const { scrollTop } = container;
+
+		// Calculate the start and end points of the scroll animation
+		// based on the sections position relative to the container
+		const sectionBox = ref.getBoundingClientRect();
+		const containerBox = container.getBoundingClientRect();
+
+		// There might be some extra offset if the first section
+		// does not sit flush with the container, so calculate that
+		// and take it away from the scroll target
+		const firstBox = first.getBoundingClientRect();
+		const firstOffset = firstBox.top + scrollTop - containerBox.top;
+
+		const newScrollTop = sectionBox.top + scrollTop - containerBox.top - firstOffset;
+		const scrollMax = container.scrollHeight - containerBox.height;
+
+		const valueStart = scrollTop;
+		const valueEnd = Math.min(newScrollTop, scrollMax);
+
+		animation.start({
+			fn: (n) => {
+				container.scrollTo({
+					top: n
+				});
+			},
+			valueStart,
+			valueEnd,
+			duration: clamp(Math.abs(valueEnd - valueStart) * 0.75, {
+				min: MIN_SCROLL_DURATION,
+				max: MAX_SCROLL_DURATION
+			})
 		});
-	}, [refs]);
+	}, [container, refs]);
 
 	return {
 		activeSection,

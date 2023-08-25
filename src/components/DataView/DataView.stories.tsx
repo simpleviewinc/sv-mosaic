@@ -406,6 +406,7 @@ const StyledDiv = styled.div`
 `;
 
 export const Playground = (): ReactElement => {
+	const noData = boolean("Empty dataset", false);
 	const onBack = boolean("onBack", false);
 	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
 	const bulkActions = boolean("bulkActions", true);
@@ -717,7 +718,7 @@ export const Playground = (): ReactElement => {
 			}));
 		},
 		savedViewAllowSharedViewSave,
-		data: state.data,
+		data: noData ? [] : state.data,
 		limit: state.limit,
 		sort: state.sort,
 		filter: state.filter,

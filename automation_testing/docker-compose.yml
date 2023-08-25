@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  storybook:
+    container_name: sv-mosaic-storybook
+    image: sv-mosaic
+    command: sh -c "yarn install && yarn build:storybook && npx --yes http-server ./docs -p 10001 --silent"
+    ports:
+      - 10001:10001
+    working_dir: /app
+  e2e:
+    container_name: sv-mosaic-e2e
+    image: mcr.microsoft.com/playwright:v1.27.1
+    command: tail -F anything
+    working_dir: /app

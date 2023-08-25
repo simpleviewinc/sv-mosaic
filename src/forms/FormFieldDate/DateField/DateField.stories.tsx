@@ -4,6 +4,8 @@ import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
+import { textIsValidDate } from "@root/utils/date";
+import { DATE_FORMAT_FULL } from "@root/constants";
 
 export default {
 	title: "FormFields/FormFieldDateField",
@@ -19,6 +21,13 @@ export const Playground = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 	const showTime = boolean("Show time", false);
+	const minDateStr = text("Minimum Date", "");
+
+	const minDate = minDateStr && textIsValidDate(minDateStr, DATE_FORMAT_FULL) ? new Date(
+		Number(minDateStr.split("/")[2]),
+		Number(minDateStr.split("/")[1]) - 1,
+		Number(minDateStr.split("/")[0])
+	) : undefined;
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -31,11 +40,12 @@ export const Playground = (): ReactElement => {
 				helperText,
 				instructionText,
 				inputSettings: {
-					showTime
+					showTime,
+					minDate
 				}
 			}
 		],
-		[label, required, disabled, helperText, instructionText, showTime]
+		[label, required, disabled, helperText, instructionText, showTime, minDate]
 	);
 
 	return (
@@ -51,6 +61,12 @@ export const Playground = (): ReactElement => {
 			/>
 		</>
 	);
+};
+
+const getFormValues = async () => {
+	return {
+		dateTimePrefilled: new Date("2023-07-31T14:00:00.000Z")
+	};
 };
 
 export const KitchenSink = (): ReactElement => {
@@ -74,18 +90,6 @@ export const KitchenSink = (): ReactElement => {
 					}
 				},
 				{
-					name: "disableSingleDate",
-					type: "date",
-					label: "Disable Single Date Calendar",
-					required: false,
-					disabled: true,
-					helperText,
-					instructionText,
-					inputSettings: {
-						showTime: false
-					}
-				},
-				{
 					name: "dateTime",
 					type: "date",
 					label: "Date Time Input",
@@ -96,18 +100,20 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						showTime: true
 					}
-				}, {
-					name: "disableDateTime",
+				},
+				{
+					name: "dateTimePrefilled",
 					type: "date",
-					label: "Disable Date Time Calendar",
+					label: "Date Time with preset values",
 					required: false,
-					disabled: true,
+					disabled: false,
 					helperText,
 					instructionText,
 					inputSettings: {
 						showTime: true
 					}
-				}, {
+				},
+				{
 					name: "requiredDateTime",
 					type: "date",
 					label: "Required Single Date Calendar",
@@ -125,7 +131,6 @@ export const KitchenSink = (): ReactElement => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
 				title={"Date Field Calendar"}
@@ -133,7 +138,12 @@ export const KitchenSink = (): ReactElement => {
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
+				getFormValues={getFormValues}
 			/>
+			<h3>Date.toString()</h3>
+			<pre>{Object.keys(state.data).map((key, index) => <div key={index}>{key}: {state.data[key] && state.data[key].toString()}</div>)}</pre>
+			<h3>State</h3>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, memo, useState, useEffect } from "react";
+import { ReactElement, useEffect, useState, memo } from "react";
 
 // Components
 import DatePicker from "../DatePicker";
@@ -11,100 +11,125 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
 import { StyledDisabledText } from "@root/forms/shared/styledComponents";
 import { transform_dateFormat } from "@root/transforms";
+import { isEqual } from "date-fns";
+import { matchTime, textIsValidDate } from "@root/utils/date";
+import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
+
+const ENTER_VALID_DATE = `Please enter a valid ${DATE_FORMAT_FULL_PLACEHOLDER} date`;
+const ENTER_VALID_TIME = `Please enter a valid ${TIME_FORMAT_FULL_PLACEHOLDER} time`;
+const PROVIDE_TIME = "Please also provide a time";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
-		value,
+		value = null,
 		onBlur,
 		error,
+		dispatch
 	} = props;
 
-	const { required, disabled } = fieldDef || {};
-	const [dateInput, setDateInput] = useState(null);
-	const [timeInput, setTimeInput] = useState(null);
+	const { disabled } = fieldDef || {};
+	const showTime = fieldDef?.inputSettings?.showTime;
+
+	// State splitting is necessary because the form value is a
+	// single date object, which provides no way of differentiating
+	// between a valid date / invalid time combo or any variation thereof
+	const [dateChosen, setDateChosen] = useState<null | Date>(value);
+	const [timeChosen, setTimeChosen] = useState<null | Date>(value);
 
 	useEffect(() => {
-		if (value && !dateInput && !timeInput) {
-			setDateInput(formatDate(value));
-			setTimeInput(formatDate(value));
-		}
-	}, [value, dateInput, timeInput]);
-
-	useEffect(() => {
-		if (!fieldDef.inputSettings?.showTime) {
-			setTimeInput(null);
-		}
-	}, [fieldDef.inputSettings?.showTime]);
-
-	const formatDate = (dateValue: Date) => {
-		const stringDate = dateValue.toISOString();
-		const [date, time] = stringDate.split("T");
-		const [year, month, day] = date.split("-");
-		const [hours, minutes] = time.split(":");
-
-		return new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
-	}
-
-	const handleValue = (position: number, date: Date) => {
-		let newValue = value || undefined;
-		let year = 0;
-		let month = 0;
-		let day = 0;
-		let hours = 0;
-		let minutes = 0;
-		let seconds = 0;
-
-		let newTimeInput = date;
-
-		if (!fieldDef.inputSettings?.showTime) {
-			newTimeInput = null;
+		if (!value) {
+			return;
 		}
 
-		position === 0 ? setDateInput(date) : setTimeInput(newTimeInput);
+		setDateChosen((date) => isEqual(date, value) ? date : value);
+		setTimeChosen((time) => isEqual(time, value) ? time : value);
+	}, [value]);
 
-		if (!isNaN(date?.valueOf())) {
+	const setError = (msg: string) => dispatch && dispatch((d) => {
+		d({
+			type: "FIELD_VALIDATE",
+			name: fieldDef.name,
+			value: msg,
+		})
+	});
 
-			if (position === 0) {
-				year = date.getFullYear();
-				month = date.getMonth();
-				day = date.getDate();
-				hours = fieldDef?.inputSettings?.showTime && timeInput?.getHours() ? timeInput?.getHours() : 0;
-				minutes = fieldDef?.inputSettings?.showTime && timeInput?.getMinutes() ? timeInput?.getMinutes() : 0;
-				seconds = fieldDef?.inputSettings?.showTime && timeInput?.getSeconds() ? timeInput?.getSeconds() : 0;
-			} else {
-				year = dateInput?.getFullYear() || new Date().getFullYear();
-				month = dateInput?.getMonth() || new Date().getMonth();
-				day = dateInput?.getDate() || new Date().getDate();
-				hours = date.getHours();
-				minutes = date.getMinutes();
-				seconds = date.getSeconds();
+	const clearError = () => dispatch && dispatch((d) => {
+		d({
+			type: "FIELD_UNVALIDATE",
+			name: fieldDef.name
+		})
+	});
+
+	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
+		const isKeyboardEvent = keyboardInputValue !== undefined;
+		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
+
+		clearError();
+
+		if (isKeyboardEvent && !validKeyboardInput) {
+			// This handler was caused by keyboard input, but it's not a valid date
+			setError(ENTER_VALID_DATE);
+			return onChange(undefined);
+		}
+
+		setDateChosen(date);
+
+		/**
+		 * -- START --
+		 * To force the user to pick a time if a date is chosen (regardless
+		 * of whether or not it's required), do this:
+		 */
+
+		// if (showTime && !timeChosen) {
+		// 	setError(PROVIDE_TIME);
+		// }
+
+		// if (!showTime || timeChosen) {
+		// 	matchTime(date, showTime && timeChosen ? timeChosen : [0, 0, 0, 0]);
+		// 	onChange(date);
+		// } else {
+		// 	onChange(undefined);
+		// }
+
+		/**
+		 * Otherwise do this
+		 */
+
+		if (showTime) {
+			if (fieldDef.required && !timeChosen) {
+				setError(PROVIDE_TIME);
+				return onChange(undefined);
 			}
 
-			if (required && fieldDef?.inputSettings?.showTime) {
-				if ((position === 0 && timeInput) || (position === 1 && dateInput)) {
-					newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
-				}
-			} else {
-				newValue = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
-			}
-
-		} else {
-			if (!required && fieldDef?.inputSettings?.showTime) {
-				if ((position === 0 && !timeInput) || (position === 1 && !dateInput)) {
-					newValue = undefined;
-				}
-			} else
-				newValue = undefined;
+			matchTime(date, timeChosen ? timeChosen : [0, 0, 0, 0]);
 		}
-		return newValue;
+
+		onChange(date);
+
 	}
 
-	const handleOnChange = async (position: number, date: Date) => {
-		const newValue = handleValue(position, date);
-		await onChange(newValue)
-	};
+	const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
+		const isKeyboardEvent = keyboardInputValue !== undefined;
+		const validKeyboardInput = textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL);
+
+		clearError();
+
+		if (!time || (isKeyboardEvent && !validKeyboardInput)) {
+			// This handler was caused by keyboard input, but it's not a valid date
+			setError(ENTER_VALID_TIME);
+			return onChange(undefined);
+		}
+
+		setTimeChosen(time);
+
+		if (dateChosen) {
+			const newDate = new Date(dateChosen.getTime());
+			matchTime(newDate, time);
+			onChange(newDate);
+		}
+	}
 
 	return (
 		<DateTimeInputRow>
@@ -113,34 +138,35 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 					<DateTimePickerWrapper>
 						<DatePicker
 							error={error}
-							onChange={(date) => handleOnChange(0, date)}
+							onChange={handleDateChange}
 							fieldDef={{
 								name: fieldDef?.name,
 								label: "",
 								type: "",
 								inputSettings: {
-									placeholder: "MM / DD / YYYY"
+									placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
+									minDate: fieldDef?.inputSettings?.minDate
 								},
 								required: fieldDef?.required,
 							}}
-							value={dateInput}
+							value={dateChosen}
 							onBlur={onBlur}
 						/>
 					</DateTimePickerWrapper>
-					{fieldDef?.inputSettings?.showTime &&
+					{showTime &&
 						<DateTimePickerWrapper>
 							<TimePicker
 								error={error}
-								onChange={(date) => handleOnChange(1, date)}
+								onChange={handleTimeChange}
 								fieldDef={{
 									name: fieldDef?.name,
 									label: "",
 									type: "timePicker",
 									inputSettings: {
-										placeholder: "00:00 AM/PM"
+										placeholder: TIME_FORMAT_FULL_PLACEHOLDER
 									}
 								}}
-								value={timeInput}
+								value={timeChosen}
 								onBlur={onBlur}
 							/>
 						</DateTimePickerWrapper>
@@ -154,7 +180,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 							: "MM / DD / YYYY"
 						}
 					</StyledDisabledText>
-					{fieldDef?.inputSettings?.showTime &&
+					{showTime &&
 						<StyledDisabledText>
 							{
 								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })

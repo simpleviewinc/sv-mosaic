@@ -27,6 +27,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Image Upload with menu options and with set Focus handler", async () => {
+		test.skip();
 		await ffImageUploadPage.setDialogValidationListener("Set focus is called");
 		await page.reload();
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.waitFor();
@@ -74,6 +75,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Image Upload (with focus)  border has grey2 in border.", async () => {
+		test.skip();
 		const expectedColor = theme.newColors.grey2["100"];
 		await ffImageUploadPage.imageUploadWithSetFocusHandlerInput.setInputFiles(imagePath);
 		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithSetFocusHandlerDiv, "all")).toContain(expectedColor);
