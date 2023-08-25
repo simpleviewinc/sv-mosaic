@@ -12,6 +12,7 @@ import Form, { formActions, useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
 import { defaultValues } from "./uploadUtils";
+import { UploadFieldInputSettings } from "./FormFieldUploadTypes";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -45,7 +46,7 @@ export const Playground = (): ReactElement => {
 		mockDB ? resetForm() : setLoadReady(false);
 	}, [mockDB]);
 
-	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete, onError }) => {
+	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
@@ -55,8 +56,7 @@ export const Playground = (): ReactElement => {
 		}
 
 		if (error) {
-			await onError("File size exceeded");
-			return;
+			throw new Error("File size exceeded");
 		}
 
 		await onUploadComplete({
