@@ -3297,7 +3297,6 @@ __metadata:
     mocha: 5.2.0
     nanoid: 4.0.0
     postcss: ^8.3.6
-    pretty-bytes: ^6.1.1
     react: ^18.2.0
     react-beautiful-dnd: ^13.1.0
     react-color: ^2.19.3
@@ -16817,13 +16816,6 @@ __metadata:
   bin:
     prettier: ./bin-prettier.js
   checksum: bc78219e0f8173a808f4c6c8e0a137dd8ebd4fbe013e63fe1a37a82b48612f17b8ae8e18a992adf802ee2cf7428f14f084e7c2846ca5759cf4013c6e54810e1f
-  languageName: node
-  linkType: hard
-
-"pretty-bytes@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "pretty-bytes@npm:6.1.1"
-  checksum: 43d29d909d2d88072da2c3d72f8fd0f2d2523c516bfa640aff6e31f596ea1004b6601f4cabc50d14b2cf10e82635ebe5b7d9378f3d5bae1c0067131829421b8a
   languageName: node
   linkType: hard
 

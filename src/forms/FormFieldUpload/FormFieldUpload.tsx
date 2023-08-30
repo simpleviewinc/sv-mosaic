@@ -3,7 +3,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { formActions, Snackbar } from "@root/index";
 import _ from "lodash";
 import * as React from "react";
-import { memo, SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
+import { memo, SyntheticEvent, useEffect, useRef, useState, useMemo } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
@@ -18,7 +18,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	} = props;
 
 	const {
-		limit,
+		limit = -1,
 		onFileAdd,
 		onFileDelete,
 	} = fieldDef.inputSettings;
@@ -28,6 +28,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 	const fileInputField = useRef(null);
 	const prevValueRef = useRef([]);
+	const currentLength = Object.keys(pendingFiles).length + (value || []).length;
+	const isMaxedOut = limit >= 0 && currentLength >= limit;
 
 	const pendingWithoutError = useMemo(() =>
 		Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length,
@@ -149,13 +151,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
 
-		if (
-			limit !== undefined
-			&& limit >= 0
-			&& (
-				(value !== undefined ? value.length : 0) + newFiles.length + pendingWithoutError > limit
-			)
-		) {
+		if (limit >= 0 && currentLength + newFiles.length > limit) {
 			setOpenSnackbar(true);
 			return;
 		}
@@ -168,7 +164,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 				[_.uniqueId()]: {
 					data: {
 						name: file.name,
-						size: file.size + " bytes",
+						size: file.size,
 					},
 					percent: 0,
 					error: undefined,
@@ -225,26 +221,15 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		setOpenSnackbar(false);
 	};
 
-	const shouldDisableField = useMemo(() => {
-		const numOfPendingFiles = Object.values(pendingFiles).filter((pendingFile: { error: string }) => pendingFile.error === undefined).length;
-
-		return (
-			limit !== undefined
-			&& limit >= 0
-			&& (value !== undefined ? value.length : 0) + numOfPendingFiles >= limit
-		)
-	}, [limit, value, pendingFiles]);
-
 	return (
 		<>
-			{!shouldDisableField && !fieldDef.disabled ?
+			{!isMaxedOut && !fieldDef.disabled && (
 				<DragAndDropContainer
 					isOver={isOver}
 					onDragOver={dragOver}
 					onDragEnter={dragEnter}
 					onDragLeave={dragLeave}
 					onDrop={fileDrop}
-					width={"620px"}
 					data-testid="drag-and-drop-container"
 				>
 					{isOver ? (
@@ -259,7 +244,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							<Button
 								color="gray"
 								variant="outlined"
-								disabled={shouldDisableField}
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
 							/>
@@ -275,23 +259,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						multiple={limit === undefined || limit > 1 ? true : false}
 					/>
 				</DragAndDropContainer>
-				: !fieldDef.disabled && (
-					<DragAndDropContainer width={"620px"}>
-						<>
-							<DragAndDropSpan>
-								Drag & Drop files here or
-							</DragAndDropSpan>
-							<Button
-								color="gray"
-								variant="outlined"
-								disabled={shouldDisableField}
-								label="UPLOAD FILES"
-								onClick={uploadFiles}
-							/>
-						</>
-					</DragAndDropContainer>
-				)
-			}
+			)}
 			{/**
 			 * We'll have 2 FileGrids, 1 for the successfully
 			 * uploaded files, and 1 for the pending / errors.
@@ -304,7 +272,9 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							id={file.id}
 							name={file.name}
 							size={file.size}
-							url={file.url}
+							thumbnailUrl={file.thumbnailUrl}
+							fileUrl={file.fileUrl}
+							downloadUrl={file.downloadUrl}
 							onFileDelete={handleFileDelete}
 							disabled={fieldDef.disabled}
 						/>
@@ -320,7 +290,9 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								id={key}
 								name={file.data?.name}
 								size={file.data?.size}
-								url={file.data?.url}
+								thumbnailUrl={file.data?.thumbnailUrl}
+								fileUrl={file.data?.fileUrl}
+								downloadUrl={file.data?.downloadUrl}
 								error={file.error}
 								percent={file.percent}
 								onFileDelete={file.error && handleErrorDelete}
@@ -331,7 +303,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			}
 			<Snackbar
 				autoHideDuration={6000}
-				label={`Upload limited to only ${limit} files. If there are pending files please try again when all files have finished uploading.`}
+				label={`Upload limited to only ${limit} files.`}
 				open={openSnackBar}
 				onClose={closeSnackbar}
 			/>
