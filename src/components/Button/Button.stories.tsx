@@ -179,7 +179,6 @@ export const KitchenSink = (): ReactElement => {
 	}
 
 	const openDropdown = function(event) {
-		console.log("EVENT", event);
 		setAnchorEl(event.currentTarget);
 	}
 
