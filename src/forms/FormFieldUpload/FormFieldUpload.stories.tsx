@@ -99,7 +99,8 @@ export const Playground = (): ReactElement => {
 		timeToLoad,
 		thumbnailUrl,
 		fileUrl,
-		downloadUrl
+		downloadUrl,
+		error
 	]);
 
 	const onFileDelete = async ({id}) => {
