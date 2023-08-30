@@ -80,6 +80,17 @@ export const formActions = {
 			}
 		};
 	},
+	/**
+	 * Internal use only
+	 */
+	_setFieldValues({ values }: { values: MosaicObject }) {
+		return async function(dispatch): Promise<void> {
+			return dispatch({
+				type: "FIELDS_ON_CHANGE",
+				value: values
+			});
+		}
+	},
 	validateField({ name }: { name: string }) {
 		return async function (dispatch, getState, extraArgs): Promise<void> {
 			const {data, mounted} = getState();

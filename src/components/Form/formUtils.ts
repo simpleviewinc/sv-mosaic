@@ -17,6 +17,7 @@ type State = {
 
 type ActionTypes =
 	| "FIELD_ON_CHANGE"
+	| "FIELDS_ON_CHANGE"
 	| "FIELD_TOUCHED"
 	| "FIELD_VALIDATE"
 	| "FIELD_UNVALIDATE"
@@ -50,6 +51,14 @@ export function coreReducer(state: State, action: Action): State {
 				[action.name]: action.value
 			}
 		};
+	case "FIELDS_ON_CHANGE":
+		return {
+			...state,
+			data: {
+				...state.data,
+				...action.value
+			}
+		}
 	case "FIELD_TOUCHED":
 		return {
 			...state,
