@@ -11,12 +11,37 @@ import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
-import { defaultValues } from "./uploadUtils";
 import { UploadFieldInputSettings } from "./FormFieldUploadTypes";
 
 export default {
 	title: "FormFields/FormFieldUpload",
 	decorators: [withKnobs],
+};
+
+const initialValues = {
+	uploadField: [
+		{
+			id: 0,
+			fileUrl: "http://placekitten.com/200/300",
+			thumbnailUrl: "http://placekitten.com/64/64",
+			size: Math.random(),
+			name: "Lipsum",
+		},
+		{
+			id: 1,
+			fileUrl: "http://placekitten.com/537/355",
+			thumbnailUrl: "http://placekitten.com/65/65",
+			size: Math.random(),
+			name: "Lipsum",
+		},
+		{
+			id: 2,
+			fileUrl: "http://placekitten.com/642/245",
+			thumbnailUrl: "http://placekitten.com/55/55",
+			size: Math.random(),
+			name: "Lipsum",
+		},
+	]
 };
 
 export const Playground = (): ReactElement => {
@@ -32,9 +57,12 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
+	const mockDB = boolean("Simulate initial field value", false);
+	const timeToLoad = number("Time to upload load (seconds)", 2);
+	const thumbnailUrl = text("Override onUploadComplete thumbail URL", "");
+	const fileUrl = text("Override onUploadComplete file URL", "");
+	const downloadUrl = text("Override onUploadComplete download URL", "");
 	const error = boolean("Trigger errors when loading", false);
-	const mockDB = boolean("Mock get files from DB", false);
-	const timeToLoad = number("Time to load (seconds)", 2);
 
 	const [loadReady, setLoadReady] = useState(false);
 
@@ -46,7 +74,7 @@ export const Playground = (): ReactElement => {
 		mockDB ? resetForm() : setLoadReady(false);
 	}, [mockDB]);
 
-	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = async ({ file, onChunkComplete, onUploadComplete }) => {
+	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
@@ -62,10 +90,17 @@ export const Playground = (): ReactElement => {
 		await onUploadComplete({
 			id: nanoid(),
 			name: file.name,
-			size: `${file.size} bytes`,
-			url: URL.createObjectURL(file)
+			size: file.size,
+			thumbnailUrl: thumbnailUrl || URL.createObjectURL(file),
+			fileUrl: fileUrl || URL.createObjectURL(file),
+			downloadUrl: downloadUrl
 		});
-	};
+	}, [
+		timeToLoad,
+		thumbnailUrl,
+		fileUrl,
+		downloadUrl
+	]);
 
 	const onFileDelete = async ({id}) => {
 		alert("DELETED FILE: " + id);
@@ -74,8 +109,8 @@ export const Playground = (): ReactElement => {
 	const getFormValues = useCallback(async () => {
 		await new Promise(res => setTimeout(res, 1000));
 
-		return defaultValues;
-	}, []);
+		return initialValues;
+	}, [initialValues]);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -103,13 +138,13 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			limit,
 			timeToLoad,
+			onFileAdd,
 			error
 		]
 	);
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
@@ -119,6 +154,7 @@ export const Playground = (): ReactElement => {
 				dispatch={dispatch}
 				getFormValues={loadReady && getFormValues}
 			/>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };

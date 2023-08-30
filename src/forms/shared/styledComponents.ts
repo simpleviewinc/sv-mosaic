@@ -52,7 +52,8 @@ export const DragAndDropContainer = styled.div`
   height: 204px;
   justify-content: center;
   position: relative;
-  width: ${(pr) => (pr.width ? pr.width : "300px")};
+  width: ${(pr) => (pr.width ? pr.width : "600px")};
+  max-width: 100%;
 
   & .button {
     z-index: 1000;
