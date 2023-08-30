@@ -1023,7 +1023,7 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| **`onFileAdd`** | `(addedData: OnFileAddData) => Promise<void>` | required - Callback function executed per uploaded file. |
+| **`onFileAdd`** | `(addedData: OnFileAddData) => Promise<void>` | required - Callback function executed per uploaded file.<br /><br />If an error is thrown in this callback, its message will be displayed for the uploaded item |
 | **`onFileDelete`** | `({id: string or number}) => Promise<void>` | required - Callback function executed when the user deletes an uploaded file. |
 | **`limit`** | `number` | optional - Limits the amount of files users can upload. If not passed users can add as many files as needed. |
 
@@ -1034,7 +1034,7 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | **`file`** | `File` | required - File uploaded by the user. |
 | **`onChunkComplete`** | `({percent: number}) => Promise<void>` | required - Callback function that allows the file cards to update their progress spinner. The expected percent should be a value between 0 and 1. |
 | **`onUploadComplete`** | `(data: UploadData) => Promise<void>` | required - Callback function that allows the component to update the file cards with the newest data |
-| **`onError`** | `(message: string) => Promise<void>` | required - Callback function that allows the file cards to update their style and error message. |
+| ❌ **`onError`** | `(message: string) => Promise<void>` | required - Callback function that allows the file cards to update their style and error message.<br /><br />**DEPRECATED** - Throw an error within `onFileAdd` callback instead. |
 
 ### How to use in a form?
 
