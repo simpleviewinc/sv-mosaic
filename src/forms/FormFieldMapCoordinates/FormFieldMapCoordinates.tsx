@@ -5,6 +5,7 @@ import {
 	useCallback,
 	useEffect,
 	useState,
+	useMemo
 } from "react";
 import {
 	MapCoordinatesData,
@@ -36,11 +37,12 @@ import {
 
 // Utils
 import {
-	defaultMapPosition,
 	getAddressStringFromAddressObject,
+	isValidLatLng,
 	libraries,
 } from "./MapCoordinatesUtils";
 import Drawer from "@root/components/Drawer";
+import Blank from "@root/components/Blank/Blank";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {
@@ -49,6 +51,11 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		onChange,
 		fieldDef,
 	} = props;
+
+	const latLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
+
+	// Supports legacy mapPosition
+	const initialCenter = fieldDef?.inputSettings?.initialCenter || fieldDef?.inputSettings?.mapPosition;
 
 	// State variables
 	const [autocoordinatesChecked, setAutocoordinatesChecked] = useState(false);
@@ -120,7 +127,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 			});
 
 		} catch (error) {
-			console.log(error);
+			// TODO Catch this
 		}
 	}, [fieldDef?.inputSettings?.address]);
 
@@ -142,24 +149,13 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 	if (loadError) return <span>{"Error loading maps"}</span>;
 	if (!isLoaded) return <span>{"Loading Maps"}</span>;
 
-	const mapPosition = {
-		lat: value?.lat
-			? Number(value.lat)
-			: fieldDef?.inputSettings?.mapPosition?.lat
-				? fieldDef.inputSettings.mapPosition.lat
-				: defaultMapPosition.lat,
-		lng: value?.lng
-			? Number(value.lng)
-			: fieldDef?.inputSettings?.mapPosition?.lng
-				? fieldDef.inputSettings.mapPosition.lng
-				: defaultMapPosition.lng,
-	};
+	const hasAddress = fieldDef?.inputSettings?.address && Object.values(fieldDef.inputSettings.address).length > 0;
 
 	return (
 		<>
-			{value || !isEmpty(fieldDef?.inputSettings?.address) ? (
+			{latLng || hasAddress ? (
 				<div>
-					{!isEmpty(fieldDef?.inputSettings?.address) && (
+					{hasAddress && (
 						!fieldDef.disabled &&
 							<SwitchContainer>
 								<ToggleSwitch
@@ -172,19 +168,31 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 							</SwitchContainer>
 					)}
 					<CoordinatesCard
-						hasAddress={!isEmpty(fieldDef?.inputSettings?.address)}
+						hasAddress={hasAddress}
 					>
 						<MapImageColumn>
-							<img
-								src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=232x153&maptype=roadmap&markers=color:red%7C${mapPosition.lat},${mapPosition.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
-								alt="location"
-							/>
+							{latLng ? (
+								<img
+									src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=232x153&maptype=roadmap&markers=color:red%7C${latLng?.lat},${latLng?.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
+									alt="location"
+								/>
+							) : (
+								<Blank />
+							)}
 						</MapImageColumn>
 						<Column>
 							<LatLngLabel>Latitude</LatLngLabel>
-							<LatitudeValue>{mapPosition.lat}</LatitudeValue>
+							{latLng ? (
+								<LatitudeValue>{latLng?.lat}</LatitudeValue>
+							) : (
+								<Blank />
+							)}
 							<LatLngLabel>Longitude</LatLngLabel>
-							<CoordinatesValues>{mapPosition.lng}</CoordinatesValues>
+							{latLng ? (
+								<CoordinatesValues>{latLng?.lng}</CoordinatesValues>
+							) : (
+								<Blank />
+							)}
 						</Column>
 						<ButtonsWrapper
 							hasAddress={isEmpty(fieldDef?.inputSettings?.address)}
@@ -230,7 +238,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
-					mapPosition={mapPosition}
+					initialCenter={initialCenter}
 				/>
 			</Drawer>
 		</>
