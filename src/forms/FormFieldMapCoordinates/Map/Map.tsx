@@ -1,6 +1,6 @@
 import * as React from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
-import { memo, ReactElement, useState } from "react";
+import { GoogleMap } from "@react-google-maps/api";
+import { memo, ReactElement, useEffect, useState } from "react";
 import { MapProps } from "../MapCoordinatesTypes";
 import { isEmpty } from "lodash";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
@@ -10,6 +10,7 @@ import { InputAdornment } from "@mui/material";
 import { MapContainer } from "../MapCoordinates.styled";
 import AddressAutocomplete from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete";
 import { StyledClearIcon } from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
+import MarkerFollower from "./MarkerFollower";
 
 const containerStyle = {
 	display: "flex",
@@ -25,14 +26,11 @@ const mapOptions = {
 const Map = (props: MapProps): ReactElement => {
 	const {
 		address,
-		handleCoordinates,
-		mapPosition,
+		initialCenter,
 		value,
-		onClick,
-		onDragMarkerEnd,
 		zoom = 0,
-		isDragging,
-		onDragStart,
+		focusZoom = 11,
+		onCoordinatesChange
 	} = props;
 
 	// State variables
@@ -49,18 +47,33 @@ const Map = (props: MapProps): ReactElement => {
 		try {
 			const results = await geocodeByAddress(value);
 			const latLng = await getLatLng(results[0]);
-			handleCoordinates(latLng);
+			onCoordinatesChange(latLng);
 		} catch (error) {
-			console.log(error);
+			// TODO Catch this
 		}
 	};
 
 	/**
- * Reset the address value that is displayed in the autocomplete component.
- */
+	 * Reset the address value that is displayed in the autocomplete component.
+	 */
 	const clearValue = () => {
 		setAddressValue("");
 	};
+
+	const map = React.useRef<GoogleMap | undefined>();
+
+	const onMapMouseEvent = ({ latLng }: google.maps.MapMouseEvent) => {
+		const lat = latLng.lat();
+		const lng = latLng.lng();
+
+		onCoordinatesChange({ lat, lng });
+	}
+
+	useEffect(() => {
+		if (value === undefined || (value.lat === undefined && value.lng === undefined)) {
+			clearValue();
+		}
+	}, [value])
 
 	return (
 		<MapContainer>
@@ -86,20 +99,18 @@ const Map = (props: MapProps): ReactElement => {
 			<div>
 				<GoogleMap
 					mapContainerStyle={containerStyle}
-					center={mapPosition}
-					zoom={zoom}
-					onClick={onClick}
+					center={initialCenter}
+					zoom={value ? focusZoom : zoom}
+					onClick={onMapMouseEvent}
 					options={mapOptions}
+					ref={(ref) => map.current = ref}
 				>
-					{isDragging ||
-						(value && (value?.lat !== 0 || value?.lng !== 0) && (
-							<Marker
-								draggable={true}
-								position={value || mapPosition}
-								onDragEnd={onDragMarkerEnd}
-								onDragStart={onDragStart}
-							/>
-						))}
+					<MarkerFollower
+						value={value}
+						initialCenter={initialCenter}
+						onDragMarkerEnd={onMapMouseEvent}
+						focusZoom={focusZoom}
+					/>
 				</GoogleMap>
 			</div>
 		</MapContainer>
