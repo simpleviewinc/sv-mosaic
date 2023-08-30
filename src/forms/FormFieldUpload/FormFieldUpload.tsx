@@ -28,7 +28,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 	const fileInputField = useRef(null);
 	const prevValueRef = useRef([]);
-	const isMaxedOut = limit >= 0 && Object.keys(pendingFiles).length + (value || []).length >= limit;
+	const currentLength = Object.keys(pendingFiles).length + (value || []).length;
+	const isMaxedOut = limit >= 0 && currentLength >= limit;
 
 	const pendingWithoutError = useMemo(() =>
 		Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length,
@@ -150,7 +151,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const handleNewFileUpload = async (e) => {
 		const newFiles: File[] = Array.from(e.target.files);
 
-		if (isMaxedOut) {
+		if (currentLength + newFiles.length > limit) {
 			setOpenSnackbar(true);
 			return;
 		}
@@ -302,7 +303,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			}
 			<Snackbar
 				autoHideDuration={6000}
-				label={`Upload limited to only ${limit} files. If there are pending files please try again when all files have finished uploading.`}
+				label={`Upload limited to only ${limit} files.`}
 				open={openSnackBar}
 				onClose={closeSnackbar}
 			/>
