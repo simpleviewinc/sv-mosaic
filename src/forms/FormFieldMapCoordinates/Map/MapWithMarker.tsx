@@ -6,7 +6,6 @@ import Map from "@root/forms/FormFieldMapCoordinates/Map";
 import { StyledSpan } from "../MapCoordinates.styled";
 
 function MapWithMarker({
-	address,
 	zoom,
 	focusZoom,
 	initialCenter,
@@ -17,7 +16,6 @@ function MapWithMarker({
 	return (
 		<>
 			<Map
-				address={address}
 				initialCenter={initialCenter}
 				value={value}
 				zoom={zoom}

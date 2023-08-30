@@ -2,7 +2,6 @@ import * as React from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { memo, ReactElement, useEffect, useState } from "react";
 import { MapProps } from "../MapCoordinatesTypes";
-import { isEmpty } from "lodash";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { InputAdornment } from "@mui/material";
 
@@ -25,7 +24,6 @@ const mapOptions = {
 
 const Map = (props: MapProps): ReactElement => {
 	const {
-		address,
 		initialCenter,
 		value,
 		zoom = 0,
@@ -77,25 +75,23 @@ const Map = (props: MapProps): ReactElement => {
 
 	return (
 		<MapContainer>
-			{isEmpty(address) && (
-				<AddressAutocomplete
-					className={"mapCoordinates"}
-					fieldSize={"100%"}
-					value={addressValue}
-					onChange={setAddressValue}
-					onSelect={onSelect}
-					placeholder="Type a location, address or city…"
-					textField={{
-						InputProps: {
-							endAdornment: (
-								<InputAdornment position='end'>
-									<StyledClearIcon data-testid={"location-search-clear-icon"} onClick={clearValue} />
-								</InputAdornment>
-							),
-						}
-					}}
-				/>
-			)}
+			<AddressAutocomplete
+				className={"mapCoordinates"}
+				fieldSize={"100%"}
+				value={addressValue}
+				onChange={setAddressValue}
+				onSelect={onSelect}
+				placeholder="Type a location, address or city…"
+				textField={{
+					InputProps: {
+						endAdornment: (
+							<InputAdornment position='end'>
+								<StyledClearIcon data-testid={"location-search-clear-icon"} onClick={clearValue} />
+							</InputAdornment>
+						),
+					}
+				}}
+			/>
 			<div>
 				<GoogleMap
 					mapContainerStyle={containerStyle}

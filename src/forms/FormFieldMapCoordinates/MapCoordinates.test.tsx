@@ -7,25 +7,20 @@ import {
 	screen,
 	waitFor,
 } from "@testing-library/react";
-import { getAddressStringFromAddressObject } from "./MapCoordinatesUtils";
 
 // Components
 import Form, { useForm, formActions } from "@root/components/Form";
-import MapCoordinates from "./FormFieldMapCoordinates";
 import { ReactElement } from "react";
 
 import { FieldDef } from "@root/components/Field/FieldTypes";
 // Utils
-import { address, defaultMapPosition } from "./MapCoordinatesUtils";
 import { ButtonProps } from "@root/components/Button";
 
 const {
 	getByLabelText,
-	getByRole,
 	getByText,
 	getByTestId,
 	getAllByText,
-	queryByText,
 	getAllByRole
 } = screen;
 
@@ -254,50 +249,5 @@ describe("MapCoordinates component without an address", () => {
 			expect(latitudeField.value).toBe("");
 			expect(longitudeField.value).toBe("");
 		});
-	});
-});
-
-describe("MapCoordinates component with an address object (AUTOCOODINATES)", () => {
-	beforeEach(() => {
-		act(() => {
-			render(
-				<MapCoordinates
-					fieldDef={{
-						name: "mapCoordinates",
-						type: "mapCoordinates",
-						label: "",
-						inputSettings: {
-							googleMapsApiKey: "test",
-							initialCenter: defaultMapPosition,
-							address,
-						},
-					}}
-				/>
-			);
-		});
-	});
-
-	it("should display the elements that are conditionally rendered by the address object", () => {
-		expect(getByText("Use same as address")).toBeTruthy();
-		expect(getByText("Edit")).toBeTruthy();
-		expect(queryByText("Remove")).toBe(null);
-	});
-
-	it("should geocode the address and not display the edit and remove button", () => {
-		const toggleSwitch = getByRole("checkbox") as HTMLInputElement;
-
-		fireEvent.click(toggleSwitch);
-
-		expect(mockGeoCoder).toHaveBeenCalled();
-		expect(queryByText("Edit")).toBe(null);
-		expect(queryByText("Remove")).toBe(null);
-	});
-});
-
-describe("MapCoordinates getAddressStringFromAddressObject helper function", () => {
-	it("should convert an address object into a string", () => {
-		const addressString = "8950 N Oracle Rd 85704 Oro Valley AZ United States";
-
-		expect(getAddressStringFromAddressObject(address)).toEqual(addressString);
 	});
 });
