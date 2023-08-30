@@ -204,6 +204,8 @@ const Form = (props: FormProps) => {
 		state.submitWarning
 	);
 
+	const isBusy = state.disabled || Object.values(state.busyFields).filter(Boolean).length;
+
 	return (
 		<>
 			<ViewProvider value={view}>
@@ -212,6 +214,9 @@ const Form = (props: FormProps) => {
 					style={{ position: "relative", height: "100%" }}
 					ref={formContainerRef}
 					className={state.disabled ? "disabled" : ""}
+					aria-busy={isBusy ? "true" : "false"}
+					role="form"
+					aria-label={title}
 				>
 					<StyledForm autoComplete="off">
 						{title &&

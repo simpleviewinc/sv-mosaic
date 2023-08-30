@@ -184,12 +184,17 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		setPendingFiles({...pendingFiles, ...transformedFiles});
 
 		for (const [key, file] of Object.entries(transformedFiles) as [string, TransformedFile][]) {
-			onFileAdd({
-				file: file?.rawData,
-				onChunkComplete: ({ percent }) => onChunkComplete({uuid: key, percent}),
-				onUploadComplete: (data) => onUploadComplete({uuid: key, data}),
-				onError: (message) => onError({uuid: key, message}),
-			})
+			try {
+				await onFileAdd({
+					file: file?.rawData,
+					onChunkComplete: ({ percent }) => onChunkComplete({uuid: key, percent}),
+					onUploadComplete: (data) => onUploadComplete({uuid: key, data}),
+					onError: (message) => onError({uuid: key, message}),
+				})
+			} catch (err) {
+				const message = err instanceof Error ? err.message : String(err);
+				onError({ uuid: key, message });
+			}
 		}
 	};
 

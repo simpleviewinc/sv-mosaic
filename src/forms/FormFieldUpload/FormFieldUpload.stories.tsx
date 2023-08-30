@@ -11,7 +11,8 @@ import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
-import { OnFileAdd } from "./FormFieldUploadTypes";
+import { defaultValues } from "./uploadUtils";
+import { OnFileAdd, UploadFieldInputSettings } from "./FormFieldUploadTypes";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -62,6 +63,7 @@ export const Playground = (): ReactElement => {
 	const thumbnailUrl = text("Override onUploadComplete thumbail URL", "");
 	const fileUrl = text("Override onUploadComplete file URL", "");
 	const downloadUrl = text("Override onUploadComplete download URL", "");
+	const error = boolean("Trigger errors when loading", false);
 
 	const [loadReady, setLoadReady] = useState(false);
 
@@ -73,8 +75,7 @@ export const Playground = (): ReactElement => {
 		mockDB ? resetForm() : setLoadReady(false);
 	}, [mockDB]);
 
-
-	const onFileAdd: OnFileAdd = useCallback(async ({ file, onChunkComplete, onUploadComplete, onError }) => {
+	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
@@ -83,9 +84,8 @@ export const Playground = (): ReactElement => {
 			);
 		}
 
-		if (file.name.substring(0, 11) === "broken_file") {
-			await onError("That file is broken");
-			return;
+		if (error) {
+			throw new Error("File size exceeded");
 		}
 
 		await onUploadComplete({
@@ -94,7 +94,7 @@ export const Playground = (): ReactElement => {
 			size: file.size,
 			thumbnailUrl: thumbnailUrl || URL.createObjectURL(file),
 			fileUrl: fileUrl || URL.createObjectURL(file),
-			downloadUrl: downloadUrl,
+			downloadUrl: downloadUrl
 		});
 	}, [
 		timeToLoad,
@@ -139,7 +139,8 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			limit,
 			timeToLoad,
-			onFileAdd
+			onFileAdd,
+			error
 		]
 	);
 
