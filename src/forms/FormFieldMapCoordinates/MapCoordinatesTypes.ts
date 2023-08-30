@@ -1,5 +1,4 @@
 import { FieldDefBase } from "@root/components/Field/FieldTypes";
-import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
@@ -34,13 +33,6 @@ export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 	 */
 	initialCenter?: MapPosition
 	/**
-	 * Address object used to set lat and lng values when using
-	 * the autocoordinates feature.
-	 *
-	 * @deprecated
-	 */
-	address?: IAddress;
-	/**
 	 * Google Maps API key needed to consume the Maps JavaScript API
 	 * and Places API
 	 */
@@ -58,13 +50,6 @@ export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 }
 
 export interface MapProps {
-	/**
-	 * Address object used to set lat and lng values when using
-	 * the autocoordinates feature.
-	 *
-	 * @deprecated
-	 */
-	address?: IAddress;
 	/**
 	 * Where to center the map initially and when
 	 * the reset button is clicked. Defaults to
@@ -90,7 +75,7 @@ export interface MapProps {
 	onCoordinatesChange?: (coords: MapPosition) => void
 }
 
-export type MapWithMarkerProps = Pick<MapProps, "address" | "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter">
+export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter">
 
 export type ResetButtonProps = {
 	show?: boolean,

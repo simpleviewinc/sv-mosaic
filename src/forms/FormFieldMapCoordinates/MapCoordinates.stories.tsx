@@ -8,7 +8,7 @@ import { renderButtons } from "@root/utils/storyUtils";
 import Form, { useForm } from "@root/components/Form";
 
 // Utils
-import { address, defaultMapPosition } from "./MapCoordinatesUtils";
+import { defaultMapPosition } from "./MapCoordinatesUtils";
 
 export default {
 	title: "FormFields/FormFieldMapCoordinates",
@@ -34,10 +34,8 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Map Coordinates Example");
 	const initialCenterKnob = object("Initial map position", defaultMapPosition);
 	const required = boolean("Required", false);
-	const withAddress = boolean("With address", false);
 	const zoom = number("Zoom", 7, { min: 0, max: 18, range: true });
 	const prepopulate = boolean("Prepopulate", false);
-	const addressKnob = object("Address", address);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -50,13 +48,12 @@ export const Playground = (): ReactElement => {
 					disabled,
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-						address: withAddress ? addressKnob : undefined,
 						initialCenter: initialCenterKnob,
 						zoom: zoom,
 					},
 				},
 			],
-		[addressKnob, disabled, label, initialCenterKnob, required, withAddress, zoom]
+		[disabled, label, initialCenterKnob, required, zoom]
 	);
 
 	return (
@@ -77,8 +74,8 @@ export const Playground = (): ReactElement => {
 
 const kitchenSinkFields: FieldDef[] = [
 	{
-		name: "mapWithoutAddress",
-		label: "Map without an address. Autocoordinates disabled",
+		name: "mapStandard",
+		label: "Standard map",
 		type: "mapCoordinates",
 		required: false,
 		disabled: false,
@@ -99,18 +96,6 @@ const kitchenSinkFields: FieldDef[] = [
 		},
 	},
 	{
-		name: "mapWithAddress",
-		label: "Map with an address. Autocoordinates enabled",
-		type: "mapCoordinates",
-		required: false,
-		disabled: false,
-		inputSettings: {
-			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-			address: address,
-			initialCenter: { lat: 40.7127753, lng: -74.0059728 }
-		},
-	},
-	{
 		name: "mapWithInitalPosition",
 		label: "Map with an inital map position set",
 		type: "mapCoordinates",
@@ -118,7 +103,6 @@ const kitchenSinkFields: FieldDef[] = [
 		disabled: false,
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-			address: address,
 			initialCenter: { lat: 19.3884403, lng: -99.1747252 }
 		},
 	},
@@ -130,7 +114,6 @@ const kitchenSinkFields: FieldDef[] = [
 		disabled: true,
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-			address: address
 		},
 	}
 ];

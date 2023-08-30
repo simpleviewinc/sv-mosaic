@@ -21,7 +21,7 @@ export const CoordinatesCard = styled.div`
   font-family: ${theme.fontFamily};
   height: 204px;
   padding: 16px;
-  padding-bottom: ${pr => pr.hasAddress ? "35px" : "16px"};
+  padding-bottom: 16px;
   position: relative;
   width: 450px;
   background-color: white;
@@ -68,10 +68,6 @@ export const CoordinatesValues = styled.span`
 
 export const LatitudeValue = styled(CoordinatesValues)`
   margin-bottom: 24px;
-`;
-
-export const SwitchContainer = styled.div`
-  margin-bottom: -2px;
 `;
 
 // Styles for the Map component
