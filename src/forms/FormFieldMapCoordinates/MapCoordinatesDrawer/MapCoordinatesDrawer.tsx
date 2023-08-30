@@ -25,8 +25,6 @@ const sections = [
 	}
 ];
 
-
-
 const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement => {
 	const {
 		value,
@@ -167,7 +165,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		);
 	}, [dispatch]);
 
-	const address = fieldDef?.inputSettings?.address;
 	const zoom = fieldDef?.inputSettings?.zoom;
 	const focusZoom = fieldDef?.inputSettings?.focusZoom;
 
@@ -176,14 +173,15 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			[
 				{
 					name: "placesList",
-					type: ({value}) => <MapWithMarker
-						address={address}
-						zoom={zoom}
-						focusZoom={focusZoom}
-						initialCenter={initialCenter}
-						onCoordinatesChange={onCoordinatesChange}
-						value={value}
-					/>
+					type: ({value}) => (
+						<MapWithMarker
+							zoom={zoom}
+							focusZoom={focusZoom}
+							initialCenter={initialCenter}
+							onCoordinatesChange={onCoordinatesChange}
+							value={value}
+						/>
+					)
 				},
 				{
 					name: "lat",
@@ -200,20 +198,21 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				{
 					name: "resetButton",
 					label: "Reset",
-					type: ({value}) => <ResetButton
-						show={value}
-						onClick={() => dispatch(formActions._setFieldValues({
-							values: {
-								lat: undefined,
-								lng: undefined,
-								placesList: undefined
-							}
-						}))}
-					/>
+					type: ({value}) => (
+						<ResetButton
+							show={value}
+							onClick={() => dispatch(formActions._setFieldValues({
+								values: {
+									lat: undefined,
+									lng: undefined,
+									placesList: undefined
+								}
+							}))}
+						/>
+					)
 				},
 			],
 		[
-			address,
 			zoom,
 			focusZoom,
 			initialCenter,
