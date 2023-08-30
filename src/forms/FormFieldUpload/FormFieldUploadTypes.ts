@@ -62,6 +62,9 @@ type OnFileAddData = {
 	file: File;
 	onChunkComplete: (data: {percent: number}) => Promise<void>;
 	onUploadComplete: (data: UploadData) => Promise<void>;
+	/**
+	 * @deprecated - Throw an error within `onFileAdd` callback instead.
+	 */
 	onError: OnError;
 }
 
