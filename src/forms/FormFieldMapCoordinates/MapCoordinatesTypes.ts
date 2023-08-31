@@ -89,6 +89,12 @@ export type MapFocusProps = Pick<MapProps, "value" | "initialCenter" | "zoom"> &
 	 * The zoom at which to set the map when a marker is set
 	 */
 	focusZoom?: number
+
+	/**
+	 * The map should pan to the new marker if it is within
+	 * the current map bounds
+	 */
+	shouldPanRef?: React.MutableRefObject<boolean>
 };
 
 export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"> & {
