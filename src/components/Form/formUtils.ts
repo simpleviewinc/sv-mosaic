@@ -39,6 +39,7 @@ type Action = {
 	type: ActionTypes;
 	value: any;
 	name?: string;
+	clearErrors?: boolean
 }
 
 export function coreReducer(state: State, action: Action): State {
@@ -57,7 +58,8 @@ export function coreReducer(state: State, action: Action): State {
 			data: {
 				...state.data,
 				...action.value
-			}
+			},
+			errors: action.clearErrors ? {} : state.errors
 		}
 	case "FIELD_TOUCHED":
 		return {
