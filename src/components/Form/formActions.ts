@@ -87,7 +87,8 @@ export const formActions = {
 		return async function(dispatch): Promise<void> {
 			return dispatch({
 				type: "FIELDS_ON_CHANGE",
-				value: values
+				value: values,
+				clearErrors: true
 			});
 		}
 	},
