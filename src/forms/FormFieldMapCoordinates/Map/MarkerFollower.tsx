@@ -12,7 +12,8 @@ const MarkerFollower = ({
 	initialCenter,
 	onDragMarkerEnd,
 	zoom: initialZoom = 7,
-	focusZoom = 11
+	focusZoom = 11,
+	shouldPanRef
 }: MapFocusProps): ReactElement => {
 	const map = useGoogleMap();
 	const currentTarget = React.useRef<google.maps.LatLng | null>(null);
@@ -24,6 +25,7 @@ const MarkerFollower = ({
 			const bounds = await getMapBounds(map);
 			const { lat, lng } = latLng ? value : initialCenter ? initialCenter : {lat: 0, lng: 0};
 			const target = new google.maps.LatLng(lat, lng);
+			const willZoomIn = latLng && map.getZoom() < focusZoom;
 
 			if (bounds && target) {
 				if (!currentTarget.current || !currentTarget.current.equals(target)) {
@@ -33,8 +35,10 @@ const MarkerFollower = ({
 					if (!bounds.getCenter().equals(target)) {
 						if (!bounds.contains(target)) {
 							map.setCenter(target);
-						} else {
+						} else if (shouldPanRef.current || !latLng || willZoomIn) {
 							map.panTo(target);
+						} else {
+							shouldPanRef.current = true;
 						}
 					}
 				}
@@ -48,7 +52,7 @@ const MarkerFollower = ({
 				map.setZoom(initialZoom)
 			}
 		})();
-	}, [map, value]);
+	}, [map, value, shouldPanRef.current]);
 
 	if (!value || value.lat === undefined || value.lng === undefined) {
 		return;
