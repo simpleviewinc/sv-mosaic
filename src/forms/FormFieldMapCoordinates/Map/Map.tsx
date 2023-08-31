@@ -28,7 +28,7 @@ const Map = (props: MapProps): ReactElement => {
 		value,
 		zoom = 0,
 		focusZoom = 11,
-		onCoordinatesChange
+		onCoordinatesChange,
 	} = props;
 
 	// State variables
@@ -59,8 +59,11 @@ const Map = (props: MapProps): ReactElement => {
 	};
 
 	const map = React.useRef<GoogleMap | undefined>();
+	const shouldPanRef = React.useRef<boolean>(true);
 
 	const onMapMouseEvent = ({ latLng }: google.maps.MapMouseEvent) => {
+		shouldPanRef.current = false;
+
 		const lat = latLng.lat();
 		const lng = latLng.lng();
 
@@ -106,6 +109,7 @@ const Map = (props: MapProps): ReactElement => {
 						initialCenter={initialCenter}
 						onDragMarkerEnd={onMapMouseEvent}
 						focusZoom={focusZoom}
+						shouldPanRef={shouldPanRef}
 					/>
 				</GoogleMap>
 			</div>

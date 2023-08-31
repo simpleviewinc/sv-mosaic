@@ -10,7 +10,7 @@ function MapWithMarker({
 	focusZoom,
 	initialCenter,
 	onCoordinatesChange,
-	value
+	value,
 }: MapWithMarkerProps) {
 
 	return (
