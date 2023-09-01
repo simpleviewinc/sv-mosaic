@@ -105,12 +105,17 @@ const colors = {
 	simplyGoldHover : "#E3A520",
 	simplyGoldOpacity : "rgb(253, 185, 36, 0.3)",
 	simplyGray : "#BEBEBE",
+	disabledTextColor: "rgba(0, 0, 0, 0.38)",
+	disableBackground: "rgb(249, 250, 251)",
+	disableBorder: "rgb(228, 228, 228)",
+	disabledBorderFocus: "rgb(164, 164, 164)",
 	simplyGrayOpacity : "rgb(190, 190, 190, 0.3)",
 	teal : "#008DA8",
 	label : "#3B424E", //Same as gray700
 	almostBlack : "#1A1A1A",
 	errorBackground: "#B100000D",
-	white: "#FFFFFF"
+	white: "#FFFFFF",
+	blackDisabled: "rgba(0, 0, 0, 0.26)"
 };
 
 const borders = {

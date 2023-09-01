@@ -421,6 +421,7 @@ export const Playground = (): ReactElement => {
 	const draggableRows = boolean("draggableRows", true);
 	const showCheckboxes = boolean("Show Checkboxes", true);
 	const preloadedActiveFilters = boolean("Preload active filters", false);
+	const disabled = boolean("Disabled", false);
 	const defaultView: DataViewProps["savedView"] = {
 		...rootDefaultView,
 		state: {
@@ -737,7 +738,8 @@ export const Playground = (): ReactElement => {
 			}, ARTIFICIAL_DELAY);
 
 			setState({...state, loading: true});
-		} : undefined
+		} : undefined,
+		disabled
 	};
 
 	return (

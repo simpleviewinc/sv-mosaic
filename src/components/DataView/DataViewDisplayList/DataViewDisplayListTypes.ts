@@ -16,6 +16,7 @@ export interface DataViewDisplayListProps {
 	onCheckAllPagesClick?: () => void;
 	onColumnsChange?: DataViewProps["onColumnsChange"];
 	additionalActions?: DataViewProps["additionalActions"];
+	disabled?: DataViewProps["disabled"];
 	primaryActions?: DataViewProps["primaryActions"];
 	onCheckboxClick?: () => void;
 	activeColumnObjs: DataViewProps["columns"];

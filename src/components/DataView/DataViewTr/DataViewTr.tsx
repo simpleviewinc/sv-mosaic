@@ -21,8 +21,8 @@ function DataViewTr(props: DataViewTrProps) {
 				<TableRow {...provider.draggableProps} ref={provider.innerRef} className={props.checked && "checked"}>
 					{
 						props.onReorder &&
-						<DataViewTd key="_draggable" draggableProvider={provider}>
-							<DragIndicatorIcon style={{display: "flex", color: theme.newColors.almostBlack["100"]}}/>
+						<DataViewTd key="_draggable" draggableProvider={props.disabled ? undefined : provider}>
+							<DragIndicatorIcon style={{display: "flex", color: props.disabled ? theme.colors.blackDisabled : theme.newColors.almostBlack["100"]}}/>
 						</DataViewTd>
 					}
 					{
@@ -31,6 +31,7 @@ function DataViewTr(props: DataViewTrProps) {
 							<Checkbox
 								checked={props.checked === true}
 								onClick={props.onCheckboxClick}
+								disabled={props.disabled}
 							/>
 						</DataViewTd>
 					}
@@ -40,6 +41,7 @@ function DataViewTr(props: DataViewTrProps) {
 							<DataViewActionsButtonRow
 								primaryActions={props.primaryActions}
 								additionalActions={props.additionalActions}
+								disabled={props.disabled}
 								originalRowData={props.originalRowData}
 								activeDisplay="list"
 							/>

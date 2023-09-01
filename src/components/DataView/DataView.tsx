@@ -262,6 +262,7 @@ function DataView (props: DataViewProps): ReactElement  {
 							filters={props.filters}
 							activeFilters={props.activeFilters}
 							onActiveFiltersChange={props.onActiveFiltersChange}
+							disabled={props.disabled}
 						/>
 					</div>
 			}
@@ -292,6 +293,7 @@ function DataView (props: DataViewProps): ReactElement  {
 							checkedAllPages={props.checkedAllPages}
 							allChecked={allChecked}
 							anyChecked={anyChecked}
+							disabled={props.disabled}
 						/>
 					</div>
 			}
@@ -309,6 +311,7 @@ function DataView (props: DataViewProps): ReactElement  {
 					sort={props.sort}
 					data={props.data}
 					additionalActions={props.additionalActions}
+					disabled={props.disabled}
 					primaryActions={props.primaryActions}
 					activeColumns={props.activeColumns}
 					gridColumnsMap={props.gridColumnsMap}
