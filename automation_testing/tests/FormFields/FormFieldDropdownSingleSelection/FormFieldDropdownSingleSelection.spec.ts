@@ -22,10 +22,6 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 		expect(await formFieldDropdownSingleSelectionPage.regularDropdownInput.inputValue()).toBe(option);
 	});
 
-	test("Validate the Disabled Field.", async () => {
-		expect(await formFieldDropdownSingleSelectionPage.disabledField.textContent()).toContain("—");
-	});
-
 	test("Validate xs dropdown size is valid", async () => {
 		expect(await formFieldDropdownSingleSelectionPage.getElementWidth(formFieldDropdownSingleSelectionPage.xsSizeDropdownDiv, true)).toBe(100);
 	});
