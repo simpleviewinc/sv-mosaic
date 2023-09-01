@@ -20,7 +20,6 @@ import {
 	RowSubtitle,
 } from "./FormFieldNumberTable.styled";
 import { isValidRowCol } from "./numberTableUtils";
-import { StyledDisabledText } from "../shared/styledComponents";
 import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 
 const FormFieldNumberTable = (
@@ -186,24 +185,21 @@ const FormFieldNumberTable = (
 
 							return (
 								<Td key={`${row.name}-${column.name}`}>
-									{!fieldDef.disabled ?
-										<StyledTextField
-											inputProps={{ "data-testid": `${row.name}-${column.name}` }}
-											placeholder="0"
-											value={strValue}
-											onChange={(e) => onChangeCell(e, row.name, column.name)}
-											fieldSize={"90px"}
-											inputRef={(el) => {
-												if (cellRefs?.current) {
-													cellRefs.current[rowIdx] = cellRefs.current[rowIdx] || [];
-													cellRefs.current[rowIdx][colIdx] = el;
-												}
-											}}
-											onKeyDown={(e) => onKeyDown(e, rowIdx, colIdx)}
-										/>
-										:
-										<StyledDisabledText width={"72px"}>{strValue !== "" ? strValue : "0"}</StyledDisabledText>
-									}
+									<StyledTextField
+										inputProps={{ "data-testid": `${row.name}-${column.name}` }}
+										placeholder="0"
+										value={strValue}
+										onChange={(e) => onChangeCell(e, row.name, column.name)}
+										fieldSize={"90px"}
+										disabled={fieldDef?.disabled}
+										inputRef={(el) => {
+											if (cellRefs?.current) {
+												cellRefs.current[rowIdx] = cellRefs.current[rowIdx] || [];
+												cellRefs.current[rowIdx][colIdx] = el;
+											}
+										}}
+										onKeyDown={(e) => onKeyDown(e, rowIdx, colIdx)}
+									/>
 								</Td>
 							);
 						})}

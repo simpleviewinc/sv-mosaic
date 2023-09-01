@@ -19,4 +19,5 @@ export interface DataViewDisplayGridProps {
 	anyChecked?: boolean;
 	allChecked?: boolean;
 	showBulkAll?: boolean;
+	disabled: DataViewProps["disabled"]
 }

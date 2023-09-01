@@ -115,6 +115,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 							checked={props.allChecked}
 							indeterminate={!props.allChecked && props.anyChecked}
 							onClick={props.onCheckAllClick}
+							disabled={props.disabled}
 						/>
 					</StyledTh>
 				}

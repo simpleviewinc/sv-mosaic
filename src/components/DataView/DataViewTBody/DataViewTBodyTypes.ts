@@ -9,6 +9,7 @@ export interface DataViewTBodyProps {
 	bulkActions?: DataViewProps["bulkActions"];
 	primaryActions?: DataViewProps["primaryActions"];
 	additionalActions?: DataViewProps["additionalActions"];
+	disabled?: DataViewProps["disabled"];
 	checked?: DataViewProps["checked"];
 	columns: DataViewProps["columns"];
 	hasActions: boolean;

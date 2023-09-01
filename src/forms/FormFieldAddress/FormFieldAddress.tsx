@@ -10,7 +10,6 @@ import Drawer from "@root/components/Drawer";
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
 import { AddressFieldInputSettings, AddressData } from ".";
-import { isEmpty } from "lodash";
 import { AddressItems, Footer } from "./Address.styled";
 
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
@@ -184,10 +183,10 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	return (
 		<>
-			{(!fieldDef.disabled || isEmpty(value)) && addressTypes?.length > 0 && (
+			{addressTypes?.length > 0 && (
 				<Footer>
 					<Button
-						disabled={fieldDef.disabled}
+						disabled={fieldDef?.disabled}
 						color="gray"
 						variant="outlined"
 						label="ADD ADDRESS"
@@ -203,7 +202,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 							address={address}
 							addressIndex={idx}
 							onEdit={showEditModal}
-							disabled={fieldDef.disabled}
+							disabled={fieldDef?.disabled}
 							onRemoveAddress={removeAddressHandler}
 						/>
 					))}

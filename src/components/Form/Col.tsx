@@ -25,7 +25,6 @@ import FormFieldUpload from "@root/forms/FormFieldUpload";
 import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
-import Blank from "@root/components/Blank";
 import RegisteredField from "../Field/RegisteredField";
 
 const StyledCol = styled.div`
@@ -193,25 +192,26 @@ const Col = (props: ColPropsTypes) => {
 					/>
 				), [value, error, onChange, currentField]);
 
-				const shouldRenderEmptyField = value === undefined && currentField.disabled
 				const shouldShow = useMemo(() => evaluateShow(currentField.show, {data: state?.data}), [currentField.show, state?.data]);
 
-				return shouldShow ? ((typeof type === "string" && componentMap[type]) ? (
-					<RegisteredField
-						key={`${name}_${i}`}
-						fieldDef={{ ...currentField, size: maxSize }}
-						value={value}
-						error={error}
-						colsInRow={colsInRow}
-						id={name}
-						name={name}
-						dispatch={dispatch}
-					>
-						{shouldRenderEmptyField ? <Blank /> : children}
-					</RegisteredField>
-				) : (
-					shouldRenderEmptyField ? <Blank /> : children
-				)) : null;
+				return shouldShow ? (
+					(typeof type === "string" && componentMap[type]) ? (
+						<RegisteredField
+							key={`${name}_${i}`}
+							fieldDef={{ ...currentField, size: maxSize }}
+							value={value}
+							error={error}
+							colsInRow={colsInRow}
+							id={name}
+							name={name}
+							dispatch={dispatch}
+						>
+							{children}
+						</RegisteredField>
+					) : (
+						children
+					)
+				) : null;
 			})}
 		</StyledCol>
 	);

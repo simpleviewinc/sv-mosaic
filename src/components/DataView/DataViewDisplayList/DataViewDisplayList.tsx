@@ -47,6 +47,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				anyChecked={props.anyChecked}
 				showBulkAll={props.showBulkAll}
 				hasActions={hasActions}
+				disabled={props.disabled}
 			/>
 			<DataViewTBody
 				checked={props.checked}
@@ -56,6 +57,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				transformedData={transformedData}
 				bulkActions={props.bulkActions}
 				additionalActions={props.additionalActions}
+				disabled={props.disabled}
 				primaryActions={props.primaryActions}
 				onCheckboxClick={props.onCheckboxClick}
 				onReorder={props.onReorder}

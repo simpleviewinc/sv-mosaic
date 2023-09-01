@@ -240,9 +240,11 @@ const FormFieldImageUpload = (
 						</DragAndDropSpan>
 					) : (
 						<>
-							<DragAndDropSpan isOver={isOver}>
-								Drag & Drop files here or
-							</DragAndDropSpan>
+							{!fieldDef?.disabled && (
+								<DragAndDropSpan isOver={isOver}>
+									Drag & Drop files here or
+								</DragAndDropSpan>
+							)}
 							<UploadButton
 								color="gray"
 								variant="outlined"
@@ -262,6 +264,7 @@ const FormFieldImageUpload = (
 						title=""
 						type="file"
 						value=""
+						disabled={fieldDef?.disabled}
 					/>
 				</DragAndDropContainer>
 			) : (
@@ -300,38 +303,42 @@ const FormFieldImageUpload = (
 								</Row>
 							</ImagePropertiesColumn>
 						)}
-						{fieldDef?.inputSettings?.options && !focusMode && !fieldDef.disabled && (
+						{fieldDef?.inputSettings?.options && !focusMode && (
 							<MenuColumn data-testid="menu-container-test">
 								<MenuFormFieldCard
 									options={fieldDef?.inputSettings?.options}
+									disabled={fieldDef?.disabled}
 								/>
 							</MenuColumn>
 						)}
-						{!fieldDef.disabled && (
-							<ButtonsContainer>
-								{focusMode && fieldDef?.inputSettings.handleSetFocus ? (
+						<ButtonsContainer>
+							{focusMode && fieldDef?.inputSettings.handleSetFocus ? (
+								<Button
+									color="teal"
+									variant="text"
+									label="Set Focus"
+									onClick={setFocus}
+									disabled={fieldDef?.disabled}
+								/>
+							) : (
+								fieldDef?.inputSettings?.handleSetFocus && (
 									<Button
-										color="teal"
-										variant="text"
-										label="Set Focus"
-										onClick={setFocus}
-									></Button>
-								) : (
-									fieldDef?.inputSettings?.handleSetFocus ? <Button
 										color="teal"
 										variant="text"
 										label="View"
 										onClick={handleView}
-									></Button> : null
-								)}
-								<Button
-									color="red"
-									variant="text"
-									label="Remove"
-									onClick={removeFile}
-								></Button>
-							</ButtonsContainer>
-						)}
+										disabled={fieldDef?.disabled}
+									/>
+								)
+							)}
+							<Button
+								color="red"
+								variant="text"
+								label="Remove"
+								onClick={removeFile}
+								disabled={fieldDef?.disabled}
+							/>
+						</ButtonsContainer>
 					</ImageCard>
 				</>
 			)}

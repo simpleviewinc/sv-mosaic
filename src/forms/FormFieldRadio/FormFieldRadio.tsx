@@ -9,7 +9,6 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { RadioInputSettings, RadioData } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
 import { MosaicLabelValue } from "@root/types";
-import { transform_chips } from "@root/transforms";
 
 const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, RadioData>): ReactElement => {
 	const {
@@ -64,15 +63,14 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 	}
 
 	return (
-		!fieldDef.disabled ? (
-			<StyledRadioGroup
-				onChange={(e) => onChange && updateSelectedOption(e.target.value)}
-				value={value ? value.value : ""}
-				onBlur={(e) => onBlur && onBlur(e.target.value)}
-			>
-				{listOfRadios}
-			</StyledRadioGroup>
-		) : value && <>{transform_chips()({ data: [value] })}</>
+		<StyledRadioGroup
+			onChange={(e) => onChange && updateSelectedOption(e.target.value)}
+			value={value ? value.value : ""}
+			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			disabled={fieldDef?.disabled}
+		>
+			{listOfRadios}
+		</StyledRadioGroup>
 	);
 };
 
