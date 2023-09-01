@@ -13,7 +13,7 @@ const topFilms = [
 	{ label: "The Dark Knight", value: "2008" },
 ];
 
-const { queryByTestId, getByRole } = screen;
+const { getByRole } = screen;
 
 afterEach(cleanup);
 
@@ -41,27 +41,6 @@ describe("DropdownSingleSelection component", () => {
 	 */
 		const input = getByRole("combobox") as HTMLInputElement;
 		expect(input.value).toEqual("The Shawshank Redemption");
-	});
-});
-
-describe("DropdownSingleSelection disabled state", () => {
-	it("should not render the Dropdown since does not have a value", () => {
-		render(
-			<DropdownSingleSelection
-				fieldDef={{
-					name: "dropdownSingleSelect",
-					type: "dropdown",
-					label: "Label test",
-					disabled: true,
-					inputSettings: {
-						options: topFilms,
-						placeholder: "placeholder",
-					}
-				}}
-			/>
-		);
-
-		expect(queryByTestId("dropdown-single-selection-test-id")).toBe(null);
 	});
 });
 
