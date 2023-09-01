@@ -259,8 +259,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						title=""
 						type="file"
 						value=""
-						multiple={limit === undefined || limit > 1 ? true : false}
 						disabled={fieldDef?.disabled}
+						multiple={limit < 0 || (limit > 1 && limit - currentLength > 1)}
 					/>
 				</DragAndDropContainer>
 			)}
