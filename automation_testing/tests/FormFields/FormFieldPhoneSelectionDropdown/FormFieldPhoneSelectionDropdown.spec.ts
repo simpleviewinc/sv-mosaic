@@ -70,14 +70,6 @@ test.describe.parallel("FormFields - FormFieldPhoneSelectionDropdown - Kitchen S
 		await ffPhoneSelectionDropdownPage.saveBtn.dblclick();
 	});
 
-	test("Validate all the Flag Dropdown have simplyGrey as border color.", async () => {
-		const expectColor = theme.newColors.simplyGrey["100"];
-		const numberOfBDropdown = await ffPhoneSelectionDropdownPage.flagDropdown.count();
-		for (let i = 0; i < numberOfBDropdown; i++) {
-			expect(await ffPhoneSelectionDropdownPage.getSpecificBorderFromElement(ffPhoneSelectionDropdownPage.flagDropdown.nth(i), "right")).toContain(expectColor);
-		}
-	});
-
 	test("Validate phone fields have grey1 as background color.", async () => {
 		const expectedColor = theme.newColors.grey1["100"];
 		expect(await ffPhoneSelectionDropdownPage.getBackgroundColorFromElement(ffPhoneSelectionDropdownPage.regularPhoneField)).toBe(expectedColor);

@@ -16,13 +16,13 @@ test.describe.parallel("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		browser.close;
 	});
 
-	test("Validate Regular Radio Button.", async () => {
+	test("Validate Regular Checkbox.", async () => {
 		const selectedOption = await formFieldCheckboxPage.selectRandomCheckboxButton();
 		await expect(formFieldCheckboxPage.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(selectedOption)).toBeChecked();
 	});
 
-	test("Validate Disabled Radio Button only displays a dash.", async () => {
-		expect(await formFieldCheckboxPage.disabledCheckboxButton.textContent()).toContain("—");
+	test("Validate Disabled Checkbox displays disabled inputs", async () => {
+		await expect(formFieldCheckboxPage.disableCheckbox.locator("input").first()).toBeDisabled();
 	});
 
 	test("Validate that the empty value is saved correctly.", async () => {

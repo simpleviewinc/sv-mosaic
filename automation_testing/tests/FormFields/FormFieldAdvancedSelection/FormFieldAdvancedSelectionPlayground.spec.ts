@@ -18,7 +18,7 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 	});
 
 	test.afterAll(async ({ browser }) => {
-		browser.close;
+		// browser.close;
 	});
 
 	test("Validate placeholder text has grey3 as Color.", async () => {
@@ -46,6 +46,6 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 
 	test("Validate the Disabled Advanced Selection.", async () => {
 		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path, [knob.knobDisabled + true]);
-		expect(await ffAdvancedSelectionPage.advancedSelectionLocator.textContent()).toContain("—");
+		await expect(ffAdvancedSelectionPage.advancedSelectionButton).toBeDisabled();
 	});
 });
