@@ -11,7 +11,6 @@ import {
 	PhoneInputWrapper,
 } from "./FormFieldPhoneSelectionDropdown.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { StyledDisabledText } from "../shared/styledComponents";
 
 const FormFieldPhoneSelectionDropdown = (
 	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>
@@ -35,10 +34,11 @@ const FormFieldPhoneSelectionDropdown = (
 		}
 	}
 
-	return !fieldDef?.disabled ? (
+	return (
 		<PhoneInputWrapper
 			error={!!(fieldDef?.required && error)}
 			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			$disabled={fieldDef?.disabled}
 		>
 			<PhoneInput
 				autoFormat={!!fieldDef?.inputSettings?.autoFormat}
@@ -52,8 +52,6 @@ const FormFieldPhoneSelectionDropdown = (
 				}}
 			/>
 		</PhoneInputWrapper>
-	) : (
-		<StyledDisabledText>{value ?? "Disabled field"}</StyledDisabledText>
 	);
 };
 export default memo(FormFieldPhoneSelectionDropdown);

@@ -225,7 +225,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							<tbody>{assetPropertiesRows}</tbody>
 						</table>
 					</AssetPropertiesColumn>
-					{fieldDef?.inputSettings?.options && !fieldDef.disabled && (
+					{fieldDef?.inputSettings?.options && (
 						<MenuColumn>
 							<MenuFormFieldCard
 								disabled={fieldDef?.disabled}
@@ -233,27 +233,25 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							/>
 						</MenuColumn>
 					)}
-					{!fieldDef.disabled && (
-						<ButtonsWrapper>
-							<Button
-								className="first"
-								color="teal"
-								variant="text"
-								label="Browse"
-								muiAttrs={{ disableRipple: true }}
-								disabled={fieldDef?.disabled}
-								onClick={async (e) => await handleBrowse(e, assetType)}
-							></Button>
-							<Button
-								color="red"
-								variant="text"
-								label="Remove"
-								muiAttrs={{ disableRipple: true }}
-								disabled={fieldDef?.disabled}
-								onClick={(e) => handleRemove(e)}
-							></Button>
-						</ButtonsWrapper>
-					)}
+					<ButtonsWrapper>
+						<Button
+							className="first"
+							color="teal"
+							variant="text"
+							label="Browse"
+							muiAttrs={{ disableRipple: true }}
+							disabled={fieldDef?.disabled}
+							onClick={async (e) => await handleBrowse(e, assetType)}
+						></Button>
+						<Button
+							color="red"
+							variant="text"
+							label="Remove"
+							muiAttrs={{ disableRipple: true }}
+							disabled={fieldDef?.disabled}
+							onClick={(e) => handleRemove(e)}
+						></Button>
+					</ButtonsWrapper>
 				</AssetCard>
 			)}
 		</ImageVideoLinkDocumentBrowsingContainer>
