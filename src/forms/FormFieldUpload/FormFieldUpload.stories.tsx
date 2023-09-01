@@ -91,7 +91,7 @@ export const Playground = (): ReactElement => {
 			id: nanoid(),
 			name: file.name,
 			size: file.size,
-			thumbnailUrl: thumbnailUrl || URL.createObjectURL(file),
+			thumbnailUrl: thumbnailUrl || (["image/gif", "image/jpeg", "image/png"].includes(file.type) ? URL.createObjectURL(file) : ""),
 			fileUrl: fileUrl || URL.createObjectURL(file),
 			downloadUrl: downloadUrl
 		});
