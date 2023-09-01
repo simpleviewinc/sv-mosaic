@@ -157,8 +157,9 @@ export const Playground = (): ReactElement => {
 		await onUploadComplete({
 			id: nanoid(),
 			name: file.name,
-			size: `${file.size} bytes`,
-			url: Math.random() < 0.7 ? URL.createObjectURL(file) : undefined
+			size: file.size,
+			thumbnailUrl: ["image/gif", "image/jpeg", "image/png"].includes(file.type) ? URL.createObjectURL(file) : "",
+			fileUrl: URL.createObjectURL(file)
 		});
 	};
 
