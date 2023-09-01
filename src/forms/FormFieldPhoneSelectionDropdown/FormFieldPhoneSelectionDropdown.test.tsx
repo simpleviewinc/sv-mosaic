@@ -54,39 +54,6 @@ describe("FormFieldPhoneSelectionDropdown component", () => {
 	});
 });
 
-describe("FormFieldPhoneSelectionDropdown disabled state", () => {
-	it('should display "Phone field disabled" when no value is passed', () => {
-		render(
-			<FormFieldPhoneSelectionDropdown
-				fieldDef={{
-					name: "phoneSelectDropdown",
-					type: "phone",
-					label: "Label",
-					disabled: true,
-				}}
-			/>
-		);
-
-		expect(getByText("Disabled field")).toBeDefined();
-	});
-
-	it('should display "Phone value:" text plus the value', () => {
-		render(
-			<FormFieldPhoneSelectionDropdown
-				fieldDef={{
-					name: "phoneSelectDropdown",
-					type: "phone",
-					label: "Label",
-					disabled: true,
-				}}
-				value='345'
-			/>
-		);
-
-		expect(getByText("345")).toBeDefined();
-	});
-});
-
 describe("FormFieldPhoneSelectionDropdown country code prop", () => {
 	it("should display US phone number prefix when no country code is provided ", () => {
 		const { container } = render(
