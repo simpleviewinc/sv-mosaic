@@ -8,7 +8,7 @@ import { ChipsWrapper, ColorValue } from "@root/components/Content/Content.style
 import ColorSelected from "@root/forms/FormFieldColorPicker/ColorSelected";
 import Image from "@root/components/Image";
 import React from "react";
-import { DATE_FORMAT_FULL } from "@root/constants";
+import { DATE_FORMAT_SHORT } from "@root/constants";
 
 export function transform_boolean(): DataViewColumnTransform<boolean> {
 	return function({ data }): string {
@@ -22,7 +22,7 @@ export function transform_boolean(): DataViewColumnTransform<boolean> {
 
 export function transform_dateFormat(): DataViewColumnTransform<Date> {
 	return function({ data }): string {
-		return format(data, DATE_FORMAT_FULL);
+		return format(data, DATE_FORMAT_SHORT);
 	}
 }
 
