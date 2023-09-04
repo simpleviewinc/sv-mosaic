@@ -35,6 +35,8 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		fieldDef,
 	} = props;
 
+	console.log(typeof fieldDef?.inputSettings?.selectLimit);
+
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isMobileView, setIsMobileView] = useState(false);
@@ -81,15 +83,17 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		<>
 			{value?.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
-					<Button
-						color="teal"
-						variant="text"
-						label="Add"
-						onClick={handleOpenModal}
-						mIcon={AddIcon}
-						attrs={{ style: { marginBottom: "16px" } }}
-						disabled={fieldDef?.disabled}
-					/>
+					{(!fieldDef?.inputSettings?.selectLimit || value?.length < fieldDef?.inputSettings?.selectLimit) && (
+						<Button
+							color="teal"
+							variant="text"
+							label="Add"
+							onClick={handleOpenModal}
+							mIcon={AddIcon}
+							attrs={{ style: { marginBottom: "16px" } }}
+							disabled={fieldDef?.disabled}
+						/>
+					)}
 					<ChipList
 						value={value}
 						fieldDef={{
