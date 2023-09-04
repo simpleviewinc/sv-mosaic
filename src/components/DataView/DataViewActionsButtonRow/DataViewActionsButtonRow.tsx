@@ -27,13 +27,14 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 			return (
 				<Button
 					{ ...buttonArgs }
+					disabled={buttonArgs.disabled === undefined ? props.disabled : buttonArgs.disabled}
 					key={`primary_${name}`}
 					attrs={{ "data-mosaic-id" : `action_primary_${name}` }}
 					onClick={newOnClick}
 				/>
 			)
 		});
-	}, [props.primaryActions, props.originalRowData]);
+	}, [props.primaryActions, props.originalRowData, props.disabled]);
 
 	const additionalActions = useMemo(() => {
 		if (props.additionalActions === undefined) { return []; }
@@ -55,6 +56,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				mIcon={props.activeDisplay && MoreVertIcon}
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				tooltip="More actions"
+				disabled={props.disabled}
 				menuItems={additionalActions.map(action => {
 					const {
 						name,
@@ -75,7 +77,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				})}
 			/>
 		]
-	}, [props.additionalActions, props.originalRowData]);
+	}, [props.additionalActions, props.originalRowData, props.disabled]);
 
 	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
 	const buttons = useMemo(() => {

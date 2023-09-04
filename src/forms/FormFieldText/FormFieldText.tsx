@@ -8,8 +8,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { StyledDisabledText } from "../shared/styledComponents";
-import { Sizes } from "@root/theme";
 
 const TextField = (
 	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>
@@ -45,7 +43,7 @@ const TextField = (
 
 	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
 
-	return !fieldDef?.disabled ? (
+	return (
 		<StyledTextField
 			id={fieldDef?.name}
 			data-testid="form-field-text-test-id"
@@ -64,9 +62,8 @@ const TextField = (
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
 			minRows={fieldDef?.inputSettings?.minRows}
 			maxRows={fieldDef?.inputSettings?.maxRows}
+			disabled={fieldDef?.disabled}
 		/>
-	) : (
-		<StyledDisabledText width={fieldDef?.size ?? Sizes.sm}>{value ?? fieldDef?.inputSettings?.placeholder ?? "Disabled field"}</StyledDisabledText>
 	);
 };
 

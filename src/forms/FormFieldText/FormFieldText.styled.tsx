@@ -13,12 +13,16 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
 	&.MuiFormControl-root {
-		background-color: ${theme.newColors.grey1["100"]};
-		&:hover {
-			background-color: ${theme.newColors.grey2["100"]};
-			& fieldset {
-				border-color: ${theme.newColors.simplyGrey["100"]};
+		${({disabled}) => !disabled ? (`
+			background-color: ${theme.newColors.grey1["100"]};
+			&:hover {
+				& fieldset {
+					border-color: ${theme.colors.disabledBorderFocus};
+				}
 			}
+		`) : (`
+			background-color: ${theme.colors.disableBackground};
+		`)}
 		}
 
 		& svg {
@@ -32,8 +36,13 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	}
 
 	.MuiOutlinedInput-input {
-		color: ${theme.newColors.almostBlack["100"]};
 		font-family: ${theme.fontFamily};
+
+		${({disabled}) => !disabled ? `
+			color: ${theme.newColors.almostBlack["100"]};
+		` : `
+			color: ${theme.colors.disabledTextColor};
+		`};
 
 		::placeholder {
 			font-weight: ${theme.fontWeight.normal};
@@ -56,6 +65,10 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	fieldset {
 		border-radius: 0px;
 		border-color: ${theme.newColors.simplyGrey["100"]};
+	}
+
+	& .Mui-disabled fieldset.MuiOutlinedInput-notchedOutline{
+		border-color: ${theme.colors.disableBorder};
 	}
 
 	& .MuiOutlinedInput-root {

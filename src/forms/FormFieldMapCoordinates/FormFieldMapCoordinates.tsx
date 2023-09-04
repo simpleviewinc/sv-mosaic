@@ -131,24 +131,22 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 								<Blank />
 							)}
 						</Column>
-						{!fieldDef.disabled && (
-							<ButtonsWrapper>
-								<Button
-									color="teal"
-									variant="text"
-									label="Edit"
-									disabled={fieldDef?.disabled}
-									onClick={handleAddCoordinates}
-								/>
-								<Button
-									color="red"
-									disabled={fieldDef?.disabled}
-									variant="text"
-									label="Remove"
-									onClick={removeLocation}
-								/>
-							</ButtonsWrapper>
-						)}
+						<ButtonsWrapper>
+							<Button
+								color="teal"
+								variant="text"
+								label="Edit"
+								disabled={fieldDef?.disabled}
+								onClick={handleAddCoordinates}
+							/>
+							<Button
+								color="red"
+								disabled={fieldDef?.disabled}
+								variant="text"
+								label="Remove"
+								onClick={removeLocation}
+							/>
+						</ButtonsWrapper>
 					</CoordinatesCard>
 				</div>
 			) : (
@@ -158,9 +156,8 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 					color="gray"
 					variant="outlined"
 					label="ADD COORDINATES"
-				></Button>
+				/>
 			)}
-
 			<Drawer open={isModalOpen} onClose={handleClose}>
 				<MapCoordinatesDrawer
 					value={value}

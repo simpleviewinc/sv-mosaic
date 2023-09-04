@@ -30,6 +30,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 			{...params}
 			onBlur={onBlur}
 			required={fieldDef.required}
+			disabled={fieldDef?.disabled}
 			inputProps={{
 				...params.inputProps,
 				placeholder: fieldDef?.inputSettings?.placeholder,
@@ -39,7 +40,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<DatePickerWrapper data-testid="date-picker-test-id" error={!!error} isPickerOpen={isPickerOpen}>
+			<DatePickerWrapper data-testid="date-picker-test-id" error={!!error} isPickerOpen={isPickerOpen} $disabled={fieldDef?.disabled}>
 				<DatePicker
 					renderInput={renderInput}
 					inputFormat="MM/dd/yyyy"
@@ -51,6 +52,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 						sx: popperSx,
 					}}
 					minDate={fieldDef?.inputSettings?.minDate}
+					disabled={fieldDef?.disabled}
 				/>
 			</DatePickerWrapper>
 		</LocalizationProvider>

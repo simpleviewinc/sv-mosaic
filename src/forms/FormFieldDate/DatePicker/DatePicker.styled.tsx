@@ -56,26 +56,33 @@ export const popperSx = {
 
 export const DatePickerWrapper = styled.div`
   	.MuiOutlinedInput-root {
-		background-color: ${theme.newColors.grey1["100"]};
 		width: ${Sizes.sm};
 		padding-right: 16px;
-
-		&:hover {
-			background-color: ${theme.newColors.grey2["100"]};
-			& fieldset {
-				border-color: ${theme.newColors.simplyGrey["100"]};
-			}
-		}
 
 		& fieldset {
 			border-radius: 0;
 			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : theme.borders.simplyGrey};
 		}
 
-			.MuiOutlinedInput-input {
-				height: ${theme.fieldSpecs.inputText.height};
-				padding: ${theme.fieldSpecs.inputText.padding};
+		${({$disabled}) => !$disabled ? `
+			background-color: ${theme.newColors.grey1["100"]};
+			&:hover {
+				& fieldset {
+					border-color: ${theme.newColors.simplyGrey["100"]};
+				}
 			}
+		` : `
+			background-color: ${theme.colors.disableBackground};
+		`}
+
+		&.Mui-disabled fieldset.MuiOutlinedInput-notchedOutline{
+			border-color: ${theme.colors.disableBorder};
+		}
+
+		.MuiOutlinedInput-input {
+			height: ${theme.fieldSpecs.inputText.height};
+			padding: ${theme.fieldSpecs.inputText.padding};
+		}
 
 		&.Mui-focused fieldset {
 			border-color: ${theme.newColors.almostBlack["100"]};
