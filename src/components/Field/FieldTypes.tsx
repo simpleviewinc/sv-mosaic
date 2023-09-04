@@ -12,6 +12,7 @@ import { FieldDefMatrix } from "@root/forms/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/forms/FormFieldNumberTable";
 import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/forms/FormFieldRadio";
+import { FieldDefRaw } from "@root/forms/FormFieldRaw";
 import { FieldDefTable } from "@root/forms/FormFieldTable";
 import { FieldDefText } from "@root/forms/FormFieldText";
 import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
@@ -176,5 +177,6 @@ export type FieldDef =
 	| FieldDefAddress
 	| FieldDefUpload
 	| FieldDefCustom
-	| FieldDefNumberTable;
+	| FieldDefNumberTable
+	| FieldDefRaw;
 
