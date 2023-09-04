@@ -21,3 +21,5 @@ export type MosaicShowResult = boolean;
 export type MosaicShowCallback<T> = (params: T) => MosaicShowResult;
 
 export type MosaicShow<T = unknown> = MosaicShowResult | MosaicShowCallback<T> | Array<MosaicShowResult | MosaicShowCallback<T>>
+
+export type MosaicGridConfig = string[][][];
