@@ -60,3 +60,32 @@ export interface ContentProps {
    */
   variant?: "standard" | "card";
 }
+
+export interface ContentFieldProps{
+  /**
+   * Text positioned above each field
+   */
+  label: React.ReactNode,
+  /**
+   * JSX Element | raw data
+   */
+  content?: unknown
+}
+
+export interface ContentRowProps{
+  fields: ContentField[]
+  /**
+   * The name of the field specified in the sections array
+   */
+  field: string
+  /**
+   * This index is by the error that is thrown to point where
+   * an invalid field was defined within the sections layout
+   */
+  rowIndex: number
+  /**
+   * The name of the field specified in the sections array
+   */
+  sectionLength?: number
+  data: MosaicObject
+}

@@ -13,6 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { DATE_FORMAT_FULL } from "@root/constants";
 
 export default {
 	title: "Components/Card",
@@ -112,19 +113,19 @@ export const Playground = (): ReactElement => {
 const recentActivityContent = [
 	<ActivityWrapper key="activity-1">
 		<ActivityDescription>First Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), "MM/dd/yyyy")}</ActivityDate>
+		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
 	</ActivityWrapper>,
 	<ActivityWrapper key="activity-2">
 		<ActivityDescription>Second Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), "MM/dd/yyyy")}</ActivityDate>
+		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
 	</ActivityWrapper>,
 	<ActivityWrapper key="activity-3">
 		<ActivityDescription>Third Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), "MM/dd/yyyy")}</ActivityDate>
+		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
 	</ActivityWrapper>,
 	<ActivityWrapper key="activity-4">
 		<ActivityDescription>Fourth Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), "MM/dd/yyyy")}</ActivityDate>
+		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
 	</ActivityWrapper>,
 ];
 
