@@ -6,6 +6,7 @@ import {
 	screen,
 	waitFor,
 	act,
+	queryAllByRole,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as React from "react";
@@ -229,6 +230,15 @@ describe("Regular Address component", () => {
 		const removeButton = getByText("Remove");
 		await act(async () => {
 			fireEvent.click(removeButton);
+		});
+
+		await (waitFor(() => {
+			expect(queryAllByRole(window.document.documentElement, "dialog").length).toBe(1);
+		}));
+
+		const confirmButton = getByText("Yes, remove it");
+		await act(async () => {
+			fireEvent.click(confirmButton);
 		});
 
 		await(waitFor(() => {
