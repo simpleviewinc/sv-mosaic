@@ -26,7 +26,6 @@ import {
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
 import { MosaicObject } from "@root/types";
-import { transform_chips } from "@root/transforms";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {
 	const {
@@ -82,40 +81,35 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		<>
 			{value?.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
-					{!fieldDef.disabled ? (
-						<>
-							<Button
-								color="teal"
-								variant="text"
-								label="Add"
-								onClick={handleOpenModal}
-								mIcon={AddIcon}
-								attrs={{ style: { marginBottom: "16px" } }}
-							></Button>
-
-							<ChipList
-								value={value}
-								fieldDef={{
-									inputSettings: {
-										isModalOpen,
-										isMobileView,
-										deleteSelectedOption: onChange,
-									},
-									disabled: fieldDef?.disabled,
-								}}
-							/>
-						</>
-					) : <>{transform_chips()({ data: value })}</>}
+					<Button
+						color="teal"
+						variant="text"
+						label="Add"
+						onClick={handleOpenModal}
+						mIcon={AddIcon}
+						attrs={{ style: { marginBottom: "16px" } }}
+						disabled={fieldDef?.disabled}
+					/>
+					<ChipList
+						value={value}
+						fieldDef={{
+							inputSettings: {
+								isModalOpen,
+								isMobileView,
+								deleteSelectedOption: onChange,
+							},
+							disabled: fieldDef?.disabled,
+						}}
+					/>
 				</AdvancedSelectionWrapper>
 			) : (
-				!fieldDef.disabled && (
-					<Button
-						color="gray"
-						variant="outlined"
-						label="ADD"
-						onClick={handleOpenModal}
-					></Button>
-				)
+				<Button
+					color="gray"
+					variant="outlined"
+					label="ADD"
+					onClick={handleOpenModal}
+					disabled={fieldDef?.disabled}
+				/>
 			)}
 			<RefsProvider initialRefs={initialRefs}>
 				<Drawer

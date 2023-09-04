@@ -44,7 +44,7 @@ test.describe.parallel("FormFields - FormFieldTextEditor - Kitchen Sink", () => 
 	});
 
 	test("Validate the Disabled Text editor.", async () => {
-		expect(await ffTextEditorPage.disabledTextEditor.textContent()).toContain("—");
+		expect(await ffTextEditorPage.disabledTextEditor.textContent()).toContain("Disabled text editor");
 	});
 
 	test("Validate that the provided number is saved when submitted.", async ({ page }) => {

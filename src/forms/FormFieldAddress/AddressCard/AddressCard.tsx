@@ -31,26 +31,24 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 				{`${address?.city}, ${address?.state?.label ? address.state.label : ""} ${address?.postalCode}`}
 			</span>
 			<span>{address?.country?.label}</span>
-			{!disabled && (
-				<ButtonsWrapper>
-					<Button
-						label="Edit"
-						color="teal"
-						variant="text"
-						disabled={disabled}
-						muiAttrs={{ disableRipple: true }}
-						onClick={() => onEdit(address, addressIndex)}
-					></Button>
-					<Button
-						color="red"
-						variant="text"
-						muiAttrs={{ disableRipple: true }}
-						disabled={disabled}
-						label="Remove"
-						onClick={() => onRemoveAddress(addressIndex)}
-					></Button>
-				</ButtonsWrapper>
-			)}
+			<ButtonsWrapper>
+				<Button
+					label="Edit"
+					color="teal"
+					variant="text"
+					disabled={disabled}
+					muiAttrs={{ disableRipple: true }}
+					onClick={() => onEdit(address, addressIndex)}
+				></Button>
+				<Button
+					color="red"
+					variant="text"
+					muiAttrs={{ disableRipple: true }}
+					disabled={disabled}
+					label="Remove"
+					onClick={() => onRemoveAddress(addressIndex)}
+				></Button>
+			</ButtonsWrapper>
 		</StyledAddressCard>
 	);
 };

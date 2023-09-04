@@ -61,6 +61,7 @@ function DataViewTBody(props: DataViewTBodyProps) {
 								bulkActions={props.bulkActions}
 								primaryActions={props.primaryActions}
 								additionalActions={props.additionalActions}
+								disabled={props.disabled}
 								onCheckboxClick={props.onCheckboxClick ? onCheckboxClick(i) : undefined}
 								checked={props.checked ? props.checked[i] : false}
 								columns={props.columns}

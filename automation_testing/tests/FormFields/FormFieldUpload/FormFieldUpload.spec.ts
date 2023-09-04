@@ -30,7 +30,7 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 
 	test("Validate that the upload button is disabled when activating the disabled knob.", async () => {
 		await ffUpload.visit(ffUpload.page_path, [commonKnobs.knobDisabled + "true"]);
-		await expect(ffUpload.uploadFilesButton).toHaveCount(0);
+		await expect(ffUpload.uploadFilesButton).toBeDisabled();
 	});
 
 	test("Validate that no more files are allowed to upload once reached the limit.", async () => {

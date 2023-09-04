@@ -12,7 +12,6 @@ import {
 	FormFieldChipSingleSelectInputSettings,
 } from "./FormFieldChipSingleSelectTypes";
 import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
-import { transform_chips } from "@root/transforms";
 
 const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChipSingleSelectInputSettings, ChipData>): ReactElement => {
 	const {
@@ -89,7 +88,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 
-	return !fieldDef.disabled ? (
+	return (
 		<StyledChipGroup
 			error={errorWithMessage || (errorWithMessage && required)}
 			onBlur={onBlur}
@@ -104,8 +103,6 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 				/>
 			))}
 		</StyledChipGroup>
-	) : (
-		value && <>{transform_chips()({ data: [value] })}</>
 	);
 };
 

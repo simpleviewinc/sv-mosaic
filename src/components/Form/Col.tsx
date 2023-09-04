@@ -9,6 +9,7 @@ import FormFieldChipSingleSelect from "@root/forms/FormFieldChipSingleSelect";
 import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/forms/FormFieldRadio";
+import FormFieldRaw from "@root/forms/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import { FieldDef } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
@@ -25,7 +26,6 @@ import FormFieldUpload from "@root/forms/FormFieldUpload";
 import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
-import Blank from "@root/components/Blank";
 import RegisteredField from "../Field/RegisteredField";
 
 const StyledCol = styled.div`
@@ -77,7 +77,8 @@ const Col = (props: ColPropsTypes) => {
 		imageUpload: FormFieldImageUpload,
 		matrix: FormFieldMatrix,
 		upload: FormFieldUpload,
-		numberTable: FormFieldNumberTable
+		numberTable: FormFieldNumberTable,
+		raw: FormFieldRaw
 	}), []);
 
 	const doneTypingInterval = 300;
@@ -193,25 +194,26 @@ const Col = (props: ColPropsTypes) => {
 					/>
 				), [value, error, onChange, currentField]);
 
-				const shouldRenderEmptyField = value === undefined && currentField.disabled
 				const shouldShow = useMemo(() => evaluateShow(currentField.show, {data: state?.data}), [currentField.show, state?.data]);
 
-				return shouldShow ? ((typeof type === "string" && componentMap[type]) ? (
-					<RegisteredField
-						key={`${name}_${i}`}
-						fieldDef={{ ...currentField, size: maxSize }}
-						value={value}
-						error={error}
-						colsInRow={colsInRow}
-						id={name}
-						name={name}
-						dispatch={dispatch}
-					>
-						{shouldRenderEmptyField ? <Blank /> : children}
-					</RegisteredField>
-				) : (
-					shouldRenderEmptyField ? <Blank /> : children
-				)) : null;
+				return shouldShow ? (
+					(typeof type === "string" && componentMap[type]) ? (
+						<RegisteredField
+							key={`${name}_${i}`}
+							fieldDef={{ ...currentField, size: maxSize }}
+							value={value}
+							error={error}
+							colsInRow={colsInRow}
+							id={name}
+							name={name}
+							dispatch={dispatch}
+						>
+							{children}
+						</RegisteredField>
+					) : (
+						children
+					)
+				) : null;
 			})}
 		</StyledCol>
 	);

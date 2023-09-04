@@ -52,6 +52,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 								checked={allChecked}
 								indeterminate={!allChecked && anyChecked}
 								onClick={onCheckAllClick}
+								disabled={props.disabled}
 							/>
 						}
 						{

@@ -9,8 +9,6 @@ import TimePicker from "../TimePicker";
 import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
-import { StyledDisabledText } from "@root/forms/shared/styledComponents";
-import { transform_dateFormat } from "@root/transforms";
 import { isEqual } from "date-fns";
 import { matchTime, textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
@@ -29,7 +27,6 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		dispatch
 	} = props;
 
-	const { disabled } = fieldDef || {};
 	const showTime = fieldDef?.inputSettings?.showTime;
 
 	// State splitting is necessary because the form value is a
@@ -133,63 +130,47 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 	return (
 		<DateTimeInputRow>
-			{!disabled ? (
-				<>
+			<>
+				<DateTimePickerWrapper>
+					<DatePicker
+						error={error}
+						onChange={handleDateChange}
+						fieldDef={{
+							name: fieldDef?.name,
+							label: "",
+							type: "",
+							inputSettings: {
+								placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
+								minDate: fieldDef?.inputSettings?.minDate
+							},
+							required: fieldDef?.required,
+							disabled: fieldDef?.disabled
+						}}
+						value={dateChosen}
+						onBlur={onBlur}
+
+					/>
+				</DateTimePickerWrapper>
+				{showTime &&
 					<DateTimePickerWrapper>
-						<DatePicker
+						<TimePicker
 							error={error}
-							onChange={handleDateChange}
+							onChange={handleTimeChange}
 							fieldDef={{
 								name: fieldDef?.name,
 								label: "",
-								type: "",
+								type: "timePicker",
 								inputSettings: {
-									placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
-									minDate: fieldDef?.inputSettings?.minDate
+									placeholder: TIME_FORMAT_FULL_PLACEHOLDER
 								},
-								required: fieldDef?.required,
+								disabled: fieldDef?.disabled
 							}}
-							value={dateChosen}
+							value={timeChosen}
 							onBlur={onBlur}
 						/>
 					</DateTimePickerWrapper>
-					{showTime &&
-						<DateTimePickerWrapper>
-							<TimePicker
-								error={error}
-								onChange={handleTimeChange}
-								fieldDef={{
-									name: fieldDef?.name,
-									label: "",
-									type: "timePicker",
-									inputSettings: {
-										placeholder: TIME_FORMAT_FULL_PLACEHOLDER
-									}
-								}}
-								value={timeChosen}
-								onBlur={onBlur}
-							/>
-						</DateTimePickerWrapper>
-					}
-				</>
-			) : (
-				<>
-					<StyledDisabledText>
-						{
-							value ? transform_dateFormat()({data: value})
-							: "MM / DD / YYYY"
-						}
-					</StyledDisabledText>
-					{showTime &&
-						<StyledDisabledText>
-							{
-								value ? new Date(value).toLocaleTimeString("en", { timeStyle: "short", hour12: true, timeZone: "UTC" })
-								: "00:00 AM/PM"
-							}
-						</StyledDisabledText>
-					}
-				</>
-			)}
+				}
+			</>
 		</DateTimeInputRow>
 	);
 };
