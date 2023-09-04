@@ -32,10 +32,6 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 		await ffChipSingleSelectPage.saveBtn.click();
 	});
 
-	test("Validate Disabled the Disabled Regular Chip Single Select only displays a dash.", async () => {
-		expect(await ffChipSingleSelectPage.disabledChipSingleSelectDiv.textContent()).toContain("—");
-	});
-
 	test("Validate the selection Required Chip Single Select", async () => {
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(requiredOptionLabel);

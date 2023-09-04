@@ -16,9 +16,10 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 		return props.buttons.map((button) => {
 			const { name, ...buttonArgs } = button;
 			buttonArgs.attrs = { "data-mosaic-id": `button_${name}` };
+			buttonArgs.disabled = buttonArgs.disabled === undefined ? props.disabled : buttonArgs.disabled
 			return buttonArgs;
 		});
-	}, [props.buttons]);
+	}, [props.buttons, props.disabled]);
 
 	return (
 		<TitleBarWrapper>

@@ -13,7 +13,6 @@ import InputWrapper from "../../components/InputWrapper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import TextField from "@mui/material/TextField";
 import { MosaicLabelValue } from "@root/types";
-import { transform_chips } from "@root/transforms";
 
 const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSingleSelectionInputSettings, DropdownData>) => {
 	const {
@@ -84,29 +83,25 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 	};
 
 	return (
-		<>
-			{!fieldDef?.disabled ?
-				<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" innerWidth={fieldDef?.size}>
-					<StyledAutocomplete
-						value={value || null}
-						onOpen={handleOpen}
-						onClose={handleOpen}
-						data-testid="autocomplete-test-id"
-						options={internalOptions}
-						getOptionLabel={(option) => option?.label ? option.label : ""}
-						isOptionEqualToValue={isOptionEqualToValue}
-						onChange={(_event, option) => onDropDownChange(option)}
-						error={(fieldDef?.required && error) ? error : undefined}
-						renderInput={renderInput}
-						PopperComponent={CustomPopper}
-						popupIcon={<ExpandMoreIcon />}
-						onBlur={(e) => onBlur && onBlur(e.target.value)}
-						open={isOpen}
-					/>
-				</SingleDropdownWrapper>
-				: value && <>{transform_chips()({ data: [value] })}</>
-			}
-		</>
+		<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" innerWidth={fieldDef?.size}>
+			<StyledAutocomplete
+				value={value || null}
+				onOpen={handleOpen}
+				onClose={handleOpen}
+				data-testid="autocomplete-test-id"
+				options={internalOptions}
+				getOptionLabel={(option) => option?.label ? option.label : ""}
+				isOptionEqualToValue={isOptionEqualToValue}
+				onChange={(_event, option) => onDropDownChange(option)}
+				error={(fieldDef?.required && error) ? error : undefined}
+				renderInput={renderInput}
+				PopperComponent={CustomPopper}
+				popupIcon={<ExpandMoreIcon />}
+				onBlur={(e) => onBlur && onBlur(e.target.value)}
+				open={isOpen}
+				disabled={fieldDef?.disabled}
+			/>
+		</SingleDropdownWrapper>
 	);
 };
 

@@ -28,6 +28,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 			{...params}
 			onBlur={onBlur}
 			required={fieldDef.required}
+			disabled={fieldDef?.disabled}
 			inputProps={{
 				...params.inputProps,
 				placeholder: fieldDef?.inputSettings?.placeholder,
@@ -38,13 +39,14 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<ThemeProvider theme={customTheme}>
-				<DatePickerWrapper isPickerOpen={isPickerOpen} error={!!error}>
+				<DatePickerWrapper isPickerOpen={isPickerOpen} error={!!error} $disabled={fieldDef?.disabled}>
 					<TimePicker
 						value={value}
 						onChange={onChange}
 						renderInput={renderInput}
 						onOpen={handleOpenState}
 						onClose={handleOpenState}
+						disabled={fieldDef?.disabled}
 					/>
 				</DatePickerWrapper>
 			</ThemeProvider>

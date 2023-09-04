@@ -10,6 +10,7 @@ export interface DataViewTrProps {
 	onCheckboxClick?: React.MouseEventHandler<HTMLButtonElement>;
 	primaryActions?: DataViewProps["primaryActions"];
 	additionalActions?: DataViewProps["additionalActions"];
+	disabled?: DataViewProps["disabled"]
 	originalRowData: MosaicObject;
 	columns: DataViewProps["columns"];
 	row?: {[x: string]: any};

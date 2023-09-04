@@ -25,14 +25,18 @@ const FormFieldMatrix = (
 			<MatrixActions hasValue={hasValue}>
 				<ButtonRow>
 					{buttons.map((button, idx) => (
-						<Button key={`${button.label}-${idx}`} {...button} />
+						<Button
+							key={`${button.label}-${idx}`}
+							{...button}
+							disabled={button.disabled === undefined ? fieldDef?.disabled : button.disabled}
+						/>
 					))}
 				</ButtonRow>
 			</MatrixActions>
 			{hasValue && (
 				<DataView
 					data={[]}
-					{...{...dataView, data}}
+					{...{...dataView, disabled: fieldDef?.disabled, data}}
 				/>
 			)}
 		</MatrixWrapper>

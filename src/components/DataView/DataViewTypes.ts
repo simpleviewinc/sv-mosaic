@@ -221,6 +221,7 @@ export interface DataViewProps {
 	savedViewAllowSharedViewSave?: boolean
 	primaryActions?: DataViewAction[]
 	additionalActions?: DataViewAdditionalAction[]
+	disabled?: boolean
 	bulkActions?: DataViewBulkAction[]
 	onSortChange?: DataViewOnSortChange
 	onSkipChange?: DataViewOnSkipChange

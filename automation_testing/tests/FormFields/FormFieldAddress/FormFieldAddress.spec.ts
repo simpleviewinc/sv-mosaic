@@ -139,6 +139,6 @@ test.describe.parallel("FormFields - FormFieldAddress - Playground", () => {
 
 	test("Validate that button is disabled.", async () => {
 		await ffAddressPage.visit(ffAddressPage.page_path, [knob.knobDisabled + true]);
-		await expect(ffAddressPage.addAddressButton).not.toBeVisible();
+		await expect(ffAddressPage.addAddressButton).toBeDisabled();
 	});
 });

@@ -8,18 +8,30 @@ import Popper from "@mui/material/Popper";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
-    background-color: ${theme.newColors.grey1["100"]};
     font-family: ${theme.fontFamily};
     color: ${theme.newColors.almostBlack["100"]};
 
-    &:hover {
-      background-color: ${theme.newColors.grey2["100"]}
-    }
+    ${({disabled}) => !disabled ? (`
+      background-color: ${theme.newColors.grey1["100"]};
+			&:hover {
+				& fieldset {
+					border-color: ${theme.colors.disabledBorderFocus};
+				}
+			}
+		`) : (`
+      background-color: ${theme.colors.disableBackground};
+		`)}
   }
 
   & .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline {
-    border: ${(pr) =>
-		pr.error ? theme.borders.error : theme.borders.fieldGray};
+    ${({disabled, error}) => disabled ? `
+      border-color: ${theme.colors.disableBorder};
+    ` : error ? `
+      ${theme.borders.error};
+    ` : `
+      ${theme.borders.fieldGray};
+    `}
+
     border-radius: 0px;
   }
 
