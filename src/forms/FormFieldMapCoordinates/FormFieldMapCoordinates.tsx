@@ -15,7 +15,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { useLoadScript } from "@react-google-maps/api";
 
 // Components
-import Button from "@root/components/Button";
+import Button, { ButtonProps } from "@root/components/Button";
 import MapCoordinatesDrawer from "./MapCoordinatesDrawer";
 
 // Styles
@@ -36,6 +36,7 @@ import {
 } from "./MapCoordinatesUtils";
 import Drawer from "@root/components/Drawer";
 import Blank from "@root/components/Blank/Blank";
+import Dialog from "@root/components/Dialog/Dialog";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {
@@ -55,6 +56,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
 	const [dialogOpen, setIsDialogOpen] = useState(false);
+	const [removeDialog, setRemoveDialog] = useState<boolean>(false);
 
 	/**
 	 * Opens the modal that displays the map.
@@ -98,6 +100,24 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		googleMapsApiKey: fieldDef?.inputSettings?.googleMapsApiKey,
 		libraries,
 	});
+
+	const dialogButtons: ButtonProps[] = useMemo(() => [
+		{
+			label: "No, keep it",
+			onClick: () => setRemoveDialog(false),
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: "Yes, remove it",
+			onClick: () => {
+				removeLocation();
+				setRemoveDialog(false);
+			},
+			color: "yellow",
+			variant: "contained",
+		},
+	], [removeDialog]);
 
 	if (loadError) return <span>{"Error loading maps"}</span>;
 	if (!isLoaded) return <span>{"Loading Maps"}</span>;
@@ -144,7 +164,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 								disabled={fieldDef?.disabled}
 								variant="text"
 								label="Remove"
-								onClick={removeLocation}
+								onClick={() => setRemoveDialog(true)}
 							/>
 						</ButtonsWrapper>
 					</CoordinatesCard>
@@ -170,6 +190,13 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 					initialCenter={initialCenter}
 				/>
 			</Drawer>
+			<Dialog
+				buttons={dialogButtons}
+				dialogTitle="Are you sure you want to remove these coordinates?"
+				open={removeDialog}
+			>
+				All data for these coordinates will be lost. This action is irreversible.
+			</Dialog>
 		</>
 	);
 };
