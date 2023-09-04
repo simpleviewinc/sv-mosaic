@@ -1,5 +1,36 @@
 # sv-mosaic changelog
 
+## 26.0.0
+
+### Improvements & Fixes
+
+* `Form`:
+  * [MOS-1053](https://simpleviewtools.atlassian.net/browse/MOS-1053 "https://simpleviewtools.atlassian.net/browse/MOS-1053")
+    * Ensures that form’s `disabled` state is initially true, changing to `false` only if there are no initial form values to fetch, or once the initial values have been resolved
+    * Adds the `aria-busy="true"` attribute to the form wrapper when it is disabled
+    * Adds the `role="form"` attribute to the form wrapper
+    * Adds the `aria-label="{title}"` where `{title}` is the `<Form />`'s `title` property
+* `FormFieldUpload`:
+  * [MOS-1092](https://simpleviewtools.atlassian.net/browse/MOS-1092 "https://simpleviewtools.atlassian.net/browse/MOS-1092")
+    * Introduces a download button for each uploaded file row
+    * The `onUploadComplete` callback now accepts the [following properties](https://github.com/simpleviewinc/sv-mosaic/blob/9e64f1e63ab5d09d8acdcf5fc3c2a1faa048096a/src/forms/FormFieldUpload/FormFieldUploadTypes.ts#L21 "https://github.com/simpleviewinc/sv-mosaic/blob/9e64f1e63ab5d09d8acdcf5fc3c2a1faa048096a/src/forms/FormFieldUpload/FormFieldUploadTypes.ts#L21"):
+      * `fileUrl` - The file row's thumbnail and title will link to this URL
+      * `thumbnailUrl` - The file row's thumbnail will use this URL if provided
+      * `downloadUrl` - If provided, will be used as the downloadable URL
+      * `downloadStrategy` - How the file download button should behave. `"anchor"` renders an anchor tag with the "download" attribute. `"iframe"` creates an iframe and navigates to the download URL, then removes the iframe once loaded (or errored). If this property is omitted, the downloadStrategy will be "anchor" if no downloadUrl is provided, or "iframe" if it is.
+      * **(BREAKING CHANGE)** `url` is no longer used. Provide the above URLs instead.
+    * Drops styling that caused the file list to be displayed in a grid fashion. The items will now always stack one beneath the other
+    * **(BREAKING CHANGE)** Changes the type of `UploadData.size` to `number` and correctly formats the file size in a human-readable format. Provide a `number` representing the number of bytes as `UploadData.size` instead of a string.
+    * Addresses issues in styling that caused the field to break out of parent containers smaller than 600px
+    * Hides the field's dropzone (including "add" button) when the file limit has been reached
+    * Ensures that even if a file has an error status, it counts towards the upload limit
+    * Updated the text for the upload limit snackbar to "Upload limited to only X files"
+  * [MOS-1088](https://simpleviewtools.atlassian.net/browse/MOS-1088 "https://simpleviewtools.atlassian.net/browse/MOS-1088") **(BREAKING CHANGE)** Adds support for throwing an `Error` inside the `onFileAdd` callback. This replaces the nested `onError` callback, which has been deprecated.
+* `FormFieldPhoneSelectionDropdown`:
+  * [MOS-1124](https://simpleviewtools.atlassian.net/browse/MOS-1124 "https://simpleviewtools.atlassian.net/browse/MOS-1124") Adds validation to ensure phone numbers with a US country code (+1) are exactly 10 digits long, excluding the country code.
+* `Core`:
+  * [MOS-1087](https://simpleviewtools.atlassian.net/browse/MOS-1087 "https://simpleviewtools.atlassian.net/browse/MOS-1087") Exposes the `theme` index to consumers
+
 ## 25.2.1
 
 ### Improvements & Fixes
