@@ -88,7 +88,7 @@ export const ColorValue = styled.p`
 	margin-top: 0;
 `;
 
-export const ContentRow = styled.div`
+export const ContentRowWrapper = styled.div`
 	display: flex;
 	width: 100%;
 
