@@ -14,7 +14,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { MosaicShow } from "@root/types";
+import { MosaicGridConfig, MosaicShow } from "@root/types";
 
 const StyledAccordion = styled(Accordion)`
 	box-shadow: none !important;
@@ -67,7 +67,7 @@ interface SectionPropTypes {
 	sectionIdx: number;
 	description: string | JSX.Element;
 	fieldsDef: FieldDef[];
-	rows: string[][][];
+	rows: MosaicGridConfig;
 	dispatch: any;
 	state: any;
 	view: ViewType;
