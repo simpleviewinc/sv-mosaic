@@ -9,6 +9,7 @@ import FormFieldChipSingleSelect from "@root/forms/FormFieldChipSingleSelect";
 import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/forms/FormFieldRadio";
+import FormFieldRaw from "@root/forms/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import { FieldDef } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
@@ -76,7 +77,8 @@ const Col = (props: ColPropsTypes) => {
 		imageUpload: FormFieldImageUpload,
 		matrix: FormFieldMatrix,
 		upload: FormFieldUpload,
-		numberTable: FormFieldNumberTable
+		numberTable: FormFieldNumberTable,
+		raw: FormFieldRaw
 	}), []);
 
 	const doneTypingInterval = 300;
