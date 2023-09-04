@@ -7,6 +7,7 @@ import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterDateDropdownContent from "./DataViewFilterDateDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import { DataViewFilterDateProps } from "./DataViewFilterDateTypes";
+import { DATE_FORMAT_FULL } from "@root/constants";
 
 const StyledWrapper = styled.span``;
 
@@ -15,8 +16,6 @@ function isSame(dateLeft, dateRight) {
 		return fn(dateLeft, dateRight);
 	})
 }
-
-const dateFormat = "M/d/yyyy";
 
 export default function DataViewFilterDate(props: DataViewFilterDateProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -35,8 +34,8 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 		if ("rangeStart" in props.data || "rangeEnd" in props.data) {
 			const hasStart = props.data.rangeStart !== undefined;
 			const hasEnd = props.data.rangeEnd !== undefined;
-			const startFormat = hasStart ? format(props.data.rangeStart, dateFormat) : undefined;
-			const endFormat = hasEnd ? format(props.data.rangeEnd, dateFormat) : undefined;
+			const startFormat = hasStart ? format(props.data.rangeStart, DATE_FORMAT_FULL) : undefined;
+			const endFormat = hasEnd ? format(props.data.rangeEnd, DATE_FORMAT_FULL) : undefined;
 
 			if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
 				valueString = startFormat;
