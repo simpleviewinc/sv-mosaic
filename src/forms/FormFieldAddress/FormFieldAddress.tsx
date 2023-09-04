@@ -1,9 +1,9 @@
 import * as React from "react";
-import { memo, ReactElement, useState, useEffect } from "react";
+import { memo, ReactElement, useMemo, useState, useEffect } from "react";
 
 // Components
 import AddressDrawer from "./AddressDrawer";
-import Button from "@root/components/Button";
+import Button, { ButtonProps } from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
 
 // Utils
@@ -11,6 +11,7 @@ import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
 import { AddressFieldInputSettings, AddressData } from ".";
 import { AddressItems, Footer } from "./Address.styled";
+import Dialog from "@root/components/Dialog/Dialog";
 
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
@@ -30,6 +31,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
 	const [dialogOpen, setIsDialogOpen] = useState(false);
+	const [removeDialog, setRemoveDialog] = useState<number | undefined>();
 	const [availableAddresses, setAvailableAddresses] = useState({
 		amountPerType: -1,
 		amountShipping: -1,
@@ -181,6 +183,24 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		setOpen(true);
 	};
 
+	const dialogButtons: ButtonProps[] = useMemo(() => [
+		{
+			label: "No, keep it",
+			onClick: () => setRemoveDialog(undefined),
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: "Yes, remove it",
+			onClick: () => {
+				removeAddressHandler(removeDialog);
+				setRemoveDialog(undefined);
+			},
+			color: "yellow",
+			variant: "contained",
+		},
+	], [removeDialog]);
+
 	return (
 		<>
 			{addressTypes?.length > 0 && (
@@ -203,7 +223,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 							addressIndex={idx}
 							onEdit={showEditModal}
 							disabled={fieldDef?.disabled}
-							onRemoveAddress={removeAddressHandler}
+							onRemoveAddress={setRemoveDialog}
 						/>
 					))}
 				</AddressItems>
@@ -228,6 +248,13 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 					getOptionsStates={fieldDef.inputSettings?.getOptionsStates}
 				/>
 			</Drawer>
+			<Dialog
+				buttons={dialogButtons}
+				dialogTitle="Are you sure you want to remove this address?"
+				open={removeDialog !== undefined}
+			>
+				All data for this address will be lost. This action is irreversible.
+			</Dialog>
 		</>
 	);
 };
