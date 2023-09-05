@@ -18,7 +18,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 		// Maybe this isn't the best way, but it's the only way that worked for me.
 		// The e.offsetWidth < e.scrollWidth does not work in this case
 		const cloned = ref.current.cloneNode(true) as HTMLDivElement;
-		cloned.setAttribute("style", "position: absolute");
+		cloned.setAttribute("style", "position: absolute; max-width: none");
 		cloned.querySelector("span").setAttribute("style", "text-overflow: clip");
 		ref.current.parentNode.insertBefore(cloned, ref.current.nextSibling);
 
@@ -42,9 +42,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 
 		window.addEventListener("resize", bounce);
 
-		return () => {
-			window.removeEventListener("resize", bounce)
-		};
+		return () => window.removeEventListener("resize", bounce);
 	}, [checkSize]);
 
 	const children = (
