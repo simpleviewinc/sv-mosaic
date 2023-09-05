@@ -18,7 +18,7 @@ test.describe.parallel("Components - Chip - Kitchen Sink", () => {
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithOnClickSelected)).toBe(expectedColor);
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithoutOnClickSelected)).toBe(expectedColor);
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.disabledChipSelected)).toBe(expectedDisabledBgColor);
-		expect(await chipPage.getBackgroundColorFromElement(chipPage.deletableChip)).toBe(expectedColor);
+		expect(await chipPage.getBackgroundColorFromElement(chipPage.deletableChip.first())).toBe(expectedColor);
 	});
 
 	test("Validate Chip has almostBlack color as text.", async () => {
