@@ -84,6 +84,11 @@ export const KitchenSink = (): ReactElement => {
 				selected={true}
 				disabled={true}
 			/>
+			<h2>Chip with very long text</h2>
+			<Chip
+				label={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sapien purus, condimentum nec fringilla porttitor, bibendum vitae odio. Etiam tincidunt id ante eu cursus."}
+				selected={true}
+			/>
 		</KitchenSinkContainerChip>
 	);
 };

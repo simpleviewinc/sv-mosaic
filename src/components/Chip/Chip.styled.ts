@@ -70,12 +70,3 @@ export const StyledChip = styled(Chip)`
 		padding: 0;
 	}
 `;
-
-export const StyledLabel = styled.p`
-	letter-spacing: 0.7px;
-	margin: 0;
-	max-width: 141px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-`;
