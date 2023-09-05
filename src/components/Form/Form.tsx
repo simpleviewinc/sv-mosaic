@@ -83,12 +83,10 @@ const Form = (props: FormProps) => {
 			);
 		}
 
-		// TODO This is always true?
 		if (isMounted) {
 			registerFields();
 		}
 
-		// TODO This is redundant
 		return () => {
 			isMounted = false;
 		}
@@ -234,31 +232,16 @@ const Form = (props: FormProps) => {
 							onSectionSelect={setActiveSection}
 						/>
 						}
-						{isBigDesktopWithSections ? (
-							<Row className={view}>
-								{sections &&
-									<SideNav
-										items={[items]}
-										active={String(activeSection)}
-										onNav={onNav}
-									/>
-								}
-								<FormContent view={view} sections={sections} ref={formContentRef}>
-									<FormLayout
-										// ref={sectionsRef}
-										registerRef={registerRef}
-										state={state}
-										dispatch={dispatch}
-										fields={fields}
-										sections={sections}
-										view={view}
-									/>
-								</FormContent>
-							</Row>
-						) : (
+						<Row className={view}>
+							{sections && isBigDesktopWithSections &&
+								<SideNav
+									items={[items]}
+									active={String(activeSection)}
+									onNav={onNav}
+								/>
+							}
 							<FormContent view={view} sections={sections} ref={formContentRef}>
 								<FormLayout
-									// ref={sectionsRef}
 									registerRef={registerRef}
 									state={state}
 									dispatch={dispatch}
@@ -267,7 +250,7 @@ const Form = (props: FormProps) => {
 									view={view}
 								/>
 							</FormContent>
-						)}
+						</Row>
 					</StyledForm>
 				</StyledContainerForm>
 			</ViewProvider>
