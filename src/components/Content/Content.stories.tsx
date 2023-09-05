@@ -71,6 +71,7 @@ const data = {
 	),
 	undefinedValue: undefined,
 	emptyStringValue: "",
+	emptyArrayValue: []
 };
 
 const multipleColumns = [
@@ -280,13 +281,17 @@ export const KitchenSink = (): ReactElement => {
 			name: "emptyStringValue",
 			label: "Field with empty string value"
 		},
+		{
+			name: "emptyArrayValue",
+			label: "Field with empty array value"
+		},
 	];
 
 	const columns = [
 		[["tags"], ["colorPicker"], []],
 		[["toggle"], ["date"], ["colorPicker"],],
 		[["thumbnail"], ["chipsAsValue"], ["thumbnail"]],
-		[["undefinedValue"], ["emptyStringValue"]]
+		[["undefinedValue"], ["emptyStringValue"], ["emptyArrayValue"]]
 	];
 
 	return (
