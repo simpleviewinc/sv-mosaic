@@ -26,7 +26,7 @@ test.describe.parallel("Components - Chip - Kitchen Sink", () => {
 		for (let i = 0; i < await chipPage.chipTestIDLocator.count(); i++) {
 			expect(await chipPage.getColorFromElement(chipPage.chipTestIDLocator.nth(i))).toBe(expectedColor);
 		}
-		expect(await chipPage.getColorFromElement(chipPage.deletableChip)).toBe(expectedColor);
+		expect(await chipPage.getColorFromElement(chipPage.deletableChip.first())).toBe(expectedColor);
 	});
 
 	test("Validate Chip has grey2 background.", async () => {
