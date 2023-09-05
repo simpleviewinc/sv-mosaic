@@ -48,6 +48,7 @@ export const StyledChip = styled(Chip)`
 		}
 		return theme.newColors.grey2["100"];
 	}};
+	max-width: 186px;
 
 		color: ${theme.newColors.almostBlack["100"]};
 
