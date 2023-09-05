@@ -43,7 +43,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 	const fieldName = currentField?.column ? currentField?.column : currentField?.name;
 	let fieldValue = data[fieldName];
 
-	if (fieldValue === undefined || fieldValue === "") {
+	if (fieldValue === undefined || fieldValue === "" || (Array.isArray(fieldValue) && !fieldValue.length)) {
 		return (
 			<FieldContainer columns={sectionLength}>
 				<ContentField label={currentField.label} content={<Blank />} />
