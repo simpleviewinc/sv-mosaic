@@ -3,17 +3,17 @@ import { ReactElement, memo, MouseEvent } from "react";
 import { SideNavProps } from ".";
 import {
 	LinkWrapper,
-	SideNavStyle,
+	StyledSideNav,
 	SidebarWrap,
 	StyledLink,
-	SectionWrapper,
+	LinksWrapper,
 	Badge,
 	BadgeWrapper,
 } from "./SideNav.styled";
 import { Item } from "./SideNavTypes";
 
 const SideNav = (props: SideNavProps): ReactElement => {
-	const { items, active, onNav } = props;
+	const { items, active, onNav, className, collapse } = props;
 
 	/**
 	 * Set the clicked link as selected and executes the
@@ -32,11 +32,11 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	};
 
 	return (
-		<SideNavStyle>
+		<StyledSideNav className={className} $collapse={collapse}>
 			<SidebarWrap>
 				{Object.keys(items)?.map((key) => {
 					return (
-						<SectionWrapper data-testid="section-wrapper" key={key}>
+						<LinksWrapper data-testid="section-wrapper" key={key} $collapse={collapse}>
 							{items[key]?.map((item, idx) => {
 								const LinkIcon = item.icon;
 								const ActionIcon = item?.action?.icon;
@@ -44,10 +44,11 @@ const SideNav = (props: SideNavProps): ReactElement => {
 								return (
 									<LinkWrapper
 										{...item.attrs}
-										idx={item.name}
-										selectedLink={active}
+										$isActive={item.name === active}
 										onClick={(event) => onLinkClicked({ item, event })}
+										$collapse={collapse}
 										key={`${item.label}-${idx}`}
+										className={item.name === active && "highlight"}
 									>
 										{item.icon && <LinkIcon />}
 										<StyledLink>{item.label}</StyledLink>
@@ -62,11 +63,11 @@ const SideNav = (props: SideNavProps): ReactElement => {
 									</LinkWrapper>
 								);
 							})}
-						</SectionWrapper>
+						</LinksWrapper>
 					);
 				})}
 			</SidebarWrap>
-		</SideNavStyle>
+		</StyledSideNav>
 	);
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import * as React from "react";
 import { ReactElement, HTMLAttributes, useRef } from "react";
 
@@ -7,17 +8,17 @@ import { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledDeletableChip } from "./Chip.styled";
 
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
-	const { label, required, disabled, selected, onDelete, onClick } = props;
+	const { label, disabled, selected, onDelete, onClick } = props;
 	const ref = useRef<HTMLDivElement>();
 
 	return onDelete ? (
 		<StyledDeletableChip
 			{...props}
+			color="default"
+			children={props.children as null}
 			title={typeof label === "string" ? label : undefined}
 			ref={ref}
-			required={required}
 			disabled={disabled}
-			selected={selected}
 			deleteIcon={<ClearIcon data-testid='delete-icon-test-id' />}
 			onDelete={onDelete}
 			data-testid="delete-chip-testid"
@@ -25,11 +26,12 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 	) : (
 		<StyledChip
 			{...props}
+			color="default"
+			children={props.children as null}
 			title={typeof label === "string" ? label : undefined}
 			ref={ref}
-			required={required}
 			disabled={disabled}
-			selected={selected}
+			$selected={selected}
 			onClick={onClick}
 			data-testid="chip-testid"
 		/>

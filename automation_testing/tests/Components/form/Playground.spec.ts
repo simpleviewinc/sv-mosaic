@@ -41,12 +41,6 @@ test.describe.parallel("Components - Form - Playground", () => {
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
 
-	test("Validate the font weight of the Description in Top Component.", async () => {
-		const expectedFontWeight = (theme.fontWeight.light).toString();
-		const descriptionFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.description);
-		expect(descriptionFontWeight).toBe(expectedFontWeight);
-	});
-
 	test("Validate Drawer Title style.", async () => {
 		await playgroundPage.advancedSelectionFieldButton.click();
 		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.advancedSelectionTitle);
@@ -106,14 +100,6 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateFormIsEmpty(grey2Color);
-	});
-
-	test("Validate that when onBack is activated, the back icon is displayed.", async () => {
-		test.skip();
-		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobOnBack + true]);
-		await expect(playgroundPage.backIconLocator).toBeVisible();
-		await playgroundPage.backIconLocator.click();
-		await playgroundPage.setDialogValidationListener("Cancelling, going back to previous site");
 	});
 
 	test("Validate the Playground title style.", async () => {

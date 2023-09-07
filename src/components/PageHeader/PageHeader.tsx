@@ -5,7 +5,7 @@ import { PageHeaderProps } from "./PageHeaderTypes";
 import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
 import ButtonRow from "../ButtonRow/ButtonRow";
 
-const PageHeader = forwardRef((props: PageHeaderProps, ref) => {
+const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {
 	const {
 		title,
 		buttons,
