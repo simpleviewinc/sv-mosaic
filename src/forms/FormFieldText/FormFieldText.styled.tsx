@@ -10,6 +10,7 @@ import theme, { Sizes } from "@root/theme";
 export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	<TextField {...rest} />
 ))`
+
 	width: ${pr => pr.fieldSize ? pr.fieldSize : Sizes.sm};
 
 	&.MuiFormControl-root {
@@ -23,11 +24,15 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		`) : (`
 			background-color: ${theme.colors.disableBackground};
 		`)}
-		}
 
 		& svg {
 			color: ${theme.newColors.almostBlack["100"]};
 		}
+	}
+
+	fieldset {
+		border-radius: 0px;
+		border-color: ${theme.newColors.simplyGrey["100"]};
 	}
 
 	& :not(.MuiInputBase-multiline) .MuiOutlinedInput-input,
@@ -60,11 +65,6 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
 	.MuiFormHelperText-root.Mui-error {
 		color: ${theme.newColors.darkRed["100"]}
-	}
-
-	fieldset {
-		border-radius: 0px;
-		border-color: ${theme.newColors.simplyGrey["100"]};
 	}
 
 	& .Mui-disabled fieldset.MuiOutlinedInput-notchedOutline{

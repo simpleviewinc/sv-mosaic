@@ -98,11 +98,12 @@ export const Title = styled.div`
 `;
 
 export const BackButton = styled(Button)<StyledProps<TitleWrapperProps, "collapse">>`
-	margin-right: 16px;
+	margin-right: 10px;
 
 	.MuiButtonBase-root{
 		padding-left: 8px;
 		padding-right: 6px;
+		border-color: transparent;
 	}
 
 	.icon_left{
