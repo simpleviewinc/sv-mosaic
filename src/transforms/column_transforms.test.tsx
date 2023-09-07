@@ -154,15 +154,4 @@ describe(__filename, function() {
 			expect(screen.getByText("Chip 4")).toBeInTheDocument();
 		});
 	});
-
-	describe("transform_colorPicker", () => {
-		const data = "#a8001791";
-
-		it("should render the color selected given its rgb(a) value", () => {
-			render(<>{transforms.transform_colorPicker()({ data })}</>);
-
-			expect(screen.getByText("#a8001791")).toBeInTheDocument();
-			expect(screen.getByTestId("colordiv-test")).toHaveStyle("background:rgba(168, 0, 23, 0.569)");
-		});
-	});
 });

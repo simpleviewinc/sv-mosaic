@@ -35,8 +35,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		fieldDef,
 	} = props;
 
-	console.log(typeof fieldDef?.inputSettings?.selectLimit);
-
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isMobileView, setIsMobileView] = useState(false);

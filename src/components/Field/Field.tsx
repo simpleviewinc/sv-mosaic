@@ -89,7 +89,7 @@ const Field = ({
 	return (
 		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper
-				error={shouldRenderError}
+				$error={shouldRenderError}
 				ref={fieldRef}
 			>
 				{
