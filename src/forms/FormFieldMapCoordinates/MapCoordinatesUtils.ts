@@ -16,7 +16,7 @@ export const getAddressStringFromAddressObject = (addressObj: IAddress): string 
 /**
  * Default map position
  */
-export const defaultMapPosition = { lat: 48.858321470423576, lng: 2.2945004162050564 }
+export const defaultMapPosition = { lat: 0, lng: 0 }
 
 /**
  * Example of an address object.
