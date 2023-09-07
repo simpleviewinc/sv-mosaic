@@ -54,17 +54,17 @@ export const popperSx = {
 	}
 };
 
-export const DatePickerWrapper = styled.div`
+export const DatePickerWrapper = styled.div<{$isPickerOpen?: boolean, $disabled?: boolean}>`
   	.MuiOutlinedInput-root {
 		width: ${Sizes.sm};
 		padding-right: 16px;
 
 		& fieldset {
 			border-radius: 0;
-			border: ${pr => pr.isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : theme.borders.simplyGrey};
+			border: ${({ $isPickerOpen }) => $isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : theme.borders.simplyGrey};
 		}
 
-		${({$disabled}) => !$disabled ? `
+		${({ $disabled }) => !$disabled ? `
 			background-color: ${theme.newColors.grey1["100"]};
 			&:hover {
 				& fieldset {
@@ -91,6 +91,6 @@ export const DatePickerWrapper = styled.div`
   	}
 
 	.MuiIconButton-root {
-		color: ${pr => pr.isPickerOpen ? theme.newColors.almostBlack["100"] : theme.newColors.grey3["100"]};
+		color: ${({ $isPickerOpen }) => $isPickerOpen ? theme.newColors.almostBlack["100"] : theme.newColors.grey3["100"]};
 	}
 `;

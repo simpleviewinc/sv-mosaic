@@ -148,7 +148,7 @@ export const Playground = (): ReactElement => {
 			{showButton &&
 				<div style={{ background: buttonColor === "white" ? "black" : "transparent", display: buttonColor === "white" ? "inline-block" : "inline" }}>
 					<Button
-						attrs={{smallText}}
+						attrs={{$smallText: smallText}}
 						label={label === "String" ? "Test" : <FormatListBulletedOutlinedIcon/>}
 						variant={buttonVariant}
 						color={buttonColor}
@@ -329,14 +329,14 @@ export const KitchenSink = (): ReactElement => {
 			<h2>Small Text</h2>
 			<div>
 				<ButtonRow>
-					<Button attrs={{smallText: true}} color="blue" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="red" variant="text" label="Delete" onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button attrs={{smallText: true}} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="blue" variant="text" label="Save" onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="red" variant="text" label="Delete" onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
+					<Button attrs={{$smallText: true}} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 
