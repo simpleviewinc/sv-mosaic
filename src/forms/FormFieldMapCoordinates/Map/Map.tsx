@@ -10,6 +10,7 @@ import { MapContainer } from "../MapCoordinates.styled";
 import AddressAutocomplete from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete";
 import { StyledClearIcon } from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 import MarkerFollower from "./MarkerFollower";
+import { defaultMapPosition, isValidLatLng } from "../MapCoordinatesUtils";
 
 const containerStyle = {
 	display: "flex",
@@ -33,6 +34,7 @@ const Map = (props: MapProps): ReactElement => {
 
 	// State variables
 	const [addressValue, setAddressValue] = useState("");
+	const center = isValidLatLng(initialCenter) ? initialCenter : defaultMapPosition;
 
 	/**
  * Gets lat and lng values from the selected suggestion and
@@ -58,7 +60,6 @@ const Map = (props: MapProps): ReactElement => {
 		setAddressValue("");
 	};
 
-	const map = React.useRef<GoogleMap | undefined>();
 	const shouldPanRef = React.useRef<boolean>(true);
 
 	const onMapMouseEvent = ({ latLng }: google.maps.MapMouseEvent) => {
@@ -98,16 +99,16 @@ const Map = (props: MapProps): ReactElement => {
 			<div>
 				<GoogleMap
 					mapContainerStyle={containerStyle}
-					center={initialCenter}
+					center={center}
 					zoom={value ? focusZoom : zoom}
 					onClick={onMapMouseEvent}
 					options={mapOptions}
-					ref={(ref) => map.current = ref}
 				>
 					<MarkerFollower
 						value={value}
 						initialCenter={initialCenter}
 						onDragMarkerEnd={onMapMouseEvent}
+						zoom={zoom}
 						focusZoom={focusZoom}
 						shouldPanRef={shouldPanRef}
 					/>
