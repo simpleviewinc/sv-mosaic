@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 import { MapFocusProps } from "../MapCoordinatesTypes";
 
 // Styles
-import { getMapBounds, isValidLatLng } from "../MapCoordinatesUtils";
+import { defaultMapPosition, getMapBounds, isValidLatLng } from "../MapCoordinatesUtils";
 
 const MarkerFollower = ({
 	value,
@@ -23,7 +23,7 @@ const MarkerFollower = ({
 			const latLng = isValidLatLng(value) ? value : undefined;
 
 			const bounds = await getMapBounds(map);
-			const { lat, lng } = latLng ? value : initialCenter ? initialCenter : {lat: 0, lng: 0};
+			const { lat, lng } = latLng ? value : isValidLatLng(initialCenter) ? initialCenter : defaultMapPosition;
 			const target = new google.maps.LatLng(lat, lng);
 			const willZoomIn = latLng && map.getZoom() < focusZoom;
 
@@ -52,7 +52,7 @@ const MarkerFollower = ({
 				map.setZoom(initialZoom)
 			}
 		})();
-	}, [map, value, shouldPanRef.current]);
+	}, [initialZoom, map, value, shouldPanRef.current]);
 
 	if (!value || value.lat === undefined || value.lng === undefined) {
 		return;
