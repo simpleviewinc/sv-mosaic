@@ -50,6 +50,7 @@ const FormFieldPhoneSelectionDropdown = (
 				inputProps={{
 					required: fieldDef?.required,
 				}}
+				disableCountryGuess
 			/>
 		</PhoneInputWrapper>
 	);
