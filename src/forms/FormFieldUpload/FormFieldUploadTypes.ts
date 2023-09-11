@@ -16,6 +16,7 @@ export type UploadFieldInputSettings = {
 	onFileDelete: OnFileDelete;
 	onFileAdd: OnFileAdd;
 	limit?: number;
+	accept?: string[]
 };
 
 export type UploadData =  {
