@@ -63,6 +63,9 @@ export const Playground = (): ReactElement => {
 	const fileUrl = text("Override onUploadComplete file URL", "");
 	const downloadUrl = text("Override onUploadComplete download URL", "");
 	const error = boolean("Trigger errors when loading", false);
+	const acceptCsv = text("Comma separated accepted extensions", "");
+
+	const accept = acceptCsv.trim() ? acceptCsv.split(",") : undefined;
 
 	const [loadReady, setLoadReady] = useState(false);
 
@@ -127,7 +130,8 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						limit: limit === "No limit" ? undefined : limit,
 						onFileAdd,
-						onFileDelete
+						onFileDelete,
+						accept
 					}
 				},
 			],
@@ -138,9 +142,8 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			limit,
-			timeToLoad,
 			onFileAdd,
-			error
+			accept
 		]
 	);
 
