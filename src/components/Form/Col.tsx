@@ -27,11 +27,12 @@ import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import RegisteredField from "../Field/RegisteredField";
+import { StyledProps } from "@root/types";
 
-const StyledCol = styled.div`
+const StyledCol = styled.div<StyledProps<ColPropsTypes, "colsInRow">>`
 	display: flex;
 	flex-direction: column;
-	width: calc(100% / ${pr => pr.colsInRow});
+	width: calc(100% / ${pr => pr.$colsInRow});
 `;
 
 interface ColPropsTypes {
@@ -133,7 +134,7 @@ const Col = (props: ColPropsTypes) => {
 	}, [fieldsDef, state.pairedFields]); */
 
 	return (
-		<StyledCol colsInRow={colsInRow}>
+		<StyledCol $colsInRow={colsInRow}>
 			{col.map((field, i) => {
 				const currentField: FieldDef = fieldsDef?.find(
 					(fieldDef) => {

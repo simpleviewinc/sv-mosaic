@@ -9,7 +9,6 @@ import styled from "styled-components";
 import Section from "./Section";
 
 // Types
-import { ViewType } from "@root/forms/TopComponent";
 import evaluateShow from "@root/utils/show/evaluateShow";
 
 interface FormLayoutProps {
@@ -17,7 +16,6 @@ interface FormLayoutProps {
   dispatch: any;
   fields: FieldDef[];
   sections: SectionDef[];
-  view: ViewType;
   registerRef?: (ref: HTMLElement) => () => void
 }
 
@@ -27,7 +25,7 @@ const StyledFormLayout = styled.div`
 `;
 
 const FormLayout = (props: FormLayoutProps) => {
-	const { state, dispatch, fields, sections, view, registerRef } = props;
+	const { state, dispatch, fields, sections, registerRef } = props;
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });
@@ -36,19 +34,20 @@ const FormLayout = (props: FormLayoutProps) => {
 	return (
 		<StyledFormLayout data-testid="form-layout-test-id" className='layout'>
 			{layout?.map((section, i) => (
-				evaluateShow(section.show, {data: state.data}) && <Section
-					registerRef={registerRef}
-					key={`section-${i}`}
-					title={section.title}
-					sectionIdx={i}
-					description={section.description}
-					fieldsDef={fields}
-					rows={section.fields}
-					state={state}
-					dispatch={dispatch}
-					view={view}
-					collapsed={section.collapsed}
-				/>
+				evaluateShow(section.show, {data: state.data}) && (
+					<Section
+						registerRef={registerRef}
+						key={`section-${i}`}
+						title={section.title}
+						sectionIdx={i}
+						description={section.description}
+						fieldsDef={fields}
+						rows={section.fields}
+						state={state}
+						dispatch={dispatch}
+						collapsed={section.collapsed}
+					/>
+				)
 			))}
 		</StyledFormLayout>
 	);
