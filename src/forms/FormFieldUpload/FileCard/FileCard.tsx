@@ -67,7 +67,7 @@ const FileCard = (props: FileCardProps) => {
 
 	return (
 		<div data-testid="file-card-container">
-			<StyledFileCard error={error}>
+			<StyledFileCard $error={!!error}>
 				<div className='file-img' data-testid="file-img">
 					{fileUrl ? (
 						<a href={fileUrl} rel="noreferrer" target="_blank">{renderImg}</a>

@@ -4,12 +4,14 @@ import theme from "@root/theme";
 // MUI
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { StyledProps } from "@root/types";
+import { ChipListPropsTypes } from "./AdvancedSelectionTypes";
 
-export const ChipsWrapper = styled.div`
+export const ChipsWrapper = styled.div<StyledProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isMobileView" | "isModalOpen">>`
   display: flex;
   flex-wrap: wrap;
   row-gap: 12px;
-  width: ${pr => pr.isMobileView || !pr.isModalOpen ? "" : "620px"};
+  width: ${({$isMobileView, $isModalOpen}) => $isMobileView || !$isModalOpen ? "" : "620px"};
 
   & > :not(:last-child) {
     margin-right: 12px;
@@ -20,8 +22,8 @@ export const ChipsWrapper = styled.div`
   }
 `;
 
-export const OptionsCheckedModalWrapper = styled.div`
-  margin: ${({ isModalOpen }) => (isModalOpen ? "15px" : "")};
+export const OptionsCheckedModalWrapper = styled.div<StyledProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isModalOpen">>`
+  margin: ${({ $isModalOpen }) => ($isModalOpen ? "15px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`

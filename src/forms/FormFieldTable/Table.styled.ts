@@ -83,14 +83,11 @@ export const AddElementContainer = styled.div`
   width: ${Sizes.lg};
 `;
 
-export const StyledTr = styled.tr`
-  ${(pr) =>
-		pr.isDragging
-			? `
-        &:active {
-            background-color: ${theme.newColors.grey2["100"]};
-        }`
-			: ""}
+export const StyledTr = styled.tr<{$isDragging?: boolean}>`
+  ${({ $isDragging }) => $isDragging ? `
+	&:active {
+		background-color: ${theme.newColors.grey2["100"]};
+	}` : ""}
 `;
 
 export const TrHead = styled.tr`

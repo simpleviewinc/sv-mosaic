@@ -90,7 +90,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 
 	return (
 		<StyledChipGroup
-			error={errorWithMessage || (errorWithMessage && required)}
+			$error={errorWithMessage || (errorWithMessage && required)}
 			onBlur={onBlur}
 		>
 			{internalOptions.map((option) => (

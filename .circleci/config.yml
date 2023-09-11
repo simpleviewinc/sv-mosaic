@@ -132,6 +132,7 @@ workflows:
               only:
                 - ci-testing
                 - /pull.*/
+                - MOS-1175-form-cleanup
                 - develop
                 - qa
                 - staging
@@ -146,6 +147,7 @@ workflows:
               only:
                 - ci-testing
                 - /pull.*/
+                - MOS-1175-form-cleanup
                 - develop
                 - qa
       - e2e_tests:
@@ -157,6 +159,7 @@ workflows:
               only:
                 - ci-testing
                 - /pull.*/
+                - MOS-1175-form-cleanup
                 - develop
                 - qa
       # Branches develop, qa, staging and master get published to GH pages.
@@ -171,6 +174,7 @@ workflows:
             branches:
               only:
                 - ci-testing
+                - MOS-1175-form-cleanup
                 - develop
                 - qa
                 - staging
