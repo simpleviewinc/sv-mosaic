@@ -14,6 +14,13 @@ export const StyledWrapper = styled.div`
   display: flex;
 `;
 
+export const FieldWrapper = styled.div`
+  font-family: ${theme.fontFamily};
+  padding: 20px;
+  background-color: ${pr =>
+		pr.error ? theme.newColors.darkRed["20"] : "transparent"};
+`;
+
 export const StyledCheckboxList = styled(CheckboxList)`
   &.MuiFormGroup-root {
     margin-left: -12px;

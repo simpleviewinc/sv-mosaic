@@ -228,20 +228,20 @@ const FormFieldImageUpload = (
 		<div>
 			{isEmpty(files) ? (
 				<DragAndDropContainer
-					$isOver={isOver}
+					isOver={isOver}
 					onDragOver={dragOver}
 					onDragEnter={dragEnter}
 					onDragLeave={dragLeave}
 					onDrop={fileDrop}
 				>
 					{isOver ? (
-						<DragAndDropSpan $isOver={isOver}>
+						<DragAndDropSpan isOver={isOver}>
 							Release and Drop
 						</DragAndDropSpan>
 					) : (
 						<>
 							{!fieldDef?.disabled && (
-								<DragAndDropSpan $isOver={isOver}>
+								<DragAndDropSpan isOver={isOver}>
 									Drag & Drop files here or
 								</DragAndDropSpan>
 							)}
@@ -250,6 +250,7 @@ const FormFieldImageUpload = (
 								variant="outlined"
 								disabled={fieldDef?.disabled}
 								label="UPLOAD FILES"
+								buttonType="secondary"
 								onClick={uploadFiles}
 								muiAttrs={{disableRipple: true}}
 							></UploadButton>

@@ -1,11 +1,11 @@
 import theme from "@root/theme";
 import styled from "styled-components";
 
-export const StyledFileCard = styled.div<{$error?: boolean}>`
+export const StyledFileCard = styled.div`
 	display: flex;
 	flex-direction: row;
 	background-color: ${theme.colors.white};
-	border: 2px solid ${({ $error }) => $error ? theme.newColors.darkRed["100"] : theme.newColors.grey2["100"]};
+	border: 2px solid ${pr => pr.error ? theme.newColors.darkRed["100"] : theme.newColors.grey2["100"]};
 	padding: 16px;
 	width: 100%;
 	column-gap: 16px;

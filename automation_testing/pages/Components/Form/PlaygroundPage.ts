@@ -184,6 +184,7 @@ export class PlaygroundPage extends BasePage {
 		expect(await this.phoneTextbox.inputValue()).toBe(getFormAndDefaultValuesExpected.phoneSelectionDefaultValues);
 		expect(await this.selectionRadioBtn.last().isChecked()).toBeTruthy();
 		expect(await this.toggleField.isChecked()).toBeTruthy();
+		expect(await this.colorSelectorExample.getAttribute("color")).toBe(getFormAndDefaultValuesExpected.colorDefaultValues);
 		expect(await this.singleDatePickerInput.inputValue()).toBe(await this.getTodayDate());
 		expect(await this.addressFieldTitle.textContent()).toBe(getFormAndDefaultValuesExpected.addressTypeDefaultValues);
 		for (let i = 0; i < await this.advancedSelectionChip.count(); i++) {

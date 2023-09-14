@@ -7,11 +7,11 @@ import clamp from "@root/utils/math/clamp";
 const MIN_SCROLL_DURATION = 400;
 const MAX_SCROLL_DURATION = 1500;
 
-export default function useScrollSpy<E extends HTMLElement>({
+export default function useScrollSpy({
 	refs,
 	container,
 	threshold = 0.2
-}: ScrollSpyProps<E>): ScrollSpyResult {
+}: ScrollSpyProps): ScrollSpyResult {
 	const [scrollActiveSection, setScrollActiveSection] = useState<number>(0);
 	const [userActiveSection, setUserActiveSection] = useState<number | null>(null);
 

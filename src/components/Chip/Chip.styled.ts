@@ -1,8 +1,6 @@
 import Chip from "@mui/material/Chip";
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledProps } from "@root/types";
-import { ChipsProps } from "./ChipTypes";
 
 const chipFont = `
 	font-size: 14px;
@@ -40,12 +38,12 @@ export const StyledDeletableChip = styled(Chip)`
 	}
 `;
 
-export const StyledChip = styled(Chip)<StyledProps<ChipsProps, "disabled" | "selected">>`
+export const StyledChip = styled(Chip)`
 	&.MuiChip-root {
-		background-color: ${({ $selected, $disabled }) => {
-		if ($selected && !$disabled) {
+		background-color: ${pr => {
+		if (pr.selected && !pr.disabled) {
 			return theme.newColors.simplyGold["100"];
-		} else if ($selected && $disabled) {
+		} else if (pr.selected && pr.disabled) {
 			return theme.newColors.simplyGold["60"];
 		}
 		return theme.newColors.grey2["100"];
@@ -54,13 +52,13 @@ export const StyledChip = styled(Chip)<StyledProps<ChipsProps, "disabled" | "sel
 
 		color: ${theme.newColors.almostBlack["100"]};
 
-		${({ $selected, onClick }) => onClick ?
+		${(pr) => pr.onClick ?
 		`	&:hover {
-				background-color: ${$selected	? theme.newColors.darkerSimplyGold["100"] : theme.newColors.simplyGrey["100"]};
+				background-color: ${pr.selected	? theme.newColors.darkerSimplyGold["100"] : theme.newColors.simplyGrey["100"]};
 			}
 
 			&:focus {
-				background-color: ${$selected ? theme.newColors.simplyGold["100"] : theme.newColors.grey2["100"]};
+				background-color: ${pr.selected ? theme.newColors.simplyGold["100"] : theme.newColors.grey2["100"]};
 			}
 			` : ""};
 
