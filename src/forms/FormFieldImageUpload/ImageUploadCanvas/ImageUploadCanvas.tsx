@@ -14,7 +14,8 @@ export interface ImageUploadCanvasProps {
 	}) => void;
 }
 
-const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps): ReactElement => {
+const ImageUploadCanvas = (props: ImageUploadCanvasProps): ReactElement => {
+	const { mousePosition } = props;
 
 	// State variables
 	const [isFocus, setIsFocus] = useState(true);

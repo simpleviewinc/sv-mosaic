@@ -6,7 +6,7 @@ export interface MenuItemProps {
 	mIcon?: SvgIconComponent;
 	disabled?: boolean;
 	selected?: boolean;
-	onClick(event?: React.MouseEvent<HTMLButtonElement | HTMLLIElement, MouseEvent>): void;
+	onClick(event?: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
 	attrs?: MosaicObject;
 	name?: string;
 	show?: MosaicShow;

@@ -79,25 +79,25 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 	}
 
 	const CustomPopper = (props: CustomPopperProps) => {
-		return <StyledPopper $value={value?.value === ""} {...props} />;
+		return <StyledPopper value={value?.value === ""} {...props} />;
 	};
 
 	return (
-		<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" $innerWidth={fieldDef?.size}>
+		<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" innerWidth={fieldDef?.size}>
 			<StyledAutocomplete
 				value={value || null}
 				onOpen={handleOpen}
 				onClose={handleOpen}
 				data-testid="autocomplete-test-id"
 				options={internalOptions}
-				getOptionLabel={(option) => (option as MosaicLabelValue)?.label ? (option as MosaicLabelValue).label : ""}
+				getOptionLabel={(option) => option?.label ? option.label : ""}
 				isOptionEqualToValue={isOptionEqualToValue}
-				onChange={(_event, option) => onDropDownChange(option as MosaicLabelValue)}
-				$error={(fieldDef?.required && error) ? !!error : undefined}
+				onChange={(_event, option) => onDropDownChange(option)}
+				error={(fieldDef?.required && error) ? error : undefined}
 				renderInput={renderInput}
 				PopperComponent={CustomPopper}
 				popupIcon={<ExpandMoreIcon />}
-				onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
+				onBlur={(e) => onBlur && onBlur(e.target.value)}
 				open={isOpen}
 				disabled={fieldDef?.disabled}
 			/>

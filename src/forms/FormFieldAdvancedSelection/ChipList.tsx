@@ -17,7 +17,7 @@ import {
 
 const MAX_CHIPS_TO_SHOW = 8;
 
-const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): ReactElement => {
+const ChipList = forwardRef((props: ChipListPropsTypes, ref): ReactElement => {
 	const {
 		fieldDef,
 		value
@@ -45,10 +45,10 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 	};
 
 	return value?.length > 0 && (
-		<OptionsCheckedModalWrapper ref={ref} $isModalOpen={fieldDef?.inputSettings?.isModalOpen}>
+		<OptionsCheckedModalWrapper ref={ref} isModalOpen={fieldDef?.inputSettings?.isModalOpen}>
 			<ChipsWrapper
-				$isModalOpen={fieldDef?.inputSettings?.isModalOpen}
-				$isMobileView={fieldDef?.inputSettings?.isMobileView}
+				isModalOpen={fieldDef?.inputSettings?.isModalOpen}
+				isMobileView={fieldDef?.inputSettings?.isMobileView}
 				data-testid='as-chiplist'
 			>
 				{showMore ?
