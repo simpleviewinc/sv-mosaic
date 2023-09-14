@@ -1,7 +1,11 @@
 import { joinAnd } from "../string";
 
 class FileExtensions {
-	private extensions: string[];
+	public extensions: string[];
+
+	public acceptAttr: string;
+
+	public human: string;
 
 	static getExtension(path: string): string {
 		// https://stackoverflow.com/a/12900504
@@ -10,6 +14,8 @@ class FileExtensions {
 
 	constructor(extensions: string[] | undefined = []) {
 		this.extensions = extensions.map(ext => ext.toLowerCase());
+		this.acceptAttr = this.extensions.map(ext => `.${ext}`).join(",");
+		this.human = joinAnd(this.extensions.map(ext => `"${ext}"`));
 	}
 
 	isValidFileName(fileName: string) {
@@ -20,14 +26,6 @@ class FileExtensions {
 		const ext = FileExtensions.getExtension(fileName).toLowerCase();
 
 		return this.extensions.includes(ext);
-	}
-
-	toCSV() {
-		return this.extensions.join(",");
-	}
-
-	toString() {
-		return joinAnd(this.extensions.map(ext => `"${ext}"`));
 	}
 }
 
