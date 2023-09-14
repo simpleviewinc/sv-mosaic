@@ -5,9 +5,8 @@ import { Sizes } from "@root/theme";
 // Components
 import { default as MUIAutocomplete } from "@mui/material/Autocomplete";
 import Popper from "@mui/material/Popper";
-import { FieldDef } from "@root/components/Field";
 
-export const StyledAutocomplete = styled(MUIAutocomplete)<{$error?: boolean}>`
+export const StyledAutocomplete = styled(MUIAutocomplete)`
   & .MuiFormControl-root .MuiInputBase-root {
     font-family: ${theme.fontFamily};
     color: ${theme.newColors.almostBlack["100"]};
@@ -25,9 +24,9 @@ export const StyledAutocomplete = styled(MUIAutocomplete)<{$error?: boolean}>`
   }
 
   & .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline {
-    ${({disabled, $error}) => disabled ? `
+    ${({disabled, error}) => disabled ? `
       border-color: ${theme.colors.disableBorder};
-    ` : $error ? `
+    ` : error ? `
       ${theme.borders.error};
     ` : `
       ${theme.borders.fieldGray};
@@ -62,7 +61,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)<{$error?: boolean}>`
   }
 
   .MuiAutocomplete-popupIndicator, .MuiAutocomplete-popupIndicatorOpen {
-    color: ${({ $error }) => ($error ? theme.newColors.darkRed["100"] : theme.newColors.almostBlack["100"])};
+    color: ${pr => (pr.error ? theme.newColors.darkRed["100"] : theme.newColors.almostBlack["100"])};
 
     &:before {
       background: none;
@@ -79,21 +78,21 @@ export const StyledAutocomplete = styled(MUIAutocomplete)<{$error?: boolean}>`
   }
 `;
 
-export const SingleDropdownWrapper = styled.div<{$innerWidth: FieldDef["size"]}>`
+export const SingleDropdownWrapper = styled.div`
   margin: 0;
   padding: 0;
 
   .MuiFormControl-fullWidth {
     height: ${theme.fieldSpecs.inputText.totalHeight};
-    width: ${({ $innerWidth }) => ($innerWidth ? $innerWidth : Sizes.sm)};
+    width: ${pr => (pr.innerWidth ? pr.innerWidth : Sizes.sm)};
   }
 
   .MuiAutocomplete-paper {
-    width: ${({ $innerWidth }) => $innerWidth === Sizes.xs ? Sizes.sm : $innerWidth }
+    width: ${pr => pr.innerWidth === Sizes.xs ? Sizes.sm : pr.innerWidth }
   }
 `;
 
-export const StyledPopper = styled(Popper)<{$value?: boolean}>`
+export const StyledPopper = styled(Popper)`
   z-index: 999999999 !important;
   .MuiAutocomplete-listbox .MuiAutocomplete-option {
     font-family: ${theme.fontFamily};
@@ -103,8 +102,8 @@ export const StyledPopper = styled(Popper)<{$value?: boolean}>`
 		background-color: white;
 
     &[aria-selected='true'] {
-			color: ${({ $value }) => $value ? theme.newColors.grey4["100"] : theme.colors.black };
-			font-weight: ${({ $value }) => $value ? null : theme.fontWeight.semiBold};
+			color: ${({ value }) => value ? theme.newColors.grey4["100"] : theme.colors.black };
+			font-weight: ${({ value }) => value ? null : theme.fontWeight.semiBold};
 			background-color: white;
     }
 

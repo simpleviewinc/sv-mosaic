@@ -1,13 +1,17 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { StyledFieldWrapper } from "./FieldWrapper.styled";
-import { FieldWrapperProps } from "./FieldWrapperTypes";
+
+interface FieldWrapperProps {
+  children: ReactNode;
+  error?: boolean;
+}
 
 const FieldWrapper = ({
 	children,
 	error = false,
 }: FieldWrapperProps): ReactElement => {
-	return <StyledFieldWrapper $error={error}>{children}</StyledFieldWrapper>;
+	return <StyledFieldWrapper error={error}>{children}</StyledFieldWrapper>;
 };
 
 export default FieldWrapper;

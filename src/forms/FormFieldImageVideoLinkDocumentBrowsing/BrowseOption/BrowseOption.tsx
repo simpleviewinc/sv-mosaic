@@ -29,7 +29,7 @@ const BrowseOption = (props: BrowseOptionProps): ReactElement => {
 	return (
 		<BrowseOptionContainer>
 			<RoundBackground
-				$disabled={disabled}
+				disabled={disabled}
 				onClick={async (e) => await handleBrowse(e, assetType)}
 				data-testid={`browse-${assetType}-test`}
 			>

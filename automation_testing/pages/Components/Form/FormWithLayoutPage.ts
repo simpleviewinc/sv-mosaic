@@ -8,8 +8,6 @@ export class FormWithLayout extends BasePage {
 	readonly page: Page;
 	readonly topComponentContainer: Locator;
 	readonly topComponentContainerSections: Locator;
-	readonly sideNav: Locator;
-	readonly sideNavSections: Locator;
 	readonly sectionContainer: Locator;
 	readonly formTopComponent: Locator;
 	readonly formLayout: Locator;
@@ -22,8 +20,6 @@ export class FormWithLayout extends BasePage {
 		this.page = page;
 		this.topComponentContainer = page.locator("//*[@id='root']/div/div/form/div[1]/div[2]");
 		this.topComponentContainerSections = this.topComponentContainer.locator("a");
-		this.sideNav = page.locator(".form-primary").locator("nav");
-		this.sideNavSections = this.sideNav.locator("a");
 		this.sectionContainer = page.locator("[data-testid='section-test-id']");
 		this.formTopComponent = page.locator("//*[@id='root']/div/div/form/div[1]");
 		this.formLayout = page.locator("[data-testid='form-layout-test-id']");
@@ -35,11 +31,6 @@ export class FormWithLayout extends BasePage {
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
 		await this.topComponentContainer.waitFor();
 		return await this.topComponentContainerSections.count();
-	}
-
-	async getNumberOfSectionsFromSideNav():Promise<number> {
-		await this.sideNav.waitFor();
-		return await this.sideNavSections.count();
 	}
 
 	async getNumberOfSections():Promise<number> {
@@ -61,15 +52,13 @@ export class FormWithLayout extends BasePage {
 		const amount = await locator.count();
 		const stringFlag = dataType == "string" ? true : false;
 		let indexOfSection = 0;
-		const result: string[] = [];
+		const result = [];
 		for (let i = 0; i <  amount; i++) {
 			if (stringFlag) {
-				const textContent = await locator.nth(i).textContent();
-				result.push(textContent || "");
+				result.push(await locator.nth(i).textContent());
 			} else {
 				indexOfSection = i + 1;
-				const count = await locator.locator(`//*[@id='root']/div/form/div[2]/div["${indexOfSection}"]/div/div/div`).count();
-				result.push(typeof count === "number" && Number.isFinite(count) ? String(count) : "");
+				result.push(await locator.locator(`//*[@id='root']/div/form/div[2]/div["${indexOfSection}"]/div/div/div`).count());
 			}
 		}
 		return result;
@@ -77,10 +66,6 @@ export class FormWithLayout extends BasePage {
 
 	async getSectionsTitlesFromTopComponent():Promise<string[]> {
 		return await this.getSectionData(this.topComponentContainer.locator("a"), "string");
-	}
-
-	async getSectionsTitlesFromSideNav():Promise<string[]> {
-		return await this.getSectionData(this.sideNav.locator("a"), "string");
 	}
 
 	async getSectionsTitles():Promise<string[]> {
@@ -93,8 +78,8 @@ export class FormWithLayout extends BasePage {
 
 	async getNumberOfColumsInEachRowFromSections():Promise<number[]> {
 		let numberOfRowsInSection = 0;
-		const numberOfColumsPerRow: number[] = [];
-		const numberOfSections = await this.getNumberOfSectionsFromSideNav();
+		const numberOfColumsPerRow = [];
+		const numberOfSections = await this.getNumberOfSectionsFromTopComponent();
 		for (let i = 1; i <= numberOfSections; i++) {
 			numberOfRowsInSection = await this.page.locator("#root > div > form > div:nth-child(2) > div:nth-child(" + i + ") > div > div").count();
 			for (let j = 1; j <= numberOfRowsInSection; j++) {
@@ -104,10 +89,10 @@ export class FormWithLayout extends BasePage {
 		return numberOfColumsPerRow;
 	}
 
-	async getSelectedSectionFromSideNav():Promise<string | null> {
-		await this.sideNav.waitFor();
+	async getSelectedSectionFromTopComponent():Promise<string> {
+		await this.topComponentContainer.waitFor();
 		await this.wait();
-		return await this.sideNav.locator(".highlight").textContent();
+		return await this.topComponentContainer.locator(".highlight").textContent();
 	}
 
 	async isSectionVisible(section:string):Promise<boolean> {
