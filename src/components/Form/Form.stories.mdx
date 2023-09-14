@@ -1053,10 +1053,17 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 - The FormFieldUpload component allows users to upload multiple files of any type.
 - [**Playground**](/?path=/story/formfields-formfieldupload--playground)
 - Data: `array` of `UploadData`:
-	* **id** - `string | number` required - Used to identify which file is being used to work with (delete, add, update its loading percentage, etc).
-	* **name** - `string` required - Name the user will see when the file card gets rendered.
-	* **size** - `string` required - Value that will render under the name. The component doesn't add the suffix "b, mb, kb, ..." to the size, that also needs to come included in the string.
-	* **url** - `string` optional - Link used to render the image next in the file card. If none provided a default file icon will appear instead.
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`id`** | <code>string &#124; number</code> | required - A unique identifier, used as React "key" |
+| **`name`** | <code>string</code> | required - The name of the file, which will be rendered as the file title |
+| **`fileUrl`** | <code>string</code> | The URL to the uploaded file which the uploaded item's image and title will link to |
+| **`thumbnailUrl`** | <code>string</code> | The URL of the thumbnail that should be displayed. |
+| **`downloadUrl`** | <code>string</code> | The downloadable URL of the file, it should respond with a Content-Disposition: attachment header |
+| **`downloadStrategy`** | <code>"anchor" &#124; "iframe"</code> | How the file download button should behave:<br />"anchor" - renders an anchor tag with the "download" attribute<br />"iframe" - creates an iframe and navigates to the downloadUrl, then removes the iframe once loaded (or errored)<br />If this property is omitted, the downloadStrategy will be "anchor" if no downloadUrl is provided, or "iframe" if it is. |
+| **`size`** | <code>number</code> | The numerical size of the file in bytes |
+
 - inputSettings:
 
 | Name | Type | Description |
