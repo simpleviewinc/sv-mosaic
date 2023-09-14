@@ -1,94 +1,31 @@
 import styled from "styled-components";
 import theme from "../../theme";
-import { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
-import { MosaicCSSContainer } from "@root/types"
 
-export const StyledSideNav = styled.nav<{$collapse?: MosaicCSSContainer}>`
-	${({$collapse}) => $collapse ? `
-		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding: 0 20px;
-
-		@container ${$collapse.name ? CONTAINERS[$collapse.name] : ""} (min-width: ${BREAKPOINTS[$collapse.minWidth]}) {
-			border-bottom: 0;
-			border-right: 2px solid ${theme.newColors.grey2["100"]};
-			width: 196px;
-			min-width: 196px;
-			padding: 0;
-			overflow: auto;
-			height: 100%;
-		}
-	` : `
-		border-right: 2px solid ${theme.newColors.grey2["100"]};
-		width: 196px;
-		min-width: 196px;
-		overflow: auto;
-		height: 100%;
-	`}
+export const SideNavStyle = styled.nav`
+	background: white;
+	border-right: 2px solid ${theme.newColors.grey2["100"]};
+	display: flex;
+	flex-direction: column;
+	width: 196px;
+	min-width: 196px;
+	height: 100%;
+	overflow-y: auto;
 `;
 
-export const LinksWrapper = styled.div<{$collapse?: MosaicCSSContainer}>`
-	display: flex;
-
-	${({$collapse}) => $collapse ? `
-		gap: 40px;
-
-		@container ${CONTAINERS.FORM} (min-width: ${BREAKPOINTS.xl}) {
-			flex-direction: column;
-			gap: 0;
-		}
-	` : `
-		flex-direction: column;
-	`}
-`;
-
-export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSContainer}>`
-	cursor: pointer;
-	padding-bottom: 16px;
-	display: flex;
+export const LinkWrapper = styled.a`
 	align-items: center;
+	display: flex;
 	gap: 8px;
+	background-color: ${(pr) =>
+		pr.idx === pr.selectedLink ? theme.newColors.grey2["100"] : ""};
+		border-left: ${(pr) =>
+		pr.idx === pr.selectedLink ? `4px solid ${theme.newColors.simplyGold["100"]}` : "4px solid transparent"};
+	padding: 12px 20px;
+	text-decoration: none;
 
-	${({$isActive}) => $isActive && `
-		font-weight: ${theme.fontWeight.semiBold};
-	`}
-
-	${({$collapse}) => !$collapse ? `
-		border-left: 3px solid transparent;
-		padding: 12px 20px;
-	` : `
-		border-bottom: 4px solid transparent;
-	`};
-
-	${({$collapse, $isActive}) => $collapse && $isActive && `
-		border-bottom-color: ${theme.newColors.simplyGold["100"]};
-	`};
-
-	${({$collapse, $isActive}) => !$collapse && $isActive && `
-		background-color: ${theme.newColors.grey2["100"]};
-		border-left-color: ${theme.newColors.simplyGold["100"]};
-	`};
-
-	${({$collapse}) => $collapse && `
-		@container ${CONTAINERS.FORM} (min-width: ${BREAKPOINTS.xl}) {
-			align-items: center;
-			border-bottom: 0;
-			border-left: 3px solid transparent;
-			display: flex;
-			padding: 12px 20px;
-		}
-	`}
-
-	${({$collapse, $isActive}) => $collapse && $isActive && `
-		@container ${CONTAINERS.FORM} (min-width: ${BREAKPOINTS.xl}) {
-			background-color: ${theme.newColors.grey2["100"]};
-			border-left-color: ${theme.newColors.simplyGold["100"]};
-		}
-	`}
-
-	.MuiSvgIcon-root:first-child {
-		color: ${theme.newColors.almostBlack["100"]};
-		width: 16px;
-		margin: -2px 0;
+	span {
+		font-weight: ${(pr) =>
+		pr.idx === pr.selectedLink ? theme.fontWeight.semiBold : ""};
 	}
 
 	&:hover {
@@ -101,8 +38,17 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 		}
 	}
 
+	.MuiSvgIcon-root:first-child {
+		color: ${theme.newColors.almostBlack["100"]};
+		width: 16px;
+	}
+
 	.MuiSvgIcon-root:not(:first-child) {
 		display: none;
+	}
+
+	&:hover {
+		background-color: ${theme.newColors.grey2["100"]};
 	}
 `;
 
@@ -121,6 +67,11 @@ export const StyledLink = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	height: 20px;
+`;
+
+export const SectionWrapper = styled.div`
+	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+	cursor: pointer;
 `;
 
 export const Badge = styled.span`

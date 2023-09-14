@@ -10,10 +10,10 @@ import {
 // Components
 import Button from "@root/components/Button";
 
-export const DragAndDropContainer = styled.div<{$isOver?: boolean}>`
+export const DragAndDropContainer = styled.div`
   align-items: center;
-  border: ${({ $isOver }) => ($isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : "")};
-  background-color: ${({ $isOver }) => ($isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"])};
+  border: ${(pr) => (pr.isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : "")};
+  background-color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"])};
   display: flex;
   flex-direction: column;
   height: 204px;
@@ -22,10 +22,10 @@ export const DragAndDropContainer = styled.div<{$isOver?: boolean}>`
   width: 300px;
 `;
 
-export const DragAndDropSpan = styled.span<{$isOver?: boolean}>`
-  color: ${({ $isOver }) => ($isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"])};
+export const DragAndDropSpan = styled.span`
+  color: ${(pr) => (pr.isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"])};
   font-size: 16px;
-  margin-bottom: ${({ $isOver }) => ($isOver ? "" : "24px")};
+  margin-bottom: ${(pr) => (pr.isOver ? "" : "24px")};
 `;
 
 export const FileInput = styled.input`

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 
-export const EditorWrapper = styled.div<{$error?: boolean}>`
+export const EditorWrapper = styled.div`
   	.jodit-container {
 		width: 620px !important;
 		border: none !important;
@@ -11,7 +11,7 @@ export const EditorWrapper = styled.div<{$error?: boolean}>`
 		background-color: white !important;
 		border-radius: 0px !important;
 		margin-bottom: 8px !important;
-		border: ${({ $error }) => ($error ? theme.borders.error : theme.borders.simplyGrey)} !important;
+		border: ${(pr) => (pr.error ? theme.borders.error : theme.borders.simplyGrey)} !important;
 	}
 
 	.jodit-workplace {
@@ -20,8 +20,8 @@ export const EditorWrapper = styled.div<{$error?: boolean}>`
 		overflow-y: auto !important;
 		padding: 16px !important;
 		color: ${theme.newColors.almostBlack["100"]};
-		border: ${({ $error }) => {
-		if ($error) return theme.borders.error;
+		border: ${(pr) => {
+		if (pr.error) return theme.borders.error;
 		return theme.borders.simplyGrey;
 	}} !important;
 
@@ -54,8 +54,8 @@ export const EditorWrapper = styled.div<{$error?: boolean}>`
 
 	.jodit-status-bar {
 		border-radius: 0px !important;
-		border: ${({ $error }) => {
-		if ($error) return theme.borders.error;
+		border: ${(pr) => {
+		if (pr.error) return theme.borders.error;
 		return theme.borders.simplyGrey;
 	}} !important;
 		border-top: none !important;

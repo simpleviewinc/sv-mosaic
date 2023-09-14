@@ -8,14 +8,14 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import theme from "@root/theme";
 import Tooltip from "../Tooltip";
-import { StyledProps } from "@root/types";
 
-const LabelWrapper = styled.div<StyledProps<LabelProps, "required">>`
+const LabelWrapper = styled.div`
   display: flex;
   column-gap: 8px;
   align-items: center;
   margin-bottom: 8px;
   justify-content: space-between;
+  width: ${(pr) => pr.size};
   font-family: ${theme.fontFamily};
 
   .MuiInputLabel-root {
@@ -25,7 +25,7 @@ const LabelWrapper = styled.div<StyledProps<LabelProps, "required">>`
     word-wrap: break-word;
 
   :after {
-      content: "${({ $required }) => ($required ? "*" : "")}";
+      content: "${(pr) => (pr.required ? "*" : "")}";
       color: ${theme.newColors.darkRed["100"]};
     }
   }
@@ -80,7 +80,7 @@ const Label = (props: LabelProps): ReactElement => {
 	} = props;
 
 	return (
-		<LabelWrapper className={className} $required={required}>
+		<LabelWrapper className={className} required={required}>
 			<StyledInputTooltipWrapper>
 				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
 				{tooltip &&

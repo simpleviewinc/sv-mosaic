@@ -167,7 +167,7 @@ const FormFieldTable = (props: MosaicFieldProps<"table", TableInputSettings, Tab
 														<StyledTr
 															{...provider.draggableProps}
 															ref={provider.innerRef}
-															$isDragging={isDragging}
+															isDragging={isDragging}
 														>
 															<TdDrag {...provider.dragHandleProps}>
 																<DragIndicatorIcon />
