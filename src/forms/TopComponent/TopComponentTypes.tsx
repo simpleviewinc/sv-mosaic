@@ -1,8 +1,11 @@
 import { ButtonProps } from "@root/components/Button";
 import { FormProps } from "@root/components/Form";
-import { MosaicCSSContainer } from "@root/types";
+import { FormNavProps } from "@root/forms/FormNav";
+import { ReactNode } from "react";
 
-export type TopComponentProps = {
+export type ViewType = "MOBILE" | "RESPONSIVE" | "DRAWER" | "DESKTOP" | "BIG_DESKTOP";
+
+export type BaseTopComponentProps = {
 	/**
 	* Array of buttons provided to the Form.
 	*/
@@ -29,12 +32,21 @@ export type TopComponentProps = {
 	 */
 	showActive?: boolean;
 	/**
+	 * All different variants for the top comopnent.
+	 */
+	view: ViewType;
+	/**
 	 * Icon to be displayed when developers pass additional instructions
 	 * or information for the form.
 	 */
 	helpIcon?: JSX.Element;
-
-	bottomBorder?: boolean
-
-	collapse?: MosaicCSSContainer
+	activeSection?: number
+	onSectionSelect?: (section?: number) => void
 }
+
+export type TopComponentProps = {
+	/**
+	 * It should contains the sections
+	 */
+	children?: ReactNode;
+} & FormNavProps & BaseTopComponentProps;

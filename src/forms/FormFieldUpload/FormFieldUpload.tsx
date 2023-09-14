@@ -234,7 +234,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		<>
 			{!isMaxedOut && (
 				<DragAndDropContainer
-					$isOver={isOver}
+					isOver={isOver}
 					onDragOver={dragOver}
 					onDragEnter={dragEnter}
 					onDragLeave={dragLeave}
@@ -242,13 +242,13 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 					data-testid="drag-and-drop-container"
 				>
 					{isOver ? (
-						<DragAndDropSpan $isOver={isOver}>
+						<DragAndDropSpan isOver={isOver}>
 						Release and Drop
 						</DragAndDropSpan>
 					) : (
 						<>
 							{!fieldDef?.disabled && (
-								<DragAndDropSpan $isOver={isOver}>
+								<DragAndDropSpan isOver={isOver}>
 								Drag & Drop files here or
 								</DragAndDropSpan>
 							)}

@@ -11,7 +11,6 @@ import {
 	LeftNav,
 	LeftNavItemRootDef,
 	LeftNavProps,
-	StyledProps,
 } from "../../";
 import { useStoryBookCssReset } from "../../utils/reactTools";
 
@@ -53,7 +52,7 @@ const FakeTopBar = function(props: { variant: string, openNav : MouseEventHandle
 	)
 }
 
-const AppDiv = styled.div<StyledProps<NavWrapperProps, "onlyContent">>`
+const AppDiv = styled.div`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -70,7 +69,7 @@ const AppDiv = styled.div<StyledProps<NavWrapperProps, "onlyContent">>`
 	}
 
 	& > .main > .content {
-		padding: ${({$onlyContent}) => !$onlyContent ? "16px" : "0px"};
+		padding: ${props => !props.onlyContent ? "16px" : "0px"};
 		flex: 1 1 0;
 		overflow-y: auto;
 	}
@@ -92,13 +91,7 @@ function isMobile() {
 // https://stackoverflow.com/a/39712411/435223
 const noop = () => undefined;
 
-interface NavWrapperProps {
-	children?: ReactElement,
-	items : LeftNavItemRootDef[],
-	onlyContent?: boolean
-}
-
-export const NavWrapper = function(props: NavWrapperProps): ReactElement {
+export const NavWrapper = function(props: { children?: ReactElement, items : LeftNavItemRootDef[], onlyContent?: boolean }): ReactElement {
 	useStoryBookCssReset();
 
 	const [state, setState] = useState({
@@ -177,7 +170,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 	}, [state.label, state.name]);
 
 	return (
-		<AppDiv onClick={noop} $onlyContent={props.onlyContent}>
+		<AppDiv onClick={noop} onlyContent={props.onlyContent}>
 			<FakeTopBar variant={variant} openNav={onClick}/>
 			<div className="main">
 				<div className="left">

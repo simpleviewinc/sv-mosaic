@@ -14,7 +14,7 @@ test.describe.parallel("Components - Chip - Kitchen Sink", () => {
 
 	test("Validate Chip has simplyGold background.", async () => {
 		const expectedColor = theme.newColors.simplyGold["100"];
-		const expectedDisabledBgColor = theme.newColors.simplyGold["100"];
+		const expectedDisabledBgColor = theme.newColors.simplyGold["60"];
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithOnClickSelected)).toBe(expectedColor);
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithoutOnClickSelected)).toBe(expectedColor);
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.disabledChipSelected)).toBe(expectedDisabledBgColor);

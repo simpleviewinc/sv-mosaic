@@ -59,9 +59,9 @@ export const Label = styled.p`
 	margin-top: 0;
 `;
 
-export const FieldContainer = styled.div<{$columns?: number}>`
+export const FieldContainer = styled.div`
 	margin-bottom: 24px;
-	width: calc(100% / ${({ $columns }) => $columns});
+	width: calc(100% / ${pr => pr.columns});
 `;
 
 export const TransformContainer = styled.div`

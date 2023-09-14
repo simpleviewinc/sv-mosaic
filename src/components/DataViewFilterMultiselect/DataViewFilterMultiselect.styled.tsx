@@ -87,12 +87,12 @@ export const PopoverP = styled.p`
 	margin: 0px;
 `
 
-export const StyledHr = styled.hr<{$margin?: string}>`
+export const StyledHr = styled.hr`
 	border: 2px solid ${theme.newColors.grey2[100]};
-	margin:  ${({ $margin }) => $margin ? $margin : "0px -16px"};
+	margin:  ${pr => pr.margin ?? "0px -16px"};
 `;
 
-export const StyledVerticalHr = styled.hr<{$margin?: string}>`
+export const StyledVerticalHr = styled.hr`
 	border: 2px solid ${theme.newColors.grey2[100]};
-	margin: ${({ $margin }) => $margin ? $margin : "-32px 0px 0px 0px"};
+	margin: ${pr => pr.margin ?? "-32px 0px 0px 0px"};
 `;

@@ -50,7 +50,7 @@ const ComponentExample = (props: {
 		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
 		<Button
 			key={4}
-			attrs={{$linkButton: true}}
+			attrs={{linkButton: true}}
 			color="black"
 			variant="text"
 			label={textLinks[0].label}
@@ -60,7 +60,7 @@ const ComponentExample = (props: {
 		/>,
 		<Button
 			key={5}
-			attrs={{$linkButton: true}}
+			attrs={{linkButton: true}}
 			color="black"
 			variant="text"
 			label={textLinks[1].label}
@@ -70,7 +70,7 @@ const ComponentExample = (props: {
 		/>,
 		<Button
 			key={6}
-			attrs={{$linkButton: true}}
+			attrs={{linkButton: true}}
 			color="black"
 			variant="text"
 			label={textLinks[2].label}

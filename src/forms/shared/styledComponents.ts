@@ -41,18 +41,18 @@ export const FormDrawerWrapper = styled.div`
   }
 `;
 
-export const DragAndDropContainer = styled.div<{$isOver?: boolean}>`
+export const DragAndDropContainer = styled.div`
   align-items: center;
-  border: ${({ $isOver }) =>
-		$isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : ""};
-  background-color: ${({ $isOver }) =>
-		$isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"]};
+  border: ${(pr) =>
+		pr.isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : ""};
+  background-color: ${(pr) =>
+		pr.isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"]};
   display: flex;
   flex-direction: column;
   height: 204px;
   justify-content: center;
   position: relative;
-  width: 600px;
+  width: ${(pr) => (pr.width ? pr.width : "600px")};
   max-width: 100%;
 
   & .button {
@@ -60,11 +60,11 @@ export const DragAndDropContainer = styled.div<{$isOver?: boolean}>`
   }
 `;
 
-export const DragAndDropSpan = styled.span<{$isOver?: boolean}>`
-  color: ${({ $isOver }) =>
-		$isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"]};
+export const DragAndDropSpan = styled.span`
+  color: ${(pr) =>
+		pr.isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"]};
   font-size: 16px;
-  margin-bottom: ${({ $isOver }) => ($isOver ? "" : "24px")};
+  margin-bottom: ${(pr) => (pr.isOver ? "" : "24px")};
 `;
 
 export const FileInput = styled.input`
@@ -85,6 +85,6 @@ export const StyledDisabledText = styled.p`
   font-size: 16px;
   margin: 0px;
   padding: 0px;
-  width: auto;
+  width: ${(pr) => pr.width ?? "auto"};
   word-break: break-all;
 `;

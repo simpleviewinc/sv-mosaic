@@ -119,7 +119,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 							)
 						}
 					</ul>
-					<StyledVerticalHr $margin={"-10px 10px"}/>
+					<StyledVerticalHr margin={"-10px 10px"}/>
 				</>
 			}
 			<StyledMainContent>
@@ -178,7 +178,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 					</div>
 				</div>
 				<div>
-					<StyledHr $margin={"10px -16px"} />
+					<StyledHr margin={"10px -16px"} />
 					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={hasError}/>
 				</div>
 			</StyledMainContent>

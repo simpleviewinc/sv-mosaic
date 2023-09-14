@@ -24,7 +24,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (!field) {
 		return (
-			<FieldContainer $columns={sectionLength} />
+			<FieldContainer columns={sectionLength} />
 		)
 	}
 
@@ -36,7 +36,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (!evaluateShow(currentField?.show)) {
 		return (
-			<FieldContainer $columns={sectionLength} />
+			<FieldContainer columns={sectionLength} />
 		)
 	}
 
@@ -45,7 +45,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (fieldValue === undefined || fieldValue === "" || (Array.isArray(fieldValue) && !fieldValue.length)) {
 		return (
-			<FieldContainer $columns={sectionLength}>
+			<FieldContainer columns={sectionLength}>
 				<ContentField label={currentField.label} content={<Blank />} />
 			</FieldContainer>
 		)
@@ -53,7 +53,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (currentField && !currentField?.transforms) {
 		return (
-			<FieldContainer key={`value-${currentField.name}`} $columns={sectionLength}>
+			<FieldContainer key={`value-${currentField.name}`} columns={sectionLength}>
 				<ContentField label={currentField.label} content={data[fieldName]} />
 			</FieldContainer>
 		)
@@ -64,7 +64,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 	})
 
 	return (
-		<FieldContainer key={`transformed-${currentField.name}`} $columns={sectionLength}>
+		<FieldContainer key={`transformed-${currentField.name}`} columns={sectionLength}>
 			<ContentField label={currentField.label} content={fieldValue} />
 		</FieldContainer>
 	)

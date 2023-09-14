@@ -37,11 +37,11 @@ const StyledHeading = styled.h2`
 	margin: 0 0 1rem;
 `
 
-const StyledPrimary = styled.div<{$height: number}>`
+const StyledPrimary = styled.div`
 	border-bottom: 2px solid rgb(240,242,245);
 	display: flex;
 	flex-direction: column;
-	height: ${({$height}) => $height}px;
+	height: ${({height}) => height}px;
 	position: relative;
 `
 
@@ -53,11 +53,11 @@ const StyledSections = styled.div`
 	height: 100%;
 `
 
-const StyledThreshold = styled.div<{$threshold: number}>`
+const StyledThreshold = styled.div`
 	background-color: rgba(211, 52, 52, 0.24);
 	border-bottom: 2px dashed rgb(223, 43, 43);
 	left: 0;
-	height: ${({$threshold}) => $threshold}%;
+	height: ${({threshold}) => threshold}%;
 	width: 100%;
 	top: 0;
 	position: absolute;
@@ -107,7 +107,7 @@ export const Playground = (): ReactElement => {
 	const sideNavItems = sections.map(({title}, index) => ({name: String(index), label: title}));
 
 	// Setup scroll spy DOM element references
-	const containerRef = React.useRef<HTMLDivElement>();
+	const containerRef = React.useRef<HTMLElement>();
 	const [sectionRefs, setSectionRefs] = React.useState<HTMLElement[]>([]);
 
 	const registerRef = React.useCallback((ref) => {
@@ -120,7 +120,7 @@ export const Playground = (): ReactElement => {
 	const {
 		activeSection,
 		setActiveSection,
-	} = useScrollSpy<HTMLDivElement>({
+	} = useScrollSpy({
 		refs: sectionRefs,
 		container: containerRef.current,
 		threshold: threshold / 100
@@ -138,14 +138,14 @@ export const Playground = (): ReactElement => {
 				active={String(activeSection)}
 				onNav={onNav}
 			/>
-			<StyledPrimary $height={viewportHeight}>
+			<StyledPrimary height={viewportHeight}>
 				<StyledSections ref={containerRef}>
 					{sections.map((section, index) => (
 						<Section key={index} registerRef={registerRef} {...section} />
 					))}
 				</StyledSections>
 				{showThreshold && (
-					<StyledThreshold $threshold={threshold} />
+					<StyledThreshold threshold={threshold} />
 				)}
 			</StyledPrimary>
 		</StyledMain>
