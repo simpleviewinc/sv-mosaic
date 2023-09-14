@@ -8,18 +8,20 @@ import { FieldDef } from "@root/components/Field";
 import Row from "./Row";
 
 // Types
+import { ViewType } from "@root/forms/TopComponent";
+import { Views } from "@root/theme/theme";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { MosaicGridConfig, MosaicShow, StyledProps } from "@root/types";
+import { MosaicGridConfig, MosaicShow } from "@root/types";
 
 const StyledAccordion = styled(Accordion)`
 	box-shadow: none !important;
 	border-radius: 0px;
 	scroll-margin-top: 60px;
-	border: ${pr => !pr.title ? "none" : `2px solid ${theme.newColors.grey2["100"]}`} !important;
-	margin: ${pr => !pr.title ? "0px" : "0px 0px 40px 0px"} !important;
+	border: ${pr => !pr.hastitle ? "none" : `2px solid ${theme.newColors.grey2["100"]}`} !important;
+	margin: ${pr => !pr.hastitle ? "0px" : "0px 0px 40px 0px"} !important;
 
 	&:before {
 		content: none !important;
@@ -48,9 +50,9 @@ const StyledDescription = styled.p`
 	font-family: ${theme.fontFamily};
 `;
 
-const StyledRows = styled.div<StyledProps<SectionPropTypes, "title">>`
+const StyledRows = styled.div`
 	margin: 0px;
-	padding: ${({$title}) => `${!$title ? "" : "16px 24px"}`};
+	padding: ${pr => pr.view === Views.mobile ? "0px 30px" : `${!pr.hastitle ? "" : "16px 24px"}`};
 `;
 
 const StyledTitle = styled.h2`
@@ -68,6 +70,7 @@ interface SectionPropTypes {
 	rows: MosaicGridConfig;
 	dispatch: any;
 	state: any;
+	view: ViewType;
 	collapsed?: boolean;
 	show?: MosaicShow;
 	registerRef?: (ref: HTMLElement) => () => void;
@@ -82,6 +85,7 @@ const Section = (props: SectionPropTypes) => {
 		dispatch,
 		sectionIdx,
 		state,
+		view,
 		collapsed = false,
 		registerRef
 	} = props;
@@ -123,11 +127,12 @@ const Section = (props: SectionPropTypes) => {
 
 	return (
 		<StyledAccordion
+			id={sectionIdx}
 			data-testid="section-test-id"
 			expanded={expanded}
 			onChange={onExpandChange}
 			square={true}
-			title={title}
+			hastitle={title}
 			ref={ref}
 		>
 			{title &&
@@ -135,13 +140,13 @@ const Section = (props: SectionPropTypes) => {
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel1a-content"
 				>
-					<StyledTitle className="section-title">{title}</StyledTitle>
+					<StyledTitle className="section-title" id={sectionIdx}>{title}</StyledTitle>
 				</StyledSectionHeader>
 			}
 			<StyledSectionContent>
 				{description && <StyledDescription>{description}</StyledDescription>}
 				{rows && (
-					<StyledRows $title={title}>
+					<StyledRows view={view} hastitle={title}>
 						{rows.map((row, i) => (
 							<Row
 								key={`row-${i}`}

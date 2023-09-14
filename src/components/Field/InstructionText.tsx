@@ -10,7 +10,7 @@ interface InstructionText {
 	tooltip?: boolean;
 }
 
-const InstructionText = forwardRef<HTMLDivElement, InstructionText>((props, ref): ReactElement => {
+const InstructionText = forwardRef((props: InstructionText, ref): ReactElement => {
 	const { children, tooltip} = props;
 	return (
 		<InstructionTextWrapper

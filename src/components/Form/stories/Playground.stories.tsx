@@ -670,19 +670,21 @@ export const Playground = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<Form
-				title={text("Title", "Form Title")}
-				onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
-				description={text("Description", "This is a description example")}
-				state={state}
-				fields={fields}
-				dispatch={dispatch}
-				getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
-				sections={showSections > 0 ? sectionsAmount : undefined}
-				buttons={renderButtons(dispatch, { showCancel, showSave })}
-				tooltipInfo={showTooltipInfo && tooltipInfo}
-				showActive={showActive}
-			/>
+			<div style={{height: "100vh"}}>
+				<Form
+					title={text("Title", "Form Title")}
+					onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
+					description={text("Description", "This is a description example")}
+					state={state}
+					fields={fields}
+					dispatch={dispatch}
+					getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
+					sections={showSections > 0 ? sectionsAmount : undefined}
+					buttons={renderButtons(dispatch, { showCancel, showSave })}
+					tooltipInfo={showTooltipInfo && tooltipInfo}
+					showActive={showActive}
+				/>
+			</div>
 		</>
 	);
 };
