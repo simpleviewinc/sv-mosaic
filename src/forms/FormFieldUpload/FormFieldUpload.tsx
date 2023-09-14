@@ -190,7 +190,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 
 		await Promise.all(Object.entries(transformedFiles).map(async ([key, file]) => {
 			if (!fileExtensions.isValidFileName(file.rawData.name)) {
-				onError({ uuid: key, message: `We only allow ${fileExtensions} file uploads` });
+				onError({ uuid: key, message: `We only allow ${fileExtensions.human} file uploads` });
 				return;
 			}
 
@@ -270,7 +270,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						value=""
 						disabled={fieldDef?.disabled}
 						multiple={limit < 0 || (limit > 1 && limit - currentLength > 1)}
-						accept={fileExtensions.toString()}
+						accept={fileExtensions.acceptAttr}
 					/>
 				</DragAndDropContainer>
 			)}
