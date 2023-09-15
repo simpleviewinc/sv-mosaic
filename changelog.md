@@ -1,5 +1,36 @@
 # sv-mosaic changelog
 
+## 26.1.0 - 09/19/23
+
+### Improvements & Fixes
+
+* `FormFieldMapCoordinates`:
+  * [MOS-1041](https://simpleviewtools.atlassian.net/browse/MOS-1041 "https://simpleviewtools.atlassian.net/browse/MOS-1041")
+    * Fixes a bug where the map marker would appear before any coordinates have been chosen
+    * Fixes a bug that caused the map to be redrawn when the lat/lng fields lost focus
+    * Fixes a bug that caused the reset button to set the lat/lng values to 0,0 instead of an undefined coordinate
+    * Fixes a bug which caused the `initialCenter` property to be emitted as the chosen coordinate value
+    * Improves UI by automatically zooming in to focus on a chosen coordinate if the current map zoom is too low
+    * Deprecates `inputSettings.mapPosition`. Use `inputSettings.initialCenter` instead.
+    * Deprecates the `inputSettings.address` property. Remove all usage of this property.
+  * [MOS-1174](https://simpleviewtools.atlassian.net/browse/MOS-1174 "https://simpleviewtools.atlassian.net/browse/MOS-1174")
+    * Fixes a bug that caused the map to break if a malformed `initialCenter` is provided, instead falling back to an initial center of 0,0.
+  * [MOS-1102](https://simpleviewtools.atlassian.net/browse/MOS-1102 "https://simpleviewtools.atlassian.net/browse/MOS-1102")
+    * Improves UI by introducing a remove confirmation prompt when a user attempts to remove coordinates from the field
+* `FormFieldAddress`:
+  * [MOS-1101](https://simpleviewtools.atlassian.net/browse/MOS-1101 "https://simpleviewtools.atlassian.net/browse/MOS-1101")
+    * Improves UI by introducing a remove confirmation prompt when a user attempts to remove an address from the field
+* `FormFieldUpload`:
+  * [MOS-1132](https://simpleviewtools.atlassian.net/browse/MOS-1132 "https://simpleviewtools.atlassian.net/browse/MOS-1132")
+    * Introduces an optional `inputSettings.accepts` property which takes an array of file extensions. Attempting to upload a file which an extension that does not fall in the list will produce an upload error for that file. This only checks the extension found in the file name; it does not validate mime types.
+* `FormFieldAdvancedSelection`:
+  * [MOS-1169](https://simpleviewtools.atlassian.net/browse/MOS-1169 "https://simpleviewtools.atlassian.net/browse/MOS-1169")
+    * Improves UI by hiding the “Add” button when the `inputSettings.selectLimit` has been reached, if it has been provided.
+* All field components:
+  * [MOS-1067](https://simpleviewtools.atlassian.net/browse/MOS-1067 "https://simpleviewtools.atlassian.net/browse/MOS-1067")
+    * Removes behaviour that caused a hyphen to be displayed in place of disabled fields
+    * Introduce styling for all fields to better reflect what is visually expected natively from a disabled field
+
 ## 26.0.0
 
 ### Improvements & Fixes
