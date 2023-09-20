@@ -29,6 +29,7 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 						<TitleWrapper
 							title={props.title}
 							onBack={props.onBack}
+							backLabel={props.backLabel}
 						/>
 					}
 					{props.savedViewEnabled && (
