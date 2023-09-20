@@ -55,7 +55,7 @@ const MobileView = forwardRef<HTMLDivElement, MobileViewProps>((props: MobileVie
 	} = props;
 
 	return (
-		<div ref={ref}>
+		<div ref={ref} data-testid="form-header">
 			<MobileActionsRow className={view}>
 				<StyledClearIcon onClick={onBack} />
 				{buttons && (
