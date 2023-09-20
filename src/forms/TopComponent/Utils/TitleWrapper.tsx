@@ -36,7 +36,7 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	const {
 		title,
 		description,
-		backLabel
+		backLabel = "Go back"
 	} = props;
 
 	return (
