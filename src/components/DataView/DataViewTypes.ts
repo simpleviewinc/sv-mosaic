@@ -5,6 +5,7 @@ import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
 import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRow";
 import { DataViewBulkActionsButtonsRowProps } from "./DataViewBulkActionsButtonsRow";
+import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
 
 export interface DataViewColumnTransformArgs<T = unknown> {
 	/** The value of the specific column that is being transformed */
@@ -236,4 +237,5 @@ export interface DataViewProps {
 	onCheckChange?: DataViewOnCheckChange;
 	onCheckAllPagesChange?: DataViewOnCheckAllPagesChange;
 	onBack?: () => void;
+	backLabel?: TitleWrapperProps["backLabel"]
 }
