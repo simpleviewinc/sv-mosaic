@@ -128,6 +128,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 		<DrawerContent
 			title={t("mosaic:DataView.saved_views")}
 			onBack={props.onClose}
+			backLabel={t("mosaic:DataView.cancel_saved_views")}
 		>
 			{
 				state.options &&
