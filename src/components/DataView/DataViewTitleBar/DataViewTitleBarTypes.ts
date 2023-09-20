@@ -17,5 +17,6 @@ export interface DataViewTitleBarProps {
 	activeFilters?: DataViewProps["activeFilters"];
 	onActiveFiltersChange?: DataViewProps["onActiveFiltersChange"];
 	onBack?: DataViewProps["onBack"];
+	backLabel?: DataViewProps["backLabel"]
 	disabled?: DataViewProps["disabled"]
 }
