@@ -23,6 +23,7 @@ const Form = (props: FormProps) => {
 		state,
 		title,
 		onBack,
+		backLabel,
 		fields,
 		sections,
 		dispatch,
@@ -224,6 +225,7 @@ const Form = (props: FormProps) => {
 							ref={topComponentRef}
 							title={title}
 							onBack={onBack}
+							backLabel={backLabel}
 							description={description}
 							sections={topComponentSections}
 							view={view}

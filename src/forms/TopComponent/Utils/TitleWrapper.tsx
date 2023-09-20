@@ -9,6 +9,7 @@ import theme from "@root/theme/theme";
 import { H1 } from "@root/components/Typography";
 import Button from "@root/components/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { TitleWrapperProps } from "./TitleWrapperTypes";
 
 const StyledWrapper = styled.div`
 	display: flex;
@@ -31,25 +32,26 @@ const Description = styled.span`
 	}
 `;
 
-export type TitleWrapperProps = {
-	title: string;
-	description?: string;
-	onBack?: (() => void) | ((e: any) => void)
-}
-
 const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	const {
 		title,
 		description,
+		backLabel = "Go back"
 	} = props;
 
 	return (
 		<>
 			<StyledWrapper>
-				{
-					props.onBack &&
-						<Button className="back-button" color="black" variant="icon" mIcon={ChevronLeftIcon} onClick={props.onBack}/>
-				}
+				{props.onBack && (
+					<Button
+						className="back-button"
+						color="black"
+						variant="icon"
+						mIcon={ChevronLeftIcon}
+						onClick={props.onBack}
+						muiAttrs={{ "aria-label": backLabel }}
+					/>
+				)}
 				<H1 attrs={{ title }} >{title}</H1>
 			</StyledWrapper>
 			{description && <Description>{description}</Description>}
