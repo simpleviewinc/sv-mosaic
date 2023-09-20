@@ -32,6 +32,10 @@ export const FlexContainer = styled.div`
 `;
 
 export const Row = styled(FlexContainer)`
+  ${({ isBigDesktopWithSections }) => isBigDesktopWithSections && `
+    display: flex;
+  `}
+
   justify-content: space-between;
 
   &.BIG_DESKTOP {
