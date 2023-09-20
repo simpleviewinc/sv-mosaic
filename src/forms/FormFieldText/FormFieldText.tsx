@@ -56,7 +56,6 @@ const TextField = (
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			multiline={fieldDef?.inputSettings?.multiline}
 			fieldSize={fieldDef?.size}
-			inputProps={{ maxLength: fieldDef?.inputSettings?.maxCharacters > 0 ? fieldDef?.inputSettings?.maxCharacters : null }}
 			InputProps={leadingElement}
 			required={fieldDef?.required}
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
