@@ -48,6 +48,7 @@ export const StyledChip = styled(Chip)`
 		}
 		return theme.newColors.grey2["100"];
 	}};
+	max-width: 186px;
 
 		color: ${theme.newColors.almostBlack["100"]};
 
@@ -69,13 +70,4 @@ export const StyledChip = styled(Chip)`
 		line-height: 16px;
 		padding: 0;
 	}
-`;
-
-export const StyledLabel = styled.p`
-	letter-spacing: 0.7px;
-	margin: 0;
-	max-width: 141px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 `;

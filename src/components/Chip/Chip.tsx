@@ -1,41 +1,39 @@
 import * as React from "react";
-import { ReactElement, HTMLAttributes } from "react";
-import Tooltip from "../Tooltip";
+import { ReactElement, HTMLAttributes, useRef } from "react";
 
-// Material UI
 import ClearIcon from "@mui/icons-material/Clear";
 
-// Types and styles
 import { ChipsProps } from "./ChipTypes";
-import { StyledChip, StyledDeletableChip, StyledLabel } from "./Chip.styled";
+import { StyledChip, StyledDeletableChip } from "./Chip.styled";
 
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const { label, required, disabled, selected, onDelete, onClick } = props;
+	const ref = useRef<HTMLDivElement>();
 
 	return onDelete ? (
-		<Tooltip text={label}>
-			<StyledDeletableChip
-				label={<StyledLabel>{label}</StyledLabel>}
-				{...props}
-				required={required}
-				disabled={disabled}
-				selected={selected}
-				deleteIcon={<ClearIcon data-testid='delete-icon-test-id' />}
-				onDelete={onDelete}
-				data-testid="delete-chip-testid"
-			/>
-		</Tooltip>
+		<StyledDeletableChip
+			{...props}
+			title={typeof label === "string" ? label : undefined}
+			ref={ref}
+			required={required}
+			disabled={disabled}
+			selected={selected}
+			deleteIcon={<ClearIcon data-testid='delete-icon-test-id' />}
+			onDelete={onDelete}
+			data-testid="delete-chip-testid"
+		/>
 	) : (
 		<StyledChip
-			label={<StyledLabel>{label}</StyledLabel>}
 			{...props}
+			title={typeof label === "string" ? label : undefined}
+			ref={ref}
 			required={required}
 			disabled={disabled}
 			selected={selected}
 			onClick={onClick}
 			data-testid="chip-testid"
 		/>
-	);
+	)
 };
 
 export default Chip;
