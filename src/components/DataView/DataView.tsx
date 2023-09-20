@@ -252,6 +252,7 @@ function DataView (props: DataViewProps): ReactElement  {
 						<DataViewTitleBar
 							title={props.title}
 							onBack={props.onBack}
+							backLabel={props.backLabel}
 							buttons={props.buttons}
 							savedViewEnabled={savedViewEnabled}
 							savedView={props.savedView}

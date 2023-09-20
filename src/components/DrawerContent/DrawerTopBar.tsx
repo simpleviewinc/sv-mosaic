@@ -6,6 +6,7 @@ import { H1 } from "../Typography";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import { useMosaicTranslation } from "@root/i18n";
+import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
 
 const StyledWrapper = styled.div`
 	& {
@@ -32,6 +33,7 @@ const StyledWrapper = styled.div`
 export interface DrawerTopBarProps {
 	title: string | JSX.Element;
 	onBack: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	backLabel?: TitleWrapperProps["backLabel"]
 	onCancel?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onSave?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onApply?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

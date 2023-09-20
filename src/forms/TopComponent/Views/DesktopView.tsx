@@ -36,6 +36,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 	const {
 		title,
 		onBack,
+		backLabel,
 		description,
 		tooltipInfo,
 		buttons,
@@ -55,6 +56,7 @@ const DesktopView = forwardRef((props: DesktopViewProps, ref): ReactElement => {
 					<TitleWrapper
 						title={title}
 						onBack={onBack}
+						backLabel={backLabel}
 						description={description}
 					/>
 				</TitleRow>

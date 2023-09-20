@@ -24,6 +24,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	const {
 		title,
 		onBack,
+		backLabel,
 		favorite,
 		img,
 		mainActions,
@@ -61,7 +62,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 			<Container>
 				<Row>
 					<ContainerTitle>
-						<TitleWrapper title={title} onBack={onBack} />
+						<TitleWrapper title={title} onBack={onBack} backLabel={backLabel} />
 						{
 							favorite &&
 								<>

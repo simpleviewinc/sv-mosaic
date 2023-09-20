@@ -143,6 +143,7 @@ export const Example = (): ReactElement => {
 		<SummaryPageTopComponent
 			title={title}
 			onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
+			backLabel="Go back"
 			favorite={showFavorite && favorite}
 			img={img && "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg"}
 			mainActions={showMainActions && mainActions}

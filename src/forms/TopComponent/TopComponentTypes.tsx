@@ -22,6 +22,7 @@ export type BaseTopComponentProps = {
 	 * Optional. If present, the Back icon is displayed on the left side of the title.
 	*/
 	onBack?: FormProps["onBack"];
+	backLabel?: FormProps["backLabel"]
 	/**
 	 * If present, the help icon is display with the
 	 * string defined with this prop.

@@ -1,6 +1,7 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
 import { Section } from "@root/forms/FormNav/FormNavTypes";
+import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
 import { MosaicGridConfig, MosaicObject, MosaicShow } from "@root/types";
 
 
@@ -17,6 +18,7 @@ export interface FormProps {
 	state: any;
 	title?: string;
 	onBack?: (() => void) | ((...args: any) => void);
+	backLabel?: TitleWrapperProps["backLabel"]
 	fields: FieldDef[];
 	sections?: SectionDef[];
 	dispatch: any;
