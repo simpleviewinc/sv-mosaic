@@ -1,33 +1,16 @@
-import { FieldDef } from "@root/components/Field";
 import * as React from "react";
 import { useMemo, memo } from "react";
-import { SectionDef } from "./FormTypes";
-import { generateLayout } from "./formUtils";
-import styled from "styled-components";
+import { generateLayout } from "../formUtils";
 
 // Components
-import Section from "./Section";
+import Section from "../Section";
 
 // Types
 import evaluateShow from "@root/utils/show/evaluateShow";
+import { LayoutProps } from "./LayoutTypes";
+import { StyledLayout } from "./LayoutStyles";
 
-interface FormLayoutProps {
-  state: any;
-  dispatch: any;
-  fields: FieldDef[];
-  sections: SectionDef[];
-  registerRef?: (ref: HTMLElement) => () => void
-}
-
-const StyledFormLayout = styled.div`
-	margin: 0px;
-	max-width: 1160px;
-	display: grid;
-	grid-template-columns: repeat(1,minmax(0,1fr));
-	gap: 24px 40px;
-`;
-
-const FormLayout = (props: FormLayoutProps) => {
+const Layout = (props: LayoutProps): React.ReactElement => {
 	const { state, dispatch, fields, sections, registerRef } = props;
 
 	const layout = useMemo(() => {
@@ -35,7 +18,7 @@ const FormLayout = (props: FormLayoutProps) => {
 	}, [sections, fields]);
 
 	return (
-		<StyledFormLayout data-testid="form-layout-test-id" className='layout'>
+		<StyledLayout data-testid="form-layout-test-id" className='layout'>
 			{layout?.map((section, i) => (
 				evaluateShow(section.show, {data: state.data}) && (
 					<Section
@@ -52,10 +35,8 @@ const FormLayout = (props: FormLayoutProps) => {
 					/>
 				)
 			))}
-		</StyledFormLayout>
+		</StyledLayout>
 	);
 };
 
-FormLayout.displayName = "FormLayout";
-
-export default memo(FormLayout);
+export default memo(Layout);

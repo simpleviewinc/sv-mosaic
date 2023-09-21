@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ElementType, memo, useCallback, useMemo } from "react";
-import styled from "styled-components";
-import { formActions } from "./formActions";
+import { formActions } from "../formActions";
 
 import FormFieldText from "@root/forms/FormFieldText";
 import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
@@ -25,32 +24,10 @@ import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
-import RegisteredField from "../Field/RegisteredField";
-import { StyledProps } from "@root/types";
-import { CONTAINERS } from "@root/theme/theme";
+import RegisteredField from "../../Field/RegisteredField";
 import { Sizes } from "@root/theme";
-
-const StyledCol = styled.div<StyledProps<ColPropsTypes, "colsInRow">>`
-	display: flex;
-	flex-direction: column;
-	position: relative;
-	gap: 24px;
-
-	container-type: inline-size;
-	container-name: ${CONTAINERS.FORM_COL};
-`;
-
-interface ColPropsTypes {
-	col: (string | FieldDef)[];
-	// TODO Use something other than any
-	state: any;
-	fieldsDef: FieldDef[];
-	dispatch: any;
-	colsInRow?: number;
-	colIdx?: number;
-	rowIdx?: number;
-	sectionIdx?: number;
-}
+import { ColPropsTypes } from "./ColTypes";
+import { StyledCol } from "./ColStyled";
 
 const fieldComponentMap = {
 	text: FormFieldText,
