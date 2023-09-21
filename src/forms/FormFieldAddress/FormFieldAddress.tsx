@@ -230,7 +230,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 			)}
 			<Drawer open={open} onClose={handleClose}>
 				<AddressDrawer
-					googleMapsApiKey={fieldDef.inputSettings.googleMapsApiKey}
+					googleMapsApiKey={fieldDef?.inputSettings?.googleMapsApiKey}
 					open={open}
 					value={value ?? []}
 					onChange={onChange}
@@ -244,8 +244,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
 					addressTypes={addressTypes}
-					getOptionsCountries={fieldDef.inputSettings?.getOptionsCountries}
-					getOptionsStates={fieldDef.inputSettings?.getOptionsStates}
+					getOptionsCountries={fieldDef?.inputSettings?.getOptionsCountries}
+					getOptionsStates={fieldDef?.inputSettings?.getOptionsStates}
 				/>
 			</Drawer>
 			<Dialog

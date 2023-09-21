@@ -9,6 +9,8 @@ import ImageIcon from "@mui/icons-material/Image";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import LinkIcon from "@mui/icons-material/Link";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import { BrowseOptionProps } from "./ImageVideoLinkDocumentBrowsingTypes";
+import { StyledProps } from "@root/types";
 
 export const ImageVideoLinkDocumentBrowsingContainer = styled.div`
 	width: fit-content;
@@ -119,8 +121,8 @@ export const Column = styled.div`
   flex-direction: column;
 `;
 
-export const AssetPropertiesColumn = styled(Column)`
-	margin-left: ${({ hasImage }) => hasImage ? "16px" : "0"};
+export const AssetPropertiesColumn = styled(Column)<{$hasImage?: boolean}>`
+	margin-left: ${({ $hasImage }) => $hasImage ? "16px" : "0"};
 `;
 
 export const MenuColumn = styled(Column)`
@@ -146,16 +148,16 @@ export const StyledImg = styled.img`
   object-fit: cover;
 `;
 
-export const RoundBackground = styled.div`
+export const RoundBackground = styled.div<StyledProps<BrowseOptionProps, "disabled">>`
   align-items: center;
-  cursor: ${({ disabled }) => (!disabled ? "pointer" : "auto")};
+  cursor: ${({ $disabled }) => (!$disabled ? "pointer" : "auto")};
   background-color: ${theme.newColors.realTeal["100"]};
   border-radius: 22px;
   display: flex;
   height: 40px;
   justify-content: center;
-	opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-	pointer-events: ${({ disabled }) => (disabled ? "none" : "")};
+	opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
+	pointer-events: ${({ $disabled }) => ($disabled ? "none" : "")};
   width: 40px;
 `;
 

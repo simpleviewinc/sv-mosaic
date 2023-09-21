@@ -1,9 +1,11 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
-import { Section } from "@root/forms/FormNav/FormNavTypes";
 import { MosaicGridConfig, MosaicObject, MosaicShow } from "@root/types";
 
-
+export interface Section {
+	title?: string;
+	id?: string;
+  }
 
 export interface SectionDef extends Section {
 	title?: string;

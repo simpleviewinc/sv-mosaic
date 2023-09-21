@@ -81,7 +81,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							filteredMainActions.map((mainAction, i) => (
 								<Button
 									key={i}
-									attrs={{smallText: true}}
+									attrs={{$smallText: true}}
 									color={mainAction.color}
 									variant={mainAction.variant}
 									size="small"
