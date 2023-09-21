@@ -51,7 +51,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							onBlur={handleBlur}
 						/>
 						<Popover
-							open={anchorEl && suggestions?.length > 0}
+							open={Boolean(anchorEl) && suggestions?.length > 0}
 							anchorEl={anchorEl}
 							onClose={handleBlur}
 							anchorOrigin={{
