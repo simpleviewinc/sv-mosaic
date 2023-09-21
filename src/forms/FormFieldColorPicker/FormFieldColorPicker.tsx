@@ -2,9 +2,6 @@ import * as React from "react";
 import {
 	memo,
 	ReactElement,
-	ReactNode,
-	useEffect,
-	useRef,
 	useState,
 } from "react";
 import theme from "@root/theme";
@@ -39,62 +36,32 @@ export const RGBAToHexA = (rgbaColor: RGBColor) => {
 	return "#" + r + g + b + a;
 };
 
-/**
- * Hook that alerts clicks outside of the passed ref
- */
-function useOutsideAlerter(ref, handleCloseCb) {
-	useEffect(() => {
-		/**
-		 * Alert if clicked on outside of element
-		 */
-		function handleClickOutside(event) {
-			if (ref.current && !ref.current.contains(event.target)) {
-				handleCloseCb();
-			}
-		}
-		// Bind the event listener
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => {
-			// Unbind the event listener on clean up
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, [ref]);
-}
-
-/**
- * Component that alerts if you click outside of it
- */
-function OutsideAlerter(props: {
-  handleClose: () => void;
-  children: ReactNode;
-}) {
-	const wrapperRef = useRef(null);
-	useOutsideAlerter(wrapperRef, props.handleClose);
-
-	return <div ref={wrapperRef}>{props.children}</div>;
-}
-
 const FormFieldColorPicker = (
 	props: MosaicFieldProps<"color", unknown, ColorData>
 ): ReactElement => {
+	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 	const { fieldDef, value, onChange } = props;
 
 	// State variables
 	const [displayColorPicker, setDisplayColorPicker] = useState(false);
 	const [color, setColor] = useState<ColorResult>(null);
 
-	const handleClick = () => {
+	const handleClick = (event) => {
 		setDisplayColorPicker(!displayColorPicker);
+		setAnchorEl(event.currentTarget);
 	};
 
 	const handleClose = () => {
 		setDisplayColorPicker(false);
+		setAnchorEl(null);
 	};
 
 	const onColorChange = (color: ColorResult) => {
 		setColor(color);
 		onChange(RGBAToHexA(color.rgb));
 	};
+
+	const id = open ? `${fieldDef.name}-popover` : undefined;
 
 	return (
 		<>
@@ -103,12 +70,20 @@ const FormFieldColorPicker = (
 				color={color?.rgb || value || { r: 0, g: 141, b: 168, a: 1 }}
 				onClick={handleClick}
 			/>
-			{displayColorPicker && !fieldDef?.disabled && (
-				<OutsideAlerter handleClose={handleClose}>
-					<PopOver>
-						<SketchPicker color={value || theme.newColors.realTeal["100"]} onChange={onColorChange} />
-					</PopOver>
-				</OutsideAlerter>
+			{!fieldDef?.disabled && (
+				<PopOver
+					id={id}
+					open={displayColorPicker}
+					anchorEl={anchorEl}
+					onClose={handleClose}
+					anchorOrigin={{
+						vertical: "bottom",
+						horizontal: "left",
+					}}
+
+				>
+					<SketchPicker color={value || theme.newColors.realTeal["100"]} onChange={onColorChange} />
+				</PopOver>
 			)}
 		</>
 	);
