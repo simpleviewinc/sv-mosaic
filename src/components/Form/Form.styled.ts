@@ -19,7 +19,7 @@ export const StyledContainerForm = styled.div`
 	container-name: ${CONTAINERS.FORM};
 `;
 
-export const FormContent = styled.div`
+export const StyledFormContent = styled.div`
 	overflow-y: auto;
 	flex-grow: 1;
 	min-width: 0;

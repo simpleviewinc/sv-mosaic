@@ -6,7 +6,7 @@ import { H1 } from "../Typography";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import { useMosaicTranslation } from "@root/i18n";
-import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
+import { TitleWrapperProps } from "@root/components/Title";
 
 const StyledWrapper = styled.div`
 	& {

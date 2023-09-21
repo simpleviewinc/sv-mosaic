@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo, forwardRef } from "react";
 import { StyledPageHeader, StyledTitleRow } from "./PageHeader.styled";
 import { PageHeaderProps } from "./PageHeaderTypes";
-import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
+import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../ButtonRow/ButtonRow";
 
 const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {

@@ -4,7 +4,7 @@ import DataViewViewControls from "../DataViewViewControls";
 import DataViewFilters from "../DataViewFilters";
 import { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
 import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
-import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
+import TitleWrapper from "@root/components/Title";
 import { ButtonProps } from "@root/components/Button";
 
 function DataViewTitleBar(props: DataViewTitleBarProps) {

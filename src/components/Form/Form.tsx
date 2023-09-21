@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
-import { FormContent, StyledForm, StyledContainerForm, StyledFormPrimary, StyledSideNav } from "./Form.styled";
 import { FormProps } from "./FormTypes";
-import { formActions } from "./formActions";
-import FormLayout from "./FormLayout";
-import TopComponent from "@root/forms/TopComponent";
 import { MosaicCSSContainer, MosaicObject } from "@root/types";
-import Dialog from "@root/components/Dialog";
+
+import { formActions } from "./formActions";
 import evaluateShow from "@root/utils/show/evaluateShow";
+
+import {
+	StyledFormContent,
+	StyledForm,
+	StyledContainerForm,
+	StyledFormPrimary,
+	StyledSideNav
+} from "./Form.styled";
+import Layout from "./Layout";
+import Top from "./Top";
+import Dialog from "@root/components/Dialog";
 import { ButtonProps } from "../Button";
 import { Item, SideNavArgs } from "../SideNav";
 import useScrollSpy from "@root/utils/hooks/useScrollSpy";
@@ -44,7 +52,6 @@ const Form = (props: FormProps) => {
 
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
-	const topComponentRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
 
 	const {
@@ -187,8 +194,7 @@ const Form = (props: FormProps) => {
 			>
 				<StyledForm autoComplete="off">
 					{title && (
-						<TopComponent
-							ref={topComponentRef}
+						<Top
 							title={title}
 							onBack={onBack}
 							backLabel={backLabel}
@@ -209,15 +215,15 @@ const Form = (props: FormProps) => {
 								collapse={sidebarCollapseContainer}
 							/>
 						)}
-						<FormContent ref={formContentRef}>
-							<FormLayout
+						<StyledFormContent ref={formContentRef}>
+							<Layout
 								registerRef={registerRef}
 								state={state}
 								dispatch={dispatch}
 								fields={fields}
 								sections={sections}
 							/>
-						</FormContent>
+						</StyledFormContent>
 					</StyledFormPrimary>
 				</StyledForm>
 			</StyledContainerForm>
