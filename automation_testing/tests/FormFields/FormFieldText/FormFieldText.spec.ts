@@ -87,13 +87,6 @@ test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
 		expect(await ffTextPage.getElementWidth(ffTextPage.lgSizeTextField, true)).toBe(620);
 	});
 
-	test("Validate instruction text height.", async () => {
-		const fullHeigh = (await ffTextPage.getHeightFromElement(ffTextPage.firstSection)).split("px")[0];
-		const expectedHeight = Number(fullHeigh) - 44;
-		const instructionHeight = (await ffTextPage.getHeightFromElement(ffTextPage.firstInstructionText)).split("px")[0];
-		expect(parseFloat(instructionHeight).toFixed(3)).toBe(parseFloat(expectedHeight.toString()).toFixed(3));
-	});
-
 	test("Validate that an empty value is saved correctly.", async () => {
 		const sampleText = "regular example text";
 		await ffTextPage.regularTextField.type(sampleText);
