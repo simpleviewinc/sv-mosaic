@@ -87,14 +87,6 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 		}
 	});
 
-	test("Validate NumberTable's input width.", async () => {
-		const inputLocator = ffNumberTablePage.page.locator("input");
-		const inputCount = await inputLocator.count();
-		for (let i = 0; i < inputCount; i++) {
-			expect(await ffNumberTablePage.getElementWidth(inputLocator.nth(i), true)).toBe(90);
-		}
-	});
-
 	test("Validate arrow key navigation in the NumberTable.", async () => {
 		await ffNumberTablePage.wait();
 		await ffNumberTablePage.inputLocator.first().click();

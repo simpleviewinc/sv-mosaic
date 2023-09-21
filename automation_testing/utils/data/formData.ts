@@ -1,5 +1,6 @@
 export const validatorsData = {
 	require: "Required",
+	requireAsterisk: "Required*",
 	requireError: "This field is required, please fill it",
 	validEmail: "test@mail.com",
 	invalidEmail: "aaa",

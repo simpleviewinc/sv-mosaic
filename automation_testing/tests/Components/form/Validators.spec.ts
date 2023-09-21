@@ -22,7 +22,7 @@ test.describe.parallel("Components - Form - Validators", () => {
 	test("Validate Error when saving with empty mandatory fields.", async () => {
 		const required = validatorPage.requiredTitle;
 		expect(await required.isVisible()).toBe(true);
-		expect(await required.textContent()).toBe(validatorData.require);
+		expect(await required.textContent()).toBe(validatorData.requireAsterisk);
 		await validatorPage.saveBtn.click();
 		const error = validatorPage.error;
 		expect(await error.textContent()).toBe(validatorData.requireError);

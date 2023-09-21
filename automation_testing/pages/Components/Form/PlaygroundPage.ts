@@ -95,8 +95,8 @@ export class PlaygroundPage extends BasePage {
 
 		this.tableLocator = page.locator("#table table");
 		this.tableRowsLocator = this.tableLocator.locator("[data-rbd-droppable-id='droppable-rows'] tr");
-		this.latitudeMapCard = page.locator("#mapCoordinates div span").nth(1);
-		this.longitudeMapCard = page.locator("#mapCoordinates div span").nth(3);
+		this.latitudeMapCard = page.locator("#mapCoordinates div span").nth(2);
+		this.longitudeMapCard = page.locator("#mapCoordinates div span").nth(4);
 		this.addressFieldTitle = page.locator("#address [data-testid='address-card-test'] span").first();
 		this.backIconLocator = page.locator("button svg[data-testid='icon-button-test']");
 	}

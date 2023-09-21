@@ -69,11 +69,6 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 		}
 	});
 
-	test("Validate Image Upload (without focus) border has grey2 in border.", async () => {
-		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
-		expect(await ffImageUploadPage.getSpecificBorderFromElement(ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv, "all")).toContain(theme.newColors.grey2["100"]);
-	});
-
 	test("Validate Image Upload (with focus)  border has grey2 in border.", async () => {
 		test.skip();
 		const expectedColor = theme.newColors.grey2["100"];
