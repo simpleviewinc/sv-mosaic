@@ -45,7 +45,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 										<SuggestionsDescriptionContainer
 											{...getSuggestionItemProps(suggestion)}
 											key={suggestion?.placeId}
-											isSuggestionActive={suggestion?.active}
+											$isSuggestionActive={suggestion?.active}
 										>
 											<SuggestionDescription>
 												{suggestion?.description}

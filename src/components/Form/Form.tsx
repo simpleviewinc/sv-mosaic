@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
-import { StyledForm, StyledContainerForm } from "./Form.styled";
+import { FormContent, StyledForm, StyledContainerForm, StyledFormPrimary, StyledSideNav } from "./Form.styled";
 import { FormProps } from "./FormTypes";
 import { formActions } from "./formActions";
 import FormLayout from "./FormLayout";
 import TopComponent from "@root/forms/TopComponent";
-import { FormContent, Row } from "@root/forms/TopComponent/TopComponent.styled";
-import { useViewResizer, ViewProvider } from "@root/utils/formViewUtils";
-import { MosaicObject } from "@root/types";
+import { MosaicCSSContainer, MosaicObject } from "@root/types";
 import Dialog from "@root/components/Dialog";
-import { Views } from "@root/theme/theme";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import { ButtonProps } from "../Button";
-import { useRefsDispatch } from "../../forms/shared/refsContext/RefsContext";
-import SideNav, { Item, SideNavArgs } from "../SideNav";
+import { Item, SideNavArgs } from "../SideNav";
 import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 import Snackbar from "../Snackbar/Snackbar";
+
+const topCollapseContainer: MosaicCSSContainer = {
+	name: "FORM",
+	minWidth: "sm"
+}
+
+const sidebarCollapseContainer: MosaicCSSContainer = {
+	name: "FORM",
+	minWidth: "xl"
+}
 
 const Form = (props: FormProps) => {
 	const {
@@ -48,30 +54,6 @@ const Form = (props: FormProps) => {
 		container: formContentRef.current,
 		threshold: scrollSpyThreshold
 	});
-
-	const dispatchRef = useRefsDispatch();
-	const { view } = useViewResizer({ formContainerRef });
-
-	useEffect(() => {
-		dispatchRef && topComponentRef.current && dispatchRef({
-			type: "update",
-			ref: {
-				topComponentDrawerRef: topComponentRef.current
-			}
-		});
-
-	}, [topComponentRef.current?.offsetHeight, view]);
-
-	useEffect(() => {
-		dispatchRef && formContentRef.current?.children[0] &&
-			dispatchRef({
-				type: "update",
-				ref: {
-					formLayoutRef: formContentRef.current.children[0]
-				}
-			});
-
-	}, [formContentRef.current?.children[0], view]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -129,10 +111,6 @@ const Form = (props: FormProps) => {
 		buttons?.filter(button => evaluateShow(button.show))
 	) ,[buttons]);
 
-	if (!view) {
-		return null;
-	}
-
 	const dialogButtons: ButtonProps[] = [
 		{
 			label: "No, stay",
@@ -147,11 +125,6 @@ const Form = (props: FormProps) => {
 			variant: "contained",
 		},
 	];
-
-	const isBigDesktopWithSections =
-		view === Views.bigDesktop &&
-		sections &&
-		sections?.length > 1;
 
 	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
 		setSectionRefs(refs => [...refs, ref]);
@@ -168,16 +141,10 @@ const Form = (props: FormProps) => {
 	 * section id.
 	 */
 	const items: Item[] = useMemo(() => {
-		if (!isBigDesktopWithSections) return;
-
-		return sections?.map((section, idx) => evaluateShow(section.show, {data: state.data}) && ({
+		return (sections || []).map((section, idx) => evaluateShow(section.show, {data: state.data}) && ({
 			label: section.title,
 			name: idx.toString(),
 		})).filter(Boolean);
-	}, [sections, state.data, view]);
-
-	const topComponentSections = useMemo(() => {
-		return sections?.filter(section => evaluateShow(section.show, {data: state.data}))
 	}, [sections, state.data]);
 
 	/**
@@ -206,54 +173,50 @@ const Form = (props: FormProps) => {
 
 	return (
 		<>
-			<ViewProvider value={view}>
-				<StyledContainerForm
-					data-testid="form-test-id"
-					style={{ position: "relative", height: "100%" }}
-					ref={formContainerRef}
-					className={state.disabled ? "disabled" : ""}
-					aria-busy={isBusy ? "true" : "false"}
-					role="form"
-					aria-label={title}
-				>
-					<StyledForm autoComplete="off">
-						{title &&
+			<StyledContainerForm
+				data-testid="form-test-id"
+				style={{ position: "relative", height: "100%" }}
+				ref={formContainerRef}
+				className={state.disabled ? "disabled" : ""}
+				aria-busy={isBusy ? "true" : "false"}
+				role="form"
+				aria-label={title}
+			>
+				<StyledForm autoComplete="off">
+					{title && (
 						<TopComponent
 							ref={topComponentRef}
 							title={title}
 							onBack={onBack}
 							description={description}
-							sections={topComponentSections}
-							view={view}
 							buttons={filteredButtons}
-							activeSection={activeSection}
 							tooltipInfo={tooltipInfo}
 							showActive={showActive}
-							onSectionSelect={setActiveSection}
+							bottomBorder={items.length < 2}
+							collapse={topCollapseContainer}
 						/>
-						}
-						<Row className={view}>
-							{sections && isBigDesktopWithSections &&
-								<SideNav
-									items={[items]}
-									active={String(activeSection)}
-									onNav={onNav}
-								/>
-							}
-							<FormContent view={view} sections={sections} ref={formContentRef}>
-								<FormLayout
-									registerRef={registerRef}
-									state={state}
-									dispatch={dispatch}
-									fields={fields}
-									sections={sections}
-									view={view}
-								/>
-							</FormContent>
-						</Row>
-					</StyledForm>
-				</StyledContainerForm>
-			</ViewProvider>
+					)}
+					<StyledFormPrimary className="form-primary">
+						{items.length > 1 && (
+							<StyledSideNav
+								items={[items]}
+								active={String(activeSection)}
+								onNav={onNav}
+								collapse={sidebarCollapseContainer}
+							/>
+						)}
+						<FormContent ref={formContentRef}>
+							<FormLayout
+								registerRef={registerRef}
+								state={state}
+								dispatch={dispatch}
+								fields={fields}
+								sections={sections}
+							/>
+						</FormContent>
+					</StyledFormPrimary>
+				</StyledForm>
+			</StyledContainerForm>
 			<Dialog
 				buttons={dialogButtons}
 				dialogTitle='Are you sure you want to leave?'

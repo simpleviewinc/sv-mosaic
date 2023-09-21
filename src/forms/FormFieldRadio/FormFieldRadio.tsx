@@ -66,8 +66,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		<StyledRadioGroup
 			onChange={(e) => onChange && updateSelectedOption(e.target.value)}
 			value={value ? value.value : ""}
-			onBlur={(e) => onBlur && onBlur(e.target.value)}
-			disabled={fieldDef?.disabled}
+			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
 		>
 			{listOfRadios}
 		</StyledRadioGroup>

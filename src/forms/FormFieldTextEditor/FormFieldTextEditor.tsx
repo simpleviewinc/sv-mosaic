@@ -67,7 +67,7 @@ const FormFieldTextEditor = (
 	};
 
 	return (
-		<EditorWrapper error={error} data-testid="text-editor-testid">
+		<EditorWrapper $error={!!error} data-testid="text-editor-testid">
 			<JoditEditor
 				ref={editor}
 				value={value}

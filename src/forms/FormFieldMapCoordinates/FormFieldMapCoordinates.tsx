@@ -22,6 +22,7 @@ import MapCoordinatesDrawer from "./MapCoordinatesDrawer";
 import {
 	ButtonsWrapper,
 	Column,
+	Details,
 	CoordinatesCard,
 	CoordinatesValues,
 	LatitudeValue,
@@ -127,30 +128,28 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 			{latLng ? (
 				<div>
 					<CoordinatesCard>
-						<MapImageColumn>
-							{latLng ? (
+						<Details>
+							<MapImageColumn>
 								<img
 									src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=232x153&maptype=roadmap&markers=color:red%7C${latLng?.lat},${latLng?.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
 									alt="location"
 								/>
-							) : (
-								<Blank />
-							)}
-						</MapImageColumn>
-						<Column>
-							<LatLngLabel>Latitude</LatLngLabel>
-							{latLng ? (
-								<LatitudeValue>{latLng?.lat}</LatitudeValue>
-							) : (
-								<Blank />
-							)}
-							<LatLngLabel>Longitude</LatLngLabel>
-							{latLng ? (
-								<CoordinatesValues>{latLng?.lng}</CoordinatesValues>
-							) : (
-								<Blank />
-							)}
-						</Column>
+							</MapImageColumn>
+							<Column>
+								<LatLngLabel>Latitude</LatLngLabel>
+								{latLng ? (
+									<LatitudeValue>{latLng?.lat}</LatitudeValue>
+								) : (
+									<Blank />
+								)}
+								<LatLngLabel>Longitude</LatLngLabel>
+								{latLng ? (
+									<CoordinatesValues>{latLng?.lng}</CoordinatesValues>
+								) : (
+									<Blank />
+								)}
+							</Column>
+						</Details>
 						<ButtonsWrapper>
 							<Button
 								color="teal"
