@@ -25,6 +25,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		await ffColorPickerPage.regularColorPicker.click();
 		await ffColorPickerPage.clickRandomColorInSketchPicker();
 		const hexCode = (await ffColorPickerPage.hexColorInput.inputValue()).toLocaleLowerCase();
+		await ffColorPickerPage.page.locator(".MuiBackdrop-root").click();
 		await ffColorPickerPage.saveBtn.click();
 	});
 
@@ -37,6 +38,7 @@ test.describe.parallel("FormFields - FormFieldColorPicker - Kitchen Sink", () =>
 		await ffColorPickerPage.regularColorPicker.click();
 		await ffColorPickerPage.clearAllValuesFromField(ffColorPickerPage.hexColorInput);
 		await ffColorPickerPage.hexColorInput.type(hexCode);
+		await ffColorPickerPage.page.locator(".MuiBackdrop-root").click();
 		await ffColorPickerPage.saveBtn.click();
 	});
 
