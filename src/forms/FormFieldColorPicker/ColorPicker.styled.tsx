@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 import { ColorSelectedProps } from "./ColorPickerTypes";
 import { StyledProps } from "@root/types";
+import { Popover } from "@mui/material"
 
 export const ColorContainer = styled.div<StyledProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`
   background: ${theme.newColors.grey1["100"]};
@@ -31,7 +32,5 @@ export const ColorDiv = styled.div<StyledProps<ColorSelectedProps, "disabled" | 
   width: 80px;
 `;
 
-export const PopOver = styled.div`
-  position: absolute;
-  z-index: 2;
+export const PopOver = styled(Popover)`
 `;
