@@ -115,16 +115,16 @@ describe("FormFieldNumberTable component", () => {
 
 	it("should display the columns titles", () => {
 		for (const column of columns) {
-			expect(screen.getByText(column.title)).toBeInTheDocument();
+			expect(screen.getByText(column.title as string)).toBeInTheDocument();
 		}
 	});
 
 	it("should display the rows titles", () => {
 		for (const row of rows) {
 			if (row.subtitle) {
-				expect(screen.getByText(row.subtitle)).toBeInTheDocument();
+				expect(screen.getByText(row.subtitle as string)).toBeInTheDocument();
 			}
-			expect(screen.getByText(row.title)).toBeInTheDocument();
+			expect(screen.getByText(row.title as string)).toBeInTheDocument();
 		}
 	});
 

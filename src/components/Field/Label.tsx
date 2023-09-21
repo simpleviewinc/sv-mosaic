@@ -27,8 +27,8 @@ const LabelWrapper = styled.div<StyledProps<LabelProps, "required">>`
 	}
 `;
 
-const CharCounterWrapper = styled.div`
-	color: ${theme.newColors.grey3["100"]};
+const CharCounterWrapper = styled.div<{$invalid?: boolean}>`
+	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
 	font-size: 12px;
 	margin-left: auto;
 	// Aligns the bottom of the character counter with the field label
@@ -100,7 +100,7 @@ const Label = (props: LabelProps): ReactElement => {
 				</StyledTooltipWrapper>
 			)}
 			{maxCharacters > 0 && (
-				<CharCounterWrapper>
+				<CharCounterWrapper $invalid={typeof value === "string" && value.length > maxCharacters}>
 					{(!value ? "0" : value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").length) + "/" + maxCharacters}
 				</CharCounterWrapper>
 			)}

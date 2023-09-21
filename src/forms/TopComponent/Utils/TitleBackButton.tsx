@@ -10,7 +10,11 @@ const backButtonMuiAtts = {
 	"data-testid": "icon-button-test"
 }
 
-const TitleBackButton = ({collapse, ...props}: TitleBackButtonProps): ReactElement => {
+const TitleBackButton = ({
+	collapse,
+	label = "Go back",
+	...props
+}: TitleBackButtonProps): ReactElement => {
 
 	return (
 		<BackButton
@@ -20,7 +24,7 @@ const TitleBackButton = ({collapse, ...props}: TitleBackButtonProps): ReactEleme
 			color="gray"
 			variant="outlined"
 			mIcon={ChevronLeftIcon}
-			muiAttrs={backButtonMuiAtts}
+			muiAttrs={{...backButtonMuiAtts, "aria-label": label}}
 		/>
 	);
 };

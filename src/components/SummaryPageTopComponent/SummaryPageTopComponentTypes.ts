@@ -1,3 +1,4 @@
+import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 
@@ -42,4 +43,6 @@ export interface SummaryPageTopComponentTypes {
 	 * Optional. If present, the Back icon is displayed on the left side of the title.
 	*/
 	onBack?: () => void;
+
+	backLabel?: TitleWrapperProps["backLabel"]
   }
