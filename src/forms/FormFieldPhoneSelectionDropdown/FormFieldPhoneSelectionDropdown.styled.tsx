@@ -3,7 +3,7 @@ import styled from "styled-components";
 // Theme
 import theme from "@root/theme";
 
-export const PhoneInputWrapper = styled.div`
+export const PhoneInputWrapper = styled.div<{$error?: boolean, $disabled?: boolean}>`
   .react-tel-input {
     .form-control {
       border-radius: 0px;
@@ -19,7 +19,7 @@ export const PhoneInputWrapper = styled.div`
       border-width: 1px;
       border-style: solid;
 
-      ${({error}) => error ? `
+      ${({$error}) => $error ? `
         border-color: ${theme.newColors.darkRed["100"]};
       ` : `
         border-color: ${theme.newColors.simplyGrey["100"]};

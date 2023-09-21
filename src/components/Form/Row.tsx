@@ -1,15 +1,25 @@
 import { FieldDef } from "@root/components/Field";
-import theme from "@root/theme";
 import * as React from "react";
 import { memo } from "react";
 import styled from "styled-components";
 
 // Components
 import Col from "./Col";
+import { containerQuery } from "@root/utils/css";
 
-const StyledRow = styled.div`
-	display: flex;
-	margin: 0px -${theme.fieldSpecs.inputSpacing.fieldPadding};
+const StyledRow = styled.div<{$columns?: number}>`
+	${({$columns}) => $columns && `
+		display: grid;
+		grid-template-columns: repeat(1,minmax(0,1fr));
+		gap: 24px 40px;
+
+		${containerQuery("md")} {
+			grid-template-columns: repeat(${$columns > 1 ? 2 : 1},minmax(0,1fr));
+		}
+		${containerQuery("lg")} {
+			grid-template-columns: repeat(${$columns},minmax(0,1fr));
+		}
+	`}
 `;
 
 interface RowPropTypes {
@@ -25,7 +35,7 @@ const Row = (props: RowPropTypes) => {
 	const { row, rowIdx, state, fieldsDef, dispatch, sectionIdx } = props;
 
 	return (
-		<StyledRow>
+		<StyledRow data-layout="row" $columns={row.length}>
 			{row.map((col, i) => {
 				return (
 					<Col

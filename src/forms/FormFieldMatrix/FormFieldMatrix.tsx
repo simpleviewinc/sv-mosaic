@@ -21,8 +21,8 @@ const FormFieldMatrix = (
 	const hasValue = data.length > 0;
 
 	return (
-		<MatrixWrapper hasValue={hasValue}>
-			<MatrixActions hasValue={hasValue}>
+		<MatrixWrapper>
+			<MatrixActions>
 				<ButtonRow>
 					{buttons.map((button, idx) => (
 						<Button

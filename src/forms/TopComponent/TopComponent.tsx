@@ -11,16 +11,29 @@ import {
 // Components
 import Tooltip from "@root/components/Tooltip";
 import Checkbox from "@root/components/Checkbox";
-import MobileView from "./Views/MobileView";
-import DesktopView from "./Views/DesktopView";
-import { Views } from "@root/theme/theme";
 
 // Types and Utils
 import { TopComponentProps } from "./TopComponentTypes";
 
 // Styles
-import { StyledHelpIcon, StyledHelpIconWrapper } from "./TopComponent.styled";
-import { useView } from "@root/utils/formViewUtils";
+import {
+	TopRoot,
+	Heading,
+	PrimaryActions,
+	SecondaryActions,
+	SmallBack,
+	SmallBackIcon,
+	ActiveCheckboxWrapper,
+	HelpIcon,
+	HelpIconWrapper,
+	TopWrapper,
+	SmallDescription,
+	LargeDescription
+} from "./TopComponent.styled";
+import ButtonRow from "@root/components/ButtonRow/ButtonRow";
+import { Title } from "./Utils/TitleWrapper.styled";
+import TitleBackButton from "./Utils/TitleBackButton";
+import { H1 } from "@root/components/Typography";
 
 const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopComponentProps, ref): ReactElement => {
 	const {
@@ -30,15 +43,13 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		title,
 		onBack,
 		tooltipInfo,
-		sections,
-		activeSection,
-		onSectionSelect
+		bottomBorder,
+		collapse
 	} = props;
 
 	// State variables
 	const [activeChecked, setActiveChecked] = useState(false);
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-	const view = useView(Views.responsive);
 
 	const handleActiveClick = useCallback(() => {
 		setActiveChecked((prev) => !prev);
@@ -46,75 +57,68 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 
 	const checkbox = useMemo(
 		() => (
-			<Checkbox
-				label="Active"
-				checked={activeChecked}
-				onClick={handleActiveClick}
-			/>
+			<ActiveCheckboxWrapper>
+				<Checkbox
+					label="Active"
+					checked={activeChecked}
+					onClick={handleActiveClick}
+				/>
+			</ActiveCheckboxWrapper>
 		),
 		[activeChecked, handleActiveClick]
 	);
 
 	const helpIcon = useMemo(
 		() => (
-			<StyledHelpIconWrapper
-				onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-				showActive={showActive}
-				className={view}
-			>
+			<HelpIconWrapper>
 				<Tooltip
 					open={tooltipIsOpen}
 					onOpen={() => setTooltipIsOpen(true)}
 					onClose={() => setTooltipIsOpen(false)}
 					text={tooltipInfo}
 				>
-					<StyledHelpIcon />
+					<HelpIcon />
 				</Tooltip>
-			</StyledHelpIconWrapper>
+			</HelpIconWrapper>
 		),
-		[showActive, view, tooltipInfo, setTooltipIsOpen, tooltipIsOpen]
+		[showActive, tooltipInfo, setTooltipIsOpen, tooltipIsOpen]
 	);
 
-	const desktopView = (
-		<DesktopView
-			ref={ref}
-			title={title}
-			onBack={onBack}
-			description={description}
-			showActive={showActive}
-			tooltipInfo={tooltipInfo}
-			helpIcon={helpIcon}
-			checkbox={checkbox}
-			buttons={buttons}
-			sections={sections}
-			view={view === Views.bigDesktop ? Views.bigDesktop : Views.desktop}
-			activeSection={activeSection}
-			onSectionSelect={onSectionSelect}
-		/>
+	return (
+		<TopRoot $bottomBorder={bottomBorder}>
+			<TopWrapper ref={ref}>
+				<Heading>
+					<Title>
+						{props.onBack && (
+							<TitleBackButton
+								collapse={collapse}
+								onClick={props.onBack}
+							/>
+						)}
+						<H1 attrs={{ title }} >{title}</H1>
+					</Title>
+				</Heading>
+				{description && <SmallDescription>{description}</SmallDescription>}
+				{((tooltipInfo && helpIcon) || showActive) && (
+					<SecondaryActions>
+						{tooltipInfo && helpIcon}
+						{showActive && checkbox}
+					</SecondaryActions>
+				)}
+				<PrimaryActions>
+					{onBack && (
+						<SmallBack type="button" onClick={onBack}>
+							<SmallBackIcon />
+						</SmallBack>
+					)}
+					{buttons && (
+						<ButtonRow buttons={buttons} />
+					)}
+				</PrimaryActions>
+			</TopWrapper>
+			{description && <LargeDescription>{description}</LargeDescription>}
+		</TopRoot>
 	);
-
-	const mobileView = (
-		<MobileView
-			ref={ref}
-			buttons={buttons}
-			title={title}
-			onBack={onBack}
-			description={description}
-			helpIcon={helpIcon}
-			checkbox={checkbox}
-			showActive={showActive}
-			tooltipInfo={tooltipInfo}
-			view={Views.mobile}
-		/>
-	)
-
-	const ViewToRender = {
-		"MOBILE": mobileView,
-		"DESKTOP": desktopView,
-		"BIG_DESKTOP": desktopView
-	};
-
-	return ViewToRender[view];
 }
 );
 

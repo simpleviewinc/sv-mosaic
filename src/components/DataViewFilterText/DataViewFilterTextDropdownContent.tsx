@@ -113,6 +113,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 						variant="outlined"
 						onChange={onInputChange}
 						onKeyPress={onKeyPress}
+						fieldSize=""
 					/>
 					:
 					<StyledDisabledText className="disabled">{state.value || t("mosaic:common.filter___")}</StyledDisabledText>

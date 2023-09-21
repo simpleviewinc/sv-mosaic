@@ -6,9 +6,6 @@ import {
 	useState
 } from "react";
 
-// Context
-import { RefsProvider } from "../shared/refsContext/RefsContext";
-
 // Types
 import { AdvancedSelectionData, AdvancedSelectionInputSettings } from "./AdvancedSelectionTypes";
 import { MosaicFieldProps } from "@root/components/Field";
@@ -25,7 +22,6 @@ import {
 	AdvancedSelectionWrapper,
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
-import { MosaicObject } from "@root/types";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {
 	const {
@@ -34,8 +30,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		onChange,
 		fieldDef,
 	} = props;
-
-	console.log(typeof fieldDef?.inputSettings?.selectLimit);
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,11 +68,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		}
 	};
 
-	const initialRefs: MosaicObject = {
-		topComponentDrawerRef: null,
-		formLayoutRef: null,
-	}
-
 	return (
 		<>
 			{value?.length > 0 && !isModalOpen ? (
@@ -115,21 +104,19 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 					disabled={fieldDef?.disabled}
 				/>
 			)}
-			<RefsProvider initialRefs={initialRefs}>
-				<Drawer
-					open={isModalOpen}
-					onClose={handleClose} backdropCloseHandler={false}
-				>
-					<AdvancedSelectionDrawer
-						value={value ?? []}
-						fieldDef={fieldDef}
-						onChange={onChange}
-						isModalOpen={isModalOpen}
-						isMobileView={isMobileView}
-						handleClose={handleClose}
-					/>
-				</Drawer>
-			</RefsProvider>
+			<Drawer
+				open={isModalOpen}
+				onClose={handleClose} backdropCloseHandler={false}
+			>
+				<AdvancedSelectionDrawer
+					value={value ?? []}
+					fieldDef={fieldDef}
+					onChange={onChange}
+					isModalOpen={isModalOpen}
+					isMobileView={isMobileView}
+					handleClose={handleClose}
+				/>
+			</Drawer>
 		</>
 	);
 };
