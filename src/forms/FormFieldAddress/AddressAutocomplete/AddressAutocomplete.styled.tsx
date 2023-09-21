@@ -27,9 +27,6 @@ export const StyledClearIcon = styled(ClearIcon)`
 
 export const SuggestionsContainer = styled.div`
   background-color: white;
-  position: absolute;
-  z-index: 99999;
-  width: 100%;
   border: ${theme.borders.fieldGray};
   border-top: 0;
   font-family: ${theme.fontFamily};
