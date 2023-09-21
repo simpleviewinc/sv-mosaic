@@ -7,9 +7,6 @@ import { renderButtons } from "@root/utils/storyUtils";
 // Components
 import Form, { useForm } from "@root/components/Form";
 
-// Utils
-import { defaultMapPosition } from "./MapCoordinatesUtils";
-
 export default {
 	title: "FormFields/FormFieldMapCoordinates",
 	decorators: [withKnobs],
@@ -32,9 +29,10 @@ export const Playground = (): ReactElement => {
 
 	const disabled = boolean("Disabled", false);
 	const label = text("Label", "Map Coordinates Example");
-	const initialCenterKnob = object("Initial map position", defaultMapPosition);
+	const initialCenterKnob = object("Initial map position", { lat: 48.858321470423576, lng: 2.2945004162050564 });
 	const required = boolean("Required", false);
 	const zoom = number("Zoom", 7, { min: 0, max: 18, range: true });
+	const focusZoom = number("Focus Zoom", 11, { min: 0, max: 18, range: true });
 	const prepopulate = boolean("Prepopulate", false);
 
 	const fields = useMemo(
@@ -49,11 +47,12 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 						initialCenter: initialCenterKnob,
-						zoom: zoom,
+						zoom,
+						focusZoom
 					},
 				},
 			],
-		[disabled, label, initialCenterKnob, required, zoom]
+		[disabled, label, initialCenterKnob, required, zoom, focusZoom]
 	);
 
 	return (

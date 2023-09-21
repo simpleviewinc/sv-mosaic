@@ -11,7 +11,8 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	const {
 		title,
 		description,
-		collapse
+		collapse,
+		backLabel
 	} = props;
 
 	return (
@@ -21,6 +22,7 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 					<TitleBackButton
 						collapse={collapse}
 						onClick={props.onBack}
+						label={backLabel}
 					/>
 				)}
 				<H1 attrs={{ title }} >{title}</H1>

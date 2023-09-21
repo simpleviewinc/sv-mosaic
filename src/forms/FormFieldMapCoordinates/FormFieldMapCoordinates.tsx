@@ -131,7 +131,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 						<Details>
 							<MapImageColumn>
 								<img
-									src={`https://maps.googleapis.com/maps/api/staticmap?zoom=12&size=232x153&maptype=roadmap&markers=color:red%7C${latLng?.lat},${latLng?.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
+									src={`https://maps.googleapis.com/maps/api/staticmap?zoom=${fieldDef?.inputSettings?.focusZoom ?? 11}&size=232x153&maptype=roadmap&markers=color:red%7C${latLng?.lat},${latLng?.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
 									alt="location"
 								/>
 							</MapImageColumn>

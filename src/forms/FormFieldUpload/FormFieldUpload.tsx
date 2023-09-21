@@ -8,6 +8,7 @@ import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styl
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
 import { TransformedFile, UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
+import { FileExtensions } from "@root/utils/classes";
 
 const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSettings, UploadData[]>) => {
 	const {
@@ -21,6 +22,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		limit = -1,
 		onFileAdd,
 		onFileDelete,
+		accept
 	} = fieldDef.inputSettings;
 
 	const [isOver, setIsOver] = useState(false);
@@ -30,6 +32,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const prevValueRef = useRef([]);
 	const currentLength = Object.keys(pendingFiles).length + (value || []).length;
 	const isMaxedOut = limit >= 0 && currentLength >= limit;
+
+	const fileExtensions = useMemo(() => new FileExtensions(accept), [accept]);
 
 	const pendingWithoutError = useMemo(() =>
 		Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length,
@@ -184,7 +188,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		 */
 		setPendingFiles({...pendingFiles, ...transformedFiles});
 
-		for (const [key, file] of Object.entries(transformedFiles) as [string, TransformedFile][]) {
+		await Promise.all(Object.entries(transformedFiles).map(async ([key, file]) => {
+			if (!fileExtensions.isValidFileName(file.rawData.name)) {
+				onError({ uuid: key, message: `We only allow ${fileExtensions.human} file uploads` });
+				return;
+			}
+
 			try {
 				await onFileAdd({
 					file: file?.rawData,
@@ -196,7 +205,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 				const message = err instanceof Error ? err.message : String(err);
 				onError({ uuid: key, message });
 			}
-		}
+		}));
 	};
 
 	const handleFileDelete = async ({id}) => {
@@ -261,6 +270,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						value=""
 						disabled={fieldDef?.disabled}
 						multiple={limit < 0 || (limit > 1 && limit - currentLength > 1)}
+						accept={fileExtensions.acceptAttr}
 					/>
 				</DragAndDropContainer>
 			)}
