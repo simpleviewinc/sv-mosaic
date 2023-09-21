@@ -29,6 +29,7 @@ const Form = (props: FormProps) => {
 		state,
 		title,
 		onBack,
+		backLabel,
 		fields,
 		sections,
 		dispatch,
@@ -65,10 +66,12 @@ const Form = (props: FormProps) => {
 			);
 		}
 
+		// TODO This is always true?
 		if (isMounted) {
 			registerFields();
 		}
 
+		// TODO This is redundant
 		return () => {
 			isMounted = false;
 		}
@@ -188,6 +191,7 @@ const Form = (props: FormProps) => {
 							ref={topComponentRef}
 							title={title}
 							onBack={onBack}
+							backLabel={backLabel}
 							description={description}
 							buttons={filteredButtons}
 							tooltipInfo={tooltipInfo}

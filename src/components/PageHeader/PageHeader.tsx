@@ -9,15 +9,20 @@ const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {
 	const {
 		title,
 		buttons,
-		onBack
+		onBack,
+		backLabel
 	} = props;
 
 	return (
 		<StyledPageHeader ref={ref} data-testid="page-header-test-id">
 			<StyledTitleRow>
-				{title &&
-					<TitleWrapper title={title} onBack={onBack} />
-				}
+				{title && (
+					<TitleWrapper
+						title={title}
+						onBack={onBack}
+						backLabel={backLabel}
+					/>
+				)}
 			</StyledTitleRow>
 			{buttons &&
 				<ButtonRow buttons={buttons} />

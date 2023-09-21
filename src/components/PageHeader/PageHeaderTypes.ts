@@ -1,8 +1,9 @@
 import { ButtonProps } from "@root/components/Button";
-import { FormProps } from "../Form";
+import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
 
 export interface PageHeaderProps {
 	title?: string;
 	buttons?: ButtonProps[];
-	onBack?: FormProps["onBack"];
+	onBack?: TitleWrapperProps["onBack"];
+	backLabel?: TitleWrapperProps["backLabel"]
 }

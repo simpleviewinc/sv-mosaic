@@ -1,3 +1,4 @@
+import { ReactNode} from "react"
 import { FieldDefBase } from "@root/components/Field";
 
 export type NumberTableInputSettings = {
@@ -8,7 +9,7 @@ export type NumberTableInputSettings = {
   /**
    * Label shown on the column that displays the totals.
    */
-  columnTotalLabel?: string;
+  columnTotalLabel?: ReactNode;
   /**
    * Shows or hides the column that cointains the totals sums.
    */
@@ -29,11 +30,11 @@ export type NumberTableInputSettings = {
   /**
    * Label shown on the total row.
    */
-  rowTotalLabel?: string;
+  rowTotalLabel?: ReactNode;
   /**
    * 	Label placed on the top left corner i.e the first column.
    */
-  topLeftLabel?: string;
+  topLeftLabel?: ReactNode;
 };
 
 export interface Col {
@@ -44,14 +45,14 @@ export interface Col {
   /**
    * Label displayed on the table.
    */
-  title: string;
+  title: ReactNode;
 }
 
 export interface Row extends Col {
   /**
    * Optional label shown below the title of the row.
    */
-  subtitle?: string;
+  subtitle?: ReactNode;
 }
 
 /**

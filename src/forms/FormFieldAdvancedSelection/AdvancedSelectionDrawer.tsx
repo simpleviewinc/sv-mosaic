@@ -73,6 +73,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				title={fieldDef?.label}
 				buttons={buttons}
 				onBack={handleClose}
+				backLabel="Cancel advanced selection"
 			/>
 			<DataViewFilterMultiselectDropdownContent
 				comparison={""}

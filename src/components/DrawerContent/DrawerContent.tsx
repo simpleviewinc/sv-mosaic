@@ -61,6 +61,7 @@ function DrawerContent(props: DrawerContentProps) {
 				title={t(`mosaic:${props.title}`)}
 				buttons={drawerButtons}
 				onBack={props.onBack}
+				backLabel={props.backLabel}
 			/>
 			<DrawerBottom
 				background={props.background}

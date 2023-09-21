@@ -33,7 +33,7 @@ function ButtonRow(props: ButtonRowProps) {
 	}
 
 	return (
-		<Row className={props.className} $wrap={wrap} data-testid="button-row">
+		<Row className={props.className} $wrap={wrap} data-testid="button-row" role="toolbar">
 			{children.map((elem: React.ReactNode, i: number) => (
 				<Item key={i} $separator={props.separator} $gap={gap}>
 					{elem}

@@ -42,6 +42,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 		showActive,
 		title,
 		onBack,
+		backLabel,
 		tooltipInfo,
 		bottomBorder,
 		collapse
@@ -93,6 +94,7 @@ const TopComponent = forwardRef<HTMLDivElement, TopComponentProps>((props: TopCo
 							<TitleBackButton
 								collapse={collapse}
 								onClick={props.onBack}
+								label={backLabel}
 							/>
 						)}
 						<H1 attrs={{ title }} >{title}</H1>
