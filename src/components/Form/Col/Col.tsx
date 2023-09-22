@@ -18,9 +18,9 @@ import FormFieldPhoneSelectionDropdown from "@root/components/Field/FormFieldPho
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldTable from "@root/components/Field/FormFieldTable";
-import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
-import FormFieldText from "@root/forms/FormFieldText";
+import FormFieldText from "@root/components/Field/FormFieldText";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
+import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 
 import evaluateShow from "@root/utils/show/evaluateShow";

@@ -14,10 +14,11 @@ import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhoneSel
 import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
 import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
 import { FieldDefTable } from "@root/components/Field/FormFieldTable";
-import { FieldDefText } from "@root/forms/FormFieldText";
+import { FieldDefText } from "@root/components/Field/FormFieldText";
 import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
 import { FieldDefUpload } from "@root/forms/FormFieldUpload";
+
 import { MosaicShow } from "@root/types";
 import { HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
 

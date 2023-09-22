@@ -5,7 +5,7 @@ import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdo
 import { useMosaicTranslation } from "@root/i18n";
 import { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
 import { StyledContents } from "./DataViewFilterText.styled";
-import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
+import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 import { StyledDisabledText } from "@root/forms/shared/styledComponents";
 
 const existsComparisons = ["exists", "not_exists"];
