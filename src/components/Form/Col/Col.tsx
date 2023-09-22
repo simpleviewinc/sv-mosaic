@@ -7,6 +7,7 @@ import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvanced
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 import FormFieldChipSingleSelect from "@root/components/Field/FormFieldChipSingleSelect";
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
+import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldText from "@root/forms/FormFieldText";
 import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
@@ -15,7 +16,6 @@ import FormFieldRaw from "@root/forms/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import { FieldDef } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
-import FormFieldDate from "@root/forms/FormFieldDate/DateField";
 import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
