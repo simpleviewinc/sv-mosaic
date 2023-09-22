@@ -16,7 +16,7 @@ import Form from "../Form";
 // Types
 import { FieldDef } from "@root/components/Field";
 import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
-import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import { nanoid } from "nanoid";
 import { columns, numberTableDefaultValue, rows } from "@root/forms/FormFieldNumberTable/numberTableUtils";
 

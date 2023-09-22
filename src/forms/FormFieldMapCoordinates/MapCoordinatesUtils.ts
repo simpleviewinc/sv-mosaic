@@ -1,6 +1,6 @@
 import { isLatitude, isLongitude } from "@root/components/Form/validators";
 import { Libraries, MapPosition } from "./MapCoordinatesTypes";
-import { IAddress } from "@root/forms/FormFieldAddress/AddressTypes";
+import { IAddress } from "@root/components/Field/FormFieldAddress/AddressTypes";
 
 export const libraries: Libraries = ["places"];
 

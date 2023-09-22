@@ -14,7 +14,7 @@ import { FieldDef } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/forms/FormFieldColorPicker";
 import FormFieldDate from "@root/forms/FormFieldDate/DateField";
-import FormFieldAddress from "@root/forms/FormFieldAddress";
+import FormFieldAddress from "@root/components/Field/FormFieldAddress";
 import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/forms/FormFieldAdvancedSelection";

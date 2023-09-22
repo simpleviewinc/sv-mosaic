@@ -7,7 +7,7 @@ import { ButtonProps } from "@root/components/Button";
 import Form, { formActions, useForm } from "@root/components/Form";
 
 // Utils
-import { IAddress } from "@root/forms/FormFieldAddress";
+import { IAddress } from "@root/components/Field/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
 import _ from "lodash";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
