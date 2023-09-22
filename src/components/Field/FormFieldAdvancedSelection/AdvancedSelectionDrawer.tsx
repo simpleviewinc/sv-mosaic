@@ -7,7 +7,7 @@ import {
 	useState
 } from "react";
 import { AdvancedSelectionExternalOptions, AdvancedSelectionLocalOptions, AdvanceSelectionDrawerPropTypes } from ".";
-import { FormDrawerWrapper } from "../shared/styledComponents";
+import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import { DataViewFilterMultiselectDropdownContent, GetOptions } from "@root/components/DataViewFilterMultiselect";
 import PageHeader from "@root/components/PageHeader";
 import { MosaicLabelValue } from "@root/types";
