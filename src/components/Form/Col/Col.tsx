@@ -19,7 +19,7 @@ import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldTable from "@root/components/Field/FormFieldTable";
 import FormFieldText from "@root/components/Field/FormFieldText";
-import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
+import FormFieldTextEditor from "@root/components/Field/FormFieldTextEditor";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 

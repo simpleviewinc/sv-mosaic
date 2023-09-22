@@ -15,7 +15,7 @@ import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
 import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
 import { FieldDefTable } from "@root/components/Field/FormFieldTable";
 import { FieldDefText } from "@root/components/Field/FormFieldText";
-import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
+import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
 import { FieldDefUpload } from "@root/forms/FormFieldUpload";
 
