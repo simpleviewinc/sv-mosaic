@@ -10,21 +10,23 @@ import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
 import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDropdownSingleSelection";
 import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
+import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldText from "@root/forms/FormFieldText";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/forms/FormFieldRadio";
 import FormFieldRaw from "@root/forms/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
-import { FieldDef } from "@root/components/Field";
-import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
 import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
+
 import evaluateShow from "@root/utils/show/evaluateShow";
 import RegisteredField from "../../Field/RegisteredField";
+
+import { FieldDef } from "@root/components/Field";
 import { Sizes } from "@root/theme";
 import { ColPropsTypes } from "./ColTypes";
 import { StyledCol } from "./ColStyled";
