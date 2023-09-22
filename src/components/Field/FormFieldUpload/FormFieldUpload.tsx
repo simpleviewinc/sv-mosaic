@@ -4,7 +4,7 @@ import { formActions, Snackbar } from "@root/index";
 import _ from "lodash";
 import * as React from "react";
 import { memo, SyntheticEvent, useEffect, useRef, useState, useMemo } from "react";
-import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../shared/styledComponents";
+import { DragAndDropContainer, DragAndDropSpan, FileInput } from "@root/forms/shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
 import { TransformedFile, UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
