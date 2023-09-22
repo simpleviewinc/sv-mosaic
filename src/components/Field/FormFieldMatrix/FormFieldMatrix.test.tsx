@@ -20,7 +20,7 @@ import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 import { defaultView, listColumns } from "./matrixUtils";
 import { DataViewProps } from "@root/components/DataView";
-import rawData from "../../components/DataView/example/rawData.json";
+import rawData from "@root/components/DataView/example/rawData.json";
 
 const MatrixExample = (): ReactElement => {
 	const { state, dispatch } = useForm();

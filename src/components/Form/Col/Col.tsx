@@ -12,6 +12,7 @@ import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDr
 import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
+import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldText from "@root/forms/FormFieldText";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/forms/FormFieldRadio";
@@ -19,7 +20,6 @@ import FormFieldRaw from "@root/forms/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
-import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 
