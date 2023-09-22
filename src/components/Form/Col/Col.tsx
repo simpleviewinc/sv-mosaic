@@ -9,6 +9,7 @@ import FormFieldChipSingleSelect from "@root/components/Field/FormFieldChipSingl
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
 import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDropdownSingleSelection";
+import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldText from "@root/forms/FormFieldText";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/forms/FormFieldRadio";
@@ -19,7 +20,6 @@ import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageV
 import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
-import FormFieldImageUpload from "@root/forms/FormFieldImageUpload";
 import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
