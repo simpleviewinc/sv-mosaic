@@ -12,7 +12,7 @@ import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable";
 import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
-import { FieldDefRaw } from "@root/forms/FormFieldRaw";
+import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
 import { FieldDefTable } from "@root/forms/FormFieldTable";
 import { FieldDefText } from "@root/forms/FormFieldText";
 import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";

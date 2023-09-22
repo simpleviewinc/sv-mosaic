@@ -16,7 +16,7 @@ import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import FormFieldPhoneSelectionDropdown from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
-import FormFieldRaw from "@root/forms/FormFieldRaw";
+import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldText from "@root/forms/FormFieldText";
