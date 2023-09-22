@@ -4,8 +4,8 @@ import { formActions } from "../formActions";
 
 import FormFieldAddress from "@root/components/Field/FormFieldAddress";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
+import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 import FormFieldText from "@root/forms/FormFieldText";
-import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
 import FormFieldChipSingleSelect from "@root/forms/FormFieldChipSingleSelect";
 import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";

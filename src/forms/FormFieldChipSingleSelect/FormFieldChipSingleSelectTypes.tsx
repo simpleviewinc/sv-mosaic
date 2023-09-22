@@ -1,6 +1,6 @@
 import { FieldDefBase } from "@root/components/Field";
 import { MosaicLabelValue } from "@root/types";
-import { StrictUnion } from "../FormFieldCheckbox";
+import { StrictUnion } from "@root/components/Field/FormFieldCheckbox";
 
 type FormFieldChipSingleSelectLocalOptions = {
 	/**
