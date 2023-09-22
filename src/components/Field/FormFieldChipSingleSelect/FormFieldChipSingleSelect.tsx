@@ -3,7 +3,7 @@ import * as React from "react";
 import { ReactElement, useEffect, useState, memo } from "react";
 
 // Components
-import Chip from "../../components/Chip";
+import Chip from "@root/components/Chip";
 
 //Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
