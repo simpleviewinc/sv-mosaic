@@ -136,6 +136,7 @@ workflows:
                 - qa
                 - staging
                 - master
+                - MOS-1115-typography
       # Pull request branches and the develop branch have tests run for them
       - unit_tests:
           context: default
@@ -175,6 +176,7 @@ workflows:
                 - qa
                 - staging
                 - master
+                - MOS-1115-typography
       # Branches qa, staging and master get published to NPM.
       # The build must have successfully been published to GH pages before
       # being published to NPM
