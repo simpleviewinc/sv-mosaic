@@ -1,7 +1,8 @@
 /* eslint-disable react/no-children-prop */
 import * as React from "react";
 import { ReactElement } from "react";
-import { withKnobs, text, select, number } from "@storybook/addon-knobs";
+import { Properties } from "csstype";
+import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import theme from "@root/theme";
 import {
@@ -13,6 +14,7 @@ import {
 import styled from "styled-components";
 import Typography from "./Typography";
 import { ColorTypes } from "../Button";
+import { tags } from "./storyUtils";
 
 
 export default {
@@ -35,6 +37,21 @@ const colors: ColorTypes[] = [
 	"teal",
 	"gray",
 	"white"
+];
+
+const whiteSpaceOptions: Properties["whiteSpace"][] = [
+	"-moz-initial",
+	"-moz-pre-wrap",
+	"break-spaces",
+	"inherit",
+	"initial",
+	"normal",
+	"nowrap",
+	"pre",
+	"pre-line",
+	"pre-wrap",
+	"revert",
+	"revert-layer",
 ];
 
 const BackDrop = styled.div`
@@ -82,17 +99,24 @@ const Heading = styled.h2`
 
 export function Playground(): ReactElement {
 	const variant = select("Variant", variants, "title");
-	const children = text("Text", "Lorem ipsum");
-	const maxLines = number("maxLines", 0);
+	const tag = select("Tag", tags, "div");
+	const maxLines = number("Maximum Lines", 0);
+	const whiteSpace = select("White Space", whiteSpaceOptions, "normal");
+	const breakAll = boolean("Break All", false);
+	const title = text("Title", "");
+	const children = text("Children", "Lorem ipsum");
 	const color = select("Color", colors, "black");
 
 	return (
 		<Typography
-			tag="h1"
 			variant={variant}
+			tag={tag}
+			maxLines={maxLines}
+			whiteSpace={whiteSpace}
+			breakAll={breakAll}
+			title={title}
 			children={children}
 			color={color}
-			maxLines={maxLines}
 		/>
 	)
 }

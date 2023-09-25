@@ -17,20 +17,24 @@ export const base = css<BaseProps>`
 	font-weight: inherit;
     line-height: 1.5em;
 
-    ${({ $maxLines }) => $maxLines && `
-		display: -webkit-box;
-		-webkit-line-clamp: ${$maxLines};
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	`}
+    ${({ $maxLines, $breakAll, $color }) => {
+		const parts = [
+			$maxLines && `
+				display: -webkit-box;
+				-webkit-line-clamp: ${$maxLines};
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			`,
+			$breakAll && `
+				word-break: break-all;
+			`,
+			$color && `
+				color: ${theme.colors[$color]};
+			`
+		];
 
-	${({ $breakAll }) => $breakAll && `
-		word-break: break-all;
-	`}
-
-    ${({ $color }) => theme.colors[$color] && `
-        color: ${theme.colors[$color]};
-    `}
+		return parts.filter(Boolean).join("\n");
+	}}
 `
 export const variants: Record<TypographyVariant, RuleSet> = {
 	title: css`
