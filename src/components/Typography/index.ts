@@ -1,5 +1,6 @@
-export { default as BodyText } from "./BodyText";
-export { default as H1 } from "./H1";
-export { default as H3 } from "./H3";
-export { default as P } from "./P";
+export { default } from "./Typography";
 export * from "./TypographyTypes";
+
+export { default as TitleText } from "./TitleText";
+export { default as SubtitleText } from "./SubtitleText";
+export { default as BodyText } from "./BodyText";

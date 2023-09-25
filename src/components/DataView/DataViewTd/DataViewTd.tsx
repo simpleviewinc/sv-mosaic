@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
+import { Property } from "csstype"
 
-import { BodyText } from "../../Typography";
 import { DataViewTdProps } from "./DataViewTdTypes";
 
 const StyledTd = styled.td`
@@ -49,7 +49,7 @@ function DataViewTd(props: DataViewTdProps) {
 	const noWrap = props.noWrap !== undefined ? props.noWrap : false;
 	const ellipsis = props.ellipsis !== undefined ? props.ellipsis : false;
 	const maxWidth = props.maxWidth !== undefined ? props.maxWidth : undefined;
-	const textTransform = props.textTransform !== undefined ? props.textTransform : undefined;
+	const textTransform = (props.textTransform !== undefined ? props.textTransform : undefined) as Property.TextTransform;
 
 	return (
 		<StyledTd
@@ -62,8 +62,7 @@ function DataViewTd(props: DataViewTdProps) {
 			{...props.draggableProvider?.dragHandleProps}
 			aria-label={props.ariaLabel}
 		>
-			<BodyText
-				as="div"
+			<div
 				className={`
 					${noWrap ? "noWrap" : ""}
 					${ellipsis ? "ellipsis" : ""}
@@ -72,7 +71,7 @@ function DataViewTd(props: DataViewTdProps) {
 				title={ellipsis && typeof props.children === "string" ? props.children : undefined}
 			>
 				{props.children}
-			</BodyText>
+			</div>
 		</StyledTd>
 	)
 }

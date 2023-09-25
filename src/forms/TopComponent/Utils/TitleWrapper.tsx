@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 // Utils
 import theme from "@root/theme/theme";
-import { H1 } from "@root/components/Typography";
+import { TitleText } from "@root/components/Typography";
 import Button from "@root/components/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
@@ -50,7 +50,9 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 					props.onBack &&
 						<Button className="back-button" color="black" variant="icon" mIcon={ChevronLeftIcon} onClick={props.onBack}/>
 				}
-				<H1 attrs={{ title }} >{title}</H1>
+				<TitleText tag="h1">
+					{title}
+				</TitleText>
 			</StyledWrapper>
 			{description && <Description>{description}</Description>}
 		</>

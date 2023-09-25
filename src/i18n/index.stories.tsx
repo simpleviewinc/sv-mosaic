@@ -6,8 +6,7 @@ import styled from "styled-components"
 import {
 	useMosaicTranslation,
 	useMosaicSettings,
-	MosaicContext,
-	P
+	MosaicContext
 } from "../";
 
 const Table = styled.table`
@@ -99,16 +98,16 @@ export function example(): ReactElement {
 
 	return (
 		<MosaicContext.Provider value={mosaicSettings}>
-			<P>
+			<div>
 				<>
 					language: {locale}<br/>
 					fallbackLng: {mosaicSettings.i18n.options.fallbackLng}
 				</>
-			</P>
+			</div>
 			<hr/>
 			<InnerComponent/>
 			<hr/>
-			<P>Test Data</P>
+			<div>Test Data</div>
 			<pre>
 				{JSON.stringify(localeData, null, "\t")}
 			</pre>
