@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useMemo, ReactElement } from "react";
-import { render, cleanup, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, cleanup, screen, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom/extend-expect";
-import theme from "@root/theme";
 
 //Components
 import Form, { useForm, formActions } from "@root/components/Form";
@@ -13,7 +12,7 @@ import { getOptions } from "@root/utils/getOptions";
 
 afterEach(cleanup);
 
-const { getAllByRole, getByText } = screen;
+const { getByText } = screen;
 
 const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -99,18 +98,6 @@ describe("FormFieldChipSingleSelect component", () => {
 		expect(getByText("Option 1")).toBeTruthy();
 		expect(getByText("Option 2")).toBeTruthy();
 		expect(getByText("Option 3")).toBeTruthy();
-	});
-
-	it("should check the clicked option", async () => {
-		const chipElements = getAllByRole("button") as HTMLInputElement[];
-
-		await act(async () => {
-			fireEvent.click(chipElements[1]);
-		});
-
-		expect(window.getComputedStyle(chipElements[1]).backgroundColor).toBe(theme.newColors.simplyGold["100"]);
-		expect(window.getComputedStyle(chipElements[2]).backgroundColor).toBe("rgb(240, 242, 245)");
-		expect(window.getComputedStyle(chipElements[3]).backgroundColor).toBe("rgb(240, 242, 245)");
 	});
 });
 

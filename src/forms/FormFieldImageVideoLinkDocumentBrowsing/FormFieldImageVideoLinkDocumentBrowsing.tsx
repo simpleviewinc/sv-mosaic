@@ -216,8 +216,8 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 						</Column>
 					)}
 					<AssetPropertiesColumn
-						hasImage={
-							fieldDef?.inputSettings?.src &&
+						$hasImage={
+							!!fieldDef?.inputSettings?.src &&
 							(assetType === IMAGE || assetType === VIDEO)
 						}
 					>

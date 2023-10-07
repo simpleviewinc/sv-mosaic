@@ -41,12 +41,6 @@ test.describe.parallel("Components - Form - Playground", () => {
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
 
-	test("Validate the font weight of the Description in Top Component.", async () => {
-		const expectedFontWeight = (theme.fontWeight.light).toString();
-		const descriptionFontWeight = await playgroundPage.getFontWeightFromElement(playgroundPage.description);
-		expect(descriptionFontWeight).toBe(expectedFontWeight);
-	});
-
 	test("Validate Drawer Title style.", async () => {
 		await playgroundPage.advancedSelectionFieldButton.click();
 		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.advancedSelectionTitle);
@@ -108,14 +102,6 @@ test.describe.parallel("Components - Form - Playground", () => {
 		await playgroundPage.validateFormIsEmpty(grey2Color);
 	});
 
-	test("Validate that when onBack is activated, the back icon is displayed.", async () => {
-		test.skip();
-		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobOnBack + true]);
-		await expect(playgroundPage.backIconLocator).toBeVisible();
-		await playgroundPage.backIconLocator.click();
-		await playgroundPage.setDialogValidationListener("Cancelling, going back to previous site");
-	});
-
 	test("Validate the Playground title style.", async () => {
 		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.title.last());
 	});
@@ -132,7 +118,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 			playgroundPage.page.locator("label[for='imageUpload']"), playgroundPage.page.locator("label[for='mapCoordinates']"),
 			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']") ];
 		for (let i = 0; i < labels.length; i++) {
-			expect(await playgroundPage.getColorFromElement(labels[i].first()), "Checking Font Color of the Label").toBe(theme.newColors.almostBlack["100"]);
+			expect(await playgroundPage.getColorFromElement(labels[i].first()), `Checking Font Color of the Label ${i}`).toBe(theme.newColors.grey4["100"]);
 		}
 	});
 

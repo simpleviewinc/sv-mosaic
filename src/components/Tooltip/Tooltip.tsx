@@ -17,6 +17,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 
 	return type !== "advanced" ? (
 		<StyledDefaultTooltip
+			className={className}
 			open={open}
 			onClose={onClose}
 			onOpen={onOpen}

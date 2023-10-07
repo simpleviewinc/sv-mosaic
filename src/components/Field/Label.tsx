@@ -8,32 +8,32 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import theme from "@root/theme";
 import Tooltip from "../Tooltip";
+import { StyledProps } from "@root/types";
+import { containerQuery } from "@root/utils/css";
 
-const LabelWrapper = styled.div`
-  display: flex;
-  column-gap: 8px;
-  align-items: center;
-  margin-bottom: 8px;
-  justify-content: space-between;
-  width: ${(pr) => pr.size};
-  font-family: ${theme.fontFamily};
+const LabelWrapper = styled.div<StyledProps<LabelProps, "required">>`
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+	font-family: ${theme.fontFamily};
+	gap: 8px;
+	height: 28px;
 
-  .MuiInputLabel-root {
-    font-family: inherit;
-    font-size: 16px;
-    color:  ${theme.newColors.almostBlack["100"]};
-    word-wrap: break-word;
-
-  :after {
-      content: "${(pr) => (pr.required ? "*" : "")}";
-      color: ${theme.newColors.darkRed["100"]};
-    }
-  }
+	.MuiInputLabel-root {
+		font-family: inherit;
+		font-size: 16px;
+		color:  ${theme.newColors.almostBlack["100"]};
+		word-wrap: break-word;
+	}
 `;
 
 const CharCounterWrapper = styled.div<{$invalid?: boolean}>`
-  color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
-  font-size: 12px;
+	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
+	font-size: 12px;
+	margin-left: auto;
+	// Aligns the bottom of the character counter with the field label
+	align-self: end;
+	margin-bottom: 4px;
 `;
 
 const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
@@ -42,19 +42,27 @@ const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
 	font-size: 16px;
 	width: 24px;
 	height: 24px;
-	margin-left: 8px;
   }
 `;
 
-const StyledInputTooltipWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
+const StyledInputLabel = styled(InputLabel)`
+  	align-self: center;
+	color: ${theme.newColors.grey4["100"]} !important;
 `;
 
-const StyledInputLabel = styled(InputLabel)`
-  font-weight: ${theme.fontWeight.medium} !important;
-  align-self: center;
-`;
+const StyledRequiredIndicator = styled.span`
+	color: ${theme.newColors.darkRed["100"]};
+`
+
+const StyledTooltipWrapper = styled.div`
+  	${containerQuery("sm", "FORM_COL")} {
+		display: none;
+	}
+
+	svg {
+		vertical-align: middle;
+	}
+`
 
 interface LabelProps {
   className?: string;
@@ -75,20 +83,22 @@ const Label = (props: LabelProps): ReactElement => {
 		htmlFor,
 		value,
 		maxCharacters,
-		tooltip,
 		instructionText,
 	} = props;
 
 	return (
-		<LabelWrapper className={className} required={required}>
-			<StyledInputTooltipWrapper>
-				<StyledInputLabel htmlFor={htmlFor}>{children}</StyledInputLabel>
-				{tooltip &&
+		<LabelWrapper className={className}>
+			<StyledInputLabel htmlFor={htmlFor}>
+				{children}
+				{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
+			</StyledInputLabel>
+			{instructionText && (
+				<StyledTooltipWrapper>
 					<Tooltip text={instructionText} type='advanced'>
 						<StyledInfoOutlinedIcon />
 					</Tooltip>
-				}
-			</StyledInputTooltipWrapper>
+				</StyledTooltipWrapper>
+			)}
 			{maxCharacters > 0 && (
 				<CharCounterWrapper $invalid={typeof value === "string" && value.length > maxCharacters}>
 					{(!value ? "0" : value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").length) + "/" + maxCharacters}

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme, { Sizes } from "@root/theme";
+import theme from "@root/theme";
 
 // Components
 import Button from "@root/components/Button";
@@ -8,7 +8,6 @@ export const TableContainer = styled.div`
   background-color: white;
   border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 2px;
-  max-width: 1080px;
   padding-top: 16px;
 `;
 
@@ -64,8 +63,6 @@ export const AddButton = styled(Button)`
 export const Container = styled.div`
   max-height: 548px;
   overflow: auto;
-  width: 100vw;
-  max-width: 1080px;
 `;
 
 export const StyledIconButton = styled(Button)`
@@ -80,17 +77,13 @@ export const AddElementContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 32px 0;
-  width: ${Sizes.lg};
 `;
 
-export const StyledTr = styled.tr`
-  ${(pr) =>
-		pr.isDragging
-			? `
-        &:active {
-            background-color: ${theme.newColors.grey2["100"]};
-        }`
-			: ""}
+export const StyledTr = styled.tr<{$isDragging?: boolean}>`
+  ${({ $isDragging }) => $isDragging ? `
+	&:active {
+		background-color: ${theme.newColors.grey2["100"]};
+	}` : ""}
 `;
 
 export const TrHead = styled.tr`

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ElementType, memo, useCallback, useMemo } from "react";
-import styled from "styled-components";
-import { formActions } from "./formActions";
+import { formActions } from "../formActions";
 
 import FormFieldText from "@root/forms/FormFieldText";
 import FormFieldCheckbox from "@root/forms/FormFieldCheckbox";
@@ -23,27 +22,46 @@ import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
 import FormFieldImageUpload from "@root/forms/FormFieldImageUpload";
 import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
-import { Sizes } from "@root/theme";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
-import RegisteredField from "../Field/RegisteredField";
+import RegisteredField from "../../Field/RegisteredField";
+import { Sizes } from "@root/theme";
+import { ColPropsTypes } from "./ColTypes";
+import { StyledCol } from "./ColStyled";
 
-const StyledCol = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: calc(100% / ${pr => pr.colsInRow});
-`;
+const fieldComponentMap = {
+	text: FormFieldText,
+	checkbox: FormFieldCheckbox,
+	chip: FormFieldChipSingleSelect,
+	dropdown: FormFieldDropdownSingleSelection,
+	phone: FormFieldPhoneSelectionDropdown,
+	radio: FormFieldRadio,
+	toggleSwitch: FormFieldToggleSwitch,
+	imageVideoDocumentLink: FormFieldImageVideoLinkDocumentBrowsing,
+	color: FormFieldColorPicker,
+	date: FormFieldDate,
+	address: FormFieldAddress,
+	table: FormFieldTable,
+	textEditor: FormFieldTextEditor,
+	advancedSelection: FormFieldAdvancedSelection,
+	mapCoordinates: FormFieldMapCoordinates,
+	imageUpload: FormFieldImageUpload,
+	matrix: FormFieldMatrix,
+	upload: FormFieldUpload,
+	numberTable: FormFieldNumberTable,
+	raw: FormFieldRaw
+};
 
-interface ColPropsTypes {
-	col: (string | FieldDef)[];
-	// TODO Use something other than any
-	state: any;
-	fieldsDef: FieldDef[];
-	dispatch: any;
-	colsInRow?: number;
-	colIdx?: number;
-	rowIdx?: number;
-	sectionIdx?: number;
+function sanitizeSize(size: undefined | Sizes | string | number): string {
+	if (!size) {
+		return "full";
+	}
+
+	if (Sizes[size]) {
+		return Sizes[size];
+	}
+
+	return String(size);
 }
 
 const Col = (props: ColPropsTypes) => {
@@ -57,29 +75,6 @@ const Col = (props: ColPropsTypes) => {
 		rowIdx,
 		sectionIdx
 	} = props;
-
-	const componentMap = useMemo(() => ({
-		text: FormFieldText,
-		checkbox: FormFieldCheckbox,
-		chip: FormFieldChipSingleSelect,
-		dropdown: FormFieldDropdownSingleSelection,
-		phone: FormFieldPhoneSelectionDropdown,
-		radio: FormFieldRadio,
-		toggleSwitch: FormFieldToggleSwitch,
-		imageVideoDocumentLink: FormFieldImageVideoLinkDocumentBrowsing,
-		color: FormFieldColorPicker,
-		date: FormFieldDate,
-		address: FormFieldAddress,
-		table: FormFieldTable,
-		textEditor: FormFieldTextEditor,
-		advancedSelection: FormFieldAdvancedSelection,
-		mapCoordinates: FormFieldMapCoordinates,
-		imageUpload: FormFieldImageUpload,
-		matrix: FormFieldMatrix,
-		upload: FormFieldUpload,
-		numberTable: FormFieldNumberTable,
-		raw: FormFieldRaw
-	}), []);
 
 	const doneTypingInterval = 300;
 	let typingTimer;
@@ -129,27 +124,8 @@ const Col = (props: ColPropsTypes) => {
 		}, {});
 	}, [fieldsDef, state.pairedFields, sendValidateField]);
 
-	/* const onBlurMap = useMemo(() => {
-		return fieldsDef.reduce((prev, curr) => {
-			prev[curr.name] = async function () {
-				await dispatch(
-					formActions.validateField({ name: curr.name })
-				);
-
-				if (curr.pairedFields)
-					curr.pairedFields.forEach(async pairedField => {
-						await dispatch(
-							formActions.validateField({ name: pairedField })
-						);
-					});
-			};
-
-			return prev;
-		}, {});
-	}, [fieldsDef, state.pairedFields]); */
-
 	return (
-		<StyledCol colsInRow={colsInRow}>
+		<StyledCol data-layout="column" $colsInRow={colsInRow}>
 			{col.map((field, i) => {
 				const currentField: FieldDef = fieldsDef?.find(
 					(fieldDef) => {
@@ -163,7 +139,7 @@ const Col = (props: ColPropsTypes) => {
 
 				const { type, ...fieldProps } = currentField;
 
-				const Component: ElementType = typeof type === "string" ? componentMap[type] : type;
+				const Component: ElementType = typeof type === "string" ? fieldComponentMap[type] : type;
 
 				if (!Component) {
 					throw new Error(`Invalid type ${type}`);
@@ -171,40 +147,21 @@ const Col = (props: ColPropsTypes) => {
 
 				const onChange = onChangeMap[fieldProps.name];
 
-				// const onBlur = onBlurMap[fieldProps.name];
-
 				const name = fieldProps.name;
 				const ref = fieldProps.ref;
 				const value = state?.data[fieldProps.name];
 				const error = (state?.errors[fieldProps.name] && !currentField.disabled) ? state.errors[fieldProps.name] : "";
 
-				let maxSize: Sizes | string;
-				const SizeSelected = Sizes[currentField?.size] ? Sizes[currentField?.size] : currentField?.size;
-
-				if (currentField?.size)
-					switch (colsInRow) {
-					case 1:
-						maxSize = SizeSelected <= Sizes.lg ? SizeSelected : Sizes.lg;
-						break;
-					case 2:
-						maxSize = SizeSelected <= Sizes.md ? SizeSelected : Sizes.md;
-						break;
-					case 3:
-						maxSize = SizeSelected <= Sizes.sm ? SizeSelected : Sizes.sm;
-						break;
-					default:
-						break;
-					}
+				const size = sanitizeSize(currentField.size);
 
 				const children = useMemo(() => (
 					<Component
-						fieldDef={{ ...currentField, size: maxSize, }}
+						fieldDef={{ ...currentField, size, }}
 						name={name}
 						value={value}
 						error={error}
 						onChange={onChange}
 						ref={ref}
-						// onBlur={onBlur}
 						key={`${name}_${i}`}
 						dispatch={dispatch}
 					/>
@@ -213,10 +170,10 @@ const Col = (props: ColPropsTypes) => {
 				const shouldShow = useMemo(() => evaluateShow(currentField.show, {data: state?.data}), [currentField.show, state?.data]);
 
 				return shouldShow ? (
-					(typeof type === "string" && componentMap[type]) ? (
+					(typeof type === "string" && fieldComponentMap[type]) ? (
 						<RegisteredField
 							key={`${name}_${i}`}
-							fieldDef={{ ...currentField, size: maxSize }}
+							fieldDef={{ ...currentField, size }}
 							value={value}
 							error={error}
 							colsInRow={colsInRow}
