@@ -2,10 +2,10 @@ import * as React from "react";
 import { ReactElement, memo, useState } from "react";
 
 // Components
-import PhoneInput, { CountryData } from "react-phone-input-2";
+import PhoneInput, { CountryData } from "@simpleview/react-phone-input-2";
 
 // Types and styles
-import "react-phone-input-2/lib/bootstrap.css";
+import "@simpleview/react-phone-input-2/lib/bootstrap.css";
 import { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneSelectionDropdownTypes";
 import {
 	PhoneInputWrapper,
@@ -50,6 +50,7 @@ const FormFieldPhoneSelectionDropdown = (
 				inputProps={{
 					required: fieldDef?.required,
 				}}
+				tabbableDropdown={false}
 			/>
 		</PhoneInputWrapper>
 	);
