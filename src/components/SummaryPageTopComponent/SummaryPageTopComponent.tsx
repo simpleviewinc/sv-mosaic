@@ -16,7 +16,7 @@ import StarBorder from "@mui/icons-material/StarBorderRounded";
 // Components
 import Image from "@root/components/Image";
 import Button from "../Button";
-import TitleWrapper from "@root/forms/TopComponent/Utils/TitleWrapper";
+import TitleWrapper from "@root/components/Title";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow/ButtonRow";
 
@@ -82,7 +82,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 							filteredMainActions.map((mainAction, i) => (
 								<Button
 									key={i}
-									attrs={{smallText: true}}
+									attrs={{$smallText: true}}
 									color={mainAction.color}
 									variant={mainAction.variant}
 									size="small"

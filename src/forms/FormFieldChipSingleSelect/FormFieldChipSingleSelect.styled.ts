@@ -1,13 +1,13 @@
 import theme from "@root/theme";
 import styled from "styled-components";
 
-export const StyledChipGroup = styled.div`
+export const StyledChipGroup = styled.div<{ $error?: boolean }>`
 	display: flex;
 	flex-wrap: wrap;
 	row-gap: 12px;
 
 	& .MuiChip-root {
-		border: 1px solid ${pr => pr.error ? theme.newColors.darkRed["100"] : "transparent"};
+		border: 1px solid ${({ $error }) => $error ? theme.newColors.darkRed["100"] : "transparent"};
 		margin-right: 12px;
 	}
 

@@ -27,9 +27,6 @@ export const StyledClearIcon = styled(ClearIcon)`
 
 export const SuggestionsContainer = styled.div`
   background-color: white;
-  position: absolute;
-  z-index: 9999;
-  width: 100%;
   border: ${theme.borders.fieldGray};
   border-top: 0;
   font-family: ${theme.fontFamily};
@@ -37,8 +34,8 @@ export const SuggestionsContainer = styled.div`
   box-shadow: 0 1px 3px rgba(0,0,0,.05);
 `;
 
-export const SuggestionsDescriptionContainer = styled.div`
-  	background-color: ${({ isSuggestionActive }) => isSuggestionActive ? theme.colors.gray200 : "white"};
+export const SuggestionsDescriptionContainer = styled.div<{$isSuggestionActive?: boolean}>`
+  	background-color: ${({ $isSuggestionActive }) => $isSuggestionActive ? theme.colors.gray200 : "white"};
   	cursor: pointer;
 	padding: 6px 16px;
 	width: 100%;

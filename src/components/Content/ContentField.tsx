@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactNode } from "react";
 import { ContentFieldProps} from "./ContentTypes";
 
 // Components
@@ -16,7 +17,7 @@ const ContentField = ({label, content}: ContentFieldProps) => {
 		<>
 			<Label>{label}</Label>
 			<TransformContainer>
-				{content}
+				{content as ReactNode}
 			</TransformContainer>
 		</>
 	)

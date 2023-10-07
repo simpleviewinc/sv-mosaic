@@ -104,7 +104,7 @@ export const Example = (): ReactElement => {
 		<DescriptionItemParagraph key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</DescriptionItemParagraph>,
 		<Button
 			key={4}
-			attrs={{linkButton: true}}
+			attrs={{$linkButton: true}}
 			color="black"
 			variant="text"
 			label={textLinks[0].label}
@@ -114,7 +114,7 @@ export const Example = (): ReactElement => {
 		/>,
 		<Button
 			key={5}
-			attrs={{linkButton: true}}
+			attrs={{$linkButton: true}}
 			color="black"
 			variant="text"
 			label={textLinks[1].label}
@@ -124,7 +124,7 @@ export const Example = (): ReactElement => {
 		/>,
 		<Button
 			key={6}
-			attrs={{linkButton: true}}
+			attrs={{$linkButton: true}}
 			color="black"
 			variant="text"
 			label={textLinks[2].label}

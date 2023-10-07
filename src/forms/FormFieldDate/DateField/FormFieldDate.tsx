@@ -129,48 +129,46 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	}
 
 	return (
-		<DateTimeInputRow>
-			<>
+		<DateTimeInputRow $hasTimeField={showTime}>
+			<DateTimePickerWrapper>
+				<DatePicker
+					error={error}
+					onChange={handleDateChange}
+					fieldDef={{
+						name: fieldDef?.name,
+						label: "",
+						type: "",
+						inputSettings: {
+							placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
+							minDate: fieldDef?.inputSettings?.minDate
+						},
+						required: fieldDef?.required,
+						disabled: fieldDef?.disabled
+					}}
+					value={dateChosen}
+					onBlur={onBlur}
+
+				/>
+			</DateTimePickerWrapper>
+			{showTime &&
 				<DateTimePickerWrapper>
-					<DatePicker
+					<TimePicker
 						error={error}
-						onChange={handleDateChange}
+						onChange={handleTimeChange}
 						fieldDef={{
 							name: fieldDef?.name,
 							label: "",
-							type: "",
+							type: "timePicker",
 							inputSettings: {
-								placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
-								minDate: fieldDef?.inputSettings?.minDate
+								placeholder: TIME_FORMAT_FULL_PLACEHOLDER
 							},
-							required: fieldDef?.required,
 							disabled: fieldDef?.disabled
 						}}
-						value={dateChosen}
+						value={timeChosen}
 						onBlur={onBlur}
-
 					/>
 				</DateTimePickerWrapper>
-				{showTime &&
-					<DateTimePickerWrapper>
-						<TimePicker
-							error={error}
-							onChange={handleTimeChange}
-							fieldDef={{
-								name: fieldDef?.name,
-								label: "",
-								type: "timePicker",
-								inputSettings: {
-									placeholder: TIME_FORMAT_FULL_PLACEHOLDER
-								},
-								disabled: fieldDef?.disabled
-							}}
-							value={timeChosen}
-							onBlur={onBlur}
-						/>
-					</DateTimePickerWrapper>
-				}
-			</>
+			}
 		</DateTimeInputRow>
 	);
 };

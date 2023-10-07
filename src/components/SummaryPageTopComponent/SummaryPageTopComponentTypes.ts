@@ -1,4 +1,4 @@
-import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
+import { TitleWrapperProps } from "@root/components/Title";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 

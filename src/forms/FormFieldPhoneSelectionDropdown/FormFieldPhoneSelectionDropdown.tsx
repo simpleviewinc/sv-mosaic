@@ -36,8 +36,8 @@ const FormFieldPhoneSelectionDropdown = (
 
 	return (
 		<PhoneInputWrapper
-			error={!!(fieldDef?.required && error)}
-			onBlur={(e) => onBlur && onBlur(e.target.value)}
+			$error={!!(fieldDef?.required && error)}
+			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
 			$disabled={fieldDef?.disabled}
 		>
 			<PhoneInput

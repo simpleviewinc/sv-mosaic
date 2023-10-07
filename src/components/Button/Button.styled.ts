@@ -200,7 +200,7 @@ const WhiteOnBlack = styled(ButtonWrapper)`
 
 const textButtonStyles = {
 	opacity: (disabled: boolean) => disabled ? 1 : 0.5,
-	fontSize: (smallText: boolean) => smallText ? "14px" : "14px",
+	fontSize: ($smallText: boolean) => $smallText ? "14px" : "14px",
 	lineHeight: 1.715
 }
 
@@ -429,7 +429,7 @@ export const types = {
 			box-shadow: 0 1px 2px ${theme.newColors.almostBlack["100"]};
 		}
   `,
-	teal_text: styled(TealOnWhite)`
+	teal_text: styled(TealOnWhite)<{$smallText?: boolean}>`
 		&.normalButton > .MuiButtonBase-root {
 			color: ${theme.newColors.realTeal["100"]};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
@@ -440,40 +440,40 @@ export const types = {
 		}
 
 		& > .MuiButtonBase-root {
-			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			font-size: ${({ $smallText }) => textButtonStyles.fontSize($smallText)};
 			line-height: ${textButtonStyles.lineHeight};
 		}
   `,
-	blue_text: styled(BlueOnWhite)`
+	blue_text: styled(BlueOnWhite)<{$smallText?: boolean}>`
 		&.normalButton > .MuiButtonBase-root {
 			color: ${theme.colors.blue};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
 		& > .MuiButtonBase-root {
-			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			font-size: ${({ $smallText }) => textButtonStyles.fontSize($smallText)};
 			line-height: ${textButtonStyles.lineHeight};
 		}
   `,
-	red_text: styled(RedOnWhite)`
+	red_text: styled(RedOnWhite)<{$smallText?: boolean}>`
 		&.normalButton > .MuiButtonBase-root {
 			color: ${theme.newColors.darkRed["100"]};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
 		& > .MuiButtonBase-root {
-			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			font-size: ${({ $smallText }) => textButtonStyles.fontSize($smallText)};
 			line-height: ${textButtonStyles.lineHeight};
 		}
   `,
-	black_text: styled(BlackOnWhite)`
+	black_text: styled(BlackOnWhite)<{$smallText?: boolean}>`
 		&.normalButton > .MuiButtonBase-root {
 			color: ${theme.newColors.almostBlack["100"]};
 			opacity: ${({ children }) => textButtonStyles.opacity(!children[0].props.disabled)};
 		}
 
 		& > .MuiButtonBase-root, & > a {
-			font-size: ${({ smallText }) => textButtonStyles.fontSize(smallText)};
+			font-size: ${({ $smallText }) => textButtonStyles.fontSize($smallText)};
 			line-height: ${textButtonStyles.lineHeight};
 		}
 

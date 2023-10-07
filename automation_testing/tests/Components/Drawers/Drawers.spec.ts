@@ -41,8 +41,8 @@ test.describe.parallel("Components - Drawers - Example", () => {
 
 	test("Validate Open Drawers buttons order.", async () => {
 		await drawersPage.addFormButton.click();
-		expect(await drawersPage.page.locator("form .normalButton button").nth(0).textContent()).toBe("Cancel");
-		expect(await drawersPage.page.locator("form .normalButton button").nth(1).textContent()).toBe("Save");
+		expect(await drawersPage.page.locator("form .normalButton button").nth(1).textContent()).toBe("Cancel");
+		expect(await drawersPage.page.locator("form .normalButton button").nth(2).textContent()).toBe("Save");
 	});
 
 	test("Validate the Drawer title style.", async () => {
