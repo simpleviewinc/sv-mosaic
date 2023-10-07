@@ -13,11 +13,11 @@ const StyledDrawerContent = styled.div`
 	font-size: 14px;
 `
 
-const MUIDrawerStyled = styled(MUIDrawer)`
+const MUIDrawerStyled = styled(MUIDrawer)<{$anchorStyle: {currentStyle: AnchorStyle, previousStyle: AnchorStyle}, $display?: boolean}>`
 	z-index: 1100;
-	${pr => pr.anchorstyle &&
+	${({ $anchorStyle, $display }) => $anchorStyle &&
 		`.MuiDrawer-paper {
-${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "right") &&
+${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "right") &&
 `
 	background: white;
 	transition: transform 255ms ease-in-out !important;
@@ -25,7 +25,7 @@ ${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "r
 `
 }
 
-${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && pr.display) &&
+${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && $display) &&
 `
 	background: white;
 	transition: transform 255ms ease-in-out !important;
@@ -33,7 +33,7 @@ ${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "l
 `
 }
 
-${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "left" && !pr.display) &&
+${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && !$display) &&
 `
 	background: white;
 	transition: transform 255ms ease-in-out !important;
@@ -44,15 +44,17 @@ ${(pr.anchorstyle.currentStyle === "left" && pr.anchorstyle.previousStyle === "l
 }
 `
 
+type AnchorStyle = "left" | "right";
+
 interface DrawerProps extends MUIDrawerProps {
 	open: boolean;
 	onClose?: () => unknown;
 	children: JSX.Element;
-	anchor?: "left" | "right";
+	anchor?: AnchorStyle;
 	sx?: SxProps;
 	idx?: Key;
 	exitCB?: () => void;
-	anchorstyle?: "left" | "right";
+	anchorstyle?: AnchorStyle;
 	display?: boolean;
 	backdropCloseHandler?: boolean
 }
@@ -108,9 +110,9 @@ const Drawer = (props: DrawerProps): ReactElement => {
 		<>
 			<MUIDrawerStyled
 				key={idx}
-				anchorstyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
+				$anchorStyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
 				anchor={anchor}
-				display={display}
+				$display={display}
 				open={open}
 				onClose={onDrawClose}
 				SlideProps={{

@@ -1,5 +1,5 @@
 import { ButtonProps } from "@root/components/Button";
-import { TitleWrapperProps } from "@root/forms/TopComponent/Utils/TitleWrapperTypes";
+import { TitleWrapperProps } from "@root/components/Title";
 
 export interface PageHeaderProps {
 	title?: string;

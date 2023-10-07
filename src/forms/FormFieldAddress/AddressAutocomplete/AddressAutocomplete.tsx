@@ -2,6 +2,7 @@ import * as React from "react";
 import { memo, ReactElement } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
+import { Popover } from "@mui/material"
 
 // Styles
 import {
@@ -22,6 +23,15 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		fieldSize,
 		placeholder,
 	} = props;
+	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+	const handleFocus = (event) => {
+		setAnchorEl(event.target);
+	};
+
+	const handleBlur = () => {
+		setAnchorEl(null);
+	};
 
 	return (
 		<LocationSearchInputWrapper className={className}>
@@ -37,15 +47,27 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							})}
 							variant="outlined"
 							value={value}
+							onFocus={handleFocus}
+							onBlur={handleBlur}
 						/>
-						{suggestions?.length > 0 && (
+						<Popover
+							open={Boolean(anchorEl) && suggestions?.length > 0}
+							anchorEl={anchorEl}
+							onClose={handleBlur}
+							anchorOrigin={{
+								vertical: "bottom",
+								horizontal: "left",
+							}}
+							disableAutoFocus={true}
+							disableEnforceFocus={true}
+						>
 							<SuggestionsContainer>
 								{suggestions?.map((suggestion) => {
 									return (
 										<SuggestionsDescriptionContainer
 											{...getSuggestionItemProps(suggestion)}
 											key={suggestion?.placeId}
-											isSuggestionActive={suggestion?.active}
+											$isSuggestionActive={suggestion?.active}
 										>
 											<SuggestionDescription>
 												{suggestion?.description}
@@ -54,7 +76,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 									);
 								})}
 							</SuggestionsContainer>
-						)}
+						</Popover>
 					</div>
 				)}
 			</PlacesAutocomplete>

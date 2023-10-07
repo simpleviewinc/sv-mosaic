@@ -17,21 +17,19 @@ export const StyledSpan = styled.span`
 export const CoordinatesCard = styled.div`
   border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 4px;
-  display: flex;
   font-family: ${theme.fontFamily};
-  height: 204px;
+  min-height: 204px;
   padding: 16px;
   padding-bottom: 16px;
   position: relative;
   width: 450px;
+  max-width: 100%;
   background-color: white;
 `;
 
 export const ButtonsWrapper = styled.div`
   display: flex;
-  right: 16px;
-  position: absolute;
-  bottom: 8px;
+  justify-content: end;
 
   button:first-child {
     padding-right: 16px;
@@ -42,15 +40,28 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
+export const Details = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 16px;
 `;
 
-export const MapImageColumn = styled(Column)`
+export const MapImageColumn = styled.div`
   margin-right: 16px;
+  margin-bottom: 16px;
   height: fit-content;
   border: 2px solid ${theme.newColors.grey2["100"]};
+
+  img {
+    display: block;
+    width: 230px;
+    max-width: 100%;
+  }
 `;
 
 export const LatLngLabel = styled.span`
@@ -67,7 +78,7 @@ export const CoordinatesValues = styled.span`
 `;
 
 export const LatitudeValue = styled(CoordinatesValues)`
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 `;
 
 // Styles for the Map component
