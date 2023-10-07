@@ -58,7 +58,6 @@
 		"react-hot-loader": "4.12.13",
 		"react-i18next": "11.7.0",
 		"react-lorem-ipsum": "1.4.4",
-		"react-phone-input-2": "^2.14.0",
 		"react-places-autocomplete": "^7.3.0",
 		"release-it": "^16.1.5",
 		"style-loader": "0.23.0",
@@ -76,6 +75,7 @@
 	"dependencies": {
 		"@date-io/date-fns": "^2.15.0",
 		"@react-google-maps/api": "^2.7.0",
+		"@simpleview/react-phone-input-2": "^2.15.3",
 		"date-fns": "^2.29.1",
 		"jodit-react": "^1.1.20",
 		"jsvalidator": "1.2.0",
