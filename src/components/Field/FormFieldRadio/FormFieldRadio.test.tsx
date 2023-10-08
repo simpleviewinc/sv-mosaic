@@ -6,7 +6,7 @@ import { getOptions } from "@root/utils/getOptions";
 // Components
 import FormFieldRadio from "./FormFieldRadio";
 import { MosaicLabelValue } from "@root/types";
-import { additionalOptions } from "../../components/Field/FormFieldAdvancedSelection";
+import { additionalOptions } from "../FormFieldAdvancedSelection";
 
 afterEach(cleanup);
 
