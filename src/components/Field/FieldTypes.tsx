@@ -10,7 +10,7 @@ import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormField
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable";
-import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
+import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/forms/FormFieldRadio";
 import { FieldDefRaw } from "@root/forms/FormFieldRaw";
 import { FieldDefTable } from "@root/forms/FormFieldTable";
