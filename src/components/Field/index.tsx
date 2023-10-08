@@ -40,3 +40,6 @@ export * from "./FormFieldNumberTable";
 
 export { default as FormFieldPhoneSelectionDropdown } from "./FormFieldPhoneSelectionDropdown";
 export * from "./FormFieldPhoneSelectionDropdown";
+
+export { default as FormFieldRadio } from "./FormFieldRadio";
+export * from "./FormFieldRadio";
