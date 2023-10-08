@@ -8,7 +8,7 @@ import Form, { formActions, useForm } from "@root/components/Form";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Drawers from "../../components/Drawers";
+import Drawers from "../../Drawers";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import DataView from "@root/components/DataView";
 
