@@ -25,3 +25,6 @@ export * from "./FormFieldDropdownSingleSelection";
 
 export { default as FormFieldImageUpload } from "./FormFieldImageUpload";
 export * from "./FormFieldImageUpload";
+
+export { default as FormFieldImageVideoLinkDocumentBrowsing } from "./FormFieldImageVideoLinkDocumentBrowsing";
+export * from "./FormFieldImageVideoLinkDocumentBrowsing";
