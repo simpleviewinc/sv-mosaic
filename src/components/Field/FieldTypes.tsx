@@ -7,7 +7,7 @@ import { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdownSingleSelection";
 import { FieldDefImageUpload } from "@root/components/Field/FormFieldImageUpload";
 import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
-import { FieldDefMapCoordinates } from "@root/forms/FormFieldMapCoordinates";
+import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/forms/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/forms/FormFieldNumberTable";
 import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";

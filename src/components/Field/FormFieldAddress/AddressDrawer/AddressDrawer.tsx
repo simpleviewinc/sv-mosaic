@@ -13,7 +13,7 @@ import _ from "lodash";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { useLoadScript } from "@react-google-maps/api";
-import { libraries } from "@root/forms/FormFieldMapCoordinates/MapCoordinatesUtils";
+import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoordinatesUtils";
 import { geocodeByAddress } from "react-places-autocomplete";
 import { components, componentsToAddress, initalAddressComponent } from "../utils/addressUtils";
 import { MosaicLabelValue } from "@root/types";

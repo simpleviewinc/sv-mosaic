@@ -18,7 +18,7 @@ import FormFieldAddress from "@root/components/Field/FormFieldAddress";
 import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
-import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
+import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
 import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
