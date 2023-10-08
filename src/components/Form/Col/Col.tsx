@@ -7,7 +7,7 @@ import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 import FormFieldChipSingleSelect from "@root/components/Field/FormFieldChipSingleSelect";
 import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDropdownSingleSelection";
 import FormFieldPhoneSelectionDropdown from "@root/components/Field/FormFieldPhoneSelectionDropdown";
-import FormFieldRadio from "@root/forms/FormFieldRadio";
+import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/forms/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import { FieldDef } from "@root/components/Field";
