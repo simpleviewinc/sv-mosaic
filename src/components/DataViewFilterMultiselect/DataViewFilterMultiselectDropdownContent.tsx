@@ -14,7 +14,7 @@ import Chip from "@root/components/Chip";
 import { H3 } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
 import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewFilterMultiselect.styled";
-import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
+import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 import { InputAdornment } from "@mui/material";
 import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
 import CheckboxList from "../CheckboxList";

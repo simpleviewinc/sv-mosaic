@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledTextField } from "@root/forms/FormFieldText/FormFieldText.styled";
+import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 
 // Components
 import ClearIcon from "@mui/icons-material/Clear";

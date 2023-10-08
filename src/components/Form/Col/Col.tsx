@@ -2,7 +2,7 @@ import * as React from "react";
 import { ElementType, memo, useCallback, useMemo } from "react";
 import { formActions } from "../formActions";
 
-import FormFieldText from "@root/forms/FormFieldText";
+import FormFieldText from "@root/components/Field/FormFieldText";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 import FormFieldChipSingleSelect from "@root/components/Field/FormFieldChipSingleSelect";
 import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDropdownSingleSelection";
