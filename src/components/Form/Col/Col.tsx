@@ -21,7 +21,7 @@ import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvanced
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
 import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
-import FormFieldUpload from "@root/forms/FormFieldUpload";
+import FormFieldUpload from "@root/components/Field/FormFieldUpload";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import RegisteredField from "../../Field/RegisteredField";
