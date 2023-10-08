@@ -11,7 +11,7 @@ import {
 	headers,
 	deleteTableRow,
 	useTable,
-} from "@root/forms/FormFieldTable/tableUtils";
+} from "@root/components/Field/FormFieldTable/tableUtils";
 import { renderButtons } from "@root/utils/storyUtils";
 
 export default {

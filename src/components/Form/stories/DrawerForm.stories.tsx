@@ -16,7 +16,7 @@ import { FieldDef } from "@root/components/Field";
 import theme, { BREAKPOINTS } from "@root/theme/theme";
 import _ from "lodash";
 import { Sizes } from "@root/theme";
-import { useTable } from "@root/forms/FormFieldTable/tableUtils";
+import { useTable } from "@root/components/Field/FormFieldTable/tableUtils";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import styled from "styled-components";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
