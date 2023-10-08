@@ -43,3 +43,9 @@ export * from "./FormFieldPhoneSelectionDropdown";
 
 export { default as FormFieldRadio } from "./FormFieldRadio";
 export * from "./FormFieldRadio";
+
+export { default as FormFieldRaw } from "./FormFieldRaw";
+export * from "./FormFieldRaw";
+
+export { default as FormFieldTable } from "./FormFieldTable";
+export * from "./FormFieldTable";
