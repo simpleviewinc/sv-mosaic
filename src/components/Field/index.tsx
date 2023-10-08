@@ -52,3 +52,6 @@ export * from "./FormFieldTable";
 
 export { default as FormFieldText } from "./FormFieldText";
 export * from "./FormFieldText";
+
+export { default as FormFieldTextEditor } from "./FormFieldTextEditor";
+export * from "./FormFieldTextEditor";
