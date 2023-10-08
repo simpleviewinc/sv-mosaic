@@ -6,7 +6,7 @@ import "@testing-library/jest-dom/extend-expect";
 import Form, { formActions, useForm } from "@root/components/Form";
 
 // Utils
-import { menuOptions } from "../MenuFormFieldCard/MenuFormFieldUtils";
+import { menuOptions } from "../../../forms/MenuFormFieldCard/MenuFormFieldUtils";
 import {
 	documentExample,
 	imageAssetExample,

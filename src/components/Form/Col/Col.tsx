@@ -11,7 +11,7 @@ import FormFieldRadio from "@root/forms/FormFieldRadio";
 import FormFieldRaw from "@root/forms/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import { FieldDef } from "@root/components/Field";
-import FormFieldImageVideoLinkDocumentBrowsing from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
+import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
 import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldAddress from "@root/components/Field/FormFieldAddress";
