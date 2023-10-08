@@ -19,3 +19,6 @@ export * from "./FormFieldColorPicker";
 
 export { default as FormFieldDate } from "./FormFieldDate/DateField";
 export * from "./FormFieldDate/DateField";
+
+export { default as FormFieldDropdownSingleSelection } from "./FormFieldDropdownSingleSelection";
+export * from "./FormFieldDropdownSingleSelection";

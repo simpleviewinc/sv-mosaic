@@ -5,7 +5,7 @@ import { formActions } from "../formActions";
 import FormFieldText from "@root/forms/FormFieldText";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 import FormFieldChipSingleSelect from "@root/components/Field/FormFieldChipSingleSelect";
-import FormFieldDropdownSingleSelection from "@root/forms/FormFieldDropdownSingleSelection";
+import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDropdownSingleSelection";
 import FormFieldPhoneSelectionDropdown from "@root/forms/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/forms/FormFieldRadio";
 import FormFieldRaw from "@root/forms/FormFieldRaw";
