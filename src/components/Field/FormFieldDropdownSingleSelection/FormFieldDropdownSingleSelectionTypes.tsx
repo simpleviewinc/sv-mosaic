@@ -1,6 +1,6 @@
 import { MosaicLabelValue } from "@root/types";
 import { PopperProps } from "@mui/material/Popper";
-import { StrictUnion } from "../../components/Field/FormFieldCheckbox";
+import { StrictUnion } from "../FormFieldCheckbox";
 import { FieldDefBase } from "@root/components/Field";
 
 export type DropdownSingleSelectionInputSettings = StrictUnion<DropdownSingleSelectionLocalOptions | DropdownSingleSelectionExternalOptions>;
