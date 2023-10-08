@@ -1,4 +1,4 @@
-import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
+import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
 import { MosaicLabelValue } from "..";
 
 export const getOptions: () => Promise<MosaicLabelValue[]> = async () => {
