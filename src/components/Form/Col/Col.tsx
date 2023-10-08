@@ -8,7 +8,7 @@ import FormFieldChipSingleSelect from "@root/components/Field/FormFieldChipSingl
 import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDropdownSingleSelection";
 import FormFieldPhoneSelectionDropdown from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
-import FormFieldRaw from "@root/forms/FormFieldRaw";
+import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
 import { FieldDef } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
