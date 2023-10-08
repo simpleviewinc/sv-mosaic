@@ -1,5 +1,5 @@
 import { FieldDefAddress } from "@root/components/Field/FormFieldAddress";
-import { FieldDefAdvancedSelection } from "@root/forms/FormFieldAdvancedSelection";
+import { FieldDefAdvancedSelection } from "@root/components/Field/FormFieldAdvancedSelection";
 import { FieldDefCheckbox } from "@root/forms/FormFieldCheckbox";
 import { FieldDefChip } from "@root/forms/FormFieldChipSingleSelect";
 import { FieldDefColor } from "@root/forms/FormFieldColorPicker/ColorPickerTypes";
