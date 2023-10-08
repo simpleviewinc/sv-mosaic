@@ -6,7 +6,7 @@ import {
 	MosaicLabelValue,
 	P
 } from "@root/index";
-import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils";
+import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 
 export default {
 	title: "Components/CheckboxList"
