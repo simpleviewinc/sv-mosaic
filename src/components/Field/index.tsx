@@ -55,3 +55,6 @@ export * from "./FormFieldText";
 
 export { default as FormFieldTextEditor } from "./FormFieldTextEditor";
 export * from "./FormFieldTextEditor";
+
+export { default as FormFieldToggleSwitch } from "./FormFieldToggleSwitch";
+export * from "./FormFieldToggleSwitch";

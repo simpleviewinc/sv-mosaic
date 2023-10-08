@@ -9,7 +9,7 @@ import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDr
 import FormFieldPhoneSelectionDropdown from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
-import FormFieldToggleSwitch from "@root/forms/FormFieldToggleSwitch";
+import FormFieldToggleSwitch from "@root/components/Field/FormFieldToggleSwitch";
 import { FieldDef } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
