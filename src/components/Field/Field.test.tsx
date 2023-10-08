@@ -4,7 +4,7 @@ import { useState } from "react";
 
 // Components
 import Field from "@root/components/Field";
-import FormFieldText from "@root/forms/FormFieldText";
+import FormFieldText from "@root/components/Field/FormFieldText";
 
 const { getByText, queryByText } = screen;
 
