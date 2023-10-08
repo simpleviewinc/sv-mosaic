@@ -4,7 +4,7 @@ import {
 	TableDataState,
 	TableRow,
 	UseTableReturnType,
-} from "@root/forms/FormFieldTable";
+} from "@root/components/Field/FormFieldTable";
 
 // Utils
 import { formActions } from "@root/components/Form";

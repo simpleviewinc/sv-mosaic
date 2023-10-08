@@ -4,7 +4,7 @@ import { withKnobs, boolean, object, text, select } from "@storybook/addon-knobs
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
-import { useTable, headers } from "@root/forms/FormFieldTable/tableUtils";
+import { useTable, headers } from "@root/components/Field/FormFieldTable/tableUtils";
 import { useForm, formActions } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";

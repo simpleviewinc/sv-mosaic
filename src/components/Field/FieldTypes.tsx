@@ -13,7 +13,7 @@ import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable
 import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
 import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
-import { FieldDefTable } from "@root/forms/FormFieldTable";
+import { FieldDefTable } from "@root/components/Field/FormFieldTable";
 import { FieldDefText } from "@root/forms/FormFieldText";
 import { FieldDefTextEditor } from "@root/forms/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
