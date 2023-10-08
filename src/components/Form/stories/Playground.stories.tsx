@@ -18,7 +18,7 @@ import { FieldDef } from "@root/components/Field";
 import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import { nanoid } from "nanoid";
-import { columns, numberTableDefaultValue, rows } from "@root/forms/FormFieldNumberTable/numberTableUtils";
+import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 import { ORIGINAL_BODY_MARGIN } from "./utils";
 

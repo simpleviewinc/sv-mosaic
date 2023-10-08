@@ -22,7 +22,7 @@ import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordina
 import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
-import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
+import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import RegisteredField from "../../Field/RegisteredField";
 import { Sizes } from "@root/theme";

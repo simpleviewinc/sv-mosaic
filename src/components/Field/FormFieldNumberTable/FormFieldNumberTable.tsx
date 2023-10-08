@@ -20,7 +20,7 @@ import {
 	RowSubtitle,
 } from "./FormFieldNumberTable.styled";
 import { isValidRowCol } from "./numberTableUtils";
-import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
+import { StyledTextField } from "../../../forms/FormFieldText/FormFieldText.styled";
 
 const FormFieldNumberTable = (
 	props: MosaicFieldProps<
