@@ -3,7 +3,7 @@ import { FieldDefAdvancedSelection } from "@root/components/Field/FormFieldAdvan
 import { FieldDefCheckbox } from "@root/components/Field/FormFieldCheckbox";
 import { FieldDefChip } from "@root/components/Field/FormFieldChipSingleSelect";
 import { FieldDefColor } from "@root/components/Field/FormFieldColorPicker/ColorPickerTypes";
-import { FieldDefDate } from "@root/forms/FormFieldDate/DateField";
+import { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import { FieldDefDropdown } from "@root/forms/FormFieldDropdownSingleSelection";
 import { FieldDefImageUpload } from "@root/forms/FormFieldImageUpload";
 import { FieldDefImageVideoDocumentLink } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing";
