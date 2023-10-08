@@ -62,7 +62,7 @@ const FormFieldCheckbox = (
 			checked={checked}
 			options={internalOptions}
 			onChange={(val) => internalOnChange(val, onChange)}
-			onChangeCb={(val) => internalOnChange(val, fieldDef.onChangeCb)}
+			onChangeCb={(val) => internalOnChange(val as MosaicLabelValue[], fieldDef.onChangeCb)}
 			onBlur={onBlur}
 			style={fieldDef.style}
 			className={fieldDef.className}

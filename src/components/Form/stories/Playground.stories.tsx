@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
 import { withKnobs, boolean, object, text, select } from "@storybook/addon-knobs";
 
 // Utils
-import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
+import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
 import { useTable, headers } from "@root/forms/FormFieldTable/tableUtils";
 import { useForm, formActions } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";

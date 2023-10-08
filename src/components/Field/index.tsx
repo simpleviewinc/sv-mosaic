@@ -7,3 +7,9 @@ export * from "./FormFieldAddress";
 
 export { default as FormFieldAdvancedSelection } from "./FormFieldAdvancedSelection";
 export * from "./FormFieldAdvancedSelection";
+
+export { default as FormFieldCheckbox } from "./FormFieldCheckbox";
+export * from "./FormFieldCheckbox";
+
+export { default as FormFieldChipSingleSelect } from "./FormFieldChipSingleSelect";
+export * from "./FormFieldChipSingleSelect";

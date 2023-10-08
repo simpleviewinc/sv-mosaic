@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo} from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
-import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
+import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
 import { useForm, formActions } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 // Components
-import CheckboxList from "../../components/CheckboxList";
+import CheckboxList from "../../CheckboxList";
 
 // Material UI
 import { default as MUIFormHelperText } from "@mui/material/FormHelperText";
 import { default as MUIErrorOutlineIcon } from "@mui/icons-material/ErrorOutline";
 
 // Utils
-import theme from "../../theme/theme";
+import theme from "../../../theme/theme";
 
 export const StyledWrapper = styled.div`
   display: flex;
