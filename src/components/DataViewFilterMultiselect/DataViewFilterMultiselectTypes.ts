@@ -1,4 +1,4 @@
-import { AdvancedSelectionInputSettings } from "@root/forms/FormFieldAdvancedSelection";
+import { AdvancedSelectionInputSettings } from "@root/components/Field/FormFieldAdvancedSelection";
 import { DataViewFilterGetOptionsReturn, DataViewFilterProps } from "../DataView";
 import { MosaicLabelValue } from "@root/types";
 

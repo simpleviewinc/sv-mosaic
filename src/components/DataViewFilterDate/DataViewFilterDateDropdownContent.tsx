@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
 import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
 import { useMosaicTranslation } from "@root/i18n";
-import DatePickerCustom from "@root/forms/FormFieldDate/DatePicker";
+import DatePickerCustom from "@root/components/Field/FormFieldDate/DatePicker";
 import { StyledHr, StyledVerticalHr } from "../DataViewFilterMultiselect/DataViewFilterMultiselect.styled";
 import MenuItem from "../MenuItem";
 import Field from "../Field";
