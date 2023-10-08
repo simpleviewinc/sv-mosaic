@@ -2,7 +2,7 @@ import * as React from "react";
 import {MapWithMarkerProps } from "../MapCoordinatesTypes";
 
 // Components
-import Map from "@root/forms/FormFieldMapCoordinates/Map";
+import Map from "@root/components/Field/FormFieldMapCoordinates/Map";
 import { StyledSpan } from "../MapCoordinates.styled";
 
 function MapWithMarker({
