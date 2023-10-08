@@ -13,3 +13,6 @@ export * from "./FormFieldCheckbox";
 
 export { default as FormFieldChipSingleSelect } from "./FormFieldChipSingleSelect";
 export * from "./FormFieldChipSingleSelect";
+
+export { default as FormFieldColorPicker } from "./FormFieldColorPicker";
+export * from "./FormFieldColorPicker";
