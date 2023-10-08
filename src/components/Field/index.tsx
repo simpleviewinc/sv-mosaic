@@ -22,3 +22,6 @@ export * from "./FormFieldDate/DateField";
 
 export { default as FormFieldDropdownSingleSelection } from "./FormFieldDropdownSingleSelection";
 export * from "./FormFieldDropdownSingleSelection";
+
+export { default as FormFieldImageUpload } from "./FormFieldImageUpload";
+export * from "./FormFieldImageUpload";

@@ -19,7 +19,7 @@ import FormFieldTable from "@root/forms/FormFieldTable";
 import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "@root/forms/FormFieldMapCoordinates";
-import FormFieldImageUpload from "@root/forms/FormFieldImageUpload";
+import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldMatrix from "@root/forms/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
