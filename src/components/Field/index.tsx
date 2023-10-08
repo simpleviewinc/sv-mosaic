@@ -34,3 +34,6 @@ export * from "./FormFieldMapCoordinates";
 
 export { default as FormFieldMatrix } from "./FormFieldMatrix";
 export * from "./FormFieldMatrix";
+
+export { default as FormFieldNumberTable } from "./FormFieldNumberTable";
+export * from "./FormFieldNumberTable";

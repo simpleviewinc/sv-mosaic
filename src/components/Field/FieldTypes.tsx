@@ -9,7 +9,7 @@ import { FieldDefImageUpload } from "@root/components/Field/FormFieldImageUpload
 import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
-import { FieldDefNumberTable } from "@root/forms/FormFieldNumberTable";
+import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable";
 import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/forms/FormFieldRadio";
 import { FieldDefRaw } from "@root/forms/FormFieldRaw";
