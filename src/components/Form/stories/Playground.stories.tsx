@@ -3,10 +3,10 @@ import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
 import { withKnobs, boolean, object, text, select } from "@storybook/addon-knobs";
 
 // Utils
-import { checkboxOptions } from "@root/forms/FormFieldCheckbox/FormFieldCheckboxUtils"
-import { useTable, headers } from "@root/forms/FormFieldTable/tableUtils";
+import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
+import { useTable, headers } from "@root/components/Field/FormFieldTable/tableUtils";
 import { useForm, formActions } from "@root/components/Form";
-import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/forms/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
+import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons } from "@root/utils/storyUtils";
 
@@ -15,10 +15,10 @@ import Form from "../Form";
 
 // Types
 import { FieldDef } from "@root/components/Field";
-import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
-import { getOptionsCountries, getOptionsStates } from "@root/forms/FormFieldAddress/utils/optionGetters";
+import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
+import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import { nanoid } from "nanoid";
-import { columns, numberTableDefaultValue, rows } from "@root/forms/FormFieldNumberTable/numberTableUtils";
+import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 import { ORIGINAL_BODY_MARGIN } from "./utils";
 
