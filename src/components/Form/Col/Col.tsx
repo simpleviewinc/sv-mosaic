@@ -20,7 +20,7 @@ import FormFieldTextEditor from "@root/forms/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
 import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
-import FormFieldMatrix from "@root/forms/FormFieldMatrix";
+import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldUpload from "@root/forms/FormFieldUpload";
 import FormFieldNumberTable from "@root/forms/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";

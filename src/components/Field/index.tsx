@@ -28,3 +28,9 @@ export * from "./FormFieldImageUpload";
 
 export { default as FormFieldImageVideoLinkDocumentBrowsing } from "./FormFieldImageVideoLinkDocumentBrowsing";
 export * from "./FormFieldImageVideoLinkDocumentBrowsing";
+
+export { default as FormFieldMapCoordinates } from "./FormFieldMapCoordinates";
+export * from "./FormFieldMapCoordinates";
+
+export { default as FormFieldMatrix } from "./FormFieldMatrix";
+export * from "./FormFieldMatrix";

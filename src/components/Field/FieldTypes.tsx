@@ -8,7 +8,7 @@ import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdownSingle
 import { FieldDefImageUpload } from "@root/components/Field/FormFieldImageUpload";
 import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
-import { FieldDefMatrix } from "@root/forms/FormFieldMatrix";
+import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/forms/FormFieldNumberTable";
 import { FieldDefPhoneSelection } from "@root/forms/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/forms/FormFieldRadio";
