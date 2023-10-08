@@ -58,3 +58,6 @@ export * from "./FormFieldTextEditor";
 
 export { default as FormFieldToggleSwitch } from "./FormFieldToggleSwitch";
 export * from "./FormFieldToggleSwitch";
+
+export { default as FormFieldUpload } from "./FormFieldUpload";
+export * from "./FormFieldUpload";
