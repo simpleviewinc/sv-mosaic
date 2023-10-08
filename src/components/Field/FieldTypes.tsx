@@ -16,7 +16,7 @@ import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
 import { FieldDefTable } from "@root/components/Field/FormFieldTable";
 import { FieldDefText } from "@root/components/Field/FormFieldText";
 import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
-import { FieldDefToggleSwitch } from "@root/forms/FormFieldToggleSwitch";
+import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwitch";
 import { FieldDefUpload } from "@root/forms/FormFieldUpload";
 import { MosaicShow } from "@root/types";
 import { HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
