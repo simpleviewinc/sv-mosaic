@@ -7,8 +7,8 @@ import { InputAdornment } from "@mui/material";
 
 // Styles
 import { MapContainer } from "../MapCoordinates.styled";
-import AddressAutocomplete from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete";
-import { StyledClearIcon } from "@root/forms/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
+import AddressAutocomplete from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete";
+import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 import MarkerFollower from "./MarkerFollower";
 import { defaultMapPosition, isValidLatLng } from "../MapCoordinatesUtils";
 

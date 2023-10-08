@@ -1,4 +1,4 @@
-import { FieldDefAddress } from "@root/forms/FormFieldAddress";
+import { FieldDefAddress } from "@root/components/Field/FormFieldAddress";
 import { FieldDefAdvancedSelection } from "@root/forms/FormFieldAdvancedSelection";
 import { FieldDefCheckbox } from "@root/forms/FormFieldCheckbox";
 import { FieldDefChip } from "@root/forms/FormFieldChipSingleSelect";
