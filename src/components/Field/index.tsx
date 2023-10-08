@@ -16,3 +16,6 @@ export * from "./FormFieldChipSingleSelect";
 
 export { default as FormFieldColorPicker } from "./FormFieldColorPicker";
 export * from "./FormFieldColorPicker";
+
+export { default as FormFieldDate } from "./FormFieldDate/DateField";
+export * from "./FormFieldDate/DateField";
