@@ -4,7 +4,7 @@ import { boolean, text, withKnobs, select, number } from "@storybook/addon-knobs
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
-import { additionalOptions } from "@root/forms/FormFieldAdvancedSelection";
+import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
 import JSONDB from "@root/utils/JSONDB";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
 import categories from "@root/components/DataView/example/categories.json";
