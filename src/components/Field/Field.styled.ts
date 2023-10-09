@@ -26,7 +26,7 @@ export const StyledFieldWrapper = styled.div<{$error?: boolean}>`
 	`}
 `;
 
-export const StyledFieldWrapper2 = styled.div<{$size?: string}>`
+export const StyledControlWrapper = styled.div<{$size?: string}>`
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
