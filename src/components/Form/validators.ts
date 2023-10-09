@@ -148,6 +148,20 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 	return undefined;
 }
 
+export function validateCharacterCount(value: string, data: any, options: {max?: number}): string | undefined {
+	if (!options.max) {
+		return;
+	}
+
+	if (typeof value !== "string") {
+		return;
+	}
+
+	if (value.length > options.max) {
+		return "You have exceeded the maximum number of characters";
+	}
+}
+
 /**
  * Validate that the value is a correctly formed phone number
  * it only supports US (+1) phone numbers. Numbers for other countries
@@ -177,6 +191,7 @@ export function mapsValidators(validators): Validator[] {
 		isLatitude: isLatitude,
 		isLongitude: isLongitude,
 		validateDateRange: validateDateRange,
+		validateCharacterCount: validateCharacterCount,
 		validateEmail: validateEmail,
 		validateNumber: validateNumber,
 		validateSlow: validateSlow,
