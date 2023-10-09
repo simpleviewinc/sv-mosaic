@@ -14,6 +14,7 @@ export const BREAKPOINTS = {
 };
 
 export const CONTAINERS = {
+	ASSET_CARD: "asset_card",
 	FORM: "form",
 	FORM_COL: "form_column"
 }

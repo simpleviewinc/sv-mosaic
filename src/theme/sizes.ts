@@ -3,6 +3,7 @@ enum Sizes {
   sm = "280px",
   md = "450px",
   lg = "620px",
+  full = "full"
 }
 
 export default Sizes;

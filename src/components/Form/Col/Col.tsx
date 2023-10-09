@@ -10,7 +10,7 @@ import FormFieldPhoneSelectionDropdown from "@root/components/Field/FormFieldPho
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/components/Field/FormFieldToggleSwitch";
-import { FieldDef } from "@root/components/Field";
+import Field, { FieldDef, sanitizeFieldSize } from "@root/components/Field";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
 import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
@@ -24,8 +24,6 @@ import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldUpload from "@root/components/Field/FormFieldUpload";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import evaluateShow from "@root/utils/show/evaluateShow";
-import RegisteredField from "../../Field/RegisteredField";
-import { Sizes } from "@root/theme";
 import { ColPropsTypes } from "./ColTypes";
 import { StyledCol } from "./ColStyled";
 
@@ -51,18 +49,6 @@ const fieldComponentMap = {
 	numberTable: FormFieldNumberTable,
 	raw: FormFieldRaw
 };
-
-function sanitizeSize(size: undefined | Sizes | string | number): string {
-	if (!size) {
-		return "full";
-	}
-
-	if (Sizes[size]) {
-		return Sizes[size];
-	}
-
-	return String(size);
-}
 
 let typingTimer;
 
@@ -137,7 +123,10 @@ const Col = (props: ColPropsTypes) => {
 				const value = state?.data[fieldProps.name];
 				const error = (state?.errors[fieldProps.name] && !currentField.disabled) ? state.errors[fieldProps.name] : "";
 
-				const size = sanitizeSize(currentField.size);
+				const size = sanitizeFieldSize(
+					currentField.size,
+					currentField.type
+				);
 
 				const children = useMemo(() => (
 					<Component
@@ -156,18 +145,17 @@ const Col = (props: ColPropsTypes) => {
 
 				return shouldShow ? (
 					(typeof type === "string" && fieldComponentMap[type]) ? (
-						<RegisteredField
+						<Field
 							key={`${name}_${i}`}
 							fieldDef={{ ...currentField, size }}
 							value={value}
 							error={error}
 							colsInRow={colsInRow}
 							id={name}
-							name={name}
 							dispatch={dispatch}
 						>
 							{children}
-						</RegisteredField>
+						</Field>
 					) : (
 						children
 					)

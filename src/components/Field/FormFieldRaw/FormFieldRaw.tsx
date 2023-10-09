@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, memo } from "react";
 
 // Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
@@ -15,4 +15,4 @@ const FormFieldRaw = (
 	return <>{value}</>;
 };
 
-export default FormFieldRaw;
+export default memo(FormFieldRaw);

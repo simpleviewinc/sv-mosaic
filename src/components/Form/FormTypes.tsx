@@ -1,5 +1,6 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
+import { FieldDefCustom } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicShow } from "@root/types";
 
@@ -34,4 +35,4 @@ export interface FormProps {
 	scrollSpyThreshold?: number;
 }
 
-export { FieldDef };
+export { FieldDef, FieldDefCustom };
