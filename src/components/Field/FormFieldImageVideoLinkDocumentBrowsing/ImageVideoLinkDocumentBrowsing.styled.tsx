@@ -13,7 +13,6 @@ import { BrowseOptionProps } from "./ImageVideoLinkDocumentBrowsingTypes";
 import { StyledProps } from "@root/types";
 
 export const ImageVideoLinkDocumentBrowsingContainer = styled.div`
-	width: fit-content;
 `;
 
 export const BrowseOptionsContainer = styled.div`
@@ -33,7 +32,6 @@ export const BrowsingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   min-height: 204px;
-	min-width: 300px;
   gap: 24px;
 `;
 
@@ -70,7 +68,6 @@ export const AssetCard = styled.div`
   border-radius: 4px;
   padding: 16px;
   position: relative;
-  width: 664px;
 	min-height: 168px;
 `;
 

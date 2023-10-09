@@ -12,7 +12,7 @@ export const PhoneInputWrapper = styled.div<{$error?: boolean, $disabled?: boole
       height: ${theme.fieldSpecs.inputText.totalHeight};
       padding: 12px 16px 12px 70px;
       outline: 0;
-      width: 280px;
+      width: 100%;
       box-shadow: none;
       transition: none;
 
