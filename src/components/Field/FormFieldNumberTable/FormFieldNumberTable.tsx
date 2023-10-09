@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChangeEvent, ReactElement, useEffect, useRef, useState } from "react";
+import { ChangeEvent, ReactElement, useEffect, useRef, useState, memo } from "react";
 
 // Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
@@ -228,4 +228,4 @@ const FormFieldNumberTable = (
 	);
 };
 
-export default FormFieldNumberTable;
+export default memo(FormFieldNumberTable);
