@@ -9,7 +9,7 @@ export const InstructionTextWrapper = styled.div`
 	margin-left: auto;
 	margin-top: 36px;
 	display: none;
-	width: 360px;
+	width: 180px;
 
 	${containerQuery("sm", "FORM_COL")} {
 		display: block;

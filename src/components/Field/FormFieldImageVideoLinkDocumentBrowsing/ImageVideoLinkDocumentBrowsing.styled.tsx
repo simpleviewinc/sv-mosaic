@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 // Utils
@@ -11,9 +12,16 @@ import LinkIcon from "@mui/icons-material/Link";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { BrowseOptionProps } from "./ImageVideoLinkDocumentBrowsingTypes";
 import { StyledProps } from "@root/types";
+import ButtonRow from "@root/components/ButtonRow";
+import { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
+import { containerQuery } from "@root/utils/css";
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const ImageVideoLinkDocumentBrowsingContainer = styled.div`
-	width: fit-content;
 `;
 
 export const BrowseOptionsContainer = styled.div`
@@ -33,7 +41,6 @@ export const BrowsingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   min-height: 204px;
-	min-width: 300px;
   gap: 24px;
 `;
 
@@ -64,14 +71,51 @@ export const BrowseSpan = styled.span`
  */
 
 export const AssetCard = styled.div`
-  display: flex;
   background-color: white;
   border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 4px;
+
+	container-type: inline-size;
+	container-name: ${CONTAINERS.ASSET_CARD};
+`;
+
+export const AssetCardTop = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   padding: 16px;
   position: relative;
-  width: 664px;
 	min-height: 168px;
+
+  ${containerQuery("sm", "ASSET_CARD")} {
+    flex-wrap: nowrap;
+  }
+`;
+
+export const AssetImage = styled.img`
+  border: 2px solid ${theme.newColors.grey2["100"]};
+  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+`
+
+export const AssetInfo = styled.div`
+  flex: 1 1 0%;
+  align-items: start;
+  display: flex;
+`
+
+export const AssetPropertiesColumn = styled(Column)`
+  flex: 1 1 0%;
+
+  ${containerQuery(`(max-width: ${parseInt(BREAKPOINTS.sm) - 1}px)`, "ASSET_CARD")} {
+    table, thead, tbody, tr, th, td {
+      display: block;
+    }
+    th{
+      padding-bottom: 0;
+    }
+  }
 `;
 
 export const AssetLabel = styled.span`
@@ -90,21 +134,11 @@ export const AssetLabelTooltip = styled(AssetLabel)`
   margin-right: 12px;
 `;
 
-export const ButtonsWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-
-  .first {
-    border-right: 2px solid ${theme.newColors.grey2["100"]};
-    padding-right: 16px;
-  }
-
-  span > button:last-child {
-    padding-left: 16px;
-  }
-`;
+export const AssetButtons = styled((props) => <ButtonRow {...props} separator />)`
+  justify-content: end;
+  padding: 16px;
+  padding-top: 0;
+`
 
 export const TableRow = styled.tr`
   font-family: ${theme.fontFamily};
@@ -116,13 +150,10 @@ export const Td = styled.td`
   vertical-align: top;
 `;
 
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const AssetPropertiesColumn = styled(Column)<{$hasImage?: boolean}>`
-	margin-left: ${({ $hasImage }) => $hasImage ? "16px" : "0"};
+export const Th = styled.th`
+  text-align: start;
+  padding-bottom: 12px;
+  vertical-align: top;
 `;
 
 export const MenuColumn = styled(Column)`
@@ -141,11 +172,6 @@ export const StyledTooltip = styled(Tooltip)`
     color: inherit;
     font-weight: inherit;
   }
-`;
-
-export const StyledImg = styled.img`
-  border: 2px solid ${theme.newColors.grey2["100"]};
-  object-fit: cover;
 `;
 
 export const RoundBackground = styled.div<StyledProps<BrowseOptionProps, "disabled">>`
