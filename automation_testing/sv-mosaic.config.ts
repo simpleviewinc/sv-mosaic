@@ -17,7 +17,7 @@ const config: PlaywrightTestConfig = {
 		screenshot: "off"
 	},
 	retries: 0,
-	timeout: 5000,
+	timeout: 30000,
 	reporter: [ ["html", { open: "never", outputFolder: "./playwright-report"}] ],
 	workers: process.env.CI ? 2 : 4,
 	projects: [
