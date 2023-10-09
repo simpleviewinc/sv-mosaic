@@ -109,9 +109,9 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			Array.isArray(value) &&
 			value?.map((property) => (
 				<TableRow key={`${property.label}-${property.value}`}>
-					<Td>
+					<Th>
 						<AssetLabelTooltip>{property.label}</AssetLabelTooltip>
-					</Td>
+					</Th>
 					<Td>{property.value}</Td>
 				</TableRow>
 			)),
