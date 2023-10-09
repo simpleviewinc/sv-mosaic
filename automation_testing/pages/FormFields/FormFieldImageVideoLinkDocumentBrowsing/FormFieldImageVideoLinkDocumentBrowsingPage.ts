@@ -65,14 +65,23 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 	}
 
 	async getSpecificInfoFromTable(information:string): Promise<string> {
-		return await this.table.locator("tr", { hasText: information }).locator("td").nth(1).textContent();
+		const row = this.table.locator("tr", { hasText: information });
+		const col = row.locator("td");
+
+		const result = await col.textContent();
+
+		if (!result) {
+			return "";
+		}
+
+		return result;
 	}
 
 	async getInformationTitlesFromTable(): Promise<string[]> {
 		const titles = [];
 		const numberOfRows = await this.table.locator("tr").count();
 		for (let i = 0; i < numberOfRows; i++) {
-			titles.push(await this.table.locator("tr").nth(i).locator("td").nth(0).textContent());
+			titles.push(await this.table.locator("tr").nth(i).locator("th").nth(0).textContent());
 		}
 		return titles;
 	}

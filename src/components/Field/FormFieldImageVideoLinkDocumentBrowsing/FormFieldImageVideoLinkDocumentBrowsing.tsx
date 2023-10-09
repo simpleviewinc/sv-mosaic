@@ -8,7 +8,10 @@ import Button from "@root/components/Button";
 import { ImageVideoDocumentLinkData, ImageVideoDocumentLinkInputSettings } from ".";
 import { MosaicFieldProps } from "@root/components/Field";
 import {
+	AssetButtons,
 	AssetCard,
+	AssetCardTop,
+	AssetInfo,
 	AssetLabel,
 	AssetLabelTooltip,
 	AssetPropertiesColumn,
@@ -16,16 +19,16 @@ import {
 	BrowseOptionsContainer,
 	BrowseSpan,
 	BrowsingContainer,
-	ButtonsWrapper,
 	Column,
 	ImageVideoLinkDocumentBrowsingContainer,
 	MenuColumn,
 	MoreText,
 	StyledAnchor,
-	StyledImg,
+	AssetImage,
 	StyledTooltip,
 	TableRow,
 	Td,
+	Th
 } from "./ImageVideoLinkDocumentBrowsing.styled";
 
 // Components
@@ -106,9 +109,9 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			Array.isArray(value) &&
 			value?.map((property) => (
 				<TableRow key={`${property.label}-${property.value}`}>
-					<Td>
+					<Th>
 						<AssetLabelTooltip>{property.label}</AssetLabelTooltip>
-					</Td>
+					</Th>
 					<Td>{property.value}</Td>
 				</TableRow>
 			)),
@@ -121,9 +124,9 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			Array.isArray(value) &&
 			value?.slice(0, 4).map((property, idx) => (
 				<TableRow key={`${property.label}-${property.value}`}>
-					<Td>
+					<Th>
 						<AssetLabel>{property.label}</AssetLabel>
-					</Td>
+					</Th>
 					<Td>
 						{property.label === "URL" ? (
 							<StyledAnchor href={property.value}>
@@ -204,36 +207,35 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 				</BrowsingContainer>
 			) : (
 				<AssetCard>
-					{fieldDef?.inputSettings?.src &&
-						!(assetType === DOCUMENT || assetType === LINK) && (
-						<Column>
-							<StyledImg
-								src={fieldDef?.inputSettings?.src}
-								data-testid="image-test"
-								width={257}
-								height={168}
-							/>
-						</Column>
-					)}
-					<AssetPropertiesColumn
-						$hasImage={
-							!!fieldDef?.inputSettings?.src &&
-							(assetType === IMAGE || assetType === VIDEO)
-						}
-					>
-						<table>
-							<tbody>{assetPropertiesRows}</tbody>
-						</table>
-					</AssetPropertiesColumn>
-					{fieldDef?.inputSettings?.options && (
-						<MenuColumn>
-							<MenuFormFieldCard
-								disabled={fieldDef?.disabled}
-								options={fieldDef?.inputSettings?.options}
-							/>
-						</MenuColumn>
-					)}
-					<ButtonsWrapper>
+					<AssetCardTop>
+						{fieldDef?.inputSettings?.src &&
+							!(assetType === DOCUMENT || assetType === LINK) && (
+							<Column>
+								<AssetImage
+									src={fieldDef?.inputSettings?.src}
+									data-testid="image-test"
+									width={257}
+									height={168}
+								/>
+							</Column>
+						)}
+						<AssetInfo>
+							<AssetPropertiesColumn>
+								<table>
+									<tbody>{assetPropertiesRows}</tbody>
+								</table>
+							</AssetPropertiesColumn>
+							{fieldDef?.inputSettings?.options && (
+								<MenuColumn>
+									<MenuFormFieldCard
+										disabled={fieldDef?.disabled}
+										options={fieldDef?.inputSettings?.options}
+									/>
+								</MenuColumn>
+							)}
+						</AssetInfo>
+					</AssetCardTop>
+					<AssetButtons>
 						<Button
 							className="first"
 							color="teal"
@@ -251,7 +253,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							disabled={fieldDef?.disabled}
 							onClick={(e) => handleRemove(e)}
 						></Button>
-					</ButtonsWrapper>
+					</AssetButtons>
 				</AssetCard>
 			)}
 		</ImageVideoLinkDocumentBrowsingContainer>
