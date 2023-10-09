@@ -12,11 +12,9 @@ import MenuFormFieldCard from "@root/forms/MenuFormFieldCard";
 
 // Styles
 import {
-	ButtonsContainer,
 	DragAndDropContainer,
 	DragAndDropSpan,
 	FileInput,
-	ImageCard,
 	ImageColumn,
 	ImagePropertiesColumn,
 	ImgLoaded,
@@ -27,6 +25,7 @@ import {
 	SizeValue,
 	UploadButton,
 } from "./FormFieldImageUpload.styled";
+import { AssetCard, AssetButtons, AssetCardTop, AssetInfo } from "../FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsing.styled";
 
 const FormFieldImageUpload = (
 	props: MosaicFieldProps<"imageUpload", ImageUploadInputSettings, ImageUploadValue>
@@ -268,49 +267,53 @@ const FormFieldImageUpload = (
 				</DragAndDropContainer>
 			) : (
 				<>
-					<ImageCard>
-						<ImageColumn>
-							{Object.keys(files).map((fileName) => {
-								const file = files[fileName];
+					<AssetCard>
+						<AssetCardTop>
+							<ImageColumn>
+								{Object.keys(files).map((fileName) => {
+									const file = files[fileName];
 
-								return (
-									<ImgLoaded
-										key={fileName}
-										alt={`${fileName} preview`}
-										height={168}
-										onLoad={onImgLoad}
-										src={URL.createObjectURL(file)}
-										width={257}
-									/>
-								);
-							})}
-							{focusMode && (
-								<ImageUploadCanvas mousePosition={mousePosition} />
-							)}
-						</ImageColumn>
-						{focusMode ? (
-							<SetFocusSpan>
-								Click on the image to set the focus point
-							</SetFocusSpan>
-						) : (
-							<ImagePropertiesColumn>
-								<Row>
-									<SizeLabel>Size</SizeLabel>
-									<SizeValue>
-										{width}x{height}
-									</SizeValue>
-								</Row>
-							</ImagePropertiesColumn>
-						)}
-						{fieldDef?.inputSettings?.options && !focusMode && (
-							<MenuColumn data-testid="menu-container-test">
-								<MenuFormFieldCard
-									options={fieldDef?.inputSettings?.options}
-									disabled={fieldDef?.disabled}
-								/>
-							</MenuColumn>
-						)}
-						<ButtonsContainer>
+									return (
+										<ImgLoaded
+											key={fileName}
+											alt={`${fileName} preview`}
+											height={168}
+											onLoad={onImgLoad}
+											src={URL.createObjectURL(file)}
+											width={257}
+										/>
+									);
+								})}
+								{focusMode && (
+									<ImageUploadCanvas mousePosition={mousePosition} />
+								)}
+							</ImageColumn>
+							<AssetInfo>
+								{focusMode ? (
+									<SetFocusSpan>
+										Click on the image to set the focus point
+									</SetFocusSpan>
+								) : (
+									<ImagePropertiesColumn>
+										<Row>
+											<SizeLabel>Size</SizeLabel>
+											<SizeValue>
+												{width}x{height}
+											</SizeValue>
+										</Row>
+									</ImagePropertiesColumn>
+								)}
+								{fieldDef?.inputSettings?.options && !focusMode && (
+									<MenuColumn data-testid="menu-container-test">
+										<MenuFormFieldCard
+											options={fieldDef?.inputSettings?.options}
+											disabled={fieldDef?.disabled}
+										/>
+									</MenuColumn>
+								)}
+							</AssetInfo>
+						</AssetCardTop>
+						<AssetButtons>
 							{focusMode && fieldDef?.inputSettings.handleSetFocus ? (
 								<Button
 									color="teal"
@@ -337,8 +340,8 @@ const FormFieldImageUpload = (
 								onClick={removeFile}
 								disabled={fieldDef?.disabled}
 							/>
-						</ButtonsContainer>
-					</ImageCard>
+						</AssetButtons>
+					</AssetCard>
 				</>
 			)}
 		</div>
