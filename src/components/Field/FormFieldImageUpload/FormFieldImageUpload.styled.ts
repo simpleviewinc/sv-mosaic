@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 import {
-	AssetCard,
 	AssetLabel,
 	AssetValue,
-	ButtonsWrapper,
 } from "../FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsing.styled";
 
 // Components
@@ -59,10 +57,6 @@ export const ImagePropertiesColumn = styled(Column)`
 export const MenuColumn = styled(Column)`
   margin-left: auto;
 `;
-
-export const ImageCard = styled(AssetCard)``;
-
-export const ButtonsContainer = styled(ButtonsWrapper)``;
 
 export const ImgLoaded = styled.img`
   border: 2px solid ${theme.newColors.grey2["100"]};
