@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState, useEffect } from "react";
+import { ReactElement, useState, useEffect, memo } from "react";
 
 // Components
 import RadioButton from "@root/components/RadioButton";
@@ -73,4 +73,4 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 	);
 };
 
-export default FormFieldRadio;
+export default memo(FormFieldRadio);
