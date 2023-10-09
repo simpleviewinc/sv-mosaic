@@ -155,7 +155,7 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	show?: MosaicShow
 }
 
-type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>
+export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>
 
 export type FieldDef =
 	| FieldDefText
