@@ -124,7 +124,7 @@ export const formActions = {
 				validators.push(validatePhoneNumber);
 			}
 
-			if (extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters) {
+			if (extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters > 0) {
 				validators.push({
 					fn: "validateCharacterCount",
 					options: {max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters}
