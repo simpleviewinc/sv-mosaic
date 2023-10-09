@@ -124,6 +124,13 @@ export const formActions = {
 				validators.push(validatePhoneNumber);
 			}
 
+			if (extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters) {
+				validators.push({
+					fn: "validateCharacterCount",
+					options: {max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters}
+				});
+			}
+
 			if (validators.length === 0) {
 				return;
 			}

@@ -64,6 +64,8 @@ function sanitizeSize(size: undefined | Sizes | string | number): string {
 	return String(size);
 }
 
+let typingTimer;
+
 const Col = (props: ColPropsTypes) => {
 	const {
 		col,
@@ -77,25 +79,8 @@ const Col = (props: ColPropsTypes) => {
 	} = props;
 
 	const doneTypingInterval = 300;
-	let typingTimer;
 
-	const sendValidateField = useCallback(async (curr, value) => {
-		const { maxCharacters } = curr?.inputSettings || { maxCharacters: 0 };
-		const exceeded = maxCharacters && typeof value === "string" && value.length > maxCharacters;
-
-		if (exceeded) {
-			await dispatch({
-				type: "FIELD_VALIDATE",
-				name: curr.name,
-				value: "You have exceeded the maximum number of characters"
-			})
-		} else {
-			await dispatch({
-				type: "FIELD_UNVALIDATE",
-				name: curr.name
-			})
-		}
-
+	const sendValidateField = useCallback(async (curr) => {
 		await dispatch(formActions.validateField({ name: curr.name }))
 
 		if (curr.pairedFields)
@@ -117,7 +102,7 @@ const Col = (props: ColPropsTypes) => {
 					})
 				);
 				clearTimeout(typingTimer);
-				typingTimer = setTimeout(async () => await sendValidateField(curr, value), doneTypingInterval);
+				typingTimer = setTimeout(async () => await sendValidateField(curr), doneTypingInterval);
 			};
 
 			return prev;
