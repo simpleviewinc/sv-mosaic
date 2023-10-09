@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, memo } from "react";
 
 // Components
 import ToggleSwitch from "@root/components/ToggleSwitch";
@@ -30,4 +30,4 @@ const FormFieldToggleSwitch = (
 	);
 };
 
-export default FormFieldToggleSwitch;
+export default memo(FormFieldToggleSwitch);
