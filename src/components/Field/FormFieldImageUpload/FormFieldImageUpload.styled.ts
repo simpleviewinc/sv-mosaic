@@ -19,7 +19,6 @@ export const DragAndDropContainer = styled.div<{$isOver?: boolean}>`
   height: 204px;
   justify-content: center;
   position: relative;
-  width: 300px;
 `;
 
 export const DragAndDropSpan = styled.span<{$isOver?: boolean}>`
