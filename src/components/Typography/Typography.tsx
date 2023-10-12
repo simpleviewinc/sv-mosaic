@@ -20,21 +20,24 @@ export default function Typography({
 	variant,
 	maxLines,
 	color,
-	breakAll
+	breakAll,
+	className
 }: TypographyProps): ReactElement {
 	const tag = providedTag || defaultTagMap[variant];
 	const Component = getComponent(tag);
 
 	return (
-		<Component
-			{...attrs}
-			$variant={variant}
-			$maxLines={maxLines}
-			$color={color}
-			$breakAll={breakAll}
-			title={typeof children === "string" ? children : undefined}
-		>
-			{children}
-		</Component>
+		<div className={className}>
+			<Component
+				{...attrs}
+				$variant={variant}
+				$maxLines={maxLines}
+				$color={color}
+				$breakAll={breakAll}
+				title={typeof children === "string" ? children : undefined}
+			>
+				{children}
+			</Component>
+		</div>
 	);
 }

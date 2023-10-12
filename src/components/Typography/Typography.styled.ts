@@ -3,11 +3,13 @@ import theme from "@root/theme";
 
 import { TypographyVariant } from "./TypographyTypes";
 import { ColorTypes } from "../Button";
+import { Properties } from "csstype"
 
 interface BaseProps {
     $maxLines?: number
     $color?: ColorTypes,
 	$breakAll?: boolean
+	$whiteSpace?: Properties["whiteSpace"];
 }
 
 export const base = css<BaseProps>`
@@ -17,7 +19,7 @@ export const base = css<BaseProps>`
 	font-weight: inherit;
     line-height: 1.5em;
 
-    ${({ $maxLines, $breakAll, $color }) => {
+    ${({ $maxLines, $breakAll, $color, $whiteSpace }) => {
 		const parts = [
 			$maxLines && `
 				display: -webkit-box;
@@ -30,6 +32,9 @@ export const base = css<BaseProps>`
 			`,
 			$color && `
 				color: ${theme.colors[$color]};
+			`,
+			$whiteSpace && `
+				white-space: ${$whiteSpace};
 			`
 		];
 
