@@ -23,11 +23,11 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 	let externalOptions: AdvancedSelectionExternalOptions | undefined;
 	let localOptions: AdvancedSelectionLocalOptions | undefined;
 
-	if ("getOptions" in fieldDef.inputSettings) {
+	if (fieldDef.inputSettings && "getOptions" in fieldDef.inputSettings) {
 		externalOptions = fieldDef.inputSettings;
 	}
 
-	if ("options" in fieldDef.inputSettings) {
+	if (fieldDef.inputSettings && "options" in fieldDef.inputSettings) {
 		localOptions = fieldDef.inputSettings;
 	}
 
@@ -83,10 +83,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				onApply={onSubmit}
 				placeholder={"Search..."}
 				limit={externalOptions?.getOptionsLimit}
-				selectLimit={fieldDef.inputSettings.selectLimit}
+				selectLimit={fieldDef.inputSettings?.selectLimit}
 				onChange={(value) => setSelectedOptions(value)}
 				hideButtons={true}
-				createNewOption={fieldDef.inputSettings.createNewOption}
+				createNewOption={fieldDef.inputSettings?.createNewOption}
 			/>
 		</FormDrawerWrapper>
 
