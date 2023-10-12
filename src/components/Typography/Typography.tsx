@@ -32,6 +32,7 @@ export default function Typography({
 			$maxLines={maxLines}
 			$color={color}
 			$breakAll={breakAll}
+			title={typeof children === "string" ? children : undefined}
 		>
 			{children}
 		</Component>
