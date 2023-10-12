@@ -11,7 +11,7 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	toggleSwitch: Sizes.md,
 	imageVideoDocumentLink: Sizes.lg,
 	color: Sizes.sm,
-	date: Sizes.sm,
+	date: Sizes.md,
 	address: Sizes.full,
 	table: Sizes.full,
 	textEditor: Sizes.lg,
