@@ -1,5 +1,62 @@
 # sv-mosaic changelog
 
+## 27.0.0 - 10/17/23
+
+### Improvements & Fixes
+
+* `Form`:
+  * [MOS-1054](https://simpleviewtools.atlassian.net/browse/MOS-1054 "https://simpleviewtools.atlassian.net/browse/MOS-1054")
+    * Makes changes to assist with automation tests:
+      * Adds the `data-testid="form-header"` to the form headers container element on both desktop and mobile layouts
+      * Adds the `role="toolbar"` to `ButtonRow`s
+  * [MOS-1104](https://simpleviewtools.atlassian.net/browse/MOS-1104 "https://simpleviewtools.atlassian.net/browse/MOS-1104")
+    * Slightly restructures `Form`'s nested components to prevent unnecessary remounts
+  * [MOS-1046](https://simpleviewtools.atlassian.net/browse/MOS-1046 "https://simpleviewtools.atlassian.net/browse/MOS-1046")
+    * Moves the entire `./src/forms` field structure into `./src/components/Field`. Adds support for form-specific types to be imported by consumers by targeting the `components` export; both of the following will work:
+      * `import { FormFieldUpload, OnFileAdd } from "@simpleview/sv-mosaic/components/Field"`
+      * `import FormFieldUpload, { OnFileAdd } from "@simpleview/sv-mosaic/components/Field/FormFieldUpload"`
+  * [MOS-1175](https://simpleviewtools.atlassian.net/browse/MOS-1175 "https://simpleviewtools.atlassian.net/browse/MOS-1175")
+    * Drops the `ViewContext` entirely.
+      * **BREAKING CHANGE** - Remove references to this component from your application.
+    * Styled Components has been upgraded from 4.3.2 to 6.0.7.
+      * **BREAKING CHANGE** - `Button`s `attrs.smallText` property is now `attrs.$smallText`
+    * Where appropriate, components have been migrated to use transient props when integrating styled components
+    * The entire "view" form system has been dropped. The `view` property no longer exists on the `<Form />` component.
+      * **BREAKING CHANGE** - Remove any `view` property for the `Form` component
+    * `TopComponent` has been dropped. The integrated `Title` component which is commonly used across Mosaic components has been moved into the components directory. `components/Form/Top` replaces `TopComponent` inside the `<Form />` component
+    * Form elements and layout now depend on the width of the form container itself, improving versatility.
+    * Improved grid system, taking on the number of columns needed by the sections provided, or collapsing into 2 (or 1) at an appropriate container width
+    * Improved instruction display, dropping dependence on DOM checks in favour of container queries of the field's column
+    * Some naming and file organization improvements
+    * Dead code removal
+* `TitleWrapper`:
+  * [MOS-1133](https://simpleviewtools.atlassian.net/browse/MOS-1133 "https://simpleviewtools.atlassian.net/browse/MOS-1133")
+    * Adds a `backLabel` property to all components that support the `onBack` callback, which renders a back button in the relevant header. The components that support it are:
+
+      * `DataView`
+      * `Form`
+      * `PageHeader`
+      * `SummaryPageTopComponent`
+
+      If the `backLabel` property is omitted, the label will default to "Go back". Additionally, the following integrated components use the `backLabel` property:
+
+      * `DataView`'s column drawer back button will read "Cancel table settings"
+      * `DataView`'s views drawer back button will read "Cancel saved views"
+      * `DataView`'s save view drawer back button will read "Cancel save view"
+      * `FormFieldAdvancedSelection`'s option drawer back button will read "Cancel advanced selection"
+* `FormFieldNumberTable`
+  * [MOS-1135](https://simpleviewtools.atlassian.net/browse/MOS-1135 "https://simpleviewtools.atlassian.net/browse/MOS-1135")
+    * Updates `FormFieldNumberTable` types to support `ReactNode` labels, titles and subtitles.
+* `Chip`
+  * [MOS-1126](https://simpleviewtools.atlassian.net/browse/MOS-1126 "https://simpleviewtools.atlassian.net/browse/MOS-1126")
+    * Uses the `Chip`'s label as the HTML `title` attribute and enforces a maximum width of 186px on all `Chip`s
+* `FormFieldText`
+  * [MOS-1119](https://simpleviewtools.atlassian.net/browse/MOS-1119 "https://simpleviewtools.atlassian.net/browse/MOS-1119")
+    * Modifies the max character behaviour that the text field uses. Instead of limiting the amount of characters to the `maxCharacter` amount, the user can exceed the amount but the character counter will turn red and the field will show an error due to a new, automatically applied validator. Submission is invalid until the number of characters is reduced.
+* `FormFieldPhoneSelectionDropdown`
+  * [MOS-1146](https://simpleviewtools.atlassian.net/browse/MOS-1146 "https://simpleviewtools.atlassian.net/browse/MOS-1146")
+    * Adds the `tabbableDropdown={false}` property to the `PhoneInput` invokation, having forked `react-phone-input-2` into `@simpleview/react-phone-input-2` with some modifications. This prevents the user from tabbing to the integrated country dropdown input.
+
 ## 26.1.0 - 09/19/23
 
 ### Improvements & Fixes
