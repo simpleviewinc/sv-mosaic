@@ -6,7 +6,6 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { StyledProps } from "@root/types";
-import { containerQuery } from "@root/utils/css";
 import { SectionPropTypes } from "./SectionTypes";
 
 export const StyledAccordion = styled(Accordion)<StyledProps<SectionPropTypes, "title">>`
@@ -50,12 +49,7 @@ export const StyledDescription = styled.p`
 	font-family: ${theme.fontFamily};
 	color: ${theme.newColors.grey3["100"]};
 	margin: 18px 0 0;
-	padding: 0 20px;
-
-	${containerQuery("lg", "FORM")} {
-		margin-top: 32px;
-		padding: 0 40px;
-	}
+	padding: 0 24px;
 `;
 
 export const StyledRows = styled.div<StyledProps<SectionPropTypes, "title">>`
@@ -65,11 +59,7 @@ export const StyledRows = styled.div<StyledProps<SectionPropTypes, "title">>`
 	gap: 24px 0;
 
 	${({ $title }) => $title && `
-		padding: 18px 20px;
-
-		${containerQuery("lg", "FORM")} {
-			padding: 32px 40px;
-		}
+		padding: 18px 24px;
 	`}
 `;
 
