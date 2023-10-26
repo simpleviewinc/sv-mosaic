@@ -61,7 +61,12 @@ export function coreReducer(state: State, action: Action): State {
 			},
 			errors: action.clearErrors ? {} : state.errors
 		}
-	case "FIELD_TOUCHED":
+	case "FIELD_TOUCHED": {
+		// Don't return new state if the field touched value is already the incoming one
+		if (Boolean(state.touched[action.name]) === action.value) {
+			return state;
+		}
+
 		return {
 			...state,
 			touched: {
@@ -69,6 +74,7 @@ export function coreReducer(state: State, action: Action): State {
 				[action.name]: action.value
 			}
 		};
+	}
 	case "FIELD_VALIDATE":
 		// TODO this is bad there's no support for multiple errors, but will be refactored in
 		// https://simpleviewtools.atlassian.net/browse/MOS-1131
