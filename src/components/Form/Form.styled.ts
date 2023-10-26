@@ -3,7 +3,7 @@ import { CONTAINERS } from "@root/theme/theme";
 import SideNav from "../SideNav/SideNav";
 import { containerQuery } from "@root/utils/css";
 
-export const StyledContainerForm = styled.div<{fullHeight?: boolean}>`
+export const StyledContainerForm = styled.div<{$fullHeight?: boolean}>`
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -16,7 +16,7 @@ export const StyledContainerForm = styled.div<{fullHeight?: boolean}>`
 	container-type: inline-size;
 	container-name: ${CONTAINERS.FORM};
 
-	${({ fullHeight = true }) => fullHeight && `
+	${({ $fullHeight = true }) => $fullHeight && `
 		height: 100%;
 	`}
 `;

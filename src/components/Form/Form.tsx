@@ -191,7 +191,7 @@ const Form = (props: FormProps) => {
 				aria-busy={isBusy ? "true" : "false"}
 				role="form"
 				aria-label={title}
-				fullHeight={fullHeight}
+				$fullHeight={fullHeight}
 			>
 				<StyledForm autoComplete="off">
 					{title && (
