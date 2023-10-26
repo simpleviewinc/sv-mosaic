@@ -8,6 +8,8 @@ services:
     ports:
       - 10001:10001
     working_dir: /app
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
   e2e:
     container_name: sv-mosaic-e2e
     image: mcr.microsoft.com/playwright:v1.27.1
