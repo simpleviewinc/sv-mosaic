@@ -40,6 +40,7 @@ type Action = {
 	value: any;
 	name?: string;
 	clearErrors?: boolean
+	touched?: boolean
 }
 
 export function coreReducer(state: State, action: Action): State {
@@ -50,7 +51,12 @@ export function coreReducer(state: State, action: Action): State {
 			data: {
 				...state.data,
 				[action.name]: action.value
-			}
+			},
+			touched: action.touched ? {
+				...state.touched,
+				[action.name]: true
+			} : state.touched
+
 		};
 	case "FIELDS_ON_CHANGE":
 		return {
