@@ -17,4 +17,5 @@ docker run --rm -it \
 	-v $PWD/.eslintignore:/app/.eslintignore \
 	-v $PWD/jest.config.js:/app/jest.config.js \
 	-p 10000:10000 \
+	-e NODE_OPTIONS=--openssl-legacy-provider \
 	sv-mosaic:local /bin/bash
