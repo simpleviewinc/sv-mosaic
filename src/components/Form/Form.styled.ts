@@ -3,13 +3,11 @@ import { CONTAINERS } from "@root/theme/theme";
 import SideNav from "../SideNav/SideNav";
 import { containerQuery } from "@root/utils/css";
 
-export const StyledForm = styled.form`
+export const StyledContainerForm = styled.div<{fullHeight?: boolean}>`
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-`;
 
-export const StyledContainerForm = styled.div`
 	&.disabled {
 		opacity: .5;
 		pointer-events: none;
@@ -17,6 +15,17 @@ export const StyledContainerForm = styled.div`
 
 	container-type: inline-size;
 	container-name: ${CONTAINERS.FORM};
+
+	${({ fullHeight = true }) => fullHeight && `
+		height: 100%;
+	`}
+`;
+
+export const StyledForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 0%;
+	min-height: 0;
 `;
 
 export const StyledFormContent = styled.div`

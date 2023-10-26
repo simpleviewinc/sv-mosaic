@@ -15,14 +15,12 @@ export const StyledSideNav = styled.nav<{$collapse?: MosaicCSSContainer}>`
 			min-width: 196px;
 			padding: 0;
 			overflow: auto;
-			height: 100%;
 		}
 	` : `
 		border-right: 2px solid ${theme.newColors.grey2["100"]};
 		width: 196px;
 		min-width: 196px;
 		overflow: auto;
-		height: 100%;
 	`}
 `;
 

@@ -33,6 +33,7 @@ export interface FormProps {
 	tooltipInfo?: string;
 	showActive?: boolean;
 	scrollSpyThreshold?: number;
+	fullHeight?: boolean
 }
 
 export { FieldDef, FieldDefCustom };
