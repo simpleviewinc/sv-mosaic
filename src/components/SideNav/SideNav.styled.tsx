@@ -6,7 +6,7 @@ import { containerQuery } from "@root/utils/css";
 export const StyledSideNav = styled.nav<{$collapse?: MosaicCSSContainer}>`
 	${({$collapse}) => $collapse ? `
 		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding: 0 20px;
+		padding: 0 24px;
 
 		${containerQuery($collapse.minWidth, $collapse.name)}  {
 			border-bottom: 0;

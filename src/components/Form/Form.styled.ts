@@ -32,11 +32,7 @@ export const StyledFormContent = styled.div`
 	overflow-y: auto;
 	flex-grow: 1;
 	min-width: 0;
-	padding: 18px 20px;
-
-	${containerQuery("lg", "FORM")} {
-		padding: 32px 40px;
-	}
+	padding: 24px;
 `;
 
 export const StyledFormPrimary = styled.div`
