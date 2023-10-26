@@ -235,14 +235,6 @@ export const formActions = {
 				formActions.validateForm({ fields: extraArgs.fields })
 			);
 
-			if (valid) {
-				await dispatch({
-					type: "PROPERTY_RESET",
-					name: "touched",
-					value: {},
-				});
-			}
-
 			const cleanData = Object.keys(data).reduce((acc, curr) => ({
 				...acc,
 				[curr]: mounted[curr] ? data[curr] : undefined
