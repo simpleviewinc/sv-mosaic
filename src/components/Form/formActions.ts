@@ -65,15 +65,8 @@ export const formActions = {
 				type: "FIELD_ON_CHANGE",
 				name,
 				value: isValidValue(value) ? value : undefined,
+				touched
 			});
-
-			if (touched) {
-				await dispatch({
-					type: "FIELD_TOUCHED",
-					name,
-					value: touched,
-				});
-			}
 
 			if (validate) {
 				await dispatch(formActions.validateField({ name }));
