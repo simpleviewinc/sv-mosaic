@@ -46,6 +46,7 @@ const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
 `;
 
 const StyledInputLabel = styled(InputLabel)`
+	font-weight: ${theme.fontWeight.semiBold} !important;
   	align-self: center;
 	color: ${theme.newColors.grey4["100"]} !important;
 `;
