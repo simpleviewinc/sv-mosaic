@@ -1,14 +1,20 @@
+/* eslint-disable react/no-children-prop */
 import * as React from "react";
 import { ReactElement } from "react";
-import { withKnobs, text, select } from "@storybook/addon-knobs";
+import { Properties } from "csstype";
+import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import theme from "@root/theme";
 import {
-	H1 as H1Elm,
-	H3 as H3Elm,
-	BodyText as BodyTextElm,
-	P as PElm
+	BodyText,
+	SubtitleText,
+	TitleText,
+	TypographyVariant
 } from "./";
+import styled from "styled-components";
+import Typography from "./Typography";
+import { ColorTypes } from "../Button";
+import { tags } from "./storyUtils";
 
 
 export default {
@@ -16,18 +22,13 @@ export default {
 	decorators: [withKnobs],
 } as Meta;
 
-const paragraphText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+const content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis, nulla et iaculis semper, turpis massa faucibus sem, et egestas purus leo ut mauris. Nam ac ex porttitor, tempus eros eu, rhoncus libero. Integer risus lacus, ultrices at turpis id, suscipit vulputate nulla. Cras tincidunt ante quis mi accumsan.";
+const contentShort = content.substring(0, 93);
+const contentUrl = "https://www.google.com/?q=46503807498226023045874012183575071093022671901587285495525521941359381308429902926377654197863336467166861936857990937433143015269066983394795324415786553093224671668619368579909374331430152690669833947"
 
-const variants = ["H1", "H3", "BodyText", "Paragraph"];
+const variants: TypographyVariant[] = ["title", "subtitle", "body"];
 
-const componentMap = {
-	"H1": H1Elm,
-	"H3": H3Elm,
-	"BodyText": BodyTextElm,
-	"Paragraph": PElm
-};
-
-const colors = [
+const colors: ColorTypes[] = [
 	"black",
 	"blue",
 	"lightBlue",
@@ -38,58 +39,158 @@ const colors = [
 	"white"
 ];
 
-const getBackgroundColor = typographyColor =>
-	typographyColor === "lightBlue"
-		? theme.colors.blue
-		: typographyColor === "white"
-			? theme.colors.black
-			: "";
+const whiteSpaceOptions: Properties["whiteSpace"][] = [
+	"-moz-initial",
+	"-moz-pre-wrap",
+	"break-spaces",
+	"inherit",
+	"initial",
+	"normal",
+	"nowrap",
+	"pre",
+	"pre-line",
+	"pre-wrap",
+	"revert",
+	"revert-layer",
+];
+
+const BackDrop = styled.div`
+	background-color: #f6f6f6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 4rem 2rem 0;
+	min-height: 100vh
+`
+
+const Wrapper = styled.div`
+	background: white;
+	padding: 1rem 4rem 4rem;
+	width: 980px;
+	max-width: 100%;
+	border: 1px solid #e5e5e5;
+	border-bottom: 0;
+	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	flex-grow: 1;
+`
+
+const Heading = styled.h2`
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 16px;
+	font-weight: ${theme.fontWeight.light};
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: ${theme.colors.simplyGray};
+	margin: 2rem -12px;
+	display: flex;
+	align-items: center;
+	text-transform: uppercase;
+
+	&::after{
+		content: " ";
+		flex-grow: 1;
+		border-top: 1px solid ${theme.newColors.grey2["100"]};
+		margin-left: 16px;
+		margin-top: 4px;
+	}
+`
+
+const MyBodyText = styled(BodyText)`
+	color: white;
+	background-color: #444;
+	border-radius: 3px;
+	padding: 10px;
+
+	> * {
+		font-size: 12px;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	}
+`
 
 export function Playground(): ReactElement {
-
-	const typographyVariant = select("Variant", variants, "H1");
-	const typographyText = text("Text", "Lorem ipsum");
-	const typographyColor = select("Color", colors, "black");
-
-	const Component = componentMap[typographyVariant];
+	const variant = select("Variant", variants, "title");
+	const tag = select("Tag", tags, "div");
+	const maxLines = number("Maximum Lines", 0);
+	const whiteSpace = select("White Space", whiteSpaceOptions, "normal");
+	const breakAll = boolean("Break All", false);
+	const title = text("Title", "");
+	const children = text("Children", "Lorem ipsum");
+	const color = select("Color", colors, "black");
 
 	return (
-		<React.Fragment>
-			<Component
-				style={{backgroundColor: getBackgroundColor(typographyColor)}}
-				color={typographyColor}
-			>
-				{typographyText}
-			</Component>
-		</React.Fragment>
+		<Typography
+			variant={variant}
+			tag={tag}
+			maxLines={maxLines}
+			whiteSpace={whiteSpace}
+			breakAll={breakAll}
+			title={title}
+			children={children}
+			color={color}
+		/>
 	)
 }
 
 export function KitchenSink(): ReactElement {
 
 	return (
-		<React.Fragment>
-			{
-				variants.map((variant, id) => {
-					const Component = componentMap[variant];
-					return (
-						<React.Fragment key={id}>
-							<h1>{variant}</h1>
-							{
-								colors.map((color, color_id) => (
-									<div key={color_id}>
-										<Component
-											style={{backgroundColor: getBackgroundColor(color)}}
-											color={color}>
-											{variant === "Paragraph" ? paragraphText : "Lorem ipsum dolor"}
-										</Component>
-									</div>
-								))
-							}
-						</React.Fragment>
-					)}
-				)
-			}
-		</React.Fragment>
+		<>
+			<BackDrop>
+				<Wrapper>
+
+					<Heading>Standard Title</Heading>
+					<TitleText
+						children={contentShort}
+					/>
+
+					<Heading>Title rendered as a h2 element</Heading>
+					<TitleText
+						tag="h2"
+						children={contentShort}
+					/>
+
+					<Heading>Title with a maximum number of lines</Heading>
+					<TitleText
+						children={content}
+						maxLines={1}
+					/>
+
+					<Heading>Subtitle</Heading>
+					<SubtitleText
+						children={contentShort}
+					/>
+
+					<Heading>Body</Heading>
+					<BodyText
+						children={content}
+					/>
+
+					<Heading>Body with an alternate colour and a maximum number of lines</Heading>
+					<BodyText
+						children={content}
+						maxLines={2}
+						color="red"
+					/>
+
+					<Heading>Body with a maximum number of lines and breakable characters</Heading>
+					<BodyText
+						children={contentUrl}
+						maxLines={1}
+						breakAll
+					/>
+
+					<Heading>Body with custom styling</Heading>
+					<MyBodyText
+						children={contentUrl}
+						maxLines={1}
+						breakAll
+					/>
+
+				</Wrapper>
+			</BackDrop>
+			<style dangerouslySetInnerHTML={{__html: ".sb-show-main{margin: 0}"}} />
+		</>
 	)
 }
