@@ -86,7 +86,9 @@ export default function MenuItem(props: MenuItemProps): ReactElement {
 					<Icon/>
 				</MyIcon>
 			}
-			<div className="menuLabel">{props.label}</div>
+			<div className="menuLabel">
+				<span>{props.label}</span>
+			</div>
 		</StyledMenuItem>
 	)
 }
