@@ -3,8 +3,7 @@ import { useState, ReactElement } from "react";
 
 import {
 	CheckboxList,
-	MosaicLabelValue,
-	P
+	MosaicLabelValue
 } from "@root/index";
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 
@@ -21,7 +20,7 @@ export const example = (): ReactElement => {
 
 	return (
 		<div>
-			<P>checked: {JSON.stringify(checked)}</P>
+			<div>checked: {JSON.stringify(checked)}</div>
 			<CheckboxList
 				checked={checked}
 				options={checkboxOptions}
