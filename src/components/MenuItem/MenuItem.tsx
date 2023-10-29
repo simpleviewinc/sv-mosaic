@@ -5,10 +5,8 @@ import MUIMenuItem from "@mui/material/MenuItem";
 
 import { MenuItemProps } from "./MenuItemTypes";
 import theme from "@root/theme";
-import { BodyText } from "../Typography";
 
 const StyledMenuItem = styled(MUIMenuItem)`
-
 	&.MuiMenuItem-root {
 		min-height: 42px;
 		background-color: ${theme.colors.white} !important;
@@ -43,6 +41,7 @@ const StyledMenuItem = styled(MUIMenuItem)`
 
 	& > .menuLabel {
 		font-family: ${theme.fontFamily};
+		font-size: 14px;
 		color: ${theme.newColors.grey4["100"]};
 
 	}
@@ -87,7 +86,7 @@ export default function MenuItem(props: MenuItemProps): ReactElement {
 					<Icon/>
 				</MyIcon>
 			}
-			<BodyText className="menuLabel">{props.label}</BodyText>
+			<div className="menuLabel">{props.label}</div>
 		</StyledMenuItem>
 	)
 }

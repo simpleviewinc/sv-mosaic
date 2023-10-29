@@ -12,13 +12,14 @@ import LeftNavItemMobile from "./LeftNavItemMobile";
 import LeftNavScroller from "./LeftNavScroller";
 import LeftNavTitle from "./LeftNavTitle";
 import { LeftNavProps, LeftNavContext, LeftNavItemDef, LeftNavOnNav } from "./LeftNavTypes";
-import { BodyText } from "../Typography";
 import theme from "../../theme";
 import TridentIcon from "../../theme/TridentIcon";
 
 const RootDiv = styled(LeftNavRoot)`
 	width: 80vw;
 	max-width: 250px;
+	font-family: ${theme.fontFamily};
+	font-size: 14px;
 
 	& > .header {
 		padding: 8px 16px;
@@ -124,7 +125,7 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 						<Fragment>
 							<div className="backButton" onClick={onBack}>
 								<KeyboardBackspaceIcon/>
-								<BodyText className="buttonLabel">{previous.label}</BodyText>
+								<div className="buttonLabel">{previous.label}</div>
 							</div>
 							<LeftNavTitle label={current.label}/>
 						</Fragment>

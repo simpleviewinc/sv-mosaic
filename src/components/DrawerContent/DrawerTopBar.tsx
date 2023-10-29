@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { H1 } from "../Typography";
+import { TitleText } from "../Typography";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import { useMosaicTranslation } from "@root/i18n";
@@ -51,7 +51,9 @@ function DrawerTopBar(props: DrawerTopBarProps) {
 					color="black"
 					onClick={props.onBack}
 				/>
-				<H1>{props.title}</H1>
+				<TitleText tag="h1">
+					{props.title}
+				</TitleText>
 			</div>
 			<div className="right">
 				<ButtonRow>

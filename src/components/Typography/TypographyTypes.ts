@@ -1,16 +1,59 @@
 import { ReactNode } from "react";
 import { MosaicObject } from "../../types"
 import { ColorTypes } from "../Button";
+import { Properties } from "csstype"
 
-export interface TypographyGenericProps {
-	/** The html element to use. Can be used when you want the style of h1 but the html element h3. */
-	as?: string
+export type TypographyVariant = "title" | "subtitle" | "body";
+
+export type TypographyTag = string;
+
+export interface TypographyProps {
+	/**
+	 * Controls the look of the typography
+	 */
+	variant: TypographyVariant,
+	/**
+	 * @deprecated Use "tag" prop instead
+	 */
+	as?: TypographyTag
+	/**
+	 * The HTML element to use.
+	 */
+	tag?: TypographyTag
+	/**
+	 * If provided, text will be truncated at the given number of lines
+	 */
+	maxLines?: number;
+	/**
+	 * The "white-space" CSS style
+	 */
+	whiteSpace?: Properties["whiteSpace"];
+	/**
+	 * Utilises "word-break: break-all" - useful for displaying long strings with no breaking characters like URLs
+	 */
+	breakAll?: boolean;
+	/**
+	 * @deprecated use attrs
+	 */
 	style?: MosaicObject
-	children?: ReactNode
-	/** Pass custom classes to the component */
+	/**
+	 * The content, usually text, of the Typography component
+	 */
+	children: ReactNode
+	/**
+	 * Pass custom classes to the wrapping element
+	 */
 	className?: string
+	/**
+	 * Provides a title attribute to the Typography element
+	 */
 	title?: string
-	/** Additional passed options are automatically added to the html element. */
+	/**
+	 * Additional attributes to be provided to the Typography element
+	 */
 	attrs?: MosaicObject
+	/**
+	 * The text colour of the typography
+	 */
 	color?: ColorTypes
 }
