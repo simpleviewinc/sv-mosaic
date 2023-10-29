@@ -6,3 +6,12 @@ automation_testing/test-results
 automation_testing/playwright-report
 dist/*
 !dist/.gitkeep
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
