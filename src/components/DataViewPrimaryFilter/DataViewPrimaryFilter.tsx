@@ -1,7 +1,6 @@
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@root/components/Button";
-import { BodyText } from "@root/components/Typography";
 import Tooltip from "../Tooltip";
 import { Count, LabelWrapper, MultiselectCounter, Value } from "./DataViewPrimaryFilter.styled";
 import { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
@@ -9,9 +8,9 @@ import { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
 function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 	const label = (
 		<LabelWrapper>
-			<BodyText className="filter-label">{props.label}</BodyText>
+			<div className="filter-label">{props.label}</div>
 			{props.value &&
-				<BodyText className="filter-value" color={ props.color ? props.color : "black"}>
+				<div className="filter-value" color={ props.color ? props.color : "black"}>
 					<b>|</b>
 					<Value>{props.value}</Value>
 					{
@@ -23,7 +22,7 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 							</Tooltip>
 						)
 					}
-				</BodyText>
+				</div>
 			}
 		</LabelWrapper>
 	)

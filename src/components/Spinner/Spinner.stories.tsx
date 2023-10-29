@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { number, boolean, withKnobs } from "@storybook/addon-knobs";
 import Spinner from "./Spinner";
-import { H3 } from "../Typography";
+import { SubtitleText } from "../Typography";
 
 export default {
 	title: "Components/Spinner",
@@ -21,9 +21,9 @@ export const Playground = (): ReactElement => {
 export const KitchenSink = (): ReactElement => {
 	return (
 		<>
-			<H3>Spinner that spins indifinitely</H3>
+			<SubtitleText tag="h3">Spinner that spins indifinitely</SubtitleText>
 			<Spinner />
-			<H3>Spinner set to 60%</H3>
+			<SubtitleText tag="h3">Spinner that spins indifinitely</SubtitleText>
 			<Spinner progress={60} />
 		</>
 	);
