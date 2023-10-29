@@ -666,7 +666,7 @@ export const Playground = (): ReactElement => {
 	}, [prepopulate, showGetFormValues, showDefaultValues]);
 
 	return (
-		<>
+		<div style={{height: "100vh"}}>
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
@@ -683,6 +683,6 @@ export const Playground = (): ReactElement => {
 				tooltipInfo={showTooltipInfo && tooltipInfo}
 				showActive={showActive}
 			/>
-		</>
+		</div>
 	);
 };
