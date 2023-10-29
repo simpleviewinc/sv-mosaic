@@ -46,6 +46,7 @@ export const variants: Record<TypographyVariant, RuleSet> = {
         font-family: ${theme.museoFont};
         font-size: 28px;
         font-weight: ${theme.fontWeight.light};
+		color: ${theme.newColors.almostBlack["100"]};
         line-height: 1.2em;
 	`,
 	subtitle: css`
