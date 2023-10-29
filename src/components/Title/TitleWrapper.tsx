@@ -2,10 +2,10 @@ import * as React from "react";
 import { memo, ReactElement } from "react";
 
 // Utils
-import { H1 } from "@root/components/Typography";
 import { Description, Title } from "./TitleWrapper.styled";
 import { TitleWrapperProps } from "./TitleWrapperTypes";
 import TitleBackButton from "./TitleBackButton";
+import { TitleText } from "../Typography";
 
 const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	const {
@@ -25,7 +25,7 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 						label={backLabel}
 					/>
 				)}
-				<H1 attrs={{ title }} >{title}</H1>
+				<TitleText attrs={{ title }} >{title}</TitleText>
 			</Title>
 			{description && <Description>{description}</Description>}
 		</>

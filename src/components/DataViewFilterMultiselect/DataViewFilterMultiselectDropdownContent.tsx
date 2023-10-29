@@ -11,9 +11,9 @@ import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
 import Chip from "@root/components/Chip";
-import { H3 } from "../Typography";
+import { SubtitleText } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
-import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper } from "./DataViewFilterMultiselect.styled";
+import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper, StyledComparisonHeader } from "./DataViewFilterMultiselect.styled";
 import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 import { InputAdornment } from "@mui/material";
 import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
@@ -181,7 +181,11 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 
 		comparisonDropdown = (
 			<div className="comparisonDropdown">
-				<H3>{t("mosaic:DataView.comparison")}</H3>
+				<StyledComparisonHeader>
+					<SubtitleText tag="h3">
+						{t("mosaic:DataView.comparison")}
+					</SubtitleText>
+				</StyledComparisonHeader>
 				<ButtonRow>
 					<Button
 						label={activeComparison.label}

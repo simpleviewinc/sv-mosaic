@@ -6,7 +6,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import { MosaicObject } from "../../types";
 import { LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
-import { BodyText } from "../Typography";
 import theme from "../../theme";
 
 const StyledA = styled.a`
@@ -18,6 +17,8 @@ const StyledA = styled.a`
 	line-height: 24px;
 	cursor: pointer;
 	text-decoration: none;
+	font-family: ${theme.fontFamily};
+	font-size: 14px;
 
 	&.hasItems > .right > .arrow {
 		visibility: visible;
@@ -114,7 +115,7 @@ function LeftNavItem(props: Props, ref): ReactElement {
 				}
 				{
 					showLabel &&
-					<BodyText className="navLabel">{item.label}</BodyText>
+					<span className="navLabel">{item.label}</span>
 				}
 			</span>
 			{
