@@ -73,27 +73,6 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 		setDateChosen(date);
 
-		/**
-		 * -- START --
-		 * To force the user to pick a time if a date is chosen (regardless
-		 * of whether or not it's required), do this:
-		 */
-
-		// if (showTime && !timeChosen) {
-		// 	setError(PROVIDE_TIME);
-		// }
-
-		// if (!showTime || timeChosen) {
-		// 	matchTime(date, showTime && timeChosen ? timeChosen : [0, 0, 0, 0]);
-		// 	onChange(date);
-		// } else {
-		// 	onChange(undefined);
-		// }
-
-		/**
-		 * Otherwise do this
-		 */
-
 		if (showTime) {
 			if (fieldDef.required && !timeChosen) {
 				setError(PROVIDE_TIME);
@@ -101,6 +80,8 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			}
 
 			matchTime(date, timeChosen ? timeChosen : [0, 0, 0, 0]);
+		} else {
+			matchTime(date, [0, 0, 0, 0]);
 		}
 
 		onChange(date);
