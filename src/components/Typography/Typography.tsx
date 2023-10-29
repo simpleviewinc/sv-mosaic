@@ -2,9 +2,7 @@ import * as React from "react";
 import { ReactElement } from "react";
 
 import { TypographyProps, TypographyTag, TypographyVariant } from "./TypographyTypes";
-import { styledCache } from "./Typography.styled";
-
-const { getComponent } = styledCache();
+import { Component } from "./Typography.styled";
 
 const defaultTagMap: Record<TypographyVariant, TypographyTag> = {
 	title: "h1",
@@ -24,7 +22,6 @@ export default function Typography({
 	className
 }: TypographyProps): ReactElement {
 	const tag = providedTag || defaultTagMap[variant];
-	const Component = getComponent(tag);
 
 	return (
 		<div className={className}>
@@ -35,6 +32,7 @@ export default function Typography({
 				$color={color}
 				$breakAll={breakAll}
 				title={typeof children === "string" ? children : undefined}
+				as={tag}
 			>
 				{children}
 			</Component>

@@ -1,7 +1,7 @@
 import styled, { RuleSet, css } from "styled-components";
 import theme from "@root/theme";
 
-import { TypographyVariant, TypographyTag } from "./TypographyTypes";
+import { TypographyVariant } from "./TypographyTypes";
 import { ColorTypes } from "../Button";
 import { Properties } from "csstype"
 
@@ -59,19 +59,7 @@ export const variants: Record<TypographyVariant, RuleSet> = {
 	`
 };
 
-export function styledCache() {
-	const cache: Partial<Record<TypographyTag, any>> = {}
-
-	const getComponent = (tag: TypographyTag) => {
-		if (!cache[tag]) {
-			cache[tag] = styled[tag]<BaseProps & {$variant?: TypographyVariant}>`
-				${base}
-				${({ $variant }) => $variant ? variants[$variant] : ""}
-			`;
-		}
-
-		return cache[tag];
-	}
-
-	return { getComponent }
-}
+export const Component = styled.div<BaseProps & {$variant: TypographyVariant}>`
+	${base}
+	${({ $variant }) => $variant ? variants[$variant] : ""}
+`
