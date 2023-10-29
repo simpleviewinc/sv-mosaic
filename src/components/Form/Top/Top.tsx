@@ -32,7 +32,7 @@ import {
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import { Title } from "@root/components/Title/TitleWrapper.styled";
 import { TitleBackButton } from "@root/components/Title";
-import { H1 } from "@root/components/Typography";
+import { TitleText } from "@root/components/Typography";
 
 const Top = (props: TopProps): ReactElement => {
 	const {
@@ -96,7 +96,7 @@ const Top = (props: TopProps): ReactElement => {
 								label={backLabel}
 							/>
 						)}
-						<H1 attrs={{ title }} >{title}</H1>
+						<TitleText attrs={{ title }} >{title}</TitleText>
 					</Title>
 				</Heading>
 				{description && <SmallDescription>{description}</SmallDescription>}
