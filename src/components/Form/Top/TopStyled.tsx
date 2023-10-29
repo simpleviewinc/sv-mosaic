@@ -11,10 +11,10 @@ import { containerQuery } from "@root/utils/css";
 
 export const TopRoot = styled.div<{$bottomBorder?: boolean}>`
 	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	padding: 0 20px 20px;
+	padding: 0 24px 24px;
 
 	${containerQuery("sm", "FORM")} {
-		padding-top: 20px;
+		padding-top: 24px;
 	}
 
 	${({$bottomBorder}) => !$bottomBorder && `
@@ -24,7 +24,7 @@ export const TopRoot = styled.div<{$bottomBorder?: boolean}>`
 		}
 
 		${containerQuery("xl", "FORM")} {
-			padding-bottom: 20px;
+			padding-bottom: 24px;
 		}
 	`}
 
@@ -48,8 +48,8 @@ export const TopWrapper = styled.div`
 
 export const PrimaryActions = styled.div`
 	display: flex;
-	margin: 0 -20px 20px;
-	padding: 12px 20px;
+	margin: 0 -24px 24px;
+	padding: 12px 24px;
 	order: -1;
 	justify-content: end;
   	background-color: ${theme.newColors.grey2["100"]};

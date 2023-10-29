@@ -47,7 +47,8 @@ const Form = (props: FormProps) => {
 		handleDialogClose,
 		tooltipInfo,
 		showActive,
-		scrollSpyThreshold = 0.15
+		scrollSpyThreshold = 0.15,
+		fullHeight = true
 	} = props;
 
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
@@ -185,12 +186,12 @@ const Form = (props: FormProps) => {
 		<>
 			<StyledContainerForm
 				data-testid="form-test-id"
-				style={{ position: "relative", height: "100%" }}
 				ref={formContainerRef}
 				className={state.disabled ? "disabled" : ""}
 				aria-busy={isBusy ? "true" : "false"}
 				role="form"
 				aria-label={title}
+				$fullHeight={fullHeight}
 			>
 				<StyledForm autoComplete="off">
 					{title && (

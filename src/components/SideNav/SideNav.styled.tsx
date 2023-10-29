@@ -6,7 +6,7 @@ import { containerQuery } from "@root/utils/css";
 export const StyledSideNav = styled.nav<{$collapse?: MosaicCSSContainer}>`
 	${({$collapse}) => $collapse ? `
 		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding: 0 20px;
+		padding: 0 24px;
 
 		${containerQuery($collapse.minWidth, $collapse.name)}  {
 			border-bottom: 0;
@@ -15,14 +15,12 @@ export const StyledSideNav = styled.nav<{$collapse?: MosaicCSSContainer}>`
 			min-width: 196px;
 			padding: 0;
 			overflow: auto;
-			height: 100%;
 		}
 	` : `
 		border-right: 2px solid ${theme.newColors.grey2["100"]};
 		width: 196px;
 		min-width: 196px;
 		overflow: auto;
-		height: 100%;
 	`}
 `;
 
