@@ -85,7 +85,7 @@ const FileCard = (props: FileCardProps) => {
 					</Tooltip>
 					<p className='file-size' data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
-				<ButtonRow separator gap="small">
+				<ButtonRow separator>
 					{(downloadUrl || fileUrl) && (
 						<div className="file-download-btn">
 							{downloadStrategy === "anchor" ? (
