@@ -11,7 +11,7 @@ import {
 	LeftNav,
 	LeftNavItemRootDef,
 	LeftNavProps,
-	StyledProps,
+	TransientProps,
 } from "../../";
 import { useStoryBookCssReset } from "../../utils/reactTools";
 
@@ -53,7 +53,7 @@ const FakeTopBar = function(props: { variant: string, openNav : MouseEventHandle
 	)
 }
 
-const AppDiv = styled.div<StyledProps<NavWrapperProps, "onlyContent">>`
+const AppDiv = styled.div<TransientProps<NavWrapperProps, "onlyContent">>`
 	height: 100%;
 	display: flex;
 	flex-direction: column;

@@ -1,7 +1,7 @@
 import Chip from "@mui/material/Chip";
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import { ChipsProps } from "./ChipTypes";
 
 const chipFont = `
@@ -40,7 +40,7 @@ export const StyledDeletableChip = styled(Chip)`
 	}
 `;
 
-export const StyledChip = styled(Chip)<StyledProps<ChipsProps, "disabled" | "selected">>`
+export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "disabled" | "selected">>`
 	&.MuiChip-root {
 		background-color: ${({ $selected, $disabled }) => {
 		if ($selected && !$disabled) {
