@@ -22,7 +22,7 @@ export function validateEmail(str: string): string | undefined {
 
 	if (isValidEmail) return;
 
-	return "The value is not a valid e-mail";
+	return "The value is not a valid email";
 }
 
 export function validateSlow(str: string): Promise<void | string> {
