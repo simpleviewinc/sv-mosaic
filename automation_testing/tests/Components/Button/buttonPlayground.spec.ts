@@ -2,6 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPlaygroundPage";
 import theme from "../../../../src/theme";
 import { buttonKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
+import { hexToRgb } from "../../../utils/helpers/helper";
 
 test.describe.parallel("Components - Button - Playground", () => {
 	let page: Page;
@@ -95,8 +96,8 @@ test.describe.parallel("Components - Button - Playground", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(theme.newColors.simplyGold["100"]);
 	});
 
-	test("Validate Contained Buttons has grey2 as background.", async () => {
-		const expectedColor = theme.newColors.grey2["100"];
+	test("Validate Contained Buttons has almostBlack as background.", async () => {
+		const expectedColor = hexToRgb(theme.colors.almostBlack);
 		const knobContained = await buttonPage.getKnobForVariant("contained");
 		// Contained
 		await buttonPage.visit(buttonPage.page_path, [knobContained]);
