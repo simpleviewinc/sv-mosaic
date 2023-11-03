@@ -8,10 +8,10 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import theme from "@root/theme";
 import Tooltip from "../Tooltip";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import { containerQuery } from "@root/utils/css";
 
-const LabelWrapper = styled.div<StyledProps<LabelProps, "required">>`
+const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
 	align-items: center;
 	margin-bottom: 8px;

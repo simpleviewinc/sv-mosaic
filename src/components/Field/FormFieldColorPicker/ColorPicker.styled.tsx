@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 import { ColorSelectedProps } from "./ColorPickerTypes";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import { Popover } from "@mui/material"
 
-export const ColorContainer = styled.div<StyledProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`
+export const ColorContainer = styled.div<TransientProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`
   background: ${theme.newColors.grey1["100"]};
   border: ${theme.borders.simplyGrey};
   margin-bottom: ${({ $displayColorPicker }) => ($displayColorPicker ? "8px" : 0)};
@@ -13,7 +13,7 @@ export const ColorContainer = styled.div<StyledProps<ColorSelectedProps, "displa
   width: fit-content;
 `;
 
-export const ColorDiv = styled.div<StyledProps<ColorSelectedProps, "disabled" | "color">>`
+export const ColorDiv = styled.div<TransientProps<ColorSelectedProps, "disabled" | "color">>`
   ${({ $color }) => {
 		if (
 			$color.r !== undefined &&

@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import { CONTAINERS } from "@root/theme/theme";
 import { ColPropsTypes } from "./ColTypes";
 
-export const StyledCol = styled.div<StyledProps<ColPropsTypes, "colsInRow">>`
+export const StyledCol = styled.div<TransientProps<ColPropsTypes, "colsInRow">>`
 	display: flex;
 	flex-direction: column;
 	position: relative;

@@ -2,14 +2,14 @@ import theme from "../../theme";
 import styled from "styled-components";
 
 import { ButtonRowProps } from "./ButtonRowTypes";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 
 const gapMap: Record<ButtonRowProps["gap"], string> = {
 	small: "10px",
 	large: "16px"
 }
 
-export const Row = styled.div<StyledProps<ButtonRowProps, "wrap">>`
+export const Row = styled.div<TransientProps<ButtonRowProps, "wrap">>`
 	display: flex;
 	align-items: center;
 
@@ -18,7 +18,7 @@ export const Row = styled.div<StyledProps<ButtonRowProps, "wrap">>`
 	`}
 `;
 
-export const Item = styled.div<StyledProps<ButtonRowProps, "separator" | "gap">>`
+export const Item = styled.div<TransientProps<ButtonRowProps, "separator" | "gap">>`
 	display: flex;
 	align-items: center;
 
