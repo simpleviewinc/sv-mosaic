@@ -5,6 +5,9 @@ export interface ButtonRowProps {
 	children?: React.ReactNode
 	className?: string
 	separator?: boolean
+	/**
+	 * @deprecated
+	 */
 	gap?: "small" | "large"
 	wrap?: boolean
 }
