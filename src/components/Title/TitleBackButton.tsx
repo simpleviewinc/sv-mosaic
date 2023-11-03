@@ -22,7 +22,7 @@ const TitleBackButton = ({
 			{...props}
 			className="back-button"
 			color="gray"
-			variant="outlined"
+			variant="icon"
 			mIcon={ChevronLeftIcon}
 			muiAttrs={{...backButtonMuiAtts, "aria-label": label}}
 		/>
