@@ -76,7 +76,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 								</>
 						}
 					</ContainerTitle>
-					<ButtonRow separator gap="small" wrap>
+					<ButtonRow separator wrap>
 						{
 							filteredMainActions &&
 							filteredMainActions.map((mainAction, i) => (
@@ -112,7 +112,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 				</Row>
 				<Row>
 					{descriptionItems && (
-						<ButtonRow separator gap="small" wrap>
+						<ButtonRow separator wrap>
 							{
 								descriptionItems.map((item, i) => (
 									<Item key={i} data-testid="description-item">
