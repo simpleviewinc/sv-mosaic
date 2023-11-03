@@ -10,7 +10,7 @@ function ButtonRow(props: ButtonRowProps) {
 		throw new Error("ButtonRow cannot receive both children and a buttons prop");
 	}
 
-	const {gap = "large", wrap = false} = props;
+	const { wrap = false } = props;
 
 	const children = useMemo(() => {
 		if (props.children) {
@@ -35,7 +35,7 @@ function ButtonRow(props: ButtonRowProps) {
 	return (
 		<Row className={props.className} $wrap={wrap} data-testid="button-row" role="toolbar">
 			{children.map((elem: React.ReactNode, i: number) => (
-				<Item key={i} $separator={props.separator} $gap={gap}>
+				<Item key={i} $separator={props.separator}>
 					{elem}
 				</Item>
 			))}
