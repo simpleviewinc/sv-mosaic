@@ -30,12 +30,14 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
 		await ffMapCoordinatesPage.longitude.type("10");
 		await ffMapCoordinatesPage.latitude.type("91");
+		await ffMapCoordinatesPage.latitude.blur();
 
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Latitude should be between -90 and 90");
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 
 		await ffMapCoordinatesPage.latitude.type("");
 		await ffMapCoordinatesPage.latitude.type("-91");
+		await ffMapCoordinatesPage.latitude.blur();
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Latitude should be between -90 and 90");
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 	});
@@ -44,12 +46,14 @@ test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", ()
 		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.click();
 		await ffMapCoordinatesPage.latitude.type("10");
 		await ffMapCoordinatesPage.longitude.type("181");
+		await ffMapCoordinatesPage.longitude.blur();
 
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Longitude should be between -180 and 180");
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 
 		await ffMapCoordinatesPage.longitude.type("");
 		await ffMapCoordinatesPage.longitude.type("-181");
+		await ffMapCoordinatesPage.longitude.blur();
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Longitude should be between -180 and 180");
 		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 	});
