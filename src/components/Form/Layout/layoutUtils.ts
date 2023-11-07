@@ -5,5 +5,18 @@ export const generateLayout = ({ sections, fields }: { sections?: SectionDef[], 
 		return [{ fields: fields.map(field => [[field.name]]) }];
 	}
 
-	return sections;
+	return sections.map(section => {
+		/**
+		 * Filters out rows that have all-empty columns
+		 */
+		const rows = section.fields.filter(row => {
+			const columnsWithFields = row.filter(column => column.length);
+			return columnsWithFields.length;
+		});
+
+		return {
+			...section,
+			fields: rows
+		};
+	});
 };
