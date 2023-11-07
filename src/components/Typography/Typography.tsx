@@ -24,18 +24,17 @@ export default function Typography({
 	const tag = providedTag || defaultTagMap[variant];
 
 	return (
-		<div className={className}>
-			<Component
-				{...attrs}
-				$variant={variant}
-				$maxLines={maxLines}
-				$color={color}
-				$breakAll={breakAll}
-				title={typeof children === "string" ? children : undefined}
-				as={tag}
-			>
-				{children}
-			</Component>
-		</div>
+		<Component
+			{...attrs}
+			className={className}
+			$variant={variant}
+			$maxLines={maxLines}
+			$color={color}
+			$breakAll={breakAll}
+			title={typeof children === "string" ? children : undefined}
+			as={tag}
+		>
+			{children}
+		</Component>
 	);
 }
