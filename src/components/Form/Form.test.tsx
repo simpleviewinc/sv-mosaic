@@ -1,7 +1,8 @@
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
-import { generateLayout } from "./formUtils";
 import { FieldDef } from "../../components/Field";
+import { generateLayout } from "./Layout/layoutUtils";
+import { SectionDef } from "./FormTypes";
 
 describe("Layout logic", () => {
 	const fields: FieldDef[] = [
@@ -131,7 +132,7 @@ describe("Layout logic", () => {
 		test.type === "fields" ?
 			result = generateLayout({ fields })
 			:
-			result = generateLayout({ fields, sections: test.data })
+			result = generateLayout({ fields, sections: test.data as SectionDef[] })
 
 		assert.deepStrictEqual(result, test.result);
 	});
