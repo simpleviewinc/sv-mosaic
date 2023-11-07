@@ -144,10 +144,6 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 */
 	defaultValue?: U;
 	/**
-	 * Array of fields linked to a specific field.
-	 */
-	pairedFields?: string[];
-	/**
 	 * Callback executed when the current fields has changed
 	 */
 	onBlurCb?: (value?: any) => void;
