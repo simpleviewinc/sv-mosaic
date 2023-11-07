@@ -1,49 +1,7 @@
-import { MosaicObject } from "@root/types";
-import { useRef, useCallback, useReducer, Dispatch } from "react";
-import { SectionDef } from "./FormTypes";
+import { useRef, useCallback, useReducer } from "react";
+import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormReducer, FormState, UseFormReturn } from "./state/types";
 
-type State = {
-	data: MosaicObject<any>;
-	errors: MosaicObject<string>;
-	validating: MosaicObject;
-	custom: unknown;
-	validForm: boolean;
-	disabled: boolean;
-	touched: MosaicObject<boolean>;
-	mounted: MosaicObject<boolean>;
-	busyFields: MosaicObject<boolean>;
-	submitWarning: string
-}
-
-type ActionTypes =
-	| "FIELD_ON_CHANGE"
-	| "FIELDS_ON_CHANGE"
-	| "FIELD_TOUCHED"
-	| "FIELD_VALIDATE"
-	| "FIELD_UNVALIDATE"
-	| "FORM_START_DISABLE"
-	| "FORM_END_DISABLE"
-	| "FORM_VALIDATE"
-	| "FORM_START_DISABLE"
-	| "FORM_END_DISABLE"
-	| "FORM_VALIDATE"
-	| "FORM_RESET"
-	| "PROPERTY_RESET"
-	| "MOUNT_FIELD"
-	| "UNMOUNT_FIELD"
-	| "FORM_START_BUSY"
-	| "FORM_END_BUSY"
-	| "SET_SUBMIT_WARNING"
-
-type Action = {
-	type: ActionTypes;
-	value: any;
-	name?: string;
-	clearErrors?: boolean
-	touched?: boolean
-}
-
-export function coreReducer(state: State, action: Action): State {
+export function coreReducer(state: FormState, action: FormAction): FormState {
 	switch (action.type) {
 	case "FIELD_ON_CHANGE":
 		return {
@@ -82,9 +40,7 @@ export function coreReducer(state: State, action: Action): State {
 		};
 	}
 	case "FIELD_VALIDATE":
-		// TODO this is bad there's no support for multiple errors, but will be refactored in
-		// https://simpleviewtools.atlassian.net/browse/MOS-1131
-		return state.errors[action.name] !== undefined ? state : {
+		return {
 			...state,
 			errors: {
 				...state.errors,
@@ -130,26 +86,6 @@ export function coreReducer(state: State, action: Action): State {
 			...state,
 			[action.name]: action.value
 		}
-	case "MOUNT_FIELD":
-		return {
-			...state,
-			mounted: {
-				...state.mounted,
-				[action.name]: true
-			}
-		}
-	case "UNMOUNT_FIELD":
-		return {
-			...state,
-			errors: {
-				...state.errors,
-				[action.name]: undefined
-			},
-			mounted: {
-				...state.mounted,
-				[action.name]: false
-			}
-		}
 	case "FORM_START_BUSY": {
 		return {
 			...state,
@@ -179,18 +115,14 @@ export function coreReducer(state: State, action: Action): State {
 	}
 }
 
-type CustomDispatch = (action: any) => any | Dispatch<Action>;
-
-type UseFormReturn = {
-	state: State;
-	dispatch:  CustomDispatch;
-}
-
 export function useForm(): UseFormReturn {
-	const extraArgs = useRef({
+	const extraArgs = useRef<FormExtraArgs>({
 		fields: [],
 		fieldMap: {},
 		onSubmit: () => undefined,
+		mounted: {},
+		internalValidators: {},
+		hasBlurred: {}
 	});
 
 	const [state, dispatch] = useThunkReducer(
@@ -213,87 +145,15 @@ export function useForm(): UseFormReturn {
 	return { state, dispatch };
 }
 
-const isEmpty = (arr) => {
-	return Array.isArray(arr) && (arr.length === 0 || arr.every(isEmpty));
-};
-
-export const generateLayout = ({ sections, fields }: { sections?: any, fields: any }): SectionDef[] => {
-	let customLayout: SectionDef[] = [];
-
-	if (sections) {
-		customLayout = sections.map(({fields, ...section}) => ({...section, fields: [...fields]}));
-
-		customLayout.forEach((section, idx) => {
-			const nonEmptyRows = section.fields.map(row => {
-				const nonEmptyCols = row.filter(col => !isEmpty(col));
-				if (nonEmptyCols.length > 0) {
-					return nonEmptyCols;
-				}
-			}).filter(row => row !== undefined);
-
-			customLayout[idx].fields = nonEmptyRows;
-		});
-	}
-
-	if (fields) {
-		for (const field of fields) {
-			if (field.layout) {
-				let section = customLayout.length;
-				if (field.layout.section !== undefined && field.layout.section >= 0) {
-					section = field.layout.section;
-				}
-
-				let row = customLayout[section]?.fields?.length;
-				if (field.layout.row !== undefined && field.layout.row >= 0) {
-					row = field.layout.row;
-				}
-
-				let col = customLayout[section]?.fields[row]?.length;
-				if (field.layout.col !== undefined && field.layout.col >= 0) {
-					col = field.layout.col;
-				}
-
-				if (customLayout[section]) {
-					customLayout[section]?.fields[row][col]?.push(field.name);
-				} else {
-					customLayout = [
-						...customLayout,
-						{
-							fields: [[[field.name]]],
-						},
-					];
-				}
-			} else if (!sections) {
-				customLayout = [
-					...customLayout,
-					{
-						fields: [[[field.name]]],
-					},
-				];
-			}
-		}
-
-		return customLayout;
-	}
-};
-
-export function joinReducers(...reducers) {
-	return function (state, action) {
-		let newState = state;
-		for (const reducer of reducers) {
-			newState = reducer(newState, action);
-		}
-		return newState;
-	};
-}
-
-export function useThunkReducer(reducer, initialState, extraArgs) {
+export function useThunkReducer(reducer: FormReducer, initialState: FormState, extraArgs: FormExtraArgs): [FormState, FormDispatch] {
 	const lastState = useRef(initialState);
-	const getState = useCallback(() => {
+
+	const getState: FormGetState = useCallback(() => {
 		const state = lastState.current;
 		return state;
 	}, []);
-	const enhancedReducer = useCallback(
+
+	const enhancedReducer: FormReducer = useCallback(
 		(state, action) => {
 			const newState = reducer(state, action);
 			lastState.current = newState;
@@ -301,9 +161,10 @@ export function useThunkReducer(reducer, initialState, extraArgs) {
 		},
 		[reducer]
 	);
+
 	const [state, dispatch] = useReducer(enhancedReducer, initialState);
 
-	const customDispatch: CustomDispatch = useCallback(
+	const customDispatch: FormDispatch = useCallback(
 		(action) => {
 			if (typeof action === "function") {
 				return action(customDispatch, getState, extraArgs);
