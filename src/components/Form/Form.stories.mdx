@@ -61,12 +61,6 @@ The dispatch function allows developers to update the state through the followin
 		* **arguments** - `object`
 			* **name** - `string` - Name of the field.
 		* **return** - `Promise<void>`
-* **copyFieldToField** - `({from, to}) => Promise<void>` - This action copies the value from one field into another.
-	* **name** - copyFieldToField
-	* **arguments** - `object`
-		* **from** - `string` - Name of the field where the value will be copied from.
-		* **to** - `string` - Name of the field where the value will be copied to.
-	* **return** - `Promise<void>`
 * **validateForm** - `({fields}) => Promise<void>` - This action validates the entire form.
 	* **name** - validateForm
 	* **arguments** - `object`
@@ -130,7 +124,6 @@ const buttons: ButtonProps[] = [
 Sections follow the next set of rules:
 * Can have a title and a description.
 * Each section can have multiple rows.
-* Each row must have 1 column min and 3 columns max.
 * Each column can have as many fields as needed.
 
 #### SectionDef
@@ -141,51 +134,6 @@ Sections follow the next set of rules:
 | **`fields`** | `MosaicGridConfig` | required - Structure that serves as a map to position fields across rows and columns. Each section can have multiple rows, each row multiple columns, and each column multiple fields ([rows][columns][fields]) |
 | **`collapsed`** | `boolean` | optional - Allows developers to decide whether the section will be first rendered collapsed or expanded. It defaults to false when no value is provided. |
 | **`show`** | [`MosaicShow`](#mosaicshow-t-type) | optional - Show callbacks will be called with `{data: formState.data}` |
-
-The Form component is smart enough to delete blank spaces in the layout, for example if a row has 3 columns (A, B, C) but only A, and C have columns then the row will render as a 2 column layout instead of 3.
-This same rule applies for empty rows.
-
-There are two ways for positioning components inside of a Form:
-1. By defining the position of the component with the layout prop. For more details about this prop refer to the [Generic Field Props subsection](#generic-field-props-fielddef).
-```ts
-		const fields: FieldDef[] = useMemo(
-		() =>
-			[
-				{
-					name: "textField",
-					type: "text",
-					layout: { section: 0, row: 1, col: 0 },
-				},
-				// ...all other fields
-			],
-		[]
-	);
-```
-
-2. Create a layout with an array of sections.
-When done through this method, the array must be passed down as a prop to the Form component.
-```ts
-	const sections = [
-		{
-			title: "Section 1",
-			description: "This will be a short section",
-			fields: [
-				[ //Row 1
-					["myTextField"] // Row 1 Col 1
-				],
-				[ // Row 2
-					["myCheckboxField"] // Row 2 Col 1
-				]
-			]
-		}
-		//...all other sections
-	];
-
-	<Form
-		//...all other props
-		sections={sections}
-	/>
-```
 
 ## How to create a form?
 ```ts
