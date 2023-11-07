@@ -19,7 +19,7 @@ import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/F
 import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwitch";
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicShow } from "@root/types";
-import { HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
+import { ElementType, HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -118,6 +118,8 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * Object that defines the position of the current field in the
 	 * form layout.
+	 *
+	 * @deprecated
 	 */
 	layout?: {
 		section?: number,
@@ -129,6 +131,10 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 * when submitted.
 	 */
 	validators?: (((args?: any) => string | undefined | JSX.Element | Promise<void | string>) | string | { fn: string; options: any })[];
+	/**
+	 * When to validate the field
+	 */
+	validateOn?: FieldValidateOn
 	/**
 	 * Identifier passed by the developer
 	 */
@@ -179,4 +185,11 @@ export type FieldDef =
 	| FieldDefCustom
 	| FieldDefNumberTable
 	| FieldDefRaw;
+
+export type FieldValidateOn = "onBlur" | "onChange" | "onBlurChange";
+
+export type FieldConfig = {
+	Component: ElementType,
+	validate: FieldValidateOn
+}
 

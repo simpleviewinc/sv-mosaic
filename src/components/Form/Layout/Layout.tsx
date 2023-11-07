@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useMemo, memo } from "react";
-import { generateLayout } from "../formUtils";
 
 // Components
 import Section from "../Section";
@@ -9,6 +8,7 @@ import Section from "../Section";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import { LayoutProps } from "./LayoutTypes";
 import { StyledLayout } from "./LayoutStyles";
+import { generateLayout } from "./layoutUtils";
 
 const Layout = (props: LayoutProps): React.ReactElement => {
 	const { state, dispatch, fields, sections, registerRef } = props;
