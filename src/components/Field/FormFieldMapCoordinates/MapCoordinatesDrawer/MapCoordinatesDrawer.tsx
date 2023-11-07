@@ -69,7 +69,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			return;
 		}
 
-		dispatch(formActions._setFieldValues({
+		dispatch(formActions.setFormValues({
 			values: {
 				lat: parts[0].trim(),
 				lng: parts[1].trim()
@@ -155,7 +155,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		const lng = coords ? coords.lng : undefined;
 
 		dispatch(
-			formActions._setFieldValues({
+			formActions.setFormValues({
 				values: {
 					placesList: { lat, lng },
 					lat: String(lat),
@@ -201,7 +201,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					type: ({value}) => (
 						<ResetButton
 							show={value}
-							onClick={() => dispatch(formActions._setFieldValues({
+							onClick={() => dispatch(formActions.setFormValues({
 								values: {
 									lat: undefined,
 									lng: undefined,

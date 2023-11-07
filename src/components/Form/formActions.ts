@@ -1,5 +1,6 @@
-import { MosaicObject } from "@root/types";
 import { mapsValidators, required, validatePhoneNumber, Validator } from "./validators";
+import { FormActionThunks } from "./state/types";
+import fieldConfigMap from "./Col/fieldConfigMap";
 
 async function runValidators(
 	validators: Validator[],
@@ -30,54 +31,32 @@ const isValidValue = (value: any) => {
 	return true;
 }
 
-export const formActions = {
+export const formActions: FormActionThunks = {
 	init({ fields }) {
-		return async function (_dispatch, _getState, extraArgs): Promise<void> {
-			extraArgs.fields = fields;
-			const fieldMap = fields.reduce((prev, curr) => {
+		return async function (_dispatch, _getState, extraArgs) {
+			extraArgs.fields = fields.map(field => ({
+				...field,
+				validateOn: field.validateOn || (typeof field.type === "string" ? fieldConfigMap[field.type].validate : "onBlur")
+			}));
+
+			const fieldMap = extraArgs.fields.reduce((prev, curr) => {
 				prev[curr.name] = curr;
 				return prev;
 			}, {});
+
 			extraArgs.fieldMap = fieldMap;
 		};
 	},
-	setSubmitWarning({ value }: { value: string }) {
-		return async function(dispatch): Promise<void> {
+	setSubmitWarning({ value }) {
+		return async function (dispatch) {
 			return dispatch({
 				type: "SET_SUBMIT_WARNING",
 				value
 			})
 		}
 	},
-	setFieldValue({
-		name,
-		value,
-		validate = false,
-		touched = false,
-	}: {
-		name: string;
-		value: unknown;
-		validate?: boolean;
-		touched?: boolean;
-	}) {
-		return async function(dispatch): Promise<void> {
-			await dispatch({
-				type: "FIELD_ON_CHANGE",
-				name,
-				value: isValidValue(value) ? value : undefined,
-				touched
-			});
-
-			if (validate) {
-				await dispatch(formActions.validateField({ name }));
-			}
-		};
-	},
-	/**
-	 * Internal use only
-	 */
-	_setFieldValues({ values }: { values: MosaicObject }) {
-		return async function(dispatch): Promise<void> {
+	setFormValues({ values }) {
+		return async function (dispatch) {
 			return dispatch({
 				type: "FIELDS_ON_CHANGE",
 				value: values,
@@ -85,9 +64,55 @@ export const formActions = {
 			});
 		}
 	},
-	validateField({ name }: { name: string }) {
-		return async function (dispatch, getState, extraArgs): Promise<void> {
-			const {data, mounted} = getState();
+	setFieldValue({
+		name,
+		value,
+		validate = false,
+		touched = false,
+	}) {
+		return async function (dispatch, _getState, extraArgs) {
+			await dispatch({
+				type: "FIELD_ON_CHANGE",
+				name,
+				value: isValidValue(value) ? value : undefined,
+				touched
+			});
+
+			if (validate || extraArgs.fieldMap[name].validateOn === "onChange") {
+				await dispatch(formActions.validateField({ name }));
+			}
+
+			if (
+				extraArgs.fieldMap[name].validateOn === "onBlurChange" &&
+				extraArgs.hasBlurred[name]
+			) {
+				delete extraArgs.hasBlurred[name];
+				await dispatch({
+					type: "FIELD_UNVALIDATE",
+					name
+				});
+			}
+		};
+	},
+	setFieldBlur({
+		name
+	}) {
+		return async function(dispatch, _getState, extraArgs) {
+			extraArgs.hasBlurred[name] = true;
+
+			if (
+				extraArgs.fieldMap[name].validateOn === "onBlur" ||
+				extraArgs.fieldMap[name].validateOn === "onBlurChange"
+			) {
+				await dispatch(formActions.validateField({ name }))
+			}
+
+		}
+	},
+	validateField({ name }) {
+		return async function (dispatch, getState, extraArgs) {
+			const { data } = getState();
+			const { mounted, internalValidators } = extraArgs;
 
 			if (!mounted[name]) {
 				return;
@@ -106,6 +131,7 @@ export const formActions = {
 
 				return;
 			}
+
 			const requiredFlag = extraArgs?.fieldMap[name]?.required;
 			const validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
 
@@ -120,49 +146,33 @@ export const formActions = {
 			if (extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters > 0) {
 				validators.push({
 					fn: "validateCharacterCount",
-					options: {max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters}
+					options: { max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters }
 				});
 			}
 
-			if (validators.length === 0) {
-				return;
-			}
+			const validatorsMap = mapsValidators([
+				...(internalValidators[name] || []),
+				...validators,
+			]);
 
-			const validatorsMap = mapsValidators(validators);
+			const result = await runValidators(validatorsMap, data[name], data);
 
-			const startValue = getState().data[name];
-			const result = await runValidators(validatorsMap, startValue, data);
-			const currentValue = getState().data[name];
-
-			if (startValue === currentValue) {
-				if (result?.errorMessage) {
-					await dispatch({
-						type: "FIELD_VALIDATE",
-						name,
-						value: result?.errorMessage
-					});
-				} else {
-					await dispatch({
-						type: "FIELD_UNVALIDATE",
-						name
-					});
-				}
+			if (result?.errorMessage) {
+				await dispatch({
+					type: "FIELD_VALIDATE",
+					name,
+					value: result?.errorMessage
+				});
+			} else {
+				await dispatch({
+					type: "FIELD_UNVALIDATE",
+					name
+				});
 			}
 		};
 	},
-	copyFieldToField({ from, to }: { from: any; to: string }) {
-		return async function (dispatch, getState): Promise<void> {
-			const fromValue = getState().data[from];
-			await dispatch(
-				formActions.setFieldValue({
-					name: to,
-					value: fromValue
-				})
-			);
-		};
-	},
-	validateForm({ fields }) {
-		return async function (dispatch, getState): Promise<boolean> {
+	validateForm() {
+		return async function (dispatch, getState, { fields }) {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
@@ -214,8 +224,9 @@ export const formActions = {
 		};
 	},
 	submitForm() {
-		return async function (dispatch, getState, extraArgs): Promise<{ valid: boolean; data: any; }> {
-			const { data, mounted } = getState();
+		return async function (dispatch, getState, extraArgs) {
+			const { data } = getState();
+			const { mounted } = extraArgs;
 
 			if (!dispatch(formActions.isSubmittable())) {
 				return {
@@ -225,7 +236,7 @@ export const formActions = {
 			}
 
 			const valid = await dispatch(
-				formActions.validateForm({ fields: extraArgs.fields })
+				formActions.validateForm()
 			);
 
 			const cleanData = Object.keys(data).reduce((acc, curr) => ({
@@ -240,35 +251,22 @@ export const formActions = {
 		}
 	},
 	resetForm() {
-		return async function (dispatch): Promise<void> {
+		return async function (dispatch) {
 			await dispatch({
 				type: "FORM_RESET",
 			});
 		}
 	},
-	setFormValues({ values }: { values: MosaicObject }) {
-		return async function (dispatch): Promise<void> {
-			for (const [key, value] of Object.entries(values)) {
-				await dispatch(
-					formActions.setFieldValue({
-						name: key,
-						value: value,
-						touched: false
-					})
-				);
-			}
-		}
-	},
-	disableForm({ disabled = false }: { disabled: boolean }) {
-		return async function (dispatch): Promise<void> {
+	disableForm({ disabled = false }) {
+		return async function (dispatch) {
 			await dispatch({
 				type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
 				value: disabled,
 			});
 		}
 	},
-	startBusy({ name, value }: { name: string, value: string }) {
-		return async function (dispatch): Promise<void> {
+	startBusy({ name, value }) {
+		return async function (dispatch) {
 			await dispatch({
 				type: "FORM_START_BUSY",
 				name,
@@ -276,32 +274,31 @@ export const formActions = {
 			});
 		}
 	},
-	endBusy({ name }: { name: string }) {
-		return async function (dispatch): Promise<void> {
+	endBusy({ name }) {
+		return async function (dispatch) {
 			await dispatch({
 				type: "FORM_END_BUSY",
 				name,
 			});
 		}
 	},
-	mountField({ name }: { name: string }) {
-		return async function (dispatch): Promise<void> {
-			await dispatch({
-				type: "MOUNT_FIELD",
+	mountField({ name }) {
+		return async function (dispatch, _, extraArgs) {
+			extraArgs.mounted[name] = true;
+		}
+	},
+	unmountField({ name }) {
+		return async function (dispatch, _, extraArgs) {
+			extraArgs.mounted[name] = false;
+
+			dispatch({
+				type: "FIELD_UNVALIDATE",
 				name
 			})
 		}
 	},
-	unmountField({ name }: { name: string }) {
-		return async function (dispatch): Promise<void> {
-			await dispatch({
-				type: "UNMOUNT_FIELD",
-				name
-			})
-		}
-	},
-	isSubmittable () {
-		return function (dispatch, getState): boolean {
+	isSubmittable() {
+		return async function (dispatch, getState) {
 			const { disabled, busyFields } = getState();
 
 			if (disabled) {
@@ -331,7 +328,38 @@ export const formActions = {
 
 			return true;
 		}
-	}
+	},
+	addValidator({ name, validator }) {
+		return async function (_dispatch, _getState, extraArgs) {
+			const current = extraArgs.internalValidators[name] || [];
+
+			/**
+			 * Just bail if this validator is already registered
+			 */
+			if (current.includes(validator)) {
+				return;
+			}
+
+			extraArgs.internalValidators[name] = [
+				...current,
+				validator
+			];
+		}
+	},
+	removeValidator({ name, validator }) {
+		return async function (_dispatch, _getState, extraArgs) {
+			const current = extraArgs.internalValidators[name] || [];
+
+			/**
+			 * Just bail if this validator isn't registered
+			 */
+			if (!current.includes(validator)) {
+				return;
+			}
+
+			extraArgs.internalValidators[name] = current.filter(item => item !== validator);
+		}
+	},
 };
 
 export default formActions;
