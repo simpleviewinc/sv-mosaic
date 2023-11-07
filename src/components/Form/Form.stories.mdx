@@ -292,7 +292,6 @@ const fields = useMemo(
 * **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` optional - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form (see the [Validators section](#validators) for more information about default and custom validators).
 * **id** - `string` optional - Follows the same rules as any other html element id.
 * **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
-* **pairedFields** - `array` of `string` optional - Array of field names to be linked to this field. When a field is being validated, it will check if it has any associated paired field. If there's one, the validators defined for each paired field will be executed. For a practical example check the [date range validator example](#validatedaterange).
 * **onChangeCb** - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
 * **show** - [`MosaicShow`](#mosaicshow-t-type) optional - Show callbacks will be called with `{data: data}`
 
@@ -318,7 +317,6 @@ const fields = useMemo(
 				validators: ["validateNumber"], //Please see validators section on ways of adding validators.
 				id: "myId",
 				defaultValue: "42", //Plase see data of each field and data section to better understand how fields interact with values.
-				pairedFields: ["myCheckbox"],
 			},
 			{
 				name: "myCheckbox",
@@ -1784,7 +1782,6 @@ const fields = useMemo(
 					type: "date",
 					label: "Start date",
 					validators: [{ fn: "validateDateRange", options: { endDateName: "endDate" } }],
-					pairedFields: ["endDate"],
 					inputSettings: {
 						showTime: false,
 					},
@@ -1794,7 +1791,6 @@ const fields = useMemo(
 					type: "date",
 					label: "End date",
 					validators: [{ fn: "validateDateRange", options: { startDateName: "startDate" } }],
-					pairedFields: ["startDate"],
 					inputSettings: {
 						showTime: false,
 					},
