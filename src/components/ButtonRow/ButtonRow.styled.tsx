@@ -4,11 +4,6 @@ import styled from "styled-components";
 import { ButtonRowProps } from "./ButtonRowTypes";
 import { StyledProps } from "@root/types";
 
-const gapMap: Record<ButtonRowProps["gap"], string> = {
-	small: "10px",
-	large: "16px"
-}
-
 export const Row = styled.div<StyledProps<ButtonRowProps, "wrap">>`
 	display: flex;
 	align-items: center;
@@ -18,13 +13,13 @@ export const Row = styled.div<StyledProps<ButtonRowProps, "wrap">>`
 	`}
 `;
 
-export const Item = styled.div<StyledProps<ButtonRowProps, "separator" | "gap">>`
+export const Item = styled.div<StyledProps<ButtonRowProps, "separator">>`
 	display: flex;
 	align-items: center;
 
-	${({$separator, $gap}) => `
+	${({$separator}) => `
 		& + &{
-			margin-left: ${gapMap[$gap]};
+			margin-left: 8px;
 		}
 
 		${$separator && `
@@ -32,7 +27,7 @@ export const Item = styled.div<StyledProps<ButtonRowProps, "separator" | "gap">>
 				content: ' ';
 				height: 1.4em;
 				border-left: 2px solid ${theme.newColors.grey2["100"]};
-				margin-right: ${gapMap[$gap]};
+				margin-right: 8px;
 			}
 		`}
 	`}
