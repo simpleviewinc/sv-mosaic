@@ -12,4 +12,5 @@ export interface SectionPropTypes {
 	collapsed?: boolean;
 	show?: MosaicShow;
 	registerRef?: (ref: HTMLElement) => () => void;
+	gridMinWidth?: string
 }
