@@ -32,6 +32,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 						state={state}
 						dispatch={dispatch}
 						collapsed={section.collapsed}
+						gridMinWidth={section.gridMinWidth}
 					/>
 				)
 			))}
