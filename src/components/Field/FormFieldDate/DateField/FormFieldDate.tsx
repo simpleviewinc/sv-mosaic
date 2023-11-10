@@ -26,6 +26,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	} = props;
 
 	const showTime = fieldDef?.inputSettings?.showTime;
+	const fixedTime = fieldDef?.inputSettings?.fixedTime || [0, 0, 0, 0];
 
 	// State splitting is necessary because the form value is a
 	// single date object, which provides no way of differentiating
@@ -67,9 +68,9 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				return onChange(undefined);
 			}
 
-			matchTime(date, timeChosen ? timeChosen : [0, 0, 0, 0]);
+			matchTime(date, timeChosen ? timeChosen : fixedTime);
 		} else {
-			matchTime(date, [0, 0, 0, 0]);
+			matchTime(date, fixedTime);
 		}
 
 		onChange(date);
@@ -109,7 +110,8 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 						type: "",
 						inputSettings: {
 							placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
-							minDate: fieldDef?.inputSettings?.minDate
+							minDate: fieldDef?.inputSettings?.minDate,
+							maxDate: fieldDef?.inputSettings?.maxDate
 						},
 						required: fieldDef?.required,
 						disabled: fieldDef?.disabled

@@ -1,5 +1,6 @@
+import { TimeTuple } from "@root/components/Field";
 
-function matchTime(date: Date, time: Date | [number, number, number, number]) {
+function matchTime(date: Date, time: Date | TimeTuple) {
 	const [hr, min, sec, ms] = Array.isArray(time) ? time : [
 		time.getHours(),
 		time.getMinutes(),
