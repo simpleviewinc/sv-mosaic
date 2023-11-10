@@ -187,6 +187,5 @@ workflows:
             branches:
               only:
                 - ci-testing
-                - qa
                 - staging
                 - master
