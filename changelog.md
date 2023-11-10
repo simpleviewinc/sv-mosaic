@@ -1,5 +1,41 @@
 # sv-mosaic changelog
 
+## 27.1.0 - 11/14/23
+
+### Improvements & Fixes
+
+* `Typography`:
+  * [MOS-1115](https://simpleviewtools.atlassian.net/browse/MOS-1115 "https://simpleviewtools.atlassian.net/browse/MOS-1115")
+    * Introduces new `TitleText`, `Subtitle` and `BodyText` components. All three use the `Typography` component under the hood.
+    * Adds support for `maxLines` properties
+    * Adds native tooltips to all typography variations
+    * Adds support for using a specified HTML tag, but each variation has a sensible default:
+      * `TitleText`: `h1`
+      * `Subtitle`: `h3`
+      * `BodyText`: `div`
+* `FormFieldDate`:
+  * [MOS-1182](https://simpleviewtools.atlassian.net/browse/MOS-1182 "https://simpleviewtools.atlassian.net/browse/MOS-1182"), [MOS-1193](https://simpleviewtools.atlassian.net/browse/MOS-1193 "https://simpleviewtools.atlassian.net/browse/MOS-1193")
+    * When picking a date from the datepicker, this ensures the time is always set to midnight if the time field is not enabled. If the time field is enabled, the chosen/existing time will be retained.
+* `Form`:
+  * [MOS-1194](https://simpleviewtools.atlassian.net/browse/MOS-1194 "https://simpleviewtools.atlassian.net/browse/MOS-1194")
+    * Adjusts padding around form sections
+    * Has form stretch 100% of it's container by default, but introduces a `fullHeight` prop that can be `false` to prevent that
+    * Ensures field labels are semi-bold
+  * [MOS-1195](https://simpleviewtools.atlassian.net/browse/MOS-1195 "https://simpleviewtools.atlassian.net/browse/MOS-1195")
+    * Removed the clearing of the `touched` object when a form with valid data is submitted
+  * [MOS-1196](https://simpleviewtools.atlassian.net/browse/MOS-1196 "https://simpleviewtools.atlassian.net/browse/MOS-1196")
+    * Prevents returning a new state if the field's touched property matches the incoming boolean when setting field value.
+  * [MOS-1198](https://simpleviewtools.atlassian.net/browse/MOS-1198 "https://simpleviewtools.atlassian.net/browse/MOS-1198")
+    * Avoids dispatching an extraneous action to mark fields as touched, but instead provides the touched flag to the change reducer so that it can handle the touched flag with just one new state.
+* `ButtonRow`:
+  * [MOS-1194](https://simpleviewtools.atlassian.net/browse/MOS-1194 "https://simpleviewtools.atlassian.net/browse/MOS-1194")
+    * Drops the gap variation and use an 8px gap between all buttons
+* Housekeeping
+  * [MOS-1197](https://simpleviewtools.atlassian.net/browse/MOS-1197 "https://simpleviewtools.atlassian.net/browse/MOS-1197")
+    * Modifies tsconfig to ensures TS module resolution paths are transformed into relative paths at build time
+  * [MOS-1199](https://simpleviewtools.atlassian.net/browse/MOS-1199 "https://simpleviewtools.atlassian.net/browse/MOS-1199")
+    * Upgrades container to use Node 18
+
 ## 27.0.0 - 10/17/23
 
 ### Improvements & Fixes
