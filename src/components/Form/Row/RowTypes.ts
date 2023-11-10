@@ -7,4 +7,5 @@ export interface RowPropTypes {
 	dispatch: any;
 	rowIdx?: number;
 	sectionIdx?: number;
+	gridMinWidth?: string
 }

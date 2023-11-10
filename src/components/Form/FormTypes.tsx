@@ -15,6 +15,7 @@ export interface SectionDef extends Section {
 	fields: MosaicGridConfig;
 	collapsed?: boolean;
 	show?: MosaicShow
+	gridMinWidth?: string
 }
 
 export interface FormProps {
