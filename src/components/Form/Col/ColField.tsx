@@ -14,7 +14,8 @@ const ColField = ({
 	rowIdx,
 	sectionIdx,
 	dispatch,
-	state
+	state,
+	spacing
 }: ColFieldProps) => {
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
@@ -88,6 +89,7 @@ const ColField = ({
 			colsInRow={colsInRow}
 			id={field.name}
 			dispatch={dispatch}
+			spacing={spacing}
 		>
 			{children}
 		</Field>
