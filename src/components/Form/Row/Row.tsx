@@ -11,7 +11,7 @@ const Row = (props: RowPropTypes) => {
 	const { row, rowIdx, state, fieldsDef, dispatch, sectionIdx, gridMinWidth, spacing } = props;
 
 	return (
-		<StyledRow data-layout="row" $columns={row.length} $gridMinWidth={gridMinWidth}>
+		<StyledRow data-layout="row" $columns={row.length} $gridMinWidth={gridMinWidth} $spacing={spacing}>
 			{row.map((col, i) => {
 				return (
 					<Col
