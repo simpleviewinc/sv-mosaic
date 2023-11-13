@@ -48,7 +48,8 @@ const Form = (props: FormProps) => {
 		tooltipInfo,
 		showActive,
 		scrollSpyThreshold = 0.15,
-		fullHeight = true
+		fullHeight = true,
+		spacing = "normal"
 	} = props;
 
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
@@ -216,13 +217,14 @@ const Form = (props: FormProps) => {
 								collapse={sidebarCollapseContainer}
 							/>
 						)}
-						<StyledFormContent ref={formContentRef}>
+						<StyledFormContent ref={formContentRef} $spacing={spacing}>
 							<Layout
 								registerRef={registerRef}
 								state={state}
 								dispatch={dispatch}
 								fields={fields}
 								sections={sections}
+								spacing={spacing}
 							/>
 						</StyledFormContent>
 					</StyledFormPrimary>
