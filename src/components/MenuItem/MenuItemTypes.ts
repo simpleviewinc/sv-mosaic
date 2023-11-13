@@ -10,4 +10,12 @@ export interface MenuItemProps {
 	attrs?: MosaicObject;
 	name?: string;
 	show?: MosaicShow;
+	truncateText?: boolean;
+	/**
+	 * If true and the label is a string, the menu item
+	 * will take on a title attribute that matches the label.
+	 * If a string is provided, that will be used as the title
+	 * instead.
+	 */
+	title?: boolean | string
 }
