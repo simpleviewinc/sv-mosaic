@@ -1,19 +1,20 @@
 import * as React from "react";
-import { useState, ReactElement } from "react";
+import { useState, useCallback, useMemo, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
 import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
-import { useMosaicTranslation } from "@root/i18n";
-import DatePickerCustom from "@root/components/Field/FormFieldDate/DatePicker";
-import { StyledHr, StyledVerticalHr } from "../DataViewFilterMultiselect/DataViewFilterMultiselect.styled";
 import MenuItem from "../MenuItem";
-import Field from "../Field";
+import { FieldDef } from "../Field";
+import Form, { SectionDef, formActions, useForm } from "../Form";
+import theme, { BREAKPOINTS } from "@root/theme/theme";
+import { VALIDATE_DATE_RANGE } from "../Form/validators";
 
 const StyledMainContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	width: ${BREAKPOINTS.sm};
 
 	& > div .inputRow {
 		display: flex;
@@ -24,163 +25,155 @@ const StyledMainContent = styled.div`
 const StyledFilterDate = styled.div`
 	display: flex;
 	flex-direction: row;
-	& .options {
-		padding: 0px;
-    	margin: -10px;
-	}
 `;
 
+const StyledLeft = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const StyledLeftOptions = styled.ul`
+	border-right: 2px solid ${theme.newColors.grey2[100]};
+	margin: 0;
+	padding: 0;
+	flex: 1 1 0%;
+	min-height: 0;
+	max-width: 130px;
+	max-height: 284px;
+	overflow-y: auto;
+`
+
+const StyledFooter = styled.div`
+	border-top: 2px solid ${theme.newColors.grey2[100]};
+`
+
+const sections: SectionDef[] = [
+	{
+		fields: [[["rangeStart"], ["rangeEnd"]]],
+		gridMinWidth: BREAKPOINTS.sm
+	}
+];
+
 export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
-	const [state, setState] = useState({
-		rangeStart : "rangeStart" in props ? props.rangeStart : undefined,
-		rangeEnd : "rangeStart" in props ? props.rangeEnd : undefined,
-		selectedOption: "selectedOption" in props ? props.selectedOption : undefined,
-	});
+	const { state, dispatch } = useForm();
+	const { rangeStart, rangeEnd } = state.data;
 
-	const { t } = useMosaicTranslation();
+	const [selectedOption, setSelectedOption] = useState("selectedOption" in props ? props.selectedOption : undefined);
 
-	let errorMessage;
-	if (state.rangeStart !== undefined && state.rangeEnd !== undefined && state.rangeEnd < state.rangeStart) {
-		errorMessage = "End of range cannot be before start of range.";
-	}
+	const getFormValues = useCallback(async () => {
+		if (
+			!("rangeStart" in props) ||
+			!("rangeEnd" in props)
+		) {
+			return;
+		}
 
-	if (state.rangeStart?.toString() === "Invalid Date" || state.rangeEnd?.toString() === "Invalid Date") {
-		errorMessage = "This is not a valid date";
-	}
+		return {
+			rangeStart: props.rangeStart,
+			rangeEnd: props.rangeEnd
+		};
+	}, [props]);
 
-	const hasError = errorMessage !== undefined;
+	const fields = useMemo<FieldDef[]>(() => [
+		{
+			name: "rangeStart",
+			type: "date",
+			label: "From",
+			size: "full",
+			inputSettings: {
+				fixedTime: [0, 0, 0, 0],
+				maxDate: rangeEnd
+			},
+			validators: [
+				{ fn: VALIDATE_DATE_RANGE, options: { endDateName: "rangeEnd" } }
+			],
+			validates: ["rangeEnd"],
+		},
+		{
+			name: "rangeEnd",
+			type: "date",
+			label: "To",
+			size: "full",
+			inputSettings: {
+				fixedTime: [23, 59, 59, 999],
+				minDate: rangeStart
+			},
+			validators: [
+				{ fn: VALIDATE_DATE_RANGE, options: { startDateName: "rangeStart" } }
+			],
+			validates: ["rangeStart"]
+		}
+	], [rangeEnd, rangeStart]);
 
-	const onApply = function() {
-		if (!state.rangeStart && !state.rangeEnd) {
+	const onOptionSelect = useCallback((optionValue: string) => {
+		props.onChange({ option: optionValue });
+		props.onClose();
+	}, [props.onChange, props.onClose]);
+
+	const onClear = useCallback(() => {
+		props.onChange(undefined);
+
+		dispatch(formActions.setFormValues({
+			values: {
+				rangeStart : undefined,
+				rangeEnd : undefined,
+			}
+		}));
+
+		setSelectedOption(undefined);
+	}, [props.onChange, dispatch]);
+
+	const onApply = useCallback(() => {
+		if (!rangeStart && !rangeEnd) {
 			props.onChange(undefined);
 		} else {
 			props.onChange({
-				rangeStart: state.rangeStart,
-				rangeEnd: state.rangeEnd
+				rangeStart,
+				rangeEnd
 			});
 		}
 
 		props.onClose();
-	};
+	}, [props.onChange, props.onClose, rangeStart, rangeEnd]);
 
-	const onOptionSelect = (optionValue: string) => {
-		props.onChange({option: optionValue});
-
-		props.onClose();
-	}
-
-
-	const onClear = function() {
-		setState({
-			...state,
-			rangeStart : undefined,
-			rangeEnd : undefined,
-			selectedOption: undefined,
-		});
-	}
-
-	const getOnChange = (name: "rangeStart" | "rangeEnd") => (date: Date) => {
-		if (date !== null) {
-			if (name === "rangeStart") {
-				// date start should be set to 00:00
-				date.setHours(0);
-				date.setMinutes(0);
-				date.setSeconds(0);
-			} else {
-				// date end should be set to 23:59
-				date.setHours(23);
-				date.setMinutes(59);
-				date.setSeconds(59);
-			}
-		}
-
-		setState({
-			...state,
-			[name] : date === null ? undefined : date,
-			selectedOption: undefined
-		});
-	}
+	const disableApply = !rangeStart || !rangeEnd;
 
 	return (
 		<StyledFilterDate data-testid="dataview-filter-date-dropdown-content">
-			{
-				"options" in props && props.options &&
-				<>
-					<ul className="options" data-testid="dataview-filter-date-options-list">
+			{"options" in props && props.options && (
+				<StyledLeft>
+					<StyledLeftOptions data-testid="dataview-filter-date-options-list">
 						{
 							props.options.map(option =>
 								<MenuItem
-									key={`${option.label}-${option.value}`}
+									key={option.value}
 									label={option.label}
-									selected={state.selectedOption === option.value}
+									selected={selectedOption === option.value}
 									color="blue"
 									onClick={() => onOptionSelect(option.value)}
+									truncateText
+									title
 								/>
 							)
 						}
-					</ul>
-					<StyledVerticalHr $margin={"-10px 10px"}/>
-				</>
-			}
+					</StyledLeftOptions>
+				</StyledLeft>
+			)}
 			<StyledMainContent>
 				<div data-testid="dataview-filter-date-inputs">
-					<div className="inputRow">
-						<Field
-							value={state.rangeStart || null}
-							fieldDef={{
-								name: "",
-								label: `${t("mosaic:common.date_from")}`,
-								type: "date",
-								inputSettings: {}
-							}}
-							error={hasError && errorMessage || ""}
-							id={"rangeStart"}
-						>
-							<DatePickerCustom
-								onChange={getOnChange("rangeStart")}
-								value={state.rangeStart || null}
-								fieldDef={{
-									name: "",
-									label: "",
-									type: "",
-									inputSettings: {
-										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___"),
-										minDate: props.minDate
-									}
-								}}
-							/>
-						</Field>
-						<Field
-							value={state.rangeEnd || null}
-							fieldDef={{
-								name: "",
-								label: `${t("mosaic:common.date_to")}`,
-								type: "date",
-								inputSettings: {}
-							}}
-							error={hasError && true || ""}
-							id={"rangeEnd"}
-						>
-							<DatePickerCustom
-								onChange={getOnChange("rangeEnd")}
-								value={state.rangeEnd || null}
-								fieldDef={{
-									name: "",
-									label: "",
-									type: "",
-									inputSettings: {
-										placeholder: t("mosaic:DataViewFilterDate.choose_a_date___"),
-										minDate: props.minDate
-									}
-								}}
-							/>
-						</Field>
-					</div>
+					<Form
+						state={state}
+						dispatch={dispatch}
+						fields={fields}
+						sections={sections}
+						fullHeight={false}
+						spacing="compact"
+						getFormValues={getFormValues}
+					/>
 				</div>
-				<div>
-					<StyledHr $margin={"10px -16px"} />
-					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={hasError}/>
-				</div>
+				<StyledFooter>
+					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={disableApply}/>
+				</StyledFooter>
 			</StyledMainContent>
 		</StyledFilterDate>
 	)
