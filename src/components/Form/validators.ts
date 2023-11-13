@@ -138,11 +138,15 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 	if (!startDateStr || !endDateStr)
 		return;
 
+	const message = startDateStr === value ?
+		"Start date should happen before the end date" :
+		"End date should happen after the start date";
+
 	const startDate = new Date(startDateStr);
 	const endDate = new Date(endDateStr);
 
 	if (startDate.getTime() > endDate.getTime()) {
-		return "Start date should happen before the end date";
+		return message;
 	}
 
 	return undefined;
