@@ -111,8 +111,6 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 	}, [props.onChange, props.onClose]);
 
 	const onClear = useCallback(() => {
-		props.onChange(undefined);
-
 		dispatch(formActions.setFormValues({
 			values: {
 				rangeStart : undefined,
@@ -136,7 +134,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 		props.onClose();
 	}, [props.onChange, props.onClose, rangeStart, rangeEnd]);
 
-	const disableApply = (!rangeStart && !rangeEnd) || Object.values(state.errors).filter(Boolean).length > 0;
+	const disableApply = Object.values(state.errors).filter(Boolean).length > 0;
 
 	return (
 		<StyledFilterDate data-testid="dataview-filter-date-dropdown-content">
