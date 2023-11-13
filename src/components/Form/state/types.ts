@@ -71,7 +71,8 @@ export type FormActionThunks = {
         validate?: boolean;
     }>
     validateField: FormActionThunk<{
-        name: string
+        name: string,
+        validateLinkedFields?: boolean
     }>;
     validateForm: FormActionThunk<undefined, boolean>;
     submitForm: FormActionThunk<undefined, {
