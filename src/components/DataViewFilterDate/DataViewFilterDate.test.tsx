@@ -62,7 +62,7 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() => {
+		await act(async () => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
 		});
 
@@ -75,7 +75,7 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() => {
+		await act(async () => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -92,7 +92,7 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() => {
+		await act(async () => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -105,7 +105,7 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() => {
+		await act(async () => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -122,7 +122,7 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() => {
+		await act(async () => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -140,7 +140,7 @@ describe("DataViewFilterDate", () => {
 		});
 
 		const applyButton = await screen.findByText("Apply");
-		act(() => {
+		await act(async () => {
 			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -157,7 +157,7 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() => {
+		await act(async () => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -167,18 +167,23 @@ describe("DataViewFilterDate", () => {
 		const fromInput = (await screen.findAllByRole("textbox"))[0];
 		await act(async () => {
 			fireEvent.change(fromInput, { target: { value: "01012023" } });
+			fireEvent.blur(fromInput);
 		});
 
 		const toInput = (await screen.findAllByRole("textbox"))[1];
 		await act(async () => {
 			fireEvent.change(toInput, { target: { value: "12312022" } });
+			fireEvent.blur(toInput);
 		});
 
 		const applyButton = await screen.findByText("Apply");
 		expect(applyButton).toHaveProperty("disabled");
 
-		const errorMessage = await screen.findByText("End of range cannot be before start of range.");
-		expect(errorMessage).toBeInTheDocument();
+		const errorMessageStart = await screen.findByText("Start date should happen before the end date");
+		expect(errorMessageStart).toBeInTheDocument();
+
+		const errorMessageEnd = await screen.findByText("End date should happen after the start date");
+		expect(errorMessageEnd).toBeInTheDocument();
 	});
 
 	it("Should select a magic value", async () => {
@@ -189,7 +194,7 @@ describe("DataViewFilterDate", () => {
 		const filterButton = await screen.findByText("Date filter example");
 		expect(filterButton).toBeInTheDocument();
 
-		act(() => {
+		await act(async () => {
 			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
@@ -200,7 +205,7 @@ describe("DataViewFilterDate", () => {
 		const randomMagicValueIdx = Math.floor(Math.random() * magicValues.length);
 		const magicValueSelected = magicValues[randomMagicValueIdx];
 
-		act(() => {
+		await act(async () => {
 			magicValueSelected.dispatchEvent(new MouseEvent("click", {bubbles: true}))
 		});
 
