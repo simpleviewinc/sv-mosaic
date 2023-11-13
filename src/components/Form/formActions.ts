@@ -79,7 +79,10 @@ export const formActions: FormActionThunks = {
 			});
 
 			if (validate || extraArgs.fieldMap[name].validateOn === "onChange") {
-				await dispatch(formActions.validateField({ name }));
+				await dispatch(formActions.validateField({
+					name,
+					validateLinkedFields: true
+				}));
 			}
 
 			if (
@@ -104,18 +107,34 @@ export const formActions: FormActionThunks = {
 				extraArgs.fieldMap[name].validateOn === "onBlur" ||
 				extraArgs.fieldMap[name].validateOn === "onBlurChange"
 			) {
-				await dispatch(formActions.validateField({ name }))
+				await dispatch(formActions.validateField({
+					name,
+					validateLinkedFields: true
+				}))
 			}
 
 		}
 	},
-	validateField({ name }) {
+	validateField({ name, validateLinkedFields }) {
 		return async function (dispatch, getState, extraArgs) {
 			const { data } = getState();
 			const { mounted, internalValidators } = extraArgs;
 
 			if (!mounted[name]) {
 				return;
+			}
+
+			/**
+			 * @TODO This is not pretty, but it'll do for now. Ideally we would
+			 * only commit one dispatch after validating all fields, instead of
+			 * a dispatch for each field
+			 */
+			if (validateLinkedFields && extraArgs.fieldMap[name].validates) {
+				extraArgs.fieldMap[name].validates.forEach(linkedFieldName => {
+					dispatch(formActions.validateField({
+						name: linkedFieldName
+					}));
+				});
 			}
 
 			/**
