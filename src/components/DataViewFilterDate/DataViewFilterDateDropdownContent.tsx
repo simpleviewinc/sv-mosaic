@@ -136,7 +136,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 		props.onClose();
 	}, [props.onChange, props.onClose, rangeStart, rangeEnd]);
 
-	const disableApply = !rangeStart || !rangeEnd;
+	const disableApply = (!rangeStart && !rangeEnd) || Object.values(state.errors).filter(Boolean).length > 0;
 
 	return (
 		<StyledFilterDate data-testid="dataview-filter-date-dropdown-content">
