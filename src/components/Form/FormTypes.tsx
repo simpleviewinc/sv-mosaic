@@ -4,6 +4,8 @@ import { FieldDefCustom } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicShow } from "@root/types";
 
+export type FormSpacing = "normal" | "compact";
+
 export interface Section {
 	title?: string;
 	id?: string;
@@ -35,6 +37,7 @@ export interface FormProps {
 	showActive?: boolean;
 	scrollSpyThreshold?: number;
 	fullHeight?: boolean
+	spacing?: FormSpacing;
 }
 
 export interface FieldError {

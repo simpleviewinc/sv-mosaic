@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CONTAINERS } from "@root/theme/theme";
 import SideNav from "../SideNav/SideNav";
 import { containerQuery } from "@root/utils/css";
+import { FormSpacing } from "./FormTypes";
 
 export const StyledContainerForm = styled.div<{$fullHeight?: boolean}>`
 	position: relative;
@@ -28,11 +29,11 @@ export const StyledForm = styled.form`
 	min-height: 0;
 `;
 
-export const StyledFormContent = styled.div`
+export const StyledFormContent = styled.div<{ $spacing?: FormSpacing }>`
 	overflow-y: auto;
 	flex-grow: 1;
 	min-width: 0;
-	padding: 24px;
+	padding: ${({ $spacing }) => $spacing === "compact" ? "16px" : "24px"};
 `;
 
 export const StyledFormPrimary = styled.div`

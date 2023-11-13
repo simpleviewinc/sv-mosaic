@@ -20,6 +20,7 @@ import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwit
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicShow } from "@root/types";
 import { ElementType, HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
+import { FormSpacing } from "../Form";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -61,6 +62,10 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Form action dispatcher
 	 */
 	dispatch?: any
+	/**
+	 * Spacing type
+	 */
+	spacing?: FormSpacing
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
@@ -135,6 +140,11 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 * When to validate the field
 	 */
 	validateOn?: FieldValidateOn
+	/**
+	 * An array of other field names to validate when
+	 * this one gets validated
+	 */
+	validates?: string[]
 	/**
 	 * Identifier passed by the developer
 	 */
