@@ -12,10 +12,8 @@ import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
 import { isEqual } from "date-fns";
 import { matchTime, textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
-
-const ENTER_VALID_DATE = `Please enter a valid ${DATE_FORMAT_FULL_PLACEHOLDER} date`;
-const ENTER_VALID_TIME = `Please enter a valid ${TIME_FORMAT_FULL_PLACEHOLDER} time`;
-const PROVIDE_TIME = "Please also provide a time";
+import { INVALID_DATE, INVALID_TIME, TIME_REQUIRED } from "@root/components/Form/fieldErrors";
+import { useFieldErrors } from "@root/utils/hooks";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
@@ -35,6 +33,11 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	const [dateChosen, setDateChosen] = useState<null | Date>(value);
 	const [timeChosen, setTimeChosen] = useState<null | Date>(value);
 
+	const { addError, removeError } = useFieldErrors({
+		dispatch,
+		name: fieldDef.name
+	});
+
 	useEffect(() => {
 		if (!value) {
 			return;
@@ -44,38 +47,23 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		setTimeChosen((time) => isEqual(time, value) ? time : value);
 	}, [value]);
 
-	const setError = (msg: string) => dispatch && dispatch((d) => {
-		d({
-			type: "FIELD_VALIDATE",
-			name: fieldDef.name,
-			value: msg,
-		})
-	});
-
-	const clearError = () => dispatch && dispatch((d) => {
-		d({
-			type: "FIELD_UNVALIDATE",
-			name: fieldDef.name
-		})
-	});
-
 	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
 		const isKeyboardEvent = keyboardInputValue !== undefined;
 		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
 
-		clearError();
-
 		if (isKeyboardEvent && !validKeyboardInput) {
 			// This handler was caused by keyboard input, but it's not a valid date
-			setError(ENTER_VALID_DATE);
+			addError(INVALID_DATE);
 			return onChange(undefined);
+		} else {
+			removeError(INVALID_DATE);
 		}
 
 		setDateChosen(date);
 
 		if (showTime) {
 			if (fieldDef.required && !timeChosen) {
-				setError(PROVIDE_TIME);
+				addError(TIME_REQUIRED);
 				return onChange(undefined);
 			}
 
@@ -92,12 +80,12 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		const isKeyboardEvent = keyboardInputValue !== undefined;
 		const validKeyboardInput = textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL);
 
-		clearError();
-
 		if (!time || (isKeyboardEvent && !validKeyboardInput)) {
 			// This handler was caused by keyboard input, but it's not a valid date
-			setError(ENTER_VALID_TIME);
+			addError(INVALID_TIME);
 			return onChange(undefined);
+		} else {
+			removeError([TIME_REQUIRED, INVALID_TIME]);
 		}
 
 		setTimeChosen(time);

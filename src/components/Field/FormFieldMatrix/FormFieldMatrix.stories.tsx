@@ -28,6 +28,46 @@ export default {
 	decorators: [withKnobs],
 };
 
+const DrawerEditForm = ({
+	onClose,
+	onSave,
+	title,
+	fields
+}: {
+	onClose: () => void,
+	onSave: (data: any) => void,
+	title: string,
+	fields: FieldDef[]
+}): ReactElement => {
+	const { state, dispatch } = useForm();
+
+	const onSaveClick = () => onSave(state.data);
+
+	return (
+		<Form
+			buttons={[
+				{
+					label: "Cancel",
+					onClick: onClose,
+					color: "gray",
+					variant: "outlined",
+				},
+				{
+					label: "Save",
+					onClick: onSaveClick,
+					color: "yellow",
+					variant: "contained"
+				},
+			]}
+			title={title}
+			state={state}
+			fields={fields}
+			dispatch={dispatch}
+			onBack={onClose}
+		/>
+	)
+}
+
 export const FormVariant = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -43,24 +83,6 @@ export const FormVariant = (): ReactElement => {
 	});
 
 	const addDrawer = useCallback(async (drawerDef, edit?) => {
-		if (!edit) {
-			await dispatch(
-				formActions.setFieldValue({
-					name: "title",
-					value: "",
-					touched: true
-				})
-			);
-
-			await dispatch(
-				formActions.setFieldValue({
-					name: "description",
-					value: "",
-					touched: true
-				})
-			);
-		}
-
 		setDrawerState((state) => ({
 			...state,
 			drawers: [...state.drawers, drawerDef],
@@ -75,13 +97,13 @@ export const FormVariant = (): ReactElement => {
 		}));
 	}, []);
 
-	const addOrEdit = async () => {
+	const addOrEdit = async (data) => {
 		if (!isEditing) {
 			const id = "id" + Math.random().toString(16).slice(2)
 			const newRow = {
 				id: id,
-				title: state.data.title,
-				description: state.data.description
+				title: data.title,
+				description: data.description
 			};
 
 			if (state.data?.formMatrix?.length > 0) {
@@ -104,8 +126,8 @@ export const FormVariant = (): ReactElement => {
 		} else {
 			const editedRow = {
 				id: state.data.formMatrix[indexEdit].id,
-				title: state.data.title,
-				description: state.data.description,
+				title: data.title,
+				description: data.description,
 			};
 			const currentRows = [...state.data.formMatrix];
 			currentRows.splice(indexEdit, 1, editedRow);
@@ -265,26 +287,11 @@ export const FormVariant = (): ReactElement => {
 			<Drawers drawers={drawerState.drawers}>
 				{(drawerDef) => {
 					return (
-						<Form
-							buttons={[
-								{
-									label: "Cancel",
-									onClick: removeDrawer,
-									color: "gray",
-									variant: "outlined",
-								},
-								{
-									label: "Save",
-									onClick: () => addOrEdit(),
-									color: "yellow",
-									variant: "contained"
-								},
-							]}
-							title={drawerDef.config.title}
-							state={state}
+						<DrawerEditForm
 							fields={drawerDef.config.fields}
-							dispatch={dispatch}
-							onBack={removeDrawer}
+							onClose={removeDrawer}
+							onSave={addOrEdit}
+							title={drawerDef.config.title}
 						/>
 					);
 				}}
@@ -321,24 +328,6 @@ export const Browse = (): ReactElement => {
 	}, [mappedData]);
 
 	const addDrawer = useCallback(async (drawerDef) => {
-		if (drawerDef.config.type === "form") {
-			await dispatch(
-				formActions.setFieldValue({
-					name: "title",
-					value: "",
-					touched: true
-				})
-			);
-
-			await dispatch(
-				formActions.setFieldValue({
-					name: "description",
-					value: "",
-					touched: true
-				})
-			);
-		}
-
 		setDrawerState((state) => ({
 			...state,
 			drawers: [...state.drawers, drawerDef],
@@ -542,11 +531,11 @@ export const Browse = (): ReactElement => {
 		]
 	);
 
-	const edit = async () => {
+	const edit = async (data) => {
 		const editedRow = {
 			id: state.data.formMatrix[indexEdit].id,
-			title: state.data.title,
-			description: state.data.description,
+			title: data.title,
+			description: data.description,
 		};
 		const currentRows = [...state.data.formMatrix];
 		currentRows.splice(indexEdit, 1, editedRow);
@@ -589,25 +578,11 @@ export const Browse = (): ReactElement => {
 						);
 					} else {
 						return (
-							<Form
-								buttons={[
-									{
-										label: "Cancel",
-										onClick: removeDrawer,
-										color: "gray",
-										variant: "outlined",
-									},
-									{
-										label: "Save",
-										onClick: edit,
-										color: "yellow",
-										variant: "contained"
-									},
-								]}
-								title={drawerDef.config.title}
-								state={state}
+							<DrawerEditForm
+								onClose={removeDrawer}
+								onSave={edit}
 								fields={drawerDef.config.fields}
-								dispatch={dispatch}
+								title={drawerDef.config.title}
 							/>
 						);
 					}
