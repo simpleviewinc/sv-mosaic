@@ -30,8 +30,8 @@ const Field = ({
 			return;
 		}
 
-		dispatch(formActions.mountField({name: fieldDef?.name}));
-		return () => dispatch(formActions.unmountField({name: fieldDef?.name}))
+		dispatch(formActions.mountField({ name: fieldDef?.name }));
+		return () => dispatch(formActions.unmountField({ name: fieldDef?.name }))
 	}, [dispatch, fieldDef?.name]);
 
 	return (

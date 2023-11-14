@@ -36,4 +36,8 @@ export interface FormProps {
 	fullHeight?: boolean
 }
 
+export interface FieldError {
+	message: string
+}
+
 export { FieldDef, FieldDefCustom };
