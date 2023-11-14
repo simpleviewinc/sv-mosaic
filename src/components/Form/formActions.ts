@@ -34,7 +34,7 @@ const isValidValue = (value: any) => {
 
 function getFieldFromExtra(extraArgs: FormExtraArgs, name: string) {
 	if (!extraArgs.fieldMap[name]) {
-		throw new Error(`Field \`${name}\` is not registered with this form.`)
+		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.fieldMap).map(name => `\`${name}\``).join(", ")}`)
 	}
 
 	return extraArgs.fieldMap[name];
@@ -62,6 +62,7 @@ export const formActions: FormActionThunks = {
 			}, {});
 
 			extraArgs.fieldMap = fieldMap;
+			console.log(fields, extraArgs);
 		};
 	},
 	setSubmitWarning({ value }) {
