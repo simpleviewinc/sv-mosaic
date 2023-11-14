@@ -44,4 +44,6 @@ export interface FieldError {
 	message: string
 }
 
+export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any, value: any }
+
 export { FieldDef, FieldDefCustom };
