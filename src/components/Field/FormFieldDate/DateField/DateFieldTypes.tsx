@@ -26,8 +26,13 @@ export type DateFieldInputSettings = {
 	fixedTime?: TimeTuple
 };
 
-export type DateData = Date;
+export type DateData = {
+	date?: Date
+	validDate: boolean
+	time?: Date
+	validTime: boolean
+};
 
-export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings, DateData>
+export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings, DateData | Date>
 
 export type TimeTuple = [number, number, number, number];

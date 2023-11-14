@@ -1,8 +1,10 @@
 import { MosaicObject } from "@root/types";
 import { Dispatch } from "react";
 import { FieldDef } from "../FormTypes";
+import { FieldDefSanitized } from "@root/components/Field";
 
 export type FormState = {
+    internalData: MosaicObject<any>;
     data: MosaicObject<any>;
     errors: MosaicObject<string>;
     validating: MosaicObject;
@@ -38,6 +40,7 @@ export type ActionTypes =
 export type LegacyFormAction = {
     type: ActionTypes;
     value: any;
+    internalValue?: any;
     name?: string;
     clearErrors?: boolean
     touched?: boolean
@@ -118,8 +121,8 @@ export type UseFormReturn = {
 }
 
 export type FormExtraArgs = {
-    fields: FieldDef[];
-    fieldMap: Record<string, FieldDef>;
+    fields: FieldDefSanitized[];
+    fieldMap: Record<string, FieldDefSanitized>;
     onSubmit: () => void;
     mounted: Record<string, boolean | undefined>;
     internalValidators: Record<string, ((value: any) => string | undefined)[]>
