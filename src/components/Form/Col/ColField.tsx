@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from "react";
 import { FieldDef } from "../FormTypes";
-import fieldConfigMap from "./fieldConfigMap";
+import { getFieldConfig } from "./fieldConfigMap";
 import { ColFieldProps } from "./ColTypes";
 import formActions from "../formActions";
 import Field, { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
@@ -24,10 +24,7 @@ const ColField = ({
 	}
 
 	const isCustomField = typeof field.type !== "string";
-	const { Component }: FieldConfig = typeof field.type === "string" ? fieldConfigMap[field.type] : {
-		Component: field.type,
-		validate: "onBlur"
-	}
+	const { Component }: FieldConfig = getFieldConfig(field.type);
 
 	if (!Component) {
 		throw new Error(`Invalid type ${field.type}`);
@@ -51,7 +48,7 @@ const ColField = ({
 		}))
 	}, [field.name]);
 
-	const value = state?.data[field.name];
+	const value = state?.internalData[field.name];
 	const error = !field.disabled ? state.errors[field.name] : "";
 
 	const size = sanitizeFieldSize(
