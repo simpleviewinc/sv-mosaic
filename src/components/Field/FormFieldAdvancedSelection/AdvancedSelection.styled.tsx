@@ -4,10 +4,10 @@ import theme from "@root/theme";
 // MUI
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import { ChipListPropsTypes } from "./AdvancedSelectionTypes";
 
-export const ChipsWrapper = styled.div<StyledProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isMobileView" | "isModalOpen">>`
+export const ChipsWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isMobileView" | "isModalOpen">>`
   display: flex;
   flex-wrap: wrap;
   row-gap: 12px;
@@ -22,7 +22,7 @@ export const ChipsWrapper = styled.div<StyledProps<ChipListPropsTypes["fieldDef"
   }
 `;
 
-export const OptionsCheckedModalWrapper = styled.div<StyledProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isModalOpen">>`
+export const OptionsCheckedModalWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isModalOpen">>`
   margin: ${({ $isModalOpen }) => ($isModalOpen ? "15px" : "")};
 `;
 
