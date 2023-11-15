@@ -2,9 +2,9 @@ import theme from "../../theme";
 import styled from "styled-components";
 
 import { ButtonRowProps } from "./ButtonRowTypes";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 
-export const Row = styled.div<StyledProps<ButtonRowProps, "wrap">>`
+export const Row = styled.div<TransientProps<ButtonRowProps, "wrap">>`
 	display: flex;
 	align-items: center;
 
@@ -13,7 +13,7 @@ export const Row = styled.div<StyledProps<ButtonRowProps, "wrap">>`
 	`}
 `;
 
-export const Item = styled.div<StyledProps<ButtonRowProps, "separator">>`
+export const Item = styled.div<TransientProps<ButtonRowProps, "separator">>`
 	display: flex;
 	align-items: center;
 

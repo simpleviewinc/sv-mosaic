@@ -11,7 +11,7 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import LinkIcon from "@mui/icons-material/Link";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { BrowseOptionProps } from "./ImageVideoLinkDocumentBrowsingTypes";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import ButtonRow from "@root/components/ButtonRow";
 import { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
 import { containerQuery } from "@root/utils/css";
@@ -174,7 +174,7 @@ export const StyledTooltip = styled(Tooltip)`
   }
 `;
 
-export const RoundBackground = styled.div<StyledProps<BrowseOptionProps, "disabled">>`
+export const RoundBackground = styled.div<TransientProps<BrowseOptionProps, "disabled">>`
   align-items: center;
   cursor: ${({ $disabled }) => (!$disabled ? "pointer" : "auto")};
   background-color: ${theme.newColors.realTeal["100"]};
