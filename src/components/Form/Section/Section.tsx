@@ -26,7 +26,9 @@ const Section = (props: SectionPropTypes) => {
 		sectionIdx,
 		state,
 		collapsed = false,
-		registerRef
+		registerRef,
+		gridMinWidth,
+		spacing
 	} = props;
 
 	const [expanded, setExpanded] = useState<boolean>(!collapsed);
@@ -94,6 +96,8 @@ const Section = (props: SectionPropTypes) => {
 								state={state}
 								fieldsDef={fieldsDef}
 								dispatch={dispatch}
+								gridMinWidth={gridMinWidth}
+								spacing={spacing}
 							/>
 						))}
 					</StyledRows>

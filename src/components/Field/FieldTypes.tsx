@@ -20,6 +20,7 @@ import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwit
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicShow } from "@root/types";
 import { ElementType, HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
+import { FieldValueResolver, FormSpacing } from "../Form";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -61,6 +62,10 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Form action dispatcher
 	 */
 	dispatch?: any
+	/**
+	 * Spacing type
+	 */
+	spacing?: FormSpacing
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
@@ -136,6 +141,11 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 */
 	validateOn?: FieldValidateOn
 	/**
+	 * An array of other field names to validate when
+	 * this one gets validated
+	 */
+	validates?: string[]
+	/**
 	 * Identifier passed by the developer
 	 */
 	id?: string;
@@ -155,6 +165,11 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 * Whether or not to show this field
 	 */
 	show?: MosaicShow
+	/**
+	 * How to resolve the field's value from the internal value. Defaults
+	 * to an function that returns a like-for-like value
+	 */
+	getResolvedValue?: FieldValueResolver
 }
 
 export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>
@@ -182,10 +197,19 @@ export type FieldDef =
 	| FieldDefNumberTable
 	| FieldDefRaw;
 
-export type FieldValidateOn = "onBlur" | "onChange" | "onBlurChange";
+export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : any[];
+
+export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R
+
+export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
+	getResolvedValue: DropParam<FieldValueResolver>
+}
+
+export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange";
 
 export type FieldConfig = {
-	Component: ElementType,
-	validate: FieldValidateOn
+	Component: ElementType;
+	validate: FieldValidateOn;
+	getResolvedValue: FieldValueResolver;
 }
 
