@@ -18,7 +18,12 @@ describe("DateField component", () => {
 						showTime: false
 					}
 				}}
-				value={new Date("2022-01-01T00:00:00.000Z")}
+				value={{
+					date: new Date("2022-01-01T00:00:00.000Z"),
+					validDate: true,
+					time: new Date("2022-01-01T00:00:00.000Z"),
+					validTime: true
+				}}
 
 			/>
 		);
@@ -39,7 +44,12 @@ describe("DateField component", () => {
 						showTime: true
 					}
 				}}
-				value={new Date("2022-01-01T13:30:00.000Z")}
+				value={{
+					date: new Date("2022-01-01T13:30:00.000Z"),
+					validDate: true,
+					time: new Date("2022-01-01T13:30:00.000Z"),
+					validTime: true
+				}}
 			/>
 		);
 
