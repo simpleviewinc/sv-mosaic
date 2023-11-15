@@ -4,7 +4,7 @@ export const validatorsData = {
 	requireError: "This field is required, please fill it",
 	validEmail: "test@mail.com",
 	invalidEmail: "aaa",
-	emailError: "The value is not a valid e-mail",
+	emailError: "The value is not a valid email",
 	validNumber: 123456,
 	invalidNumber: "sabs",
 	numberError: "The value is not a number",
