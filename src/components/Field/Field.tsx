@@ -15,7 +15,8 @@ const Field = ({
 	colsInRow,
 	value,
 	id,
-	dispatch
+	dispatch,
+	spacing
 }: MosaicFieldProps<any>): ReactElement => {
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
@@ -36,7 +37,7 @@ const Field = ({
 
 	return (
 		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
-			<StyledFieldWrapper $error={shouldRenderError} >
+			<StyledFieldWrapper $error={shouldRenderError} $spacing={spacing}>
 				{hasLabelComponent && (
 					<Label
 						required={fieldDef?.required}

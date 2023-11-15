@@ -1,12 +1,12 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import styled from "styled-components";
 import MUIMenuItem from "@mui/material/MenuItem";
 
 import { MenuItemProps } from "./MenuItemTypes";
 import theme from "@root/theme";
 
-const StyledMenuItem = styled(MUIMenuItem)`
+const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 	&.MuiMenuItem-root {
 		min-height: 42px;
 		background-color: ${theme.colors.white} !important;
@@ -43,7 +43,10 @@ const StyledMenuItem = styled(MUIMenuItem)`
 		font-family: ${theme.fontFamily};
 		font-size: 14px;
 		color: ${theme.newColors.grey4["100"]};
-
+		${({$truncateText}) => $truncateText && `
+			overflow: hidden;
+			text-overflow: ellipsis;
+		`}
 	}
 `
 
@@ -64,30 +67,44 @@ const iconTypes = {
 	`
 }
 
-export default function MenuItem(props: MenuItemProps): ReactElement {
-	const Icon = props.mIcon;
+export default function MenuItem({
+	mIcon,
+	color,
+	attrs: providedAttrs,
+	title,
+	label,
+	onClick,
+	disabled,
+	selected,
+	truncateText
+}: MenuItemProps): ReactElement {
+	const Icon = mIcon;
+	const MyIcon = color !== undefined ? iconTypes[color] : StyledIcon;
 
-	const MyIcon = props.color !== undefined ? iconTypes[props.color] : StyledIcon;
-
-	const attrs = props.attrs || {};
+	const attrs = useMemo(() => ({
+		title: title === true && typeof label === "string" ?
+			label : typeof title === "string" ?
+				title : undefined,
+		...providedAttrs,
+	}), [providedAttrs, title, label]);
 
 	return (
 		<StyledMenuItem
 			{ ...attrs }
-			onClick={props.onClick}
-			disabled={props.disabled}
-			selected={props.selected}
+			onClick={onClick}
+			disabled={disabled}
+			selected={selected}
 			className="menu-item"
 			disableRipple={true}
+			$truncateText={truncateText}
 		>
-			{
-				props.mIcon &&
+			{mIcon && (
 				<MyIcon className="icon">
 					<Icon/>
 				</MyIcon>
-			}
+			)}
 			<div className="menuLabel">
-				<span>{props.label}</span>
+				<span>{label}</span>
 			</div>
 		</StyledMenuItem>
 	)

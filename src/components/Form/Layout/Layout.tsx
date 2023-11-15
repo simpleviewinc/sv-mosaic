@@ -11,7 +11,7 @@ import { StyledLayout } from "./LayoutStyles";
 import { generateLayout } from "./layoutUtils";
 
 const Layout = (props: LayoutProps): React.ReactElement => {
-	const { state, dispatch, fields, sections, registerRef } = props;
+	const { state, dispatch, fields, sections, registerRef, spacing } = props;
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });
@@ -32,6 +32,8 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 						state={state}
 						dispatch={dispatch}
 						collapsed={section.collapsed}
+						gridMinWidth={section.gridMinWidth}
+						spacing={spacing}
 					/>
 				)
 			))}
