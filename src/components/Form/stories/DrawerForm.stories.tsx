@@ -16,10 +16,10 @@ import { FieldDef } from "@root/components/Field";
 import theme, { BREAKPOINTS } from "@root/theme/theme";
 import _ from "lodash";
 import { Sizes } from "@root/theme";
-import { useTable } from "@root/components/Field/FormFieldTable/tableUtils";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import styled from "styled-components";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import { validateEmail } from "../validators";
 
 export default {
 	title: "Components/Form",
@@ -109,7 +109,7 @@ const sections: SectionDef[] = [
 		title: "Fields with grid layout",
 		fields: [
 			[["firstName"], ["lastName"], ["dob"]],
-			[["profilePicture"], ["biography"]],
+			[["profilePicture"], ["biography"], []],
 			[["homeAddress"], ["workAddress"], ["altAddress"]],
 			[["petsHeading"]],
 			[["pets"], ["favouritePet", "firstPet", "desiredPet"]],
@@ -133,12 +133,6 @@ const options = {
 export const DrawerForm = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
-	const { addTableRow, editAction } = useTable(
-		state.data,
-		"table",
-		dispatch
-	);
-
 	const fields  = useMemo<FieldDef[]>(() => [
 		{
 			...baseTextField,
@@ -161,8 +155,9 @@ export const DrawerForm = (): ReactElement => {
 		{
 			...baseTextField,
 			name: "text-lg",
-			label: "Large text",
+			label: "Email address",
 			size: Sizes.lg,
+			validators: [validateEmail]
 		},
 		{
 			...baseTextField,
@@ -207,19 +202,6 @@ export const DrawerForm = (): ReactElement => {
 			name: "petsHeading",
 			type: "raw"
 		} as any),
-		{
-			inputSettings: {
-				handleAddElement: addTableRow,
-				handleEdit: editAction,
-				extraActions: [],
-				headers: ["Species", "Colour"],
-			},
-			label: "Pets",
-			name: "pets",
-			required: true,
-			type: "table",
-			size: Sizes.lg,
-		},
 		{
 			label: "Favourite Pet",
 			name: "favouritePet",
@@ -348,7 +330,7 @@ export const DrawerForm = (): ReactElement => {
 				initialCenter: { lat: 48.858348895100555, lng: 2.294492026111051 }
 			}
 		}
-	], [addTableRow, editAction]);
+	], []);
 
 	const showSections = boolean("Show sections", false, "Layout");
 	const drawWidth = select("Draw Width", options, options.default, "Layout");

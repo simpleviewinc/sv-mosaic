@@ -1,7 +1,8 @@
 import testArray from "../../utils/testArray";
 import * as assert from "assert";
-import { generateLayout } from "./formUtils";
 import { FieldDef } from "../../components/Field";
+import { generateLayout } from "./Layout/layoutUtils";
+import { SectionDef } from "./FormTypes";
 
 describe("Layout logic", () => {
 	const fields: FieldDef[] = [
@@ -56,17 +57,8 @@ describe("Layout logic", () => {
 				data: fields,
 				result: [
 					{
-						fields: [[["text1"]]]
-					},
-					{
-						fields: [[["text2"]]]
-					},
-					{
-						fields: [[["text3"]]]
-					},
-					{
-						fields: [[["text4"]]]
-					},
+						"fields": [[["text1"]], [["text2"]], [["text3"]], [["text4"]]]
+					}
 				]
 			}
 		},
@@ -84,7 +76,7 @@ describe("Layout logic", () => {
 					},
 					{
 						fields: [
-							[["text2"], ["text3"]],
+							[[], ["text2"], ["text3"]],
 						]
 					},
 				]
@@ -98,7 +90,7 @@ describe("Layout logic", () => {
 					{
 						fields: [
 							// row 1
-							[[], [], []],
+							[[], ["text1"], []],
 							// row 2
 							[[], [], []],
 							[[]],
@@ -116,7 +108,9 @@ describe("Layout logic", () => {
 				],
 				result: [
 					{
-						fields: []
+						fields: [
+							[[], ["text1"], []]
+						]
 					},
 					{
 						fields: []
@@ -131,7 +125,7 @@ describe("Layout logic", () => {
 		test.type === "fields" ?
 			result = generateLayout({ fields })
 			:
-			result = generateLayout({ fields, sections: test.data })
+			result = generateLayout({ fields, sections: test.data as SectionDef[] })
 
 		assert.deepStrictEqual(result, test.result);
 	});

@@ -77,6 +77,7 @@ export const Playground = (): ReactElement => {
 	const showTooltipInfo = boolean("Show Tooltip info", false);
 	const showActive = boolean("Show active", false);
 	const collapsed = boolean("Collapse sections", false);
+	const containerHeight = text("Container Height (500px, 50rem, etc..)", "100vh");
 	const prepopulateValues = object("Prepolulate values", {
 		"textField": "Text field from getFormValues",
 		"check": [
@@ -666,7 +667,7 @@ export const Playground = (): ReactElement => {
 	}, [prepopulate, showGetFormValues, showDefaultValues]);
 
 	return (
-		<div style={{height: "100vh"}}>
+		<div style={{boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)", height: containerHeight}}>
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
