@@ -91,21 +91,35 @@ for (const [name, rgb] of Object.entries(colorMap)) {
 }
 
 const colors = {
-	black : newColors.almostBlack["100"],
+	black: newColors.almostBlack["100"],
+	blackIntense: "#313131",
+	blackWashed: "#eeeeee",
 	blue : "#0070F2",
+	blueIntense: "#0059bf",
+	blueWashed: "#edf5fe",
 	blueHover : "rgba(0, 89, 191, 1)",
 	blueActive : "rgba(0, 71, 153, 1)",
 	blueTeal : "#008DA8",
 	tealHover : "#005769",
 	tealOpacity : "rgb(0, 141, 168, 0.2)",
 	lightBlue: "#edf5fe",
+	lightBlueIntense: "#e2efff",
+	// lightBlueWashed is the same as lightBlue because light blue is already pretty washed
+	lightBlueWashed: "#edf5fe",
 	lightRed : "#B100000D",
 	red : "#b10000",
+	redIntense: "#850000",
+	redWashed: "#f2e3e3",
 	redHover : "rgba(138, 0, 0, 1)",
 	redActive : "rgba(110, 0, 0, 1)",
 	gray : "#6B6F7C",
+	grayIntense: "#555860",
+	grayWashed: "#f0f1f2",
 	gray100 : "#FAFAFA",
 	gray200 : "#F0F2F5",
+	gray200Intense : "#D7D8DC",
+	// gray200Washed is the same as gray200 because gray200 is already pretty washed
+	gray200Washed : "#F0F2F5",
 	gray300 : "#D7D8DC",
 	gray400 : "#9D9FA7",
 	gray500 : "#848791",
@@ -114,6 +128,8 @@ const colors = {
 	gray800 : "#0A1323",
 	simplyGold : "#FDB924",
 	yellow : "#FDB924",
+	yellowIntense: "#E3A520",
+	yellowWashed: "#FFF3D9",
 	simplyGoldDisabled : "#FED57B",
 	simplyGoldHover : "#E3A520",
 	simplyGoldOpacity : "rgb(253, 185, 36, 0.3)",
@@ -124,10 +140,14 @@ const colors = {
 	disabledBorderFocus: "rgb(164, 164, 164)",
 	simplyGrayOpacity : "rgb(190, 190, 190, 0.3)",
 	teal : "#008DA8",
+	tealIntense: "#0D778C",
+	tealWashed: "#e2f3f7",
 	label : "#3B424E", //Same as gray700
 	almostBlack : "#1A1A1A",
 	errorBackground: "#B100000D",
 	white: "#FFFFFF",
+	whiteIntense: "#EEEEEE",
+	whiteWashed: "#EEEEEE",
 	blackDisabled: "rgba(0, 0, 0, 0.26)"
 };
 

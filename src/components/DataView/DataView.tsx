@@ -42,7 +42,7 @@ const StyledWrapper = styled.div`
 
 	& > .viewContainer {
 		overflow: auto;
-		margin: 0 24px;
+		padding: 0 24px;
 	}
 
 	&.loading {

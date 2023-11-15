@@ -102,7 +102,7 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 						label={ViewLabel}
 						variant="contained"
 						size="small"
-						color="black"
+						color="gray"
 						onClick={toggleViewDrawer}
 					/>
 					<Button
