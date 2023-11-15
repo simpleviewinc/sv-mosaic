@@ -6,10 +6,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { BackButton } from "./TitleWrapper.styled";
 import { TitleBackButtonProps } from "./TitleWrapperTypes";
 
-const backButtonMuiAtts = {
-	"data-testid": "icon-button-test"
-}
-
 const TitleBackButton = ({
 	collapse,
 	label = "Go back",
@@ -22,9 +18,9 @@ const TitleBackButton = ({
 			{...props}
 			className="back-button"
 			color="gray"
-			variant="outlined"
+			variant="icon"
 			mIcon={ChevronLeftIcon}
-			muiAttrs={{...backButtonMuiAtts, "aria-label": label}}
+			muiAttrs={{"aria-label": label}}
 		/>
 	);
 };

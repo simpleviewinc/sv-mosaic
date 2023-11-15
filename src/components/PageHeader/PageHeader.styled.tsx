@@ -7,7 +7,7 @@ export const StyledPageHeader = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px;
+	padding: 24px;
 	min-height: 80px;
 	max-height: 80px;
 `;

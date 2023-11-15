@@ -48,7 +48,7 @@ function DataViewPager(props: DataViewPagerProps) {
 				}
 			/>
 			<StyledButton
-				color="black"
+				color="gray"
 				variant="icon"
 				size="small"
 				mIcon={ChevronLeftIcon}
@@ -56,7 +56,7 @@ function DataViewPager(props: DataViewPagerProps) {
 				disabled={previousDisabled}
 			/>
 			<StyledButton
-				color="black"
+				color="gray"
 				variant="icon"
 				size="small"
 				mIcon={ChevronRightIcon}

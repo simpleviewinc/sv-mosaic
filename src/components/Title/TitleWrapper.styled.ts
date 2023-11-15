@@ -3,7 +3,7 @@ import styled from "styled-components";
 // Utils
 import theme from "@root/theme/theme";
 import Button from "@root/components/Button/Button";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import { TitleWrapperProps } from "./TitleWrapperTypes";
 import { containerQuery } from "@root/utils/css";
 
@@ -21,7 +21,7 @@ export const Description = styled.div`
 `;
 
 
-export const BackButton = styled(Button)<StyledProps<TitleWrapperProps, "collapse">>`
+export const BackButton = styled(Button)<TransientProps<TitleWrapperProps, "collapse">>`
 	margin-right: 10px;
 
 	.MuiButtonBase-root{

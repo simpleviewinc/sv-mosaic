@@ -1,166 +1,115 @@
-import * as React from "react";
-import { useState, memo, createContext, useMemo } from "react";
-import MUIButton from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Popover from "@mui/material/Popover";
+import React, { MouseEvent, createContext, memo, useState } from "react";
+import Popover, { PopoverProps } from "@mui/material/Popover";
 import Popper from "@mui/material/Popper";
 
-import { ButtonProps, ButtonPopoverContextProps } from "./ButtonTypes";
+import { StyledButton, StyledIconButton, StyledWrapper } from "./Button.styled";
+import { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 import Menu from "../Menu";
 import MenuBase from "../MenuBase";
-import { MosaicObject } from "../../types";
-import { PopoverWrapper, TooltipContent, types } from "./Button.styled";
+import { PopoverWrapper, TooltipContent } from "./Button.styled";
 
 export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(null);
 
-function Button(props: ButtonProps) {
-	const {
-		attrs = {},
-		muiAttrs = {},
-		popover,
-		popoverEvent = "onClick"
-	} = props;
+const popoverProps: Pick<PopoverProps, "anchorOrigin" | "transformOrigin"> = {
+	anchorOrigin: {
+		vertical: "bottom",
+		horizontal: "left",
+	},
+	transformOrigin: {
+		vertical: "top",
+		horizontal: "left",
+	}
+};
 
-	const [anchorEl, setAnchorEl] = useState(null);
-	const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
-	const [tooltipEl, setTooltipEl] = useState(null);
+function ButtonBase(props: ButtonProps) {
+	const Icon = props.mIcon;
+	const isIconButton = props.variant === "icon";
+	const adornmentIcon = Icon && <Icon className="adornment-icon" style={{color: props.mIconColor}} />;
 
-	const addAttrs: MosaicObject = {};
-
-	// const textLink = props.variant === "text" && props.href ? "_link" : "";
-
-	// const MyButton = types[`${props.color}_${props.variant}${textLink}`];
-	const MyButton = types[`${props.color}_${props.variant}`];
-
-	if (MyButton === undefined) {
-		throw new Error(`Color '${props.color}' and variant '${props.variant}' combination is not valid`);
+	const buttonProps = {
+		$variant: props.variant,
+		$color: props.color || "gray",
+		disabled: props.disabled,
+		size: props.size,
+		$size: props.size,
+		onClick: props.onClick,
+		onMouseEnter: props.onMouseEnter,
+		onMouseLeave: props.onMouseLeave,
+		href: props.href,
+		name: props.name,
+		...props.muiAttrs
 	}
 
-	const MaterialIcon = props.mIcon;
 	const iconPosition = props.iconPosition || "left";
 
-	function openMenu(event) {
-		setAnchorEl(event.currentTarget);
-		setTooltipEl(null);
-	}
-
-	function closeMenu() {
-		setTooltipEl(null);
-		setAnchorEl(null);
-	}
-
-	function openPopover(event) {
-		setPopoverAnchorEl(event.currentTarget);
-		setTooltipEl(null);
-	}
-
-	function closePopover() {
-		setTooltipEl(null);
-		setPopoverAnchorEl(null);
-	}
-
-	function onMouseEnter(e) {
-		setTooltipEl(e.currentTarget);
-	}
-
-	function onMouseLeave() {
-		setTooltipEl(null);
-	}
-
-	const onClick = popover ? openPopover
-		: props.menuItems ? openMenu
-		: props.menuContent ? openMenu
-		: props.onClick
-		;
-
-	const size = props.size || "medium";
-
-	if (props.tooltip !== undefined && props.disabled !== true) {
-		addAttrs.onMouseEnter = onMouseEnter;
-		addAttrs.onMouseLeave = onMouseLeave;
-	}
-
-	const isPopoverOnHover = useMemo(() => popoverEvent === "onHover", [popoverEvent]);
-
 	return (
-		<MyButton
-			onMouseEnter={isPopoverOnHover ? openPopover : undefined}
-			onMouseLeave={isPopoverOnHover ? closePopover : undefined}
-			{...attrs}
-			{...addAttrs}
+		<StyledWrapper
+			{...props.attrs}
+			$fullWidth={props.fullWidth}
 			className={`
 				${props.className ? props.className : ""}
 				button
 				${props.variant === "icon" ? "iconButton" : "normalButton"}
 				${props.fullWidth ? "fullWidth" : ""}
-				size_${size}
+				size_${props.size}
 				variant_${props.variant}
 			`}
 		>
-			{
-				props.variant !== "icon" &&
-				<MUIButton
-					{...muiAttrs}
-					variant={props.variant}
-					onClick={onClick}
-					size={size}
-					fullWidth={props.fullWidth}
-					disabled={props.disabled}
-					href={props.href}
-				>
-					{
-						props.mIcon && iconPosition === "left" &&
-						<MaterialIcon className="icon icon_left" style={{ color: props.mIconColor }}></MaterialIcon>
-					}
+			{isIconButton ? (
+				<StyledIconButton {...buttonProps}>
+					<Icon data-testid="icon-button-test" />
+				</StyledIconButton>
+			) : (
+				<StyledButton {...buttonProps} $fullWidth={props.fullWidth}>
+					{iconPosition === "left" && adornmentIcon}
 					{props.label}
-					{
-						props.mIcon && iconPosition === "right" &&
-						<MaterialIcon className="icon icon_right" style={{ color: props.mIconColor }}></MaterialIcon>
-					}
-				</MUIButton>
-			}
-			{
-				props.variant === "icon" &&
-				<IconButton {...muiAttrs} onClick={onClick} disabled={props.disabled} size="large" href={props.href}>
-					{props.mIcon && <MaterialIcon data-testid="icon-button-test" className="icon"></MaterialIcon>}
-				</IconButton>
-			}
-			{
-				props.menuItems &&
-				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu} />
-			}
-			{
-				props.menuContent &&
-				<MenuBase anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
-					{props.menuContent}
-				</MenuBase>
-			}
-			{
-				popover &&
-				<Popover
-					open={Boolean(popoverAnchorEl)}
-					anchorEl={popoverAnchorEl}
-					anchorOrigin={{
-						vertical: isPopoverOnHover ? "bottom" : "top",
-						horizontal: "left",
-					}}
-					transformOrigin={{
-						vertical: "top",
-						horizontal: "left",
-					}}
-					onClose={closePopover}
-					disableRestoreFocus
-					style={ isPopoverOnHover ? { pointerEvents: "none" } : null}
-				>
-					<PopoverWrapper>
-						<ButtonPopoverContext.Provider value={{ onClose: closePopover }}>
-							{popover}
-						</ButtonPopoverContext.Provider>
-					</PopoverWrapper>
-				</Popover>
-			}
-			{
-				props.tooltip &&
+					{iconPosition === "right" && adornmentIcon}
+				</StyledButton>
+			)}
+		</StyledWrapper>
+	);
+}
+
+function ButtonWithState(props: ButtonProps) {
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [tooltipEl, setTooltipEl] = useState(null);
+
+	function openMenu(e: MouseEvent<HTMLButtonElement>) {
+		setAnchorEl(e.currentTarget);
+	}
+
+	function closeMenu() {
+		setAnchorEl(null);
+	}
+
+	const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+		openMenu(e);
+		props.onClick && props.onClick(e);
+	};
+
+	const isPopoverOnHover = props.popoverEvent === "onHover";
+
+	const onMouseEnter = (e: MouseEvent<HTMLButtonElement>) => {
+		props.onMouseEnter && props.onMouseEnter(e);
+		isPopoverOnHover && openMenu(e);
+		setTooltipEl(e.currentTarget);
+	};
+
+	const onMouseLeave = (e: MouseEvent<HTMLButtonElement>) => {
+		props.onMouseLeave && props.onMouseLeave(e);
+		isPopoverOnHover && closeMenu();
+		setTooltipEl(null);
+	};
+
+	return (
+		<>
+			<ButtonBase
+				{...props}
+				onClick={onClick}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+			/>
+			{props.tooltip && (
 				<Popper
 					open={Boolean(tooltipEl)}
 					anchorEl={tooltipEl}
@@ -168,8 +117,38 @@ function Button(props: ButtonProps) {
 				>
 					<TooltipContent>{props.tooltip}</TooltipContent>
 				</Popper>
-			}
-		</MyButton>
+			)}
+			{props.popover ? (
+				<Popover
+					open={Boolean(anchorEl)}
+					anchorEl={anchorEl}
+					onClose={closeMenu}
+					disableRestoreFocus
+					style={ isPopoverOnHover ? { pointerEvents: "none" } : null}
+					{...popoverProps}
+				>
+					<PopoverWrapper>
+						<ButtonPopoverContext.Provider value={{ onClose: closeMenu }}>
+							{props.popover}
+						</ButtonPopoverContext.Provider>
+					</PopoverWrapper>
+				</Popover>
+			) : props.menuItems ? (
+				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu} />
+			) : props.menuContent && (
+				<MenuBase anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
+					{props.menuContent}
+				</MenuBase>
+			)}
+		</>
+	);
+}
+
+function Button(props: ButtonProps) {
+	return (props.menuItems || props.menuContent || props.popover || props.tooltip) ? (
+		<ButtonWithState {...props} />
+	) : (
+		<ButtonBase {...props} />
 	);
 }
 
