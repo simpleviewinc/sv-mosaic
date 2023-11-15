@@ -28,9 +28,9 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 	return (
 		<StyledSpan>
 			<Button
-				variant="text"
+				variant="icon"
 				color="black"
-				label={<Icon/>}
+				mIcon={Icon}
 				iconPosition="right"
 				size="small"
 				menuContent={menuContent}

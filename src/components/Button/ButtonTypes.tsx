@@ -24,6 +24,8 @@ export interface ButtonProps {
 	menuContent?: JSX.Element
 	mIconColor?: string
 	onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
+	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
+	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
 	/** Attrs for the root span that wraps the button */
 	attrs?: MosaicObject
 	/** Attrs for the nested Material UI IconButton or Button */

@@ -5,10 +5,10 @@ import styled from "styled-components";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import { StyledProps } from "@root/types";
+import { TransientProps } from "@root/types";
 import { SectionPropTypes } from "./SectionTypes";
 
-export const StyledAccordion = styled(Accordion)<StyledProps<SectionPropTypes, "title">>`
+export const StyledAccordion = styled(Accordion)<TransientProps<SectionPropTypes, "title">>`
 	box-shadow: none !important;
 	border-radius: 0px;
 	scroll-margin-top: 60px;
@@ -52,7 +52,7 @@ export const StyledDescription = styled.p`
 	padding: 0 24px;
 `;
 
-export const StyledRows = styled.div<StyledProps<SectionPropTypes, "title">>`
+export const StyledRows = styled.div<TransientProps<SectionPropTypes, "title">>`
 	margin: 0px;
 	display: grid;
 	grid-template-columns: repeat(1,minmax(0,1fr));

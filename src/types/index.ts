@@ -34,6 +34,6 @@ export type MosaicCSSContainer = {
 export type PrependDollar<K extends string | number | symbol > =
 	K extends string | number ? `$${K}` : never;
 
-export type StyledProps<T, K extends keyof T> = {
+export type TransientProps<T, K extends keyof T = keyof T> = {
     [P in K as PrependDollar<P>]: T[P];
 };
