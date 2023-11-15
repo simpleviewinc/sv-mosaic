@@ -98,12 +98,7 @@ const Heading = styled.h2`
 `
 
 const MyBodyText = styled(BodyText)`
-	color: white;
-	background-color: #444;
-	border-radius: 3px;
-	padding: 10px;
-
-	> * {
+	&& {
 		font-size: 12px;
 		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 	}
