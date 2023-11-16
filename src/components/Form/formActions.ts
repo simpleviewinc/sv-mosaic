@@ -62,7 +62,6 @@ export const formActions: FormActionThunks = {
 			}, {});
 
 			extraArgs.fieldMap = fieldMap;
-			console.log(fields, extraArgs);
 		};
 	},
 	setSubmitWarning({ value }) {
@@ -210,6 +209,16 @@ export const formActions: FormActionThunks = {
 				validators.push({
 					fn: "validateCharacterCount",
 					options: { max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters }
+				});
+			}
+
+			if (extraArgs?.fieldMap[name]?.inputSettings?.minDate || extraArgs?.fieldMap[name]?.inputSettings?.maxDate) {
+				validators.push({
+					fn: "validateMinDate",
+					options: {
+						min: extraArgs?.fieldMap[name]?.inputSettings?.minDate,
+						max: extraArgs?.fieldMap[name]?.inputSettings?.maxDate
+					}
 				});
 			}
 
