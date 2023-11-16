@@ -93,8 +93,12 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 	/**
 	 * Clear values for the entered location.
 	 */
-	const removeLocation = () => {
-		onChange && onChange(undefined);
+	const removeLocation = async () => {
+		if (onChange) {
+			await onChange(undefined);
+		}
+
+		await onBlur();
 	};
 
 	const { isLoaded, loadError } = useLoadScript({
