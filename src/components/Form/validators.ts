@@ -1,3 +1,6 @@
+import { DATE_FORMAT_FULL } from "@root/constants";
+import { format } from "date-fns";
+
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
 export const VALIDATE_SLOW_TYPE = "validateSlow";
 export const REQUIRED_TYPE = "required";
@@ -152,6 +155,24 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 	return undefined;
 }
 
+export function validateMinDate(value: any, data: any, { min, max }: { min?: Date, max?: Date }): string | undefined {
+	if (!(value instanceof Date)) {
+		return;
+	}
+
+	if (min && !max && value < min) {
+		return `Date must come on or after ${format(min, DATE_FORMAT_FULL)}`;
+	}
+
+	if (!min && max && value > max) {
+		return `Date must come on or before ${format(max, DATE_FORMAT_FULL)}`;
+	}
+
+	if (min && max && (value < min || value > max)) {
+		return `Date must come between ${format(min, DATE_FORMAT_FULL)} and ${format(max, DATE_FORMAT_FULL)}`;
+	}
+}
+
 export function validateCharacterCount(value: string, data: any, options: {max?: number}): string | undefined {
 	if (!options.max) {
 		return;
@@ -195,6 +216,7 @@ export function mapsValidators(validators): Validator[] {
 		isLatitude: isLatitude,
 		isLongitude: isLongitude,
 		validateDateRange: validateDateRange,
+		validateMinDate: validateMinDate,
 		validateCharacterCount: validateCharacterCount,
 		validateEmail: validateEmail,
 		validateNumber: validateNumber,
