@@ -80,7 +80,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [state.data, initialState]);
 
 	const getFormValues = useCallback(async () => {
-		console.log(addressToEdit);
 		return addressToEdit;
 	}, [addressToEdit]);
 
