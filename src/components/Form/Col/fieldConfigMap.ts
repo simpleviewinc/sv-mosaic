@@ -40,32 +40,32 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	},
 	chip: {
 		Component: FormFieldChipSingleSelect,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	dropdown: {
 		Component: FormFieldDropdownSingleSelection,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	phone: {
 		Component: FormFieldPhoneSelectionDropdown,
-		validate: "onBlur",
+		validate: "onBlurAmend",
 		getResolvedValue: defaultResolver
 	},
 	radio: {
 		Component: FormFieldRadio,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	toggleSwitch: {
 		Component: FormFieldToggleSwitch,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	imageVideoDocumentLink: {
 		Component: FormFieldImageVideoLinkDocumentBrowsing,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	color: {
@@ -110,17 +110,17 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	},
 	address: {
 		Component: FormFieldAddress,
-		validate: "onChange",
+		validate: "onBlur",
 		getResolvedValue: defaultResolver
 	},
 	table: {
 		Component: FormFieldTable,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	textEditor: {
 		Component: FormFieldTextEditor,
-		validate: "onBlur",
+		validate: "onBlurAmend",
 		getResolvedValue: defaultResolver
 	},
 	advancedSelection: {
@@ -135,27 +135,27 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	},
 	imageUpload: {
 		Component: FormFieldImageUpload,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	matrix: {
 		Component: FormFieldMatrix,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	upload: {
 		Component: FormFieldUpload,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	numberTable: {
 		Component: FormFieldNumberTable,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	raw: {
 		Component: FormFieldRaw,
-		validate: "onBlur",
+		validate: "onChange",
 		getResolvedValue: defaultResolver
 	}
 };
