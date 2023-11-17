@@ -224,3 +224,60 @@ export const KitchenSink = (): ReactElement => {
 		</>
 	);
 };
+
+const validateShouldBeTest = (value: any) => {
+	if (value !== "Test") {
+		return "This field should have the value \"Test\"";
+	}
+}
+
+const validationStrategyFields: FieldDef[] = [
+	{
+		name: "onBlur",
+		label: "onBlur",
+		type: "text",
+		instructionText: "This field will be validated only when the input loses focus",
+		validators: [validateShouldBeTest],
+		validateOn: "onBlur"
+	},
+	{
+		name: "onBlurAmend",
+		label: "onBlurAmend",
+		type: "text",
+		instructionText: "This field will be validated only when the input loses focus, but the validation message will disappear once the user makes a change",
+		validators: [validateShouldBeTest],
+		validateOn: "onBlurAmend"
+	},
+	{
+		name: "onBlurChange",
+		label: "onBlurChange",
+		type: "text",
+		instructionText: "This field will initially only be validated when the input loses focus, but once the input has lost focus it will be validated with every change",
+		validators: [validateShouldBeTest],
+		validateOn: "onBlurChange"
+	},
+	{
+		name: "onChange",
+		label: "onChange",
+		type: "text",
+		instructionText: "This field should be validated with every change",
+		validators: [validateShouldBeTest],
+		validateOn: "onChange"
+	},
+];
+
+export const ValidationStrategies = (): ReactElement => {
+	const { state, dispatch } = useForm();
+
+	return (
+		<>
+			<Form
+				buttons={renderButtons(dispatch)}
+				title='Validation Strategies'
+				state={state}
+				fields={validationStrategyFields}
+				dispatch={dispatch}
+			/>
+		</>
+	);
+};
