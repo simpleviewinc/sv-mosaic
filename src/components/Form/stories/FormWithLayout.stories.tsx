@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo} from "react";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, object } from "@storybook/addon-knobs";
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
@@ -22,6 +22,12 @@ export default {
 	decorators: [withKnobs],
 };
 
+const initialSection1Fields = [
+	[["text1"], ["textarea"], ["text2"]],
+	[["text3"], [], ["text4"]],
+	[["toggleSwitch"], ["color"]]
+];
+
 export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const { state, dispatch } = useForm();
 
@@ -35,6 +41,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 
 	const showState = boolean("Show state", false);
 	const collapsed = boolean("Collapse sections", false);
+	const section1Fields = object("Section 1 Fields", initialSection1Fields)
 	const {height = "100vh"} = props;
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -120,15 +127,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			title: "Section 1",
 			description: "Description for section 1",
 			collapsed,
-			fields: [
-				// row 1
-				[["text1"], ["textarea"], ["text2"]],
-				// row 2
-				[["text3"], ["text4"], ["color"]],
-				[[]],
-				// row 3
-				[["toggleSwitch"]]
-			]
+			fields: section1Fields
 		},
 		{
 			title: "Section 2",
@@ -154,7 +153,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 				[["imageUpload"], [], []],
 			]
 		},
-	], [fields, collapsed]);
+	], [fields, collapsed, section1Fields]);
 
 	useEffect(() => {
 		dispatch(
