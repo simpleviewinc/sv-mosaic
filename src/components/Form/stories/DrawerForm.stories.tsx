@@ -76,16 +76,6 @@ const Heading = styled.h2`
 
 async function getFormValues() {
 	return {
-		pets: [{
-			id: 1,
-			items: ["Dog", "Brown"],
-		}, {
-			id: 2,
-			items: ["Cat", "White"],
-		}, {
-			id: 3,
-			items: ["Rabbit", "Black"]
-		}],
 		petsHeading: <Heading>Pets</Heading>,
 		destinationsHeading: <Heading>Destinations</Heading>,
 		novaScotia: { lat: 44.64933472911243, lng: -63.615047475871876 },
@@ -112,7 +102,7 @@ const sections: SectionDef[] = [
 			[["profilePicture"], ["biography"], []],
 			[["homeAddress"], ["workAddress"], ["altAddress"]],
 			[["petsHeading"]],
-			[["pets"], ["favouritePet", "firstPet", "desiredPet"]],
+			[["favouritePet", "firstPet", "desiredPet"]],
 			[["destinationsHeading"]],
 			[["whereToGo"]],
 			[["availableStart"], ["availableEnd"]],
