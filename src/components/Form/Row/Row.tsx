@@ -8,10 +8,10 @@ import { StyledRow } from "./RowStyled";
 import Col from "../Col";
 
 const Row = (props: RowPropTypes) => {
-	const { row, rowIdx, state, fieldsDef, dispatch, sectionIdx, gridMinWidth, spacing } = props;
+	const { row, rowIdx, state, fieldsDef, dispatch, sectionIdx } = props;
 
 	return (
-		<StyledRow data-layout="row" $columns={row.length} $gridMinWidth={gridMinWidth} $spacing={spacing}>
+		<StyledRow data-layout="row" $columns={row.length}>
 			{row.map((col, i) => {
 				return (
 					<Col
@@ -24,7 +24,6 @@ const Row = (props: RowPropTypes) => {
 						fieldsDef={fieldsDef}
 						dispatch={dispatch}
 						colsInRow={row.length}
-						spacing={spacing}
 					/>
 				)
 			})}

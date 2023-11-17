@@ -8,6 +8,7 @@ import { default as MUIFormHelperText } from "@mui/material/FormHelperText";
 import theme from "@root/theme";
 
 export const ErrorTextWrapper = styled.div`
+  height: 20px;
   align-items: center;
   display: flex;
   flex-direction: row;

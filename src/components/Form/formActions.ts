@@ -1,7 +1,6 @@
 import { mapsValidators, required, validatePhoneNumber, Validator } from "./validators";
-import { FormActionThunks, FormExtraArgs } from "./state/types";
-import { getFieldConfig } from "./Col/fieldConfigMap";
-import { FieldDefSanitized } from "../Field";
+import { FormActionThunks } from "./state/types";
+import fieldConfigMap from "./Col/fieldConfigMap";
 
 async function runValidators(
 	validators: Validator[],
@@ -32,29 +31,13 @@ const isValidValue = (value: any) => {
 	return true;
 }
 
-function getFieldFromExtra(extraArgs: FormExtraArgs, name: string) {
-	if (!extraArgs.fieldMap[name]) {
-		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.fieldMap).map(name => `\`${name}\``).join(", ")}`)
-	}
-
-	return extraArgs.fieldMap[name];
-}
-
 export const formActions: FormActionThunks = {
 	init({ fields }) {
 		return async function (_dispatch, _getState, extraArgs) {
-			extraArgs.fields = fields.map(field => {
-				const fieldConfig = getFieldConfig(field.type);
-				const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue
-
-				const result: FieldDefSanitized = {
-					...field,
-					validateOn: field.validateOn || fieldConfig.validate,
-					getResolvedValue: (value) => valueResolver(value, field)
-				}
-
-				return result;
-			});
+			extraArgs.fields = fields.map(field => ({
+				...field,
+				validateOn: field.validateOn || (typeof field.type === "string" ? fieldConfigMap[field.type].validate : "onBlur")
+			}));
 
 			const fieldMap = extraArgs.fields.reduce((prev, curr) => {
 				prev[curr.name] = curr;
@@ -73,66 +56,41 @@ export const formActions: FormActionThunks = {
 		}
 	},
 	setFormValues({ values }) {
-		return async function (dispatch, _getState, extraArgs) {
-			const internalValues = Object.keys(values).reduce((acc, curr) => ({
-				...acc,
-				[curr]: getFieldFromExtra(extraArgs, curr).getResolvedValue(values[curr]).internalValue
-			}), {});
-
+		return async function (dispatch) {
 			return dispatch({
 				type: "FIELDS_ON_CHANGE",
 				value: values,
-				internalValue: internalValues,
 				clearErrors: true
 			});
 		}
 	},
 	setFieldValue({
 		name,
-		value: providedValue,
+		value,
 		validate = false,
 		touched = false,
 	}) {
-		return async function (dispatch, getState, extraArgs) {
-			const { errors } = getState();
-			const field = getFieldFromExtra(extraArgs, name);
-			const { internalValue, value } = field.getResolvedValue(providedValue);
-
+		return async function (dispatch, _getState, extraArgs) {
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
 				name,
-				internalValue,
 				value: isValidValue(value) ? value : undefined,
 				touched
 			});
 
-			if (validate || field.validateOn === "onChange") {
-				await dispatch(formActions.validateField({
-					name,
-					validateLinkedFields: true
-				}));
+			if (validate || extraArgs.fieldMap[name].validateOn === "onChange") {
+				await dispatch(formActions.validateField({ name }));
 			}
 
 			if (
-				field.validateOn === "onBlurChange" &&
+				extraArgs.fieldMap[name].validateOn === "onBlurChange" &&
 				extraArgs.hasBlurred[name]
 			) {
-				await dispatch(formActions.validateField({
-					name,
-					validateLinkedFields: true
-				}));
-			}
-
-			if (
-				field.validateOn === "onBlurAmend" &&
-				extraArgs.hasBlurred[name] &&
-				errors[name]
-			) {
 				delete extraArgs.hasBlurred[name];
-				await dispatch(formActions.validateField({
-					name,
-					validateLinkedFields: true
-				}));
+				await dispatch({
+					type: "FIELD_UNVALIDATE",
+					name
+				});
 			}
 		};
 	},
@@ -140,44 +98,24 @@ export const formActions: FormActionThunks = {
 		name
 	}) {
 		return async function(dispatch, _getState, extraArgs) {
-			const field = getFieldFromExtra(extraArgs, name);
 			extraArgs.hasBlurred[name] = true;
 
 			if (
-				field.validateOn === "onBlur" ||
-				field.validateOn === "onBlurAmend" ||
-				field.validateOn === "onBlurChange"
+				extraArgs.fieldMap[name].validateOn === "onBlur" ||
+				extraArgs.fieldMap[name].validateOn === "onBlurChange"
 			) {
-				await dispatch(formActions.validateField({
-					name,
-					validateLinkedFields: true
-				}))
+				await dispatch(formActions.validateField({ name }))
 			}
 
 		}
 	},
-	validateField({ name, validateLinkedFields }) {
+	validateField({ name }) {
 		return async function (dispatch, getState, extraArgs) {
-
 			const { data } = getState();
 			const { mounted, internalValidators } = extraArgs;
-			const field = getFieldFromExtra(extraArgs, name);
 
 			if (!mounted[name]) {
 				return;
-			}
-
-			/**
-			 * @TODO This is not pretty, but it'll do for now. Ideally we would
-			 * only commit one dispatch after validating all fields, instead of
-			 * a dispatch for each field
-			 */
-			if (validateLinkedFields && field.validates) {
-				field.validates.forEach(linkedFieldName => {
-					dispatch(formActions.validateField({
-						name: linkedFieldName
-					}));
-				});
 			}
 
 			/**

@@ -6,10 +6,6 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 	case "FIELD_ON_CHANGE":
 		return {
 			...state,
-			internalData: {
-				...state.internalData,
-				[action.name]: "internalValue" in action ? action.internalValue : action.value
-			},
 			data: {
 				...state.data,
 				[action.name]: action.value
@@ -23,10 +19,6 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 	case "FIELDS_ON_CHANGE":
 		return {
 			...state,
-			internalData: {
-				...state.internalData,
-				...action.internalValue
-			},
 			data: {
 				...state.data,
 				...action.value
@@ -136,7 +128,6 @@ export function useForm(): UseFormReturn {
 	const [state, dispatch] = useThunkReducer(
 		coreReducer,
 		{
-			internalData: {},
 			data: {},
 			errors: {},
 			validating: {},

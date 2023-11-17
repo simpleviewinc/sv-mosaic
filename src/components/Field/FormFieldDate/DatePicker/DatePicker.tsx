@@ -3,11 +3,11 @@ import { ReactElement, useState } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import TextField from "@mui/material/TextField";
 import { DatePickerProps } from ".";
 
 // Styles
 import {
-	DatePickerTextField,
 	DatePickerWrapper,
 	popperSx,
 } from "./DatePicker.styled";
@@ -21,13 +21,13 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 	const handleOpenState = async () => {
 		setIsPickerOpen(!isPickerOpen);
 
-		if (isPickerOpen && onBlur) {
-			onBlur();
+		if (onBlur) {
+			await onBlur();
 		}
 	};
 
 	const renderInput = (params) => (
-		<DatePickerTextField
+		<TextField
 			{...params}
 			onBlur={onBlur}
 			required={fieldDef.required}
@@ -53,7 +53,6 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 						sx: popperSx,
 					}}
 					minDate={fieldDef?.inputSettings?.minDate}
-					maxDate={fieldDef?.inputSettings?.maxDate}
 					disabled={fieldDef?.disabled}
 				/>
 			</DatePickerWrapper>

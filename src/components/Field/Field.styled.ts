@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 import { containerQuery } from "@root/utils/css";
-import { FormSpacing } from "../Form";
 
 export const StyledFieldContainer = styled.div`
 	display: flex;
@@ -14,16 +13,16 @@ export const StyledFieldContainer = styled.div`
 	}
 `;
 
-export const StyledFieldWrapper = styled.div<{$error?: boolean, $spacing?: FormSpacing}>`
+export const StyledFieldWrapper = styled.div<{$error?: boolean}>`
 	font-family: ${theme.fontFamily};
 	position: relative;
 	min-width: 0;
 	flex-grow: 1;
 
-	${({ $error, $spacing }) => $error && `
+	${({ $error }) => $error && `
 		background-color: ${theme.newColors.darkRed["5"]};
-		margin: ${$spacing === "compact" ? "0 -8px -8px" : "-4px -12px -8px"};
-		padding: ${$spacing === "compact" ? "0 8px 8px" : "4px 12px 8px"};
+		margin: -4px -12px -8px;
+		padding: 4px 12px 8px;
 	`}
 `;
 

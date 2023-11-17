@@ -14,8 +14,7 @@ const Col = (props: ColPropsTypes) => {
 		colsInRow,
 		colIdx,
 		rowIdx,
-		sectionIdx,
-		spacing
+		sectionIdx
 	} = props;
 
 	return (
@@ -31,7 +30,6 @@ const Col = (props: ColPropsTypes) => {
 					colsInRow={colsInRow}
 					rowIdx={rowIdx}
 					sectionIdx={sectionIdx}
-					spacing={spacing}
 				/>
 			))}
 		</StyledCol>

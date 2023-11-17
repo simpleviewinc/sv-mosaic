@@ -11,7 +11,7 @@ import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldToggleSwitch from "@root/components/Field/FormFieldToggleSwitch";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
-import FormFieldDate, { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
+import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldAddress from "@root/components/Field/FormFieldAddress";
 import FormFieldTable from "@root/components/Field/FormFieldTable";
 import FormFieldTextEditor from "@root/components/Field/FormFieldTextEditor";
@@ -21,163 +21,88 @@ import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldUpload from "@root/components/Field/FormFieldUpload";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
-import { matchTime } from "@root/utils/date";
-
-export function defaultResolver(value: any) {
-	return { internalValue: value, value };
-}
 
 const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, FieldConfig>> = {
 	text: {
 		Component: FormFieldText,
-		validate: "onBlurAmend",
-		getResolvedValue: defaultResolver
+		validate: "onBlurChange"
 	},
 	checkbox: {
 		Component: FormFieldCheckbox,
-		validate: "onChange",
-		getResolvedValue: defaultResolver
+		validate: "onChange"
 	},
 	chip: {
 		Component: FormFieldChipSingleSelect,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	dropdown: {
 		Component: FormFieldDropdownSingleSelection,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	phone: {
 		Component: FormFieldPhoneSelectionDropdown,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	radio: {
 		Component: FormFieldRadio,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	toggleSwitch: {
 		Component: FormFieldToggleSwitch,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	imageVideoDocumentLink: {
 		Component: FormFieldImageVideoLinkDocumentBrowsing,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	color: {
 		Component: FormFieldColorPicker,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	date: {
 		Component: FormFieldDate,
-		validate: "onBlurChange",
-		getResolvedValue: (value: DateData | undefined, fieldDef: FieldDefDate): { internalValue: DateData | undefined, value: Date | undefined } => {
-			if (value instanceof Date ) {
-				return {
-					internalValue: { date: value, validDate: true, time: value, validTime: true },
-					value
-				}
-			} else {
-				const fixedTime = fieldDef?.inputSettings?.fixedTime || [0, 0, 0, 0];
-
-				if (!value) {
-					return {
-						internalValue: undefined,
-						value: undefined
-					};
-				}
-
-				if (!value.validDate) {
-					return { internalValue: value, value: undefined };
-				}
-
-				if (!fieldDef?.inputSettings?.showTime) {
-					return { internalValue: value, value: matchTime(value.date, fixedTime) };
-				}
-
-				if (!value.validTime) {
-					return { internalValue: value, value: undefined };
-				}
-
-				return { internalValue: value , value: matchTime(value.date, value.time) };
-			}
-		}
+		validate: "onBlur"
 	},
 	address: {
 		Component: FormFieldAddress,
-		validate: "onChange",
-		getResolvedValue: defaultResolver
+		validate: "onChange"
 	},
 	table: {
 		Component: FormFieldTable,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	textEditor: {
 		Component: FormFieldTextEditor,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	advancedSelection: {
 		Component: FormFieldAdvancedSelection,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	mapCoordinates: {
 		Component: FormFieldMapCoordinates,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	imageUpload: {
 		Component: FormFieldImageUpload,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	matrix: {
 		Component: FormFieldMatrix,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	upload: {
 		Component: FormFieldUpload,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	numberTable: {
 		Component: FormFieldNumberTable,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	},
 	raw: {
 		Component: FormFieldRaw,
-		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		validate: "onBlur"
 	}
 };
-
-export function getFieldConfig(type: FieldDef["type"]): FieldConfig {
-	if (typeof type !== "string") {
-		return {
-			Component: type,
-			validate: "onBlur",
-			getResolvedValue: defaultResolver
-		};
-	}
-
-	if (!fieldConfigMap[type]) {
-		return {
-			Component: null,
-			validate: "onBlur",
-			getResolvedValue: defaultResolver
-		};
-	}
-
-	return fieldConfigMap[type];
-}
 
 export default fieldConfigMap;

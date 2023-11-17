@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from "react";
 import { FieldDef } from "../FormTypes";
-import { getFieldConfig } from "./fieldConfigMap";
+import fieldConfigMap from "./fieldConfigMap";
 import { ColFieldProps } from "./ColTypes";
 import formActions from "../formActions";
 import Field, { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
@@ -14,8 +14,7 @@ const ColField = ({
 	rowIdx,
 	sectionIdx,
 	dispatch,
-	state,
-	spacing
+	state
 }: ColFieldProps) => {
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
@@ -24,7 +23,10 @@ const ColField = ({
 	}
 
 	const isCustomField = typeof field.type !== "string";
-	const { Component }: FieldConfig = getFieldConfig(field.type);
+	const { Component }: FieldConfig = typeof field.type === "string" ? fieldConfigMap[field.type] : {
+		Component: field.type,
+		validate: "onBlur"
+	}
 
 	if (!Component) {
 		throw new Error(`Invalid type ${field.type}`);
@@ -48,7 +50,7 @@ const ColField = ({
 		}))
 	}, [field.name]);
 
-	const value = state?.internalData[field.name];
+	const value = state?.data[field.name];
 	const error = !field.disabled ? state.errors[field.name] : "";
 
 	const size = sanitizeFieldSize(
@@ -86,7 +88,6 @@ const ColField = ({
 			colsInRow={colsInRow}
 			id={field.name}
 			dispatch={dispatch}
-			spacing={spacing}
 		>
 			{children}
 		</Field>

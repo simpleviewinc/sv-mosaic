@@ -1,16 +1,15 @@
-import { TimeTuple } from "@root/components/Field";
 
-function matchTime(date: Date, time: Date | TimeTuple) {
-	const clone = new Date(date.getTime());
-	const [hr, min, sec] = Array.isArray(time) ? time : [
+function matchTime(date: Date, time: Date | [number, number, number, number]) {
+	const [hr, min, sec, ms] = Array.isArray(time) ? time : [
 		time.getHours(),
 		time.getMinutes(),
-		time.getSeconds()
+		time.getSeconds(),
+		time.getMilliseconds()
 	];
 
-	clone.setHours(hr, min, sec, 0);
+	date.setHours(hr, min, sec, ms);
 
-	return clone;
+	return date;
 }
 
 export default matchTime

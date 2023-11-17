@@ -29,8 +29,8 @@ const sections = [
 			[["address2"]],
 			[["address3"]],
 			[["country"]],
-			[["city"], ["state"], ["postalCode"]],
-			[["types"]],
+			[["city"], ["states"], ["postalCode"]],
+			[["type"]],
 		],
 	},
 ];
@@ -39,6 +39,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
 		value,
 		onChange,
+		open,
 		addressToEdit,
 		isEditing,
 		addressIdx,
@@ -79,9 +80,85 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			handleUnsavedChanges(!_.isEqual(initialState, state.data));
 	}, [state.data, initialState]);
 
-	const getFormValues = useCallback(async () => {
-		console.log(addressToEdit);
-		return addressToEdit;
+	useEffect(() => {
+		let isMounted = true;
+
+		const fillEditingValues = async () => {
+			let editingState = {};
+
+			await setFieldValue("address1", addressToEdit.address1);
+			editingState = {
+				...editingState,
+				"address1": addressToEdit.address1,
+			};
+
+			if (addressToEdit.address2) {
+				await setFieldValue("address2", addressToEdit.address2);
+				editingState = {
+					...editingState,
+					"address2": addressToEdit.address2,
+				};
+			}
+
+			if (addressToEdit.address3) {
+				await setFieldValue("address3", addressToEdit.address3);
+				editingState = {
+					...editingState,
+					"address3": addressToEdit.address3,
+				};
+			}
+
+			await setFieldValue("city", addressToEdit.city);
+			editingState = {
+				...editingState,
+				"city": addressToEdit.city,
+			};
+
+
+			await setFieldValue("postalCode", addressToEdit.postalCode);
+			editingState = {
+				...editingState,
+				"postalCode": addressToEdit.postalCode,
+			};
+
+			await dispatch(
+				formActions.setFieldValue({
+					name: "type",
+					value: addressToEdit.types,
+				})
+			);
+
+			editingState = {
+				...editingState,
+				"type": addressToEdit.types,
+			};
+
+			await setFieldValue("country", { label: addressToEdit.country?.label, value: addressToEdit.country?.value });
+
+			editingState = {
+				...editingState,
+				"country": { label: addressToEdit.country?.label, value: addressToEdit.country?.value },
+			};
+
+			if (addressToEdit.state) {
+				await setFieldValue("states", { label: addressToEdit.state?.label, value: addressToEdit.state?.value });
+
+				editingState = {
+					...editingState,
+					"states": { label: addressToEdit.state?.label, value: addressToEdit.state?.value },
+				};
+			}
+
+			setInitialState(editingState);
+		};
+
+		if (isEditing && open && isMounted) {
+			fillEditingValues();
+		}
+
+		return () => {
+			isMounted = false;
+		}
 	}, [addressToEdit]);
 
 	/**
@@ -91,11 +168,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	useEffect(() => {
 		if (isEditing) {
 			if (initialState.country && state.data.country && initialState.country.value !== state.data.country.value) {
-				setFieldValue("state", undefined);
+				setFieldValue("states", undefined);
 			}
 		} else {
 			if (initialState.country?.value !== state.data.country?.value) {
-				setFieldValue("state", undefined);
+				setFieldValue("states", undefined);
 			}
 		}
 	}, [state?.data?.country, initialState, isEditing]);
@@ -113,8 +190,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		listOfAddresses[addressIdx].city = state?.data?.city?.trim();
 		listOfAddresses[addressIdx].postalCode = state?.data?.postalCode?.trim();
 		listOfAddresses[addressIdx].country = state?.data?.country;
-		listOfAddresses[addressIdx].state = state?.data?.state;
-		listOfAddresses[addressIdx].types = state?.data?.types;
+		listOfAddresses[addressIdx].state = state?.data?.states;
+		listOfAddresses[addressIdx].types = state?.data?.type;
 
 		return listOfAddresses;
 	};
@@ -135,8 +212,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			city: state?.data?.city?.trim(),
 			postalCode: state?.data?.postalCode?.trim(),
 			country: state?.data?.country,
-			state: state?.data?.state,
-			types: state?.data?.types,
+			state: state?.data?.states,
+			types: state?.data?.type,
 		});
 		setIsEditing(false);
 
@@ -161,7 +238,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	useEffect(() => {
 		const handleApiStateChange = async () => {
 			if (apiState !== undefined) {
-				await setFieldValue("state", { label: apiState.label, value: apiState.value }, true);
+				await setFieldValue("states", { label: apiState.label, value: apiState.value }, true);
 				setApiState(undefined);
 			}
 		}
@@ -318,7 +395,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					required: true,
 				},
 				{
-					name: "state",
+					name: "states",
 					type: "dropdown",
 					label: "State",
 					size: "sm",
@@ -337,7 +414,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					},
 				},
 				{
-					name: "types",
+					name: "type",
 					type: "checkbox",
 					label: "Type",
 					size: "sm",
@@ -387,7 +464,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
-				getFormValues={getFormValues}
 			/>
 			<Snackbar
 				autoHideDuration={4000}
