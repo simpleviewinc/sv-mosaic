@@ -122,6 +122,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		} else {
 			await onChange(undefined);
 		}
+
+		await onBlur();
 	};
 
 	/**

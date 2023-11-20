@@ -129,10 +129,10 @@ export const formActions: FormActionThunks = {
 				errors[name]
 			) {
 				delete extraArgs.hasBlurred[name];
-				await dispatch(formActions.validateField({
-					name,
-					validateLinkedFields: true
-				}));
+				await dispatch({
+					type: "FIELD_UNVALIDATE",
+					name
+				});
 			}
 		};
 	},
@@ -158,7 +158,6 @@ export const formActions: FormActionThunks = {
 	},
 	validateField({ name, validateLinkedFields }) {
 		return async function (dispatch, getState, extraArgs) {
-
 			const { data } = getState();
 			const { mounted, internalValidators } = extraArgs;
 			const field = getFieldFromExtra(extraArgs, name);

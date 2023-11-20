@@ -2,6 +2,7 @@ import * as React from "react";
 import {
 	memo,
 	ReactElement,
+	useCallback,
 	useEffect,
 	useState
 } from "react";
@@ -22,6 +23,7 @@ import {
 	AdvancedSelectionWrapper,
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
+import { MosaicLabelValue } from "@root/types";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {
 	const {
@@ -68,6 +70,11 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		}
 	};
 
+	const deleteSelectedOption = useCallback(async (options: MosaicLabelValue[]) => {
+		await onChange(options);
+		await onBlur();
+	}, [onChange])
+
 	return (
 		<>
 			{value?.length > 0 && !isModalOpen ? (
@@ -89,7 +96,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 							inputSettings: {
 								isModalOpen,
 								isMobileView,
-								deleteSelectedOption: onChange,
+								deleteSelectedOption,
 							},
 							disabled: fieldDef?.disabled,
 						}}
