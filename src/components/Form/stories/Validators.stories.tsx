@@ -75,6 +75,7 @@ export const Validators = (): ReactElement => {
 					helperText: "Helper text",
 					instructionText: "Instruction text",
 					validators: [{ fn: "validateDateRange", options: { endDateName: "endDate" } }],
+					validates: ["endDate"],
 					inputSettings: {
 						showTime: false,
 					},
@@ -88,8 +89,37 @@ export const Validators = (): ReactElement => {
 					helperText: "Helper text",
 					instructionText: "Instruction text",
 					validators: [{ fn: "validateDateRange", options: { startDateName: "startDate" } }],
+					validates: ["startDate"],
 					inputSettings: {
 						showTime: false,
+					},
+				},
+				{
+					name: "minDate",
+					type: "date",
+					label: "Minimum Date",
+					instructionText: "Enter a date on or after 12 Feb 2024",
+					inputSettings: {
+						minDate: new Date(2024, 1, 12, 0, 0, 0, 0),
+					},
+				},
+				{
+					name: "maxDate",
+					type: "date",
+					label: "Maximum Date",
+					instructionText: "Enter a date on or before 25 Jun 2024",
+					inputSettings: {
+						maxDate: new Date(2024, 5, 25, 23, 59, 59, 999)
+					},
+				},
+				{
+					name: "dateBounds",
+					type: "date",
+					label: "Date boundary",
+					instructionText: "Enter a date between 1 Jan 2024 and 31 Dec 2024",
+					inputSettings: {
+						minDate: new Date(2024, 0, 1, 0, 0, 0, 0),
+						maxDate: new Date(2024, 11, 31, 23, 59, 59, 999)
 					},
 				},
 			],
