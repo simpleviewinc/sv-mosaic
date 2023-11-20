@@ -33,6 +33,7 @@ function ButtonBase(props: ButtonProps) {
 		size: props.size,
 		$size: props.size,
 		onClick: props.onClick,
+		onBlur: props.onBlur,
 		onMouseEnter: props.onMouseEnter,
 		onMouseLeave: props.onMouseLeave,
 		href: props.href,
