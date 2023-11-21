@@ -1,79 +1,109 @@
 import * as React from "react";
-import { memo, ReactElement, useRef } from "react";
+import { memo, ReactElement, useEffect, useRef, useMemo } from "react";
 import { MosaicFieldProps } from "@root/components/Field";
 import { EditorWrapper } from "./FormFieldTextEditor.styled";
-import JoditEditor from "jodit-react";
+import { Jodit } from "jodit";
+import "jodit/build/jodit.min.css";
 import { TextEditorData, TextEditorInputSettings } from "./FormFieldTextEditorTypes";
+
+const buttonList = [
+	"source",
+	"|",
+	"bold",
+	"italic",
+	"underline",
+	"strikethrough",
+	"superscript",
+	"subscript",
+	"paragraph",
+	"fontsize",
+	"font",
+	"ul",
+	"ol",
+	"indent",
+	"outdent",
+	"left",
+	"center",
+	"right",
+	"justify",
+	"link",
+	"image",
+	"eraser",
+	"undo",
+	"redo",
+];
 
 const FormFieldTextEditor = (
 	props: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>
 ): ReactElement => {
-	const { fieldDef, onChange, onBlur, value, error } = props;
+	const { fieldDef, onBlur, onChange, value, error } = props;
 
-	const editor = useRef(null);
+	const {
+		disabled = false,
+		inputSettings = {}
+	} = fieldDef;
 
-	const buttonList = [
-		"source",
-		"|",
-		"bold",
-		"italic",
-		"underline",
-		"strikethrough",
-		"superscript",
-		"subscript",
-		"paragraph",
-		"fontsize",
-		"font",
-		"ul",
-		"ol",
-		"indent",
-		"outdent",
-		"left",
-		"center",
-		"right",
-		"justify",
-		"link",
-		"image",
-		"eraser",
-		"undo",
-		"redo",
-	];
+	const {
+		spellcheck = false,
+		direction = "ltr",
+		language = "en",
+		maxCharacters
+	} = inputSettings;
 
-	const config = {
+	const textArea = useRef(null);
+	const jodit = useRef<Jodit>(null);
+
+	const config = useMemo(() => ({
+		cleanHTML: {
+			fillEmptyParagraph: false
+		},
 		namespace: "",
-		disabled: fieldDef?.disabled ? fieldDef?.disabled : false,
+		disabled,
 		buttonsXS: buttonList,
 		buttons: buttonList,
 		buttonsSM: buttonList,
 		buttonsMD: buttonList,
 		buttonsLG: buttonList,
-		spellcheck: fieldDef?.inputSettings?.spellcheck
-			? fieldDef?.inputSettings?.spellcheck
-			: false,
-		direction: fieldDef?.inputSettings?.direction
-			? fieldDef?.inputSettings?.direction
-			: "ltr",
-		language: fieldDef?.inputSettings?.language
-			? fieldDef?.inputSettings?.language
-			: "en",
-		limitChars: fieldDef?.inputSettings?.maxCharacters
-			? fieldDef?.inputSettings?.maxCharacters
-			: undefined,
-	};
+		spellcheck,
+		direction,
+		language,
+		limitChars: maxCharacters,
+	}), [
+		disabled,
+		spellcheck,
+		direction,
+		language,
+		maxCharacters
+	]);
 
-	const updateValue = async (e: string) => {
-		await onChange(e);
-		if (onBlur) await onBlur(e);
-	};
+	useEffect(() => {
+		const blurHandler = value => {
+			onBlur && onBlur(value);
+		};
+
+		const changeHandler = value => {
+			onChange && onChange(value);
+		};
+
+		jodit.current = Jodit.make(textArea.current, config);
+		jodit.current.value = value;
+
+		jodit.current.events.on("blur", () => {
+			const value = jodit.current.value === "<p><br></p>" ? "" : jodit.current.value;
+			blurHandler(value)
+		});
+
+		jodit.current.events.on("change", () => {
+			const value = jodit.current.value === "<p><br></p>" ? "" : jodit.current.value;
+			changeHandler(value)
+		});
+
+		return () => jodit.current.destruct();
+	}, [onBlur, onChange, config, value]);
 
 	return (
 		<EditorWrapper $error={!!error} data-testid="text-editor-testid">
-			<JoditEditor
-				ref={editor}
-				value={value}
-				config={config}
-				onBlur={(e) => updateValue(e)}
-			/>
+			<textarea ref={textArea}></textarea>
 		</EditorWrapper>
 	);
 };

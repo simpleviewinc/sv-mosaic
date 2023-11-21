@@ -40,7 +40,7 @@ const FormFieldColorPicker = (
 	props: MosaicFieldProps<"color", unknown, ColorData>
 ): ReactElement => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-	const { fieldDef, value, onChange } = props;
+	const { fieldDef, value, onChange, onBlur } = props;
 
 	// State variables
 	const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -54,6 +54,7 @@ const FormFieldColorPicker = (
 	const handleClose = () => {
 		setDisplayColorPicker(false);
 		setAnchorEl(null);
+		onBlur();
 	};
 
 	const onColorChange = (color: ColorResult) => {

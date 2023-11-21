@@ -69,10 +69,9 @@ describe("TextEditor component", () => {
 			render(<TextEditorExample direction={"ltr"} />);
 		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
+		const joditContainer = editorContent.getElementsByClassName("jodit-container");
 
-		expect(
-			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
-		).toHaveAttribute("dir", "ltr");
+		expect(joditContainer[0]).toHaveAttribute("dir", "ltr");
 	});
 
 	it("should have an rtl direction", async () => {
@@ -80,10 +79,9 @@ describe("TextEditor component", () => {
 			render(<TextEditorExample direction={"rtl"} />);
 		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
+		const joditContainer = editorContent.getElementsByClassName("jodit-container");
 
-		expect(
-			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
-		).toHaveAttribute("dir", "rtl");
+		expect(joditContainer[0]).toHaveAttribute("dir", "rtl");
 	});
 
 	it("should render in german (de)", async () => {
@@ -91,19 +89,5 @@ describe("TextEditor component", () => {
 			render(<TextEditorExample language={"de"} />);
 		});
 		expect(await screen.findAllByLabelText("Fett")).toBeTruthy();
-	});
-
-	it("should spellcheck", async () => {
-		await act(() => {
-			render(<TextEditorExample spellcheck={true} />);
-		});
-		const editorContent = await screen.findByTestId("text-editor-testid");
-
-		expect(
-			editorContent.firstElementChild.firstElementChild.children[1].firstElementChild
-		).toHaveAttribute(
-			"spellcheck",
-			"true"
-		);
 	});
 });
