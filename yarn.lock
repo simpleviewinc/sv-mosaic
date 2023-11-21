@@ -4645,7 +4645,7 @@ __metadata:
     jest: ^27.5.1
     jest-canvas-mock: ^2.3.1
     jest-fail-on-console: 2.4.2
-    jodit-react: ^1.1.20
+    jodit: 3.19.3
     json-date-parser: 1.0.1
     jsvalidator: 1.2.0
     lodash: ^4.17.15
@@ -9552,10 +9552,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.0.1, core-js@npm:^3.0.4, core-js@npm:^3.24.1":
+"core-js@npm:^3.0.1, core-js@npm:^3.0.4":
   version: 3.25.0
   resolution: "core-js@npm:3.25.0"
   checksum: 5a72740bf5babaf2e6203da4c0e831a0b97c3fe6f21b4c1aa8601d3a927660a22128dd8f0e86ce84778c4e5372ab0fc03c7944afa7e215c7fb13b2c79d5d5504
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.24.0":
+  version: 3.33.3
+  resolution: "core-js@npm:3.33.3"
+  checksum: 070b9c696f5a9b22bab0208daf9fcdffbc3b4f4c89ed2be512b7d99d4be363accfbb26fa6eec7261055d89e8ea0a5bcfccad5923fe43f1f2eafca9f568cc5596
   languageName: node
   linkType: hard
 
@@ -11122,7 +11129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:4.6.0, eslint-plugin-react-hooks@npm:^4.5.0":
+"eslint-plugin-react-hooks@npm:4.6.0":
   version: 4.6.0
   resolution: "eslint-plugin-react-hooks@npm:4.6.0"
   peerDependencies:
@@ -15178,26 +15185,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jodit-react@npm:^1.1.20":
-  version: 1.3.15
-  resolution: "jodit-react@npm:1.3.15"
-  dependencies:
-    eslint-plugin-react-hooks: ^4.5.0
-    jodit: ^3.19.3
-  peerDependencies:
-    react: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: ffbbfeee0fc7011ae503b894a42607512df99bc29522713828ca66abd53f5dc731a37db3e2e10c25909ce5dc2d5663e74ee3b84f016aef22c71367fc05a5d5a2
-  languageName: node
-  linkType: hard
-
-"jodit@npm:^3.19.3":
-  version: 3.19.5
-  resolution: "jodit@npm:3.19.5"
+"jodit@npm:3.19.3":
+  version: 3.19.3
+  resolution: "jodit@npm:3.19.3"
   dependencies:
     autobind-decorator: ^2.4.0
-    core-js: ^3.24.1
-  checksum: 0c96654f86ddb5ddd6b650a66187333336db3b0d5db4a7151cf2c8ca55db8dbff5231e1559ba2794fb69e292c24139d14b1b3d4b64c5300f3986bfd59e190431
+    core-js: ^3.24.0
+  checksum: b295bd1615593f10f0b9df5656142fd48ce894a81ecc5517f3a04927f326b7563e9631e82669ba0f7cdf7ff447a40e842ea59da66fa88bc5ad11155422e05f20
   languageName: node
   linkType: hard
 
