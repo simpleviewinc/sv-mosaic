@@ -99,7 +99,7 @@ const FormFieldTextEditor = (
 		});
 
 		return () => jodit.current.destruct();
-	}, [onBlur, onChange, config]);
+	}, [onBlur, onChange, config, value]);
 
 	return (
 		<EditorWrapper $error={!!error} data-testid="text-editor-testid">
