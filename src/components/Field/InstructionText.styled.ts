@@ -6,8 +6,8 @@ export const InstructionTextWrapper = styled.div`
 	padding-left: 20px;
 	border-left: 2px solid ${theme.newColors.grey2["100"]};
 	flex: none;
+	align-self: stretch;
 	margin-left: auto;
-	margin-top: 36px;
 	display: none;
 	width: 180px;
 
