@@ -315,6 +315,11 @@ export const formActions: FormActionThunks = {
 				[curr]: mounted[curr] ? data[curr] : undefined
 			}), {});
 
+			extraArgs.hasBlurred = Object.keys(extraArgs.fieldMap).reduce((prev, curr) => ({
+				...prev,
+				[curr]: true
+			}), {});
+
 			return {
 				valid,
 				data: cleanData
