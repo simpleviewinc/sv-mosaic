@@ -18,7 +18,6 @@ export const StyledFieldWrapper = styled.div<{$error?: boolean, $spacing?: FormS
 	font-family: ${theme.fontFamily};
 	position: relative;
 	min-width: 0;
-	flex-grow: 1;
 
 	${({ $error, $spacing }) => $error && `
 		background-color: ${theme.newColors.darkRed["5"]};
