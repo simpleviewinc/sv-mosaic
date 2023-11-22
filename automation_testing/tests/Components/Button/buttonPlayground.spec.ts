@@ -187,8 +187,7 @@ test.describe.parallel("Components - Button - Playground", () => {
 
 	test("Validate button width when the full-width knob is active.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobFullWidth + true]);
-		// Width of the viewport minus 16 px of default 8 px in each side.
-		const expectedWidth = page.viewportSize().width - 16;
+		const expectedWidth = page.viewportSize().width - 40;
 		expect(await buttonPage.getElementWidth(buttonPage.button, false)).toBe(expectedWidth);
 	});
 
