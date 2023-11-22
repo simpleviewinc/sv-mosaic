@@ -19,6 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow";
 import { ButtonProps } from "./ButtonTypes";
+import { useStoryBookCssReset } from "@root/utils/reactTools";
 
 export default {
 	title: "Components/Button",
@@ -70,6 +71,10 @@ export const Playground = (): ReactElement => {
 		],
 		"black"
 	);
+	const backgroundColor = select("Background", [
+		"light",
+		"dark",
+	], "light");
 	const size = select(
 		"Size",
 		[
@@ -143,10 +148,12 @@ export const Playground = (): ReactElement => {
 
 	const showButton = useMemo(() => evaluateShow(action.show), [action.show]);
 
+	useStoryBookCssReset();
+
 	return (
 		<StoryBookError>
-			{showButton &&
-				<div style={{ background: buttonColor === "white" ? "black" : "transparent", display: buttonColor === "white" ? "inline-block" : "inline" }}>
+			<div style={{backgroundColor: backgroundColor === "light" ? "white" : "#333", padding: 20}}>
+				{showButton &&
 					<Button
 						attrs={{$smallText: smallText}}
 						label={label === "String" ? "Test" : <FormatListBulletedOutlinedIcon/>}
@@ -165,8 +172,8 @@ export const Playground = (): ReactElement => {
 						menuItems={menuItems && dropdownWithIcons}
 						menuContent={showMenuContent && menuContent}
 					/>
-				</div>
-			}
+				}
+			</div>
 		</StoryBookError>
 	);
 };

@@ -147,7 +147,7 @@ const colors = {
 	errorBackground: "#B100000D",
 	white: "#FFFFFF",
 	whiteIntense: "#EEEEEE",
-	whiteWashed: "#EEEEEE",
+	whiteWashed: "rgba(255,255,255,.2)",
 	blackDisabled: "rgba(0, 0, 0, 0.26)"
 };
 
