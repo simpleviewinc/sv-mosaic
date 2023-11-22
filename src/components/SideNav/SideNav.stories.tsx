@@ -18,8 +18,10 @@ export default {
 	decorators: [withKnobs],
 } as Meta;
 
+const homeContent = <h1>Welcome home!</h1>;
+
 export const Example = (): ReactElement => {
-	const [content, setContent] = useState<JSX.Element>(<h1>Home</h1>);
+	const [content, setContent] = useState<JSX.Element>(homeContent);
 	const [active, setActive] = useState("home");
 
 	const onNav = (args: SideNavArgs) => {
@@ -35,7 +37,7 @@ export const Example = (): ReactElement => {
 				icon: HomeIcon,
 				onNav: (args) => {
 					setActive(args.item.name);
-					setContent(<h1>Home</h1>);
+					setContent(homeContent);
 				},
 			},
 			{
