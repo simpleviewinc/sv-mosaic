@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, memo } from "react";
-import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper } from "./Field.styled";
+import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledLabelControlWrapper } from "./Field.styled";
 
 import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
@@ -38,20 +38,22 @@ const Field = ({
 	return (
 		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper $error={shouldRenderError} $spacing={spacing}>
-				{hasLabelComponent && (
-					<Label
-						required={fieldDef?.required}
-						htmlFor={fieldDef?.name || undefined}
-						maxCharacters={fieldDef?.inputSettings?.maxCharacters}
-						value={value}
-						instructionText={fieldDef?.instructionText}
-					>
-						{fieldDef?.label}
-					</Label>
-				)}
-				<StyledControlWrapper $size={fieldDef?.size}>
-					{children}
-				</StyledControlWrapper>
+				<StyledLabelControlWrapper>
+					{hasLabelComponent && (
+						<Label
+							required={fieldDef?.required}
+							htmlFor={fieldDef?.name || undefined}
+							maxCharacters={fieldDef?.inputSettings?.maxCharacters}
+							value={value}
+							instructionText={fieldDef?.instructionText}
+						>
+							{fieldDef?.label}
+						</Label>
+					)}
+					<StyledControlWrapper $size={fieldDef?.size}>
+						{children}
+					</StyledControlWrapper>
+				</StyledLabelControlWrapper>
 				{shouldRenderError ? (
 					<HelperText error={!!error}>
 						{typeof error === "string" ? error : undefined}
