@@ -92,13 +92,13 @@ function ButtonWithState(props: ButtonProps) {
 
 	const onMouseEnter = (e: MouseEvent<HTMLButtonElement>) => {
 		props.onMouseEnter && props.onMouseEnter(e);
-		isPopoverOnHover && openMenu(e);
+		props.popover && isPopoverOnHover && openMenu(e);
 		setTooltipEl(e.currentTarget);
 	};
 
 	const onMouseLeave = (e: MouseEvent<HTMLButtonElement>) => {
 		props.onMouseLeave && props.onMouseLeave(e);
-		isPopoverOnHover && closeMenu();
+		props.popover && isPopoverOnHover && closeMenu();
 		setTooltipEl(null);
 	};
 
