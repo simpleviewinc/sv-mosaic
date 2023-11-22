@@ -55,10 +55,12 @@ const StyledRequiredIndicator = styled.span`
 	color: ${theme.newColors.darkRed["100"]};
 `
 
-const StyledTooltipWrapper = styled.div`
-  	${containerQuery("sm", "FORM_COL")} {
-		display: none;
-	}
+const StyledTooltipWrapper = styled.div<{$colsInRow?: number}>`
+  	${({$colsInRow = 1}) => $colsInRow === 1 && `
+		${containerQuery("sm", "FORM_COL")} {
+			display: none;
+		}
+	`}
 
 	svg {
 		vertical-align: middle;
@@ -73,7 +75,7 @@ interface LabelProps {
   value?: string;
   maxCharacters?: number;
   instructionText?: string;
-  tooltip?: boolean;
+  colsInRow?: number
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -85,6 +87,7 @@ const Label = (props: LabelProps): ReactElement => {
 		value,
 		maxCharacters,
 		instructionText,
+		colsInRow
 	} = props;
 
 	return (
@@ -94,7 +97,7 @@ const Label = (props: LabelProps): ReactElement => {
 				{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
 			</StyledInputLabel>
 			{instructionText && (
-				<StyledTooltipWrapper>
+				<StyledTooltipWrapper $colsInRow={colsInRow}>
 					<Tooltip text={instructionText} type='advanced'>
 						<StyledInfoOutlinedIcon />
 					</Tooltip>
