@@ -52,6 +52,7 @@ const FormFieldTextEditor = (
 
 	const textArea = useRef(null);
 	const jodit = useRef<Jodit>(null);
+	const hasSetValue = useRef(false);
 
 	const config = useMemo(() => ({
 		cleanHTML: {
@@ -86,7 +87,6 @@ const FormFieldTextEditor = (
 		};
 
 		jodit.current = Jodit.make(textArea.current, config);
-		jodit.current.value = value;
 
 		jodit.current.events.on("blur", () => {
 			const value = jodit.current.value === "<p><br></p>" ? "" : jodit.current.value;
@@ -99,7 +99,21 @@ const FormFieldTextEditor = (
 		});
 
 		return () => jodit.current.destruct();
-	}, [onBlur, onChange, config, value]);
+	}, [onBlur, onChange, config]);
+
+
+	/**
+	 * Ridiculous hack because Jodit sucks when trying
+	 * to set a new text editor value
+	 */
+	useEffect(() => {
+		if (!jodit.current || hasSetValue.current || value === undefined) {
+			return;
+		}
+
+		hasSetValue.current = true;
+		jodit.current.value = value;
+	}, [value]);
 
 	return (
 		<EditorWrapper $error={!!error} data-testid="text-editor-testid">
