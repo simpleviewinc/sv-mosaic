@@ -59,5 +59,5 @@ export type Item = {
 	/**
 	 * Callback that each link will execute on an onClick event.
 	 */
-	onNav?: SideNavOnNav;
+	onNav?: false | SideNavOnNav;
 };
