@@ -46,8 +46,6 @@ const alternateColors: Partial<Record<ButtonProps["color"], Partial<Record<Color
 		text: {
 			contained: theme.colors.almostBlack,
 			icon: theme.colors.white,
-			outlined: theme.colors.almostBlack,
-			text: theme.colors.almostBlack
 		}
 	},
 	yellow: {
@@ -103,7 +101,7 @@ function getColorPalette(colorProp: ButtonProps["color"], variant: ButtonProps["
 
 	return {
 		base,
-		background: withAlternateColor(variant === "contained" ? base : variant === "outlined" ? "white" : "transparent", { type: "background", color: colorProp, variant }),
+		background: withAlternateColor(variant === "contained" ? base : "transparent", { type: "background", color: colorProp, variant }),
 		border: withAlternateColor(variant === "outlined" ? base : "transparent", { type: "border", color: colorProp, variant }),
 		text: withAlternateColor(variant === "contained" ? "white" : base, { type: "text", color: colorProp, variant }),
 		hover: {
