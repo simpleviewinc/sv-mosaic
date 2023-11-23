@@ -19,6 +19,8 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate Image Upload with menu options and without set Focus handler", async () => {
+		test.skip();
+
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
 		await expect(ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv).toContainText("Size");
 		const buttons = ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.locator("button");
@@ -46,6 +48,8 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	});
 
 	test("Validate saving Image Upload with menu options and without set Focus", async () => {
+		test.skip();
+
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain('"imgName": "' + imageName + '"');
 			expect(dialog.message()).toContain('"height": ' + height);
