@@ -46,6 +46,7 @@ const Field = ({
 							maxCharacters={fieldDef?.inputSettings?.maxCharacters}
 							value={value}
 							instructionText={fieldDef?.instructionText}
+							colsInRow={colsInRow}
 						>
 							{fieldDef?.label}
 						</Label>
@@ -62,8 +63,8 @@ const Field = ({
 					<HelperText>{fieldDef?.helperText}</HelperText>
 				)}
 			</StyledFieldWrapper>
-			{fieldDef?.instructionText && colsInRow === 1 && (
-				<InstructionText>
+			{fieldDef?.instructionText && (
+				<InstructionText colsInRow={colsInRow}>
 					{fieldDef.instructionText}
 				</InstructionText>
 			)}
