@@ -22,9 +22,15 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	 */
 	const onLinkClicked = (args: { item: Item, event?: MouseEvent }) => {
 		const { item, event } = args;
+		const hasModifier = event.ctrlKey || event.shiftKey || event.altKey;
+
+		if (hasModifier) {
+			return;
+		}
+
 		const itemOnNav = item.onNav !== undefined ? item.onNav : onNav;
 
-		if (itemOnNav !== false && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+		if (itemOnNav !== false) {
 			event.preventDefault();
 		}
 
