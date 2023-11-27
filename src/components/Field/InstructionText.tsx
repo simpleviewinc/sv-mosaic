@@ -7,12 +7,13 @@ import {
 
 interface InstructionText {
 	children: ReactNode;
+	colsInRow?: number
 }
 
 const InstructionText = (props: InstructionText): ReactElement => {
-	const { children } = props;
+	const { children, colsInRow } = props;
 	return (
-		<InstructionTextWrapper>
+		<InstructionTextWrapper $colsInRow={colsInRow}>
 			<StyledInstructionText>{children}</StyledInstructionText>
 		</InstructionTextWrapper>
 	);
