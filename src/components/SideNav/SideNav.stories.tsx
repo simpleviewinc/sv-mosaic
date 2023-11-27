@@ -12,6 +12,8 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import FolderIcon from "@mui/icons-material/Folder";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import OpenInNew from "@mui/icons-material/OpenInNew";
+import Link from "@mui/icons-material/Link";
 
 export default {
 	title: "Components/SideNav",
@@ -63,16 +65,44 @@ export const Example = (): ReactElement => {
 				},
 			},
 			{
-				label: "Simple View link",
+				label: "Link - Standard",
 				name: "sv_link",
+				icon: Link,
+				attrs: {
+					href: "https://www.simpleviewinc.com/"
+				}
+			},
+			{
+				label: "Link - Custom",
+				name: "sv_link-custom",
+				icon: Link,
 				attrs: {
 					href: "https://www.simpleviewinc.com/"
 				},
 				onNav: (args) => {
 					setActive(args.item.name);
-					setContent(<h1>Redirecting...</h1>)
-				}
-			}
+					setContent(<h1 style={{background: "#444", color: "white", padding: 10}}>This is the custom link page. It uses its own onNav handler instead of the one provided to the SideNav</h1>);
+				},
+			},
+			{
+				label: "Google",
+				name: "google",
+				icon: Link,
+				attrs: {
+					href: "https://www.google.co.uk"
+				},
+				onNav: false
+			},
+			{
+				label: "Google (New Tab)",
+				name: "google-new",
+				icon: OpenInNew,
+				attrs: {
+					href: "https://www.google.co.uk",
+					target: "_blank"
+				},
+				onNav: false
+			},
 		],
 		[
 			{
