@@ -22,12 +22,20 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	 */
 	const onLinkClicked = (args: { item: Item, event?: MouseEvent }) => {
 		const { item, event } = args;
-		if (typeof item?.onNav === "function") {
-			// if the nav item has it's own onNav function
-			item.onNav({ item, event });
-		} else {
-			// else if onNav exists, we use the main onNav to navigate
-			onNav && onNav({ item, event });
+		const hasModifier = event.ctrlKey || event.shiftKey || event.altKey;
+
+		if (hasModifier) {
+			return;
+		}
+
+		const itemOnNav = item.onNav !== undefined ? item.onNav : onNav;
+
+		if (itemOnNav !== false) {
+			event.preventDefault();
+		}
+
+		if (typeof itemOnNav === "function") {
+			itemOnNav({ item, event });
 		}
 	};
 

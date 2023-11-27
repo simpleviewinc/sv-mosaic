@@ -6,6 +6,7 @@ import { FormSpacing } from "../Form";
 export const StyledFieldContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	align-items: start;
 	gap: 0 20px;
 	min-width: 0;
 
@@ -18,7 +19,9 @@ export const StyledFieldWrapper = styled.div<{$error?: boolean, $spacing?: FormS
 	font-family: ${theme.fontFamily};
 	position: relative;
 	min-width: 0;
-	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
 
 	${({ $error, $spacing }) => $error && `
 		background-color: ${theme.newColors.darkRed["5"]};
@@ -26,6 +29,10 @@ export const StyledFieldWrapper = styled.div<{$error?: boolean, $spacing?: FormS
 		padding: ${$spacing === "compact" ? "0 8px 8px" : "4px 12px 8px"};
 	`}
 `;
+
+export const StyledLabelControlWrapper = styled.div`
+	max-width: 100%;
+`
 
 export const StyledControlWrapper = styled.div<{$size?: string}>`
 	display: flex;
