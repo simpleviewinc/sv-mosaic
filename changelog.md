@@ -1,5 +1,45 @@
 # sv-mosaic changelog
 
+## 28.0.0 - 11/27/23
+
+### Improvements & Fixes
+
+* `Button`:
+  * [MOS-1201](https://simpleviewtools.atlassian.net/browse/MOS-1201 "https://simpleviewtools.atlassian.net/browse/MOS-1201")
+    * Refactors `Button`s styled components into one polymorphic component that supports all colour/variant combinations.
+    * Splits the button component to ensure buttons without popovers/tooltips/menus don't carry unnecessary state
+    * Allows for external mouse event callbacks on top of internal ones
+    * Introduces "intense" and "washed" colour variations
+    * Renames `StyledProps` type to `TransientProps`
+  * [MOS-1118](https://simpleviewtools.atlassian.net/browse/MOS-1118 "https://simpleviewtools.atlassian.net/browse/MOS-1118")
+    * Drops custom styling to allow `IconButtons` to mimic native Material UI icon buttons more closely
+* `Form`
+  * [MOS-1131](https://simpleviewtools.atlassian.net/browse/MOS-1131 "https://simpleviewtools.atlassian.net/browse/MOS-1131")
+    * Introduction of `useFieldErrors` takes a form's dispatch and enables fields to add their own "internal" validators that can throw errors based on their own local state. This function is currently only being consumed by the date field.
+    * Refactored `Col` into `ColField`.
+    * Moved form's state.mounted out of state and into a stable reference instead.
+    * Introduces multiple validation strategies. Each field has a sensible default `validateOn`, but field definitions can take a `validateOn` to specify when strategy to use instead:
+      * `onChange` validates a field on every change in value
+      * `onBlur` validates a field when the field loses focus
+      * `onBlurChange` validates a field when the field loses focus, but then resets the validation when it is next changed
+    * Improve initial form load performance by dispatching all initial values at once instead of dispatching for each field
+    * Drops support for field.layout property. Use Form's props.sections instead.
+    * (**BREAKING CHANGE** ) Drops `copyFieldToField` form action
+    * (**BREAKING CHANGE** ) Drops redundant `joinReducers` function
+    * (**BREAKING CHANGE** ) Replaces `pairedFields` property with `validates`
+    * Drops `jodit-react` library in favour of the underlying `jodit` library with a custom react wrapper to circumvent bugs that occured on field change
+  * [MOS-1167](https://simpleviewtools.atlassian.net/browse/MOS-1167 "https://simpleviewtools.atlassian.net/browse/MOS-1167")
+    * Prevent the filtering of empty columns to maintain a consistent grid layout for fields, or to provide a way to add gaps between fields.
+  * [MOS-1168](https://simpleviewtools.atlassian.net/browse/MOS-1168 "https://simpleviewtools.atlassian.net/browse/MOS-1168")
+    * Drop the check for an `undefined` error when setting validation messages
+  * [MOS-1178](https://simpleviewtools.atlassian.net/browse/MOS-1178 "https://simpleviewtools.atlassian.net/browse/MOS-1178")
+    * Registers a minimum-date validator for fields that have an `inputSettings.minDate` set in their field definition. For completeness, also introduces an `inputSettings.maxDate` that results in similar behaviour.
+  * [MOS-1147](https://simpleviewtools.atlassian.net/browse/MOS-1147 "https://simpleviewtools.atlassian.net/browse/MOS-1147")
+    * Replaces all occurences of the incorrectly typed "e-mail" text to "email".
+* `FormFieldDate`
+  * [MOS-1162](https://simpleviewtools.atlassian.net/browse/MOS-1162 "https://simpleviewtools.atlassian.net/browse/MOS-1162")
+    * Introduce a new validator registration technique that allows internal validators to be correctly checked alongside field definition validators
+
 ## 27.1.0 - 11/14/23
 
 ### Improvements & Fixes
