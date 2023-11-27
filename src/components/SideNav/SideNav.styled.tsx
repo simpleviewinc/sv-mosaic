@@ -45,6 +45,7 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	text-decoration: none;
 
 	${({$isActive}) => $isActive && `
 		font-weight: ${theme.fontWeight.semiBold};
