@@ -46,7 +46,7 @@ const Field = ({
 							maxCharacters={fieldDef?.inputSettings?.maxCharacters}
 							value={value}
 							instructionText={fieldDef?.instructionText}
-						  colsInRow={colsInRow}
+							colsInRow={colsInRow}
 						>
 							{fieldDef?.label}
 						</Label>
