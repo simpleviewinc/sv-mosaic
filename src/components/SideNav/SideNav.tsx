@@ -24,7 +24,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 		const { item, event } = args;
 		const itemOnNav = item.onNav !== undefined ? item.onNav : onNav;
 
-		if (itemOnNav !== false && !event.ctrlKey && !event.shiftKey) {
+		if (itemOnNav !== false && !event.ctrlKey && !event.shiftKey && !event.altKey) {
 			event.preventDefault();
 		}
 
