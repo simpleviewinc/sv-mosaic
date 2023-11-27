@@ -12,14 +12,18 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import FolderIcon from "@mui/icons-material/Folder";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import OpenInNew from "@mui/icons-material/OpenInNew";
+import Link from "@mui/icons-material/Link";
 
 export default {
 	title: "Components/SideNav",
 	decorators: [withKnobs],
 } as Meta;
 
+const homeContent = <h1>Welcome home!</h1>;
+
 export const Example = (): ReactElement => {
-	const [content, setContent] = useState<JSX.Element>(<h1>Home</h1>);
+	const [content, setContent] = useState<JSX.Element>(homeContent);
 	const [active, setActive] = useState("home");
 
 	const onNav = (args: SideNavArgs) => {
@@ -35,7 +39,7 @@ export const Example = (): ReactElement => {
 				icon: HomeIcon,
 				onNav: (args) => {
 					setActive(args.item.name);
-					setContent(<h1>Home</h1>);
+					setContent(homeContent);
 				},
 			},
 			{
@@ -61,16 +65,44 @@ export const Example = (): ReactElement => {
 				},
 			},
 			{
-				label: "Simple View link",
+				label: "SV Link - Standard",
 				name: "sv_link",
+				icon: Link,
+				attrs: {
+					href: "https://www.simpleviewinc.com/"
+				}
+			},
+			{
+				label: "SV Link - Custom",
+				name: "sv_link-custom",
+				icon: Link,
 				attrs: {
 					href: "https://www.simpleviewinc.com/"
 				},
 				onNav: (args) => {
 					setActive(args.item.name);
-					setContent(<h1>Redirecting...</h1>)
-				}
-			}
+					setContent(<h1 style={{background: "#444", color: "white", padding: 10}}>This is the custom link page. It uses its own onNav handler instead of the one provided to the SideNav</h1>);
+				},
+			},
+			{
+				label: "Google",
+				name: "google",
+				icon: Link,
+				attrs: {
+					href: "https://www.google.co.uk"
+				},
+				onNav: false
+			},
+			{
+				label: "Google (New Tab)",
+				name: "google-new",
+				icon: OpenInNew,
+				attrs: {
+					href: "https://www.google.co.uk",
+					target: "_blank"
+				},
+				onNav: false
+			},
 		],
 		[
 			{
