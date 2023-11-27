@@ -65,7 +65,7 @@ export const Example = (): ReactElement => {
 				},
 			},
 			{
-				label: "Link - Standard",
+				label: "SV Link - Standard",
 				name: "sv_link",
 				icon: Link,
 				attrs: {
@@ -73,7 +73,7 @@ export const Example = (): ReactElement => {
 				}
 			},
 			{
-				label: "Link - Custom",
+				label: "SV Link - Custom",
 				name: "sv_link-custom",
 				icon: Link,
 				attrs: {
