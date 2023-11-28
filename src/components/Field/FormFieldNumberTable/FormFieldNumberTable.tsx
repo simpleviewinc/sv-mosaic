@@ -48,11 +48,11 @@ const FormFieldNumberTable = (
 		if (value) {
 			for (const row in value) {
 				if (!isValidRowCol(row, inputSettings.rows)) {
-					throw new Error(`Row ${row} is not defined.`);
+					continue;
 				}
 				for (const column in value[row]) {
 					if (!isValidRowCol(column, inputSettings.columns)) {
-						throw new Error(`Column ${column} is not defined.`);
+						continue;
 					}
 					totals[column] = (totals[column] || 0) + (Number(value[row][column] || 0));
 				}
