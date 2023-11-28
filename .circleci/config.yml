@@ -144,7 +144,7 @@ workflows:
           filters:
             branches:
               only:
-                - ci-testing
+                # - ci-testing
                 - /pull.*/
                 - develop
                 - qa
@@ -155,7 +155,7 @@ workflows:
           filters:
             branches:
               only:
-                - ci-testing
+                # - ci-testing
                 - /pull.*/
                 - develop
                 - qa
@@ -186,6 +186,6 @@ workflows:
           filters:
             branches:
               only:
-                - ci-testing
+                # - ci-testing
                 - staging
                 - master
