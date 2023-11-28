@@ -146,7 +146,7 @@ workflows:
               only:
                 - ci-testing
                 - /pull.*/
-                # - develop
+                - develop
                 - qa
       - e2e_tests:
           context: default
@@ -157,7 +157,7 @@ workflows:
               only:
                 - ci-testing
                 - /pull.*/
-                # - develop
+                - develop
                 - qa
       # Branches develop, qa, staging and master get published to GH pages.
       # For the develop branch, the tests must finish successfully before publishing
