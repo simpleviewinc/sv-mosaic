@@ -29,7 +29,7 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 
 	return (
 		<Button
-			color={props.color ?? "black"}
+			color={props.color ?? "gray"}
 			variant="contained"
 			size="small"
 			onClick={props.onClick}
