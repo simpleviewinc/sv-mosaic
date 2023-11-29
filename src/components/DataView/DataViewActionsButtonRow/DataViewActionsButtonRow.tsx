@@ -4,18 +4,16 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ButtonRow from "../../ButtonRow";
 import Button from "../../Button";
 import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
-import { useShow, useWrappedShow } from "@root/utils/show";
+import { useWrappedShow } from "@root/utils/show";
 
 function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	const showParams = useMemo(() => ({row: props.originalRowData}), [props.originalRowData]);
 
 	const primaryActions = useMemo(() => props.primaryActions || [], [props.primaryActions]);
-	const primaryActionsWithShow = useWrappedShow(primaryActions, showParams);
-	const shownPrimaryActions = useShow(primaryActionsWithShow);
+	const shownPrimaryActions = useWrappedShow(primaryActions, showParams);
 
 	const additionalActions = useMemo(() => props.additionalActions || [], [props.additionalActions]);
-	const additionalActionsWithShow = useWrappedShow(additionalActions, showParams);
-	const shownadditionalActions = useShow(additionalActionsWithShow);
+	const shownadditionalActions = useWrappedShow(additionalActions, showParams);
 
 	const primaryActionButtons = useMemo(() => {
 		return shownPrimaryActions.map((action) => {
