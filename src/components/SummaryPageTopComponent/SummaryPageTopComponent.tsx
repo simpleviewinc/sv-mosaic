@@ -17,8 +17,8 @@ import StarBorder from "@mui/icons-material/StarBorderRounded";
 import Image from "@root/components/Image";
 import Button from "../Button";
 import TitleWrapper from "@root/components/Title";
-import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow/ButtonRow";
+import { useShow } from "@root/utils/show";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
@@ -27,10 +27,11 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 		backLabel,
 		favorite,
 		img,
-		mainActions,
-		additionalActions,
 		descriptionItems,
 	} = props;
+
+	const mainActions = useMemo(() => props.mainActions || [], [props.mainActions]);
+	const additionalActions = useMemo(() => props.additionalActions || [], [props.additionalActions]);
 
 	/**
 	 * Throws an error if developer send more than three elements in mainActions.
@@ -42,13 +43,8 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	*/
 	if (descriptionItems && descriptionItems.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
 
-	const filteredMainActions = useMemo(() => (
-		mainActions && mainActions.filter(button => evaluateShow(button.show))
-	), [mainActions]);
-
-	const filteredAdditionalActions = useMemo(() => (
-		additionalActions && additionalActions.filter(button => evaluateShow(button.show))
-	), [additionalActions]);
+	const shownMainActions = useShow(mainActions);
+	const shownAdditionalActions = useShow(additionalActions);
 
 	return (
 		<StyledSummaryPageTopComponent>
@@ -77,37 +73,33 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 						}
 					</ContainerTitle>
 					<ButtonRow separator wrap>
-						{
-							filteredMainActions &&
-							filteredMainActions.map((mainAction, i) => (
-								<Button
-									key={i}
-									attrs={{$smallText: true}}
-									color={mainAction.color}
-									variant={mainAction.variant}
-									size="small"
-									label={mainAction.label}
-									mIcon={mainAction.mIcon}
-									onClick={mainAction.onClick}
-									muiAttrs={{
-										"data-testid": "btn-main-action"
-									}}
-								/>
-							))
-						}
-						{
-							filteredAdditionalActions && (filteredAdditionalActions.length > 0) &&
+						{shownMainActions.map((mainAction, i) => (
+							<Button
+								key={i}
+								attrs={{$smallText: true}}
+								color={mainAction.color}
+								variant={mainAction.variant}
+								size="small"
+								label={mainAction.label}
+								mIcon={mainAction.mIcon}
+								onClick={mainAction.onClick}
+								muiAttrs={{
+									"data-testid": "btn-main-action"
+								}}
+							/>
+						))}
+						{shownAdditionalActions.length > 0 && (
 							<Button
 								color="black"
 								variant="icon"
 								label="Edit"
 								mIcon={MoreVert}
-								menuItems={filteredAdditionalActions}
+								menuItems={shownAdditionalActions}
 								muiAttrs={{
 									"data-testid": "btn-additional-action"
 								}}
 							/>
-						}
+						)}
 					</ButtonRow>
 				</Row>
 				<Row>

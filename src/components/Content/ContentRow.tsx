@@ -5,9 +5,9 @@ import { ContentRowProps } from "./ContentTypes";
 import {
 	FieldContainer,
 } from "./Content.styled";
-import evaluateShow from "@root/utils/show/evaluateShow";
 import Blank from "@root/components/Blank";
 import ContentField from "./ContentField";
+import { useShow } from "@root/utils/show";
 
 /**
  * Checks if the field exists, can be shown and executes its transform function
@@ -34,7 +34,9 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 		);
 	}
 
-	if (!evaluateShow(currentField?.show)) {
+	const shouldShow = useShow(currentField);
+
+	if (!shouldShow) {
 		return (
 			<FieldContainer $columns={sectionLength} />
 		)
