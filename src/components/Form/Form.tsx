@@ -19,7 +19,7 @@ import { ButtonProps } from "../Button";
 import { Item, SideNavArgs } from "../SideNav";
 import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 import Snackbar from "../Snackbar/Snackbar";
-import { useShow, useWrappedShow } from "@root/utils/show";
+import { useWrappedShow } from "@root/utils/show";
 import { generateLayout } from "./Layout/layoutUtils";
 
 const topCollapseContainer: MosaicCSSContainer = {
@@ -73,8 +73,7 @@ const Form = (props: FormProps) => {
 		return generateLayout({ sections, fields });
 	}, [sections, fields]);
 
-	const sectionsWithShow = useWrappedShow(layout, state);
-	const shownSections = useShow(sectionsWithShow);
+	const shownSections = useWrappedShow(layout, state);
 
 	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
 		setSectionRefs(refs => [...refs, ref]);
