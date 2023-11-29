@@ -15,7 +15,7 @@ import StarBorder from "@mui/icons-material/StarBorderRounded";
 
 // Components
 import Image from "@root/components/Image";
-import Button from "../Button";
+import Button, { ButtonProps } from "@root/components/Button";
 import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { useShow } from "@root/utils/show";
@@ -43,75 +43,67 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	*/
 	if (descriptionItems && descriptionItems.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
 
-	const shownMainActions = useShow(mainActions);
 	const shownAdditionalActions = useShow(additionalActions);
+
+	const additionActionsButton: ButtonProps | null = useMemo(() => shownAdditionalActions.length > 0 ? {
+		color: "black",
+		variant: "icon",
+		label: "Edit",
+		mIcon: MoreVert,
+		menuItems: shownAdditionalActions,
+		muiAttrs: {
+			"data-testid": "btn-additional-action"
+		}
+	} : null, [shownAdditionalActions]);
+
+	const buttons: ButtonProps[] = useMemo(() => [
+		...mainActions.map<ButtonProps>(mainAction => ({
+			...mainAction,
+			attrs: {$smallText: true},
+			size: "small",
+			muiAttrs: {
+				"data-testid": "btn-main-action"
+			},
+		})),
+		...(additionActionsButton ? [
+			additionActionsButton
+		] : [])
+	], [mainActions, additionActionsButton]);
 
 	return (
 		<StyledSummaryPageTopComponent>
-			{
-				img &&
-					<Image
-						className="img-rounded"
-						src={img}
-					/>
-			}
+			{img && (
+				<Image
+					className="img-rounded"
+					src={img}
+				/>
+			)}
 			<Container>
 				<Row>
 					<ContainerTitle>
 						<TitleWrapper title={title} onBack={onBack} backLabel={backLabel} />
-						{
-							favorite &&
-								<>
-									<Button
-										className={`${favorite?.checked ? "checked" : "unchecked"}`}
-										color={`${favorite?.checked ? "yellow" : "gray"}`}
-										variant="icon"
-										mIcon={favorite?.checked ? StarRateRounded : StarBorder}
-										onClick={() => favorite.onClick(favorite?.checked ? false : true)}
-									/>
-								</>
-						}
-					</ContainerTitle>
-					<ButtonRow separator wrap>
-						{shownMainActions.map((mainAction, i) => (
-							<Button
-								key={i}
-								attrs={{$smallText: true}}
-								color={mainAction.color}
-								variant={mainAction.variant}
-								size="small"
-								label={mainAction.label}
-								mIcon={mainAction.mIcon}
-								onClick={mainAction.onClick}
-								muiAttrs={{
-									"data-testid": "btn-main-action"
-								}}
-							/>
-						))}
-						{shownAdditionalActions.length > 0 && (
-							<Button
-								color="black"
-								variant="icon"
-								label="Edit"
-								mIcon={MoreVert}
-								menuItems={shownAdditionalActions}
-								muiAttrs={{
-									"data-testid": "btn-additional-action"
-								}}
-							/>
+						{favorite && (
+							<>
+								<Button
+									className={`${favorite?.checked ? "checked" : "unchecked"}`}
+									color={`${favorite?.checked ? "yellow" : "gray"}`}
+									variant="icon"
+									mIcon={favorite?.checked ? StarRateRounded : StarBorder}
+									onClick={() => favorite.onClick(favorite?.checked ? false : true)}
+								/>
+							</>
 						)}
-					</ButtonRow>
+					</ContainerTitle>
+					<ButtonRow separator wrap buttons={buttons} />
 				</Row>
 				<Row>
 					{descriptionItems && (
 						<ButtonRow separator wrap>
-							{
-								descriptionItems.map((item, i) => (
-									<Item key={i} data-testid="description-item">
-										{item}
-									</Item>
-								))
-							}
+							{descriptionItems.map((item, i) => (
+								<Item key={i} data-testid="description-item">
+									{item}
+								</Item>
+							))}
 						</ButtonRow>
 					)}
 				</Row>

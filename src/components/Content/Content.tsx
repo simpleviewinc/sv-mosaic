@@ -15,7 +15,6 @@ import {
 import ButtonRow from "../ButtonRow/ButtonRow";
 import ContentRow from "./ContentRow";
 import { MosaicGridConfig } from "@root/types";
-import { useShow } from "@root/utils/show";
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections, title, buttons = [], variant } = props;
@@ -43,15 +42,13 @@ const Content = (props: ContentProps): ReactElement => {
 		return sections;
 	}, [sections]);
 
-	const shownButtons = useShow(buttons);
-
 	return (
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
-				{shownButtons.length > 0 && (
+				{buttons.length > 0 && (
 					<ButtonRow
-						buttons={shownButtons}
+						buttons={buttons}
 						separator={!cardVariant}
 					/>
 				)}
