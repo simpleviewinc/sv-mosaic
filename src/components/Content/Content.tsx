@@ -12,10 +12,10 @@ import {
 	Title,
 	ContentRowWrapper,
 } from "./Content.styled";
-import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import ContentRow from "./ContentRow";
 import { MosaicGridConfig } from "@root/types";
+import { useShow } from "@root/utils/show";
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections, title, buttons = [], variant } = props;
@@ -43,19 +43,15 @@ const Content = (props: ContentProps): ReactElement => {
 		return sections;
 	}, [sections]);
 
-	/**
-	 * Filters the buttons based on their show prop. If a button
-	 * does a show value defined it will be rendered.
-	 */
-	const buttonToRender = buttons?.filter((button) => evaluateShow(button.show));
+	const shownButtons = useShow(buttons);
 
 	return (
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<Title>{title}</Title>
-				{buttonToRender.length > 0 && (
+				{shownButtons.length > 0 && (
 					<ButtonRow
-						buttons={buttonToRender}
+						buttons={shownButtons}
 						separator={!cardVariant}
 					/>
 				)}
