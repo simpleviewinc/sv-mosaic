@@ -19,9 +19,12 @@ export interface MosaicCallback {
 export type SvgIconComponent = typeof SvgIcon;
 
 export type MosaicShowResult = boolean;
-export type MosaicShowCallback<T> = (params: T) => MosaicShowResult;
 
-export type MosaicShow<T = unknown> = MosaicShowResult | MosaicShowCallback<T> | Array<MosaicShowResult | MosaicShowCallback<T>>
+export type MosaicShowCallback<T = unknown> = T extends object
+	? (params: T) => MosaicShowResult
+	: () => MosaicShowResult;
+
+export type MosaicShow<T = unknown> = WithArrayOf<MosaicShowResult | MosaicShowCallback<T>>
 
 export type MosaicGridConfig = string[][][];
 
@@ -37,3 +40,5 @@ export type PrependDollar<K extends string | number | symbol > =
 export type TransientProps<T, K extends keyof T = keyof T> = {
     [P in K as PrependDollar<P>]: T[P];
 };
+
+export type WithArrayOf<T> = T | T[];

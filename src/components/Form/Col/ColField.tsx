@@ -4,7 +4,7 @@ import { getFieldConfig } from "./fieldConfigMap";
 import { ColFieldProps } from "./ColTypes";
 import formActions from "../formActions";
 import Field, { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
-import evaluateShow from "@root/utils/show/evaluateShow";
+import { useShow, useWrappedShow } from "@root/utils/show";
 
 const ColField = ({
 	fieldsDef,
@@ -56,7 +56,9 @@ const ColField = ({
 		field.type
 	);
 
-	const shouldShow = useMemo(() => evaluateShow(field.show, { data: state?.data }), [field.show, state?.data]);
+	const fieldWithShow = useWrappedShow(field, state);
+	const shouldShow = useShow(fieldWithShow);
+
 	const sanitizedFieldDef = useMemo(() => ({ ...field, size, }), [field, size])
 
 	const children = useMemo(() => (
