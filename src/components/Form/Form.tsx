@@ -34,6 +34,7 @@ const sidebarCollapseContainer: MosaicCSSContainer = {
 
 const Form = (props: FormProps) => {
 	const {
+		buttons,
 		state,
 		title,
 		onBack,
@@ -115,11 +116,8 @@ const Form = (props: FormProps) => {
 	);
 
 	/**
-	 * Form buttons
+	 * Unsaved changes dialog
 	 */
-	const buttons = useMemo(() => props.buttons || [], [props.buttons]);
-	const shownButtons = useShow(buttons);
-
 	const dialogButtons: ButtonProps[] = [
 		{
 			label: "No, stay",
@@ -213,7 +211,7 @@ const Form = (props: FormProps) => {
 							onBack={onBack}
 							backLabel={backLabel}
 							description={description}
-							buttons={shownButtons}
+							buttons={buttons}
 							tooltipInfo={tooltipInfo}
 							showActive={showActive}
 							bottomBorder={sideNavItems.length < 2}
