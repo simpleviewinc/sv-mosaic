@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useMemo, memo } from "react";
 import styled from "styled-components";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import DataViewTr from "../DataViewTr";
 import theme from "@root/theme";
-import { DataViewTBodyProps } from "./DataViewTBodyTypes";
+import { DataViewTBodyProps, DataViewTBodySortableProps } from "./DataViewTBodyTypes";
+import {
+	closestCenter,
+	DndContext,
+	KeyboardSensor,
+	PointerSensor,
+	useSensor,
+	useSensors
+} from "@dnd-kit/core";
+import {
+	restrictToVerticalAxis,
+	restrictToFirstScrollableAncestor
+} from "@dnd-kit/modifiers";
+import {
+	arrayMove,
+	sortableKeyboardCoordinates,
+	SortableContext,
+	verticalListSortingStrategy
+} from "@dnd-kit/sortable";
 
 const StyledTBody = styled.tbody`
 	& > tr {
@@ -27,54 +44,91 @@ const StyledTBody = styled.tbody`
 	}
 `
 
-function DataViewTBody(props: DataViewTBodyProps) {
-	const onCheckboxClick = (i) => () => {
-		props.onCheckboxClick(i);
+function DataViewTBodySortable(props: DataViewTBodySortableProps) {
+	const sensors = useSensors(
+		useSensor(PointerSensor),
+		useSensor(KeyboardSensor, {
+			coordinateGetter: sortableKeyboardCoordinates
+		})
+	);
+
+	function handleDragEnd(event) {
+		const { active, over } = event;
+
+		if (active.id !== over.id) {
+			const ids = props.data.map(({ id }) => String(id));
+
+			props.onReorder(arrayMove(
+				ids,
+				ids.indexOf(active.id),
+				ids.indexOf(over.id)
+			));
+		}
 	}
 
-	/**
-	 * When a drag has ended the rows are updated
-	 * @param e drag event. It will execute the onReorder
-	 * callback with the new rows
-	 */
-	const handleDragEnd =  ({ destination, source }: DropResult) => {
-		if (!destination) return;
-
-		const rowsCopy = [...props.data].map(row => row.id) as string[];
-		const [source_data] = rowsCopy.splice(source.index, 1);
-		rowsCopy.splice(destination.index, 0, source_data);
-
-		props.onReorder(rowsCopy);
-	};
-
 	return (
-		<DragDropContext onDragEnd={handleDragEnd}>
-			<Droppable droppableId="droppable-rows">
-				{(provider) => (
-					<StyledTBody ref={provider.innerRef} {...provider.droppableProps}>
-						{props.transformedData.map((row, i) => (
-							<DataViewTr
-								key={i}
-								rowIdx={i}
-								row={row}
-								originalRowData={props.data[i]}
-								bulkActions={props.bulkActions}
-								primaryActions={props.primaryActions}
-								additionalActions={props.additionalActions}
-								disabled={props.disabled}
-								onCheckboxClick={props.onCheckboxClick ? onCheckboxClick(i) : undefined}
-								checked={props.checked ? props.checked[i] : false}
-								columns={props.columns}
-								onReorder={props.onReorder}
-								hasActions={props.hasActions}
-							/>
-						))}
-						{provider.placeholder}
-					</StyledTBody>
-				)}
-			</Droppable>
-		</DragDropContext>
-	);
+		<DndContext
+			sensors={sensors}
+			collisionDetection={closestCenter}
+			onDragEnd={handleDragEnd}
+			autoScroll={{layoutShiftCompensation: false}}
+			modifiers={[restrictToVerticalAxis, restrictToFirstScrollableAncestor]}
+		>
+			<SortableContext
+				items={props.transformedData.map(item => item.id as string)}
+				strategy={verticalListSortingStrategy}
+			>
+				{props.children}
+			</SortableContext>
+		</DndContext>
+	)
 }
 
-export default DataViewTBody;
+function DataViewTBody(props: DataViewTBodyProps) {
+	const children = useMemo(() => (
+		<StyledTBody>
+			{props.transformedData.map((row, i) => (
+				<DataViewTr
+					key={row.id as string}
+					row={row}
+					originalRowData={props.data[i]}
+					primaryActions={props.primaryActions}
+					additionalActions={props.additionalActions}
+					disabled={props.disabled}
+					onCheckboxClick={props.onCheckboxClick ? () => props.onCheckboxClick(i) : undefined}
+					checked={props.checked ? props.checked[i] : false}
+					columns={props.columns}
+					onReorder={props.onReorder}
+					hasActions={props.hasActions}
+				/>
+			))}
+		</StyledTBody>
+	), [
+		props.transformedData,
+		props.data,
+		props.primaryActions,
+		props.additionalActions,
+		props.disabled,
+		props.onCheckboxClick,
+		props.checked,
+		props.columns,
+		props.onReorder,
+		props.hasActions
+	])
+
+	if (!props.onReorder) {
+		return children
+	}
+
+	return (
+		<DataViewTBodySortable
+			data={props.data}
+			transformedData={props.transformedData}
+			onReorder={props.onReorder}
+		>
+			{children}
+		</DataViewTBodySortable>
+	)
+}
+
+export default memo(DataViewTBody);

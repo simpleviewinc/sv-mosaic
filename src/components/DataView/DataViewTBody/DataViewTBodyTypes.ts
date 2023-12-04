@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
 import { MosaicObject } from "@root/types";
 import { DataViewProps } from "../DataViewTypes";
+import { DataViewDisplayListProps } from "../DataViewDisplayList";
 
 export interface DataViewTBodyProps {
 	onReorder?: DataViewProps["onReorder"];
-	onCheckboxClick?: DataViewProps["onCheckChange"];
+	onCheckboxClick?: DataViewDisplayListProps["onCheckboxClick"];
 	transformedData: MosaicObject[];
 	data: DataViewProps["data"];
 	bulkActions?: DataViewProps["bulkActions"];
@@ -14,3 +16,5 @@ export interface DataViewTBodyProps {
 	columns: DataViewProps["columns"];
 	hasActions: boolean;
 }
+
+export type DataViewTBodySortableProps = Pick<DataViewTBodyProps, "data" | "transformedData" | "onReorder"> & { children: ReactNode }
