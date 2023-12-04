@@ -1,4 +1,3 @@
-import { DraggableProvided } from "react-beautiful-dnd";
 import { DataViewColumn } from "../DataViewTypes";
 
 export interface DataViewTdProps {
@@ -11,6 +10,5 @@ export interface DataViewTdProps {
 	maxWidth?: DataViewColumn["style"]["maxWidth"];
 	textTransform?: DataViewColumn["style"]["textTransform"];
 	children: React.ReactNode;
-	draggableProvider?: DraggableProvided;
 	ariaLabel?: HTMLElement["ariaLabel"];
 }
