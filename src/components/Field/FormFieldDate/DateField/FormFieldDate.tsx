@@ -66,6 +66,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 			onChange({
 				...value,
+				date,
 				validDate: false
 			});
 		}
@@ -81,6 +82,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 			onChange({
 				...value,
+				time,
 				validTime: false
 			});
 		} else if (isKeyboardEvent && !validKeyboardInput) {
@@ -90,6 +92,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 			onChange({
 				...value,
+				time,
 				validTime: false
 			});
 
