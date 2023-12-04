@@ -66,7 +66,7 @@ const optionLibrary: MosaicLabelValue[] = [
 export const Playground = (): ReactElement => {
 	const [state, setState] = useState({});
 
-	const showOptions = number("Show options", 0, { max: optionLibrary.length });
+	const showOptions = number("Show options", 0, { min: 0, max: optionLibrary.length });
 	const options = optionLibrary.slice(0, showOptions);
 
 	const onChange = function(data) {
@@ -79,7 +79,7 @@ export const Playground = (): ReactElement => {
 		<DataViewFilterDate
 			label="Date filter example"
 			data={state}
-			args={{ options }}
+			args={{ options: showOptions > 0 ? options : undefined }}
 			onRemove={onRemove}
 			onChange={onChange}
 		/>
