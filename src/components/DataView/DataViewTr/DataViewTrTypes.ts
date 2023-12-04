@@ -1,9 +1,9 @@
 
+import { CSSProperties } from "react";
 import { MosaicObject } from "@root/types";
 import { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewTrProps {
-	bulkActions?: DataViewProps["bulkActions"];
 	checked: boolean;
 	hasActions: boolean;
 	onReorder?: DataViewProps["onReorder"];
@@ -14,5 +14,8 @@ export interface DataViewTrProps {
 	originalRowData: MosaicObject;
 	columns: DataViewProps["columns"];
 	row?: {[x: string]: any};
-	rowIdx: number;
+	style?: CSSProperties;
+	isDragOverlay?: boolean
 }
+
+export type DataViewTrDndProps = DataViewTrProps;

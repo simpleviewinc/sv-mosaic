@@ -7,6 +7,7 @@ import { DataViewTdProps } from "./DataViewTdTypes";
 
 const StyledTd = styled.td`
 	height: 40px;
+	vertical-align: middle;
 
 	${/* This ensures that the td collapses to it's content size if it doesn't have the .expandCell class */""}
 	&:not(.expandCell) {
@@ -59,7 +60,6 @@ function DataViewTd(props: DataViewTdProps) {
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
-			{...props.draggableProvider?.dragHandleProps}
 			aria-label={props.ariaLabel}
 		>
 			<div
