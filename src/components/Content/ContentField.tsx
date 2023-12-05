@@ -4,8 +4,8 @@ import { ContentFieldProps} from "./ContentTypes";
 
 // Components
 import {
-	Label,
-	TransformContainer,
+	FieldTerm,
+	FieldDefinition,
 } from "./Content.styled";
 
 /**
@@ -15,10 +15,10 @@ import {
 const ContentField = ({label, content}: ContentFieldProps) => {
 	return (
 		<>
-			<Label>{label}</Label>
-			<TransformContainer>
+			<FieldTerm>{label}</FieldTerm>
+			<FieldDefinition>
 				{content as ReactNode}
-			</TransformContainer>
+			</FieldDefinition>
 		</>
 	)
 };
