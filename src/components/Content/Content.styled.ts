@@ -52,23 +52,6 @@ export const StyledEditIcon = styled(EditIcon)`
 	}
 `;
 
-export const Label = styled.p`
-	color: ${theme.newColors.grey4["100"]};
-	font-size: 14px;
-	margin-bottom: 8px;
-	margin-top: 0;
-`;
-
-export const FieldContainer = styled.div<{$columns?: number}>`
-	margin-bottom: 24px;
-	width: calc(100% / ${({ $columns }) => $columns});
-`;
-
-export const TransformContainer = styled.div`
-	color: ${theme.newColors.grey3["100"]};
-	font-size: 14px;
-`;
-
 // Transforms styles
 export const ChipsWrapper = styled.div`
 	display: flex;
@@ -86,6 +69,28 @@ export const ColorValue = styled.p`
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
+`;
+
+export const FieldsList = styled.dl`
+	margin: 0;
+`
+
+export const FieldContainer = styled.div<{$columns?: number}>`
+	margin-bottom: 24px;
+	width: calc(100% / ${({ $columns }) => $columns});
+`;
+
+export const FieldTerm = styled.dt`
+	color: ${theme.newColors.grey4["100"]};
+	font-size: 14px;
+	margin-bottom: 8px;
+	margin-top: 0;
+`;
+
+export const FieldDefinition = styled.dd`
+	color: ${theme.newColors.grey3["100"]};
+	font-size: 14px;
+	margin: 0;
 `;
 
 export const ContentRowWrapper = styled.div`
