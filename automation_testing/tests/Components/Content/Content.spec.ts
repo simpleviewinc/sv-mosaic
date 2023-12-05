@@ -67,4 +67,14 @@ test.describe.parallel("Components - Content - Playground", () => {
 		await expect(contentPage.editButton).not.toBeVisible();
 		await expect(contentPage.detailsButton).not.toBeVisible();
 	});
+
+	test("Validate the field has the correct term and definition", async () => {
+		await contentPage.visit(contentPage.page_path);
+
+		const field = contentPage.page.locator("[data-testid=\"mos:Content:field\"]", {
+			has: contentPage.page.getByText("Toggle using transform_boolean()")
+		}).getByRole("definition");
+
+		await expect(field).toHaveText("No");
+	});
 });
