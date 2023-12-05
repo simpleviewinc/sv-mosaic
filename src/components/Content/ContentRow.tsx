@@ -8,6 +8,7 @@ import {
 import evaluateShow from "@root/utils/show/evaluateShow";
 import Blank from "@root/components/Blank";
 import ContentField from "./ContentField";
+import testIds from "@root/utils/testIds";
 
 /**
  * Checks if the field exists, can be shown and executes its transform function
@@ -24,7 +25,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (!field) {
 		return (
-			<FieldContainer $columns={sectionLength} />
+			<FieldContainer $columns={sectionLength} data-testid={testIds.CONTENT_FIELD} />
 		)
 	}
 
@@ -36,7 +37,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (!evaluateShow(currentField?.show)) {
 		return (
-			<FieldContainer $columns={sectionLength} />
+			<FieldContainer $columns={sectionLength} data-testid={testIds.CONTENT_FIELD} />
 		)
 	}
 
@@ -45,7 +46,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (fieldValue === undefined || fieldValue === "" || (Array.isArray(fieldValue) && !fieldValue.length)) {
 		return (
-			<FieldContainer $columns={sectionLength}>
+			<FieldContainer $columns={sectionLength} data-testid={testIds.CONTENT_FIELD}>
 				<ContentField label={currentField.label} content={<Blank />} />
 			</FieldContainer>
 		)
@@ -53,7 +54,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (currentField && !currentField?.transforms) {
 		return (
-			<FieldContainer key={`value-${currentField.name}`} $columns={sectionLength}>
+			<FieldContainer key={`value-${currentField.name}`} $columns={sectionLength} data-testid={testIds.CONTENT_FIELD}>
 				<ContentField label={currentField.label} content={data[fieldName]} />
 			</FieldContainer>
 		)
@@ -64,7 +65,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 	})
 
 	return (
-		<FieldContainer key={`transformed-${currentField.name}`} $columns={sectionLength}>
+		<FieldContainer key={`transformed-${currentField.name}`} $columns={sectionLength} data-testid={testIds.CONTENT_FIELD}>
 			<ContentField label={currentField.label} content={fieldValue} />
 		</FieldContainer>
 	)

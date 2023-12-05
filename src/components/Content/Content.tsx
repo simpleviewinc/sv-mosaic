@@ -11,6 +11,7 @@ import {
 	TitleWrapper,
 	Title,
 	ContentRowWrapper,
+	FieldsList,
 } from "./Content.styled";
 import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow/ButtonRow";
@@ -60,7 +61,7 @@ const Content = (props: ContentProps): ReactElement => {
 					/>
 				)}
 			</TitleWrapper>
-			<div className={cardVariant ? "card-content" : ""}>
+			<FieldsList className={cardVariant ? "card-content" : ""}>
 				{data && sectionsToRender.map((section, idx) => (
 					<ContentRowWrapper key={`${idx}-row`} className={cardVariant ? "card-row" : ""}>
 						{section.map((field, idx) => (
@@ -75,7 +76,7 @@ const Content = (props: ContentProps): ReactElement => {
 						))}
 					</ContentRowWrapper>
 				))}
-			</div>
+			</FieldsList>
 		</MainWrapper>
 	);
 };
