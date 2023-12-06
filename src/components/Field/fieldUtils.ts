@@ -13,7 +13,6 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	color: Sizes.sm,
 	date: Sizes.md,
 	address: Sizes.full,
-	table: Sizes.full,
 	textEditor: Sizes.lg,
 	advancedSelection: Sizes.md,
 	mapCoordinates: Sizes.sm,
