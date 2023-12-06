@@ -60,6 +60,6 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		await formWithLayoutPage.saveBtn.click();
 		await expect(formWithLayoutPage.panelContentLocator.nth(0)).toBeVisible();
 		await expect(formWithLayoutPage.panelContentLocator.nth(1)).toBeVisible();
-		expect(await formWithLayoutPage.errorMessage.count()).toBe(3);
+		expect(await formWithLayoutPage.errorMessage.count()).toBe(4);
 	});
 });
