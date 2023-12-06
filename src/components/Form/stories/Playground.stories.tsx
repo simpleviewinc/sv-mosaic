@@ -4,7 +4,6 @@ import { withKnobs, boolean, object, text, select } from "@storybook/addon-knobs
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
-import { useTable, headers } from "@root/components/Field/FormFieldTable/tableUtils";
 import { useForm, formActions } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
@@ -25,10 +24,6 @@ import { ORIGINAL_BODY_MARGIN } from "./utils";
 export default {
 	title: "Components/Form",
 	decorators: [withKnobs],
-};
-
-const deleteTableRow = () => {
-	alert("Delete button clicked");
 };
 
 const createNewOption = async (newOptionLabel) => {
@@ -56,11 +51,6 @@ export const Playground = (): ReactElement => {
 		}
 	}, []);
 
-	const { addTableRow, editAction, extraActionsTable } = useTable(
-		state.data,
-		"table",
-		dispatch
-	);
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
 
 	const showState = boolean("Show state", false);
@@ -459,40 +449,6 @@ export const Playground = (): ReactElement => {
 					defaultValue: !showDefaultValues ? undefined : "Passing default value"
 				},
 				{
-					name: "table",
-					label: "Table example",
-					type: "table",
-					disabled,
-					required,
-					inputSettings: {
-						handleAddElement: addTableRow,
-						handleEdit: editAction,
-						handleDelete: deleteTableRow,
-						extraActions: extraActionsTable,
-						headers,
-					},
-					defaultValue: !showDefaultValues ? undefined : [
-						{
-							"id": "1",
-							"items": [
-								"John",
-								"john@email.com",
-								"01/01/2021",
-								"3231-962-7516"
-							]
-						},
-						{
-							"id": "1",
-							"items": [
-								"Mark",
-								"mark@email.com",
-								"01/01/2022",
-								"3231-962-7518"
-							]
-						}
-					]
-				},
-				{
 					name: "address",
 					type: "address",
 					label: "Address",
@@ -606,7 +562,7 @@ export const Playground = (): ReactElement => {
 					[["textField"], ["check"]],
 					// row 2
 					[["chipSelect"], ["dropdownSingle"]],
-					[["address"], ["table"]],
+					[["address"], []],
 					// row 3
 					[["phoneSelect"], ["radio"]]
 				]
