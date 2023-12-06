@@ -1,26 +1,8 @@
-import React, { useMemo, memo } from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import DataViewTr from "../DataViewTr";
 import theme from "@root/theme";
-import { DataViewTBodyProps, DataViewTBodySortableProps } from "./DataViewTBodyTypes";
-import {
-	closestCenter,
-	DndContext,
-	KeyboardSensor,
-	PointerSensor,
-	useSensor,
-	useSensors
-} from "@dnd-kit/core";
-import {
-	restrictToVerticalAxis,
-	restrictToFirstScrollableAncestor
-} from "@dnd-kit/modifiers";
-import {
-	arrayMove,
-	sortableKeyboardCoordinates,
-	SortableContext,
-	verticalListSortingStrategy
-} from "@dnd-kit/sortable";
+import { DataViewTBodyProps } from "./DataViewTBodyTypes";
 
 const StyledTBody = styled.tbody`
 	& > tr {
@@ -44,48 +26,8 @@ const StyledTBody = styled.tbody`
 	}
 `
 
-function DataViewTBodySortable(props: DataViewTBodySortableProps) {
-	const sensors = useSensors(
-		useSensor(PointerSensor),
-		useSensor(KeyboardSensor, {
-			coordinateGetter: sortableKeyboardCoordinates
-		})
-	);
-
-	function handleDragEnd(event) {
-		const { active, over } = event;
-
-		if (active.id !== over.id) {
-			const ids = props.data.map(({ id }) => String(id));
-
-			props.onReorder(arrayMove(
-				ids,
-				ids.indexOf(active.id),
-				ids.indexOf(over.id)
-			));
-		}
-	}
-
-	return (
-		<DndContext
-			sensors={sensors}
-			collisionDetection={closestCenter}
-			onDragEnd={handleDragEnd}
-			autoScroll={{layoutShiftCompensation: false}}
-			modifiers={[restrictToVerticalAxis, restrictToFirstScrollableAncestor]}
-		>
-			<SortableContext
-				items={props.transformedData.map(item => item.id as string)}
-				strategy={verticalListSortingStrategy}
-			>
-				{props.children}
-			</SortableContext>
-		</DndContext>
-	)
-}
-
 function DataViewTBody(props: DataViewTBodyProps) {
-	const children = useMemo(() => (
+	return (
 		<StyledTBody>
 			{props.transformedData.map((row, i) => (
 				<DataViewTr
@@ -103,31 +45,6 @@ function DataViewTBody(props: DataViewTBodyProps) {
 				/>
 			))}
 		</StyledTBody>
-	), [
-		props.transformedData,
-		props.data,
-		props.primaryActions,
-		props.additionalActions,
-		props.disabled,
-		props.onCheckboxClick,
-		props.checked,
-		props.columns,
-		props.onReorder,
-		props.hasActions
-	])
-
-	if (!props.onReorder) {
-		return children
-	}
-
-	return (
-		<DataViewTBodySortable
-			data={props.data}
-			transformedData={props.transformedData}
-			onReorder={props.onReorder}
-		>
-			{children}
-		</DataViewTBodySortable>
 	)
 }
 
