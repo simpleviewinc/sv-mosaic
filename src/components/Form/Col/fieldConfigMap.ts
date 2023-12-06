@@ -13,7 +13,6 @@ import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/Form
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
 import FormFieldDate, { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldAddress from "@root/components/Field/FormFieldAddress";
-import FormFieldTable from "@root/components/Field/FormFieldTable";
 import FormFieldTextEditor from "@root/components/Field/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
@@ -111,11 +110,6 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	address: {
 		Component: FormFieldAddress,
 		validate: "onBlur",
-		getResolvedValue: defaultResolver
-	},
-	table: {
-		Component: FormFieldTable,
-		validate: "onChange",
 		getResolvedValue: defaultResolver
 	},
 	textEditor: {

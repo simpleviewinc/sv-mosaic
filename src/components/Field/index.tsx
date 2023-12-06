@@ -48,9 +48,6 @@ export * from "./FormFieldRadio";
 export { default as FormFieldRaw } from "./FormFieldRaw";
 export * from "./FormFieldRaw";
 
-export { default as FormFieldTable } from "./FormFieldTable";
-export * from "./FormFieldTable";
-
 export { default as FormFieldText } from "./FormFieldText";
 export * from "./FormFieldText";
 
