@@ -8,6 +8,8 @@ import { useForm, formActions } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons } from "@root/utils/storyUtils";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 // Components
 import Form from "../Form";
@@ -16,6 +18,7 @@ import Form from "../Form";
 import { FieldDef } from "@root/components/Field";
 
 import { ORIGINAL_BODY_MARGIN } from "./utils";
+import { DataViewProps } from "@root/components/DataView";
 
 export default {
 	title: "Components/Form",
@@ -25,8 +28,12 @@ export default {
 const initialSection1Fields = [
 	[["text1"], ["textarea"], ["text2"]],
 	[["text3"], [], ["text4"]],
-	[["toggleSwitch"], ["color"]]
+	[["toggleSwitch"], ["color"], ["formMatrix"]]
 ];
+
+function randomNumber(min: number, max: number) {
+	return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
 export const FormWithLayout = (props: {height?: string}): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -38,6 +45,33 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
 		}
 	}, []);
+
+	const gridConfig: DataViewProps = {
+		columns: [{name: "id", label: "ID"}, {name: "title", label: "Title"}, {name: "description", label: "Description"}],
+		primaryActions: [
+			{
+				name: "delete",
+				color: "black",
+				variant: "icon",
+				mIcon: DeleteIcon,
+				onClick: async ({ data }) => {
+					const filteredRows =  state.data.formMatrix.filter(row => row.id !== data.id);
+
+					await dispatch(
+						formActions.setFieldValue({
+							name: "formMatrix",
+							value: filteredRows,
+							touched: true
+						})
+					);
+				}
+			}
+		],
+		data: state.data.formMatrix,
+		limit: 25,
+		display: "list",
+		activeColumns: ["id", "title", "description"],
+	};
 
 	const showState = boolean("Show state", false);
 	const collapsed = boolean("Collapse sections", false);
@@ -118,8 +152,36 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					type: "textEditor",
 					required: true
 				},
+				{
+					name: "formMatrix",
+					label: "Matrix field",
+					type: "matrix",
+					required: true,
+					inputSettings: {
+						dataView: gridConfig,
+						buttons: [
+							{
+								label: "Add",
+								onClick: () => {
+									const id = randomNumber(1, 1000)
+
+									dispatch(
+										formActions.setFieldValue({
+											name: "formMatrix",
+											value: [...(state.data.formMatrix || []), {id, title: `Title ${id}`, description: `Description ${id}`}],
+											touched: true
+										})
+									)
+								},
+								color: "teal",
+								variant: "text",
+								mIcon: AddIcon
+							},
+						]
+					},
+				},
 			],
-		[]
+		[state.data.formMatrix, gridConfig, dispatch]
 	);
 
 	const sections = useMemo(() => [
