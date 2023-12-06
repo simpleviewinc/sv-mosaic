@@ -71,9 +71,18 @@ export const ColorValue = styled.p`
 	margin-top: 0;
 `;
 
-export const FieldsList = styled.dl`
+export const FieldsList = styled.div``
+
+export const ContentRowWrapper = styled.dl`
+	display: flex;
+	width: 100%;
 	margin: 0;
-`
+
+	&.card-row + .card-row {
+		border-top: 2px solid ${theme.newColors.grey2["100"]};
+		padding-top: 16px;
+	}
+`;
 
 export const FieldContainer = styled.div<{$columns?: number}>`
 	margin-bottom: 24px;
@@ -91,14 +100,4 @@ export const FieldDefinition = styled.dd`
 	color: ${theme.newColors.grey3["100"]};
 	font-size: 14px;
 	margin: 0;
-`;
-
-export const ContentRowWrapper = styled.div`
-	display: flex;
-	width: 100%;
-
-	&.card-row + .card-row {
-		border-top: 2px solid ${theme.newColors.grey2["100"]};
-		padding-top: 16px;
-	}
 `;
