@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const MatrixWrapper = styled.div`
 	& > div > .viewContainer {
-		margin: 0;
+		padding-left: 0;
+		padding-right: 0;
 	}
 `;
 
