@@ -11,6 +11,7 @@ import {
 	TitleBar
 } from "./Card.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
+import { SubtitleText } from "../Typography";
 
 const Card = (props: CardProps): ReactElement => {
 	const { bottomActions, content, title, titleIcon, topActions } = props;
@@ -21,7 +22,7 @@ const Card = (props: CardProps): ReactElement => {
 			<TitleBar>
 				<TitleWrapper>
 					{titleIcon && <TitleIcon data-testid="contacts-icon-test"/>}
-					<p className="card-title">{title}</p>
+					<SubtitleText maxLines={1}>{title}</SubtitleText>
 				</TitleWrapper>
 				{topActions?.length > 0 && (
 					<ButtonRow buttons={topActions} />
