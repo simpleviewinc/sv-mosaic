@@ -23,7 +23,7 @@ function DataViewColumnDrawerColumn({ name, allColumns }: DataViewColumnDrawerCo
 	} = useSortable({id: column.name});
 
 	const style = {
-		transform: CSS.Transform.toString(transform),
+		transform: CSS.Translate.toString(transform),
 		transition
 	}
 

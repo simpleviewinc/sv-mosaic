@@ -92,7 +92,7 @@ export function DataViewTrSortable(props: DataViewTrDndProps) {
 	} = useSortable({id: props.originalRowData.id as string});
 
 	const style = {
-		transform: CSS.Transform.toString(transform),
+		transform: CSS.Translate.toString(transform),
 		transition
 	}
 
