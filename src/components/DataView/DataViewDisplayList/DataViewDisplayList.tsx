@@ -1,16 +1,17 @@
 import * as React from "react";
+import { useCallback, useMemo, useRef } from "react";
 import styled from "styled-components";
 import {
 	closestCenter,
 	DndContext,
 	KeyboardSensor,
+	Modifier,
 	PointerSensor,
 	useSensor,
 	useSensors
 } from "@dnd-kit/core";
 import {
-	restrictToVerticalAxis,
-	restrictToFirstScrollableAncestor
+	restrictToVerticalAxis
 } from "@dnd-kit/modifiers";
 import {
 	arrayMove,
@@ -21,9 +22,9 @@ import {
 
 import DataViewTHead from "../DataViewTHead";
 import DataViewTBody from "../DataViewTBody";
-import { useMemo } from "react";
 import { transformRows } from "@root/utils/dataViewTools";
 import { DataViewDisplayListProps } from "./DataViewDisplayListTypes";
+import { restrictToBoundingRect } from "@root/utils/dom/restrictToBoundingRect";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -31,6 +32,7 @@ const StyledTable = styled.table`
 `
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
+	const tBodyRef = useRef<HTMLTableSectionElement>();
 	const { primaryActions, additionalActions } = props;
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
@@ -65,13 +67,34 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 		}
 	}
 
+	const restrictToTBody = useCallback<Modifier>(({
+		draggingNodeRect,
+		transform
+	}) => {
+		if (!draggingNodeRect || !tBodyRef.current) {
+			return transform;
+		}
+
+		const rect = tBodyRef.current.getBoundingClientRect();
+
+		if (!rect) {
+			return transform;
+		}
+
+		return restrictToBoundingRect(
+			transform,
+			draggingNodeRect,
+			rect
+		)
+	}, []);
+
 	return (
 		<DndContext
 			sensors={sensors}
 			collisionDetection={closestCenter}
 			onDragEnd={handleDragEnd}
 			autoScroll={{layoutShiftCompensation: false}}
-			modifiers={[restrictToVerticalAxis, restrictToFirstScrollableAncestor]}
+			modifiers={[restrictToVerticalAxis, restrictToTBody]}
 		>
 			<SortableContext
 				items={transformedData.map(item => item.id as string)}
@@ -111,6 +134,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 						primaryActions={props.primaryActions}
 						onCheckboxClick={props.onCheckboxClick}
 						onReorder={props.onReorder}
+						ref={tBodyRef}
 					/>
 				</StyledTable>
 			</SortableContext>
