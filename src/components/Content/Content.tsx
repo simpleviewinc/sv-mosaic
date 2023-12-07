@@ -9,7 +9,6 @@ import { ContentProps } from "./ContentTypes";
 import {
 	MainWrapper,
 	TitleWrapper,
-	Title,
 	ContentRowWrapper,
 	FieldsList,
 } from "./Content.styled";
@@ -17,6 +16,7 @@ import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import ContentRow from "./ContentRow";
 import { MosaicGridConfig } from "@root/types";
+import { SubtitleText } from "../Typography";
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections, title, buttons = [], variant } = props;
@@ -53,7 +53,7 @@ const Content = (props: ContentProps): ReactElement => {
 	return (
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
-				<Title>{title}</Title>
+				<SubtitleText maxLines={1}>{title}</SubtitleText>
 				{buttonToRender.length > 0 && (
 					<ButtonRow
 						buttons={buttonToRender}

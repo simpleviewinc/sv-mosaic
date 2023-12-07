@@ -35,12 +35,6 @@ export const TitleWrapper = styled.div`
 	}
 `;
 
-export const Title = styled.span`
-	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 16px;
-	font-weight: ${theme.fontWeight.medium};
-`;
-
 export const StyledEditIcon = styled(EditIcon)`
 	color: ${theme.newColors.grey3["100"]};
 	cursor: pointer;
