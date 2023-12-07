@@ -17,7 +17,7 @@ export class ContentPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.mainContentTitle = page.locator("span", { hasText: "Main Content Title" });
+		this.mainContentTitle = page.getByRole("heading");
 		this.editButton = page.locator("[data-testid='button-row'] button [data-testid='icon-button-test']");
 		this.detailsButton = page.locator("[data-testid='button-row'] button", { hasText: "More Details" });
 		this.mainWrapperLocator = page.locator("#root div").first();
