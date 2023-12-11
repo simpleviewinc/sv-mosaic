@@ -11,9 +11,6 @@ commands:
       - run:
           name: Load Mosaic image
           command: docker load -i sv_mosaic_build.tar
-      - run:
-          name: Load Storybook 7 image
-          command: docker load -i sv_mosaic_sb7_build.tar
 
 jobs:
   build:
