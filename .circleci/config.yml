@@ -114,6 +114,8 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - checkout
+      - attach_workspace:
+          at: ~/project
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
@@ -132,9 +134,6 @@ jobs:
             docker exec -t github-pages sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
             # Replace the base container's home path with the publishing container's home path in the .ssh/config file
             docker exec -t github-pages sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
-      - run:
-          name: Add github to known_hosts
-          command: docker exec -t github-pages sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
           name: Copy docs
           command: docker cp ./docs github-pages:/app/docs
