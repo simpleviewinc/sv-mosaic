@@ -142,7 +142,7 @@ jobs:
           command: docker cp docs/. github-pages:/app/docs
       - run:
           name: Publish to GitHub pages
-          command: docker exec -t github-pages sh -c "ls /app/docs"
+          command: docker exec -t github-pages yarn run ci:storybook
   publish:
     docker:
       - image: cimg/base:2021.04
