@@ -23,6 +23,7 @@ services:
     ports:
       - "10000:10000"
     environment:
+      - CIRCLE_BRANCH=${CIRCLE_BRANCH}
       - NODE_OPTIONS=--openssl-legacy-provider
     tty: true
   sv-mosaic-sb:
