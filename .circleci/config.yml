@@ -99,19 +99,7 @@ jobs:
           name: Compose containers
           command: docker-compose up --detach
       - run:
-          name: Copy SSH
-          command: |
-            # Copy base container's .ssh to publishing container's .ssh
-            docker cp ~/.ssh sv-mosaic:/root/.ssh
-            # Give ~/.ssh and the keys inside the correct ownership and permissions
-            docker exec -t sv-mosaic sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
-            # Replace the base container's home path with the publishing container's home path in the .ssh/config file
-            docker exec -t sv-mosaic sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
-      - run:
-          name: Add github to known_hosts
-          command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
-      - run:
-          name: Publish to GitHub pages
+          name: Build storybook distribution files
           command: docker exec -t sv-mosaic yarn run build:storybook
       - run:
           name: Extract distribution files
@@ -128,6 +116,9 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: large
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.14
       - checkout
       - attach_workspace:
           at: ~/project
