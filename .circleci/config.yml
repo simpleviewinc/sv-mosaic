@@ -9,8 +9,11 @@ commands:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: Load public image
+          name: Load Mosaic image
           command: docker load -i sv_mosaic_build.tar
+      - run:
+          name: Load Storybook 7 image
+          command: docker load -i sv_mosaic_sb7_build.tar
 
 jobs:
   build:
@@ -33,8 +36,8 @@ jobs:
           name: Build Storybook 7 image
           command: cd containers/mosaic-sb7 && DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" .
       - run:
-          name: Save Mosaic image
-          command: docker save -o sv_mosaic_build.tar sv-mosaic
+          name: Save Storybook 7 image
+          command: docker save -o sv_mosaic_sb7_build.tar sv-mosaic-sb7
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -71,7 +74,7 @@ jobs:
       - load_build
       - run:
           name: Spin up test containers
-          command: cd automation_testing && docker-compose up --detach
+          command: cd automation_testing && docker compose up --detach
       - run:
           name: Copy tests to container
           command: |
