@@ -1,7 +1,7 @@
 services:
   sv-mosaic:
     container_name: sv-mosaic
-    image: sv-mosaic:local
+    image: sv-mosaic
     volumes:
       - ./src:/app/src
       - ./testing:/app/testing
@@ -27,7 +27,7 @@ services:
     tty: true
   sv-mosaic-sb:
     container_name: sv-mosaic-sb
-    image: sv-mosaic-sb7:local
+    image: sv-mosaic-sb7
     volumes:
       - ./containers/mosaic-sb7/src:/app/containers/mosaic-sb7/src
       - ./src:/app/containers/mosaic-sb7/lib/src
