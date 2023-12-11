@@ -112,7 +112,17 @@ jobs:
           command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
           name: Publish to GitHub pages
-          command: docker exec -t sv-mosaic yarn run ci:storybook
+          command: docker exec -t sv-mosaic yarn run build:storybook
+      - run:
+          name: Extract distribution files
+          command: docker cp sv-mosaic:/app/docs ./docs
+      - run:
+          name: List distribution files
+          command: ls ./docs
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - docs
   publish:
     docker:
       - image: cimg/base:2021.04
