@@ -42,6 +42,7 @@ jobs:
           root: ~/project
           paths:
             - sv_mosaic_build.tar
+            - sv_mosaic_sb7_build.tar
             - scripts
   unit_tests:
     docker:
