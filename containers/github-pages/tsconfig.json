@@ -1,3 +1,21 @@
 {
-  "extends": "../../tsconfig.json"
+	"compilerOptions": {
+		"jsx": "react",
+		"lib": [
+			"ES2019",
+			"DOM"
+		],
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"baseUrl": "./",
+		"skipLibCheck": true,
+		"esModuleInterop": true
+	},
+	"include": [
+		"./ci-storybook.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
 }
