@@ -136,7 +136,7 @@ jobs:
             docker exec -t github-pages sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
       - run:
           name: Copy docs
-          command: mkdir docs && docker cp docs/. github-pages:/app/docs
+          command: docker cp docs/. github-pages:/app/docs
       - run:
           name: Publish to GitHub pages
           command: docker exec -t github-pages sh -c "ls /app"
@@ -164,7 +164,7 @@ workflows:
             branches:
               only:
                 - ci-testing
-                # - storybook-upgrade
+                - storybook-upgrade
                 - /pull.*/
                 - develop
                 - qa
@@ -204,7 +204,7 @@ workflows:
           filters:
             branches:
               only:
-                # - storybook-upgrade
+                - storybook-upgrade
                 - ci-testing
                 - develop
                 - qa
@@ -212,11 +212,11 @@ workflows:
                 - master
       - publish_to_github_pages:
           context: default
-          # requires:
-            # - build
-            # - build_storybook_5
-            # - unit_tests
-            # - e2e_tests
+          requires:
+            - build
+            - build_storybook_5
+            - unit_tests
+            - e2e_tests
           filters:
             branches:
               only:
