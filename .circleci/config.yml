@@ -32,17 +32,10 @@ jobs:
       - run:
           name: Save Mosaic image
           command: docker save -o sv_mosaic_build.tar sv-mosaic
-      - run:
-          name: Build Storybook 7 image
-          command: cd containers/mosaic-sb7 && DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" .
-      - run:
-          name: Save Storybook 7 image
-          command: docker save -o sv_mosaic_sb7_build.tar sv-mosaic-sb7
       - persist_to_workspace:
           root: ~/project
           paths:
             - sv_mosaic_build.tar
-            - sv_mosaic_sb7_build.tar
             - scripts
   unit_tests:
     docker:
@@ -102,6 +95,9 @@ jobs:
       # - run:
       #     name: Spin up publishing container
       #     command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e NODE_OPTIONS=--openssl-legacy-provider -t -d sv-mosaic
+      - run:
+          name: Build Storybook 7 image
+          command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" ./containers/mosaic-sb7
       - run:
           name: Compose containers
           command: docker-compose up --detach
