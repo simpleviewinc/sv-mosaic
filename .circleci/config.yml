@@ -135,11 +135,14 @@ jobs:
             # Replace the base container's home path with the publishing container's home path in the .ssh/config file
             docker exec -t github-pages sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
       - run:
+          name: Add github to known_hosts
+          command: docker exec -t sv-mosaic sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
+      - run:
           name: Copy docs
           command: docker cp docs/. github-pages:/app/docs
       - run:
           name: Publish to GitHub pages
-          command: docker exec -t github-pages sh -c "ls /app"
+          command: docker exec -t github-pages sh -c "ls /app/docs"
   publish:
     docker:
       - image: cimg/base:2021.04
