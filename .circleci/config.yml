@@ -108,14 +108,12 @@ jobs:
   publish_to_github_pages:
     docker:
       - image: cimg/base:2021.04
-    resource_class: xlarge
+    resource_class: large
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
           version: 20.10.14
       - checkout
-      - attach_workspace:
-          at: ~/project
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
