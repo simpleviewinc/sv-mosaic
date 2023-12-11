@@ -108,7 +108,7 @@ jobs:
   publish_to_github_pages:
     docker:
       - image: cimg/base:2021.04
-    resource_class: large
+    resource_class: xlarge
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
