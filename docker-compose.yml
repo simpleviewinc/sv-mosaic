@@ -3,22 +3,22 @@ services:
     container_name: sv-mosaic
     image: sv-mosaic
     volumes:
-      - ./src:/app/src
-      - ./testing:/app/testing
-      - ./.storybook:/app/.storybook
-      - ./scripts:/app/scripts
-      - ./dist:/app/dist
-      - ./package.json:/app/mounted/package.json
-      - ./yarn.lock:/app/mounted/yarn.lock
-      - ./.yarn:/app/mounted/.yarn
-      - ./webpack.config.js:/app/webpack.config.js
-      - ./.babelrc:/app/.babelrc
-      - ./tsconfig.json:/app/tsconfig.json
-      - ./tsconfig.cjs.json:/app/tsconfig.cjs.json
-      - ./tsconfig.esm.json:/app/tsconfig.esm.json
-      - ./.eslintrc.json:/app/.eslintrc.json
-      - ./.eslintignore:/app/.eslintignore
-      - ./jest.config.js:/app/jest.config.js
+      # - ./src:/app/src
+      # - ./testing:/app/testing
+      # - ./.storybook:/app/.storybook
+      # - ./scripts:/app/scripts
+      # - ./dist:/app/dist
+      # - ./package.json:/app/mounted/package.json
+      # - ./yarn.lock:/app/mounted/yarn.lock
+      # - ./.yarn:/app/mounted/.yarn
+      # - ./webpack.config.js:/app/webpack.config.js
+      # - ./.babelrc:/app/.babelrc
+      # - ./tsconfig.json:/app/tsconfig.json
+      # - ./tsconfig.cjs.json:/app/tsconfig.cjs.json
+      # - ./tsconfig.esm.json:/app/tsconfig.esm.json
+      # - ./.eslintrc.json:/app/.eslintrc.json
+      # - ./.eslintignore:/app/.eslintignore
+      # - ./jest.config.js:/app/jest.config.js
       - sv-mosaic-modules:/app/node_modules
     ports:
       - "10000:10000"
