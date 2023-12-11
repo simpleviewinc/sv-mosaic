@@ -31,7 +31,7 @@ jobs:
           command: docker save -o sv_mosaic_build.tar sv-mosaic
       - run:
           name: Build Storybook 7 image
-          command: cd containers/mosaic-sb7 && DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
+          command: cd containers/mosaic-sb7 && DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" .
       - run:
           name: Save Mosaic image
           command: docker save -o sv_mosaic_build.tar sv-mosaic
