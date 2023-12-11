@@ -136,7 +136,7 @@ jobs:
             docker exec -t github-pages sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
       - run:
           name: Copy docs
-          command: ls docs
+          command: mkdir docs && docker cp docs/. github-pages:/app/docs
       - run:
           name: Publish to GitHub pages
           command: docker exec -t github-pages sh -c "ls /app"

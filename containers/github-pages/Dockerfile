@@ -10,5 +10,3 @@ COPY yarn.lock /app/yarn.lock
 RUN cd /app && yarn install
 
 WORKDIR /app
-
-CMD ["yarn", "ci:storybook"]
