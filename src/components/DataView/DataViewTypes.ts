@@ -195,9 +195,17 @@ export interface DataViewFilterGetOptionsReturn {
 }
 
 export interface DataViewProps {
+	/**
+	 * The title to be displayed in the title area of the DataView
+	 */
 	title?: string
 	loading?: boolean
 	count?: number
+	/**
+	 * How many items of data to display on each page
+	 *
+	 * @default 20
+	 */
 	limit?: number
 	skip?: number
 	columns: DataViewColumn[]

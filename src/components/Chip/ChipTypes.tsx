@@ -16,7 +16,7 @@ export interface ChipsProps {
    */
   selected?: boolean;
   /**
-   * Inherit prop from MUI Chip component. Callback function fired when 
+   * Inherit prop from MUI Chip component. Callback function fired when
    * the delete icon is clicked. If set, the delete icon will be shown.
    */
   onDelete?: React.EventHandler<any>;

@@ -1,13 +1,13 @@
 /* eslint-disable react/no-children-prop */
 import * as React from "react";
-import { ReactElement, HTMLAttributes, useRef } from "react";
+import { HTMLAttributes, useRef } from "react";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
 import { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledDeletableChip } from "./Chip.styled";
 
-const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
+const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>) => {
 	const { label, disabled, selected, onDelete, onClick } = props;
 	const ref = useRef<HTMLDivElement>();
 

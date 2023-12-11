@@ -15,3 +15,12 @@ dist/*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Yarn Mosaic Container
+.pnp.*
+containers/mosaic-sb7/.yarn/*
+!containers/mosaic-sb7/.yarn/patches
+!containers/mosaic-sb7/.yarn/plugins
+!containers/mosaic-sb7/.yarn/releases
+!containers/mosaic-sb7/.yarn/sdks
+!containers/mosaic-sb7/.yarn/versions

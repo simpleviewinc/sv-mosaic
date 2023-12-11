@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useRef, ReactElement } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
@@ -55,7 +55,7 @@ const StyledWrapper = styled.div`
 	}
 `;
 
-function DataView (props: DataViewProps): ReactElement  {
+function DataView ({limit = 20, ...props}: DataViewProps)  {
 	/**
 	 * Checks if a provided active filter is a
 	 * valid filter based on the name.
@@ -153,7 +153,7 @@ function DataView (props: DataViewProps): ReactElement  {
 	const Display = activeDisplay.component;
 
 	const savedViewState: StateViewDef = {
-		limit : props.limit,
+		limit,
 		sort : props.sort,
 		display : props.display,
 		filter : props.filter,
@@ -283,7 +283,7 @@ function DataView (props: DataViewProps): ReactElement  {
 							display={display}
 							displayControlEnabled={displayControlEnabled}
 							displayOptionsFull={displayOptionsFull}
-							limit={props.limit}
+							limit={limit}
 							limitOptions={props.limitOptions}
 							onLimitChange={props.onLimitChange}
 							onDisplayChange={props.onDisplayChange}
@@ -321,7 +321,7 @@ function DataView (props: DataViewProps): ReactElement  {
 					primaryActions={props.primaryActions}
 					activeColumns={props.activeColumns}
 					gridColumnsMap={props.gridColumnsMap}
-					limit={props.limit}
+					limit={limit}
 					count={props.count}
 					rowCount={props.data.length}
 					activeColumnObjs={activeColumnObjs}

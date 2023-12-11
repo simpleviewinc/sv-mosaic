@@ -1,0 +1,42 @@
+services:
+  sv-mosaic:
+    container_name: sv-mosaic
+    image: sv-mosaic:local
+    volumes:
+      - ./src:/app/src
+      - ./testing:/app/testing
+      - ./.storybook:/app/.storybook
+      - ./scripts:/app/scripts
+      - ./dist:/app/dist
+      - ./package.json:/app/mounted/package.json
+      - ./yarn.lock:/app/mounted/yarn.lock
+      - ./.yarn:/app/mounted/.yarn
+      - ./webpack.config.js:/app/webpack.config.js
+      - ./.babelrc:/app/.babelrc
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./tsconfig.cjs.json:/app/tsconfig.cjs.json
+      - ./tsconfig.esm.json:/app/tsconfig.esm.json
+      - ./.eslintrc.json:/app/.eslintrc.json
+      - ./.eslintignore:/app/.eslintignore
+      - ./jest.config.js:/app/jest.config.js
+      - sv-mosaic-modules:/app/node_modules
+    ports:
+      - "10000:10000"
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
+    tty: true
+  sv-mosaic-sb:
+    container_name: sv-mosaic-sb
+    image: sv-mosaic-sb7:local
+    volumes:
+      - ./containers/mosaic-sb7/src:/app/containers/mosaic-sb7/src
+      - ./src:/app/containers/mosaic-sb7/lib/src
+      - ./tsconfig.json:/app/tsconfig.json
+      - sv-mosaic-modules:/app/containers/mosaic-sb7/lib/node_modules
+    ports:
+      - "10001:10001"
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
+    tty: true
+volumes:
+  sv-mosaic-modules:

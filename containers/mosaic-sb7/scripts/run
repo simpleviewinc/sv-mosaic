@@ -1,0 +1,9 @@
+#!/bin/bash
+docker run --rm -it \
+	-v $PWD/src:/app/containers/mosaic-sb7/src \
+	-v $PWD/../../src:/app/containers/mosaic-sb7/lib/src \
+	-v $PWD/../../tsconfig.json:/app/tsconfig.json \
+	-v sv-mosaic-modules:/app/containers/mosaic-sb7/lib/node_modules \
+	-p 10001:10001 \
+	-e NODE_OPTIONS=--openssl-legacy-provider \
+	sv-mosaic-sb7:local /bin/bash
