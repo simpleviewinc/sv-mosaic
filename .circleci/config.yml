@@ -75,7 +75,7 @@ jobs:
       - load_build
       - run:
           name: Spin up test containers
-          command: cd automation_testing && docker compose up --detach
+          command: cd automation_testing && docker-compose up --detach
       - run:
           name: Copy tests to container
           command: |
@@ -104,7 +104,7 @@ jobs:
       #     command: docker run --name sv-mosaic -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e NODE_OPTIONS=--openssl-legacy-provider -t -d sv-mosaic
       - run:
           name: Compose containers
-          command: docker compose up -d
+          command: docker-compose up --detach
       - run:
           name: Copy SSH
           command: |
