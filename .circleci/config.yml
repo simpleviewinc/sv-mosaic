@@ -79,7 +79,7 @@ jobs:
       - run:
           name: Run tests
           command: docker exec sv-mosaic-e2e ./automation_testing/scripts/try-storybook
-  storybook:
+  build_storybook_5:
     docker:
       - image: cimg/base:2021.04
     resource_class: large
@@ -123,6 +123,38 @@ jobs:
           root: ~/project
           paths:
             - docs
+  publish_to_github_pages:
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: large
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - run:
+          name: Build Github publishing image
+          command: DOCKER_BUILDKIT=1 docker build -t "github-pages" ./containers/github-pages
+      - run:
+          name: Spin up publishing container
+          command: docker run --name github-pages -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -t -d github-pages
+      - run:
+          name: Copy SSH
+          command: |
+            # Copy base container's .ssh to publishing container's .ssh
+            docker cp ~/.ssh github-pages:/root/.ssh
+            # Give ~/.ssh and the keys inside the correct ownership and permissions
+            docker exec -t github-pages sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
+            # Replace the base container's home path with the publishing container's home path in the .ssh/config file
+            docker exec -t github-pages sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
+      - run:
+          name: Copy docs
+          command: docker cp ./docs github-pages:/app/docs
+      - run:
+          name: Publish to GitHub pages
+          command: docker exec -t github-pages yarn run ci:storybook
   publish:
     docker:
       - image: cimg/base:2021.04
@@ -178,10 +210,26 @@ workflows:
                 - qa
       # Branches develop, qa, staging and master get published to GH pages.
       # For the develop branch, the tests must finish successfully before publishing
-      - storybook:
+      - build_storybook_5:
           context: default
           requires:
             - build
+            - unit_tests
+            - e2e_tests
+          filters:
+            branches:
+              only:
+                - storybook-upgrade
+                - ci-testing
+                - develop
+                - qa
+                - staging
+                - master
+      - publish_to_github_pages:
+          context: default
+          requires:
+            - build
+            - build_storybook_5
             - unit_tests
             - e2e_tests
           filters:
@@ -200,7 +248,7 @@ workflows:
           context: default
           requires:
             - build
-            - storybook
+            - build_storybook_5
           filters:
             branches:
               only:
