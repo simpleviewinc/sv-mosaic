@@ -7,7 +7,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "start": "storybook dev -p 10001",
     "build": "storybook build -o docs",
-		"docker": "./scripts/build && ./scripts/run || true"
+    "docker": "./scripts/build && ./scripts/run || true"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -32,7 +32,7 @@
     "eslint-plugin-react-refresh": "^0.4.4",
     "eslint-plugin-storybook": "^0.6.15",
     "storybook": "7.6.4",
-    "typescript": "^5.2.2",
+    "typescript": "4.7.4",
     "vite": "^5.0.0"
   }
 }
