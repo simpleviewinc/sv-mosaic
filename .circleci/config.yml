@@ -13,7 +13,7 @@ commands:
           command: docker load -i sv_mosaic_build.tar
 
 jobs:
-  build:
+  build_base_image:
     docker:
       - image: cimg/base:2021.04
         name: build
@@ -85,7 +85,9 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - load_build
+      - run:
+          name: Build Base image
+          command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
       - run:
           name: Build Storybook 7 image
           command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" ./containers/mosaic-sb7
@@ -161,13 +163,12 @@ workflows:
   build:
     jobs:
       # Everything needs a build
-      - build:
+      - build_base_image:
           context: default
           filters:
             branches:
               only:
                 - ci-testing
-                - storybook-upgrade
                 - /pull.*/
                 - develop
                 - qa
@@ -177,7 +178,7 @@ workflows:
       - unit_tests:
           context: default
           requires:
-            - build
+            - build_base_image
           filters:
             branches:
               only:
@@ -188,7 +189,7 @@ workflows:
       - e2e_tests:
           context: default
           requires:
-            - build
+            - build_base_image
           filters:
             branches:
               only:
@@ -201,7 +202,6 @@ workflows:
       - build_storybook_5:
           context: default
           requires:
-            - build
             - unit_tests
             - e2e_tests
           filters:
@@ -216,7 +216,7 @@ workflows:
       - publish_to_github_pages:
           context: default
           requires:
-            - build
+            - build_base_image
             - build_storybook_5
             - unit_tests
             - e2e_tests
@@ -235,7 +235,7 @@ workflows:
       - publish:
           context: default
           requires:
-            - build
+            - build_base_image
             - build_storybook_5
           filters:
             branches:
