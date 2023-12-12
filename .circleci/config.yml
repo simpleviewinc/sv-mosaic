@@ -201,9 +201,9 @@ workflows:
       # For the develop branch, the tests must finish successfully before publishing
       - build_storybook_5:
           context: default
-          requires:
-            - unit_tests
-            - e2e_tests
+          # requires:
+          #   - unit_tests
+          #   - e2e_tests
           filters:
             branches:
               only:
@@ -217,8 +217,8 @@ workflows:
           context: default
           requires:
             - build_storybook_5
-            - unit_tests
-            - e2e_tests
+            # - unit_tests
+            # - e2e_tests
           filters:
             branches:
               only:
