@@ -7,6 +7,7 @@ RUN corepack enable && yarn set version 3.1.1
 
 COPY package.json /app/package.json
 COPY yarn.lock /app/yarn.lock
+COPY .yarnrc.yml /app/.yarnrc.yml
 COPY tsconfig.json /app/tsconfig.json
 COPY ci-storybook.ts /app/ci-storybook.ts
 RUN cd /app && yarn install
