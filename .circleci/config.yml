@@ -97,12 +97,12 @@ jobs:
       - run:
           name: Compose containers
           command: docker-compose up --detach
-      - run:
-          name: Build SB5 dist
-          command: docker exec -t sv-mosaic yarn run build:storybook
-      - run:
-          name: Extract SB5 dist
-          command: docker cp sv-mosaic:/app/docs ./docs
+      # - run:
+      #     name: Build SB5 dist
+      #     command: docker exec -t sv-mosaic yarn run build:storybook
+      # - run:
+      #     name: Extract SB5 dist
+      #     command: docker cp sv-mosaic:/app/docs ./docs
       - run:
           name: List SB7 structure
           command: docker exec -t sv-mosaic-sb7 sh -c "find /app -maxdepth 3"
