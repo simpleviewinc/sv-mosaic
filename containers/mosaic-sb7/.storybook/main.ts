@@ -18,6 +18,9 @@ const config: StorybookConfig = {
   },
   async viteFinal(config) {
     const result = mergeConfig(config, {
+      build: {
+        emptyOutDir: false
+      },
       server: {
         watch: {
           usePolling: true,
