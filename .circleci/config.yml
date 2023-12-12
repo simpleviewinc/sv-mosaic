@@ -105,7 +105,7 @@ jobs:
       #     command: docker cp sv-mosaic:/app/docs ./docs
       - run:
           name: List SB7 structure
-          command: docker exec -t sv-mosaic-sb7 sh -c "find /app -maxdepth 3"
+          command: docker exec -t sv-mosaic-sb7 sh -c "find /app/containers/mosaic-sb7/src -maxdepth 3"
       - run:
           name: Build SB7 dist
           command: docker exec -t sv-mosaic-sb7 npm run build
@@ -118,7 +118,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - docs
+            - docs-sb7
   publish_to_github_pages:
     docker:
       - image: cimg/base:2021.04
