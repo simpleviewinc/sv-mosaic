@@ -8,6 +8,7 @@ COPY package.json /app/containers/mosaic-sb7/package.json
 RUN cd /app/containers/mosaic-sb7 && npm install
 
 COPY .storybook /app/containers/mosaic-sb7/.storybook
+COPY src /app/containers/mosaic-sb7/src
 COPY docs-sb7 /app/containers/mosaic-sb7/docs-sb7
 COPY tsconfig.json /app/containers/mosaic-sb7/tsconfig.json
 COPY tsconfig.node.json /app/containers/mosaic-sb7/tsconfig.node.json
