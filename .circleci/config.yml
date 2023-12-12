@@ -216,7 +216,6 @@ workflows:
       - publish_to_github_pages:
           context: default
           requires:
-            - build_base_image
             - build_storybook_5
             - unit_tests
             - e2e_tests
