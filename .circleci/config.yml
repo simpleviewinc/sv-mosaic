@@ -137,9 +137,6 @@ jobs:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
       - run:
-          name: Exit 1
-          command: exit 1
-      - run:
           name: Build Github publishing image
           command: DOCKER_BUILDKIT=1 docker build -t "github-pages" ./containers/github-pages
       - run:
@@ -159,7 +156,7 @@ jobs:
           command: docker exec -t github-pages sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
           name: Copy docs
-          command: docker cp docs/. github-pages:/app/docs
+          command: docker cp docs-sb7/. github-pages:/app/docs
       - run:
           name: Publish to GitHub pages
           command: docker exec -t github-pages yarn run ci:storybook
