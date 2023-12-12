@@ -104,6 +104,9 @@ jobs:
       #     name: Extract SB5 dist
       #     command: docker cp sv-mosaic:/app/docs ./docs
       - run:
+          name: Copy library src
+          command: docker cp ./src sv-mosaic-sb7:/app/containers/mosaic-sb7/lib/src
+      - run:
           name: List SB7 structure
           command: docker exec -t sv-mosaic-sb7 sh -c 'find /app/containers/mosaic-sb7 -maxdepth 3 -not -path "**/node_modules/**"'
       - run:
