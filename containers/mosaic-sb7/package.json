@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "start": "storybook dev -p 10001",
-    "build": "storybook build -o docs-sb7",
+    "build": "storybook build -o docs-sb7 --disable-telemetry",
     "docker": "./scripts/build && ./scripts/run || true"
   },
   "dependencies": {
