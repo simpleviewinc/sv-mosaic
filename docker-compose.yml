@@ -31,8 +31,8 @@ services:
     image: sv-mosaic-sb7
     volumes:
       # Storybook
-      - ~/projectdoesnotext/containers/mosaic-sb7/src:/app/containers/mosaic-sb7/src
-      - ~/projectdoesnotext/tsconfig.json:/app/tsconfig.json
+      # - ~/projectdoesnotext/containers/mosaic-sb7/src:/app/containers/mosaic-sb7/src
+      # - ~/projectdoesnotext/tsconfig.json:/app/tsconfig.json
       # Mosaic library
       - ~/projectdoesnotext/src:/app/containers/mosaic-sb7/lib/src
       - sv-mosaic-modules:/app/containers/mosaic-sb7/lib/node_modules
