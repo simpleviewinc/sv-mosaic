@@ -105,7 +105,7 @@ jobs:
           command: docker cp sv-mosaic:/app/docs ./docs
       - run:
           name: Build SB7 dist
-          command: docker exec -t sv-mosaic-sb7 yarn run build
+          command: docker exec -t sv-mosaic-sb7 npm run build
       - run:
           name: Extract SB7 dist
           command: docker cp sv-mosaic-sb7:/app/docs-sb7 ./docs-sb7
