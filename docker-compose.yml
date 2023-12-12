@@ -27,7 +27,7 @@ services:
       - NODE_OPTIONS=--openssl-legacy-provider
     tty: true
   sv-mosaic-sb:
-    container_name: sv-mosaic-sb
+    container_name: sv-mosaic-sb7
     image: sv-mosaic-sb7
     volumes:
       - ./containers/mosaic-sb7/src:/app/containers/mosaic-sb7/src

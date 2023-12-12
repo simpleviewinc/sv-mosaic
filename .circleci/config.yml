@@ -89,23 +89,29 @@ jobs:
           docker_layer_caching: true
           version: 20.10.14
       - run:
-          name: Build Base image
+          name: Build base image
           command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
       - run:
-          name: Build Storybook 7 image
+          name: Build SB7 image
           command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" ./containers/mosaic-sb7
       - run:
           name: Compose containers
           command: docker-compose up --detach
       - run:
-          name: Build Storybook distribution files
+          name: Build SB5 dist
           command: docker exec -t sv-mosaic yarn run build:storybook
       - run:
-          name: Extract distribution files
+          name: Extract SB5 dist
           command: docker cp sv-mosaic:/app/docs ./docs
       - run:
-          name: List distribution files
-          command: ls ./docs
+          name: Build SB7 dist
+          command: docker exec -t sv-mosaic-sb7 yarn run build
+      - run:
+          name: Extract SB7 dist
+          command: docker cp sv-mosaic:/app/docs ./docs-sb7
+      - run:
+          name: List SB7 dist
+          command: ls ./docs-sb7
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -124,6 +130,9 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - run:
+          name: Exit 1
+          command: exit 1
       - run:
           name: Build Github publishing image
           command: DOCKER_BUILDKIT=1 docker build -t "github-pages" ./containers/github-pages
