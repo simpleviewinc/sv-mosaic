@@ -30,9 +30,11 @@ services:
     container_name: sv-mosaic-sb7
     image: sv-mosaic-sb7
     volumes:
+      # Storybook
       - ./containers/mosaic-sb7/src:/app/containers/mosaic-sb7/src
-      - ./src:/app/containers/mosaic-sb7/lib/src
       - ./tsconfig.json:/app/tsconfig.json
+      # Mosaic library
+      - ./src:/app/containers/mosaic-sb7/lib/src
       - sv-mosaic-modules:/app/containers/mosaic-sb7/lib/node_modules
     ports:
       - "10001:10001"
