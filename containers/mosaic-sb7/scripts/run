@@ -6,4 +6,5 @@ docker run --rm -it \
 	-v sv-mosaic-modules:/app/containers/mosaic-sb7/lib/node_modules \
 	-p 10001:10001 \
 	-e NODE_OPTIONS=--openssl-legacy-provider \
-	sv-mosaic-sb7:local /bin/bash
+	sv-mosaic-sb7 \
+	npm start

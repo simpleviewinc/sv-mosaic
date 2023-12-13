@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Build the "base" image. This currently includes the lib itself and storybook 5
+# This will eventually be split into two images (and even more eventually, sb5 will be dropped)
+./scripts/build
+
+# Move into storybook 7 directory and build that image
+cd ./containers/mosaic-sb7
+./scripts/build
+
+# Move back up to the app directory and run the base container
+cd ../../
+./scripts/run
+
+# Move into storybook 7 directory and run that container
+cd ./containers/mosaic-sb7
+./scripts/run
