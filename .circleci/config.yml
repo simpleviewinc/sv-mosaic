@@ -119,6 +119,9 @@ jobs:
           name: PWD project
           command: find /home/circleci/project/ -maxdepth 3 -not -path "**/node_modules/**"
       - run:
+          name: PWD mosaic-sb7
+          command: find /home/circleci/project/containers/mosaic-sb7 -maxdepth 3 -not -path "**/node_modules/**"
+      - run:
           name: List SB7 structure
           command: docker exec -t sv-mosaic-sb7 sh -c 'find /app/containers/mosaic-sb7 -maxdepth 3 -not -path "**/node_modules/**"'
       - run:
