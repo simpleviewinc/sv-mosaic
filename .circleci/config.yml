@@ -107,6 +107,9 @@ jobs:
           name: Copy library src
           command: docker cp ./src sv-mosaic-sb7:/app/containers/mosaic-sb7/lib/src
       - run:
+          name: List Host structure
+          command: find / -maxdepth 3 -not -path "**/node_modules/**"
+      - run:
           name: List SB7 structure
           command: docker exec -t sv-mosaic-sb7 sh -c 'find /app/containers/mosaic-sb7 -maxdepth 3 -not -path "**/node_modules/**"'
       - run:
@@ -122,6 +125,9 @@ jobs:
           root: ~/project
           paths:
             - docs-sb7
+      - run:
+          name: Exit 1
+          command: exit 1
   publish_to_github_pages:
     docker:
       - image: cimg/base:2021.04
