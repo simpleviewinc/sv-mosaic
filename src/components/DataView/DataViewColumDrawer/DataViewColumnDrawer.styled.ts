@@ -36,7 +36,17 @@ export const StyledWrapper = styled.div`
 }
 `;
 
-export const ColumnItem = styled.div`
+export const ColumnItem = styled.div<{ $isDragging?: boolean }>`
+	${({ $isDragging }) => $isDragging && `
+		background: rgba(255,255,255,.9);
+		box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+		position: relative;
+		outline: 1px solid #ddd;
+		outline-offset: -1px;
+		z-index: 1;
+	`}
+
+	cursor: grab;
   	align-items: center;
 	border-bottom: 1px solid ${theme.newColors.grey2["100"]};
   	display: flex;
