@@ -1,6 +1,5 @@
-import React from "react";
+import React, { forwardRef, memo } from "react";
 import styled from "styled-components";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import DataViewTr from "../DataViewTr";
 import theme from "@root/theme";
 import { DataViewTBodyProps } from "./DataViewTBodyTypes";
@@ -27,54 +26,26 @@ const StyledTBody = styled.tbody`
 	}
 `
 
-function DataViewTBody(props: DataViewTBodyProps) {
-	const onCheckboxClick = (i) => () => {
-		props.onCheckboxClick(i);
-	}
+const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((props, ref) => (
+	<StyledTBody ref={ref}>
+		{props.transformedData.map((row, i) => (
+			<DataViewTr
+				key={row.id as string}
+				row={row}
+				originalRowData={props.data[i]}
+				primaryActions={props.primaryActions}
+				additionalActions={props.additionalActions}
+				disabled={props.disabled}
+				onCheckboxClick={props.onCheckboxClick ? () => props.onCheckboxClick(i) : undefined}
+				checked={props.checked ? props.checked[i] : false}
+				columns={props.columns}
+				onReorder={props.onReorder}
+				hasActions={props.hasActions}
+			/>
+		))}
+	</StyledTBody>
+));
 
-	/**
-	 * When a drag has ended the rows are updated
-	 * @param e drag event. It will execute the onReorder
-	 * callback with the new rows
-	 */
-	const handleDragEnd =  ({ destination, source }: DropResult) => {
-		if (!destination) return;
+DataViewTBody.displayName = "DataViewTBody";
 
-		const rowsCopy = [...props.data].map(row => row.id) as string[];
-		const [source_data] = rowsCopy.splice(source.index, 1);
-		rowsCopy.splice(destination.index, 0, source_data);
-
-		props.onReorder(rowsCopy);
-	};
-
-	return (
-		<DragDropContext onDragEnd={handleDragEnd}>
-			<Droppable droppableId="droppable-rows">
-				{(provider) => (
-					<StyledTBody ref={provider.innerRef} {...provider.droppableProps}>
-						{props.transformedData.map((row, i) => (
-							<DataViewTr
-								key={i}
-								rowIdx={i}
-								row={row}
-								originalRowData={props.data[i]}
-								bulkActions={props.bulkActions}
-								primaryActions={props.primaryActions}
-								additionalActions={props.additionalActions}
-								disabled={props.disabled}
-								onCheckboxClick={props.onCheckboxClick ? onCheckboxClick(i) : undefined}
-								checked={props.checked ? props.checked[i] : false}
-								columns={props.columns}
-								onReorder={props.onReorder}
-								hasActions={props.hasActions}
-							/>
-						))}
-						{provider.placeholder}
-					</StyledTBody>
-				)}
-			</Droppable>
-		</DragDropContext>
-	);
-}
-
-export default DataViewTBody;
+export default memo(DataViewTBody);
