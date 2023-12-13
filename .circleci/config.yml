@@ -110,8 +110,14 @@ jobs:
           name: PWD current
           command: pwd . && find . -maxdepth 3 -not -path "**/node_modules/**"
       - run:
+          name: PWD root
+          command: find / -maxdepth 1 -not -path "**/node_modules/**"
+      - run:
           name: PWD home
           command: pwd ~ && find ~ -maxdepth 3 -not -path "**/node_modules/**"
+      - run:
+          name: PWD project
+          command: find /home/circleci/project/ -maxdepth 3 -not -path "**/node_modules/**"
       - run:
           name: List SB7 structure
           command: docker exec -t sv-mosaic-sb7 sh -c 'find /app/containers/mosaic-sb7 -maxdepth 3 -not -path "**/node_modules/**"'
