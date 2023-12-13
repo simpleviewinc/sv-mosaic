@@ -2,13 +2,13 @@ import type { StorybookConfig } from "@storybook/react-vite";
 import { mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-onboarding",
-    "@storybook/addon-interactions",
-  ],
+  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  // addons: [
+  //   "@storybook/addon-links",
+  //   "@storybook/addon-essentials",
+  //   "@storybook/addon-onboarding",
+  //   "@storybook/addon-interactions",
+  // ],
   framework: {
     name: "@storybook/react-vite",
     options: {},
@@ -18,9 +18,6 @@ const config: StorybookConfig = {
   },
   async viteFinal(config) {
     const result = mergeConfig(config, {
-      build: {
-        emptyOutDir: false
-      },
       server: {
         watch: {
           usePolling: true,
@@ -30,6 +27,9 @@ const config: StorybookConfig = {
     });
 
     return result;
+  },
+  core: {
+    disableTelemetry: true,
   },
 };
 export default config;
