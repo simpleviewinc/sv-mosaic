@@ -38,7 +38,7 @@ const Field = ({
 	return (
 		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
 			<StyledFieldWrapper $error={shouldRenderError} $spacing={spacing}>
-				<StyledLabelControlWrapper>
+				<StyledLabelControlWrapper $fullWidth={fieldDef?.size === "full"}>
 					{hasLabelComponent && (
 						<Label
 							required={fieldDef?.required}
