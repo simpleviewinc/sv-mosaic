@@ -112,9 +112,7 @@ const Top = (props: TopProps): ReactElement => {
 							<SmallBackIcon />
 						</SmallBack>
 					)}
-					{buttons && (
-						<ButtonRow buttons={buttons} />
-					)}
+					<ButtonRow buttons={buttons} />
 				</PrimaryActions>
 			</TopWrapper>
 			{description && <LargeDescription>{description}</LargeDescription>}

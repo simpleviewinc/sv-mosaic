@@ -20,6 +20,7 @@ import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicShow } from "@root/types";
 import { ElementType, HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
 import { FieldValueResolver, FormSpacing } from "../Form";
+import { FormState } from "../Form/state/types";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -163,7 +164,7 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * Whether or not to show this field
 	 */
-	show?: MosaicShow
+	show?: MosaicShow<FormState>
 	/**
 	 * How to resolve the field's value from the internal value. Defaults
 	 * to an function that returns a like-for-like value

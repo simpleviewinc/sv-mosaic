@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo} from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
-import { useForm } from "@root/components/Form";
+import { SectionDef, useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -33,7 +33,7 @@ export const ConditionalSections = (): ReactElement => {
 
 	const showState = boolean("Show state", false);
 
-	const sections = useMemo(() => {
+	const sections = useMemo<SectionDef[]>(() => {
 		return [
 			{
 				title: "Section 1",

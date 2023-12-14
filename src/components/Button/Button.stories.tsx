@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useMemo, useState } from "react";
+import { ReactElement, useState } from "react";
 import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
 import StoryBookError from "../StoryBookError";
@@ -16,10 +16,10 @@ import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBullet
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 import MenuItem from "@mui/material/MenuItem";
 
-import evaluateShow from "@root/utils/show/evaluateShow";
 import ButtonRow from "../ButtonRow";
 import { ButtonProps } from "./ButtonTypes";
 import { useStoryBookCssReset } from "@root/utils/reactTools";
+import { useShow } from "@root/utils/show";
 
 export default {
 	title: "Components/Button",
@@ -146,8 +146,7 @@ export const Playground = (): ReactElement => {
 		variant: buttonVariant
 	}
 
-	const showButton = useMemo(() => evaluateShow(action.show), [action.show]);
-
+	const showButton = useShow(action);
 	useStoryBookCssReset();
 
 	return (
