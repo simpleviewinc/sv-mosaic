@@ -38,6 +38,7 @@ export const LinksWrapper = styled.div<{$collapse?: MosaicCSSContainer}>`
 
 	${({$collapse}) => $collapse ? `
 		gap: 40px;
+		border-bottom: 0;
 
 		${containerQuery($collapse.minWidth, $collapse.name)} {
 			flex-direction: column;
