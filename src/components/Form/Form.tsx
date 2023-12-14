@@ -4,7 +4,6 @@ import { FormProps } from "./FormTypes";
 import { MosaicCSSContainer, MosaicObject } from "@root/types";
 
 import { formActions } from "./formActions";
-import evaluateShow from "@root/utils/show/evaluateShow";
 
 import {
 	StyledFormContent,
@@ -20,6 +19,8 @@ import { ButtonProps } from "../Button";
 import { Item, SideNavArgs } from "../SideNav";
 import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 import Snackbar from "../Snackbar/Snackbar";
+import { useWrappedShow } from "@root/utils/show";
+import { generateLayout } from "./Layout/layoutUtils";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -52,6 +53,9 @@ const Form = (props: FormProps) => {
 		spacing = "normal"
 	} = props;
 
+	/**
+	 * Sections/layout and scroll spying
+	 */
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
@@ -65,6 +69,77 @@ const Form = (props: FormProps) => {
 		threshold: scrollSpyThreshold
 	});
 
+	const layout = useMemo(() => {
+		return generateLayout({ sections, fields });
+	}, [sections, fields]);
+
+	const shownSections = useWrappedShow(layout, state);
+
+	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
+		setSectionRefs(refs => [...refs, ref]);
+
+		return () => {
+			setSectionRefs(refs => refs.filter(r => r !== ref));
+		}
+	}, []);
+
+	/**
+	 * In order to use the SideNav on a big desktop we need to transform
+	 * the sections array into an array of Items objects. The name will
+	 * be the index of the section since this index corresponds to the
+	 * section id.
+	 */
+	const sideNavItems: Item[] = useMemo(() => shownSections.map((section, idx) => ({
+		label: section.title,
+		name: idx.toString(),
+	})), [shownSections]);
+
+	/**
+	 * Highlights and scrolls to the sections which link
+	 * was clicked.
+	 * @param args
+	 */
+	const onNav = useCallback((args: SideNavArgs) => setActiveSection(Number(args.item.name)), [setActiveSection]);
+
+	const submitWarningContent = typeof state.submitWarning === "object" ? (
+		<>
+			<div>{state.submitWarning.lead}</div>
+			<ul>
+				{state.submitWarning.reasons.map(reason => (
+					<li key={reason}>{reason}</li>
+				))}
+			</ul>
+		</>
+	) : (
+		state.submitWarning
+	);
+
+	/**
+	 * Unsaved changes dialog
+	 */
+	const dialogButtons: ButtonProps[] = [
+		{
+			label: "No, stay",
+			onClick: () => handleDialogClose(false),
+			color: "gray",
+			variant: "outlined",
+		},
+		{
+			label: "Yes, leave",
+			onClick: () => handleDialogClose(true),
+			color: "yellow",
+			variant: "contained",
+		},
+	];
+
+	/**
+	 * Loading state
+	 */
+	const isBusy = state.disabled || Object.values(state.busyFields).filter(Boolean).length;
+
+	/**
+	 * Side effects
+	 */
 	useEffect(() => {
 		let isMounted = true;
 		const registerFields = async () => {
@@ -75,12 +150,10 @@ const Form = (props: FormProps) => {
 			);
 		}
 
-		// TODO This is always true?
 		if (isMounted) {
 			registerFields();
 		}
 
-		// TODO This is redundant
 		return () => {
 			isMounted = false;
 		}
@@ -119,70 +192,6 @@ const Form = (props: FormProps) => {
 		loadFormValues();
 	}, [getFormValues]);
 
-	const filteredButtons = useMemo(() => (
-		buttons?.filter(button => evaluateShow(button.show))
-	) ,[buttons]);
-
-	const dialogButtons: ButtonProps[] = [
-		{
-			label: "No, stay",
-			onClick: () => handleDialogClose(false),
-			color: "gray",
-			variant: "outlined",
-		},
-		{
-			label: "Yes, leave",
-			onClick: () => handleDialogClose(true),
-			color: "yellow",
-			variant: "contained",
-		},
-	];
-
-	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
-		setSectionRefs(refs => [...refs, ref]);
-
-		return () => {
-			setSectionRefs(refs => refs.filter(r => r !== ref));
-		}
-	}, []);
-
-	/**
-	 * In order to use the SideNav on a big desktop we need to transform
-	 * the sections array into an array of Items objects. The name will
-	 * be the index of the section since this index corresponds to the
-	 * section id.
-	 */
-	const items: Item[] = useMemo(() => {
-		return (sections || []).map((section, idx) => evaluateShow(section.show, {data: state.data}) && ({
-			label: section.title,
-			name: idx.toString(),
-		})).filter(Boolean);
-	}, [sections, state.data]);
-
-	/**
-	 * Highlights and scrolls to the sections which link
-	 * was clicked.
-	 * @param args
-	 */
-	const onNav = useCallback((args: SideNavArgs) => {
-		setActiveSection(Number(args.item.name))
-	}, [setActiveSection]);
-
-	const submitWarningContent = typeof state.submitWarning === "object" ? (
-		<>
-			<div>{state.submitWarning.lead}</div>
-			<ul>
-				{state.submitWarning.reasons.map(reason => (
-					<li key={reason}>{reason}</li>
-				))}
-			</ul>
-		</>
-	) : (
-		state.submitWarning
-	);
-
-	const isBusy = state.disabled || Object.values(state.busyFields).filter(Boolean).length;
-
 	return (
 		<>
 			<StyledContainerForm
@@ -201,17 +210,17 @@ const Form = (props: FormProps) => {
 							onBack={onBack}
 							backLabel={backLabel}
 							description={description}
-							buttons={filteredButtons}
+							buttons={buttons}
 							tooltipInfo={tooltipInfo}
 							showActive={showActive}
-							bottomBorder={items.length < 2}
+							bottomBorder={sideNavItems.length < 2}
 							collapse={topCollapseContainer}
 						/>
 					)}
 					<StyledFormPrimary className="form-primary">
-						{items.length > 1 && (
+						{sideNavItems.length > 1 && (
 							<StyledSideNav
-								items={[items]}
+								items={[sideNavItems]}
 								active={String(activeSection)}
 								onNav={onNav}
 								collapse={sidebarCollapseContainer}
@@ -223,7 +232,7 @@ const Form = (props: FormProps) => {
 								state={state}
 								dispatch={dispatch}
 								fields={fields}
-								sections={sections}
+								sections={shownSections}
 								spacing={spacing}
 							/>
 						</StyledFormContent>
