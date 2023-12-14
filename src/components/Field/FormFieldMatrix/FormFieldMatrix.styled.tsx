@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
 export const MatrixWrapper = styled.div`
-	width: 600px;
-	max-width: 100%;
-
 	& > div > .viewContainer {
-		margin: 0;
+		padding-left: 0;
+		padding-right: 0;
 	}
 `;
 
