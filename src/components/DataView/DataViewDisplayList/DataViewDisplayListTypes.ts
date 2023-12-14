@@ -18,7 +18,7 @@ export interface DataViewDisplayListProps {
 	additionalActions?: DataViewProps["additionalActions"];
 	disabled?: DataViewProps["disabled"];
 	primaryActions?: DataViewProps["primaryActions"];
-	onCheckboxClick?: () => void;
+	onCheckboxClick?: (i: number) => void;
 	activeColumnObjs: DataViewProps["columns"];
 	anyChecked?: boolean;
 	allChecked?: boolean;

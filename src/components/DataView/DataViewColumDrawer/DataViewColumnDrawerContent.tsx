@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import CheckboxList from "@root/components/CheckboxList";
 import { useMosaicTranslation } from "@root/i18n";
 import PageHeader from "../../PageHeader";
-import {
-	DragDropContext,
-	Draggable,
-	Droppable,
-	DropResult,
-} from "react-beautiful-dnd";
 import { ButtonProps } from "../../Button";
 import { DataViewColumnDrawerContentProps } from "./DataViewColumnDrawerTypes";
 import {
 	StyledWrapper,
 	ColumnTitle,
-	ColumnItem,
 } from "./DataViewColumnDrawer.styled";
+import DataViewColumnDrawerColumns from "./DataViewColumnDrawerColumns";
 
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [state, setState] = useState({
@@ -42,18 +35,18 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	 * When a drag has ended the order of the columns are updated.
 	 * @param e drag event.
 	 */
-	const handleDragEnd = ({ destination, source }: DropResult) => {
-		if (!destination) return;
+	// const handleDragEnd = ({ destination, source }: DropResult) => {
+	// 	if (!destination) return;
 
-		const activeColumns = [...state.activeColumns];
-		const [source_data] = activeColumns.splice(source.index, 1);
-		activeColumns.splice(destination.index, 0, source_data);
+	// 	const activeColumns = [...state.activeColumns];
+	// 	const [source_data] = activeColumns.splice(source.index, 1);
+	// 	activeColumns.splice(destination.index, 0, source_data);
 
-		setState({
-			...state,
-			activeColumns,
-		});
-	};
+	// 	setState({
+	// 		...state,
+	// 		activeColumns,
+	// 	});
+	// };
 
 	const columnOptions = props.allColumns
 		.map((column) => {
@@ -100,39 +93,11 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 				</div>
 				<div className="right">
 					<ColumnTitle>{t("mosaic:DataView.column_order")}</ColumnTitle>
-					<DragDropContext onDragEnd={handleDragEnd}>
-						<Droppable droppableId="droppable-columns">
-							{(provider) => (
-								<div ref={provider.innerRef} {...provider.droppableProps} className='droppable-columns'>
-									{state.activeColumns.map((name, i) => {
-										const column = props.allColumns.find(
-											(val) => val.name === name
-										);
-
-										return (
-											<Draggable
-												key={`${column.name}-${i}`}
-												draggableId={`${column.name}-${i}`}
-												index={i}
-											>
-												{(provided) => (
-													<ColumnItem
-														ref={provided.innerRef}
-														{...provided.draggableProps}
-														{...provided.dragHandleProps}
-													>
-														<DragIndicatorIcon />
-														<span>{column.label}</span>
-													</ColumnItem>
-												)}
-											</Draggable>
-										);
-									})}
-									{provider.placeholder}
-								</div>
-							)}
-						</Droppable>
-					</DragDropContext>
+					<DataViewColumnDrawerColumns
+						activeColumns={state.activeColumns}
+						onReorder={(activeColumns) => setState({...state, activeColumns})}
+						allColumns={props.allColumns}
+					/>
 				</div>
 			</StyledWrapper>
 		</div>

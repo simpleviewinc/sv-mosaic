@@ -15,6 +15,6 @@ export class CardPage extends BasePage {
 		this.page = page;
 		this.sectionTitleLocator = page.locator("#root div div").first();
 		this.bottomSectionLocator = page.locator("#root div div").nth(8);
-		this.cardTitle = page.locator(".card-title");
+		this.cardTitle = page.getByRole("heading");
 	}
 }

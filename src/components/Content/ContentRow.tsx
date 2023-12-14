@@ -7,6 +7,7 @@ import {
 } from "./Content.styled";
 import Blank from "@root/components/Blank";
 import ContentField from "./ContentField";
+import testIds from "@root/utils/testIds";
 import { useShow } from "@root/utils/show";
 
 /**
@@ -24,7 +25,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (!field) {
 		return (
-			<FieldContainer $columns={sectionLength} />
+			<FieldContainer $columns={sectionLength} data-testid={testIds.CONTENT_FIELD} />
 		)
 	}
 
@@ -38,7 +39,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (!shouldShow) {
 		return (
-			<FieldContainer $columns={sectionLength} />
+			<FieldContainer $columns={sectionLength} data-testid={testIds.CONTENT_FIELD} />
 		)
 	}
 
@@ -47,7 +48,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (fieldValue === undefined || fieldValue === "" || (Array.isArray(fieldValue) && !fieldValue.length)) {
 		return (
-			<FieldContainer $columns={sectionLength}>
+			<FieldContainer $columns={sectionLength} data-testid={testIds.CONTENT_FIELD}>
 				<ContentField label={currentField.label} content={<Blank />} />
 			</FieldContainer>
 		)
@@ -55,7 +56,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 
 	if (currentField && !currentField?.transforms) {
 		return (
-			<FieldContainer key={`value-${currentField.name}`} $columns={sectionLength}>
+			<FieldContainer key={`value-${currentField.name}`} $columns={sectionLength} data-testid={testIds.CONTENT_FIELD}>
 				<ContentField label={currentField.label} content={data[fieldName]} />
 			</FieldContainer>
 		)
@@ -66,7 +67,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 	})
 
 	return (
-		<FieldContainer key={`transformed-${currentField.name}`} $columns={sectionLength}>
+		<FieldContainer key={`transformed-${currentField.name}`} $columns={sectionLength} data-testid={testIds.CONTENT_FIELD}>
 			<ContentField label={currentField.label} content={fieldValue} />
 		</FieldContainer>
 	)

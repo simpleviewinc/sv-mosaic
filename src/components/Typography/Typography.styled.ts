@@ -51,8 +51,9 @@ export const variants: Record<TypographyVariant, RuleSet> = {
 	`,
 	subtitle: css`
         font-family: ${theme.fontFamily};
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 16px;
+		font-weight: 500;
+		color: ${theme.newColors.almostBlack["100"]};
 	`,
 	body: css`
         font-family: ${theme.fontFamily};

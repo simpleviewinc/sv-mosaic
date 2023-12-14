@@ -43,6 +43,7 @@ function ButtonBase(props: ButtonProps) {
 	}
 
 	const iconPosition = props.iconPosition || "left";
+	const Component = props.component || (isIconButton ? StyledIconButton : StyledButton) as any;
 
 	return (
 		<StyledWrapper
@@ -58,15 +59,15 @@ function ButtonBase(props: ButtonProps) {
 			`}
 		>
 			{isIconButton ? (
-				<StyledIconButton {...buttonProps}>
+				<Component {...buttonProps}>
 					<Icon data-testid="icon-button-test" />
-				</StyledIconButton>
+				</Component>
 			) : (
-				<StyledButton {...buttonProps} $fullWidth={props.fullWidth}>
+				<Component {...buttonProps} $fullWidth={props.fullWidth}>
 					{iconPosition === "left" && adornmentIcon}
 					{props.label}
 					{iconPosition === "right" && adornmentIcon}
-				</StyledButton>
+				</Component>
 			)}
 		</StyledWrapper>
 	);

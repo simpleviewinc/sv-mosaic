@@ -13,7 +13,6 @@ import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable
 import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
 import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
-import { FieldDefTable } from "@root/components/Field/FormFieldTable";
 import { FieldDefText } from "@root/components/Field/FormFieldText";
 import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwitch";
@@ -181,7 +180,6 @@ export type FieldDef =
 	| FieldDefTextEditor
 	| FieldDefRadio
 	| FieldDefPhoneSelection
-	| FieldDefTable
 	| FieldDefMatrix
 	| FieldDefMapCoordinates
 	| FieldDefImageVideoDocumentLink

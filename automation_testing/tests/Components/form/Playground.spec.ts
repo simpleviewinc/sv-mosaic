@@ -114,7 +114,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 			playgroundPage.page.locator("label[for='toggleSwitch']"), playgroundPage.page.locator("label[for='color']"),
 			playgroundPage.page.locator("label[for='date']"), playgroundPage.page.locator("label[for='address']"),
 			playgroundPage.page.locator("label[for='advancedSelection']"), playgroundPage.page.locator("label[for='imageVideoDocumentLink']"),
-			playgroundPage.page.locator("label[for='textEditor']"), playgroundPage.page.locator("label[for='table']"),
+			playgroundPage.page.locator("label[for='textEditor']"),
 			playgroundPage.page.locator("label[for='imageUpload']"), playgroundPage.page.locator("label[for='mapCoordinates']"),
 			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']") ];
 		for (let i = 0; i < labels.length; i++) {

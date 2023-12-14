@@ -101,7 +101,7 @@ function DataView (props: DataViewProps): ReactElement  {
 		props.onCheckAllPagesChange?.(false);
 	};
 
-	const onCheckboxClick = function(i) {
+	const onCheckboxClick = function(i: number) {
 		const newChecked = [...props.checked];
 		newChecked[i] = !newChecked[i];
 		props.onCheckChange(newChecked);
@@ -116,11 +116,16 @@ function DataView (props: DataViewProps): ReactElement  {
 	};
 
 	useEffect(() => {
-		if (props.data && viewContainerRef.current) {
-			// on data change scroll to the top
-			viewContainerRef.current.scrollTo(0, 0);
+		if (!viewContainerRef.current) {
+			return;
 		}
-	}, [props.data, props.display])
+
+		viewContainerRef.current.scrollTo(0, 0);
+	}, [
+		props.limit,
+		props.skip,
+		props.display
+	]);
 
 	const displayOptionsFull = useMemo(() => {
 		return displayOptions.map(val => {

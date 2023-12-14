@@ -738,20 +738,18 @@ export const Playground = (): ReactElement => {
 		sort: state.sort,
 		filter: state.filter,
 		activeFilters: state.activeFilters,
-		onReorder: draggableRows  ? (newRows) => {
-			setTimeout(async () => {
-				const newData = await api.find({
-					reorderedList: newRows
-				});
-
-				setState({
-					...state,
-					data: newData,
-					loading: false
-				});
-			}, ARTIFICIAL_DELAY);
-
+		onReorder: draggableRows ? async (newRows) => {
 			setState({...state, loading: true});
+
+			const newData = await api.find({
+				reorderedList: newRows
+			});
+
+			setState({
+				...state,
+				data: newData,
+				loading: false
+			});
 		} : undefined,
 		disabled
 	};

@@ -1,5 +1,33 @@
 # sv-mosaic changelog
 
+## 28.0.2 - 12/12/23
+
+### Improvements & Fixes
+
+* `DateViewFilterDate`
+  * [MOS-1176](https://simpleviewtools.atlassian.net/browse/MOS-1176 "https://simpleviewtools.atlassian.net/browse/MOS-1176")
+    * Allows the date filter popover to utilise a compact version of the Mosaic `Form` component, which takes advantage of the built in validation system
+    * Introduces a `spacing` prop to the form to allow versatile implementation of `Form` with tighter paddings
+    * Tightens styling to prevent overflowing of options
+    * Adds internal data to support differentiation between date state and time state for `FormFieldDate`. Allows child field resets without clobbering entire state.
+* `SideNav`
+  * [MOS-1187](https://simpleviewtools.atlassian.net/browse/MOS-1187 "https://simpleviewtools.atlassian.net/browse/MOS-1187")
+    * Enables the SideNav link on click handler to prevent the default browser action if no modifier key is used. Also adds support to pass false as an item's onNav, which will bypass any onNav functionality that may come from SideNav
+* `Field`
+  * [MOS-1202](https://simpleviewtools.atlassian.net/browse/MOS-1202 "https://simpleviewtools.atlassian.net/browse/MOS-1202")
+    * Ensures the character counter is aligned with the far right side of the field's input or at the end of the label text, whichever extends the furthest
+    * Prevent the instruction text from appearing too low in comparison to the field that is adjacent to it and have the field flex align at the top
+  * [MOS-1203](https://simpleviewtools.atlassian.net/browse/MOS-1203 "https://simpleviewtools.atlassian.net/browse/MOS-1203")
+    * Fix instructional text responsiveness to ensure that either the tooltip or adjacent instruction box is displayed at all times
+* `FormFieldNumberTable`
+  * [MOS-1215](https://simpleviewtools.atlassian.net/browse/MOS-1215 "https://simpleviewtools.atlassian.net/browse/MOS-1215")
+    * Rather than throwing errors, the data items that don't correspond to a row or column provided are skipped. The data will not contribute to the row/column totals.
+* `FormFieldMatrix`
+  * [MOS-1219](https://simpleviewtools.atlassian.net/browse/MOS-1219 "https://simpleviewtools.atlassian.net/browse/MOS-1219")
+    * Ensures that field containers grow to the available space if the given field's width is full width
+  * [MOS-1220](https://simpleviewtools.atlassian.net/browse/MOS-1220 "https://simpleviewtools.atlassian.net/browse/MOS-1220")
+    * Removes the horizontal margin that the dataview table has when it fall inside a matrix field context
+
 ## 28.0.1 - 11/27/23
 
 ### Fixes
