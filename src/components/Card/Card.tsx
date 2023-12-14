@@ -2,6 +2,7 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { CardProps } from "./CardTypes";
 
+import testIds from "@root/utils/testIds";
 import {
 	BottomActionWrapper,
 	ContentWrapper,
@@ -11,6 +12,7 @@ import {
 	TitleBar
 } from "./Card.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
+import { SubtitleText } from "../Typography";
 
 const Card = (props: CardProps): ReactElement => {
 	const { bottomActions, content, title, titleIcon, topActions } = props;
@@ -21,7 +23,7 @@ const Card = (props: CardProps): ReactElement => {
 			<TitleBar>
 				<TitleWrapper>
 					{titleIcon && <TitleIcon data-testid="contacts-icon-test"/>}
-					<p className="card-title">{title}</p>
+					<SubtitleText maxLines={1}>{title}</SubtitleText>
 				</TitleWrapper>
 				{topActions?.length > 0 && (
 					<ButtonRow buttons={topActions} />
@@ -29,7 +31,7 @@ const Card = (props: CardProps): ReactElement => {
 			</TitleBar>
 			<ContentWrapper>
 				{content.map((element, idx) => (
-					<div key={`card-content-${idx}`}>
+					<div key={idx} data-testid={testIds.CARD_ITEM}>
 						{element}
 						{idx !== content.length - 1 && <StyledHr />}
 					</div>
