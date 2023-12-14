@@ -35,12 +35,6 @@ export const TitleWrapper = styled.div`
 	}
 `;
 
-export const Title = styled.span`
-	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 16px;
-	font-weight: ${theme.fontWeight.medium};
-`;
-
 export const StyledEditIcon = styled(EditIcon)`
 	color: ${theme.newColors.grey3["100"]};
 	cursor: pointer;
@@ -50,23 +44,6 @@ export const StyledEditIcon = styled(EditIcon)`
 		padding-right: 16px;
 		width: 16px;
 	}
-`;
-
-export const Label = styled.p`
-	color: ${theme.newColors.grey4["100"]};
-	font-size: 14px;
-	margin-bottom: 8px;
-	margin-top: 0;
-`;
-
-export const FieldContainer = styled.div<{$columns?: number}>`
-	margin-bottom: 24px;
-	width: calc(100% / ${({ $columns }) => $columns});
-`;
-
-export const TransformContainer = styled.div`
-	color: ${theme.newColors.grey3["100"]};
-	font-size: 14px;
 `;
 
 // Transforms styles
@@ -88,12 +65,33 @@ export const ColorValue = styled.p`
 	margin-top: 0;
 `;
 
-export const ContentRowWrapper = styled.div`
+export const FieldsList = styled.div``
+
+export const ContentRowWrapper = styled.dl`
 	display: flex;
 	width: 100%;
+	margin: 0;
 
 	&.card-row + .card-row {
 		border-top: 2px solid ${theme.newColors.grey2["100"]};
 		padding-top: 16px;
 	}
+`;
+
+export const FieldContainer = styled.div<{$columns?: number}>`
+	margin-bottom: 24px;
+	width: calc(100% / ${({ $columns }) => $columns});
+`;
+
+export const FieldTerm = styled.dt`
+	color: ${theme.newColors.grey4["100"]};
+	font-size: 14px;
+	margin-bottom: 8px;
+	margin-top: 0;
+`;
+
+export const FieldDefinition = styled.dd`
+	color: ${theme.newColors.grey3["100"]};
+	font-size: 14px;
+	margin: 0;
 `;
