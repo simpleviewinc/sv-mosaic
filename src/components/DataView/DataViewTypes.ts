@@ -4,7 +4,6 @@ import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
 import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRow";
-import { DataViewBulkActionsButtonsRowProps } from "./DataViewBulkActionsButtonsRow";
 import { TitleWrapperProps } from "@root/components/Title";
 
 export interface DataViewColumnTransformArgs<T = unknown> {
@@ -93,14 +92,11 @@ export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs" | "show"> & A
 
 export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs" | "show"> & ActionAdditional;
 
-type CheckedTrue = { checkedAllPages: true };
-type CheckedFalse = { checkedAllPages: false; data: DataViewBulkActionsButtonsRowProps["data"]};
-
 export interface DataViewBulkAction extends Omit<DataViewAction, "onClick" | "show"> {
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick
 	onAllClick?: MosaicCallback,
-	show?: MosaicShow<CheckedTrue | CheckedFalse>
+	show?: MosaicShow
 }
 
 export interface DataViewSort {
