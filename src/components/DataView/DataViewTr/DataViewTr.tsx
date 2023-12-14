@@ -1,14 +1,15 @@
 import React, { forwardRef } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
-import theme from "@root/theme";
 import Checkbox from "@root/components/Checkbox";
 
 import DataViewTd from "../DataViewTd";
 import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
 import { TableRow, TableRowDragHandle } from "./DataViewTr.styled";
 import { DataViewTrDndProps, DataViewTrProps } from "./DataViewTrTypes";
+import Button from "@root/components/Button";
 
 const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 	checked,
@@ -22,19 +23,26 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 	columns,
 	row,
 	isDragOverlay,
+	style,
 	...props
 }, ref) => {
-
 	return (
 		<TableRow
-			style={props.style}
+			style={style}
 			className={checked && "checked"}
 			ref={ref}
 			$isDragOverlay={isDragOverlay}
 		>
 			{onReorder && (
 				<DataViewTd key="_draggable">
-					<TableRowDragHandle {...props} style={{display: "flex", color: disabled ? theme.colors.blackDisabled : theme.newColors.almostBlack["100"]}}/>
+					<Button
+						disabled={disabled}
+						color="black"
+						variant="icon"
+						mIcon={DragIndicatorIcon}
+						muiAttrs={{...props}}
+						component={TableRowDragHandle}
+					/>
 				</DataViewTd>
 			)}
 			{onCheckboxClick && (
