@@ -179,8 +179,6 @@ export const Playground = (): ReactElement => {
 		},
 	];
 
-	const buttonsToDisplay = useMemo(() => useSections ? buttons :  buttons.slice(0, 1) ,[buttons]);
-
 	const sectionsToDisplay = useMemo(() => {
 		if (!useSections) {
 			return;
@@ -202,7 +200,7 @@ export const Playground = (): ReactElement => {
 				data={data}
 				fields={fields}
 				sections={sectionsToDisplay}
-				buttons={showButtons === "undefined" ? undefined : buttonsToDisplay}
+				buttons={buttons}
 				variant={variant}
 			/>
 			{amountContent === 2 &&
@@ -211,7 +209,7 @@ export const Playground = (): ReactElement => {
 					data={data}
 					fields={fields}
 					sections={singleColumn ? oneColumnSecondContent : multipleColumnSecondContent}
-					buttons={buttons.slice(0, 1)}
+					buttons={buttons}
 					variant={variant}
 				/>
 			}
@@ -309,7 +307,7 @@ export const KitchenSink = (): ReactElement => {
 				data={data}
 				fields={fields}
 				sections={columns}
-				buttons={buttons.slice(0, 1)}
+				buttons={buttons}
 				variant={"card"}
 			/>
 		</>
