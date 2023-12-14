@@ -32,6 +32,7 @@ export interface ButtonProps {
 	/** Attrs for the nested Material UI IconButton or Button */
 	muiAttrs?: MosaicObject
 	show?: MosaicShow;
+	component?: React.ComponentType
 }
 
 export interface ButtonPopoverContextProps {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import { StyledIconButton } from "@root/components/Button/Button.styled";
 
 export const TableRow = styled.tr<{ $isDragOverlay?: boolean}>`
 	${({ $isDragOverlay }) => $isDragOverlay && `
@@ -17,6 +17,8 @@ export const TableRow = styled.tr<{ $isDragOverlay?: boolean}>`
 	}
 `
 
-export const TableRowDragHandle = styled(DragIndicatorIcon)`
-	cursor: grab;
+export const TableRowDragHandle = styled(StyledIconButton)`
+	&&{
+		cursor: grab;
+	}
 `
