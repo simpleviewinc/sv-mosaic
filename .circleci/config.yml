@@ -105,7 +105,7 @@ jobs:
           command: docker cp sv-mosaic:/app/docs ./docs-sb5
       - run:
           name: Copy library src
-          command: docker cp ./src sv-mosaic-sb7:/app/containers/storybook-7/lib/src
+          command: docker cp ./containers/storybook-5/src sv-mosaic-sb7:/app/containers/storybook-7/lib/src
       - run:
           name: Build SB7 dist
           command: docker exec -t sv-mosaic-sb7 npm run build
