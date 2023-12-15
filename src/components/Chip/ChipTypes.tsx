@@ -1,3 +1,5 @@
+type ChipOnClick = (...args: any) => void;
+
 export interface ChipsProps {
   /**
    * Significant name related to its text area.
@@ -23,5 +25,5 @@ export interface ChipsProps {
   /**
    * Function to be executed as callback when clicking on a Chip
    */
-  onClick?: (...args: any) => void;
+  onClick?: ChipOnClick;
 }

@@ -55,6 +55,9 @@ const StyledWrapper = styled.div`
 	}
 `;
 
+/**
+ * The `DataView` is used to output a list or grid of items. It can support a whole variety of actions including primary actions, additional actions and bulk actions.
+ */
 function DataView ({limit = 20, ...props}: DataViewProps)  {
 	/**
 	 * Checks if a provided active filter is a

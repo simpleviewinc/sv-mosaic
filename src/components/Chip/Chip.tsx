@@ -7,6 +7,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledDeletableChip } from "./Chip.styled";
 
+/**
+ * The `Chip` component is a simple wrapper over [MUI Chip](https://mui.com/material-ui/react-chip/#main-content) but with SimpleView brand colors.
+ */
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>) => {
 	const { label, disabled, selected, onDelete, onClick } = props;
 	const ref = useRef<HTMLDivElement>();
