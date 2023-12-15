@@ -105,13 +105,13 @@ jobs:
           command: docker cp sv-mosaic:/app/docs ./docs-sb5
       - run:
           name: Copy library src
-          command: docker cp ./containers/storybook-5/src sv-mosaic-sb7:/app/containers/storybook-7/lib/src
+          command: docker cp ./containers/storybook-5/src sv-mosaic-sb7:/app/lib/src
       - run:
           name: Build SB7 dist
           command: docker exec -t sv-mosaic-sb7 npm run build
       - run:
           name: Extract SB7 dist
-          command: docker cp sv-mosaic-sb7:/app/containers/storybook-7/docs-sb7 ./docs-sb7
+          command: docker cp sv-mosaic-sb7:/app/docs-sb7 ./docs-sb7
       - persist_to_workspace:
           root: ~/project
           paths:

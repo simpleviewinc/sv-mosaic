@@ -31,11 +31,11 @@ services:
     image: sv-mosaic-sb7
     volumes:
       # Storybook
-      # - /home/circleci/project/containers/storybook-7/src:/app/containers/storybook-7/src
+      # - /home/circleci/project/src:/app/src
       # - ./tsconfig.json:/app/tsconfig.json
       # Mosaic library
-      # - ./src:/app/containers/storybook-7/lib/src
-      - sv-mosaic-modules:/app/containers/storybook-7/lib/node_modules
+      # - ./src:/app/lib/src
+      - sv-mosaic-modules:/app/lib/node_modules
     ports:
       - "10001:10001"
     environment:
