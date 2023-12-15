@@ -1,8 +1,7 @@
 #!/bin/bash
 docker run --rm -it \
 	-v $PWD/src:/app/containers/storybook-7/src \
-	-v $PWD/../../src:/app/containers/storybook-7/lib/src \
-	-v $PWD/../../tsconfig.json:/app/tsconfig.json \
+	-v $PWD/../storybook-5/src:/app/containers/storybook-7/lib/src \
 	-v sv-mosaic-modules:/app/containers/storybook-7/lib/node_modules \
 	-p 10001:10001 \
 	-e NODE_OPTIONS=--openssl-legacy-provider \

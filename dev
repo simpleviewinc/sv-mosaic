@@ -1,0 +1,22 @@
+#!/bin/bash
+
+ROOT="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+if [ "$(docker ps -a -q --filter volume=sv-mosaic-modules)" ]; then
+    docker rm $(docker ps -a -q --filter volume=sv-mosaic-modules)
+fi
+
+# TODO Deletes modules every time - would be nice to only delete when they change
+docker volume rm sv-mosaic-modules
+
+cd $ROOT/containers/storybook-5
+./scripts/build
+
+cd $ROOT/containers/storybook-7
+./scripts/build
+
+cd $ROOT/containers/storybook-5
+./scripts/run
+
+cd $ROOT/containers/storybook-7
+./scripts/run
