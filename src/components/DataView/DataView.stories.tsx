@@ -5,6 +5,7 @@ import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
+import AccessibleIcon from "@mui/icons-material/Accessible"
 import DeleteIcon from "@mui/icons-material/Delete";
 import GetAppIcon from "@mui/icons-material/GetApp";
 
@@ -576,7 +577,18 @@ export const Playground = (): ReactElement => {
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
-				}
+				},
+				show: ({row}) => row.title !== "Accessibility"
+			},
+			{
+				name: "accessibility",
+				color: "red",
+				variant: "icon",
+				mIcon: AccessibleIcon,
+				onClick: function ({ data }) {
+					alert(`ACCESSIBLE ${data.id}`);
+				},
+				show: ({row}) => row.title === "Accessibility"
 			}
 		] : undefined,
 		additionalActions: additionalActions ? [
@@ -585,14 +597,16 @@ export const Playground = (): ReactElement => {
 				label: "View Children",
 				onClick: function ({ data }) {
 					alert(`View Children ${data.id}`);
-				}
+				},
+				show: ({row}) => row.title !== "Accessibility"
 			},
 			{
 				name: "history",
 				label: "History",
 				onClick: function ({ data }) {
 					alert(`History ${data.id}`);
-				}
+				},
+				show: ({row}) => row.title !== "Accessibility"
 			}
 		] : undefined,
 		bulkActions: bulkActions ? [

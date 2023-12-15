@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import { ReactElement } from "react";
 import { boolean, withKnobs, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import styled from "styled-components";
@@ -44,50 +44,6 @@ const content = [
 	</div>
 ];
 
-const topActions = [
-	{
-		color: "black",
-		variant: "icon",
-		onClick: () => alert("+ icon clicked"),
-		mIcon: AddIcon,
-	},
-	{
-		label: "Save",
-		onClick: () => alert("Save button clicked"),
-		color: "yellow",
-		variant: "contained"
-	},
-	{
-		label: "Remove",
-		onClick: () => alert("Remove button clicked"),
-		color: "gray",
-		variant: "outlined",
-		mIcon: DeleteIcon,
-	},
-] as ButtonProps[];
-
-const bottomActions = [
-	{
-		color: "teal",
-		label: "Add a new task",
-		variant: "text",
-		onClick: () => alert("Add new task clicked"),
-		mIcon: AddIcon,
-	},
-	{
-		color: "teal",
-		label: "Edit task",
-		variant: "text",
-		onClick: () => alert("Add new task clicked"),
-		mIcon: CreateIcon,
-	},
-	{
-		label: "Go to tasks",
-		onClick: () => alert("Go to tasks clicked"),
-		color: "yellow",
-		variant: "contained"
-	},
-] as ButtonProps[];
 
 export const Playground = (): ReactElement => {
 	const showTitleIcon = boolean("Show title icon ", true);
@@ -96,16 +52,64 @@ export const Playground = (): ReactElement => {
 	const quantityOfTopActions = select("Top actions", [0, 1, 2, 3], 1);
 	const quantityOfBottomActions = select("Bottom actions", [0, 1, 2, 3], 1);
 
-	const slicedTopActions = useMemo(() => topActions.slice(0, quantityOfTopActions), [quantityOfTopActions]);
-	const slicedBottomActions = useMemo(() => bottomActions.slice(0, quantityOfBottomActions), [quantityOfBottomActions]);
+	const topActions: ButtonProps[] = [
+		{
+			color: "black",
+			variant: "icon",
+			onClick: () => alert("+ icon clicked"),
+			mIcon: AddIcon,
+			show: () => quantityOfTopActions > 0,
+		},
+		{
+			label: "Save",
+			onClick: () => alert("Save button clicked"),
+			color: "yellow",
+			variant: "contained",
+			show: () => quantityOfTopActions > 1,
+		},
+		{
+			label: "Remove",
+			onClick: () => alert("Remove button clicked"),
+			color: "gray",
+			variant: "outlined",
+			mIcon: DeleteIcon,
+			show: () => quantityOfTopActions > 2,
+		},
+	];
+
+	const bottomActions: ButtonProps[] = [
+		{
+			color: "teal",
+			label: "Add a new task",
+			variant: "text",
+			onClick: () => alert("Add new task clicked"),
+			mIcon: AddIcon,
+			show: () => quantityOfBottomActions > 0,
+		},
+		{
+			color: "teal",
+			label: "Edit task",
+			variant: "text",
+			onClick: () => alert("Add new task clicked"),
+			mIcon: CreateIcon,
+			show: () => quantityOfBottomActions > 1,
+		},
+		{
+			label: "Go to tasks",
+			onClick: () => alert("Go to tasks clicked"),
+			color: "yellow",
+			variant: "contained",
+			show: () => quantityOfBottomActions > 2,
+		},
+	];
 
 	return (
 		<Card
 			content={content}
 			title="Section Title"
 			titleIcon={showTitleIcon && ContactsIcon}
-			topActions={showTopAction && slicedTopActions}
-			bottomActions={showBottomAction && slicedBottomActions}
+			topActions={showTopAction && topActions}
+			bottomActions={showBottomAction && bottomActions}
 		/>
 	);
 };

@@ -7,6 +7,7 @@ import { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 import Menu from "../Menu";
 import MenuBase from "../MenuBase";
 import { PopoverWrapper, TooltipContent } from "./Button.styled";
+import { useShow } from "@root/utils/show";
 
 export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(null);
 
@@ -42,6 +43,7 @@ function ButtonBase(props: ButtonProps) {
 	}
 
 	const iconPosition = props.iconPosition || "left";
+	const Component = props.component || (isIconButton ? StyledIconButton : StyledButton) as any;
 
 	return (
 		<StyledWrapper
@@ -57,15 +59,15 @@ function ButtonBase(props: ButtonProps) {
 			`}
 		>
 			{isIconButton ? (
-				<StyledIconButton {...buttonProps}>
+				<Component {...buttonProps}>
 					<Icon data-testid="icon-button-test" />
-				</StyledIconButton>
+				</Component>
 			) : (
-				<StyledButton {...buttonProps} $fullWidth={props.fullWidth}>
+				<Component {...buttonProps} $fullWidth={props.fullWidth}>
 					{iconPosition === "left" && adornmentIcon}
 					{props.label}
 					{iconPosition === "right" && adornmentIcon}
-				</StyledButton>
+				</Component>
 			)}
 		</StyledWrapper>
 	);
@@ -146,6 +148,12 @@ function ButtonWithState(props: ButtonProps) {
 }
 
 function Button(props: ButtonProps) {
+	const shouldShow = useShow(props);
+
+	if (!shouldShow) {
+		return null;
+	}
+
 	return (props.menuItems || props.menuContent || props.popover || props.tooltip) ? (
 		<ButtonWithState {...props} />
 	) : (

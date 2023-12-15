@@ -13,12 +13,6 @@ export const TitleBar = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 8px 16px;
-	& .card-title {
-		color: ${theme.newColors.almostBlack["100"]};
-		font-size: 16px;
-		font-weight: ${theme.fontWeight.medium};
-		margin: 0px;
-	}
 `;
 
 export const TitleWrapper = styled.div`

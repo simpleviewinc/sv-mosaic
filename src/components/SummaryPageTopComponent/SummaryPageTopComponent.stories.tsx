@@ -30,7 +30,7 @@ export const Example = (): ReactElement => {
 	const onBack = boolean("onBack", false);
 	const img = boolean("Image", false);
 	const showFavorite = boolean("Show star", true);
-	const showMainActions = boolean("Main actions", true);
+	const showMainActions = select("Main actions", ["1", "2", "3", "0"], "3");
 	const additionalActionsKnob = select("Additional Actions", ["1", "2", "0", "undefined"], "2");
 	const showDescription = boolean("Description Items", true);
 
@@ -40,21 +40,24 @@ export const Example = (): ReactElement => {
 			mIcon: Mail,
 			onClick: () => alert("Button 1 Click"),
 			color: "black",
-			variant: "text"
+			variant: "text",
+			show: () => Number(showMainActions) > 0
 		},
 		{
 			label: "Button 2",
 			mIcon: Mail,
 			onClick: () => alert("Button 2 Click"),
 			color: "black",
-			variant: "text"
+			variant: "text",
+			show: () => Number(showMainActions) > 1
 		},
 		{
 			label: "Button 3",
 			mIcon: Edit,
 			onClick: () => alert("Button 3 Click"),
 			color: "black",
-			variant: "text"
+			variant: "text",
+			show: () => Number(showMainActions) > 2
 		},
 	];
 

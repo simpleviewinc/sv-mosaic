@@ -4,15 +4,19 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ButtonRow from "../../ButtonRow";
 import Button from "../../Button";
 import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
-import evaluateShow from "@root/utils/show/evaluateShow";
+import { useWrappedShow } from "@root/utils/show";
 
 function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
-	const primaryActions = useMemo(() => {
-		if (props.primaryActions === undefined) { return []; }
+	const showParams = useMemo(() => ({row: props.originalRowData}), [props.originalRowData]);
 
-		return props.primaryActions.filter(action => {
-			return evaluateShow(action.show, { row: props.originalRowData });
-		}).map((action) => {
+	const primaryActions = useMemo(() => props.primaryActions || [], [props.primaryActions]);
+	const shownPrimaryActions = useWrappedShow(primaryActions, showParams);
+
+	const additionalActions = useMemo(() => props.additionalActions || [], [props.additionalActions]);
+	const shownadditionalActions = useWrappedShow(additionalActions, showParams);
+
+	const primaryActionButtons = useMemo(() => {
+		return shownPrimaryActions.map((action) => {
 			const {
 				name,
 				show,
@@ -34,17 +38,10 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				/>
 			)
 		});
-	}, [props.primaryActions, props.originalRowData, props.disabled]);
+	}, [shownPrimaryActions, props.originalRowData, props.disabled]);
 
-	const additionalActions = useMemo(() => {
-		if (props.additionalActions === undefined) { return []; }
-
-		const additionalActions = props.additionalActions.filter(action => {
-			return evaluateShow(action.show, {row: props.originalRowData});
-		});
-
-		// if no valid actions hide the dots
-		if (additionalActions.length === 0) {
+	const additionalActionsButton = useMemo(() => {
+		if (!shownadditionalActions.length) {
 			return [];
 		}
 
@@ -57,7 +54,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				tooltip="More actions"
 				disabled={props.disabled}
-				menuItems={additionalActions.map(action => {
+				menuItems={shownadditionalActions.map(action => {
 					const {
 						name,
 						show,
@@ -77,15 +74,15 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				})}
 			/>
 		]
-	}, [props.additionalActions, props.originalRowData, props.disabled]);
+	}, [shownadditionalActions, props.originalRowData, props.disabled]);
 
 	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
 	const buttons = useMemo(() => {
 		return [
-			...primaryActions,
-			...additionalActions
+			...primaryActionButtons,
+			...additionalActionsButton
 		];
-	}, [primaryActions, additionalActions]);
+	}, [primaryActionButtons, additionalActionsButton]);
 
 	if (buttons.length === 0) {
 		return null;
