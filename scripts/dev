@@ -4,11 +4,11 @@ docker volume rm sv-mosaic-modules
 
 ./scripts/build
 
-cd ./containers/mosaic-sb7
+cd ./containers/storybook-7
 ./scripts/build
 
 cd ../../
 ./scripts/run
 
-cd ./containers/mosaic-sb7
+cd ./containers/storybook-7
 ./scripts/run

@@ -93,7 +93,7 @@ jobs:
           command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic" .
       - run:
           name: Build SB7 image
-          command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" ./containers/mosaic-sb7
+          command: DOCKER_BUILDKIT=1 docker build -t "sv-mosaic-sb7" ./containers/storybook-7
       - run:
           name: Compose containers
           command: docker-compose up --detach
@@ -105,13 +105,13 @@ jobs:
           command: docker cp sv-mosaic:/app/docs ./docs-sb5
       - run:
           name: Copy library src
-          command: docker cp ./src sv-mosaic-sb7:/app/containers/mosaic-sb7/lib/src
+          command: docker cp ./src sv-mosaic-sb7:/app/containers/storybook-7/lib/src
       - run:
           name: Build SB7 dist
           command: docker exec -t sv-mosaic-sb7 npm run build
       - run:
           name: Extract SB7 dist
-          command: docker cp sv-mosaic-sb7:/app/containers/mosaic-sb7/docs-sb7 ./docs-sb7
+          command: docker cp sv-mosaic-sb7:/app/containers/storybook-7/docs-sb7 ./docs-sb7
       - persist_to_workspace:
           root: ~/project
           paths:

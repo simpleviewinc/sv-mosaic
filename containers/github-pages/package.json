@@ -1,5 +1,6 @@
 {
 	"name": "@simpleview/sv-mosaic-github-publisher",
+	"private": true,
 	"version": "0.0.0",
 	"description": "Mosaic UI Github Publisher",
 	"author": "Owen Allen <owenallenaz@gmail.com>",
@@ -7,11 +8,6 @@
 		"ci:storybook": "ts-node ./ci-storybook.ts"
 	},
 	"packageManager": "yarn@3.1.1",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/simpleviewinc/sv-mosaic"
-	},
-	"license": "MIT",
 	"dependencies": {
 		"@types/gh-pages": "^5.0.1",
 		"@types/node": "^20.10.4",
