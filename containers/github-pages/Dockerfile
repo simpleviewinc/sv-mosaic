@@ -11,5 +11,6 @@ COPY .yarnrc.yml /app/.yarnrc.yml
 COPY tsconfig.json /app/tsconfig.json
 COPY ci-storybook.ts /app/ci-storybook.ts
 RUN cd /app && yarn install
+RUN mkdir -p /app/docs
 
 WORKDIR /app
