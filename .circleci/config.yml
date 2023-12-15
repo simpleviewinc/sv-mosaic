@@ -97,45 +97,25 @@ jobs:
       - run:
           name: Compose containers
           command: docker-compose up --detach
-      # - run:
-      #     name: Build SB5 dist
-      #     command: docker exec -t sv-mosaic yarn run build:storybook
-      # - run:
-      #     name: Extract SB5 dist
-      #     command: docker cp sv-mosaic:/app/docs ./docs
+      - run:
+          name: Build SB5 dist
+          command: docker exec -t sv-mosaic yarn run build:storybook
+      - run:
+          name: Extract SB5 dist
+          command: docker cp sv-mosaic:/app/docs ./docs-sb5
       - run:
           name: Copy library src
           command: docker cp ./src sv-mosaic-sb7:/app/containers/mosaic-sb7/lib/src
-      - run:
-          name: PWD current
-          command: pwd . && find . -maxdepth 3 -not -path "**/node_modules/**"
-      - run:
-          name: PWD root
-          command: find / -maxdepth 1 -not -path "**/node_modules/**"
-      - run:
-          name: PWD home
-          command: pwd ~ && find ~ -maxdepth 3 -not -path "**/node_modules/**"
-      - run:
-          name: PWD project
-          command: find /home/circleci/project/ -maxdepth 3 -not -path "**/node_modules/**"
-      - run:
-          name: PWD mosaic-sb7
-          command: find /home/circleci/project/containers/mosaic-sb7 -maxdepth 3 -not -path "**/node_modules/**"
-      - run:
-          name: List SB7 structure
-          command: docker exec -t sv-mosaic-sb7 sh -c 'find /app/containers/mosaic-sb7 -maxdepth 3 -not -path "**/node_modules/**"'
       - run:
           name: Build SB7 dist
           command: docker exec -t sv-mosaic-sb7 npm run build
       - run:
           name: Extract SB7 dist
           command: docker cp sv-mosaic-sb7:/app/containers/mosaic-sb7/docs-sb7 ./docs-sb7
-      - run:
-          name: List SB7 dist
-          command: ls ./docs-sb7
       - persist_to_workspace:
           root: ~/project
           paths:
+            - docs-sb5
             - docs-sb7
       - run:
           name: Exit 1
@@ -173,8 +153,11 @@ jobs:
           name: Add github to known_hosts
           command: docker exec -t github-pages sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
-          name: Copy docs
-          command: docker cp docs-sb7/. github-pages:/app/docs
+          name: Copy SB5 docs
+          command: docker cp docs-sb5/. github-pages:/app/docs/sb5
+      - run:
+          name: Copy SB7 docs
+          command: docker cp docs-sb7/. github-pages:/app/docs/sb7
       - run:
           name: Publish to GitHub pages
           command: docker exec -t github-pages yarn run ci:storybook
