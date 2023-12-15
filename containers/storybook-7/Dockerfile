@@ -4,6 +4,7 @@ RUN apt-get update && \
     apt-get -y install gettext-base jq
 
 COPY package.json /app/containers/storybook-7/package.json
+COPY package-lock.json /app/containers/storybook-7/package-lock.json
 
 RUN cd /app/containers/storybook-7 && npm install
 
