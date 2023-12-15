@@ -125,7 +125,7 @@ function DataView ({limit = 20, ...props}: DataViewProps)  {
 
 		viewContainerRef.current.scrollTo(0, 0);
 	}, [
-		props.limit,
+		limit,
 		props.skip,
 		props.display
 	]);
