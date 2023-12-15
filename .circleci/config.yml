@@ -117,9 +117,6 @@ jobs:
           paths:
             - docs-sb5
             - docs-sb7
-      - run:
-          name: Exit 1
-          command: exit 1
   publish_to_github_pages:
     docker:
       - image: cimg/base:2021.04
