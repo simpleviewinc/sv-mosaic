@@ -24,13 +24,23 @@ export const StyledSideNav = styled.nav<{$collapse?: MosaicCSSContainer}>`
 	`}
 `;
 
+export const SidebarWrap = styled.div`
+  	font-family: ${theme.fontFamily};
+`;
+
 export const LinksWrapper = styled.div<{$collapse?: MosaicCSSContainer}>`
 	display: flex;
+	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+
+	&:last-child{
+		border-bottom: 0;
+	}
 
 	${({$collapse}) => $collapse ? `
 		gap: 40px;
+		border-bottom: 0;
 
-		${containerQuery("xl", "FORM")} {
+		${containerQuery($collapse.minWidth, $collapse.name)} {
 			flex-direction: column;
 			gap: 0;
 		}
@@ -68,7 +78,7 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 	`};
 
 	${({$collapse}) => $collapse && `
-		${containerQuery("xl", "FORM")} {
+		${containerQuery($collapse.minWidth, $collapse.name)} {
 			align-items: center;
 			border-bottom: 0;
 			border-left: 3px solid transparent;
@@ -78,7 +88,7 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 	`}
 
 	${({$collapse, $isActive}) => $collapse && $isActive && `
-		${containerQuery("xl", "FORM")} {
+		${containerQuery($collapse.minWidth, $collapse.name)} {
 			background-color: ${theme.newColors.grey2["100"]};
 			border-left-color: ${theme.newColors.simplyGold["100"]};
 		}
@@ -94,8 +104,7 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 		.MuiSvgIcon-root:not(:first-child) {
 			display: block;
 			color: ${theme.newColors.grey3["100"]};
-			margin-right: -12px;
-			margin-left: auto;
+			margin: -2px -12px -2px auto;
 			width: 16px;
 		}
 	}
@@ -103,13 +112,6 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 	.MuiSvgIcon-root:not(:first-child) {
 		display: none;
 	}
-`;
-
-export const SidebarWrap = styled.div`
-  	font-family: ${theme.fontFamily};
-	div:last-child {
-		border-bottom: 0;
-	};
 `;
 
 export const StyledLink = styled.span`
