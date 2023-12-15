@@ -24,6 +24,9 @@ const config: StorybookConfig = {
         interval: 1000
       }
     }
-  })
+  }),
+  core: {
+    disableTelemetry: true
+  }
 };
 export default config;
