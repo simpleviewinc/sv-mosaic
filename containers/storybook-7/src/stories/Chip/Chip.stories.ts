@@ -10,6 +10,9 @@ const meta: Meta<ChipPlaygroundProps> = {
 		layout: "centered",
 	},
 	tags: ["autodocs"],
+	args: {
+		label: "My Chip"
+	}
 };
 
 export default meta;
