@@ -18,13 +18,13 @@ export interface MosaicCallback {
 
 export type SvgIconComponent = typeof SvgIcon;
 
-export type MosaicShowResult = boolean;
+export type MosaicToggleResult = boolean;
 
-export type MosaicShowCallback<T = unknown> = T extends object
-	? (params: T) => MosaicShowResult
-	: () => MosaicShowResult;
+export type MosaicToggleCallback<T = unknown> = T extends object
+	? (params: T) => MosaicToggleResult
+	: () => MosaicToggleResult;
 
-export type MosaicShow<T = unknown> = WithArrayOf<MosaicShowResult | MosaicShowCallback<T>>
+export type MosaicToggle<T = unknown> = WithArrayOf<MosaicToggleResult | MosaicToggleCallback<T>>
 
 export type MosaicGridConfig = string[][][];
 

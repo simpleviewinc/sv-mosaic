@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicShow } from "@root/types";
+import { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicToggle } from "@root/types";
 import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 import * as React from "react";
@@ -81,7 +81,7 @@ export interface ActionAdditional {
 	onClick: DataViewActionOnClick
 	/** A value or function controlling whether or not to display this action. */
 	// show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[];
-	show?: MosaicShow<{ row: DataViewActionsButtonRowProps["originalRowData"] }>
+	show?: MosaicToggle<{ row: DataViewActionsButtonRowProps["originalRowData"] }>
 }
 
 interface DataViewBulkActionOnClick {
@@ -96,7 +96,7 @@ export interface DataViewBulkAction extends Omit<DataViewAction, "onClick" | "sh
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick
 	onAllClick?: MosaicCallback,
-	show?: MosaicShow
+	show?: MosaicToggle
 }
 
 export interface DataViewSort {

@@ -133,7 +133,7 @@ Sections follow the next set of rules:
 | **`description`** | `string` or `JSX.Element` | optional - Additional text that allows users to understand the purpose or instructions of a section better. |
 | **`fields`** | `MosaicGridConfig` | required - Structure that serves as a map to position fields across rows and columns. Each section can have multiple rows, each row multiple columns, and each column multiple fields ([rows][columns][fields]) |
 | **`collapsed`** | `boolean` | optional - Allows developers to decide whether the section will be first rendered collapsed or expanded. It defaults to false when no value is provided. |
-| **`show`** | [`MosaicShow`](#mosaicshow-t-type) | optional - Show callbacks will be called with `{data: formState.data}` |
+| **`show`** | [`MosaicToggle`](#MosaicToggle-t-type) | optional - Show callbacks will be called with `{data: formState.data}` |
 
 ## How to create a form?
 ```ts
@@ -293,7 +293,7 @@ const fields = useMemo(
 * **id** - `string` optional - Follows the same rules as any other html element id.
 * **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
 * **onChangeCb** - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
-* **show** - [`MosaicShow`](#mosaicshow-t-type) optional - Show callbacks will be called with `{data: data}`
+* **show** - [`MosaicToggle`](#MosaicToggle-t-type) optional - Show callbacks will be called with `{data: data}`
 
 ### How to use in a form?
 ```ts
@@ -1576,7 +1576,7 @@ const fields = useMemo(
 ### MosaicObject (Type)
 * **[key: string]** - `unknown` required
 
-### MosaicShow T (Type)
+### MosaicToggle T (Type)
 `boolean | (params: T) => boolean | Array<boolean | (params: T) => boolean>`
 
 ### MenuItemProps (Type)
@@ -1609,7 +1609,7 @@ const fields = useMemo(
 * **muiAttrs** - `MosaicObject` optional
 
 ### ActionAdditional (Type)
-* **show** - [`MosaicShow`](#mosaicshow-t-type) optional
+* **show** - [`MosaicToggle`](#MosaicToggle-t-type) optional
 
 ### DataViewActionShow (Interface)
 * `(val?: {[key: string]: any}): void`
