@@ -7,7 +7,7 @@ import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps, StateViewDef } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
-import { useShow } from "@root/utils/show";
+import { useToggle } from "@root/utils/toggle";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -87,7 +87,7 @@ function DataView (props: DataViewProps): ReactElement  {
 	;
 
 	const bulkActions = useMemo(() => props.bulkActions || [], [props.bulkActions]);
-	const shownBulkActions = useShow(bulkActions);
+	const shownBulkActions = useToggle(bulkActions, "show");
 
 	const checkboxEnabled =
 		props.checked !== undefined &&

@@ -2,7 +2,7 @@ import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
 import { FieldDefCustom } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
-import { MosaicGridConfig, MosaicObject, MosaicShow } from "@root/types";
+import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
 import { FormState } from "./state/types";
 
 export type FormSpacing = "normal" | "compact";
@@ -17,7 +17,7 @@ export interface SectionDef extends Section {
 	description?: string | JSX.Element;
 	fields: MosaicGridConfig;
 	collapsed?: boolean;
-	show?: MosaicShow<FormState>
+	show?: MosaicToggle<FormState>
 	gridMinWidth?: string
 }
 

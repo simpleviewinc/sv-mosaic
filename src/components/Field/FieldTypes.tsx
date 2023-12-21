@@ -17,7 +17,7 @@ import { FieldDefText } from "@root/components/Field/FormFieldText";
 import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwitch";
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
-import { MosaicShow } from "@root/types";
+import { MosaicToggle } from "@root/types";
 import { ElementType, HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
 import { FieldValueResolver, FormSpacing } from "../Form";
 import { FormState } from "../Form/state/types";
@@ -164,7 +164,7 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * Whether or not to show this field
 	 */
-	show?: MosaicShow<FormState>
+	show?: MosaicToggle<FormState>
 	/**
 	 * How to resolve the field's value from the internal value. Defaults
 	 * to an function that returns a like-for-like value

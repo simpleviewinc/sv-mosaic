@@ -4,7 +4,7 @@ import { useMemo, memo } from "react";
 import { ButtonRowProps, ButtonsRowWrapperProps } from "./ButtonRowTypes";
 import { Item, Row } from "./ButtonRow.styled";
 import Button from "../Button";
-import { useShow } from "@root/utils/show";
+import { useToggle } from "@root/utils/toggle";
 
 function ButtonRowWrapper({className, wrap, children, separator}: ButtonsRowWrapperProps) {
 	if (!children.length) {
@@ -24,7 +24,7 @@ function ButtonRowWrapper({className, wrap, children, separator}: ButtonsRowWrap
 
 function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
 	const buttons = useMemo(() => props.buttons || [], [props.buttons]);
-	const shownButtons = useShow(buttons);
+	const shownButtons = useToggle(buttons, "show");
 	const children = useMemo(() => shownButtons.map((button, i) => {
 		return (
 			<Button key={i} {...button} />

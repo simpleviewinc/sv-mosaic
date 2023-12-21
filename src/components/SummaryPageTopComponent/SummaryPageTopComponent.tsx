@@ -18,7 +18,7 @@ import Image from "@root/components/Image";
 import Button, { ButtonProps } from "@root/components/Button";
 import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../ButtonRow/ButtonRow";
-import { useShow } from "@root/utils/show";
+import { useToggle } from "@root/utils/toggle";
 
 const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
 	const {
@@ -43,7 +43,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	*/
 	if (descriptionItems && descriptionItems.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
 
-	const shownAdditionalActions = useShow(additionalActions);
+	const shownAdditionalActions = useToggle(additionalActions, "show");
 
 	const additionActionsButton: ButtonProps | null = useMemo(() => shownAdditionalActions.length > 0 ? {
 		color: "black",
