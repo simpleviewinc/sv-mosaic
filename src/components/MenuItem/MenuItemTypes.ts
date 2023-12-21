@@ -1,4 +1,4 @@
-import { MosaicObject, MosaicShow, SvgIconComponent } from "@root/types";
+import { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 
 export interface MenuItemProps {
 	label: string | JSX.Element;
@@ -9,7 +9,7 @@ export interface MenuItemProps {
 	onClick(event?: React.MouseEvent<HTMLButtonElement | HTMLLIElement, MouseEvent>): void;
 	attrs?: MosaicObject;
 	name?: string;
-	show?: MosaicShow;
+	show?: MosaicToggle;
 	truncateText?: boolean;
 	/**
 	 * If true and the label is a string, the menu item

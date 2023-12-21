@@ -1,4 +1,4 @@
-import { MosaicObject, MosaicShow, SvgIconComponent } from "@root/types";
+import { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import { MenuItemProps } from "../MenuItem";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
@@ -31,7 +31,7 @@ export interface ButtonProps {
 	attrs?: MosaicObject
 	/** Attrs for the nested Material UI IconButton or Button */
 	muiAttrs?: MosaicObject
-	show?: MosaicShow;
+	show?: MosaicToggle;
 	component?: React.ComponentType
 }
 
