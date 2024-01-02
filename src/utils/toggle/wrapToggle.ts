@@ -1,6 +1,6 @@
-import { MosaicShow } from "@root/types";
+import { MosaicToggle } from "@root/types";
 
-function wrapShow<T>(show: MosaicShow<T> = true, params: T): MosaicShow {
+function wrapToggle<T>(show: MosaicToggle<T> = true, params: T): MosaicToggle {
 	const arr = Array.isArray(show) ? show : [show];
 
 	return arr.map((item) => {
@@ -13,4 +13,4 @@ function wrapShow<T>(show: MosaicShow<T> = true, params: T): MosaicShow {
 	});
 }
 
-export default wrapShow;
+export default wrapToggle;

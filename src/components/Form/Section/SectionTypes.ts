@@ -1,4 +1,4 @@
-import { MosaicGridConfig, MosaicShow } from "@root/types";
+import { MosaicGridConfig, MosaicToggle } from "@root/types";
 import { FieldDef, FormSpacing } from "../FormTypes";
 
 export interface SectionPropTypes {
@@ -10,7 +10,7 @@ export interface SectionPropTypes {
 	dispatch: any;
 	state: any;
 	collapsed?: boolean;
-	show?: MosaicShow;
+	show?: MosaicToggle;
 	registerRef?: (ref: HTMLElement) => () => void;
 	gridMinWidth?: string;
 	spacing?: FormSpacing

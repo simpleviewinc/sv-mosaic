@@ -19,7 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ButtonRow from "../ButtonRow";
 import { ButtonProps } from "./ButtonTypes";
 import { useStoryBookCssReset } from "@root/utils/reactTools";
-import { useShow } from "@root/utils/show";
+import { useToggle } from "@root/utils/toggle";
 
 export default {
 	title: "Components/Button",
@@ -146,7 +146,8 @@ export const Playground = (): ReactElement => {
 		variant: buttonVariant
 	}
 
-	const showButton = useShow(action);
+	const showButton = useToggle(action, "show");
+
 	useStoryBookCssReset();
 
 	return (
