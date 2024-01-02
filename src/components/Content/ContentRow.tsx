@@ -8,7 +8,7 @@ import {
 import Blank from "@root/components/Blank";
 import ContentField from "./ContentField";
 import testIds from "@root/utils/testIds";
-import { useShow } from "@root/utils/show";
+import { useToggle } from "@root/utils/toggle";
 
 /**
  * Checks if the field exists, can be shown and executes its transform function
@@ -35,7 +35,7 @@ const ContentRow = ({ fields, field, rowIndex, sectionLength, data }: ContentRow
 		);
 	}
 
-	const shouldShow = useShow(currentField);
+	const shouldShow = useToggle(currentField, "show");
 
 	if (!shouldShow) {
 		return (

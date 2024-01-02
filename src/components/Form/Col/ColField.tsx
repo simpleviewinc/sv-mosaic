@@ -4,7 +4,7 @@ import { getFieldConfig } from "./fieldConfigMap";
 import { ColFieldProps } from "./ColTypes";
 import formActions from "../formActions";
 import Field, { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
-import { useWrappedShow } from "@root/utils/show";
+import { useWrappedToggle } from "@root/utils/toggle";
 
 const ColField = ({
 	fieldsDef,
@@ -56,7 +56,7 @@ const ColField = ({
 		field.type
 	);
 
-	const shouldShow = useWrappedShow(field, state);
+	const shouldShow = useWrappedToggle(field, state, "show");
 
 	const sanitizedFieldDef = useMemo(() => ({ ...field, size, }), [field, size])
 

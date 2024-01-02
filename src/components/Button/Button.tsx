@@ -7,7 +7,7 @@ import { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 import Menu from "../Menu";
 import MenuBase from "../MenuBase";
 import { PopoverWrapper, TooltipContent } from "./Button.styled";
-import { useShow } from "@root/utils/show";
+import { useToggle } from "@root/utils/toggle";
 
 export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(null);
 
@@ -148,7 +148,7 @@ function ButtonWithState(props: ButtonProps) {
 }
 
 function Button(props: ButtonProps) {
-	const shouldShow = useShow(props);
+	const shouldShow = useToggle(props, "show");
 
 	if (!shouldShow) {
 		return null;
