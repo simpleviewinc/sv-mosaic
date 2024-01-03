@@ -48,6 +48,8 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 		await formWithLayoutPage.visit(formWithLayoutPage.page_path, [playgroundKnobs.knobCollapseSections + "true"]);
 		await formWithLayoutPage.expandMoreIconLocator.first().click();
 		await formWithLayoutPage.page.locator("input#text3").fill("Sample Text");
+		await expect(formWithLayoutPage.toggleLocator).toBeVisible();
+		await formWithLayoutPage.toggleLocator.click();
 		await expect(formWithLayoutPage.panelContentLocator.nth(1)).not.toBeVisible();
 		await formWithLayoutPage.saveBtn.click();
 		await expect(formWithLayoutPage.panelContentLocator.nth(1)).toBeVisible();
@@ -57,6 +59,10 @@ test.describe.parallel("Components - Form - Form With Layout", () => {
 	test("Validate that when a requiered element is not entered, all the sections with requiered fields are open.", async () => {
 		await page.setViewportSize({ width: 1399, height: 720 });
 		await formWithLayoutPage.visit(formWithLayoutPage.page_path, [playgroundKnobs.knobCollapseSections + "true"]);
+		await formWithLayoutPage.expandMoreIconLocator.first().click();
+		await expect(formWithLayoutPage.toggleLocator).toBeVisible();
+		await formWithLayoutPage.toggleLocator.click();
+		await formWithLayoutPage.expandMoreIconLocator.first().click();
 		await formWithLayoutPage.saveBtn.click();
 		await expect(formWithLayoutPage.panelContentLocator.nth(0)).toBeVisible();
 		await expect(formWithLayoutPage.panelContentLocator.nth(1)).toBeVisible();
