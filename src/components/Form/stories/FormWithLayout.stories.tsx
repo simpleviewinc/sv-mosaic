@@ -204,11 +204,31 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 				[[]],
 				// row 4
 				[[], ["textEditor"]]
-			]
+			],
+			show: ({data}) => data?.toggleSwitch === true
 		},
 		{
 			title: "Section 3",
 			description: "Description for section 3",
+			collapsed,
+			fields: [
+				// row 1
+				[["imageUpload"], [], []],
+			],
+			show: ({data}) => data?.toggleSwitch === true
+		},
+		{
+			title: "Section 4",
+			description: "Description for section 4",
+			collapsed,
+			fields: [
+				// row 1
+				[["imageUpload"], [], []],
+			]
+		},
+		{
+			title: "Section 5",
+			description: "Description for section 5",
 			collapsed,
 			fields: [
 				// row 1
