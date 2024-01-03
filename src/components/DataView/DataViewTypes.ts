@@ -191,6 +191,7 @@ export interface DataViewFilterGetOptionsReturn {
 }
 
 export interface DataViewProps {
+	attrs?: React.HTMLAttributes<HTMLDivElement> & Record<string, unknown>;
 	title?: string
 	loading?: boolean
 	count?: number
