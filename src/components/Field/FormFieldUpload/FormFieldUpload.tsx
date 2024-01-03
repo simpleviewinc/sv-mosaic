@@ -291,12 +291,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							fileUrl={file.fileUrl}
 							downloadUrl={file.downloadUrl}
 							onFileDelete={handleFileDelete}
-							disabled={fieldDef.disabled}
+							disabled={disabled}
 						/>
 					))}
 				</StyledFileGrid>
 			}
-			{pendingFiles && Object.keys(pendingFiles).length > 0 && !fieldDef.disabled &&
+			{pendingFiles && Object.keys(pendingFiles).length > 0 && !disabled &&
 				<StyledFileGrid>
 					{Object.entries(pendingFiles).map(([key, file]: [key: string, file: {data: UploadData, error: string, percent: number}]) => {
 						return (
