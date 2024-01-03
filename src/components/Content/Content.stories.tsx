@@ -140,7 +140,7 @@ export const Playground = (): ReactElement => {
 			variant: "text",
 			label: showMore ? "Less Details" : "More Details",
 			onClick: showDetails,
-			show: [showButtons !== "undefined", Number(showButtons) >= 2],
+			show: [useSections, showButtons !== "undefined", Number(showButtons) >= 2],
 		},
 	]
 
