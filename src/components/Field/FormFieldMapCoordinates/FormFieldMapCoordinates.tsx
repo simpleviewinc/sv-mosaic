@@ -44,6 +44,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		value,
 		onBlur,
 		onChange,
+		disabled,
 		fieldDef,
 	} = props;
 
@@ -159,12 +160,12 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 								color="teal"
 								variant="text"
 								label="Edit"
-								disabled={fieldDef?.disabled}
+								disabled={disabled}
 								onClick={handleAddCoordinates}
 							/>
 							<Button
 								color="red"
-								disabled={fieldDef?.disabled}
+								disabled={disabled}
 								variant="text"
 								label="Remove"
 								onClick={() => setRemoveDialog(true)}
@@ -174,7 +175,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 				</div>
 			) : (
 				<Button
-					disabled={fieldDef?.disabled}
+					disabled={disabled}
 					onClick={handleAddCoordinates}
 					color="gray"
 					variant="outlined"
