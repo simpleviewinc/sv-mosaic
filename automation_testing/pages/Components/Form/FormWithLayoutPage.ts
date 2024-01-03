@@ -16,6 +16,7 @@ export class FormWithLayout extends BasePage {
 	readonly sections: Locator;
 	readonly panelContentLocator: Locator;
 	readonly expandMoreIconLocator: Locator;
+	readonly toggleLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -30,6 +31,7 @@ export class FormWithLayout extends BasePage {
 		this.sections = page.locator(".form-nav-wrapper");
 		this.panelContentLocator = page.locator("#panel1a-content");
 		this.expandMoreIconLocator = page.locator("[data-testid='ExpandMoreIcon']")
+		this.toggleLocator = page.locator("#toggleSwitch").locator("[type='checkbox']");
 	}
 
 	async getNumberOfSectionsFromTopComponent():Promise<number> {
