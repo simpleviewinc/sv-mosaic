@@ -7,7 +7,6 @@ import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps, StateViewDef } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
-import { useToggle } from "@root/utils/toggle";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -86,8 +85,19 @@ function DataView (props: DataViewProps): ReactElement  {
 		props.savedView !== undefined
 	;
 
-	const bulkActions = useMemo(() => props.bulkActions || [], [props.bulkActions]);
-	const shownBulkActions = useToggle(bulkActions, "show");
+	const bulkActions = useMemo(() => {
+		if (!props.bulkActions) {
+			return [];
+		}
+
+		return props.bulkActions.filter(action => {
+			if (props.checkedAllPages) {
+				return action.onAllClick
+			}
+
+			return action.onClick
+		})
+	}, [props.bulkActions]);
 
 	const checkboxEnabled =
 		props.checked !== undefined &&
@@ -202,7 +212,7 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	const shouldRenderActionsRow: boolean = useMemo(() => {
 		if (
-			shownBulkActions ??
+			bulkActions ??
 			props.limitOptions ??
 			props.onColumnsChange ??
 			props.onSortChange ??
@@ -216,7 +226,7 @@ function DataView (props: DataViewProps): ReactElement  {
 		return false;
 	}, [
 		props.display,
-		shownBulkActions,
+		bulkActions,
 		props.limitOptions,
 		props.onColumnsChange,
 		props.onSortChange,
@@ -231,10 +241,10 @@ function DataView (props: DataViewProps): ReactElement  {
 
 	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
 	const showBulkAll =
-		shownBulkActions?.length > 0 &&
+		bulkActions?.length > 0 &&
 		props.data.length > 0 &&
 		props.count > props.data.length &&
-		shownBulkActions.some(action => action.onAllClick !== undefined) &&
+		bulkActions.some(action => action.onAllClick !== undefined) &&
 		allChecked &&
 		props.checkedAllPages !== undefined &&
 		props.onCheckAllPagesChange !== undefined
@@ -274,7 +284,7 @@ function DataView (props: DataViewProps): ReactElement  {
 						<DataViewActionsRow
 							activeColumnObjs={activeColumnObjs}
 							columns={props.columns}
-							bulkActions={shownBulkActions}
+							bulkActions={bulkActions}
 							checked={props.checked}
 							display={display}
 							displayControlEnabled={displayControlEnabled}
@@ -309,7 +319,7 @@ function DataView (props: DataViewProps): ReactElement  {
 					checked={props.checked}
 					checkedAllPages={props.checkedAllPages}
 					columns={props.columns}
-					bulkActions={shownBulkActions}
+					bulkActions={bulkActions}
 					sort={props.sort}
 					data={props.data}
 					additionalActions={props.additionalActions}
