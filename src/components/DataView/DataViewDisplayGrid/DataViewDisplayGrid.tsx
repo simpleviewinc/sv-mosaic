@@ -76,7 +76,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 									<div className="left">
 										{
 											primary &&
-											<Tooltip type="advanced" text={primary}>
+											<Tooltip text={primary}>
 												<h2>{primary}</h2>
 											</Tooltip>
 										}

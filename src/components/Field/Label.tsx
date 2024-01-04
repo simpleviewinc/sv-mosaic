@@ -98,7 +98,7 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputLabel>
 			{instructionText && (
 				<StyledTooltipWrapper $colsInRow={colsInRow}>
-					<Tooltip text={instructionText} type='advanced'>
+					<Tooltip text={instructionText}>
 						<StyledInfoOutlinedIcon />
 					</Tooltip>
 				</StyledTooltipWrapper>

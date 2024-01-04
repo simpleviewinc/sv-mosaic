@@ -19,14 +19,6 @@ export interface TooltipProps {
    */
   children: ReactNode;
   /**
-   * Current available types for the tooltip.
-   * Default: Small black tooltip (mostly used
-   * with icon buttons).
-   * Advanced: Large white tooltip (mostly used
-   * with fields).
-   */
-  type?: "default" | "advanced";
-  /**
    * Tooltip placement.
    */
   placement?: MUITooltipProps["placement"];
