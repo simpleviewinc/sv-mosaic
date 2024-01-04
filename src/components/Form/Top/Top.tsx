@@ -8,7 +8,6 @@ import {
 } from "react";
 
 // Components
-import Tooltip from "@root/components/Tooltip";
 import Checkbox from "@root/components/Checkbox";
 
 // Types and Utils
@@ -23,8 +22,6 @@ import {
 	SmallBack,
 	SmallBackIcon,
 	ActiveCheckboxWrapper,
-	HelpIcon,
-	HelpIconWrapper,
 	TopWrapper,
 	SmallDescription,
 	LargeDescription
@@ -42,14 +39,12 @@ const Top = (props: TopProps): ReactElement => {
 		title,
 		onBack,
 		backLabel,
-		tooltipInfo,
 		bottomBorder,
 		collapse
 	} = props;
 
 	// State variables
 	const [activeChecked, setActiveChecked] = useState(false);
-	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
 
 	const handleActiveClick = useCallback(() => {
 		setActiveChecked((prev) => !prev);
@@ -68,22 +63,6 @@ const Top = (props: TopProps): ReactElement => {
 		[activeChecked, handleActiveClick]
 	);
 
-	const helpIcon = useMemo(
-		() => (
-			<HelpIconWrapper>
-				<Tooltip
-					open={tooltipIsOpen}
-					onOpen={() => setTooltipIsOpen(true)}
-					onClose={() => setTooltipIsOpen(false)}
-					text={tooltipInfo}
-				>
-					<HelpIcon />
-				</Tooltip>
-			</HelpIconWrapper>
-		),
-		[showActive, tooltipInfo, setTooltipIsOpen, tooltipIsOpen]
-	);
-
 	return (
 		<TopRoot $bottomBorder={bottomBorder}>
 			<TopWrapper>
@@ -100,9 +79,8 @@ const Top = (props: TopProps): ReactElement => {
 					</Title>
 				</Heading>
 				{description && <SmallDescription>{description}</SmallDescription>}
-				{((tooltipInfo && helpIcon) || showActive) && (
+				{showActive && (
 					<SecondaryActions>
-						{tooltipInfo && helpIcon}
 						{showActive && checkbox}
 					</SecondaryActions>
 				)}
