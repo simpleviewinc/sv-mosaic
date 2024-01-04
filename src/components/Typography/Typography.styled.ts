@@ -58,7 +58,8 @@ export const variants: Record<TypographyVariant, RuleSet> = {
 	body: css`
         font-family: ${theme.fontFamily};
         font-size: 16px;
-	`
+	`,
+	none: css``
 };
 
 export const Component = styled.div<BaseProps & {$variant: TypographyVariant}>`

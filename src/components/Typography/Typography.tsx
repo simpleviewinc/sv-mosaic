@@ -7,7 +7,8 @@ import { Component } from "./Typography.styled";
 const defaultTagMap: Record<TypographyVariant, TypographyTag> = {
 	title: "h1",
 	subtitle: "h3",
-	body: "div"
+	body: "div",
+	none: "span"
 }
 
 export default function Typography({
@@ -15,11 +16,12 @@ export default function Typography({
 	attrs = {},
 	as,
 	tag: providedTag = as,
-	variant,
+	variant = "none",
 	maxLines,
 	color,
 	breakAll,
-	className
+	className,
+	title
 }: TypographyProps): ReactElement {
 	const tag = providedTag || defaultTagMap[variant];
 
@@ -31,7 +33,7 @@ export default function Typography({
 			$maxLines={maxLines}
 			$color={color}
 			$breakAll={breakAll}
-			title={typeof children === "string" ? children : undefined}
+			title={title !== undefined ? title : typeof children === "string" ? children : undefined}
 			as={tag}
 		>
 			{children}
