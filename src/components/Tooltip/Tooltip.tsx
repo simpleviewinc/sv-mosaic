@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 import { TooltipProps } from ".";
-import { StyledAdvancedTooltip, StyledDefaultTooltip } from "./Tooltip.styled";
+import { StyledDefaultTooltip } from "./Tooltip.styled";
 
 const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
@@ -11,23 +11,11 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 		open,
 		onClose,
 		onOpen,
-		type,
 		placement = "top-start"
 	} = props;
 
-	return type !== "advanced" ? (
+	return (
 		<StyledDefaultTooltip
-			className={className}
-			open={open}
-			onClose={onClose}
-			onOpen={onOpen}
-			title={text}
-			data-testid='tooltip-test-id'
-		>
-			{children}
-		</StyledDefaultTooltip>
-	) : (
-		<StyledAdvancedTooltip
 			className={className}
 			open={open}
 			onClose={onClose}
@@ -38,7 +26,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 			data-testid='tooltip-test-id'
 		>
 			{children}
-		</StyledAdvancedTooltip>
+		</StyledDefaultTooltip>
 	);
 }
 
