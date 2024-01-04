@@ -63,8 +63,6 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", true);
 	const disabled = boolean("Disabled", false);
 	const showSections = select("Show sections", [0, 1, 2, 3], 0);
-	const tooltipInfo = text("Tooltip info", "Tooltip info");
-	const showTooltipInfo = boolean("Show Tooltip info", false);
 	const showActive = boolean("Show active", false);
 	const collapsed = boolean("Collapse sections", false);
 	const containerHeight = text("Container Height (500px, 50rem, etc..)", "100vh");
@@ -637,7 +635,6 @@ export const Playground = (): ReactElement => {
 				getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
 				sections={showSections > 0 ? sectionsAmount : undefined}
 				buttons={renderButtons(dispatch, { showCancel, showSave })}
-				tooltipInfo={showTooltipInfo && tooltipInfo}
 				showActive={showActive}
 			/>
 		</div>
