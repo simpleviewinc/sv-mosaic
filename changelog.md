@@ -1,5 +1,32 @@
 # sv-mosaic changelog
 
+## 29.0.0 - 01/09/23
+
+### Improvements & Fixes
+
+* `Content`/`Card`
+  * [MOS-1213](https://simpleviewtools.atlassian.net/browse/MOS-1213 "https://simpleviewtools.atlassian.net/browse/MOS-1213")
+    * Swaps out the `div` elements used for field labels and content for `dt` and `dd`. Wraps the content component with `dl`
+    * Adds `data-testid="mos:Content:field"` to each field within the `Content` component for better test locating
+    * Adds `data-testid="mos:Card:item"` to each item within the `Card` component for better test locating
+    * Utilises the `SubtitleText` typography component for both `Content` and `Card` components for accessibility and testing
+    * Updates styling of the `SubtitleText` typography component to match the existing content/card headings
+* `DataView`
+  * [MOS-1218](https://simpleviewtools.atlassian.net/browse/MOS-1218 "https://simpleviewtools.atlassian.net/browse/MOS-1218")
+    * Replaces `react-beautiful-dnd` with `dnd-kit` in all places that it is used:
+      * DataView rows
+      * DataView column sorting
+    * **(BREAKING CHANGE)** Drops the `FormFieldTable` field and all associations with it.
+      * Use `FormFieldMatrix` instead
+* `SideNav`
+  * [MOS-1228](https://simpleviewtools.atlassian.net/browse/MOS-1228 "https://simpleviewtools.atlassian.net/browse/MOS-1228")
+    * Reinstates the SideNav section separator that was lost in the MOS-1175 refactor
+  * [MOS-1232](https://simpleviewtools.atlassian.net/browse/MOS-1232 "https://simpleviewtools.atlassian.net/browse/MOS-1232")
+    * Fixes a bug that caused the incorrect sidebar item to show as active when sections were conditionally rendered using the `show` property
+* `useToggle`
+  * [MOS-1207](https://simpleviewtools.atlassian.net/browse/MOS-1207 "https://simpleviewtools.atlassian.net/browse/MOS-1207")
+    * Removes the evaluateShow function in favour of the `useToggle` and `useWrappedToggle` hooks. Button rows themselves now use the `useToggle` hook to filter away buttons (as far as button definitions go - button rows with children behaviour has not changed) so that components higher up the tree don't need to do so. In the odd cases where the toggle callback needs to accept parameters, the lowest level component that has access to those parameters uses the `useWrappedToggle` hook to evaluate those callbacks and filter away the buttons (or any other kind of item that extends `{ show: MosaicToggle<T> }`)
+
 ## 28.0.2 - 12/12/23
 
 ### Improvements & Fixes
