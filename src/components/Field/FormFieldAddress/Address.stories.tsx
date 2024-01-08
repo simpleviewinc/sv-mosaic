@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
-import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
+import { boolean, select, text, withKnobs } from "@storybook/addon-knobs";
 import { renderButtons } from "@root/utils/storyUtils";
 import { FieldDef } from "..";
 import Form, { useForm } from "@root/components/Form";
@@ -11,16 +11,25 @@ export default {
 	decorators: [withKnobs],
 };
 
+const amountOptions = [
+	"undefined",
+	1,
+	2,
+	3,
+	4,
+	5
+]
+
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
-	const amountPerType = number("Amount per type", 1);
-	const amountShipping = number("Amount shipping", 1);
-	const amountPhysical = number("Amount physical", 1);
-	const amountBilling = number("Amount billing", 1);
+	const amountPerType = select("Amount per type", amountOptions, "undefined");
+	const amountShipping = select("Amount shipping", amountOptions, "undefined");
+	const amountPhysical = select("Amount physical", amountOptions, "undefined");
+	const amountBilling = select("Amount billing", amountOptions, "undefined");
 
 	const fields = useMemo(
 		() : FieldDef[] => (
@@ -32,10 +41,10 @@ export const Playground = (): ReactElement => {
 					name: "address",
 					type: "address",
 					inputSettings: {
-						amountPerType,
-						amountShipping,
-						amountPhysical,
-						amountBilling,
+						amountPerType: amountPerType === "undefined" ? undefined : Number(amountPerType),
+						amountShipping: amountShipping === "undefined" ? undefined : Number(amountShipping),
+						amountPhysical: amountPhysical === "undefined" ? undefined : Number(amountPhysical),
+						amountBilling: amountBilling === "undefined" ? undefined : Number(amountBilling),
 						getOptionsCountries,
 						getOptionsStates,
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
