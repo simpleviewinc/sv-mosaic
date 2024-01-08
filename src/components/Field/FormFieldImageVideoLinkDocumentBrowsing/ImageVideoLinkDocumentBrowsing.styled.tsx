@@ -160,11 +160,15 @@ export const MenuColumn = styled(Column)`
   margin-left: auto;
 `;
 
-export const MoreText = styled.span`
+export const MoreText = styled.button`
   color: ${theme.newColors.realTeal["100"]};
+  cursor: pointer;
   font-size: 14px;
   font-weight: ${theme.fontWeight.bold};
   margin-left: 12px;
+  font-family: inherit;
+  background: none;
+  border: 0;
 `;
 
 export const StyledTooltip = styled(Tooltip)`

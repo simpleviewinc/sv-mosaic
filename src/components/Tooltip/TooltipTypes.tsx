@@ -1,17 +1,19 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode } from "react";
 import { TooltipProps as MUITooltipProps } from "@mui/material/Tooltip";
+
+export type AnchorElement = HTMLElement | SVGElement;
 
 export interface TooltipProps {
   /**
-   * Additional custom css class to style the
-   * component.
+   * The tooltip anchor. Must be a type of
+   * HTML element
    */
-  className?: string;
+  anchorEl: AnchorElement
   /**
-   * Text to be displayed once the
-   * tooltip gets rendered on the screen.
+   * Whether or not the tooltip is currently
+   * visible on screen
    */
-  text: string | JSX.Element[] | ReactNode;
+  open: boolean
   /**
    * Element to be wrapped by the tooltip.
    * When hovering over this child the tooltip
@@ -23,15 +25,15 @@ export interface TooltipProps {
    */
   placement?: MUITooltipProps["placement"];
   /**
-   * If true, the tooltip is shown.
+   * The tooltip ID, should to referred to by
+   * the anchor's aria-describedby attribute
    */
-  open?: boolean;
-  /**
-   * Callback fired when the component requests to be open.
-   */
-  onOpen?: () => void;
-  /**
-   * Callback fired when the component requests to be closed.
-   */
-  onClose?: () => void;
+  id?: string
+}
+
+export interface AnchorProps {
+	ref: Dispatch<AnchorElement>
+	onMouseEnter: () => void;
+	onMouseLeave: () => void;
+	"aria-describedby": string
 }
