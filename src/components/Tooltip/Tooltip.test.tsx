@@ -3,6 +3,18 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Tooltip from "./Tooltip";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import useTooltip from "./useTooltip";
+
+function TooltipTest({ text }: { text: string }) {
+	const { anchorProps, tooltipProps } = useTooltip();
+
+	return (
+		<>
+			<MoreVertIcon {...anchorProps} />
+			<Tooltip {...tooltipProps}>{text}</Tooltip>
+		</>
+	)
+}
 
 beforeEach(() => {
 	document.createRange = () => ({
@@ -24,29 +36,13 @@ afterEach(cleanup);
 describe("Tooltip component", () => {
 	it("should render a regular tooltip", async () => {
 		const tooltip = render(
-			<Tooltip text='Default tooltip test' type='default'>
-				<MoreVertIcon />
-			</Tooltip>
+			<TooltipTest text='Default tooltip test' />
 		);
 
-		fireEvent.mouseOver(tooltip.getByTestId("tooltip-test-id"));
+		fireEvent.mouseOver(tooltip.getByTestId("MoreVertIcon"));
 
 		expect(
 			await tooltip.findByText("Default tooltip test")
-		).toBeInTheDocument();
-	});
-	
-	it("should render an advanced tooltip", async () => {
-		const tooltip = render(
-			<Tooltip text='Advanced tooltip test' type='advanced'>
-				<MoreVertIcon />
-			</Tooltip>
-		);
-
-		fireEvent.mouseOver(tooltip.getByTestId("tooltip-test-id"));
-
-		expect(
-			await tooltip.findByText("Advanced tooltip test")
 		).toBeInTheDocument();
 	});
 });
