@@ -1,32 +1,40 @@
 import * as React from "react";
 import { ReactElement } from "react";
 import { TooltipProps } from ".";
-import { StyledDefaultTooltip } from "./Tooltip.styled";
+import { TooltipArrow, TooltipPopper } from "./Tooltip.styled";
+
+const tooltipOffset = [
+	{
+		name: "offset",
+		options: {
+			offset: [0, 10],
+		},
+	},
+];
 
 const Tooltip = (props: TooltipProps): ReactElement => {
 	const {
-		className = "",
-		text = "",
 		children,
 		open,
-		onClose,
-		onOpen,
-		placement = "top-start"
+		placement = "bottom-start",
+		anchorEl,
+		id
 	} = props;
 
 	return (
-		<StyledDefaultTooltip
-			className={className}
+		<TooltipPopper
 			open={open}
-			onClose={onClose}
-			onOpen={onOpen}
-			title={text}
-			arrow
+			anchorEl={anchorEl}
+			style={{ zIndex: 1500, pointerEvents: "none" }}
 			placement={placement}
-			data-testid='tooltip-test-id'
+			modifiers={tooltipOffset}
+			role="tooltip"
+			id={id}
+			data-testid="tooltip-test-id"
 		>
+			<TooltipArrow className="arrow" />
 			{children}
-		</StyledDefaultTooltip>
+		</TooltipPopper>
 	);
 }
 
