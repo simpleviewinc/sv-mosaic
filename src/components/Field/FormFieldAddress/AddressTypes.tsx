@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { MosaicLabelValue } from "@root/types";
 import { FieldDefBase } from "@root/components/Field";
 
@@ -21,34 +20,24 @@ export interface AddressCardProps {
 	 */
 	address: IAddress;
 	/**
-	 * Index of the current address card.
-	 */
-	addressIndex?: number;
-	/**
 	 * Disables edit and remove button
 	 */
 	disabled: boolean;
 	/**
 	 * Function executed when removing an address card.
 	 */
-	onRemoveAddress?: (address) => void;
+	onRemoveAddress?: (address: IAddress) => void;
 	/**
 	 * Function executed when editing an address card.
 	 */
-	onEdit?: (address, addressIndex) => void;
+	onEdit?: (address: IAddress) => void;
 }
 export interface AddressDrawerProps {
-	addressToEdit: IAddress;
+	addressToEdit?: IAddress;
 	googleMapsApiKey: string;
-	isEditing: boolean;
-	addressIdx: number;
-	open: boolean;
-	onChange?: (event: unknown) => Promise<void>;
+	onSave: (address: IAddress) => void;
 	handleClose: (save?: boolean) => Promise<void>;
-	setIsEditing: Dispatch<SetStateAction<boolean>>;
-	value: IAddress[];
 	addressTypes?: MosaicLabelValue[];
-	hasUnsavedChanges?: boolean;
 	handleUnsavedChanges?: (val: boolean) => void;
 	dialogOpen?: boolean;
 	handleDialogClose?: (val: boolean) => void;
