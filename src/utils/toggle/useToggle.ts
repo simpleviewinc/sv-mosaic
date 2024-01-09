@@ -1,4 +1,5 @@
 import { MosaicToggle } from "@root/types";
+import getToggle from "./getToggle";
 
 /**
  * A way of conditionally rendering an item or items based on their
@@ -10,24 +11,14 @@ import { MosaicToggle } from "@root/types";
  *
  * @param items The item or items containing the show property
  */
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T[], key: K): T[]
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T, key: K): boolean
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T | T[], key: K): boolean | T[] {
+function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T[], key: K, defaultToggle?: boolean): T[]
+function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T, key: K, defaultToggle?: boolean): boolean
+function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T | T[], key: K, defaultToggle = true): boolean | T[] {
 	const isArray = Array.isArray(items);
 	const itemsAsArray = isArray ? items : [items];
 
 	const filteredItems = itemsAsArray.filter((item) => {
-		const toggle = item[key] !== undefined ? item[key] : true;
-		const conditions = Array.isArray(toggle) ? toggle : [toggle];
-
-		return conditions.every(condition => {
-			if (typeof condition === "function") {
-				return condition();
-			} else {
-				return condition;
-			}
-		});
-
+		return getToggle(item[key], defaultToggle);
 	});
 
 	if (isArray) {

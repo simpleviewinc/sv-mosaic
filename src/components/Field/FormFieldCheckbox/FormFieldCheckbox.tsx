@@ -14,7 +14,8 @@ const FormFieldCheckbox = (
 		fieldDef,
 		onChange,
 		onBlur,
-		value
+		value,
+		disabled
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState<MosaicLabelValue[]>([]);
@@ -58,7 +59,7 @@ const FormFieldCheckbox = (
 
 	return (
 		<StyledCheckboxList
-			disabled={fieldDef?.disabled}
+			disabled={disabled}
 			checked={checked}
 			options={internalOptions}
 			onChange={(val) => internalOnChange(val, onChange)}

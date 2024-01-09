@@ -30,6 +30,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		value,
 		onBlur,
 		onChange,
+		disabled,
 		fieldDef,
 	} = props;
 
@@ -87,7 +88,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 							onClick={handleOpenModal}
 							mIcon={AddIcon}
 							attrs={{ style: { marginBottom: "16px" } }}
-							disabled={fieldDef?.disabled}
+							disabled={disabled}
 						/>
 					)}
 					<ChipList
@@ -98,7 +99,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 								isMobileView,
 								deleteSelectedOption,
 							},
-							disabled: fieldDef?.disabled,
+							disabled,
 						}}
 					/>
 				</AdvancedSelectionWrapper>
@@ -108,7 +109,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 					variant="outlined"
 					label="ADD"
 					onClick={handleOpenModal}
-					disabled={fieldDef?.disabled}
+					disabled={disabled}
 				/>
 			)}
 			<Drawer

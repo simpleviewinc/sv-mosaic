@@ -18,6 +18,7 @@ const TextField = (
 		onChange,
 		onBlur,
 		value,
+		disabled,
 	} = props;
 
 	const leadingElement = fieldDef?.inputSettings?.prefixElement
@@ -61,7 +62,7 @@ const TextField = (
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
 			minRows={fieldDef?.inputSettings?.minRows}
 			maxRows={fieldDef?.inputSettings?.maxRows}
-			disabled={fieldDef?.disabled}
+			disabled={disabled}
 		/>
 	);
 };

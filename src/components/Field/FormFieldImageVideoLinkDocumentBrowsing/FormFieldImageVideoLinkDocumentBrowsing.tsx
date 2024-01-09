@@ -47,7 +47,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 		ImageVideoDocumentLinkData
 	>
 ): ReactElement => {
-	const { fieldDef, value } = props;
+	const { fieldDef, value, disabled } = props;
 
 	// State variables
 	const [assetType, setAssetType] = useState("");
@@ -180,28 +180,28 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							<BrowseOptionsContainer>
 								{fieldDef?.inputSettings?.handleSetImage && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={IMAGE}
 									/>
 								)}
 								{fieldDef?.inputSettings?.handleSetVideo && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={VIDEO}
 									/>
 								)}
 								{fieldDef?.inputSettings?.handleSetDocument && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={DOCUMENT}
 									/>
 								)}
 								{fieldDef?.inputSettings?.handleSetLink && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={LINK}
 									/>
@@ -233,7 +233,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							{fieldDef?.inputSettings?.options && (
 								<MenuColumn>
 									<MenuFormFieldCard
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										options={fieldDef?.inputSettings?.options}
 									/>
 								</MenuColumn>
@@ -247,7 +247,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							variant="text"
 							label="Browse"
 							muiAttrs={{ disableRipple: true }}
-							disabled={fieldDef?.disabled}
+							disabled={disabled}
 							onClick={async (e) => await handleBrowse(e, assetType)}
 						></Button>
 						<Button
@@ -255,7 +255,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							variant="text"
 							label="Remove"
 							muiAttrs={{ disableRipple: true }}
-							disabled={fieldDef?.disabled}
+							disabled={disabled}
 							onClick={(e) => handleRemove(e)}
 						></Button>
 					</AssetButtons>

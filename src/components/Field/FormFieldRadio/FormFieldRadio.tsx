@@ -16,6 +16,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		onChange,
 		value,
 		onBlur,
+		disabled,
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState([]);
@@ -48,7 +49,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		<>
 			{internalOptions.map((option) => (
 				<RadioButton
-					disabled={fieldDef?.disabled}
+					disabled={disabled}
 					key={option.label}
 					label={option.label}
 					value={option.value}

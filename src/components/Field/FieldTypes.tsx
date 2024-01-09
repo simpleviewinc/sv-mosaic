@@ -66,6 +66,10 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Spacing type
 	 */
 	spacing?: FormSpacing
+	/**
+	 * Whether or not the field is disabled
+	 */
+	disabled?: boolean
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
@@ -97,7 +101,7 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * Indicates whether the field can be written on or readonly.
 	 */
-	disabled?: boolean;
+	disabled?: MosaicToggle<FormState>;
 	/**
 	 * Settings that belong to a specific field.
 	 * They are defined within each field implementation.
