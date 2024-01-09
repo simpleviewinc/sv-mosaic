@@ -11,9 +11,6 @@ import {
 } from "./MapCoordinatesTypes";
 import { MosaicFieldProps } from "@root/components/Field";
 
-// External libraries
-import { useLoadScript } from "@react-google-maps/api";
-
 // Components
 import Button, { ButtonProps } from "@root/components/Button";
 import MapCoordinatesDrawer from "./MapCoordinatesDrawer";
@@ -33,7 +30,6 @@ import {
 // Utils
 import {
 	isValidLatLng,
-	libraries,
 } from "./MapCoordinatesUtils";
 import Drawer from "@root/components/Drawer";
 import Blank from "@root/components/Blank/Blank";
@@ -101,11 +97,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		await onBlur();
 	};
 
-	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: fieldDef?.inputSettings?.googleMapsApiKey,
-		libraries,
-	});
-
 	const dialogButtons: ButtonProps[] = useMemo(() => [
 		{
 			label: "No, keep it",
@@ -123,9 +114,6 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 			variant: "contained",
 		},
 	], [removeDialog]);
-
-	if (loadError) return <span>{"Error loading maps"}</span>;
-	if (!isLoaded) return <span>{"Loading Maps"}</span>;
 
 	return (
 		<>
@@ -191,6 +179,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
 					initialCenter={initialCenter}
+					googleMapsApiKey={fieldDef?.inputSettings?.googleMapsApiKey}
 				/>
 			</Drawer>
 			<Dialog

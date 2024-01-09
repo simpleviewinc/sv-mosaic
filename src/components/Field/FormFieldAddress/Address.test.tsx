@@ -149,6 +149,7 @@ describe("AddressAutocomplete component", () => {
 	it("it should render a default value and execute callbacks", () => {
 		render(
 			<AddressAutocomplete
+				googleMapsApiKey=""
 				value="Test"
 				onChange={mockOnChange}
 				onSelect={mockOnSelect}
