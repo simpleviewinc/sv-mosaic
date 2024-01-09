@@ -7,9 +7,9 @@ import { InputLabel } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import theme from "@root/theme";
-import Tooltip from "../Tooltip";
 import { TransientProps } from "@root/types";
 import { containerQuery } from "@root/utils/css";
+import Tooltip, { useTooltip } from "../Tooltip";
 
 const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
@@ -90,6 +90,8 @@ const Label = (props: LabelProps): ReactElement => {
 		colsInRow
 	} = props;
 
+	const { anchorProps, tooltipProps } = useTooltip();
+
 	return (
 		<LabelWrapper className={className}>
 			<StyledInputLabel htmlFor={htmlFor}>
@@ -98,8 +100,9 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputLabel>
 			{instructionText && (
 				<StyledTooltipWrapper $colsInRow={colsInRow}>
-					<Tooltip text={instructionText} type='advanced'>
-						<StyledInfoOutlinedIcon />
+					<StyledInfoOutlinedIcon {...anchorProps}/>
+					<Tooltip {...tooltipProps}>
+						{instructionText}
 					</Tooltip>
 				</StyledTooltipWrapper>
 			)}

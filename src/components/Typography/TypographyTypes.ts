@@ -3,7 +3,7 @@ import { MosaicObject } from "../../types"
 import { ColorTypes } from "../Button";
 import { Properties } from "csstype"
 
-export type TypographyVariant = "title" | "subtitle" | "body";
+export type TypographyVariant = "title" | "subtitle" | "body" | "none";
 
 export type TypographyTag = string;
 
@@ -11,7 +11,7 @@ export interface TypographyProps {
 	/**
 	 * Controls the look of the typography
 	 */
-	variant: TypographyVariant,
+	variant?: TypographyVariant,
 	/**
 	 * @deprecated Use "tag" prop instead
 	 */

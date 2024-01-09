@@ -6,9 +6,9 @@ import DataViewActionsButtonRow from "../DataViewActionsButtonRow/DataViewAction
 import { transformRows } from "../../../utils/dataViewTools";
 
 import DataViewBulkAllBar from "../DataViewBulkAllBar";
-import Tooltip from "../../Tooltip";
 import { DataViewDisplayGridProps } from "./DataViewDisplayGridTypes";
 import { StyledDiv } from "./DataViewDisplayGrid.styled";
+import Typography from "@root/components/Typography";
 
 
 function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
@@ -74,16 +74,12 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 								}
 								<div className="info">
 									<div className="left">
-										{
-											primary &&
-											<Tooltip type="advanced" text={primary}>
-												<h2>{primary}</h2>
-											</Tooltip>
-										}
-										{
-											secondary &&
-											<h3>{secondary}</h3>
-										}
+										{primary && (
+											<Typography tag="h2">{primary}</Typography>
+										)}
+										{secondary && (
+											<Typography tag="h3">{secondary}</Typography>
+										)}
 									</div>
 									<div className="right">
 										<DataViewActionsButtonRow

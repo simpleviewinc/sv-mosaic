@@ -9,10 +9,10 @@ import Spinner from "@root/components/Spinner";
 import { StyledFileCard } from "./FileCard.styled";
 import HelperText from "@root/components/Field/HelperText";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
-import Tooltip from "@root/components/Tooltip";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import Downloader from "@root/components/Downloader/Downloader";
 import { pretty } from "@root/utils/formatters";
+import Typography from "@root/components/Typography";
 
 const FileCard = (props: FileCardProps) => {
 	const {
@@ -76,13 +76,19 @@ const FileCard = (props: FileCardProps) => {
 					)}
 				</div>
 				<div className='file-data' data-testid="file-data">
-					<Tooltip type="advanced" text={name ?? "File title"}>
-						{fileUrl ? (
-							<a href={fileUrl} rel="noreferrer" target="_blank" className='file-name' data-testid="file-name">{name ?? "File title"}</a>
-						) : (
-							<p className='file-name' data-testid="file-name">{name ?? "File title"}</p>
-						)}
-					</Tooltip>
+					{fileUrl ? (
+						<a href={fileUrl} rel="noreferrer" target="_blank" className='file-name' data-testid="file-name">
+							<Typography maxLines={1} breakAll>
+								{name ?? "File title"}
+							</Typography>
+						</a>
+					) : (
+						<p className='file-name' data-testid="file-name">
+							<Typography maxLines={1} breakAll>
+								{name ?? "File title"}
+							</Typography>
+						</p>
+					)}
 					<p className='file-size' data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
 				<ButtonRow separator>

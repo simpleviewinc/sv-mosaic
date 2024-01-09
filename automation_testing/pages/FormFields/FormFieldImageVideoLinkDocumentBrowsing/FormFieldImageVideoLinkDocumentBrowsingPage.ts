@@ -11,6 +11,7 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 	readonly browseDocumentLocator: string;
 	readonly browseLinkLocator: string;
 
+	readonly formHeading: Locator;
 	readonly browseAllOptionsCardLocator: Locator;
 	readonly browseAllImageWithSrcButton: Locator;
 	readonly browseAllVideoWithSrcButton: Locator;
@@ -41,6 +42,7 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 		this.browseDocumentLocator = "[data-testid='browse-document-test']";
 		this.browseLinkLocator = "[data-testid='browse-link-test']";
 
+		this.formHeading = page.getByRole("heading");
 		this.browseAllOptionsCardLocator = page.locator("#browseAllOptions");
 		this.browseAllImageWithSrcButton = this.browseAllOptionsCardLocator.locator(this.browseImageLocator);
 		this.browseAllVideoWithSrcButton = this.browseAllOptionsCardLocator.locator(this.browseVideoLocator);
@@ -60,7 +62,7 @@ export class FormFieldImageVideoLinkDocumentBrowsingPage extends BasePage {
 		this.browsingWithoutAnyOptionsCard = page.locator("#withoutAnyBrowsingOption div div div").last();
 		this.disabledCard = page.locator("#disabledExample");
 		this.disabledButton = this.disabledCard.locator(this.browseImageLocator);
-		this.moreButton = page.locator("[data-testid='tooltip-test-id']");
+		this.moreButton = page.getByText("More");
 		this.threePointsButton = page.locator(this.iconButtonTestLocator);
 	}
 
