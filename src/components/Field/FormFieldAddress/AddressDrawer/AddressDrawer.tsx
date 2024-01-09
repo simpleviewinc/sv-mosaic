@@ -296,18 +296,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					},
 				},
 				{
-					name: "address1",
-					required: true,
-					type: Autocomplete,
-					label: "Address",
-					defaultValue: addressToEdit?.address1,
-					inputSettings: {
-						address,
-						setAddress,
-						onSelect,
-					}
-				},
-				{
 					name: "address2",
 					type: "text",
 					label: undefined,
@@ -354,16 +342,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			],
 		[
 			addressToEdit?.country,
-			addressToEdit?.address1,
 			addressToEdit?.address2,
 			addressToEdit?.address3,
 			addressToEdit?.city,
 			addressToEdit?.state,
 			addressToEdit?.postalCode,
 			getOptionsCountries,
-			Autocomplete,
-			address,
-			onSelect,
 			typesField,
 			getOptionsStates,
 			state.data.country?.value
