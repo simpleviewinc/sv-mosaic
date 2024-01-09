@@ -765,7 +765,8 @@ export const Playground = (): ReactElement => {
 					loading={state.loading}
 					savedView={state.savedView}
 					activeColumns={state.activeColumns}
-				></DataView>
+					attrs={{"data-testid": "My DataView"}}
+				/>
 			</MosaicContext.Provider>
 		</StyledDiv>
 	);

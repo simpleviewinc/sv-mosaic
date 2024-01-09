@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useRef, ReactElement } from "react";
+import { forwardRef, useEffect, useMemo, useRef, ReactElement } from "react";
 import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
@@ -54,7 +54,7 @@ const StyledWrapper = styled.div`
 	}
 `;
 
-function DataView (props: DataViewProps): ReactElement  {
+const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (props, ref): ReactElement  {
 	/**
 	 * Checks if a provided active filter is a
 	 * valid filter based on the name.
@@ -253,9 +253,11 @@ function DataView (props: DataViewProps): ReactElement  {
 	return (
 		<StyledWrapper
 			className={`
-			${props.loading ? "loading" : ""}
-			${props.sticky ? "sticky" : ""}
-		`}
+				${props.loading ? "loading" : ""}
+				${props.sticky ? "sticky" : ""}
+			`}
+			ref={ref}
+			{...(props.attrs || {})}
 		>
 			{
 				shouldRenderTitleBar &&
@@ -353,6 +355,6 @@ function DataView (props: DataViewProps): ReactElement  {
 			)}
 		</StyledWrapper>
 	);
-}
+});
 
 export default DataView;
