@@ -15,6 +15,7 @@ import Dialog from "@root/components/Dialog/Dialog";
 
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
+		disabled,
 		value,
 		onBlur,
 		onChange,
@@ -208,7 +209,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 			{addressTypes?.length > 0 && (
 				<Footer>
 					<Button
-						disabled={fieldDef?.disabled}
+						disabled={disabled}
 						color="gray"
 						variant="outlined"
 						label="ADD ADDRESS"
@@ -224,7 +225,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 							address={address}
 							addressIndex={idx}
 							onEdit={showEditModal}
-							disabled={fieldDef?.disabled}
+							disabled={disabled}
 							onRemoveAddress={setRemoveDialog}
 						/>
 					))}

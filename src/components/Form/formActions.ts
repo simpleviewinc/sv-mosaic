@@ -2,6 +2,7 @@ import { mapsValidators, required, validatePhoneNumber, Validator } from "./vali
 import { FormActionThunks, FormExtraArgs } from "./state/types";
 import { getFieldConfig } from "./Col/fieldConfigMap";
 import { FieldDefSanitized } from "../Field";
+import { getToggle, wrapToggle } from "@root/utils/toggle";
 
 async function runValidators(
 	validators: Validator[],
@@ -158,7 +159,8 @@ export const formActions: FormActionThunks = {
 	},
 	validateField({ name, validateLinkedFields }) {
 		return async function (dispatch, getState, extraArgs) {
-			const { data } = getState();
+			const state = getState();
+			const { data } = state;
 			const { mounted, internalValidators } = extraArgs;
 			const field = getFieldFromExtra(extraArgs, name);
 
@@ -179,12 +181,15 @@ export const formActions: FormActionThunks = {
 				});
 			}
 
+			const disabledWrapped = wrapToggle(extraArgs?.fieldMap[name]?.disabled, state, false);
+			const disabled = getToggle(disabledWrapped);
+
 			/**
 			 * We dispatch an undefined so that way, if by any reason
 			 * the field had an error message and then became disabled,
 			 * the error would get removed from the state.
 			 */
-			if (extraArgs?.fieldMap[name]?.disabled) {
+			if (disabled) {
 				await dispatch({
 					type: "FIELD_UNVALIDATE",
 					name

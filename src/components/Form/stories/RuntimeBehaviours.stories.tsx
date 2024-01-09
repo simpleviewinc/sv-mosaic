@@ -59,7 +59,24 @@ export const RuntimeBehaviours = (): ReactElement => {
 					name: "text4",
 					label: "Text that receives copy",
 					type: "text"
-				}
+				},
+				{
+					name: "text5",
+					label: "Text that enables another field",
+					type: "text"
+				},
+				{
+					name: "text6",
+					label: "Text that is initially disabled",
+					type: "text",
+					instructionText: "Type \"ENABLE\" into the previous field to enable this field",
+					disabled: [
+						({data}) => data?.text5 !== "ENABLE",
+						true,
+						() => true
+					],
+					required: true
+				},
 			],
 		[]
 	);
