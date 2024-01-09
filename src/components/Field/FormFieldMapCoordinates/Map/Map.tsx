@@ -11,6 +11,8 @@ import AddressAutocomplete from "@root/components/Field/FormFieldAddress/Address
 import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 import MarkerFollower from "./MarkerFollower";
 import { defaultMapPosition, isValidLatLng } from "../MapCoordinatesUtils";
+import { useLoadScript } from "@react-google-maps/api";
+import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoordinatesUtils";
 
 const containerStyle = {
 	display: "flex",
@@ -30,6 +32,7 @@ const Map = (props: MapProps): ReactElement => {
 		zoom = 0,
 		focusZoom = 11,
 		onCoordinatesChange,
+		googleMapsApiKey
 	} = props;
 
 	// State variables
@@ -77,15 +80,20 @@ const Map = (props: MapProps): ReactElement => {
 		}
 	}, [value])
 
+	const { isLoaded, loadError } = useLoadScript({
+		googleMapsApiKey,
+		libraries,
+	});
+
 	return (
 		<MapContainer>
 			<AddressAutocomplete
 				className={"mapCoordinates"}
-				fieldSize={"100%"}
 				value={addressValue}
 				onChange={setAddressValue}
 				onSelect={onSelect}
 				placeholder="Type a location, address or city…"
+				googleMapsApiKey={googleMapsApiKey}
 				textField={{
 					InputProps: {
 						endAdornment: (
@@ -96,7 +104,7 @@ const Map = (props: MapProps): ReactElement => {
 					}
 				}}
 			/>
-			<div>
+			{isLoaded && !loadError && (
 				<GoogleMap
 					mapContainerStyle={containerStyle}
 					center={center}
@@ -113,7 +121,7 @@ const Map = (props: MapProps): ReactElement => {
 						shouldPanRef={shouldPanRef}
 					/>
 				</GoogleMap>
-			</div>
+			)}
 		</MapContainer>
 	);
 };
