@@ -30,6 +30,8 @@ const ColField = ({
 		throw new Error(`Invalid type ${field.type}`);
 	}
 
+	const disabled = useWrappedToggle(field, state, "disabled", false);
+
 	const onChange = useCallback((value: any) => {
 		field.onChangeCb && field.onChangeCb();
 
@@ -49,7 +51,7 @@ const ColField = ({
 	}, [field.name]);
 
 	const value = state?.internalData[field.name];
-	const error = !field.disabled ? state.errors[field.name] : "";
+	const error = !disabled ? state.errors[field.name] : "";
 
 	const size = sanitizeFieldSize(
 		field.size,
@@ -70,6 +72,7 @@ const ColField = ({
 			onBlur={onBlur}
 			ref={sanitizedFieldDef.ref}
 			dispatch={dispatch}
+			disabled={disabled}
 		/>
 	), [sanitizedFieldDef, value, error, onChange, onBlur, dispatch]);
 

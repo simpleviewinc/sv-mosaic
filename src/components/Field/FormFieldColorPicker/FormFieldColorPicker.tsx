@@ -40,7 +40,13 @@ const FormFieldColorPicker = (
 	props: MosaicFieldProps<"color", unknown, ColorData>
 ): ReactElement => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-	const { fieldDef, value, onChange, onBlur } = props;
+	const {
+		fieldDef,
+		value,
+		onChange,
+		onBlur,
+		disabled,
+	} = props;
 
 	// State variables
 	const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -67,11 +73,11 @@ const FormFieldColorPicker = (
 	return (
 		<>
 			<ColorSelected
-				disabled={fieldDef?.disabled}
+				disabled={disabled}
 				color={color?.rgb || value || { r: 0, g: 141, b: 168, a: 1 }}
 				onClick={handleClick}
 			/>
-			{!fieldDef?.disabled && (
+			{!disabled && (
 				<PopOver
 					id={id}
 					open={displayColorPicker}
