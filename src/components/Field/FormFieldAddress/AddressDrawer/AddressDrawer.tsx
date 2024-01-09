@@ -11,8 +11,6 @@ import { AddressDrawerProps } from "../AddressTypes";
 import _ from "lodash";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import AddressAutocomplete from "../AddressAutocomplete";
-import { useLoadScript } from "@react-google-maps/api";
-import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoordinatesUtils";
 import { geocodeByAddress } from "react-places-autocomplete";
 import { components, componentsToAddress, initalAddressComponent } from "../utils/addressUtils";
 import { MosaicLabelValue } from "@root/types";
@@ -219,19 +217,18 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					type: "autocomplete",
 					label: fieldDef.label,
 					required: fieldDef.required,
+					size: Sizes.lg
 				}}
 			>
 				<AddressAutocomplete
 					onChange={(address) => props.onChange(address)}
 					value={props.value ?? ""}
-					fieldSize={Sizes.lg}
 					onSelect={inputSettings.onSelect}
+					googleMapsApiKey={googleMapsApiKey}
 				/>
 			</Field>
 		)
-	}, []);
-
-	console.log(addressTypes);
+	}, [googleMapsApiKey]);
 
 	const sections = useMemo<SectionDef[]>(() => [
 		{
@@ -260,7 +257,31 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		}
 	] : [], [addressToEdit?.types, addressTypes]);
 
-	const fields = useMemo(
+	const autoCompleteField = useMemo(
+		(): FieldDef[] =>
+			[
+				{
+					name: "address1",
+					required: true,
+					type: Autocomplete,
+					label: "Address",
+					defaultValue: addressToEdit?.address1,
+					inputSettings: {
+						address,
+						setAddress,
+						onSelect,
+					}
+				}
+			],
+		[
+			addressToEdit?.address1,
+			Autocomplete,
+			address,
+			onSelect,
+		]
+	);
+
+	const baseFields = useMemo(
 		(): FieldDef[] =>
 			[
 				{
@@ -349,6 +370,16 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		]
 	);
 
+	const fields = useMemo(
+		(): FieldDef[] =>
+			[
+				...autoCompleteField,
+				...baseFields,
+				...typesField
+			],
+		[baseFields, typesField, autoCompleteField]
+	);
+
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
 			label: "Cancel",
@@ -363,15 +394,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			variant: "contained"
 		}
 	], [handleClose, onSubmit]);
-
-	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey,
-		libraries,
-	});
-
-
-	if (loadError) return <span>{"Error loading maps"}</span>;
-	if (!isLoaded) return <span>{"Loading Maps"}</span>;
 
 	return (
 		<FormDrawerWrapper className="address">
