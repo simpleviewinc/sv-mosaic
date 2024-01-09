@@ -26,7 +26,7 @@ export const getFormAndDefaultValuesExpected = {
 	colorFormValues: "#a8001791",
 	colorDefaultValues: "#19a80091",
 	addressTypeFormValues: "Physical Address",
-	addressTypeDefaultValues: "Physical, Billing, Shipping Address",
+	addressTypeDefaultValues: "Physical, Billing and Shipping Address",
 	advancedSelectionDefaultValues: ["Default Value 1", "Default Value 2", "Option 1", "Option 2", "Option 3", "Option 4", "Option 1 category 2", "Test option category 2"],
 	latitudeMapCoordinates: "32.3395031",
 	longitudeMapCoordinates: "-110.9864294",
