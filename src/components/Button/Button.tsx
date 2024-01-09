@@ -1,13 +1,13 @@
-import React, { MouseEvent, createContext, memo, useState } from "react";
+import React, { MouseEvent, createContext, memo, useState, forwardRef } from "react";
 import Popover, { PopoverProps } from "@mui/material/Popover";
-import Popper from "@mui/material/Popper";
 
 import { StyledButton, StyledIconButton, StyledWrapper } from "./Button.styled";
 import { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 import Menu from "../Menu";
 import MenuBase from "../MenuBase";
-import { PopoverWrapper, TooltipContent } from "./Button.styled";
+import { PopoverWrapper } from "./Button.styled";
 import { useToggle } from "@root/utils/toggle";
+import Tooltip, { useTooltip } from "@root/components/Tooltip";
 
 export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(null);
 
@@ -22,7 +22,7 @@ const popoverProps: Pick<PopoverProps, "anchorOrigin" | "transformOrigin"> = {
 	}
 };
 
-function ButtonBase(props: ButtonProps) {
+const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBase(props, ref) {
 	const Icon = props.mIcon;
 	const isIconButton = props.variant === "icon";
 	const adornmentIcon = Icon && <Icon className="adornment-icon" style={{color: props.mIconColor}} />;
@@ -39,6 +39,7 @@ function ButtonBase(props: ButtonProps) {
 		onMouseLeave: props.onMouseLeave,
 		href: props.href,
 		name: props.name,
+		ref,
 		...props.muiAttrs
 	}
 
@@ -71,11 +72,11 @@ function ButtonBase(props: ButtonProps) {
 			)}
 		</StyledWrapper>
 	);
-}
+});
 
 function ButtonWithState(props: ButtonProps) {
+	const { anchorProps, tooltipProps } = useTooltip();
 	const [anchorEl, setAnchorEl] = useState(null);
-	const [tooltipEl, setTooltipEl] = useState(null);
 
 	function openMenu(e: MouseEvent<HTMLButtonElement>) {
 		setAnchorEl(e.currentTarget);
@@ -95,13 +96,13 @@ function ButtonWithState(props: ButtonProps) {
 	const onMouseEnter = (e: MouseEvent<HTMLButtonElement>) => {
 		props.onMouseEnter && props.onMouseEnter(e);
 		props.popover && isPopoverOnHover && openMenu(e);
-		setTooltipEl(e.currentTarget);
+		anchorProps.onMouseEnter();
 	};
 
 	const onMouseLeave = (e: MouseEvent<HTMLButtonElement>) => {
 		props.onMouseLeave && props.onMouseLeave(e);
 		props.popover && isPopoverOnHover && closeMenu();
-		setTooltipEl(null);
+		anchorProps.onMouseLeave();
 	};
 
 	return (
@@ -111,15 +112,12 @@ function ButtonWithState(props: ButtonProps) {
 				onClick={onClick}
 				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}
+				ref={anchorProps.ref}
 			/>
 			{props.tooltip && (
-				<Popper
-					open={Boolean(tooltipEl)}
-					anchorEl={tooltipEl}
-					style={{ zIndex: 1500, pointerEvents: "none" }}
-				>
-					<TooltipContent>{props.tooltip}</TooltipContent>
-				</Popper>
+				<Tooltip {...tooltipProps}>
+					{props.tooltip}
+				</Tooltip>
 			)}
 			{props.popover ? (
 				<Popover
