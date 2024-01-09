@@ -70,6 +70,8 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							{...getInputProps({
 								placeholder: placeholder,
 							})}
+							onFocus={handleFocus}
+							onBlur={handleBlur}
 						/>
 						<Popover
 							open={Boolean(anchorEl) && suggestions?.length > 0}
