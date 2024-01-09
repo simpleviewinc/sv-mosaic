@@ -25,7 +25,6 @@ import {
 	MoreText,
 	StyledAnchor,
 	AssetImage,
-	StyledTooltip,
 	TableRow,
 	Td,
 	Th
@@ -34,6 +33,7 @@ import {
 // Components
 import MenuFormFieldCard from "@root/forms/MenuFormFieldCard";
 import BrowseOption from "./BrowseOption";
+import Popover from "@root/components/Popover";
 
 const DOCUMENT = "document";
 const IMAGE = "image";
@@ -51,6 +51,9 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 
 	// State variables
 	const [assetType, setAssetType] = useState("");
+
+	const [moreTextRef, setMoreTextRef] = useState(null);
+	const [moreOpen, setMoreOpen] = useState(false);
 
 	/**
 	 * The Browse button should execute the function
@@ -138,23 +141,25 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 						{idx === 3 && value.length > 4 && (
 							<>
 								<AssetValue>...</AssetValue>
-								<StyledTooltip
-									placement="top"
-									text={
-										<table>
-											<tbody>{tootltipContent}</tbody>
-										</table>
-									}
-									type="advanced"
+								<Popover
+									anchorEl={moreTextRef}
+									topContent={<table><tbody>{tootltipContent}</tbody></table>}
+									onClose={() => setMoreOpen(false)}
+									open={moreOpen}
+								/>
+								<MoreText
+									ref={setMoreTextRef}
+									onClick={() => setMoreOpen(true)}
+									type="button"
 								>
-									<MoreText>More</MoreText>
-								</StyledTooltip>
+									More
+								</MoreText>
 							</>
 						)}
 					</Td>
 				</TableRow>
 			)),
-		[value]
+		[value, moreTextRef, moreOpen]
 	);
 
 	const hasOptions =
