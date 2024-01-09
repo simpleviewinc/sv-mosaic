@@ -3,6 +3,8 @@ import { memo, ReactElement } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
 import { Popover } from "@mui/material"
+import { useLoadScript } from "@react-google-maps/api";
+import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoordinatesUtils";
 
 // Styles
 import {
@@ -20,10 +22,15 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		onChange,
 		onSelect,
 		textField,
-		fieldSize,
 		placeholder,
+		googleMapsApiKey
 	} = props;
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+	const { isLoaded, loadError } = useLoadScript({
+		googleMapsApiKey,
+		libraries,
+	});
 
 	const handleFocus = (event) => {
 		setAnchorEl(event.target);
@@ -33,22 +40,36 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		setAnchorEl(null);
 	};
 
+	const inputProps = {
+		...textField,
+		inputProps: {"data-testid": "location-search-input"},
+		variant: "outlined",
+		value,
+		onFocus: handleFocus,
+		onBlur: handleBlur
+	};
+
+	if (!isLoaded || loadError) {
+		return (
+			<StyledInputSearch
+				{...inputProps}
+				fieldSize="lg"
+				disabled={!isLoaded}
+				onChange={({ target: { value } }) => onChange(value)}
+			/>
+		)
+	}
+
 	return (
 		<LocationSearchInputWrapper className={className}>
 			<PlacesAutocomplete value={value} onChange={onChange} onSelect={onSelect}>
 				{({ getInputProps, suggestions, getSuggestionItemProps }) => (
 					<div style={{position: "relative"}}>
 						<StyledInputSearch
-							{...textField}
-							fieldSize={fieldSize}
-							inputProps={{ "data-testid": "location-search-input" }}
+							{...inputProps}
 							{...getInputProps({
 								placeholder: placeholder,
 							})}
-							variant="outlined"
-							value={value}
-							onFocus={handleFocus}
-							onBlur={handleBlur}
 						/>
 						<Popover
 							open={Boolean(anchorEl) && suggestions?.length > 0}
