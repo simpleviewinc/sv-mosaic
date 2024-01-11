@@ -1,10 +1,10 @@
 import * as React from "react";
 import { memo, useMemo } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ButtonRow from "../../ButtonRow";
 import Button from "../../Button";
 import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
 import { useWrappedToggle } from "@root/utils/toggle";
+import { StyledButtonRow } from "./DataViewActionsButtonRow.styled";
 
 function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	const showParams = useMemo(() => ({row: props.originalRowData}), [props.originalRowData]);
@@ -28,22 +28,32 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				onClick({ data : props.originalRowData });
 			}
 
+
+			const disabled = [buttonArgs.disabled, props.disabled, props.actionsHidden].some(disabled => disabled);
+
 			return (
 				<Button
 					{ ...buttonArgs }
-					disabled={buttonArgs.disabled === undefined ? props.disabled : buttonArgs.disabled}
+					disabled={disabled}
 					key={`primary_${name}`}
 					attrs={{ "data-mosaic-id" : `action_primary_${name}` }}
 					onClick={newOnClick}
 				/>
 			)
 		});
-	}, [shownPrimaryActions, props.originalRowData, props.disabled]);
+	}, [
+		shownPrimaryActions,
+		props.originalRowData,
+		props.disabled,
+		props.actionsHidden
+	]);
 
 	const additionalActionsButton = useMemo(() => {
 		if (!shownadditionalActions.length) {
 			return [];
 		}
+
+		const disabled = [props.disabled, props.actionsHidden].some(disabled => disabled);
 
 		return [
 			<Button
@@ -53,7 +63,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				mIcon={props.activeDisplay && MoreVertIcon}
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				tooltip="More actions"
-				disabled={props.disabled}
+				disabled={disabled}
 				menuItems={shownadditionalActions.map(action => {
 					const {
 						name,
@@ -74,7 +84,12 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				})}
 			/>
 		]
-	}, [shownadditionalActions, props.originalRowData, props.disabled]);
+	}, [
+		shownadditionalActions,
+		props.originalRowData,
+		props.disabled,
+		props.actionsHidden
+	]);
 
 	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
 	const buttons = useMemo(() => {
@@ -89,9 +104,9 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	}
 
 	return (
-		<ButtonRow>
+		<StyledButtonRow $hidden={props.actionsHidden}>
 			{buttons}
-		</ButtonRow>
+		</StyledButtonRow>
 	)
 }
 

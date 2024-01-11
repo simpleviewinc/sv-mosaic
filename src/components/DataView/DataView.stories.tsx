@@ -751,7 +751,7 @@ export const Playground = (): ReactElement => {
 				loading: false
 			});
 		} : undefined,
-		disabled
+		disabled: disabled || undefined
 	};
 
 	return (

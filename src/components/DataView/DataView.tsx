@@ -250,6 +250,8 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		props.onCheckAllPagesChange !== undefined
 	;
 
+	const actionsHidden = (props.checked || []).some(checked => checked);
+
 	return (
 		<StyledWrapper
 			className={`
@@ -342,6 +344,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 					showBulkAll={showBulkAll}
 					allChecked={allChecked}
 					anyChecked={anyChecked}
+					actionsHidden={actionsHidden || undefined}
 				/>
 			</div>
 			{!props.loading && !props.data.length && (
