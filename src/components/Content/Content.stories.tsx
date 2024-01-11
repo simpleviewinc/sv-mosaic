@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useMemo, useState } from "react";
+import { ReactElement, useState } from "react";
 import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
@@ -11,6 +11,7 @@ import {
 	transform_dateFormat,
 	transform_thumbnail,
 	transform_boolean,
+	transform_dataview,
 } from "@root/transforms/column_transforms";
 import { ChipsWrapper } from "./Content.styled";
 import Chip from "../Chip";
@@ -71,41 +72,34 @@ const data = {
 	),
 	undefinedValue: undefined,
 	emptyStringValue: "",
-	emptyArrayValue: []
+	emptyArrayValue: [],
+	animals: [{id: 1, species: "Dog", color: "Brown"}, {id: 2, species: "Cat", color: "White"}],
+	cars: [{id: 1, make: "BMW", model: "M3"}, {id: 2, make: "Volkswagen", model: "Golf"}],
 };
 
-const multipleColumns = [
-	[["tags"], ["colorPicker"]],
-	[["toggle"], ["date"]],
-	[["thumbnail"], ["chipsAsValue"]],
-];
-
-const oneColumn = [
-	[["tags"]],
-	[["toggle"]],
-	[["thumbnail"]],
-	[["date"]],
-	[[]],
-	[["colorPicker"]],
-	[["chipsAsValue"]]
-];
-
-const oneColumnSecondContent = [
-	[["tags"]],
-	[["date"]],
-	[["thumbnail"]],
-];
-
-const multipleColumnSecondContent = [
-	[["tags"], ["date"]],
-	[["thumbnail"]],
-];
+const sectionConfigs = {
+	"Single Column": [
+		[["tags"]],
+		[["colorPicker"]],
+		[["toggle"]],
+		[["date"]],
+		[["thumbnail"]],
+		[["chipsAsValue"]],
+		[["animals"]],
+		[["cars"]]
+	],
+	"Multiple Columns": [
+		[["tags"], ["colorPicker"]],
+		[["toggle"], ["date"]],
+		[["thumbnail"], ["chipsAsValue"]],
+		[["animals"], ["cars"]]
+	],
+};
 
 export const Playground = (): ReactElement => {
 	const title = text("Title", "Main Content Title");
-	const variant = select("Variant", ["standard", "card"], "standard")
-	const singleColumn = boolean("Single column", false);
-	const showChips = boolean("Show chips", true);
+	const variant = select("Variant", ["standard", "card"], "standard");
+	const sectionConfigKey = select("Sections", ["Single Column", "Multiple Columns"], "Single Column");
 	const showButtons = select("Buttons", ["1", "2", "0", "undefined"], "2");
 	const useSections = boolean("Use sections", true);
 	const amountContent = select(
@@ -150,7 +144,6 @@ export const Playground = (): ReactElement => {
 			label: "Chips using transform_chips()",
 			transforms: [transform_chips()],
 			column: "tags",
-			show: [showChips, () => showChips],
 		},
 		{
 			name: "toggle",
@@ -177,21 +170,19 @@ export const Playground = (): ReactElement => {
 			name: "chipsAsValue",
 			label: "Chips with no transform only value"
 		},
+		{
+			name: "animals",
+			label: "Animals",
+			transforms: [transform_dataview({ columns: [{ name: "species", label: "Species" }, { name: "color", label: "Color" }] })]
+		},
+		{
+			name: "cars",
+			label: "Cars",
+			transforms: [transform_dataview({ columns: [{ name: "make", label: "Make" }, { name: "model", label: "Model" }] })]
+		},
 	];
 
-	const sectionsToDisplay = useMemo(() => {
-		if (!useSections) {
-			return;
-		}
-
-		if (singleColumn) {
-			return showMore ? oneColumn : oneColumn.slice(0, 3);
-		}
-
-		if (!singleColumn) {
-			return showMore ? multipleColumns : multipleColumns.slice(0, 2);
-		}
-	}, [useSections, showMore, oneColumn, multipleColumns, singleColumn]);
+	const sections = sectionConfigs[sectionConfigKey];
 
 	return (
 		<>
@@ -199,7 +190,7 @@ export const Playground = (): ReactElement => {
 				title={title}
 				data={data}
 				fields={fields}
-				sections={sectionsToDisplay}
+				sections={sections.slice(0, showMore ? undefined : 2)}
 				buttons={buttons}
 				variant={variant}
 			/>
@@ -208,8 +199,7 @@ export const Playground = (): ReactElement => {
 					title={"Second content"}
 					data={data}
 					fields={fields}
-					sections={singleColumn ? oneColumnSecondContent : multipleColumnSecondContent}
-					buttons={buttons}
+					sections={sections}
 					variant={variant}
 				/>
 			}

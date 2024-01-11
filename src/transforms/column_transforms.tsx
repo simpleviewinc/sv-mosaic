@@ -2,13 +2,14 @@ import { get, map } from "lodash";
 import { format } from "date-fns";
 import { createElement, ReactNode } from "react";
 import { MosaicLabelValue, MosaicObject } from "../types";
-import { DataViewColumnTransform } from "../components/DataView";
+import DataView, { DataViewColumn, DataViewColumnTransform } from "../components/DataView";
 import Chip from "@root/components/Chip";
 import { ChipsWrapper, ColorValue } from "@root/components/Content/Content.styled";
 import ColorSelected from "@root/components/Field/FormFieldColorPicker/ColorSelected";
 import Image from "@root/components/Image";
 import React from "react";
 import { DATE_FORMAT_SHORT } from "@root/constants";
+import styled from "styled-components";
 
 export function transform_boolean(): DataViewColumnTransform<boolean> {
 	return function({ data }): string {
@@ -92,5 +93,24 @@ export function transform_colorPicker(): DataViewColumnTransform<string> {
 				/>
 			</div>
 		);
+	}
+}
+
+const DataViewWrapper = styled.div`
+	& .viewContainer {
+		padding: 0;
+	}
+`
+
+export function transform_dataview({ columns }: { columns: DataViewColumn[] }): DataViewColumnTransform {
+	return function TransformedDataView({ data }: { data: any }): ReactNode {
+		return (
+			<DataViewWrapper>
+				<DataView
+					data={data}
+					columns={columns}
+				/>
+			</DataViewWrapper>
+		)
 	}
 }

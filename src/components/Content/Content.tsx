@@ -56,14 +56,17 @@ const Content = (props: ContentProps): ReactElement => {
 			</TitleWrapper>
 			<FieldsList className={cardVariant ? "card-content" : ""}>
 				{data && sectionsToRender.map((section, idx) => (
-					<ContentRowWrapper key={`${idx}-row`} className={cardVariant ? "card-row" : ""}>
+					<ContentRowWrapper
+						key={`${idx}-row`}
+						className={cardVariant ? "card-row" : ""}
+						$columns={section.length}
+					>
 						{section.map((field, idx) => (
 							<ContentRow
 								key={`${field[0]}-${idx}`}
 								fields={fields}
 								field={field[0]}
 								rowIndex={idx}
-								sectionLength={section?.length}
 								data={data}
 							/>
 						))}
