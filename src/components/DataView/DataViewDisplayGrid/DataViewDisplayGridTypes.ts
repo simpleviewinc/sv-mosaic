@@ -1,7 +1,6 @@
 import { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewDisplayGridProps {
-	additionalActions?: DataViewProps["additionalActions"];
 	bulkActions?: DataViewProps["bulkActions"];
 	checked?: DataViewProps["checked"];
 	checkedAllPages?: DataViewProps["checkedAllPages"];
@@ -14,6 +13,8 @@ export interface DataViewDisplayGridProps {
 	onCheckboxClick?: (i: any) => void;
 	onSortChange?: DataViewProps["onSortChange"];
 	primaryActions?: DataViewProps["primaryActions"];
+	additionalActions?: DataViewProps["additionalActions"];
+	actionsHidden?: boolean;
 	rowCount?: number;
 	sort?: DataViewProps["sort"];
 	anyChecked?: boolean;
