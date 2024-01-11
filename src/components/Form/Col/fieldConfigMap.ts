@@ -12,6 +12,7 @@ import FormFieldToggleSwitch from "@root/components/Field/FormFieldToggleSwitch"
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
 import FormFieldDate, { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
+import FormFieldTime, { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
 import FormFieldAddress from "@root/components/Field/FormFieldAddress";
 import FormFieldTextEditor from "@root/components/Field/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
@@ -75,7 +76,13 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	date: {
 		Component: FormFieldDate,
 		validate: "onBlurChange",
-		getResolvedValue: (value: DateData | undefined, fieldDef: FieldDefDate): { internalValue: DateData | undefined, value: Date | undefined } => {
+		getResolvedValue: (
+			value: DateData | Date | undefined,
+			fieldDef: FieldDefDate
+		): {
+			internalValue: DateData | undefined,
+			value: Date | undefined
+		} => {
 			if (value instanceof Date ) {
 				return {
 					internalValue: { date: value, validDate: true, time: value, validTime: true },
@@ -104,6 +111,48 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 				}
 
 				return { internalValue: value , value: matchTime(value.date, value.time) };
+			}
+		}
+	},
+	time: {
+		Component: FormFieldTime,
+		validate: "onBlur",
+		getResolvedValue: (
+			value: TimeData | string | undefined
+		): {
+			internalValue: TimeData | undefined,
+			value: string | undefined
+		} => {
+			if (typeof value === "string") {
+				const date = new Date();
+				const [hrs, mins] = value.split(":");
+
+				date.setHours(Number(hrs));
+				date.setMinutes(Number(mins));
+
+				return {
+					internalValue: { time: date, validTime: true },
+					value
+				}
+			} else {
+				if (!value) {
+					return {
+						internalValue: undefined,
+						value: undefined
+					};
+				}
+
+				if (!value.validTime) {
+					return { internalValue: value, value: undefined };
+				}
+
+				const time = `${
+					String(value.time.getHours()).padStart(2, "0")
+				}:${
+					String(value.time.getMinutes()).padStart(2, "0")
+				}`;
+
+				return { internalValue: value , value: time };
 			}
 		}
 	},
