@@ -35,6 +35,7 @@ const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((p
 				originalRowData={props.data[i]}
 				primaryActions={props.primaryActions}
 				additionalActions={props.additionalActions}
+				actionsHidden={props.actionsHidden}
 				disabled={props.disabled}
 				onCheckboxClick={props.onCheckboxClick ? () => props.onCheckboxClick(i) : undefined}
 				checked={props.checked ? props.checked[i] : false}

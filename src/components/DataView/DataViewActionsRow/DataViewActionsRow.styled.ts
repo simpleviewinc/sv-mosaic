@@ -7,6 +7,8 @@ export const DataViewActionsRowWrapper = styled.div`
 `;
 
 export const LeftControlsContainer = styled.div`
+	display: flex;
+
 	.custom-checkbox {
 		margin-right: 4px;
 	}
