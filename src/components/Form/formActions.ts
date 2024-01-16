@@ -301,7 +301,8 @@ export const formActions: FormActionThunks = {
 	},
 	submitForm() {
 		return async function (dispatch, getState, extraArgs) {
-			const { data } = getState();
+			const state = getState();
+			const { data } = state;
 			const { mounted } = extraArgs;
 
 			if (!dispatch(formActions.isSubmittable())) {
@@ -315,10 +316,22 @@ export const formActions: FormActionThunks = {
 				formActions.validateForm()
 			);
 
-			const cleanData = Object.keys(data).reduce((acc, curr) => ({
-				...acc,
-				[curr]: mounted[curr] ? data[curr] : undefined
-			}), {});
+			const cleanData = Object.keys(data).reduce((acc, curr) => {
+				const disabledWrapped = wrapToggle(extraArgs?.fieldMap[curr]?.disabled, state, false);
+				const disabled = getToggle(disabledWrapped);
+
+				if (!mounted[curr] || disabled) {
+					return {
+						...acc,
+						[curr]: undefined
+					};
+				}
+
+				return {
+					...acc,
+					[curr]: data[curr]
+				};
+			}, {});
 
 			extraArgs.hasBlurred = Object.keys(extraArgs.fieldMap).reduce((prev, curr) => ({
 				...prev,
