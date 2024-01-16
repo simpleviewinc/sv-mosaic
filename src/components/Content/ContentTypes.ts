@@ -83,9 +83,5 @@ export interface ContentRowProps{
    * an invalid field was defined within the sections layout
    */
   rowIndex: number
-  /**
-   * The name of the field specified in the sections array
-   */
-  sectionLength?: number
   data: MosaicObject
 }
