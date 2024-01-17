@@ -8,7 +8,6 @@ import Form, { SectionDef, formActions, useForm } from "@root/components/Form";
 
 // Utils
 import { AddressDrawerProps } from "../AddressTypes";
-import _ from "lodash";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { geocodeByAddress } from "react-places-autocomplete";
@@ -17,6 +16,7 @@ import { MosaicLabelValue } from "@root/types";
 import Snackbar from "@root/components/Snackbar";
 import Sizes from "@root/theme/sizes";
 import Field from "@root/components/Field";
+import addressesAreEqual from "../utils/addressesAreEqual";
 
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
@@ -40,33 +40,28 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
 
 	const setFieldValue = useCallback(async (name: string, value: string | MosaicLabelValue, validate = false) => {
-		await dispatch(
-			formActions.setFieldValue({
-				name,
-				value,
-			})
-		);
+		await dispatch(formActions.setFieldValue({
+			name,
+			value,
+		}));
+
 		if (validate === true) {
-			await dispatch(
-				formActions.validateField({name})
-			);
+			await dispatch(formActions.validateField({ name }));
 		}
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (state.data !== undefined && initialState !== undefined)
-			handleUnsavedChanges(!_.isEqual(initialState, state.data));
-	}, [
-		state.data,
-		initialState,
-		handleUnsavedChanges
-	]);
+		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
+	}, [addressToEdit, state.data]);
 
 	useEffect(() => {
-		setFieldValue("state", undefined);
+		if (state.data.state) {
+			setFieldValue("state", undefined);
+		}
 	}, [
 		setFieldValue,
-		state.data.country
+		state.data.country,
+		state.data.state
 	]);
 
 	/**
@@ -86,10 +81,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			address2: state.data.address2,
 			address3: state.data.address3,
 			city: state.data.city,
-			postalCode: state.data.postalCode,
-			types: state.data.types,
-			country: state.data.country,
 			state: state.data.state,
+			postalCode: state.data.postalCode,
+			country: state.data.country,
+			types: state.data.types,
 		});
 
 		handleClose(true);
@@ -101,9 +96,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		state.data.address2,
 		state.data.address3,
 		state.data.city,
-		state.data.country,
-		state.data.postalCode,
 		state.data.state,
+		state.data.postalCode,
+		state.data.country,
 		state.data.types
 	]);
 
@@ -119,6 +114,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [apiState, setFieldValue]);
 
 	const autocompleteAddress = useCallback(async (addressComponents: google.maps.GeocoderAddressComponent[]) => {
+		console.log(addressComponents);
 		let componentsNotFound = "";
 		const addressComponentsMap = {
 			route: initalAddressComponent, // => address
@@ -212,6 +208,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			<Field
 				error={props.error}
 				id={fieldDef.name}
+				dispatch={dispatch}
 				fieldDef={{
 					name: fieldDef.name,
 					type: "autocomplete",
@@ -222,13 +219,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			>
 				<AddressAutocomplete
 					onChange={(address) => props.onChange(address)}
+					onBlur={props.onBlur}
 					value={props.value ?? ""}
 					onSelect={inputSettings.onSelect}
 					googleMapsApiKey={googleMapsApiKey}
 				/>
 			</Field>
 		)
-	}, [googleMapsApiKey]);
+	}, [dispatch, googleMapsApiKey]);
 
 	const sections = useMemo<SectionDef[]>(() => [
 		{
