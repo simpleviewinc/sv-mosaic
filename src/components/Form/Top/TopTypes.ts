@@ -21,11 +21,6 @@ export type TopProps = {
 	onBack?: FormProps["onBack"];
 	backLabel?: FormProps["backLabel"]
 	/**
-	 * If present, the help icon is display with the
-	 * string defined with this prop.
-	 */
-	tooltipInfo?: string;
-	/**
 	 * If present, the active checkbox is displayed.
 	 */
 	showActive?: boolean;

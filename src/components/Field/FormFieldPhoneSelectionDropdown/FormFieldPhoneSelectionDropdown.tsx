@@ -20,7 +20,8 @@ const FormFieldPhoneSelectionDropdown = (
 		error,
 		onChange,
 		onBlur,
-		value
+		value,
+		disabled,
 	} = props;
 
 	const [dialCode, setDialCode] = useState("");
@@ -38,12 +39,12 @@ const FormFieldPhoneSelectionDropdown = (
 		<PhoneInputWrapper
 			$error={!!(fieldDef?.required && error)}
 			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
-			$disabled={fieldDef?.disabled}
+			$disabled={disabled}
 		>
 			<PhoneInput
 				autoFormat={!!fieldDef?.inputSettings?.autoFormat}
 				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : "us"}
-				disabled={fieldDef?.disabled}
+				disabled={disabled}
 				onChange={onPhoneChange}
 				value={value || dialCode}
 				countryCodeEditable={false}

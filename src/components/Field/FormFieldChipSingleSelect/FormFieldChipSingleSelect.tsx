@@ -20,6 +20,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 		onChange,
 		onBlur,
 		value,
+		disabled,
 	} = props;
 
 	const { required } = fieldDef || null;
@@ -97,7 +98,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 				<Chip
 					key={option.value}
 					label={option.label}
-					disabled={fieldDef?.disabled}
+					disabled={disabled}
 					selected={option.selected}
 					onClick={() => updateSelectedOption(option)}
 				/>

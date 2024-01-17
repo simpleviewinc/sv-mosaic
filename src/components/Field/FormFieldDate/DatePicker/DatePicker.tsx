@@ -14,7 +14,7 @@ import {
 import { DATE_FORMAT_FULL } from "@root/constants";
 
 const DateFieldPicker = (props: DatePickerProps): ReactElement => {
-	const { fieldDef, onChange, value = null, onBlur } = props;
+	const { fieldDef, onChange, value = null, onBlur, disabled } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -31,7 +31,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 			{...params}
 			onBlur={onBlur}
 			required={fieldDef.required}
-			disabled={fieldDef?.disabled}
+			disabled={disabled}
 			inputProps={{
 				...params.inputProps,
 				placeholder: fieldDef?.inputSettings?.placeholder,
@@ -41,7 +41,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<DatePickerWrapper data-testid="date-picker-test-id" $isPickerOpen={isPickerOpen} $disabled={fieldDef?.disabled}>
+			<DatePickerWrapper data-testid="date-picker-test-id" $isPickerOpen={isPickerOpen} $disabled={disabled}>
 				<DatePicker
 					renderInput={renderInput}
 					inputFormat={DATE_FORMAT_FULL}
@@ -54,7 +54,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 					}}
 					minDate={fieldDef?.inputSettings?.minDate}
 					maxDate={fieldDef?.inputSettings?.maxDate}
-					disabled={fieldDef?.disabled}
+					disabled={disabled}
 				/>
 			</DatePickerWrapper>
 		</LocalizationProvider>

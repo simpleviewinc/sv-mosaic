@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import ClearIcon from "@mui/icons-material/Clear";
 
-// Components
-import MUIHelpIcon from "@mui/icons-material/Help";
-
 // Utils
 import theme from "@root/theme/theme";
 import { Description } from "@root/components/Title/TitleWrapper.styled";
@@ -153,19 +150,3 @@ export const ActiveCheckboxWrapper = styled.div`
 		}
 	}
 `
-
-export const HelpIconWrapper = styled.div`
-	order: 1;
-	margin: 2px 0 2px auto;
-
-	${containerQuery("md", "FORM")} {
-		order: 0;
-		margin-left: 16px;
-	}
-`;
-
-export const HelpIcon = styled(MUIHelpIcon)`
-	.MuiSvgIcon-root{
-		display: block;
-	}
-`;

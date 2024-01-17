@@ -30,7 +30,7 @@ import { AssetCard, AssetButtons, AssetCardTop, AssetInfo } from "../FormFieldIm
 const FormFieldImageUpload = (
 	props: MosaicFieldProps<"imageUpload", ImageUploadInputSettings, ImageUploadValue>
 ): ReactElement => {
-	const { fieldDef, onChange, value } = props;
+	const { fieldDef, onChange, value, disabled } = props;
 
 	// State variables
 	const [isOver, setIsOver] = useState(false);
@@ -239,7 +239,7 @@ const FormFieldImageUpload = (
 						</DragAndDropSpan>
 					) : (
 						<>
-							{!fieldDef?.disabled && (
+							{!disabled && (
 								<DragAndDropSpan $isOver={isOver}>
 									Drag & Drop files here or
 								</DragAndDropSpan>
@@ -247,7 +247,7 @@ const FormFieldImageUpload = (
 							<UploadButton
 								color="gray"
 								variant="outlined"
-								disabled={fieldDef?.disabled}
+								disabled={disabled}
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
 								muiAttrs={{disableRipple: true}}
@@ -262,7 +262,7 @@ const FormFieldImageUpload = (
 						title=""
 						type="file"
 						value=""
-						disabled={fieldDef?.disabled}
+						disabled={disabled}
 					/>
 				</DragAndDropContainer>
 			) : (
@@ -307,7 +307,7 @@ const FormFieldImageUpload = (
 									<MenuColumn data-testid="menu-container-test">
 										<MenuFormFieldCard
 											options={fieldDef?.inputSettings?.options}
-											disabled={fieldDef?.disabled}
+											disabled={disabled}
 										/>
 									</MenuColumn>
 								)}
@@ -320,7 +320,7 @@ const FormFieldImageUpload = (
 									variant="text"
 									label="Set Focus"
 									onClick={setFocus}
-									disabled={fieldDef?.disabled}
+									disabled={disabled}
 								/>
 							) : (
 								fieldDef?.inputSettings?.handleSetFocus && (
@@ -329,7 +329,7 @@ const FormFieldImageUpload = (
 										variant="text"
 										label="View"
 										onClick={handleView}
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 									/>
 								)
 							)}
@@ -338,7 +338,7 @@ const FormFieldImageUpload = (
 								variant="text"
 								label="Remove"
 								onClick={removeFile}
-								disabled={fieldDef?.disabled}
+								disabled={disabled}
 							/>
 						</AssetButtons>
 					</AssetCard>

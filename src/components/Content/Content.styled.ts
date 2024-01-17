@@ -67,8 +67,10 @@ export const ColorValue = styled.p`
 
 export const FieldsList = styled.div``
 
-export const ContentRowWrapper = styled.dl`
-	display: flex;
+export const ContentRowWrapper = styled.dl<{$columns?: number}>`
+	display: grid;
+	grid-template-columns: repeat(${({ $columns }) => $columns} ,minmax(0,1fr));
+	gap: 12px;
 	width: 100%;
 	margin: 0;
 
@@ -78,9 +80,8 @@ export const ContentRowWrapper = styled.dl`
 	}
 `;
 
-export const FieldContainer = styled.div<{$columns?: number}>`
+export const FieldContainer = styled.div`
 	margin-bottom: 24px;
-	width: calc(100% / ${({ $columns }) => $columns});
 `;
 
 export const FieldTerm = styled.dt`

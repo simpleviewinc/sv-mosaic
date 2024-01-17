@@ -204,17 +204,3 @@ export const PopoverWrapper = styled.div`
 	font-family: ${theme.fontFamily};
 	padding: 10px;
 `;
-
-export const TooltipContent = styled.div`
-	z-index: 1500;
-	background: ${theme.newColors.almostBlack["100"]};
-	color: white;
-	padding: 4px 8px;
-	margin-top: 4px;
-	border-radius: 4px;
-	color: white;
-	font-family: ${theme.fontFamily};
-	font-size: 12px;
-	margin: 12px 0px;
-	max-width: 200px;
-`;

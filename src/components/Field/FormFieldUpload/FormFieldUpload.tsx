@@ -15,7 +15,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		fieldDef,
 		value,
 		onChange,
-		dispatch
+		disabled,
+		dispatch,
 	} = props;
 
 	const {
@@ -247,7 +248,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						</DragAndDropSpan>
 					) : (
 						<>
-							{!fieldDef?.disabled && (
+							{!disabled && (
 								<DragAndDropSpan $isOver={isOver}>
 								Drag & Drop files here or
 								</DragAndDropSpan>
@@ -257,7 +258,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								variant="outlined"
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
-								disabled={fieldDef?.disabled}
+								disabled={disabled}
 							/>
 						</>
 					)}
@@ -268,7 +269,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						title=""
 						type="file"
 						value=""
-						disabled={fieldDef?.disabled}
+						disabled={disabled}
 						multiple={limit < 0 || (limit > 1 && limit - currentLength > 1)}
 						accept={fileExtensions.acceptAttr}
 					/>
@@ -290,12 +291,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 							fileUrl={file.fileUrl}
 							downloadUrl={file.downloadUrl}
 							onFileDelete={handleFileDelete}
-							disabled={fieldDef.disabled}
+							disabled={disabled}
 						/>
 					))}
 				</StyledFileGrid>
 			}
-			{pendingFiles && Object.keys(pendingFiles).length > 0 && !fieldDef.disabled &&
+			{pendingFiles && Object.keys(pendingFiles).length > 0 && !disabled &&
 				<StyledFileGrid>
 					{Object.entries(pendingFiles).map(([key, file]: [key: string, file: {data: UploadData, error: string, percent: number}]) => {
 						return (

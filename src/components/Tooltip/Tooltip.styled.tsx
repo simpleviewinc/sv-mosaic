@@ -1,52 +1,86 @@
-import * as React from "react";
 import styled from "styled-components";
-
-// Material UI
-import { Tooltip } from "@mui/material";
-
 import theme from "@root/theme";
+import { Popper } from "@mui/material";
 
-export const StyledDefaultTooltip = styled(props => (
-	<Tooltip
-		classes={{ popper: props.className, tooltip: "tooltip" }}
-		{...props}
-	/>
-))`
-	& .tooltip {
-		background-color: ${theme.newColors.almostBlack["100"]};
-		color: white;
-		padding: 4px 8px;
-		margin-top: 4px;
-		font-size: 12px;
-		font-family: ${theme.fontFamily};
+export const TooltipPopper = styled(Popper)`
+	z-index: 1500;
+	background: ${theme.newColors.almostBlack["100"]};
+	color: white;
+	padding: 4px 8px;
+	border-radius: 4px;
+	color: white;
+	font-family: ${theme.fontFamily};
+	font-size: 12px;
+	max-width: 12rem;
+
+	&[data-popper-placement="bottom-start"] .arrow,
+	&[data-popper-placement="bottom"] .arrow,
+	&[data-popper-placement="bottom-end"] .arrow {
+		border-bottom-color: ${theme.newColors.almostBlack["100"]};
+		border-top: 0;
+		top: -5px;
+	}
+
+	&[data-popper-placement="top-start"] .arrow,
+	&[data-popper-placement="top"] .arrow,
+	&[data-popper-placement="top-end"] .arrow {
+		border-top-color: ${theme.newColors.almostBlack["100"]};
+		border-bottom: 0;
+		bottom: -5px;
+	}
+
+	&[data-popper-placement="bottom-start"] .arrow,
+	&[data-popper-placement="top-start"] .arrow{
+		left: 5px;
+	}
+
+	&[data-popper-placement="bottom"] .arrow,
+	&[data-popper-placement="top"] .arrow{
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	&[data-popper-placement="bottom-end"] .arrow,
+	&[data-popper-placement="top-end"] .arrow{
+		right: 5px;
+	}
+
+	&[data-popper-placement="left-start"] .arrow,
+	&[data-popper-placement="left"] .arrow,
+	&[data-popper-placement="left-end"] .arrow {
+		border-left-color: ${theme.newColors.almostBlack["100"]};
+		border-right: 0;
+		right: -5px;
+	}
+
+	&[data-popper-placement="right-start"] .arrow,
+	&[data-popper-placement="right"] .arrow,
+	&[data-popper-placement="right-end"] .arrow {
+		border-right-color: ${theme.newColors.almostBlack["100"]};
+		border-left: 0;
+		left: -5px;
+	}
+
+	&[data-popper-placement="left-start"] .arrow,
+	&[data-popper-placement="right-start"] .arrow{
+		top: 5px;
+	}
+
+	&[data-popper-placement="left"] .arrow,
+	&[data-popper-placement="right"] .arrow{
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	&[data-popper-placement="left-end"] .arrow,
+	&[data-popper-placement="right-end"] .arrow{
+		bottom: 5px;
 	}
 `;
 
-export const StyledAdvancedTooltip = styled(props => (
-	<Tooltip
-		classes={{ popper: props.className, tooltip: "tooltip", arrow: "arrow" }}
-		{...props}
-	/>
-))`
-	& .tooltip {
-		background-color: white;
-		color: ${theme.newColors.grey3["100"]};
-		padding: 12px;
-		margin-bottom: 8px;
-		font-size: 12px;
-		max-width: 280px;
-		box-shadow: 0px 2px 6px #00000029;
-		border: 1px solid ${theme.newColors.grey2["100"]};
-		left: ${pr => pr.placement !== "top" ? "-30px !important" : ""};
-		font-family: ${theme.fontFamily};
-		font-weight: ${theme.fontWeight.normal};
-		line-height: 14px;
-		letter-spacing: normal;
-		text-align: left;
-	}
+//"bottom" | "top" | "left" | "right" | "bottom-end" | "bottom-start" | "left-end" | "left-start" | "right-end" | "right-start" | "top-end" | "top-start"
 
-	& .arrow {
-		color: white;
-		left: ${pr => pr.placement !== "top" ? "32px !important" : ""};
-	}
-`;
+export const TooltipArrow = styled.div`
+	border: 5px solid transparent;
+	position: absolute;
+`

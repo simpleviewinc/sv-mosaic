@@ -325,7 +325,6 @@ export const DrawerForm = (): ReactElement => {
 	const showSections = boolean("Show sections", false, "Layout");
 	const drawWidth = select("Draw Width", options, options.default, "Layout");
 	const description = text("Description", "", "Misc");
-	const tooltipInfo = text("Tooltip info", "", "Misc");
 	const showActive = boolean("Show active", false, "Misc");
 
 	const [open, setOpen] = useState(false);
@@ -367,7 +366,6 @@ export const DrawerForm = (): ReactElement => {
 						fields={fields}
 						onBack={onCancel}
 						sections={showSections ? sections : undefined}
-						tooltipInfo={tooltipInfo || undefined}
 						showActive={showActive}
 						description={description || undefined}
 						getFormValues={getFormValues}

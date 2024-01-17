@@ -25,7 +25,6 @@ import {
 	MoreText,
 	StyledAnchor,
 	AssetImage,
-	StyledTooltip,
 	TableRow,
 	Td,
 	Th
@@ -34,6 +33,7 @@ import {
 // Components
 import MenuFormFieldCard from "@root/forms/MenuFormFieldCard";
 import BrowseOption from "./BrowseOption";
+import Popover from "@root/components/Popover";
 
 const DOCUMENT = "document";
 const IMAGE = "image";
@@ -47,10 +47,13 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 		ImageVideoDocumentLinkData
 	>
 ): ReactElement => {
-	const { fieldDef, value } = props;
+	const { fieldDef, value, disabled } = props;
 
 	// State variables
 	const [assetType, setAssetType] = useState("");
+
+	const [moreTextRef, setMoreTextRef] = useState(null);
+	const [moreOpen, setMoreOpen] = useState(false);
 
 	/**
 	 * The Browse button should execute the function
@@ -138,23 +141,25 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 						{idx === 3 && value.length > 4 && (
 							<>
 								<AssetValue>...</AssetValue>
-								<StyledTooltip
-									placement="top"
-									text={
-										<table>
-											<tbody>{tootltipContent}</tbody>
-										</table>
-									}
-									type="advanced"
+								<Popover
+									anchorEl={moreTextRef}
+									topContent={<table><tbody>{tootltipContent}</tbody></table>}
+									onClose={() => setMoreOpen(false)}
+									open={moreOpen}
+								/>
+								<MoreText
+									ref={setMoreTextRef}
+									onClick={() => setMoreOpen(true)}
+									type="button"
 								>
-									<MoreText>More</MoreText>
-								</StyledTooltip>
+									More
+								</MoreText>
 							</>
 						)}
 					</Td>
 				</TableRow>
 			)),
-		[value]
+		[value, moreTextRef, moreOpen]
 	);
 
 	const hasOptions =
@@ -175,28 +180,28 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							<BrowseOptionsContainer>
 								{fieldDef?.inputSettings?.handleSetImage && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={IMAGE}
 									/>
 								)}
 								{fieldDef?.inputSettings?.handleSetVideo && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={VIDEO}
 									/>
 								)}
 								{fieldDef?.inputSettings?.handleSetDocument && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={DOCUMENT}
 									/>
 								)}
 								{fieldDef?.inputSettings?.handleSetLink && (
 									<BrowseOption
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										handleBrowse={handleBrowse}
 										assetType={LINK}
 									/>
@@ -228,7 +233,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							{fieldDef?.inputSettings?.options && (
 								<MenuColumn>
 									<MenuFormFieldCard
-										disabled={fieldDef?.disabled}
+										disabled={disabled}
 										options={fieldDef?.inputSettings?.options}
 									/>
 								</MenuColumn>
@@ -242,7 +247,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							variant="text"
 							label="Browse"
 							muiAttrs={{ disableRipple: true }}
-							disabled={fieldDef?.disabled}
+							disabled={disabled}
 							onClick={async (e) => await handleBrowse(e, assetType)}
 						></Button>
 						<Button
@@ -250,7 +255,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							variant="text"
 							label="Remove"
 							muiAttrs={{ disableRipple: true }}
-							disabled={fieldDef?.disabled}
+							disabled={disabled}
 							onClick={(e) => handleRemove(e)}
 						></Button>
 					</AssetButtons>

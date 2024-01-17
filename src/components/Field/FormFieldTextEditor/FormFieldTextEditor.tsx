@@ -36,10 +36,9 @@ const buttonList = [
 const FormFieldTextEditor = (
 	props: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>
 ): ReactElement => {
-	const { fieldDef, onBlur, onChange, value, error } = props;
+	const { fieldDef, onBlur, onChange, value, disabled, error } = props;
 
 	const {
-		disabled = false,
 		inputSettings = {}
 	} = fieldDef;
 

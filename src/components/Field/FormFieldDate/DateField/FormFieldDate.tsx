@@ -23,6 +23,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			validTime: false
 		},
 		onBlur,
+		disabled,
 		error,
 		dispatch
 	} = props;
@@ -135,7 +136,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 							maxDate: fieldDef?.inputSettings?.maxDate
 						},
 						required: fieldDef?.required,
-						disabled: fieldDef?.disabled
+						disabled,
 					}}
 					value={value?.date}
 					onBlur={onBlurProxy("date")}
@@ -154,7 +155,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 							inputSettings: {
 								placeholder: TIME_FORMAT_FULL_PLACEHOLDER
 							},
-							disabled: fieldDef?.disabled
+							disabled,
 						}}
 						value={value?.time}
 						onBlur={onBlurProxy("time")}

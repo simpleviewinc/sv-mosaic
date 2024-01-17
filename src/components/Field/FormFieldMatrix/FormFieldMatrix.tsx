@@ -13,6 +13,7 @@ const FormFieldMatrix = (
 ): ReactElement => {
 	const {
 		value,
+		disabled,
 		fieldDef,
 	} = props;
 
@@ -28,7 +29,7 @@ const FormFieldMatrix = (
 						<Button
 							key={`${button.label}-${idx}`}
 							{...button}
-							disabled={button.disabled === undefined ? fieldDef?.disabled : button.disabled}
+							disabled={button.disabled === undefined ? disabled : button.disabled}
 						/>
 					))}
 				</ButtonRow>
@@ -36,7 +37,7 @@ const FormFieldMatrix = (
 			{hasValue && (
 				<DataView
 					data={[]}
-					{...{...dataView, disabled: fieldDef?.disabled, data}}
+					{...{...dataView, disabled, data}}
 				/>
 			)}
 		</MatrixWrapper>

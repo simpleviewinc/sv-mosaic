@@ -16,11 +16,12 @@ const FormFieldToggleSwitch = (
 		onBlur,
 		onChange,
 		value,
+		disabled
 	} = props;
 
 	return (
 		<ToggleSwitch
-			disabled={fieldDef?.disabled}
+			disabled={disabled}
 			checked={value}
 			label={fieldDef?.inputSettings?.toggleLabel}
 			onChange={onChange}
