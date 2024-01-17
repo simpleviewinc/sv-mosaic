@@ -20,7 +20,8 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 		error,
 		onChange,
 		onBlur,
-		value
+		value,
+		disabled
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -99,7 +100,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 				popupIcon={<ExpandMoreIcon />}
 				onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
 				open={isOpen}
-				disabled={fieldDef?.disabled}
+				disabled={disabled}
 			/>
 		</SingleDropdownWrapper>
 	);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
-import { boolean, select, withKnobs } from "@storybook/addon-knobs";
+import { boolean, select, text, withKnobs } from "@storybook/addon-knobs";
 
 import StoryBookError from "../StoryBookError";
 import Button from "../Button";
@@ -99,6 +99,7 @@ export const Playground = (): ReactElement => {
 		"Undefined",
 	);
 	const label = select("Type of label", ["String", "JSX"], "String")
+	const labelText = text("Label Text", "Text")
 	const showIcon = boolean("Show icon", false);
 	const iconColor = select(
 		"mIconColor",
@@ -156,7 +157,7 @@ export const Playground = (): ReactElement => {
 				{showButton &&
 					<Button
 						attrs={{$smallText: smallText}}
-						label={label === "String" ? "Test" : <FormatListBulletedOutlinedIcon/>}
+						label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon/>}
 						variant={buttonVariant}
 						color={buttonColor}
 						fullWidth={fullWidth}
