@@ -20,6 +20,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		className,
 		value,
 		onChange,
+		onBlur,
 		onSelect,
 		textField,
 		placeholder,
@@ -38,6 +39,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 
 	const handleBlur = () => {
 		setAnchorEl(null);
+		onBlur();
 	};
 
 	const inputProps = {
