@@ -16,8 +16,8 @@ describe("ColorPicker component", () => {
 		render(
 			<FormFieldColorPicker
 				value={value}
-				fieldDef={{ name: "colorPicker", label: "", disabled: true, type: "color", }}
-
+				fieldDef={{ name: "colorPicker", label: "", type: "color", }}
+				disabled
 			/>
 		);
 

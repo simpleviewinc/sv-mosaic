@@ -121,11 +121,12 @@ test.describe.parallel("FormFields - FormFieldImageVideoLinkDocumentBrowsing - K
 
 	test("Validate More tooltip options in Card.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.browseAllImageWithSrcButton.click();
-		await ffImageVideoLinkDocumentBrowsingPage.moreButton.hover();
+		await ffImageVideoLinkDocumentBrowsingPage.moreButton.click();
 		await expect(ffImageVideoLinkDocumentBrowsingPage.page.locator("[role='tooltip']")).toBeVisible();
 		const titles = await ffImageVideoLinkDocumentBrowsingPage.getInformationTitlesFromTable();
 		expect(titles).toContain("Focus");
 		expect(titles).toContain("Locales");
+		await ffImageVideoLinkDocumentBrowsingPage.formHeading.click();
 	});
 
 	test("Validate removing a selected card.", async () => {

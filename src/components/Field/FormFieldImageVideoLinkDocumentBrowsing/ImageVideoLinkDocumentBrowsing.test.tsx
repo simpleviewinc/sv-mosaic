@@ -210,9 +210,9 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
 		});
 
-		const tooltipTestId = await findByTestId("tooltip-test-id");
+		const moreButton = await findByText("More");
 		await act(async () => {
-			fireEvent.mouseOver(tooltipTestId);
+			fireEvent.click(moreButton);
 		});
 
 		expect(await findByText("Focus")).toBeInTheDocument();

@@ -84,8 +84,8 @@ describe("FormFieldImageUpload disabled state", () => {
 					name: "imageUpload",
 					type: "imageUpload",
 					label: "",
-					disabled: true,
 				}}
+				disabled
 			/>
 		);
 

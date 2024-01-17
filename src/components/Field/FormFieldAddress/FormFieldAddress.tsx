@@ -33,6 +33,7 @@ const types = [
 
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
+		disabled,
 		value,
 		onBlur,
 		onChange,
@@ -169,7 +170,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 			{availableTypes.length > 0 && (
 				<Footer>
 					<Button
-						disabled={fieldDef?.disabled}
+						disabled={disabled}
 						color="gray"
 						variant="outlined"
 						label="ADD ADDRESS"
@@ -184,7 +185,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 							key={`${idx}`}
 							address={address}
 							onEdit={setOpen}
-							disabled={fieldDef?.disabled}
+							disabled={disabled}
 							onRemoveAddress={setRemoveDialog}
 						/>
 					))}
