@@ -623,7 +623,6 @@ const fields = useMemo(
 );
 ```
 
-
 ## FormFieldDateField
 This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
@@ -637,6 +636,12 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | **`showTime`** | `boolean` | optional - When true a time field will appear next to the date field. |
 | **`minDate`** | `Date` | optional - The minimum date that can be chosen using the datepicker. Defaults to 01/01/1900 |
 
+## FormFieldTimeField
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- It allows the user to view and pick a time from a calendar widget or manually type the time in the text field.
+- [**Playground**](/?path=/story/formfields-formfieldtimefield--playground)
+- Data: `string` - Time in `HH:MM` 24 hour format.
 
 ### How to use in a form?
 ```ts
