@@ -5,22 +5,31 @@ import * as stories from './Tooltip.stories';
 
 # Tooltip
 
-The `Tooltip` component is built over a wrapper for [Material-UI Tooltip](https://mui.com/components/tooltips/#main-content) but with SimpleView brand colors.
+The `Tooltip` component utilises the `Popper` component from Material which is a wrapper around popper.js to display a tooltip positioned relative to a given anchor.
 
 ## Props
 
 https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Tooltip/Tooltip.tsx
 
+| Prop Name   | Type                           | Description                                                                                                                                     |
+|-------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `anchorEl`  | `HTMLElement` or `SVGElement`  | (Required) This is the element that the tooltip should be positioned relative to.                                                               |
+| `open`      | `boolean`                      | (Required) Whether or not the tooltip is currently rendered and visible.                                                                        |
+| `children`  | `ReactNode`                    | (Required) The content of the tooltip.                                                                                                          |
+| `placement` | `MUITooltipProps["placement"]` | (Optional, default: "bottom-start") How the tooltip should be positioned relative to its anchor.                                                |
+| `id`        | `string`                       | (Optional) The HTML ID to be given to the parent tooltip element. Should be used in conjunction with the anchor's `aria-describedby` attribute. |
+
+## Helper Hook
+
+There is a `useTooltip` hook available that can be utilised to provide hover functionality if you have no need to store your own anchor reference as well as providing accessibility attributes. It returns an object with the following properties:
+
+| Prop Name      | Type               | Description                                                                                                |
+|----------------|--------------------|------------------------------------------------------------------------------------------------------------|
+| `tooltipProps` | `HookTooltipProps` | Properties to be spread onto the component, for example `<Tooltip {...tooltipProps} />`.                   |
+| `anchorProps`  | `AnchorProps`      | Properties to be spread onto the anchor component, for example `<button type="button" {...anchorProps} />` |
+
 ## Tooltip
 
-### Advanced tooltip
 <Preview withSource='none'>
-  <stories.AdvancedTooltip />
+  <stories.Example />
 </Preview>
-
-### Icon tooltip
-<Preview withSource='none'>
-  <stories.IconTooltip />
-</Preview>
-
-
