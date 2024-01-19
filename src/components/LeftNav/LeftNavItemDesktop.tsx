@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useContext, useEffect, useRef, useCallback, Fragment, ReactElement } from "react";
-import { throttle } from "lodash";
+import throttle from "lodash/throttle";
 
 import { LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
@@ -56,7 +56,7 @@ function LeftNavItemDesktop(props: LeftNavBlockProps): ReactElement {
 			onPointerMove.cancel();
 		}
 	}, [onPointerMove]);
-	
+
 	const attrs = {
 		onPointerMove,
 		onPointerLeave,
