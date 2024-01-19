@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 import Popper from "@mui/material/Popper";
 
-export const TooltipPopper = styled(Popper)`
+export const TooltipPopper: any = styled(Popper)`
 	z-index: 1500;
 	background: ${theme.newColors.almostBlack["100"]};
 	color: white;
