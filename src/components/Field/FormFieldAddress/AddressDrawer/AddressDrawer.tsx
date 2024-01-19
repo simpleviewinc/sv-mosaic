@@ -9,7 +9,7 @@ import Form, { formActions, useForm } from "@root/components/Form";
 // Utils
 import { IAddress } from "@root/components/Field/FormFieldAddress";
 import { AddressDrawerProps } from "../AddressTypes";
-import _ from "lodash";
+import isEqual from "lodash/isEqual";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { useLoadScript } from "@react-google-maps/api";
@@ -76,7 +76,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 	useEffect(() => {
 		if (state.data !== undefined && initialState !== undefined)
-			handleUnsavedChanges(!_.isEqual(initialState, state.data));
+			handleUnsavedChanges(!isEqual(initialState, state.data));
 	}, [state.data, initialState]);
 
 	const getFormValues = useCallback(async () => {
