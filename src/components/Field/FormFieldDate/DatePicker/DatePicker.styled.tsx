@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 export const popperSx = {
 	"& .MuiPaper-root": {

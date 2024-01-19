@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { useAnimate } from "../useAnimate";
 import clamp from "@root/utils/math/clamp";
 

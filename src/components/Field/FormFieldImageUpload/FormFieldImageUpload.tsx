@@ -3,7 +3,7 @@ import { memo, ReactElement, useEffect, useRef, useState } from "react";
 
 import { ImageUploadValue, ImageUploadInputSettings } from "./FormFieldImageUploadTypes";
 import { MosaicFieldProps } from "@root/components/Field";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 
 // Components
 import Button from "@root/components/Button";
