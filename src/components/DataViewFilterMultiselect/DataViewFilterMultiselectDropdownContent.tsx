@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { debounce, xor } from "lodash";
+import debounce from "lodash/debounce";
+import xor from "lodash/xor";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
@@ -15,7 +16,7 @@ import { SubtitleText } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
 import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper, StyledComparisonHeader } from "./DataViewFilterMultiselect.styled";
 import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
-import { InputAdornment } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
 import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
 import CheckboxList from "../CheckboxList";
 

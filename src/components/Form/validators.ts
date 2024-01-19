@@ -1,5 +1,5 @@
 import { DATE_FORMAT_FULL } from "@root/constants";
-import { format } from "date-fns";
+import format from "date-fns/format";
 
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
 export const VALIDATE_SLOW_TYPE = "validateSlow";

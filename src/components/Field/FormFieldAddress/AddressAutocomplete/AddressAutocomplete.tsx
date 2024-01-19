@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo, ReactElement } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
-import { Popover } from "@mui/material"
+import Popover from "@mui/material/Popover"
 
 // Styles
 import {
