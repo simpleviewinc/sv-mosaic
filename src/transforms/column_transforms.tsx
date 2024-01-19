@@ -1,4 +1,5 @@
-import { get, map } from "lodash";
+import get from "lodash/get";
+import map from "lodash/map";
 import { format } from "date-fns";
 import { createElement, ReactNode } from "react";
 import { MosaicLabelValue, MosaicObject } from "../types";

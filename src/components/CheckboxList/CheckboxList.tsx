@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo, useCallback, ReactElement, HTMLAttributes } from "react";
-import { xorBy } from "lodash";
+import xorBy from "lodash/xorBy";
 
 import Checkbox from "@root/components/Checkbox";
 import { useStateRef } from "@root/utils/reactTools";
