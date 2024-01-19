@@ -4,7 +4,7 @@ import { boolean, withKnobs, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 import styled from "styled-components";
 import theme from "@root/theme";
-import { format } from "date-fns";
+import format from "date-fns/format";
 import { ButtonProps } from "../Button";
 
 // Components

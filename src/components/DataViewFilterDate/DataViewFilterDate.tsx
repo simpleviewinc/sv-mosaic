@@ -1,7 +1,10 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
 import styled from "styled-components";
-import { format, isSameDay, isSameMonth, isSameYear } from "date-fns";
+import format from "date-fns/format";
+import isSameDay from "date-fns/isSameDay";
+import isSameMonth from "date-fns/isSameMonth";
+import isSameYear from "date-fns/isSameYear";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterDateDropdownContent from "./DataViewFilterDateDropdownContent";
