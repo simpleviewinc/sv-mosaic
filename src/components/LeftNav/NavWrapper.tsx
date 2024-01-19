@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect, useMemo, useRef, ReactElement, MouseEventHandler } from "react";
 import styled from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import theme from "@root/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";

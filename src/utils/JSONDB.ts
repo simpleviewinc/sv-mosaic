@@ -1,4 +1,6 @@
-import { intersection, isEqual, sortBy } from "lodash";
+import intersection from "lodash/intersection";
+import isEqual from "lodash/isEqual";
+import sortBy from "lodash/sortBy";
 
 interface Relationship {
 	api: JSONDB

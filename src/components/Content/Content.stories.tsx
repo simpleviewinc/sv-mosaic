@@ -17,7 +17,7 @@ import { ChipsWrapper } from "./Content.styled";
 import Chip from "../Chip";
 import EditIcon from "@mui/icons-material/Edit";
 import { ButtonProps } from "@root/components/Button";
-import { Link } from "@mui/material";
+import Link from "@mui/material/Link";
 
 export default {
 	title: "Components/Content",
