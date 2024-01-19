@@ -16,7 +16,7 @@ import Form, { useForm } from "@root/components/Form";
 
 // Utils
 import AddressAutocomplete from "./AddressAutocomplete";
-import { InputAdornment } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
 import { StyledClearIcon } from "./AddressAutocomplete/AddressAutocomplete.styled";
 
 

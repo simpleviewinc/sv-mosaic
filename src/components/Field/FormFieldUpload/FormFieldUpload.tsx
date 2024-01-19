@@ -1,7 +1,8 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
-import { formActions, Snackbar } from "@root/index";
-import _ from "lodash";
+import { formActions } from "@root/components/Form";
+import Snackbar from "@root/components/Snackbar";
+import uniqueId from "lodash/uniqueId";
 import * as React from "react";
 import { memo, SyntheticEvent, useEffect, useRef, useState, useMemo } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../../../forms/shared/styledComponents";
@@ -166,7 +167,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		newFiles.forEach(file => {
 			transformedFiles = {
 				...transformedFiles,
-				[_.uniqueId()]: {
+				[uniqueId()]: {
 					data: {
 						name: file.name,
 						size: file.size,
