@@ -80,6 +80,8 @@ export const formActions: FormActionThunks = {
 				[curr]: getFieldFromExtra(extraArgs, curr).getResolvedValue(values[curr]).internalValue
 			}), {});
 
+			extraArgs.data = values;
+
 			return dispatch({
 				type: "FIELDS_ON_CHANGE",
 				value: values,
@@ -98,6 +100,8 @@ export const formActions: FormActionThunks = {
 			const { errors } = getState();
 			const field = getFieldFromExtra(extraArgs, name);
 			const { internalValue, value } = field.getResolvedValue(providedValue);
+
+			extraArgs.data[name] = value;
 
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
@@ -160,8 +164,7 @@ export const formActions: FormActionThunks = {
 	validateField({ name, validateLinkedFields }) {
 		return async function (dispatch, getState, extraArgs) {
 			const state = getState();
-			const { data } = state;
-			const { mounted, internalValidators } = extraArgs;
+			const { data, mounted, internalValidators } = extraArgs;
 			const field = getFieldFromExtra(extraArgs, name);
 
 			if (!mounted[name]) {
@@ -248,13 +251,13 @@ export const formActions: FormActionThunks = {
 		};
 	},
 	validateForm() {
-		return async function (dispatch, getState, { fields }) {
+		return async function (dispatch, getState, { data, fields }) {
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
 			});
 
-			const touchedFields = getState().data;
+			const touchedFields = data;
 
 			for (let i = 0; i < fields.length; i++) {
 				const currFieldName = fields[i].name;
@@ -302,8 +305,7 @@ export const formActions: FormActionThunks = {
 	submitForm() {
 		return async function (dispatch, getState, extraArgs) {
 			const state = getState();
-			const { data } = state;
-			const { mounted } = extraArgs;
+			const { data, mounted } = extraArgs;
 
 			if (!dispatch(formActions.isSubmittable())) {
 				return {
