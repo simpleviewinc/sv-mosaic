@@ -140,7 +140,7 @@
 		"conditional-publish": "./scripts/conditional-publish",
 		"publish:build": "node ./scripts/publish-build.js",
 		"storybook": "start-storybook -p 10000",
-		"style": "eslint . --fix",
+		"style": "eslint . --fix --config .eslintrc.ci.js",
 		"sync-state": "./scripts/sync-state",
 		"types": "tsc --noEmit",
 		"release": "release-it"
