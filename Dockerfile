@@ -21,7 +21,8 @@ COPY tsconfig.cjs.json /app/tsconfig.cjs.json
 COPY tsconfig.esm.json /app/tsconfig.esm.json
 COPY jest.config.js /app/jest.config.js
 COPY webpack.config.js /app/webpack.config.js
-COPY .eslintrc.json /app/.eslintrc.json
+COPY .eslintrc.js /app/.eslintrc.js
+COPY .eslintrc.ci.js /app/.eslintrc.ci.js
 COPY .eslintignore /app/.eslintignore
 COPY README.md /app/README.md
 
