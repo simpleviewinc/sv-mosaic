@@ -275,7 +275,7 @@ const fields = useMemo(
 * **required** - `boolean` optional - Marks if the field should be filled or not.
 * **helperText** - `string` optional - Text that gives context to the user as what the field does.
 * **instructionText** - `string` optional - Instructions about how to fill the current field.
-* **disabled** - `boolean` optional - Flag that indicates whether the field can be filled or readonly.
+* **disabled** - `MosaicToggle` optional - Disable callbacks will be called with `{data: data}`
 * **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
 * **size** - `string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
 	* **xs** = 100px
