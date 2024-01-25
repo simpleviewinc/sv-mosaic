@@ -3,11 +3,12 @@ import { TextFieldProps } from "@mui/material/TextField";
 export interface AddressAutocompleteProps {
 	value: string;
 	onChange: (address: string) => void;
+	onBlur?: () => void;
 	className?: string;
 	onSelect: (value: any) => Promise<void>;
 	textField?: TextFieldProps;
-	fieldSize?: string;
 	placeholder?: string
+	googleMapsApiKey: string;
 }
 
 export interface InputSettings {
@@ -16,6 +17,5 @@ export interface InputSettings {
 	className?: string;
 	onSelect: (value: any) => Promise<void>;
 	textField?: TextFieldProps;
-	fieldSize?: string;
 	placeholder?: string
 }

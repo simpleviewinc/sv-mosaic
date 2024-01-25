@@ -34,7 +34,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		dialogOpen,
 		handleDialogClose,
 		handleUnsavedChanges,
-		initialCenter = defaultMapPosition
+		initialCenter = defaultMapPosition,
+		googleMapsApiKey
 	} = props;
 
 	const getFormValues = useCallback(async () => {
@@ -180,6 +181,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 							initialCenter={initialCenter}
 							onCoordinatesChange={onCoordinatesChange}
 							value={value}
+							googleMapsApiKey={googleMapsApiKey}
 						/>
 					)
 				},

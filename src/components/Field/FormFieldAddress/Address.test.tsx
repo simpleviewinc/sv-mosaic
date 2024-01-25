@@ -139,7 +139,7 @@ describe("AddressCard component", () => {
 		render(<AddressCard address={address} disabled={false} />);
 
 		expect(getByText("8950 N Oracle Rd")).toBeTruthy();
-		expect(getByText("Physical, Billing Address")).toBeTruthy();
+		expect(getByText("Physical and Billing Address")).toBeTruthy();
 		expect(getByText("Oro Valley, Arizona 85704")).toBeTruthy();
 		expect(getByText("United States")).toBeTruthy();
 	});
@@ -149,6 +149,7 @@ describe("AddressAutocomplete component", () => {
 	it("it should render a default value and execute callbacks", () => {
 		render(
 			<AddressAutocomplete
+				googleMapsApiKey=""
 				value="Test"
 				onChange={mockOnChange}
 				onSelect={mockOnSelect}

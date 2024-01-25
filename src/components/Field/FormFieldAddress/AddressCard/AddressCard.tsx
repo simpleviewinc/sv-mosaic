@@ -13,16 +13,21 @@ import {
 
 // Types
 import { AddressCardProps } from "../AddressTypes";
+import { joinAnd } from "@root/utils/string";
+
+const buttonMuiAttrs = {
+	disableRipple: true
+};
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
-	const { address, addressIndex, onEdit, onRemoveAddress, disabled } = props;
+	const { address, onEdit, onRemoveAddress, disabled } = props;
 
 	const typesLabels = address.types.map(type => type.label);
 
 	return (
 		<StyledAddressCard data-testid="address-card-test">
 			<AddressTitle>
-				{`${typesLabels?.join(", ")} Address`}
+				{`${joinAnd(typesLabels)} Address`}
 			</AddressTitle>
 			<span>{address?.address1}</span>
 			{address?.address2 && <span>{address?.address2}</span>}
@@ -37,16 +42,16 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 					color="teal"
 					variant="text"
 					disabled={disabled}
-					muiAttrs={{ disableRipple: true }}
-					onClick={() => onEdit(address, addressIndex)}
+					muiAttrs={buttonMuiAttrs}
+					onClick={() => onEdit(address)}
 				></Button>
 				<Button
 					color="red"
 					variant="text"
-					muiAttrs={{ disableRipple: true }}
+					muiAttrs={buttonMuiAttrs}
 					disabled={disabled}
 					label="Remove"
-					onClick={() => onRemoveAddress(addressIndex)}
+					onClick={() => onRemoveAddress(address)}
 				></Button>
 			</ButtonsWrapper>
 		</StyledAddressCard>
