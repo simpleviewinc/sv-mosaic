@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"parserOptions": {
 		"ecmaVersion": 11,
 		"sourceType": "module",
@@ -42,6 +42,8 @@
 		"plugin:react/recommended"
 	],
 	"rules": {
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
 		"prefer-const": 2,
 		"no-unused-vars": [
 			2,

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Popper from "@mui/material/Popper";
 import { PopperProps } from "@mui/material/Popper";
 import Paper from "@mui/material/Paper";
-import { throttle } from "lodash";
+import throttle from "lodash/throttle";
 
 import { LeftNavItemDef, LeftNavContext } from "./LeftNavTypes";
 import LeftNavTitle from "./LeftNavTitle";

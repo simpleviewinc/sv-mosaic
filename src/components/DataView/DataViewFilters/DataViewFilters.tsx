@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
 import styled from "styled-components";
-import { pick, xor } from "lodash";
+import pick from "lodash/pick";
+import xor from "lodash/xor";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DataViewFilterDropdown from "../../DataViewFilterDropdown";

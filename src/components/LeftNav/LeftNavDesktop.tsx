@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useState, useEffect, useContext, ReactElement } from "react";
 import styled from "styled-components";
-import { debounce, throttle } from "lodash";
+import debounce from "lodash/debounce";
+import throttle from "lodash/throttle";
 
 import SettingsIcon from "@mui/icons-material/Settings";
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { memo, ReactElement } from "react";
 import { BrowseOptionProps } from "..";
-import { startCase } from "lodash";
+import startCase from "lodash/startCase";
 
 // Styles
 import {

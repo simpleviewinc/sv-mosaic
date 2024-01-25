@@ -1,5 +1,6 @@
-import { get, map } from "lodash";
-import { format } from "date-fns";
+import get from "lodash/get";
+import map from "lodash/map";
+import format from "date-fns/format";
 import { createElement, ReactNode } from "react";
 import { MosaicLabelValue, MosaicObject } from "../types";
 import DataView, { DataViewColumn, DataViewColumnTransform } from "../components/DataView";
