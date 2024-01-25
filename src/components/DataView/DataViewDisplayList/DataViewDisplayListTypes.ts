@@ -23,4 +23,5 @@ export interface DataViewDisplayListProps {
 	anyChecked?: boolean;
 	allChecked?: boolean;
 	showBulkAll?: boolean;
+	actionsHidden?: boolean;
 }

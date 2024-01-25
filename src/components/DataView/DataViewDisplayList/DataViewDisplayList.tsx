@@ -130,6 +130,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 						transformedData={transformedData}
 						bulkActions={props.bulkActions}
 						additionalActions={props.additionalActions}
+						actionsHidden={props.actionsHidden}
 						disabled={props.disabled}
 						primaryActions={props.primaryActions}
 						onCheckboxClick={props.onCheckboxClick}

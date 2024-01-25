@@ -19,6 +19,7 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 	hasActions,
 	primaryActions,
 	additionalActions,
+	actionsHidden,
 	originalRowData,
 	columns,
 	row,
@@ -59,6 +60,7 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 					<DataViewActionsButtonRow
 						primaryActions={primaryActions}
 						additionalActions={additionalActions}
+						actionsHidden={actionsHidden}
 						disabled={disabled}
 						originalRowData={originalRowData}
 						activeDisplay="list"
