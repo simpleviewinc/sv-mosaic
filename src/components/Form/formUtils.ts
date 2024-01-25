@@ -130,7 +130,8 @@ export function useForm(): UseFormReturn {
 		onSubmit: () => undefined,
 		mounted: {},
 		internalValidators: {},
-		hasBlurred: {}
+		hasBlurred: {},
+		data: {}
 	});
 
 	const [state, dispatch] = useThunkReducer(

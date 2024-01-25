@@ -126,7 +126,8 @@ export type FormExtraArgs = {
     onSubmit: () => void;
     mounted: Record<string, boolean | undefined>;
     internalValidators: Record<string, ((value: any) => string | undefined)[]>
-    hasBlurred: Record<string, boolean>
+    hasBlurred: Record<string, boolean>;
+    data: MosaicObject<any>
 }
 
 export type FormReducer = (state: FormState, action: FormAction) => FormState;
