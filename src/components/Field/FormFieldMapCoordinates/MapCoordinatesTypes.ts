@@ -73,9 +73,11 @@ export interface MapProps {
 	 * an existing marker, clicking the map or selecting an address
 	 */
 	onCoordinatesChange?: (coords: MapPosition) => void
+
+	googleMapsApiKey: string
 }
 
-export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter">
+export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter" | "googleMapsApiKey">
 
 export type ResetButtonProps = {
 	show?: boolean,
@@ -111,6 +113,8 @@ export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"
 	dialogOpen?: boolean;
 
 	handleDialogClose?: (val: boolean) => void;
+
+	googleMapsApiKey: string
 }
 
 export type MapCoordinatesData = MapPosition;
