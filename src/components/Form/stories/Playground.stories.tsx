@@ -321,6 +321,14 @@ export const Playground = (): ReactElement => {
 					defaultValue: !showDefaultValues ? undefined : new Date()
 				},
 				{
+					name: "time",
+					label: "Single Time Picker",
+					type: "time",
+					disabled,
+					required,
+					defaultValue: !showDefaultValues ? undefined : "14:00"
+				},
+				{
 					name: "address",
 					label: "Address field",
 					type: "address",
@@ -585,7 +593,7 @@ export const Playground = (): ReactElement => {
 				collapsed,
 				fields: [
 					// row 1
-					[["color"], ["date"],],
+					[["color"], ["date"], ["time"]],
 					// row 2
 					[["textEditor"], []]
 				]
