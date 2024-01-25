@@ -14,7 +14,7 @@ import Drawer from "@root/components/Drawer/Drawer";
 import { FieldDef } from "@root/components/Field";
 
 import theme, { BREAKPOINTS } from "@root/theme/theme";
-import _ from "lodash";
+import uniqueId from "lodash/uniqueId";
 import { Sizes } from "@root/theme";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import styled from "styled-components";
@@ -170,7 +170,7 @@ export const DrawerForm = (): ReactElement => {
 			type: "upload",
 			inputSettings: {
 				onFileAdd: async ({onUploadComplete, file}) => {
-					onUploadComplete({name: "Test", fileUrl: "https://www.google.com", id: _.uniqueId(), size: 1098})
+					onUploadComplete({name: "Test", fileUrl: "https://www.google.com", id: uniqueId(), size: 1098})
 				},
 				onFileDelete: async () => {
 					// This is fine

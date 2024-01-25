@@ -3,7 +3,7 @@ import { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 
 // Material UI
-import { InputLabel } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import theme from "@root/theme";

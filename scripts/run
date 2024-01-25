@@ -13,7 +13,8 @@ docker run --rm -it \
 	-v $PWD/tsconfig.json:/app/tsconfig.json \
 	-v $PWD/tsconfig.cjs.json:/app/tsconfig.cjs.json \
 	-v $PWD/tsconfig.esm.json:/app/tsconfig.esm.json \
-	-v $PWD/.eslintrc.json:/app/.eslintrc.json \
+	-v $PWD/.eslintrc.js:/app/.eslintrc.js \
+	-v $PWD/.eslintrc.ci.js:/app/.eslintrc.ci.js \
 	-v $PWD/.eslintignore:/app/.eslintignore \
 	-v $PWD/jest.config.js:/app/jest.config.js \
 	-p 10000:10000 \

@@ -1,6 +1,41 @@
 # sv-mosaic changelog
 
-## 29.0.0 - 01/09/23
+## 30.0.0 - 01/23/24
+
+### Improvements & Fixes
+
+* `Tooltip`
+  * [MOS-1226](https://simpleviewtools.atlassian.net/browse/MOS-1226 "https://simpleviewtools.atlassian.net/browse/MOS-1226")
+    * **(BREAKING CHANGE)** Rehauls the `Tooltip` component, dropping the dependency on Material's `Tooltip` and instead using the underlying `Popper` component directly. `Tooltip` **no longer wraps its anchor** , but instead takes the following required properties:
+
+      * `anchorEl` the `HTMLElement` or `SVGElement` that the tooltip should point to.
+      * `open` a `boolean` denoting whether or not the tooltip is currently rendered and visible.
+      * `children`, replacing the old `text` property, which can be any `ReactNode` to be rendered within the tooltip.
+
+      There is an optional `useTooltip` hook that can be utilised to make using the `Tooltip` component a little cleaner. It returns `anchorProps` and `tooltipProps` which can be spread into their corresponding components, causing the tooltip to appear when the anchor is hovered.
+      Additionally, the following tooltips have been dropped and replaced with a native title using the `Typography` component:
+
+      * The title that appears for each uploaded file within the file upload field.
+      * The primary and secondary title for `DataView` items when using a "grid" display.
+  * [MOS-1230](https://simpleviewtools.atlassian.net/browse/MOS-1230 "https://simpleviewtools.atlassian.net/browse/MOS-1230")
+    * **(BREAKING CHANGE)** The help tooltip that appeared at the top of `Form` components by utilising the `tooltipInfo` has been dropped.
+* `FormFieldUpload`
+  * [MOS-1290](https://simpleviewtools.atlassian.net/browse/MOS-1229 "https://simpleviewtools.atlassian.net/browse/MOS-1229")
+    * The title of uploaded files has been modified to comply with newly introduced rules stating truncated text should not display `Tooltip` but a native title only.
+* `Field`
+  * [MOS-1231](https://simpleviewtools.atlassian.net/browse/MOS-1231 "https://simpleviewtools.atlassian.net/browse/MOS-1231")
+    * Brings the toggle (previously show) mechanic to form fields. The `disabled` property provided to the field definition still defaults to `false`, but can now also accept:
+      * `boolean`
+      * `(state: FormState) => boolean`
+      * An array of any combination of the former two
+* `DataView`
+  * [MOS-1234](https://simpleviewtools.atlassian.net/browse/MOS-1234 "https://simpleviewtools.atlassian.net/browse/MOS-1234")
+    * Adds support to `DataView` component to allow `ref` and `attr` props to be provided by the consumer. A reference to the top level `div` will be forwarded and the attributes provided will be spread onto the top level `div`.
+* `Content`
+  * [MOS-1240](https://simpleviewtools.atlassian.net/browse/MOS-1240 "https://simpleviewtools.atlassian.net/browse/MOS-1240")
+    * Replaces `Content` row flex with grid and adds a gap between items
+
+## 29.0.0 - 01/09/24
 
 ### Improvements & Fixes
 
