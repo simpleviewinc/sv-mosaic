@@ -11,6 +11,7 @@ function MapWithMarker({
 	initialCenter,
 	onCoordinatesChange,
 	value,
+	googleMapsApiKey
 }: MapWithMarkerProps) {
 
 	return (
@@ -21,6 +22,7 @@ function MapWithMarker({
 				zoom={zoom}
 				focusZoom={focusZoom}
 				onCoordinatesChange={onCoordinatesChange}
+				googleMapsApiKey={googleMapsApiKey}
 			/>
 			<StyledSpan>
 				Click on the map to update the latitude and longitude coordinates
