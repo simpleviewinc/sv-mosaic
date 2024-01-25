@@ -12,6 +12,7 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	imageVideoDocumentLink: Sizes.lg,
 	color: Sizes.sm,
 	date: Sizes.md,
+	time: Sizes.md,
 	address: Sizes.full,
 	textEditor: Sizes.lg,
 	advancedSelection: Sizes.md,

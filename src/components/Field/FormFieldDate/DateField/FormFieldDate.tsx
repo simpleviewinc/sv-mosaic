@@ -3,7 +3,7 @@ import { ReactElement, memo, useRef } from "react";
 
 // Components
 import DatePicker from "../DatePicker";
-import TimePicker from "../TimePicker";
+import TimePicker from "../../FormFieldTime/TimePicker";
 
 // Styles
 import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";

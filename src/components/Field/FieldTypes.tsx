@@ -4,6 +4,7 @@ import { FieldDefCheckbox } from "@root/components/Field/FormFieldCheckbox";
 import { FieldDefChip } from "@root/components/Field/FormFieldChipSingleSelect";
 import { FieldDefColor } from "@root/components/Field/FormFieldColorPicker/ColorPickerTypes";
 import { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
+import { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
 import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdownSingleSelection";
 import { FieldDefImageUpload } from "@root/components/Field/FormFieldImageUpload";
 import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
@@ -190,6 +191,7 @@ export type FieldDef =
 	| FieldDefImageUpload
 	| FieldDefDropdown
 	| FieldDefDate
+	| FieldDefTime
 	| FieldDefColor
 	| FieldDefChip
 	| FieldDefCheckbox
