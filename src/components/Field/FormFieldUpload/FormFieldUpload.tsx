@@ -10,6 +10,9 @@ import FileCard from "./FileCard";
 import { StyledFileGrid } from "./FormFieldUpload.styled";
 import { TransformedFile, UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
 import { FileExtensions } from "@root/utils/classes";
+import { pretty } from "@root/utils/formatters";
+import { MosaicObject } from "@root/types";
+import { sum } from "@root/utils/math/sum";
 
 const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSettings, UploadData[]>) => {
 	const {
@@ -24,12 +27,17 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		limit = -1,
 		onFileAdd,
 		onFileDelete,
-		accept
+		accept,
+		maxFileSize,
+		maxTotalSize
 	} = fieldDef.inputSettings;
 
 	const [isOver, setIsOver] = useState(false);
-	const [pendingFiles, setPendingFiles] = useState({});
-	const [openSnackBar, setOpenSnackbar] = useState(false);
+	const [pendingFiles, setPendingFiles] = useState<MosaicObject<TransformedFile>>({});
+	const [snackbar, setSnackbar] = useState<{open: boolean, text: string}>({
+		open: false,
+		text: ""
+	});
 	const fileInputField = useRef(null);
 	const prevValueRef = useRef([]);
 	const currentLength = Object.keys(pendingFiles).length + (value || []).length;
@@ -158,17 +166,23 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		const newFiles: File[] = Array.from(e.target.files);
 
 		if (limit >= 0 && currentLength + newFiles.length > limit) {
-			setOpenSnackbar(true);
+			setSnackbar({
+				open: true,
+				text: `Upload limited to only ${limit} files.`
+			});
 			return;
 		}
 
 		let transformedFiles: {[key: string]: TransformedFile} = {};
 
 		newFiles.forEach(file => {
+			const id = uniqueId();
+
 			transformedFiles = {
 				...transformedFiles,
-				[uniqueId()]: {
+				[id]: {
 					data: {
+						id,
 						name: file.name,
 						size: file.size,
 					},
@@ -178,6 +192,26 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 				}
 			}
 		});
+
+		const pendingFilesEntries = Object.entries(pendingFiles);
+		const transformFilesEntries = Object.entries(transformedFiles);
+
+		if (maxTotalSize) {
+			const totalSize = sum([
+				...(value || []).map(({ size }) => size),
+				...pendingFilesEntries.map(([, item]) => item.rawData.size),
+				...transformFilesEntries.map(([, item]) => item.rawData.size)
+			]);
+
+			if (maxTotalSize < totalSize) {
+				setSnackbar({
+					open: true,
+					text: `Maximum cumulative file size is ${pretty(maxTotalSize)}`
+				});
+
+				return;
+			}
+		}
 
 		/**
 		 * After transforming the files we need to do 2 things:
@@ -190,9 +224,14 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		 */
 		setPendingFiles({...pendingFiles, ...transformedFiles});
 
-		await Promise.all(Object.entries(transformedFiles).map(async ([key, file]) => {
+		await Promise.all(transformFilesEntries.map(async ([key, file]) => {
 			if (!fileExtensions.isValidFileName(file.rawData.name)) {
 				onError({ uuid: key, message: `We only allow ${fileExtensions.human} file uploads` });
+				return;
+			}
+
+			if (maxFileSize && maxFileSize < file.rawData.size) {
+				onError({ uuid: key, message: `Individual file upload size should not exceed ${pretty(maxFileSize)}` });
 				return;
 			}
 
@@ -229,7 +268,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		if (reason === "clickaway") {
 			return;
 		}
-		setOpenSnackbar(false);
+
+		setSnackbar(snackbar => ({...snackbar, open: false}));
 	};
 
 	return (
@@ -299,7 +339,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			}
 			{pendingFiles && Object.keys(pendingFiles).length > 0 && !disabled &&
 				<StyledFileGrid>
-					{Object.entries(pendingFiles).map(([key, file]: [key: string, file: {data: UploadData, error: string, percent: number}]) => {
+					{Object.entries(pendingFiles).map(([key, file]) => {
 						return (
 							<FileCard
 								key={key}
@@ -319,8 +359,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			}
 			<Snackbar
 				autoHideDuration={6000}
-				label={`Upload limited to only ${limit} files.`}
-				open={openSnackBar}
+				label={snackbar.text}
+				open={snackbar.open}
 				onClose={closeSnackbar}
 			/>
 		</>
