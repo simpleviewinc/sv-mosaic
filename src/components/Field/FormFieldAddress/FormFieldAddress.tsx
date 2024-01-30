@@ -54,7 +54,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		}))
 
 		const definedTypeLimits = defaultLimits.filter(type => type.limit !== undefined);
-		const isSingleTypeLimit = definedTypeLimits.length === 1;
+		const isSingleTypeLimit = definedTypeLimits.length === 1 && fieldDef?.inputSettings?.amountPerType === undefined;
 
 		// The amount per type provided by the consumer if it's defined,
 		// 0 if there has been a specific type limit set, 1 if neither.
@@ -167,6 +167,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	return (
 		<>
+			{JSON.stringify({ isSingleTypeLimit, limits, })}
 			{availableTypes.length > 0 && (
 				<Footer>
 					<Button
