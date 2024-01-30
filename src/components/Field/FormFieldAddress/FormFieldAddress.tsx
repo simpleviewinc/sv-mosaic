@@ -167,7 +167,6 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	return (
 		<>
-			{JSON.stringify({ isSingleTypeLimit, limits, })}
 			{availableTypes.length > 0 && (
 				<Footer>
 					<Button
