@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, SyntheticEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactElement, SyntheticEvent, useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 
@@ -54,14 +54,20 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
 	}, [addressToEdit, state.data]);
 
+	// This smells bad, and it would be much better if there
+	// was a way to intercept the form onchange handlers
+	const lastCountry = useRef(state.data.country);
 	useEffect(() => {
-		if (state.data.state) {
-			setFieldValue("state", undefined);
+		if (state.data.country !== lastCountry.current) {
+			if (lastCountry.current) {
+				setFieldValue("state", undefined);
+			}
+
+			lastCountry.current = state.data.country;
 		}
 	}, [
 		setFieldValue,
-		state.data.country,
-		state.data.state
+		state.data.country
 	]);
 
 	/**
