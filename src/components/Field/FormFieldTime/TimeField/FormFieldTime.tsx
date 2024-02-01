@@ -20,6 +20,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			validTime: false
 		},
 		onBlur,
+		disabled,
 		error,
 		dispatch
 	} = props;
@@ -66,10 +67,10 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 				inputSettings: {
 					placeholder: TIME_FORMAT_FULL_PLACEHOLDER
 				},
-				disabled: fieldDef?.disabled
 			}}
 			value={value?.time}
 			onBlur={onBlur}
+			disabled={disabled}
 		/>
 	);
 };
