@@ -1,5 +1,33 @@
 # sv-mosaic changelog
 
+## 31.0.0 - 02/06/24
+
+### Improvements & Fixes
+
+* **FormFieldAddress**
+  * [MOS-1244](https://simpleviewtools.atlassian.net/browse/MOS-1244)
+    * Amended the width of the first address field in the address edit drawer
+  * [MOS-1235](https://simpleviewtools.atlassian.net/browse/MOS-1235)
+    * Changes the way that the **amountPerType**/**amount*** properties work:
+      * **(BREAKING CHANGE)** The **amountPerType** property will default to 1 if none of **amountBilling**/**amountShipping**/**amountPhysical** are set, otherwise it will default to 0
+      * If only one type of address is allowed (not necessarily *available* , but *allowed* by the field definition), the "type" field will not be displayed to the user and the allowed type will be automatically assigned to any added or edited addresses.
+  * [MOS-1208](https://simpleviewtools.atlassian.net/browse/MOS-1208)
+    * Avoids sending address value down to the address draw and instead passes only the address being edited if applicable and an **onSave** handler. The address field itself then takes care of updating the state value.
+      * This takes care of a dual-state bug that caused the address to be prepopulated with an existing address when trying to create a new one
+    * Moves the API loader down the tree into the autocomplete field component so that the address form still renders when the API is loading. This also ensures that an address can be entered in the event of an API loading error.
+* **FormFieldDate**
+  * [MOS-1243](https://simpleviewtools.atlassian.net/browse/MOS-1243)
+    * Updates documentation to include full minimum/maximum date input setting explanation
+* **DataView**
+  * [MOS-1241](https://simpleviewtools.atlassian.net/browse/MOS-1241)
+    * With this change, primary and additional row actions will be hidden and disabled (while remaining in the DOM) if any action checkboxes are checked to prevent confusion regarding bulk actions.
+* **FormFieldTime**
+  * [MOS-1239](https://simpleviewtools.atlassian.net/browse/MOS-1239)
+    * Introduces a "time" field type. This field works just like the additional time field that is integrated into the "date" field type, only it will store the time value in a string format like "14:30" or "09:45" instead of a date object.
+* **useForm**
+  * [MOS-1233](https://simpleviewtools.atlassian.net/browse/MOS-1233)
+    * Eliminates **Form** field data race conditions by storing values in a stable reference and using that for subsequent actions
+
 ## 30.0.0 - 01/23/24
 
 ### Improvements & Fixes
