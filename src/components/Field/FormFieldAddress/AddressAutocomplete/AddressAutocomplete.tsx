@@ -56,7 +56,6 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 			<StyledInputSearch
 				{...inputProps}
 				fieldSize="lg"
-				disabled={!isLoaded}
 				onChange={({ target: { value } }) => onChange(value)}
 			/>
 		)
