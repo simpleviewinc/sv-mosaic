@@ -1,6 +1,7 @@
 import React from "react";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { DataViewFilterText } from "../../index";
+import { Playground } from "./DataView.stories";
 
 afterEach(cleanup);
 
@@ -77,4 +78,58 @@ describe("DataViewFilterText component", () => {
 			/>
 		)).toThrow("The selected comparison is not a valid comparison");
 	})
+
+	it("Should not show bulk action download if more than 5 items are checked", async () => {
+		render(
+			<Playground />
+		);
+
+		await waitFor(() => expect(screen.getAllByRole("checkbox").length).toBeGreaterThan(1));
+
+		const checkboxes = screen.getAllByRole("checkbox");
+
+		act(() => {
+			fireEvent.click(checkboxes[1]);
+		});
+
+
+		expect(screen.queryByTitle("Download checked")).not.toBeNull();
+
+		act(() => {
+			fireEvent.click(checkboxes[2]);
+			fireEvent.click(checkboxes[3]);
+			fireEvent.click(checkboxes[4]);
+			fireEvent.click(checkboxes[5]);
+			fireEvent.click(checkboxes[6]);
+		});
+
+		expect(screen.queryByTitle("Download checked")).toBeNull();
+	});
+
+	it("Should not show bulk action delete if items across all pages are checked", async () => {
+		render(
+			<Playground />
+		);
+
+		await waitFor(() => expect(screen.getAllByRole("checkbox").length).toBeGreaterThan(1));
+
+		const checkboxes = screen.getAllByRole("checkbox");
+
+		act(() => {
+			for (let i = 1; i < checkboxes.length; i++) {
+				fireEvent.click(checkboxes[i]);
+			}
+		})
+
+		const selectAllButton = screen.queryByText("Select All 304 Records");
+
+		expect(selectAllButton).not.toBeNull();
+		expect(screen.queryByTitle("Delete checked")).not.toBeNull();
+
+		act(() => {
+			fireEvent.click(selectAllButton);
+		})
+
+		expect(screen.queryByTitle("Delete checked")).toBeNull();
+	});
 });
