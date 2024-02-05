@@ -29,6 +29,11 @@ export interface TooltipProps {
    * the anchor's aria-describedby attribute
    */
   id?: string
+  /**
+   * The maximum width for the tooltip. Accepts
+   * a number of pixels or any valid CSS max-width unit
+   */
+  maxWidth?: string | number
 }
 
 export interface AnchorProps {
