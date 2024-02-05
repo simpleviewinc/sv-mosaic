@@ -16,11 +16,17 @@ export default {
 export const Example = (): ReactElement => {
 	const { anchorProps, tooltipProps } = useTooltip();
 	const tooltip = text("Tooltip text","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque");
+	const maxWidth = text("Max Width", "");
 
 	return (
 		<>
 			<InfoOutlinedIcon style={{margin: "140px 30px"}} {...anchorProps} />
-			<Tooltip {...tooltipProps}>{tooltip}</Tooltip>
+			<Tooltip
+				{...tooltipProps}
+				maxWidth={maxWidth !== "" ? maxWidth : undefined}
+			>
+				{tooltip}
+			</Tooltip>
 		</>
 	)
 };
