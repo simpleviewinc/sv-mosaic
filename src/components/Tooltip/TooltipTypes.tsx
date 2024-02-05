@@ -8,7 +8,7 @@ export interface TooltipProps {
    * The tooltip anchor. Must be a type of
    * HTML element
    */
-  anchorEl: AnchorElement
+  anchorEl: AnchorElement | null
   /**
    * Whether or not the tooltip is currently
    * visible on screen
@@ -32,7 +32,7 @@ export interface TooltipProps {
 }
 
 export interface AnchorProps {
-	ref: Dispatch<AnchorElement>
+	ref: Dispatch<AnchorElement | null>
 	onMouseEnter: () => void;
 	onMouseLeave: () => void;
 	"aria-describedby": string
