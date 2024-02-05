@@ -7,6 +7,7 @@ import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import { DataViewProps, StateViewDef } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
+import { useWrappedToggle } from "@root/utils/toggle";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -97,7 +98,17 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 			return action.onClick
 		})
-	}, [props.bulkActions]);
+	}, [props.bulkActions, props.checkedAllPages]);
+
+	const shownBulkActions = useWrappedToggle(
+		bulkActions,
+		{
+			checkedAllPages: props.checkedAllPages,
+			data: props.data.filter((_, i) => props.checked?.length > 0 && props.checked[i] === true)
+		},
+		"show",
+		true
+	)
 
 	const checkboxEnabled =
 		props.checked !== undefined &&
@@ -212,21 +223,20 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 	const shouldRenderActionsRow: boolean = useMemo(() => {
 		if (
-			bulkActions ??
-			props.limitOptions ??
-			props.onColumnsChange ??
-			props.onSortChange ??
-			props.sort ??
-			displayControlEnabled === true ??
-			props.onLimitChange ??
+			shownBulkActions.length > 0 ||
+			props.limitOptions ||
+			props.onColumnsChange ||
+			props.onSortChange ||
+			props.sort ||
+			displayControlEnabled === true ||
+			props.onLimitChange ||
 			props.onSkipChange
 		)
 			return true;
 
 		return false;
 	}, [
-		props.display,
-		bulkActions,
+		shownBulkActions,
 		props.limitOptions,
 		props.onColumnsChange,
 		props.onSortChange,
@@ -241,10 +251,10 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 	// To show the bulkAll header we need bulkActions/rowCount/count, more rows than are visible, at least one registered onAllClick, and all checkboxes selected
 	const showBulkAll =
-		bulkActions?.length > 0 &&
+		shownBulkActions?.length > 0 &&
 		props.data.length > 0 &&
 		props.count > props.data.length &&
-		bulkActions.some(action => action.onAllClick !== undefined) &&
+		shownBulkActions.some(action => action.onAllClick !== undefined) &&
 		allChecked &&
 		props.checkedAllPages !== undefined &&
 		props.onCheckAllPagesChange !== undefined
@@ -288,7 +298,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 						<DataViewActionsRow
 							activeColumnObjs={activeColumnObjs}
 							columns={props.columns}
-							bulkActions={bulkActions}
+							bulkActions={shownBulkActions}
 							checked={props.checked}
 							display={display}
 							displayControlEnabled={displayControlEnabled}
@@ -323,7 +333,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 					checked={props.checked}
 					checkedAllPages={props.checkedAllPages}
 					columns={props.columns}
-					bulkActions={bulkActions}
+					bulkActions={shownBulkActions}
 					sort={props.sort}
 					data={props.data}
 					additionalActions={props.additionalActions}
