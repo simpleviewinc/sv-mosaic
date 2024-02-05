@@ -6,7 +6,7 @@ export const TooltipPopper: any = styled(Popper)`
 	z-index: 1500;
 	background: ${theme.newColors.almostBlack["100"]};
 	color: white;
-	padding: 4px 8px;
+	padding: 8px;
 	border-radius: 4px;
 	color: white;
 	font-family: ${theme.fontFamily};
