@@ -100,12 +100,18 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		})
 	}, [props.bulkActions, props.checkedAllPages]);
 
+	const bulkActionsToggleCtx = useMemo(() => ({
+		checkedAllPages: props.checkedAllPages,
+		data: props.data.filter((_, i) => props.checked?.length > 0 && props.checked[i] === true)
+	}), [
+		props.checked,
+		props.checkedAllPages,
+		props.data
+	]);
+
 	const shownBulkActions = useWrappedToggle(
 		bulkActions,
-		{
-			checkedAllPages: props.checkedAllPages,
-			data: props.data.filter((_, i) => props.checked?.length > 0 && props.checked[i] === true)
-		},
+		bulkActionsToggleCtx,
 		"show",
 		true
 	)

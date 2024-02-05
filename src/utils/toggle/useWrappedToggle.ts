@@ -38,7 +38,7 @@ function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicTogg
 		}
 
 		return wrappedItems[0];
-	}, [items, params]);
+	}, [defaultToggle, items, key, params]);
 
 	/**
 	 * Removing this redundant statement makes TS throw up.
