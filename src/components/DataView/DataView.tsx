@@ -137,7 +137,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 	};
 
 	useEffect(() => {
-		if (!viewContainerRef.current) {
+		if (!viewContainerRef.current || !viewContainerRef.current.scrollTo) {
 			return;
 		}
 
