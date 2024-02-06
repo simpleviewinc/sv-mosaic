@@ -455,11 +455,6 @@ export const Playground = (): ReactElement => {
 					defaultValue: !showDefaultValues ? undefined : "Passing default value"
 				},
 				{
-					name: "address",
-					type: "address",
-					label: "Address",
-				},
-				{
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
