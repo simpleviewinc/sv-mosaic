@@ -64,6 +64,10 @@ export const Playground = (): ReactElement => {
 	const downloadUrl = text("Override onUploadComplete download URL", "");
 	const error = boolean("Trigger errors when loading", false);
 	const acceptCsv = text("Comma separated accepted extensions", "");
+	const maxFileSize = text("Max file size (KB)", "");
+	const maxTotalSize = text("Max total size (KB)", "");
+
+	// One line change
 
 	const accept = acceptCsv.trim() ? acceptCsv.split(",") : undefined;
 
@@ -107,7 +111,7 @@ export const Playground = (): ReactElement => {
 	]);
 
 	const onFileDelete = async ({id}) => {
-		alert("DELETED FILE: " + id);
+		await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
 	}
 
 	const getFormValues = useCallback(async () => {
@@ -131,7 +135,9 @@ export const Playground = (): ReactElement => {
 						limit: limit === "No limit" ? undefined : limit,
 						onFileAdd,
 						onFileDelete,
-						accept
+						accept,
+						maxFileSize: maxFileSize ? Number(maxFileSize) * 1000 : undefined,
+						maxTotalSize: maxTotalSize ? Number(maxTotalSize) * 1000 : undefined
 					}
 				},
 			],
@@ -143,7 +149,9 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			limit,
 			onFileAdd,
-			accept
+			accept,
+			maxFileSize,
+			maxTotalSize
 		]
 	);
 

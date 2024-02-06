@@ -1,8 +1,7 @@
 import { FieldDefBase } from "@root/components/Field";
-import { MosaicObject } from "@root/types";
 
 export type TransformedFile = {
-		data: MosaicObject,
+		data: UploadData,
 		percent: number,
 		error: string | undefined,
 		rawData: File,
@@ -16,7 +15,16 @@ export type UploadFieldInputSettings = {
 	onFileDelete: OnFileDelete;
 	onFileAdd: OnFileAdd;
 	limit?: number;
-	accept?: string[]
+	accept?: string[];
+	/**
+	 * Maximum size limit for each file uploaded
+	 */
+	maxFileSize?: number;
+	/**
+	 * Maximum size limit for cumulative total
+	 * of files uploaded
+	 */
+	maxTotalSize?: number;
 };
 
 export type UploadData =  {
@@ -71,6 +79,17 @@ type OnFileAddData = {
 
 type OnFileDeleteData = {
 	id: UploadData["id"];
+}
+
+export interface QueuedFile {
+	id: string;
+	data: {
+		name: string;
+		size: number;
+	};
+	percent: number;
+	error?: string;
+	file: File
 }
 
 export type FieldDefUpload = FieldDefBase<"upload", UploadFieldInputSettings, UploadData[]>;
