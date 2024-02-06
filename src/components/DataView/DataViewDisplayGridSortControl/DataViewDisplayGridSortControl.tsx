@@ -38,7 +38,7 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 		});
 	}, [props.sort, props.onSortChange]);
 
-	const onDirectionChange = useCallback(function(dir) {
+	const onDirectionChange = useCallback(function() {
 		const newDir = props.sort.dir === "asc" ? "desc" : "asc";
 
 		props.onSortChange({

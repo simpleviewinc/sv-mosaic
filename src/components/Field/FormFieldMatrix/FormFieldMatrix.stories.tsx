@@ -82,7 +82,7 @@ export const FormVariant = (): ReactElement => {
 		drawers: [],
 	});
 
-	const addDrawer = useCallback(async (drawerDef, edit?) => {
+	const addDrawer = useCallback(async (drawerDef) => {
 		setDrawerState((state) => ({
 			...state,
 			drawers: [...state.drawers, drawerDef],
@@ -324,7 +324,7 @@ export const Browse = (): ReactElement => {
 	});
 
 	useEffect(() => {
-		setCheckedRows(mappedData.map(val => false));
+		setCheckedRows(mappedData.map(() => false));
 	}, [mappedData]);
 
 	const addDrawer = useCallback(async (drawerDef) => {

@@ -169,7 +169,7 @@ export const DrawerForm = (): ReactElement => {
 			label: "Profile Picture",
 			type: "upload",
 			inputSettings: {
-				onFileAdd: async ({ onUploadComplete, file }) => {
+				onFileAdd: async ({ onUploadComplete }) => {
 					onUploadComplete({ name: "Test", fileUrl: "https://www.google.com", id: uniqueId(), size: 1098 });
 				},
 				onFileDelete: async () => {

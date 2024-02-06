@@ -156,7 +156,7 @@ export class PlaygroundPage extends BasePage {
 		}
 	}
 
-	async validateDefaultValuesExpectedResults(expectBgColor: string): Promise<void> {
+	async validateDefaultValuesExpectedResults(): Promise<void> {
 		expect(await this.simpleText.inputValue()).toBe(getFormAndDefaultValuesExpected.simpleTextDefaultValues);
 		for (let i = 0; i < await this.checkboxInput.count(); i++) {
 			expect(await this.checkboxInput.nth(i).isChecked()).toBeTruthy();
