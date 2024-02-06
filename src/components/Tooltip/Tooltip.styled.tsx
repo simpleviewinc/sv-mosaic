@@ -11,7 +11,7 @@ export const TooltipPopper: any = styled(Popper)`
 	color: white;
 	font-family: ${theme.fontFamily};
 	font-size: 12px;
-	max-width: 12rem;
+	max-width: 500px;
 	pointer-events: none;
 
 	&[data-popper-placement="bottom-start"] .arrow,
