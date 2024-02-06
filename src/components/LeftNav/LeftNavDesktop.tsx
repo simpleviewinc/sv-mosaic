@@ -27,13 +27,13 @@ const RootDiv = styled(LeftNavRoot)`
 		flex: 0 0 auto;
 		border-top: 1px solid ${theme.newColors.grey3["100"]};
 	}
-`
+`;
 
 function LeftNavDesktop(props: LeftNavProps): ReactElement {
 	const { t } = useMosaicTranslation();
 
 	const [state, setState] = useState({
-		openName : undefined
+		openName : undefined,
 	});
 
 	const leftNavContext = useContext(LeftNavContext);
@@ -41,24 +41,24 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 	const onOpen = (openName) => {
 		setState({
 			...state,
-			openName
-		})
-	}
+			openName,
+		});
+	};
 
 	const onClose = function() {
 		setState({
 			...state,
-			openName : undefined
+			openName : undefined,
 		});
 
 		props.onClose();
-	}
+	};
 
 	const onNav: LeftNavProps["onNav"] = function(args) {
 		// when we nav we want to close any flyouts we have
 		setState({
 			...state,
-			openName : undefined
+			openName : undefined,
 		});
 
 		if (args.item.name.startsWith("_internal.")) {
@@ -68,13 +68,13 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 		} else {
 			leftNavContext.onNav(args);
 		}
-	}
+	};
 
 	const showLabel = props.variant === "icons_only" ? false : true;
 
 	const allItems = props.variant === "icons_only" ? props.items.map(val => ({
 		...val,
-		type : "item" as LeftNavItemDef["type"]
+		type : "item" as LeftNavItemDef["type"],
 	})) : props.items;
 
 	const items = allItems.filter(({ pinned }) => pinned === undefined);
@@ -83,11 +83,11 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 
 	const activeLabel = function(name) {
 		if (name === props.variant) {
-			return ` (${t("mosaic:LeftNav.active")})`
+			return ` (${t("mosaic:LeftNav.active")})`;
 		} else {
 			return "";
 		}
-	}
+	};
 
 	const settingsItem: LeftNavItemDef = {
 		name : "_internal",
@@ -97,18 +97,18 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 		items : [
 			{
 				name : "_internal.full",
-				label : `${t("mosaic:LeftNav.full")}${activeLabel("full")}`
+				label : `${t("mosaic:LeftNav.full")}${activeLabel("full")}`,
 			},
 			{
 				name : "_internal.icons_only",
-				label : `${t("mosaic:LeftNav.icons_only")}${activeLabel("icons_only")}`
+				label : `${t("mosaic:LeftNav.icons_only")}${activeLabel("icons_only")}`,
 			},
 			{
 				name : "_internal.hidden",
-				label : `${t("mosaic:LeftNav.hidden")}${activeLabel("hidden")}`
-			}
-		]
-	}
+				label : `${t("mosaic:LeftNav.hidden")}${activeLabel("hidden")}`,
+			},
+		],
+	};
 
 	bottomItems.push(settingsItem);
 
@@ -116,13 +116,13 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 	const onMouseLeave = debounce(function() {
 		setState({
 			...state,
-			openName : undefined
+			openName : undefined,
 		});
 	}, leftNavContext.leaveTimeout);
 
 	const onMouseEnter = function() {
 		onMouseLeave.cancel();
-	}
+	};
 
 	const onScroll = throttle(function(e) {
 		// this scroll listener is being trigger when a flyout scrolls as well, which we don't want
@@ -134,26 +134,26 @@ function LeftNavDesktop(props: LeftNavProps): ReactElement {
 
 		setState({
 			...state,
-			openName : undefined
+			openName : undefined,
 		});
 	}, 100, { leading : true, trailing : false });
 
 	const scrollerAttrs = {
-		onScroll
-	}
+		onScroll,
+	};
 
 	useEffect(() => {
 		// cleanup the timeout that may have been set due to enter/leave mechanics
 		return function cleanup() {
 			onMouseLeave.cancel();
-		}
+		};
 	}, [onMouseLeave]);
 
 	const newContext: LeftNavContextProps = {
 		...leftNavContext,
 		onNav,
-		ItemComponent : LeftNavItemDesktop
-	}
+		ItemComponent : LeftNavItemDesktop,
+	};
 
 	const navContent = (
 		<RootDiv aria-label="Main" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

@@ -65,9 +65,9 @@ export const ColorValue = styled.p`
 	margin-top: 0;
 `;
 
-export const FieldsList = styled.div``
+export const FieldsList = styled.div``;
 
-export const ContentRowWrapper = styled.dl<{$columns?: number}>`
+export const ContentRowWrapper = styled.dl<{ $columns?: number }>`
 	display: grid;
 	grid-template-columns: repeat(${({ $columns }) => $columns} ,minmax(0,1fr));
 	gap: 12px;

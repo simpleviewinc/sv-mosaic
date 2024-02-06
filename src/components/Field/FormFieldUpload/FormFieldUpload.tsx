@@ -29,14 +29,14 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		onFileDelete,
 		accept,
 		maxFileSize,
-		maxTotalSize
+		maxTotalSize,
 	} = fieldDef.inputSettings;
 
 	const [isOver, setIsOver] = useState(false);
 	const [pendingFiles, setPendingFiles] = useState<MosaicObject<TransformedFile>>({});
-	const [snackbar, setSnackbar] = useState<{open: boolean, text: string}>({
+	const [snackbar, setSnackbar] = useState<{ open: boolean, text: string }>({
 		open: false,
-		text: ""
+		text: "",
 	});
 	const fileInputField = useRef(null);
 	const prevValueRef = useRef([]);
@@ -46,8 +46,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const fileExtensions = useMemo(() => new FileExtensions(accept), [accept]);
 
 	const pendingWithoutError = useMemo(() =>
-		Object.values(pendingFiles).filter((pendingFile: {error: string}) => pendingFile.error === undefined).length,
-	[pendingFiles]
+		Object.values(pendingFiles).filter((pendingFile: { error: string }) => pendingFile.error === undefined).length,
+	[pendingFiles],
 	);
 
 	useEffect(() => {
@@ -94,7 +94,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		e.preventDefault();
 		e.stopPropagation();
 		setIsOver(false);
-		const droppedFiles = { target: { files: e.dataTransfer.files }};
+		const droppedFiles = { target: { files: e.dataTransfer.files } };
 		handleNewFileUpload(droppedFiles);
 	};
 
@@ -112,8 +112,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 				...prevState,
 				[uuid]: {
 					...prevState[uuid],
-					percent: percent * 100
-				}
+					percent: percent * 100,
+				},
 			}
 		));
 	};
@@ -126,11 +126,11 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		if (pendingWithoutError) {
 			dispatch(formActions.startBusy({
 				name: fieldDef.name,
-				value: `${fieldDef.label} is currently uploading ${pendingWithoutError} files(s)`
+				value: `${fieldDef.label} is currently uploading ${pendingWithoutError} files(s)`,
 			}));
 		} else {
 			dispatch(formActions.endBusy({
-				name: fieldDef.name
+				name: fieldDef.name,
 			}));
 		}
 	}, [pendingWithoutError]);
@@ -140,7 +140,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
 
 		setPendingFiles((prevState) => {
-			const newPendingFiles = {...prevState};
+			const newPendingFiles = { ...prevState };
 			delete newPendingFiles[uuid];
 			return newPendingFiles;
 		});
@@ -152,8 +152,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 				...prevState,
 				[uuid]: {
 					...prevState[uuid],
-					error: message
-				}
+					error: message,
+				},
 			}
 		));
 	};
@@ -168,12 +168,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		if (limit >= 0 && currentLength + newFiles.length > limit) {
 			setSnackbar({
 				open: true,
-				text: `Upload limited to only ${limit} files.`
+				text: `Upload limited to only ${limit} files.`,
 			});
 			return;
 		}
 
-		let transformedFiles: {[key: string]: TransformedFile} = {};
+		let transformedFiles: { [key: string]: TransformedFile } = {};
 
 		newFiles.forEach(file => {
 			const id = uniqueId();
@@ -189,8 +189,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 					percent: 0,
 					error: undefined,
 					rawData: file,
-				}
-			}
+				},
+			};
 		});
 
 		const pendingFilesEntries = Object.entries(pendingFiles);
@@ -200,13 +200,13 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			const totalSize = sum([
 				...(value || []).map(({ size }) => size),
 				...pendingFilesEntries.map(([, item]) => item.rawData.size),
-				...transformFilesEntries.map(([, item]) => item.rawData.size)
+				...transformFilesEntries.map(([, item]) => item.rawData.size),
 			]);
 
 			if (maxTotalSize < totalSize) {
 				setSnackbar({
 					open: true,
-					text: `Maximum cumulative file size is ${pretty(maxTotalSize)}`
+					text: `Maximum cumulative file size is ${pretty(maxTotalSize)}`,
 				});
 
 				return;
@@ -222,7 +222,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		 * the percentage and error message, and which file to
 		 * remove from the pending when its upload is complete.
 		 */
-		setPendingFiles({...pendingFiles, ...transformedFiles});
+		setPendingFiles({ ...pendingFiles, ...transformedFiles });
 
 		await Promise.all(transformFilesEntries.map(async ([key, file]) => {
 			if (!fileExtensions.isValidFileName(file.rawData.name)) {
@@ -238,10 +238,10 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			try {
 				await onFileAdd({
 					file: file?.rawData,
-					onChunkComplete: ({ percent }) => onChunkComplete({uuid: key, percent}),
-					onUploadComplete: (data) => onUploadComplete({uuid: key, data}),
-					onError: (message) => onError({uuid: key, message}),
-				})
+					onChunkComplete: ({ percent }) => onChunkComplete({ uuid: key, percent }),
+					onUploadComplete: (data) => onUploadComplete({ uuid: key, data }),
+					onError: (message) => onError({ uuid: key, message }),
+				});
 			} catch (err) {
 				const message = err instanceof Error ? err.message : String(err);
 				onError({ uuid: key, message });
@@ -249,27 +249,27 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		}));
 	};
 
-	const handleFileDelete = async ({id}) => {
-		await onFileDelete({id});
+	const handleFileDelete = async ({ id }) => {
+		await onFileDelete({ id });
 
 		const newValues = [...value].filter(file => file.id !== id);
 		await onChange(newValues);
-	}
+	};
 
-	const handleErrorDelete = async ({id}) => {
+	const handleErrorDelete = async ({ id }) => {
 		setPendingFiles((prevState) => {
-			const newPendingFiles = {...prevState};
+			const newPendingFiles = { ...prevState };
 			delete newPendingFiles[id];
 			return newPendingFiles;
 		});
-	}
+	};
 
 	const closeSnackbar = (_event?: SyntheticEvent, reason?: string) => {
 		if (reason === "clickaway") {
 			return;
 		}
 
-		setSnackbar(snackbar => ({...snackbar, open: false}));
+		setSnackbar(snackbar => ({ ...snackbar, open: false }));
 	};
 
 	return (
@@ -353,7 +353,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								percent={file.percent}
 								onFileDelete={file.error && handleErrorDelete}
 							/>
-						)
+						);
 					})}
 				</StyledFileGrid>
 			}
@@ -365,6 +365,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			/>
 		</>
 	);
-}
+};
 
 export default memo(FormFieldUpload);

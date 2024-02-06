@@ -7,38 +7,38 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { default as Button, ButtonProps } from "../Button";
 
 export default {
-	title : "Components/Menu"
-}
+	title : "Components/Menu",
+};
 
 const MENU_ITEMS = [
 	{
-		label : "Item 1"
+		label : "Item 1",
 	},
 	{
-		label : "Item 2"
+		label : "Item 2",
 	},
 	{
-		label : "Item 3"
+		label : "Item 3",
 	},
 	{
-		label : "Item 4"
+		label : "Item 4",
 	},
 	{
-		label : "Item 5"
+		label : "Item 5",
 	},
 	{
-		label : "Item 6"
-	}
-]
+		label : "Item 6",
+	},
+];
 
 export const example = (): ReactElement => {
 	const menuItems: ButtonProps["menuItems"] = MENU_ITEMS.map((val, i) => {
 		return {
 			...val,
 			onClick : function() {
-				alert(`Clicked ${val.label}`)
-			}
-		}
+				alert(`Clicked ${val.label}`);
+			},
+		};
 	});
 
 	return (
@@ -48,8 +48,8 @@ export const example = (): ReactElement => {
 			variant="contained"
 			menuItems={menuItems}
 		/>
-	)
-}
+	);
+};
 
 export const withIcons = (): ReactElement => {
 	const menuItems: ButtonProps["menuItems"] = [
@@ -58,7 +58,7 @@ export const withIcons = (): ReactElement => {
 			mIcon : CreateIcon,
 			onClick : function() {
 				alert("Item A");
-			}
+			},
 		},
 		{
 			label : "Item B",
@@ -66,7 +66,7 @@ export const withIcons = (): ReactElement => {
 			mIcon : CloudDownloadIcon,
 			onClick : function() {
 				alert("Item B");
-			}
+			},
 		},
 		{
 			label : "Item C",
@@ -74,9 +74,9 @@ export const withIcons = (): ReactElement => {
 			mIcon : DeleteIcon,
 			onClick : function() {
 				alert("Item C");
-			}
-		}
-	]
+			},
+		},
+	];
 
 	return (
 		<Button
@@ -85,5 +85,5 @@ export const withIcons = (): ReactElement => {
 			variant="contained"
 			menuItems={menuItems}
 		/>
-	)
-}
+	);
+};

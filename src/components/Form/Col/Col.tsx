@@ -15,7 +15,7 @@ const Col = (props: ColPropsTypes) => {
 		colIdx,
 		rowIdx,
 		sectionIdx,
-		spacing
+		spacing,
 	} = props;
 
 	return (

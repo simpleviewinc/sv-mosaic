@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 import { ColorSelectedProps } from "./ColorPickerTypes";
 import { TransientProps } from "@root/types";
-import Popover from "@mui/material/Popover"
+import Popover from "@mui/material/Popover";
 
 export const ColorContainer = styled.div<TransientProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`
   background: ${theme.newColors.grey1["100"]};

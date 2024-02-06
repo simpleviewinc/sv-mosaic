@@ -26,7 +26,7 @@ test.describe.parallel("Components - Form - Validators", () => {
 		await validatorPage.saveBtn.click();
 		const error = validatorPage.error;
 		expect(await error.textContent()).toBe(validatorData.requireError);
-		const errorIcon = validatorPage.errorIcon
+		const errorIcon = validatorPage.errorIcon;
 		expect(await errorIcon.isVisible()).toBe(true);
 	});
 
@@ -93,7 +93,7 @@ test.describe.parallel("Components - Form - Validators", () => {
 		await validatorPage.title.click();
 		await validatorPage.pressSpecificKeyInKeyboard("Escape");
 		await validatorPage.wait();
-		await validatorPage.endDateButton.click({force: true});
+		await validatorPage.endDateButton.click({ force: true });
 		await datepicker.selectDate(endDate);
 	});
 });

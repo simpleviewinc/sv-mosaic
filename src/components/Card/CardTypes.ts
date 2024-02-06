@@ -18,7 +18,7 @@ export interface CardProps {
 	 * Optional icon that will be placed to the left of the title.
 	 */
 	titleIcon?: SvgIconComponent;
-		/**
+	/**
 	 * List of buttons that will display at the top of the card.
 	 */
 	topActions?: ButtonProps[];

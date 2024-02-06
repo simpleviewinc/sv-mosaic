@@ -42,7 +42,7 @@ const MatrixExample = (): ReactElement => {
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
-				}
+				},
 			},
 			{
 				name: "delete",
@@ -51,8 +51,8 @@ const MatrixExample = (): ReactElement => {
 				mIcon: DeleteIcon,
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
-				}
-			}
+				},
+			},
 		],
 		sticky: true,
 		data: state.data.formMatrix,
@@ -64,13 +64,13 @@ const MatrixExample = (): ReactElement => {
 				formActions.setFieldValue({
 					name: "formMatrix",
 					value: rows,
-					touched: true
-				})
+					touched: true,
+				}),
 			);
 		},
 		display: "list",
 		activeColumns: ["id", "description", "title"],
-		savedView: defaultView
+		savedView: defaultView,
 	};
 
 	const addRow = async () => {
@@ -79,16 +79,16 @@ const MatrixExample = (): ReactElement => {
 			return {
 				...data,
 				created: data.created ? new Date(data.created) : undefined,
-				updated: data.updated ? new Date(data.updated) : undefined
-			}
+				updated: data.updated ? new Date(data.updated) : undefined,
+			};
 		});
 
 		await dispatch(
 			formActions.setFieldValue({
 				name: "formMatrix",
 				value: mappedData,
-				touched: true
-			})
+				touched: true,
+			}),
 		);
 	};
 
@@ -107,13 +107,13 @@ const MatrixExample = (): ReactElement => {
 								onClick: addRow,
 								color: "teal",
 								variant: "text",
-								mIcon: AddIcon
+								mIcon: AddIcon,
 							},
-						] as ButtonProps[]
+						] as ButtonProps[],
 					},
 				},
 			],
-		[gridConfig]
+		[gridConfig],
 	);
 
 	const buttons: ButtonProps[] = [
@@ -142,7 +142,7 @@ const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 const scrollIntoViewMock = jest.fn();
@@ -155,8 +155,8 @@ describe("FormFieldMatrix component", () => {
 	beforeEach(async () => {
 		await act(() => {
 			render(
-				<MatrixExample/>
-			)
+				<MatrixExample/>,
+			);
 		});
 	});
 

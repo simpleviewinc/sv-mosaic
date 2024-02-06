@@ -13,7 +13,7 @@ import {
 import { MosaicFieldProps } from "@root/components/Field";
 
 const FormFieldPhoneSelectionDropdown = (
-	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>
+	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>,
 ): ReactElement => {
 	const {
 		fieldDef,
@@ -33,7 +33,7 @@ const FormFieldPhoneSelectionDropdown = (
 		} else {
 			onChange(phoneValue);
 		}
-	}
+	};
 
 	return (
 		<PhoneInputWrapper

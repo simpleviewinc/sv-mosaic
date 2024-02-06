@@ -10,7 +10,7 @@ import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 
 const TextField = (
-	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>
+	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>,
 ): ReactElement => {
 	const {
 		fieldDef,
@@ -40,7 +40,7 @@ const TextField = (
 
 		onBlur && onBlur(value === "" ? undefined : value);
 		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
-	}
+	};
 
 	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
 

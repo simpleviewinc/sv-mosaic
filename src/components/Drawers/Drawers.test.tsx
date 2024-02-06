@@ -32,7 +32,7 @@ const DrawersExample = () => {
 			addDrawer,
 			removeDrawer,
 		}),
-		[addDrawer, removeDrawer]
+		[addDrawer, removeDrawer],
 	);
 
 	return (
@@ -97,20 +97,20 @@ const DrawersExample = () => {
 			</div>
 		</AppContext.Provider>
 	);
-}
+};
 
 const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 
 describe.skip("Drawers component", () => {
 	it("should open 1 drawer, write on the fields, and send data back to parent", async () => {
 		render(
-			<DrawersExample />
+			<DrawersExample />,
 		);
 
 		const addFormButton = await screen.findByText("Add Form");
@@ -131,7 +131,7 @@ describe.skip("Drawers component", () => {
 
 	it("should close an open drawer", async () => {
 		render(
-			<DrawersExample />
+			<DrawersExample />,
 		);
 
 		const addFormButton = await screen.findByText("Add Form");
@@ -148,7 +148,7 @@ describe.skip("Drawers component", () => {
 
 	it("should stack 2 drawers and pass data from the second to the first", async () => {
 		render(
-			<DrawersExample />
+			<DrawersExample />,
 		);
 
 		const addFormButton = await screen.findByText("Add Form");

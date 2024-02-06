@@ -11,7 +11,7 @@ describe("Chip component", () => {
 				label='Label test'
 				disabled={false}
 				selected={false}
-			/>
+			/>,
 		);
 	});
 
@@ -54,7 +54,7 @@ describe("A selected Chip component", () => {
 				label='Label'
 				disabled={false}
 				selected={true}
-			/>
+			/>,
 		);
 
 		const chipElement = screen.getByRole("button");

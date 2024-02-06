@@ -3,11 +3,11 @@ import theme from "@root/theme";
 
 import { TypographyVariant } from "./TypographyTypes";
 import { ColorTypes } from "../Button";
-import { Properties } from "csstype"
+import { Properties } from "csstype";
 
 interface BaseProps {
-    $maxLines?: number
-    $color?: ColorTypes,
+	$maxLines?: number
+	$color?: ColorTypes,
 	$breakAll?: boolean
 	$whiteSpace?: Properties["whiteSpace"];
 }
@@ -35,12 +35,12 @@ export const base = css<BaseProps>`
 			`,
 			$whiteSpace && `
 				white-space: ${$whiteSpace};
-			`
+			`,
 		];
 
 		return parts.filter(Boolean).join("\n");
 	}}
-`
+`;
 export const variants: Record<TypographyVariant, RuleSet> = {
 	title: css`
         font-family: ${theme.museoFont};
@@ -59,10 +59,10 @@ export const variants: Record<TypographyVariant, RuleSet> = {
         font-family: ${theme.fontFamily};
         font-size: 16px;
 	`,
-	none: css``
+	none: css``,
 };
 
-export const Component = styled.div<BaseProps & {$variant: TypographyVariant}>`
+export const Component = styled.div<BaseProps & { $variant: TypographyVariant }>`
 	${base}
 	${({ $variant }) => $variant ? variants[$variant] : ""}
-`
+`;

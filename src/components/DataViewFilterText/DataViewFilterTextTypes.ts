@@ -3,7 +3,7 @@ import { DataViewFilterProps } from "../DataView";
 export type FilterTextComparison = "contains" | "not_contains" | "equals" | "not_equals" | "exists" | "not_exists";
 
 export interface DataViewFilterTextProps extends DataViewFilterProps{
-	data: {value?: string; comparison?: FilterTextComparison};
+	data: { value?: string; comparison?: FilterTextComparison };
 	args: {
 		comparisons?: FilterTextComparison[];
 		placeholder?: string;

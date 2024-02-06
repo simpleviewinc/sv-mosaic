@@ -5,8 +5,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import MenuItem from "./MenuItem";
 
 export default {
-	title : "Components/MenuItem"
-}
+	title : "Components/MenuItem",
+};
 
 const onClick = () => undefined;
 
@@ -16,8 +16,8 @@ export const text = (): ReactElement => {
 			label="Test"
 			onClick={onClick}
 		/>
-	)
-}
+	);
+};
 
 export const withIcon = (): ReactElement => {
 	return (
@@ -27,5 +27,5 @@ export const withIcon = (): ReactElement => {
 			mIcon={DeleteIcon}
 			onClick={onClick}
 		/>
-	)
-}
+	);
+};

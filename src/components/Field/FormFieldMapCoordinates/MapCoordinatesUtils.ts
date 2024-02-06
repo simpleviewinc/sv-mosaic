@@ -16,7 +16,7 @@ export const getAddressStringFromAddressObject = (addressObj: IAddress): string 
 /**
  * Default map position
  */
-export const defaultMapPosition = { lat: 0, lng: 0 }
+export const defaultMapPosition = { lat: 0, lng: 0 };
 
 /**
  * Example of an address object.
@@ -24,10 +24,10 @@ export const defaultMapPosition = { lat: 0, lng: 0 }
 export const address: IAddress = {
 	address1: "8950 N Oracle Rd",
 	city: "Oro Valley",
-	country: {label: "United States", value: "US"},
+	country: { label: "United States", value: "US" },
 	postalCode: "85704",
-	state: {label: "Arizona", value: "AZ"},
-	types: [{label: "Physical", value: "physical"}],
+	state: { label: "Arizona", value: "AZ" },
+	types: [{ label: "Physical", value: "physical" }],
 };
 
 /**
@@ -47,7 +47,7 @@ export async function getMapBounds(map: google.maps.Map): Promise<google.maps.La
 		listener = google.maps.event.addListener(map, "bounds_changed", () => {
 			resolve(map.getBounds());
 			google.maps.event.removeListener(listener);
-		})
+		});
 	});
 }
 

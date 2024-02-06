@@ -18,7 +18,7 @@ export class FormFieldColorPickerPage extends BasePage {
 		this.page = page;
 		this.regularColorPicker = page.locator("[data-testid='colordiv-test']").nth(0);
 		this.disabledColorPicker = page.locator("[data-testid='colordiv-test']").nth(1);
-		this.disabledColorPickerLabel = page.locator("label[for='colorDisabled']")
+		this.disabledColorPickerLabel = page.locator("label[for='colorDisabled']");
 		this.hexColorInput = page.locator(".flexbox-fix input").nth(0);
 		this.colorSketchPicker = page.locator(".saturation-black");
 	}
@@ -29,8 +29,8 @@ export class FormFieldColorPickerPage extends BasePage {
 		await this.colorSketchPicker.click({
 			position: {
 				x: rndXPosition,
-				y: rndYPosition
-			}
+				y: rndYPosition,
+			},
 		});
 	}
 }

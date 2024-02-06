@@ -51,7 +51,7 @@ const ExampleTopContent = (
 		<Title>Title</Title>
 		<Subtitle>Subtitle</Subtitle>
 	</div>
-)
+);
 
 const ButtonBottomContent = (
 	<div style={{ display: "flex", justifyContent: "center" }}>
@@ -186,17 +186,17 @@ const TopContent = (
 const options = [
 	{
 		label: "Label",
-		value: "Aperiam ut sapiente ut exercitationemat"
+		value: "Aperiam ut sapiente ut exercitationemat",
 	},
 	{
 		label: "Label",
-		value: "Aperiam ut sapiente ut exercitationemat"
+		value: "Aperiam ut sapiente ut exercitationemat",
 	},
 	{
 		label: "Label",
-		value: "Aperiam ut sapiente ut exercitationemat"
-	}
-]
+		value: "Aperiam ut sapiente ut exercitationemat",
+	},
+];
 
 const Label = styled.span`
 	color: ${theme.newColors.grey4["100"]};
@@ -231,13 +231,13 @@ const BottomContent = (): ReactElement => {
 						<Label>{option.label}:</Label>
 						<Value>{option.value}</Value>
 					</div>
-				)
+				);
 			})}
 			<Mail>mail@gmail.com</Mail>
 			<Link onClick={() => alert("Link clicked")}>www.link.com</Link>
 		</div>
-	)
-}
+	);
+};
 
 export const TextAndLinks = (): ReactElement => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);

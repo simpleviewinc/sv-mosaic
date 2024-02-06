@@ -53,8 +53,8 @@ export type AddressFieldInputSettings = {
 	getOptionsCountries(): Promise<MosaicLabelValue[]>;
 	getOptionsStates(country: string): Promise<MosaicLabelValue[]>;
 	googleMapsApiKey: string;
-}
+};
 
 export type AddressData = IAddress[];
 
-export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings, AddressData>
+export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings, AddressData>;

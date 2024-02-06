@@ -21,7 +21,7 @@ const {
 	getByText,
 	getByTestId,
 	getAllByText,
-	getAllByRole
+	getAllByRole,
 } = screen;
 
 const fields: FieldDef[] = [
@@ -125,7 +125,7 @@ const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 
@@ -149,7 +149,7 @@ jest.mock("@react-google-maps/api", () => ({
 describe("MapCoordinates component without an address", () => {
 	it("it should display the google maps elements", async () => {
 		act(() => {
-			render(<MapCoordinatesExample />)
+			render(<MapCoordinatesExample />);
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
@@ -166,7 +166,7 @@ describe("MapCoordinates component without an address", () => {
 
 	it("should remove the saved coordinates", async () => {
 		act(() => {
-			render(<MapCoordinatesExample />)
+			render(<MapCoordinatesExample />);
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
@@ -177,7 +177,7 @@ describe("MapCoordinates component without an address", () => {
 		const saveCoordinatesButton = await screen.findByText("Save Coordinates");
 
 		act(() => {
-			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		setTimeout(async () => {
@@ -188,7 +188,7 @@ describe("MapCoordinates component without an address", () => {
 
 			const removeButton = await screen.findByText("Remove");
 			act(() => {
-				removeButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+				removeButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 			});
 			expect(getByText("ADD COORDINATES")).toBeTruthy();
 		}, 5000);
@@ -196,7 +196,7 @@ describe("MapCoordinates component without an address", () => {
 
 	it("should edit the saved coordinates", async () => {
 		act(() => {
-			render(<MapCoordinatesExample />)
+			render(<MapCoordinatesExample />);
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
@@ -207,17 +207,17 @@ describe("MapCoordinates component without an address", () => {
 		const saveCoordinatesButton = getByText("Save Coordinates");
 
 		act(() => {
-			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		setTimeout(() => {
 			act(() => {
 				const editButton = getByText("Edit");
-				editButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+				editButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 				fireEvent.change(getByLabelText("Latitude"), { target: { value: 100 } });
 				fireEvent.change(getByLabelText("Longitude"), { target: { value: 150 } });
 				const saveButton = getByText("Save Coordinates");
-				saveButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+				saveButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 			});
 
 			expect(getByText("100")).toBeTruthy();
@@ -227,7 +227,7 @@ describe("MapCoordinates component without an address", () => {
 
 	it("should reset coordinates", async () => {
 		act(() => {
-			render(<MapCoordinatesExample />)
+			render(<MapCoordinatesExample />);
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");

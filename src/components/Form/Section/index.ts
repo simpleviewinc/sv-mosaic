@@ -1,2 +1,2 @@
 export { default } from "./Section";
-export * from "./SectionTypes"
+export * from "./SectionTypes";

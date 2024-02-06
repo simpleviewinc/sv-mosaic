@@ -107,7 +107,7 @@ export class LeftNavPage extends BasePage {
 
 	async selectTypeOfNavDisplay(type: string): Promise<void> {
 		if (!await (await this.getLastItem()).isVisible()) {
-			await this.openNavigationButton.click()
+			await this.openNavigationButton.click();
 		}
 		await (await this.getLastItem()).click();
 		await this.page.locator("text=" + type).click();

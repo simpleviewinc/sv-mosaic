@@ -33,6 +33,6 @@ export type DateData = {
 	validTime: boolean
 };
 
-export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings, DateData | Date>
+export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings, DateData | Date>;
 
 export type TimeTuple = [number, number, number, number];

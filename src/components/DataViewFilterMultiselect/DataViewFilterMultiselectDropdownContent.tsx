@@ -29,7 +29,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		keyword : undefined,
 		comparison : props.comparison,
 		loaded : false,
-		listOfChips: props.selected
+		listOfChips: props.selected,
 	});
 
 	const [showCreateOptionButton, setShowCreateOptionButton] = useState(false);
@@ -51,7 +51,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 				options : options.docs,
 				hasMore : options.hasMore === true,
 				skip : state.skip + limit,
-				loaded : true
+				loaded : true,
 			});
 		}
 
@@ -66,14 +66,14 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			keyword : undefined,
 			listOfChips: [],
 		});
-	}
+	};
 
 	const onApply = function() {
 		props.onApply({
 			value : optionsDisabled ? [] : state.selected,
-			comparison : state.comparison
+			comparison : state.comparison,
 		});
-	}
+	};
 
 	const handleToggle = option => () => {
 		const newSelected = xor(state.selected, [option.value]);
@@ -85,9 +85,9 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		setState({
 			...state,
 			selected : newSelected,
-			listOfChips: newListOfChips
+			listOfChips: newListOfChips,
 		});
-	}
+	};
 
 	const loadMore = function(e) {
 		// stash the target to prevent issues with React event persistence in our async callback
@@ -97,14 +97,14 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			const newOptions = await props.getOptions({
 				limit,
 				skip : state.skip,
-				keyword : state.keyword
+				keyword : state.keyword,
 			});
 
 			setState({
 				...state,
 				options : [...state.options, ...newOptions.docs],
 				hasMore : newOptions.hasMore === true,
-				skip : state.skip + limit
+				skip : state.skip + limit,
 			});
 
 			// By blurring on the target we prevent the browser from keeping our load more button in view
@@ -113,7 +113,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		}
 
 		fetchData();
-	}
+	};
 
 	const debouncedSetKeyword = debounce(function(value) {
 		setShowCreateOptionButton(!!props.createNewOption && value.trim().length > 0);
@@ -122,7 +122,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			const newOptions = await props.getOptions({
 				limit,
 				skip : 0,
-				keyword : value
+				keyword : value,
 			});
 
 			setState({
@@ -130,7 +130,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 				options : newOptions.docs,
 				hasMore : newOptions.hasMore === true,
 				keyword : value === "" ? undefined : value,
-				skip : limit
+				skip : limit,
 			});
 		}
 
@@ -139,13 +139,13 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 
 	const keywordChange = function(e) {
 		debouncedSetKeyword(e.target.value);
-	}
+	};
 
 	const createOption = async () => {
 		const newOption = await props.createNewOption(state.keyword);
 		setState({
 			...state,
-			options : [...state.options, newOption]
+			options : [...state.options, newOption],
 		});
 	};
 
@@ -160,16 +160,16 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					if (["exists", "not_exists"].includes(comparison.value) === true) {
 						setState({
 							...state,
-							selected : []
+							selected : [],
 						});
 					}
 
 					setState({
 						...state,
-						comparison : comparison.value
+						comparison : comparison.value,
 					});
-				}
-			}
+				},
+			};
 		});
 
 		const popoverP = {
@@ -178,7 +178,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			"All": "The row must match all of the selected options.",
 			"Exists": "The row must have a value for this filter.",
 			"Not Exists": "The row must not have a value for this filter.",
-		}
+		};
 
 		comparisonDropdown = (
 			<div className="comparisonDropdown">
@@ -229,9 +229,9 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		setState({
 			...state,
 			selected : fullOptions.map(option => option.value),
-			listOfChips: fullOptions
+			listOfChips: fullOptions,
 		});
-	}
+	};
 
 	return (
 		<StyledWrapper>
@@ -256,7 +256,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 										onClick={createOption}
 									/>
 								</InputAdornment>
-							)
+							),
 						}}
 						className="searchBar"
 						placeholder={props.placeholder || t("mosaic:common.keyword___")}

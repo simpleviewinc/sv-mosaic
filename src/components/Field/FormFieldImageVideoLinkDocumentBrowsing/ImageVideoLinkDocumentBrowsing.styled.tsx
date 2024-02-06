@@ -97,13 +97,13 @@ export const AssetImage = styled.img`
   object-fit: cover;
   max-width: 100%;
   height: auto;
-`
+`;
 
 export const AssetInfo = styled.div`
   flex: 1 1 0%;
   align-items: start;
   display: flex;
-`
+`;
 
 export const AssetPropertiesColumn = styled(Column)`
   flex: 1 1 0%;
@@ -138,7 +138,7 @@ export const AssetButtons = styled((props) => <ButtonRow {...props} separator />
   justify-content: end;
   padding: 16px;
   padding-top: 0;
-`
+`;
 
 export const TableRow = styled.tr`
   font-family: ${theme.fontFamily};

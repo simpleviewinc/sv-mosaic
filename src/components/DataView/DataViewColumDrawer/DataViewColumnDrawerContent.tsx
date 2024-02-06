@@ -13,7 +13,7 @@ import DataViewColumnDrawerColumns from "./DataViewColumnDrawerColumns";
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [state, setState] = useState({
 		activeColumns: props.columns.map((val) => val.name),
-		checkedOptions: props.columns.map(col => ({label: col.label, value: col.name})),
+		checkedOptions: props.columns.map(col => ({ label: col.label, value: col.name })),
 	});
 
 	const { t } = useMosaicTranslation();
@@ -95,7 +95,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 					<ColumnTitle>{t("mosaic:DataView.column_order")}</ColumnTitle>
 					<DataViewColumnDrawerColumns
 						activeColumns={state.activeColumns}
-						onReorder={(activeColumns) => setState({...state, activeColumns})}
+						onReorder={(activeColumns) => setState({ ...state, activeColumns })}
 						allColumns={props.allColumns}
 					/>
 				</div>

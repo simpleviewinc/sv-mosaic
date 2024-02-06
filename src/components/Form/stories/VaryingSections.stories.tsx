@@ -27,7 +27,7 @@ export const VaryingSections = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
@@ -38,10 +38,10 @@ export const VaryingSections = (): ReactElement => {
 				{
 					name: "field",
 					label: "Field",
-					type: "text"
-				}
+					type: "text",
+				},
 			],
-		[]
+		[],
 	);
 
 
@@ -55,7 +55,7 @@ export const VaryingSections = (): ReactElement => {
 				// row 1
 				[["field"]],
 				[["field"]],
-			]
+			],
 		},
 		{
 			title: "Section 2",
@@ -63,8 +63,8 @@ export const VaryingSections = (): ReactElement => {
 			collapsed: false,
 			fields: [
 				// row 1
-				[["field"]]
-			]
+				[["field"]],
+			],
 		},
 		{
 			title: "Section 3",
@@ -77,7 +77,7 @@ export const VaryingSections = (): ReactElement => {
 				[["field"]],
 				[["field"]],
 				[["field"]],
-			]
+			],
 		},
 		...Array(10).fill(null).map((_, i) => ({
 			title: `Section ${i + 4}`,
@@ -90,7 +90,7 @@ export const VaryingSections = (): ReactElement => {
 				[["field"]],
 				[["field"]],
 				[["field"]],
-			]
+			],
 		})),
 		{
 			title: "Section 14",
@@ -103,7 +103,7 @@ export const VaryingSections = (): ReactElement => {
 				[["field"]],
 				[["field"]],
 				[["field"]],
-			]
+			],
 		},
 		{
 			title: "Section 15",
@@ -112,7 +112,7 @@ export const VaryingSections = (): ReactElement => {
 			fields: [
 				// row 1
 				[["field"]],
-			]
+			],
 		},
 	], []);
 
@@ -121,7 +121,7 @@ export const VaryingSections = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Varying Sections'

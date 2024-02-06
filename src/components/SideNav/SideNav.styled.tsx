@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import theme from "../../theme";
-import { MosaicCSSContainer } from "@root/types"
+import { MosaicCSSContainer } from "@root/types";
 import { containerQuery } from "@root/utils/css";
 
-export const StyledSideNav = styled.nav<{$collapse?: MosaicCSSContainer}>`
-	${({$collapse}) => $collapse ? `
+export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`
+	${({ $collapse }) => $collapse ? `
 		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 		padding: 0 24px;
 
@@ -28,7 +28,7 @@ export const SidebarWrap = styled.div`
   	font-family: ${theme.fontFamily};
 `;
 
-export const LinksWrapper = styled.div<{$collapse?: MosaicCSSContainer}>`
+export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
 	display: flex;
 	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 
@@ -36,7 +36,7 @@ export const LinksWrapper = styled.div<{$collapse?: MosaicCSSContainer}>`
 		border-bottom: 0;
 	}
 
-	${({$collapse}) => $collapse ? `
+	${({ $collapse }) => $collapse ? `
 		gap: 40px;
 		border-bottom: 0;
 
@@ -49,7 +49,7 @@ export const LinksWrapper = styled.div<{$collapse?: MosaicCSSContainer}>`
 	`}
 `;
 
-export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSContainer}>`
+export const LinkWrapper = styled.a<{ $isActive?: boolean, $collapse?: MosaicCSSContainer }>`
 	cursor: pointer;
 	padding-bottom: 16px;
 	display: flex;
@@ -57,27 +57,27 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 	gap: 8px;
 	text-decoration: none;
 
-	${({$isActive}) => $isActive && `
+	${({ $isActive }) => $isActive && `
 		font-weight: ${theme.fontWeight.semiBold};
 	`}
 
-	${({$collapse}) => !$collapse ? `
+	${({ $collapse }) => !$collapse ? `
 		border-left: 3px solid transparent;
 		padding: 12px 20px;
 	` : `
 		border-bottom: 4px solid transparent;
 	`};
 
-	${({$collapse, $isActive}) => $collapse && $isActive && `
+	${({ $collapse, $isActive }) => $collapse && $isActive && `
 		border-bottom-color: ${theme.newColors.simplyGold["100"]};
 	`};
 
-	${({$collapse, $isActive}) => !$collapse && $isActive && `
+	${({ $collapse, $isActive }) => !$collapse && $isActive && `
 		background-color: ${theme.newColors.grey2["100"]};
 		border-left-color: ${theme.newColors.simplyGold["100"]};
 	`};
 
-	${({$collapse}) => $collapse && `
+	${({ $collapse }) => $collapse && `
 		${containerQuery($collapse.minWidth, $collapse.name)} {
 			align-items: center;
 			border-bottom: 0;
@@ -87,7 +87,7 @@ export const LinkWrapper = styled.a<{$isActive?: boolean, $collapse?: MosaicCSSC
 		}
 	`}
 
-	${({$collapse, $isActive}) => $collapse && $isActive && `
+	${({ $collapse, $isActive }) => $collapse && $isActive && `
 		${containerQuery($collapse.minWidth, $collapse.name)} {
 			background-color: ${theme.newColors.grey2["100"]};
 			border-left-color: ${theme.newColors.simplyGold["100"]};

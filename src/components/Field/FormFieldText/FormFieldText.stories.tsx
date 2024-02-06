@@ -53,7 +53,7 @@ export const Playground = (): ReactElement => {
 						multiline,
 						type,
 						minRows,
-						maxRows
+						maxRows,
 					},
 					helperText,
 					instructionText,
@@ -72,8 +72,8 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			minRows,
 			maxRows,
-			type
-		]
+			type,
+		],
 	);
 
 	return (
@@ -102,7 +102,7 @@ const kitchenSinkfields: FieldDef[] = [
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "password",
@@ -115,7 +115,7 @@ const kitchenSinkfields: FieldDef[] = [
 			type: "Password",
 		},
 		helperText: "Helper text",
-		instructionText: "Instruction text"
+		instructionText: "Instruction text",
 	},
 	{
 		name: "multiline",
@@ -229,7 +229,7 @@ const validateShouldBeTest = (value: any) => {
 	if (value !== "Test") {
 		return "This field should have the value \"Test\"";
 	}
-}
+};
 
 const validationStrategyFields: FieldDef[] = [
 	{
@@ -238,7 +238,7 @@ const validationStrategyFields: FieldDef[] = [
 		type: "text",
 		instructionText: "This field will be validated only when the input loses focus",
 		validators: [validateShouldBeTest],
-		validateOn: "onBlur"
+		validateOn: "onBlur",
 	},
 	{
 		name: "onBlurAmend",
@@ -246,7 +246,7 @@ const validationStrategyFields: FieldDef[] = [
 		type: "text",
 		instructionText: "This field will be validated only when the input loses focus, but the validation message will disappear once the user makes a change",
 		validators: [validateShouldBeTest],
-		validateOn: "onBlurAmend"
+		validateOn: "onBlurAmend",
 	},
 	{
 		name: "onBlurChange",
@@ -254,7 +254,7 @@ const validationStrategyFields: FieldDef[] = [
 		type: "text",
 		instructionText: "This field will initially only be validated when the input loses focus, but once the input has lost focus it will be validated with every change",
 		validators: [validateShouldBeTest],
-		validateOn: "onBlurChange"
+		validateOn: "onBlurChange",
 	},
 	{
 		name: "onChange",
@@ -262,7 +262,7 @@ const validationStrategyFields: FieldDef[] = [
 		type: "text",
 		instructionText: "This field should be validated with every change",
 		validators: [validateShouldBeTest],
-		validateOn: "onChange"
+		validateOn: "onChange",
 	},
 ];
 

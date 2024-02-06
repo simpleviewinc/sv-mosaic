@@ -9,18 +9,18 @@ function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicTogg
 	params: P,
 	key: K,
 	defaultToggle?: boolean
-): (Omit<T, K> & { [key in K]?: MosaicToggle })[]
+): (Omit<T, K> & { [key in K]?: MosaicToggle })[];
 function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle<P> }, P>(
 	items: T,
 	params: P,
 	key: K,
 	defaultToggle?: boolean
-): boolean
+): boolean;
 function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle<P> }, P>(
 	items: T | T[],
 	params: P,
 	key: K,
-	defaultToggle = true
+	defaultToggle = true,
 ): (Omit<T, K> & { [key in K]?: MosaicToggle })[] | boolean {
 	const result = useMemo(() => {
 		const isArray = Array.isArray(items);

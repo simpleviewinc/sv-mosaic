@@ -10,12 +10,12 @@ export const DMSExample = (): ReactElement => {
 	const items = [{
 		name : "form_with_layout",
 		label : "Form With Layout",
-		mIcon : HomeIcon
+		mIcon : HomeIcon,
 	}];
 
 	return (
 		<NavWrapper items={items} onlyContent={true}>
 			<FormWithLayout height="100%"/>
 		</NavWrapper>
-	)
-}
+	);
+};

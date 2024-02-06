@@ -177,7 +177,7 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	getResolvedValue?: FieldValueResolver
 }
 
-export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>
+export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>;
 
 export type FieldDef =
 	| FieldDefText
@@ -204,11 +204,11 @@ export type FieldDef =
 
 export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : any[];
 
-export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R
+export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R;
 
 export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
 	getResolvedValue: DropParam<FieldValueResolver>
-}
+};
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange";
 
@@ -216,5 +216,5 @@ export type FieldConfig = {
 	Component: ElementType;
 	validate: FieldValidateOn;
 	getResolvedValue: FieldValueResolver;
-}
+};
 

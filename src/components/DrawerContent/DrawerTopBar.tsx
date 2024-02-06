@@ -72,7 +72,7 @@ function DrawerTopBar(props: DrawerTopBarProps) {
 				</ButtonRow>
 			</div>
 		</StyledWrapper>
-	)
+	);
 }
 
 export default DrawerTopBar;

@@ -10,7 +10,7 @@ describe("Calculate animation state", () => {
 				bools: [],
 				animating: true,
 				result: [],
-			}
+			},
 		},
 		{
 			name: "Last drawer animating out",
@@ -18,7 +18,7 @@ describe("Calculate animation state", () => {
 				bools: [false],
 				animating: true,
 				result: ["closing"],
-			}
+			},
 		},
 		{
 			name: "First drawer animating in",
@@ -26,7 +26,7 @@ describe("Calculate animation state", () => {
 				bools: [true],
 				animating: true,
 				result: ["opening"],
-			}
+			},
 		},
 		{
 			name: "First drawer finished animating in",
@@ -34,7 +34,7 @@ describe("Calculate animation state", () => {
 				bools: [true],
 				animating: false,
 				result: ["open"],
-			}
+			},
 		},
 		{
 			name: "Animating second drawer in",
@@ -42,7 +42,7 @@ describe("Calculate animation state", () => {
 				bools: [true, true],
 				animating: true,
 				result: ["stacking", "opening"],
-			}
+			},
 		},
 		{
 			name: "Finished animating second drawer in",
@@ -50,7 +50,7 @@ describe("Calculate animation state", () => {
 				bools: [true, true],
 				animating: false,
 				result: ["stacked", "open"],
-			}
+			},
 		},
 		{
 			name: "Animating second drawer out",
@@ -58,7 +58,7 @@ describe("Calculate animation state", () => {
 				bools: [true, false],
 				animating: true,
 				result: ["unstacking", "closing"],
-			}
+			},
 		},
 	];
 

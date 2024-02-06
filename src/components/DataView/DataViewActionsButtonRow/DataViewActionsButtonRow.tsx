@@ -7,7 +7,7 @@ import { useWrappedToggle } from "@root/utils/toggle";
 import { StyledButtonRow } from "./DataViewActionsButtonRow.styled";
 
 function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
-	const showParams = useMemo(() => ({row: props.originalRowData}), [props.originalRowData]);
+	const showParams = useMemo(() => ({ row: props.originalRowData }), [props.originalRowData]);
 
 	const primaryActions = useMemo(() => props.primaryActions || [], [props.primaryActions]);
 	const shownPrimaryActions = useWrappedToggle(primaryActions, showParams, "show");
@@ -26,7 +26,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 
 			const newOnClick = () => {
 				onClick({ data : props.originalRowData });
-			}
+			};
 
 
 			const disabled = [buttonArgs.disabled, props.disabled, props.actionsHidden].some(disabled => disabled);
@@ -39,13 +39,13 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 					attrs={{ "data-mosaic-id" : `action_primary_${name}` }}
 					onClick={newOnClick}
 				/>
-			)
+			);
 		});
 	}, [
 		shownPrimaryActions,
 		props.originalRowData,
 		props.disabled,
-		props.actionsHidden
+		props.actionsHidden,
 	]);
 
 	const additionalActionsButton = useMemo(() => {
@@ -77,25 +77,25 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 						attrs : { "data-mosaic-id" : `action_additional_${name}` },
 						onClick : () => {
 							onClick({
-								data : props.originalRowData
+								data : props.originalRowData,
 							});
-						}
-					}
+						},
+					};
 				})}
-			/>
-		]
+			/>,
+		];
 	}, [
 		shownadditionalActions,
 		props.originalRowData,
 		props.disabled,
-		props.actionsHidden
+		props.actionsHidden,
 	]);
 
 	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
 	const buttons = useMemo(() => {
 		return [
 			...primaryActionButtons,
-			...additionalActionsButton
+			...additionalActionsButton,
 		];
 	}, [primaryActionButtons, additionalActionsButton]);
 
@@ -107,7 +107,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 		<StyledButtonRow $hidden={props.actionsHidden}>
 			{buttons}
 		</StyledButtonRow>
-	)
+	);
 }
 
 export default memo(DataViewActionsButtonRow);

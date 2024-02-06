@@ -10,30 +10,30 @@ export const rootDefaultView: DataViewProps["savedView"] = {
 		filter: {},
 		sort: {
 			name: "title",
-			dir: "asc"
+			dir: "asc",
 		},
 		display: "list",
 		activeFilters: [],
-		activeColumns: ["image", "title", "categories", "created"]
-	}
+		activeColumns: ["image", "title", "categories", "created"],
+	},
 };
 
 export const defaultView: DataViewProps["savedView"] = {
 	...rootDefaultView,
 	state: {
 		...rootDefaultView.state,
-		display:  "list"
-	}
-}
+		display:  "list",
+	},
+};
 
 export const listColumns = [
 	{
 		name: "id",
-		label: "ID"
+		label: "ID",
 	},
 	{
 		name: "description",
-		label: "Description"
+		label: "Description",
 	},
 	{
 		name: "title",

@@ -22,9 +22,9 @@ export const Playground = (): ReactElement => {
 
 	const getFormValues = useCallback(async () => {
 		return {
-			time: populateTime || undefined
-		}
-	}, [populateTime])
+			time: populateTime || undefined,
+		};
+	}, [populateTime]);
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -35,10 +35,10 @@ export const Playground = (): ReactElement => {
 				required,
 				disabled,
 				helperText,
-				instructionText
-			}
+				instructionText,
+			},
 		],
-		[label, required, disabled, helperText, instructionText]
+		[label, required, disabled, helperText, instructionText],
 	);
 
 	return (

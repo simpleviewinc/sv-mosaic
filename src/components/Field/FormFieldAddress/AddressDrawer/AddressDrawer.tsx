@@ -29,7 +29,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		addressTypes,
 		getOptionsCountries,
 		getOptionsStates,
-		googleMapsApiKey
+		googleMapsApiKey,
 	} = props;
 
 	const { dispatch, state } = useForm();
@@ -67,7 +67,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		}
 	}, [
 		setFieldValue,
-		state.data.country
+		state.data.country,
 	]);
 
 	/**
@@ -105,7 +105,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		state.data.state,
 		state.data.postalCode,
 		state.data.country,
-		state.data.types
+		state.data.types,
 	]);
 
 	useEffect(() => {
@@ -114,7 +114,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				await setFieldValue("state", { label: apiState.label, value: apiState.value }, true);
 				setApiState(undefined);
 			}
-		}
+		};
 
 		handleApiStateChange();
 	}, [apiState, setFieldValue]);
@@ -129,7 +129,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			country: initalAddressComponent, // => country
 			administrative_area_level_1: initalAddressComponent, // => state
 			postal_code: initalAddressComponent, // postal_code
-			street_number: initalAddressComponent // street_number
+			street_number: initalAddressComponent, // street_number
 		};
 
 		for (const addressComponent of addressComponents) {
@@ -170,17 +170,17 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 		for (const key in addressComponentsMap) {
 			if (!addressComponentsMap[key].label) {
-				componentsNotFound += componentsToAddress[key] ? `${componentsToAddress[key]}, ` : ""
+				componentsNotFound += componentsToAddress[key] ? `${componentsToAddress[key]}, ` : "";
 			}
 		}
 
-		setSnackBarLabel(componentsNotFound)
+		setSnackBarLabel(componentsNotFound);
 		setOpenSnackbar(componentsNotFound !== "");
 	}, [
 		getOptionsCountries,
 		getOptionsStates,
 		initialState,
-		setFieldValue
+		setFieldValue,
 	]);
 
 	/**
@@ -220,7 +220,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					type: "autocomplete",
 					label: fieldDef.label,
 					required: fieldDef.required,
-					size: Sizes.lg
+					size: Sizes.lg,
 				}}
 			>
 				<AddressAutocomplete
@@ -231,7 +231,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					googleMapsApiKey={googleMapsApiKey}
 				/>
 			</Field>
-		)
+		);
 	}, [dispatch, googleMapsApiKey]);
 
 	const sections = useMemo<SectionDef[]>(() => [
@@ -258,7 +258,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			inputSettings: {
 				options: addressTypes,
 			},
-		}
+		},
 	] : [], [addressToEdit?.types, addressTypes]);
 
 	const autoCompleteField = useMemo(
@@ -274,15 +274,15 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 						address,
 						setAddress,
 						onSelect,
-					}
-				}
+					},
+				},
 			],
 		[
 			addressToEdit?.address1,
 			Autocomplete,
 			address,
 			onSelect,
-		]
+		],
 	);
 
 	const baseFields = useMemo(
@@ -342,7 +342,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 						type: "string",
 					},
 				},
-				...typesField
+				...typesField,
 			],
 		[
 			addressToEdit?.country,
@@ -354,8 +354,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			getOptionsCountries,
 			typesField,
 			getOptionsStates,
-			state.data.country?.value
-		]
+			state.data.country?.value,
+		],
 	);
 
 	const fields = useMemo(
@@ -363,9 +363,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			[
 				...autoCompleteField,
 				...baseFields,
-				...typesField
+				...typesField,
 			],
-		[baseFields, typesField, autoCompleteField]
+		[baseFields, typesField, autoCompleteField],
 	);
 
 	const buttons = useMemo<ButtonProps[]>(() => [
@@ -373,14 +373,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			label: "Cancel",
 			onClick: () => handleClose(),
 			color: "gray",
-			variant: "outlined"
+			variant: "outlined",
 		},
 		{
 			label: "Save",
 			onClick: onSubmit,
 			color: "yellow",
-			variant: "contained"
-		}
+			variant: "contained",
+		},
 	], [handleClose, onSubmit]);
 
 	return (

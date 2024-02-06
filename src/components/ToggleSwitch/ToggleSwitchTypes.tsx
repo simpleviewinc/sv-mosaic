@@ -3,26 +3,26 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { ToggleSwitchInputSettings } from "@root/components/Field/FormFieldToggleSwitch";
 
 export interface ToggleSwitchProps {
-  /**
+	/**
    * If true, the component is checked
    */
-  checked?: boolean;
-  /**
+	checked?: boolean;
+	/**
    * Indicates whether the toggle switch is disabled.
    */
-  disabled?: boolean;
-  /**
+	disabled?: boolean;
+	/**
    * Significant name related to its toggle switch.
    */
-  label: string;
-  /**
+	label: string;
+	/**
    * The position of the label.
    */
-  labelPlacement?: MUIFormControlLabelProps["labelPlacement"];
-  /**
+	labelPlacement?: MUIFormControlLabelProps["labelPlacement"];
+	/**
    * Indicates whether the toggle switch is required or not.
    */
-  required?: boolean;
+	required?: boolean;
 	/**
 	 * Change function inherit from the FormFieldToggleSwitch parent component.
 	 */

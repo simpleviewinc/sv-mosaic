@@ -50,8 +50,8 @@ const FakeTopBar = function(props: { variant: string, openNav : MouseEventHandle
 			}
 			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
 		</StyledTopBar>
-	)
-}
+	);
+};
 
 const AppDiv = styled.div<TransientProps<NavWrapperProps, "onlyContent">>`
 	height: 100%;
@@ -70,7 +70,7 @@ const AppDiv = styled.div<TransientProps<NavWrapperProps, "onlyContent">>`
 	}
 
 	& > .main > .content {
-		padding: ${({$onlyContent}) => !$onlyContent ? "16px" : "0px"};
+		padding: ${({ $onlyContent }) => !$onlyContent ? "16px" : "0px"};
 		flex: 1 1 0;
 		overflow-y: auto;
 	}
@@ -105,7 +105,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 		open : false,
 		variant : (localStorage.getItem(localKey) ?? "full") as LeftNavProps["variant"],
 		label : props.items[0]?.label || "home",
-		name : props.items[0]?.name || "Home"
+		name : props.items[0]?.name || "Home",
 	});
 
 	const variant = isMobile() ? "mobile" : state.variant;
@@ -113,25 +113,25 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 	const onClick = function() {
 		setState({
 			...state,
-			open : true
+			open : true,
 		});
-	}
+	};
 
 	const onClose = function() {
 		setState({
 			...state,
-			open : false
-		})
-	}
+			open : false,
+		});
+	};
 
 	const onNav: LeftNavProps["onNav"] = function({ item }) {
 		setState({
 			...state,
 			open : false,
 			label : item.label,
-			name : item.name
-		})
-	}
+			name : item.name,
+		});
+	};
 
 	const onVariantChange = function(variant) {
 		localStorage.setItem("sv-mosaic-left-nav-variant", variant);
@@ -139,12 +139,12 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 		setState({
 			...state,
 			variant,
-			open : false
+			open : false,
 		});
-	}
+	};
 
 	const lorem = useMemo(() => {
-		return <LoremIpsum p={10}/>
+		return <LoremIpsum p={10}/>;
 	}, []);
 
 	// add a resize listener for handling whether or not we are currently in mobile
@@ -156,7 +156,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 			// triggers a re-render just by calling setState()
 			if ((shouldBeMobile && variant !== "mobile") || (!shouldBeMobile && variant === "mobile")) {
 				setState({
-					...state
+					...state,
 				});
 			}
 		}, 100);
@@ -165,7 +165,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 
 		return function() {
 			window.removeEventListener("resize", resizeHandler);
-		}
+		};
 	}, [state, variant]);
 
 	// on item change scroll to the top
@@ -201,5 +201,5 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 				</div>
 			</div>
 		</AppDiv>
-	)
-}
+	);
+};

@@ -16,7 +16,7 @@ import { AddressCardProps } from "../AddressTypes";
 import { joinAnd } from "@root/utils/string";
 
 const buttonMuiAttrs = {
-	disableRipple: true
+	disableRipple: true,
 };
 
 const AddressCard = (props: AddressCardProps): ReactElement => {

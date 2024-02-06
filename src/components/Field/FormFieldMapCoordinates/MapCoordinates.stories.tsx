@@ -15,8 +15,8 @@ export default {
 const getFormValues = async () => ({
 	map: {
 		"lat": 32.369247319672866,
-		"lng": -110.96678114089914
-	}
+		"lng": -110.96678114089914,
+	},
 });
 
 // Liverpool Office: 53.37997840196994, -2.9729752639886544
@@ -48,11 +48,11 @@ export const Playground = (): ReactElement => {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 						initialCenter: initialCenterKnob,
 						zoom,
-						focusZoom
+						focusZoom,
 					},
 				},
 			],
-		[disabled, label, initialCenterKnob, required, zoom, focusZoom]
+		[disabled, label, initialCenterKnob, required, zoom, focusZoom],
 	);
 
 	return (
@@ -91,7 +91,7 @@ const kitchenSinkFields: FieldDef[] = [
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 			zoom: 8,
-			initialCenter: { lat: 40.7127753, lng: -74.0059728 }
+			initialCenter: { lat: 40.7127753, lng: -74.0059728 },
 		},
 	},
 	{
@@ -102,7 +102,7 @@ const kitchenSinkFields: FieldDef[] = [
 		disabled: false,
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-			initialCenter: { lat: 19.3884403, lng: -99.1747252 }
+			initialCenter: { lat: 19.3884403, lng: -99.1747252 },
 		},
 	},
 	{
@@ -114,7 +114,7 @@ const kitchenSinkFields: FieldDef[] = [
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 		},
-	}
+	},
 ];
 
 export const KitchenSink = (): ReactElement => {

@@ -16,7 +16,7 @@ const Field = ({
 	value,
 	id,
 	dispatch,
-	spacing
+	spacing,
 }: MosaicFieldProps<any>): ReactElement => {
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
@@ -32,7 +32,7 @@ const Field = ({
 		}
 
 		dispatch(formActions.mountField({ name: fieldDef?.name }));
-		return () => dispatch(formActions.unmountField({ name: fieldDef?.name }))
+		return () => dispatch(formActions.unmountField({ name: fieldDef?.name }));
 	}, [dispatch, fieldDef?.name]);
 
 	return (

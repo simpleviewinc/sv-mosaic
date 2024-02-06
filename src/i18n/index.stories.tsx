@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useEffect, ReactElement } from "react";
 import { select, withKnobs } from "@storybook/addon-knobs";
-import styled from "styled-components"
+import styled from "styled-components";
 
 import {
 	useMosaicTranslation,
 	useMosaicSettings,
-	MosaicContext
+	MosaicContext,
 } from "../";
 
 const Table = styled.table`
@@ -60,28 +60,28 @@ function InnerComponent() {
 				</tbody>
 			</Table>
 		</div>
-	)
+	);
 }
 
 export default {
 	title : "Utils/i18n",
-	decorators : [withKnobs]
-}
+	decorators : [withKnobs],
+};
 
 const localeData = {
 	en : {
 		TestPrefix : {
 			key: "In english",
-			english_only: "English Only"
-		}
+			english_only: "English Only",
+		},
 	},
 	es : {
 		TestPrefix : {
 			key : "In spanish",
-			spanish_only : "Spanish Only"
-		}
-	}
-}
+			spanish_only : "Spanish Only",
+		},
+	},
+};
 
 export function example(): ReactElement {
 	const locale = select("locale", { en : "en", es : "es", cimode : "cimode" }, "en");
@@ -112,5 +112,5 @@ export function example(): ReactElement {
 				{JSON.stringify(localeData, null, "\t")}
 			</pre>
 		</MosaicContext.Provider>
-	)
+	);
 }

@@ -32,7 +32,7 @@ describe("Field component label, helper text and instructional text", () => {
 						instructionText: "Instruction text",
 					}}
 				/>
-			</Field>
+			</Field>,
 		);
 	});
 
@@ -68,7 +68,7 @@ describe("Field component error text and the helper text", () => {
 					error={"Error text"}
 
 				/>
-			</Field>
+			</Field>,
 		);
 
 		expect(getByText("Error text")).toBeDefined();
@@ -94,12 +94,12 @@ describe("Field component error text and the helper text", () => {
 						label: "Label test",
 						helperText: "Helper text",
 						inputSettings: {
-							placeholder: "placeholder"
-						}
+							placeholder: "placeholder",
+						},
 					}}
 
 				/>
-			</Field>
+			</Field>,
 		);
 
 		expect(getByText("Helper text")).toBeDefined();
@@ -123,7 +123,7 @@ describe("Field char counter", () => {
 						label: "Label",
 						inputSettings: {
 							maxCharacters: 20,
-						}
+						},
 					}}
 					value={inputValue}
 					colsInRow={1}
@@ -137,7 +137,7 @@ describe("Field char counter", () => {
 							inputSettings: {
 								placeholder: "placeholder",
 								maxCharacters: 20,
-							}
+							},
 						}}
 						onChange={onHandleChange}
 					/>

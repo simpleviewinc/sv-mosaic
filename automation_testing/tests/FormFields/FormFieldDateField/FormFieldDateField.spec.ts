@@ -28,7 +28,7 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 		const todayDate = await formFieldDateFieldPage.getTodayDate();
 		const timeHour = "07:30 Am";
 		await formFieldDateFieldPage.dateTimeInput.type(todayDate);
-		await formFieldDateFieldPage.dateHourInput.type(timeHour)
+		await formFieldDateFieldPage.dateHourInput.type(timeHour);
 		await formFieldDateFieldPage.formTestIDLocator.click();
 		expect(await formFieldDateFieldPage.dateTimeInput.inputValue()).toBe(todayDate);
 		expect(await formFieldDateFieldPage.dateHourInput.inputValue()).toBe(timeHour);
@@ -46,14 +46,14 @@ test.describe.parallel("FormFields - FormFieldDateField - Kitchen Sink", () => {
 
 	test("Validate error when trying to save with Requiered Calendar Date and Time empty.", async () => {
 		await formFieldDateFieldPage.saveBtn.click();
-		await expect(formFieldDateFieldPage.page.locator("p", {hasText: "This field is required, please fill it"})).toBeVisible();
+		await expect(formFieldDateFieldPage.page.locator("p", { hasText: "This field is required, please fill it" })).toBeVisible();
 	});
 
 	test("Validate the Requiered Calendar Date and Time Input by writing the date and time.", async () => {
 		const todayDate = await formFieldDateFieldPage.getTodayDate();
 		const timeHour = "07:30 Am";
 		await formFieldDateFieldPage.requiredDateTimeInput.type(todayDate);
-		await formFieldDateFieldPage.requiredDateHourInput.type(timeHour)
+		await formFieldDateFieldPage.requiredDateHourInput.type(timeHour);
 		await formFieldDateFieldPage.formTestIDLocator.click();
 		expect(await formFieldDateFieldPage.requiredDateTimeInput.inputValue()).toBe(todayDate);
 		expect(await formFieldDateFieldPage.requiredDateHourInput.inputValue()).toBe(timeHour);

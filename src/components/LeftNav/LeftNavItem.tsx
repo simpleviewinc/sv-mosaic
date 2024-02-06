@@ -82,7 +82,7 @@ function LeftNavItem(props: Props, ref): ReactElement {
 	const {
 		item,
 		showLabel = true,
-		attrs = {}
+		attrs = {},
 	} = props;
 
 	const leftNavContext = useContext(LeftNavContext);
@@ -125,7 +125,7 @@ function LeftNavItem(props: Props, ref): ReactElement {
 				</span>
 			}
 		</StyledA>
-	)
+	);
 }
 
 export default forwardRef(LeftNavItem);

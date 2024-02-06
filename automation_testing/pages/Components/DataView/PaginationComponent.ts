@@ -44,11 +44,11 @@ export class PaginationComponent extends BasePage {
 	async selectResultOption(option: number, isList = true): Promise<void> {
 		const resultLocator = isList ? this.resultAmount : this.resultAmountGrid;
 		await resultLocator.click();
-		await this.menuItem.locator(":scope", { hasText: option.toString() }).click({force: true});
+		await this.menuItem.locator(":scope", { hasText: option.toString() }).click({ force: true });
 		await this.loading.waitFor({ state: "detached" });
 	}
 
-	async calculatePages(results: number,): Promise<number> {
+	async calculatePages(results: number): Promise<number> {
 		const total = parseInt((await this.paginationValue.textContent()).split("of ")[1]);
 		let pages = Math.floor(total / results);
 		if (total % results != 0) {
@@ -80,7 +80,7 @@ export class PaginationComponent extends BasePage {
 		return this.pagesOption.locator("button");
 	}
 
-	async selectViewType(option: "List"|"Grid"): Promise<void> {
+	async selectViewType(option: "List" | "Grid"): Promise<void> {
 		await this.viewTypeBtn.click();
 		await this.page.locator("text=" + option).first().click();
 	}

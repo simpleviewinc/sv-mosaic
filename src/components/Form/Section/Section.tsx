@@ -13,7 +13,7 @@ import {
 	StyledRows,
 	StyledSectionContent,
 	StyledSectionHeader,
-	StyledTitle
+	StyledTitle,
 } from "./SectionStyled";
 
 const Section = (props: SectionPropTypes) => {
@@ -28,7 +28,7 @@ const Section = (props: SectionPropTypes) => {
 		collapsed = false,
 		registerRef,
 		gridMinWidth,
-		spacing
+		spacing,
 	} = props;
 
 	const [expanded, setExpanded] = useState<boolean>(!collapsed);
@@ -40,7 +40,7 @@ const Section = (props: SectionPropTypes) => {
 
 	const onExpandChange = (_e, newExpandVal) => {
 		setExpanded(newExpandVal);
-	}
+	};
 
 	const fieldsInSection = useMemo(() => {
 		const fieldNames = [];
@@ -64,7 +64,7 @@ const Section = (props: SectionPropTypes) => {
 	useEffect(() => {
 		const unregister = registerRef(ref.current);
 		return unregister;
-	}, [ref.current])
+	}, [ref.current]);
 
 	return (
 		<StyledAccordion

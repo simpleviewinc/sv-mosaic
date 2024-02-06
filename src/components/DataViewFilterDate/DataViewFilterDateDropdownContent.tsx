@@ -30,7 +30,7 @@ const StyledFilterDate = styled.div`
 const StyledLeft = styled.div`
 	display: flex;
 	flex-direction: column;
-`
+`;
 
 const StyledLeftOptions = styled.ul`
 	border-right: 2px solid ${theme.newColors.grey2[100]};
@@ -41,17 +41,17 @@ const StyledLeftOptions = styled.ul`
 	max-width: 130px;
 	max-height: 284px;
 	overflow-y: auto;
-`
+`;
 
 const StyledFooter = styled.div`
 	border-top: 2px solid ${theme.newColors.grey2[100]};
-`
+`;
 
 const sections: SectionDef[] = [
 	{
 		fields: [[["rangeStart"], ["rangeEnd"]]],
-		gridMinWidth: BREAKPOINTS.sm
-	}
+		gridMinWidth: BREAKPOINTS.sm,
+	},
 ];
 
 export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
@@ -70,7 +70,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 
 		return {
 			rangeStart: props.rangeStart,
-			rangeEnd: props.rangeEnd
+			rangeEnd: props.rangeEnd,
 		};
 	}, [props]);
 
@@ -82,10 +82,10 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 			size: "full",
 			inputSettings: {
 				fixedTime: [0, 0, 0, 0],
-				maxDate: rangeEnd
+				maxDate: rangeEnd,
 			},
 			validators: [
-				{ fn: VALIDATE_DATE_RANGE, options: { endDateName: "rangeEnd" } }
+				{ fn: VALIDATE_DATE_RANGE, options: { endDateName: "rangeEnd" } },
 			],
 			validates: ["rangeEnd"],
 		},
@@ -96,13 +96,13 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 			size: "full",
 			inputSettings: {
 				fixedTime: [23, 59, 59, 999],
-				minDate: rangeStart
+				minDate: rangeStart,
 			},
 			validators: [
-				{ fn: VALIDATE_DATE_RANGE, options: { startDateName: "rangeStart" } }
+				{ fn: VALIDATE_DATE_RANGE, options: { startDateName: "rangeStart" } },
 			],
-			validates: ["rangeStart"]
-		}
+			validates: ["rangeStart"],
+		},
 	], [rangeEnd, rangeStart]);
 
 	const onOptionSelect = useCallback((optionValue: string) => {
@@ -115,7 +115,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 			values: {
 				rangeStart : undefined,
 				rangeEnd : undefined,
-			}
+			},
 		}));
 
 		setSelectedOption(undefined);
@@ -127,7 +127,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 		} else {
 			props.onChange({
 				rangeStart,
-				rangeEnd
+				rangeEnd,
 			});
 		}
 
@@ -151,7 +151,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 									onClick={() => onOptionSelect(option.value)}
 									truncateText
 									title
-								/>
+								/>,
 							)
 						}
 					</StyledLeftOptions>
@@ -174,5 +174,5 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 				</StyledFooter>
 			</StyledMainContent>
 		</StyledFilterDate>
-	)
+	);
 }

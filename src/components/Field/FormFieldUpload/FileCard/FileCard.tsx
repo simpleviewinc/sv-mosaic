@@ -56,13 +56,13 @@ const FileCard = (props: FileCardProps) => {
 			);
 		}
 
-		return <img src={thumbnailUrl} />
+		return <img src={thumbnailUrl} />;
 	}, [percent, thumbnailUrl, error]);
 
 	const sizeHuman = useMemo(() => {
 		// Support legacy string size, i.e. "123 bytes"
 		const sanitized = parseInt(String(size), 10);
-		return pretty(sanitized)
+		return pretty(sanitized);
 	}, [size]);
 
 	return (
@@ -96,7 +96,7 @@ const FileCard = (props: FileCardProps) => {
 						<div className="file-download-btn">
 							{downloadStrategy === "anchor" ? (
 								<Button
-									muiAttrs={{download: true}}
+									muiAttrs={{ download: true }}
 									href={fileUrl}
 									color="gray"
 									variant="icon"
@@ -117,7 +117,7 @@ const FileCard = (props: FileCardProps) => {
 								color="gray"
 								variant="icon"
 								mIcon={DeleteIcon}
-								onClick={(e) => onFileDelete({id: id})}
+								onClick={(e) => onFileDelete({ id: id })}
 							/>
 						</div>
 					}

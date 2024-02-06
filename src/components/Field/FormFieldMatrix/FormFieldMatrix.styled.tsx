@@ -9,4 +9,4 @@ export const MatrixWrapper = styled.div`
 
 export const MatrixActions = styled.div`
 	margin-bottom: 0.5rem;
-`
+`;

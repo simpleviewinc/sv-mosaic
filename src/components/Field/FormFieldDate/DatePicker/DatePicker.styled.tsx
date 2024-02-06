@@ -33,7 +33,7 @@ export const popperSx = {
 	},
 
 	"& .MuiIconButton-edgeStart, .MuiIconButton-edgeEnd" : {
-		color: theme.newColors.grey4["100"]
+		color: theme.newColors.grey4["100"],
 	},
 
 	"& .MuiPickersDay-root.Mui-selected" : {
@@ -51,10 +51,10 @@ export const popperSx = {
 		marginBottom: "16px",
 		paddingLeft: "16px",
 		paddingRight: "16px",
-	}
+	},
 };
 
-export const DatePickerWrapper = styled.div<{$isPickerOpen?: boolean, $disabled?: boolean}>`
+export const DatePickerWrapper = styled.div<{ $isPickerOpen?: boolean, $disabled?: boolean }>`
 	min-width: 0;
 
   	.MuiOutlinedInput-root {
@@ -98,4 +98,4 @@ export const DatePickerWrapper = styled.div<{$isPickerOpen?: boolean, $disabled?
 
 export const DatePickerTextField = styled(TextField)`
 	width: 100%;
-`
+`;

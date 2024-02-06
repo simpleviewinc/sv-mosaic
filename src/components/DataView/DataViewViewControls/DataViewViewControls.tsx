@@ -39,7 +39,7 @@ const TitleButton = styled(Button)`
 function DataViewViewControls(props: DataViewViewControlsProps) {
 	const [state, setState] = useState({
 		viewOpen : false,
-		saveOpen : false
+		saveOpen : false,
 	});
 
 	const { t } = useMosaicTranslation();
@@ -47,16 +47,16 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 	const toggleViewDrawer = function() {
 		setState({
 			...state,
-			viewOpen : !state.viewOpen
+			viewOpen : !state.viewOpen,
 		});
-	}
+	};
 
 	const toggleSaveDrawer = function() {
 		setState({
 			...state,
-			saveOpen : !state.saveOpen
+			saveOpen : !state.saveOpen,
 		});
-	}
+	};
 
 	const ViewLabel = (
 		<ViewSpan>
@@ -64,14 +64,14 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 				{props.savedView.label}
 			</p>
 		</ViewSpan>
-	)
+	);
 
 	const saveMenuItems = [
 		{
 			label : t("mosaic:DataView.save_as_new_view"),
 			onClick : function() {
 				toggleSaveDrawer();
-			}
+			},
 		},
 		{
 			label : t("mosaic:DataView.overwrite_current_view"),
@@ -79,18 +79,18 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 			onClick : async function() {
 				await props.savedViewCallbacks.onSave({
 					...props.savedView,
-					state : props.savedViewState
+					state : props.savedViewState,
 				});
-			}
-		}
-	]
+			},
+		},
+	];
 
 	const savedViewData = {
 		id : undefined,
 		label : "",
 		type : "mine",
-		state : props.savedViewState
-	}
+		state : props.savedViewState,
+	};
 
 	return (
 		<div>
@@ -133,7 +133,7 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 				allowSharedViewSave={props.savedViewAllowSharedViewSave}
 			/>
 		</div>
-	)
+	);
 }
 
 export default DataViewViewControls;

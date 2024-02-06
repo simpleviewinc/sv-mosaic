@@ -6,7 +6,7 @@ import theme from "@root/theme/theme";
 import { Description } from "@root/components/Title/TitleWrapper.styled";
 import { containerQuery } from "@root/utils/css";
 
-export const TopRoot = styled.div<{$bottomBorder?: boolean}>`
+export const TopRoot = styled.div<{ $bottomBorder?: boolean }>`
 	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	padding: 0 24px 24px;
 
@@ -14,7 +14,7 @@ export const TopRoot = styled.div<{$bottomBorder?: boolean}>`
 		padding-top: 24px;
 	}
 
-	${({$bottomBorder}) => !$bottomBorder && `
+	${({ $bottomBorder }) => !$bottomBorder && `
 		${containerQuery("sm", "FORM")} {
 			border-bottom: 0;
 			padding-bottom: 0;
@@ -28,7 +28,7 @@ export const TopRoot = styled.div<{$bottomBorder?: boolean}>`
 	${containerQuery("xl", "FORM")} {
 		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	}
-`
+`;
 
 export const TopWrapper = styled.div`
 	top: 0;
@@ -69,7 +69,7 @@ export const SmallBack = styled.button`
   ${containerQuery("sm", "FORM")} {
 	display: none;
   }
-`
+`;
 
 export const SmallBackIcon = styled(ClearIcon)`
   color: ${theme.newColors.almostBlack["100"]};
@@ -96,7 +96,7 @@ export const LargeDescription = styled(Description)`
 	${containerQuery("md", "FORM")} {
 		display: block;
 	}
-`
+`;
 
 export const SmallDescription = styled(Description)`
 	width: 100%;
@@ -108,7 +108,7 @@ export const SmallDescription = styled(Description)`
 	${containerQuery("md", "FORM")} {
 		display: none;
 	}
-`
+`;
 
 // Seoncdary actions
 export const SecondaryActions = styled.div`
@@ -149,4 +149,4 @@ export const ActiveCheckboxWrapper = styled.div`
 			margin-right: 10px;
 		}
 	}
-`
+`;

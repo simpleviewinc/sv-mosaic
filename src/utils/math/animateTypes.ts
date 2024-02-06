@@ -36,10 +36,10 @@ export interface AnimateState{
 	 * The easing function that should be performed at
 	 * each step of the animation
 	 */
-    easing: EasingName;
+	easing: EasingName;
 }
 
-export type AnimateParams = Partial<Pick<AnimateState, "fn" | "valueStart" | "valueEnd" | "duration">>
+export type AnimateParams = Partial<Pick<AnimateState, "fn" | "valueStart" | "valueEnd" | "duration">>;
 
 export type AnimateStart = (params?: Partial<AnimateParams>) => void;
 

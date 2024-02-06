@@ -47,39 +47,39 @@ const alternateColors: Partial<Record<ButtonProps["color"], Partial<Record<Color
 		text: {
 			contained: theme.colors.almostBlack,
 			icon: theme.colors.white,
-		}
+		},
 	},
 	yellow: {
 		text: {
 			contained: theme.colors.almostBlack,
 			icon: theme.colors.yellow,
 			outlined: theme.colors.almostBlack,
-			text: theme.colors.almostBlack
-		}
+			text: theme.colors.almostBlack,
+		},
 	},
 	gray: {
 		text: {
 			contained: theme.colors.almostBlack,
 			icon:theme.colors.gray,
 			outlined: theme.colors.almostBlack,
-			text: theme.colors.almostBlack
+			text: theme.colors.almostBlack,
 		},
 		border: {
-			outlined: theme.colors.simplyGray
-		}
-	}
-}
+			outlined: theme.colors.simplyGray,
+		},
+	},
+};
 
 const colorMap: Partial<Record<ButtonProps["color"], keyof typeof theme.colors>> = {
-	gray: "gray200"
-}
+	gray: "gray200",
+};
 
 function withAlternateColor(fallback: string, { type, color, variant }: { type: ColorType } & Pick<ButtonProps, "color" | "variant">): string {
 	if (alternateColors[color] && alternateColors[color][type]) {
 		const altColor = alternateColors[color][type];
 
 		if (typeof altColor === "string") {
-			return altColor
+			return altColor;
 		}
 
 		if (altColor[variant]) {
@@ -107,9 +107,9 @@ function getColorPalette(colorProp: ButtonProps["color"], variant: ButtonProps["
 		text: withAlternateColor(variant === "contained" ? "white" : base, { type: "text", color: colorProp, variant }),
 		hover: {
 			background: variant === "contained" ? baseIntense : baseWashed,
-			border: withAlternateColor(variant === "outlined" ? base : "transparent", { type: "border", color: colorProp, variant })
-		}
-	}
+			border: withAlternateColor(variant === "outlined" ? base : "transparent", { type: "border", color: colorProp, variant }),
+		},
+	};
 }
 
 function getPadding(variant: ButtonProps["variant"], size: ButtonProps["size"] = "medium") {
@@ -180,7 +180,7 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 				font-size: 16px;
 			}
 		}
-	`
+	`;
 });
 
 export const StyledIconButton = styled(IconButton)<TransientProps<ButtonProps, "color" | "variant">>(({ $color, $variant, disabled }) => {
@@ -198,7 +198,7 @@ export const StyledIconButton = styled(IconButton)<TransientProps<ButtonProps, "
 				border-color: ${disabled ? palette.border : palette.hover.border};
 			}
 		}
-	`
+	`;
 });
 
 export const PopoverWrapper = styled.div`

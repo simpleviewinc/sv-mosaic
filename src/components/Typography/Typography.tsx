@@ -8,8 +8,8 @@ const defaultTagMap: Record<TypographyVariant, TypographyTag> = {
 	title: "h1",
 	subtitle: "h3",
 	body: "div",
-	none: "span"
-}
+	none: "span",
+};
 
 export default function Typography({
 	children,
@@ -21,7 +21,7 @@ export default function Typography({
 	color,
 	breakAll,
 	className,
-	title
+	title,
 }: TypographyProps): ReactElement {
 	const tag = providedTag || defaultTagMap[variant];
 

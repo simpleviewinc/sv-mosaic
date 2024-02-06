@@ -22,7 +22,7 @@ test.describe.parallel("FormFields - FormFieldsToggleSwitch - Kitchen Sink", () 
 			await dialog.dismiss();
 		});
 		await formFieldToggleSwitchPage.regularToggleWithLabel.click();
-		await expect(formFieldToggleSwitchPage.regularToggleWithLabel).toBeChecked()
+		await expect(formFieldToggleSwitchPage.regularToggleWithLabel).toBeChecked();
 		expect(formFieldToggleSwitchPage.regularLabel).not.toBeNull();
 		await formFieldToggleSwitchPage.saveBtn.click();
 	});

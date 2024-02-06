@@ -24,7 +24,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 				onBlur();
 			}
 
-			return !isPickerOpen
+			return !isPickerOpen;
 		});
 	}, [onBlur]);
 

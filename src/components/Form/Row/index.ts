@@ -1,2 +1,2 @@
-export { default } from "./Row"
-export * from "./RowTypes"
+export { default } from "./Row";
+export * from "./RowTypes";

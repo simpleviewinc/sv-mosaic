@@ -40,17 +40,17 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 	});
 
 	test("Default Pagination", async () => {
-		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`)
+		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
 
 	test("Validate new pagination when select result per page - 50 ", async () => {
 		await pagination.selectResultOption(50);
-		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPage50} of ${dataview_data.totalRecords}`)
+		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPage50} of ${dataview_data.totalRecords}`);
 	});
 
 	test("Validate new pagination when select result per page - 100 ", async () => {
 		await pagination.selectResultOption(100);
-		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPage100} of ${dataview_data.totalRecords}`)
+		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPage100} of ${dataview_data.totalRecords}`);
 	});
 
 	test("Validate pages by result per page - Default", async () => {
@@ -124,7 +124,7 @@ test.describe.parallel("Components - Data View - Pagination", () => {
 		const recordRangePerPageInit = await pagination.calulateRecordRangePerPage(dataview_data.resultPerPageDefault, 1);
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPageInit);
 		await expect(pagination.backwardArrow).toBeDisabled();
-	})
+	});
 
 	test("Navigate forward on last page", async () => {
 		const pages = await pagination.calculatePages(dataview_data.resultPerPageDefault);

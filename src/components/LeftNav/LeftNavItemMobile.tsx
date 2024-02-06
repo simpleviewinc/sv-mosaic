@@ -7,7 +7,7 @@ import LeftNavItem from "./LeftNavItem";
 function LeftNavItemMobile(props: LeftNavBlockProps): ReactElement {
 	const {
 		item,
-		onOpen
+		onOpen,
 	} = props;
 
 	const leftNavContext = useContext(LeftNavContext);
@@ -21,8 +21,8 @@ function LeftNavItemMobile(props: LeftNavBlockProps): ReactElement {
 	}, []);
 
 	const attrs = {
-		onClick
-	}
+		onClick,
+	};
 
 	return (
 		<LeftNavItem

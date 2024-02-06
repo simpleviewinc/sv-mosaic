@@ -65,9 +65,9 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			const filterFound = props?.filters?.find(val => val.name === activeFilter);
 
 			if (!filterFound) {
-				throw new Error(`Active filter "${activeFilter}" is not a valid filter.`)
+				throw new Error(`Active filter "${activeFilter}" is not a valid filter.`);
 			}
-		})
+		});
 	}, [props.activeFilters, props.filters]);
 
 	const { noResults = "No results were found." } = props;
@@ -93,28 +93,28 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 		return props.bulkActions.filter(action => {
 			if (props.checkedAllPages) {
-				return action.onAllClick
+				return action.onAllClick;
 			}
 
-			return action.onClick
-		})
+			return action.onClick;
+		});
 	}, [props.bulkActions, props.checkedAllPages]);
 
 	const bulkActionsToggleCtx = useMemo(() => ({
 		checkedAllPages: props.checkedAllPages,
-		data: props.data.filter((_, i) => props.checked?.length > 0 && props.checked[i] === true)
+		data: props.data.filter((_, i) => props.checked?.length > 0 && props.checked[i] === true),
 	}), [
 		props.checked,
 		props.checkedAllPages,
-		props.data
+		props.data,
 	]);
 
 	const shownBulkActions = useWrappedToggle(
 		bulkActions,
 		bulkActionsToggleCtx,
 		"show",
-		true
-	)
+		true,
+	);
 
 	const checkboxEnabled =
 		props.checked !== undefined &&
@@ -151,7 +151,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 	}, [
 		props.limit,
 		props.skip,
-		props.display
+		props.display,
 	]);
 
 	const displayOptionsFull = useMemo(() => {
@@ -161,7 +161,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			} else if (val === "grid") {
 				return DataViewDisplayGrid;
 			} else if (typeof val === "string") {
-				throw new Error("Unknown view option")
+				throw new Error("Unknown view option");
 			} else {
 				return val;
 			}
@@ -182,14 +182,14 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		filter : props.filter,
 		activeFilters : props.activeFilters,
 		activeColumns : props.activeColumns,
-	}
+	};
 
 	const savedViewCallbacks = {
 		onSave : props.onSavedViewSave,
 		onChange : props.onSavedViewChange,
 		onGetOptions : props.onSavedViewGetOptions,
-		onRemove : props.onSavedViewRemove
-	}
+		onRemove : props.onSavedViewRemove,
+	};
 
 	const viewContainerRef = useRef(null);
 
@@ -203,7 +203,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			const column = props.columns.find(val => val.name === name);
 
 			if (!column) {
-				throw new Error(`Active column "${name}" is not defined in the columns list.`)
+				throw new Error(`Active column "${name}" is not defined in the columns list.`);
 			}
 
 			return column;
@@ -224,7 +224,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		props.title,
 		props.buttons,
 		savedViewEnabled,
-		props.filters
+		props.filters,
 	]);
 
 	const shouldRenderActionsRow: boolean = useMemo(() => {
@@ -249,7 +249,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		props.sort,
 		displayControlEnabled,
 		props.onLimitChange,
-		props.onSkipChange
+		props.onSkipChange,
 	]);
 
 	const allChecked = props.checked !== undefined && props.checked.length > 0 && props.checked.every(val => val === true);

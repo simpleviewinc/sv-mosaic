@@ -21,7 +21,7 @@ const externalOptions = [
 	},
 ];
 
-const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"}) => {
+const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local" }) => {
 	const { state, dispatch } = useForm();
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
@@ -38,7 +38,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 		api: categoriesApi,
 		labelColumn: "tag",
 		valueColumn: "id",
-		sortColumn: "sort_tag"
+		sortColumn: "sort_tag",
 	});
 
 	const createNewOption = async (newOptionLabel) => {
@@ -49,11 +49,11 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 			"sort_tag": newOptionLabel,
 			"updated": new Date(),
 			"created": new Date(),
-			"id": value
+			"id": value,
 		};
 
 		//Insert to db
-		additionalOptions.push({label: newOption.tag, value: newOption.id});
+		additionalOptions.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 
@@ -61,7 +61,7 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 
 		await categoriesApi.setData(newData);
 
-		return {label: newOption.tag, value: newOption.id};
+		return { label: newOption.tag, value: newOption.id };
 	};
 
 	const fields: FieldDef[] = useMemo(
@@ -78,8 +78,8 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 						getOptions: optionsOrigin === "db" ? categoriesHelper.getOptions.bind(categoriesHelper) : undefined,
 						getOptionsLimit: optionsOrigin === "db" ? getOptionsLimit : undefined,
 						createNewOption,
-						selectLimit
-					}
+						selectLimit,
+					},
 				},
 			]
 		),
@@ -92,8 +92,8 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 			getOptionsLimit,
 			createNewOption,
 			optionsOrigin,
-			selectLimit
-		]
+			selectLimit,
+		],
 	);
 
 	const onSubmit = async () => {
@@ -122,13 +122,13 @@ const AdvancedSelectExample = ({optionsOrigin}: {optionsOrigin: "db" | "local"})
 			dispatch={dispatch}
 		/>
 	);
-}
+};
 
 const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 
@@ -171,7 +171,7 @@ describe("AdvancedSelection component", () => {
 
 		await waitFor(() => {
 			expect(remainingChips.length).toBe(0);
-		})
+		});
 	});
 
 	it("should filter the options", async () => {
@@ -231,5 +231,5 @@ describe("AdvancedSelection component", () => {
 
 		expect(optionChip.length === 3).toBeTruthy();
 		expect(optionCheckbox[3]).toHaveClass("Mui-disabled");
-	})
+	});
 });

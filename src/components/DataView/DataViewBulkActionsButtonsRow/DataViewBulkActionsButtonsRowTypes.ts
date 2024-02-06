@@ -1,5 +1,5 @@
-import { MosaicObject } from "@root/types"
-import { DataViewBulkAction, DataViewProps } from "../DataViewTypes"
+import { MosaicObject } from "@root/types";
+import { DataViewBulkAction, DataViewProps } from "../DataViewTypes";
 
 export interface DataViewBulkActionsButtonsRowProps {
 	bulkActions: DataViewBulkAction[];

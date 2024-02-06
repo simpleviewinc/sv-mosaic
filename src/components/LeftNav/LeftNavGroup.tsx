@@ -21,7 +21,7 @@ function LeftNavGroup(props: LeftNavBlockProps): ReactElement {
 				openName={props.openName}
 			/>
 		</StyledDiv>
-	)
+	);
 }
 
 export default LeftNavGroup;

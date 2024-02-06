@@ -24,21 +24,21 @@ export type MosaicToggleCallback<T = unknown> = T extends object
 	? (params: T) => MosaicToggleResult
 	: () => MosaicToggleResult;
 
-export type MosaicToggle<T = unknown> = WithArrayOf<MosaicToggleResult | MosaicToggleCallback<T>>
+export type MosaicToggle<T = unknown> = WithArrayOf<MosaicToggleResult | MosaicToggleCallback<T>>;
 
 export type MosaicGridConfig = string[][][];
 
 export type MosaicCSSContainer = {
 	name?: keyof typeof CONTAINERS;
 	minWidth: keyof typeof BREAKPOINTS
-}
+};
 
 // Util
 export type PrependDollar<K extends string | number | symbol > =
 	K extends string | number ? `$${K}` : never;
 
 export type TransientProps<T, K extends keyof T = keyof T> = {
-    [P in K as PrependDollar<P>]: T[P];
+	[P in K as PrependDollar<P>]: T[P];
 };
 
 export type WithArrayOf<T> = T | T[];

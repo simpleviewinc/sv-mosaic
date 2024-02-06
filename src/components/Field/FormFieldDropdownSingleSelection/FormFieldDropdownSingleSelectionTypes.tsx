@@ -16,7 +16,7 @@ type DropdownSingleSelectionLocalOptions = {
 	 * dropdown.
 	 */
 	options: MosaicLabelValue[];
-}
+};
 
 type DropdownSingleSelectionExternalOptions = {
 	/**
@@ -28,7 +28,7 @@ type DropdownSingleSelectionExternalOptions = {
 	 * Used to get options from db.
 	 */
 	getOptions?: () => Promise<MosaicLabelValue[]>;
-}
+};
 
 export type CustomPopperProps = {
 	value: string;
@@ -36,4 +36,4 @@ export type CustomPopperProps = {
 
 export type DropdownData = MosaicLabelValue;
 
-export type FieldDefDropdown = FieldDefBase<"dropdown", DropdownSingleSelectionInputSettings, DropdownData>
+export type FieldDefDropdown = FieldDefBase<"dropdown", DropdownSingleSelectionInputSettings, DropdownData>;

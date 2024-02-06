@@ -19,13 +19,13 @@ function RawValue() {
 		<RawValueWrapper>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 		</RawValueWrapper>
-	)
+	);
 }
 
 async function getFormValues() {
 	return {
-		raw: <RawValue />
-	}
+		raw: <RawValue />,
+	};
 }
 
 export const Playground = (): ReactElement => {
@@ -50,7 +50,7 @@ export const Playground = (): ReactElement => {
 					instructionText,
 				},
 			],
-		[required, disabled, label, helperText, instructionText]
+		[required, disabled, label, helperText, instructionText],
 	);
 
 	return (

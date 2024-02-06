@@ -1,2 +1,2 @@
-export { default } from "./Layout"
-export * from "./LayoutTypes"
+export { default } from "./Layout";
+export * from "./LayoutTypes";

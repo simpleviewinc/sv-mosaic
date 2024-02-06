@@ -3,15 +3,15 @@ import { Options } from "@root/forms/MenuFormFieldCard/MenuFormFieldCardTypes";
 import { ImageUploadCanvasProps } from "./ImageUploadCanvas/ImageUploadCanvas";
 
 export type ImageUploadInputSettings = {
-  /**
+	/**
    * Callback executed when the set focus button is clicked.
    */
-  handleSetFocus?: () => void;
-  /**
+	handleSetFocus?: () => void;
+	/**
    * List of menu options that can be executed by
    * the component.
    */
-  options?: Options[];
+	options?: Options[];
 } & ImageUploadCanvasProps;
 
 
@@ -20,15 +20,15 @@ export type ImageUploadInputSettings = {
  * the onChange function used by the form.
  */
 export type ImageUploadValue = {
-  imgName?: string;
-  size?: number;
-  type?: string;
-  height?: number;
-  width?: number;
-  imgCoords?: {
-    x: number;
-    y: number;
-  };
+	imgName?: string;
+	size?: number;
+	type?: string;
+	height?: number;
+	width?: number;
+	imgCoords?: {
+		x: number;
+		y: number;
+	};
 };
 
-export type FieldDefImageUpload = FieldDefBase<"imageUpload", ImageUploadInputSettings, ImageUploadValue>
+export type FieldDefImageUpload = FieldDefBase<"imageUpload", ImageUploadInputSettings, ImageUploadValue>;

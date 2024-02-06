@@ -31,9 +31,9 @@ export const Playground = (): ReactElement => {
 
 	useEffect(() => {
 		if (!prepopulate)
-			dispatch(formActions.setFieldValue({name: "numberTable", value: undefined}));
+			dispatch(formActions.setFieldValue({ name: "numberTable", value: undefined }));
 		else
-			dispatch(formActions.setFieldValue({name: "numberTable", value: numberTableDefaultValue}));
+			dispatch(formActions.setFieldValue({ name: "numberTable", value: numberTableDefaultValue }));
 	}, [prepopulate]);
 
 	const fields = useMemo(
@@ -52,7 +52,7 @@ export const Playground = (): ReactElement => {
 					topLeftLabel: topLeftLabel,
 					rows: rows,
 					columns: columns,
-					numberFormatOptions: formatOptions
+					numberFormatOptions: formatOptions,
 				},
 				helperText,
 				instructionText,
@@ -70,7 +70,7 @@ export const Playground = (): ReactElement => {
 			topLeftLabel,
 			rowTotalLabel,
 			columnTotalLabel,
-		]
+		],
 	);
 
 	return (

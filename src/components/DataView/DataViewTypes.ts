@@ -124,7 +124,7 @@ export type StateViewDef = {
 	display?: DataViewProps["display"],
 	activeFilters?: DataViewProps["activeFilters"],
 	activeColumns?: DataViewProps["activeColumns"],
-}
+};
 
 //THIS TYPE DOESN'T SEEM TO BE USED ANYWHERE.
 export interface DataViewView {
@@ -139,44 +139,44 @@ export type SavedViewDef = {
 	label?: string
 	type?: "default" | "shared" | "mine"
 	state?: StateViewDef
-}
+};
 
-type SavedViewDefRemove = Required<SavedViewDef>
+type SavedViewDefRemove = Required<SavedViewDef>;
 
 type DataViewOnSavedViewChange = {
 	(view: SavedViewDef): void
-}
+};
 
 type DataViewOnDisplayChange = {
 	(display: string): void
-}
+};
 type DataViewOnActiveFiltersChange = {
-	(val: {activeFilters: string[], filter: MosaicObject}): void
-}
+	(val: { activeFilters: string[], filter: MosaicObject }): void
+};
 
 type DataViewOnColumnsChange = {
 	(activeColumns: string[]): void
-}
+};
 
 type DataViewOnSavedViewSave = {
 	(data: SavedViewDef): void
-}
+};
 
 type DataViewOnSavedViewRemove = {
 	(data: SavedViewDefRemove): void
-}
+};
 
 type DataViewOnSavedViewGetOptions = {
 	(): MosaicObject[]
-}
+};
 
 type DataViewOnCheckChange = {
 	(checked: boolean[]): void;
-}
+};
 
 type DataViewOnCheckAllPagesChange = {
 	(val: boolean): void;
-}
+};
 
 export interface SavedViewCallbacks {
 	onSave: DataViewProps["onSavedViewSave"];
